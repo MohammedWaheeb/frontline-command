@@ -1,9 +1,11 @@
 import {create,fromBinary,toBinary} from '@bufbuild/protobuf';
 import {OrderBatchSchema,PlayerSnapshotSchema} from '../protocol/frontline_pb';
 import {RuntimeError} from './errors';
-import type {CommandAffordances,ReplayLobby} from './types';
+import type {CommandAffordances,ReplayLobby,Point} from './types';
 import {sequenceAfter} from './fixed';
 import {RuntimeEvents,type GameTransport,type GameMap,type OfflineConfig,type OrderIntent,type PlayerSnapshot,type RuntimeVersion,type ReplayCommandPage,type SaveData,type SessionInfo,type Speed} from './types';
+export interface EditorPreviewRequest {kind:'path'|'sight';unit_type:string;from:Point;to?:Point}
+export interface EditorPreviewResult {kind:'path'|'sight';code:'ok'|'blocked_start'|'unreachable'|'adjusted_destination';layer:'ground'|'air';reachable?:boolean;path?:Point[];visible_tiles?:number[]}
 interface Pending {resolve:(value:any)=>void;reject:(error:unknown)=>void;timer:ReturnType<typeof setTimeout>}
 export class OfflineTransport extends RuntimeEvents implements GameTransport {
  readonly mode='offline' as const;
@@ -45,6 +47,7 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
  setPerspective(player:number){return this.rpc<SessionInfo>('perspective',player)}
  async content(){await this.ready;return this.rpc<Record<string,unknown>>('content')}
  async affordances(ids:readonly number[]=[]){await this.ready;if(ids.length>64||ids.some(id=>!Number.isInteger(id)||id<1||id>0xffffffff)||new Set(ids).size!==ids.length)throw new RuntimeError('invalid_selection','Choose up to 64 distinct owned entities.');return this.rpc<CommandAffordances>('affordances',[...ids])}
+ async previewEditor(map:Uint8Array,request:EditorPreviewRequest){await this.ready;return this.rpc<EditorPreviewResult>('previewEditor',map,request)}
  async validateMap(data:Uint8Array){await this.ready;return this.rpc<GameMap>('validateMap',data)}
  async validateMission(map:Uint8Array,mission:Uint8Array){await this.ready;return this.rpc<Record<string,unknown>>('validateMission',map,mission)}
  async previewOrders(orders:OrderIntent[]){await this.ready;return this.rpc<{tick:number;results:Array<{player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number}>}>('previewOrders',toBinary(OrderBatchSchema,create(OrderBatchSchema,{orders})))}

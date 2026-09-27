@@ -323,6 +323,11 @@ func (s *Server) joinLobbyAs(w http.ResponseWriter, r *http.Request, p storage.P
 		respond(w, 200, s.lobbyResponse(l, p.ID))
 		return
 	}
+	// A private invite may not expose scenario type until admission. Omission
+	// preserves fixed scenario factions above and resolves ordinary choice here.
+	if body.Faction == "" {
+		body.Faction = resolveFaction("random")
+	}
 	if !content.ValidFaction(body.Faction) {
 		fail(w, 400, "invalid_faction", "Choose a valid faction.")
 		return

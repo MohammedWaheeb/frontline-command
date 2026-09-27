@@ -54,6 +54,7 @@ async function handle(method:string,args:any[]){
  case 'restart':info=call('restart');active=true;player=info!.local_players[0];paused=true;accumulator=0;frame();clock();return info;
  case 'loadReplay':info=call('loadReplay',args[0]);active=true;player=info!.local_players[0];paused=true;accumulator=0;frame();clock();return info;
  case 'seekReplay':info=call('seekReplay',args[0]);paused=true;accumulator=0;frame();clock();return info;
+ case 'previewEditor':return call('previewEditor',args[0],JSON.stringify(args[1]));
  case 'previewOrders':return call('previewOrders',player,args[0]);
  case 'candidates':return call('candidates',player,args[0]);
  case 'affordances':return call('affordances',player,JSON.stringify(args[0]));

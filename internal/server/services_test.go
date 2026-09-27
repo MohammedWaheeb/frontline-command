@@ -169,10 +169,20 @@ func TestObserverTicketsRejectActivePlayers(t *testing.T) {
 	}
 	s.mu.Lock()
 	s.matches[m.id] = m
-	s.lobbies["watch"] = &Lobby{ID: "watch", Host: p.ID, MatchID: m.id}
+	s.lobbies["watch"] = &Lobby{ID: "watch", Host: p.ID, MatchID: m.id, Private: true, Code: "private-watch-code", MapID: testMap().ID, MapVersion: testMap().Version, MapHash: lobbyMapHash(testMap()), Slots: []LobbySlot{{Player: 1, Profile: p.ID, Faction: "US", Team: 1}, {Player: 2, Faction: "IR", Team: 2}}}
 	s.mu.Unlock()
 	request(t, h, "POST", "/api/v1/matches/observe/observer", active, map[string]any{"player": 2}, 409)
-	ticket := request(t, h, "POST", "/api/v1/matches/observe/observer", watcher, map[string]any{"player": 2}, 201)
+	request(t, h, "POST", "/api/v1/matches/observe/observer", watcher, map[string]any{"player": 2}, 404)
+	ticket := request(t, h, "POST", "/api/v1/matches/observe/observer", watcher, map[string]any{"player": 2, "code": "private-watch-code"}, 201)
+	var mapID, version, hash string
+	var roster []LobbySlot
+	json.Unmarshal(ticket["map_id"], &mapID)
+	json.Unmarshal(ticket["map_version"], &version)
+	json.Unmarshal(ticket["content_hash"], &hash)
+	json.Unmarshal(ticket["slots"], &roster)
+	if mapID != testMap().ID || version != testMap().Version || hash != s.catalog.Hash() || len(roster) != 2 {
+		t.Fatal("authorized observer has no stable map/roster metadata", ticket)
+	}
 	var token string
 	json.Unmarshal(ticket["token"], &token)
 	request(t, h, "GET", "/api/v1/matches/observe/observer", token, nil, 202)

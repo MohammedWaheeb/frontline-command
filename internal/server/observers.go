@@ -107,10 +107,14 @@ func (s *Server) createObserver(w http.ResponseWriter, r *http.Request) {
 	s.mu.Lock()
 	m := s.matches[r.PathValue("id")]
 	allowed := false
+	var mapID, mapVersion, mapHash string
+	var roster []LobbySlot
 	for _, l := range s.lobbies {
 		if l.MatchID != r.PathValue("id") {
 			continue
 		}
+		mapID, mapVersion, mapHash = l.MapID, l.MapVersion, l.MapHash
+		roster = append([]LobbySlot(nil), l.Slots...)
 		allowed = !l.Private || body.Code == l.Code
 		for _, slot := range l.Slots {
 			if slot.Profile == profile.ID {
@@ -133,7 +137,7 @@ func (s *Server) createObserver(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, reply.err.Error(), "Active players cannot observe other perspectives. Choose a valid player after elimination.")
 		return
 	}
-	respond(w, 201, map[string]any{"token": token, "player": body.Player, "delay_ticks": m.observerDelay, "read_only": true})
+	respond(w, 201, map[string]any{"token": token, "player": body.Player, "delay_ticks": m.observerDelay, "read_only": true, "map_id": mapID, "map_version": mapVersion, "map_hash": mapHash, "protocol": 1, "simulation": sim.Version, "content_hash": s.catalog.Hash(), "slots": roster})
 }
 func (s *Server) readObserver(w http.ResponseWriter, r *http.Request) {
 	s.mu.Lock()

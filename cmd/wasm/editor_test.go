@@ -82,3 +82,27 @@ func TestEditorMissionTestKeepsPracticeVersionThroughSave(t *testing.T) {
 		t.Fatal("replay inspection replaced live state", err)
 	}
 }
+
+func TestEditorGeometryPreviewIsIndependentOfActiveSession(t *testing.T) {
+	s := newSession(t)
+	before, _ := s.Hash()
+	data, _ := json.Marshal(testMap())
+	request := []byte(`{"kind":"path","unit_type":"US.tank","from":{"x":15500,"y":20500},"to":{"x":26500,"y":20500}}`)
+	preview, err := s.PreviewEditor(data, request)
+	if err != nil || preview.Reachable == nil || !*preview.Reachable || len(preview.Path) < 2 {
+		t.Fatal(preview, err)
+	}
+	if after, _ := s.Hash(); after != before {
+		t.Fatal("editor preview changed active match")
+	}
+	empty, _ := NewSession()
+	preview, err = empty.PreviewEditor(data, request)
+	if err != nil || preview.Reachable == nil || !*preview.Reachable {
+		t.Fatal("editor preview requires active game", err)
+	}
+	for _, invalid := range [][]byte{[]byte(`{"kind":"sight","unit_type":"US.rifle","from":{"x":0,"y":0},"live_player":1}`), append(request, []byte(`{}`)...), []byte(`{"kind":"path"}`)} {
+		if _, err := s.PreviewEditor(data, invalid); code(err) != "invalid_preview" {
+			t.Fatal("invalid request accepted", err)
+		}
+	}
+}

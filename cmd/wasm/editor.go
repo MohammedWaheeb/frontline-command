@@ -1,11 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"frontlinecommand/pkg/content"
 	"frontlinecommand/pkg/sim"
 	pb "frontlinecommand/protocol"
 	"google.golang.org/protobuf/proto"
+	"io"
 )
 
 // Editor helpers validate imported data with the same bounded Go schemas used
@@ -89,4 +91,27 @@ func (s *Session) preview(player sim.PlayerID, data []byte, independent bool) (P
 		return PreviewResult{}, fail(err.Error(), "The proposed orders are not currently legal.", true)
 	}
 	return PreviewResult{Tick: s.engine.Tick(), Results: results}, nil
+}
+
+// PreviewEditor never replaces or reads the active session. The same endpoint
+// remains available while authoring, playing, or reviewing a replay.
+func (s *Session) PreviewEditor(mapData, requestData []byte) (sim.EditorPreviewResult, error) {
+	m, err := s.ValidateMap(mapData)
+	if err != nil {
+		return sim.EditorPreviewResult{}, err
+	}
+	if len(requestData) > 4096 {
+		return sim.EditorPreviewResult{}, fail("invalid_preview", "Choose a bounded map preview request.", true)
+	}
+	var request sim.EditorPreviewRequest
+	decoder := json.NewDecoder(bytes.NewReader(requestData))
+	decoder.DisallowUnknownFields()
+	if decoder.Decode(&request) != nil || decoder.Decode(new(any)) != io.EOF {
+		return sim.EditorPreviewResult{}, fail("invalid_preview", "Choose a valid unit, source and destination.", true)
+	}
+	result, err := sim.PreviewEditor(s.catalog, m, request)
+	if err != nil {
+		return result, fail("invalid_preview", err.Error(), true)
+	}
+	return result, nil
 }

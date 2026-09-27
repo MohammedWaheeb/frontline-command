@@ -132,8 +132,8 @@ func TestLobbyInvitesRequireFriendshipAcceptanceAndCurrentAccess(t *testing.T) {
 	request(t, h, "POST", "/api/v1/matchmaking", b, queueBody(s), 200)
 	request(t, h, "POST", "/api/v1/invites/"+id+"/accept", b, map[string]any{"faction": "IR"}, 409)
 	request(t, h, "DELETE", "/api/v1/matchmaking", b, nil, 204)
-	joined := responseLobby(t, request(t, h, "POST", "/api/v1/invites/"+id+"/accept", b, map[string]any{"faction": "IR", "color": 5}, 200))
-	if len(joined.Slots) != 2 || joined.Slots[1].Color != 5 {
+	joined := responseLobby(t, request(t, h, "POST", "/api/v1/invites/"+id+"/accept", b, map[string]any{"color": 5}, 200))
+	if len(joined.Slots) != 2 || joined.Slots[1].Color != 5 || !content.ValidFaction(joined.Slots[1].Faction) {
 		t.Fatal("explicit acceptance failed", joined)
 	}
 	request(t, h, "POST", "/api/v1/invites/"+id+"/accept", b, map[string]any{}, 200)

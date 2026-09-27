@@ -159,3 +159,23 @@ integration tests. This subsystem does not establish completed editor UI,
 renderer screenshots, sight/path preview rendering, authored-map fairness,
 moderation, public uploads, or a finished game. Those integrations remain
 required for the full release.
+
+
+## Authoritative path and sight preview
+
+`OfflineTransport.previewEditor(mapBytes, {kind, unit_type, from, to?})` sends
+bounded authoring data to Go. Path takes two millitile positions; sight takes
+one. Go validates the map and catalog unit, builds an isolated environment with
+its authored static objects, and calls the same `findPath` or `computeVisibility`
+as a live match. It creates no starting bases, reads no active game entities and
+does not replace the worker's active match. Aircraft previews represent flight.
+
+The response includes `kind`, `layer` and `code`: `ok`, `blocked_start`,
+`unreachable`, or `adjusted_destination`. A reachable path starts at `from`; a
+blocked or unsnapped destination may resolve to the same nearby location the
+actual movement planner chooses. Sight returns bounded, sorted row-major
+`visible_tiles`. High ground and ground sight blockers use the normal rules.
+Invalid maps, unknown units, out-of-bounds points, extra request keys and missing
+required positions fail validation. Native and race tests compare preview routes
+to a normal engine, verify obstacles/elevation/air differences and confirm that
+successful and invalid preview requests preserve the active match hash.

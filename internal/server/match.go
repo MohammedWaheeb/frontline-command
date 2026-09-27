@@ -34,6 +34,16 @@ type peer struct {
 
 func (p *peer) close() { p.once.Do(func() { close(p.done) }) }
 
+// finish queues a FIFO end marker after final snapshots/control messages. A
+// bounded full queue still closes immediately; it must never stall the actor.
+func (p *peer) finish() {
+	select {
+	case p.out <- nil:
+	default:
+		p.close()
+	}
+}
+
 type matchRequest struct {
 	adviceDeadline time.Time
 	entities       []sim.ID
@@ -545,13 +555,20 @@ func (m *liveMatch) run() {
 						eliminated = true
 					}
 				}
+				p.events = append(p.events, view.Events...)
+				p.results = append(p.results, view.Results...)
 				if eliminated && !m.engine.Outcome().Finished {
-					p.close()
+					view.Events, view.Results = p.events, p.results
+					snap, err := snapshot(view)
+					if err == nil && send(p, &pb.Envelope{Message: &pb.Envelope_Snapshot{Snapshot: snap}}) {
+						send(p, &pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: "player_eliminated", Message: "Your commander was eliminated. Join an authorized observer view or wait for the final match result."}}})
+						p.finish()
+					} else {
+						p.close()
+					}
 					delete(peers, id)
 					continue
 				}
-				p.events = append(p.events, view.Events...)
-				p.results = append(p.results, view.Results...)
 				if m.engine.Tick()%4 != 0 && !m.engine.Outcome().Finished {
 					continue
 				}

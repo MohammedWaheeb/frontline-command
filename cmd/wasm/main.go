@@ -101,6 +101,17 @@ func main() {
 		m, err := session.ValidateMap(data)
 		return m, nil, err
 	})
+	register("previewEditor", func(a []js.Value) (any, []byte, error) {
+		m, err := bytesArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		if len(a) != 2 || a[1].Type() != js.TypeString {
+			return nil, nil, fail("invalid_preview", "Choose a map preview request.", true)
+		}
+		result, err := session.PreviewEditor(m, []byte(a[1].String()))
+		return result, nil, err
+	})
 	register("validateMission", func(a []js.Value) (any, []byte, error) {
 		m, err := bytesArg(a, 0)
 		if err != nil {

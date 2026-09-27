@@ -206,3 +206,21 @@ checking passed; the current runtime suite passed all 105 tests. Logs are
 `work/evidence/lobby-services-full-race.log` and
 `work/evidence/lobby-runtime-tests.log`. No production ranked-map approval or
 rendered-game acceptance is implied by these results.
+
+
+## Elimination and spectator admission
+
+During an unfinished multi-team match, an eliminated commander's socket receives
+one final authorized full snapshot, including accumulated own order receipts,
+then terminal `player_eliminated` and orderly FIFO closure. A full outbound queue
+still closes without blocking the match actor. The actual three-player socket
+regression checks the defeated flag and accepted surrender receipt before the
+terminal reason. Later common results remain available through authenticated
+participant history; the old socket does not stream a survivor's view.
+
+An authorized observer grant now includes map ID/version/hash, protocol,
+simulation/content versions and a copy of the public lobby roster. Private
+outsiders need the private code before any such response; active participants
+cannot use it to switch perspectives. The actual observer feed retains its
+existing permitted perspective and live/delayed policy. These metadata fields
+supply asset loading; they contain no match command token or private economy.

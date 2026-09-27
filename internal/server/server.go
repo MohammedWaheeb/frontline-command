@@ -452,9 +452,14 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 	writerDone := make(chan struct{})
 	go func() {
 		defer close(writerDone)
+		defer p.close()
 		for {
 			select {
 			case data := <-p.out:
+				if data == nil {
+					cancel()
+					return
+				}
 				wctx, wcancel := context.WithTimeout(ctx, 5*time.Second)
 				err := conn.Write(wctx, websocket.MessageBinary, data)
 				wcancel()

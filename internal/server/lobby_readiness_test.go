@@ -1,6 +1,7 @@
 package server
 
 import (
+	"frontlinecommand/pkg/content"
 	"frontlinecommand/pkg/sim"
 	"testing"
 )
@@ -17,7 +18,10 @@ func TestLobbyReadinessBindsExactPreparedConfiguration(t *testing.T) {
 		t.Fatal("new lobby has no configuration revision")
 	}
 	body := map[string]any{"ready": true, "assets_ready": true, "protocol": 1, "simulation": sim.Version, "content_hash": s.catalog.Hash(), "expected_revision": first.Revision}
-	joined := responseLobby(t, request(t, h, "POST", "/api/v1/lobbies/"+first.ID+"/join", b, map[string]any{"faction": "IR"}, 200))
+	joined := responseLobby(t, request(t, h, "POST", "/api/v1/lobbies/"+first.ID+"/join", b, map[string]any{}, 200))
+	if !content.ValidFaction(joined.Slots[1].Faction) {
+		t.Fatal("omitted ordinary faction did not resolve", joined)
+	}
 	if joined.Revision <= first.Revision {
 		t.Fatal("membership did not invalidate prepared configuration")
 	}
@@ -36,7 +40,11 @@ func TestLobbyReadinessBindsExactPreparedConfiguration(t *testing.T) {
 			t.Fatal("readiness invalidated another player's asset preparation")
 		}
 	}
-	changed := responseLobby(t, request(t, h, "PATCH", "/api/v1/lobbies/"+first.ID, b, map[string]any{"faction": "SA"}, 200))
+	nextFaction := "SA"
+	if current.Slots[1].Faction == nextFaction {
+		nextFaction = "US"
+	}
+	changed := responseLobby(t, request(t, h, "PATCH", "/api/v1/lobbies/"+first.ID, b, map[string]any{"faction": nextFaction}, 200))
 	if changed.Revision <= current.Revision {
 		t.Fatal("faction change retained configuration revision")
 	}
@@ -52,7 +60,7 @@ func TestLobbyReadinessBindsExactPreparedConfiguration(t *testing.T) {
 	body["expected_revision"] = changed.Revision
 	ready := responseLobby(t, request(t, h, "POST", "/api/v1/lobbies/"+first.ID+"/ready", a, body, 200))
 	// Identical/invalid configuration requests must not invalidate loaded assets.
-	same := responseLobby(t, request(t, h, "PATCH", "/api/v1/lobbies/"+first.ID, b, map[string]any{"faction": "SA"}, 200))
+	same := responseLobby(t, request(t, h, "PATCH", "/api/v1/lobbies/"+first.ID, b, map[string]any{"faction": nextFaction}, 200))
 	request(t, h, "PATCH", "/api/v1/lobbies/"+first.ID, b, map[string]any{"faction": "invalid"}, 400)
 	if same.Revision != ready.Revision || !same.Slots[0].Ready {
 		t.Fatal("no-op invalidated ready configuration")
