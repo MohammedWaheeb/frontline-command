@@ -31,6 +31,24 @@ and the following arrays/objects:
 - `stations`: `{id, position: {x,y}}`. The engine assigns live entity IDs.
 - `shipment`: `{x,y}` at an accessible central site, outside reserved corridors.
 - Optional `regions`: `{id, min: {x,y}, max: {x,y}}` objective rectangles.
+- Optional `objects`: up to 512 `{id,class,position}` entries with distinct
+  nonzero object IDs (separate from resource IDs). Classes are `light_prop`
+  (150 HP, 1×1), `heavy_prop` (600 HP, 2×2), and `garrison` (900 HP, 3×3,
+  two squads). These explicit implementation values need map/balance review;
+  they are not claimed as tested balance values from the design. Centers align
+  footprint edges to full tiles: odd sizes use half-tile centers, even sizes
+  whole-tile centers. Objects cannot overlap starts/resources, mandatory tiles,
+  each other, or seal a required route. All become passable rubble on destruction.
+  `content.ObjectClasses()` exposes these backend rules to the Go adapter.
+
+Map garrisons begin neutral. The first boarding squad claims the structure;
+only that owner's permanent infantry may join it. An empty map garrison becomes
+neutral again. Occupants fire normally and share the building's sight. Props
+are not automatically targeted, but legal explicit attacks can clear them.
+Map objects are not purchasable/sellable faction buildings. Destruction updates
+navigation once. `Entity.map_object` links the live entity to its map definition;
+snapshot `rubble` lists only destroyed object IDs the player has actually seen.
+Keep undiscovered destruction hidden, including after reconnect/save restore.
 
 All spawns, resources, shipment and region centers must connect. The validator
 checks bounds and reference integrity; width-aware route tests, economic parity,
@@ -59,7 +77,8 @@ An accepted Submit receipt means scheduled, not paid/executed. Inspect per-tick
 OrderResults for authoritative acceptance. Positions on building placement snap
 to 500 millitiles; footprint ghosts must use full catalog rectangles. Unit
 selection is entirely client-local. The engine accepts orders for at most 64
-owned entities per order, 32 orders per batch, 10 queued orders per unit.
+owned entities per order, 32 orders per batch, 10 queued orders per unit, and
+160 orders per simulation second per player.
 
 Ability IDs currently implemented for integration: `designate`, `beacon`,
 `sabotage`, `decoy`, `transfer`, `volley`, `recon_sweep`, `rapid_sortie`,
@@ -117,6 +136,12 @@ explicit server `-dev-origins http://localhost:5173` allowlist during developmen
   result. It downloads a gzip `.fcr` file produced by `sim.Replay.Encode`.
   Use `sim.DecodeReplay` and `Replay.Seek` in the Go browser adapter; do not
   recreate combat or checkpoint logic in TypeScript.
+  The current replay container is version 2, with gzip command chunks and
+  compressed checkpoints. Record `Replay.Capture` at least every 30 simulation
+  seconds: the engine retains 32,768 recent orders, not an unbounded match log.
+  A recorder that misses that window returns an error rather than exporting an
+  incomplete replay. Replay seeking and save restoration across window rollover
+  are covered by deterministic hash tests.
 - `GET /api/v1/social` lists friend/request/mute/block relations.
   `POST /api/v1/social` accepts `{target, action}` where action is `request`,
   `accept`, `decline`, `remove`, `mute`, `unmute`, `block`, or `unblock`.
@@ -134,3 +159,30 @@ explicit server `-dev-origins http://localhost:5173` allowlist during developmen
 All these accounts, social data, and results are local to this host. They are
 not public competitive accounts. The service has bounded per-IP admission
 limits; a 429 response includes `Retry-After: 60`.
+
+## Local matching and ratings
+
+`POST /api/v1/matchmaking` accepts `{faction,maps?,latency_ms,protocol,
+simulation,content_hash}`. Maps are installed two-player IDs; omission selects
+the installed two-player pool. The response has `status`, `region: "local"`,
+`local: true`, `latency_ms`, `rating_range`, `joined`, and, after pairing,
+`lobby_id`. Poll GET on the same endpoint while searching. A client silent for
+two minutes leaves the waiting pool. DELETE cancels a search or an unstarted
+pair; an active game requires ordinary Surrender.
+
+Matched lobbies have `rated: true`, two human slots, fixed opposing teams/map,
+and delayed observers. Both players still load assets and ready; the host starts
+through the normal lobby endpoint. Pairing is not proof assets are available.
+Blocks apply in both directions. Skill tolerance starts at 100 points and grows
+50 per 30 seconds, capped at 600. The local host RTT estimate is capped at 180 ms
+initially and 250 ms after both players wait two minutes. These are local tuning
+defaults; future regional measurements/matching require deployment-stage tests.
+
+`GET /api/v1/ratings/me` returns the caller's local rating and remaining placement
+games. GET `/api/v1/ratings` returns up to 100 local entries with completed rated
+games. Initial score is 1000; first ten games are placements. Local Elo uses K=40
+when both profiles are in placement and K=32 otherwise; changes are symmetric.
+Draws record a game with no score change. Voids record no rated game or change.
+Result, rating changes and crash-journal removal commit in one SQLite transaction;
+identical retries are no-ops, conflicting retries fail. Solo, AI and custom
+matches never affect the local ranked ladder. Public accounts remain separate.

@@ -44,6 +44,13 @@ type Memory struct {
 	Seen     Tick     `json:"seen"`
 }
 type Player struct {
+	AIKnowledge   []AIObservation `json:"ai_knowledge"`
+	AIFields      []FieldView     `json:"ai_fields"`
+	AIGoal        Vec             `json:"ai_goal"`
+	AIIntent      string          `json:"ai_intent"`
+	KnownRubble   []uint32        `json:"known_rubble"`
+	CommandWindow Tick            `json:"command_window"`
+	CommandCount  uint32          `json:"command_count"`
 	PingWindow    Tick            `json:"ping_window"`
 	PingCount     uint32          `json:"ping_count"`
 	SalvageTotal  int64           `json:"salvage_total"`
@@ -113,87 +120,90 @@ type Contribution struct {
 	Damage   int64    `json:"damage"`
 }
 type Entity struct {
-	SalvageEligible     bool           `json:"salvage_eligible"`
-	TurretFacing        int32          `json:"turret_facing"`
-	FlightPass          Vec            `json:"flight_pass"`
-	PassUntil           Tick           `json:"pass_until"`
-	Tag                 string         `json:"tag,omitempty"`
-	ID                  ID             `json:"id"`
-	Type                string         `json:"type"`
-	Owner               PlayerID       `json:"owner"`
-	Position            Vec            `json:"position"`
-	HP                  int64          `json:"hp"`
-	MaxHP               int64          `json:"max_hp"`
-	Paid                int64          `json:"paid"`
-	Building            bool           `json:"building"`
-	Complete            bool           `json:"complete"`
-	Enabled             bool           `json:"enabled"`
-	DisabledUntil       Tick           `json:"disabled_until"`
-	ResistanceUntil     Tick           `json:"resistance_until"`
-	State               string         `json:"state"`
-	Facing              int32          `json:"facing"`
-	LastPosition        Vec            `json:"last_position"`
-	StationarySince     Tick           `json:"stationary_since"`
-	LastDamage          Tick           `json:"last_damage"`
-	LastDealt           Tick           `json:"last_dealt"`
-	EverDamaged         bool           `json:"ever_damaged"`
-	EverDealt           bool           `json:"ever_dealt"`
-	Work                uint32         `json:"work"`
-	Builder             ID             `json:"builder"`
-	Jobs                []Job          `json:"jobs"`
-	Rally               Vec            `json:"rally"`
-	Orders              []Order        `json:"orders"`
-	Anchor              Vec            `json:"anchor"`
-	Target              ID             `json:"target"`
-	LastTarget          Vec            `json:"last_target"`
-	Stance              string         `json:"stance"`
-	Path                []Vec          `json:"path"`
-	PathGoal            Vec            `json:"path_goal"`
-	PathEnd             Vec            `json:"path_end"`
-	PathResolved        bool           `json:"path_resolved"`
-	PathRevision        uint32         `json:"path_revision"`
-	LastProgress        Tick           `json:"last_progress"`
-	RouteFailures       uint32         `json:"route_failures"`
-	Blocked             bool           `json:"blocked"`
-	MoveRemainder       int32          `json:"move_remainder"`
-	FireAt              Tick           `json:"fire_at"`
-	AimUntil            Tick           `json:"aim_until"`
-	VolleyLeft          int32          `json:"volley_left"`
-	VolleyAt            Tick           `json:"volley_at"`
-	Cargo               int64          `json:"cargo"`
-	Field               uint32         `json:"field"`
-	Depot               ID             `json:"depot"`
-	TaskUntil           Tick           `json:"task_until"`
-	Home                ID             `json:"home"`
-	Ammo                int32          `json:"ammo"`
-	Endurance           uint32         `json:"endurance"`
-	Landed              bool           `json:"landed"`
-	ServiceWork         uint32         `json:"service_work"`
-	Charges             int32          `json:"charges"`
-	ChargeWork          uint32         `json:"charge_work"`
-	Deployed            bool           `json:"deployed"`
-	DeployUntil         Tick           `json:"deploy_until"`
-	PackingUntil        Tick           `json:"packing_until"`
-	Cooldowns           []Cooldown     `json:"cooldowns"`
-	Concealed           bool           `json:"concealed"`
-	ConcealedSince      Tick           `json:"concealed_since"`
-	RevealedUntil       Tick           `json:"revealed_until"`
-	PublicRevealUntil   Tick           `json:"public_reveal_until"`
-	Passengers          []ID           `json:"passengers"`
-	Container           ID             `json:"container"`
-	Channel             string         `json:"channel"`
-	ChannelTarget       ID             `json:"channel_target"`
-	ChannelUntil        Tick           `json:"channel_until"`
-	ChannelStartDamage  Tick           `json:"channel_start_damage"`
-	ChannelTargetDamage Tick           `json:"channel_target_damage"`
-	Experience          int64          `json:"experience"`
-	Rank                uint32         `json:"rank"`
-	Contributions       []Contribution `json:"contributions"`
-	AttributedDamage    int64          `json:"attributed_damage"`
-	TemporaryUntil      Tick           `json:"temporary_until"`
-	Buffs               []Buff         `json:"buffs"`
-	Created             Tick           `json:"created"`
-	IncludedHauler      bool           `json:"included_hauler"`
+	NextRouteAt           Tick           `json:"next_route_at"`
+	MapObject             uint32         `json:"map_object,omitempty"`
+	EmergencyTakeoffUntil Tick           `json:"emergency_takeoff_until"`
+	SalvageEligible       bool           `json:"salvage_eligible"`
+	TurretFacing          int32          `json:"turret_facing"`
+	FlightPass            Vec            `json:"flight_pass"`
+	PassUntil             Tick           `json:"pass_until"`
+	Tag                   string         `json:"tag,omitempty"`
+	ID                    ID             `json:"id"`
+	Type                  string         `json:"type"`
+	Owner                 PlayerID       `json:"owner"`
+	Position              Vec            `json:"position"`
+	HP                    int64          `json:"hp"`
+	MaxHP                 int64          `json:"max_hp"`
+	Paid                  int64          `json:"paid"`
+	Building              bool           `json:"building"`
+	Complete              bool           `json:"complete"`
+	Enabled               bool           `json:"enabled"`
+	DisabledUntil         Tick           `json:"disabled_until"`
+	ResistanceUntil       Tick           `json:"resistance_until"`
+	State                 string         `json:"state"`
+	Facing                int32          `json:"facing"`
+	LastPosition          Vec            `json:"last_position"`
+	StationarySince       Tick           `json:"stationary_since"`
+	LastDamage            Tick           `json:"last_damage"`
+	LastDealt             Tick           `json:"last_dealt"`
+	EverDamaged           bool           `json:"ever_damaged"`
+	EverDealt             bool           `json:"ever_dealt"`
+	Work                  uint32         `json:"work"`
+	Builder               ID             `json:"builder"`
+	Jobs                  []Job          `json:"jobs"`
+	Rally                 Vec            `json:"rally"`
+	Orders                []Order        `json:"orders"`
+	Anchor                Vec            `json:"anchor"`
+	Target                ID             `json:"target"`
+	LastTarget            Vec            `json:"last_target"`
+	Stance                string         `json:"stance"`
+	Path                  []Vec          `json:"path"`
+	PathGoal              Vec            `json:"path_goal"`
+	PathEnd               Vec            `json:"path_end"`
+	PathResolved          bool           `json:"path_resolved"`
+	PathRevision          uint32         `json:"path_revision"`
+	LastProgress          Tick           `json:"last_progress"`
+	RouteFailures         uint32         `json:"route_failures"`
+	Blocked               bool           `json:"blocked"`
+	MoveRemainder         int32          `json:"move_remainder"`
+	FireAt                Tick           `json:"fire_at"`
+	AimUntil              Tick           `json:"aim_until"`
+	VolleyLeft            int32          `json:"volley_left"`
+	VolleyAt              Tick           `json:"volley_at"`
+	Cargo                 int64          `json:"cargo"`
+	Field                 uint32         `json:"field"`
+	Depot                 ID             `json:"depot"`
+	TaskUntil             Tick           `json:"task_until"`
+	Home                  ID             `json:"home"`
+	Ammo                  int32          `json:"ammo"`
+	Endurance             uint32         `json:"endurance"`
+	Landed                bool           `json:"landed"`
+	ServiceWork           uint32         `json:"service_work"`
+	Charges               int32          `json:"charges"`
+	ChargeWork            uint32         `json:"charge_work"`
+	Deployed              bool           `json:"deployed"`
+	DeployUntil           Tick           `json:"deploy_until"`
+	PackingUntil          Tick           `json:"packing_until"`
+	Cooldowns             []Cooldown     `json:"cooldowns"`
+	Concealed             bool           `json:"concealed"`
+	ConcealedSince        Tick           `json:"concealed_since"`
+	RevealedUntil         Tick           `json:"revealed_until"`
+	PublicRevealUntil     Tick           `json:"public_reveal_until"`
+	Passengers            []ID           `json:"passengers"`
+	Container             ID             `json:"container"`
+	Channel               string         `json:"channel"`
+	ChannelTarget         ID             `json:"channel_target"`
+	ChannelUntil          Tick           `json:"channel_until"`
+	ChannelStartDamage    Tick           `json:"channel_start_damage"`
+	ChannelTargetDamage   Tick           `json:"channel_target_damage"`
+	Experience            int64          `json:"experience"`
+	Rank                  uint32         `json:"rank"`
+	Contributions         []Contribution `json:"contributions"`
+	AttributedDamage      int64          `json:"attributed_damage"`
+	TemporaryUntil        Tick           `json:"temporary_until"`
+	Buffs                 []Buff         `json:"buffs"`
+	Created               Tick           `json:"created"`
+	IncludedHauler        bool           `json:"included_hauler"`
 }
 type Buff struct {
 	Kind   string `json:"kind"`
@@ -249,6 +259,9 @@ type Outcome struct {
 	Tick        Tick   `json:"tick"`
 }
 type State struct {
+	DestroyedObjects   []uint32            `json:"destroyed_objects"`
+	LogBase            uint64              `json:"log_base"`
+	LogOrders          uint32              `json:"log_orders"`
 	Mission            *MissionState       `json:"mission,omitempty"`
 	Metadata           Metadata            `json:"metadata"`
 	Tick               Tick                `json:"tick"`
@@ -303,15 +316,17 @@ type SalvageIncome struct {
 	Amount int64 `json:"amount"`
 }
 type Engine struct {
-	state       State
-	catalog     *content.Catalog
-	visible     map[PlayerID][]bool
-	spatial     map[int32][]*Entity
-	damages     []damage
-	pathBudget  uint32
-	navRevision uint32
-	navCache    map[int32][]bool
-	fogCache    map[ID]fogSource
+	dynamicNavTick Tick
+	dynamicNav     map[int32][]ID
+	state          State
+	catalog        *content.Catalog
+	visible        map[PlayerID][]bool
+	spatial        map[int32][]*Entity
+	damages        []damage
+	pathBudget     uint32
+	navRevision    uint32
+	navCache       map[int32][]bool
+	fogCache       map[ID]fogSource
 }
 type fogSource struct {
 	position Vec

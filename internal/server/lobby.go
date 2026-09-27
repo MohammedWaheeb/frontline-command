@@ -198,6 +198,10 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 403, "invalid_code", "The private lobby code is incorrect.")
 		return
 	}
+	if l.Rated {
+		fail(w, 403, "queue_members_only", "A matched lobby is reserved for its two queued players.")
+		return
+	}
 	for _, slot := range l.Slots {
 		if slot.Profile == p.ID {
 			respond(w, 200, s.lobbyResponse(l, p.ID))
@@ -259,6 +263,10 @@ func (s *Server) updateLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	member := false
+	if l.Rated && (body.MapID != "" || body.Team != 0) {
+		fail(w, 409, "ranked_rules_locked", "Matched map and opposing teams are fixed.")
+		return
+	}
 	if body.MapID != "" && (l.Host != p.ID || len(mapData.Spawns) < len(l.Slots)) {
 		fail(w, 403, "host_or_capacity", "Only the host may choose a map that fits every player.")
 		return
@@ -345,7 +353,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	if l.MapID != mapID || l.MatchID != "" {
+	if s.lobbies[l.ID] != l || l.MapID != mapID || l.MatchID != "" {
 		fail(w, 409, "lobby_changed", "Reload the lobby before starting.")
 		return
 	}
@@ -408,7 +416,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	l.MatchID = id[:24]
-	match, err := newMatch(l.MatchID, engine, slots, s.repo, s.objects, l.LiveObservers)
+	match, err := newMatch(l.MatchID, engine, slots, s.repo, s.objects, matchOptions{LiveObservers: l.LiveObservers, Rated: l.Rated})
 	if err != nil {
 		l.MatchID = ""
 		fail(w, 500, "match_persistence_failed", "Could not create a durable match record.")

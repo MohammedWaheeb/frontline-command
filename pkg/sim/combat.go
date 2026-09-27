@@ -58,7 +58,7 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 	if v.Building || v.Container != 0 {
 		leash = w.MaxRange + 6000
 	}
-	if current := e.entity(v.Target); current != nil && e.canAttack(v, current) && e.canSeeEntity(v.Owner, current) && (len(v.Orders) > 0 && v.Orders[0].Kind == "attack_move" || distance(v.Anchor, current.Position) <= leash) {
+	if current := e.entity(v.Target); current != nil && current.Owner != 0 && e.canAttack(v, current) && e.canSeeEntity(v.Owner, current) && (len(v.Orders) > 0 && v.Orders[0].Kind == "attack_move" || distance(v.Anchor, current.Position) <= leash) {
 		return current
 	}
 	var best *Entity
@@ -70,7 +70,7 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 		searchRadius = w.MaxRange + 6000
 	}
 	for _, target := range e.nearby(center, searchRadius) {
-		if !e.canAttack(v, target) || !e.canSeeEntity(v.Owner, target) || e.player(target.Owner).Defeated {
+		if target.Owner == 0 || !e.canAttack(v, target) || !e.canSeeEntity(v.Owner, target) || e.defeated(target.Owner) {
 			continue
 		}
 		if distance(v.Anchor, target.Position) > leash && (len(v.Orders) == 0 || v.Orders[0].Kind != "attack_move") {
@@ -96,7 +96,7 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 func (e *Engine) updateCombat() {
 	e.rebuildSpatial()
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || !v.Enabled || v.DisabledUntil > e.state.Tick || !v.Complete || e.firingPlatform(v) == nil || v.Channel != "" || v.PackingUntil > e.state.Tick || v.DeployUntil > e.state.Tick || e.player(v.Owner).Defeated || e.hasBuff(v, "recall") || e.hasBuff(v, "exit_lock") {
+		if v.HP <= 0 || !v.Enabled || v.DisabledUntil > e.state.Tick || !v.Complete || e.firingPlatform(v) == nil || v.Channel != "" || v.PackingUntil > e.state.Tick || v.DeployUntil > e.state.Tick || e.defeated(v.Owner) || e.hasBuff(v, "recall") || e.hasBuff(v, "exit_lock") {
 			continue
 		}
 		if e.isAircraft(v) && v.Landed {
@@ -104,6 +104,11 @@ func (e *Engine) updateCombat() {
 		}
 		w, armed := e.weapon(v)
 		if !armed {
+			continue
+		}
+		// The second charge of an accepted volley is reserved for its timed shot;
+		// automatic targeting must not spend it during the 1.5-second interval.
+		if e.pendingVolley(v.ID) {
 			continue
 		}
 		o := Order{}
@@ -279,7 +284,7 @@ func (e *Engine) launch(v, target *Entity, point Vec, w content.Weapon, amount i
 }
 func (e *Engine) updateProjectiles() {
 	for _, v := range e.state.Entities {
-		if !v.Active(e.state.Tick) || e.player(v.Owner).Defeated {
+		if !v.Active(e.state.Tick) || e.defeated(v.Owner) {
 			continue
 		}
 		fixed := e.role(v) == "abm"
@@ -336,7 +341,7 @@ func (e *Engine) updateProjectiles() {
 		w, _ := e.catalog.Weapon(p.Weapon)
 		if p.Splash > 0 {
 			for _, target := range e.state.Entities {
-				if target.HP <= 0 || target.Container != 0 || e.player(target.Owner).Defeated {
+				if target.HP <= 0 || target.Container != 0 || e.defeated(target.Owner) {
 					continue
 				}
 				d := e.distanceTo(target, p.Impact)
@@ -489,6 +494,7 @@ func (e *Engine) cleanup() {
 		if v.Building {
 			e.state.NavigationRevision++
 		}
+		e.destroyMapObject(v)
 		e.emit("destroyed", v.Owner, v.ID, v.Position, "visible", 0)
 		if p := e.player(v.Owner); p != nil {
 			p.Lost += v.Paid

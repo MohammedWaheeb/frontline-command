@@ -14,12 +14,20 @@ type ReplayCheckpoint struct {
 	Save       json.RawMessage `json:"save,omitempty"`
 	PackedSave []byte          `json:"packed_save,omitempty"`
 }
+type ReplayChunk struct {
+	First   Tick   `json:"first"`
+	Last    Tick   `json:"last"`
+	Records uint32 `json:"records"`
+	Data    []byte `json:"data"`
+}
 type Replay struct {
 	Version     uint32             `json:"version"`
 	Metadata    Metadata           `json:"metadata"`
 	Initial     json.RawMessage    `json:"initial"`
 	FinalTick   Tick               `json:"final_tick"`
+	Recorded    uint64             `json:"recorded"`
 	Commands    []Scheduled        `json:"commands"`
+	Chunks      []ReplayChunk      `json:"chunks"`
 	Checkpoints []ReplayCheckpoint `json:"checkpoints"`
 }
 
@@ -28,22 +36,37 @@ func NewReplay(e *Engine) (*Replay, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Replay{Version: 1, Metadata: e.Metadata(), Initial: save, FinalTick: e.Tick()}, nil
+	return &Replay{Version: 2, Metadata: e.Metadata(), Initial: save, FinalTick: e.Tick(), Recorded: e.state.LogBase + uint64(len(e.state.Log))}, nil
 }
+
+// Capture must be called at least every 30 simulation seconds. The engine keeps
+// only 32,768 recent orders; archived replay chunks own their independent copies.
 func (r *Replay) Capture(e *Engine, checkpoint bool) error {
-	if r.Metadata != e.Metadata() {
-		return errors.New("replay metadata mismatch")
+	if r.Metadata != e.Metadata() || r.Version != 2 || r.Recorded < e.state.LogBase {
+		return errors.New("replay recorder missed its bounded command window")
 	}
+	end := e.state.LogBase + uint64(len(e.state.Log))
+	if r.Recorded > end {
+		return errors.New("replay recorder moved backwards")
+	}
+	for _, cmd := range e.state.Log[r.Recorded-e.state.LogBase:] {
+		cmd.Orders = cloneOrders(cmd.Orders)
+		r.Commands = append(r.Commands, cmd)
+	}
+	r.Recorded = end
 	r.FinalTick = e.Tick()
-	state := e.StateCopy()
-	r.Commands = state.Log
+	if len(r.Commands) >= 1024 || checkpoint || e.Outcome().Finished {
+		if err := r.flush(); err != nil {
+			return err
+		}
+	}
 	if checkpoint {
+		if len(r.Checkpoints) > 0 && r.Checkpoints[len(r.Checkpoints)-1].Tick >= e.Tick() {
+			return errors.New("checkpoint ticks must increase")
+		}
 		save, err := e.Save()
 		if err != nil {
 			return err
-		}
-		if len(r.Checkpoints) > 0 && r.Checkpoints[len(r.Checkpoints)-1].Tick >= e.Tick() {
-			return errors.New("checkpoint ticks must increase")
 		}
 		packed, err := compressReplay(save)
 		if err != nil {
@@ -53,22 +76,61 @@ func (r *Replay) Capture(e *Engine, checkpoint bool) error {
 	}
 	return nil
 }
+func (r *Replay) flush() error {
+	if len(r.Commands) == 0 {
+		return nil
+	}
+	raw, err := json.Marshal(r.Commands)
+	if err != nil {
+		return err
+	}
+	packed, err := compressReplay(raw)
+	if err != nil {
+		return err
+	}
+	r.Chunks = append(r.Chunks, ReplayChunk{First: r.Commands[0].Tick, Last: r.Commands[len(r.Commands)-1].Tick, Records: uint32(len(r.Commands)), Data: packed})
+	r.Commands = nil
+	return nil
+}
+func (r *Replay) validate() error {
+	if r.Version != 2 || r.FinalTick > 216000 || len(r.Commands) > 32768 || len(r.Chunks) > 4096 || len(r.Checkpoints) > 600 {
+		return errors.New("invalid replay bounds")
+	}
+	prior := Tick(0)
+	for _, chunk := range r.Chunks {
+		if chunk.First < prior || chunk.Last < chunk.First || chunk.Last > r.FinalTick || chunk.Records == 0 || chunk.Records > 32768 || len(chunk.Data) > 32<<20 {
+			return errors.New("invalid replay chunk ordering")
+		}
+		prior = chunk.Last
+	}
+	for _, cmd := range r.Commands {
+		if cmd.Tick < prior || cmd.Tick > r.FinalTick {
+			return errors.New("invalid replay command ordering")
+		}
+		prior = cmd.Tick
+	}
+	return nil
+}
 
-// Seek restores the nearest complete checkpoint and re-simulates without any
-// service/reward callbacks. Deterministic AI recreates its own logged decisions;
-// replay injection applies human intentions only to avoid duplicate AI orders.
+// Seek restores a complete checkpoint and streams subsequent command chunks.
+// Reward/service callbacks never run; AI recreates its own fog-limited decisions.
 func (r *Replay) Seek(c *content.Catalog, target Tick) (*Engine, error) {
-	if r.Version != 1 || target > r.FinalTick || len(r.Commands) > 200000 || len(r.Checkpoints) > 600 {
-		return nil, errors.New("invalid replay bounds")
+	if err := r.validate(); err != nil {
+		return nil, err
+	}
+	if target > r.FinalTick {
+		return nil, errors.New("seek beyond replay")
 	}
 	save := r.Initial
 	last := Tick(0)
+	selected := Tick(0)
 	for _, cp := range r.Checkpoints {
 		if cp.Tick <= last || cp.Tick > r.FinalTick {
 			return nil, errors.New("invalid checkpoint ordering")
 		}
 		last = cp.Tick
 		if cp.Tick <= target {
+			selected = cp.Tick
 			save = cp.Save
 			if len(cp.PackedSave) > 0 {
 				var err error
@@ -83,29 +145,79 @@ func (r *Replay) Seek(c *content.Catalog, target Tick) (*Engine, error) {
 	if err != nil {
 		return nil, err
 	}
-	if e.Metadata() != r.Metadata || e.Tick() > target {
+	if e.Metadata() != r.Metadata || e.Tick() > target || selected > 0 && e.Tick() != selected {
 		return nil, errors.New("replay checkpoint mismatch")
 	}
+	chunkIndex := 0
+	current := []Scheduled{}
 	index := 0
-	for index < len(r.Commands) && r.Commands[index].Tick <= e.Tick() {
+	tailRead := false
+	next := func() (*Scheduled, error) {
+		for index >= len(current) {
+			if chunkIndex < len(r.Chunks) {
+				chunk := r.Chunks[chunkIndex]
+				chunkIndex++
+				if chunk.Last <= e.Tick() {
+					continue
+				}
+				raw, err := expandReplay(chunk.Data, 32<<20)
+				if err != nil {
+					return nil, err
+				}
+				current = nil
+				if err = json.Unmarshal(raw, &current); err != nil {
+					return nil, err
+				}
+				if len(current) != int(chunk.Records) || current[0].Tick != chunk.First || current[len(current)-1].Tick != chunk.Last {
+					return nil, errors.New("replay chunk metadata mismatch")
+				}
+				prior := chunk.First
+				for _, cmd := range current {
+					if cmd.Tick < prior || len(cmd.Orders) > 32 {
+						return nil, errors.New("invalid replay chunk")
+					}
+					prior = cmd.Tick
+				}
+			} else if !tailRead {
+				current = r.Commands
+				tailRead = true
+			} else {
+				return nil, nil
+			}
+			index = 0
+		}
+		cmd := &current[index]
 		index++
+		return cmd, nil
+	}
+	command, err := next()
+	if err != nil {
+		return nil, err
+	}
+	for command != nil && command.Tick <= e.Tick() {
+		command, err = next()
+		if err != nil {
+			return nil, err
+		}
 	}
 	for e.Tick() < target && !e.Outcome().Finished {
-		for index < len(r.Commands) && r.Commands[index].Tick <= e.Tick()+1 {
-			cmd := r.Commands[index]
-			if cmd.Tick != e.Tick()+1 {
+		for command != nil && command.Tick <= e.Tick()+1 {
+			if command.Tick != e.Tick()+1 {
 				return nil, errors.New("replay command ordering")
 			}
-			p := e.player(cmd.Player)
+			p := e.player(command.Player)
 			if p == nil {
 				return nil, errors.New("replay player missing")
 			}
-			if p.AI == "" && cmd.Sequence > p.LastSequence {
-				if err = e.Submit(cmd.Player, cmd.Sequence, cmd.Orders); err != nil {
+			if p.AI == "" && command.Sequence > p.LastSequence {
+				if err = e.Submit(command.Player, command.Sequence, command.Orders); err != nil {
 					return nil, err
 				}
 			}
-			index++
+			command, err = next()
+			if err != nil {
+				return nil, err
+			}
 		}
 		e.Advance()
 	}
@@ -114,7 +226,6 @@ func (r *Replay) Seek(c *content.Catalog, target Tick) (*Engine, error) {
 	}
 	return e, nil
 }
-
 func compressReplay(data []byte) ([]byte, error) {
 	var b bytes.Buffer
 	w := gzip.NewWriter(&b)
@@ -141,10 +252,13 @@ func expandReplay(data []byte, limit int64) ([]byte, error) {
 	}
 	return b, nil
 }
-
-// Encode stores compressed checkpoints and an ordered command log. The outer
-// compression keeps exports small without trusting compressed size on import.
 func (r *Replay) Encode() ([]byte, error) {
+	if err := r.validate(); err != nil {
+		return nil, err
+	}
+	if err := r.flush(); err != nil {
+		return nil, err
+	}
 	b, err := json.Marshal(r)
 	if err != nil {
 		return nil, err
@@ -165,8 +279,8 @@ func DecodeReplay(data []byte) (*Replay, error) {
 	if err = d.Decode(r); err != nil {
 		return nil, err
 	}
-	if d.Decode(new(any)) != io.EOF || r.Version != 1 || len(r.Commands) > 200000 || len(r.Checkpoints) > 600 {
-		return nil, errors.New("invalid replay")
+	if d.Decode(new(any)) != io.EOF {
+		return nil, errors.New("trailing replay data")
 	}
-	return r, nil
+	return r, r.validate()
 }

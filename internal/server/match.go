@@ -51,6 +51,7 @@ type matchCheckpoint struct {
 	data []byte
 }
 type liveMatch struct {
+	rated           bool
 	checkpoints     chan matchCheckpoint
 	persistenceDone chan struct{}
 	observerDelay   sim.Tick
@@ -66,9 +67,21 @@ type liveMatch struct {
 	started         time.Time
 }
 
-func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite, objects storage.Files, liveObservers ...bool) (*liveMatch, error) {
+type matchOptions struct {
+	LiveObservers bool
+	Rated         bool
+}
+
+func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite, objects storage.Files, options ...matchOptions) (*liveMatch, error) {
 	delay := sim.Tick(2400)
-	if len(liveObservers) > 0 && liveObservers[0] {
+	opts := matchOptions{}
+	if len(options) > 0 {
+		opts = options[0]
+	}
+	if opts.Rated && (len(slots) != 2 || slots[0].AI || slots[1].AI || slots[0].Profile == "" || slots[1].Profile == "" || slots[0].Profile == slots[1].Profile) {
+		return nil, errors.New("rated matches require two distinct human profiles")
+	}
+	if opts.LiveObservers && !opts.Rated {
 		delay = 0
 	}
 	save, err := engine.Save()
@@ -81,7 +94,7 @@ func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite,
 	if err != nil {
 		return nil, err
 	}
-	m := &liveMatch{checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
+	m := &liveMatch{rated: opts.Rated, checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
 	go m.persistCheckpoints()
 	go m.run()
 	return m, nil
@@ -406,7 +419,20 @@ func (m *liveMatch) run() {
 			if m.engine.Outcome().Finished && !committed && now.Sub(lastCommitAttempt) >= time.Second {
 				lastCommitAttempt = now
 				state := m.engine.StateCopy()
-				payload, _ := json.Marshal(map[string]any{"match_id": m.id, "metadata": state.Metadata, "outcome": state.Outcome, "players": state.Players})
+				var rating *storage.RatingMatch
+				if m.rated {
+					rating = &storage.RatingMatch{Profiles: [2]string{m.slots[0].Profile, m.slots[1].Profile}, Draw: state.Outcome.Draw}
+					for _, player := range state.Players {
+						if !state.Outcome.Draw && player.Team == state.Outcome.WinningTeam {
+							for _, slot := range m.slots {
+								if slot.Player == player.ID {
+									rating.Winner = slot.Profile
+								}
+							}
+						}
+					}
+				}
+				payload, _ := json.Marshal(map[string]any{"match_id": m.id, "metadata": state.Metadata, "outcome": state.Outcome, "players": state.Players, "rated": m.rated, "rating_match": rating})
 				ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 				var err error
 				{
@@ -424,7 +450,7 @@ func (m *liveMatch) run() {
 					}
 				}
 				if err == nil {
-					_, err = m.repo.CommitResult(ctx, storage.Result{ID: m.id, Payload: payload})
+					_, err = m.repo.CommitResult(ctx, storage.Result{ID: m.id, Payload: payload, Rating: rating})
 				}
 				cancel()
 				if err == nil {

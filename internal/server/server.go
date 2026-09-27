@@ -40,6 +40,7 @@ type LobbySlot struct {
 	AssetsReady bool         `json:"assets_ready"`
 }
 type Lobby struct {
+	Rated         bool        `json:"rated"`
 	LiveObservers bool        `json:"live_observers"`
 	ID            string      `json:"id"`
 	Name          string      `json:"name"`
@@ -53,6 +54,7 @@ type Lobby struct {
 	Created       int64       `json:"created"`
 }
 type Server struct {
+	queue     map[string]*queueEntry
 	dataLock  *flock.Flock
 	admission admissionControl
 	cfg       Config
@@ -247,6 +249,11 @@ func (s *Server) routes() {
 		}
 	})
 	s.mux.HandleFunc("GET /api/v1/maps", s.listMaps)
+	s.mux.HandleFunc("POST /api/v1/matchmaking", s.joinQueue)
+	s.mux.HandleFunc("GET /api/v1/matchmaking", s.readQueue)
+	s.mux.HandleFunc("DELETE /api/v1/matchmaking", s.leaveQueue)
+	s.mux.HandleFunc("GET /api/v1/ratings/me", s.myRating)
+	s.mux.HandleFunc("GET /api/v1/ratings", s.leaderboard)
 	s.mux.HandleFunc("GET /api/v1/maps/{id}", s.getMap)
 	s.mux.HandleFunc("POST /api/v1/maps", s.putMap)
 	s.mux.HandleFunc("GET /api/v1/lobbies", s.listLobbies)

@@ -59,6 +59,10 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 	for _, s := range gameMap.Stations {
 		e.state.Stations = append(e.state.Stations, &ObjectiveStation{ID: e.newID(), Position: s.Position})
 	}
+	for _, o := range gameMap.Objects {
+		v := e.spawn("map."+o.Class, 0, o.Position, true, 0)
+		v.MapObject = o.ID
+	}
 	e.recalculate()
 	e.updateFog()
 	return e, nil
@@ -71,6 +75,10 @@ func (e *Engine) player(id PlayerID) *Player {
 		}
 	}
 	return nil
+}
+func (e *Engine) defeated(id PlayerID) bool {
+	p := e.player(id)
+	return p != nil && p.Defeated
 }
 func (e *Engine) entity(id ID) *Entity {
 	i := sort.Search(len(e.state.Entities), func(i int) bool { return e.state.Entities[i].ID >= id })
@@ -404,7 +412,7 @@ func Restore(c *content.Catalog, data []byte) (*Engine, error) {
 	}
 	lastID := ID(0)
 	for _, v := range s.Entities {
-		if v == nil || v.ID <= lastID || v.ID >= s.NextID || e.player(v.Owner) == nil || v.HP < 0 || v.HP > v.MaxHP || v.MaxHP <= 0 || v.MaxHP > 200000000 || len(v.Orders) > 10 || len(v.Jobs) > 6 || len(v.Path) > 65536 || !s.Map.InBounds(v.Position) {
+		if v == nil || v.ID <= lastID || v.ID >= s.NextID || (v.Owner != 0 || v.MapObject == 0) && e.player(v.Owner) == nil || v.HP < 0 || v.HP > v.MaxHP || v.MaxHP <= 0 || v.MaxHP > 200000000 || len(v.Orders) > 10 || len(v.Jobs) > 6 || len(v.Path) > 65536 || !s.Map.InBounds(v.Position) {
 			return nil, fmt.Errorf("invalid saved entity")
 		}
 		lastID = v.ID

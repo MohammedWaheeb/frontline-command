@@ -127,6 +127,7 @@ func (e *Engine) updateFog() {
 	e.computeVisibility()
 	for _, p := range e.state.Players {
 		fog := e.visible[p.ID]
+		e.observeRubble(p)
 		for i, v := range fog {
 			if v {
 				p.Explored[i] = true
@@ -192,7 +193,7 @@ func (e *Engine) canSeeEntity(player PlayerID, v *Entity) bool {
 		return true
 	}
 	for _, source := range e.state.Entities {
-		if source.HP <= 0 || source.Container != 0 || !e.allied(player, source.Owner) || e.player(source.Owner).Defeated {
+		if source.HP <= 0 || source.Container != 0 || !e.allied(player, source.Owner) || e.defeated(source.Owner) {
 			continue
 		}
 		radius := int32(3000)
@@ -239,6 +240,7 @@ type EntityPrivate struct {
 	Container   ID         `json:"container"`
 }
 type EntityView struct {
+	MapObject    uint32         `json:"map_object"`
 	TurretFacing int32          `json:"turret_facing"`
 	ChannelUntil Tick           `json:"channel_until"`
 	ID           ID             `json:"id"`
@@ -287,6 +289,8 @@ type StationView struct {
 	Owner    PlayerID `json:"owner"`
 }
 type View struct {
+	Warnings    []OperationWarning   `json:"warnings"`
+	Rubble      []uint32             `json:"rubble"`
 	Salvage     []Salvage            `json:"salvage"`
 	Zones       []ZoneView           `json:"zones"`
 	Indicators  []StructureIndicator `json:"indicators"`
@@ -351,6 +355,8 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		return View{}, false
 	}
 	view := View{Metadata: e.state.Metadata, Tick: e.state.Tick, Countdown: e.state.Countdown, Player: id, Economy: EconomyView{p.Credits, p.Energy, p.Supply, p.ReservedSupply, p.PowerCapacity, p.PowerDemand, p.Tier, p.Income, p.RepairReserve, append([]string(nil), p.Upgrades...), append([]Cooldown(nil), p.Cooldowns...)}, Explored: append([]bool(nil), p.Explored...), Visible: append([]bool(nil), e.visible[id]...), Memory: append([]Memory(nil), p.Memory...), ShipmentAt: e.state.ShipmentAt, Outcome: e.state.Outcome}
+	view.Rubble = append([]uint32(nil), p.KnownRubble...)
+	view.Warnings = e.operationWarnings(id)
 	for _, player := range e.state.Players {
 		s := PlayerSummary{ID: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, Defeated: player.Defeated, DefeatAt: player.DefeatAt, StrategicProgress: -1}
 		for _, v := range e.state.Entities {
@@ -368,6 +374,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 			continue
 		}
 		s := EntityView{TurretFacing: v.TurretFacing, ChannelUntil: v.ChannelUntil, ID: v.ID, Type: v.Type, Owner: v.Owner, Position: v.Position, Facing: v.Facing, Health: int32(v.HP * 1000 / v.MaxHP), State: v.State, Complete: v.Complete, Enabled: v.Enabled && v.DisabledUntil <= e.state.Tick, Landed: v.Landed, Deployed: v.Deployed, Concealed: v.Concealed, Rank: v.Rank}
+		s.MapObject = v.MapObject
 		if v.Building && !v.Complete {
 			b, _ := e.catalog.Building(v.Type)
 			s.Progress = int32(v.Work * 1000 / (b.BuildTicks * 2))

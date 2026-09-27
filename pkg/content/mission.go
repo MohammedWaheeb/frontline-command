@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"strings"
 )
 
 // Mission files are declarative content authored by Claude/editor, never code.
@@ -119,7 +120,7 @@ func (v Mission) Validate(c *Catalog, m Map) error {
 	}
 	tags := map[string]bool{}
 	checkSpawn := func(s MissionSpawn) error {
-		if s.Tag == "" || len(s.Tag) > 80 || !players[s.Owner] || s.Count < 1 || s.Count > 32 || !m.InBounds(s.Position) || !m.TileAt(s.Position).Passable() {
+		if s.Tag == "" || len(s.Tag) > 80 || strings.HasPrefix(s.Type, "map.") || !players[s.Owner] || s.Count < 1 || s.Count > 32 || !m.InBounds(s.Position) || !m.TileAt(s.Position).Passable() {
 			return fmt.Errorf("invalid spawn %s", s.Tag)
 		}
 		if _, u := c.Unit(s.Type); !u {

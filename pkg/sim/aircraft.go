@@ -105,8 +105,16 @@ func (e *Engine) updateAircraft() {
 		if e.role(v) == "support_plane" {
 			continue
 		}
-		if v.HP <= 0 || !e.isAircraft(v) || e.player(v.Owner).Defeated {
+		if v.HP <= 0 || !e.isAircraft(v) || e.defeated(v.Owner) {
 			continue
+		}
+		if v.EmergencyTakeoffUntil > 0 {
+			if e.state.Tick < v.EmergencyTakeoffUntil {
+				continue
+			}
+			v.EmergencyTakeoffUntil = 0
+			v.Landed = false
+			v.State = "taking_off"
 		}
 		home := e.entity(v.Home)
 		if home == nil || home.HP <= 0 || home.Owner != v.Owner || !home.Complete {
@@ -114,8 +122,8 @@ func (e *Engine) updateAircraft() {
 			v.Home = 0
 			v.Endurance = min(v.Endurance, uint32(1200))
 			if v.Landed {
-				v.Landed = false
-				v.TaskUntil = e.state.Tick + seconds(2)
+				v.EmergencyTakeoffUntil = e.state.Tick + seconds(2)
+				v.ServiceWork = 0
 				v.State = "emergency_takeoff"
 			}
 			if id := e.freeService(v.Owner); id != 0 {
@@ -143,8 +151,19 @@ func (e *Engine) updateAircraft() {
 			if v.TaskUntil > e.state.Tick {
 				continue
 			}
-			if v.Endurance <= 600 && (len(v.Orders) == 0 || v.Orders[0].Kind != "return") {
+			returnQueued := false
+			for _, o := range v.Orders {
+				if o.Kind == "return" {
+					returnQueued = true
+				}
+			}
+			if v.Endurance <= 600 && !returnQueued {
 				e.assign(v, Order{Kind: "return"})
+				if len(v.Passengers) > 0 {
+					if drop, ok := e.airliftDropPoint(v); ok {
+						v.Orders = []Order{{Kind: "unload", Position: drop}, {Kind: "return"}}
+					}
+				}
 				e.emit("aircraft_returning", v.Owner, v.ID, v.Position, "owner", 0)
 			}
 			if home != nil && len(v.Orders) > 0 && v.Orders[0].Kind == "return" && distance(v.Position, e.landingPoint(v, home)) <= 500 {
@@ -153,6 +172,9 @@ func (e *Engine) updateAircraft() {
 				v.ServiceWork = 1
 				v.Path = nil
 				v.State = "servicing"
+				if len(v.Passengers) > 0 {
+					v.Orders = append([]Order{{Kind: "unload"}}, v.Orders...)
+				}
 			}
 			continue
 		}
@@ -189,4 +211,28 @@ func (e *Engine) updateAircraft() {
 			e.emit("aircraft_serviced", v.Owner, v.ID, v.Position, "owner", 0)
 		}
 	}
+}
+
+func (e *Engine) airliftDropPoint(v *Entity) (Vec, bool) {
+	for ring := int32(0); ring <= 4000; ring += 1000 {
+		for _, d := range neighbors {
+			candidate := Vec{X: v.Position.X + d.X*ring, Y: v.Position.Y + d.Y*ring}
+			if !e.clear(candidate, e.radius(v), v.ID, true, true) {
+				continue
+			}
+			hypothetical := *v
+			hypothetical.Position = candidate
+			exits, legal := e.passengerExits(&hypothetical, v.Passengers, 1000)
+			for _, exit := range exits {
+				if distance(v.Position, exit) > 5000 {
+					legal = false
+					break
+				}
+			}
+			if legal {
+				return candidate, true
+			}
+		}
+	}
+	return Vec{}, false
 }

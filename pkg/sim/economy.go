@@ -207,6 +207,10 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 		e.emit("research_complete", p.ID, v.ID, v.Position, "owner", 0)
 	} else {
 		pos, ok := e.exitPosition(v, j.Type, 0, 6000)
+		if u, found := e.catalog.Unit(j.Type); found && u.Armor == "air" && j.Service == v.ID {
+			pos = v.Position
+			ok = true
+		}
 		if !ok {
 			v.State = "exit_blocked"
 			return
@@ -214,8 +218,18 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 		unit := e.spawn(j.Type, p.ID, pos, true, j.Paid)
 		unit.Home = j.Service
 		if e.isAircraft(unit) {
-			unit.Landed = false
-			unit.Orders = []Order{{Kind: "return"}}
+			unit.Landed = true
+			if home := e.entity(unit.Home); home != nil && home.ID == v.ID {
+				unit.Position = e.landingPoint(unit, home)
+				unit.LastPosition = unit.Position
+				unit.Anchor = unit.Position
+			}
+			unit.State = "landed"
+			if unit.Home != v.ID {
+				unit.Landed = false
+				unit.Orders = []Order{{Kind: "return"}}
+				unit.State = "returning"
+			}
 		} else if e.role(unit) == "hauler" {
 			e.assign(unit, Order{Kind: "gather"})
 		} else if distance(pos, v.Rally) > 300 {
@@ -294,7 +308,7 @@ func (e *Engine) updateHarvest() {
 		}
 	}
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || e.role(v) != "hauler" || e.player(v.Owner).Defeated || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" {
+		if v.HP <= 0 || e.role(v) != "hauler" || e.defeated(v.Owner) || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" {
 			continue
 		}
 		if d := e.entity(v.Depot); d == nil || !d.Active(e.state.Tick) || d.Owner != v.Owner {

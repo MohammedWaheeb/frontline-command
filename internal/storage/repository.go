@@ -26,10 +26,11 @@ type Save struct {
 	Data     []byte `json:"-"`
 }
 type Result struct {
-	ID      string `json:"id"`
-	Payload []byte `json:"payload"`
-	Created int64  `json:"created"`
-	Void    bool   `json:"void"`
+	Rating  *RatingMatch `json:"rating,omitempty"`
+	ID      string       `json:"id"`
+	Payload []byte       `json:"payload"`
+	Created int64        `json:"created"`
+	Void    bool         `json:"void"`
 }
 type MapRecord struct {
 	ID       string `json:"id"`

@@ -103,11 +103,46 @@ Observed checks: targeted gameplay/service/storage tests and `go vet ./...`
 passed. The extended native suite passed. A full race-instrumented run completed
 functional tests but failed the steady-state time-budget assertion (p95 39.3 ms)
 under instrumentation. Performance gates now run without race instrumentation;
-latest short race suite is still to be rerun after the latest service additions.
+the short race suite passed after service recovery, bounded replay, aircraft,
+and neutral-object additions (simulation 18.45 s; server 17.93 s). Later ability
+exit/warning, AI and local matchmaking refinements also passed a short race run
+(simulation 19.51 s; server 18.64 s), plus vet. The latest navigation retry/cache
+change needs a final integrated rerun after targeted recovery tests.
 The 688-actor moving/combat workload and target-hardware performance are pending.
 
-Remaining work includes strategic-operation regressions, ordinary AI strategy
-and complete matches, neutral map objects/garrisons, transport emergency unload,
+Additional checks now cover all four strategic operations, two-second emergency
+takeoff, local/base emergency airlift unload, team-only ping privacy, rolling
+command history with replay seek before/after rollover, neutral garrison firing,
+explicit prop destruction, single navigation invalidation and fog-safe rubble.
+The full short native suite and native Claude-authored adapter tests pass.
+Browser WASM execution is still pending.
+
+AI now retains observed enemy positions/age and field supplies, avoids observed
+AA for sorties, reserves construction funds, resumes abandoned foundations,
+plans expansion before depletion, restores basic workers and uses support,
+capture, deployment and faction intentions through normal orders. Tests show
+hidden enemy changes do not alter its decisions. The six-minute fixture earned
+8,777/8,400 credits and both sides reached radar. A longer US/IR synthetic match
+finished by elimination at tick 14,807; this is not a balanced-match claim.
+The SY/SA run exposed costly repeated failed path searches and was stopped for
+an implementation fix. Navigation now shares mobile obstacle lookup data per
+tick/clearance and waits two seconds after failure, retrying immediately when
+terrain changes. Recovery and save/restore determinism tests pass; long runs
+were repeated. All six cross-faction and four mirror pairings finished by
+elimination on the synthetic test map; the ten matches took 31.32 s wall time
+after navigation fixes. US/IR ended at tick 18,861 and SY/SA at tick 10,164 in
+the first repeat. Old and new evidence is retained in `work/evidence/`. This
+does not certify authored maps, human counterplay, or reference-hardware FPS.
+
+Local matching/ratings have targeted tests for ready/asset gates, locked teams,
+skill/latency widening, blocks, atomic result/rating writes, concurrent identical
+retries, conflicting retries, draws and voids. Browser journey acceptance and
+browser acceptance remain pending. Two actual WebSocket peers also completed
+the ranked service journey: ready/load, countdown, surrender, committed result,
+one 980/1020 rating update and a persisted replay with the same winner (5.11 s).
+
+Remaining work includes full ordinary AI strategy
+and complete matches, extended navigation/transport stress,
 full matchmaking/local ratings/moderation/persistence journeys, scenario service
 integration, every Claude frontend/content/art/audio stage, packaging, browser
 acceptance and final balance/release gates. This list does not replace the full

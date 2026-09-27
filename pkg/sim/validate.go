@@ -6,6 +6,9 @@ import (
 
 func (e *Engine) validateState() error {
 	s := &e.state
+	if err := e.validateMapObjects(); err != nil {
+		return err
+	}
 	if s.Metadata.MapVersion != s.Map.Version || s.Metadata.Seed == 0 || s.NextID > 1000000 || len(s.Fields) > 128 || len(s.Stations) > 32 || len(s.Zones) > 128 || len(s.Operations) > 128 || len(s.Log) > 200000 || len(s.Events) > 16384 || len(s.Results) > 4096 {
 		return fmt.Errorf("invalid saved metadata or collection bounds")
 	}
@@ -99,6 +102,33 @@ func (e *Engine) validateState() error {
 		}
 	}
 	for _, p := range s.Players {
+		if len(p.AIKnowledge) > 4096 || len(p.AIFields) > 128 || !s.Map.InBounds(p.AIGoal) {
+			return fmt.Errorf("invalid AI knowledge bounds")
+		}
+		seenKnowledge := map[ID]bool{}
+		for _, observation := range p.AIKnowledge {
+			_, unit := e.catalog.Unit(observation.Type)
+			_, building := e.catalog.Building(observation.Type)
+			if observation.ID == 0 || seenKnowledge[observation.ID] || observation.Seen > s.Tick || !s.Map.InBounds(observation.Position) || e.player(observation.Owner) == nil || (!unit && !building) {
+				return fmt.Errorf("invalid AI observation")
+			}
+			seenKnowledge[observation.ID] = true
+		}
+		seenFields := map[uint32]bool{}
+		for _, field := range p.AIFields {
+			if field.ID == 0 || seenFields[field.ID] || !s.Map.InBounds(field.Position) || field.Remaining < 0 || field.Remaining > 1000000000 {
+				return fmt.Errorf("invalid AI supply observation")
+			}
+			seenFields[field.ID] = true
+		}
+		switch p.AIIntent {
+		case "", "scout", "pressure", "defend":
+		default:
+			return fmt.Errorf("invalid AI intent")
+		}
+		if p.CommandWindow > s.Tick || p.CommandCount > 160 || p.PingWindow > s.Tick || p.PingCount > 3 {
+			return fmt.Errorf("invalid saved command window")
+		}
 		if p.SalvageTotal < 0 || p.SalvageTotal > 3000000 || len(p.SalvageIncome) > 4096 {
 			return fmt.Errorf("invalid salvage ledger")
 		}
@@ -128,6 +158,13 @@ func (e *Engine) validateState() error {
 		if err := e.validateSavedOrders(scheduled.Orders, true); err != nil {
 			return err
 		}
+	}
+	logged := uint32(0)
+	for _, command := range s.Log {
+		logged += uint32(len(command.Orders))
+	}
+	if logged != s.LogOrders || logged > 32768 || s.LogBase > 10000000 {
+		return fmt.Errorf("invalid replay window")
 	}
 	if len(s.Salvage) > 4096 {
 		return fmt.Errorf("salvage collection limit")
@@ -159,6 +196,9 @@ func (e *Engine) validateState() error {
 				return fmt.Errorf("volley needs two points")
 			}
 		case "raid":
+			if len(o.Points) != 2 {
+				return fmt.Errorf("raid needs two marked exits")
+			}
 		default:
 			return fmt.Errorf("unknown saved operation")
 		}

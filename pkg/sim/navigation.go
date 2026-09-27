@@ -229,12 +229,16 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 	}
 	gridW, gridH := m.Width*2, m.Height*2
 	cells := e.navigationCells(r)
+	var mobileCells []ID
+	if dynamic {
+		mobileCells = e.mobileObstacleCells(r)
+	}
 	passable := func(p Vec) bool {
 		x, y := p.X/500, p.Y/500
 		if x < 0 || y < 0 || x >= gridW || y >= gridH || !cells[y*gridW+x] {
 			return false
 		}
-		return !dynamic || e.mobileClear(p, r, v.ID)
+		return !dynamic || mobileCells[y*gridW+x] == 0 || mobileCells[y*gridW+x] == v.ID
 	}
 	gx, gy := goal.X/500, goal.Y/500
 	sx, sy := v.Position.X/500, v.Position.Y/500
@@ -411,12 +415,24 @@ func (e *Engine) coarseCorridor(sx, sy, gx, gy, r int32, ignore ID) map[int32]bo
 }
 func (e *Engine) updateMovement() {
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || v.Building || v.Container != 0 || v.DisabledUntil > e.state.Tick || e.player(v.Owner).Defeated {
+		if v.HP <= 0 || v.Building || v.Container != 0 || v.DisabledUntil > e.state.Tick || e.defeated(v.Owner) {
 			continue
 		}
 		v.LastPosition = v.Position
+		if v.EmergencyTakeoffUntil > e.state.Tick {
+			continue
+		}
 		if v.PackingUntil > e.state.Tick || v.DeployUntil > e.state.Tick || v.Deployed || v.Channel != "" {
 			continue
+		}
+		if e.isAircraft(v) && v.Landed && v.ServiceWork == 0 && len(v.Orders) > 0 {
+			switch v.Orders[0].Kind {
+			case "attack", "attack_move", "move", "guard", "aggressive":
+				if e.clear(v.Position, e.radius(v), v.ID, true, true) {
+					v.Landed = false
+					v.State = "taking_off"
+				}
+			}
 		}
 		if e.fixedWing(v) && !v.Landed && (len(v.Orders) == 0 || v.Orders[0].Kind != "return") {
 			e.flyPass(v)
@@ -494,6 +510,12 @@ func (e *Engine) updateMovement() {
 			}
 		case "gather":
 			goal, moving, arrive = e.harvestGoal(v)
+		case "unload":
+			if o.Position != (Vec{}) {
+				goal = o.Position
+				arrive = 300
+				moving = distance(v.Position, goal) > arrive
+			}
 		case "salvage":
 			if crate := e.salvage(o.Target); crate != nil {
 				goal, arrive = crate.Position, 1000
@@ -536,6 +558,9 @@ func (e *Engine) updateMovement() {
 			continue
 		}
 		if len(v.Path) == 0 || distance(goal, v.PathGoal) > 1400 || v.PathRevision != e.state.NavigationRevision {
+			if e.state.Tick < v.NextRouteAt && v.PathRevision == e.state.NavigationRevision && distance(goal, v.PathGoal) <= 1400 {
+				continue
+			}
 			if e.pathBudget == 0 {
 				continue
 			}
@@ -543,9 +568,11 @@ func (e *Engine) updateMovement() {
 			v.PathGoal = goal
 			v.PathRevision = e.state.NavigationRevision
 			if len(v.Path) == 0 {
+				v.NextRouteAt = e.state.Tick + seconds(2)
 				e.blocked(v)
 				continue
 			}
+			v.NextRouteAt = 0
 			v.PathEnd = v.Path[len(v.Path)-1]
 			v.PathResolved = true
 		}
@@ -629,6 +656,15 @@ func (e *Engine) approachPoint(v, target *Entity) Vec {
 	return Vec{X: target.Position.X + int32(int64(dx)*int64(r)/int64(length)), Y: target.Position.Y + int32(int64(dy)*int64(r)/int64(length))}
 }
 func (e *Engine) exitPosition(source *Entity, typ string, ignore ID, maxRadius int32) (Vec, bool) {
+	return e.findExitPosition(source, typ, ignore, maxRadius, nil)
+}
+
+type reservedExit struct {
+	position Vec
+	radius   int32
+}
+
+func (e *Engine) findExitPosition(source *Entity, typ string, ignore ID, maxRadius int32, reserved []reservedExit) (Vec, bool) {
 	u, ok := e.catalog.Unit(typ)
 	if !ok {
 		return Vec{}, false
@@ -642,12 +678,57 @@ func (e *Engine) exitPosition(source *Entity, typ string, ignore ID, maxRadius i
 	for ring := base; ring <= base+maxRadius; ring += 1000 {
 		for _, d := range neighbors {
 			p := Vec{X: source.Position.X + d.X*ring, Y: source.Position.Y + d.Y*ring}
+			if e.distanceTo(source, p)-u.Radius > maxRadius {
+				continue
+			}
+			overlaps := false
+			for _, other := range reserved {
+				r := u.Radius + other.radius
+				if dist2(p, other.position) < int64(r)*int64(r) {
+					overlaps = true
+					break
+				}
+			}
+			if overlaps {
+				continue
+			}
 			if e.clear(p, u.Radius, ignore, air, true) {
 				return p, true
 			}
 		}
 	}
 	return Vec{}, false
+}
+func (e *Engine) passengerExits(source *Entity, passengers []ID, maxRadius int32) ([]Vec, bool) {
+	positions := make([]Vec, 0, len(passengers))
+	reserved := []reservedExit{}
+	for _, id := range passengers {
+		unit := e.entity(id)
+		if unit == nil || unit.HP <= 0 {
+			return nil, false
+		}
+		pos, ok := e.findExitPosition(source, unit.Type, unit.ID, maxRadius, reserved)
+		if !ok {
+			return nil, false
+		}
+		positions = append(positions, pos)
+		reserved = append(reserved, reservedExit{pos, e.radius(unit)})
+	}
+	return positions, true
+}
+func (e *Engine) raidExits(source *Entity) ([]Vec, bool) {
+	positions := []Vec{}
+	reserved := []reservedExit{}
+	for _, typ := range []string{"SY.rifle", "SY.at"} {
+		pos, ok := e.findExitPosition(source, typ, 0, 2000, reserved)
+		if !ok {
+			return nil, false
+		}
+		u, _ := e.catalog.Unit(typ)
+		positions = append(positions, pos)
+		reserved = append(reserved, reservedExit{pos, u.Radius})
+	}
+	return positions, true
 }
 
 var _ content.Point

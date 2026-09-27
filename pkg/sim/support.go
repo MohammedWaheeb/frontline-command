@@ -5,6 +5,17 @@ import "frontlinecommand/pkg/content"
 func (e *Engine) outOfCombat(v *Entity) bool {
 	return (!v.EverDamaged || e.state.Tick-v.LastDamage >= seconds(3)) && (!v.EverDealt || e.state.Tick-v.LastDealt >= seconds(3))
 }
+func (e *Engine) transferQuiet(v *Entity) bool {
+	if v.EverDamaged && e.state.Tick-v.LastDamage < seconds(5) || v.EverDealt && e.state.Tick-v.LastDealt < seconds(5) {
+		return false
+	}
+	for _, id := range v.Passengers {
+		if unit := e.entity(id); unit != nil && unit.EverDealt && e.state.Tick-unit.LastDealt < seconds(5) {
+			return false
+		}
+	}
+	return true
+}
 func (e *Engine) repairRate(source, target *Entity) int64 {
 	if source.ID == target.ID || source.Owner != target.Owner || target.TemporaryUntil > 0 {
 		return 0
@@ -48,7 +59,7 @@ func (e *Engine) repairRate(source, target *Entity) int64 {
 func (e *Engine) updateSupport() {
 	assigned := map[ID]int32{}
 	for _, target := range e.state.Entities {
-		if target.HP <= 0 || target.HP >= target.MaxHP || target.Container != 0 || e.player(target.Owner).Defeated || !e.outOfCombat(target) || !target.Complete {
+		if target.Owner == 0 || target.HP <= 0 || target.HP >= target.MaxHP || target.Container != 0 || e.defeated(target.Owner) || !e.outOfCombat(target) || !target.Complete {
 			continue
 		}
 		var best *Entity
@@ -115,7 +126,7 @@ func (e *Engine) updateSupport() {
 		}
 	}
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || e.player(v.Owner).Defeated {
+		if v.HP <= 0 || e.defeated(v.Owner) {
 			continue
 		}
 		if v.Container != 0 {
@@ -160,7 +171,7 @@ func (e *Engine) updateSupport() {
 			}
 		case "board":
 			target := e.entity(o.Target)
-			if target == nil || target.HP <= 0 || target.Owner != v.Owner || len(target.Passengers) >= int(e.capacity(target)) {
+			if !e.canBoard(v, target) {
 				v.Orders = nil
 				continue
 			}
@@ -177,6 +188,9 @@ func (e *Engine) updateSupport() {
 		case "unload":
 			if len(v.Passengers) == 0 {
 				v.Orders = v.Orders[1:]
+				continue
+			}
+			if !v.Building && (v.LastPosition != v.Position || o.Position != (Vec{}) && distance(v.Position, o.Position) > 400) {
 				continue
 			}
 			duration := seconds(2)
@@ -197,7 +211,7 @@ func (e *Engine) capacity(v *Entity) int32 {
 			return 2
 		}
 		return 3
-	case "airlift", "bunker", "safehouse":
+	case "airlift", "bunker", "safehouse", "garrison":
 		return 2
 	}
 	return 0
@@ -207,7 +221,7 @@ func (e *Engine) validCapture(engineer *Entity, target ID) bool {
 		return false
 	}
 	if v := e.entity(target); v != nil {
-		return v.HP > 0 && v.Building && v.Complete && v.Owner != engineer.Owner && !e.allied(v.Owner, engineer.Owner) && e.role(v) != "hq" && e.role(v) != "strategic" && v.HP*4 < v.MaxHP && e.canSeeEntity(engineer.Owner, v)
+		return v.MapObject == 0 && v.HP > 0 && v.Building && v.Complete && v.Owner != engineer.Owner && !e.allied(v.Owner, engineer.Owner) && e.role(v) != "hq" && e.role(v) != "strategic" && v.HP*4 < v.MaxHP && e.canSeeEntity(engineer.Owner, v)
 	}
 	for _, s := range e.state.Stations {
 		if s.ID == target {
@@ -263,7 +277,7 @@ func (e *Engine) updateChannel(v *Entity) {
 			return
 		}
 	case "board":
-		if target == nil || target.HP <= 0 || target.LastPosition != target.Position || target.Owner != v.Owner || len(target.Passengers) >= int(e.capacity(target)) {
+		if !e.canBoard(v, target) || target.LastPosition != target.Position {
 			e.interruptChannel(v)
 			return
 		}
@@ -315,6 +329,9 @@ func (e *Engine) updateChannel(v *Entity) {
 		v.Orders = nil
 	case "board":
 		if target != nil && len(target.Passengers) < int(e.capacity(target)) {
+			if target.Owner == 0 {
+				target.Owner = v.Owner
+			}
 			target.Passengers = append(target.Passengers, v.ID)
 			v.Container = target.ID
 			v.Position = target.Position
@@ -345,16 +362,14 @@ func (e *Engine) updateChannel(v *Entity) {
 		}
 	case "transit":
 		if target != nil {
-			for _, id := range append([]ID(nil), v.Passengers...) {
+			exits, ok := e.passengerExits(target, v.Passengers, 2000)
+			if !ok {
+				e.interruptChannel(v)
+				return
+			}
+			for i, id := range append([]ID(nil), v.Passengers...) {
 				unit := e.entity(id)
-				if unit == nil {
-					continue
-				}
-				pos, ok := e.exitPosition(target, unit.Type, unit.ID, 2000)
-				if !ok {
-					e.interruptChannel(v)
-					return
-				}
+				pos := exits[i]
 				unit.Container = 0
 				unit.Position = pos
 				unit.Anchor = pos
@@ -442,6 +457,12 @@ func (e *Engine) unload(v *Entity, escape bool) {
 		}
 		v.Passengers = removeID(v.Passengers, id)
 	}
+	if v.MapObject != 0 && len(v.Passengers) == 0 {
+		v.Owner = 0
+	}
+}
+func (e *Engine) canBoard(passenger, target *Entity) bool {
+	return target != nil && target.HP > 0 && target.Complete && (target.Owner == passenger.Owner || target.Owner == 0 && e.role(target) == "garrison") && e.capacity(target) > int32(len(target.Passengers)) && e.armor(passenger) == "infantry" && passenger.TemporaryUntil == 0
 }
 func (e *Engine) releasePassengers(v *Entity) {
 	if len(v.Passengers) > 0 {

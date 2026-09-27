@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"sort"
+	"strings"
 )
 
 var orderKinds = map[string]bool{"ping": true, "move": true, "attack_move": true, "attack": true, "force_fire": true, "stop": true, "hold": true, "guard": true, "aggressive": true, "build": true, "resume": true, "train": true, "research": true, "cancel": true, "sell": true, "power": true, "rally": true, "gather": true, "salvage": true, "repair": true, "capture": true, "board": true, "unload": true, "return": true, "deploy": true, "pack": true, "ability": true, "surrender": true, "repair_reserve": true}
@@ -43,7 +44,7 @@ func (e *Engine) Submit(player PlayerID, sequence uint32, orders []Order) error 
 			return errors.New("selection_empty")
 		}
 		switch o.Kind {
-		case "move", "attack_move", "build", "force_fire", "rally", "guard", "aggressive", "ping":
+		case "move", "attack_move", "build", "force_fire", "rally", "guard", "aggressive", "ping", "unload":
 			if !e.state.Map.InBounds(o.Position) {
 				return errors.New("outside_map")
 			}
@@ -55,6 +56,14 @@ func (e *Engine) Submit(player PlayerID, sequence uint32, orders []Order) error 
 		}
 	}
 	// Copy client buffers and canonicalize selections for stable formation order.
+	if e.state.Tick-p.CommandWindow >= seconds(1) {
+		p.CommandWindow = e.state.Tick
+		p.CommandCount = 0
+	}
+	if p.CommandCount+uint32(len(orders)) > 160 {
+		return errors.New("command_rate_exceeded")
+	}
+	p.CommandCount += uint32(len(orders))
 	b, _ := json.Marshal(orders)
 	var copyOrders []Order
 	json.Unmarshal(b, &copyOrders)
@@ -84,10 +93,17 @@ func (e *Engine) executePending() {
 			continue
 		}
 		e.state.Log = append(e.state.Log, s)
+		e.state.LogOrders += uint32(len(s.Orders))
 		for i, o := range s.Orders {
 			code := e.execute(s.Player, o)
 			e.state.Results = append(e.state.Results, OrderResult{s.Player, s.Sequence, int32(i), code == "ok", code, e.state.Tick})
 		}
+	}
+	for e.state.LogOrders > 32768 && len(e.state.Log) > 0 {
+		e.state.LogOrders -= uint32(len(e.state.Log[0].Orders))
+		e.state.Log[0] = Scheduled{}
+		e.state.Log = e.state.Log[1:]
+		e.state.LogBase++
 	}
 }
 func (e *Engine) execute(player PlayerID, o Order) string {
@@ -169,7 +185,7 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 		}
 		return e.cancel(p, v, o.Index)
 	case "sell":
-		if !v.Building || !v.Complete {
+		if !v.Building || !v.Complete || v.MapObject != 0 {
 			return "completed_building_required"
 		}
 		v.Channel = "sell"
@@ -178,7 +194,7 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 		v.State = "selling"
 		return "ok"
 	case "power":
-		if !v.Building || !v.Complete {
+		if !v.Building || !v.Complete || v.MapObject != 0 {
 			return "completed_building_required"
 		}
 		v.Enabled = o.Index == 1
@@ -263,7 +279,7 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 			}
 		case "board":
 			target := e.entity(o.Target)
-			if target == nil || target.Owner != player || e.capacity(target) == 0 || len(target.Passengers) >= int(e.capacity(target)) || e.armor(v) != "infantry" || v.TemporaryUntil != 0 {
+			if !e.canBoard(v, target) || !e.canSeeEntity(player, target) {
 				return "invalid_transport"
 			}
 		case "unload":
@@ -297,6 +313,7 @@ func (e *Engine) assign(v *Entity, o Order) {
 	v.Channel = ""
 	v.ChannelUntil = 0
 	v.Path = nil
+	v.NextRouteAt = 0
 	v.PathResolved = false
 	v.PassUntil = 0
 	v.Target = 0
@@ -376,7 +393,7 @@ func (e *Engine) startBuilding(p *Player, rig *Entity, o Order) string {
 		return "rig_required"
 	}
 	b, ok := e.catalog.Building(o.Type)
-	if !ok || b.Faction != "" && b.Faction != p.Faction {
+	if !ok || strings.HasPrefix(o.Type, "map.") || b.Faction != "" && b.Faction != p.Faction {
 		return "unknown_building"
 	}
 	if !e.prerequisites(p, b.Prerequisites) {

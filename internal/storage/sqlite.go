@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"database/sql"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	_ "modernc.org/sqlite"
@@ -34,7 +35,7 @@ func Open(path string) (*SQLite, error) {
 		db.Close()
 		return nil, err
 	}
-	if schemaVersion > 3 {
+	if schemaVersion > 4 {
 		db.Close()
 		return nil, errors.New("database was created by a newer game version")
 	}
@@ -46,6 +47,10 @@ func Open(path string) (*SQLite, error) {
 		}
 	}
 	if err = s.initSocialSchema(); err != nil {
+		db.Close()
+		return nil, err
+	}
+	if err = s.initRatingSchema(); err != nil {
 		db.Close()
 		return nil, err
 	}
@@ -170,6 +175,13 @@ func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
 		return false, errors.New("invalid match result")
 	}
 	hash := digest(v.Payload)
+	if v.Rating != nil {
+		if v.Void {
+			return false, errors.New("void matches cannot change ratings")
+		}
+		data, _ := json.Marshal(v.Rating)
+		hash = digest(append(append([]byte(nil), v.Payload...), data...))
+	}
 	tx, err := s.db.BeginTx(ctx, nil)
 	if err != nil {
 		return false, err
@@ -193,6 +205,11 @@ func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
 	_, err = tx.ExecContext(ctx, "INSERT INTO results(id,payload,created,void,checksum) VALUES(?,?,?,?,?)", v.ID, v.Payload, v.Created, v.Void, hash)
 	if err != nil {
 		return false, err
+	}
+	if v.Rating != nil {
+		if err = commitRating(ctx, tx, v.ID, *v.Rating); err != nil {
+			return false, err
+		}
 	}
 	if _, err = tx.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, v.ID); err != nil {
 		return false, err

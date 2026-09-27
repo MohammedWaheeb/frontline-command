@@ -61,7 +61,7 @@ func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
 		v.Buffs = append(v.Buffs, Buff{"decoy", e.state.Tick + seconds(3), v.ID})
 		return "ok"
 	case "transfer":
-		if p.Faction != "SY" || e.role(v) != "safehouse" || target == nil || target.ID == v.ID || target.Owner != p.ID || e.role(target) != "safehouse" || !v.Active(e.state.Tick) || !target.Active(e.state.Tick) || len(v.Passengers) == 0 || !e.canSee(p.ID, target.Position) || (v.EverDamaged && e.state.Tick-v.LastDamage < seconds(5)) || (target.EverDamaged && e.state.Tick-target.LastDamage < seconds(5)) {
+		if p.Faction != "SY" || e.role(v) != "safehouse" || target == nil || target.ID == v.ID || target.Owner != p.ID || e.role(target) != "safehouse" || !v.Active(e.state.Tick) || !target.Active(e.state.Tick) || len(v.Passengers) == 0 || !e.canSee(p.ID, target.Position) || !e.transferQuiet(v) || !e.transferQuiet(target) {
 			return "invalid_transfer"
 		}
 		for _, house := range e.state.Entities {
@@ -74,9 +74,9 @@ func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
 			if unit == nil || unit.TemporaryUntil > 0 {
 				return "invalid_passenger"
 			}
-			if _, ok := e.exitPosition(target, unit.Type, unit.ID, 2000); !ok {
-				return "exit_blocked"
-			}
+		}
+		if _, ok := e.passengerExits(target, v.Passengers, 2000); !ok {
+			return "exit_blocked"
 		}
 		duration := e.transferDuration(p.ID)
 		e.beginChannel(v, "transit", target.ID, duration)
@@ -263,7 +263,7 @@ func (e *Engine) activateStrategic(p *Player, selection []*Entity, o Order) stri
 			if e.role(v) != "safehouse" || !v.Active(e.state.Tick) || e.state.Tick-v.Created < seconds(20) || !e.canSee(p.ID, v.Position) {
 				return "invalid_safehouse"
 			}
-			if _, ok := e.exitPosition(v, "SY.rifle", 0, 2000); !ok {
+			if _, ok := e.raidExits(v); !ok {
 				return "exit_blocked"
 			}
 		}
@@ -322,7 +322,8 @@ func (e *Engine) activateStrategic(p *Player, selection []*Entity, o Order) stri
 		}
 	case "SY":
 		for _, house := range selection {
-			e.state.Operations = append(e.state.Operations, Operation{Kind: "raid", Owner: p.ID, At: e.state.Tick + seconds(12), Source: house.ID, DamageAtStart: house.LastDamage, ReservedSupply: 4})
+			exits, _ := e.raidExits(house)
+			e.state.Operations = append(e.state.Operations, Operation{Kind: "raid", Owner: p.ID, At: e.state.Tick + seconds(12), Source: house.ID, Points: exits, DamageAtStart: house.LastDamage, ReservedSupply: 4})
 			e.emit("raid_warning", p.ID, house.ID, house.Position, "visible", int64(e.state.Tick+seconds(12)))
 		}
 	case "SA":
@@ -335,7 +336,7 @@ func (e *Engine) activateStrategic(p *Player, selection []*Entity, o Order) stri
 }
 func (e *Engine) updateSpecial() {
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || e.player(v.Owner).Defeated {
+		if v.Owner == 0 || v.HP <= 0 || e.defeated(v.Owner) {
 			continue
 		}
 		if v.DeployUntil > 0 && e.state.Tick >= v.DeployUntil {
@@ -446,11 +447,19 @@ func (e *Engine) updateSpecial() {
 				source.PublicRevealUntil = e.state.Tick + seconds(6)
 			}
 		case "raid":
-			for _, typ := range []string{"SY.rifle", "SY.at"} {
-				if pos, ok := e.exitPosition(source, typ, 0, 2000); ok {
-					unit := e.spawn(typ, op.Owner, pos, true, 0)
+			legal := len(op.Points) == 2
+			for _, point := range op.Points {
+				if !e.clear(point, 350, 0, false, true) {
+					legal = false
+				}
+			}
+			if legal {
+				for i, typ := range []string{"SY.rifle", "SY.at"} {
+					unit := e.spawn(typ, op.Owner, op.Points[i], true, 0)
 					unit.TemporaryUntil = e.state.Tick + seconds(45)
 				}
+			} else {
+				e.emit("raid_exit_blocked", op.Owner, source.ID, source.Position, "owner", 0)
 			}
 		case "skybreaker":
 			if distance(source.Position, op.Points[2]) > 1000 {

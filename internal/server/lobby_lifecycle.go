@@ -51,6 +51,18 @@ func (s *Server) leaveLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, "match_started", "Use Surrender to leave an active match.")
 		return
 	}
+	if l.Rated {
+		for _, slot := range l.Slots {
+			if slot.Profile == p.ID {
+				delete(s.lobbies, l.ID)
+				delete(s.queue, p.ID)
+				w.WriteHeader(204)
+				return
+			}
+		}
+		fail(w, 403, "not_in_lobby", "Join the lobby first.")
+		return
+	}
 	for i, v := range l.Slots {
 		if v.Profile == p.ID {
 			l.Slots = append(l.Slots[:i], l.Slots[i+1:]...)

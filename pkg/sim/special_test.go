@@ -165,3 +165,88 @@ func TestEndgameIndicatorsDoNotGrantFiringVision(t *testing.T) {
 		t.Fatal("indicator remained beyond five seconds")
 	}
 }
+
+func TestGroundedAircraftEmergencyLiftRetainsGroundLayer(t *testing.T) {
+	e := fixture(t)
+	home := e.spawn("US.airfield", 1, Vec{X: 18000, Y: 18000}, true, 2200000)
+	plane := e.spawn("US.strike", 1, home.Position, true, 1800000)
+	plane.Home = home.ID
+	plane.Landed = true
+	plane.Endurance = 2000
+	home.HP = 0
+	e.Advance()
+	position := plane.Position
+	if !plane.Landed || e.armor(plane) != "light" || plane.EmergencyTakeoffUntil == 0 {
+		t.Fatal("grounded aircraft skipped emergency takeoff")
+	}
+	ticks(e, 39)
+	if !plane.Landed || plane.Position != position || plane.Endurance != 1200 {
+		t.Fatal("aircraft moved or spent airborne endurance during emergency lift")
+	}
+	e.Advance()
+	if plane.Landed || plane.Endurance != 1199 {
+		t.Fatal("emergency lift did not complete after two seconds")
+	}
+}
+func TestAirliftUnloadsBeforeEnduranceReturnAndAtBase(t *testing.T) {
+	for _, water := range []bool{false, true} {
+		t.Run(map[bool]string{false: "local_drop", true: "return_with_passengers"}[water], func(t *testing.T) {
+			e := fixture(t)
+			home := e.spawn("US.airfield", 1, Vec{X: 20000, Y: 20000}, true, 2200000)
+			transport := e.spawn("US.airlift", 1, Vec{X: 36000, Y: 36000}, true, 1200000)
+			transport.Landed = false
+			transport.Home = home.ID
+			transport.Endurance = 601
+			passenger := e.spawn("US.rifle", 1, transport.Position, true, 300000)
+			passenger.Container = transport.ID
+			transport.Passengers = []ID{passenger.ID}
+			if water {
+				for y := int32(28); y < 44; y++ {
+					for x := int32(28); x < 44; x++ {
+						e.state.Map.Tiles[y*64+x].Terrain = "water"
+					}
+				}
+			}
+			e.Advance()
+			if water && transport.Orders[0].Kind != "return" {
+				t.Fatal("airlift chose an illegal local drop")
+			}
+			if !water && transport.Orders[0].Kind != "unload" {
+				t.Fatal("airlift did not schedule local emergency unload")
+			}
+			ticks(e, 590)
+			if passenger.Container != 0 || passenger.HP <= 0 || len(transport.Passengers) != 0 {
+				t.Fatal("passengers were not safely unloaded")
+			}
+			if !water && distance(passenger.Position, Vec{X: 36000, Y: 36000}) > 5000 {
+				t.Fatal("local emergency unload exceeded five tiles")
+			}
+		})
+	}
+}
+func TestPingsAreTeamOnlyAndBounded(t *testing.T) {
+	e := fixture(t)
+	issue(t, e, 1, Order{Kind: "ping", Position: Vec{X: 30000, Y: 30000}, Type: "danger"})
+	mine, _ := e.PlayerView(1)
+	enemy, _ := e.PlayerView(2)
+	count := 0
+	for _, event := range mine.Events {
+		if event.Kind == "tactical_ping" {
+			count++
+		}
+	}
+	if count != 1 {
+		t.Fatal("owner missing tactical ping")
+	}
+	for _, event := range enemy.Events {
+		if event.Kind == "tactical_ping" {
+			t.Fatal("enemy received private tactical ping")
+		}
+	}
+	for range 2 {
+		issue(t, e, 1, Order{Kind: "ping", Position: Vec{X: 30000, Y: 30000}})
+	}
+	if code := e.execute(1, Order{Kind: "ping", Position: Vec{X: 30000, Y: 30000}}); code != "ping_rate_exceeded" {
+		t.Fatal("unbounded pings")
+	}
+}

@@ -1288,6 +1288,7 @@ type Entity struct {
 	Private       *EntityPrivate         `protobuf:"bytes,15,opt,name=private,proto3" json:"private,omitempty"`
 	TurretFacing  int32                  `protobuf:"varint,16,opt,name=turret_facing,json=turretFacing,proto3" json:"turret_facing,omitempty"`
 	ChannelUntil  uint32                 `protobuf:"varint,17,opt,name=channel_until,json=channelUntil,proto3" json:"channel_until,omitempty"`
+	MapObject     uint32                 `protobuf:"varint,18,opt,name=map_object,json=mapObject,proto3" json:"map_object,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1437,6 +1438,13 @@ func (x *Entity) GetTurretFacing() int32 {
 func (x *Entity) GetChannelUntil() uint32 {
 	if x != nil {
 		return x.ChannelUntil
+	}
+	return 0
+}
+
+func (x *Entity) GetMapObject() uint32 {
+	if x != nil {
+		return x.MapObject
 	}
 	return 0
 }
@@ -2036,6 +2044,8 @@ type PlayerSnapshot struct {
 	Zones         []*Zone                `protobuf:"bytes,19,rep,name=zones,proto3" json:"zones,omitempty"`
 	Indicators    []*StructureIndicator  `protobuf:"bytes,20,rep,name=indicators,proto3" json:"indicators,omitempty"`
 	Mission       *MissionProgress       `protobuf:"bytes,21,opt,name=mission,proto3" json:"mission,omitempty"`
+	Rubble        []uint32               `protobuf:"varint,22,rep,packed,name=rubble,proto3" json:"rubble,omitempty"`
+	Warnings      []*OperationWarning    `protobuf:"bytes,23,rep,name=warnings,proto3" json:"warnings,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2213,6 +2223,20 @@ func (x *PlayerSnapshot) GetIndicators() []*StructureIndicator {
 func (x *PlayerSnapshot) GetMission() *MissionProgress {
 	if x != nil {
 		return x.Mission
+	}
+	return nil
+}
+
+func (x *PlayerSnapshot) GetRubble() []uint32 {
+	if x != nil {
+		return x.Rubble
+	}
+	return nil
+}
+
+func (x *PlayerSnapshot) GetWarnings() []*OperationWarning {
+	if x != nil {
+		return x.Warnings
 	}
 	return nil
 }
@@ -2735,6 +2759,90 @@ func (x *MissionProgress) GetObjectives() []*ObjectiveProgress {
 	return nil
 }
 
+type OperationWarning struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Kind          string                 `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
+	Owner         uint32                 `protobuf:"varint,2,opt,name=owner,proto3" json:"owner,omitempty"`
+	Position      *Vec                   `protobuf:"bytes,3,opt,name=position,proto3" json:"position,omitempty"`
+	At            uint32                 `protobuf:"varint,4,opt,name=at,proto3" json:"at,omitempty"`
+	Source        uint32                 `protobuf:"varint,5,opt,name=source,proto3" json:"source,omitempty"`
+	Exits         []*Vec                 `protobuf:"bytes,6,rep,name=exits,proto3" json:"exits,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OperationWarning) Reset() {
+	*x = OperationWarning{}
+	mi := &file_protocol_frontline_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OperationWarning) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OperationWarning) ProtoMessage() {}
+
+func (x *OperationWarning) ProtoReflect() protoreflect.Message {
+	mi := &file_protocol_frontline_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OperationWarning.ProtoReflect.Descriptor instead.
+func (*OperationWarning) Descriptor() ([]byte, []int) {
+	return file_protocol_frontline_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *OperationWarning) GetKind() string {
+	if x != nil {
+		return x.Kind
+	}
+	return ""
+}
+
+func (x *OperationWarning) GetOwner() uint32 {
+	if x != nil {
+		return x.Owner
+	}
+	return 0
+}
+
+func (x *OperationWarning) GetPosition() *Vec {
+	if x != nil {
+		return x.Position
+	}
+	return nil
+}
+
+func (x *OperationWarning) GetAt() uint32 {
+	if x != nil {
+		return x.At
+	}
+	return 0
+}
+
+func (x *OperationWarning) GetSource() uint32 {
+	if x != nil {
+		return x.Source
+	}
+	return 0
+}
+
+func (x *OperationWarning) GetExits() []*Vec {
+	if x != nil {
+		return x.Exits
+	}
+	return nil
+}
+
 var File_protocol_frontline_proto protoreflect.FileDescriptor
 
 const file_protocol_frontline_proto_rawDesc = "" +
@@ -2849,7 +2957,7 @@ const file_protocol_frontline_proto_rawDesc = "" +
 	"\n" +
 	"passengers\x18\x0f \x03(\rR\n" +
 	"passengers\x12\x1c\n" +
-	"\tcontainer\x18\x10 \x01(\rR\tcontainer\"\xf0\x03\n" +
+	"\tcontainer\x18\x10 \x01(\rR\tcontainer\"\x8f\x04\n" +
 	"\x06Entity\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x14\n" +
@@ -2868,7 +2976,9 @@ const file_protocol_frontline_proto_rawDesc = "" +
 	"\x04rank\x18\x0e \x01(\rR\x04rank\x125\n" +
 	"\aprivate\x18\x0f \x01(\v2\x1b.frontline.v1.EntityPrivateR\aprivate\x12#\n" +
 	"\rturret_facing\x18\x10 \x01(\x05R\fturretFacing\x12#\n" +
-	"\rchannel_until\x18\x11 \x01(\rR\fchannelUntil\"\xc9\x01\n" +
+	"\rchannel_until\x18\x11 \x01(\rR\fchannelUntil\x12\x1d\n" +
+	"\n" +
+	"map_object\x18\x12 \x01(\rR\tmapObject\"\xc9\x01\n" +
 	"\rPlayerSummary\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
@@ -2916,7 +3026,7 @@ const file_protocol_frontline_proto_rawDesc = "" +
 	"\x04draw\x18\x02 \x01(\bR\x04draw\x12!\n" +
 	"\fwinning_team\x18\x03 \x01(\rR\vwinningTeam\x12\x16\n" +
 	"\x06reason\x18\x04 \x01(\tR\x06reason\x12\x12\n" +
-	"\x04tick\x18\x05 \x01(\rR\x04tick\"\xba\a\n" +
+	"\x04tick\x18\x05 \x01(\rR\x04tick\"\x8e\b\n" +
 	"\x0ePlayerSnapshot\x122\n" +
 	"\bmetadata\x18\x01 \x01(\v2\x16.frontline.v1.MetadataR\bmetadata\x12\x12\n" +
 	"\x04tick\x18\x02 \x01(\rR\x04tick\x12\x1c\n" +
@@ -2942,7 +3052,9 @@ const file_protocol_frontline_proto_rawDesc = "" +
 	"\n" +
 	"indicators\x18\x14 \x03(\v2 .frontline.v1.StructureIndicatorR\n" +
 	"indicators\x127\n" +
-	"\amission\x18\x15 \x01(\v2\x1d.frontline.v1.MissionProgressR\amission\"\x90\x01\n" +
+	"\amission\x18\x15 \x01(\v2\x1d.frontline.v1.MissionProgressR\amission\x12\x16\n" +
+	"\x06rubble\x18\x16 \x03(\rR\x06rubble\x12:\n" +
+	"\bwarnings\x18\x17 \x03(\v2\x1e.frontline.v1.OperationWarningR\bwarnings\"\x90\x01\n" +
 	"\n" +
 	"StateDelta\x12#\n" +
 	"\rbaseline_tick\x18\x01 \x01(\rR\fbaselineTick\x122\n" +
@@ -2989,7 +3101,14 @@ const file_protocol_frontline_proto_rawDesc = "" +
 	"\x0fcheckpoint_tick\x18\x05 \x01(\rR\x0echeckpointTick\x12?\n" +
 	"\n" +
 	"objectives\x18\x06 \x03(\v2\x1f.frontline.v1.ObjectiveProgressR\n" +
-	"objectivesB$Z\"frontlinecommand/protocol;protocolb\x06proto3"
+	"objectives\"\xbc\x01\n" +
+	"\x10OperationWarning\x12\x12\n" +
+	"\x04kind\x18\x01 \x01(\tR\x04kind\x12\x14\n" +
+	"\x05owner\x18\x02 \x01(\rR\x05owner\x12-\n" +
+	"\bposition\x18\x03 \x01(\v2\x11.frontline.v1.VecR\bposition\x12\x0e\n" +
+	"\x02at\x18\x04 \x01(\rR\x02at\x12\x16\n" +
+	"\x06source\x18\x05 \x01(\rR\x06source\x12'\n" +
+	"\x05exits\x18\x06 \x03(\v2\x11.frontline.v1.VecR\x05exitsB$Z\"frontlinecommand/protocol;protocolb\x06proto3"
 
 var (
 	file_protocol_frontline_proto_rawDescOnce sync.Once
@@ -3003,7 +3122,7 @@ func file_protocol_frontline_proto_rawDescGZIP() []byte {
 	return file_protocol_frontline_proto_rawDescData
 }
 
-var file_protocol_frontline_proto_msgTypes = make([]protoimpl.MessageInfo, 30)
+var file_protocol_frontline_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
 var file_protocol_frontline_proto_goTypes = []any{
 	(*Envelope)(nil),           // 0: frontline.v1.Envelope
 	(*ClientHello)(nil),        // 1: frontline.v1.ClientHello
@@ -3035,6 +3154,7 @@ var file_protocol_frontline_proto_goTypes = []any{
 	(*StructureIndicator)(nil), // 27: frontline.v1.StructureIndicator
 	(*ObjectiveProgress)(nil),  // 28: frontline.v1.ObjectiveProgress
 	(*MissionProgress)(nil),    // 29: frontline.v1.MissionProgress
+	(*OperationWarning)(nil),   // 30: frontline.v1.OperationWarning
 }
 var file_protocol_frontline_proto_depIdxs = []int32{
 	1,  // 0: frontline.v1.Envelope.hello:type_name -> frontline.v1.ClientHello
@@ -3078,17 +3198,20 @@ var file_protocol_frontline_proto_depIdxs = []int32{
 	26, // 38: frontline.v1.PlayerSnapshot.zones:type_name -> frontline.v1.Zone
 	27, // 39: frontline.v1.PlayerSnapshot.indicators:type_name -> frontline.v1.StructureIndicator
 	29, // 40: frontline.v1.PlayerSnapshot.mission:type_name -> frontline.v1.MissionProgress
-	22, // 41: frontline.v1.StateDelta.state:type_name -> frontline.v1.PlayerSnapshot
-	21, // 42: frontline.v1.MatchResult.outcome:type_name -> frontline.v1.Outcome
-	5,  // 43: frontline.v1.Salvage.position:type_name -> frontline.v1.Vec
-	5,  // 44: frontline.v1.Zone.position:type_name -> frontline.v1.Vec
-	5,  // 45: frontline.v1.StructureIndicator.position:type_name -> frontline.v1.Vec
-	28, // 46: frontline.v1.MissionProgress.objectives:type_name -> frontline.v1.ObjectiveProgress
-	47, // [47:47] is the sub-list for method output_type
-	47, // [47:47] is the sub-list for method input_type
-	47, // [47:47] is the sub-list for extension type_name
-	47, // [47:47] is the sub-list for extension extendee
-	0,  // [0:47] is the sub-list for field type_name
+	30, // 41: frontline.v1.PlayerSnapshot.warnings:type_name -> frontline.v1.OperationWarning
+	22, // 42: frontline.v1.StateDelta.state:type_name -> frontline.v1.PlayerSnapshot
+	21, // 43: frontline.v1.MatchResult.outcome:type_name -> frontline.v1.Outcome
+	5,  // 44: frontline.v1.Salvage.position:type_name -> frontline.v1.Vec
+	5,  // 45: frontline.v1.Zone.position:type_name -> frontline.v1.Vec
+	5,  // 46: frontline.v1.StructureIndicator.position:type_name -> frontline.v1.Vec
+	28, // 47: frontline.v1.MissionProgress.objectives:type_name -> frontline.v1.ObjectiveProgress
+	5,  // 48: frontline.v1.OperationWarning.position:type_name -> frontline.v1.Vec
+	5,  // 49: frontline.v1.OperationWarning.exits:type_name -> frontline.v1.Vec
+	50, // [50:50] is the sub-list for method output_type
+	50, // [50:50] is the sub-list for method input_type
+	50, // [50:50] is the sub-list for extension type_name
+	50, // [50:50] is the sub-list for extension extendee
+	0,  // [0:50] is the sub-list for field type_name
 }
 
 func init() { file_protocol_frontline_proto_init() }
@@ -3113,7 +3236,7 @@ func file_protocol_frontline_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protocol_frontline_proto_rawDesc), len(file_protocol_frontline_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   30,
+			NumMessages:   31,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

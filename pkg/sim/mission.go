@@ -48,7 +48,13 @@ func NewMission(c *content.Catalog, m content.Map, definition content.Mission, d
 	json.Unmarshal(b, &def)
 	e.state.Mission = &MissionState{Definition: def, Difficulty: difficulty, Checkpoint: "opening", CheckpointTick: 0}
 	if !def.DefaultBases {
-		e.state.Entities = nil
+		objects := e.state.Entities[:0]
+		for _, v := range e.state.Entities {
+			if v.MapObject != 0 {
+				objects = append(objects, v)
+			}
+		}
+		e.state.Entities = objects
 		e.state.NavigationRevision++
 	}
 	for _, p := range def.Players {
@@ -107,10 +113,25 @@ func (e *Engine) scenarioPositions(s content.MissionSpawn) ([]Vec, bool) {
 				}
 				if !isUnit {
 					b, _ := e.catalog.Building(s.Type)
+					if !e.scenarioFootprint(pos, b.Width, b.Height) {
+						continue
+					}
+					for _, previous := range positions {
+						if rectOverlap(pos, b.Width, b.Height, previous, b.Width, b.Height) {
+							overlap = true
+						}
+					}
 					for _, v := range e.state.Entities {
 						if v.Building && v.HP > 0 {
 							other, _ := e.catalog.Building(v.Type)
 							if rectOverlap(pos, b.Width, b.Height, v.Position, other.Width, other.Height) {
+								overlap = true
+							}
+						}
+						if !v.Building && v.HP > 0 && v.Container == 0 && (!e.isAircraft(v) || v.Landed) {
+							dx, dy := max(int32(0), abs(v.Position.X-pos.X)-b.Width*500), max(int32(0), abs(v.Position.Y-pos.Y)-b.Height*500)
+							r := e.radius(v)
+							if int64(dx)*int64(dx)+int64(dy)*int64(dy) < int64(r)*int64(r) {
 								overlap = true
 							}
 						}
@@ -129,6 +150,21 @@ func (e *Engine) scenarioPositions(s content.MissionSpawn) ([]Vec, bool) {
 		}
 	}
 	return positions, true
+}
+func (e *Engine) scenarioFootprint(pos Vec, width, height int32) bool {
+	left, top, right, bottom := pos.X-width*500, pos.Y-height*500, pos.X+width*500, pos.Y+height*500
+	if left < 0 || top < 0 || right > e.state.Map.Width*1000 || bottom > e.state.Map.Height*1000 {
+		return false
+	}
+	for y := top / 1000; y <= (bottom-1)/1000; y++ {
+		for x := left / 1000; x <= (right-1)/1000; x++ {
+			tile := e.state.Map.Tiles[y*e.state.Map.Width+x]
+			if !tile.Passable() || tile.Mandatory {
+				return false
+			}
+		}
+	}
+	return true
 }
 func (e *Engine) spawnScenario(s content.MissionSpawn) bool {
 	p := e.player(PlayerID(s.Owner))

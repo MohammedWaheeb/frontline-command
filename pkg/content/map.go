@@ -42,21 +42,22 @@ type Region struct {
 	Max Point  `json:"max"`
 }
 type Map struct {
-	ID            string    `json:"id"`
-	Title         string    `json:"title"`
-	Author        string    `json:"author"`
-	Version       string    `json:"version"`
-	FormatVersion uint32    `json:"format_version"`
-	Ruleset       string    `json:"ruleset"`
-	Width         int32     `json:"width"`
-	Height        int32     `json:"height"`
-	Tiles         []Tile    `json:"tiles"`
-	Spawns        []Spawn   `json:"spawns"`
-	Fields        []Field   `json:"fields"`
-	Stations      []Station `json:"stations"`
-	Shipment      Point     `json:"shipment"`
-	Regions       []Region  `json:"regions,omitempty"`
-	RequiredPacks []string  `json:"required_packs"`
+	ID            string      `json:"id"`
+	Title         string      `json:"title"`
+	Author        string      `json:"author"`
+	Version       string      `json:"version"`
+	FormatVersion uint32      `json:"format_version"`
+	Ruleset       string      `json:"ruleset"`
+	Width         int32       `json:"width"`
+	Height        int32       `json:"height"`
+	Tiles         []Tile      `json:"tiles"`
+	Spawns        []Spawn     `json:"spawns"`
+	Fields        []Field     `json:"fields"`
+	Stations      []Station   `json:"stations"`
+	Shipment      Point       `json:"shipment"`
+	Regions       []Region    `json:"regions,omitempty"`
+	Objects       []MapObject `json:"objects,omitempty"`
+	RequiredPacks []string    `json:"required_packs"`
 }
 
 func (m Map) InBounds(p Point) bool {
@@ -90,7 +91,7 @@ func (m Map) Validate() error {
 	if m.Width < 32 || m.Height < 32 || m.Width > 256 || m.Height > 256 || len(m.Tiles) != int(m.Width*m.Height) {
 		return fmt.Errorf("map dimensions must be 32–256 and match tile count")
 	}
-	if len(m.Spawns) < 1 || len(m.Spawns) > 4 || len(m.Fields) > 128 || len(m.Stations) > 32 || len(m.Regions) > 128 {
+	if len(m.Spawns) < 1 || len(m.Spawns) > 4 || len(m.Fields) > 128 || len(m.Stations) > 32 || len(m.Regions) > 128 || len(m.Objects) > 512 {
 		return fmt.Errorf("map object limits exceeded")
 	}
 	for i, t := range m.Tiles {
@@ -103,7 +104,24 @@ func (m Map) Validate() error {
 			return fmt.Errorf("tile %d invalid height/corridor", i)
 		}
 	}
-	validPoint := func(p Point) bool { return m.InBounds(p) && m.TileAt(p).Passable() }
+	blocked := map[int]bool{}
+	objectIDs := map[uint32]bool{}
+	for _, object := range m.Objects {
+		c, ok := ObjectRule(object.Class)
+		if !ok || object.ID == 0 || objectIDs[object.ID] || object.Position.X%1000 != c.Width%2*500 || object.Position.Y%1000 != c.Height%2*500 || object.Position.X-c.Width*500 < 0 || object.Position.Y-c.Height*500 < 0 || object.Position.X+c.Width*500 > m.Width*1000 || object.Position.Y+c.Height*500 > m.Height*1000 {
+			return fmt.Errorf("invalid map object %d", object.ID)
+		}
+		objectIDs[object.ID] = true
+		for _, i := range object.TileIndices(m.Width) {
+			if blocked[i] || !m.Tiles[i].Passable() || m.Tiles[i].Mandatory {
+				return fmt.Errorf("blocked or overlapping object %d", object.ID)
+			}
+			blocked[i] = true
+		}
+	}
+	validPoint := func(p Point) bool {
+		return m.InBounds(p) && m.TileAt(p).Passable() && !blocked[int(p.Y/1000*m.Width+p.X/1000)]
+	}
 	if !validPoint(m.Shipment) || m.TileAt(m.Shipment).Mandatory {
 		return fmt.Errorf("shipment site must be accessible outside mandatory corridors")
 	}
@@ -163,7 +181,7 @@ func (m Map) Validate() error {
 				continue
 			}
 			j := int(ny*m.Width + nx)
-			if !seen[j] && m.Tiles[j].Passable() {
+			if !seen[j] && m.Tiles[j].Passable() && !blocked[j] {
 				seen[j] = true
 				q = append(q, j)
 			}

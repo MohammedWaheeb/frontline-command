@@ -161,6 +161,11 @@ func (c *Catalog) Unit(id string) (Unit, bool) {
 }
 func (c *Catalog) Weapon(id string) (Weapon, bool) { v, ok := c.weapons[id]; return v, ok }
 func (c *Catalog) Building(id string) (Building, bool) {
+	if strings.HasPrefix(id, "map.") {
+		if object, ok := ObjectRule(strings.TrimPrefix(id, "map.")); ok {
+			return Building{ID: id, Name: object.ID, Role: object.ID, HP: object.HP, Width: object.Width, Height: object.Height, BuildTicks: 1}, true
+		}
+	}
 	v, ok := c.buildings[id]
 	v.Prerequisites = append([]string(nil), v.Prerequisites...)
 	return v, ok

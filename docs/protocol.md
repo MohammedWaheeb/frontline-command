@@ -41,7 +41,15 @@ not contain target IDs and never supply firing vision. Hidden mission trigger
 conditions and future reinforcements are never included in objective views.
 `ping` is a recorded order with no entity selection, a position, and an optional
 `type` of `attack`, `defend`, `assist`, or `danger`. Pings are team-only and limited
-to three per five simulation seconds.
+to three per five simulation seconds. `warnings` retains active strategic
+airstrike warnings, visible raid preparation with marked exits, and the owner's
+pending second volley across reconnects. Public airstrike warnings omit source
+IDs and hidden flight positions. Raid details require current vision.
+
+`Entity.map_object` identifies a static map object. `PlayerSnapshot.rubble`
+contains only the destroyed map-object IDs that player has observed. This is
+also persisted in offline saves; do not infer unseen destruction from global
+state or a hidden entity's absence.
 
 Claude must regenerate the TypeScript bindings from the current schema after
 resuming the runtime assignment. Codex must not edit browser bindings or adapters.
