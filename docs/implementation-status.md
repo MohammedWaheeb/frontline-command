@@ -11,7 +11,9 @@ Last updated: 2026-09-27. No finished-game claim is made.
   model only; do not use another author/model for any frontend/assets.
 - Assignment 01 session: `0e069b60-b079-4236-b1c3-1b2f282f32dc`; partial original
   Blender sprite sources/renders and concept tooling exist. Review incomplete.
-- Assignment 02 session: `380d9ca3-cd86-4f8b-9925-0a8beb753320`; partial browser
+- Assignment 02 was handed to Codex for nonvisual integration after explicit
+  user authorization. Do not resume Claude edits to these paths concurrently.
+  Original session: `380d9ca3-cd86-4f8b-9925-0a8beb753320`; partial browser
   runtime/WASM work exists. Review incomplete. No finished frontend assignment.
 - Logs: `work/claude/01-stream.jsonl`, `02-stream.jsonl`. Both reported only
   `claude-opus-5-5`. Keep credentials out of evidence and screenshots.
@@ -62,7 +64,8 @@ until actually performed. Track exact unresolved items here after each stage.
 
 - Browser UI and map editor not integrated; no shipping map/mission accepted.
 - Art/concepts/runtime assignments interrupted by Claude session quota.
-- Native/WASM parity and browser acceptance pending.
+- Native/WASM runtime parity is now verified in three Playwright browsers;
+  rendered game journeys, mission acceptance and visual QA remain pending.
 - Navigation needs choke/producer/transport/stress tests and further recovery
   work; production goals must not induce permanent oscillation.
 - Queued transport behavior, emergency unloading, strategic-operation edge
@@ -162,3 +165,28 @@ Targeted tests passed for unanimous votes, cancellation, saved/replayed votes,
 individual surrender isolation, native actor tick freeze, resume on disconnect,
 ranked denial, and private teammate reconnect timers. Browser controls remain
 unimplemented until Claude's next runtime/UI pass.
+
+
+## Browser runtime integration — 2026-09-27
+
+The user authorized Codex to handle nonvisual browser utilities/adapters/tests
+while Claude is limited. UI, rendering and all visual/audio/content-authoring
+work remain with exact-model Claude. The initial Go adapter is Claude-authored;
+Codex added current mission/controller support and the browser integration.
+
+`npm --prefix client run test:runtime` passed seven tests for delta privacy,
+protobuf integer preservation, sequence continuity, save/settings conflicts,
+three rotating autosaves and byte-preserving export/import.
+`npm --prefix client run test:browser` passed in installed Chromium, Firefox and
+WebKit. Identical native/WASM commands produced identical state hashes. Actual
+workers, worker isolation, corrupt-save rejection, IndexedDB save/restore,
+export/import, exact-byte server synchronization, two browser contexts, private
+perspectives, rejected enemy commands, reconnect and committed match results
+were exercised. See `work/evidence/runtime/browser-results.json` for versions and
+hashes. Browser plugin was unavailable; the testing skill's Playwright fallback
+was used. No product UI or visual acceptance is implied by the test host.
+
+A raw authenticated save-download endpoint prevents JavaScript parsing from
+rounding uint64 RNG/seed state. Upload utilities preserve the original JSON
+integer tokens. Replays, complete offline caching, editor utilities, packaging
+and the rest of the handoff continue to be implemented.

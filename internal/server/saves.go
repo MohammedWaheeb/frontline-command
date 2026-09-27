@@ -5,6 +5,7 @@ import (
 	"frontlinecommand/internal/storage"
 	"frontlinecommand/pkg/sim"
 	"net/http"
+	"strconv"
 )
 
 func (s *Server) listSaves(w http.ResponseWriter, r *http.Request) {
@@ -71,4 +72,22 @@ func (s *Server) deleteSave(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(204)
+}
+
+// Download preserves uint64 random state and the exact checksummed JSON bytes.
+// Parsing/re-stringifying an engine save in JavaScript can round those values.
+func (s *Server) downloadSave(w http.ResponseWriter, r *http.Request) {
+	p, ok := s.authenticate(w, r)
+	if !ok {
+		return
+	}
+	v, err := s.repo.GetSave(r.Context(), p.ID, r.PathValue("id"))
+	if err != nil {
+		fail(w, 404, "save_missing", "This save is unavailable for this profile.")
+		return
+	}
+	w.Header().Set("Content-Type", "application/vnd.frontline.save+json")
+	w.Header().Set("Content-Disposition", `attachment; filename="`+v.ID+`.frontline-save.json"`)
+	w.Header().Set("X-Save-Revision", strconv.FormatInt(v.Revision, 10))
+	w.Write(v.Data)
 }

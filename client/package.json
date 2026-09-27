@@ -1,0 +1,25 @@
+{
+  "name": "frontline-command-client",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local Frontline Command browser integration and Claude-authored client",
+  "type": "module",
+  "scripts": {
+    "runtime:build": "node scripts/runtime/build.mjs",
+    "gen:proto": "node scripts/runtime/gen-proto.mjs",
+    "typecheck": "tsc -p tests/runtime/tsconfig.json --noEmit",
+    "test:runtime": "node scripts/runtime/test.mjs",
+    "test:browser": "node scripts/runtime/browser-test.mjs"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "2.15.0"
+  },
+  "devDependencies": {
+    "@bufbuild/protoc-gen-es": "2.15.0",
+    "@types/node": "26.6.3",
+    "esbuild": "0.28.2",
+    "fake-indexeddb": "6.2.5",
+    "playwright-core": "1.62.1",
+    "typescript": "7.0.2"
+  }
+}

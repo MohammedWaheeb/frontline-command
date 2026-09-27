@@ -290,6 +290,7 @@ func (s *Server) routes() {
 	s.mux.HandleFunc("GET /api/v1/matches/{id}/observer", s.readObserver)
 	s.mux.HandleFunc("GET /api/v1/saves", s.listSaves)
 	s.mux.HandleFunc("GET /api/v1/saves/{id}", s.getSave)
+	s.mux.HandleFunc("GET /api/v1/saves/{id}/download", s.downloadSave)
 	s.mux.HandleFunc("POST /api/v1/saves/{id}/coop-lobby", s.resumeScenarioLobby)
 	s.mux.HandleFunc("PUT /api/v1/saves/{id}", s.putSave)
 	s.mux.HandleFunc("DELETE /api/v1/saves/{id}", s.deleteSave)

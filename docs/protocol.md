@@ -5,7 +5,7 @@ Versions are compatibility identifiers, not release-completion claims.
 
 HTTP prefix `/api/v1`, JSON requests/responses. Match traffic uses binary
 Protocol Buffers WebSocket envelopes. `protocol/frontline.proto` is authoritative.
-TypeScript bindings belong to Claude. No client may send authoritative balances,
+Nonvisual TypeScript bindings/runtime may be maintained by Codex under the user’s 2026-09-27 update. No client may send authoritative balances,
 damage, health, outcomes or execution ticks. The server assigns the next tick.
 
 Use integer millitiles (1000 = one tile), milli-HP and milli-credits (1000 = one
@@ -53,8 +53,7 @@ contains only the destroyed map-object IDs that player has observed. This is
 also persisted in offline saves; do not infer unseen destruction from global
 state or a hidden entity's absence.
 
-Claude must regenerate the TypeScript bindings from the current schema after
-resuming the runtime assignment. Codex must not edit browser bindings or adapters.
+Regenerate TypeScript bindings from the current schema; do not hand-maintain wire definitions.
 
 ## Shared pause and teammate reconnect state
 
@@ -81,4 +80,4 @@ votes persist in saves/replays, are visible only to teammates in
 `PlayerSummary.surrender_vote`, and require every active human teammate.
 Computer allies follow that unanimous human team decision. Already eliminated
 players do not block it. Votes resolve after all orders for the same tick.
-Claude must regenerate the TypeScript bindings after this schema change.
+The runtime build regenerates TypeScript bindings after schema changes.

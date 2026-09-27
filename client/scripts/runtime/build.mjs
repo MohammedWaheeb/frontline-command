@@ -1,0 +1,17 @@
+import './gen-proto.mjs';
+import {execFileSync} from 'node:child_process';
+import {copyFile,mkdir,writeFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+import {build} from 'esbuild';
+const client=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),root=path.dirname(client);
+const out=path.join(client,'public/runtime');
+await mkdir(out,{recursive:true});await mkdir(path.join(root,'bin'),{recursive:true});
+const goroot=execFileSync('go',['env','GOROOT'],{cwd:root,encoding:'utf8'}).trim();
+execFileSync('go',['build','-trimpath','-o',path.join(out,'frontline.wasm'),'./cmd/wasm'],{cwd:root,stdio:'inherit',env:{...process.env,GOOS:'js',GOARCH:'wasm'}});
+execFileSync('go',['build','-trimpath','-o',path.join(root,'bin/runtime-native'),'./cmd/wasm'],{cwd:root,stdio:'inherit'});
+await copyFile(path.join(goroot,'lib/wasm/wasm_exec.js'),path.join(out,'wasm_exec.js'));
+const version=JSON.parse(execFileSync(path.join(root,'bin/runtime-native'),['-version'],{encoding:'utf8'}));
+await writeFile(path.join(out,'version.json'),JSON.stringify(version,null,2)+'\n');
+await build({entryPoints:[path.join(client,'src/runtime/worker.ts')],outfile:path.join(out,'worker.js'),bundle:true,format:'iife',platform:'browser',target:'es2022',sourcemap:true});
+console.log('Built actual Go browser worker and generated protocol bindings.');

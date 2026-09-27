@@ -5,9 +5,10 @@ Implementation in progress. **This is not yet a playable or completed release.**
 The authoritative rules are in [the game design](outputs/frontline-command-game-design.md).
 The approved implementation scope is in [the handoff](outputs/frontline-command-agent-handoff.md).
 
-Go owns the deterministic simulation and local services. The browser client and
-all assets are authored exclusively through Claude Code CLI, exact model
-`claude-opus-5-5`. No cloud service will be required to play locally.
+Go owns the deterministic simulation and local services. UI, rendering and
+all assets are authored through Claude Code CLI, exact model `claude-opus-5-5`.
+The user also authorizes Codex to build nonvisual browser utilities and runtime
+integration while Claude is limited. No cloud service will be required to play locally.
 
 See [implementation status](docs/implementation-status.md),
 [architecture](docs/architecture.md), and [protocol](docs/protocol.md).

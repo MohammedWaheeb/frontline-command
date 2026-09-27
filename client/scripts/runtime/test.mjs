@@ -1,0 +1,10 @@
+import {build} from 'esbuild';
+import {readdir,mkdir} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const client=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+const entries=(await readdir(path.join(client,'tests/runtime'))).filter(n=>n.endsWith('.test.ts')).map(n=>path.join(client,'tests/runtime',n));
+const output=path.join(client,'.test-runtime');await mkdir(output,{recursive:true});
+await build({entryPoints:entries,outdir:output,outExtension:{'.js':'.mjs'},bundle:true,platform:'node',format:'esm',target:'node24',packages:'external'});
+execFileSync(process.execPath,['--test',...entries.map(n=>path.join(output,path.basename(n,'.ts')+'.mjs'))],{cwd:client,stdio:'inherit'});
