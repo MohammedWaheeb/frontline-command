@@ -38,7 +38,6 @@ func (s *SQLite) PairAllowed(ctx context.Context, a, b string) (bool, error) {
 func (s *SQLite) initRatingSchema() error {
 	for _, stmt := range []string{
 		`CREATE TABLE IF NOT EXISTS rating_events(match_id TEXT NOT NULL REFERENCES results(id),owner TEXT NOT NULL REFERENCES profiles(id),before_rating INTEGER NOT NULL,after_rating INTEGER NOT NULL,delta INTEGER NOT NULL,PRIMARY KEY(match_id,owner))`,
-		`PRAGMA user_version=4`,
 	} {
 		if _, err := s.db.Exec(stmt); err != nil {
 			return err

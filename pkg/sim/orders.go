@@ -3,11 +3,12 @@ package sim
 import (
 	"encoding/json"
 	"errors"
+	"frontlinecommand/pkg/content"
 	"sort"
 	"strings"
 )
 
-var orderKinds = map[string]bool{"ping": true, "move": true, "attack_move": true, "attack": true, "force_fire": true, "stop": true, "hold": true, "guard": true, "aggressive": true, "build": true, "resume": true, "train": true, "research": true, "cancel": true, "sell": true, "power": true, "rally": true, "gather": true, "salvage": true, "repair": true, "capture": true, "board": true, "unload": true, "return": true, "deploy": true, "pack": true, "ability": true, "surrender": true, "surrender_vote": true, "surrender_cancel": true, "repair_reserve": true}
+var orderKinds = map[string]bool{"convoy_hold": true, "convoy_advance": true, "practice_spawn": true, "practice_remove": true, "practice_restore": true, "practice_resources": true, "practice_fog": true, "patrol": true, "escort": true, "repeat_sortie": true, "ping": true, "move": true, "attack_move": true, "attack": true, "force_fire": true, "stop": true, "hold": true, "guard": true, "aggressive": true, "build": true, "resume": true, "train": true, "research": true, "cancel": true, "sell": true, "power": true, "rally": true, "gather": true, "salvage": true, "repair": true, "capture": true, "board": true, "unload": true, "return": true, "deploy": true, "pack": true, "ability": true, "surrender": true, "surrender_vote": true, "surrender_cancel": true, "repair_reserve": true}
 
 // Submit only schedules intentions. Spending, targeting and prerequisites are
 // revalidated at execution; receipts never imply that gameplay already happened.
@@ -40,11 +41,11 @@ func (e *Engine) Submit(player PlayerID, sequence uint32, orders []Order) error 
 			}
 			seen[id] = true
 		}
-		if o.Kind != "surrender" && o.Kind != "surrender_vote" && o.Kind != "surrender_cancel" && o.Kind != "repair_reserve" && o.Kind != "ping" && len(o.Entities) == 0 {
+		if o.Kind != "surrender" && o.Kind != "surrender_vote" && o.Kind != "surrender_cancel" && o.Kind != "repair_reserve" && o.Kind != "ping" && o.Kind != "convoy_hold" && o.Kind != "convoy_advance" && !strings.HasPrefix(o.Kind, "practice_") && len(o.Entities) == 0 {
 			return errors.New("selection_empty")
 		}
 		switch o.Kind {
-		case "move", "attack_move", "build", "force_fire", "rally", "guard", "aggressive", "ping", "unload":
+		case "move", "attack_move", "patrol", "build", "force_fire", "rally", "guard", "aggressive", "ping", "unload":
 			if !e.state.Map.InBounds(o.Position) {
 				return errors.New("outside_map")
 			}
@@ -112,6 +113,12 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 	if p == nil || p.Defeated {
 		return "player_inactive"
 	}
+	if o.Kind == "convoy_hold" || o.Kind == "convoy_advance" {
+		return e.convoyControl(p, o)
+	}
+	if strings.HasPrefix(o.Kind, "practice_") {
+		return e.practiceOrder(p, o)
+	}
 	if o.Kind == "surrender" {
 		e.defeat(p)
 		return "ok"
@@ -170,11 +177,8 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 		return e.startBuilding(p, v, o)
 	case "resume":
 		target := e.entity(o.Target)
-		if e.role(v) != "rig" || target == nil || target.Owner != player || !target.Building || target.Complete {
-			return "invalid_foundation"
-		}
-		if builder := e.entity(target.Builder); builder != nil && builder.HP > 0 && len(builder.Orders) > 0 && builder.Orders[0].Target == target.ID {
-			return "builder_assigned"
+		if code := e.validateResume(player, v, target); code != "ok" {
+			return code
 		}
 		target.Builder = v.ID
 		o.Kind = "build"
@@ -213,6 +217,19 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 		return "ok"
 	case "ability":
 		return e.cast(p, selected, o)
+	case "repeat_sortie":
+		if o.Queued || o.Index > 1 {
+			return "invalid_toggle"
+		}
+		for _, unit := range selected {
+			if !e.isAircraft(unit) {
+				return "aircraft_required"
+			}
+		}
+		for _, unit := range selected {
+			unit.RepeatSortie = o.Index == 1
+		}
+		return "ok"
 	case "deploy", "pack":
 		for _, v := range selected {
 			if e.role(v) != "launcher" && v.Type != "SA.tank" && v.Type != "SA.mobile_abm" && v.Type != "SA.repair" {
@@ -224,83 +241,20 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 		}
 		return "ok"
 	}
-	for _, v := range selected {
-		if v.Container != 0 && o.Kind != "unload" {
-			return "unit_embarked"
-		}
-		if v.Building && o.Kind != "unload" {
-			return "mobile_unit_required"
-		}
-		if v.DisabledUntil > e.state.Tick {
-			return "unit_disabled"
-		}
-		if o.Queued && len(v.Orders) >= 10 {
-			return "queue_full"
-		}
-		switch o.Kind {
-		case "attack":
-			target := e.entity(o.Target)
-			if target == nil || !e.canSeeEntity(player, target) || e.allied(player, target.Owner) {
-				return "target_not_visible"
-			}
-			if !e.canAttack(v, target) {
-				return "illegal_target_layer"
-			}
-		case "force_fire":
-			w, ok := e.weapon(v)
-			if !ok || (w.Kind != "shell" && w.Kind != "cannon") {
-				return "cannot_force_fire"
-			}
-			if !e.explored(player, o.Position) {
-				return "unexplored_target"
-			}
-		case "gather":
-			if e.role(v) != "hauler" {
-				return "hauler_required"
-			}
-			if o.Target != 0 {
-				f := e.field(uint32(o.Target))
-				if f == nil || !e.explored(player, f.Position) {
-					return "unknown_field"
-				}
-			}
-		case "salvage":
-			if v.Type != "SY.engineer" && v.Type != "SY.repair" {
-				return "salvage_collector_required"
-			}
-			if crate := e.salvage(o.Target); crate == nil || e.allied(player, crate.Owner) || !e.canSee(player, crate.Position) {
-				return "salvage_not_visible"
-			}
-		case "repair":
-			target := e.entity(o.Target)
-			if target == nil || target.Owner != player || e.repairRate(v, target) == 0 || v.ID == target.ID {
-				return "invalid_repair_target"
-			}
-		case "capture":
-			if e.role(v) != "engineer" || v.TemporaryUntil != 0 {
-				return "engineer_required"
-			}
-			if !e.validCapture(v, o.Target) {
-				return "invalid_capture_target"
-			}
-		case "board":
-			target := e.entity(o.Target)
-			if !e.canBoard(v, target) || !e.canSeeEntity(player, target) {
-				return "invalid_transport"
-			}
-		case "unload":
-			if e.capacity(v) == 0 {
-				return "transport_required"
-			}
-		case "return":
-			if e.armor(v) != "air" {
-				return "aircraft_required"
-			}
-		}
+	if code := e.validateMobileOrder(player, o, selected); code != "ok" {
+		return code
 	}
 	for i, v := range selected {
 		copyOrder := o
 		copyOrder.Entities = nil
+		if o.Kind == "patrol" {
+			copyOrder.Points = append([]Vec(nil), o.Points...)
+			copyOrder.Index = 0
+			if len(copyOrder.Points) == 0 {
+				copyOrder.Points = []Vec{v.Position, o.Position}
+				copyOrder.Index = 1
+			}
+		}
 		if len(selected) > 1 && (o.Kind == "move" || o.Kind == "attack_move") {
 			copyOrder.Position = e.formationPoint(o.Position, i, len(selected))
 		}
@@ -312,6 +266,9 @@ func (e *Engine) assign(v *Entity, o Order) {
 	if o.Queued && len(v.Orders) > 0 {
 		v.Orders = append(v.Orders, o)
 		return
+	}
+	if v.Channel == "transit" {
+		e.interruptChannel(v)
 	}
 	if v.Channel == "sabotage" {
 		setCooldown(&v.Cooldowns, "sabotage", e.state.Tick+seconds(10))
@@ -337,16 +294,20 @@ func (e *Engine) assign(v *Entity, o Order) {
 			v.Stance = "hold"
 		}
 	}
-	if o.Kind == "guard" || o.Kind == "aggressive" {
+	if o.Kind == "guard" || o.Kind == "escort" || o.Kind == "aggressive" {
 		v.Anchor = o.Position
 		v.Stance = o.Kind
+		if o.Kind == "escort" {
+			v.Stance = "guard"
+		}
+		e.updateOrderAnchor(v)
 	}
 	if o.Kind == "gather" {
 		v.Field = uint32(o.Target)
 		v.Depot = 0
 		v.State = "gathering"
 	}
-	if o.Kind == "move" || o.Kind == "attack_move" || o.Kind == "return" {
+	if o.Kind == "move" || o.Kind == "attack_move" || o.Kind == "patrol" || o.Kind == "escort" || o.Kind == "return" {
 		if v.Deployed || v.DeployUntil > 0 {
 			e.changeDeployment(v, false)
 		}
@@ -394,19 +355,41 @@ func (e *Engine) countRole(p PlayerID, role string, includeReserved bool) int32 
 	}
 	return n
 }
-func (e *Engine) startBuilding(p *Player, rig *Entity, o Order) string {
-	if e.role(rig) != "rig" || rig.Container != 0 {
-		return "rig_required"
+
+// buildingRequirements reads only owned state, public rules and the requested point.
+// Collision is deliberately separate so advice cannot become a fog oracle.
+func (e *Engine) buildingRequirements(p *Player, rig *Entity, o Order) (content.Building, string) {
+	b, code := e.buildingCatalogRequirements(p, rig, o.Type)
+	if code != "ok" {
+		return b, code
 	}
-	b, ok := e.buildingRule(o.Type)
-	if !ok || strings.HasPrefix(o.Type, "map.") || b.Faction != "" && b.Faction != p.Faction {
-		return "unknown_building"
+	inRadius := b.Role == "outpost" || b.Role == "hq" && !e.has(p.ID, "hq")
+	if !inRadius {
+		for _, v := range e.state.Entities {
+			if v.Owner == p.ID && v.Complete && v.HP > 0 && (e.role(v) == "hq" || e.role(v) == "outpost") && distance(v.Position, o.Position) <= 14000 {
+				inRadius = true
+				break
+			}
+		}
+	}
+	if !inRadius {
+		return content.Building{}, "outside_build_radius"
+	}
+	return b, "ok"
+}
+func (e *Engine) buildingCatalogRequirements(p *Player, rig *Entity, typ string) (content.Building, string) {
+	if e.role(rig) != "rig" || rig.Container != 0 {
+		return content.Building{}, "rig_required"
+	}
+	b, ok := e.buildingRule(typ)
+	if !ok || strings.HasPrefix(typ, "map.") || b.Faction != "" && b.Faction != p.Faction {
+		return content.Building{}, "unknown_building"
 	}
 	if !e.prerequisites(p, b.Prerequisites) {
-		return "missing_prerequisite"
+		return content.Building{}, "missing_prerequisite"
 	}
 	if p.Credits < b.Cost {
-		return "insufficient_credits"
+		return content.Building{}, "insufficient_credits"
 	}
 	var structures, defenses int32
 	for _, v := range e.state.Entities {
@@ -419,31 +402,26 @@ func (e *Engine) startBuilding(p *Player, rig *Entity, o Order) string {
 		}
 	}
 	if structures >= 60 {
-		return "structure_cap"
+		return content.Building{}, "structure_cap"
 	}
 	if b.Defense && defenses >= 16 {
-		return "defense_cap"
+		return content.Building{}, "defense_cap"
 	}
 	if b.Role == "strategic" && e.countRole(p.ID, "strategic", true) >= 1 {
-		return "strategic_limit"
+		return content.Building{}, "strategic_limit"
 	}
 	if b.Role == "safehouse" && e.countRole(p.ID, "safehouse", true) >= 3 {
-		return "safehouse_limit"
+		return content.Building{}, "safehouse_limit"
 	}
 	if b.Role == "supply" && e.countRole(p.ID, "hauler", true) >= 8 {
-		return "hauler_limit"
+		return content.Building{}, "hauler_limit"
 	}
-	inRadius := b.Role == "outpost" || b.Role == "hq" && !e.has(p.ID, "hq")
-	if !inRadius {
-		for _, v := range e.state.Entities {
-			if v.Owner == p.ID && v.Complete && v.HP > 0 && (e.role(v) == "hq" || e.role(v) == "outpost") && distance(v.Position, o.Position) <= 14000 {
-				inRadius = true
-				break
-			}
-		}
-	}
-	if !inRadius {
-		return "outside_build_radius"
+	return b, "ok"
+}
+func (e *Engine) startBuilding(p *Player, rig *Entity, o Order) string {
+	b, code := e.buildingRequirements(p, rig, o)
+	if code != "ok" {
+		return code
 	}
 	if code := e.validPlacement(p.ID, o.Position, b.Width, b.Height); code != "ok" {
 		return code
@@ -457,53 +435,13 @@ func (e *Engine) startBuilding(p *Player, rig *Entity, o Order) string {
 	return "ok"
 }
 func (e *Engine) enqueue(p *Player, v *Entity, o Order) string {
-	if !v.Building || !v.Active(e.state.Tick) {
-		return "producer_disabled"
+	job, code := e.productionJob(p, v, o)
+	if code == "ok" {
+		v.Jobs = append(v.Jobs, job)
 	}
-	if len(v.Jobs) >= 6 {
-		return "queue_full"
-	}
-	role := e.role(v)
-	if o.Kind == "research" {
-		u, ok := e.catalog.Upgrade(o.Type)
-		if !ok || u.Producer != role || u.Faction != "" && u.Faction != p.Faction {
-			return "wrong_research_producer"
-		}
-		if p.Tier < u.Tier {
-			return "missing_tier"
-		}
-		if p.HasUpgrade(u.ID) {
-			return "already_researched"
-		}
-		for _, other := range e.state.Entities {
-			if other.Owner == p.ID {
-				for _, j := range other.Jobs {
-					if j.Type == u.ID {
-						return "already_queued"
-					}
-				}
-			}
-		}
-		v.Jobs = append(v.Jobs, Job{Type: u.ID, Research: true, Required: u.BuildTicks * 2})
-		return "ok"
-	}
-	u, ok := e.catalog.Unit(o.Type)
-	if !ok || u.Faction != p.Faction {
-		return "unknown_unit"
-	}
-	emergency := u.Role == "rig" && role == "factory" && !e.has(p.ID, "hq")
-	if u.Producer != role && !emergency {
-		return "wrong_producer"
-	}
-	if p.Tier < u.Tier {
-		return "missing_tier"
-	}
-	v.Jobs = append(v.Jobs, Job{Type: u.ID, Required: u.BuildTicks * 2, Emergency: emergency})
-	if emergency {
-		v.Jobs[len(v.Jobs)-1].Required = 1200
-	}
-	return "ok"
+	return code
 }
+
 func (e *Engine) cancel(p *Player, v *Entity, index int32) string {
 	if v.Building && !v.Complete {
 		b, _ := e.buildingRule(v.Type)
@@ -524,4 +462,42 @@ func (e *Engine) cancel(p *Player, v *Entity, index int32) string {
 	v.Jobs = append(v.Jobs[:index], v.Jobs[index+1:]...)
 	e.recalculate()
 	return "ok"
+}
+
+// Update the protected location before both ground navigation and fixed-wing
+// flight passes. The combat leash follows the ally instead of the old waypoint.
+func (e *Engine) updateOrderAnchor(v *Entity) {
+	if len(v.Orders) == 0 {
+		return
+	}
+	o := v.Orders[0]
+	if o.Kind == "patrol" {
+		v.Anchor = v.Position
+		return
+	}
+	if o.Kind != "guard" && o.Kind != "escort" {
+		return
+	}
+	if target := e.entity(o.Target); target != nil && target.HP > 0 && target.Container == 0 && e.allied(v.Owner, target.Owner) {
+		v.Anchor = target.Position
+	}
+	if target := e.entity(v.Target); target != nil && distance(v.Anchor, target.Position) > 6000 {
+		v.Target = 0
+		v.AimUntil = 0
+		v.PassUntil = 0
+	}
+}
+func (e *Engine) advancePatrol(v *Entity) {
+	if len(v.Orders) == 0 || v.Orders[0].Kind != "patrol" {
+		return
+	}
+	o := &v.Orders[0]
+	o.Index = (o.Index + 1) % int32(len(o.Points))
+	if o.Index == 0 && len(v.Orders) > 1 {
+		v.Orders = v.Orders[1:]
+	}
+	v.Path = nil
+	v.PathResolved = false
+	v.NextRouteAt = 0
+	v.PassUntil = 0
 }

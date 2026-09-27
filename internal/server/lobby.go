@@ -11,6 +11,7 @@ import (
 )
 
 type aiRequest struct {
+	Color      uint32 `json:"color"`
 	Faction    string `json:"faction"`
 	Difficulty string `json:"difficulty"`
 	Team       uint32 `json:"team"`
@@ -27,7 +28,20 @@ func resolveFaction(f string) string {
 	return f
 }
 func (s *Server) lobbyResponse(l *Lobby, profile string) map[string]any {
+	completeLobbyMetadata(l)
+	if l.MapHash == "" {
+		if m, ok := s.maps[l.MapID]; ok {
+			l.MapHash, l.MapVersion = lobbyMapHash(m), m.Version
+		}
+	}
 	result := map[string]any{"lobby": l}
+	result["state"] = "forming"
+	if l.MatchID != "" {
+		result["state"] = "active"
+		if s.lobbyCompleted(l) {
+			result["state"] = "completed"
+		}
+	}
 	if l.Host == profile {
 		result["code"] = l.Code
 	}
@@ -48,6 +62,7 @@ func (s *Server) listLobbies(w http.ResponseWriter, r *http.Request) {
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	s.pruneLobbies()
 	out := []*Lobby{}
 	for _, l := range s.lobbies {
 		member := false
@@ -68,6 +83,8 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var body struct {
+		Color         uint32      `json:"color"`
+		Rules         *LobbyRules `json:"rules"`
 		LiveObservers bool        `json:"live_observers"`
 		PauseEnabled  bool        `json:"pause_enabled"`
 		Name          string      `json:"name"`
@@ -87,7 +104,14 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	body.Faction = resolveFaction(body.Faction)
-	if !content.ValidFaction(body.Faction) || len(body.Name) > 80 || len(body.AI) > 3 || len(body.AI)+1 > len(m.Spawns) {
+	if body.Rules != nil && *body.Rules != standardLobbyRules() {
+		fail(w, 400, "unsupported_rules", "This host supports standard-v2 gameplay rules only.")
+		return
+	}
+	if body.Name == "" {
+		body.Name = "Local match"
+	}
+	if body.Team > 4 || body.Color > 8 || storage.PlainText(body.Name, 80) != nil || !content.ValidFaction(body.Faction) || len(body.Name) > 80 || len(body.AI) > 3 || len(body.AI)+1 > len(m.Spawns) || body.Mode == "1v1" && len(body.AI) > 1 {
 		fail(w, 400, "invalid_lobby", "Check faction, name and player count.")
 		return
 	}
@@ -95,6 +119,10 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 	case "1v1", "2v2", "ffa", "coop", "custom":
 	default:
 		fail(w, 400, "invalid_mode", "Choose 1v1, 2v2, ffa, coop or custom for local play.")
+		return
+	}
+	if body.LiveObservers && !body.Private || body.PauseEnabled && body.Mode != "custom" && body.Mode != "coop" {
+		fail(w, 400, "invalid_lobby_policy", "Live observers require a private lobby; shared pause requires custom or co-op mode.")
 		return
 	}
 	if body.Team == 0 || body.Mode == "ffa" {
@@ -110,21 +138,28 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not create lobby.")
 		return
 	}
-	l := &Lobby{PauseEnabled: body.PauseEnabled && (body.Mode == "custom" || body.Mode == "coop"), LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
+	l := &Lobby{MapHash: lobbyMapHash(m), MapVersion: m.Version, Rules: defaultLobbyRules(), PauseEnabled: body.PauseEnabled && (body.Mode == "custom" || body.Mode == "coop"), LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Color: body.Color, Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
 	for i, a := range body.AI {
 		a.Faction = resolveFaction(a.Faction)
-		if !content.ValidFaction(a.Faction) || (a.Difficulty != "easy" && a.Difficulty != "normal" && a.Difficulty != "hard") {
+		if a.Team > 4 || a.Color > 8 || !content.ValidFaction(a.Faction) || (a.Difficulty != "easy" && a.Difficulty != "normal" && a.Difficulty != "hard") {
 			fail(w, 400, "invalid_ai", "Choose a faction and easy, normal or hard AI.")
 			return
 		}
 		if a.Team == 0 || body.Mode == "ffa" {
 			a.Team = uint32(i + 2)
 		}
-		l.Slots = append(l.Slots, LobbySlot{Player: sim.PlayerID(i + 2), Name: a.Difficulty + " AI", Faction: a.Faction, Team: a.Team, AI: a.Difficulty, Ready: true, AssetsReady: true})
+		l.Slots = append(l.Slots, LobbySlot{Color: a.Color, Player: sim.PlayerID(i + 2), Name: a.Difficulty + " AI", Faction: a.Faction, Team: a.Team, AI: a.Difficulty, Ready: true, AssetsReady: true})
+	}
+	if !assignLobbyColors(l) {
+		fail(w, 409, "color_unavailable", "Choose unique player colors.")
+		return
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.pruneLobbies()
+	if !s.admitProfile(w, p.ID, "") {
+		return
+	}
 	if len(s.lobbies) >= 64 {
 		fail(w, 429, "lobby_limit", "This local host has reached its lobby limit.")
 		return
@@ -139,6 +174,7 @@ func (s *Server) getLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	s.pruneLobbies()
 	l := s.lobbies[r.PathValue("id")]
 	if l == nil {
 		fail(w, 404, "lobby_missing", "This lobby is no longer available.")
@@ -156,17 +192,28 @@ func (s *Server) getLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	respond(w, 200, s.lobbyResponse(l, p.ID))
 }
+
+type lobbyJoinRequest struct {
+	Code    string `json:"code"`
+	Faction string `json:"faction"`
+	Team    uint32 `json:"team"`
+	Color   uint32 `json:"color"`
+}
+
 func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 	p, ok := s.authenticate(w, r)
 	if !ok {
 		return
 	}
-	var body struct {
-		Code    string `json:"code"`
-		Faction string `json:"faction"`
-		Team    uint32 `json:"team"`
-	}
+	var body lobbyJoinRequest
 	if !decode(w, r, &body, 4096) {
+		return
+	}
+	s.joinLobbyAs(w, r, p, body, "")
+}
+func (s *Server) joinLobbyAs(w http.ResponseWriter, r *http.Request, p storage.Profile, body lobbyJoinRequest, inviteID string) {
+	if body.Team > 4 || body.Color > 8 {
+		fail(w, 400, "invalid_lobby", "Choose a valid team and color.")
 		return
 	}
 	body.Faction = resolveFaction(body.Faction)
@@ -175,6 +222,7 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.mu.Lock()
+	s.pruneLobbies()
 	l := s.lobbies[r.PathValue("id")]
 	if l == nil {
 		s.mu.Unlock()
@@ -195,7 +243,27 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, "lobby_changed", "Lobby changed; reload it.")
 		return
 	}
-	if l.Private && l.Code != body.Code {
+	// Membership is authenticated by the profile token. Repeated joins, including
+	// ranked joins and reconnects, need neither another code nor another slot.
+	if lobbyMember(l, p.ID) {
+		respond(w, 200, s.lobbyResponse(l, p.ID))
+		return
+	}
+	var acceptedInvite *LobbyInvite
+	if inviteID != "" {
+		var allowed bool
+		var err error
+		acceptedInvite, allowed, err = s.validLobbyInvite(r.Context(), inviteID, p.ID, l)
+		if err != nil {
+			fail(w, 500, "storage_error", "Could not check invitation.")
+			return
+		}
+		if !allowed {
+			fail(w, 403, "invite_unavailable", "The invitation is no longer available.")
+			return
+		}
+	}
+	if l.Private && l.Code != body.Code && acceptedInvite == nil {
 		fail(w, 403, "invalid_code", "The private lobby code is incorrect.")
 		return
 	}
@@ -203,14 +271,25 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 403, "queue_members_only", "A matched lobby is reserved for its two queued players.")
 		return
 	}
-	for _, slot := range l.Slots {
-		if slot.Profile == p.ID {
-			respond(w, 200, s.lobbyResponse(l, p.ID))
-			return
-		}
-	}
-	if l.MatchID != "" || len(l.Slots) >= len(m.Spawns) || len(l.Slots) >= 4 {
+	if l.MatchID != "" || len(l.Slots) >= lobbyMapCapacity(l, m) {
 		fail(w, 409, "lobby_full", "The lobby is full or has started.")
+		return
+	}
+	s.pruneLobbies()
+	if s.lobbies[l.ID] != l {
+		fail(w, 409, "lobby_changed", "This lobby expired; choose another lobby.")
+		return
+	}
+	allowed, pairErr := s.allowedLobbyPair(r.Context(), l, p.ID)
+	if pairErr != nil {
+		fail(w, 500, "storage_error", "Could not check lobby access.")
+		return
+	}
+	if !allowed {
+		fail(w, 403, "lobby_membership_blocked", "This lobby is unavailable under local block preferences.")
+		return
+	}
+	if !s.admitProfile(w, p.ID, l.ID) {
 		return
 	}
 	if l.ScenarioID != "" {
@@ -219,7 +298,27 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 			fail(w, 409, "scenario_full", "Every human scenario slot is filled.")
 			return
 		}
+		if body.Faction != "" && body.Faction != slot.Faction || body.Team != 0 && body.Team != slot.Team {
+			fail(w, 409, "scenario_rules_locked", "The scenario fixes factions and teams.")
+			return
+		}
+		desiredColor := body.Color
+		if l.ResumeSave != "" {
+			if body.Color != 0 && body.Color != slot.Color {
+				fail(w, 409, "scenario_rules_locked", "Saved player colors are fixed by the checkpoint.")
+				return
+			}
+			desiredColor = slot.Color
+		}
+		slot.Color, ok = lobbyColor(l, desiredColor, 0)
+		if !ok {
+			fail(w, 409, "color_unavailable", "Choose an unused player color.")
+			return
+		}
 		l.Slots = append(l.Slots, slot)
+		if acceptedInvite != nil {
+			acceptedInvite.Accepted = true
+		}
 		resetReady(l)
 		respond(w, 200, s.lobbyResponse(l, p.ID))
 		return
@@ -232,101 +331,42 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 	if body.Team == 0 || l.Mode == "ffa" {
 		body.Team = uint32(id)
 	}
-	l.Slots = append(l.Slots, LobbySlot{Player: id, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team})
+	color, ok := lobbyColor(l, body.Color, 0)
+	if !ok {
+		fail(w, 409, "color_unavailable", "Choose an unused player color.")
+		return
+	}
+	if acceptedInvite != nil {
+		acceptedInvite.Accepted = true
+	}
+	l.Slots = append(l.Slots, LobbySlot{Color: color, Player: id, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team})
 	resetReady(l)
 	respond(w, 200, s.lobbyResponse(l, p.ID))
 }
+
+// resetReady invalidates asset preflight for the previous lobby configuration.
+// Readiness alone never changes this revision. Caller holds s.mu.
 func resetReady(l *Lobby) {
+	completeLobbyMetadata(l)
+	l.Revision++
 	for i := range l.Slots {
 		l.Slots[i].Ready = l.Slots[i].AI != "" || l.Slots[i].Script
 		l.Slots[i].AssetsReady = l.Slots[i].Ready
 	}
 }
-func (s *Server) updateLobby(w http.ResponseWriter, r *http.Request) {
-	p, ok := s.authenticate(w, r)
-	if !ok {
-		return
-	}
-	var body struct {
-		Faction string `json:"faction"`
-		Team    uint32 `json:"team"`
-		MapID   string `json:"map_id"`
-	}
-	if !decode(w, r, &body, 4096) {
-		return
-	}
-	if body.Faction != "" {
-		body.Faction = resolveFaction(body.Faction)
-		if !content.ValidFaction(body.Faction) {
-			fail(w, 400, "invalid_faction", "Choose a valid faction.")
-			return
-		}
-	}
-	var mapData content.Map
-	if body.MapID != "" {
-		var err error
-		mapData, err = s.loadMap(r.Context(), body.MapID)
-		if err != nil {
-			fail(w, 400, "map_missing", "Choose a validated map.")
-			return
-		}
-	}
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	l := s.lobbies[r.PathValue("id")]
-	if l == nil || l.MatchID != "" {
-		fail(w, 409, "lobby_unavailable", "The lobby is unavailable or has started.")
-		return
-	}
-	member := false
-	if l.ScenarioID != "" && (body.MapID != "" || body.Team != 0 || body.Faction != "") {
-		fail(w, 409, "scenario_rules_locked", "The scenario fixes factions, teams and map.")
-		return
-	}
-	if l.Rated && (body.MapID != "" || body.Team != 0) {
-		fail(w, 409, "ranked_rules_locked", "Matched map and opposing teams are fixed.")
-		return
-	}
-	if body.MapID != "" && (l.Host != p.ID || len(mapData.Spawns) < len(l.Slots)) {
-		fail(w, 403, "host_or_capacity", "Only the host may choose a map that fits every player.")
-		return
-	}
-	for i, slot := range l.Slots {
-		if slot.Profile == p.ID {
-			member = true
-			if body.Faction != "" {
-				l.Slots[i].Faction = body.Faction
-			}
-			if body.Team > 0 && l.Mode != "ffa" {
-				l.Slots[i].Team = body.Team
-			}
-		}
-	}
-	if !member {
-		fail(w, 403, "not_in_lobby", "Join the lobby first.")
-		return
-	}
-	if body.MapID != "" {
-		if l.Host != p.ID || len(mapData.Spawns) < len(l.Slots) {
-			fail(w, 403, "host_or_capacity", "Only the host may choose a map that fits every player.")
-			return
-		}
-		l.MapID = body.MapID
-	}
-	resetReady(l)
-	respond(w, 200, s.lobbyResponse(l, p.ID))
-}
+func (s *Server) updateLobby(w http.ResponseWriter, r *http.Request) { s.changeLobby(w, r) }
 func (s *Server) readyLobby(w http.ResponseWriter, r *http.Request) {
 	p, ok := s.authenticate(w, r)
 	if !ok {
 		return
 	}
 	var body struct {
-		Ready       bool   `json:"ready"`
-		AssetsReady bool   `json:"assets_ready"`
-		Protocol    uint32 `json:"protocol"`
-		Simulation  string `json:"simulation"`
-		ContentHash string `json:"content_hash"`
+		ExpectedRevision uint64 `json:"expected_revision"`
+		Ready            bool   `json:"ready"`
+		AssetsReady      bool   `json:"assets_ready"`
+		Protocol         uint32 `json:"protocol"`
+		Simulation       string `json:"simulation"`
+		ContentHash      string `json:"content_hash"`
 	}
 	if !decode(w, r, &body, 4096) {
 		return
@@ -344,8 +384,13 @@ func (s *Server) readyLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	for i, slot := range l.Slots {
 		if slot.Profile == p.ID {
+			completeLobbyMetadata(l)
+			if body.Ready && body.ExpectedRevision != l.Revision {
+				fail(w, 409, "lobby_changed", "The lobby changed while assets were loading. Review its current configuration and ready again.")
+				return
+			}
 			l.Slots[i].Ready = body.Ready
-			l.Slots[i].AssetsReady = body.AssetsReady
+			l.Slots[i].AssetsReady = body.Ready && body.AssetsReady
 			respond(w, 200, s.lobbyResponse(l, p.ID))
 			return
 		}
@@ -373,11 +418,22 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	if s.lobbies[l.ID] != l || l.MapID != mapID || l.MatchID != "" {
+	if s.lobbies[l.ID] != l || l.Host != p.ID || l.MapID != mapID || l.MatchID != "" {
 		fail(w, 409, "lobby_changed", "Reload the lobby before starting.")
 		return
 	}
-	if len(l.Slots) < 2 {
+	completeLobbyMetadata(l)
+	if l.Rated && !s.rankedMap(l.MapID) {
+		fail(w, 409, "ranked_map_required", "The installed map no longer matches its reviewed version.")
+		return
+	}
+	if l.MapHash != "" && l.MapHash != lobbyMapHash(mapData) {
+		l.MapHash, l.MapVersion = lobbyMapHash(mapData), mapData.Version
+		resetReady(l)
+		fail(w, 409, "map_changed", "The map changed. Review and load the current version before readying again.")
+		return
+	}
+	if len(l.Slots) < 1 || len(l.Slots) < 2 && l.Mode != "custom" {
 		fail(w, 409, "players_required", "Add another player or AI opponent.")
 		return
 	}
@@ -389,7 +445,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		}
 		teams[slot.Team]++
 	}
-	if len(teams) < 2 && l.ScenarioID == "" {
+	if len(teams) < 2 && l.ScenarioID == "" && !(l.Mode == "custom" && len(l.Slots) == 1) {
 		fail(w, 409, "opponent_required", "At least two opposing teams are required.")
 		return
 	}
@@ -417,7 +473,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 	cfg := sim.Config{Map: mapData, Seed: binary.LittleEndian.Uint64(seedBytes[:]), Ruleset: "standard-v2"}
 	slots := []slot{}
 	for _, v := range l.Slots {
-		cfg.Players = append(cfg.Players, sim.PlayerConfig{ID: v.Player, Name: v.Name, Faction: v.Faction, Team: v.Team, AI: v.AI})
+		cfg.Players = append(cfg.Players, sim.PlayerConfig{Color: v.Color, ID: v.Player, Name: v.Name, Faction: v.Faction, Team: v.Team, AI: v.AI})
 		token, err := storage.Token()
 		if err != nil {
 			fail(w, 500, "random_error", "Could not initialize match.")
@@ -429,6 +485,13 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 	if l.ScenarioID != "" {
 		engine, err = s.scenarioEngine(l, mapData, cfg.Seed)
 	}
+	if err == nil && l.ScenarioID != "" && l.ResumeSave == "" {
+		colors := map[sim.PlayerID]uint32{}
+		for _, v := range l.Slots {
+			colors[v.Player] = v.Color
+		}
+		err = engine.ConfigurePlayerColors(colors)
+	}
 	if err != nil {
 		fail(w, 400, "invalid_match", err.Error())
 		return
@@ -439,7 +502,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	l.MatchID = id[:24]
-	match, err := newMatch(l.MatchID, engine, slots, s.repo, s.objects, matchOptions{PauseEnabled: l.PauseEnabled, LiveObservers: l.LiveObservers, Rated: l.Rated})
+	match, err := newMatch(l.MatchID, engine, slots, s.repo, s.objects, matchOptions{PauseEnabled: l.PauseEnabled, LiveObservers: l.LiveObservers, Rated: l.Rated, Lobby: &sim.ReplayLobby{Name: l.Name, Mode: l.Mode, Private: l.Private, LiveObservers: l.LiveObservers, PauseEnabled: l.PauseEnabled, Rated: l.Rated}})
 	if err != nil {
 		l.MatchID = ""
 		fail(w, 500, "match_persistence_failed", "Could not create a durable match record.")

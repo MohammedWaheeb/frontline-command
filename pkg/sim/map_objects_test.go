@@ -1,6 +1,7 @@
 package sim
 
 import (
+	"encoding/json"
 	"frontlinecommand/pkg/content"
 	"testing"
 )
@@ -102,5 +103,45 @@ func TestNeutralObjectsAreNotAutomaticTargetsOrBuildable(t *testing.T) {
 	ticks(e, 80)
 	if house.HP == house.MaxHP {
 		t.Fatal("explicit attack could not clear neutral object")
+	}
+}
+
+func TestMapBlueprintPreservesUnseenOriginalTerrainAcrossRestore(t *testing.T) {
+	e := objectFixture(t)
+	original := e.MapBlueprint()
+	prop := objectEntity(e, 2)
+	prop.HP = 0
+	e.cleanup()
+	e.updateFog()
+	before, _ := e.PlayerView(1)
+	if len(before.Rubble) != 0 {
+		t.Fatal("fixture destruction is visible")
+	}
+	check := func(engine *Engine) {
+		t.Helper()
+		blueprint := engine.MapBlueprint()
+		a, _ := json.Marshal(original)
+		b, _ := json.Marshal(blueprint)
+		if string(a) != string(b) {
+			t.Fatal("public map exposed unseen world changes")
+		}
+		hash := engine.Hash()
+		blueprint.Tiles[0].Terrain = "water"
+		blueprint.Objects[0].Position.X++
+		if engine.Hash() != hash {
+			t.Fatal("map blueprint aliases live state")
+		}
+	}
+	check(e)
+	save, _ := e.Save()
+	restored, err := Restore(e.catalog, save)
+	if err != nil {
+		t.Fatal(err)
+	}
+	check(restored)
+	e.state.MapOriginalTiles = nil
+	save, _ = e.Save()
+	if _, err := Restore(e.catalog, save); err == nil {
+		t.Fatal("accepted missing terrain history")
 	}
 }

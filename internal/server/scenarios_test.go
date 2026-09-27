@@ -128,7 +128,7 @@ func TestCoopScenarioLobbyAndOpeningSharedCheckpoint(t *testing.T) {
 	request(t, h, "POST", "/api/v1/lobbies/"+l.ID+"/join", b, map[string]any{}, 200)
 	request(t, h, "PATCH", "/api/v1/lobbies/"+l.ID, b, map[string]any{"faction": "IR"}, 409)
 	for _, token := range []string{a, b} {
-		request(t, h, "POST", "/api/v1/lobbies/"+l.ID+"/ready", token, map[string]any{"ready": true, "assets_ready": true, "protocol": 1, "simulation": sim.Version, "content_hash": s.catalog.Hash()}, 200)
+		readyTestLobby(t, s, h, l.ID, token)
 	}
 	request(t, h, "POST", "/api/v1/lobbies/"+l.ID+"/start", a, map[string]any{}, 201)
 	for _, token := range []string{a, b} {

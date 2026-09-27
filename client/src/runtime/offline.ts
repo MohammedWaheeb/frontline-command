@@ -1,8 +1,9 @@
 import {create,fromBinary,toBinary} from '@bufbuild/protobuf';
 import {OrderBatchSchema,PlayerSnapshotSchema} from '../protocol/frontline_pb';
 import {RuntimeError} from './errors';
+import type {CommandAffordances,ReplayLobby} from './types';
 import {sequenceAfter} from './fixed';
-import {RuntimeEvents,type GameTransport,type OfflineConfig,type OrderIntent,type PlayerSnapshot,type RuntimeVersion,type SaveData,type SessionInfo,type Speed} from './types';
+import {RuntimeEvents,type GameTransport,type GameMap,type OfflineConfig,type OrderIntent,type PlayerSnapshot,type RuntimeVersion,type ReplayCommandPage,type SaveData,type SessionInfo,type Speed} from './types';
 interface Pending {resolve:(value:any)=>void;reject:(error:unknown)=>void;timer:ReturnType<typeof setTimeout>}
 export class OfflineTransport extends RuntimeEvents implements GameTransport {
  readonly mode='offline' as const;
@@ -35,12 +36,25 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
   return new Promise<T>((resolve,reject)=>{const timer=setTimeout(()=>{this.pending.delete(id);reject(new RuntimeError('worker_timeout','The engine did not answer. Preserve your current save and retry.'))},30000);this.pending.set(id,{resolve,reject,timer});this.worker.postMessage({id,method,args})});
  }
  async create(config:OfflineConfig){await this.ready;const info=await this.rpc<SessionInfo>('create',config);this.sequence=this.current?.economy?.lastSequence??0;return info}
+ async restart(){await this.ready;const info=await this.rpc<SessionInfo>('restart');this.sequence=this.current?.economy?.lastSequence??0;return info}
  async sendOrders(orders:OrderIntent[]):Promise<number>{await this.ready;if(!orders.length||orders.length>32)throw new RuntimeError('command_limit','Send between one and 32 orders.');const sequence=sequenceAfter(this.sequence,this.current?.economy?.lastSequence);this.sequence=sequence;await this.rpc('submit',toBinary(OrderBatchSchema,create(OrderBatchSchema,{sequence,orders})));return sequence}
  pause(){return this.rpc('pause')}
  resume(){return this.rpc('resume')}
  setSpeed(speed:Speed){return this.rpc('speed',speed)}
  step(ticks:number){return this.rpc<SessionInfo>('step',ticks)}
  setPerspective(player:number){return this.rpc<SessionInfo>('perspective',player)}
+ async content(){await this.ready;return this.rpc<Record<string,unknown>>('content')}
+ async affordances(ids:readonly number[]=[]){await this.ready;if(ids.length>64||ids.some(id=>!Number.isInteger(id)||id<1||id>0xffffffff)||new Set(ids).size!==ids.length)throw new RuntimeError('invalid_selection','Choose up to 64 distinct owned entities.');return this.rpc<CommandAffordances>('affordances',[...ids])}
+ async validateMap(data:Uint8Array){await this.ready;return this.rpc<GameMap>('validateMap',data)}
+ async validateMission(map:Uint8Array,mission:Uint8Array){await this.ready;return this.rpc<Record<string,unknown>>('validateMission',map,mission)}
+ async previewOrders(orders:OrderIntent[]){await this.ready;return this.rpc<{tick:number;results:Array<{player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number}>}>('previewOrders',toBinary(OrderBatchSchema,create(OrderBatchSchema,{orders})))}
+ async previewCandidates(orders:OrderIntent[]){await this.ready;return this.rpc<{tick:number;results:Array<{player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number}>}>('candidates',toBinary(OrderBatchSchema,create(OrderBatchSchema,{orders})))}
+ map(){return this.rpc<GameMap>('map')}
+ async inspectReplay(data:Uint8Array){await this.ready;return this.rpc<{metadata:SaveData['metadata'];start_tick:number;end_tick:number;players:number[];lobby?:ReplayLobby}>('inspectReplay',data)}
+ exportReplay(){return this.rpc<Uint8Array>('exportReplay')}
+ async loadReplay(data:Uint8Array){await this.ready;return this.rpc<SessionInfo>('loadReplay',data)}
+ seekReplay(tick:number){return this.rpc<SessionInfo>('seekReplay',tick)}
+ replayCommands(offset=0,limit=100){return this.rpc<ReplayCommandPage>('replayCommands',offset,limit)}
  save(){return this.rpc<SaveData>('save')}
  hash(){return this.rpc<string>('hash')}
  info(){return this.rpc<SessionInfo>('info')}

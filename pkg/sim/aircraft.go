@@ -13,7 +13,7 @@ func (e *Engine) flyPass(v *Entity) {
 	if len(v.Orders) > 0 {
 		o = v.Orders[0]
 	}
-	target := e.entity(v.Target)
+	target := e.pickTarget(v)
 	if o.Kind == "attack" {
 		target = e.entity(o.Target)
 	}
@@ -26,14 +26,21 @@ func (e *Engine) flyPass(v *Entity) {
 			angle := direction(target.Position.X-v.Position.X, target.Position.Y-v.Position.Y)
 			v.FlightPass = advanceHeading(target.Position, angle, 8000)
 			v.PassUntil = e.state.Tick + seconds(5)
-		} else if o.Kind == "move" || o.Kind == "attack_move" || o.Kind == "attack" {
+		} else if o.Kind == "move" || o.Kind == "attack_move" || o.Kind == "attack" || o.Kind == "patrol" {
 			v.FlightPass = o.Position
+			if o.Kind == "patrol" {
+				v.FlightPass = o.Points[o.Index]
+			}
 			if o.Kind == "attack" {
 				v.FlightPass = v.LastTarget
 			}
 			v.PassUntil = e.state.Tick + seconds(2)
 			if distance(v.Position, v.FlightPass) < 1500 {
-				v.Orders = v.Orders[1:]
+				if o.Kind == "patrol" {
+					e.advancePatrol(v)
+				} else {
+					v.Orders = v.Orders[1:]
+				}
 				v.Anchor = v.Position
 				v.PassUntil = 0
 			}
@@ -61,25 +68,6 @@ func (e *Engine) flyPass(v *Entity) {
 	}
 }
 
-func (e *Engine) landingPoint(v, home *Entity) Vec {
-	index := int32(0)
-	for _, other := range e.state.Entities {
-		if other.ID == v.ID {
-			break
-		}
-		if other.Home == home.ID && other.HP > 0 {
-			index++
-		}
-	}
-	b, _ := e.buildingRule(home.Type)
-	cols := min(int32(3), b.Width/2)
-	if cols < 1 {
-		cols = 1
-	}
-	x := index % cols
-	y := index / cols
-	return Vec{X: home.Position.X + (2*x-cols+1)*650, Y: home.Position.Y + (2*y-1)*650}
-}
 func (e *Engine) serviceRequired(v *Entity) uint32 {
 	u, _ := e.catalog.Unit(v.Type)
 	sec := uint32(18)
@@ -118,25 +106,10 @@ func (e *Engine) updateAircraft() {
 		}
 		home := e.entity(v.Home)
 		if home == nil || home.HP <= 0 || home.Owner != v.Owner || !home.Complete {
-			hadHome := v.Home != 0
-			v.Home = 0
-			v.Endurance = min(v.Endurance, uint32(1200))
-			if v.Landed {
-				v.EmergencyTakeoffUntil = e.state.Tick + seconds(2)
-				v.ServiceWork = 0
-				v.State = "emergency_takeoff"
-			}
-			if id := e.freeService(v.Owner); id != 0 {
-				v.Home = id
-				home = e.entity(id)
-				e.assign(v, Order{Kind: "return"})
-			} else {
-				home = nil
-			}
-			if hadHome {
-				e.emit("service_lost", v.Owner, v.ID, v.Position, "owner", int64(v.Endurance))
-			}
+			e.loseService(v)
+			home = e.entity(v.Home)
 		}
+
 		if !v.Landed {
 			if v.Endurance > 0 {
 				v.Endurance--
@@ -144,37 +117,40 @@ func (e *Engine) updateAircraft() {
 			if v.Endurance == 900 {
 				e.emit("aircraft_return_soon", v.Owner, v.ID, v.Position, "owner", 0)
 			}
-			if v.Endurance == 0 {
-				v.HP = 0
+			if v.TaskUntil > e.state.Tick && v.Endurance > 0 {
 				continue
 			}
-			if v.TaskUntil > e.state.Tick {
-				continue
-			}
-			returnQueued := false
-			for _, o := range v.Orders {
-				if o.Kind == "return" {
-					returnQueued = true
-				}
-			}
-			if v.Endurance <= 600 && !returnQueued {
-				e.assign(v, Order{Kind: "return"})
+			returning := len(v.Orders) > 0 && (v.Orders[0].Kind == "return" || v.Orders[0].Kind == "unload" && len(v.Orders) > 1 && v.Orders[1].Kind == "return")
+			if v.Endurance <= 600 && !returning {
+				e.returnForService(v)
 				if len(v.Passengers) > 0 {
 					if drop, ok := e.airliftDropPoint(v); ok {
-						v.Orders = []Order{{Kind: "unload", Position: drop}, {Kind: "return"}}
+						v.Orders = append([]Order{{Kind: "unload", Position: drop}}, v.Orders...)
 					}
 				}
 				e.emit("aircraft_returning", v.Owner, v.ID, v.Position, "owner", 0)
 			}
-			if home != nil && len(v.Orders) > 0 && v.Orders[0].Kind == "return" && distance(v.Position, e.landingPoint(v, home)) <= 500 {
-				v.Position = e.landingPoint(v, home)
-				v.Landed = true
-				v.ServiceWork = 1
-				v.Path = nil
-				v.State = "servicing"
-				if len(v.Passengers) > 0 {
-					v.Orders = append([]Order{{Kind: "unload"}}, v.Orders...)
+			if home != nil && len(v.Orders) > 0 && v.Orders[0].Kind == "return" {
+				point, legal := e.serviceLandingPosition(v, home)
+				if legal && distance(v.Position, point) <= 500 {
+					v.Position = point
+					v.LastPosition = point
+					v.Landed = true
+					v.ServiceWork = 1
+					v.Path = nil
+					v.State = "servicing"
+					if len(v.Passengers) > 0 {
+						v.Orders = append([]Order{{Kind: "unload"}}, v.Orders...)
+					}
+				} else if !legal {
+					v.State = "landing_blocked"
 				}
+			}
+			// The last airborne tick may reach a legal reserved pad. Landing
+			// wins that boundary; otherwise zero endurance still destroys the
+			// aircraft. Endurance remains zero until ordinary service completes.
+			if !v.Landed && v.Endurance == 0 {
+				v.HP = 0
 			}
 			continue
 		}
@@ -196,7 +172,9 @@ func (e *Engine) updateAircraft() {
 			}
 		}
 		v.ServiceWork += work
-		if v.ServiceWork >= e.serviceRequired(v) {
+		// One marks service admission; only subsequent work advances rearming.
+		// Excluding that sentinel keeps low-power service at exactly half rate.
+		if v.ServiceWork > e.serviceRequired(v) {
 			v.ServiceWork = 0
 			v.Endurance = 2400
 			w, ok := e.weapon(v)
@@ -235,4 +213,27 @@ func (e *Engine) airliftDropPoint(v *Entity) (Vec, bool) {
 		}
 	}
 	return Vec{}, false
+}
+
+// Automatic servicing preserves explicitly queued work, and continuous patrol
+// or escort orders. Ground attacks repeat only when the owner enabled it.
+func (e *Engine) returnForService(v *Entity) {
+	if len(v.Orders) > 0 && v.Orders[0].Kind == "return" {
+		return
+	}
+	orders := cloneOrders(v.Orders)
+	if len(orders) > 0 {
+		current := orders[0]
+		resume := current.Kind == "patrol" || current.Kind == "escort" || current.Kind == "guard" && current.Target != 0 || v.RepeatSortie && (current.Kind == "attack" || current.Kind == "attack_move" || current.Kind == "force_fire")
+		if !resume {
+			orders = orders[1:]
+		}
+	}
+	for len(orders) > 0 && orders[0].Kind == "return" {
+		orders = orders[1:]
+	}
+	e.assign(v, Order{Kind: "return"})
+	// One internal Return and one emergency Unload may prefix the ten explicit
+	// user orders. They never drop the user's last queued command.
+	v.Orders = append(v.Orders, orders...)
 }

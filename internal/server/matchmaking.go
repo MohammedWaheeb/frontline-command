@@ -81,7 +81,7 @@ func (s *Server) joinQueue(w http.ResponseWriter, r *http.Request) {
 		s.queue = map[string]*queueEntry{}
 	}
 	if entry := s.queue[p.ID]; entry != nil {
-		if entry.LobbyID != "" && s.lobbies[entry.LobbyID] == nil {
+		if !s.queueEntryCurrent(entry, time.Now()) {
 			delete(s.queue, p.ID)
 		} else {
 			entry.Seen = time.Now()
@@ -89,21 +89,17 @@ func (s *Server) joinQueue(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	for _, l := range s.lobbies {
-		for _, slot := range l.Slots {
-			if slot.Profile == p.ID {
-				fail(w, 409, "already_in_lobby", "Leave the current lobby or finish its match before queueing.")
-				return
-			}
-		}
+	if !s.admitProfile(w, p.ID, "") {
+		return
 	}
+	s.pruneQueue(time.Now())
 	if len(s.queue) >= 128 || len(s.lobbies) >= 64 {
 		fail(w, 429, "queue_full", "The local host is full.")
 		return
 	}
 	if len(body.Maps) == 0 {
-		for id, m := range s.maps {
-			if len(m.Spawns) == 2 {
+		for id := range s.maps {
+			if s.rankedMap(id) {
 				body.Maps = append(body.Maps, id)
 			}
 		}
@@ -111,9 +107,8 @@ func (s *Server) joinQueue(w http.ResponseWriter, r *http.Request) {
 	sort.Strings(body.Maps)
 	maps := []string{}
 	for _, id := range body.Maps {
-		m, exists := s.maps[id]
-		if !exists || len(m.Spawns) != 2 {
-			fail(w, 400, "ranked_map_required", "Local ranked matching uses installed two-player maps.")
+		if !s.rankedMap(id) {
+			fail(w, 400, "ranked_map_required", "Local ranked matching requires an explicitly reviewed installed two-player map version.")
 			return
 		}
 		if len(maps) == 0 || maps[len(maps)-1] != id {
@@ -121,7 +116,7 @@ func (s *Server) joinQueue(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if len(maps) == 0 {
-		fail(w, 409, "no_ranked_maps", "Install the two-player map pack before queueing.")
+		fail(w, 409, "no_ranked_maps", "This host has no reviewed ranked map versions. Use an unranked lobby or install the reviewed map list.")
 		return
 	}
 	now := time.Now()
@@ -141,6 +136,7 @@ func (s *Server) readQueue(w http.ResponseWriter, r *http.Request) {
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	s.pruneLobbies()
 	entry := s.queue[p.ID]
 	if entry == nil {
 		respond(w, 200, map[string]any{"status": "idle", "region": "local"})
@@ -150,6 +146,12 @@ func (s *Server) readQueue(w http.ResponseWriter, r *http.Request) {
 	if entry.LobbyID != "" && s.lobbies[entry.LobbyID] == nil {
 		delete(s.queue, p.ID)
 		respond(w, 200, map[string]any{"status": "canceled", "region": "local"})
+		return
+	}
+	if entry.LobbyID != "" && s.lobbyCompleted(s.lobbies[entry.LobbyID]) {
+		l := s.lobbies[entry.LobbyID]
+		delete(s.queue, p.ID)
+		respond(w, 200, map[string]any{"status": "completed", "region": "local", "lobby_id": l.ID, "match_id": l.MatchID})
 		return
 	}
 	if err := s.matchQueued(r.Context(), time.Now()); err != nil {
@@ -167,11 +169,13 @@ func (s *Server) leaveQueue(w http.ResponseWriter, r *http.Request) {
 	defer s.mu.Unlock()
 	if entry := s.queue[p.ID]; entry != nil && entry.LobbyID != "" {
 		if l := s.lobbies[entry.LobbyID]; l != nil {
-			if l.MatchID != "" {
+			if l.MatchID != "" && !s.lobbyCompleted(l) {
 				fail(w, 409, "match_started", "Use Surrender to leave the active match.")
 				return
 			}
-			delete(s.lobbies, l.ID)
+			if l.MatchID == "" {
+				delete(s.lobbies, l.ID)
+			}
 		}
 	}
 	delete(s.queue, p.ID)
@@ -181,7 +185,7 @@ func queueRange(entry *queueEntry, now time.Time) int {
 	return min(600, 100+int(now.Sub(entry.Joined)/(30*time.Second))*50)
 }
 func (s *Server) queueResponse(w http.ResponseWriter, entry *queueEntry) {
-	response := map[string]any{"status": "searching", "region": "local", "latency_ms": entry.Latency, "rating_range": queueRange(entry, time.Now()), "local": true, "joined": entry.Joined.Unix()}
+	response := map[string]any{"status": "searching", "region": "local", "latency_ms": entry.Latency, "rating_range": queueRange(entry, time.Now()), "local": true, "joined": entry.Joined.Unix(), "maps": entry.Maps, "selection": "pre_queue_allowlist"}
 	if entry.LobbyID != "" {
 		response["status"] = "matched"
 		response["lobby_id"] = entry.LobbyID
@@ -193,15 +197,8 @@ func (s *Server) queueResponse(w http.ResponseWriter, entry *queueEntry) {
 // accepted round-trip estimate rises from 180 to a hard 250 ms ceiling.
 func (s *Server) matchQueued(ctx context.Context, now time.Time) error {
 	waiting := []*queueEntry{}
-	for id, q := range s.queue {
-		if q.LobbyID != "" && s.lobbies[q.LobbyID] == nil {
-			delete(s.queue, id)
-			continue
-		}
-		if q.LobbyID == "" && now.Sub(q.Seen) > 2*time.Minute {
-			delete(s.queue, id)
-			continue
-		}
+	s.pruneQueue(now)
+	for _, q := range s.queue {
 		if q.LobbyID == "" {
 			waiting = append(waiting, q)
 		}
@@ -237,7 +234,7 @@ func (s *Server) matchQueued(ctx context.Context, now time.Time) error {
 			mapID := ""
 			for _, am := range a.Maps {
 				for _, bm := range b.Maps {
-					if am == bm {
+					if am == bm && s.rankedMap(am) {
 						mapID = am
 						break
 					}
@@ -264,7 +261,7 @@ func (s *Server) matchQueued(ctx context.Context, now time.Time) error {
 			if err != nil {
 				return err
 			}
-			l := &Lobby{ID: id[:24], Name: "Local ranked 1v1", Host: a.Profile.ID, MapID: mapID, Mode: "1v1", Rated: true, Private: true, Code: code[:12], Created: now.Unix(), Slots: []LobbySlot{{Player: 1, Profile: a.Profile.ID, Name: a.Profile.Name, Faction: a.Faction, Team: 1}, {Player: 2, Profile: b.Profile.ID, Name: b.Profile.Name, Faction: b.Faction, Team: 2}}}
+			l := &Lobby{Rules: defaultLobbyRules(), MapHash: s.rankedMaps[mapID], MapVersion: s.maps[mapID].Version, ID: id[:24], Name: "Local ranked 1v1", Host: a.Profile.ID, MapID: mapID, Mode: "1v1", Rated: true, Private: true, Code: code[:12], Created: now.Unix(), Slots: []LobbySlot{{Color: 1, Player: 1, Profile: a.Profile.ID, Name: a.Profile.Name, Faction: a.Faction, Team: 1}, {Color: 2, Player: 2, Profile: b.Profile.ID, Name: b.Profile.Name, Faction: b.Faction, Team: 2}}}
 			s.lobbies[l.ID] = l
 			a.LobbyID = l.ID
 			b.LobbyID = l.ID

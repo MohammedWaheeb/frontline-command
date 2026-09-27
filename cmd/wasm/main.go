@@ -91,6 +91,69 @@ func main() {
 		b, err := session.View(player)
 		return nil, b, err
 	})
+	register("restart", func([]js.Value) (any, []byte, error) { return withInfo(session.Restart()) })
+	register("content", func([]js.Value) (any, []byte, error) { return session.Content(), nil, nil })
+	register("validateMap", func(a []js.Value) (any, []byte, error) {
+		data, err := bytesArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		m, err := session.ValidateMap(data)
+		return m, nil, err
+	})
+	register("validateMission", func(a []js.Value) (any, []byte, error) {
+		m, err := bytesArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		data, err := bytesArg(a, 1)
+		if err != nil {
+			return nil, nil, err
+		}
+		mission, err := session.ValidateMission(m, data)
+		return mission, nil, err
+	})
+	register("previewOrders", func(a []js.Value) (any, []byte, error) {
+		player, err := playerArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		data, err := bytesArg(a, 1)
+		if err != nil {
+			return nil, nil, err
+		}
+		result, err := session.PreviewOrders(player, data)
+		return result, nil, err
+	})
+
+	register("affordances", func(a []js.Value) (any, []byte, error) {
+		player, err := playerArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		if len(a) != 2 || a[1].Type() != js.TypeString || len(a[1].String()) > 4096 {
+			return nil, nil, fail("invalid_selection", "Command advice needs a bounded selection.", true)
+		}
+		var ids []sim.ID
+		if err = json.Unmarshal([]byte(a[1].String()), &ids); err != nil {
+			return nil, nil, fail("invalid_selection", "Command advice needs integer entity IDs.", true)
+		}
+		result, err := session.Affordances(player, ids)
+		return result, nil, err
+	})
+	register("candidates", func(a []js.Value) (any, []byte, error) {
+		player, err := playerArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		data, err := bytesArg(a, 1)
+		if err != nil {
+			return nil, nil, err
+		}
+		result, err := session.PreviewCandidates(player, data)
+		return result, nil, err
+	})
+	register("map", func([]js.Value) (any, []byte, error) { m, err := session.Map(); return m, nil, err })
 	register("hash", func([]js.Value) (any, []byte, error) {
 		h, err := session.Hash()
 		return h, nil, err
@@ -127,6 +190,41 @@ func main() {
 			return nil, nil, fail("save_invalid", "Local player list is malformed.", true)
 		}
 		return withInfo(session.Load(data, local))
+	})
+	register("inspectReplay", func(a []js.Value) (any, []byte, error) {
+		data, err := bytesArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		result, err := session.InspectReplay(data)
+		return result, nil, err
+	})
+	register("exportReplay", func([]js.Value) (any, []byte, error) { data, err := session.ExportReplay(); return nil, data, err })
+	register("loadReplay", func(a []js.Value) (any, []byte, error) {
+		data, err := bytesArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		return withInfo(session.LoadReplay(data))
+	})
+	register("seekReplay", func(a []js.Value) (any, []byte, error) {
+		n, err := boundedIntegerArg(a, 0, 216000)
+		if err != nil {
+			return nil, nil, err
+		}
+		return withInfo(session.SeekReplay(sim.Tick(n)))
+	})
+	register("replayCommands", func(a []js.Value) (any, []byte, error) {
+		offset, err := boundedIntegerArg(a, 0, 160*3*60*60)
+		if err != nil {
+			return nil, nil, err
+		}
+		limit, err := boundedIntegerArg(a, 1, 1000)
+		if err != nil {
+			return nil, nil, err
+		}
+		page, err := session.ReplayCommands(uint64(offset), limit)
+		return page, nil, err
 	})
 	register("dispose", func([]js.Value) (any, []byte, error) {
 		if session != nil {
@@ -188,4 +286,15 @@ func bytesArg(a []js.Value, i int) ([]byte, error) {
 	b := make([]byte, n)
 	js.CopyBytesToGo(b, a[i])
 	return b, nil
+}
+
+func boundedIntegerArg(a []js.Value, i, max int) (int, error) {
+	if len(a) <= i || a[i].Type() != js.TypeNumber {
+		return 0, fail("invalid_argument", "Expected a bounded integer.", true)
+	}
+	value := a[i].Float()
+	if value < 0 || value > float64(max) || value != float64(int(value)) {
+		return 0, fail("invalid_argument", "Integer is out of range.", true)
+	}
+	return int(value), nil
 }

@@ -21,8 +21,10 @@ func (e *Engine) updateAI() {
 		}
 		p.AILast = e.state.Tick
 		view, _ := e.PlayerView(p.ID)
+		// Retire known hostile targets before observation drops defeated owners.
+		// Cancellation is an ordinary command and wins the per-actor priority.
+		orders := e.aiRetireDefeatedTargets(p, view)
 		e.aiObserve(p, view)
-		orders := []Order{}
 		budget := p.Credits
 		own := []EntityView{}
 		counts := map[string]int32{}
@@ -47,10 +49,22 @@ func (e *Engine) updateAI() {
 				hq = unit
 			}
 		}
+		budget = e.aiPlanningBudget(p, own)
+		serviceMargin := e.aiServiceMargin(own)
+		plannedSupply := p.Supply + p.ReservedSupply
+		for _, v := range own {
+			for _, job := range e.entity(v.ID).Jobs {
+				if !job.Started && !job.Research {
+					u, _ := e.catalog.Unit(job.Type)
+					plannedSupply += u.Supply
+				}
+			}
+		}
 		if hq == nil && rig == nil {
 			for _, v := range own {
 				if e.role(e.entity(v.ID)) == "factory" && len(v.Private.Jobs) == 0 {
 					orders = append(orders, Order{Kind: "train", Entities: []ID{v.ID}, Type: p.Faction + ".rig"})
+					budget = max(int64(0), budget-1200000)
 					break
 				}
 			}
@@ -70,7 +84,7 @@ func (e *Engine) updateAI() {
 				if !foundation.Building || foundation.Complete {
 					continue
 				}
-				builder := e.entity(foundation.Builder)
+				builder := e.aiOwnEntity(own, foundation.Builder)
 				if builder == nil || builder.HP <= 0 || len(builder.Orders) == 0 {
 					orders = append(orders, Order{Kind: "resume", Entities: []ID{rig.ID}, Target: foundation.ID})
 					rig = nil
@@ -82,7 +96,7 @@ func (e *Engine) updateAI() {
 			switch {
 			case counts["hq"] == 0:
 				buildType = "hq"
-			case p.PowerCapacity-p.PowerDemand < 35 && counts["power"] < 6:
+			case e.aiPowerMargin(p, own) < 35:
 				buildType = "power"
 			case counts["power"] == 0:
 				buildType = "power"
@@ -106,7 +120,7 @@ func (e *Engine) updateAI() {
 				}
 			case counts["radar"] == 0:
 				buildType = "radar"
-			case counts["airfield"]+counts["drone_hub"]+counts["workshop_air"] == 0 && p.Supply >= 18:
+			case counts["airfield"]+counts["drone_hub"]+counts["workshop_air"] == 0 && p.Supply >= 18 || serviceMargin < 0:
 				buildType = content.AirProducer(p.Faction)
 			case counts["tech"] == 0 && p.Supply >= 28:
 				buildType = "tech"
@@ -118,22 +132,34 @@ func (e *Engine) updateAI() {
 				buildType = "strategic"
 			case p.Faction == "SY" && p.Tier >= 2 && counts["safehouse"] < 2 && p.Credits > 1600000:
 				buildType = "SY.safehouse"
+				if counts["safehouse"] > 0 {
+					for _, v := range own {
+						if v.Type == "outpost" && distance(v.Position, p.AIGoal) < distance(buildCenter, p.AIGoal) {
+							buildCenter = v.Position
+						}
+					}
+				}
 			}
 			if buildType != "" {
 				b, _ := e.buildingRule(buildType)
-				budget = max(int64(0), budget-b.Cost)
-				if p.Credits >= b.Cost && e.prerequisites(p, b.Prerequisites) {
+				if e.prerequisites(p, b.Prerequisites) {
 					if pos, ok := e.aiConstructionPosition(p, buildType, buildCenter); ok {
-						orders = append(orders, Order{Kind: "build", Entities: []ID{rig.ID}, Type: buildType, Position: pos})
-					} else if expand && distance(rig.Position, expansion) > 5000 {
+						if budget >= b.Cost {
+							orders = append(orders, Order{Kind: "build", Entities: []ID{rig.ID}, Type: buildType, Position: pos})
+						}
+						// Save toward an affordable, visible construction goal instead
+						// of spending each arriving shipment on another infantry squad.
+						budget = max(int64(0), budget-b.Cost)
+					} else if expand && budget >= b.Cost && distance(rig.Position, expansion) > 5000 {
 						orders = append(orders, Order{Kind: "move", Entities: []ID{rig.ID}, Position: expansion})
 					}
 				}
 			}
 		}
+		orders = append(orders, e.aiResearchOrders(p, own, &budget)...)
 		enemyAir, enemyArmor := false, false
 		for _, v := range p.AIKnowledge {
-			if e.allied(p.ID, v.Owner) {
+			if !aiActiveOpponent(p, view, v.Owner) {
 				continue
 			}
 			u, ok := e.catalog.Unit(v.Type)
@@ -153,7 +179,7 @@ func (e *Engine) updateAI() {
 				typ := ""
 				switch role {
 				case "supply":
-					if counts["hauler"] < min(int32(8), max(int32(2), counts["supply"]*2)) {
+					if counts["hauler"] < min(int32(6), max(int32(2), counts["supply"]*2)) {
 						typ = p.Faction + ".hauler"
 					}
 				case "hq":
@@ -186,6 +212,9 @@ func (e *Engine) updateAI() {
 					if choose == "repair" && counts["repair"] >= 2 {
 						choose = "tank"
 					}
+					if counts["repair"] == 0 && p.Supply >= 24 && !enemyAir {
+						choose = "repair"
+					}
 					if p.Tier >= 3 && p.AIStage%9 == 8 && counts["launcher"] < 2 {
 						choose = "launcher"
 					}
@@ -214,21 +243,25 @@ func (e *Engine) updateAI() {
 					}
 				}
 				if typ != "" {
-					u, _ := e.catalog.Unit(typ)
-					if budget >= u.Cost+300000 && p.Supply+p.ReservedSupply+u.Supply <= 100 {
+					u, valid := e.catalog.Unit(typ)
+					if valid && u.Tier <= p.Tier && (u.Armor != "air" || serviceMargin > 0) && budget >= u.Cost+300000 && plannedSupply+u.Supply <= 100 {
 						orders = append(orders, Order{Kind: "train", Entities: []ID{unit.ID}, Type: typ})
 						budget -= u.Cost
+						plannedSupply += u.Supply
+						if u.Armor == "air" {
+							serviceMargin--
+						}
 						counts[u.Role]++
 						p.AIStage++
 					}
-				}
-				if role == "radar" && budget > 2400000 && !p.HasUpgrade("weapons_training") {
-					orders = append(orders, Order{Kind: "research", Entities: []ID{unit.ID}, Type: "weapons_training"})
 				}
 			}
 		}
 		goal, haveGoal := e.aiGoal(p, view)
 		p.AIGoal = goal
+		orders = append(orders, e.aiRecoveryOrders(p, own, goal)...)
+		orders = append(orders, e.aiTransportOrders(p, own, goal)...)
+		orders = append(orders, e.aiEscortOrders(p, own)...)
 		orders = append(orders, e.aiSpecialOrders(p, view, own, goal)...)
 		for _, v := range own {
 			unit := e.entity(v.ID)
@@ -260,6 +293,11 @@ func (e *Engine) updateAI() {
 				continue
 			}
 			if unit.HP*3 < unit.MaxHP && hq != nil && p.AI != "easy" {
+				if len(unit.Orders) > 0 && unit.Orders[0].Kind == "guard" {
+					if source := e.aiOwnEntity(own, unit.Orders[0].Target); source != nil && e.repairRate(source, unit) > 0 {
+						continue
+					}
+				}
 				if len(unit.Orders) == 0 || unit.Orders[0].Kind != "move" {
 					orders = append(orders, Order{Kind: "move", Entities: []ID{unit.ID}, Position: hq.Position})
 				}
@@ -300,10 +338,11 @@ func (e *Engine) updateAI() {
 	}
 }
 func (e *Engine) aiPlacement(owner PlayerID, center Vec, width, height int32) (Vec, bool) {
+	known := e.aiPlacementKnowledge(e.player(owner))
 	for r := int32(4000); r <= 13000; r += 2000 {
 		for _, d := range neighbors {
 			p := Vec{X: (center.X + d.X*r) / 500 * 500, Y: (center.Y + d.Y*r) / 500 * 500}
-			if e.validPlacement(owner, p, width, height) == "ok" {
+			if known.validPlacement(owner, p, width, height) == "ok" {
 				return p, true
 			}
 		}
@@ -320,7 +359,7 @@ func (e *Engine) aiGoal(p *Player, view View) (Vec, bool) {
 	}
 	p.AIIntent = "scout"
 	for _, enemy := range view.Entities {
-		if enemy.Owner == 0 || e.allied(p.ID, enemy.Owner) {
+		if !aiActiveOpponent(p, view, enemy.Owner) {
 			continue
 		}
 		for _, own := range view.Entities {
@@ -340,9 +379,18 @@ func (e *Engine) aiGoal(p *Player, view View) (Vec, bool) {
 			}
 		}
 	}
+	// The announced endgame pulse gives positions only. It may guide ordinary
+	// movement toward a surviving economy, never a target ID or firing vision.
+	if goal, ok := aiIndicatorGoal(p, view, center); ok {
+		p.AIIntent = "pressure"
+		return goal, true
+	}
 	score := int64(1 << 62)
 	goal := Vec{}
 	for _, enemy := range p.AIKnowledge {
+		if !aiActiveOpponent(p, view, enemy.Owner) {
+			continue
+		}
 		d := dist2(center, enemy.Position)
 		if b, ok := e.buildingRule(enemy.Type); ok && b.Qualifying {
 			d /= 2
@@ -374,6 +422,27 @@ func (e *Engine) aiExplore(p *Player, from Vec) Vec {
 				score = s
 				best = pt
 			}
+		}
+	}
+	if score >= 0 {
+		return best
+	}
+	// Explored is permanent knowledge, not current sight. When the whole
+	// scout grid is known, revisit fog in a saved deterministic rotation.
+	points := []Vec{}
+	for y := int32(6); y < m.Height-6; y += 8 {
+		for x := int32(6); x < m.Width-6; x += 8 {
+			if m.Tiles[y*m.Width+x].Passable() {
+				points = append(points, Vec{X: x*1000 + 500, Y: y*1000 + 500})
+			}
+		}
+	}
+	for offset := 0; offset < len(points); offset++ {
+		index := (int(p.AIScout%uint32(len(points))) + offset) % len(points)
+		point := points[index]
+		if !e.canSee(p.ID, point) && distance(from, point) >= 4000 {
+			p.AIScout = uint32((index + 1) % len(points))
+			return point
 		}
 	}
 	return best

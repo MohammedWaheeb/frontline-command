@@ -3,7 +3,7 @@ package sim
 
 import "frontlinecommand/pkg/content"
 
-const Version = "0.1.0"
+const Version = "0.2.0"
 const TickRate uint32 = 20
 const Scale int64 = 1000
 
@@ -25,6 +25,7 @@ type PlayerConfig struct {
 	Name       string   `json:"name"`
 	Faction    string   `json:"faction"`
 	Team       uint32   `json:"team"`
+	Color      uint32   `json:"color"`
 	AI         string   `json:"ai,omitempty"`
 }
 type Config struct {
@@ -38,11 +39,14 @@ type Cooldown struct {
 	Until Tick   `json:"until"`
 }
 type Memory struct {
-	ID       ID       `json:"id"`
-	Type     string   `json:"type"`
-	Owner    PlayerID `json:"owner"`
-	Position Vec      `json:"position"`
-	Seen     Tick     `json:"seen"`
+	FootprintWidth  int32    `json:"footprint_width"`
+	FootprintHeight int32    `json:"footprint_height"`
+	FootprintType   string   `json:"footprint_type"`
+	ID              ID       `json:"id"`
+	Type            string   `json:"type"`
+	Owner           PlayerID `json:"owner"`
+	Position        Vec      `json:"position"`
+	Seen            Tick     `json:"seen"`
 }
 type Player struct {
 	SurrenderVote bool            `json:"surrender_vote"`
@@ -122,6 +126,9 @@ type Contribution struct {
 	Damage   int64    `json:"damage"`
 }
 type Entity struct {
+	FootprintWidth        int32          `json:"footprint_width"`
+	FootprintHeight       int32          `json:"footprint_height"`
+	FootprintType         string         `json:"footprint_type"`
 	NextRouteAt           Tick           `json:"next_route_at"`
 	MapObject             uint32         `json:"map_object,omitempty"`
 	EmergencyTakeoffUntil Tick           `json:"emergency_takeoff_until"`
@@ -180,6 +187,7 @@ type Entity struct {
 	Ammo                  int32          `json:"ammo"`
 	Endurance             uint32         `json:"endurance"`
 	Landed                bool           `json:"landed"`
+	RepeatSortie          bool           `json:"repeat_sortie"`
 	ServiceWork           uint32         `json:"service_work"`
 	Charges               int32          `json:"charges"`
 	ChargeWork            uint32         `json:"charge_work"`
@@ -260,7 +268,16 @@ type Outcome struct {
 	Reason      string `json:"reason"`
 	Tick        Tick   `json:"tick"`
 }
+type OriginalTile struct {
+	Index int32        `json:"index"`
+	Tile  content.Tile `json:"tile"`
+}
+
 type State struct {
+	Telemetry          *MatchTelemetry     `json:"telemetry,omitempty"`
+	SpawnPlayers       []PlayerID          `json:"spawn_players"`
+	PracticeReveal     bool                `json:"practice_reveal"`
+	MapOriginalTiles   []OriginalTile      `json:"map_original_tiles"`
 	DestroyedObjects   []uint32            `json:"destroyed_objects"`
 	LogBase            uint64              `json:"log_base"`
 	LogOrders          uint32              `json:"log_orders"`

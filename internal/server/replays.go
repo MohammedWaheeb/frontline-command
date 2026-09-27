@@ -6,7 +6,8 @@ import (
 )
 
 func (s *Server) getReplay(w http.ResponseWriter, r *http.Request) {
-	if _, ok := s.authenticate(w, r); !ok {
+	p, ok := s.authenticate(w, r)
+	if !ok {
 		return
 	}
 	id := r.PathValue("id")
@@ -14,6 +15,14 @@ func (s *Server) getReplay(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_replay", "Invalid replay ID.")
 		return
 	}
+	allowed, err := s.repo.MayReadReplay(r.Context(), id, p.ID)
+	if err != nil || !allowed {
+		fail(w, 404, "replay_unavailable", "This completed replay is unavailable for this profile.")
+		return
+	}
+	s.writeCompletedReplay(w, r, id)
+}
+func (s *Server) writeCompletedReplay(w http.ResponseWriter, r *http.Request, id string) {
 	result, err := s.repo.GetResult(r.Context(), id)
 	if err != nil || result.Void {
 		fail(w, 404, "replay_unavailable", "A completed match replay is not available.")

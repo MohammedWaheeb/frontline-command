@@ -71,12 +71,20 @@ func TestLobbyPatchIsAtomicAndLeaveTransfersHost(t *testing.T) {
 func TestReplayDownloadRequiresCompletedResult(t *testing.T) {
 	s, h := testServer(t)
 	token := profile(t, h, "Replay viewer")
+	participant, err := s.repo.Authenticate(context.Background(), token)
+	if err != nil {
+		t.Fatal(err)
+	}
 	engine, err := sim.New(s.catalog, sim.Config{Map: testMap(), Seed: 9, Players: []sim.PlayerConfig{{ID: 1, Name: "A", Faction: "US", Team: 1}, {ID: 2, Name: "B", Faction: "IR", Team: 2}}})
 	if err != nil {
 		t.Fatal(err)
 	}
 	replay, _ := sim.NewReplay(engine)
 	data, _ := replay.Encode()
+	checkpoint, _ := engine.Save()
+	if err = s.repo.StartMatchAccess(context.Background(), "record", 0, checkpoint, []storage.MatchMember{{Profile: participant.ID, Player: 1}}, false); err != nil {
+		t.Fatal(err)
+	}
 	if err = s.objects.Put(context.Background(), "record.replay", data); err != nil {
 		t.Fatal(err)
 	}

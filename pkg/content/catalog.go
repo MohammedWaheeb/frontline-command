@@ -148,6 +148,16 @@ func Decode(data []byte) (*Catalog, error) {
 }
 func (c *Catalog) Hash() string { return c.hash }
 func (c *Catalog) JSON() []byte { b, _ := json.Marshal(c.pack); return b }
+
+// PresentationJSON includes the engine-owned map object dimensions needed to
+// render observed rubble. JSON remains the exact canonical rules pack/hash API.
+func (c *Catalog) PresentationJSON() []byte {
+	b, _ := json.Marshal(struct {
+		Pack
+		Objects []ObjectClass `json:"object_classes"`
+	}{c.pack, ObjectClasses()})
+	return b
+}
 func (c *Catalog) Unit(id string) (Unit, bool) {
 	// Ability-created entities are not purchasable members of the 75-unit roster.
 	if id == "IR.beacon" {

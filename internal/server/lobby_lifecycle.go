@@ -47,20 +47,27 @@ func (s *Server) leaveLobby(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(204)
 		return
 	}
+	if !lobbyMember(l, p.ID) {
+		fail(w, 403, "not_in_lobby", "Join the lobby first.")
+		return
+	}
 	if l.MatchID != "" {
+		if s.lobbyCompleted(l) {
+			// Keep historical membership for private replay/reconnect access.
+			// A committed result already released the profile for new admission.
+			if q := s.queue[p.ID]; q != nil && q.LobbyID == l.ID {
+				delete(s.queue, p.ID)
+			}
+			w.WriteHeader(204)
+			return
+		}
 		fail(w, 409, "match_started", "Use Surrender to leave an active match.")
 		return
 	}
 	if l.Rated {
-		for _, slot := range l.Slots {
-			if slot.Profile == p.ID {
-				delete(s.lobbies, l.ID)
-				delete(s.queue, p.ID)
-				w.WriteHeader(204)
-				return
-			}
-		}
-		fail(w, 403, "not_in_lobby", "Join the lobby first.")
+		delete(s.lobbies, l.ID)
+		delete(s.queue, p.ID)
+		w.WriteHeader(204)
 		return
 	}
 	for i, v := range l.Slots {

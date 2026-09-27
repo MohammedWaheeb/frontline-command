@@ -14,11 +14,7 @@ type InterruptedMatch struct {
 }
 
 func (s *SQLite) StartMatch(ctx context.Context, id string, tick uint32, data []byte) error {
-	if !ValidID(id) || len(data) > 64<<20 {
-		return errors.New("invalid initial match checkpoint")
-	}
-	_, err := s.db.ExecContext(ctx, `INSERT INTO active_matches(id,tick,data,updated) VALUES(?,?,?,?)`, id, tick, data, time.Now().Unix())
-	return err
+	return s.StartMatchAccess(ctx, id, tick, data, nil, false)
 }
 func (s *SQLite) CheckpointMatch(ctx context.Context, id string, tick uint32, data []byte) error {
 	if !ValidID(id) || len(data) > 64<<20 {

@@ -34,7 +34,12 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 	}
 	e := &Engine{catalog: c, state: State{Metadata: Metadata{Version, 1, c.Hash(), gameMap.Version, cfg.Ruleset, cfg.Seed}, Map: gameMap, RNG: cfg.Seed, NextID: 1, NextEvent: 1, Countdown: 100}, visible: map[PlayerID][]bool{}}
 	ids := map[PlayerID]bool{}
+	colors, err := configColors(cfg.Players)
+	if err != nil {
+		return nil, err
+	}
 	for i, pc := range cfg.Players {
+		pc.Color = colors[i]
 		if pc.Controller == "" {
 			pc.Controller = "human"
 			if pc.AI != "" {
@@ -51,6 +56,7 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 			return nil, errors.New("invalid AI difficulty")
 		}
 		ids[pc.ID] = true
+		e.state.SpawnPlayers = append(e.state.SpawnPlayers, pc.ID)
 		if pc.Team == 0 {
 			pc.Team = uint32(pc.ID)
 		}
@@ -145,6 +151,7 @@ func (e *Engine) spawn(typ string, owner PlayerID, pos Vec, complete bool, paid 
 		}
 	} else if b, ok := e.buildingRule(typ); ok {
 		v.Building = true
+		v.FootprintWidth, v.FootprintHeight, v.FootprintType = b.Width, b.Height, typ
 		v.MaxHP = b.HP
 		v.HP = b.HP
 		if !complete {
@@ -223,11 +230,15 @@ func (e *Engine) StateCopy() State {
 }
 func (e *Engine) emit(kind string, owner PlayerID, id ID, pos Vec, scope string, value int64) {
 	e.state.Events = append(e.state.Events, Event{ID: e.state.NextEvent, Tick: e.state.Tick, Kind: kind, Owner: owner, Entity: id, Position: pos, Scope: scope, Value: value})
+	e.recordMissionEvent(kind, owner, id, value)
 	e.state.NextEvent++
 }
 func (e *Engine) Advance() {
 	if e.state.Outcome.Finished {
 		return
+	}
+	if e.state.Telemetry == nil || len(e.state.Telemetry.Players) > 0 && len(e.state.Telemetry.Players[0].Timeline) == 0 {
+		e.sampleTelemetry(true)
 	}
 	e.state.Tick++
 	e.state.Events = nil
@@ -257,8 +268,15 @@ func (e *Engine) Advance() {
 	e.updateFog()
 	e.updateMission()
 	e.updateVictory()
+	e.sampleTelemetry(false)
 }
 func (e *Engine) updateVictory() {
+	if e.state.Metadata.Ruleset == "practice-v1" {
+		if e.state.Tick >= seconds(90*60)+100 {
+			e.state.Outcome = Outcome{Finished: true, Draw: true, Reason: "practice_time_limit", Tick: e.state.Tick}
+		}
+		return
+	}
 	if e.state.Mission != nil {
 		if !e.state.Outcome.Finished && e.state.Tick >= seconds(90*60)+100 {
 			e.state.Outcome = Outcome{Finished: true, Draw: true, Reason: "time_limit", Tick: e.state.Tick}
@@ -335,6 +353,11 @@ func (e *Engine) defeat(p *Player) {
 			v.Jobs = nil
 			v.Enabled = false
 			v.Concealed = false
+			v.Path = nil
+			v.Target = 0
+			v.AimUntil = 0
+			v.Channel = ""
+			v.ChannelUntil = 0
 		}
 	}
 	e.emit("player_defeated", p.ID, 0, Vec{}, "all", 0)
@@ -421,7 +444,7 @@ func Restore(c *content.Catalog, data []byte) (*Engine, error) {
 	}
 	lastID := ID(0)
 	for _, v := range s.Entities {
-		if v == nil || v.ID <= lastID || v.ID >= s.NextID || (v.Owner != 0 || v.MapObject == 0) && e.player(v.Owner) == nil || v.HP < 0 || v.HP > v.MaxHP || v.MaxHP <= 0 || v.MaxHP > 200000000 || len(v.Orders) > 10 || len(v.Jobs) > 6 || len(v.Path) > 65536 || !s.Map.InBounds(v.Position) {
+		if v == nil || v.ID <= lastID || v.ID >= s.NextID || (v.Owner != 0 || v.MapObject == 0) && e.player(v.Owner) == nil || v.HP < 0 || v.HP > v.MaxHP || v.MaxHP <= 0 || v.MaxHP > 200000000 || len(v.Orders) > 12 || len(v.Jobs) > 6 || len(v.Path) > 65536 || !s.Map.InBounds(v.Position) {
 			return nil, fmt.Errorf("invalid saved entity")
 		}
 		lastID = v.ID

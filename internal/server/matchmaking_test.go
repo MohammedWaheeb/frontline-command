@@ -13,7 +13,7 @@ import (
 
 func TestMatchedLobbyLocksTeamsAndRequiresReadyAssets(t *testing.T) {
 	s, h := testServer(t)
-	s.maps[testMap().ID] = testMap()
+	installReviewedTestMap(s, testMap())
 	a, b := profile(t, h, "A"), profile(t, h, "B")
 	body := map[string]any{"faction": "US", "latency_ms": 15, "protocol": 1, "simulation": sim.Version, "content_hash": s.catalog.Hash()}
 	request(t, h, "POST", "/api/v1/matchmaking", a, body, 200)
@@ -43,7 +43,7 @@ func TestMatchedLobbyLocksTeamsAndRequiresReadyAssets(t *testing.T) {
 
 func TestRatedResultFromTwoRealSockets(t *testing.T) {
 	s, h := testServer(t)
-	s.maps[testMap().ID] = testMap()
+	installReviewedTestMap(s, testMap())
 	a, b := profile(t, h, "Alpha"), profile(t, h, "Bravo")
 	body := map[string]any{"faction": "US", "protocol": 1, "simulation": sim.Version, "content_hash": s.catalog.Hash(), "latency_ms": 1}
 	request(t, h, "POST", "/api/v1/matchmaking", a, body, 200)
@@ -52,7 +52,7 @@ func TestRatedResultFromTwoRealSockets(t *testing.T) {
 	var id string
 	json.Unmarshal(matched["lobby_id"], &id)
 	for _, token := range []string{a, b} {
-		request(t, h, "POST", "/api/v1/lobbies/"+id+"/ready", token, map[string]any{"ready": true, "assets_ready": true, "protocol": 1, "simulation": sim.Version, "content_hash": s.catalog.Hash()}, 200)
+		readyTestLobby(t, s, h, id, token)
 	}
 	started := request(t, h, "POST", "/api/v1/lobbies/"+id+"/start", a, map[string]any{}, 201)
 	joined := request(t, h, "GET", "/api/v1/lobbies/"+id, b, nil, 200)
@@ -112,6 +112,9 @@ func TestRatedResultFromTwoRealSockets(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	if policy := replay.LobbyInfo(); policy == nil || policy.Mode != "1v1" || !policy.Rated || !policy.Private || policy.LiveObservers || policy.PauseEnabled {
+		t.Fatal("persisted replay lost declared lobby policy", policy)
+	}
 	restored, err := replay.Seek(s.catalog, replay.FinalTick)
 	if err != nil {
 		t.Fatal(err)
@@ -119,9 +122,66 @@ func TestRatedResultFromTwoRealSockets(t *testing.T) {
 	if restored.Outcome().WinningTeam != 2 {
 		t.Fatal("persisted replay disagrees with authoritative result")
 	}
+	// Result persistence releases admission immediately, while this actor and its
+	// old connection tokens remain available throughout the debrief grace period.
+	info := request(t, h, "POST", "/api/v1/lobbies/"+id+"/join", b, map[string]any{}, 200)
+	var lobbyState string
+	json.Unmarshal(info["state"], &lobbyState)
+	if lobbyState != "completed" || len(info["connection"]) == 0 {
+		t.Fatal("committed match was not available as a completed debrief")
+	}
+	finishedQueue := request(t, h, "GET", "/api/v1/matchmaking", b, nil, 200)
+	var queueStatus string
+	json.Unmarshal(finishedQueue["status"], &queueStatus)
+	if queueStatus != "completed" {
+		t.Fatal("finished matchmaking entry still reserved its player")
+	}
+	outsider := profile(t, h, "Outside the match")
+	request(t, h, "POST", "/api/v1/lobbies/"+id+"/rematch", outsider, map[string]any{}, 403)
+	rematched := request(t, h, "POST", "/api/v1/lobbies/"+id+"/rematch", b, map[string]any{}, 201)
+	rematch := responseLobby(t, rematched)
+	var code string
+	json.Unmarshal(rematched["code"], &code)
+	if rematch.Rated || rematch.PreviousMatch != result.MatchId || len(rematch.Slots) != 1 || rematch.Slots[0].Player != 2 || rematch.Slots[0].Ready || rematch.Slots[0].AssetsReady {
+		t.Fatal("rematch must be an explicit fresh unranked lobby", rematch)
+	}
+	retried := responseLobby(t, request(t, h, "POST", "/api/v1/lobbies/"+id+"/rematch", b, map[string]any{}, 200))
+	if retried.ID != rematch.ID {
+		t.Fatal("rematch retry created a duplicate lobby")
+	}
+	searching := request(t, h, "POST", "/api/v1/matchmaking", a, body, 200)
+	json.Unmarshal(searching["status"], &queueStatus)
+	if queueStatus != "searching" {
+		t.Fatal("finished ranked lobby prevented a new queue attempt")
+	}
+	request(t, h, "POST", "/api/v1/lobbies/"+rematch.ID+"/join", a, map[string]any{"code": code, "faction": "US"}, 409)
+	request(t, h, "DELETE", "/api/v1/matchmaking", a, nil, 204)
+	request(t, h, "POST", "/api/v1/lobbies/"+rematch.ID+"/join", a, map[string]any{"code": code, "faction": "US"}, 200)
+	request(t, h, "POST", "/api/v1/lobbies/"+rematch.ID+"/start", b, map[string]any{}, 409)
+	for _, token := range []string{a, b} {
+		readyTestLobby(t, s, h, rematch.ID, token)
+	}
+	next := request(t, h, "POST", "/api/v1/lobbies/"+rematch.ID+"/start", b, map[string]any{}, 201)
+	var nextConnection map[string]any
+	json.Unmarshal(next["connection"], &nextConnection)
+	if nextConnection["match_id"] == result.MatchId || nextConnection["token"] == bc["token"] {
+		t.Fatal("rematch reused prior simulation or credentials")
+	}
+	s.mu.Lock()
+	previousMatch := s.matches[result.MatchId]
+	s.mu.Unlock()
+	if previousMatch == nil || !previousMatch.completed.Load() {
+		t.Fatal("starting another match destroyed the old debrief actor")
+	}
+	if view := previousMatch.call(ctx, matchRequest{kind: "view", player: 2}); view.err != nil || !view.view.Outcome.Finished {
+		t.Fatal("previous debrief view was lost", view.err)
+	}
 }
 func TestMatchingWidensSkillBeforeLatencyAndHonorsBlocks(t *testing.T) {
 	s, _ := testServer(t)
+	m := testMap()
+	m.ID = "m"
+	installReviewedTestMap(s, m)
 	ctx := context.Background()
 	a, _, _ := s.repo.CreateProfile(ctx, "A")
 	b, _, _ := s.repo.CreateProfile(ctx, "B")

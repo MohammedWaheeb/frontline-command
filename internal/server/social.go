@@ -32,7 +32,10 @@ func (s *Server) socialRoutes() {
 		if !decode(w, r, &body, 4096) {
 			return
 		}
-		if err := s.repo.SetRelation(r.Context(), p.ID, body.Target, body.Action); err != nil {
+		s.mu.Lock()
+		err := s.repo.SetRelation(r.Context(), p.ID, body.Target, body.Action)
+		s.mu.Unlock()
+		if err != nil {
 			fail(w, 400, "social_action_rejected", "This action is unavailable for that profile.")
 			return
 		}
@@ -115,19 +118,34 @@ func (s *Server) sendChat(w http.ResponseWriter, r *http.Request) {
 	if body.TeamOnly {
 		team = member.Team
 	}
-	recipients := []string{}
-	if body.TeamOnly {
-		s.mu.Lock()
-		if lobby := s.lobbies[r.PathValue("id")]; lobby != nil {
-			for _, slot := range lobby.Slots {
-				if slot.Team == team && slot.Profile != "" {
-					recipients = append(recipients, slot.Profile)
-				}
+	// Body reads and actor calls can yield while a forming lobby changes. Bind
+	// the send and recipient snapshot to the same authorized membership state.
+	s.mu.Lock()
+	lobby := s.lobbies[r.PathValue("id")]
+	current := false
+	if lobby != nil && s.matches[lobby.MatchID] == m {
+		for _, candidate := range lobby.Slots {
+			if candidate.Profile == p.ID && candidate.Player == member.Player && candidate.Team == member.Team {
+				current = true
+				break
 			}
 		}
+	}
+	if !current {
 		s.mu.Unlock()
+		fail(w, 409, "chat_membership_changed", "Your lobby membership changed. Reload before sending this message.")
+		return
+	}
+	recipients := []string{}
+	if body.TeamOnly {
+		for _, slot := range lobby.Slots {
+			if slot.Team == team && slot.Profile != "" {
+				recipients = append(recipients, slot.Profile)
+			}
+		}
 	}
 	message, err := s.repo.SendChat(r.Context(), storage.ChatMessage{Recipients: recipients, Room: r.PathValue("id"), Sender: p.ID, Team: team, Text: body.Text, Tick: tick})
+	s.mu.Unlock()
 	if err != nil {
 		fail(w, 400, "chat_rejected", err.Error())
 		return

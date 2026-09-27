@@ -5,7 +5,7 @@ func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
 	target := e.entity(o.Target)
 	switch o.Type {
 	case "designate":
-		if v.Type != "US.recon" || target == nil || e.allied(p.ID, target.Owner) || target.HP <= 0 || (e.armor(target) != "light" && e.armor(target) != "heavy" && !target.Building) || !e.canSeeEntity(p.ID, target) || e.edgeDistance(v, target) > 7000 {
+		if v.Type != "US.recon" || target == nil || e.defeated(target.Owner) || e.allied(p.ID, target.Owner) || target.HP <= 0 || (e.armor(target) != "light" && e.armor(target) != "heavy" && !target.Building) || !e.canSeeEntity(p.ID, target) || e.edgeDistance(v, target) > 7000 {
 			return "invalid_designation"
 		}
 		if cooldown(v.Cooldowns, o.Type, e.state.Tick) {
@@ -33,7 +33,7 @@ func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
 		e.beginChannel(v, "beacon", 0, seconds(4))
 		return "ok"
 	case "sabotage":
-		if e.role(v) != "elite" || target == nil || !target.Building || e.allied(p.ID, target.Owner) || !e.canSeeEntity(p.ID, target) || e.edgeDistance(v, target) > 1000 || !target.Active(e.state.Tick) || target.ResistanceUntil > e.state.Tick {
+		if e.role(v) != "elite" || target == nil || !target.Building || e.defeated(target.Owner) || e.allied(p.ID, target.Owner) || !e.canSeeEntity(p.ID, target) || e.edgeDistance(v, target) > 1000 || !target.Active(e.state.Tick) || target.ResistanceUntil > e.state.Tick {
 			return "invalid_sabotage"
 		}
 		switch e.role(target) {
@@ -102,6 +102,7 @@ func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
 		}
 		p.Credits -= 300000
 		p.Spent += 300000
+		e.recordMissionEvent("missile_spent", p.ID, v.ID, 300000)
 		v.Charges--
 		v.PublicRevealUntil = e.state.Tick + seconds(6)
 		e.launch(v, nil, o.Points[0], w, w.Damage)
@@ -276,6 +277,7 @@ func (e *Engine) activateStrategic(p *Player, selection []*Entity, o Order) stri
 	p.Credits -= cost
 	p.Spent += cost
 	site.ChargeWork = 0
+	e.emit("strategic_activated", p.ID, site.ID, site.Position, "owner", cost)
 	switch p.Faction {
 	case "IR":
 		for i, pt := range o.Points {
@@ -387,7 +389,7 @@ func (e *Engine) updateSpecial() {
 				v.ChargeWork = 0
 			}
 		}
-		if p.Faction == "SY" && (role == "rifle" || role == "recon" || role == "elite") && e.state.Map.TileAt(v.Position).Cover() && v.Container == 0 && v.Channel == "" && e.state.Tick-v.StationarySince >= seconds(4) && (!v.EverDealt || e.state.Tick-v.LastDealt >= seconds(6)) && (!v.EverDamaged || e.state.Tick-v.LastDamage >= seconds(6)) && v.RevealedUntil <= e.state.Tick {
+		if p.Faction == "SY" && (role == "rifle" || role == "recon" || role == "elite") && e.state.Map.TileAt(v.Position).Cover() && v.Container == 0 && v.Channel == "" && e.state.Tick-v.StationarySince >= seconds(4) && (!v.EverDealt || e.state.Tick-v.LastDealt >= seconds(6)) && (!v.EverDamaged || e.state.Tick-v.LastDamage >= seconds(6)) && v.RevealedUntil <= e.state.Tick && !e.detectedByEnemy(v) {
 			if !v.Concealed {
 				v.Concealed = true
 				v.ConcealedSince = e.state.Tick
@@ -398,7 +400,7 @@ func (e *Engine) updateSpecial() {
 	}
 	zones := e.state.Zones[:0]
 	for _, z := range e.state.Zones {
-		if e.state.Tick >= z.Until {
+		if e.state.Tick >= z.Until || e.defeated(z.Owner) {
 			continue
 		}
 		if z.Kind == "shieldline" {
@@ -421,7 +423,7 @@ func (e *Engine) updateSpecial() {
 	pending := e.state.Operations[:0]
 	for _, op := range e.state.Operations {
 		source := e.entity(op.Source)
-		if source == nil || source.HP <= 0 || source.Owner != op.Owner {
+		if source == nil || source.HP <= 0 || source.Owner != op.Owner || e.defeated(op.Owner) {
 			continue
 		}
 		if op.Kind == "raid" && source.LastDamage != op.DamageAtStart {
@@ -441,6 +443,7 @@ func (e *Engine) updateSpecial() {
 			if source.Charges > 0 && p.Credits >= 300000 {
 				p.Credits -= 300000
 				p.Spent += 300000
+				e.recordMissionEvent("missile_spent", p.ID, source.ID, 300000)
 				source.Charges--
 				w, _ := e.weapon(source)
 				e.launch(source, nil, op.Points[0], w, w.Damage)

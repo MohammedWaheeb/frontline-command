@@ -19,7 +19,6 @@ func (s *SQLite) initSocialSchema() error {
 		`CREATE TABLE IF NOT EXISTS moderation(report_id TEXT PRIMARY KEY REFERENCES reports(id),resolution TEXT NOT NULL,reviewed INTEGER NOT NULL)`,
 		`CREATE TABLE IF NOT EXISTS ratings(owner TEXT PRIMARY KEY REFERENCES profiles(id),rating INTEGER NOT NULL DEFAULT 1000,games INTEGER NOT NULL DEFAULT 0,wins INTEGER NOT NULL DEFAULT 0,losses INTEGER NOT NULL DEFAULT 0)`,
 		`CREATE TABLE IF NOT EXISTS active_matches(id TEXT PRIMARY KEY,tick INTEGER NOT NULL,data BLOB NOT NULL,updated INTEGER NOT NULL)`,
-		`PRAGMA user_version=3`,
 	} {
 		if _, err := s.db.Exec(stmt); err != nil {
 			return err
@@ -219,7 +218,11 @@ func (s *SQLite) PutSettings(ctx context.Context, owner string, expected int64, 
 	if revision != expected {
 		return Settings{}, ErrConflict
 	}
-	next := Settings{Revision: revision + 1, Data: data}
+	allocated, err := reserveRevision(ctx, tx, "settings", owner, "", revision, true)
+	if err != nil {
+		return Settings{}, err
+	}
+	next := Settings{Revision: allocated, Data: data}
 	_, err = tx.ExecContext(ctx, `INSERT INTO profile_settings(owner,revision,data) VALUES(?,?,?) ON CONFLICT(owner) DO UPDATE SET revision=excluded.revision,data=excluded.data`, owner, next.Revision, data)
 	if err != nil {
 		return Settings{}, err

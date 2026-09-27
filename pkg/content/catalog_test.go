@@ -55,6 +55,31 @@ func TestCatalogImmutable(t *testing.T) {
 		t.Fatal("unstable content hash", e)
 	}
 }
+
+func TestPresentationCatalogIncludesAuthoritativeObjectDimensions(t *testing.T) {
+	c := MustBase()
+	var presentation struct {
+		Pack
+		Objects []ObjectClass `json:"object_classes"`
+	}
+	if err := json.Unmarshal(c.PresentationJSON(), &presentation); err != nil {
+		t.Fatal(err)
+	}
+	if len(presentation.Units) != 75 || len(presentation.Objects) != len(ObjectClasses()) {
+		t.Fatal("presentation catalog missing rules")
+	}
+	for _, object := range presentation.Objects {
+		expected, ok := ObjectRule(object.ID)
+		if !ok || expected != object {
+			t.Fatal("object geometry drifted from Go")
+		}
+	}
+	pack, _ := json.Marshal(presentation.Pack)
+	decoded, err := Decode(pack)
+	if err != nil || decoded.Hash() != c.Hash() {
+		t.Fatal("presentation changed canonical rules hash", err)
+	}
+}
 func TestRejectInvalidCatalog(t *testing.T) {
 	for _, mut := range []func(*Pack){func(p *Pack) { p.Units[0].Cost = -1 }, func(p *Pack) { p.Units = append(p.Units, p.Units[0]) }, func(p *Pack) { p.Units[0].Weapon = "missing" }, func(p *Pack) { p.Buildings[0].Prerequisites = []string{"power"} }, func(p *Pack) { p.Armor = nil }} {
 		var p Pack

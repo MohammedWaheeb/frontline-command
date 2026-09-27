@@ -5,7 +5,23 @@ import (
 )
 
 func (e *Engine) validateState() error {
+	if err := e.validateTelemetry(); err != nil {
+		return err
+	}
+	if e.state.PracticeReveal && e.state.Metadata.Ruleset != "practice-v1" {
+		return fmt.Errorf("practice reveal outside practice")
+	}
 	s := &e.state
+	if len(s.SpawnPlayers) != len(s.Players) {
+		return fmt.Errorf("invalid saved spawn-player order")
+	}
+	seenSpawns := map[PlayerID]bool{}
+	for _, id := range s.SpawnPlayers {
+		if e.player(id) == nil || seenSpawns[id] {
+			return fmt.Errorf("invalid saved spawn-player order")
+		}
+		seenSpawns[id] = true
+	}
 	if err := e.validateMapObjects(); err != nil {
 		return err
 	}
@@ -25,10 +41,16 @@ func (e *Engine) validateState() error {
 			return fmt.Errorf("invalid saved entity state %d", v.ID)
 		}
 		if v.Building {
+			if !e.validRetainedFootprint(v.Type, v.FootprintType, v.FootprintWidth, v.FootprintHeight) {
+				return fmt.Errorf("invalid saved structure footprint")
+			}
 			b, _ := e.buildingRule(v.Type)
 			if v.Work > b.BuildTicks*2 {
 				return fmt.Errorf("construction work out of bounds")
 			}
+		}
+		if !v.Building && (v.FootprintWidth != 0 || v.FootprintHeight != 0 || v.FootprintType != "") {
+			return fmt.Errorf("unit has structure footprint")
 		}
 		for _, j := range v.Jobs {
 			if j.Required == 0 || j.Required > 216000 || j.Work > j.Required || j.Paid < 0 || j.Supply < 0 || j.Supply > 100 {
@@ -42,9 +64,21 @@ func (e *Engine) validateState() error {
 				return fmt.Errorf("unknown saved production")
 			}
 		}
+		// Use the same role/type capacity as ordinary boarding. A reciprocal
+		// relationship alone must not turn a nontransport into a carrier or
+		// give a two-squad safehouse, garrison or airlift an APC's three slots.
+		if len(v.Passengers) > int(e.capacity(v)) {
+			return fmt.Errorf("saved passenger capacity exceeded for entity %d", v.ID)
+		}
 		if v.Container != 0 {
+			if v.Building || e.armor(v) != "infantry" || v.TemporaryUntil != 0 || len(v.Passengers) != 0 {
+				return fmt.Errorf("invalid saved passenger type %d", v.ID)
+			}
 			parent := e.entity(v.Container)
-			if parent == nil || parent.Owner != v.Owner || parent.ID == v.ID {
+			// Restoring existing occupancy is not a new boarding request: an
+			// inactive/disabled carrier or a safehouse preparing transit may
+			// legitimately retain passengers. Do not use canBoard/Active here.
+			if parent == nil || parent.Owner != v.Owner || parent.ID == v.ID || parent.Container != 0 || !parent.Complete || e.capacity(parent) == 0 {
 				return fmt.Errorf("invalid passenger container")
 			}
 			found := false
@@ -101,7 +135,12 @@ func (e *Engine) validateState() error {
 			return fmt.Errorf("unknown projectile weapon")
 		}
 	}
+	playerColors := map[uint32]bool{}
 	for _, p := range s.Players {
+		if p.Color < 1 || p.Color > 8 || playerColors[p.Color] {
+			return fmt.Errorf("invalid saved player color")
+		}
+		playerColors[p.Color] = true
 		if p.Controller != "human" && p.Controller != "ai" && p.Controller != "script" || p.Controller == "script" && p.AI != "" {
 			return fmt.Errorf("invalid saved controller")
 		}
@@ -149,7 +188,7 @@ func (e *Engine) validateState() error {
 			}
 		}
 		for _, m := range p.Memory {
-			if !s.Map.InBounds(m.Position) || m.Seen > s.Tick {
+			if !s.Map.InBounds(m.Position) || m.Seen > s.Tick || !e.validRetainedFootprint(m.Type, m.FootprintType, m.FootprintWidth, m.FootprintHeight) {
 				return fmt.Errorf("invalid fog memory")
 			}
 		}
@@ -216,6 +255,9 @@ func (e *Engine) validateState() error {
 		if err := ms.Definition.Validate(e.catalog, s.Map); err != nil {
 			return err
 		}
+		if err := e.validateMissionProgress(); err != nil {
+			return err
+		}
 		if len(ms.Triggers) != len(ms.Definition.Triggers) || len(ms.Objectives) != len(ms.Definition.Objectives) || len(ms.KnownTags) > 4096 {
 			return fmt.Errorf("mission progress shape mismatch")
 		}
@@ -233,7 +275,7 @@ func (e *Engine) validateState() error {
 	return nil
 }
 func (e *Engine) validateSavedOrders(orders []Order, batch bool) error {
-	limit := 10
+	limit := 12
 	if batch {
 		limit = 32
 	}
@@ -243,6 +285,9 @@ func (e *Engine) validateSavedOrders(orders []Order, batch bool) error {
 	for _, o := range orders {
 		if !orderKinds[o.Kind] || len(o.Entities) > 64 || len(o.Points) > 6 || len(o.Type) > 80 || o.Index < 0 || o.Index > 1000000 {
 			return fmt.Errorf("invalid saved order")
+		}
+		if o.Kind == "patrol" && !batch && (len(o.Points) < 2 || int(o.Index) >= len(o.Points)) {
+			return fmt.Errorf("invalid patrol route")
 		}
 		for _, p := range o.Points {
 			if !e.state.Map.InBounds(p) {

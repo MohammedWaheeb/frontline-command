@@ -9,7 +9,7 @@ func (e *Engine) salvage(id ID) *Salvage {
 	return nil
 }
 func (e *Engine) dropSalvage(v *Entity) {
-	if v.Building || v.TemporaryUntil > 0 || v.Paid <= 0 || !v.SalvageEligible {
+	if v.Building || e.defeated(v.Owner) || v.TemporaryUntil > 0 || v.Paid <= 0 || !v.SalvageEligible {
 		return
 	}
 	u, _ := e.catalog.Unit(v.Type)

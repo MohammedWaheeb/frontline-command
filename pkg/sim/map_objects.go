@@ -1,7 +1,9 @@
 package sim
 
 import (
+	"encoding/json"
 	"fmt"
+	"frontlinecommand/pkg/content"
 	"sort"
 )
 
@@ -24,9 +26,11 @@ func (e *Engine) destroyMapObject(v *Entity) {
 		e.state.DestroyedObjects = append(e.state.DestroyedObjects, object.ID)
 		sort.Slice(e.state.DestroyedObjects, func(i, j int) bool { return e.state.DestroyedObjects[i] < e.state.DestroyedObjects[j] })
 		for _, index := range object.TileIndices(e.state.Map.Width) {
+			e.state.MapOriginalTiles = append(e.state.MapOriginalTiles, OriginalTile{Index: int32(index), Tile: e.state.Map.Tiles[index]})
 			e.state.Map.Tiles[index].Terrain = "rubble"
 			e.state.Map.Tiles[index].SightBlocker = false
 		}
+		sort.Slice(e.state.MapOriginalTiles, func(i, j int) bool { return e.state.MapOriginalTiles[i].Index < e.state.MapOriginalTiles[j].Index })
 		return
 	}
 }
@@ -63,17 +67,34 @@ func (e *Engine) validateMapObjects() error {
 		destroyed[id] = true
 	}
 	valid := map[uint32]bool{}
+	expectedTiles := map[int32]bool{}
 	for _, object := range e.state.Map.Objects {
 		valid[object.ID] = true
 		v := live[object.ID]
 		if destroyed[object.ID] {
 			for _, index := range object.TileIndices(e.state.Map.Width) {
+				expectedTiles[int32(index)] = true
 				if e.state.Map.Tiles[index].Terrain != "rubble" || e.state.Map.Tiles[index].SightBlocker {
 					return fmt.Errorf("missing deterministic debris footprint")
 				}
 			}
 		} else if v == nil || v.Type != "map."+object.Class || v.Position != object.Position {
 			return fmt.Errorf("missing or mismatched map object")
+		}
+	}
+	if len(e.state.MapOriginalTiles) != len(expectedTiles) {
+		return fmt.Errorf("original terrain history missing")
+	}
+	previous := int32(-1)
+	for _, tile := range e.state.MapOriginalTiles {
+		if tile.Index <= previous || !expectedTiles[tile.Index] || !tile.Tile.Passable() {
+			return fmt.Errorf("invalid original terrain history")
+		}
+		previous = tile.Index
+	}
+	if len(expectedTiles) > 0 {
+		if err := e.MapBlueprint().Validate(); err != nil {
+			return err
 		}
 	}
 	for id := range live {
@@ -96,4 +117,19 @@ func (e *Engine) validateMapObjects() error {
 		}
 	}
 	return nil
+}
+
+// MapBlueprint returns a detached copy of the original public map definition.
+// Rendering resumes from this baseline plus PlayerView.Rubble, never from
+// globally destroyed terrain that the selected player has not observed.
+func (e *Engine) MapBlueprint() content.Map {
+	data, _ := json.Marshal(e.state.Map)
+	var m content.Map
+	_ = json.Unmarshal(data, &m)
+	for _, tile := range e.state.MapOriginalTiles {
+		if tile.Index >= 0 && int(tile.Index) < len(m.Tiles) {
+			m.Tiles[tile.Index] = tile.Tile
+		}
+	}
+	return m
 }

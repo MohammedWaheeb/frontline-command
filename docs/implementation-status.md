@@ -1,214 +1,105 @@
-# Implementation and release evidence
+# Frontline Command implementation status
 
-Last updated: 2026-09-27. No finished-game claim is made.
+Updated 28 September 2026 Qatar / 27 September UTC. **The complete game is not
+ready for release.** Go mechanics and nonvisual browser integration are substantial;
+the real product UI, accepted artwork and authored shipping content remain in
+development. No deployment has occurred. Earlier evidence is preserved in
+[implementation history](history/implementation-through-2026-09-27.md).
 
-## External blockers
+## Ownership and access
 
-- Authentication restored by user. Actual model `claude-opus-5-5` verified in
-  CLI modelUsage. CLI updated from 2.1.215 to 2.1.283. Fallback disabled.
-- On 2026-09-27 at approximately 20:20 Qatar, both Claude assignments hit the
-  session limit. CLI reports reset **2026-09-28 00:20 Asia/Qatar**. Resume exact
-  model only; do not use another author/model for any frontend/assets.
-- Assignment 01 session: `0e069b60-b079-4236-b1c3-1b2f282f32dc`; partial original
-  Blender sprite sources/renders and concept tooling exist. Review incomplete.
-- Assignment 02 was handed to Codex for nonvisual integration after explicit
-  user authorization. Do not resume Claude edits to these paths concurrently.
-  Original session: `380d9ca3-cd86-4f8b-9925-0a8beb753320`; partial browser
-  runtime/WASM work exists. Review incomplete. No finished frontend assignment.
-- Logs: `work/claude/01-stream.jsonl`, `02-stream.jsonl`. Both reported only
-  `claude-opus-5-5`. Keep credentials out of evidence and screenshots.
+Codex owns Go and all nonvisual frontend logic. Three parallel agents cover
+acceptance, services and mechanics. Claude Code exact `claude-opus-5-5` remains
+the primary UI/art/content author. The latest user permits Codex to take over
+remaining implementation after Claude reaches quota. File reservations prevent
+concurrent edits; no alternative Claude model is permitted.
 
-## Milestones
+Claude access returned after **28 September 00:20 Qatar (27 September 21:20 UTC)**.
+Actual assistant responses again report `claude-opus-5-5`. Assignment 01 resumed
+session `0e069b60-b079-4236-b1c3-1b2f282f32dc` with the latest correction/reference
+brief. Separate assignments 04 and 05 are now running for the product UI and
+shipping maps/missions. Assignment 02 must not resume editing runtime paths.
 
-| Stage | Status | Evidence / remaining work |
+Latest CLI sessions: UI04 `93cf086d-64eb-4b6f-9a67-829de97f57e1`; content05
+`b70b029a-de4f-490b-9d02-faa8f803ef20`. Actual assistant model is verified for
+all three jobs. All three subsequently exited with quota exhaustion; the next
+reported reset is **28 September 05:20 Qatar / 02:20 UTC**. Codex now owns the
+product UI (agent multiplayer_admission), content (agent browser_persistence),
+and renderer (root) under the latest user authorization. Hand back file ownership
+explicitly before any Claude resume. The original background `render_all.sh` has finished and its 12 sample atlases
+have been repacked. The logistics agent is producing eight original rig/hauler
+assets. Inspect active Blender work before starting another render.
+Logs are `work/claude/01-resume-20260927-2120.jsonl`,
+`04-stream.jsonl` and `05-stream.jsonl`; inspect running jobs before resuming.
+
+The user rejects blue, generic dashboard styling. Actual Generals, Red Alert 2
+and C&C Remastered screenshots were visually inspected. The brief requires a
+connected charcoal/olive/brass command console, illustrated production buttons,
+original stylized military art and dominant battlefield space. See the
+[reference study](../work/claude/06-rts-reference-study.md).
+
+## Implemented systems and observed checks
+
+| Area | Evidence | Remaining acceptance |
 |---|---|---|
-| 0 Foundation | In progress | Go 1.27.1 and protoc 36.2 installed, Git initialized, exact Claude model confirmed; browser connection pending |
-| 1 Simulation | In progress | Catalog, engine and core regression tests exist; full-match/path/performance acceptance still pending |
-| 2 First complete match | Not complete | Browser, full playable journey and multiplayer verification pending |
-| 3 Four factions | Not complete | All special mechanics and scenario evidence required |
-| 4 Services | In progress | Local profiles, lobbies, binary sockets, SQLite and save contracts tested; remaining services/acceptance pending |
-| 5 Content/editor | Not complete | Eight maps, five tutorials, 24 missions and two co-op scenarios required |
-| 6 Presentation/balance | Not complete | All art/audio/accessibility and real gameplay evidence required |
-| 7 Local release | Not complete | Browser/platform, performance, security and packaging gates required |
+| Go simulation | 75 units, 28 weapons, 19 building types, 10 upgrades; economy/combat/aircraft/interception/faction/capture/fog/order/save/replay regressions | Full tactical outcomes, authored journeys and human balance |
+| Deterministic bots | Paid economy, research, composition, scouting, support/transport/service; ten synthetic 1v1 pair/mirror matches completed | Authored maps and human difficulty/counterplay |
+| Three/four-player bots | Final 3 FFA / 4 FFA / 4 teams ended by elimination at ticks 18,611 / 18,263 / 11,665; fixed defeated-target and scouting loops | Broader maps/seeds and human balance |
+| Native performance | 688 actors, 64 returns, 332 routed scouts, 24 missiles intercepted: p95 23.90 ms / p99 28.67 ms on Apple M4 | WASM/rendering, reference laptops, long-session memory |
+| Browser runtime | Actual Go/WASM in Chromium/Firefox/WebKit: parity, offline cache, restart/save/replay/editor practice and disposal | Rendered product and physical Safari devices |
+| Persistence | IndexedDB/SQLite CAS resists stale and delete/recreate overwrite; raw recovery/export, autosaves, inspected replays, guest migration and explicit sync | Complete recovery/conflict UI |
+| Plain HTTP LAN runtime | Actual insecure Chromium origin tested crypto fallback, account/save/settings sync and CAS recovery | Physical multi-device LAN |
+| 1–4 participants | 11/11 Chromium cases: solo 0–3 bots, local co-op, 1-human custom, 2 humans+2 bots, 3/4 FFA, 4-human 2v2 and network co-op | Product UI, authored maps and real LAN devices |
+| Services | Readiness, reconnect, pause, team surrender, rematch, invitations, colors, bots, co-op checkpoints and ranked-map hash allowlist | Current private-history/replay/report hardening and UI |
+| Mission/editor runtime | Bounded conditions/waves/recovery/convoys, difficulty modes, Go validation, transactional editor drafts/undo/practice | All shipping missions/layouts and playthroughs |
+| Local tooling | Doctor/dev/test/build/play/LAN targets, strict release-content validator, native package assembly and deployment plan | Actual completed-client package and clean-install checks |
 
-## Verification policy
+The nonvisual TypeScript suite last passed **123 tests** plus typecheck. The
+content library/progression now also passes actual Go/WASM Chromium, Firefox
+and WebKit checks. Final debrief statistics pass save/replay and multiplayer
+integration in all three browsers. The latest full server race passed in 38.626 seconds; storage, native WASM adapter,
+content and contentcheck race tests also passed. The simulation short race passed
+in 189.303 seconds with the drone and concealment corrections. Additional targeted inactive-asset
+and combined-load tests passed. A full final native/race/browser integration run
+is still due after current work stabilizes. Synthetic fixtures are not shipping
+content or proof of balance.
 
-Tests must record observed results. Design arithmetic is not gameplay evidence.
-Content counts alone are not implemented mechanics. A successful compile is not
-a browser playtest. Native performance is not evidence for reference laptops.
-Human matchup samples and unavailable browser/hardware checks stay unverified
-until actually performed. Track exact unresolved items here after each stage.
+## Open release work
 
-## Observed backend evidence so far
+1. Finish and visually review the original art pipeline. The current 204-check
+   report includes 19 failures: incomplete new logistics samples plus four
+   original unit shadow-border artifacts and six static rifle cover headings.
+   The 12 original atlases are complete enough to inspect, not accepted final
+   art. Manifest entries are not finished assets.
+2. Extend the actual React/Vite/Pixi product slice. Chromium now verifies
+   skirmish, placement, production, save/reload and enlarged settings; root
+   inspected the real command console in the in-app browser. Remaining work
+   includes LAN/social UI, briefing, editor/practice, full replay/settings,
+   audio and complete assets. See [product status](frontend-status.md).
+3. The eight launch maps, 24 campaign layouts, five tutorials, 24 campaign
+   missions and two co-op scenarios now exist. All 32 maps and 31 missions pass
+   strict content checks, including 102 faction/difficulty opening saves.
+   The final tutorial has four explicitly authored, Go-selected faction variants. Strict validation checks counts, references,
+   difficulties, briefings/debriefings, failures, optional objectives and midpoint
+   checkpoints. Mission completion and quality require actual playthroughs.
+4. Complete reproducible tactical outcomes, transport boundary tests, security
+   and fuzzing, rendered stress tests, physical LAN/browser checks and repeated
+   session cleanup. Parallel acceptance and security work is active.
+5. Build and test the standalone package; inspect both supported resolutions,
+   enlarged scale and all 1–4-player journeys. Human balance and unavailable
+   hardware remain unverified until actually measured.
 
-- `go test ./...` and `go test -race ./...` passed before subsequent mission
-  additions; rerun after integrating current changes.
-- Catalog: 75 roster units, 28 weapons, 19 building types, 10 upgrades. This is
-  data coverage, not proof every mechanic is complete.
-- Save/restore and replay seek hash equality; ownership, duplicate sequences,
-  fog filtering, queue payments/refunds, prerequisite loss, low-power work,
-  extraction limit/cargo loss, collision, target layers, simultaneous damage,
-  finite interception, paid repairs, elimination, concealment and emergency
-  aircraft loss have regression tests.
-- Two real WebSocket clients joined one private lobby, negotiated the binary
-  protocol and received distinct fog-filtered snapshots. Unauthorized entity
-  commands were rejected. This is a service test, not a browser playthrough.
-- SQLite tests cover owner isolation, conflicting revisions, concurrent result
-  idempotence, backup restoration, map ownership and atomic file writes.
-- A six-minute headless AI economic scenario initially failed (builder approach
-  geometry and hauler navigation). Fixes improved it to a passing economy test.
-  Income and remaining route congestion need further review. No balanced match
-  claim is made.
+## Evidence
 
-## Active implementation gaps (not exhaustive)
+[Browser runtime](browser-runtime.md), [persistence](browser-persistence.md),
+[integrity](persistence-integrity.md), [account sync](account-sync.md),
+[multiplayer matrix](multiplayer-test-matrix.md), [lobbies](lobby-services.md),
+[AI endgame](ai-endgame-verification.md), [controls](battlefield-controls.md),
+[command advice](command-advice.md), [editor](editor-runtime.md),
+[missions](mission-runtime.md), [performance](performance-evidence.md),
+[inactive assets](inactive-assets.md), [local development](local-development.md),
+and [deployment plan](deployment-plan.md).
 
-- Browser UI and map editor not integrated; no shipping map/mission accepted.
-- Art/concepts/runtime assignments interrupted by Claude session quota.
-- Native/WASM runtime parity is now verified in three Playwright browsers;
-  rendered game journeys, mission acceptance and visual QA remain pending.
-- Navigation needs choke/producer/transport/stress tests and further recovery
-  work; production goals must not induce permanent oscillation.
-- Queued transport behavior, emergency unloading, strategic-operation edge
-  cases and scenario validation still need work.
-- Bounded mission schema/runtime is being added; objective views, campaign
-  difficulty/end-to-end coverage and all authored mission content pending.
-- Reports review, pause coordination and durable lobby recovery remain pending;
-  matchmaking and local ratings are implemented, and service journeys still require
-  browser integration and end-to-end acceptance.
-- Corrupt-state structural validation and security fuzzing need expansion.
-- Build/doctor/dev/play/LAN packaging targets and future deployment docs pending.
-- Full art/audio, accessibility, browser matrix, 688-actor performance, long
-  matches, human playtest samples and final release candidate remain unverified.
-
-## Further backend work on 2026-09-27
-
-Implemented and covered by targeted tests:
-
-- Salvage enemy-kill eligibility, approach/channel, single collection, rolling
-  minute and match caps, expiry, friendly-kill exclusion.
-- Garrison firing and building unload; embarked units cannot cast abilities.
-- Integer heading/turret rotation and fixed-wing passes; movement/shot behavior
-  and save/reload determinism tested.
-- Endgame minimap indicators with no firing vision or hidden entity IDs.
-- Mission/objective views, permitted warning zones and visible salvage in
-  protobuf; TypeScript regeneration remains assigned to Claude.
-- Compressed replay export/import and completed-result download restrictions.
-- Lobby update atomicity, host transfer, player-slot reuse, FFA teams, HTTP
-  admission limits and reconnect-expiry handling.
-- Delayed perspective observer buffers, private live-observer option, ticket
-  authorization and removal of eliminated players from the live feed.
-- Local social relations, team chat with fixed recipients, mute/block delivery,
-  and revision-checked settings storage.
-- Exclusive host data lock, asynchronous checkpoint persistence, forced-process
-  exit recovery, diagnostic save preservation and idempotent void results.
-
-Observed checks: targeted gameplay/service/storage tests and `go vet ./...`
-passed. The extended native suite passed. A full race-instrumented run completed
-functional tests but failed the steady-state time-budget assertion (p95 39.3 ms)
-under instrumentation. Performance gates now run without race instrumentation;
-the short race suite passed after service recovery, bounded replay, aircraft,
-and neutral-object additions (simulation 18.45 s; server 17.93 s). Later ability
-exit/warning, AI and local matchmaking refinements also passed a short race run
-(simulation 19.51 s; server 18.64 s), plus vet. The integrated short race suite passed after navigation and co-op service changes
-(simulation 19.68 s; server 24.30 s), followed by `go vet ./...`.
-The 688-actor moving/combat workload and target-hardware performance are pending.
-
-Additional checks now cover all four strategic operations, two-second emergency
-takeoff, local/base emergency airlift unload, team-only ping privacy, rolling
-command history with replay seek before/after rollover, neutral garrison firing,
-explicit prop destruction, single navigation invalidation and fog-safe rubble.
-The full short native suite and native Claude-authored adapter tests pass.
-Browser WASM execution is still pending.
-
-AI now retains observed enemy positions/age and field supplies, avoids observed
-AA for sorties, reserves construction funds, resumes abandoned foundations,
-plans expansion before depletion, restores basic workers and uses support,
-capture, deployment and faction intentions through normal orders. Tests show
-hidden enemy changes do not alter its decisions. The six-minute fixture earned
-8,777/8,400 credits and both sides reached radar. A longer US/IR synthetic match
-finished by elimination at tick 14,807; this is not a balanced-match claim.
-The SY/SA run exposed costly repeated failed path searches and was stopped for
-an implementation fix. Navigation now shares mobile obstacle lookup data per
-tick/clearance and waits two seconds after failure, retrying immediately when
-terrain changes. Recovery and save/restore determinism tests pass; long runs
-were repeated. All six cross-faction and four mirror pairings finished by
-elimination on the synthetic test map; the ten matches took 31.32 s wall time
-after navigation fixes. US/IR ended at tick 18,861 and SY/SA at tick 10,164 in
-the first repeat. Old and new evidence is retained in `work/evidence/`. This
-does not certify authored maps, human counterplay, or reference-hardware FPS.
-
-Local matching/ratings have targeted tests for ready/asset gates, locked teams,
-skill/latency widening, blocks, atomic result/rating writes, concurrent identical
-retries, conflicting retries, draws and voids. Browser journey acceptance remains pending. Two actual WebSocket peers also completed
-the ranked service journey: ready/load, countdown, surrender, committed result,
-one 980/1020 rating update and a persisted replay with the same winner (5.11 s).
-
-Mission service integration now separates human, ordinary AI and scripted
-controllers, preserves map objects without default bases, validates full spawn
-footprints, and keeps difficulty changes away from allied credits and ordinary
-objective timers. Installed co-op definitions create fixed scenario lobbies;
-opening/midpoint checkpoints are copied atomically to both humans' private saves.
-Resume lobbies restore the exact saved state and reject revision/content changes.
-Targeted tests cover co-op plus AI ally, save ownership, atomic checkpoint writes,
-midpoint persistence, resumed hashes and command sequence continuity. Complete
-authored scenarios and browser journeys remain pending.
-
-Remaining work includes full ordinary AI strategy
-and complete matches, extended navigation/transport stress,
-full matchmaking/local ratings/moderation/persistence journeys, scenario service
-integration, every Claude frontend/content/art/audio stage, packaging, browser
-acceptance and final balance/release gates. This list does not replace the full
-handoff scope. No milestone or final release is claimed complete.
-
-Shared pause and team surrender are now implemented in the Go service/core.
-Targeted tests passed for unanimous votes, cancellation, saved/replayed votes,
-individual surrender isolation, native actor tick freeze, resume on disconnect,
-ranked denial, and private teammate reconnect timers. Browser controls remain
-unimplemented until Claude's next runtime/UI pass.
-
-
-## Browser runtime integration — 2026-09-27
-
-The user authorized Codex to handle nonvisual browser utilities/adapters/tests
-while Claude is limited. UI, rendering and all visual/audio/content-authoring
-work remain with exact-model Claude. The initial Go adapter is Claude-authored;
-Codex added current mission/controller support and the browser integration.
-
-`npm --prefix client run test:runtime` passed seven tests for delta privacy,
-protobuf integer preservation, sequence continuity, save/settings conflicts,
-three rotating autosaves and byte-preserving export/import.
-`npm --prefix client run test:browser` passed in installed Chromium, Firefox and
-WebKit. Identical native/WASM commands produced identical state hashes. Actual
-workers, worker isolation, corrupt-save rejection, IndexedDB save/restore,
-export/import, exact-byte server synchronization, two browser contexts, private
-perspectives, rejected enemy commands, reconnect and committed match results
-were exercised. See `work/evidence/runtime/browser-results.json` for versions and
-hashes. Browser plugin was unavailable; the testing skill's Playwright fallback
-was used. No product UI or visual acceptance is implied by the test host.
-
-A raw authenticated save-download endpoint prevents JavaScript parsing from
-rounding uint64 RNG/seed state. Upload utilities preserve the original JSON
-integer tokens. Replays, complete offline caching, editor utilities, packaging
-and the rest of the handoff continue to be implemented.
-
-Verified content-pack caching now checks declared byte sizes and SHA-256,
-reports download progress, commits only complete packs, and preserves older
-packs on failure. Cached runtime reload/save restore passed Chromium and Firefox
-offline emulation. WebKit passed with the actual host stopped and an uncached
-negative control. Its Playwright offline emulation remains blocked by the
-reported upstream issue; physical Safari-device verification is pending.
-See browser-runtime.md and retained failure/success reports. Game UI and all
-shipping content packs remain Claude work.
-
-The corrected maximum-actor fixture now obeys the 16-defense-per-player cap
-(the earlier steady fixture used too many bunkers). On this Apple M4/16 GiB
-host, 688 initial actors with repeated mass route changes and 3,690 rifle shots
-measured p95 25.22 ms before optimization and failed the 25 ms gate even without
-browser load. Profiling exposed repeated copied building-rule slices in
-collision loops. A private immutable rules cache and cheaper layer checks
-reduced p50/p95/p99 to 4.70/15.03/21.13 ms; the workload passed with 417 surviving
-actors after combat. The corrected steady fixture p95 was 5.36 ms. These are
-native host-specific measurements, not WASM/rendering/reference-laptop claims;
-maximum projectile/interception and aircraft-return workloads remain pending.
-The short race suite passed after the cache change (simulation 18.70 s, server
-24.95 s), with no reported races. Browser/native parity also passed after it.
+Machine-readable results are under `work/evidence/`; failures and reruns are
+retained. The canonical specification and handoff define the complete scope.
+No internal milestone or passing test matrix is the finished game.

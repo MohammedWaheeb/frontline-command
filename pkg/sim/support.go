@@ -118,6 +118,7 @@ func (e *Engine) updateSupport() {
 			}
 			p.Credits -= cost
 			p.Spent += cost
+			e.recordMissionEvent("repair_spent", p.ID, target.ID, cost)
 		}
 		if amount > 0 {
 			target.HP += amount
@@ -217,15 +218,15 @@ func (e *Engine) capacity(v *Entity) int32 {
 	return 0
 }
 func (e *Engine) validCapture(engineer *Entity, target ID) bool {
-	if engineer.TemporaryUntil > 0 {
+	if engineer.TemporaryUntil > 0 || e.defeated(engineer.Owner) || e.hasBuff(engineer, "exit_lock") {
 		return false
 	}
 	if v := e.entity(target); v != nil {
-		return v.MapObject == 0 && v.HP > 0 && v.Building && v.Complete && v.Owner != engineer.Owner && !e.allied(v.Owner, engineer.Owner) && e.role(v) != "hq" && e.role(v) != "strategic" && v.HP*4 < v.MaxHP && e.canSeeEntity(engineer.Owner, v)
+		return v.MapObject == 0 && v.HP > 0 && v.Building && v.Complete && !e.defeated(v.Owner) && v.Owner != engineer.Owner && !e.allied(v.Owner, engineer.Owner) && e.role(v) != "hq" && e.role(v) != "strategic" && v.HP*4 < v.MaxHP && e.canSeeEntity(engineer.Owner, v)
 	}
 	for _, s := range e.state.Stations {
 		if s.ID == target {
-			return s.Owner != engineer.Owner && !e.allied(engineer.Owner, s.Owner) && e.canSee(engineer.Owner, s.Position)
+			return s.Owner != engineer.Owner && !e.defeated(s.Owner) && !e.allied(engineer.Owner, s.Owner) && e.canSee(engineer.Owner, s.Position)
 		}
 	}
 	return false
@@ -272,7 +273,7 @@ func (e *Engine) updateChannel(v *Entity) {
 			return
 		}
 	case "capture":
-		if !e.validCapture(v, v.ChannelTarget) {
+		if !e.validCapture(v, v.ChannelTarget) || target != nil && e.edgeDistance(v, target) > 1000 {
 			e.interruptChannel(v)
 			return
 		}
@@ -282,7 +283,7 @@ func (e *Engine) updateChannel(v *Entity) {
 			return
 		}
 	case "sabotage", "designate":
-		if target == nil || !e.canSeeEntity(v.Owner, target) || kind == "sabotage" && e.edgeDistance(v, target) > 1000 {
+		if target == nil || target.HP <= 0 || e.defeated(target.Owner) || !e.canSeeEntity(v.Owner, target) || kind == "sabotage" && e.edgeDistance(v, target) > 1000 {
 			e.interruptChannel(v)
 			return
 		}
@@ -317,7 +318,14 @@ func (e *Engine) updateChannel(v *Entity) {
 		e.emit("building_sold", p.ID, v.ID, v.Position, "owner", 0)
 	case "capture":
 		if target != nil {
-			e.captureBuilding(v.Owner, target)
+			if !e.captureBuilding(v.Owner, target) {
+				if v.State != "capture_exit_blocked" {
+					e.emit("capture_exit_blocked", v.Owner, v.ID, v.Position, "owner", int64(target.ID))
+				}
+				v.State = "capture_exit_blocked"
+				v.ChannelUntil = e.state.Tick + seconds(1)
+				return
+			}
 		} else {
 			for _, s := range e.state.Stations {
 				if s.ID == v.ChannelTarget {
@@ -343,6 +351,10 @@ func (e *Engine) updateChannel(v *Entity) {
 	case "unload":
 		e.unload(v, false)
 		if len(v.Passengers) > 0 {
+			if v.State != "unload_exit_blocked" {
+				e.emit("unload_exit_blocked", v.Owner, v.ID, v.Position, "owner", int64(len(v.Passengers)))
+			}
+			v.State = "unload_exit_blocked"
 			v.ChannelUntil = e.state.Tick + seconds(1)
 			return
 		}
@@ -389,32 +401,65 @@ func (e *Engine) updateChannel(v *Entity) {
 		v.State = "idle"
 	}
 }
-func (e *Engine) captureBuilding(owner PlayerID, v *Entity) {
-	e.releasePassengers(v)
+
+// captureBuilding transfers one existing structure only after all occupants
+// have legal reserved exits. Capture is not destruction and never injures them.
+func (e *Engine) captureBuilding(owner PlayerID, v *Entity) bool {
+	p := e.player(owner)
+	if p == nil || p.Defeated || v == nil || !v.Building || v.HP <= 0 || !v.Complete || v.MapObject != 0 || v.Owner == owner || e.defeated(v.Owner) || e.allied(owner, v.Owner) || e.role(v) == "hq" || e.role(v) == "strategic" {
+		return false
+	}
+	exits, ok := e.passengerExits(v, v.Passengers, 2000)
+	if !ok {
+		return false
+	}
+	for i, id := range v.Passengers {
+		passenger := e.entity(id)
+		passenger.Container = 0
+		passenger.Position = exits[i]
+		passenger.LastPosition = exits[i]
+		passenger.Anchor = exits[i]
+		passenger.StationarySince = e.state.Tick
+		e.assign(passenger, Order{Kind: "hold"})
+	}
+	v.Passengers = nil
+	oldOwner := v.Owner
+	b, _ := e.buildingRule(v.Type)
 	v.Jobs = nil
 	v.Orders = nil
 	v.Builder = 0
 	v.Channel = ""
+	v.ChannelUntil = 0
+	v.Target = 0
+	v.AimUntil = 0
+	v.Path = nil
+	v.Buffs = nil
 	v.Owner = owner
 	v.Enabled = true
 	v.IncludedHauler = true
 	v.Contributions = nil
 	v.AttributedDamage = 0
-	b, _ := e.buildingRule(v.Type)
+	v.State = "idle"
 	if b.ServiceSlots > 0 || b.Role == "safehouse" {
-		typ := content.AirProducer(e.player(owner).Faction)
+		typ := content.AirProducer(p.Faction)
 		if b.Role == "safehouse" {
 			typ = "outpost"
 		}
 		next, _ := e.buildingRule(typ)
-		v.HP = v.HP * next.HP / v.MaxHP
+		v.HP = max(int64(1), v.HP*next.HP/v.MaxHP)
 		v.MaxHP = next.HP
+		v.Work = next.BuildTicks * 2
 		v.Type = typ
+		// Physical foundation and paid basis remain unchanged, including recapture.
 		e.beginChannel(v, "conversion", 0, seconds(10))
-		v.DisabledUntil = e.state.Tick + seconds(10)
-		e.state.NavigationRevision++
+		v.DisabledUntil = max(v.DisabledUntil, e.state.Tick+seconds(10))
 	}
+	if b.ServiceSlots > 0 {
+		e.detachCapturedService(v.ID, oldOwner)
+	}
+	e.recalculate()
 	e.emit("building_captured", owner, v.ID, v.Position, "visible", 0)
+	return true
 }
 func removeID(ids []ID, id ID) []ID {
 	out := ids[:0]
@@ -432,8 +477,15 @@ func (e *Engine) unload(v *Entity, escape bool) {
 			v.Passengers = removeID(v.Passengers, id)
 			continue
 		}
+		if unit.HP <= 0 {
+			unit.Container = 0
+			v.Passengers = removeID(v.Passengers, id)
+			continue
+		}
 		if escape && e.isAircraft(v) && !v.Landed {
 			unit.HP = 0
+			unit.Contributions = nil // Cargo loss is not a combat-unit XP reward.
+			unit.SalvageEligible = false
 			unit.Container = 0
 			v.Passengers = removeID(v.Passengers, id)
 			continue
@@ -442,6 +494,8 @@ func (e *Engine) unload(v *Entity, escape bool) {
 		if !ok {
 			if escape {
 				unit.HP = 0
+				unit.Contributions = nil
+				unit.SalvageEligible = false
 				unit.Container = 0
 				v.Passengers = removeID(v.Passengers, id)
 			}
@@ -462,7 +516,9 @@ func (e *Engine) unload(v *Entity, escape bool) {
 	}
 }
 func (e *Engine) canBoard(passenger, target *Entity) bool {
-	return target != nil && target.HP > 0 && target.Complete && (target.Owner == passenger.Owner || target.Owner == 0 && e.role(target) == "garrison") && e.capacity(target) > int32(len(target.Passengers)) && e.armor(passenger) == "infantry" && passenger.TemporaryUntil == 0
+	// A safehouse transfer carries only the squads present when preparation
+	// began. Late boarders cannot join halfway through its required duration.
+	return target != nil && target.HP > 0 && target.Complete && target.Channel != "transit" && (target.Owner == passenger.Owner || target.Owner == 0 && e.role(target) == "garrison") && e.capacity(target) > int32(len(target.Passengers)) && e.armor(passenger) == "infantry" && passenger.TemporaryUntil == 0
 }
 func (e *Engine) releasePassengers(v *Entity) {
 	if len(v.Passengers) > 0 {

@@ -128,9 +128,17 @@ func (s *Server) createScenarioLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_scenario", "The scenario needs a human slot.")
 		return
 	}
+	l.ScenarioRules, err = s.scenarioLobbyRules(s.maps[mission.MapID], mission, l.Difficulty, false)
+	if err != nil {
+		fail(w, 400, "invalid_scenario", err.Error())
+		return
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.pruneLobbies()
+	if !s.admitProfile(w, p.ID, "") {
+		return
+	}
 	if len(s.lobbies) >= 64 {
 		fail(w, 429, "lobby_limit", "The local host is full.")
 		return
@@ -155,7 +163,7 @@ func (s *Server) scenarioJoinSlot(l *Lobby, p storage.Profile) (LobbySlot, bool)
 			}
 		}
 		if free {
-			return LobbySlot{Player: sim.PlayerID(mp.ID), Profile: p.ID, Name: p.Name, Faction: mp.Faction, Team: mp.Team}, true
+			return LobbySlot{Color: l.ResumeColors[sim.PlayerID(mp.ID)], Player: sim.PlayerID(mp.ID), Profile: p.ID, Name: p.Name, Faction: mp.Faction, Team: mp.Team}, true
 		}
 	}
 	return LobbySlot{}, false
@@ -180,7 +188,7 @@ func (s *Server) scenarioEngine(l *Lobby, m content.Map, seed uint64) (*sim.Engi
 		for _, player := range state.Players {
 			found := false
 			for _, slot := range l.Slots {
-				if slot.Player == player.ID && slot.Faction == player.Faction && slot.Team == player.Team && slot.AI == player.AI && slot.Script == (player.Controller == "script") {
+				if slot.Player == player.ID && slot.Faction == player.Faction && slot.Team == player.Team && slot.AI == player.AI && slot.Script == (player.Controller == "script") && slot.Color == player.Color {
 					found = true
 				}
 			}
@@ -274,10 +282,11 @@ func (s *Server) resumeScenarioLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not create resume lobby.")
 		return
 	}
-	l := &Lobby{PauseEnabled: body.PauseEnabled, ID: id[:24], Name: mission.Title, Host: p.ID, MapID: m.ID, Mode: "coop", Private: body.Private, Code: code[:12], Created: time.Now().Unix(), ScenarioID: mission.ID, Difficulty: state.Mission.Difficulty, ResumeSave: save.ID, ResumeOwner: p.ID, ResumeRevision: save.Revision, ResumeTick: uint32(state.Tick)}
+	l := &Lobby{PauseEnabled: body.PauseEnabled, ID: id[:24], Name: mission.Title, Host: p.ID, MapID: m.ID, Mode: "coop", Private: body.Private, Code: code[:12], Created: time.Now().Unix(), ScenarioID: mission.ID, Difficulty: state.Mission.Difficulty, ResumeSave: save.ID, ResumeOwner: p.ID, ResumeRevision: save.Revision, ResumeTick: uint32(state.Tick), ResumeColors: map[sim.PlayerID]uint32{}}
 	found := false
 	for _, player := range state.Players {
-		slot := LobbySlot{Player: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, AI: player.AI, Script: player.Controller == "script"}
+		l.ResumeColors[player.ID] = player.Color
+		slot := LobbySlot{Color: player.Color, Player: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, AI: player.AI, Script: player.Controller == "script"}
 		if player.Controller == "human" {
 			if uint32(player.ID) != body.Player {
 				continue
@@ -293,9 +302,17 @@ func (s *Server) resumeScenarioLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "human_slot_required", "Select a human commander from the checkpoint.")
 		return
 	}
+	l.ScenarioRules, err = s.scenarioLobbyRules(state.Map, state.Mission.Definition, l.Difficulty, true)
+	if err != nil {
+		fail(w, 400, "invalid_scenario", err.Error())
+		return
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.pruneLobbies()
+	if !s.admitProfile(w, p.ID, "") {
+		return
+	}
 	if len(s.lobbies) >= 64 {
 		fail(w, 429, "lobby_limit", "The local host is full.")
 		return

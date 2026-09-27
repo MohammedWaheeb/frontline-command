@@ -110,7 +110,7 @@ func TestCompleteLobbyHandshakeAndFogFilteredSockets(t *testing.T) {
 	request(t, h, "POST", "/api/v1/lobbies/"+l.ID+"/join", guest, map[string]any{"code": code, "faction": "IR"}, 200)
 	request(t, h, "POST", "/api/v1/lobbies/"+l.ID+"/start", host, map[string]any{}, 409)
 	for _, token := range []string{host, guest} {
-		request(t, h, "POST", "/api/v1/lobbies/"+l.ID+"/ready", token, map[string]any{"ready": true, "assets_ready": true, "protocol": 1, "simulation": sim.Version, "content_hash": s.catalog.Hash()}, 200)
+		readyTestLobby(t, s, h, l.ID, token)
 	}
 	started := request(t, h, "POST", "/api/v1/lobbies/"+l.ID+"/start", host, map[string]any{}, 201)
 	joined := request(t, h, "GET", "/api/v1/lobbies/"+l.ID, guest, nil, 200)
@@ -196,5 +196,16 @@ func TestProtocolViewConversion(t *testing.T) {
 	orders, err := decodeOrders(&pb.OrderBatch{Sequence: 1, Orders: []*pb.Order{{Kind: "move", Entities: []uint32{1}, Position: &pb.Vec{X: 2000, Y: 3000}}}})
 	if err != nil || orders[0].Entities[0] != 1 {
 		t.Fatal(err)
+	}
+}
+
+func TestDebriefProtocolKeepsExactCountersAndMissionVersion(t *testing.T) {
+	v := sim.View{Player: 1, Outcome: sim.Outcome{Finished: true}, Mission: &sim.MissionView{ID: "revision-check", Version: "mission-7"}, Debrief: &sim.Debrief{Players: []sim.DebriefPlayer{{Player: 1, Income: 9007199254740993, Metrics: sim.PlayerTelemetry{Player: 1, RepairSpent: 1234000, Timeline: []sim.EconomySample{{Tick: 400, Income: 9007199254740993}}}}}, Events: []sim.DebriefEvent{{Tick: 400, Kind: "checkpoint", Text: "midpoint"}}}}
+	encoded, err := snapshot(v)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if encoded.Mission.Version != "mission-7" || encoded.Debrief.Players[0].Income != 9007199254740993 || encoded.Debrief.Players[0].Metrics.Timeline[0].Income != 9007199254740993 || encoded.Debrief.Events[0].Text != "midpoint" {
+		t.Fatal("debrief/provenance damaged in protocol conversion")
 	}
 }

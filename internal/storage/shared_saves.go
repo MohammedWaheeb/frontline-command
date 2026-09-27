@@ -35,7 +35,11 @@ func (s *SQLite) PutSharedSave(ctx context.Context, owners []string, id, name st
 		if !errors.Is(err, sql.ErrNoRows) {
 			return err
 		}
-		if _, err = tx.ExecContext(ctx, `INSERT INTO saves(owner,id,name,revision,updated,data) VALUES(?,?,?,1,?,?)`, owner, id, name, time.Now().Unix(), data); err != nil {
+		revision, allocationErr := reserveRevision(ctx, tx, "save", owner, id, 0, true)
+		if allocationErr != nil {
+			return allocationErr
+		}
+		if _, err = tx.ExecContext(ctx, `INSERT INTO saves(owner,id,name,revision,updated,data) VALUES(?,?,?,?,?,?)`, owner, id, name, revision, time.Now().Unix(), data); err != nil {
 			return err
 		}
 	}

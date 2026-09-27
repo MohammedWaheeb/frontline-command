@@ -24,6 +24,7 @@ import (
 )
 
 type Config struct {
+	RankedMapsFile string
 	MissionDir     string
 	DataDir        string
 	StaticDir      string
@@ -31,6 +32,7 @@ type Config struct {
 	AllowedOrigins []string
 }
 type LobbySlot struct {
+	Color       uint32       `json:"color"`
 	Script      bool         `json:"script,omitempty"`
 	Player      sim.PlayerID `json:"player"`
 	Profile     string       `json:"profile,omitempty"`
@@ -42,40 +44,51 @@ type LobbySlot struct {
 	AssetsReady bool         `json:"assets_ready"`
 }
 type Lobby struct {
-	PauseEnabled   bool        `json:"pause_enabled"`
-	ResumeSave     string      `json:"-"`
-	ResumeOwner    string      `json:"-"`
-	ResumeRevision int64       `json:"-"`
-	ResumeTick     uint32      `json:"resume_tick,omitempty"`
-	ScenarioID     string      `json:"scenario_id,omitempty"`
-	Difficulty     string      `json:"difficulty,omitempty"`
-	Rated          bool        `json:"rated"`
-	LiveObservers  bool        `json:"live_observers"`
-	ID             string      `json:"id"`
-	Name           string      `json:"name"`
-	Host           string      `json:"host"`
-	MapID          string      `json:"map_id"`
-	Mode           string      `json:"mode"`
-	Private        bool        `json:"private"`
-	Code           string      `json:"-"`
-	Slots          []LobbySlot `json:"slots"`
-	MatchID        string      `json:"match_id,omitempty"`
-	Created        int64       `json:"created"`
+	Revision       uint64                  `json:"revision"`
+	ScenarioRules  *LobbyScenarioRules     `json:"scenario_rules,omitempty"`
+	MapHash        string                  `json:"map_hash"`
+	MapVersion     string                  `json:"map_version"`
+	Rules          *LobbyRules             `json:"rules,omitempty"`
+	PauseEnabled   bool                    `json:"pause_enabled"`
+	ResumeColors   map[sim.PlayerID]uint32 `json:"-"`
+	ResumeSave     string                  `json:"-"`
+	ResumeOwner    string                  `json:"-"`
+	ResumeRevision int64                   `json:"-"`
+	ResumeTick     uint32                  `json:"resume_tick,omitempty"`
+	ScenarioID     string                  `json:"scenario_id,omitempty"`
+	Difficulty     string                  `json:"difficulty,omitempty"`
+	Rated          bool                    `json:"rated"`
+	LiveObservers  bool                    `json:"live_observers"`
+	ID             string                  `json:"id"`
+	Name           string                  `json:"name"`
+	Host           string                  `json:"host"`
+	MapID          string                  `json:"map_id"`
+	Mode           string                  `json:"mode"`
+	Private        bool                    `json:"private"`
+	Code           string                  `json:"-"`
+	Slots          []LobbySlot             `json:"slots"`
+	MatchID        string                  `json:"match_id,omitempty"`
+	PreviousMatch  string                  `json:"previous_match_id,omitempty"`
+	Created        int64                   `json:"created"`
 }
 type Server struct {
-	missions  map[string]content.Mission
-	queue     map[string]*queueEntry
-	dataLock  *flock.Flock
-	admission admissionControl
-	cfg       Config
-	catalog   *content.Catalog
-	repo      *storage.SQLite
-	objects   storage.Files
-	mux       *http.ServeMux
-	mu        sync.Mutex
-	maps      map[string]content.Map
-	lobbies   map[string]*Lobby
-	matches   map[string]*liveMatch
+	moderatorHash [32]byte
+	rankedMaps    map[string]string
+	invites       map[string]*LobbyInvite
+	adviceWorkers adviceWorkGate
+	missions      map[string]content.Mission
+	queue         map[string]*queueEntry
+	dataLock      *flock.Flock
+	admission     admissionControl
+	cfg           Config
+	catalog       *content.Catalog
+	repo          *storage.SQLite
+	objects       storage.Files
+	mux           *http.ServeMux
+	mu            sync.Mutex
+	maps          map[string]content.Map
+	lobbies       map[string]*Lobby
+	matches       map[string]*liveMatch
 }
 
 func New(cfg Config) (*Server, error) {
@@ -146,7 +159,15 @@ func New(cfg Config) (*Server, error) {
 		repo.Close()
 		return nil, err
 	}
+	if err = s.loadRankedMaps(); err != nil {
+		repo.Close()
+		return nil, err
+	}
 	if err = s.loadMissions(); err != nil {
+		repo.Close()
+		return nil, err
+	}
+	if err = s.initModeratorCredential(); err != nil {
 		repo.Close()
 		return nil, err
 	}
@@ -229,7 +250,11 @@ func decode(w http.ResponseWriter, r *http.Request, v any, limit int64) bool {
 	return true
 }
 func (s *Server) authenticate(w http.ResponseWriter, r *http.Request) (storage.Profile, bool) {
-	token := strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer ")
+	token, bearer := strings.CutPrefix(r.Header.Get("Authorization"), "Bearer ")
+	if !bearer {
+		fail(w, 401, "authentication_required", "Use a profile bearer credential.")
+		return storage.Profile{}, false
+	}
 	p, err := s.repo.Authenticate(r.Context(), token)
 	if err != nil {
 		fail(w, 401, "authentication_required", "Create or restore a local profile to continue.")
@@ -239,12 +264,14 @@ func (s *Server) authenticate(w http.ResponseWriter, r *http.Request) (storage.P
 }
 func (s *Server) routes() {
 	s.socialRoutes()
+	s.moderationRoutes()
+	s.lobbyServiceRoutes()
 	s.mux.HandleFunc("GET /api/v1/health", func(w http.ResponseWriter, r *http.Request) {
 		respond(w, 200, map[string]any{"status": "ok", "simulation": sim.Version, "protocol": 1, "content_hash": s.catalog.Hash(), "tick_rate": 20, "local": true})
 	})
 	s.mux.HandleFunc("GET /api/v1/content", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		_, _ = w.Write(s.catalog.JSON())
+		_, _ = w.Write(s.catalog.PresentationJSON())
 	})
 	s.mux.HandleFunc("POST /api/v1/profiles", func(w http.ResponseWriter, r *http.Request) {
 		var body struct {
@@ -285,7 +312,9 @@ func (s *Server) routes() {
 	s.mux.HandleFunc("PATCH /api/v1/lobbies/{id}", s.updateLobby)
 	s.mux.HandleFunc("POST /api/v1/lobbies/{id}/ready", s.readyLobby)
 	s.mux.HandleFunc("POST /api/v1/lobbies/{id}/start", s.startLobby)
+	s.mux.HandleFunc("POST /api/v1/lobbies/{id}/rematch", s.rematchLobby)
 	s.mux.HandleFunc("GET /api/v1/matches/{id}/socket", s.matchSocket)
+	s.mux.HandleFunc("POST /api/v1/matches/{id}/advice", s.commandAdvice)
 	s.mux.HandleFunc("POST /api/v1/matches/{id}/observer", s.createObserver)
 	s.mux.HandleFunc("GET /api/v1/matches/{id}/observer", s.readObserver)
 	s.mux.HandleFunc("GET /api/v1/saves", s.listSaves)
@@ -294,36 +323,6 @@ func (s *Server) routes() {
 	s.mux.HandleFunc("POST /api/v1/saves/{id}/coop-lobby", s.resumeScenarioLobby)
 	s.mux.HandleFunc("PUT /api/v1/saves/{id}", s.putSave)
 	s.mux.HandleFunc("DELETE /api/v1/saves/{id}", s.deleteSave)
-	s.mux.HandleFunc("GET /api/v1/history", func(w http.ResponseWriter, r *http.Request) {
-		if _, ok := s.authenticate(w, r); !ok {
-			return
-		}
-		results, err := s.repo.ListResults(r.Context(), 50)
-		if err != nil {
-			fail(w, 500, "storage_error", "Could not load match history.")
-			return
-		}
-		respond(w, 200, results)
-	})
-	s.mux.HandleFunc("POST /api/v1/reports", func(w http.ResponseWriter, r *http.Request) {
-		p, ok := s.authenticate(w, r)
-		if !ok {
-			return
-		}
-		var b struct {
-			MatchID string `json:"match_id"`
-			Tick    uint32 `json:"tick"`
-			Reason  string `json:"reason"`
-		}
-		if !decode(w, r, &b, 8192) {
-			return
-		}
-		if err := s.repo.Report(r.Context(), p.ID, b.MatchID, b.Reason, b.Tick); err != nil {
-			fail(w, 400, "report_rejected", err.Error())
-			return
-		}
-		respond(w, 201, map[string]bool{"recorded_locally": true})
-	})
 	if s.cfg.StaticDir != "" {
 		s.mux.Handle("GET /", http.FileServer(http.Dir(s.cfg.StaticDir)))
 	}
@@ -345,7 +344,7 @@ func (s *Server) listMaps(w http.ResponseWriter, r *http.Request) {
 	s.mu.Lock()
 	maps := []map[string]any{}
 	for _, m := range s.maps {
-		maps = append(maps, map[string]any{"id": m.ID, "title": m.Title, "author": m.Author, "version": m.Version, "width": m.Width, "height": m.Height, "players": len(m.Spawns), "installed": true})
+		maps = append(maps, map[string]any{"id": m.ID, "title": m.Title, "author": m.Author, "version": m.Version, "width": m.Width, "height": m.Height, "players": len(m.Spawns), "installed": true, "hash": lobbyMapHash(m), "ranked": s.rankedMap(m.ID)})
 	}
 	s.mu.Unlock()
 	custom, err := s.repo.ListMaps(r.Context())
@@ -354,7 +353,7 @@ func (s *Server) listMaps(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for _, m := range custom {
-		maps = append(maps, map[string]any{"id": m.ID, "title": m.Title, "revision": m.Revision, "installed": false})
+		maps = append(maps, map[string]any{"id": m.ID, "title": m.Title, "revision": m.Revision, "installed": false, "ranked": false})
 	}
 	sort.Slice(maps, func(i, j int) bool { return maps[i]["id"].(string) < maps[j]["id"].(string) })
 	respond(w, 200, maps)

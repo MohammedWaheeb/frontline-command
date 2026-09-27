@@ -30,6 +30,9 @@ func (e *Engine) weaponDistance(v, target *Entity) int32 {
 	return e.edgeDistance(v, target)
 }
 func (e *Engine) canAttack(a, b *Entity) bool {
+	if a == nil || b == nil || e.defeated(a.Owner) || e.defeated(b.Owner) {
+		return false
+	}
 	if e.role(b) == "support_plane" && b.DisabledUntil > e.state.Tick {
 		return false
 	}
@@ -50,14 +53,8 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 		}
 		return nil
 	}
-	leash := int32(6000)
-	if v.Stance == "aggressive" {
-		leash = 12000
-	}
+	leash := e.combatLeash(v)
 	w, _ := e.weapon(v)
-	if v.Building || v.Container != 0 {
-		leash = w.MaxRange + 6000
-	}
 	if current := e.entity(v.Target); current != nil && current.Owner != 0 && e.canAttack(v, current) && e.canSeeEntity(v.Owner, current) && (len(v.Orders) > 0 && v.Orders[0].Kind == "attack_move" || distance(v.Anchor, current.Position) <= leash) {
 		return current
 	}
@@ -122,6 +119,7 @@ func (e *Engine) updateCombat() {
 		if o.Kind == "move" && !mobileFire {
 			continue
 		}
+		e.updateOrderAnchor(v)
 		var target *Entity
 		point := o.Position
 		if o.Kind == "force_fire" {
@@ -145,7 +143,7 @@ func (e *Engine) updateCombat() {
 		}
 		if dist > w.MaxRange || dist < w.MinRange {
 			v.AimUntil = 0
-			if !v.Building && v.Stance != "hold" && (o.Kind == "" || o.Kind == "guard" || o.Kind == "aggressive") && w.Kind != "tactical" {
+			if !v.Building && v.Stance != "hold" && o.Kind == "" && w.Kind != "tactical" {
 				v.Orders = []Order{{Kind: v.Stance, Position: v.Anchor}}
 			}
 			continue
@@ -178,7 +176,7 @@ func (e *Engine) updateCombat() {
 			}
 		}
 		if w.Ammo > 0 && w.Kind != "tactical" && v.Ammo <= 0 {
-			e.assign(v, Order{Kind: "return"})
+			e.returnForService(v)
 			continue
 		}
 		burst := v.VolleyLeft > 0 && e.state.Tick >= v.VolleyAt
@@ -211,6 +209,7 @@ func (e *Engine) updateCombat() {
 			}
 			p.Credits -= cost
 			p.Spent += cost
+			e.recordMissionEvent("missile_spent", p.ID, v.ID, cost)
 			v.Charges--
 			v.RevealedUntil = e.state.Tick + seconds(6)
 			v.PublicRevealUntil = e.state.Tick + seconds(6)
@@ -228,7 +227,7 @@ func (e *Engine) updateCombat() {
 			} else if v.Rank >= 2 {
 				damage = damage * 110 / 100
 			}
-			if v.Concealed && e.state.Tick-v.ConcealedSince >= seconds(6) && w.Kind == "small" && !cooldown(v.Cooldowns, "ambush", e.state.Tick) {
+			if e.ambushReady(v) {
 				damage = damage * 120 / 100
 				setCooldown(&v.Cooldowns, "ambush", e.state.Tick+seconds(30))
 			}
@@ -257,7 +256,7 @@ func (e *Engine) updateCombat() {
 			v.VolleyAt = e.state.Tick + Tick(w.VolleySpacingTicks)
 		}
 		if e.isAircraft(v) && v.Ammo == 0 {
-			e.assign(v, Order{Kind: "return"})
+			e.returnForService(v)
 		}
 	}
 }
@@ -359,7 +358,7 @@ func (e *Engine) updateProjectiles() {
 					e.damages = append(e.damages, damage{target.ID, p.Shooter, p.Owner, amount, w.Kind})
 				}
 			}
-		} else if target := e.entity(p.Target); target != nil && target.HP > 0 && target.Container == 0 {
+		} else if target := e.entity(p.Target); target != nil && target.HP > 0 && target.Container == 0 && !e.defeated(target.Owner) {
 			if w.Kind == "antiair" && e.hasBuff(target, "decoy") {
 				e.removeBuff(target, "decoy")
 				e.emit("decoy_triggered", target.Owner, target.ID, target.Position, "visible", 0)
@@ -371,7 +370,7 @@ func (e *Engine) updateProjectiles() {
 			}
 		} else if p.Target == 0 && w.Kind == "cannon" {
 			for _, target := range e.state.Entities {
-				if target.HP > 0 && target.Container == 0 && e.distanceTo(target, p.Impact) < 200 && !e.allied(p.Owner, target.Owner) {
+				if target.HP > 0 && target.Container == 0 && !e.defeated(target.Owner) && e.distanceTo(target, p.Impact) < 200 && !e.allied(p.Owner, target.Owner) {
 					amount := e.projectileDamage(p, target, w)
 					if amount > 0 {
 						e.damages = append(e.damages, damage{target.ID, p.Shooter, p.Owner, amount, w.Kind})
@@ -430,7 +429,7 @@ func (e *Engine) resolveDamage() {
 			end++
 		}
 		v := e.entity(e.damages[start].Target)
-		if v == nil || v.HP <= 0 {
+		if v == nil || v.HP <= 0 || e.defeated(v.Owner) {
 			start = end
 			continue
 		}
@@ -485,12 +484,21 @@ func (e *Engine) cleanup() {
 			v.HP = 0
 			v.Contributions = nil
 		}
+	}
+	// Transport loss can kill passengers with lower creation IDs. Resolve all
+	// such losses before the single accounting/event pass so actor age cannot
+	// omit a passenger's destruction or count it twice.
+	for _, v := range e.state.Entities {
+		if v.HP <= 0 {
+			e.releasePassengers(v)
+		}
+	}
+	for _, v := range e.state.Entities {
 		if v.HP > 0 {
 			continue
 		}
 		e.awardExperience(v)
 		e.dropSalvage(v)
-		e.releasePassengers(v)
 		if v.Building {
 			e.state.NavigationRevision++
 		}
@@ -510,7 +518,7 @@ func (e *Engine) cleanup() {
 }
 func (e *Engine) awardExperience(v *Entity) {
 	strategicPlane := e.role(v) == "support_plane"
-	if v.Building || v.TemporaryUntil > 0 && !strategicPlane {
+	if v.Building || e.defeated(v.Owner) || v.TemporaryUntil > 0 && !strategicPlane {
 		return
 	}
 	u, _ := e.catalog.Unit(v.Type)
@@ -536,7 +544,7 @@ func (e *Engine) awardExperience(v *Entity) {
 	}
 	for _, c := range v.Contributions {
 		a := e.entity(c.Attacker)
-		if a == nil || a.HP <= 0 || a.Building || a.TemporaryUntil > 0 {
+		if a == nil || a.HP <= 0 || a.Building || a.TemporaryUntil > 0 || e.defeated(a.Owner) {
 			continue
 		}
 		au, _ := e.catalog.Unit(a.Type)
@@ -565,4 +573,15 @@ func (e *Engine) removeBuff(v *Entity, kind string) {
 		}
 	}
 	v.Buffs = out
+}
+
+func (e *Engine) combatLeash(v *Entity) int32 {
+	if v.Building || v.Container != 0 {
+		w, _ := e.weapon(v)
+		return w.MaxRange + 6000
+	}
+	if v.Stance == "aggressive" {
+		return 12000
+	}
+	return 6000
 }

@@ -51,7 +51,7 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 			}
 			if !selected {
 				for _, target := range view.Entities {
-					if target.Owner == 0 || e.allied(p.ID, target.Owner) || target.Health >= 250 {
+					if !aiActiveOpponent(p, view, target.Owner) || target.Health >= 250 {
 						continue
 					}
 					if b, ok := e.buildingRule(target.Type); ok && b.Role != "hq" && b.Role != "strategic" && target.MapObject == 0 {
@@ -88,7 +88,7 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 			}
 			if role == "launcher" && v.Deployed {
 				for _, target := range view.Entities {
-					if target.Owner != 0 && !e.allied(p.ID, target.Owner) {
+					if aiActiveOpponent(p, view, target.Owner) {
 						add(v, "attack", target.ID, "", Vec{})
 						break
 					}
@@ -100,7 +100,7 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 		}
 		if v.Type == "US.recon" && !cooldown(v.Cooldowns, "designate", e.Tick()) {
 			for _, target := range view.Entities {
-				if target.Owner != 0 && !e.allied(p.ID, target.Owner) && distance(v.Position, target.Position) < 6500 {
+				if aiActiveOpponent(p, view, target.Owner) && distance(v.Position, target.Position) < 6500 {
 					add(v, "ability", target.ID, "designate", Vec{})
 					break
 				}

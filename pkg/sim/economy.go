@@ -3,6 +3,9 @@ package sim
 import "sort"
 
 func (e *Engine) updateEconomy() {
+	// Live aircraft reserve replacement capacity before production can claim it.
+	// Damage resolved last tick may have removed their previous producer.
+	e.reconcileAircraftService()
 	for _, p := range e.state.Players {
 		if p.Defeated {
 			continue
@@ -111,7 +114,7 @@ func (e *Engine) jobReady(p *Player, v *Entity, j *Job) bool {
 }
 func (e *Engine) freeService(p PlayerID) ID {
 	for _, v := range e.state.Entities {
-		if v.Owner != p || !v.Building || !v.Complete || v.HP <= 0 {
+		if v.Owner != p || !v.Building || !v.Active(e.state.Tick) {
 			continue
 		}
 		b, _ := e.buildingRule(v.Type)
@@ -120,11 +123,11 @@ func (e *Engine) freeService(p PlayerID) ID {
 		}
 		used := int32(0)
 		for _, a := range e.state.Entities {
-			if a.HP > 0 && a.Home == v.ID {
+			if a.HP > 0 && a.Owner == p && a.Home == v.ID {
 				used++
 			}
 			for _, j := range a.Jobs {
-				if j.Started && j.Service == v.ID {
+				if a.Owner == p && j.Started && j.Service == v.ID {
 					used++
 				}
 			}
@@ -145,42 +148,13 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 		return
 	}
 	if !j.Started {
-		var cost int64
-		var supply int32
-		var service ID
-		if j.Research {
-			u, _ := e.catalog.Upgrade(j.Type)
-			cost = u.Cost
-			if p.HasUpgrade(u.ID) {
-				v.Jobs = v.Jobs[1:]
-				return
-			}
-		} else {
-			u, _ := e.catalog.Unit(j.Type)
-			cost = u.Cost
-			supply = u.Supply
-			if j.Emergency {
-				cost = 1200000
-			}
-			if p.Supply+p.ReservedSupply+supply > 100 {
-				v.State = "supply_blocked"
-				return
-			}
-			limits := map[string]int32{"rig": 4, "hauler": 8, "elite": 1}
-			if cap, ok := limits[u.Role]; ok && e.countRole(p.ID, u.Role, true) >= cap {
-				v.State = u.Role + "_limit"
-				return
-			}
-			if u.Armor == "air" {
-				service = e.freeService(p.ID)
-				if service == 0 {
-					v.State = "service_full"
-					return
-				}
-			}
+		cost, supply, service, code := e.productionAllocation(p, j)
+		if code == "already_researched" {
+			v.Jobs = v.Jobs[1:]
+			return
 		}
-		if p.Credits < cost {
-			v.State = "insufficient_credits"
+		if code != "ok" {
+			v.State = code
 			return
 		}
 		p.Credits -= cost
@@ -190,6 +164,21 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 		j.Service = service
 		j.Started = true
 		e.recalculate()
+	}
+	if !j.Research {
+		unit, _ := e.catalog.Unit(j.Type)
+		if unit.Armor == "air" {
+			home := e.entity(j.Service)
+			if home == nil || home.Owner != p.ID || home.HP <= 0 || !home.Complete {
+				j.Service = 0
+				j.Service = e.freeService(p.ID)
+				home = e.entity(j.Service)
+			}
+			if home == nil || !home.Active(e.state.Tick) {
+				v.State = "service_full"
+				return
+			}
+		}
 	}
 	work := uint32(2)
 	if p.LowPower() {
@@ -208,8 +197,8 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 	} else {
 		pos, ok := e.exitPosition(v, j.Type, 0, 6000)
 		if u, found := e.catalog.Unit(j.Type); found && u.Armor == "air" && j.Service == v.ID {
-			pos = v.Position
-			ok = true
+			candidate := &Entity{ID: e.state.NextID, Type: j.Type, Owner: p.ID, Home: v.ID}
+			pos, ok = e.serviceLandingPosition(candidate, v)
 		}
 		if !ok {
 			v.State = "exit_blocked"
@@ -220,7 +209,7 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 		if e.isAircraft(unit) {
 			unit.Landed = true
 			if home := e.entity(unit.Home); home != nil && home.ID == v.ID {
-				unit.Position = e.landingPoint(unit, home)
+				unit.Position = pos
 				unit.LastPosition = unit.Position
 				unit.Anchor = unit.Position
 			}
@@ -236,6 +225,9 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 			e.assign(unit, Order{Kind: "move", Position: v.Rally})
 		}
 		e.emit("unit_ready", p.ID, unit.ID, pos, "owner", 0)
+		if j.Emergency {
+			e.emit("emergency_rig_ready", p.ID, unit.ID, pos, "owner", j.Paid)
+		}
 	}
 	v.Jobs = v.Jobs[1:]
 	v.State = "idle"

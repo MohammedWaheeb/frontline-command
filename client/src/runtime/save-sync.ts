@@ -1,0 +1,114 @@
+import {sha256Hex as hash} from './crypto';
+import {APIError,type LocalAPI,type SaveSummary,type RemoteSettings} from './api';
+import {LocalProfileSession,type AccountContext} from './account';
+import {RuntimeError} from './errors';
+import type {LocalStore,LocalSave,LocalSetting,SaveInspector} from './storage';
+import type {EngineMetadata,SaveData} from './types';
+export interface MissionSaveProgress{id:string;version:string;difficulty:string;checkpoint:string;checkpointTick:number;objectives:Array<{id:string;complete:boolean;progress:number}>}
+export interface SyncSaveVersion{id:string;name:string;revision:number;updatedMs:number;bytes:number;sha256:string;tick?:number;metadata?:EngineMetadata;mission?:MissionSaveProgress;humanPlayers?:number[];compatible:boolean;error?:{code:string;message:string}}
+export interface SyncSettingVersion{id:string;revision:number;updatedMs?:number;data:unknown;compatible:boolean;error?:{code:string;message:string}}
+export type SaveSyncEntry={key:string;kind:'save';localId:string;remoteId:string;uploadName?:string;downloadName?:string;local?:SyncSaveVersion;remote?:SyncSaveVersion;comparison:'local-only'|'remote-only'|'identical'|'different'|'unavailable'};
+export type SettingsSyncEntry={key:string;kind:'settings';localId:string;remoteId:'profile/settings';local?:SyncSettingVersion;remote:SyncSettingVersion;comparison:'local-only'|'remote-only'|'identical'|'different'|'unavailable'};
+export type SyncEntry=SaveSyncEntry|SettingsSyncEntry;
+export interface SaveSyncPreview{mode:'sync'|'migration';account:AccountContext;profileName:string;createdMs:number;entries:SyncEntry[];unsupported:Array<{kind:string;reason:string;items?:number}>}
+export interface SaveMapping{localId:string;remoteId:string;uploadName?:string;downloadName?:string}
+export interface SyncPreviewOptions{mappings?:SaveMapping[];settingsId?:string;signal?:AbortSignal;onProgress?:(done:number,total:number)=>void}
+export type SyncDecision={key:string;action:'skip'}|{key:string;action:'upload'}|{key:string;action:'download';localPlayers?:number[]};
+export interface SyncReceipt{key:string;action:SyncDecision['action'];status:'copied'|'skipped'|'not-started'|'failed'|'uncertain';localId:string;remoteId:string;revision?:number;sourceChanged?:boolean;warning?:{code:string;message:string};error?:{code:string;message:string}}
+export interface SyncExecution{status:'completed'|'canceled'|'stopped';account:AccountContext;receipts:SyncReceipt[]}
+type LocalFiles=Pick<LocalStore,'listSaves'|'getSave'|'putSave'|'setting'|'putSetting'|'progress'>;
+interface CapturedSave{summary:SyncSaveVersion;data:Uint8Array;save?:SaveData}
+interface CapturedEntry{public:SyncEntry;localSave?:CapturedSave;remoteSave?:CapturedSave;localSetting?:LocalSetting;remoteSetting?:RemoteSettings}
+interface CapturedPreview{account:AccountContext;mode:'sync'|'migration';entries:CapturedEntry[];used:boolean}
+const MAX_BYTES=256*1024*1024,MAX_ENTRIES=64,encoder=new TextEncoder();
+const unsupportedKinds:SaveSyncPreview['unsupported']=[{kind:'campaign-progress',reason:'The host has no campaign-ledger synchronization endpoint. The local ledger remains available.'},{kind:'replays',reason:'The host accepts no replay-library uploads. Local replay files remain available.'},{kind:'editor-drafts',reason:'Editor drafts use a separate local database and portable exports; this migration does not copy them.'}];
+function fail(code:string,message:string,details?:unknown):never{throw new RuntimeError(code,message,true,details)}
+function canceled(signal?:AbortSignal){if(signal?.aborted)fail('sync_canceled','Synchronization was canceled. Completed copies remain; no existing files were deleted.')}
+function localID(id:string){if(typeof id!=='string'||!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,99}$/.test(id))fail('sync_id','Choose a valid local save ID.')}
+function remoteID(id:string){if(typeof id!=='string'||!id||id.length>80||!/^[a-zA-Z0-9._-]+$/.test(id)||id==='.'||id==='..')fail('sync_id','Host save IDs must be 1–80 letters, numbers, dots, hyphens, or underscores.')}
+function errorInfo(error:unknown){const e=RuntimeError.from(error);return {code:e.code,message:e.message}}
+function validRevision(value:number,allowZero=false){return Number.isSafeInteger(value)&&value>=(allowZero?0:1)}
+function settingsCompatible(data:unknown){try{return !!data&&typeof data==='object'&&!Array.isArray(data)&&encoder.encode(JSON.stringify(data)).length<=32768}catch{return false}}
+function bytesEqual(a:Uint8Array,b:Uint8Array){return a.length===b.length&&a.every((value,index)=>value===b[index])}
+function stableJSON(value:unknown):string{if(Array.isArray(value))return '['+value.map(stableJSON).join(',')+']';if(value&&typeof value==='object')return '{'+Object.keys(value).sort().map(key=>JSON.stringify(key)+':'+stableJSON((value as Record<string,unknown>)[key])).join(',')+'}';return JSON.stringify(value)}
+function remoteSummary(value:SaveSummary,account:AccountContext){if(!value||value.owner!==account.profileId||!validRevision(value.revision)||!Number.isSafeInteger(value.updated)||value.updated<0||typeof value.name!=='string'||value.name.length>100)fail('invalid_response','The host returned invalid save metadata.');remoteID(value.id);return value}
+
+/** Optional copies only. This service never deletes local or server files. */
+export class SaveSynchronizer{
+ private previews=new WeakMap<SaveSyncPreview,CapturedPreview>();private running=false;
+ constructor(private readonly account:LocalProfileSession,private readonly files:LocalFiles,private readonly inspect:SaveInspector){}
+ private async remote<T>(context:AccountContext,operation:(api:LocalAPI)=>Promise<T>):Promise<T>{return this.account.authenticated(operation,{context,allowChangedResult:true})}
+ private async capture(id:string,name:string,revision:number,updatedMs:number,input:Uint8Array,localPlayers?:number[]):Promise<CapturedSave>{
+  if(!(input instanceof Uint8Array)||input.length>64*1024*1024)fail('save_too_large','A selected save exceeds 64 MiB.');const data=input.slice(),summary:SyncSaveVersion={id,name,revision,updatedMs,bytes:data.length,sha256:await hash(data),compatible:false};
+  try{
+   const checked=await this.inspect(data.slice());summary.metadata=structuredClone(checked.metadata);summary.tick=checked.tick;
+   // Read presentation fields only after Go validation. These parsed values are
+   // never serialized back into the authoritative engine save.
+   const envelope=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(data)),state=envelope.state;
+   if(!state||!Array.isArray(state.players)||state.players.length>4)fail('save_invalid','This save has no valid player metadata.');
+   const humanPlayers:number[]=state.players.filter((player:any)=>player.controller==='human').map((player:any)=>player.id);if(!humanPlayers.length||humanPlayers.some((id:unknown)=>!Number.isInteger(id)||Number(id)<1||Number(id)>4)||new Set(humanPlayers).size!==humanPlayers.length)fail('save_invalid','This save has no supported human commander slots.');summary.humanPlayers=humanPlayers;
+   if(state.mission){const mission=state.mission;summary.mission={id:mission.definition.id,version:mission.definition.version,difficulty:mission.difficulty,checkpoint:mission.checkpoint,checkpointTick:mission.checkpoint_tick,objectives:mission.objectives.map((objective:any)=>({id:objective.id,complete:objective.complete,progress:objective.progress}))}}
+   const players=localPlayers??humanPlayers;if(!players.length||players.some(id=>!humanPlayers.includes(id))||new Set(players).size!==players.length)fail('save_invalid','This local save names a commander outside its human slots.');
+   summary.compatible=true;return {summary,data,save:{data:data.slice(),metadata:checked.metadata,tick:checked.tick,hash:typeof envelope.sha256==='string'?envelope.sha256:'',local_players:[...players]}};
+  }catch(error){summary.error=errorInfo(error);return {summary,data}}
+ }
+ async preview(options:SyncPreviewOptions={}):Promise<SaveSyncPreview>{return this.makePreview('sync',options)}
+ async previewMigration(options:Omit<SyncPreviewOptions,'mappings'>&{saveIds?:string[];mappings?:SaveMapping[]}={}):Promise<SaveSyncPreview>{
+  if(options.mappings)return this.makePreview('migration',options);const locals=await this.files.listSaves(),selected=options.saveIds?locals.filter(save=>options.saveIds!.includes(save.id)):locals;
+  if(options.saveIds&&(new Set(options.saveIds).size!==options.saveIds.length||selected.length!==options.saveIds.length))fail('sync_save_missing','One of the selected guest saves no longer exists.');
+  const mappings:SaveMapping[]=[];for(const save of selected){canceled(options.signal);const suffix=(await hash(encoder.encode(save.id))).slice(0,8);mappings.push({localId:save.id,remoteId:`guest-${save.id.slice(0,60)}-${suffix}`})}return this.makePreview('migration',{...options,mappings});
+ }
+ private async makePreview(mode:'sync'|'migration',options:SyncPreviewOptions):Promise<SaveSyncPreview>{
+  canceled(options.signal);const context=this.account.context;if(!context)fail('sign_in_required','Create or restore a local profile before previewing account copies. Guest saves stay available.');
+  const [localList,remoteList]=await Promise.all([this.files.listSaves(),this.remote(context,api=>api.listSaves(options.signal))]);this.account.assertContext(context);canceled(options.signal);
+  if(!Array.isArray(remoteList)||remoteList.length>10000)fail('sync_selection_required','The host save list is too large to review at once.');for(const item of remoteList)remoteSummary(item,context);
+  let mappings=options.mappings;if(!mappings){const ids=[...new Set([...localList.map(save=>save.id),...remoteList.map(save=>save.id)])].sort();mappings=ids.map(id=>({localId:id,remoteId:id}))}
+  if(mappings.length+(options.settingsId?1:0)>MAX_ENTRIES)fail('sync_selection_required','Select at most 64 save/settings items per synchronization preview.');
+  const localTargets=new Set<string>(),remoteTargets=new Set<string>();for(const mapping of mappings){localID(mapping.localId);remoteID(mapping.remoteId);if(localTargets.has(mapping.localId)||remoteTargets.has(mapping.remoteId))fail('sync_duplicate_target','Each local and host save target must appear only once in a preview.');localTargets.add(mapping.localId);remoteTargets.add(mapping.remoteId)}
+  const entries:CapturedEntry[]=[];let totalBytes=0;
+  for(const [index,mapping] of mappings.entries()){
+   canceled(options.signal);this.account.assertContext(context);const local=await this.files.getSave(mapping.localId),remote=remoteList.find(save=>save.id===mapping.remoteId);if(!local&&!remote)fail('sync_save_missing','A selected mapping contains no local or host save.',mapping);
+   let localSave:CapturedSave|undefined,remoteSave:CapturedSave|undefined;
+   if(local){totalBytes+=local.data.length;if(totalBytes>MAX_BYTES)fail('sync_selection_required','Selected save data exceeds the 256 MiB preview limit.');localSave=await this.capture(local.id,local.name,local.revision,local.updated,local.data,local.local_players)}
+   if(remote){const download=await this.remote(context,api=>api.downloadSave(remote.id,options.signal));totalBytes+=download.data.length;if(totalBytes>MAX_BYTES)fail('sync_selection_required','Selected save data exceeds the 256 MiB preview limit.');if(download.revision!==remote.revision)fail('sync_preview_changed','A host save changed while its preview was loading. Preview again before choosing a copy.');remoteSave=await this.capture(remote.id,remote.name,remote.revision,remote.updated*1000,download.data)}
+   const comparison=!localSave?.summary.compatible&&localSave||!remoteSave?.summary.compatible&&remoteSave?'unavailable':!localSave?'remote-only':!remoteSave?'local-only':localSave.summary.sha256===remoteSave.summary.sha256?'identical':'different';
+   entries.push({public:{key:`save:${index}`,kind:'save',...mapping,uploadName:mapping.uploadName??localSave?.summary.name,downloadName:mapping.downloadName??remoteSave?.summary.name,local:localSave?.summary,remote:remoteSave?.summary,comparison},localSave,remoteSave});try{options.onProgress?.(entries.length,mappings.length+(options.settingsId?1:0))}catch{}
+  }
+  if(options.settingsId){localID(options.settingsId);const local=await this.files.setting(options.settingsId),remote=await this.remote(context,api=>api.settings(options.signal));if(!validRevision(remote.revision,true))fail('invalid_response','The host returned invalid settings revision metadata.');const remoteVersion:SyncSettingVersion={id:'profile/settings',revision:remote.revision,data:structuredClone(remote.data),compatible:settingsCompatible(remote.data)};const localVersion:SyncSettingVersion|undefined=local?{id:local.id,revision:local.revision,updatedMs:local.updated,data:structuredClone(local.data),compatible:settingsCompatible(local.data)}:undefined;
+   const comparison=!remoteVersion.compatible||localVersion&&!localVersion.compatible?'unavailable':!local?'remote-only':remote.revision===0?'local-only':stableJSON(local.data)===stableJSON(remote.data)?'identical':'different';entries.push({public:{key:'settings',kind:'settings',localId:options.settingsId,remoteId:'profile/settings',local:localVersion,remote:remoteVersion,comparison},localSetting:local,remoteSetting:remote});
+  }
+  this.account.assertContext(context);canceled(options.signal);const unsupported=structuredClone(unsupportedKinds);if(mode==='migration'){const progress=await this.files.progress('campaign');if(progress)unsupported[0]={...unsupported[0],items:1} as typeof unsupported[number]}
+  this.account.assertContext(context);canceled(options.signal);const preview:SaveSyncPreview={mode,account:{...context},profileName:this.account.state.profile?.name??'',createdMs:Date.now(),entries:entries.map(entry=>structuredClone(entry.public)),unsupported};this.previews.set(preview,{account:{...context},mode,entries,used:false});return preview;
+ }
+ private decisions(state:CapturedPreview,decisions:SyncDecision[]){
+  if(!Array.isArray(decisions)||decisions.length!==state.entries.length)fail('sync_decisions_required','Choose Copy or Skip for every item shown in the preview.');const choices=new Map<string,SyncDecision>();for(const decision of decisions){if(!decision||choices.has(decision.key)||!['skip','upload','download'].includes(decision.action))fail('sync_decision_invalid','Each preview item needs one supported decision.');choices.set(decision.key,structuredClone(decision))}
+  return state.entries.map(entry=>{const choice=choices.get(entry.public.key);if(!choice)fail('sync_decisions_required','Choose a decision for each preview item.');if(choice.action==='skip')return choice;if(entry.public.comparison==='unavailable')fail('sync_incompatible','Preserve incompatible saves and choose a new copy target instead of replacing them.');if(state.mode==='migration'&&choice.action!=='upload')fail('sync_migration_direction','Guest migration copies to the account. Use synchronization for downloads.');if(choice.action==='upload'&&!entry.public.local||choice.action==='download'&&!entry.public.remote)fail('sync_source_missing','The selected copy source is missing.');if(entry.public.kind==='save'){const name=choice.action==='upload'?entry.public.uploadName:entry.public.downloadName;if(typeof name!=='string'||!name.trim()||name.length>100||choice.action==='upload'&&encoder.encode(name).length>100)fail('sync_name','Choose a supported destination name in a new preview: host names allow 100 UTF-8 bytes and local names allow 100 characters.')}if(choice.action==='download'&&entry.public.kind==='save'){if(entry.public.localId.startsWith('autosave-'))fail('sync_manual_target','Download to a manual save ID so autosave rotation cannot erase the imported file.');const players=choice.localPlayers??(entry.remoteSave!.summary.humanPlayers!.length===1?entry.remoteSave!.summary.humanPlayers:undefined);if(!players?.length||players.length>4||new Set(players).size!==players.length||players.some(player=>!entry.remoteSave!.summary.humanPlayers!.includes(player)))fail('sync_commander_choice','Choose which validated human commander slots to control in this downloaded save.');return {...choice,localPlayers:[...players]}}return choice});
+ }
+ private async verifyLocal(entry:CapturedEntry){const before=entry.public.local,current=entry.public.kind==='save'?await this.files.getSave(entry.public.localId):await this.files.setting(entry.public.localId);if((current?.revision??0)!==(before?.revision??0))fail('sync_local_changed','A local item changed after the preview. Preview both versions again.',{id:entry.public.localId,currentRevision:current?.revision??0});if(current&&entry.public.kind==='save'&&(!bytesEqual((current as LocalSave).data,entry.localSave!.data)||(current as LocalSave).name!==entry.localSave!.summary.name||current.updated!==entry.localSave!.summary.updatedMs))fail('sync_local_changed','The local save bytes changed after the preview. Keep both versions and preview again.');if(current&&entry.public.kind==='settings'&&stableJSON(current.data)!==stableJSON(entry.localSetting!.data))fail('sync_local_changed','Local settings changed after the preview.')}
+ private async preflight(state:CapturedPreview,choices:SyncDecision[],signal?:AbortSignal){
+  this.account.assertContext(state.account);canceled(signal);const remoteList=await this.remote(state.account,api=>api.listSaves(signal));this.account.assertContext(state.account);if(!Array.isArray(remoteList)||remoteList.length>10000)fail('invalid_response','The host returned an invalid save list.');for(const item of remoteList)remoteSummary(item,state.account);
+  for(let index=0;index<state.entries.length;index++){if(choices[index].action==='skip')continue;const entry=state.entries[index];await this.verifyLocal(entry);canceled(signal);if(entry.public.kind==='save'){const current=remoteList.find(save=>save.id===entry.public.remoteId);if((current?.revision??0)!==(entry.public.remote?.revision??0)||current&&(current.name!==entry.remoteSave!.summary.name||current.updated*1000!==entry.remoteSave!.summary.updatedMs))fail('sync_remote_changed','A host save changed after the preview. Preview both versions again.',{id:entry.public.remoteId,currentRevision:current?.revision??0});if(current){const downloaded=await this.remote(state.account,api=>api.downloadSave(current.id,signal));if(downloaded.revision!==entry.remoteSave!.summary.revision||!bytesEqual(downloaded.data,entry.remoteSave!.data))fail('sync_remote_changed','The host save contents changed after the preview. Preview again before copying.')}}else{const current=await this.remote(state.account,api=>api.settings(signal));if(current.revision!==entry.remoteSetting!.revision||stableJSON(current.data)!==stableJSON(entry.remoteSetting!.data))fail('sync_remote_changed','Host settings changed after the preview. Preview both versions again.')}}
+ }
+ async execute(preview:SaveSyncPreview,decisions:SyncDecision[],options:{signal?:AbortSignal;onProgress?:(receipt:SyncReceipt,done:number,total:number)=>void}={}):Promise<SyncExecution>{
+  if(this.running)fail('sync_busy','Wait for the current copy operation to finish.');const state=this.previews.get(preview);if(!state||state.used)fail('sync_preview_required','Create a fresh preview before copying files.');const choices=this.decisions(state,decisions);this.running=true;
+  try{
+   await this.preflight(state,choices,options.signal);state.used=true;const receipts:SyncReceipt[]=state.entries.map((entry,index)=>({key:entry.public.key,action:choices[index].action,status:choices[index].action==='skip'?'skipped':'not-started',localId:entry.public.localId,remoteId:entry.public.remoteId}));const result:SyncExecution={status:'completed',account:{...state.account},receipts};
+   for(let index=0;index<state.entries.length;index++){
+    const choice=choices[index],entry=state.entries[index],receipt=receipts[index];if(choice.action==='skip')continue;
+    let writeStarted=false;
+    try{
+     canceled(options.signal);this.account.assertContext(state.account);await this.verifyLocal(entry);canceled(options.signal);
+     if(choice.action==='upload'){
+      writeStarted=true;if(entry.public.kind==='save'){const saved=await this.remote(state.account,api=>api.uploadSave(entry.public.remoteId,(entry.public as SaveSyncEntry).uploadName!,entry.localSave!.data.slice(),entry.public.remote?.revision??0,options.signal));remoteSummary(saved,state.account);receipt.revision=saved.revision}
+      else{const saved=await this.remote(state.account,api=>api.putSettings(structuredClone(entry.localSetting!.data) as Record<string,unknown>,entry.remoteSetting!.revision,options.signal));receipt.revision=saved.revision}
+     }else{
+      if(entry.public.kind==='save'){const remote=await this.remote(state.account,api=>api.downloadSave(entry.public.remoteId,options.signal));if(remote.revision!==entry.remoteSave!.summary.revision||!bytesEqual(remote.data,entry.remoteSave!.data))fail('sync_remote_changed','The host save changed after the preview. Preview again before downloading.');canceled(options.signal);this.account.assertContext(state.account);writeStarted=true;const saved=await this.files.putSave(entry.public.localId,entry.public.downloadName!,{...entry.remoteSave!.save!,data:remote.data,local_players:choice.localPlayers!},entry.public.local?.revision??0);receipt.revision=saved.revision}
+      else{const remote=await this.remote(state.account,api=>api.settings(options.signal));if(remote.revision!==entry.remoteSetting!.revision||stableJSON(remote.data)!==stableJSON(entry.remoteSetting!.data))fail('sync_remote_changed','Host settings changed after the preview.');canceled(options.signal);this.account.assertContext(state.account);writeStarted=true;const saved=await this.files.putSetting(entry.public.localId,structuredClone(remote.data),entry.public.local?.revision??0);receipt.revision=saved.revision}
+     }
+     receipt.status='copied';if(choice.action==='upload')try{await this.verifyLocal(entry)}catch(error){if(RuntimeError.from(error).code==='sync_local_changed')receipt.sourceChanged=true;else receipt.warning={code:'sync_source_unchecked',message:'The reviewed version was copied, but the current local revision could not be rechecked.'}}try{options.onProgress?.(structuredClone(receipt),index+1,receipts.length)}catch{}if(options.signal?.aborted){result.status='canceled';break}try{this.account.assertContext(state.account)}catch{result.status='stopped';break}
+    }catch(error){const known=error instanceof APIError&&error.status>=400&&error.status<500;receipt.status=writeStarted&&choice.action==='upload'&&!known&&!['save_conflict','settings_conflict'].includes(RuntimeError.from(error).code)?'uncertain':'failed';receipt.error=errorInfo(error);result.status=options.signal?.aborted?'canceled':'stopped';break}
+   }
+   return result;
+  }finally{this.running=false}
+ }
+}

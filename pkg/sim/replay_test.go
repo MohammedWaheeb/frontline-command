@@ -161,3 +161,67 @@ func TestCommandRateLimitAndSaveRestore(t *testing.T) {
 		t.Fatal("budget did not recover", err)
 	}
 }
+
+func TestReplayStreamingMatchesEveryLiveTickAndPagesAreDetached(t *testing.T) {
+	e := fixture(t)
+	replay, _ := NewReplay(e)
+	hashes := []string{e.Hash()}
+	for n := 0; n < 150; n++ {
+		if n%20 == 0 {
+			if err := e.Submit(1, uint32(n/20+1), []Order{{Kind: "move", Entities: []ID{2}, Position: Vec{X: int32(14000 + n*40), Y: 16000}}}); err != nil {
+				t.Fatal(err)
+			}
+		}
+		e.Advance()
+		hashes = append(hashes, e.Hash())
+		if n == 59 || n == 99 || n == 149 {
+			if err := replay.Capture(e, n == 99); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}
+	for _, start := range []Tick{0, 75, 100, 125} {
+		player, err := replay.Open(e.catalog, start)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for !player.Finished() {
+			if player.Engine().Hash() != hashes[player.Engine().Tick()] {
+				t.Fatal("stream diverged", start, player.Engine().Tick())
+			}
+			if err := player.Advance(); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if player.Engine().Hash() != e.Hash() {
+			t.Fatal("final streaming hash")
+		}
+		player.Advance()
+		if player.Engine().Tick() != 150 {
+			t.Fatal("advanced past replay")
+		}
+	}
+	var offset uint64
+	count := 0
+	for {
+		page, next, err := replay.CommandPage(offset, 3)
+		if err != nil {
+			t.Fatal(err)
+		}
+		count += len(page)
+		if len(page) > 0 {
+			page[0].Orders[0].Entities[0] = 9999
+		}
+		if next == 0 {
+			break
+		}
+		offset = next
+	}
+	if count != 8 {
+		t.Fatal("command paging lost records", count)
+	}
+	page, _, _ := replay.CommandPage(0, 1)
+	if page[0].Orders[0].Entities[0] != 2 {
+		t.Fatal("page mutated recording")
+	}
+}

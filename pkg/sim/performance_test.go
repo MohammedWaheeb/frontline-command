@@ -8,6 +8,9 @@ import (
 )
 
 func maximumFixture(t testing.TB) *Engine {
+	return maximumFactionFixture(t, []string{"US", "IR", "SY", "SA"})
+}
+func maximumFactionFixture(t testing.TB, factions []string) *Engine {
 	m := fixtureMap()
 	m.Width = 160
 	m.Height = 160
@@ -20,7 +23,7 @@ func maximumFixture(t testing.TB) *Engine {
 	m.Stations = nil
 	m.Shipment = Vec{X: 80000, Y: 80000}
 	cfg := Config{Map: m, Seed: 1}
-	for i, f := range []string{"US", "IR", "SY", "SA"} {
+	for i, f := range factions {
 		cfg.Players = append(cfg.Players, PlayerConfig{ID: PlayerID(i + 1), Name: f, Faction: f, Team: uint32(i + 1)})
 	}
 	e, err := New(content.MustBase(), cfg)

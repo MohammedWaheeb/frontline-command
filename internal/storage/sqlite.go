@@ -35,7 +35,7 @@ func Open(path string) (*SQLite, error) {
 		db.Close()
 		return nil, err
 	}
-	if schemaVersion > 4 {
+	if schemaVersion > 6 {
 		db.Close()
 		return nil, errors.New("database was created by a newer game version")
 	}
@@ -51,6 +51,14 @@ func Open(path string) (*SQLite, error) {
 		return nil, err
 	}
 	if err = s.initRatingSchema(); err != nil {
+		db.Close()
+		return nil, err
+	}
+	if err = s.initRevisionSchema(schemaVersion); err != nil {
+		db.Close()
+		return nil, err
+	}
+	if err = s.initModerationSchema(schemaVersion); err != nil {
 		db.Close()
 		return nil, err
 	}
@@ -127,7 +135,10 @@ func (s *SQLite) PutSave(ctx context.Context, v Save, expected int64) (Save, err
 	if revision != expected {
 		return v, ErrConflict
 	}
-	v.Revision = revision + 1
+	v.Revision, err = reserveRevision(ctx, tx, "save", v.Owner, v.ID, revision, true)
+	if err != nil {
+		return v, err
+	}
 	v.Updated = time.Now().Unix()
 	_, err = tx.ExecContext(ctx, `INSERT INTO saves(owner,id,name,revision,updated,data) VALUES(?,?,?,?,?,?) ON CONFLICT(owner,id) DO UPDATE SET name=excluded.name,revision=excluded.revision,updated=excluded.updated,data=excluded.data`, v.Owner, v.ID, v.Name, v.Revision, v.Updated, v.Data)
 	if err != nil {
@@ -160,15 +171,29 @@ func (s *SQLite) ListSaves(ctx context.Context, owner string) ([]Save, error) {
 	return out, rows.Err()
 }
 func (s *SQLite) DeleteSave(ctx context.Context, owner, id string, revision int64) error {
-	result, err := s.db.ExecContext(ctx, "DELETE FROM saves WHERE owner=? AND id=? AND revision=?", owner, id, revision)
+	tx, err := s.db.BeginTx(ctx, nil)
 	if err != nil {
 		return err
 	}
-	n, _ := result.RowsAffected()
-	if n != 1 {
+	defer tx.Rollback()
+	var current int64
+	err = tx.QueryRowContext(ctx, "SELECT revision FROM saves WHERE owner=? AND id=?", owner, id).Scan(&current)
+	if errors.Is(err, sql.ErrNoRows) {
 		return ErrConflict
 	}
-	return nil
+	if err != nil {
+		return err
+	}
+	if current != revision {
+		return ErrConflict
+	}
+	if _, err = reserveRevision(ctx, tx, "save", owner, id, current, false); err != nil {
+		return err
+	}
+	if _, err = tx.ExecContext(ctx, "DELETE FROM saves WHERE owner=? AND id=?", owner, id); err != nil {
+		return err
+	}
+	return tx.Commit()
 }
 func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
 	if !ValidID(v.ID) || len(v.Payload) > 4<<20 {
@@ -264,7 +289,10 @@ func (s *SQLite) PutMap(ctx context.Context, v MapRecord, expected int64) (MapRe
 	if owner != "" && owner != v.Owner {
 		return v, ErrUnauthorized
 	}
-	v.Revision = rev + 1
+	v.Revision, err = reserveRevision(ctx, tx, "map", "", v.ID, rev, true)
+	if err != nil {
+		return v, err
+	}
 	_, err = tx.ExecContext(ctx, `INSERT INTO maps(id,owner,title,revision,data) VALUES(?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,revision=excluded.revision,data=excluded.data`, v.ID, v.Owner, v.Title, v.Revision, v.Data)
 	if err != nil {
 		return v, err
@@ -296,14 +324,7 @@ func (s *SQLite) ListMaps(ctx context.Context) ([]MapRecord, error) {
 	return out, rows.Err()
 }
 func (s *SQLite) Report(ctx context.Context, owner, matchID, reason string, tick uint32) error {
-	if len(reason) < 3 || len(reason) > 2000 || !ValidID(matchID) {
-		return errors.New("invalid report")
-	}
-	id, err := Token()
-	if err != nil {
-		return err
-	}
-	_, err = s.db.ExecContext(ctx, "INSERT INTO reports(id,owner,match_id,tick,reason,created) VALUES(?,?,?,?,?,?)", id, owner, matchID, tick, reason, time.Now().Unix())
+	_, err := s.CreateReport(ctx, owner, matchID, reason, tick)
 	return err
 }
 func (s *SQLite) Backup(ctx context.Context, path string) error {

@@ -8,6 +8,7 @@ import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {map,scenario} from '../../tests/runtime/scenario.mjs';
+import {testBrowserSession} from '../../tests/runtime/session.browser.mjs';
 const client=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),root=path.dirname(client);
 const evidence=path.join(root,'work/evidence/runtime');await mkdir(evidence,{recursive:true});
 execFileSync(process.execPath,[path.join(client,'scripts/runtime/build.mjs')],{stdio:'inherit'});
@@ -28,7 +29,7 @@ async function server(existingDir,address="127.0.0.1:0"){
  const dir=existingDir??await mkdtemp(path.join(tmpdir(),'frontline-runtime-'));await mkdir(path.join(dir,'maps'),{recursive:true});await writeFile(path.join(dir,'maps/map.json'),JSON.stringify(map));
  const child=spawn(path.join(root,'bin/frontline'),['-addr',address,'-data',path.join(dir,'data'),'-maps',path.join(dir,'maps'),'-missions',path.join(dir,'missions'),'-static',staticDir],{cwd:root,stdio:['ignore','pipe','pipe']});
  let log='';const url=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Server startup timeout: '+log)),15000);child.stdout.on('data',data=>{log+=data;const match=log.match(/http:\/\/127\.0\.0\.1:\d+/);if(match){clearTimeout(timer);resolve(match[0])}});child.stderr.on('data',data=>log+=data);child.on('exit',code=>{clearTimeout(timer);reject(new Error('Server exited '+code+': '+log))})});
- return {url,child,dir};
+ return {url,child,dir,log:()=>log};
 }
 async function stopHost(host){if(host.child.exitCode!==null)return;const ended=new Promise(resolve=>host.child.once('exit',resolve));host.child.kill('SIGTERM');await ended}
 const selected=process.env.FRONTLINE_TEST_BROWSER;
@@ -55,15 +56,23 @@ for(const browserType of [chromium,firefox,webkit].filter(b=>!selected||b.name()
    const loaded=await runtime.hash();let corruption='';const damaged=saved.data.slice();damaged[Math.floor(damaged.length/2)]^=1;
    try{await runtime.load(damaged,saved.local_players)}catch(error){corruption=error.code}
    const preserved=(await runtime.hash())===loaded;
-   const second=new R.OfflineTransport('/runtime/');await second.ready;await second.create(scenario.config);await second.step(4);const isolated=(await runtime.hash())===loaded;second.dispose();
+   const second=new R.OfflineTransport('/runtime/');await second.ready;await second.create(scenario.config);await second.step(4);const isolated=(await runtime.hash())===loaded;
+   await second.sendOrders([{kind:'move',entities:[2],position:{x:19000,y:14000}}]);await second.step(37);const replayMid={tick:(await second.info()).tick,hash:await second.hash()};
+   await second.sendOrders([{kind:'move',entities:[2],position:{x:23000,y:17000}}]);for(let i=0;i<3;i++)await second.step(200);const replayEnd={tick:(await second.info()).tick,hash:await second.hash()};
+   const replayBytes=await second.exportReplay(),replayInfo=await second.loadReplay(replayBytes);await second.setPerspective(2);const replayPerspective=second.current.player;
+   await second.seekReplay(replayMid.tick);const replaySeek=(await second.hash())===replayMid.hash;let readOnly='';try{await second.sendOrders([{kind:'surrender'}])}catch(error){readOnly=error.code}
+   while(!(await second.info()).finished)await second.step(100);const replayStream=(await second.hash())===replayEnd.hash;
+   const history=await second.replayCommands(),blueprint=await second.map();let badSeek='';try{await second.seekReplay(replayEnd.tick+1)}catch(error){badSeek=error.code}const seekPreserved=(await second.hash())===replayEnd.hash;
+   const replay={readOnly,replaySeek,replayStream,replayPerspective,history:history.commands.length,map:blueprint.id,start:replayInfo.replay_start,end:replayInfo.replay_end,badSeek,seekPreserved};second.dispose();
    const api=new R.LocalAPI(location.origin);await api.createProfile('Runtime save verifier');const upload=await api.uploadSave('native-parity','Parity',saved.data,0);const download=await api.downloadSave('native-parity');
    const exact=download.data.length===saved.data.length&&download.data.every((v,i)=>v===saved.data[i]);let conflict='';try{await api.uploadSave('native-parity','Conflicting save',saved.data,0)}catch(error){conflict=error.code}
    await runtime.load(download.data,saved.local_players);const downloadedHash=await runtime.hash();
    globalThis.testSaved=saved;globalThis.testRuntime=runtime;
    const snapshot=runtime.current;
-   await store.close();return {checkpoints,submits,hash:loaded,before,records:records.length,autosaves:records.filter(r=>r.kind==='auto').length,corruption,preserved,isolated,exact,conflict,downloadedHash,privateOnly:snapshot.entities.every(e=>e.owner===1),uploadRevision:upload.revision};
+   await store.close();return {replay,checkpoints,submits,hash:loaded,before,records:records.length,autosaves:records.filter(r=>r.kind==='auto').length,corruption,preserved,isolated,exact,conflict,downloadedHash,privateOnly:snapshot.entities.every(e=>e.owner===1),uploadRevision:upload.revision};
   },scenario);
-  assert.deepEqual(parity.checkpoints,native.checkpoints);assert.deepEqual(parity.submits,native.submits);assert.equal(parity.hash,native.final_hash);assert.equal(parity.downloadedHash,native.final_hash);assert.equal(parity.before,parity.hash);assert.equal(parity.records,4);assert.equal(parity.autosaves,3);assert.ok(parity.corruption.startsWith('save_'));assert.ok(parity.preserved&&parity.isolated&&parity.exact&&parity.privateOnly);assert.equal(parity.conflict,'save_conflict');result.parity=parity;
+  assert.deepEqual(parity.checkpoints,native.checkpoints);assert.deepEqual(parity.submits,native.submits);assert.equal(parity.hash,native.final_hash);assert.equal(parity.downloadedHash,native.final_hash);assert.equal(parity.before,parity.hash);assert.equal(parity.records,4);assert.equal(parity.autosaves,3);assert.ok(parity.corruption.startsWith('save_'));assert.ok(parity.preserved&&parity.isolated&&parity.exact&&parity.privateOnly);assert.equal(parity.conflict,'save_conflict');assert.equal(parity.replay.readOnly,'replay_read_only');assert.equal(parity.replay.badSeek,'replay_seek');assert.ok(parity.replay.replaySeek&&parity.replay.replayStream&&parity.replay.seekPreserved);assert.equal(parity.replay.replayPerspective,2);assert.ok(parity.replay.history>=2);assert.equal(parity.replay.map,map.id);result.parity=parity;
+  result.session=await testBrowserSession(page,scenario.config);
   const installed=await page.evaluate(async pack=>{const R=globalThis.FrontlineTest;await R.registerOfflineWorker();const saved=await R.installPack(pack);let corrupt='';try{await R.installPack({...pack,version:'bad',files:[{...pack.files[0],sha256:'0'.repeat(64)}]})}catch(error){corrupt=error.code}const packs=await R.installedPacks();globalThis.testRuntime.dispose();return {files:saved.files,corrupt,packs:packs.length,controlled:!!navigator.serviceWorker.controller}},pack);
   assert.equal(installed.files,pack.files.length);assert.equal(installed.corrupt,'content_corrupt');assert.equal(installed.packs,1);assert.ok(installed.controlled);
   const originStopped=browserType.name()==='webkit';
@@ -76,12 +85,12 @@ for(const browserType of [chromium,firefox,webkit].filter(b=>!selected||b.name()
   const contextB=await browser.newContext(),pageB=await contextB.newPage();pageB.on('pageerror',error=>result.consoleErrors.push(error.message));await pageB.goto(host.url);
   const lobby=await page.evaluate(async()=>{const R=globalThis.FrontlineTest;const api=globalThis.apiA=new R.LocalAPI(location.origin);await api.createProfile('Alpha');const health=await api.health();const result=await api.createLobby({name:'Integration match',map_id:'runtime-fixture',mode:'1v1',private:true,faction:'US'});return {...result,health}});
   await pageB.evaluate(async({id,code})=>{const R=globalThis.FrontlineTest;const api=globalThis.apiB=new R.LocalAPI(location.origin);await api.createProfile('Bravo');await api.joinLobby(id,{code,faction:'IR'})},{id:lobby.lobby.id,code:lobby.code});
-  await Promise.all([page.evaluate(({id,health})=>globalThis.apiA.readyLobby(id,health),{id:lobby.lobby.id,health:{protocol:lobby.health.protocol,simulation:lobby.health.simulation,content_hash:lobby.health.content_hash}}),pageB.evaluate(({id,health})=>globalThis.apiB.readyLobby(id,health),{id:lobby.lobby.id,health:{protocol:lobby.health.protocol,simulation:lobby.health.simulation,content_hash:lobby.health.content_hash}})]);
+  await Promise.all([page.evaluate(async({id,health})=>globalThis.apiA.readyLobby(id,health,true,true,(await globalThis.apiA.lobby(id)).lobby.revision),{id:lobby.lobby.id,health:{protocol:lobby.health.protocol,simulation:lobby.health.simulation,content_hash:lobby.health.content_hash}}),pageB.evaluate(async({id,health})=>globalThis.apiB.readyLobby(id,health,true,true,(await globalThis.apiB.lobby(id)).lobby.revision),{id:lobby.lobby.id,health:{protocol:lobby.health.protocol,simulation:lobby.health.simulation,content_hash:lobby.health.content_hash}})]);
   const started=await page.evaluate(id=>globalThis.apiA.startLobby(id),lobby.lobby.id);
   const joined=await pageB.evaluate(id=>globalThis.apiB.lobby(id),lobby.lobby.id);
-  const connect=async(page,connection)=>page.evaluate(async connection=>{globalThis.receipts=[];globalThis.matchResult=null;const online=globalThis.online=new globalThis.FrontlineTest.OnlineTransport(location.origin,connection);online.subscribe(event=>{if(event.type==='order-result')globalThis.receipts.push(event.result);if(event.type==='result')globalThis.matchResult=event.result});await online.connect();return {player:online.current.player,owners:online.current.entities.map(e=>e.owner)}},connection);
+  const connect=async(page,connection)=>page.evaluate(async connection=>{globalThis.receipts=[];globalThis.matchResult=null;globalThis.networkDiagnostics=[];const online=globalThis.online=new globalThis.FrontlineTest.OnlineTransport(location.origin,connection);online.subscribe(event=>{if(['error','connection','status'].includes(event.type))globalThis.networkDiagnostics.push({...event,error:event.error?.code});if(event.type==='order-result')globalThis.receipts.push(event.result);if(event.type==='result')globalThis.matchResult=event.result});await online.connect();return {player:online.current.player,owners:online.current.entities.map(e=>e.owner)}},connection);
   const perspectives=await Promise.all([connect(page,started.connection),connect(pageB,joined.connection)]);assert.deepEqual(perspectives.map(p=>p.player),[1,2]);assert.ok(perspectives.every(p=>p.owners.every(owner=>owner===p.player)));
-  await page.waitForFunction(()=>globalThis.online.current?.countdown===0,{},{timeout:12000});
+  try{await page.waitForFunction(()=>globalThis.online.current?.countdown===0,{},{timeout:12000,polling:100})}catch(error){result.networkDiagnostics=await Promise.all([page,pageB].map(p=>p.evaluate(()=>({tick:globalThis.online.current?.tick,countdown:globalThis.online.current?.countdown,events:globalThis.networkDiagnostics}))));throw error}
   await page.evaluate(()=>globalThis.online.sendOrders([{kind:'move',entities:[2],position:{x:16000,y:12000}}]));
   await page.waitForFunction(()=>globalThis.receipts.some(r=>r.sequence===1&&r.accepted));
   await page.evaluate(()=>globalThis.online.sendOrders([{kind:'stop',entities:[4]}]));
@@ -90,10 +99,14 @@ for(const browserType of [chromium,firefox,webkit].filter(b=>!selected||b.name()
   await page.evaluate(()=>globalThis.online.sendOrders([{kind:'surrender'}]));
   await Promise.all([page.waitForFunction(()=>globalThis.matchResult?.committed),pageB.waitForFunction(()=>globalThis.matchResult?.committed)]);
   const winner=await pageB.evaluate(()=>globalThis.matchResult.outcome.winningTeam);assert.equal(winner,2);
-  result.multiplayer={distinctPerspectives:true,moveAccepted:true,enemyOrderRejected:true,reconnect:true,committedWinner:winner};
+  await Promise.all([page,pageB].map(p=>p.waitForFunction(()=>globalThis.online.current?.debrief?.players.length===2)));
+  const debriefs=await Promise.all([page,pageB].map(p=>p.evaluate(()=>JSON.stringify(globalThis.online.current.debrief,(_,v)=>typeof v==='bigint'?v.toString():v))));assert.equal(debriefs[0],debriefs[1]);
+  const history=await page.evaluate(()=>globalThis.apiA.history());
+  const finalHistory=history.find(row=>row.id===started.connection.match_id);assert.ok(finalHistory);const historyPayload=JSON.parse(Buffer.from(finalHistory.payload,'base64').toString('utf8'));assert.equal(historyPayload.debrief.players.length,2);assert.ok(historyPayload.players.every(p=>!('ai' in p)&&!('explored' in p)));
+  result.multiplayer={distinctPerspectives:true,moveAccepted:true,enemyOrderRejected:true,reconnect:true,committedWinner:winner,identicalDebrief:true,privateHistoryDebrief:true};
   await page.evaluate(()=>{globalThis.testRuntime.dispose();globalThis.online.dispose()});await pageB.evaluate(()=>globalThis.online.dispose());
   assert.deepEqual(result.consoleErrors,[]);result.status='passed';console.log(`${browserType.name()}: native/WASM parity, IndexedDB saves, offline cached reload, exact-byte sync, isolated workers, two-browser multiplayer/reconnect/result passed`);
- }catch(error){result.status='failed';result.error=String(error.stack??error);console.error(result.error);process.exitCode=1}
+ }catch(error){result.status='failed';result.hostLog=host.log();result.error=String(error.stack??error);console.error(result.error);process.exitCode=1}
  finally{if(browser)await browser.close();await stopHost(host);report.browsers.push(result);await writeFile(path.join(evidence,'browser-results.json'),JSON.stringify(report,null,2))}
 }
 if(!report.browsers.length)throw new Error('No selected browser');

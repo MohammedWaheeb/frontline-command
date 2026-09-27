@@ -51,6 +51,12 @@ async function handle(method:string,args:any[]){
   if(!Number.isSafeInteger(args[0].seed)||args[0].seed<1)throw new RuntimeError('invalid_seed','Choose a positive safe integer seed.');
   info=call('create',JSON.stringify(args[0]));active=true;player=info!.local_players[0];paused=true;accumulator=0;frame();clock();return info;
  case 'load':info=call('load',args[0],JSON.stringify(args[1]));active=true;player=info!.local_players[0];paused=true;accumulator=0;frame();clock();return info;
+ case 'restart':info=call('restart');active=true;player=info!.local_players[0];paused=true;accumulator=0;frame();clock();return info;
+ case 'loadReplay':info=call('loadReplay',args[0]);active=true;player=info!.local_players[0];paused=true;accumulator=0;frame();clock();return info;
+ case 'seekReplay':info=call('seekReplay',args[0]);paused=true;accumulator=0;frame();clock();return info;
+ case 'previewOrders':return call('previewOrders',player,args[0]);
+ case 'candidates':return call('candidates',player,args[0]);
+ case 'affordances':return call('affordances',player,JSON.stringify(args[0]));
  case 'submit':return call('submit',player,args[0]);
  case 'step':
   if(!paused)throw new RuntimeError('manual_step_running','Pause solo play before advancing it manually.');
@@ -62,7 +68,7 @@ async function handle(method:string,args:any[]){
  case 'resume':if(!active)throw new RuntimeError('no_match','No offline match is loaded.');paused=false;last=performance.now();accumulator=0;clock();return;
  case 'speed':if(![0.75,1,1.5].includes(args[0]))throw new RuntimeError('invalid_speed','Choose 0.75, 1 or 1.5 speed.');speed=args[0];clock();return;
  case 'view':return call('view',player);
- case 'save':case 'hash':case 'info':case 'inspect':return call(method,...args);
+ case 'validateMap':case 'validateMission':case 'content':case 'inspectReplay':case 'exportReplay':case 'replayCommands':case 'map':case 'save':case 'hash':case 'info':case 'inspect':return call(method,...args);
  case 'dispose':disposed=true;active=false;paused=true;clearInterval(timer);call('dispose');call('exit');return;
  default:throw new RuntimeError('invalid_method','Unknown worker operation.');
  }

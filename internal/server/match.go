@@ -11,6 +11,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"log"
 	"sync"
+	"sync/atomic"
 	"time"
 	"unicode/utf8"
 )
@@ -34,20 +35,23 @@ type peer struct {
 func (p *peer) close() { p.once.Do(func() { close(p.done) }) }
 
 type matchRequest struct {
-	control  string
-	kind     string
-	token    string
-	profile  string
-	peer     *peer
-	player   sim.PlayerID
-	sequence uint32
-	orders   []sim.Order
-	reply    chan matchReply
+	adviceDeadline time.Time
+	entities       []sim.ID
+	control        string
+	kind           string
+	token          string
+	profile        string
+	peer           *peer
+	player         sim.PlayerID
+	sequence       uint32
+	orders         []sim.Order
+	reply          chan matchReply
 }
 type matchReply struct {
-	err  error
-	data []byte
-	view sim.View
+	affordances sim.CommandAffordances
+	err         error
+	data        []byte
+	view        sim.View
 }
 type matchCheckpoint struct {
 	coop bool
@@ -56,6 +60,9 @@ type matchCheckpoint struct {
 	data []byte
 }
 type liveMatch struct {
+	replayLobby       *sim.ReplayLobby
+	advice            adviceGate
+	completed         atomic.Bool
 	pauseEnabled      bool
 	persistenceErrors chan string
 	coop              bool
@@ -76,6 +83,7 @@ type liveMatch struct {
 }
 
 type matchOptions struct {
+	Lobby         *sim.ReplayLobby
 	PauseEnabled  bool
 	LiveObservers bool
 	Rated         bool
@@ -98,12 +106,22 @@ func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite,
 		return nil, err
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	err = repo.StartMatch(ctx, id, uint32(engine.Tick()), save)
+	members := []storage.MatchMember{}
+	for _, slot := range slots {
+		if slot.Profile != "" {
+			members = append(members, storage.MatchMember{Profile: slot.Profile, Player: uint32(slot.Player)})
+		}
+	}
+	err = repo.StartMatchAccess(ctx, id, uint32(engine.Tick()), save, members, opts.Lobby != nil && !opts.Lobby.Private)
 	cancel()
 	if err != nil {
 		return nil, err
 	}
 	m := &liveMatch{pauseEnabled: opts.PauseEnabled && !opts.Rated, rated: opts.Rated, checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
+	if opts.Lobby != nil {
+		policy := *opts.Lobby
+		m.replayLobby = &policy
+	}
 	m.persistenceErrors = make(chan string, 4)
 	state := engine.StateCopy()
 	m.coop = state.Mission != nil && state.Mission.Definition.Mode == "coop"
@@ -196,6 +214,10 @@ func (m *liveMatch) run() {
 	finishedClockAt := time.Time{}
 	committed := false
 	replay, replayErr := sim.NewReplay(m.engine)
+	if replayErr == nil && m.replayLobby != nil {
+		policy := *m.replayLobby
+		replay.Lobby = &policy
+	}
 	expired := map[sim.PlayerID]bool{}
 	lastCommitAttempt := time.Time{}
 	finishedAt := time.Time{}
@@ -395,6 +417,20 @@ func (m *liveMatch) run() {
 						}
 					}
 				}
+			case "advice":
+				if req.adviceDeadline.IsZero() || !time.Now().Before(req.adviceDeadline) {
+					reply.err = context.DeadlineExceeded
+					break
+				}
+				slot, ok := m.slotForToken(req.token)
+				if !ok || slot.Player != req.player || expired[req.player] {
+					reply.err = errors.New("advice_unavailable")
+					break
+				}
+				reply.affordances, reply.err = m.engine.CommandAffordances(req.player, req.entities)
+				if reply.err == nil && len(req.orders) > 0 {
+					reply.data, reply.err = m.engine.SaveForAdvice()
+				}
 			case "save":
 				reply.data, reply.err = m.engine.Save()
 			case "view":
@@ -554,7 +590,12 @@ func (m *liveMatch) run() {
 						}
 					}
 				}
-				payload, _ := json.Marshal(map[string]any{"match_id": m.id, "metadata": state.Metadata, "outcome": state.Outcome, "players": state.Players, "rated": m.rated, "rating_match": rating})
+				debrief := m.engine.Debrief()
+				players := make([]sim.PlayerSummary, 0, len(state.Players))
+				for _, p := range state.Players {
+					players = append(players, sim.PlayerSummary{ID: p.ID, Name: p.Name, Faction: p.Faction, Team: p.Team, Color: p.Color, Defeated: p.Defeated, StrategicProgress: -1})
+				}
+				payload, _ := json.Marshal(map[string]any{"match_id": m.id, "metadata": state.Metadata, "outcome": state.Outcome, "players": players, "debrief": debrief, "rated": m.rated, "rating_match": rating})
 				ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 				var err error
 				{
@@ -577,6 +618,7 @@ func (m *liveMatch) run() {
 				cancel()
 				if err == nil {
 					committed = true
+					m.completed.Store(true)
 					finishedAt = now
 					outcome := &pb.Outcome{Finished: true, Draw: state.Outcome.Draw, WinningTeam: state.Outcome.WinningTeam, Reason: state.Outcome.Reason, Tick: uint32(state.Outcome.Tick)}
 					for _, p := range peers {

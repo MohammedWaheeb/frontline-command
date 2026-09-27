@@ -22,6 +22,17 @@ type OperationWarning struct {
 
 func (e *Engine) operationWarnings(id PlayerID) []OperationWarning {
 	var warnings []OperationWarning
+	for _, source := range e.state.Entities {
+		if source.Channel != "transit" || source.HP <= 0 || e.defeated(source.Owner) || source.ChannelUntil <= e.state.Tick || source.ChannelUntil-e.state.Tick > seconds(3) {
+			continue
+		}
+		destination := e.entity(source.ChannelTarget)
+		if destination != nil && destination.HP > 0 && destination.Owner == source.Owner && e.canSee(id, destination.Position) {
+			// The warning marks only an observed destination. It must not reveal
+			// the hidden source, its passengers, or private exit collision probes.
+			warnings = append(warnings, OperationWarning{Kind: "transfer", Owner: source.Owner, Position: destination.Position, At: source.ChannelUntil})
+		}
+	}
 	for _, op := range e.state.Operations {
 		source := e.entity(op.Source)
 		if source == nil || source.HP <= 0 || source.Owner != op.Owner {

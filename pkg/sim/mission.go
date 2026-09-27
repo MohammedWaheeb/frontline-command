@@ -7,16 +7,16 @@ import (
 )
 
 type ObjectiveState struct {
-	ID       string `json:"id"`
-	Complete bool   `json:"complete"`
-	Since    Tick   `json:"since"`
-	Progress uint32 `json:"progress"`
+	ID        string            `json:"id"`
+	Complete  bool              `json:"complete"`
+	Condition ConditionProgress `json:"condition"`
+	Progress  uint32            `json:"progress"`
 }
 type TriggerState struct {
-	ID    string `json:"id"`
-	Fired uint32 `json:"fired"`
-	Last  Tick   `json:"last"`
-	Since Tick   `json:"since"`
+	ID        string            `json:"id"`
+	Fired     uint32            `json:"fired"`
+	Last      Tick              `json:"last"`
+	Condition ConditionProgress `json:"condition"`
 }
 type MissionState struct {
 	Definition     content.Mission  `json:"definition"`
@@ -26,10 +26,14 @@ type MissionState struct {
 	KnownTags      []string         `json:"known_tags"`
 	Checkpoint     string           `json:"checkpoint"`
 	CheckpointTick Tick             `json:"checkpoint_tick"`
+	Counters       []MissionCounter `json:"counters"`
+	Convoys        []ConvoyState    `json:"convoys"`
 }
 
 func NewMission(c *content.Catalog, m content.Map, definition content.Mission, difficulty string, seed uint64) (*Engine, error) {
-	if err := definition.Validate(c, m); err != nil {
+	var err error
+	definition, err = definition.ForTutorialFaction(c, m, "")
+	if err != nil {
 		return nil, err
 	}
 	if difficulty != "easy" && difficulty != "normal" && difficulty != "hard" {
@@ -76,10 +80,14 @@ func NewMission(c *content.Catalog, m content.Map, definition content.Mission, d
 		e.player(PlayerID(p.ID)).Credits = credits
 	}
 	for _, o := range def.Objectives {
-		e.state.Mission.Objectives = append(e.state.Mission.Objectives, ObjectiveState{ID: o.ID})
+		e.state.Mission.Objectives = append(e.state.Mission.Objectives, ObjectiveState{ID: o.ID, Condition: newConditionProgress(o.Condition)})
 	}
 	for _, t := range def.Triggers {
-		e.state.Mission.Triggers = append(e.state.Mission.Triggers, TriggerState{ID: t.ID})
+		e.state.Mission.Triggers = append(e.state.Mission.Triggers, TriggerState{ID: t.ID, Condition: newConditionProgress(t.Condition)})
+	}
+	e.initializeMissionCounters()
+	for _, convoy := range def.Convoys {
+		e.state.Mission.Convoys = append(e.state.Mission.Convoys, ConvoyState{ID: convoy.ID})
 	}
 	for _, s := range def.Initial {
 		if !e.spawnScenario(s) {
@@ -90,6 +98,18 @@ func NewMission(c *content.Catalog, m content.Map, definition content.Mission, d
 	e.updateFog()
 	return e, nil
 }
+
+// NewPracticeMission runs the authored scenario through the same Go rules but
+// marks every save/result/replay as editor practice, not progression evidence.
+func NewPracticeMission(c *content.Catalog, m content.Map, definition content.Mission, difficulty string, seed uint64) (*Engine, error) {
+	e, err := NewMission(c, m, definition, difficulty, seed)
+	if err != nil {
+		return nil, err
+	}
+	e.state.Metadata.Ruleset = "practice-v1"
+	return e, nil
+}
+
 func (e *Engine) scenarioPositions(s content.MissionSpawn) ([]Vec, bool) {
 	positions := []Vec{}
 	u, isUnit := e.catalog.Unit(s.Type)
@@ -130,8 +150,8 @@ func (e *Engine) scenarioPositions(s content.MissionSpawn) ([]Vec, bool) {
 					}
 					for _, v := range e.state.Entities {
 						if v.Building && v.HP > 0 {
-							other, _ := e.buildingRule(v.Type)
-							if rectOverlap(pos, b.Width, b.Height, v.Position, other.Width, other.Height) {
+							width, height := e.footprint(v)
+							if rectOverlap(pos, b.Width, b.Height, v.Position, width, height) {
 								overlap = true
 							}
 						}
@@ -159,6 +179,9 @@ func (e *Engine) scenarioPositions(s content.MissionSpawn) ([]Vec, bool) {
 	return positions, true
 }
 func (e *Engine) scenarioFootprint(pos Vec, width, height int32) bool {
+	if e.resourceFootprint(pos, width, height) != "ok" {
+		return false
+	}
 	left, top, right, bottom := pos.X-width*500, pos.Y-height*500, pos.X+width*500, pos.Y+height*500
 	if left < 0 || top < 0 || right > e.state.Map.Width*1000 || bottom > e.state.Map.Height*1000 {
 		return false
@@ -174,20 +197,14 @@ func (e *Engine) scenarioFootprint(pos Vec, width, height int32) bool {
 	return true
 }
 func (e *Engine) spawnScenario(s content.MissionSpawn) bool {
-	p := e.player(PlayerID(s.Owner))
-	if p == nil || p.Defeated {
+	if !e.scenarioSpawnSelected(s) {
+		return e.state.Mission != nil
+	}
+	if !e.reserveScenarioSpawn(s, nil) {
 		return false
 	}
+	p := e.player(PlayerID(s.Owner))
 	u, isUnit := e.catalog.Unit(s.Type)
-	if isUnit {
-		if p.Supply+p.ReservedSupply+int32(s.Count)*u.Supply > 100 {
-			return false
-		}
-		caps := map[string]int32{"rig": 4, "hauler": 8, "elite": 1}
-		if limit, ok := caps[u.Role]; ok && e.countRole(p.ID, u.Role, true)+int32(s.Count) > limit {
-			return false
-		}
-	}
 	positions, ok := e.scenarioPositions(s)
 	if !ok {
 		return false
@@ -232,6 +249,9 @@ func (e *Engine) spawnScenario(s content.MissionSpawn) bool {
 		}
 		e.recalculate()
 	}
+	if e.state.Mission == nil {
+		return true
+	}
 	known := false
 	for _, tag := range e.state.Mission.KnownTags {
 		if tag == s.Tag {
@@ -244,108 +264,45 @@ func (e *Engine) spawnScenario(s content.MissionSpawn) bool {
 	e.emit("scenario_reinforcement", p.ID, 0, s.Position, "all", int64(s.Count))
 	return true
 }
-func (e *Engine) missionCondition(q content.MissionCondition, since *Tick) (bool, uint32) {
-	yes := false
-	count := uint32(0)
-	switch q.Kind {
-	case "timer":
-		at := q.Tick
-		for _, d := range e.state.Mission.Definition.Difficulty {
-			if q.Wave && d.ID == e.state.Mission.Difficulty {
-				at = uint32(uint64(at) * uint64(d.WaveTimeMultiplier) / 1000)
-			}
-		}
-		yes = uint32(e.state.Tick) >= at
-	case "tag_alive", "tag_destroyed":
-		known := false
-		for _, tag := range e.state.Mission.KnownTags {
-			if tag == q.Tag {
-				known = true
-			}
-		}
-		for _, v := range e.state.Entities {
-			if v.Tag == q.Tag && v.HP > 0 {
-				count++
-			}
-		}
-		if q.Kind == "tag_destroyed" {
-			yes = known && count == 0
-		} else {
-			yes = count >= max(uint32(1), q.Count)
-		}
-	case "count_type":
-		for _, v := range e.state.Entities {
-			if v.HP > 0 && v.Complete && v.Type == q.Type && (q.Owner == 0 || uint32(v.Owner) == q.Owner) {
-				count++
-			}
-		}
-		yes = count >= max(uint32(1), q.Count)
-	case "resource_threshold":
-		p := e.player(PlayerID(q.Owner))
-		yes = p != nil && p.Credits >= q.Amount
-	case "objective_complete":
-		for _, o := range e.state.Mission.Objectives {
-			if o.ID == q.Objective {
-				yes = o.Complete
-			}
-		}
-	case "region_entered", "region_held":
-		var region content.Region
-		for _, r := range e.state.Map.Regions {
-			if r.ID == q.Region {
-				region = r
-			}
-		}
-		enemy := false
-		for _, v := range e.state.Entities {
-			if v.HP <= 0 || v.Container != 0 || v.Position.X < region.Min.X || v.Position.X > region.Max.X || v.Position.Y < region.Min.Y || v.Position.Y > region.Max.Y {
-				continue
-			}
-			if q.Owner == 0 || uint32(v.Owner) == q.Owner {
-				count++
-			} else if !e.allied(PlayerID(q.Owner), v.Owner) {
-				enemy = true
-			}
-		}
-		yes = count >= max(uint32(1), q.Count) && (q.Kind != "region_held" || !enemy)
-	}
-	if !yes {
-		*since = 0
-		return false, 0
-	}
-	if q.HoldTicks > 0 {
-		if *since == 0 {
-			*since = e.state.Tick
-		}
-		elapsed := uint32(e.state.Tick - *since)
-		return elapsed >= q.HoldTicks, min(q.HoldTicks, elapsed)
-	}
-	return true, count
-}
 func (e *Engine) updateMission() {
 	ms := e.state.Mission
 	if ms == nil || e.state.Outcome.Finished {
 		return
 	}
+	anyHuman := false
+	for _, p := range e.state.Players {
+		if p.Controller == "human" && !p.Defeated {
+			anyHuman = true
+		}
+	}
+	if !anyHuman {
+		e.state.Outcome = Outcome{Finished: true, Reason: "mission_failed", Tick: e.state.Tick}
+		e.emit("match_ended", 0, 0, Vec{}, "all", 0)
+		return
+	}
+	e.updateConvoys()
 	for i, t := range ms.Definition.Triggers {
 		state := &ms.Triggers[i]
 		if state.Fired >= max(uint32(1), t.Repeat) || state.Fired > 0 && uint32(e.state.Tick-state.Last) < t.Interval {
 			continue
 		}
-		ready, _ := e.missionCondition(t.Condition, &state.Since)
+		ready, _ := e.missionCondition(t.Condition, &state.Condition)
 		if !ready {
 			continue
 		}
 		blocked := false
-		for _, a := range t.Actions {
-			if a.Kind == "spawn" {
-				p := e.player(PlayerID(a.Spawn.Owner))
-				if u, ok := e.catalog.Unit(a.Spawn.Type); ok && p.Supply+p.ReservedSupply+int32(a.Spawn.Count)*u.Supply > 100 {
-					blocked = true
-				}
-				if _, ok := e.scenarioPositions(*a.Spawn); !ok {
-					blocked = true
-				}
+		reservations := map[PlayerID]*scenarioReservation{}
+		for _, action := range t.Actions {
+			if action.Kind != "spawn" || !e.scenarioSpawnSelected(*action.Spawn) {
+				continue
+			}
+			owner := PlayerID(action.Spawn.Owner)
+			if reservations[owner] == nil {
+				reservations[owner] = &scenarioReservation{}
+			}
+			if !e.reserveScenarioSpawn(*action.Spawn, reservations[owner]) {
+				blocked = true
+				break
 			}
 		}
 		if blocked {
@@ -378,6 +335,18 @@ func (e *Engine) updateMission() {
 				p := e.player(PlayerID(a.Owner))
 				p.Credits += a.Amount
 				p.Income += a.Amount
+			case "recover_tag":
+				if !e.recoverScenarioTag(a.Tag, PlayerID(a.Owner)) {
+					blocked = true
+				}
+			case "start_convoy":
+				if !e.startConvoy(a.Convoy) {
+					blocked = true
+				}
+			case "attack_tag":
+				if !e.attackScenarioTag(a) {
+					blocked = true
+				}
 			case "attack_region":
 				var goal Vec
 				for _, r := range e.state.Map.Regions {
@@ -402,6 +371,8 @@ func (e *Engine) updateMission() {
 			_ = json.Unmarshal(rollback, &restored)
 			e.state = restored
 			e.navCache = nil
+			e.dynamicNav = nil
+			e.spatial = nil
 			ms = e.state.Mission
 			continue
 		}
@@ -411,13 +382,18 @@ func (e *Engine) updateMission() {
 		}
 	}
 	all := true
-	failed := false
+	failed := true
+	for _, p := range e.state.Players {
+		if p.Controller == "human" && !p.Defeated {
+			failed = false
+		}
+	}
 	for i, o := range ms.Definition.Objectives {
 		state := &ms.Objectives[i]
 		if !state.Complete {
-			done, progress := e.missionCondition(o.Condition, &state.Since)
+			done, progress := e.missionCondition(o.Condition, &state.Condition)
 			state.Progress = progress
-			if done {
+			if done && !o.AtEnd {
 				state.Complete = true
 				e.emit("objective_complete", 0, 0, Vec{}, "all", 0)
 				e.state.Events[len(e.state.Events)-1].Text = o.ID
@@ -431,6 +407,13 @@ func (e *Engine) updateMission() {
 		}
 	}
 	if failed || all {
+		for i, o := range ms.Definition.Objectives {
+			if o.AtEnd && !failed {
+				done, progress := e.missionCondition(o.Condition, &ms.Objectives[i].Condition)
+				ms.Objectives[i].Complete = done
+				ms.Objectives[i].Progress = progress
+			}
+		}
 		winning := uint32(0)
 		if !failed {
 			for _, p := range e.state.Players {

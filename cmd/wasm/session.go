@@ -56,12 +56,13 @@ func fail(code, message string, recoverable bool) *Error {
 // CreateConfig is the offline match request. Players without an AI difficulty
 // are local humans; only they may be viewed or commanded through the adapter.
 type CreateConfig struct {
-	Mission    *content.Mission   `json:"mission,omitempty"`
-	Difficulty string             `json:"difficulty,omitempty"`
-	Map        content.Map        `json:"map"`
-	Players    []sim.PlayerConfig `json:"players"`
-	Seed       uint64             `json:"seed"`
-	Ruleset    string             `json:"ruleset,omitempty"`
+	Mission         *content.Mission   `json:"mission,omitempty"`
+	Difficulty      string             `json:"difficulty,omitempty"`
+	TutorialFaction string             `json:"tutorial_faction,omitempty"`
+	Map             content.Map        `json:"map"`
+	Players         []sim.PlayerConfig `json:"players"`
+	Seed            uint64             `json:"seed"`
+	Ruleset         string             `json:"ruleset,omitempty"`
 	// SkipCountdown is for automated tests only; it advances through the
 	// engine's own countdown ticks rather than editing state.
 	SkipCountdown bool `json:"skip_countdown,omitempty"`
@@ -69,11 +70,15 @@ type CreateConfig struct {
 
 // Info summarizes an active session without exposing hidden state.
 type Info struct {
-	Adapter  string         `json:"adapter"`
-	Metadata sim.Metadata   `json:"metadata"`
-	Tick     sim.Tick       `json:"tick"`
-	Local    []sim.PlayerID `json:"local_players"`
-	Finished bool           `json:"finished"`
+	Adapter     string           `json:"adapter"`
+	Metadata    sim.Metadata     `json:"metadata"`
+	Tick        sim.Tick         `json:"tick"`
+	Local       []sim.PlayerID   `json:"local_players"`
+	Finished    bool             `json:"finished"`
+	Replay      bool             `json:"replay"`
+	ReplayStart sim.Tick         `json:"replay_start"`
+	ReplayEnd   sim.Tick         `json:"replay_end"`
+	ReplayLobby *sim.ReplayLobby `json:"replay_lobby,omitempty"`
 }
 
 type pendingFrame struct {
@@ -84,10 +89,15 @@ type pendingFrame struct {
 // Session owns exactly one engine. It is not safe for concurrent use; the
 // browser worker is single threaded and every call runs on a tick boundary.
 type Session struct {
-	catalog *content.Catalog
-	engine  *sim.Engine
-	local   []sim.PlayerID
-	pending map[sim.PlayerID]*pendingFrame
+	catalog     *content.Catalog
+	engine      *sim.Engine
+	local       []sim.PlayerID
+	pending     map[sim.PlayerID]*pendingFrame
+	recorder    *sim.Replay
+	replay      *sim.Replay
+	playback    *sim.ReplayPlayer
+	replayBytes []byte
+	replayStart sim.Tick
 }
 
 func NewSession() (*Session, error) {
@@ -132,8 +142,20 @@ func (s *Session) Create(config []byte) (Info, error) {
 		if cfg.Difficulty == "" {
 			cfg.Difficulty = "normal"
 		}
-		e, err = sim.NewMission(s.catalog, cfg.Map, *cfg.Mission, cfg.Difficulty, cfg.Seed)
+		selected, selectionErr := cfg.Mission.ForTutorialFaction(s.catalog, cfg.Map, cfg.TutorialFaction)
+		if selectionErr != nil {
+			return Info{}, fail("invalid_config", selectionErr.Error(), true)
+		}
+		cfg.Mission = &selected
+		if cfg.Ruleset == "practice-v1" {
+			e, err = sim.NewPracticeMission(s.catalog, cfg.Map, *cfg.Mission, cfg.Difficulty, cfg.Seed)
+		} else {
+			e, err = sim.NewMission(s.catalog, cfg.Map, *cfg.Mission, cfg.Difficulty, cfg.Seed)
+		}
 	} else {
+		if cfg.TutorialFaction != "" {
+			return Info{}, fail("invalid_config", "Tutorial faction selection requires a tutorial.", true)
+		}
 		e, err = sim.New(s.catalog, sim.Config{Map: cfg.Map, Players: cfg.Players, Seed: cfg.Seed, Ruleset: cfg.Ruleset})
 	}
 	if err != nil {
@@ -148,10 +170,14 @@ func (s *Session) Create(config []byte) (Info, error) {
 	if len(local) == 0 {
 		return Info{}, fail("invalid_config", "An offline match needs at least one local player.", true)
 	}
-	s.install(e, local)
+	if err := s.installLive(e, local); err != nil {
+		return Info{}, err
+	}
 	if cfg.SkipCountdown {
 		for s.countdownRemaining() {
-			s.advance()
+			if err := s.advance(); err != nil {
+				return Info{}, err
+			}
 		}
 	}
 	return s.Info(), nil
@@ -164,6 +190,8 @@ func (s *Session) countdownRemaining() bool {
 
 func (s *Session) install(e *sim.Engine, local []sim.PlayerID) {
 	s.engine = e
+	s.recorder, s.replay, s.playback, s.replayBytes = nil, nil, nil, nil
+	s.replayStart = 0
 	s.local = local
 	s.pending = map[sim.PlayerID]*pendingFrame{}
 	for _, id := range local {
@@ -175,7 +203,15 @@ func (s *Session) Info() Info {
 	if s.engine == nil {
 		return Info{Adapter: AdapterVersion, Local: []sim.PlayerID{}}
 	}
-	return Info{Adapter: AdapterVersion, Metadata: s.engine.Metadata(), Tick: s.engine.Tick(), Local: append([]sim.PlayerID(nil), s.local...), Finished: s.engine.Outcome().Finished}
+	info := Info{Adapter: AdapterVersion, Metadata: s.engine.Metadata(), Tick: s.engine.Tick(), Local: append([]sim.PlayerID(nil), s.local...), Finished: s.engine.Outcome().Finished}
+	if s.playback != nil {
+		info.Replay = true
+		info.ReplayStart = s.replayStart
+		info.ReplayEnd = s.replay.FinalTick
+		info.Finished = s.playback.Finished()
+		info.ReplayLobby = s.replay.LobbyInfo()
+	}
+	return info
 }
 
 func (s *Session) isLocal(id sim.PlayerID) bool {
@@ -192,6 +228,9 @@ func (s *Session) isLocal(id sim.PlayerID) bool {
 func (s *Session) Submit(player sim.PlayerID, batch []byte) error {
 	if err := s.active(); err != nil {
 		return err
+	}
+	if s.playback != nil {
+		return fail("replay_read_only", "Replay playback does not accept orders.", true)
 	}
 	if !s.isLocal(player) {
 		return fail("unauthorized_player", "Orders are only accepted for local players.", true)
@@ -223,14 +262,27 @@ func (s *Session) Step(n int) (Info, error) {
 	if n < 1 || n > maxStepPerCall {
 		return Info{}, fail("invalid_step", fmt.Sprintf("Step count must be between 1 and %d.", maxStepPerCall), true)
 	}
-	for i := 0; i < n && !s.engine.Outcome().Finished; i++ {
-		s.advance()
+	for i := 0; i < n && !s.Info().Finished; i++ {
+		if err := s.advance(); err != nil {
+			return Info{}, err
+		}
 	}
 	return s.Info(), nil
 }
 
-func (s *Session) advance() {
-	s.engine.Advance()
+func (s *Session) advance() error {
+	if s.playback != nil {
+		if err := s.playback.Advance(); err != nil {
+			return fail("replay_invalid", err.Error(), true)
+		}
+	} else {
+		s.engine.Advance()
+		if s.engine.Tick()%sim.Tick(30*sim.TickRate) == 0 || s.engine.Outcome().Finished {
+			if err := s.recorder.Capture(s.engine, s.engine.Tick()%sim.Tick(30*sim.TickRate) == 0); err != nil {
+				return fail("replay_recording_failed", err.Error(), false)
+			}
+		}
+	}
 	for _, id := range s.local {
 		v, ok := s.engine.PlayerView(id)
 		if !ok {
@@ -240,6 +292,7 @@ func (s *Session) advance() {
 		f.events = append(f.events, v.Events...)
 		f.results = append(f.results, v.Results...)
 	}
+	return nil
 }
 
 // View returns a binary protobuf PlayerSnapshot for an authorized local
@@ -286,6 +339,9 @@ func (s *Session) Save() (SaveResult, error) {
 	if err := s.active(); err != nil {
 		return SaveResult{}, err
 	}
+	if s.playback != nil {
+		return SaveResult{}, fail("replay_read_only", "Export this replay to preserve it; replay playback cannot become a rewarded saved game.", true)
+	}
 	b, err := s.engine.Save()
 	if err != nil {
 		return SaveResult{}, fail("internal", "Engine save failed: "+err.Error(), false)
@@ -299,9 +355,8 @@ type saveEnvelope struct {
 	State   json.RawMessage `json:"state"`
 }
 
-// Inspect classifies save bytes without restoring them. It only reads the
-// engine's compatibility envelope; rules validation remains in sim.Restore.
-func (s *Session) Inspect(data []byte) (sim.Metadata, sim.Tick, error) {
+// inspectEnvelope classifies version/checksum errors before rules validation.
+func (s *Session) inspectEnvelope(data []byte) (sim.Metadata, sim.Tick, error) {
 	if len(data) > maxSaveBytes {
 		return sim.Metadata{}, 0, fail("save_corrupt", "Save exceeds 64 MiB.", true)
 	}
@@ -331,10 +386,22 @@ func (s *Session) Inspect(data []byte) (sim.Metadata, sim.Tick, error) {
 	return head.Metadata, head.Tick, nil
 }
 
+// Inspect validates an imported save completely without replacing live state.
+func (s *Session) Inspect(data []byte) (sim.Metadata, sim.Tick, error) {
+	metadata, tick, err := s.inspectEnvelope(data)
+	if err != nil {
+		return metadata, tick, err
+	}
+	if _, err := sim.Restore(s.catalog, data); err != nil {
+		return metadata, tick, fail("save_invalid", "Save failed engine validation: "+err.Error(), true)
+	}
+	return metadata, tick, nil
+}
+
 // Load replaces the active match with a restored save. On any failure the
 // previous match stays active and untouched.
 func (s *Session) Load(data []byte, local []sim.PlayerID) (Info, error) {
-	if _, _, err := s.Inspect(data); err != nil {
+	if _, _, err := s.inspectEnvelope(data); err != nil {
 		return Info{}, err
 	}
 	e, err := sim.Restore(s.catalog, data)
@@ -360,12 +427,15 @@ func (s *Session) Load(data []byte, local []sim.PlayerID) (Info, error) {
 		}
 		seen[id] = true
 	}
-	s.install(e, append([]sim.PlayerID(nil), local...))
+	if err := s.installLive(e, append([]sim.PlayerID(nil), local...)); err != nil {
+		return Info{}, err
+	}
 	return s.Info(), nil
 }
 
 func (s *Session) Dispose() {
 	s.engine = nil
+	s.recorder, s.replay, s.playback, s.replayBytes = nil, nil, nil, nil
 	s.local = nil
 	s.pending = nil
 }
@@ -396,4 +466,28 @@ func decodeOrders(batch *pb.OrderBatch) ([]sim.Order, error) {
 		return nil, err
 	}
 	return v.Orders, nil
+}
+
+func (s *Session) Map() (content.Map, error) {
+	if err := s.active(); err != nil {
+		return content.Map{}, err
+	}
+	return s.engine.MapBlueprint(), nil
+}
+
+func (s *Session) Restart() (Info, error) {
+	if err := s.active(); err != nil {
+		return Info{}, err
+	}
+	if s.playback != nil {
+		return Info{}, fail("replay_read_only", "Seek to the replay start instead of restarting it as a game.", true)
+	}
+	e, err := s.engine.Restart()
+	if err != nil {
+		return Info{}, fail("restart_failed", err.Error(), true)
+	}
+	if err := s.installLive(e, append([]sim.PlayerID(nil), s.local...)); err != nil {
+		return Info{}, err
+	}
+	return s.Info(), nil
 }

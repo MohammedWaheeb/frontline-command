@@ -1,3 +1,4 @@
+import {sha256Hex,randomUUID} from './crypto';
 import {RuntimeError} from './errors';
 export const PACK_PREFIX='frontline-pack-v1:';
 export const READY_PATH='/__frontline_pack_ready__';
@@ -47,7 +48,7 @@ export async function installPack(pack:ContentPack,onProgress?:(progress:{comple
  }
  if(expectedBytes>2*1024*1024*1024)throw new RuntimeError('pack_too_large','Install a smaller map or faction pack first.');
  const existing=(await installedPacks()).find(p=>p.id===pack.id&&p.version===pack.version);if(existing){onProgress?.({complete:pack.files.length,total:pack.files.length,bytes:existing.bytes});return existing}
- const name=PACK_PREFIX+pack.id+':'+pack.version+':'+crypto.randomUUID(),cache=await caches.open(name);let bytes=0,complete=0;
+ const name=PACK_PREFIX+pack.id+':'+pack.version+':'+randomUUID(),cache=await caches.open(name);let bytes=0,complete=0;
  try{
   for(const file of pack.files){
    if(signal?.aborted)throw new RuntimeError('download_canceled','The content download was canceled. Previously installed packs are preserved.');
@@ -55,9 +56,15 @@ export async function installPack(pack:ContentPack,onProgress?:(progress:{comple
    const response=await fetch(url,{cache:'no-store',credentials:'omit',signal,headers:{'X-Frontline-Pack-Download':'1'}});
    if(!response.ok||new URL(response.url).origin!==location.origin)throw new RuntimeError('content_download_failed',`A required content file could not be downloaded: ${url.pathname}`);
    const data=await readBounded(response,file.bytes);if(data.byteLength!==file.bytes)throw new RuntimeError('content_size_mismatch',`A required file has the wrong size: ${url.pathname}`);
-   const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),b=>b.toString(16).padStart(2,'0')).join('');
+   const digest=await sha256Hex(new Uint8Array(data));
    if(digest!==file.sha256.toLowerCase())throw new RuntimeError('content_corrupt',`A required file failed its integrity check: ${url.pathname}`);
-   await cache.put(url,new Response(data,{status:200,headers:response.headers}));bytes+=data.byteLength;complete++;onProgress?.({complete,total:pack.files.length,bytes});
+   // These are verified, decoded, immutable bytes addressed by this manifest.
+   // Network transfer encodings/lengths no longer describe this Response, and
+   // Vary (notably Vite's Origin) would make ordinary module requests miss the
+   // URL-only cache key used by the installer.
+   const headers=new Headers(response.headers);
+   headers.delete('Vary');headers.delete('Content-Encoding');headers.delete('Content-Length');
+   await cache.put(url,new Response(data,{status:200,headers}));bytes+=data.byteLength;complete++;onProgress?.({complete,total:pack.files.length,bytes});
   }
   const installed={id:pack.id,version:pack.version,installedAt:Date.now(),files:pack.files.length,bytes,cacheName:name};
   // Marker-last makes incomplete downloads unavailable to the service worker.

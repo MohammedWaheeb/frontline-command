@@ -32,14 +32,14 @@ func (e *Engine) isAircraft(v *Entity) bool {
 func (e *Engine) edgeDistance(a, b *Entity) int32 {
 	dx, dy := abs(a.Position.X-b.Position.X), abs(a.Position.Y-b.Position.Y)
 	if a.Building {
-		v, _ := e.buildingRule(a.Type)
-		dx = max(0, dx-v.Width*500)
-		dy = max(0, dy-v.Height*500)
+		width, height := e.footprint(a)
+		dx = max(0, dx-width*500)
+		dy = max(0, dy-height*500)
 	}
 	if b.Building {
-		v, _ := e.buildingRule(b.Type)
-		dx = max(0, dx-v.Width*500)
-		dy = max(0, dy-v.Height*500)
+		width, height := e.footprint(b)
+		dx = max(0, dx-width*500)
+		dy = max(0, dy-height*500)
 	}
 	return max(0, isqrt(int64(dx)*int64(dx)+int64(dy)*int64(dy))-e.radius(a)-e.radius(b))
 }
@@ -80,8 +80,8 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 			continue
 		}
 		if v.Building {
-			b, _ := e.buildingRule(v.Type)
-			if rectOverlap(pos, width, height, v.Position, b.Width, b.Height) {
+			vw, vh := e.footprint(v)
+			if rectOverlap(pos, width, height, v.Position, vw, vh) {
 				return "occupied"
 			}
 		} else {
@@ -93,6 +93,13 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 			}
 		}
 	}
+	return e.resourceFootprint(pos, width, height)
+}
+
+// Both normal construction and authored scenario relocation preserve the same
+// one-tile access margin around supply fields, stations and the shipment site.
+func (e *Engine) resourceFootprint(pos Vec, width, height int32) string {
+	left, top, right, bottom := pos.X-width*500, pos.Y-height*500, pos.X+width*500, pos.Y+height*500
 	for _, f := range e.state.Fields {
 		if f.Position.X >= left-1000 && f.Position.X < right+1000 && f.Position.Y >= top-1000 && f.Position.Y < bottom+1000 {
 			return "resource_footprint"
@@ -110,6 +117,9 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 	return "ok"
 }
 func (e *Engine) clear(pos Vec, radius int32, ignore ID, air, mobiles bool) bool {
+	return e.clearExcept(pos, radius, ignore, 0, air, mobiles)
+}
+func (e *Engine) clearExcept(pos Vec, radius int32, ignore, ignoredStructure ID, air, mobiles bool) bool {
 	if pos.X-radius < 0 || pos.Y-radius < 0 || pos.X+radius >= e.state.Map.Width*1000 || pos.Y+radius >= e.state.Map.Height*1000 {
 		return false
 	}
@@ -127,7 +137,7 @@ func (e *Engine) clear(pos Vec, radius int32, ignore ID, air, mobiles bool) bool
 		}
 	}
 	for _, v := range e.state.Entities {
-		if v.ID == ignore || v.HP <= 0 || v.Container != 0 {
+		if v.ID == ignore || v.ID == ignoredStructure || v.HP <= 0 || v.Container != 0 {
 			continue
 		}
 		if !v.Building && !mobiles {
@@ -137,9 +147,9 @@ func (e *Engine) clear(pos Vec, radius int32, ignore ID, air, mobiles bool) bool
 			if air {
 				continue
 			}
-			b, _ := e.buildingRule(v.Type)
-			dx := max(0, abs(pos.X-v.Position.X)-b.Width*500)
-			dy := max(0, abs(pos.Y-v.Position.Y)-b.Height*500)
+			width, height := e.footprint(v)
+			dx := max(0, abs(pos.X-v.Position.X)-width*500)
+			dy := max(0, abs(pos.Y-v.Position.Y)-height*500)
 			if int64(dx)*int64(dx)+int64(dy)*int64(dy) < int64(radius)*int64(radius) {
 				return false
 			}
@@ -436,13 +446,14 @@ func (e *Engine) updateMovement() {
 		}
 		if e.isAircraft(v) && v.Landed && v.ServiceWork == 0 && len(v.Orders) > 0 {
 			switch v.Orders[0].Kind {
-			case "attack", "attack_move", "move", "guard", "aggressive":
+			case "attack", "attack_move", "move", "guard", "escort", "patrol", "aggressive":
 				if e.clear(v.Position, e.radius(v), v.ID, true, true) {
 					v.Landed = false
 					v.State = "taking_off"
 				}
 			}
 		}
+		e.updateOrderAnchor(v)
 		if e.fixedWing(v) && !v.Landed && (len(v.Orders) == 0 || v.Orders[0].Kind != "return") {
 			e.flyPass(v)
 			continue
@@ -455,9 +466,12 @@ func (e *Engine) updateMovement() {
 		moving := false
 		arrive := int32(180)
 		switch o.Kind {
-		case "move", "attack_move":
+		case "move", "attack_move", "patrol":
+			if o.Kind == "patrol" {
+				goal = o.Points[o.Index]
+			}
 			moving = true
-			if o.Kind == "attack_move" && v.Target != 0 {
+			if (o.Kind == "attack_move" || o.Kind == "patrol") && v.Target != 0 {
 				target := e.entity(v.Target)
 				if target != nil && e.canSeeEntity(v.Owner, target) {
 					w, ok := e.weapon(v)
@@ -468,6 +482,13 @@ func (e *Engine) updateMovement() {
 			}
 		case "attack":
 			target := e.entity(o.Target)
+			if target != nil && e.canSeeEntity(v.Owner, target) && e.defeated(target.Owner) {
+				v.Orders = v.Orders[1:]
+				v.Target = 0
+				v.Path = nil
+				v.State = "idle"
+				continue
+			}
 			if target != nil && e.canSeeEntity(v.Owner, target) {
 				v.LastTarget = target.Position
 				v.Target = target.ID
@@ -504,15 +525,15 @@ func (e *Engine) updateMovement() {
 					}
 				}
 			}
-		case "guard", "aggressive":
-			if target := e.entity(o.Target); target != nil && target.Owner == v.Owner {
-				v.Anchor = target.Position
-			}
+		case "guard", "escort", "aggressive":
 			goal = v.Anchor
 			moving = distance(v.Position, goal) > 1000
 			if target := e.entity(v.Target); target != nil && e.canSeeEntity(v.Owner, target) {
 				w, _ := e.weapon(v)
-				if e.edgeDistance(v, target) > w.MaxRange {
+				if distance(v.Anchor, target.Position) <= e.combatLeash(v) {
+					moving = false
+				}
+				if e.edgeDistance(v, target) > w.MaxRange && distance(v.Anchor, target.Position) <= e.combatLeash(v) {
 					goal = e.approachPoint(v, target)
 					moving = true
 				}
@@ -551,6 +572,9 @@ func (e *Engine) updateMovement() {
 			v.State = "taking_off"
 		}
 		if distance(v.Position, goal) <= arrive {
+			if o.Kind == "patrol" {
+				e.advancePatrol(v)
+			}
 			if o.Kind == "move" || o.Kind == "attack_move" {
 				v.Orders = v.Orders[1:]
 				v.Path = nil
@@ -559,7 +583,11 @@ func (e *Engine) updateMovement() {
 			}
 			continue
 		}
-		if len(v.Path) == 0 && v.PathResolved && distance(v.Position, v.PathEnd) < 250 && (o.Kind == "move" || o.Kind == "attack_move") {
+		if len(v.Path) == 0 && v.PathResolved && distance(v.Position, v.PathEnd) < 250 && (o.Kind == "move" || o.Kind == "attack_move" || o.Kind == "patrol") {
+			if o.Kind == "patrol" {
+				e.advancePatrol(v)
+				continue
+			}
 			v.Orders = v.Orders[1:]
 			v.State = "idle"
 			v.Anchor = v.Position
@@ -650,15 +678,15 @@ func (e *Engine) approachPoint(v, target *Entity) Vec {
 	length := max(1, isqrt(int64(dx)*int64(dx)+int64(dy)*int64(dy)))
 	r := e.radius(target) + e.radius(v) + 500
 	if target.Building {
-		b, _ := e.buildingRule(target.Type)
+		width, height := e.footprint(target)
 		// Intersect the approach ray with the actual rectangle. Using the larger
 		// dimension leaves builders permanently out of range of short sides.
 		rx, ry := int64(1<<40), int64(1<<40)
 		if dx != 0 {
-			rx = int64(b.Width*500) * int64(length) / int64(abs(dx))
+			rx = int64(width*500) * int64(length) / int64(abs(dx))
 		}
 		if dy != 0 {
-			ry = int64(b.Height*500) * int64(length) / int64(abs(dy))
+			ry = int64(height*500) * int64(length) / int64(abs(dy))
 		}
 		r = int32(min(rx, ry)) + e.radius(v) + 250
 	}
@@ -679,14 +707,14 @@ func (e *Engine) findExitPosition(source *Entity, typ string, ignore ID, maxRadi
 		return Vec{}, false
 	}
 	air := u.Armor == "air"
-	base := int32(1200)
+	baseX, baseY := e.radius(source)+u.Radius+300, e.radius(source)+u.Radius+300
 	if source.Building {
-		b, _ := e.buildingRule(source.Type)
-		base = max(b.Width, b.Height)*500 + u.Radius + 300
+		width, height := e.footprint(source)
+		baseX, baseY = width*500+u.Radius+300, height*500+u.Radius+300
 	}
-	for ring := base; ring <= base+maxRadius; ring += 1000 {
+	for extra := int32(0); extra <= maxRadius; extra += 500 {
 		for _, d := range neighbors {
-			p := Vec{X: source.Position.X + d.X*ring, Y: source.Position.Y + d.Y*ring}
+			p := Vec{X: source.Position.X + d.X*(baseX+extra), Y: source.Position.Y + d.Y*(baseY+extra)}
 			if e.distanceTo(source, p)-u.Radius > maxRadius {
 				continue
 			}

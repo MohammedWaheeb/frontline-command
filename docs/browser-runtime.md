@@ -78,8 +78,8 @@ download. Settings have their own conflict-checked revisions.
 ## Remaining integration
 
 The actual React/Pixi shell, all rendering and input UI are still Claude work.
-Service-worker content caching, replay playback, editor/practice helpers and
-complete game journeys remain in progress. Localhost supports secure browser
+Verified content caching and replay playback are implemented. Editor/practice
+integration and complete rendered game journeys remain in progress. Localhost supports secure browser
 capabilities; insecure LAN origins must not be promised offline service workers.
 
 ## Verified content cache
@@ -111,3 +111,73 @@ and restored the exact save successfully. The host was restarted afterward for
 multiplayer tests. This demonstrates host-unavailable cached play; it is not a
 claim that Playwright's broken emulation or physical Safari-device testing passed.
 The failure evidence is retained beside the successful browser report.
+
+## Local replay playback and public maps
+
+`OfflineTransport.exportReplay()` returns a bounded compressed replay recorded
+by Go. Recording starts when a match is created or loaded, captures command
+chunks and full checkpoints every 30 simulation seconds, and includes the
+current tick on export. Loading a mid-match save starts a new recording there;
+it does not pretend to contain the earlier battle.
+
+`loadReplay(bytes)` validates compatibility before replacing the current session.
+It starts paused at `SessionInfo.replay_start`; `replay_end` is the final recorded
+tick. `seekReplay(tick)` restores a checkpoint and simulates forward, pauses and
+publishes a fresh snapshot. A rejected load or seek preserves the prior state.
+Normal `resume`, `pause`, `step`, `setSpeed` and `setPerspective` operate on the
+read-only replay. All recorded players, including AI, have their own fog view.
+Orders and ordinary save creation are rejected with `replay_read_only`.
+`exportReplay` during playback preserves the original imported bytes. No
+profile, rating or reward service is invoked by playback or seeking.
+
+`replayCommands(offset, limit)` exposes at most 1,000 scheduled command records
+per page with a next-record cursor (zero when exhausted). These are intentions,
+not proof a building completed; the UI must label them accordingly. Actual
+combat overlays use the replayed, fog-filtered snapshot/events.
+
+`map()` returns a detached original map blueprint after creation, save load or
+replay load. Apply only the selected snapshot's observed rubble to it; do not
+infer unseen destruction. Development simulation version 0.2.0 adds the saved
+original terrain history needed to reconstruct this baseline. Older development
+saves remain preserved and exportable with an incompatibility explanation.
+
+## Nonvisual editor and practice integration
+
+`validateMap(bytes)` and `validateMission(mapBytes, missionBytes)` run the same
+bounded Go content validators used by the local host and return decoded data or
+an actionable `map_invalid` / `mission_invalid` error. They leave the active
+match untouched. `content()` exposes the embedded immutable gameplay catalog,
+including costs, roles and weapon data, without requiring a host fetch.
+
+`previewOrders(orders)` evaluates at most 32 sequential orders on a detached Go
+engine copy and returns `{tick, results}` with exact rejection codes. This is an
+advisory preview of the current boundary, not a reservation or guarantee of
+future execution. Debounce hover previews; execution always revalidates. It
+never changes the live command sequence, replay, resources or random state.
+The online preview service is not yet implemented.
+
+Practice is explicitly selected by `ruleset: "practice-v1"` at creation. The
+following ordinary, replayable orders are available only in that ruleset:
+
+| Kind | Arguments | Effect |
+| --- | --- | --- |
+| `practice_spawn` | type, target player ID, index count 1–20, position | Free placement, retaining roster/cap/space/service rules. |
+| `practice_remove` | target entity ID | Remove a non-map actor using normal cleanup. |
+| `practice_restore` | target entity ID | Restore health, ordinary ammunition and aircraft endurance. |
+| `practice_resources` | target player ID, index credits | Set spendable credits, at most 1,000,000. |
+| `practice_fog` | index 0/1 | Normal fog / reveal the practice battlefield. |
+
+These tools are rejected in standard and scenario matches. Practice does not
+finish through ordinary elimination; it retains the 90-minute session bound.
+Restart creates a new session with the retained editor/practice configuration.
+No practice result should enter campaign progress, ratings or reward services.
+
+`inspect(bytes)` now performs full Go save validation in addition to envelope
+checksum and compatibility checks, without replacing the live match.
+`inspectReplay(bytes)` supplies a lightweight, nonmutating import preview:
+`{metadata,start_tick,end_tick,players}`. It validates the compressed format and
+initial engine state; seeking validates subsequent checkpoints and commands.
+
+Full backup/recovery, replay-library and autosave contracts are documented in
+[browser-persistence.md](browser-persistence.md). `AutosaveCoordinator` and
+`CampaignProgressStore` are exported separately from the presentation layer.

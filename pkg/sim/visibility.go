@@ -38,6 +38,11 @@ func (e *Engine) computeVisibility() {
 	e.visible = make(map[PlayerID][]bool, len(e.state.Players))
 	for _, p := range e.state.Players {
 		e.visible[p.ID] = make([]bool, len(e.state.Map.Tiles))
+		if e.state.Metadata.Ruleset == "practice-v1" && e.state.PracticeReveal {
+			for i := range e.visible[p.ID] {
+				e.visible[p.ID][i] = true
+			}
+		}
 	}
 	for _, v := range e.state.Entities {
 		p := e.player(v.Owner)
@@ -107,7 +112,7 @@ func (e *Engine) computeVisibility() {
 		e.fogCache = live
 	}
 	for _, z := range e.state.Zones {
-		if z.Kind != "scan" || e.state.Tick < z.Start || e.state.Tick >= z.Until {
+		if z.Kind != "scan" || e.defeated(z.Owner) || e.state.Tick < z.Start || e.state.Tick >= z.Until {
 			continue
 		}
 		for y := max(int32(0), (z.Position.Y-z.Radius)/1000); y <= min(e.state.Map.Height-1, (z.Position.Y+z.Radius)/1000); y++ {
@@ -146,7 +151,7 @@ func (e *Engine) updateFog() {
 			if !v.Building || v.Owner == p.ID || v.HP <= 0 || !e.canSeeEntity(p.ID, v) {
 				continue
 			}
-			m := Memory{v.ID, v.Type, v.Owner, v.Position, e.state.Tick}
+			m := Memory{ID: v.ID, Type: v.Type, Owner: v.Owner, Position: v.Position, Seen: e.state.Tick, FootprintWidth: v.FootprintWidth, FootprintHeight: v.FootprintHeight, FootprintType: v.FootprintType}
 			found := false
 			for i := range p.Memory {
 				if p.Memory[i].ID == v.ID {
@@ -180,6 +185,9 @@ func (e *Engine) canSeeEntity(player PlayerID, v *Entity) bool {
 	if v.HP <= 0 || v.Container != 0 {
 		return false
 	}
+	if e.state.Metadata.Ruleset == "practice-v1" && e.state.PracticeReveal {
+		return true
+	}
 	if v.Owner == player || e.allied(player, v.Owner) {
 		return true
 	}
@@ -193,19 +201,40 @@ func (e *Engine) canSeeEntity(player PlayerID, v *Entity) bool {
 		return true
 	}
 	for _, source := range e.state.Entities {
-		if source.HP <= 0 || source.Container != 0 || !e.allied(player, source.Owner) || e.defeated(source.Owner) {
-			continue
-		}
-		radius := int32(3000)
-		if !source.Building {
-			u, _ := e.catalog.Unit(source.Type)
-			radius = max(radius, u.Detection)
-		}
-		if distance(source.Position, v.Position) <= radius && (e.isAircraft(source) || e.lineOfSight(source.Position, v.Position)) {
+		if e.allied(player, source.Owner) && e.detectsConcealment(source, v) {
 			return true
 		}
 	}
 	return false
+}
+
+func (e *Engine) detectsConcealment(source, target *Entity) bool {
+	if source.HP <= 0 || source.Owner == 0 || source.Container != 0 || e.defeated(source.Owner) || source.Building && !source.Complete || e.role(source) == "support_plane" && source.DisabledUntil > e.state.Tick {
+		return false
+	}
+	radius := int32(3000)
+	if !source.Building {
+		u, _ := e.catalog.Unit(source.Type)
+		radius = max(radius, u.Detection)
+	}
+	// A grounded scout has ground sight; another unit's shared vision cannot
+	// let its detector see through a cliff. Foundations grant no sight.
+	return distance(source.Position, target.Position) <= radius && (e.isAircraft(source) && !source.Landed || e.lineOfSight(source.Position, target.Position))
+}
+func (e *Engine) detectedByEnemy(v *Entity) bool {
+	for _, source := range e.state.Entities {
+		if !e.allied(v.Owner, source.Owner) && e.detectsConcealment(source, v) {
+			return true
+		}
+	}
+	return false
+}
+func (e *Engine) ambushReady(v *Entity) bool {
+	if !v.Concealed || v.Container != 0 || v.Channel != "" || e.state.Tick-v.ConcealedSince < seconds(6) || cooldown(v.Cooldowns, "ambush", e.state.Tick) || e.detectedByEnemy(v) {
+		return false
+	}
+	w, ok := e.weapon(v)
+	return ok && w.Kind == "small"
 }
 
 type EconomyView struct {
@@ -223,42 +252,47 @@ type EconomyView struct {
 	Cooldowns      []Cooldown `json:"cooldowns"`
 }
 type EntityPrivate struct {
-	HP          int64      `json:"hp"`
-	MaxHP       int64      `json:"max_hp"`
-	Jobs        []Job      `json:"jobs"`
-	Orders      []Order    `json:"orders"`
-	Rally       Vec        `json:"rally"`
-	Cargo       int64      `json:"cargo"`
-	Home        ID         `json:"home"`
-	Ammo        int32      `json:"ammo"`
-	Endurance   uint32     `json:"endurance"`
-	Charges     int32      `json:"charges"`
-	ChargeWork  uint32     `json:"charge_work"`
-	ServiceWork uint32     `json:"service_work"`
-	Experience  int64      `json:"experience"`
-	Cooldowns   []Cooldown `json:"cooldowns"`
-	Passengers  []ID       `json:"passengers"`
-	Container   ID         `json:"container"`
+	AmbushReady  bool       `json:"ambush_ready"`
+	RepeatSortie bool       `json:"repeat_sortie"`
+	HP           int64      `json:"hp"`
+	MaxHP        int64      `json:"max_hp"`
+	Jobs         []Job      `json:"jobs"`
+	Orders       []Order    `json:"orders"`
+	Rally        Vec        `json:"rally"`
+	Cargo        int64      `json:"cargo"`
+	Home         ID         `json:"home"`
+	Ammo         int32      `json:"ammo"`
+	Endurance    uint32     `json:"endurance"`
+	Charges      int32      `json:"charges"`
+	ChargeWork   uint32     `json:"charge_work"`
+	ServiceWork  uint32     `json:"service_work"`
+	Experience   int64      `json:"experience"`
+	Cooldowns    []Cooldown `json:"cooldowns"`
+	Passengers   []ID       `json:"passengers"`
+	Container    ID         `json:"container"`
 }
 type EntityView struct {
-	MapObject    uint32         `json:"map_object"`
-	TurretFacing int32          `json:"turret_facing"`
-	ChannelUntil Tick           `json:"channel_until"`
-	ID           ID             `json:"id"`
-	Type         string         `json:"type"`
-	Owner        PlayerID       `json:"owner"`
-	Position     Vec            `json:"position"`
-	Facing       int32          `json:"facing"`
-	Health       int32          `json:"health"`
-	State        string         `json:"state"`
-	Complete     bool           `json:"complete"`
-	Enabled      bool           `json:"enabled"`
-	Landed       bool           `json:"landed"`
-	Deployed     bool           `json:"deployed"`
-	Concealed    bool           `json:"concealed"`
-	Progress     int32          `json:"progress"`
-	Rank         uint32         `json:"rank"`
-	Private      *EntityPrivate `json:"private,omitempty"`
+	FootprintWidth  int32          `json:"footprint_width"`
+	FootprintHeight int32          `json:"footprint_height"`
+	FootprintType   string         `json:"footprint_type"`
+	MapObject       uint32         `json:"map_object"`
+	TurretFacing    int32          `json:"turret_facing"`
+	ChannelUntil    Tick           `json:"channel_until"`
+	ID              ID             `json:"id"`
+	Type            string         `json:"type"`
+	Owner           PlayerID       `json:"owner"`
+	Position        Vec            `json:"position"`
+	Facing          int32          `json:"facing"`
+	Health          int32          `json:"health"`
+	State           string         `json:"state"`
+	Complete        bool           `json:"complete"`
+	Enabled         bool           `json:"enabled"`
+	Landed          bool           `json:"landed"`
+	Deployed        bool           `json:"deployed"`
+	Concealed       bool           `json:"concealed"`
+	Progress        int32          `json:"progress"`
+	Rank            uint32         `json:"rank"`
+	Private         *EntityPrivate `json:"private,omitempty"`
 }
 type PlayerSummary struct {
 	SurrenderVote     bool     `json:"surrender_vote"`
@@ -266,6 +300,7 @@ type PlayerSummary struct {
 	Name              string   `json:"name"`
 	Faction           string   `json:"faction"`
 	Team              uint32   `json:"team"`
+	Color             uint32   `json:"color"`
 	Defeated          bool     `json:"defeated"`
 	DefeatAt          Tick     `json:"defeat_at"`
 	StrategicProgress int32    `json:"strategic_progress"`
@@ -291,6 +326,7 @@ type StationView struct {
 	Owner    PlayerID `json:"owner"`
 }
 type View struct {
+	Debrief     *Debrief             `json:"debrief,omitempty"`
 	Warnings    []OperationWarning   `json:"warnings"`
 	Rubble      []uint32             `json:"rubble"`
 	Salvage     []Salvage            `json:"salvage"`
@@ -341,6 +377,8 @@ type ObjectiveView struct {
 	Required uint32 `json:"required"`
 }
 type MissionView struct {
+	Version        string          `json:"version"`
+	Convoys        []ConvoyState   `json:"convoys"`
 	ID             string          `json:"id"`
 	Title          string          `json:"title"`
 	Difficulty     string          `json:"difficulty"`
@@ -358,9 +396,10 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 	}
 	view := View{Metadata: e.state.Metadata, Tick: e.state.Tick, Countdown: e.state.Countdown, Player: id, Economy: EconomyView{p.LastSequence, p.Credits, p.Energy, p.Supply, p.ReservedSupply, p.PowerCapacity, p.PowerDemand, p.Tier, p.Income, p.RepairReserve, append([]string(nil), p.Upgrades...), append([]Cooldown(nil), p.Cooldowns...)}, Explored: append([]bool(nil), p.Explored...), Visible: append([]bool(nil), e.visible[id]...), Memory: append([]Memory(nil), p.Memory...), ShipmentAt: e.state.ShipmentAt, Outcome: e.state.Outcome}
 	view.Rubble = append([]uint32(nil), p.KnownRubble...)
+	view.Debrief = e.Debrief()
 	view.Warnings = e.operationWarnings(id)
 	for _, player := range e.state.Players {
-		s := PlayerSummary{ID: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, Defeated: player.Defeated, DefeatAt: player.DefeatAt, StrategicProgress: -1, SurrenderVote: player.Team == p.Team && player.SurrenderVote}
+		s := PlayerSummary{ID: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, Color: player.Color, Defeated: player.Defeated, DefeatAt: player.DefeatAt, StrategicProgress: -1, SurrenderVote: player.Team == p.Team && player.SurrenderVote}
 		for _, v := range e.state.Entities {
 			if v.Owner == player.ID && v.HP > 0 && v.Complete && e.role(v) == "strategic" {
 				s.StrategicProgress = int32(v.ChargeWork * 1000 / e.strategicCharge(player.Faction))
@@ -377,12 +416,13 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		}
 		s := EntityView{TurretFacing: v.TurretFacing, ChannelUntil: v.ChannelUntil, ID: v.ID, Type: v.Type, Owner: v.Owner, Position: v.Position, Facing: v.Facing, Health: int32(v.HP * 1000 / v.MaxHP), State: v.State, Complete: v.Complete, Enabled: v.Enabled && v.DisabledUntil <= e.state.Tick, Landed: v.Landed, Deployed: v.Deployed, Concealed: v.Concealed, Rank: v.Rank}
 		s.MapObject = v.MapObject
+		s.FootprintWidth, s.FootprintHeight, s.FootprintType = v.FootprintWidth, v.FootprintHeight, v.FootprintType
 		if v.Building && !v.Complete {
 			b, _ := e.buildingRule(v.Type)
 			s.Progress = int32(v.Work * 1000 / (b.BuildTicks * 2))
 		}
 		if v.Owner == id {
-			s.Private = &EntityPrivate{v.HP, v.MaxHP, append([]Job(nil), v.Jobs...), cloneOrders(v.Orders), v.Rally, v.Cargo, v.Home, v.Ammo, v.Endurance, v.Charges, v.ChargeWork, v.ServiceWork, v.Experience, append([]Cooldown(nil), v.Cooldowns...), append([]ID(nil), v.Passengers...), v.Container}
+			s.Private = &EntityPrivate{e.ambushReady(v), v.RepeatSortie, v.HP, v.MaxHP, append([]Job(nil), v.Jobs...), cloneOrders(v.Orders), v.Rally, v.Cargo, v.Home, v.Ammo, v.Endurance, v.Charges, v.ChargeWork, v.ServiceWork, v.Experience, append([]Cooldown(nil), v.Cooldowns...), append([]ID(nil), v.Passengers...), v.Container}
 		} else {
 			switch s.State {
 			case "insufficient_credits", "service_full", "supply_blocked", "prerequisite_lost", "rig_limit", "hauler_limit", "elite_limit", "no_known_supplies", "no_supply_center":
@@ -449,7 +489,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 	}
 	if e.state.Mission == nil && e.state.Tick >= seconds(35*60) && (e.state.Tick-seconds(35*60))%seconds(90) < seconds(5) {
 		for _, v := range e.state.Entities {
-			if !v.Building || !v.Complete || v.HP <= 0 || e.allied(id, v.Owner) {
+			if !v.Building || !v.Complete || v.HP <= 0 || e.defeated(v.Owner) || e.allied(id, v.Owner) {
 				continue
 			}
 			if b, ok := e.buildingRule(v.Type); ok && b.Qualifying {
@@ -458,7 +498,12 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		}
 	}
 	if ms := e.state.Mission; ms != nil {
-		view.Mission = &MissionView{ID: ms.Definition.ID, Title: ms.Definition.Title, Difficulty: ms.Difficulty, Checkpoint: ms.Checkpoint, CheckpointTick: ms.CheckpointTick}
+		view.Mission = &MissionView{ID: ms.Definition.ID, Version: ms.Definition.Version, Title: ms.Definition.Title, Difficulty: ms.Difficulty, Checkpoint: ms.Checkpoint, CheckpointTick: ms.CheckpointTick}
+		for _, convoy := range ms.Convoys {
+			copy := convoy
+			copy.Approved = append([]PlayerID(nil), convoy.Approved...)
+			view.Mission.Convoys = append(view.Mission.Convoys, copy)
+		}
 		for i, objective := range ms.Definition.Objectives {
 			progress := ms.Objectives[i]
 			required := objective.Condition.Count
