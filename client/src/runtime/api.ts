@@ -42,6 +42,8 @@ export class LocalAPI {
  async uploadSave(id:string,name:string,data:Uint8Array,expectedRevision:number){
   if(!Number.isSafeInteger(expectedRevision)||expectedRevision<0||data.length>64*1024*1024)throw new RuntimeError('invalid_save','The save or revision is invalid.');
   const raw=new TextDecoder('utf-8',{fatal:true}).decode(data);
+  try{const envelope=JSON.parse(raw);if(!envelope||typeof envelope!=='object'||Array.isArray(envelope))throw new Error('invalid envelope')}catch{throw new RuntimeError('save_invalid','The engine save must contain one valid JSON document.')}
+
   // Preserve exact JSON integer tokens. Never JSON.parse/stringify engine bytes:
   // random state and replay seeds may exceed JavaScript's safe integer range.
   const body=`{"name":${JSON.stringify(name)},"expected_revision":${expectedRevision},"data":${raw}}`;

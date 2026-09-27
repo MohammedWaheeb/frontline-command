@@ -59,3 +59,10 @@ two-context multiplayer through the actual server. Read docs/browser-runtime.md
 and import typed transports; do not replace these with placeholder state or mock
 commands. Root client/package.json is authoritative. Keep existing runtime
 scripts/tests/dependencies when adding the React/Pixi/Vite UI toolchain.
+
+Runtime now includes a verified offline pack installer and service worker; see
+`ContentPack` in client/src/runtime/cache.ts and docs/browser-runtime.md. Your
+final asset/client packaging must generate manifests with exact SHA-256 and
+byte lengths from the real output, including shell/runtime and mode/faction/map
+packs. UI must display download progress/retry and distinguish cached solo from
+LAN/cloud services. No CDN or AI key may be required to play.

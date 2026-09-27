@@ -110,7 +110,7 @@ func (e *Engine) allied(a, b PlayerID) bool {
 }
 func (e *Engine) role(v *Entity) string {
 	if v.Building {
-		b, _ := e.catalog.Building(v.Type)
+		b, _ := e.buildingRule(v.Type)
 		return b.Role
 	}
 	u, _ := e.catalog.Unit(v.Type)
@@ -143,7 +143,7 @@ func (e *Engine) spawn(typ string, owner PlayerID, pos Vec, complete bool, paid 
 			v.MaxHP = v.MaxHP * 110 / 100
 			v.HP = v.MaxHP
 		}
-	} else if b, ok := e.catalog.Building(typ); ok {
+	} else if b, ok := e.buildingRule(typ); ok {
 		v.Building = true
 		v.MaxHP = b.HP
 		v.HP = b.HP
@@ -175,7 +175,7 @@ func (e *Engine) recalculate() {
 			continue
 		}
 		if v.Building {
-			b, _ := e.catalog.Building(v.Type)
+			b, _ := e.buildingRule(v.Type)
 			if v.Active(e.state.Tick) {
 				p.PowerCapacity += b.PowerCapacity
 				p.PowerDemand += b.PowerDemand
@@ -279,7 +279,7 @@ func (e *Engine) updateVictory() {
 				break
 			}
 			if v.Building && v.Complete {
-				b, _ := e.catalog.Building(v.Type)
+				b, _ := e.buildingRule(v.Type)
 				if b.Qualifying {
 					qualifies = true
 					break

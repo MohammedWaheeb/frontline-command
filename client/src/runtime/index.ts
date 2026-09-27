@@ -7,3 +7,4 @@ export * from './online';
 export * from './api';
 export * from './storage';
 export * as wire from '../protocol/frontline_pb';
+export * from './cache';

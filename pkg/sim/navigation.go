@@ -23,18 +23,21 @@ func (e *Engine) armor(v *Entity) string {
 	return u.Armor
 }
 func (e *Engine) isAircraft(v *Entity) bool {
+	if v.Building {
+		return false
+	}
 	u, ok := e.catalog.Unit(v.Type)
 	return ok && u.Armor == "air"
 }
 func (e *Engine) edgeDistance(a, b *Entity) int32 {
 	dx, dy := abs(a.Position.X-b.Position.X), abs(a.Position.Y-b.Position.Y)
 	if a.Building {
-		v, _ := e.catalog.Building(a.Type)
+		v, _ := e.buildingRule(a.Type)
 		dx = max(0, dx-v.Width*500)
 		dy = max(0, dy-v.Height*500)
 	}
 	if b.Building {
-		v, _ := e.catalog.Building(b.Type)
+		v, _ := e.buildingRule(b.Type)
 		dx = max(0, dx-v.Width*500)
 		dy = max(0, dy-v.Height*500)
 	}
@@ -77,7 +80,7 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 			continue
 		}
 		if v.Building {
-			b, _ := e.catalog.Building(v.Type)
+			b, _ := e.buildingRule(v.Type)
 			if rectOverlap(pos, width, height, v.Position, b.Width, b.Height) {
 				return "occupied"
 			}
@@ -130,19 +133,25 @@ func (e *Engine) clear(pos Vec, radius int32, ignore ID, air, mobiles bool) bool
 		if !v.Building && !mobiles {
 			continue
 		}
-		otherAir := e.isAircraft(v) && !v.Landed
-		if otherAir != air {
-			continue
-		}
 		if v.Building {
-			b, _ := e.catalog.Building(v.Type)
+			if air {
+				continue
+			}
+			b, _ := e.buildingRule(v.Type)
 			dx := max(0, abs(pos.X-v.Position.X)-b.Width*500)
 			dy := max(0, abs(pos.Y-v.Position.Y)-b.Height*500)
 			if int64(dx)*int64(dx)+int64(dy)*int64(dy) < int64(radius)*int64(radius) {
 				return false
 			}
 		} else if mobiles {
-			r := radius + e.radius(v)
+			unit, _ := e.catalog.Unit(v.Type)
+			if (unit.Armor == "air" && !v.Landed) != air {
+				continue
+			}
+			r := radius + unit.Radius
+			if abs(pos.X-v.Position.X) >= r || abs(pos.Y-v.Position.Y) >= r {
+				continue
+			}
 			if dist2(pos, v.Position) < int64(r)*int64(r) {
 				return false
 			}
@@ -641,7 +650,7 @@ func (e *Engine) approachPoint(v, target *Entity) Vec {
 	length := max(1, isqrt(int64(dx)*int64(dx)+int64(dy)*int64(dy)))
 	r := e.radius(target) + e.radius(v) + 500
 	if target.Building {
-		b, _ := e.catalog.Building(target.Type)
+		b, _ := e.buildingRule(target.Type)
 		// Intersect the approach ray with the actual rectangle. Using the larger
 		// dimension leaves builders permanently out of range of short sides.
 		rx, ry := int64(1<<40), int64(1<<40)
@@ -672,7 +681,7 @@ func (e *Engine) findExitPosition(source *Entity, typ string, ignore ID, maxRadi
 	air := u.Armor == "air"
 	base := int32(1200)
 	if source.Building {
-		b, _ := e.catalog.Building(source.Type)
+		b, _ := e.buildingRule(source.Type)
 		base = max(b.Width, b.Height)*500 + u.Radius + 300
 	}
 	for ring := base; ring <= base+maxRadius; ring += 1000 {

@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-27T19:27:41.876Z",
+  "date": "2026-09-27T19:41:08.517Z",
   "browserPath": "Browser plugin not available; installed Playwright browsers used.",
   "native": [
     {
@@ -60,6 +60,28 @@
         "privateOnly": true,
         "uploadRevision": 1
       },
+      "offlineProbe": {
+        "controlled": true,
+        "online": false,
+        "/runtime/version.json": {
+          "status": 200,
+          "length": 169
+        },
+        "/": {
+          "status": 503,
+          "length": 97
+        }
+      },
+      "offline": {
+        "files": 6,
+        "corrupt": "content_corrupt",
+        "packs": 1,
+        "controlled": true,
+        "hash": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db",
+        "networkBlocked": true,
+        "tick": 937,
+        "method": "offline-emulation"
+      },
       "multiplayer": {
         "distinctPerspectives": true,
         "moveAccepted": true,
@@ -109,6 +131,28 @@
         "privateOnly": true,
         "uploadRevision": 1
       },
+      "offlineProbe": {
+        "controlled": true,
+        "online": false,
+        "/runtime/version.json": {
+          "status": 200,
+          "length": 169
+        },
+        "/": {
+          "status": 200,
+          "length": 152
+        }
+      },
+      "offline": {
+        "files": 6,
+        "corrupt": "content_corrupt",
+        "packs": 1,
+        "controlled": true,
+        "hash": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db",
+        "networkBlocked": true,
+        "tick": 937,
+        "method": "offline-emulation"
+      },
       "multiplayer": {
         "distinctPerspectives": true,
         "moveAccepted": true,
@@ -157,6 +201,29 @@
         "downloadedHash": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db",
         "privateOnly": true,
         "uploadRevision": 1
+      },
+      "offlineLimitation": "Playwright WebKit offline emulation fails before service-worker handling (upstream #42775). Tested with the actual host stopped and an uncached negative control; Safari device certification remains pending.",
+      "offlineProbe": {
+        "controlled": true,
+        "online": true,
+        "/runtime/version.json": {
+          "status": 200,
+          "length": 169
+        },
+        "/": {
+          "status": 503,
+          "length": 97
+        }
+      },
+      "offline": {
+        "files": 6,
+        "corrupt": "content_corrupt",
+        "packs": 1,
+        "controlled": true,
+        "hash": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db",
+        "networkBlocked": true,
+        "tick": 937,
+        "method": "host-stopped"
       },
       "multiplayer": {
         "distinctPerspectives": true,

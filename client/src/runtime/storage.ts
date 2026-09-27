@@ -23,7 +23,7 @@ export class LocalStore {
    r.onupgradeneeded=()=>{for(const name of ['saves','settings','meta','replays','progress'])if(!r.result.objectStoreNames.contains(name))r.result.createObjectStore(name,{keyPath:'id'})};
    r.onerror=()=>reject(storageError(r.error));
    r.onblocked=()=>{blocked=true;reject(new RuntimeError('storage_busy','Close another open game tab before changing the save database.'))};
-   r.onsuccess=()=>{if(blocked){r.result.close();return}r.result.onversionchange=()=>r.result.close();resolve(r.result)};
+   r.onsuccess=()=>{if(blocked){r.result.close();return}r.result.onversionchange=()=>{r.result.close();this.db=undefined};resolve(r.result)};
   }).catch(error=>{this.db=undefined;throw error});return this.db;
  }
  async close(){if(this.db)(await this.db).close();this.db=undefined}

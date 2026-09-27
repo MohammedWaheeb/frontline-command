@@ -7,7 +7,7 @@ import (
 
 func (e *Engine) weapon(v *Entity) (content.Weapon, bool) {
 	if v.Building {
-		b, _ := e.catalog.Building(v.Type)
+		b, _ := e.buildingRule(v.Type)
 		return e.catalog.Weapon(b.Weapon)
 	}
 	u, _ := e.catalog.Unit(v.Type)

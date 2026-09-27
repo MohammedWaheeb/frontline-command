@@ -119,7 +119,7 @@ func (e *Engine) scenarioPositions(s content.MissionSpawn) ([]Vec, bool) {
 					continue
 				}
 				if !isUnit {
-					b, _ := e.catalog.Building(s.Type)
+					b, _ := e.buildingRule(s.Type)
 					if !e.scenarioFootprint(pos, b.Width, b.Height) {
 						continue
 					}
@@ -130,7 +130,7 @@ func (e *Engine) scenarioPositions(s content.MissionSpawn) ([]Vec, bool) {
 					}
 					for _, v := range e.state.Entities {
 						if v.Building && v.HP > 0 {
-							other, _ := e.catalog.Building(v.Type)
+							other, _ := e.buildingRule(v.Type)
 							if rectOverlap(pos, b.Width, b.Height, v.Position, other.Width, other.Height) {
 								overlap = true
 							}
@@ -198,7 +198,7 @@ func (e *Engine) spawnScenario(s content.MissionSpawn) bool {
 			if home.Owner != p.ID || !home.Building || !home.Complete || home.HP <= 0 {
 				continue
 			}
-			b, _ := e.catalog.Building(home.Type)
+			b, _ := e.buildingRule(home.Type)
 			used := int32(0)
 			for _, v := range e.state.Entities {
 				if v.Home == home.ID && v.HP > 0 {

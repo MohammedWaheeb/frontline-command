@@ -81,3 +81,33 @@ The actual React/Pixi shell, all rendering and input UI are still Claude work.
 Service-worker content caching, replay playback, editor/practice helpers and
 complete game journeys remain in progress. Localhost supports secure browser
 capabilities; insecure LAN origins must not be promised offline service workers.
+
+## Verified content cache
+
+`registerOfflineWorker()` enables caching only in supported secure contexts.
+`installPack({id, version, files:[{path, sha256, bytes}]}, progress, signal)`
+downloads same-host public files, verifies their size and SHA-256, and writes a
+ready marker only after every file succeeds. Failed installs remove only their
+new staging cache; older completed packs remain intact. Downloads have progress
+and cancellation. `installedPacks()` and explicit `removePack()` support the
+future content-management UI. Claude's packaging pipeline must produce these
+manifests from actual built file bytes, including the shell, scripts, WASM,
+fonts, selected art/audio and public map/mission definitions. No missing asset
+is implied ready by a nominal manifest entry.
+
+The service worker handles public static files and public content/map/mission
+GET routes only. Authenticated requests, profiles, saves and all multiplayer
+services remain network requests. It tries the host for up to 2.5 seconds, then
+uses a fully verified cached pack. Required files absent from cache return an
+explicit missing-content response. Never infer connectivity from navigator's
+online flag alone; distinguish cached solo availability from a live host.
+
+The runtime cache journey passed Chromium and Firefox offline emulation. In
+Playwright WebKit, offline emulation failed before even a cached resource could
+be returned, matching [upstream issue #42775](https://github.com/microsoft/playwright/issues/42775).
+The WebKit control test instead stopped the real Go host, confirmed an uncached
+browser could not connect, then reloaded the cached shell, started the Go worker,
+and restored the exact save successfully. The host was restarted afterward for
+multiplayer tests. This demonstrates host-unavailable cached play; it is not a
+claim that Playwright's broken emulation or physical Safari-device testing passed.
+The failure evidence is retained beside the successful browser report.

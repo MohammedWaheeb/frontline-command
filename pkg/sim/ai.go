@@ -120,7 +120,7 @@ func (e *Engine) updateAI() {
 				buildType = "SY.safehouse"
 			}
 			if buildType != "" {
-				b, _ := e.catalog.Building(buildType)
+				b, _ := e.buildingRule(buildType)
 				budget = max(int64(0), budget-b.Cost)
 				if p.Credits >= b.Cost && e.prerequisites(p, b.Prerequisites) {
 					if pos, ok := e.aiConstructionPosition(p, buildType, buildCenter); ok {
@@ -328,7 +328,7 @@ func (e *Engine) aiGoal(p *Player, view View) (Vec, bool) {
 				continue
 			}
 			role := ""
-			if b, ok := e.catalog.Building(own.Type); ok {
+			if b, ok := e.buildingRule(own.Type); ok {
 				role = b.Role
 			}
 			if u, ok := e.catalog.Unit(own.Type); ok {
@@ -344,7 +344,7 @@ func (e *Engine) aiGoal(p *Player, view View) (Vec, bool) {
 	goal := Vec{}
 	for _, enemy := range p.AIKnowledge {
 		d := dist2(center, enemy.Position)
-		if b, ok := e.catalog.Building(enemy.Type); ok && b.Qualifying {
+		if b, ok := e.buildingRule(enemy.Type); ok && b.Qualifying {
 			d /= 2
 		}
 		if d < score {

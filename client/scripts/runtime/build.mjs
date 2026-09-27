@@ -14,4 +14,5 @@ await copyFile(path.join(goroot,'lib/wasm/wasm_exec.js'),path.join(out,'wasm_exe
 const version=JSON.parse(execFileSync(path.join(root,'bin/runtime-native'),['-version'],{encoding:'utf8'}));
 await writeFile(path.join(out,'version.json'),JSON.stringify(version,null,2)+'\n');
 await build({entryPoints:[path.join(client,'src/runtime/worker.ts')],outfile:path.join(out,'worker.js'),bundle:true,format:'iife',platform:'browser',target:'es2022',sourcemap:true});
+await build({entryPoints:[path.join(client,'src/runtime/service-worker.ts')],outfile:path.join(client,'public/service-worker.js'),bundle:true,format:'iife',platform:'browser',target:'es2022',sourcemap:true});
 console.log('Built actual Go browser worker and generated protocol bindings.');

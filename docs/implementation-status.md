@@ -190,3 +190,25 @@ A raw authenticated save-download endpoint prevents JavaScript parsing from
 rounding uint64 RNG/seed state. Upload utilities preserve the original JSON
 integer tokens. Replays, complete offline caching, editor utilities, packaging
 and the rest of the handoff continue to be implemented.
+
+Verified content-pack caching now checks declared byte sizes and SHA-256,
+reports download progress, commits only complete packs, and preserves older
+packs on failure. Cached runtime reload/save restore passed Chromium and Firefox
+offline emulation. WebKit passed with the actual host stopped and an uncached
+negative control. Its Playwright offline emulation remains blocked by the
+reported upstream issue; physical Safari-device verification is pending.
+See browser-runtime.md and retained failure/success reports. Game UI and all
+shipping content packs remain Claude work.
+
+The corrected maximum-actor fixture now obeys the 16-defense-per-player cap
+(the earlier steady fixture used too many bunkers). On this Apple M4/16 GiB
+host, 688 initial actors with repeated mass route changes and 3,690 rifle shots
+measured p95 25.22 ms before optimization and failed the 25 ms gate even without
+browser load. Profiling exposed repeated copied building-rule slices in
+collision loops. A private immutable rules cache and cheaper layer checks
+reduced p50/p95/p99 to 4.70/15.03/21.13 ms; the workload passed with 417 surviving
+actors after combat. The corrected steady fixture p95 was 5.36 ms. These are
+native host-specific measurements, not WASM/rendering/reference-laptop claims;
+maximum projectile/interception and aircraft-return workloads remain pending.
+The short race suite passed after the cache change (simulation 18.70 s, server
+24.95 s), with no reported races. Browser/native parity also passed after it.

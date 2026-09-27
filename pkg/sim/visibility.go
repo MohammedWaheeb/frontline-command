@@ -378,7 +378,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		s := EntityView{TurretFacing: v.TurretFacing, ChannelUntil: v.ChannelUntil, ID: v.ID, Type: v.Type, Owner: v.Owner, Position: v.Position, Facing: v.Facing, Health: int32(v.HP * 1000 / v.MaxHP), State: v.State, Complete: v.Complete, Enabled: v.Enabled && v.DisabledUntil <= e.state.Tick, Landed: v.Landed, Deployed: v.Deployed, Concealed: v.Concealed, Rank: v.Rank}
 		s.MapObject = v.MapObject
 		if v.Building && !v.Complete {
-			b, _ := e.catalog.Building(v.Type)
+			b, _ := e.buildingRule(v.Type)
 			s.Progress = int32(v.Work * 1000 / (b.BuildTicks * 2))
 		}
 		if v.Owner == id {
@@ -452,7 +452,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 			if !v.Building || !v.Complete || v.HP <= 0 || e.allied(id, v.Owner) {
 				continue
 			}
-			if b, ok := e.catalog.Building(v.Type); ok && b.Qualifying {
+			if b, ok := e.buildingRule(v.Type); ok && b.Qualifying {
 				view.Indicators = append(view.Indicators, StructureIndicator{v.Owner, v.Position})
 			}
 		}

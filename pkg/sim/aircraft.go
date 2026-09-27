@@ -71,7 +71,7 @@ func (e *Engine) landingPoint(v, home *Entity) Vec {
 			index++
 		}
 	}
-	b, _ := e.catalog.Building(home.Type)
+	b, _ := e.buildingRule(home.Type)
 	cols := min(int32(3), b.Width/2)
 	if cols < 1 {
 		cols = 1

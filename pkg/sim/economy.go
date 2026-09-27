@@ -23,7 +23,7 @@ func (e *Engine) updateEconomy() {
 		if p == nil || p.Defeated || v.HP <= 0 || !v.Building {
 			continue
 		}
-		b, _ := e.catalog.Building(v.Type)
+		b, _ := e.buildingRule(v.Type)
 		if !v.Complete {
 			rig := e.entity(v.Builder)
 			if rig == nil || rig.HP <= 0 || rig.Container != 0 || len(rig.Orders) == 0 || rig.Orders[0].Kind != "build" || rig.Orders[0].Target != v.ID || e.edgeDistance(rig, v) > 1100 || !e.prerequisites(p, b.Prerequisites) {
@@ -89,7 +89,7 @@ func (e *Engine) updateEconomy() {
 	}
 }
 func (e *Engine) jobReady(p *Player, v *Entity, j *Job) bool {
-	b, _ := e.catalog.Building(v.Type)
+	b, _ := e.buildingRule(v.Type)
 	if !j.Emergency && !e.prerequisites(p, b.Prerequisites) {
 		return false
 	}
@@ -114,7 +114,7 @@ func (e *Engine) freeService(p PlayerID) ID {
 		if v.Owner != p || !v.Building || !v.Complete || v.HP <= 0 {
 			continue
 		}
-		b, _ := e.catalog.Building(v.Type)
+		b, _ := e.buildingRule(v.Type)
 		if b.ServiceSlots == 0 {
 			continue
 		}

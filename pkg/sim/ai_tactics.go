@@ -33,7 +33,7 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 		if role == "engineer" && len(v.Orders) == 0 {
 			selected := false
 			for _, target := range own {
-				b, building := e.catalog.Building(target.Type)
+				b, building := e.buildingRule(target.Type)
 				if building && target.Complete && target.Health < 850 && b.Role != "garrison" && distance(v.Position, target.Position) < 14000 {
 					add(v, "repair", target.ID, "", Vec{})
 					selected = true
@@ -54,7 +54,7 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 					if target.Owner == 0 || e.allied(p.ID, target.Owner) || target.Health >= 250 {
 						continue
 					}
-					if b, ok := e.catalog.Building(target.Type); ok && b.Role != "hq" && b.Role != "strategic" && target.MapObject == 0 {
+					if b, ok := e.buildingRule(target.Type); ok && b.Role != "hq" && b.Role != "strategic" && target.MapObject == 0 {
 						add(v, "capture", target.ID, "", Vec{})
 						break
 					}

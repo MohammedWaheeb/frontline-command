@@ -32,7 +32,10 @@ func maximumFixture(t testing.TB) *Engine {
 	for i, p := range e.state.Players {
 		ox, oy := int32(8000+(i%2)*90000), int32(8000+(i/2)*90000)
 		for n := 0; n < 60; n++ {
-			typ := "bunker"
+			typ := "power"
+			if n > 0 && n <= 16 {
+				typ = "bunker"
+			}
 			if n == 0 {
 				typ = "hq"
 			}
@@ -78,5 +81,71 @@ func BenchmarkMaximumActors(b *testing.B) {
 	b.ResetTimer()
 	for b.Loop() {
 		e.Advance()
+	}
+}
+
+func TestMaximumActorsMovingAndFighting(t *testing.T) {
+	if testing.Short() || raceInstrumentation {
+		t.Skip("performance workload runs without race instrumentation")
+	}
+	e := maximumFixture(t)
+	armies := map[PlayerID][]ID{}
+	for i, p := range e.state.Players {
+		n := 0
+		for _, v := range e.state.Entities {
+			if v.Owner == p.ID && !v.Building && e.role(v) != "rig" && e.role(v) != "hauler" {
+				// All factions' standard rifle squads use one Supply; this remains legal.
+				u, _ := e.catalog.Unit(p.Faction + ".rifle")
+				v.Type = u.ID
+				v.HP = u.HP
+				v.MaxHP = u.HP
+				v.Position = Vec{X: 55000 + int32(i%2)*35000 + int32(n%10)*1200, Y: 55000 + int32(i/2)*35000 + int32(n/10)*1200}
+				armies[p.ID] = append(armies[p.ID], v.ID)
+				n++
+			}
+		}
+	}
+	e.recalculate()
+	e.updateFog()
+	var measurements []time.Duration
+	peakProjectiles, fired := 0, 0
+	for tick := 0; tick < 1200; tick++ {
+		if tick < 320 && tick%40 == 0 {
+			for _, p := range e.state.Players {
+				goal := Vec{X: 78000 + int32((tick/40)%2)*4000, Y: 78000 + int32((tick/40)%2)*4000}
+				ids := armies[p.ID]
+				for start := 0; start < len(ids); start += 64 {
+					live := []ID{}
+					for _, id := range ids[start:min(start+64, len(ids))] {
+						if v := e.entity(id); v != nil && v.HP > 0 {
+							live = append(live, id)
+						}
+					}
+					if len(live) > 0 {
+						if err := e.Submit(p.ID, p.LastSequence+1, []Order{{Kind: "attack_move", Entities: live, Position: goal}}); err != nil {
+							t.Fatal(err)
+						}
+					}
+				}
+			}
+		}
+		start := time.Now()
+		e.Advance()
+		measurements = append(measurements, time.Since(start))
+		peakProjectiles = max(peakProjectiles, len(e.state.Projectiles))
+		for _, event := range e.state.Events {
+			if event.Kind == "weapon_fired" {
+				fired++
+			}
+		}
+	}
+	if fired == 0 {
+		t.Fatal("stress workload did not reach combat")
+	}
+	sort.Slice(measurements, func(i, j int) bool { return measurements[i] < measurements[j] })
+	p50, p95, p99 := measurements[600], measurements[1140], measurements[1188]
+	t.Logf("legal initial 688 actors, mass route changes + combat: p50=%s p95=%s p99=%s; shots=%d peak projectiles=%d final actors=%d; host-specific", p50, p95, p99, fired, peakProjectiles, len(e.state.Entities))
+	if p95 > 25*time.Millisecond || p99 > 40*time.Millisecond {
+		t.Fatal("moving/combat tick budget exceeded")
 	}
 }

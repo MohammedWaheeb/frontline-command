@@ -318,6 +318,7 @@ type SalvageIncome struct {
 	Amount int64 `json:"amount"`
 }
 type Engine struct {
+	buildingRules  map[string]content.Building
 	dynamicNavTick Tick
 	dynamicNav     map[int32][]ID
 	state          State

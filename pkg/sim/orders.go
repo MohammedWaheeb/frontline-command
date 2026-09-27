@@ -398,7 +398,7 @@ func (e *Engine) startBuilding(p *Player, rig *Entity, o Order) string {
 	if e.role(rig) != "rig" || rig.Container != 0 {
 		return "rig_required"
 	}
-	b, ok := e.catalog.Building(o.Type)
+	b, ok := e.buildingRule(o.Type)
 	if !ok || strings.HasPrefix(o.Type, "map.") || b.Faction != "" && b.Faction != p.Faction {
 		return "unknown_building"
 	}
@@ -412,7 +412,7 @@ func (e *Engine) startBuilding(p *Player, rig *Entity, o Order) string {
 	for _, v := range e.state.Entities {
 		if v.Owner == p.ID && v.Building && v.HP > 0 {
 			structures++
-			d, _ := e.catalog.Building(v.Type)
+			d, _ := e.buildingRule(v.Type)
 			if d.Defense {
 				defenses++
 			}
@@ -506,7 +506,7 @@ func (e *Engine) enqueue(p *Player, v *Entity, o Order) string {
 }
 func (e *Engine) cancel(p *Player, v *Entity, index int32) string {
 	if v.Building && !v.Complete {
-		b, _ := e.catalog.Building(v.Type)
+		b, _ := e.buildingRule(v.Type)
 		remaining := int64(b.BuildTicks*2 - v.Work)
 		refund := v.Paid * 3 * remaining / (4 * int64(b.BuildTicks*2))
 		p.Credits += refund

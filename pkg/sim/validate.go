@@ -25,7 +25,7 @@ func (e *Engine) validateState() error {
 			return fmt.Errorf("invalid saved entity state %d", v.ID)
 		}
 		if v.Building {
-			b, _ := e.catalog.Building(v.Type)
+			b, _ := e.buildingRule(v.Type)
 			if v.Work > b.BuildTicks*2 {
 				return fmt.Errorf("construction work out of bounds")
 			}
@@ -111,7 +111,7 @@ func (e *Engine) validateState() error {
 		seenKnowledge := map[ID]bool{}
 		for _, observation := range p.AIKnowledge {
 			_, unit := e.catalog.Unit(observation.Type)
-			_, building := e.catalog.Building(observation.Type)
+			_, building := e.buildingRule(observation.Type)
 			if observation.ID == 0 || seenKnowledge[observation.ID] || observation.Seen > s.Tick || !s.Map.InBounds(observation.Position) || e.player(observation.Owner) == nil || (!unit && !building) {
 				return fmt.Errorf("invalid AI observation")
 			}

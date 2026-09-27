@@ -1,0 +1,76 @@
+{
+  "date": "2026-09-27T19:37:58.995Z",
+  "browserPath": "Browser plugin not available; installed Playwright browsers used.",
+  "native": [
+    {
+      "label": "start",
+      "tick": 100,
+      "hash": "8bdc73cb305e7ae8adb6df930b2251f342e9776122b1bf882bcfab16bce2cbb8"
+    },
+    {
+      "label": "moving",
+      "tick": 137,
+      "hash": "b1a37a1315f5c401a51ccee673bab3cc62d4ce9bd87618f872a60e2789f5345f"
+    },
+    {
+      "label": "economy",
+      "tick": 937,
+      "hash": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db"
+    }
+  ],
+  "browsers": [
+    {
+      "name": "webkit",
+      "status": "failed",
+      "consoleErrors": [],
+      "version": "26.5",
+      "parity": {
+        "checkpoints": [
+          {
+            "label": "start",
+            "tick": 100,
+            "hash": "8bdc73cb305e7ae8adb6df930b2251f342e9776122b1bf882bcfab16bce2cbb8"
+          },
+          {
+            "label": "moving",
+            "tick": 137,
+            "hash": "b1a37a1315f5c401a51ccee673bab3cc62d4ce9bd87618f872a60e2789f5345f"
+          },
+          {
+            "label": "economy",
+            "tick": 937,
+            "hash": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db"
+          }
+        ],
+        "submits": [
+          "accepted",
+          "not_owner",
+          "accepted"
+        ],
+        "hash": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db",
+        "before": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db",
+        "records": 4,
+        "autosaves": 3,
+        "corruption": "save_corrupt",
+        "preserved": true,
+        "isolated": true,
+        "exact": true,
+        "conflict": "save_conflict",
+        "downloadedHash": "01597064823b07251740626a2231afb0ce91ed244cf15e8da01916da67f489db",
+        "privateOnly": true,
+        "uploadRevision": 1
+      },
+      "offlineProbe": {
+        "controlled": true,
+        "online": false,
+        "/runtime/version.json": {
+          "error": "TypeError: Load failed"
+        },
+        "/": {
+          "error": "TypeError: Load failed"
+        }
+      },
+      "error": "page.reload: WebKit encountered an internal error\nCall log:\n\u001b[2m  - waiting for navigation until \"load\"\u001b[22m\n\n    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/scripts/runtime/browser-test.mjs:70:14"
+    }
+  ]
+}

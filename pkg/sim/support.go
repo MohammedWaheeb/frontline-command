@@ -300,7 +300,7 @@ func (e *Engine) updateChannel(v *Entity) {
 		e.collectSalvage(v)
 	case "sell":
 		p := e.player(v.Owner)
-		b, _ := e.catalog.Building(v.Type)
+		b, _ := e.buildingRule(v.Type)
 		basis := v.Paid
 		if b.Role == "supply" {
 			basis = max(int64(0), basis-900000)
@@ -400,13 +400,13 @@ func (e *Engine) captureBuilding(owner PlayerID, v *Entity) {
 	v.IncludedHauler = true
 	v.Contributions = nil
 	v.AttributedDamage = 0
-	b, _ := e.catalog.Building(v.Type)
+	b, _ := e.buildingRule(v.Type)
 	if b.ServiceSlots > 0 || b.Role == "safehouse" {
 		typ := content.AirProducer(e.player(owner).Faction)
 		if b.Role == "safehouse" {
 			typ = "outpost"
 		}
-		next, _ := e.catalog.Building(typ)
+		next, _ := e.buildingRule(typ)
 		v.HP = v.HP * next.HP / v.MaxHP
 		v.MaxHP = next.HP
 		v.Type = typ

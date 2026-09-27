@@ -22,7 +22,7 @@ func (e *Engine) aiObserve(p *Player, view View) {
 		if _, found := live[old.ID]; found {
 			continue
 		}
-		_, structure := e.catalog.Building(old.Type)
+		_, structure := e.buildingRule(old.Type)
 		age := seconds(60)
 		if structure {
 			age = seconds(300)
@@ -74,7 +74,7 @@ func (e *Engine) aiAirDanger(p *Player, point Vec) bool {
 		if u, ok := e.catalog.Unit(enemy.Type); ok {
 			weapon = u.Weapon
 		}
-		if b, ok := e.catalog.Building(enemy.Type); ok {
+		if b, ok := e.buildingRule(enemy.Type); ok {
 			weapon = b.Weapon
 		}
 		if w, ok := e.catalog.Weapon(weapon); ok && w.Kind == "antiair" && distance(enemy.Position, point) < w.MaxRange+3000 {
@@ -89,7 +89,7 @@ func (e *Engine) aiExpansion(p *Player, own []EntityView) (Vec, bool) {
 	need := false
 	for _, field := range p.AIFields {
 		for _, v := range own {
-			if b, ok := e.catalog.Building(v.Type); ok && b.Role == "supply" && distance(v.Position, field.Position) < 12000 && field.Remaining < 6000000 {
+			if b, ok := e.buildingRule(v.Type); ok && b.Role == "supply" && distance(v.Position, field.Position) < 12000 && field.Remaining < 6000000 {
 				need = true
 			}
 		}
@@ -104,7 +104,7 @@ func (e *Engine) aiExpansion(p *Player, own []EntityView) (Vec, bool) {
 		covered := false
 		d := int64(1 << 62)
 		for _, v := range own {
-			if b, ok := e.catalog.Building(v.Type); ok {
+			if b, ok := e.buildingRule(v.Type); ok {
 				if b.Role == "supply" && distance(v.Position, field.Position) < 12000 {
 					covered = true
 				}
@@ -131,7 +131,7 @@ func (e *Engine) aiInBuildRadius(p *Player, typ string, pos Vec) bool {
 	return false
 }
 func (e *Engine) aiConstructionPosition(p *Player, typ string, center Vec) (Vec, bool) {
-	b, _ := e.catalog.Building(typ)
+	b, _ := e.buildingRule(typ)
 	for r := int32(4000); r <= 13000; r += 2000 {
 		for _, d := range neighbors {
 			pos := Vec{X: (center.X + d.X*r) / 500 * 500, Y: (center.Y + d.Y*r) / 500 * 500}
