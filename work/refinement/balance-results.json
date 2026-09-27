@@ -1,0 +1,1240 @@
+{
+  "rosters": {
+    "US": {
+      "rifle": {
+        "name": "Ranger squad",
+        "cost": 300,
+        "build": 10,
+        "hp": 300,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": "RIF",
+        "producer": "barracks"
+      },
+      "at": {
+        "name": "Guided-missile team",
+        "cost": 500,
+        "build": 15,
+        "hp": 220,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": "AT",
+        "producer": "barracks"
+      },
+      "recon": {
+        "name": "Pathfinder team",
+        "cost": 350,
+        "build": 12,
+        "hp": 180,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": "REC",
+        "producer": "barracks"
+      },
+      "elite": {
+        "name": "Special operations team",
+        "cost": 1600,
+        "build": 40,
+        "hp": 500,
+        "armor": "infantry",
+        "supply": 4,
+        "tier": 3,
+        "speed": 2.8,
+        "weapon": "ELI",
+        "producer": "barracks"
+      },
+      "engineer": {
+        "name": "Combat engineer",
+        "cost": 400,
+        "build": 12,
+        "hp": 150,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "barracks"
+      },
+      "medic": {
+        "name": "Field medic",
+        "cost": 350,
+        "build": 12,
+        "hp": 160,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "barracks"
+      },
+      "car": {
+        "name": "Recon rover",
+        "cost": 500,
+        "build": 15,
+        "hp": 450,
+        "armor": "light",
+        "supply": 2,
+        "tier": 1,
+        "speed": 4.5,
+        "weapon": "AUTO",
+        "producer": "factory"
+      },
+      "apc": {
+        "name": "Infantry carrier",
+        "cost": 700,
+        "build": 20,
+        "hp": 700,
+        "armor": "light",
+        "supply": 3,
+        "tier": 1,
+        "speed": 3.5,
+        "weapon": "APC",
+        "producer": "factory"
+      },
+      "tank": {
+        "name": "Sentinel tank",
+        "cost": 1300,
+        "build": 30,
+        "hp": 1400,
+        "armor": "heavy",
+        "supply": 4,
+        "tier": 1,
+        "speed": 2.3,
+        "weapon": "TANK",
+        "producer": "factory"
+      },
+      "artillery": {
+        "name": "Precision howitzer",
+        "cost": 1100,
+        "build": 30,
+        "hp": 600,
+        "armor": "light",
+        "supply": 3,
+        "tier": 2,
+        "speed": 2.0,
+        "weapon": "ART",
+        "producer": "factory"
+      },
+      "aa": {
+        "name": "Skyguard vehicle",
+        "cost": 900,
+        "build": 25,
+        "hp": 650,
+        "armor": "light",
+        "supply": 3,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": "AA",
+        "producer": "factory"
+      },
+      "repair": {
+        "name": "Recovery vehicle",
+        "cost": 600,
+        "build": 18,
+        "hp": 400,
+        "armor": "light",
+        "supply": 2,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": null,
+        "producer": "factory"
+      },
+      "fighter": {
+        "name": "Falcon interceptor",
+        "cost": 1600,
+        "build": 38,
+        "hp": 750,
+        "armor": "air",
+        "supply": 4,
+        "tier": 2,
+        "speed": 7.0,
+        "weapon": "US_FIGHT",
+        "producer": "airfield"
+      },
+      "strike": {
+        "name": "Precision strike jet",
+        "cost": 1800,
+        "build": 42,
+        "hp": 700,
+        "armor": "air",
+        "supply": 4,
+        "tier": 2,
+        "speed": 7.0,
+        "weapon": "US_STRIKE",
+        "producer": "airfield"
+      },
+      "gunship": {
+        "name": "Attack helicopter",
+        "cost": 1400,
+        "build": 35,
+        "hp": 800,
+        "armor": "air",
+        "supply": 4,
+        "tier": 2,
+        "speed": 4.0,
+        "weapon": "US_GUN",
+        "producer": "airfield"
+      },
+      "launcher": {
+        "name": "Precision missile carrier",
+        "cost": 2800,
+        "build": 60,
+        "hp": 650,
+        "armor": "light",
+        "supply": 5,
+        "tier": 3,
+        "speed": 1.8,
+        "weapon": "MISSILE",
+        "producer": "factory"
+      },
+      "rig": {
+        "name": "Engineering rig",
+        "cost": 800,
+        "build": 20,
+        "hp": 600,
+        "armor": "light",
+        "supply": 0,
+        "tier": 1,
+        "speed": 2.0,
+        "weapon": null,
+        "producer": "hq"
+      },
+      "hauler": {
+        "name": "Logistics truck",
+        "cost": 900,
+        "build": 25,
+        "hp": 900,
+        "armor": "heavy",
+        "supply": 0,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": null,
+        "producer": "supply"
+      },
+      "airlift": {
+        "name": "Transport helicopter",
+        "cost": 900,
+        "build": 28,
+        "hp": 550,
+        "armor": "air",
+        "supply": 3,
+        "tier": 2,
+        "speed": 5.5,
+        "weapon": null,
+        "producer": "airfield"
+      }
+    },
+    "IR": {
+      "rifle": {
+        "name": "Line infantry",
+        "cost": 300,
+        "build": 10,
+        "hp": 300,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": "RIF",
+        "producer": "barracks"
+      },
+      "at": {
+        "name": "Missile infantry",
+        "cost": 500,
+        "build": 15,
+        "hp": 220,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": "AT",
+        "producer": "barracks"
+      },
+      "recon": {
+        "name": "Forward observers",
+        "cost": 350,
+        "build": 12,
+        "hp": 180,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": "REC",
+        "producer": "barracks"
+      },
+      "elite": {
+        "name": "Infiltration team",
+        "cost": 1600,
+        "build": 40,
+        "hp": 500,
+        "armor": "infantry",
+        "supply": 4,
+        "tier": 3,
+        "speed": 2.8,
+        "weapon": "ELI",
+        "producer": "barracks"
+      },
+      "engineer": {
+        "name": "Field engineer",
+        "cost": 400,
+        "build": 12,
+        "hp": 150,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "barracks"
+      },
+      "medic": {
+        "name": "Medical team",
+        "cost": 350,
+        "build": 12,
+        "hp": 160,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "barracks"
+      },
+      "car": {
+        "name": "Patrol vehicle",
+        "cost": 500,
+        "build": 15,
+        "hp": 450,
+        "armor": "light",
+        "supply": 2,
+        "tier": 1,
+        "speed": 4.5,
+        "weapon": "AUTO",
+        "producer": "factory"
+      },
+      "apc": {
+        "name": "Armored troop carrier",
+        "cost": 700,
+        "build": 20,
+        "hp": 700,
+        "armor": "light",
+        "supply": 3,
+        "tier": 1,
+        "speed": 3.5,
+        "weapon": "APC",
+        "producer": "factory"
+      },
+      "tank": {
+        "name": "Bastion tank",
+        "cost": 1150,
+        "build": 30,
+        "hp": 1200,
+        "armor": "heavy",
+        "supply": 4,
+        "tier": 1,
+        "speed": 2.3,
+        "weapon": "TANK",
+        "producer": "factory"
+      },
+      "artillery": {
+        "name": "Rocket artillery",
+        "cost": 1200,
+        "build": 30,
+        "hp": 550,
+        "armor": "light",
+        "supply": 3,
+        "tier": 2,
+        "speed": 2.0,
+        "weapon": "IR_ART",
+        "producer": "factory"
+      },
+      "aa": {
+        "name": "Mobile SAM",
+        "cost": 900,
+        "build": 25,
+        "hp": 650,
+        "armor": "light",
+        "supply": 3,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": "AA",
+        "producer": "factory"
+      },
+      "repair": {
+        "name": "Maintenance truck",
+        "cost": 600,
+        "build": 18,
+        "hp": 400,
+        "armor": "light",
+        "supply": 2,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": null,
+        "producer": "factory"
+      },
+      "fighter": {
+        "name": "Interceptor drone",
+        "cost": 1000,
+        "build": 28,
+        "hp": 400,
+        "armor": "air",
+        "supply": 3,
+        "tier": 2,
+        "speed": 6.5,
+        "weapon": "IR_FIGHT",
+        "producer": "drone_hub"
+      },
+      "strike": {
+        "name": "Strike drone",
+        "cost": 750,
+        "build": 24,
+        "hp": 320,
+        "armor": "air",
+        "supply": 2,
+        "tier": 2,
+        "speed": 5.5,
+        "weapon": "IR_STRIKE",
+        "producer": "drone_hub"
+      },
+      "gunship": {
+        "name": "Loiter drone",
+        "cost": 950,
+        "build": 28,
+        "hp": 450,
+        "armor": "air",
+        "supply": 3,
+        "tier": 2,
+        "speed": 4.5,
+        "weapon": "IR_LOITER",
+        "producer": "drone_hub"
+      },
+      "launcher": {
+        "name": "Tactical missile launcher",
+        "cost": 2400,
+        "build": 55,
+        "hp": 600,
+        "armor": "light",
+        "supply": 5,
+        "tier": 3,
+        "speed": 1.8,
+        "weapon": "IR_MISSILE",
+        "producer": "factory"
+      },
+      "rig": {
+        "name": "Construction crawler",
+        "cost": 800,
+        "build": 20,
+        "hp": 600,
+        "armor": "light",
+        "supply": 0,
+        "tier": 1,
+        "speed": 2.0,
+        "weapon": null,
+        "producer": "hq"
+      },
+      "hauler": {
+        "name": "Supply transporter",
+        "cost": 900,
+        "build": 25,
+        "hp": 900,
+        "armor": "heavy",
+        "supply": 0,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": null,
+        "producer": "supply"
+      },
+      "isr": {
+        "name": "Survey drone",
+        "cost": 450,
+        "build": 18,
+        "hp": 180,
+        "armor": "air",
+        "supply": 1,
+        "tier": 2,
+        "speed": 5.5,
+        "weapon": null,
+        "producer": "drone_hub"
+      }
+    },
+    "SY": {
+      "rifle": {
+        "name": "Mobile rifle squad",
+        "cost": 250,
+        "build": 10,
+        "hp": 250,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.8,
+        "weapon": "RIF",
+        "producer": "barracks"
+      },
+      "at": {
+        "name": "Anti-armor crew",
+        "cost": 450,
+        "build": 15,
+        "hp": 190,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.8,
+        "weapon": "AT",
+        "producer": "barracks"
+      },
+      "recon": {
+        "name": "Local scouts",
+        "cost": 300,
+        "build": 12,
+        "hp": 160,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 3.3,
+        "weapon": "REC",
+        "producer": "barracks"
+      },
+      "elite": {
+        "name": "Veteran raiders",
+        "cost": 1400,
+        "build": 40,
+        "hp": 420,
+        "armor": "infantry",
+        "supply": 4,
+        "tier": 3,
+        "speed": 3.1,
+        "weapon": "ELI",
+        "producer": "barracks"
+      },
+      "engineer": {
+        "name": "Mechanic team",
+        "cost": 400,
+        "build": 12,
+        "hp": 150,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "barracks"
+      },
+      "medic": {
+        "name": "Aid team",
+        "cost": 350,
+        "build": 12,
+        "hp": 160,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "barracks"
+      },
+      "car": {
+        "name": "Light technical",
+        "cost": 400,
+        "build": 15,
+        "hp": 330,
+        "armor": "light",
+        "supply": 2,
+        "tier": 1,
+        "speed": 5.0,
+        "weapon": "AUTO",
+        "producer": "factory"
+      },
+      "apc": {
+        "name": "Troop technical",
+        "cost": 550,
+        "build": 20,
+        "hp": 480,
+        "armor": "light",
+        "supply": 3,
+        "tier": 1,
+        "speed": 4.2,
+        "weapon": "APC",
+        "producer": "factory"
+      },
+      "tank": {
+        "name": "Refitted tank",
+        "cost": 1250,
+        "build": 30,
+        "hp": 1050,
+        "armor": "heavy",
+        "supply": 4,
+        "tier": 1,
+        "speed": 2.3,
+        "weapon": "SY_TANK",
+        "producer": "factory"
+      },
+      "artillery": {
+        "name": "Mobile mortar",
+        "cost": 900,
+        "build": 30,
+        "hp": 450,
+        "armor": "light",
+        "supply": 3,
+        "tier": 2,
+        "speed": 2.7,
+        "weapon": "SY_ART",
+        "producer": "factory"
+      },
+      "aa": {
+        "name": "Air-defense technical",
+        "cost": 750,
+        "build": 25,
+        "hp": 480,
+        "armor": "light",
+        "supply": 3,
+        "tier": 1,
+        "speed": 4.0,
+        "weapon": "AA",
+        "producer": "factory"
+      },
+      "repair": {
+        "name": "Salvage truck",
+        "cost": 600,
+        "build": 18,
+        "hp": 400,
+        "armor": "light",
+        "supply": 2,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": null,
+        "producer": "factory"
+      },
+      "portable_aa": {
+        "name": "Portable AA team",
+        "cost": 350,
+        "build": 12,
+        "hp": 180,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.8,
+        "weapon": "SY_AA",
+        "producer": "barracks"
+      },
+      "scout_drone": {
+        "name": "Scout drone",
+        "cost": 500,
+        "build": 20,
+        "hp": 180,
+        "armor": "air",
+        "supply": 1,
+        "tier": 2,
+        "speed": 5.0,
+        "weapon": null,
+        "producer": "workshop_air"
+      },
+      "buggy": {
+        "name": "Raider buggy",
+        "cost": 850,
+        "build": 25,
+        "hp": 480,
+        "armor": "light",
+        "supply": 3,
+        "tier": 2,
+        "speed": 5.0,
+        "weapon": "SY_BUGGY",
+        "producer": "factory"
+      },
+      "launcher": {
+        "name": "Heavy rocket carrier",
+        "cost": 2100,
+        "build": 50,
+        "hp": 500,
+        "armor": "light",
+        "supply": 5,
+        "tier": 3,
+        "speed": 2.2,
+        "weapon": "SY_ROCKET",
+        "producer": "factory"
+      },
+      "rig": {
+        "name": "Workshop rig",
+        "cost": 800,
+        "build": 20,
+        "hp": 600,
+        "armor": "light",
+        "supply": 0,
+        "tier": 1,
+        "speed": 2.0,
+        "weapon": null,
+        "producer": "hq"
+      },
+      "hauler": {
+        "name": "Supply convoy truck",
+        "cost": 900,
+        "build": 25,
+        "hp": 900,
+        "armor": "heavy",
+        "supply": 0,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": null,
+        "producer": "supply"
+      }
+    },
+    "SA": {
+      "rifle": {
+        "name": "Mechanized rifle squad",
+        "cost": 300,
+        "build": 10,
+        "hp": 300,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": "RIF",
+        "producer": "barracks"
+      },
+      "at": {
+        "name": "Anti-tank detachment",
+        "cost": 500,
+        "build": 15,
+        "hp": 220,
+        "armor": "infantry",
+        "supply": 2,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": "AT",
+        "producer": "barracks"
+      },
+      "recon": {
+        "name": "Desert reconnaissance",
+        "cost": 350,
+        "build": 12,
+        "hp": 180,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": "REC",
+        "producer": "barracks"
+      },
+      "elite": {
+        "name": "Rapid-response team",
+        "cost": 1600,
+        "build": 40,
+        "hp": 500,
+        "armor": "infantry",
+        "supply": 4,
+        "tier": 3,
+        "speed": 2.8,
+        "weapon": "ELI",
+        "producer": "barracks"
+      },
+      "engineer": {
+        "name": "Engineering detachment",
+        "cost": 400,
+        "build": 12,
+        "hp": 150,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "barracks"
+      },
+      "medic": {
+        "name": "Medical detachment",
+        "cost": 350,
+        "build": 12,
+        "hp": 160,
+        "armor": "infantry",
+        "supply": 1,
+        "tier": 1,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "barracks"
+      },
+      "car": {
+        "name": "Desert patrol car",
+        "cost": 500,
+        "build": 15,
+        "hp": 450,
+        "armor": "light",
+        "supply": 2,
+        "tier": 1,
+        "speed": 4.5,
+        "weapon": "AUTO",
+        "producer": "factory"
+      },
+      "apc": {
+        "name": "Wheeled infantry carrier",
+        "cost": 800,
+        "build": 20,
+        "hp": 850,
+        "armor": "light",
+        "supply": 3,
+        "tier": 1,
+        "speed": 3.7,
+        "weapon": "APC",
+        "producer": "factory"
+      },
+      "tank": {
+        "name": "Guardian tank",
+        "cost": 1400,
+        "build": 30,
+        "hp": 1600,
+        "armor": "heavy",
+        "supply": 4,
+        "tier": 1,
+        "speed": 2.2,
+        "weapon": "TANK",
+        "producer": "factory"
+      },
+      "artillery": {
+        "name": "Mobile howitzer",
+        "cost": 1100,
+        "build": 30,
+        "hp": 600,
+        "armor": "light",
+        "supply": 3,
+        "tier": 2,
+        "speed": 2.0,
+        "weapon": "ART",
+        "producer": "factory"
+      },
+      "aa": {
+        "name": "Air-shield vehicle",
+        "cost": 1050,
+        "build": 25,
+        "hp": 850,
+        "armor": "light",
+        "supply": 3,
+        "tier": 1,
+        "speed": 2.8,
+        "weapon": "AA",
+        "producer": "factory"
+      },
+      "repair": {
+        "name": "Service vehicle",
+        "cost": 750,
+        "build": 18,
+        "hp": 550,
+        "armor": "light",
+        "supply": 2,
+        "tier": 1,
+        "speed": 3.2,
+        "weapon": null,
+        "producer": "factory"
+      },
+      "fighter": {
+        "name": "Defense fighter",
+        "cost": 1550,
+        "build": 40,
+        "hp": 700,
+        "armor": "air",
+        "supply": 4,
+        "tier": 2,
+        "speed": 7.0,
+        "weapon": "FIGHT",
+        "producer": "airfield"
+      },
+      "strike": {
+        "name": "Multirole strike jet",
+        "cost": 1750,
+        "build": 45,
+        "hp": 650,
+        "armor": "air",
+        "supply": 4,
+        "tier": 2,
+        "speed": 7.0,
+        "weapon": "STRIKE",
+        "producer": "airfield"
+      },
+      "gunship": {
+        "name": "Escort helicopter",
+        "cost": 1350,
+        "build": 35,
+        "hp": 800,
+        "armor": "air",
+        "supply": 4,
+        "tier": 2,
+        "speed": 4.0,
+        "weapon": "GUN",
+        "producer": "airfield"
+      },
+      "launcher": {
+        "name": "Cruise missile carrier",
+        "cost": 2600,
+        "build": 55,
+        "hp": 650,
+        "armor": "light",
+        "supply": 5,
+        "tier": 3,
+        "speed": 1.8,
+        "weapon": "MISSILE",
+        "producer": "factory"
+      },
+      "rig": {
+        "name": "Infrastructure rig",
+        "cost": 800,
+        "build": 20,
+        "hp": 600,
+        "armor": "light",
+        "supply": 0,
+        "tier": 1,
+        "speed": 2.0,
+        "weapon": null,
+        "producer": "hq"
+      },
+      "hauler": {
+        "name": "Logistics carrier",
+        "cost": 900,
+        "build": 25,
+        "hp": 900,
+        "armor": "heavy",
+        "supply": 0,
+        "tier": 1,
+        "speed": 3.0,
+        "weapon": null,
+        "producer": "supply"
+      },
+      "mobile_abm": {
+        "name": "Aegis carrier",
+        "cost": 1600,
+        "build": 40,
+        "hp": 850,
+        "armor": "light",
+        "supply": 4,
+        "tier": 2,
+        "speed": 2.5,
+        "weapon": null,
+        "producer": "factory"
+      }
+    }
+  },
+  "weapons": {
+    "RIF": [
+      "small",
+      24,
+      1,
+      0,
+      5,
+      null
+    ],
+    "REC": [
+      "small",
+      12,
+      1,
+      0,
+      4,
+      null
+    ],
+    "ELI": [
+      "small",
+      60,
+      1,
+      0,
+      6,
+      null
+    ],
+    "APC": [
+      "small",
+      16,
+      1,
+      0,
+      5,
+      null
+    ],
+    "AUTO": [
+      "auto",
+      18,
+      0.75,
+      0,
+      5,
+      null
+    ],
+    "TANK": [
+      "cannon",
+      100,
+      2.5,
+      0,
+      7,
+      null
+    ],
+    "AT": [
+      "antiarmor",
+      100,
+      3,
+      0,
+      7,
+      null
+    ],
+    "ART": [
+      "shell",
+      140,
+      5,
+      4,
+      14,
+      null
+    ],
+    "AA": [
+      "antiair",
+      70,
+      1.5,
+      0,
+      10,
+      null
+    ],
+    "FIGHT": [
+      "antiair",
+      100,
+      2,
+      0,
+      9,
+      6
+    ],
+    "STRIKE": [
+      "airground",
+      160,
+      1,
+      0,
+      8,
+      2
+    ],
+    "GUN": [
+      "airground",
+      60,
+      2,
+      0,
+      7,
+      8
+    ],
+    "US_FIGHT": [
+      "antiair",
+      100,
+      1.8,
+      0,
+      10,
+      6
+    ],
+    "US_STRIKE": [
+      "airground",
+      200,
+      1,
+      0,
+      8,
+      2
+    ],
+    "US_GUN": [
+      "airground",
+      65,
+      2,
+      0,
+      7,
+      8
+    ],
+    "IR_ART": [
+      "shell",
+      40,
+      1,
+      5,
+      15,
+      null
+    ],
+    "IR_FIGHT": [
+      "antiair",
+      70,
+      1.5,
+      0,
+      8,
+      6
+    ],
+    "IR_STRIKE": [
+      "airground",
+      100,
+      1,
+      0,
+      6,
+      2
+    ],
+    "IR_LOITER": [
+      "airground",
+      40,
+      2,
+      0,
+      7,
+      10
+    ],
+    "SY_ART": [
+      "shell",
+      100,
+      4.5,
+      3,
+      12,
+      null
+    ],
+    "SY_AA": [
+      "antiair",
+      50,
+      2,
+      0,
+      8,
+      null
+    ],
+    "SY_BUGGY": [
+      "antiarmor",
+      70,
+      3,
+      0,
+      7,
+      null
+    ],
+    "SY_TANK": [
+      "cannon",
+      90,
+      3,
+      0,
+      7,
+      null
+    ],
+    "MISSILE": [
+      "tactical",
+      500,
+      80,
+      10,
+      36,
+      1
+    ],
+    "IR_MISSILE": [
+      "tactical",
+      350,
+      60,
+      10,
+      44,
+      2
+    ],
+    "SY_ROCKET": [
+      "tactical",
+      400,
+      65,
+      8,
+      28,
+      1
+    ],
+    "TURRET": [
+      "cannon",
+      80,
+      2,
+      0,
+      9,
+      null
+    ],
+    "AA_POST": [
+      "antiair",
+      70,
+      1.5,
+      0,
+      11,
+      null
+    ]
+  },
+  "counter_probes": [
+    [
+      "Anti-armor crews vs tanks",
+      6000,
+      {
+        "counts": [
+          12,
+          4
+        ],
+        "survivors": [
+          11,
+          0
+        ],
+        "time": 9.0,
+        "winner": "left",
+        "remaining_cash": [
+          0,
+          800
+        ]
+      }
+    ],
+    [
+      "Scout cars vs rifle squads",
+      3000,
+      {
+        "counts": [
+          6,
+          10
+        ],
+        "survivors": [
+          4,
+          0
+        ],
+        "time": 30.75,
+        "winner": "left",
+        "remaining_cash": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "Tanks vs scout cars",
+      6000,
+      {
+        "counts": [
+          4,
+          12
+        ],
+        "survivors": [
+          2,
+          0
+        ],
+        "time": 65.0,
+        "winner": "left",
+        "remaining_cash": [
+          800,
+          0
+        ]
+      }
+    ],
+    [
+      "Rifles vs anti-armor crews",
+      3000,
+      {
+        "counts": [
+          10,
+          6
+        ],
+        "survivors": [
+          10,
+          0
+        ],
+        "time": 5.0,
+        "winner": "left",
+        "remaining_cash": [
+          0,
+          0
+        ]
+      }
+    ],
+    [
+      "Saudi tanks vs Syrian refitted tanks",
+      7000,
+      {
+        "counts": [
+          5,
+          5
+        ],
+        "survivors": [
+          3,
+          0
+        ],
+        "time": 35.0,
+        "winner": "left",
+        "remaining_cash": [
+          0,
+          750
+        ]
+      }
+    ]
+  ]
+}
