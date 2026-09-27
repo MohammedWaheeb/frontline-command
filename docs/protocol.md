@@ -16,6 +16,8 @@ versions/content hash, then connect with a slot token. Commands carry monotonic
 sequence numbers. Reject unknown, duplicate, stale, oversized, malformed and
 unauthorized commands with stable reason codes. Maximum 64 entities per order,
 ten queued orders per unit, 32 orders per batch. Limits are server enforced.
+`Economy.last_sequence` reports only the owning player's accepted sequence so
+load/reconnect can resume the stream safely.
 
 `PlayerSnapshot` and `StateDelta` include only permitted state. Own resource,
 queue, orders, cooldown and research data is private. Enemy visible entities

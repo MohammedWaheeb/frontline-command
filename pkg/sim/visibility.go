@@ -209,6 +209,7 @@ func (e *Engine) canSeeEntity(player PlayerID, v *Entity) bool {
 }
 
 type EconomyView struct {
+	LastSequence   uint32     `json:"last_sequence"`
 	Credits        int64      `json:"credits"`
 	Energy         int64      `json:"energy"`
 	Supply         int32      `json:"supply"`
@@ -354,7 +355,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 	if p == nil {
 		return View{}, false
 	}
-	view := View{Metadata: e.state.Metadata, Tick: e.state.Tick, Countdown: e.state.Countdown, Player: id, Economy: EconomyView{p.Credits, p.Energy, p.Supply, p.ReservedSupply, p.PowerCapacity, p.PowerDemand, p.Tier, p.Income, p.RepairReserve, append([]string(nil), p.Upgrades...), append([]Cooldown(nil), p.Cooldowns...)}, Explored: append([]bool(nil), p.Explored...), Visible: append([]bool(nil), e.visible[id]...), Memory: append([]Memory(nil), p.Memory...), ShipmentAt: e.state.ShipmentAt, Outcome: e.state.Outcome}
+	view := View{Metadata: e.state.Metadata, Tick: e.state.Tick, Countdown: e.state.Countdown, Player: id, Economy: EconomyView{p.LastSequence, p.Credits, p.Energy, p.Supply, p.ReservedSupply, p.PowerCapacity, p.PowerDemand, p.Tier, p.Income, p.RepairReserve, append([]string(nil), p.Upgrades...), append([]Cooldown(nil), p.Cooldowns...)}, Explored: append([]bool(nil), p.Explored...), Visible: append([]bool(nil), e.visible[id]...), Memory: append([]Memory(nil), p.Memory...), ShipmentAt: e.state.ShipmentAt, Outcome: e.state.Outcome}
 	view.Rubble = append([]uint32(nil), p.KnownRubble...)
 	view.Warnings = e.operationWarnings(id)
 	for _, player := range e.state.Players {

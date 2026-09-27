@@ -36,8 +36,8 @@ func NewMission(c *content.Catalog, m content.Map, definition content.Mission, d
 		return nil, errors.New("unknown mission difficulty")
 	}
 	cfg := Config{Map: m, Seed: seed, Ruleset: "scenario-v2"}
-	for _, p := range definition.Players {
-		cfg.Players = append(cfg.Players, PlayerConfig{ID: PlayerID(p.ID), Name: p.Name, Faction: p.Faction, Team: p.Team, AI: p.AI})
+	for i, p := range definition.Players {
+		cfg.Players = append(cfg.Players, PlayerConfig{ID: PlayerID(p.ID), Name: p.Name, Faction: p.Faction, Team: p.Team, AI: p.AI, Controller: p.Control(i)})
 	}
 	e, err := New(c, cfg)
 	if err != nil {
@@ -57,9 +57,16 @@ func NewMission(c *content.Catalog, m content.Map, definition content.Mission, d
 		e.state.Entities = objects
 		e.state.NavigationRevision++
 	}
+	humanTeam := uint32(0)
+	for i, p := range def.Players {
+		if p.Control(i) == "human" {
+			humanTeam = p.Team
+			break
+		}
+	}
 	for _, p := range def.Players {
 		credits := p.Credits
-		if p.AI != "" {
+		if p.Team != humanTeam {
 			for _, d := range def.Difficulty {
 				if d.ID == difficulty {
 					credits = credits * int64(d.EnemyCreditsMultiplier) / 1000
@@ -244,7 +251,7 @@ func (e *Engine) missionCondition(q content.MissionCondition, since *Tick) (bool
 	case "timer":
 		at := q.Tick
 		for _, d := range e.state.Mission.Definition.Difficulty {
-			if d.ID == e.state.Mission.Difficulty {
+			if q.Wave && d.ID == e.state.Mission.Difficulty {
 				at = uint32(uint64(at) * uint64(d.WaveTimeMultiplier) / 1000)
 			}
 		}
@@ -427,7 +434,7 @@ func (e *Engine) updateMission() {
 		winning := uint32(0)
 		if !failed {
 			for _, p := range e.state.Players {
-				if p.AI == "" {
+				if p.Controller == "human" {
 					winning = p.Team
 					break
 				}

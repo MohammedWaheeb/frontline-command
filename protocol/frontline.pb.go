@@ -994,6 +994,7 @@ type Economy struct {
 	RepairReserve  int64                  `protobuf:"varint,9,opt,name=repair_reserve,json=repairReserve,proto3" json:"repair_reserve,omitempty"`
 	Upgrades       []string               `protobuf:"bytes,10,rep,name=upgrades,proto3" json:"upgrades,omitempty"`
 	Cooldowns      []*Cooldown            `protobuf:"bytes,11,rep,name=cooldowns,proto3" json:"cooldowns,omitempty"`
+	LastSequence   uint32                 `protobuf:"varint,12,opt,name=last_sequence,json=lastSequence,proto3" json:"last_sequence,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -1103,6 +1104,13 @@ func (x *Economy) GetCooldowns() []*Cooldown {
 		return x.Cooldowns
 	}
 	return nil
+}
+
+func (x *Economy) GetLastSequence() uint32 {
+	if x != nil {
+		return x.LastSequence
+	}
+	return 0
 }
 
 type EntityPrivate struct {
@@ -2921,7 +2929,7 @@ const file_protocol_frontline_proto_rawDesc = "" +
 	"\x06supply\x18\x06 \x01(\x05R\x06supply\x12\x18\n" +
 	"\aservice\x18\a \x01(\rR\aservice\x12\x18\n" +
 	"\astarted\x18\b \x01(\bR\astarted\x12\x1c\n" +
-	"\temergency\x18\t \x01(\bR\temergency\"\xeb\x02\n" +
+	"\temergency\x18\t \x01(\bR\temergency\"\x90\x03\n" +
 	"\aEconomy\x12\x18\n" +
 	"\acredits\x18\x01 \x01(\x03R\acredits\x12\x16\n" +
 	"\x06energy\x18\x02 \x01(\x03R\x06energy\x12\x16\n" +
@@ -2934,7 +2942,8 @@ const file_protocol_frontline_proto_rawDesc = "" +
 	"\x0erepair_reserve\x18\t \x01(\x03R\rrepairReserve\x12\x1a\n" +
 	"\bupgrades\x18\n" +
 	" \x03(\tR\bupgrades\x124\n" +
-	"\tcooldowns\x18\v \x03(\v2\x16.frontline.v1.CooldownR\tcooldowns\"\x81\x04\n" +
+	"\tcooldowns\x18\v \x03(\v2\x16.frontline.v1.CooldownR\tcooldowns\x12#\n" +
+	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\x81\x04\n" +
 	"\rEntityPrivate\x12\x0e\n" +
 	"\x02hp\x18\x01 \x01(\x03R\x02hp\x12\x15\n" +
 	"\x06max_hp\x18\x02 \x01(\x03R\x05maxHp\x12%\n" +

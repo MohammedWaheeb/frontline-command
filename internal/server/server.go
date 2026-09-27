@@ -24,12 +24,14 @@ import (
 )
 
 type Config struct {
+	MissionDir     string
 	DataDir        string
 	StaticDir      string
 	MapDir         string
 	AllowedOrigins []string
 }
 type LobbySlot struct {
+	Script      bool         `json:"script,omitempty"`
 	Player      sim.PlayerID `json:"player"`
 	Profile     string       `json:"profile,omitempty"`
 	Name        string       `json:"name"`
@@ -40,20 +42,27 @@ type LobbySlot struct {
 	AssetsReady bool         `json:"assets_ready"`
 }
 type Lobby struct {
-	Rated         bool        `json:"rated"`
-	LiveObservers bool        `json:"live_observers"`
-	ID            string      `json:"id"`
-	Name          string      `json:"name"`
-	Host          string      `json:"host"`
-	MapID         string      `json:"map_id"`
-	Mode          string      `json:"mode"`
-	Private       bool        `json:"private"`
-	Code          string      `json:"-"`
-	Slots         []LobbySlot `json:"slots"`
-	MatchID       string      `json:"match_id,omitempty"`
-	Created       int64       `json:"created"`
+	ResumeSave     string      `json:"-"`
+	ResumeOwner    string      `json:"-"`
+	ResumeRevision int64       `json:"-"`
+	ResumeTick     uint32      `json:"resume_tick,omitempty"`
+	ScenarioID     string      `json:"scenario_id,omitempty"`
+	Difficulty     string      `json:"difficulty,omitempty"`
+	Rated          bool        `json:"rated"`
+	LiveObservers  bool        `json:"live_observers"`
+	ID             string      `json:"id"`
+	Name           string      `json:"name"`
+	Host           string      `json:"host"`
+	MapID          string      `json:"map_id"`
+	Mode           string      `json:"mode"`
+	Private        bool        `json:"private"`
+	Code           string      `json:"-"`
+	Slots          []LobbySlot `json:"slots"`
+	MatchID        string      `json:"match_id,omitempty"`
+	Created        int64       `json:"created"`
 }
 type Server struct {
+	missions  map[string]content.Mission
 	queue     map[string]*queueEntry
 	dataLock  *flock.Flock
 	admission admissionControl
@@ -74,6 +83,9 @@ func New(cfg Config) (*Server, error) {
 	}
 	if cfg.MapDir == "" {
 		cfg.MapDir = "content/maps"
+	}
+	if cfg.MissionDir == "" {
+		cfg.MissionDir = "content/missions"
 	}
 	if err := os.MkdirAll(cfg.DataDir, 0700); err != nil {
 		return nil, err
@@ -130,6 +142,10 @@ func New(cfg Config) (*Server, error) {
 		return nil, err
 	}
 	if _, err = repo.RecoverInterrupted(context.Background(), s.objects); err != nil {
+		repo.Close()
+		return nil, err
+	}
+	if err = s.loadMissions(); err != nil {
 		repo.Close()
 		return nil, err
 	}
@@ -249,6 +265,9 @@ func (s *Server) routes() {
 		}
 	})
 	s.mux.HandleFunc("GET /api/v1/maps", s.listMaps)
+	s.mux.HandleFunc("GET /api/v1/missions", s.listMissions)
+	s.mux.HandleFunc("GET /api/v1/missions/{id}", s.getMission)
+	s.mux.HandleFunc("POST /api/v1/missions/{id}/lobby", s.createScenarioLobby)
 	s.mux.HandleFunc("POST /api/v1/matchmaking", s.joinQueue)
 	s.mux.HandleFunc("GET /api/v1/matchmaking", s.readQueue)
 	s.mux.HandleFunc("DELETE /api/v1/matchmaking", s.leaveQueue)
@@ -270,6 +289,7 @@ func (s *Server) routes() {
 	s.mux.HandleFunc("GET /api/v1/matches/{id}/observer", s.readObserver)
 	s.mux.HandleFunc("GET /api/v1/saves", s.listSaves)
 	s.mux.HandleFunc("GET /api/v1/saves/{id}", s.getSave)
+	s.mux.HandleFunc("POST /api/v1/saves/{id}/coop-lobby", s.resumeScenarioLobby)
 	s.mux.HandleFunc("PUT /api/v1/saves/{id}", s.putSave)
 	s.mux.HandleFunc("DELETE /api/v1/saves/{id}", s.deleteSave)
 	s.mux.HandleFunc("GET /api/v1/history", func(w http.ResponseWriter, r *http.Request) {

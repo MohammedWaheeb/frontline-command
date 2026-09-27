@@ -69,8 +69,8 @@ until actually performed. Track exact unresolved items here after each stage.
   cases and scenario validation still need work.
 - Bounded mission schema/runtime is being added; objective views, campaign
   difficulty/end-to-end coverage and all authored mission content pending.
-- Matchmaking, local ratings, reports review, pause coordination and durable
-  lobby recovery remain pending; the implemented service journeys still require
+- Reports review, pause coordination and durable lobby recovery remain pending;
+  matchmaking and local ratings are implemented, and service journeys still require
   browser integration and end-to-end acceptance.
 - Corrupt-state structural validation and security fuzzing need expansion.
 - Build/doctor/dev/play/LAN packaging targets and future deployment docs pending.
@@ -106,8 +106,8 @@ under instrumentation. Performance gates now run without race instrumentation;
 the short race suite passed after service recovery, bounded replay, aircraft,
 and neutral-object additions (simulation 18.45 s; server 17.93 s). Later ability
 exit/warning, AI and local matchmaking refinements also passed a short race run
-(simulation 19.51 s; server 18.64 s), plus vet. The latest navigation retry/cache
-change needs a final integrated rerun after targeted recovery tests.
+(simulation 19.51 s; server 18.64 s), plus vet. The integrated short race suite passed after navigation and co-op service changes
+(simulation 19.68 s; server 24.30 s), followed by `go vet ./...`.
 The 688-actor moving/combat workload and target-hardware performance are pending.
 
 Additional checks now cover all four strategic operations, two-second emergency
@@ -136,10 +136,19 @@ does not certify authored maps, human counterplay, or reference-hardware FPS.
 
 Local matching/ratings have targeted tests for ready/asset gates, locked teams,
 skill/latency widening, blocks, atomic result/rating writes, concurrent identical
-retries, conflicting retries, draws and voids. Browser journey acceptance and
-browser acceptance remain pending. Two actual WebSocket peers also completed
+retries, conflicting retries, draws and voids. Browser journey acceptance remains pending. Two actual WebSocket peers also completed
 the ranked service journey: ready/load, countdown, surrender, committed result,
 one 980/1020 rating update and a persisted replay with the same winner (5.11 s).
+
+Mission service integration now separates human, ordinary AI and scripted
+controllers, preserves map objects without default bases, validates full spawn
+footprints, and keeps difficulty changes away from allied credits and ordinary
+objective timers. Installed co-op definitions create fixed scenario lobbies;
+opening/midpoint checkpoints are copied atomically to both humans' private saves.
+Resume lobbies restore the exact saved state and reject revision/content changes.
+Targeted tests cover co-op plus AI ally, save ownership, atomic checkpoint writes,
+midpoint persistence, resumed hashes and command sequence continuity. Complete
+authored scenarios and browser journeys remain pending.
 
 Remaining work includes full ordinary AI strategy
 and complete matches, extended navigation/transport stress,

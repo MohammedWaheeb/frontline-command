@@ -169,7 +169,7 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	body.Faction = resolveFaction(body.Faction)
-	if !content.ValidFaction(body.Faction) {
+	if body.Faction != "" && !content.ValidFaction(body.Faction) {
 		fail(w, 400, "invalid_faction", "Choose a valid faction.")
 		return
 	}
@@ -212,6 +212,21 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, "lobby_full", "The lobby is full or has started.")
 		return
 	}
+	if l.ScenarioID != "" {
+		slot, ok := s.scenarioJoinSlot(l, p)
+		if !ok {
+			fail(w, 409, "scenario_full", "Every human scenario slot is filled.")
+			return
+		}
+		l.Slots = append(l.Slots, slot)
+		resetReady(l)
+		respond(w, 200, s.lobbyResponse(l, p.ID))
+		return
+	}
+	if !content.ValidFaction(body.Faction) {
+		fail(w, 400, "invalid_faction", "Choose a valid faction.")
+		return
+	}
 	id := nextLobbyPlayer(l)
 	if body.Team == 0 || l.Mode == "ffa" {
 		body.Team = uint32(id)
@@ -222,8 +237,8 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 }
 func resetReady(l *Lobby) {
 	for i := range l.Slots {
-		l.Slots[i].Ready = l.Slots[i].AI != ""
-		l.Slots[i].AssetsReady = l.Slots[i].AI != ""
+		l.Slots[i].Ready = l.Slots[i].AI != "" || l.Slots[i].Script
+		l.Slots[i].AssetsReady = l.Slots[i].Ready
 	}
 }
 func (s *Server) updateLobby(w http.ResponseWriter, r *http.Request) {
@@ -263,6 +278,10 @@ func (s *Server) updateLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	member := false
+	if l.ScenarioID != "" && (body.MapID != "" || body.Team != 0 || body.Faction != "") {
+		fail(w, 409, "scenario_rules_locked", "The scenario fixes factions, teams and map.")
+		return
+	}
 	if l.Rated && (body.MapID != "" || body.Team != 0) {
 		fail(w, 409, "ranked_rules_locked", "Matched map and opposing teams are fixed.")
 		return
@@ -369,7 +388,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		}
 		teams[slot.Team]++
 	}
-	if len(teams) < 2 {
+	if len(teams) < 2 && l.ScenarioID == "" {
 		fail(w, 409, "opponent_required", "At least two opposing teams are required.")
 		return
 	}
@@ -403,9 +422,12 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 			fail(w, 500, "random_error", "Could not initialize match.")
 			return
 		}
-		slots = append(slots, slot{Player: v.Player, Profile: v.Profile, Token: token, AI: v.AI != ""})
+		slots = append(slots, slot{Player: v.Player, Profile: v.Profile, Token: token, AI: v.AI != "" || v.Script})
 	}
 	engine, err := sim.New(s.catalog, cfg)
+	if l.ScenarioID != "" {
+		engine, err = s.scenarioEngine(l, mapData, cfg.Seed)
+	}
 	if err != nil {
 		fail(w, 400, "invalid_match", err.Error())
 		return

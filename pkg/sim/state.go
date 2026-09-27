@@ -20,11 +20,12 @@ type Metadata struct {
 	Seed        uint64 `json:"seed"`
 }
 type PlayerConfig struct {
-	ID      PlayerID `json:"id"`
-	Name    string   `json:"name"`
-	Faction string   `json:"faction"`
-	Team    uint32   `json:"team"`
-	AI      string   `json:"ai,omitempty"`
+	Controller string   `json:"controller,omitempty"`
+	ID         PlayerID `json:"id"`
+	Name       string   `json:"name"`
+	Faction    string   `json:"faction"`
+	Team       uint32   `json:"team"`
+	AI         string   `json:"ai,omitempty"`
 }
 type Config struct {
 	Map     content.Map    `json:"map"`

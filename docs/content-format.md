@@ -54,8 +54,9 @@ All spawns, resources, shipment and region centers must connect. The validator
 checks bounds and reference integrity; width-aware route tests, economic parity,
 air approaches and faction fairness still require gameplay acceptance.
 
-Maps cannot contain executable code. Mission trigger schemas are being added;
-do not invent unbounded script execution to work around a missing trigger.
+Maps cannot contain executable code. Mission trigger schemas are defined in
+`pkg/content/mission.go`; do not invent unbounded script execution to work around
+a missing trigger.
 
 ## Pure Go simulation API
 
@@ -69,6 +70,10 @@ Players have `id`, `name`, `faction`, `team`, optional `ai` (`easy`, `normal`,
 `Save()` returns checksummed bytes; `sim.Restore(catalog, bytes)` validates them.
 `Hash()` is the deterministic full-state SHA-256. `StateCopy()` is backend/debug
 only and MUST NOT be sent over multiplayer sockets. `Outcome()` reports result.
+
+The owning player's `economy.last_sequence` is the accepted command baseline.
+After load/reconnect, continue above that value, also retaining any higher
+locally submitted sequence. Never restart a resumed command stream at one.
 
 Orders, authorized views and all field names are defined in `pkg/sim/state.go`
 and `pkg/sim/visibility.go`. The protobuf wire mirrors these views.
@@ -186,3 +191,44 @@ Draws record a game with no score change. Voids record no rated game or change.
 Result, rating changes and crash-journal removal commit in one SQLite transaction;
 identical retries are no-ops, conflicting retries fail. Solo, AI and custom
 matches never affect the local ranked ladder. Public accounts remain separate.
+
+## Mission and co-op contracts
+
+Installed mission JSON comes from `content/missions` (override `-missions`).
+GET `/api/v1/missions` lists presentation metadata; GET `/api/v1/missions/{id}`
+returns the validated declarative definition for offline caching and the Go
+worker. Mission packs are local static content, not arbitrary executable scripts.
+No shipping mission/layout has been accepted yet; Claude owns their authorship.
+
+Mission players have explicit `controller`: `human`, `ai`, or `script`. AI
+controllers also specify `ai: easy|normal|hard`. Script controllers have no
+ordinary economy planner and accept only bounded mission actions. For older
+definitions omitting controller, a nonempty `ai` means AI, the first remaining
+player means human if it is index zero, and later empty-AI players mean script.
+Declare controllers explicitly in production packs. Human scenario slots must
+share a team; tutorials/campaigns have one, co-op has one or two. IDs and teams
+are 1–4. Difficulty changes enemy scenario credits only; AI allies receive no
+enemy bonus. Timer conditions need `wave: true` to use the wave-time multiplier;
+ordinary objective/checkpoint timers keep their declared timing.
+
+`POST /api/v1/missions/{id}/lobby` accepts `{difficulty,ally_ai?,private}` for an
+installed co-op scenario. It fixes the authored map, factions and teams. The
+first human slot belongs to the host. `ally_ai` optionally replaces the second
+human with ordinary Easy/Normal/Hard AI; otherwise another profile joins through
+the normal lobby endpoint (an empty body is valid for scenario joining).
+Scripted slots have `script: true`, are already ready, and never require sockets.
+All human slots must load assets and ready before the host starts.
+
+Opening and declared mid-mission checkpoints are copied atomically into each
+human participant's private saves. Midpoint persistence runs outside the tick;
+disk failures generate recoverable `checkpoint_failed` protocol errors. Saves
+have IDs `coop-<match-id>-<tick>` and repeated writes cannot duplicate or overwrite
+them. Slow storage retains a bounded latest pending checkpoint.
+
+`POST /api/v1/saves/{id}/coop-lobby` accepts `{player?,private}` to resume an
+unfinished owned co-op checkpoint. The optional player selects a saved human
+commander; default is the first. Fill the other saved human slots, then ready
+and start normally. The engine restores the exact saved state, pending orders,
+sequences, scenario counters and seed. It neither rebuilds the opening base nor
+reapplies grants. A changed save revision or missing mission/map version blocks
+start with a compatibility message; the original file remains exportable.

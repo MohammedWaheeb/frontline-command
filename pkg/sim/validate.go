@@ -102,6 +102,9 @@ func (e *Engine) validateState() error {
 		}
 	}
 	for _, p := range s.Players {
+		if p.Controller != "human" && p.Controller != "ai" && p.Controller != "script" || p.Controller == "script" && p.AI != "" {
+			return fmt.Errorf("invalid saved controller")
+		}
 		if len(p.AIKnowledge) > 4096 || len(p.AIFields) > 128 || !s.Map.InBounds(p.AIGoal) {
 			return fmt.Errorf("invalid AI knowledge bounds")
 		}

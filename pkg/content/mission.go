@@ -27,12 +27,13 @@ type Mission struct {
 	Difficulty   []MissionDifficulty `json:"difficulty"`
 }
 type MissionPlayer struct {
-	ID      uint32 `json:"id"`
-	Faction string `json:"faction"`
-	Name    string `json:"name"`
-	Team    uint32 `json:"team"`
-	AI      string `json:"ai"`
-	Credits int64  `json:"credits"`
+	Controller string `json:"controller,omitempty"`
+	ID         uint32 `json:"id"`
+	Faction    string `json:"faction"`
+	Name       string `json:"name"`
+	Team       uint32 `json:"team"`
+	AI         string `json:"ai"`
+	Credits    int64  `json:"credits"`
 }
 type MissionSpawn struct {
 	Tag      string `json:"tag"`
@@ -49,6 +50,7 @@ type MissionObjective struct {
 	Condition MissionCondition `json:"condition"`
 }
 type MissionCondition struct {
+	Wave      bool   `json:"wave,omitempty"`
 	Kind      string `json:"kind"`
 	Tick      uint32 `json:"tick"`
 	Owner     uint32 `json:"owner"`
@@ -60,6 +62,20 @@ type MissionCondition struct {
 	Objective string `json:"objective"`
 	HoldTicks uint32 `json:"hold_ticks"`
 }
+
+func (p MissionPlayer) Control(index int) string {
+	if p.Controller != "" {
+		return p.Controller
+	}
+	if p.AI != "" {
+		return "ai"
+	}
+	if index == 0 {
+		return "human"
+	}
+	return "script"
+}
+
 type MissionAction struct {
 	Kind      string        `json:"kind"`
 	Spawn     *MissionSpawn `json:"spawn,omitempty"`
@@ -112,11 +128,27 @@ func (v Mission) Validate(c *Catalog, m Map) error {
 		return fmt.Errorf("mission object limits exceeded")
 	}
 	players := map[uint32]bool{}
-	for _, p := range v.Players {
-		if p.ID == 0 || players[p.ID] || !ValidFaction(p.Faction) || p.Credits < 0 || p.Credits > 1000000000 || p.AI != "" && p.AI != "easy" && p.AI != "normal" && p.AI != "hard" {
+	humanTeam := uint32(0)
+	humans := 0
+	for i, p := range v.Players {
+		if p.ID == 0 || p.ID > 4 || p.Team == 0 || p.Team > 4 || len(p.Name) > 48 || players[p.ID] || !ValidFaction(p.Faction) || p.Credits < 0 || p.Credits > 1000000000 || p.AI != "" && p.AI != "easy" && p.AI != "normal" && p.AI != "hard" {
 			return fmt.Errorf("invalid mission player")
 		}
 		players[p.ID] = true
+		controller := p.Control(i)
+		if controller != "human" && controller != "ai" && controller != "script" || controller == "ai" && p.AI == "" || controller != "ai" && p.AI != "" {
+			return fmt.Errorf("invalid scenario controller")
+		}
+		if controller == "human" {
+			humans++
+			if humanTeam != 0 && p.Team != humanTeam {
+				return fmt.Errorf("scenario humans must share a team")
+			}
+			humanTeam = p.Team
+		}
+	}
+	if humans < 1 || humans > 2 || v.Mode != "coop" && humans != 1 {
+		return fmt.Errorf("invalid scenario human slot count")
 	}
 	tags := map[string]bool{}
 	checkSpawn := func(s MissionSpawn) error {
@@ -164,6 +196,9 @@ func (v Mission) Validate(c *Catalog, m Map) error {
 		regions[r.ID] = true
 	}
 	checkCondition := func(q MissionCondition) error {
+		if q.Wave && q.Kind != "timer" {
+			return fmt.Errorf("wave timing only applies to timers")
+		}
 		if q.HoldTicks > 108000 || q.Tick > 108000 || q.Count > 688 || q.Amount < 0 || q.Amount > 1000000000 {
 			return fmt.Errorf("condition out of bounds")
 		}

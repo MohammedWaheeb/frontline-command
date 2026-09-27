@@ -21,6 +21,7 @@ func main() {
 	data := flag.String("data", ".local", "local persistence directory")
 	static := flag.String("static", "client/dist", "packaged browser client")
 	maps := flag.String("maps", "content/maps", "validated map directory")
+	missions := flag.String("missions", "content/missions", "validated mission directory")
 	origins := flag.String("dev-origins", "", "comma-separated explicit development origins")
 	flag.Parse()
 	host, _, err := net.SplitHostPort(*address)
@@ -35,7 +36,7 @@ func main() {
 	if *origins != "" {
 		allowed = strings.Split(*origins, ",")
 	}
-	app, err := server.New(server.Config{DataDir: *data, StaticDir: *static, MapDir: *maps, AllowedOrigins: allowed})
+	app, err := server.New(server.Config{DataDir: *data, StaticDir: *static, MapDir: *maps, MissionDir: *missions, AllowedOrigins: allowed})
 	if err != nil {
 		log.Fatal(err)
 	}

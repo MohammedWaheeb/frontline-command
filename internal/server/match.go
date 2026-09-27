@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"frontlinecommand/internal/storage"
 	"frontlinecommand/pkg/sim"
 	pb "frontlinecommand/protocol"
@@ -11,6 +12,7 @@ import (
 	"log"
 	"sync"
 	"time"
+	"unicode/utf8"
 )
 
 type slot struct {
@@ -47,24 +49,28 @@ type matchReply struct {
 	view sim.View
 }
 type matchCheckpoint struct {
+	coop bool
+	name string
 	tick uint32
 	data []byte
 }
 type liveMatch struct {
-	rated           bool
-	checkpoints     chan matchCheckpoint
-	persistenceDone chan struct{}
-	observerDelay   sim.Tick
-	id              string
-	engine          *sim.Engine
-	slots           []slot
-	requests        chan matchRequest
-	done            chan struct{}
-	stop            chan struct{}
-	once            sync.Once
-	repo            *storage.SQLite
-	objects         storage.Files
-	started         time.Time
+	persistenceErrors chan string
+	coop              bool
+	rated             bool
+	checkpoints       chan matchCheckpoint
+	persistenceDone   chan struct{}
+	observerDelay     sim.Tick
+	id                string
+	engine            *sim.Engine
+	slots             []slot
+	requests          chan matchRequest
+	done              chan struct{}
+	stop              chan struct{}
+	once              sync.Once
+	repo              *storage.SQLite
+	objects           storage.Files
+	started           time.Time
 }
 
 type matchOptions struct {
@@ -95,6 +101,17 @@ func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite,
 		return nil, err
 	}
 	m := &liveMatch{rated: opts.Rated, checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
+	m.persistenceErrors = make(chan string, 4)
+	state := engine.StateCopy()
+	m.coop = state.Mission != nil && state.Mission.Definition.Mode == "coop"
+	if m.coop {
+		checkpointContext, done := context.WithTimeout(context.Background(), 5*time.Second)
+		err = m.persistCoopCheckpoint(checkpointContext, matchCheckpoint{coop: true, name: state.Mission.Checkpoint, tick: uint32(engine.Tick()), data: save})
+		done()
+		if err != nil {
+			return nil, err
+		}
+	}
 	go m.persistCheckpoints()
 	go m.run()
 	return m, nil
@@ -104,11 +121,34 @@ func (m *liveMatch) persistCheckpoints() {
 	for checkpoint := range m.checkpoints {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		err := m.repo.CheckpointMatch(ctx, m.id, checkpoint.tick, checkpoint.data)
+		if err == nil && checkpoint.coop {
+			err = m.persistCoopCheckpoint(ctx, checkpoint)
+		}
 		cancel()
 		if err != nil {
 			log.Printf("match %s checkpoint failed: %v", m.id, err)
+			select {
+			case m.persistenceErrors <- "A checkpoint could not be saved. Check available disk space; keep the current game open.":
+			default:
+			}
 		}
 	}
+}
+func (m *liveMatch) persistCoopCheckpoint(ctx context.Context, checkpoint matchCheckpoint) error {
+	owners := []string{}
+	for _, slot := range m.slots {
+		if !slot.AI && slot.Profile != "" {
+			owners = append(owners, slot.Profile)
+		}
+	}
+	name := "Co-op: " + checkpoint.name
+	if len(name) > 100 {
+		name = name[:100]
+		for !utf8.ValidString(name) {
+			name = name[:len(name)-1]
+		}
+	}
+	return m.repo.PutSharedSave(ctx, owners, fmt.Sprintf("coop-%s-%d", m.id, checkpoint.tick), name, checkpoint.data)
 }
 func (m *liveMatch) call(ctx context.Context, req matchRequest) matchReply {
 	req.reply = make(chan matchReply, 1)
@@ -157,6 +197,8 @@ func (m *liveMatch) run() {
 	lastCommitAttempt := time.Time{}
 	finishedAt := time.Time{}
 	started := false
+	lastCoopCheckpoint := m.engine.Tick()
+	var pendingCoop *matchCheckpoint
 	send := func(p *peer, msg *pb.Envelope) bool {
 		data, err := proto.Marshal(msg)
 		if err != nil {
@@ -184,11 +226,21 @@ func (m *liveMatch) run() {
 			_ = m.objects.Put(ctx, m.id+".diagnostic", save)
 		}
 	}()
-	defer func() { close(m.checkpoints); <-m.persistenceDone }()
+	defer func() {
+		if pendingCoop != nil {
+			m.checkpoints <- *pendingCoop
+		}
+		close(m.checkpoints)
+		<-m.persistenceDone
+	}()
 	for {
 		select {
 		case <-m.stop:
 			return
+		case message := <-m.persistenceErrors:
+			for _, p := range peers {
+				send(p, &pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: "checkpoint_failed", Message: message, Recoverable: true}}})
+			}
 		case req := <-m.requests:
 			reply := matchReply{}
 			switch req.kind {
@@ -357,6 +409,17 @@ func (m *liveMatch) run() {
 			if advanced {
 				m.engine.Advance()
 				tickViews = archive.capture(m.engine, m.slots)
+				if m.coop {
+					for _, slot := range m.slots {
+						if view := tickViews[slot.Player]; view.Mission != nil && view.Mission.CheckpointTick > lastCoopCheckpoint {
+							if save, err := m.engine.Save(); err == nil {
+								pendingCoop = &matchCheckpoint{coop: true, name: view.Mission.Checkpoint, tick: uint32(m.engine.Tick()), data: save}
+								lastCoopCheckpoint = view.Mission.CheckpointTick
+							}
+							break
+						}
+					}
+				}
 				observerClock = m.engine.Tick()
 				if m.engine.Outcome().Finished {
 					finishedClockAt = now
@@ -365,11 +428,18 @@ func (m *liveMatch) run() {
 					replayErr = replay.Capture(m.engine, true)
 					if save, err := m.engine.Save(); err == nil {
 						select {
-						case m.checkpoints <- matchCheckpoint{uint32(m.engine.Tick()), save}:
+						case m.checkpoints <- matchCheckpoint{tick: uint32(m.engine.Tick()), data: save}:
 						default:
 							log.Printf("match %s checkpoint writer busy", m.id)
 						}
 					}
+				}
+			}
+			if pendingCoop != nil {
+				select {
+				case m.checkpoints <- *pendingCoop:
+					pendingCoop = nil
+				default:
 				}
 			}
 			if !finishedClockAt.IsZero() {

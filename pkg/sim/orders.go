@@ -13,7 +13,7 @@ var orderKinds = map[string]bool{"ping": true, "move": true, "attack_move": true
 // revalidated at execution; receipts never imply that gameplay already happened.
 func (e *Engine) Submit(player PlayerID, sequence uint32, orders []Order) error {
 	p := e.player(player)
-	if p == nil || p.Defeated {
+	if p == nil || p.Defeated || p.Controller == "script" {
 		return errors.New("player_inactive")
 	}
 	if e.state.Outcome.Finished {

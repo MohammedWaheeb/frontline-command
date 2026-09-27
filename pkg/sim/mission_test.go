@@ -64,3 +64,33 @@ func TestMissionFailureAndScriptValidation(t *testing.T) {
 		t.Fatal("executable/unknown trigger accepted")
 	}
 }
+
+func TestMissionPreservesObjectsAndKeepsObjectiveTimersStable(t *testing.T) {
+	m := fixtureMap()
+	m.Objects = []content.MapObject{{ID: 1, Class: "garrison", Position: Vec{X: 25500, Y: 25500}}}
+	definition := missionFixture()
+	definition.DefaultBases = false
+	definition.Difficulty = []content.MissionDifficulty{{ID: "hard", EnemyCreditsMultiplier: 1500, WaveTimeMultiplier: 500}}
+	e, err := NewMission(content.MustBase(), m, definition, "hard", 1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if objectEntity(e, 1) == nil {
+		t.Fatal("scenario base replacement removed authored map objects")
+	}
+	if err = e.Submit(2, 1, []Order{{Kind: "surrender"}}); err == nil {
+		t.Fatal("script-only opponent accepted player intentions")
+	}
+	ticks(e, 200)
+	if e.Outcome().Finished {
+		t.Fatal("wave timing changed victory timer")
+	}
+	save, _ := e.Save()
+	if _, err = Restore(e.catalog, save); err != nil {
+		t.Fatal(err)
+	}
+	ticks(e, 50)
+	if e.Outcome().Tick != 250 {
+		t.Fatal("objective timer did not retain declared timing")
+	}
+}

@@ -35,6 +35,15 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 	e := &Engine{catalog: c, state: State{Metadata: Metadata{Version, 1, c.Hash(), gameMap.Version, cfg.Ruleset, cfg.Seed}, Map: gameMap, RNG: cfg.Seed, NextID: 1, NextEvent: 1, Countdown: 100}, visible: map[PlayerID][]bool{}}
 	ids := map[PlayerID]bool{}
 	for i, pc := range cfg.Players {
+		if pc.Controller == "" {
+			pc.Controller = "human"
+			if pc.AI != "" {
+				pc.Controller = "ai"
+			}
+		}
+		if pc.Controller != "human" && pc.Controller != "ai" && pc.Controller != "script" || pc.Controller == "ai" && pc.AI == "" || pc.Controller != "ai" && pc.AI != "" {
+			return nil, errors.New("invalid controller")
+		}
 		if pc.ID == 0 || ids[pc.ID] || !content.ValidFaction(pc.Faction) || len(pc.Name) > 48 {
 			return nil, errors.New("invalid player")
 		}
