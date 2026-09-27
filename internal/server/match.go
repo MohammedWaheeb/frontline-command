@@ -34,6 +34,7 @@ type peer struct {
 func (p *peer) close() { p.once.Do(func() { close(p.done) }) }
 
 type matchRequest struct {
+	control  string
 	kind     string
 	token    string
 	profile  string
@@ -55,6 +56,7 @@ type matchCheckpoint struct {
 	data []byte
 }
 type liveMatch struct {
+	pauseEnabled      bool
 	persistenceErrors chan string
 	coop              bool
 	rated             bool
@@ -74,6 +76,7 @@ type liveMatch struct {
 }
 
 type matchOptions struct {
+	PauseEnabled  bool
 	LiveObservers bool
 	Rated         bool
 }
@@ -100,7 +103,7 @@ func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite,
 	if err != nil {
 		return nil, err
 	}
-	m := &liveMatch{rated: opts.Rated, checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
+	m := &liveMatch{pauseEnabled: opts.PauseEnabled && !opts.Rated, rated: opts.Rated, checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
 	m.persistenceErrors = make(chan string, 4)
 	state := engine.StateCopy()
 	m.coop = state.Mission != nil && state.Mission.Definition.Mode == "coop"
@@ -197,6 +200,9 @@ func (m *liveMatch) run() {
 	lastCommitAttempt := time.Time{}
 	finishedAt := time.Time{}
 	started := false
+	controls := newPauseControl(m.pauseEnabled)
+	lastStatus := time.Time{}
+	controlRates := map[sim.PlayerID]int{}
 	lastCoopCheckpoint := m.engine.Tick()
 	var pendingCoop *matchCheckpoint
 	send := func(p *peer, msg *pb.Envelope) bool {
@@ -211,6 +217,12 @@ func (m *liveMatch) run() {
 			p.close()
 			return false
 		}
+	}
+	broadcastStatus := func(now time.Time) {
+		for id, p := range peers {
+			send(p, &pb.Envelope{Message: &pb.Envelope_Status{Status: m.connectionStatus(id, &controls, peers, disconnected, started, now)}})
+		}
+		lastStatus = now
 	}
 	defer func() {
 		for _, p := range peers {
@@ -312,11 +324,45 @@ func (m *liveMatch) run() {
 				}
 				req.peer.baseline = snap
 				send(req.peer, &pb.Envelope{Message: &pb.Envelope_Snapshot{Snapshot: snap}})
+				broadcastStatus(time.Now())
 			case "disconnect":
 				if current := peers[req.player]; current == req.peer {
 					current.close()
 					delete(peers, req.player)
 					disconnected[req.player] = time.Now().Add(120 * time.Second)
+					controls.resume()
+					broadcastStatus(time.Now())
+				}
+			case "control":
+				if req.peer == nil || peers[req.player] != req.peer {
+					reply.err = errors.New("connection_replaced")
+					break
+				}
+				controlRates[req.player]++
+				if controlRates[req.player] > 4 {
+					reply.err = errors.New("control_rate_exceeded")
+					break
+				}
+				if !started || m.engine.Outcome().Finished {
+					reply.err = errors.New("match_not_active")
+					break
+				}
+				active := m.activeHumans()
+				if req.control == "pause" {
+					missing := false
+					for _, id := range active {
+						if peers[id] == nil {
+							missing = true
+						}
+					}
+					if missing {
+						reply.err = errors.New("players_disconnected")
+						break
+					}
+				}
+				reply.err = controls.act(req.control, req.player, active)
+				if reply.err == nil {
+					broadcastStatus(time.Now())
 				}
 			case "orders":
 				if req.peer != nil && peers[req.player] != req.peer {
@@ -325,6 +371,10 @@ func (m *liveMatch) run() {
 				}
 				if !started {
 					reply.err = errors.New("waiting_for_players")
+					break
+				}
+				if controls.paused {
+					reply.err = errors.New("match_paused")
 					break
 				}
 				rates[req.player] += len(req.orders)
@@ -358,6 +408,7 @@ func (m *liveMatch) run() {
 		case now := <-ticker.C:
 			if now.Sub(rateStart) >= time.Second {
 				rates = map[sim.PlayerID]int{}
+				controlRates = map[sim.PlayerID]int{}
 				rateStart = now
 			}
 			if !started {
@@ -381,6 +432,7 @@ func (m *liveMatch) run() {
 			for player, deadline := range disconnected {
 				if !now.Before(deadline) {
 					expired[player] = true
+					controls.resume()
 					view, _ := m.engine.PlayerView(player)
 					active := false
 					for _, p := range view.Players {
@@ -405,7 +457,7 @@ func (m *liveMatch) run() {
 				}
 			}
 			tickViews := map[sim.PlayerID]sim.View{}
-			advanced := !m.engine.Outcome().Finished
+			advanced := !m.engine.Outcome().Finished && !controls.paused
 			if advanced {
 				m.engine.Advance()
 				tickViews = archive.capture(m.engine, m.slots)
@@ -531,6 +583,9 @@ func (m *liveMatch) run() {
 						send(p, &pb.Envelope{Message: &pb.Envelope_Result{Result: &pb.MatchResult{MatchId: m.id, Outcome: outcome, Committed: true}}})
 					}
 				}
+			}
+			if now.Sub(lastStatus) >= time.Second {
+				broadcastStatus(now)
 			}
 			if committed && now.Sub(finishedAt) > 5*time.Minute {
 				return

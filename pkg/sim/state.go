@@ -45,6 +45,7 @@ type Memory struct {
 	Seen     Tick     `json:"seen"`
 }
 type Player struct {
+	SurrenderVote bool            `json:"surrender_vote"`
 	AIKnowledge   []AIObservation `json:"ai_knowledge"`
 	AIFields      []FieldView     `json:"ai_fields"`
 	AIGoal        Vec             `json:"ai_goal"`

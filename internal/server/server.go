@@ -42,6 +42,7 @@ type LobbySlot struct {
 	AssetsReady bool         `json:"assets_ready"`
 }
 type Lobby struct {
+	PauseEnabled   bool        `json:"pause_enabled"`
 	ResumeSave     string      `json:"-"`
 	ResumeOwner    string      `json:"-"`
 	ResumeRevision int64       `json:"-"`
@@ -490,6 +491,18 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 			case p.out <- data:
 			default:
 				return
+			}
+			continue
+		}
+		if control := incoming.GetControl(); control != nil {
+			reply = m.call(ctx, matchRequest{kind: "control", peer: p, player: p.player, control: control.Action})
+			if reply.err != nil {
+				data, _ := proto.Marshal(&pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: reply.err.Error(), Message: "Shared pause is unavailable. Every active player must agree, and ranked play cannot pause.", Recoverable: true}}})
+				select {
+				case p.out <- data:
+				default:
+					return
+				}
 			}
 			continue
 		}

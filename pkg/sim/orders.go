@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-var orderKinds = map[string]bool{"ping": true, "move": true, "attack_move": true, "attack": true, "force_fire": true, "stop": true, "hold": true, "guard": true, "aggressive": true, "build": true, "resume": true, "train": true, "research": true, "cancel": true, "sell": true, "power": true, "rally": true, "gather": true, "salvage": true, "repair": true, "capture": true, "board": true, "unload": true, "return": true, "deploy": true, "pack": true, "ability": true, "surrender": true, "repair_reserve": true}
+var orderKinds = map[string]bool{"ping": true, "move": true, "attack_move": true, "attack": true, "force_fire": true, "stop": true, "hold": true, "guard": true, "aggressive": true, "build": true, "resume": true, "train": true, "research": true, "cancel": true, "sell": true, "power": true, "rally": true, "gather": true, "salvage": true, "repair": true, "capture": true, "board": true, "unload": true, "return": true, "deploy": true, "pack": true, "ability": true, "surrender": true, "surrender_vote": true, "surrender_cancel": true, "repair_reserve": true}
 
 // Submit only schedules intentions. Spending, targeting and prerequisites are
 // revalidated at execution; receipts never imply that gameplay already happened.
@@ -40,7 +40,7 @@ func (e *Engine) Submit(player PlayerID, sequence uint32, orders []Order) error 
 			}
 			seen[id] = true
 		}
-		if o.Kind != "surrender" && o.Kind != "repair_reserve" && o.Kind != "ping" && len(o.Entities) == 0 {
+		if o.Kind != "surrender" && o.Kind != "surrender_vote" && o.Kind != "surrender_cancel" && o.Kind != "repair_reserve" && o.Kind != "ping" && len(o.Entities) == 0 {
 			return errors.New("selection_empty")
 		}
 		switch o.Kind {
@@ -99,6 +99,7 @@ func (e *Engine) executePending() {
 			e.state.Results = append(e.state.Results, OrderResult{s.Player, s.Sequence, int32(i), code == "ok", code, e.state.Tick})
 		}
 	}
+	e.teamSurrenderVotes()
 	for e.state.LogOrders > 32768 && len(e.state.Log) > 0 {
 		e.state.LogOrders -= uint32(len(e.state.Log[0].Orders))
 		e.state.Log[0] = Scheduled{}
@@ -113,6 +114,11 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 	}
 	if o.Kind == "surrender" {
 		e.defeat(p)
+		return "ok"
+	}
+	if o.Kind == "surrender_vote" || o.Kind == "surrender_cancel" {
+		p.SurrenderVote = o.Kind == "surrender_vote"
+		e.emit(o.Kind, p.ID, 0, Vec{}, "team", 0)
 		return "ok"
 	}
 	if o.Kind == "repair_reserve" {

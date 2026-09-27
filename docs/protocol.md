@@ -55,3 +55,30 @@ state or a hidden entity's absence.
 
 Claude must regenerate the TypeScript bindings from the current schema after
 resuming the runtime assignment. Codex must not edit browser bindings or adapters.
+
+## Shared pause and teammate reconnect state
+
+`Envelope.control` accepts `MatchControl{action:"pause"|"resume"}` on an
+already authenticated active WebSocket. Custom/co-op lobbies opt in with
+`pause_enabled` before ready-up. Ranked always disables pause. All active human
+participants must vote; any participant can resume. Disconnection resumes play
+and clears votes, and a match cannot pause while a human is reconnecting.
+Controls are limited to four requests per second per player. Orders during pause
+are rejected without consuming sequence numbers. Browser focus does not alter
+pause state. Offline solo pause remains a worker scheduling control.
+
+`Envelope.status` supplies `pause_enabled`, `paused`, `pause_votes`,
+`waiting_for_players`, and `teammates` (`player`, `connected`,
+`reconnect_remaining_ms`). The match owner sends it on changes and once per
+second, independently of simulation ticks. Reconnect timers are team-private;
+observer archives do not carry these live controls. Pause votes are visible to
+participants because everyone must agree. Wall-clock status is excluded from
+saves and simulation hashes.
+
+`Order.kind` now includes `surrender_vote` and `surrender_cancel`, with no entity
+selection. An individual `surrender` still eliminates only its sender. Team
+votes persist in saves/replays, are visible only to teammates in
+`PlayerSummary.surrender_vote`, and require every active human teammate.
+Computer allies follow that unanimous human team decision. Already eliminated
+players do not block it. Votes resolve after all orders for the same tick.
+Claude must regenerate the TypeScript bindings after this schema change.

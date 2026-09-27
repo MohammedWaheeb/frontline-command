@@ -69,6 +69,7 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	var body struct {
 		LiveObservers bool        `json:"live_observers"`
+		PauseEnabled  bool        `json:"pause_enabled"`
 		Name          string      `json:"name"`
 		MapID         string      `json:"map_id"`
 		Mode          string      `json:"mode"`
@@ -109,7 +110,7 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not create lobby.")
 		return
 	}
-	l := &Lobby{LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
+	l := &Lobby{PauseEnabled: body.PauseEnabled && (body.Mode == "custom" || body.Mode == "coop"), LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
 	for i, a := range body.AI {
 		a.Faction = resolveFaction(a.Faction)
 		if !content.ValidFaction(a.Faction) || (a.Difficulty != "easy" && a.Difficulty != "normal" && a.Difficulty != "hard") {
@@ -438,7 +439,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	l.MatchID = id[:24]
-	match, err := newMatch(l.MatchID, engine, slots, s.repo, s.objects, matchOptions{LiveObservers: l.LiveObservers, Rated: l.Rated})
+	match, err := newMatch(l.MatchID, engine, slots, s.repo, s.objects, matchOptions{PauseEnabled: l.PauseEnabled, LiveObservers: l.LiveObservers, Rated: l.Rated})
 	if err != nil {
 		l.MatchID = ""
 		fail(w, 500, "match_persistence_failed", "Could not create a durable match record.")

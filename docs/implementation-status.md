@@ -156,3 +156,9 @@ full matchmaking/local ratings/moderation/persistence journeys, scenario service
 integration, every Claude frontend/content/art/audio stage, packaging, browser
 acceptance and final balance/release gates. This list does not replace the full
 handoff scope. No milestone or final release is claimed complete.
+
+Shared pause and team surrender are now implemented in the Go service/core.
+Targeted tests passed for unanimous votes, cancellation, saved/replayed votes,
+individual surrender isolation, native actor tick freeze, resume on disconnect,
+ranked denial, and private teammate reconnect timers. Browser controls remain
+unimplemented until Claude's next runtime/UI pass.

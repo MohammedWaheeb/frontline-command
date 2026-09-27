@@ -15,10 +15,15 @@ message Envelope {
     MatchResult result = 7;
     ProtocolError error = 8;
     Ping ping = 9;
+    MatchControl control = 10;
+    MatchStatus status = 11;
   }
 }
 message ClientHello { uint32 protocol = 1; string simulation = 2; string content_hash = 3; string token = 4; string match_id = 5; }
 message ResumeMatch { ClientHello hello = 1; uint32 last_tick = 2; }
+message MatchControl { string action = 1; } // pause or resume; not a simulation command
+message ConnectionState { uint32 player = 1; bool connected = 2; uint32 reconnect_remaining_ms = 3; }
+message MatchStatus { bool pause_enabled = 1; bool paused = 2; repeated uint32 pause_votes = 3; repeated ConnectionState teammates = 4; bool waiting_for_players = 5; }
 message Ping { uint32 nonce = 1; }
 message ProtocolError { string code = 1; string message = 2; bool recoverable = 3; }
 message Vec { sint32 x = 1; sint32 y = 2; }
@@ -31,7 +36,7 @@ message Job { string type = 1; bool research = 2; int64 paid = 3; uint32 work = 
 message Economy { int64 credits = 1; int64 energy = 2; int32 supply = 3; int32 reserved_supply = 4; int32 power_capacity = 5; int32 power_demand = 6; int32 tier = 7; int64 income = 8; int64 repair_reserve = 9; repeated string upgrades = 10; repeated Cooldown cooldowns = 11; uint32 last_sequence = 12; }
 message EntityPrivate { int64 hp = 1; int64 max_hp = 2; repeated Job jobs = 3; repeated Order orders = 4; Vec rally = 5; int64 cargo = 6; uint32 home = 7; int32 ammo = 8; uint32 endurance = 9; int32 charges = 10; uint32 charge_work = 11; uint32 service_work = 12; int64 experience = 13; repeated Cooldown cooldowns = 14; repeated uint32 passengers = 15; uint32 container = 16; }
 message Entity { uint32 id = 1; string type = 2; uint32 owner = 3; Vec position = 4; int32 facing = 5; int32 health = 6; string state = 7; bool complete = 8; bool enabled = 9; bool landed = 10; bool deployed = 11; bool concealed = 12; int32 progress = 13; uint32 rank = 14; EntityPrivate private = 15; int32 turret_facing = 16; uint32 channel_until = 17; uint32 map_object = 18; }
-message PlayerSummary { uint32 id = 1; string name = 2; string faction = 3; uint32 team = 4; bool defeated = 5; uint32 defeat_at = 6; int32 strategic_progress = 7; }
+message PlayerSummary { uint32 id = 1; string name = 2; string faction = 3; uint32 team = 4; bool defeated = 5; uint32 defeat_at = 6; int32 strategic_progress = 7; bool surrender_vote = 8; }
 message Projectile { uint32 id = 1; uint32 owner = 2; string weapon = 3; Vec position = 4; Vec impact = 5; uint32 impact_at = 6; bool interceptable = 7; bool warning = 8; }
 message Field { uint32 id = 1; Vec position = 2; int64 remaining = 3; }
 message Station { uint32 id = 1; Vec position = 2; uint32 owner = 3; }

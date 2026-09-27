@@ -261,6 +261,7 @@ type EntityView struct {
 	Private      *EntityPrivate `json:"private,omitempty"`
 }
 type PlayerSummary struct {
+	SurrenderVote     bool     `json:"surrender_vote"`
 	ID                PlayerID `json:"id"`
 	Name              string   `json:"name"`
 	Faction           string   `json:"faction"`
@@ -359,7 +360,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 	view.Rubble = append([]uint32(nil), p.KnownRubble...)
 	view.Warnings = e.operationWarnings(id)
 	for _, player := range e.state.Players {
-		s := PlayerSummary{ID: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, Defeated: player.Defeated, DefeatAt: player.DefeatAt, StrategicProgress: -1}
+		s := PlayerSummary{ID: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, Defeated: player.Defeated, DefeatAt: player.DefeatAt, StrategicProgress: -1, SurrenderVote: player.Team == p.Team && player.SurrenderVote}
 		for _, v := range e.state.Entities {
 			if v.Owner == player.ID && v.HP > 0 && v.Complete && e.role(v) == "strategic" {
 				s.StrategicProgress = int32(v.ChargeWork * 1000 / e.strategicCharge(player.Faction))

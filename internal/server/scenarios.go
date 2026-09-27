@@ -79,9 +79,10 @@ func (s *Server) createScenarioLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var body struct {
-		Difficulty string `json:"difficulty"`
-		AllyAI     string `json:"ally_ai"`
-		Private    bool   `json:"private"`
+		PauseEnabled bool   `json:"pause_enabled"`
+		Difficulty   string `json:"difficulty"`
+		AllyAI       string `json:"ally_ai"`
+		Private      bool   `json:"private"`
 	}
 	if !decode(w, r, &body, 4096) {
 		return
@@ -104,7 +105,7 @@ func (s *Server) createScenarioLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not create scenario lobby.")
 		return
 	}
-	l := &Lobby{ID: id[:24], Host: p.ID, Name: mission.Title, MapID: mission.MapID, Mode: "coop", Private: body.Private, Code: code[:12], Created: time.Now().Unix(), ScenarioID: mission.ID, Difficulty: body.Difficulty}
+	l := &Lobby{PauseEnabled: body.PauseEnabled, ID: id[:24], Host: p.ID, Name: mission.Title, MapID: mission.MapID, Mode: "coop", Private: body.Private, Code: code[:12], Created: time.Now().Unix(), ScenarioID: mission.ID, Difficulty: body.Difficulty}
 	hostAdded := false
 	for i, mp := range mission.Players {
 		slot := LobbySlot{Player: sim.PlayerID(mp.ID), Name: mp.Name, Faction: mp.Faction, Team: mp.Team, AI: mp.AI, Script: mp.Control(i) == "script"}
@@ -227,8 +228,9 @@ func (s *Server) resumeScenarioLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var body struct {
-		Player  uint32 `json:"player"`
-		Private bool   `json:"private"`
+		PauseEnabled bool   `json:"pause_enabled"`
+		Player       uint32 `json:"player"`
+		Private      bool   `json:"private"`
 	}
 	if !decode(w, r, &body, 4096) {
 		return
@@ -272,7 +274,7 @@ func (s *Server) resumeScenarioLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not create resume lobby.")
 		return
 	}
-	l := &Lobby{ID: id[:24], Name: mission.Title, Host: p.ID, MapID: m.ID, Mode: "coop", Private: body.Private, Code: code[:12], Created: time.Now().Unix(), ScenarioID: mission.ID, Difficulty: state.Mission.Difficulty, ResumeSave: save.ID, ResumeOwner: p.ID, ResumeRevision: save.Revision, ResumeTick: uint32(state.Tick)}
+	l := &Lobby{PauseEnabled: body.PauseEnabled, ID: id[:24], Name: mission.Title, Host: p.ID, MapID: m.ID, Mode: "coop", Private: body.Private, Code: code[:12], Created: time.Now().Unix(), ScenarioID: mission.ID, Difficulty: state.Mission.Difficulty, ResumeSave: save.ID, ResumeOwner: p.ID, ResumeRevision: save.Revision, ResumeTick: uint32(state.Tick)}
 	found := false
 	for _, player := range state.Players {
 		slot := LobbySlot{Player: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, AI: player.AI, Script: player.Controller == "script"}
