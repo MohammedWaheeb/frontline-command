@@ -5,6 +5,7 @@ import {PlayerSnapshotSchema} from '../../src/protocol/frontline_pb';
 import {SessionController,type OfflineSession,type SessionStorage} from '../../src/runtime/session';
 import {RuntimeEvents,type GameMap,type OfflineConfig,type SaveData,type SessionInfo} from '../../src/runtime/types';
 import {RuntimeError} from '../../src/runtime/errors';
+import type {ObserverConnection} from '../../src/runtime/observer';
 const map:GameMap={id:'test',title:'Synthetic session fixture',author:'test',version:'1',format_version:1,ruleset:'standard-v2',width:32,height:32,tiles:[],spawns:[],shipment:{x:100,y:100},fields:[]};
 const metadata={simulation:'test',protocol:1,content_hash:'test',map_version:'1',ruleset:'standard-v2',seed:1};
 const config:OfflineConfig={map,seed:1,players:[{id:1,name:'One',faction:'US',team:1}]};
@@ -67,4 +68,17 @@ test('new restart session has a new autosave identity and remains paused until U
  const a=new FakeOffline(),b=new FakeOffline(),all=[a,b],data=storage(),controller=new SessionController({store:data.store,makeOffline:()=>all.shift()!});
  await controller.startSolo({...config,ruleset:'practice-v1'});const first=controller.state.id;await controller.flushAutosave();await controller.restart();await controller.flushAutosave();
  assert.notEqual(controller.state.id,first);assert.equal(controller.state.info?.tick,0);assert.equal(b.paused,true);assert.equal(data.autosaves,2);await controller.resume();assert.equal(b.paused,false);controller.dispose();
+});
+
+test('observer replacement is read-only, may buffer without a snapshot, and never creates autosaves',async()=>{
+ class FakeObserver extends RuntimeEvents{
+  readonly mode='online' as const;current=undefined;disposed=false;
+  async connect(){}async sendOrders():Promise<number>{throw new RuntimeError('observer_read_only','Read only')}
+  async pause(){throw new RuntimeError('observer_read_only','Read only')}async resume(){throw new RuntimeError('observer_read_only','Read only')}
+  dispose(){this.disposed=true;this.clearListeners()}
+ }
+ const observer=new FakeObserver(),data=storage(),controller=new SessionController({store:data.store,makeObserver:()=>observer});
+ const connection:ObserverConnection={match_id:'test',player:1,token:'a'.repeat(64),delay_ticks:2400,read_only:true,protocol:1,simulation:'test',content_hash:'test',map_version:'1'};
+ await controller.joinObserver('http://lan.test',connection,map);assert.equal(controller.state.kind,'observer');assert.equal(controller.state.phase,'active');assert.equal(controller.transport?.current,undefined);await controller.flushAutosave();assert.equal(data.autosaves,0);
+ await assert.rejects(()=>controller.saveManual('observer','Not a save'),{code:'save_unavailable'});await assert.rejects(()=>controller.restart(),{code:'restart_unavailable'});await assert.rejects(()=>controller.pause(),{code:'observer_read_only'});controller.leave();assert.equal(observer.disposed,true);
 });

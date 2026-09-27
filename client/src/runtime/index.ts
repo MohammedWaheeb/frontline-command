@@ -4,6 +4,7 @@ export * from './fixed';
 export * from './snapshot';
 export * from './offline';
 export * from './online';
+export * from './observer';
 export * from './api';
 export * from './storage';
 export * as wire from '../protocol/frontline_pb';

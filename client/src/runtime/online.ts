@@ -7,6 +7,7 @@ import {RuntimeEvents,type GameTransport,type OrderIntent,type ConnectionPhase} 
 export interface MatchConnection{match_id:string;player:number;token:string;protocol:number;simulation:string;content_hash:string}
 export class OnlineTransport extends RuntimeEvents implements GameTransport {
  readonly mode='online' as const;current:PlayerSnapshot|undefined;phase:ConnectionPhase='idle';
+ terminalReason:'player_eliminated'|'reconnect_expired'|undefined;
  private socket:WebSocket|undefined;private epoch=0;private sequence=0;private disposed=false;private stopped=false;private finished=false;
  private retryTimer:ReturnType<typeof setTimeout>|undefined;private pingTimer:ReturnType<typeof setInterval>|undefined;
  private reconnectAt=0;private attempt=0;private nonce=0;private pings=new Map<number,number>();
@@ -44,7 +45,7 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
       case 'orderResult':this.emit({type:'order-result',result:message.value});break;
       case 'status':this.emit({type:'status',status:message.value});break;
       case 'result':this.finished=message.value.committed||message.value.void;this.emit({type:'result',result:message.value});break;
-      case 'error':{const error=new RuntimeError(message.value.code,message.value.message,message.value.recoverable);this.emit({type:'error',error});if(!error.recoverable){this.stopped=true;finish(error);socket.close()}break}
+      case 'error':{const error=new RuntimeError(message.value.code,message.value.message,message.value.recoverable);if(error.code==='player_eliminated'||error.code==='reconnect_expired'){this.terminalReason=error.code;this.stopped=true;this.change('closed');finish(error);socket.close();break}this.emit({type:'error',error});if(!error.recoverable){this.stopped=true;finish(error);socket.close()}break}
       case 'ping':{const started=this.pings.get(message.value.nonce);if(started!==undefined){this.pings.delete(message.value.nonce);this.emit({type:'latency',milliseconds:performance.now()-started})}break}
       default:throw new RuntimeError('unexpected_frame','The host returned an unsupported game message.',false);
      }
@@ -74,6 +75,6 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
  async pause(){this.send(create(EnvelopeSchema,{message:{case:'control',value:{action:'pause'}}}))}
  async resume(){this.send(create(EnvelopeSchema,{message:{case:'control',value:{action:'resume'}}}))}
  /** Reauthenticate a replacement socket; no uncertain commands are resent. */
- reconnect(){this.stopped=false;if(!this.reconnectAt)this.reconnectAt=Date.now();return this.open(true)}
+ reconnect(){if(this.terminalReason)return Promise.reject(new RuntimeError(this.terminalReason,this.terminalReason==='player_eliminated'?'Your commander was eliminated. Join an authorized observer view or wait for the final result.':'The reconnect window has ended. Review the result or join an authorized observer view.',false));this.stopped=false;if(!this.reconnectAt)this.reconnectAt=Date.now();return this.open(true)}
  dispose(){if(this.disposed)return;this.disposed=true;this.stopped=true;++this.epoch;if(this.retryTimer)clearTimeout(this.retryTimer);if(this.pingTimer)clearInterval(this.pingTimer);this.socket?.close(1000,'client closed');this.change('closed');this.clearListeners()}
 }

@@ -1,11 +1,12 @@
 import {OfflineTransport} from './offline';
 import {OnlineTransport,type MatchConnection} from './online';
+import {ObserverTransport,type ObserverConnection} from './observer';
 import {LocalStore,type LocalSave,type ReplayInspection} from './storage';
 import {AutosaveCoordinator,type AutosaveStatus} from './autosave';
 import {RuntimeError} from './errors';
 import type {GameMap,GameTransport,OfflineConfig,RuntimeEvent,SaveData,SessionInfo,Speed} from './types';
 
-export type SessionKind='solo'|'practice'|'replay'|'online';
+export type SessionKind='solo'|'practice'|'replay'|'online'|'observer';
 export interface SessionState{phase:'menu'|'loading'|'active'|'closed';id?:string;kind?:SessionKind;map?:GameMap;info?:SessionInfo;loading?:SessionKind}
 export type SessionEvent={type:'session';state:SessionState}|{type:'runtime';session:string;event:RuntimeEvent}|{type:'autosave';session:string;status:AutosaveStatus}|{type:'error';error:RuntimeError};
 export type OfflineSession=Pick<OfflineTransport,'mode'|'current'|'ready'|'create'|'load'|'loadReplay'|'restart'|'map'|'save'|'exportReplay'|'inspect'|'inspectReplay'|'subscribe'|'sendOrders'|'pause'|'resume'|'dispose'|'setSpeed'|'setPerspective'|'seekReplay'>;
@@ -14,6 +15,7 @@ export type SessionStorage=Pick<LocalStore,'getSave'|'getReplay'|'putSave'|'putR
 export interface SessionOptions{
  runtimeURL?:string;databaseName?:string;store?:SessionStorage;
  makeOffline?:()=>OfflineSession;makeOnline?:(baseURL:string,connection:MatchConnection)=>OnlineSession;
+ makeObserver?:(baseURL:string,connection:ObserverConnection)=>Pick<ObserverTransport,'mode'|'current'|'connect'|'subscribe'|'sendOrders'|'pause'|'resume'|'dispose'>;
  /** Claude's asset loader supplies this hook. It must observe cancellation. */
  prepare?:(input:{kind:SessionKind;map?:GameMap;config?:OfflineConfig},signal:AbortSignal)=>Promise<void>;
 }
@@ -88,6 +90,17 @@ export class SessionController{
   const launch=this.begin('online');
   try{await this.options.prepare?.({kind:'online',map},launch.abort.signal);this.currentLaunch(launch);const online=this.makeOnline(baseURL,{...connection});launch.candidate=online;await online.connect();this.currentLaunch(launch);if(online.current?.metadata?.mapVersion!==map.version)throw new RuntimeError('map_version_mismatch','The loaded map version differs from the host match. Reload its content before reconnecting.');this.install(launch,'online',map,online);return this.state}
   catch(error){return this.failed(launch,error)}
+ }
+ /** A buffering observer has no initial snapshot; the transport validates every later perspective frame. */
+ async joinObserver(baseURL:string,connection:ObserverConnection,map:GameMap){
+  const launch=this.begin('observer');
+  try{
+   if(connection.map_version!==map.version)throw new RuntimeError('map_version_mismatch','The observer map version differs from the host match.');
+   await this.options.prepare?.({kind:'observer',map},launch.abort.signal);this.currentLaunch(launch);
+   const observer=this.options.makeObserver?.(baseURL,{...connection})??new ObserverTransport(baseURL,{...connection});launch.candidate=observer;
+   await observer.connect();this.currentLaunch(launch);if(observer.current?.metadata?.mapVersion&&observer.current.metadata.mapVersion!==map.version)throw new RuntimeError('map_version_mismatch','The observer map version differs from the host match.');
+   this.install(launch,'observer',map,observer);return this.state;
+  }catch(error){return this.failed(launch,error)}
  }
  async restart(){
   const old=this.active;if(!old?.offline||old.kind==='replay')throw new RuntimeError('restart_unavailable','Restart is available only in a solo or practice match.');
