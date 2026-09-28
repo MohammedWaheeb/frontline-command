@@ -1,0 +1,179 @@
+{
+  "format_version": 1,
+  "mission_id": "tutorial-4-defend-the-sky",
+  "mission_version": "1",
+  "title": "Defend the Sky",
+  "mode": "tutorial",
+  "faction": "US",
+  "operation": null,
+  "theater": null,
+  "order": 4,
+  "lesson": "Defend the Sky",
+  "design_reference": "18.4",
+  "art": {
+    "briefing": "briefing/tutorial-4-defend-the-sky",
+    "loading": "loading/tutorial-4-defend-the-sky",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.us",
+    "battle": "music.battle.us",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "service-aircraft-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose the marked strike aircraft before completing service."
+    },
+    {
+      "id": "missile-exercise-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Destroy the missile source before intercepting its missile."
+    },
+    {
+      "id": "evade-team-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose the marked infantry group before its movement exercise."
+    },
+    {
+      "id": "service",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Complete service on the marked strike aircraft."
+    },
+    {
+      "id": "air-defense",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Destroy the hostile aircraft."
+    },
+    {
+      "id": "missile-defense",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Intercept one tactical missile."
+    },
+    {
+      "id": "evade",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Move the marked rifle group to the danger marker, then return after the warning."
+    },
+    {
+      "id": "enter-mark",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Move the marked rifle group to the exercise warning marker."
+    },
+    {
+      "id": "wing-safe",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Keep both original aircraft alive."
+    }
+  ],
+  "markers": [
+    {
+      "id": "exercise-warning",
+      "text": "Exercise warning marker",
+      "region": "site1",
+      "objective": "enter-mark"
+    },
+    {
+      "id": "exercise-return",
+      "text": "Return to base",
+      "region": "base",
+      "objective": "evade"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "advanced-exercise",
+      "kind": "scripted_reinforcement",
+      "detail": "A finite late exercise column changes enemy composition and timing only; no training rule bonuses are applied."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "Interface steps and their browser-local input records are separate from Go mission objectives. World completion alone does not certify selection, control groups, rally feedback or boarding input."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Instructor Vale",
+      "text": "Service the marked aircraft, defeat the hostile aircraft with ground AA or fighters, and intercept the tactical missile detachment. Leave the marked danger area when warned. Ground AA does not intercept tactical missiles; the fixed ABM does, using paid finite charges.",
+      "voice": "vo.tutorial-4-defend-the-sky.briefing.01"
+    },
+    {
+      "key": "trigger:air-threat",
+      "speaker": "Instructor",
+      "text": "Move the marked infantry out of the warning area and back to base. Interceptors protect against missiles; AA protects against aircraft.",
+      "voice": "vo.tutorial-4-defend-the-sky.air-threat"
+    },
+    {
+      "key": "checkpoint:service-cycle",
+      "speaker": "System",
+      "text": "Checkpoint reached: service-cycle.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-service-cycle",
+      "speaker": "Operations",
+      "text": "Aircraft service is complete. Observe the distinct missile and air-defense counters.",
+      "voice": "vo.tutorial-4-defend-the-sky.checkpoint-service-cycle"
+    },
+    {
+      "key": "trigger:advanced-exercise",
+      "speaker": "Instructor",
+      "text": "The late exercise detachment has entered the eastern road.",
+      "voice": "vo.tutorial-4-defend-the-sky.advanced-exercise"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Instructor Vale",
+      "text": "Exercise complete. The same rules apply in skirmish and multiplayer.",
+      "voice": "vo.tutorial-4-defend-the-sky.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Instructor Vale",
+      "text": "Restart the checkpoint and keep the required training assets alive.",
+      "voice": "vo.tutorial-4-defend-the-sky.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:20",
+      "text": "Service exercise strike aircraft"
+    },
+    {
+      "origin": "initial:21",
+      "text": "Air-defense exercise fighter"
+    },
+    {
+      "origin": "initial:22",
+      "text": "Missile exercise battery"
+    },
+    {
+      "origin": "initial:13",
+      "text": "Warning and evasion team"
+    }
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "format_version": 1,
+  "mission_id": "twin-outposts",
+  "mission_version": "1",
+  "title": "Twin Outposts",
+  "mode": "coop",
+  "faction": "US",
+  "operation": "Joint Route Command",
+  "theater": "The fictional Aster Reach",
+  "order": 2,
+  "lesson": "Reconnect separated economies before the joint assault.",
+  "design_reference": "19.6",
+  "art": {
+    "briefing": "briefing/twin-outposts",
+    "loading": "loading/twin-outposts",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.us",
+    "battle": "music.battle.us",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "western-hq-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Western Command loses its final HQ."
+    },
+    {
+      "id": "eastern-hq-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Eastern Command loses its final HQ."
+    },
+    {
+      "id": "reconnection",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Control the contested central connection for thirty seconds."
+    },
+    {
+      "id": "joint-assault",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Neutralize both hostile production bases after reconnecting."
+    },
+    {
+      "id": "original-hqs",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Keep both original HQs alive."
+    }
+  ],
+  "markers": [
+    {
+      "id": "central-connection",
+      "text": "Contested central connection",
+      "region": "central-connection",
+      "objective": "reconnection"
+    },
+    {
+      "id": "western-corridor",
+      "text": "Western corridor approach",
+      "region": "corridor-west"
+    },
+    {
+      "id": "eastern-corridor",
+      "text": "Eastern corridor approach",
+      "region": "corridor-east"
+    },
+    {
+      "id": "western-hostile-base",
+      "text": "Western hostile base area",
+      "region": "second-base",
+      "objective": "joint-assault"
+    },
+    {
+      "id": "eastern-hostile-base",
+      "text": "Eastern hostile base area",
+      "region": "enemy-base",
+      "objective": "joint-assault"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "pressure-1",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 1: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-2",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 2: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "trigger": "pressure-3",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 3: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "north-pressure-1",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 1: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "north-pressure-2",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 2: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "trigger": "north-pressure-3",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 3: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Joint Command",
+      "text": "Your HQs start on opposite sides of the river. Each commander must keep an HQ alive. Reopen the central connection, then neutralize the command and production structures of both hostile bases. Warned finite detachments enter the northwestern and northeastern roads. Each economy, service slot and army remains owned by its commander.",
+      "voice": "vo.twin-outposts.briefing.01"
+    },
+    {
+      "key": "checkpoint:river-reconnected",
+      "speaker": "System",
+      "text": "Checkpoint reached: river-reconnected.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-river-reconnected",
+      "speaker": "Operations",
+      "text": "The central connection is open. Refit both forces before the joint assault.",
+      "voice": "vo.twin-outposts.checkpoint-river-reconnected"
+    },
+    {
+      "key": "checkpoint:final-assault",
+      "speaker": "System",
+      "text": "Checkpoint reached: final-assault.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-final-assault",
+      "speaker": "Operations",
+      "text": "Both corridor approaches are secure. The final assault checkpoint is available.",
+      "voice": "vo.twin-outposts.checkpoint-final-assault"
+    },
+    {
+      "key": "trigger:pressure-warning-1",
+      "speaker": "Watch",
+      "text": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.twin-outposts.pressure-warning-1"
+    },
+    {
+      "key": "trigger:pressure-1",
+      "speaker": "Watch",
+      "text": "Column 1 has entered. Its approach is east.",
+      "voice": "vo.twin-outposts.pressure-1"
+    },
+    {
+      "key": "trigger:pressure-warning-2",
+      "speaker": "Watch",
+      "text": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.twin-outposts.pressure-warning-2"
+    },
+    {
+      "key": "trigger:pressure-2",
+      "speaker": "Watch",
+      "text": "Column 2 has entered. Its approach is northwest.",
+      "voice": "vo.twin-outposts.pressure-2"
+    },
+    {
+      "key": "trigger:pressure-warning-3",
+      "speaker": "Watch",
+      "text": "Hostile column 3 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.twin-outposts.pressure-warning-3"
+    },
+    {
+      "key": "trigger:pressure-3",
+      "speaker": "Watch",
+      "text": "Column 3 has entered. Its approach is east.",
+      "voice": "vo.twin-outposts.pressure-3"
+    },
+    {
+      "key": "trigger:north-pressure-warning-1",
+      "speaker": "Watch",
+      "text": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.twin-outposts.north-pressure-warning-1"
+    },
+    {
+      "key": "trigger:north-pressure-1",
+      "speaker": "Watch",
+      "text": "Column 1 has entered. Its approach is east.",
+      "voice": "vo.twin-outposts.north-pressure-1"
+    },
+    {
+      "key": "trigger:north-pressure-warning-2",
+      "speaker": "Watch",
+      "text": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.twin-outposts.north-pressure-warning-2"
+    },
+    {
+      "key": "trigger:north-pressure-2",
+      "speaker": "Watch",
+      "text": "Column 2 has entered. Its approach is northwest.",
+      "voice": "vo.twin-outposts.north-pressure-2"
+    },
+    {
+      "key": "trigger:north-pressure-warning-3",
+      "speaker": "Watch",
+      "text": "Hostile column 3 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.twin-outposts.north-pressure-warning-3"
+    },
+    {
+      "key": "trigger:north-pressure-3",
+      "speaker": "Watch",
+      "text": "Column 3 has entered. Its approach is east.",
+      "voice": "vo.twin-outposts.north-pressure-3"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Joint Command",
+      "text": "The joint operation is complete. Review both commanders’ losses and convoy decisions.",
+      "voice": "vo.twin-outposts.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Joint Command",
+      "text": "The joint requirements can no longer be met. Restore the last shared checkpoint.",
+      "voice": "vo.twin-outposts.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:0",
+      "text": "Original western command center"
+    },
+    {
+      "origin": "initial:17",
+      "text": "Original eastern command center"
+    }
+  ]
+}

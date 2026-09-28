@@ -1,0 +1,22 @@
+=== RUN   TestAuthoredCoopCompletion
+=== RUN   TestAuthoredCoopCompletion/twin-outposts/easy
+    authored_campaign_acceptance_test.go:1415: MISSION twin-outposts faction=US difficulty=easy tick=5108 midpoint=996 receipts=522 hash=d9a72a19aa3564ab105a73173d5b6dbfc2914bb3878c5eba0fe3128aa0e5d42a
+=== RUN   TestAuthoredCoopCompletion/twin-outposts/normal
+    authored_campaign_acceptance_test.go:1415: MISSION twin-outposts faction=US difficulty=normal tick=4983 midpoint=996 receipts=483 hash=02cda0c971305fadc07af8ac0e2f4b45f988a1e2997e5aa113fcde542e779a78
+=== RUN   TestAuthoredCoopCompletion/twin-outposts/hard
+    authored_campaign_acceptance_test.go:1415: MISSION twin-outposts faction=US difficulty=hard tick=4829 midpoint=996 receipts=441 hash=89123ec1d0350e5ed4f3c012f14b3ff72cf39bfe8a7ef49098ab1cbed8ab0a67
+=== RUN   TestAuthoredCoopCompletion/convoy-union/easy
+    authored_campaign_acceptance_test.go:1415: MISSION convoy-union faction=US difficulty=easy tick=10375 midpoint=3788 receipts=419 hash=408d9f0f280dcc971dd947ea135fba612c03ca4506ef43417b7e3d3accaf9e51
+=== RUN   TestAuthoredCoopCompletion/convoy-union/normal
+    authored_campaign_acceptance_test.go:1415: MISSION convoy-union faction=US difficulty=normal tick=10085 midpoint=3765 receipts=414 hash=ed533b0e4c97ba558171d757699ec62232f54f2ae1996151f9330befc33e6270
+=== RUN   TestAuthoredCoopCompletion/convoy-union/hard
+    authored_campaign_acceptance_test.go:1415: MISSION convoy-union faction=US difficulty=hard tick=10568 midpoint=4164 receipts=443 hash=e1a10496e8e3f51b706f288317d03efa54ec310dd186d6e27b712854539808b2
+--- PASS: TestAuthoredCoopCompletion (268.00s)
+    --- PASS: TestAuthoredCoopCompletion/twin-outposts/easy (32.25s)
+    --- PASS: TestAuthoredCoopCompletion/twin-outposts/normal (41.61s)
+    --- PASS: TestAuthoredCoopCompletion/twin-outposts/hard (34.89s)
+    --- PASS: TestAuthoredCoopCompletion/convoy-union/easy (65.33s)
+    --- PASS: TestAuthoredCoopCompletion/convoy-union/normal (49.98s)
+    --- PASS: TestAuthoredCoopCompletion/convoy-union/hard (43.93s)
+PASS
+ok  	frontlinecommand/pkg/sim	268.372s

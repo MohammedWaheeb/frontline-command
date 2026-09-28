@@ -4,7 +4,9 @@ There are five tutorial records, four six-mission campaigns, and two co-op
 records. All are original fictional scenarios. Every record includes briefing,
 debrief, explicit failure, optional objective, three difficulty budgets, and a
 mid-mission checkpoint trigger; the engine supplies the opening checkpoint.
-Reachability and full completion remain the playthrough acceptance gate.
+All 102 native main-objective combinations have completion evidence; the clean
+consolidation and remaining optional/UI acceptance are tracked in
+`authored-mission-playthroughs.md`. Native completion is not full game acceptance.
 
 ## Authored missions
 
@@ -78,8 +80,9 @@ before claiming every lesson action is verified.
 
 All 31 presentation files include caption/transcript text. Briefing/loading
 art and voice/music keys are declared dependencies of the separate art/audio
-assignment, not evidence those media were delivered. Marker records identify
-military objectives; no civilian targets or copied franchise narrative is used.
+assignment, not evidence those media were delivered. Public marker and original-owned-actor records identify military objectives
+and mission teams; `mission-markers.md` records their references and limits.
+No civilian targets or copied franchise narrative is used.
 
 ## Validation and remaining review
 

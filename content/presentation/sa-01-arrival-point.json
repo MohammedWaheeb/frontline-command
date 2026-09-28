@@ -1,0 +1,142 @@
+{
+  "format_version": 1,
+  "mission_id": "sa-01-arrival-point",
+  "mission_version": "1",
+  "title": "Arrival Point",
+  "mode": "campaign",
+  "faction": "SA",
+  "operation": "Operation Shieldline",
+  "theater": "The fictional Aster Reach",
+  "order": 1,
+  "lesson": "Mechanized formation fundamentals.",
+  "design_reference": "19.5",
+  "art": {
+    "briefing": "briefing/sa-01-arrival-point",
+    "loading": "loading/sa-01-arrival-point",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.sa",
+    "battle": "music.battle.sa",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "arrival-base",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Establish supply, deliver cargo and hold the assembly area for thirty seconds."
+    },
+    {
+      "id": "apcs-preserved",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Keep both original APCs alive."
+    }
+  ],
+  "markers": [
+    {
+      "id": "assembly-area",
+      "text": "Forward assembly area",
+      "region": "site1",
+      "objective": "arrival-base"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "pressure-1",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 1: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-2",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 2: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "All mission starting assets are listed in the opening state. Allied recovery transfers existing actors and preserves caps. Scripted enemy columns are finite, announced scenario exceptions; they are not paid AI production."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Commander Sami Nadir",
+      "text": "Establish a supply center, deliver cargo and secure the marked assembly area. Preserve both original APCs. Use infantry and mobile cover together rather than feeding vehicles down a single lane.",
+      "voice": "vo.sa-01-arrival-point.briefing.01"
+    },
+    {
+      "key": "briefing:2",
+      "speaker": "Operations",
+      "text": "Mechanized formation fundamentals.",
+      "voice": "vo.sa-01-arrival-point.briefing.02"
+    },
+    {
+      "key": "trigger:pressure-warning-1",
+      "speaker": "Watch",
+      "text": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.sa-01-arrival-point.pressure-warning-1"
+    },
+    {
+      "key": "trigger:pressure-1",
+      "speaker": "Watch",
+      "text": "Column 1 has entered. Its approach is east.",
+      "voice": "vo.sa-01-arrival-point.pressure-1"
+    },
+    {
+      "key": "trigger:pressure-warning-2",
+      "speaker": "Watch",
+      "text": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.sa-01-arrival-point.pressure-warning-2"
+    },
+    {
+      "key": "trigger:pressure-2",
+      "speaker": "Watch",
+      "text": "Column 2 has entered. Its approach is northwest.",
+      "voice": "vo.sa-01-arrival-point.pressure-2"
+    },
+    {
+      "key": "checkpoint:assembly-contact",
+      "speaker": "System",
+      "text": "Checkpoint reached: assembly-contact.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-assembly-contact",
+      "speaker": "Operations",
+      "text": "The assembly area is clear. Hold it while supply comes online.",
+      "voice": "vo.sa-01-arrival-point.checkpoint-assembly-contact"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Commander Sami Nadir",
+      "text": "Arrival Point is complete. Keep the route secure; the next operation will depend on what we learned here.",
+      "voice": "vo.sa-01-arrival-point.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Commander Sami Nadir",
+      "text": "We can no longer meet this operation’s requirements. Return to the last checkpoint and change the approach.",
+      "voice": "vo.sa-01-arrival-point.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:21",
+      "text": "Original transport pair"
+    }
+  ]
+}

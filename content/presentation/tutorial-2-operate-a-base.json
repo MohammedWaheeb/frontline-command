@@ -1,0 +1,136 @@
+{
+  "format_version": 1,
+  "mission_id": "tutorial-2-operate-a-base",
+  "mission_version": "1",
+  "title": "Operate a Base",
+  "mode": "tutorial",
+  "faction": "US",
+  "operation": null,
+  "theater": null,
+  "order": 2,
+  "lesson": "Operate a Base",
+  "design_reference": "18.4",
+  "art": {
+    "briefing": "briefing/tutorial-2-operate-a-base",
+    "loading": "loading/tutorial-2-operate-a-base",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.us",
+    "battle": "music.battle.us",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "base-cycle",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Deliver cargo, build a power station and produce a squad."
+    },
+    {
+      "id": "rebuild",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Replace the original HQ after its loss, using an emergency rig produced by the factory."
+    },
+    {
+      "id": "repair",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Spend credits repairing actual battle damage."
+    },
+    {
+      "id": "hauler-protected",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Keep both original haulers alive."
+    }
+  ],
+  "markers": [],
+  "scenario_exceptions": [
+    {
+      "trigger": "advanced-exercise",
+      "kind": "scripted_reinforcement",
+      "detail": "A finite late exercise column changes enemy composition and timing only; no training rule bonuses are applied."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "Interface steps and their browser-local input records are separate from Go mission objectives. World completion alone does not certify selection, control groups, rally feedback or boarding input."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Instructor Vale",
+      "text": "Gather cargo, protect your haulers, construct power and produce a squad. A strike team threatens the old HQ: preserve the factory, purchase an emergency rig there after the original HQ falls, then rebuild. Use paid repairs on a damaged vehicle. Scenario starting power is deliberately insufficient; build generation before adding more consumers.",
+      "voice": "vo.tutorial-2-operate-a-base.briefing.01"
+    },
+    {
+      "key": "trigger:hq-pressure-warning",
+      "speaker": "Instructor",
+      "text": "The old HQ will be attacked at two minutes. Keep the factory and 4,700 credits for an emergency rig plus replacement HQ safe.",
+      "voice": "vo.tutorial-2-operate-a-base.hq-pressure-warning"
+    },
+    {
+      "key": "checkpoint:base-cycle",
+      "speaker": "System",
+      "text": "Checkpoint reached: base-cycle.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-base-cycle",
+      "speaker": "Operations",
+      "text": "The base cycle works. Protect the factory during the HQ attack. Purchase its 1,200-credit emergency rig, then construct a 3,500-credit replacement HQ and use paid recovery on damaged units.",
+      "voice": "vo.tutorial-2-operate-a-base.checkpoint-base-cycle"
+    },
+    {
+      "key": "trigger:advanced-exercise",
+      "speaker": "Instructor",
+      "text": "The late exercise detachment has entered the eastern road.",
+      "voice": "vo.tutorial-2-operate-a-base.advanced-exercise"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Instructor Vale",
+      "text": "Exercise complete. The same rules apply in skirmish and multiplayer.",
+      "voice": "vo.tutorial-2-operate-a-base.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Instructor Vale",
+      "text": "Restart the checkpoint and keep the required training assets alive.",
+      "voice": "vo.tutorial-2-operate-a-base.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:0",
+      "text": "Original command center"
+    },
+    {
+      "origin": "initial:5",
+      "text": "Original construction rig"
+    },
+    {
+      "origin": "initial:3",
+      "text": "Original supply trucks"
+    },
+    {
+      "origin": "initial:6",
+      "text": "Original factory"
+    }
+  ]
+}

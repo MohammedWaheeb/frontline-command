@@ -1,0 +1,55 @@
+=== RUN   TestAuthoredCampaignCaptureCompletion
+=== RUN   TestAuthoredCampaignCaptureCompletion/us-03-relay-ridge/easy
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1211
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick3573
+    authored_campaign_acceptance_test.go:827: MISSION us-03-relay-ridge faction=US difficulty=easy tick=6010 midpoint=1212 receipts=206 hash=2a86cb1fe339a652376db73d77327c39758f94fd8acefa2815d9cfef11072481
+=== RUN   TestAuthoredCampaignCaptureCompletion/us-03-relay-ridge/normal
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1329
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick3768
+    authored_campaign_acceptance_test.go:827: MISSION us-03-relay-ridge faction=US difficulty=normal tick=6118 midpoint=1330 receipts=212 hash=12abf368ac9629e42a8f1ba2fe3b3486af8dff59dc3c9decf8b375c7a776490b
+=== RUN   TestAuthoredCampaignCaptureCompletion/us-03-relay-ridge/hard
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1329
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick3637
+    authored_campaign_acceptance_test.go:827: MISSION us-03-relay-ridge faction=US difficulty=hard tick=6118 midpoint=1330 receipts=222 hash=2a7b39e7bec1fcb5d10ff379276cc46651dd82c9246624a94b0b284d1d122675
+=== RUN   TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/easy
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1140
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick3581
+    authored_campaign_acceptance_test.go:768: relay-3 captured tick6419
+    authored_campaign_acceptance_test.go:827: MISSION sy-05-relay-break faction=SY difficulty=easy tick=6419 midpoint=1141 receipts=247 hash=4d2b8803645a23ec45b305e110513ecb10398632616d0d4e0277e6734da19725
+=== RUN   TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/normal
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1140
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick3322
+    authored_campaign_acceptance_test.go:768: relay-3 captured tick6520
+    authored_campaign_acceptance_test.go:827: MISSION sy-05-relay-break faction=SY difficulty=normal tick=6520 midpoint=1141 receipts=259 hash=b7a9191f7ab7a4827dfa1c2cb548c8537b109c010d914ca185fc5440566a67ee
+=== RUN   TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/hard
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1143
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick5373
+    authored_campaign_acceptance_test.go:768: relay-3 captured tick8344
+    authored_campaign_acceptance_test.go:827: MISSION sy-05-relay-break faction=SY difficulty=hard tick=8344 midpoint=1144 receipts=320 hash=e4d717cb3fe5d9f9a75dfd2a5e295b2dae8945c1833732f6816af8ef1f83d54f
+=== RUN   TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/easy
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1142
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick3762
+    authored_campaign_acceptance_test.go:768: relay-3 captured tick6242
+    authored_campaign_acceptance_test.go:827: MISSION sa-05-three-positions faction=SA difficulty=easy tick=6242 midpoint=1143 receipts=244 hash=83188a458db207f26330114d94724d6c857feec20a6fce6fa4e4a86dedf724ea
+=== RUN   TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/normal
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1142
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick4722
+    authored_campaign_acceptance_test.go:768: relay-3 captured tick7141
+    authored_campaign_acceptance_test.go:827: MISSION sa-05-three-positions faction=SA difficulty=normal tick=7141 midpoint=1143 receipts=260 hash=3e0bb1055a936a36a378f04494a6f4f5f188810a7f14ff9a7a9650ac0c55b772
+=== RUN   TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/hard
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1142
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick4359
+    authored_campaign_acceptance_test.go:768: relay-3 captured tick7122
+    authored_campaign_acceptance_test.go:827: MISSION sa-05-three-positions faction=SA difficulty=hard tick=7122 midpoint=1143 receipts=270 hash=9dce0a490f172e4efec635ac247ea39a25041b633a3e90ff6413e5349544de0b
+--- PASS: TestAuthoredCampaignCaptureCompletion (333.97s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/us-03-relay-ridge/easy (23.93s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/us-03-relay-ridge/normal (24.62s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/us-03-relay-ridge/hard (32.48s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/easy (31.79s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/normal (42.21s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/hard (57.20s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/easy (36.13s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/normal (38.97s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/hard (46.64s)
+PASS
+ok  	frontlinecommand/pkg/sim	334.758s

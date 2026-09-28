@@ -1,0 +1,163 @@
+{
+  "format_version": 1,
+  "mission_id": "tutorial-5-command-a-match",
+  "mission_version": "1",
+  "title": "Command a Match",
+  "mode": "tutorial",
+  "faction": "US",
+  "operation": null,
+  "theater": null,
+  "order": 5,
+  "lesson": "Command a Match",
+  "design_reference": "18.4",
+  "art": {
+    "briefing": "briefing/tutorial-5-command-a-match",
+    "loading": "loading/tutorial-5-command-a-match",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.us",
+    "battle": "music.battle.us",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "short-battle",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Neutralize opposing command and production."
+    },
+    {
+      "id": "faction-ability",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Practice the chosen faction’s command ability."
+    },
+    {
+      "id": "command-intact",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Keep the original HQ alive."
+    }
+  ],
+  "markers": [
+    {
+      "id": "opposing-command",
+      "text": "Opposing command-base area",
+      "region": "enemy",
+      "objective": "short-battle"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "pressure-1",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 1: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-2",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 2: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "Interface steps and their browser-local input records are separate from Go mission objectives. World completion alone does not certify selection, control groups, rally feedback or boarding input."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Instructor Vale",
+      "text": "Win a short battle using standard unit, economy, fog and combat rules. Build forces and neutralize the opposing command and production buildings. Practice your chosen faction’s command ability once; finish by reviewing the debrief and replay. Each faction’s authored training assets and ability instructions use its normal roster.",
+      "voice": "vo.tutorial-5-command-a-match.briefing.01"
+    },
+    {
+      "key": "checkpoint:ability-used",
+      "speaker": "System",
+      "text": "Checkpoint reached: ability-used.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-ability-used",
+      "speaker": "Operations",
+      "text": "Ability confirmed. Use the debrief and replay to inspect the battle when you finish.",
+      "voice": "vo.tutorial-5-command-a-match.checkpoint-ability-used"
+    },
+    {
+      "key": "trigger:pressure-warning-1",
+      "speaker": "Watch",
+      "text": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.tutorial-5-command-a-match.pressure-warning-1"
+    },
+    {
+      "key": "trigger:pressure-1",
+      "speaker": "Watch",
+      "text": "Column 1 has entered. Its approach is east.",
+      "voice": "vo.tutorial-5-command-a-match.pressure-1"
+    },
+    {
+      "key": "trigger:pressure-warning-2",
+      "speaker": "Watch",
+      "text": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.tutorial-5-command-a-match.pressure-warning-2"
+    },
+    {
+      "key": "trigger:pressure-2",
+      "speaker": "Watch",
+      "text": "Column 2 has entered. Its approach is northwest.",
+      "voice": "vo.tutorial-5-command-a-match.pressure-2"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Instructor Vale",
+      "text": "Exercise complete. The same rules apply in skirmish and multiplayer.",
+      "voice": "vo.tutorial-5-command-a-match.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Instructor Vale",
+      "text": "Restart the checkpoint and keep the required training assets alive.",
+      "voice": "vo.tutorial-5-command-a-match.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [
+    {
+      "faction": "US",
+      "instruction": "Select the HQ and use Recon Sweep on explored terrain (35 Energy).",
+      "actor_groups": []
+    },
+    {
+      "faction": "IR",
+      "instruction": "Select the starting Survey Drone and use Drone Recall (45 Energy), or Relay Boost while airborne (35 Energy).",
+      "actor_groups": [
+        {
+          "origin": "initial:33",
+          "text": "Faction ability Survey Drone"
+        }
+      ]
+    },
+    {
+      "faction": "SY",
+      "instruction": "Select command and use Disperse around visible infantry (45 Energy).",
+      "actor_groups": []
+    },
+    {
+      "faction": "SA",
+      "instruction": "Select the active HQ and use Emergency Power (45 Energy).",
+      "actor_groups": []
+    }
+  ],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": []
+}

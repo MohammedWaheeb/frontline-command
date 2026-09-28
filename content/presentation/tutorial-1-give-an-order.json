@@ -1,0 +1,173 @@
+{
+  "format_version": 1,
+  "mission_id": "tutorial-1-give-an-order",
+  "mission_version": "1",
+  "title": "Give an Order",
+  "mode": "tutorial",
+  "faction": "US",
+  "operation": null,
+  "theater": null,
+  "order": 1,
+  "lesson": "Give an Order",
+  "design_reference": "18.4",
+  "art": {
+    "briefing": "briefing/tutorial-1-give-an-order",
+    "loading": "loading/tutorial-1-give-an-order",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.us",
+    "battle": "music.battle.us",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "move",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Move the marked infantry into the training area."
+    },
+    {
+      "id": "attack",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Destroy the hostile training target."
+    },
+    {
+      "id": "production",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Produce a new rifle squad, then move the original group into the second marker."
+    },
+    {
+      "id": "original-order-team-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose every member of the marked order-training group."
+    },
+    {
+      "id": "original-team",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Preserve all four original rifle squads."
+    }
+  ],
+  "markers": [
+    {
+      "id": "training-move",
+      "text": "First movement marker",
+      "region": "training-move",
+      "objective": "move"
+    },
+    {
+      "id": "order-drill",
+      "text": "Second training marker",
+      "region": "site1",
+      "objective": "production"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "advanced-exercise",
+      "kind": "scripted_reinforcement",
+      "detail": "A finite late exercise column changes enemy composition and timing only; no training rule bonuses are applied."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "Interface steps and their browser-local input records are separate from Go mission objectives. World completion alone does not certify selection, control groups, rally feedback or boarding input."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Instructor Vale",
+      "text": "Select the marked infantry and move to the training marker. Attack the hostile target, stop at the second marker, assign a control group and set a barracks rally point. Try a blocked order to learn where the rejection appears. The world objectives verify movement, combat and production; selection, groups, rally and rejection prompts are local input lessons.",
+      "voice": "vo.tutorial-1-give-an-order.briefing.01"
+    },
+    {
+      "key": "checkpoint:first-order",
+      "speaker": "System",
+      "text": "Checkpoint reached: first-order.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-first-order",
+      "speaker": "Operations",
+      "text": "Movement confirmed. Attack the target and follow the remaining control prompts.",
+      "voice": "vo.tutorial-1-give-an-order.checkpoint-first-order"
+    },
+    {
+      "key": "trigger:advanced-exercise",
+      "speaker": "Instructor",
+      "text": "The late exercise detachment has entered the eastern road.",
+      "voice": "vo.tutorial-1-give-an-order.advanced-exercise"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Instructor Vale",
+      "text": "Exercise complete. The same rules apply in skirmish and multiplayer.",
+      "voice": "vo.tutorial-1-give-an-order.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Instructor Vale",
+      "text": "Restart the checkpoint and keep the required training assets alive.",
+      "voice": "vo.tutorial-1-give-an-order.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [
+    {
+      "id": "select",
+      "kind": "select",
+      "text": "Select one unit, then drag-select the squad."
+    },
+    {
+      "id": "move",
+      "kind": "move",
+      "objective": "move"
+    },
+    {
+      "id": "attack",
+      "kind": "attack",
+      "objective": "attack"
+    },
+    {
+      "id": "stop",
+      "kind": "stop",
+      "text": "Issue Stop and watch the order marker disappear."
+    },
+    {
+      "id": "group",
+      "kind": "control_group",
+      "text": "Assign a control group and recall it."
+    },
+    {
+      "id": "rally",
+      "kind": "rally",
+      "text": "Set a barracks rally point before producing a squad."
+    },
+    {
+      "id": "blocked",
+      "kind": "rejected_order",
+      "text": "Select your rig, choose a power station, and try placing it over your HQ. Read the occupied-site explanation; the rejected placement spends no credits."
+    }
+  ],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:6",
+      "text": "Order drill rifle squads"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+=== RUN   TestAuthoredCampaignDefenseCompletion
+=== RUN   TestAuthoredCampaignDefenseCompletion/us-04-broken-umbrella/easy
+    authored_campaign_acceptance_test.go:1223: MISSION us-04-broken-umbrella faction=US difficulty=easy tick=14500 midpoint=7304 receipts=98 hash=d37597f7ed86610ca836d3c3cfb37bde4dc95f29e9ab53ea960db10f4a977e2a
+=== RUN   TestAuthoredCampaignDefenseCompletion/us-04-broken-umbrella/normal
+    authored_campaign_acceptance_test.go:1223: MISSION us-04-broken-umbrella faction=US difficulty=normal tick=14500 midpoint=7308 receipts=117 hash=997e13b9765c03b0228106a7e6d5f5987124817c4085fd91a0bf4e1915e78771
+=== RUN   TestAuthoredCampaignDefenseCompletion/us-04-broken-umbrella/hard
+    authored_campaign_acceptance_test.go:1223: MISSION us-04-broken-umbrella faction=US difficulty=hard tick=14500 midpoint=7300 receipts=112 hash=b18ef1a495ddd1afe484bd325f95b589f514caba69030e8b1a4f4ee1e0f45ec4
+=== RUN   TestAuthoredCampaignDefenseCompletion/ir-04-hold-the-network/easy
+    authored_campaign_acceptance_test.go:1223: MISSION ir-04-hold-the-network faction=IR difficulty=easy tick=14501 midpoint=7305 receipts=104 hash=19b8fcfec619d4a2a6f064921d5812b6d90032708094bb40150d4b2d34b5497d
+=== RUN   TestAuthoredCampaignDefenseCompletion/ir-04-hold-the-network/normal
+    authored_campaign_acceptance_test.go:1223: MISSION ir-04-hold-the-network faction=IR difficulty=normal tick=14501 midpoint=7300 receipts=110 hash=db0056cc2bb3b99ad7ee452b34c6f798b97e7309bbfdee6be4ace391f5753c6b
+=== RUN   TestAuthoredCampaignDefenseCompletion/ir-04-hold-the-network/hard
+    authored_campaign_acceptance_test.go:1223: MISSION ir-04-hold-the-network faction=IR difficulty=hard tick=14501 midpoint=7303 receipts=106 hash=5ebd66f1174e386b7ecdd5c1bb6645a84458673fa462d3889f81a6c3785355d6
+=== RUN   TestAuthoredCampaignDefenseCompletion/sy-04-open-doors/easy
+    authored_campaign_acceptance_test.go:1223: MISSION sy-04-open-doors faction=SY difficulty=easy tick=12100 midpoint=6103 receipts=128 hash=ced3bf0cf2e03cbbf60b89d70f44b0cfe841d036b0b78eeecbd517a5ea4c96ea
+=== RUN   TestAuthoredCampaignDefenseCompletion/sy-04-open-doors/normal
+    authored_campaign_acceptance_test.go:1223: MISSION sy-04-open-doors faction=SY difficulty=normal tick=12100 midpoint=6103 receipts=128 hash=08e65761dcd8a29e20fcef493ea37f833e33b278eabdaa2c7f28ad9a0541ad95
+=== RUN   TestAuthoredCampaignDefenseCompletion/sy-04-open-doors/hard
+    authored_campaign_acceptance_test.go:1223: MISSION sy-04-open-doors faction=SY difficulty=hard tick=12100 midpoint=6103 receipts=128 hash=1d05c22389bd0d16e2541701d46feaad860c973be0eb17c13ff4d2e87ec1ad1e
+=== RUN   TestAuthoredCampaignDefenseCompletion/sa-04-intercept-window/easy
+    authored_campaign_acceptance_test.go:1223: MISSION sa-04-intercept-window faction=SA difficulty=easy tick=12100 midpoint=6107 receipts=91 hash=177df645fddced29444af80591a583cd2f4a3bd0e1c1da337a0925eef6a20858
+=== RUN   TestAuthoredCampaignDefenseCompletion/sa-04-intercept-window/normal
+    authored_campaign_acceptance_test.go:1223: MISSION sa-04-intercept-window faction=SA difficulty=normal tick=12100 midpoint=6104 receipts=106 hash=a182e7611a5aad5b33fbb4efec3448ef7e2460d8e2b0ba813eb5f6a91a58d9ee
+=== RUN   TestAuthoredCampaignDefenseCompletion/sa-04-intercept-window/hard
+    authored_campaign_acceptance_test.go:1223: MISSION sa-04-intercept-window faction=SA difficulty=hard tick=12100 midpoint=6100 receipts=130 hash=f552b6be9fd200bf7cef917ba5a5450006253c1371eeedbf84fbf69a2279371e
+--- PASS: TestAuthoredCampaignDefenseCompletion (689.41s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/us-04-broken-umbrella/easy (49.98s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/us-04-broken-umbrella/normal (77.92s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/us-04-broken-umbrella/hard (49.45s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/ir-04-hold-the-network/easy (48.71s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/ir-04-hold-the-network/normal (25.95s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/ir-04-hold-the-network/hard (24.36s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/sy-04-open-doors/easy (23.91s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/sy-04-open-doors/normal (27.04s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/sy-04-open-doors/hard (28.74s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/sa-04-intercept-window/easy (213.51s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/sa-04-intercept-window/normal (20.42s)
+    --- PASS: TestAuthoredCampaignDefenseCompletion/sa-04-intercept-window/hard (99.42s)
+PASS
+ok  	frontlinecommand/pkg/sim	690.211s
