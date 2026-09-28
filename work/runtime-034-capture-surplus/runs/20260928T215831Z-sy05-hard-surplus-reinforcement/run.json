@@ -1,0 +1,83 @@
+{
+  "scope": "One optional Hard actual-cost/surplus reinforcement and lost-builder plan recovery; unchanged rules and maximum waits",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "b57a3e186face7c32f97e1b46bfa3a681e2e29f0d2294e0b0c3f59a73df06f67",
+  "base_source_lock_sha256": "b7ff7fed6afad2c640bda66fe2961c6bcd57cf3b2250a1fb52139b84fbb36136",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:58:31.590945+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-surplus/runs/20260928T215831Z-sy05-hard-surplus-reinforcement/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-surplus/source",
+      "started": "2026-09-28T21:58:31.591301+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.745,
+      "completed": "2026-09-28T21:58:34.336217+00:00"
+    },
+    {
+      "name": "focused",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-surplus/runs/20260928T215831Z-sy05-hard-surplus-reinforcement/sim.test",
+        "-test.run=^TestAuthoredCapture(ConstructionReserve|VisibleSite)",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-surplus/source/pkg/sim",
+      "started": "2026-09-28T21:58:34.341129+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.093,
+      "completed": "2026-09-28T21:58:35.433818+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-surplus/runs/20260928T215831Z-sy05-hard-surplus-reinforcement/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-surplus/source/pkg/sim",
+      "started": "2026-09-28T21:58:35.434179+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 34.148,
+      "completed": "2026-09-28T21:59:09.582079+00:00"
+    }
+  ],
+  "binary_sha256": "b4f1588cffc808d0435d1eda253103fe2044271120ec56f2650284952b478c3e",
+  "exit_code": 1,
+  "completed": "2026-09-28T21:59:09.582361+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-819749838/driver-orders.json": {
+      "bytes": 252643,
+      "sha256": "12be983b33e2dd09ba8212ec1a56169e44ba6c1c2f7f94ccc9089c6bc2e9e745"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-819749838/manifest.json": {
+      "bytes": 860,
+      "sha256": "c4c1bdf9917a08e34b9d9461ef0b912b0aecae1a6ced106aa05fb896931d0e79"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-819749838/owner.view.json": {
+      "bytes": 401427,
+      "sha256": "135e838e1a3377fd7072fb4167d0cbff2be67c5129808544dca58d2c084f78f1"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-819749838/state.save.json": {
+      "bytes": 1122720,
+      "sha256": "031e2313ca98c4a66f00933b5f661a18db9ec5cb0618408e68dca64372e73ed5"
+    }
+  }
+}

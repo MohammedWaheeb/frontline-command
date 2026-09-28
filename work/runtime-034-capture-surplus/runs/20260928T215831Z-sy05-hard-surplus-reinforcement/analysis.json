@@ -1,0 +1,201 @@
+{
+  "tick": 7879,
+  "outcome": {
+    "finished": false,
+    "draw": false,
+    "winning_team": 0,
+    "reason": "",
+    "tick": 0
+  },
+  "hash": "5ec374f755380caf3909d023a35f1f2fb05622bdc9d1c4ba9c623e463dbd55bd",
+  "batches": 469,
+  "receipts": 493,
+  "accepted": 493,
+  "economy": {
+    "last_sequence": 469,
+    "credits": 360558,
+    "energy": 100000,
+    "supply": 29,
+    "reserved_supply": 0,
+    "power_capacity": 200,
+    "power_demand": 150,
+    "tier": 3,
+    "income": 11400000,
+    "repair_reserve": 0,
+    "upgrades": null,
+    "cooldowns": null
+  },
+  "own_tanks": [
+    {
+      "effects": null,
+      "footprint_width": 0,
+      "footprint_height": 0,
+      "footprint_type": "",
+      "map_object": 0,
+      "turret_facing": 201130,
+      "channel_until": 0,
+      "id": 1048,
+      "type": "SY.tank",
+      "owner": 1,
+      "position": {
+        "x": 51881,
+        "y": 85618
+      },
+      "facing": 192670,
+      "health": 507,
+      "state": "turning",
+      "complete": true,
+      "enabled": true,
+      "landed": false,
+      "deployed": false,
+      "concealed": false,
+      "progress": 0,
+      "rank": 0,
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 533207,
+        "max_hp": 1050000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "position": {
+              "x": 47700,
+              "y": 86800
+            }
+          }
+        ],
+        "rally": {
+          "x": 53600,
+          "y": 89500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 212746,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    }
+  ],
+  "factory": {
+    "effects": null,
+    "footprint_width": 4,
+    "footprint_height": 4,
+    "footprint_type": "factory",
+    "map_object": 0,
+    "turret_facing": 0,
+    "channel_until": 0,
+    "id": 79,
+    "type": "factory",
+    "owner": 1,
+    "position": {
+      "x": 50500,
+      "y": 89500
+    },
+    "facing": 0,
+    "health": 1000,
+    "state": "prerequisite_lost",
+    "complete": true,
+    "enabled": true,
+    "landed": false,
+    "deployed": false,
+    "concealed": false,
+    "progress": 0,
+    "rank": 0,
+    "private": {
+      "emergency_takeoff_until": 0,
+      "mission_origin": "initial:42",
+      "ambush_ready": false,
+      "repeat_sortie": false,
+      "hp": 2500000,
+      "max_hp": 2500000,
+      "jobs": [
+        {
+          "type": "SY.tank",
+          "research": false,
+          "paid": 0,
+          "work": 0,
+          "required": 1200,
+          "supply": 0,
+          "service": 0,
+          "started": false
+        },
+        {
+          "type": "SY.tank",
+          "research": false,
+          "paid": 0,
+          "work": 0,
+          "required": 1200,
+          "supply": 0,
+          "service": 0,
+          "started": false
+        },
+        {
+          "type": "SY.tank",
+          "research": false,
+          "paid": 0,
+          "work": 0,
+          "required": 1200,
+          "supply": 0,
+          "service": 0,
+          "started": false
+        },
+        {
+          "type": "SY.tank",
+          "research": false,
+          "paid": 0,
+          "work": 0,
+          "required": 1200,
+          "supply": 0,
+          "service": 0,
+          "started": false
+        },
+        {
+          "type": "SY.tank",
+          "research": false,
+          "paid": 0,
+          "work": 0,
+          "required": 1200,
+          "supply": 0,
+          "service": 0,
+          "started": false
+        },
+        {
+          "type": "SY.tank",
+          "research": false,
+          "paid": 0,
+          "work": 0,
+          "required": 1200,
+          "supply": 0,
+          "service": 0,
+          "started": false
+        }
+      ],
+      "orders": [],
+      "rally": {
+        "x": 71500,
+        "y": 79500
+      },
+      "cargo": 0,
+      "home": 0,
+      "ammo": 0,
+      "endurance": 0,
+      "charges": 0,
+      "charge_work": 0,
+      "service_work": 0,
+      "experience": 0,
+      "cooldowns": null,
+      "passengers": null,
+      "container": 0
+    }
+  },
+  "interpretation": "Unfinished missing-free-tank driver fatal; surviving paid tank1048 is assigned to relay1 guards, factory remainsowned/fullhealth. No all-tanks-dead claim."
+}

@@ -1,0 +1,129 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ candidate/pkg/sim/authored_campaign_acceptance_test.go
+@@ -803,6 +803,7 @@
+ 		originalRifles[id] = true
+ 	}
+ 	forwardConstruction := false
++	var forwardReserve int64
+ 	usedWorkers := map[sim.ID]bool{}
+ 	guards := map[sim.ID][]sim.ID{}
+ 	guardCommitted := map[sim.ID]bool{}
+@@ -972,7 +973,7 @@
+ 			}
+ 		}
+ 
+-		if forwardConstruction {
++		if forwardConstruction && (r.requiredOptional != "factory-captured" || !authoredCaptureConstructionCanSpend(r.view(), forwardReserve)) {
+ 			return
+ 		}
+ 
+@@ -1257,8 +1258,8 @@
+ 						}
+ 					}
+ 					if r.requiredOptional == "factory-captured" {
+-						r.buildVisibleCaptureDefense("outpost", sim.Vec{X: 41500, Y: 88500})
+-						r.buildVisibleCaptureDefense("turret", sim.Vec{X: 53500, Y: 85500})
++						r.buildVisibleCaptureDefense("outpost", sim.Vec{X: 41500, Y: 88500}, func(cost int64) { forwardReserve = cost })
++						r.buildVisibleCaptureDefense("turret", sim.Vec{X: 53500, Y: 85500}, func(cost int64) { forwardReserve = cost })
+ 					} else {
+ 						r.buildAt(r.ids("home-rig"), "outpost", sim.Vec{X: 41500, Y: 88500})
+ 						r.buildAt(r.ids("home-rig"), "turret", sim.Vec{X: 53500, Y: 85500})
+--- base/pkg/sim/authored_capture_visible_site_test.go
++++ candidate/pkg/sim/authored_capture_visible_site_test.go
+@@ -9,18 +9,33 @@
+ // This player-side construction choice reuses the existing conservative current
+ // view prefilter. Go preview and actual execution still decide legality/cost.
+ // Only SY05 Hard's optional route calls it; other capture routes stay unchanged.
+-func (r *authoredRun) buildVisibleCaptureDefense(kind string, point sim.Vec) {
+-	rig := r.ids("home-rig")
++func (r *authoredRun) buildVisibleCaptureDefense(kind string, point sim.Vec, reserve func(int64)) {
++	building, known := r.catalog.Building(kind)
++	if !known {
++		r.t.Fatal("unknown planned defense", kind)
++	}
++	reserve(building.Cost)
++	defer reserve(0)
++	rig := r.ownedType("SY.rig")
++	if len(rig) == 0 {
++		r.t.Logf("abandon unstarted %s: necessary builder absent tick%d", kind, r.engine.Tick())
++		return
++	}
++	rig = rig[:1]
+ 	scout := sim.Vec{X: point.X + 4000, Y: point.Y}
+ 	r.issue(1, sim.Order{Kind: "move", Entities: rig, Position: scout})
+ 	r.wait("rig scouts "+kind+" foundation", 2400, func() bool {
+ 		actor, alive := r.seen(rig[0])
+ 		if !alive {
+-			return false
++			return true // Stop scouting an optional site after the owned builder is lost.
+ 		}
+ 		dx, dy := int64(actor.Position.X-scout.X), int64(actor.Position.Y-scout.Y)
+ 		return dx*dx+dy*dy < 1500*1500
+ 	})
++	if !authoredExpansionRigAvailable(r.view()) {
++		r.t.Logf("abandon unstarted %s: builder lost while scouting tick%d", kind, r.engine.Tick())
++		return
++	}
+ 	var foundation sim.ID
+ 	// Placement and paid construction share the ORIGINAL 3600-tick construction
+ 	// budget. No additional wait is granted for choosing another nearby site.
+@@ -28,6 +43,10 @@
+ 		if foundation != 0 {
+ 			actor, alive := r.seen(foundation)
+ 			return alive && actor.Complete
++		}
++		if !authoredExpansionRigAvailable(r.view()) {
++			r.t.Logf("abandon unstarted %s: builder lost before placement tick%d", kind, r.engine.Tick())
++			return true
+ 		}
+ 		for _, candidate := range authoredExpansionSites(point) {
+ 			if !r.visibleFoundationLooksClear(kind, candidate) {
+@@ -39,6 +58,7 @@
+ 			for _, actor := range r.view().Entities {
+ 				if actor.Owner == 1 && actor.Type == kind && actor.Position == candidate {
+ 					foundation = actor.ID
++					reserve(0) // The real foundation is already paid; do not reserve it again.
+ 					r.t.Logf("visible capture defense %s tick%d site%v actor%d", kind, r.engine.Tick(), candidate, foundation)
+ 					return actor.Complete
+ 				}
+@@ -88,3 +108,40 @@
+ 		t.Fatal("view/advice changed source state")
+ 	}
+ }
++
++// A discretionary unstarted building reserves its actual catalog cost only.
++// This is a commander's spending intention, not an authoritative escrow or a
++// free queue: every producer admission and eventual paid start remains in Go.
++func authoredCaptureConstructionCanSpend(view sim.View, cost int64) bool {
++	return cost == 0 || view.Economy.Credits > cost || !authoredExpansionRigAvailable(view)
++}
++func TestAuthoredCaptureConstructionReserve(t *testing.T) {
++	r := newAuthoredRun(t, "sy-05-relay-break", "hard", "")
++	building, ok := r.catalog.Building("outpost")
++	if !ok {
++		t.Fatal("catalog outpost missing")
++	}
++	view := r.view()
++	view.Economy.Credits = building.Cost
++	if authoredCaptureConstructionCanSpend(view, building.Cost) {
++		t.Fatal("spends reserved unpaid building cost")
++	}
++	view.Economy.Credits++
++	if !authoredCaptureConstructionCanSpend(view, building.Cost) {
++		t.Fatal("surplus cannot fund ordinary legal queues")
++	}
++	view.Economy.Credits = 0
++	if !authoredCaptureConstructionCanSpend(view, 0) {
++		t.Fatal("paid foundation still hoards credits")
++	}
++	var withoutRig []sim.EntityView
++	for _, actor := range view.Entities {
++		if actor.Type != "SY.rig" {
++			withoutRig = append(withoutRig, actor)
++		}
++	}
++	view.Entities = withoutRig
++	if !authoredCaptureConstructionCanSpend(view, building.Cost) {
++		t.Fatal("lost builder still suppresses paid reinforcement")
++	}
++}
