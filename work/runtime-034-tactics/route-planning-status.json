@@ -5,7 +5,7 @@
       "phase": "main",
       "original_passed": 93,
       "original_failed": 9,
-      "failed_cases_with_separate_successful_routes": 7,
+      "failed_cases_with_separate_successful_routes": 8,
       "cases": [
         {
           "case": "TestAuthoredCampaignOpeningCompletion/sy-01-workshop-foothold/easy",
@@ -19,8 +19,13 @@
         },
         {
           "case": "TestAuthoredCampaignTerritoryCompletion/sy-03-three-crossings/hard",
-          "has_separate_successful_route": false,
-          "passed_pilots": []
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "../runtime-034-territory-perimeter/runs/20260928T212646Z-sy03-hard-exterior-screen",
+              "source_lock_sha256": "cd82f1e43a109a01a5ee1f5919bd78c58a261442c25012a4e7fc1b2d780238b6"
+            }
+          ]
         },
         {
           "case": "TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/normal",

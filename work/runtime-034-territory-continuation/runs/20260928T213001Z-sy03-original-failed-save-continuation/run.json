@@ -1,0 +1,67 @@
+{
+  "scope": "Separate exact failed-save continuation diagnostic; original acceptance gate stays failed",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "23897cb8586f39b91b984953c05da71bda6dbb7af5feff953120f9ddba4d975c",
+  "base_source_lock_sha256": "242c51f4fb427b2088c2038c192b6042bc1c2cdf8421b0d96fe83919edd327e7",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:30:01.088869+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-continuation/runs/20260928T213001Z-sy03-original-failed-save-continuation/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-continuation/source",
+      "started": "2026-09-28T21:30:01.089141+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 3.393,
+      "completed": "2026-09-28T21:30:04.482032+00:00"
+    },
+    {
+      "name": "diagnostic",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-continuation/runs/20260928T213001Z-sy03-original-failed-save-continuation/sim.test",
+        "-test.run=^TestAuthoredTerritorySavedContinuation$",
+        "-test.count=1",
+        "-test.timeout=10m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-continuation/source/pkg/sim",
+      "started": "2026-09-28T21:30:04.488194+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 15.716,
+      "completed": "2026-09-28T21:30:20.203988+00:00"
+    }
+  ],
+  "binary_sha256": "53f4d87236fd88f4e432262063b0c800ddc206b4436e0b822a87644563e766de",
+  "exit_code": 0,
+  "completed": "2026-09-28T21:30:20.204616+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/continuation.json": {
+      "bytes": 396,
+      "sha256": "a4f0286c7684c424d49a9536ffccf4d9522cd9855aad6436eea6fc3d8ffb281f"
+    },
+    "evidence/continued.owner-view.json": {
+      "bytes": 468815,
+      "sha256": "51d91b6b62f5d8499c2cbc161eb086c18fe1cd63f9a58e1ed23302455b743dc8"
+    },
+    "evidence/continued.save.json": {
+      "bytes": 1395721,
+      "sha256": "70672ea39f80827f1c603c08e7c341254f23ee573b062229fd0f67211c57b956"
+    },
+    "evidence/samples.json": {
+      "bytes": 33264,
+      "sha256": "119f44fae1808a994b5eeb90d23a8a400bde9ed7df95944184d5b10116609a8f"
+    }
+  }
+}

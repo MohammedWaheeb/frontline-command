@@ -1,0 +1,47 @@
+{
+  "tick": 12687,
+  "midpoint": 604,
+  "hash": "6f20975ea66e75864ab96d31aacb50c186670e8aa8a9719320a2aee5852a2ea3",
+  "outcome": {
+    "finished": true,
+    "draw": false,
+    "winning_team": 1,
+    "reason": "mission_complete",
+    "tick": 12687
+  },
+  "batches": 1107,
+  "receipts": {
+    "ok": 1116
+  },
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "text": "Lose all HQs, production structures and engineering rigs.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 0,
+      "required": 0
+    },
+    {
+      "id": "two-approaches",
+      "text": "Hold any two approaches continuously for three minutes.",
+      "optional": false,
+      "failure": false,
+      "complete": true,
+      "progress": 3600,
+      "required": 3600
+    },
+    {
+      "id": "scout-mark",
+      "text": "Optional: keep the marked scout concealed for one uninterrupted minute.",
+      "optional": true,
+      "failure": false,
+      "complete": true,
+      "progress": 1200,
+      "required": 1200
+    }
+  ],
+  "evidence_sha256": "87da80bd58cdcf30bd8a410ad661f505ce3e6959d3303ab85fd47cddc424fde6",
+  "forbidden_command_count": 0
+}

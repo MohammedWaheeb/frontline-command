@@ -281,3 +281,13 @@ a consolidated99/102 or100/102 claim; the frozen matrix remains93/102.
 - [SY05 secure muster](../runtime-034-capture-muster/README.md) retains that relay
   longer but times out after its real relief force is lost. It is unfinished,
   not a game defeat or proof that the mission is impossible.
+
+- [SY03 Hard exterior screen](../runtime-034-territory-perimeter/README.md)
+  now passes at12,687 under the original driver wait, with1,116 accepted orders,
+  genuine Scout Mark and full save/replay/restart/surrender gates. Eight of the
+  original nine failed main cases now have separate successful routes; SY05
+  Hard remains. This does not change the frozen93/102 matrix.
+- [The exact earlier saved continuation](../runtime-034-territory-continuation/README.md)
+  naturally wins at24,858 with zero additional human commands. Its22,606 test
+  timeout was not an authored deadline or mission defeat. The original failed
+  acceptance stays unchanged; an explicit fresh test-budget proof is separate.
