@@ -1,0 +1,160 @@
+--- base/pkg/sim/authored_candidate_tactics_test.go
++++ candidate/pkg/sim/authored_candidate_tactics_test.go
+@@ -226,14 +226,16 @@
+ 	stage := 0
+ 	planAttemptAt := r.engine.Tick()
+ 	var foundation sim.ID
++	var expansionField uint32
++	logisticsPrepared := false
++	logisticsReady := false
+ 	plan := []struct {
+ 		kind  string
+ 		point sim.Vec
+ 	}{
+ 		{"outpost", sim.Vec{X: 45500, Y: 85500}},
+ 		{"turret", sim.Vec{X: 49500, Y: 80500}},
+-		{"outpost", sim.Vec{X: 87500, Y: 70500}},
+-		{"turret", sim.Vec{X: 86500, Y: 66500}},
++		{"supply", sim.Vec{}},
+ 	}
+ 	var homeWorker sim.ID
+ 	return func() {
+@@ -253,6 +255,9 @@
+ 				if foundation != 0 {
+ 					if site, ok := r.seen(foundation); ok && site.Owner == 1 {
+ 						if site.Complete {
++							if plan[stage].kind == "supply" {
++								logisticsReady = true
++							}
+ 							stage++
+ 							planAttemptAt = r.engine.Tick()
+ 							foundation = 0
+@@ -270,7 +275,45 @@
+ 					r.tryIssue(sim.Order{Kind: "move", Entities: rigs[:1], Position: sim.Vec{X: 33500, Y: 109500}})
+ 				} else if len(builder.Private.Orders) == 0 || builder.Private.Orders[0].Kind != "build" {
+ 					step := plan[stage]
++					siteAvailable := true
++					if step.kind == "supply" {
++						field, found := authoredExpansionField(view, r.region("site1"))
++						if !found {
++							siteAvailable = false // Keep ordinary defenses running while the bounded attempt expires.
++						}
++						expansionField = field.ID
++						step.point = sim.Vec{X: field.Position.X - 7000, Y: field.Position.Y}
++						if siteAvailable && !logisticsPrepared {
++							// Cancel only unpaid ordinary army jobs once to fund the
++							// disclosed field's paid supply center; no refunds/grants.
++							logisticsPrepared = true
++							for _, producer := range view.Entities {
++								if producer.Owner != 1 || producer.Private == nil || producer.Type != "factory" && producer.Type != "barracks" {
++									continue
++								}
++								for attempt := 0; attempt < 6; attempt++ {
++									current, alive := r.seen(producer.ID)
++									if !alive || current.Private == nil {
++										break
++									}
++									index := -1
++									for i := len(current.Private.Jobs) - 1; i >= 0; i-- {
++										if !current.Private.Jobs[i].Started {
++											index = i
++											break
++										}
++									}
++									if index < 0 || !r.tryIssue(sim.Order{Kind: "cancel", Entities: []sim.ID{producer.ID}, Index: int32(index)}) {
++										break
++									}
++								}
++							}
++						}
++					}
+ 					for _, point := range authoredExpansionSites(step.point) {
++						if !siteAvailable {
++							break
++						}
+ 						if !r.visibleFoundationLooksClear(step.kind, point) {
+ 							continue
+ 						}
+@@ -284,12 +327,24 @@
+ 							break
+ 						}
+ 					}
+-					if foundation == 0 {
++					if siteAvailable && foundation == 0 {
+ 						scout := sim.Vec{X: step.point.X - 4000, Y: step.point.Y + 2000}
+ 						if len(builder.Private.Orders) == 0 || builder.Private.Orders[0].Kind != "move" || builder.Private.Orders[0].Position != scout {
+ 							r.tryIssue(sim.Order{Kind: "move", Entities: rigs[:1], Position: scout})
+ 						}
+ 					}
++				}
++			}
++		}
++		if logisticsReady && expansionField != 0 {
++			for _, id := range r.ownedType("SY.hauler") {
++				hauler, _ := r.seen(id)
++				if hauler.Private == nil {
++					continue
++				}
++				orders := hauler.Private.Orders
++				if len(orders) == 0 || orders[0].Kind != "gather" || orders[0].Target != expansionField {
++					r.tryIssue(sim.Order{Kind: "gather", Entities: []sim.ID{id}, Target: expansionField})
+ 				}
+ 			}
+ 		}
+@@ -301,6 +356,15 @@
+ 			canSpend := authoredExpansionCanSpend(view, stage < len(plan), foundation)
+ 			r.t.Logf("expansion production decision tick%d credits%d stage%d foundation%d rigAvailable%t canSpend%t", r.engine.Tick(), view.Economy.Credits, stage, foundation, authoredExpansionRigAvailable(view), canSpend)
+ 			if canSpend {
++				if r.scheduledType("SY.hauler") < 4 {
++					if supplies := r.ownedType("supply"); len(supplies) > 0 {
++						for attempt := 0; attempt < 4 && r.scheduledType("SY.hauler") < 4; attempt++ {
++							if !r.tryIssue(sim.Order{Kind: "train", Entities: supplies[len(supplies)-1:], Type: "SY.hauler"}) {
++								break
++							}
++						}
++					}
++				}
+ 				if factory := r.ownedType("factory"); len(factory) > 0 {
+ 					r.tryIssue(sim.Order{Kind: "rally", Entities: factory[:1], Position: r.region("site2")})
+ 					for _, kind := range []string{"SY.tank", "SY.tank", "SY.aa"} {
+--- base/pkg/sim/authored_expansion_logistics_test.go
++++ candidate/pkg/sim/authored_expansion_logistics_test.go
+@@ -0,0 +1,38 @@
++package sim_test
++
++import (
++	"frontlinecommand/pkg/sim"
++	"testing"
++)
++
++// Only owner-disclosed positive supply fields near the publicly briefed first
++// crossing are eligible. The engine remains sole placement/harvest authority.
++func authoredExpansionField(view sim.View, point sim.Vec) (sim.FieldView, bool) {
++	var choice sim.FieldView
++	best := int64(20000 * 20000)
++	for _, f := range view.Fields {
++		if f.Remaining <= 0 {
++			continue
++		}
++		dx, dy := int64(f.Position.X-point.X), int64(f.Position.Y-point.Y)
++		d := dx*dx + dy*dy
++		if d < best || d == best && choice.ID != 0 && f.ID < choice.ID {
++			choice, best = f, d
++		}
++	}
++	return choice, choice.ID != 0
++}
++func TestAuthoredExpansionLogisticsDisclosedFieldsOnly(t *testing.T) {
++	p := sim.Vec{X: 50500, Y: 81500}
++	if _, ok := authoredExpansionField(sim.View{}, p); ok {
++		t.Fatal("fabricated undisclosed field")
++	}
++	v := sim.View{Fields: []sim.FieldView{{ID: 1, Position: sim.Vec{X: 50500, Y: 81500}, Remaining: 0}, {ID: 2, Position: sim.Vec{X: 47500, Y: 78500}, Remaining: 22000000}, {ID: 3, Position: sim.Vec{X: 21500, Y: 91500}, Remaining: 9000000}}}
++	if f, ok := authoredExpansionField(v, p); !ok || f.ID != 2 {
++		t.Fatal("did not select disclosed usable nearby field", f, ok)
++	}
++	v.Fields[1].Remaining = 0
++	if _, ok := authoredExpansionField(v, p); ok {
++		t.Fatal("selected depleted or outside-neighborhood field")
++	}
++}

@@ -1,0 +1,33 @@
+{
+  "scope": "One SY03 Hard ordinary observed-field logistics test-driver pilot; unchanged production/content",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "162d510c105c19b0b9b374babd1048a3049eab315eff9fe603a0f188a8e72e5c",
+  "base_source_lock_sha256": "c89d2a3d38c94f07b1392cd8c2d68c0b3b97b826234746aceba20e19fe0e3cf7",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:10:17.504721+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-logistics/runs/20260928T211017Z-sy03-hard-observed-logistics/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-logistics/source",
+      "started": "2026-09-28T21:10:17.505155+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 3.685,
+      "completed": "2026-09-28T21:10:21.189895+00:00"
+    }
+  ],
+  "exit_code": 1,
+  "completed": "2026-09-28T21:10:21.190816+00:00",
+  "source_verified_after": true,
+  "artifacts": {}
+}

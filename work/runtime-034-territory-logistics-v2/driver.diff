@@ -1,0 +1,13 @@
+--- base/pkg/sim/authored_candidate_tactics_test.go
++++ candidate/pkg/sim/authored_candidate_tactics_test.go
+@@ -343,8 +343,8 @@
+ 					continue
+ 				}
+ 				orders := hauler.Private.Orders
+-				if len(orders) == 0 || orders[0].Kind != "gather" || orders[0].Target != expansionField {
+-					r.tryIssue(sim.Order{Kind: "gather", Entities: []sim.ID{id}, Target: expansionField})
++				if len(orders) == 0 || orders[0].Kind != "gather" || orders[0].Target != sim.ID(expansionField) {
++					r.tryIssue(sim.Order{Kind: "gather", Entities: []sim.ID{id}, Target: sim.ID(expansionField)})
+ 				}
+ 			}
+ 		}

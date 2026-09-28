@@ -1,0 +1,90 @@
+{
+  "scope": "One SY03 Hard ordinary observed-field logistics test-driver pilot; unchanged production/content",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "73bdd6126bd0ca14e6eace4899f4ba0cd2b24dd8e6cbbe81cfe29e27eafc1889",
+  "base_source_lock_sha256": "162d510c105c19b0b9b374babd1048a3049eab315eff9fe603a0f188a8e72e5c",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:11:09.969604+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-logistics-v2/runs/20260928T211109Z-sy03-hard-observed-logistics/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-logistics-v2/source",
+      "started": "2026-09-28T21:11:09.969989+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 4.426,
+      "completed": "2026-09-28T21:11:14.396509+00:00"
+    },
+    {
+      "name": "budget",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-logistics-v2/runs/20260928T211109Z-sy03-hard-observed-logistics/sim.test",
+        "-test.run=^TestAuthoredExpansion(Budget|Sites|Logistics)",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-logistics-v2/source/pkg/sim",
+      "started": "2026-09-28T21:11:14.403516+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.028,
+      "completed": "2026-09-28T21:11:15.431465+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-logistics-v2/runs/20260928T211109Z-sy03-hard-observed-logistics/sim.test",
+        "-test.run=^TestAuthoredCampaignTerritoryCompletion$/^sy-03-three-crossings$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-logistics-v2/source/pkg/sim",
+      "started": "2026-09-28T21:11:15.431868+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 58.548,
+      "completed": "2026-09-28T21:12:13.979595+00:00"
+    }
+  ],
+  "binary_sha256": "fe1c283d97c10e810e150dc2694c2d16f186f7a6e7ce16b5f5d977e3a37e85a0",
+  "exit_code": 1,
+  "completed": "2026-09-28T21:12:13.980948+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-03-three-crossings-SY-hard.failed.save.json": {
+      "bytes": 1235044,
+      "sha256": "779f2e0b62a4ef2fe792eab5994625a23249d31ae64bcc69a9dd31d05f1b674e"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.failed.view.json": {
+      "bytes": 369917,
+      "sha256": "19132605812e7f0e1aa4cc807cf3058c68fb58b49c37bfbdada5a7361e5c639d"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-2389239087/driver-orders.json": {
+      "bytes": 701635,
+      "sha256": "fde56b26ee6caeab2a3944e8befcaab6a8cfe8b18936fcaacd26407fb8f607f0"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-2389239087/manifest.json": {
+      "bytes": 892,
+      "sha256": "381cb56332c8a8ea8da50eee89290cd0f6dddf498f6b57c861c807e1ffcc919f"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-2389239087/owner.view.json": {
+      "bytes": 369917,
+      "sha256": "19132605812e7f0e1aa4cc807cf3058c68fb58b49c37bfbdada5a7361e5c639d"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-2389239087/state.save.json": {
+      "bytes": 1235044,
+      "sha256": "779f2e0b62a4ef2fe792eab5994625a23249d31ae64bcc69a9dd31d05f1b674e"
+    }
+  }
+}

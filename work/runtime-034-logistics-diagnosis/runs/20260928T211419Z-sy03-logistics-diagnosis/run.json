@@ -1,0 +1,87 @@
+{
+  "scope": "Exact failed SY03 accepted-command replay with authorized-view progress diagnosis",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "9fc013a3a9d130b2b345050369b6ee29e05d1df9c220b33519719e4c998b4814",
+  "base_source_lock_sha256": "73bdd6126bd0ca14e6eace4899f4ba0cd2b24dd8e6cbbe81cfe29e27eafc1889",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:14:19.523969+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-logistics-diagnosis/runs/20260928T211419Z-sy03-logistics-diagnosis/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-logistics-diagnosis/source",
+      "started": "2026-09-28T21:14:19.525335+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 4.472,
+      "completed": "2026-09-28T21:14:23.997025+00:00"
+    },
+    {
+      "name": "diagnostic",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-logistics-diagnosis/runs/20260928T211419Z-sy03-logistics-diagnosis/sim.test",
+        "-test.run=^TestAuthoredProgressDiagnosis$",
+        "-test.count=1",
+        "-test.timeout=10m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-logistics-diagnosis/source/pkg/sim",
+      "started": "2026-09-28T21:14:24.004382+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 16.895,
+      "completed": "2026-09-28T21:14:40.899379+00:00"
+    }
+  ],
+  "binary_sha256": "d3227969d1063b8d66f76b6d441c741e6b125e17bfd2e08281d82fa5f1ae6287",
+  "exit_code": 0,
+  "completed": "2026-09-28T21:14:40.899997+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/reconstruction.json": {
+      "bytes": 234,
+      "sha256": "e501f32cd1cc09d235f67cfd4de73cb9f7558536f7f1d85e8dec579a02fc67f4"
+    },
+    "evidence/tick-10000.owner-view.json": {
+      "bytes": 399504,
+      "sha256": "9072b48aed12a27252b64cc41a5ad9a850e3eb8d4833c57b3461e4c6686e0067"
+    },
+    "evidence/tick-12000.owner-view.json": {
+      "bytes": 397009,
+      "sha256": "04e23a6bd6abe1b47b03d00d31c261d2c6fabcab742ff435e5d0b10a8b88eb60"
+    },
+    "evidence/tick-16000.owner-view.json": {
+      "bytes": 384312,
+      "sha256": "7ede5df6eb9ad6a7967860601e4630c150f2c4d4f9c84eeb36bc0aee3a5841b0"
+    },
+    "evidence/tick-2000.owner-view.json": {
+      "bytes": 407911,
+      "sha256": "ed32d4b3ffec0c35ccad0003db657c76ee8189bf5eec55a74301f7b0aadf9176"
+    },
+    "evidence/tick-20000.owner-view.json": {
+      "bytes": 373600,
+      "sha256": "edad1a08787c545bf9444690cbf945cecce0cf96bc7d52fd02f92c0536c8fd14"
+    },
+    "evidence/tick-4000.owner-view.json": {
+      "bytes": 404900,
+      "sha256": "5118014021d8525c221dcb0e08f7fc22e851fa16961d0f02aa999f4a2dae9a93"
+    },
+    "evidence/tick-6000.owner-view.json": {
+      "bytes": 406008,
+      "sha256": "06b48a4dd28adc3cb8fc83393e528a9b45a44e6018ba7acc840946a965e6dbe9"
+    },
+    "evidence/tick-8000.owner-view.json": {
+      "bytes": 394949,
+      "sha256": "d4e0c2bd832633cb5cc66fa61d27d52c759d2e3017302196f43d13d4ebf7dc00"
+    }
+  }
+}
