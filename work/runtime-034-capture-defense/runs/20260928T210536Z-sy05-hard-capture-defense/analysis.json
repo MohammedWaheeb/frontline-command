@@ -1,0 +1,1512 @@
+{
+  "tick": 6143,
+  "outcome": {
+    "finished": true,
+    "draw": false,
+    "winning_team": 0,
+    "reason": "mission_failed",
+    "tick": 6143
+  },
+  "hash": "bfae39ad7e7ef43abb41999313de136b3ac9cfd014471483d32358aba6aaf61b",
+  "batches": 295,
+  "receipts": {
+    "ok": 308
+  },
+  "owned": [
+    {
+      "id": 23,
+      "type": "hq",
+      "position": {
+        "x": 20500,
+        "y": 104500
+      },
+      "health": 966,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:0",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 4351200,
+        "max_hp": 4500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 24000,
+          "y": 107500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 24,
+      "type": "power",
+      "position": {
+        "x": 12500,
+        "y": 103500
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:1",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1500000,
+        "max_hp": 1500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 15000,
+          "y": 105500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 25,
+      "type": "supply",
+      "position": {
+        "x": 26500,
+        "y": 96500
+      },
+      "health": 601,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:2",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1504500,
+        "max_hp": 2500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 30000,
+          "y": 99000
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 26,
+      "type": "SY.hauler",
+      "position": {
+        "x": 17596,
+        "y": 91404
+      },
+      "health": 873,
+      "state": "moving",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:3",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 786480,
+        "max_hp": 900000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "gather",
+            "target": 1,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 23500,
+          "y": 99500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 27,
+      "type": "SY.hauler",
+      "position": {
+        "x": 21500,
+        "y": 90300
+      },
+      "health": 1000,
+      "state": "loading",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:3",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 900000,
+        "max_hp": 900000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "gather",
+            "target": 1,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 25500,
+          "y": 99500
+        },
+        "cargo": 348000,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 28,
+      "type": "barracks",
+      "position": {
+        "x": 13500,
+        "y": 111500
+      },
+      "health": 998,
+      "state": "producing",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:4",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1497360,
+        "max_hp": 1500000,
+        "jobs": [
+          {
+            "type": "SY.rifle",
+            "research": false,
+            "paid": 250000,
+            "work": 152,
+            "required": 400,
+            "supply": 2,
+            "service": 0,
+            "started": true
+          },
+          {
+            "type": "SY.rifle",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 400,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SY.engineer",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 480,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          }
+        ],
+        "orders": [],
+        "rally": {
+          "x": 71500,
+          "y": 79500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 30,
+      "type": "factory",
+      "position": {
+        "x": 28500,
+        "y": 111500
+      },
+      "health": 1000,
+      "state": "insufficient_credits",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:6",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 2500000,
+        "max_hp": 2500000,
+        "jobs": [
+          {
+            "type": "SY.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SY.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SY.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SY.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SY.aa",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1000,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SY.aa",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1000,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          }
+        ],
+        "orders": [],
+        "rally": {
+          "x": 71500,
+          "y": 79500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 31,
+      "type": "radar",
+      "position": {
+        "x": 20500,
+        "y": 115500
+      },
+      "health": 999,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:7",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1498680,
+        "max_hp": 1500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 23500,
+          "y": 117500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 32,
+      "type": "power",
+      "position": {
+        "x": 11500,
+        "y": 98500
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:8",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1500000,
+        "max_hp": 1500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 14000,
+          "y": 100500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 34,
+      "type": "tech",
+      "position": {
+        "x": 35500,
+        "y": 112500
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:10",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 2000000,
+        "max_hp": 2000000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 38500,
+          "y": 115000
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 35,
+      "type": "power",
+      "position": {
+        "x": 11500,
+        "y": 107500
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:11",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1500000,
+        "max_hp": 1500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 14000,
+          "y": 109500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 36,
+      "type": "depot",
+      "position": {
+        "x": 35500,
+        "y": 117500
+      },
+      "health": 998,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:12",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1497360,
+        "max_hp": 1500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 38500,
+          "y": 120000
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 38,
+      "type": "SY.rifle",
+      "position": {
+        "x": 57000,
+        "y": 81500
+      },
+      "health": 599,
+      "state": "firing",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:13",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 164780,
+        "max_hp": 275000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack",
+            "target": 1003,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 29500,
+          "y": 103500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 1156348,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 40,
+      "type": "SY.rifle",
+      "position": {
+        "x": 56400,
+        "y": 79636
+      },
+      "health": 424,
+      "state": "firing",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:13",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 116600,
+        "max_hp": 275000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack",
+            "target": 1003,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 34500,
+          "y": 103500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 844658,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 44,
+      "type": "SY.engineer",
+      "position": {
+        "x": 47998,
+        "y": 84205
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:16",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 150000,
+        "max_hp": 150000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "repair",
+            "target": 70,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 19500,
+          "y": 107500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 49,
+      "type": "SY.repair",
+      "position": {
+        "x": 25500,
+        "y": 111500
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:19",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 400000,
+        "max_hp": 400000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 25500,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 87,
+      "type": "SY.engineer",
+      "position": {
+        "x": 29716,
+        "y": 95499
+      },
+      "health": 912,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 136800,
+        "max_hp": 150000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "repair",
+            "target": 25,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 142,
+      "type": "SY.hauler",
+      "position": {
+        "x": 22076,
+        "y": 95424
+      },
+      "health": 1000,
+      "state": "turning",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 900000,
+        "max_hp": 900000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "gather",
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 29600,
+          "y": 96500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 175,
+      "type": "SY.rifle",
+      "position": {
+        "x": 21456,
+        "y": 93545
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 250000,
+        "max_hp": 250000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 178,
+      "type": "SY.rifle",
+      "position": {
+        "x": 21000,
+        "y": 93000
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 250000,
+        "max_hp": 250000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "position": {
+              "x": 21500,
+              "y": 93500
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 179,
+      "type": "SY.hauler",
+      "position": {
+        "x": 25499,
+        "y": 87652
+      },
+      "health": 1000,
+      "state": "moving",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 900000,
+        "max_hp": 900000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "gather",
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 29600,
+          "y": 96500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 187,
+      "type": "SY.rifle",
+      "position": {
+        "x": 56982,
+        "y": 78912
+      },
+      "health": 1000,
+      "state": "firing",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 250000,
+        "max_hp": 250000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack",
+            "target": 1003,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 431810,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 228,
+      "type": "SY.engineer",
+      "position": {
+        "x": 49499,
+        "y": 85126
+      },
+      "health": 1000,
+      "state": "idle",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 150000,
+        "max_hp": 150000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 327,
+      "type": "SY.rifle",
+      "position": {
+        "x": 54142,
+        "y": 80137
+      },
+      "health": 894,
+      "state": "firing",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 223600,
+        "max_hp": 250000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack",
+            "target": 1003,
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 314482,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 664,
+      "type": "SY.at",
+      "position": {
+        "x": 55620,
+        "y": 79500
+      },
+      "health": 1000,
+      "state": "moving",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 190000,
+        "max_hp": 190000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "position": {
+              "x": 59251,
+              "y": 84301
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 773284,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 1229,
+      "type": "SY.at",
+      "position": {
+        "x": 60994,
+        "y": 75506
+      },
+      "health": 722,
+      "state": "moving",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 137200,
+        "max_hp": 190000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "position": {
+              "x": 83700,
+              "y": 65500
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 723777,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 1469,
+      "type": "SY.tank",
+      "position": {
+        "x": 59402,
+        "y": 87598
+      },
+      "health": 853,
+      "state": "turning",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 896000,
+        "max_hp": 1050000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "position": {
+              "x": 85500,
+              "y": 65500
+            }
+          }
+        ],
+        "rally": {
+          "x": 31600,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 1486,
+      "type": "SY.at",
+      "position": {
+        "x": 56495,
+        "y": 73005
+      },
+      "health": 1000,
+      "state": "moving",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 190000,
+        "max_hp": 190000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "position": {
+              "x": 87300,
+              "y": 65500
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 1604,
+      "type": "SY.rifle",
+      "position": {
+        "x": 47446,
+        "y": 95056
+      },
+      "health": 904,
+      "state": "moving",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 226000,
+        "max_hp": 250000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "position": {
+              "x": 83700,
+              "y": 67300
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 1691,
+      "type": "SY.rifle",
+      "position": {
+        "x": 23283,
+        "y": 106547
+      },
+      "health": 1000,
+      "state": "moving",
+      "private": {
+        "emergency_takeoff_until": 0,
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 250000,
+        "max_hp": 250000,
+        "jobs": null,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "position": {
+              "x": 85500,
+              "y": 67300
+            }
+          }
+        ],
+        "rally": {
+          "x": 15650,
+          "y": 111500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 24000,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    }
+  ],
+  "visible_hostiles": [
+    {
+      "id": 75,
+      "type": "US.rifle",
+      "position": {
+        "x": 18000,
+        "y": 102000
+      },
+      "health": 320
+    },
+    {
+      "id": 77,
+      "type": "US.rifle",
+      "position": {
+        "x": 19613,
+        "y": 100614
+      },
+      "health": 720
+    },
+    {
+      "id": 78,
+      "type": "US.rifle",
+      "position": {
+        "x": 19982,
+        "y": 101218
+      },
+      "health": 920
+    },
+    {
+      "id": 86,
+      "type": "US.recon",
+      "position": {
+        "x": 15136,
+        "y": 87136
+      },
+      "health": 1000
+    },
+    {
+      "id": 449,
+      "type": "US.at",
+      "position": {
+        "x": 59282,
+        "y": 83499
+      },
+      "health": 509
+    },
+    {
+      "id": 476,
+      "type": "US.rifle",
+      "position": {
+        "x": 19067,
+        "y": 101999
+      },
+      "health": 1000
+    },
+    {
+      "id": 477,
+      "type": "US.rifle",
+      "position": {
+        "x": 18000,
+        "y": 103250
+      },
+      "health": 520
+    },
+    {
+      "id": 478,
+      "type": "US.rifle",
+      "position": {
+        "x": 19999,
+        "y": 101995
+      },
+      "health": 960
+    },
+    {
+      "id": 650,
+      "type": "US.at",
+      "position": {
+        "x": 59311,
+        "y": 81678
+      },
+      "health": 640
+    },
+    {
+      "id": 799,
+      "type": "US.at",
+      "position": {
+        "x": 33337,
+        "y": 103499
+      },
+      "health": 563
+    },
+    {
+      "id": 1003,
+      "type": "US.at",
+      "position": {
+        "x": 59306,
+        "y": 82389
+      },
+      "health": 207
+    },
+    {
+      "id": 1113,
+      "type": "US.engineer",
+      "position": {
+        "x": 66676,
+        "y": 82501
+      },
+      "health": 1000
+    },
+    {
+      "id": 1278,
+      "type": "US.medic",
+      "position": {
+        "x": 58697,
+        "y": 80949
+      },
+      "health": 1000
+    },
+    {
+      "id": 1461,
+      "type": "US.at",
+      "position": {
+        "x": 65564,
+        "y": 82436
+      },
+      "health": 1000
+    }
+  ],
+  "last_events": [
+    {
+      "combat": {
+        "weapon": "AT",
+        "outcome": "hit",
+        "target_armor": "structure"
+      },
+      "id": 4788,
+      "tick": 6143,
+      "kind": "impact",
+      "owner": 2,
+      "entity": 25,
+      "position": {
+        "x": 26500,
+        "y": 96500
+      },
+      "scope": "visible"
+    },
+    {
+      "combat": {
+        "weapon": "AT"
+      },
+      "id": 4789,
+      "tick": 6143,
+      "kind": "impact",
+      "owner": 2,
+      "position": {
+        "x": 50500,
+        "y": 82500
+      },
+      "scope": "visible"
+    },
+    {
+      "id": 4790,
+      "tick": 6143,
+      "kind": "under_attack",
+      "owner": 1,
+      "entity": 25,
+      "position": {
+        "x": 26500,
+        "y": 96500
+      },
+      "value": 77000,
+      "scope": "owner"
+    },
+    {
+      "id": 4791,
+      "tick": 6143,
+      "kind": "under_attack",
+      "owner": 1,
+      "entity": 70,
+      "position": {
+        "x": 50500,
+        "y": 82500
+      },
+      "value": 1380,
+      "scope": "owner"
+    },
+    {
+      "id": 4793,
+      "tick": 6143,
+      "kind": "destroyed",
+      "owner": 1,
+      "entity": 70,
+      "position": {
+        "x": 50500,
+        "y": 82500
+      },
+      "scope": "visible"
+    },
+    {
+      "id": 4794,
+      "tick": 6143,
+      "kind": "objective_complete",
+      "owner": 0,
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "scope": "all",
+      "text": "communications-destroyed"
+    },
+    {
+      "id": 4795,
+      "tick": 6143,
+      "kind": "match_ended",
+      "owner": 0,
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "scope": "all"
+    }
+  ],
+  "verified_artifact_checksums": true
+}

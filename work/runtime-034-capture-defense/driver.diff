@@ -1,0 +1,31 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ candidate/pkg/sim/authored_campaign_acceptance_test.go
+@@ -775,13 +775,17 @@
+ }
+ 
+ func playCampaignCapture(r *authoredRun) {
+-	preserveCaptureForce := r.faction == "SA" && r.difficulty == "hard"
++	// Main-route defense trades the discretionary forward construction detour
++	// for ordinary continuous paid relief. Optional factory-capture tactics stay
++	// unchanged so their distinct route is not silently rewritten.
++	syHardMain := r.faction == "SY" && r.difficulty == "hard" && r.requiredOptional == ""
++	preserveCaptureForce := r.faction == "SA" && r.difficulty == "hard" || syHardMain
+ 	reinforceCaptured := r.difficulty == "hard" && (r.faction == "SY" || r.faction == "SA") || r.faction == "SY" && (r.difficulty == "normal" || r.requiredOptional == "factory-captured")
+ 	r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1}, sim.Order{Kind: "rally", Entities: r.ids("home-factory"), Position: sim.Vec{X: 35500, Y: 94500}}, sim.Order{Kind: "rally", Entities: r.ids("home-barracks"), Position: sim.Vec{X: 35500, Y: 94500}})
+ 	if r.faction == "SY" && (r.difficulty == "hard" || r.requiredOptional == "factory-captured") {
+ 		r.issue(1, sim.Order{Kind: "train", Entities: r.ids("home-supply"), Type: "SY.hauler"}, sim.Order{Kind: "train", Entities: r.ids("home-supply"), Type: "SY.hauler"})
+ 	}
+-	if r.difficulty == "hard" && r.faction == "SA" {
++	if r.difficulty == "hard" && r.faction == "SA" || syHardMain {
+ 		built := false
+ 		for _, point := range []sim.Vec{{X: 21500, Y: 96500}, {X: 20500, Y: 97500}, {X: 21500, Y: 98500}, {X: 28500, Y: 100500}} {
+ 			if r.tryIssue(sim.Order{Kind: "build", Entities: r.ids("home-rig"), Type: "turret", Position: point}) {
+@@ -1225,7 +1229,7 @@
+ 		}
+ 		if stage == 1 {
+ 			r.checkpoint()
+-			if r.faction == "SY" && r.difficulty == "hard" {
++			if r.faction == "SY" && r.difficulty == "hard" && !syHardMain {
+ 				// Protect the fresh relay with the full current cohort and reserve
+ 				// future income for construction. Cancel only unpaid queued jobs;
+ 				// paid production and every actual cost/work requirement continue.
