@@ -81,3 +81,56 @@ func TestRepairPoseEndsWhenNoRepairIsPerformed(t *testing.T) {
 		t.Fatal("completed healing keeps playing work pose")
 	}
 }
+
+func TestSellingPresentationUsesChannelClockAndRestores(t *testing.T) {
+	e := fixture(t)
+	building := e.spawn("power", 1, Vec{X: 20000, Y: 20000}, true, 500000)
+	e.spawn("IR.engineer", 2, Vec{X: 24000, Y: 22000}, true, 0)
+	e.recalculate()
+	e.updateFog()
+	issue(t, e, 1, Order{Kind: "sell", Entities: []ID{building.ID}})
+	for range 50 {
+		e.Advance()
+	}
+	// Production can change activity while the sell channel still governs removal.
+	building.State = "producing"
+	check := func(engine *Engine) {
+		t.Helper()
+		before := engine.Hash()
+		for _, player := range []PlayerID{1, 2} {
+			view, _ := engine.PlayerView(player)
+			found := false
+			for _, actor := range view.Entities {
+				if actor.ID == building.ID {
+					found = true
+					if actor.State != "selling" || actor.Progress < 490 || actor.Progress > 510 {
+						t.Fatalf("selling view %+v", actor)
+					}
+				}
+			}
+			if !found {
+				t.Fatal("fixture lost selling building")
+			}
+		}
+		if before != engine.Hash() {
+			t.Fatal("presentation mutated authoritative state")
+		}
+	}
+	check(e)
+	saved, err := e.Save()
+	if err != nil {
+		t.Fatal(err)
+	}
+	restored, err := Restore(e.catalog, saved)
+	if err != nil {
+		t.Fatal(err)
+	}
+	check(restored)
+	for range 60 {
+		e.Advance()
+		restored.Advance()
+	}
+	if building.HP != 0 || e.Hash() != restored.Hash() {
+		t.Fatal("sell completion/restore mismatch")
+	}
+}

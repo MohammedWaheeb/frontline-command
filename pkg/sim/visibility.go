@@ -421,6 +421,12 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 			b, _ := e.buildingRule(v.Type)
 			s.Progress = int32(v.Work * 1000 / (b.BuildTicks * 2))
 		}
+		if v.Building && v.Channel == "sell" && v.ChannelUntil > e.Tick() {
+			// The channel is authoritative even when a queued production job
+			// updates the building's ordinary activity state in the same tick.
+			s.State = "selling"
+			s.Progress = clamp(1000-int32((v.ChannelUntil-e.Tick())*1000/seconds(5)), 0, 1000)
+		}
 		if until := max(v.DeployUntil, v.PackingUntil); !v.Building && until > e.Tick() && until > v.DeploymentStarted {
 			s.Progress = clamp(int32(uint64(e.Tick()-v.DeploymentStarted)*1000/uint64(until-v.DeploymentStarted)), 0, 1000)
 		}
