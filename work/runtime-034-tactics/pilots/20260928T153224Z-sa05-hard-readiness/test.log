@@ -1,0 +1,9 @@
+=== RUN   TestAuthoredCampaignCaptureCompletion
+=== RUN   TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/hard
+    authored_campaign_acceptance_test.go:1181: relay-1 captured tick1156
+    authored_campaign_acceptance_test.go:595: route progress capture fire-control threshold tick4788 credits852620 army19 objectives[{ID:no-command-assets Text:Lose all HQs, production structures and engineering rigs. Optional:false Failure:true Complete:false Progress:0 Required:0} {ID:three-positions Text:Capture all three marked relays. Optional:false Failure:false Complete:false Progress:1 Required:0} {ID:service-preserved Text:Keep the original Service vehicle alive. Optional:true Failure:false Complete:false Progress:1 Required:0} {ID:relay-destroyed Text:Lose any required relay to destruction. Optional:false Failure:true Complete:false Progress:0 Required:0}]
+    authored_campaign_acceptance_test.go:1181: relay-2 captured tick5619
+    authored_campaign_acceptance_test.go:1177: no surviving paid capture tank
+--- FAIL: TestAuthoredCampaignCaptureCompletion (59.06s)
+    --- FAIL: TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/hard (59.06s)
+FAIL

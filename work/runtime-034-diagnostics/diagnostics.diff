@@ -1,0 +1,439 @@
+--- prior/pkg/sim/authored_failure_diagnostics_probe_test.go
++++ diagnostics/pkg/sim/authored_failure_diagnostics_probe_test.go
+@@ -0,0 +1,214 @@
++package sim_test
++
++import (
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"os"
++	"os/exec"
++	"path/filepath"
++	"strings"
++	"testing"
++
++	"frontlinecommand/pkg/content"
++	"frontlinecommand/pkg/sim"
++)
++
++// Each deliberately failing child is a harness probe, not a mission route.
++func TestAuthoredFatalProbeChild(t *testing.T) {
++	mode := os.Getenv("FRONTLINE_FATAL_PROBE")
++	if mode == "" {
++		t.Skip("subprocess diagnostic probe only")
++	}
++	var r *authoredRun
++	// Registered first, so this runs after the harness's failure capture.
++	t.Cleanup(func() {
++		if r == nil || r.engine == nil || !t.Failed() {
++			return
++		}
++		data, _ := json.Marshal(map[string]any{"hash": r.engine.Hash(), "tick": r.engine.Tick()})
++		if err := os.WriteFile(os.Getenv("FRONTLINE_FATAL_VERIFY"), data, 0644); err != nil {
++			t.Log(err)
++		}
++	})
++	if mode == "setup" {
++		newAuthoredRun(t, "missing-authored-diagnostic-probe", "normal", "US")
++		t.Fatal("setup unexpectedly succeeded")
++	}
++	r = newAuthoredRun(t, "tutorial-1-give-an-order", "normal", "")
++	units := r.ids("starting-rifles")
++	r.issue(1, sim.Order{Kind: "stop", Entities: units})
++	switch mode {
++	case "direct", "disabled":
++		t.Fatal("deliberate driver cohort failure")
++	case "helper":
++		r.ids("missing-diagnostic-tag")
++	case "submit":
++		r.issue(1, sim.Order{Kind: "stop", Entities: []sim.ID{999999}})
++	case "rejected":
++		r.issue(1, sim.Order{Kind: "gather", Entities: units[:1], Target: 1}, sim.Order{Kind: "stop", Entities: units})
++	case "success":
++		return
++	default:
++		t.Fatal("unknown diagnostic probe")
++	}
++	t.Fatal("probe failed to stop at expected fatal")
++}
++func TestAuthoredFatalDiagnostics(t *testing.T) {
++	if os.Getenv("FRONTLINE_TEST_FATAL_DIAGNOSTICS") != "1" {
++		t.Skip("explicit small diagnostic test only")
++	}
++	executable, err := os.Executable()
++	if err != nil {
++		t.Fatal(err)
++	}
++	for _, mode := range []string{"direct", "helper", "submit", "rejected", "setup", "success", "disabled"} {
++		t.Run(mode, func(t *testing.T) {
++			directory := t.TempDir()
++			if preserved := os.Getenv("FRONTLINE_FATAL_PROBE_EVIDENCE_ROOT"); preserved != "" {
++				if err := os.MkdirAll(preserved, 0755); err != nil {
++					t.Fatal(err)
++				}
++				var err error
++				directory, err = os.MkdirTemp(preserved, mode+"-")
++				if err != nil {
++					t.Fatal(err)
++				}
++			}
++			evidence := filepath.Join(directory, "evidence")
++			verify := filepath.Join(directory, "after.json")
++			command := exec.Command(executable, "-test.run=^TestAuthoredFatalProbeChild$", "-test.count=1", "-test.v")
++			env := []string{}
++			for _, item := range os.Environ() {
++				if !strings.HasPrefix(item, "FRONTLINE_FATAL_") && !strings.HasPrefix(item, "FRONTLINE_MISSION_EVIDENCE=") {
++					env = append(env, item)
++				}
++			}
++			env = append(env, "FRONTLINE_FATAL_PROBE="+mode, "FRONTLINE_FATAL_VERIFY="+verify)
++			if mode != "disabled" {
++				env = append(env, "FRONTLINE_MISSION_EVIDENCE="+evidence)
++			}
++			command.Env = env
++			output, runErr := command.CombinedOutput()
++			if err := os.WriteFile(filepath.Join(directory, "child.log"), output, 0644); err != nil {
++				t.Fatal(err)
++			}
++			if mode == "success" {
++				if runErr != nil {
++					t.Fatalf("success probe failed: %v\n%s", runErr, output)
++				}
++			} else if runErr == nil {
++				t.Fatal("intentional fatal child unexpectedly passed")
++			}
++			manifests, err := filepath.Glob(filepath.Join(evidence, "*.fatal-*", "manifest.json"))
++			if err != nil {
++				t.Fatal(err)
++			}
++			if mode == "success" || mode == "disabled" {
++				if len(manifests) != 0 {
++					t.Fatal("failure diagnostics emitted without failure/opt-in")
++				}
++				return
++			}
++			if len(manifests) != 1 {
++				t.Fatalf("expected one failure manifest, got %d; %s", len(manifests), output)
++			}
++			raw, err := os.ReadFile(manifests[0])
++			if err != nil {
++				t.Fatal(err)
++			}
++			var manifest authoredFailureManifest
++			if err = json.Unmarshal(raw, &manifest); err != nil {
++				t.Fatal(err)
++			}
++			if mode == "setup" {
++				if manifest.StateAvailable || len(manifest.Artifacts) != 0 || len(manifest.Errors) != 1 {
++					t.Fatal("setup failure falsely claimed a state", manifest)
++				}
++				return
++			}
++			if !manifest.StateAvailable || !manifest.SourceUnchanged || len(manifest.Errors) != 0 || len(manifest.Artifacts) != 3 {
++				t.Fatal("incomplete diagnostics", manifest)
++			}
++			var after struct {
++				Hash string   `json:"hash"`
++				Tick sim.Tick `json:"tick"`
++			}
++			raw, err = os.ReadFile(verify)
++			if err != nil {
++				t.Fatal(err)
++			}
++			if err = json.Unmarshal(raw, &after); err != nil {
++				t.Fatal(err)
++			}
++			if after.Hash != manifest.StateHash || after.Tick != manifest.Tick {
++				t.Fatal("cleanup changed source engine")
++			}
++			folder := filepath.Dir(manifests[0])
++			for name, artifact := range manifest.Artifacts {
++				data, err := os.ReadFile(filepath.Join(folder, name))
++				if err != nil {
++					t.Fatal(err)
++				}
++				sum := sha256.Sum256(data)
++				if artifact.File != name || artifact.Bytes != len(data) || artifact.SHA256 != hex.EncodeToString(sum[:]) {
++					t.Fatal("artifact receipt differs from bytes", name)
++				}
++			}
++			saved, err := os.ReadFile(filepath.Join(folder, "state.save.json"))
++			if err != nil {
++				t.Fatal(err)
++			}
++			restored, err := sim.Restore(content.MustBase(), saved)
++			if err != nil {
++				t.Fatal(err)
++			}
++			if restored.Hash() != manifest.StateHash || restored.Tick() != manifest.Tick {
++				t.Fatal("preserved save does not restore exactly")
++			}
++			raw, err = os.ReadFile(filepath.Join(folder, "owner.view.json"))
++			if err != nil {
++				t.Fatal(err)
++			}
++			var captured sim.View
++			if err = json.Unmarshal(raw, &captured); err != nil {
++				t.Fatal(err)
++			}
++			actual, ok := restored.PlayerView(1)
++			a, _ := json.Marshal(actual)
++			b, _ := json.Marshal(captured)
++			if !ok || string(a) != string(b) {
++				t.Fatal("captured owner view differs from exact restored view")
++			}
++			raw, err = os.ReadFile(filepath.Join(folder, "driver-orders.json"))
++			if err != nil {
++				t.Fatal(err)
++			}
++			var ledger struct {
++				Completed []authoredOrder  `json:"completed_batches"`
++				Attempt   *authoredAttempt `json:"attempted_batch"`
++			}
++			if err = json.Unmarshal(raw, &ledger); err != nil {
++				t.Fatal(err)
++			}
++			if len(ledger.Completed) != 1 || len(ledger.Completed[0].Results) != 1 || !ledger.Completed[0].Results[0].Accepted {
++				t.Fatal("completed ordinary command missing")
++			}
++			switch mode {
++			case "direct", "helper":
++				if ledger.Attempt != nil {
++					t.Fatal("invented in-flight command")
++				}
++			case "submit":
++				if ledger.Attempt == nil || ledger.Attempt.Stage != "submit" || ledger.Attempt.Error != "not_owner" || len(ledger.Attempt.Results) != 0 {
++					t.Fatal("failed submission missing", ledger.Attempt)
++				}
++			case "rejected":
++				if ledger.Attempt == nil || ledger.Attempt.Stage != "execution_rejected" || len(ledger.Attempt.Results) != 2 || ledger.Attempt.Results[0].Accepted || !ledger.Attempt.Results[1].Accepted {
++					t.Fatal("failed execution receipt missing", ledger.Attempt)
++				}
++			}
++			t.Logf("%s: final tick %d hash %s, exact save/view/ledger and unchanged source", mode, manifest.Tick, manifest.StateHash)
++		})
++	}
++}
+--- prior/pkg/sim/authored_failure_diagnostics_test.go
++++ diagnostics/pkg/sim/authored_failure_diagnostics_test.go
+@@ -0,0 +1,128 @@
++package sim_test
++
++// Failure-only acceptance-harness diagnostics. This is never a mission tactic,
++// simulation feature, successful route or replacement for a missing old artifact.
++import (
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"fmt"
++	"os"
++	"path/filepath"
++	"strings"
++
++	"frontlinecommand/pkg/sim"
++)
++
++type authoredAttempt struct {
++	authoredOrder
++	Stage string `json:"stage"`
++	Error string `json:"error,omitempty"`
++}
++type authoredFailureArtifact struct {
++	File   string `json:"file"`
++	SHA256 string `json:"sha256"`
++	Bytes  int    `json:"bytes"`
++}
++type authoredFailureManifest struct {
++	Format          int                                `json:"format"`
++	Test            string                             `json:"test"`
++	Mission         string                             `json:"mission"`
++	Difficulty      string                             `json:"difficulty"`
++	Faction         string                             `json:"faction"`
++	StateAvailable  bool                               `json:"state_available"`
++	Tick            sim.Tick                           `json:"tick"`
++	StateHash       string                             `json:"state_hash,omitempty"`
++	SourceUnchanged bool                               `json:"source_unchanged"`
++	Artifacts       map[string]authoredFailureArtifact `json:"artifacts"`
++	Errors          []string                           `json:"errors"`
++}
++
++func copyDiagnosticOrders(orders []sim.Order) []sim.Order {
++	out := append([]sim.Order(nil), orders...)
++	for i := range out {
++		out[i].Entities = append([]sim.ID(nil), out[i].Entities...)
++		out[i].Points = append([]sim.Vec(nil), out[i].Points...)
++	}
++	return out
++}
++func diagnosticName(value string) string {
++	return strings.Map(func(r rune) rune {
++		if r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z' || r >= '0' && r <= '9' || r == '.' || r == '-' || r == '_' {
++			return r
++		}
++		return '_'
++	}, value)
++}
++func (r *authoredRun) captureFatalDiagnostics() {
++	directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE")
++	if directory == "" {
++		return
++	}
++	if err := os.MkdirAll(directory, 0755); err != nil {
++		r.t.Logf("failure diagnostics unavailable: %v", err)
++		return
++	}
++	prefix := diagnosticName(r.definition.ID + "-" + r.faction + "-" + r.difficulty + r.evidenceSuffix)
++	target, err := os.MkdirTemp(directory, prefix+".fatal-")
++	if err != nil {
++		r.t.Logf("failure diagnostics unavailable: %v", err)
++		return
++	}
++	manifest := authoredFailureManifest{Format: 1, Test: r.t.Name(), Mission: r.definition.ID, Difficulty: r.difficulty, Faction: r.faction, Artifacts: map[string]authoredFailureArtifact{}, Errors: []string{}}
++	write := func(name string, data []byte, err error) {
++		if err != nil {
++			manifest.Errors = append(manifest.Errors, name+": "+err.Error())
++			return
++		}
++		if err = os.WriteFile(filepath.Join(target, name), data, 0644); err != nil {
++			manifest.Errors = append(manifest.Errors, name+": "+err.Error())
++			return
++		}
++		sum := sha256.Sum256(data)
++		manifest.Artifacts[name] = authoredFailureArtifact{name, hex.EncodeToString(sum[:]), len(data)}
++	}
++	if r.engine == nil {
++		manifest.Errors = append(manifest.Errors, "No authoritative engine exists: initialization failed before a live state was available.")
++	} else {
++		manifest.StateAvailable = true
++		manifest.Tick = r.engine.Tick()
++		manifest.StateHash = r.engine.Hash()
++		saved, saveErr := r.engine.Save()
++		write("state.save.json", saved, saveErr)
++		view, ok := r.engine.PlayerView(1)
++		if !ok {
++			manifest.Errors = append(manifest.Errors, "Owner1 view unavailable")
++		} else {
++			data, e := json.MarshalIndent(view, "", "  ")
++			write("owner.view.json", data, e)
++		}
++		ledger := struct {
++			Tick      sim.Tick         `json:"tick"`
++			Hash      string           `json:"hash"`
++			Completed []authoredOrder  `json:"completed_batches"`
++			Attempted *authoredAttempt `json:"attempted_batch,omitempty"`
++		}{manifest.Tick, manifest.StateHash, r.orders, r.diagnosticAttempt}
++		data, e := json.MarshalIndent(ledger, "", "  ")
++		write("driver-orders.json", data, e)
++		manifest.SourceUnchanged = r.engine.Tick() == manifest.Tick && r.engine.Hash() == manifest.StateHash
++		if !manifest.SourceUnchanged {
++			manifest.Errors = append(manifest.Errors, "Diagnostic capture changed source state")
++		}
++	}
++	data, e := json.MarshalIndent(manifest, "", "  ")
++	if e == nil {
++		e = os.WriteFile(filepath.Join(target, "manifest.json"), append(data, '\n'), 0644)
++	}
++	if e != nil {
++		r.t.Logf("failure diagnostic manifest unavailable: %v", e)
++	} else {
++		r.t.Logf("failure diagnostics: %s (state available=%t, unchanged=%t)", target, manifest.StateAvailable, manifest.SourceUnchanged)
++	}
++}
++func (r *authoredRun) diagnosticAttemptError(stage string, err any) {
++	if r.diagnosticAttempt != nil {
++		r.diagnosticAttempt.Stage = stage
++		r.diagnosticAttempt.Error = fmt.Sprint(err)
++	}
++}
+--- prior/pkg/sim/authored_tutorial_acceptance_test.go
++++ diagnostics/pkg/sim/authored_tutorial_acceptance_test.go
+@@ -40,10 +40,19 @@
+ 	requiredOptional    string
+ 	excludedArmy        map[sim.ID]bool
+ 	tactical            func()
++	diagnosticAttempt   *authoredAttempt
+ }
+ 
+ func newAuthoredRun(t *testing.T, id, difficulty, faction string) *authoredRun {
+ 	t.Helper()
++	run := &authoredRun{t: t, difficulty: difficulty, faction: faction, definition: content.Mission{ID: id}}
++	// Register before setup: every later helper/driver Fatal runs this cleanup.
++	// Successful/skipped leaves create no failure artifacts.
++	t.Cleanup(func() {
++		if t.Failed() {
++			run.captureFatalDiagnostics()
++		}
++	})
+ 	catalog := content.MustBase()
+ 	bytes, err := os.ReadFile(filepath.Join("..", "..", "content", "missions", id+".json"))
+ 	if err != nil {
+@@ -73,15 +82,17 @@
+ 			t.Fatal(err)
+ 		}
+ 	}
++	run.catalog, run.gameMap, run.definition, run.faction = catalog, gameMap, definition, definition.Faction
+ 	engine, err := sim.NewMission(catalog, gameMap, definition, difficulty, 19027)
+ 	if err != nil {
+ 		t.Fatal(err)
+ 	}
++	run.engine = engine
+ 	replay, err := sim.NewReplay(engine)
+ 	if err != nil {
+ 		t.Fatal(err)
+ 	}
+-	run := &authoredRun{t: t, engine: engine, catalog: catalog, gameMap: gameMap, definition: definition, difficulty: difficulty, faction: definition.Faction, replay: replay, tags: map[string][]sim.ID{}, sequences: map[sim.PlayerID]uint32{}, initialHash: engine.Hash()}
++	*run = authoredRun{t: t, engine: engine, catalog: catalog, gameMap: gameMap, definition: definition, difficulty: difficulty, faction: definition.Faction, replay: replay, tags: map[string][]sim.ID{}, sequences: map[sim.PlayerID]uint32{}, initialHash: engine.Hash()}
+ 	for _, entity := range engine.StateCopy().Entities {
+ 		if entity.Tag != "" {
+ 			run.tags[entity.Tag] = append(run.tags[entity.Tag], entity.ID)
+@@ -116,7 +127,9 @@
+ 	r.sequences[player]++
+ 	sequence := r.sequences[player]
+ 	tick := r.engine.Tick()
++	r.diagnosticAttempt = &authoredAttempt{authoredOrder: authoredOrder{tick, player, sequence, copyDiagnosticOrders(orders), nil}, Stage: "submit"}
+ 	if err := r.engine.Submit(player, sequence, orders); err != nil {
++		r.diagnosticAttemptError("submit", err)
+ 		if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {
+ 			_ = os.MkdirAll(directory, 0755)
+ 			prefix := filepath.Join(directory, r.definition.ID+"-"+r.faction+"-"+r.difficulty+r.evidenceSuffix+".submit-error")
+@@ -127,18 +140,27 @@
+ 		}
+ 		r.t.Fatalf("%s at tick %d: submit %+v: %v", r.definition.ID, tick, orders, err)
+ 	}
++	r.diagnosticAttempt.Stage = "await_execution"
+ 	if r.twin != nil {
+ 		if err := r.twin.Submit(player, sequence, orders); err != nil {
++			r.diagnosticAttemptError("restored_submit", err)
+ 			r.t.Fatalf("restored submit: %v", err)
+ 		}
+ 	}
+ 	r.advance(1)
+ 	v, _ := r.engine.PlayerView(player)
++	// Capture every available receipt before the original first-rejection fatal.
++	for _, result := range v.Results {
++		if result.Player == player && result.Sequence == sequence {
++			r.diagnosticAttempt.Results = append(r.diagnosticAttempt.Results, result)
++		}
++	}
+ 	receipts := []sim.OrderResult{}
+ 	for _, result := range v.Results {
+ 		if result.Player == player && result.Sequence == sequence {
+ 			receipts = append(receipts, result)
+ 			if !result.Accepted {
++				r.diagnosticAttemptError("execution_rejected", result.Code)
+ 				if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {
+ 					_ = os.MkdirAll(directory, 0755)
+ 					prefix := filepath.Join(directory, r.definition.ID+"-"+r.faction+"-"+r.difficulty+r.evidenceSuffix+".rejected")
+@@ -152,9 +174,11 @@
+ 		}
+ 	}
+ 	if len(receipts) != len(orders) {
++		r.diagnosticAttemptError("receipt_count", fmt.Sprintf("got %d, expected %d", len(receipts), len(orders)))
+ 		r.t.Fatalf("missing execution receipts for sequence %d: %+v", sequence, receipts)
+ 	}
+ 	r.orders = append(r.orders, authoredOrder{tick, player, sequence, orders, receipts})
++	r.diagnosticAttempt = nil
+ }
+ func (r *authoredRun) ids(tag string) []sim.ID {
+ 	r.t.Helper()

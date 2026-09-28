@@ -1,0 +1,12 @@
+{
+  "covered_authoredRun_files": {
+    "authored_tutorial_acceptance_test.go": 47,
+    "authored_campaign_acceptance_test.go": 12,
+    "authored_candidate_tactics_test.go": 1,
+    "authored_optional_routes_test.go": 0,
+    "authored_mission_paths_test.go": 20
+  },
+  "scope": "Cleanup registered before newAuthoredRun setup; covers every later t.Fatal/t.Fatalf in this tutorial/campaign/optional/path harness. Independent skirmish/depot/AI diagnostics do not use authoredRun and are outside this bounded change.",
+  "setup": "Before a live engine exists, writes explicit state-unavailable manifest rather than fabricate a save.",
+  "limits": "Abrupt process kill, os.Exit and whole Go-test timeout can bypass testing.T.Cleanup; existing checkpoint/log evidence remains necessary."
+}

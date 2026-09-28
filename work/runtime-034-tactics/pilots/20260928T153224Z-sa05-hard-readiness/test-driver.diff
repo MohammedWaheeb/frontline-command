@@ -1,0 +1,1516 @@
+--- frozen/pkg/sim/authored_campaign_acceptance_test.go
++++ tactics/pkg/sim/authored_campaign_acceptance_test.go
+@@ -17,7 +17,7 @@
+ 	scout := sim.Vec{X: point.X + 4000, Y: point.Y}
+ 	if r.definition.ID == "sy-01-workshop-foothold" {
+ 		scout.X = point.X - 4000
+-		if r.difficulty == "hard" && kind == "supply" && r.requiredOptional != "mechanic-teams" {
++		if r.difficulty == "hard" && kind == "supply" {
+ 			scout.X = point.X + 4000
+ 		}
+ 	}
+@@ -119,25 +119,29 @@
+ }
+ func playWorkshopFoothold(r *authoredRun) {
+ 	rifles := r.ids("starting-rifles")
++	defensiveEconomy := r.difficulty == "easy"
+ 	hqPoint, powerPoint, supplyPoint, barracksPoint, factoryPoint := sim.Vec{X: 33500, Y: 105500}, sim.Vec{X: 25500, Y: 108500}, sim.Vec{X: 26500, Y: 96500}, sim.Vec{X: 25500, Y: 115500}, sim.Vec{X: 33500, Y: 115500}
+-	if r.requiredOptional == "mechanic-teams" {
++	if defensiveEconomy {
+ 		// Establish inside the authored base region, with the workshop behind
+ 		// the HQ instead of on the exposed eastern approach.
+ 		hqPoint, factoryPoint = sim.Vec{X: 20500, Y: 104500}, sim.Vec{X: 19500, Y: 115500}
+ 	}
++	if defensiveEconomy && r.tactical == nil {
++		r.tactical = r.mechanicRetreat()
++	}
+ 	field := sim.ID(1)
+ 	reconPoint := sim.Vec{X: 41500, Y: 72500}
+-	if r.requiredOptional == "mechanic-teams" {
++	if defensiveEconomy {
+ 		reconPoint = sim.Vec{X: 77500, Y: 87500}
+ 	}
+ 	r.issue(1, sim.Order{Kind: "attack_move", Entities: rifles[:2], Position: r.region("recoveryRig")}, sim.Order{Kind: "attack_move", Entities: append(rifles[2:], r.ids("starting-at")...), Position: r.region("recovery2")}, sim.Order{Kind: "move", Entities: r.ids("starting-recon"), Position: reconPoint}, sim.Order{Kind: "move", Entities: r.ids("starting-engineers"), Position: sim.Vec{X: 39500, Y: 87500}})
+ 	r.wait("recovery of original rig", 2400, func() bool { return r.hasTag("recovered-rig") })
+ 	rig := r.ids("recovered-rig")
+-	if r.requiredOptional != "mechanic-teams" {
++	if !defensiveEconomy {
+ 		r.issue(1, sim.Order{Kind: "move", Entities: r.ids("mechanics-west"), Position: sim.Vec{X: 25500, Y: 83500}}, sim.Order{Kind: "move", Entities: r.ids("mechanics-west"), Position: sim.Vec{X: 22500, Y: 120500}, Queued: true})
+ 	}
+ 	r.wait("eastern mechanic recovery", 1200, func() bool { return r.hasTag("mechanics-east") })
+-	if r.requiredOptional != "mechanic-teams" {
++	if !defensiveEconomy {
+ 		r.issue(1, sim.Order{Kind: "move", Entities: r.ids("mechanics-east"), Position: sim.Vec{X: 77500, Y: 113500}}, sim.Order{Kind: "move", Entities: r.ids("mechanics-east"), Position: sim.Vec{X: 26500, Y: 122500}, Queued: true}, sim.Order{Kind: "attack_move", Entities: r.army(), Position: sim.Vec{X: 33500, Y: 92500}})
+ 	} else {
+ 		r.issue(1, sim.Order{Kind: "attack_move", Entities: r.army(), Position: sim.Vec{X: 33500, Y: 92500}})
+@@ -158,8 +162,18 @@
+ 	nextGuard := r.engine.Tick()
+ 	optionalRecovery := r.tactical
+ 	r.tactical = func() {
+-		if r.requiredOptional == "mechanic-teams" && optionalRecovery != nil {
++		if defensiveEconomy && optionalRecovery != nil {
+ 			optionalRecovery()
++		}
++		if defensiveEconomy {
++			// A normally paid second hauler must receive its real gathering
++			// task after leaving production. No resources are granted.
++			for _, id := range r.ownedType("SY.hauler") {
++				actor, present := r.seen(id)
++				if present && actor.Private != nil && len(actor.Private.Orders) == 0 {
++					r.tryIssue(sim.Order{Kind: "gather", Entities: []sim.ID{id}, Target: field})
++				}
++			}
+ 		}
+ 		if r.engine.Tick() < nextGuard {
+ 			return
+@@ -172,7 +186,7 @@
+ 			if entity.Owner != 2 && entity.Owner != 4 {
+ 				continue
+ 			}
+-			if r.requiredOptional == "mechanic-teams" {
++			if defensiveEconomy {
+ 				unit, mobile := r.catalog.Unit(entity.Type)
+ 				if mobile && unit.Weapon == "" {
+ 					continue
+@@ -180,7 +194,7 @@
+ 			}
+ 			dx, dy := int64(entity.Position.X-center.X), int64(entity.Position.Y-center.Y)
+ 			d := dx*dx + dy*dy
+-			if r.requiredOptional == "mechanic-teams" {
++			if defensiveEconomy {
+ 				if builder, ok := r.seen(rig[0]); ok {
+ 					x, y := int64(entity.Position.X-builder.Position.X), int64(entity.Position.Y-builder.Position.Y)
+ 					d = min(d, x*x+y*y)
+@@ -192,7 +206,7 @@
+ 			}
+ 		}
+ 		if army := r.army(); len(army) > 0 {
+-			if r.requiredOptional == "mechanic-teams" {
++			if defensiveEconomy {
+ 				for _, id := range army {
+ 					actor, present := r.seen(id)
+ 					if !present {
+@@ -226,7 +240,7 @@
+ 				r.tryIssue(sim.Order{Kind: "attack_move", Entities: army, Position: target})
+ 			}
+ 		}
+-		if r.requiredOptional == "mechanic-teams" {
++		if defensiveEconomy {
+ 			if hqs := r.ownedType("hq"); len(hqs) > 0 {
+ 				for i := len(r.tags["starting-engineers"]) - 1; i >= 0; i-- {
+ 					worker, alive := r.seen(r.tags["starting-engineers"][i])
+@@ -243,14 +257,15 @@
+ 	}
+ 
+ 	r.buildAt(rig, "hq", hqPoint)
+-	if r.requiredOptional == "mechanic-teams" {
++	if defensiveEconomy {
+ 		r.issue(1, sim.Order{Kind: "repair_reserve", Index: 1800})
+ 	}
+ 	r.buildAt(rig, "power", powerPoint)
+ 
+ 	r.buildAt(rig, "supply", supplyPoint)
+ 	r.issue(1, sim.Order{Kind: "gather", Entities: r.ownedType("SY.hauler"), Target: field})
+-	if r.requiredOptional == "mechanic-teams" {
++	if defensiveEconomy {
++		r.issue(1, sim.Order{Kind: "train", Entities: r.ownedType("supply")[:1], Type: "SY.hauler"})
+ 		// The only recovery rig waits behind the base while income accrues,
+ 		// rather than idling beside the exposed supply approach.
+ 		r.issue(1, sim.Order{Kind: "move", Entities: rig, Position: sim.Vec{X: hqPoint.X, Y: hqPoint.Y + 7000}})
+@@ -258,7 +273,10 @@
+ 	barracks, _ := r.catalog.Building("barracks")
+ 	r.wait("income funds real barracks construction", 3600, func() bool { return r.view().Economy.Credits >= barracks.Cost })
+ 	r.buildAt(rig, "barracks", barracksPoint)
+-	if r.requiredOptional == "mechanic-teams" {
++	if defensiveEconomy {
++		barracks := r.ownedType("barracks")[:1]
++		r.issue(1, sim.Order{Kind: "rally", Entities: barracks, Position: sim.Vec{X: hqPoint.X + 6000, Y: hqPoint.Y - 6000}},
++			sim.Order{Kind: "train", Entities: barracks, Type: "SY.rifle"}, sim.Order{Kind: "train", Entities: barracks, Type: "SY.rifle"}, sim.Order{Kind: "train", Entities: barracks, Type: "SY.at"})
+ 		r.issue(1, sim.Order{Kind: "move", Entities: rig, Position: sim.Vec{X: hqPoint.X, Y: hqPoint.Y + 7000}})
+ 	}
+ 	workshop, _ := r.catalog.Building("factory")
+@@ -456,8 +474,9 @@
+ 	if r.faction != "IR" {
+ 		r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1})
+ 	}
++	territoryExcluded := map[sim.ID]bool{}
+ 	if r.faction == "SY" || (r.faction == "SA" && r.difficulty == "hard") {
+-		excluded := map[sim.ID]bool{}
++		excluded := territoryExcluded
+ 		for _, id := range r.tags["concealed-scout"] {
+ 			excluded[id] = true
+ 		}
+@@ -476,6 +495,14 @@
+ 				r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: point})
+ 			}
+ 		})
++	}
++	if r.faction == "SY" && r.difficulty == "hard" {
++		excluded := territoryExcluded
++		for _, id := range r.tags["concealed-scout"] {
++			excluded[id] = true
++		}
++		r.issue(1, sim.Order{Kind: "train", Entities: r.ids("home-barracks"), Type: "SY.at"}, sim.Order{Kind: "train", Entities: r.ids("home-barracks"), Type: "SY.at"})
++		r.tactical = r.withExpansionDefense(nil, excluded)
+ 	}
+ 	r.advance(500)
+ 	r.checkpoint()
+@@ -515,6 +542,35 @@
+ 			point = sim.Vec(actor.Position)
+ 		}
+ 	}
++	freeWorker := func() bool {
++		if actor, ok := r.seen(engineer); ok && actor.Owner == 1 && !usedWorkers[engineer] {
++			return true
++		}
++		for _, id := range r.ownedType(r.faction + ".engineer") {
++			if !usedWorkers[id] {
++				engineer = id
++				return true
++			}
++		}
++		return false
++	}
++	queueWorker := func() {
++		// Completed engineers assigned to repair earlier relays are not
++		// replacement capture workers. Count queued jobs separately.
++		if r.scheduledType(r.faction+".engineer") > len(r.ownedType(r.faction+".engineer")) {
++			return
++		}
++		if b := r.ownedType("barracks"); len(b) > 0 {
++			r.tryIssue(sim.Order{Kind: "train", Entities: b[:1], Type: r.faction + ".engineer"})
++		}
++	}
++	ensureWorker := func() {
++		if !freeWorker() {
++			queueWorker()
++			r.wait("paid replacement capture engineer", 2400, freeWorker)
++		}
++	}
++	ensureWorker()
+ 	var live []sim.ID
+ 	for _, id := range screen {
+ 		if entity, ok := r.seen(id); ok && entity.Owner == 1 {
+@@ -558,7 +614,8 @@
+ 	}
+ 	r.issue(1, stop...)
+ 	r.advance(60)
+-	if r.requiredOptional == "factory-captured" {
++	if _, visible := r.seen(target); !visible || r.requiredOptional == "factory-captured" {
++		ensureWorker()
+ 		r.issue(1, sim.Order{Kind: "move", Entities: []sim.ID{engineer}, Position: sim.Vec{X: point.X - 3500, Y: point.Y + 3500}})
+ 		r.wait("engineer observes objective before quarter-health fire control", 1800, func() bool { _, visible := r.seen(target); return visible })
+ 	}
+@@ -573,6 +630,18 @@
+ 				return
+ 			}
+ 			next = r.engine.Tick() + 100
++			if _, visible := r.seen(target); !visible {
++				if !freeWorker() {
++					queueWorker()
++					return
++				}
++				worker, _ := r.seen(engineer)
++				orders := worker.Private.Orders
++				post := sim.Vec{X: point.X - 3500, Y: point.Y + 3500}
++				if len(orders) == 0 || orders[0].Kind != "move" || orders[0].Position != post {
++					r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{engineer}, Position: post})
++				}
++			}
+ 			if _, ok := r.seen(gunner); !ok {
+ 				closest := int64(1 << 62)
+ 				eligible := map[sim.ID]bool{}
+@@ -646,39 +715,24 @@
+ 					// Keep fire off the fragile unowned relay when that hostile
+ 					// dies: queue a real explored-ground fire intention behind it.
+ 					if r.tryIssue(sim.Order{Kind: "attack", Entities: []sim.ID{id}, Target: target}) {
+-						r.tryIssue(sim.Order{Kind: "force_fire", Entities: []sim.ID{id}, Position: empty, Queued: true})
++						if !r.tryIssue(sim.Order{Kind: "force_fire", Entities: []sim.ID{id}, Position: empty, Queued: true}) {
++							r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: empty, Queued: true})
++						}
++					}
++				} else if target == 0 {
++					orders := actor.Private.Orders
++					if len(orders) > 0 && (orders[0].Kind == "move" || orders[0].Kind == "force_fire") && orders[0].Position == empty {
++						continue
++					}
++					if !r.tryIssue(sim.Order{Kind: "force_fire", Entities: []sim.ID{id}, Position: empty}) {
++						r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: empty})
+ 					}
+ 				}
+ 			}
+ 		}
+ 		r.wait("clear observed armed threats before optional-route capture", 6000, func() bool { return len(perimeterThreats()) == 0 })
+ 	}
+-	freeWorker := func() bool {
+-		if _, ok := r.seen(engineer); ok && !usedWorkers[engineer] {
+-			return true
+-		}
+-		for _, id := range r.ownedType(r.faction + ".engineer") {
+-			if !usedWorkers[id] {
+-				engineer = id
+-				return true
+-			}
+-		}
+-		return false
+-	}
+-	queueWorker := func() {
+-		// Completed engineers assigned to repair earlier relays are not
+-		// replacement capture workers. Count queued jobs separately.
+-		if r.scheduledType(r.faction+".engineer") > len(r.ownedType(r.faction+".engineer")) {
+-			return
+-		}
+-		if b := r.ownedType("barracks"); len(b) > 0 {
+-			r.tryIssue(sim.Order{Kind: "train", Entities: b[:1], Type: r.faction + ".engineer"})
+-		}
+-	}
+-	if !freeWorker() {
+-		queueWorker()
+-		r.wait("paid replacement capture engineer", 2400, freeWorker)
+-	}
++	ensureWorker()
+ 	previousCapture := r.tactical
+ 	nextCapture := r.engine.Tick()
+ 	r.tactical = func() {
+@@ -721,18 +775,96 @@
+ }
+ 
+ func playCampaignCapture(r *authoredRun) {
++	reinforceCaptured := r.difficulty == "hard" && (r.faction == "SY" || r.faction == "SA") || r.faction == "SY" && (r.difficulty == "normal" || r.requiredOptional == "factory-captured")
+ 	r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1}, sim.Order{Kind: "rally", Entities: r.ids("home-factory"), Position: sim.Vec{X: 35500, Y: 94500}}, sim.Order{Kind: "rally", Entities: r.ids("home-barracks"), Position: sim.Vec{X: 35500, Y: 94500}})
+ 	if r.faction == "SY" && (r.difficulty == "hard" || r.requiredOptional == "factory-captured") {
+ 		r.issue(1, sim.Order{Kind: "train", Entities: r.ids("home-supply"), Type: "SY.hauler"}, sim.Order{Kind: "train", Entities: r.ids("home-supply"), Type: "SY.hauler"})
+ 	}
++	if r.difficulty == "hard" && r.faction == "SA" {
++		built := false
++		for _, point := range []sim.Vec{{X: 21500, Y: 96500}, {X: 20500, Y: 97500}, {X: 21500, Y: 98500}, {X: 28500, Y: 100500}} {
++			if r.tryIssue(sim.Order{Kind: "build", Entities: r.ids("home-rig"), Type: "turret", Position: point}) {
++				built = true
++				break
++			}
++		}
++		if !built {
++			r.wait("legal paid field-defense turret site", 0, func() bool { return false })
++		}
++	}
+ 	next := r.engine.Tick()
+ 	rally := sim.Vec{X: 35500, Y: 94500}
++	reserve := map[sim.ID]bool{}
++	var homeGuards []sim.ID
++	var homeEngineer sim.ID
++	originalRifles := map[sim.ID]bool{}
++	for _, id := range r.tags["starting-rifles"] {
++		originalRifles[id] = true
++	}
++	forwardConstruction := false
++	usedWorkers := map[sim.ID]bool{}
+ 	guards := map[sim.ID][]sim.ID{}
++	guardCommitted := map[sim.ID]bool{}
+ 	repairers := map[sim.ID]sim.ID{}
+ 	guardNext := r.engine.Tick()
+ 	r.tactical = func() {
+ 		if r.engine.Tick() >= guardNext {
+ 			guardNext = r.engine.Tick() + 100
++			if r.difficulty == "hard" && (r.faction == "SY" || r.faction == "SA") {
++				var living []sim.ID
++				for _, id := range homeGuards {
++					if actor, ok := r.seen(id); ok && actor.Owner == 1 {
++						living = append(living, id)
++					}
++				}
++				homeGuards = living
++				for _, id := range r.ownedType(r.faction + ".rifle") {
++					if len(homeGuards) >= 2 {
++						break
++					}
++					if !reserve[id] && !originalRifles[id] {
++						reserve[id] = true
++						homeGuards = append(homeGuards, id)
++					}
++				}
++				for _, id := range homeGuards {
++					actor, _ := r.seen(id)
++					orders := actor.Private.Orders
++					post := sim.Vec{X: 21500, Y: 93500}
++					if len(orders) == 0 || orders[0].Kind != "attack_move" || orders[0].Position != post {
++						r.tryIssue(sim.Order{Kind: "attack_move", Entities: []sim.ID{id}, Position: post})
++					}
++				}
++				var damaged sim.ID
++				for _, tag := range []string{"home-supply", "home-hq", "home-factory"} {
++					if len(r.tags[tag]) == 0 {
++						continue
++					}
++					if site, ok := r.seen(r.tags[tag][0]); ok && site.Owner == 1 && site.Health < 950 {
++						damaged = site.ID
++						break
++					}
++				}
++				if damaged != 0 {
++					if worker, alive := r.seen(homeEngineer); !alive || worker.Owner != 1 {
++						for _, id := range r.ownedType(r.faction + ".engineer") {
++							worker, _ := r.seen(id)
++							if usedWorkers[id] || worker.Private == nil || len(worker.Private.Orders) > 0 {
++								continue
++							}
++							homeEngineer = id
++							usedWorkers[id] = true
++							break
++						}
++					}
++					if worker, alive := r.seen(homeEngineer); alive && worker.Owner == 1 && worker.Private != nil {
++						orders := worker.Private.Orders
++						if len(orders) == 0 || orders[0].Kind != "repair" || orders[0].Target != damaged {
++							r.tryIssue(sim.Order{Kind: "repair", Entities: []sim.ID{homeEngineer}, Target: damaged})
++						}
++					}
++				}
++			}
+ 			targets := make([]sim.ID, 0, len(guards))
+ 			for id := range guards {
+ 				targets = append(targets, id)
+@@ -742,6 +874,51 @@
+ 				site, ok := r.seen(siteID)
+ 				if !ok || site.Owner != 1 {
+ 					continue
++				}
++				if guardCommitted[siteID] && reinforceCaptured && (r.requiredOptional != "factory-captured" || r.hasTag("capture-factory") && siteID != r.tags["capture-factory"][0]) {
++					// Replenish losses at already captured required sites through
++					// ordinary paid troops, without commandeering another site's screen.
++					counts := map[string]int{}
++					for _, id := range guards[siteID] {
++						if actor, alive := r.seen(id); alive && actor.Owner == 1 {
++							counts[actor.Type]++
++						}
++					}
++					for _, role := range []struct {
++						kind  string
++						count int
++					}{{"rifle", 4}, {"tank", 1}, {"at", 1}} {
++						kind := r.faction + "." + role.kind
++						for _, id := range r.ownedType(kind) {
++							if counts[kind] >= role.count {
++								break
++							}
++							if reserve[id] {
++								continue
++							}
++							reserve[id] = true
++							guards[siteID] = append(guards[siteID], id)
++							counts[kind]++
++						}
++					}
++				}
++				if worker, alive := r.seen(repairers[siteID]); !alive || worker.Owner != 1 {
++					var replacement sim.ID
++					closest := int64(1 << 62)
++					for _, id := range r.ownedType(r.faction + ".engineer") {
++						candidate, _ := r.seen(id)
++						if usedWorkers[id] || candidate.Private == nil || len(candidate.Private.Orders) > 0 {
++							continue
++						}
++						dx, dy := int64(candidate.Position.X-site.Position.X), int64(candidate.Position.Y-site.Position.Y)
++						if d := dx*dx + dy*dy; d < closest {
++							replacement, closest = id, d
++						}
++					}
++					if replacement != 0 {
++						usedWorkers[replacement] = true
++						repairers[siteID] = replacement
++					}
+ 				}
+ 				if worker, alive := r.seen(repairers[siteID]); alive && site.Health < 990 {
+ 					repairing := worker.Private != nil && len(worker.Private.Orders) > 0 && worker.Private.Orders[0].Kind == "repair"
+@@ -788,6 +965,10 @@
+ 			}
+ 		}
+ 
++		if forwardConstruction {
++			return
++		}
++
+ 		if r.engine.Tick() < next {
+ 			return
+ 		}
+@@ -824,6 +1005,9 @@
+ 			if r.scheduledType(r.faction+".engineer") < 4 {
+ 				r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: r.faction + ".engineer"})
+ 			}
++			if reinforceCaptured && (r.requiredOptional != "factory-captured" || r.hasTag("capture-factory")) && r.scheduledType(r.faction+".at") < 4 {
++				r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: r.faction + ".at"})
++			}
+ 			for range 3 {
+ 				if r.scheduledType(r.faction+".rifle") < 16 {
+ 					r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: r.faction + ".rifle"})
+@@ -832,7 +1016,6 @@
+ 		}
+ 	}
+ 	r.tactical()
+-	reserve := map[sim.ID]bool{}
+ 	cohort := func() []sim.ID {
+ 		var ids []sim.ID
+ 		for _, entity := range r.view().Entities {
+@@ -853,13 +1036,44 @@
+ 		if r.faction == "SY" || r.faction == "SA" || r.difficulty == "easy" {
+ 			approach = "move"
+ 		}
+-		r.issue(1, sim.Order{Kind: approach, Entities: cohort(), Position: point})
++		waitingForRelief := len(cohort()) == 0
++		dispatched := false
++		dispatch := func() {
++			if dispatched || r.engine.Outcome().Finished {
++				return
++			}
++			live := cohort()
++			if len(live) == 0 {
++				return
++			}
++			if waitingForRelief {
++				// No current eligible force: let the existing paid production
++				// supply a real relief screen and the tank needed for capture.
++				// This runs inside the unchanged acquisition deadline below.
++				hasTank := false
++				for _, id := range live {
++					actor, ok := r.seen(id)
++					hasTank = hasTank || ok && actor.Type == r.faction+".tank"
++				}
++				if !hasTank || len(live) < 3 {
++					return
++				}
++			}
++			r.issue(1, sim.Order{Kind: approach, Entities: live, Position: point})
++			dispatched = true
++			if waitingForRelief {
++				r.t.Logf("paid relief screen dispatched tick%d target%s actors%v", r.engine.Tick(), tag, live)
++			}
++		}
++		dispatch()
+ 		previousApproach := r.tactical
+-		if r.faction == "SY" && r.difficulty == "hard" && tag == "relay-guard-3" {
++		pressThird := r.faction == "SY" && r.difficulty == "hard" && tag == "relay-guard-3"
++		if !dispatched || pressThird {
+ 			nextApproach := r.engine.Tick()
+ 			r.tactical = func() {
+ 				previousApproach()
+-				if r.engine.Tick() < nextApproach {
++				dispatch()
++				if !pressThird || r.engine.Outcome().Finished || r.engine.Tick() < nextApproach {
+ 					return
+ 				}
+ 				nextApproach = r.engine.Tick() + 200
+@@ -881,6 +1095,9 @@
+ 			// Initially declared static guards are legitimate mission targets,
+ 			// but explicit attacks still wait for current shared vision.
+ 			r.wait("ground screen acquires relay guard", 6000, func() bool {
++				if !dispatched {
++					return false
++				}
+ 				_, ok := r.seen(id)
+ 				return ok || r.view().Visible[(point.Y/1000)*r.gameMap.Width+point.X/1000]
+ 			})
+@@ -893,7 +1110,6 @@
+ 			r.wait("mixed ground fire eliminates relay guard", 1800, func() bool { _, ok := r.seen(id); return !ok })
+ 		}
+ 	}
+-	usedWorkers := map[sim.ID]bool{}
+ 	captureFactory := func() {
+ 		if r.requiredOptional != "factory-captured" {
+ 			return
+@@ -968,11 +1184,54 @@
+ 		}
+ 		r.issue(1, sim.Order{Kind: "repair", Entities: []sim.ID{worker}, Target: r.tags[tag][0]})
+ 		repairers[r.tags[tag][0]] = worker
++		if r.faction == "SA" && r.difficulty == "hard" {
++			economy := r.view().Economy
++			ready := economy.Tier >= 2 && economy.Energy >= 50000
++			for _, cooldown := range economy.Cooldowns {
++				if cooldown.ID == "recovery_order" && cooldown.Until > r.engine.Tick() {
++					ready = false
++				}
++			}
++			if hq := r.ownedType("hq"); ready && len(hq) > 0 {
++				r.tryIssue(sim.Order{Kind: "ability", Entities: hq[:1], Type: "recovery_order", Position: point})
++			}
++		}
++		if forwardConstruction {
++			guards[r.tags[tag][0]] = cohort()
++		}
+ 		if stage == 1 {
+ 			r.checkpoint()
+ 			if r.faction == "SY" && r.difficulty == "hard" {
++				// Protect the fresh relay with the full current cohort and reserve
++				// future income for construction. Cancel only unpaid queued jobs;
++				// paid production and every actual cost/work requirement continue.
++				guards[r.tags[tag][0]] = cohort()
++				forwardConstruction = true
++				for _, producer := range r.view().Entities {
++					if producer.Owner != 1 || producer.Private == nil || producer.Type != "factory" && producer.Type != "barracks" {
++						continue
++					}
++					for attempt := 0; attempt < 5; attempt++ {
++						current, alive := r.seen(producer.ID)
++						if !alive || current.Private == nil {
++							break
++						}
++						index := -1
++						for i := len(current.Private.Jobs) - 1; i >= 0; i-- {
++							if !current.Private.Jobs[i].Started {
++								index = i
++								break
++							}
++						}
++						if index < 0 || !r.tryIssue(sim.Order{Kind: "cancel", Entities: []sim.ID{producer.ID}, Index: int32(index)}) {
++							break
++						}
++					}
++				}
+ 				r.buildAt(r.ids("home-rig"), "outpost", sim.Vec{X: 41500, Y: 88500})
+-				r.buildAt(r.ids("home-rig"), "turret", sim.Vec{X: 43500, Y: 85500})
++				r.buildAt(r.ids("home-rig"), "turret", sim.Vec{X: 53500, Y: 85500})
++				forwardConstruction = false
++				next = r.engine.Tick()
+ 			}
+ 		}
+ 		if stage < limit {
+@@ -1019,6 +1278,7 @@
+ 				}
+ 			}
+ 			guards[r.tags[tag][0]] = defenders
++			guardCommitted[r.tags[tag][0]] = true
+ 		} else {
+ 			guards[r.tags[tag][0]] = cohort()
+ 		}
+@@ -1070,9 +1330,6 @@
+ 	if r.definition.ID == "sy-06-open-road" || r.definition.ID == "sa-06-shieldline" {
+ 		objectiveTags = []string{"enemy-barracks", "enemy-factory", "enemy-service", "enemy-hq", "forward-barracks", "forward-factory", "forward-command"}
+ 	}
+-	if r.difficulty == "hard" && r.definition.ID == "ir-05-the-second-volley" && r.requiredOptional != "missile-budget" {
+-		objectiveTags = append([]string{"enemy-barracks", "enemy-factory", "enemy-service", "enemy-hq"}, objectiveTags...)
+-	}
+ 	cleared := map[sim.ID]bool{}
+ 
+ 	return func() {
+@@ -1244,7 +1501,7 @@
+ 		}
+ 		if defeated {
+ 			split := len(army) / 2
+-			if r.faction == "SA" && len(defenseAt) > 0 && r.difficulty == "hard" {
++			if r.faction == "SA" && len(defenseAt) > 0 {
+ 				split = min(4, len(army))
+ 			}
+ 			for i, group := range [][]sim.ID{army[:split], army[split:]} {
+@@ -1368,6 +1625,19 @@
+ 	}
+ 	defendAt := sim.Tick(6000)
+ 	var repair func()
++	if r.faction == "IR" {
++		// Two protected original sites satisfy the authored defense. Preserve
++		// their real service/power state instead of opening with a base rush.
++		defendAt = 0
++		repair = func() {
++			workers := r.ownedType("IR.engineer")
++			for i, tag := range []string{"network-two", "home-service"} {
++				if i < len(workers) && r.hasTag(tag) {
++					r.tryIssue(sim.Order{Kind: "repair", Entities: workers[i : i+1], Target: r.tags[tag][0]})
++				}
++			}
++		}
++	}
+ 	if r.faction == "SY" {
+ 		defendAt = 0
+ 		repair = func() {
+@@ -1379,7 +1649,7 @@
+ 			}
+ 		}
+ 	}
+-	if r.faction == "SA" && r.difficulty == "hard" {
++	if r.faction == "SA" {
+ 		defendAt = 0
+ 		repair = func() {
+ 			// The fixed missile battery has no ground weapon. Keep an ordinary
+@@ -1400,7 +1670,22 @@
+ 			}
+ 		}
+ 	}
++	if r.faction == "SY" && r.difficulty == "easy" {
++		// Obtain ordinary vision on the eastern rear approach instead of
++		// waiting for unseen artillery to destroy the rear safehouse.
++		recon := r.ids("starting-recon")
++		for _, id := range recon {
++			excluded[id] = true
++		}
++		r.issue(1, sim.Order{Kind: "move", Entities: recon, Position: sim.Vec{X: 45500, Y: 101500}}, sim.Order{Kind: "hold", Entities: recon, Queued: true})
++	}
+ 	r.tactical = r.assaultPolicy(excluded, repair, defendAt)
++	if r.faction == "IR" && r.difficulty == "hard" {
++		r.tactical = r.withSiteDefense(r.tactical, excluded, []string{"network-two", "home-service"})
++	}
++	if r.faction == "SY" && r.difficulty == "easy" {
++		r.tactical = r.withSiteDefense(r.tactical, excluded, []string{"safehouse-front", "safehouse-rear"})
++	}
+ 	if r.faction == "SA" {
+ 		mobile := r.ids("mobile-aegis")
+ 		r.issue(1, sim.Order{Kind: "move", Entities: mobile, Position: sim.Vec{X: 75500, Y: 69500}})
+@@ -1439,6 +1724,18 @@
+ }
+ 
+ func playCampaignAssault(r *authoredRun) {
++	if r.definition.ID == "ir-05-the-second-volley" && r.difficulty == "hard" && r.requiredOptional != "missile-budget" {
++		// The frozen optional route proved an ordinary conventional approach:
++		// keep expensive launchers packed while paid troops take the actual
++		// three outposts, and protect the home economy with a second turret.
++		launchers := r.ids("volley-launchers")
++		r.excludedArmy = map[sim.ID]bool{}
++		for _, id := range launchers {
++			r.excludedArmy[id] = true
++		}
++		r.issue(1, sim.Order{Kind: "move", Entities: launchers, Position: sim.Vec{X: 7500, Y: 120500}}, sim.Order{Kind: "hold", Entities: launchers, Queued: true})
++		r.buildAt(r.ids("home-rig"), "turret", sim.Vec{X: 22500, Y: 110500})
++	}
+ 	if r.requiredOptional == "observer-network" {
+ 		r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1}, sim.Order{Kind: "attack_move", Entities: r.army(), Position: r.region("site1")})
+ 	} else {
+@@ -1504,7 +1801,14 @@
+ 	})
+ 	if r.requiredOptional == "observer-network" && optionalPolicy != nil {
+ 		macro := r.tactical
+-		r.tactical = func() { macro(); optionalPolicy() }
++		if r.difficulty == "easy" {
++			r.tactical = r.withRegionControl(func() { macro(); optionalPolicy() }, excluded, true)
++		} else {
++			// The armored carriers hold originals safely at home while the main
++			// force clears enemy production. The ordinary assault policy gates
++			// its final HQ attack on both original observers actually in region.
++			r.tactical = func() { macro(); optionalPolicy() }
++		}
+ 	}
+ 	r.wait("paid assault establishes its first command phase", 1400, func() bool { return r.engine.Tick() >= 1500 })
+ 	r.checkpoint()
+--- frozen/pkg/sim/authored_candidate_tactics_test.go
++++ tactics/pkg/sim/authored_candidate_tactics_test.go
+@@ -0,0 +1,519 @@
++package sim_test
++
++import (
++	"frontlinecommand/pkg/sim"
++	"sort"
++	"strings"
++)
++
++// withSiteDefense is a player-side command strategy, not simulation AI. It
++// reacts only to currently visible armed enemies near currently owned sites.
++// Ordinary attack-move, production rally and repair validation remain in Go.
++func (r *authoredRun) withSiteDefense(macro func(), excluded map[sim.ID]bool, tags []string) func() {
++	next := r.engine.Tick()
++	return func() {
++		macro()
++		if r.engine.Outcome().Finished || r.engine.Tick() < next {
++			return
++		}
++		next = r.engine.Tick() + 80
++		view := r.view()
++		groups := make([][]sim.ID, len(tags))
++		counts := map[string]int{}
++		for _, actor := range view.Entities {
++			if actor.Owner != 1 || actor.Private == nil || actor.Private.Container != 0 || excluded[actor.ID] {
++				continue
++			}
++			unit, ok := r.catalog.Unit(actor.Type)
++			if !ok || unit.Weapon == "" || unit.Armor == "air" {
++				continue
++			}
++			group := counts[actor.Type] % len(groups)
++			if r.definition.ID == "ir-04-hold-the-network" && r.difficulty == "hard" && len(groups) == 2 {
++				// Concentrate three quarters of each available role at the
++				// exposed original network site; retain a home reserve.
++				group = 0
++				if counts[actor.Type]%4 == 3 {
++					group = 1
++				}
++			}
++			counts[actor.Type]++
++			groups[group] = append(groups[group], actor.ID)
++		}
++		for index, tag := range tags {
++			if len(r.tags[tag]) == 0 {
++				continue
++			}
++			site, exists := r.seen(r.tags[tag][0])
++			if !exists || site.Owner != 1 {
++				continue
++			}
++			point := sim.Vec{X: site.Position.X, Y: site.Position.Y + 3500}
++			closest := int64(22000 * 22000)
++			var target sim.ID
++			for _, enemy := range view.Entities {
++				if enemy.Owner != 2 && enemy.Owner != 4 {
++					continue
++				}
++				unit, known := r.catalog.Unit(enemy.Type)
++				if !known || unit.Weapon == "" {
++					continue
++				}
++				dx, dy := int64(enemy.Position.X-site.Position.X), int64(enemy.Position.Y-site.Position.Y)
++				distance := dx*dx + dy*dy
++				if distance >= 22000*22000 {
++					continue
++				}
++				// Visible anti-armor and artillery squads threaten the required
++				// structures at range. This is tactical priority, not hidden
++				// target orders or a replacement for Go attack legality.
++				if strings.HasSuffix(enemy.Type, ".at") || strings.HasSuffix(enemy.Type, ".artillery") || strings.HasSuffix(enemy.Type, ".launcher") {
++					distance -= 22000 * 22000
++				}
++				if distance < closest {
++					closest, point, target = distance, enemy.Position, enemy.ID
++				}
++			}
++			var retask []sim.ID
++			for _, id := range groups[index] {
++				actor, alive := r.seen(id)
++				if !alive || actor.Private == nil {
++					continue
++				}
++				orders := actor.Private.Orders
++				if target != 0 && len(orders) > 0 && orders[0].Kind == "attack" && orders[0].Target == target {
++					continue
++				}
++				if len(orders) == 0 || orders[0].Kind != "attack_move" || orders[0].Position != point {
++					retask = append(retask, id)
++				}
++			}
++			for offset := 0; offset < len(retask); offset += 64 {
++				r.tryIssue(sim.Order{Kind: "attack_move", Entities: retask[offset:min(offset+64, len(retask))], Position: point})
++				if r.engine.Outcome().Finished {
++					return
++				}
++			}
++			if target != 0 {
++				var candidates []sim.Order
++				positions := map[sim.ID]sim.Vec{}
++				for _, id := range groups[index] {
++					actor, alive := r.seen(id)
++					if !alive || actor.Private == nil {
++						continue
++					}
++					positions[id] = actor.Position
++					candidates = append(candidates, sim.Order{Kind: "attack", Entities: []sim.ID{id}, Target: target})
++				}
++				var attackers []sim.ID
++				for offset := 0; offset < len(candidates); offset += 32 {
++					batch := candidates[offset:min(offset+32, len(candidates))]
++					preview, err := r.engine.PreviewCandidates(1, batch)
++					if err != nil {
++						r.t.Fatal(err)
++					}
++					for i, legal := range preview {
++						if legal.Accepted {
++							attackers = append(attackers, batch[i].Entities[0])
++						}
++					}
++				}
++				distance := func(id sim.ID) int64 {
++					p := positions[id]
++					dx, dy := int64(p.X-point.X), int64(p.Y-point.Y)
++					return dx*dx + dy*dy
++				}
++				sort.Slice(attackers, func(i, j int) bool {
++					a, b := distance(attackers[i]), distance(attackers[j])
++					if a == b {
++						return attackers[i] < attackers[j]
++					}
++					return a < b
++				})
++				var changed []sim.ID
++				for _, id := range attackers[:min(8, len(attackers))] {
++					actor, alive := r.seen(id)
++					if !alive || actor.Private == nil {
++						continue
++					}
++					orders := actor.Private.Orders
++					if len(orders) == 0 || orders[0].Kind != "attack" || orders[0].Target != target {
++						changed = append(changed, id)
++					}
++				}
++				if len(changed) > 0 {
++					r.tryIssue(sim.Order{Kind: "attack", Entities: changed, Target: target})
++				}
++			}
++		}
++	}
++}
++
++// withRegionControl retains a mixed ground force at the public objective
++// regions. It does not inspect enemy orders or undisclosed map occupancy.
++func (r *authoredRun) withRegionControl(macro func(), excluded map[sim.ID]bool, onlyBeforeObservers bool) func() {
++	next := r.engine.Tick()
++	return func() {
++		macro()
++		if r.engine.Outcome().Finished || r.engine.Tick() < next || onlyBeforeObservers && r.optionalObserversInSites() {
++			return
++		}
++		next = r.engine.Tick() + 100
++		view := r.view()
++		groups := make([][]sim.ID, 2)
++		counts := map[string]int{}
++		for _, actor := range view.Entities {
++			if actor.Owner != 1 || actor.Private == nil || actor.Private.Container != 0 || excluded[actor.ID] || r.excludedArmy[actor.ID] {
++				continue
++			}
++			u, ok := r.catalog.Unit(actor.Type)
++			if !ok || u.Weapon == "" || u.Armor == "air" {
++				continue
++			}
++			index := counts[actor.Type] % 2
++			counts[actor.Type]++
++			groups[index] = append(groups[index], actor.ID)
++		}
++		for i, region := range []string{"site1", "site2"} {
++			point := r.region(region)
++			var target sim.ID
++			closest := int64(16000 * 16000)
++			for _, hostile := range view.Entities {
++				if hostile.Owner != 2 && hostile.Owner != 4 {
++					continue
++				}
++				u, ok := r.catalog.Unit(hostile.Type)
++				if !ok || u.Weapon == "" {
++					continue
++				}
++				dx, dy := int64(hostile.Position.X-point.X), int64(hostile.Position.Y-point.Y)
++				if d := dx*dx + dy*dy; d < closest {
++					closest, target = d, hostile.ID
++				}
++			}
++			for _, id := range groups[i] {
++				actor, ok := r.seen(id)
++				if !ok || actor.Private == nil {
++					continue
++				}
++				orders := actor.Private.Orders
++				if target != 0 {
++					if len(orders) > 0 && orders[0].Kind == "attack" && orders[0].Target == target {
++						continue
++					}
++					if r.tryIssue(sim.Order{Kind: "attack", Entities: []sim.ID{id}, Target: target}) {
++						continue
++					}
++				}
++				if len(orders) == 0 || orders[0].Kind != "attack_move" || orders[0].Position != point {
++					r.tryIssue(sim.Order{Kind: "attack_move", Entities: []sim.ID{id}, Position: point})
++				}
++				if r.engine.Outcome().Finished {
++					return
++				}
++			}
++		}
++	}
++}
++
++// withExpansionDefense keeps stable squads at the two announced crossings and
++// a smaller home reserve. Existing groups do not swap posts when a squad dies.
++func (r *authoredRun) withExpansionDefense(macro func(), excluded map[sim.ID]bool) func() {
++	next := r.engine.Tick()
++	assigned := map[sim.ID]int{}
++	sentinels := map[int]sim.ID{}
++	productionAt := r.engine.Tick()
++	stage := 0
++	var foundation sim.ID
++	plan := []struct {
++		kind  string
++		point sim.Vec
++	}{
++		{"outpost", sim.Vec{X: 45500, Y: 85500}},
++		{"turret", sim.Vec{X: 49500, Y: 80500}},
++		{"outpost", sim.Vec{X: 87500, Y: 70500}},
++		{"turret", sim.Vec{X: 86500, Y: 66500}},
++	}
++	var homeWorker sim.ID
++	return func() {
++		if r.engine.Tick() < next || r.engine.Outcome().Finished {
++			return
++		}
++		next = r.engine.Tick() + 120
++		if macro != nil {
++			macro()
++		}
++		view := r.view()
++		// A fixed ordinary field-construction plan uses only public objective
++		// locations. Go validates sight, credits, foundation and build radius.
++		if rigs := r.ownedType("SY.rig"); len(rigs) > 0 && stage < len(plan) {
++			builder, alive := r.seen(rigs[0])
++			if alive && builder.Private != nil {
++				if foundation != 0 {
++					if site, ok := r.seen(foundation); ok && site.Owner == 1 {
++						if site.Complete {
++							stage++
++							foundation = 0
++						} else if len(builder.Private.Orders) == 0 {
++							r.tryIssue(sim.Order{Kind: "resume", Entities: rigs[:1], Target: site.ID})
++						}
++					} else {
++						foundation = 0
++					}
++				} else if len(builder.Private.Orders) == 0 || builder.Private.Orders[0].Kind != "build" {
++					step := plan[stage]
++					for _, offset := range []sim.Vec{{X: 0, Y: 0}, {X: -2000, Y: 0}, {X: 2000, Y: 0}, {X: 0, Y: 2000}, {X: 0, Y: -2000}} {
++						point := sim.Vec{X: step.point.X + offset.X, Y: step.point.Y + offset.Y}
++						if !r.visibleFoundationLooksClear(step.kind, point) {
++							continue
++						}
++						if r.tryIssue(sim.Order{Kind: "build", Entities: rigs[:1], Type: step.kind, Position: point}) {
++							for _, actor := range r.view().Entities {
++								if actor.Owner == 1 && actor.Type == step.kind && actor.Position == point {
++									foundation = actor.ID
++									break
++								}
++							}
++							break
++						}
++					}
++					if foundation == 0 {
++						scout := sim.Vec{X: step.point.X - 4000, Y: step.point.Y + 2000}
++						if len(builder.Private.Orders) == 0 || builder.Private.Orders[0].Kind != "move" || builder.Private.Orders[0].Position != scout {
++							r.tryIssue(sim.Order{Kind: "move", Entities: rigs[:1], Position: scout})
++						}
++					}
++				}
++			}
++		}
++		if r.engine.Tick() >= productionAt {
++			productionAt = r.engine.Tick() + 600
++			// Retain cash for one planned foundation while it is being scouted.
++			// No resource grant or production bypass is involved.
++			canSpend := stage >= len(plan) || foundation != 0 || view.Economy.Credits >= 1800000
++			if canSpend {
++				if factory := r.ownedType("factory"); len(factory) > 0 {
++					r.tryIssue(sim.Order{Kind: "rally", Entities: factory[:1], Position: r.region("site2")})
++					for _, kind := range []string{"SY.tank", "SY.tank", "SY.aa"} {
++						if kind != "SY.aa" || r.scheduledType(kind) < 3 {
++							r.tryIssue(sim.Order{Kind: "train", Entities: factory[:1], Type: kind})
++						}
++					}
++				}
++				if barracks := r.ownedType("barracks"); len(barracks) > 0 {
++					r.tryIssue(sim.Order{Kind: "rally", Entities: barracks[:1], Position: r.region("site1")})
++					for _, kind := range []string{"SY.rifle", "SY.rifle", "SY.at"} {
++						if r.scheduledType(kind) < 14 {
++							r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: kind})
++						}
++					}
++				}
++			}
++		}
++		// One real engineer stays with the supply/HQ instead of moving into
++		// a contested region; normal paid repair keeps the economy functioning.
++		if worker, alive := r.seen(homeWorker); !alive || worker.Owner != 1 {
++			if workers := r.ownedType("SY.engineer"); len(workers) > 0 {
++				homeWorker = workers[0]
++				excluded[homeWorker] = true
++			}
++		}
++		for _, tag := range []string{"home-supply", "home-hq", "home-factory"} {
++			if len(r.tags[tag]) == 0 {
++				continue
++			}
++			site, ok := r.seen(r.tags[tag][0])
++			if !ok || site.Owner != 1 || site.Health >= 950 {
++				continue
++			}
++			if worker, ok := r.seen(homeWorker); ok && worker.Private != nil {
++				if orders := worker.Private.Orders; len(orders) == 0 || orders[0].Kind != "repair" || orders[0].Target != site.ID {
++					r.tryIssue(sim.Order{Kind: "repair", Entities: []sim.ID{homeWorker}, Target: site.ID})
++				}
++			}
++			break
++		}
++		if r.engine.Outcome().Finished {
++			return
++		}
++		points := []sim.Vec{r.region("site1"), r.region("site2"), {X: 31500, Y: 98500}}
++		view = r.view()
++		groups := make([][]sim.ID, 3)
++		counts := map[string][3]int{}
++		for _, actor := range view.Entities {
++			if actor.Owner != 1 || actor.Private == nil || actor.Private.Container != 0 || excluded[actor.ID] {
++				continue
++			}
++			u, ok := r.catalog.Unit(actor.Type)
++			if !ok || u.Weapon == "" || u.Armor == "air" {
++				continue
++			}
++			if group, exists := assigned[actor.ID]; exists {
++				groups[group] = append(groups[group], actor.ID)
++				c := counts[actor.Type]
++				c[group]++
++				counts[actor.Type] = c
++			}
++		}
++		for _, actor := range view.Entities {
++			if _, ok := assigned[actor.ID]; ok {
++				continue
++			}
++			if actor.Owner != 1 || actor.Private == nil || actor.Private.Container != 0 || excluded[actor.ID] {
++				continue
++			}
++			u, ok := r.catalog.Unit(actor.Type)
++			if !ok || u.Weapon == "" || u.Armor == "air" {
++				continue
++			}
++			c := counts[actor.Type]
++			group := 0
++			if c[1] < c[group] {
++				group = 1
++			}
++			if c[2]*2 < c[group] {
++				group = 2
++			}
++			c[group]++
++			counts[actor.Type] = c
++			assigned[actor.ID] = group
++			groups[group] = append(groups[group], actor.ID)
++		}
++		for index, point := range points {
++			if index < 2 {
++				if sentinel, alive := r.seen(sentinels[index]); !alive || sentinel.Owner != 1 {
++					for _, id := range groups[index] {
++						actor, alive := r.seen(id)
++						if !alive || actor.Type != "SY.rifle" {
++							continue
++						}
++						post := sim.Vec{X: point.X - 1500, Y: point.Y + 1500}
++						if r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: post}) && r.tryIssue(sim.Order{Kind: "hold", Entities: []sim.ID{id}, Queued: true}) {
++							sentinels[index] = id
++							excluded[id] = true
++						}
++						break
++					}
++				}
++			}
++			for _, id := range groups[index] {
++				if excluded[id] {
++					continue
++				}
++				actor, alive := r.seen(id)
++				if !alive || actor.Private == nil {
++					continue
++				}
++				unit, _ := r.catalog.Unit(actor.Type)
++				antiArmor := actor.Type == "SY.at" || actor.Type == "SY.tank" || actor.Type == "SY.artillery"
++				var target sim.ID
++				best := int64(1 << 62)
++				for _, enemy := range view.Entities {
++					if enemy.Owner != 2 && enemy.Owner != 4 {
++						continue
++					}
++					hostile, ok := r.catalog.Unit(enemy.Type)
++					if !ok && enemy.FootprintWidth == 0 || (ok && hostile.Armor == "air" && unit.Role != "aa") {
++						continue
++					}
++					dx, dy := int64(enemy.Position.X-point.X), int64(enemy.Position.Y-point.Y)
++					d := dx*dx + dy*dy
++					if d > 16000*16000 {
++						continue
++					}
++					heavy := hostile.Armor == "heavy" || hostile.Armor == "light"
++					if antiArmor == heavy {
++						d -= 16000 * 16000
++					}
++					if !antiArmor && (strings.HasSuffix(enemy.Type, ".at") || strings.HasSuffix(enemy.Type, ".medic")) {
++						d -= 16000 * 16000
++					}
++					if d < best {
++						best, target = d, enemy.ID
++					}
++				}
++				orders := actor.Private.Orders
++				if target != 0 {
++					if len(orders) > 0 && orders[0].Kind == "attack" && orders[0].Target == target {
++						continue
++					}
++					if r.tryIssue(sim.Order{Kind: "attack", Entities: []sim.ID{id}, Target: target}) {
++						continue
++					}
++				}
++				if len(orders) == 0 || orders[0].Kind != "attack_move" || orders[0].Position != point {
++					r.tryIssue(sim.Order{Kind: "attack_move", Entities: []sim.ID{id}, Position: point})
++				}
++				if r.engine.Outcome().Finished {
++					return
++				}
++			}
++		}
++	}
++}
++
++// This player-side visual prefilter rejects visibly occupied sites before an
++// advisory "indeterminate" build request. It is deliberately conservative;
++// actual Go order execution remains the sole placement authority.
++func (r *authoredRun) visibleFoundationLooksClear(kind string, point sim.Vec) bool {
++	building, ok := r.catalog.Building(kind)
++	if !ok {
++		return false
++	}
++	view := r.view()
++	left, right := point.X-building.Width*500, point.X+building.Width*500
++	top, bottom := point.Y-building.Height*500, point.Y+building.Height*500
++	if left < 0 || top < 0 || right > r.gameMap.Width*1000 || bottom > r.gameMap.Height*1000 {
++		return false
++	}
++	for y := top / 1000; y <= (bottom-1)/1000; y++ {
++		for x := left / 1000; x <= (right-1)/1000; x++ {
++			cell := y*r.gameMap.Width + x
++			tile := r.gameMap.TileAt(sim.Vec{X: x*1000 + 500, Y: y*1000 + 500})
++			if !view.Visible[cell] || !tile.Passable() || tile.Mandatory {
++				return false
++			}
++		}
++	}
++	absolute := func(v int32) int32 {
++		if v < 0 {
++			return -v
++		}
++		return v
++	}
++	for _, actor := range view.Entities {
++		if actor.Private != nil && actor.Private.Container != 0 {
++			continue
++		}
++		dx, dy := absolute(actor.Position.X-point.X), absolute(actor.Position.Y-point.Y)
++		if actor.FootprintWidth > 0 {
++			if dx < (building.Width+actor.FootprintWidth)*500+500 && dy < (building.Height+actor.FootprintHeight)*500+500 {
++				return false
++			}
++			continue
++		}
++		unit, known := r.catalog.Unit(actor.Type)
++		if !known || unit.Armor == "air" && !actor.Landed {
++			continue
++		}
++		radius := unit.Radius + 500
++		if actor.Landed {
++			radius = max(radius, 3000)
++		}
++		x, y := max(int32(0), dx-building.Width*500), max(int32(0), dy-building.Height*500)
++		if int64(x)*int64(x)+int64(y)*int64(y) < int64(radius)*int64(radius) {
++			return false
++		}
++	}
++	for _, field := range view.Fields {
++		if absolute(field.Position.X-point.X) < building.Width*500+4000 && absolute(field.Position.Y-point.Y) < building.Height*500+4000 {
++			return false
++		}
++	}
++	for _, station := range view.Stations {
++		if absolute(station.Position.X-point.X) < building.Width*500+2500 && absolute(station.Position.Y-point.Y) < building.Height*500+2500 {
++			return false
++		}
++	}
++	return true
++}
+--- frozen/pkg/sim/authored_optional_routes_test.go
++++ tactics/pkg/sim/authored_optional_routes_test.go
+@@ -137,6 +137,30 @@
+ 	}
+ }
+ 
++func (r *authoredRun) mechanicRetreat() func() {
++	moved := map[sim.ID]bool{}
++	return func() {
++		for i, tag := range []string{"mechanics-west", "mechanics-east"} {
++			for _, id := range r.tags[tag] {
++				actor, owned := r.seen(id)
++				if !owned || actor.Owner != 1 || moved[id] {
++					continue
++				}
++				via, rear := sim.Vec{X: 25500, Y: 83500}, sim.Vec{X: 22500, Y: 120500}
++				if i == 1 {
++					via, rear = sim.Vec{X: 77500, Y: 113500}, sim.Vec{X: 26500, Y: 122500}
++				}
++				if r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: via}) &&
++					r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: rear, Queued: true}) &&
++					r.tryIssue(sim.Order{Kind: "hold", Entities: []sim.ID{id}, Queued: true}) {
++					moved[id] = true
++					r.t.Logf("original mechanic ordinary rear retreat tick%d actor%d", r.engine.Tick(), id)
++				}
++			}
++		}
++	}
++}
++
+ func TestAuthoredOptionalMechanicTeams(t *testing.T) {
+ 	if testing.Short() {
+ 		t.Skip("dedicated preservation of all original recovered mechanics")
+@@ -146,50 +170,8 @@
+ 			r := newAuthoredRun(t, "sy-01-workshop-foothold", difficulty, "")
+ 			r.evidenceSuffix = "-optional-mechanic-teams"
+ 			r.requiredOptional = "mechanic-teams"
+-			moved := map[sim.ID]bool{}
+-			lastHealth := map[sim.ID]int32{}
+-			r.tactical = func() {
+-				for i, tag := range []string{"mechanics-west", "mechanics-east"} {
+-					for _, id := range r.tags[tag] {
+-						actor, ok := r.seen(id)
+-						if !ok && lastHealth[id] > 0 {
+-							r.t.Logf("original mechanic lost from own view: tick%d actor%d priorhealth%d", r.engine.Tick(), id, lastHealth[id])
+-							lastHealth[id] = -1
+-						}
+-						if ok && actor.Owner == 1 {
+-							if lastHealth[id] > 0 && actor.Health < lastHealth[id] {
+-								r.t.Logf("original mechanic damaged: tick%d actor%d health%d position%+v", r.engine.Tick(), id, actor.Health, actor.Position)
+-								for _, enemy := range r.view().Entities {
+-									dx, dy := int64(enemy.Position.X-actor.Position.X), int64(enemy.Position.Y-actor.Position.Y)
+-									if (enemy.Owner == 2 || enemy.Owner == 4) && dx*dx+dy*dy < 15000*15000 {
+-										r.t.Logf("observed nearby hostile: tick%d actor%d type%s position%+v", r.engine.Tick(), enemy.ID, enemy.Type, enemy.Position)
+-									}
+-								}
+-							}
+-							lastHealth[id] = actor.Health
+-						}
+-						if !ok || actor.Owner != 1 || moved[id] {
+-							continue
+-						}
+-						point := sim.Vec{X: 41500, Y: 83500}
+-						if i == 1 {
+-							point.Y = 72500
+-						}
+-						var shelter sim.ID
+-						for _, building := range r.view().Entities {
+-							if building.Type == "map.garrison" && building.Position == point {
+-								shelter = building.ID
+-								break
+-							}
+-						}
+-						if shelter != 0 && r.tryIssue(sim.Order{Kind: "board", Entities: []sim.ID{id}, Target: shelter}) {
+-							r.t.Logf("original mechanic enters designated two-slot shelter: tick%d actor%d shelter%d", r.engine.Tick(), id, shelter)
+-							moved[id] = true
+-						} else if actor.Private != nil && (len(actor.Private.Orders) == 0 || actor.Private.Orders[0].Kind != "move") {
+-							r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: sim.Vec{X: point.X - 3500, Y: point.Y + 3500}})
+-						}
+-					}
+-				}
++			if difficulty == "easy" {
++				r.tactical = r.mechanicRetreat()
+ 			}
+ 			playWorkshopFoothold(r)
+ 		})
+@@ -283,11 +265,66 @@
+ 			next := r.engine.Tick()
+ 			unloaded := map[sim.ID]bool{}
+ 			escorts := map[int]map[string]sim.ID{}
++			productionAt := r.engine.Tick()
++			clearedProduction := map[sim.ID]bool{}
++			lateArrivalReady := r.difficulty == "easy"
++			escortRoles := []struct{ key, typ string }{{"tank", "IR.tank"}, {"rifle", "IR.rifle"}}
++			if r.difficulty != "easy" {
++				escortRoles = append(escortRoles, struct{ key, typ string }{"second-rifle", "IR.rifle"}, struct{ key, typ string }{"anti-armor", "IR.at"}, struct{ key, typ string }{"anti-air", "IR.aa"}, struct{ key, typ string }{"medic", "IR.medic"})
++			}
+ 			r.tactical = func() {
+ 				if r.engine.Tick() < next {
+ 					return
+ 				}
+ 				next = r.engine.Tick() + 20
++				if !lateArrivalReady {
++					// Delay exposed observation posts until normal combat has removed
++					// the authored production buildings. Only current player sight and
++					// remembered observations establish that a building was cleared.
++					ready := true
++					view := r.view()
++					for _, tag := range []string{"enemy-barracks", "enemy-factory", "enemy-service"} {
++						ids := r.tags[tag]
++						if len(ids) != 1 {
++							ready = false
++							continue
++						}
++						id := ids[0]
++						if !clearedProduction[id] {
++							if actor, seen := r.seen(id); seen {
++								clearedProduction[id] = actor.Owner == 1
++							} else {
++								for _, initial := range r.definition.Initial {
++									if initial.Tag == tag {
++										cell := initial.Position.Y/1000*r.gameMap.Width + initial.Position.X/1000
++										clearedProduction[id] = view.Visible[cell]
++									}
++								}
++							}
++						}
++						ready = ready && clearedProduction[id]
++					}
++					if ready {
++						lateArrivalReady = true
++						r.t.Logf("observer dispatch after visibly cleared enemy production tick%d", r.engine.Tick())
++					}
++				}
++				if r.difficulty != "easy" && r.engine.Tick() >= productionAt {
++					productionAt = r.engine.Tick() + 600
++					if barracks := r.ownedType("barracks"); len(barracks) > 0 {
++						for _, role := range []struct {
++							typ   string
++							count int
++						}{{"IR.at", 4}, {"IR.medic", 2}} {
++							if r.scheduledType(role.typ) < role.count {
++								r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: role.typ})
++							}
++						}
++					}
++					if factory := r.ownedType("factory"); len(factory) > 0 && r.scheduledType("IR.aa") < 3 {
++						r.tryIssue(sim.Order{Kind: "train", Entities: factory[:1], Type: "IR.aa"})
++					}
++				}
+ 				for i, id := range observers {
+ 					actor, ok := r.seen(id)
+ 					carrier, carrierOK := r.seen(carriers[i])
+@@ -303,12 +340,17 @@
+ 					}
+ 					point.X -= 3000
+ 					point.Y += 3000
+-					if r.difficulty == "hard" && r.engine.Tick() >= 2800 {
++					if r.difficulty != "easy" {
++						point.X -= 1500
++						point.Y += 1500
++					}
++					if r.engine.Tick() >= 1800 && lateArrivalReady {
+ 						if escorts[i] == nil {
+ 							escorts[i] = map[string]sim.ID{}
+ 						}
+-						for _, typ := range []string{"IR.tank", "IR.rifle"} {
+-							guard, alive := r.seen(escorts[i][typ])
++						for _, role := range escortRoles {
++							typ := role.typ
++							guard, alive := r.seen(escorts[i][role.key])
+ 							if !alive {
+ 								var chosen sim.ID
+ 								closest := int64(1 << 62)
+@@ -324,9 +366,15 @@
+ 								if chosen == 0 {
+ 									continue
+ 								}
+-								escorts[i][typ] = chosen
++								escorts[i][role.key] = chosen
+ 								r.excludedArmy[chosen] = true
+ 								guard, _ = r.seen(chosen)
++							}
++							if r.difficulty != "easy" && actor.Private.Container == 0 {
++								if guard.Private != nil && (len(guard.Private.Orders) == 0 || guard.Private.Orders[0].Kind != "guard" || guard.Private.Orders[0].Target != id) {
++									r.tryIssue(sim.Order{Kind: "guard", Entities: []sim.ID{guard.ID}, Target: id})
++								}
++								continue
+ 							}
+ 							if guard.Private != nil && (len(guard.Private.Orders) == 0 || guard.Private.Orders[0].Kind != "attack_move" || guard.Private.Orders[0].Position != point) {
+ 								r.tryIssue(sim.Order{Kind: "attack_move", Entities: []sim.ID{guard.ID}, Position: point})
+@@ -340,42 +388,40 @@
+ 							}
+ 							r.tryIssue(sim.Order{Kind: "hold", Entities: []sim.ID{id}, Queued: true})
+ 							unloaded[id] = true
+-							// Keep ordinary ground escorts at each observation post while
+-							// the remaining paid army completes the final assault.
+-							for _, typ := range []string{"IR.tank", "IR.rifle"} {
+-								if r.difficulty == "hard" {
+-									continue
+-								}
+-								var guard sim.ID
+-								best := int64(1 << 62)
+-								for _, own := range r.view().Entities {
+-									if own.Owner != 1 || own.Type != typ || r.excludedArmy[own.ID] {
+-										continue
+-									}
+-									x, y := int64(own.Position.X-point.X), int64(own.Position.Y-point.Y)
+-									if d := x*x + y*y; d < best {
+-										guard, best = own.ID, d
+-									}
+-								}
+-								if guard != 0 {
+-									r.excludedArmy[guard] = true
+-									r.tryIssue(sim.Order{Kind: "guard", Entities: []sim.ID{guard}, Target: id, Position: point})
+-								}
+-							}
++							// Persistent escorts were assigned before the carrier advanced.
+ 							r.t.Logf("original observer unloaded tick%d actor%d health%d", r.engine.Tick(), id, actor.Health)
+ 						}
+ 						continue
+ 					}
+-					if r.difficulty == "hard" && r.engine.Tick() < 2800 || !r.optionalObservationSafe(point) {
++					if !lateArrivalReady || r.difficulty == "hard" && r.engine.Tick() < 2800 || !r.optionalObservationSafe(point) {
+ 						shelter := sim.Vec{X: 16500, Y: 105500 + int32(i)*3000}
+ 						if len(carrier.Private.Orders) == 0 || carrier.Private.Orders[0].Kind != "move" || carrier.Private.Orders[0].Position != shelter {
+ 							r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{carrier.ID}, Position: shelter})
+ 						}
+ 						continue
+ 					}
++					inside := false
++					region := "site1"
++					if i == 1 {
++						region = "site2"
++					}
++					for _, bounds := range r.gameMap.Regions {
++						if bounds.ID == region && carrier.Position.X >= bounds.Min.X+1000 && carrier.Position.X <= bounds.Max.X-1000 && carrier.Position.Y >= bounds.Min.Y+1000 && carrier.Position.Y <= bounds.Max.Y-1000 {
++							inside = true
++						}
++					}
++					if inside && r.difficulty != "easy" {
++						orders := carrier.Private.Orders
++						if carrier.ChannelUntil == 0 && (len(orders) == 0 || orders[0].Kind != "unload") {
++							r.tryIssue(sim.Order{Kind: "unload", Entities: []sim.ID{carrier.ID}, Position: carrier.Position})
++						}
++						continue
++					}
+ 					dx, dy := int64(carrier.Position.X-point.X), int64(carrier.Position.Y-point.Y)
+ 					if dx*dx+dy*dy <= 1200*1200 {
+-						if carrier.ChannelUntil == 0 {
++						orders := carrier.Private.Orders
++						unloading := len(orders) > 0 && orders[0].Kind == "unload" && orders[0].Position == point
++						if carrier.ChannelUntil == 0 && !unloading {
+ 							r.tryIssue(sim.Order{Kind: "unload", Entities: []sim.ID{carrier.ID}, Position: point})
+ 						}
+ 					} else if len(carrier.Private.Orders) == 0 || carrier.Private.Orders[0].Kind != "move" || carrier.Private.Orders[0].Position != point {
+--- frozen/pkg/sim/authored_tutorial_acceptance_test.go
++++ tactics/pkg/sim/authored_tutorial_acceptance_test.go
+@@ -117,6 +117,14 @@
+ 	sequence := r.sequences[player]
+ 	tick := r.engine.Tick()
+ 	if err := r.engine.Submit(player, sequence, orders); err != nil {
++		if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {
++			_ = os.MkdirAll(directory, 0755)
++			prefix := filepath.Join(directory, r.definition.ID+"-"+r.faction+"-"+r.difficulty+r.evidenceSuffix+".submit-error")
++			saved, _ := r.engine.Save()
++			_ = os.WriteFile(prefix+".save.json", saved, 0644)
++			view, _ := json.MarshalIndent(r.view(), "", "  ")
++			_ = os.WriteFile(prefix+".view.json", view, 0644)
++		}
+ 		r.t.Fatalf("%s at tick %d: submit %+v: %v", r.definition.ID, tick, orders, err)
+ 	}
+ 	if r.twin != nil {
+@@ -131,6 +139,14 @@
+ 		if result.Player == player && result.Sequence == sequence {
+ 			receipts = append(receipts, result)
+ 			if !result.Accepted {
++				if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {
++					_ = os.MkdirAll(directory, 0755)
++					prefix := filepath.Join(directory, r.definition.ID+"-"+r.faction+"-"+r.difficulty+r.evidenceSuffix+".rejected")
++					saved, _ := r.engine.Save()
++					_ = os.WriteFile(prefix+".save.json", saved, 0644)
++					view, _ := json.MarshalIndent(r.view(), "", "  ")
++					_ = os.WriteFile(prefix+".view.json", view, 0644)
++				}
+ 				r.t.Fatalf("tick %d order %+v rejected: %+v", tick, orders[result.Index], result)
+ 			}
+ 		}
+@@ -180,11 +196,17 @@
+ func (r *authoredRun) wait(label string, limit sim.Tick, predicate func() bool) {
+ 	r.t.Helper()
+ 	end := r.engine.Tick() + limit
++	nextDiagnostic := r.engine.Tick() + 2000
+ 	for !predicate() && r.engine.Tick() < end && !r.engine.Outcome().Finished {
+ 		if r.tactical != nil {
+ 			r.tactical()
+ 		}
+ 		r.advance(10)
++		if r.engine.Tick() >= nextDiagnostic {
++			nextDiagnostic = r.engine.Tick() + 2000
++			view := r.view()
++			r.t.Logf("route progress %s tick%d credits%d army%d objectives%+v", label, r.engine.Tick(), view.Economy.Credits, len(r.army()), view.Mission.Objectives)
++		}
+ 	}
+ 	if !predicate() {
+ 		if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {

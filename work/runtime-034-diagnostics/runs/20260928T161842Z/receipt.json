@@ -1,0 +1,34 @@
+{
+  "source_lock_sha256": "9313438021d25fe211e214b50d516c3ee4b5827c8cf90148663a09f141042aa3",
+  "runner_sha256": "6fa990f94173878cb92c8fa14d6713d6b4ed7ad94f70d5989936075f006bf68b",
+  "scope": "Small subprocess diagnostic tests only; no full mission pilot",
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "./pkg/sim",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-diagnostics/runs/20260928T161842Z/sim.test"
+      ],
+      "exit_code": 0,
+      "seconds": 8.38
+    },
+    {
+      "name": "probes",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-diagnostics/runs/20260928T161842Z/sim.test",
+        "-test.run=^TestAuthoredFatalDiagnostics$",
+        "-test.count=1",
+        "-test.v",
+        "-test.timeout=2m"
+      ],
+      "exit_code": 0,
+      "seconds": 3.467
+    }
+  ],
+  "binary_sha256": "8791a92ca420ab997ca3bc7c9943299f716b336de9ea5367ae5ede3840f04edb",
+  "source_verified_after": true
+}

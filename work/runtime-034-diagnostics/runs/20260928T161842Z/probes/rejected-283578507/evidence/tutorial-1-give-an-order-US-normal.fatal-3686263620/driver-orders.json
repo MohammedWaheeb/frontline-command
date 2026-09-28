@@ -1,0 +1,87 @@
+{
+  "tick": 102,
+  "hash": "ee6acb8beedf94bd31dc250dda70d63599b9beeaf5b88cba62c41eb4df7ee33d",
+  "completed_batches": [
+    {
+      "tick": 100,
+      "player": 1,
+      "sequence": 1,
+      "orders": [
+        {
+          "kind": "stop",
+          "entities": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "results": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "accepted": true,
+          "code": "ok",
+          "tick": 101
+        }
+      ]
+    }
+  ],
+  "attempted_batch": {
+    "tick": 101,
+    "player": 1,
+    "sequence": 2,
+    "orders": [
+      {
+        "kind": "gather",
+        "entities": [
+          18
+        ],
+        "target": 1,
+        "position": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "kind": "stop",
+        "entities": [
+          18,
+          19,
+          20,
+          21
+        ],
+        "position": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "player": 1,
+        "sequence": 2,
+        "index": 0,
+        "accepted": false,
+        "code": "hauler_required",
+        "tick": 102
+      },
+      {
+        "player": 1,
+        "sequence": 2,
+        "index": 1,
+        "accepted": true,
+        "code": "ok",
+        "tick": 102
+      }
+    ],
+    "stage": "execution_rejected",
+    "error": "hauler_required"
+  }
+}

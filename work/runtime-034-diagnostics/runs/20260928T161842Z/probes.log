@@ -1,0 +1,21 @@
+=== RUN   TestAuthoredFatalDiagnostics
+=== RUN   TestAuthoredFatalDiagnostics/direct
+    authored_failure_diagnostics_probe_test.go:211: direct: final tick 101 hash 9ad829fb6e9d32d5379e4831cd3a51e4a5706ac4c824c2ba0f39dd69bb7e69dd, exact save/view/ledger and unchanged source
+=== RUN   TestAuthoredFatalDiagnostics/helper
+    authored_failure_diagnostics_probe_test.go:211: helper: final tick 101 hash 9ad829fb6e9d32d5379e4831cd3a51e4a5706ac4c824c2ba0f39dd69bb7e69dd, exact save/view/ledger and unchanged source
+=== RUN   TestAuthoredFatalDiagnostics/submit
+    authored_failure_diagnostics_probe_test.go:211: submit: final tick 101 hash 9ad829fb6e9d32d5379e4831cd3a51e4a5706ac4c824c2ba0f39dd69bb7e69dd, exact save/view/ledger and unchanged source
+=== RUN   TestAuthoredFatalDiagnostics/rejected
+    authored_failure_diagnostics_probe_test.go:211: rejected: final tick 102 hash ee6acb8beedf94bd31dc250dda70d63599b9beeaf5b88cba62c41eb4df7ee33d, exact save/view/ledger and unchanged source
+=== RUN   TestAuthoredFatalDiagnostics/setup
+=== RUN   TestAuthoredFatalDiagnostics/success
+=== RUN   TestAuthoredFatalDiagnostics/disabled
+--- PASS: TestAuthoredFatalDiagnostics (1.70s)
+    --- PASS: TestAuthoredFatalDiagnostics/direct (0.34s)
+    --- PASS: TestAuthoredFatalDiagnostics/helper (0.33s)
+    --- PASS: TestAuthoredFatalDiagnostics/submit (0.35s)
+    --- PASS: TestAuthoredFatalDiagnostics/rejected (0.35s)
+    --- PASS: TestAuthoredFatalDiagnostics/setup (0.03s)
+    --- PASS: TestAuthoredFatalDiagnostics/success (0.15s)
+    --- PASS: TestAuthoredFatalDiagnostics/disabled (0.16s)
+PASS

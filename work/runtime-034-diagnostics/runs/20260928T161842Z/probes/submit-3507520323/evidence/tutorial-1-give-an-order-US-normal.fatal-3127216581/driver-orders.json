@@ -1,0 +1,56 @@
+{
+  "tick": 101,
+  "hash": "9ad829fb6e9d32d5379e4831cd3a51e4a5706ac4c824c2ba0f39dd69bb7e69dd",
+  "completed_batches": [
+    {
+      "tick": 100,
+      "player": 1,
+      "sequence": 1,
+      "orders": [
+        {
+          "kind": "stop",
+          "entities": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "results": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "accepted": true,
+          "code": "ok",
+          "tick": 101
+        }
+      ]
+    }
+  ],
+  "attempted_batch": {
+    "tick": 101,
+    "player": 1,
+    "sequence": 2,
+    "orders": [
+      {
+        "kind": "stop",
+        "entities": [
+          999999
+        ],
+        "position": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    ],
+    "results": null,
+    "stage": "submit",
+    "error": "not_owner"
+  }
+}
