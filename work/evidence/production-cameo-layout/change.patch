@@ -1,0 +1,35 @@
+--- a/client/src/styles/game.css
++++ b/client/src/styles/game.css
+@@ -131,7 +131,7 @@
+ 
+ /* Build tiles: illustrated art in a recessed, lit well. */
+ .battlefield-screen .cameo-grid{gap:6px;padding:2px 2px 4px}
+-.battlefield-screen .production-cameo{height:calc(88px * var(--fc-ui-scale));border:5px solid transparent;border-image:var(--cameo-frame) 10 fill / 5px stretch;outline:0;box-shadow:0 2px 0 #0b0a09;
++.battlefield-screen .production-cameo{--fc-cameo-caption-h:calc(28px * var(--fc-ui-scale) + 5px);height:calc(100px * var(--fc-ui-scale));border:5px solid transparent;border-image:var(--cameo-frame) 10 fill / 5px stretch;outline:0;box-shadow:0 2px 0 #0b0a09;
+  background:radial-gradient(ellipse 70% 60% at 50% 58%,#7d7157 0%,#4a4436 45%,#1b1a16 100%) padding-box;transition:filter .12s}
+ .battlefield-screen .production-cameo:hover:not(:disabled){border-image-source:var(--cameo-frame);filter:brightness(1.12);box-shadow:0 0 0 1px var(--brass-hi),0 2px 0 #0b0a09}
+ .battlefield-screen .production-cameo .cameo-art{height:74%;padding:2px 4px 0;filter:drop-shadow(0 3px 2px rgba(0,0,0,.55))}
+@@ -139,12 +139,12 @@
+ .battlefield-screen .cameo-name{padding:3px 5px 2px;text-align:left;background:linear-gradient(0deg,#0b0a09 60%,rgba(11,10,9,.75));font:700 calc(13px * var(--fc-ui-scale))/1.1 var(--fc-font-label);letter-spacing:.02em;color:#efe6cf;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .battlefield-screen .cameo-price{left:0;right:auto;top:0;padding:1px 5px 1px 4px;background:linear-gradient(#c9a55a,#8f6d32);color:#1a1206;font:700 calc(12px * var(--fc-ui-scale)) var(--fc-font-mono);box-shadow:1px 1px 0 #0b0a09;clip-path:polygon(0 0,100% 0,calc(100% - 5px) 100%,0 100%)}
+ .battlefield-screen .cameo-queue{position:absolute;top:2px;right:2px;min-width:20px;height:20px;padding:0 4px;display:flex;align-items:center;justify-content:center;background:#0b0a09;border:1px solid var(--amber);color:var(--amber-hi);font:calc(13px * var(--fc-ui-scale)) var(--fc-font-mono);box-shadow:0 0 8px rgba(226,162,50,.4)}
+-.battlefield-screen .cameo-progress{position:absolute;left:0;bottom:calc(20px * var(--fc-ui-scale) + 2px);height:4px;background:linear-gradient(90deg,var(--amber),var(--amber-hi));box-shadow:0 0 6px rgba(244,194,78,.6)}
++.battlefield-screen .cameo-progress{position:absolute;left:0;bottom:calc(var(--fc-cameo-caption-h) + 2px);height:4px;background:linear-gradient(90deg,var(--amber),var(--amber-hi));box-shadow:0 0 6px rgba(244,194,78,.6)}
+ /* Locked and waiting states keep the art visible and always show the reason. */
+ .battlefield-screen .production-cameo:disabled{cursor:not-allowed}
+ .battlefield-screen .production-cameo[data-state=locked] .cameo-art{filter:grayscale(1) brightness(.55) contrast(.9)}
+ .battlefield-screen .production-cameo[data-state=locked]{background:repeating-linear-gradient(-45deg,rgba(0,0,0,.28) 0 6px,transparent 6px 12px) padding-box,radial-gradient(ellipse 70% 60% at 50% 58%,#4a4538,#1b1a16) padding-box}
+-.battlefield-screen .production-cameo .disabled-reason,.battlefield-screen .production-cameo:hover .disabled-reason,.battlefield-screen .production-cameo:disabled:hover .disabled-reason{display:flex;inset:auto 0 calc(20px * var(--fc-ui-scale)) 0;gap:4px;align-items:flex-start;padding:3px 5px;background:rgba(11,10,9,.86);color:#e8c27a;font:600 calc(12px * var(--fc-ui-scale))/1.15 var(--fc-font-label);letter-spacing:.01em;max-height:3.5em;overflow:hidden}
++.battlefield-screen .production-cameo .disabled-reason,.battlefield-screen .production-cameo:hover .disabled-reason,.battlefield-screen .production-cameo:disabled:hover .disabled-reason{display:flex;inset:auto 0 var(--fc-cameo-caption-h) 0;gap:4px;align-items:flex-start;padding:3px 5px;background:rgba(11,10,9,.86);color:#e8c27a;font:600 calc(12px * var(--fc-ui-scale))/1.15 var(--fc-font-label);letter-spacing:.01em;max-height:calc(2.3em + 6px);overflow:hidden}
+ .battlefield-screen .production-cameo[data-state=locked] .disabled-reason{color:#e0a08c}
+ .battlefield-screen .production-cameo .disabled-reason .icon{width:13px;height:13px;flex:none;margin-top:1px}
+ .battlefield-screen .production-empty{border:0;background:#141310;box-shadow:inset 0 2px 5px #000;color:#bdb4a2}
+@@ -340,7 +340,7 @@
+   repeating-linear-gradient(180deg,transparent 0 calc(88px * var(--fc-ui-scale)),rgba(255,238,205,.04) calc(88px * var(--fc-ui-scale)) calc(88px * var(--fc-ui-scale) + 6px)),
+   #141310;box-shadow:inset 0 2px 5px #000,0 1px 0 var(--metal-hi)}
+ /* Unit names wrap to two lines instead of truncating at 1280 / 150%. */
+-.battlefield-screen .cameo-name{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;max-height:none;line-height:1.05}
++.battlefield-screen .cameo-name{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;height:var(--fc-cameo-caption-h);min-height:var(--fc-cameo-caption-h);max-height:none;line-height:1.05}
+ .battlefield-screen .production-facility select,.battlefield-screen .command-sidebar select{font:700 calc(13px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase}
+ /* Material correction: chrome images supply only edges/rivets; centres are clean
+    gradients so wide keys and large plates never smear or tile visibly. */
