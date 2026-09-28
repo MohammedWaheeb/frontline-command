@@ -35,3 +35,5 @@
 
 .mission-objectives-title{display:flex;align-items:center;gap:10px;justify-content:space-between}.mission-objectives-title button{flex:none;padding:2px 8px;min-height:25px}.mission-objectives-title h3{margin:0}.mission-objectives:has(button[aria-expanded="false"]){min-width:220px}
 body:has(.battlefield-screen) .audio-captions{left:calc((100% - var(--fc-hud-sidebar-w))/2);bottom:calc(var(--fc-hud-tray-h) + 16px);max-width:calc(100vw - var(--fc-hud-sidebar-w) - 40px);z-index:120}body:has(.targeting-hint) .audio-captions{bottom:calc(var(--fc-hud-tray-h) + 72px)}
+
+.mission-force-groups{margin-top:8px;padding-top:8px}.mission-force-groups summary{font-size:12px}.mission-force-groups button{display:flex;flex-direction:column;align-items:flex-start;gap:3px}.mission-force-groups small{font:10px var(--fc-font-mono);color:#b4b591}

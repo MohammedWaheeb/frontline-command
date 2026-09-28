@@ -5,19 +5,20 @@ import {COMMANDS,ABILITIES,STRATEGIC,reason} from '../content/labels';
 import {Observable} from './store';
 import type {Application} from './application';
 import {readMissionMarkers,type MissionMarker} from './mission-markers';
+import {readMissionGroupLabels,missionGroups,type MissionGroupLabel} from './mission-groups';
 export interface ProductionChoice {type:string;kind:'build'|'train'|'research';producer:number;available:boolean;reason?:string;waitsFor?:string}
-export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[]}
+export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[]}
 /** Input only: every executable decision is validated by the Go runtime. */
 export class BattleController {
  readonly selection=new BattlefieldSelection();readonly modifiers=new ModifierToggles();readonly targeting=new CommandTargeting();
- readonly state=new Observable<BattleState>({ids:[],production:[],pending:false,learned:[],markers:[]});
+ readonly state=new Observable<BattleState>({ids:[],production:[],pending:false,learned:[],markers:[],missionGroups:[]});
  private markerMission?:string;
  private terminal=false;
  private inactive(){return !!this.snapshot?.outcome?.finished||!!this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.defeated}
  private async loadMarkers(mission:NonNullable<PlayerSnapshot['mission']>){
   const state=this.app.state.get(),entry=state.index?.missions.find(entry=>entry.id===mission.id&&entry.version===mission.version),map=state.session.map;
   if(!entry?.presentation_url||!map)return;
-  try{const response=await fetch(entry.presentation_url,{signal:this.keyAbort.signal});if(!response.ok)throw Error('Objective locations are unavailable.');const text=await response.text();if(text.length>256*1024)throw Error('Operation presentation is too large.');const markers=readMissionMarkers(JSON.parse(text),map,mission);if(this.closed)return;this.state.update(state=>({...state,markers}));this.renderer?.setMissionMarkers(markers)}catch(error){if(!this.closed)this.app.patch({notice:error instanceof Error?error.message:'Objective locations unavailable.'})}
+  try{const response=await fetch(entry.presentation_url,{signal:this.keyAbort.signal});if(!response.ok)throw Error('Objective locations are unavailable.');const text=await response.text();if(text.length>256*1024)throw Error('Operation presentation is too large.');const data=JSON.parse(text),markers=readMissionMarkers(data,map,mission),groups=this.snapshot?readMissionGroupLabels(data,this.snapshot):[];if(this.closed)return;this.state.update(state=>({...state,markers,missionGroups:groups}));this.renderer?.setMissionMarkers(markers)}catch(error){if(!this.closed)this.app.patch({notice:error instanceof Error?error.message:'Objective locations unavailable.'})}
  }
  renderer?:BattlefieldRenderer;private detachAudio?:()=>void;private snapshot?:PlayerSnapshot;private practicePlacement?:OrderIntent;private tutorialMission?:{id:string;version:string};private orderKinds=new Map<number,Array<{kind:string;entity?:Pick<Entity,'type'|'owner'>}>>();private unsubscribeResults?:()=>void;private subgroupCycle?:{groups:number[][];index:number};private scope:string;private closed=false;private generation=0;private refreshAt=0;private refreshing=false;private hoverPending=false;private advisoryWork?:Promise<unknown>;private hoverAt=0;private keyAbort=new AbortController();private activeTarget?:{kind:string;type?:string;label:string};
  constructor(readonly app:Application,readonly openPause:()=>void,readonly chooseEntryEdge:()=>void){this.scope=app.sessions.state.id!;this.unsubscribeResults=app.sessions.subscribe(event=>{if(event.type!=='runtime'||event.session!==this.scope||event.event.type!=='order-result')return;const result=event.event.result,kinds=this.orderKinds.get(result.sequence);if(!kinds)return;if(result.accepted){const kind=kinds[result.index]?.kind;if(kind)this.learn(kind)}else this.learn('rejected_order');const command=kinds[result.index];if(command)app.audioDirector.receipt(command.kind,result.accepted,command.entity,result.code);if(result.index===kinds.length-1)this.orderKinds.delete(result.sequence)})}
@@ -43,6 +44,7 @@ export class BattleController {
  };
  private changed(resetCycle=true,audible=true){if(audible&&this.snapshot)this.app.audioDirector.selection(this.snapshot.entities.filter(entity=>this.selection.ids.includes(entity.id)),this.snapshot.player);if(resetCycle)this.subgroupCycle=undefined;this.generation++;this.targeting.reconcile(this.selection.token);if(!this.targeting.targeting)this.clearTarget(false);this.renderer?.setSelection(this.selection.ids);this.state.update(state=>({...state,ids:this.selection.ids,production:[],affordances:undefined}));void this.refresh()}
  select(ids:number[]){this.selection.apply(ids);this.changed()}
+ selectMissionGroup(origin:string){if(!this.snapshot)return;const group=missionGroups(this.state.get().missionGroups,this.snapshot).find(group=>group.origin===origin);if(!group?.ids.length)return;this.select(group.ids);const point=this.selection.center();if(point)this.renderer?.center(point)}
  cancel(){this.generation++;this.targeting.cancel();this.clearTarget(false);this.renderer?.cancelDrag()}
  private clearTarget(cancel=true){if(cancel)this.targeting.cancel();this.practicePlacement=undefined;this.activeTarget=undefined;this.renderer?.setTargeting(undefined);this.renderer?.setPlacement(undefined);this.state.update(state=>({...state,target:undefined,placementReason:undefined}))}
  private runtime(){const transport=this.app.sessions.transport;if(!transport)throw Error('No active operation.');return transport}
