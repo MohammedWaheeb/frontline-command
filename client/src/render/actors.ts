@@ -1,4 +1,4 @@
-import {Container,Graphics,Sprite} from 'pixi.js';
+import {Container,Graphics,Sprite,Texture} from 'pixi.js';
 import type {Entity,Point} from '../runtime';
 import type {CatalogIndex} from '../content/catalog';
 import type {ArtLibrary,SpriteSheet,SpriteState} from './art';
@@ -163,15 +163,18 @@ export class ActorVisual {
   p.root.position.set(offset.x,offset.y-altitude+groundOffset);
   p.shadowRoot.position.copyFrom(p.root.position);
   for(const [name,sprite] of [['shadow',p.shadow],['beauty',p.beauty],['team',p.team]] as const){
-   const f=sheet.frame(name,state.name,d,frame)??sheet.frame(name,state.name,d,0);
-   if(!f){
-    // Keep the last authorized pose while the next animation page uploads.
-    // A layer absent from this state (for example wreck team color) is hidden.
-    if(!sheet.hasFrame(name,state.name,d,frame)&&!sheet.hasFrame(name,state.name,d,0)){sprite.visible=false;delete p.poses[name]}
-    else {const previous=p.poses[name];if(previous)sheet.frame(name,previous.state,previous.direction,previous.frame)}
-    continue;
+   let f=sheet.frame(name,state.name,d,frame)??sheet.frame(name,state.name,d,0);
+   if(f)p.poses[name]={state:state.name,direction:d,frame};
+   else {
+    // A cached pose can have been evicted while this actor was offscreen.
+    // Resolve the previous pose through the sheet again: the Sprite's old
+    // Texture may already have a destroyed shared source during async reload.
+    const exists=sheet.hasFrame(name,state.name,d,frame)||sheet.hasFrame(name,state.name,d,0),previous=p.poses[name];
+    if(exists&&previous)f=sheet.frame(name,previous.state,previous.direction,previous.frame);
+    if(!exists)delete p.poses[name];
    }
-   sprite.visible=true;p.poses[name]={state:state.name,direction:d,frame};
+   if(!f){sprite.visible=false;sprite.texture=Texture.EMPTY;continue}
+   sprite.visible=true;
    sprite.texture=f.texture;sprite.anchor.set(f.anchorX,f.anchorY);sprite.scale.set(sheet.pixelScale);
    sprite.tint=name==='team'?team:0xffffff;
    if(name==='shadow'&&this.terrainShadow&&this.surface){
