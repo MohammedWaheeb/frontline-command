@@ -1,0 +1,22 @@
+--- a/pkg/sim/authored_optional_routes_test.go
++++ b/pkg/sim/authored_optional_routes_test.go
+@@ -381,6 +381,19 @@
+ 						}
+ 					}
+ 					if actor.Private.Container == 0 {
++						if r.difficulty != "easy" && carrierOK && !r.optionalObservationSafe(point) {
++							// An at-end observation post need not remain exposed through
++							// every counterattack. Use the same actual nearby paid APC
++							// to reboard while visible threats invalidate the landing site.
++							orders := actor.Private.Orders
++							if len(orders) == 0 || orders[0].Kind != "board" || orders[0].Target != carrier.ID {
++								if r.tryIssue(sim.Order{Kind: "board", Entities: []sim.ID{id}, Target: carrier.ID}) {
++									unloaded[id] = false
++									r.t.Logf("observer reboards from currently unsafe post tick%d actor%d health%d carrier%d", r.engine.Tick(), id, actor.Health, carrier.ID)
++								}
++							}
++							continue
++						}
+ 						if !unloaded[id] {
+ 							if !r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: point}) {
+ 								continue

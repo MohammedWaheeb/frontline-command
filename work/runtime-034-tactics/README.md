@@ -341,3 +341,7 @@ remain unchanged. No turret was built despite the temporary funding intention.
 Separate successful routes now cover **9/9 old main failures and 7/9 old optional
 failures**. IR06 observer Normal/Hard remain open. Consolidated102/21 acceptance
 is still held during the active multiplayer course and has not run.
+
+## 2026-09-28 23:00 UTC — IR06 Normal observer route earned
+
+`runtime-034-observer-reboard` Normal PASS16938 with both original observation teams alive/disembarked at their real regions;1138/1138orders accepted and all save/replay/restart/surrender gates pass. Scoped commander changes preserve home defense, limit permanent escorts to tank/rifle pairs, dispatch after visibly cleared outer positions, and use ordinary reboarding when current visible threats make a post unsafe. Each prior failed source and cleanup artifact remains. Separate later evidence now covers9/9oldmain failures and8/9oldoptional failures; IR06Hard remains. The original93/102main,12/21optional broad matrix is unchanged and a consolidated matrix remains queued.
