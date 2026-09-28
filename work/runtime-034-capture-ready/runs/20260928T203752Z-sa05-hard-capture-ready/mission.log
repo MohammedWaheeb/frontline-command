@@ -1,0 +1,15 @@
+=== RUN   TestAuthoredCampaignCaptureCompletion
+=== RUN   TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/hard
+    authored_campaign_acceptance_test.go:1134: capture force ready tick536 targetrelay-guard-1 actors[25 26 27 28 29 30 34 35] tanks[34 35]
+    authored_campaign_acceptance_test.go:1205: relay-1 captured tick1156
+    authored_campaign_acceptance_test.go:1134: capture force ready tick2786 targetrelay-guard-2 actors[156 245 259 279 303 308] tanks[156 245]
+    authored_campaign_acceptance_test.go:595: route progress capture fire-control threshold tick4788 credits852620 army19 objectives[{ID:no-command-assets Text:Lose all HQs, production structures and engineering rigs. Optional:false Failure:true Complete:false Progress:0 Required:0} {ID:three-positions Text:Capture all three marked relays. Optional:false Failure:false Complete:false Progress:1 Required:0} {ID:service-preserved Text:Keep the original Service vehicle alive. Optional:true Failure:false Complete:false Progress:1 Required:0} {ID:relay-destroyed Text:Lose any required relay to destruction. Optional:false Failure:true Complete:false Progress:0 Required:0}]
+    authored_campaign_acceptance_test.go:1205: relay-2 captured tick5619
+    authored_campaign_acceptance_test.go:1081: paid relief screen dispatched tick6962 targetrelay-guard-3 actors[635 819 907 911 959 1138]
+    authored_campaign_acceptance_test.go:1134: capture force ready tick7200 targetrelay-guard-3 actors[635 819 907 911 959 1138 1141 1196] tanks[1138]
+    authored_campaign_acceptance_test.go:760: route progress ordinary engineer captures relay-3 tick10551 credits527130 army22 objectives[{ID:no-command-assets Text:Lose all HQs, production structures and engineering rigs. Optional:false Failure:true Complete:false Progress:0 Required:0} {ID:three-positions Text:Capture all three marked relays. Optional:false Failure:false Complete:false Progress:2 Required:0} {ID:service-preserved Text:Keep the original Service vehicle alive. Optional:true Failure:false Complete:false Progress:1 Required:0} {ID:relay-destroyed Text:Lose any required relay to destruction. Optional:false Failure:true Complete:false Progress:0 Required:0}]
+    authored_campaign_acceptance_test.go:1205: relay-3 captured tick11965
+    authored_campaign_acceptance_test.go:1318: MISSION sa-05-three-positions faction=SA difficulty=hard tick=11965 midpoint=1157 receipts=634 hash=912a1dac034109e5cc6d6f7b88fd37626fbf93ea117a7538122c917c478a777c
+--- PASS: TestAuthoredCampaignCaptureCompletion (28.85s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/hard (28.85s)
+PASS

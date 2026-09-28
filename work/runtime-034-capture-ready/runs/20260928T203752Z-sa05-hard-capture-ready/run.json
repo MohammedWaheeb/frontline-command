@@ -1,0 +1,70 @@
+{
+  "scope": "One SA05 Hard ordinary test-driver readiness pilot; unchanged production/content",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "36630bbd299e85e976b04d1d9caccf3ad5e2dd8294ecefa9861cf36cdd3c4abd",
+  "base_source_lock_sha256": "9313438021d25fe211e214b50d516c3ee4b5827c8cf90148663a09f141042aa3",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T20:37:52.048519+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ready/runs/20260928T203752Z-sa05-hard-capture-ready/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ready/source",
+      "started": "2026-09-28T20:37:52.048821+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 3.706,
+      "completed": "2026-09-28T20:37:55.754410+00:00"
+    },
+    {
+      "name": "readiness",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ready/runs/20260928T203752Z-sa05-hard-capture-ready/sim.test",
+        "-test.run=^TestAuthoredCaptureReadiness",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ready/source/pkg/sim",
+      "started": "2026-09-28T20:37:55.760118+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.909,
+      "completed": "2026-09-28T20:37:56.668607+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ready/runs/20260928T203752Z-sa05-hard-capture-ready/sim.test",
+        "-test.run=^TestAuthoredCampaignCaptureCompletion$/^sa-05-three-positions$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ready/source/pkg/sim",
+      "started": "2026-09-28T20:37:56.669099+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 28.856,
+      "completed": "2026-09-28T20:38:25.525093+00:00"
+    }
+  ],
+  "binary_sha256": "d4cbdab700893b940d57e5b22cb47561e66feb75355006a357858fbe587a7a39",
+  "exit_code": 0,
+  "completed": "2026-09-28T20:38:25.525385+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sa-05-three-positions-SA-hard.json": {
+      "bytes": 369499,
+      "sha256": "7478ce2995f2cbaaaf747b288e32f6eeaebf7d99d24f083e7a694f72d3dbedf7"
+    }
+  }
+}

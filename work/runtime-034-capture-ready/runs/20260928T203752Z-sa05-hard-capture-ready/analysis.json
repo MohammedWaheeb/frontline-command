@@ -1,0 +1,95 @@
+{
+  "classification": "Individual corrected ordinary SA05 Hard completion; not consolidated matrix or balance proof",
+  "source_lock_sha256": "36630bbd299e85e976b04d1d9caccf3ad5e2dd8294ecefa9861cf36cdd3c4abd",
+  "binary_sha256": "d4cbdab700893b940d57e5b22cb47561e66feb75355006a357858fbe587a7a39",
+  "simulation": "0.3.4",
+  "seed": 19027,
+  "tick": 11965,
+  "midpoint_tick": 1157,
+  "final_hash": "912a1dac034109e5cc6d6f7b88fd37626fbf93ea117a7538122c917c478a777c",
+  "outcome": {
+    "finished": true,
+    "draw": false,
+    "winning_team": 1,
+    "reason": "mission_complete",
+    "tick": 11965
+  },
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "text": "Lose all HQs, production structures and engineering rigs.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 1,
+      "required": 0
+    },
+    {
+      "id": "three-positions",
+      "text": "Capture all three marked relays.",
+      "optional": false,
+      "failure": false,
+      "complete": true,
+      "progress": 3,
+      "required": 0
+    },
+    {
+      "id": "service-preserved",
+      "text": "Keep the original Service vehicle alive.",
+      "optional": true,
+      "failure": false,
+      "complete": true,
+      "progress": 1,
+      "required": 0
+    },
+    {
+      "id": "relay-destroyed",
+      "text": "Lose any required relay to destruction.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 0,
+      "required": 0
+    }
+  ],
+  "submitted_batches": 634,
+  "submitted_orders": 661,
+  "receipt_codes": {
+    "ok": 661
+  },
+  "order_kinds": {
+    "gather": 1,
+    "rally": 42,
+    "build": 1,
+    "train": 55,
+    "move": 92,
+    "attack": 57,
+    "attack_move": 397,
+    "force_fire": 7,
+    "capture": 6,
+    "repair": 2,
+    "ability": 1
+  },
+  "first_relay_captured_tick": 1156,
+  "second_relay_captured_tick": 5619,
+  "third_relay_captured_tick": 11965,
+  "third_relief_dispatch_tick": 6962,
+  "third_ready_tick": 7200,
+  "third_ready_tank": 1138,
+  "checks_passed": [
+    "Two focused readiness/deadline tests",
+    "Actual mission_complete team1",
+    "Midpoint restored branch same final state hash",
+    "Full command replay without seek checkpoints same final state hash",
+    "Fresh restart same initial state hash",
+    "Separate ordinary surrender failure/debrief/save restore/replay"
+  ],
+  "record_sha256": "7478ce2995f2cbaaaf747b288e32f6eeaebf7d99d24f083e7a694f72d3dbedf7",
+  "record_bytes": 369499,
+  "limits": [
+    "One deterministic seed19027 and Hard route",
+    "Shared-host correctness only",
+    "Existing failed frozen main93/102 and optional12/21 matrix remains unchanged",
+    "No independently exported terminal success save in this standard success record; full replay/hash checked inside the harness"
+  ]
+}
