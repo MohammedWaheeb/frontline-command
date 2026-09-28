@@ -1,0 +1,95 @@
+{
+  "scope": "Test-only retention comparison; original intermittent errors preserved. Both cold and warm passed; no production mitigation or proven browser-internal diagnosis.",
+  "rows": [
+    {
+      "evidence": "work/evidence/button-image-course/2026-09-28T12-23-37.537Z/browser.json",
+      "sha256": "402750466af3536d540b10886439568016286b38f0e9ce03b44f641c3adf1760",
+      "browser": "153.0",
+      "warm": false,
+      "additional_modal_cycles": 0,
+      "cases": 15,
+      "pressed_responses": 13,
+      "pressed_all_exact": true,
+      "status": "passed",
+      "errors": [],
+      "resources": [],
+      "request_failures": [
+        {
+          "url": "http://127.0.0.1:51500/art/index.json",
+          "failure": {
+            "errorText": "NS_BINDING_ABORTED"
+          }
+        }
+      ],
+      "sourceHarnessSHA256": "27a9251d5996fc56f10f905eb6d3077660f77f8630ffb9aa2b90b2f42ed1b065"
+    },
+    {
+      "evidence": "work/evidence/button-image-course/2026-09-28T12-28-26.346Z/browser.json",
+      "sha256": "dfe66e24fdb00a829684005fad13892dcc4f4936ab8756a713ba2906f226020b",
+      "browser": "153.0",
+      "warm": true,
+      "additional_modal_cycles": 0,
+      "cases": 15,
+      "pressed_responses": 1,
+      "pressed_all_exact": true,
+      "status": "passed",
+      "errors": [],
+      "resources": [],
+      "request_failures": [
+        {
+          "url": "http://127.0.0.1:51592/art/index.json",
+          "failure": {
+            "errorText": "NS_BINDING_ABORTED"
+          }
+        }
+      ],
+      "sourceHarnessSHA256": "27a9251d5996fc56f10f905eb6d3077660f77f8630ffb9aa2b90b2f42ed1b065"
+    },
+    {
+      "evidence": "work/evidence/button-image-course/2026-09-28T12-32-49.327Z/browser.json",
+      "sha256": "99ed964b59220da6a9ca103a8fa4a838a1c8a8223ea5f09c6c43637e5a2e1561",
+      "browser": "153.0",
+      "warm": false,
+      "additional_modal_cycles": 150,
+      "cases": 15,
+      "pressed_responses": 7,
+      "pressed_all_exact": true,
+      "status": "passed",
+      "errors": [],
+      "resources": [],
+      "request_failures": [
+        {
+          "url": "http://127.0.0.1:51724/art/index.json",
+          "failure": {
+            "errorText": "NS_BINDING_ABORTED"
+          }
+        }
+      ],
+      "sourceHarnessSHA256": "27a9251d5996fc56f10f905eb6d3077660f77f8630ffb9aa2b90b2f42ed1b065",
+      "driverSHA256": "d12a483df2509d83b5ad6d2f21261c9237b2a856cec09d79e52d490940c42c4f"
+    },
+    {
+      "evidence": "work/evidence/button-image-course/2026-09-28T12-36-01.550Z/browser.json",
+      "sha256": "dbafa42154009de5bafd1369f713cc58166e37392402b4d863898043f49335a7",
+      "browser": "153.0",
+      "warm": true,
+      "additional_modal_cycles": 150,
+      "cases": 15,
+      "pressed_responses": 1,
+      "pressed_all_exact": true,
+      "status": "passed",
+      "errors": [],
+      "resources": [],
+      "request_failures": [
+        {
+          "url": "http://127.0.0.1:51830/art/index.json",
+          "failure": {
+            "errorText": "NS_BINDING_ABORTED"
+          }
+        }
+      ],
+      "sourceHarnessSHA256": "27a9251d5996fc56f10f905eb6d3077660f77f8630ffb9aa2b90b2f42ed1b065",
+      "driverSHA256": "d12a483df2509d83b5ad6d2f21261c9237b2a856cec09d79e52d490940c42c4f"
+    }
+  ]
+}
