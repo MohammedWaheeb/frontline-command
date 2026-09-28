@@ -22,7 +22,14 @@ func must(err error) {
 func main() {
 	file := flag.String("replay", "", "Exact host replay bytes")
 	output := flag.String("out", "", "Evidence directory")
+	describe := flag.Bool("describe", false, "Print the verifier contract without starting a replay")
 	flag.Parse()
+	if *describe {
+		encoded, err := json.Marshal(map[string]any{"simulation": sim.Version, "content_hash": content.MustBase().Hash(), "initial_countdown_ticks": true, "verification": "initial/checkpoint/midpoint-restored"})
+		must(err)
+		fmt.Println(string(encoded))
+		return
+	}
 	data, err := os.ReadFile(*file)
 	must(err)
 	replay, err := sim.DecodeReplay(data)
@@ -124,7 +131,7 @@ func main() {
 	must(err)
 	must(os.WriteFile(filepath.Join(*output, "final.save.json"), finalSave, 0644))
 	digest := sha256.Sum256(data)
-	result := map[string]any{"simulation": sim.Version, "seed_uint64": strconv.FormatUint(replay.Metadata.Seed, 10), "replay_sha256": hex.EncodeToString(digest[:]), "initial_tick": initial.Tick(), "midpoint_tick": midpoint, "final_tick": final.Tick(), "midpoint_hash": midpointHash, "final_hash": final.Hash(), "full_checkpoint_and_resumed_hashes_equal": true, "map_id": state.Map.ID, "outcome": final.Outcome(), "players": players, "events": eventKinds, "telemetry": state.Telemetry, "lobby": replay.LobbyInfo(), "scope": "Actual host orders replayed from initial state; ordinary paid production and combat, no fixture mutations. Save/restore verification is offline, not live multiplayer checkpoint resume."}
+	result := map[string]any{"simulation": sim.Version, "seed_uint64": strconv.FormatUint(replay.Metadata.Seed, 10), "replay_sha256": hex.EncodeToString(digest[:]), "initial_tick": initial.Tick(), "initial_countdown_ticks": initialState.Countdown, "midpoint_tick": midpoint, "final_tick": final.Tick(), "midpoint_hash": midpointHash, "final_hash": final.Hash(), "full_checkpoint_and_resumed_hashes_equal": true, "map_id": state.Map.ID, "outcome": final.Outcome(), "players": players, "events": eventKinds, "telemetry": state.Telemetry, "lobby": replay.LobbyInfo(), "scope": "Actual host orders replayed from initial state; ordinary paid production and combat, no fixture mutations. Save/restore verification is offline, not live multiplayer checkpoint resume."}
 	encoded, err := json.MarshalIndent(result, "", "  ")
 	must(err)
 	must(os.WriteFile(filepath.Join(*output, "audit.json"), encoded, 0644))
