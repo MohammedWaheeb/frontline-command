@@ -1,5 +1,6 @@
 import {Assets,Rectangle,Texture} from 'pixi.js';
 import {classify,type CatalogIndex} from '../content/catalog';
+import {authoredArtId} from './art-id';
 
 export interface ArtIndex {format:1;sprites:Record<string,string>;terrain:string[];portraits:string[];buildIcons?:string[];chrome:string[];icons:boolean;emblems:boolean}
 export interface SpriteState {name:string;part:string;directions:number;frames:number;fps:number;loop:boolean;layers?:string[];progress_driven?:boolean}
@@ -95,15 +96,7 @@ export class ArtLibrary {
   const standIn=this.standIn(type,ownerFaction,catalog);
   return standIn?{id:standIn,standIn:true}:undefined;
  }
- directId(type:string,ownerFaction?:string){
-  if(/^(US|IR|SY|SA)\./.test(type)){
-   const [faction,role]=type.split('.');
-   if(['airfield','drone_hub','workshop_air','safehouse'].includes(role))return `building.${faction}.${role}`;
-   return `unit.${type}`;
-  }
-  if(type.startsWith('map.'))return `prop.${type.slice(4)}`;
-  return ownerFaction?`building.${ownerFaction}.${type}`:undefined;
- }
+ directId(type:string,ownerFaction?:string){return authoredArtId(type,ownerFaction)}
  private standIn(type:string,faction:string|undefined,catalog?:CatalogIndex){
   const u=catalog?.units.get(type);
   const pick=(...ids:string[])=>ids.find(id=>this.has(id));
