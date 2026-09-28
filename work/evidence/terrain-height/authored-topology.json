@@ -1,0 +1,757 @@
+{
+  "scope": "Public authored tile data and default mission initial building footprints only; no path/economy/fairness or future construction validation",
+  "summary": {
+    "maps": 32,
+    "maps_with_raised_tiles": 22,
+    "maps_with_passable_height_changes": 18,
+    "passable_edges_with_ramp": 145,
+    "passable_edges_without_ramp": 1857,
+    "ramp_components": 17,
+    "zero_height_cliff_tiles": 962,
+    "initial_building_declarations": 596,
+    "mixed_height_initial_buildings": 1
+  },
+  "mixed_initial_footprints": [
+    {
+      "mission": "sa-04-intercept-window",
+      "tag": "fixed-battery",
+      "type": "abm",
+      "position": {
+        "x": 66500,
+        "y": 65500
+      },
+      "levels": [
+        2,
+        3
+      ]
+    }
+  ],
+  "maps": [
+    {
+      "id": "border-depots",
+      "sha256": "2d6c38f195acc031be61741f4dfec72bfbeae5ede062fa68d8af225c74291a83",
+      "heights": {
+        "0": 24982,
+        "2": 224,
+        "3": 394
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "convoy-union",
+      "sha256": "9d8f22c66b7c5a780d94bdb7e6c8b0e9dd729e49cc2372a0cfd88b7cc0f18426",
+      "heights": {
+        "0": 15673,
+        "2": 676,
+        "3": 35
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 82
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "copper-junction",
+      "sha256": "9ce72f0cbb236557ad75e37feed6c2aa7f5726e6f77cd61803eb84d0b1545057",
+      "heights": {
+        "0": 15744,
+        "2": 312,
+        "3": 328
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "dry-river",
+      "sha256": "1dc851211269974f5cadb1c6e30850e67014970f90a96c0be9b85feb7ef7b747",
+      "heights": {
+        "0": 16384
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 404,
+      "ramp_components": []
+    },
+    {
+      "id": "industrial-valley",
+      "sha256": "e4ab7d00a49fc79ba5dfa44ba86bcfdb5e6b2d7da02b3abc3fee59ccf3238489",
+      "heights": {
+        "0": 25600
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "ir-01-forward-signal-layout",
+      "sha256": "c7a6639d40a357b3911ed28f5a04df8d745fa85696e9a752e5a7eff9a990c611",
+      "heights": {
+        "0": 16331,
+        "3": 35,
+        "2": 18
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 22
+      },
+      "max_passable_height_delta": 3,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "ir-02-eyes-above-layout",
+      "sha256": "0ef1bc130abf9bda114c8d3b68e0df124d0443e6148dd8b821983f83d7cc8428",
+      "heights": {
+        "0": 15679,
+        "2": 705
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 69
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "ir-03-beyond-the-basin-layout",
+      "sha256": "b818e3951b95d2a9f38257278444842f27514af02c07e1a4503c1f583d5a3a95",
+      "heights": {
+        "0": 16162,
+        "2": 58,
+        "3": 164
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "ir-04-hold-the-network-layout",
+      "sha256": "e9b8a51e5b15b312cd463d7e3b40615567cc3c7b4c8e1dd0ea17df3addbff08f",
+      "heights": {
+        "0": 15205,
+        "1": 1179
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 129,
+        "with_ramp": 11
+      },
+      "max_passable_height_delta": 1,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": [
+        {
+          "tiles": 78,
+          "box": [
+            39,
+            50,
+            48,
+            58
+          ],
+          "levels": [
+            0
+          ],
+          "boundary": {
+            "('road', 0)": 1,
+            "('open', 0)": 24,
+            "('cliff', 1)": 2,
+            "('open', 1)": 11
+          }
+        },
+        {
+          "tiles": 15,
+          "box": [
+            84,
+            72,
+            87,
+            77
+          ],
+          "levels": [
+            0
+          ],
+          "boundary": {
+            "('open', 0)": 11,
+            "('road', 0)": 9
+          }
+        }
+      ]
+    },
+    {
+      "id": "ir-05-the-second-volley-layout",
+      "sha256": "ccf47a0e25f57c7e1072277b460b6ccff0033ad04443f83c5694d96ea87962fe",
+      "heights": {
+        "0": 15576,
+        "2": 727,
+        "3": 81
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 107
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "ir-06-iron-signal-layout",
+      "sha256": "8f92881dce6e47c367291fe17eb753fab2810777978f2a22dec429c058a17b7a",
+      "heights": {
+        "0": 16384
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 310,
+      "ramp_components": []
+    },
+    {
+      "id": "port-outskirts",
+      "sha256": "8c8a040e82cdacbb67ecb0f8fa40b5f0f5da1293809dc63f752490860a806830",
+      "heights": {
+        "0": 25600
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "relay-heights",
+      "sha256": "09f300f41176794465aa0b1a87a0900bbf60a7d5c35e010521a3154f7bdc8d86",
+      "heights": {
+        "0": 14116,
+        "2": 1980,
+        "1": 288
+      },
+      "passable_different_height_edges": {
+        "with_ramp": 64,
+        "without_ramp": 68
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": [
+        {
+          "tiles": 14,
+          "box": [
+            43,
+            43,
+            50,
+            45
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 0)": 6,
+            "('road', 1)": 10,
+            "('cliff', 2)": 1,
+            "('open', 2)": 5
+          }
+        },
+        {
+          "tiles": 8,
+          "box": [
+            77,
+            43,
+            84,
+            43
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 2)": 5,
+            "('road', 1)": 8,
+            "('cliff', 2)": 1,
+            "('open', 0)": 4
+          }
+        },
+        {
+          "tiles": 2,
+          "box": [
+            49,
+            51,
+            50,
+            51
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('road', 1)": 3,
+            "('open', 2)": 3
+          }
+        },
+        {
+          "tiles": 8,
+          "box": [
+            77,
+            51,
+            84,
+            51
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 2)": 5,
+            "('road', 1)": 8,
+            "('cliff', 2)": 1,
+            "('open', 0)": 4
+          }
+        },
+        {
+          "tiles": 8,
+          "box": [
+            43,
+            76,
+            50,
+            76
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 0)": 4,
+            "('road', 1)": 8,
+            "('cliff', 2)": 1,
+            "('open', 2)": 5
+          }
+        },
+        {
+          "tiles": 2,
+          "box": [
+            77,
+            76,
+            78,
+            76
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 2)": 3,
+            "('road', 1)": 3
+          }
+        },
+        {
+          "tiles": 14,
+          "box": [
+            77,
+            82,
+            84,
+            84
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('road', 1)": 10,
+            "('open', 0)": 6,
+            "('cliff', 2)": 1,
+            "('open', 2)": 5
+          }
+        },
+        {
+          "tiles": 8,
+          "box": [
+            43,
+            84,
+            50,
+            84
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 0)": 4,
+            "('road', 1)": 8,
+            "('cliff', 2)": 1,
+            "('open', 2)": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sa-01-arrival-point-layout",
+      "sha256": "40a1b7e1579f02a18a57075f327d12e4fd872f98ad48fefbab173db38369f58d",
+      "heights": {
+        "0": 16124,
+        "2": 146,
+        "3": 114
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 144
+      },
+      "max_passable_height_delta": 3,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "sa-02-moving-shield-layout",
+      "sha256": "141d86e165e3da6781786efc2d6da3f76a8fd7e20134f572f149d8bb383f9918",
+      "heights": {
+        "0": 15682,
+        "2": 702
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 120
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "sa-03-distant-depots-layout",
+      "sha256": "cf2abe6805c32642f8296118d755758cdca919e619b5d820a1440eda1a68865f",
+      "heights": {
+        "0": 16384
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "sa-04-intercept-window-layout",
+      "sha256": "fb094dfe6a13deab4f73db4329179bdabc9e80fabfea8ba49749a16105da140b",
+      "heights": {
+        "0": 15923,
+        "2": 137,
+        "3": 324
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 104
+      },
+      "max_passable_height_delta": 3,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "sa-05-three-positions-layout",
+      "sha256": "10eb2090ab7113997762b37001a438d78e2c9f38015109f15353e7943ec489c9",
+      "heights": {
+        "0": 14843,
+        "2": 1433,
+        "1": 108
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 199,
+        "with_ramp": 26
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": [
+        {
+          "tiles": 3,
+          "box": [
+            86,
+            47,
+            87,
+            48
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 2)": 4,
+            "('road', 1)": 4
+          }
+        },
+        {
+          "tiles": 30,
+          "box": [
+            40,
+            54,
+            50,
+            59
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 0)": 15,
+            "('cliff', 2)": 1,
+            "('open', 2)": 7,
+            "('road', 1)": 11
+          }
+        }
+      ]
+    },
+    {
+      "id": "sa-06-shieldline-layout",
+      "sha256": "35326877ba03067c104b1f4a9ff33e930db86b1d1cf01e495f78dda042a4875f",
+      "heights": {
+        "0": 16384
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "sy-01-workshop-foothold-layout",
+      "sha256": "2f70fe9d5f345fac7fd1ac661240ddb712c7fcb5985453944839136bb1e59775",
+      "heights": {
+        "0": 16075,
+        "2": 98,
+        "3": 211
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 26
+      },
+      "max_passable_height_delta": 3,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "sy-02-supply-trail-layout",
+      "sha256": "5f952a51ffc1526317e9d827ded287bdbf5c03620bd35112762ed4d7a478b1c1",
+      "heights": {
+        "0": 16384
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "sy-03-three-crossings-layout",
+      "sha256": "3c8adcbbfc109ca6770d1e9c8837496ed87dd47eb7c9c8d0b9c6d9ab98aeefbd",
+      "heights": {
+        "0": 16384
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 248,
+      "ramp_components": []
+    },
+    {
+      "id": "sy-04-open-doors-layout",
+      "sha256": "6ea5b96c7e2420ea9110f2d8ab4a1180155edd12816424b343814c7e93df4343",
+      "heights": {
+        "0": 16384
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "sy-05-relay-break-layout",
+      "sha256": "5dd9bef433352d72289fc350ed9fade09e01f3556120b48e2a6a220bc84a6c4d",
+      "heights": {
+        "0": 15101,
+        "2": 1167,
+        "1": 116
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 148,
+        "with_ramp": 27
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": [
+        {
+          "tiles": 3,
+          "box": [
+            80,
+            45,
+            81,
+            46
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 2)": 4,
+            "('road', 1)": 4
+          }
+        },
+        {
+          "tiles": 36,
+          "box": [
+            80,
+            47,
+            90,
+            54
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 0)": 5,
+            "('road', 1)": 23,
+            "('road', 2)": 2,
+            "('open', 2)": 8
+          }
+        },
+        {
+          "tiles": 3,
+          "box": [
+            44,
+            56,
+            45,
+            57
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 0)": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "sy-06-open-road-layout",
+      "sha256": "a4a7076420edd2dcd95738b48854319983f501809675a275c7613cf4d027d32a",
+      "heights": {
+        "0": 15815,
+        "2": 569
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 82
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "twin-outposts",
+      "sha256": "632f1a2621232182cfcc3aa3e3794d0f26e59391e1986dc936ff61fe44b1cdac",
+      "heights": {
+        "0": 16263,
+        "2": 52,
+        "3": 69
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "us-01-first-foothold-layout",
+      "sha256": "7ed2384ddf81d452298da36f8e2d5fac61bb7d10be0a579b9fc799c976f2a2c9",
+      "heights": {
+        "0": 16013,
+        "2": 145,
+        "3": 226
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 35
+      },
+      "max_passable_height_delta": 3,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "us-02-open-corridor-layout",
+      "sha256": "c1676502aa23ec01fb7331d17e1f9584923ef94d7f0c602a94779b7c864d2f9c",
+      "heights": {
+        "0": 15740,
+        "2": 644
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 131
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "us-03-relay-ridge-layout",
+      "sha256": "6207624b1d98f4057944a41a93ee236488a66b7ece1ae713bfc99a2ca746cd48",
+      "heights": {
+        "0": 14837,
+        "2": 1450,
+        "1": 97
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 205,
+        "with_ramp": 17
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": [
+        {
+          "tiles": 5,
+          "box": [
+            88,
+            48,
+            90,
+            49
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 2)": 5,
+            "('road', 1)": 4,
+            "('open', 0)": 1
+          }
+        },
+        {
+          "tiles": 13,
+          "box": [
+            42,
+            66,
+            44,
+            71
+          ],
+          "levels": [
+            1
+          ],
+          "boundary": {
+            "('open', 0)": 11,
+            "('road', 1)": 7
+          }
+        }
+      ]
+    },
+    {
+      "id": "us-04-broken-umbrella-layout",
+      "sha256": "92b11f9302506dfe22fe55749e1b1565a3064e411a2816a7be5b6922d1d6c574",
+      "heights": {
+        "0": 15907,
+        "2": 139,
+        "3": 338
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 128
+      },
+      "max_passable_height_delta": 3,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "us-05-split-front-layout",
+      "sha256": "49813ad84386426005a0755af006b78bc913a813bee289dc70102445ed154952",
+      "heights": {
+        "0": 16384
+      },
+      "passable_different_height_edges": {},
+      "max_passable_height_delta": 0,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    },
+    {
+      "id": "us-06-clear-horizon-layout",
+      "sha256": "9b986fecb6b6b3eb1bd55b85b4987323d90de53f387619709c60933d67079214",
+      "heights": {
+        "0": 15836,
+        "2": 548
+      },
+      "passable_different_height_edges": {
+        "without_ramp": 58
+      },
+      "max_passable_height_delta": 2,
+      "zero_height_cliff_tiles": 0,
+      "ramp_components": []
+    }
+  ]
+}
