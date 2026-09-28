@@ -389,3 +389,69 @@ Updated pack SHA256:
 `58fca5c8eefbf49a4368344a1a8cd44c32d786107f94ffbb78a5c01237e45960`.
 Client-source SHA256 remains
 `4096954cd8b8aa2fd9fd915ea456dea44b7cf1c3d08c3d84e0dd5f5b1453df3e`.
+
+## Optimized shared-host 4H — recovery/archive pass, strict timeout failure
+
+The first optimized-runtime repetition also ended normally: US/IR team 1 won by
+elimination at tick 13,475, seed `4866468222137547733`. It used the exact same
+client/artwork and source lock above, with four real profiles and Apple M4 Metal.
+The launch explicitly records coordinated Blender work still running, with no
+other owned host/browser/native job. This is shared-host functional evidence,
+not a quiet performance result or proof of timeout causation.
+
+| Human player | Income | Spending | Train orders | Build orders |
+|---|---:|---:|---:|---:|
+| US, team 1 | 10,800 | 13,600 | 22 | 11 |
+| IR, team 1 | 17,400 | 23,400 | 45 | 12 |
+| SY, team 2 | 12,000 | 15,050 | 20 | 12 |
+| SA, team 2 | 19,800 | 24,300 | 41 | 17 |
+
+There were 336 scripted ordinary batches, 4,126 weapon/impact events and 117
+destructions. All four enemy-command probes returned `not_owner`; reconnect
+advanced tick 3,624 to 3,644 with sequence 17 retained. SY was eliminated at
+9,388 and US at 11,138. IR continued and won for the US/IR team.
+
+The independent final checks all ran before the strict error assertion:
+
+- Both eliminated US/SY profiles received their actual authenticated history.
+- The host independently recovered the exact committed match result.
+- Its own tick-11,138 snapshot remained byte-identical during recovery.
+- The driver opened the ordinary operation menu and saved the replay through
+  the existing Go inspector and browser archive.
+- Full replay, final checkpoint and a restored midpoint at 6,737 all reached
+  `032d1c0815cb254335e6d0997f29d4d1b7b9b3af9b242d3702c37ab9d5581720`.
+
+The exact archived replay is 640,224 bytes, SHA256
+`f03f6b2b0519e592236098fd807ff2817492bb1d5c46fb343aca346d622b5da9`.
+The native operation-menu capture was inspected: the recorded team result and
+replay action are readable over the host's frozen view.
+
+**Overall status is still FAILED.** A single SY advice request returned HTTP503
+`advice_timeout`; no other page/console/decoder/HTTP errors occurred. Its sanitized
+request is preserved in `failed-advice-request.json`: player 3, rig 6, 24 ordinary
+build-barracks proposals, `independent:false`, 2,282.119 ms to response start.
+This is one normal sequential preview batch; it is not evidence of 24 full
+simulations or geometry evaluations. Client progress brackets the request between
+tick 1,272 at 15:58:11.744 UTC and 1,884 at 15:58:45.696 UTC. The exact server
+capture tick was not recorded and must not be inferred from wall time.
+
+A later read-only host-pressure sample found a 16 GiB system using 6,472.62 MiB
+of swap, while `memory_pressure` reported 48% free. Blender and four Chromium
+renderers were active. This sample was taken after the failure and does not
+establish why the two-second deadline expired. It contains executable names,
+not process arguments or credentials.
+
+Evidence: `work/multiplayer-combat/2026-09-28T15-55-02.270Z/`. The original failed
+report and source-specific driver remain unchanged; compact `receipt.json`
+includes the independent passed checks and original digest. A successor listener
+will also record the last client snapshot tick at advice request/response; those
+client observations still cannot establish the exact Go capture tick. No runtime
+instrumentation or deadline change is included. The next controlled repetition
+requires an explicit pause of owned competing work and keeps the same runtime
+lock, client and strict final gates.
+
+Post-comparison UI follow-up: the eliminated frozen sidebar still labels itself
+`LIVE`, and completed menus can show old connection-status rows. These stale
+labels are not new live data. Correct them using the actual terminal/result
+state after the controlled frozen-build repetitions; do not alter the compared
+build or invent a final live snapshot to make the labels appear current.

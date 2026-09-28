@@ -1,0 +1,383 @@
+{
+  "time": "2026-09-28T16:00:57.188903+00:00",
+  "scope": "Read-only shared-host pressure sampled after the observed advice503; not an at-failure sample and not proof of causation. Process executable names only, no arguments/credentials.",
+  "vm_stat": {
+    "exit": 0,
+    "output": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                     4050.\nPages active:                                 244460.\nPages inactive:                               243427.\nPages speculative:                               324.\nPages throttled:                                   0.\nPages wired down:                             199048.\nPages purgeable:                                 426.\n\"Translation faults\":                     3897318514.\nPages copy-on-write:                       149124379.\nPages zero filled:                       12092141924.\nPages reactivated:                         310797341.\nPages purged:                               93860475.\nFile-backed pages:                             87618.\nAnonymous pages:                              400593.\nPages stored in compressor:                  1642240.\nPages occupied by compressor:                 317464.\nDecompressions:                            492578211.\nCompressions:                              585738202.\nPageins:                                  1397464694.\nPageouts:                                    1792268.\nSwapins:                                    11449947.\nSwapouts:                                   13478527.\n",
+    "error": ""
+  },
+  "swap_and_memory": {
+    "exit": 0,
+    "output": "vm.swapusage: total = 7168.00M  used = 6472.62M  free = 695.38M  (encrypted)\nhw.memsize: 17179869184\n",
+    "error": ""
+  },
+  "memory_pressure": {
+    "exit": 0,
+    "output": "The system has 17179869184 (1048576 pages with a page size of 16384).\n\nStats: \nPages free: 4045 \nPages purgeable: 426 \nPages purged: 93860475 \n\nSwap I/O:\nSwapins: 11449947 \nSwapouts: 13478527 \n\nPage Q counts:\nPages active: 244493 \nPages inactive: 243448 \nPages speculative: 350 \nPages throttled: 0 \nPages wired down: 199071 \n\nCompressor Stats:\nPages used by compressor: 317461 \nPages decompressed: 492578219 \nPages compressed: 585738202 \n\nFile I/O:\nPageins: 1397464705 \nPageouts: 1792268 \n\nSystem-wide memory free percentage: 48%\n",
+    "error": ""
+  },
+  "top_cpu_processes": [
+    {
+      "pid": "49682",
+      "parent": "49672",
+      "cpu_percent": "71.5",
+      "memory_percent": "1.3",
+      "rss_kib": "220992",
+      "elapsed": "05:54",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (GPU).app/Contents/MacOS/Google Chrome for Testing Helper (GPU)"
+    },
+    {
+      "pid": "49519",
+      "parent": "48301",
+      "cpu_percent": "62.9",
+      "memory_percent": "6.1",
+      "rss_kib": "1021808",
+      "elapsed": "07:21",
+      "executable": "/Applications/Blender.app/Contents/MacOS/Blender"
+    },
+    {
+      "pid": "49695",
+      "parent": "49672",
+      "cpu_percent": "53.1",
+      "memory_percent": "2.8",
+      "rss_kib": "465984",
+      "elapsed": "05:51",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    },
+    {
+      "pid": "49707",
+      "parent": "49672",
+      "cpu_percent": "53.0",
+      "memory_percent": "2.9",
+      "rss_kib": "478832",
+      "elapsed": "05:45",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    },
+    {
+      "pid": "49700",
+      "parent": "49672",
+      "cpu_percent": "46.2",
+      "memory_percent": "2.7",
+      "rss_kib": "450096",
+      "elapsed": "05:48",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    },
+    {
+      "pid": "1",
+      "parent": "0",
+      "cpu_percent": "37.5",
+      "memory_percent": "0.1",
+      "rss_kib": "8976",
+      "elapsed": "115-17:28:08",
+      "executable": "/sbin/launchd"
+    },
+    {
+      "pid": "49714",
+      "parent": "49672",
+      "cpu_percent": "36.3",
+      "memory_percent": "2.4",
+      "rss_kib": "410624",
+      "elapsed": "05:42",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    },
+    {
+      "pid": "50308",
+      "parent": "26105",
+      "cpu_percent": "28.0",
+      "memory_percent": "0.1",
+      "rss_kib": "17328",
+      "elapsed": "00:01",
+      "executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python"
+    },
+    {
+      "pid": "49687",
+      "parent": "49661",
+      "cpu_percent": "26.1",
+      "memory_percent": "0.6",
+      "rss_kib": "102048",
+      "elapsed": "05:54",
+      "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/multiplayer-combat/build-optimized-recovery/frontline"
+    },
+    {
+      "pid": "584",
+      "parent": "1",
+      "cpu_percent": "21.2",
+      "memory_percent": "0.2",
+      "rss_kib": "41328",
+      "elapsed": "115-17:27:04",
+      "executable": "/System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer"
+    },
+    {
+      "pid": "49661",
+      "parent": "26105",
+      "cpu_percent": "13.6",
+      "memory_percent": "3.3",
+      "rss_kib": "557936",
+      "elapsed": "05:56",
+      "executable": "node"
+    },
+    {
+      "pid": "49672",
+      "parent": "49661",
+      "cpu_percent": "6.8",
+      "memory_percent": "1.0",
+      "rss_kib": "168272",
+      "elapsed": "05:55",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+    },
+    {
+      "pid": "49683",
+      "parent": "49672",
+      "cpu_percent": "6.3",
+      "memory_percent": "0.4",
+      "rss_kib": "70288",
+      "elapsed": "05:54",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    },
+    {
+      "pid": "26105",
+      "parent": "26052",
+      "cpu_percent": "5.0",
+      "memory_percent": "1.1",
+      "rss_kib": "183776",
+      "elapsed": "04-15:32:55",
+      "executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+    },
+    {
+      "pid": "57295",
+      "parent": "57269",
+      "cpu_percent": "4.9",
+      "memory_percent": "0.1",
+      "rss_kib": "22656",
+      "elapsed": "18:03:14",
+      "executable": "node"
+    },
+    {
+      "pid": "26052",
+      "parent": "1",
+      "cpu_percent": "2.6",
+      "memory_percent": "2.0",
+      "rss_kib": "337808",
+      "elapsed": "04-15:32:59",
+      "executable": "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
+    },
+    {
+      "pid": "80431",
+      "parent": "1",
+      "cpu_percent": "2.6",
+      "memory_percent": "0.7",
+      "rss_kib": "114432",
+      "elapsed": "10-00:35:29",
+      "executable": "/Applications/WhatsApp.app/Contents/MacOS/WhatsApp"
+    },
+    {
+      "pid": "679",
+      "parent": "1",
+      "cpu_percent": "1.7",
+      "memory_percent": "0.2",
+      "rss_kib": "39888",
+      "elapsed": "115-17:27:03",
+      "executable": "/System/Library/DriverExtensions/com.apple.DriverKit-AppleBCMWLAN.dext/com.apple.DriverKit-AppleBCMWLAN"
+    },
+    {
+      "pid": "1627",
+      "parent": "1",
+      "cpu_percent": "0.7",
+      "memory_percent": "0.1",
+      "rss_kib": "19520",
+      "elapsed": "98-18:59:22",
+      "executable": "/Applications/Amphetamine.app/Contents/MacOS/Amphetamine"
+    },
+    {
+      "pid": "26108",
+      "parent": "26052",
+      "cpu_percent": "0.7",
+      "memory_percent": "4.8",
+      "rss_kib": "809152",
+      "elapsed": "04-15:32:55",
+      "executable": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/152.0.7977.83/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)"
+    }
+  ],
+  "top_rss_processes": [
+    {
+      "pid": "49519",
+      "parent": "48301",
+      "cpu_percent": "62.9",
+      "memory_percent": "6.1",
+      "rss_kib": "1021808",
+      "elapsed": "07:21",
+      "executable": "/Applications/Blender.app/Contents/MacOS/Blender"
+    },
+    {
+      "pid": "26108",
+      "parent": "26052",
+      "cpu_percent": "0.7",
+      "memory_percent": "4.8",
+      "rss_kib": "809152",
+      "elapsed": "04-15:32:55",
+      "executable": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/152.0.7977.83/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)"
+    },
+    {
+      "pid": "49661",
+      "parent": "26105",
+      "cpu_percent": "13.6",
+      "memory_percent": "3.3",
+      "rss_kib": "557936",
+      "elapsed": "05:56",
+      "executable": "node"
+    },
+    {
+      "pid": "49707",
+      "parent": "49672",
+      "cpu_percent": "53.0",
+      "memory_percent": "2.9",
+      "rss_kib": "478832",
+      "elapsed": "05:45",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    },
+    {
+      "pid": "49695",
+      "parent": "49672",
+      "cpu_percent": "53.1",
+      "memory_percent": "2.8",
+      "rss_kib": "465984",
+      "elapsed": "05:51",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    },
+    {
+      "pid": "49700",
+      "parent": "49672",
+      "cpu_percent": "46.2",
+      "memory_percent": "2.7",
+      "rss_kib": "450096",
+      "elapsed": "05:48",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    },
+    {
+      "pid": "49714",
+      "parent": "49672",
+      "cpu_percent": "36.3",
+      "memory_percent": "2.4",
+      "rss_kib": "410624",
+      "elapsed": "05:42",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    },
+    {
+      "pid": "26052",
+      "parent": "1",
+      "cpu_percent": "2.6",
+      "memory_percent": "2.0",
+      "rss_kib": "337808",
+      "elapsed": "04-15:32:59",
+      "executable": "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
+    },
+    {
+      "pid": "49682",
+      "parent": "49672",
+      "cpu_percent": "71.5",
+      "memory_percent": "1.3",
+      "rss_kib": "220992",
+      "elapsed": "05:54",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (GPU).app/Contents/MacOS/Google Chrome for Testing Helper (GPU)"
+    },
+    {
+      "pid": "26105",
+      "parent": "26052",
+      "cpu_percent": "5.0",
+      "memory_percent": "1.1",
+      "rss_kib": "183776",
+      "elapsed": "04-15:32:55",
+      "executable": "/Applications/ChatGPT.app/Contents/Resources/codex"
+    },
+    {
+      "pid": "49672",
+      "parent": "49661",
+      "cpu_percent": "6.8",
+      "memory_percent": "1.0",
+      "rss_kib": "168272",
+      "elapsed": "05:55",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+    },
+    {
+      "pid": "14847",
+      "parent": "14586",
+      "cpu_percent": "0.1",
+      "memory_percent": "0.8",
+      "rss_kib": "133328",
+      "elapsed": "23:32:50",
+      "executable": "claude"
+    },
+    {
+      "pid": "33083",
+      "parent": "33035",
+      "cpu_percent": "0.0",
+      "memory_percent": "0.7",
+      "rss_kib": "121376",
+      "elapsed": "20:05:31",
+      "executable": "/Applications/Claude.app/Contents/Frameworks/Claude Helper (Renderer).app/Contents/MacOS/Claude Helper (Renderer)"
+    },
+    {
+      "pid": "80431",
+      "parent": "1",
+      "cpu_percent": "2.6",
+      "memory_percent": "0.7",
+      "rss_kib": "114432",
+      "elapsed": "10-00:35:29",
+      "executable": "/Applications/WhatsApp.app/Contents/MacOS/WhatsApp"
+    },
+    {
+      "pid": "33035",
+      "parent": "1",
+      "cpu_percent": "0.1",
+      "memory_percent": "0.6",
+      "rss_kib": "103504",
+      "elapsed": "20:05:36",
+      "executable": "/Applications/Claude.app/Contents/MacOS/Claude"
+    },
+    {
+      "pid": "49687",
+      "parent": "49661",
+      "cpu_percent": "26.1",
+      "memory_percent": "0.6",
+      "rss_kib": "102048",
+      "elapsed": "05:54",
+      "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/multiplayer-combat/build-optimized-recovery/frontline"
+    },
+    {
+      "pid": "48688",
+      "parent": "26052",
+      "cpu_percent": "0.0",
+      "memory_percent": "0.5",
+      "rss_kib": "79344",
+      "elapsed": "11:12",
+      "executable": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/152.0.7977.83/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)"
+    },
+    {
+      "pid": "49683",
+      "parent": "49672",
+      "cpu_percent": "6.3",
+      "memory_percent": "0.4",
+      "rss_kib": "70288",
+      "elapsed": "05:54",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    },
+    {
+      "pid": "26107",
+      "parent": "26052",
+      "cpu_percent": "0.0",
+      "memory_percent": "0.4",
+      "rss_kib": "59440",
+      "elapsed": "04-15:32:55",
+      "executable": "/Applications/ChatGPT.app/Contents/Frameworks/Codex Framework.framework/Versions/152.0.7977.83/Helpers/Codex (Renderer).app/Contents/MacOS/Codex (Renderer)"
+    },
+    {
+      "pid": "49713",
+      "parent": "49672",
+      "cpu_percent": "0.0",
+      "memory_percent": "0.3",
+      "rss_kib": "53744",
+      "elapsed": "05:42",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    }
+  ]
+}
