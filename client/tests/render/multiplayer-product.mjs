@@ -1,3 +1,4 @@
+import {minimapLayout,minimapProject} from '../../src/render/minimap.ts';
 // Actual product controls only. Browser plugin not available; installed Playwright.
 // WebSocket inspection is passive: no test API, simulated orders or world edits.
 import {chromium} from 'playwright-core';
@@ -77,7 +78,7 @@ async function delayedAdvice(page,state,record,player){
  };
 }
 async function screen(page,name){await page.screenshot({path:path.join(runDir,name+'.png'),fullPage:false})}
-async function center(page,position){const mini=await page.getByLabel('Tactical minimap',{exact:true}).boundingBox();assert.ok(mini);await page.mouse.click(mini.x+position.x/(map.width*1000)*mini.width,mini.y+position.y/(map.height*1000)*mini.height);await pause(80)}
+async function center(page,position){const mini=await page.getByLabel('Tactical minimap',{exact:true}).boundingBox();assert.ok(mini);const projected=minimapProject(minimapLayout(map.width,map.height,mini.width,mini.height),position);await page.mouse.click(mini.x+projected.x,mini.y+projected.y);await pause(80)}
 async function clickGround(page,position,button='left'){await center(page,position);const canvas=await page.locator('.battlefield-canvas canvas').boundingBox();assert.ok(canvas);await page.mouse.click(canvas.x+canvas.width/2,canvas.y+canvas.height/2,{button})}
 async function order(state,kind,action){const baseline=Math.max(0,...state.orders.map(batch=>batch.sequence));await action();let sent,index;await until(()=>{sent=state.orders.find(batch=>batch.sequence>baseline&&batch.orders.some(value=>value.kind===kind));index=sent?.orders.findIndex(value=>value.kind===kind);return !!sent},`UI did not submit ${kind}`,20000);await until(()=>state.receipts.has(`${sent.sequence}:${index}`),`Host did not acknowledge ${kind}`);const receipt=state.receipts.get(`${sent.sequence}:${index}`);assert.equal(receipt.accepted,true,`${kind}: ${receipt.code}`);return {sequence:sent.sequence,index,kind,type:sent.orders[index].type,entities:sent.orders[index].entities,position:sent.orders[index].position?{x:sent.orders[index].position.x,y:sent.orders[index].position.y}:undefined,tick:receipt.tick,code:receipt.code}}
 async function production(page,name){const option=page.locator('.production-cameo').filter({hasText:name});await until(()=>option.isEnabled(),`${name} did not become available`);await option.click()}

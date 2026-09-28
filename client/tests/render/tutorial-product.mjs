@@ -1,3 +1,4 @@
+import {minimapLayout,minimapProject} from '../../src/render/minimap.ts';
 // Browser plugin not available. Existing Playwright exercises actual product controls.
 // Read-only worker observation verifies public frames and submitted orders; no test API mutates the game.
 import {chromium} from 'playwright-core';
@@ -18,7 +19,7 @@ async function snapshot(){const bytes=await page.evaluate(()=>window.frameBytes)
 async function until(check,label,timeout=45000){const start=Date.now();while(!await check()){if(Date.now()-start>timeout)throw Error(label);await new Promise(resolve=>setTimeout(resolve,150))}}
 async function memory(){return page.evaluate(()=>new Promise((resolve,reject)=>{const request=indexedDB.open('frontline-command');request.onerror=()=>reject(request.error);request.onsuccess=()=>{const db=request.result,r=db.transaction('settings').objectStore('settings').getAll();r.onsuccess=()=>{db.close();resolve(r.result.find(record=>record.data?.mission==='tutorial-1-give-an-order')?.data.skills??[])};r.onerror=()=>reject(r.error)}}))}
 let center;
-async function centerAt(p){const box=await page.getByLabel('Tactical minimap').boundingBox();await page.mouse.click(box.x+p.x/(map.width*1000)*box.width,box.y+p.y/(map.height*1000)*box.height);center={...p}}
+async function centerAt(p){const box=await page.getByLabel('Tactical minimap').boundingBox();const projected=minimapProject(minimapLayout(map.width,map.height,box.width,box.height),p);await page.mouse.click(box.x+projected.x,box.y+projected.y);center={...p}}
 async function screen(p,dy=0){const box=await page.locator('.battlefield-canvas canvas').boundingBox();return {x:box.x+box.width/2+(p.x-p.y-center.x+center.y)/1000*32,y:box.y+box.height/2+(p.x+p.y-center.x-center.y)/1000*16+dy}}
 async function clickWorld(p,button='left',dy=0){const s=await screen(p,dy);await page.mouse.click(s.x,s.y,{button})}
 async function selected(){return page.locator('.production-heading span').innerText()}
