@@ -310,3 +310,82 @@ HTTP/console assertions also run after archive. No old run is relabeled.
 Four-human ordinary 2v2 has not yet started. Fresh clean repetitions of the
 previously failed one-human/three-bot visual and two-human HTTP cases also remain
 open. Same-host contexts do not establish physical LAN acceptance.
+
+## First four-human ordinary outcome — strict browser failure preserved
+
+The subsequent four-human 2v2 finished with SY/SA team 2 winning by ordinary
+elimination at tick 13,840 (11:32), seed `7810352108120762845`. The four contexts
+used independent US/IR versus SY/SA profiles and standard paid production on
+Industrial Valley. Actual CDP confirmed Apple M4 Metal again. No bots, resource
+grants, surrender, edited state or fixture victory conditions were used.
+
+| Human player | Income | Spending | Train orders | Build orders |
+|---|---:|---:|---:|---:|
+| US, team 1 | 12,600 | 13,400 | 22 | 11 |
+| IR, team 1 | 16,200 | 22,050 | 39 | 12 |
+| SY, team 2 | 21,000 | 23,750 | 35 | 11 |
+| SA, team 2 | 21,000 | 26,700 | 51 | 17 |
+
+All four visible-enemy command probes returned `not_owner`. Ordinary-menu
+reconnect advanced host tick 3,620 to 3,632 while retaining sequence 19. The native
+recording contains 3,788 weapon/impact events and 117 destructions from 448
+scripted ordinary batches. Each client's real readiness preflight checked 1,295
+files and disclosed 95 fallback roles for the four-faction roster. Full initial
+replay, checkpoint and restored-midpoint continuation at tick 6,920 agree at:
+`575d8a65a13a76cf807f2897256c3d51e4fe2594a85fac558cf450c327c680ff`.
+The exact 686,182-byte host replay SHA256 is:
+`b4b6e192c9c7f5d242b266dfd24ec7467e9fe36a8332b1f49efea33c429f4e69`.
+
+**Overall browser status is FAILED.** One actual player-4 advice request returned
+HTTP 503 `advice_timeout` before tick 1,820. The exact public route/code/message
+are retained; there were no further console, page, decoder or HTTP errors. The
+UI remained usable through paid production, reconnect and outcome, which does
+not erase the unexpected response. Its precise request body and duration were
+not recorded by this launch's listener; there is no proven cost attribution yet.
+The scripted SA commander recorded one advisory failure; the other commanders
+recorded none. It continued issuing later ordinary intent through the existing
+transport, without accepting or resubmitting a failed production order.
+
+US was eliminated at tick 10,299. Its first final-info read had no result, but
+the actual authenticated history response at 15:45:31.513 UTC returned the exact
+match ID. The native `4h2v2-player-1-debrief.png` then visibly shows the new recorded
+result cue over that frozen view. Thus a fresh live eliminated-host history/cue
+was observed. The archive click and explicit snapshot-equality assertion were
+not reached: this preserved driver asserted the unexpected error first.
+
+Evidence: `work/multiplayer-combat/2026-09-28T15-25-14.798Z/`. The original report
+is unchanged and its digest appears in compact `receipt.json`. Actual home-base,
+under-attack, frozen-result-cue and winning-team debrief captures were inspected.
+The same incomplete sprite roster remains recorded per client.
+
+The successor driver collects all errors, performs the independent history and
+archive checks, then applies the same strict final error assertions. Any
+unexpected error still fails the entire run. Future failing-advice records also
+include sanitized entities/orders, independent mode and request timing; they
+never include headers or credentials. The completed first 4H launch is unchanged.
+
+## Isolated optimized-runtime successor
+
+`client/tests/render/multiplayer-combat-optimized-build.mjs` creates a new copy of
+`build-history-recovery-v3`. It preserves the exact client, artwork, content,
+service worker and embedded older protocol bindings, and replaces only the Go
+host/WASM/runtime files verified against
+`work/navigation-lookup-candidate/runtime-build-receipt.json`. Source lock:
+`c7e0d79d1770491cc867037b7c0c69b31ce16738885022130dc3fea59c37d122`.
+It updates the base pack's exact runtime hashes, records every old/new byte hash,
+and compares every other served file byte-for-byte. The older client ignores
+optional additive wire fields; this does not test new owner-range/casualty UI.
+
+The build refuses to overwrite an existing directory. Preparation is not a new
+match pass. No shipping runtime or asset is changed; the next fresh strict match
+waits for the coordinated browser/native diagnostic boundary.
+
+The prepared `build-optimized-recovery/build.json` verifies 3,625 other served
+files unchanged. Optimized host SHA256:
+`1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379`.
+WASM SHA256:
+`f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65`.
+Updated pack SHA256:
+`58fca5c8eefbf49a4368344a1a8cd44c32d786107f94ffbb78a5c01237e45960`.
+Client-source SHA256 remains
+`4096954cd8b8aa2fd9fd915ea456dea44b7cf1c3d08c3d84e0dd5f5b1453df3e`.
