@@ -1,0 +1,66 @@
+{
+  "createdAt": "2026-09-28T23:55:08.374667+00:00",
+  "scope": "Minimal client service-status/announcement correction. No Go/protocol/runtime changes or browser/host execution.",
+  "focusedTests": {
+    "before": {
+      "passed": 15,
+      "failed": 5
+    },
+    "after": {
+      "passed": 20,
+      "failed": 0
+    },
+    "isolatedOutput": "client/.test-aircraft-service-status"
+  },
+  "typechecks": [
+    "runtime",
+    "app"
+  ],
+  "renderedAcceptance": "pending on combined frozen build",
+  "files": {
+    "client/src/app/actor-status.ts": {
+      "sha256": "eb72ea78244e343b5b69dd963b42b5ff74f3fcc7b9ab88ffda48ba9e7b6c18f1",
+      "bytes": 7070
+    },
+    "client/src/content/labels.ts": {
+      "sha256": "1185a3d4b2a6677a1d0f398324d1f692fe2d764ce170c2a19719f8e7568754ba",
+      "bytes": 14913
+    },
+    "client/src/audio/director.ts": {
+      "sha256": "456707c817c338bb39aff283dcd8e953711340869af9d59bd70b7713e169d4c2",
+      "bytes": 13465
+    },
+    "client/tests/runtime/actor-status.test.ts": {
+      "sha256": "6bc184e0d9a8ea53a42c05d0389bed1463adf7f5080d62e258f952ea7ceca010",
+      "bytes": 8748
+    },
+    "client/tests/runtime/audio.test.ts": {
+      "sha256": "4a10122b41e65ddee438b96328165cd9546717d9f4d1902634c1a7e89c7716dc",
+      "bytes": 8222
+    },
+    "docs/aircraft-service-status-audit.md": {
+      "sha256": "bebd1235724caf6ed08f3c0af0e7c10f1b366ae996f77607254c0228631aa799",
+      "bytes": 10559
+    },
+    "work/evidence/aircraft-service-status/audit-receipt.json": {
+      "sha256": "ebb8a9255185593306f3e7cb50add95da171bb768d00d39c1c40989ed3ef5a4d",
+      "bytes": 2577
+    },
+    "work/evidence/aircraft-service-status/focused-red.log": {
+      "sha256": "3baf3866a7ecd78ca39746a68d30bc719ecce9990d9561fd901edc5112f2ed52",
+      "bytes": 7288
+    },
+    "work/evidence/aircraft-service-status/focused-green.log": {
+      "sha256": "08d2db0a5f0038e994cc1ff0c2c5abb50234916a69df91626317330ca9fd958b",
+      "bytes": 2186
+    },
+    "work/evidence/aircraft-service-status/typecheck-runtime.log": {
+      "sha256": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76",
+      "bytes": 91
+    },
+    "work/evidence/aircraft-service-status/typecheck-app.log": {
+      "sha256": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0",
+      "bytes": 81
+    }
+  }
+}

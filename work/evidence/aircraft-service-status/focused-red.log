@@ -1,0 +1,140 @@
+✔ actor effect deadlines use exact Go ticks including indefinite aura and expire without cooldown guesses (1.145584ms)
+✔ only the owner receives magazine, ambush, service and emergency countdown information (0.159583ms)
+✔ runtime without new metadata never starts an invented emergency timer or active buff (0.123833ms)
+✔ a retained Return order does not label a landed aircraft as still returning (0.085959ms)
+✔ known public effects remain visible on foreign authorized actors without private economy (0.112584ms)
+✔ channel progress and countdown come from Go state, and cancellation removes them (0.087042ms)
+✔ charges use the actual Go catalog while ABM count does not invent a capacity (0.07575ms)
+✔ unknown/malformed/internal effects and contained or destroyed actors have no labels (0.088542ms)
+✖ air production service wait is an owner-only unavailable badge, not a guessed capacity count (0.490834ms)
+✖ only the active Return order describes current return flight (0.133167ms)
+✖ current owned inactive home distinguishes paused service from low power and unknown home data (0.135667ms)
+✖ grounded emergency no-home warning remains distinct from takeoff deadline and airborne endurance (2.980209ms)
+✔ audio manifest rejects unsafe URLs, malformed bounds and partial codec fallbacks (0.8265ms)
+✔ audio byte read bounds hold without length headers (11.260667ms)
+✔ warning bundles and selection cooldowns are location specific and resettable (0.088916ms)
+✔ director consumes only new permitted events; rewind/reconnect/new perspective never burst old sound (0.75775ms)
+✔ selection and command acknowledgment require owned actors or actual receipt; lost vision is not death (0.210333ms)
+✔ owner economy, teammate and public endgame transitions produce captions without inventing hidden readiness (0.201917ms)
+✖ service-loss audio warns only when the current living owned aircraft has no replacement home (0.642583ms)
+✔ service-loss warning does not repeat across duplicate IDs, reset, rewind or foreign perspective (0.12725ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 15
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74.35425
+
+✖ failing tests:
+
+test at .test-aircraft-service-status/actor-status.test.mjs:291:1
+✖ air production service wait is an owner-only unavailable badge, not a guessed capacity count (0.490834ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'Aircraft service unavailable'
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-aircraft-service-status/actor-status.test.mjs:293:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'Aircraft service unavailable',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .test-aircraft-service-status/actor-status.test.mjs:298:1
+✖ only the active Return order describes current return flight (0.133167ms)
+  AssertionError [ERR_ASSERTION]: move
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-aircraft-service-status/actor-status.test.mjs:301:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at .test-aircraft-service-status/actor-status.test.mjs:306:1
+✖ current owned inactive home distinguishes paused service from low power and unknown home data (0.135667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'Service paused: base disabled'
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-aircraft-service-status/actor-status.test.mjs:311:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'Service paused: base disabled',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .test-aircraft-service-status/actor-status.test.mjs:324:1
+✖ grounded emergency no-home warning remains distinct from takeoff deadline and airborne endurance (2.980209ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(a.badges.some((b) => b.id === "no_home"))
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-aircraft-service-status/actor-status.test.mjs:329:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at .test-aircraft-service-status/audio.test.mjs:593:1
+✖ service-loss audio warns only when the current living owned aircraft has no replacement home (0.642583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'vo.announcer.US.no_landing_slot'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-aircraft-service-status/audio.test.mjs:600:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'vo.announcer.US.no_landing_slot' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

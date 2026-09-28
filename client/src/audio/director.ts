@@ -71,7 +71,12 @@ export class AudioDirector {
   if(event.kind==='mission_warning'&&event.text){const prefix=`vo.warning.${snapshot.mission?.id}.`,entry=Object.entries(this.mixer.manifest?.entries??{}).sort(([a],[b])=>Number(b.startsWith(prefix+this.faction+'.'))-Number(a.startsWith(prefix+this.faction+'.'))).find(([id,value])=>id.startsWith(prefix)&&value.variants.some(variant=>(variant.display_caption??variant.caption)===event.text));if(entry)this.mixer.play(entry[0],{cooldown:6000,priority:100});else this.mixer.caption(event.text,100);return}
   if(event.kind==='aircraft_endurance_lost'&&own)this.announce('aircraft_lost_emergency',event.position,100);
   if(event.kind==='shipment_arrived')this.announce('shipment_arrived',event.position);
-  if(event.kind==='service_lost'&&own)this.announce('no_landing_slot',event.position);
+  if(event.kind==='service_lost'&&own){
+   // Go emits service_lost even when it immediately assigns another home.
+   // Previous/absent actors cannot establish current reservation failure.
+   const current=snapshot.entities.find(value=>value.id===event.entity&&value.owner===snapshot.player&&value.health>0&&value.state!=='destroyed');
+   if(current?.private?.home===0&&catalog?.units.get(current.type)?.armor==='air')this.announce('no_landing_slot',event.position);
+  }
   if(event.kind==='building_sold'&&own)this.mixer.play('sfx.sell');
   if(event.kind==='tactical_ping')this.mixer.play('sfx.ui_ping',{cooldown:300});
  }

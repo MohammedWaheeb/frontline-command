@@ -6,6 +6,7 @@ import {create,type MessageInitShape} from '@bufbuild/protobuf';
 import {EntitySchema,PlayerSnapshotSchema,VecSchema} from '../../src/protocol/frontline_pb';
 import {CatalogIndex} from '../../src/content/catalog';
 import {actorStatus} from '../../src/app/actor-status';
+import {reason} from '../../src/content/labels';
 
 const catalog=new CatalogIndex(JSON.parse(readFileSync(resolve('../pkg/content/rules.json'),'utf8')));
 const entity=(patch:MessageInitShape<typeof EntitySchema>={})=>create(EntitySchema,{id:1,owner:1,type:'US.fighter',position:create(VecSchema,{x:8000,y:8000}),health:1000,complete:true,enabled:true,state:'idle',...patch});
@@ -73,4 +74,45 @@ test('unknown/malformed/internal effects and contained or destroyed actors have 
  const e=Object.assign(entity(),{effects:[{kind:'exit_lock',until:200},{kind:'future_private',until:200},{kind:'decoy',until:-1},{kind:'relay',until:Infinity},{kind:'disperse',until:'300'}]});
  assert.deepEqual(actorStatus(e,snapshot(),catalog),{badges:[]});
  for(const patch of [{state:'destroyed'},{health:0},{private:{container:55}}])assert.deepEqual(actorStatus(entity({...patch,enabled:false}),snapshot(),catalog),{badges:[]});
+});
+
+test('air production service wait is an owner-only unavailable badge, not a guessed capacity count',()=>{
+ const own=entity({type:'US.airfield',state:'service_full',private:{jobs:[{type:'US.fighter',started:true,service:9}]}});
+ assert.equal(actorStatus(own,snapshot(),catalog).badges.find(b=>b.id==='service_full')?.label,'Aircraft service unavailable');
+ for(const owner of [2,3])assert.ok(!actorStatus({...own,owner},snapshot(),catalog).badges.some(b=>b.id==='service_full'));
+ assert.ok(!actorStatus({...own,state:'producing'},snapshot(),catalog).badges.some(b=>b.id==='service_full'));
+ assert.equal(reason('service_full'),'Aircraft service is unavailable. Check free slots and whether the service base is enabled.');
+});
+
+test('only the active Return order describes current return flight',()=>{
+ for(const head of ['move','attack','unload']){
+  const e=entity({landed:false,private:{home:5,orders:[{kind:head},{kind:'return'}]}});
+  assert.ok(!actorStatus(e,snapshot(),catalog).badges.some(b=>b.id==='return'),head);
+ }
+ const returning=entity({landed:false,private:{home:5,orders:[{kind:'return'},{kind:'attack'}]}});
+ assert.ok(actorStatus(returning,snapshot(),catalog).badges.some(b=>b.id==='return'));
+});
+
+test('current owned inactive home distinguishes paused service from low power and unknown home data',()=>{
+ const aircraft=entity({landed:true,state:'servicing',private:{home:5,serviceWork:300,orders:[{kind:'return'}]}});
+ const home=entity({id:5,type:'US.airfield',enabled:false}),s=snapshot();s.entities=[aircraft,home];
+ const paused=actorStatus(aircraft,s,catalog);
+ assert.equal(paused.badges.find(b=>b.id==='service_paused')?.label,'Service paused: base disabled');
+ assert.ok(!paused.badges.some(b=>b.id==='servicing'));
+ for(const replacement of [{...home,enabled:true},{...home,owner:2},{...home,health:0},{...home,type:'hq'}]){
+  s.entities=[aircraft,replacement];const status=actorStatus(aircraft,s,catalog);
+  assert.ok(!status.badges.some(b=>b.id==='service_paused'));assert.ok(status.badges.some(b=>b.id==='servicing'));
+ }
+ s.entities=[aircraft];assert.ok(!actorStatus(aircraft,s,catalog).badges.some(b=>b.id==='service_paused'));
+ s.entities=[home];assert.ok(!actorStatus({...aircraft,owner:2},s,catalog).badges.some(b=>b.id==='service_paused'||b.id==='servicing'));
+});
+
+test('grounded emergency no-home warning remains distinct from takeoff deadline and airborne endurance',()=>{
+ const e=entity({landed:true,state:'emergency_takeoff',private:{home:0,endurance:1200}});Object.assign(e.private!,{emergencyTakeoffUntil:140});
+ const a=actorStatus(e,snapshot(),catalog);
+ assert.equal(a.badges.find(b=>b.id==='emergency_takeoff')?.seconds,2);
+ assert.ok(a.badges.some(b=>b.id==='no_home'));assert.equal(a.badges.find(b=>b.id==='no_home')?.seconds,undefined);
+ assert.ok(!actorStatus({...e,private:{...e.private!,home:5}},snapshot(),catalog).badges.some(b=>b.id==='no_home'));
+ const airborne={...e,landed:false,state:'flying',private:{...e.private!,emergencyTakeoffUntil:0}};
+ assert.ok(actorStatus(airborne,snapshot(),catalog).badges.some(b=>b.id==='no_home'));
 });

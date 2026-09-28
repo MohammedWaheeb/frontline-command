@@ -55,6 +55,7 @@ export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:Catalo
  if(entity.type==='SA.tank'&&entity.deployed)add('hull_down','▱','Hull down','benefit',120);
  if(own&&building&&snapshot.economy&&snapshot.economy.powerDemand>snapshot.economy.powerCapacity)add('low_power','ϟ','Low power','warning',180);
  if(entity.state==='landing_blocked')add('landing_blocked','!','Landing area blocked','critical',270);
+ if(privateState&&building&&entity.state==='service_full')add('service_full','!','Aircraft service unavailable','warning',250);
  if(entity.state==='exit_blocked')add('exit_blocked','!','Production exit blocked','warning',250);
  if(entity.state==='capture_exit_blocked')add('capture_exit_blocked','!','Capture exits blocked','warning',250);
  if(entity.state==='unload_exit_blocked')add('unload_exit_blocked','!','Unload exits blocked','warning',250);
@@ -64,9 +65,15 @@ export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:Catalo
   const emergency=(privateState as typeof privateState&{emergencyTakeoffUntil?:unknown}).emergencyTakeoffUntil;
   if(uint(emergency)&&emergency>snapshot.tick)add('emergency_takeoff','↑','Emergency takeoff','critical',300,emergency);
   else if(entity.state==='emergency_takeoff')add('emergency_takeoff','↑','Emergency takeoff','critical',300);
-  if(!entity.landed&&privateState.home===0)add('no_home','!','No service base','critical',280);
-  if(!entity.landed&&privateState.orders.some(order=>order.kind==='return'))add('return','↩','Returning to base','warning',170);
-  if(entity.landed&&entity.state==='servicing')add('servicing','↻','Aircraft servicing','neutral',160);
+  if(privateState.home===0&&(!entity.landed||entity.state==='emergency_takeoff'||uint(emergency)&&emergency>snapshot.tick))add('no_home','!','No service base','critical',280);
+  if(!entity.landed&&privateState.orders[0]?.kind==='return')add('return','↩','Returning to base','warning',170);
+  if(entity.landed&&(entity.state==='servicing'||uint(privateState.serviceWork)&&privateState.serviceWork>0)){
+   // Outages retain the reservation but pause real service work. Only the
+   // current owned home can explain that pause; absence is not a diagnosis.
+   const home=snapshot.entities.find(value=>value.id===privateState.home&&value.owner===snapshot.player&&value.health>0&&value.complete&&(catalog.buildings.get(value.type)?.service_slots??0)>0);
+   if(home&&!home.enabled)add('service_paused','!','Service paused: base disabled','warning',250);
+   else add('servicing','↻','Aircraft servicing','neutral',160);
+  }
  }
  const weapon=catalog.weapons.get(unit?.weapon??building?.weapon??'');
  if(privateState){
