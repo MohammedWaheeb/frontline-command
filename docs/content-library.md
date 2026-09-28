@@ -287,3 +287,12 @@ exportable corruption and canceled/superseded loads. The current0.3.3 product
 journey also uses this Application/renderer path without authored descriptors.
 Copper Junction's first descriptor and its real product acceptance are a separate
 explicit pilot; this loader checkpoint does not claim all maps are dressed.
+
+The later Copper Junction pilot passed actual paid gameplay and21 identical
+state hashes against a scenery-free mirror; see `environment-authored-pilot.md`.
+Packaging now verifies the optional descriptor's bounded safe path and exact
+size/hash before writing the base pack. A mismatch preserves the prior valid
+pack. Application notices wait until loading completes before their eight-second
+dismissal timer starts; a focused real-product mismatch rerun verified that the
+warning remains readable after battlefield mount while the original map loads
+without optional scenery. These changes are checkpointed in26e20f6.

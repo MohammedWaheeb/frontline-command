@@ -1,124 +1,54 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 05:11 UTC / 08:11 Qatar. **The complete game is not
-ready for release.** Work continues on the full handoff, with no deployment.
-Earlier detailed checkpoints are preserved in
-[the September 27 history](history/implementation-through-2026-09-27.md) and
-[the September 28 history](history/implementation-through-2026-09-28-0339.md).
+Updated28 September2026,08:45UTC /11:45Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0511.md).
 
 ## Current ownership and access
 
-Go is the sole authoritative simulation, shared by native hosting and browser
-WASM. Codex owns mechanics, services and frontend logic. The user's latest
-quota fallback also authorizes Codex visual work while Claude is unavailable.
-Claude Code exact `claude-opus-5-5` remains the primary visual author/reviewer;
-no fallback model is allowed. Three sub-agents remain active with separate files.
+Shipping Go remains **0.3.3**, protocol1, adapter1, content2.0.0; hash `318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612`. It is the sole authoritative simulation shared by native hosting and WASM. No shipping Go changes are currently approved.
 
-All three Claude jobs resumed successfully at 02:20 UTC using the exact model,
-then reached quota again. The reported next reset is **07:20 UTC / 10:20 Qatar**.
-No sign-in is needed. Do not retry early or resume obsolete broad scopes.
-Sessions 01/04/05 and current takeover boundaries are recorded in
-[the interruption handoff](../work/claude/11-quota-takeover-20260928-0240.md).
-Before resuming, prepare fresh briefs around the then-current source freezes.
+Claude01/04/05 resumed after the07:20 reset at08:35–08:40. Actual model **claude-opus-5-5** was verified with fallback disabled, then all three hit quota again. Next reported reset is13:30UTC /16:30Qatar; no early retry or sign-in is needed. Root is finishing the partial UI/terrain work under the user's authorized fallback. Mencius owns the Claude-authored render helper and production. Existing Claude sessions need fresh file reservations before resuming. Codex agents also resumed after a usage-limit interruption; do not assume anything completed during it.
 
-- `mission_runtime`: sole sequential Blender worker. Eight logistics,21 props and
-  historical alpha repacks are complete. Stage B combat pilots passed after APC
-  door/cabin correction;27 ground combat variants retain bulk approval. Eleven
-  new aircraft are held after the occupied-service review found their visible
-  dimensions exceed the600mt collision envelope and overlap parked neighbors.
-  A consistent all-state source-scale correction pilot is proposed, not accepted.
-  Service building candidate is also held: ordinary hangar clearance improved,
-  but retained3×3 workshop conversion still intersects rear aircraft. Three new
-  US buildings (barracks/factory/supply) are complete; remaining9 non-service US
-  buildings run serially, then remaining13 infantry and other factions. Legacy
-  tank/ABM clipping pilots remain authorized, full rerenders await review.
-- `browser_persistence`: owns the optional environment validator, static scenery,
-  object skins and renderer tests. Actual0.3.3 bridge traversal, scouting,
-  destruction/save/rewind pass on a synthetic fixture; culling/restore/disposal also pass; checkpoint2e4ec1b is accepted. Authored map dressing begins only after pilot review.
-- `multiplayer_admission`: frozen0.3.3 bot matrix passes all13 matches with exact
-  replays and classified receipts. Remaining optional mission routes continue;
-  current IR06 normal route passes and other difficulties are running. No current
-  production Go changes are planned.
-- Root: exact-byte environment content loading/Application handoff, persistent
-  production and read-only replay inspection, compatibility/builds, browser
-  acceptance, documentation and coordination. Replay controls now occupy the command well; native100%/150% checks pass
-  after the old floating dock overlapped objectives.
+- Claude04 owns UI except EditorPanel, game/token/network CSS and optional console chrome. Fresh scope: `work/claude/13-resume-console-0835.md`. Preserve independent production, actual aircraft commands, replay transport in the command well and loading notice fix.
+- Claude05 owns terrain generator/materials/baking only. Scope: `work/claude/14-resume-terrain-0835.md`. Preserve Go maps, heights, fog truth and shared picking/actor projection.
+- Mencius is the **sole Blender worker**, with Claude01 writing the isolated exterior-parking composition helper. It then handles accepted repair production and remaining roster under exact source locks. No other job may launch Blender.
+- Einstein completed editor/Copper checkpoints and now owns a new pure tactical-presentation descriptor module/tests and warning/effect coverage audit. It does not own renderer/UI/art/protocol/Go.
+- Boole implements the proposed service-parking rule **only in `work/service-parking-candidate/source`**, an isolated Go copy. Shipping0.3.3 remains frozen. Optional mission tactics/evidence are preserved; no full102 rerun until the prospective next boundary is decided.
+- Root owns integration, runtime/backend coordination, functional renderer changes, package integrity, evidence and documentation.
 
-The user rejects blue, generic dashboard styling. The
-[inspected Generals/Red Alert reference study](../work/claude/06-rts-reference-study.md)
-guides warm gunmetal, charcoal, olive and brass command panels, illustrated
-production buttons and original stylized military silhouettes. Blue remains a
-tactical team color only.
+The user permits Codex frontend logic and visual implementation during Claude quota. Claude remains primary visual author/reviewer. All old broad briefs are superseded by current explicit ownership.
 
-## Implemented and verified
+## Verified checkpoints and exact limits
 
-| Area | Current evidence | Important limits |
+| Area | Evidence | Remaining limits |
 | --- | --- | --- |
-| Go mechanics | 75 units, 28 weapons, 19 building types, 10 upgrades; combat/economy/fog/transport/air/factions/save/replay suites | More rendered tactical journeys and human balance required |
-| Bots | Ordinary paid economy, scouting, research, targeting, support and transport; three/four-player native games; 13 authored 0.3.0 games pass after depot correction | Current0.3.3 all13 ordinary-elimination games pass; exact receipt audit classifies8 actors destroyed after planning and2 moving construction conflicts; defeated-station planner defect fixed |
-| Depot recovery | Both recorded trapped haulers deliver; affected Relay game ends by elimination at 16:15.20, 911 accepted orders, exact replay; harvest/race/72 paid openings pass | Prior source/version evidence remains separate |
-| Missions | All 102 authored mission/faction/difficulty victories, midpoint saves, complete replay, restart and surrender checks; 12 authored loss paths and two optional routes | Three further optional routes pass at all three difficulties on preserved 0.3.0; US04 evacuation/paid repair passes all three on 0.3.1; current0.3.3 IR06 normal observer-network route also passes; remaining optional routes and broader product playthroughs remain |
-| Runtime | 0.3.3 native/WASM parity and persistence/offline/sync/two-browser multiplayer pass in Chromium/Firefox/WebKit; old-version rejection preserves bytes and active match | Physical Safari and full packaged release acceptance pending |
-| Multiplayer | Six rendered configurations from one to four humans, including bots, paid actions, persistent production while troops stay selected, reconnect, surrender results and rematch | Current sidebar matrix uses a frozen0.3.1 engine; these lifecycle tests are not six normal combat victories or physical LAN proof |
-| Product/tutorials | T1 real input and Go victory, save/reload, 720p/150% with remapped keys; T3 original two-squad boarding and delivery | T3 check is bounded transport, not a complete mission victory |
-| Renderer | Terrain materials and chunk seams; actual building/flight state hooks; independent shadows; context recovery, save restoration and disposal | Raised terrain/real Go picking, movement, construction, service and save checks pass; full prop/art integration and remaining effect states open |
-| Console | Warm connected console; independent production/army selection; actual0.3.3 paid queue/cancel/build/save plus read-only replay queue/rewind; consistent isometric radar | Key art and all-mode visual review remain |
-| Performance | Current raised terrain on M4 Metal: two 600-tick segments at 20 TPS, frame p95 17.0 ms, exact native hash and restore | Synthetic 30-second segments, incomplete art; no long-match or reference Intel claim |
-| Audio | First pass 892 clips / 620 events; integrity/decode/loop checks and cold offline Web Audio evidence | Listening, mix and complete presentation review remain |
-| Services/tools | SQLite/IndexedDB persistence, accounts/sync, editor, map sharing/moderation, co-op/observers, local build/package tooling | Final complete-content package and clean-install/migration matrix pending |
+| Go mechanics |75units/28weapons/19building types/10upgrades; combat/economy/fog/transport/air/factions/save/replay suites | New parking candidate and human balance need acceptance |
+| Bots | All13 authored0.3.3 games reach ordinary elimination, economy gates, exact restores/full replays | Eight actors destroyed after planning and two moving-placement conflicts individually classified |
+| Missions |102 main victories/save/replay/restart/surrender on preserved0.3.0,12 loss paths | Current full rerun and additional product playthroughs remain |
+| Optional routes | IR05/SA03/SY02 all difficulties0.3.0; US04 evacuation/paid repair all difficulties0.3.1; IR06Easy/Normal0.3.3 | IR06Hard/SY01/SY05 additional objectives under tactical testing; no failed run called a pass |
+| Runtime |0.3.3 native/WASM parity, old-version rejection, save/offline/account/sync/two-browser lifecycle on Chromium/Firefox/WebKit | Physical Safari and final packaged acceptance pending |
+| Multiplayer | Six rendered1–4-human cases including bots, paid actions, independent production, reconnect/surrender/rematch on frozen0.3.1 | Not physical LAN proof or six ordinary combat wins |
+| Console |0.3.3 real paid queue/cancel/build/save and read-only replay queue/rewind;1280×720 at100%/150% fit | Claude all-mode visual pass underway; main key art rejected/unwired |
+| Capture art |6758513: real workshop/safehouse/power capture, retained foundation and correct art identity, exact save/rewind;14 renderer groups pass | Workshop/safehouse full sheets absent; procedural views are functional evidence only |
+| Copper scenery |32f223b:10 mirrored entries, real paid economy/scouting/garrison/damage/destruction,21 exact no-scenery mirror hashes | One map; remaining maps not fully dressed |
+| Editor |1c3ea2a: four starts/two regions on64×96 map, real icon sheets, undo/redo/resize/reload, Go previews, practice-return and missing-art fallback, exact draft hashes | No environment-sidecar authoring/export extension |
+| Packaging |26e20f6: exact optional scenery hashes/path bounds and prior-pack preservation;7 focused tests; notice survives long loading | Final complete local package still pending |
+| Performance | M4 Metal raised terrain: two600-tick20TPS segments, p95≈17ms, exact native/restore hash | Short synthetic segments/incomplete art, not long matches or Intel reference |
+| Audio |892 clips/620 events; integrity/decode/loop and cold-offline playback checks | Listening/mix/full presentation review remains |
 
-Both TypeScript checks and228 runtime tests pass with the environment loader.
-The0.3.3 native short suite and actual Chromium/Firefox/WebKit integration pass;
-full0.3.2 native short race and focused0.3.3 correction race tests also pass.
-The final0.3.3 authored bot matrix reaches13 ordinary eliminations with exact
-initial/final restores and complete replays. Its10 receipt rejections are
-independently explained at their actual public planning/execution boundaries.
-Aircraft controls have a two-row scrollable tray, verified at1280×720/150% with
-every command reachable. Finite queued tasks and targeted Return use ordinary
-Go rules. No original file is silently migrated. See
-[compatibility](simulation-compatibility.md), [bot acceptance](authored-skirmish-acceptance.md),
-[mission playthroughs](authored-mission-playthroughs.md),
-[production sidebar](production-sidebar.md), [console review](console-visual-review.md),
-[environment](environment-renderer-integration.md), [flight presentation](flight-presentation.md),
-[terrain](terrain-height-integration.md), [maximum load](browser-maximum-load.md)
-and [product status](frontend-status.md) for precise scope and retained failures.
+Both TypeScript checks and239 runtime tests passed at the editor checkpoint. Shipping0.3.3 native short and actual three-browser integration pass; full0.3.2 short race plus focused0.3.3 correction race pass. Do not relabel historical reports as covering new changes.32 maps/31missions were checkpointed inee97df3 after content validation; that validation alone does not prove balance or mission completion.
 
-## Art production and remaining release work
+## Art and aircraft decisions
 
-Eight logistics assets and all21 missing props are fully rendered and checked.
-Eleven of24 infantry production assets are complete. Twenty-one accepted building
-pilots cover all18 role families with367 selected renders,891 source reset
-comparisons and230 illustration checks. Full59-variant production is underway;
-three new US non-service variants are complete. Combat source families cover27
-new ground and11 aircraft variants. Stage B launcher/APC/fighter/gunship pilots
-passed, but later occupied-service review found an aircraft scale mismatch and
-holds the11-aircraft bulk run. All12 parked envelopes are measured in
-`work/art/service-decks/parked-envelope-audit.md`. Sixteen service-layout views
-preserve the visible overlap and conversion failures. These source/pilot counts
-are not finished-art claims. Explicit bindings cover all75 units and61
-building/faction variants.
+Eight logistics assets and21 formerly missing props are rendered/checked. Eleven of24 infantry assets are complete. Six new US buildings—barracks, factory, supply, radar, tech, outpost—passed full production and native review. Other building/infantry production remains.21 building pilots cover18 role families; pilot approval is not complete full production. Bindings cover all75 units and61 faction/building variants. APC source correction is protected by626649d;27 ground-combat production remains approved.
 
-Current main menu still uses the tank portrait/map-grid backdrop. The separately
-rendered key-art preview was rejected for foreground occlusion, clipping and weak
-composition; it is not wired as final art. Claude must review it at the next reset.
+The three repair depots' isolated arm correction passed27 selected world views,81 layer bounds,84 resets,60 UI checks and exact56-other-assets/2534-pose parity. Root viewed all3 native contacts and accepted this bounded correction. Live building source promoted to `a9054656…`; failed US output is hash-preserved. Full three-depot production follows the parking composition pilot. Always read the full exact source lock.
 
-The sprite downsampler's repeated alpha multiplication was corrected and tested.
-All 31 historical sprite sets / 6,872 poses plus 76 UI derivatives were repacked;
-20,136 raw/source/2×/chrome files stayed byte-identical. Of 341 standard checks,
-339 pass and two existing source-frame clipping failures remain explicitly open
-(SA mobile ABM plume and US tank wrecks). All 380 UI checks pass. Sprite team masks
-remain grayscale; legacy portrait/cameo source masks have pre-existing colored
-lighting and need a separate reviewed normalization decision.
+**The common0.3896725 aircraft shrink was rejected.** The scout becomes a speck and fighter/airlift look toy-sized beside ground units. Original readable geometry stays unchanged. All5 proposed exterior service compositions passed root native review. Full11-aircraft candidate production is now authorized under work/ staging only, with US fighter/airlift prioritized after the current US building batch. Shipping promotion waits for actual Go parking/render integration.600mt is the design's combat/collision radius, not a requirement that every cosmetic wing/rotor fit inside it. Current1300mt parking centers cause real intersections.
 
-Complete remaining sprites, legacy state gaps, environment placement, final terrain
-material/cliff art review, menu/loading/briefing art, effects and audio review. Then perform
-full visual/playability review at both supported sizes, enlarged scale and all
-modes; finish authored optional/loss and difficulty routes; run current full
-native/race/security/browser/offline/migration checks; test long sessions,
-physical multi-device LAN and available reference hardware; build and inspect
-the standalone local package. Unavailable hardware must remain explicitly
-unverified. [Future deployment](deployment-plan.md) is documentation only.
+[The backend review](service-parking-review.md) proposes fixed operational parking radii, exterior-only pads outside the retained solid foundation, stable persisted final-approach reservations, and shared ground navigation/construction exclusion. Combat radius/range, airborne separation, capacity, costs and service timing remain unchanged. This is a real gameplay change, implemented only in an isolated candidate until numeric/performance/native-layout gates pass. No mesh data enters Go. Earlier shallow service-building candidate remains unaccepted. Tested pure service-surface parser is not wired into shipping metadata; exterior ground needs no deck lift.
 
-The handoff and authoritative design define completion. A passing internal
-milestone, source inventory, screenshot set or test matrix is not the finished
-game. Evidence under `work/evidence/` retains failed attempts and versioned runs.
+## Remaining full release work
+
+Complete all required sprites/poses, terrain/effects, UI/key art, portraits/icons and audio presentation, then review actual gameplay with complete art. Main-menu key-art preview remains rejected for occlusion, clipping and weak depth. Follow [actual C&C references](../work/claude/06-rts-reference-study.md): original stylized silhouettes, rich readable battlefields and warm gunmetal/olive/brass command machinery. Blue is tactical team paint only. Repeated cracks, flat terrain and abrupt fog edges remain under Claude review.
+
+Finish optional/current campaign acceptance and rendered product journeys; review human counterplay and audio; run two long games, maximum combined load, final local packaging and clean-install/save/replay/offline/LAN acceptance. Record exact hardware and physical-network limitations. Plan future hosting only. A passing pilot, source model, partial roster or numerical suite does not make the full game ready.
