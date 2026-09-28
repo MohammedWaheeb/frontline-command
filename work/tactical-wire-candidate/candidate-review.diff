@@ -1,0 +1,2665 @@
+--- original/client/src/protocol/frontline_pb.ts
++++ candidate/client/src/protocol/frontline_pb.ts
+@@ -10,7 +10,7 @@
+  * Describes the file frontline.proto.
+  */
+ export const file_frontline: GenFile = /*@__PURE__*/
+-  fileDesc("Cg9mcm9udGxpbmUucHJvdG8SDGZyb250bGluZS52MSKFBAoIRW52ZWxvcGUSKgoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG9IABIqCgZvcmRlcnMYAiABKAsyGC5mcm9udGxpbmUudjEuT3JkZXJCYXRjaEgAEjEKDG9yZGVyX3Jlc3VsdBgDIAEoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdEgAEjAKCHNuYXBzaG90GAQgASgLMhwuZnJvbnRsaW5lLnYxLlBsYXllclNuYXBzaG90SAASKQoFZGVsdGEYBSABKAsyGC5mcm9udGxpbmUudjEuU3RhdGVEZWx0YUgAEisKBnJlc3VtZRgGIAEoCzIZLmZyb250bGluZS52MS5SZXN1bWVNYXRjaEgAEisKBnJlc3VsdBgHIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFJlc3VsdEgAEiwKBWVycm9yGAggASgLMhsuZnJvbnRsaW5lLnYxLlByb3RvY29sRXJyb3JIABIiCgRwaW5nGAkgASgLMhIuZnJvbnRsaW5lLnYxLlBpbmdIABItCgdjb250cm9sGAogASgLMhouZnJvbnRsaW5lLnYxLk1hdGNoQ29udHJvbEgAEisKBnN0YXR1cxgLIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFN0YXR1c0gAQgkKB21lc3NhZ2UiagoLQ2xpZW50SGVsbG8SEAoIcHJvdG9jb2wYASABKA0SEgoKc2ltdWxhdGlvbhgCIAEoCRIUCgxjb250ZW50X2hhc2gYAyABKAkSDQoFdG9rZW4YBCABKAkSEAoIbWF0Y2hfaWQYBSABKAkiSgoLUmVzdW1lTWF0Y2gSKAoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG8SEQoJbGFzdF90aWNrGAIgASgNIh4KDE1hdGNoQ29udHJvbBIOCgZhY3Rpb24YASABKAkiVAoPQ29ubmVjdGlvblN0YXRlEg4KBnBsYXllchgBIAEoDRIRCgljb25uZWN0ZWQYAiABKAgSHgoWcmVjb25uZWN0X3JlbWFpbmluZ19tcxgDIAEoDSKYAQoLTWF0Y2hTdGF0dXMSFQoNcGF1c2VfZW5hYmxlZBgBIAEoCBIOCgZwYXVzZWQYAiABKAgSEwoLcGF1c2Vfdm90ZXMYAyADKA0SMAoJdGVhbW1hdGVzGAQgAygLMh0uZnJvbnRsaW5lLnYxLkNvbm5lY3Rpb25TdGF0ZRIbChN3YWl0aW5nX2Zvcl9wbGF5ZXJzGAUgASgIIhUKBFBpbmcSDQoFbm9uY2UYASABKA0iQwoNUHJvdG9jb2xFcnJvchIMCgRjb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkSEwoLcmVjb3ZlcmFibGUYAyABKAgiGwoDVmVjEgkKAXgYASABKBESCQoBeRgCIAEoESKsAQoFT3JkZXISDAoEa2luZBgBIAEoCRIQCghlbnRpdGllcxgCIAMoDRIOCgZ0YXJnZXQYAyABKA0SIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEgwKBHR5cGUYBSABKAkSDgoGcXVldWVkGAYgASgIEg0KBWluZGV4GAcgASgFEiEKBnBvaW50cxgIIAMoCzIRLmZyb250bGluZS52MS5WZWMiQwoKT3JkZXJCYXRjaBIQCghzZXF1ZW5jZRgBIAEoDRIjCgZvcmRlcnMYAiADKAsyEy5mcm9udGxpbmUudjEuT3JkZXIibAoLT3JkZXJSZXN1bHQSDgoGcGxheWVyGAEgASgNEhAKCHNlcXVlbmNlGAIgASgNEg0KBWluZGV4GAMgASgFEhAKCGFjY2VwdGVkGAQgASgIEgwKBGNvZGUYBSABKAkSDAoEdGljaxgGIAEoDSJ6CghNZXRhZGF0YRISCgpzaW11bGF0aW9uGAEgASgJEhAKCHByb3RvY29sGAIgASgNEhQKDGNvbnRlbnRfaGFzaBgDIAEoCRITCgttYXBfdmVyc2lvbhgEIAEoCRIPCgdydWxlc2V0GAUgASgJEgwKBHNlZWQYBiABKAQiJQoIQ29vbGRvd24SCgoCaWQYASABKAkSDQoFdW50aWwYAiABKA0imAEKA0pvYhIMCgR0eXBlGAEgASgJEhAKCHJlc2VhcmNoGAIgASgIEgwKBHBhaWQYAyABKAMSDAoEd29yaxgEIAEoDRIQCghyZXF1aXJlZBgFIAEoDRIOCgZzdXBwbHkYBiABKAUSDwoHc2VydmljZRgHIAEoDRIPCgdzdGFydGVkGAggASgIEhEKCWVtZXJnZW5jeRgJIAEoCCKLAgoHRWNvbm9teRIPCgdjcmVkaXRzGAEgASgDEg4KBmVuZXJneRgCIAEoAxIOCgZzdXBwbHkYAyABKAUSFwoPcmVzZXJ2ZWRfc3VwcGx5GAQgASgFEhYKDnBvd2VyX2NhcGFjaXR5GAUgASgFEhQKDHBvd2VyX2RlbWFuZBgGIAEoBRIMCgR0aWVyGAcgASgFEg4KBmluY29tZRgIIAEoAxIWCg5yZXBhaXJfcmVzZXJ2ZRgJIAEoAxIQCgh1cGdyYWRlcxgKIAMoCRIpCgljb29sZG93bnMYCyADKAsyFi5mcm9udGxpbmUudjEuQ29vbGRvd24SFQoNbGFzdF9zZXF1ZW5jZRgMIAEoDSK4AwoNRW50aXR5UHJpdmF0ZRIKCgJocBgBIAEoAxIOCgZtYXhfaHAYAiABKAMSHwoEam9icxgDIAMoCzIRLmZyb250bGluZS52MS5Kb2ISIwoGb3JkZXJzGAQgAygLMhMuZnJvbnRsaW5lLnYxLk9yZGVyEiAKBXJhbGx5GAUgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgVjYXJnbxgGIAEoAxIMCgRob21lGAcgASgNEgwKBGFtbW8YCCABKAUSEQoJZW5kdXJhbmNlGAkgASgNEg8KB2NoYXJnZXMYCiABKAUSEwoLY2hhcmdlX3dvcmsYCyABKA0SFAoMc2VydmljZV93b3JrGAwgASgNEhIKCmV4cGVyaWVuY2UYDSABKAMSKQoJY29vbGRvd25zGA4gAygLMhYuZnJvbnRsaW5lLnYxLkNvb2xkb3duEhIKCnBhc3NlbmdlcnMYDyADKA0SEQoJY29udGFpbmVyGBAgASgNEhUKDXJlcGVhdF9zb3J0aWUYESABKAgSFAoMYW1idXNoX3JlYWR5GBIgASgIEhYKDm1pc3Npb25fb3JpZ2luGBMgASgJIrgDCgZFbnRpdHkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVvd25lchgDIAEoDRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSDgoGZmFjaW5nGAUgASgFEg4KBmhlYWx0aBgGIAEoBRINCgVzdGF0ZRgHIAEoCRIQCghjb21wbGV0ZRgIIAEoCBIPCgdlbmFibGVkGAkgASgIEg4KBmxhbmRlZBgKIAEoCBIQCghkZXBsb3llZBgLIAEoCBIRCgljb25jZWFsZWQYDCABKAgSEAoIcHJvZ3Jlc3MYDSABKAUSDAoEcmFuaxgOIAEoDRIsCgdwcml2YXRlGA8gASgLMhsuZnJvbnRsaW5lLnYxLkVudGl0eVByaXZhdGUSFQoNdHVycmV0X2ZhY2luZxgQIAEoBRIVCg1jaGFubmVsX3VudGlsGBEgASgNEhIKCm1hcF9vYmplY3QYEiABKA0SFwoPZm9vdHByaW50X3dpZHRoGBMgASgFEhgKEGZvb3RwcmludF9oZWlnaHQYFCABKAUSFgoOZm9vdHByaW50X3R5cGUYFSABKAkisAEKDVBsYXllclN1bW1hcnkSCgoCaWQYASABKA0SDAoEbmFtZRgCIAEoCRIPCgdmYWN0aW9uGAMgASgJEgwKBHRlYW0YBCABKA0SEAoIZGVmZWF0ZWQYBSABKAgSEQoJZGVmZWF0X2F0GAYgASgNEhoKEnN0cmF0ZWdpY19wcm9ncmVzcxgHIAEoBRIWCg5zdXJyZW5kZXJfdm90ZRgIIAEoCBINCgVjb2xvchgJIAEoDSK6AQoKUHJvamVjdGlsZRIKCgJpZBgBIAEoDRINCgVvd25lchgCIAEoDRIOCgZ3ZWFwb24YAyABKAkSIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEiEKBmltcGFjdBgFIAEoCzIRLmZyb250bGluZS52MS5WZWMSEQoJaW1wYWN0X2F0GAYgASgNEhUKDWludGVyY2VwdGFibGUYByABKAgSDwoHd2FybmluZxgIIAEoCCJLCgVGaWVsZBIKCgJpZBgBIAEoDRIjCghwb3NpdGlvbhgCIAEoCzIRLmZyb250bGluZS52MS5WZWMSEQoJcmVtYWluaW5nGAMgASgDIkkKB1N0YXRpb24SCgoCaWQYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjEg0KBW93bmVyGAMgASgNIq8BCgZNZW1vcnkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVvd25lchgDIAEoDRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSDAoEc2VlbhgFIAEoDRIXCg9mb290cHJpbnRfd2lkdGgYBiABKAUSGAoQZm9vdHByaW50X2hlaWdodBgHIAEoBRIWCg5mb290cHJpbnRfdHlwZRgIIAEoCSKfAQoFRXZlbnQSCgoCaWQYASABKA0SDAoEdGljaxgCIAEoDRIMCgRraW5kGAMgASgJEg0KBW93bmVyGAQgASgNEg4KBmVudGl0eRgFIAEoDRIjCghwb3NpdGlvbhgGIAEoCzIRLmZyb250bGluZS52MS5WZWMSDQoFdmFsdWUYByABKAMSDQoFc2NvcGUYCCABKAkSDAoEdGV4dBgJIAEoCSJdCgdPdXRjb21lEhAKCGZpbmlzaGVkGAEgASgIEgwKBGRyYXcYAiABKAgSFAoMd2lubmluZ190ZWFtGAMgASgNEg4KBnJlYXNvbhgEIAEoCRIMCgR0aWNrGAUgASgNIuAGCg5QbGF5ZXJTbmFwc2hvdBIoCghtZXRhZGF0YRgBIAEoCzIWLmZyb250bGluZS52MS5NZXRhZGF0YRIMCgR0aWNrGAIgASgNEhEKCWNvdW50ZG93bhgDIAEoDRIOCgZwbGF5ZXIYBCABKA0SJgoHZWNvbm9teRgFIAEoCzIVLmZyb250bGluZS52MS5FY29ub215EiwKB3BsYXllcnMYBiADKAsyGy5mcm9udGxpbmUudjEuUGxheWVyU3VtbWFyeRImCghlbnRpdGllcxgHIAMoCzIULmZyb250bGluZS52MS5FbnRpdHkSLQoLcHJvamVjdGlsZXMYCCADKAsyGC5mcm9udGxpbmUudjEuUHJvamVjdGlsZRIjCgZmaWVsZHMYCSADKAsyEy5mcm9udGxpbmUudjEuRmllbGQSJwoIc3RhdGlvbnMYCiADKAsyFS5mcm9udGxpbmUudjEuU3RhdGlvbhIUCghleHBsb3JlZBgLIAMoCEICEAESEwoHdmlzaWJsZRgMIAMoCEICEAESJAoGbWVtb3J5GA0gAygLMhQuZnJvbnRsaW5lLnYxLk1lbW9yeRIjCgZldmVudHMYDiADKAsyEy5mcm9udGxpbmUudjEuRXZlbnQSKgoHcmVzdWx0cxgPIAMoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdBITCgtzaGlwbWVudF9hdBgQIAEoDRImCgdvdXRjb21lGBEgASgLMhUuZnJvbnRsaW5lLnYxLk91dGNvbWUSJgoHc2FsdmFnZRgSIAMoCzIVLmZyb250bGluZS52MS5TYWx2YWdlEiEKBXpvbmVzGBMgAygLMhIuZnJvbnRsaW5lLnYxLlpvbmUSNAoKaW5kaWNhdG9ycxgUIAMoCzIgLmZyb250bGluZS52MS5TdHJ1Y3R1cmVJbmRpY2F0b3ISLgoHbWlzc2lvbhgVIAEoCzIdLmZyb250bGluZS52MS5NaXNzaW9uUHJvZ3Jlc3MSDgoGcnViYmxlGBYgAygNEjAKCHdhcm5pbmdzGBcgAygLMh4uZnJvbnRsaW5lLnYxLk9wZXJhdGlvbldhcm5pbmcSJgoHZGVicmllZhgYIAEoCzIVLmZyb250bGluZS52MS5EZWJyaWVmImoKClN0YXRlRGVsdGESFQoNYmFzZWxpbmVfdGljaxgBIAEoDRIrCgVzdGF0ZRgCIAEoCzIcLmZyb250bGluZS52MS5QbGF5ZXJTbmFwc2hvdBIYChByZW1vdmVkX2VudGl0aWVzGAMgAygNImgKC01hdGNoUmVzdWx0EhAKCG1hdGNoX2lkGAEgASgJEiYKB291dGNvbWUYAiABKAsyFS5mcm9udGxpbmUudjEuT3V0Y29tZRIRCgljb21taXR0ZWQYAyABKAgSDAoEdm9pZBgEIAEoCCJnCgdTYWx2YWdlEgoKAmlkGAEgASgNEg0KBW93bmVyGAIgASgNEiMKCHBvc2l0aW9uGAMgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgV2YWx1ZRgEIAEoAxINCgV1bnRpbBgFIAEoDSJ2CgRab25lEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEg4KBnJhZGl1cxgEIAEoBRINCgVzdGFydBgFIAEoDRINCgV1bnRpbBgGIAEoDSJIChJTdHJ1Y3R1cmVJbmRpY2F0b3ISDQoFb3duZXIYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjIoYBChFPYmplY3RpdmVQcm9ncmVzcxIKCgJpZBgBIAEoCRIMCgR0ZXh0GAIgASgJEhAKCG9wdGlvbmFsGAMgASgIEg8KB2ZhaWx1cmUYBCABKAgSEAoIY29tcGxldGUYBSABKAgSEAoIcHJvZ3Jlc3MYBiABKA0SEAoIcmVxdWlyZWQYByABKA0i4gEKD01pc3Npb25Qcm9ncmVzcxIKCgJpZBgBIAEoCRINCgV0aXRsZRgCIAEoCRISCgpkaWZmaWN1bHR5GAMgASgJEhIKCmNoZWNrcG9pbnQYBCABKAkSFwoPY2hlY2twb2ludF90aWNrGAUgASgNEjMKCm9iamVjdGl2ZXMYBiADKAsyHy5mcm9udGxpbmUudjEuT2JqZWN0aXZlUHJvZ3Jlc3MSLQoHY29udm95cxgHIAMoCzIcLmZyb250bGluZS52MS5Db252b3lQcm9ncmVzcxIPCgd2ZXJzaW9uGAggASgJIpIBChBPcGVyYXRpb25XYXJuaW5nEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEgoKAmF0GAQgASgNEg4KBnNvdXJjZRgFIAEoDRIgCgVleGl0cxgGIAMoCzIRLmZyb250bGluZS52MS5WZWMiqQEKDkNvbnZveVByb2dyZXNzEgoKAmlkGAEgASgJEg4KBmFjdGl2ZRgCIAEoCBIRCgljb21wbGV0ZWQYAyABKAgSDAoEaGVsZBgEIAEoCBIOCgZtb3ZpbmcYBSABKAgSDQoFcm91dGUYBiABKA0SEAoId2F5cG9pbnQYByABKA0SFwoPY291bnRkb3duX3VudGlsGAggASgNEhAKCGFwcHJvdmVkGAkgAygNIm8KDUVjb25vbXlTYW1wbGUSDAoEdGljaxgBIAEoDRIPCgdjcmVkaXRzGAIgASgDEg4KBmluY29tZRgDIAEoAxINCgVzcGVudBgEIAEoAxIOCgZzdXBwbHkYBSABKAUSEAoIc3RhdGlvbnMYBiABKA0iLgoPUHJvZHVjdGlvbkNvdW50EgwKBHR5cGUYASABKAkSDQoFY291bnQYAiABKA0i2QIKD1BsYXllclRlbGVtZXRyeRIOCgZwbGF5ZXIYASABKA0SNQoOdW5pdHNfcHJvZHVjZWQYAiADKAsyHS5mcm9udGxpbmUudjEuUHJvZHVjdGlvbkNvdW50EjwKFWJ1aWxkaW5nc19jb25zdHJ1Y3RlZBgDIAMoCzIdLmZyb250bGluZS52MS5Qcm9kdWN0aW9uQ291bnQSEgoKdW5pdHNfbG9zdBgEIAEoDRIWCg5idWlsZGluZ3NfbG9zdBgFIAEoDRIUCgxyZXBhaXJfc3BlbnQYBiABKAMSFQoNbWlzc2lsZV9zcGVudBgHIAEoAxIaChJpbnRlcmNlcHRvcnNfZmlyZWQYCCABKA0SHQoVc3RhdGlvbl9jb250cm9sX3RpY2tzGAkgASgNEi0KCHRpbWVsaW5lGAogAygLMhsuZnJvbnRsaW5lLnYxLkVjb25vbXlTYW1wbGUisAIKDURlYnJpZWZQbGF5ZXISDgoGcGxheWVyGAEgASgNEgwKBG5hbWUYAiABKAkSDwoHZmFjdGlvbhgDIAEoCRIMCgR0ZWFtGAQgASgNEg0KBWNvbG9yGAUgASgNEhAKCGRlZmVhdGVkGAYgASgIEg8KB2NyZWRpdHMYByABKAMSDgoGaW5jb21lGAggASgDEg0KBXNwZW50GAkgASgDEhIKCmxvc3RfdmFsdWUYCiABKAMSFwoPdW5pdHNfc3Vydml2aW5nGAsgASgNEhwKFHN0cnVjdHVyZXNfc3Vydml2aW5nGAwgASgNEhYKDmV4cGxvcmVkX3RpbGVzGA0gASgNEi4KB21ldHJpY3MYDiABKAsyHS5mcm9udGxpbmUudjEuUGxheWVyVGVsZW1ldHJ5IlYKDERlYnJpZWZFdmVudBIMCgR0aWNrGAEgASgNEgwKBGtpbmQYAiABKAkSDgoGcGxheWVyGAMgASgNEgwKBHR5cGUYBCABKAkSDAoEdGV4dBgFIAEoCSJ7CgdEZWJyaWVmEiwKB3BsYXllcnMYASADKAsyGy5mcm9udGxpbmUudjEuRGVicmllZlBsYXllchIqCgZldmVudHMYAiADKAsyGi5mcm9udGxpbmUudjEuRGVicmllZkV2ZW50EhYKDm9taXR0ZWRfZXZlbnRzGAMgASgNQiRaImZyb250bGluZWNvbW1hbmQvcHJvdG9jb2w7cHJvdG9jb2xiBnByb3RvMw");
++  fileDesc("Cg9mcm9udGxpbmUucHJvdG8SDGZyb250bGluZS52MSKFBAoIRW52ZWxvcGUSKgoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG9IABIqCgZvcmRlcnMYAiABKAsyGC5mcm9udGxpbmUudjEuT3JkZXJCYXRjaEgAEjEKDG9yZGVyX3Jlc3VsdBgDIAEoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdEgAEjAKCHNuYXBzaG90GAQgASgLMhwuZnJvbnRsaW5lLnYxLlBsYXllclNuYXBzaG90SAASKQoFZGVsdGEYBSABKAsyGC5mcm9udGxpbmUudjEuU3RhdGVEZWx0YUgAEisKBnJlc3VtZRgGIAEoCzIZLmZyb250bGluZS52MS5SZXN1bWVNYXRjaEgAEisKBnJlc3VsdBgHIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFJlc3VsdEgAEiwKBWVycm9yGAggASgLMhsuZnJvbnRsaW5lLnYxLlByb3RvY29sRXJyb3JIABIiCgRwaW5nGAkgASgLMhIuZnJvbnRsaW5lLnYxLlBpbmdIABItCgdjb250cm9sGAogASgLMhouZnJvbnRsaW5lLnYxLk1hdGNoQ29udHJvbEgAEisKBnN0YXR1cxgLIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFN0YXR1c0gAQgkKB21lc3NhZ2UiagoLQ2xpZW50SGVsbG8SEAoIcHJvdG9jb2wYASABKA0SEgoKc2ltdWxhdGlvbhgCIAEoCRIUCgxjb250ZW50X2hhc2gYAyABKAkSDQoFdG9rZW4YBCABKAkSEAoIbWF0Y2hfaWQYBSABKAkiSgoLUmVzdW1lTWF0Y2gSKAoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG8SEQoJbGFzdF90aWNrGAIgASgNIh4KDE1hdGNoQ29udHJvbBIOCgZhY3Rpb24YASABKAkiVAoPQ29ubmVjdGlvblN0YXRlEg4KBnBsYXllchgBIAEoDRIRCgljb25uZWN0ZWQYAiABKAgSHgoWcmVjb25uZWN0X3JlbWFpbmluZ19tcxgDIAEoDSKYAQoLTWF0Y2hTdGF0dXMSFQoNcGF1c2VfZW5hYmxlZBgBIAEoCBIOCgZwYXVzZWQYAiABKAgSEwoLcGF1c2Vfdm90ZXMYAyADKA0SMAoJdGVhbW1hdGVzGAQgAygLMh0uZnJvbnRsaW5lLnYxLkNvbm5lY3Rpb25TdGF0ZRIbChN3YWl0aW5nX2Zvcl9wbGF5ZXJzGAUgASgIIhUKBFBpbmcSDQoFbm9uY2UYASABKA0iQwoNUHJvdG9jb2xFcnJvchIMCgRjb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkSEwoLcmVjb3ZlcmFibGUYAyABKAgiGwoDVmVjEgkKAXgYASABKBESCQoBeRgCIAEoESKsAQoFT3JkZXISDAoEa2luZBgBIAEoCRIQCghlbnRpdGllcxgCIAMoDRIOCgZ0YXJnZXQYAyABKA0SIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEgwKBHR5cGUYBSABKAkSDgoGcXVldWVkGAYgASgIEg0KBWluZGV4GAcgASgFEiEKBnBvaW50cxgIIAMoCzIRLmZyb250bGluZS52MS5WZWMiQwoKT3JkZXJCYXRjaBIQCghzZXF1ZW5jZRgBIAEoDRIjCgZvcmRlcnMYAiADKAsyEy5mcm9udGxpbmUudjEuT3JkZXIibAoLT3JkZXJSZXN1bHQSDgoGcGxheWVyGAEgASgNEhAKCHNlcXVlbmNlGAIgASgNEg0KBWluZGV4GAMgASgFEhAKCGFjY2VwdGVkGAQgASgIEgwKBGNvZGUYBSABKAkSDAoEdGljaxgGIAEoDSJ6CghNZXRhZGF0YRISCgpzaW11bGF0aW9uGAEgASgJEhAKCHByb3RvY29sGAIgASgNEhQKDGNvbnRlbnRfaGFzaBgDIAEoCRITCgttYXBfdmVyc2lvbhgEIAEoCRIPCgdydWxlc2V0GAUgASgJEgwKBHNlZWQYBiABKAQiJQoIQ29vbGRvd24SCgoCaWQYASABKAkSDQoFdW50aWwYAiABKA0imAEKA0pvYhIMCgR0eXBlGAEgASgJEhAKCHJlc2VhcmNoGAIgASgIEgwKBHBhaWQYAyABKAMSDAoEd29yaxgEIAEoDRIQCghyZXF1aXJlZBgFIAEoDRIOCgZzdXBwbHkYBiABKAUSDwoHc2VydmljZRgHIAEoDRIPCgdzdGFydGVkGAggASgIEhEKCWVtZXJnZW5jeRgJIAEoCCKLAgoHRWNvbm9teRIPCgdjcmVkaXRzGAEgASgDEg4KBmVuZXJneRgCIAEoAxIOCgZzdXBwbHkYAyABKAUSFwoPcmVzZXJ2ZWRfc3VwcGx5GAQgASgFEhYKDnBvd2VyX2NhcGFjaXR5GAUgASgFEhQKDHBvd2VyX2RlbWFuZBgGIAEoBRIMCgR0aWVyGAcgASgFEg4KBmluY29tZRgIIAEoAxIWCg5yZXBhaXJfcmVzZXJ2ZRgJIAEoAxIQCgh1cGdyYWRlcxgKIAMoCRIpCgljb29sZG93bnMYCyADKAsyFi5mcm9udGxpbmUudjEuQ29vbGRvd24SFQoNbGFzdF9zZXF1ZW5jZRgMIAEoDSL6AwoNRW50aXR5UHJpdmF0ZRIKCgJocBgBIAEoAxIOCgZtYXhfaHAYAiABKAMSHwoEam9icxgDIAMoCzIRLmZyb250bGluZS52MS5Kb2ISIwoGb3JkZXJzGAQgAygLMhMuZnJvbnRsaW5lLnYxLk9yZGVyEiAKBXJhbGx5GAUgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgVjYXJnbxgGIAEoAxIMCgRob21lGAcgASgNEgwKBGFtbW8YCCABKAUSEQoJZW5kdXJhbmNlGAkgASgNEg8KB2NoYXJnZXMYCiABKAUSEwoLY2hhcmdlX3dvcmsYCyABKA0SFAoMc2VydmljZV93b3JrGAwgASgNEhIKCmV4cGVyaWVuY2UYDSABKAMSKQoJY29vbGRvd25zGA4gAygLMhYuZnJvbnRsaW5lLnYxLkNvb2xkb3duEhIKCnBhc3NlbmdlcnMYDyADKA0SEQoJY29udGFpbmVyGBAgASgNEhUKDXJlcGVhdF9zb3J0aWUYESABKAgSFAoMYW1idXNoX3JlYWR5GBIgASgIEhYKDm1pc3Npb25fb3JpZ2luGBMgASgJEiQKF2VtZXJnZW5jeV90YWtlb2ZmX3VudGlsGBQgASgNSACIAQFCGgoYX2VtZXJnZW5jeV90YWtlb2ZmX3VudGlsIisKDFN0YXR1c0VmZmVjdBIMCgRraW5kGAEgASgJEg0KBXVudGlsGAIgASgNIuUDCgZFbnRpdHkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVvd25lchgDIAEoDRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSDgoGZmFjaW5nGAUgASgFEg4KBmhlYWx0aBgGIAEoBRINCgVzdGF0ZRgHIAEoCRIQCghjb21wbGV0ZRgIIAEoCBIPCgdlbmFibGVkGAkgASgIEg4KBmxhbmRlZBgKIAEoCBIQCghkZXBsb3llZBgLIAEoCBIRCgljb25jZWFsZWQYDCABKAgSEAoIcHJvZ3Jlc3MYDSABKAUSDAoEcmFuaxgOIAEoDRIsCgdwcml2YXRlGA8gASgLMhsuZnJvbnRsaW5lLnYxLkVudGl0eVByaXZhdGUSFQoNdHVycmV0X2ZhY2luZxgQIAEoBRIVCg1jaGFubmVsX3VudGlsGBEgASgNEhIKCm1hcF9vYmplY3QYEiABKA0SFwoPZm9vdHByaW50X3dpZHRoGBMgASgFEhgKEGZvb3RwcmludF9oZWlnaHQYFCABKAUSFgoOZm9vdHByaW50X3R5cGUYFSABKAkSKwoHZWZmZWN0cxgWIAMoCzIaLmZyb250bGluZS52MS5TdGF0dXNFZmZlY3QisAEKDVBsYXllclN1bW1hcnkSCgoCaWQYASABKA0SDAoEbmFtZRgCIAEoCRIPCgdmYWN0aW9uGAMgASgJEgwKBHRlYW0YBCABKA0SEAoIZGVmZWF0ZWQYBSABKAgSEQoJZGVmZWF0X2F0GAYgASgNEhoKEnN0cmF0ZWdpY19wcm9ncmVzcxgHIAEoBRIWCg5zdXJyZW5kZXJfdm90ZRgIIAEoCBINCgVjb2xvchgJIAEoDSKOAgoKUHJvamVjdGlsZRIKCgJpZBgBIAEoDRINCgVvd25lchgCIAEoDRIOCgZ3ZWFwb24YAyABKAkSIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEiEKBmltcGFjdBgFIAEoCzIRLmZyb250bGluZS52MS5WZWMSEQoJaW1wYWN0X2F0GAYgASgNEhUKDWludGVyY2VwdGFibGUYByABKAgSDwoHd2FybmluZxgIIAEoCBITCgZzcGxhc2gYCSABKAVIAIgBARIdChBwb3NpdGlvbl92aXNpYmxlGAogASgISAGIAQFCCQoHX3NwbGFzaEITChFfcG9zaXRpb25fdmlzaWJsZSJLCgVGaWVsZBIKCgJpZBgBIAEoDRIjCghwb3NpdGlvbhgCIAEoCzIRLmZyb250bGluZS52MS5WZWMSEQoJcmVtYWluaW5nGAMgASgDIkkKB1N0YXRpb24SCgoCaWQYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjEg0KBW93bmVyGAMgASgNIq8BCgZNZW1vcnkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVvd25lchgDIAEoDRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSDAoEc2VlbhgFIAEoDRIXCg9mb290cHJpbnRfd2lkdGgYBiABKAUSGAoQZm9vdHByaW50X2hlaWdodBgHIAEoBRIWCg5mb290cHJpbnRfdHlwZRgIIAEoCSKfAQoFRXZlbnQSCgoCaWQYASABKA0SDAoEdGljaxgCIAEoDRIMCgRraW5kGAMgASgJEg0KBW93bmVyGAQgASgNEg4KBmVudGl0eRgFIAEoDRIjCghwb3NpdGlvbhgGIAEoCzIRLmZyb250bGluZS52MS5WZWMSDQoFdmFsdWUYByABKAMSDQoFc2NvcGUYCCABKAkSDAoEdGV4dBgJIAEoCSJdCgdPdXRjb21lEhAKCGZpbmlzaGVkGAEgASgIEgwKBGRyYXcYAiABKAgSFAoMd2lubmluZ190ZWFtGAMgASgNEg4KBnJlYXNvbhgEIAEoCRIMCgR0aWNrGAUgASgNIuAGCg5QbGF5ZXJTbmFwc2hvdBIoCghtZXRhZGF0YRgBIAEoCzIWLmZyb250bGluZS52MS5NZXRhZGF0YRIMCgR0aWNrGAIgASgNEhEKCWNvdW50ZG93bhgDIAEoDRIOCgZwbGF5ZXIYBCABKA0SJgoHZWNvbm9teRgFIAEoCzIVLmZyb250bGluZS52MS5FY29ub215EiwKB3BsYXllcnMYBiADKAsyGy5mcm9udGxpbmUudjEuUGxheWVyU3VtbWFyeRImCghlbnRpdGllcxgHIAMoCzIULmZyb250bGluZS52MS5FbnRpdHkSLQoLcHJvamVjdGlsZXMYCCADKAsyGC5mcm9udGxpbmUudjEuUHJvamVjdGlsZRIjCgZmaWVsZHMYCSADKAsyEy5mcm9udGxpbmUudjEuRmllbGQSJwoIc3RhdGlvbnMYCiADKAsyFS5mcm9udGxpbmUudjEuU3RhdGlvbhIUCghleHBsb3JlZBgLIAMoCEICEAESEwoHdmlzaWJsZRgMIAMoCEICEAESJAoGbWVtb3J5GA0gAygLMhQuZnJvbnRsaW5lLnYxLk1lbW9yeRIjCgZldmVudHMYDiADKAsyEy5mcm9udGxpbmUudjEuRXZlbnQSKgoHcmVzdWx0cxgPIAMoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdBITCgtzaGlwbWVudF9hdBgQIAEoDRImCgdvdXRjb21lGBEgASgLMhUuZnJvbnRsaW5lLnYxLk91dGNvbWUSJgoHc2FsdmFnZRgSIAMoCzIVLmZyb250bGluZS52MS5TYWx2YWdlEiEKBXpvbmVzGBMgAygLMhIuZnJvbnRsaW5lLnYxLlpvbmUSNAoKaW5kaWNhdG9ycxgUIAMoCzIgLmZyb250bGluZS52MS5TdHJ1Y3R1cmVJbmRpY2F0b3ISLgoHbWlzc2lvbhgVIAEoCzIdLmZyb250bGluZS52MS5NaXNzaW9uUHJvZ3Jlc3MSDgoGcnViYmxlGBYgAygNEjAKCHdhcm5pbmdzGBcgAygLMh4uZnJvbnRsaW5lLnYxLk9wZXJhdGlvbldhcm5pbmcSJgoHZGVicmllZhgYIAEoCzIVLmZyb250bGluZS52MS5EZWJyaWVmImoKClN0YXRlRGVsdGESFQoNYmFzZWxpbmVfdGljaxgBIAEoDRIrCgVzdGF0ZRgCIAEoCzIcLmZyb250bGluZS52MS5QbGF5ZXJTbmFwc2hvdBIYChByZW1vdmVkX2VudGl0aWVzGAMgAygNImgKC01hdGNoUmVzdWx0EhAKCG1hdGNoX2lkGAEgASgJEiYKB291dGNvbWUYAiABKAsyFS5mcm9udGxpbmUudjEuT3V0Y29tZRIRCgljb21taXR0ZWQYAyABKAgSDAoEdm9pZBgEIAEoCCJnCgdTYWx2YWdlEgoKAmlkGAEgASgNEg0KBW93bmVyGAIgASgNEiMKCHBvc2l0aW9uGAMgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgV2YWx1ZRgEIAEoAxINCgV1bnRpbBgFIAEoDSJ2CgRab25lEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEg4KBnJhZGl1cxgEIAEoBRINCgVzdGFydBgFIAEoDRINCgV1bnRpbBgGIAEoDSJIChJTdHJ1Y3R1cmVJbmRpY2F0b3ISDQoFb3duZXIYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjIoYBChFPYmplY3RpdmVQcm9ncmVzcxIKCgJpZBgBIAEoCRIMCgR0ZXh0GAIgASgJEhAKCG9wdGlvbmFsGAMgASgIEg8KB2ZhaWx1cmUYBCABKAgSEAoIY29tcGxldGUYBSABKAgSEAoIcHJvZ3Jlc3MYBiABKA0SEAoIcmVxdWlyZWQYByABKA0i4gEKD01pc3Npb25Qcm9ncmVzcxIKCgJpZBgBIAEoCRINCgV0aXRsZRgCIAEoCRISCgpkaWZmaWN1bHR5GAMgASgJEhIKCmNoZWNrcG9pbnQYBCABKAkSFwoPY2hlY2twb2ludF90aWNrGAUgASgNEjMKCm9iamVjdGl2ZXMYBiADKAsyHy5mcm9udGxpbmUudjEuT2JqZWN0aXZlUHJvZ3Jlc3MSLQoHY29udm95cxgHIAMoCzIcLmZyb250bGluZS52MS5Db252b3lQcm9ncmVzcxIPCgd2ZXJzaW9uGAggASgJIrIBChBPcGVyYXRpb25XYXJuaW5nEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEgoKAmF0GAQgASgNEg4KBnNvdXJjZRgFIAEoDRIgCgVleGl0cxgGIAMoCzIRLmZyb250bGluZS52MS5WZWMSEwoGc3BsYXNoGAcgASgFSACIAQFCCQoHX3NwbGFzaCKpAQoOQ29udm95UHJvZ3Jlc3MSCgoCaWQYASABKAkSDgoGYWN0aXZlGAIgASgIEhEKCWNvbXBsZXRlZBgDIAEoCBIMCgRoZWxkGAQgASgIEg4KBm1vdmluZxgFIAEoCBINCgVyb3V0ZRgGIAEoDRIQCgh3YXlwb2ludBgHIAEoDRIXCg9jb3VudGRvd25fdW50aWwYCCABKA0SEAoIYXBwcm92ZWQYCSADKA0ibwoNRWNvbm9teVNhbXBsZRIMCgR0aWNrGAEgASgNEg8KB2NyZWRpdHMYAiABKAMSDgoGaW5jb21lGAMgASgDEg0KBXNwZW50GAQgASgDEg4KBnN1cHBseRgFIAEoBRIQCghzdGF0aW9ucxgGIAEoDSIuCg9Qcm9kdWN0aW9uQ291bnQSDAoEdHlwZRgBIAEoCRINCgVjb3VudBgCIAEoDSLZAgoPUGxheWVyVGVsZW1ldHJ5Eg4KBnBsYXllchgBIAEoDRI1Cg51bml0c19wcm9kdWNlZBgCIAMoCzIdLmZyb250bGluZS52MS5Qcm9kdWN0aW9uQ291bnQSPAoVYnVpbGRpbmdzX2NvbnN0cnVjdGVkGAMgAygLMh0uZnJvbnRsaW5lLnYxLlByb2R1Y3Rpb25Db3VudBISCgp1bml0c19sb3N0GAQgASgNEhYKDmJ1aWxkaW5nc19sb3N0GAUgASgNEhQKDHJlcGFpcl9zcGVudBgGIAEoAxIVCg1taXNzaWxlX3NwZW50GAcgASgDEhoKEmludGVyY2VwdG9yc19maXJlZBgIIAEoDRIdChVzdGF0aW9uX2NvbnRyb2xfdGlja3MYCSABKA0SLQoIdGltZWxpbmUYCiADKAsyGy5mcm9udGxpbmUudjEuRWNvbm9teVNhbXBsZSKwAgoNRGVicmllZlBsYXllchIOCgZwbGF5ZXIYASABKA0SDAoEbmFtZRgCIAEoCRIPCgdmYWN0aW9uGAMgASgJEgwKBHRlYW0YBCABKA0SDQoFY29sb3IYBSABKA0SEAoIZGVmZWF0ZWQYBiABKAgSDwoHY3JlZGl0cxgHIAEoAxIOCgZpbmNvbWUYCCABKAMSDQoFc3BlbnQYCSABKAMSEgoKbG9zdF92YWx1ZRgKIAEoAxIXCg91bml0c19zdXJ2aXZpbmcYCyABKA0SHAoUc3RydWN0dXJlc19zdXJ2aXZpbmcYDCABKA0SFgoOZXhwbG9yZWRfdGlsZXMYDSABKA0SLgoHbWV0cmljcxgOIAEoCzIdLmZyb250bGluZS52MS5QbGF5ZXJUZWxlbWV0cnkiVgoMRGVicmllZkV2ZW50EgwKBHRpY2sYASABKA0SDAoEa2luZBgCIAEoCRIOCgZwbGF5ZXIYAyABKA0SDAoEdHlwZRgEIAEoCRIMCgR0ZXh0GAUgASgJInsKB0RlYnJpZWYSLAoHcGxheWVycxgBIAMoCzIbLmZyb250bGluZS52MS5EZWJyaWVmUGxheWVyEioKBmV2ZW50cxgCIAMoCzIaLmZyb250bGluZS52MS5EZWJyaWVmRXZlbnQSFgoOb21pdHRlZF9ldmVudHMYAyABKA1CJFoiZnJvbnRsaW5lY29tbWFuZC9wcm90b2NvbDtwcm90b2NvbGIGcHJvdG8z");
+ 
+ /**
+  * A WebSocket binary frame contains exactly one Envelope. The server rejects
+@@ -711,6 +711,11 @@
+    * @generated from field: string mission_origin = 19;
+    */
+   missionOrigin: string;
++
++  /**
++   * @generated from field: optional uint32 emergency_takeoff_until = 20;
++   */
++  emergencyTakeoffUntil?: number | undefined;
+ };
+ 
+ /**
+@@ -721,6 +726,28 @@
+   messageDesc(file_frontline, 16);
+ 
+ /**
++ * @generated from message frontline.v1.StatusEffect
++ */
++export type StatusEffect = Message<"frontline.v1.StatusEffect"> & {
++  /**
++   * @generated from field: string kind = 1;
++   */
++  kind: string;
++
++  /**
++   * @generated from field: uint32 until = 2;
++   */
++  until: number;
++};
++
++/**
++ * Describes the message frontline.v1.StatusEffect.
++ * Use `create(StatusEffectSchema)` to create a new message.
++ */
++export const StatusEffectSchema: GenMessage<StatusEffect> = /*@__PURE__*/
++  messageDesc(file_frontline, 17);
++
++/**
+  * @generated from message frontline.v1.Entity
+  */
+ export type Entity = Message<"frontline.v1.Entity"> & {
+@@ -828,6 +855,11 @@
+    * @generated from field: string footprint_type = 21;
+    */
+   footprintType: string;
++
++  /**
++   * @generated from field: repeated frontline.v1.StatusEffect effects = 22;
++   */
++  effects: StatusEffect[];
+ };
+ 
+ /**
+@@ -835,7 +867,7 @@
+  * Use `create(EntitySchema)` to create a new message.
+  */
+ export const EntitySchema: GenMessage<Entity> = /*@__PURE__*/
+-  messageDesc(file_frontline, 17);
++  messageDesc(file_frontline, 18);
+ 
+ /**
+  * @generated from message frontline.v1.PlayerSummary
+@@ -892,7 +924,7 @@
+  * Use `create(PlayerSummarySchema)` to create a new message.
+  */
+ export const PlayerSummarySchema: GenMessage<PlayerSummary> = /*@__PURE__*/
+-  messageDesc(file_frontline, 18);
++  messageDesc(file_frontline, 19);
+ 
+ /**
+  * @generated from message frontline.v1.Projectile
+@@ -937,6 +969,16 @@
+    * @generated from field: bool warning = 8;
+    */
+   warning: boolean;
++
++  /**
++   * @generated from field: optional int32 splash = 9;
++   */
++  splash?: number | undefined;
++
++  /**
++   * @generated from field: optional bool position_visible = 10;
++   */
++  positionVisible?: boolean | undefined;
+ };
+ 
+ /**
+@@ -944,7 +986,7 @@
+  * Use `create(ProjectileSchema)` to create a new message.
+  */
+ export const ProjectileSchema: GenMessage<Projectile> = /*@__PURE__*/
+-  messageDesc(file_frontline, 19);
++  messageDesc(file_frontline, 20);
+ 
+ /**
+  * @generated from message frontline.v1.Field
+@@ -971,7 +1013,7 @@
+  * Use `create(FieldSchema)` to create a new message.
+  */
+ export const FieldSchema: GenMessage<Field> = /*@__PURE__*/
+-  messageDesc(file_frontline, 20);
++  messageDesc(file_frontline, 21);
+ 
+ /**
+  * @generated from message frontline.v1.Station
+@@ -998,7 +1040,7 @@
+  * Use `create(StationSchema)` to create a new message.
+  */
+ export const StationSchema: GenMessage<Station> = /*@__PURE__*/
+-  messageDesc(file_frontline, 21);
++  messageDesc(file_frontline, 22);
+ 
+ /**
+  * @generated from message frontline.v1.Memory
+@@ -1050,7 +1092,7 @@
+  * Use `create(MemorySchema)` to create a new message.
+  */
+ export const MemorySchema: GenMessage<Memory> = /*@__PURE__*/
+-  messageDesc(file_frontline, 22);
++  messageDesc(file_frontline, 23);
+ 
+ /**
+  * @generated from message frontline.v1.Event
+@@ -1107,7 +1149,7 @@
+  * Use `create(EventSchema)` to create a new message.
+  */
+ export const EventSchema: GenMessage<Event> = /*@__PURE__*/
+-  messageDesc(file_frontline, 23);
++  messageDesc(file_frontline, 24);
+ 
+ /**
+  * @generated from message frontline.v1.Outcome
+@@ -1144,7 +1186,7 @@
+  * Use `create(OutcomeSchema)` to create a new message.
+  */
+ export const OutcomeSchema: GenMessage<Outcome> = /*@__PURE__*/
+-  messageDesc(file_frontline, 24);
++  messageDesc(file_frontline, 25);
+ 
+ /**
+  * @generated from message frontline.v1.PlayerSnapshot
+@@ -1276,7 +1318,7 @@
+  * Use `create(PlayerSnapshotSchema)` to create a new message.
+  */
+ export const PlayerSnapshotSchema: GenMessage<PlayerSnapshot> = /*@__PURE__*/
+-  messageDesc(file_frontline, 25);
++  messageDesc(file_frontline, 26);
+ 
+ /**
+  * state contains current permitted non-entity fields and only changed entities;
+@@ -1306,7 +1348,7 @@
+  * Use `create(StateDeltaSchema)` to create a new message.
+  */
+ export const StateDeltaSchema: GenMessage<StateDelta> = /*@__PURE__*/
+-  messageDesc(file_frontline, 26);
++  messageDesc(file_frontline, 27);
+ 
+ /**
+  * @generated from message frontline.v1.MatchResult
+@@ -1338,7 +1380,7 @@
+  * Use `create(MatchResultSchema)` to create a new message.
+  */
+ export const MatchResultSchema: GenMessage<MatchResult> = /*@__PURE__*/
+-  messageDesc(file_frontline, 27);
++  messageDesc(file_frontline, 28);
+ 
+ /**
+  * @generated from message frontline.v1.Salvage
+@@ -1375,7 +1417,7 @@
+  * Use `create(SalvageSchema)` to create a new message.
+  */
+ export const SalvageSchema: GenMessage<Salvage> = /*@__PURE__*/
+-  messageDesc(file_frontline, 28);
++  messageDesc(file_frontline, 29);
+ 
+ /**
+  * @generated from message frontline.v1.Zone
+@@ -1417,7 +1459,7 @@
+  * Use `create(ZoneSchema)` to create a new message.
+  */
+ export const ZoneSchema: GenMessage<Zone> = /*@__PURE__*/
+-  messageDesc(file_frontline, 29);
++  messageDesc(file_frontline, 30);
+ 
+ /**
+  * @generated from message frontline.v1.StructureIndicator
+@@ -1439,7 +1481,7 @@
+  * Use `create(StructureIndicatorSchema)` to create a new message.
+  */
+ export const StructureIndicatorSchema: GenMessage<StructureIndicator> = /*@__PURE__*/
+-  messageDesc(file_frontline, 30);
++  messageDesc(file_frontline, 31);
+ 
+ /**
+  * @generated from message frontline.v1.ObjectiveProgress
+@@ -1486,7 +1528,7 @@
+  * Use `create(ObjectiveProgressSchema)` to create a new message.
+  */
+ export const ObjectiveProgressSchema: GenMessage<ObjectiveProgress> = /*@__PURE__*/
+-  messageDesc(file_frontline, 31);
++  messageDesc(file_frontline, 32);
+ 
+ /**
+  * @generated from message frontline.v1.MissionProgress
+@@ -1538,7 +1580,7 @@
+  * Use `create(MissionProgressSchema)` to create a new message.
+  */
+ export const MissionProgressSchema: GenMessage<MissionProgress> = /*@__PURE__*/
+-  messageDesc(file_frontline, 32);
++  messageDesc(file_frontline, 33);
+ 
+ /**
+  * @generated from message frontline.v1.OperationWarning
+@@ -1573,6 +1615,11 @@
+    * @generated from field: repeated frontline.v1.Vec exits = 6;
+    */
+   exits: Vec[];
++
++  /**
++   * @generated from field: optional int32 splash = 7;
++   */
++  splash?: number | undefined;
+ };
+ 
+ /**
+@@ -1580,7 +1627,7 @@
+  * Use `create(OperationWarningSchema)` to create a new message.
+  */
+ export const OperationWarningSchema: GenMessage<OperationWarning> = /*@__PURE__*/
+-  messageDesc(file_frontline, 33);
++  messageDesc(file_frontline, 34);
+ 
+ /**
+  * @generated from message frontline.v1.ConvoyProgress
+@@ -1637,7 +1684,7 @@
+  * Use `create(ConvoyProgressSchema)` to create a new message.
+  */
+ export const ConvoyProgressSchema: GenMessage<ConvoyProgress> = /*@__PURE__*/
+-  messageDesc(file_frontline, 34);
++  messageDesc(file_frontline, 35);
+ 
+ /**
+  * Post-match only. Never populate while a match is active, including an
+@@ -1682,7 +1729,7 @@
+  * Use `create(EconomySampleSchema)` to create a new message.
+  */
+ export const EconomySampleSchema: GenMessage<EconomySample> = /*@__PURE__*/
+-  messageDesc(file_frontline, 35);
++  messageDesc(file_frontline, 36);
+ 
+ /**
+  * @generated from message frontline.v1.ProductionCount
+@@ -1704,7 +1751,7 @@
+  * Use `create(ProductionCountSchema)` to create a new message.
+  */
+ export const ProductionCountSchema: GenMessage<ProductionCount> = /*@__PURE__*/
+-  messageDesc(file_frontline, 36);
++  messageDesc(file_frontline, 37);
+ 
+ /**
+  * @generated from message frontline.v1.PlayerTelemetry
+@@ -1766,7 +1813,7 @@
+  * Use `create(PlayerTelemetrySchema)` to create a new message.
+  */
+ export const PlayerTelemetrySchema: GenMessage<PlayerTelemetry> = /*@__PURE__*/
+-  messageDesc(file_frontline, 37);
++  messageDesc(file_frontline, 38);
+ 
+ /**
+  * @generated from message frontline.v1.DebriefPlayer
+@@ -1848,7 +1895,7 @@
+  * Use `create(DebriefPlayerSchema)` to create a new message.
+  */
+ export const DebriefPlayerSchema: GenMessage<DebriefPlayer> = /*@__PURE__*/
+-  messageDesc(file_frontline, 38);
++  messageDesc(file_frontline, 39);
+ 
+ /**
+  * @generated from message frontline.v1.DebriefEvent
+@@ -1885,7 +1932,7 @@
+  * Use `create(DebriefEventSchema)` to create a new message.
+  */
+ export const DebriefEventSchema: GenMessage<DebriefEvent> = /*@__PURE__*/
+-  messageDesc(file_frontline, 39);
++  messageDesc(file_frontline, 40);
+ 
+ /**
+  * @generated from message frontline.v1.Debrief
+@@ -1912,5 +1959,5 @@
+  * Use `create(DebriefSchema)` to create a new message.
+  */
+ export const DebriefSchema: GenMessage<Debrief> = /*@__PURE__*/
+-  messageDesc(file_frontline, 40);
+-
++  messageDesc(file_frontline, 41);
++
+--- original/cmd/wasm/editor.go
++++ candidate/cmd/wasm/editor.go
+@@ -49,10 +49,7 @@
+ 	return result, nil
+ }
+ 
+-type PreviewResult struct {
+-	Tick    sim.Tick          `json:"tick"`
+-	Results []sim.OrderResult `json:"results"`
+-}
++type PreviewResult = sim.OrderPreview
+ 
+ func (s *Session) PreviewOrders(player sim.PlayerID, data []byte) (PreviewResult, error) {
+ 	return s.preview(player, data, false)
+@@ -81,16 +78,17 @@
+ 	if err != nil {
+ 		return PreviewResult{}, fail("invalid_order", err.Error(), true)
+ 	}
+-	var results []sim.OrderResult
++	var result PreviewResult
+ 	if independent {
+-		results, err = s.engine.PreviewCandidates(player, orders)
++		result.Results, err = s.engine.PreviewCandidates(player, orders)
++		result.Tick = s.engine.Tick()
+ 	} else {
+-		results, err = s.engine.PreviewOrders(player, orders)
++		result, err = s.engine.PreviewOrderAdvice(player, orders)
+ 	}
+ 	if err != nil {
+ 		return PreviewResult{}, fail(err.Error(), "The proposed orders are not currently legal.", true)
+ 	}
+-	return PreviewResult{Tick: s.engine.Tick(), Results: results}, nil
++	return result, nil
+ }
+ 
+ // PreviewEditor never replaces or reads the active session. The same endpoint
+--- original/cmd/wasm/editor_test.go
++++ candidate/cmd/wasm/editor_test.go
+@@ -83,6 +83,36 @@
+ 	}
+ }
+ 
++func TestTacticalSkybreakerSessionPreview(t *testing.T) {
++	s := newSession(t)
++	before, _ := s.Hash()
++	point := &pb.Vec{X: 8000, Y: 8000}
++	data := batch(t, 1, &pb.Order{Kind: "ability", Type: "strategic", Entities: []uint32{2}, Index: 2, Points: []*pb.Vec{point, point, point}})
++	result, err := s.PreviewOrders(1, data)
++	if err != nil || len(result.Plans) != 1 || result.Plans[0].Edge != 2 || len(result.Plans[0].Routes) != 3 {
++		t.Fatal(result, err)
++	}
++	if _, err := s.PreviewOrders(2, data); code(err) != "unauthorized_player" {
++		t.Fatal("nonlocal plan was accepted", err)
++	}
++	if _, err := s.PreviewCandidates(1, data); err == nil {
++		t.Fatal("strategic alternative accepted")
++	}
++	if after, _ := s.Hash(); before != after {
++		t.Fatal("route preview mutated live session")
++	}
++	replay, err := s.ExportReplay()
++	if err != nil {
++		t.Fatal(err)
++	}
++	if _, err = s.LoadReplay(replay); err != nil {
++		t.Fatal(err)
++	}
++	if _, err = s.PreviewOrders(1, data); code(err) != "replay_read_only" {
++		t.Fatal("replay preview accepted", err)
++	}
++}
++
+ func TestEditorGeometryPreviewIsIndependentOfActiveSession(t *testing.T) {
+ 	s := newSession(t)
+ 	before, _ := s.Hash()
+--- original/cmd/wasm/tactical_wire_test.go
++++ candidate/cmd/wasm/tactical_wire_test.go
+@@ -0,0 +1,54 @@
++//go:build !(js && wasm)
++
++package main
++
++import (
++	"frontlinecommand/pkg/sim"
++	pb "frontlinecommand/protocol"
++	"google.golang.org/protobuf/proto"
++	"testing"
++)
++
++func TestTacticalOptionalWirePresence(t *testing.T) {
++	zero := int32(0)
++	view := sim.View{Projectiles: []sim.ProjectileView{{ID: 1, Weapon: "TANK", Splash: 0, PositionVisible: false}, {ID: 2, Weapon: "SKYBREAKER", Splash: 2000, PositionVisible: true}}, Warnings: []sim.OperationWarning{{Kind: "transfer"}, {Kind: "skybreaker", Splash: &zero}}, Entities: []sim.EntityView{{ID: 1, Effects: []sim.StatusEffect{{Kind: "hull_down"}, {Kind: "disperse", Until: 400}}, Private: &sim.EntityPrivate{EmergencyTakeoffUntil: 40}}, {ID: 2}}}
++	first, err := snapshot(view)
++	if err != nil {
++		t.Fatal(err)
++	}
++	raw, err := proto.Marshal(first)
++	if err != nil {
++		t.Fatal(err)
++	}
++	second := new(pb.PlayerSnapshot)
++	if err = proto.Unmarshal(raw, second); err != nil {
++		t.Fatal(err)
++	}
++	if !proto.Equal(first, second) {
++		t.Fatal("snapshot binary roundtrip lost fields")
++	}
++	for _, p := range second.Projectiles {
++		if p.Splash == nil || p.PositionVisible == nil {
++			t.Fatal("explicit zero/false lost protobuf presence")
++		}
++	}
++	if *second.Projectiles[0].Splash != 0 || *second.Projectiles[0].PositionVisible || *second.Projectiles[1].Splash != 2000 || !*second.Projectiles[1].PositionVisible {
++		t.Fatal("projectile fields changed")
++	}
++	if second.Warnings[0].Splash != nil || second.Warnings[1].Splash == nil || *second.Warnings[1].Splash != 0 {
++		t.Fatal("unknown radius conflated with zero")
++	}
++	if second.Entities[0].Private.GetEmergencyTakeoffUntil() != 40 || second.Entities[1].Private != nil {
++		t.Fatal("private deadline leakage or loss")
++	}
++	if len(second.Entities[0].Effects) != 2 || second.Entities[0].Effects[0].Kind != "hull_down" || second.Entities[0].Effects[0].Until != 0 || second.Entities[0].Effects[1].Until != 400 || len(second.Entities[1].Effects) != 0 {
++		t.Fatal("public effects or indefinite expiry lost during codec roundtrip")
++	}
++	old := new(pb.Projectile)
++	if err = proto.Unmarshal([]byte{8, 7}, old); err != nil {
++		t.Fatal(err)
++	}
++	if old.Id != 7 || old.Splash != nil || old.PositionVisible != nil {
++		t.Fatal("legacy absent fields became authoritative values")
++	}
++}
+--- original/internal/server/advice.go
++++ candidate/internal/server/advice.go
+@@ -17,7 +17,8 @@
+ }
+ type adviceResponse struct {
+ 	sim.CommandAffordances
+-	Results []sim.OrderResult `json:"results"`
++	Results []sim.OrderResult   `json:"results"`
++	Plans   []sim.StrategicPlan `json:"plans,omitempty"`
+ }
+ type adviceWindow struct {
+ 	started time.Time
+@@ -137,11 +138,15 @@
+ 			fail(w, 503, "advice_timeout", "Command advice timed out.")
+ 			return
+ 		}
+-		preview := sim.PreviewSavedOrders
++		var results []sim.OrderResult
++		var err error
+ 		if body.Independent {
+-			preview = sim.PreviewSavedCandidates
++			results, err = sim.PreviewSavedCandidates(s.catalog, reply.data, slot.Player, body.Orders)
++		} else {
++			var advice sim.OrderPreview
++			advice, err = sim.PreviewSavedOrderAdvice(s.catalog, reply.data, slot.Player, body.Orders)
++			results, result.Plans = advice.Results, advice.Plans
+ 		}
+-		results, err := preview(s.catalog, reply.data, slot.Player, body.Orders)
+ 		if err != nil {
+ 			fail(w, 400, "advice_unavailable", "The proposed batch cannot currently be submitted.")
+ 			return
+--- original/internal/server/advice_test.go
++++ candidate/internal/server/advice_test.go
+@@ -118,6 +118,32 @@
+ 	request(t, h, "POST", path, "slot-one", adviceRequest{}, 429)
+ 	request(t, h, "POST", path, "slot-two", adviceRequest{}, 200)
+ }
++
++func TestCommandAdviceSkybreakerOwnerPlan(t *testing.T) {
++	s, h := testServer(t)
++	m := adviceMatch(t, s)
++	path := "/api/v1/matches/" + m.id + "/advice"
++	before := m.call(context.Background(), matchRequest{kind: "save"})
++	point := sim.Vec{X: 8000, Y: 8000}
++	body := adviceRequest{Orders: []sim.Order{{Kind: "ability", Type: "strategic", Entities: []sim.ID{2}, Index: 3, Points: []sim.Vec{point, point, point}}}}
++	got := request(t, h, "POST", path, "slot-one", body, 200)
++	var plans []sim.StrategicPlan
++	if err := json.Unmarshal(got["plans"], &plans); err != nil || len(plans) != 1 || plans[0].Edge != 3 || len(plans[0].Routes) != 3 {
++		t.Fatal("owner plan lost at HTTP boundary", plans, err)
++	}
++	for _, route := range plans[0].Routes {
++		if route.Impact != point || route.Splash != 2000 || route.ImpactAt != route.ReleaseAt+1 {
++			t.Fatal(route)
++		}
++	}
++	request(t, h, "POST", path, "slot-two", body, 400)
++	body.Independent = true
++	request(t, h, "POST", path, "slot-one", body, 400)
++	after := m.call(context.Background(), matchRequest{kind: "save"})
++	if before.err != nil || after.err != nil || string(before.data) != string(after.data) {
++		t.Fatal("route advice mutated hosted game")
++	}
++}
+ func TestAdviceDoesNotConsumeGeneralWriteAdmission(t *testing.T) {
+ 	var gate admissionControl
+ 	now := time.Unix(1, 0)
+--- original/internal/server/tactical_wire_test.go
++++ candidate/internal/server/tactical_wire_test.go
+@@ -0,0 +1,52 @@
++package server
++
++import (
++	"frontlinecommand/pkg/sim"
++	pb "frontlinecommand/protocol"
++	"google.golang.org/protobuf/proto"
++	"testing"
++)
++
++func TestTacticalOptionalWirePresence(t *testing.T) {
++	zero := int32(0)
++	view := sim.View{Projectiles: []sim.ProjectileView{{ID: 1, Weapon: "TANK", Splash: 0, PositionVisible: false}, {ID: 2, Weapon: "SKYBREAKER", Splash: 2000, PositionVisible: true}}, Warnings: []sim.OperationWarning{{Kind: "transfer"}, {Kind: "skybreaker", Splash: &zero}}, Entities: []sim.EntityView{{ID: 1, Effects: []sim.StatusEffect{{Kind: "hull_down"}, {Kind: "disperse", Until: 400}}, Private: &sim.EntityPrivate{EmergencyTakeoffUntil: 40}}, {ID: 2}}}
++	first, err := snapshot(view)
++	if err != nil {
++		t.Fatal(err)
++	}
++	raw, err := proto.Marshal(first)
++	if err != nil {
++		t.Fatal(err)
++	}
++	second := new(pb.PlayerSnapshot)
++	if err = proto.Unmarshal(raw, second); err != nil {
++		t.Fatal(err)
++	}
++	if !proto.Equal(first, second) {
++		t.Fatal("snapshot binary roundtrip lost fields")
++	}
++	for _, p := range second.Projectiles {
++		if p.Splash == nil || p.PositionVisible == nil {
++			t.Fatal("explicit zero/false lost protobuf presence")
++		}
++	}
++	if *second.Projectiles[0].Splash != 0 || *second.Projectiles[0].PositionVisible || *second.Projectiles[1].Splash != 2000 || !*second.Projectiles[1].PositionVisible {
++		t.Fatal("projectile fields changed")
++	}
++	if second.Warnings[0].Splash != nil || second.Warnings[1].Splash == nil || *second.Warnings[1].Splash != 0 {
++		t.Fatal("unknown radius conflated with zero")
++	}
++	if second.Entities[0].Private.GetEmergencyTakeoffUntil() != 40 || second.Entities[1].Private != nil {
++		t.Fatal("private deadline leakage or loss")
++	}
++	if len(second.Entities[0].Effects) != 2 || second.Entities[0].Effects[0].Kind != "hull_down" || second.Entities[0].Effects[0].Until != 0 || second.Entities[0].Effects[1].Until != 400 || len(second.Entities[1].Effects) != 0 {
++		t.Fatal("public effects or indefinite expiry lost during codec roundtrip")
++	}
++	old := new(pb.Projectile)
++	if err = proto.Unmarshal([]byte{8, 7}, old); err != nil {
++		t.Fatal(err)
++	}
++	if old.Id != 7 || old.Splash != nil || old.PositionVisible != nil {
++		t.Fatal("legacy absent fields became authoritative values")
++	}
++}
+--- original/pkg/sim/abilities.go
++++ candidate/pkg/sim/abilities.go
+@@ -1,4 +1,7 @@
+ package sim
++
++// Used both by actual strategic impacts and their public area warnings.
++const strategicImpactRadius int32 = 2000
+ 
+ func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
+ 	v := selection[0]
+@@ -282,45 +285,24 @@
+ 	case "IR":
+ 		for i, pt := range o.Points {
+ 			for wave := 0; wave < 2; wave++ {
+-				projectile := &Projectile{ID: e.newID(), Owner: p.ID, Shooter: site.ID, Weapon: "SATURATION", Origin: site.Position, Position: site.Position, Impact: pt, ImpactAt: e.state.Tick + seconds(uint32(14+wave*3)), Damage: 220000, Splash: 2000, Interceptable: true, Strategic: true}
++				projectile := &Projectile{ID: e.newID(), Owner: p.ID, Shooter: site.ID, Weapon: "SATURATION", Origin: site.Position, Position: site.Position, Impact: pt, ImpactAt: e.state.Tick + seconds(uint32(14+wave*3)), Damage: 220000, Splash: strategicImpactRadius, Interceptable: true, Strategic: true}
+ 				e.state.Projectiles = append(e.state.Projectiles, projectile)
+ 				e.emit("missile_warning", p.ID, 0, pt, "all", int64(projectile.ImpactAt))
+ 			}
+ 			_ = i
+ 		}
+ 	case "US":
+-		center := Vec{}
+-		for _, pt := range o.Points {
+-			center.X += pt.X / 3
+-			center.Y += pt.Y / 3
+-		}
+-		center.X = clamp(center.X, 2200, e.state.Map.Width*1000-2200)
+-		center.Y = clamp(center.Y, 2200, e.state.Map.Height*1000-2200)
+-		for i, pt := range o.Points {
+-			lane := int32(i-1) * 1600
+-			drop := Vec{X: center.X, Y: center.Y + lane}
+-			entry := Vec{X: 601, Y: drop.Y}
+-			switch o.Index {
+-			case 1:
+-				entry = Vec{X: e.state.Map.Width*1000 - 601, Y: drop.Y}
+-			case 2:
+-				drop = Vec{X: center.X + lane, Y: center.Y}
+-				entry = Vec{X: drop.X, Y: 601}
+-			case 3:
+-				drop = Vec{X: center.X + lane, Y: center.Y}
+-				entry = Vec{X: drop.X, Y: e.state.Map.Height*1000 - 601}
+-			}
+-			flight := Tick((distance(entry, drop)*20 + 5999) / 6000)
+-			eta := e.state.Tick + max(seconds(12), flight)
+-			plane := e.spawn("US.support_plane", p.ID, entry, true, 200000)
++		for _, route := range e.skybreakerRoutes(o, e.state.Tick) {
++			flight := route.ReleaseAt - route.EntryAt
++			plane := e.spawn("US.support_plane", p.ID, route.Entry, true, 200000)
+ 			plane.Landed = false
+ 			plane.Endurance = 2400
+-			plane.TemporaryUntil = eta + flight + seconds(30)
+-			plane.Facing = direction(drop.X-entry.X, drop.Y-entry.Y)
+-			plane.Orders = []Order{{Kind: "move", Position: drop}}
+-			plane.DisabledUntil = eta - flight
+-			e.state.Operations = append(e.state.Operations, Operation{Kind: "skybreaker", Owner: p.ID, At: eta, Source: plane.ID, Points: []Vec{pt, entry, drop}})
+-			e.emit("airstrike_warning", p.ID, 0, pt, "all", int64(eta))
++			plane.TemporaryUntil = route.ReleaseAt + flight + seconds(30)
++			plane.Facing = direction(route.Drop.X-route.Entry.X, route.Drop.Y-route.Entry.Y)
++			plane.Orders = []Order{{Kind: "move", Position: route.Drop}}
++			plane.DisabledUntil = route.EntryAt
++			e.state.Operations = append(e.state.Operations, Operation{Kind: "skybreaker", Owner: p.ID, At: route.ReleaseAt, Source: plane.ID, Points: []Vec{route.Impact, route.Entry, route.Drop}})
++			e.emit("airstrike_warning", p.ID, 0, route.Impact, "all", int64(route.ReleaseAt))
+ 		}
+ 	case "SY":
+ 		for _, house := range selection {
+@@ -473,7 +455,7 @@
+ 				continue
+ 			}
+ 			pt := op.Points[0]
+-			e.state.Projectiles = append(e.state.Projectiles, &Projectile{ID: e.newID(), Owner: op.Owner, Shooter: source.ID, Weapon: "SKYBREAKER", Origin: source.Position, Position: source.Position, Impact: pt, ImpactAt: e.state.Tick + 1, Damage: 400000, Splash: 2000, Strategic: true})
++			e.state.Projectiles = append(e.state.Projectiles, &Projectile{ID: e.newID(), Owner: op.Owner, Shooter: source.ID, Weapon: "SKYBREAKER", Origin: source.Position, Position: source.Position, Impact: pt, ImpactAt: e.state.Tick + 1, Damage: 400000, Splash: strategicImpactRadius, Strategic: true})
+ 			e.assign(source, Order{Kind: "move", Position: op.Points[1]})
+ 		}
+ 	}
+--- original/pkg/sim/operation_views.go
++++ candidate/pkg/sim/operation_views.go
+@@ -12,6 +12,7 @@
+ // Warnings persist across snapshots/reconnects. Source IDs are omitted for
+ // public airstrike warnings, so an unseen aircraft or launcher is not revealed.
+ type OperationWarning struct {
++	Splash   *int32   `json:"splash,omitempty"`
+ 	Kind     string   `json:"kind"`
+ 	Owner    PlayerID `json:"owner"`
+ 	Position Vec      `json:"position"`
+@@ -40,14 +41,20 @@
+ 		}
+ 		switch op.Kind {
+ 		case "skybreaker":
+-			warnings = append(warnings, OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: op.Points[0], At: op.At + 1})
++			radius := strategicImpactRadius
++			warnings = append(warnings, OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: op.Points[0], At: op.At + 1, Splash: &radius})
+ 		case "raid":
+ 			if e.canSee(id, source.Position) {
+ 				warnings = append(warnings, OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: source.Position, Source: source.ID, At: op.At, Exits: append([]Vec(nil), op.Points...)})
+ 			}
+ 		case "second_volley":
+ 			if op.Owner == id {
+-				warnings = append(warnings, OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: op.Points[0], Source: source.ID, At: op.At})
++				warning := OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: op.Points[0], Source: source.ID, At: op.At}
++				if weapon, ok := e.weapon(source); ok {
++					radius := weapon.Splash
++					warning.Splash = &radius
++				}
++				warnings = append(warnings, warning)
+ 			}
+ 		}
+ 	}
+--- original/pkg/sim/preview.go
++++ candidate/pkg/sim/preview.go
+@@ -41,10 +41,11 @@
+ 	if err != nil {
+ 		return nil, err
+ 	}
+-	return preview.previewDetached(player, orders)
+-}
+-
+-func (e *Engine) previewDetached(player PlayerID, orders []Order) ([]OrderResult, error) {
++	result, err := preview.previewDetachedAdvice(player, orders)
++	return result.Results, err
++}
++
++func (e *Engine) previewDetachedAdvice(player PlayerID, orders []Order) (OrderPreview, error) {
+ 	// Preview is not command admission: sequence, pending and command-rate
+ 	// counters belong exclusively to actual submitted commands.
+ 	p := e.player(player)
+@@ -56,8 +57,9 @@
+ 	e.state.Results = nil
+ 	e.state.Events = nil
+ 	if err := e.Submit(player, 1, orders); err != nil {
+-		return nil, err
+-	}
++		return OrderPreview{}, err
++	}
++	plans := e.strategicPlans(p, e.state.Pending[0].Orders)
+ 	results := make([]OrderResult, 0, len(orders))
+ 	deferred := false
+ 	for i, o := range e.state.Pending[0].Orders {
+@@ -84,7 +86,7 @@
+ 		}
+ 		results = append(results, OrderResult{Player: player, Index: int32(i), Accepted: code == "ok" || code == "indeterminate", Code: code, Tick: e.state.Tick})
+ 	}
+-	return results, nil
++	return OrderPreview{Tick: e.state.Tick, Results: results, Plans: plans}, nil
+ }
+ 
+ // Check only private information belonging to this player and public target
+--- original/pkg/sim/strategic_preview.go
++++ candidate/pkg/sim/strategic_preview.go
+@@ -0,0 +1,103 @@
++package sim
++
++import "frontlinecommand/pkg/content"
++
++// OrderPreview contains owner-only, nonbinding command advice at one tick.
++type OrderPreview struct {
++	Tick    Tick            `json:"tick"`
++	Results []OrderResult   `json:"results"`
++	Plans   []StrategicPlan `json:"plans,omitempty"`
++}
++
++type StrategicPlan struct {
++	OrderIndex int32            `json:"order_index"`
++	Kind       string           `json:"kind"`
++	Edge       int32            `json:"edge"`
++	Routes     []StrategicRoute `json:"routes"`
++}
++
++// Times estimate an unobstructed launch at the next simulation tick. Aircraft
++// can be intercepted or delayed, and execution rechecks visibility/readiness.
++// No hidden actor, obstacle, AA coverage, or future fog information is sampled.
++type StrategicRoute struct {
++	Entry     Vec   `json:"entry"`
++	Drop      Vec   `json:"drop"`
++	Impact    Vec   `json:"impact"`
++	EntryAt   Tick  `json:"entry_at"`
++	ReleaseAt Tick  `json:"release_at"`
++	ImpactAt  Tick  `json:"impact_at"`
++	Splash    int32 `json:"splash"`
++}
++
++func (e *Engine) PreviewOrderAdvice(player PlayerID, orders []Order) (OrderPreview, error) {
++	save, err := e.SaveForAdvice()
++	if err != nil {
++		return OrderPreview{}, err
++	}
++	return PreviewSavedOrderAdvice(e.catalog, save, player, orders)
++}
++
++func PreviewSavedOrderAdvice(c *content.Catalog, save []byte, player PlayerID, orders []Order) (OrderPreview, error) {
++	preview, err := Restore(c, save)
++	if err != nil {
++		return OrderPreview{}, err
++	}
++	return preview.previewDetachedAdvice(player, orders)
++}
++
++// Called only after Submit validates source ownership, points and batch bounds.
++// Plans describe the snapshot, never effects from earlier orders in the batch.
++func (e *Engine) strategicPlans(p *Player, orders []Order) []StrategicPlan {
++	if p.Faction != "US" {
++		return nil
++	}
++	var plans []StrategicPlan
++	for i, o := range orders {
++		if o.Kind != "ability" || o.Type != "strategic" || o.Index < 0 || o.Index > 3 || len(o.Points) != 3 || e.previewKnowledge(p, o) != "ok" {
++			continue
++		}
++		valid := true
++		for _, pt := range o.Points {
++			if !e.canSee(p.ID, pt) || distance(pt, o.Points[0]) > 4000 {
++				valid = false
++				break
++			}
++		}
++		if valid {
++			plans = append(plans, StrategicPlan{OrderIndex: int32(i), Kind: "skybreaker", Edge: o.Index, Routes: e.skybreakerRoutes(o, e.state.Tick+1)})
++		}
++	}
++	return plans
++}
++
++// The actual launch and advisory preview share this integer geometry. Keep
++// target ordering: each point is assigned its original wing lane.
++func (e *Engine) skybreakerRoutes(o Order, launch Tick) []StrategicRoute {
++	center := Vec{}
++	for _, pt := range o.Points {
++		center.X += pt.X / 3
++		center.Y += pt.Y / 3
++	}
++	center.X = clamp(center.X, 2200, e.state.Map.Width*1000-2200)
++	center.Y = clamp(center.Y, 2200, e.state.Map.Height*1000-2200)
++	routes := make([]StrategicRoute, 0, len(o.Points))
++	for i, pt := range o.Points {
++		lane := int32(i-1) * 1600
++		drop := Vec{X: center.X, Y: center.Y + lane}
++		entry := Vec{X: 601, Y: drop.Y}
++		switch o.Index {
++		case 1:
++			entry = Vec{X: e.state.Map.Width*1000 - 601, Y: drop.Y}
++		case 2:
++			drop = Vec{X: center.X + lane, Y: center.Y}
++			entry = Vec{X: drop.X, Y: 601}
++		case 3:
++			drop = Vec{X: center.X + lane, Y: center.Y}
++			entry = Vec{X: drop.X, Y: e.state.Map.Height*1000 - 601}
++		}
++		flight := Tick((distance(entry, drop)*20 + 5999) / 6000)
++		release := launch + max(seconds(12), flight)
++		routes = append(routes, StrategicRoute{Entry: entry, Drop: drop, Impact: pt, EntryAt: release - flight, ReleaseAt: release, ImpactAt: release + 1, Splash: strategicImpactRadius})
++	}
++	return routes
++}
+--- original/pkg/sim/strategic_preview_test.go
++++ candidate/pkg/sim/strategic_preview_test.go
+@@ -0,0 +1,141 @@
++package sim
++
++import (
++	"bytes"
++	"encoding/json"
++	"fmt"
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++func previewWingFixture(t *testing.T, edge int32) (*Engine, Order) {
++	t.Helper()
++	e, site := strategicFixture(t, "US")
++	point := e.entity(3).Position
++	e.spawn("US.engineer", 1, Vec{X: 51000, Y: 54000}, true, 400000)
++	e.updateFog()
++	return e, Order{Kind: "ability", Type: "strategic", Entities: []ID{site.ID}, Index: edge, Points: []Vec{point, {X: point.X - 1000, Y: point.Y}, {X: point.X, Y: point.Y - 1000}}}
++}
++
++func TestTacticalSkybreakerPlanMatchesActualLaunchAllEdges(t *testing.T) {
++	for edge := int32(0); edge < 4; edge++ {
++		t.Run(fmt.Sprint(edge), func(t *testing.T) {
++			e, order := previewWingFixture(t, edge)
++			before, _ := e.Save()
++			advice, err := e.PreviewOrderAdvice(1, []Order{order})
++			if err != nil || len(advice.Plans) != 1 || advice.Results[0].Code != "indeterminate" {
++				t.Fatalf("missing advisory plan: %+v %v", advice, err)
++			}
++			after, _ := e.Save()
++			if !bytes.Equal(before, after) {
++				t.Fatal("planning changed state, RNG or pending orders")
++			}
++			plan := advice.Plans[0]
++			if plan.OrderIndex != 0 || plan.Kind != "skybreaker" || plan.Edge != edge || len(plan.Routes) != 3 {
++				t.Fatal(plan)
++			}
++			issue(t, e, 1, order)
++			if len(e.state.Operations) != 3 {
++				t.Fatal("ordinary command failed", e.state.Results)
++			}
++			for i, route := range plan.Routes {
++				op := e.state.Operations[i]
++				plane := e.entity(op.Source)
++				if op.At != route.ReleaseAt || op.Points[0] != route.Impact || op.Points[1] != route.Entry || op.Points[2] != route.Drop || plane.DisabledUntil != route.EntryAt || route.ImpactAt != op.At+1 || route.Splash != 2000 {
++					t.Fatalf("plan diverged from actual flight: %+v %+v", route, op)
++				}
++				if route.ReleaseAt < advice.Tick+241 || route.EntryAt < advice.Tick+1 {
++					t.Fatal("missing minimum warning or next-tick execution")
++				}
++			}
++			// The short east/south approach must wait; long west/north flights
++			// on this 64-tile map still arrive before the minimum warning.
++			if plan.Routes[0].EntryAt <= advice.Tick+1 {
++				t.Fatal("short approach has no launch delay")
++			}
++			save, _ := e.SaveForAdvice()
++			fromSave, err := PreviewSavedOrderAdvice(e.catalog, save, 1, []Order{order})
++			if err != nil || len(fromSave.Plans) != 1 {
++				t.Fatal("host saved advice failed", err)
++			}
++			if dir := os.Getenv("FRONTLINE_TACTICAL_VIEW_DIR"); dir != "" {
++				data, _ := json.Marshal(advice)
++				if err := os.MkdirAll(dir, 0755); err != nil {
++					t.Fatal(err)
++				}
++				if err := os.WriteFile(filepath.Join(dir, fmt.Sprintf("skybreaker-plan-%d.json", edge)), data, 0644); err != nil {
++					t.Fatal(err)
++				}
++			}
++		})
++	}
++}
++
++func TestTacticalSkybreakerPlanFogAndOwnership(t *testing.T) {
++	e, order := previewWingFixture(t, 0)
++	first, err := e.PreviewOrderAdvice(1, []Order{order})
++	if err != nil {
++		t.Fatal(err)
++	}
++	// Unseen anti-air must never alter either the route or the ETA.
++	pos := Vec{X: 20000, Y: 52000}
++	if e.canSee(1, pos) {
++		t.Fatal("fixture anti-air is visible")
++	}
++	e.spawn("IR.aa", 2, pos, true, 1)
++	e.updateFog()
++	second, err := e.PreviewOrderAdvice(1, []Order{order})
++	if err != nil {
++		t.Fatal(err)
++	}
++	a, _ := json.Marshal(first)
++	b, _ := json.Marshal(second)
++	if !bytes.Equal(a, b) {
++		t.Fatal("hidden defenses changed owner plan")
++	}
++	for _, change := range []func(*Order){
++		func(o *Order) { o.Index = 4 },
++		func(o *Order) { o.Points = []Vec{{X: 20000, Y: 52000}, {X: 20000, Y: 52000}, {X: 20000, Y: 52000}} },
++		func(o *Order) { o.Points = o.Points[:2] },
++		func(o *Order) { o.Points[1] = Vec{X: 8000, Y: 8000} },
++		func(o *Order) { o.Type = "recon_sweep" },
++	} {
++		o := order
++		o.Points = append([]Vec(nil), order.Points...)
++		change(&o)
++		result, err := e.PreviewOrderAdvice(1, []Order{o})
++		if err != nil || len(result.Plans) != 0 {
++			t.Fatal("invalid strategic geometry/capability got route", result, err)
++		}
++	}
++	if _, err := e.PreviewOrderAdvice(2, []Order{order}); err == nil {
++		t.Fatal("other player read owner's plan")
++	}
++	if _, err := e.PreviewCandidates(1, []Order{order}); err == nil {
++		t.Fatal("independent candidates accepted strategic batch")
++	}
++	if _, err := e.PreviewOrderAdvice(1, []Order{{Kind: "ability", Type: "strategic", Entities: order.Entities, Index: -1, Points: order.Points}}); err == nil {
++		t.Fatal("negative edge accepted")
++	}
++	if _, err := e.PreviewOrderAdvice(1, []Order{{Kind: "ability", Type: "strategic", Entities: order.Entities, Points: []Vec{{X: -1}, {X: -1}, {X: -1}}}}); err == nil {
++		t.Fatal("out of map target accepted")
++	}
++	result, err := e.PreviewOrderAdvice(1, []Order{{Kind: "hold", Entities: []ID{2}}, order})
++	if err != nil || len(result.Plans) != 1 || result.Plans[0].OrderIndex != 1 {
++		t.Fatal("batch index lost", result, err)
++	}
++}
++
++func TestTacticalSkybreakerLongFlightGeometry(t *testing.T) {
++	e := fixture(t)
++	// Geometry-only 192-tile theater: no hidden obstacles or mutable rules.
++	e.state.Map.Width = 192
++	point := Vec{X: 180000, Y: 30000}
++	routes := e.skybreakerRoutes(Order{Index: 0, Points: []Vec{point, point, point}}, 100)
++	for _, r := range routes {
++		if r.EntryAt != 100 || r.ReleaseAt != 698 || r.ImpactAt != 699 {
++			t.Fatalf("long flight should enter immediately and fly 179399 millitiles at six tiles/second: %+v", r)
++		}
++	}
++}
+--- original/pkg/sim/tactical_canonical_test.go
++++ candidate/pkg/sim/tactical_canonical_test.go
+@@ -0,0 +1,65 @@
++package sim
++
++import (
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"fmt"
++	"os"
++	"testing"
++)
++
++// This exact test is also run against a preserved copy of shipping0.3.3. Its
++// outputs must match: presentation and shared launch geometry change no state.
++func TestTacticalCanonicalStatePreservation(t *testing.T) {
++	if os.Getenv("FRONTLINE_CANONICAL_OUTPUT") == "" {
++		t.Skip("cross-source comparison harness")
++	}
++	records := map[string][]string{}
++	for _, faction := range []string{"US", "IR"} {
++		for edge := int32(0); edge < 4; edge++ {
++			e, site := strategicFixture(t, faction)
++			point := e.entity(3).Position
++			e.spawn(faction+".engineer", 1, Vec{X: 51000, Y: 54000}, true, 400000)
++			e.updateFog()
++			key := fmt.Sprintf("%s-edge-%d", faction, edge)
++			issue(t, e, 1, Order{Kind: "ability", Type: "strategic", Entities: []ID{site.ID}, Index: edge, Points: []Vec{point, point, point}})
++			for tick := 0; tick < 800; tick++ {
++				before := e.Hash()
++				e.PlayerView(1)
++				e.PlayerView(2)
++				if e.Hash() != before {
++					t.Fatal("view changed canonical state")
++				}
++				if tick%20 == 0 {
++					records[key] = append(records[key], before)
++				}
++				if tick == 137 {
++					save, err := e.Save()
++					if err != nil {
++						t.Fatal(err)
++					}
++					restored, err := Restore(e.catalog, save)
++					if err != nil || restored.Hash() != before {
++						t.Fatal("restore divergence", err)
++					}
++					e = restored
++				}
++				e.Advance()
++			}
++			save, err := e.Save()
++			if err != nil {
++				t.Fatal(err)
++			}
++			digest := sha256.Sum256(save)
++			records[key] = append(records[key], e.Hash(), hex.EncodeToString(digest[:]))
++		}
++	}
++	data, err := json.MarshalIndent(records, "", " ")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if err := os.WriteFile(os.Getenv("FRONTLINE_CANONICAL_OUTPUT"), data, 0644); err != nil {
++		t.Fatal(err)
++	}
++}
+--- original/pkg/sim/tactical_view_test.go
++++ candidate/pkg/sim/tactical_view_test.go
+@@ -0,0 +1,337 @@
++package sim
++
++import (
++	"encoding/json"
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++func TestTacticalProjectileGeometryAndPositionDisclosure(t *testing.T) {
++	e := fixture(t)
++	near, hidden := Vec{X: 8000, Y: 8000}, Vec{X: 54000, Y: 54000}
++	cases := []*Projectile{
++		{ID: e.newID(), Owner: 2, Weapon: "SATURATION", Position: hidden, Impact: near, ImpactAt: 280, Splash: 2000, Interceptable: true, Strategic: true},
++		{ID: e.newID(), Owner: 2, Weapon: "SKYBREAKER", Position: near, Impact: near, ImpactAt: 1, Splash: 2000, Strategic: true},
++		{ID: e.newID(), Owner: 2, Weapon: "TANK", Position: near, Impact: hidden, ImpactAt: 4, Splash: 4321},
++		{ID: e.newID(), Owner: 2, Weapon: "TANK", Position: hidden, Impact: hidden, ImpactAt: 4, Splash: 0},
++	}
++	e.state.Projectiles = cases
++	e.updateFog()
++	before := e.Hash()
++	view, ok := e.PlayerView(1)
++	if !ok || len(view.Projectiles) != 3 {
++		t.Fatalf("visible/warning filter: %+v", view.Projectiles)
++	}
++	a, b, c := view.Projectiles[0], view.Projectiles[1], view.Projectiles[2]
++	if a.PositionVisible || a.Position != near || a.Impact != near || a.Splash != 2000 {
++		t.Fatalf("hidden warning leaks or loses area: %+v", a)
++	}
++	if !b.PositionVisible || b.Position != b.Impact || b.Splash != 2000 {
++		t.Fatalf("visible coincident body incorrectly hidden: %+v", b)
++	}
++	if !c.PositionVisible || c.Impact != near || c.Splash != 4321 {
++		t.Fatalf("nonwarning body/hidden impact/instance radius: %+v", c)
++	}
++	enemy, _ := e.PlayerView(2)
++	if len(enemy.Projectiles) != 3 || !enemy.Projectiles[0].PositionVisible || enemy.Projectiles[1].PositionVisible || enemy.Projectiles[2].ID != cases[3].ID {
++		t.Fatalf("second perspective lost natural sight: %+v", enemy.Projectiles)
++	}
++	if e.Hash() != before {
++		t.Fatal("view presentation mutated authoritative state")
++	}
++	raw, err := json.Marshal(a)
++	if err != nil {
++		t.Fatal(err)
++	}
++	var fields map[string]any
++	if err = json.Unmarshal(raw, &fields); err != nil {
++		t.Fatal(err)
++	}
++	if visible, present := fields["position_visible"]; !present || visible != false {
++		t.Fatal("false presence must survive JSON")
++	}
++	for _, key := range []string{"origin", "shooter", "target", "intercept_at", "intercepted_by"} {
++		if _, found := fields[key]; found {
++			t.Fatalf("hidden projectile field leaked: %s", key)
++		}
++	}
++	exportTacticalView(t, "projectiles", []View{view, enemy})
++}
++
++func TestTacticalStrategicWarningsUseActualImpactRadius(t *testing.T) {
++	for _, faction := range []string{"US", "IR"} {
++		t.Run(faction, func(t *testing.T) {
++			e, site := strategicFixture(t, faction)
++			point := e.entity(3).Position
++			e.spawn(faction+".engineer", 1, Vec{X: 51000, Y: 54000}, true, 400000)
++			e.updateFog()
++			issue(t, e, 1, Order{Kind: "ability", Type: "strategic", Entities: []ID{site.ID}, Points: []Vec{point, point, point}})
++			view, _ := e.PlayerView(2)
++			if faction == "US" {
++				if len(view.Warnings) != 3 {
++					t.Fatal("three actual flight warnings required")
++				}
++				for _, w := range view.Warnings {
++					if w.Splash == nil || *w.Splash != strategicImpactRadius || w.Source != 0 || len(w.Exits) != 0 {
++						t.Fatalf("public skybreaker disclosure: %+v", w)
++					}
++				}
++				save, err := e.Save()
++				if err != nil {
++					t.Fatal(err)
++				}
++				restored, err := Restore(e.catalog, save)
++				if err != nil {
++					t.Fatal(err)
++				}
++				after, _ := restored.PlayerView(2)
++				a, _ := json.Marshal(view)
++				b, _ := json.Marshal(after)
++				if string(a) != string(b) {
++					t.Fatal("warning state changed on restore")
++				}
++				// Follow real flight until the one-tick-lived bomb first becomes visible.
++				for n := 0; n < 800 && len(e.state.Projectiles) == 0; n++ {
++					e.Advance()
++				}
++				if len(e.state.Projectiles) == 0 {
++					t.Fatal("real Skybreaker never dropped")
++				}
++			} else if len(view.Projectiles) != 6 {
++				t.Fatal("all six saturation projectiles required")
++			}
++			impactView, _ := e.PlayerView(2)
++			for _, p := range impactView.Projectiles {
++				if p.Splash != strategicImpactRadius {
++					t.Fatalf("projectile radius differs from warning: %+v", p)
++				}
++			}
++			exportTacticalView(t, "strategic-"+faction, []View{view, impactView})
++		})
++	}
++}
++
++func TestTacticalNonblastWarningsKeepAreaUnknown(t *testing.T) {
++	e := fixture(t)
++	launcher := e.spawn("IR.launcher", 1, Vec{X: 12000, Y: 18000}, true, 1)
++	house := e.spawn("SY.safehouse", 1, Vec{X: 18000, Y: 18000}, true, 1)
++	destination := e.spawn("SY.safehouse", 1, Vec{X: 24000, Y: 18000}, true, 1)
++	house.Channel = "transit"
++	house.ChannelTarget = destination.ID
++	house.ChannelUntil = 50
++	e.state.Operations = []Operation{{Kind: "second_volley", Owner: 1, Source: launcher.ID, At: 50, Points: []Vec{{X: 55000, Y: 55000}}}, {Kind: "raid", Owner: 1, Source: house.ID, At: 50, Points: []Vec{{X: 18500, Y: 22500}, {X: 22500, Y: 18500}}}}
++	e.updateFog()
++	own, _ := e.PlayerView(1)
++	found := map[string]bool{}
++	for _, w := range own.Warnings {
++		found[w.Kind] = true
++		if w.Kind == "second_volley" {
++			weapon, _ := e.weapon(launcher)
++			if w.Splash == nil || *w.Splash != weapon.Splash {
++				t.Fatal("volley did not use current weapon")
++			}
++		} else if w.Splash != nil {
++			t.Fatalf("nonblast acquired damage radius: %+v", w)
++		}
++	}
++	for _, kind := range []string{"second_volley", "raid", "transfer"} {
++		if !found[kind] {
++			t.Fatalf("fixture omitted %s", kind)
++		}
++	}
++	enemy, _ := e.PlayerView(2)
++	for _, w := range enemy.Warnings {
++		if w.Kind == "second_volley" || w.Kind == "transfer" || w.Kind == "raid" {
++			t.Fatalf("hidden/owner-only warning leaked: %+v", w)
++		}
++	}
++	exportTacticalView(t, "nonblast", []View{own, enemy})
++}
++
++func TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored(t *testing.T) {
++	e := fixture(t)
++	air := e.spawn("US.fighter", 1, Vec{X: 54000, Y: 54000}, true, 1)
++	air.Landed = true
++	air.Home = 999
++	air.Endurance = 500
++	e.loseService(air)
++	e.updateFog()
++	if air.EmergencyTakeoffUntil != 40 {
++		t.Fatal("fixture missed actual service-loss timer")
++	}
++	own, _ := e.PlayerView(1)
++	enemy, _ := e.PlayerView(2)
++	for _, view := range []View{own, enemy} {
++		found := false
++		for _, v := range view.Entities {
++			if v.ID != air.ID {
++				continue
++			}
++			found = true
++			if view.Player == 1 {
++				if v.Private == nil || v.Private.EmergencyTakeoffUntil != 40 {
++					t.Fatal("owner lacks actual deadline")
++				}
++			} else if v.Private != nil {
++				t.Fatal("foreign aircraft exposes own-private fields")
++			}
++		}
++		if !found {
++			t.Fatal("test aircraft not naturally visible")
++		}
++	}
++	save, err := e.Save()
++	if err != nil {
++		t.Fatal(err)
++	}
++	restored, err := Restore(e.catalog, save)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if restored.Hash() != e.Hash() {
++		t.Fatal("presentation changed restore hash")
++	}
++	view, _ := restored.PlayerView(1)
++	for _, v := range view.Entities {
++		if v.ID == air.ID && v.Private.EmergencyTakeoffUntil != 40 {
++			t.Fatal("deadline reset at restore")
++		}
++	}
++	exportTacticalView(t, "emergency", []View{own, enemy, view})
++}
++
++func exportTacticalView(t *testing.T, name string, views []View) {
++	t.Helper()
++	dir := os.Getenv("FRONTLINE_TACTICAL_VIEW_DIR")
++	if dir == "" {
++		return
++	}
++	if err := os.MkdirAll(dir, 0755); err != nil {
++		t.Fatal(err)
++	}
++	raw, err := json.MarshalIndent(views, "", " ")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if err = os.WriteFile(filepath.Join(dir, name+".json"), raw, 0644); err != nil {
++		t.Fatal(err)
++	}
++}
++
++func TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded(t *testing.T) {
++	e := fixture(t)
++	actor := e.spawn("IR.isr", 2, Vec{X: 13000, Y: 8000}, true, 1)
++	actor.Buffs = []Buff{{Kind: "relay", Until: 200, Source: 999999}, {Kind: "relay", Until: 180, Source: 999998}, {Kind: "recall", Until: 160, Source: 999997}, {Kind: "exit_lock", Until: 240, Source: 999996}, {Kind: "future_private_effect", Until: 300, Source: 999995}, {Kind: "decoy", Until: 0, Source: 999994}}
++	actor.PublicRevealUntil = 120
++	e.updateFog()
++	before := e.Hash()
++	view, _ := e.PlayerView(1)
++	var visible *EntityView
++	for i := range view.Entities {
++		if view.Entities[i].ID == actor.ID {
++			visible = &view.Entities[i]
++		}
++	}
++	if visible == nil || visible.Private != nil {
++		t.Fatal("visible foreign status test actor absent or private")
++	}
++	if len(visible.Effects) != 3 || visible.Effects[0] != (StatusEffect{Kind: "recall", Until: 160}) || visible.Effects[1] != (StatusEffect{Kind: "relay", Until: 200}) || visible.Effects[2] != (StatusEffect{Kind: "launch_reveal", Until: 120}) {
++		t.Fatalf("wrong deduplicated effects: %+v", visible.Effects)
++	}
++	encoded, err := json.Marshal(visible.Effects)
++	if err != nil {
++		t.Fatal(err)
++	}
++	var fields []map[string]any
++	_ = json.Unmarshal(encoded, &fields)
++	for _, field := range fields {
++		if len(field) != 2 || field["kind"] == nil || field["until"] == nil {
++			t.Fatal("source identity or unrelated data leaked")
++		}
++	}
++	visible.Effects[0].Until = 99999
++	if e.Hash() != before {
++		t.Fatal("status view retained mutable engine data")
++	}
++	actor.Position = Vec{X: 54000, Y: 54000}
++	actor.PublicRevealUntil = 0
++	e.updateFog()
++	hidden, _ := e.PlayerView(1)
++	for _, v := range hidden.Entities {
++		if v.ID == actor.ID {
++			t.Fatal("status exposed a fogged actor")
++		}
++	}
++	e.spawn("US.tank", 1, Vec{X: 16000, Y: 16000}, true, 1)
++	hiddenSquad := e.spawn("SY.rifle", 2, Vec{X: 21000, Y: 16000}, true, 1)
++	hiddenSquad.Concealed = true
++	hiddenSquad.Buffs = []Buff{{Kind: "disperse", Until: 160, Source: 99999}}
++	e.updateFog()
++	if !e.canSee(1, hiddenSquad.Position) || e.canSeeEntity(1, hiddenSquad) {
++		t.Fatal("fixture must provide sight without concealment detection")
++	}
++	concealed, _ := e.PlayerView(1)
++	for _, v := range concealed.Entities {
++		if v.ID == hiddenSquad.ID {
++			t.Fatal("status exposed concealed actor")
++		}
++	}
++	exportTacticalView(t, "effects-privacy", []View{view, hidden, concealed})
++}
++
++func TestTacticalVisibleEffectDeadlinesFollowState(t *testing.T) {
++	e := fixture(t)
++	building := e.spawn("factory", 1, Vec{X: 17000, Y: 18000}, true, 1)
++	building.DisabledUntil = 100
++	building.ResistanceUntil = 700
++	building.Buffs = []Buff{{Kind: "emergency_power", Until: 400, Source: building.ID}}
++	e.state.Tick = 99
++	effects := e.visibleEffects(building)
++	if len(effects) != 1 || effects[0] != (StatusEffect{Kind: "disabled", Until: 100}) {
++		t.Fatalf("inactive power or recovery resistance advertised early: %+v", effects)
++	}
++	e.state.Tick = 100
++	building.Buffs = nil
++	effects = e.visibleEffects(building)
++	if len(effects) != 1 || effects[0] != (StatusEffect{Kind: "sabotage_resistance", Until: 700}) {
++		t.Fatalf("recovery timer lost: %+v", effects)
++	}
++	e.state.Tick = 700
++	if len(e.visibleEffects(building)) != 0 {
++		t.Fatal("expired resistance persisted")
++	}
++	tank := e.spawn("SA.tank", 1, Vec{X: 22000, Y: 18000}, true, 1)
++	tank.Deployed = true
++	tank.Buffs = []Buff{{Kind: "shieldline", Until: 702, Source: 9999}}
++	effects = e.visibleEffects(tank)
++	if len(effects) != 2 || effects[0] != (StatusEffect{Kind: "shieldline"}) || effects[1] != (StatusEffect{Kind: "hull_down"}) {
++		t.Fatalf("renewed/deployed states gained fake countdown: %+v", effects)
++	}
++	e.state.Tick = 702
++	tank.Deployed = false
++	if len(e.visibleEffects(tank)) != 0 {
++		t.Fatal("expired aura/deployment persisted")
++	}
++	e = fixture(t)
++	building = e.spawn("factory", 1, Vec{X: 17000, Y: 18000}, true, 1)
++	e.state.Tick = 100
++	building.Buffs = []Buff{{Kind: "rapid_sortie", Until: 240, Source: building.ID}}
++	e.updateFog()
++	before, _ := e.PlayerView(1)
++	save, err := e.Save()
++	if err != nil {
++		t.Fatal(err)
++	}
++	restored, err := Restore(e.catalog, save)
++	if err != nil {
++		t.Fatal(err)
++	}
++	after, _ := restored.PlayerView(1)
++	a, _ := json.Marshal(before)
++	b, _ := json.Marshal(after)
++	if string(a) != string(b) {
++		t.Fatal("effect deadlines changed on restore")
++	}
++	exportTacticalView(t, "effects-deadlines", []View{before, after})
++}
+--- original/pkg/sim/visibility.go
++++ candidate/pkg/sim/visibility.go
+@@ -269,27 +269,29 @@
+ 	Cooldowns      []Cooldown `json:"cooldowns"`
+ }
+ type EntityPrivate struct {
+-	MissionOrigin string     `json:"mission_origin,omitempty"`
+-	AmbushReady   bool       `json:"ambush_ready"`
+-	RepeatSortie  bool       `json:"repeat_sortie"`
+-	HP            int64      `json:"hp"`
+-	MaxHP         int64      `json:"max_hp"`
+-	Jobs          []Job      `json:"jobs"`
+-	Orders        []Order    `json:"orders"`
+-	Rally         Vec        `json:"rally"`
+-	Cargo         int64      `json:"cargo"`
+-	Home          ID         `json:"home"`
+-	Ammo          int32      `json:"ammo"`
+-	Endurance     uint32     `json:"endurance"`
+-	Charges       int32      `json:"charges"`
+-	ChargeWork    uint32     `json:"charge_work"`
+-	ServiceWork   uint32     `json:"service_work"`
+-	Experience    int64      `json:"experience"`
+-	Cooldowns     []Cooldown `json:"cooldowns"`
+-	Passengers    []ID       `json:"passengers"`
+-	Container     ID         `json:"container"`
++	EmergencyTakeoffUntil Tick       `json:"emergency_takeoff_until"`
++	MissionOrigin         string     `json:"mission_origin,omitempty"`
++	AmbushReady           bool       `json:"ambush_ready"`
++	RepeatSortie          bool       `json:"repeat_sortie"`
++	HP                    int64      `json:"hp"`
++	MaxHP                 int64      `json:"max_hp"`
++	Jobs                  []Job      `json:"jobs"`
++	Orders                []Order    `json:"orders"`
++	Rally                 Vec        `json:"rally"`
++	Cargo                 int64      `json:"cargo"`
++	Home                  ID         `json:"home"`
++	Ammo                  int32      `json:"ammo"`
++	Endurance             uint32     `json:"endurance"`
++	Charges               int32      `json:"charges"`
++	ChargeWork            uint32     `json:"charge_work"`
++	ServiceWork           uint32     `json:"service_work"`
++	Experience            int64      `json:"experience"`
++	Cooldowns             []Cooldown `json:"cooldowns"`
++	Passengers            []ID       `json:"passengers"`
++	Container             ID         `json:"container"`
+ }
+ type EntityView struct {
++	Effects         []StatusEffect `json:"effects"`
+ 	FootprintWidth  int32          `json:"footprint_width"`
+ 	FootprintHeight int32          `json:"footprint_height"`
+ 	FootprintType   string         `json:"footprint_type"`
+@@ -324,14 +326,16 @@
+ 	StrategicProgress int32    `json:"strategic_progress"`
+ }
+ type ProjectileView struct {
+-	ID            ID       `json:"id"`
+-	Owner         PlayerID `json:"owner"`
+-	Weapon        string   `json:"weapon"`
+-	Position      Vec      `json:"position"`
+-	Impact        Vec      `json:"impact"`
+-	ImpactAt      Tick     `json:"impact_at"`
+-	Interceptable bool     `json:"interceptable"`
+-	Warning       bool     `json:"warning"`
++	Splash          int32    `json:"splash"`
++	PositionVisible bool     `json:"position_visible"`
++	ID              ID       `json:"id"`
++	Owner           PlayerID `json:"owner"`
++	Weapon          string   `json:"weapon"`
++	Position        Vec      `json:"position"`
++	Impact          Vec      `json:"impact"`
++	ImpactAt        Tick     `json:"impact_at"`
++	Interceptable   bool     `json:"interceptable"`
++	Warning         bool     `json:"warning"`
+ }
+ type FieldView struct {
+ 	ID        uint32 `json:"id"`
+@@ -481,12 +485,13 @@
+ 		if until := max(v.DeployUntil, v.PackingUntil); !v.Building && until > e.Tick() && until > v.DeploymentStarted {
+ 			s.Progress = clamp(int32(uint64(e.Tick()-v.DeploymentStarted)*1000/uint64(until-v.DeploymentStarted)), 0, 1000)
+ 		}
++		s.Effects = e.visibleEffects(v)
+ 		if v.Owner == id {
+ 			s.Private = &EntityPrivate{
+ 				AmbushReady: e.ambushReady(v), RepeatSortie: v.RepeatSortie,
+ 				HP: v.HP, MaxHP: v.MaxHP, Jobs: append([]Job(nil), v.Jobs...),
+ 				Orders: cloneOrders(v.Orders), Rally: v.Rally, Cargo: v.Cargo,
+-				Home: v.Home, Ammo: v.Ammo, Endurance: v.Endurance,
++				Home: v.Home, Ammo: v.Ammo, Endurance: v.Endurance, EmergencyTakeoffUntil: v.EmergencyTakeoffUntil,
+ 				Charges: v.Charges, ChargeWork: v.ChargeWork, ServiceWork: v.ServiceWork,
+ 				Experience: v.Experience, Cooldowns: append([]Cooldown(nil), v.Cooldowns...),
+ 				Passengers: append([]ID(nil), v.Passengers...), Container: v.Container,
+@@ -517,7 +522,7 @@
+ 		if !warning && !e.canSee(id, v.Position) {
+ 			continue
+ 		}
+-		p := ProjectileView{ID: v.ID, Owner: v.Owner, Weapon: v.Weapon, Position: v.Position, Impact: v.Impact, ImpactAt: v.ImpactAt, Interceptable: v.Interceptable, Warning: warning}
++		p := ProjectileView{ID: v.ID, Owner: v.Owner, Weapon: v.Weapon, Position: v.Position, Impact: v.Impact, ImpactAt: v.ImpactAt, Interceptable: v.Interceptable, Warning: warning, Splash: v.Splash, PositionVisible: e.canSee(id, v.Position)}
+ 		if warning && !e.canSee(id, v.Position) {
+ 			p.Position = v.Impact
+ 		}
+--- original/pkg/sim/visible_effects.go
++++ candidate/pkg/sim/visible_effects.go
+@@ -0,0 +1,47 @@
++package sim
++
++// StatusEffect exposes only an already-disclosed actor's visible presentation.
++// Source identities and private cooldowns are deliberately absent. Until zero
++// means an active state without a fixed expiry (deployment or a renewed aura).
++type StatusEffect struct {
++	Kind  string `json:"kind"`
++	Until Tick   `json:"until"`
++}
++
++func (e *Engine) visibleEffects(v *Entity) []StatusEffect {
++	var out []StatusEffect
++	// Stable allowlist excludes internal exit locks and future/private buffs.
++	for _, kind := range []string{"decoy", "designated", "disperse", "emergency_power", "rapid_sortie", "recall", "recovery", "relay", "shieldline"} {
++		var until Tick
++		for _, buff := range v.Buffs {
++			if buff.Kind == kind && buff.Until > e.state.Tick {
++				until = max(until, buff.Until)
++			}
++		}
++		if until > 0 {
++			if kind == "emergency_power" && !v.Active(e.state.Tick) {
++				continue
++			}
++			if kind == "shieldline" {
++				until = 0
++			} // Actual aura is renewed; zone carries its end.
++			out = append(out, StatusEffect{Kind: kind, Until: until})
++		}
++	}
++	if v.Building && v.DisabledUntil > e.state.Tick {
++		out = append(out, StatusEffect{Kind: "disabled", Until: v.DisabledUntil})
++	}
++	if v.Building && v.DisabledUntil <= e.state.Tick && v.ResistanceUntil > e.state.Tick {
++		out = append(out, StatusEffect{Kind: "sabotage_resistance", Until: v.ResistanceUntil})
++	}
++	if v.Type == "SA.tank" && v.Deployed {
++		out = append(out, StatusEffect{Kind: "hull_down"})
++	}
++	if v.TemporaryUntil > e.state.Tick && e.role(v) != "support_plane" {
++		out = append(out, StatusEffect{Kind: "temporary", Until: v.TemporaryUntil})
++	}
++	if v.PublicRevealUntil > e.state.Tick {
++		out = append(out, StatusEffect{Kind: "launch_reveal", Until: v.PublicRevealUntil})
++	}
++	return out
++}
+--- original/protocol/frontline.pb.go
++++ candidate/protocol/frontline.pb.go
+@@ -1326,28 +1326,29 @@
+ }
+ 
+ type EntityPrivate struct {
+-	state         protoimpl.MessageState `protogen:"open.v1"`
+-	Hp            int64                  `protobuf:"varint,1,opt,name=hp,proto3" json:"hp,omitempty"`
+-	MaxHp         int64                  `protobuf:"varint,2,opt,name=max_hp,json=maxHp,proto3" json:"max_hp,omitempty"`
+-	Jobs          []*Job                 `protobuf:"bytes,3,rep,name=jobs,proto3" json:"jobs,omitempty"`
+-	Orders        []*Order               `protobuf:"bytes,4,rep,name=orders,proto3" json:"orders,omitempty"`
+-	Rally         *Vec                   `protobuf:"bytes,5,opt,name=rally,proto3" json:"rally,omitempty"`
+-	Cargo         int64                  `protobuf:"varint,6,opt,name=cargo,proto3" json:"cargo,omitempty"`
+-	Home          uint32                 `protobuf:"varint,7,opt,name=home,proto3" json:"home,omitempty"`
+-	Ammo          int32                  `protobuf:"varint,8,opt,name=ammo,proto3" json:"ammo,omitempty"`
+-	Endurance     uint32                 `protobuf:"varint,9,opt,name=endurance,proto3" json:"endurance,omitempty"`
+-	Charges       int32                  `protobuf:"varint,10,opt,name=charges,proto3" json:"charges,omitempty"`
+-	ChargeWork    uint32                 `protobuf:"varint,11,opt,name=charge_work,json=chargeWork,proto3" json:"charge_work,omitempty"`
+-	ServiceWork   uint32                 `protobuf:"varint,12,opt,name=service_work,json=serviceWork,proto3" json:"service_work,omitempty"`
+-	Experience    int64                  `protobuf:"varint,13,opt,name=experience,proto3" json:"experience,omitempty"`
+-	Cooldowns     []*Cooldown            `protobuf:"bytes,14,rep,name=cooldowns,proto3" json:"cooldowns,omitempty"`
+-	Passengers    []uint32               `protobuf:"varint,15,rep,packed,name=passengers,proto3" json:"passengers,omitempty"`
+-	Container     uint32                 `protobuf:"varint,16,opt,name=container,proto3" json:"container,omitempty"`
+-	RepeatSortie  bool                   `protobuf:"varint,17,opt,name=repeat_sortie,json=repeatSortie,proto3" json:"repeat_sortie,omitempty"`
+-	AmbushReady   bool                   `protobuf:"varint,18,opt,name=ambush_ready,json=ambushReady,proto3" json:"ambush_ready,omitempty"`
+-	MissionOrigin string                 `protobuf:"bytes,19,opt,name=mission_origin,json=missionOrigin,proto3" json:"mission_origin,omitempty"`
+-	unknownFields protoimpl.UnknownFields
+-	sizeCache     protoimpl.SizeCache
++	state                 protoimpl.MessageState `protogen:"open.v1"`
++	Hp                    int64                  `protobuf:"varint,1,opt,name=hp,proto3" json:"hp,omitempty"`
++	MaxHp                 int64                  `protobuf:"varint,2,opt,name=max_hp,json=maxHp,proto3" json:"max_hp,omitempty"`
++	Jobs                  []*Job                 `protobuf:"bytes,3,rep,name=jobs,proto3" json:"jobs,omitempty"`
++	Orders                []*Order               `protobuf:"bytes,4,rep,name=orders,proto3" json:"orders,omitempty"`
++	Rally                 *Vec                   `protobuf:"bytes,5,opt,name=rally,proto3" json:"rally,omitempty"`
++	Cargo                 int64                  `protobuf:"varint,6,opt,name=cargo,proto3" json:"cargo,omitempty"`
++	Home                  uint32                 `protobuf:"varint,7,opt,name=home,proto3" json:"home,omitempty"`
++	Ammo                  int32                  `protobuf:"varint,8,opt,name=ammo,proto3" json:"ammo,omitempty"`
++	Endurance             uint32                 `protobuf:"varint,9,opt,name=endurance,proto3" json:"endurance,omitempty"`
++	Charges               int32                  `protobuf:"varint,10,opt,name=charges,proto3" json:"charges,omitempty"`
++	ChargeWork            uint32                 `protobuf:"varint,11,opt,name=charge_work,json=chargeWork,proto3" json:"charge_work,omitempty"`
++	ServiceWork           uint32                 `protobuf:"varint,12,opt,name=service_work,json=serviceWork,proto3" json:"service_work,omitempty"`
++	Experience            int64                  `protobuf:"varint,13,opt,name=experience,proto3" json:"experience,omitempty"`
++	Cooldowns             []*Cooldown            `protobuf:"bytes,14,rep,name=cooldowns,proto3" json:"cooldowns,omitempty"`
++	Passengers            []uint32               `protobuf:"varint,15,rep,packed,name=passengers,proto3" json:"passengers,omitempty"`
++	Container             uint32                 `protobuf:"varint,16,opt,name=container,proto3" json:"container,omitempty"`
++	RepeatSortie          bool                   `protobuf:"varint,17,opt,name=repeat_sortie,json=repeatSortie,proto3" json:"repeat_sortie,omitempty"`
++	AmbushReady           bool                   `protobuf:"varint,18,opt,name=ambush_ready,json=ambushReady,proto3" json:"ambush_ready,omitempty"`
++	MissionOrigin         string                 `protobuf:"bytes,19,opt,name=mission_origin,json=missionOrigin,proto3" json:"mission_origin,omitempty"`
++	EmergencyTakeoffUntil *uint32                `protobuf:"varint,20,opt,name=emergency_takeoff_until,json=emergencyTakeoffUntil,proto3,oneof" json:"emergency_takeoff_until,omitempty"`
++	unknownFields         protoimpl.UnknownFields
++	sizeCache             protoimpl.SizeCache
+ }
+ 
+ func (x *EntityPrivate) Reset() {
+@@ -1511,6 +1512,65 @@
+ 		return x.MissionOrigin
+ 	}
+ 	return ""
++}
++
++func (x *EntityPrivate) GetEmergencyTakeoffUntil() uint32 {
++	if x != nil && x.EmergencyTakeoffUntil != nil {
++		return *x.EmergencyTakeoffUntil
++	}
++	return 0
++}
++
++type StatusEffect struct {
++	state         protoimpl.MessageState `protogen:"open.v1"`
++	Kind          string                 `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
++	Until         uint32                 `protobuf:"varint,2,opt,name=until,proto3" json:"until,omitempty"`
++	unknownFields protoimpl.UnknownFields
++	sizeCache     protoimpl.SizeCache
++}
++
++func (x *StatusEffect) Reset() {
++	*x = StatusEffect{}
++	mi := &file_frontline_proto_msgTypes[17]
++	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
++	ms.StoreMessageInfo(mi)
++}
++
++func (x *StatusEffect) String() string {
++	return protoimpl.X.MessageStringOf(x)
++}
++
++func (*StatusEffect) ProtoMessage() {}
++
++func (x *StatusEffect) ProtoReflect() protoreflect.Message {
++	mi := &file_frontline_proto_msgTypes[17]
++	if x != nil {
++		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
++		if ms.LoadMessageInfo() == nil {
++			ms.StoreMessageInfo(mi)
++		}
++		return ms
++	}
++	return mi.MessageOf(x)
++}
++
++// Deprecated: Use StatusEffect.ProtoReflect.Descriptor instead.
++func (*StatusEffect) Descriptor() ([]byte, []int) {
++	return file_frontline_proto_rawDescGZIP(), []int{17}
++}
++
++func (x *StatusEffect) GetKind() string {
++	if x != nil {
++		return x.Kind
++	}
++	return ""
++}
++
++func (x *StatusEffect) GetUntil() uint32 {
++	if x != nil {
++		return x.Until
++	}
++	return 0
+ }
+ 
+ type Entity struct {
+@@ -1536,13 +1596,14 @@
+ 	FootprintWidth  int32                  `protobuf:"varint,19,opt,name=footprint_width,json=footprintWidth,proto3" json:"footprint_width,omitempty"`
+ 	FootprintHeight int32                  `protobuf:"varint,20,opt,name=footprint_height,json=footprintHeight,proto3" json:"footprint_height,omitempty"`
+ 	FootprintType   string                 `protobuf:"bytes,21,opt,name=footprint_type,json=footprintType,proto3" json:"footprint_type,omitempty"`
++	Effects         []*StatusEffect        `protobuf:"bytes,22,rep,name=effects,proto3" json:"effects,omitempty"`
+ 	unknownFields   protoimpl.UnknownFields
+ 	sizeCache       protoimpl.SizeCache
+ }
+ 
+ func (x *Entity) Reset() {
+ 	*x = Entity{}
+-	mi := &file_frontline_proto_msgTypes[17]
++	mi := &file_frontline_proto_msgTypes[18]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -1554,7 +1615,7 @@
+ func (*Entity) ProtoMessage() {}
+ 
+ func (x *Entity) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[17]
++	mi := &file_frontline_proto_msgTypes[18]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -1567,7 +1628,7 @@
+ 
+ // Deprecated: Use Entity.ProtoReflect.Descriptor instead.
+ func (*Entity) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{17}
++	return file_frontline_proto_rawDescGZIP(), []int{18}
+ }
+ 
+ func (x *Entity) GetId() uint32 {
+@@ -1715,6 +1776,13 @@
+ 		return x.FootprintType
+ 	}
+ 	return ""
++}
++
++func (x *Entity) GetEffects() []*StatusEffect {
++	if x != nil {
++		return x.Effects
++	}
++	return nil
+ }
+ 
+ type PlayerSummary struct {
+@@ -1734,7 +1802,7 @@
+ 
+ func (x *PlayerSummary) Reset() {
+ 	*x = PlayerSummary{}
+-	mi := &file_frontline_proto_msgTypes[18]
++	mi := &file_frontline_proto_msgTypes[19]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -1746,7 +1814,7 @@
+ func (*PlayerSummary) ProtoMessage() {}
+ 
+ func (x *PlayerSummary) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[18]
++	mi := &file_frontline_proto_msgTypes[19]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -1759,7 +1827,7 @@
+ 
+ // Deprecated: Use PlayerSummary.ProtoReflect.Descriptor instead.
+ func (*PlayerSummary) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{18}
++	return file_frontline_proto_rawDescGZIP(), []int{19}
+ }
+ 
+ func (x *PlayerSummary) GetId() uint32 {
+@@ -1826,22 +1894,24 @@
+ }
+ 
+ type Projectile struct {
+-	state         protoimpl.MessageState `protogen:"open.v1"`
+-	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+-	Owner         uint32                 `protobuf:"varint,2,opt,name=owner,proto3" json:"owner,omitempty"`
+-	Weapon        string                 `protobuf:"bytes,3,opt,name=weapon,proto3" json:"weapon,omitempty"`
+-	Position      *Vec                   `protobuf:"bytes,4,opt,name=position,proto3" json:"position,omitempty"`
+-	Impact        *Vec                   `protobuf:"bytes,5,opt,name=impact,proto3" json:"impact,omitempty"`
+-	ImpactAt      uint32                 `protobuf:"varint,6,opt,name=impact_at,json=impactAt,proto3" json:"impact_at,omitempty"`
+-	Interceptable bool                   `protobuf:"varint,7,opt,name=interceptable,proto3" json:"interceptable,omitempty"`
+-	Warning       bool                   `protobuf:"varint,8,opt,name=warning,proto3" json:"warning,omitempty"`
+-	unknownFields protoimpl.UnknownFields
+-	sizeCache     protoimpl.SizeCache
++	state           protoimpl.MessageState `protogen:"open.v1"`
++	Id              uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
++	Owner           uint32                 `protobuf:"varint,2,opt,name=owner,proto3" json:"owner,omitempty"`
++	Weapon          string                 `protobuf:"bytes,3,opt,name=weapon,proto3" json:"weapon,omitempty"`
++	Position        *Vec                   `protobuf:"bytes,4,opt,name=position,proto3" json:"position,omitempty"`
++	Impact          *Vec                   `protobuf:"bytes,5,opt,name=impact,proto3" json:"impact,omitempty"`
++	ImpactAt        uint32                 `protobuf:"varint,6,opt,name=impact_at,json=impactAt,proto3" json:"impact_at,omitempty"`
++	Interceptable   bool                   `protobuf:"varint,7,opt,name=interceptable,proto3" json:"interceptable,omitempty"`
++	Warning         bool                   `protobuf:"varint,8,opt,name=warning,proto3" json:"warning,omitempty"`
++	Splash          *int32                 `protobuf:"varint,9,opt,name=splash,proto3,oneof" json:"splash,omitempty"`
++	PositionVisible *bool                  `protobuf:"varint,10,opt,name=position_visible,json=positionVisible,proto3,oneof" json:"position_visible,omitempty"`
++	unknownFields   protoimpl.UnknownFields
++	sizeCache       protoimpl.SizeCache
+ }
+ 
+ func (x *Projectile) Reset() {
+ 	*x = Projectile{}
+-	mi := &file_frontline_proto_msgTypes[19]
++	mi := &file_frontline_proto_msgTypes[20]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -1853,7 +1923,7 @@
+ func (*Projectile) ProtoMessage() {}
+ 
+ func (x *Projectile) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[19]
++	mi := &file_frontline_proto_msgTypes[20]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -1866,7 +1936,7 @@
+ 
+ // Deprecated: Use Projectile.ProtoReflect.Descriptor instead.
+ func (*Projectile) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{19}
++	return file_frontline_proto_rawDescGZIP(), []int{20}
+ }
+ 
+ func (x *Projectile) GetId() uint32 {
+@@ -1921,6 +1991,20 @@
+ func (x *Projectile) GetWarning() bool {
+ 	if x != nil {
+ 		return x.Warning
++	}
++	return false
++}
++
++func (x *Projectile) GetSplash() int32 {
++	if x != nil && x.Splash != nil {
++		return *x.Splash
++	}
++	return 0
++}
++
++func (x *Projectile) GetPositionVisible() bool {
++	if x != nil && x.PositionVisible != nil {
++		return *x.PositionVisible
+ 	}
+ 	return false
+ }
+@@ -1936,7 +2020,7 @@
+ 
+ func (x *Field) Reset() {
+ 	*x = Field{}
+-	mi := &file_frontline_proto_msgTypes[20]
++	mi := &file_frontline_proto_msgTypes[21]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -1948,7 +2032,7 @@
+ func (*Field) ProtoMessage() {}
+ 
+ func (x *Field) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[20]
++	mi := &file_frontline_proto_msgTypes[21]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -1961,7 +2045,7 @@
+ 
+ // Deprecated: Use Field.ProtoReflect.Descriptor instead.
+ func (*Field) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{20}
++	return file_frontline_proto_rawDescGZIP(), []int{21}
+ }
+ 
+ func (x *Field) GetId() uint32 {
+@@ -1996,7 +2080,7 @@
+ 
+ func (x *Station) Reset() {
+ 	*x = Station{}
+-	mi := &file_frontline_proto_msgTypes[21]
++	mi := &file_frontline_proto_msgTypes[22]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2008,7 +2092,7 @@
+ func (*Station) ProtoMessage() {}
+ 
+ func (x *Station) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[21]
++	mi := &file_frontline_proto_msgTypes[22]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2021,7 +2105,7 @@
+ 
+ // Deprecated: Use Station.ProtoReflect.Descriptor instead.
+ func (*Station) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{21}
++	return file_frontline_proto_rawDescGZIP(), []int{22}
+ }
+ 
+ func (x *Station) GetId() uint32 {
+@@ -2061,7 +2145,7 @@
+ 
+ func (x *Memory) Reset() {
+ 	*x = Memory{}
+-	mi := &file_frontline_proto_msgTypes[22]
++	mi := &file_frontline_proto_msgTypes[23]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2073,7 +2157,7 @@
+ func (*Memory) ProtoMessage() {}
+ 
+ func (x *Memory) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[22]
++	mi := &file_frontline_proto_msgTypes[23]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2086,7 +2170,7 @@
+ 
+ // Deprecated: Use Memory.ProtoReflect.Descriptor instead.
+ func (*Memory) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{22}
++	return file_frontline_proto_rawDescGZIP(), []int{23}
+ }
+ 
+ func (x *Memory) GetId() uint32 {
+@@ -2162,7 +2246,7 @@
+ 
+ func (x *Event) Reset() {
+ 	*x = Event{}
+-	mi := &file_frontline_proto_msgTypes[23]
++	mi := &file_frontline_proto_msgTypes[24]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2174,7 +2258,7 @@
+ func (*Event) ProtoMessage() {}
+ 
+ func (x *Event) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[23]
++	mi := &file_frontline_proto_msgTypes[24]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2187,7 +2271,7 @@
+ 
+ // Deprecated: Use Event.ProtoReflect.Descriptor instead.
+ func (*Event) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{23}
++	return file_frontline_proto_rawDescGZIP(), []int{24}
+ }
+ 
+ func (x *Event) GetId() uint32 {
+@@ -2266,7 +2350,7 @@
+ 
+ func (x *Outcome) Reset() {
+ 	*x = Outcome{}
+-	mi := &file_frontline_proto_msgTypes[24]
++	mi := &file_frontline_proto_msgTypes[25]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2278,7 +2362,7 @@
+ func (*Outcome) ProtoMessage() {}
+ 
+ func (x *Outcome) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[24]
++	mi := &file_frontline_proto_msgTypes[25]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2291,7 +2375,7 @@
+ 
+ // Deprecated: Use Outcome.ProtoReflect.Descriptor instead.
+ func (*Outcome) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{24}
++	return file_frontline_proto_rawDescGZIP(), []int{25}
+ }
+ 
+ func (x *Outcome) GetFinished() bool {
+@@ -2361,7 +2445,7 @@
+ 
+ func (x *PlayerSnapshot) Reset() {
+ 	*x = PlayerSnapshot{}
+-	mi := &file_frontline_proto_msgTypes[25]
++	mi := &file_frontline_proto_msgTypes[26]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2373,7 +2457,7 @@
+ func (*PlayerSnapshot) ProtoMessage() {}
+ 
+ func (x *PlayerSnapshot) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[25]
++	mi := &file_frontline_proto_msgTypes[26]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2386,7 +2470,7 @@
+ 
+ // Deprecated: Use PlayerSnapshot.ProtoReflect.Descriptor instead.
+ func (*PlayerSnapshot) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{25}
++	return file_frontline_proto_rawDescGZIP(), []int{26}
+ }
+ 
+ func (x *PlayerSnapshot) GetMetadata() *Metadata {
+@@ -2570,7 +2654,7 @@
+ 
+ func (x *StateDelta) Reset() {
+ 	*x = StateDelta{}
+-	mi := &file_frontline_proto_msgTypes[26]
++	mi := &file_frontline_proto_msgTypes[27]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2582,7 +2666,7 @@
+ func (*StateDelta) ProtoMessage() {}
+ 
+ func (x *StateDelta) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[26]
++	mi := &file_frontline_proto_msgTypes[27]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2595,7 +2679,7 @@
+ 
+ // Deprecated: Use StateDelta.ProtoReflect.Descriptor instead.
+ func (*StateDelta) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{26}
++	return file_frontline_proto_rawDescGZIP(), []int{27}
+ }
+ 
+ func (x *StateDelta) GetBaselineTick() uint32 {
+@@ -2631,7 +2715,7 @@
+ 
+ func (x *MatchResult) Reset() {
+ 	*x = MatchResult{}
+-	mi := &file_frontline_proto_msgTypes[27]
++	mi := &file_frontline_proto_msgTypes[28]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2643,7 +2727,7 @@
+ func (*MatchResult) ProtoMessage() {}
+ 
+ func (x *MatchResult) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[27]
++	mi := &file_frontline_proto_msgTypes[28]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2656,7 +2740,7 @@
+ 
+ // Deprecated: Use MatchResult.ProtoReflect.Descriptor instead.
+ func (*MatchResult) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{27}
++	return file_frontline_proto_rawDescGZIP(), []int{28}
+ }
+ 
+ func (x *MatchResult) GetMatchId() string {
+@@ -2700,7 +2784,7 @@
+ 
+ func (x *Salvage) Reset() {
+ 	*x = Salvage{}
+-	mi := &file_frontline_proto_msgTypes[28]
++	mi := &file_frontline_proto_msgTypes[29]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2712,7 +2796,7 @@
+ func (*Salvage) ProtoMessage() {}
+ 
+ func (x *Salvage) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[28]
++	mi := &file_frontline_proto_msgTypes[29]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2725,7 +2809,7 @@
+ 
+ // Deprecated: Use Salvage.ProtoReflect.Descriptor instead.
+ func (*Salvage) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{28}
++	return file_frontline_proto_rawDescGZIP(), []int{29}
+ }
+ 
+ func (x *Salvage) GetId() uint32 {
+@@ -2777,7 +2861,7 @@
+ 
+ func (x *Zone) Reset() {
+ 	*x = Zone{}
+-	mi := &file_frontline_proto_msgTypes[29]
++	mi := &file_frontline_proto_msgTypes[30]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2789,7 +2873,7 @@
+ func (*Zone) ProtoMessage() {}
+ 
+ func (x *Zone) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[29]
++	mi := &file_frontline_proto_msgTypes[30]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2802,7 +2886,7 @@
+ 
+ // Deprecated: Use Zone.ProtoReflect.Descriptor instead.
+ func (*Zone) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{29}
++	return file_frontline_proto_rawDescGZIP(), []int{30}
+ }
+ 
+ func (x *Zone) GetKind() string {
+@@ -2857,7 +2941,7 @@
+ 
+ func (x *StructureIndicator) Reset() {
+ 	*x = StructureIndicator{}
+-	mi := &file_frontline_proto_msgTypes[30]
++	mi := &file_frontline_proto_msgTypes[31]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2869,7 +2953,7 @@
+ func (*StructureIndicator) ProtoMessage() {}
+ 
+ func (x *StructureIndicator) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[30]
++	mi := &file_frontline_proto_msgTypes[31]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2882,7 +2966,7 @@
+ 
+ // Deprecated: Use StructureIndicator.ProtoReflect.Descriptor instead.
+ func (*StructureIndicator) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{30}
++	return file_frontline_proto_rawDescGZIP(), []int{31}
+ }
+ 
+ func (x *StructureIndicator) GetOwner() uint32 {
+@@ -2914,7 +2998,7 @@
+ 
+ func (x *ObjectiveProgress) Reset() {
+ 	*x = ObjectiveProgress{}
+-	mi := &file_frontline_proto_msgTypes[31]
++	mi := &file_frontline_proto_msgTypes[32]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -2926,7 +3010,7 @@
+ func (*ObjectiveProgress) ProtoMessage() {}
+ 
+ func (x *ObjectiveProgress) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[31]
++	mi := &file_frontline_proto_msgTypes[32]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -2939,7 +3023,7 @@
+ 
+ // Deprecated: Use ObjectiveProgress.ProtoReflect.Descriptor instead.
+ func (*ObjectiveProgress) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{31}
++	return file_frontline_proto_rawDescGZIP(), []int{32}
+ }
+ 
+ func (x *ObjectiveProgress) GetId() string {
+@@ -3007,7 +3091,7 @@
+ 
+ func (x *MissionProgress) Reset() {
+ 	*x = MissionProgress{}
+-	mi := &file_frontline_proto_msgTypes[32]
++	mi := &file_frontline_proto_msgTypes[33]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3019,7 +3103,7 @@
+ func (*MissionProgress) ProtoMessage() {}
+ 
+ func (x *MissionProgress) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[32]
++	mi := &file_frontline_proto_msgTypes[33]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3032,7 +3116,7 @@
+ 
+ // Deprecated: Use MissionProgress.ProtoReflect.Descriptor instead.
+ func (*MissionProgress) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{32}
++	return file_frontline_proto_rawDescGZIP(), []int{33}
+ }
+ 
+ func (x *MissionProgress) GetId() string {
+@@ -3099,13 +3183,14 @@
+ 	At            uint32                 `protobuf:"varint,4,opt,name=at,proto3" json:"at,omitempty"`
+ 	Source        uint32                 `protobuf:"varint,5,opt,name=source,proto3" json:"source,omitempty"`
+ 	Exits         []*Vec                 `protobuf:"bytes,6,rep,name=exits,proto3" json:"exits,omitempty"`
++	Splash        *int32                 `protobuf:"varint,7,opt,name=splash,proto3,oneof" json:"splash,omitempty"`
+ 	unknownFields protoimpl.UnknownFields
+ 	sizeCache     protoimpl.SizeCache
+ }
+ 
+ func (x *OperationWarning) Reset() {
+ 	*x = OperationWarning{}
+-	mi := &file_frontline_proto_msgTypes[33]
++	mi := &file_frontline_proto_msgTypes[34]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3117,7 +3202,7 @@
+ func (*OperationWarning) ProtoMessage() {}
+ 
+ func (x *OperationWarning) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[33]
++	mi := &file_frontline_proto_msgTypes[34]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3130,7 +3215,7 @@
+ 
+ // Deprecated: Use OperationWarning.ProtoReflect.Descriptor instead.
+ func (*OperationWarning) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{33}
++	return file_frontline_proto_rawDescGZIP(), []int{34}
+ }
+ 
+ func (x *OperationWarning) GetKind() string {
+@@ -3173,6 +3258,13 @@
+ 		return x.Exits
+ 	}
+ 	return nil
++}
++
++func (x *OperationWarning) GetSplash() int32 {
++	if x != nil && x.Splash != nil {
++		return *x.Splash
++	}
++	return 0
+ }
+ 
+ type ConvoyProgress struct {
+@@ -3192,7 +3284,7 @@
+ 
+ func (x *ConvoyProgress) Reset() {
+ 	*x = ConvoyProgress{}
+-	mi := &file_frontline_proto_msgTypes[34]
++	mi := &file_frontline_proto_msgTypes[35]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3204,7 +3296,7 @@
+ func (*ConvoyProgress) ProtoMessage() {}
+ 
+ func (x *ConvoyProgress) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[34]
++	mi := &file_frontline_proto_msgTypes[35]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3217,7 +3309,7 @@
+ 
+ // Deprecated: Use ConvoyProgress.ProtoReflect.Descriptor instead.
+ func (*ConvoyProgress) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{34}
++	return file_frontline_proto_rawDescGZIP(), []int{35}
+ }
+ 
+ func (x *ConvoyProgress) GetId() string {
+@@ -3299,7 +3391,7 @@
+ 
+ func (x *EconomySample) Reset() {
+ 	*x = EconomySample{}
+-	mi := &file_frontline_proto_msgTypes[35]
++	mi := &file_frontline_proto_msgTypes[36]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3311,7 +3403,7 @@
+ func (*EconomySample) ProtoMessage() {}
+ 
+ func (x *EconomySample) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[35]
++	mi := &file_frontline_proto_msgTypes[36]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3324,7 +3416,7 @@
+ 
+ // Deprecated: Use EconomySample.ProtoReflect.Descriptor instead.
+ func (*EconomySample) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{35}
++	return file_frontline_proto_rawDescGZIP(), []int{36}
+ }
+ 
+ func (x *EconomySample) GetTick() uint32 {
+@@ -3379,7 +3471,7 @@
+ 
+ func (x *ProductionCount) Reset() {
+ 	*x = ProductionCount{}
+-	mi := &file_frontline_proto_msgTypes[36]
++	mi := &file_frontline_proto_msgTypes[37]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3391,7 +3483,7 @@
+ func (*ProductionCount) ProtoMessage() {}
+ 
+ func (x *ProductionCount) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[36]
++	mi := &file_frontline_proto_msgTypes[37]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3404,7 +3496,7 @@
+ 
+ // Deprecated: Use ProductionCount.ProtoReflect.Descriptor instead.
+ func (*ProductionCount) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{36}
++	return file_frontline_proto_rawDescGZIP(), []int{37}
+ }
+ 
+ func (x *ProductionCount) GetType() string {
+@@ -3439,7 +3531,7 @@
+ 
+ func (x *PlayerTelemetry) Reset() {
+ 	*x = PlayerTelemetry{}
+-	mi := &file_frontline_proto_msgTypes[37]
++	mi := &file_frontline_proto_msgTypes[38]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3451,7 +3543,7 @@
+ func (*PlayerTelemetry) ProtoMessage() {}
+ 
+ func (x *PlayerTelemetry) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[37]
++	mi := &file_frontline_proto_msgTypes[38]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3464,7 +3556,7 @@
+ 
+ // Deprecated: Use PlayerTelemetry.ProtoReflect.Descriptor instead.
+ func (*PlayerTelemetry) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{37}
++	return file_frontline_proto_rawDescGZIP(), []int{38}
+ }
+ 
+ func (x *PlayerTelemetry) GetPlayer() uint32 {
+@@ -3559,7 +3651,7 @@
+ 
+ func (x *DebriefPlayer) Reset() {
+ 	*x = DebriefPlayer{}
+-	mi := &file_frontline_proto_msgTypes[38]
++	mi := &file_frontline_proto_msgTypes[39]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3571,7 +3663,7 @@
+ func (*DebriefPlayer) ProtoMessage() {}
+ 
+ func (x *DebriefPlayer) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[38]
++	mi := &file_frontline_proto_msgTypes[39]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3584,7 +3676,7 @@
+ 
+ // Deprecated: Use DebriefPlayer.ProtoReflect.Descriptor instead.
+ func (*DebriefPlayer) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{38}
++	return file_frontline_proto_rawDescGZIP(), []int{39}
+ }
+ 
+ func (x *DebriefPlayer) GetPlayer() uint32 {
+@@ -3698,7 +3790,7 @@
+ 
+ func (x *DebriefEvent) Reset() {
+ 	*x = DebriefEvent{}
+-	mi := &file_frontline_proto_msgTypes[39]
++	mi := &file_frontline_proto_msgTypes[40]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3710,7 +3802,7 @@
+ func (*DebriefEvent) ProtoMessage() {}
+ 
+ func (x *DebriefEvent) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[39]
++	mi := &file_frontline_proto_msgTypes[40]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3723,7 +3815,7 @@
+ 
+ // Deprecated: Use DebriefEvent.ProtoReflect.Descriptor instead.
+ func (*DebriefEvent) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{39}
++	return file_frontline_proto_rawDescGZIP(), []int{40}
+ }
+ 
+ func (x *DebriefEvent) GetTick() uint32 {
+@@ -3772,7 +3864,7 @@
+ 
+ func (x *Debrief) Reset() {
+ 	*x = Debrief{}
+-	mi := &file_frontline_proto_msgTypes[40]
++	mi := &file_frontline_proto_msgTypes[41]
+ 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 	ms.StoreMessageInfo(mi)
+ }
+@@ -3784,7 +3876,7 @@
+ func (*Debrief) ProtoMessage() {}
+ 
+ func (x *Debrief) ProtoReflect() protoreflect.Message {
+-	mi := &file_frontline_proto_msgTypes[40]
++	mi := &file_frontline_proto_msgTypes[41]
+ 	if x != nil {
+ 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+ 		if ms.LoadMessageInfo() == nil {
+@@ -3797,7 +3889,7 @@
+ 
+ // Deprecated: Use Debrief.ProtoReflect.Descriptor instead.
+ func (*Debrief) Descriptor() ([]byte, []int) {
+-	return file_frontline_proto_rawDescGZIP(), []int{40}
++	return file_frontline_proto_rawDescGZIP(), []int{41}
+ }
+ 
+ func (x *Debrief) GetPlayers() []*DebriefPlayer {
+@@ -3929,7 +4021,7 @@
+ 	"\bupgrades\x18\n" +
+ 	" \x03(\tR\bupgrades\x124\n" +
+ 	"\tcooldowns\x18\v \x03(\v2\x16.frontline.v1.CooldownR\tcooldowns\x12#\n" +
+-	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\xf0\x04\n" +
++	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\xc9\x05\n" +
+ 	"\rEntityPrivate\x12\x0e\n" +
+ 	"\x02hp\x18\x01 \x01(\x03R\x02hp\x12\x15\n" +
+ 	"\x06max_hp\x18\x02 \x01(\x03R\x05maxHp\x12%\n" +
+@@ -3955,7 +4047,12 @@
+ 	"\tcontainer\x18\x10 \x01(\rR\tcontainer\x12#\n" +
+ 	"\rrepeat_sortie\x18\x11 \x01(\bR\frepeatSortie\x12!\n" +
+ 	"\fambush_ready\x18\x12 \x01(\bR\vambushReady\x12%\n" +
+-	"\x0emission_origin\x18\x13 \x01(\tR\rmissionOrigin\"\x8a\x05\n" +
++	"\x0emission_origin\x18\x13 \x01(\tR\rmissionOrigin\x12;\n" +
++	"\x17emergency_takeoff_until\x18\x14 \x01(\rH\x00R\x15emergencyTakeoffUntil\x88\x01\x01B\x1a\n" +
++	"\x18_emergency_takeoff_until\"8\n" +
++	"\fStatusEffect\x12\x12\n" +
++	"\x04kind\x18\x01 \x01(\tR\x04kind\x12\x14\n" +
++	"\x05until\x18\x02 \x01(\rR\x05until\"\xc0\x05\n" +
+ 	"\x06Entity\x12\x0e\n" +
+ 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+ 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x14\n" +
+@@ -3979,7 +4076,8 @@
+ 	"map_object\x18\x12 \x01(\rR\tmapObject\x12'\n" +
+ 	"\x0ffootprint_width\x18\x13 \x01(\x05R\x0efootprintWidth\x12)\n" +
+ 	"\x10footprint_height\x18\x14 \x01(\x05R\x0ffootprintHeight\x12%\n" +
+-	"\x0efootprint_type\x18\x15 \x01(\tR\rfootprintType\"\x86\x02\n" +
++	"\x0efootprint_type\x18\x15 \x01(\tR\rfootprintType\x124\n" +
++	"\aeffects\x18\x16 \x03(\v2\x1a.frontline.v1.StatusEffectR\aeffects\"\x86\x02\n" +
+ 	"\rPlayerSummary\x12\x0e\n" +
+ 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
+ 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
+@@ -3989,7 +4087,7 @@
+ 	"\tdefeat_at\x18\x06 \x01(\rR\bdefeatAt\x12-\n" +
+ 	"\x12strategic_progress\x18\a \x01(\x05R\x11strategicProgress\x12%\n" +
+ 	"\x0esurrender_vote\x18\b \x01(\bR\rsurrenderVote\x12\x14\n" +
+-	"\x05color\x18\t \x01(\rR\x05color\"\x81\x02\n" +
++	"\x05color\x18\t \x01(\rR\x05color\"\xee\x02\n" +
+ 	"\n" +
+ 	"Projectile\x12\x0e\n" +
+ 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x14\n" +
+@@ -3999,7 +4097,12 @@
+ 	"\x06impact\x18\x05 \x01(\v2\x11.frontline.v1.VecR\x06impact\x12\x1b\n" +
+ 	"\timpact_at\x18\x06 \x01(\rR\bimpactAt\x12$\n" +
+ 	"\rinterceptable\x18\a \x01(\bR\rinterceptable\x12\x18\n" +
+-	"\awarning\x18\b \x01(\bR\awarning\"d\n" +
++	"\awarning\x18\b \x01(\bR\awarning\x12\x1b\n" +
++	"\x06splash\x18\t \x01(\x05H\x00R\x06splash\x88\x01\x01\x12.\n" +
++	"\x10position_visible\x18\n" +
++	" \x01(\bH\x01R\x0fpositionVisible\x88\x01\x01B\t\n" +
++	"\a_splashB\x13\n" +
++	"\x11_position_visible\"d\n" +
+ 	"\x05Field\x12\x0e\n" +
+ 	"\x02id\x18\x01 \x01(\rR\x02id\x12-\n" +
+ 	"\bposition\x18\x02 \x01(\v2\x11.frontline.v1.VecR\bposition\x12\x1c\n" +
+@@ -4110,14 +4213,16 @@
+ 	"objectives\x18\x06 \x03(\v2\x1f.frontline.v1.ObjectiveProgressR\n" +
+ 	"objectives\x126\n" +
+ 	"\aconvoys\x18\a \x03(\v2\x1c.frontline.v1.ConvoyProgressR\aconvoys\x12\x18\n" +
+-	"\aversion\x18\b \x01(\tR\aversion\"\xbc\x01\n" +
++	"\aversion\x18\b \x01(\tR\aversion\"\xe4\x01\n" +
+ 	"\x10OperationWarning\x12\x12\n" +
+ 	"\x04kind\x18\x01 \x01(\tR\x04kind\x12\x14\n" +
+ 	"\x05owner\x18\x02 \x01(\rR\x05owner\x12-\n" +
+ 	"\bposition\x18\x03 \x01(\v2\x11.frontline.v1.VecR\bposition\x12\x0e\n" +
+ 	"\x02at\x18\x04 \x01(\rR\x02at\x12\x16\n" +
+ 	"\x06source\x18\x05 \x01(\rR\x06source\x12'\n" +
+-	"\x05exits\x18\x06 \x03(\v2\x11.frontline.v1.VecR\x05exits\"\xf9\x01\n" +
++	"\x05exits\x18\x06 \x03(\v2\x11.frontline.v1.VecR\x05exits\x12\x1b\n" +
++	"\x06splash\x18\a \x01(\x05H\x00R\x06splash\x88\x01\x01B\t\n" +
++	"\a_splash\"\xf9\x01\n" +
+ 	"\x0eConvoyProgress\x12\x0e\n" +
+ 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+ 	"\x06active\x18\x02 \x01(\bR\x06active\x12\x1c\n" +
+@@ -4191,7 +4296,7 @@
+ 	return file_frontline_proto_rawDescData
+ }
+ 
+-var file_frontline_proto_msgTypes = make([]protoimpl.MessageInfo, 41)
++var file_frontline_proto_msgTypes = make([]protoimpl.MessageInfo, 42)
+ var file_frontline_proto_goTypes = []any{
+ 	(*Envelope)(nil),           // 0: frontline.v1.Envelope
+ 	(*ClientHello)(nil),        // 1: frontline.v1.ClientHello
+@@ -4210,39 +4315,40 @@
+ 	(*Job)(nil),                // 14: frontline.v1.Job
+ 	(*Economy)(nil),            // 15: frontline.v1.Economy
+ 	(*EntityPrivate)(nil),      // 16: frontline.v1.EntityPrivate
+-	(*Entity)(nil),             // 17: frontline.v1.Entity
+-	(*PlayerSummary)(nil),      // 18: frontline.v1.PlayerSummary
+-	(*Projectile)(nil),         // 19: frontline.v1.Projectile
+-	(*Field)(nil),              // 20: frontline.v1.Field
+-	(*Station)(nil),            // 21: frontline.v1.Station
+-	(*Memory)(nil),             // 22: frontline.v1.Memory
+-	(*Event)(nil),              // 23: frontline.v1.Event
+-	(*Outcome)(nil),            // 24: frontline.v1.Outcome
+-	(*PlayerSnapshot)(nil),     // 25: frontline.v1.PlayerSnapshot
+-	(*StateDelta)(nil),         // 26: frontline.v1.StateDelta
+-	(*MatchResult)(nil),        // 27: frontline.v1.MatchResult
+-	(*Salvage)(nil),            // 28: frontline.v1.Salvage
+-	(*Zone)(nil),               // 29: frontline.v1.Zone
+-	(*StructureIndicator)(nil), // 30: frontline.v1.StructureIndicator
+-	(*ObjectiveProgress)(nil),  // 31: frontline.v1.ObjectiveProgress
+-	(*MissionProgress)(nil),    // 32: frontline.v1.MissionProgress
+-	(*OperationWarning)(nil),   // 33: frontline.v1.OperationWarning
+-	(*ConvoyProgress)(nil),     // 34: frontline.v1.ConvoyProgress
+-	(*EconomySample)(nil),      // 35: frontline.v1.EconomySample
+-	(*ProductionCount)(nil),    // 36: frontline.v1.ProductionCount
+-	(*PlayerTelemetry)(nil),    // 37: frontline.v1.PlayerTelemetry
+-	(*DebriefPlayer)(nil),      // 38: frontline.v1.DebriefPlayer
+-	(*DebriefEvent)(nil),       // 39: frontline.v1.DebriefEvent
+-	(*Debrief)(nil),            // 40: frontline.v1.Debrief
++	(*StatusEffect)(nil),       // 17: frontline.v1.StatusEffect
++	(*Entity)(nil),             // 18: frontline.v1.Entity
++	(*PlayerSummary)(nil),      // 19: frontline.v1.PlayerSummary
++	(*Projectile)(nil),         // 20: frontline.v1.Projectile
++	(*Field)(nil),              // 21: frontline.v1.Field
++	(*Station)(nil),            // 22: frontline.v1.Station
++	(*Memory)(nil),             // 23: frontline.v1.Memory
++	(*Event)(nil),              // 24: frontline.v1.Event
++	(*Outcome)(nil),            // 25: frontline.v1.Outcome
++	(*PlayerSnapshot)(nil),     // 26: frontline.v1.PlayerSnapshot
++	(*StateDelta)(nil),         // 27: frontline.v1.StateDelta
++	(*MatchResult)(nil),        // 28: frontline.v1.MatchResult
++	(*Salvage)(nil),            // 29: frontline.v1.Salvage
++	(*Zone)(nil),               // 30: frontline.v1.Zone
++	(*StructureIndicator)(nil), // 31: frontline.v1.StructureIndicator
++	(*ObjectiveProgress)(nil),  // 32: frontline.v1.ObjectiveProgress
++	(*MissionProgress)(nil),    // 33: frontline.v1.MissionProgress
++	(*OperationWarning)(nil),   // 34: frontline.v1.OperationWarning
++	(*ConvoyProgress)(nil),     // 35: frontline.v1.ConvoyProgress
++	(*EconomySample)(nil),      // 36: frontline.v1.EconomySample
++	(*ProductionCount)(nil),    // 37: frontline.v1.ProductionCount
++	(*PlayerTelemetry)(nil),    // 38: frontline.v1.PlayerTelemetry
++	(*DebriefPlayer)(nil),      // 39: frontline.v1.DebriefPlayer
++	(*DebriefEvent)(nil),       // 40: frontline.v1.DebriefEvent
++	(*Debrief)(nil),            // 41: frontline.v1.Debrief
+ }
+ var file_frontline_proto_depIdxs = []int32{
+ 	1,  // 0: frontline.v1.Envelope.hello:type_name -> frontline.v1.ClientHello
+ 	10, // 1: frontline.v1.Envelope.orders:type_name -> frontline.v1.OrderBatch
+ 	11, // 2: frontline.v1.Envelope.order_result:type_name -> frontline.v1.OrderResult
+-	25, // 3: frontline.v1.Envelope.snapshot:type_name -> frontline.v1.PlayerSnapshot
+-	26, // 4: frontline.v1.Envelope.delta:type_name -> frontline.v1.StateDelta
++	26, // 3: frontline.v1.Envelope.snapshot:type_name -> frontline.v1.PlayerSnapshot
++	27, // 4: frontline.v1.Envelope.delta:type_name -> frontline.v1.StateDelta
+ 	2,  // 5: frontline.v1.Envelope.resume:type_name -> frontline.v1.ResumeMatch
+-	27, // 6: frontline.v1.Envelope.result:type_name -> frontline.v1.MatchResult
++	28, // 6: frontline.v1.Envelope.result:type_name -> frontline.v1.MatchResult
+ 	7,  // 7: frontline.v1.Envelope.error:type_name -> frontline.v1.ProtocolError
+ 	6,  // 8: frontline.v1.Envelope.ping:type_name -> frontline.v1.Ping
+ 	3,  // 9: frontline.v1.Envelope.control:type_name -> frontline.v1.MatchControl
+@@ -4259,49 +4365,50 @@
+ 	13, // 20: frontline.v1.EntityPrivate.cooldowns:type_name -> frontline.v1.Cooldown
+ 	8,  // 21: frontline.v1.Entity.position:type_name -> frontline.v1.Vec
+ 	16, // 22: frontline.v1.Entity.private:type_name -> frontline.v1.EntityPrivate
+-	8,  // 23: frontline.v1.Projectile.position:type_name -> frontline.v1.Vec
+-	8,  // 24: frontline.v1.Projectile.impact:type_name -> frontline.v1.Vec
+-	8,  // 25: frontline.v1.Field.position:type_name -> frontline.v1.Vec
+-	8,  // 26: frontline.v1.Station.position:type_name -> frontline.v1.Vec
+-	8,  // 27: frontline.v1.Memory.position:type_name -> frontline.v1.Vec
+-	8,  // 28: frontline.v1.Event.position:type_name -> frontline.v1.Vec
+-	12, // 29: frontline.v1.PlayerSnapshot.metadata:type_name -> frontline.v1.Metadata
+-	15, // 30: frontline.v1.PlayerSnapshot.economy:type_name -> frontline.v1.Economy
+-	18, // 31: frontline.v1.PlayerSnapshot.players:type_name -> frontline.v1.PlayerSummary
+-	17, // 32: frontline.v1.PlayerSnapshot.entities:type_name -> frontline.v1.Entity
+-	19, // 33: frontline.v1.PlayerSnapshot.projectiles:type_name -> frontline.v1.Projectile
+-	20, // 34: frontline.v1.PlayerSnapshot.fields:type_name -> frontline.v1.Field
+-	21, // 35: frontline.v1.PlayerSnapshot.stations:type_name -> frontline.v1.Station
+-	22, // 36: frontline.v1.PlayerSnapshot.memory:type_name -> frontline.v1.Memory
+-	23, // 37: frontline.v1.PlayerSnapshot.events:type_name -> frontline.v1.Event
+-	11, // 38: frontline.v1.PlayerSnapshot.results:type_name -> frontline.v1.OrderResult
+-	24, // 39: frontline.v1.PlayerSnapshot.outcome:type_name -> frontline.v1.Outcome
+-	28, // 40: frontline.v1.PlayerSnapshot.salvage:type_name -> frontline.v1.Salvage
+-	29, // 41: frontline.v1.PlayerSnapshot.zones:type_name -> frontline.v1.Zone
+-	30, // 42: frontline.v1.PlayerSnapshot.indicators:type_name -> frontline.v1.StructureIndicator
+-	32, // 43: frontline.v1.PlayerSnapshot.mission:type_name -> frontline.v1.MissionProgress
+-	33, // 44: frontline.v1.PlayerSnapshot.warnings:type_name -> frontline.v1.OperationWarning
+-	40, // 45: frontline.v1.PlayerSnapshot.debrief:type_name -> frontline.v1.Debrief
+-	25, // 46: frontline.v1.StateDelta.state:type_name -> frontline.v1.PlayerSnapshot
+-	24, // 47: frontline.v1.MatchResult.outcome:type_name -> frontline.v1.Outcome
+-	8,  // 48: frontline.v1.Salvage.position:type_name -> frontline.v1.Vec
+-	8,  // 49: frontline.v1.Zone.position:type_name -> frontline.v1.Vec
+-	8,  // 50: frontline.v1.StructureIndicator.position:type_name -> frontline.v1.Vec
+-	31, // 51: frontline.v1.MissionProgress.objectives:type_name -> frontline.v1.ObjectiveProgress
+-	34, // 52: frontline.v1.MissionProgress.convoys:type_name -> frontline.v1.ConvoyProgress
+-	8,  // 53: frontline.v1.OperationWarning.position:type_name -> frontline.v1.Vec
+-	8,  // 54: frontline.v1.OperationWarning.exits:type_name -> frontline.v1.Vec
+-	36, // 55: frontline.v1.PlayerTelemetry.units_produced:type_name -> frontline.v1.ProductionCount
+-	36, // 56: frontline.v1.PlayerTelemetry.buildings_constructed:type_name -> frontline.v1.ProductionCount
+-	35, // 57: frontline.v1.PlayerTelemetry.timeline:type_name -> frontline.v1.EconomySample
+-	37, // 58: frontline.v1.DebriefPlayer.metrics:type_name -> frontline.v1.PlayerTelemetry
+-	38, // 59: frontline.v1.Debrief.players:type_name -> frontline.v1.DebriefPlayer
+-	39, // 60: frontline.v1.Debrief.events:type_name -> frontline.v1.DebriefEvent
+-	61, // [61:61] is the sub-list for method output_type
+-	61, // [61:61] is the sub-list for method input_type
+-	61, // [61:61] is the sub-list for extension type_name
+-	61, // [61:61] is the sub-list for extension extendee
+-	0,  // [0:61] is the sub-list for field type_name
++	17, // 23: frontline.v1.Entity.effects:type_name -> frontline.v1.StatusEffect
++	8,  // 24: frontline.v1.Projectile.position:type_name -> frontline.v1.Vec
++	8,  // 25: frontline.v1.Projectile.impact:type_name -> frontline.v1.Vec
++	8,  // 26: frontline.v1.Field.position:type_name -> frontline.v1.Vec
++	8,  // 27: frontline.v1.Station.position:type_name -> frontline.v1.Vec
++	8,  // 28: frontline.v1.Memory.position:type_name -> frontline.v1.Vec
++	8,  // 29: frontline.v1.Event.position:type_name -> frontline.v1.Vec
++	12, // 30: frontline.v1.PlayerSnapshot.metadata:type_name -> frontline.v1.Metadata
++	15, // 31: frontline.v1.PlayerSnapshot.economy:type_name -> frontline.v1.Economy
++	19, // 32: frontline.v1.PlayerSnapshot.players:type_name -> frontline.v1.PlayerSummary
++	18, // 33: frontline.v1.PlayerSnapshot.entities:type_name -> frontline.v1.Entity
++	20, // 34: frontline.v1.PlayerSnapshot.projectiles:type_name -> frontline.v1.Projectile
++	21, // 35: frontline.v1.PlayerSnapshot.fields:type_name -> frontline.v1.Field
++	22, // 36: frontline.v1.PlayerSnapshot.stations:type_name -> frontline.v1.Station
++	23, // 37: frontline.v1.PlayerSnapshot.memory:type_name -> frontline.v1.Memory
++	24, // 38: frontline.v1.PlayerSnapshot.events:type_name -> frontline.v1.Event
++	11, // 39: frontline.v1.PlayerSnapshot.results:type_name -> frontline.v1.OrderResult
++	25, // 40: frontline.v1.PlayerSnapshot.outcome:type_name -> frontline.v1.Outcome
++	29, // 41: frontline.v1.PlayerSnapshot.salvage:type_name -> frontline.v1.Salvage
++	30, // 42: frontline.v1.PlayerSnapshot.zones:type_name -> frontline.v1.Zone
++	31, // 43: frontline.v1.PlayerSnapshot.indicators:type_name -> frontline.v1.StructureIndicator
++	33, // 44: frontline.v1.PlayerSnapshot.mission:type_name -> frontline.v1.MissionProgress
++	34, // 45: frontline.v1.PlayerSnapshot.warnings:type_name -> frontline.v1.OperationWarning
++	41, // 46: frontline.v1.PlayerSnapshot.debrief:type_name -> frontline.v1.Debrief
++	26, // 47: frontline.v1.StateDelta.state:type_name -> frontline.v1.PlayerSnapshot
++	25, // 48: frontline.v1.MatchResult.outcome:type_name -> frontline.v1.Outcome
++	8,  // 49: frontline.v1.Salvage.position:type_name -> frontline.v1.Vec
++	8,  // 50: frontline.v1.Zone.position:type_name -> frontline.v1.Vec
++	8,  // 51: frontline.v1.StructureIndicator.position:type_name -> frontline.v1.Vec
++	32, // 52: frontline.v1.MissionProgress.objectives:type_name -> frontline.v1.ObjectiveProgress
++	35, // 53: frontline.v1.MissionProgress.convoys:type_name -> frontline.v1.ConvoyProgress
++	8,  // 54: frontline.v1.OperationWarning.position:type_name -> frontline.v1.Vec
++	8,  // 55: frontline.v1.OperationWarning.exits:type_name -> frontline.v1.Vec
++	37, // 56: frontline.v1.PlayerTelemetry.units_produced:type_name -> frontline.v1.ProductionCount
++	37, // 57: frontline.v1.PlayerTelemetry.buildings_constructed:type_name -> frontline.v1.ProductionCount
++	36, // 58: frontline.v1.PlayerTelemetry.timeline:type_name -> frontline.v1.EconomySample
++	38, // 59: frontline.v1.DebriefPlayer.metrics:type_name -> frontline.v1.PlayerTelemetry
++	39, // 60: frontline.v1.Debrief.players:type_name -> frontline.v1.DebriefPlayer
++	40, // 61: frontline.v1.Debrief.events:type_name -> frontline.v1.DebriefEvent
++	62, // [62:62] is the sub-list for method output_type
++	62, // [62:62] is the sub-list for method input_type
++	62, // [62:62] is the sub-list for extension type_name
++	62, // [62:62] is the sub-list for extension extendee
++	0,  // [0:62] is the sub-list for field type_name
+ }
+ 
+ func init() { file_frontline_proto_init() }
+@@ -4322,13 +4429,16 @@
+ 		(*Envelope_Control)(nil),
+ 		(*Envelope_Status)(nil),
+ 	}
++	file_frontline_proto_msgTypes[16].OneofWrappers = []any{}
++	file_frontline_proto_msgTypes[20].OneofWrappers = []any{}
++	file_frontline_proto_msgTypes[34].OneofWrappers = []any{}
+ 	type x struct{}
+ 	out := protoimpl.TypeBuilder{
+ 		File: protoimpl.DescBuilder{
+ 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
+ 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_frontline_proto_rawDesc), len(file_frontline_proto_rawDesc)),
+ 			NumEnums:      0,
+-			NumMessages:   41,
++			NumMessages:   42,
+ 			NumExtensions: 0,
+ 			NumServices:   0,
+ 		},
+--- original/protocol/frontline.proto
++++ candidate/protocol/frontline.proto
+@@ -34,10 +34,11 @@
+ message Cooldown { string id = 1; uint32 until = 2; }
+ message Job { string type = 1; bool research = 2; int64 paid = 3; uint32 work = 4; uint32 required = 5; int32 supply = 6; uint32 service = 7; bool started = 8; bool emergency = 9; }
+ message Economy { int64 credits = 1; int64 energy = 2; int32 supply = 3; int32 reserved_supply = 4; int32 power_capacity = 5; int32 power_demand = 6; int32 tier = 7; int64 income = 8; int64 repair_reserve = 9; repeated string upgrades = 10; repeated Cooldown cooldowns = 11; uint32 last_sequence = 12; }
+-message EntityPrivate { int64 hp = 1; int64 max_hp = 2; repeated Job jobs = 3; repeated Order orders = 4; Vec rally = 5; int64 cargo = 6; uint32 home = 7; int32 ammo = 8; uint32 endurance = 9; int32 charges = 10; uint32 charge_work = 11; uint32 service_work = 12; int64 experience = 13; repeated Cooldown cooldowns = 14; repeated uint32 passengers = 15; uint32 container = 16; bool repeat_sortie = 17; bool ambush_ready = 18; string mission_origin = 19; }
+-message Entity { uint32 id = 1; string type = 2; uint32 owner = 3; Vec position = 4; int32 facing = 5; int32 health = 6; string state = 7; bool complete = 8; bool enabled = 9; bool landed = 10; bool deployed = 11; bool concealed = 12; int32 progress = 13; uint32 rank = 14; EntityPrivate private = 15; int32 turret_facing = 16; uint32 channel_until = 17; uint32 map_object = 18; int32 footprint_width = 19; int32 footprint_height = 20; string footprint_type = 21; }
++message EntityPrivate { int64 hp = 1; int64 max_hp = 2; repeated Job jobs = 3; repeated Order orders = 4; Vec rally = 5; int64 cargo = 6; uint32 home = 7; int32 ammo = 8; uint32 endurance = 9; int32 charges = 10; uint32 charge_work = 11; uint32 service_work = 12; int64 experience = 13; repeated Cooldown cooldowns = 14; repeated uint32 passengers = 15; uint32 container = 16; bool repeat_sortie = 17; bool ambush_ready = 18; string mission_origin = 19; optional uint32 emergency_takeoff_until = 20; }
++message StatusEffect { string kind = 1; uint32 until = 2; }
++message Entity { uint32 id = 1; string type = 2; uint32 owner = 3; Vec position = 4; int32 facing = 5; int32 health = 6; string state = 7; bool complete = 8; bool enabled = 9; bool landed = 10; bool deployed = 11; bool concealed = 12; int32 progress = 13; uint32 rank = 14; EntityPrivate private = 15; int32 turret_facing = 16; uint32 channel_until = 17; uint32 map_object = 18; int32 footprint_width = 19; int32 footprint_height = 20; string footprint_type = 21; repeated StatusEffect effects = 22; }
+ message PlayerSummary { uint32 id = 1; string name = 2; string faction = 3; uint32 team = 4; bool defeated = 5; uint32 defeat_at = 6; int32 strategic_progress = 7; bool surrender_vote = 8; uint32 color = 9; }
+-message Projectile { uint32 id = 1; uint32 owner = 2; string weapon = 3; Vec position = 4; Vec impact = 5; uint32 impact_at = 6; bool interceptable = 7; bool warning = 8; }
++message Projectile { uint32 id = 1; uint32 owner = 2; string weapon = 3; Vec position = 4; Vec impact = 5; uint32 impact_at = 6; bool interceptable = 7; bool warning = 8; optional int32 splash = 9; optional bool position_visible = 10; }
+ message Field { uint32 id = 1; Vec position = 2; int64 remaining = 3; }
+ message Station { uint32 id = 1; Vec position = 2; uint32 owner = 3; }
+ message Memory { uint32 id = 1; string type = 2; uint32 owner = 3; Vec position = 4; uint32 seen = 5; int32 footprint_width = 6; int32 footprint_height = 7; string footprint_type = 8; }
+@@ -55,7 +56,7 @@
+ message ObjectiveProgress { string id = 1; string text = 2; bool optional = 3; bool failure = 4; bool complete = 5; uint32 progress = 6; uint32 required = 7; }
+ message MissionProgress { string id = 1; string title = 2; string difficulty = 3; string checkpoint = 4; uint32 checkpoint_tick = 5; repeated ObjectiveProgress objectives = 6; repeated ConvoyProgress convoys = 7; string version = 8; }
+ 
+-message OperationWarning { string kind = 1; uint32 owner = 2; Vec position = 3; uint32 at = 4; uint32 source = 5; repeated Vec exits = 6; }
++message OperationWarning { string kind = 1; uint32 owner = 2; Vec position = 3; uint32 at = 4; uint32 source = 5; repeated Vec exits = 6; optional int32 splash = 7; }
+ 
+ message ConvoyProgress { string id = 1; bool active = 2; bool completed = 3; bool held = 4; bool moving = 5; uint32 route = 6; uint32 waypoint = 7; uint32 countdown_until = 8; repeated uint32 approved = 9; }
+ 
