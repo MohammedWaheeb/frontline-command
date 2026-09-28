@@ -1,15 +1,16 @@
 import type {GameMap,PlayerSnapshot,Point} from '../runtime/types';
+import type {MapEnvironment} from '../content/environment';
 import {authoredArtId} from './art-id';
 
 export interface EnvironmentItem {
- key:string;kind:'field'|'station'|'shipment'|'rubble';id:number;position:Point;asset:string;state:string;
- owner?:number;remembered:boolean;visible:boolean;remaining?:bigint;
+ key:string;kind:'field'|'station'|'shipment'|'rubble'|'dressing';id:number;position:Point;asset:string;state:string;
+ direction?:0|1|2|3;owner?:number;remembered:boolean;visible:boolean;remaining?:bigint;
 }
 /** Presentation memory stores only facts already disclosed to this perspective.
  * It never reads engine saves or predicts hidden harvesting/capture/destruction. */
 export class EnvironmentKnowledge {
  private tick=-1;private player=-1;private fields=new Map<string,EnvironmentItem>();private stations=new Map<string,EnvironmentItem>();
- constructor(private readonly map:GameMap){}
+ constructor(private readonly map:GameMap,private readonly environment?:MapEnvironment){}
  clear(){this.tick=-1;this.player=-1;this.fields.clear();this.stations.clear()}
  sync(snapshot:PlayerSnapshot):EnvironmentItem[]{
   if(snapshot.tick<this.tick||snapshot.player!==this.player)this.clear();this.tick=snapshot.tick;this.player=snapshot.player;
@@ -36,7 +37,9 @@ export class EnvironmentKnowledge {
   for(const station of this.map.stations??[])if(!this.stations.has(`${station.position.x}:${station.position.y}`)&&explored(station.position))result.push({key:`station-at:${station.position.x}:${station.position.y}`,kind:'station',id:station.id,position:{...station.position},asset:'prop.supply_station_neutral',state:'idle',visible:true,remembered:true});
   for(const item of [...this.fields.values(),...this.stations.values()])result.push({...item,visible:explored(item.position),remembered:!seen(item.position)});
   if(explored(this.map.shipment))result.push({key:'shipment-site',kind:'shipment',id:0,position:{...this.map.shipment},asset:'prop.central_shipment_site',state:'idle',visible:true,remembered:!seen(this.map.shipment)});
-  const known=new Set(snapshot.rubble);for(const object of this.map.objects??[])if(known.has(object.id))result.push({key:`rubble:${object.id}`,kind:'rubble',id:object.id,position:{...object.position},asset:authoredArtId(`map.${object.class}`)!,state:'destroyed',visible:explored(object.position),remembered:!seen(object.position)});
+  for(const p of this.environment?.placements??[])if(explored(p.position))result.push({key:`dressing:${p.id}`,kind:'dressing',id:0,asset:p.asset,position:{...p.position},direction:p.direction,state:p.state,visible:true,remembered:!seen(p.position)});
+  const skins=new Map(this.environment?.object_skins.map(s=>[s.object_id,s]));
+  const known=new Set(snapshot.rubble);for(const object of this.map.objects??[])if(known.has(object.id))result.push({key:`rubble:${object.id}`,kind:'rubble',id:object.id,position:{...object.position},asset:skins.get(object.id)?.asset??authoredArtId(`map.${object.class}`)!,direction:skins.get(object.id)?.direction,state:'destroyed',visible:explored(object.position),remembered:!seen(object.position)});
   return result.sort((a,b)=>a.key.localeCompare(b.key));
  }
 }

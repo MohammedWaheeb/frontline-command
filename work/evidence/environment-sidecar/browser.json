@@ -1,0 +1,2816 @@
+{
+  "time": "2026-09-28T05:04:38.138Z",
+  "errors": [],
+  "wasmSHA256": "4e67eebdd53c6ce588c14f0f01b54c236e193feacfbd2936bed0af4002a45efa",
+  "opening": {
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.3",
+      "tick_rate": 20
+    },
+    "tick": 100,
+    "definition": {
+      "schema": "fc-map-environment/1",
+      "map": {
+        "id": "sidecar-integration",
+        "version": "1",
+        "sha256": "42ff644fb7997062ce072c4b552e63ac2a671125e95ec82740889e3ba8b06fe3"
+      },
+      "object_skins": [
+        {
+          "object_id": 90,
+          "asset": "prop.ruined_house_garrisonable",
+          "direction": 2
+        }
+      ],
+      "placements": [
+        {
+          "id": "containers",
+          "asset": "prop.container_stack",
+          "position": {
+            "x": 18000,
+            "y": 22000
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "fence",
+          "asset": "prop.fence_chainlink",
+          "position": {
+            "x": 18000,
+            "y": 27000
+          },
+          "direction": 1,
+          "state": "idle"
+        },
+        {
+          "id": "cover-scrub",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "bridge-30-29",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right"
+        },
+        {
+          "id": "bridge-30-30",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck"
+        },
+        {
+          "id": "bridge-30-31",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left"
+        },
+        {
+          "id": "bridge-31-29",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right"
+        },
+        {
+          "id": "bridge-31-30",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck"
+        },
+        {
+          "id": "bridge-31-31",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left"
+        },
+        {
+          "id": "bridge-32-29",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right"
+        },
+        {
+          "id": "bridge-32-30",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck"
+        },
+        {
+          "id": "bridge-32-31",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left"
+        },
+        {
+          "id": "bridge-33-29",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right"
+        },
+        {
+          "id": "bridge-33-30",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck"
+        },
+        {
+          "id": "bridge-33-31",
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left"
+        }
+      ]
+    },
+    "mapSHA256": "42ff644fb7997062ce072c4b552e63ac2a671125e95ec82740889e3ba8b06fe3",
+    "skin": {
+      "sheet": "prop.ruined_house_garrisonable",
+      "actualGoFacing": 0,
+      "poses": [
+        {
+          "shadow": {
+            "state": "intact",
+            "direction": 2,
+            "frame": 0
+          },
+          "beauty": {
+            "state": "intact",
+            "direction": 2,
+            "frame": 0
+          }
+        }
+      ]
+    },
+    "nodes": [
+      {
+        "key": "dressing:bridge-30-29",
+        "item": {
+          "key": "dressing:bridge-30-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-30",
+        "item": {
+          "key": "dressing:bridge-30-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-31",
+        "item": {
+          "key": "dressing:bridge-30-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-29",
+        "item": {
+          "key": "dressing:bridge-31-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-30",
+        "item": {
+          "key": "dressing:bridge-31-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-31",
+        "item": {
+          "key": "dressing:bridge-31-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-29",
+        "item": {
+          "key": "dressing:bridge-32-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-30",
+        "item": {
+          "key": "dressing:bridge-32-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-31",
+        "item": {
+          "key": "dressing:bridge-32-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-30",
+        "item": {
+          "key": "dressing:bridge-33-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:cover-scrub",
+        "item": {
+          "key": "dressing:cover-scrub",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.forest_edge_scrub",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 12000,
+            "y": 30000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ],
+    "missing": [
+      "US.airfield",
+      "US.fighter"
+    ]
+  },
+  "industry": {
+    "tick": 114,
+    "nodes": [
+      {
+        "key": "dressing:bridge-30-29",
+        "item": {
+          "key": "dressing:bridge-30-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-30",
+        "item": {
+          "key": "dressing:bridge-30-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-31",
+        "item": {
+          "key": "dressing:bridge-30-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-29",
+        "item": {
+          "key": "dressing:bridge-31-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-30",
+        "item": {
+          "key": "dressing:bridge-31-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-31",
+        "item": {
+          "key": "dressing:bridge-31-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-29",
+        "item": {
+          "key": "dressing:bridge-32-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-30",
+        "item": {
+          "key": "dressing:bridge-32-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-31",
+        "item": {
+          "key": "dressing:bridge-32-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-30",
+        "item": {
+          "key": "dressing:bridge-33-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:cover-scrub",
+        "item": {
+          "key": "dressing:cover-scrub",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.forest_edge_scrub",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 12000,
+            "y": 30000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:fence",
+        "item": {
+          "key": "dressing:fence",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.fence_chainlink",
+          "position": {
+            "x": 18000,
+            "y": 27000
+          },
+          "direction": 1,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.fence_chainlink",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:containers",
+        "item": {
+          "key": "dressing:containers",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.container_stack",
+          "position": {
+            "x": 18000,
+            "y": 22000
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.container_stack",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ],
+    "aircraft": {
+      "$typeName": "frontline.v1.Entity",
+      "id": 7,
+      "type": "US.fighter",
+      "owner": 1,
+      "facing": 296640,
+      "health": 1000,
+      "state": "flying",
+      "complete": true,
+      "enabled": true,
+      "landed": false,
+      "deployed": false,
+      "concealed": false,
+      "progress": 0,
+      "rank": 0,
+      "turretFacing": 0,
+      "channelUntil": 0,
+      "mapObject": 0,
+      "footprintWidth": 0,
+      "footprintHeight": 0,
+      "footprintType": "",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 13478,
+        "y": 31948
+      },
+      "private": {
+        "$typeName": "frontline.v1.EntityPrivate",
+        "hp": "750000",
+        "maxHp": "750000",
+        "jobs": [],
+        "orders": [
+          {
+            "$typeName": "frontline.v1.Order",
+            "kind": "move",
+            "entities": [],
+            "target": 0,
+            "type": "",
+            "queued": false,
+            "index": 0,
+            "points": [],
+            "position": {
+              "$typeName": "frontline.v1.Vec",
+              "x": 18000,
+              "y": 23000
+            }
+          }
+        ],
+        "cargo": "0",
+        "home": 6,
+        "ammo": 6,
+        "endurance": 2386,
+        "charges": 0,
+        "chargeWork": 0,
+        "serviceWork": 0,
+        "experience": "0",
+        "cooldowns": [],
+        "passengers": [],
+        "container": 0,
+        "repeatSortie": false,
+        "ambushReady": false,
+        "missionOrigin": "initial:1",
+        "rally": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10500,
+          "y": 35500
+        }
+      }
+    }
+  },
+  "culling": {
+    "offscreen": [
+      {
+        "key": "dressing:bridge-30-29",
+        "item": {
+          "key": "dressing:bridge-30-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-30",
+        "item": {
+          "key": "dressing:bridge-30-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-31",
+        "item": {
+          "key": "dressing:bridge-30-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-29",
+        "item": {
+          "key": "dressing:bridge-31-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-30",
+        "item": {
+          "key": "dressing:bridge-31-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-31",
+        "item": {
+          "key": "dressing:bridge-31-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-29",
+        "item": {
+          "key": "dressing:bridge-32-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-30",
+        "item": {
+          "key": "dressing:bridge-32-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-31",
+        "item": {
+          "key": "dressing:bridge-32-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-30",
+        "item": {
+          "key": "dressing:bridge-33-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:cover-scrub",
+        "item": {
+          "key": "dressing:cover-scrub",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.forest_edge_scrub",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:fence",
+        "item": {
+          "key": "dressing:fence",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.fence_chainlink",
+          "position": {
+            "x": 18000,
+            "y": 27000
+          },
+          "direction": 1,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.fence_chainlink",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:containers",
+        "item": {
+          "key": "dressing:containers",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.container_stack",
+          "position": {
+            "x": 18000,
+            "y": 22000
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.container_stack",
+        "visible": false,
+        "alpha": 1,
+        "beauty": true
+      }
+    ],
+    "restored": [
+      {
+        "key": "dressing:bridge-30-29",
+        "item": {
+          "key": "dressing:bridge-30-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-30",
+        "item": {
+          "key": "dressing:bridge-30-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-31",
+        "item": {
+          "key": "dressing:bridge-30-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-29",
+        "item": {
+          "key": "dressing:bridge-31-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-30",
+        "item": {
+          "key": "dressing:bridge-31-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-31",
+        "item": {
+          "key": "dressing:bridge-31-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-29",
+        "item": {
+          "key": "dressing:bridge-32-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-30",
+        "item": {
+          "key": "dressing:bridge-32-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-31",
+        "item": {
+          "key": "dressing:bridge-32-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-30",
+        "item": {
+          "key": "dressing:bridge-33-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:cover-scrub",
+        "item": {
+          "key": "dressing:cover-scrub",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.forest_edge_scrub",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 12000,
+            "y": 30000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:fence",
+        "item": {
+          "key": "dressing:fence",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.fence_chainlink",
+          "position": {
+            "x": 18000,
+            "y": 27000
+          },
+          "direction": 1,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.fence_chainlink",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:containers",
+        "item": {
+          "key": "dressing:containers",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.container_stack",
+          "position": {
+            "x": 18000,
+            "y": 22000
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.container_stack",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ]
+  },
+  "returnScout": {
+    "tick": 116
+  },
+  "destruction": {
+    "tick": 862,
+    "poses": [
+      "intact",
+      "damaged"
+    ],
+    "rubble": [
+      90
+    ],
+    "nodes": [
+      {
+        "key": "dressing:bridge-30-29",
+        "item": {
+          "key": "dressing:bridge-30-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-30",
+        "item": {
+          "key": "dressing:bridge-30-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-31",
+        "item": {
+          "key": "dressing:bridge-30-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-29",
+        "item": {
+          "key": "dressing:bridge-31-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-30",
+        "item": {
+          "key": "dressing:bridge-31-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-31",
+        "item": {
+          "key": "dressing:bridge-31-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-29",
+        "item": {
+          "key": "dressing:bridge-32-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-30",
+        "item": {
+          "key": "dressing:bridge-32-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-31",
+        "item": {
+          "key": "dressing:bridge-32-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-30",
+        "item": {
+          "key": "dressing:bridge-33-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:cover-scrub",
+        "item": {
+          "key": "dressing:cover-scrub",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.forest_edge_scrub",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 12000,
+            "y": 30000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:fence",
+        "item": {
+          "key": "dressing:fence",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.fence_chainlink",
+          "position": {
+            "x": 18000,
+            "y": 27000
+          },
+          "direction": 1,
+          "state": "idle",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.fence_chainlink",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:containers",
+        "item": {
+          "key": "dressing:containers",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.container_stack",
+          "position": {
+            "x": 18000,
+            "y": 22000
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.container_stack",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-29",
+        "item": {
+          "key": "dressing:bridge-33-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-31",
+        "item": {
+          "key": "dressing:bridge-33-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:90",
+        "item": {
+          "key": "rubble:90",
+          "kind": "rubble",
+          "id": 90,
+          "position": {
+            "x": 26500,
+            "y": 17500
+          },
+          "asset": "prop.ruined_house_garrisonable",
+          "direction": 2,
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.ruined_house_garrisonable",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ]
+  },
+  "crossing": {
+    "tick": 1024,
+    "position": {
+      "$typeName": "frontline.v1.Vec",
+      "x": 40050,
+      "y": 30499
+    },
+    "positions": [
+      {
+        "tick": 940,
+        "x": 30390,
+        "y": 30499,
+        "terrain": "road"
+      },
+      {
+        "tick": 944,
+        "x": 30850,
+        "y": 30499,
+        "terrain": "road"
+      },
+      {
+        "tick": 948,
+        "x": 31310,
+        "y": 30499,
+        "terrain": "road"
+      },
+      {
+        "tick": 952,
+        "x": 31770,
+        "y": 30499,
+        "terrain": "road"
+      },
+      {
+        "tick": 956,
+        "x": 32230,
+        "y": 30499,
+        "terrain": "road"
+      },
+      {
+        "tick": 960,
+        "x": 32690,
+        "y": 30499,
+        "terrain": "road"
+      },
+      {
+        "tick": 964,
+        "x": 33150,
+        "y": 30499,
+        "terrain": "road"
+      },
+      {
+        "tick": 968,
+        "x": 33610,
+        "y": 30499,
+        "terrain": "road"
+      }
+    ],
+    "nodes": [
+      {
+        "key": "dressing:bridge-30-29",
+        "item": {
+          "key": "dressing:bridge-30-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-30",
+        "item": {
+          "key": "dressing:bridge-30-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-31",
+        "item": {
+          "key": "dressing:bridge-30-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-29",
+        "item": {
+          "key": "dressing:bridge-31-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-30",
+        "item": {
+          "key": "dressing:bridge-31-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-31",
+        "item": {
+          "key": "dressing:bridge-31-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-29",
+        "item": {
+          "key": "dressing:bridge-32-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-30",
+        "item": {
+          "key": "dressing:bridge-32-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-31",
+        "item": {
+          "key": "dressing:bridge-32-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-30",
+        "item": {
+          "key": "dressing:bridge-33-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:cover-scrub",
+        "item": {
+          "key": "dressing:cover-scrub",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.forest_edge_scrub",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 12000,
+            "y": 30000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:fence",
+        "item": {
+          "key": "dressing:fence",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.fence_chainlink",
+          "position": {
+            "x": 18000,
+            "y": 27000
+          },
+          "direction": 1,
+          "state": "idle",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.fence_chainlink",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:containers",
+        "item": {
+          "key": "dressing:containers",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.container_stack",
+          "position": {
+            "x": 18000,
+            "y": 22000
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.container_stack",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-29",
+        "item": {
+          "key": "dressing:bridge-33-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-31",
+        "item": {
+          "key": "dressing:bridge-33-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:90",
+        "item": {
+          "key": "rubble:90",
+          "kind": "rubble",
+          "id": 90,
+          "position": {
+            "x": 26500,
+            "y": 17500
+          },
+          "asset": "prop.ruined_house_garrisonable",
+          "direction": 2,
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.ruined_house_garrisonable",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ]
+  },
+  "fog": {
+    "garrisonVisible": false,
+    "nodes": [
+      {
+        "key": "dressing:bridge-30-29",
+        "item": {
+          "key": "dressing:bridge-30-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-30",
+        "item": {
+          "key": "dressing:bridge-30-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-31",
+        "item": {
+          "key": "dressing:bridge-30-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-29",
+        "item": {
+          "key": "dressing:bridge-31-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-30",
+        "item": {
+          "key": "dressing:bridge-31-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-31",
+        "item": {
+          "key": "dressing:bridge-31-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-29",
+        "item": {
+          "key": "dressing:bridge-32-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-30",
+        "item": {
+          "key": "dressing:bridge-32-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-31",
+        "item": {
+          "key": "dressing:bridge-32-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-30",
+        "item": {
+          "key": "dressing:bridge-33-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:cover-scrub",
+        "item": {
+          "key": "dressing:cover-scrub",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.forest_edge_scrub",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 12000,
+            "y": 30000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:fence",
+        "item": {
+          "key": "dressing:fence",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.fence_chainlink",
+          "position": {
+            "x": 18000,
+            "y": 27000
+          },
+          "direction": 1,
+          "state": "idle",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.fence_chainlink",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:containers",
+        "item": {
+          "key": "dressing:containers",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.container_stack",
+          "position": {
+            "x": 18000,
+            "y": 22000
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.container_stack",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-29",
+        "item": {
+          "key": "dressing:bridge-33-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-31",
+        "item": {
+          "key": "dressing:bridge-33-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:90",
+        "item": {
+          "key": "rubble:90",
+          "kind": "rubble",
+          "id": 90,
+          "position": {
+            "x": 26500,
+            "y": 17500
+          },
+          "asset": "prop.ruined_house_garrisonable",
+          "direction": 2,
+          "state": "destroyed",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.ruined_house_garrisonable",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      }
+    ]
+  },
+  "restore": {
+    "hash": "c21efd612eb7f940eca9f9b113d8708e930ce8fabb568b141d26e2a16c16df72",
+    "restored": "c21efd612eb7f940eca9f9b113d8708e930ce8fabb568b141d26e2a16c16df72",
+    "openingHash": "9a8331cebc9aee4de20cb0a99aac404709f46d00beecf973e1a3582f29e9a99e",
+    "rewoundHash": "9a8331cebc9aee4de20cb0a99aac404709f46d00beecf973e1a3582f29e9a99e",
+    "rubble": [],
+    "nodes": [
+      {
+        "key": "dressing:bridge-30-29",
+        "item": {
+          "key": "dressing:bridge-30-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-30",
+        "item": {
+          "key": "dressing:bridge-30-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-30-31",
+        "item": {
+          "key": "dressing:bridge-30-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 30500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-29",
+        "item": {
+          "key": "dressing:bridge-31-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-30",
+        "item": {
+          "key": "dressing:bridge-31-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-31-31",
+        "item": {
+          "key": "dressing:bridge-31-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 31500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-29",
+        "item": {
+          "key": "dressing:bridge-32-29",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 29500
+          },
+          "direction": 0,
+          "state": "edge_right",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-30",
+        "item": {
+          "key": "dressing:bridge-32-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-32-31",
+        "item": {
+          "key": "dressing:bridge-32-31",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 32500,
+            "y": 31500
+          },
+          "direction": 0,
+          "state": "edge_left",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:bridge-33-30",
+        "item": {
+          "key": "dressing:bridge-33-30",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.bridge_permanent",
+          "position": {
+            "x": 33500,
+            "y": 30500
+          },
+          "direction": 0,
+          "state": "deck",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.bridge_permanent",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "dressing:cover-scrub",
+        "item": {
+          "key": "dressing:cover-scrub",
+          "kind": "dressing",
+          "id": 0,
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 20000,
+            "y": 14500
+          },
+          "direction": 0,
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.forest_edge_scrub",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 12000,
+            "y": 30000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ]
+  },
+  "disposal": {
+    "environment": 0,
+    "canvases": 0,
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0
+    }
+  },
+  "status": "passed"
+}

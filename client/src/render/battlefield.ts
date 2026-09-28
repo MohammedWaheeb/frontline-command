@@ -1,5 +1,6 @@
 import {Application,Container,Graphics,Texture} from 'pixi.js';
 import type {CommandTarget,Entity,GameMap,PlayerSnapshot,Point,Rect} from '../runtime';
+import type {MapEnvironment,EnvironmentObjectSkin} from '../content/environment';
 import type {CatalogIndex} from '../content/catalog';
 import type {Settings} from '../app/settings';
 import {tokens} from '../design/tokens';
@@ -19,7 +20,7 @@ export interface BattlefieldGesture {
  shift:boolean;ctrl:boolean;alt:boolean;meta:boolean;button:number;
 }
 export interface BattlefieldOptions {
- map:GameMap;catalog:CatalogIndex;art:ArtLibrary;settings:Settings;
+ map:GameMap;catalog:CatalogIndex;art:ArtLibrary;settings:Settings;environment?:MapEnvironment;
  onGesture:(event:BattlefieldGesture)=>void;onError?:(error:Error)=>void;
 }
 export interface PlacementPreview {type:string;width:number;height:number;position?:Point;valid?:boolean}
@@ -32,6 +33,7 @@ export class BattlefieldRenderer {
  private readonly app=new Application();private readonly world=new Container();
  private readonly ground=new Container();
  private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
+ private readonly objectSkins=new Map<string,EnvironmentObjectSkin>();
  private readonly actors=new Map<number,ActorVisual>();private environment:EnvironmentRenderer;
  private readonly chunks=new Map<string,Chunk>();private readonly missing=new Set<string>();
  private readonly deaths:Array<{actor:ActorVisual;until:number}>=[];
@@ -44,7 +46,7 @@ export class BattlefieldRenderer {
  private memoryKey='';private rubbleKey='';private terrainKey='';private lost=false;private presentationMap:GameMap;
  private effectEvent=0;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
- private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface)}
+ private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface,options.environment);for(const skin of options.environment?.object_skins??[]){const object=options.map.objects?.find(o=>o.id===skin.object_id);if(object)this.objectSkins.set(`map.${object.class}:${object.position.x}:${object.position.y}`,skin)}}
  static async create(host:HTMLElement,options:BattlefieldOptions):Promise<BattlefieldRenderer>{
   const renderer=new BattlefieldRenderer(host,options);
   try{await renderer.init();return renderer}catch(error){renderer.dispose();throw error}
@@ -164,7 +166,7 @@ export class BattlefieldRenderer {
    if(!entity.position||entity.private?.container)continue;
    living.add(entity.id);let actor=this.actors.get(entity.id);
    if(actor&&actor.entity.type!==entity.type){actor.dispose();this.actors.delete(entity.id);actor=undefined}
-   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,snapshot.players.find(p=>p.id===entity.owner)?.faction,this.surface);this.actors.set(entity.id,actor);this.ground.addChild(actor.root);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
+   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,snapshot.players.find(p=>p.id===entity.owner)?.faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
    actor.presentation=presentations.get(entity.id);actor.update(entity,this.tickAt);
   }
   const serviceBases=[...this.actors.values()].filter(actor=>living.has(actor.id)&&(this.options.catalog.buildings.get(actor.entity.type)?.service_slots??0)>0);
@@ -268,7 +270,7 @@ export class BattlefieldRenderer {
   if(this.disposed||this.lost)return;
   const now=performance.now();this.frame++;this.updateShake(now);this.cameraTransform();this.terrainFrame();
   if(this.settings.edgeScroll&&this.pointer&&!this.drag){const p=this.pointer,w=this.app.screen.width,h=this.app.screen.height,s=7*this.settings.scrollSpeed;this.pan(p.x<12?-s:p.x>w-12?s:0,p.y<12?-s:p.y>h-12?s:0)}
-  this.environment.render(owner=>this.team(owner));
+  this.environment.render(owner=>this.team(owner),{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom});
   for(const actor of this.actors.values()){
    const bounds=this.bounds(actor.entity);actor.root.visible=!!bounds&&bounds.right>=-200&&bounds.left<=this.app.screen.width+200&&bounds.bottom>=-200&&bounds.top<=this.app.screen.height+200;
    if(actor.terrainShadow)actor.terrainShadow.visible=actor.root.visible;

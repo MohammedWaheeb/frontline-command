@@ -103,5 +103,7 @@ renderer slice binds five of them. The other sixteen require explicit map/editor
 placement or a reviewed public styling contract. It does not infer hidden mission
 tags, dress every map automatically, or insert visual barriers into legal paths.
 
-A proposed separate public presentation contract is in
-`docs/environment-sidecar-proposal.md`. It is not implemented or accepted content.
+The subsequently approved public presentation contract and synthetic Go/browser
+pilot are in `docs/environment-sidecar.md`. It still does not constitute authored
+shipping map dressing; `docs/environment-sidecar-proposal.md` preserves the
+original reviewed architecture.

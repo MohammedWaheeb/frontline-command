@@ -1,7 +1,8 @@
 # Public environment sidecar proposal
 
-This is a proposal for coordinator review, not an implemented schema or authored
-map data. The strict Go map JSON stays unchanged. Current `LibraryMap` has no
+This is the original reviewed architecture proposal. The implemented contract
+and actual synthetic pilot evidence are in `docs/environment-sidecar.md`. No
+authored map dressing was added by this lane. The strict Go map JSON stays unchanged. Current `LibraryMap` has no
 environment member, and maps with unknown Go fields remain rejected.
 
 ## Separation and file identity

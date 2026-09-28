@@ -39,14 +39,14 @@ export class ActorVisual {
  departureDeck(now:number){return !this.entity.landed&&this.entity.state!=='destroyed'&&this.flight.altitude(this.entity,now,this.cruiseAltitude())<this.cruiseAltitude()?this.serviceDeck?.id:undefined}
  serviceRoofOffset(){const b=this.catalog.buildings.get(this.entity.type);return !this.sheet&&b?.service_slots?structureHeight(b.role):0}
  entity:Entity;
- constructor(entity:Entity,private catalog:CatalogIndex,art:ArtLibrary,faction?:string,private surface?:TerrainSurface){
+ constructor(entity:Entity,private catalog:CatalogIndex,art:ArtLibrary,faction?:string,private surface?:TerrainSurface,private readonly skin?:{asset:string;direction:0|1|2|3}){
   this.id=entity.id;this.entity=entity;this.lastPosition=this.nextPosition={...entity.position!};
   this.lastState=entity.state;this.stateAt=performance.now();this.previousFacing=this.nextFacing=entity.facing;
   // All projected ground shadows sit behind the whole actor. A turret's
   // independent shadow must never darken an already-painted hull or plinth.
   this.root.addChild(this.foundation,this.groundShadows,this.fallback,this.overlays);
   if(surface&&catalog.units.get(entity.type)?.armor==='air'){this.root.removeChild(this.groundShadows);this.terrainShadow=this.groundShadows}
-  const resolved=art.resolve(entity.type,faction,catalog);this.standIn=resolved?.standIn??false;
+  const resolved=skin?{id:skin.asset,standIn:false}:art.resolve(entity.type,faction,catalog);this.standIn=resolved?.standIn??false;
   this.missingArt=!resolved;
   this.ready=resolved?art.sheet(resolved.id).then(sheet=>{
    if(this.disposed)return;
@@ -178,7 +178,7 @@ export class ActorVisual {
   this.root.position.set(screen.x,screen.y);this.root.zIndex=this.groundDepth(now,reducedMotion);
   this.root.alpha=e.concealed?.65:1;
   if(this.terrainShadow){this.terrainShadow.position.set(screen.x,screen.y);this.terrainShadow.zIndex=Math.max(p.x+p.y+altitude*12.5+.001,this.serviceDeck?this.serviceDeck.groundDepth(now)+.005:0);this.terrainShadow.alpha=this.root.alpha;this.terrainShadow.visible=this.root.visible}
-  const state=this.state(now,reducedMotion),facing=reducedMotion?e.facing:this.previousFacing+(((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000)*Math.min(1,(now-this.changedAt)/50);
+  const state=this.state(now,reducedMotion),facing=this.skin?this.skin.direction*90000:reducedMotion?e.facing:this.previousFacing+(((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000)*Math.min(1,(now-this.changedAt)/50);
   const animationTime=reducedMotion?(e.state==='destroyed'?this.stateAt+10000:this.activeAction(now)?this.action!.at:this.stateAt):now;
   this.fallback.visible=!state;
   if(state){
