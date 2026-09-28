@@ -3,11 +3,13 @@ import {BattlefieldRenderer,type BattlefieldGesture} from '../render/battlefield
 import {art} from '../render/art';
 import {COMMANDS,ABILITIES,STRATEGIC,reason} from '../content/labels';
 import {Observable} from './store';
+import {productionFocus,productionSources,selectionAffordances} from './production-focus';
+import type {ProductionTab} from '../content/catalog';
 import type {Application} from './application';
 import {readMissionMarkers,type MissionMarker} from './mission-markers';
 import {readMissionGroupLabels,missionGroups,type MissionGroupLabel} from './mission-groups';
 export interface ProductionChoice {type:string;kind:'build'|'train'|'research';producer:number;available:boolean;reason?:string;waitsFor?:string}
-export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[]}
+export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];productionSource?:number;target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[]}
 /** Input only: every executable decision is validated by the Go runtime. */
 export class BattleController {
  readonly selection=new BattlefieldSelection();readonly modifiers=new ModifierToggles();readonly targeting=new CommandTargeting();
@@ -34,15 +36,29 @@ export class BattleController {
  }
  frame=(snapshot:PlayerSnapshot)=>{
   if(!this.closed&&!this.terminal&&(snapshot.outcome?.finished||snapshot.players.find(player=>player.id===snapshot.player)?.defeated)){
-   this.terminal=true;this.cancel();if(this.app.sessions.state.kind==='online')this.app.commandAdvice().cancel();this.state.update(state=>({...state,production:[],affordances:undefined,pending:false}));
+   this.terminal=true;this.cancel();if(this.app.sessions.state.kind==='online')this.app.commandAdvice().cancel();this.state.update(state=>({...state,production:[],productionSource:undefined,affordances:undefined,pending:false}));
   }
   if(!this.closed&&snapshot.mission&&this.markerMission!==snapshot.mission.id){this.markerMission=snapshot.mission.id;void this.loadMarkers(snapshot.mission)}
   if(this.closed)return;this.snapshot=snapshot;if(!this.tutorialMission&&this.app.sessions.state.kind==='solo'&&this.app.state.get().index?.missions.some(entry=>entry.mode==='tutorial'&&entry.id===snapshot.mission?.id)){const mission=this.tutorialMission={id:snapshot.mission!.id,version:snapshot.mission!.version};void this.app.tutorialInput.read(mission.id,mission.version).then(learned=>{if(!this.closed)this.state.update(state=>({...state,learned:[...new Set([...state.learned,...learned])]}))}).catch(error=>this.app.error(error))}const before=this.selection.token;this.selection.reconcile(snapshot,this.scope);this.renderer?.setSnapshot(snapshot);
   if(!sameSelection(before,this.selection.token))this.changed(true,false);
+  this.reconcileProduction();
   if(!this.closed&&snapshot.events.some(event=>event.kind==='route_blocked'&&event.owner===snapshot.player))this.learn('rejected_order');
   if(performance.now()>this.refreshAt&&!this.refreshing){this.refreshAt=performance.now()+3000;void this.refresh()}
  };
- private changed(resetCycle=true,audible=true){if(audible&&this.snapshot)this.app.audioDirector.selection(this.snapshot.entities.filter(entity=>this.selection.ids.includes(entity.id)),this.snapshot.player);if(resetCycle)this.subgroupCycle=undefined;this.generation++;this.targeting.reconcile(this.selection.token);if(!this.targeting.targeting)this.clearTarget(false);this.renderer?.setSelection(this.selection.ids);this.state.update(state=>({...state,ids:this.selection.ids,production:[],affordances:undefined}));void this.refresh()}
+ private reconcileProduction(followSelection=false){
+  const catalog=this.app.state.get().catalog;if(!this.snapshot||!catalog)return;
+  const old=this.state.get().productionSource,next=productionFocus(this.snapshot,catalog,old,followSelection?this.selection.ids:[]);
+  if(old!==next){this.generation++;this.refreshAt=0;this.state.update(state=>({...state,productionSource:next,production:[]}))}
+ }
+ chooseProduction(id:number){
+  const catalog=this.app.state.get().catalog;if(!this.snapshot||!catalog||!productionSources(this.snapshot,catalog).some(entity=>entity.id===id))return;
+  this.cancel();this.refreshAt=0;this.state.update(state=>({...state,productionSource:id,production:[]}));void this.refresh();
+ }
+ productionCategory(category:ProductionTab){
+  const catalog=this.app.state.get().catalog;if(!this.snapshot||!catalog)return;
+  const id=productionFocus(this.snapshot,catalog,this.state.get().productionSource,[],category);if(id!==undefined&&id!==this.state.get().productionSource)this.chooseProduction(id);
+ }
+ private changed(resetCycle=true,audible=true){if(audible&&this.snapshot)this.app.audioDirector.selection(this.snapshot.entities.filter(entity=>this.selection.ids.includes(entity.id)),this.snapshot.player);if(resetCycle)this.subgroupCycle=undefined;this.generation++;this.targeting.reconcile(this.selection.token);if(!this.targeting.targeting)this.clearTarget(false);this.renderer?.setSelection(this.selection.ids);this.reconcileProduction(true);this.state.update(state=>({...state,ids:this.selection.ids,production:[],affordances:undefined}));void this.refresh()}
  select(ids:number[]){this.selection.apply(ids);this.changed()}
  selectMissionGroup(origin:string){if(!this.snapshot)return;const group=missionGroups(this.state.get().missionGroups,this.snapshot).find(group=>group.origin===origin);if(!group?.ids.length)return;this.select(group.ids);const point=this.selection.center();if(point)this.renderer?.center(point)}
  cancel(){this.generation++;this.targeting.cancel();this.clearTarget(false);this.renderer?.cancelDrag()}
@@ -53,9 +69,16 @@ export class BattleController {
  async refresh(){
   if(this.closed||this.refreshing||this.state.get().pending||!this.snapshot||this.snapshot.outcome?.finished||this.snapshot.players.find(player=>player.id===this.snapshot?.player)?.defeated||['replay','observer'].includes(this.app.sessions.state.kind??''))return;this.refreshing=true;const token=this.selection.token,generation=this.generation;
   try{
-   const ids=this.selection.ids.slice(0,64),work=this.affordances(ids);this.advisoryWork=work;const affordances=await work;if(this.closed||generation!==this.generation||!sameSelection(token,this.selection.token))return;
+   const ids=this.selection.ids.slice(0,64),source=this.state.get().productionSource;
+   const request=source!==undefined&&!ids.includes(source)?[...ids,source]:ids;
+   const work=(async()=>{
+    const result=await this.affordances(request.slice(0,64));
+    if(request.length>64&&!this.closed&&generation===this.generation){const extra=await this.affordances(request.slice(64));result.entities.push(...extra.entities)}
+    return result;
+   })();this.advisoryWork=work;const combined=await work;if(this.closed||generation!==this.generation||!sameSelection(token,this.selection.token))return;
+   const affordances=selectionAffordances(combined,ids);
    const production:ProductionChoice[]=[];
-   for(const entity of affordances.entities){for(const [key,kind] of [['builds','build'],['trains','train'],['research','research']] as const)for(const type of entity[key])if(!production.some(item=>item.type===type&&item.kind===kind)){const status=entity.production_status?.find(status=>status.kind===kind&&status.type===type);production.push({type,kind,producer:entity.id,available:status?.code==='ok'||status?.code==='indeterminate',reason:status&&status.code!=='ok'&&status.code!=='indeterminate'?reason(status.code):status?undefined:'Availability unavailable',waitsFor:status?.waits_for?reason(status.waits_for):undefined})}}
+   for(const entity of combined.entities.filter(entity=>entity.id===source)){for(const [key,kind] of [['builds','build'],['trains','train'],['research','research']] as const)for(const type of entity[key])if(!production.some(item=>item.type===type&&item.kind===kind)){const status=entity.production_status?.find(status=>status.kind===kind&&status.type===type);production.push({type,kind,producer:entity.id,available:status?.code==='ok'||status?.code==='indeterminate',reason:status&&status.code!=='ok'&&status.code!=='indeterminate'?reason(status.code):status?undefined:'Availability unavailable',waitsFor:status?.waits_for?reason(status.waits_for):undefined})}}
    if(this.closed||generation!==this.generation||!sameSelection(token,this.selection.token))return;
    this.state.update(state=>({...state,affordances,production}));
   }catch(error){if(!this.closed&&generation===this.generation&&sameSelection(token,this.selection.token)&&!['advice_pending','advice_unavailable','targeting_changed','player_inactive'].includes((error as {code?:string}).code??''))this.app.error(error)}finally{this.refreshing=false}
@@ -66,7 +89,7 @@ export class BattleController {
   // Rebase is a targeting affordance for Go's targeted Return order.
   // The ordinary Return button and hotkey keep their immediate behavior.
   const rebase=kind==='rebase';if(rebase)kind='return';
-  if(producer!==undefined&&(this.selection.ids.length!==1||this.selection.ids[0]!==producer))this.select([producer]);
+  if(producer!==undefined&&kind==='build'&&(this.selection.ids.length!==1||this.selection.ids[0]!==producer))this.select([producer]);
   if(kind==='ability'&&type==='strategic'&&index===undefined&&this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.faction==='US'){this.chooseEntryEdge();return}
   const descriptor=STANDARD_COMMAND_DESCRIPTORS.find(value=>value.kind===kind);if(!descriptor)return;
   let target=COMMANDS[kind]?.target??(descriptor.targetOptional?'none':'ground');let count=1;let label=COMMANDS[kind]?.label??kind;
@@ -110,11 +133,11 @@ export class BattleController {
   try{const work=this.preview([{kind:'build',type,entities:this.selection.ids.slice(0,1),position:target.position}]);this.advisoryWork=work;const result=await work;if(generation===this.generation&&!this.closed){this.renderer?.setPlacement({type,width:building.width,height:building.height,position:target.position,valid:result.results[0]?.code==='indeterminate'?undefined:result.results[0]?.accepted&&result.results[0].code==='ok'});this.state.update(state=>({...state,placementReason:reason(result.results[0]?.code)}))}}catch{/* final confirmation reports actionable errors */}finally{this.hoverPending=false}
  }
  private async executeContext(target:CommandTarget,queued:boolean){await this.plan(async environment=>planContextCommand(this.selection.ids,target,environment,{queued}))}
- async execute(request:CommandRequest,targetGeneration?:number){await this.plan(environment=>planCommand(request,environment),targetGeneration)}
- private async plan(create:(environment:Awaited<ReturnType<typeof createOfflineCommandEnvironment>>)=>ReturnType<typeof planCommand>,targetGeneration?:number){
+ async execute(request:CommandRequest,targetGeneration?:number){await this.plan(environment=>planCommand(request,environment),targetGeneration,request.entities)}
+ private async plan(create:(environment:Awaited<ReturnType<typeof createOfflineCommandEnvironment>>)=>ReturnType<typeof planCommand>,targetGeneration?:number,adviceIDs:readonly number[]=this.selection.ids){
   if(!this.snapshot||this.inactive()||this.state.get().pending||['replay','observer'].includes(this.app.sessions.state.kind??''))return;const token=this.selection.token,generation=this.generation,runtime=this.runtime();const current=()=>!this.closed&&!this.inactive()&&generation===this.generation&&sameSelection(token,this.selection.token)&&(targetGeneration===undefined||this.targeting.current(targetGeneration,this.selection.token));
   this.state.update(state=>({...state,pending:true}));
-  try{if(!(runtime instanceof OfflineTransport)){this.app.commandAdvice().cancel();await Promise.allSettled([this.advisoryWork]);if(!current())return}const environment=await (runtime instanceof OfflineTransport?createOfflineCommandEnvironment(runtime,this.snapshot,this.selection.ids,{isCurrent:current}):createOnlineCommandEnvironment(this.app.commandAdvice(),this.snapshot,this.selection.ids,{isCurrent:current}));const plan=await create(environment);if(!current())return;
+  try{if(!(runtime instanceof OfflineTransport)){this.app.commandAdvice().cancel();await Promise.allSettled([this.advisoryWork]);if(!current())return}const environment=await (runtime instanceof OfflineTransport?createOfflineCommandEnvironment(runtime,this.snapshot,adviceIDs,{isCurrent:current}):createOnlineCommandEnvironment(this.app.commandAdvice(),this.snapshot,adviceIDs,{isCurrent:current}));const plan=await create(environment);if(!current())return;
    if(plan.issues.length)this.learn('rejected_order');
    if(plan.issues.length){this.app.patch({notice:reason(plan.issues[0].code,plan.issues[0].message)});this.app.audioDirector.receipt('',false,this.snapshot.entities.find(entity=>this.selection.ids.includes(entity.id)&&entity.owner===this.snapshot?.player),plan.issues[0].code)}
    for(const batch of plan.batches){if(!current())return;this.orderKinds.set(await runtime.sendOrders(batch),batch.map(order=>{const entity=this.snapshot?.entities.find(entity=>entity.id===order.entities?.[0]&&entity.owner===this.snapshot?.player);return {kind:order.kind??'',entity:entity?{type:entity.type,owner:entity.owner}:undefined}}));while(this.orderKinds.size>256)this.orderKinds.delete(this.orderKinds.keys().next().value!)}
@@ -135,7 +158,7 @@ export class BattleController {
   if(action==='quick_load'&&!['online','observer'].includes(this.app.sessions.state.kind??'')){void this.app.task('Loading latest save…',async()=>{const saves=await this.app.store.listSaveSummaries();if(!saves[0])throw Error('No local saves exist.');await this.app.sessions.continueSave(saves[0].id)});return}
   if(action==='next_subgroup'||action==='previous_subgroup'){if(!this.subgroupCycle)this.subgroupCycle={groups:this.selection.subgroups().map(group=>group.ids),index:action==='next_subgroup'?-1:0};const cycle=this.subgroupCycle;if(cycle.groups.length){cycle.index=(cycle.index+(action==='next_subgroup'?1:-1)+cycle.groups.length)%cycle.groups.length;this.selection.apply(cycle.groups[cycle.index]);this.changed(false)}return}
   if(action.startsWith('ability_')){const abilities=[...new Set(this.state.get().affordances?.entities.flatMap(entity=>entity.abilities)??[])],type=abilities[Number(action.slice(8))-1];if(type)void this.command('ability',type,undefined,intent.queued);return}
-  if(action==='cancel_production'){const producer=this.snapshot?.entities.find(entity=>this.selection.ids.includes(entity.id)&&entity.private?.jobs.length);if(producer)void this.execute({kind:'cancel',entities:[producer.id],index:producer.private!.jobs.length-1});return}
+  if(action==='cancel_production'){const producer=this.snapshot?.entities.find(entity=>entity.id===this.state.get().productionSource&&entity.private?.jobs.length);if(producer)void this.execute({kind:'cancel',entities:[producer.id],index:producer.private!.jobs.length-1});return}
   if(action==='build'){const rig=this.snapshot?.entities.find(entity=>entity.owner===this.snapshot?.player&&this.app.state.get().catalog?.units.get(entity.type)?.role==='rig');if(rig)this.select([rig.id]);return}
   if(action==='train'||action==='research'){this.app.patch({notice:'Choose a production option in the command sidebar.'});return}
   if(action==='chat'||action==='team_chat'){if(this.app.sessions.state.kind==='online'){this.openPause();setTimeout(()=>document.querySelector<HTMLInputElement>('[aria-label="Chat message"]')?.focus(),0)}return}
