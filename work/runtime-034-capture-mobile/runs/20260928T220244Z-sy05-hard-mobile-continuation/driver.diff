@@ -1,0 +1,14 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ candidate/pkg/sim/authored_campaign_acceptance_test.go
+@@ -1278,9 +1278,8 @@
+ 			r.wait("stabilize captured relay before advancing", 2400, func() bool { e, ok := r.seen(r.tags[tag][0]); return ok && e.Health >= 850 })
+ 			if stage == 1 && r.requiredOptional == "factory-captured" {
+ 				captureFactory()
+-				if fortifyCapture != nil {
+-					fortifyCapture()
+-				}
++				// The optional factory is secure. Keep the paid mobile force
++				// advancing rather than stage for discretionary forward buildings.
+ 			}
+ 			if stage == 1 && r.faction == "SA" {
+ 				for _, candidate := range r.ownedType(r.faction + ".engineer") {

@@ -1,0 +1,12 @@
+=== RUN   TestAuthoredOptionalFactoryCapture
+=== RUN   TestAuthoredOptionalFactoryCapture/hard
+    authored_campaign_acceptance_test.go:1135: capture force ready tick515 targetrelay-guard-1 actors[37 38 39 40 41 42 46 47] tanks[46 47]
+    authored_campaign_acceptance_test.go:1209: relay-1 captured tick1158
+    authored_campaign_acceptance_test.go:1159: optional factory captured tick2484 actor79
+    authored_campaign_acceptance_test.go:1135: capture force ready tick4725 targetrelay-guard-2 actors[176 215 270 321 327 489 517 540 557 727 772 914 1005] tanks[327 540]
+    authored_campaign_acceptance_test.go:1209: relay-2 captured tick6121
+    authored_campaign_acceptance_test.go:1192: tick 6882 order {Kind:train Entities:[28] Target:0 Position:{X:0 Y:0} Type:SY.engineer Queued:false Index:0 Points:[]} rejected: {Player:1 Sequence:503 Index:0 Accepted:false Code:queue_full Tick:6883}
+    authored_failure_diagnostics_test.go:120: failure diagnostics: /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-mobile/runs/20260928T220244Z-sy05-hard-mobile-continuation/evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-2786122317 (state available=true, unchanged=true)
+--- FAIL: TestAuthoredOptionalFactoryCapture (17.67s)
+    --- FAIL: TestAuthoredOptionalFactoryCapture/hard (17.67s)
+FAIL
