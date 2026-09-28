@@ -1,0 +1,37 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ factory-screen/pkg/sim/authored_campaign_acceptance_test.go
+@@ -877,7 +877,8 @@
+ 				if !ok || site.Owner != 1 {
+ 					continue
+ 				}
+-				if guardCommitted[siteID] && reinforceCaptured && (r.requiredOptional != "factory-captured" || r.hasTag("capture-factory") && siteID != r.tags["capture-factory"][0]) {
++				factoryScreen := r.faction == "SY" && r.difficulty == "hard" && r.requiredOptional == "factory-captured" && r.hasTag("capture-factory") && siteID == r.tags["capture-factory"][0]
++				if guardCommitted[siteID] && reinforceCaptured && (factoryScreen || r.requiredOptional != "factory-captured" || r.hasTag("capture-factory") && siteID != r.tags["capture-factory"][0]) {
+ 					// Replenish losses at already captured required sites through
+ 					// ordinary paid troops, without commandeering another site's screen.
+ 					counts := map[string]int{}
+@@ -890,6 +891,14 @@
+ 						kind  string
+ 						count int
+ 					}{{"rifle", 4}, {"tank", 1}, {"at", 1}} {
++						if factoryScreen {
++							if role.kind == "rifle" {
++								role.count = 2
++							}
++							if role.kind == "tank" {
++								role.count = 0
++							}
++						}
+ 						kind := r.faction + "." + role.kind
+ 						for _, id := range r.ownedType(kind) {
+ 							if counts[kind] >= role.count {
+@@ -1208,6 +1217,9 @@
+ 		repairers[factory] = worker
+ 		r.issue(1, sim.Order{Kind: "repair", Entities: []sim.ID{worker}, Target: factory})
+ 		guards[factory] = nil
++		if r.faction == "SY" && r.difficulty == "hard" {
++			guardCommitted[factory] = true // Paid infantry screen; keep armor for capture.
++		}
+ 		r.t.Logf("optional factory captured tick%d actor%d", r.engine.Tick(), factory)
+ 		r.wait("repair captured factory behind the first relay", 4000, func() bool { v, ok := r.seen(factory); return ok && v.Owner == 1 && v.Health >= 900 })
+ 	}
