@@ -379,3 +379,53 @@ path nodes; the probe confirms that it leaves the restored state hash unchanged.
 A general, bounded depot-approach correction is approved as the next separate
 slice; this checkpoint intentionally preserves the unfixed evidence. Ghost collision, arbitrary interaction-radius increases, resource
 grants, altered maps or a shorter victory timer are not proposed solutions.
+
+## General depot access correction
+
+The subsequent harvesting correction applies equally to human and bot gather
+orders. It keeps the current usable approach and the original clear radial goal.
+When blocked, it checks at most 289 grid points in a 17×17 neighborhood around
+the depot, sorts legal candidates by squared distance with stable Y/X tie order,
+retains the nearest 32, and tries no more than three ordinary dynamic path
+searches from the existing shared twelve-search tick budget. Accepted endpoints
+remain within the existing 1100 approach threshold. The two-unloader cap,
+1200 unloading range, three-second service time, cargo, income and collision
+rules are unchanged.
+
+Successful routes use the existing persisted path fields; failed attempts use
+the existing two-second route retry. No additional timing cache, unsaved
+reservation, teleport or AI privilege is introduced. This is a bounded fallback,
+not an exhaustive proof that every possible occupied depot can be reached.
+
+The unedited minute-30 Relay save recovers both original collectors within the
+120-second regression window: each delivers twice, including the farther trapped
+hauler. The recovered tick38400 hash is
+`2665a6673b9756ee4ae644eb8438c1bb464a6415dea09de4264823acd0c28c3d`.
+Mid-route restoration and replay from the preserved initial save agree exactly.
+The human-order fixture verifies a real accepted gather, physical movement and
+actual unloading income. Other focused cases preserve clear routes, bound path
+queries, retain retry state across a save and reject a physically enclosed route.
+The existing harvest suite passes in 16.292 seconds with its original orientation,
+eight-hauler, cliff, map-edge and per-actor delivery requirements. The focused
+race run, including the recorded recovery, passes in 118.747 seconds; vet is clean.
+All 72 paid openings complete and conserve credits. Income spread between
+starts remains at most 3.125%, below the unchanged 5% gate, and all four factions
+have identical income at each start. The current opening artifact is
+`work/evidence/map-openings/paid-results-depot-access.json`.
+
+The affected authored Relay match is rerun from its original standard opening,
+with no extra commands, restored state, resource grants or forced ending. It
+finishes by ordinary elimination at tick19504 (16:15.20 including countdown),
+US/team2 winning. All 911 executed AI orders are accepted. Initial/final save
+restoration and full replay agree at hash
+`e98de44713e1a53e594477f06e552f315a0e2770c4dec65977b012092bc25953`.
+Exact source hashes, executable and map identities are retained in
+`depot-2026-09-28/summary.json`; native test duration is 7.429 seconds on the
+shared host, not performance evidence.
+
+Only the affected Relay match was rerun after this general harvesting change.
+Earlier thirteen-case matrices remain bound to their recorded earlier source;
+this targeted correction is not relabeled as a full latest-source matrix or a
+balance approval. The original 51-minute trajectory and exact five-minute stall
+remain preserved. Historical opt-in diagnostics require their original0.2.0
+version/source overlay after the release compatibility boundary changes.

@@ -1,0 +1,99 @@
+{
+  "case": {
+    "id": "pair-US-SY",
+    "map": "relay-heights",
+    "factions": [
+      "SY",
+      "US"
+    ],
+    "authored_spawn_teams": false,
+    "seed": 28002
+  },
+  "metadata": {
+    "simulation": "0.2.0",
+    "protocol": 1,
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "map_version": "1",
+    "ruleset": "standard-v2",
+    "seed": 28002
+  },
+  "map_sha256": "09f300f41176794465aa0b1a87a0900bbf60a7d5c35e010521a3154f7bdc8d86",
+  "map_bytes": 544567,
+  "go": "go1.27.1",
+  "executable_sha256": "c01df92918f798ccf4465fdc0bd1d8b6fd7138933d6cd24a8dd5cd08d8b20d55",
+  "started": "2026-09-28T03:33:16.882481Z",
+  "wall_seconds": 6.666063375,
+  "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+  "tick": 19504,
+  "outcome": {
+    "finished": true,
+    "draw": false,
+    "winning_team": 2,
+    "reason": "elimination",
+    "tick": 19504
+  },
+  "ordinary_completion": true,
+  "first_weapon_tick": 3975,
+  "final_hash": "e98de44713e1a53e594477f06e552f315a0e2770c4dec65977b012092bc25953",
+  "initial_restore_exact": true,
+  "final_restore_exact": true,
+  "full_replay_exact": true,
+  "replay_bytes": 16384,
+  "orders": {
+    "1": {
+      "executed": 387,
+      "accepted": 387,
+      "rejected_by_code": {},
+      "executed_by_kind": {
+        "ability": 5,
+        "attack_move": 53,
+        "build": 7,
+        "capture": 5,
+        "gather": 1,
+        "guard": 29,
+        "move": 247,
+        "repair": 1,
+        "repair_reserve": 1,
+        "return": 4,
+        "train": 34
+      }
+    },
+    "2": {
+      "executed": 524,
+      "accepted": 524,
+      "rejected_by_code": {},
+      "executed_by_kind": {
+        "ability": 7,
+        "attack_move": 127,
+        "build": 10,
+        "capture": 2,
+        "escort": 2,
+        "gather": 1,
+        "guard": 19,
+        "move": 316,
+        "repair": 1,
+        "repair_reserve": 1,
+        "train": 38
+      }
+    }
+  },
+  "issues": null,
+  "scope": "Only the affected authored Relay case was rerun on this general depot-access correction; previous13-case matrices remain tied to their earlier sources.",
+  "source": {
+    "base_commit": "56978b475826ca7996559b8c325f5d6db63a6f6a",
+    "files": {
+      "ai.go": "38bf7d7d2b65f1848c32efb2a646450f9517eb8293cb41d62a1368def2ca7fce",
+      "ai_tactics.go": "8eb7dfd474fcf153f819460bd68ffdd645055390a269f32478b673f45bd58ce7",
+      "economy.go": "ad53ab975fe4d2a87ed0811badb8acedc8b9cb0d8368a44442279f07fdd3c305",
+      "economy_depot.go": "557d4b4b9e082bd535dddb07ae7670aa5287aa08cd951d13c9e977c0e16818e9"
+    }
+  },
+  "gates": {
+    "recorded_save_recovery": "both original loaded collectors deliver twice within120seconds; restore/replay exact",
+    "harvest_suite_seconds": 16.292,
+    "focused_race_seconds": 118.747,
+    "paid_openings": 72,
+    "paid_income_spread_percent_max": 3.125,
+    "vet": "pass"
+  }
+}

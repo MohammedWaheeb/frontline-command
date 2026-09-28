@@ -462,7 +462,7 @@ func (e *Engine) harvestGoal(v *Entity) (Vec, bool, int32) {
 	}
 	if v.Cargo >= 600000 || v.State == "returning_cargo" {
 		if d := e.entity(v.Depot); d != nil {
-			return e.approachPoint(v, d), e.edgeDistance(v, d) > 1100, 300
+			return e.harvestDepotGoal(v, d), e.edgeDistance(v, d) > 1100, 300
 		}
 	}
 	if f := e.field(v.Field); f != nil {
