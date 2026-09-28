@@ -1,0 +1,50 @@
+=== RUN   TestAuthoredSpecificFailures
+=== RUN   TestAuthoredSpecificFailures/us-02-open-corridor/convoy-lost
+    authored_mission_paths_test.go:164: AUTHORED_FAILURE us-02-open-corridor objective=convoy-lost difficulty=normal tick=2128 midpoint=251 receipts=1 hash=5664ea7c2329217029152236acfdab14c169905942824fc0840e89c21f8fb64f
+=== RUN   TestAuthoredSpecificFailures/ir-02-eyes-above/launchers-lost
+    authored_mission_paths_test.go:164: AUTHORED_FAILURE ir-02-eyes-above objective=launchers-lost difficulty=normal tick=2414 midpoint=251 receipts=1 hash=09d11cea204a06d0e50201681420a9051c59781bfdab5eeec2cf77e67553c117
+=== RUN   TestAuthoredSpecificFailures/tutorial-3-read-the-counter/transport-team-lost
+    authored_mission_paths_test.go:164: AUTHORED_FAILURE tutorial-3-read-the-counter objective=transport-team-lost difficulty=normal tick=1064 midpoint=251 receipts=1 hash=51276f566a93e16c72e258b6b131dc3565caf83ab0108322b54ab25030d43e0a
+=== RUN   TestAuthoredSpecificFailures/sy-01-workshop-foothold/lost-recovery-rig
+    authored_mission_paths_test.go:164: AUTHORED_FAILURE sy-01-workshop-foothold objective=lost-recovery-rig difficulty=normal tick=1545 midpoint=522 receipts=2 hash=e732f6f6d436d87e20a598e528c5ac941f87ad7cfc86eb2944cf02f358153bd6
+=== RUN   TestAuthoredSpecificFailures/sa-04-intercept-window/defended-assets-lost
+    authored_mission_paths_test.go:164: AUTHORED_FAILURE sa-04-intercept-window objective=defended-assets-lost difficulty=normal tick=1964 midpoint=301 receipts=1 hash=03eb9b246c4a6b67c21553bab7101915c10a4a0223edc802cd3a1c7dab9311f1
+=== RUN   TestAuthoredSpecificFailures/us-03-relay-ridge/relay-destroyed
+    authored_mission_paths_test.go:164: AUTHORED_FAILURE us-03-relay-ridge objective=relay-destroyed difficulty=normal tick=690 midpoint=211 receipts=2 hash=0b4159fbbe07fe128cdba5d7e4e7211ad005b768e5243f63bd0f8d8cd9207d4d
+=== RUN   TestAuthoredSpecificFailures/ir-03-beyond-the-basin/field-empty
+    authored_mission_paths_test.go:164: AUTHORED_FAILURE ir-03-beyond-the-basin objective=field-empty difficulty=normal tick=3941 midpoint=501 receipts=25 hash=5d8e6f4b3334f70ca37be3b82bfafe3ed2dcdc8575f97ef66e766d7f9df415b3
+--- PASS: TestAuthoredSpecificFailures (15.76s)
+    --- PASS: TestAuthoredSpecificFailures/us-02-open-corridor/convoy-lost (2.51s)
+    --- PASS: TestAuthoredSpecificFailures/ir-02-eyes-above/launchers-lost (2.64s)
+    --- PASS: TestAuthoredSpecificFailures/tutorial-3-read-the-counter/transport-team-lost (0.97s)
+    --- PASS: TestAuthoredSpecificFailures/sy-01-workshop-foothold/lost-recovery-rig (1.34s)
+    --- PASS: TestAuthoredSpecificFailures/sa-04-intercept-window/defended-assets-lost (2.29s)
+    --- PASS: TestAuthoredSpecificFailures/us-03-relay-ridge/relay-destroyed (0.91s)
+    --- PASS: TestAuthoredSpecificFailures/ir-03-beyond-the-basin/field-empty (5.10s)
+=== RUN   TestAuthoredOptionalScoutPreservation
+    authored_campaign_acceptance_test.go:768: relay-1 captured tick1330
+    authored_campaign_acceptance_test.go:768: relay-2 captured tick3637
+    authored_campaign_acceptance_test.go:827: MISSION us-03-relay-ridge faction=US difficulty=normal tick=6119 midpoint=1331 receipts=217 hash=69db04bd89e94f162e1fd3cdce266d7877a14804f014499af97eeea42f352733
+--- PASS: TestAuthoredOptionalScoutPreservation (14.76s)
+=== RUN   TestAuthoredOptionalStations
+    authored_mission_paths_test.go:239: MISSION ir-03-beyond-the-basin faction=IR difficulty=normal tick=1708 midpoint=593 receipts=9 hash=3fbe816f7d8996f6ca1db0e7ce9725d2da84d48087b72a13715e4abf9e38fcb7
+--- PASS: TestAuthoredOptionalStations (1.71s)
+=== RUN   TestAuthoredAssetLossBoundaries
+=== RUN   TestAuthoredAssetLossBoundaries/sa-04-intercept-window/defended-assets-lost
+    authored_mission_paths_test.go:277: AUTHORED_FAILURE sa-04-intercept-window objective=defended-assets-lost difficulty=normal tick=201 midpoint=126 receipts=1 hash=ae9c3b4e68ef9d7a5b2bb175cb25bbf88e696607dc8cae3aa3afeeed1a29b0b4
+=== RUN   TestAuthoredAssetLossBoundaries/us-04-broken-umbrella/airfields-lost
+    authored_mission_paths_test.go:277: AUTHORED_FAILURE us-04-broken-umbrella objective=airfields-lost difficulty=normal tick=307 midpoint=126 receipts=2 hash=d1acd86dcba0ab0b045b4b31fab7c20843487daa96878e252873ffee9486253b
+=== RUN   TestAuthoredAssetLossBoundaries/ir-04-hold-the-network/network-destroyed
+    authored_mission_paths_test.go:277: AUTHORED_FAILURE ir-04-hold-the-network objective=network-destroyed difficulty=normal tick=307 midpoint=126 receipts=2 hash=0c7bf027122d383de7f0837988a579a871d7f52f90d1a2f163a0d91fd84c688f
+=== RUN   TestAuthoredAssetLossBoundaries/twin-outposts/western-hq-lost
+    authored_mission_paths_test.go:277: AUTHORED_FAILURE twin-outposts objective=western-hq-lost difficulty=normal tick=201 midpoint=126 receipts=1 hash=9eb401261106e2a75ef687129d776c7942da28b6b4fc087eccbe3f44d5570277
+--- PASS: TestAuthoredAssetLossBoundaries (1.13s)
+    --- PASS: TestAuthoredAssetLossBoundaries/sa-04-intercept-window/defended-assets-lost (0.21s)
+    --- PASS: TestAuthoredAssetLossBoundaries/us-04-broken-umbrella/airfields-lost (0.33s)
+    --- PASS: TestAuthoredAssetLossBoundaries/ir-04-hold-the-network/network-destroyed (0.33s)
+    --- PASS: TestAuthoredAssetLossBoundaries/twin-outposts/western-hq-lost (0.26s)
+=== RUN   TestAuthoredSharedConvoyLoss
+    authored_mission_paths_test.go:298: AUTHORED_FAILURE convoy-union objective=convoy-1-lost difficulty=normal tick=4209 midpoint=991 receipts=1 hash=e086ff70640fe6737e947bf12710545ec5b70a14146da2257677bb885848c917
+--- PASS: TestAuthoredSharedConvoyLoss (6.98s)
+PASS
+ok  	frontlinecommand/pkg/sim	41.194s

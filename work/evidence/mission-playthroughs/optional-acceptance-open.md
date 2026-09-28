@@ -6,6 +6,13 @@ routes earning these bonuses and individual authored failure-condition journeys
 remain required. The generic all-human surrender failure/restart path has
 already been checked in every successful main case.
 
+Additional normal routes now earn IR03 `two-stations` and US03
+`scout-preserved`; those separate files do not overwrite the baseline rows
+below. The other difficulty variants remain open. See
+`docs/authored-mission-paths.md` and `authored-paths-results.md` for all direct
+optional/failure proof. Seven optional objectives still have no earned route
+on any tested path.
+
 | Mission | Unearned optional objective | Current combinations |
 |---|---|---|
 | ir-03-beyond-the-basin | two-stations | IR/easy, IR/normal, IR/hard |

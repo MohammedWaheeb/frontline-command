@@ -107,7 +107,10 @@ The opening routes earn the US, IR, and SA preservation bonuses. SY01 currently
 records the correct unearned mechanic-preservation bonus; a route earning it is
 still required. The convoy routes earn US truck preservation, both IR drone
 service/recovery goals, and the SA repair budget; the SY salvage achievement
-remains open. IR03/SA03 simultaneous-station achievements remain open, while
+remains open. The separate follow-on suite now earns IR03 simultaneous stations and US03
+scout preservation on normal; SA03 stations and other variants remain open.
+See `authored-mission-paths.md` for 12 direct authored-loss routes and the full
+55-failure/31-optional inventory.
 SY03's continuous concealment mark is earned. Main-objective completion does not
 stand in for these remaining optional-achievement journeys.
 
