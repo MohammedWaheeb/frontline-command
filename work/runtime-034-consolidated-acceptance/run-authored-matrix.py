@@ -86,11 +86,11 @@ for filename in ('source-lock.json', 'production-unchanged-audit.json'):
     shutil.copyfile(SOURCE_ROOT / filename, out / filename)
 shutil.copyfile(Path(__file__), out / 'run-authored-matrix.py')
 env = {key: value for key, value in os.environ.items() if not key.startswith('FRONTLINE_')}
-env['GOMAXPROCS'] = '2'
+env['GOMAXPROCS'] = '1'
 binary = out / 'sim.test'
 with (out / 'build.log').open('w') as log:
     subprocess.run([GO, 'test', '-p=1', '-c', '-o', str(binary), './pkg/sim'], cwd=SOURCE, env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
-manifest = dict(simulation='0.3.4', source_lock_sha256=identity, binary_sha256=sha(binary), phase=args.run, subset=args.select, expected_cases=len(selected), host_conditions='serial acceptance, ordinary desktop and coordinated art work may run; not performance evidence', results=[])
+manifest = dict(simulation='0.3.4', source_lock_sha256=identity, binary_sha256=sha(binary), phase=args.run, subset=args.select, expected_cases=len(selected), gomaxprocs=1, host_conditions='2026-09-29 coordinated serial acceptance: one native case at a time, GOMAXPROCS=1; root may run one functional browser, Einstein one-CPU native preflight, Mencius four-thread Blender. Shared-host correctness only; not performance evidence.', results=[])
 (out / 'run.json').write_text(json.dumps(manifest, indent=2)+'\n')
 for index, case in enumerate(selected):
     name = '/'.join(case)
@@ -121,10 +121,14 @@ for index, case in enumerate(selected):
     manifest['results'].append(receipt)
     (out / 'run.json').write_text(json.dumps(manifest, indent=2)+'\n')
     print(f'{index+1}/{len(selected)} {name} {"PASS" if passed else "FAIL"} {receipt["elapsed_seconds"]}s', flush=True)
+    if process.returncode < 0 or re.search(r'runtime: out of memory|cannot allocate memory|failed to create new OS thread|signal: killed', text, re.I):
+        manifest['stopped_for_resource_issue'] = dict(case=name, exit_code=process.returncode, artifacts=receipt['artifacts'])
+        break
 manifest['source_verified_after'] = verify() == identity
 manifest['binary_verified_after'] = sha(binary) == manifest['binary_sha256']
 manifest['passed'] = sum(result['passed'] for result in manifest['results'])
-manifest['failed'] = len(selected)-manifest['passed']
+manifest['failed'] = len(manifest['results'])-manifest['passed']
+manifest['unrun'] = len(selected)-len(manifest['results'])
 (out / 'run.json').write_text(json.dumps(manifest, indent=2)+'\n')
 print(out, flush=True)
-raise SystemExit(bool(manifest['failed']) or not manifest['source_verified_after'] or not manifest['binary_verified_after'])
+raise SystemExit(bool(manifest['failed']) or bool(manifest['unrun']) or not manifest['source_verified_after'] or not manifest['binary_verified_after'])
