@@ -7,9 +7,9 @@ import {tmpdir} from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
-import {chromium} from 'playwright-core';
+import {chromium,firefox,webkit} from 'playwright-core';
 import {artIndex} from '../../scripts/ui/art-plugin.mjs';
-const root=fileURLToPath(new URL('../../../',import.meta.url)),out=path.join(root,'work/evidence/terrain-height'),temp=await mkdtemp(path.join(tmpdir(),'frontline-height-'));await mkdir(out,{recursive:true});
+const root=fileURLToPath(new URL('../../../',import.meta.url)),out=process.env.FRONTLINE_HEIGHT_EVIDENCE??path.join(root,'work/evidence/terrain-height'),temp=await mkdtemp(path.join(tmpdir(),'frontline-height-'));await mkdir(out,{recursive:true});
 await build({entryPoints:[path.join(root,'client/tests/render/terrain-height-fixture.ts')],outfile:path.join(temp,'main.js'),bundle:true,format:'esm',platform:'browser',target:'es2022'});
 const index=await artIndex(path.join(root,'assets'));
 const server=createServer(async(req,res)=>{try{
@@ -19,14 +19,15 @@ const server=createServer(async(req,res)=>{try{
  const file=p==='/main.js'?path.join(temp,'main.js'):p.startsWith('/maps/')?path.join(root,'content',p):p.startsWith('/art/terrain/')?path.join(root,'assets/build',p.slice(5)):undefined;
  if(!file)throw Error('Not found');res.setHeader('Content-Type',p.endsWith('.js')?'text/javascript':p.endsWith('.png')?'image/png':'application/json');res.end(await readFile(file));
 }catch(error){res.statusCode=404;res.end(String(error))}});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-const browser=await chromium.launch({headless:false,channel:'chromium'}),page=await browser.newPage({viewport:{width:1600,height:900}}),report={date:new Date().toISOString(),scope:'Isolated public geometry and synthetic visual probes; no Go gameplay or product height integration claim',browser:browser.version(),errors:[],cases:[],status:'running'};
+const engine=process.env.FRONTLINE_HEIGHT_BROWSER??'chromium',browser=await({chromium,firefox,webkit})[engine].launch(engine==='chromium'?{headless:false,channel:'chromium'}:{headless:true}),page=await browser.newPage({viewport:{width:1600,height:900}}),report={date:new Date().toISOString(),scope:'Isolated public geometry and synthetic visual probes; no Go gameplay or product height integration claim',browser:browser.version(),errors:[],cases:[],status:'running'};
 page.on('pageerror',error=>report.errors.push(String(error)));page.on('console',message=>{if(message.type()==='error')report.errors.push(message.text())});
 try{
- const cdp=await browser.newBrowserCDPSession();report.gpu=(await cdp.send('SystemInfo.getInfo')).gpu;
+ if(engine==='chromium'){const cdp=await browser.newBrowserCDPSession();report.gpu=(await cdp.send('SystemInfo.getInfo')).gpu}
  await page.goto(`http://127.0.0.1:${server.address().port}`);await page.waitForFunction(()=>document.body.dataset.ready==='true');
  for(const [id,mode] of [['synthetic','visible'],['synthetic','edge'],['relay-heights','visible'],['sa-04-intercept-window-layout','visible'],['stress','visible']]){
   const value=await page.evaluate(([id,mode])=>window.qa.show(id,mode),[id,mode]);report.cases.push(value);await page.screenshot({path:path.join(out,`${id}-${mode}@1600.png`)});
   for(const sample of value.drawOrder)assert.equal(sample.changedChannelsOverOne,0,'Fragment insertion order changed terrain/fog pixels');assert(value.matchingFogGeometry);
+  value.culling=await page.evaluate(()=>window.qa.cullAudit());for(const sample of value.culling)assert.equal(sample.changedChannelsOverOne,0,'Viewport culling removed visible terrain or fog');assert(value.culling.some(s=>s.shown<s.total),'Culling course did not exclude any geometry');
   value.picking=await page.evaluate(()=>window.qa.pickAudit());assert(value.picking.checked>100);assert.deepEqual(value.picking.mismatches,[],'GPU frontmost triangle disagreed with picking');
  }
  await page.evaluate(()=>window.qa.show('synthetic','visible'));

@@ -1,0 +1,344 @@
+{
+  "time": "2026-09-28T14:18:08.566Z",
+  "headed": true,
+  "browser": "151.0.7922.34",
+  "rendererBaseline": false,
+  "profiling": false,
+  "requestedSegments": 2,
+  "sourceReceipts": [],
+  "host": {
+    "os": "darwin",
+    "release": "25.5.0",
+    "cpu": "Apple M4",
+    "logicalCPUs": 10,
+    "memory": 17179869184
+  },
+  "scope": "688 Go actors,64 aircraft return,336 scouts moving;natural authorized perspective. Two consecutive30-second synthetic segments, not long matches. Four-tick manual batches reproduce5Hz snapshot delivery; reported RPC cost includes Go/protobuf/IPC/render update, not isolated tick time. Graphics backend recorded per segment; shared-host functional/performance evidence with incomplete art. No reference hardware FPS claim.",
+  "artBuild": {
+    "time": "2026-09-28T04:18:34.100Z",
+    "scope": "Frozen isolated product build for stage3 renderer timing; current incomplete art remains explicit",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.1"
+    },
+    "sha256": {
+      "runtime/frontline.wasm": "cafa10367f08dc4e68a75a2e9f4d21587977a776b1e38c744481b31960c8a75c",
+      "assets/packs/base.json": "becd32764524739f5fb1f27d958518e8f9c4fb56747319118da4a05c57931b5e"
+    },
+    "art": {
+      "format": 1,
+      "sprites": {
+        "building.US.hq": "sprites/building.US.hq/building.US.hq.sprite.json",
+        "building.US.power": "sprites/building.US.power/building.US.power.sprite.json",
+        "prop.bridge_permanent": "sprites/prop.bridge_permanent/prop.bridge_permanent.sprite.json",
+        "prop.central_shipment_site": "sprites/prop.central_shipment_site/prop.central_shipment_site.sprite.json",
+        "prop.command_relay_objective": "sprites/prop.command_relay_objective/prop.command_relay_objective.sprite.json",
+        "prop.concrete_barrier": "sprites/prop.concrete_barrier/prop.concrete_barrier.sprite.json",
+        "prop.container_stack": "sprites/prop.container_stack/prop.container_stack.sprite.json",
+        "prop.decor_building_nongarrison": "sprites/prop.decor_building_nongarrison/prop.decor_building_nongarrison.sprite.json",
+        "prop.depot_objective": "sprites/prop.depot_objective/prop.depot_objective.sprite.json",
+        "prop.destructible_wall_hp_heavy": "sprites/prop.destructible_wall_hp_heavy/prop.destructible_wall_hp_heavy.sprite.json",
+        "prop.destructible_wall_hp_light": "sprites/prop.destructible_wall_hp_light/prop.destructible_wall_hp_light.sprite.json",
+        "prop.fence_chainlink": "sprites/prop.fence_chainlink/prop.fence_chainlink.sprite.json",
+        "prop.forest_edge_scrub": "sprites/prop.forest_edge_scrub/prop.forest_edge_scrub.sprite.json",
+        "prop.fuel_tanks": "sprites/prop.fuel_tanks/prop.fuel_tanks.sprite.json",
+        "prop.palm": "sprites/prop.palm/prop.palm.sprite.json",
+        "prop.power_pylon": "sprites/prop.power_pylon/prop.power_pylon.sprite.json",
+        "prop.region_marker_editor": "sprites/prop.region_marker_editor/prop.region_marker_editor.sprite.json",
+        "prop.relay_objective": "sprites/prop.relay_objective/prop.relay_objective.sprite.json",
+        "prop.rocks": "sprites/prop.rocks/prop.rocks.sprite.json",
+        "prop.rubble_cover": "sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+        "prop.ruined_house_garrisonable": "sprites/prop.ruined_house_garrisonable/prop.ruined_house_garrisonable.sprite.json",
+        "prop.sandbags": "sprites/prop.sandbags/prop.sandbags.sprite.json",
+        "prop.shrub": "sprites/prop.shrub/prop.shrub.sprite.json",
+        "prop.spawn_marker_editor": "sprites/prop.spawn_marker_editor/prop.spawn_marker_editor.sprite.json",
+        "prop.supply_field": "sprites/prop.supply_field/prop.supply_field.sprite.json",
+        "prop.supply_station_neutral": "sprites/prop.supply_station_neutral/prop.supply_station_neutral.sprite.json",
+        "prop.warehouse_garrisonable": "sprites/prop.warehouse_garrisonable/prop.warehouse_garrisonable.sprite.json",
+        "prop.wreck_decor_vehicle": "sprites/prop.wreck_decor_vehicle/prop.wreck_decor_vehicle.sprite.json",
+        "unit.IR.at": "sprites/unit.IR.at/unit.IR.at.sprite.json",
+        "unit.IR.elite": "sprites/unit.IR.elite/unit.IR.elite.sprite.json",
+        "unit.IR.engineer": "sprites/unit.IR.engineer/unit.IR.engineer.sprite.json",
+        "unit.IR.hauler": "sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+        "unit.IR.medic": "sprites/unit.IR.medic/unit.IR.medic.sprite.json",
+        "unit.IR.recon": "sprites/unit.IR.recon/unit.IR.recon.sprite.json",
+        "unit.IR.rifle": "sprites/unit.IR.rifle/unit.IR.rifle.sprite.json",
+        "unit.IR.rig": "sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+        "unit.IR.strike": "sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+        "unit.SA.hauler": "sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+        "unit.SA.mobile_abm": "sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+        "unit.SA.rig": "sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+        "unit.SY.car": "sprites/unit.SY.car/unit.SY.car.sprite.json",
+        "unit.SY.hauler": "sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+        "unit.SY.rig": "sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+        "unit.US.at": "sprites/unit.US.at/unit.US.at.sprite.json",
+        "unit.US.elite": "sprites/unit.US.elite/unit.US.elite.sprite.json",
+        "unit.US.engineer": "sprites/unit.US.engineer/unit.US.engineer.sprite.json",
+        "unit.US.hauler": "sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+        "unit.US.medic": "sprites/unit.US.medic/unit.US.medic.sprite.json",
+        "unit.US.recon": "sprites/unit.US.recon/unit.US.recon.sprite.json",
+        "unit.US.rifle": "sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+        "unit.US.rig": "sprites/unit.US.rig/unit.US.rig.sprite.json",
+        "unit.US.tank": "sprites/unit.US.tank/unit.US.tank.sprite.json"
+      },
+      "terrain": [
+        "asphalt",
+        "cliff_face_tier1",
+        "cliff_face_tier2",
+        "coast_sand",
+        "concrete_slab",
+        "deep_water",
+        "dry_riverbed",
+        "farmland_dry",
+        "gravel",
+        "ground_macro",
+        "height_tier_edges",
+        "industrial_pavement",
+        "packed_earth",
+        "ramp",
+        "road_asphalt_decal",
+        "road_dirt_decal",
+        "rubble_ground",
+        "sand",
+        "scrub_ground",
+        "shallow_water",
+        "transition_masks"
+      ],
+      "portraits": [
+        "IR.at",
+        "IR.elite",
+        "IR.engineer",
+        "IR.hauler",
+        "IR.medic",
+        "IR.recon",
+        "IR.rifle",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.engineer",
+        "US.hauler",
+        "US.medic",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "buildIcons": [
+        "IR.at",
+        "IR.elite",
+        "IR.engineer",
+        "IR.hauler",
+        "IR.medic",
+        "IR.recon",
+        "IR.rifle",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.engineer",
+        "US.hauler",
+        "US.medic",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "chrome": [
+        "brass_bezel@1x.png",
+        "brass_bezel@2x.png",
+        "button@1x.png",
+        "button@2x.png",
+        "button_active@2x.png",
+        "button_disabled@2x.png",
+        "button_hover@2x.png",
+        "button_normal@2x.png",
+        "button_pressed@2x.png",
+        "cameo_frame@1x.png",
+        "cameo_frame@2x.png",
+        "console_plate@1x.png",
+        "console_plate@2x.png",
+        "metal_noise.png",
+        "well@1x.png",
+        "well@2x.png"
+      ],
+      "icons": true,
+      "emblems": true
+    }
+  },
+  "sha256": {
+    "bundle": "e1d33439ca55c8223983d7953061b5e3e6b09a94b4933ed5327a55acee17386a",
+    "opening": "68f3b795490f7fe2771b25c6e467380566c34a3e15f74a622f07ae98e7fb0f12",
+    "wasm": "cafa10367f08dc4e68a75a2e9f4d21587977a776b1e38c744481b31960c8a75c"
+  },
+  "errors": [],
+  "warnings": [],
+  "segments": [
+    {
+      "index": 0,
+      "ticks": 600,
+      "elapsedMs": 31330.700000047684,
+      "simulationRate": 19.150545630933454,
+      "graphics": {
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      },
+      "stepBatch": 4,
+      "roundtripMs": {
+        "p50": 121.40000009536743,
+        "p95": 266.5,
+        "p99": 296.2000000476837,
+        "max": 299.7999999523163
+      },
+      "frameMs": {
+        "p50": 16.69999999999891,
+        "p95": 17.799999999999272,
+        "p99": 18.700000000000728,
+        "over50": 0,
+        "total": 1876
+      },
+      "commandsMs": {
+        "p95": 601.1999998092651,
+        "max": 601.1999998092651
+      },
+      "visibleEntities": {
+        "min": 172,
+        "max": 257
+      },
+      "renderedActors": 257,
+      "terrainChunks": 49,
+      "terrainGeometry": {
+        "fragments": 3038,
+        "shown": 928,
+        "vertices": 150528,
+        "shownVertices": 48600,
+        "shownFog": 359
+      },
+      "art": {
+        "indexedPages": 50,
+        "residentPages": 12,
+        "residentBytes": 42208320
+      },
+      "missing": [
+        "IR.drone_hub",
+        "IR.isr",
+        "aa_post",
+        "hq",
+        "power"
+      ],
+      "hash": "34473b9e07c2f822d77be9f2448f938fe994f26bce09a0b078401837a77c667c",
+      "savedBytes": 2981725,
+      "restored": true,
+      "errors": [],
+      "snapshotUpdateMs": {
+        "count": 223,
+        "p50": 2.0999999046325684,
+        "p95": 5.5,
+        "total": 579.1000001430511
+      },
+      "pageHeap": {
+        "Documents": 1,
+        "Nodes": 81,
+        "JSHeapUsedSize": 91489312,
+        "JSHeapTotalSize": 294125568
+      },
+      "disposal": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0
+        }
+      }
+    },
+    {
+      "index": 1,
+      "ticks": 600,
+      "elapsedMs": 30361.300000190735,
+      "simulationRate": 19.761999650747192,
+      "graphics": {
+        "vendor": "WebKit",
+        "renderer": "WebKit WebGL",
+        "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      },
+      "stepBatch": 4,
+      "roundtripMs": {
+        "p50": 164.70000004768372,
+        "p95": 234.29999995231628,
+        "p99": 321.30000019073486,
+        "max": 429.2999999523163
+      },
+      "frameMs": {
+        "p50": 16.69999999999709,
+        "p95": 17.700000000004366,
+        "p99": 18.60000000000582,
+        "over50": 0,
+        "total": 1822
+      },
+      "commandsMs": {
+        "p95": 519.3999998569489,
+        "max": 519.3999998569489
+      },
+      "visibleEntities": {
+        "min": 172,
+        "max": 257
+      },
+      "renderedActors": 257,
+      "terrainChunks": 49,
+      "terrainGeometry": {
+        "fragments": 3038,
+        "shown": 928,
+        "vertices": 150528,
+        "shownVertices": 48600,
+        "shownFog": 359
+      },
+      "art": {
+        "indexedPages": 50,
+        "residentPages": 12,
+        "residentBytes": 42208320
+      },
+      "missing": [
+        "IR.drone_hub",
+        "IR.isr",
+        "aa_post",
+        "hq",
+        "power"
+      ],
+      "hash": "34473b9e07c2f822d77be9f2448f938fe994f26bce09a0b078401837a77c667c",
+      "savedBytes": 2981725,
+      "restored": true,
+      "errors": [],
+      "snapshotUpdateMs": {
+        "count": 223,
+        "p50": 2.700000047683716,
+        "p95": 7.5,
+        "total": 659.0999989509583
+      },
+      "pageHeap": {
+        "Documents": 1,
+        "Nodes": 81,
+        "JSHeapUsedSize": 125356952,
+        "JSHeapTotalSize": 287703040
+      },
+      "disposal": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0
+        }
+      }
+    }
+  ],
+  "status": "passed"
+}

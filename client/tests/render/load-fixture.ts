@@ -13,8 +13,10 @@ async function run(index:number){
  runtime=new OfflineTransport();await runtime.ready;await runtime.load(opening,[1,2,3,4]);
  if(await runtime.hash()!==native.initial_hash)throw Error('Initial WASM/native state mismatch');
  const catalog=new CatalogIndex(await runtime.content() as unknown as Catalog),map=await runtime.map();
+ const snapshotUpdates:number[]=[];let workerTimings:unknown;
+ (runtime as unknown as {worker:Worker}).worker.addEventListener('message',event=>{if(event.data?.event==='qa-go-call-timing')workerTimings=event.data.totals});
  renderer=await BattlefieldRenderer.create(host,{map,catalog,art,settings:DEFAULT_SETTINGS,onGesture:()=>{},onError:error=>errors.push(error.message)});
- runtime.subscribe(event=>{if(event.type==='snapshot')renderer?.setSnapshot(event.snapshot);if(event.type==='error')errors.push(event.error.message)});
+ runtime.subscribe(event=>{if(event.type==='snapshot'){const at=performance.now();renderer?.setSnapshot(event.snapshot);snapshotUpdates.push(performance.now()-at)}if(event.type==='error')errors.push(event.error.message)});
  renderer.setSnapshot(runtime.current!);renderer.center({x:26000,y:28000});renderer.zoomBy(.6);await renderer.whenAssetsReady();
  const steps:number[]=[],frames:number[]=[],commandWork:number[]=[],visibleCounts:number[]=[];
  let measuring=true,lastFrame=performance.now(),frameID=0;
@@ -27,13 +29,14 @@ async function run(index:number){
   const deadline=begin+(tick+4)*50;await new Promise(resolve=>setTimeout(resolve,Math.max(0,deadline-performance.now())));
  }
  const elapsed=performance.now()-begin;measuring=false;cancelAnimationFrame(frameID);
+ const workerTimingsAtEnd=workerTimings;
  const hash=await runtime.hash();if(hash!==native.final_hash)throw Error(`Final WASM/native mismatch ${hash}/${native.final_hash}`);
  const saved=await runtime.save();await runtime.load(saved.data,saved.local_players);if(await runtime.hash()!==hash)throw Error('Maximum-load save restore mismatch');await renderer.whenAssetsReady();
- const internals=renderer as unknown as {actors:Map<number,unknown>;chunks:Map<string,unknown>;app:{renderer:{gl:WebGLRenderingContext}}};
+ const internals=renderer as unknown as {actors:Map<number,unknown>;chunks:Map<string,{fragments:Array<{mesh:{visible:boolean;geometry:{positions:Float32Array}};fog:{visible:boolean}}>}>;app:{renderer:{gl:WebGLRenderingContext}}};
  const gl=internals.app.renderer.gl,debug=gl.getExtension('WEBGL_debug_renderer_info');
  const graphics={vendor:gl.getParameter(gl.VENDOR),renderer:gl.getParameter(gl.RENDERER),unmaskedRenderer:debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):undefined};
- const summary={index,ticks:native.ticks,elapsedMs:elapsed,simulationRate:native.ticks/(elapsed/1000),graphics,stepBatch:4,roundtripMs:{p50:percentile(steps,.5),p95:percentile(steps,.95),p99:percentile(steps,.99),max:Math.max(...steps)},frameMs:{p50:percentile(frames,.5),p95:percentile(frames,.95),p99:percentile(frames,.99),over50:frames.filter(ms=>ms>50).length,total:frames.length},commandsMs:{p95:percentile(commandWork,.95),max:Math.max(...commandWork)},visibleEntities:{min:Math.min(...visibleCounts),max:Math.max(...visibleCounts)},renderedActors:internals.actors.size,terrainChunks:internals.chunks.size,art:art.statistics,missing:renderer.missingArt,hash,savedBytes:saved.data.byteLength,restored:true,errors:[...errors]};
- return summary;
+ const summary={index,ticks:native.ticks,elapsedMs:elapsed,simulationRate:native.ticks/(elapsed/1000),performance:{targetTicksPerSecond:20,budgetMs:native.ticks*50+50,withinSimulationBudget:elapsed<=native.ticks*50+50},graphics,stepBatch:4,roundtripMs:{p50:percentile(steps,.5),p95:percentile(steps,.95),p99:percentile(steps,.99),max:Math.max(...steps)},frameMs:{p50:percentile(frames,.5),p95:percentile(frames,.95),p99:percentile(frames,.99),over50:frames.filter(ms=>ms>50).length,total:frames.length},commandsMs:{p95:percentile(commandWork,.95),max:Math.max(...commandWork)},visibleEntities:{min:Math.min(...visibleCounts),max:Math.max(...visibleCounts)},renderedActors:internals.actors.size,terrainChunks:internals.chunks.size,terrainGeometry:[...internals.chunks.values()].flatMap(c=>c.fragments).reduce((n,f)=>({fragments:n.fragments+1,shown:n.shown+Number(f.mesh.visible),vertices:n.vertices+f.mesh.geometry.positions.length/2,shownVertices:n.shownVertices+(f.mesh.visible?f.mesh.geometry.positions.length/2:0),shownFog:n.shownFog+Number(f.fog.visible)}),{fragments:0,shown:0,vertices:0,shownVertices:0,shownFog:0}),art:art.statistics,missing:renderer.missingArt,hash,savedBytes:saved.data.byteLength,restored:true,errors:[...errors]};
+ return {...summary,snapshotUpdateMs:{count:snapshotUpdates.length,p50:percentile(snapshotUpdates,.5),p95:percentile(snapshotUpdates,.95),total:snapshotUpdates.reduce((a,b)=>a+b,0)},workerTimingsAtEnd,workerTimings};
 }
 async function dispose(){renderer?.dispose();renderer=undefined;runtime?.dispose();runtime=undefined;await art.release();return {canvases:host.querySelectorAll('canvas').length,art:art.statistics}}
 Object.assign(window,{qa:{run,dispose}});document.body.dataset.ready='true';

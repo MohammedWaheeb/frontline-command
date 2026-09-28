@@ -1,0 +1,1083 @@
+{
+  "time": "2026-09-28T13:49:28.459647+00:00",
+  "status": "three-browser geometry and full-renderer passed; hardware/product gate pending",
+  "source": [
+    {
+      "path": "client/src/render/art.ts",
+      "bytes": 15338,
+      "sha256": "bfb0547f73ecb9e712b731686d163435d6e90a1de4fb7a28213a7b9cf3242aa8"
+    },
+    {
+      "path": "client/src/render/actors.ts",
+      "bytes": 20215,
+      "sha256": "be7857b24645b00f5fc906cf31b2bb9c6f0268b39e4cf9c9884ccbe7ae50b379"
+    },
+    {
+      "path": "client/src/render/battlefield.ts",
+      "bytes": 34877,
+      "sha256": "c27490bb5337a927ae8eb6752dc47095a500c4b9e7c19213c4420433860fd4ea"
+    },
+    {
+      "path": "client/src/render/terrain-surface.ts",
+      "bytes": 12447,
+      "sha256": "7d498da7b940e4741ed8e74b7996d2d7a420e310066dba28a7ed6b328437ef2e"
+    },
+    {
+      "path": "client/src/render/environment.ts",
+      "bytes": 4862,
+      "sha256": "01bc7af869b242fc08be6625237f452c6e8a60e2fe66faf81949dc1fa21b6048"
+    },
+    {
+      "path": "client/src/render/environment-state.ts",
+      "bytes": 5025,
+      "sha256": "a353b45cf97c72407a9ee821005128ff45a93055e304c3620643f2e1f012a369"
+    },
+    {
+      "path": "client/src/render/surface-shadows.ts",
+      "bytes": 14756,
+      "sha256": "80bd4830807d3fe4677617af8aaa7de68aab8ce9f1268f81eda3d1d057dfb1b1"
+    },
+    {
+      "path": "client/tests/runtime/environment-state.test.ts",
+      "bytes": 5988,
+      "sha256": "8e9cd518991397f5ea301ae66e8d02ba1fc78abcaffbc8981e3fa2a737818c91"
+    },
+    {
+      "path": "client/tests/render/sprite-terrain-depth-entry.ts",
+      "bytes": 12280,
+      "sha256": "b9897150c01f9de31d7d56df45d3e7a7b513f83b61a82bc5c5c7651d900092a5"
+    },
+    {
+      "path": "client/tests/render/sprite-terrain-depth-browser.mjs",
+      "bytes": 6870,
+      "sha256": "41ec7271e8a56f4a432ff2b1e2641acdd0aae0a2913a74925d97535373da919b"
+    },
+    {
+      "path": "client/tests/render/parking-scene-entry.ts",
+      "bytes": 3894,
+      "sha256": "92a539ecc116e10348e73b938c60794d3c891b9fe8312e8ef4d157736d6b6802"
+    },
+    {
+      "path": "client/tests/render/parking-scene-browser.mjs",
+      "bytes": 5714,
+      "sha256": "7eaf3d93e053158c8fe73dc2b4b1de0f5a0f46802e3504404b4f1fa631847c4b"
+    },
+    {
+      "path": "client/tests/render/browser.mjs",
+      "bytes": 11474,
+      "sha256": "c82f0d1890bc1f153785a73121a6637c5c5a704c7f01bb9bc152aef29012df20"
+    }
+  ],
+  "sourceLock": "8878188fe9d44d3ddd4a3fd0d093978454acbb3075b556ba692922c87a9ce37e",
+  "reports": [
+    {
+      "path": "work/art/sprite-terrain-depth/gpu-final-chromium-pixels/browser.json",
+      "sha256": "c7391ed5952bfd9ca1a413df5a92521a3d80eba1ab13602ff6b97f1979ef7517",
+      "engine": "chromium",
+      "kind": "pixels",
+      "status": "passed",
+      "errors": [],
+      "flatSamples": 1152,
+      "cliffSamples": 6
+    },
+    {
+      "path": "work/art/sprite-terrain-depth/gpu-final-chromium-extra/browser.json",
+      "sha256": "523ac945173ef16b96edf8cff19f81a40bfdc5d7799225055a400e8103580c6e",
+      "engine": "chromium",
+      "kind": "extra",
+      "status": "passed",
+      "errors": [],
+      "budgetBytes": 26793360,
+      "geometry": [
+        {
+          "shape": "cliff",
+          "changed": 1945,
+          "faceLeaks": 0,
+          "levels": [
+            4,
+            0
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "stats": {
+            "meshes": 126,
+            "triangles": 4096,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 15,
+            "textureBytes": 2333696
+          }
+        },
+        {
+          "shape": "slope",
+          "changed": 2806,
+          "faceLeaks": 0,
+          "levels": [
+            1.859,
+            1.891,
+            1.766,
+            1.797,
+            1.828,
+            1.703,
+            1.734,
+            0,
+            1.609,
+            1.641,
+            1.672,
+            1.172,
+            1.203,
+            1.234,
+            1.328,
+            1.453,
+            1.484,
+            1.516,
+            1.547,
+            1.578,
+            1.078,
+            1.109,
+            1.141,
+            1.266,
+            1.297,
+            1.359,
+            1.391,
+            1.422,
+            0.766,
+            0.859,
+            0.891,
+            0.922,
+            0.953,
+            1.008,
+            1.05,
+            0.672,
+            0.703,
+            0.734,
+            0.797,
+            0.828,
+            0.925,
+            1.092,
+            1.175,
+            1.217,
+            0.453,
+            0.484,
+            0.547,
+            0.578,
+            0.609,
+            0.641,
+            0.842,
+            1.258,
+            1.342,
+            1.383,
+            0.016,
+            0.047,
+            0.141,
+            0.234,
+            0.266,
+            0.359,
+            0.391,
+            0.422,
+            0.516,
+            0.675,
+            0.758,
+            1.425,
+            1.508,
+            1.55,
+            0.078,
+            0.109,
+            0.172,
+            0.203,
+            0.297,
+            0.328,
+            0.592,
+            1.592,
+            1.675,
+            1.717,
+            0.508,
+            1.758,
+            1.842,
+            1.883,
+            0.425,
+            1.925,
+            1.984,
+            2,
+            0.342,
+            1.922,
+            1.953,
+            0.175,
+            0.258,
+            0.092,
+            0.05,
+            0.217,
+            0.383,
+            0.55,
+            0.717,
+            0.883
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "stats": {
+            "meshes": 126,
+            "triangles": 4096,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 36,
+            "textureBytes": 2094336
+          }
+        },
+        {
+          "shape": "plateau-edge-470",
+          "expectedEmpty": false,
+          "changed": 8897,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 56,
+            "textureBytes": 2746944
+          }
+        },
+        {
+          "shape": "plateau-edge-490",
+          "expectedEmpty": false,
+          "changed": 5143,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        },
+        {
+          "shape": "plateau-edge-510",
+          "expectedEmpty": false,
+          "changed": 1603,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        },
+        {
+          "shape": "plateau-edge-530",
+          "expectedEmpty": true,
+          "changed": 0,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 94,
+            "triangles": 2304,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        }
+      ],
+      "visibility": {
+        "changed": {
+          "pixels": 3339,
+          "maximum": 59
+        },
+        "matchesFresh": {
+          "pixels": 0,
+          "maximum": 0
+        }
+      },
+      "disposed": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0
+      },
+      "stress": {
+        "stress": {
+          "coldMs": 14.5,
+          "cold": {
+            "meshes": 122,
+            "triangles": 3844,
+            "cachedPlates": 1696,
+            "rebuiltPlates": 0,
+            "stampSprites": 1696,
+            "textureID": 402,
+            "textureBytes": 1867776
+          },
+          "phases": {
+            "mobile-moving": {
+              "samples": 20,
+              "median": 1.2000000476837158,
+              "p95": 1.4000000953674316
+            },
+            "one-moving": {
+              "samples": 20,
+              "median": 0.9000000953674316,
+              "p95": 1.3000001907348633
+            }
+          }
+        },
+        "deckStress": {
+          "coldMs": 23.40000009536743,
+          "cold": {
+            "meshes": 171,
+            "triangles": 6528,
+            "cachedPlates": 64,
+            "rebuiltPlates": 64,
+            "stampSprites": 0,
+            "textureBytes": 0
+          },
+          "phases": {
+            "one-moving": {
+              "samples": 20,
+              "median": 2.299999952316284,
+              "p95": 3.4000000953674316
+            },
+            "six-moving": {
+              "samples": 20,
+              "median": 3.0999999046325684,
+              "p95": 3.200000047683716
+            },
+            "stationary": {
+              "samples": 10,
+              "median": 0.10000014305114746,
+              "p95": 0.20000004768371582
+            }
+          }
+        }
+      }
+    },
+    {
+      "path": "work/art/sprite-terrain-depth/gpu-final-firefox-pixels/browser.json",
+      "sha256": "d2e87721b82494bf90267c91386a736c8b406fcee4558f5474ec1236ae8f5f72",
+      "engine": "firefox",
+      "kind": "pixels",
+      "status": "passed",
+      "errors": [],
+      "flatSamples": 1152,
+      "cliffSamples": 6
+    },
+    {
+      "path": "work/art/sprite-terrain-depth/gpu-final-firefox-extra/browser.json",
+      "sha256": "281626edd535ee54df89d1ad3386ca6f060b73f6728e37b2a4fb7f6eaaf0084a",
+      "engine": "firefox",
+      "kind": "extra",
+      "status": "passed",
+      "errors": [],
+      "budgetBytes": 26793360,
+      "geometry": [
+        {
+          "shape": "cliff",
+          "changed": 1952,
+          "faceLeaks": 0,
+          "levels": [
+            4,
+            0
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "stats": {
+            "meshes": 126,
+            "triangles": 4096,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 15,
+            "textureBytes": 2333696
+          }
+        },
+        {
+          "shape": "slope",
+          "changed": 2806,
+          "faceLeaks": 0,
+          "levels": [
+            1.859,
+            1.891,
+            1.766,
+            1.797,
+            1.828,
+            1.703,
+            1.734,
+            0,
+            1.609,
+            1.641,
+            1.672,
+            1.172,
+            1.203,
+            1.234,
+            1.328,
+            1.453,
+            1.484,
+            1.516,
+            1.547,
+            1.578,
+            1.078,
+            1.109,
+            1.141,
+            1.266,
+            1.297,
+            1.359,
+            1.391,
+            1.422,
+            0.766,
+            0.859,
+            0.891,
+            0.922,
+            0.953,
+            1.008,
+            1.05,
+            0.672,
+            0.703,
+            0.734,
+            0.797,
+            0.828,
+            0.925,
+            1.092,
+            1.175,
+            1.217,
+            0.453,
+            0.484,
+            0.547,
+            0.578,
+            0.609,
+            0.641,
+            0.842,
+            1.258,
+            1.342,
+            1.383,
+            0.016,
+            0.047,
+            0.141,
+            0.234,
+            0.266,
+            0.359,
+            0.391,
+            0.422,
+            0.516,
+            0.675,
+            0.758,
+            1.425,
+            1.508,
+            1.55,
+            0.078,
+            0.109,
+            0.172,
+            0.203,
+            0.297,
+            0.328,
+            0.592,
+            1.592,
+            1.675,
+            1.717,
+            0.508,
+            1.758,
+            1.842,
+            1.883,
+            0.425,
+            1.925,
+            1.984,
+            2,
+            0.342,
+            1.922,
+            1.953,
+            0.175,
+            0.258,
+            0.092,
+            0.05,
+            0.217,
+            0.383,
+            0.55,
+            0.717,
+            0.883
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "stats": {
+            "meshes": 126,
+            "triangles": 4096,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 36,
+            "textureBytes": 2094336
+          }
+        },
+        {
+          "shape": "plateau-edge-470",
+          "expectedEmpty": false,
+          "changed": 8897,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 56,
+            "textureBytes": 2746944
+          }
+        },
+        {
+          "shape": "plateau-edge-490",
+          "expectedEmpty": false,
+          "changed": 5143,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        },
+        {
+          "shape": "plateau-edge-510",
+          "expectedEmpty": false,
+          "changed": 1603,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        },
+        {
+          "shape": "plateau-edge-530",
+          "expectedEmpty": true,
+          "changed": 0,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 94,
+            "triangles": 2304,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        }
+      ],
+      "visibility": {
+        "changed": {
+          "pixels": 3339,
+          "maximum": 59
+        },
+        "matchesFresh": {
+          "pixels": 0,
+          "maximum": 0
+        }
+      },
+      "disposed": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0
+      },
+      "stress": {
+        "stress": {
+          "coldMs": 46,
+          "cold": {
+            "meshes": 122,
+            "triangles": 3844,
+            "cachedPlates": 1696,
+            "rebuiltPlates": 0,
+            "stampSprites": 1696,
+            "textureID": 402,
+            "textureBytes": 1867776
+          },
+          "phases": {
+            "mobile-moving": {
+              "samples": 20,
+              "median": 3,
+              "p95": 4
+            },
+            "one-moving": {
+              "samples": 20,
+              "median": 3,
+              "p95": 4
+            }
+          }
+        },
+        "deckStress": {
+          "coldMs": 37,
+          "cold": {
+            "meshes": 171,
+            "triangles": 6528,
+            "cachedPlates": 64,
+            "rebuiltPlates": 64,
+            "stampSprites": 0,
+            "textureBytes": 0
+          },
+          "phases": {
+            "one-moving": {
+              "samples": 20,
+              "median": 7,
+              "p95": 10
+            },
+            "six-moving": {
+              "samples": 20,
+              "median": 8,
+              "p95": 11
+            },
+            "stationary": {
+              "samples": 10,
+              "median": 0,
+              "p95": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "path": "work/art/sprite-terrain-depth/gpu-final-webkit-pixels/browser.json",
+      "sha256": "0d1e4c5d9a55ba6f7b0364e1901fde61b80aea6318c7da821d33e00b5a32d81a",
+      "engine": "webkit",
+      "kind": "pixels",
+      "status": "passed",
+      "errors": [],
+      "flatSamples": 1152,
+      "cliffSamples": 6
+    },
+    {
+      "path": "work/art/sprite-terrain-depth/gpu-final-webkit-extra/browser.json",
+      "sha256": "e344dff9c1b6066d62b0dcbbda8835b9cf5dc315505ad13528012f78ace442fe",
+      "engine": "webkit",
+      "kind": "extra",
+      "status": "passed",
+      "errors": [],
+      "budgetBytes": 26793360,
+      "geometry": [
+        {
+          "shape": "cliff",
+          "changed": 1942,
+          "faceLeaks": 0,
+          "levels": [
+            4,
+            0
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "stats": {
+            "meshes": 126,
+            "triangles": 4096,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 15,
+            "textureBytes": 2333696
+          }
+        },
+        {
+          "shape": "slope",
+          "changed": 2812,
+          "faceLeaks": 0,
+          "levels": [
+            1.859,
+            1.891,
+            1.766,
+            1.797,
+            1.828,
+            1.703,
+            1.734,
+            0,
+            1.609,
+            1.641,
+            1.672,
+            1.172,
+            1.203,
+            1.234,
+            1.328,
+            1.453,
+            1.484,
+            1.516,
+            1.547,
+            1.578,
+            1.078,
+            1.109,
+            1.141,
+            1.266,
+            1.297,
+            1.359,
+            1.391,
+            1.422,
+            0.766,
+            0.859,
+            0.891,
+            0.922,
+            0.953,
+            1.008,
+            1.05,
+            0.672,
+            0.703,
+            0.734,
+            0.797,
+            0.828,
+            0.925,
+            1.092,
+            1.175,
+            1.217,
+            0.453,
+            0.484,
+            0.547,
+            0.578,
+            0.609,
+            0.641,
+            0.842,
+            1.258,
+            1.342,
+            1.383,
+            0.016,
+            0.047,
+            0.141,
+            0.234,
+            0.266,
+            0.359,
+            0.391,
+            0.422,
+            0.516,
+            0.675,
+            0.758,
+            1.425,
+            1.508,
+            1.55,
+            0.078,
+            0.109,
+            0.172,
+            0.203,
+            0.297,
+            0.328,
+            0.592,
+            1.592,
+            1.675,
+            1.717,
+            0.508,
+            1.758,
+            1.842,
+            1.883,
+            0.425,
+            1.925,
+            1.984,
+            2,
+            0.342,
+            1.922,
+            1.953,
+            0.175,
+            0.258,
+            0.092,
+            0.05,
+            0.217,
+            0.383,
+            0.55,
+            0.717,
+            0.883
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "stats": {
+            "meshes": 126,
+            "triangles": 4096,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 36,
+            "textureBytes": 2094336
+          }
+        },
+        {
+          "shape": "plateau-edge-470",
+          "expectedEmpty": false,
+          "changed": 8897,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 56,
+            "textureBytes": 2746944
+          }
+        },
+        {
+          "shape": "plateau-edge-490",
+          "expectedEmpty": false,
+          "changed": 5143,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        },
+        {
+          "shape": "plateau-edge-510",
+          "expectedEmpty": false,
+          "changed": 1603,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 98,
+            "triangles": 2500,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        },
+        {
+          "shape": "plateau-edge-530",
+          "expectedEmpty": true,
+          "changed": 0,
+          "faceLeaks": 0,
+          "levels": [
+            4
+          ],
+          "unknown": {
+            "pixels": 0,
+            "maximum": 0
+          },
+          "clipped": {
+            "pixels": 0,
+            "maximum": 1
+          },
+          "stats": {
+            "meshes": 94,
+            "triangles": 2304,
+            "cachedPlates": 1,
+            "rebuiltPlates": 0,
+            "stampSprites": 1,
+            "textureID": 60,
+            "textureBytes": 2743296
+          }
+        }
+      ],
+      "visibility": {
+        "changed": {
+          "pixels": 3339,
+          "maximum": 59
+        },
+        "matchesFresh": {
+          "pixels": 0,
+          "maximum": 0
+        }
+      },
+      "disposed": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0
+      },
+      "stress": {
+        "stress": {
+          "coldMs": 22,
+          "cold": {
+            "meshes": 122,
+            "triangles": 3844,
+            "cachedPlates": 1696,
+            "rebuiltPlates": 0,
+            "stampSprites": 1696,
+            "textureID": 402,
+            "textureBytes": 1867776
+          },
+          "phases": {
+            "mobile-moving": {
+              "samples": 20,
+              "median": 3,
+              "p95": 4
+            },
+            "one-moving": {
+              "samples": 20,
+              "median": 1,
+              "p95": 2
+            }
+          }
+        },
+        "deckStress": {
+          "coldMs": 23,
+          "cold": {
+            "meshes": 171,
+            "triangles": 6528,
+            "cachedPlates": 64,
+            "rebuiltPlates": 64,
+            "stampSprites": 0,
+            "textureBytes": 0
+          },
+          "phases": {
+            "one-moving": {
+              "samples": 20,
+              "median": 4,
+              "p95": 8
+            },
+            "six-moving": {
+              "samples": 20,
+              "median": 5,
+              "p95": 8
+            },
+            "stationary": {
+              "samples": 10,
+              "median": 0,
+              "p95": 1
+            }
+          }
+        }
+      }
+    }
+  ],
+  "fullRenderer": {
+    "path": "work/art/sprite-terrain-depth/full-renderer-final/browser-results.json",
+    "sha256": "7c2199d8928c1a2e77588c147b24b3d6f31e85dfc77068e486f1246cc162783a",
+    "checks": 14,
+    "errors": []
+  },
+  "fixtureNote": "Final fixture typecheck removes unused non-surface identity fields from synthetic deck map. Width,height,tiles and all product source unchanged from Chromium/Firefox receipts."
+}

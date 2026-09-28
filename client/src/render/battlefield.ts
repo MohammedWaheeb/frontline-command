@@ -6,6 +6,7 @@ import type {Settings} from '../app/settings';
 import {tokens} from '../design/tokens';
 import {ArtLibrary} from './art';
 import {ActorVisual} from './actors';
+import {SurfaceShadows} from './surface-shadows';
 import {EnvironmentRenderer} from './environment';
 import {actorArtKey,physicalArtType} from './art-id';
 import {buildingPresentations} from './poses';
@@ -40,6 +41,7 @@ const clamp=(value:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,value));
 export class BattlefieldRenderer {
  private readonly app=new Application();private readonly world=new Container();
  private readonly ground=new Container();
+ private readonly surfaceShadows=new SurfaceShadows(this.ground);
  private readonly actorStatuses=new Container();
  private combat:CombatEffects;private effectsReleased:Promise<void>=Promise.resolve();
  private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
@@ -69,6 +71,7 @@ export class BattlefieldRenderer {
   if(this.disposed){this.app.destroy(true,{children:true});return}
   const canvas=this.app.canvas;canvas.tabIndex=0;canvas.setAttribute('aria-label','Battlefield. Select units and give orders.');canvas.style.display='block';canvas.style.touchAction='none';canvas.style.outlineColor='var(--fc-color-brass-light, #d0ae66)';canvas.style.outlineOffset='-2px';
   this.host.appendChild(canvas);
+  this.surfaceShadows.configure(this.app.renderer);
   this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.combat.root,this.tactical,this.tacticalOverlay.root,this.strikePreview.root,this.actorStatuses);this.ground.sortableChildren=true;this.actorStatuses.eventMode='none';
   const m=this.options.map;
   this.center(m.spawns[0]?.position??{x:m.width*500,y:m.height*500});
@@ -168,7 +171,7 @@ export class BattlefieldRenderer {
  get tacticalDiagnostics(){return {...this.tacticalOverlay.diagnostics,previewRoutes:this.strikePreview.routes}}
  get combatDiagnostics(){return this.combat.diagnostics}
  async whenEffectsReleased(){await this.effectsReleased}
- resetFeedback(){this.feedbackBaseline=true;this.combat.reset();this.effectEvent=Math.max(0,...(this.snapshot?.events.map(event=>event.id)??[]));this.shake={until:0,strength:0,x:0,y:0};for(const actor of this.actors.values())actor.clearFeedback();for(const death of this.deaths)death.actor.dispose();this.deaths.length=0}
+ resetFeedback(){this.feedbackBaseline=true;this.combat.reset();this.surfaceShadows.clear();this.effectEvent=Math.max(0,...(this.snapshot?.events.map(event=>event.id)??[]));this.shake={until:0,strength:0,x:0,y:0};for(const actor of this.actors.values())actor.clearFeedback();for(const death of this.deaths)death.actor.dispose();this.deaths.length=0}
  setStrikePreview(plan:SkybreakerPlan|undefined,_observedTick?:number){this.strikePreview.set(plan)}
  updateSettings(settings:Settings){this.settings=settings;if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
  setSnapshot(snapshot:PlayerSnapshot){
@@ -190,7 +193,7 @@ export class BattlefieldRenderer {
    if(!entity.position||entity.private?.container)continue;
    living.add(entity.id);let actor=this.actors.get(entity.id);const faction=snapshot.players.find(p=>p.id===entity.owner)?.faction;
    if(actor&&actor.artKey!==actorArtKey(entity,faction)){actor.dispose();this.actors.delete(entity.id);actor=undefined}
-   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);actor.attachStatusLayer(this.actorStatuses);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
+   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);actor.attachStatusLayer(this.actorStatuses);actor.useSurfaceShadows();if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
    actor.presentation=presentations.get(entity.id);actor.status=actorStatus(entity,snapshot,this.options.catalog);actor.receivingBoarder=boardingReceivers.has(entity.id);actor.update(entity,this.tickAt);
   }
   const serviceBases=[...this.actors.values()].filter(actor=>living.has(actor.id)&&(this.options.catalog.buildings.get(actor.entity.type)?.service_slots??0)>0);
@@ -259,12 +262,15 @@ export class BattlefieldRenderer {
   const corners=[{x:-600,y:-440},{x:this.app.screen.width+600,y:-440},{x:-600,y:this.app.screen.height+440},{x:this.app.screen.width+600,y:this.app.screen.height+440}].map(p=>{const iso=this.screenToIso(p),w=toWorld(iso.x,iso.y);return {x:clamp(w.x,0,this.options.map.width*1000-1),y:clamp(w.y,0,this.options.map.height*1000-1)}});
   const minX=Math.floor(Math.min(...corners.map(p=>p.x))/1000/CHUNK),maxX=Math.floor(Math.max(...corners.map(p=>p.x))/1000/CHUNK);
   const minY=Math.floor(Math.min(...corners.map(p=>p.y))/1000/CHUNK),maxY=Math.floor(Math.max(...corners.map(p=>p.y))/1000/CHUNK);
-  const keyBounds=`${minX}:${maxX}:${minY}:${maxY}`;if(this.terrainKey===keyBounds)return;
+  // Chunk admission is deliberately conservative. Individual projected bounds
+  // avoid packing offscreen diagonals from every admitted chunk each frame.
+  const view={left:(-this.world.x-2)/this.camera.zoom,top:(-this.world.y-2)/this.camera.zoom,right:(this.app.screen.width-this.world.x+2)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y+2)/this.camera.zoom};
+  const keyBounds=`${minX}:${maxX}:${minY}:${maxY}@${view.left}/${view.top}/${view.right}/${view.bottom}`;if(this.terrainKey===keyBounds)return;
   const wanted=new Set<string>();let baked=0,pending=false;
   for(let y=minY;y<=Math.min(maxY,this.baker.chunksY-1);y++)for(let x=minX;x<=Math.min(maxX,this.baker.chunksX-1);x++){
    const key=`${x}:${y}`;wanted.add(key);let chunk=this.chunks.get(key);
    if(!chunk){if(baked>=2){pending=true;continue}const texture=this.baker.bake(x,y,true),fragments=this.baker.surfaceFragments(x,y,texture,this.surface);for(const fragment of fragments){fragment.setFog(this.snapshot?.visible??[],this.snapshot?.explored??[]);this.ground.addChild(fragment.mesh,fragment.fog)}chunk={texture,fragments,used:this.frame,visible:true};this.chunks.set(key,chunk);baked++}
-   if(!chunk.visible){chunk.visible=true;for(const fragment of chunk.fragments)fragment.setVisible(true)}chunk.used=this.frame;
+   chunk.visible=true;for(const fragment of chunk.fragments){const b=fragment.bounds;fragment.setVisible(b.right>=view.left&&b.left<=view.right&&b.bottom>=view.top&&b.top<=view.bottom)}chunk.used=this.frame;
   }
   for(const [key,chunk] of this.chunks)if(chunk.visible&&!wanted.has(key)){chunk.visible=false;for(const fragment of chunk.fragments)fragment.setVisible(false)}
   this.terrainKey=pending?'':keyBounds;
@@ -302,6 +308,7 @@ export class BattlefieldRenderer {
    if(actor.standIn||actor.missingArt)this.missing.add(actor.entity.type);
   }
   for(let i=this.deaths.length-1;i>=0;i--){const death=this.deaths[i];if(now>=death.until){death.actor.dispose();this.deaths.splice(i,1);continue}death.actor.render(now,this.team(death.actor.entity.owner),false,'selected',this.settings.reducedMotion);death.actor.root.alpha=Math.min(1,(death.until-now)/700);if(death.actor.terrainShadow)death.actor.terrainShadow.alpha=death.actor.root.alpha}
+  this.surfaceShadows.update([...this.actors.values()].filter(actor=>actor.root.visible).flatMap(actor=>actor.shadowPlates).concat(this.deaths.flatMap(({actor,until})=>actor.shadowPlates.map(plate=>({...plate,alpha:plate.alpha*Math.min(1,(until-now)/700)}))),this.environment.shadowPlates),this.surface,this.snapshot?.visible,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom,zoom:this.camera.zoom});
   if(this.frame%60===0){this.options.art.trim();void this.combat.trim()}
   this.combat.draw(this.surface,this.camera.zoom,this.settings,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom},id=>this.actors.get(id)?.visualAltitude(now,this.settings.reducedMotion));
   this.drawTactical(now);this.overlay.clear();
@@ -350,6 +357,7 @@ export class BattlefieldRenderer {
   if(this.disposed)return;this.disposed=true;this.listeners.abort();this.resizeObserver?.disconnect();
   for(const actor of this.actors.values())actor.dispose();this.actors.clear();this.environment.dispose();
   for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
+  this.surfaceShadows.dispose();
   this.invalidateTerrain();this.baker.disposeSurfaceResources();this.tacticalModel=undefined;this.tacticalOverlay.dispose();this.strikePreview.dispose();this.effectsReleased=this.combat.dispose();
   if(this.app.renderer)this.app.destroy(true,{children:true});
  }

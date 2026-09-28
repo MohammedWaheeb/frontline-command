@@ -1,0 +1,1543 @@
+{
+  "time": "2026-09-28T13:36:46.662Z",
+  "scope": "Actual ActorVisual and unchanged authored PNGs with optional exact-ink metadata. Synthetic translations/terrain only, no Go movement claim. Sorted versus forced-front RGBA comparison detects opaque terrain cutting body/shadow pixels.",
+  "engine": "firefox",
+  "errors": [],
+  "cases": [],
+  "served": {
+    "/fixture.js": {
+      "bytes": 1881939,
+      "sha256": "323c733ee8348d036d0ef6255ffc03878dbda7e80cbe008966ec20d27a0d110e"
+    },
+    "/catalog.json": {
+      "bytes": 49937,
+      "sha256": "6c58eb75f9e3021ef67c960de7f918ae6a3b9f0c23135d7227b7f9c5782ba46a"
+    },
+    "/art/index.json": {
+      "bytes": 9086,
+      "sha256": "2e94dbb135657a136c8559ea1b01f6b87f15a0b3e76aa6750c518093d360df61"
+    },
+    "/parking-fixtures/US-six.json": {
+      "bytes": 121143,
+      "sha256": "34c2e5e20a65ac2580a5c6fd1030b2c28f1521e2e096832dcb9e65d9ec8fa766"
+    },
+    "/art/terrain/sand.png": {
+      "bytes": 89330,
+      "sha256": "856268fbc9d9c97ab4d2b4cf580067d011be9f0d200d40bd7362e6afa8b6e869"
+    },
+    "/art/terrain/packed_earth.png": {
+      "bytes": 71849,
+      "sha256": "2ff581e5f1450e7790fcb1dea23678d644e1095ee306620bdc535e8e5bbc820b"
+    },
+    "/art/terrain/gravel_wash.png": {
+      "bytes": 96432,
+      "sha256": "21bdefb15f5df380586b77610db52c8f65c1afd11185b48f99c6451814f91301"
+    },
+    "/art/terrain/scrub_ground.png": {
+      "bytes": 126502,
+      "sha256": "0866785b8aaa68d9734212cd942ff0b19b4991f31552ff33443d8348d90ed77f"
+    },
+    "/art/terrain/gravel.png": {
+      "bytes": 157176,
+      "sha256": "bbfc2c05a74ab33aef00cfc68b11061890aec5481871c444a0787b9342d36367"
+    },
+    "/art/terrain/rubble_ground.png": {
+      "bytes": 127468,
+      "sha256": "e4afffe07c913f49ee0507430d261989e0f4621f0e7fcffe30407d491d030de6"
+    },
+    "/art/terrain/asphalt.png": {
+      "bytes": 173173,
+      "sha256": "57e0160af34ad5e66efb66b428802c663cc4067ed2968beaf2dc5962e63a7c67"
+    },
+    "/art/terrain/shallow_water.png": {
+      "bytes": 83051,
+      "sha256": "1ce2c87197d586b87ea259075d9ae1820d3b31b195aab9d5ba934187a85dc2f3"
+    },
+    "/art/terrain/deep_water.png": {
+      "bytes": 96849,
+      "sha256": "b3df9310ed9715a08a30c58a514e8f260beee01e892cbea64afd9ce208e578b7"
+    },
+    "/art/terrain/coast_sand.png": {
+      "bytes": 73108,
+      "sha256": "b454e53592a40f065e10b1c5d0ce34dec689c59f52f7a7d7dda510ffd2baedbd"
+    },
+    "/art/terrain/ramp.png": {
+      "bytes": 51941,
+      "sha256": "c321a94941e4e78e4d981a9b6ed90821934d69535f2988998b953eb64ce08599"
+    },
+    "/art/terrain/ground_macro.png": {
+      "bytes": 69055,
+      "sha256": "08b6134a7503017acb41da90c9ef71eec8ebdbc3571dd5f79b5615ba02376192"
+    },
+    "/art/terrain/road_asphalt_decal.png": {
+      "bytes": 33684,
+      "sha256": "2a35c79d45fb1d41e7be1bcbdbd956e2bb145b575a239deb88d10ead312a0927"
+    },
+    "/art/terrain/cliff_face_tier1.png": {
+      "bytes": 61018,
+      "sha256": "22729b3817a0d475e3a9605479afaed9a7b9fab6d92b92159b163106994a2d04"
+    },
+    "/art/terrain/cliff_face_tier2.png": {
+      "bytes": 97540,
+      "sha256": "38ac2da75ca0f9c95f2629166b0f0e0b58ee86b1d2b307d85ce850a249219fe8"
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike.sprite.json": {
+      "bytes": 1081,
+      "sha256": "e4777a9d15d5551b9713f47adf3bfa64a228d8d8b77f1e57dbf99d7ce4936683"
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.beauty.0.json": {
+      "bytes": 328,
+      "sha256": "f441ef4fcf95cb787be00a367171271c8391031e1bb34ba2f481504c004767f8"
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.team.0.json": {
+      "bytes": 326,
+      "sha256": "e5da99a6ee7df3c2d2324528ee61db5e0225ae25fcd24dd925fe15b8c4d4e060"
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.shadow.0.json": {
+      "bytes": 579,
+      "sha256": "7dd101964794da07dd751e7d41e3af0e4190e50efa9202cc62cacfc662b2a627"
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.shadow.0.png": {
+      "bytes": 4269,
+      "sha256": "53fbef5f9b4dcc15b392bc3d1f0848792c0aa299c4c1f05a2770fe2e861974d1"
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.team.0.png": {
+      "bytes": 929,
+      "sha256": "6cc421165b0fe0633bb8789939c75c907f99d71c2ebf476d5d6db1b49b6941d9"
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.beauty.0.png": {
+      "bytes": 8711,
+      "sha256": "2e04e57cbb2a51b0ea3ec8818cd48d56f3177f855106d9ef343ea067fb4a7b1b"
+    },
+    "/art/sprites/unit.US.rifle/unit.US.rifle.sprite.json": {
+      "bytes": 20642,
+      "sha256": "4b5a305865e8410b6fdef9ae865f4824aa8a61d831807f9a32c86103c03390a8"
+    },
+    "/art/sprites/unit.US.rifle/unit.US.rifle@1x.beauty.json": {
+      "bytes": 40116,
+      "sha256": "b66a8eecb46ffeb0c34199b2e5cdae20643cd8b4746236da3405815f0ec09e39"
+    },
+    "/art/sprites/unit.US.rifle/unit.US.rifle@1x.shadow.json": {
+      "bytes": 40116,
+      "sha256": "b40db98d2538743f7adb04d650f278d8cd87567c99bdb3bd5eda7127fde89a8b"
+    },
+    "/art/sprites/unit.US.rifle/unit.US.rifle@1x.team.json": {
+      "bytes": 30475,
+      "sha256": "1bbed55198ed46a62562996bface9424adaf87b00fd2fc79d7f0cee275fbc1f9"
+    },
+    "/art/sprites/unit.US.rifle/unit.US.rifle@1x.shadow.png": {
+      "bytes": 62686,
+      "sha256": "4a40c83daf903df2022e2e58ebf0cfb7be546d84d578496e1c3f19d0a37e7ed1"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank.sprite.json": {
+      "bytes": 13057,
+      "sha256": "f066a18c95ce45bf546be807f6ab9e74aa017fa65289ae75670d1de63c8861e1"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.beauty.0.json": {
+      "bytes": 11210,
+      "sha256": "5b65a3bc6a80fac7b16ab2b23c188e68194485a8026b08a3d92c39ff755097fa"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.beauty.1.json": {
+      "bytes": 11270,
+      "sha256": "ca4ec5f93589540b0b4a2aed4973cc61bea38c1aba375a53bfff1033d574a2ba"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.beauty.2.json": {
+      "bytes": 11182,
+      "sha256": "33320649b95c2052ff4dd6a3c29ea442b6531019dbca577688ddecdac52ec910"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.beauty.3.json": {
+      "bytes": 11210,
+      "sha256": "4f7239040cb64ffc37bad48027e64ca36b00c92b1b2a27ea07381957f92e9ec7"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.beauty.4.json": {
+      "bytes": 5070,
+      "sha256": "120d268beccec6aff6adbd33ddd746b80b5fbc8ee4a16860ce7ccc6ece5e4d7d"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.shadow.0.json": {
+      "bytes": 11210,
+      "sha256": "16c957a2969fadae46f1d624a051771c54773310fe4c778cb16f600a4b3fe52d"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.shadow.1.json": {
+      "bytes": 11270,
+      "sha256": "2437d091a8dcd99bbeeb09682e12ea576d7c0e84867a96ae1022f1173a11fde3"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.shadow.2.json": {
+      "bytes": 984,
+      "sha256": "a179902a4b56e355f6b2de51b046355fc8e8ec0240ad8f522c2d72b18939e9be"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.team.0.json": {
+      "bytes": 11208,
+      "sha256": "49ae5828b7e921d4b0419f17e16a9691c8f18c297a3161a6a2bf4ee0da885d18"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.team.1.json": {
+      "bytes": 11244,
+      "sha256": "54ac2cb42b1d87b87beb8b60d42578ff38711bdec1ca0a3b432cd6897eb8822c"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.team.2.json": {
+      "bytes": 11188,
+      "sha256": "5c4b2cff135917dc291e5bd87bf4dc3358ef50ace5d2bcd30acd6f1c4e372c43"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.team.3.json": {
+      "bytes": 11208,
+      "sha256": "e8565644233e638e57c3f7627ad52b61ef59543bfdf10da9ab5c689a2d455260"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.team.4.json": {
+      "bytes": 1792,
+      "sha256": "b67e7cf794e018b2b38ea8f0d031b91692595773de30bc028ab8934bd5e2a37c"
+    },
+    "/art/sprites/unit.US.tank/unit.US.tank@1x.shadow.0.png": {
+      "bytes": 145374,
+      "sha256": "7ae58d8c9444785c0972a0f4dcbcc34d8c973e5121776c5c949e903da8635deb"
+    },
+    "/art/sprites/building.US.hq/building.US.hq.sprite.json": {
+      "bytes": 8702,
+      "sha256": "39629e94d9b76094c83cd1ac1126035d1e0583cfe1f9dc5ce4d7ee5b584b0aec"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.beauty.0.json": {
+      "bytes": 2676,
+      "sha256": "7e12947f00e0038a2c10c56ffbb3459967d0ff9860c43f0df6014e8cc6b43807"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.beauty.1.json": {
+      "bytes": 2653,
+      "sha256": "ceeacded7aa2dade14a9a0c9bc2ee98edf8585f60425f7f1e2089bf060cda4da"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.beauty.2.json": {
+      "bytes": 998,
+      "sha256": "b9758ec4eecbb30ebee7563596c8ea1284e66928b1f980469662bff0af5eba37"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.shadow.0.json": {
+      "bytes": 2676,
+      "sha256": "b5443456e397c36da117734e7325c91bffa01d3aed42f540af22c4f038190701"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.shadow.1.json": {
+      "bytes": 2653,
+      "sha256": "1ccb91b3e22b0c2daa00e5e1f17af66d1587944233d8cd3096b21491863934a4"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.shadow.2.json": {
+      "bytes": 998,
+      "sha256": "91a3017c2f87a79c99adea9ae4b2f9e593cc21bfa2a1766871547e7adf38c7c7"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.team.0.json": {
+      "bytes": 2674,
+      "sha256": "2f1846f1e495f3a8f98dbdcaee372fe9aac74e9123521e138323aed594bc5dee"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.team.1.json": {
+      "bytes": 2652,
+      "sha256": "dfd49c79cc8184357123d5345209414e6e27ec3a806f580490976b508aba012c"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.team.2.json": {
+      "bytes": 789,
+      "sha256": "4df4e1b7a6479cc6bae4939c34433fb94a3beb27b8b96b604894ee2c8ce66e04"
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.shadow.0.png": {
+      "bytes": 74994,
+      "sha256": "4d4c277791960b18cb03769daa8509cdf873f8b409e5c03d691ebdb1e12c129f"
+    }
+  },
+  "geometry": [
+    {
+      "shape": "cliff",
+      "changed": 1952,
+      "faceLeaks": 0,
+      "levels": [
+        4,
+        0
+      ],
+      "unknown": {
+        "pixels": 0,
+        "maximum": 0
+      },
+      "stats": {
+        "meshes": 126,
+        "triangles": 4096,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 15,
+        "textureBytes": 2333696
+      }
+    },
+    {
+      "shape": "slope",
+      "changed": 2806,
+      "faceLeaks": 0,
+      "levels": [
+        1.859,
+        1.891,
+        1.766,
+        1.797,
+        1.828,
+        1.703,
+        1.734,
+        0,
+        1.609,
+        1.641,
+        1.672,
+        1.172,
+        1.203,
+        1.234,
+        1.328,
+        1.453,
+        1.484,
+        1.516,
+        1.547,
+        1.578,
+        1.078,
+        1.109,
+        1.141,
+        1.266,
+        1.297,
+        1.359,
+        1.391,
+        1.422,
+        0.766,
+        0.859,
+        0.891,
+        0.922,
+        0.953,
+        1.008,
+        1.05,
+        0.672,
+        0.703,
+        0.734,
+        0.797,
+        0.828,
+        0.925,
+        1.092,
+        1.175,
+        1.217,
+        0.453,
+        0.484,
+        0.547,
+        0.578,
+        0.609,
+        0.641,
+        0.842,
+        1.258,
+        1.342,
+        1.383,
+        0.016,
+        0.047,
+        0.141,
+        0.234,
+        0.266,
+        0.359,
+        0.391,
+        0.422,
+        0.516,
+        0.675,
+        0.758,
+        1.425,
+        1.508,
+        1.55,
+        0.078,
+        0.109,
+        0.172,
+        0.203,
+        0.297,
+        0.328,
+        0.592,
+        1.592,
+        1.675,
+        1.717,
+        0.508,
+        1.758,
+        1.842,
+        1.883,
+        0.425,
+        1.925,
+        1.984,
+        2,
+        0.342,
+        1.922,
+        1.953,
+        0.175,
+        0.258,
+        0.092,
+        0.05,
+        0.217,
+        0.383,
+        0.55,
+        0.717,
+        0.883
+      ],
+      "unknown": {
+        "pixels": 0,
+        "maximum": 0
+      },
+      "stats": {
+        "meshes": 126,
+        "triangles": 4096,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 36,
+        "textureBytes": 2094336
+      }
+    },
+    {
+      "shape": "plateau-edge-470",
+      "expectedEmpty": false,
+      "changed": 8897,
+      "faceLeaks": 0,
+      "levels": [
+        4
+      ],
+      "unknown": {
+        "pixels": 0,
+        "maximum": 0
+      },
+      "clipped": {
+        "pixels": 0,
+        "maximum": 1
+      },
+      "stats": {
+        "meshes": 98,
+        "triangles": 2500,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 56,
+        "textureBytes": 2746944
+      }
+    },
+    {
+      "shape": "plateau-edge-490",
+      "expectedEmpty": false,
+      "changed": 5143,
+      "faceLeaks": 0,
+      "levels": [
+        4
+      ],
+      "unknown": {
+        "pixels": 0,
+        "maximum": 0
+      },
+      "clipped": {
+        "pixels": 0,
+        "maximum": 1
+      },
+      "stats": {
+        "meshes": 98,
+        "triangles": 2500,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 60,
+        "textureBytes": 2743296
+      }
+    },
+    {
+      "shape": "plateau-edge-510",
+      "expectedEmpty": false,
+      "changed": 1603,
+      "faceLeaks": 0,
+      "levels": [
+        4
+      ],
+      "unknown": {
+        "pixels": 0,
+        "maximum": 0
+      },
+      "clipped": {
+        "pixels": 0,
+        "maximum": 1
+      },
+      "stats": {
+        "meshes": 98,
+        "triangles": 2500,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 60,
+        "textureBytes": 2743296
+      }
+    },
+    {
+      "shape": "plateau-edge-530",
+      "expectedEmpty": true,
+      "changed": 0,
+      "faceLeaks": 0,
+      "levels": [
+        4
+      ],
+      "unknown": {
+        "pixels": 0,
+        "maximum": 0
+      },
+      "clipped": {
+        "pixels": 0,
+        "maximum": 1
+      },
+      "stats": {
+        "meshes": 94,
+        "triangles": 2304,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 60,
+        "textureBytes": 2743296
+      }
+    }
+  ],
+  "visibility": {
+    "changed": {
+      "pixels": 3339,
+      "maximum": 59
+    },
+    "matchesFresh": {
+      "pixels": 0,
+      "maximum": 0
+    }
+  },
+  "lifecycle": {
+    "resident": {
+      "indexedPages": 3,
+      "residentPages": 3,
+      "residentBytes": 473088
+    },
+    "meshes": {
+      "meshes": 122,
+      "triangles": 3844,
+      "cachedPlates": 1,
+      "rebuiltPlates": 0,
+      "stampSprites": 1,
+      "textureID": 100,
+      "textureBytes": 1867776
+    },
+    "pending": {
+      "meshes": 0,
+      "triangles": 0,
+      "cachedPlates": 0,
+      "rebuiltPlates": 0,
+      "stampSprites": 0,
+      "textureBytes": 0
+    },
+    "restored": {
+      "pixels": 0,
+      "maximum": 0
+    },
+    "disposed": {
+      "meshes": 0,
+      "triangles": 0,
+      "cachedPlates": 0,
+      "rebuiltPlates": 0,
+      "stampSprites": 0,
+      "textureBytes": 0
+    },
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0
+    }
+  },
+  "stress": {
+    "scope": "Synthetic688-actor visible geometry stress; real unchanged shadow plates, no gameplay/performance certification",
+    "actors": 688,
+    "plates": 1696,
+    "coldMs": 46,
+    "cold": {
+      "meshes": 122,
+      "triangles": 3844,
+      "cachedPlates": 1696,
+      "rebuiltPlates": 0,
+      "stampSprites": 1696,
+      "textureID": 402,
+      "textureBytes": 1867776
+    },
+    "samples": [
+      {
+        "phase": "one-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 2,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 2,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 2,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "one-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 2,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 2,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 4,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 2,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 2,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      },
+      {
+        "phase": "mobile-moving",
+        "ms": 3,
+        "meshes": 122,
+        "triangles": 3844,
+        "cachedPlates": 1696,
+        "rebuiltPlates": 0,
+        "stampSprites": 1696,
+        "textureID": 402,
+        "textureBytes": 1867776
+      }
+    ]
+  },
+  "deckStress": {
+    "scope": "64 actual authored shadow plates on16 synthetic known service decks; CPU clipping/update cost only",
+    "plates": 64,
+    "coldMs": 37,
+    "cold": {
+      "meshes": 171,
+      "triangles": 6528,
+      "cachedPlates": 64,
+      "rebuiltPlates": 64,
+      "stampSprites": 0,
+      "textureBytes": 0
+    },
+    "samples": [
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "stationary",
+        "ms": 0,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 0,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 13,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 10,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 8,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 10,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 9,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 9,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 6,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 6,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 6,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 6,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 5,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 6,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 6,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 10,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "one-moving",
+        "ms": 6,
+        "meshes": 171,
+        "triangles": 6528,
+        "cachedPlates": 64,
+        "rebuiltPlates": 1,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 8,
+        "meshes": 171,
+        "triangles": 6518,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6518,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 10,
+        "meshes": 171,
+        "triangles": 6518,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 12,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 8,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 8,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 8,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 10,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 9,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 8,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 8,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 9,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 9,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 11,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      },
+      {
+        "phase": "six-moving",
+        "ms": 7,
+        "meshes": 171,
+        "triangles": 6570,
+        "cachedPlates": 64,
+        "rebuiltPlates": 6,
+        "stampSprites": 0,
+        "textureBytes": 0
+      }
+    ]
+  },
+  "budget": {
+    "samples": [
+      {
+        "meshes": 126,
+        "triangles": 4096,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 429,
+        "textureBytes": 26793360
+      },
+      {
+        "meshes": 126,
+        "triangles": 4096,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 429,
+        "textureBytes": 26793360
+      },
+      {
+        "meshes": 126,
+        "triangles": 4096,
+        "cachedPlates": 1,
+        "rebuiltPlates": 0,
+        "stampSprites": 1,
+        "textureID": 429,
+        "textureBytes": 26793360
+      }
+    ]
+  },
+  "disposal": {
+    "indexedPages": 0,
+    "residentPages": 0,
+    "residentBytes": 0
+  },
+  "status": "passed"
+}

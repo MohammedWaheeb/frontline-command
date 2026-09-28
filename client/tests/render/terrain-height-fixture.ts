@@ -85,5 +85,16 @@ function pickAudit(){
  }
  world.removeChildren();for(const mesh of meshes){mesh.geometry.destroy();mesh.destroy()}texture.destroy(true);world.addChild(...saved);app.render();return {checked,mismatches};
 }
-Object.assign(window,{qa:{show,inspect,clicks,screen,unknownProbe,probeOcclusion,pickAudit,resize:(width:number,height:number)=>{app.renderer.resize(width,height);camera();app.render()},dispose,stats:()=>({textures:textures.length,fragments:fragments.length,probes:probes.length}),surface:()=>surface}});
+function cullAudit(){
+ const previous={x:world.x,y:world.y,zoom},samples=[];
+ for(const z of [.45,1,1.8])for(const offset of [{x:0,y:0},{x:-710,y:350},{x:740,y:-360},{x:-1400,y:-730},{x:1600,y:950}]){
+  camera(z);world.x+=offset.x;world.y+=offset.y;
+  for(const f of fragments)f.setVisible(true);app.render();const baseline=pixels();
+  const view={left:(-world.x-2)/z,top:(-world.y-2)/z,right:(app.screen.width-world.x+2)/z,bottom:(app.screen.height-world.y+2)/z};let shown=0,shownVertices=0;
+  for(const f of fragments){const b=f.bounds,visible=b.right>=view.left&&b.left<=view.right&&b.bottom>=view.top&&b.top<=view.bottom;f.setVisible(visible);if(visible){shown++;shownVertices+=f.mesh.geometry.positions.length/2}}
+  app.render();samples.push({zoom:z,offset,total:fragments.length,shown,shownVertices,totalVertices:fragments.reduce((n,f)=>n+f.mesh.geometry.positions.length/2,0),...compare(baseline,pixels())});
+ }
+ for(const f of fragments)f.setVisible(true);zoom=previous.zoom;world.scale.set(zoom);world.position.set(previous.x,previous.y);app.render();return samples;
+}
+Object.assign(window,{qa:{show,inspect,clicks,screen,unknownProbe,probeOcclusion,pickAudit,cullAudit,resize:(width:number,height:number)=>{app.renderer.resize(width,height);camera();app.render()},dispose,stats:()=>({textures:textures.length,fragments:fragments.length,probes:probes.length}),surface:()=>surface}});
 document.body.dataset.ready='true';

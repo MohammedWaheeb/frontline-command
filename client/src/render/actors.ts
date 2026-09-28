@@ -2,14 +2,15 @@ import {Container,Graphics,Sprite,Texture} from 'pixi.js';
 import type {Entity,Point} from '../runtime';
 import type {CatalogIndex} from '../content/catalog';
 import type {ArtLibrary,SpriteSheet,SpriteState} from './art';
-import {headingIndex,toScreen,LEVEL_PX} from './iso';
-import {TerrainSurface,projectSurfaceVertex} from './terrain-surface';
+import {headingIndex,toScreen,LEVEL_PX,HALF_H} from './iso';
+import {TerrainSurface,projectSurfaceVertex,spriteFrontDepth} from './terrain-surface';
 import {drawStructure,structureHeight} from './structure';
 import {actorSpriteState,actorEventStates,visibleSquadMembers,type BuildingPresentation} from './poses';
 import {FlightPresentation} from './flight-presentation';
 import {actorArtKey,physicalArtType} from './art-id';
 import {ActorStatusOverlay} from './actor-status';
 import type {ActorStatusModel} from '../app/actor-status';
+import type {ShadowPlate} from './surface-shadows';
 
 interface LayeredPart {root:Container;shadowRoot:Container;shadow:Sprite;beauty:Sprite;team:Sprite;offset:Point;poses:Record<string,{state:string;direction:number;frame:number}>}
 function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart {
@@ -35,6 +36,9 @@ export class ActorVisual {
  private previousFacing=0;private nextFacing=0;
  private action?:{names:string[];at:number};
  private livingMembers=Infinity;
+ private bodyBottom?:number;private nextBodyBottom?:number;
+ private projectedShadows=false;readonly shadowPlates:ShadowPlate[]=[];
+ useSurfaceShadows(){this.projectedShadows=true;this.groundShadows.visible=false}
  private readonly flight=new FlightPresentation();private suppressTransition=false;
  presentation?:BuildingPresentation;
  receivingBoarder=false;
@@ -118,7 +122,14 @@ export class ActorVisual {
  }
  groundDepth(now:number,reducedMotion=false):number{
   const p=this.position(now),b=this.catalog.buildings.get(this.entity.type),w=this.entity.footprintWidth||b?.width||0,h=this.entity.footprintHeight||b?.height||0;
-  return Math.max(p.x+p.y+(w&&h?(w+h)*500:0),this.entity.landed&&this.serviceDeck?this.serviceDeck.groundDepth(now,reducedMotion)+.01:0)+(this.visualAltitude(now,reducedMotion)>0?1000000:0);
+  const front=p.x+p.y+Math.max(w&&h?(w+h)*500:0,(this.bodyBottom??0)/HALF_H*1000);
+  // Terrain tops are four triangle fans per tile, sorted by their centroid.
+  // A triangle touching this ground-depth interval can have its centroid up
+  // to the interval's 2/3 point. Cover that exact fan bound so flat ground
+  // cannot cut off opaque sprite pixels between tile centers. Preserve the
+  // original front depth as a stable tie-break inside the interval.
+  const depth=this.surface&&this.bodyBottom!==undefined?spriteFrontDepth(front):front;
+  return Math.max(depth,this.entity.landed&&this.serviceDeck?this.serviceDeck.groundDepth(now,reducedMotion)+.01:0)+(this.visualAltitude(now,reducedMotion)>0?1000000:0);
  }
  private cruiseAltitude(){return Math.max(20,(this.sheet?.meta.air?.cruise_altitude_mt??1400)/1000*25)}
  cue(kind:string,now:number,owned=false){
@@ -176,7 +187,12 @@ export class ActorVisual {
    if(!f){sprite.visible=false;sprite.texture=Texture.EMPTY;continue}
    sprite.visible=true;
    sprite.texture=f.texture;sprite.anchor.set(f.anchorX,f.anchorY);sprite.scale.set(sheet.pixelScale);
+   if(name==='beauty'&&f.bodyBottom!==undefined)this.nextBodyBottom=Math.max(this.nextBodyBottom??-Infinity,p.root.y+altitude+f.bodyBottom);
    sprite.tint=name==='team'?team:0xffffff;
+   if(name==='shadow'&&this.projectedShadows&&p.shadowRoot.visible&&p.root.visible){
+    const deck=this.serviceDeck,center=deck?.position(now),home=deck?.entity,support=deck?.groundAnchor(now);
+    this.shadowPlates.push({id:p.shadow.uid,frame:f,scale:sheet.pixelScale,origin:{x:position.x+p.offset.x+altitude*12.5,y:position.y+p.offset.y},alpha:.46*this.root.alpha,...deck&&center&&home&&support?{deck:{left:center.x-home.footprintWidth*500,top:center.y-home.footprintHeight*500,right:center.x+home.footprintWidth*500,bottom:center.y+home.footprintHeight*500,height:(toScreen(center.x,center.y).y-support.y+deck.serviceRoofOffset())/LEVEL_PX,depth:deck.groundDepth(now)}}:{}});
+   }
    if(name==='shadow'&&this.terrainShadow&&this.surface){
     const cast={x:position.x+p.offset.x+altitude*12.5,y:position.y+p.offset.y},ground=this.surface.projectGround(cast),deck=this.serviceDeck;
     if(deck){const home=deck.entity,center=deck.position(now);if(Math.abs(cast.x-center.x)<=home.footprintWidth*500&&Math.abs(cast.y-center.y)<=home.footprintHeight*500){const support=deck.groundAnchor(now);ground.y=toScreen(cast.x,cast.y).y-(toScreen(center.x,center.y).y-support.y+deck.serviceRoofOffset())}}
@@ -185,11 +201,13 @@ export class ActorVisual {
   }
  }
  render(now:number,team:number,selected:boolean,healthBars:'always'|'selected'|'damaged',reducedMotion:boolean,zoom=1,statusDetail=selected){
+  this.shadowPlates.length=0;
   const e=this.entity,p=this.position(now),screen=this.groundAnchor(now,reducedMotion),unit=this.catalog.units.get(e.type),building=this.catalog.buildings.get(e.type);
   const altitude=this.visualAltitude(now,reducedMotion);
   this.root.position.set(screen.x,screen.y);this.root.zIndex=this.groundDepth(now,reducedMotion);
   this.root.alpha=e.concealed?.65:1;
   if(this.terrainShadow){this.terrainShadow.position.set(screen.x,screen.y);this.terrainShadow.zIndex=Math.max(p.x+p.y+altitude*12.5+.001,this.serviceDeck?this.serviceDeck.groundDepth(now)+.005:0);this.terrainShadow.alpha=this.root.alpha;this.terrainShadow.visible=this.root.visible}
+  this.nextBodyBottom=undefined;
   const state=this.state(now,reducedMotion),facing=this.skin?this.skin.direction*90000:reducedMotion?e.facing:this.previousFacing+(((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000)*Math.min(1,(now-this.changedAt)/50);
   const animationTime=reducedMotion?(e.state==='destroyed'?this.stateAt+10000:this.activeAction(now)?this.action!.at:this.stateAt):now;
   this.fallback.visible=!state;
@@ -220,6 +238,8 @@ export class ActorVisual {
    // Explicit development marker until the missing sprite is authored.
    this.fallback.clear().poly([-10,0,0,-10,10,0,0,7]).fill({color:team}).stroke({width:2,color:0x15130f});
   }
+  this.bodyBottom=this.nextBodyBottom;this.root.zIndex=this.groundDepth(now,reducedMotion);
+  if(this.projectedShadows)this.groundShadows.visible=false;
   this.overlays.clear();
   const radius=building?(e.footprintWidth+e.footprintHeight)*16:Math.max(12,(unit?.radius??400)/1000*48);
   if(selected)this.overlays.ellipse(0,0,radius,radius*.5).stroke({width:1.5,color:0xb6dd77});

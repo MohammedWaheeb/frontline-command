@@ -2,7 +2,7 @@
 // are 512² periodic textures covering 4×4 tiles (docs/asset-pipeline.md), so the
 // projection is applied at draw time and every chunk tiles seamlessly.
 import {Texture,Mesh,MeshGeometry} from 'pixi.js';
-import type {GameMap} from '../runtime';
+import type {GameMap,Rect} from '../runtime';
 import {HALF_H,HALF_W,LEVEL_PX} from './iso';
 import type {ArtLibrary} from './art';
 import {MATERIALS,materialFor,heightAt,terrainAt,type Material} from './terrain-materials';
@@ -12,7 +12,7 @@ export {materialFor,heightAt,terrainAt} from './terrain-materials';
 /** Cached opaque ground and matching fog geometry. The caller interleaves these
  * by ground depth with actors; owning chunk textures are released separately. */
 export interface TerrainFragment {
- mesh:Mesh;fog:Mesh;triangles:readonly SurfaceTriangle[];depth:number;
+ mesh:Mesh;fog:Mesh;triangles:readonly SurfaceTriangle[];depth:number;bounds:Readonly<Rect>;
  setFog(visible:readonly boolean[],explored:readonly boolean[]):void;
  setVisible(visible:boolean):void;
  dispose():void;
@@ -131,13 +131,17 @@ export class TerrainBaker {
    if(face)mesh.tint=first.vertices[0].x===first.vertices[1].x&&first.vertices[1].x===first.vertices[2].x?0xb8b09f:0x999183;
    const fogGeometry=new MeshGeometry({positions:new Float32Array(positions),uvs:fogUVs,indices:new Uint32Array(indices)});fogGeometry.batchMode='batch';
    const fog=new Mesh({texture:this.fogPalette!,geometry:fogGeometry});fog.position.copyFrom(mesh.position);fog.zIndex=first.depth+.0001;
+   // Exact projected geometry bounds include every raised top and cliff face.
+   // They cull only fragments wholly outside the viewport, never hidden-world data.
+   const bounds:Rect={left:Infinity,top:Infinity,right:-Infinity,bottom:-Infinity};
+   for(let i=0;i<positions.length;i+=2){bounds.left=Math.min(bounds.left,positions[i]+origin.x);bounds.right=Math.max(bounds.right,positions[i]+origin.x);bounds.top=Math.min(bounds.top,positions[i+1]+origin.y);bounds.bottom=Math.max(bounds.bottom,positions[i+1]+origin.y)}
    let shown=true,fogNeeded=true;
    const setFog=(visible:readonly boolean[],explored:readonly boolean[])=>{
     let any=false;for(let i=0;i<triangles.length;i++){const alpha=surfaceFogOpacity(triangles[i],visible,explored),u=((alpha===0?0:alpha===175?1:2)+.5)/3;any ||= alpha!==0;for(let j=0;j<3;j++){fogUVs[i*6+j*2]=u;fogUVs[i*6+j*2+1]=.5}}
     fogNeeded=any;fog.visible=shown&&any;fogGeometry.attributes.aUV.buffer.update();
    };
    setFog([],[]);
-   return {mesh,fog,triangles,depth:first.depth,setFog,setVisible(visible:boolean){shown=visible;mesh.visible=visible;fog.visible=visible&&fogNeeded},dispose(){geometry.destroy();fogGeometry.destroy();mesh.destroy();fog.destroy()}};
+   return {mesh,fog,triangles,depth:first.depth,bounds,setFog,setVisible(visible:boolean){shown=visible;mesh.visible=visible;fog.visible=visible&&fogNeeded},dispose(){geometry.destroy();fogGeometry.destroy();mesh.destroy();fog.destroy()}};
   });
  }
  /** Only after all raised fragments have been detached/disposed. */

@@ -22,6 +22,10 @@ const blocked=(terrain:string)=>terrain==='cliff'||terrain==='water'||terrain===
 const mix=(a:SurfaceVertex,b:SurfaceVertex,t:number):SurfaceVertex=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,height:a.height+(b.height-a.height)*t});
 export function projectSurfaceVertex(vertex:SurfaceVertex):Point{const p=toScreen(vertex.x,vertex.y);return {x:p.x,y:p.y-vertex.height*LEVEL_PX}}
 export function compareSurfaceTriangles(a:SurfaceTriangle,b:SurfaceTriangle){return a.depth-b.depth||a.tile-b.tile||(a.id<b.id?-1:a.id>b.id?1:0)}
+/** A top triangle touching this ground-depth interval can have its centroid at
+ * the interval's 2/3 point. An opaque sprite must clear that bound. The tiny
+ * original-depth term preserves ordering within a shared fan interval. */
+export function spriteFrontDepth(front:number){return Math.max(front,Math.floor(front/1000)*1000+2000/3+.001+front/1e9)}
 export function surfaceFogOpacity(triangle:SurfaceTriangle,visible:readonly boolean[],explored:readonly boolean[]):number{
  const opacity=(tile:number)=>visible[tile]?0:explored[tile]?175:255;
  return Math.max(opacity(triangle.tile),triangle.neighbor===undefined?0:opacity(triangle.neighbor));

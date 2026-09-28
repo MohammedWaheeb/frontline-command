@@ -1,14 +1,14 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 12:55 UTC / 15:55 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md).
+Updated 28 September 2026, 14:15 UTC / 17:15 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates below supersede earlier in-progress receipts.
 
 ## Current ownership and access
 
 Shipping Go remains **0.3.3**, protocol1, adapter1, content2.0.0; hash `318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612`. It is the sole authoritative simulation shared by native hosting and WASM. Shipping runtime stays frozen while isolated parking and tactical-view/route advice candidates are tested; promotion is pending.
 
-Claude01/04/05 resumed after the07:20 reset at08:35–08:40. Actual model **claude-opus-5-5** was verified with fallback disabled, then all three hit quota again. Next reported reset is13:30UTC /16:30Qatar; no early retry or sign-in is needed. Root completed the partial UI/terrain integration under the user's authorized fallback (3a4e550, 7133ada). Mencius owns the Claude-authored render helper and production. Existing Claude sessions need fresh file reservations before resuming. Codex agents also resumed after a usage-limit interruption; do not assume anything completed during it.
+Claude returned after the13:30UTC reset. Actual assistant-message model **claude-opus-5-5** is verified for all three assignments, with fallback disabled.01 completed its36-image read-only review;04 and05 then hit quota again, reporting the next reset at18:30UTC /21:30Qatar.04 produced no FX files;05 left three bounded UI edits. Root's old04 resume failed locally with “No conversation found,” without a model request; the fresh assignment succeeded. No sign-in is needed. Current briefs supersede all earlier broad scopes; Codex is again continuing under the authorized fallback.
 
-- Claude04/05 are idle under quota. Their old briefs are superseded: root finished menu/console and terrain integration; fresh bounded review reservations are required before resuming them.
+- Claude04 uses `work/claude/04-original-effects-current.md`; session `b702b13f-1c49-4a0c-af9e-0d76be39447e`. Claude05 uses `work/claude/05-console-polish-current.md`; session `e3cd88fe-799f-407d-9a20-ea24f46855ee`. UI excludes App, editor and error dialogs. Browser/build work waits for coordinated host capacity.
 - Mencius is the **sole Blender worker**. Original-size fighter544/airlift672 exports are staged. Root accepted six actual-Go native source compositions; browser sorting remains open. Airlift service motion is static and remains a defect. Mencius owns its isolated correction, four-battery interceptor/structural-charge pilots, the remaining94assets/18,139poses, and a clearly diagnostic six-scene atlas overlay.
 - Einstein completed tactical/Skybreaker/wire, combat audio and synthetic FX renderer acceptance. It now owns six ordinary paid-combat multiplayer cases in a frozen isolated0.3.4 product, covering1–4 human clients and deterministic bots. First1H+1normalAI match passed ordinary elimination/reconnect/replay; the1H+3AI FFA exposed a texture-lifetime error. Its exact replay validated; fix de1b27f passes three-engine pressure/reappearance tests and the earned replay. Four remaining human configurations are running serially.
 - Boole owns frozen combined0.3.4 acceptance. The original102 main cases finished93pass/9fail; the original21 optional routes finished12pass/9fail. Next is a separate acceptance-driver-only tactics correction copy, with no production, objective or deadline changes.
@@ -33,7 +33,7 @@ The user permits Codex frontend logic and visual implementation during Claude qu
 | Copper scenery |32f223b:10 mirrored entries, real paid economy/scouting/garrison/damage/destruction,21 exact no-scenery mirror hashes | One map; remaining maps not fully dressed |
 | Editor |1c3ea2a: four starts/two regions on64×96 map, real icon sheets, undo/redo/resize/reload, Go previews, practice-return and missing-art fallback, exact draft hashes | No environment-sidecar authoring/export extension |
 | Packaging |26e20f6: exact optional scenery hashes/path bounds and prior-pack preservation;7 focused tests; notice survives long loading | Final complete local package still pending |
-| Performance | M4 Metal raised terrain: two600-tick20TPS segments, p95≈17ms, exact native/restore hash | Short synthetic segments/incomplete art, not long matches or Intel reference |
+| Performance | Historical M4 Metal20TPS course remains preserved; new quiet same-save/runtime courses fall to9–13TPS while hashes/restores pass | Active performance failure. Mesh-packing profile and exact viewport-culling candidate under investigation; no current performance acceptance |
 | Audio |892 clips/620 events; integrity/decode/loop and cold-offline playback checks | Listening/mix/full presentation review remains |
 
 Both TypeScript checks and327 runtime tests passed at the combat renderer and FX lifecycle checkpoints. Shipping0.3.3 native short and actual three-browser integration pass; full0.3.2 short race plus focused0.3.3 correction race pass. Do not relabel historical reports as covering new changes.32 maps/31missions were checkpointed inee97df3 after content validation; that validation alone does not prove balance or mission completion.
@@ -191,3 +191,72 @@ two-human ordinary1v1 reached IRvictory12503 with exact native/full-replay/resto
 hashes and both debriefs; its strict browser row retains one unlocatedHTTP503
 failure. No rendering/decoder exception occurred. Remaining matches now capture
 response URL/status/code and run serially. Nothing is deployed or declared ready.
+
+## Integration update at13:34 UTC
+
+Owner-ranges was checkpointed in aacf416 with its isolated Go projection, client
+readout, exact native/WASM/codec/canonical evidence and preserved browser failures.
+The shared0.3.3 runtime has not been overwritten.
+
+The two-human/two-normal-bot match passed an ordinary team victory at tick12321,
+with real Save Match Replay UI, native/full/checkpoint/midpoint hash parity and no
+HTTP, page, console or decoder errors. The following three-human case failed
+before an outcome: overloaded command-advice calls returned52HTTP503s, including
+`advice_unavailable` and `advice_timeout`. The latter opened a global blocking
+“COMMAND INTERRUPTED” dialog, preventing the reconnect control. This is a real
+recovery defect, not a completed match. Einstein owns the bounded background
+advice recovery fix and its tests. The old two-human unlocated503 is still not
+retroactively explained. Four-human combat has not yet started.
+
+Severe shared-host memory pressure interrupted root's extra Firefox pixel and
+full-load browser tests; their failed/interrupted reports remain. Boole also
+preserved an exact-source observer pilot interruption rather than counting it as
+a mission failure. Heavy runs now alternate. Fresh Chromium shadow geometry,
+visibility, eviction,32MiB budget and fractional-allocation stability checks pass.
+The688-actor/1696-plate synthetic update medians are0.9ms one-moving and1.2ms
+mobile-moving;64 known-deck plates cost2.3ms for one moving or3.1ms for six moving,
+with0.1ms stationary. These are update costs, not full-game FPS. The1152 latest
+combined body/shadow pixel comparisons pass Chromium; other engines and complete
+renderer/product gates remain. The exact-Go six-scene GPU parking snapshots pass
+all9 captures; native1× images were reviewed, without claiming complete animation.
+
+The real maximum-load renderer exposed a valid Go map with `fields:null`, which
+crashed environment knowledge. Both field reads now treat an absent/empty slice
+as empty; a regression also verifies that later disclosed shipment cargo still
+appears without changing the raw map. All334 runtime tests and both TypeScript
+checks pass. Quiet hardware remeasurement remains, and the existing load fixture
+retains its historical0.3.1 engine label.
+
+All three bounded aircraft service pilots now pass root native review: airlift,
+ISR32poses/332checks and scout32poses/328checks. Exact original-size silhouettes
+and other source poses remain preserved. Combined source promotion waits for
+Claude01 review; immutable stage-v1 stays intact. Metadata-only ink-bound promotion
+still waits for final renderer gates. Full USbattery41poses is complete; remaining
+roster,132FX, key art, audio listening and release acceptance are still open.
+
+## Integration update at14:44 UTC
+
+The bounded sprite depth/shadow correction and terrain viewport culling are
+accepted: three engines pass pixel/visibility/occlusion checks, six actual-Go
+parking saves pass nine captures, and the full14 renderer groups pass again
+following ink metadata publication. The metadata covers67 existing exports and
+two independent staged aircraft, with834 atlas descriptors and unchanged packed
+and raw PNG hashes. Complete service animations and the remaining roster are
+still unfinished. See `docs/sprite-terrain-depth.md` and
+`docs/sprite-ink-bounds.md` for evidence and preserved failures.
+
+Culling reduces the frozen maximum-load scene from150528 to48600 drawn vertices.
+Two consecutive hardware courses still reach only19.15/19.76TPS;20TPS is not
+consistently met. A shared explicit Go snapshot converter is therefore isolated
+under `work/snapshot-codec-candidate/`. It retains exact prior protobuf values and
+wire bytes for201 constructed views and31 actual saves/62 player views on native
+Go and WASM, without changing engine hashes. Browser integration and a quiet,
+paired timing comparison remain before acceptance. No runtime has been promoted.
+
+The fresh headed three-human ordinary match has passed reconnect with zero
+strict browser errors so far; its outcome and the four-human course remain
+pending. Three slots of independent work continue on multiplayer, faction/service
+art and mission tactics. Claude's13:30 exact-model review succeeded before later
+jobs reached quota; the next recorded retry is18:30UTC. Partial UI edits and all
+failed mission/performance runs remain visible in their evidence. Nothing is
+published or declared the finished game.

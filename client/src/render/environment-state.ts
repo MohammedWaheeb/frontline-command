@@ -18,7 +18,7 @@ export class EnvironmentKnowledge {
   const dynamic=new Map<string,typeof snapshot.fields[number]>();
   for(const field of snapshot.fields){
    if(!field.position||!seen(field.position))continue;
-   const initial=this.map.fields.find(f=>f.id===field.id&&f.position.x===field.position!.x&&f.position.y===field.position!.y);
+   const initial=(this.map.fields??[]).find(f=>f.id===field.id&&f.position.x===field.position!.x&&f.position.y===field.position!.y);
    if(!initial){const key=`field-at:${field.position.x}:${field.position.y}`,prior=dynamic.get(key);if(!prior||field.remaining>0n&&prior.remaining<=0n||(field.remaining>0n)===(prior.remaining>0n)&&field.id>prior.id)dynamic.set(key,field);continue}
    const capacity=BigInt(initial.credits),state=field.remaining<=0n?'depleted':field.remaining*4n<capacity?'low':field.remaining*4n<capacity*3n?'high':'full';
    this.fields.set(`field:${field.id}`,{key:`field:${field.id}`,kind:'field',id:field.id,position:{...field.position},asset:'prop.supply_field',state,remaining:field.remaining,visible:true,remembered:false});
@@ -33,7 +33,7 @@ export class EnvironmentKnowledge {
   // authorized runtime ID for diagnostics and the normal order target.
   for(const station of snapshot.stations)if(station.position&&seen(station.position))this.stations.set(`${station.position.x}:${station.position.y}`,{key:`station-at:${station.position.x}:${station.position.y}`,kind:'station',id:station.id,position:{...station.position},asset:'prop.supply_station_neutral',state:'idle',owner:station.owner,visible:true,remembered:false});
   const result:EnvironmentItem[]=[];
-  for(const field of this.map.fields)if(!this.fields.has(`field:${field.id}`)&&explored(field.position))result.push({key:`field:${field.id}`,kind:'field',id:field.id,position:{...field.position},asset:'prop.supply_field',state:'unknown',visible:true,remembered:true});
+  for(const field of this.map.fields??[])if(!this.fields.has(`field:${field.id}`)&&explored(field.position))result.push({key:`field:${field.id}`,kind:'field',id:field.id,position:{...field.position},asset:'prop.supply_field',state:'unknown',visible:true,remembered:true});
   for(const station of this.map.stations??[])if(!this.stations.has(`${station.position.x}:${station.position.y}`)&&explored(station.position))result.push({key:`station-at:${station.position.x}:${station.position.y}`,kind:'station',id:station.id,position:{...station.position},asset:'prop.supply_station_neutral',state:'idle',visible:true,remembered:true});
   for(const item of [...this.fields.values(),...this.stations.values()])result.push({...item,visible:explored(item.position),remembered:!seen(item.position)});
   if(explored(this.map.shipment))result.push({key:'shipment-site',kind:'shipment',id:0,position:{...this.map.shipment},asset:'prop.central_shipment_site',state:'idle',visible:true,remembered:!seen(this.map.shipment)});

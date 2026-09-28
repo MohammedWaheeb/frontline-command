@@ -9,7 +9,7 @@ import {chromium} from 'playwright-core';
 import {artIndex} from '../../scripts/ui/art-plugin.mjs';
 
 const root=fileURLToPath(new URL('../../../',import.meta.url)),client=path.join(root,'client'),temporary=await mkdtemp(path.join(tmpdir(),'frontline-renderer-'));
-const evidence=path.join(root,'work/evidence/render');await mkdir(evidence,{recursive:true});
+const evidence=path.resolve(root,process.env.FRONTLINE_RENDER_EVIDENCE??'work/evidence/render');await mkdir(evidence,{recursive:true});
 await build({entryPoints:{main:path.join(client,'tests/render/fixture.ts'),shadow:path.join(client,'tests/render/shadow-fixture.ts')},outdir:temporary,bundle:true,format:'esm',platform:'browser',target:'es2022'});
 const mime={'.js':'text/javascript','.json':'application/json','.wasm':'application/wasm','.png':'image/png','.svg':'image/svg+xml'};
 const server=createServer(async(req,res)=>{

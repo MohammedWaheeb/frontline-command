@@ -9,6 +9,10 @@ import type {GameMap} from '../../src/runtime';
 import type {SpriteState} from '../../src/render/art';
 const map:GameMap={id:'environment-test',version:'1',title:'Synthetic environment',author:'test',format_version:1,ruleset:'standard-v2',width:32,height:32,tiles:Array.from({length:1024},()=>({terrain:'open'})),spawns:[],fields:[{id:1,position:{x:5500,y:5500},credits:1000}],stations:[{id:2,position:{x:10500,y:10500}}],shipment:{x:15500,y:15500},objects:[{id:90,class:'light_prop',position:{x:8500,y:8500}}]};
 const frame=(tick=1,visible=true)=>create(PlayerSnapshotSchema,{tick,player:1,visible:Array(1024).fill(visible),explored:Array(1024).fill(true)});
+test('Go maps with a null empty resource slice still disclose later shipment cargo',()=>{
+ const empty=JSON.parse(JSON.stringify({...map,fields:null,stations:null,objects:null})) as GameMap,k=new EnvironmentKnowledge(empty),s=frame();
+ assert(!k.sync(s).some(item=>item.kind==='field'));s.fields.push({$typeName:'frontline.v1.Field',id:4,position:{$typeName:'frontline.v1.Vec',...map.shipment},remaining:6000000n});const cargo=k.sync(s).filter(item=>item.kind==='field');assert.equal(cargo.length,1);assert.equal(cargo[0].remaining,6000000n);assert.equal(cargo[0].state,'high');assert.equal(empty.fields,null);
+});
 
 test('public explored locations never invent initial cargo or station ownership',()=>{
  const knowledge=new EnvironmentKnowledge(map),items=knowledge.sync(frame(1,false));

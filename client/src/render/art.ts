@@ -13,8 +13,8 @@ export interface SpriteMeta {
  squad?:{members:number;member_offsets_mt:[number,number][]}|null;air?:{cruise_altitude_mt:number}|null;
  hardpoints_2x_rel_anchor?:Record<string,Record<string,[number,number]>>;
 }
-interface AtlasFrame {frame:{x:number;y:number;w:number;h:number};anchor?:{x:number;y:number};sourceSize:{w:number;h:number}}
-export interface FrameSet {texture:Texture;anchorX:number;anchorY:number}
+interface AtlasFrame {frame:{x:number;y:number;w:number;h:number};anchor?:{x:number;y:number};sourceSize:{w:number;h:number};ink_bounds?:{x:number;y:number;w:number;h:number}|null}
+export interface FrameSet {texture:Texture;atlasTexture:Texture;anchorX:number;anchorY:number;bodyBottom?:number;inkBounds?:{x:number;y:number;w:number;h:number}}
 interface AtlasPage {
  url:string;descriptors:Record<string,AtlasFrame>;layer:string;frames:Map<string,FrameSet>;
  texture?:Texture;pending?:Promise<void>;unloading?:Promise<void>;failed?:boolean;lastUsed:number;bytes:number;
@@ -55,7 +55,9 @@ export class SpriteSheet {
    page.bytes=texture.source.pixelWidth*texture.source.pixelHeight*4;
    for(const [key,frame] of Object.entries(page.descriptors)){
     const t=new Texture({source:texture.source,frame:new Rectangle(frame.frame.x,frame.frame.y,frame.frame.w,frame.frame.h)});
-    page.frames.set(`${page.layer}|${key}`,{texture:t,anchorX:frame.anchor?.x??.5,anchorY:frame.anchor?.y??.5});
+    const ink=frame.ink_bounds,anchorY=frame.anchor?.y??.5;
+    const valid=ink&&[ink.x,ink.y,ink.w,ink.h].every(Number.isInteger)&&ink.x>=0&&ink.y>=0&&ink.w>0&&ink.h>0&&ink.x+ink.w<=frame.frame.w&&ink.y+ink.h<=frame.frame.h;
+    page.frames.set(`${page.layer}|${key}`,{texture:t,atlasTexture:texture,anchorX:frame.anchor?.x??.5,anchorY,...valid?{bodyBottom:(ink.y+ink.h-anchorY*frame.frame.h)*this.pixelScale,inkBounds:ink}:{}});
    }
   })().catch(error=>{page.failed=true;console.warn('Sprite page failed to load',this.id,page.url,error)}).finally(()=>{page.pending=undefined});
  }
