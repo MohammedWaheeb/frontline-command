@@ -27,6 +27,11 @@ const opening=await runtime.save();
 let lastSnapshot:PlayerSnapshot=runtime.current!;
 let graphicsExtension:WEBGL_lose_context|null=null;
 const qa={runtime,renderer,art,gestures,recoveries,map,catalog,
+ minimapGeometry(){
+  const canvas=document.createElement('canvas');canvas.id='radar-evidence';canvas.style.cssText='position:fixed;right:12px;bottom:12px;width:300px;height:100px;border:0';document.body.appendChild(canvas);renderer.renderMinimap(canvas);
+  const bounds=canvas.getBoundingClientRect(),point=(x:number,y:number)=>renderer.minimapPoint(canvas,bounds.left+x,bounds.top+y);
+  return {center:point(150,50),quarter:point(106,50),near:point(150,0),far:point(150,100),backing:[canvas.width,canvas.height],css:[bounds.width,bounds.height]};
+ },
  graphicsLost(){return (renderer as unknown as {lost:boolean}).lost},
  loseGraphics(){const canvas=host.querySelector('canvas')!,gl=canvas.getContext('webgl2')??canvas.getContext('webgl');if(!gl)throw Error('No WebGL context');graphicsExtension=gl.getExtension('WEBGL_lose_context');if(!graphicsExtension)throw Error('Context-loss test extension unavailable');graphicsExtension.loseContext()},
  restoreGraphics(){if(!graphicsExtension)throw Error('Context-loss test was not started');graphicsExtension.restoreContext()},

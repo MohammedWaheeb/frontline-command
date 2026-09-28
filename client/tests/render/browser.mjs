@@ -29,6 +29,8 @@ const result={at:new Date().toISOString(),browser:browser.version(),status:'runn
 try{
  await page.goto(`http://127.0.0.1:${server.address().port}/`);await page.waitForFunction(()=>document.body.dataset.ready==='true');
  await page.screenshot({path:path.join(evidence,'initial-1600.png')});
+ const radar=await page.evaluate(()=>window.qa.minimapGeometry());assert.deepEqual(radar.center,{x:32000,y:32000});assert.deepEqual(radar.quarter,{x:16000,y:48000});assert.deepEqual(radar.near,{x:0,y:0});assert.deepEqual(radar.far,{x:63999,y:63999});assert.deepEqual(radar.css,[300,100]);result.checks.minimapGeometry=radar;
+ await page.locator('#radar-evidence').screenshot({path:path.join(evidence,'radar-compact-aspect.png')});await page.locator('#radar-evidence').evaluate(canvas=>canvas.remove());
  const art=await page.evaluate(()=>window.qa.art.statistics);assert(art.residentPages>0&&art.residentPages<art.indexedPages);assert(art.residentBytes<80*1024*1024);result.checks.lazyArt=art;
  const illustrationRequests=[];const trackIllustration=request=>illustrationRequests.push(new URL(request.url()).pathname);page.on('request',trackIllustration);
  const illustrations=await page.evaluate(async()=>{const library=window.qa.art;const build=await library.cameo('unit.US.rig','#e5b54f','idle',undefined,'build'),portrait=await library.cameo('unit.US.rig','#e5b54f'),red=await library.cameo('unit.US.rig','#b54835');const size=async url=>{if(!url)return;const img=new Image();img.src=url;await img.decode();return [img.width,img.height]};return {build:await size(build),portrait:await size(portrait),tinted:portrait!==red}});page.off('request',trackIllustration);

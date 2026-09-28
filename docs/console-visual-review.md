@@ -37,3 +37,22 @@ many unit/building illustrations are still in production. Campaign, lobby,
 editor, replay and long-session visual reviews remain separate release gates.
 The renderer also needs stronger elevation/prop presentation. This is not
 acceptance of the finished game's visual quality.
+
+## Radar proportions
+
+The radar now uses the battlefield's 2:1 isometric projection, with one scale
+for map terrain, authorized unit markers, objectives, camera outline and pointer
+conversion. It fits the available panel without stretching axes and clips
+markers to the actual map diamond. The canvas backing follows its displayed
+size and pixel density. Clicking the surrounding margin clamps to a legal map
+edge.
+
+The first undistorted top-down candidate left a small square in the enlarged,
+wide console; its captures are preserved under `radar-proportions`. The final
+`radar-isometric` set contains 22 actual Go/WASM product views and crops,
+including 1280×720 and 1600×900 at 100%/150%, with no browser errors or failed
+requests. Root inspected the native radar, sidebar and enlarged battle view.
+The renderer fixture checks actual 300×100 canvas clicks at center, quarter and
+map edges; pure tests also cover nonsquare maps, both diagonal directions and
+multiple accessibility panel sizes. The complete renderer lifecycle suite
+passes after this change. Full-map visibility was not enabled for these shots.

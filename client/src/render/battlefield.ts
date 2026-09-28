@@ -12,6 +12,7 @@ import {CHUNK,TerrainBaker} from './terrain';
 import {toScreen,toWorld,HALF_W,HALF_H} from './iso';
 import {drawStructure} from './structure';
 import {activeMissionMarkers,type MissionMarker} from '../app/mission-markers';
+import {minimapLayout,minimapProject,minimapWorldPoint} from './minimap';
 
 export interface BattlefieldGesture {
  kind:'click'|'double-click'|'context'|'box'|'hover';point:Point;hit?:CommandTarget;rect?:Rect;
@@ -303,15 +304,24 @@ export class BattlefieldRenderer {
  }
  renderMinimap(canvas:HTMLCanvasElement){
   const ctx=canvas.getContext('2d'),s=this.snapshot,m=this.options.map;if(!ctx||!s)return;
+  const width=Math.max(1,canvas.clientWidth||canvas.width),height=Math.max(1,canvas.clientHeight||canvas.height),ratio=Math.min(devicePixelRatio||1,2);
+  const physicalWidth=Math.ceil(width*ratio),physicalHeight=Math.ceil(height*ratio);
+  if(canvas.width!==physicalWidth||canvas.height!==physicalHeight){canvas.width=physicalWidth;canvas.height=physicalHeight}
+  ctx.setTransform(physicalWidth/width,0,0,physicalHeight/height,0,0);
+  ctx.fillStyle='#0b0c08';ctx.fillRect(0,0,width,height);
+  const box=minimapLayout(m.width,m.height,width,height);
   const image=ctx.createImageData(m.width,m.height);
   for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++){const i=y*m.width+x,[r,g,b]=TerrainBaker.minimapColor(this.presentationMap,x,y),k=s.visible[i]?1:s.explored[i]?.4:.04;image.data.set([r*k,g*k,b*k,255],i*4)}
-  const temp=document.createElement('canvas');temp.width=m.width;temp.height=m.height;temp.getContext('2d')!.putImageData(image,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(temp,0,0,canvas.width,canvas.height);
-  const sx=canvas.width/(m.width*1000),sy=canvas.height/(m.height*1000);
-  for(const marker of activeMissionMarkers(this.missionMarkers,s.mission)){const x=marker.position.x*sx,y=marker.position.y*sy;ctx.strokeStyle='#f1ce78';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y-5);ctx.lineTo(x+5,y);ctx.lineTo(x,y+5);ctx.lineTo(x-5,y);ctx.closePath();ctx.stroke()}
-  for(const e of s.entities){if(!e.position||e.private?.container)continue;ctx.fillStyle=`#${this.team(e.owner).toString(16).padStart(6,'0')}`;const size=this.options.catalog.isBuilding(e.type)?4:2;ctx.fillRect(e.position.x*sx-size/2,e.position.y*sy-size/2,size,size)}
-  ctx.strokeStyle='#e2d6ad';ctx.lineWidth=1;ctx.beginPath();const corners=[{x:0,y:0},{x:this.app.screen.width,y:0},{x:this.app.screen.width,y:this.app.screen.height},{x:0,y:this.app.screen.height}].map(p=>this.point(p));corners.forEach((p,i)=>{if(i===0)ctx.moveTo(p.x*sx,p.y*sy);else ctx.lineTo(p.x*sx,p.y*sy)});ctx.closePath();ctx.stroke();
+  const temp=document.createElement('canvas');temp.width=m.width;temp.height=m.height;temp.getContext('2d')!.putImageData(image,0,0);
+  ctx.save();const tile=box.scale*1000;ctx.transform(tile,tile*.5,-tile,tile*.5,box.originX,box.originY);ctx.drawImage(temp,0,0);ctx.restore();
+  const project=(p:Point)=>minimapProject(box,p),outline=[{x:0,y:0},{x:m.width*1000,y:0},{x:m.width*1000,y:m.height*1000},{x:0,y:m.height*1000}].map(project);
+  ctx.beginPath();outline.forEach((p,i)=>{if(i)ctx.lineTo(p.x,p.y);else ctx.moveTo(p.x,p.y)});ctx.closePath();ctx.strokeStyle='#777354';ctx.lineWidth=1;ctx.stroke();ctx.save();ctx.clip();
+  for(const marker of activeMissionMarkers(this.missionMarkers,s.mission)){const {x,y}=project(marker.position);ctx.strokeStyle='#f1ce78';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y-5);ctx.lineTo(x+5,y);ctx.lineTo(x,y+5);ctx.lineTo(x-5,y);ctx.closePath();ctx.stroke()}
+  for(const e of s.entities){if(!e.position||e.private?.container)continue;ctx.fillStyle=`#${this.team(e.owner).toString(16).padStart(6,'0')}`;const size=this.options.catalog.isBuilding(e.type)?4:2,p=project(e.position);ctx.fillRect(p.x-size/2,p.y-size/2,size,size)}
+  ctx.strokeStyle='#e2d6ad';ctx.lineWidth=1;ctx.beginPath();const corners=[{x:0,y:0},{x:this.app.screen.width,y:0},{x:this.app.screen.width,y:this.app.screen.height},{x:0,y:this.app.screen.height}].map(p=>project(this.point(p)));corners.forEach((p,i)=>{if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)});ctx.closePath();ctx.stroke();
+  ctx.restore();
  }
- minimapPoint(canvas:HTMLCanvasElement,clientX:number,clientY:number):Point{const r=canvas.getBoundingClientRect(),m=this.options.map;return {x:Math.round(clamp((clientX-r.left)/r.width,0,1)*m.width*1000),y:Math.round(clamp((clientY-r.top)/r.height,0,1)*m.height*1000)}}
+ minimapPoint(canvas:HTMLCanvasElement,clientX:number,clientY:number):Point{const r=canvas.getBoundingClientRect(),m=this.options.map;return minimapWorldPoint(m.width,m.height,r.width,r.height,{x:clientX-r.left,y:clientY-r.top})}
  dispose(){
   if(this.disposed)return;this.disposed=true;this.listeners.abort();this.resizeObserver?.disconnect();
   for(const actor of this.actors.values())actor.dispose();this.actors.clear();for(const prop of this.props)prop.dispose();
