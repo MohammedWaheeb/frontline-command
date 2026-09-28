@@ -1,0 +1,82 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ funded-turret/pkg/sim/authored_campaign_acceptance_test.go
+@@ -817,9 +817,31 @@
+ 	guardCommitted := map[sim.ID]bool{}
+ 	repairers := map[sim.ID]sim.ID{}
+ 	guardNext := r.engine.Tick()
++	var factoryTurretUntil sim.Tick
++	var factoryTurretReserve int64
++	factoryTurretDone := false
+ 	r.tactical = func() {
+ 		if r.engine.Tick() >= guardNext {
+ 			guardNext = r.engine.Tick() + 100
++			if factoryTurretUntil > 0 && !factoryTurretDone {
++				rig := r.ownedType("SY.rig")
++				building, known := r.catalog.Building("turret")
++				if r.engine.Tick() >= factoryTurretUntil || len(rig) == 0 {
++					factoryTurretDone, factoryTurretReserve = true, 0
++					r.t.Logf("funded optional turret abandoned tick%d credits%d builders%d", r.engine.Tick(), r.view().Economy.Credits, len(rig))
++				} else if known && r.view().Economy.Credits >= building.Cost {
++					for _, point := range authoredExpansionSites(sim.Vec{X: 53500, Y: 85500}) {
++						if !r.visibleFoundationLooksClear("turret", point) {
++							continue
++						}
++						if r.tryIssue(sim.Order{Kind: "build", Entities: rig[:1], Type: "turret", Position: point}) {
++							factoryTurretDone, factoryTurretReserve = true, 0
++							r.t.Logf("funded optional turret accepted tick%d point%v builder%d", r.engine.Tick(), point, rig[0])
++							break
++						}
++					}
++				}
++			}
+ 			if r.difficulty == "hard" && (r.faction == "SY" || r.faction == "SA") {
+ 				var living []sim.ID
+ 				for _, id := range homeGuards {
+@@ -1033,6 +1055,9 @@
+ 			}
+ 		}
+ 
++		if factoryTurretReserve > 0 && !authoredCaptureConstructionCanSpend(r.view(), factoryTurretReserve) {
++			return // Ordinary spending intention only; existing paid work continues.
++		}
+ 		if forwardConstruction && (!r.factoryCaptureRoute() || !authoredCaptureConstructionCanSpend(r.view(), forwardReserve)) {
+ 			return
+ 		}
+@@ -1216,6 +1241,37 @@
+ 		repairers[factory] = worker
+ 		r.issue(1, sim.Order{Kind: "repair", Entities: []sim.ID{worker}, Target: factory})
+ 		guards[factory] = nil
++		if r.faction == "SY" && r.difficulty == "hard" && r.requiredOptional == "factory-captured" {
++			if rig := r.ownedType("SY.rig"); len(rig) > 0 {
++				factoryTurretUntil = r.engine.Tick() + 3600
++				building, _ := r.catalog.Building("turret")
++				factoryTurretReserve = building.Cost
++				r.tryIssue(sim.Order{Kind: "move", Entities: rig[:1], Position: sim.Vec{X: 47500, Y: 94500}})
++				// Release only unpaid queues to accumulate the actual catalog
++				// cost. Do not cancel or refund a paid unit or halt the army.
++				for _, producer := range r.view().Entities {
++					if producer.Owner != 1 || producer.Private == nil || producer.Type != "factory" && producer.Type != "barracks" {
++						continue
++					}
++					for attempt := 0; attempt < 6; attempt++ {
++						current, alive := r.seen(producer.ID)
++						if !alive || current.Private == nil {
++							break
++						}
++						index := -1
++						for i := len(current.Private.Jobs) - 1; i >= 0; i-- {
++							if !current.Private.Jobs[i].Started {
++								index = i
++								break
++							}
++						}
++						if index < 0 || !r.tryIssue(sim.Order{Kind: "cancel", Entities: []sim.ID{producer.ID}, Index: int32(index)}) {
++							break
++						}
++					}
++				}
++			}
++		}
+ 		r.t.Logf("optional factory captured tick%d actor%d", r.engine.Tick(), factory)
+ 		r.wait("repair captured factory behind the first relay", 4000, func() bool { v, ok := r.seen(factory); return ok && v.Owner == 1 && v.Health >= 900 })
+ 	}

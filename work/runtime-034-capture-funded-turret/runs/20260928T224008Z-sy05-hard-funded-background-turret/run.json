@@ -1,0 +1,91 @@
+{
+  "scope": "One optional Hard funded background turret; same rules/objectives/budgets",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "637cf9b171e04fc476d846893b7e153469bd08ee93d4ecea156ee0b28ceeb161",
+  "base_source_lock_sha256": "cda55b903cef1f9eb78d5fd7d0e40a10528f147dd259b5a99197cedc79c34ad5",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:40:08.427219+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-funded-turret/runs/20260928T224008Z-sy05-hard-funded-background-turret/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-funded-turret/source",
+      "started": "2026-09-28T22:40:08.427655+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 3.601,
+      "completed": "2026-09-28T22:40:12.028524+00:00"
+    },
+    {
+      "name": "focused",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-funded-turret/runs/20260928T224008Z-sy05-hard-funded-background-turret/sim.test",
+        "-test.run=^TestAuthoredCapture(RepairerReassignment|ConstructionReserve|VisibleSiteObservedInfantry)$",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-funded-turret/source/pkg/sim",
+      "started": "2026-09-28T22:40:12.034989+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.249,
+      "completed": "2026-09-28T22:40:13.284202+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-funded-turret/runs/20260928T224008Z-sy05-hard-funded-background-turret/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-funded-turret/source/pkg/sim",
+      "started": "2026-09-28T22:40:13.284635+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 25.86,
+      "completed": "2026-09-28T22:40:39.144240+00:00"
+    }
+  ],
+  "binary_sha256": "d61a99577799892345575a647d51fcfa679ac9513b43c723251a08a01a6eb7dc",
+  "exit_code": 1,
+  "completed": "2026-09-28T22:40:39.145072+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.save.json": {
+      "bytes": 1158055,
+      "sha256": "445e440c25230639430f13f01a3274e4c8ddd744ee99b30689ae3dc3ff0098f4"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.view.json": {
+      "bytes": 396852,
+      "sha256": "9c323456b932816c159fd78922ee02869ad16b0c3153461186cf6c54b8d8d151"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3979352292/driver-orders.json": {
+      "bytes": 349850,
+      "sha256": "2afdf6190efbb1a15c950d1b8a50269f0640fad7053e41cafd636d8e5582be50"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3979352292/manifest.json": {
+      "bytes": 861,
+      "sha256": "e765952ace0b1b04a0fe19551c07aa4b1b0959586fe50b394b034fd366ea15ec"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3979352292/owner.view.json": {
+      "bytes": 396852,
+      "sha256": "9c323456b932816c159fd78922ee02869ad16b0c3153461186cf6c54b8d8d151"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3979352292/state.save.json": {
+      "bytes": 1158055,
+      "sha256": "445e440c25230639430f13f01a3274e4c8ddd744ee99b30689ae3dc3ff0098f4"
+    }
+  }
+}
