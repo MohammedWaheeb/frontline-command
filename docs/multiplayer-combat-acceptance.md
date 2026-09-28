@@ -4,6 +4,35 @@ This lane extends the existing rendered multiplayer lifecycle tests with ordinar
 paid-combat outcomes. It is **in progress**. Earlier surrender/rematch evidence is
 kept separately and is not counted as a combat win.
 
+
+## Current acceptance matrix — 28 September, 20:36 UTC
+
+Every row has a genuine ordinary-elimination recording with exact native replay
+and midpoint-restore proof. Strict rendered status is separate:
+
+| Configuration | Best existing strict evidence | Remaining fresh acceptance |
+|---|---|---|
+| 1 human + 1 normal bot | PASS on the earlier combined 0.3.4 build | Repeat on final integrated candidate |
+| 1 human + 3 normal bots, FFA | Original atlas-eviction FAIL; repaired exact-replay camera course passes | Fresh live FFA after repair |
+| 2 humans, 1v1 | Original unlocated HTTP503 FAIL; native recording passes | Fresh error-free full course |
+| 2 humans versus 2 normal bots | PASS on the earlier combined 0.3.4 build | Repeat on final integrated candidate |
+| 3 humans, FFA | Ordinary combat had zero errors; original archive/recovery FAIL; separate copied-host recovery passes | Fresh complete live recovery/archive course |
+| 4 humans, 2v2 | **PASS on optimized c7e0 copy**, including reconnect, eliminated-host history/archive and exact native replay | Final integrated client/art gate still separate |
+
+Only the final row currently has fresh live evidence on the optimized runtime
+copy. Previous passes remain valid for their recorded builds. The quiet pass does
+not explain or erase the two earlier advice timeout failures; their causal
+diagnosis remains open. Two consecutive long matches in the same application
+without page reload are still untested. The existing comma-separated-case
+runner creates fresh contexts/pages and cannot establish that lifecycle gate.
+
+The smallest priority repetitions are the previously failed 2H, 1H+3AI and 3H
+courses. A bounded same-page two-human rematch driver can combine the 2H repetition
+with consecutive-operation lifecycle checks. Final all-six acceptance should use
+one frozen integrated client/art/runtime, rather than repeatedly certifying an
+intermediate UI. Physical LAN, all browsers/reference hardware, final art and
+full gameplay balance remain separate gates.
+
 ## Frozen candidate and method
 
 The isolated product uses `work/runtime-034-candidate/runtime/` for its 0.3.4 host,
@@ -473,3 +502,58 @@ The original report remains unchanged; its digest is recorded in the compact
 receipt. Mencius resumed the same verified paused Blender PID 49519 after host
 closure. No runtime, deadlines, client or art bytes changed. A clean quiet
 four-human combat repetition is still pending.
+
+
+## Quiet optimized four-human pass
+
+`work/multiplayer-combat/2026-09-28T20-24-53.276Z/` is a **strict PASS**. Four
+independent profiles on Industrial Valley formed US/IR versus SY/SA. The latter
+team won through ordinary elimination at tick 12,745 (10:37.25), exact seed
+`4063936226367217378`. This used the same c7e0 optimized host/WASM, recovery-v3
+client and art bytes as the failed shared-host comparison. No simulation,
+deadline, strategy or error assertion was changed. CDP reports Chromium
+151.0.7922.34 with ANGLE Metal / Apple M4.
+
+Root/Boole native, compiler and browser work was held; Mencius had completed the
+whole IR asset and held the next Blender job. Claude API/source work and ordinary
+OS/user applications remained. A command-scoped `caffeinate -di` prevented idle
+sleep without changing system settings; preflight records AC power at 60% and
+charging. This does not prevent low-power protection or certify a completely idle
+host. The held workers were released when the game host/contexts closed, before
+the native audit completed.
+
+- 394 ordinary command batches; all four visible-enemy control probes rejected
+  with `not_owner`.
+- Reconnect advanced 3,620 → 3,628 and retained acknowledged sequence 19.
+- 2,959 weapon events, 2,959 impact events and 100 destructions in authorized
+  replay feedback; no surrender, artificial victory or free production.
+- Zero page, console, decoder and HTTP errors; zero advisory retries.
+- Host US was defeated at 9,772. Its entire permitted snapshot remained identical
+  while authenticated history recovered the exact committed result at 12,745.
+  Opening the ordinary menu and using **Save match replay** archived exact bytes
+  through the existing Go inspector.
+
+| Commander | Income credits | Spent credits | Completed units, including haulers |
+|---|---:|---:|---:|
+| US | 10,200 | 13,400 | 19 |
+| IR | 15,000 | 20,600 | 38 |
+| SY | 19,200 | 21,600 | 28 |
+| SA | 18,600 | 24,500 | 45 |
+
+The 633,861-byte archived replay SHA256 is
+`4360ff5d623ce4952ce6d5d1d23ea4a84da89821c87a2b40332461741289289b`.
+Full initial replay, final checkpoint and restored midpoint 6,372 reach the same
+final state hash:
+`2eae14b2284d733f5cf79ed29224e3aa4dd460de1d8ef3795b16b5fe7c9cafb8`.
+The audit starts with ordinary 6,000-credit standard rules; midpoint restoration
+is an offline deterministic check, not standard multiplayer live save/resume.
+
+Native battlefield, recorded-result menu and winner debrief images were inspected.
+Each client verified 1,295 art files with 95 declared fallback mappings. The frozen
+comparison UI still contains the old LIVE/stale connection labels; their separate
+fix and component proof are in `1bef5c5`, deliberately not retrofitted into this
+controlled build. The 13.3 MB original report is preserved unchanged, with its
+SHA256 in compact `receipt.json`. Exact replay, command receipts, native audit,
+source driver, power/process receipt and selected native captures are retained.
+One clean quiet run does not establish the cause of previous timeouts, physical
+LAN behavior, final visuals, reference-machine performance or the long-match gate.
