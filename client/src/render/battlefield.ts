@@ -1,4 +1,4 @@
-import {Application,Container,Graphics,Matrix,Sprite,Texture} from 'pixi.js';
+import {Application,Container,Graphics,Matrix,Sprite,Texture,type Mesh} from 'pixi.js';
 import {create} from '@bufbuild/protobuf';
 import {EntitySchema} from '../protocol/frontline_pb';
 import type {CommandTarget,Entity,GameMap,PlayerSnapshot,Point,Rect} from '../runtime';
@@ -22,7 +22,7 @@ export interface BattlefieldOptions {
  onGesture:(event:BattlefieldGesture)=>void;onError?:(error:Error)=>void;
 }
 export interface PlacementPreview {type:string;width:number;height:number;position?:Point;valid?:boolean}
-interface Chunk {sprite:Sprite;texture:Texture;used:number}
+interface Chunk {sprite:Mesh;texture:Texture;used:number}
 const color=(hex:string)=>parseInt(hex.replace('#',''),16);
 const clamp=(value:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,value));
 
@@ -229,7 +229,7 @@ export class BattlefieldRenderer {
    g.position.set(p.x,p.y);this.memories.addChild(g);
   }
  }
- private invalidateTerrain(){for(const chunk of this.chunks.values()){chunk.sprite.destroy();chunk.texture.destroy(true)}this.chunks.clear()}
+ private invalidateTerrain(){for(const chunk of this.chunks.values()){chunk.sprite.geometry.destroy();chunk.sprite.destroy();chunk.texture.destroy(true)}this.chunks.clear()}
  private terrainFrame(){
   const corners=[this.point({x:-600,y:-400}),this.point({x:this.app.screen.width+600,y:-400}),this.point({x:-600,y:this.app.screen.height+400}),this.point({x:this.app.screen.width+600,y:this.app.screen.height+400})];
   const minX=Math.floor(Math.min(...corners.map(p=>p.x))/1000/CHUNK),maxX=Math.floor(Math.max(...corners.map(p=>p.x))/1000/CHUNK);
@@ -238,10 +238,10 @@ export class BattlefieldRenderer {
   let baked=0;
   for(let y=minY;y<=Math.min(maxY,this.baker.chunksY-1);y++)for(let x=minX;x<=Math.min(maxX,this.baker.chunksX-1);x++){
    const key=`${x}:${y}`;let chunk=this.chunks.get(key);
-   if(!chunk){if(baked>=2)continue;const texture=this.baker.bake(x,y),sprite=new Sprite(texture),origin=this.baker.chunkOrigin(x,y);sprite.position.set(origin.x,origin.y);this.terrain.addChild(sprite);chunk={texture,sprite,used:this.frame};this.chunks.set(key,chunk);baked++}
+   if(!chunk){if(baked>=2)continue;const texture=this.baker.bake(x,y),sprite=this.baker.mesh(x,y,texture);this.terrain.addChild(sprite);chunk={texture,sprite,used:this.frame};this.chunks.set(key,chunk);baked++}
    chunk.sprite.visible=true;chunk.used=this.frame;
   }
-  if(this.chunks.size>36){for(const [key,chunk] of [...this.chunks].sort(([,a],[,b])=>a.used-b.used)){if(this.chunks.size<=36)break;if(chunk.sprite.visible)continue;chunk.sprite.destroy();chunk.texture.destroy(true);this.chunks.delete(key)}}
+  if(this.chunks.size>36){for(const [key,chunk] of [...this.chunks].sort(([,a],[,b])=>a.used-b.used)){if(this.chunks.size<=36)break;if(chunk.sprite.visible)continue;chunk.sprite.geometry.destroy();chunk.sprite.destroy();chunk.texture.destroy(true);this.chunks.delete(key)}}
  }
  private readFeedback(snapshot:PlayerSnapshot){
   for(const event of snapshot.events){

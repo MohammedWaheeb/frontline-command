@@ -1,51 +1,28 @@
 // Bakes authored terrain materials into isometric chunk textures. Materials
 // are 512² periodic textures covering 4×4 tiles (docs/asset-pipeline.md), so the
 // projection is applied at draw time and every chunk tiles seamlessly.
-import {Texture} from 'pixi.js';
+import {Texture,Mesh,MeshGeometry} from 'pixi.js';
 import type {GameMap} from '../runtime';
 import {HALF_H,HALF_W,LEVEL_PX} from './iso';
 import type {ArtLibrary} from './art';
+import {MATERIALS,materialFor,heightAt,terrainAt,type Material} from './terrain-materials';
+export {materialFor,heightAt,terrainAt} from './terrain-materials';
 
 export const CHUNK=16;
-type Material='sand'|'packed_earth'|'scrub_ground'|'gravel'|'rubble_ground'|'asphalt'|'concrete_slab'|'dry_riverbed';
-const MATERIALS:Material[]=['sand','packed_earth','scrub_ground','gravel','rubble_ground','asphalt','concrete_slab','dry_riverbed'];
+const BLEED=2;
 /** Fallback painted colours if a material image is missing (never silently blank). */
-const FLAT:Record<Material,string>={sand:'#b59a6a',packed_earth:'#8f7852',scrub_ground:'#7c7448',gravel:'#8a8272',rubble_ground:'#6f675c',asphalt:'#4a4843',concrete_slab:'#8d8a82',dry_riverbed:'#9c8a68'};
-
-function hash(x:number,y:number,seed=0){let h=(x*374761393+y*668265263+seed*1442695041)|0;h=(h^(h>>>13))*1274126177|0;return ((h^(h>>>16))>>>0)/4294967296}
-function smoothNoise(x:number,y:number,scale:number,seed:number){
- const fx=x/scale,fy=y/scale,ix=Math.floor(fx),iy=Math.floor(fy),tx=fx-ix,ty=fy-iy;
- const s=(t:number)=>t*t*(3-2*t);
- const a=hash(ix,iy,seed),b=hash(ix+1,iy,seed),c=hash(ix,iy+1,seed),d=hash(ix+1,iy+1,seed);
- return a+(b-a)*s(tx)+(c-a)*s(ty)+(a-b-c+d)*s(tx)*s(ty);
-}
-/** Deterministic presentation material for a tile. Terrain rules come only from the map. */
-export function materialFor(map:GameMap,x:number,y:number):Material{
- const t=map.tiles[y*map.width+x];if(!t)return 'sand';
- switch(t.terrain){
-  case 'road':return 'asphalt';
-  case 'rubble':return 'rubble_ground';
-  case 'cover':return 'scrub_ground';
-  case 'water':return 'dry_riverbed';
-  case 'cliff':case 'blocked':return 'gravel';
-  case 'ramp':return 'packed_earth';
- }
- const n=smoothNoise(x,y,7,11)*0.7+smoothNoise(x,y,3,5)*0.3;
- return n<0.38?'packed_earth':n>0.66?'scrub_ground':'sand';
-}
-export const heightAt=(map:GameMap,x:number,y:number)=>x<0||y<0||x>=map.width||y>=map.height?0:(map.tiles[y*map.width+x]?.height??0);
-export const terrainAt=(map:GameMap,x:number,y:number)=>x<0||y<0||x>=map.width||y>=map.height?'blocked':(map.tiles[y*map.width+x]?.terrain??'open');
+const FLAT:Record<Material,string>={sand:'#b59a6a',packed_earth:'#8f7852',scrub_ground:'#7c7448',gravel:'#8a8272',rubble_ground:'#6f675c',asphalt:'#4a4843',shallow_water:'#64847b',deep_water:'#305e64',coast_sand:'#cbbb8e',ramp:'#937c59'};
 
 export class TerrainBaker {
- private patterns=new Map<Material,HTMLImageElement|undefined>();
+ private patterns=new Map<string,HTMLImageElement|undefined>();
  constructor(private readonly map:GameMap,private readonly art:ArtLibrary,readonly resolution=1){}
- async load(){for(const m of MATERIALS){try{this.patterns.set(m,await this.art.terrain(m))}catch{this.patterns.set(m,undefined)}}}
- chunkOrigin(cx:number,cy:number){const x0=cx*CHUNK,y0=cy*CHUNK;return {x:(x0-(y0+CHUNK))*HALF_W,y:(x0+y0)*HALF_H}}
+ async load(){await Promise.all([...MATERIALS,'ground_macro','road_asphalt_decal'].map(async m=>{try{this.patterns.set(m,await this.art.terrain(m))}catch{this.patterns.set(m,undefined)}}))}
+ chunkOrigin(cx:number,cy:number){const x0=cx*CHUNK,y0=cy*CHUNK;return {x:(x0-(y0+CHUNK))*HALF_W-BLEED,y:(x0+y0)*HALF_H-BLEED}}
  get chunksX(){return Math.ceil(this.map.width/CHUNK)}
  get chunksY(){return Math.ceil(this.map.height/CHUNK)}
  /** Returns a texture whose top-left sits at chunkOrigin(cx,cy) in world px. */
  bake(cx:number,cy:number):Texture{
-  const r=this.resolution,W=CHUNK*2*HALF_W,H=CHUNK*2*HALF_H+4*LEVEL_PX;
+  const r=this.resolution,W=CHUNK*2*HALF_W+2*BLEED,H=CHUNK*2*HALF_H+4*LEVEL_PX+2*BLEED;
   const canvas=document.createElement('canvas');canvas.width=Math.ceil(W*r);canvas.height=Math.ceil(H*r);
   const ctx=canvas.getContext('2d')!;const x0=cx*CHUNK,y0=cy*CHUNK,origin=this.chunkOrigin(cx,cy);
   // iso transform: tile (x,y) → px, relative to this chunk's origin
@@ -69,14 +46,19 @@ export class TerrainBaker {
    ctx.setTransform(1,0,0,1,0,0);ctx.drawImage(layer,0,0);
   }
   iso(ctx);
+  const macro=this.patterns.get('ground_macro');
+  if(macro){
+   const pattern=ctx.createPattern(macro,'repeat')!;pattern.setTransform(new DOMMatrix([32/macro.naturalWidth,0,0,32/macro.naturalHeight,0,0]));
+   // The authored 128 grey is neutral, so overlay preserves the original base
+   // luminance instead of multiplying every pixel down to half brightness.
+   ctx.globalCompositeOperation='overlay';ctx.globalAlpha=.65;ctx.fillStyle=pattern;ctx.fillRect(x0-1,y0-1,CHUNK+2,CHUNK+2);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
+  }
   // Elevation: plateaus lighten, escarpment faces fall toward the camera.
-  for(let y=y0;y<y0+CHUNK&&y<this.map.height;y++)for(let x=x0;x<x0+CHUNK&&x<this.map.width;x++){
+  for(let y=Math.max(0,y0-1);y<=y0+CHUNK&&y<this.map.height;y++)for(let x=Math.max(0,x0-1);x<=x0+CHUNK&&x<this.map.width;x++){
    const h=heightAt(this.map,x,y),terrain=terrainAt(this.map,x,y);
    if(h>0){ctx.fillStyle=`rgba(255,236,196,${Math.min(0.2,h*0.05)})`;ctx.fillRect(x,y,1,1)}
-   if(terrain==='water'){ctx.fillStyle='rgba(38,58,56,0.72)';ctx.fillRect(x,y,1,1);ctx.fillStyle='rgba(120,150,140,0.12)';ctx.fillRect(x+0.1,y+0.1,0.8,0.08)}
    if(terrain==='cliff'||terrain==='blocked'){ctx.fillStyle='rgba(40,34,26,0.45)';ctx.fillRect(x,y,1,1)}
-   if(terrain==='ramp'){ctx.fillStyle='rgba(255,230,180,0.08)';ctx.fillRect(x,y,1,1);ctx.strokeStyle='rgba(60,48,32,0.35)';ctx.lineWidth=0.04;for(let i=1;i<4;i++){ctx.beginPath();ctx.moveTo(x+i/4,y);ctx.lineTo(x+i/4,y+1);ctx.stroke()}}
-   if(terrain==='road'){ctx.strokeStyle='rgba(210,190,140,0.10)';ctx.lineWidth=0.05;ctx.strokeRect(x+0.05,y+0.05,0.9,0.9)}
+   if(terrain==='road')this.roadEdges(ctx,x,y);
    for(const [dx,dy] of [[1,0],[0,1]] as const){
     const hn=heightAt(this.map,x+dx,y+dy);if(hn>=h)continue;const drop=(h-hn)*LEVEL_PX/HALF_H;
     ctx.fillStyle='rgba(28,22,16,0.55)';
@@ -88,11 +70,27 @@ export class TerrainBaker {
   ctx.fillStyle='rgba(0,0,0,0.35)';
   if(x0+CHUNK>=this.map.width)ctx.fillRect(this.map.width-0.15,y0,0.15,CHUNK);
   if(y0+CHUNK>=this.map.height)ctx.fillRect(x0,this.map.height-0.15,CHUNK,0.15);
-  // Clip outside the map.
-  ctx.globalCompositeOperation='destination-in';ctx.fillStyle='#000';ctx.fillRect(0,0,this.map.width,this.map.height);
-  ctx.globalCompositeOperation='source-over';
   const texture=Texture.from(canvas);texture.source.scaleMode='linear';
   return texture;
+ }
+ /** Two triangles own exactly this chunk's map tiles. The padded texture stays
+  * opaque across shared edges; alpha-clipped rectangular sprites create seams
+  * and camera-order-dependent overlaps when neighbouring chunks are blended. */
+ mesh(cx:number,cy:number,texture:Texture){
+  const x0=cx*CHUNK,y0=cy*CHUNK,x1=Math.min(x0+CHUNK,this.map.width),y1=Math.min(y0+CHUNK,this.map.height),origin=this.chunkOrigin(cx,cy);
+  const corners=[[x0,y0],[x1,y0],[x1,y1],[x0,y1]],positions=new Float32Array(corners.flatMap(([x,y])=>[(x-y)*HALF_W-origin.x,(x+y)*HALF_H-origin.y]));
+  const uvs=new Float32Array(positions.map((value,i)=>value*this.resolution/(i%2?texture.height:texture.width)));
+  const mesh=new Mesh({texture,geometry:new MeshGeometry({positions,uvs,indices:new Uint32Array([0,1,2,0,2,3])})});mesh.position.set(origin.x,origin.y);return mesh;
+ }
+ private roadEdges(ctx:CanvasRenderingContext2D,x:number,y:number){
+  const image=this.patterns.get('road_asphalt_decal');if(!image)return;
+  for(const [dx,dy,angle] of [[0,-1,Math.PI],[1,0,-Math.PI/2],[0,1,0],[-1,0,Math.PI/2]]){
+   const next=terrainAt(this.map,x+dx,y+dy);if(!['open','rubble','cover','ramp'].includes(next))continue;
+   // The painted shoulder remains within the road tile, never suggesting that
+   // adjacent impassable ground is traversable. Global phase avoids edge seams.
+   const phase=((dx?y:x)%4+4)%4;
+   ctx.save();ctx.translate(x+.5,y+.5);ctx.rotate(angle);ctx.drawImage(image,phase*image.naturalWidth/4,0,image.naturalWidth/4,image.naturalHeight,-.5,.20,1,.3);ctx.restore();
+  }
  }
  private fillMaterial(ctx:CanvasRenderingContext2D,m:Material,x:number,y:number,size:number){
   const img=this.patterns.get(m);
