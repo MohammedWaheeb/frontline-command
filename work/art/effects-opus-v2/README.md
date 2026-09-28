@@ -22,7 +22,7 @@ All five variants are present. Burst variants have equal duration and an empty c
 
 ## Remaining integration
 
-Actual Go information controls every effect. `miss_ground`, `blocked_shot`, the instantaneous tracer and interceptor body remain explicitly unwired because current rules/events do not disclose the required outcome/path. A missing/redacted hit is never a miss. Cosmetic local-axis bodies need direction from successive authorized samples; muzzle art needs the current rendered hardpoint/facing without reconstructing hidden targets. Destruction specialization needs a prior permitted actor class, and persistent cosmetics must disappear with visibility.
+Actual Go information controls every effect. `miss_ground`, `blocked_shot`, the instantaneous tracer and interceptor body remain explicitly unwired because current rules/events do not disclose the required outcome/path. A missing/redacted hit is never a miss. Cosmetic local-axis bodies need direction from successive authorized samples; muzzle art needs the current rendered hardpoint/facing without reconstructing hidden targets. Destruction specialization now uses only the current or immediately preceding permitted actor class and samples aircraft height once at death. Persistent cosmetics must disappear with visibility.
 
 Root has integrated the candidate into an isolated product and checked all variants and representative native pixels against real Go combat and load/save/replay/cull/reset behavior. Complete-family, all-roster and final visual review remain, along with the remaining families. Essential warning geometry stays in its unbudgeted tactical layer. No production manifest, shipping FX, Go rule, expiry, warning deadline or deployment is changed here.
 

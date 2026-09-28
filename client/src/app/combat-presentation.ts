@@ -1,5 +1,5 @@
 import type {CatalogIndex} from '../content/catalog';
-import type {PlayerSnapshot,Point} from '../runtime';
+import type {PlayerSnapshot,Point,Entity} from '../runtime';
 import type {TacticalProjectile} from './tactical-presentation';
 import {combatFacts,type CombatArmor} from './combat-feedback';
 
@@ -7,6 +7,9 @@ export type CombatCueKind='muzzle'|'interceptor-launch'|'impact'|'hit'|'intercep
 export interface CombatCue {
  key:string;id:number;tick:number;until:number;kind:CombatCueKind;position:Point;
  weapon?:string;armor?:CombatArmor;cover:boolean;anchor?:number;effects:readonly string[];
+ /** Sample a previously permitted aircraft's displayed height once at death.
+  * This is not a live anchor and cannot follow an entity after it disappears. */
+ elevationSource?:number;
 }
 export interface ProjectileTrace {id:number;owner:number;weapon:string;effect?:string;samples:ReadonlyArray<{tick:number;position:Point}>}
 type Event=PlayerSnapshot['events'][number];
@@ -14,11 +17,11 @@ const duration:Record<CombatCueKind,number>={muzzle:6,'interceptor-launch':10,im
 const point=(p:Point|undefined)=>p&&Number.isFinite(p.x)&&Number.isFinite(p.y)?{x:p.x,y:p.y}:undefined;
 
 /** No current/prior actor lookup can recreate a redacted hit, weapon or victim. */
-export function combatCue(event:Event,snapshot:PlayerSnapshot,catalog:CatalogIndex):CombatCue|undefined {
+export function combatCue(event:Event,snapshot:PlayerSnapshot,catalog:CatalogIndex,previous?:ReadonlyMap<number,Entity>):CombatCue|undefined {
  const position=point(event.position);if(!position||!Number.isSafeInteger(event.id)||event.id<=0||!Number.isSafeInteger(event.tick)||event.tick<0||event.tick>snapshot.tick)return;
  if(event.scope==='owner'&&event.owner!==snapshot.player)return;
  if(event.scope==='team'&&event.owner!==snapshot.player){const us=snapshot.players.find(p=>p.id===snapshot.player),them=snapshot.players.find(p=>p.id===event.owner);if(!us||!them||us.team!==them.team)return}
- let kind:CombatCueKind,effects:string[]=[];
+ let kind:CombatCueKind,effects:string[]=[],destructionTicks:number|undefined,elevationSource:number|undefined;
  const facts=combatFacts(event,snapshot,catalog);
  if(event.kind==='weapon_fired'){kind='muzzle';if(facts.weapon&&catalog.weapons.has(facts.weapon))effects=[`fx.weapon_muzzle.${facts.weapon}`]}
  else if(event.kind==='interceptor_fired')kind='interceptor-launch';
@@ -29,14 +32,29 @@ export function combatCue(event:Event,snapshot:PlayerSnapshot,catalog:CatalogInd
   if(facts.coverMitigated)effects.push('fx.impact.cover_mitigated');
  }else if(event.kind==='missile_intercepted'){kind='intercepted';effects=['fx.impact.intercepted_missile']}
  else if(event.kind==='decoy_triggered'){kind='decoy';effects=['fx.impact.decoy_defeat']}
- else if(event.kind==='destroyed'){kind='destroyed';effects=['fx.explosion.small']}
+ else if(event.kind==='destroyed'){
+  kind='destroyed';effects=['fx.explosion.small'];
+  // Only the expressly identified destroyed actor may specialize the burst.
+  // Do not consult fog memory, infer a class from a position or reuse this for
+  // ambiguous impact events. Keep only the preceding authorized snapshot.
+  const known=snapshot.entities.find(e=>e.id===event.entity)??previous?.get(event.entity);
+  if(known&&known.owner===event.owner&&!known.private?.container){
+   const unit=catalog.units.get(known.type),building=catalog.buildings.get(known.type);
+   if(building||known.footprintWidth&&known.footprintHeight){
+    const large=(known.footprintWidth||building?.width||0)>2||(known.footprintHeight||building?.height||0)>2;
+    effects=[`fx.explosion.building_${large?'large':'small'}`];destructionTicks=large?60:40;
+   }else if(unit?.armor==='air'&&!known.landed){effects=['fx.explosion.aircraft'];destructionTicks=28;elevationSource=known.id}
+   else if(unit?.armor==='heavy'){effects=['fx.explosion.vehicle_heavy'];destructionTicks=32}
+   else if(unit?.armor==='light'||unit?.armor==='air'&&known.landed){effects=['fx.explosion.vehicle_light'];destructionTicks=22}
+  }
+ }
  else return;
- const until=event.tick+duration[kind];if(until<=snapshot.tick)return;
+ const until=event.tick+(destructionTicks??duration[kind]);if(until<=snapshot.tick)return;
  const entity=snapshot.entities.find(e=>e.id===event.entity&&e.health>0&&e.state!=='destroyed'&&!e.private?.container);
  // Interception position is a disclosed warning point, never a physical missile
  // interception endpoint; it therefore cannot attach to the event's entity.
  const anchor=kind==='hit'?facts.target:['muzzle','interceptor-launch','decoy'].includes(kind)?entity?.id:undefined;
- return {key:`${snapshot.player}:${event.id}`,id:event.id,tick:event.tick,until,kind,position,weapon:facts.weapon,armor:facts.targetArmor,cover:facts.coverMitigated,anchor,effects};
+ return {key:`${snapshot.player}:${event.id}`,id:event.id,tick:event.tick,until,kind,position,weapon:facts.weapon,armor:facts.targetArmor,cover:facts.coverMitigated,anchor,effects,...elevationSource!==undefined?{elevationSource}:{}};
 }
 
 /** Tick-bounded presentation history. A replacement snapshot is a baseline,
@@ -44,9 +62,10 @@ export function combatCue(event:Event,snapshot:PlayerSnapshot,catalog:CatalogInd
 export class CombatTimeline {
  private player?:number;private tick=-1;private highWater=0;private cues:CombatCue[]=[];
  private traces=new Map<number,ProjectileTrace>();
+ private previous=new Map<number,Entity>();
  get values():readonly CombatCue[]{return this.cues}
  get projectiles():readonly ProjectileTrace[]{return [...this.traces.values()]}
- reset(snapshot?:PlayerSnapshot){this.cues=[];this.traces.clear();this.player=snapshot?.player;this.tick=snapshot?.tick??-1;this.highWater=snapshot?this.watermark(snapshot):0}
+ reset(snapshot?:PlayerSnapshot){this.cues=[];this.traces.clear();this.previous.clear();this.player=snapshot?.player;this.tick=snapshot?.tick??-1;this.highWater=snapshot?this.watermark(snapshot):0}
  private watermark(snapshot:PlayerSnapshot){let max=0;for(const e of snapshot.events)if(e.tick<=snapshot.tick&&Number.isSafeInteger(e.id))max=Math.max(max,e.id);return max}
  sync(snapshot:PlayerSnapshot,catalog:CatalogIndex,bodies:readonly TacticalProjectile[]=[],replace=false){
   const reset=replace||this.player===undefined||snapshot.player!==this.player||snapshot.tick<this.tick||snapshot.tick-this.tick>40;
@@ -55,7 +74,7 @@ export class CombatTimeline {
   this.cues=this.cues.filter(cue=>cue.until>snapshot.tick&&(cue.anchor===undefined||live.has(cue.anchor)));
   if(!reset){
    const events=snapshot.events.filter(event=>Number.isSafeInteger(event.id)&&Number.isSafeInteger(event.tick)&&event.tick>=0&&event.tick<=snapshot.tick&&event.id>this.highWater).sort((a,b)=>a.id-b.id);
-   for(const event of events){if(event.id<=this.highWater)continue;this.highWater=event.id;const cue=combatCue(event,snapshot,catalog);if(cue)this.cues.push(cue)}
+   for(const event of events){if(event.id<=this.highWater)continue;this.highWater=event.id;const cue=combatCue(event,snapshot,catalog,this.previous);if(cue)this.cues.push(cue)}
   }
   const next=new Map<number,ProjectileTrace>();
   for(const body of bodies){
@@ -66,6 +85,6 @@ export class CombatTimeline {
    if(last?.tick===snapshot.tick)last.position=position;else samples.push({tick:snapshot.tick,position});
    next.set(body.id,{id:body.id,owner:body.owner,weapon:body.weapon,effect:body.bodyEffect,samples:samples.slice(-4)});
   }
-  this.traces=next;this.player=snapshot.player;this.tick=snapshot.tick;
+  this.traces=next;this.previous=new Map(snapshot.entities.map(entity=>[entity.id,entity]));this.player=snapshot.player;this.tick=snapshot.tick;
  }
 }

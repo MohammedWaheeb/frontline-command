@@ -28,8 +28,11 @@ export class CombatEffects {
  get diagnostics(){return {...this.stats,...this.library.statistics,missing:[...this.missing].sort()}}
  get cues(){return this.history.values}
  reset(){this.baseline=true;this.history.reset();this.elevations.clear();this.clearSprites();this.marks.clear();this.clearLabels();this.drawKey='';this.stats={cues:0,drawnCues:0,confirmedHits:0,cover:0,intercepted:0,decoys:0,trails:0,decorations:0,labels:0}}
- sync(snapshot:PlayerSnapshot,bodies:readonly TacticalProjectile[],replace=false){
+ sync(snapshot:PlayerSnapshot,bodies:readonly TacticalProjectile[],replace=false,altitude?:(id:number)=>number|undefined){
   this.history.sync(snapshot,this.catalog,bodies,replace||this.baseline);this.baseline=false;this.snapshot=snapshot;this.revision++;
+  for(const cue of this.history.values)if(cue.elevationSource!==undefined&&!this.elevations.has(cue.key)){
+   const height=altitude?.(cue.elevationSource);this.elevations.set(cue.key,height!==undefined&&Number.isFinite(height)?Math.max(0,height):0);
+  }
   const keys=new Set(this.history.values.map(c=>c.key));for(const key of this.elevations.keys())if(!keys.has(key))this.elevations.delete(key);
  }
  private request(id:string){

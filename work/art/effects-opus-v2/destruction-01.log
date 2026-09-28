@@ -1,0 +1,9 @@
+file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/destruction-effects.browser.mjs:62
+finally{await writeFile(path.join(out,'driver.mjs'),await readFile(fileURLToPath(import.meta.url)));await writeFile(path.join(out,'fixture.ts'),await readFile(path.join(source,'tests/render/fx-integration-fixture.ts')));await writeFile(path.join(out,'browser.json'),JSON.stringify(report,null,2));await browser.close();await new Promise(resolve=>server.close(resolve));await rm(temp,{recursive:true,force:true});console.log(report.status,report.failure??'')}
+                                                                                                                                                                                                                                                                               ^
+
+TypeError: Do not know how to serialize a BigInt
+    at JSON.stringify (<anonymous>)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/destruction-effects.browser.mjs:62:272
+
+Node.js v26.5.0

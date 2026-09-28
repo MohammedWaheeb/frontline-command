@@ -1,0 +1,6 @@
+
+> frontline-command-client@0.1.0 typecheck
+> tsc -p tests/runtime/tsconfig.json --noEmit
+
+tests/runtime/combat-presentation.test.ts(113,48): error TS2322: Type '{ container: number; }' is not assignable to type 'EntityPrivate'.
+  Property '$typeName' is missing in type '{ container: number; }' but required in type 'Message<"frontline.v1.EntityPrivate">'.

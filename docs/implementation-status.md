@@ -1,6 +1,16 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 21:55 UTC / 29 September 00:55 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates supersede earlier in-progress receipts.
+Updated 28 September 2026, 22:28 UTC / 29 September 01:28 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates supersede earlier in-progress receipts.
+
+## Current update at 22:28 UTC, 28 September
+
+The full game remains incomplete; no deployment or shipping runtime promotion.
+
+- Destruction specialization now passes Chromium, Firefox and WebKit actual-Go practice cases for light/heavy vehicles, airborne fighter and small/large structures. Effects use only the explicitly identified current/previous permitted actor, preserve full clip duration and sample aircraft height once. All five variants, offscreen-origin plume bounds, exact save/restore and zero-resource disposal pass. All 363 runtime tests and TypeScript checks pass. Earlier fixture/capacity/report failures remain preserved. See `work/art/effects-opus-v2/integration-acceptance.md`; this is presentation acceptance, not paid-combat balance evidence.
+- Einstein's public-view combined-arms commander earned ordinary US victory on authored Dry River at tick37916, 31m30.8s active, with exact native full/checkpoint/midpoint replay. Earlier routing and stale-command policy failures remain preserved. A second seed and actual browser rematch/endurance remain in progress; native duration alone does not qualify browser endurance.
+- SY05 Hard's optional route now legally captures and repairs the factory, but loses its relay while assembling replacements after home economy loss. Boole is testing actual Guard behavior instead of chasing attack orders. This is unresolved strategy acceptance, with no rule/engine change and no increase claimed to broad totals.
+- Mencius is testing the rotor team-mask correction on isolated native aircraft pilots. Single-plane transparency controls behave correctly; exact byte comparisons fail at tiny Metal quantization differences also observed in unchanged-source repeats. Those failed gates remain labeled; no live helper promotion yet. Root accepted only the bounded IR gunship service pilot. Remaining aircraft/infantry/buildings continue under sole Blender ownership.
+- Root is generating twelve remaining dust/smoke/fire/resource effect candidates; integration and per-ID review of dynamic indicators remain open. Current browser product still has incomplete actor art. Claude quota recheck remains 29 September01:20UTC /04:20Qatar.
 
 ## Current update at 21:55 UTC, 28 September
 

@@ -193,7 +193,7 @@ export class BattlefieldRenderer {
    for(const actor of this.actors.values())actor.clearFeedback();
    for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
   }
-  this.snapshot=snapshot;this.refreshTactical(tacticalReset);this.combat.sync(snapshot,this.tacticalModel?.projectiles??[],tacticalReset);this.tickAt=performance.now();const living=new Set<number>();
+  this.snapshot=snapshot;this.refreshTactical(tacticalReset);this.tickAt=performance.now();this.combat.sync(snapshot,this.tacticalModel?.projectiles??[],tacticalReset,id=>this.actors.get(id)?.visualAltitude(this.tickAt,this.settings.reducedMotion));const living=new Set<number>();
   const presentations=buildingPresentations(snapshot,this.options.catalog),boardingReceivers=new Set(ownedBoardingReceivers(snapshot,this.options.catalog));
   for(const entity of snapshot.entities){
    if(!entity.position||entity.private?.container)continue;

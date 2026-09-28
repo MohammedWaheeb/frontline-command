@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {create} from '@bufbuild/protobuf';
-import {EventSchema,PlayerSnapshotSchema} from '../../src/protocol/frontline_pb';
+import {EventSchema,PlayerSnapshotSchema,EntitySchema,EntityPrivateSchema} from '../../src/protocol/frontline_pb';
 import {CatalogIndex} from '../../src/content/catalog';
 import {combatCue,CombatTimeline} from '../../src/app/combat-presentation';
 import type {TacticalProjectile} from '../../src/app/tactical-presentation';
@@ -76,4 +76,41 @@ test('full legal actor-scale burst preserves all essential cues independently of
  timeline.sync(snapshot(100,events),catalog);assert.equal(timeline.values.length,688);
  timeline.sync(snapshot(101,events),catalog);assert.equal(timeline.values.length,688);
  timeline.sync(snapshot(130),catalog);assert.equal(timeline.values.length,0);
+});
+
+test('destruction specializes only the identified preceding permitted actor, with bounded authored clip clocks',()=>{
+ const cases=[
+  {type:'IR.tank',effect:'vehicle_heavy',ticks:32},
+  {type:'US.car',effect:'vehicle_light',ticks:22},
+  {type:'IR.fighter',effect:'aircraft',ticks:28},
+  {type:'IR.fighter',landed:true,effect:'vehicle_light',ticks:22},
+  {type:'factory',footprintWidth:3,footprintHeight:3,effect:'building_large',ticks:60},
+  {type:'power',footprintWidth:2,footprintHeight:2,effect:'building_small',ticks:40},
+  {type:'IR.rifle',effect:'small',ticks:32},
+ ];
+ for(const {effect,ticks,...patch} of cases){
+  const known=create(EntitySchema,{id:4,owner:2,health:700,complete:true,enabled:true,position:{x:4000,y:5000},...patch}),before=snapshot(99);before.entities=[known];
+  const timeline=new CombatTimeline();timeline.sync(before,catalog);
+  const after=snapshot(100,[event(1,'destroyed',100,undefined)]);after.entities=[];timeline.sync(after,catalog);
+  const cue=timeline.values[0];assert.deepEqual(cue.effects,['fx.explosion.'+effect],patch.type);assert.equal(cue.until,100+ticks);assert.equal(cue.anchor,undefined);
+  assert.equal(cue.elevationSource,effect==='aircraft'?4:undefined);
+  // The cue survives removal; no living ghost is required. Advance in ordinary
+  // bounded snapshot intervals rather than triggering the long-gap baseline.
+  for(let tick=101;tick<100+ticks;tick++){timeline.sync({...after,tick,events:[]},catalog);assert.equal(timeline.values.length,1)}
+  timeline.sync({...after,tick:100+ticks,events:[]},catalog);assert.equal(timeline.values.length,0);
+ }
+});
+
+test('death classification cannot use hidden history, foreign ownership, containers or a redacted impact',()=>{
+ const known=create(EntitySchema,{id:4,type:'IR.tank',owner:2,health:700,enabled:true,complete:true}),before=snapshot(99);before.entities=[known];
+ const gone=snapshot(100);gone.entities=[];
+ const timeline=new CombatTimeline();timeline.sync(before,catalog);timeline.sync(gone,catalog);
+ timeline.sync({...gone,tick:101,events:[event(1,'destroyed',101,undefined)]},catalog);assert.deepEqual(timeline.values[0].effects,['fx.explosion.small'],'Only the immediately preceding snapshot is retained');
+ const old=new Map([[4,known]]);
+ assert.deepEqual(combatCue({...event(2,'destroyed'),owner:1},gone,catalog,old)!.effects,['fx.explosion.small']);
+ assert.deepEqual(combatCue({...event(2,'destroyed'),entity:0},gone,catalog,old)!.effects,['fx.explosion.small']);
+ assert.deepEqual(combatCue(event(2,'impact',100,{weapon:'RIF',outcome:'hit',targetArmor:'heavy'}),gone,catalog,old)!.effects,['fx.explosion.small']);
+ const contained=structuredClone(known);contained.private=create(EntityPrivateSchema,{container:20});
+ assert.deepEqual(combatCue(event(2,'destroyed'),gone,catalog,new Map([[4,contained]]))!.effects,['fx.explosion.small']);
+ timeline.sync({...before,tick:102,player:2,events:[event(3,'destroyed',102)]},catalog);assert.deepEqual(timeline.values,[],'Perspective replacement does not replay deaths');
 });
