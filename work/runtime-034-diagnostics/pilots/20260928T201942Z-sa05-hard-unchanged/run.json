@@ -1,0 +1,41 @@
+{
+  "scope": "Unchanged SA05 Hard tactics with proven failure-only cleanup; no production/content/resource/deadline edits",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "9313438021d25fe211e214b50d516c3ee4b5827c8cf90148663a09f141042aa3",
+  "binary_sha256": "8791a92ca420ab997ca3bc7c9943299f716b336de9ea5367ae5ede3840f04edb",
+  "original_pilot": "work/runtime-034-tactics/pilots/20260928T153224Z-sa05-hard-readiness",
+  "command": [
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-diagnostics/runs/20260928T161842Z/sim.test",
+    "-test.run=^TestAuthoredCampaignCaptureCompletion$/^sa-05-three-positions$/^hard$",
+    "-test.count=1",
+    "-test.timeout=30m",
+    "-test.v"
+  ],
+  "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-diagnostics/source/pkg/sim",
+  "host_conditions": "One native GOMAXPROCS=2 correctness leaf; sole Blender IR producer active on shared Apple M4 desktop. No throughput or quiet-host timing conclusion.",
+  "started": "2026-09-28T20:19:42.450221+00:00",
+  "status": "failed",
+  "exit_code": 1,
+  "elapsed_seconds": 13.393,
+  "completed": "2026-09-28T20:19:55.843437+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sa-05-three-positions-SA-hard.fatal-472694649/driver-orders.json": {
+      "bytes": 179589,
+      "sha256": "9142ca4b8ae7a9f8692753621acfa21d0e4973e8116faf416de61f737476dae5"
+    },
+    "evidence/sa-05-three-positions-SA-hard.fatal-472694649/manifest.json": {
+      "bytes": 889,
+      "sha256": "e7f00f13fc4f63c9a4e576bfd33731584ebc2444de99b3e3e5b2ba64622dfcfe"
+    },
+    "evidence/sa-05-three-positions-SA-hard.fatal-472694649/owner.view.json": {
+      "bytes": 412624,
+      "sha256": "f93f509588220390720db7526244790ef39a7008e5f2967fa8978456929a00dc"
+    },
+    "evidence/sa-05-three-positions-SA-hard.fatal-472694649/state.save.json": {
+      "bytes": 1119317,
+      "sha256": "2c2a9ac9c62e585f9ce6ce632588f5f7b41b59be6f9b2f7e67fd44ce030b9202"
+    }
+  }
+}

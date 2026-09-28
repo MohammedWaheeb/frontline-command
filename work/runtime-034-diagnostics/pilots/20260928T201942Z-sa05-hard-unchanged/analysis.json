@@ -1,0 +1,393 @@
+{
+  "scope": "Post-fatal owned-view/accepted-ledger analysis; no new gameplay execution",
+  "tick": 6856,
+  "hash": "188b3d66f7261bf79c68df652a2970b7beaf403b32831f1f073069c22c1430b6",
+  "outcome": {
+    "finished": false,
+    "draw": false,
+    "winning_team": 0,
+    "reason": "",
+    "tick": 0
+  },
+  "mission": {
+    "version": "1",
+    "convoys": null,
+    "id": "sa-05-three-positions",
+    "title": "Three Positions",
+    "difficulty": "hard",
+    "checkpoint": "first-position",
+    "checkpoint_tick": 1149,
+    "objectives": [
+      {
+        "id": "no-command-assets",
+        "text": "Lose all HQs, production structures and engineering rigs.",
+        "optional": false,
+        "failure": true,
+        "complete": false,
+        "progress": 0,
+        "required": 0
+      },
+      {
+        "id": "three-positions",
+        "text": "Capture all three marked relays.",
+        "optional": false,
+        "failure": false,
+        "complete": false,
+        "progress": 2,
+        "required": 0
+      },
+      {
+        "id": "service-preserved",
+        "text": "Keep the original Service vehicle alive.",
+        "optional": true,
+        "failure": false,
+        "complete": false,
+        "progress": 1,
+        "required": 0
+      },
+      {
+        "id": "relay-destroyed",
+        "text": "Lose any required relay to destruction.",
+        "optional": false,
+        "failure": true,
+        "complete": false,
+        "progress": 0,
+        "required": 0
+      }
+    ]
+  },
+  "economy": {
+    "last_sequence": 336,
+    "credits": 720000,
+    "energy": 80900,
+    "supply": 51,
+    "reserved_supply": 6,
+    "power_capacity": 340,
+    "power_demand": 205,
+    "tier": 3,
+    "income": 10651000,
+    "repair_reserve": 0,
+    "upgrades": null,
+    "cooldowns": [
+      {
+        "id": "recovery_order",
+        "until": 8021
+      }
+    ]
+  },
+  "owned_type_counts": {
+    "hq": 1,
+    "power": 3,
+    "supply": 1,
+    "SA.hauler": 2,
+    "barracks": 1,
+    "SA.rig": 1,
+    "factory": 1,
+    "radar": 3,
+    "SA.airfield": 1,
+    "tech": 1,
+    "depot": 1,
+    "SA.rifle": 13,
+    "SA.at": 4,
+    "SA.recon": 1,
+    "SA.engineer": 4,
+    "SA.tank": 1,
+    "SA.aa": 2,
+    "SA.repair": 1,
+    "turret": 1
+  },
+  "surviving_tanks": [
+    {
+      "id": 34,
+      "type": "SA.tank",
+      "owner": 1,
+      "position": {
+        "x": 50000,
+        "y": 87000
+      },
+      "health": 903,
+      "state": "idle",
+      "complete": true,
+      "enabled": true,
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:17",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1446000,
+        "max_hp": 1600000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 32500,
+          "y": 107500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 152894,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    }
+  ],
+  "factory": [
+    {
+      "id": 18,
+      "type": "factory",
+      "owner": 1,
+      "position": {
+        "x": 28500,
+        "y": 111500
+      },
+      "health": 1000,
+      "state": "producing",
+      "complete": true,
+      "enabled": true,
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:6",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 2500000,
+        "max_hp": 2500000,
+        "jobs": [
+          {
+            "type": "SA.tank",
+            "research": false,
+            "paid": 1400000,
+            "work": 1002,
+            "required": 1200,
+            "supply": 4,
+            "service": 0,
+            "started": true
+          },
+          {
+            "type": "SA.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SA.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SA.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SA.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          },
+          {
+            "type": "SA.tank",
+            "research": false,
+            "paid": 0,
+            "work": 0,
+            "required": 1200,
+            "supply": 0,
+            "service": 0,
+            "started": false
+          }
+        ],
+        "orders": [],
+        "rally": {
+          "x": 89500,
+          "y": 53500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    }
+  ],
+  "relays": [
+    {
+      "id": 58,
+      "type": "radar",
+      "owner": 1,
+      "position": {
+        "x": 50500,
+        "y": 82500
+      },
+      "health": 1000,
+      "state": "idle",
+      "complete": true,
+      "enabled": true,
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:36",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1500000,
+        "max_hp": 1500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 53500,
+          "y": 84500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    },
+    {
+      "id": 61,
+      "type": "radar",
+      "owner": 1,
+      "position": {
+        "x": 85500,
+        "y": 65500
+      },
+      "health": 1000,
+      "state": "idle",
+      "complete": true,
+      "enabled": true,
+      "private": {
+        "emergency_takeoff_until": 0,
+        "mission_origin": "initial:38",
+        "ambush_ready": false,
+        "repeat_sortie": false,
+        "hp": 1500000,
+        "max_hp": 1500000,
+        "jobs": null,
+        "orders": [],
+        "rally": {
+          "x": 88500,
+          "y": 67500
+        },
+        "cargo": 0,
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "charge_work": 0,
+        "service_work": 0,
+        "experience": 0,
+        "cooldowns": null,
+        "passengers": null,
+        "container": 0
+      }
+    }
+  ],
+  "submitted_batches": 336,
+  "submitted_orders": 355,
+  "receipt_codes": {
+    "ok": 355
+  },
+  "stage3_dispatch": [
+    {
+      "tick": 6620,
+      "player": 1,
+      "sequence": 321,
+      "orders": [
+        {
+          "kind": "move",
+          "entities": [
+            473,
+            635,
+            819,
+            907,
+            911,
+            959
+          ],
+          "position": {
+            "x": 108500,
+            "y": 36500
+          }
+        }
+      ],
+      "results": [
+        {
+          "player": 1,
+          "sequence": 321,
+          "index": 0,
+          "accepted": true,
+          "code": "ok",
+          "tick": 6621
+        }
+      ]
+    }
+  ],
+  "latest_tank_guard_order": [
+    {
+      "tick": 6757,
+      "player": 1,
+      "sequence": 328,
+      "orders": [
+        {
+          "kind": "attack_move",
+          "entities": [
+            25,
+            27,
+            28,
+            34,
+            162,
+            30
+          ],
+          "position": {
+            "x": 49500,
+            "y": 85000
+          }
+        }
+      ],
+      "results": [
+        {
+          "player": 1,
+          "sequence": 328,
+          "index": 0,
+          "accepted": true,
+          "code": "ok",
+          "tick": 6758
+        }
+      ]
+    }
+  ],
+  "attempted_batch_present": false,
+  "artifact_digests_verified": true
+}
