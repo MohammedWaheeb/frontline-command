@@ -174,5 +174,32 @@ Replay SHA256:
 `2b5fea2e72086ebc413d8edd1eb5dde8c360db5dedae372fc188bfe5b3c201fd`.
 Evidence: `work/multiplayer-combat/2026-09-28T12-18-03.606Z/`.
 
-The 2H + 2AI, 3H FFA and 4H 2v2 cases are now running serially. Completed
-mechanical replay proof and clean rendered acceptance remain separate gates.
+Completed mechanical replay proof and clean rendered acceptance remain separate
+gates.
+
+## Verified two-human team versus two bots
+
+US/IR humans defeated normal SY/SA bots in the custom team format through ordinary
+elimination at tick 12,321 (10:16.05), seed `7577622504294933866`. Both human
+commanders survived. The actual product archived the replay, with zero console,
+page, decoder or HTTP errors. DOM reconnect retained acknowledged sequence 17;
+both players' attempts to control an enemy were rejected with `not_owner`.
+
+| Player | Income | Spending | Ordinary train orders | Ordinary build orders |
+|---|---:|---:|---:|---:|
+| US human | 15,600 | 21,500 | 40 | 11 |
+| IR human | 16,200 | 22,000 | 41 | 12 |
+| SY normal bot | 9,000 | 14,700 | 16 | 6 |
+| SA normal bot | 12,600 | 18,300 | 25 | 5 |
+
+Both bots also used ordinary movement, abilities and repair; SA issued deployment
+and capture attempts. There were 2,344 weapon events and 67 destructions, counted
+mechanically across authorized replay feedback rather than one camera.
+
+The 672,926-byte replay SHA256 is
+`cfc7ce41fe657507a76ca4717d3b4f73e7698ce71a2d38ce1b0207642ff6b7a1`.
+Full replay, final checkpoint and restored-midpoint continuation all produce
+`c1ebd3ab453cfa586e1f4a694193959f8d3a10be494bb8606d189ed4c34d1226`.
+Evidence: `work/multiplayer-combat/2026-09-28T12-40-48.386Z/`.
+The frozen client/art limitations above still apply. Three-human FFA and
+four-human 2v2 remain in progress.

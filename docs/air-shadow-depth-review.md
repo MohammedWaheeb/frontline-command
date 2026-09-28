@@ -45,3 +45,36 @@ moves, rapid cull/reappearance, and cache-pressure/disposal. Compare the old/new
 shadow alpha on flat ground and verify body pixels do not darken when only shadow
 placement changes. Aircraft remain driven by authorized Go state. Shadow geometry
 must not fetch or infer hidden actors or alter gameplay occupancy.
+
+## GPU candidate review findings
+
+The first CPU clipping candidate rebuilt all visible plates after any moving
+plate invalidated its global key. Root's measured 688-actor/1,696-plate fixture
+confirmed the concern, and that implementation was not accepted. The replacement
+stamps authored shadows into a bounded render texture sampled through static
+public terrain geometry, retaining separately clipped known service decks.
+
+Three concrete review findings were sent to the renderer owner:
+
+- A 64-screen-pixel padding becomes only 35.56 world pixels at zoom 1.8, less
+  than height 4's 40-world-pixel lift. Raised terrain at the viewport edge can
+  sample past the stamp bounds. The candidate now adds maximum terrain lift to
+  its padding; viewport-edge pixel verification remains the owner's gate.
+- Distinct visibility arrays can share the candidate's original 32-bit FNV
+  hash. `work/evidence/shadow-review/visibility-hash-collision.json` contains
+  two explicit 32×32 masks with hash 3,149,633,485. This proves cache inequality
+  was being mistaken for equality, not an observed gameplay information leak.
+  The owner replaced it with an exact mask comparison and revision.
+- Pixi rounds physical render-target sizes. For a requested 4,200×2,300 target
+  at resolution 62/64, `RenderTexture.width/height` become approximately
+  4,200.258×2,299.871 after the same `source.resize()` invoked by RenderTarget.
+  Comparing those values directly with the original requested integers causes
+  allocation on every following frame. The owner was notified to compare an
+  explicit allocation key or normalized physical dimensions and verify stable
+  texture identity at large/fractional-resolution viewports.
+
+Borrowed texture ownership remains correct in the inspected candidate: default
+`Mesh.destroy()` leaves the source alive, active actor frame lookup refreshes
+residency before trimming, missing frames hide while reloading, and feedback
+reset clears the stamp on context loss/restore. These static checks supplement,
+but do not replace, the owner's native-pixel, lifecycle and hardware-load gates.

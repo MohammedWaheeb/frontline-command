@@ -1,6 +1,6 @@
 # Multiplayer paid-combat acceptance workspace
 
-Status: **one verified ordinary win; five representative cases in progress**.
+Status: **two clean rendered ordinary-win cases; remaining acceptance in progress**.
 This is a bounded test lane, not release completion.
 
 The product client is frozen from `1305dcb`; its isolated host, protocol and WASM
@@ -77,8 +77,22 @@ are in `replay-camera-2026-09-28T12-15-21.581Z/`.
 `build-lifecycle-fixed/` freezes the original1305dcb client/art with exactly two
 reviewed source changes: actor texture lifecycle and advisory pacing. Its new
 receipt records source hashes. The original `build/` remains untouched.
-The resumed four-case matrix uses this build and writes
-`remaining-fixed-matrix.log`. Each successful live row stops its host, then runs
+The first resumed matrix wrote `remaining-fixed-matrix.log`: its 2H match won
+normally and passed native replay/restore verification, but one console HTTP 503
+failed the strict browser gate. The route/code were not captured in that run, so
+it remains a failed browser case with separate valid mechanical proof.
+
+The next serial matrix writes `remaining-fixed-matrix-02.log` and records HTTP
+error paths/codes without changing the strict browser assertion. Its 2H + 2AI
+row is a clean browser and native pass: US/IR humans beat normal SY/SA at tick
+12,321, seed `7577622504294933866`, full/checkpoint/restored-midpoint hash
+`c1ebd3ab453cfa586e1f4a694193959f8d3a10be494bb8606d189ed4c34d1226`.
+The real archive UI stored the exact replay, and both humans' reconnect/ownership
+checks passed. Evidence is `2026-09-28T12-40-48.386Z/`. Three-human FFA is active;
+four-human 2v2 follows it. See `docs/multiplayer-combat-acceptance.md` for the
+per-player paid economy figures and explicit limitations.
+
+Each successful live row stops its host, then runs
 native full/checkpoint/midpoint replay verification before the next row starts.
-A new1H+3AI visual completion is still required; recovered combat proof alone
+A new 1H + 3AI visual completion is still required; recovered combat proof alone
 is not counted as its passing rendered case.
