@@ -1,0 +1,1037 @@
+{
+  "time": "2026-09-28T04:47:26.717Z",
+  "errors": [],
+  "wasmSHA256": "7b9c04b05eecb3697c386ef4f59944efee78c6f5073e211c96fa4c11c6f355aa",
+  "opening": {
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.2",
+      "tick_rate": 20
+    },
+    "nodes": [
+      {
+        "key": "field:1",
+        "item": {
+          "key": "field:1",
+          "kind": "field",
+          "id": 1,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 14000,
+            "y": 8000
+          },
+          "asset": "prop.supply_field",
+          "state": "full",
+          "remaining": "1000000",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "station-at:20000:12000",
+        "item": {
+          "key": "station-at:20000:12000",
+          "kind": "station",
+          "id": 5,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 12000
+          },
+          "asset": "prop.supply_station_neutral",
+          "state": "idle",
+          "owner": 0,
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_station_neutral",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ],
+    "missing": [
+      "supply"
+    ],
+    "tick": 100
+  },
+  "capture": {
+    "tick": 222,
+    "station": {
+      "$typeName": "frontline.v1.Station",
+      "id": 5,
+      "owner": 1,
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 20000,
+        "y": 12000
+      }
+    },
+    "nodes": [
+      {
+        "key": "field:1",
+        "item": {
+          "key": "field:1",
+          "kind": "field",
+          "id": 1,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 14000,
+            "y": 8000
+          },
+          "asset": "prop.supply_field",
+          "state": "full",
+          "remaining": "1000000",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "station-at:20000:12000",
+        "item": {
+          "key": "station-at:20000:12000",
+          "kind": "station",
+          "id": 5,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 12000
+          },
+          "asset": "prop.supply_station_neutral",
+          "state": "idle",
+          "owner": 1,
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_station_neutral",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ]
+  },
+  "destruction": {
+    "tick": 862,
+    "states": [
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 90,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 416,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 300,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 183,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      },
+      {
+        "id": 91,
+        "health": 66,
+        "pose": "damaged"
+      }
+    ],
+    "rubble": [
+      90,
+      91
+    ],
+    "nodes": [
+      {
+        "key": "field:1",
+        "item": {
+          "key": "field:1",
+          "kind": "field",
+          "id": 1,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 14000,
+            "y": 8000
+          },
+          "asset": "prop.supply_field",
+          "state": "full",
+          "remaining": "1000000",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "station-at:20000:12000",
+        "item": {
+          "key": "station-at:20000:12000",
+          "kind": "station",
+          "id": 5,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 12000
+          },
+          "asset": "prop.supply_station_neutral",
+          "state": "idle",
+          "owner": 1,
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_station_neutral",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:90",
+        "item": {
+          "key": "rubble:90",
+          "kind": "rubble",
+          "id": 90,
+          "position": {
+            "x": 18500,
+            "y": 14500
+          },
+          "asset": "prop.destructible_wall_hp_light",
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.destructible_wall_hp_light",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:91",
+        "item": {
+          "key": "rubble:91",
+          "kind": "rubble",
+          "id": 91,
+          "position": {
+            "x": 24000,
+            "y": 20000
+          },
+          "asset": "prop.destructible_wall_hp_heavy",
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.destructible_wall_hp_heavy",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ]
+  },
+  "emptySite": {
+    "tick": 900,
+    "nodes": [
+      {
+        "key": "field:1",
+        "item": {
+          "key": "field:1",
+          "kind": "field",
+          "id": 1,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 14000,
+            "y": 8000
+          },
+          "asset": "prop.supply_field",
+          "state": "full",
+          "remaining": "1000000",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "station-at:20000:12000",
+        "item": {
+          "key": "station-at:20000:12000",
+          "kind": "station",
+          "id": 5,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 12000
+          },
+          "asset": "prop.supply_station_neutral",
+          "state": "idle",
+          "owner": 1,
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_station_neutral",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:90",
+        "item": {
+          "key": "rubble:90",
+          "kind": "rubble",
+          "id": 90,
+          "position": {
+            "x": 18500,
+            "y": 14500
+          },
+          "asset": "prop.destructible_wall_hp_light",
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.destructible_wall_hp_light",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:91",
+        "item": {
+          "key": "rubble:91",
+          "kind": "rubble",
+          "id": 91,
+          "position": {
+            "x": 24000,
+            "y": 20000
+          },
+          "asset": "prop.destructible_wall_hp_heavy",
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.destructible_wall_hp_heavy",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 26000,
+            "y": 26000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ],
+    "fields": [
+      {
+        "$typeName": "frontline.v1.Field",
+        "id": 1,
+        "remaining": "1000000",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14000,
+          "y": 8000
+        }
+      }
+    ]
+  },
+  "shipment": {
+    "tick": 5148,
+    "fieldStates": [
+      "full",
+      "high",
+      "low",
+      "depleted"
+    ],
+    "dynamic": [
+      {
+        "$typeName": "frontline.v1.Field",
+        "id": 2,
+        "remaining": "6000000",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 26000,
+          "y": 26000
+        }
+      }
+    ],
+    "nodes": [
+      {
+        "key": "field:1",
+        "item": {
+          "key": "field:1",
+          "kind": "field",
+          "id": 1,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 14000,
+            "y": 8000
+          },
+          "asset": "prop.supply_field",
+          "state": "depleted",
+          "remaining": "0",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "station-at:20000:12000",
+        "item": {
+          "key": "station-at:20000:12000",
+          "kind": "station",
+          "id": 5,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 12000
+          },
+          "asset": "prop.supply_station_neutral",
+          "state": "idle",
+          "owner": 1,
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_station_neutral",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:90",
+        "item": {
+          "key": "rubble:90",
+          "kind": "rubble",
+          "id": 90,
+          "position": {
+            "x": 18500,
+            "y": 14500
+          },
+          "asset": "prop.destructible_wall_hp_light",
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.destructible_wall_hp_light",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:91",
+        "item": {
+          "key": "rubble:91",
+          "kind": "rubble",
+          "id": 91,
+          "position": {
+            "x": 24000,
+            "y": 20000
+          },
+          "asset": "prop.destructible_wall_hp_heavy",
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.destructible_wall_hp_heavy",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 26000,
+            "y": 26000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "field-at:26000:26000",
+        "item": {
+          "key": "field-at:26000:26000",
+          "kind": "field",
+          "id": 2,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 26000,
+            "y": 26000
+          },
+          "asset": "prop.supply_field",
+          "state": "high",
+          "remaining": "6000000",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ]
+  },
+  "fog": {
+    "visible": false,
+    "rubble": [
+      90,
+      91
+    ],
+    "nodes": [
+      {
+        "key": "field:1",
+        "item": {
+          "key": "field:1",
+          "kind": "field",
+          "id": 1,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 14000,
+            "y": 8000
+          },
+          "asset": "prop.supply_field",
+          "state": "depleted",
+          "remaining": "0",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "station-at:20000:12000",
+        "item": {
+          "key": "station-at:20000:12000",
+          "kind": "station",
+          "id": 5,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 12000
+          },
+          "asset": "prop.supply_station_neutral",
+          "state": "idle",
+          "owner": 1,
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_station_neutral",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:90",
+        "item": {
+          "key": "rubble:90",
+          "kind": "rubble",
+          "id": 90,
+          "position": {
+            "x": 18500,
+            "y": 14500
+          },
+          "asset": "prop.destructible_wall_hp_light",
+          "state": "destroyed",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.destructible_wall_hp_light",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "rubble:91",
+        "item": {
+          "key": "rubble:91",
+          "kind": "rubble",
+          "id": 91,
+          "position": {
+            "x": 24000,
+            "y": 20000
+          },
+          "asset": "prop.destructible_wall_hp_heavy",
+          "state": "destroyed",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.destructible_wall_hp_heavy",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "shipment-site",
+        "item": {
+          "key": "shipment-site",
+          "kind": "shipment",
+          "id": 0,
+          "position": {
+            "x": 26000,
+            "y": 26000
+          },
+          "asset": "prop.central_shipment_site",
+          "state": "idle",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.central_shipment_site",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      },
+      {
+        "key": "field-at:26000:26000",
+        "item": {
+          "key": "field-at:26000:26000",
+          "kind": "field",
+          "id": 2,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 26000,
+            "y": 26000
+          },
+          "asset": "prop.supply_field",
+          "state": "high",
+          "remaining": "6000000",
+          "visible": true,
+          "remembered": true
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 0.35,
+        "beauty": true
+      }
+    ]
+  },
+  "restore": {
+    "hash": "779ce96c312ad38770c911cf77491694817938c6f594e0d6a2ecbf26dc4aa18f",
+    "restored": "779ce96c312ad38770c911cf77491694817938c6f594e0d6a2ecbf26dc4aa18f",
+    "openingHash": "e97e3be0a14966352fcdce72e1c1afb1547e2a32ce8826744cdd4dc881b3a1a3",
+    "rewoundHash": "e97e3be0a14966352fcdce72e1c1afb1547e2a32ce8826744cdd4dc881b3a1a3",
+    "nodes": [
+      {
+        "key": "field:1",
+        "item": {
+          "key": "field:1",
+          "kind": "field",
+          "id": 1,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 14000,
+            "y": 8000
+          },
+          "asset": "prop.supply_field",
+          "state": "full",
+          "remaining": "1000000",
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_field",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      },
+      {
+        "key": "station-at:20000:12000",
+        "item": {
+          "key": "station-at:20000:12000",
+          "kind": "station",
+          "id": 5,
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 12000
+          },
+          "asset": "prop.supply_station_neutral",
+          "state": "idle",
+          "owner": 0,
+          "visible": true,
+          "remembered": false
+        },
+        "sheet": "prop.supply_station_neutral",
+        "visible": true,
+        "alpha": 1,
+        "beauty": true
+      }
+    ],
+    "rubble": []
+  },
+  "disposal": {
+    "environment": 0,
+    "canvases": 0,
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0
+    }
+  },
+  "status": "passed"
+}

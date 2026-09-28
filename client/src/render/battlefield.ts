@@ -1,12 +1,11 @@
 import {Application,Container,Graphics,Texture} from 'pixi.js';
-import {create} from '@bufbuild/protobuf';
-import {EntitySchema} from '../protocol/frontline_pb';
 import type {CommandTarget,Entity,GameMap,PlayerSnapshot,Point,Rect} from '../runtime';
 import type {CatalogIndex} from '../content/catalog';
 import type {Settings} from '../app/settings';
 import {tokens} from '../design/tokens';
 import {ArtLibrary} from './art';
 import {ActorVisual} from './actors';
+import {EnvironmentRenderer} from './environment';
 import {buildingPresentations} from './poses';
 import {CHUNK,TerrainBaker,type TerrainFragment} from './terrain';
 import {TerrainSurface,projectSurfaceVertex} from './terrain-surface';
@@ -33,7 +32,7 @@ export class BattlefieldRenderer {
  private readonly app=new Application();private readonly world=new Container();
  private readonly ground=new Container();
  private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
- private readonly actors=new Map<number,ActorVisual>();private readonly props:ActorVisual[]=[];
+ private readonly actors=new Map<number,ActorVisual>();private environment:EnvironmentRenderer;
  private readonly chunks=new Map<string,Chunk>();private readonly missing=new Set<string>();
  private readonly deaths:Array<{actor:ActorVisual;until:number}>=[];
  private surface:TerrainSurface;
@@ -45,7 +44,7 @@ export class BattlefieldRenderer {
  private memoryKey='';private rubbleKey='';private terrainKey='';private lost=false;private presentationMap:GameMap;
  private effectEvent=0;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
- private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap)}
+ private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface)}
  static async create(host:HTMLElement,options:BattlefieldOptions):Promise<BattlefieldRenderer>{
   const renderer=new BattlefieldRenderer(host,options);
   try{await renderer.init();return renderer}catch(error){renderer.dispose();throw error}
@@ -58,17 +57,13 @@ export class BattlefieldRenderer {
   this.host.appendChild(canvas);
   this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.tactical);this.ground.sortableChildren=true;
   const m=this.options.map;
-  for(const field of m.fields??[]){
-   const visual=new ActorVisual(create(EntitySchema,{id:field.id,type:'map.supply_field',position:field.position,health:1000,complete:true,enabled:true}),this.options.catalog,this.options.art,undefined,this.surface);
-   this.props.push(visual);this.ground.addChild(visual.root);
-  }
   this.center(m.spawns[0]?.position??{x:m.width*500,y:m.height*500});
   this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
   this.app.ticker.add(()=>this.render());
  }
- get missingArt():string[]{return [...this.missing].sort()}
+ get missingArt():string[]{return [...new Set([...this.missing,...this.environment.missingArt])].sort()}
  setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers)}
- async whenAssetsReady(){await Promise.all([...this.actors.values(),...this.props].map(actor=>actor.ready));this.render();await this.options.art.settle();this.render()}
+ async whenAssetsReady(){await Promise.all([...this.actors.values()].map(actor=>actor.ready));await this.environment.ready();this.render();await this.options.art.settle();this.render()}
  viewport():Rect{return {left:0,top:0,right:this.app.screen.width,bottom:this.app.screen.height}}
  center(point:Point){const p=this.surface.projectGround(point);this.camera.x=p.x;this.camera.y=p.y;this.cameraTransform()}
  pan(dxPixels:number,dyPixels:number){this.camera.x+=dxPixels/this.camera.zoom;this.camera.y+=dyPixels/this.camera.zoom;this.limitCamera();this.cameraTransform()}
@@ -111,7 +106,7 @@ export class BattlefieldRenderer {
    }
    if(best)return {kind:'entity',id:best.id};
    for(const [kind,items] of [['salvage',snap.salvage],['station',snap.stations],['field',snap.fields]] as const){
-    for(const item of items){if(!item.position)continue;const q=this.project(item.position);if(Math.hypot(p.x-q.x,p.y-q.y)<(kind==='field'?38:22)*this.camera.zoom)return {kind,id:item.id}}
+    for(const item of kind==='field'?[...items].sort((a,b)=>Number(b.remaining>0n)-Number(a.remaining>0n)):items){if(!item.position)continue;const q=this.project(item.position);if(Math.hypot(p.x-q.x,p.y-q.y)<(kind==='field'?38:22)*this.camera.zoom)return {kind,id:item.id}}
    }
   }
   return {kind:'ground',position:this.point(p)};
@@ -162,15 +157,8 @@ export class BattlefieldRenderer {
    this.fogTick=-1;this.memoryKey='';
    for(const actor of this.actors.values())actor.clearFeedback();
    for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
-   for(const prop of this.props)prop.update({...prop.entity,state:'full'},performance.now());
   }
   this.snapshot=snapshot;this.tickAt=performance.now();const living=new Set<number>();
-  for(const field of snapshot.fields){
-   const prop=this.props.find(p=>p.id===field.id),initial=this.options.map.fields?.find(p=>p.id===field.id)?.credits;
-   if(!prop||!initial)continue;
-   const fraction=Number(field.remaining)/initial,state=fraction<=0?'depleted':fraction<.25?'low':fraction<.75?'high':'full';
-   prop.update({...prop.entity,state},this.tickAt);
-  }
   const presentations=buildingPresentations(snapshot,this.options.catalog);
   for(const entity of snapshot.entities){
    if(!entity.position||entity.private?.container)continue;
@@ -191,13 +179,14 @@ export class BattlefieldRenderer {
   // A disappeared enemy is removed immediately: interpolation cannot expose
   // its route after sight loss. No distinction is guessed between fog/death.
   for(const [id,actor] of this.actors)if(!living.has(id)){
-   if(snapshot.events.some(event=>event.entity===id&&event.kind==='destroyed')){
+   const persistentRubble=actor.entity.type.startsWith('map.')&&(this.options.map.objects??[]).some(object=>snapshot.rubble.includes(object.id)&&object.position.x===actor.entity.position!.x&&object.position.y===actor.entity.position!.y);
+   if(!persistentRubble&&snapshot.events.some(event=>event.entity===id&&event.kind==='destroyed')){
     actor.setServiceDeck(undefined);actor.update({...actor.entity,state:'destroyed',health:0},this.tickAt);this.deaths.push({actor,until:this.tickAt+2400});
    }else actor.dispose();
    this.actors.delete(id);
   }
   if(!this.centered){const hq=snapshot.entities.find(e=>e.owner===snapshot.player&&e.type==='hq')??snapshot.entities.find(e=>e.owner===snapshot.player);if(hq?.position){this.center(hq.position);this.centered=true}}
-  this.updateRubble();this.updateFog();this.updateMemories();
+  this.updateRubble();this.environment.sync(snapshot);this.updateFog();this.updateMemories();
  }
  private updateRubble(){
   const snapshot=this.snapshot;if(!snapshot)return;const key=snapshot.rubble.join(',');if(key===this.rubbleKey)return;this.rubbleKey=key;
@@ -215,7 +204,7 @@ export class BattlefieldRenderer {
    for(let cy=Math.max(0,Math.floor((y-2)/CHUNK));cy<=Math.floor((y+2)/CHUNK);cy++)for(let cx=Math.max(0,Math.floor((x-2)/CHUNK));cx<=Math.floor((x+2)/CHUNK);cx++)changed.add(`${cx}:${cy}`);
   }
   map.tiles=next;
-  if(changed.size){this.terrainKey='';this.surface=new TerrainSurface(map);for(const actor of [...this.actors.values(),...this.props,...this.deaths.map(d=>d.actor)])actor.setSurface(this.surface);this.memoryKey='';this.fogTick=-1}
+  if(changed.size){this.terrainKey='';this.surface=new TerrainSurface(map);for(const actor of [...this.actors.values(),...this.deaths.map(d=>d.actor)])actor.setSurface(this.surface);this.environment.setSurface(this.surface);this.memoryKey='';this.fogTick=-1}
   for(const key of changed){const chunk=this.chunks.get(key);if(chunk){this.disposeChunk(chunk);this.chunks.delete(key)}}
  }
  private team(owner:number){const player=this.snapshot?.players.find(p=>p.id===owner);const palette=tokens.color.team[this.settings.palette];return color(palette[Math.max(0,(player?.color??owner)-1)%palette.length]??'#b9b4a6')}
@@ -279,7 +268,7 @@ export class BattlefieldRenderer {
   if(this.disposed||this.lost)return;
   const now=performance.now();this.frame++;this.updateShake(now);this.cameraTransform();this.terrainFrame();
   if(this.settings.edgeScroll&&this.pointer&&!this.drag){const p=this.pointer,w=this.app.screen.width,h=this.app.screen.height,s=7*this.settings.scrollSpeed;this.pan(p.x<12?-s:p.x>w-12?s:0,p.y<12?-s:p.y>h-12?s:0)}
-  for(const prop of this.props){const p=prop.entity.position!,tile=Math.floor(p.y/1000)*this.options.map.width+Math.floor(p.x/1000);prop.root.visible=!!this.snapshot?.explored[tile];if(prop.root.visible){prop.render(now,0xaaa584,false,'selected',true);prop.root.alpha=this.snapshot?.visible[tile]?1:.35}}
+  this.environment.render(owner=>this.team(owner));
   for(const actor of this.actors.values()){
    const bounds=this.bounds(actor.entity);actor.root.visible=!!bounds&&bounds.right>=-200&&bounds.left<=this.app.screen.width+200&&bounds.bottom>=-200&&bounds.top<=this.app.screen.height+200;
    if(actor.terrainShadow)actor.terrainShadow.visible=actor.root.visible;
@@ -302,7 +291,6 @@ export class BattlefieldRenderer {
    this.diamond(g,marker.position,(marker.max.x-marker.min.x+1)/1000,(marker.max.y-marker.min.y+1)/1000,0xe0bc65,.04);
    const p=this.surface.projectGround(marker.position);g.ellipse(p.x,p.y,15,7.5).stroke({width:2,color:0xf1ce78});g.moveTo(p.x-23,p.y).lineTo(p.x-10,p.y).moveTo(p.x+10,p.y).lineTo(p.x+23,p.y).moveTo(p.x,p.y-15).lineTo(p.x,p.y-6).moveTo(p.x,p.y+6).lineTo(p.x,p.y+15).stroke({width:2,color:0xf1ce78});
   }
-  for(const station of s.stations){if(!station.position)continue;const p=this.surface.projectGround(station.position);g.rect(p.x-11,p.y-18,22,18).fill({color:0x4c4b3b}).stroke({width:2,color:this.team(station.owner)});g.moveTo(p.x,p.y-18).lineTo(p.x,p.y-36).lineTo(p.x+12,p.y-32).lineTo(p.x,p.y-27).fill({color:this.team(station.owner)}).stroke({width:1,color:0xdbd0a5})}
   for(const salvage of s.salvage){if(salvage.position)this.diamond(g,salvage.position,.5,.5,0xb9934b,.65)}
   for(const projectile of s.projectiles){
    if(!projectile.position||!projectile.impact)continue;
@@ -337,7 +325,7 @@ export class BattlefieldRenderer {
  minimapPoint(canvas:HTMLCanvasElement,clientX:number,clientY:number):Point{const r=canvas.getBoundingClientRect(),m=this.options.map;return minimapWorldPoint(m.width,m.height,r.width,r.height,{x:clientX-r.left,y:clientY-r.top})}
  dispose(){
   if(this.disposed)return;this.disposed=true;this.listeners.abort();this.resizeObserver?.disconnect();
-  for(const actor of this.actors.values())actor.dispose();this.actors.clear();for(const prop of this.props)prop.dispose();
+  for(const actor of this.actors.values())actor.dispose();this.actors.clear();this.environment.dispose();
   for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
   this.invalidateTerrain();this.baker.disposeSurfaceResources();
   if(this.app.renderer)this.app.destroy(true,{children:true});

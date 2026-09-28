@@ -1,8 +1,12 @@
 # Environment prop source handoff
 
-All 21 previously missing manifest prop IDs now have original procedural model
-sources and production specifications. They are **unrendered source candidates**;
-no production sprite set or game placement has been approved. Codex authored
+This document records the original source handoff. All 21 previously missing
+manifest prop IDs now have original procedural model sources and specifications.
+The subsequent completed render/native review is recorded in
+`work/art/environment-roster/production-summary.md`; the bounded live renderer
+integration and remaining map-placement work are documented in
+`docs/environment-renderer-integration.md`. The source-stage evidence below is
+historical and does not itself certify game placement. Codex authored
 them during the explicit Claude quota takeover, using Claude Code
 `claude-opus-5-5`'s fclib and geometry recording contracts. No external meshes,
 textures, logos or real-world insignia were used.
@@ -86,7 +90,7 @@ an enemy objective. These IDs need a reviewed public placement contract before
 use. Pylons do not invent a power network; fuel tanks do not explode for damage;
 decorative wrecks do not grant salvage. Editor markers stay in editor workflows.
 
-## Evidence and next gate
+## Source-stage evidence and original render gate
 
 The full Blender-free audit passes 21 props / 136 source poses and 136 reverse
 comparisons, finite transforms, unique mesh names, valid hardpoints and

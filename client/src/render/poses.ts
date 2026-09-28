@@ -28,7 +28,8 @@ export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:bool
   const air=unit?.armor==='air';
   const loaded=!!e.private?.cargo||e.state==='returning_cargo';
   let names:string[]=[];
-  if(e.state==='destroyed')names=air?['crash','death','wreck']:['death','wreck','rubble'];
+  if(['map.light_prop','map.heavy_prop','map.garrison'].includes(e.type))names=e.state==='destroyed'?['destroyed','wreck','rubble']:e.health<=500?['damaged','intact','idle']:['intact','idle'];
+  else if(e.state==='destroyed')names=air?['crash','death','wreck']:['death','wreck','rubble'];
   else if(e.type==='map.supply_field')names=[e.state||'full'];
   else if(!e.complete)names=['construct','foundation'];
   else if(e.state==='selling')names=['sell','construct'];
