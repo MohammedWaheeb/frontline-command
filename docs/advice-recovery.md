@@ -107,8 +107,11 @@ cameo. The acceptance bridge was read-only in this course.
 Native captures were inspected at 1600×900 (background failure, command failure,
 paid queue) and 1280×720 (completed rig). They show usable menu/sidebar controls
 and the transient notice without a modal. The long disabled-choice explanation
-is cramped in its small cameo; the complete top notice remains readable. This
-bounded pass does not certify final UI/art: asset preparation reports 756 files
+is cramped in its small cameo; the complete top notice remains readable. A
+follow-up correction uses the concise tile reason “Options unavailable”
+while retaining the full notice. Its headed Metal capture passed below; original
+screenshots stay unchanged. This bounded
+pass does not certify final UI/art: asset preparation reports 756 files
 and 11 US roster fallbacks, listed in `browser.json`.
 
 Source receipt: `work/multiplayer-combat/build-advice-recovery/build.json`.
@@ -139,3 +142,52 @@ The new browser test covers Chromium only; Firefox/WebKit recovery and a fresh
 three-/four-human ordinary combat run remain independent acceptance work.
 The prior two clean ordinary-win matrix rows remain the only clean completed
 rows; this correction does not retroactively change old failures.
+
+## Compact label and actual hardware follow-up
+
+The disabled production choice now uses only **Options unavailable**. Its full
+explanation remains in the nonblocking notice. The focused controller test checks
+the short reason and full notice independently; all five targeted tests and the
+application TypeScript check pass. No retry, advisory request or gameplay behavior
+changed.
+
+The same nine-step real product course passed again in **headed Chromium 151**
+at 14:15:29–14:16:14 UTC. CDP reports
+`ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))`.
+This is verified hardware selection, not an FPS or simulation-rate claim.
+Evidence is
+`work/multiplayer-combat/advice-recovery-2026-09-28T14-15-29.401Z/`:
+`background-timeout.png` shows the 800-credit price and Engineering rig label
+unobscured beside the concise two-line reason; `recovered-1280.png` shows the
+completed second rig and 5,200 credits. Both native images were inspected.
+
+Normal reconnect recovered tick196→200. The sole explicit retry was accepted at
+tick365, sequence1; the ordinary400-tick rig job completed by the sampled tick764.
+The two deliberately injected503 responses are retained, with no other console,
+page or HTTP errors. The driver also asserts the exact short tile text.
+
+A preceding compact-label run at14:14:26 passed the same functional flow but its
+driver still hardcoded headless mode despite the requested environment flag.
+Its original driver/report are preserved and it is **not** hardware evidence.
+The final driver honors the flag, records CDP GPU metadata and rejects software
+rendering for a requested headed hardware course.
+
+The separate builder snapshots all current client source before compilation,
+then combines it with the **exact earlier recovery art/runtime**; it records
+each generated code file hash plus the HTML hash. Snapshot/build receipt:
+`work/multiplayer-combat/build-recovery-compact/build.json`. Client source hash:
+`7e68fc744ea95aaba29d6c4d880179f03e112898359fabb1adf354956dc3b0d8`.
+Host, WASM and protocol hashes are unchanged. The renderer contained in that
+snapshot is only functionally exercised by this sparse course; the root's
+maximum-load renderer investigation is a separate, still-open gate.
+
+```sh
+node client/tests/render/advice-recovery-build.mjs
+FRONTLINE_COMBAT_BUILD=work/multiplayer-combat/build-recovery-compact \
+FRONTLINE_COMBAT_REUSE=1 FRONTLINE_COMBAT_HEADED=1 \
+  node client/tests/render/advice-recovery.browser.mjs
+```
+
+Browser and isolated host were closed at the end of each course. Long three-/
+four-human combat remains held until the renderer investigation reaches a stable
+source boundary; no original failed multiplayer row is relabeled.

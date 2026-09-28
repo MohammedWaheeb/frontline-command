@@ -33,7 +33,7 @@ test('only explicit recoverable advisor failures become nonblocking feedback',()
 
 test('background timeout never opens global error dialog; stale production is disabled and later Go advice restores it',async()=>{
  const h=harness();h.respond(async()=>{throw new RuntimeError('advice_timeout','Command advice timed out.')});
- await h.controller.refresh();assert.deepEqual(h.errors,[]);assert.match(h.state.get().notice!,/Retrying/);assert.equal(h.controller.state.get().production[0].available,false);assert.equal(h.controller.state.get().production[0].reason,h.state.get().notice);
+ await h.controller.refresh();assert.deepEqual(h.errors,[]);assert.match(h.state.get().notice!,/Retrying/);assert.equal(h.controller.state.get().production[0].available,false);assert.equal(h.controller.state.get().production[0].reason,'Options unavailable');assert.match(h.state.get().notice!,/Command options are temporarily unavailable\. Retrying/);
  await h.controller.refresh();assert.equal(h.patches.length,1,'Repeated failures must not repeatedly interrupt with notices');
  h.respond(async()=>({tick:11,player:1,player_commands:[],entities:[{id:2,commands:[],abilities:[],builds:[],trains:['US.rifle'],research:[],production_status:[{kind:'train',type:'US.rifle',code:'ok'}]}]}));
  await h.controller.refresh();assert.equal(h.controller.state.get().adviceUnavailable,undefined);assert.equal(h.controller.state.get().production[0].available,true);assert.equal(h.state.get().notice,undefined);assert.deepEqual(h.errors,[]);

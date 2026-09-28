@@ -1,0 +1,17 @@
+
+  client/.test-runtime/advice-feedback.test.mjs  346.7kb
+
+⚡ Done in 26ms
+✔ only explicit recoverable advisor failures become nonblocking feedback (1.024083ms)
+✔ background timeout never opens global error dialog; stale production is disabled and later Go advice restores it (2.150625ms)
+✔ recovery preserves newer unrelated notices and unrelated failures still reach global error path (0.427958ms)
+✔ a late failure for an obsolete selection does not change controls or notices (0.370375ms)
+✔ explicit order advice failure sends nothing and never automatically resubmits the command (1.820334ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 444.124333

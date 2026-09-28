@@ -78,7 +78,7 @@ export class BattleController {
   this.adviceNotice=feedback.message;
   if(phase==='background'){
    const changed=this.state.get().adviceUnavailable!==feedback.message;
-   this.state.update(state=>({...state,adviceUnavailable:feedback.message,production:state.production.map(choice=>({...choice,available:false,reason:feedback.message}))}));
+   this.state.update(state=>({...state,adviceUnavailable:feedback.message,production:state.production.map(choice=>({...choice,available:false,reason:'Options unavailable'}))}));
    if(changed)this.app.patch({notice:feedback.message});
   }else this.app.patch({notice:feedback.message});
  }

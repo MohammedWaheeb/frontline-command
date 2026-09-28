@@ -231,3 +231,11 @@ all nine checks and the two preserved test-decoder mistakes.
 This one-human recovery course is not an ordinary combat win. The three-human
 row stays incomplete/failed, and four-human combat has not started. New live
 matches remain coordinated serially after the root's renderer hardware check.
+
+The next three-/four-human repetitions are one configuration per fresh driver,
+Chromium browser and host process. `FRONTLINE_COMBAT_HEADED=1` requests headed
+Chromium, and the driver records actual CDP GPU metadata after the battlefield
+renders. It requires an Apple/Metal renderer and rejects SwiftShader/software
+for this explicitly hardware-backed course; merely setting headed mode is not
+considered GPU proof. Strict HTTP/console assertions are unchanged. This is
+resource isolation for the functional course, not a performance benchmark.

@@ -87,8 +87,8 @@ error paths/codes without changing the strict browser assertion. Its 2H + 2AI
 row is a clean browser and native pass: US/IR humans beat normal SY/SA at tick
 12,321, seed `7577622504294933866`, full/checkpoint/restored-midpoint hash
 `c1ebd3ab453cfa586e1f4a694193959f8d3a10be494bb8606d189ed4c34d1226`.
-The real archive UI stored the exact replay, and both humans' reconnect/ownership
-checks passed. Evidence is `2026-09-28T12-40-48.386Z/`. Three-human FFA subsequently failed before an outcome: an actual advisory
+The real archive UI stored the exact replay, and host reconnect plus both humans'
+ownership checks passed. Evidence is `2026-09-28T12-40-48.386Z/`. Three-human FFA subsequently failed before an outcome: an actual advisory
 503 opened the global error modal, blocking the planned reconnect click under
 severe machine contention. The final report and trace remain failed. No fourth
 human case started. A bounded advice-recovery correction is checkpoint ca4ec38;
@@ -100,3 +100,13 @@ Each successful live row stops its host, then runs
 native full/checkpoint/midpoint replay verification before the next row starts.
 A new 1H + 3AI visual completion is still required; recovered combat proof alone
 is not counted as its passing rendered case.
+
+## Bounded recovery follow-up
+
+The actual one-player recovery course and paid rig production passed with two
+explicit injected advisor503s, first in headless Chromium and then in verified
+headed Apple M4 Metal at14:15:29 UTC. The final run checks the concise disabled
+tile reason and retains the full notice. See `docs/advice-recovery.md`; no
+combat-matrix row is added. `build-recovery-compact/` freezes client source and
+reuses the exact preceding recovery art/runtime. All owned hosts and browsers
+are stopped pending the root renderer maximum-load gate.
