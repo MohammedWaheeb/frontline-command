@@ -1345,6 +1345,7 @@ type EntityPrivate struct {
 	Container     uint32                 `protobuf:"varint,16,opt,name=container,proto3" json:"container,omitempty"`
 	RepeatSortie  bool                   `protobuf:"varint,17,opt,name=repeat_sortie,json=repeatSortie,proto3" json:"repeat_sortie,omitempty"`
 	AmbushReady   bool                   `protobuf:"varint,18,opt,name=ambush_ready,json=ambushReady,proto3" json:"ambush_ready,omitempty"`
+	MissionOrigin string                 `protobuf:"bytes,19,opt,name=mission_origin,json=missionOrigin,proto3" json:"mission_origin,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1503,6 +1504,13 @@ func (x *EntityPrivate) GetAmbushReady() bool {
 		return x.AmbushReady
 	}
 	return false
+}
+
+func (x *EntityPrivate) GetMissionOrigin() string {
+	if x != nil {
+		return x.MissionOrigin
+	}
+	return ""
 }
 
 type Entity struct {
@@ -3921,7 +3929,7 @@ const file_frontline_proto_rawDesc = "" +
 	"\bupgrades\x18\n" +
 	" \x03(\tR\bupgrades\x124\n" +
 	"\tcooldowns\x18\v \x03(\v2\x16.frontline.v1.CooldownR\tcooldowns\x12#\n" +
-	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\xc9\x04\n" +
+	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\xf0\x04\n" +
 	"\rEntityPrivate\x12\x0e\n" +
 	"\x02hp\x18\x01 \x01(\x03R\x02hp\x12\x15\n" +
 	"\x06max_hp\x18\x02 \x01(\x03R\x05maxHp\x12%\n" +
@@ -3946,7 +3954,8 @@ const file_frontline_proto_rawDesc = "" +
 	"passengers\x12\x1c\n" +
 	"\tcontainer\x18\x10 \x01(\rR\tcontainer\x12#\n" +
 	"\rrepeat_sortie\x18\x11 \x01(\bR\frepeatSortie\x12!\n" +
-	"\fambush_ready\x18\x12 \x01(\bR\vambushReady\"\x8a\x05\n" +
+	"\fambush_ready\x18\x12 \x01(\bR\vambushReady\x12%\n" +
+	"\x0emission_origin\x18\x13 \x01(\tR\rmissionOrigin\"\x8a\x05\n" +
 	"\x06Entity\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x14\n" +

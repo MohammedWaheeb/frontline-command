@@ -1,5 +1,7 @@
 package sim
 
+import "strconv"
+
 func (e *Engine) lineOfSight(a, b Vec) bool {
 	x, y, tx, ty := a.X/1000, a.Y/1000, b.X/1000, b.Y/1000
 	dx, dy := abs(tx-x), -abs(ty-y)
@@ -252,24 +254,25 @@ type EconomyView struct {
 	Cooldowns      []Cooldown `json:"cooldowns"`
 }
 type EntityPrivate struct {
-	AmbushReady  bool       `json:"ambush_ready"`
-	RepeatSortie bool       `json:"repeat_sortie"`
-	HP           int64      `json:"hp"`
-	MaxHP        int64      `json:"max_hp"`
-	Jobs         []Job      `json:"jobs"`
-	Orders       []Order    `json:"orders"`
-	Rally        Vec        `json:"rally"`
-	Cargo        int64      `json:"cargo"`
-	Home         ID         `json:"home"`
-	Ammo         int32      `json:"ammo"`
-	Endurance    uint32     `json:"endurance"`
-	Charges      int32      `json:"charges"`
-	ChargeWork   uint32     `json:"charge_work"`
-	ServiceWork  uint32     `json:"service_work"`
-	Experience   int64      `json:"experience"`
-	Cooldowns    []Cooldown `json:"cooldowns"`
-	Passengers   []ID       `json:"passengers"`
-	Container    ID         `json:"container"`
+	MissionOrigin string     `json:"mission_origin,omitempty"`
+	AmbushReady   bool       `json:"ambush_ready"`
+	RepeatSortie  bool       `json:"repeat_sortie"`
+	HP            int64      `json:"hp"`
+	MaxHP         int64      `json:"max_hp"`
+	Jobs          []Job      `json:"jobs"`
+	Orders        []Order    `json:"orders"`
+	Rally         Vec        `json:"rally"`
+	Cargo         int64      `json:"cargo"`
+	Home          ID         `json:"home"`
+	Ammo          int32      `json:"ammo"`
+	Endurance     uint32     `json:"endurance"`
+	Charges       int32      `json:"charges"`
+	ChargeWork    uint32     `json:"charge_work"`
+	ServiceWork   uint32     `json:"service_work"`
+	Experience    int64      `json:"experience"`
+	Cooldowns     []Cooldown `json:"cooldowns"`
+	Passengers    []ID       `json:"passengers"`
+	Container     ID         `json:"container"`
 }
 type EntityView struct {
 	FootprintWidth  int32          `json:"footprint_width"`
@@ -387,6 +390,35 @@ type MissionView struct {
 	Objectives     []ObjectiveView `json:"objectives"`
 }
 
+type missionOriginKey struct {
+	tag, kind string
+}
+
+// Original group identity is presentation-only and derived from existing state.
+// Never serialize tags or the group inventory. Duplicate tag/type definitions
+// describe one indistinguishable group and therefore use its first index.
+func (e *Engine) initialMissionOrigins() map[missionOriginKey]string {
+	if e.state.Mission == nil {
+		return nil
+	}
+	origins := make(map[missionOriginKey]string)
+	for index, initial := range e.state.Mission.Definition.Initial {
+		// Valid missions have at most 256 initial records. Retain the bounded
+		// wire contract even when a test constructs an unvalidated definition.
+		if index >= 256 {
+			break
+		}
+		if initial.Tag == "" {
+			continue
+		}
+		key := missionOriginKey{initial.Tag, initial.Type}
+		if _, exists := origins[key]; !exists {
+			origins[key] = "initial:" + strconv.Itoa(index)
+		}
+	}
+	return origins
+}
+
 // PlayerView is the sole network serialization source. Never serialize State
 // into a match socket, even for allies or reconnects.
 func (e *Engine) PlayerView(id PlayerID) (View, bool) {
@@ -398,6 +430,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 	view.Rubble = append([]uint32(nil), p.KnownRubble...)
 	view.Debrief = e.Debrief()
 	view.Warnings = e.operationWarnings(id)
+	origins := e.initialMissionOrigins()
 	for _, player := range e.state.Players {
 		s := PlayerSummary{ID: player.ID, Name: player.Name, Faction: player.Faction, Team: player.Team, Color: player.Color, Defeated: player.Defeated, DefeatAt: player.DefeatAt, StrategicProgress: -1, SurrenderVote: player.Team == p.Team && player.SurrenderVote}
 		for _, v := range e.state.Entities {
@@ -434,7 +467,18 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 			s.Progress = clamp(int32(uint64(e.Tick()-v.DeploymentStarted)*1000/uint64(until-v.DeploymentStarted)), 0, 1000)
 		}
 		if v.Owner == id {
-			s.Private = &EntityPrivate{e.ambushReady(v), v.RepeatSortie, v.HP, v.MaxHP, append([]Job(nil), v.Jobs...), cloneOrders(v.Orders), v.Rally, v.Cargo, v.Home, v.Ammo, v.Endurance, v.Charges, v.ChargeWork, v.ServiceWork, v.Experience, append([]Cooldown(nil), v.Cooldowns...), append([]ID(nil), v.Passengers...), v.Container}
+			s.Private = &EntityPrivate{
+				AmbushReady: e.ambushReady(v), RepeatSortie: v.RepeatSortie,
+				HP: v.HP, MaxHP: v.MaxHP, Jobs: append([]Job(nil), v.Jobs...),
+				Orders: cloneOrders(v.Orders), Rally: v.Rally, Cargo: v.Cargo,
+				Home: v.Home, Ammo: v.Ammo, Endurance: v.Endurance,
+				Charges: v.Charges, ChargeWork: v.ChargeWork, ServiceWork: v.ServiceWork,
+				Experience: v.Experience, Cooldowns: append([]Cooldown(nil), v.Cooldowns...),
+				Passengers: append([]ID(nil), v.Passengers...), Container: v.Container,
+			}
+			if v.Created == 0 && v.Tag != "" {
+				s.Private.MissionOrigin = origins[missionOriginKey{v.Tag, v.Type}]
+			}
 		} else {
 			switch s.State {
 			case "insufficient_credits", "service_full", "supply_blocked", "prerequisite_lost", "rig_limit", "hauler_limit", "elite_limit", "no_known_supplies", "no_supply_center":
