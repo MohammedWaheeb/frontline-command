@@ -65,6 +65,7 @@ export class BattlefieldRenderer {
  private memoryKey='';private rubbleKey='';private terrainKey='';private lost=false;private presentationMap:GameMap;
  private effectEvent=0;private feedbackBaseline=false;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
+ private rejection?:{point:Point;player:number;tick:number;until:number};
  private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.placementGhost=new PlacementGhost(options.art);this.combat=new CombatEffects(options.catalog,options.map,options.onError);this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface,options.environment);for(const skin of options.environment?.object_skins??[]){const object=options.map.objects?.find(o=>o.id===skin.object_id);if(object)this.objectSkins.set(`map.${object.class}:${object.position.x}:${object.position.y}`,skin)}}
  static async create(host:HTMLElement,options:BattlefieldOptions):Promise<BattlefieldRenderer>{
   const renderer=new BattlefieldRenderer(host,options);
@@ -181,6 +182,12 @@ export class BattlefieldRenderer {
  cancelDrag(){if(this.drag&&this.app.canvas?.hasPointerCapture(this.drag.pointer))this.app.canvas.releasePointerCapture(this.drag.pointer);this.drag=undefined;this.overlay.clear()}
  setTargeting(kind:string|undefined){this.targeting=kind;if(this.app.canvas)this.app.canvas.style.cursor=kind?'crosshair':'default'}
  setRangeMode(mode:RangeMode){this.rangeMode=mode}
+ showRejectedOrder(point:Point,player:number){
+  const s=this.snapshot;if(!s||s.player!==player||!Number.isSafeInteger(point.x)||!Number.isSafeInteger(point.y)||point.x<0||point.y<0||point.x>=this.options.map.width*1000||point.y>=this.options.map.height*1000)return;
+  // Cosmetic acknowledgement only. Accepted queues always remain Go snapshots.
+  // One static marker survives reduced motion/flashing without pulsing.
+  this.rejection={point:{...point},player,tick:s.tick,until:performance.now()+1800};
+ }
  setPlacement(placement:PlacementPreview|undefined){this.placement=placement;if(!placement)this.placementGhost.clear()}
  setSelection(ids:number[]){
   if(ids.length===this.selected.size&&ids.every(id=>this.selected.has(id)))return;
@@ -190,13 +197,14 @@ export class BattlefieldRenderer {
  get tacticalDiagnostics(){return {...this.tacticalOverlay.diagnostics,previewRoutes:this.strikePreview.routes}}
  get combatDiagnostics(){return this.combat.diagnostics}
  async whenEffectsReleased(){await this.effectsReleased}
- resetFeedback(){this.feedbackBaseline=true;this.combat.reset();this.surfaceShadows.clear();this.effectEvent=Math.max(0,...(this.snapshot?.events.map(event=>event.id)??[]));this.shake={until:0,strength:0,x:0,y:0};for(const actor of this.actors.values())actor.clearFeedback();for(const death of this.deaths)death.actor.dispose();this.deaths.length=0}
+ resetFeedback(){this.rejection=undefined;this.feedbackBaseline=true;this.combat.reset();this.surfaceShadows.clear();this.effectEvent=Math.max(0,...(this.snapshot?.events.map(event=>event.id)??[]));this.shake={until:0,strength:0,x:0,y:0};for(const actor of this.actors.values())actor.clearFeedback();for(const death of this.deaths)death.actor.dispose();this.deaths.length=0}
  setStrikePreview(plan:SkybreakerPlan|undefined,_observedTick?:number){this.strikePreview.set(plan)}
  updateSettings(settings:Settings){this.settings=settings;if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
  setSnapshot(snapshot:PlayerSnapshot){
   if(this.disposed)return;
   const tacticalReset=!this.snapshot||snapshot.tick<this.snapshot.tick||snapshot.player!==this.snapshot.player;
   if(tacticalReset||this.feedbackBaseline){
+   this.rejection=undefined;
    this.strikePreview.set(undefined);
    this.effectEvent=Math.max(0,...snapshot.events.map(event=>event.id));this.shake={until:0,strength:0,x:0,y:0};
    this.feedbackBaseline=false;
@@ -365,7 +373,18 @@ export class BattlefieldRenderer {
     this.placementGhost.draw(b,s.players.find(player=>player.id===s.player)?.faction,p,this.placement.valid,this.surface);
    }else this.placementGhost.clear();
   }else this.placementGhost.clear();
-  void now;
+  if(this.rejection){
+   const marker=this.rejection;
+   if(now>=marker.until||s.player!==marker.player||s.tick<marker.tick)this.rejection=undefined;
+   else{
+    const p=this.surface.projectGround(marker.point),px=1/this.camera.zoom;
+    // Dark surround and a crossed copper ring, distinct from accepted routes.
+    for(const [width,paint] of [[5,0x20170f],[2,0xe8a568]]){
+     g.circle(p.x,p.y,11*px).stroke({width:width*px,color:paint});
+     g.moveTo(p.x-5*px,p.y-5*px).lineTo(p.x+5*px,p.y+5*px).moveTo(p.x+5*px,p.y-5*px).lineTo(p.x-5*px,p.y+5*px).stroke({width:width*px,color:paint});
+    }
+   }
+  }
  }
  renderMinimap(canvas:HTMLCanvasElement){
   const ctx=canvas.getContext('2d'),s=this.snapshot,m=this.options.map;if(!ctx||!s)return;
