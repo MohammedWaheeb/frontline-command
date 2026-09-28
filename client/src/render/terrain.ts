@@ -6,7 +6,16 @@ import type {GameMap} from '../runtime';
 import {HALF_H,HALF_W,LEVEL_PX} from './iso';
 import type {ArtLibrary} from './art';
 import {MATERIALS,materialFor,heightAt,terrainAt,type Material} from './terrain-materials';
+import {TerrainSurface,projectSurfaceVertex,compareSurfaceTriangles,surfaceFogOpacity,type SurfaceTriangle} from './terrain-surface';
 export {materialFor,heightAt,terrainAt} from './terrain-materials';
+
+/** Cached opaque ground and matching fog geometry. The caller interleaves these
+ * by ground depth with actors; owning chunk textures are released separately. */
+export interface TerrainFragment {
+ mesh:Mesh;fog:Mesh;triangles:readonly SurfaceTriangle[];depth:number;
+ setFog(visible:readonly boolean[],explored:readonly boolean[]):void;
+ dispose():void;
+}
 
 export const CHUNK=16;
 const BLEED=2;
@@ -15,13 +24,14 @@ const FLAT:Record<Material,string>={sand:'#b59a6a',packed_earth:'#8f7852',scrub_
 
 export class TerrainBaker {
  private patterns=new Map<string,HTMLImageElement|undefined>();
+ private faceTextures=new Map<string,Texture>();private fogPalette?:Texture;
  constructor(private readonly map:GameMap,private readonly art:ArtLibrary,readonly resolution=1){}
- async load(){await Promise.all([...MATERIALS,'ground_macro','road_asphalt_decal'].map(async m=>{try{this.patterns.set(m,await this.art.terrain(m))}catch{this.patterns.set(m,undefined)}}))}
+ async load(){await Promise.all([...MATERIALS,'ground_macro','road_asphalt_decal','cliff_face_tier1','cliff_face_tier2'].map(async m=>{try{this.patterns.set(m,await this.art.terrain(m))}catch{this.patterns.set(m,undefined)}}))}
  chunkOrigin(cx:number,cy:number){const x0=cx*CHUNK,y0=cy*CHUNK;return {x:(x0-(y0+CHUNK))*HALF_W-BLEED,y:(x0+y0)*HALF_H-BLEED}}
  get chunksX(){return Math.ceil(this.map.width/CHUNK)}
  get chunksY(){return Math.ceil(this.map.height/CHUNK)}
  /** Returns a texture whose top-left sits at chunkOrigin(cx,cy) in world px. */
- bake(cx:number,cy:number):Texture{
+ bake(cx:number,cy:number,raised=false):Texture{
   const r=this.resolution,W=CHUNK*2*HALF_W+2*BLEED,H=CHUNK*2*HALF_H+4*LEVEL_PX+2*BLEED;
   const canvas=document.createElement('canvas');canvas.width=Math.ceil(W*r);canvas.height=Math.ceil(H*r);
   const ctx=canvas.getContext('2d')!;const x0=cx*CHUNK,y0=cy*CHUNK,origin=this.chunkOrigin(cx,cy);
@@ -59,7 +69,7 @@ export class TerrainBaker {
    if(h>0){ctx.fillStyle=`rgba(255,236,196,${Math.min(0.2,h*0.05)})`;ctx.fillRect(x,y,1,1)}
    if(terrain==='cliff'||terrain==='blocked'){ctx.fillStyle='rgba(40,34,26,0.45)';ctx.fillRect(x,y,1,1)}
    if(terrain==='road')this.roadEdges(ctx,x,y);
-   for(const [dx,dy] of [[1,0],[0,1]] as const){
+   for(const [dx,dy] of (raised?[]:[[1,0],[0,1]]) as Array<readonly [number,number]>){
     const hn=heightAt(this.map,x+dx,y+dy);if(hn>=h)continue;const drop=(h-hn)*LEVEL_PX/HALF_H;
     ctx.fillStyle='rgba(28,22,16,0.55)';
     if(dx)ctx.fillRect(x+1,y,Math.min(0.6,drop*0.35),1);else ctx.fillRect(x,y+1,1,Math.min(0.6,drop*0.35));
@@ -82,6 +92,54 @@ export class TerrainBaker {
   const uvs=new Float32Array(positions.map((value,i)=>value*this.resolution/(i%2?texture.height:texture.width)));
   const mesh=new Mesh({texture,geometry:new MeshGeometry({positions,uvs,indices:new Uint32Array([0,1,2,0,2,3])})});mesh.position.set(origin.x,origin.y);return mesh;
  }
+ /** Additive stage-2 API. Flat product mesh stays available until projection,
+  * actor anchors, picking and fog are switched together by the integration owner. */
+ surfaceFragments(cx:number,cy:number,texture:Texture,surface:TerrainSurface):TerrainFragment[]{
+  const x0=cx*CHUNK,y0=cy*CHUNK,x1=Math.min(x0+CHUNK,this.map.width),y1=Math.min(y0+CHUNK,this.map.height),origin=this.chunkOrigin(cx,cy);
+  if(x0<0||y0<0||x0>=this.map.width||y0>=this.map.height||surface.width!==this.map.width||surface.height!==this.map.height)throw new Error('Invalid surface chunk');
+  const groups=new Map<string,SurfaceTriangle[]>();
+  for(const triangle of surface.triangles({left:x0*1000,top:y0*1000,right:x1*1000,bottom:y1*1000})){
+   if(!triangle.frontFacing)continue;
+   const tier=triangle.kind==='face'&&Math.max(...triangle.vertices.map(v=>v.height))-Math.min(...triangle.vertices.map(v=>v.height))>1?'cliff_face_tier2':'cliff_face_tier1';
+   const key=`${triangle.depth.toFixed(6)}:${triangle.kind}:${tier}`;let group=groups.get(key);if(!group){group=[];groups.set(key,group)}group.push(triangle);
+  }
+  if(!this.fogPalette){
+   const canvas=document.createElement('canvas');canvas.width=3;canvas.height=1;const ctx=canvas.getContext('2d')!,pixels=ctx.createImageData(3,1);
+   for(const [i,alpha] of [0,175,255].entries())pixels.data.set([8,9,7,alpha],i*4);ctx.putImageData(pixels,0,0);
+   this.fogPalette=Texture.from(canvas);this.fogPalette.source.scaleMode='nearest';
+  }
+  return [...groups.values()].sort((a,b)=>compareSurfaceTriangles(a[0],b[0])).map(triangles=>{
+   // Small depth fragments stay on Pixi's batch path; explicit batch mode also
+   // supports a long diagonal without falling out at the 100-vertex auto limit.
+   triangles.sort(compareSurfaceTriangles);const first=triangles[0],positions:number[]=[],uvs:number[]=[],indices:number[]=[],fogUVs=new Float32Array(triangles.length*6);
+   const face=first.kind==='face',tier=Math.max(...first.vertices.map(v=>v.height))-Math.min(...first.vertices.map(v=>v.height))>1?'cliff_face_tier2':'cliff_face_tier1';
+   for(const triangle of triangles)for(const vertex of triangle.vertices){
+    const p=projectSurfaceVertex(vertex),flatX=(vertex.x-vertex.y)/1000*HALF_W,flatY=(vertex.x+vertex.y)/1000*HALF_H;
+    positions.push(p.x-origin.x,p.y-origin.y);indices.push(indices.length);
+    if(face)uvs.push((vertex.x+vertex.y)/4000,vertex.height/4);
+    else uvs.push((flatX-origin.x)*this.resolution/texture.width,(flatY-origin.y)*this.resolution/texture.height);
+   }
+   let material=texture;
+   if(face){
+    let cached=this.faceTextures.get(tier);if(!cached){const image=this.patterns.get(tier);if(image){cached=Texture.from(image);cached.source.addressMode='repeat';cached.source.scaleMode='linear'}else{
+     const canvas=document.createElement('canvas');canvas.width=canvas.height=2;const ctx=canvas.getContext('2d')!;ctx.fillStyle='#665342';ctx.fillRect(0,0,2,2);cached=Texture.from(canvas);
+    }this.faceTextures.set(tier,cached)}material=cached;
+   }
+   const geometry=new MeshGeometry({positions:new Float32Array(positions),uvs:new Float32Array(uvs),indices:new Uint32Array(indices)});geometry.batchMode='batch';
+   const mesh=new Mesh({texture:material,geometry});mesh.position.set(origin.x,origin.y);mesh.zIndex=first.depth;
+   if(face)mesh.tint=first.vertices[0].x===first.vertices[1].x&&first.vertices[1].x===first.vertices[2].x?0xb8b09f:0x999183;
+   const fogGeometry=new MeshGeometry({positions:new Float32Array(positions),uvs:fogUVs,indices:new Uint32Array(indices)});fogGeometry.batchMode='batch';
+   const fog=new Mesh({texture:this.fogPalette!,geometry:fogGeometry});fog.position.copyFrom(mesh.position);fog.zIndex=first.depth+.0001;
+   const setFog=(visible:readonly boolean[],explored:readonly boolean[])=>{
+    let any=false;for(let i=0;i<triangles.length;i++){const alpha=surfaceFogOpacity(triangles[i],visible,explored),u=((alpha===0?0:alpha===175?1:2)+.5)/3;any ||= alpha!==0;for(let j=0;j<3;j++){fogUVs[i*6+j*2]=u;fogUVs[i*6+j*2+1]=.5}}
+    fog.visible=any;fogGeometry.attributes.aUV.buffer.update();
+   };
+   setFog([],[]);
+   return {mesh,fog,triangles,depth:first.depth,setFog,dispose(){geometry.destroy();fogGeometry.destroy();mesh.destroy();fog.destroy()}};
+  });
+ }
+ /** Only after all raised fragments have been detached/disposed. */
+ disposeSurfaceResources(){for(const texture of this.faceTextures.values())texture.destroy(true);this.faceTextures.clear();this.fogPalette?.destroy(true);this.fogPalette=undefined}
  private roadEdges(ctx:CanvasRenderingContext2D,x:number,y:number){
   const image=this.patterns.get('road_asphalt_decal');if(!image)return;
   for(const [dx,dy,angle] of [[0,-1,Math.PI],[1,0,-Math.PI/2],[0,1,0],[-1,0,Math.PI/2]]){
