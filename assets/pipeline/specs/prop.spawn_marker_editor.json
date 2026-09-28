@@ -1,0 +1,47 @@
+{
+  "id": "prop.spawn_marker_editor",
+  "model": "environment_roster",
+  "faction": null,
+  "author": "Codex",
+  "params": {
+    "prop": "spawn_marker_editor"
+  },
+  "canvas": [
+    608,
+    480
+  ],
+  "anchor": [
+    304,
+    300
+  ],
+  "passes": [
+    "beauty"
+  ],
+  "footprint_mt": [
+    1000,
+    1000
+  ],
+  "states": [
+    {
+      "name": "idle",
+      "part": "prop",
+      "directions": 4,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty"
+      ]
+    }
+  ],
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Codex",
+    "authorization": "User-approved Claude quota takeover; assignment 10 continuation",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "source_model": "assets/pipeline/blender/models/environment_roster.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "integration_constraint": "Editor-only public spawn direction marker; never a live match actor or visibility source.",
+  "editor_only": true
+}

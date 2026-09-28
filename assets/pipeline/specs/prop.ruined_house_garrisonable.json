@@ -1,0 +1,96 @@
+{
+  "id": "prop.ruined_house_garrisonable",
+  "model": "environment_roster",
+  "faction": null,
+  "author": "Codex",
+  "params": {
+    "prop": "ruined_house_garrisonable"
+  },
+  "canvas": [
+    608,
+    480
+  ],
+  "anchor": [
+    304,
+    300
+  ],
+  "passes": [
+    "beauty",
+    "shadow"
+  ],
+  "footprint_mt": [
+    3000,
+    3000
+  ],
+  "states": [
+    {
+      "name": "intact",
+      "part": "prop",
+      "directions": 4,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "damaged",
+      "part": "prop",
+      "directions": 4,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "destroyed",
+      "part": "prop",
+      "directions": 4,
+      "frames": 1,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ],
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Codex",
+    "authorization": "User-approved Claude quota takeover; assignment 10 continuation",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "source_model": "assets/pipeline/blender/models/environment_roster.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "integration_constraint": "Alternative skin only for exact Go garrison 3x3, 900 HP, two squads. Pre-existing ruin remains intact game state until Go destruction.",
+  "aliases": [
+    {
+      "name": "idle",
+      "source": "intact"
+    },
+    {
+      "name": "rubble",
+      "source": "destroyed"
+    },
+    {
+      "name": "wreck",
+      "source": "destroyed"
+    }
+  ],
+  "footprint_tiles": [
+    3,
+    3
+  ],
+  "gameplay_binding": {
+    "object_class": "garrison",
+    "hp": 900,
+    "capacity": 2,
+    "intrinsic_sight_blocker": false
+  }
+}
