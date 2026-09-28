@@ -1,0 +1,946 @@
+{
+  "final_tick": 13475,
+  "metadata": {
+    "simulation": "0.3.4",
+    "protocol": 1,
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "map_version": "1",
+    "ruleset": "standard-v2",
+    "seed": 4866468222137547733
+  },
+  "replay_sha256": "f03f6b2b0519e592236098fd807ff2817492bb1d5c46fb343aca346d622b5da9",
+  "scope": "exact neighboring replay states; exact server capture tick unknown",
+  "states": [
+    {
+      "actors": 30,
+      "advice_bytes": 1524589,
+      "affordances": {
+        "tick": 1272,
+        "player": 3,
+        "entities": [],
+        "player_commands": [
+          "ping",
+          "repair_reserve",
+          "surrender",
+          "surrender_cancel",
+          "surrender_vote"
+        ]
+      },
+      "all_views_unchanged": true,
+      "codes": {
+        "indeterminate": 24
+      },
+      "full_bytes": 1528106,
+      "full_compact_advice_equal": true,
+      "full_indexed_hash_equal": true,
+      "hash": "1255ed227aa327032a04ef9f3c5c464fab9094af31fcb89716c52a373cccb7c6",
+      "result": {
+        "tick": 1272,
+        "results": [
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 1,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 2,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 3,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 4,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 5,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 6,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 7,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 8,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 9,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 10,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 11,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 12,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 13,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 14,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 15,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 16,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 17,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 18,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 19,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 20,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 21,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 22,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 23,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1272
+          }
+        ]
+      },
+      "rig_orders": [
+        {
+          "kind": "build",
+          "target": 30,
+          "position": {
+            "x": 129500,
+            "y": 137500
+          }
+        }
+      ],
+      "rig_owner": 3,
+      "rig_state": "building",
+      "save_unchanged": true,
+      "tick": 1272
+    },
+    {
+      "actors": 34,
+      "advice_bytes": 1530487,
+      "affordances": {
+        "tick": 1527,
+        "player": 3,
+        "entities": [],
+        "player_commands": [
+          "ping",
+          "repair_reserve",
+          "surrender",
+          "surrender_cancel",
+          "surrender_vote"
+        ]
+      },
+      "all_views_unchanged": true,
+      "codes": {
+        "indeterminate": 24
+      },
+      "full_bytes": 1534653,
+      "full_compact_advice_equal": true,
+      "full_indexed_hash_equal": true,
+      "hash": "010c92695adcf3482413336d62add8d9a2fab9dace8d0583fd4bb1e3d12171e3",
+      "result": {
+        "tick": 1527,
+        "results": [
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 1,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 2,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 3,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 4,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 5,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 6,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 7,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 8,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 9,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 10,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 11,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 12,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 13,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 14,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 15,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 16,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 17,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 18,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 19,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 20,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 21,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 22,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 23,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1527
+          }
+        ]
+      },
+      "rig_orders": null,
+      "rig_owner": 3,
+      "rig_state": "idle",
+      "save_unchanged": true,
+      "tick": 1527
+    },
+    {
+      "actors": 37,
+      "advice_bytes": 1535611,
+      "affordances": {
+        "tick": 1713,
+        "player": 3,
+        "entities": [],
+        "player_commands": [
+          "ping",
+          "repair_reserve",
+          "surrender",
+          "surrender_cancel",
+          "surrender_vote"
+        ]
+      },
+      "all_views_unchanged": true,
+      "codes": {
+        "indeterminate": 24
+      },
+      "full_bytes": 1541071,
+      "full_compact_advice_equal": true,
+      "full_indexed_hash_equal": true,
+      "hash": "2609c89087ad3ef7418286ad91b19e29d5a595d7c15346582505abbfeadf3720",
+      "result": {
+        "tick": 1713,
+        "results": [
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 1,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 2,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 3,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 4,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 5,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 6,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 7,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 8,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 9,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 10,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 11,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 12,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 13,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 14,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 15,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 16,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 17,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 18,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 19,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 20,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 21,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 22,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 23,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1713
+          }
+        ]
+      },
+      "rig_orders": [
+        {
+          "kind": "build",
+          "target": 39,
+          "position": {
+            "x": 134500,
+            "y": 130500
+          }
+        }
+      ],
+      "rig_owner": 3,
+      "rig_state": "turning",
+      "save_unchanged": true,
+      "tick": 1713
+    },
+    {
+      "actors": 38,
+      "advice_bytes": 1537584,
+      "affordances": {
+        "tick": 1884,
+        "player": 3,
+        "entities": [],
+        "player_commands": [
+          "ping",
+          "repair_reserve",
+          "surrender",
+          "surrender_cancel",
+          "surrender_vote"
+        ]
+      },
+      "all_views_unchanged": true,
+      "codes": {
+        "indeterminate": 24
+      },
+      "full_bytes": 1543653,
+      "full_compact_advice_equal": true,
+      "full_indexed_hash_equal": true,
+      "hash": "2f35a69250f4f46974735bd7b417763ed1bca0896d0ca927d16bea45283d9bec",
+      "result": {
+        "tick": 1884,
+        "results": [
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 1,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 2,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 3,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 4,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 5,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 6,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 7,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 8,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 9,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 10,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 11,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 12,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 13,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 14,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 15,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 16,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 17,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 18,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 19,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 20,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 21,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 22,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 23,
+            "accepted": true,
+            "code": "indeterminate",
+            "tick": 1884
+          }
+        ]
+      },
+      "rig_orders": [
+        {
+          "kind": "build",
+          "target": 39,
+          "position": {
+            "x": 134500,
+            "y": 130500
+          }
+        }
+      ],
+      "rig_owner": 3,
+      "rig_state": "building",
+      "save_unchanged": true,
+      "tick": 1884
+    }
+  ]
+}

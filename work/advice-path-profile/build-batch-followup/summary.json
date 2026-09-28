@@ -1,0 +1,225 @@
+{
+  "source_lock_sha256": "c9718cb618a7dad95593ed7277cb01aac7efb994cbae3a48a6b5ca2ce01b2fcb",
+  "run": "work/advice-path-profile/build-batch-followup/runs/20260928T161904Z",
+  "states": [
+    {
+      "actors": 30,
+      "advice_bytes": 1524589,
+      "all_views_unchanged": true,
+      "codes": {
+        "indeterminate": 24
+      },
+      "full_bytes": 1528106,
+      "full_compact_advice_equal": true,
+      "full_indexed_hash_equal": true,
+      "hash": "1255ed227aa327032a04ef9f3c5c464fab9094af31fcb89716c52a373cccb7c6",
+      "rig_owner": 3,
+      "rig_state": "building",
+      "save_unchanged": true,
+      "tick": 1272
+    },
+    {
+      "actors": 34,
+      "advice_bytes": 1530487,
+      "all_views_unchanged": true,
+      "codes": {
+        "indeterminate": 24
+      },
+      "full_bytes": 1534653,
+      "full_compact_advice_equal": true,
+      "full_indexed_hash_equal": true,
+      "hash": "010c92695adcf3482413336d62add8d9a2fab9dace8d0583fd4bb1e3d12171e3",
+      "rig_owner": 3,
+      "rig_state": "idle",
+      "save_unchanged": true,
+      "tick": 1527
+    },
+    {
+      "actors": 37,
+      "advice_bytes": 1535611,
+      "all_views_unchanged": true,
+      "codes": {
+        "indeterminate": 24
+      },
+      "full_bytes": 1541071,
+      "full_compact_advice_equal": true,
+      "full_indexed_hash_equal": true,
+      "hash": "2609c89087ad3ef7418286ad91b19e29d5a595d7c15346582505abbfeadf3720",
+      "rig_owner": 3,
+      "rig_state": "turning",
+      "save_unchanged": true,
+      "tick": 1713
+    },
+    {
+      "actors": 38,
+      "advice_bytes": 1537584,
+      "all_views_unchanged": true,
+      "codes": {
+        "indeterminate": 24
+      },
+      "full_bytes": 1543653,
+      "full_compact_advice_equal": true,
+      "full_indexed_hash_equal": true,
+      "hash": "2f35a69250f4f46974735bd7b417763ed1bca0896d0ca927d16bea45283d9bec",
+      "rig_owner": 3,
+      "rig_state": "building",
+      "save_unchanged": true,
+      "tick": 1884
+    }
+  ],
+  "measurements": {
+    "1272": {
+      "EmptyAffordances": {
+        "iterations": 3,
+        "ns_per_op": 59639,
+        "bytes_per_op": 144,
+        "allocs_per_op": 2
+      },
+      "SaveForAdvice": {
+        "iterations": 3,
+        "ns_per_op": 25703667,
+        "bytes_per_op": 5864762,
+        "allocs_per_op": 24
+      },
+      "RestoreAdvice": {
+        "iterations": 3,
+        "ns_per_op": 71614528,
+        "bytes_per_op": 14432288,
+        "allocs_per_op": 487
+      },
+      "SavedBatch24": {
+        "iterations": 3,
+        "ns_per_op": 73367097,
+        "bytes_per_op": 14557528,
+        "allocs_per_op": 1205
+      },
+      "SavedFirstOrder": {
+        "iterations": 3,
+        "ns_per_op": 68729903,
+        "bytes_per_op": 14438293,
+        "allocs_per_op": 537
+      },
+      "DetachedBatch24": {
+        "iterations": 3,
+        "ns_per_op": 365931,
+        "bytes_per_op": 121400,
+        "allocs_per_op": 703
+      }
+    },
+    "1527": {
+      "EmptyAffordances": {
+        "iterations": 3,
+        "ns_per_op": 6625,
+        "bytes_per_op": 144,
+        "allocs_per_op": 2
+      },
+      "SaveForAdvice": {
+        "iterations": 3,
+        "ns_per_op": 21314250,
+        "bytes_per_op": 5864762,
+        "allocs_per_op": 24
+      },
+      "RestoreAdvice": {
+        "iterations": 3,
+        "ns_per_op": 54005014,
+        "bytes_per_op": 14452552,
+        "allocs_per_op": 571
+      },
+      "SavedBatch24": {
+        "iterations": 3,
+        "ns_per_op": 53900792,
+        "bytes_per_op": 14572085,
+        "allocs_per_op": 1259
+      },
+      "SavedFirstOrder": {
+        "iterations": 3,
+        "ns_per_op": 54765764,
+        "bytes_per_op": 14456405,
+        "allocs_per_op": 604
+      },
+      "DetachedBatch24": {
+        "iterations": 3,
+        "ns_per_op": 259430,
+        "bytes_per_op": 121208,
+        "allocs_per_op": 700
+      }
+    },
+    "1713": {
+      "EmptyAffordances": {
+        "iterations": 3,
+        "ns_per_op": 5347,
+        "bytes_per_op": 144,
+        "allocs_per_op": 2
+      },
+      "SaveForAdvice": {
+        "iterations": 3,
+        "ns_per_op": 25663889,
+        "bytes_per_op": 8679885,
+        "allocs_per_op": 38
+      },
+      "RestoreAdvice": {
+        "iterations": 3,
+        "ns_per_op": 57145570,
+        "bytes_per_op": 14467362,
+        "allocs_per_op": 587
+      },
+      "SavedBatch24": {
+        "iterations": 3,
+        "ns_per_op": 57789542,
+        "bytes_per_op": 14587261,
+        "allocs_per_op": 1300
+      },
+      "SavedFirstOrder": {
+        "iterations": 3,
+        "ns_per_op": 63739097,
+        "bytes_per_op": 14469610,
+        "allocs_per_op": 630
+      },
+      "DetachedBatch24": {
+        "iterations": 3,
+        "ns_per_op": 298194,
+        "bytes_per_op": 121208,
+        "allocs_per_op": 700
+      }
+    },
+    "1884": {
+      "EmptyAffordances": {
+        "iterations": 3,
+        "ns_per_op": 5972,
+        "bytes_per_op": 144,
+        "allocs_per_op": 2
+      },
+      "SaveForAdvice": {
+        "iterations": 3,
+        "ns_per_op": 24184445,
+        "bytes_per_op": 5881146,
+        "allocs_per_op": 24
+      },
+      "RestoreAdvice": {
+        "iterations": 3,
+        "ns_per_op": 65341000,
+        "bytes_per_op": 14468794,
+        "allocs_per_op": 615
+      },
+      "SavedBatch24": {
+        "iterations": 3,
+        "ns_per_op": 58017653,
+        "bytes_per_op": 14591917,
+        "allocs_per_op": 1318
+      },
+      "SavedFirstOrder": {
+        "iterations": 3,
+        "ns_per_op": 53618722,
+        "bytes_per_op": 14472688,
+        "allocs_per_op": 647
+      },
+      "DetachedBatch24": {
+        "iterations": 3,
+        "ns_per_op": 242889,
+        "bytes_per_op": 121208,
+        "allocs_per_op": 700
+      }
+    }
+  },
+  "limits": "Three-iteration stage means at four exact neighboring replay states, not exact server capture; no wall latency/p95/quiet-host conclusion."
+}

@@ -1,0 +1,29 @@
+goos: darwin
+goarch: arm64
+pkg: frontlinecommand/pkg/sim
+cpu: Apple M4
+BenchmarkCapturedBuildAdvice/tick1272/EmptyAffordances-2         	       3	     59639 ns/op	     144 B/op	       2 allocs/op
+BenchmarkCapturedBuildAdvice/tick1272/SaveForAdvice-2            	       3	  25703667 ns/op	 5864762 B/op	      24 allocs/op
+BenchmarkCapturedBuildAdvice/tick1272/RestoreAdvice-2            	       3	  71614528 ns/op	14432288 B/op	     487 allocs/op
+BenchmarkCapturedBuildAdvice/tick1272/SavedBatch24-2             	       3	  73367097 ns/op	14557528 B/op	    1205 allocs/op
+BenchmarkCapturedBuildAdvice/tick1272/SavedFirstOrder-2          	       3	  68729903 ns/op	14438293 B/op	     537 allocs/op
+BenchmarkCapturedBuildAdvice/tick1272/DetachedBatch24-2          	       3	    365931 ns/op	  121400 B/op	     703 allocs/op
+BenchmarkCapturedBuildAdvice/tick1527/EmptyAffordances-2         	       3	      6625 ns/op	     144 B/op	       2 allocs/op
+BenchmarkCapturedBuildAdvice/tick1527/SaveForAdvice-2            	       3	  21314250 ns/op	 5864762 B/op	      24 allocs/op
+BenchmarkCapturedBuildAdvice/tick1527/RestoreAdvice-2            	       3	  54005014 ns/op	14452552 B/op	     571 allocs/op
+BenchmarkCapturedBuildAdvice/tick1527/SavedBatch24-2             	       3	  53900792 ns/op	14572085 B/op	    1259 allocs/op
+BenchmarkCapturedBuildAdvice/tick1527/SavedFirstOrder-2          	       3	  54765764 ns/op	14456405 B/op	     604 allocs/op
+BenchmarkCapturedBuildAdvice/tick1527/DetachedBatch24-2          	       3	    259430 ns/op	  121208 B/op	     700 allocs/op
+BenchmarkCapturedBuildAdvice/tick1713/EmptyAffordances-2         	       3	      5347 ns/op	     144 B/op	       2 allocs/op
+BenchmarkCapturedBuildAdvice/tick1713/SaveForAdvice-2            	       3	  25663889 ns/op	 8679885 B/op	      38 allocs/op
+BenchmarkCapturedBuildAdvice/tick1713/RestoreAdvice-2            	       3	  57145570 ns/op	14467362 B/op	     587 allocs/op
+BenchmarkCapturedBuildAdvice/tick1713/SavedBatch24-2             	       3	  57789542 ns/op	14587261 B/op	    1300 allocs/op
+BenchmarkCapturedBuildAdvice/tick1713/SavedFirstOrder-2          	       3	  63739097 ns/op	14469610 B/op	     630 allocs/op
+BenchmarkCapturedBuildAdvice/tick1713/DetachedBatch24-2          	       3	    298194 ns/op	  121208 B/op	     700 allocs/op
+BenchmarkCapturedBuildAdvice/tick1884/EmptyAffordances-2         	       3	      5972 ns/op	     144 B/op	       2 allocs/op
+BenchmarkCapturedBuildAdvice/tick1884/SaveForAdvice-2            	       3	  24184445 ns/op	 5881146 B/op	      24 allocs/op
+BenchmarkCapturedBuildAdvice/tick1884/RestoreAdvice-2            	       3	  65341000 ns/op	14468794 B/op	     615 allocs/op
+BenchmarkCapturedBuildAdvice/tick1884/SavedBatch24-2             	       3	  58017653 ns/op	14591917 B/op	    1318 allocs/op
+BenchmarkCapturedBuildAdvice/tick1884/SavedFirstOrder-2          	       3	  53618722 ns/op	14472688 B/op	     647 allocs/op
+BenchmarkCapturedBuildAdvice/tick1884/DetachedBatch24-2          	       3	    242889 ns/op	  121208 B/op	     700 allocs/op
+PASS

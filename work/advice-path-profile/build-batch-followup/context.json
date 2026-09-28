@@ -1,0 +1,67 @@
+{
+  "source": "work/multiplayer-combat/2026-09-28T15-55-02.270Z/browser.json",
+  "copied_at": "2026-09-28T16:11:33.005609+00:00",
+  "source_status_at_copy": "failed",
+  "request_sha256": "253f8d3c8109935a71d355da0edbf24bc2c0d102a7dc8fccbd8b052c5e21832d",
+  "failure": {
+    "player": 3,
+    "status": 503,
+    "code": "advice_timeout",
+    "message": "Command advice timed out.",
+    "requestTiming": {
+      "startTime": 1790611109987.706,
+      "domainLookupStart": -1,
+      "domainLookupEnd": -1,
+      "connectStart": -1,
+      "secureConnectionStart": -1,
+      "connectEnd": -1,
+      "requestStart": 0.514,
+      "responseStart": 2282.119,
+      "responseEnd": 2283.781
+    }
+  },
+  "progress_before": {
+    "time": "2026-09-28T15:58:11.744Z",
+    "snapshots": [
+      {
+        "player": 1,
+        "tick": 1268
+      },
+      {
+        "player": 2,
+        "tick": 1272
+      },
+      {
+        "player": 3,
+        "tick": 1272
+      },
+      {
+        "player": 4,
+        "tick": 1268
+      }
+    ]
+  },
+  "progress_after": {
+    "time": "2026-09-28T15:58:45.696Z",
+    "snapshots": [
+      {
+        "player": 1,
+        "tick": 1884
+      },
+      {
+        "player": 2,
+        "tick": 1884
+      },
+      {
+        "player": 3,
+        "tick": 1884
+      },
+      {
+        "player": 4,
+        "tick": 1884
+      }
+    ]
+  },
+  "exact_capture_tick_available": false,
+  "limits": "Periodic client observations bracket time; no server capture tick or exact request-side client tick recorded. Native state reconstruction is pending earned replay."
+}

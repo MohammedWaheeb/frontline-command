@@ -1,0 +1,48 @@
+{
+  "source_lock_sha256": "c9718cb618a7dad95593ed7277cb01aac7efb994cbae3a48a6b5ca2ce01b2fcb",
+  "input_lock_sha256": "97269c9bd9660f55f1ad0de4795d5614e7c21d44f828ec433fc5e3cf5ac085d7",
+  "host_conditions": "GOMAXPROCS2 shared Apple M4 desktop; live 4H/browser/host/native audit closed. Art and parent work may continue; not quiet latency acceptance. Exact server capture tick unavailable.",
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "./pkg/sim",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/advice-path-profile/build-batch-followup/runs/20260928T161904Z/sim.test"
+      ],
+      "exit_code": 0,
+      "seconds": 8.541
+    },
+    {
+      "name": "reconstruction",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/advice-path-profile/build-batch-followup/runs/20260928T161904Z/sim.test",
+        "-test.run=^TestCapturedBuildAdviceReconstruction$",
+        "-test.count=1",
+        "-test.v",
+        "-test.timeout=3m"
+      ],
+      "exit_code": 0,
+      "seconds": 5.75
+    },
+    {
+      "name": "benchmark",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/advice-path-profile/build-batch-followup/runs/20260928T161904Z/sim.test",
+        "-test.run=^$",
+        "-test.bench=^BenchmarkCapturedBuildAdvice$",
+        "-test.benchtime=3x",
+        "-test.count=1",
+        "-test.timeout=3m"
+      ],
+      "exit_code": 0,
+      "seconds": 4.675
+    }
+  ],
+  "binary_sha256": "61ca2b88bc9f52c39a762208c8104296347d6daf9da23e76004a90f2654ea0e3",
+  "source_verified_after": true,
+  "inputs_verified_after": true
+}

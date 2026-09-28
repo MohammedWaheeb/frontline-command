@@ -107,3 +107,15 @@ fog-safe result rules. Internal serialization removal might be a later bounded
 candidate, but it would require detached-copy/privacy equivalence proof; no such
 redesign or validation bypass is implemented or justified as the timeout fix by
 this profile alone.
+
+
+## Captured 24-build follow-up
+
+The optimized four-human course separately reproduced HTTP 503 on a captured
+24-order barracks request. The exact request was profiled at four reconstructed
+replay states spanning its periodic client observation bracket; the server
+capture tick was never recorded. Three-iteration shared-host stage means were
+53.9–73.4 ms for the complete saved batch and 0.243–0.366 ms for detached checks.
+All source saves/views and full/indexed replay hashes remained identical. No
+two-second reproduction or production change resulted. See
+[the exact request, provenance, stage table and limitations](../work/advice-path-profile/build-batch-followup/README.md).
