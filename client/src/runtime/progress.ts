@@ -7,11 +7,12 @@ export interface CampaignProgress{version:1;results:string[];missions:Record<str
 const EMPTY:CampaignProgress={version:1,results:[],missions:{}};
 const stableID=(value:unknown):value is string=>typeof value==='string'&&/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,99}$/.test(value);
 const nonnegative=(value:unknown):value is number=>Number.isSafeInteger(value)&&Number(value)>=0;
-function checkedProgress(value:CampaignProgress){
+export function validateCampaignProgress(value:CampaignProgress){
+ if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(key=>!['version','results','missions'].includes(key))||new TextEncoder().encode(JSON.stringify(value)).length>256*1024)throw new RuntimeError('progress_invalid','Choose a supported campaign ledger no larger than 256 KiB.');
  if(!value||value.version!==1)throw new RuntimeError('progress_incompatible','Keep this campaign progress for a matching game version.');
  if(!Array.isArray(value.results)||value.results.length>4096||value.results.some(result=>!stableID(result))||new Set(value.results).size!==value.results.length||!value.missions||typeof value.missions!=='object'||Array.isArray(value.missions)||Object.keys(value.missions).length>4096)throw new RuntimeError('progress_invalid','This campaign progress is damaged. Export its backup before recovery.');
  for(const [key,mission] of Object.entries(value.missions)){
-  if(!mission||!stableID(mission.mission)||!stableID(mission.mission_version)||!['easy','normal','hard'].includes(mission.difficulty)||key!==`${mission.mission}:${mission.mission_version}:${mission.difficulty}`||!Number.isSafeInteger(mission.completions)||mission.completions<1||mission.completions>value.results.length||!nonnegative(mission.first_completed)||!nonnegative(mission.last_completed)||mission.last_completed<mission.first_completed||!nonnegative(mission.best_tick)||!Array.isArray(mission.optional_objectives)||mission.optional_objectives.length>100||mission.optional_objectives.some(objective=>!stableID(objective))||new Set(mission.optional_objectives).size!==mission.optional_objectives.length)throw new RuntimeError('progress_invalid','This campaign progress is damaged. Export its backup before recovery.');
+  if(!mission||Object.keys(mission).some(key=>!['mission','mission_version','difficulty','completions','first_completed','last_completed','best_tick','optional_objectives'].includes(key))||!stableID(mission.mission)||!stableID(mission.mission_version)||!['easy','normal','hard'].includes(mission.difficulty)||key!==`${mission.mission}:${mission.mission_version}:${mission.difficulty}`||!Number.isSafeInteger(mission.completions)||mission.completions<1||mission.completions>value.results.length||!nonnegative(mission.first_completed)||!nonnegative(mission.last_completed)||mission.last_completed<mission.first_completed||!nonnegative(mission.best_tick)||!Array.isArray(mission.optional_objectives)||mission.optional_objectives.length>100||mission.optional_objectives.some(objective=>!stableID(objective))||new Set(mission.optional_objectives).size!==mission.optional_objectives.length)throw new RuntimeError('progress_invalid','This campaign progress is damaged. Export its backup before recovery.');
  }
 }
 function valid(value:MissionCompletion){
@@ -22,7 +23,7 @@ function valid(value:MissionCompletion){
 export class CampaignProgressStore{
  constructor(private readonly store:Pick<LocalStore,'progress'|'putProgress'>,readonly id='campaign'){}
  async read():Promise<LocalProgress<CampaignProgress>|undefined>{
-  const record=await this.store.progress<CampaignProgress>(this.id);if(record){if(record.schema_version!==1)throw new RuntimeError('progress_incompatible','Keep this campaign progress for a matching game version.');checkedProgress(record.data)}return record;
+  const record=await this.store.progress<CampaignProgress>(this.id);if(record){if(record.schema_version!==1)throw new RuntimeError('progress_incompatible','Keep this campaign progress for a matching game version.');validateCampaignProgress(record.data)}return record;
  }
  /** The caller must supply a final authoritative live result, never replay seek events. */
  async record(completion:MissionCompletion,source:'live-solo'|'live-server'|'replay'|'practice'):Promise<LocalProgress<CampaignProgress>|undefined>{

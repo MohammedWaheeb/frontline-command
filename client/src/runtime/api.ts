@@ -1,5 +1,6 @@
 import {RuntimeError} from './errors';
 import type {Difficulty,Faction,GameMap,RuntimeVersion} from './types';
+import type {CampaignProgress} from './progress';
 import type {MatchConnection} from './online';
 export interface Profile{id:string;name:string;created:number;local?:boolean}
 export interface LobbySlot{player:number;color:number;profile?:string;name:string;faction:Faction;team:number;ai?:Difficulty;script?:boolean;ready:boolean;assets_ready:boolean}
@@ -15,11 +16,22 @@ export interface SocialRelation{target:string;name:string;kind:'request'|'friend
 export type SocialAction='request'|'accept'|'decline'|'remove'|'mute'|'unmute'|'block'|'unblock';
 export interface RankedMap{id:string;title:string;version:string;hash:string;players:2}
 export interface QueueResponse{status:'idle'|'searching'|'matched'|'canceled'|'completed';region:'local';local?:boolean;latency_ms?:number;rating_range?:number;joined?:number;maps?:string[];selection?:'pre_queue_allowlist';lobby_id?:string;match_id?:string}
-export interface SaveSummary{id:string;owner:string;name:string;revision:number;updated:number}
+export interface SaveSummary{bytes?:number;id:string;owner:string;name:string;revision:number;updated:number}
+export interface RemoteCampaignProgress{revision:number;updated:number;data:CampaignProgress}
 export interface RemoteSettings<T=Record<string,unknown>>{revision:number;data:T}
 export type ReportDecision='pending'|'confirmed'|'dismissed'|'needs_context';
 export interface LocalReport{id:string;match_id:string;tick:number;reason:string;created:number;revision:number;decision:ReportDecision;reviewed?:number}
 export interface ReportPage{reports:LocalReport[];next_cursor:string}
+export interface AdminReport extends LocalReport{owner:string;note?:string}
+export interface ReportReview{revision:number;decision:Exclude<ReportDecision,'pending'>;note:string;reviewed:number}
+export interface ReportDetail{report:AdminReport;reviews:ReportReview[]}
+export interface HostMap{id:string;title:string;author?:string;owner?:string;owner_name?:string;version?:string;players?:number;width?:number;height?:number;installed:boolean;ranked:boolean;hash?:string;published?:boolean;removed?:boolean;revision?:number}
+export type MapReportDecision='pending'|'removed'|'restored'|'dismissed'|'needs_context';
+export interface MapReport{id:string;owner?:string;map_id:string;map_revision:number;reason:string;created:number;revision:number;decision:MapReportDecision;note?:string;reviewed?:number}
+export interface MapReview{revision:number;decision:Exclude<MapReportDecision,'pending'>;note:string;reviewed:number;map_revision:number}
+export interface MapReportDetail{report:MapReport;current_map:MapRecord;reported_map:GameMap;current_map_data:GameMap;reviews:MapReview[]}
+export interface MapRecord{id:string;owner:string;owner_name:string;title:string;revision:number;content_revision:number;published:boolean;removed:boolean}
+
 /** Payload is the server's base64-encoded result JSON; it is never an engine save. */
 export interface MatchHistoryRecord{id:string;payload:string;created:number;void:boolean}
 export class APIError extends RuntimeError {constructor(code:string,message:string,public status:number){super(code,message,status!==401);this.name='APIError'}}
@@ -37,8 +49,21 @@ export class LocalAPI {
  health(){return this.request<RuntimeVersion&{status:string;tick_rate:number;local:boolean}>('/health')}
  async createProfile(name:string,signal?:AbortSignal){const result=await this.request<{profile:Profile;token:string}>('/profiles','POST',{name},signal);this.token=result.token;return result}
  me(signal?:AbortSignal){return this.request<Profile>('/profiles/me','GET',undefined,signal)}
- listMaps(){return this.request<Array<{id:string;title:string;author?:string;version?:string;players?:number;installed:boolean;ranked:boolean;hash?:string}>>('/maps')}
- map(id:string){return this.request<GameMap>(`/maps/${encodeURIComponent(id)}`)}
+ listMaps(){return this.request<HostMap[]>('/maps')}
+ async map(id:string,context?:{lobby_id?:string;match_id?:string},expectedHash?:string){const query=new URLSearchParams(context),response=await this.response(`/maps/${encodeURIComponent(id)}${query.size?'?'+query:''}`);if(expectedHash&&response.headers.get('X-Frontline-Map-Hash')!==expectedHash)throw new RuntimeError('map_version_mismatch','The host map does not match this operation’s declared battlefield. Refresh the lobby.');return response.json() as Promise<GameMap>}
+ reportMap(id:string,reason:string){return this.request<MapReport>(`/maps/${encodeURIComponent(id)}/reports`,'POST',{reason})}
+ mapReports(before?:string){return this.request<{reports:MapReport[];next_cursor:string}>('/map-reports?status=all&limit=50'+(before?'&before='+encodeURIComponent(before):''))}
+ adminMapReports(status:'all'|'pending'|'reviewed'='pending',before?:string){const query=new URLSearchParams({status,limit:'50'});if(before)query.set('before',before);return this.request<{reports:MapReport[];next_cursor:string}>('/admin/map-reports?'+query)}
+ adminMapReport(id:string,beforeRevision?:number){return this.request<MapReportDetail>(`/admin/map-reports/${encodeURIComponent(id)}${beforeRevision===undefined?'':'?before_revision='+beforeRevision}`)}
+ reviewMapReport(id:string,decision:MapReview['decision'],note:string,expectedRevision:number,expectedMapRevision:number){return this.request<MapReview>(`/admin/map-reports/${encodeURIComponent(id)}/reviews`,'POST',{decision,note,expected_revision:expectedRevision,expected_map_revision:expectedMapRevision})}
+ myMaps(){return this.request<MapRecord[]>('/maps/mine')}
+ uploadMap(map:GameMap,expectedRevision:number){return this.request<MapRecord>('/maps','POST',{map,expected_revision:expectedRevision})}
+ publishMap(id:string,published:boolean,expectedRevision:number){return this.request<MapRecord>(`/maps/${encodeURIComponent(id)}/publication`,'PATCH',{published,expected_revision:expectedRevision})}
+ adminReports(status:'all'|'pending'|'reviewed'='pending',before?:string){const query=new URLSearchParams({status,limit:'50'});if(before)query.set('before',before);return this.request<{reports:AdminReport[];next_cursor:string}>('/admin/reports?'+query)}
+ adminReport(id:string,beforeRevision?:number){return this.request<ReportDetail>(`/admin/reports/${encodeURIComponent(id)}${beforeRevision===undefined?'':'?before_revision='+beforeRevision}`)}
+ reviewReport(id:string,decision:ReportReview['decision'],note:string,expectedRevision:number){return this.request<ReportReview>(`/admin/reports/${encodeURIComponent(id)}/reviews`,'POST',{decision,note,expected_revision:expectedRevision})}
+ async reportReplay(id:string){const response=await this.response(`/admin/reports/${encodeURIComponent(id)}/replay`);return new Uint8Array(await response.arrayBuffer())}
+
  content(){return this.request<Record<string,unknown>>('/content')}
  listMissions(){return this.request<Array<{id:string;title:string;version:string;map_id:string;faction:Faction;mode:string;briefing:string;rules_notice:string}>>('/missions')}
  mission(id:string){return this.request<Record<string,unknown>>(`/missions/${encodeURIComponent(id)}`)}
@@ -70,6 +95,8 @@ export class LocalAPI {
  coopLobby(id:string,options:{difficulty:Difficulty;ally_ai?:Difficulty;private?:boolean;pause_enabled?:boolean}){return this.request<LobbyResponse>(`/missions/${encodeURIComponent(id)}/lobby`,'POST',options)}
  resumeCoop(id:string,options:{player?:number;private?:boolean;pause_enabled?:boolean}={}){return this.request<LobbyResponse>(`/saves/${encodeURIComponent(id)}/coop-lobby`,'POST',options)}
  listSaves(signal?:AbortSignal){return this.request<SaveSummary[]>('/saves','GET',undefined,signal)}
+ campaignProgress(signal?:AbortSignal){return this.request<RemoteCampaignProgress>('/progress/campaign','GET',undefined,signal)}
+ putCampaignProgress(data:CampaignProgress,expectedRevision:number,signal?:AbortSignal){return this.request<RemoteCampaignProgress>('/progress/campaign','PUT',{data,expected_revision:expectedRevision},signal)}
  settings<T=Record<string,unknown>>(signal?:AbortSignal){return this.request<RemoteSettings<T>>('/settings','GET',undefined,signal)}
  putSettings<T extends Record<string,unknown>>(data:T,expectedRevision:number,signal?:AbortSignal){return this.request<RemoteSettings<T>>('/settings','PUT',{data,expected_revision:expectedRevision},signal)}
  async downloadSave(id:string,signal?:AbortSignal){const response=await this.response(`/saves/${encodeURIComponent(id)}/download`,'GET',undefined,signal);const revision=Number(response.headers.get('X-Save-Revision'));if(!Number.isSafeInteger(revision)||revision<1)throw new RuntimeError('invalid_response','The host returned a save without a valid revision.');const data=new Uint8Array(await response.arrayBuffer());if(data.length>64*1024*1024)throw new RuntimeError('save_too_large','The host save exceeds 64 MiB.');return {data,revision}}

@@ -33,12 +33,12 @@ test('settings use a separate revision and failed validation leaves saves untouc
 test('backup restores saves/settings/progress/replays together with explicit decisions and exact bytes',async()=>{
  const replayInspect=async()=>({metadata,start_tick:0,end_tick:100,players:[1,2]});
  const source=new LocalStore('backup-complete-source',inspect,replayInspect),target=new LocalStore('backup-complete-target',inspect,replayInspect);
- await source.putSave('manual','Command post',save);await source.putSetting('controls',{preset:'classic'});await source.putProgress('campaign',{version:1,missions:{'mission-01':{complete:true}}});
+ await source.putSave('manual','Command post',save);await source.putSetting('controls',{preset:'classic'});await source.putProgress('campaign',{version:1,results:[],missions:{}});
  const bytes=new Uint8Array([0,255,1,2,128]);await source.putReplay('battle','Battle',bytes);
  const preview=await target.previewBackup(await source.backup());assert.equal(preview.entries.length,4);assert.equal(preview.preserveOriginal,false);
  const result=await target.restoreBackup(preview,preview.entries.map(entry=>({key:entry.key,action:'restore',expectedRevision:0})));
  assert.equal(result.restored.length,4);assert.deepEqual((await target.getSave('manual'))?.data,save.data);assert.deepEqual((await target.getReplay('battle'))?.data,bytes);
- assert.deepEqual((await target.setting('controls'))?.data,{preset:'classic'});assert.deepEqual((await target.progress('campaign'))?.data,{version:1,missions:{'mission-01':{complete:true}}});
+ assert.deepEqual((await target.setting('controls'))?.data,{preset:'classic'});assert.deepEqual((await target.progress('campaign'))?.data,{version:1,results:[],missions:{}});
  await assert.rejects(()=>target.restoreBackup(preview,[]),{code:'backup_preview_required'});await source.close();await target.close();
 });
 
@@ -129,4 +129,12 @@ test('legacy revisions migrate to durable high-water marks without rewriting the
 });
 test('revision exhaustion fails safely and never wraps an existing save',async()=>{
  const store=new LocalStore('revision-limit',inspect);await store.putSave('slot','Initial',save);await store.close();const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('revision-limit',3);r.onsuccess=()=>resolve(r.result)});await new Promise<void>(resolve=>{const tx=db.transaction('revisions','readwrite');tx.objectStore('revisions').put({key:['saves','slot'],revision:Number.MAX_SAFE_INTEGER});tx.oncomplete=()=>resolve()});db.close();await assert.rejects(()=>store.putSave('slot','Overflow',save,1),{code:'revision_exhausted'});assert.equal((await store.getSave('slot'))?.name,'Initial');await store.close();
+});
+
+test('campaign backup validation preserves malformed story originals without replacing a supported local ledger',async()=>{
+ const store=new LocalStore('backup-campaign-schema',inspect);const valid={version:1,results:[],missions:{}};await store.putProgress('campaign',valid);const file=new Blob([JSON.stringify({format:'frontline-local-backup',version:2,progress:[{id:'campaign',schema_version:1,revision:1,updated:1000,data:{version:1,results:['same','same'],missions:{}}}]})]);const preview=await store.previewBackup(file);assert.equal(preview.entries[0].status,'invalid');assert.equal(preview.preserveOriginal,true);await assert.rejects(()=>store.restoreBackup(preview,[{key:preview.entries[0].key,action:'restore',expectedRevision:1}]),{code:'backup_invalid_decision'});const result=await store.restoreBackup(preview,[{key:preview.entries[0].key,action:'keep'}]);assert.deepEqual((await store.progress('campaign'))?.data,valid);assert.equal(await (await store.exportRecovery(result.recoveryId!)).text(),await file.text());await store.close();
+});
+
+test('browser backup streams cursor records without retaining all raw archive payloads',async()=>{
+ const store=new LocalStore('backup-cursor-bounds',inspect);for(let index=0;index<70;index++)await store.putSave(`save-${index}`,`Save ${index}`,save);await store.putProgress('campaign',{version:1,results:[],missions:{}});const original=IDBObjectStore.prototype.getAll;IDBObjectStore.prototype.getAll=function(){throw Error('Full-payload archive read forbidden during export')};let file:Blob;try{file=await store.backup()}finally{IDBObjectStore.prototype.getAll=original}const value=JSON.parse(await file!.text());assert.equal(value.saves.length,70);assert.ok(value.saves.every((record:any)=>record.engine==='{"rng":18446744073709551615}'));assert.deepEqual(value.progress[0].data,{version:1,results:[],missions:{}});assert.equal(value.settings.length,0);assert.equal(value.replays.length,0);await store.close();
 });

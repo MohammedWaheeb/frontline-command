@@ -76,3 +76,90 @@ canvases. Evidence is in `work/evidence/render/browser-results.json`; screenshot
 were visually inspected. No page errors occurred; four GPU ReadPixels stall
 warnings came from screenshots and are recorded. Full asset and performance
 review remain open.
+
+
+## Atlas loading and memory
+
+Atlas JSON is indexed when a unit type appears. Image pages upload only when a
+visible pose requests their frames. Auto/standard quality uses the authored 1×
+derivative; high quality uses 2× and applies at the next operation. A pending
+animation retains its last authorized pose, while layers absent from a state
+are hidden. Pages unused for ten seconds are eligible for eviction when total
+sprite-page memory exceeds 192 MiB (standard) or 384 MiB (high). This is a working
+set policy, not a promise that an arbitrarily large visible scene fits the cap.
+
+The real Go renderer fixture (US HQ, rig, tank and supply field) used 16 of 36
+indexed pages, 47,989,896 decoded bytes, at initial view. Destruction raised this
+to 18 pages and 53,260,200 bytes. Both images were inspected; only the explicitly
+missing neutral prop used a stand-in. Final disposal reported zero indexed or
+resident pages and zero canvases. Full four-player GPU/FPS and long-session
+measurements remain pending. The application serializes shared-art cleanup
+between operations; the ArtLibrary also serializes page disposal and new loads.
+
+## Current pose and illustration verification
+
+Go now publishes elapsed deployment/packing progress through the existing
+0–1000 progress field. The saved channel start tick survives restore. The actual
+browser fixture observes 500 halfway through both channels: deploy frame4 of8,
+then pack frame4 resolving to reversed deploy frame3. Sprite metadata aliases
+now resolve their real source frames, including hardpoints, without duplicating
+textures. Medic healing, repair, designation, beacon and carrier-door states
+use their corresponding authored poses; completed healing returns to idle.
+
+Production buttons prefer the paired build illustration and selection prefers
+the portrait, each tinted with its real team mask. The actual US rig loaded
+128×96 build art and192×192 portrait art, with no game-atlas image requests for
+these controls. Those are the current pipeline's specified2× dimensions;
+larger-screen visual quality remains subject to final art review. An initial
+test expected double those dimensions incorrectly; the preserved failure and
+corrected source-contract check are recorded in `work/evidence/render/`.
+
+The latest Chromium151 renderer check passed portraits/tints, HQ selection,
+drag selection, destruction/rubble, rewind, reduced motion/flashing/shake,
+deployment/packing and five scene disposal cycles. Initial sprite residency was
+19 of54 indexed pages /59,545,896 decoded bytes; destruction used68,464,872.
+Disposal returned zero pages, bytes and canvases. The screenshots were inspected.
+There were no page errors; the four recorded ReadPixels warnings accompany
+screenshots. The neutral prop in this fixture still explicitly lacks its real
+asset, so this evidence does not certify complete game art.
+
+## Building activity and repeated firing
+
+The latest Chromium 151 fixture uses actual Go/WASM orders to produce a rig,
+disable power, observe demand75/capacity40, enable power and sell it. The
+resulting poses are `produce`, `lowpower`, `disabled` and `sell`; halfway selling
+shows progress500 and construct frame3 through the reverse alias. The HQ's
+production doorway was visually corrected and rerendered. Three real tank shots
+at ticks113,169,225 each cue the animation; duplicate snapshots do not restart it.
+
+This run passed without page errors, including previous selection, destruction,
+accessibility, deployment and five-disposal checks. Initial residency was
+19/57 indexed pages and60,333,408 bytes; destruction reached69,252,384 bytes.
+Four screenshot ReadPixels warnings were recorded. Evidence is
+`work/evidence/render/browser-results.json`. Missing factory/neutral art in this
+synthetic fixture remains explicitly visible; it is not final game presentation.
+
+Own low-power/service/charge presentation uses only permitted snapshot data.
+Public strategic charge drives strategic artwork. Building damage plates map
+to the authored50%/25% thresholds. Cosmetic squad members decrease with disclosed
+health and return when healed; combat strength remains wholly in Go. Variable
+safehouse channel duration is saved in Go so consuming a rapid-transfer window
+cannot make its visible preparation jump to the wrong timeline.
+# Independent part shadows
+
+Actor parts now place their projected ground shadows in a common container
+behind every body/weapon plate. Previously the turret's shadow drew after the
+base beauty pass, incorrectly darkening its own plinth. The isolated building
+pilot identified the defect; the real `ActorVisual` pixel test now proves the
+shadow affects 1,741 ground pixels and zero of 3,552 opaque facade pixels. Both
+the weapon and its shadow hide in damaged/disabled/construction states.
+
+`client/tests/render/browser.mjs` also repeats the existing Go/WASM production,
+selling, deployment, combat feedback, rewind and disposal journeys. Chromium
+151 passed with no page errors. The pixel fixture lives in a separate document,
+matching the product's one-Pixi-application lifecycle; creating an additional
+test-only Pixi application beside the live fixture exposed shared internal
+batcher teardown errors, so that invalid fixture arrangement was removed.
+Evidence: `work/evidence/render/browser-results.json` and
+`turret-ground-shadow.png`. This verifies the isolated pilot without advertising
+unfinished building art as a shipped asset.

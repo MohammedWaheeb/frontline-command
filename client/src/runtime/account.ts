@@ -54,8 +54,22 @@ export class LocalProfileSession{
  async create(name:string,options:{remember?:boolean;signal?:AbortSignal}={}):Promise<AccountState>{
   const epoch=this.begin();try{let previous:LocalCredential|undefined;try{previous=await this.vault.read(this.origin)}catch{/* A session-only profile may still work. */}const result=await this.makeAPI(this.origin,'').createProfile(name,options.signal);if(!validToken(result.token))throw new RuntimeError('invalid_response','The host returned an invalid local profile token.');return await this.adopt(result.token,result.profile,options.remember!==false,epoch,previous)}finally{this.busy=false}
  }
- async restoreToken(token:string,options:{remember?:boolean;signal?:AbortSignal}={}):Promise<AccountState>{
-  if(!validToken(token))throw new RuntimeError('credential_invalid','Enter the complete local profile token.');const epoch=this.begin();try{let previous:LocalCredential|undefined;try{previous=await this.vault.read(this.origin)}catch{}const found=await this.makeAPI(this.origin,token).me(options.signal);return await this.adopt(token,found,options.remember!==false,epoch,previous)}catch(error){if(error instanceof APIError&&error.status===401)throw new RuntimeError('sign_in_required','This host does not recognize that local profile token. Your solo saves remain available.');throw error}finally{this.busy=false}
+ /** Only call from an explicit private sign-in-key export action, never a game backup. */
+ exportSignInKey():Blob{
+  if(this.busy)throw new RuntimeError('account_busy','Wait for the sign-in operation to finish.');const credential=this.#credential;if(!credential)throw new RuntimeError('sign_in_required','Sign in before exporting your private local key.');
+  return new Blob([JSON.stringify({format:'frontline-local-sign-in',version:1,origin:this.origin,profile_id:credential.profile.id,token:credential.token})],{type:'application/json'});
+ }
+ async restoreSignInKey(file:Blob,options:{remember?:boolean;signal?:AbortSignal}={}):Promise<AccountState>{
+  if(!(file instanceof Blob)||file.size<1||file.size>2048)throw new RuntimeError('credential_invalid','Choose a private local sign-in key no larger than 2 KiB.');const generation=this.generation;let value:any;try{value=JSON.parse(await file.text())}catch{throw new RuntimeError('credential_invalid','This file is not a readable local sign-in key.')}
+  if(generation!==this.generation)throw new RuntimeError('account_changed','The profile changed while this key was being read. Select it again if you want to switch.');
+  if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length!==5||Object.keys(value).some(key=>!['format','version','origin','profile_id','token'].includes(key))||value.format!=='frontline-local-sign-in'||value.version!==1||typeof value.origin!=='string'||typeof value.profile_id!=='string'||!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,99}$/.test(value.profile_id)||!validToken(value.token))throw new RuntimeError('credential_invalid','This file is not a supported local sign-in key.');
+  if(originOf(value.origin)!==value.origin||value.origin!==this.origin)throw new RuntimeError('credential_host_mismatch','This private key belongs to a different host origin. Connect to the original host before importing it.');
+  return this.restoreCredential(value.token,options,value.profile_id);
+ }
+ async restoreToken(token:string,options:{remember?:boolean;signal?:AbortSignal}={}):Promise<AccountState>{return this.restoreCredential(token,options)}
+ private async restoreCredential(token:string,options:{remember?:boolean;signal?:AbortSignal},expectedProfile?:string):Promise<AccountState>{
+
+  if(!validToken(token))throw new RuntimeError('credential_invalid','Enter the complete local profile token.');const epoch=this.begin();try{let previous:LocalCredential|undefined;try{previous=await this.vault.read(this.origin)}catch{}const found=await this.makeAPI(this.origin,token).me(options.signal);if(expectedProfile!==undefined&&found.id!==expectedProfile)throw new RuntimeError('credential_profile_mismatch','The host profile does not match this private key. Existing sign-in is unchanged.');return await this.adopt(token,found,options.remember!==false,epoch,previous)}catch(error){if(error instanceof APIError&&error.status===401)throw new RuntimeError('sign_in_required','This host does not recognize that local profile token. Your solo saves remain available.');throw error}finally{this.busy=false}
  }
  /** The callback is trusted application logic; never display or export its API token. */
  async authenticated<T>(operation:(api:LocalAPI)=>Promise<T>,options:{context?:AccountContext;allowChangedResult?:boolean}={}):Promise<T>{

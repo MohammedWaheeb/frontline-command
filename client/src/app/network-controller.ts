@@ -1,9 +1,10 @@
 import {Observable} from './store';
+import {ModerationController} from './moderation-controller';
 import {create} from '@bufbuild/protobuf';
 import {MatchResultSchema} from '../protocol/frontline_pb';
-import {LocalAPI,type Lobby,type LobbyAI,type LobbyChanges,type LobbyConfig,type LobbyInvite,type LobbyResponse,type LobbySlot,type LocalReport,type QueueResponse,type RankedMap,type SaveSummary,type SocialAction,type SocialRelation} from '../runtime/api';
+import {LocalAPI,type Lobby,type LobbyAI,type LobbyChanges,type LobbyConfig,type LobbyInvite,type LobbyResponse,type LobbySlot,type LocalReport,type MapRecord,type MapReport,type QueueResponse,type RankedMap,type SaveSummary,type SocialAction,type SocialRelation} from '../runtime/api';
 import {LocalProfileSession,type AccountState} from '../runtime/account';
-import {SaveSynchronizer,type SaveMapping,type SaveSyncPreview,type SyncDecision,type SyncExecution} from '../runtime/save-sync';
+import {SaveSynchronizer,syncSelectionBudget,type SyncInventory,type SaveMapping,type SaveSyncPreview,type SyncDecision,type SyncExecution} from '../runtime/save-sync';
 import {RuntimeError} from '../runtime/errors';
 import {randomUUID} from '../runtime/crypto';
 import type {ContentLibrary} from '../runtime/content-library';
@@ -19,11 +20,12 @@ export interface NetworkState{
  host:string;connected:boolean;hostLatency?:number;account?:AccountState;busy?:string;error?:{code:string;message:string};pollError?:string;
  maps:Awaited<ReturnType<LocalAPI['listMaps']>>;missions:Awaited<ReturnType<LocalAPI['listMissions']>>;lobbies:Lobby[];
  lobby?:Lobby;lobbyState?:LobbyResponse['state'];joinCode?:string;chat:NetworkChat[];
+ ownMaps:MapRecord[];mapReports:MapReport[];mapReportCursor?:string;mapUpload?:{map:GameMap;filename:string;bytes:number;expectedRevision:number};
  relations:SocialRelation[];invites:LobbyInvite[];saves:SaveSummary[];reports:LocalReport[];
  queue?:QueueResponse;rankedMaps:RankedMap[];rankedMessage?:string;
  connection:ConnectionPhase;remainingMs?:number;latency?:number;tick:number;status?:MatchStatus;result?:MatchResult;
  eliminated?:boolean;observer?:{matchID:string;player:number;delayTicks:number;buffering:boolean;error?:string};
- sync?:SaveSyncPreview;syncResult?:SyncExecution;syncProgress?:string;notice?:string;
+ syncInventory?:SyncInventory;sync?:SaveSyncPreview;syncResult?:SyncExecution;syncProgress?:string;notice?:string;
 }
 export interface NetworkOptions{
  library:ContentLibrary;store:LocalStore;validator:Pick<OfflineTransport,'ready'|'validateMap'|'inspect'>;
@@ -43,6 +45,8 @@ function origin(value:string){const url=new URL(value);if(!['http:','https:'].in
 /** Product orchestration only. Go owns admission, teams, visibility, simulation and results. */
 export class NetworkController{
  readonly state:Observable<NetworkState>;
+ readonly moderation=new ModerationController();
+ private identity?:string;private uploadGeneration=0;
  #account?:LocalProfileSession;#connection?:MatchConnection;#sync?:SaveSynchronizer;
  private accountUnsubscribe?:()=>void;private sessionUnsubscribe:()=>void;private timer?:ReturnType<typeof setInterval>;
  private references?:NetworkOptions['references'];private polling=false;private chatEpoch=0;private disposed=false;private initialized=false;private epoch=0;
@@ -50,7 +54,7 @@ export class NetworkController{
  constructor(private readonly options:NetworkOptions){
   this.references=options.references;try{this.references??=globalThis.sessionStorage}catch{}
   const host=globalThis.location?.origin??'http://127.0.0.1:8080';
-  this.state=new Observable<NetworkState>({host,connected:false,maps:[],missions:[],lobbies:[],chat:[],relations:[],invites:[],saves:[],reports:[],rankedMaps:[],connection:'idle',tick:0});
+  this.state=new Observable<NetworkState>({host,connected:false,maps:[],ownMaps:[],mapReports:[],mapReportCursor:undefined,missions:[],lobbies:[],chat:[],relations:[],invites:[],saves:[],reports:[],rankedMaps:[],connection:'idle',tick:0});
   this.sessionUnsubscribe=options.sessions.subscribe(event=>this.sessionEvent(event));
  }
  private patch(change:Partial<NetworkState>){if(!this.disposed)this.state.update(value=>({...value,...change}))}
@@ -66,22 +70,29 @@ export class NetworkController{
  private publicAPI(host=this.state.get().host){return this.options.makePublicAPI?.(host)??new LocalAPI(host)}
  private remember(lobby?:Lobby){try{if(lobby)this.references?.setItem(referenceKey,JSON.stringify({host:this.state.get().host,profile:this.#account?.context?.profileId,id:lobby.id}));else this.references?.removeItem(referenceKey)}catch{/* Browser persistence is optional; explicit lobby ID remains usable. */}}
  private privateActivity(){const s=this.state.get();return !!this.#account?.context&&(!!s.lobby&&s.lobbyState!=='completed'||s.queue?.status==='searching')||this.options.sessions.state.kind==='online'&&!s.result?.committed}
- private reconcileProfile(){const lobby=this.state.get().lobby;if(lobby&&!lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],status:undefined,queue:undefined,result:undefined,sync:undefined,syncResult:undefined})}}
+ private clearPrivateState(){
+  this.chatEpoch++;this.uploadGeneration++;this.syncAbort?.abort();this.#connection=undefined;this.mapCache=undefined;this.autoJoin=false;this.joinedMatch=undefined;this.moderation.lock();
+  this.patch({ownMaps:[],mapReports:[],mapReportCursor:undefined,mapUpload:undefined,maps:this.state.get().maps.filter(map=>map.installed||map.published!==false),lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],relations:[],invites:[],saves:[],reports:[],lobbies:[],queue:undefined,rankedMaps:[],status:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined,syncProgress:undefined,observer:undefined,eliminated:undefined,notice:undefined,error:undefined,pollError:undefined,connection:'idle',tick:0,remainingMs:undefined,latency:undefined});
+ }
+ private reconcileProfile(){const lobby=this.state.get().lobby;if(lobby&&!lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],status:undefined,queue:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined})}}
  async initialize(){if(this.initialized)return;this.initialized=true;await this.connect(this.state.get().host)}
  async connect(address:string){return this.run('Connecting to host…',async()=>{
   if(this.privateActivity())throw new RuntimeError('activity_active','Leave the forming lobby or finish the active match before changing hosts.');
   const host=origin(address),api=this.publicAPI(host),started=performance.now();await api.health();const hostLatency=Math.round(performance.now()-started);
   const [maps,missions]=await Promise.all([api.listMaps(),api.listMissions()]);
   this.accountUnsubscribe?.();const epoch=++this.epoch;const account=this.options.makeAccount?.(host)??new LocalProfileSession({baseURL:host});this.#account=account;this.#connection=undefined;this.#sync=new SaveSynchronizer(account,this.options.store,data=>this.options.validator.inspect(data));
-  this.accountUnsubscribe=account.subscribe(value=>{if(epoch===this.epoch)this.patch({account:value,...(value.phase==='sign-in-required'?{error:value.error}: {})})});
-  this.patch({host,connected:true,hostLatency,maps,missions,lobbies:[],lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],relations:[],invites:[],saves:[],reports:[],account:account.state,sync:undefined,syncResult:undefined,queue:undefined,connection:'idle',status:undefined,result:undefined,tick:0});
+  this.identity=undefined;this.moderation.setHost(host);
+  this.accountUnsubscribe=account.subscribe(value=>{if(epoch!==this.epoch)return;const identity=account.context?.profileId;if(identity!==this.identity){this.clearPrivateState();this.identity=identity}this.patch({account:value,...(value.phase==='sign-in-required'?{error:value.error}: {})})});
+  this.patch({host,connected:true,hostLatency,maps,ownMaps:[],mapReports:[],mapUpload:undefined,mapReportCursor:undefined,missions,lobbies:[],lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],relations:[],invites:[],saves:[],reports:[],account:account.state,sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined,connection:'idle',status:undefined,result:undefined,tick:0});
   await account.restore();await this.refreshData();
   if(account.context)try{const raw=this.references?.getItem(referenceKey);const ref=raw?JSON.parse(raw):undefined;if(ref?.host===host&&ref.profile===account.context.profileId&&typeof ref.id==='string')await this.accept(await account.authenticated(api=>api.lobby(ref.id)),false)}catch{/* An expired lobby reference does not prevent local play or account use. */}
   if(!this.timer)this.timer=setInterval(()=>void this.poll(),this.options.pollMs??2000);
  })}
  createProfile(name:string,remember:boolean){return this.run('Creating local profile…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the lobby before changing profiles.');await this.account().create(name,{remember});this.reconcileProfile();await this.refreshData()})}
  restoreProfile(token:string,remember:boolean){return this.run('Restoring local profile…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the lobby before changing profiles.');await this.account().restoreToken(token,{remember});this.reconcileProfile();await this.refreshData()})}
- logout(){return this.run('Signing out…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the forming lobby or finish the match before signing out.');this.syncAbort?.abort();await this.account().logout();this.remember();this.#connection=undefined;this.patch({lobby:undefined,lobbyState:undefined,chat:[],relations:[],invites:[],saves:[],reports:[],sync:undefined,syncResult:undefined,queue:undefined});this.inform('Signed out of this host. Local saves and campaign progress remain available.')})}
+ exportSignInKey(){return this.run('Exporting private sign-in key…',async()=>{const file=this.account().exportSignInKey(),url=URL.createObjectURL(file);try{const link=document.createElement('a');link.href=url;link.download='frontline-local-sign-in.private.json';link.click()}finally{setTimeout(()=>URL.revokeObjectURL(url),10000)}this.inform('Private sign-in key exported. Keep it separately from shared game files.')})}
+ restoreSignInKey(file:Blob,remember:boolean){return this.run('Verifying private sign-in key…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the lobby before changing profiles.');await this.account().restoreSignInKey(file,{remember});this.reconcileProfile();await this.refreshData()})}
+ logout(){return this.run('Signing out…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the forming lobby or finish the match before signing out.');this.syncAbort?.abort();await this.account().logout();this.remember();this.#connection=undefined;this.patch({lobby:undefined,lobbyState:undefined,chat:[],relations:[],invites:[],saves:[],reports:[],sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined});this.inform('Signed out of this host. Local saves and campaign progress remain available.')})}
  refresh(){return this.run('Refreshing host…',async()=>{await this.refreshData();const lobby=this.state.get().lobby;if(lobby)await this.accept(await this.authenticated(api=>api.lobby(lobby.id)),this.autoJoin)})}
  private async refreshData(){
   const account=this.#account,epoch=this.epoch;if(!account)return;
@@ -122,10 +133,10 @@ export class NetworkController{
  private async compatible(){const [local,remote]=await Promise.all([this.options.validator.ready,this.publicAPI().health()]);if(local.protocol!==remote.protocol||local.simulation!==remote.simulation||local.content_hash!==remote.content_hash)throw new RuntimeError('version_mismatch','This browser and host use different game versions. Load the game from this host before marking ready.');return local}
  private async mapFor(lobby:Lobby){
   const key=`${this.state.get().host}:${lobby.map_id}:${lobby.map_version}:${lobby.map_hash}`;if(this.mapCache?.key===key)return structuredClone(this.mapCache.map);
-  const map=await this.publicAPI().map(lobby.map_id),checked=await this.options.validator.validateMap(encoder.encode(JSON.stringify(map)));
+  const map=await this.authenticated(api=>api.map(lobby.map_id,lobby.match_id?{match_id:lobby.match_id}:{lobby_id:lobby.id},lobby.map_hash)),checked=await this.options.validator.validateMap(encoder.encode(JSON.stringify(map)));
   if(checked.id!==lobby.map_id||checked.version!==lobby.map_version)throw new RuntimeError('map_version_mismatch','The host map changed. Refresh the lobby before marking ready.');this.mapCache={key,map:checked};return structuredClone(checked);
  }
- async previewMap(id:string){const source=await this.publicAPI().map(id),map=await this.options.validator.validateMap(encoder.encode(JSON.stringify(source)));if(map.id!==id)throw new RuntimeError('map_invalid','The host returned a different map.');return map}
+ async previewMap(id:string){const lobby=this.state.get().lobby;const source=await(this.#account?.context?this.authenticated(api=>api.map(id,lobby?.map_id===id?(lobby.match_id?{match_id:lobby.match_id}:{lobby_id:lobby.id}):undefined)):this.publicAPI().map(id)),map=await this.options.validator.validateMap(encoder.encode(JSON.stringify(source)));if(map.id!==id)throw new RuntimeError('map_invalid','The host returned a different map.');return map}
  ready(ready:boolean){return this.run(ready?'Loading assets and checking readiness…':'Clearing readiness…',async()=>{
   const lobby=this.lobby(),version=await this.compatible();if(ready)await this.options.prepareAssets(await this.mapFor(lobby),lobby.slots);
   // Capture before asynchronous preflight: the host rejects assets prepared for any old configuration.
@@ -166,24 +177,51 @@ export class NetworkController{
  loadRanked(){return this.run('Checking local ranked maps…',async()=>{const result=await this.authenticated(api=>api.rankedMaps());this.patch({rankedMaps:result.maps,rankedMessage:result.maps.length?undefined:'This host has no reviewed ranked maps. Custom LAN lobbies remain available.'})})}
  queue(faction:Faction|'random',maps:string[]){return this.run('Joining local queue…',async()=>{const start=performance.now(),version=await this.compatible(),latency_ms=Math.round(performance.now()-start);this.patch({queue:await this.authenticated(api=>api.joinRankedQueue(version,{faction,maps,latency_ms}))});await this.refreshData()})}
  leaveQueue(){return this.run('Leaving local queue…',async()=>{await this.authenticated(api=>api.leaveRankedQueue());this.patch({queue:undefined});await this.refreshData()})}
+ async reloadMaps(){const [maps,ownMaps]=await Promise.all([this.publicAPI().listMaps(),this.authenticated(api=>api.myMaps())]);const merged=[...maps];for(const record of ownMaps)if(!merged.some(map=>map.id===record.id))merged.push({...record,installed:false,ranked:false});this.patch({maps:merged,ownMaps})}
+ loadMaps(){return this.run('Loading published maps and your drafts…',()=>this.reloadMaps())}
+ cancelMapUpload(){this.uploadGeneration++;this.patch({mapUpload:undefined})}
+ prepareMapUpload(file:File|Blob,filename='editor-map.json'){return this.run('Validating map upload with Go…',async()=>{
+  const generation=++this.uploadGeneration,identity=this.#account?.context;if(!identity)throw new RuntimeError('sign_in_required','Sign in to review a map upload.');
+  this.patch({mapUpload:undefined});if(file.size>16*1024*1024)throw new RuntimeError('map_too_large','Map uploads must be at most 16 MiB.');
+  const bytes=new Uint8Array(await file.arrayBuffer());let map:GameMap;try{map=await this.options.validator.validateMap(bytes)}catch(error){await this.options.store.preserveRecovery(file,filename.slice(0,100),'Map upload validation failed; original preserved.');throw error}
+  const ownMaps=await this.authenticated(api=>api.myMaps());if(generation!==this.uploadGeneration||this.#account?.context?.profileId!==identity.profileId)return;
+  const existing=ownMaps.find(value=>value.id===map.id);this.patch({ownMaps,mapUpload:{map,filename:filename.slice(0,100),bytes:bytes.length,expectedRevision:existing?.revision??0}});
+ })}
+ uploadMap(){return this.run('Uploading reviewed map as private…',async()=>{
+  const preview=this.state.get().mapUpload;if(!preview)throw new RuntimeError('map_preview_required','Validate and review the map file before uploading.');
+  const record=await this.authenticated(api=>api.uploadMap(preview.map,preview.expectedRevision));this.patch({mapUpload:undefined});await this.reloadMaps();this.inform(`${record.title} uploaded as a private map. Publish explicitly to list it for other commanders.`);
+ })}
+ publishMap(id:string,published:boolean){return this.run(published?'Publishing your map…':'Making your map private…',async()=>{
+  const record=this.state.get().ownMaps.find(value=>value.id===id);if(!record)throw new RuntimeError('map_review_required','Refresh your map list before changing publication.');
+  await this.authenticated(api=>api.publishMap(id,published,record.revision));await this.reloadMaps();this.inform(published?'Map published on this local host. It remains unranked.':'Map is private. Existing admitted operations keep their original battlefield.');
+ })}
+ loadMapReports(more=false){return this.run('Loading your map reports…',async()=>{const page=await this.authenticated(api=>api.mapReports(more?this.state.get().mapReportCursor:undefined));this.patch({mapReports:more?[...this.state.get().mapReports,...page.reports]:page.reports,mapReportCursor:page.next_cursor})})}
+ reportMap(id:string,reason:string){return this.run('Recording map report…',async()=>{const report=await this.authenticated(api=>api.reportMap(id,reason));this.patch({mapReports:[report,...this.state.get().mapReports.filter(value=>value.id!==report.id)]});this.inform('Map report recorded for this local host’s operator. The reported content revision is preserved as evidence.')})}
  loadReports(){return this.run('Loading your local reports…',async()=>this.patch({reports:(await this.authenticated(api=>api.reports({status:'all',limit:50}))).reports}))}
  report(reason:string,tick=this.state.get().tick){return this.run('Recording local report…',async()=>{const id=this.lobby().match_id;if(!id)throw new RuntimeError('match_required','Reports require a match you participated in.');const result=await this.authenticated(api=>api.reportMatch(id,tick,reason));this.patch({reports:[result.report,...this.state.get().reports]});this.inform('Report recorded on this host for its operator. It was not sent to a hosted moderation service.')})}
  saveReplay(){return this.run('Saving verified replay…',async()=>{const lobby=this.lobby();if(!lobby.match_id)throw new RuntimeError('match_required','There is no match replay to download.');const matchID=lobby.match_id;const bytes=await this.authenticated(api=>api.replay(matchID));await this.options.store.putReplay(`match-${randomUUID()}`,lobby.name,bytes,0);this.inform('Replay saved to this browser’s replay archive.')})}
  observe(matchID:string,player:number,code?:string){return this.run('Opening authorized observer feed…',async()=>{
   if(!this.options.joinObserver)throw new RuntimeError('observer_unavailable','This application build cannot open observer views.');
   if(this.options.sessions.state.kind==='online'&&!this.state.get().eliminated&&!this.state.get().result?.committed)throw new RuntimeError('active_player_cannot_observe','Finish your active command before opening another perspective.');
-  const local=await this.compatible();const grant=await this.authenticated(api=>api.request<ObserverGrant&{map_id:string;map_version:string;protocol:number;simulation:string;content_hash:string;slots:LobbySlot[]}>(`/matches/${encodeURIComponent(matchID.trim())}/observer`,'POST',{player,code:code??''}));
+  const local=await this.compatible();const grant=await this.authenticated(api=>api.request<ObserverGrant&{map_id:string;map_version:string;map_hash:string;protocol:number;simulation:string;content_hash:string;slots:LobbySlot[]}>(`/matches/${encodeURIComponent(matchID.trim())}/observer`,'POST',{player,code:code??''}));
   if(grant.protocol!==local.protocol||grant.simulation!==local.simulation||grant.content_hash!==local.content_hash)throw new RuntimeError('version_mismatch','The observer feed needs a different installed game version.');
-  const source=await this.publicAPI().map(grant.map_id),map=await this.options.validator.validateMap(encoder.encode(JSON.stringify(source)));if(map.id!==grant.map_id||map.version!==grant.map_version)throw new RuntimeError('map_version_mismatch','The installed host map differs from this match.');
+  const source=await this.authenticated(api=>api.map(grant.map_id,{match_id:matchID.trim()},grant.map_hash)),map=await this.options.validator.validateMap(encoder.encode(JSON.stringify(source)));if(map.id!==grant.map_id||map.version!==grant.map_version)throw new RuntimeError('map_version_mismatch','The installed host map differs from this match.');
   await this.options.prepareAssets(map,grant.slots);await this.options.joinObserver(this.state.get().host,{...grant,match_id:matchID.trim()},map);const transport=this.options.sessions.transport;
   this.autoJoin=false;this.patch({observer:{matchID:matchID.trim(),player:grant.player,delayTicks:grant.delay_ticks,buffering:transport instanceof ObserverTransport?transport.buffering:true},connection:'connected',tick:transport?.current?.tick??0});
  })}
  reconnectObserver(){return this.run('Reconnecting observer feed…',async()=>{const transport=this.options.sessions.transport;if(!(transport instanceof ObserverTransport))throw new RuntimeError('observer_required','Open an observer feed first.');await transport.reconnect()})}
- previewSync(migration=false,mappings?:SaveMapping[]){return this.run('Comparing local and host files…',async()=>{this.syncAbort=new AbortController();this.patch({sync:undefined,syncResult:undefined});const options={settingsId:'settings',mappings,signal:this.syncAbort.signal,onProgress:(done:number,total:number)=>this.patch({syncProgress:`${done} / ${total} items compared`})};const sync=this.#sync;if(!sync)throw new RuntimeError('sign_in_required','Sign in to preview optional account copies.');const preview=await(migration?sync.previewMigration(options):sync.preview(options));this.patch({sync:preview,syncProgress:undefined})})}
- copySync(decisions:SyncDecision[]){return this.run('Copying reviewed files…',async()=>{const preview=this.state.get().sync;if(!preview||!this.#sync)throw new RuntimeError('sync_preview_required','Preview the files before choosing copies.');this.syncAbort=new AbortController();const result=await this.#sync.execute(preview,decisions,{signal:this.syncAbort.signal,onProgress:(_receipt,done,total)=>this.patch({syncProgress:`${done} / ${total} choices applied`})});this.patch({syncResult:result,sync:undefined,syncProgress:undefined});if(result.receipts.some(receipt=>receipt.key==='settings'&&receipt.action==='download'&&receipt.status==='copied'))await this.options.onSettingsDownloaded?.();await this.refreshData()})}
+ selectSync(migration=false){return this.run('Listing archive metadata…',async()=>{const sync=this.#sync;if(!sync)throw new RuntimeError('sign_in_required','Sign in before selecting account copies.');this.syncAbort=new AbortController();this.patch({sync:undefined,syncInventory:undefined,syncResult:undefined});const inventory=await sync.inventory(migration?'migration':'sync',this.syncAbort.signal);this.patch({syncInventory:inventory})})}
+ cancelSyncSelection(){this.patch({syncInventory:undefined})}
+ previewSelectedSync(keys:string[],settings:boolean,campaign:boolean){return this.run('Comparing selected local and host files…',async()=>{const inventory=this.state.get().syncInventory,sync=this.#sync;if(!inventory||!sync)throw new RuntimeError('sync_selection_required','Choose the archive items first.');this.syncAbort=new AbortController();const preview=await sync.previewSelected(inventory,keys,{settingsId:settings?'settings':undefined,campaignId:campaign?'campaign':undefined,signal:this.syncAbort.signal,onProgress:(done,total)=>this.patch({syncProgress:`${done} / ${total} items compared`})});this.patch({sync:preview,syncInventory:undefined,syncProgress:undefined,syncResult:undefined})})}
+ previewSync(migration=false,mappings?:SaveMapping[],include={settings:true,campaign:true}){return this.run('Comparing local and host files…',async()=>{
+  this.syncAbort=new AbortController();this.patch({sync:undefined,syncInventory:undefined,syncResult:undefined});const options={settingsId:include.settings?'settings':undefined,campaignId:include.campaign?'campaign':undefined,mappings,signal:this.syncAbort.signal,onProgress:(done:number,total:number)=>this.patch({syncProgress:`${done} / ${total} items compared`})};const sync=this.#sync;if(!sync)throw new RuntimeError('sign_in_required','Sign in to preview optional account copies.');
+  if(!mappings){const inventory=await sync.inventory(migration?'migration':'sync',options.signal);if(!syncSelectionBudget(inventory.items,include.settings,include.campaign).fits){this.patch({syncInventory:inventory,syncProgress:undefined});this.inform('Choose a smaller archive batch before comparing its contents. No save payloads have been downloaded.');return}const preview=await sync.previewSelected(inventory,inventory.items.map(item=>item.key),options);this.patch({sync:preview,syncProgress:undefined});return}
+  const preview=await(migration?sync.previewMigration(options):sync.preview(options));this.patch({sync:preview,syncProgress:undefined});
+ })}
+ copySync(decisions:SyncDecision[]){return this.run('Copying reviewed files…',async()=>{const preview=this.state.get().sync;if(!preview||!this.#sync)throw new RuntimeError('sync_preview_required','Preview the files before choosing copies.');this.syncAbort=new AbortController();const context=this.account().context;if(!context)throw new RuntimeError('sign_in_required','Sign in before copying reviewed files.');const result=await this.#sync.execute(preview,decisions,{signal:this.syncAbort.signal,onProgress:(_receipt,done,total)=>this.patch({syncProgress:`${done} / ${total} choices applied`})});this.account().assertContext(context);this.patch({syncResult:result,sync:undefined,syncProgress:undefined});if(result.receipts.some(receipt=>receipt.key==='settings'&&receipt.action==='download'&&receipt.status==='copied'))await this.options.onSettingsDownloaded?.();await this.refreshData()})}
  cancelSync(){this.syncAbort?.abort();this.patch({syncProgress:'Cancellation requested. Completed copies are retained.'})}
  private sessionEvent(event:SessionEvent){
-  if(event.type==='session'){if(event.state.kind!=='online'&&event.state.phase!=='loading')this.joinedMatch=undefined;if(event.state.kind!=='observer'&&event.state.phase!=='loading')this.patch({observer:undefined});return}
+  if(event.type==='session'){if(event.state.kind!=='online'&&event.state.phase!=='loading'){this.joinedMatch=undefined;this.autoJoin=false;}if(event.state.kind!=='observer'&&event.state.phase!=='loading')this.patch({observer:undefined});return}
   if(event.type!=='runtime'||!['online','observer'].includes(this.options.sessions.state.kind??''))return;const value=event.event;
   if(value.type==='connection'){const transport=this.options.sessions.transport,observer=this.state.get().observer;this.patch({connection:value.phase,remainingMs:value.remainingMs,...(transport&&'terminalReason' in transport&&transport.terminalReason==='player_eliminated'?{eliminated:true}:{}),...(observer&&transport instanceof ObserverTransport?{observer:{...observer,buffering:transport.buffering,error:transport.lastError?.message}}:{})})}
   else if(value.type==='latency')this.patch({latency:value.milliseconds});
@@ -191,5 +229,5 @@ export class NetworkController{
   else if(value.type==='result')this.patch({result:value.result});
   else if(value.type==='snapshot'&&(Math.floor(value.snapshot.tick/20)!==Math.floor(this.state.get().tick/20)||value.snapshot.outcome?.finished))this.patch({tick:value.snapshot.tick});
  }
- dispose(){this.disposed=true;this.epoch++;if(this.timer)clearInterval(this.timer);this.syncAbort?.abort();this.sessionUnsubscribe();this.accountUnsubscribe?.();this.#connection=undefined;this.#account=undefined;this.#sync=undefined}
+ dispose(){this.moderation.dispose();this.disposed=true;this.epoch++;if(this.timer)clearInterval(this.timer);this.syncAbort?.abort();this.sessionUnsubscribe();this.accountUnsubscribe?.();this.#connection=undefined;this.#account=undefined;this.#sync=undefined}
 }

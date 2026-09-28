@@ -197,6 +197,22 @@ The game remains desktop oriented. This lane does not certify shipping artwork,
 campaign playthroughs, balance, all browser engines, offline installation packs,
 or physical LAN router/firewall configurations. Private custom lobbies currently
 choose maps installed on the host; this lane adds no user-map upload/publication
-UI. Host save copying has no campaign-ledger endpoint, so it does not claim
-account-synchronized campaign medals. Reviewed ranked-map availability remains
+UI. Profile story-ledger copying now uses explicit whole-ledger replacement and revision CAS; see [account synchronization](account-sync.md). These user-owned copies do not grant ranked rewards. Reviewed ranked-map availability remains
 a separate content-review dependency.
+
+## Map workshop and local operator extension
+
+The Maps section now supports Go-validated, explicitly reviewed private uploads,
+separate publication, private-map operations and owner-isolated map reports.
+The editor can prepare the same upload review while retaining its local draft.
+Host operator station provides loopback-only incident and map review, preserved
+map evidence, explicit replay downloads, append-only decisions and revision
+conflict handling. Credentials remain memory-only and clear with operator lock,
+profile/host change, authorization loss or application disposal.
+
+Operation map loading now uses authenticated lobby/match context and checks the
+host's declared map hash. Map edits do not replace active battlefields during
+fresh reconnect or authorized observation. Leaving an active session for the
+command center disables automatic poll-driven re-entry; manual reconnect
+remains available within the host deadline. See
+[map-workshop-ui.md](map-workshop-ui.md) for workflows, privacy and evidence.

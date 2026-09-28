@@ -24,7 +24,7 @@ try{
     const inspectReplay=async()=>({metadata,start_tick:0,end_tick:100,players:[1,2]});
     const source=new LocalStore('source',inspect,inspectReplay),target=new LocalStore('target',inspect,inspectReplay),other=new LocalStore('target',inspect,inspectReplay);
     const save={data:new TextEncoder().encode('{"large":18446744073709551615}'),tick:100,metadata,local_players:[1],hash:'fixture'};
-    stage='source records';await source.putSave('one','Incoming',save);await source.putSetting('controls',{preset:'classic'});await source.putProgress('campaign',{version:1,missions:{}});await source.putReplay('battle','Battle',new Uint8Array([0,255,1,2]));
+    stage='source records';await source.putSave('one','Incoming',save);await source.putSetting('controls',{preset:'classic'});await source.putProgress('campaign',{version:1,results:[],missions:{}});await source.putReplay('battle','Battle',new Uint8Array([0,255,1,2]));
     stage='target records and preview';await target.putSave('one','Existing',save);const backup=await source.backup(),preview=await target.previewBackup(backup);await other.putSave('one','Changed in another tab',save,1);
     let conflict='';try{await target.restoreBackup(preview,preview.entries.map(entry=>({key:entry.key,action:'restore',expectedRevision:entry.current?.revision??0})))}catch(error){conflict=error.code}
     const noPartialSettings=(await target.setting('controls'))===undefined;

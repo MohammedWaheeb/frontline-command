@@ -1,9 +1,11 @@
 import {sha256Hex as digest,randomUUID} from './crypto';
 import {REVISION_STORE,upgradeRevisions,reserveRevision} from './idb-revisions';
 import {RuntimeError} from './errors';
+import {validateCampaignProgress,type CampaignProgress} from './progress';
 import type {EngineMetadata,SaveData,ReplayLobby} from './types';
 
 export interface LocalSave extends SaveData{id:string;name:string;revision:number;updated:number;kind:'manual'|'auto';mission?:string}
+export type LocalSaveSummary=Omit<LocalSave,'data'>&{bytes:number};
 export interface LocalSetting<T=unknown>{id:string;revision:number;updated:number;data:T}
 export interface LocalProgress<T=unknown> extends LocalSetting<T>{schema_version:1}
 export type SaveInspector=(data:Uint8Array)=>Promise<{metadata:EngineMetadata;tick:number}>;
@@ -73,6 +75,10 @@ export class LocalStore {
  }
  async close(){if(this.db)(await this.db).close();this.db=undefined}
  async listSaves():Promise<LocalSave[]>{const db=await this.open();const values=await request(db.transaction('saves').objectStore('saves').getAll()) as LocalSave[];return values.sort((a,b)=>b.updated-a.updated||a.id.localeCompare(b.id))}
+ /** Lists archive metadata one cursor record at a time; never retains every engine payload. */
+ async listSaveSummaries():Promise<LocalSaveSummary[]>{
+  const db=await this.open();return new Promise((resolve,reject)=>{const values:LocalSaveSummary[]=[],transaction=db.transaction('saves'),request=transaction.objectStore('saves').openCursor();transaction.onabort=()=>reject(storageError(transaction.error));transaction.onerror=()=>reject(storageError(transaction.error));transaction.oncomplete=()=>resolve(values.sort((a,b)=>b.updated-a.updated||a.id.localeCompare(b.id)));request.onerror=()=>reject(storageError(request.error));request.onsuccess=()=>{const cursor=request.result;if(!cursor)return;const {data,...record}=cursor.value as LocalSave;values.push({...record,bytes:data.byteLength});cursor.continue()}});
+ }
  async getSave(id:string):Promise<LocalSave|undefined>{const db=await this.open();return request(db.transaction('saves').objectStore('saves').get(id))}
  private async checked(save:SaveData){
   if(!this.inspect)throw new RuntimeError('validator_missing','Start the Go engine to validate a save before storing it.');
@@ -154,10 +160,21 @@ export class LocalStore {
  async exportRecovery(id:string):Promise<Blob>{const db=await this.open(),record=await request(db.transaction('recovery').objectStore('recovery').get(id)) as StoredRecoveryFile|undefined;if(!record)throw new RuntimeError('recovery_missing','This recovery file no longer exists.');return record.data instanceof Blob?record.data.slice():new Blob([record.data.slice().buffer],{type:record.mime??'application/octet-stream'})}
  async deleteRecovery(id:string){validID(id);const db=await this.open(),tx=db.transaction('recovery','readwrite'),done=completed(tx);done.catch(()=>{});try{tx.objectStore('recovery').delete(id);await done}catch(error){try{tx.abort()}catch{}throw storageError(error)}}
  async backup():Promise<Blob>{
-  const db=await this.open(),tx=db.transaction(stores),done=completed(tx);done.catch(()=>{});
-  const [saves,settings,progress,replays]=await Promise.all(stores.map(name=>request(tx.objectStore(name).getAll()))) as [LocalSave[],LocalSetting[],LocalProgress[],LocalReplay[]];await done;
-  const file=new Blob([JSON.stringify({format:'frontline-local-backup',version:2,created:Date.now(),saves:saves.map(record=>({...record,data:undefined,engine:new TextDecoder('utf-8',{fatal:true}).decode(record.data)})),settings,progress,replays:replays.map(record=>({...record,data:undefined,binary:encodeBytes(record.data)}))})],{type:'application/json'});
-  if(file.size>MAX_BACKUP)throw new RuntimeError('backup_too_large','This backup exceeds 256 MiB. Export individual saves and replays first.');return file;
+  const db=await this.open();
+  // Serialize one cursor record at a time into bounded Blob parts. A large
+  // archive must fail before getAll/stringify can retain every engine payload.
+  return new Promise((resolve,reject)=>{
+   const tx=db.transaction(stores),parts:Blob[]=[],encoder=new TextEncoder();let bytes=0,records=0,failed=false;
+   const stop=(error:unknown)=>{if(failed)return;failed=true;try{tx.abort()}catch{}reject(storageError(error))};
+   const append=(value:string)=>{bytes+=encoder.encode(value).byteLength;if(bytes>MAX_BACKUP)throw new RuntimeError('backup_too_large','This backup exceeds 256 MiB. Export individual saves and replays first.');parts.push(new Blob([value]))};
+   tx.onabort=()=>stop(tx.error);tx.onerror=()=>{/* abort reports errors */};tx.oncomplete=()=>{if(!failed)resolve(new Blob(parts,{type:'application/json'}))};
+   const readStore=(index:number)=>{
+    try{if(index===stores.length){append('}');return}const name=stores[index];append(`,"${name}":[`);let first=true;const cursor=tx.objectStore(name).openCursor();
+     cursor.onerror=()=>stop(cursor.error);cursor.onsuccess=()=>{try{const next=cursor.result;if(!next){append(']');readStore(index+1);return}if(++records>MAX_RECORDS)throw new RuntimeError('backup_too_large','This backup exceeds 10,000 records. Export individual saves and replays first.');const record=next.value as StoredRecord;let value:unknown=record;if(name==='saves'){const save=record as LocalSave;value={...save,data:undefined,engine:new TextDecoder('utf-8',{fatal:true}).decode(save.data)}}else if(name==='replays'){const replay=record as LocalReplay;value={...replay,data:undefined,binary:encodeBytes(replay.data)}}append((first?'':',')+JSON.stringify(value));first=false;next.continue()}catch(error){stop(error)}};
+    }catch(error){stop(error)}
+   };
+   try{append(JSON.stringify({format:'frontline-local-backup',version:2,created:Date.now()}).slice(0,-1));readStore(0)}catch(error){stop(error)}
+  });
  }
  async previewBackup(file:Blob):Promise<BackupPreview>{
   if(!(file instanceof Blob)||file.size>MAX_BACKUP)throw new RuntimeError('backup_too_large','Choose a backup no larger than 256 MiB.');
@@ -181,6 +198,7 @@ export class LocalStore {
      validName(raw.id,raw.name);const checked=await this.checkedReplay(decodeBytes(raw.binary,MAX_REPLAY));if(checked.sha256!==raw.sha256)throw new RuntimeError('replay_corrupt','This replay failed its integrity check.');record={...checked,id:raw.id,name:raw.name,revision:raw.revision,updated:raw.updated};
     }else{
      if(store==='progress'&&raw.schema_version!==1)throw new RuntimeError('progress_incompatible','This progress version needs a matching game version.');
+     if(store==='progress'&&raw.id==='campaign')validateCampaignProgress(raw.data as CampaignProgress);
      record={id:raw.id,revision:raw.revision,updated:raw.updated,data:jsonData(raw.data,store==='settings'?32768:256*1024,`${store}_invalid`),...(store==='progress'?{schema_version:1 as const}:{})};
     }
    }catch(cause){error=cause;preserveOriginal=true}
