@@ -5,7 +5,7 @@ import "frontlinecommand/pkg/content"
 
 // Aircraft rebasing and queued-order completion change deterministic outcomes.
 // Older development saves/replays stay exportable, never silently reinterpreted.
-const Version = "0.3.1"
+const Version = "0.3.2"
 const TickRate uint32 = 20
 const Scale int64 = 1000
 

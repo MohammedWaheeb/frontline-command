@@ -172,7 +172,7 @@ func TestCorruptAndIncompatibleSavesAreClassified(t *testing.T) {
 		t.Fatalf("future format: %v", err)
 	}
 	// Re-checksum a state claiming another simulation version.
-	for _, version := range []string{"0.0.1", "0.2.0", "0.3.0"} {
+	for _, version := range []string{"0.0.1", "0.2.0", "0.3.0", "0.3.1"} {
 		state := strings.Replace(string(env.State), `"simulation":"`+sim.Version+`"`, `"simulation":"`+version+`"`, 1)
 		old := resum(t, state)
 		original := append([]byte(nil), old...)

@@ -1,9 +1,9 @@
 # Protocol contract — version 1 (under implementation)
 
-Simulation version `0.3.1`; rules content version `2.0.0`; protocol version `1`.
+Simulation version `0.3.2`; rules content version `2.0.0`; protocol version `1`.
 Versions are compatibility identifiers, not release-completion claims.
 
-Simulation 0.3.1 adds targeted aircraft Return and correct queued-task completion.
+Simulation 0.3.2 adds targeted aircraft Return and correct queued-task completion.
 It includes the earlier 0.3.0 deterministic AI and depot-approach corrections.
 Older development saves and replays retain their original metadata and bytes;
 they require their original engine and are rejected by the current engine.
