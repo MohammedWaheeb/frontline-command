@@ -8,6 +8,8 @@ import {drawStructure,structureHeight} from './structure';
 import {actorSpriteState,visibleSquadMembers,type BuildingPresentation} from './poses';
 import {FlightPresentation} from './flight-presentation';
 import {actorArtKey,physicalArtType} from './art-id';
+import {ActorStatusOverlay} from './actor-status';
+import type {ActorStatusModel} from '../app/actor-status';
 
 interface LayeredPart {root:Container;shadowRoot:Container;shadow:Sprite;beauty:Sprite;team:Sprite;offset:Point;poses:Record<string,{state:string;direction:number;frame:number}>}
 function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart {
@@ -35,6 +37,7 @@ export class ActorVisual {
  private livingMembers=Infinity;
  private readonly flight=new FlightPresentation();private suppressTransition=false;
  presentation?:BuildingPresentation;
+ status?:ActorStatusModel;private readonly statusOverlay=new ActorStatusOverlay();
  private serviceDeck?:ActorVisual;
  setServiceDeck(deck:ActorVisual|undefined){this.serviceDeck=deck}
  departureDeck(now:number){return !this.entity.landed&&this.entity.state!=='destroyed'&&this.flight.altitude(this.entity,now,this.cruiseAltitude())<this.cruiseAltitude()?this.serviceDeck?.id:undefined}
@@ -45,7 +48,7 @@ export class ActorVisual {
   this.lastState=entity.state;this.stateAt=performance.now();this.previousFacing=this.nextFacing=entity.facing;
   // All projected ground shadows sit behind the whole actor. A turret's
   // independent shadow must never darken an already-painted hull or plinth.
-  this.root.addChild(this.foundation,this.groundShadows,this.fallback,this.overlays);
+  this.root.addChild(this.foundation,this.groundShadows,this.fallback,this.overlays,this.statusOverlay.root);
   if(surface&&catalog.units.get(entity.type)?.armor==='air'){this.root.removeChild(this.groundShadows);this.terrainShadow=this.groundShadows}
   const resolved=skin?{id:skin.asset,standIn:false}:art.resolve(physicalArtType(entity),faction,catalog);this.standIn=resolved?.standIn??false;
   this.missingArt=!resolved;
@@ -56,7 +59,7 @@ export class ActorVisual {
    const members=sheet.meta.squad?.member_offsets_mt??[[0,0]];
    for(const [x,y] of members)this.parts.push(part(this.root,this.groundShadows,{x,y}));
    if(sheet.meta.states.some(s=>s.part==='turret'))this.turret=part(this.root,this.groundShadows,{x:0,y:0});
-   this.root.addChild(this.overlays);
+   this.root.addChild(this.overlays,this.statusOverlay.root);
   }):Promise.resolve();
  }
  update(entity:Entity,now:number){
@@ -173,7 +176,7 @@ export class ActorVisual {
    }else sprite.position.set(name==='shadow'?altitude*.4:0,name==='shadow'?altitude*1.2:0);
   }
  }
- render(now:number,team:number,selected:boolean,healthBars:'always'|'selected'|'damaged',reducedMotion:boolean){
+ render(now:number,team:number,selected:boolean,healthBars:'always'|'selected'|'damaged',reducedMotion:boolean,zoom=1){
   const e=this.entity,p=this.position(now),screen=this.groundAnchor(now,reducedMotion),unit=this.catalog.units.get(e.type),building=this.catalog.buildings.get(e.type);
   const altitude=this.visualAltitude(now,reducedMotion);
   this.root.position.set(screen.x,screen.y);this.root.zIndex=this.groundDepth(now,reducedMotion);
@@ -219,8 +222,11 @@ export class ActorVisual {
    this.overlays.rect(x-width/2,y,width,4).fill({color:0x161410,alpha:.95});
    this.overlays.rect(x-width/2+1,y+1,(width-2)*Math.max(0,e.health)/1000,2).fill({color:e.health>600?0x9fc776:e.health>300?0xd3b359:0xc64f3c});
   }
-  if(e.private?.ambushReady)this.overlays.poly([-4,-37,0,-42,4,-37,0,-32]).fill({color:0xe2a232});
+  if(!this.status&&e.private?.ambushReady)this.overlays.poly([-4,-37,0,-42,4,-37,0,-32]).fill({color:0xe2a232});
   if(e.rank>0){for(let i=0;i<e.rank;i++)this.overlays.poly([-4+i*7,-27,0+i*7,-30,4+i*7,-27]).stroke({width:2,color:0xe5c57a})}
+  const statusAnchor=state?this.hardpoint('healthbar',state,facing,animationTime):undefined;
+  this.statusOverlay.root.position.set(statusAnchor?.x??0,-altitude+(statusAnchor?.y??-(building?45:24))-18/Math.max(.1,zoom));
+  this.statusOverlay.draw(e.state==='destroyed'?undefined:this.status,selected,zoom);
  }
- dispose(){this.disposed=true;this.root.destroy({children:true});this.terrainShadow?.destroy({children:true})}
+ dispose(){this.disposed=true;this.statusOverlay.dispose();this.root.destroy({children:true});this.terrainShadow?.destroy({children:true})}
 }
