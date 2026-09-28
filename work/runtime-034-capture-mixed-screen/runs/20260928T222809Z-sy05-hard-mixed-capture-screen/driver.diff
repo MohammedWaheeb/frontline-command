@@ -1,0 +1,31 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ mixed-screen/pkg/sim/authored_campaign_acceptance_test.go
+@@ -1087,7 +1087,27 @@
+ 	clearGuards := func(tag string) {
+ 		acquisitionDeadline := r.engine.Tick() + 6000
+ 		captureReady := func() bool {
+-			ids, tanks := authoredCaptureForce(r.view(), reserve, r.faction)
++			view := r.view()
++			ids, tanks := authoredCaptureForce(view, reserve, r.faction)
++			if r.faction == "SY" && r.difficulty == "hard" && r.requiredOptional == "factory-captured" {
++				rifles, at := 0, 0
++				eligible := map[sim.ID]bool{}
++				for _, id := range ids {
++					eligible[id] = true
++				}
++				for _, actor := range view.Entities {
++					if !eligible[actor.ID] {
++						continue
++					}
++					if actor.Type == "SY.rifle" {
++						rifles++
++					}
++					if actor.Type == "SY.at" {
++						at++
++					}
++				}
++				return rifles >= 4 && at >= 1 && len(tanks) > 0
++			}
+ 			return len(ids) >= 3 && len(tanks) > 0
+ 		}
+ 		var point sim.Vec
