@@ -297,3 +297,11 @@ a consolidated99/102 or100/102 claim; the frozen matrix remains93/102.
   acceptance gates. Only its documented commander wait changes22k→30k; the
   authored mission has no defeat timer. The original timed-out attempt remains
   preserved, and this is distinct from the faster12,687 exterior-screen route.
+
+Current SY05 optional Normal was rerun without tactic changes and passes at11,598,
+including actual factory preservation and all ordinary save/replay gates. See
+[the exact current-route audit](../runtime-034-sy05-current-audit/README.md).
+The old Normal stray-AT relay loss predates the queued Move/current-cohort fix;
+it is not a reproduced failure of this current source. Five of the original nine
+optional failures now have separate successful routes; this is not a consolidated
+current matrix result.

@@ -1,0 +1,79 @@
+{
+  "Mission": "sy-05-relay-break",
+  "Difficulty": "normal",
+  "Faction": "SY",
+  "Tick": 11598,
+  "Midpoint": 1145,
+  "FinalHash": "208f5b1fa31ad986b5d2ca0e24607fe3c83642dd9a32235cf792e2d1a7399c6b",
+  "FailureHash": "31b4d3200728be883ecea9d48c54df48fd24364be7ecd8bfa7bc19ee1a42477d",
+  "Outcome": {
+    "finished": true,
+    "draw": false,
+    "winning_team": 1,
+    "reason": "mission_complete",
+    "tick": 11598
+  },
+  "Metadata": {
+    "simulation": "0.3.4",
+    "protocol": 1,
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "map_version": "1",
+    "ruleset": "scenario-v2",
+    "seed": 19027
+  },
+  "Objectives": [
+    {
+      "id": "no-command-assets",
+      "text": "Lose all HQs, production structures and engineering rigs.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 1,
+      "required": 0
+    },
+    {
+      "id": "communications",
+      "text": "Capture all three communication buildings.",
+      "optional": false,
+      "failure": false,
+      "complete": true,
+      "progress": 3,
+      "required": 0
+    },
+    {
+      "id": "factory-captured",
+      "text": "Capture the marked factory and preserve it under your control.",
+      "optional": true,
+      "failure": false,
+      "complete": true,
+      "progress": 1,
+      "required": 1
+    },
+    {
+      "id": "communications-destroyed",
+      "text": "Destroy any required communication building.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 0,
+      "required": 0
+    }
+  ],
+  "batches": 892,
+  "orders": 937,
+  "accepted": 937,
+  "receipt_codes": {
+    "ok": 937
+  },
+  "order_kinds": {
+    "gather": 1,
+    "rally": 42,
+    "train": 51,
+    "move": 352,
+    "attack": 261,
+    "attack_move": 161,
+    "force_fire": 62,
+    "capture": 4,
+    "repair": 3
+  }
+}

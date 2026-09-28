@@ -1,0 +1,40 @@
+{
+  "scope": "One unchanged current SY05 Normal factory-optional route audit; no source or command-policy changes",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "cd82f1e43a109a01a5ee1f5919bd78c58a261442c25012a4e7fc1b2d780238b6",
+  "source_path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-perimeter/source",
+  "binary_path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-perimeter/runs/20260928T212646Z-sy03-hard-exterior-screen/sim.test",
+  "binary_sha256": "bb0c8b1f36b0adcd4ac1a655cf7654a3afe6f848cc4a50d6bea6ad1065ba15dc",
+  "base_source_lock_sha256": "242c51f4fb427b2088c2038c192b6042bc1c2cdf8421b0d96fe83919edd327e7",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:40:09.258577+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-perimeter/runs/20260928T212646Z-sy03-hard-exterior-screen/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^normal$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-perimeter/source/pkg/sim",
+      "started": "2026-09-28T21:40:09.258978+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 64.521,
+      "completed": "2026-09-28T21:41:13.779879+00:00"
+    }
+  ],
+  "exit_code": 0,
+  "completed": "2026-09-28T21:41:13.780467+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-normal-optional-factory-captured.json": {
+      "bytes": 505372,
+      "sha256": "68fd99695ee535dd5df2d1c4ca072dc06de395a44e541822e7dce9f2d9c42b0c"
+    }
+  }
+}
