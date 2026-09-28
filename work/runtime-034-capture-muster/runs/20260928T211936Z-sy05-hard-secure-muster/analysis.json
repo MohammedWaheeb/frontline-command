@@ -1,0 +1,81 @@
+{
+  "tick": 8798,
+  "outcome": {
+    "finished": false,
+    "draw": false,
+    "winning_team": 0,
+    "reason": "",
+    "tick": 0
+  },
+  "hash": "784e8b52589f5c53ba65eac0158d5a6fdaf3d027803a429282a0d3b3f7a94fa2",
+  "batches": 378,
+  "receipts": {
+    "ok": 390
+  },
+  "owned_types": {
+    "power": 3,
+    "supply": 1,
+    "barracks": 1,
+    "factory": 1,
+    "radar": 2,
+    "tech": 1,
+    "depot": 1,
+    "SY.engineer": 1,
+    "SY.repair": 1,
+    "SY.hauler": 1,
+    "outpost": 1
+  },
+  "economy": {
+    "last_sequence": 378,
+    "credits": 911860,
+    "energy": 100000,
+    "supply": 3,
+    "reserved_supply": 2,
+    "power_capacity": 300,
+    "power_demand": 145,
+    "tier": 3,
+    "income": 13200000,
+    "repair_reserve": 0,
+    "upgrades": null,
+    "cooldowns": null
+  },
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "text": "Lose all HQs, production structures and engineering rigs.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 3,
+      "required": 0
+    },
+    {
+      "id": "communications",
+      "text": "Capture all three communication buildings.",
+      "optional": false,
+      "failure": false,
+      "complete": false,
+      "progress": 1,
+      "required": 0
+    },
+    {
+      "id": "factory-captured",
+      "text": "Capture the marked factory and preserve it under your control.",
+      "optional": true,
+      "failure": false,
+      "complete": false,
+      "progress": 0,
+      "required": 1
+    },
+    {
+      "id": "communications-destroyed",
+      "text": "Destroy any required communication building.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 0,
+      "required": 0
+    }
+  ],
+  "artifacts_verified": true
+}

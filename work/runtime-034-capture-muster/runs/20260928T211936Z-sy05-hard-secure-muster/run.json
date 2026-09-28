@@ -1,0 +1,90 @@
+{
+  "scope": "One SY05 Hard ordinary secured mixed-force muster pilot; unchanged production/content",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "936c4d4b351fd6f82e0d2f7babe5eb4f3925ff46e5e2d6fef1d3f35c4f4f6fef",
+  "base_source_lock_sha256": "74d5b7b4541c3e0b00de78c15fec7551240c21fec92d52cfd17562802025c864",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:19:36.614105+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-muster/runs/20260928T211936Z-sy05-hard-secure-muster/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-muster/source",
+      "started": "2026-09-28T21:19:36.614645+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 3.019,
+      "completed": "2026-09-28T21:19:39.633500+00:00"
+    },
+    {
+      "name": "readiness",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-muster/runs/20260928T211936Z-sy05-hard-secure-muster/sim.test",
+        "-test.run=^TestAuthoredCaptureReadiness",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-muster/source/pkg/sim",
+      "started": "2026-09-28T21:19:39.639018+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.888,
+      "completed": "2026-09-28T21:19:40.527151+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-muster/runs/20260928T211936Z-sy05-hard-secure-muster/sim.test",
+        "-test.run=^TestAuthoredCampaignCaptureCompletion$/^sy-05-relay-break$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-muster/source/pkg/sim",
+      "started": "2026-09-28T21:19:40.527405+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 19.447,
+      "completed": "2026-09-28T21:19:59.974015+00:00"
+    }
+  ],
+  "binary_sha256": "7f11207ce03ab66edfad2c2086f376592404e579b1954f0d2c1aab12c6e9e8ec",
+  "exit_code": 1,
+  "completed": "2026-09-28T21:19:59.974360+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard.failed.save.json": {
+      "bytes": 1137780,
+      "sha256": "47975581999e4debc474e8aa27874296fac2e8a24afdc6a64101de8f7e025b6a"
+    },
+    "evidence/sy-05-relay-break-SY-hard.failed.view.json": {
+      "bytes": 388122,
+      "sha256": "3085b6caaeb1549ca4457f098a1c8bf3d9db0236d2b3d05ff3457c9925fb5bd9"
+    },
+    "evidence/sy-05-relay-break-SY-hard.fatal-2679419376/driver-orders.json": {
+      "bytes": 195219,
+      "sha256": "8dbeed12863efd216a0af4b09f77e038177a7db873f792a326425506019f8ed8"
+    },
+    "evidence/sy-05-relay-break-SY-hard.fatal-2679419376/manifest.json": {
+      "bytes": 881,
+      "sha256": "27592986331ff25c231df0be1d19e46e9de75c8c7db38fd9bc091536ebdf614f"
+    },
+    "evidence/sy-05-relay-break-SY-hard.fatal-2679419376/owner.view.json": {
+      "bytes": 388122,
+      "sha256": "3085b6caaeb1549ca4457f098a1c8bf3d9db0236d2b3d05ff3457c9925fb5bd9"
+    },
+    "evidence/sy-05-relay-break-SY-hard.fatal-2679419376/state.save.json": {
+      "bytes": 1137780,
+      "sha256": "47975581999e4debc474e8aa27874296fac2e8a24afdc6a64101de8f7e025b6a"
+    }
+  }
+}

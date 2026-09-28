@@ -1,0 +1,153 @@
+--- base/pkg/sim/authored_candidate_tactics_test.go
++++ candidate/pkg/sim/authored_candidate_tactics_test.go
+@@ -239,6 +239,7 @@
+ 	}
+ 	var homeWorker sim.ID
+ 	homeEmergency := false
++	var homeThreatUntil sim.Tick
+ 	return func() {
+ 		if r.engine.Tick() < next || r.engine.Outcome().Finished {
+ 			return
+@@ -369,7 +370,7 @@
+ 				if factory := r.ownedType("factory"); len(factory) > 0 {
+ 					r.tryIssue(sim.Order{Kind: "rally", Entities: factory[:1], Position: r.region("site2")})
+ 					for _, kind := range []string{"SY.tank", "SY.tank", "SY.aa"} {
+-						if kind != "SY.aa" || r.scheduledType(kind) < 3 {
++						if kind != "SY.aa" || r.scheduledType(kind) < 2 {
+ 							r.tryIssue(sim.Order{Kind: "train", Entities: factory[:1], Type: kind})
+ 						}
+ 					}
+@@ -377,7 +378,11 @@
+ 				if barracks := r.ownedType("barracks"); len(barracks) > 0 {
+ 					r.tryIssue(sim.Order{Kind: "rally", Entities: barracks[:1], Position: r.region("site1")})
+ 					for _, kind := range []string{"SY.rifle", "SY.rifle", "SY.at"} {
+-						if r.scheduledType(kind) < 14 {
++						limit := 14
++						if kind == "SY.at" {
++							limit = 4
++						}
++						if r.scheduledType(kind) < limit {
+ 							r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: kind})
+ 						}
+ 					}
+@@ -457,15 +462,17 @@
+ 			unit, ok := r.catalog.Unit(kind)
+ 			return ok && unit.Weapon != "" && unit.Armor != "air"
+ 		})
++		if emergency {
++			homeThreatUntil = r.engine.Tick() + 400
++		}
++		emergency = r.engine.Tick() < homeThreatUntil
++		response := authoredExpansionResponseForce(view, excluded, r.region("base"))
+ 		if emergency != homeEmergency {
+ 			r.t.Logf("visible home threat response tick%d active%t", r.engine.Tick(), emergency)
+ 			homeEmergency = emergency
+ 		}
+ 		for index, point := range points {
+-			if emergency {
+-				point = sim.Vec{X: 29500 + int32(index)*1500, Y: 100500}
+-			}
+-			if index < 2 && !emergency {
++			if index < 2 {
+ 				if sentinel, alive := r.seen(sentinels[index]); !alive || sentinel.Owner != 1 {
+ 					for _, id := range groups[index] {
+ 						actor, alive := r.seen(id)
+@@ -488,6 +495,12 @@
+ 				actor, alive := r.seen(id)
+ 				if !alive || actor.Private == nil {
+ 					continue
++				}
++				// Keep the majority at their actual regional post; only a
++				// bounded nearby reserve answers a current/recent home alarm.
++				actorPoint := point
++				if emergency && response[id] {
++					actorPoint = sim.Vec{X: 29500 + int32(index)*1500, Y: 100500}
+ 				}
+ 				unit, _ := r.catalog.Unit(actor.Type)
+ 				antiArmor := actor.Type == "SY.at" || actor.Type == "SY.tank" || actor.Type == "SY.artillery"
+@@ -501,7 +514,7 @@
+ 					if !ok && enemy.FootprintWidth == 0 || (ok && hostile.Armor == "air" && unit.Role != "aa") {
+ 						continue
+ 					}
+-					dx, dy := int64(enemy.Position.X-point.X), int64(enemy.Position.Y-point.Y)
++					dx, dy := int64(enemy.Position.X-actorPoint.X), int64(enemy.Position.Y-actorPoint.Y)
+ 					d := dx*dx + dy*dy
+ 					if d > 16000*16000 {
+ 						continue
+@@ -526,8 +539,8 @@
+ 						continue
+ 					}
+ 				}
+-				if len(orders) == 0 || orders[0].Kind != "attack_move" || orders[0].Position != point {
+-					r.tryIssue(sim.Order{Kind: "attack_move", Entities: []sim.ID{id}, Position: point})
++				if len(orders) == 0 || orders[0].Kind != "attack_move" || orders[0].Position != actorPoint {
++					r.tryIssue(sim.Order{Kind: "attack_move", Entities: []sim.ID{id}, Position: actorPoint})
+ 				}
+ 				if r.engine.Outcome().Finished {
+ 					return
+--- base/pkg/sim/authored_expansion_response_test.go
++++ candidate/pkg/sim/authored_expansion_response_test.go
+@@ -2,6 +2,7 @@
+ 
+ import (
+ 	"frontlinecommand/pkg/sim"
++	"sort"
+ 	"testing"
+ )
+ 
+@@ -67,3 +68,55 @@
+ 		t.Fatal("disappeared enemy retained as live threat")
+ 	}
+ }
++
++// Fixed bounded role budget from actual owned complete unembarked actors, nearest
++// first. Sentinels and explicitly excluded support stay out of the recall.
++func authoredExpansionResponseForce(view sim.View, excluded map[sim.ID]bool, home sim.Vec) map[sim.ID]bool {
++	candidates := []sim.EntityView{}
++	for _, e := range view.Entities {
++		if e.Owner != 1 || excluded[e.ID] || !e.Complete || !e.Enabled || e.Private == nil || e.Private.Container != 0 {
++			continue
++		}
++		if e.Type == "SY.tank" || e.Type == "SY.rifle" || e.Type == "SY.at" {
++			candidates = append(candidates, e)
++		}
++	}
++	distance := func(e sim.EntityView) int64 {
++		dx, dy := int64(e.Position.X-home.X), int64(e.Position.Y-home.Y)
++		return dx*dx + dy*dy
++	}
++	sort.Slice(candidates, func(i, j int) bool {
++		a, b := distance(candidates[i]), distance(candidates[j])
++		if a == b {
++			return candidates[i].ID < candidates[j].ID
++		}
++		return a < b
++	})
++	limits := map[string]int{"SY.tank": 2, "SY.rifle": 4, "SY.at": 2}
++	selected := map[sim.ID]bool{}
++	for _, e := range candidates {
++		if limits[e.Type] > 0 {
++			selected[e.ID] = true
++			limits[e.Type]--
++		}
++	}
++	return selected
++}
++func TestAuthoredExpansionResponseReserveIsBounded(t *testing.T) {
++	var v sim.View
++	for i := 1; i <= 8; i++ {
++		for j, kind := range []string{"SY.tank", "SY.rifle", "SY.at"} {
++			v.Entities = append(v.Entities, sim.EntityView{ID: sim.ID(i*10 + j), Owner: 1, Type: kind, Complete: true, Enabled: true, Position: sim.Vec{X: int32(i * 1000)}, Private: &sim.EntityPrivate{}})
++		}
++	}
++	excluded := map[sim.ID]bool{10: true, 11: true, 12: true}
++	got := authoredExpansionResponseForce(v, excluded, sim.Vec{})
++	if len(got) != 8 || got[10] || got[11] || got[12] || !got[20] || !got[21] || !got[22] || got[60] {
++		t.Fatal("unbounded or distant reserve", got)
++	}
++	v.Entities[3].Owner = 2
++	got = authoredExpansionResponseForce(v, excluded, sim.Vec{})
++	if got[v.Entities[3].ID] {
++		t.Fatal("foreign entity recalled")
++	}
++}

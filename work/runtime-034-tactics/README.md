@@ -257,3 +257,27 @@ observers alive and disembarked in the authored regions at the end.
   executable `d4cbdab7…`, 661/661 accepted receipts, paired midpoint restore
   and full replay all pass. This is an individual source-specific route proof;
   the original 93/102 main and 12/21 optional matrix counts remain unchanged.
+
+## Later 2026-09-28 owner-view diagnosis and bounded tactics
+
+The main-route gap inventory is now seven of the original nine failed cases
+with separate successful strategies, including SA05 Hard. Two main leaves,
+SY03 Hard and SY05 Hard, still lack a completed proposed0.3.4 route. This is not
+a consolidated99/102 or100/102 claim; the frozen matrix remains93/102.
+
+- [SY03 exact visible-placement diagnosis](../runtime-034-territory-placement-v2/README.md)
+  identifies a known resource exclusion in all five original intended sites.
+- [Legal alternatives](../runtime-034-territory-alternatives/README.md) reach a
+  real turret, but time out unfinished; no placement failure is hidden.
+- [Paid observed logistics](../runtime-034-territory-logistics-v2/README.md)
+  complete a supply expansion, but fail the unchanged territory wait.
+- [Exact public progression replay](../runtime-034-logistics-diagnosis/README.md)
+  shows healthy western forces remaining idle while other regions/home collapse.
+- [Visible home response](../runtime-034-territory-response/README.md) preserves
+  home production but does not sustain both regions; a bounded reserve is a
+  separate later pilot.
+- [SY05 home defense](../runtime-034-capture-defense/README.md) loses the first
+  relay despite a surviving assigned repairer, a genuine mission failure.
+- [SY05 secure muster](../runtime-034-capture-muster/README.md) retains that relay
+  longer but times out after its real relief force is lost. It is unfinished,
+  not a game defeat or proof that the mission is impossible.

@@ -1,0 +1,67 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ candidate/pkg/sim/authored_campaign_acceptance_test.go
+@@ -775,11 +775,15 @@
+ }
+ 
+ func playCampaignCapture(r *authoredRun) {
+-	// Main-route defense trades the discretionary forward construction detour
+-	// for ordinary continuous paid relief. Optional factory-capture tactics stay
+-	// unchanged so their distinct route is not silently rewritten.
++	// Main-route defense must retain its paid forward fortification and muster
++	// reinforcements at the secured relay before sending a mixed relief group.
++	// The distinct optional factory route remains unchanged.
+ 	syHardMain := r.faction == "SY" && r.difficulty == "hard" && r.requiredOptional == ""
+ 	preserveCaptureForce := r.faction == "SA" && r.difficulty == "hard" || syHardMain
++	retainedTanks := 1
++	if syHardMain {
++		retainedTanks = 2
++	}
+ 	reinforceCaptured := r.difficulty == "hard" && (r.faction == "SY" || r.faction == "SA") || r.faction == "SY" && (r.difficulty == "normal" || r.requiredOptional == "factory-captured")
+ 	r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1}, sim.Order{Kind: "rally", Entities: r.ids("home-factory"), Position: sim.Vec{X: 35500, Y: 94500}}, sim.Order{Kind: "rally", Entities: r.ids("home-barracks"), Position: sim.Vec{X: 35500, Y: 94500}})
+ 	if r.faction == "SY" && (r.difficulty == "hard" || r.requiredOptional == "factory-captured") {
+@@ -903,7 +907,7 @@
+ 							}
+ 							if preserveCaptureForce && role.kind == "tank" {
+ 								_, freeTanks := authoredCaptureForce(r.view(), reserve, r.faction)
+-								if len(freeTanks) <= 1 {
++								if len(freeTanks) <= retainedTanks {
+ 									continue // Keep a completed free tank for the next real capture.
+ 								}
+ 							}
+@@ -1044,6 +1048,9 @@
+ 		acquisitionDeadline := r.engine.Tick() + 6000
+ 		captureReady := func() bool {
+ 			ids, tanks := authoredCaptureForce(r.view(), reserve, r.faction)
++			if syHardMain {
++				return len(ids) >= 6 && len(tanks) >= 2
++			}
+ 			return len(ids) >= 3 && len(tanks) > 0
+ 		}
+ 		var point sim.Vec
+@@ -1175,7 +1182,7 @@
+ 				point = sim.Vec(actor.Position)
+ 			}
+ 		}
+-		if stage > 1 {
++		if stage > 1 && !syHardMain {
+ 			rally = sim.Vec{X: point.X - 14000, Y: point.Y + 14000}
+ 		}
+ 		var worker sim.ID
+@@ -1229,7 +1236,7 @@
+ 		}
+ 		if stage == 1 {
+ 			r.checkpoint()
+-			if r.faction == "SY" && r.difficulty == "hard" && !syHardMain {
++			if r.faction == "SY" && r.difficulty == "hard" {
+ 				// Protect the fresh relay with the full current cohort and reserve
+ 				// future income for construction. Cancel only unpaid queued jobs;
+ 				// paid production and every actual cost/work requirement continue.
+@@ -1299,7 +1306,7 @@
+ 					spare := true
+ 					if preserveCaptureForce {
+ 						_, freeTanks := authoredCaptureForce(r.view(), reserve, r.faction)
+-						spare = len(freeTanks) > 1
++						spare = len(freeTanks) > retainedTanks
+ 					}
+ 					if spare {
+ 						tanks++

@@ -1,0 +1,90 @@
+{
+  "scope": "One SY03 Hard ordinary visible home response test-driver pilot; unchanged production/content",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "15ef3a122f722ded8af58c792ddbbe5d66ade64b4fcb0c7d30718dfca8295b44",
+  "base_source_lock_sha256": "73bdd6126bd0ca14e6eace4899f4ba0cd2b24dd8e6cbbe81cfe29e27eafc1889",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:17:27.569033+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-response/runs/20260928T211727Z-sy03-hard-visible-home-response/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-response/source",
+      "started": "2026-09-28T21:17:27.569253+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.953,
+      "completed": "2026-09-28T21:17:29.522712+00:00"
+    },
+    {
+      "name": "budget",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-response/runs/20260928T211727Z-sy03-hard-visible-home-response/sim.test",
+        "-test.run=^TestAuthoredExpansion(Budget|Sites|Logistics|Response)",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-response/source/pkg/sim",
+      "started": "2026-09-28T21:17:29.526969+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.917,
+      "completed": "2026-09-28T21:17:30.443777+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-response/runs/20260928T211727Z-sy03-hard-visible-home-response/sim.test",
+        "-test.run=^TestAuthoredCampaignTerritoryCompletion$/^sy-03-three-crossings$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-response/source/pkg/sim",
+      "started": "2026-09-28T21:17:30.444728+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 57.26,
+      "completed": "2026-09-28T21:18:27.704383+00:00"
+    }
+  ],
+  "binary_sha256": "2fcd7db8c45afb8e6765322c567e72ad29ac304ef4a3d36dc4183c6d7b6f212a",
+  "exit_code": 1,
+  "completed": "2026-09-28T21:18:27.704647+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-03-three-crossings-SY-hard.failed.save.json": {
+      "bytes": 1395644,
+      "sha256": "134bcb6e43ef2823187f4cbc93c58580db03d91c3bbd76bb4d948754cb0e2a58"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.failed.view.json": {
+      "bytes": 402734,
+      "sha256": "7e4687a43c23327f8bc34b02e700c9b73d0276413eec28783b6845dea4e0f62c"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-4267249436/driver-orders.json": {
+      "bytes": 1078405,
+      "sha256": "148ed313eb484df0092871f8a5a527d831a244249249f9f2b98101c8e5ae816f"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-4267249436/manifest.json": {
+      "bytes": 893,
+      "sha256": "4225567fad9e826ad9cb242d7d3386f7e9304041b743fa17ee71d055b8438b19"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-4267249436/owner.view.json": {
+      "bytes": 402734,
+      "sha256": "7e4687a43c23327f8bc34b02e700c9b73d0276413eec28783b6845dea4e0f62c"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-4267249436/state.save.json": {
+      "bytes": 1395644,
+      "sha256": "134bcb6e43ef2823187f4cbc93c58580db03d91c3bbd76bb4d948754cb0e2a58"
+    }
+  }
+}

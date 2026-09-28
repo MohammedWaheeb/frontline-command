@@ -1,0 +1,76 @@
+{
+  "tick": 22609,
+  "outcome": {
+    "finished": false,
+    "draw": false,
+    "winning_team": 0,
+    "reason": "",
+    "tick": 0
+  },
+  "hash": "6be4a33413605823c070595a1fcc676391e4ba5d7c76c55e08d559ef8ef311b0",
+  "batches": 2189,
+  "receipts": {
+    "ok": 2198
+  },
+  "owned_types": {
+    "hq": 1,
+    "power": 2,
+    "supply": 1,
+    "SY.hauler": 4,
+    "barracks": 1,
+    "factory": 1,
+    "radar": 1,
+    "SY.aa": 1,
+    "SY.repair": 1,
+    "SY.recon": 1,
+    "turret": 1,
+    "outpost": 1,
+    "SY.at": 11,
+    "SY.rifle": 4,
+    "SY.tank": 2
+  },
+  "economy": {
+    "last_sequence": 2189,
+    "credits": 280000,
+    "energy": 100000,
+    "supply": 44,
+    "reserved_supply": 2,
+    "power_capacity": 240,
+    "power_demand": 85,
+    "tier": 2,
+    "income": 35530000,
+    "repair_reserve": 0,
+    "upgrades": null,
+    "cooldowns": null
+  },
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "text": "Lose all HQs, production structures and engineering rigs.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 2,
+      "required": 0
+    },
+    {
+      "id": "two-approaches",
+      "text": "Hold any two approaches continuously for three minutes.",
+      "optional": false,
+      "failure": false,
+      "complete": false,
+      "progress": 0,
+      "required": 3600
+    },
+    {
+      "id": "scout-mark",
+      "text": "Optional: keep the marked scout concealed for one uninterrupted minute.",
+      "optional": true,
+      "failure": false,
+      "complete": true,
+      "progress": 1200,
+      "required": 1200
+    }
+  ],
+  "artifacts_verified": true
+}

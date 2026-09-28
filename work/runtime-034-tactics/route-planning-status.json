@@ -1,0 +1,170 @@
+{
+  "warning": "Separate route evidence across test strategies only. Not a consolidated current-source acceptance pass or release claim. Original failed evidence remains unchanged.",
+  "phases": [
+    {
+      "phase": "main",
+      "original_passed": 93,
+      "original_failed": 9,
+      "failed_cases_with_separate_successful_routes": 7,
+      "cases": [
+        {
+          "case": "TestAuthoredCampaignOpeningCompletion/sy-01-workshop-foothold/easy",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T120912Z-workshop-shared-main",
+              "source_lock_sha256": "16f3de94eee7f1b890cc75a1f624f55cc3c745af38e393434dd555c1deb9a7cb"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredCampaignTerritoryCompletion/sy-03-three-crossings/hard",
+          "has_separate_successful_route": false,
+          "passed_pilots": []
+        },
+        {
+          "case": "TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/normal",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T141240Z-sy05-normal-repair-replacement",
+              "source_lock_sha256": "625d1c499ead4608cd6f3596ea9075a65fa64394c22d6febb48f900c36d15380"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/hard",
+          "has_separate_successful_route": false,
+          "passed_pilots": []
+        },
+        {
+          "case": "TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/hard",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "../runtime-034-capture-ready/runs/20260928T203752Z-sa05-hard-capture-ready",
+              "source_lock_sha256": "36630bbd299e85e976b04d1d9caccf3ad5e2dd8294ecefa9861cf36cdd3c4abd"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredCampaignDefenseCompletion/ir-04-hold-the-network/hard",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T114932Z-ir04-focus",
+              "source_lock_sha256": "15f82673c698d3d192cd8b6ad0934d95c32fc51363421895178972edc7846e5e"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredCampaignDefenseCompletion/sy-04-open-doors/easy",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T115033Z-sy04-focus",
+              "source_lock_sha256": "15f82673c698d3d192cd8b6ad0934d95c32fc51363421895178972edc7846e5e"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredCampaignDefenseCompletion/sa-04-intercept-window/normal",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T113341Z-early-defenses",
+              "source_lock_sha256": "a107e12728bdde64ade3d870b5f2e8269924a08d72f8a72faad193f94e12b2be"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredCampaignAssaultCompletion/ir-05-the-second-volley/hard",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T113214Z-ir05-conventional",
+              "source_lock_sha256": "e805929de6782dcefdba67cc1efafa453f406f16b201ab5a75d96b1e00426491"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": "optional",
+      "original_passed": 12,
+      "original_failed": 9,
+      "failed_cases_with_separate_successful_routes": 4,
+      "cases": [
+        {
+          "case": "TestAuthoredOptionalMechanicTeams/easy",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T115327Z-mechanics-rear-easy",
+              "source_lock_sha256": "822ee9683fbe6ace9e7bfdc6e460d1c310df2b0c93e62aaa330b642dc54245ad"
+            },
+            {
+              "pilot": "20260928T120949Z-mechanics-proven-openings",
+              "source_lock_sha256": "16f3de94eee7f1b890cc75a1f624f55cc3c745af38e393434dd555c1deb9a7cb"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredOptionalMechanicTeams/normal",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T120949Z-mechanics-proven-openings",
+              "source_lock_sha256": "16f3de94eee7f1b890cc75a1f624f55cc3c745af38e393434dd555c1deb9a7cb"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredOptionalMechanicTeams/hard",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T120949Z-mechanics-proven-openings",
+              "source_lock_sha256": "16f3de94eee7f1b890cc75a1f624f55cc3c745af38e393434dd555c1deb9a7cb"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredOptionalObserverNetwork/easy",
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "20260928T121218Z-observers-finish-unload",
+              "source_lock_sha256": "16f3de94eee7f1b890cc75a1f624f55cc3c745af38e393434dd555c1deb9a7cb"
+            }
+          ]
+        },
+        {
+          "case": "TestAuthoredOptionalObserverNetwork/normal",
+          "has_separate_successful_route": false,
+          "passed_pilots": []
+        },
+        {
+          "case": "TestAuthoredOptionalObserverNetwork/hard",
+          "has_separate_successful_route": false,
+          "passed_pilots": []
+        },
+        {
+          "case": "TestAuthoredOptionalFactoryCapture/easy",
+          "has_separate_successful_route": false,
+          "passed_pilots": []
+        },
+        {
+          "case": "TestAuthoredOptionalFactoryCapture/normal",
+          "has_separate_successful_route": false,
+          "passed_pilots": []
+        },
+        {
+          "case": "TestAuthoredOptionalFactoryCapture/hard",
+          "has_separate_successful_route": false,
+          "passed_pilots": []
+        }
+      ]
+    }
+  ]
+}

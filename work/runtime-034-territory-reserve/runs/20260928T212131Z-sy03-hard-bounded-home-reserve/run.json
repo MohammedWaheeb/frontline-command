@@ -1,0 +1,90 @@
+{
+  "scope": "One SY03 Hard ordinary bounded home reserve test-driver pilot; unchanged production/content",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "ee8b970b03ce953ecb1175654dc15d36574986b6dac2ef46f7243b26fb55644c",
+  "base_source_lock_sha256": "15ef3a122f722ded8af58c792ddbbe5d66ade64b4fcb0c7d30718dfca8295b44",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:21:31.165435+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-reserve/runs/20260928T212131Z-sy03-hard-bounded-home-reserve/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-reserve/source",
+      "started": "2026-09-28T21:21:31.165648+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.6,
+      "completed": "2026-09-28T21:21:33.765749+00:00"
+    },
+    {
+      "name": "budget",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-reserve/runs/20260928T212131Z-sy03-hard-bounded-home-reserve/sim.test",
+        "-test.run=^TestAuthoredExpansion(Budget|Sites|Logistics|Response)",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-reserve/source/pkg/sim",
+      "started": "2026-09-28T21:21:33.770157+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.881,
+      "completed": "2026-09-28T21:21:34.650890+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-reserve/runs/20260928T212131Z-sy03-hard-bounded-home-reserve/sim.test",
+        "-test.run=^TestAuthoredCampaignTerritoryCompletion$/^sy-03-three-crossings$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-reserve/source/pkg/sim",
+      "started": "2026-09-28T21:21:34.651207+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 60.419,
+      "completed": "2026-09-28T21:22:35.070098+00:00"
+    }
+  ],
+  "binary_sha256": "a88b0b1bb2fb3d619be1b9f8038d96e95040f80addcfabe4dd1e39280d249923",
+  "exit_code": 1,
+  "completed": "2026-09-28T21:22:35.070409+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-03-three-crossings-SY-hard.failed.save.json": {
+      "bytes": 1423973,
+      "sha256": "52c43f2e3eb2fdc87475f8fba95d5bbe3a77ffdbe8efb4c60603627d232d8aa7"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.failed.view.json": {
+      "bytes": 411414,
+      "sha256": "c319dbb7b2bbcf53974a2f843e5d670031e5270dc030737071511e1e78b2b9d0"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-295883297/driver-orders.json": {
+      "bytes": 1335329,
+      "sha256": "24e851cb60898a2efa06d1f1661d6565824f541432d5a2e951ebe4e68868de82"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-295883297/manifest.json": {
+      "bytes": 893,
+      "sha256": "4c03aa2436c0bdb78534f30148a9551fd9adc64bb7d2814c520ba34b728777a6"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-295883297/owner.view.json": {
+      "bytes": 411414,
+      "sha256": "c319dbb7b2bbcf53974a2f843e5d670031e5270dc030737071511e1e78b2b9d0"
+    },
+    "evidence/sy-03-three-crossings-SY-hard.fatal-295883297/state.save.json": {
+      "bytes": 1423973,
+      "sha256": "52c43f2e3eb2fdc87475f8fba95d5bbe3a77ffdbe8efb4c60603627d232d8aa7"
+    }
+  }
+}
