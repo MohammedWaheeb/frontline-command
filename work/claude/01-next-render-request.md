@@ -8,12 +8,18 @@ to start a competing worker or a bulk-render completion claim.
 
 ## Frozen inputs
 
+The first airlift pilot exposed solid cabin geometry behind the open doors.
+Its original output remains intact. The narrowly corrected source below now
+requires the 16-pose isolated repeat in `01-airlift-aperture-repeat.md`; do not
+rerun the original airlift commands into `pilot-v1`. The original source lock is
+preserved as `work/art/aircraft-roster/airlift-aperture-baseline-lock.json`.
+
 | Source | SHA-256 |
 |---|---|
 | `assets/pipeline/blender/models/vehicle_roster.py` | `f4a524de61133c29fd7f0142cd2f5891af420efbecd976f6ac6cc588ccad3b9d` |
-| `assets/pipeline/blender/models/aircraft_roster.py` | `f6f6ee359dec2dd5fcb5695607d2a7fd5ba3d84f895e4e585ec699c7dee8529e` |
+| `assets/pipeline/blender/models/aircraft_roster.py` | `dca923b26bcb6bf81b70c3330ff60ac87ef00d2b6a38416d764f4d3a99ac76f2` |
 | `work/art/vehicle-roster/source-lock.json` | `b1c1e4852ac1d31fa791f55bba6d47924f1fcbde609d4dc3077e55351f5dd904` |
-| `work/art/aircraft-roster/source-lock.json` | `b8ff64228e455719e56eb07c639c9dcb89f7bf8cd29477739e0fdc6e288147b9` |
+| `work/art/aircraft-roster/source-lock.json` | `b2c4fbf66681f30fa48ee77688188407c5fd9bfb4f8e22253df9710ed504d744` |
 
 Each lock records exact hashes for every corresponding unit spec, shared fclib,
 standard UI-shot renderer, pack/alpha helpers, isolated pilot helpers and plan.

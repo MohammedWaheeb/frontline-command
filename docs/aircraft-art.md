@@ -69,3 +69,24 @@ launched in this lane. Real native contacts, all-angle clipping, palette masks,
 1×/2× portraits/cameos, atlas coverage, and in-game aircraft behavior remain
 mandatory before art approval. Shared manifests and renderer hooks are owned
 by the coordinator and have not been changed here.
+
+## Airlift pilot aperture correction
+
+The sole Blender worker rendered the initial 78-pose US.airlift pilot. Numeric
+layer/reset checks passed, but actual native review showed the solid cabin
+behind the lowered rear ramp and sliding side doors. This was a model defect:
+door motion alone did not create a doorway. The original pilot and its rejected
+door comparison remain under `work/art/aircraft-roster/pilot-v1/unit.US.airlift/`.
+
+The corrected cabin is an explicit shell: floor, roof, nose, side wall sections,
+door headers/sills, rear jambs, dark liner and benches. Door windows move with
+the panels. The rear ramp closes outside the opening and lowers past horizontal
+to approach the ground. No spec, gameplay, timing or other aircraft geometry
+changed. Three regression tests now check open-ray access through all three
+doors, descending ramp/reset, and equality of all 5,680 poses and primitive
+geometry of the other ten aircraft against source checkpoint `00011c3`.
+The full 6,352-pose forward/reverse bounds audit and nine semantic tests pass.
+
+`work/claude/01-airlift-aperture-repeat.md` requests 16 actual poses at four
+headings in a separate output directory. The corrected source has only a flat
+geometry preview so far; Cycles/native aperture approval is still pending.

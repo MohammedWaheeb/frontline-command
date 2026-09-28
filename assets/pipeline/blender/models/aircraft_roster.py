@@ -244,14 +244,29 @@ def helicopter(A, heavy=False):
 def airlift(A):
     """Long troop cabin, tandem rotor stations, clear rear cargo ramp and doors."""
     A.rotor_kind = True
-    A.pr('cabin', [(-.85, .19), (.63, .17), (.96, .30), (.78, .59), (.42, .70), (-.76, .70), (-.97, .45)],
-         .54, bevel=.035)
+    # A shell, not a solid fuselage hidden behind moving door plates. The
+    # side apertures and rear mouth remain physically empty in every pose.
+    A.pr('cabin_floor', [(-.89, .195), (.63, .17), (.96, .30), (.80, .325), (-.89, .265)],
+         .54, bevel=.018)
+    A.pr('cabin_roof', [(-.90, .605), (.50, .605), (.50, .69), (-.76, .70)],
+         .54, bevel=.018)
+    A.pr('cabin_nose', [(.50, .265), (.96, .30), (.78, .59), (.50, .69)],
+         .54, bevel=.025)
+    A.b('cabin_liner_floor', (1.32, .43, .018), (-.21, 0, .275), 'soot', bevel=.003)
+    A.b('cabin_liner_forward', (.018, .43, .32), (.49, 0, .435), 'soot', bevel=.003)
     A.pr('cockpit', [(.48, .57), (.76, .55), (.91, .33), (.73, .35)], .44, 'glass', bevel=.008)
     A.b('cockpit_center_frame', (.24, .023, .15), (.78, 0, .46), 'paint2', rot=(0, -.55, 0), bevel=.008)
     for side in (1, -1):
+        # The doorway occupies x=.25..49 / z=.30..54. Separate sill, header
+        # and rear side panel leave an actual hole instead of painted black.
+        A.b('cabin_side_aft_' + str(side), (1.12, .036, .34), (-.32, side * .252, .435), 'paint', bevel=.010)
+        A.b('door_sill_' + str(side), (.26, .044, .033), (.37, side * .252, .284), 'paint2', bevel=.005)
+        A.b('door_header_' + str(side), (.26, .044, .066), (.37, side * .252, .573), 'paint2', bevel=.008)
+        A.b('rear_jamb_' + str(side), (.065, .065, .36), (-.887, side * .235, .435), 'paint2', bevel=.008)
+        A.b('cabin_bench_' + str(side), (.98, .10, .075), (-.27, side * .155, .335), 'soot', bevel=.009)
         A.b('sponson_' + str(side), (1.15, .15, .17), (-.05, side * .31, .23), 'paint2', taper=(.93, .82), bevel=.035)
         A.b('side_team_' + str(side), (.87, .018, .08), (-.14, side * .283, .56), 'team', bevel=.004)
-        for k in range(4):
+        for k in range(1, 4):
             A.b(f'window_{side}_{k}', (.095, .016, .095), (.32 - k * .24, side * .279, .45), 'glass', bevel=.013)
         A.undercarriage('front_gear_' + str(side), (.40, side * .30, .22), .067)
         A.undercarriage('rear_gear_' + str(side), (-.60, side * .30, .22), .067)
@@ -259,14 +274,15 @@ def airlift(A):
         door = A.e('side_door_' + str(side), (.37, side * .285, .30))
         A.b('door_panel_' + str(side), (.22, .021, .24), (0, 0, .12), 'paint2', door, bevel=.008)
         A.b('door_mark_' + str(side), (.14, .024, .035), (0, 0, .12), 'team', door, bevel=.004)
+        A.b('door_window_' + str(side), (.095, .026, .065), (0, 0, .195), 'glass', door, bevel=.008)
         A.doors.append((door, 'slide', side))
     for name, x, z in (('front', .54, .84), ('rear', -.65, .95)):
         A.b(name + '_pylon', (.27, .22, .20), (x, 0, z - .12), 'paint2', taper=(.85, .9), bevel=.025)
         A.rotor(name + '_rotor', (x, 0, z), .84, blades=3)
-    # Dark doorway is part of the body; lowered ramp is an articulated plate.
-    A.b('rear_opening', (.025, .38, .31), (-.86, 0, .42), 'soot', bevel=.014)
-    ramp = A.e('rear_ramp_hinge', (-.86, 0, .245))
-    A.b('rear_ramp', (.032, .43, .34), (0, 0, .17), 'paint2', ramp, bevel=.009)
+    # The ramp closes outside the hollow mouth. Opening rotates past horizontal
+    # so its far end reaches the ground rather than tilting upward from the sill.
+    ramp = A.e('rear_ramp_hinge', (-.922, 0, .265))
+    A.b('rear_ramp', (.032, .43, .36), (0, 0, .18), 'paint2', ramp, bevel=.009)
     for k in range(5):
         A.b('ramp_tread_' + str(k), (.037, .37, .012), (-.004, 0, .05 + k * .056), 'alloy', ramp, bevel=.002)
     A.doors.append((ramp, 'ramp', 1))
@@ -436,7 +452,7 @@ def pose(rig, state, frame, direction):
     if name == 'hover_low_board':
         for door, motion, side in A.doors:
             if motion == 'ramp':
-                door.rotation_euler = (0, -1.38, 0)
+                door.rotation_euler = (0, -2.28, 0)
             else:
                 x, y, z = rig.original[door][0]
                 door.location = (x - .24, y + side * .025, z)
