@@ -1,0 +1,7 @@
+# Second native pilot review
+
+Small explosion: root inspected all twelve ticks of all five variants on the native dirt sheet. The flame reads clearly above translucent smoke/dust; the previous concentric stone-like highlights are gone. Reduced-flashing ignition grows over sampled frames and omits white/rays; reduced-motion variants retain fixed silhouettes. This passes the bounded source-art readability review, pending actual gameplay composition and temporal browser checks.
+
+Large building explosion: root inspected native six-time grids for standard on dirt, soft on dark terrain and combined reduction on dirt. Three separate charges lead to a broad dust wall, flame and a rising dark column. The dim settled variant uses a fixed low-contrast silhouette. No canvas-edge contact is present in any exported frame. Reduced-flash treatment is visibly dimmer but has not been certified by a photosensitivity standard. Essential gameplay warnings remain a separate layer above decorative FX.
+
+All variants finish on exactly the same 20 Hz tick, with a transparent terminal. The small pack reserves 97,364 decoded bytes; large reserves 9,935,704 across three pages. Actual runtime schema, CRC/inflate and exact SHA-256 validation pass. The large pack is within the existing 32 MiB shared FX budget; simultaneous mixed-effect pressure still needs an actual renderer check. The source used for both pilots is retained in `source/`. The other six effects are not covered by this review.

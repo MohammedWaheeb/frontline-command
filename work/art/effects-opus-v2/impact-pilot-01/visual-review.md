@@ -1,0 +1,3 @@
+# First material/outcome impact review
+
+Root inspected actual native heavy-hit/dirt, interception/dark and decoy/dirt sequences. The material hit is compact, distinct from a broad destruction blast, and has no ground skirt; interception uses a symbolic cancelled warhead instead of claiming a physical breakup at its disclosed warning point. Decoy has distinct solid/broken diamonds. However the pale decoy and spark strokes have weak contrast over light terrain. The successor adds a narrow dark under-stroke, without changing shape, cue timing, private information or normal/reduced behavior. This first pilot remains preserved rather than being retroactively relabelled.

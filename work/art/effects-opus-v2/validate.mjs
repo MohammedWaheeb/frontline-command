@@ -1,0 +1,13 @@
+import {readFile, writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {inspectEffectPack} from '../../../client/scripts/ui/effect-pack.mjs';
+const root = path.resolve(fileURLToPath(new URL('../../..', import.meta.url)));
+const output = path.resolve(process.argv[2] ?? '');
+if (!process.argv[2]) throw Error('Pass the explicit generated output directory.');
+const manifest = JSON.parse(await readFile(path.join(root, 'assets/manifest/asset-manifest.json'), 'utf8'));
+const pack = await inspectEffectPack(output, {knownIDs: new Set(manifest.entries.filter(e=>e.category==='effect').map(e=>e.id))});
+if (!pack) throw Error('No pack produced.');
+const result = {status:'passed', scope:'Actual shared runtime schema, exact SHA-256 bytes, PNG structure and inflate validation; no visual acceptance implied.', descriptor:pack.descriptor, effects:Object.keys(pack.index.effects), files:pack.files, bytes:[...pack.descriptors.values()].reduce((s,d)=>s+d.bytes,0)};
+await writeFile(path.join(output, 'runtime-validation.json'), JSON.stringify(result, null, 2)+'\n');
+console.log(JSON.stringify(result, null, 2));

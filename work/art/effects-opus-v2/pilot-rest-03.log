@@ -1,0 +1,15 @@
+fx.explosion.blast_radius_1_5 packed 24 unique frames, 488080 decoded bytes, 1.798 seconds
+fx.explosion.blast_radius_2 packed 24 unique frames, 918816 decoded bytes, 3.905 seconds
+Traceback (most recent call last):
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/src/pack.py", line 205, in <module>
+    main()
+    ~~~~^^
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/src/pack.py", line 187, in main
+    desc, result = pack_effect(eff, args.out)
+                   ~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/src/pack.py", line 88, in pack_effect
+    im, origin, check = crop_frame(frame, f"{effect.id}/{clip_name}/{i}")
+                        ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/src/pack.py", line 38, in crop_frame
+    raise ValueError(f"{label}: painted alpha touches source canvas edge: {bbox} / {im.size}")
+ValueError: fx.explosion.vehicle_light/burst/13: painted alpha touches source canvas edge: (12, 44, 81, 104) / (96, 104)

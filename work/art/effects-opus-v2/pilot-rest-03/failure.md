@@ -1,0 +1,3 @@
+# Preserved grounded-debris clipping failure
+
+The two splash packs passed frame/crop checks. Vehicle-light failed at burst tick 13 because painted alpha touched the bottom of its 96×104 canvas. The cause was a real source discrepancy: grounded debris pieces stopped at their cosmetic ground plane, but their trailing smoke samples continued the unconstrained falling trajectory below that plane. The successor applies the same ground contact to each historical smoke position. Airborne debris remains unchanged; no Go movement or projectile rule changes. This failed run is preserved with its exact source and is not an accepted pack.

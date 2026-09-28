@@ -1,0 +1,864 @@
+{
+  "effects": {
+    "fx.explosion.aircraft": {
+      "family": "work/art/effects-opus-v2/explosions-04",
+      "family_report_sha256": "0843a2c1c1edfd6c525fac06f2c72adab97f511814f37fe1d6d6b8c976fbdb53",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.explosion.blast_radius_1_5": {
+      "family": "work/art/effects-opus-v2/explosions-04",
+      "family_report_sha256": "0843a2c1c1edfd6c525fac06f2c72adab97f511814f37fe1d6d6b8c976fbdb53",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.explosion.blast_radius_2": {
+      "family": "work/art/effects-opus-v2/explosions-04",
+      "family_report_sha256": "0843a2c1c1edfd6c525fac06f2c72adab97f511814f37fe1d6d6b8c976fbdb53",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.explosion.building_large": {
+      "family": "work/art/effects-opus-v2/explosions-04",
+      "family_report_sha256": "0843a2c1c1edfd6c525fac06f2c72adab97f511814f37fe1d6d6b8c976fbdb53",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.explosion.building_small": {
+      "family": "work/art/effects-opus-v2/explosions-04",
+      "family_report_sha256": "0843a2c1c1edfd6c525fac06f2c72adab97f511814f37fe1d6d6b8c976fbdb53",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.explosion.small": {
+      "family": "work/art/effects-opus-v2/explosions-04",
+      "family_report_sha256": "0843a2c1c1edfd6c525fac06f2c72adab97f511814f37fe1d6d6b8c976fbdb53",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.explosion.vehicle_heavy": {
+      "family": "work/art/effects-opus-v2/explosions-04",
+      "family_report_sha256": "0843a2c1c1edfd6c525fac06f2c72adab97f511814f37fe1d6d6b8c976fbdb53",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.explosion.vehicle_light": {
+      "family": "work/art/effects-opus-v2/explosions-04",
+      "family_report_sha256": "0843a2c1c1edfd6c525fac06f2c72adab97f511814f37fe1d6d6b8c976fbdb53",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.blocked_shot": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.cover_mitigated": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.decoy_defeat": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.hit_air": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.hit_heavy": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.hit_infantry": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.hit_light": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.hit_structure": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.illegal_target_marker": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.intercepted_missile": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.impact.miss_ground": {
+      "family": "work/art/effects-opus-v2/impacts-02",
+      "family_report_sha256": "492edde7e4f6f2582ea2ed589e9ab0e64f7991a82a70f4ad8eb43ff13303fd4a",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.bomb": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.interceptor": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.missile_aa": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.missile_at": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.mortar": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.rocket_ir": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.shell_artillery": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.shell_cannon": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.strategic_missile": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.tactical_missile": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.tracer_auto": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.projectile.tracer_small": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.AA": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.AA_POST": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.APC": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.ART": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.AT": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.AUTO": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.ELI": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.FIGHT": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.GUN": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.IR_ART": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.IR_FIGHT": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.IR_LOITER": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.IR_MISSILE": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.IR_STRIKE": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.MISSILE": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.REC": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.RIF": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.STRIKE": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.SY_AA": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.SY_ART": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.SY_BUGGY": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.SY_ROCKET": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.SY_TANK": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.TANK": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.TURRET": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.US_FIGHT": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.US_GUN": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    },
+    "fx.weapon_muzzle.US_STRIKE": {
+      "family": "work/art/effects-opus-v2/ballistics-02",
+      "family_report_sha256": "6136782e0ec655d6916829d63bb8a0953c4f8d908502160b19e68a2f5f77f34e",
+      "source_sha256": {
+        "contacts.py": "a2bdd90f5c4aee61a4ab0b056682451ee3dac60d64afc2623c72cbf1603a47c5",
+        "detonation.py": "cb66789a12189cefab11816240fe90b3133514f662e61133150eea752ead12cd",
+        "fam_ballistics.py": "6b1d390e1b63d2b0772f9b3a2fe0a01d7e2a17b5852633f767575dde6388c4e9",
+        "fam_explosion.py": "212ecd03e6be5f58e180987ce734eb7085da028fabe7175abd845d8adf221db8",
+        "fam_impact.py": "03e8735179b28e085ea31fcd011145694be5f375b20f5ef0e2fc64581e9c8ed5",
+        "fxkit.py": "8479bd2d45417137998c5ba5358aaee45a70ace7e50e6263ac59325269166db8",
+        "pack.py": "da8f6f6d77b52f150f91e5e107a04057010c03cd8a01173a776ad1c4761507ba",
+        "preview.py": "ddf7286b32889b44b61f10d21afafe13b6e0faf776e9fe6e2fbd98bcf5f863e9",
+        "test_pack.py": "b4932de4681c65b3e2ff7cf0833724043d5915b4c31035e616c39d272fb4c9ce"
+      }
+    }
+  },
+  "decoded_bytes_if_all_pages_resident": 17008184,
+  "scope": "Candidate art only, actual full graph validation and gameplay orientation/attachment acceptance remain separate."
+}
