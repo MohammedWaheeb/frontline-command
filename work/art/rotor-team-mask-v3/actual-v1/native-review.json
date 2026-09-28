@@ -1,0 +1,43 @@
+{
+  "source_lock": {
+    "before_sha256": "e5bb314a1f33765a65e0cf1656472eb48f333cf3e62627e349bf2ecb09a8be03",
+    "candidate_sha256": "f2efa7bdc39742579bae5236af56a4d076def9be9541643be3e1b59a9604fe37",
+    "model_sha256": "a8207dddec57da229ba8c2d9b09d4d8e4b6498ae0aeb4325617444675abcb50a",
+    "scope": "Isolated two-pass mask only for translucent non-team pieces; exact original opaque path; original RGB PNG bytes preserved by stdlib coverage merge",
+    "failed_candidate_sha256": "b50c2238e39a3b5924534cd6bdbfa891420ac27c355eedd4bbed9dbfc07d14e7",
+    "png_helper_sha256": "cbea213441e9a32310e34ad89970b00f2e5c9c1b358e412b465a8c9b503e70b8",
+    "previous_candidate_sha256": "a8b3802df678f9aeb2447fe62ba0628db9bdfc8eefcd063f1555f901ec7e039d",
+    "failed_control": "controls-v1: coverage denoising introduced colored edge values; no gate weakened"
+  },
+  "inspected": [
+    "work/art/rotor-team-mask-v3/actual-v1/cameo@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/portrait@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/unit.IR.gunship@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/unit.IR.strike@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/unit.SA.gunship@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/unit.SY.scout_drone@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/unit.US.airlift@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/unit.US.fighter@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/unit.US.gunship@1x.png",
+    "work/art/rotor-team-mask-v3/actual-v1/portrait@2x.png"
+  ],
+  "visual_result": "bounded native image acceptance; parent review pending",
+  "observations": [
+    "Airlift pylon ownership paint reads beneath both translucent rotor discs in all four diagonals; no previous black roof patches.",
+    "Open rear ramp and side boarding recesses remain intact. Portrait and cameo ownership accents are now visible.",
+    "Other rotorcraft remain legible at native size. Opaque fighter and legacy strike show no visible shape/material change."
+  ],
+  "strict_byte_gate": "FAIL preserved in check.json; no expanded tolerance accepted",
+  "strict_failures": 39,
+  "functional_failures": [],
+  "next_control": "Fresh paired same-source unchanged and candidate repeats will measure actual image quantization separately. No shipping helper promotion.",
+  "parent_review": {
+    "accepted": true,
+    "scope": "Bounded native cameo, airlift8 and scout2 views only; helper remains unpromoted pending fresh same-process control",
+    "paths": [
+      "cameo@1x.png",
+      "unit.US.airlift@1x.png",
+      "unit.SY.scout_drone@1x.png"
+    ]
+  }
+}

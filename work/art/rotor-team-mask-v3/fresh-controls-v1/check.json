@@ -1,0 +1,838 @@
+{
+  "source_lock": {
+    "before_sha256": "e5bb314a1f33765a65e0cf1656472eb48f333cf3e62627e349bf2ecb09a8be03",
+    "candidate_sha256": "f2efa7bdc39742579bae5236af56a4d076def9be9541643be3e1b59a9604fe37",
+    "model_sha256": "a8207dddec57da229ba8c2d9b09d4d8e4b6498ae0aeb4325617444675abcb50a",
+    "scope": "Isolated two-pass mask only for translucent non-team pieces; exact original opaque path; original RGB PNG bytes preserved by stdlib coverage merge",
+    "failed_candidate_sha256": "b50c2238e39a3b5924534cd6bdbfa891420ac27c355eedd4bbed9dbfc07d14e7",
+    "png_helper_sha256": "cbea213441e9a32310e34ad89970b00f2e5c9c1b358e412b465a8c9b503e70b8",
+    "previous_candidate_sha256": "a8b3802df678f9aeb2447fe62ba0628db9bdfc8eefcd063f1555f901ec7e039d",
+    "failed_control": "controls-v1: coverage denoising introduced colored edge values; no gate weakened"
+  },
+  "comparisons": [
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/hover/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 3,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/hover/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 49,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/hover/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 4,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/hover/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 3,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/hover/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 11,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 11
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/hover/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 40,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 40
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/hover/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 38,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 38
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/hover/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 10,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 10
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/hover/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 9,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/hover/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 7,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/hover/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 4,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/hover/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 6,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/hover/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 19,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 19
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/hover/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 12,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 12
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/hover/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 22,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 22
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/hover/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 25,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 25
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/hover_low_board/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/hover_low_board/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 7,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/hover_low_board/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 5,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/hover_low_board/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/hover_low_board/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 11,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 11
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/hover_low_board/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 22,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 22
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/hover_low_board/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 23,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 23
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/hover_low_board/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 12,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 12
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/hover_low_board/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 6,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/hover_low_board/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 7,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/hover_low_board/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 8,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/hover_low_board/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 8,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/hover_low_board/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 9,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 9
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/hover_low_board/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 58,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 58
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/hover_low_board/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 54,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 54
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/hover_low_board/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 16,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 16
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 4,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 3,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 6,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 9,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 9
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 13,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 13
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 11,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 11
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 11,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 11
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "beauty",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 8,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 8
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 12,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 12
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 7,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 7
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 4,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 4
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 28,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 28
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 34,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 34
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 32,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 32
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 4,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 4
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 18,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 6
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.IR.strike/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "beauty",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "beauty",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 1
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 102,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 102
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 99,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 99
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "shadow",
+      "exact": false,
+      "changed_pixels": 3,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 3
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 60,
+      "max_channel_difference": 6,
+      "alpha_changed_pixels": 7
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.IR.strike/fly/d11_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/portrait",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 3,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/portrait",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 4,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/portrait",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/portrait",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 4,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.airlift/cameo",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 4,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 1
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.airlift/cameo",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 3,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 1
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.airlift/cameo",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.airlift/cameo",
+      "layer": "beauty",
+      "exact": false,
+      "changed_pixels": 3,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 1
+    }
+  ],
+  "summary": {
+    "original_repeat": {
+      "images": 22,
+      "byte_equal": 4,
+      "max_changed_pixels": 28,
+      "max_channel_difference": 1,
+      "total_changed_pixels": 132
+    },
+    "candidate_repeat": {
+      "images": 22,
+      "byte_equal": 4,
+      "max_changed_pixels": 102,
+      "max_channel_difference": 1,
+      "total_changed_pixels": 376
+    },
+    "original_candidate": {
+      "images": 22,
+      "byte_equal": 1,
+      "max_changed_pixels": 99,
+      "max_channel_difference": 6,
+      "total_changed_pixels": 397
+    },
+    "historical_original_fresh_original": {
+      "images": 22,
+      "byte_equal": 4,
+      "max_changed_pixels": 25,
+      "max_channel_difference": 1,
+      "total_changed_pixels": 120
+    }
+  },
+  "strict_byte_gate": "FAIL",
+  "tolerance_gate": "Not defined; numeric observations only. Parent review required, no generalized tolerance."
+}

@@ -1,0 +1,269 @@
+{
+  "checks": [
+    {
+      "name": "1-0/team transmission",
+      "ok": true,
+      "detail": {
+        "observed": 1.0,
+        "expected": 1
+      }
+    },
+    {
+      "name": "1-0/plain surface transparent in mask",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "name": "1-0/ray budget restored",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1-0.09/team transmission",
+      "ok": true,
+      "detail": {
+        "observed": 0.9098039215686274,
+        "expected": 0.91
+      }
+    },
+    {
+      "name": "1-0.09/plain surface transparent in mask",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "name": "1-0.09/ray budget restored",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1-0.5/team transmission",
+      "ok": true,
+      "detail": {
+        "observed": 0.5019607843137255,
+        "expected": 0.5
+      }
+    },
+    {
+      "name": "1-0.5/plain surface transparent in mask",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "name": "1-0.5/ray budget restored",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "1-1/team transmission",
+      "ok": true,
+      "detail": {
+        "observed": 0.0,
+        "expected": 0
+      }
+    },
+    {
+      "name": "1-1/plain surface transparent in mask",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "name": "1-1/ray budget restored",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "4-0.09/team transmission",
+      "ok": true,
+      "detail": {
+        "observed": 0.68703022875817,
+        "expected": 0.6857496100000001
+      }
+    },
+    {
+      "name": "4-0.09/plain surface transparent in mask",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "name": "4-0.09/ray budget restored",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "8-0.09/team transmission",
+      "ok": true,
+      "detail": {
+        "observed": 0.4701184640522876,
+        "expected": 0.47025252761515224
+      }
+    },
+    {
+      "name": "8-0.09/plain surface transparent in mask",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "name": "8-0.09/ray budget restored",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "4-0.5/team transmission",
+      "ok": true,
+      "detail": {
+        "observed": 0.06315359477124184,
+        "expected": 0.0625
+      }
+    },
+    {
+      "name": "4-0.5/plain surface transparent in mask",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "name": "4-0.5/ray budget restored",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "8-0/team transmission",
+      "ok": true,
+      "detail": {
+        "observed": 1.0,
+        "expected": 1
+      }
+    },
+    {
+      "name": "8-0/plain surface transparent in mask",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "name": "8-0/ray budget restored",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "error restores all source state",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "failures": [],
+  "strict_byte_comparisons": [
+    {
+      "name": "1-0",
+      "layer": "beauty",
+      "byte_equal": false,
+      "changed_pixels": 6,
+      "max_difference": 1
+    },
+    {
+      "name": "1-0",
+      "layer": "shadow",
+      "byte_equal": true,
+      "changed_pixels": 0,
+      "max_difference": 0
+    },
+    {
+      "name": "1-0.09",
+      "layer": "beauty",
+      "byte_equal": false,
+      "changed_pixels": 2,
+      "max_difference": 1
+    },
+    {
+      "name": "1-0.09",
+      "layer": "shadow",
+      "byte_equal": false,
+      "changed_pixels": 3,
+      "max_difference": 1
+    },
+    {
+      "name": "1-0.5",
+      "layer": "beauty",
+      "byte_equal": false,
+      "changed_pixels": 1,
+      "max_difference": 1
+    },
+    {
+      "name": "1-0.5",
+      "layer": "shadow",
+      "byte_equal": true,
+      "changed_pixels": 0,
+      "max_difference": 0
+    },
+    {
+      "name": "1-1",
+      "layer": "beauty",
+      "byte_equal": true,
+      "changed_pixels": 0,
+      "max_difference": 0
+    },
+    {
+      "name": "1-1",
+      "layer": "shadow",
+      "byte_equal": false,
+      "changed_pixels": 1,
+      "max_difference": 1
+    },
+    {
+      "name": "4-0.09",
+      "layer": "beauty",
+      "byte_equal": true,
+      "changed_pixels": 0,
+      "max_difference": 0
+    },
+    {
+      "name": "4-0.09",
+      "layer": "shadow",
+      "byte_equal": false,
+      "changed_pixels": 1,
+      "max_difference": 1
+    },
+    {
+      "name": "8-0.09",
+      "layer": "beauty",
+      "byte_equal": true,
+      "changed_pixels": 0,
+      "max_difference": 0
+    },
+    {
+      "name": "8-0.09",
+      "layer": "shadow",
+      "byte_equal": false,
+      "changed_pixels": 2,
+      "max_difference": 1
+    },
+    {
+      "name": "4-0.5",
+      "layer": "beauty",
+      "byte_equal": true,
+      "changed_pixels": 0,
+      "max_difference": 0
+    },
+    {
+      "name": "4-0.5",
+      "layer": "shadow",
+      "byte_equal": false,
+      "changed_pixels": 1,
+      "max_difference": 1
+    },
+    {
+      "name": "8-0",
+      "layer": "beauty",
+      "byte_equal": true,
+      "changed_pixels": 0,
+      "max_difference": 0
+    },
+    {
+      "name": "8-0",
+      "layer": "shadow",
+      "byte_equal": false,
+      "changed_pixels": 2,
+      "max_difference": 1
+    }
+  ],
+  "strict_byte_gate": "FAIL; render noise not reclassified"
+}

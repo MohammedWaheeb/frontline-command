@@ -1,0 +1,76 @@
+{
+  "before_sha256": "e5bb314a1f33765a65e0cf1656472eb48f333cf3e62627e349bf2ecb09a8be03",
+  "promoted_sha256": "f2efa7bdc39742579bae5236af56a4d076def9be9541643be3e1b59a9604fe37",
+  "png_sha256": "cbea213441e9a32310e34ad89970b00f2e5c9c1b358e412b465a8c9b503e70b8",
+  "original_definitions_ast_exact": [
+    "srgb",
+    "reset",
+    "setup_camera",
+    "setup_lights",
+    "shadow_catcher",
+    "_grime_group",
+    "mat",
+    "set_emission_scale",
+    "set_grime_all",
+    "set_char_all",
+    "faction_mats",
+    "_link",
+    "empty",
+    "_finish",
+    "box",
+    "cyl",
+    "sphere",
+    "prism",
+    "slab",
+    "scorch_decal",
+    "project_px",
+    "mirror_y",
+    "rng",
+    "Rig",
+    "_team_mask_material",
+    "render_passes",
+    "heading_to_blender_z",
+    "save_blend"
+  ],
+  "archived": {
+    "assets/pipeline/blender/fclib.py": "e5bb314a1f33765a65e0cf1656472eb48f333cf3e62627e349bf2ecb09a8be03",
+    "work/art/infantry-roster/source-lock.json": "a500c2987bb61af79c29370b97913e152eaab0569e0244136fee1e5b14a3d961",
+    "work/art/building-roster/production-lock.json": "1ed27a44ff72254c29e113686e0887b293fd5b2ae6a6f891e8c0c4e245a8fd83",
+    "work/art/vehicle-production/production-lock.json": "11e8e518ad1b93053b2fc33af56978532cb3928efe1ebd00547d816e5eb9db09"
+  },
+  "lock_amendments": [
+    {
+      "path": "work/art/infantry-roster/source-lock.json",
+      "before_sha256": "a500c2987bb61af79c29370b97913e152eaab0569e0244136fee1e5b14a3d961",
+      "after_sha256": "c6871a75440dc01ad431979ba7aa8409d39eaa70d357659dce57649b72bf2c94",
+      "fields": [
+        "sha256.assets/pipeline/blender/fclib.py",
+        "sha256.assets/pipeline/blender/team_mask_png.py"
+      ],
+      "other_fields_exact": true
+    },
+    {
+      "path": "work/art/building-roster/production-lock.json",
+      "before_sha256": "1ed27a44ff72254c29e113686e0887b293fd5b2ae6a6f891e8c0c4e245a8fd83",
+      "after_sha256": "2ce5292b8acae2682c60cb75a44dead7fc1d544991a85c2fac7a3c71ea9c18d5",
+      "fields": [
+        "sources.assets/pipeline/blender/fclib.py",
+        "sources.assets/pipeline/blender/team_mask_png.py"
+      ],
+      "other_fields_exact": true
+    },
+    {
+      "path": "work/art/vehicle-production/production-lock.json",
+      "before_sha256": "11e8e518ad1b93053b2fc33af56978532cb3928efe1ebd00547d816e5eb9db09",
+      "after_sha256": "e813009852f8bad8896874fdf65a3a6a9e6fc8c9e6c84361d5d8c74e29eda5ab",
+      "fields": [
+        "sources.assets/pipeline/blender/fclib.py",
+        "sources.assets/pipeline/blender/team_mask_png.py"
+      ],
+      "other_fields_exact": true
+    }
+  ],
+  "strict_byte_gate": "FAIL retained; bounded control/native acceptance only",
+  "native_parent_approval": "All actual sheets plus same-process repeats reviewed; controlled production authorized at next whole asset boundary",
+  "no_prior_raw_png_or_manifest_edits": true
+}

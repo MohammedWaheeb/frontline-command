@@ -1,6 +1,6 @@
 {
   "scope": "Root-authorized59building production; full per-asset checks/native review, final in-game acceptance separate",
-  "model_sha256": "1d31749c5fef5db0f8c1b1ad1ae6340593352082a0304a8a76d32b53d9a73867",
+  "model_sha256": "f69e9291bcbe4b074d460b550f26b1dab1688dd1ae9f9518f8aae7a3be059b60",
   "assets": [
     "building.IR.aa_post",
     "building.IR.barracks",
@@ -63,9 +63,9 @@
     "building.US.tech"
   ],
   "sources": {
-    "assets/pipeline/blender/models/building_roster.py": "1d31749c5fef5db0f8c1b1ad1ae6340593352082a0304a8a76d32b53d9a73867",
+    "assets/pipeline/blender/models/building_roster.py": "f69e9291bcbe4b074d460b550f26b1dab1688dd1ae9f9518f8aae7a3be059b60",
     "assets/pipeline/blender/models/building_common.py": "529f803ec0562428b0e9bfe9d447822ef95c336b56d65d68339a0ab34cd73d89",
-    "assets/pipeline/blender/fclib.py": "f2efa7bdc39742579bae5236af56a4d076def9be9541643be3e1b59a9604fe37",
+    "assets/pipeline/blender/fclib.py": "e5bb314a1f33765a65e0cf1656472eb48f333cf3e62627e349bf2ecb09a8be03",
     "assets/pipeline/blender/render_asset.py": "8da035829b13704d678152f41fa3f86c5945e87be2503d9d0307157569bd38b4",
     "assets/pipeline/blender/render_ui_shots.py": "6067b4ec709a18bdd68b32a45296d4e00f634477a9d57f700a21d11777cc3135",
     "assets/pipeline/tools/pack_sprites.py": "18a933faed0eb64a273ec273428047942fbb4b95f6a97d66a3d45375a366848a",
@@ -134,9 +134,8 @@
     "work/art/building-roster/check-one.py": "8293e0a3c6e880504146ce3ab054b6f147064d92a42a2d64b3f00fcd7074de62",
     "work/art/building-roster/derive-ui.py": "c5c0161460d4f06eb17d81719dbaaa1ab7e42ca25b76dfcfa2003b93d0620779",
     "work/art/building-roster/packed-contact.py": "f19bd9c6dd95d628142feb050821e0fa58b6ab65fe3fe14c80f310339ad5b0ff",
-    "work/art/building-roster/production-preflight.py": "941e72df06cda1b9f5e3568bb4c1e49806dd6f7805e079397c2334d9fe2cff9e",
-    "assets/pipeline/tools/sprite_ink_bounds.py": "cda9670317a57b3d0693777978fa049b6e2ef035c120f5c1920aa0b8de05048e",
-    "assets/pipeline/blender/team_mask_png.py": "cbea213441e9a32310e34ad89970b00f2e5c9c1b358e412b465a8c9b503e70b8"
+    "work/art/building-roster/production-preflight.py": "8dc02265a65349d2ed3a54c00c2e4352c1aa32d48ac19e56386851ef4c0a967b",
+    "assets/pipeline/tools/sprite_ink_bounds.py": "cda9670317a57b3d0693777978fa049b6e2ef035c120f5c1920aa0b8de05048e"
   },
   "approved_amendment": {
     "scope": "Accepted open-apron repair arm for US/IR/SY only; SA and all other55 buildings unchanged",
@@ -166,5 +165,20 @@
     "poses_per_target_before": 29,
     "poses_per_target_after": 41,
     "preserved_exports": "work/art/interceptor-launch-pilot/before-us-export/files.json"
+  },
+  "polish_amendment": {
+    "source_stage": "work/art/building-polish-production-v2",
+    "source_sha256": "f69e9291bcbe4b074d460b550f26b1dab1688dd1ae9f9518f8aae7a3be059b60",
+    "accepted_ids": [
+      "building.US.airfield",
+      "building.SA.airfield",
+      "building.IR.drone_hub",
+      "building.IR.interceptor_battery",
+      "building.SA.interceptor_battery",
+      "building.SY.interceptor_battery",
+      "building.SY.air_workshop"
+    ],
+    "scope": "Three faction battery identity/readability plus four distinct producers; exact bounded source/clearance/native/full export receipts; no Go/manifest change",
+    "six_scene_native_review_sha256": "a4e874536135107c999f65082e57585eb43f66019d7604acfa14b7c75ce3fd29"
   }
 }

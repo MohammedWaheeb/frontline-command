@@ -1,0 +1,107 @@
+{
+  "basis": "work/art/rotor-team-mask-v3/fresh-controls-v1/check.json",
+  "basis_sha256": "6ac935a34a4f021031c0c43bcf6541b2dab0b255339ee07454f4eee9619c1a48",
+  "beauty_shadow_only": {
+    "original_repeat": {
+      "images": 18,
+      "max_changed_pixels": 28,
+      "max_channel_difference": 1,
+      "total_changed_pixels": 130
+    },
+    "candidate_repeat": {
+      "images": 18,
+      "max_changed_pixels": 102,
+      "max_channel_difference": 1,
+      "total_changed_pixels": 375
+    },
+    "original_candidate": {
+      "images": 18,
+      "max_changed_pixels": 99,
+      "max_channel_difference": 1,
+      "total_changed_pixels": 317
+    },
+    "historical_original_fresh_original": {
+      "images": 18,
+      "max_changed_pixels": 25,
+      "max_channel_difference": 1,
+      "total_changed_pixels": 119
+    }
+  },
+  "opaque_fighter_team": [
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.fighter/fly/d03_f00",
+      "layer": "team",
+      "exact": true,
+      "changed_pixels": 0,
+      "max_channel_difference": 0,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_repeat",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "candidate_repeat",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "original_candidate",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 2,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    },
+    {
+      "comparison": "historical_original_fresh_original",
+      "key": "unit.US.fighter/fly/d11_f00",
+      "layer": "team",
+      "exact": false,
+      "changed_pixels": 1,
+      "max_channel_difference": 1,
+      "alpha_changed_pixels": 0
+    }
+  ],
+  "legacy_IR_strike": "Its alpha0.16 pusher-prop disc is a translucent case, not an opaque control. Team alpha changes are intended. Source lines48\u201349 in drone_fixed.py.",
+  "strict_byte_gate": "FAIL retained; no universal tolerance defined",
+  "conclusion": "Fresh unchanged candidate repeats reproduce one-channel-value quantization on as many102pixels in these actual images. Original-to-candidate beauty/shadow differences are at most99pixels/delta1. This establishes measured numerical variability for these cases only; visual and semantic source gates remain separate."
+}
