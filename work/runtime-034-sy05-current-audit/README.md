@@ -31,3 +31,10 @@ a defect from it. No speculative shared-policy patch is made.
 
 The64.521-second process duration is shared-host correctness evidence only
 (`GOMAXPROCS=2`), not a performance measurement.
+
+Easy run `20260928T214245Z-factory-easy-unchanged` also passes unchanged at9,055.
+It captures relay1 at1,155, the optional factory at2,436, relay2 at5,814 and relay3
+at9,055. All709 execution receipts in656 batches are `ok`; factory preservation,
+midpoint1,156 restore, full replay, restart and separate surrender-defeat gates
+pass. Final hash `128dbf048af03badd551b99e1f406fbf0dd7c1145e97ef7d7c6b1299afa7f360`.
+The33.873-second shared-host process duration is not a performance claim.

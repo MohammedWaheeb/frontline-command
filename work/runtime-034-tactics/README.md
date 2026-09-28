@@ -305,3 +305,7 @@ The old Normal stray-AT relay loss predates the queued Move/current-cohort fix;
 it is not a reproduced failure of this current source. Five of the original nine
 optional failures now have separate successful routes; this is not a consolidated
 current matrix result.
+The same unchanged current source then passed factory optional Easy at9,055 with
+all709 receipts accepted and full ordinary acceptance gates. Six of the original
+nine optional failures have separate successful routes; original matrix counts
+are still unchanged.
