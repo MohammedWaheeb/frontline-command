@@ -3,7 +3,8 @@ import {ArtLibrary} from '../../src/render/art';
 import {CatalogIndex,type Catalog} from '../../src/content/catalog';
 import {DEFAULT_SETTINGS} from '../../src/app/settings';
 import {OfflineTransport} from '../../src/runtime/offline';
-import type {GameMap,PlayerSnapshot} from '../../src/runtime';
+import type {Entity,GameMap,PlayerSnapshot,OrderIntent} from '../../src/runtime';
+import type {FlightPresentation} from '../../src/render/flight-presentation';
 
 // Synthetic renderer acceptance geometry, not a shipping map or mission.
 const map:GameMap={id:'render-fixture',title:'Renderer acceptance',author:'automated test',version:'1',format_version:1,ruleset:'standard-v2',width:64,height:64,
@@ -29,6 +30,32 @@ const qa={runtime,renderer,art,gestures,recoveries,map,catalog,
  graphicsLost(){return (renderer as unknown as {lost:boolean}).lost},
  loseGraphics(){const canvas=host.querySelector('canvas')!,gl=canvas.getContext('webgl2')??canvas.getContext('webgl');if(!gl)throw Error('No WebGL context');graphicsExtension=gl.getExtension('WEBGL_lose_context');if(!graphicsExtension)throw Error('Context-loss test extension unavailable');graphicsExtension.loseContext()},
  restoreGraphics(){if(!graphicsExtension)throw Error('Context-loss test was not started');graphicsExtension.restoreContext()},
+ async aircraftLifecycle(){
+  // Public practice orders establish a real Go flight/service lifecycle. Removal
+  // is explicitly a practice action, not evidence of a combat kill or balance.
+  await runtime.create({map,ruleset:'practice-v1',players:[{id:1,faction:'IR',team:1,controller:'human'},{id:2,faction:'US',team:2,controller:'script'}],seed:42,skip_countdown:true});
+  const command=async(order:OrderIntent)=>{const preview=await runtime.previewOrders([order]);if(!preview.results[0]?.accepted)throw Error(`Flight fixture ${order.kind}: ${JSON.stringify(preview)}`);await runtime.sendOrders([order]);await runtime.step(2)};
+  for(const [type,x,y] of [['power',18000,12000],['power',10000,17000],['IR.drone_hub',16000,18000],['IR.strike',24000,24000]] as const)await command({kind:'practice_spawn',target:1,type,index:1,position:{x,y}});
+  const id=runtime.current!.entities.find(e=>e.type==='IR.strike')!.id;
+  await renderer.whenAssetsReady();
+  type FlightActor={entity:Entity;flight:FlightPresentation;changedAt:number;state:(now:number)=>{name:string}|undefined;sheet?:{states:Map<string,unknown>};cruiseAltitude:()=>number};
+  const internals=renderer as unknown as {actors:Map<number,FlightActor>;deaths:Array<{actor:FlightActor}>};
+  const sample=(at?:number)=>{const actor=internals.actors.get(id)??internals.deaths.find(d=>d.actor.entity.id===id)?.actor;if(!actor)throw Error('Flight actor missing');const now=at??performance.now();return {tick:runtime.current!.tick,state:actor.entity.state,landed:actor.entity.landed,pose:actor.state(now)?.name,altitude:actor.flight.altitude(actor.entity,now,actor.cruiseAltitude()),changedAt:actor.changedAt,at:now,authoredStates:[...(actor.sheet?.states.keys()??[])]}};
+  const flying=sample();await command({kind:'return',entities:[id]});
+  for(let n=0;n<450&&!runtime.current!.entities.find(e=>e.id===id)?.landed;n++)await runtime.step(4);
+  const landed=runtime.current!.entities.find(e=>e.id===id);if(!landed?.landed||landed.state!=='servicing')throw Error(`Actual service landing not reached: ${JSON.stringify(landed)}`);
+  const landing=sample();renderer.center(landed.position!);
+  await new Promise(resolve=>setTimeout(resolve,700));const service=sample();
+  for(let n=0;n<250&&runtime.current!.entities.find(e=>e.id===id)?.state==='servicing';n++)await runtime.step(4);
+  if(runtime.current!.entities.find(e=>e.id===id)?.state!=='landed')throw Error('Go service did not complete');
+  const ready=sample();await command({kind:'move',entities:[id],position:{x:30000,y:28000}});const takeoff=sample();
+  if(takeoff.landed)throw Error('Go takeoff did not occur');
+  await new Promise(resolve=>setTimeout(resolve,700));const cruising=sample();
+  await command({kind:'practice_remove',target:id});const crash=sample();
+  const hashBefore=await runtime.hash();await new Promise(resolve=>setTimeout(resolve,900));const grounded=sample(),hashAfter=await runtime.hash();
+  renderer.center(landed.position!);
+  return {flying,landing,service,ready,takeoff,cruising,crash,grounded,hashBefore,hashAfter,removal:'public practice_remove; not a combat kill',legacyArtGap:'IR.strike legacy sample lacks parked, rearm, launch and recover poses'};
+ },
  async buildingAnimation(){
   await runtime.create({map,mission:{...mission,id:'render-buildings',initial:[
    {tag:'test-power',type:'power',owner:1,position:{x:18000,y:15000},count:1},

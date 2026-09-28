@@ -24,11 +24,11 @@ export function buildingPresentations(snapshot:PlayerSnapshot,catalog:CatalogInd
 }
 
 /** Select only presentation states supported by the currently permitted Go actor. */
-export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:boolean,states:ReadonlyMap<string,SpriteState>,building?:BuildingPresentation):SpriteState|undefined{
+export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:boolean,states:ReadonlyMap<string,SpriteState>,building?:BuildingPresentation,turning=0):SpriteState|undefined{
   const air=unit?.armor==='air';
   const loaded=!!e.private?.cargo||e.state==='returning_cargo';
   let names:string[]=[];
-  if(e.state==='destroyed')names=['death','crash','wreck','rubble'];
+  if(e.state==='destroyed')names=air?['crash','death','wreck']:['death','wreck','rubble'];
   else if(e.type==='map.supply_field')names=[e.state||'full'];
   else if(!e.complete)names=['construct','foundation'];
   else if(e.state==='selling')names=['sell','construct'];
@@ -48,7 +48,8 @@ export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:bool
   else if(building?.strategicProgress!==undefined)names=building.strategicProgress>=1000?['ready','idle']:['charging','idle'];
   else if(building&&e.private?.passengers.length)names=['garrisoned','idle'];
   else if(e.concealed)names=['concealed_idle','cover','idle'];
-  else if(e.state.includes('repair'))names=building?['repair_active','service_active','idle']:unit?.role==='medic'?['work_heal','work_repair','idle']:['work_repair','deployed_work','idle'];
+  else if(e.state.includes('repair'))names=building?['repair_active','service_active','idle']:unit?.role==='medic'?['work_heal','work_repair','idle']:e.deployed?['deployed_work','work_repair','idle']:['work_repair','deployed_work','idle'];
+  else if(e.state==='salvage')names=['work_salvage','channel','idle'];
   else if(e.state.includes('build'))names=['work_build','deploy_build','idle'];
   else if(e.state==='loading')names=['work_load','idle'];
   else if(e.state==='unloading')names=['work_unload','doors_open','idle'];
@@ -57,8 +58,16 @@ export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:bool
   else if(e.state==='capture_exit_blocked')names=['idle'];
   else if(e.state.includes('captur'))names=['work_capture','channel','idle'];
   else if(e.state.includes('sabotage'))names=['work_sabotage','channel','idle'];
+  else if(e.deployed&&unit?.role==='launcher'&&e.private)names=[e.private.charges===0?'ready_empty':e.private.charges>=2?'ready_two_charges':'ready','ready','deployed','idle'];
   else if(e.deployed)names=['deployed','ready','hulldown_idle','idle'];
-  else if(air)names=e.landed?['parked','idle']:moving?['fly','move','hover']:['hover','fly'];
+  else if(air){
+   if(e.landed)names=e.state==='servicing'?['rearm','parked','idle']:['parked','idle'];
+   else if(e.health<450)names=['damaged','fly','hover'];
+   else if(unit?.weapon&&e.private?.ammo===0)names=['empty','fly','hover'];
+   else if(e.private?.orders[0]?.kind==='orbit')names=['orbit','hover','fly'];
+   else if(moving&&Math.abs(turning)>1000)names=[turning>0?'bank_left':'bank_right','fly','move','hover'];
+   else names=moving?['fly','move','hover']:['hover','fly'];
+  }
   else if(moving)names=loaded?['move_loaded','move']:['move'];
   else if(e.health<450)names=loaded?['damaged_loaded','damaged','idle_loaded','idle']:['damaged','idle'];
   else if(loaded)names=['idle_loaded','idle'];

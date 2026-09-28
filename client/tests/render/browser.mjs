@@ -48,6 +48,11 @@ try{
  await page.screenshot({path:path.join(evidence,'deployment-pack-progress.png')});
  const buildings=await page.evaluate(()=>window.qa.buildingAnimation());assert.equal(buildings.production.state,'produce');assert(buildings.demand>buildings.capacity);assert.equal(buildings.lowpower.state,'lowpower');assert.equal(buildings.disabled.state,'disabled');assert.equal(buildings.selling.state,'sell');assert.equal(buildings.selling.progress,500);assert.equal(buildings.selling.source.state,'construct');assert.equal(buildings.selling.source.index,buildings.selling.frames-1-buildings.selling.frame);result.checks.buildingAnimation=buildings;
  await page.screenshot({path:path.join(evidence,'building-production-power-selling.png')});
+ const flight=await page.evaluate(()=>window.qa.aircraftLifecycle());
+ assert.equal(flight.flying.landed,false);assert(flight.flying.altitude>0);assert.equal(flight.landing.state,'servicing');assert.equal(flight.service.altitude,0);assert.equal(flight.ready.landed,true);
+ assert.equal(flight.takeoff.landed,false);assert(flight.takeoff.altitude<flight.cruising.altitude);assert.equal(flight.cruising.altitude,flight.flying.altitude);
+ assert.equal(flight.crash.pose,'crash');assert(flight.crash.altitude>0);assert.equal(flight.grounded.altitude,0);assert.equal(flight.hashBefore,flight.hashAfter);result.checks.aircraftLifecycle=flight;
+ await page.screenshot({path:path.join(evidence,'aircraft-practice-crash-grounded.png')});
  const beforeLoss=await page.evaluate(async()=>{await window.qa.rewind();return {tick:window.qa.runtime.current.tick,hash:(await window.qa.runtime.save()).hash,gestures:window.qa.gestures.length}});
  await page.evaluate(()=>window.qa.loseGraphics());await page.waitForFunction(()=>window.qa.graphicsLost());
  const lostGestures=await page.evaluate(()=>window.qa.gestures.length);await page.mouse.click(600,400);assert.equal(await page.evaluate(()=>window.qa.gestures.length),lostGestures);

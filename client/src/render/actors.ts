@@ -5,6 +5,7 @@ import type {ArtLibrary,SpriteSheet,SpriteState} from './art';
 import {headingIndex,toScreen} from './iso';
 import {drawStructure} from './structure';
 import {actorSpriteState,visibleSquadMembers,type BuildingPresentation} from './poses';
+import {FlightPresentation} from './flight-presentation';
 
 interface LayeredPart {root:Container;shadowRoot:Container;shadow:Sprite;beauty:Sprite;team:Sprite;offset:Point;poses:Record<string,{state:string;direction:number;frame:number}>}
 function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart {
@@ -27,10 +28,12 @@ export class ActorVisual {
  private previousFacing=0;private nextFacing=0;
  private action?:{names:string[];at:number};
  private livingMembers=Infinity;
+ private readonly flight=new FlightPresentation();private suppressTransition=false;
  presentation?:BuildingPresentation;
  entity:Entity;
  constructor(entity:Entity,private catalog:CatalogIndex,art:ArtLibrary,faction?:string){
   this.id=entity.id;this.entity=entity;this.lastPosition=this.nextPosition={...entity.position!};
+  this.lastState=entity.state;this.stateAt=performance.now();this.previousFacing=this.nextFacing=entity.facing;
   // All projected ground shadows sit behind the whole actor. A turret's
   // independent shadow must never darken an already-painted hull or plinth.
   this.root.addChild(this.groundShadows,this.fallback,this.overlays);
@@ -47,12 +50,16 @@ export class ActorVisual {
   }):Promise.resolve();
  }
  update(entity:Entity,now:number){
-  const p=this.position(now);this.lastPosition=p;this.nextPosition={...entity.position!};this.changedAt=now;
-  this.previousFacing=this.nextFacing;this.nextFacing=entity.facing;
+  const p=this.suppressTransition?entity.position!:this.position(now);this.lastPosition=p;this.nextPosition={...entity.position!};this.changedAt=now;
+  this.previousFacing=this.suppressTransition?entity.facing:this.nextFacing;this.nextFacing=entity.facing;
+  const unit=this.catalog.units.get(entity.type);
+  if(unit?.armor==='air'&&!this.suppressTransition)this.flight.observe(this.entity,entity,now,this.cruiseAltitude(),this.sheet?.states,unit.faction==='IR'||unit.role==='scout_drone');
+  this.suppressTransition=false;
   if(entity.state!==this.lastState){this.lastState=entity.state;this.stateAt=now}
   this.entity=entity;
  }
- clearFeedback(){this.action=undefined}
+ clearFeedback(){this.action=undefined;this.flight.reset();this.suppressTransition=true}
+ private cruiseAltitude(){return Math.max(20,(this.sheet?.meta.air?.cruise_altitude_mt??1400)/1000*25)}
  cue(kind:string,now:number){
   const names=kind==='weapon_fired'?['fire','volley','launch']:kind==='interceptor_fired'?['launch']:kind==='strategic_activated'?['activate']:undefined;
   if(names)this.action={names,at:now};
@@ -66,16 +73,19 @@ export class ActorVisual {
   // Never extrapolate beyond an authorized position.
   return {x:this.lastPosition.x+(this.nextPosition.x-this.lastPosition.x)*a,y:this.lastPosition.y+(this.nextPosition.y-this.lastPosition.y)*a};
  }
- private state(now:number):SpriteState|undefined{
+ private state(now:number,reducedMotion=false):SpriteState|undefined{
   if(!this.sheet)return;
   const action=this.activeAction(now);
   if(action&&action.part!=='turret'&&!(this.presentation&&this.entity.health<=500))return action;
+  const transition=this.entity.enabled&&this.entity.complete?this.flight.state(now,this.sheet.states,reducedMotion):undefined;
+  if(transition)return transition;
   const moving=Math.hypot(this.nextPosition.x-this.lastPosition.x,this.nextPosition.y-this.lastPosition.y)>4;
-  return actorSpriteState(this.entity,this.catalog.units.get(this.entity.type),moving,this.sheet.states,this.presentation);
+  const turning=reducedMotion?0:((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000;
+  return actorSpriteState(this.entity,this.catalog.units.get(this.entity.type),moving,this.sheet.states,this.presentation,turning);
  }
  private frameIndex(state:SpriteState,now:number){
   const progress=state.name==='charging'?this.presentation?.strategicProgress??0:this.entity.progress;
-  const start=this.action?.names.includes(state.name)?this.action.at:this.stateAt;
+  const start=this.action?.names.includes(state.name)?this.action.at:this.flight.startedAt(state.name,now)??this.stateAt;
   let frame=state.progress_driven?Math.min(state.frames-1,Math.max(0,Math.floor(progress/1000*state.frames))):state.fps>0?Math.max(0,Math.floor((now-start)/1000*state.fps)):0;
   return state.loop?frame%state.frames:Math.min(state.frames-1,frame);
  }
@@ -109,10 +119,10 @@ export class ActorVisual {
  }
  render(now:number,team:number,selected:boolean,healthBars:'always'|'selected'|'damaged',reducedMotion:boolean){
   const e=this.entity,p=this.position(now),screen=toScreen(p.x,p.y),unit=this.catalog.units.get(e.type),building=this.catalog.buildings.get(e.type);
-  const air=unit?.armor==='air'&&!e.landed,altitude=air?Math.max(20,(this.sheet?.meta.air?.cruise_altitude_mt??1400)/1000*25):0;
+  const altitude=unit?.armor==='air'?this.flight.altitude(e,now,this.cruiseAltitude(),reducedMotion):0,air=altitude>0;
   this.root.position.set(screen.x,screen.y);this.root.zIndex=p.x+p.y+(air?1000000:0);
   this.root.alpha=e.concealed?.65:1;
-  const state=this.state(now),facing=reducedMotion?e.facing:this.previousFacing+(((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000)*Math.min(1,(now-this.changedAt)/50);
+  const state=this.state(now,reducedMotion),facing=reducedMotion?e.facing:this.previousFacing+(((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000)*Math.min(1,(now-this.changedAt)/50);
   const animationTime=reducedMotion?(e.state==='destroyed'?this.stateAt+10000:this.activeAction(now)?this.action!.at:this.stateAt):now;
   this.fallback.visible=!state;
   if(state){
