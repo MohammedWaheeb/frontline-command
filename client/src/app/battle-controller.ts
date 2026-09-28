@@ -28,7 +28,7 @@ export class BattleController {
  async mount(host:HTMLElement){
   await this.app.beforeBattlefield();if(this.closed)return;
   const state=this.app.state.get();if(!state.catalog||!state.session.map)throw Error('The session map and catalog must be loaded.');
-  const renderer=await BattlefieldRenderer.create(host,{map:state.session.map,catalog:state.catalog,art,settings:state.settings,onGesture:gesture=>this.gesture(gesture),onError:error=>this.app.error(error)});
+  const renderer=await BattlefieldRenderer.create(host,{map:state.session.map,environment:this.app.environmentFor(state.session.map),catalog:state.catalog,art,settings:state.settings,onGesture:gesture=>this.gesture(gesture),onError:error=>this.app.error(error)});
   if(this.closed){renderer.dispose();return}this.renderer=renderer;renderer.setMissionMarkers(this.state.get().markers);this.detachAudio=this.app.audioDirector.attachBattlefield(state.session.map,()=>({viewport:renderer.viewport(),bounds:entity=>renderer.bounds(entity)}));
   this.app.frames.add(this.frame);if(this.app.sessions.transport?.current)this.frame(this.app.sessions.transport.current);
   await renderer.whenAssetsReady();if(this.closed||this.app.sessions.state.id!==this.scope)return;if(!['online','observer'].includes(this.app.sessions.state.kind??''))await this.app.sessions.resume();

@@ -3,10 +3,12 @@ import {sha256Hex} from './crypto';
 import type {InstalledPack} from './cache';
 import type {Difficulty,Faction,GameMap,OfflineConfig} from './types';
 import type {OfflineTransport} from './offline';
+import {decodeMapEnvironment,type MapEnvironment} from '../content/environment';
 
 export interface LibraryPack {id:string;version:string;manifest_url:string}
 export interface LibraryFile {id:string;version:string;title:string;url:string;sha256:string;bytes:number;required_packs:string[]}
-export interface LibraryMap extends LibraryFile {author:string;players:1|2|3|4;kind:'skirmish'|'scenario'}
+export interface LibraryEnvironment {url:string;sha256:string;bytes:number}
+export interface LibraryMap extends LibraryFile {author:string;players:1|2|3|4;kind:'skirmish'|'scenario';environment?:LibraryEnvironment}
 export interface LibraryMission extends LibraryFile {map_id:string;mode:'tutorial'|'campaign'|'coop';faction:Faction;order:number;presentation_url?:string}
 export interface ContentIndex {format_version:1;version:string;packs:LibraryPack[];maps:LibraryMap[];missions:LibraryMission[]}
 export type LibraryValidator=Pick<OfflineTransport,'content'|'validateMap'|'validateMission'>;
@@ -42,7 +44,7 @@ export function decodeContentIndex(source:Uint8Array):ContentIndex{
  for(const pack of packs){shape(pack,['id','version','manifest_url']);if(!identifier(pack.id)||!identifier(pack.version)||!staticPath(pack.manifest_url))fail('A pack reference is invalid.')}
  unique(packs.map(p=>(p as LibraryPack).id),'Packs');unique(packs.map(p=>(p as LibraryPack).manifest_url),'Pack manifests');const packIDs=new Set(packs.map(p=>(p as LibraryPack).id));
  const fields=['id','version','title','url','sha256','bytes','required_packs'];
- for(const map of maps){shape(map,[...fields,'author','players','kind']);file(map,'map',packIDs);if(!plain(map.author,100)||!Number.isInteger(map.players)||Number(map.players)<1||Number(map.players)>4||!['skirmish','scenario'].includes(String(map.kind)))fail('A map index entry has invalid author, player count or kind.')}
+ for(const map of maps){shape(map,[...fields,'author','players','kind'],['environment']);file(map,'map',packIDs);if(!plain(map.author,100)||!Number.isInteger(map.players)||Number(map.players)<1||Number(map.players)>4||!['skirmish','scenario'].includes(String(map.kind)))fail('A map index entry has invalid author, player count or kind.');if(map.environment!==undefined){shape(map.environment,['url','sha256','bytes']);const env=map.environment;if(!staticPath(env.url,'/content/environment/')||typeof env.sha256!=='string'||!/^[a-f0-9]{64}$/.test(env.sha256)||!Number.isSafeInteger(env.bytes)||Number(env.bytes)<1||Number(env.bytes)>(1<<20))fail('A map environment entry has an invalid path, checksum or size.')}}
  unique(maps.map(m=>(m as LibraryMap).id),'Maps');const mapIDs=new Set(maps.map(m=>(m as LibraryMap).id));
  for(const mission of missions){shape(mission,[...fields,'map_id','mode','faction','order'],['presentation_url']);file(mission,'mission',packIDs);if(!identifier(mission.map_id)||!mapIDs.has(mission.map_id)||!['tutorial','campaign','coop'].includes(String(mission.mode))||!factions.includes(String(mission.faction))||!Number.isInteger(mission.order)||Number(mission.order)<1||Number(mission.order)>(mission.mode==='campaign'?6:mission.mode==='tutorial'?5:2)||mission.presentation_url!==undefined&&!staticPath(mission.presentation_url))fail('A mission index entry has an invalid map, mode, faction, story order or presentation path.')}
  unique(missions.map(m=>(m as LibraryMission).id),'Missions');unique(missions.map(m=>{const v=m as LibraryMission;return `${v.mode}:${v.mode==='campaign'?v.faction:'all'}:${v.order}`;}),'Mission order');unique([...maps,...missions].map(v=>(v as LibraryFile).url),'Content file paths');
@@ -58,6 +60,12 @@ export class ContentLibraryError extends RuntimeError{
 function abort(signal?:AbortSignal){if(signal?.aborted)throw new RuntimeError('content_canceled','Content loading was canceled. Existing installed files are preserved.')}
 function errorSummary(error:unknown){const value=RuntimeError.from(error);return {code:value.code,message:value.message}}
 function sameDependencies(a:string[]|undefined,b:string[]){return !!a&&a.length===b.length&&[...a].sort().every((id,index)=>id===[...b].sort()[index])}
+/** Compare every public Go-normalized field, independent of JSON property order.
+ * Identity/version alone cannot authorize dressing for an edited/imported map. */
+export function mapBlueprintKey(map:GameMap):string{
+ const canonical=(value:unknown):unknown=>Array.isArray(value)?value.map(canonical):object(value)?Object.fromEntries(Object.keys(value).sort().filter(key=>value[key]!==undefined).map(key=>[key,canonical(value[key])])):value;
+ return JSON.stringify(canonical(map));
+}
 
 /** Read-only library. It does not install packs, create sessions, or replace saved files. */
 export class ContentLibrary{
@@ -111,6 +119,20 @@ export class ContentLibrary{
  }
  private enter(){if(this.loading>=4)throw new RuntimeError('content_busy','Four content loads are already in progress. Retry when one finishes.');this.loading++}
  async loadMap(id:string,signal?:AbortSignal):Promise<LoadedMap>{const entry=this.mapEntry(id),generation=this.generation;this.enter();try{return await this.mapData(entry,signal,generation)}finally{this.loading--}}
+ /** Optional public art data. No session, gameplay file or original save is changed. */
+ async loadEnvironment(map:GameMap,signal?:AbortSignal):Promise<MapEnvironment|undefined>{
+  abort(signal);const entry=this.current?.maps.find(entry=>entry.id===map.id&&entry.version===map.version),descriptor=entry?.environment;
+  if(!entry||!descriptor)return undefined;
+  const generation=this.generation,expected=mapBlueprintKey(map);this.enter();let source:Uint8Array|undefined;
+  try{
+   const installed=await this.mapData(entry,signal,generation);
+   if(mapBlueprintKey(installed.map)!==expected)throw new RuntimeError('environment_map_mismatch','Optional scenery does not match this map. The original battlefield remains available.');
+   source=await this.bytes(descriptor.url,descriptor.bytes,signal,()=>{});
+   if(source.length!==descriptor.bytes||await sha256Hex(source)!==descriptor.sha256)throw new RuntimeError('content_integrity','Optional scenery differs from its installed checksum.');
+   this.checkGeneration(generation,signal);
+   return decodeMapEnvironment(source,installed.map,{mapSHA256:entry.sha256});
+  }catch(error){const detail=errorSummary(error);if(error instanceof ContentLibraryError)throw error;throw new ContentLibraryError(detail.code,detail.message,source?{url:descriptor.url,data:source}:undefined)}finally{this.loading--}
+ }
  async loadMission(id:string,signal?:AbortSignal):Promise<LoadedMission>{
   const entry=this.missionEntry(id),mapEntry=this.mapEntry(entry.map_id),generation=this.generation;this.enter();let source:Uint8Array|undefined;
   try{const map=await this.mapData(mapEntry,signal,generation);source=await this.source(entry,'mission',signal);this.event({kind:'mission',id,stage:'validating'});const mission=await this.validator.validateMission(map.source.slice(),source.slice());this.checkGeneration(generation,signal);

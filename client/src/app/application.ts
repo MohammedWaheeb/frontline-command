@@ -9,6 +9,8 @@ import {TutorialInputMemory} from './tutorial-memory';
 import {EditorController} from './editor-controller';
 import {NetworkController} from './network-controller';
 import {prepareBattleAssets} from './asset-preparation';
+import {mapBlueprintKey} from '../runtime/content-library';
+import {environmentAssetIds,type MapEnvironment} from '../content/environment';
 import {Observable} from './store';
 import {readSettingsMirror,writeSettingsMirror,applySettingsToDocument,sanitizeSettings,type Settings} from './settings';
 export type Page='command'|'skirmish'|'campaign'|'tutorials'|'saves'|'settings'|'network'|'replays'|'content'|'practice'|'help'|'editor';
@@ -27,6 +29,7 @@ export class Application {
  readonly editor:EditorController;readonly tutorialInput:TutorialInputMemory;
  private assetGeneration=0;private artCleanup:Promise<void>=Promise.resolve();private onlineIdentity?:{session:string;baseURL:string;connection:Pick<MatchConnection,'match_id'|'player'|'protocol'|'simulation'|'content_hash'>};private networkProgressUnsubscribe?:()=>void;private onlineAdvice?:OnlineCommandAdvice;private settingsRevision=0;private settingsWrites:Promise<void>=Promise.resolve();private firstRunRevision=0;private lastHUD=0;private progressPending=false;private progressRecorded=new Set<string>();
  readonly frames=new Set<(snapshot:PlayerSnapshot)=>void>();
+ private preparedEnvironment?:{mapKey:string;data:MapEnvironment};
  constructor(){
   this.store=new LocalStore('frontline-command',data=>this.validator.inspect(data),data=>this.validator.inspectReplay(data));
   this.sessions=new SessionController({store:this.store,prepare:async(input,signal)=>{await art.init();const map=input.map??input.config?.map,catalog=this.state?.get().catalog;if(map&&catalog&&input.kind!=='online'){const missionPlayers=input.config?.mission?.players as Array<{faction:Faction}>|undefined;const slots=input.config?.players??missionPlayers??[{faction:'US'},{faction:'IR'},{faction:'SY'},{faction:'SA'}];await this.prepareVisuals(map,[...slots,...(input.config?.tutorial_faction?[{faction:input.config.tutorial_faction}]:[])],signal)}}});
@@ -85,7 +88,17 @@ export class Application {
  releaseBattlefieldArt(){this.artCleanup=this.artCleanup.then(()=>art.release()).catch(error=>this.error(error));return this.artCleanup}
  private recordOnlineProgress(){const identity=this.onlineIdentity,snapshot=this.sessions.transport?.current,result=this.network.state.get().result;if(!identity||identity.session!==this.sessions.state.id||this.sessions.state.kind!=='online'||!snapshot?.mission||!snapshot.outcome?.finished||!result?.committed||result.void||result.matchId!==identity.connection.match_id||this.progressPending||this.progressRecorded.has(identity.session))return;this.progressPending=true;void this.campaign.recordServer({...identity,snapshot,result,kind:'online'},{isCurrent:()=>this.sessions.state.id===identity.session&&this.sessions.state.kind==='online'}).then(value=>{if(value.reason!=='unfinished'&&value.reason!=='result_pending')this.progressRecorded.add(identity.session)}).catch(error=>this.error(error)).finally(()=>{this.progressPending=false})}
  async reloadSettings(){await this.settingsWrites;const record=await this.store.setting<Settings>('settings');if(record){this.settingsRevision=record.revision;this.setSettings(record.data,false)}}
- private async prepareVisuals(map:GameMap,slots:readonly {faction:string}[],signal?:AbortSignal){const generation=++this.assetGeneration,catalog=this.state.get().catalog;if(!catalog)throw Error('Content catalog is not ready.');this.library.packsFor(map.required_packs??[]);art.configure(this.state.get().settings.artQuality);try{const status=await prepareBattleAssets(map,slots,catalog,art,assetProgress=>{if(generation===this.assetGeneration)this.patch({assetProgress})},signal);if(generation===this.assetGeneration)this.patch({assetStatus:status})}finally{if(generation===this.assetGeneration)this.patch({assetProgress:undefined})}}
+ environmentFor(map:GameMap){return this.preparedEnvironment?.mapKey===mapBlueprintKey(map)?this.preparedEnvironment.data:undefined}
+ private async prepareVisuals(map:GameMap,slots:readonly {faction:string}[],signal?:AbortSignal){
+  const generation=++this.assetGeneration,catalog=this.state.get().catalog;if(!catalog)throw Error('Content catalog is not ready.');this.library.packsFor(map.required_packs??[]);art.configure(this.state.get().settings.artQuality);
+  try{
+   let environment:MapEnvironment|undefined;
+   try{environment=await this.library.loadEnvironment(map,signal)}catch(error){signal?.throwIfAborted();const detail=RuntimeError.from(error);if(detail.code==='content_superseded')throw error;if(generation===this.assetGeneration)this.patch({notice:`Optional scenery unavailable: ${detail.message}`})}
+   signal?.throwIfAborted();if(generation!==this.assetGeneration)return;
+   const status=await prepareBattleAssets(map,slots,catalog,art,assetProgress=>{if(generation===this.assetGeneration)this.patch({assetProgress})},signal,environment?environmentAssetIds(environment):[]);
+   if(generation===this.assetGeneration){this.preparedEnvironment=environment?{mapKey:mapBlueprintKey(map),data:environment}:undefined;this.patch({assetStatus:status})}
+  }finally{if(generation===this.assetGeneration)this.patch({assetProgress:undefined})}
+ }
  async prepareAssets(map:GameMap,slots:readonly LobbySlot[]){await this.prepareVisuals(map,slots)}
  commandAdvice(){if(!this.onlineAdvice)throw Error('Online command advice is unavailable.');return this.onlineAdvice}
  async joinObserver(base:string,connection:ObserverConnection,map:GameMap){await this.sessions.joinObserver(base,connection,map);this.onlineIdentity=undefined;this.onlineAdvice?.dispose();this.onlineAdvice=undefined;this.patch({paused:false,autosave:undefined})}
