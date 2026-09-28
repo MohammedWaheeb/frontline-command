@@ -38,7 +38,12 @@ saves, cold offline reload, exact-byte account copies, isolated workers and
 two-browser multiplayer/reconnect/committed results. Valid-checksum0.3.2 saves
 are rejected with original bytes and the active match preserved. Exact results
 are in `work/evidence/runtime/simulation-033-browser-results.json`.
-The final authored thirteen-game bot matrix remains in progress. The full0.3.2
+The final authored thirteen-game bot matrix passes (183.970s). Every match ends
+by ordinary elimination with exact initial/final restores and complete replay.
+The team match has no rejected requests after removing all104 invalid station
+attempts. Independent replay audit explains the remaining8 destroyed-after-plan
+actor receipts and2 moving construction-footprint conflicts across other cases.
+See [authored bot acceptance](authored-skirmish-acceptance.md) for exact evidence. The full0.3.2
 short race suite also passed, with the subsequent0.3.3 station change separately
 covered by focused race tests. Earlier rendered product, terrain,
 aircraft, art, audio and performance evidence retains its original source and
