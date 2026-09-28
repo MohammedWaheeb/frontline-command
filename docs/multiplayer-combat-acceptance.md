@@ -137,10 +137,10 @@ no lobby or transport implementation was changed.
 
 ## FFA combat recording, failed visual run
 
-The subsequent1H+3NormalAI FFA produced an ordinary US human victory at tick25,826
+The subsequent 1H + 3 normal AI FFA produced an ordinary US human victory at tick 25,826
 with exact seed `7019274743248845888`. All four sides earned income, paid for
-production and used ordinary orders. The recording contains4,442 weapon events
-and188 destruction events. Full replay/checkpoint/midpoint-restored hashes agree
+production and used ordinary orders. The recording contains 4,442 weapon events
+and 188 destruction events. Full replay/checkpoint/midpoint-restored hashes agree
 at `5618aa67f13b5bd11f0c141cd4f4c350deb87d81d035a6716a68441e87c1f664`.
 
 **This is not a passing rendered case.** The original renderer threw after an
@@ -148,6 +148,31 @@ atlas eviction; a later diagnostic attachment separately interrupted the test
 runner. The surviving host finished from existing ordinary commands and persisted
 its result. Original logs, snapshots and replay remain in
 `work/multiplayer-combat/2026-09-28T11-34-59.603Z/`. See
-[the texture lifecycle diagnosis](atlas-texture-lifecycle.md). Four remaining
-configurations have not yet run; the FFA visual row must be repeated after the
-repair. The first verified1H+1AI row remains valid.
+[the texture lifecycle diagnosis](atlas-texture-lifecycle.md). The FFA visual row
+must be repeated after the repair. The first verified 1H + 1AI row remains valid.
+
+## Two-human combat recording, strict browser failure
+
+The US/IR 1v1 finished by ordinary elimination at tick 12,503 with IR team 2
+winning. Seed: `7618600857649478204`. US income/spending was 7,800/13,700 credits;
+IR income/spending was 16,800/22,800. Both clients used normal paid production,
+construction and combat. Reconnect recovered tick 3,620 to 3,632 while retaining
+acknowledged sequence 18.
+
+This run used the frozen 1305dcb product plus only the reviewed atlas-lifecycle
+and advice-pacing fixes. No page or decoder errors occurred. One console HTTP 503
+made the strict browser assertion fail before the replay archive UI action.
+That older listener did not capture the response route or code; the available
+server 503 branches are advisory backpressure/timeouts, but the exact cause of
+this response is unproven. The test is not relabeled as a clean browser pass.
+Future runs capture HTTP paths, status and public error code/message separately.
+
+The host's preserved exact replay was independently verified from its initial
+state, final checkpoint and restored midpoint. All final hashes match
+`8a9b2f9768bd6664328a5eec0b4b0a0f952d49c3bb551c7e6f7729e9d59d6385`.
+Replay SHA256:
+`2b5fea2e72086ebc413d8edd1eb5dde8c360db5dedae372fc188bfe5b3c201fd`.
+Evidence: `work/multiplayer-combat/2026-09-28T12-18-03.606Z/`.
+
+The 2H + 2AI, 3H FFA and 4H 2v2 cases are now running serially. Completed
+mechanical replay proof and clean rendered acceptance remain separate gates.
