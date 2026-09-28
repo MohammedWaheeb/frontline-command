@@ -1,0 +1,14 @@
+--- a/pkg/sim/authored_optional_routes_test.go
++++ b/pkg/sim/authored_optional_routes_test.go
+@@ -269,9 +269,8 @@
+ 			clearedProduction := map[sim.ID]bool{}
+ 			lateArrivalReady := r.difficulty == "easy"
+ 			escortRoles := []struct{ key, typ string }{{"tank", "IR.tank"}, {"rifle", "IR.rifle"}}
+-			if r.difficulty != "easy" {
+-				escortRoles = append(escortRoles, struct{ key, typ string }{"second-rifle", "IR.rifle"}, struct{ key, typ string }{"anti-armor", "IR.at"}, struct{ key, typ string }{"anti-air", "IR.aa"}, struct{ key, typ string }{"medic", "IR.medic"})
+-			}
++			// Keep the same compact tank/rifle escort used by Easy. Reserving
++			// twelve roles drained all newly paid home-defense/assault actors.
+ 			r.tactical = func() {
+ 				if r.engine.Tick() < next {
+ 					return
