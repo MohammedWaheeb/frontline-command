@@ -61,7 +61,7 @@ export class BattlefieldRenderer {
   this.fogTexture=Texture.from(this.fogCanvas);this.fogTexture.source.scaleMode='linear';
   this.fogSprite=new Sprite(this.fogTexture);this.fogSprite.setFromMatrix(new Matrix(HALF_W,HALF_H,-HALF_W,HALF_H,0,0));
   this.world.addChild(this.fogSprite,this.memories,this.tactical);
-  for(const field of m.fields){
+  for(const field of m.fields??[]){
    const visual=new ActorVisual(create(EntitySchema,{id:field.id,type:'map.supply_field',position:field.position,health:1000,complete:true,enabled:true}),this.options.catalog,this.options.art);
    this.props.push(visual);this.propsLayer.addChild(visual.root);
   }
@@ -166,7 +166,7 @@ export class BattlefieldRenderer {
   }
   this.snapshot=snapshot;this.tickAt=performance.now();const living=new Set<number>();
   for(const field of snapshot.fields){
-   const prop=this.props.find(p=>p.id===field.id),initial=this.options.map.fields.find(p=>p.id===field.id)?.credits;
+   const prop=this.props.find(p=>p.id===field.id),initial=this.options.map.fields?.find(p=>p.id===field.id)?.credits;
    if(!prop||!initial)continue;
    const fraction=Number(field.remaining)/initial,state=fraction<=0?'depleted':fraction<.25?'low':fraction<.75?'high':'full';
    prop.update({...prop.entity,state},this.tickAt);

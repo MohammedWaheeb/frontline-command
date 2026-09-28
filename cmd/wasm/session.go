@@ -284,13 +284,13 @@ func (s *Session) advance() error {
 		}
 	}
 	for _, id := range s.local {
-		v, ok := s.engine.PlayerView(id)
+		feedback, ok := s.engine.PlayerFeedback(id)
 		if !ok {
 			continue
 		}
 		f := s.pending[id]
-		f.events = append(f.events, v.Events...)
-		f.results = append(f.results, v.Results...)
+		f.events = append(f.events, feedback.Events...)
+		f.results = append(f.results, feedback.Results...)
 	}
 	return nil
 }

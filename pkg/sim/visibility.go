@@ -37,9 +37,23 @@ func (e *Engine) lineOfSight(a, b Vec) bool {
 	return true
 }
 func (e *Engine) computeVisibility() {
-	e.visible = make(map[PlayerID][]bool, len(e.state.Players))
+	if e.visible == nil {
+		e.visible = make(map[PlayerID][]bool, len(e.state.Players))
+	}
+	for id := range e.visible {
+		if e.player(id) == nil {
+			delete(e.visible, id)
+		}
+	}
 	for _, p := range e.state.Players {
-		e.visible[p.ID] = make([]bool, len(e.state.Map.Tiles))
+		bits := e.visible[p.ID]
+		if cap(bits) < len(e.state.Map.Tiles) {
+			bits = make([]bool, len(e.state.Map.Tiles))
+		} else {
+			bits = bits[:len(e.state.Map.Tiles)]
+			clear(bits)
+		}
+		e.visible[p.ID] = bits
 		if e.state.Metadata.Ruleset == "practice-v1" && e.state.PracticeReveal {
 			for i := range e.visible[p.ID] {
 				e.visible[p.ID][i] = true
@@ -73,7 +87,7 @@ func (e *Engine) computeVisibility() {
 		}
 		cached, ok := e.fogCache[v.ID]
 		if !ok || cached.position != v.Position || cached.radius != radius || cached.air != air || cached.revision != e.state.NavigationRevision {
-			cached = fogSource{position: v.Position, radius: radius, air: air, revision: e.state.NavigationRevision}
+			cached = fogSource{position: v.Position, radius: radius, air: air, revision: e.state.NavigationRevision, tiles: cached.tiles[:0]}
 			x0, x1 := max(int32(0), (v.Position.X-radius)/1000), min(e.state.Map.Width-1, (v.Position.X+radius)/1000)
 			y0, y1 := max(int32(0), (v.Position.Y-radius)/1000), min(e.state.Map.Height-1, (v.Position.Y+radius)/1000)
 			for y := y0; y <= y1; y++ {
@@ -87,8 +101,9 @@ func (e *Engine) computeVisibility() {
 			}
 			e.fogCache[v.ID] = cached
 		}
+		bits := e.visible[v.Owner]
 		for _, idx := range cached.tiles {
-			e.visible[v.Owner][idx] = true
+			bits[idx] = true
 		}
 
 	}
@@ -511,24 +526,8 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		}
 		view.Projectiles = append(view.Projectiles, p)
 	}
-	for _, event := range e.state.Events {
-		if event.Scope == "all" || event.Scope == "owner" && event.Owner == id || event.Scope == "team" && e.allied(id, event.Owner) || event.Scope == "visible" && e.canSee(id, event.Position) {
-			if event.Kind == "impact" && event.Entity != 0 {
-				// Seeing an explosion must not identify a concealed, embarked,
-				// destroyed or out-of-sight victim. Never infer from fog memory.
-				target := e.entity(event.Entity)
-				if target == nil || !e.canSeeEntity(id, target) {
-					event.Entity = 0
-				}
-			}
-			view.Events = append(view.Events, event)
-		}
-	}
-	for _, r := range e.state.Results {
-		if r.Player == id {
-			view.Results = append(view.Results, r)
-		}
-	}
+	feedback, _ := e.PlayerFeedback(id)
+	view.Events, view.Results = feedback.Events, feedback.Results
 	for _, crate := range e.state.Salvage {
 		if crate.Until > e.state.Tick && e.canSee(id, crate.Position) {
 			view.Salvage = append(view.Salvage, crate)
@@ -578,6 +577,40 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		}
 	}
 	return view, true
+}
+
+// PlayerFeedback applies the same owner/team/fog and impact-identity filters as
+// PlayerView without constructing entities, terrain visibility or economy data.
+// Browser adapters may retain this small tick output until their next frame.
+type Feedback struct {
+	Events  []Event
+	Results []OrderResult
+}
+
+func (e *Engine) PlayerFeedback(id PlayerID) (Feedback, bool) {
+	if e.player(id) == nil {
+		return Feedback{}, false
+	}
+	feedback := Feedback{}
+	for _, event := range e.state.Events {
+		if event.Scope == "all" || event.Scope == "owner" && event.Owner == id || event.Scope == "team" && e.allied(id, event.Owner) || event.Scope == "visible" && e.canSee(id, event.Position) {
+			if event.Kind == "impact" && event.Entity != 0 {
+				// Seeing an explosion must not identify a concealed, embarked,
+				// destroyed or out-of-sight victim. Never infer from fog memory.
+				target := e.entity(event.Entity)
+				if target == nil || !e.canSeeEntity(id, target) {
+					event.Entity = 0
+				}
+			}
+			feedback.Events = append(feedback.Events, event)
+		}
+	}
+	for _, r := range e.state.Results {
+		if r.Player == id {
+			feedback.Results = append(feedback.Results, r)
+		}
+	}
+	return feedback, true
 }
 func cloneOrders(src []Order) []Order {
 	out := make([]Order, len(src))
