@@ -172,12 +172,18 @@ func TestCorruptAndIncompatibleSavesAreClassified(t *testing.T) {
 		t.Fatalf("future format: %v", err)
 	}
 	// Re-checksum a state claiming another simulation version.
-	state := strings.Replace(string(env.State), `"simulation":"`+sim.Version+`"`, `"simulation":"0.0.1"`, 1)
-	old := resum(t, state)
-	_, err := s.Load(old, []sim.PlayerID{1})
-	e, ok := err.(*Error)
-	if !ok || e.Code != "save_incompatible" || e.Found == nil || e.Found.Simulation != "0.0.1" || e.Expected.Simulation != sim.Version {
-		t.Fatalf("old simulation: %#v", err)
+	for _, version := range []string{"0.0.1", "0.2.0"} {
+		state := strings.Replace(string(env.State), `"simulation":"`+sim.Version+`"`, `"simulation":"`+version+`"`, 1)
+		old := resum(t, state)
+		original := append([]byte(nil), old...)
+		_, err := s.Load(old, []sim.PlayerID{1})
+		e, ok := err.(*Error)
+		if !ok || e.Code != "save_incompatible" || e.Found == nil || e.Found.Simulation != version || e.Expected.Simulation != sim.Version {
+			t.Fatalf("old simulation %s: %#v", version, err)
+		}
+		if !bytes.Equal(old, original) {
+			t.Fatal("incompatible input bytes changed")
+		}
 	}
 	if _, err := s.Load(saved.Data, []sim.PlayerID{2, 9}); code(err) != "save_invalid" {
 		t.Fatalf("unknown local player: %v", err)

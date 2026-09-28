@@ -3,7 +3,9 @@ package sim
 
 import "frontlinecommand/pkg/content"
 
-const Version = "0.2.0"
+// Planner choices and legal depot approaches changed deterministic outcomes.
+// Older development saves/replays stay exportable, never silently reinterpreted.
+const Version = "0.3.0"
 const TickRate uint32 = 20
 const Scale int64 = 1000
 

@@ -1,7 +1,13 @@
 # Protocol contract — version 1 (under implementation)
 
-Simulation version `0.1.0`; rules content version `2.0.0`; protocol version `1`.
+Simulation version `0.3.0`; rules content version `2.0.0`; protocol version `1`.
 Versions are compatibility identifiers, not release-completion claims.
+
+Simulation 0.3.0 changes deterministic AI planning and legal depot approaches.
+Older development saves and replays retain their original metadata and bytes;
+they require their original engine and are rejected by the current engine.
+No save/replay header is relabeled to imply compatibility. Native and WASM
+builds must publish the same version; see [simulation-compatibility.md](simulation-compatibility.md).
 
 HTTP prefix `/api/v1`, JSON requests/responses. Match traffic uses binary
 Protocol Buffers WebSocket envelopes. `protocol/frontline.proto` is authoritative.
@@ -81,3 +87,27 @@ votes persist in saves/replays, are visible only to teammates in
 Computer allies follow that unanimous human team decision. Already eliminated
 players do not block it. Votes resolve after all orders for the same tick.
 The runtime build regenerates TypeScript bindings after schema changes.
+
+## Command and structure presentation additions
+
+Player summaries include stable public `color` palette indices 1–8, unique
+within a match and retained in saves/replays/restarts. A local accessibility
+palette remaps their appearance without changing these identities. Lobby
+choices are fixed before simulation starts.
+
+Entities and fog memories include `footprint_width`, `footprint_height`, and
+`footprint_type`. Captured structures retain their original physical foundation
+through conversion. See [capture-and-footprints.md](capture-and-footprints.md).
+`EntityPrivate.repeat_sortie` controls whether explicit ground attack sorties
+resume after service. `patrol` supplies two to six points, `escort` uses a live
+allied target, and `repeat_sortie` uses index 0/1. All are recorded Go orders.
+
+Mission progress includes `convoys`: current route, waypoint, held/moving state,
+completion, approval IDs and countdown end tick. `convoy_hold` and
+`convoy_advance` use `type` as convoy ID and `index` as route; they require no
+entity selection. See [mission-runtime.md](mission-runtime.md).
+
+Go-backed [command advice](command-advice.md) is separate from actual order
+submission. An `indeterminate` advisory result permits submitting an intention;
+it cannot approve placement or reveal hidden collision. The authoritative tick
+always revalidates the submitted order and returns its actual result.

@@ -7,8 +7,12 @@
 - `protocol`: shared protobuf schema and generated Go messages. Codex.
 - `internal/storage`: SQLite repositories and atomic file objects. Codex.
 - `internal/server`, `cmd/frontline`: local HTTP/WebSocket authority. Codex.
-- `client`, `assets`, `content/maps`, `content/missions`, `cmd/wasm`: reserved for
-  Claude Code Opus 5.5 exclusively, including tests and asset export scripts.
+- `client/src/runtime`, nonvisual frontend logic/tests and `cmd/wasm`: Codex,
+  following the user's explicit ownership expansion on 2026-09-27.
+- UI, styling, renderer, `assets`, `content/maps`, `content/missions` and visual
+  export pipelines: Claude Code CLI exact `claude-opus-5-5` is the primary
+  author/reviewer. The user's quota fallback authorizes Codex implementation
+  while Claude is unavailable, with explicit nonoverlapping file reservations.
 - `work/claude`: bounded assignments and execution evidence.
 - `docs`, `outputs`: Markdown contracts, acceptance and release documents.
 
@@ -30,7 +34,7 @@ Each live match has one owner loop. HTTP and sockets enqueue requests; they neve
 mutate the simulation concurrently. Persistence receives tick-boundary copies.
 Player views filter fog before serialization and omit enemy private state.
 
-The native engine is shared with Claude's Go WASM worker adapter. Browser code
+The native engine is shared through the Go WASM worker adapter. Browser code
 does not reimplement combat. The WASM compiler/runtime versions must match.
 
 ## Release gates
