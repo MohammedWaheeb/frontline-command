@@ -18,6 +18,7 @@ type Profile struct {
 	Local   bool   `json:"local"`
 }
 type Save struct {
+	Bytes    int64  `json:"bytes"`
 	ID       string `json:"id"`
 	Owner    string `json:"owner"`
 	Name     string `json:"name"`

@@ -35,7 +35,7 @@ func Open(path string) (*SQLite, error) {
 		db.Close()
 		return nil, err
 	}
-	if schemaVersion > 7 {
+	if schemaVersion > 8 {
 		db.Close()
 		return nil, errors.New("database was created by a newer game version")
 	}
@@ -63,6 +63,10 @@ func Open(path string) (*SQLite, error) {
 		return nil, err
 	}
 	if err = s.initMapPublicationSchema(schemaVersion); err != nil {
+		db.Close()
+		return nil, err
+	}
+	if err = s.initCampaignProgressSchema(schemaVersion); err != nil {
 		db.Close()
 		return nil, err
 	}
@@ -144,6 +148,7 @@ func (s *SQLite) PutSave(ctx context.Context, v Save, expected int64) (Save, err
 		return v, err
 	}
 	v.Updated = time.Now().Unix()
+	v.Bytes = int64(len(v.Data))
 	_, err = tx.ExecContext(ctx, `INSERT INTO saves(owner,id,name,revision,updated,data) VALUES(?,?,?,?,?,?) ON CONFLICT(owner,id) DO UPDATE SET name=excluded.name,revision=excluded.revision,updated=excluded.updated,data=excluded.data`, v.Owner, v.ID, v.Name, v.Revision, v.Updated, v.Data)
 	if err != nil {
 		return v, err
@@ -156,10 +161,11 @@ func (s *SQLite) GetSave(ctx context.Context, owner, id string) (Save, error) {
 	if errors.Is(err, sql.ErrNoRows) {
 		err = ErrNotFound
 	}
+	v.Bytes = int64(len(v.Data))
 	return v, err
 }
 func (s *SQLite) ListSaves(ctx context.Context, owner string) ([]Save, error) {
-	rows, err := s.db.QueryContext(ctx, "SELECT id,owner,name,revision,updated FROM saves WHERE owner=? ORDER BY updated DESC,id", owner)
+	rows, err := s.db.QueryContext(ctx, "SELECT id,owner,name,revision,updated,length(data) FROM saves WHERE owner=? ORDER BY updated DESC,id", owner)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +173,7 @@ func (s *SQLite) ListSaves(ctx context.Context, owner string) ([]Save, error) {
 	out := []Save{}
 	for rows.Next() {
 		var v Save
-		if err = rows.Scan(&v.ID, &v.Owner, &v.Name, &v.Revision, &v.Updated); err != nil {
+		if err = rows.Scan(&v.ID, &v.Owner, &v.Name, &v.Revision, &v.Updated, &v.Bytes); err != nil {
 			return nil, err
 		}
 		out = append(out, v)

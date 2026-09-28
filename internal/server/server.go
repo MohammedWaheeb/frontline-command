@@ -296,6 +296,7 @@ func (s *Server) routes() {
 	})
 	s.mux.HandleFunc("GET /api/v1/maps", s.listMaps)
 	s.mapPublicationRoutes()
+	s.campaignProgressRoutes()
 	s.mux.HandleFunc("GET /api/v1/missions", s.listMissions)
 	s.mux.HandleFunc("GET /api/v1/missions/{id}", s.getMission)
 	s.mux.HandleFunc("POST /api/v1/missions/{id}/lobby", s.createScenarioLobby)

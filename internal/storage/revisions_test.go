@@ -162,7 +162,7 @@ func TestRevisionMigrationFromVersionFourPreservesAllCASRecords(t *testing.T) {
 	}
 	var version int
 	s.db.QueryRow(`PRAGMA user_version`).Scan(&version)
-	if version != 7 {
+	if version != 8 {
 		t.Fatal("wrong schema version", version)
 	}
 }
@@ -258,7 +258,7 @@ func TestFutureDatabaseIsRejectedWithoutDowngrade(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer db.Close()
-	if _, err = db.Exec(`PRAGMA user_version=8`); err != nil {
+	if _, err = db.Exec(`PRAGMA user_version=9`); err != nil {
 		t.Fatal(err)
 	}
 	if s, err := Open(path); err == nil {
@@ -266,7 +266,7 @@ func TestFutureDatabaseIsRejectedWithoutDowngrade(t *testing.T) {
 		t.Fatal("future database opened")
 	}
 	var version int
-	if err = db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil || version != 8 {
+	if err = db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil || version != 9 {
 		t.Fatal("future database changed", version, err)
 	}
 }
