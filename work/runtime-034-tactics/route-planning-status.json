@@ -5,7 +5,7 @@
       "phase": "main",
       "original_passed": 93,
       "original_failed": 9,
-      "failed_cases_with_separate_successful_routes": 8,
+      "failed_cases_with_separate_successful_routes": 9,
       "cases": [
         {
           "case": "TestAuthoredCampaignOpeningCompletion/sy-01-workshop-foothold/easy",
@@ -39,8 +39,15 @@
         },
         {
           "case": "TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/hard",
-          "has_separate_successful_route": false,
-          "passed_pilots": []
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "../runtime-034-capture-main-route/runs/20260928T223444Z-sy05-hard-main-same-earned-route",
+              "source_lock_sha256": "cda55b903cef1f9eb78d5fd7d0e40a10528f147dd259b5a99197cedc79c34ad5",
+              "tick": 8313,
+              "optional_factory_complete": false
+            }
+          ]
         },
         {
           "case": "TestAuthoredCampaignCaptureCompletion/sa-05-three-positions/hard",

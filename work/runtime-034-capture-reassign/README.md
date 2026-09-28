@@ -16,7 +16,7 @@ selection failure or a successful optional route.
 The earlier saved owner view at tick 6883 shows relay 2 defenders chasing
 7–10 tiles north: tank 540 has 3 health; four rifles are near Y 56–59k while
 the relay is at Y 65.5k. The driver repeatedly orders Attack Move/Attack toward
-visible threats within 14 tiles. The authoritative design §4 instead defines
+visible threats within 14 tiles. The authoritative design §5.2 instead defines
 ordinary Guard as engagement within six tiles followed by return to its anchor.
 A separate next pilot will use actual Guard for optional Hard site defenders,
 leaving Go, costs, resources, objectives and wait bounds unchanged. No navigation

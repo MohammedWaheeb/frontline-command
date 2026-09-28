@@ -309,3 +309,21 @@ The same unchanged current source then passed factory optional Easy at9,055 with
 all709 receipts accepted and full ordinary acceptance gates. Six of the original
 nine optional failures have separate successful routes; original matrix counts
 are still unchanged.
+
+## 2026-09-28 22:35 UTC: all failed main leaves have separate routes
+
+[SY05 Hard main](../runtime-034-capture-main-route/README.md) now passes at 8313
+with 659 accepted batches / 707 orders, midpoint restoration, full replay,
+restart and independent surrender gates. The exact action ledger and final hash
+match the earlier main win whose optional factory award correctly failed. A
+route-selection helper chooses that ordinary strategy for the main leaf without
+changing `requiredOptional` or optional acceptance assertions.
+
+All **9/9 originally failed main leaves** now have separate successful routes;
+**6/9 originally failed optional leaves** have separate successes. This is still
+not a consolidated 102/102 or 21/21 certificate. SY05 factory Hard and IR06
+observer Normal/Hard remain open. The failed Guard, counter-siege, factory-screen,
+composition and unbuilt-background-turret pilots preserve exact source, commands,
+current owner views and real defeat/nonterminal boundaries. No engine or authored
+content defect was established. The new consolidated run remains held during the
+long multiplayer product course.

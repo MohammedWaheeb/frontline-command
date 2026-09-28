@@ -1,0 +1,71 @@
+{
+  "scope": "One MAIN Hard same earned Guard route; full mandatory gates, optional tests unchanged",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "cda55b903cef1f9eb78d5fd7d0e40a10528f147dd259b5a99197cedc79c34ad5",
+  "base_source_lock_sha256": "fcbfe94b80613f79f677328e69ac9cde49189047edf78faf4677d37737e04974",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:34:44.816427+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-main-route/runs/20260928T223444Z-sy05-hard-main-same-earned-route/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-main-route/source",
+      "started": "2026-09-28T22:34:44.816652+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.85,
+      "completed": "2026-09-28T22:34:47.666354+00:00"
+    },
+    {
+      "name": "focused",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-main-route/runs/20260928T223444Z-sy05-hard-main-same-earned-route/sim.test",
+        "-test.run=^TestAuthoredCaptureRepairerReassignment$",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-main-route/source/pkg/sim",
+      "started": "2026-09-28T22:34:47.670587+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.041,
+      "completed": "2026-09-28T22:34:48.711595+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-main-route/runs/20260928T223444Z-sy05-hard-main-same-earned-route/sim.test",
+        "-test.run=^TestAuthoredCampaignCaptureCompletion$/^sy-05-relay-break$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-main-route/source/pkg/sim",
+      "started": "2026-09-28T22:34:48.713452+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 24.732,
+      "completed": "2026-09-28T22:35:13.445119+00:00"
+    }
+  ],
+  "binary_sha256": "83f16854356204091564fddeb0e41d486a10d7dba7056b23a9ba054cd1d67b91",
+  "exit_code": 0,
+  "completed": "2026-09-28T22:35:13.445477+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard.json": {
+      "bytes": 366599,
+      "sha256": "91e940be09e9445ac5d024887fc2b1a44599113140ab1185b2c111ccd74f3887"
+    }
+  }
+}
