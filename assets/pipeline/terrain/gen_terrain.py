@@ -1,4 +1,8 @@
-"""Deterministic, seamless stylized terrain materials — version 2 (world art).
+"""Deterministic, seamless stylized terrain materials — version 3 (world art).
+
+v3 (28 Sep, battlefield material pass): calmer sand, packed earth without a
+full-coverage crack net, new passable `gravel_wash` scree apron, and opaque
+world-anchored cliff faces built from vertical fracture columns.
 
 Authored by Claude Code (claude-opus-5-5) for assignment 05 (world art). Every
 output is original procedural art: no photographs, scans or third-party textures.
@@ -41,7 +45,7 @@ SIZE = 512            # texels, = 4 tiles * 128
 TILES = 4
 SUN_ELEVATION = 50.0
 SUN_TRAVEL_DEG = 33.4  # Blender XY; Blender y = -sim y
-VERSION = 2
+VERSION = 3
 
 
 # ----------------------------------------------------------------- noise tools
@@ -211,34 +215,54 @@ def ground_soft(seed, a, b, amount=0.5):
     return mix(hexc(a), hexc(b), 0.5 + (t - 0.5) * amount * 2), t
 
 
-@material(role='open ground (primary): warm ochre dry ground')
+@material(role='open ground (primary): warm ochre dry ground, calm under units')
 def sand(seed=1101):
-    col, t = ground_soft(seed, '#AE9468', '#B89F72', 0.5)
-    drift = spectral(seed + 1, 1.3, lo=6, hi=40, aniso=(1.0, 0.55))          # soft wind-smoothed drifts
-    h = t * 0.25 + drift * 0.3
-    col = mix(col, hexc('#C2AA7E'), np.clip((drift - 0.62) * 3, 0, 0.45))
-    grit_mask = blur(spectral(seed + 2, 2.0, lo=3, hi=12), 9)
-    grit_mask = np.clip((grit_mask - 0.55) * 3.5, 0, 1)
-    stones, _ = stamp_stones(seed + 3, 110, 2.5, 5.5, grit_mask, flat=0.7)   # sparse pebble clusters
-    h += stones * 0.8
-    col = over(col, '#8E7A58', np.clip(stones * 1.4, 0, 0.8))
-    col = over(col, '#9C8661', grit_mask * 0.18)
-    return col, h, 2.6
+    """v3: broad soft strokes only; pebbles are rare, low-contrast clusters so
+    the 4-tile period does not read as a repeated dot pattern."""
+    col, t = ground_soft(seed, '#AF9569', '#B79E71', 0.35)
+    stroke = spectral(seed + 1, 1.5, lo=3, hi=14, aniso=(1.0, 0.45))           # painterly broad strokes
+    col = mix(col, hexc('#C0A87B'), np.clip((stroke - 0.55) * 1.6, 0, 0.35))
+    col = mix(col, hexc('#A3895F'), np.clip((0.42 - stroke) * 1.6, 0, 0.25))
+    ripple_mask = np.clip((blur(spectral(seed + 4, 2.0, lo=2, hi=8), 21) - 0.6) * 3, 0, 1)
+    ripple = 0.5 + 0.5 * np.sin(np.arange(SIZE)[None, :] * 2 * np.pi * 24 / SIZE + spectral(seed + 5, 2.0, lo=1, hi=6) * 9)
+    col = mix(col, hexc('#C4AD80'), ripple * ripple_mask * 0.18)
+    grit_mask = np.clip((blur(spectral(seed + 2, 2.0, lo=2, hi=8), 15) - 0.66) * 4, 0, 1)
+    stones, _ = stamp_stones(seed + 3, 36, 3.0, 6.0, grit_mask, flat=0.7)
+    col = over(col, '#9A845F', np.clip(stones * 0.9, 0, 0.35))
+    h = t * 0.2 + stroke * 0.25 + ripple * ripple_mask * 0.1 + stones * 0.7
+    return col, h, 2.4
 
 
-@material(role='open ground variant: red-brown packed earth')
+@material(role='open ground variant: red-brown compacted dirt, sparse crack clusters')
 def packed_earth(seed=1202):
-    col, t = ground_soft(seed, '#8C7050', '#977B59', 0.5)
-    edge, cid = voronoi_edges(seed + 1, 20, warp=8)                          # large polygons, ~1.1 tiles
-    crack = np.clip(1 - edge / 1.6, 0, 1) * (spectral(seed + 2, 1.5, lo=4, hi=20) > 0.42)
-    cell_tone = ((cid.astype(np.int64) * 7919) % 97) / 97.0
-    col = mix(col, hexc('#A08565'), (cell_tone - 0.5) * 0.35 + 0.1)
-    h = t * 0.3 - crack * 0.35 + blur(np.clip(1 - edge / 10, 0, 1), 3) * -0.08
-    col = over(col, '#5C4632', crack * 0.55)
-    mask = np.clip((spectral(seed + 3, 2.0, lo=3, hi=10) - 0.55) * 3, 0, 1)
-    stones, _ = stamp_stones(seed + 4, 55, 3, 6.5, mask, angular=0.4)
-    col = over(col, '#7A6A55', np.clip(stones * 1.3, 0, 0.85))
-    return col, h + stones * 0.9, 3.0
+    """v3: no full-coverage crack net. Cracks exist only inside ~12% masked
+    patches; the rest is compact dirt with broad value strokes and scuffs."""
+    col, t = ground_soft(seed, '#8D7152', '#967A58', 0.4)
+    stroke = blur(spectral(seed + 5, 1.8, lo=2, hi=8), 9)
+    col = mix(col, hexc('#A08463'), np.clip((stroke - 0.55) * 1.8, 0, 0.35))
+    col = mix(col, hexc('#7E6446'), np.clip((0.42 - stroke) * 1.8, 0, 0.3))
+    patch = np.clip((blur(spectral(seed + 2, 2.0, lo=2, hi=8), 21) - 0.64) * 5, 0, 1)
+    edge, _ = voronoi_edges(seed + 1, 30, warp=10)
+    crack = np.clip(1 - edge / 1.2, 0, 1) * patch
+    col = over(col, '#624A34', crack * 0.45)
+    mask = np.clip((blur(spectral(seed + 3, 2.0, lo=2, hi=8), 15) - 0.6) * 3, 0, 1)
+    stones, _ = stamp_stones(seed + 4, 40, 3, 6.5, mask, angular=0.4)
+    col = over(col, '#7D6C56', np.clip(stones * 1.2, 0, 0.7))
+    return col, t * 0.25 + stroke * 0.25 - crack * 0.3 + stones * 0.8, 3.0
+
+
+@material(role='open ground variant: pebbly scree apron at the foot of rock (passable)')
+def gravel_wash(seed=1252):
+    """Small, flat, rounded pebbles over dirt. Deliberately smaller and lower than
+    rubble (no brick or masonry) so it never reads as infantry cover."""
+    col, t = ground_soft(seed, '#8E8269', '#998C72', 0.4)
+    mask = np.clip(blur(spectral(seed + 1, 1.8, lo=2, hi=10), 9) * 1.6 - 0.35, 0, 1)
+    stones, ids = stamp_stones(seed + 2, 230, 3.5, 7.0, mask, angular=0.3, flat=0.6)
+    tone = ((ids.astype(np.int64) * 2654435761) % 1000) / 1000.0
+    stone_col = mix(hexc('#8C8574'), hexc('#AAA290'), tone)
+    a = np.clip(stones * 2.2, 0, 1) * 0.85
+    col = col * (1 - a[..., None]) + stone_col * a[..., None]
+    return col, t * 0.2 + stones * 1.0, 3.2
 
 
 @material(role='infantry cover: olive scrub and grass clumps')
@@ -433,35 +457,40 @@ def ramp(seed=2414):
 
 # ---- vertical faces and decals (alpha outputs) ---------------------------------
 def rock_face(seed, w, h, block):
-    """Periodic-in-x rock face with strata bands, lit top lip and dark foot (RGBA)."""
-    yy = np.arange(h)[:, None] / h
-    strata = spectral(seed, 1.4, lo=1, hi=24, aniso=(0.25, 1.0), shape=(h, w))
-    edge, cid = voronoi_edges(seed + 1, max(4, int((w / block) ** 2)), size=w)
-    edge, cid = edge[:h], cid[:h]
-    face_tone = ((cid.astype(np.int64) * 2654435761) % 100) / 100.0
-    col = mix(hexc('#7A6A55'), hexc('#8F7E66'), face_tone)
-    col = mix(col, hexc('#6A5B48'), np.clip(strata - 0.5, 0, 1))
-    col = over(col, '#3E352B', np.clip(1 - edge / 1.8, 0, 1) * 0.7)
-    # vertical light: brighter upper lip, occluded foot
-    col *= (1.12 - 0.42 * yy ** 1.3)[..., None]
-    lip = np.clip(1 - yy * h / 7.0, 0, 1)
-    col = over(col, '#C2AE88', lip * 0.6)
-    alpha = np.ones((h, w), np.float32)
-    ragged = spectral(seed + 2, 1.5, lo=4, hi=40, shape=(1, w))[0]
-    top = (ragged * 4).astype(int)
-    for x in range(w):
-        alpha[:top[x], x] = 0
-    return col, alpha
+    """v3 opaque rock face. Rows are WORLD-anchored: row 0 = height level 4,
+    last row = level 0 (terrain.ts maps v = (4 - height) / 4), so strata line up
+    across neighbouring faces. Irregular, vertically elongated rock blocks from a
+    warped Voronoi, each lit as its own facet; lip light and foot occlusion are
+    baked on the ground tiles, where the actual edge is known."""
+    cells = max(9, int((w / block) ** 2))
+    edge, cid = voronoi_edges(seed, cells, size=w, jitter=1.0, warp=block * 0.35)
+    rows = (np.arange(h) * (w / 2.2 / h)).astype(int) % w      # vertical elongation ~2.2x
+    edge, cid = edge[rows], cid[rows]
+    ids = cid.astype(np.int64)
+    tone = ((ids * 2654435761) % 1000) / 1000.0
+    tilt = ((ids * 40503) % 1000) / 1000.0
+    base = mix(hexc('#74644E'), hexc('#9A876A'), tone)
+    facet = 0.82 + 0.3 * tilt
+    inner = np.clip(edge / (block * 0.25), 0, 1)
+    light = facet * (0.86 + 0.14 * inner)
+    col = base * light[..., None]
+    crevice = np.clip(1 - edge / 2.2, 0, 1)
+    col = over(col, '#3A3027', crevice * 0.75)
+    grain = spectral(seed + 2, 1.3, lo=8, hi=60, shape=(h, w))
+    col *= (0.93 + 0.14 * grain)[..., None]
+    strata = spectral(seed + 1, 1.6, lo=1, hi=10, aniso=(0.15, 1.0), shape=(h, w))
+    col *= (0.93 + 0.12 * strata)[..., None]
+    return col, np.ones((h, w), np.float32)
 
 
-@material(kind='face', size=(512, 128), role='cliff face, one height level (10 px @1x per level; tiles horizontally)')
+@material(kind='face', size=(512, 128), role='cliff face, opaque; rows world-anchored (row 0 = level 4, v=(4-h)/4); 4 tiles per repeat along the edge')
 def cliff_face_tier1(seed=2515):
-    return rock_face(seed, 512, 128, 60)
+    return rock_face(seed, 512, 128, 64)
 
 
-@material(kind='face', size=(512, 256), role='cliff face, two+ levels: taller massive blocks')
+@material(kind='face', size=(512, 256), role='cliff face for drops over one level: wider fracture columns, same world-anchored rows')
 def cliff_face_tier2(seed=2616):
-    return rock_face(seed, 512, 256, 90)
+    return rock_face(seed, 512, 256, 96)
 
 
 def edge_strip(seed, core, shoulder, verge, ruts=False):

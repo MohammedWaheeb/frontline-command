@@ -46,10 +46,30 @@ node client/tests/render/terrain-browser.mjs
 node client/tests/render/browser.mjs
 ```
 
-## Still required
+## Terrain v3 checkpoint, 28 September 2026
 
-Elevation currently uses surface shading and boundary marks; proper raised
-terrain and readable cliff faces remain a visual gap. Additional generated
-industrial/farmland surfaces and face/transition assets are not claimed to be
-integrated. Environment props, full-roster art, final terrain colour review and
-long-match performance with the completed art pack remain release work.
+The shared raised surface has since been integrated and tested; see
+[terrain height evidence](terrain-height-integration.md). Claude's exact-model
+v3 generator reduces sand detail and packed-earth cracks, adds low loose scree,
+and makes cliff faces opaque with world-height-aligned strata. Codex completed
+generation/integration after Claude reached quota. `gravel_wash` applies only
+to open tiles beside real in-bounds rock. Cover, rubble, roads, ramps and map
+edges keep their own rules and material identity. Cliff UVs now map height4
+to the top texture row and height0 to the bottom. No authored map or Go bytes
+changed. Output/source hashes are in `work/art/terrain-v3/output-lock.json`.
+
+All12 four-map chunk-order comparisons pass again, with no differing channels.
+The actual0.3.3 Go/WASM terrain product suite also passes movement, paid
+construction, elevated flight/service, frontmost picking, originalUS04 Return,
+exact save/restore and complete renderer disposal, with no browser errors.
+The WASM hash is `4e67eebdd53c6ce588c14f0f01b54c236e193feacfbd2936bed0af4002a45efa`.
+Both TypeScript checks and240 runtime tests pass at this boundary. Root viewed
+all four native material screenshots and the raised construction/cliff-fog
+captures. The prior product evidence is preserved under `terrain-height/pre-v3`.
+
+The generator still reports one seam heuristic warning for the unintegrated
+`farmland_dry` material: edge delta1.03 versus interior mean0.14. Its periodic
+furrows need their own acceptance before use. This is not waived by the
+integrated terrain tests. Industrial/farmland surfaces and extra transition
+assets are not claimed to be integrated. Final environment dressing, fog-edge
+styling, Claude review and completed-art long-match performance remain work.

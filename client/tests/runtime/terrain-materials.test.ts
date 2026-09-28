@@ -15,3 +15,9 @@ test('water, shore and beach remain distinct without changing gameplay terrain',
  m.tiles[22*64+19].terrain='cover';assert.equal(materialFor(m,19,22),'scrub_ground');m.tiles[22*64+19].terrain='open';
  assert.deepEqual(m,before);
 });
+test('low scree only dresses open neighbors of real rock and never changes their rules',()=>{
+ const m=map();m.tiles[20*64+20]={terrain:'cliff',height:3};const before=structuredClone(m);
+ assert.equal(materialFor(m,19,20),'gravel_wash');assert.equal(materialFor(m,20,20),'gravel');
+ assert(['sand','packed_earth'].includes(materialFor(m,0,0)));assert.deepEqual(m,before);
+ for(const [terrain,material] of [['cover','scrub_ground'],['rubble','rubble_ground'],['road','asphalt'],['ramp','ramp']]){m.tiles[20*64+19].terrain=terrain;assert.equal(materialFor(m,19,20),material)}
+});

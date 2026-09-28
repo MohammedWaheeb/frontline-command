@@ -198,6 +198,12 @@ def unit_states(u):
             st += [S('fire', 16, 2, 8, False), S('empty', 16, 3, 24)]
         if rid == 'IR.isr':
             st += [S('orbit', 16, 3, 24, note='Survey orbit; relay boost effect overlay')]
+    # Keep the approved eleven-aircraft source contract reproducible. The
+    # preserved legacy IR.strike still needs a separate service-state completion.
+    if rid != 'IR.strike':
+        st += [S('rearm', 16, 6, 8, channel=True)]
+    if rid in ('US.gunship', 'SA.gunship'):
+        st += [S('empty', 16, 4, 24)]
     return c, st
 
 
@@ -543,7 +549,7 @@ def build_manifest():
     if os.path.exists(tj):
         with open(tj) as f:
             terrain_done = set(json.load(f)['materials'])
-    terrain = ['sand', 'packed_earth', 'gravel', 'scrub_ground', 'rubble_ground', 'asphalt', 'concrete_slab',
+    terrain = ['sand', 'packed_earth', 'gravel_wash', 'gravel', 'scrub_ground', 'rubble_ground', 'asphalt', 'concrete_slab',
                'dry_riverbed', 'shallow_water', 'deep_water', 'coast_sand', 'industrial_pavement', 'farmland_dry',
                'cliff_face_tier1', 'cliff_face_tier2', 'ramp', 'road_asphalt_decal', 'road_dirt_decal',
                'transition_masks', 'height_tier_edges']

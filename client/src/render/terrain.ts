@@ -21,7 +21,7 @@ export interface TerrainFragment {
 export const CHUNK=16;
 const BLEED=2;
 /** Fallback painted colours if a material image is missing (never silently blank). */
-const FLAT:Record<Material,string>={sand:'#b59a6a',packed_earth:'#8f7852',scrub_ground:'#7c7448',gravel:'#8a8272',rubble_ground:'#6f675c',asphalt:'#4a4843',shallow_water:'#64847b',deep_water:'#305e64',coast_sand:'#cbbb8e',ramp:'#937c59'};
+const FLAT:Record<Material,string>={sand:'#b59a6a',packed_earth:'#8f7852',gravel_wash:'#998c72',scrub_ground:'#7c7448',gravel:'#8a8272',rubble_ground:'#6f675c',asphalt:'#4a4843',shallow_water:'#64847b',deep_water:'#305e64',coast_sand:'#cbbb8e',ramp:'#937c59'};
 
 export class TerrainBaker {
  private patterns=new Map<string,HTMLImageElement|undefined>();
@@ -117,7 +117,7 @@ export class TerrainBaker {
    for(const triangle of triangles)for(const vertex of triangle.vertices){
     const p=projectSurfaceVertex(vertex),flatX=(vertex.x-vertex.y)/1000*HALF_W,flatY=(vertex.x+vertex.y)/1000*HALF_H;
     positions.push(p.x-origin.x,p.y-origin.y);indices.push(indices.length);
-    if(face)uvs.push((vertex.x+vertex.y)/4000,vertex.height/4);
+    if(face)uvs.push((vertex.x+vertex.y)/4000,(4-vertex.height)/4);
     else uvs.push((flatX-origin.x)*this.resolution/texture.width,(flatY-origin.y)*this.resolution/texture.height);
    }
    let material=texture;

@@ -1,6 +1,6 @@
 import type {GameMap} from '../runtime';
 
-export const MATERIALS=['sand','packed_earth','scrub_ground','gravel','rubble_ground','asphalt','shallow_water','deep_water','coast_sand','ramp'] as const;
+export const MATERIALS=['sand','packed_earth','gravel_wash','scrub_ground','gravel','rubble_ground','asphalt','shallow_water','deep_water','coast_sand','ramp'] as const;
 export type Material=typeof MATERIALS[number];
 export const heightAt=(map:GameMap,x:number,y:number)=>x<0||y<0||x>=map.width||y>=map.height?0:(map.tiles[y*map.width+x]?.height??0);
 export const terrainAt=(map:GameMap,x:number,y:number)=>x<0||y<0||x>=map.width||y>=map.height?'blocked':(map.tiles[y*map.width+x]?.terrain??'open');
@@ -22,6 +22,9 @@ export function materialFor(map:GameMap,x:number,y:number):Material{
   case 'ramp':return 'ramp';
  }
  if(adjacent.some(([dx,dy])=>terrainAt(map,x+dx,y+dy)==='water'))return 'coast_sand';
+ // Low loose scree belongs only to passable open ground. It neither paints
+ // infantry cover nor extends the adjacent impassable rock footprint.
+ if(terrainAt(map,x,y)==='open'&&adjacent.some(([dx,dy])=>x+dx>=0&&y+dy>=0&&x+dx<map.width&&y+dy<map.height&&['cliff','blocked'].includes(terrainAt(map,x+dx,y+dy))))return 'gravel_wash';
  // Large, calm colour masses; small rocks/cracks belong to the authored textures.
  return smoothNoise(x,y,24,11)*.8+smoothNoise(x,y,9,5)*.2<.44?'packed_earth':'sand';
 }
