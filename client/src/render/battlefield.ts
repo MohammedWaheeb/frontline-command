@@ -7,6 +7,7 @@ import {tokens} from '../design/tokens';
 import {ArtLibrary} from './art';
 import {ActorVisual} from './actors';
 import {EnvironmentRenderer} from './environment';
+import {actorArtKey,physicalArtType} from './art-id';
 import {buildingPresentations} from './poses';
 import {CHUNK,TerrainBaker,type TerrainFragment} from './terrain';
 import {TerrainSurface,projectSurfaceVertex} from './terrain-surface';
@@ -164,9 +165,9 @@ export class BattlefieldRenderer {
   const presentations=buildingPresentations(snapshot,this.options.catalog);
   for(const entity of snapshot.entities){
    if(!entity.position||entity.private?.container)continue;
-   living.add(entity.id);let actor=this.actors.get(entity.id);
-   if(actor&&actor.entity.type!==entity.type){actor.dispose();this.actors.delete(entity.id);actor=undefined}
-   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,snapshot.players.find(p=>p.id===entity.owner)?.faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
+   living.add(entity.id);let actor=this.actors.get(entity.id);const faction=snapshot.players.find(p=>p.id===entity.owner)?.faction;
+   if(actor&&actor.artKey!==actorArtKey(entity,faction)){actor.dispose();this.actors.delete(entity.id);actor=undefined}
+   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
    actor.presentation=presentations.get(entity.id);actor.update(entity,this.tickAt);
   }
   const serviceBases=[...this.actors.values()].filter(actor=>living.has(actor.id)&&(this.options.catalog.buildings.get(actor.entity.type)?.service_slots??0)>0);
@@ -222,7 +223,7 @@ export class BattlefieldRenderer {
    if(!memory.position||snapshot.entities.some(entity=>entity.id===memory.id))continue;
    const i=Math.floor(memory.position.y/1000)*this.options.map.width+Math.floor(memory.position.x/1000);
    if(!snapshot.explored[i])continue;
-   const g=new Graphics(),b=this.options.catalog.buildings.get(memory.type),support=this.surface.footprintSurface(memory.position,memory.footprintWidth||b?.width||2,memory.footprintHeight||b?.height||2),p=projectSurfaceVertex({...memory.position,height:support.height});
+   const g=new Graphics(),b=this.options.catalog.buildings.get(physicalArtType(memory)),support=this.surface.footprintSurface(memory.position,memory.footprintWidth||b?.width||2,memory.footprintHeight||b?.height||2),p=projectSurfaceVertex({...memory.position,height:support.height});
    drawStructure(g,{width:memory.footprintWidth||b?.width||2,height:memory.footprintHeight||b?.height||2,role:b?.role??'garrison',paint:0x514d41,team:0x666353,progress:1000,complete:true,health:1000,enabled:false,memory:true});
    g.position.set(p.x,p.y);g.zIndex=memory.position.x+memory.position.y+((memory.footprintWidth||b?.width||2)+(memory.footprintHeight||b?.height||2))*500+.001;this.memories.push(g);this.ground.addChild(g);
   }

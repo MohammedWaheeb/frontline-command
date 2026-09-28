@@ -7,6 +7,7 @@ import {TerrainSurface,projectSurfaceVertex} from './terrain-surface';
 import {drawStructure,structureHeight} from './structure';
 import {actorSpriteState,visibleSquadMembers,type BuildingPresentation} from './poses';
 import {FlightPresentation} from './flight-presentation';
+import {actorArtKey,physicalArtType} from './art-id';
 
 interface LayeredPart {root:Container;shadowRoot:Container;shadow:Sprite;beauty:Sprite;team:Sprite;offset:Point;poses:Record<string,{state:string;direction:number;frame:number}>}
 function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart {
@@ -22,7 +23,7 @@ export class ActorVisual {
  readonly root=new Container();readonly fallback=new Graphics();readonly overlays=new Graphics();
  private readonly groundShadows=new Container();
  private readonly foundation=new Graphics();private support?:{surface:TerrainSurface;x:number;y:number;width:number;height:number;level:number};
- readonly id:number;standIn=false;missingArt=false;
+ readonly id:number;readonly artKey:string;standIn=false;missingArt=false;
  /** Aircraft shadows join the terrain scene separately from the airborne body. */
  readonly terrainShadow?:Container;
  readonly ready:Promise<void>;
@@ -37,16 +38,16 @@ export class ActorVisual {
  private serviceDeck?:ActorVisual;
  setServiceDeck(deck:ActorVisual|undefined){this.serviceDeck=deck}
  departureDeck(now:number){return !this.entity.landed&&this.entity.state!=='destroyed'&&this.flight.altitude(this.entity,now,this.cruiseAltitude())<this.cruiseAltitude()?this.serviceDeck?.id:undefined}
- serviceRoofOffset(){const b=this.catalog.buildings.get(this.entity.type);return !this.sheet&&b?.service_slots?structureHeight(b.role):0}
+ serviceRoofOffset(){const b=this.catalog.buildings.get(physicalArtType(this.entity));return !this.sheet&&b?.service_slots?structureHeight(b.role):0}
  entity:Entity;
  constructor(entity:Entity,private catalog:CatalogIndex,art:ArtLibrary,faction?:string,private surface?:TerrainSurface,private readonly skin?:{asset:string;direction:0|1|2|3}){
-  this.id=entity.id;this.entity=entity;this.lastPosition=this.nextPosition={...entity.position!};
+  this.id=entity.id;this.artKey=actorArtKey(entity,faction);this.entity=entity;this.lastPosition=this.nextPosition={...entity.position!};
   this.lastState=entity.state;this.stateAt=performance.now();this.previousFacing=this.nextFacing=entity.facing;
   // All projected ground shadows sit behind the whole actor. A turret's
   // independent shadow must never darken an already-painted hull or plinth.
   this.root.addChild(this.foundation,this.groundShadows,this.fallback,this.overlays);
   if(surface&&catalog.units.get(entity.type)?.armor==='air'){this.root.removeChild(this.groundShadows);this.terrainShadow=this.groundShadows}
-  const resolved=skin?{id:skin.asset,standIn:false}:art.resolve(entity.type,faction,catalog);this.standIn=resolved?.standIn??false;
+  const resolved=skin?{id:skin.asset,standIn:false}:art.resolve(physicalArtType(entity),faction,catalog);this.standIn=resolved?.standIn??false;
   this.missingArt=!resolved;
   this.ready=resolved?art.sheet(resolved.id).then(sheet=>{
    if(this.disposed)return;
@@ -202,7 +203,8 @@ export class ActorVisual {
     }
    }
   }else if(building||e.footprintWidth){
-   drawStructure(this.fallback,{width:e.footprintWidth||building?.width||2,height:e.footprintHeight||building?.height||2,role:building?.role??'garrison',paint:0x7d7963,team,progress:e.progress,complete:e.complete,health:e.health,enabled:e.enabled});
+   const physical=this.catalog.buildings.get(physicalArtType(e));
+   drawStructure(this.fallback,{width:e.footprintWidth||building?.width||2,height:e.footprintHeight||building?.height||2,role:physical?.role??building?.role??'garrison',paint:0x7d7963,team,progress:e.progress,complete:e.complete,health:e.health,enabled:e.enabled});
   }else{
    // Explicit development marker until the missing sprite is authored.
    this.fallback.clear().poly([-10,0,0,-10,10,0,0,7]).fill({color:team}).stroke({width:2,color:0x15130f});

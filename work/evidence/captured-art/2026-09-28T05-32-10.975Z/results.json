@@ -1,0 +1,906 @@
+{
+  "time": "2026-09-28T05:32:13.507Z",
+  "errors": [],
+  "wasmSHA256": "4e67eebdd53c6ce588c14f0f01b54c236e193feacfbd2936bed0af4002a45efa",
+  "cases": [
+    {
+      "opening": {
+        "version": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.3",
+          "tick_rate": 20
+        },
+        "id": 5,
+        "owner": 2,
+        "type": "SY.workshop_air",
+        "health": 1000,
+        "state": "idle",
+        "enabled": true,
+        "footprint": [
+          3,
+          3
+        ],
+        "footprintType": "SY.workshop_air",
+        "artKey": "SY.workshop_air|SY.workshop_air|SY",
+        "desiredArt": "building.SY.air_workshop",
+        "missing": true,
+        "requests": [
+          {
+            "type": "hq",
+            "faction": "US",
+            "id": "building.US.hq"
+          },
+          {
+            "type": "US.rig",
+            "faction": "US",
+            "id": "unit.US.rig"
+          },
+          {
+            "type": "SY.workshop_air",
+            "faction": "SY"
+          },
+          {
+            "type": "US.at",
+            "faction": "US",
+            "id": "unit.US.at"
+          },
+          {
+            "type": "US.engineer",
+            "faction": "US",
+            "id": "unit.US.engineer"
+          }
+        ]
+      },
+      "capture": {
+        "captured": {
+          "id": 5,
+          "owner": 1,
+          "type": "US.airfield",
+          "health": 222,
+          "state": "conversion",
+          "enabled": false,
+          "footprint": [
+            3,
+            3
+          ],
+          "footprintType": "SY.workshop_air",
+          "artKey": "US.airfield|SY.workshop_air|US",
+          "desiredArt": "building.SY.air_workshop",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "US"
+            }
+          ]
+        },
+        "operational": {
+          "id": 5,
+          "owner": 1,
+          "type": "US.airfield",
+          "health": 222,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            3,
+            3
+          ],
+          "footprintType": "SY.workshop_air",
+          "artKey": "US.airfield|SY.workshop_air|US",
+          "desiredArt": "building.SY.air_workshop",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "US"
+            }
+          ]
+        },
+        "tick": 1737
+      },
+      "restore": {
+        "before": {
+          "id": 5,
+          "owner": 1,
+          "type": "US.airfield",
+          "health": 222,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            3,
+            3
+          ],
+          "footprintType": "SY.workshop_air",
+          "artKey": "US.airfield|SY.workshop_air|US",
+          "desiredArt": "building.SY.air_workshop",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "US"
+            }
+          ]
+        },
+        "restored": {
+          "id": 5,
+          "owner": 1,
+          "type": "US.airfield",
+          "health": 222,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            3,
+            3
+          ],
+          "footprintType": "SY.workshop_air",
+          "artKey": "US.airfield|SY.workshop_air|US",
+          "desiredArt": "building.SY.air_workshop",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "US"
+            }
+          ]
+        },
+        "hash": "5ad1efb9a2fa37b5a84466861188279d00cd1535f708c6be13505f48a48246df",
+        "restoredHash": "5ad1efb9a2fa37b5a84466861188279d00cd1535f708c6be13505f48a48246df",
+        "rewound": {
+          "id": 5,
+          "owner": 2,
+          "type": "SY.workshop_air",
+          "health": 1000,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            3,
+            3
+          ],
+          "footprintType": "SY.workshop_air",
+          "artKey": "SY.workshop_air|SY.workshop_air|SY",
+          "desiredArt": "building.SY.air_workshop",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "US"
+            },
+            {
+              "type": "SY.workshop_air",
+              "faction": "SY"
+            }
+          ]
+        },
+        "openingHash": "f76412f3b3fe911163b1d473aba339c8871329015cf01d68ee94fac6ccdacda6",
+        "rewoundHash": "f76412f3b3fe911163b1d473aba339c8871329015cf01d68ee94fac6ccdacda6"
+      }
+    },
+    {
+      "opening": {
+        "version": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.3",
+          "tick_rate": 20
+        },
+        "id": 5,
+        "owner": 2,
+        "type": "SY.safehouse",
+        "health": 1000,
+        "state": "idle",
+        "enabled": true,
+        "footprint": [
+          2,
+          2
+        ],
+        "footprintType": "SY.safehouse",
+        "artKey": "SY.safehouse|SY.safehouse|SY",
+        "desiredArt": "building.SY.safehouse",
+        "missing": true,
+        "requests": [
+          {
+            "type": "hq",
+            "faction": "US",
+            "id": "building.US.hq"
+          },
+          {
+            "type": "US.rig",
+            "faction": "US",
+            "id": "unit.US.rig"
+          },
+          {
+            "type": "SY.safehouse",
+            "faction": "SY"
+          },
+          {
+            "type": "US.at",
+            "faction": "US",
+            "id": "unit.US.at"
+          },
+          {
+            "type": "US.engineer",
+            "faction": "US",
+            "id": "unit.US.engineer"
+          }
+        ]
+      },
+      "capture": {
+        "captured": {
+          "id": 5,
+          "owner": 1,
+          "type": "outpost",
+          "health": 222,
+          "state": "conversion",
+          "enabled": false,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "SY.safehouse",
+          "artKey": "outpost|SY.safehouse|US",
+          "desiredArt": "building.SY.safehouse",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "US"
+            }
+          ]
+        },
+        "operational": {
+          "id": 5,
+          "owner": 1,
+          "type": "outpost",
+          "health": 222,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "SY.safehouse",
+          "artKey": "outpost|SY.safehouse|US",
+          "desiredArt": "building.SY.safehouse",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "US"
+            }
+          ]
+        },
+        "tick": 1081
+      },
+      "restore": {
+        "before": {
+          "id": 5,
+          "owner": 1,
+          "type": "outpost",
+          "health": 222,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "SY.safehouse",
+          "artKey": "outpost|SY.safehouse|US",
+          "desiredArt": "building.SY.safehouse",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "US"
+            }
+          ]
+        },
+        "restored": {
+          "id": 5,
+          "owner": 1,
+          "type": "outpost",
+          "health": 222,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "SY.safehouse",
+          "artKey": "outpost|SY.safehouse|US",
+          "desiredArt": "building.SY.safehouse",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "US"
+            }
+          ]
+        },
+        "hash": "96ba2f7d16537906bfb6622078a9c9b9f3ab0f1bdf7a6303d789317d9577eb8f",
+        "restoredHash": "96ba2f7d16537906bfb6622078a9c9b9f3ab0f1bdf7a6303d789317d9577eb8f",
+        "rewound": {
+          "id": 5,
+          "owner": 2,
+          "type": "SY.safehouse",
+          "health": 1000,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "SY.safehouse",
+          "artKey": "SY.safehouse|SY.safehouse|SY",
+          "desiredArt": "building.SY.safehouse",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "US"
+            },
+            {
+              "type": "SY.safehouse",
+              "faction": "SY"
+            }
+          ]
+        },
+        "openingHash": "2ead8625506d1fba5cb7fc147de2b55d223832b093c13fb86836b38bbff9bb46",
+        "rewoundHash": "2ead8625506d1fba5cb7fc147de2b55d223832b093c13fb86836b38bbff9bb46"
+      }
+    },
+    {
+      "opening": {
+        "version": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.3",
+          "tick_rate": 20
+        },
+        "id": 5,
+        "owner": 2,
+        "type": "power",
+        "health": 1000,
+        "state": "idle",
+        "enabled": true,
+        "footprint": [
+          2,
+          2
+        ],
+        "footprintType": "power",
+        "artKey": "power|power|SY",
+        "desiredArt": "building.SY.power",
+        "missing": true,
+        "requests": [
+          {
+            "type": "hq",
+            "faction": "US",
+            "id": "building.US.hq"
+          },
+          {
+            "type": "US.rig",
+            "faction": "US",
+            "id": "unit.US.rig"
+          },
+          {
+            "type": "power",
+            "faction": "SY"
+          },
+          {
+            "type": "US.at",
+            "faction": "US",
+            "id": "unit.US.at"
+          },
+          {
+            "type": "US.engineer",
+            "faction": "US",
+            "id": "unit.US.engineer"
+          }
+        ]
+      },
+      "capture": {
+        "captured": {
+          "id": 5,
+          "owner": 1,
+          "type": "power",
+          "health": 206,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "power",
+          "artKey": "power|power|US",
+          "desiredArt": "building.US.power",
+          "sheet": "building.US.power",
+          "missing": false,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "power",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "power",
+              "faction": "US",
+              "id": "building.US.power"
+            }
+          ]
+        },
+        "operational": {
+          "id": 5,
+          "owner": 1,
+          "type": "power",
+          "health": 206,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "power",
+          "artKey": "power|power|US",
+          "desiredArt": "building.US.power",
+          "sheet": "building.US.power",
+          "missing": false,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "power",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "power",
+              "faction": "US",
+              "id": "building.US.power"
+            }
+          ]
+        },
+        "tick": 1543
+      },
+      "restore": {
+        "before": {
+          "id": 5,
+          "owner": 1,
+          "type": "power",
+          "health": 206,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "power",
+          "artKey": "power|power|US",
+          "desiredArt": "building.US.power",
+          "sheet": "building.US.power",
+          "missing": false,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "power",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "power",
+              "faction": "US",
+              "id": "building.US.power"
+            }
+          ]
+        },
+        "restored": {
+          "id": 5,
+          "owner": 1,
+          "type": "power",
+          "health": 206,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "power",
+          "artKey": "power|power|US",
+          "desiredArt": "building.US.power",
+          "sheet": "building.US.power",
+          "missing": false,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "power",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "power",
+              "faction": "US",
+              "id": "building.US.power"
+            }
+          ]
+        },
+        "hash": "4c3cc3aa26ef2a7f8817391a4a79ba336719c4ed2ef4ccf0c9d8ab4ad5b9a914",
+        "restoredHash": "4c3cc3aa26ef2a7f8817391a4a79ba336719c4ed2ef4ccf0c9d8ab4ad5b9a914",
+        "rewound": {
+          "id": 5,
+          "owner": 2,
+          "type": "power",
+          "health": 1000,
+          "state": "idle",
+          "enabled": true,
+          "footprint": [
+            2,
+            2
+          ],
+          "footprintType": "power",
+          "artKey": "power|power|SY",
+          "desiredArt": "building.SY.power",
+          "missing": true,
+          "requests": [
+            {
+              "type": "hq",
+              "faction": "US",
+              "id": "building.US.hq"
+            },
+            {
+              "type": "US.rig",
+              "faction": "US",
+              "id": "unit.US.rig"
+            },
+            {
+              "type": "power",
+              "faction": "SY"
+            },
+            {
+              "type": "US.at",
+              "faction": "US",
+              "id": "unit.US.at"
+            },
+            {
+              "type": "US.engineer",
+              "faction": "US",
+              "id": "unit.US.engineer"
+            },
+            {
+              "type": "power",
+              "faction": "US",
+              "id": "building.US.power"
+            },
+            {
+              "type": "power",
+              "faction": "SY"
+            }
+          ]
+        },
+        "openingHash": "1f5d2f5308950c24cd59d27d099f8777f77c2d7e6d5e431e26c2e14ad27328c4",
+        "rewoundHash": "1f5d2f5308950c24cd59d27d099f8777f77c2d7e6d5e431e26c2e14ad27328c4"
+      }
+    }
+  ],
+  "disposal": {
+    "canvases": 0,
+    "pages": 0
+  },
+  "status": "passed"
+}
