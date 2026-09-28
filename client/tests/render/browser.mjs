@@ -48,6 +48,14 @@ try{
  await page.screenshot({path:path.join(evidence,'deployment-pack-progress.png')});
  const buildings=await page.evaluate(()=>window.qa.buildingAnimation());assert.equal(buildings.production.state,'produce');assert(buildings.demand>buildings.capacity);assert.equal(buildings.lowpower.state,'lowpower');assert.equal(buildings.disabled.state,'disabled');assert.equal(buildings.selling.state,'sell');assert.equal(buildings.selling.progress,500);assert.equal(buildings.selling.source.state,'construct');assert.equal(buildings.selling.source.index,buildings.selling.frames-1-buildings.selling.frame);result.checks.buildingAnimation=buildings;
  await page.screenshot({path:path.join(evidence,'building-production-power-selling.png')});
+ const beforeLoss=await page.evaluate(async()=>{await window.qa.rewind();return {tick:window.qa.runtime.current.tick,hash:(await window.qa.runtime.save()).hash,gestures:window.qa.gestures.length}});
+ await page.evaluate(()=>window.qa.loseGraphics());await page.waitForFunction(()=>window.qa.graphicsLost());
+ const lostGestures=await page.evaluate(()=>window.qa.gestures.length);await page.mouse.click(600,400);assert.equal(await page.evaluate(()=>window.qa.gestures.length),lostGestures);
+ const duringLoss=await page.evaluate(async()=>{await window.qa.runtime.step(20);const saved=await window.qa.runtime.save();await window.qa.runtime.load(saved.data,saved.local_players);return {tick:window.qa.runtime.current.tick,hash:saved.hash,restoredHash:(await window.qa.runtime.save()).hash,recoveries:window.qa.recoveries}});
+ assert.equal(duringLoss.tick,beforeLoss.tick+20);assert.equal(duringLoss.hash,duringLoss.restoredHash);assert.equal(duringLoss.recoveries.length,1);
+ await page.evaluate(()=>window.qa.restoreGraphics());await page.waitForFunction(()=>!window.qa.graphicsLost());await page.evaluate(()=>window.qa.renderer.whenAssetsReady());
+ const recovered=await page.evaluate(()=>window.qa.diagnostics());assert(recovered.actors>0&&recovered.art.residentPages>0);result.checks.contextRecovery={before:beforeLoss.tick,during:duringLoss.tick,saveRestored:true,actors:recovered.actors,pages:recovered.art.residentPages,recovery:duringLoss.recoveries[0]};
+ await page.screenshot({path:path.join(evidence,'context-restored.png')});
  await page.mouse.wheel(0,-200);await page.setViewportSize({width:1280,height:720});await page.screenshot({path:path.join(evidence,'resized-1280.png')});
  const disposed=await page.evaluate(()=>window.qa.repeatedDisposal());assert.equal(disposed.canvases,0);assert.equal(disposed.art.residentPages,0);assert.equal(disposed.art.indexedPages,0);result.checks.disposal={scenes:5,...disposed};
  await page.goto(`http://127.0.0.1:${server.address().port}/shadow`);await page.waitForFunction(()=>document.body.dataset.ready==='true');

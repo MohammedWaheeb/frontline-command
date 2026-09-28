@@ -114,14 +114,16 @@ export class BattlefieldRenderer {
   return {kind:'ground',position:this.point(p)};
  }
  private emit(kind:BattlefieldGesture['kind'],event:PointerEvent|MouseEvent,p:Point,rect?:Rect){
+  if(this.lost||this.disposed)return;
   this.options.onGesture({kind,point:this.point(p),hit:this.hit(p),rect,shift:event.shiftKey,ctrl:event.ctrlKey,alt:event.altKey,meta:event.metaKey,button:event.button});
  }
  private bindInput(){
   const canvas=this.app.canvas,signal=this.listeners.signal;
   const local=(event:MouseEvent)=>{const r=canvas.getBoundingClientRect();return {x:event.clientX-r.left,y:event.clientY-r.top}};
   canvas.addEventListener('contextmenu',event=>event.preventDefault(),{signal});
-  canvas.addEventListener('pointerdown',event=>{event.preventDefault();canvas.focus({preventScroll:true});const p=local(event);this.drag={start:p,last:p,button:event.button,pointer:event.pointerId};canvas.setPointerCapture(event.pointerId)},{signal});
+  canvas.addEventListener('pointerdown',event=>{event.preventDefault();if(this.lost)return;canvas.focus({preventScroll:true});const p=local(event);this.drag={start:p,last:p,button:event.button,pointer:event.pointerId};canvas.setPointerCapture(event.pointerId)},{signal});
   canvas.addEventListener('pointermove',event=>{
+   if(this.lost)return;
    const p=local(event);this.pointer=p;
    if(this.drag?.button===this.settings.bindings.pointer.pan){this.pan(this.drag.last.x-p.x,this.drag.last.y-p.y);this.drag.last=p;return}
    if(this.drag)this.drag.last=p;
@@ -138,8 +140,8 @@ export class BattlefieldRenderer {
   canvas.addEventListener('dblclick',event=>this.emit('double-click',event,local(event)),{signal});
   canvas.addEventListener('pointercancel',()=>this.cancelDrag(),{signal});
   canvas.addEventListener('pointerleave',()=>{this.pointer=undefined},{signal});
-  canvas.addEventListener('wheel',event=>{event.preventDefault();this.zoomBy(Math.exp(-event.deltaY*.001*this.settings.zoomSpeed),local(event))},{signal,passive:false});
-  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();this.lost=true;this.options.onError?.(new Error('Graphics context lost. Simulation remains in its worker; pause or save while graphics recover.'))},{signal});
+  canvas.addEventListener('wheel',event=>{event.preventDefault();if(!this.lost)this.zoomBy(Math.exp(-event.deltaY*.001*this.settings.zoomSpeed),local(event))},{signal,passive:false});
+  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();this.lost=true;this.cancelDrag();this.pointer=undefined;this.options.onError?.(new Error('Graphics context lost. Simulation remains in its worker; pause or save while graphics recover.'))},{signal});
   canvas.addEventListener('webglcontextrestored',()=>{this.lost=false;this.invalidateTerrain();this.fogTick=-1},{signal});
   window.addEventListener('blur',()=>{this.cancelDrag();this.pointer=undefined},{signal});
  }

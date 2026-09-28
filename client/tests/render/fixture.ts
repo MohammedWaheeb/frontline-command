@@ -16,15 +16,19 @@ const mission={id:'render-destruction',version:'1',title:'Renderer acceptance',m
  initial:[{tag:'test-tank',type:'US.tank',owner:1,position:{x:17000,y:18500},count:1},{tag:'test-deployment',type:'SA.mobile_abm',owner:1,position:{x:15000,y:18000},count:1}],
  objectives:[{id:'timer',text:'Test duration',condition:{kind:'timer',tick:10000}}],triggers:[]};
 const runtime=new OfflineTransport();await runtime.ready;await runtime.create({map,mission,seed:42,skip_countdown:true});
-const catalog=new CatalogIndex(await runtime.content() as unknown as Catalog),art=new ArtLibrary(),gestures:unknown[]=[],host=document.getElementById('field')!;
-const renderer=await BattlefieldRenderer.create(host,{map,catalog,art,settings:DEFAULT_SETTINGS,onGesture:event=>gestures.push(event),onError:error=>console.error(error)});
+const catalog=new CatalogIndex(await runtime.content() as unknown as Catalog),art=new ArtLibrary(),gestures:unknown[]=[],recoveries:string[]=[],host=document.getElementById('field')!;
+const renderer=await BattlefieldRenderer.create(host,{map,catalog,art,settings:DEFAULT_SETTINGS,onGesture:event=>gestures.push(event),onError:error=>{if(error.message.startsWith('Graphics context lost.'))recoveries.push(error.message);else console.error(error)}});
 let feedbackPeak=0;
 runtime.subscribe(event=>{if(event.type==='snapshot'){renderer.setSnapshot(event.snapshot);feedbackPeak=Math.max(feedbackPeak,(renderer as unknown as {shake:{strength:number}}).shake.strength)}});
 renderer.setSnapshot(runtime.current!);renderer.setSelection(runtime.current!.entities.filter(entity=>entity.owner===1&&['hq','US.rig'].includes(entity.type)).map(entity=>entity.id));
 await renderer.whenAssetsReady();
 const opening=await runtime.save();
 let lastSnapshot:PlayerSnapshot=runtime.current!;
-const qa={runtime,renderer,art,gestures,map,catalog,
+let graphicsExtension:WEBGL_lose_context|null=null;
+const qa={runtime,renderer,art,gestures,recoveries,map,catalog,
+ graphicsLost(){return (renderer as unknown as {lost:boolean}).lost},
+ loseGraphics(){const canvas=host.querySelector('canvas')!,gl=canvas.getContext('webgl2')??canvas.getContext('webgl');if(!gl)throw Error('No WebGL context');graphicsExtension=gl.getExtension('WEBGL_lose_context');if(!graphicsExtension)throw Error('Context-loss test extension unavailable');graphicsExtension.loseContext()},
+ restoreGraphics(){if(!graphicsExtension)throw Error('Context-loss test was not started');graphicsExtension.restoreContext()},
  async buildingAnimation(){
   await runtime.create({map,mission:{...mission,id:'render-buildings',initial:[
    {tag:'test-power',type:'power',owner:1,position:{x:18000,y:15000},count:1},

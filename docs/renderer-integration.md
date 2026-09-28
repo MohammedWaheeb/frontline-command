@@ -145,7 +145,8 @@ to the authored50%/25% thresholds. Cosmetic squad members decrease with disclose
 health and return when healed; combat strength remains wholly in Go. Variable
 safehouse channel duration is saved in Go so consuming a rapid-transfer window
 cannot make its visible preparation jump to the wrong timeline.
-# Independent part shadows
+
+## Independent part shadows
 
 Actor parts now place their projected ground shadows in a common container
 behind every body/weapon plate. Previously the turret's shadow drew after the
@@ -163,3 +164,15 @@ batcher teardown errors, so that invalid fixture arrangement was removed.
 Evidence: `work/evidence/render/browser-results.json` and
 `turret-ground-shadow.png`. This verifies the isolated pilot without advertising
 unfinished building art as a shipped asset.
+
+## Forced graphics loss and recovery
+
+The Chromium 151 fixture now uses `WEBGL_lose_context` to lose and restore the
+actual WebGL renderer. Pointer clicks produce no orders while graphics are lost;
+an in-progress drag is canceled. The independent Go/WASM worker advances from
+tick 100 to 120, saves, and restores exactly while the graphics context is absent.
+Restoration rebuilds terrain/fog and renders five actors with 34 resident sprite
+pages. The recovered screenshot was inspected; zero page errors occurred. The
+existing error callback provides a recoverable graphics-loss message to the UI.
+This test covers worker survival and renderer restoration on this browser, not
+physical GPU resets, out-of-memory pressure or all supported browsers.
