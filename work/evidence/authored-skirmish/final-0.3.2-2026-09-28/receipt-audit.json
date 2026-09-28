@@ -1,0 +1,3858 @@
+[
+  {
+    "case": "four-ffa",
+    "receipt": {
+      "player": 4,
+      "sequence": 111,
+      "index": 0,
+      "accepted": false,
+      "code": "occupied",
+      "tick": 10302
+    },
+    "order": {
+      "kind": "build",
+      "entities": [
+        1043
+      ],
+      "position": {
+        "x": 137500,
+        "y": 48500
+      },
+      "type": "SA.airfield"
+    },
+    "classification": "visible own moving actor enters proposed footprint after planning",
+    "actor": 22,
+    "positions": [
+      {
+        "tick": 10300,
+        "stage": "before_decision_tick",
+        "position": {
+          "x": 139500,
+          "y": 45200
+        }
+      },
+      {
+        "tick": 10301,
+        "stage": "after_decision_tick",
+        "position": {
+          "x": 139500,
+          "y": 45350
+        }
+      },
+      {
+        "tick": 10302,
+        "stage": "execution_tick",
+        "position": {
+          "x": 139500,
+          "y": 45500
+        }
+      }
+    ]
+  },
+  {
+    "case": "four-ffa",
+    "receipt": {
+      "player": 3,
+      "sequence": 156,
+      "index": 0,
+      "accepted": false,
+      "code": "occupied",
+      "tick": 10702
+    },
+    "order": {
+      "kind": "build",
+      "entities": [
+        1558
+      ],
+      "position": {
+        "x": 18500,
+        "y": 115500
+      },
+      "type": "power"
+    },
+    "classification": "visible own moving actor enters proposed footprint after planning",
+    "actor": 2143,
+    "positions": [
+      {
+        "tick": 10700,
+        "stage": "before_decision_tick",
+        "position": {
+          "x": 17589,
+          "y": 116911
+        }
+      },
+      {
+        "tick": 10701,
+        "stage": "after_decision_tick",
+        "position": {
+          "x": 17688,
+          "y": 116812
+        }
+      },
+      {
+        "tick": 10702,
+        "stage": "execution_tick",
+        "position": {
+          "x": 17688,
+          "y": 116812
+        }
+      }
+    ]
+  },
+  {
+    "case": "four-ffa",
+    "receipt": {
+      "player": 3,
+      "sequence": 206,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 12942
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        437
+      ],
+      "position": {
+        "x": 22500,
+        "y": 119500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 437,
+        "type": "SY.at",
+        "health": 15
+      }
+    ],
+    "after_events": [
+      {
+        "id": 7789,
+        "tick": 12941,
+        "kind": "under_attack",
+        "owner": 3,
+        "entity": 437,
+        "position": {
+          "x": 22999,
+          "y": 108880
+        },
+        "value": 3000,
+        "scope": "owner"
+      },
+      {
+        "id": 7790,
+        "tick": 12941,
+        "kind": "destroyed",
+        "owner": 3,
+        "entity": 437,
+        "position": {
+          "x": 22999,
+          "y": 108880
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 157,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 11862
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 208,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 11862
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 158,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 11902
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 209,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 11902
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 159,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 11942
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 210,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 11942
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 162,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12062
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 213,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12062
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 163,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12102
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 214,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12102
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 168,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12342
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 220,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12342
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 169,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12382
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 221,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12382
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 170,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12422
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 222,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12422
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 171,
+      "index": 2,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12462
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 223,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12462
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 172,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12502
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 224,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12502
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 173,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12542
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 225,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12542
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 174,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12582
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 226,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12582
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 175,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12622
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 227,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12622
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 176,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12662
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 228,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12662
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 177,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12702
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 229,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12702
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 178,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12742
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 230,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12742
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 179,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12782
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 231,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12782
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 180,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12822
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 232,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12822
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 181,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12862
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 233,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12862
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 182,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12902
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 234,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12902
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 183,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12942
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 235,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12942
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 184,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12982
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 236,
+      "index": 2,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 12982
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 185,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13022
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 237,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13022
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 186,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13062
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 238,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13062
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 187,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13102
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 239,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13102
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 188,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13142
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 240,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13142
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 189,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13182
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 241,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13182
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 190,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13222
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 242,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13222
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 191,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13262
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 243,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13262
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 192,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13302
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 244,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13302
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 193,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13342
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 245,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13342
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 194,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13382
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 246,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13382
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 195,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13422
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 247,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13422
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 196,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13462
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 248,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13462
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 197,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13502
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 249,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13502
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 198,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13542
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 250,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13542
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 199,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13582
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 251,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13582
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 200,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13622
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 252,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13622
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 201,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13662
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 253,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13662
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 202,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13702
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 254,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13702
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 203,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13742
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 255,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13742
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 204,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13782
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 256,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13782
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 205,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13822
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 257,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13822
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 206,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13862
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 258,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13862
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 207,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13902
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 259,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13902
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 208,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13942
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 260,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13942
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 209,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13982
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 261,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 13982
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 210,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14022
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 262,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14022
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 211,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14062
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 263,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14062
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 212,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14102
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 264,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14102
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 213,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14142
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 265,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14142
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 1,
+      "sequence": 214,
+      "index": 0,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14182
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        65
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 3,
+      "sequence": 266,
+      "index": 1,
+      "accepted": false,
+      "code": "invalid_capture_target",
+      "tick": 14182
+    },
+    "order": {
+      "kind": "capture",
+      "entities": [
+        771
+      ],
+      "target": 10,
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "classification": "planner omitted publicly defeated station owner",
+    "public_station": {
+      "id": 10,
+      "position": {
+        "x": 105500,
+        "y": 74500
+      },
+      "owner": 2
+    },
+    "defeated_at_all_three_boundaries": true
+  },
+  {
+    "case": "mirror-IR",
+    "receipt": {
+      "player": 2,
+      "sequence": 63,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 6142
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        24
+      ],
+      "target": 30,
+      "position": {
+        "x": 104280,
+        "y": 65001
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 24,
+        "type": "IR.engineer",
+        "health": 40
+      }
+    ],
+    "after_events": [
+      {
+        "id": 335,
+        "tick": 6141,
+        "kind": "under_attack",
+        "owner": 2,
+        "entity": 24,
+        "position": {
+          "x": 102999,
+          "y": 64261
+        },
+        "value": 6000,
+        "scope": "owner"
+      },
+      {
+        "id": 336,
+        "tick": 6141,
+        "kind": "destroyed",
+        "owner": 2,
+        "entity": 24,
+        "position": {
+          "x": 102999,
+          "y": 64261
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "mirror-IR",
+    "receipt": {
+      "player": 2,
+      "sequence": 315,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 17702
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        1449
+      ],
+      "position": {
+        "x": 109500,
+        "y": 63500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 1449,
+        "type": "IR.at",
+        "health": 127
+      }
+    ],
+    "after_events": [
+      {
+        "id": 5147,
+        "tick": 17701,
+        "kind": "under_attack",
+        "owner": 2,
+        "entity": 1449,
+        "position": {
+          "x": 64935,
+          "y": 51001
+        },
+        "value": 28000,
+        "scope": "owner"
+      },
+      {
+        "id": 5148,
+        "tick": 17701,
+        "kind": "destroyed",
+        "owner": 2,
+        "entity": 1449,
+        "position": {
+          "x": 64935,
+          "y": 51001
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "mirror-SA",
+    "receipt": {
+      "player": 1,
+      "sequence": 94,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 7302
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        40
+      ],
+      "target": 25,
+      "position": {
+        "x": 150475,
+        "y": 142470
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 40,
+        "type": "SA.medic",
+        "health": 100
+      }
+    ],
+    "after_events": [
+      {
+        "id": 528,
+        "tick": 7301,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 40,
+        "position": {
+          "x": 104088,
+          "y": 119088
+        },
+        "value": 16000,
+        "scope": "owner"
+      }
+    ]
+  },
+  {
+    "case": "mirror-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 70,
+      "index": 1,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 5862
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        105
+      ],
+      "position": {
+        "x": 20500,
+        "y": 64500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 105,
+        "type": "SY.at",
+        "health": 84
+      }
+    ],
+    "after_events": [
+      {
+        "id": 451,
+        "tick": 5861,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 105,
+        "position": {
+          "x": 58278,
+          "y": 59432
+        },
+        "value": 16000,
+        "scope": "owner"
+      }
+    ]
+  },
+  {
+    "case": "mirror-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 110,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 8142
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        31
+      ],
+      "target": 200,
+      "position": {
+        "x": 64242,
+        "y": 61879
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 31,
+        "type": "SY.rifle",
+        "health": 64
+      }
+    ],
+    "after_events": [
+      {
+        "id": 1270,
+        "tick": 8141,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 31,
+        "position": {
+          "x": 65999,
+          "y": 60640
+        },
+        "value": 16000,
+        "scope": "owner"
+      },
+      {
+        "id": 1271,
+        "tick": 8141,
+        "kind": "destroyed",
+        "owner": 1,
+        "entity": 31,
+        "position": {
+          "x": 65999,
+          "y": 60640
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "pair-IR-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 111,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 7462
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        296
+      ],
+      "target": 38,
+      "position": {
+        "x": 61875,
+        "y": 70500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 296,
+        "type": "SY.at",
+        "health": 84
+      }
+    ],
+    "after_events": [
+      {
+        "id": 1010,
+        "tick": 7461,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 296,
+        "position": {
+          "x": 101527,
+          "y": 25343
+        },
+        "value": 16000,
+        "scope": "owner"
+      },
+      {
+        "id": 1012,
+        "tick": 7461,
+        "kind": "destroyed",
+        "owner": 1,
+        "entity": 296,
+        "position": {
+          "x": 101527,
+          "y": 25343
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "pair-IR-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 256,
+      "index": 3,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 14022
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        957
+      ],
+      "position": {
+        "x": 25500,
+        "y": 25500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 957,
+        "type": "SY.rifle",
+        "health": 73
+      }
+    ],
+    "after_events": [
+      {
+        "id": 2936,
+        "tick": 14021,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 957,
+        "position": {
+          "x": 39060,
+          "y": 27500
+        },
+        "value": 18400,
+        "scope": "owner"
+      },
+      {
+        "id": 2937,
+        "tick": 14021,
+        "kind": "destroyed",
+        "owner": 1,
+        "entity": 957,
+        "position": {
+          "x": 39060,
+          "y": 27500
+        },
+        "scope": "visible"
+      }
+    ]
+  }
+]

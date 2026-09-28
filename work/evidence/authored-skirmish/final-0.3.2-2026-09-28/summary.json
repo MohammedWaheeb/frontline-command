@@ -1,0 +1,1075 @@
+{
+  "simulation": "0.3.2",
+  "case_count": 13,
+  "all_ordinary_completion": true,
+  "all_initial_final_restore_full_replay": true,
+  "suite_seconds": 275.989,
+  "conditions": "Shared development host with concurrent browser/native work; functional acceptance, not performance or balance evidence.",
+  "receipt_classifications": {
+    "visible own moving actor enters proposed footprint after planning": 2,
+    "owned unit destroyed between decision and execution": 8,
+    "planner omitted publicly defeated station owner": 104
+  },
+  "source_manifest": "source/manifest.json",
+  "cases": [
+    {
+      "case": {
+        "id": "four-ffa",
+        "map": "border-depots",
+        "factions": [
+          "US",
+          "IR",
+          "SY",
+          "SA"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28012
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28012
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 36898,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 36898
+      },
+      "final_hash": "4d280236eee7624c638d75dde9ddd2d16565a8b3d3c9cb2e467af6672b3adf49",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 701,
+          "accepted": 701,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 17,
+            "attack_move": 361,
+            "build": 7,
+            "capture": 17,
+            "escort": 4,
+            "guard": 94,
+            "move": 150,
+            "repair_reserve": 1,
+            "stop": 7,
+            "train": 43
+          }
+        },
+        "2": {
+          "executed": 52,
+          "accepted": 52,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "attack_move": 4,
+            "build": 5,
+            "capture": 1,
+            "gather": 1,
+            "guard": 3,
+            "move": 23,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 13
+          }
+        },
+        "3": {
+          "executed": 435,
+          "accepted": 433,
+          "rejected_by_code": {
+            "not_owner": 1,
+            "occupied": 1
+          },
+          "executed_by_kind": {
+            "ability": 6,
+            "attack_move": 105,
+            "board": 1,
+            "build": 10,
+            "capture": 6,
+            "guard": 25,
+            "hold": 1,
+            "move": 228,
+            "repair": 2,
+            "repair_reserve": 1,
+            "resume": 2,
+            "return": 2,
+            "salvage": 1,
+            "stop": 1,
+            "train": 43,
+            "unload": 1
+          }
+        },
+        "4": {
+          "executed": 594,
+          "accepted": 593,
+          "rejected_by_code": {
+            "occupied": 1
+          },
+          "executed_by_kind": {
+            "ability": 4,
+            "attack_move": 137,
+            "build": 10,
+            "capture": 7,
+            "deploy": 12,
+            "escort": 1,
+            "gather": 1,
+            "guard": 101,
+            "move": 215,
+            "pack": 9,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 22,
+            "train": 73
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "four-team",
+        "map": "port-outskirts",
+        "factions": [
+          "US",
+          "IR",
+          "SY",
+          "SA"
+        ],
+        "authored_spawn_teams": true,
+        "seed": 28013
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28013
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 14202,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 14202
+      },
+      "final_hash": "711fcb27e3c7351969e599169d47745812a835eb6d0239f3d81bff9ab1e4ef0e",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 367,
+          "accepted": 315,
+          "rejected_by_code": {
+            "invalid_capture_target": 52
+          },
+          "executed_by_kind": {
+            "ability": 18,
+            "attack_move": 140,
+            "board": 1,
+            "build": 7,
+            "capture": 64,
+            "escort": 3,
+            "guard": 14,
+            "hold": 2,
+            "move": 73,
+            "repair_reserve": 1,
+            "stop": 1,
+            "train": 42,
+            "unload": 1
+          }
+        },
+        "2": {
+          "executed": 79,
+          "accepted": 79,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "attack_move": 5,
+            "build": 6,
+            "capture": 5,
+            "gather": 1,
+            "guard": 9,
+            "move": 34,
+            "repair_reserve": 1,
+            "stop": 3,
+            "train": 15
+          }
+        },
+        "3": {
+          "executed": 519,
+          "accepted": 467,
+          "rejected_by_code": {
+            "invalid_capture_target": 52
+          },
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 115,
+            "build": 7,
+            "capture": 62,
+            "escort": 2,
+            "guard": 25,
+            "move": 257,
+            "repair_reserve": 1,
+            "stop": 1,
+            "train": 44
+          }
+        },
+        "4": {
+          "executed": 317,
+          "accepted": 317,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 1,
+            "attack_move": 59,
+            "build": 6,
+            "capture": 5,
+            "deploy": 3,
+            "gather": 1,
+            "guard": 29,
+            "move": 179,
+            "pack": 2,
+            "repair_reserve": 1,
+            "stop": 1,
+            "train": 30
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "mirror-IR",
+        "map": "relay-heights",
+        "factions": [
+          "IR",
+          "IR"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28008
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28008
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 27507,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 27507
+      },
+      "final_hash": "d885b64d575a3dc344e7ce7557a075085faaa83387e892340c988d2d06eed620",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 1035,
+          "accepted": 1035,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 423,
+            "build": 8,
+            "capture": 4,
+            "escort": 6,
+            "gather": 1,
+            "guard": 88,
+            "move": 383,
+            "repair": 1,
+            "repair_reserve": 1,
+            "return": 4,
+            "stop": 20,
+            "train": 91
+          }
+        },
+        "2": {
+          "executed": 901,
+          "accepted": 899,
+          "rejected_by_code": {
+            "not_owner": 2
+          },
+          "executed_by_kind": {
+            "ability": 9,
+            "attack_move": 212,
+            "build": 7,
+            "capture": 7,
+            "escort": 4,
+            "gather": 1,
+            "guard": 75,
+            "move": 476,
+            "repair": 2,
+            "repair_reserve": 1,
+            "resume": 1,
+            "return": 13,
+            "stop": 12,
+            "train": 81
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "mirror-SA",
+        "map": "border-depots",
+        "factions": [
+          "SA",
+          "SA"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28010
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28010
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 17875,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 17875
+      },
+      "final_hash": "3328d6b71267d3db560d734fd03ae3855558eccfcfd3eb3ba15c6f3dfbc75744",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 430,
+          "accepted": 429,
+          "rejected_by_code": {
+            "not_owner": 1
+          },
+          "executed_by_kind": {
+            "ability": 4,
+            "attack_move": 152,
+            "build": 9,
+            "capture": 18,
+            "deploy": 4,
+            "escort": 2,
+            "guard": 29,
+            "move": 154,
+            "pack": 4,
+            "repair_reserve": 1,
+            "stop": 2,
+            "train": 51
+          }
+        },
+        "2": {
+          "executed": 180,
+          "accepted": 180,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 1,
+            "attack_move": 32,
+            "build": 6,
+            "capture": 3,
+            "deploy": 1,
+            "gather": 1,
+            "guard": 13,
+            "move": 103,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 1,
+            "train": 17
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "mirror-SY",
+        "map": "dry-river",
+        "factions": [
+          "SY",
+          "SY"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28009
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28009
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 18783,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 18783
+      },
+      "final_hash": "470e574b9f4d6dd3f1b03c41105a4e893768a31139a967db525be9306c146cea",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 632,
+          "accepted": 630,
+          "rejected_by_code": {
+            "not_owner": 2
+          },
+          "executed_by_kind": {
+            "ability": 6,
+            "attack_move": 277,
+            "build": 8,
+            "capture": 8,
+            "escort": 6,
+            "gather": 1,
+            "guard": 55,
+            "move": 178,
+            "repair_reserve": 1,
+            "return": 5,
+            "stop": 16,
+            "train": 71
+          }
+        },
+        "2": {
+          "executed": 465,
+          "accepted": 465,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 109,
+            "build": 9,
+            "capture": 3,
+            "gather": 1,
+            "guard": 64,
+            "move": 197,
+            "repair_reserve": 1,
+            "return": 6,
+            "salvage": 1,
+            "stop": 14,
+            "train": 55
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "mirror-US",
+        "map": "copper-junction",
+        "factions": [
+          "US",
+          "US"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28007
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28007
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 12639,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 12639
+      },
+      "final_hash": "987e6d2f50837820ad43aabc3c89b777efd15c5b841187090e93f5ecbff464b1",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 297,
+          "accepted": 297,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 4,
+            "attack_move": 64,
+            "build": 5,
+            "capture": 1,
+            "gather": 1,
+            "guard": 11,
+            "move": 192,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 1,
+            "train": 16
+          }
+        },
+        "2": {
+          "executed": 214,
+          "accepted": 214,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 7,
+            "attack_move": 49,
+            "build": 9,
+            "capture": 10,
+            "escort": 2,
+            "guard": 16,
+            "move": 86,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 3,
+            "train": 30
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "pair-IR-SA",
+        "map": "border-depots",
+        "factions": [
+          "IR",
+          "SA"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28005
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28005
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 15988,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 15988
+      },
+      "final_hash": "7c80e4a0618ef7388c54656045437c60d01349bdeac851d3c5954d70b077f1fb",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 332,
+          "accepted": 332,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 3,
+            "attack_move": 98,
+            "build": 8,
+            "capture": 14,
+            "escort": 4,
+            "guard": 37,
+            "move": 122,
+            "repair_reserve": 1,
+            "research": 1,
+            "resume": 1,
+            "stop": 6,
+            "train": 37
+          }
+        },
+        "2": {
+          "executed": 281,
+          "accepted": 281,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 2,
+            "attack_move": 59,
+            "build": 6,
+            "capture": 3,
+            "deploy": 9,
+            "gather": 1,
+            "guard": 27,
+            "move": 138,
+            "pack": 8,
+            "repair": 2,
+            "repair_reserve": 1,
+            "stop": 5,
+            "train": 20
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "pair-IR-SY",
+        "map": "industrial-valley",
+        "factions": [
+          "SY",
+          "IR"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28004
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28004
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 16819,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 16819
+      },
+      "final_hash": "20a53917b5ad99789543e44cd67beb8cf0ff4d1b2f4a2f1726d2be7084bbaf25",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 591,
+          "accepted": 589,
+          "rejected_by_code": {
+            "not_owner": 2
+          },
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 99,
+            "build": 6,
+            "capture": 6,
+            "guard": 22,
+            "move": 394,
+            "repair_reserve": 1,
+            "return": 8,
+            "stop": 2,
+            "train": 48
+          }
+        },
+        "2": {
+          "executed": 639,
+          "accepted": 639,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 1,
+            "attack_move": 301,
+            "build": 6,
+            "capture": 11,
+            "escort": 4,
+            "guard": 52,
+            "move": 208,
+            "repair_reserve": 1,
+            "train": 55
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "pair-SY-SA",
+        "map": "port-outskirts",
+        "factions": [
+          "SA",
+          "SY"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28006
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28006
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 19720,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 19720
+      },
+      "final_hash": "2816f8c2551aca481d486e827a03c2b0625673e6b1e42c9fee39cc81d6cc368e",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 380,
+          "accepted": 380,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 3,
+            "attack_move": 108,
+            "build": 6,
+            "capture": 5,
+            "deploy": 13,
+            "guard": 51,
+            "move": 141,
+            "pack": 11,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 4,
+            "train": 36
+          }
+        },
+        "2": {
+          "executed": 619,
+          "accepted": 619,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 6,
+            "attack_move": 201,
+            "board": 3,
+            "build": 9,
+            "capture": 9,
+            "escort": 5,
+            "gather": 1,
+            "guard": 64,
+            "hold": 3,
+            "move": 256,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 10,
+            "train": 48,
+            "unload": 2
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "pair-US-IR",
+        "map": "copper-junction",
+        "factions": [
+          "US",
+          "IR"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28001
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28001
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 21107,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 21107
+      },
+      "final_hash": "645882f62870169470577780e18dbf8f78784d84bd293d388e3a0f1a54314e4f",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 445,
+          "accepted": 445,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 10,
+            "attack_move": 145,
+            "build": 9,
+            "capture": 9,
+            "escort": 5,
+            "gather": 1,
+            "guard": 78,
+            "move": 125,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 4,
+            "train": 57
+          }
+        },
+        "2": {
+          "executed": 437,
+          "accepted": 437,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 8,
+            "attack_move": 136,
+            "build": 6,
+            "capture": 4,
+            "guard": 70,
+            "move": 133,
+            "repair": 5,
+            "repair_reserve": 1,
+            "resume": 1,
+            "stop": 10,
+            "train": 63
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "pair-US-SA",
+        "map": "dry-river",
+        "factions": [
+          "US",
+          "SA"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28003
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28003
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 13670,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 13670
+      },
+      "final_hash": "7f07a11c6cb580f71cd3ebebd289651bc9658590040db35975746e7ba0164a55",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 223,
+          "accepted": 223,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 9,
+            "attack_move": 58,
+            "build": 6,
+            "capture": 4,
+            "gather": 1,
+            "guard": 36,
+            "move": 71,
+            "repair_reserve": 1,
+            "stop": 8,
+            "train": 29
+          }
+        },
+        "2": {
+          "executed": 306,
+          "accepted": 306,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 1,
+            "attack_move": 120,
+            "build": 9,
+            "capture": 7,
+            "deploy": 2,
+            "escort": 3,
+            "gather": 1,
+            "guard": 20,
+            "move": 107,
+            "pack": 2,
+            "repair_reserve": 1,
+            "train": 33
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "pair-US-SY",
+        "map": "relay-heights",
+        "factions": [
+          "SY",
+          "US"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28002
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28002
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 14706,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 14706
+      },
+      "final_hash": "0492565cf6d59a4141fae99941dded70cb0c0f9ef87685385361a2b4cd51c014",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 507,
+          "accepted": 507,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 203,
+            "board": 1,
+            "build": 8,
+            "capture": 11,
+            "escort": 3,
+            "gather": 1,
+            "guard": 23,
+            "hold": 1,
+            "move": 201,
+            "repair_reserve": 1,
+            "stop": 2,
+            "train": 46,
+            "unload": 1
+          }
+        },
+        "2": {
+          "executed": 192,
+          "accepted": 192,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 8,
+            "attack_move": 34,
+            "build": 9,
+            "capture": 2,
+            "gather": 1,
+            "guard": 16,
+            "move": 83,
+            "repair": 3,
+            "repair_reserve": 1,
+            "stop": 3,
+            "train": 32
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "three-ffa",
+        "map": "industrial-valley",
+        "factions": [
+          "US",
+          "IR",
+          "SY"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28011
+      },
+      "metadata": {
+        "simulation": "0.3.2",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28011
+      },
+      "executable_sha256": "22497371387d27d7ad954a095b088e8f19fb95d3cc32d107e783174107a2aa02",
+      "tick": 21503,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 21503
+      },
+      "final_hash": "f9c91b274f0fd197e084ff6875c8cb6316b19079d1aa29338989088c398fd73c",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 649,
+          "accepted": 649,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 13,
+            "attack_move": 301,
+            "board": 1,
+            "build": 7,
+            "capture": 11,
+            "escort": 7,
+            "guard": 73,
+            "hold": 2,
+            "move": 156,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 6,
+            "train": 69,
+            "unload": 1
+          }
+        },
+        "2": {
+          "executed": 370,
+          "accepted": 370,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 7,
+            "attack_move": 111,
+            "build": 7,
+            "capture": 2,
+            "guard": 27,
+            "move": 169,
+            "repair": 2,
+            "repair_reserve": 1,
+            "stop": 7,
+            "train": 37
+          }
+        },
+        "3": {
+          "executed": 516,
+          "accepted": 516,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 6,
+            "attack_move": 88,
+            "build": 7,
+            "capture": 16,
+            "gather": 1,
+            "guard": 36,
+            "move": 306,
+            "repair_reserve": 1,
+            "stop": 6,
+            "train": 49
+          }
+        }
+      }
+    }
+  ]
+}

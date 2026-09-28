@@ -1,14 +1,11 @@
 # Complete deterministic bot matches on authored launch maps
 
-The final simulation **0.3.0 matrix passes all thirteen cases**, including real
-income/spending, ordinary elimination, initial/final saves and exact full replay.
-See the latest-source results below. This is functional acceptance, not a balance
-approval or a multi-seed/human playtest sample.
-
-The original thirteen-match matrix completed with thirteen ordinary elimination
-endings and exact save/full-replay hashes, but four economic failures. It is not
-a balance approval. Two subsequent source versions each pass all thirteen cases after the
-demonstrated planner defects below. Results remain separate by source version.
+The simulation **0.3.2 matrix passes all thirteen lifecycle/economy cases**,
+including ordinary elimination, initial/final saves and exact full replay.
+Its receipt audit exposes a remaining public defeated-station planner defect;
+this is not an all-orders-clean report. The earlier0.3.0 success and0.3.1 Port
+timeout remain separately preserved. This is functional acceptance, not a
+balance approval or a multi-seed/human playtest sample.
 
 ## Existing evidence and the gap
 
@@ -469,3 +466,53 @@ inspected full replays finish at their recorded hashes before contextual evidenc
 is accepted. These are execution races, not blanket ignored errors. There are
 no invalid designation, invalid capture, disabled producer or occupied-site
 rejections in this final matrix. See `rejection-classification.json`.
+
+## Simulation0.3.2 complete matrix and receipt audit
+
+All thirteen cases in `final-0.3.2-2026-09-28` completed by ordinary elimination,
+with real income/spending, unchanged authored maps/resources/starts, initial and
+final restore equality, and checkpoint-free full replay equality. The serial
+suite passed in275.989s on the shared development host. Source snapshots and
+SHA-256 manifest are preserved under its `source/`; `summary.json` carries exact
+build identities and complete case hashes. Concurrent browser/native work makes
+this functional evidence only.
+
+| Case | Final tick | Active elapsed | Winning team |
+|---|---:|---:|---:|
+| four-ffa | 36898 | 30m39.90s | 1 |
+| four-team | 14202 | 11m45.10s | 1 |
+| mirror-IR | 27507 | 22m50.35s | 1 |
+| mirror-SA | 17875 | 14m48.75s | 1 |
+| mirror-SY | 18783 | 15m34.15s | 1 |
+| mirror-US | 12639 | 10m26.95s | 2 |
+| pair-IR-SA | 15988 | 13m14.40s | 1 |
+| pair-IR-SY | 16819 | 13m55.95s | 2 |
+| pair-SY-SA | 19720 | 16m21.00s | 2 |
+| pair-US-IR | 21107 | 17m30.35s | 1 |
+| pair-US-SA | 13670 | 11m18.50s | 2 |
+| pair-US-SY | 14706 | 12m10.30s | 1 |
+| three-ffa | 21503 | 17m50.15s | 1 |
+
+Every rejected receipt was independently replayed through the exact frozen
+source and inspected at the pre-decision, post-decision and execution boundaries:
+
+- Eight `not_owner` receipts follow actual loss of an owned mobile actor between
+  planning and execution. The actor is present with low health before planning,
+  takes observed damage, and is absent from its owner's live view thereafter.
+- Two `occupied` build receipts in four-FFA have visible moving blockers. SA's
+  own hauler22 crosses from y45200 to45350/45500 beside the proposed airfield;
+  its800 radius is tangent at planning and overlaps afterward. SY rifle2143
+  moves from y116911 to116812 beside the proposed power station, crossing its
+ 350-radius boundary. Neither is a persistent invalid static placement.
+- The2v2 has104 `invalid_capture_target` receipts: two engineers each repeat52
+  attempts on station10. The station belongs to player2, already defeated in
+  all312 corresponding public PlayerSummary snapshots. The ordinary validator
+  correctly refuses capture from a defeated owner; the AI station branch
+  omitted that public-status filter. This is a confirmed planner defect,
+  not a visibility/destruction race. It is preserved before the approved
+  bounded correction and next compatibility boundary.
+
+See `receipt-audit.json` and each affected case's `rejection-context.json` and
+inspection logs. The Port recovery details, including the old90-minute timeout
+and actual untouched-checkpoint movement, are in
+[AI task recovery](ai-task-recovery.md).

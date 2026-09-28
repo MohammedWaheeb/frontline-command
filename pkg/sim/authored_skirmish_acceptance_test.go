@@ -423,17 +423,18 @@ func TestAuthoredSkirmishRejectionContext(t *testing.T) {
 		t.Fatal("select a smaller rejection record before broad diagnosis")
 	}
 	type context struct {
-		Rejection      rejectedOrder `json:"rejection"`
-		Stage          string        `json:"stage"`
-		Tick           Tick          `json:"snapshot_tick"`
-		Sources        []EntityView  `json:"owned_sources"`
-		VisibleSources []EntityView  `json:"authorized_sources"`
-		Nearby         []EntityView  `json:"authorized_build_neighborhood,omitempty"`
-		Events         []Event       `json:"authorized_relevant_events,omitempty"`
-		Target         *EntityView   `json:"authorized_target,omitempty"`
-		Station        *StationView  `json:"authorized_station,omitempty"`
-		Armor          string        `json:"public_catalog_armor,omitempty"`
-		CenterDistance int32         `json:"center_distance,omitempty"`
+		Rejection      rejectedOrder   `json:"rejection"`
+		Stage          string          `json:"stage"`
+		Tick           Tick            `json:"snapshot_tick"`
+		Players        []PlayerSummary `json:"public_players"`
+		Sources        []EntityView    `json:"owned_sources"`
+		VisibleSources []EntityView    `json:"authorized_sources"`
+		Nearby         []EntityView    `json:"authorized_build_neighborhood,omitempty"`
+		Events         []Event         `json:"authorized_relevant_events,omitempty"`
+		Target         *EntityView     `json:"authorized_target,omitempty"`
+		Station        *StationView    `json:"authorized_station,omitempty"`
+		Armor          string          `json:"public_catalog_armor,omitempty"`
+		CenterDistance int32           `json:"center_distance,omitempty"`
 	}
 	wanted := map[Tick][]context{}
 	for _, entry := range rejected {
@@ -499,6 +500,7 @@ func TestAuthoredSkirmishRejectionContext(t *testing.T) {
 			if !ok {
 				t.Fatal("recorded player missing")
 			}
+			entry.Players = view.Players
 			for _, actor := range view.Entities {
 				if entry.Rejection.Order.Kind == "build" && distance(actor.Position, entry.Rejection.Order.Position) <= 10000 {
 					entry.Nearby = append(entry.Nearby, actor)
