@@ -1,0 +1,10 @@
+=== RUN   TestAdvicePathPreservedFixtures
+=== RUN   TestAdvicePathPreservedFixtures/midpoint
+    advice_path_profile_test.go:219: active contextual/affordance case is not valid 1 <nil> command_limit command_limit command_limit
+=== RUN   TestAdvicePathPreservedFixtures/final
+--- FAIL: TestAdvicePathPreservedFixtures (1.85s)
+    --- FAIL: TestAdvicePathPreservedFixtures/midpoint (0.55s)
+    --- PASS: TestAdvicePathPreservedFixtures/final (1.18s)
+=== RUN   TestAdviceProfileIsDiagnosticOnly
+--- PASS: TestAdviceProfileIsDiagnosticOnly (0.00s)
+FAIL

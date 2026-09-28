@@ -1,0 +1,33 @@
+File: sim.test
+Type: cpu
+Time: 2026-09-28 18:50:42 +03
+Duration: 3.72s, Total samples = 2.94s (79.04%)
+Showing nodes accounting for 1.50s, 51.02% of 2.94s total
+Dropped 71 nodes (cum <= 0.01s)
+Showing top 25 nodes out of 143
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      2.45s 83.33%  testing.(*B).runN
+         0     0%     0%      2.37s 80.61%  frontlinecommand/pkg/sim.Restore
+         0     0%     0%      2.13s 72.45%  encoding/json.(*Decoder).Decode
+         0     0%     0%      2.04s 69.39%  frontlinecommand/pkg/sim.BenchmarkPreservedAdvicePath.func1.1.1
+         0     0%     0%      2.04s 69.39%  frontlinecommand/pkg/sim.BenchmarkPreservedAdvicePath.func1.4
+         0     0%     0%      2.02s 68.71%  testing.(*B).launch
+         0     0%     0%      1.61s 54.76%  encoding/json/v2.Unmarshal
+         0     0%     0%      1.61s 54.76%  encoding/json/v2.unmarshalDecode
+     0.30s 10.20% 10.20%      1.33s 45.24%  encoding/json/jsontext.(*decoderState).consumeValue
+     0.02s  0.68% 10.88%      1.24s 42.18%  encoding/json/jsontext.(*decoderState).consumeArray
+     0.14s  4.76% 15.65%      1.24s 42.18%  encoding/json/jsontext.(*decoderState).consumeObject
+     0.09s  3.06% 18.71%      1.19s 40.48%  encoding/json/v2.makeStructArshaler.func3
+     0.02s  0.68% 19.39%      1.01s 34.35%  encoding/json/jsontext.(*decoderState).ReadValue
+     0.06s  2.04% 21.43%      0.88s 29.93%  encoding/json/v2.makeSliceArshaler.func3
+         0     0% 21.43%      0.82s 27.89%  encoding/json/jsontext.(*Decoder).ReadValue (inline)
+     0.70s 23.81% 45.24%      0.71s 24.15%  encoding/json/internal/jsonwire.ConsumeWhitespace (inline)
+         0     0% 45.24%      0.43s 14.63%  testing.(*B).run1.func1
+         0     0% 45.24%      0.42s 14.29%  encoding/json/jsontext.(*decoderState).CheckNextValue
+         0     0% 45.24%      0.41s 13.95%  runtime.systemstack
+         0     0% 45.24%      0.31s 10.54%  encoding/json/v2.makeMethodArshaler.func6
+         0     0% 45.24%      0.31s 10.54%  encoding/json/v2.makePointerArshaler.func3
+         0     0% 45.24%      0.27s  9.18%  frontlinecommand/pkg/sim.BenchmarkPreservedAdvicePath.func1
+         0     0% 45.24%      0.16s  5.44%  runtime.(*mheap).alloc.func1
+     0.01s  0.34% 45.58%      0.16s  5.44%  runtime.(*mheap).allocSpan
+     0.16s  5.44% 51.02%      0.16s  5.44%  runtime.madvise

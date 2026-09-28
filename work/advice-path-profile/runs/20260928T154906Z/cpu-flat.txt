@@ -1,0 +1,33 @@
+File: sim.test
+Type: cpu
+Time: 2026-09-28 18:50:42 +03
+Duration: 3.72s, Total samples = 2940ms (79.04%)
+Showing nodes accounting for 2400ms, 81.63% of 2940ms total
+Dropped 71 nodes (cum <= 14.70ms)
+Showing top 25 nodes out of 143
+      flat  flat%   sum%        cum   cum%
+     700ms 23.81% 23.81%      710ms 24.15%  encoding/json/internal/jsonwire.ConsumeWhitespace (inline)
+     300ms 10.20% 34.01%     1330ms 45.24%  encoding/json/jsontext.(*decoderState).consumeValue
+     160ms  5.44% 39.46%      160ms  5.44%  runtime.madvise
+     140ms  4.76% 44.22%     1240ms 42.18%  encoding/json/jsontext.(*decoderState).consumeObject
+     130ms  4.42% 48.64%      130ms  4.42%  encoding/json/internal/jsonwire.ConsumeSimpleString (inline)
+      90ms  3.06% 51.70%     1190ms 40.48%  encoding/json/v2.makeStructArshaler.func3
+      80ms  2.72% 54.42%       80ms  2.72%  runtime.memmove
+      70ms  2.38% 56.80%       70ms  2.38%  runtime.pthread_cond_signal
+      70ms  2.38% 59.18%       70ms  2.38%  runtime.pthread_kill
+      60ms  2.04% 61.22%      880ms 29.93%  encoding/json/v2.makeSliceArshaler.func3
+      60ms  2.04% 63.27%       60ms  2.04%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+      50ms  1.70% 64.97%       50ms  1.70%  crypto/internal/fips140/sha256.blockSHA2
+      50ms  1.70% 66.67%      130ms  4.42%  encoding/json/jsontext.(*decoderState).PeekKind
+      50ms  1.70% 68.37%       90ms  3.06%  encoding/json/v2.makeBoolArshaler.func2
+      50ms  1.70% 70.07%       50ms  1.70%  runtime.typePointers.next
+      50ms  1.70% 71.77%       50ms  1.70%  runtime.usleep
+      40ms  1.36% 73.13%       50ms  1.70%  encoding/json/jsontext.(*decoderState).ReadToken
+      40ms  1.36% 74.49%      120ms  4.08%  encoding/json/v2.makeIntArshaler.func2
+      30ms  1.02% 75.51%       30ms  1.02%  encoding/json/jsontext.(*stateMachine).appendString (inline)
+      30ms  1.02% 76.53%       70ms  2.38%  encoding/json/v2.makeStructArshaler.func2
+      30ms  1.02% 77.55%      120ms  4.08%  frontlinecommand/pkg/content.Map.Validate
+      30ms  1.02% 78.57%       30ms  1.02%  frontlinecommand/pkg/sim.(*Engine).lineOfSight
+      30ms  1.02% 79.59%       30ms  1.02%  internal/runtime/maps.(*Map).getWithoutKeySmallFastStr
+      30ms  1.02% 80.61%       30ms  1.02%  runtime.pthread_cond_wait
+      30ms  1.02% 81.63%       90ms  3.06%  runtime.scanObject

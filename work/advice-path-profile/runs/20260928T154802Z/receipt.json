@@ -1,0 +1,35 @@
+{
+  "source_lock_sha256": "72cadf314b97864ef8c80171bd6fb29a1397c06b35f9b376d437ecaf67d30e6d",
+  "input_lock_sha256": "0d69ca59856e90fdb2f2a5e48825265bb154e8bad3dc049d073603c1f0286071",
+  "runner_sha256": "b0f65a53909153dc00cb806df809419af34cf4f14f7501f5b5d66d0892a71b73",
+  "host_conditions": "Four-human browser, host and replay audit closed; root isolated menu build/browser and small pose checks may run, art may be active. Shared-host diagnostic only, not quiet latency acceptance.",
+  "commands": [
+    {
+      "name": "build",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "./pkg/sim",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/advice-path-profile/runs/20260928T154802Z/sim.test"
+      ],
+      "exit_code": 0,
+      "seconds": 4.672
+    },
+    {
+      "name": "correctness",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/advice-path-profile/runs/20260928T154802Z/sim.test",
+        "-test.run=^TestAdvicePathPreservedFixtures$|^TestAdviceProfileIsDiagnosticOnly$",
+        "-test.count=1",
+        "-test.v",
+        "-test.timeout=4m"
+      ],
+      "exit_code": 1,
+      "seconds": 2.951
+    }
+  ],
+  "binary_sha256": "c6fff09c1cedcacb9a0bd5c25096868f68a629226f1bfff4ec5f7d39e2c38541",
+  "source_verified_after": true
+}

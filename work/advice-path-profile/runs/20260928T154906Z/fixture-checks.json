@@ -1,0 +1,2964 @@
+[
+  {
+    "actors": 55,
+    "advice_bytes": 1445867,
+    "fixture": "midpoint",
+    "full_bytes": 1474244,
+    "hash": "e22506ac7cdc794943a05157f061448a31ad0ad69c771cff5c1f40cd95f1c655",
+    "map_tiles": 25600,
+    "outcome": {
+      "finished": false,
+      "draw": false,
+      "winning_team": 0,
+      "reason": "",
+      "tick": 0
+    },
+    "recorded_cases": [
+      {
+        "name": "recorded_p2_attack_move",
+        "player": 2,
+        "source_tick": 8044,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "entities": [
+              54,
+              149,
+              618
+            ],
+            "position": {
+              "x": 25500,
+              "y": 25500
+            }
+          }
+        ]
+      },
+      {
+        "name": "recorded_p2_train",
+        "player": 2,
+        "source_tick": 8092,
+        "orders": [
+          {
+            "kind": "train",
+            "entities": [
+              32
+            ],
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "type": "IR.at"
+          }
+        ]
+      },
+      {
+        "name": "recorded_p3_train",
+        "player": 3,
+        "source_tick": 8184,
+        "orders": [
+          {
+            "kind": "train",
+            "entities": [
+              30
+            ],
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "type": "SY.rifle"
+          },
+          {
+            "kind": "train",
+            "entities": [
+              45
+            ],
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "type": "SY.rifle"
+          }
+        ]
+      },
+      {
+        "name": "recorded_p3_attack_move",
+        "player": 3,
+        "source_tick": 7792,
+        "orders": [
+          {
+            "kind": "attack_move",
+            "entities": [
+              1116
+            ],
+            "position": {
+              "x": 25500,
+              "y": 25500
+            }
+          }
+        ]
+      }
+    ],
+    "results": [
+      {
+        "case": "recorded_p2_attack_move",
+        "error": "",
+        "result": {
+          "tick": 8037,
+          "results": [
+            {
+              "player": 2,
+              "sequence": 0,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 8037
+            }
+          ]
+        }
+      },
+      {
+        "case": "recorded_p2_train",
+        "error": "",
+        "result": {
+          "tick": 8037,
+          "results": [
+            {
+              "player": 2,
+              "sequence": 0,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 8037
+            }
+          ]
+        }
+      },
+      {
+        "case": "recorded_p3_train",
+        "error": "",
+        "result": {
+          "tick": 8037,
+          "results": [
+            {
+              "player": 3,
+              "sequence": 0,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 8037
+            },
+            {
+              "player": 3,
+              "sequence": 0,
+              "index": 1,
+              "accepted": true,
+              "code": "ok",
+              "tick": 8037
+            }
+          ]
+        }
+      },
+      {
+        "case": "recorded_p3_attack_move",
+        "error": "",
+        "result": {
+          "tick": 8037,
+          "results": [
+            {
+              "player": 3,
+              "sequence": 0,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 8037
+            }
+          ]
+        }
+      },
+      {
+        "affordance_error": "",
+        "affordances": {
+          "tick": 8037,
+          "player": 1,
+          "entities": [
+            {
+              "id": 1,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "recon_sweep",
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [
+                "US.rig"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "US.rig",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell"
+              ],
+              "abilities": [
+                "recon_sweep",
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            }
+          ],
+          "player_commands": [
+            "ping",
+            "repair_reserve",
+            "surrender",
+            "surrender_cancel",
+            "surrender_vote"
+          ]
+        },
+        "bound32_error": "",
+        "bound32_result": [
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 1,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 2,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 3,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 4,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 5,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 6,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 7,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 8,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 9,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 10,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 11,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 12,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 13,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 14,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 15,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 16,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 17,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 18,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 19,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 20,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 21,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 22,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 23,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 24,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 25,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 26,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 27,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 28,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 29,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 30,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 31,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          }
+        ],
+        "context_error": "",
+        "context_result": [
+          {
+            "player": 1,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          }
+        ],
+        "defeated": false,
+        "derived_context_orders": [
+          {
+            "kind": "rally",
+            "entities": [
+              1
+            ],
+            "position": {
+              "x": 25500,
+              "y": 25500
+            }
+          }
+        ],
+        "owned_selection": [
+          1,
+          21
+        ],
+        "player": 1,
+        "sequential_context_error": "",
+        "sequential_context_result": {
+          "tick": 8037,
+          "results": [
+            {
+              "player": 1,
+              "sequence": 0,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 8037
+            }
+          ]
+        }
+      },
+      {
+        "affordance_error": "",
+        "affordances": {
+          "tick": 8037,
+          "player": 2,
+          "entities": [
+            {
+              "id": 3,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [
+                "IR.rig"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "IR.rig",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack_move",
+                "build",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "resume",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [
+                "IR.drone_hub",
+                "aa_post",
+                "abm",
+                "barracks",
+                "bunker",
+                "depot",
+                "factory",
+                "hq",
+                "outpost",
+                "power",
+                "radar",
+                "strategic",
+                "supply",
+                "tech",
+                "turret"
+              ],
+              "trains": [],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "build",
+                  "type": "IR.drone_hub",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "aa_post",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "abm",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "barracks",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "bunker",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "depot",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "factory",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "hq",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "outpost",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "power",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "radar",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "strategic",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "supply",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "tech",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "turret",
+                  "code": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 22,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 25,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [
+                "IR.hauler"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "IR.hauler",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 31,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack_move",
+                "escort",
+                "gather",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 32,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [
+                "IR.at",
+                "IR.elite",
+                "IR.engineer",
+                "IR.medic",
+                "IR.recon",
+                "IR.rifle"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "IR.at",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.elite",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.engineer",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.medic",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.recon",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.rifle",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 37,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack_move",
+                "escort",
+                "gather",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 38,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [
+                "IR.aa",
+                "IR.apc",
+                "IR.artillery",
+                "IR.car",
+                "IR.launcher",
+                "IR.repair",
+                "IR.tank"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "IR.aa",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.apc",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.artillery",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.car",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.launcher",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.repair",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.tank",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 41,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack_move",
+                "escort",
+                "gather",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 46,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [
+                "IR.at",
+                "IR.elite",
+                "IR.engineer",
+                "IR.medic",
+                "IR.recon",
+                "IR.rifle"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "IR.at",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.elite",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.engineer",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.medic",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.recon",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "IR.rifle",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 54,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 86,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 149,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 234,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 461,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 618,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 679,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 947,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 948,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1029,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1030,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1149,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1150,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "strategic"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            }
+          ],
+          "player_commands": [
+            "ping",
+            "repair_reserve",
+            "surrender",
+            "surrender_cancel",
+            "surrender_vote"
+          ]
+        },
+        "bound32_error": "",
+        "bound32_result": [
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 1,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 2,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 3,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 4,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 5,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 6,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 7,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 8,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 9,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 10,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 11,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 12,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 13,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 14,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 15,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 16,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 17,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 18,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 19,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 20,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 21,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 22,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 23,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 24,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 25,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 26,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 27,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 28,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 29,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 30,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 31,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          }
+        ],
+        "context_error": "",
+        "context_result": [
+          {
+            "player": 2,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          }
+        ],
+        "defeated": false,
+        "derived_context_orders": [
+          {
+            "kind": "move",
+            "entities": [
+              4
+            ],
+            "position": {
+              "x": 138500,
+              "y": 23000
+            }
+          }
+        ],
+        "owned_selection": [
+          3,
+          4,
+          22,
+          25,
+          31,
+          32,
+          37,
+          38,
+          41,
+          46,
+          54,
+          86,
+          149,
+          234,
+          461,
+          618,
+          679,
+          947,
+          948,
+          1029,
+          1030,
+          1149,
+          1150
+        ],
+        "player": 2,
+        "sequential_context_error": "",
+        "sequential_context_result": {
+          "tick": 8037,
+          "results": [
+            {
+              "player": 2,
+              "sequence": 0,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 8037
+            }
+          ]
+        }
+      },
+      {
+        "affordance_error": "",
+        "affordances": {
+          "tick": 8037,
+          "player": 3,
+          "entities": [
+            {
+              "id": 5,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [
+                "SY.rig"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "SY.rig",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack_move",
+                "build",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "resume",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [
+                "SY.safehouse",
+                "SY.workshop_air",
+                "aa_post",
+                "abm",
+                "barracks",
+                "bunker",
+                "depot",
+                "factory",
+                "hq",
+                "outpost",
+                "power",
+                "radar",
+                "strategic",
+                "supply",
+                "tech",
+                "turret"
+              ],
+              "trains": [],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "build",
+                  "type": "SY.safehouse",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "SY.workshop_air",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "aa_post",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "abm",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "barracks",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "bunker",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "depot",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "factory",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "hq",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "outpost",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "power",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "radar",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "strategic",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "supply",
+                  "code": "insufficient_credits"
+                },
+                {
+                  "kind": "build",
+                  "type": "tech",
+                  "code": "missing_prerequisite"
+                },
+                {
+                  "kind": "build",
+                  "type": "turret",
+                  "code": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 23,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 26,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [
+                "SY.hauler"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "SY.hauler",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 27,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack_move",
+                "escort",
+                "gather",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 30,
+              "commands": [
+                "ability",
+                "cancel",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [
+                "SY.at",
+                "SY.elite",
+                "SY.engineer",
+                "SY.medic",
+                "SY.portable_aa",
+                "SY.recon",
+                "SY.rifle"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "SY.at",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.elite",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.engineer",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.medic",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.portable_aa",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.recon",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.rifle",
+                  "code": "ok",
+                  "waits_for": "queued"
+                }
+              ]
+            },
+            {
+              "id": 34,
+              "commands": [
+                "ability",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [
+                "SY.aa",
+                "SY.apc",
+                "SY.artillery",
+                "SY.buggy",
+                "SY.car",
+                "SY.launcher",
+                "SY.repair",
+                "SY.tank"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "SY.aa",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.apc",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.artillery",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.buggy",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.car",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.launcher",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.repair",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.tank",
+                  "code": "ok",
+                  "waits_for": "insufficient_credits"
+                }
+              ]
+            },
+            {
+              "id": 36,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack_move",
+                "escort",
+                "gather",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 40,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack_move",
+                "escort",
+                "gather",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 45,
+              "commands": [
+                "ability",
+                "cancel",
+                "power",
+                "rally",
+                "sell",
+                "train"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [
+                "SY.at",
+                "SY.elite",
+                "SY.engineer",
+                "SY.medic",
+                "SY.portable_aa",
+                "SY.recon",
+                "SY.rifle"
+              ],
+              "research": [],
+              "production_status": [
+                {
+                  "kind": "train",
+                  "type": "SY.at",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.elite",
+                  "code": "missing_tier"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.engineer",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.medic",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.portable_aa",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.recon",
+                  "code": "ok",
+                  "waits_for": "queued"
+                },
+                {
+                  "kind": "train",
+                  "type": "SY.rifle",
+                  "code": "ok",
+                  "waits_for": "queued"
+                }
+              ]
+            },
+            {
+              "id": 391,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 392,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 514,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 884,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 990,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1050,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1111,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1116,
+              "commands": [
+                "ability",
+                "aggressive",
+                "attack",
+                "attack_move",
+                "board",
+                "escort",
+                "guard",
+                "hold",
+                "move",
+                "patrol",
+                "stop"
+              ],
+              "abilities": [
+                "disperse",
+                "rapid_transfer"
+              ],
+              "builds": [],
+              "trains": [],
+              "research": []
+            }
+          ],
+          "player_commands": [
+            "ping",
+            "repair_reserve",
+            "surrender",
+            "surrender_cancel",
+            "surrender_vote"
+          ]
+        },
+        "bound32_error": "",
+        "bound32_result": [
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 1,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 2,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 3,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 4,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 5,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 6,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 7,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 8,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 9,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 10,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 11,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 12,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 13,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 14,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 15,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 16,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 17,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 18,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 19,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 20,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 21,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 22,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 23,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 24,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 25,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 26,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 27,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 28,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 29,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 30,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          },
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 31,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          }
+        ],
+        "context_error": "",
+        "context_result": [
+          {
+            "player": 3,
+            "sequence": 0,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8037
+          }
+        ],
+        "defeated": false,
+        "derived_context_orders": [
+          {
+            "kind": "move",
+            "entities": [
+              6
+            ],
+            "position": {
+              "x": 137371,
+              "y": 137999
+            }
+          }
+        ],
+        "owned_selection": [
+          5,
+          6,
+          23,
+          26,
+          27,
+          30,
+          34,
+          36,
+          40,
+          45,
+          391,
+          392,
+          514,
+          884,
+          990,
+          1050,
+          1111,
+          1116
+        ],
+        "player": 3,
+        "sequential_context_error": "",
+        "sequential_context_result": {
+          "tick": 8037,
+          "results": [
+            {
+              "player": 3,
+              "sequence": 0,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 8037
+            }
+          ]
+        }
+      }
+    ],
+    "save_hash_views_unchanged": true,
+    "tick": 8037
+  },
+  {
+    "actors": 43,
+    "advice_bytes": 1387707,
+    "fixture": "final",
+    "full_bytes": 1445382,
+    "hash": "87e577699a4f0c97ad88b9d450f3731e917650eda8beff732bf297513eeac9f7",
+    "map_tiles": 25600,
+    "outcome": {
+      "finished": true,
+      "draw": false,
+      "winning_team": 2,
+      "reason": "elimination",
+      "tick": 16074
+    },
+    "recorded_cases": null,
+    "results": [
+      {
+        "affordance_error": "player_inactive",
+        "affordances": {
+          "tick": 16074,
+          "player": 1,
+          "entities": [],
+          "player_commands": []
+        },
+        "bound32_error": "player_inactive",
+        "bound32_result": null,
+        "context_error": "player_inactive",
+        "context_result": null,
+        "defeated": true,
+        "derived_context_orders": null,
+        "owned_selection": null,
+        "player": 1,
+        "sequential_context_error": "player_inactive",
+        "sequential_context_result": {
+          "tick": 0,
+          "results": null
+        }
+      },
+      {
+        "affordance_error": "",
+        "affordances": {
+          "tick": 16074,
+          "player": 2,
+          "entities": [
+            {
+              "id": 3,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 4,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 22,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 25,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 31,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 32,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 38,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 41,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 46,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 54,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 86,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 618,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 679,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1029,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1382,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1383,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 1602,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2130,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2221,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2386,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2496,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2649,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2720,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2773,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2923,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 2924,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 3107,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 3108,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 3316,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 3373,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            },
+            {
+              "id": 3374,
+              "commands": [],
+              "abilities": [],
+              "builds": [],
+              "trains": [],
+              "research": []
+            }
+          ],
+          "player_commands": []
+        },
+        "bound32_error": "match_finished",
+        "bound32_result": null,
+        "context_error": "match_finished",
+        "context_result": null,
+        "defeated": false,
+        "derived_context_orders": [
+          {
+            "kind": "move",
+            "entities": [
+              4
+            ],
+            "position": {
+              "x": 138500,
+              "y": 23000
+            }
+          }
+        ],
+        "owned_selection": [
+          3,
+          4,
+          22,
+          25,
+          31,
+          32,
+          38,
+          41,
+          46,
+          54,
+          86,
+          618,
+          679,
+          1029,
+          1382,
+          1383,
+          1602,
+          2130,
+          2221,
+          2386,
+          2496,
+          2649,
+          2720,
+          2773,
+          2923,
+          2924,
+          3107,
+          3108,
+          3316,
+          3373,
+          3374
+        ],
+        "player": 2,
+        "sequential_context_error": "match_finished",
+        "sequential_context_result": {
+          "tick": 0,
+          "results": null
+        }
+      },
+      {
+        "affordance_error": "player_inactive",
+        "affordances": {
+          "tick": 16074,
+          "player": 3,
+          "entities": [],
+          "player_commands": []
+        },
+        "bound32_error": "player_inactive",
+        "bound32_result": null,
+        "context_error": "player_inactive",
+        "context_result": null,
+        "defeated": true,
+        "derived_context_orders": null,
+        "owned_selection": null,
+        "player": 3,
+        "sequential_context_error": "player_inactive",
+        "sequential_context_result": {
+          "tick": 0,
+          "results": null
+        }
+      }
+    ],
+    "save_hash_views_unchanged": true,
+    "tick": 16074
+  }
+]

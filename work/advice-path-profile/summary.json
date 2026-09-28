@@ -1,0 +1,315 @@
+{
+  "scope": "Shared-host single-iteration diagnostics, not percentiles or live-timeout attribution",
+  "source_verified_after_profile": true,
+  "inputs_verified_after_profile": true,
+  "measurements": [
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/SaveForAdvice-2",
+      "iterations": 1,
+      "nanoseconds": 22083250,
+      "allocated_bytes": 11298488,
+      "allocations": 53
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/RestoreFull-2",
+      "iterations": 1,
+      "nanoseconds": 78528917,
+      "allocated_bytes": 14429056,
+      "allocations": 1407
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/RestoreAdvice-2",
+      "iterations": 1,
+      "nanoseconds": 69981167,
+      "allocated_bytes": 14347376,
+      "allocations": 938
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/MapValidate-2",
+      "iterations": 1,
+      "nanoseconds": 2380750,
+      "allocated_bytes": 910936,
+      "allocations": 47
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/ValidateState-2",
+      "iterations": 1,
+      "nanoseconds": 154250,
+      "allocated_bytes": 2992,
+      "allocations": 18
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Visibility-2",
+      "iterations": 1,
+      "nanoseconds": 103541,
+      "allocated_bytes": 0,
+      "allocations": 0
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Affordances_p1_2actors-2",
+      "iterations": 1,
+      "nanoseconds": 139209,
+      "allocated_bytes": 30360,
+      "allocations": 22
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/SequentialContext_p1-2",
+      "iterations": 1,
+      "nanoseconds": 46861291,
+      "allocated_bytes": 14368896,
+      "allocations": 975
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Candidates1_p1-2",
+      "iterations": 1,
+      "nanoseconds": 48150416,
+      "allocated_bytes": 14363536,
+      "allocations": 969
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Candidates32_p1-2",
+      "iterations": 1,
+      "nanoseconds": 57817750,
+      "allocated_bytes": 14848248,
+      "allocations": 1295
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Affordances_p2_23actors-2",
+      "iterations": 1,
+      "nanoseconds": 276250,
+      "allocated_bytes": 119528,
+      "allocations": 182
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/SequentialContext_p2-2",
+      "iterations": 1,
+      "nanoseconds": 59394708,
+      "allocated_bytes": 14353176,
+      "allocations": 988
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Candidates1_p2-2",
+      "iterations": 1,
+      "nanoseconds": 61633708,
+      "allocated_bytes": 14358256,
+      "allocations": 992
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Candidates32_p2-2",
+      "iterations": 1,
+      "nanoseconds": 77137500,
+      "allocated_bytes": 14511848,
+      "allocations": 1871
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Affordances_p3_18actors-2",
+      "iterations": 1,
+      "nanoseconds": 209333,
+      "allocated_bytes": 114992,
+      "allocations": 147
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/SequentialContext_p3-2",
+      "iterations": 1,
+      "nanoseconds": 58287375,
+      "allocated_bytes": 14353192,
+      "allocations": 988
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Candidates1_p3-2",
+      "iterations": 1,
+      "nanoseconds": 50882500,
+      "allocated_bytes": 14353040,
+      "allocations": 987
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Candidates32_p3-2",
+      "iterations": 1,
+      "nanoseconds": 71345583,
+      "allocated_bytes": 14507144,
+      "allocations": 1866
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/recorded_p2_attack_move-2",
+      "iterations": 1,
+      "nanoseconds": 52666750,
+      "allocated_bytes": 14355520,
+      "allocations": 977
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/recorded_p2_train-2",
+      "iterations": 1,
+      "nanoseconds": 50451000,
+      "allocated_bytes": 14368992,
+      "allocations": 975
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/recorded_p3_train-2",
+      "iterations": 1,
+      "nanoseconds": 45389041,
+      "allocated_bytes": 14379592,
+      "allocations": 986
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/recorded_p3_attack_move-2",
+      "iterations": 1,
+      "nanoseconds": 46855750,
+      "allocated_bytes": 14349232,
+      "allocations": 962
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Detached_rally_p1-2",
+      "iterations": 1,
+      "nanoseconds": 283958,
+      "allocated_bytes": 21728,
+      "allocations": 40
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Detached_stop_p2-2",
+      "iterations": 1,
+      "nanoseconds": 112459,
+      "allocated_bytes": 11184,
+      "allocations": 58
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/midpoint/Detached_stop_p3-2",
+      "iterations": 1,
+      "nanoseconds": 115541,
+      "allocated_bytes": 5936,
+      "allocations": 50
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/SaveForAdvice-2",
+      "iterations": 1,
+      "nanoseconds": 19128792,
+      "allocated_bytes": 9430712,
+      "allocations": 52
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/RestoreFull-2",
+      "iterations": 1,
+      "nanoseconds": 44086958,
+      "allocated_bytes": 14400496,
+      "allocations": 1684
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/RestoreAdvice-2",
+      "iterations": 1,
+      "nanoseconds": 44183834,
+      "allocated_bytes": 14227792,
+      "allocations": 770
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/MapValidate-2",
+      "iterations": 1,
+      "nanoseconds": 2805792,
+      "allocated_bytes": 910936,
+      "allocations": 47
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/ValidateState-2",
+      "iterations": 1,
+      "nanoseconds": 111959,
+      "allocated_bytes": 1808,
+      "allocations": 16
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Visibility-2",
+      "iterations": 1,
+      "nanoseconds": 43167,
+      "allocated_bytes": 0,
+      "allocations": 0
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Affordances_p1_0actors-2",
+      "iterations": 1,
+      "nanoseconds": 12625,
+      "allocated_bytes": 152,
+      "allocations": 5
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/SequentialContext_p1-2",
+      "iterations": 1,
+      "nanoseconds": 50076875,
+      "allocated_bytes": 14233160,
+      "allocations": 780
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Candidates1_p1-2",
+      "iterations": 1,
+      "nanoseconds": 51066667,
+      "allocated_bytes": 14227880,
+      "allocations": 774
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Candidates32_p1-2",
+      "iterations": 1,
+      "nanoseconds": 49871333,
+      "allocated_bytes": 14227880,
+      "allocations": 774
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Affordances_p2_31actors-2",
+      "iterations": 1,
+      "nanoseconds": 50583,
+      "allocated_bytes": 11696,
+      "allocations": 16
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/SequentialContext_p2-2",
+      "iterations": 1,
+      "nanoseconds": 50338917,
+      "allocated_bytes": 14233160,
+      "allocations": 780
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Candidates1_p2-2",
+      "iterations": 1,
+      "nanoseconds": 46649333,
+      "allocated_bytes": 14227880,
+      "allocations": 774
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Candidates32_p2-2",
+      "iterations": 1,
+      "nanoseconds": 46573167,
+      "allocated_bytes": 14233096,
+      "allocations": 779
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Affordances_p3_0actors-2",
+      "iterations": 1,
+      "nanoseconds": 21833,
+      "allocated_bytes": 152,
+      "allocations": 5
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/SequentialContext_p3-2",
+      "iterations": 1,
+      "nanoseconds": 43756250,
+      "allocated_bytes": 14233144,
+      "allocations": 780
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Candidates1_p3-2",
+      "iterations": 1,
+      "nanoseconds": 42545667,
+      "allocated_bytes": 14233096,
+      "allocations": 779
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Candidates32_p3-2",
+      "iterations": 1,
+      "nanoseconds": 43433875,
+      "allocated_bytes": 14227880,
+      "allocations": 774
+    },
+    {
+      "name": "BenchmarkPreservedAdvicePath/final/Detached_stop_p2-2",
+      "iterations": 1,
+      "nanoseconds": 18791,
+      "allocated_bytes": 152,
+      "allocations": 5
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+goos: darwin
+goarch: arm64
+pkg: frontlinecommand/pkg/sim
+cpu: Apple M4
+BenchmarkPreservedAdvicePath/midpoint/SaveForAdvice-2         	       1	  22083250 ns/op	11298488 B/op	      53 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/RestoreFull-2           	       1	  78528917 ns/op	14429056 B/op	    1407 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/RestoreAdvice-2         	       1	  69981167 ns/op	14347376 B/op	     938 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/MapValidate-2           	       1	   2380750 ns/op	  910936 B/op	      47 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/ValidateState-2         	       1	    154250 ns/op	    2992 B/op	      18 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Visibility-2            	       1	    103541 ns/op	       0 B/op	       0 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Affordances_p1_2actors-2         	       1	    139209 ns/op	   30360 B/op	      22 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/SequentialContext_p1-2           	       1	  46861291 ns/op	14368896 B/op	     975 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Candidates1_p1-2                 	       1	  48150416 ns/op	14363536 B/op	     969 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Candidates32_p1-2                	       1	  57817750 ns/op	14848248 B/op	    1295 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Affordances_p2_23actors-2        	       1	    276250 ns/op	  119528 B/op	     182 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/SequentialContext_p2-2           	       1	  59394708 ns/op	14353176 B/op	     988 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Candidates1_p2-2                 	       1	  61633708 ns/op	14358256 B/op	     992 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Candidates32_p2-2                	       1	  77137500 ns/op	14511848 B/op	    1871 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Affordances_p3_18actors-2        	       1	    209333 ns/op	  114992 B/op	     147 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/SequentialContext_p3-2           	       1	  58287375 ns/op	14353192 B/op	     988 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Candidates1_p3-2                 	       1	  50882500 ns/op	14353040 B/op	     987 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Candidates32_p3-2                	       1	  71345583 ns/op	14507144 B/op	    1866 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/recorded_p2_attack_move-2        	       1	  52666750 ns/op	14355520 B/op	     977 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/recorded_p2_train-2              	       1	  50451000 ns/op	14368992 B/op	     975 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/recorded_p3_train-2              	       1	  45389041 ns/op	14379592 B/op	     986 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/recorded_p3_attack_move-2        	       1	  46855750 ns/op	14349232 B/op	     962 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Detached_rally_p1-2              	       1	    283958 ns/op	   21728 B/op	      40 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Detached_stop_p2-2               	       1	    112459 ns/op	   11184 B/op	      58 allocs/op
+BenchmarkPreservedAdvicePath/midpoint/Detached_stop_p3-2               	       1	    115541 ns/op	    5936 B/op	      50 allocs/op
+BenchmarkPreservedAdvicePath/final/SaveForAdvice-2                     	       1	  19128792 ns/op	 9430712 B/op	      52 allocs/op
+BenchmarkPreservedAdvicePath/final/RestoreFull-2                       	       1	  44086958 ns/op	14400496 B/op	    1684 allocs/op
+BenchmarkPreservedAdvicePath/final/RestoreAdvice-2                     	       1	  44183834 ns/op	14227792 B/op	     770 allocs/op
+BenchmarkPreservedAdvicePath/final/MapValidate-2                       	       1	   2805792 ns/op	  910936 B/op	      47 allocs/op
+BenchmarkPreservedAdvicePath/final/ValidateState-2                     	       1	    111959 ns/op	    1808 B/op	      16 allocs/op
+BenchmarkPreservedAdvicePath/final/Visibility-2                        	       1	     43167 ns/op	       0 B/op	       0 allocs/op
+BenchmarkPreservedAdvicePath/final/Affordances_p1_0actors-2            	       1	     12625 ns/op	     152 B/op	       5 allocs/op
+BenchmarkPreservedAdvicePath/final/SequentialContext_p1-2              	       1	  50076875 ns/op	14233160 B/op	     780 allocs/op
+BenchmarkPreservedAdvicePath/final/Candidates1_p1-2                    	       1	  51066667 ns/op	14227880 B/op	     774 allocs/op
+BenchmarkPreservedAdvicePath/final/Candidates32_p1-2                   	       1	  49871333 ns/op	14227880 B/op	     774 allocs/op
+BenchmarkPreservedAdvicePath/final/Affordances_p2_31actors-2           	       1	     50583 ns/op	   11696 B/op	      16 allocs/op
+BenchmarkPreservedAdvicePath/final/SequentialContext_p2-2              	       1	  50338917 ns/op	14233160 B/op	     780 allocs/op
+BenchmarkPreservedAdvicePath/final/Candidates1_p2-2                    	       1	  46649333 ns/op	14227880 B/op	     774 allocs/op
+BenchmarkPreservedAdvicePath/final/Candidates32_p2-2                   	       1	  46573167 ns/op	14233096 B/op	     779 allocs/op
+BenchmarkPreservedAdvicePath/final/Affordances_p3_0actors-2            	       1	     21833 ns/op	     152 B/op	       5 allocs/op
+BenchmarkPreservedAdvicePath/final/SequentialContext_p3-2              	       1	  43756250 ns/op	14233144 B/op	     780 allocs/op
+BenchmarkPreservedAdvicePath/final/Candidates1_p3-2                    	       1	  42545667 ns/op	14233096 B/op	     779 allocs/op
+BenchmarkPreservedAdvicePath/final/Candidates32_p3-2                   	       1	  43433875 ns/op	14227880 B/op	     774 allocs/op
+BenchmarkPreservedAdvicePath/final/Detached_stop_p2-2                  	       1	     18791 ns/op	     152 B/op	       5 allocs/op
+PASS

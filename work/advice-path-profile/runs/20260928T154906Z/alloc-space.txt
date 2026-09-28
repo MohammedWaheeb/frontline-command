@@ -1,0 +1,27 @@
+File: sim.test
+Type: alloc_space
+Time: 2026-09-28 18:50:46 +03
+Showing nodes accounting for 826.29MB, 98.07% of 842.51MB total
+Dropped 34 nodes (cum <= 4.21MB)
+Showing top 20 nodes out of 45
+      flat  flat%   sum%        cum   cum%
+  481.19MB 57.11% 57.11%   481.19MB 57.11%  encoding/json/jsontext.(*decoderState).fetch
+  176.02MB 20.89% 78.01%   176.02MB 20.89%  reflect.growslice
+   81.18MB  9.64% 87.64%    81.18MB  9.64%  encoding/json/jsontext.(*Value).UnmarshalJSON
+   63.02MB  7.48% 95.12%    63.02MB  7.48%  frontlinecommand/pkg/content.Map.Validate
+    7.30MB  0.87% 95.99%     7.30MB  0.87%  bytes.Clone (inline)
+    6.74MB   0.8% 96.79%    17.91MB  2.13%  encoding/json/v2.makeStructArshaler.func2
+    6.05MB  0.72% 97.51%     6.05MB  0.72%  frontlinecommand/pkg/sim.(*Engine).computeVisibility
+    4.76MB  0.57% 98.07%     4.76MB  0.57%  internal/strconv.AppendBool (inline)
+         0     0% 98.07%   742.40MB 88.12%  encoding/json.(*Decoder).Decode
+         0     0% 98.07%    25.21MB  2.99%  encoding/json.Marshal
+         0     0% 98.07%   481.19MB 57.11%  encoding/json/jsontext.(*Decoder).ReadValue (inline)
+         0     0% 98.07%   481.19MB 57.11%  encoding/json/jsontext.(*decoderState).ReadValue
+         0     0% 98.07%   481.19MB 57.11%  encoding/json/jsontext.(*decoderState).consumeArray
+         0     0% 98.07%   481.19MB 57.11%  encoding/json/jsontext.(*decoderState).consumeObject
+         0     0% 98.07%   203.05MB 24.10%  encoding/json/jsontext.(*decoderState).consumeString
+         0     0% 98.07%   481.19MB 57.11%  encoding/json/jsontext.(*decoderState).consumeValue
+         0     0% 98.07%   159.98MB 18.99%  encoding/json/jsontext.(*decoderState).consumeWhitespace
+         0     0% 98.07%    25.21MB  2.99%  encoding/json/v2.Marshal
+         0     0% 98.07%   261.21MB 31.00%  encoding/json/v2.Unmarshal
+         0     0% 98.07%     5.97MB  0.71%  encoding/json/v2.makeBoolArshaler.func1

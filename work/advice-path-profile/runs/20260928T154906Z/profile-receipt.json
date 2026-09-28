@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/advice-path-profile/runs/20260928T154906Z/sim.test",
+    "-test.run=^$",
+    "-test.bench=^BenchmarkPreservedAdvicePath$/^midpoint$/^RestoreAdvice$",
+    "-test.benchtime=2s",
+    "-test.count=1",
+    "-test.timeout=2m",
+    "-test.cpuprofile=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/advice-path-profile/runs/20260928T154906Z/restore.cpu.prof",
+    "-test.memprofile=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/advice-path-profile/runs/20260928T154906Z/restore.alloc.prof"
+  ],
+  "exit_code": 0,
+  "seconds": 3.746,
+  "binary_sha256": "68aabd349d8ed4ff961f354b39b36a92ae9ed881d66ce7c1c2678a19500b7776",
+  "conditions": "Shared-host diagnostic; includes Go benchmark scaffold. Not live actor scheduling or reference latency."
+}
