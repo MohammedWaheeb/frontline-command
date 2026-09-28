@@ -1,0 +1,586 @@
+{
+  "time": "2026-09-28T02:36:31.577Z",
+  "mode": "hardware-no-draw",
+  "channel": "default headless shell",
+  "url": "http://127.0.0.1:56293",
+  "browser": "151.0.7922.34",
+  "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "warnings": [],
+  "baseline": {
+    "time": "2026-09-28T02:29:10.176Z",
+    "browser": "151.0.7922.34",
+    "host": {
+      "os": "darwin",
+      "release": "25.5.0",
+      "cpu": "Apple M4",
+      "logicalCPUs": 10,
+      "memory": 17179869184
+    },
+    "scope": "688 Go actors,64 aircraft return,336 scouts moving;natural authorized perspective. Two consecutive30-second synthetic segments, not long matches. Four-tick manual batches reproduce5Hz snapshot delivery; reported RPC cost includes Go/protobuf/IPC/render update, not isolated tick time. Headless shared-host baseline; art incomplete; no reference hardware FPS claim.",
+    "artBuild": {
+      "started": "2026-09-28T02:17:53.189Z",
+      "completed": "2026-09-28T02:18:04.096Z",
+      "revision": "25ab056959c05ce4fb99eef543a5f86ab5f7eba5",
+      "go": "go version go1.27.1 darwin/arm64",
+      "version": {
+        "adapter": "1",
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "go": "go1.27.1",
+        "protocol": 1,
+        "simulation": "0.2.0"
+      },
+      "sha256": {
+        "host": "e81676c88bfca414440441aa906b22bfc29ba18df8d4c6fb2e549427da93ef9f",
+        "wasm": "622110058f3ff540f1bc81e90b8f05f00e6fca951c23888668323658e84340db",
+        "pack": "372c1846df77fc73664d5933729e9751dc60588375f467923b770416ea0a93db",
+        "clientSource": "d4ada3538058affd890ae73f60d27a792031d2235c564d4f02fb77efe3a7c581"
+      },
+      "packFiles": 2892,
+      "art": {
+        "format": 1,
+        "sprites": {
+          "building.US.hq": "sprites/building.US.hq/building.US.hq.sprite.json",
+          "building.US.power": "sprites/building.US.power/building.US.power.sprite.json",
+          "prop.rocks": "sprites/prop.rocks/prop.rocks.sprite.json",
+          "prop.rubble_cover": "sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+          "prop.sandbags": "sprites/prop.sandbags/prop.sandbags.sprite.json",
+          "prop.shrub": "sprites/prop.shrub/prop.shrub.sprite.json",
+          "prop.supply_field": "sprites/prop.supply_field/prop.supply_field.sprite.json",
+          "unit.IR.hauler": "sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+          "unit.IR.rig": "sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+          "unit.IR.strike": "sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+          "unit.SA.hauler": "sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+          "unit.SA.mobile_abm": "sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+          "unit.SA.rig": "sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+          "unit.SY.car": "sprites/unit.SY.car/unit.SY.car.sprite.json",
+          "unit.SY.hauler": "sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+          "unit.SY.rig": "sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+          "unit.US.at": "sprites/unit.US.at/unit.US.at.sprite.json",
+          "unit.US.elite": "sprites/unit.US.elite/unit.US.elite.sprite.json",
+          "unit.US.engineer": "sprites/unit.US.engineer/unit.US.engineer.sprite.json",
+          "unit.US.hauler": "sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+          "unit.US.medic": "sprites/unit.US.medic/unit.US.medic.sprite.json",
+          "unit.US.recon": "sprites/unit.US.recon/unit.US.recon.sprite.json",
+          "unit.US.rifle": "sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+          "unit.US.rig": "sprites/unit.US.rig/unit.US.rig.sprite.json",
+          "unit.US.tank": "sprites/unit.US.tank/unit.US.tank.sprite.json"
+        },
+        "terrain": [
+          "asphalt",
+          "concrete_slab",
+          "dry_riverbed",
+          "gravel",
+          "packed_earth",
+          "rubble_ground",
+          "sand",
+          "scrub_ground"
+        ],
+        "portraits": [
+          "IR.hauler",
+          "IR.rig",
+          "SA.hauler",
+          "SA.rig",
+          "SY.car",
+          "SY.hauler",
+          "SY.rig",
+          "US.at",
+          "US.elite",
+          "US.engineer",
+          "US.hauler",
+          "US.medic",
+          "US.recon",
+          "US.rig",
+          "US.tank"
+        ],
+        "buildIcons": [
+          "IR.hauler",
+          "IR.rig",
+          "SA.hauler",
+          "SA.rig",
+          "SY.car",
+          "SY.hauler",
+          "SY.rig",
+          "US.at",
+          "US.elite",
+          "US.engineer",
+          "US.hauler",
+          "US.medic",
+          "US.recon",
+          "US.rig",
+          "US.tank"
+        ],
+        "chrome": [
+          "brass_bezel@1x.png",
+          "brass_bezel@2x.png",
+          "button@1x.png",
+          "button@2x.png",
+          "button_active@2x.png",
+          "button_disabled@2x.png",
+          "button_hover@2x.png",
+          "button_normal@2x.png",
+          "button_pressed@2x.png",
+          "cameo_frame@1x.png",
+          "cameo_frame@2x.png",
+          "console_plate@1x.png",
+          "console_plate@2x.png",
+          "metal_noise.png",
+          "well@1x.png",
+          "well@2x.png"
+        ],
+        "icons": true,
+        "emblems": true
+      },
+      "scope": "Isolated actual product; current art incomplete. No shared build artifacts overwritten."
+    },
+    "sha256": {
+      "bundle": "debe147dfd71b6e46b6f14629e4d3d8de28ce58e5233b763588d8ddf17357a4f",
+      "opening": "0961a3d5094616c8d53c2e1213e40aca08c0ad3b59c7d079cd10a1c8f1fcd266",
+      "wasm": "622110058f3ff540f1bc81e90b8f05f00e6fca951c23888668323658e84340db"
+    },
+    "errors": [],
+    "warnings": [
+      "[.WebGL-0x1240056ba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "[.WebGL-0x1240056ba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "[.WebGL-0x1240056ba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+      "[.WebGL-0x1240056ba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    ],
+    "segments": [
+      {
+        "index": 0,
+        "ticks": 600,
+        "elapsedMs": 42249.800000190735,
+        "simulationRate": 14.201250656743733,
+        "stepBatch": 4,
+        "roundtripMs": {
+          "p50": 174.20000004768372,
+          "p95": 229.09999990463257,
+          "p99": 285.90000009536743,
+          "max": 392.09999990463257
+        },
+        "frameMs": {
+          "p50": 50,
+          "p95": 66.80000000000291,
+          "p99": 67.90000000000146,
+          "over50": 338,
+          "total": 808
+        },
+        "commandsMs": {
+          "p95": 835.4000000953674,
+          "max": 835.4000000953674
+        },
+        "visibleEntities": {
+          "min": 172,
+          "max": 257
+        },
+        "renderedActors": 257,
+        "terrainChunks": 49,
+        "art": {
+          "indexedPages": 48,
+          "residentPages": 12,
+          "residentBytes": 39943824
+        },
+        "missing": [
+          "IR.drone_hub",
+          "IR.isr",
+          "IR.recon",
+          "aa_post",
+          "hq",
+          "power"
+        ],
+        "hash": "8f1bc930891145054177f3086d2e268da1180935dc782a922b101e53b4adf32c",
+        "savedBytes": 2981995,
+        "restored": true,
+        "errors": [],
+        "pageHeap": {
+          "Documents": 1,
+          "Nodes": 72,
+          "JSHeapUsedSize": 75049096,
+          "JSHeapTotalSize": 169639936
+        },
+        "disposal": {
+          "canvases": 0,
+          "art": {
+            "indexedPages": 0,
+            "residentPages": 0,
+            "residentBytes": 0
+          }
+        }
+      },
+      {
+        "index": 1,
+        "ticks": 600,
+        "elapsedMs": 45207.200000047684,
+        "simulationRate": 13.272222123895466,
+        "stepBatch": 4,
+        "roundtripMs": {
+          "p50": 184.29999995231628,
+          "p95": 242.59999990463257,
+          "p99": 316.59999990463257,
+          "max": 508.7999999523163
+        },
+        "frameMs": {
+          "p50": 50,
+          "p95": 67.09999999999127,
+          "p99": 68.60000000000582,
+          "over50": 409,
+          "total": 828
+        },
+        "commandsMs": {
+          "p95": 867,
+          "max": 867
+        },
+        "visibleEntities": {
+          "min": 172,
+          "max": 257
+        },
+        "renderedActors": 257,
+        "terrainChunks": 49,
+        "art": {
+          "indexedPages": 48,
+          "residentPages": 12,
+          "residentBytes": 39943824
+        },
+        "missing": [
+          "IR.drone_hub",
+          "IR.isr",
+          "IR.recon",
+          "aa_post",
+          "hq",
+          "power"
+        ],
+        "hash": "8f1bc930891145054177f3086d2e268da1180935dc782a922b101e53b4adf32c",
+        "savedBytes": 2981995,
+        "restored": true,
+        "errors": [],
+        "pageHeap": {
+          "Documents": 1,
+          "Nodes": 72,
+          "JSHeapUsedSize": 66834968,
+          "JSHeapTotalSize": 156172288
+        },
+        "disposal": {
+          "canvases": 0,
+          "art": {
+            "indexedPages": 0,
+            "residentPages": 0,
+            "residentBytes": 0
+          }
+        }
+      }
+    ],
+    "status": "passed"
+  },
+  "hashes": {
+    "baselineBundle": "debe147dfd71b6e46b6f14629e4d3d8de28ce58e5233b763588d8ddf17357a4f",
+    "instrumentedBundle": "cf3240d2d749d1cc1610ca0f5cc350950f0e0754ac76fc01d632fc9f15eed864",
+    "wasm": "622110058f3ff540f1bc81e90b8f05f00e6fca951c23888668323658e84340db",
+    "opening": "0961a3d5094616c8d53c2e1213e40aca08c0ad3b59c7d079cd10a1c8f1fcd266"
+  },
+  "gpu": {
+    "gpu": {
+      "devices": [
+        {
+          "vendorId": 4203,
+          "deviceId": 0,
+          "vendorString": "Google Inc. (Apple)",
+          "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))",
+          "driverVendor": "Apple",
+          "driverVersion": "26.5.1"
+        }
+      ],
+      "auxAttributes": {
+        "amdSwitchable": false,
+        "canSupportThreadedTextureMailbox": false,
+        "directRenderingVersion": "",
+        "displayType": "ANGLE_METAL",
+        "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_compressed_texture_etc GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_rgbx_internal_format GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_compressed_ETC1_RGB8_sub_texture GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_multisampled_render_to_texture GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_pvrtc_sRGB GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_sRGB_R8 GL_EXT_texture_sRGB_RG8 GL_EXT_texture_shadow_lod GL_EXT_texture_storage GL_IMG_texture_compression_pvrtc GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_KHR_texture_compression_astc_hdr GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_NV_fence GL_NV_framebuffer_blit GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_sync GL_OES_compressed_EAC_R11_signed_texture GL_OES_compressed_EAC_R11_unsigned_texture GL_OES_compressed_EAC_RG11_signed_texture GL_OES_compressed_EAC_RG11_unsigned_texture GL_OES_compressed_ETC1_RGB8_texture GL_OES_compressed_ETC2_RGB8_texture GL_OES_compressed_ETC2_RGBA8_texture GL_OES_compressed_ETC2_punchthroughA_RGBA8_texture GL_OES_compressed_ETC2_punchthroughA_sRGB8_alpha_texture GL_OES_compressed_ETC2_sRGB8_alpha8_texture GL_OES_compressed_ETC2_sRGB8_texture GL_OES_depth24 GL_OES_depth32 GL_OES_depth_texture GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_3D GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_vertex_array_object GL_QCOM_render_shared_exponent ",
+        "glImplementationParts": "(gl=egl-angle,angle=metal)",
+        "glRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))",
+        "glResetNotificationStrategy": 33362,
+        "glVendor": "Google Inc. (Apple)",
+        "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28222 git hash: 6dab7c7e742b)",
+        "glWsExtensions": "",
+        "glWsVendor": "",
+        "glWsVersion": "",
+        "inProcessGpu": false,
+        "initializationTime": 0.065358,
+        "isAsan": false,
+        "isClangCoverage": false,
+        "jpegDecodeAcceleratorSupported": false,
+        "maxMsaaSamples": "4",
+        "optimus": false,
+        "passthroughCmdDecoder": true,
+        "pixelShaderVersion": "3.00",
+        "processCrashCount": 0,
+        "sandboxed": false,
+        "skiaBackendType": "GraphiteDawnMetal",
+        "subpixelFontRendering": true,
+        "targetCpuBits": 64,
+        "vertexShaderVersion": "3.00",
+        "visibilityCallbackCallCount": 0
+      },
+      "featureStatus": {
+        "2d_canvas": "enabled",
+        "direct_rendering_display_compositor": "disabled_off_ok",
+        "gpu_compositing": "enabled",
+        "multiple_raster_threads": "enabled_on",
+        "opengl": "enabled_on",
+        "rasterization": "enabled",
+        "raw_draw": "disabled_off_ok",
+        "skia_graphite": "enabled_on",
+        "trees_in_viz": "disabled_off",
+        "video_decode": "enabled",
+        "video_encode": "enabled",
+        "webgl": "enabled",
+        "webgpu": "enabled",
+        "webnn": "disabled_off"
+      },
+      "driverBugWorkarounds": [
+        "disable_2d_canvas_auto_flush",
+        "enable_webgl_timer_query_extensions",
+        "disabled_extension_GL_KHR_blend_equation_advanced",
+        "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+      ],
+      "videoDecoding": [],
+      "videoEncoding": []
+    },
+    "modelName": "Mac",
+    "modelVersion": "16.12",
+    "commandLine": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --no-sandbox --user-data-dir=/var/folders/n4/43n_jxh10gg3s770b_8jbzb80000gn/T/playwright_chromiumdev_profile-vNDcQv --remote-debugging-pipe --no-startup-window --flag-switches-begin --flag-switches-end --enable-unsafe-swiftshader"
+  },
+  "webgl": {
+    "vendor": "WebKit",
+    "renderer": "WebKit WebGL",
+    "unmaskedVendor": "Google Inc. (Apple)",
+    "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+    "attributes": {
+      "alpha": false,
+      "antialias": true,
+      "depth": true,
+      "desynchronized": false,
+      "failIfMajorPerformanceCaveat": false,
+      "powerPreference": "default",
+      "premultipliedAlpha": true,
+      "preserveDrawingBuffer": false,
+      "stencil": true,
+      "xrCompatible": false
+    },
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "dpr": 1,
+    "canvas": {
+      "width": 1600,
+      "height": 900
+    }
+  },
+  "profileStarted": "2026-09-28T02:36:33.054Z",
+  "profileEnded": "2026-09-28T02:37:03.132Z",
+  "mainThreadMetrics": {
+    "Timestamp": {
+      "end": 1082833.100005,
+      "delta": 30.116586999967694
+    },
+    "AudioHandlers": {
+      "end": 0,
+      "delta": 0
+    },
+    "AudioWorkletProcessors": {
+      "end": 0,
+      "delta": 0
+    },
+    "Documents": {
+      "end": 1,
+      "delta": 0
+    },
+    "Frames": {
+      "end": 1,
+      "delta": 0
+    },
+    "JSEventListeners": {
+      "end": 57,
+      "delta": 0
+    },
+    "LayoutObjects": {
+      "end": 5,
+      "delta": 0
+    },
+    "MediaKeySessions": {
+      "end": 0,
+      "delta": 0
+    },
+    "MediaKeys": {
+      "end": 0,
+      "delta": 0
+    },
+    "Nodes": {
+      "end": 72,
+      "delta": 0
+    },
+    "Resources": {
+      "end": 23,
+      "delta": 1
+    },
+    "ContextLifecycleStateObservers": {
+      "end": 11,
+      "delta": 0
+    },
+    "V8PerContextDatas": {
+      "end": 2,
+      "delta": 0
+    },
+    "WorkerGlobalScopes": {
+      "end": 7,
+      "delta": 0
+    },
+    "UACSSResources": {
+      "end": 0,
+      "delta": 0
+    },
+    "RTCPeerConnections": {
+      "end": 0,
+      "delta": 0
+    },
+    "ResourceFetchers": {
+      "end": 14,
+      "delta": -1
+    },
+    "AdSubframes": {
+      "end": 0,
+      "delta": 0
+    },
+    "DetachedScriptStates": {
+      "end": 0,
+      "delta": 0
+    },
+    "ArrayBufferContents": {
+      "end": 237,
+      "delta": 226
+    },
+    "LayoutCount": {
+      "end": 2,
+      "delta": 0
+    },
+    "RecalcStyleCount": {
+      "end": 4,
+      "delta": 0
+    },
+    "LayoutDuration": {
+      "end": 0.000053,
+      "delta": 0
+    },
+    "RecalcStyleDuration": {
+      "end": 0.000603,
+      "delta": 0
+    },
+    "DevToolsCommandDuration": {
+      "end": 0.045576,
+      "delta": 0.039943
+    },
+    "ScriptDuration": {
+      "end": 2.167085,
+      "delta": 1.3826460000000003
+    },
+    "V8CompileDuration": {
+      "end": 0,
+      "delta": 0
+    },
+    "TaskDuration": {
+      "end": 2.490133,
+      "delta": 1.5821230000000002
+    },
+    "TaskOtherDuration": {
+      "end": 0.276816,
+      "delta": 0.159534
+    },
+    "ThreadTime": {
+      "end": 2.125258,
+      "delta": 1.7014070000000001
+    },
+    "ProcessTime": {
+      "end": 26.4587,
+      "delta": 24.858947
+    },
+    "JSHeapUsedSize": {
+      "end": 167425056,
+      "delta": 148340348
+    },
+    "JSHeapTotalSize": {
+      "end": 212287488,
+      "delta": 162152448
+    },
+    "FirstMeaningfulPaint": {
+      "end": 1082802.214943,
+      "delta": 1082802.214943
+    },
+    "DomContentLoaded": {
+      "end": 1082801.666837,
+      "delta": 0
+    },
+    "NavigationStart": {
+      "end": 1082801.562938,
+      "delta": 0
+    }
+  },
+  "segment": {
+    "index": 0,
+    "ticks": 600,
+    "elapsedMs": 30071.800000190735,
+    "simulationRate": 19.95224762056792,
+    "stepBatch": 4,
+    "roundtripMs": {
+      "p50": 129.10000014305115,
+      "p95": 173.30000019073486,
+      "p99": 271.40000009536743,
+      "max": 314
+    },
+    "frameMs": {
+      "p50": 16.69999999999709,
+      "p95": 18.30000000000109,
+      "p99": 18.599999999998545,
+      "over50": 0,
+      "total": 1807
+    },
+    "commandsMs": {
+      "p95": 297,
+      "max": 297
+    },
+    "visibleEntities": {
+      "min": 172,
+      "max": 257
+    },
+    "renderedActors": 257,
+    "terrainChunks": 49,
+    "art": {
+      "indexedPages": 48,
+      "residentPages": 12,
+      "residentBytes": 39943824
+    },
+    "missing": [
+      "IR.drone_hub",
+      "IR.isr",
+      "IR.recon",
+      "aa_post",
+      "hq",
+      "power"
+    ],
+    "hash": "8f1bc930891145054177f3086d2e268da1180935dc782a922b101e53b4adf32c",
+    "savedBytes": 2981995,
+    "restored": true,
+    "errors": []
+  },
+  "identity": {
+    "title": "Maximum Go renderer profile",
+    "canvases": 1,
+    "frameworkOverlay": 0
+  },
+  "disposal": {
+    "canvases": 0,
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0
+    }
+  },
+  "status": "errors"
+}

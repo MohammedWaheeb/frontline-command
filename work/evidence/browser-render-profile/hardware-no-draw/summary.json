@@ -1,0 +1,831 @@
+{
+  "mode": "hardware-no-draw",
+  "profileMs": 30110.36,
+  "frameMs": {
+    "p50": 16.69999999999709,
+    "p95": 18.30000000000109,
+    "p99": 18.599999999998545,
+    "over50": 0,
+    "total": 1807
+  },
+  "roundtripMs": {
+    "p50": 129.10000014305115,
+    "p95": 173.30000019073486,
+    "p99": 271.40000009536743,
+    "max": 314
+  },
+  "gpu": {
+    "vendor": "WebKit",
+    "renderer": "WebKit WebGL",
+    "unmaskedVendor": "Google Inc. (Apple)",
+    "unmaskedRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+    "attributes": {
+      "alpha": false,
+      "antialias": true,
+      "depth": true,
+      "desynchronized": false,
+      "failIfMajorPerformanceCaveat": false,
+      "powerPreference": "default",
+      "premultipliedAlpha": true,
+      "preserveDrawingBuffer": false,
+      "stencil": true,
+      "xrCompatible": false
+    },
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "dpr": 1,
+    "canvas": {
+      "width": 1600,
+      "height": 900
+    }
+  },
+  "metrics": {
+    "Timestamp": {
+      "end": 1082833.100005,
+      "delta": 30.116586999967694
+    },
+    "AudioHandlers": {
+      "end": 0,
+      "delta": 0
+    },
+    "AudioWorkletProcessors": {
+      "end": 0,
+      "delta": 0
+    },
+    "Documents": {
+      "end": 1,
+      "delta": 0
+    },
+    "Frames": {
+      "end": 1,
+      "delta": 0
+    },
+    "JSEventListeners": {
+      "end": 57,
+      "delta": 0
+    },
+    "LayoutObjects": {
+      "end": 5,
+      "delta": 0
+    },
+    "MediaKeySessions": {
+      "end": 0,
+      "delta": 0
+    },
+    "MediaKeys": {
+      "end": 0,
+      "delta": 0
+    },
+    "Nodes": {
+      "end": 72,
+      "delta": 0
+    },
+    "Resources": {
+      "end": 23,
+      "delta": 1
+    },
+    "ContextLifecycleStateObservers": {
+      "end": 11,
+      "delta": 0
+    },
+    "V8PerContextDatas": {
+      "end": 2,
+      "delta": 0
+    },
+    "WorkerGlobalScopes": {
+      "end": 7,
+      "delta": 0
+    },
+    "UACSSResources": {
+      "end": 0,
+      "delta": 0
+    },
+    "RTCPeerConnections": {
+      "end": 0,
+      "delta": 0
+    },
+    "ResourceFetchers": {
+      "end": 14,
+      "delta": -1
+    },
+    "AdSubframes": {
+      "end": 0,
+      "delta": 0
+    },
+    "DetachedScriptStates": {
+      "end": 0,
+      "delta": 0
+    },
+    "ArrayBufferContents": {
+      "end": 237,
+      "delta": 226
+    },
+    "LayoutCount": {
+      "end": 2,
+      "delta": 0
+    },
+    "RecalcStyleCount": {
+      "end": 4,
+      "delta": 0
+    },
+    "LayoutDuration": {
+      "end": 0.000053,
+      "delta": 0
+    },
+    "RecalcStyleDuration": {
+      "end": 0.000603,
+      "delta": 0
+    },
+    "DevToolsCommandDuration": {
+      "end": 0.045576,
+      "delta": 0.039943
+    },
+    "ScriptDuration": {
+      "end": 2.167085,
+      "delta": 1.3826460000000003
+    },
+    "V8CompileDuration": {
+      "end": 0,
+      "delta": 0
+    },
+    "TaskDuration": {
+      "end": 2.490133,
+      "delta": 1.5821230000000002
+    },
+    "TaskOtherDuration": {
+      "end": 0.276816,
+      "delta": 0.159534
+    },
+    "ThreadTime": {
+      "end": 2.125258,
+      "delta": 1.7014070000000001
+    },
+    "ProcessTime": {
+      "end": 26.4587,
+      "delta": 24.858947
+    },
+    "JSHeapUsedSize": {
+      "end": 167425056,
+      "delta": 148340348
+    },
+    "JSHeapTotalSize": {
+      "end": 212287488,
+      "delta": 162152448
+    },
+    "FirstMeaningfulPaint": {
+      "end": 1082802.214943,
+      "delta": 1082802.214943
+    },
+    "DomContentLoaded": {
+      "end": 1082801.666837,
+      "delta": 0
+    },
+    "NavigationStart": {
+      "end": 1082801.562938,
+      "delta": 0
+    }
+  },
+  "self": [
+    {
+      "function": "(idle)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 28721.966,
+      "inclusiveMs": 28721.966
+    },
+    {
+      "function": "frame",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51454,
+      "column": 8,
+      "selfMs": 194.464,
+      "inclusiveMs": 278.164
+    },
+    {
+      "function": "(program)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 159.02,
+      "inclusiveMs": 159.02
+    },
+    {
+      "function": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 89.693,
+      "inclusiveMs": 89.693
+    },
+    {
+      "function": "render",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50467,
+      "column": 9,
+      "selfMs": 88.087,
+      "inclusiveMs": 790.943
+    },
+    {
+      "function": "toStrokeStyle",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 38470,
+      "column": 23,
+      "selfMs": 76.951,
+      "inclusiveMs": 95.154
+    },
+    {
+      "function": "now",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 50.744,
+      "inclusiveMs": 50.744
+    },
+    {
+      "function": "bounds",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50884,
+      "column": 9,
+      "selfMs": 42.099,
+      "inclusiveMs": 53.346
+    },
+    {
+      "function": "key",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51437,
+      "column": 6,
+      "selfMs": 40.513,
+      "inclusiveMs": 40.513
+    },
+    {
+      "function": "toFillStyle",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 38449,
+      "column": 21,
+      "selfMs": 35.813,
+      "inclusiveMs": 59.146
+    },
+    {
+      "function": "_clamp",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 1393,
+      "column": 13,
+      "selfMs": 34.608999999999995,
+      "inclusiveMs": 62.527
+    },
+    {
+      "function": "render",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51204,
+      "column": 9,
+      "selfMs": 34.447,
+      "inclusiveMs": 924.092
+    },
+    {
+      "function": "paintPart",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50441,
+      "column": 12,
+      "selfMs": 30.128,
+      "inclusiveMs": 411.36100000000005
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 1397,
+      "column": 23,
+      "selfMs": 29.423,
+      "inclusiveMs": 29.423
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53277,
+      "column": 10,
+      "selfMs": 29.344,
+      "inclusiveMs": 43.004
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 52159,
+      "column": 10,
+      "selfMs": 24.406999999999996,
+      "inclusiveMs": 24.406999999999996
+    },
+    {
+      "function": "clear",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 39191,
+      "column": 12,
+      "selfMs": 22.68,
+      "inclusiveMs": 40.373000000000005
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53109,
+      "column": 10,
+      "selfMs": 22.611,
+      "inclusiveMs": 184.08499999999998
+    },
+    {
+      "function": "_callContextMethod",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 39881,
+      "column": 25,
+      "selfMs": 20.343,
+      "inclusiveMs": 245.93300000000002
+    },
+    {
+      "function": "updateFog",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51108,
+      "column": 12,
+      "selfMs": 19.985,
+      "inclusiveMs": 19.985
+    },
+    {
+      "function": "onUpdate",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 39198,
+      "column": 15,
+      "selfMs": 18.187,
+      "inclusiveMs": 21.199
+    },
+    {
+      "function": "clear",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 37763,
+      "column": 12,
+      "selfMs": 16.128999999999998,
+      "inclusiveMs": 16.128999999999998
+    },
+    {
+      "function": "set visible",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 8016,
+      "column": 18,
+      "selfMs": 13.924,
+      "inclusiveMs": 13.924
+    },
+    {
+      "function": "bool",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 52864,
+      "column": 7,
+      "selfMs": 13.66,
+      "inclusiveMs": 13.66
+    },
+    {
+      "function": "actorSpriteState",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50288,
+      "column": 26,
+      "selfMs": 13.601,
+      "inclusiveMs": 15.109
+    },
+    {
+      "function": "terrainFrame",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51147,
+      "column": 15,
+      "selfMs": 11.564,
+      "inclusiveMs": 17.589
+    },
+    {
+      "function": "frameIndex",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50427,
+      "column": 13,
+      "selfMs": 10.675,
+      "inclusiveMs": 10.675
+    },
+    {
+      "function": "_refreshInt",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 1382,
+      "column": 18,
+      "selfMs": 10.556000000000001,
+      "inclusiveMs": 73.083
+    },
+    {
+      "function": "color",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50714,
+      "column": 13,
+      "selfMs": 10.177,
+      "inclusiveMs": 10.177
+    },
+    {
+      "function": "state",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50420,
+      "column": 8,
+      "selfMs": 9.116,
+      "inclusiveMs": 24.225
+    },
+    {
+      "function": "fill",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 38664,
+      "column": 11,
+      "selfMs": 9.058,
+      "inclusiveMs": 74.17800000000001
+    },
+    {
+      "function": "toUint8RgbArray",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 975,
+      "column": 22,
+      "selfMs": 9.041,
+      "inclusiveMs": 9.041
+    },
+    {
+      "function": "drawStructure",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50208,
+      "column": 23,
+      "selfMs": 7.69,
+      "inclusiveMs": 231.488
+    },
+    {
+      "function": "requestAnimationFrame",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 7.586,
+      "inclusiveMs": 7.586
+    },
+    {
+      "function": "set tint",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 7936,
+      "column": 15,
+      "selfMs": 7.541,
+      "inclusiveMs": 81.374
+    },
+    {
+      "function": "setSnapshot",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51007,
+      "column": 14,
+      "selfMs": 7.533,
+      "inclusiveMs": 49.621
+    },
+    {
+      "function": "_normalize",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 1335,
+      "column": 17,
+      "selfMs": 7.51,
+      "inclusiveMs": 80.593
+    },
+    {
+      "function": "set texture",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 13565,
+      "column": 18,
+      "selfMs": 6.265,
+      "inclusiveMs": 6.265
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53248,
+      "column": 10,
+      "selfMs": 6.029,
+      "inclusiveMs": 39.625
+    },
+    {
+      "function": "_Matrix",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 1686,
+      "column": 18,
+      "selfMs": 4.555,
+      "inclusiveMs": 4.555
+    }
+  ],
+  "inclusive": [
+    {
+      "function": "(root)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 0,
+      "inclusiveMs": 30110.36
+    },
+    {
+      "function": "(idle)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 28721.966,
+      "inclusiveMs": 28721.966
+    },
+    {
+      "function": "_tick",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 8264,
+      "column": 22,
+      "selfMs": 4.167,
+      "inclusiveMs": 939.254
+    },
+    {
+      "function": "update",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 8562,
+      "column": 13,
+      "selfMs": 0,
+      "inclusiveMs": 927.501
+    },
+    {
+      "function": "emit",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 8189,
+      "column": 11,
+      "selfMs": 0,
+      "inclusiveMs": 927.501
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50822,
+      "column": 25,
+      "selfMs": 1.508,
+      "inclusiveMs": 925.6
+    },
+    {
+      "function": "render",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51204,
+      "column": 9,
+      "selfMs": 34.447,
+      "inclusiveMs": 924.092
+    },
+    {
+      "function": "render",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50467,
+      "column": 9,
+      "selfMs": 88.087,
+      "inclusiveMs": 790.943
+    },
+    {
+      "function": "paintPart",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50441,
+      "column": 12,
+      "selfMs": 30.128,
+      "inclusiveMs": 411.36100000000005
+    },
+    {
+      "function": "frame",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51454,
+      "column": 8,
+      "selfMs": 194.464,
+      "inclusiveMs": 278.164
+    },
+    {
+      "function": "_callContextMethod",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 39881,
+      "column": 25,
+      "selfMs": 20.343,
+      "inclusiveMs": 245.93300000000002
+    },
+    {
+      "function": "drawStructure",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50208,
+      "column": 23,
+      "selfMs": 7.69,
+      "inclusiveMs": 231.488
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53109,
+      "column": 10,
+      "selfMs": 22.611,
+      "inclusiveMs": 184.08499999999998
+    },
+    {
+      "function": "OfflineTransport.worker.onmessage",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53771,
+      "column": 29,
+      "selfMs": 3.013,
+      "inclusiveMs": 168.438
+    },
+    {
+      "function": "receive",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53779,
+      "column": 10,
+      "selfMs": 0,
+      "inclusiveMs": 165.425
+    },
+    {
+      "function": "(program)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 159.02,
+      "inclusiveMs": 159.02
+    },
+    {
+      "function": "fromBinary2",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53082,
+      "column": 21,
+      "selfMs": 1.507,
+      "inclusiveMs": 114.301
+    },
+    {
+      "function": "stroke",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 40041,
+      "column": 13,
+      "selfMs": 0,
+      "inclusiveMs": 101.174
+    },
+    {
+      "function": "stroke",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 38701,
+      "column": 13,
+      "selfMs": 1.508,
+      "inclusiveMs": 96.662
+    },
+    {
+      "function": "toStrokeStyle",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 38470,
+      "column": 23,
+      "selfMs": 76.951,
+      "inclusiveMs": 95.154
+    },
+    {
+      "function": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 89.693,
+      "inclusiveMs": 89.693
+    },
+    {
+      "function": "fill",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 39989,
+      "column": 11,
+      "selfMs": 0,
+      "inclusiveMs": 83.92
+    },
+    {
+      "function": "set tint",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 7936,
+      "column": 15,
+      "selfMs": 7.541,
+      "inclusiveMs": 81.374
+    },
+    {
+      "function": "_normalize",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 1335,
+      "column": 17,
+      "selfMs": 7.51,
+      "inclusiveMs": 80.593
+    },
+    {
+      "function": "fill",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 38664,
+      "column": 11,
+      "selfMs": 9.058,
+      "inclusiveMs": 74.17800000000001
+    },
+    {
+      "function": "_refreshInt",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 1382,
+      "column": 18,
+      "selfMs": 10.556000000000001,
+      "inclusiveMs": 73.083
+    },
+    {
+      "function": "scalarType",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53267,
+      "column": 12,
+      "selfMs": 1.505,
+      "inclusiveMs": 65.926
+    },
+    {
+      "function": "setValue",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 792,
+      "column": 15,
+      "selfMs": 0,
+      "inclusiveMs": 63.285
+    },
+    {
+      "function": "set value",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 833,
+      "column": 16,
+      "selfMs": 4.507,
+      "inclusiveMs": 63.282
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53260,
+      "column": 10,
+      "selfMs": 0,
+      "inclusiveMs": 62.905
+    },
+    {
+      "function": "_clamp",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 1393,
+      "column": 13,
+      "selfMs": 34.608999999999995,
+      "inclusiveMs": 62.527
+    },
+    {
+      "function": "toFillStyle",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 38449,
+      "column": 21,
+      "selfMs": 35.813,
+      "inclusiveMs": 59.146
+    },
+    {
+      "function": "bounds",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 50884,
+      "column": 9,
+      "selfMs": 42.099,
+      "inclusiveMs": 53.346
+    },
+    {
+      "function": "now",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "selfMs": 50.744,
+      "inclusiveMs": 50.744
+    },
+    {
+      "function": "setSnapshot",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51007,
+      "column": 14,
+      "selfMs": 7.533,
+      "inclusiveMs": 49.621
+    },
+    {
+      "function": "emit",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51739,
+      "column": 7,
+      "selfMs": 0,
+      "inclusiveMs": 49.621
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 54168,
+      "column": 21,
+      "selfMs": 0,
+      "inclusiveMs": 49.621
+    },
+    {
+      "function": "clear",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 40313,
+      "column": 12,
+      "selfMs": 0,
+      "inclusiveMs": 43.434
+    },
+    {
+      "function": "(anonymous)",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 53277,
+      "column": 10,
+      "selfMs": 29.344,
+      "inclusiveMs": 43.004
+    },
+    {
+      "function": "key",
+      "url": "http://127.0.0.1:56293/main.js",
+      "line": 51437,
+      "column": 6,
+      "selfMs": 40.513,
+      "inclusiveMs": 40.513
+    }
+  ]
+}
