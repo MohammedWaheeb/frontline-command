@@ -13,7 +13,7 @@ const EFFECTS:Readonly<Record<string,{symbol:string;label:string;tone:StatusTone
  designated:{symbol:'◎',label:'Designated',tone:'critical',priority:230},
  disabled:{symbol:'×',label:'Disabled',tone:'critical',priority:240},
  sabotage_resistance:{symbol:'R',label:'Sabotage resistant',tone:'benefit',priority:100},
- decoy:{symbol:'D',label:'Decoy ready',tone:'benefit',priority:140},
+ decoy:{symbol:'D',label:'Decoy active',tone:'benefit',priority:140},
  disperse:{symbol:'↔',label:'Dispersed',tone:'benefit',priority:110},
  emergency_power:{symbol:'ϟ',label:'Emergency power',tone:'benefit',priority:140},
  rapid_sortie:{symbol:'»',label:'Rapid sortie',tone:'benefit',priority:110},

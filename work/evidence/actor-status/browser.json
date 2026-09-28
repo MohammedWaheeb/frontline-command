@@ -1,0 +1,4181 @@
+{
+  "time": "2026-09-28T10:05:35.614Z",
+  "scope": "Actual Go abilities/channel/flight with recorded practice setup; isolated tactical wire, not shipping runtime; no economy, full art or performance acceptance.",
+  "errors": [],
+  "wasmSHA256": "7b5c451ed5b5ee759eb1e25f3f58a429d4973b127d7dd31312a2d1f66f6448d1",
+  "protocolSHA256": "e86fb937562471ded0b8ba2c941951b35d617b33d0943dfc9fce63908dd89277",
+  "identity": {
+    "title": "Actor status acceptance",
+    "url": "http://127.0.0.1:64575/",
+    "browser": "151.0.7922.34",
+    "fixtureSHA256": "3ec90065652c900c342f8a74409d21653d975dd7e059378fb09bf21d630d8d2b"
+  },
+  "recall": {
+    "tick": 4126,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "IR.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "IR.drone_hub",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 23000,
+          "y": 26000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "IR.isr",
+        "owner": 1,
+        "state": "turning",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30992,
+          "y": 31002
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "return",
+              "symbol": "↩",
+              "label": "Returning to base",
+              "tone": "warning",
+              "priority": 170
+            },
+            {
+              "id": "recall",
+              "symbol": "↩",
+              "label": "Drone recall",
+              "tone": "benefit",
+              "priority": 150,
+              "seconds": 8
+            },
+            {
+              "id": "relay",
+              "symbol": "⌁",
+              "label": "Relay boost",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 10
+            }
+          ]
+        }
+      }
+    ],
+    "visual": [
+      {
+        "id": 16,
+        "labels": 3,
+        "width": 106.70000000000005,
+        "height": 48.700000000000045
+      }
+    ]
+  },
+  "emergency": {
+    "tick": 4177,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "IR.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "IR.isr",
+        "owner": 1,
+        "state": "emergency_takeoff",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 21700,
+          "y": 25350
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "emergency_takeoff",
+              "symbol": "↑",
+              "label": "Emergency takeoff",
+              "tone": "critical",
+              "priority": 300,
+              "seconds": 2
+            },
+            {
+              "id": "return",
+              "symbol": "↩",
+              "label": "Returning to base",
+              "tone": "warning",
+              "priority": 170
+            },
+            {
+              "id": "recall",
+              "symbol": "↩",
+              "label": "Drone recall",
+              "tone": "benefit",
+              "priority": 150,
+              "seconds": 6
+            },
+            {
+              "id": "relay",
+              "symbol": "⌁",
+              "label": "Relay boost",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      }
+    ],
+    "savedModel": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "IR.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "IR.isr",
+        "owner": 1,
+        "state": "emergency_takeoff",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 21700,
+          "y": 25350
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "emergency_takeoff",
+              "symbol": "↑",
+              "label": "Emergency takeoff",
+              "tone": "critical",
+              "priority": 300,
+              "seconds": 2
+            },
+            {
+              "id": "return",
+              "symbol": "↩",
+              "label": "Returning to base",
+              "tone": "warning",
+              "priority": 170
+            },
+            {
+              "id": "recall",
+              "symbol": "↩",
+              "label": "Drone recall",
+              "tone": "benefit",
+              "priority": 150,
+              "seconds": 6
+            },
+            {
+              "id": "relay",
+              "symbol": "⌁",
+              "label": "Relay boost",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      }
+    ],
+    "hash": "f309923a10624ceae21496a7a8f73b5deb7219b7f7fae2d145166b05fe6be93c",
+    "savedHash": "f309923a10624ceae21496a7a8f73b5deb7219b7f7fae2d145166b05fe6be93c",
+    "visual": [
+      {
+        "id": 16,
+        "labels": 4,
+        "width": 120.70000000000005,
+        "height": 65.70000000000005
+      }
+    ]
+  },
+  "expiry": {
+    "tick": 4218,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "IR.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "IR.isr",
+        "owner": 1,
+        "state": "taking_off",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 21700,
+          "y": 25350
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "no_home",
+              "symbol": "!",
+              "label": "No service base",
+              "tone": "critical",
+              "priority": 280
+            },
+            {
+              "id": "return",
+              "symbol": "↩",
+              "label": "Returning to base",
+              "tone": "warning",
+              "priority": 170
+            },
+            {
+              "id": "recall",
+              "symbol": "↩",
+              "label": "Drone recall",
+              "tone": "benefit",
+              "priority": 150,
+              "seconds": 4
+            },
+            {
+              "id": "relay",
+              "symbol": "⌁",
+              "label": "Relay boost",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 6
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "foreign": {
+    "tick": 4219,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "IR.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 3,
+        "type": "hq",
+        "owner": 2,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 56000,
+          "y": 56000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 4,
+        "type": "US.rig",
+        "owner": 2,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 59200,
+          "y": 56000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "IR.isr",
+        "owner": 1,
+        "state": "taking_off",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 21700,
+          "y": 25350
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "recall",
+              "symbol": "↩",
+              "label": "Drone recall",
+              "tone": "benefit",
+              "priority": 150,
+              "seconds": 4
+            },
+            {
+              "id": "relay",
+              "symbol": "⌁",
+              "label": "Relay boost",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 6
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "hull": {
+    "tick": 4164,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "emergency_power",
+              "symbol": "ϟ",
+              "label": "Emergency power",
+              "tone": "benefit",
+              "priority": 140,
+              "seconds": 20
+            }
+          ]
+        }
+      },
+      {
+        "id": 2,
+        "type": "SA.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "SA.tank",
+        "owner": 1,
+        "state": "deployed",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "hull_down",
+              "symbol": "▱",
+              "label": "Hull down",
+              "tone": "benefit",
+              "priority": 120
+            }
+          ]
+        }
+      }
+    ],
+    "visual": [
+      {
+        "id": 1,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.699999999999989
+      },
+      {
+        "id": 15,
+        "labels": 1,
+        "width": 69.70000000000005,
+        "height": 14.700000000000045
+      }
+    ]
+  },
+  "disperse": {
+    "tick": 4223,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "SY.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 16,
+        "type": "SY.recon",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 32000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 17,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 18,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 19,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 20,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 21,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 22,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 23,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 24,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 25,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      }
+    ],
+    "visual": [
+      {
+        "id": 15,
+        "labels": 1,
+        "width": 84.70000000000005,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 16,
+        "labels": 1,
+        "width": 84.70000000000005,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 17,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 18,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 19,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 20,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 21,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 22,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 23,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 24,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 25,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      }
+    ]
+  },
+  "reduced": {
+    "before": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "SY.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 16,
+        "type": "SY.recon",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 32000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 17,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 18,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 19,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 20,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 21,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 22,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 23,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 24,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 25,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      }
+    ],
+    "after": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "SY.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 16,
+        "type": "SY.recon",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 32000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 17,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 18,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 19,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 20,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 21,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 22,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 23,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 24,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 25,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      }
+    ],
+    "visual": [
+      {
+        "id": 15,
+        "labels": 1,
+        "width": 84.70000000000005,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 16,
+        "labels": 1,
+        "width": 84.70000000000005,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 17,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 18,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 19,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 20,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 21,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 22,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 23,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 24,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 25,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      }
+    ]
+  },
+  "dense": {
+    "tick": 4223,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "SY.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 16,
+        "type": "SY.recon",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 32000,
+          "y": 27000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 17,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 18,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 19,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 29200
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 20,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 21,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 22,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 30600
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 23,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27000,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 24,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28400,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      },
+      {
+        "id": 25,
+        "type": "SY.rifle",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29800,
+          "y": 32000
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "disperse",
+              "symbol": "↔",
+              "label": "Dispersed",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 8
+            }
+          ]
+        }
+      }
+    ],
+    "visual": [
+      {
+        "id": 15,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 16,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 17,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 18,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 19,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 20,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 21,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 22,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 23,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 24,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      },
+      {
+        "id": 25,
+        "labels": 1,
+        "width": 15.700000000000045,
+        "height": 14.700000000000045
+      }
+    ]
+  },
+  "channel": {
+    "tick": 4114,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "US.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "US.apc",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "US.engineer",
+        "owner": 1,
+        "state": "board",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29875,
+          "y": 27000
+        },
+        "status": {
+          "badges": [],
+          "channel": {
+            "label": "Boarding",
+            "progress": 250,
+            "seconds": 2
+          }
+        }
+      }
+    ],
+    "visual": [
+      {
+        "id": 16,
+        "labels": 1,
+        "width": 66.70000000000005,
+        "height": 20.350000000000023
+      }
+    ]
+  },
+  "paused": {
+    "before": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "US.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "US.apc",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "US.engineer",
+        "owner": 1,
+        "state": "board",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29875,
+          "y": 27000
+        },
+        "status": {
+          "badges": [],
+          "channel": {
+            "label": "Boarding",
+            "progress": 250,
+            "seconds": 2
+          }
+        }
+      }
+    ],
+    "after": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "US.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "US.apc",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "US.engineer",
+        "owner": 1,
+        "state": "board",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29875,
+          "y": 27000
+        },
+        "status": {
+          "badges": [],
+          "channel": {
+            "label": "Boarding",
+            "progress": 250,
+            "seconds": 2
+          }
+        }
+      }
+    ],
+    "hash": "ab52fb81f8c483c3a3e619f7ffa91c171e49c92688c552ad57cfad993bfef9a7",
+    "afterHash": "ab52fb81f8c483c3a3e619f7ffa91c171e49c92688c552ad57cfad993bfef9a7"
+  },
+  "zoom": {
+    "before": [
+      {
+        "id": 16,
+        "labels": 1,
+        "width": 66.70000000000005,
+        "height": 20.350000000000023
+      }
+    ],
+    "after": [
+      {
+        "id": 16,
+        "labels": 1,
+        "width": 66.70000000000005,
+        "height": 20.350000000000023
+      }
+    ]
+  },
+  "cull": {
+    "before": [
+      {
+        "id": 16,
+        "labels": 1,
+        "width": 66.70000000000005,
+        "height": 20.350000000000023
+      }
+    ],
+    "far": [],
+    "after": [
+      {
+        "id": 16,
+        "labels": 1,
+        "width": 66.70000000000005,
+        "height": 20.350000000000023
+      }
+    ]
+  },
+  "ammunition": {
+    "tick": 4116,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "US.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "US.apc",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 28000,
+          "y": 27000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "US.engineer",
+        "owner": 1,
+        "state": "board",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29875,
+          "y": 27000
+        },
+        "status": {
+          "badges": [],
+          "channel": {
+            "label": "Boarding",
+            "progress": 300,
+            "seconds": 2
+          }
+        }
+      },
+      {
+        "id": 17,
+        "type": "US.airfield",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 26000,
+          "y": 31000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 18,
+        "type": "US.fighter",
+        "owner": 1,
+        "state": "flying",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 34345,
+          "y": 31055
+        },
+        "status": {
+          "badges": [],
+          "ammunition": {
+            "label": "Ammo",
+            "current": 6,
+            "capacity": 6
+          }
+        }
+      }
+    ],
+    "visual": [
+      {
+        "id": 18,
+        "labels": 1,
+        "width": 56.700000000000045,
+        "height": 20.350000000000023
+      }
+    ]
+  },
+  "disposal": {
+    "canvases": 0,
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0
+    },
+    "errors": []
+  },
+  "status": "passed"
+}

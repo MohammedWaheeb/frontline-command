@@ -8,7 +8,7 @@ interface Label {root:Container;back:Graphics;text:Text}
  * labels neither animate nor flash and have no cosmetic particle budget. */
 export class ActorStatusOverlay {
  readonly root=new Container();private readonly bars=new Graphics();private labels:Label[]=[];private key='';
- constructor(){this.root.eventMode='none';this.root.addChild(this.bars)}
+ constructor(){this.root.eventMode='none';this.root.visible=false;this.root.addChild(this.bars)}
  private label(index:number):Label {
   while(this.labels.length<=index){
    const root=new Container(),back=new Graphics(),text=new Text({text:'',style:{fontFamily:'Arial,sans-serif',fontSize:10,fontWeight:'bold',fill:0xe8deba}});
@@ -18,11 +18,11 @@ export class ActorStatusOverlay {
  }
  draw(model:ActorStatusModel|undefined,selected:boolean,zoom:number){
   this.root.scale.set(1/Math.max(.1,zoom));
+  this.root.visible=!!model&&(model.badges.length>0||selected&&!!(model.ammunition||model.channel));
   const key=JSON.stringify([model,selected]);if(key===this.key)return;this.key=key;
   this.bars.clear();for(const node of this.labels)node.root.visible=false;
-  if(!model){this.root.visible=false;return}
+  if(!model)return;
   const badges=selected?model.badges.slice(0,3):model.badges.slice(0,4);
-  this.root.visible=badges.length>0||selected&&!!(model.ammunition||model.channel);
   let row=0,index=0;
   const caption=(text:string,tone:StatusTone,top:number)=>{
    const node=this.label(index++);node.root.visible=true;node.text.text=text;node.text.style.fill=PAINT[tone];

@@ -38,6 +38,7 @@ const clamp=(value:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,value));
 export class BattlefieldRenderer {
  private readonly app=new Application();private readonly world=new Container();
  private readonly ground=new Container();
+ private readonly actorStatuses=new Container();
  private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
  private readonly strikePreview=new StrikePreviewOverlay();private readonly tacticalOverlay=new TacticalOverlay();private tacticalModel?:TacticalPresentation;
  private readonly objectSkins=new Map<string,EnvironmentObjectSkin>();
@@ -64,7 +65,7 @@ export class BattlefieldRenderer {
   if(this.disposed){this.app.destroy(true,{children:true});return}
   const canvas=this.app.canvas;canvas.tabIndex=0;canvas.setAttribute('aria-label','Battlefield. Select units and give orders.');canvas.style.display='block';canvas.style.touchAction='none';canvas.style.outlineColor='var(--fc-color-brass-light, #d0ae66)';canvas.style.outlineOffset='-2px';
   this.host.appendChild(canvas);
-  this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.tactical,this.tacticalOverlay.root,this.strikePreview.root);this.ground.sortableChildren=true;
+  this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.tactical,this.tacticalOverlay.root,this.strikePreview.root,this.actorStatuses);this.ground.sortableChildren=true;this.actorStatuses.eventMode='none';
   const m=this.options.map;
   this.center(m.spawns[0]?.position??{x:m.width*500,y:m.height*500});
   this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
@@ -181,7 +182,7 @@ export class BattlefieldRenderer {
    if(!entity.position||entity.private?.container)continue;
    living.add(entity.id);let actor=this.actors.get(entity.id);const faction=snapshot.players.find(p=>p.id===entity.owner)?.faction;
    if(actor&&actor.artKey!==actorArtKey(entity,faction)){actor.dispose();this.actors.delete(entity.id);actor=undefined}
-   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
+   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);actor.attachStatusLayer(this.actorStatuses);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
    actor.presentation=presentations.get(entity.id);actor.status=actorStatus(entity,snapshot,this.options.catalog);actor.update(entity,this.tickAt);
   }
   const serviceBases=[...this.actors.values()].filter(actor=>living.has(actor.id)&&(this.options.catalog.buildings.get(actor.entity.type)?.service_slots??0)>0);
@@ -289,7 +290,7 @@ export class BattlefieldRenderer {
   for(const actor of this.actors.values()){
    const bounds=this.bounds(actor.entity);actor.root.visible=!!bounds&&bounds.right>=-200&&bounds.left<=this.app.screen.width+200&&bounds.bottom>=-200&&bounds.top<=this.app.screen.height+200;
    if(actor.terrainShadow)actor.terrainShadow.visible=actor.root.visible;
-   if(actor.root.visible)actor.render(now,this.team(actor.entity.owner),this.selected.has(actor.id),this.settings.healthBars,this.settings.reducedMotion,this.camera.zoom);
+   if(actor.root.visible)actor.render(now,this.team(actor.entity.owner),this.selected.has(actor.id),this.settings.healthBars,this.settings.reducedMotion,this.camera.zoom,this.selected.size<=4);else actor.hideStatus();
    if(actor.standIn||actor.missingArt)this.missing.add(actor.entity.type);
   }
   for(let i=this.deaths.length-1;i>=0;i--){const death=this.deaths[i];if(now>=death.until){death.actor.dispose();this.deaths.splice(i,1);continue}death.actor.render(now,this.team(death.actor.entity.owner),false,'selected',this.settings.reducedMotion);death.actor.root.alpha=Math.min(1,(death.until-now)/700);if(death.actor.terrainShadow)death.actor.terrainShadow.alpha=death.actor.root.alpha}
