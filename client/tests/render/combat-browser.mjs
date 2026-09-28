@@ -9,7 +9,7 @@ import {build} from 'esbuild';
 import {chromium,firefox,webkit} from 'playwright-core';
 import {artIndex} from '../../scripts/ui/art-plugin.mjs';
 
-const root=fileURLToPath(new URL('../../../',import.meta.url)),candidate=path.join(root,'work/runtime-034-candidate');
+const root=fileURLToPath(new URL('../../../',import.meta.url)),candidate=path.resolve(root,process.env.FRONTLINE_COMBAT_CANDIDATE??'work/runtime-034-candidate');
 const engine=process.env.FRONTLINE_COMBAT_BROWSER??'chromium';if(!['chromium','firefox','webkit'].includes(engine))throw Error('Unknown browser');
 const out=path.join(root,process.env.FRONTLINE_COMBAT_EVIDENCE??`work/evidence/combat-renderer/${engine}`),temp=await mkdtemp(path.join(tmpdir(),'frontline-combat-'));await mkdir(out,{recursive:true});
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -44,6 +44,12 @@ try{
  report.decoy=await page.evaluate(async()=>{await window.combatQA.load('live-decoy');return window.combatQA.tickUntil('decoy',16)});assert(report.decoy.diagnostics.decoys>0);assert(!report.decoy.cues.some(c=>c.kind==='hit'));await capture('actual-decoy-1280');
  report.interceptions={};for(const kind of ['abm','SA.mobile_abm']){const r=await page.evaluate(async kind=>{await window.combatQA.load(kind);return window.combatQA.tickUntil('intercepted',20)},kind);assert(r.diagnostics.intercepted>0);assert(r.cues.every(c=>c.kind!=='intercepted'||c.anchor===undefined));report.interceptions[kind]=r;await capture(kind.replaceAll('.','-')+'-interception-1280')}
  report.deathReset=await page.evaluate(()=>window.combatQA.deathReset());assert(report.deathReset.corpses>0);assert.equal(report.deathReset.afterLoad,0);assert.equal(report.deathReset.restored,report.deathReset.saveHash);assert(report.deathReset.replayCorpses>0);assert.equal(report.deathReset.afterForwardSeek,0);
+ if(process.env.FRONTLINE_OWNER_CASUALTY==='1'){
+  report.ownerCasualty=await page.evaluate(()=>window.combatQA.ownerCasualty());const r=report.ownerCasualty;
+  assert.equal(r.visible,false);assert.equal(r.lost.owner,1);assert.equal(r.lost.entity,6);assert.equal(r.lost.combat,undefined);
+  assert.equal(r.calls.filter(c=>c.id==='vo.announcer.US.unit_lost').length,1);assert.equal(r.beforeDuplicate,r.afterDuplicate);assert.equal(r.saveHash,r.restoredHash);assert.equal(r.corpses,0);
+  await capture('owner-casualty-fog-restored-1280');
+ }
  if(engine==='chromium'){report.context=await page.evaluate(()=>window.combatQA.context());assert.equal(report.context.diagnostics.cues,0)}
  report.disposal=await page.evaluate(()=>window.combatQA.dispose());assert.equal(report.disposal.canvases,0);assert.equal(report.disposal.art.residentPages,0);assert.equal(report.disposal.combat.allocatedBytes,0);assert.equal(report.disposal.combat.cues,0);assert.deepEqual(report.disposal.errors,engine==='chromium'?['Graphics context lost. Simulation remains in its worker; pause or save while graphics recover.']:[]);assert.deepEqual(report.errors,[]);report.status='passed';
 }catch(error){report.status='failed';report.failure=String(error.stack??error);report.failureSnapshot=await page.evaluate(()=>window.combatQA?.report()).catch(()=>undefined);await capture('failure').catch(()=>{});process.exitCode=1}

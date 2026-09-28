@@ -1,6 +1,6 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 10:40 UTC / 13:40 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md).
+Updated 28 September 2026, 11:31 UTC / 14:31 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md).
 
 ## Current ownership and access
 
@@ -9,11 +9,10 @@ Shipping Go remains **0.3.3**, protocol1, adapter1, content2.0.0; hash `318de812
 Claude01/04/05 resumed after the07:20 reset at08:35–08:40. Actual model **claude-opus-5-5** was verified with fallback disabled, then all three hit quota again. Next reported reset is13:30UTC /16:30Qatar; no early retry or sign-in is needed. Root completed the partial UI/terrain integration under the user's authorized fallback (3a4e550, 7133ada). Mencius owns the Claude-authored render helper and production. Existing Claude sessions need fresh file reservations before resuming. Codex agents also resumed after a usage-limit interruption; do not assume anything completed during it.
 
 - Claude04/05 are idle under quota. Their old briefs are superseded: root finished menu/console and terrain integration; fresh bounded review reservations are required before resuming them.
-- Mencius is the **sole Blender worker**, staging original-size US fighter/airlift before actual Go parking composition. It owns remaining roster production and isolated art validation; no other job launches Blender.
-- Einstein completed tactical/Skybreaker/optional-wire integration and the separate verified FX asset loader. It now owns audio logic corrections using authoritative combat metadata; root owns the shared `combatFacts` helper. No audio asset edits or Go changes.
-- Boole owns the frozen combined `work/runtime-034-candidate/source` and its serial full102 main plus21 optional route acceptance. It built an isolated0.3.4 browser/native runtime. No shipping promotion.
-- Root completed actor-status/readout and transport receiver integration, owns combat descriptors/timeline/render integration and cross-system review. Root owns `actors.ts`/`poses.ts` launch-empty event selection; Mencius owns the corresponding four-battery source/spec art extension.
-- Mencius remains sole Blender worker, currently original-size US airlift672poses after fighter544poses. It then owns six actual Go service layouts, remaining roster production and approved narrow interceptor/provenance fixes.
+- Mencius is the **sole Blender worker**. Original-size fighter544/airlift672 exports are staged. Root accepted six actual-Go native source compositions; browser sorting remains open. Airlift service motion is static and remains a defect. Mencius owns its isolated correction, four-battery interceptor/structural-charge pilots, the remaining94assets/18,139poses, and a clearly diagnostic six-scene atlas overlay.
+- Einstein completed tactical/Skybreaker/wire, combat audio and synthetic FX renderer acceptance. It now owns six ordinary paid-combat multiplayer cases in a frozen isolated0.3.4 product, covering1–4 human clients and deterministic bots. No completed combat match claimed yet.
+- Boole owns frozen combined0.3.4 acceptance. The original102 main cases finished93pass/9fail; the original21 optional routes finished12pass/9fail. Next is a separate acceptance-driver-only tactics correction copy, with no production, objective or deadline changes.
+- Root completed combat renderer/reset integration1305dcb and owns the isolated owner-casualty view correction plus final cross-system integration. Shipping Go0.3.3 and combined frozen0.3.4 remain unchanged while these gates run.
 
 The user permits Codex frontend logic and visual implementation during Claude quota. Claude remains primary visual author/reviewer. All old broad briefs are superseded by current explicit ownership.
 
@@ -37,7 +36,7 @@ The user permits Codex frontend logic and visual implementation during Claude qu
 | Performance | M4 Metal raised terrain: two600-tick20TPS segments, p95≈17ms, exact native/restore hash | Short synthetic segments/incomplete art, not long matches or Intel reference |
 | Audio |892 clips/620 events; integrity/decode/loop and cold-offline playback checks | Listening/mix/full presentation review remains |
 
-Both TypeScript checks and301 runtime tests passed at the FX loader checkpoint; the added shared combat-facts tests now pass306 combined tests and the runtime TypeScript check. Shipping0.3.3 native short and actual three-browser integration pass; full0.3.2 short race plus focused0.3.3 correction race pass. Do not relabel historical reports as covering new changes.32 maps/31missions were checkpointed inee97df3 after content validation; that validation alone does not prove balance or mission completion.
+Both TypeScript checks and327 runtime tests passed at the combat renderer and FX lifecycle checkpoints. Shipping0.3.3 native short and actual three-browser integration pass; full0.3.2 short race plus focused0.3.3 correction race pass. Do not relabel historical reports as covering new changes.32 maps/31missions were checkpointed inee97df3 after content validation; that validation alone does not prove balance or mission completion.
 
 ## Art and aircraft decisions
 
@@ -47,7 +46,7 @@ The three repair depots' isolated arm correction passed27 selected world views,8
 
 **The common0.3896725 aircraft shrink was rejected.** The scout becomes a speck and fighter/airlift look toy-sized beside ground units. Original readable geometry stays unchanged. All5 proposed exterior service compositions passed root native review. Full11-aircraft candidate production is now authorized under work/ staging only, with US fighter/airlift prioritized after the current US building batch. Shipping promotion waits for actual Go parking/render integration.600mt is the design's combat/collision radius, not a requirement that every cosmetic wing/rotor fit inside it. Current1300mt parking centers cause real intersections.
 
-[The backend review](service-parking-review.md) proposes fixed operational parking radii, exterior-only pads outside the retained solid foundation, stable persisted final-approach reservations, and shared ground navigation/construction exclusion. Combat radius/range, airborne separation, capacity, costs and service timing remain unchanged. This is a real gameplay change, implemented only in an isolated candidate until numeric/performance/native-layout gates pass. Exact ground path edges and boarding contact must honor these discs. The old dense64 fixture has no legal room for its larger parked wings and remains a recorded failure; a compatible layout passes. Actual six Go service layouts/save/replay/native-WASM checks exist, but rendered scene review is still pending. Grounded boarding/regression and quiet ABBA performance gates pass; the larger parking layout remains an explicit tradeoff. No mesh data enters Go. Earlier shallow service-building candidate remains unaccepted. Tested pure service-surface parser is not wired into shipping metadata; exterior ground needs no deck lift.
+[The backend review](service-parking-review.md) proposes fixed operational parking radii, exterior-only pads outside the retained solid foundation, stable persisted final-approach reservations, and shared ground navigation/construction exclusion. Combat radius/range, airborne separation, capacity, costs and service timing remain unchanged. This is a real gameplay change, implemented only in an isolated candidate until numeric/performance/native-layout gates pass. Exact ground path edges and boarding contact must honor these discs. The old dense64 fixture has no legal room for its larger parked wings and remains a recorded failure; a compatible layout passes. Actual six Go service layouts/save/replay/native-WASM checks exist; root accepted all six native source contacts after325 checks. Browser billboard sorting remains pending; two IR.strike views are labeled legacy fly-frame shape references. Grounded boarding/regression and quiet ABBA performance gates pass; the larger parking layout remains an explicit tradeoff. No mesh data enters Go. Earlier shallow service-building candidate remains unaccepted. Tested pure service-surface parser is not wired into shipping metadata; exterior ground needs no deck lift.
 
 ## Remaining full release work
 
@@ -106,3 +105,26 @@ same-host browser tests from physical LAN. No combat win is claimed yet.
 Mencius remains sole Blender worker, finishing the original-size672-pose airlift
 before the six actual Go service compositions. Root approved native interim
 boarding-door readability only; full asset/scene review is still pending.
+
+## Owner casualty and acceptance update at11:31 UTC
+
+The isolated [owner casualty correction](../work/owner-casualty-candidate/README.md)
+restores the owner's destruction notification when the casualty removes the last
+local sight source. It changes only the view predicate, passes native/WASM, codec,
+focused race and vet, and preserves baseline save bytes/continuation hashes.
+The full combat course plus a last-sight loss/audio-dispatch case passes
+Chromium151, Firefox153 and WebKit26.5. A recording mixer checks one loss cue and
+caption, not audible mix. Shipping and the original combined runtime are unchanged.
+
+The unchanged main matrix is93/102 passing; unchanged optional routes12/21.
+All nine failed main leaves and nine failed optional leaves remain preserved.
+Boole now owns a separate test-commander tactics copy; route improvements must use
+normal legal orders without changing the engine, mission, difficulty or deadlines.
+Einstein's first paid normal-bot multiplayer battle is live, with combat losses
+and reconnect observed, but no ordinary win has been certified yet.
+
+All six actual-Go native parking compositions passed root review with325 checks;
+renderer billboard integration remains pending. Original-size airlift672poses and
+fighter544poses are staged; airlift service motion needs its approved narrow
+correction. The US interceptor's isolated launch/last-charge pilot passes native
+review; three other batteries, structural-charge variants and full exports remain.

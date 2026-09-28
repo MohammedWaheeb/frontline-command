@@ -6,6 +6,8 @@ import {CatalogIndex,type Catalog} from '../../src/content/catalog';
 import {DEFAULT_SETTINGS} from '../../src/app/settings';
 import {OfflineTransport} from '../../src/runtime/offline';
 import type {OrderIntent} from '../../src/runtime';
+import {AudioDirector} from '../../src/audio/director';
+import type {AudioMixer} from '../../src/audio/mixer';
 
 const runtime=new OfflineTransport();await runtime.ready;
 const catalog=new CatalogIndex(await runtime.content() as unknown as Catalog),art=new ArtLibrary(),errors:string[]=[];
@@ -48,8 +50,8 @@ const qa={
  async cull(){renderer!.center({x:59000,y:59000});await settled();const far=report();renderer!.center({x:18250,y:16000});await settled();return {far,returned:report()}},
  async deathReset(){
   await load('ordinary');
-  // Keep an ordinary owned sight provider near the fight. With the only scout
-  // dead, Go correctly withholds visible-scope death events in the new fog.
+  // Keep an ordinary owned sight provider near the fight so this lifecycle
+  // course also works on the earlier candidate without owner-loss disclosure.
   await command({kind:'move',entities:[2],position:{x:16000,y:22000}});
   await command({kind:'attack',entities:[6],target:7});
   for(let i=0;i<400&&(renderer as any).deaths.length===0;i+=4){await runtime.step(4);await settled()}
@@ -58,6 +60,25 @@ const qa={
   await runtime.load(save.data,save.local_players);await settled();const afterLoad=(renderer as any).deaths.length,restored=await runtime.hash();
   await runtime.loadReplay(recording);await runtime.seekReplay(deathTick-4);await runtime.step(4);await settled();const replayCorpses=(renderer as any).deaths.length;
   await runtime.seekReplay(deathTick+4);await settled();return {deathTick,corpses,afterLoad,restored,saveHash:save.hash,replayCorpses,afterForwardSeek:(renderer as any).deaths.length};
+ },
+ async ownerCasualty(){
+  await load('ordinary');
+  // The production director receives actual authorized WASM snapshots. The
+  // recording mixer checks event/caption dispatch; it is not listening QA.
+  const calls:Array<{id:string;options?:unknown}>=[];
+  const mixer={play:(id:string,options?:unknown)=>calls.push({id,options}),music:()=>{},continuous:()=>{},caption:()=>{},reset:()=>{},stopTransient:()=>{},clearCaptions:()=>{},afterSpeech:()=>{},manifest:undefined} as unknown as AudioMixer;
+  const director=new AudioDirector(mixer,()=>catalog);director.snapshot(runtime.current!);
+  const unsubscribe=runtime.subscribe(event=>{if(event.type==='presentation-reset')director.discontinuity();if(event.type==='snapshot')director.snapshot(event.snapshot)});
+  try{
+   await command({kind:'attack',entities:[6],target:7});
+   for(let i=0;i<400&&!runtime.current!.events.some(e=>e.kind==='destroyed'&&e.owner===1);i++)await runtime.step(1);
+   await settled();const snapshot=runtime.current!,lost=snapshot.events.find(e=>e.kind==='destroyed'&&e.owner===1);
+   if(!lost?.position)throw Error('Missing ordinary last-sight owner casualty');
+   const map=await runtime.map(),index=Math.floor(lost.position.y/1000)*map.width+Math.floor(lost.position.x/1000),visible=!!snapshot.visible[index];
+   const after=report(),beforeDuplicate=calls.length;director.snapshot(snapshot);const afterDuplicate=calls.length;
+   const save=await runtime.save();await runtime.load(save.data,save.local_players);await settled();
+   return {tick:snapshot.tick,lost:{id:lost.id,kind:lost.kind,entity:lost.entity,owner:lost.owner,position:lost.position,combat:'combat' in lost?lost.combat:undefined},visible,after,corpses:(renderer as any).deaths.length,calls,beforeDuplicate,afterDuplicate,saveHash:save.hash,restoredHash:await runtime.hash()};
+  }finally{unsubscribe();director.dispose()}
  },
  async context(){
   const r=renderer as any,gl=r.app.renderer.gl as WebGLRenderingContext,extension=gl?.getExtension('WEBGL_lose_context');if(!extension)throw Error('Context-loss extension unavailable');
