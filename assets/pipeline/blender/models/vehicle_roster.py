@@ -699,7 +699,17 @@ def sy_apc(B):
     B.b('bull_bar', (0.04, 0.52, 0.03), (0.66, 0, 0.20), 'metal')
     B.b('grille_plate', (0.02, 0.44, 0.10), (0.64, 0, 0.26), 'rust', rot=(0, -0.2, 0))
     B.cab('cab', 0.12, 0.34, 0.26, 0.19, 0.46, 'paint', slope=0.06)
-    B.b('box', (0.74, 0.60, 0.34), (-0.26, 0, 0.40), 'paint2', taper=(0.95, 0.9))
+    # Open troop shell: retain the old tapered outer envelope, but leave a real
+    # rear aperture so outward-swinging leaves reveal depth rather than a plate.
+    for sy in (1, -1):
+        B.b(f'box_side_{sy}', (0.74, 0.03, 0.34), (-0.26, sy * 0.285, 0.40),
+            'paint2', taper=(0.95, 1.0), top_shift=(0, -sy * 0.03), bevel=0.008)
+    B.b('box_front', (0.03, 0.60, 0.34), (0.095, 0, 0.40), 'paint2',
+        taper=(1.0, 0.9), top_shift=(-0.0185, 0), bevel=0.008)
+    B.b('box_floor', (0.74, 0.60, 0.03), (-0.26, 0, 0.245), 'paint2', bevel=0.006)
+    B.b('box_roof', (0.704, 0.54, 0.035), (-0.26, 0, 0.5525), 'paint2', bevel=0.006)
+    B.b('box_interior_floor', (0.68, 0.50, 0.012), (-0.27, 0, 0.266), 'dark', bevel=0)
+    B.b('box_interior_front', (0.012, 0.50, 0.26), (0.070, 0, 0.40), 'dark', bevel=0)
     B.b('box_plate_L', (0.34, 0.02, 0.22), (-0.10, 0.296, 0.40), 'rust', rot=(0.05, 0, 0))
     B.b('box_plate_R', (0.40, 0.02, 0.20), (-0.36, -0.296, 0.41), 'primer', rot=(-0.05, 0, 0))
     B.b('box_team', (0.75, 0.61, 0.04), (-0.26, 0, 0.555), 'team')
@@ -710,8 +720,7 @@ def sy_apc(B):
     for sy in (1, -1):
         hinge = B.e(f'rear_door_hinge_{sy}', (-0.63, sy * 0.28, 0.40))
         B.b(f'rear_door_{sy}', (0.02, 0.27, 0.30), (0, -sy * 0.135, 0.0), 'paint', hinge)
-        B.h.setdefault('doors', []).append((hinge, 'z', sy * 1.5))
-    B.b('rear_opening', (0.01, 0.52, 0.28), (-0.625, 0, 0.40), 'dark')
+        B.h.setdefault('doors', []).append((hinge, 'z', -sy * 1.5))
     B.c('spare', 0.10, 0.07, (-0.20, 0, 0.60), 'dark', verts=14, missing=True)
     B.headlights(0.63, 0.18, 0.26)
     B.hardpoint('exit', (-1.0, 0, 0), ['hull', 'whole'])
