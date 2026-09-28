@@ -1,0 +1,76 @@
+{
+  "scope": "One SY05 optional Hard factory-before-fortification route; unchanged production/content and all task budgets",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "b7ff7fed6afad2c640bda66fe2961c6bcd57cf3b2250a1fb52139b84fbb36136",
+  "base_source_lock_sha256": "7d72615a244c5e6c2ac801f83754e446493c75ae6d60c2e4c4d6cf156f5b0364",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:54:22.210429+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-factory-first/runs/20260928T215422Z-sy05-hard-factory-first/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-factory-first/source",
+      "started": "2026-09-28T21:54:22.210680+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.428,
+      "completed": "2026-09-28T21:54:24.638664+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-factory-first/runs/20260928T215422Z-sy05-hard-factory-first/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-factory-first/source/pkg/sim",
+      "started": "2026-09-28T21:54:24.642659+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 63.679,
+      "completed": "2026-09-28T21:55:28.321431+00:00"
+    }
+  ],
+  "binary_sha256": "ebf158986123cbac290ef7f5682b388857f938051aebd16bae838729bbcf8b63",
+  "exit_code": 1,
+  "completed": "2026-09-28T21:55:28.321700+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.save.json": {
+      "bytes": 1122712,
+      "sha256": "acaea6ae77592bf15cd8af7aacad4d6492c3de7bccbae0444740b1fa6f6c7d20"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.view.json": {
+      "bytes": 387210,
+      "sha256": "0e7e215d1a223b4bb6d1ae6541221f5f22d2b763a9d173c1eddc5eb9266cb110"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-1755939408/driver-orders.json": {
+      "bytes": 253088,
+      "sha256": "6594190c28327e3d32fa049294e8704faef658207bcae6f3125114c10b22b56a"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-1755939408/manifest.json": {
+      "bytes": 860,
+      "sha256": "532723d30a3adfcbf148883d6b2635505b3bd8680e0d9af52c759cfe08456b55"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-1755939408/owner.view.json": {
+      "bytes": 387210,
+      "sha256": "0e7e215d1a223b4bb6d1ae6541221f5f22d2b763a9d173c1eddc5eb9266cb110"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-1755939408/state.save.json": {
+      "bytes": 1122712,
+      "sha256": "acaea6ae77592bf15cd8af7aacad4d6492c3de7bccbae0444740b1fa6f6c7d20"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ candidate/pkg/sim/authored_campaign_acceptance_test.go
+@@ -1158,6 +1158,9 @@
+ 		r.t.Logf("optional factory captured tick%d actor%d", r.engine.Tick(), factory)
+ 		r.wait("repair captured factory behind the first relay", 4000, func() bool { v, ok := r.seen(factory); return ok && v.Owner == 1 && v.Health >= 900 })
+ 	}
++	// Optional Hard captures the nearby fragile factory before pausing for
++	// paid fortification. Other routes preserve their existing task sequence.
++	var fortifyCapture func()
+ 	limit := 2
+ 	if r.definition.ID != "us-03-relay-ridge" {
+ 		limit = 3
+@@ -1226,41 +1229,46 @@
+ 		if stage == 1 {
+ 			r.checkpoint()
+ 			if r.faction == "SY" && r.difficulty == "hard" {
+-				// Protect the fresh relay with the full current cohort and reserve
+-				// future income for construction. Cancel only unpaid queued jobs;
+-				// paid production and every actual cost/work requirement continue.
+-				guards[r.tags[tag][0]] = cohort()
+-				forwardConstruction = true
+-				for _, producer := range r.view().Entities {
+-					if producer.Owner != 1 || producer.Private == nil || producer.Type != "factory" && producer.Type != "barracks" {
+-						continue
+-					}
+-					for attempt := 0; attempt < 5; attempt++ {
+-						current, alive := r.seen(producer.ID)
+-						if !alive || current.Private == nil {
+-							break
+-						}
+-						index := -1
+-						for i := len(current.Private.Jobs) - 1; i >= 0; i-- {
+-							if !current.Private.Jobs[i].Started {
+-								index = i
++				fortifyCapture = func() {
++					// Protect the fresh relay with the full current cohort and reserve
++					// future income for construction. Cancel only unpaid queued jobs;
++					// paid production and every actual cost/work requirement continue.
++					guards[r.tags[tag][0]] = cohort()
++					forwardConstruction = true
++					for _, producer := range r.view().Entities {
++						if producer.Owner != 1 || producer.Private == nil || producer.Type != "factory" && producer.Type != "barracks" {
++							continue
++						}
++						for attempt := 0; attempt < 5; attempt++ {
++							current, alive := r.seen(producer.ID)
++							if !alive || current.Private == nil {
+ 								break
+ 							}
+-						}
+-						if index < 0 || !r.tryIssue(sim.Order{Kind: "cancel", Entities: []sim.ID{producer.ID}, Index: int32(index)}) {
+-							break
+-						}
+-					}
+-				}
+-				if r.requiredOptional == "factory-captured" {
+-					r.buildVisibleCaptureDefense("outpost", sim.Vec{X: 41500, Y: 88500})
+-					r.buildVisibleCaptureDefense("turret", sim.Vec{X: 53500, Y: 85500})
+-				} else {
+-					r.buildAt(r.ids("home-rig"), "outpost", sim.Vec{X: 41500, Y: 88500})
+-					r.buildAt(r.ids("home-rig"), "turret", sim.Vec{X: 53500, Y: 85500})
+-				}
+-				forwardConstruction = false
+-				next = r.engine.Tick()
++							index := -1
++							for i := len(current.Private.Jobs) - 1; i >= 0; i-- {
++								if !current.Private.Jobs[i].Started {
++									index = i
++									break
++								}
++							}
++							if index < 0 || !r.tryIssue(sim.Order{Kind: "cancel", Entities: []sim.ID{producer.ID}, Index: int32(index)}) {
++								break
++							}
++						}
++					}
++					if r.requiredOptional == "factory-captured" {
++						r.buildVisibleCaptureDefense("outpost", sim.Vec{X: 41500, Y: 88500})
++						r.buildVisibleCaptureDefense("turret", sim.Vec{X: 53500, Y: 85500})
++					} else {
++						r.buildAt(r.ids("home-rig"), "outpost", sim.Vec{X: 41500, Y: 88500})
++						r.buildAt(r.ids("home-rig"), "turret", sim.Vec{X: 53500, Y: 85500})
++					}
++					forwardConstruction = false
++					next = r.engine.Tick()
++				}
++				if r.requiredOptional != "factory-captured" {
++					fortifyCapture()
++				}
+ 			}
+ 		}
+ 		if stage < limit {
+@@ -1269,6 +1277,9 @@
+ 			r.wait("stabilize captured relay before advancing", 2400, func() bool { e, ok := r.seen(r.tags[tag][0]); return ok && e.Health >= 850 })
+ 			if stage == 1 && r.requiredOptional == "factory-captured" {
+ 				captureFactory()
++				if fortifyCapture != nil {
++					fortifyCapture()
++				}
+ 			}
+ 			if stage == 1 && r.faction == "SA" {
+ 				for _, candidate := range r.ownedType(r.faction + ".engineer") {
