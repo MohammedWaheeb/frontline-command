@@ -4,7 +4,9 @@ Audit date: 2026-09-28. Baseline inspected at `588f48b`; simulation/runtime 0.3.
 
 Authoritative references: [design](../outputs/frontline-command-game-design.md) sections 4.1, 5, 6.3–6.5, 7–8, 12, 14, 21.4–21.5, 22–23; [Go view filtering](../pkg/sim/visibility.go), [operation views](../pkg/sim/operation_views.go), [combat](../pkg/sim/combat.go), [strategic operations](../pkg/sim/abilities.go), [service loss](../pkg/sim/service_loss.go), [catalog](../pkg/content/rules.json), [protocol](../client/src/protocol/frontline_pb.ts).
 
-## Immediate correctness findings
+Follow-up: the bounded [renderer integration and actual Go acceptance](tactical-overlay-acceptance.md) now supersedes the pre-integration renderer findings below. This document preserves the original source audit and 132-entry inventory; its missing-wire and unmounted-effect limitations remain explicit.
+
+## Pre-integration correctness findings
 
 1. `BattlefieldRenderer.drawTactical()` draws warning projectiles with a fixed 38×19 pixel ellipse and all operations with a fixed 55×27.5 ellipse. Neither is a world-space blast radius. The catalog gives all three tactical weapons a 2,000 millitile splash radius. The two strategic projectile IDs have no catalog entry even though Go stores their real 2,000 radius internally. A raid or transfer has an exit/destination marker, not a damage circle.
 2. The projectile dot can appear at a fake flight position. Go substitutes a hidden warning projectile's position with its public impact point. Equality with the impact cannot distinguish this substitution from a legitimately visible final position. Do not animate that dot as a real body or reconstruct a launch/travel route.
@@ -103,7 +105,7 @@ All **132** manifest entries still say `planned`; none of their `assets/build/fx
 
 Each manifest ID appears exactly once below. “Partial” identifies a limited truthful presentation rather than permission to fill missing facts with guesses.
 
-| Manifest ID | Data | Current path | Remaining constraint/work |
+| Manifest ID | Data | Pre-integration path | Remaining constraint/work |
 |---|---|---|---|
 | `fx.weapon_muzzle.RIF` | Partial | Actor fire/launch pose | weapon_fired permits source cue. Current live source catalog can choose weapon; event lacks weapon ID if source disappears/converts. No dedicated accepted muzzle FX output. |
 | `fx.weapon_muzzle.REC` | Partial | Actor fire/launch pose | weapon_fired permits source cue. Current live source catalog can choose weapon; event lacks weapon ID if source disappears/converts. No dedicated accepted muzzle FX output. |

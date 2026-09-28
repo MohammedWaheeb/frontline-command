@@ -87,7 +87,7 @@ function projectileEffect(weapon:string,catalog:CatalogIndex):string|undefined {
 }
 const POSITION_ORDERS=new Set(['move','attack_move','guard','aggressive','force_fire','build']);
 const ENTITY_ORDERS=new Set(['attack','escort','repair','capture','board','build']);
-const EVENT_CUES=new Set(['weapon_fired','impact','destroyed','missile_intercepted','interceptor_fired','decoy_triggered','under_attack','aircraft_return_soon','aircraft_returning','aircraft_endurance_lost','service_lost','aircraft_serviced','transfer_canceled','capture_interrupted','unload_exit_blocked','capture_exit_blocked','raid_exit_blocked','station_captured','building_captured','strategic_activated','shipment_arrived','ping']);
+const EVENT_CUES=new Set(['weapon_fired','impact','destroyed','missile_intercepted','interceptor_fired','decoy_triggered','under_attack','aircraft_return_soon','aircraft_returning','aircraft_endurance_lost','service_lost','aircraft_serviced','transfer_canceled','capture_interrupted','unload_exit_blocked','capture_exit_blocked','raid_exit_blocked','station_captured','building_captured','strategic_activated','shipment_arrived','tactical_ping']);
 
 /** Build anew from one authorized perspective. No retained history, map/global
  * state, clock, random values, ownership transfer or simulation occurs here.

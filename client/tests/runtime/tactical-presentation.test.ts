@@ -127,8 +127,8 @@ test('semantic event cues retain uncertainty, attacker-owned interception, and a
   {id:3,tick:100,kind:'missile_intercepted',owner:3,entity:0,position:pos,scope:'all'},
   {id:4,tick:100,kind:'service_lost',owner:1,entity:1,position:pos,scope:'owner'},
   {id:5,tick:100,kind:'service_lost',owner:2,entity:2,position:pos,scope:'owner'},
-  {id:6,tick:100,kind:'ping',owner:2,position:pos,scope:'team'},
-  {id:7,tick:100,kind:'ping',owner:3,position:pos,scope:'team'},
+  {id:6,tick:100,kind:'tactical_ping',owner:2,position:pos,scope:'team'},
+  {id:7,tick:100,kind:'tactical_ping',owner:3,position:pos,scope:'team'},
   {id:8,tick:101,kind:'destroyed',owner:3,position:pos,scope:'visible'},
  ]});
  const cues=tacticalPresentation(s,catalog).eventCues;
