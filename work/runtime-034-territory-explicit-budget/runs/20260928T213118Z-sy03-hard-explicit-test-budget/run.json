@@ -1,0 +1,70 @@
+{
+  "scope": "Fresh SY03 Hard prior-tactic proof with explicit30k test-only wait; authored rules and production unchanged",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "4c102f4c378ea1a77f23d609b50ee1a7b833161932e521d3cf9565a413dfbd4a",
+  "base_source_lock_sha256": "242c51f4fb427b2088c2038c192b6042bc1c2cdf8421b0d96fe83919edd327e7",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:31:18.814435+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-explicit-budget/runs/20260928T213118Z-sy03-hard-explicit-test-budget/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-explicit-budget/source",
+      "started": "2026-09-28T21:31:18.814819+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 3.375,
+      "completed": "2026-09-28T21:31:22.189368+00:00"
+    },
+    {
+      "name": "budget",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-explicit-budget/runs/20260928T213118Z-sy03-hard-explicit-test-budget/sim.test",
+        "-test.run=^TestAuthoredExpansion(Budget|Sites|Logistics|Response)",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-explicit-budget/source/pkg/sim",
+      "started": "2026-09-28T21:31:22.194101+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.921,
+      "completed": "2026-09-28T21:31:23.114992+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-explicit-budget/runs/20260928T213118Z-sy03-hard-explicit-test-budget/sim.test",
+        "-test.run=^TestAuthoredCampaignTerritoryCompletion$/^sy-03-three-crossings$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-explicit-budget/source/pkg/sim",
+      "started": "2026-09-28T21:31:23.115555+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 78.334,
+      "completed": "2026-09-28T21:32:41.449234+00:00"
+    }
+  ],
+  "binary_sha256": "afdc894c70fe5dd8edc8dd2a14e33ce3992bdc5a1f4113e54f313835e943c058",
+  "exit_code": 0,
+  "completed": "2026-09-28T21:32:41.449918+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-03-three-crossings-SY-hard.json": {
+      "bytes": 1350236,
+      "sha256": "1c663a09ffea4ea97552d24a27faa30ee3d3caf4af847677d1794e68d6f08a44"
+    }
+  }
+}

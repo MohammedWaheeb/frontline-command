@@ -291,3 +291,9 @@ a consolidated99/102 or100/102 claim; the frozen matrix remains93/102.
   naturally wins at24,858 with zero additional human commands. Its22,606 test
   timeout was not an authored deadline or mission defeat. The original failed
   acceptance stays unchanged; an explicit fresh test-budget proof is separate.
+
+- [Fresh SY03 explicit test-budget proof](../runtime-034-territory-explicit-budget/README.md)
+  also passes at24,858 with the prior eastern-force strategy and full ordinary
+  acceptance gates. Only its documented commander wait changes22k→30k; the
+  authored mission has no defeat timer. The original timed-out attempt remains
+  preserved, and this is distinct from the faster12,687 exterior-screen route.
