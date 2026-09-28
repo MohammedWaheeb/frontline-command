@@ -1,5 +1,13 @@
 # Authored failure and optional-objective acceptance
 
+> Status update — 2026-09-28: the passing matrices below are historical,
+> source-specific records. The current frozen proposed 0.3.4 matrix passed
+> **93/102 main routes and 12/21 optional routes**. Later ordinary-driver pilots
+> are separate evidence, not a consolidated replacement pass. See the
+> [frozen matrix status](../work/runtime-034-candidate/README.md) and
+> [latest individual pilot status](../work/runtime-034-tactics/README.md).
+> A failed driver route does not establish that a mission is impossible.
+
 The clean 102-case main-completion matrix proves victory, restoration, replay,
 restart and the generic all-human surrender path. Surrender alone does **not**
 prove an authored loss predicate. This follow-on inventory covers every authored

@@ -1,5 +1,13 @@
 # Authored mission completion acceptance
 
+> Status update — 2026-09-28: the passing matrices below are historical,
+> source-specific records. The current frozen proposed 0.3.4 matrix passed
+> **93/102 main routes and 12/21 optional routes**. Later ordinary-driver pilots
+> are separate evidence, not a consolidated replacement pass. See the
+> [frozen matrix status](../work/runtime-034-candidate/README.md) and
+> [latest individual pilot status](../work/runtime-034-tactics/README.md).
+> A failed driver route does not establish that a mission is impossible.
+
 Status: active acceptance work, not a release certificate. Opening validation,
 file inventory, and a successful content-library download do not prove a mission
 can be completed. This lane exercises actual authored files using the native Go

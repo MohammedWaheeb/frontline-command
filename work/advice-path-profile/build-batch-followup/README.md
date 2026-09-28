@@ -88,3 +88,13 @@ contention inside the live request remain unmeasured. No timeout, authorization,
 response or gameplay semantics were changed. The next discriminating evidence
 is a controlled live course with exact request/capture/stage timestamps, or the
 already planned quiet-host comparison; it must retain any failure.
+
+
+The observed code is `advice_timeout`, rather than `advice_unavailable`: the
+handler received a successful `match.call` reply, then found the shared context
+expired before or after detached preview. This does not imply Restore alone took
+two seconds. If a later controlled diagnostic is needed, timestamps should
+separate enqueue, actor dequeue, capture completion, reply receipt and clone
+completion, with the exact capture tick and queue length. They should never
+record bearer tokens or request headers. Such instrumentation has not been added
+by this task; no additional probe should run during the planned quiet course.
