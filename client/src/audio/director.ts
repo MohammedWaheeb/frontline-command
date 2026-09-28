@@ -1,9 +1,10 @@
-import {ambienceFor,battlefieldSounds,impactSound,type AudioViewport} from './battlefield-sound';
+import {ambienceFor,battlefieldSounds,type AudioViewport} from './battlefield-sound';
 import type {GameMap} from '../runtime/types';
 import type {Entity,Event,PlayerSnapshot,MatchStatus} from '../protocol/frontline_pb';
 import type {CatalogIndex} from '../content/catalog';
 import {classify} from '../content/catalog';
 import {AudioMixer} from './mixer';
+import {combatSound} from './combat-sound';
 const title=(text:string)=>text.replaceAll('_',' ').replace(/^./,c=>c.toUpperCase());
 const OWN_EVENTS=new Set(['construction_complete','unit_ready','research_complete','aircraft_returning','capture_interrupted','building_captured','transfer_canceled']);
 /** Owns presentation history only. Its only world input is the authorized snapshot. */
@@ -34,8 +35,8 @@ export class AudioDirector {
   const boundary=!previous||snapshot.player!==previous.player||snapshot.tick<previous.tick||snapshot.tick-previous.tick>100;
   if(boundary&&previous)this.discontinuity();
   if(!previous||snapshot.tick!==previous.tick||snapshot.player!==previous.player)this.advancedAt=performance.now();this.previous=snapshot;this.refreshContinuous();
-  if(boundary){this.lastEvent=Math.max(0,...snapshot.events.map(event=>event.id));this.battleMusic(snapshot);return}
-  const events=snapshot.events.filter(event=>event.id>this.lastEvent&&event.tick>=previous.tick-2);this.lastEvent=Math.max(this.lastEvent,...snapshot.events.map(event=>event.id));
+  if(boundary){this.lastEvent=Math.max(0,...snapshot.events.filter(event=>event.tick<=snapshot.tick).map(event=>event.id));this.battleMusic(snapshot);return}
+  const seen=new Set<number>(),events=snapshot.events.filter(event=>{if(event.id<=this.lastEvent||event.tick<previous.tick-2||event.tick>snapshot.tick||seen.has(event.id))return false;seen.add(event.id);return true});this.lastEvent=Math.max(this.lastEvent,...snapshot.events.filter(event=>event.tick<=snapshot.tick).map(event=>event.id));
   for(const event of events)if(event.kind==='aircraft_endurance_lost'&&event.owner===snapshot.player)this.enduranceLost.set(event.entity,event.tick);
   for(const [id,tick]of this.enduranceLost)if(snapshot.tick-tick>100)this.enduranceLost.delete(id);
   const ownPlayer=snapshot.players.find(player=>player.id===snapshot.player);
@@ -45,7 +46,7 @@ export class AudioDirector {
   if(snapshot.economy&&previous.economy){const low=snapshot.economy.powerDemand>snapshot.economy.powerCapacity,wasLow=previous.economy.powerDemand>previous.economy.powerCapacity;if(low&&!wasLow){this.announce('low_power');this.mixer.play('sfx.power_down')}else if(!low&&wasLow)this.mixer.play('sfx.power_up')}
   if(!previous.indicators.length&&snapshot.indicators.length)this.announce('endgame_reveal');
   for(const entity of snapshot.entities){if(entity.owner!==snapshot.player||!entity.private)continue;const old=previous.entities.find(value=>value.id===entity.id)?.private;if(!old)continue;const role=this.catalog()?.units.get(entity.type)?.role??this.catalog()?.buildings.get(entity.type)?.role;
-   if(role==='abm'&&old.ammo>0&&entity.private.ammo===0)this.announce('interceptor_depleted',entity.position,100);
+   if((role==='abm'||entity.type==='SA.mobile_abm')&&old.charges>0&&entity.private.charges===0)this.announce('interceptor_depleted',entity.position,100);
    if(role==='strategic'&&old.charges===0&&entity.private.charges>0)this.announce('our_strategic_ready',entity.position,50);
    if(role==='strategic'&&old.chargeWork===0&&entity.private.chargeWork>0)this.announce('strategic_site_charging',entity.position,50);
    if(old.cooldowns.some(cooldown=>cooldown.until>previous.tick&&cooldown.until<=snapshot.tick))this.unit(entity,'ability_ready');
@@ -57,9 +58,8 @@ export class AudioDirector {
  private battleMusic(snapshot:PlayerSnapshot){const finished=snapshot.outcome?.finished,key=finished?'debrief':`battle:${this.faction}`;if(this.scene!==key){this.scene=key;if(finished)this.mixer.music(['music.debrief_bed']);else this.mixer.music(['calm','tension','combat'].map(layer=>`music.battle_${this.faction}_${layer}`))}if(!finished){const now=performance.now(),layer=now<this.combatUntil?2:now<this.tensionUntil?1:0;this.mixer.music(['calm','tension','combat'].map(value=>`music.battle_${this.faction}_${value}`),[0,1,2].map(index=>index===layer?1:0))}}
  private event(event:Event,snapshot:PlayerSnapshot,previous:PlayerSnapshot){
   const entity=snapshot.entities.find(entity=>entity.id===event.entity)??previous.entities.find(entity=>entity.id===event.entity),own=event.owner===snapshot.player,catalog=this.catalog();
-  if(event.kind==='weapon_fired'){const weapon=entity&&(catalog?.units.get(entity.type)?.weapon??catalog?.buildings.get(entity.type)?.weapon);if(weapon)this.mixer.play(`sfx.weapon.${weapon}`,{cooldown:60});this.combatUntil=performance.now()+8000;return}
-  if(event.kind==='impact'){this.mixer.play(impactSound(entity,catalog),{cooldown:70});this.combatUntil=performance.now()+8000;return}
-  if(event.kind==='missile_intercepted'){this.mixer.play('sfx.intercept_burst',{cooldown:100});return}
+  const combat=combatSound(event,snapshot,previous,catalog);
+  if(combat){if(combat.sound)this.mixer.play(combat.sound,{cooldown:combat.cooldown});if(combat.caption)this.mixer.caption(combat.caption,70);if(combat.kind==='weapon'||combat.kind==='impact')this.combatUntil=performance.now()+8000;return}
   if(event.kind==='under_attack'&&own){this.combatUntil=performance.now()+8000;if(entity&&catalog?.buildings.has(entity.type))this.announce('base_attacked',event.position,100);else if(entity&&catalog?.units.get(entity.type)?.role==='hauler')this.announce('hauler_attacked',event.position,100);else if(entity){const p=event.position;this.unit(entity,'under_fire',`attack:${p?`${Math.floor(p.x/10000)},${Math.floor(p.y/10000)}`:'unknown'}`)}return}
   if(event.kind==='destroyed'){const building=!!entity&&!!catalog?.buildings.has(entity.type);this.mixer.play(building?'sfx.explosion_building':'sfx.explosion_small',{cooldown:100});if(own&&!this.enduranceLost.has(event.entity))this.announce(building?'building_lost':'unit_lost',event.position,50);return}
   if(OWN_EVENTS.has(event.kind)&&own){this.announce(event.kind==='transfer_canceled'?'safehouse_transfer_canceled':event.kind,event.position);if(event.kind==='construction_complete')this.mixer.play('sfx.construct_complete');return}
