@@ -1,0 +1,345 @@
+{
+  "started": "2026-09-28T13:44:31.426Z",
+  "driverSHA256": "7a8cd3cfbff05bdf37da65aa0348a687be2dcc63a69a9b6cd94a2a31bcd29bdc",
+  "build": {
+    "started": "2026-09-28T13:42:02.360Z",
+    "completed": "2026-09-28T13:42:05.865Z",
+    "revision": "ca4ec384fe38a4ac30cf4b0fb13dba3c9e7845ec",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.4"
+    },
+    "sha256": {
+      "host": "aa474267ab3c2c19f64deb526f5dc500516d4e2ac73a2a50c96664d06b6b1a8b",
+      "wasm": "a0bf6dadb578e2f80875ad7471efe480637c94b0101da8e84324f349c058bcc4",
+      "protocol": "89333b8afc6ad9094ec3905f99122babcbac9b762e588c02196ec3bdca0b9e3e",
+      "pack": "0ec7747fddbbe059fcc6fe81b6f592869cf870b65cab680d02498874aab9c9b5",
+      "clientSource": "6a27ac9a07f2bdfd5390cc0657f6a0543f1b5ca4b067bba5ded001f3b7609d59",
+      "entry": "1bb05e2dfa6163bc7c460da1cfd636f739a6fb155532a0fcb9d6b4898e9c47fa"
+    },
+    "packFiles": 3601,
+    "art": {
+      "format": 1,
+      "sprites": {
+        "building.IR.interceptor_battery": "sprites/building.IR.interceptor_battery/building.IR.interceptor_battery.sprite.json",
+        "building.IR.repair_depot": "sprites/building.IR.repair_depot/building.IR.repair_depot.sprite.json",
+        "building.SY.repair_depot": "sprites/building.SY.repair_depot/building.SY.repair_depot.sprite.json",
+        "building.US.aa_post": "sprites/building.US.aa_post/building.US.aa_post.sprite.json",
+        "building.US.barracks": "sprites/building.US.barracks/building.US.barracks.sprite.json",
+        "building.US.bunker": "sprites/building.US.bunker/building.US.bunker.sprite.json",
+        "building.US.factory": "sprites/building.US.factory/building.US.factory.sprite.json",
+        "building.US.gun_turret": "sprites/building.US.gun_turret/building.US.gun_turret.sprite.json",
+        "building.US.hq": "sprites/building.US.hq/building.US.hq.sprite.json",
+        "building.US.interceptor_battery": "sprites/building.US.interceptor_battery/building.US.interceptor_battery.sprite.json",
+        "building.US.outpost": "sprites/building.US.outpost/building.US.outpost.sprite.json",
+        "building.US.power": "sprites/building.US.power/building.US.power.sprite.json",
+        "building.US.radar": "sprites/building.US.radar/building.US.radar.sprite.json",
+        "building.US.repair_depot": "sprites/building.US.repair_depot/building.US.repair_depot.sprite.json",
+        "building.US.strategic_site": "sprites/building.US.strategic_site/building.US.strategic_site.sprite.json",
+        "building.US.supply": "sprites/building.US.supply/building.US.supply.sprite.json",
+        "building.US.tech": "sprites/building.US.tech/building.US.tech.sprite.json",
+        "prop.bridge_permanent": "sprites/prop.bridge_permanent/prop.bridge_permanent.sprite.json",
+        "prop.central_shipment_site": "sprites/prop.central_shipment_site/prop.central_shipment_site.sprite.json",
+        "prop.command_relay_objective": "sprites/prop.command_relay_objective/prop.command_relay_objective.sprite.json",
+        "prop.concrete_barrier": "sprites/prop.concrete_barrier/prop.concrete_barrier.sprite.json",
+        "prop.container_stack": "sprites/prop.container_stack/prop.container_stack.sprite.json",
+        "prop.decor_building_nongarrison": "sprites/prop.decor_building_nongarrison/prop.decor_building_nongarrison.sprite.json",
+        "prop.depot_objective": "sprites/prop.depot_objective/prop.depot_objective.sprite.json",
+        "prop.destructible_wall_hp_heavy": "sprites/prop.destructible_wall_hp_heavy/prop.destructible_wall_hp_heavy.sprite.json",
+        "prop.destructible_wall_hp_light": "sprites/prop.destructible_wall_hp_light/prop.destructible_wall_hp_light.sprite.json",
+        "prop.fence_chainlink": "sprites/prop.fence_chainlink/prop.fence_chainlink.sprite.json",
+        "prop.forest_edge_scrub": "sprites/prop.forest_edge_scrub/prop.forest_edge_scrub.sprite.json",
+        "prop.fuel_tanks": "sprites/prop.fuel_tanks/prop.fuel_tanks.sprite.json",
+        "prop.palm": "sprites/prop.palm/prop.palm.sprite.json",
+        "prop.power_pylon": "sprites/prop.power_pylon/prop.power_pylon.sprite.json",
+        "prop.region_marker_editor": "sprites/prop.region_marker_editor/prop.region_marker_editor.sprite.json",
+        "prop.relay_objective": "sprites/prop.relay_objective/prop.relay_objective.sprite.json",
+        "prop.rocks": "sprites/prop.rocks/prop.rocks.sprite.json",
+        "prop.rubble_cover": "sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+        "prop.ruined_house_garrisonable": "sprites/prop.ruined_house_garrisonable/prop.ruined_house_garrisonable.sprite.json",
+        "prop.sandbags": "sprites/prop.sandbags/prop.sandbags.sprite.json",
+        "prop.shrub": "sprites/prop.shrub/prop.shrub.sprite.json",
+        "prop.spawn_marker_editor": "sprites/prop.spawn_marker_editor/prop.spawn_marker_editor.sprite.json",
+        "prop.supply_field": "sprites/prop.supply_field/prop.supply_field.sprite.json",
+        "prop.supply_station_neutral": "sprites/prop.supply_station_neutral/prop.supply_station_neutral.sprite.json",
+        "prop.warehouse_garrisonable": "sprites/prop.warehouse_garrisonable/prop.warehouse_garrisonable.sprite.json",
+        "prop.wreck_decor_vehicle": "sprites/prop.wreck_decor_vehicle/prop.wreck_decor_vehicle.sprite.json",
+        "unit.IR.at": "sprites/unit.IR.at/unit.IR.at.sprite.json",
+        "unit.IR.elite": "sprites/unit.IR.elite/unit.IR.elite.sprite.json",
+        "unit.IR.engineer": "sprites/unit.IR.engineer/unit.IR.engineer.sprite.json",
+        "unit.IR.hauler": "sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+        "unit.IR.medic": "sprites/unit.IR.medic/unit.IR.medic.sprite.json",
+        "unit.IR.recon": "sprites/unit.IR.recon/unit.IR.recon.sprite.json",
+        "unit.IR.rifle": "sprites/unit.IR.rifle/unit.IR.rifle.sprite.json",
+        "unit.IR.rig": "sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+        "unit.IR.strike": "sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+        "unit.SA.hauler": "sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+        "unit.SA.mobile_abm": "sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+        "unit.SA.rig": "sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+        "unit.SY.car": "sprites/unit.SY.car/unit.SY.car.sprite.json",
+        "unit.SY.hauler": "sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+        "unit.SY.rig": "sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+        "unit.US.at": "sprites/unit.US.at/unit.US.at.sprite.json",
+        "unit.US.elite": "sprites/unit.US.elite/unit.US.elite.sprite.json",
+        "unit.US.engineer": "sprites/unit.US.engineer/unit.US.engineer.sprite.json",
+        "unit.US.hauler": "sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+        "unit.US.medic": "sprites/unit.US.medic/unit.US.medic.sprite.json",
+        "unit.US.recon": "sprites/unit.US.recon/unit.US.recon.sprite.json",
+        "unit.US.rifle": "sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+        "unit.US.rig": "sprites/unit.US.rig/unit.US.rig.sprite.json",
+        "unit.US.tank": "sprites/unit.US.tank/unit.US.tank.sprite.json"
+      },
+      "terrain": [
+        "asphalt",
+        "cliff_face_tier1",
+        "cliff_face_tier2",
+        "coast_sand",
+        "concrete_slab",
+        "deep_water",
+        "dry_riverbed",
+        "farmland_dry",
+        "gravel",
+        "gravel_wash",
+        "ground_macro",
+        "height_tier_edges",
+        "industrial_pavement",
+        "packed_earth",
+        "ramp",
+        "road_asphalt_decal",
+        "road_dirt_decal",
+        "rubble_ground",
+        "sand",
+        "scrub_ground",
+        "shallow_water",
+        "transition_masks"
+      ],
+      "portraits": [
+        "IR.at",
+        "IR.elite",
+        "IR.engineer",
+        "IR.hauler",
+        "IR.medic",
+        "IR.recon",
+        "IR.rifle",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.engineer",
+        "US.hauler",
+        "US.medic",
+        "US.recon",
+        "US.rig",
+        "US.tank",
+        "building.IR.interceptor_battery",
+        "building.IR.repair_depot",
+        "building.SY.repair_depot",
+        "building.US.aa_post",
+        "building.US.barracks",
+        "building.US.bunker",
+        "building.US.factory",
+        "building.US.gun_turret",
+        "building.US.interceptor_battery",
+        "building.US.outpost",
+        "building.US.radar",
+        "building.US.repair_depot",
+        "building.US.strategic_site",
+        "building.US.supply",
+        "building.US.tech"
+      ],
+      "buildIcons": [
+        "IR.at",
+        "IR.elite",
+        "IR.engineer",
+        "IR.hauler",
+        "IR.medic",
+        "IR.recon",
+        "IR.rifle",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.engineer",
+        "US.hauler",
+        "US.medic",
+        "US.recon",
+        "US.rig",
+        "US.tank",
+        "building.IR.interceptor_battery",
+        "building.IR.repair_depot",
+        "building.SY.repair_depot",
+        "building.US.aa_post",
+        "building.US.barracks",
+        "building.US.bunker",
+        "building.US.factory",
+        "building.US.gun_turret",
+        "building.US.interceptor_battery",
+        "building.US.outpost",
+        "building.US.radar",
+        "building.US.repair_depot",
+        "building.US.strategic_site",
+        "building.US.supply",
+        "building.US.tech"
+      ],
+      "chrome": [
+        "brass_bezel@1x.png",
+        "brass_bezel@2x.png",
+        "button@1x.png",
+        "button@2x.png",
+        "button_active@2x.png",
+        "button_disabled@2x.png",
+        "button_hover@2x.png",
+        "button_normal@2x.png",
+        "button_pressed@2x.png",
+        "cameo_frame@1x.png",
+        "cameo_frame@2x.png",
+        "console_plate@1x.png",
+        "console_plate@2x.png",
+        "metal_noise.png",
+        "well@1x.png",
+        "well@2x.png"
+      ],
+      "icons": true,
+      "emblems": true
+    },
+    "scope": "Unchanged product App with acceptance-only normal command API bridge; frozen isolated 0.3.4. Art incomplete; no shared runtime promotion."
+  },
+  "scope": "One custom human on ordinary authored map, unchanged 6000-credit opening, real profile/lobby/readiness and Go host. Controlled advisor faults only; no simulation edits, combat-win or physical-LAN claim. Browser plugin unavailable; Playwright fallback.",
+  "checks": [
+    {
+      "name": "Actual profile, custom lobby, readiness, countdown and 6000-credit HQ production"
+    },
+    {
+      "name": "Injected background 503 is visible nonblocking notice and disables stale choice"
+    },
+    {
+      "name": "Normal operation menu remains clickable after advisor failure"
+    },
+    {
+      "name": "Normal reconnect recovers authoritative stream",
+      "before": {
+        "tick": 416,
+        "sockets": 1
+      },
+      "after": {
+        "tick": 492,
+        "sockets": 2
+      }
+    },
+    {
+      "name": "Fresh server advice restores actual production choices"
+    },
+    {
+      "name": "Explicit production-advisor failure sends no command and never auto-retries"
+    }
+  ],
+  "injections": [
+    {
+      "phase": "background",
+      "code": "advice_timeout",
+      "status": 503,
+      "path": "/api/v1/matches/09542c1e3346b8be09a03174/advice",
+      "orders": [],
+      "time": "2026-09-28T13:45:01.857Z"
+    },
+    {
+      "phase": "command",
+      "code": "advice_timeout",
+      "status": 503,
+      "path": "/api/v1/matches/09542c1e3346b8be09a03174/advice",
+      "orders": [
+        {
+          "kind": "train",
+          "entities": [
+            1
+          ],
+          "target": 0,
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "type": "US.rig",
+          "queued": false,
+          "index": 0,
+          "points": []
+        }
+      ],
+      "time": "2026-09-28T13:45:14.310Z"
+    }
+  ],
+  "httpErrors": [
+    {
+      "path": "/api/v1/matches/09542c1e3346b8be09a03174/advice",
+      "status": 503,
+      "code": "advice_timeout",
+      "message": "Command advice timed out."
+    },
+    {
+      "path": "/api/v1/matches/09542c1e3346b8be09a03174/advice",
+      "status": 503,
+      "code": "advice_timeout",
+      "message": "Command advice timed out."
+    }
+  ],
+  "errors": [
+    {
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "location": {
+        "url": "http://127.0.0.1:53217/api/v1/matches/09542c1e3346b8be09a03174/advice",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "location": {
+        "url": "http://127.0.0.1:53217/api/v1/matches/09542c1e3346b8be09a03174/advice",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "browser": "151.0.7922.34",
+  "origin": "http://127.0.0.1:53217",
+  "status": "failed",
+  "failure": "Error: No accepted paid production receipt\n    at until (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/advice-recovery.browser.mjs:15:130)\n    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/advice-recovery.browser.mjs:34:298",
+  "completed": "2026-09-28T13:45:53.657Z",
+  "sent": [
+    {
+      "$typeName": "frontline.v1.OrderBatch",
+      "sequence": 1,
+      "orders": [
+        {
+          "$typeName": "frontline.v1.Order",
+          "kind": "train",
+          "entities": [
+            1
+          ],
+          "target": 0,
+          "type": "US.rig",
+          "queued": false,
+          "index": 0,
+          "points": []
+        }
+      ]
+    }
+  ],
+  "receipts": []
+}

@@ -70,8 +70,72 @@ obsolete selection response ignored, unrelated errors retained, and failed
 explicit orders never automatically resubmitted. Both TypeScript checks and all
 339 current runtime tests pass. Logs are `work/multiplayer-combat/advice-recovery-*`.
 
-The remaining product test must inject one known advisory response, inspect the
-real notice and absence of the global modal, use pause/reconnect controls, restore
-successful advice, and submit a real ordinary order. It must preserve the
-original multiplayer failure, use an isolated host/build, and make no load or
-complete-matrix claim.
+## Actual product fault course
+
+The controlled Chromium **151.0.7922.34** course passed on 2026-09-28,
+13:46:24–13:47:35 UTC. Evidence:
+`work/multiplayer-combat/advice-recovery-2026-09-28T13-46-24.187Z/`.
+The test uses a separately built current client/styles with frozen combined
+0.3.4 host/WASM/protocol, a new temporary database and one browser context.
+Browser plugin unavailable; the established Playwright fallback was used.
+No shared runtime or host was changed.
+
+The real DOM created a local profile and a one-human custom lobby on authored
+Industrial Valley, completed asset readiness, started the ordinary 6,000-credit
+opening and selected headquarters production. This deliberately short one-player
+course tests recovery; it is not a combat-win matrix row or physical LAN proof.
+
+| Actual interaction | Observed result |
+|---|---|
+| Inject one background HTTP 503 `advice_timeout` | Visible nonblocking retry notice; cached rig choice disabled; no global error dialog |
+| Open normal operation menu | Button remains clickable; no error scrim intercepts input |
+| Use normal Reconnect button | Authoritative socket replaced; tick 340→404; controls recover |
+| Receive fresh real Go advice | Choice enabled and only its temporary notice cleared |
+| Inject one 503 for a clicked rig production preview | Notice says order not sent; no order sent and no credits spent |
+| Wait through a later automatic advice refresh | Zero automatic order retries |
+| Explicitly click the rig choice again | One `train US.rig` command; Go accepts sequence 1 at tick 651; 800 credits paid |
+| Let the ordinary 400-tick production job run | Two owned rigs observed by tick 1,084; 5,200 credits remain |
+
+Both deliberately injected HTTP/console 503 errors are retained verbatim.
+There were **zero additional console, page or HTTP errors**. Assertions did not
+suppress errors, change server deadlines or relax the original strict multiplayer
+gate. Only the temporary advisor endpoint responses were test-controlled; game
+state, credits, production and timing remained Go-owned. No command API bridge
+was used to place the paid order: both attempts clicked the actual production
+cameo. The acceptance bridge was read-only in this course.
+
+Native captures were inspected at 1600×900 (background failure, command failure,
+paid queue) and 1280×720 (completed rig). They show usable menu/sidebar controls
+and the transient notice without a modal. The long disabled-choice explanation
+is cramped in its small cameo; the complete top notice remains readable. This
+bounded pass does not certify final UI/art: asset preparation reports 756 files
+and 11 US roster fallbacks, listed in `browser.json`.
+
+Source receipt: `work/multiplayer-combat/build-advice-recovery/build.json`.
+Client source SHA256 is
+`6a27ac9a07f2bdfd5390cc0657f6a0543f1b5ca4b067bba5ded001f3b7609d59`;
+installed base-pack SHA256 is
+`0ec7747fddbbe059fcc6fe81b6f592869cf870b65cab680d02498874aab9c9b5`.
+Host/WASM/protocol remain the unchanged combined candidate hashes recorded there.
+
+Two earlier **test-driver failures remain preserved**. At 13:43:50 the passive
+listener incorrectly read `StateDelta.results`, aborting before fault injection.
+At 13:44:31 the reduced listener omitted delta receipts, so its final receipt
+assertion failed even though the real final view had 5,200 credits and two rigs.
+The corrected driver uses the existing `applyDelta` reader; the full final course
+passed from a fresh ordinary opening. These failures are not attributed to the
+product, and the earlier genuine three-human modal failure remains failed.
+
+Reproduction (the separate build freezes whichever current client/art is built):
+
+```sh
+FRONTLINE_COMBAT_BUILD=work/multiplayer-combat/build-advice-recovery \
+  node client/tests/render/multiplayer-combat-build.mjs
+FRONTLINE_COMBAT_BUILD=work/multiplayer-combat/build-advice-recovery \
+FRONTLINE_COMBAT_REUSE=1 node client/tests/render/advice-recovery.browser.mjs
+```
+
+The new browser test covers Chromium only; Firefox/WebKit recovery and a fresh
+three-/four-human ordinary combat run remain independent acceptance work.
+The prior two clean ordinary-win matrix rows remain the only clean completed
+rows; this correction does not retroactively change old failures.

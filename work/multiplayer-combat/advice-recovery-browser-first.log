@@ -1,0 +1,16 @@
+file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/advice-recovery.browser.mjs:20
+page.on('websocket',socket=>{sockets++;socket.on('framesent',frame=>{if(typeof frame.payload!=='string'){const message=fromBinary(EnvelopeSchema,new Uint8Array(frame.payload)).message;if(message.case==='orders')sent.push(message.value)}});socket.on('framereceived',frame=>{if(typeof frame.payload!=='string'){const message=fromBinary(EnvelopeSchema,new Uint8Array(frame.payload)).message;if(message.case==='orderResult')receipts.push(message.value);if(message.case==='snapshot'||message.case==='delta')receipts.push(...message.value.results)}})});
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+
+TypeError: message.value.results is not iterable (cannot read property undefined)
+    at WebSocket2.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/advice-recovery.browser.mjs:20:512)
+    at WebSocket2._callHandler (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/playwright-core/lib/coreBundle.js:10746:33)
+    at WebSocket2.emit (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/playwright-core/lib/coreBundle.js:10736:16)
+    at Proxy.<anonymous> (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/playwright-core/lib/coreBundle.js:59685:18)
+    at Proxy._callHandler (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/playwright-core/lib/coreBundle.js:10746:33)
+    at Proxy.emit (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/playwright-core/lib/coreBundle.js:10736:16)
+    at Connection.dispatch (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/playwright-core/lib/coreBundle.js:63525:25)
+    at Immediate.<anonymous> (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/playwright-core/lib/coreBundle.js:63586:85)
+    at process.processImmediate (node:internal/timers:534:21)
+
+Node.js v26.5.0

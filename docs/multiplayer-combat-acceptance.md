@@ -215,3 +215,19 @@ in the same evidence directory. This is not an ordinary combat completion.
 See [the bounded advice-recovery correction](advice-recovery.md). Four-human 2v2
 did not start. New live runs are held for coordinated resource use; neither the
 strict browser gate nor gameplay deadlines have been relaxed.
+
+## Controlled advice-recovery product gate
+
+Checkpoint `ca4ec38` passed an actual Chromium product fault course at
+`work/multiplayer-combat/advice-recovery-2026-09-28T13-46-24.187Z/`: nonblocking
+background timeout, normal menu/reconnect, failed explicit preview sends nothing,
+and a later user click produces one accepted paid 800-credit engineering rig.
+The normal 400-tick job completed. Both injected HTTP 503 errors are retained;
+no other console/page/HTTP errors occurred. Current client/styles were built
+separately with the unchanged combined 0.3.4 host/runtime. See
+[the recovery evidence](advice-recovery.md) for source hashes, native captures,
+all nine checks and the two preserved test-decoder mistakes.
+
+This one-human recovery course is not an ordinary combat win. The three-human
+row stays incomplete/failed, and four-human combat has not started. New live
+matches remain coordinated serially after the root's renderer hardware check.
