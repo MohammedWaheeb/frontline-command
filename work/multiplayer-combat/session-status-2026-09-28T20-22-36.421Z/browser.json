@@ -1,0 +1,92 @@
+{
+  "started": "2026-09-28T20:22:36.552Z",
+  "origin": "http://127.0.0.1:58287",
+  "scope": "Actual production badge and NetworkMatchPanel over immutable earned4H frozen/winner snapshots. Explicit synthetic stale MatchStatus. No live simulation, server, result creation or multiplayer acceptance.",
+  "browserPath": "Browser plugin not available; existing Playwright fallback",
+  "driverSHA256": "94432daba97e6d23ff7ecbda259c379fbb9e36c2541bec1694781eebff6fc495",
+  "sources": [
+    {
+      "path": "src/app/session-presentation.ts",
+      "sha256": "3e3a099ed159f244acf549bc5952046276dc95c43eb6f162bc4365fe9c6afbcd",
+      "bytes": 2213
+    },
+    {
+      "path": "src/ui/BattlefieldStatus.tsx",
+      "sha256": "487c733fbd6741ebf4648a5aa341983a98d8057e270611dea2daf31b408bf031",
+      "bytes": 391
+    },
+    {
+      "path": "src/ui/App.tsx",
+      "sha256": "2bb8bf4087b647f75c08d295ce47cad1a6ce32c0d4af01f10247fa60142d6d8c",
+      "bytes": 34189
+    },
+    {
+      "path": "src/ui/network/index.tsx",
+      "sha256": "d5a44d9458405e3e9c6cdab293f7cd30ffab3d120d91acf9df2858ab6fb5e594",
+      "bytes": 45764
+    },
+    {
+      "path": "src/design/tokens.css",
+      "sha256": "4fdeb15b131bf9c6735546e90575759b603053e819901ea5160a3daec318bf00",
+      "bytes": 15295
+    },
+    {
+      "path": "src/styles/game.css",
+      "sha256": "09df4c522eaa6544ecc58a098251a4350940b6bb302d60813240a27d1689dee7",
+      "bytes": 77981
+    },
+    {
+      "path": "src/ui/network/network.css",
+      "sha256": "885f708f8a975ecd2894f323f1b5a9e411b96190909fca94a4ecb340ef228409",
+      "bytes": 15449
+    },
+    {
+      "path": "tests/render/session-status-fixture.tsx",
+      "sha256": "c1244defd0f323c9712c65dcf6426c579e9a18a2c1ff159f4853d76ca1dbcda7",
+      "bytes": 3666
+    },
+    {
+      "path": "src/ui/network/recorded-results.css",
+      "sha256": "f32619c6ba8c1fc65987e13ab7a131bc27b31f329ea4a38ea20d9e98ab29c1c7",
+      "bytes": 875
+    }
+  ],
+  "original": {
+    "directory": "work/multiplayer-combat/2026-09-28T15-55-02.270Z",
+    "frozenSHA256": "655b5e3e869aff2f268b6b2169d08625773376a2cdd26877f0ccb4171b86398f",
+    "finishedSHA256": "c1165e3a445575a955d5e4efe7f294ec19d691976eba960f9bb752fd16fe4ef9"
+  },
+  "checks": [
+    {
+      "width": 1600,
+      "height": 900,
+      "scale": 1,
+      "labels": [
+        "FROZEN",
+        "ENDED",
+        "OBSERVER",
+        "REPLAY"
+      ],
+      "staleStatusHidden": true,
+      "sourceSnapshotUnchanged": true
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "scale": 1,
+      "labels": [
+        "FROZEN",
+        "ENDED",
+        "OBSERVER",
+        "REPLAY"
+      ],
+      "staleStatusHidden": true,
+      "sourceSnapshotUnchanged": true
+    }
+  ],
+  "errors": [],
+  "browser": "151.0.7922.34",
+  "status": "failed",
+  "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'result', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button>result</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <section role=\"dialog\" class=\"console\" aria-label=\"Network operation\">…</section> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <section role=\"dialog\" class=\"console\" aria-label=\"Network operation\">…</section> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    57 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <section role=\"dialog\" class=\"console\" aria-label=\"Network operation\">…</section> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/session-status.browser.mjs:22:1673",
+  "completed": "2026-09-28T20:23:08.996Z"
+}

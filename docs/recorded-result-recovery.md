@@ -100,3 +100,35 @@ Reproduction uses `client/tests/render/history-recovery-build.mjs` with a new
 `client/tests/render/history-recovery.browser.mjs` against the preserved original
 three-human evidence. Keep the original databases and old source-specific builds
 unchanged. Never publish the copied private database or sign-in credentials.
+
+## Frozen view labels after elimination
+
+The sidebar now derives its status from the current authorized snapshot. An
+online commander whose own `PlayerSummary.defeated` is true sees **FROZEN**,
+including when an old paused flag remains. A separately recovered durable result
+does not change that snapshot or its clock. A genuinely finished snapshot shows
+**ENDED**. Observer, paused replay and active replay labels retain their existing
+precedence. The badge includes an accessible description of its meaning.
+
+The online operation menu no longer displays retained teammate connections,
+latency or pause votes as current after elimination, completion or disconnection.
+It explicitly labels the recorded result time, or the last received update when
+no result exists. It does not fabricate a final connection status.
+
+Validation: both production TypeScript checks and three focused runtime tests
+pass. The isolated production-component browser course at
+`work/multiplayer-combat/session-status-2026-09-28T20-23-49.346Z/` passes four
+configurations: 1280×720 and 1600×900, each at 100% and 150% interface scale.
+It uses the exact earned four-human frozen snapshot (tick 11,138), finished
+snapshot and result (13,475). Its stale connected `MatchStatus` is explicitly a
+synthetic regression input. Source snapshot JSON remains byte-identical through
+view/menu changes; there are no console, page or HTTP errors. Source/CSS hashes
+and exact copied CSS are retained because Claude styling work is independent.
+Native images show the frozen 09:16 clock beside the separately labeled 11:13
+result time, with no stale connection or pause-vote rows.
+
+This component course is not another live multiplayer match. The earlier setup
+failure caused by missing test asset loaders, and the fixture-only 150% control
+overlap, remain preserved. The final fixture uses ordinary flow for its controls.
+The frozen comparison build used for the next strict combat repetition has not
+been changed by this presentation correction.
