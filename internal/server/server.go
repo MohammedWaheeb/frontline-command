@@ -44,6 +44,7 @@ type LobbySlot struct {
 	AssetsReady bool         `json:"assets_ready"`
 }
 type Lobby struct {
+	mapData        *content.Map
 	Revision       uint64                  `json:"revision"`
 	ScenarioRules  *LobbyScenarioRules     `json:"scenario_rules,omitempty"`
 	MapHash        string                  `json:"map_hash"`
@@ -72,6 +73,7 @@ type Lobby struct {
 	Created        int64                   `json:"created"`
 }
 type Server struct {
+	mapMu         sync.RWMutex
 	moderatorHash [32]byte
 	rankedMaps    map[string]string
 	invites       map[string]*LobbyInvite
@@ -293,6 +295,7 @@ func (s *Server) routes() {
 		}
 	})
 	s.mux.HandleFunc("GET /api/v1/maps", s.listMaps)
+	s.mapPublicationRoutes()
 	s.mux.HandleFunc("GET /api/v1/missions", s.listMissions)
 	s.mux.HandleFunc("GET /api/v1/missions/{id}", s.getMission)
 	s.mux.HandleFunc("POST /api/v1/missions/{id}/lobby", s.createScenarioLobby)
@@ -338,6 +341,9 @@ func (s *Server) loadMap(ctx context.Context, id string) (content.Map, error) {
 	if err != nil {
 		return content.Map{}, err
 	}
+	if v.Removed {
+		return content.Map{}, storage.ErrNotFound
+	}
 	return content.DecodeMap(v.Data)
 }
 func (s *Server) listMaps(w http.ResponseWriter, r *http.Request) {
@@ -347,23 +353,58 @@ func (s *Server) listMaps(w http.ResponseWriter, r *http.Request) {
 		maps = append(maps, map[string]any{"id": m.ID, "title": m.Title, "author": m.Author, "version": m.Version, "width": m.Width, "height": m.Height, "players": len(m.Spawns), "installed": true, "hash": lobbyMapHash(m), "ranked": s.rankedMap(m.ID)})
 	}
 	s.mu.Unlock()
-	custom, err := s.repo.ListMaps(r.Context())
+	custom, err := s.repo.ListPublishedMaps(r.Context())
 	if err != nil {
 		fail(w, 500, "storage_error", "Could not load maps.")
 		return
 	}
 	for _, m := range custom {
-		maps = append(maps, map[string]any{"id": m.ID, "title": m.Title, "revision": m.Revision, "installed": false, "ranked": false})
+		if !m.Published || m.Removed {
+			continue
+		}
+		record, err := s.repo.GetMap(r.Context(), m.ID)
+		if err != nil || !record.Published || record.Removed {
+			continue
+		}
+		data, err := content.DecodeMap(record.Data)
+		if err != nil {
+			continue
+		}
+		maps = append(maps, map[string]any{"id": record.ID, "title": record.Title, "owner": record.Owner, "owner_name": record.OwnerName, "author": data.Author, "version": data.Version, "width": data.Width, "height": data.Height, "players": len(data.Spawns), "hash": lobbyMapHash(data), "published": true, "content_revision": record.ContentRevision, "revision": record.Revision, "installed": false, "ranked": false})
 	}
 	sort.Slice(maps, func(i, j int) bool { return maps[i]["id"].(string) < maps[j]["id"].(string) })
 	respond(w, 200, maps)
 }
 func (s *Server) getMap(w http.ResponseWriter, r *http.Request) {
-	m, err := s.loadMap(r.Context(), r.PathValue("id"))
+	if s.mapContext(w, r) {
+		return
+	}
+	id := r.PathValue("id")
+	s.mu.Lock()
+	m, installed := s.maps[id]
+	s.mu.Unlock()
+	if installed {
+		w.Header().Set("X-Frontline-Map-Hash", lobbyMapHash(m))
+		respond(w, 200, m)
+		return
+	}
+	v, err := s.repo.GetMap(r.Context(), id)
+	if err == nil && (!v.Published || v.Removed) {
+		p, authErr := s.repo.Authenticate(r.Context(), strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer "))
+		if authErr != nil || p.ID != v.Owner {
+			err = storage.ErrNotFound
+		}
+	}
 	if err != nil {
 		fail(w, 404, "map_missing", "The requested map is unavailable.")
 		return
 	}
+	m, err = content.DecodeMap(v.Data)
+	if err != nil {
+		fail(w, 404, "map_missing", "The requested map is unavailable.")
+		return
+	}
+	w.Header().Set("X-Frontline-Map-Hash", lobbyMapHash(m))
 	respond(w, 200, m)
 }
 func (s *Server) putMap(w http.ResponseWriter, r *http.Request) {
@@ -390,6 +431,8 @@ func (s *Server) putMap(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, "installed_map", "Save an edited map under a new ID.")
 		return
 	}
+	s.mapMu.Lock()
+	defer s.mapMu.Unlock()
 	record, err := s.repo.PutMap(r.Context(), storage.MapRecord{ID: m.ID, Owner: p.ID, Title: m.Title, Data: body.Map}, body.ExpectedRevision)
 	if err != nil {
 		fail(w, 409, "map_conflict", err.Error())

@@ -44,6 +44,7 @@ func TestLobbyPatchIsAtomicAndLeaveTransfersHost(t *testing.T) {
 	host := profile(t, h, "Host")
 	guest := profile(t, h, "Guest")
 	request(t, h, "POST", "/api/v1/maps", host, map[string]any{"map": testMap()}, 201)
+	request(t, h, "PATCH", "/api/v1/maps/"+testMap().ID+"/publication", host, map[string]any{"published": true, "expected_revision": 1}, 200)
 	created := request(t, h, "POST", "/api/v1/lobbies", host, map[string]any{"name": "Test", "map_id": testMap().ID, "mode": "custom", "faction": "US"}, 201)
 	var l Lobby
 	json.Unmarshal(created["lobby"], &l)

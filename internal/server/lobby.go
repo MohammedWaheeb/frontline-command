@@ -98,9 +98,17 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 	if !decode(w, r, &body, 8192) {
 		return
 	}
+	s.mapMu.RLock()
+	defer s.mapMu.RUnlock()
 	m, err := s.loadMap(r.Context(), body.MapID)
 	if err != nil {
 		fail(w, 400, "map_missing", "Choose an installed or validated custom map.")
+		return
+	}
+	s.mu.Lock()
+	_, installed := s.maps[body.MapID]
+	s.mu.Unlock()
+	if !installed && !s.mapHostAllowed(w, r, body.MapID, p.ID, body.Private, body.Mode) {
 		return
 	}
 	body.Faction = resolveFaction(body.Faction)
@@ -139,6 +147,7 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	l := &Lobby{MapHash: lobbyMapHash(m), MapVersion: m.Version, Rules: defaultLobbyRules(), PauseEnabled: body.PauseEnabled && (body.Mode == "custom" || body.Mode == "coop"), LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Color: body.Color, Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
+	l.mapData = &m
 	for i, a := range body.AI {
 		a.Faction = resolveFaction(a.Faction)
 		if a.Team > 4 || a.Color > 8 || !content.ValidFaction(a.Faction) || (a.Difficulty != "easy" && a.Difficulty != "normal" && a.Difficulty != "hard") {
@@ -403,6 +412,8 @@ func (s *Server) readyLobby(w http.ResponseWriter, r *http.Request) {
 	fail(w, 403, "not_in_lobby", "Join the lobby first.")
 }
 func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
+	s.mapMu.RLock()
+	defer s.mapMu.RUnlock()
 	p, ok := s.authenticate(w, r)
 	if !ok {
 		return
@@ -428,16 +439,21 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	completeLobbyMetadata(l)
+	if _, installed := s.maps[l.MapID]; !installed && !s.mapHostAllowed(w, r, l.MapID, l.Host, l.Private, l.Mode) {
+		return
+	}
 	if l.Rated && !s.rankedMap(l.MapID) {
 		fail(w, 409, "ranked_map_required", "The installed map no longer matches its reviewed version.")
 		return
 	}
 	if l.MapHash != "" && l.MapHash != lobbyMapHash(mapData) {
 		l.MapHash, l.MapVersion = lobbyMapHash(mapData), mapData.Version
+		l.mapData = &mapData
 		resetReady(l)
 		fail(w, 409, "map_changed", "The map changed. Review and load the current version before readying again.")
 		return
 	}
+	l.mapData = &mapData
 	if len(l.Slots) < 1 || len(l.Slots) < 2 && l.Mode != "custom" {
 		fail(w, 409, "players_required", "Add another player or AI opponent.")
 		return

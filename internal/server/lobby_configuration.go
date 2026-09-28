@@ -340,6 +340,8 @@ func (s *Server) removeLobbySlot(w http.ResponseWriter, r *http.Request) {
 
 // Validate the entire change before mutating membership or ready flags.
 func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
+	s.mapMu.RLock()
+	defer s.mapMu.RUnlock()
 	p, ok := s.authenticate(w, r)
 	if !ok {
 		return
@@ -413,6 +415,7 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 	next.Slots = append([]LobbySlot(nil), l.Slots...)
 	if body.MapID != "" {
 		next.MapID, next.MapVersion, next.MapHash = m.ID, m.Version, lobbyMapHash(m)
+		next.mapData = &m
 	}
 	if body.Name != nil {
 		next.Name = *body.Name
@@ -431,6 +434,9 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	if next.LiveObservers && !next.Private || next.PauseEnabled && next.Mode != "custom" && next.Mode != "coop" {
 		fail(w, 400, "invalid_lobby_policy", "Live observers require a private lobby; shared pause requires custom or co-op mode.")
+		return
+	}
+	if _, installed := s.maps[next.MapID]; !installed && !s.mapHostAllowed(w, r, next.MapID, next.Host, next.Private, next.Mode) {
 		return
 	}
 	for i, slot := range next.Slots {

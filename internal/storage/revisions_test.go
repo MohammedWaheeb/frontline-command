@@ -149,13 +149,20 @@ func TestRevisionMigrationFromVersionFourPreservesAllCASRecords(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	if m.Published || m.Removed || m.ContentRevision != 13 || m.OwnerName != "Legacy" || string(m.Data) != string([]byte{1, 2}) {
+		t.Fatal("legacy map publication or bytes changed", m)
+	}
+	oldMap, err := s.MapVersion(ctx, "map", 13)
+	if err != nil || string(oldMap) != string([]byte{1, 2}) {
+		t.Fatal("legacy immutable evidence missing", oldMap, err)
+	}
 	m, err = s.PutMap(ctx, m, 13)
 	if err != nil || m.Revision != 14 {
 		t.Fatal("map migration", m, err)
 	}
 	var version int
 	s.db.QueryRow(`PRAGMA user_version`).Scan(&version)
-	if version != 6 {
+	if version != 7 {
 		t.Fatal("wrong schema version", version)
 	}
 }
@@ -251,7 +258,7 @@ func TestFutureDatabaseIsRejectedWithoutDowngrade(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer db.Close()
-	if _, err = db.Exec(`PRAGMA user_version=7`); err != nil {
+	if _, err = db.Exec(`PRAGMA user_version=8`); err != nil {
 		t.Fatal(err)
 	}
 	if s, err := Open(path); err == nil {
@@ -259,7 +266,7 @@ func TestFutureDatabaseIsRejectedWithoutDowngrade(t *testing.T) {
 		t.Fatal("future database opened")
 	}
 	var version int
-	if err = db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil || version != 7 {
+	if err = db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil || version != 8 {
 		t.Fatal("future database changed", version, err)
 	}
 }

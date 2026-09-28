@@ -101,6 +101,7 @@ func TestCompleteLobbyHandshakeAndFogFilteredSockets(t *testing.T) {
 	s, h := testServer(t)
 	host, guest := profile(t, h, "Host"), profile(t, h, "Guest")
 	request(t, h, "POST", "/api/v1/maps", host, map[string]any{"map": testMap(), "expected_revision": 0}, 201)
+	request(t, h, "PATCH", "/api/v1/maps/"+testMap().ID+"/publication", host, map[string]any{"published": true, "expected_revision": 1}, 200)
 	created := request(t, h, "POST", "/api/v1/lobbies", host, map[string]any{"name": "LAN match", "map_id": "server-fixture", "mode": "1v1", "private": true, "faction": "US"}, 201)
 	var l Lobby
 	json.Unmarshal(created["lobby"], &l)

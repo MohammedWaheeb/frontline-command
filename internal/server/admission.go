@@ -32,7 +32,7 @@ func (a *admissionControl) allow(r *http.Request, now time.Time) bool {
 	if r.URL.Path == "/api/v1/profiles" && r.Method == "POST" {
 		category, limit = "profile", 10
 	}
-	if r.URL.Path == "/api/v1/reports" && r.Method == "POST" {
+	if (r.URL.Path == "/api/v1/reports" || strings.HasPrefix(r.URL.Path, "/api/v1/maps/") && strings.HasSuffix(r.URL.Path, "/reports")) && r.Method == "POST" {
 		category, limit = "report", 30
 	}
 	if strings.HasPrefix(r.URL.Path, "/api/v1/admin/") {

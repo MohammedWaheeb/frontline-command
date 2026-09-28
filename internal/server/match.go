@@ -70,6 +70,8 @@ type matchCheckpoint struct {
 	data []byte
 }
 type liveMatch struct {
+	mapID             string
+	mapData           []byte
 	replayLobby       *sim.ReplayLobby
 	advice            adviceGate
 	completed         atomic.Bool
@@ -128,6 +130,9 @@ func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite,
 		return nil, err
 	}
 	m := &liveMatch{pauseEnabled: opts.PauseEnabled && !opts.Rated, rated: opts.Rated, checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
+	blueprint := engine.MapBlueprint()
+	m.mapID = blueprint.ID
+	m.mapData, _ = json.Marshal(blueprint)
 	if opts.Lobby != nil {
 		policy := *opts.Lobby
 		m.replayLobby = &policy
@@ -288,6 +293,23 @@ func (m *liveMatch) run() {
 		case req := <-m.requests:
 			reply := matchReply{}
 			switch req.kind {
+			case "map_context":
+				allowed := false
+				for _, slot := range m.slots {
+					if slot.Profile != "" && slot.Profile == req.profile {
+						allowed = true
+					}
+				}
+				for _, grant := range observers {
+					if grant.profile == req.profile {
+						allowed = true
+					}
+				}
+				if allowed {
+					reply.data = m.mapData
+				} else {
+					reply.err = errors.New("map_context_denied")
+				}
 			case "observer_ticket":
 				if len(observers) >= 64 {
 					reply.err = errors.New("observer_limit")

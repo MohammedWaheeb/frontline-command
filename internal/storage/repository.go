@@ -33,11 +33,15 @@ type Result struct {
 	Void    bool         `json:"void"`
 }
 type MapRecord struct {
-	ID       string `json:"id"`
-	Owner    string `json:"owner"`
-	Title    string `json:"title"`
-	Revision int64  `json:"revision"`
-	Data     []byte `json:"-"`
+	ID              string `json:"id"`
+	Owner           string `json:"owner"`
+	Title           string `json:"title"`
+	Revision        int64  `json:"revision"`
+	ContentRevision int64  `json:"content_revision"`
+	OwnerName       string `json:"owner_name"`
+	Published       bool   `json:"published"`
+	Removed         bool   `json:"removed"`
+	Data            []byte `json:"-"`
 }
 type AccountRepository interface {
 	CreateProfile(context.Context, string) (Profile, string, error)

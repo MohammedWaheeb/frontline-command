@@ -35,7 +35,7 @@ func Open(path string) (*SQLite, error) {
 		db.Close()
 		return nil, err
 	}
-	if schemaVersion > 6 {
+	if schemaVersion > 7 {
 		db.Close()
 		return nil, errors.New("database was created by a newer game version")
 	}
@@ -59,6 +59,10 @@ func Open(path string) (*SQLite, error) {
 		return nil, err
 	}
 	if err = s.initModerationSchema(schemaVersion); err != nil {
+		db.Close()
+		return nil, err
+	}
+	if err = s.initMapPublicationSchema(schemaVersion); err != nil {
 		db.Close()
 		return nil, err
 	}
@@ -289,6 +293,17 @@ func (s *SQLite) PutMap(ctx context.Context, v MapRecord, expected int64) (MapRe
 	if owner != "" && owner != v.Owner {
 		return v, ErrUnauthorized
 	}
+	var records int
+	var bytes int64
+	if err = tx.QueryRowContext(ctx, `SELECT COUNT(*) FROM maps WHERE owner=?`, v.Owner).Scan(&records); err != nil {
+		return v, err
+	}
+	if err = tx.QueryRowContext(ctx, `SELECT COALESCE(SUM(length(v.data)),0) FROM map_versions v JOIN maps m ON m.id=v.map_id WHERE m.owner=?`, v.Owner).Scan(&bytes); err != nil {
+		return v, err
+	}
+	if owner == "" && records >= 128 || bytes+int64(len(v.Data)) > 256<<20 {
+		return v, errors.New("map storage quota exceeded")
+	}
 	v.Revision, err = reserveRevision(ctx, tx, "map", "", v.ID, rev, true)
 	if err != nil {
 		return v, err
@@ -297,28 +312,46 @@ func (s *SQLite) PutMap(ctx context.Context, v MapRecord, expected int64) (MapRe
 	if err != nil {
 		return v, err
 	}
+	if _, err = tx.ExecContext(ctx, `INSERT INTO map_state(map_id,published,removed,content_revision) VALUES(?,0,0,?) ON CONFLICT(map_id) DO UPDATE SET published=0,content_revision=excluded.content_revision`, v.ID, v.Revision); err != nil {
+		return v, err
+	}
+	if _, err = tx.ExecContext(ctx, `INSERT INTO map_versions(map_id,revision,data) VALUES(?,?,?)`, v.ID, v.Revision, v.Data); err != nil {
+		return v, err
+	}
+	v, err = getMapRecord(ctx, tx, v.ID)
+	if err != nil {
+		return v, err
+	}
 	return v, tx.Commit()
 }
 func (s *SQLite) GetMap(ctx context.Context, id string) (MapRecord, error) {
-	var v MapRecord
-	err := s.db.QueryRowContext(ctx, "SELECT id,owner,title,revision,data FROM maps WHERE id=?", id).Scan(&v.ID, &v.Owner, &v.Title, &v.Revision, &v.Data)
-	if errors.Is(err, sql.ErrNoRows) {
-		err = ErrNotFound
-	}
-	return v, err
+	return getMapRecord(ctx, s.db, id)
 }
 func (s *SQLite) ListMaps(ctx context.Context) ([]MapRecord, error) {
-	rows, err := s.db.QueryContext(ctx, "SELECT id,owner,title,revision FROM maps ORDER BY id")
+	return s.listMapRecords(ctx, "", false)
+}
+func (s *SQLite) ListOwnedMaps(ctx context.Context, owner string) ([]MapRecord, error) {
+	return s.listMapRecords(ctx, owner, false)
+}
+func (s *SQLite) ListPublishedMaps(ctx context.Context) ([]MapRecord, error) {
+	return s.listMapRecords(ctx, "", true)
+}
+func (s *SQLite) listMapRecords(ctx context.Context, owner string, published bool) ([]MapRecord, error) {
+	// Never fetch map bodies for a metadata list, especially another owner's
+	// private maps. Callers fetch validated public bodies only when needed.
+	columns := strings.Replace(mapRecordColumns, "m.data", "X''", 1)
+	rows, err := s.db.QueryContext(ctx, "SELECT "+columns+mapRecordJoin+" WHERE (?='' OR m.owner=?) AND (?=0 OR v.published=1 AND v.removed=0) ORDER BY m.id", owner, owner, published)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 	out := []MapRecord{}
 	for rows.Next() {
-		var v MapRecord
-		if err = rows.Scan(&v.ID, &v.Owner, &v.Title, &v.Revision); err != nil {
-			return nil, err
+		v, scanErr := scanMapRecord(rows)
+		if scanErr != nil {
+			return nil, scanErr
 		}
+		v.Data = nil
 		out = append(out, v)
 	}
 	return out, rows.Err()
