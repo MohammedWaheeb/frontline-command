@@ -1,8 +1,9 @@
 # Local development and packaging
 
-The product client/content is still being implemented. These commands are now
-implemented, but `dev` and `build` deliberately reject a missing product client
-instead of serving a test harness as the game.
+The actual product client, Go host, solo worker and authored content are present.
+The complete release remains in progress; see [current implementation status](implementation-status.md).
+`dev` and `build` require the product client and never substitute a test harness.
+Building successfully does not certify complete art or gameplay acceptance.
 
 | Command | Current behavior |
 |---|---|
@@ -31,7 +32,9 @@ The product dev server proxies `/api` and `/ws` to localhost:8080 so the same
 typed APIs operate in development. Its build emits `client/dist/index.html` and
 all required local assets, runtime files and cache-pack manifests under
 `client/dist`. No CDN/runtime generation request may be needed for play.
-The root packager never authors, renders, fixes or transcodes visual assets.
+The packager copies validated local outputs; it does not generate or transcode
+visual assets. Claude remains their primary author/reviewer, with the user's
+authorized Codex fallback during quota limits and explicit ownership boundaries.
 
 Claude authors `content/maps/**/*.json`, `content/missions/**/*.json`, and
 `content/release.json`. The last file is a strict object with `format_version: 1`

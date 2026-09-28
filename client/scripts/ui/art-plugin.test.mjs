@@ -72,3 +72,25 @@ test('paired build illustrations are indexed and packaged from the rendered buil
   assert(pack.files.some(file=>file.path==='/art/ui/icons/build/US.rig@2x.team.png'));
  }finally{await rm(dir,{recursive:true,force:true})}
 });
+
+test('optional menu illustration is copied byte-for-byte into the offline pack and absent art is not advertised',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'frontline-keyart-pack-'));try{
+  const assets=path.join(dir,'assets'),outDir=path.join(dir,'dist');
+  assert.equal((await artIndex(assets)).keyArt,undefined);
+  // Packaging treats art as opaque bytes; native pixel/decode review is separate.
+  const illustration=Buffer.from('original illustration with preserved source metadata');
+  await put(assets,'build/ui/keyart/main_menu.png',illustration);
+  assert.equal((await artIndex(assets)).keyArt,'ui/keyart/main_menu.png');
+  await put(outDir,'index.html','game');await put(outDir,'runtime/frontline.wasm','wasm fixture');
+  const plugin=artPlugin({assets,content:path.join(dir,'content')});plugin.configResolved({command:'build',build:{outDir}});await plugin.closeBundle();
+  const index=JSON.parse(await readFile(path.join(outDir,'art/index.json'),'utf8'));
+  assert.equal(index.keyArt,'ui/keyart/main_menu.png');
+  assert.deepEqual(await readFile(path.join(outDir,'art',index.keyArt)),illustration);
+  const pack=JSON.parse(await readFile(path.join(outDir,'assets/packs/base.json'),'utf8'));
+  assert.deepEqual(pack.files.find(file=>file.path==='/art/ui/keyart/main_menu.png'),{
+   path:'/art/ui/keyart/main_menu.png',bytes:illustration.length,sha256:createHash('sha256').update(illustration).digest('hex'),
+  });
+  await rm(path.join(assets,'build/ui/keyart/main_menu.png'));
+  assert.equal((await artIndex(assets)).keyArt,undefined);
+ }finally{await rm(dir,{recursive:true,force:true})}
+});

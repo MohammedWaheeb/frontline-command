@@ -1,8 +1,80 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 16:12 UTC / 19:12 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates below supersede earlier in-progress receipts.
+Updated 28 September 2026, 20:37 UTC / 23:37 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates supersede earlier in-progress receipts.
 
-## Current ownership and access
+## Current update at 21:00 UTC, 28 September
+
+The game remains an incomplete development build. Nothing has been deployed.
+
+- The fresh optimized four-human match passed strict ordinary combat, ownership rejection, host reconnect, eliminated-host frozen view, history and exact replay checks (`cb6ac54`). Team 2 won at tick 12745. All four clients had zero unexpected page, console or HTTP errors. This is local multi-browser evidence; physical LAN and all six configurations on the same final product are still pending.
+- The revised menu and console passed actual product checks: four desktop aspects, 150% navigation/options, real paid production, status, saves, read-only replay and LAN landing. Original painted menu art is installed as optional development art with byte-exact offline packaging. See `work/art/menu-keyart-generated-v3/acceptance.md`.
+- The combined 688-actor native course passed with 64 aircraft returns and 24 actual strategic interceptions. Save/restore and full/checkpoint replay agree. Browser load and quiet performance remain open (`work/combined-load-current/README.md`).
+- SA05 Hard now passes its main and service-preservation optional route using a corrected legal commander cohort (`278b46d`); all 661 orders were accepted. SY03/SY05 and the consolidated current matrix remain under test. The historical broad totals remain 93/102 main and 12/21 optional until rerun.
+- Claude's exact-model console source is accepted within the tested UI scope. Its partial explosion source is preserved; Codex is correcting sampling and completing the packer under quota fallback. Next recorded Claude reset: 29 September 01:20 UTC / 04:20 Qatar.
+- Mencius owns all Blender production and service/payload polish; Einstein owns same-page long multiplayer acceptance; Boole owns mission-driver corrections and reruns; root owns FX, menu packaging, combined browser load and integration. Full art/FX/audio review, remaining gameplay acceptance, long sessions and clean final packaging are unfinished.
+
+## Current update at20:37 UTC
+
+The shared shipping runtime remains0.3.3. The isolated optimized0.3.4 candidate
+is still the356-file `c7e0d79d…` source with WASM `f37220a4…`; no promotion or
+deployment has occurred.
+
+- **Multiplayer:** the second optimized four-human2v2 match reached ordinary
+  team1 victory13475, and eliminated-host history, frozen-view preservation and
+  exact archived replay passed. Its strict browser result remains failed because
+  of one early `advice_timeout`503. Full/checkpoint/midpoint replay agrees at
+  `032d1c08…`. The first quiet attempt was interrupted before any game command:
+  macOS power logs show low-power sleep from16:26:23 to20:09:54. It is preserved
+  in `ceed5e0`, not counted as a gameplay or advice test. A fresh unchanged
+  four-human course started20:25UTC on AC power with heavy work held and scoped
+  idle-sleep prevention. It is still running; zero unexpected errors at the last
+  tick10456 receipt is progress, not a final pass.
+- **Multiplayer UI:** `1bef5c5` replaces the defeated online player's misleading
+  LIVE badge with FROZEN and stops displaying stale teammate/latency/pause rows
+  after a committed result. Three focused tests, both TypeScript checks and
+  actual component captures at1280/1600 and100/150% pass. The four-player
+  comparison intentionally uses its earlier unchanged client.
+- **Aircraft payload:** `d49c33f` uses current owner-only ammo for empty payload
+  poses, preserves action/flight timing, and hides stale loaded textures during
+  asynchronous page changes.354 runtime tests and both TypeScript checks pass.
+  `7344048` adds actual Go fighter and gunship courses through last shot, paused
+  service, home loss, emergency departure, backup service and refill. Both pass
+  exact save/restore/replay;40 actual owner/enemy-view renderer checks pass.
+  Full payload artwork and browser pixel acceptance remain pending.
+- **Missions:** main matrix93/102 and optional12/21 remain the preserved broad
+  results, with additional individual tactics improvements separate. The
+  unchanged SA05Hard rerun now exports its full failure state (`9cc75c0`): at
+  tick6856 it is nonterminal, two relays are owned, a healthy tank is reserved as
+  a guard and a paid replacement is nearly built. The fatal assertion is a
+  commander-cohort error, not mission defeat. Boole has prepared a separate
+  driver-only correction; its execution waits for the quiet match to close.
+- **Art:** all four distinct interceptor pilots have passed bounded technical
+  and native identity reviews. US, IR and corrected SA producer pilots each
+  pass340 checks; the original SA arm/door contacts remain preserved. Claude's
+  new review requests clearer team/disabled/service/critical states and neutral
+  airlift service-cart materials. Mencius owns their isolated correction and
+  every Blender job. SY and payload pilots plus complete exports remain open.
+- **Claude:** exact `claude-opus-5-5` was verified again after20:20UTC, fallback
+  disabled.01 completed its visual review;05 completed console/menu source edits
+  and both TypeScript checks.04 wrote an incomplete FX source foundation before
+  quota, with no complete pack or native acceptance. The next recorded reset is
+  **29September01:20UTC /04:20Qatar**. No early retry; Codex continues authorized
+  fallback work. Use fresh bounded briefs next time instead of replaying large
+  obsolete sessions. Actual model and quota receipts are in `work/claude/`.
+- **Menu/UI:** Claude removed the old portrait filter/zoom from the painted menu
+  integration and retained the canvas fallback. Browser review is pending. Root
+  generated a third original painting following Claude's concrete responsive
+  composition brief; exact PNG provenance is preserved in
+  `work/art/menu-keyart-generated-v3/`. It is a review candidate, not final art.
+  Optional offline packaging is being integrated; manifest final status stays
+  withheld until actual product review.
+
+Root has also prepared a current combined688-actor/64-return/24-interception
+browser-load exporter. It has not run yet. Complete roster/FX/audio review,
+remaining missions and counterplay, long-session/current-art performance and
+clean local/offline/save/replay/LAN/package gates remain mandatory.
+
+## Ownership snapshot at16:12 UTC (superseded by the current update)
 
 Shipping Go remains **0.3.3**, protocol1, adapter1, content2.0.0; hash `318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612`. It is the sole authoritative simulation shared by native hosting and WASM. Shipping runtime stays frozen while isolated parking and tactical-view/route advice candidates are tested; promotion is pending.
 

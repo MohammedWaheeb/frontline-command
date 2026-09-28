@@ -1,14 +1,17 @@
 # Frontline Command
 
-Implementation in progress. **This is not yet a playable or completed release.**
+Playable development builds exist. **The complete release is still in progress.**
+Current builds have passed local gameplay journeys, but remaining art, mission,
+multiplayer and final packaging gates are tracked in the implementation status.
 
 The authoritative rules are in [the game design](outputs/frontline-command-game-design.md).
 The approved implementation scope is in [the handoff](outputs/frontline-command-agent-handoff.md).
 
-Go owns the deterministic simulation and local services. UI, rendering and
-all assets are authored through Claude Code CLI, exact model `claude-opus-5-5`.
-Codex owns all nonvisual browser logic, utilities and runtime integration, with
-parallel sub-agents under the user’s expanded authorization. No cloud service will be required to play locally.
+Go owns the deterministic simulation and local services. Claude Code CLI, exact
+model `claude-opus-5-5`, is the primary UI and asset author/reviewer. Codex owns
+browser logic, utilities and runtime integration; the user also authorized
+implementation during Claude quota limits. Explicit file reservations coordinate
+parallel agents. No cloud service is required for local play.
 
 See [implementation status](docs/implementation-status.md),
 [architecture](docs/architecture.md), and [protocol](docs/protocol.md).

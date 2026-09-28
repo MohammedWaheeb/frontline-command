@@ -36,7 +36,8 @@ export async function artIndex(assets){
  const portraits=[];for(const name of await list(path.join(assets,'build/ui/portraits')))if(name.endsWith('@2x.beauty.png')&&await exists(path.join(assets,'build/ui/portraits',name.replace('.beauty.','.team.'))))portraits.push(name.replace('@2x.beauty.png',''));
  const buildIcons=[];for(const name of await list(path.join(assets,'build/ui/icons/build')))if(name.endsWith('@2x.beauty.png')&&await exists(path.join(assets,'build/ui/icons/build',name.replace('.beauty.','.team.'))))buildIcons.push(name.replace('@2x.beauty.png',''));
  const effects=await authoredEffectPack(assets);
- return {format:1,sprites,terrain,portraits,buildIcons,...effects?{effects:effects.descriptor}:{},chrome:(await list(path.join(assets,'build/ui/chrome'))).filter(name=>name.endsWith('.png')),icons:await exists(path.join(assets,'ui/icons/fc-icons.svg')),emblems:await exists(path.join(assets,'ui/emblems/fc-emblems.svg'))};
+ const keyArt='ui/keyart/main_menu.png';
+ return {format:1,sprites,terrain,portraits,buildIcons,...effects?{effects:effects.descriptor}:{},...await exists(path.join(assets,'build',keyArt))?{keyArt}:{},chrome:(await list(path.join(assets,'build/ui/chrome'))).filter(name=>name.endsWith('.png')),icons:await exists(path.join(assets,'ui/icons/fc-icons.svg')),emblems:await exists(path.join(assets,'ui/emblems/fc-emblems.svg'))};
 }
 async function walk(dir){const files=[];for(const name of await list(dir)){const file=path.join(dir,name),entry=await stat(file);if(entry.isDirectory())for(const rel of await walk(file))files.push(`${name}/${rel}`);else if(entry.isFile())files.push(name)}return files}
 async function runtimeFiles(assets,index){
@@ -47,6 +48,7 @@ async function runtimeFiles(assets,index){
  for(const name of index.portraits)files.push(`ui/portraits/${name}@2x.beauty.png`,`ui/portraits/${name}@2x.team.png`);
  for(const name of index.buildIcons??[])files.push(`ui/icons/build/${name}@2x.beauty.png`,`ui/icons/build/${name}@2x.team.png`);
  for(const name of index.chrome)files.push(`ui/chrome/${name}`);
+ if(index.keyArt)files.push(index.keyArt);
  for(const rel of await walk(path.join(assets,'build/audio')))if(/\.(json|ogg|mp3|wav)$/.test(rel))files.push(`audio/${rel}`);
  if(index.icons)files.push('ui/icons/fc-icons.svg');if(index.emblems)files.push('ui/emblems/fc-emblems.svg');return [...new Set(files)];
 }
