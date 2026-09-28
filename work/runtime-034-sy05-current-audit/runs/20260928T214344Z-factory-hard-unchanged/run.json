@@ -1,0 +1,60 @@
+{
+  "scope": "One unchanged current SY05 hard factory-optional route audit; no source or command-policy changes",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "cd82f1e43a109a01a5ee1f5919bd78c58a261442c25012a4e7fc1b2d780238b6",
+  "source_path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-perimeter/source",
+  "binary_path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-perimeter/runs/20260928T212646Z-sy03-hard-exterior-screen/sim.test",
+  "binary_sha256": "bb0c8b1f36b0adcd4ac1a655cf7654a3afe6f848cc4a50d6bea6ad1065ba15dc",
+  "base_source_lock_sha256": "242c51f4fb427b2088c2038c192b6042bc1c2cdf8421b0d96fe83919edd327e7",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:43:44.999468+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-perimeter/runs/20260928T212646Z-sy03-hard-exterior-screen/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-perimeter/source/pkg/sim",
+      "started": "2026-09-28T21:43:44.999723+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 2.599,
+      "completed": "2026-09-28T21:43:47.598415+00:00"
+    }
+  ],
+  "exit_code": 1,
+  "completed": "2026-09-28T21:43:47.598640+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3881064251/driver-orders.json": {
+      "bytes": 49892,
+      "sha256": "630f75ecba927836d2ad1c53afbaccfd34703633a125ee0b337d0dc3bb848280"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3881064251/manifest.json": {
+      "bytes": 859,
+      "sha256": "d188e3ef92b1ec1c72ad9114df6a73139df643cb95179af8cf3ddeee0273a835"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3881064251/owner.view.json": {
+      "bytes": 407816,
+      "sha256": "be7c9dfc4992911eb80c0acb93d279b48275bc6e434d72437521170e5e1f418d"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3881064251/state.save.json": {
+      "bytes": 1065379,
+      "sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.rejected.save.json": {
+      "bytes": 1065379,
+      "sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.rejected.view.json": {
+      "bytes": 407816,
+      "sha256": "be7c9dfc4992911eb80c0acb93d279b48275bc6e434d72437521170e5e1f418d"
+    }
+  }
+}

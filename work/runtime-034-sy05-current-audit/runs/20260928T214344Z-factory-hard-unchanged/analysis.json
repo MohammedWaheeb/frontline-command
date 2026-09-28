@@ -1,0 +1,81 @@
+{
+  "outcome": {
+    "finished": false,
+    "draw": false,
+    "winning_team": 0,
+    "reason": "",
+    "tick": 0
+  },
+  "tick": 1612,
+  "hash": "b47f0649178726c899de5a25f1af2fee96c65f53e85d17f1da08e84545b743a1",
+  "completed_batches": 91,
+  "completed_receipts": 102,
+  "completed_accepted": 102,
+  "attempted_batch": {
+    "tick": 1611,
+    "player": 1,
+    "sequence": 92,
+    "orders": [
+      {
+        "kind": "build",
+        "entities": [
+          29
+        ],
+        "position": {
+          "x": 41500,
+          "y": 88500
+        },
+        "type": "outpost"
+      }
+    ],
+    "results": [
+      {
+        "player": 1,
+        "sequence": 92,
+        "index": 0,
+        "accepted": false,
+        "code": "occupied",
+        "tick": 1612
+      }
+    ],
+    "stage": "execution_rejected",
+    "error": "occupied"
+  },
+  "nearby_current_own_obstructors": [
+    {
+      "id": 41,
+      "type": "SY.at",
+      "position": {
+        "x": 41271,
+        "y": 89572
+      },
+      "orders": [
+        {
+          "kind": "attack_move",
+          "position": {
+            "x": 52764,
+            "y": 78499
+          }
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "type": "SY.at",
+      "position": {
+        "x": 41378,
+        "y": 88218
+      },
+      "orders": [
+        {
+          "kind": "attack_move",
+          "position": {
+            "x": 54564,
+            "y": 78499
+          }
+        }
+      ]
+    }
+  ],
+  "interpretation": "Unfinished mission; actual outpost order rejected occupied with two visible owned AT squads inside planned footprint. No current late-relay fire-control failure demonstrated."
+}

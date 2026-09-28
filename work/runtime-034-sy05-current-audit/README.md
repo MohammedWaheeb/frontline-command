@@ -38,3 +38,12 @@ at9,055. All709 execution receipts in656 batches are `ok`; factory preservation,
 midpoint1,156 restore, full replay, restart and separate surrender-defeat gates
 pass. Final hash `128dbf048af03badd551b99e1f406fbf0dd7c1145e97ef7d7c6b1299afa7f360`.
 The33.873-second shared-host process duration is not a performance claim.
+
+Hard run `20260928T214344Z-factory-hard-unchanged` fails at tick1,612 on an
+actual `occupied` outpost build receipt, while the mission is unfinished. The
+planned41500,88500 foundation contains owned AT41 at41271,89572 and AT42 at
+41378,88218. The first relay was captured at1,158; no factory optional attempt
+or later relay fire-control failure has occurred. All91 previous batches and
+102 prior receipts accepted. Fatal cleanup preserves exact save, owner view,
+ledger and attempted rejected receipt; all checksums/source remain unchanged.
+This is a current ordinary placement failure, not a mission defeat.

@@ -1,0 +1,28 @@
+--- base/pkg/sim/authored_candidate_tactics_test.go
++++ candidate/pkg/sim/authored_candidate_tactics_test.go
+@@ -466,6 +466,16 @@
+ 			homeEmergency = emergency
+ 		}
+ 		for index, point := range points {
++			objectivePoint := point
++			// Screen the publicly marked approach before a hostile crosses the
++			// actual hold boundary. A real sentinel remains inside the region.
++			if index == 0 {
++				point.X += 8000
++				point.Y -= 3000
++			}
++			if index == 1 {
++				point.Y -= 11000
++			}
+ 			if index < 2 {
+ 				if sentinel, alive := r.seen(sentinels[index]); !alive || sentinel.Owner != 1 {
+ 					for _, id := range groups[index] {
+@@ -473,7 +483,7 @@
+ 						if !alive || actor.Type != "SY.rifle" {
+ 							continue
+ 						}
+-						post := sim.Vec{X: point.X - 1500, Y: point.Y + 1500}
++						post := sim.Vec{X: objectivePoint.X - 1500, Y: objectivePoint.Y + 1500}
+ 						if r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: post}) && r.tryIssue(sim.Order{Kind: "hold", Entities: []sim.ID{id}, Queued: true}) {
+ 							sentinels[index] = id
+ 							excluded[id] = true
