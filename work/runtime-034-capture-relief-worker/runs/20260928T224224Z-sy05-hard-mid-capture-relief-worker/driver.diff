@@ -1,0 +1,62 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ relief-worker/pkg/sim/authored_campaign_acceptance_test.go
+@@ -542,7 +542,7 @@
+ 	return r.requiredOptional == "factory-captured" || r.definition.ID == "sy-05-relay-break" && r.difficulty == "hard"
+ }
+ 
+-func (r *authoredRun) captureRelay(tag string, screen []sim.ID, gunner, engineer sim.ID, usedWorkers map[sim.ID]bool, cohort func() []sim.ID) sim.ID {
++func (r *authoredRun) captureRelay(tag string, screen []sim.ID, gunner, engineer sim.ID, usedWorkers map[sim.ID]bool, cohort func() []sim.ID, borrow ...func(sim.Vec) (sim.ID, bool)) sim.ID {
+ 	target := r.tags[tag][0]
+ 	var point sim.Vec
+ 	for _, actor := range r.definition.Initial {
+@@ -557,6 +557,12 @@
+ 		for _, id := range r.ownedType(r.faction + ".engineer") {
+ 			if !usedWorkers[id] {
+ 				engineer = id
++				return true
++			}
++		}
++		if len(borrow) > 0 {
++			if candidate, ok := borrow[0](point); ok {
++				engineer = candidate
+ 				return true
+ 			}
+ 		}
+@@ -1220,6 +1226,19 @@
+ 			r.t.Logf("capture force ready tick%d target%s actors%v tanks%v", r.engine.Tick(), tag, ids, tanks)
+ 		}
+ 	}
++	borrowCaptureEngineer := func(destination sim.Vec) (sim.ID, bool) {
++		if r.faction != "SY" || r.difficulty != "hard" || r.requiredOptional != "factory-captured" {
++			return 0, false
++		}
++		chosen, site := authoredBorrowableCaptureEngineer(r.view(), repairers, destination, func(kind string) bool { u, ok := r.catalog.Unit(kind); return ok && u.Weapon != "" })
++		if chosen == 0 || !r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{chosen}, Position: sim.Vec{X: destination.X - 7000, Y: destination.Y + 7000}}) {
++			return 0, false
++		}
++		delete(repairers, site)
++		delete(usedWorkers, chosen)
++		r.t.Logf("mid-capture relief engineer%d reassigned fromsite%d tick%d", chosen, site, r.engine.Tick())
++		return chosen, true
++	}
+ 	captureFactory := func() {
+ 		if !r.factoryCaptureRoute() {
+ 			return
+@@ -1235,7 +1254,7 @@
+ 			r.t.Fatal("no independent optional factory engineer")
+ 		}
+ 		armor := r.ownedType(r.faction + ".tank")
+-		worker = r.captureRelay("capture-factory", cohort(), armor[0], worker, usedWorkers, cohort)
++		worker = r.captureRelay("capture-factory", cohort(), armor[0], worker, usedWorkers, cohort, borrowCaptureEngineer)
+ 		usedWorkers[worker] = true
+ 		factory := r.tags["capture-factory"][0]
+ 		repairers[factory] = worker
+@@ -1346,7 +1365,7 @@
+ 		if tank == 0 {
+ 			r.t.Fatal("no surviving paid capture tank")
+ 		}
+-		worker = r.captureRelay(tag, cohort(), tank, worker, usedWorkers, cohort)
++		worker = r.captureRelay(tag, cohort(), tank, worker, usedWorkers, cohort, borrowCaptureEngineer)
+ 		usedWorkers[worker] = true
+ 		r.t.Logf("%s captured tick%d", tag, r.engine.Tick())
+ 		if r.engine.Outcome().Finished {

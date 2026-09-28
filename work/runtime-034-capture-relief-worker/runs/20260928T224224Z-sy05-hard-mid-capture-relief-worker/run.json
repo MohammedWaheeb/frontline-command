@@ -1,0 +1,91 @@
+{
+  "scope": "One optional Hard legal mid-capture relief worker; same rules/objectives/budgets",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "31f251c054bb7ef8bdeac86ed2fd82630d76a708645ec04e9fe276d85aafdfa2",
+  "base_source_lock_sha256": "637cf9b171e04fc476d846893b7e153469bd08ee93d4ecea156ee0b28ceeb161",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:42:24.935559+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-worker/runs/20260928T224224Z-sy05-hard-mid-capture-relief-worker/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-worker/source",
+      "started": "2026-09-28T22:42:24.935936+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 3.332,
+      "completed": "2026-09-28T22:42:28.268444+00:00"
+    },
+    {
+      "name": "focused",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-worker/runs/20260928T224224Z-sy05-hard-mid-capture-relief-worker/sim.test",
+        "-test.run=^TestAuthoredCapture(RepairerReassignment|ConstructionReserve|VisibleSiteObservedInfantry)$",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-worker/source/pkg/sim",
+      "started": "2026-09-28T22:42:28.273901+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.172,
+      "completed": "2026-09-28T22:42:29.445656+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-worker/runs/20260928T224224Z-sy05-hard-mid-capture-relief-worker/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-worker/source/pkg/sim",
+      "started": "2026-09-28T22:42:29.445995+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 26.498,
+      "completed": "2026-09-28T22:42:55.944301+00:00"
+    }
+  ],
+  "binary_sha256": "f743dd4a00a1c7f1b73b1b715d090fddc65450c52cd354151eecc3033ef68581",
+  "exit_code": 1,
+  "completed": "2026-09-28T22:42:55.944640+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.save.json": {
+      "bytes": 1164121,
+      "sha256": "76878ee6ab1bfd56af11c8aad1120f17950438daee2cbd1b1992eb1b66a69a25"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.view.json": {
+      "bytes": 400891,
+      "sha256": "088cf4c8968722bfb790e83b5b0cf17100ef03408f0f517c93c4b8148986c7af"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-953977882/driver-orders.json": {
+      "bytes": 354660,
+      "sha256": "f120c62901b8a2e2629cc4c915c0b40365b2a76f951c5f1884c136d05b00e1d9"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-953977882/manifest.json": {
+      "bytes": 861,
+      "sha256": "7f748080b9aa90f20d03f6293b7132f27fb7a9babfe2fc55c6dcc0df2784f873"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-953977882/owner.view.json": {
+      "bytes": 400891,
+      "sha256": "088cf4c8968722bfb790e83b5b0cf17100ef03408f0f517c93c4b8148986c7af"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-953977882/state.save.json": {
+      "bytes": 1164121,
+      "sha256": "76878ee6ab1bfd56af11c8aad1120f17950438daee2cbd1b1992eb1b66a69a25"
+    }
+  }
+}
