@@ -5,7 +5,7 @@ paid-combat outcomes. It is **in progress**. Earlier surrender/rematch evidence 
 kept separately and is not counted as a combat win.
 
 
-## Current acceptance matrix — 28 September, 20:36 UTC
+## Current acceptance matrix — 28 September, 21:43 UTC
 
 Every row has a genuine ordinary-elimination recording with exact native replay
 and midpoint-restore proof. Strict rendered status is separate:
@@ -14,21 +14,25 @@ and midpoint-restore proof. Strict rendered status is separate:
 |---|---|---|
 | 1 human + 1 normal bot | PASS on the earlier combined 0.3.4 build | Repeat on final integrated candidate |
 | 1 human + 3 normal bots, FFA | Original atlas-eviction FAIL; repaired exact-replay camera course passes | Fresh live FFA after repair |
-| 2 humans, 1v1 | Original unlocated HTTP503 FAIL; native recording passes | Fresh error-free full course |
+| 2 humans, 1v1 | **PASS twice consecutively on the same pages/Applications**, optimized c7e0 runtime and 21:00 client/art freeze; original unlocated HTTP503 retained | Final integrated gate; ≥20-active-minute-per-game qualification still open |
 | 2 humans versus 2 normal bots | PASS on the earlier combined 0.3.4 build | Repeat on final integrated candidate |
 | 3 humans, FFA | Ordinary combat had zero errors; original archive/recovery FAIL; separate copied-host recovery passes | Fresh complete live recovery/archive course |
 | 4 humans, 2v2 | **PASS on optimized c7e0 copy**, including reconnect, eliminated-host history/archive and exact native replay | Final integrated client/art gate still separate |
 
-Only the final row currently has fresh live evidence on the optimized runtime
-copy. Previous passes remain valid for their recorded builds. The quiet pass does
+The two-human and four-human rows have fresh live evidence on the optimized
+runtime copy, with different recorded client/art freezes. Previous passes remain
+valid for their recorded builds. The quiet four-human pass does
 not explain or erase the two earlier advice timeout failures; their causal
-diagnosis remains open. Two consecutive long matches in the same application
-without page reload are still untested. The existing comma-separated-case
-runner creates fresh contexts/pages and cannot establish that lifecycle gate.
+diagnosis remains open. Two consecutive ordinary matches without page reload now
+pass on the dedicated driver, but their active durations are 575.65 and 576.85
+seconds. They do not satisfy our explicit 20-minute-per-match operational long
+criterion; the canonical long-match requirement remains open. The original
+comma-separated-case runner creates fresh contexts/pages and cannot establish
+that lifecycle gate. See [the same-page course](multiplayer-rematch-acceptance.md)
+for exact results, preserved test-oracle failure and bounded worker diagnosis.
 
-The smallest priority repetitions are the previously failed 2H, 1H+3AI and 3H
-courses. A bounded same-page two-human rematch driver can combine the 2H repetition
-with consecutive-operation lifecycle checks. Final all-six acceptance should use
+The smallest priority repetitions are the previously failed 1H+3AI and 3H
+courses, plus a legitimate longer-game endurance policy. Final all-six acceptance should use
 one frozen integrated client/art/runtime, rather than repeatedly certifying an
 intermediate UI. Physical LAN, all browsers/reference hardware, final art and
 full gameplay balance remain separate gates.

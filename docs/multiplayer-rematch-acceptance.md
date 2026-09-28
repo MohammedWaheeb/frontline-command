@@ -1,8 +1,9 @@
 # Same-page ordinary rematch acceptance
 
-The new driver is prepared for an actual two-human course. This document does not
-claim that two matches, or two long matches, have passed before their recorded
-run completes. The existing six-configuration combat evidence is summarized in
+Two actual ordinary matches now pass on the same pages and Applications, including
+hosted rematch, reconnects, archives, resource cleanup and native replay proof.
+They are shorter than the separate long-session criterion; **two long matches
+have not passed**. The existing six-configuration combat evidence is summarized in
 [multiplayer-combat-acceptance.md](multiplayer-combat-acceptance.md).
 
 ## Scope and duration
@@ -109,8 +110,7 @@ client/node_modules/.bin/tsc -p client/tests/render/multiplayer-combat-tsconfig.
 
 Prepared contract checks pass: actual countdown subtraction and the exact
 threshold; application/page replacement rejection; socket/worker/subscriber/
-sprite-residency cleanup rejection. Browser and earned-result evidence will be
-added only after the actual course.
+sprite-residency cleanup rejection. Actual courses are recorded below.
 
 ## First actual course and worker diagnosis
 
@@ -152,5 +152,64 @@ The matched Pixi worker source hashes are
 up to `navigator.hardwareConcurrency`; the successor test accounts for that
 explicitly. It does not reset the library or change any production code.
 Four focused contract tests pass, including pending jobs, unknown workers,
-replaced Go identities and exceeded pool limits as failures. A fresh full
-same-page repetition is still required.
+replaced Go identities and exceeded pool limits as failures.
+
+## Same-build successor: ordinary lifecycle PASS, long duration NOT QUALIFIED
+
+`work/multiplayer-combat/rematch-2026-09-28T21-22-48.549Z/` uses the exact same
+client, entry, installed art and optimized c7e0 host/WASM as the first course.
+Only test instrumentation and the worker-ownership assertion changed. No
+production, worker-reset, rule, command-policy or timeout change was made.
+Driver SHA-256 is
+`1aeb1bddf77706cb058c7732a5bd97af04e2243192a912017f8125e28848df08`.
+
+| Evidence | Round 1 | Round 2 |
+|---|---:|---:|
+| Ordinary winner | IR, team 2 | IR, team 2 |
+| Final tick | 11,613 | 11,637 |
+| Actual countdown ticks | 100 | 100 |
+| Active seconds | 575.65 | 576.85 |
+| Command batches | 157 | 150 |
+| Weapon-fired / impact events | 1,456 / 1,456 | 1,371 / 1,371 |
+| Destroyed events | 45 | 43 |
+| Unexpected browser / HTTP errors | 0 / 0 | 0 / 0 |
+| Advisor retries | 0 | 0 |
+
+Both profiles completed paid economy/production and ordinary attack orders, and
+both ownership probes returned `not_owner` in each match. Round 1 reconnected
+player 1 at 3,636→3,640, preserving sequence 19; round 2 reconnected player 2 at
+3,632→3,636, preserving sequence 17. Both committed results were recovered and
+both distinct raw replay archives remained present after the second match.
+
+The real host **Create rematch lobby** action produced a new forming lobby. The
+same peer explicitly joined it, and both players completed readiness again.
+Each page kept its original Application identity and one main-frame navigation
+for the entire course. Sessions changed from `session-1` to `session-2`.
+At both menu boundaries each page had no match transport/socket, no battlefield
+frame subscribers, and zero sprite atlas pages/bytes/picking bits. The original
+Go workers remained; decoder pools stayed at nine and three idle workers, below
+the recorded limit of ten, with no additional worker creations during round 2.
+
+Exact replay proof:
+
+- Round 1 seed `5903269553594727688`; replay SHA-256
+  `333fe5bce35f03bed2264b97bf6c9a9b5eab0cba2cd0b92cdb2c994773bdf054`;
+  full/checkpoint/restored-midpoint final hash
+  `6d145324fb8861f51fafb04bbece54aa4eb4340bcfeaf9d0f7d87f84c8898ab9`.
+- Round 2 seed `1073754588532887936`; replay SHA-256
+  `9ea22f7059e164d8f15c81dab64cd31ea02270fc8889cce74984d25938219a6a`;
+  full/checkpoint/restored-midpoint final hash
+  `522678fed9e528703ac87c3bb537d3db64e6bd5f23479683572dbf54408ccb12`.
+
+The report records `combatStatus`, `lifecycleStatus` and `strictStatus` as
+`passed`. Its overall `status` and process exit remain **failed / 1 solely because
+both natural victories fall below the declared long-duration criterion**. No
+paused time, wall delays or postgame time are counted, and neither victory was
+delayed. The final report completed at 21:42:54.603 UTC, after browser/host closure
+at 21:42:45.743 UTC and both native audits.
+
+This is headed Chromium 151 on Apple M4 / ANGLE Metal 26.5.1, in isolated loopback
+contexts with command-scoped `caffeinate`. Other authorized local authoring could
+continue; it is not a quiet performance or physical LAN test. The frozen asset
+preflight lists 34 fallback mappings per client. Later shipping art publication
+was deliberately excluded to keep this correction's comparison exact.
