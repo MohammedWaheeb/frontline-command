@@ -1,0 +1,398 @@
+{
+  "status": "passed",
+  "scope": "Actual Go authorized views with candidate state declarations and real ActorVisual; no completed-art or pixel acceptance.",
+  "specs": [
+    {
+      "type": "US.fighter",
+      "path": "work/art/aircraft-payload-pilot/candidate-specs/unit.US.fighter.json",
+      "sha256": "eb7b6b74d8ac49eb54fd520891e27171f60086c8fa2db9ef3df65359080777e6"
+    },
+    {
+      "type": "IR.gunship",
+      "path": "work/art/aircraft-payload-pilot/candidate-specs/unit.IR.gunship.json",
+      "sha256": "2e37940975c856341cf9f7c9e7b9a6db2a6a893dc09de066c3c7770eff2a82f8"
+    }
+  ],
+  "checks": [
+    {
+      "type": "US.fighter",
+      "stage": "01-initial-one-round",
+      "tick": 0,
+      "hash": "682fb6c595fc53f0eb60781693a74daa86e28884839f75417f46da887b2becfc",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "parked",
+      "ammo": 1
+    },
+    {
+      "type": "US.fighter",
+      "stage": "01-initial-one-round",
+      "tick": 0,
+      "hash": "682fb6c595fc53f0eb60781693a74daa86e28884839f75417f46da887b2becfc",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "parked"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "02-final-round",
+      "tick": 10,
+      "hash": "ed95b3c6c50f4141eedc3d1db2dd9bc0df1a3be22986c3751c4124e6e4532e96",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "fire_empty",
+      "ammo": 0
+    },
+    {
+      "type": "US.fighter",
+      "stage": "02-final-round",
+      "tick": 10,
+      "hash": "ed95b3c6c50f4141eedc3d1db2dd9bc0df1a3be22986c3751c4124e6e4532e96",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "fire"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "03-service-admission",
+      "tick": 34,
+      "hash": "31cb9af852df822e42d18aa67bbaa4c0bfb7f9e1ac03f9d409d7b7c9a7ef5ab9",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "US.fighter",
+      "stage": "03-service-admission",
+      "tick": 34,
+      "hash": "31cb9af852df822e42d18aa67bbaa4c0bfb7f9e1ac03f9d409d7b7c9a7ef5ab9",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "04-half-service",
+      "tick": 194,
+      "hash": "315947b4b9b108404d5ca4bed540380168dc19380c1cd3d4a9b90d2030a7d0bf",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "US.fighter",
+      "stage": "04-half-service",
+      "tick": 194,
+      "hash": "315947b4b9b108404d5ca4bed540380168dc19380c1cd3d4a9b90d2030a7d0bf",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "05-disabled-service",
+      "tick": 295,
+      "hash": "6c318464a26c4388a0c7a5c7b62686c9897ef2ff56d827af18af52bc14a2c4dd",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "US.fighter",
+      "stage": "05-disabled-service",
+      "tick": 295,
+      "hash": "6c318464a26c4388a0c7a5c7b62686c9897ef2ff56d827af18af52bc14a2c4dd",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "06-home-loss-grounded",
+      "tick": 397,
+      "hash": "f1eb26c882748c99e52d579ca13dcfcdf6d26e196c944a80b66340d597e33f24",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "parked_empty",
+      "ammo": 0
+    },
+    {
+      "type": "US.fighter",
+      "stage": "06-home-loss-grounded",
+      "tick": 397,
+      "hash": "f1eb26c882748c99e52d579ca13dcfcdf6d26e196c944a80b66340d597e33f24",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "parked"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "07-emergency-airborne",
+      "tick": 437,
+      "hash": "e9a70063395f1200e661c9a334a60c5c462816c6f3f22f448cd31bb57a10ac17",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "empty",
+      "ammo": 0
+    },
+    {
+      "type": "US.fighter",
+      "stage": "07-emergency-airborne",
+      "tick": 437,
+      "hash": "e9a70063395f1200e661c9a334a60c5c462816c6f3f22f448cd31bb57a10ac17",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "fly"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "08-backup-service",
+      "tick": 486,
+      "hash": "becc2e276015cc8f1aa4bf4ae11561266812bc2df88a56353ee3f940228af54b",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "US.fighter",
+      "stage": "08-backup-service",
+      "tick": 486,
+      "hash": "becc2e276015cc8f1aa4bf4ae11561266812bc2df88a56353ee3f940228af54b",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "09-before-refill",
+      "tick": 805,
+      "hash": "81579ecf0d3573923818de617e78d00961431597135a490f51ce4ac6ab6e44bf",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "US.fighter",
+      "stage": "09-before-refill",
+      "tick": 805,
+      "hash": "81579ecf0d3573923818de617e78d00961431597135a490f51ce4ac6ab6e44bf",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "US.fighter",
+      "stage": "10-refilled",
+      "tick": 806,
+      "hash": "d5a4486c16e1b6674a6af0b0d71d76c4a3e70655eb243e006c1dbc11da6a247c",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "parked",
+      "ammo": 6
+    },
+    {
+      "type": "US.fighter",
+      "stage": "10-refilled",
+      "tick": 806,
+      "hash": "d5a4486c16e1b6674a6af0b0d71d76c4a3e70655eb243e006c1dbc11da6a247c",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "parked"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "01-initial-one-round",
+      "tick": 0,
+      "hash": "d0ad05eeadd3ac24e6c065e030178e3a498c49e359aa8004e4a4717ee692ae5e",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "parked",
+      "ammo": 1
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "01-initial-one-round",
+      "tick": 0,
+      "hash": "d0ad05eeadd3ac24e6c065e030178e3a498c49e359aa8004e4a4717ee692ae5e",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "parked"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "02-final-round",
+      "tick": 28,
+      "hash": "be797c09ca95071f9e0a24a10381f33d7cee8ec24847005f44b624072739ceef",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "fire_empty",
+      "ammo": 0
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "02-final-round",
+      "tick": 28,
+      "hash": "be797c09ca95071f9e0a24a10381f33d7cee8ec24847005f44b624072739ceef",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "fire"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "03-service-admission",
+      "tick": 56,
+      "hash": "7f36faf8bc6616664bff2141861f0bf1c802872b087dc68c3de54573d17a3558",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "03-service-admission",
+      "tick": 56,
+      "hash": "7f36faf8bc6616664bff2141861f0bf1c802872b087dc68c3de54573d17a3558",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "04-half-service",
+      "tick": 296,
+      "hash": "953821f4247a71c12de2fd61755c1d948d360dedba43c8d057cced2d43e96ed7",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "04-half-service",
+      "tick": 296,
+      "hash": "953821f4247a71c12de2fd61755c1d948d360dedba43c8d057cced2d43e96ed7",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "05-disabled-service",
+      "tick": 397,
+      "hash": "0eafcaf4d861a91e187a245644f922f81ab74144c06a5c5b713311af3d0d401a",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "05-disabled-service",
+      "tick": 397,
+      "hash": "0eafcaf4d861a91e187a245644f922f81ab74144c06a5c5b713311af3d0d401a",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "06-home-loss-grounded",
+      "tick": 499,
+      "hash": "37c23e132760b59af30d16481c12976012124b94dbd9a63fa0b56089e2262ae4",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "parked_empty",
+      "ammo": 0
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "06-home-loss-grounded",
+      "tick": 499,
+      "hash": "37c23e132760b59af30d16481c12976012124b94dbd9a63fa0b56089e2262ae4",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "parked"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "07-emergency-airborne",
+      "tick": 539,
+      "hash": "6b4b71b08e7d619177ab77abb2dd6ce28037351f48d816927a43ad22ba9314cc",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "empty",
+      "ammo": 0
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "07-emergency-airborne",
+      "tick": 539,
+      "hash": "6b4b71b08e7d619177ab77abb2dd6ce28037351f48d816927a43ad22ba9314cc",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "fly"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "08-backup-service",
+      "tick": 605,
+      "hash": "0ac6fc817cebce8cf735860af17889a9c3429096d0ab219537f494180be814ea",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "08-backup-service",
+      "tick": 605,
+      "hash": "0ac6fc817cebce8cf735860af17889a9c3429096d0ab219537f494180be814ea",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "09-before-refill",
+      "tick": 1084,
+      "hash": "770f954317da883cbbd32bfaf678b4c60163689ec068b4cf60f0fccc4316c1ae",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "rearm_empty",
+      "ammo": 0
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "09-before-refill",
+      "tick": 1084,
+      "hash": "770f954317da883cbbd32bfaf678b4c60163689ec068b4cf60f0fccc4316c1ae",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "rearm"
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "10-refilled",
+      "tick": 1085,
+      "hash": "1c7c20cc32c389dfa7e388cbc41cf31430c42eb18c362a8bd44c43de5371d705",
+      "viewer": 1,
+      "perspective": "owned",
+      "pose": "parked",
+      "ammo": 10
+    },
+    {
+      "type": "IR.gunship",
+      "stage": "10-refilled",
+      "tick": 1085,
+      "hash": "1c7c20cc32c389dfa7e388cbc41cf31430c42eb18c362a8bd44c43de5371d705",
+      "viewer": 2,
+      "perspective": "foreign",
+      "pose": "parked"
+    }
+  ]
+}

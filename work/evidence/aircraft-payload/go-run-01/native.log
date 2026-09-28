@@ -1,0 +1,10 @@
+=== RUN   TestAircraftPayloadPresentationCourse
+=== RUN   TestAircraftPayloadPresentationCourse/US.fighter
+    aircraft_payload_course_test.go:156: foreign course observer cannot see aircraft at 08-backup-service
+=== RUN   TestAircraftPayloadPresentationCourse/IR.gunship
+--- FAIL: TestAircraftPayloadPresentationCourse (1.48s)
+    --- FAIL: TestAircraftPayloadPresentationCourse/US.fighter (0.39s)
+    --- PASS: TestAircraftPayloadPresentationCourse/IR.gunship (1.09s)
+FAIL
+FAIL	frontlinecommand/pkg/sim	2.941s
+FAIL
