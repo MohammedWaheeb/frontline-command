@@ -1,0 +1,1648 @@
+--- a/client/src/protocol/frontline_pb.ts
++++ b/client/src/protocol/frontline_pb.ts
+@@ -10,7 +10,7 @@
+  * Describes the file frontline.proto.
+  */
+ export const file_frontline: GenFile = /*@__PURE__*/
+-  fileDesc("Cg9mcm9udGxpbmUucHJvdG8SDGZyb250bGluZS52MSKFBAoIRW52ZWxvcGUSKgoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG9IABIqCgZvcmRlcnMYAiABKAsyGC5mcm9udGxpbmUudjEuT3JkZXJCYXRjaEgAEjEKDG9yZGVyX3Jlc3VsdBgDIAEoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdEgAEjAKCHNuYXBzaG90GAQgASgLMhwuZnJvbnRsaW5lLnYxLlBsYXllclNuYXBzaG90SAASKQoFZGVsdGEYBSABKAsyGC5mcm9udGxpbmUudjEuU3RhdGVEZWx0YUgAEisKBnJlc3VtZRgGIAEoCzIZLmZyb250bGluZS52MS5SZXN1bWVNYXRjaEgAEisKBnJlc3VsdBgHIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFJlc3VsdEgAEiwKBWVycm9yGAggASgLMhsuZnJvbnRsaW5lLnYxLlByb3RvY29sRXJyb3JIABIiCgRwaW5nGAkgASgLMhIuZnJvbnRsaW5lLnYxLlBpbmdIABItCgdjb250cm9sGAogASgLMhouZnJvbnRsaW5lLnYxLk1hdGNoQ29udHJvbEgAEisKBnN0YXR1cxgLIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFN0YXR1c0gAQgkKB21lc3NhZ2UiagoLQ2xpZW50SGVsbG8SEAoIcHJvdG9jb2wYASABKA0SEgoKc2ltdWxhdGlvbhgCIAEoCRIUCgxjb250ZW50X2hhc2gYAyABKAkSDQoFdG9rZW4YBCABKAkSEAoIbWF0Y2hfaWQYBSABKAkiSgoLUmVzdW1lTWF0Y2gSKAoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG8SEQoJbGFzdF90aWNrGAIgASgNIh4KDE1hdGNoQ29udHJvbBIOCgZhY3Rpb24YASABKAkiVAoPQ29ubmVjdGlvblN0YXRlEg4KBnBsYXllchgBIAEoDRIRCgljb25uZWN0ZWQYAiABKAgSHgoWcmVjb25uZWN0X3JlbWFpbmluZ19tcxgDIAEoDSKYAQoLTWF0Y2hTdGF0dXMSFQoNcGF1c2VfZW5hYmxlZBgBIAEoCBIOCgZwYXVzZWQYAiABKAgSEwoLcGF1c2Vfdm90ZXMYAyADKA0SMAoJdGVhbW1hdGVzGAQgAygLMh0uZnJvbnRsaW5lLnYxLkNvbm5lY3Rpb25TdGF0ZRIbChN3YWl0aW5nX2Zvcl9wbGF5ZXJzGAUgASgIIhUKBFBpbmcSDQoFbm9uY2UYASABKA0iQwoNUHJvdG9jb2xFcnJvchIMCgRjb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkSEwoLcmVjb3ZlcmFibGUYAyABKAgiGwoDVmVjEgkKAXgYASABKBESCQoBeRgCIAEoESKsAQoFT3JkZXISDAoEa2luZBgBIAEoCRIQCghlbnRpdGllcxgCIAMoDRIOCgZ0YXJnZXQYAyABKA0SIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEgwKBHR5cGUYBSABKAkSDgoGcXVldWVkGAYgASgIEg0KBWluZGV4GAcgASgFEiEKBnBvaW50cxgIIAMoCzIRLmZyb250bGluZS52MS5WZWMiQwoKT3JkZXJCYXRjaBIQCghzZXF1ZW5jZRgBIAEoDRIjCgZvcmRlcnMYAiADKAsyEy5mcm9udGxpbmUudjEuT3JkZXIibAoLT3JkZXJSZXN1bHQSDgoGcGxheWVyGAEgASgNEhAKCHNlcXVlbmNlGAIgASgNEg0KBWluZGV4GAMgASgFEhAKCGFjY2VwdGVkGAQgASgIEgwKBGNvZGUYBSABKAkSDAoEdGljaxgGIAEoDSJ6CghNZXRhZGF0YRISCgpzaW11bGF0aW9uGAEgASgJEhAKCHByb3RvY29sGAIgASgNEhQKDGNvbnRlbnRfaGFzaBgDIAEoCRITCgttYXBfdmVyc2lvbhgEIAEoCRIPCgdydWxlc2V0GAUgASgJEgwKBHNlZWQYBiABKAQiJQoIQ29vbGRvd24SCgoCaWQYASABKAkSDQoFdW50aWwYAiABKA0imAEKA0pvYhIMCgR0eXBlGAEgASgJEhAKCHJlc2VhcmNoGAIgASgIEgwKBHBhaWQYAyABKAMSDAoEd29yaxgEIAEoDRIQCghyZXF1aXJlZBgFIAEoDRIOCgZzdXBwbHkYBiABKAUSDwoHc2VydmljZRgHIAEoDRIPCgdzdGFydGVkGAggASgIEhEKCWVtZXJnZW5jeRgJIAEoCCKLAgoHRWNvbm9teRIPCgdjcmVkaXRzGAEgASgDEg4KBmVuZXJneRgCIAEoAxIOCgZzdXBwbHkYAyABKAUSFwoPcmVzZXJ2ZWRfc3VwcGx5GAQgASgFEhYKDnBvd2VyX2NhcGFjaXR5GAUgASgFEhQKDHBvd2VyX2RlbWFuZBgGIAEoBRIMCgR0aWVyGAcgASgFEg4KBmluY29tZRgIIAEoAxIWCg5yZXBhaXJfcmVzZXJ2ZRgJIAEoAxIQCgh1cGdyYWRlcxgKIAMoCRIpCgljb29sZG93bnMYCyADKAsyFi5mcm9udGxpbmUudjEuQ29vbGRvd24SFQoNbGFzdF9zZXF1ZW5jZRgMIAEoDSL6AwoNRW50aXR5UHJpdmF0ZRIKCgJocBgBIAEoAxIOCgZtYXhfaHAYAiABKAMSHwoEam9icxgDIAMoCzIRLmZyb250bGluZS52MS5Kb2ISIwoGb3JkZXJzGAQgAygLMhMuZnJvbnRsaW5lLnYxLk9yZGVyEiAKBXJhbGx5GAUgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgVjYXJnbxgGIAEoAxIMCgRob21lGAcgASgNEgwKBGFtbW8YCCABKAUSEQoJZW5kdXJhbmNlGAkgASgNEg8KB2NoYXJnZXMYCiABKAUSEwoLY2hhcmdlX3dvcmsYCyABKA0SFAoMc2VydmljZV93b3JrGAwgASgNEhIKCmV4cGVyaWVuY2UYDSABKAMSKQoJY29vbGRvd25zGA4gAygLMhYuZnJvbnRsaW5lLnYxLkNvb2xkb3duEhIKCnBhc3NlbmdlcnMYDyADKA0SEQoJY29udGFpbmVyGBAgASgNEhUKDXJlcGVhdF9zb3J0aWUYESABKAgSFAoMYW1idXNoX3JlYWR5GBIgASgIEhYKDm1pc3Npb25fb3JpZ2luGBMgASgJEiQKF2VtZXJnZW5jeV90YWtlb2ZmX3VudGlsGBQgASgNSACIAQFCGgoYX2VtZXJnZW5jeV90YWtlb2ZmX3VudGlsIisKDFN0YXR1c0VmZmVjdBIMCgRraW5kGAEgASgJEg0KBXVudGlsGAIgASgNIuUDCgZFbnRpdHkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVvd25lchgDIAEoDRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSDgoGZmFjaW5nGAUgASgFEg4KBmhlYWx0aBgGIAEoBRINCgVzdGF0ZRgHIAEoCRIQCghjb21wbGV0ZRgIIAEoCBIPCgdlbmFibGVkGAkgASgIEg4KBmxhbmRlZBgKIAEoCBIQCghkZXBsb3llZBgLIAEoCBIRCgljb25jZWFsZWQYDCABKAgSEAoIcHJvZ3Jlc3MYDSABKAUSDAoEcmFuaxgOIAEoDRIsCgdwcml2YXRlGA8gASgLMhsuZnJvbnRsaW5lLnYxLkVudGl0eVByaXZhdGUSFQoNdHVycmV0X2ZhY2luZxgQIAEoBRIVCg1jaGFubmVsX3VudGlsGBEgASgNEhIKCm1hcF9vYmplY3QYEiABKA0SFwoPZm9vdHByaW50X3dpZHRoGBMgASgFEhgKEGZvb3RwcmludF9oZWlnaHQYFCABKAUSFgoOZm9vdHByaW50X3R5cGUYFSABKAkSKwoHZWZmZWN0cxgWIAMoCzIaLmZyb250bGluZS52MS5TdGF0dXNFZmZlY3QisAEKDVBsYXllclN1bW1hcnkSCgoCaWQYASABKA0SDAoEbmFtZRgCIAEoCRIPCgdmYWN0aW9uGAMgASgJEgwKBHRlYW0YBCABKA0SEAoIZGVmZWF0ZWQYBSABKAgSEQoJZGVmZWF0X2F0GAYgASgNEhoKEnN0cmF0ZWdpY19wcm9ncmVzcxgHIAEoBRIWCg5zdXJyZW5kZXJfdm90ZRgIIAEoCBINCgVjb2xvchgJIAEoDSKOAgoKUHJvamVjdGlsZRIKCgJpZBgBIAEoDRINCgVvd25lchgCIAEoDRIOCgZ3ZWFwb24YAyABKAkSIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEiEKBmltcGFjdBgFIAEoCzIRLmZyb250bGluZS52MS5WZWMSEQoJaW1wYWN0X2F0GAYgASgNEhUKDWludGVyY2VwdGFibGUYByABKAgSDwoHd2FybmluZxgIIAEoCBITCgZzcGxhc2gYCSABKAVIAIgBARIdChBwb3NpdGlvbl92aXNpYmxlGAogASgISAGIAQFCCQoHX3NwbGFzaEITChFfcG9zaXRpb25fdmlzaWJsZSJLCgVGaWVsZBIKCgJpZBgBIAEoDRIjCghwb3NpdGlvbhgCIAEoCzIRLmZyb250bGluZS52MS5WZWMSEQoJcmVtYWluaW5nGAMgASgDIkkKB1N0YXRpb24SCgoCaWQYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjEg0KBW93bmVyGAMgASgNIq8BCgZNZW1vcnkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVvd25lchgDIAEoDRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSDAoEc2VlbhgFIAEoDRIXCg9mb290cHJpbnRfd2lkdGgYBiABKAUSGAoQZm9vdHByaW50X2hlaWdodBgHIAEoBRIWCg5mb290cHJpbnRfdHlwZRgIIAEoCSLNAQoFRXZlbnQSCgoCaWQYASABKA0SDAoEdGljaxgCIAEoDRIMCgRraW5kGAMgASgJEg0KBW93bmVyGAQgASgNEg4KBmVudGl0eRgFIAEoDRIjCghwb3NpdGlvbhgGIAEoCzIRLmZyb250bGluZS52MS5WZWMSDQoFdmFsdWUYByABKAMSDQoFc2NvcGUYCCABKAkSDAoEdGV4dBgJIAEoCRIsCgZjb21iYXQYCiABKAsyHC5mcm9udGxpbmUudjEuQ29tYmF0RmVlZGJhY2siXQoHT3V0Y29tZRIQCghmaW5pc2hlZBgBIAEoCBIMCgRkcmF3GAIgASgIEhQKDHdpbm5pbmdfdGVhbRgDIAEoDRIOCgZyZWFzb24YBCABKAkSDAoEdGljaxgFIAEoDSLgBgoOUGxheWVyU25hcHNob3QSKAoIbWV0YWRhdGEYASABKAsyFi5mcm9udGxpbmUudjEuTWV0YWRhdGESDAoEdGljaxgCIAEoDRIRCgljb3VudGRvd24YAyABKA0SDgoGcGxheWVyGAQgASgNEiYKB2Vjb25vbXkYBSABKAsyFS5mcm9udGxpbmUudjEuRWNvbm9teRIsCgdwbGF5ZXJzGAYgAygLMhsuZnJvbnRsaW5lLnYxLlBsYXllclN1bW1hcnkSJgoIZW50aXRpZXMYByADKAsyFC5mcm9udGxpbmUudjEuRW50aXR5Ei0KC3Byb2plY3RpbGVzGAggAygLMhguZnJvbnRsaW5lLnYxLlByb2plY3RpbGUSIwoGZmllbGRzGAkgAygLMhMuZnJvbnRsaW5lLnYxLkZpZWxkEicKCHN0YXRpb25zGAogAygLMhUuZnJvbnRsaW5lLnYxLlN0YXRpb24SFAoIZXhwbG9yZWQYCyADKAhCAhABEhMKB3Zpc2libGUYDCADKAhCAhABEiQKBm1lbW9yeRgNIAMoCzIULmZyb250bGluZS52MS5NZW1vcnkSIwoGZXZlbnRzGA4gAygLMhMuZnJvbnRsaW5lLnYxLkV2ZW50EioKB3Jlc3VsdHMYDyADKAsyGS5mcm9udGxpbmUudjEuT3JkZXJSZXN1bHQSEwoLc2hpcG1lbnRfYXQYECABKA0SJgoHb3V0Y29tZRgRIAEoCzIVLmZyb250bGluZS52MS5PdXRjb21lEiYKB3NhbHZhZ2UYEiADKAsyFS5mcm9udGxpbmUudjEuU2FsdmFnZRIhCgV6b25lcxgTIAMoCzISLmZyb250bGluZS52MS5ab25lEjQKCmluZGljYXRvcnMYFCADKAsyIC5mcm9udGxpbmUudjEuU3RydWN0dXJlSW5kaWNhdG9yEi4KB21pc3Npb24YFSABKAsyHS5mcm9udGxpbmUudjEuTWlzc2lvblByb2dyZXNzEg4KBnJ1YmJsZRgWIAMoDRIwCgh3YXJuaW5ncxgXIAMoCzIeLmZyb250bGluZS52MS5PcGVyYXRpb25XYXJuaW5nEiYKB2RlYnJpZWYYGCABKAsyFS5mcm9udGxpbmUudjEuRGVicmllZiJqCgpTdGF0ZURlbHRhEhUKDWJhc2VsaW5lX3RpY2sYASABKA0SKwoFc3RhdGUYAiABKAsyHC5mcm9udGxpbmUudjEuUGxheWVyU25hcHNob3QSGAoQcmVtb3ZlZF9lbnRpdGllcxgDIAMoDSJoCgtNYXRjaFJlc3VsdBIQCghtYXRjaF9pZBgBIAEoCRImCgdvdXRjb21lGAIgASgLMhUuZnJvbnRsaW5lLnYxLk91dGNvbWUSEQoJY29tbWl0dGVkGAMgASgIEgwKBHZvaWQYBCABKAgiZwoHU2FsdmFnZRIKCgJpZBgBIAEoDRINCgVvd25lchgCIAEoDRIjCghwb3NpdGlvbhgDIAEoCzIRLmZyb250bGluZS52MS5WZWMSDQoFdmFsdWUYBCABKAMSDQoFdW50aWwYBSABKA0idgoEWm9uZRIMCgRraW5kGAEgASgJEg0KBW93bmVyGAIgASgNEiMKCHBvc2l0aW9uGAMgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIOCgZyYWRpdXMYBCABKAUSDQoFc3RhcnQYBSABKA0SDQoFdW50aWwYBiABKA0iSAoSU3RydWN0dXJlSW5kaWNhdG9yEg0KBW93bmVyGAEgASgNEiMKCHBvc2l0aW9uGAIgASgLMhEuZnJvbnRsaW5lLnYxLlZlYyKGAQoRT2JqZWN0aXZlUHJvZ3Jlc3MSCgoCaWQYASABKAkSDAoEdGV4dBgCIAEoCRIQCghvcHRpb25hbBgDIAEoCBIPCgdmYWlsdXJlGAQgASgIEhAKCGNvbXBsZXRlGAUgASgIEhAKCHByb2dyZXNzGAYgASgNEhAKCHJlcXVpcmVkGAcgASgNIuIBCg9NaXNzaW9uUHJvZ3Jlc3MSCgoCaWQYASABKAkSDQoFdGl0bGUYAiABKAkSEgoKZGlmZmljdWx0eRgDIAEoCRISCgpjaGVja3BvaW50GAQgASgJEhcKD2NoZWNrcG9pbnRfdGljaxgFIAEoDRIzCgpvYmplY3RpdmVzGAYgAygLMh8uZnJvbnRsaW5lLnYxLk9iamVjdGl2ZVByb2dyZXNzEi0KB2NvbnZveXMYByADKAsyHC5mcm9udGxpbmUudjEuQ29udm95UHJvZ3Jlc3MSDwoHdmVyc2lvbhgIIAEoCSKyAQoQT3BlcmF0aW9uV2FybmluZxIMCgRraW5kGAEgASgJEg0KBW93bmVyGAIgASgNEiMKCHBvc2l0aW9uGAMgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIKCgJhdBgEIAEoDRIOCgZzb3VyY2UYBSABKA0SIAoFZXhpdHMYBiADKAsyES5mcm9udGxpbmUudjEuVmVjEhMKBnNwbGFzaBgHIAEoBUgAiAEBQgkKB19zcGxhc2giqQEKDkNvbnZveVByb2dyZXNzEgoKAmlkGAEgASgJEg4KBmFjdGl2ZRgCIAEoCBIRCgljb21wbGV0ZWQYAyABKAgSDAoEaGVsZBgEIAEoCBIOCgZtb3ZpbmcYBSABKAgSDQoFcm91dGUYBiABKA0SEAoId2F5cG9pbnQYByABKA0SFwoPY291bnRkb3duX3VudGlsGAggASgNEhAKCGFwcHJvdmVkGAkgAygNIm8KDUVjb25vbXlTYW1wbGUSDAoEdGljaxgBIAEoDRIPCgdjcmVkaXRzGAIgASgDEg4KBmluY29tZRgDIAEoAxINCgVzcGVudBgEIAEoAxIOCgZzdXBwbHkYBSABKAUSEAoIc3RhdGlvbnMYBiABKA0iLgoPUHJvZHVjdGlvbkNvdW50EgwKBHR5cGUYASABKAkSDQoFY291bnQYAiABKA0i2QIKD1BsYXllclRlbGVtZXRyeRIOCgZwbGF5ZXIYASABKA0SNQoOdW5pdHNfcHJvZHVjZWQYAiADKAsyHS5mcm9udGxpbmUudjEuUHJvZHVjdGlvbkNvdW50EjwKFWJ1aWxkaW5nc19jb25zdHJ1Y3RlZBgDIAMoCzIdLmZyb250bGluZS52MS5Qcm9kdWN0aW9uQ291bnQSEgoKdW5pdHNfbG9zdBgEIAEoDRIWCg5idWlsZGluZ3NfbG9zdBgFIAEoDRIUCgxyZXBhaXJfc3BlbnQYBiABKAMSFQoNbWlzc2lsZV9zcGVudBgHIAEoAxIaChJpbnRlcmNlcHRvcnNfZmlyZWQYCCABKA0SHQoVc3RhdGlvbl9jb250cm9sX3RpY2tzGAkgASgNEi0KCHRpbWVsaW5lGAogAygLMhsuZnJvbnRsaW5lLnYxLkVjb25vbXlTYW1wbGUisAIKDURlYnJpZWZQbGF5ZXISDgoGcGxheWVyGAEgASgNEgwKBG5hbWUYAiABKAkSDwoHZmFjdGlvbhgDIAEoCRIMCgR0ZWFtGAQgASgNEg0KBWNvbG9yGAUgASgNEhAKCGRlZmVhdGVkGAYgASgIEg8KB2NyZWRpdHMYByABKAMSDgoGaW5jb21lGAggASgDEg0KBXNwZW50GAkgASgDEhIKCmxvc3RfdmFsdWUYCiABKAMSFwoPdW5pdHNfc3Vydml2aW5nGAsgASgNEhwKFHN0cnVjdHVyZXNfc3Vydml2aW5nGAwgASgNEhYKDmV4cGxvcmVkX3RpbGVzGA0gASgNEi4KB21ldHJpY3MYDiABKAsyHS5mcm9udGxpbmUudjEuUGxheWVyVGVsZW1ldHJ5IlYKDERlYnJpZWZFdmVudBIMCgR0aWNrGAEgASgNEgwKBGtpbmQYAiABKAkSDgoGcGxheWVyGAMgASgNEgwKBHR5cGUYBCABKAkSDAoEdGV4dBgFIAEoCSJ7CgdEZWJyaWVmEiwKB3BsYXllcnMYASADKAsyGy5mcm9udGxpbmUudjEuRGVicmllZlBsYXllchIqCgZldmVudHMYAiADKAsyGi5mcm9udGxpbmUudjEuRGVicmllZkV2ZW50EhYKDm9taXR0ZWRfZXZlbnRzGAMgASgNImAKDkNvbWJhdEZlZWRiYWNrEg4KBndlYXBvbhgBIAEoCRIPCgdvdXRjb21lGAIgASgJEhQKDHRhcmdldF9hcm1vchgDIAEoCRIXCg9jb3Zlcl9taXRpZ2F0ZWQYBCABKAhCJFoiZnJvbnRsaW5lY29tbWFuZC9wcm90b2NvbDtwcm90b2NvbGIGcHJvdG8z");
++  fileDesc("Cg9mcm9udGxpbmUucHJvdG8SDGZyb250bGluZS52MSKFBAoIRW52ZWxvcGUSKgoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG9IABIqCgZvcmRlcnMYAiABKAsyGC5mcm9udGxpbmUudjEuT3JkZXJCYXRjaEgAEjEKDG9yZGVyX3Jlc3VsdBgDIAEoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdEgAEjAKCHNuYXBzaG90GAQgASgLMhwuZnJvbnRsaW5lLnYxLlBsYXllclNuYXBzaG90SAASKQoFZGVsdGEYBSABKAsyGC5mcm9udGxpbmUudjEuU3RhdGVEZWx0YUgAEisKBnJlc3VtZRgGIAEoCzIZLmZyb250bGluZS52MS5SZXN1bWVNYXRjaEgAEisKBnJlc3VsdBgHIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFJlc3VsdEgAEiwKBWVycm9yGAggASgLMhsuZnJvbnRsaW5lLnYxLlByb3RvY29sRXJyb3JIABIiCgRwaW5nGAkgASgLMhIuZnJvbnRsaW5lLnYxLlBpbmdIABItCgdjb250cm9sGAogASgLMhouZnJvbnRsaW5lLnYxLk1hdGNoQ29udHJvbEgAEisKBnN0YXR1cxgLIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFN0YXR1c0gAQgkKB21lc3NhZ2UiagoLQ2xpZW50SGVsbG8SEAoIcHJvdG9jb2wYASABKA0SEgoKc2ltdWxhdGlvbhgCIAEoCRIUCgxjb250ZW50X2hhc2gYAyABKAkSDQoFdG9rZW4YBCABKAkSEAoIbWF0Y2hfaWQYBSABKAkiSgoLUmVzdW1lTWF0Y2gSKAoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG8SEQoJbGFzdF90aWNrGAIgASgNIh4KDE1hdGNoQ29udHJvbBIOCgZhY3Rpb24YASABKAkiVAoPQ29ubmVjdGlvblN0YXRlEg4KBnBsYXllchgBIAEoDRIRCgljb25uZWN0ZWQYAiABKAgSHgoWcmVjb25uZWN0X3JlbWFpbmluZ19tcxgDIAEoDSKYAQoLTWF0Y2hTdGF0dXMSFQoNcGF1c2VfZW5hYmxlZBgBIAEoCBIOCgZwYXVzZWQYAiABKAgSEwoLcGF1c2Vfdm90ZXMYAyADKA0SMAoJdGVhbW1hdGVzGAQgAygLMh0uZnJvbnRsaW5lLnYxLkNvbm5lY3Rpb25TdGF0ZRIbChN3YWl0aW5nX2Zvcl9wbGF5ZXJzGAUgASgIIhUKBFBpbmcSDQoFbm9uY2UYASABKA0iQwoNUHJvdG9jb2xFcnJvchIMCgRjb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkSEwoLcmVjb3ZlcmFibGUYAyABKAgiGwoDVmVjEgkKAXgYASABKBESCQoBeRgCIAEoESKsAQoFT3JkZXISDAoEa2luZBgBIAEoCRIQCghlbnRpdGllcxgCIAMoDRIOCgZ0YXJnZXQYAyABKA0SIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEgwKBHR5cGUYBSABKAkSDgoGcXVldWVkGAYgASgIEg0KBWluZGV4GAcgASgFEiEKBnBvaW50cxgIIAMoCzIRLmZyb250bGluZS52MS5WZWMiQwoKT3JkZXJCYXRjaBIQCghzZXF1ZW5jZRgBIAEoDRIjCgZvcmRlcnMYAiADKAsyEy5mcm9udGxpbmUudjEuT3JkZXIibAoLT3JkZXJSZXN1bHQSDgoGcGxheWVyGAEgASgNEhAKCHNlcXVlbmNlGAIgASgNEg0KBWluZGV4GAMgASgFEhAKCGFjY2VwdGVkGAQgASgIEgwKBGNvZGUYBSABKAkSDAoEdGljaxgGIAEoDSJ6CghNZXRhZGF0YRISCgpzaW11bGF0aW9uGAEgASgJEhAKCHByb3RvY29sGAIgASgNEhQKDGNvbnRlbnRfaGFzaBgDIAEoCRITCgttYXBfdmVyc2lvbhgEIAEoCRIPCgdydWxlc2V0GAUgASgJEgwKBHNlZWQYBiABKAQiJQoIQ29vbGRvd24SCgoCaWQYASABKAkSDQoFdW50aWwYAiABKA0imAEKA0pvYhIMCgR0eXBlGAEgASgJEhAKCHJlc2VhcmNoGAIgASgIEgwKBHBhaWQYAyABKAMSDAoEd29yaxgEIAEoDRIQCghyZXF1aXJlZBgFIAEoDRIOCgZzdXBwbHkYBiABKAUSDwoHc2VydmljZRgHIAEoDRIPCgdzdGFydGVkGAggASgIEhEKCWVtZXJnZW5jeRgJIAEoCCKLAgoHRWNvbm9teRIPCgdjcmVkaXRzGAEgASgDEg4KBmVuZXJneRgCIAEoAxIOCgZzdXBwbHkYAyABKAUSFwoPcmVzZXJ2ZWRfc3VwcGx5GAQgASgFEhYKDnBvd2VyX2NhcGFjaXR5GAUgASgFEhQKDHBvd2VyX2RlbWFuZBgGIAEoBRIMCgR0aWVyGAcgASgFEg4KBmluY29tZRgIIAEoAxIWCg5yZXBhaXJfcmVzZXJ2ZRgJIAEoAxIQCgh1cGdyYWRlcxgKIAMoCRIpCgljb29sZG93bnMYCyADKAsyFi5mcm9udGxpbmUudjEuQ29vbGRvd24SFQoNbGFzdF9zZXF1ZW5jZRgMIAEoDSKmBAoNRW50aXR5UHJpdmF0ZRIKCgJocBgBIAEoAxIOCgZtYXhfaHAYAiABKAMSHwoEam9icxgDIAMoCzIRLmZyb250bGluZS52MS5Kb2ISIwoGb3JkZXJzGAQgAygLMhMuZnJvbnRsaW5lLnYxLk9yZGVyEiAKBXJhbGx5GAUgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgVjYXJnbxgGIAEoAxIMCgRob21lGAcgASgNEgwKBGFtbW8YCCABKAUSEQoJZW5kdXJhbmNlGAkgASgNEg8KB2NoYXJnZXMYCiABKAUSEwoLY2hhcmdlX3dvcmsYCyABKA0SFAoMc2VydmljZV93b3JrGAwgASgNEhIKCmV4cGVyaWVuY2UYDSABKAMSKQoJY29vbGRvd25zGA4gAygLMhYuZnJvbnRsaW5lLnYxLkNvb2xkb3duEhIKCnBhc3NlbmdlcnMYDyADKA0SEQoJY29udGFpbmVyGBAgASgNEhUKDXJlcGVhdF9zb3J0aWUYESABKAgSFAoMYW1idXNoX3JlYWR5GBIgASgIEhYKDm1pc3Npb25fb3JpZ2luGBMgASgJEiQKF2VtZXJnZW5jeV90YWtlb2ZmX3VudGlsGBQgASgNSACIAQESKgoGcmFuZ2VzGBUgASgLMhouZnJvbnRsaW5lLnYxLkVudGl0eVJhbmdlc0IaChhfZW1lcmdlbmN5X3Rha2VvZmZfdW50aWwiKwoMU3RhdHVzRWZmZWN0EgwKBGtpbmQYASABKAkSDQoFdW50aWwYAiABKA0i5QMKBkVudGl0eRIKCgJpZBgBIAEoDRIMCgR0eXBlGAIgASgJEg0KBW93bmVyGAMgASgNEiMKCHBvc2l0aW9uGAQgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIOCgZmYWNpbmcYBSABKAUSDgoGaGVhbHRoGAYgASgFEg0KBXN0YXRlGAcgASgJEhAKCGNvbXBsZXRlGAggASgIEg8KB2VuYWJsZWQYCSABKAgSDgoGbGFuZGVkGAogASgIEhAKCGRlcGxveWVkGAsgASgIEhEKCWNvbmNlYWxlZBgMIAEoCBIQCghwcm9ncmVzcxgNIAEoBRIMCgRyYW5rGA4gASgNEiwKB3ByaXZhdGUYDyABKAsyGy5mcm9udGxpbmUudjEuRW50aXR5UHJpdmF0ZRIVCg10dXJyZXRfZmFjaW5nGBAgASgFEhUKDWNoYW5uZWxfdW50aWwYESABKA0SEgoKbWFwX29iamVjdBgSIAEoDRIXCg9mb290cHJpbnRfd2lkdGgYEyABKAUSGAoQZm9vdHByaW50X2hlaWdodBgUIAEoBRIWCg5mb290cHJpbnRfdHlwZRgVIAEoCRIrCgdlZmZlY3RzGBYgAygLMhouZnJvbnRsaW5lLnYxLlN0YXR1c0VmZmVjdCKwAQoNUGxheWVyU3VtbWFyeRIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEg8KB2ZhY3Rpb24YAyABKAkSDAoEdGVhbRgEIAEoDRIQCghkZWZlYXRlZBgFIAEoCBIRCglkZWZlYXRfYXQYBiABKA0SGgoSc3RyYXRlZ2ljX3Byb2dyZXNzGAcgASgFEhYKDnN1cnJlbmRlcl92b3RlGAggASgIEg0KBWNvbG9yGAkgASgNIo4CCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgNEg0KBW93bmVyGAIgASgNEg4KBndlYXBvbhgDIAEoCRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSIQoGaW1wYWN0GAUgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIRCglpbXBhY3RfYXQYBiABKA0SFQoNaW50ZXJjZXB0YWJsZRgHIAEoCBIPCgd3YXJuaW5nGAggASgIEhMKBnNwbGFzaBgJIAEoBUgAiAEBEh0KEHBvc2l0aW9uX3Zpc2libGUYCiABKAhIAYgBAUIJCgdfc3BsYXNoQhMKEV9wb3NpdGlvbl92aXNpYmxlIksKBUZpZWxkEgoKAmlkGAEgASgNEiMKCHBvc2l0aW9uGAIgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIRCglyZW1haW5pbmcYAyABKAMiSQoHU3RhdGlvbhIKCgJpZBgBIAEoDRIjCghwb3NpdGlvbhgCIAEoCzIRLmZyb250bGluZS52MS5WZWMSDQoFb3duZXIYAyABKA0irwEKBk1lbW9yeRIKCgJpZBgBIAEoDRIMCgR0eXBlGAIgASgJEg0KBW93bmVyGAMgASgNEiMKCHBvc2l0aW9uGAQgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIMCgRzZWVuGAUgASgNEhcKD2Zvb3RwcmludF93aWR0aBgGIAEoBRIYChBmb290cHJpbnRfaGVpZ2h0GAcgASgFEhYKDmZvb3RwcmludF90eXBlGAggASgJIs0BCgVFdmVudBIKCgJpZBgBIAEoDRIMCgR0aWNrGAIgASgNEgwKBGtpbmQYAyABKAkSDQoFb3duZXIYBCABKA0SDgoGZW50aXR5GAUgASgNEiMKCHBvc2l0aW9uGAYgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgV2YWx1ZRgHIAEoAxINCgVzY29wZRgIIAEoCRIMCgR0ZXh0GAkgASgJEiwKBmNvbWJhdBgKIAEoCzIcLmZyb250bGluZS52MS5Db21iYXRGZWVkYmFjayJdCgdPdXRjb21lEhAKCGZpbmlzaGVkGAEgASgIEgwKBGRyYXcYAiABKAgSFAoMd2lubmluZ190ZWFtGAMgASgNEg4KBnJlYXNvbhgEIAEoCRIMCgR0aWNrGAUgASgNIuAGCg5QbGF5ZXJTbmFwc2hvdBIoCghtZXRhZGF0YRgBIAEoCzIWLmZyb250bGluZS52MS5NZXRhZGF0YRIMCgR0aWNrGAIgASgNEhEKCWNvdW50ZG93bhgDIAEoDRIOCgZwbGF5ZXIYBCABKA0SJgoHZWNvbm9teRgFIAEoCzIVLmZyb250bGluZS52MS5FY29ub215EiwKB3BsYXllcnMYBiADKAsyGy5mcm9udGxpbmUudjEuUGxheWVyU3VtbWFyeRImCghlbnRpdGllcxgHIAMoCzIULmZyb250bGluZS52MS5FbnRpdHkSLQoLcHJvamVjdGlsZXMYCCADKAsyGC5mcm9udGxpbmUudjEuUHJvamVjdGlsZRIjCgZmaWVsZHMYCSADKAsyEy5mcm9udGxpbmUudjEuRmllbGQSJwoIc3RhdGlvbnMYCiADKAsyFS5mcm9udGxpbmUudjEuU3RhdGlvbhIUCghleHBsb3JlZBgLIAMoCEICEAESEwoHdmlzaWJsZRgMIAMoCEICEAESJAoGbWVtb3J5GA0gAygLMhQuZnJvbnRsaW5lLnYxLk1lbW9yeRIjCgZldmVudHMYDiADKAsyEy5mcm9udGxpbmUudjEuRXZlbnQSKgoHcmVzdWx0cxgPIAMoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdBITCgtzaGlwbWVudF9hdBgQIAEoDRImCgdvdXRjb21lGBEgASgLMhUuZnJvbnRsaW5lLnYxLk91dGNvbWUSJgoHc2FsdmFnZRgSIAMoCzIVLmZyb250bGluZS52MS5TYWx2YWdlEiEKBXpvbmVzGBMgAygLMhIuZnJvbnRsaW5lLnYxLlpvbmUSNAoKaW5kaWNhdG9ycxgUIAMoCzIgLmZyb250bGluZS52MS5TdHJ1Y3R1cmVJbmRpY2F0b3ISLgoHbWlzc2lvbhgVIAEoCzIdLmZyb250bGluZS52MS5NaXNzaW9uUHJvZ3Jlc3MSDgoGcnViYmxlGBYgAygNEjAKCHdhcm5pbmdzGBcgAygLMh4uZnJvbnRsaW5lLnYxLk9wZXJhdGlvbldhcm5pbmcSJgoHZGVicmllZhgYIAEoCzIVLmZyb250bGluZS52MS5EZWJyaWVmImoKClN0YXRlRGVsdGESFQoNYmFzZWxpbmVfdGljaxgBIAEoDRIrCgVzdGF0ZRgCIAEoCzIcLmZyb250bGluZS52MS5QbGF5ZXJTbmFwc2hvdBIYChByZW1vdmVkX2VudGl0aWVzGAMgAygNImgKC01hdGNoUmVzdWx0EhAKCG1hdGNoX2lkGAEgASgJEiYKB291dGNvbWUYAiABKAsyFS5mcm9udGxpbmUudjEuT3V0Y29tZRIRCgljb21taXR0ZWQYAyABKAgSDAoEdm9pZBgEIAEoCCJnCgdTYWx2YWdlEgoKAmlkGAEgASgNEg0KBW93bmVyGAIgASgNEiMKCHBvc2l0aW9uGAMgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgV2YWx1ZRgEIAEoAxINCgV1bnRpbBgFIAEoDSJ2CgRab25lEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEg4KBnJhZGl1cxgEIAEoBRINCgVzdGFydBgFIAEoDRINCgV1bnRpbBgGIAEoDSJIChJTdHJ1Y3R1cmVJbmRpY2F0b3ISDQoFb3duZXIYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjIoYBChFPYmplY3RpdmVQcm9ncmVzcxIKCgJpZBgBIAEoCRIMCgR0ZXh0GAIgASgJEhAKCG9wdGlvbmFsGAMgASgIEg8KB2ZhaWx1cmUYBCABKAgSEAoIY29tcGxldGUYBSABKAgSEAoIcHJvZ3Jlc3MYBiABKA0SEAoIcmVxdWlyZWQYByABKA0i4gEKD01pc3Npb25Qcm9ncmVzcxIKCgJpZBgBIAEoCRINCgV0aXRsZRgCIAEoCRISCgpkaWZmaWN1bHR5GAMgASgJEhIKCmNoZWNrcG9pbnQYBCABKAkSFwoPY2hlY2twb2ludF90aWNrGAUgASgNEjMKCm9iamVjdGl2ZXMYBiADKAsyHy5mcm9udGxpbmUudjEuT2JqZWN0aXZlUHJvZ3Jlc3MSLQoHY29udm95cxgHIAMoCzIcLmZyb250bGluZS52MS5Db252b3lQcm9ncmVzcxIPCgd2ZXJzaW9uGAggASgJIrIBChBPcGVyYXRpb25XYXJuaW5nEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEgoKAmF0GAQgASgNEg4KBnNvdXJjZRgFIAEoDRIgCgVleGl0cxgGIAMoCzIRLmZyb250bGluZS52MS5WZWMSEwoGc3BsYXNoGAcgASgFSACIAQFCCQoHX3NwbGFzaCKpAQoOQ29udm95UHJvZ3Jlc3MSCgoCaWQYASABKAkSDgoGYWN0aXZlGAIgASgIEhEKCWNvbXBsZXRlZBgDIAEoCBIMCgRoZWxkGAQgASgIEg4KBm1vdmluZxgFIAEoCBINCgVyb3V0ZRgGIAEoDRIQCgh3YXlwb2ludBgHIAEoDRIXCg9jb3VudGRvd25fdW50aWwYCCABKA0SEAoIYXBwcm92ZWQYCSADKA0ibwoNRWNvbm9teVNhbXBsZRIMCgR0aWNrGAEgASgNEg8KB2NyZWRpdHMYAiABKAMSDgoGaW5jb21lGAMgASgDEg0KBXNwZW50GAQgASgDEg4KBnN1cHBseRgFIAEoBRIQCghzdGF0aW9ucxgGIAEoDSIuCg9Qcm9kdWN0aW9uQ291bnQSDAoEdHlwZRgBIAEoCRINCgVjb3VudBgCIAEoDSLZAgoPUGxheWVyVGVsZW1ldHJ5Eg4KBnBsYXllchgBIAEoDRI1Cg51bml0c19wcm9kdWNlZBgCIAMoCzIdLmZyb250bGluZS52MS5Qcm9kdWN0aW9uQ291bnQSPAoVYnVpbGRpbmdzX2NvbnN0cnVjdGVkGAMgAygLMh0uZnJvbnRsaW5lLnYxLlByb2R1Y3Rpb25Db3VudBISCgp1bml0c19sb3N0GAQgASgNEhYKDmJ1aWxkaW5nc19sb3N0GAUgASgNEhQKDHJlcGFpcl9zcGVudBgGIAEoAxIVCg1taXNzaWxlX3NwZW50GAcgASgDEhoKEmludGVyY2VwdG9yc19maXJlZBgIIAEoDRIdChVzdGF0aW9uX2NvbnRyb2xfdGlja3MYCSABKA0SLQoIdGltZWxpbmUYCiADKAsyGy5mcm9udGxpbmUudjEuRWNvbm9teVNhbXBsZSKwAgoNRGVicmllZlBsYXllchIOCgZwbGF5ZXIYASABKA0SDAoEbmFtZRgCIAEoCRIPCgdmYWN0aW9uGAMgASgJEgwKBHRlYW0YBCABKA0SDQoFY29sb3IYBSABKA0SEAoIZGVmZWF0ZWQYBiABKAgSDwoHY3JlZGl0cxgHIAEoAxIOCgZpbmNvbWUYCCABKAMSDQoFc3BlbnQYCSABKAMSEgoKbG9zdF92YWx1ZRgKIAEoAxIXCg91bml0c19zdXJ2aXZpbmcYCyABKA0SHAoUc3RydWN0dXJlc19zdXJ2aXZpbmcYDCABKA0SFgoOZXhwbG9yZWRfdGlsZXMYDSABKA0SLgoHbWV0cmljcxgOIAEoCzIdLmZyb250bGluZS52MS5QbGF5ZXJUZWxlbWV0cnkiVgoMRGVicmllZkV2ZW50EgwKBHRpY2sYASABKA0SDAoEa2luZBgCIAEoCRIOCgZwbGF5ZXIYAyABKA0SDAoEdHlwZRgEIAEoCRIMCgR0ZXh0GAUgASgJInsKB0RlYnJpZWYSLAoHcGxheWVycxgBIAMoCzIbLmZyb250bGluZS52MS5EZWJyaWVmUGxheWVyEioKBmV2ZW50cxgCIAMoCzIaLmZyb250bGluZS52MS5EZWJyaWVmRXZlbnQSFgoOb21pdHRlZF9ldmVudHMYAyABKA0iYAoOQ29tYmF0RmVlZGJhY2sSDgoGd2VhcG9uGAEgASgJEg8KB291dGNvbWUYAiABKAkSFAoMdGFyZ2V0X2FybW9yGAMgASgJEhcKD2NvdmVyX21pdGlnYXRlZBgEIAEoCCKiAQoMRW50aXR5UmFuZ2VzEhQKDHNpZ2h0X3JhZGl1cxgBIAEoBRIYChBkZXRlY3Rpb25fcmFkaXVzGAIgASgFEhYKDmFpcmJvcm5lX3NpZ2h0GAMgASgIEhQKDGJ1aWxkX3JhZGl1cxgEIAEoBRI0CgxpbnRlcmNlcHRpb24YBSABKAsyHi5mcm9udGxpbmUudjEuSW50ZXJjZXB0aW9uVmlldyKNAgoQSW50ZXJjZXB0aW9uVmlldxIOCgZyYWRpdXMYASABKAUSEAoIY2FwYWNpdHkYAiABKAUSDgoGYWN0aXZlGAMgASgIEg0KBXJlYWR5GAQgASgIEhkKEXJlY2hhcmdlX3JlcXVpcmVkGAUgASgNEhUKDXJlY2hhcmdlX3JhdGUYBiABKA0SHgoRbmV4dF9jaGFyZ2VfdGlja3MYByABKA1IAIgBARIVCg1maXJlX3JlYWR5X2F0GAggASgNEjkKC2Fzc2lnbm1lbnRzGAkgAygLMiQuZnJvbnRsaW5lLnYxLkludGVyY2VwdGlvbkFzc2lnbm1lbnRCFAoSX25leHRfY2hhcmdlX3RpY2tzImUKFkludGVyY2VwdGlvbkFzc2lnbm1lbnQSEgoKcHJvamVjdGlsZRgBIAEoDRIhCgZpbXBhY3QYAiABKAsyES5mcm9udGxpbmUudjEuVmVjEhQKDGludGVyY2VwdF9hdBgDIAEoDUIkWiJmcm9udGxpbmVjb21tYW5kL3Byb3RvY29sO3Byb3RvY29sYgZwcm90bzM");
+ 
+ /**
+  * A WebSocket binary frame contains exactly one Envelope. The server rejects
+@@ -716,6 +716,11 @@
+    * @generated from field: optional uint32 emergency_takeoff_until = 20;
+    */
+   emergencyTakeoffUntil?: number | undefined;
++
++  /**
++   * @generated from field: frontline.v1.EntityRanges ranges = 21;
++   */
++  ranges?: EntityRanges | undefined;
+ };
+ 
+ /**
+@@ -1998,3 +2003,130 @@
+ export const CombatFeedbackSchema: GenMessage<CombatFeedback> = /*@__PURE__*/
+   messageDesc(file_frontline, 42);
+ 
++/**
++ * Exact-owner presentation only; distance bounds do not reveal fog or targets.
++ *
++ * @generated from message frontline.v1.EntityRanges
++ */
++export type EntityRanges = Message<"frontline.v1.EntityRanges"> & {
++  /**
++   * @generated from field: int32 sight_radius = 1;
++   */
++  sightRadius: number;
++
++  /**
++   * @generated from field: int32 detection_radius = 2;
++   */
++  detectionRadius: number;
++
++  /**
++   * @generated from field: bool airborne_sight = 3;
++   */
++  airborneSight: boolean;
++
++  /**
++   * @generated from field: int32 build_radius = 4;
++   */
++  buildRadius: number;
++
++  /**
++   * @generated from field: frontline.v1.InterceptionView interception = 5;
++   */
++  interception?: InterceptionView | undefined;
++};
++
++/**
++ * Describes the message frontline.v1.EntityRanges.
++ * Use `create(EntityRangesSchema)` to create a new message.
++ */
++export const EntityRangesSchema: GenMessage<EntityRanges> = /*@__PURE__*/
++  messageDesc(file_frontline, 43);
++
++/**
++ * Recharge estimate assumes the current rate continues; absence means full or paused.
++ *
++ * @generated from message frontline.v1.InterceptionView
++ */
++export type InterceptionView = Message<"frontline.v1.InterceptionView"> & {
++  /**
++   * @generated from field: int32 radius = 1;
++   */
++  radius: number;
++
++  /**
++   * @generated from field: int32 capacity = 2;
++   */
++  capacity: number;
++
++  /**
++   * @generated from field: bool active = 3;
++   */
++  active: boolean;
++
++  /**
++   * @generated from field: bool ready = 4;
++   */
++  ready: boolean;
++
++  /**
++   * @generated from field: uint32 recharge_required = 5;
++   */
++  rechargeRequired: number;
++
++  /**
++   * @generated from field: uint32 recharge_rate = 6;
++   */
++  rechargeRate: number;
++
++  /**
++   * @generated from field: optional uint32 next_charge_ticks = 7;
++   */
++  nextChargeTicks?: number | undefined;
++
++  /**
++   * @generated from field: uint32 fire_ready_at = 8;
++   */
++  fireReadyAt: number;
++
++  /**
++   * @generated from field: repeated frontline.v1.InterceptionAssignment assignments = 9;
++   */
++  assignments: InterceptionAssignment[];
++};
++
++/**
++ * Describes the message frontline.v1.InterceptionView.
++ * Use `create(InterceptionViewSchema)` to create a new message.
++ */
++export const InterceptionViewSchema: GenMessage<InterceptionView> = /*@__PURE__*/
++  messageDesc(file_frontline, 44);
++
++/**
++ * Actual Go reservation to an already-public impact warning, never a flight path.
++ *
++ * @generated from message frontline.v1.InterceptionAssignment
++ */
++export type InterceptionAssignment = Message<"frontline.v1.InterceptionAssignment"> & {
++  /**
++   * @generated from field: uint32 projectile = 1;
++   */
++  projectile: number;
++
++  /**
++   * @generated from field: frontline.v1.Vec impact = 2;
++   */
++  impact?: Vec | undefined;
++
++  /**
++   * @generated from field: uint32 intercept_at = 3;
++   */
++  interceptAt: number;
++};
++
++/**
++ * Describes the message frontline.v1.InterceptionAssignment.
++ * Use `create(InterceptionAssignmentSchema)` to create a new message.
++ */
++export const InterceptionAssignmentSchema: GenMessage<InterceptionAssignment> = /*@__PURE__*/
++  messageDesc(file_frontline, 45);
++
+--- /dev/null
++++ b/cmd/wasm/owner_ranges_codec_test.go
+@@ -0,0 +1,143 @@
++package main
++
++import (
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"frontlinecommand/pkg/content"
++	"frontlinecommand/pkg/sim"
++	pb "frontlinecommand/protocol"
++	"google.golang.org/protobuf/proto"
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++// Both production codecs consume exact Go saves, including actual reservation
++// ticks. No hand-authored protobuf can stand in for the private projection.
++func TestOwnerRangesActualCodec(t *testing.T) {
++	dir := os.Getenv("FRONTLINE_RANGES_INPUT")
++	if dir == "" {
++		t.Skip("requires Go range fixture saves")
++	}
++	paths, err := filepath.Glob(filepath.Join(dir, "ranges-*.start.save.json"))
++	if err != nil || len(paths) != 15 {
++		t.Fatal("expected eight rate, six magazine and one assignment save", len(paths), err)
++	}
++	records := map[string]string{}
++	for _, name := range paths {
++		t.Run(filepath.Base(name), func(t *testing.T) {
++			data, err := os.ReadFile(name)
++			if err != nil {
++				t.Fatal(err)
++			}
++			e, err := sim.Restore(content.MustBase(), data)
++			if err != nil {
++				t.Fatal(err)
++			}
++			before := e.Hash()
++			for _, player := range []sim.PlayerID{1, 2} {
++				view, ok := e.PlayerView(player)
++				if !ok {
++					t.Fatal("missing player")
++				}
++				frame, err := snapshot(view)
++				if err != nil {
++					t.Fatal(err)
++				}
++				wire, err := proto.MarshalOptions{Deterministic: true}.Marshal(frame)
++				if err != nil {
++					t.Fatal(err)
++				}
++				decoded := new(pb.PlayerSnapshot)
++				if err = proto.Unmarshal(wire, decoded); err != nil || !proto.Equal(frame, decoded) {
++					t.Fatal("wire roundtrip", err)
++				}
++				count := 0
++				for _, actual := range view.Entities {
++					var got *pb.Entity
++					for _, entity := range decoded.Entities {
++						if entity.Id == uint32(actual.ID) {
++							got = entity
++							break
++						}
++					}
++					if got == nil {
++						t.Fatal("missing entity", actual.ID)
++					}
++					if actual.Owner != player {
++						if got.Private != nil {
++							t.Fatal("foreign private ranges leaked")
++						}
++						continue
++					}
++					if actual.Private == nil || actual.Private.Ranges == nil {
++						continue
++					}
++					count++
++					want := actual.Private.Ranges
++					ranges := got.GetPrivate().GetRanges()
++					if ranges == nil || ranges.SightRadius != want.SightRadius || ranges.DetectionRadius != want.DetectionRadius || ranges.AirborneSight != want.AirborneSight || ranges.BuildRadius != want.BuildRadius {
++						t.Fatal("effective range changed", want, ranges)
++					}
++					a, b := want.Interception, ranges.Interception
++					if (a == nil) != (b == nil) {
++						t.Fatal("interception presence changed")
++					}
++					if a == nil {
++						continue
++					}
++					if a.Radius != b.Radius || a.Capacity != b.Capacity || a.Active != b.Active || a.Ready != b.Ready || a.RechargeRequired != b.RechargeRequired || a.RechargeRate != b.RechargeRate || uint32(a.FireReadyAt) != b.FireReadyAt || len(a.Assignments) != len(b.Assignments) {
++						t.Fatal("interception values changed", a, b)
++					}
++					if (a.NextChargeTicks == nil) != (b.NextChargeTicks == nil) || a.NextChargeTicks != nil && *a.NextChargeTicks != *b.NextChargeTicks {
++						t.Fatal("optional next charge changed")
++					}
++					for i, assignment := range a.Assignments {
++						got := b.Assignments[i]
++						if uint32(assignment.Projectile) != got.Projectile || uint32(assignment.InterceptAt) != got.InterceptAt || assignment.Impact.X != got.GetImpact().GetX() || assignment.Impact.Y != got.GetImpact().GetY() {
++							t.Fatal("assignment changed", assignment, got)
++						}
++					}
++				}
++				if count == 0 {
++					t.Fatal("fixture did not exercise owner ranges")
++				}
++				sum := sha256.Sum256(wire)
++				key := filepath.Base(name) + "/player1"
++				if player == 2 {
++					key = filepath.Base(name) + "/player2"
++				}
++				records[key] = hex.EncodeToString(sum[:])
++				// Absent metadata from an older runtime must remain absent, not a fake
++				// zero-radius defense or zero-second deadline.
++				for i := range view.Entities {
++					if view.Entities[i].Private != nil {
++						view.Entities[i].Private.Ranges = nil
++					}
++				}
++				legacy, err := snapshot(view)
++				if err != nil {
++					t.Fatal(err)
++				}
++				for _, entity := range legacy.Entities {
++					if entity.GetPrivate().GetRanges() != nil {
++						t.Fatal("absent legacy metadata invented")
++					}
++				}
++			}
++			if before != e.Hash() {
++				t.Fatal("codec mutated authoritative state")
++			}
++		})
++	}
++	if name := os.Getenv("FRONTLINE_RANGES_CODEC_OUTPUT"); name != "" {
++		data, err := json.MarshalIndent(records, "", "  ")
++		if err != nil {
++			t.Fatal(err)
++		}
++		if err = os.WriteFile(name, data, 0644); err != nil {
++			t.Fatal(err)
++		}
++	}
++}
+--- /dev/null
++++ b/internal/server/owner_ranges_codec_test.go
+@@ -0,0 +1,143 @@
++package server
++
++import (
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"frontlinecommand/pkg/content"
++	"frontlinecommand/pkg/sim"
++	pb "frontlinecommand/protocol"
++	"google.golang.org/protobuf/proto"
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++// Both production codecs consume exact Go saves, including actual reservation
++// ticks. No hand-authored protobuf can stand in for the private projection.
++func TestOwnerRangesActualCodec(t *testing.T) {
++	dir := os.Getenv("FRONTLINE_RANGES_INPUT")
++	if dir == "" {
++		t.Skip("requires Go range fixture saves")
++	}
++	paths, err := filepath.Glob(filepath.Join(dir, "ranges-*.start.save.json"))
++	if err != nil || len(paths) != 15 {
++		t.Fatal("expected eight rate, six magazine and one assignment save", len(paths), err)
++	}
++	records := map[string]string{}
++	for _, name := range paths {
++		t.Run(filepath.Base(name), func(t *testing.T) {
++			data, err := os.ReadFile(name)
++			if err != nil {
++				t.Fatal(err)
++			}
++			e, err := sim.Restore(content.MustBase(), data)
++			if err != nil {
++				t.Fatal(err)
++			}
++			before := e.Hash()
++			for _, player := range []sim.PlayerID{1, 2} {
++				view, ok := e.PlayerView(player)
++				if !ok {
++					t.Fatal("missing player")
++				}
++				frame, err := snapshot(view)
++				if err != nil {
++					t.Fatal(err)
++				}
++				wire, err := proto.MarshalOptions{Deterministic: true}.Marshal(frame)
++				if err != nil {
++					t.Fatal(err)
++				}
++				decoded := new(pb.PlayerSnapshot)
++				if err = proto.Unmarshal(wire, decoded); err != nil || !proto.Equal(frame, decoded) {
++					t.Fatal("wire roundtrip", err)
++				}
++				count := 0
++				for _, actual := range view.Entities {
++					var got *pb.Entity
++					for _, entity := range decoded.Entities {
++						if entity.Id == uint32(actual.ID) {
++							got = entity
++							break
++						}
++					}
++					if got == nil {
++						t.Fatal("missing entity", actual.ID)
++					}
++					if actual.Owner != player {
++						if got.Private != nil {
++							t.Fatal("foreign private ranges leaked")
++						}
++						continue
++					}
++					if actual.Private == nil || actual.Private.Ranges == nil {
++						continue
++					}
++					count++
++					want := actual.Private.Ranges
++					ranges := got.GetPrivate().GetRanges()
++					if ranges == nil || ranges.SightRadius != want.SightRadius || ranges.DetectionRadius != want.DetectionRadius || ranges.AirborneSight != want.AirborneSight || ranges.BuildRadius != want.BuildRadius {
++						t.Fatal("effective range changed", want, ranges)
++					}
++					a, b := want.Interception, ranges.Interception
++					if (a == nil) != (b == nil) {
++						t.Fatal("interception presence changed")
++					}
++					if a == nil {
++						continue
++					}
++					if a.Radius != b.Radius || a.Capacity != b.Capacity || a.Active != b.Active || a.Ready != b.Ready || a.RechargeRequired != b.RechargeRequired || a.RechargeRate != b.RechargeRate || uint32(a.FireReadyAt) != b.FireReadyAt || len(a.Assignments) != len(b.Assignments) {
++						t.Fatal("interception values changed", a, b)
++					}
++					if (a.NextChargeTicks == nil) != (b.NextChargeTicks == nil) || a.NextChargeTicks != nil && *a.NextChargeTicks != *b.NextChargeTicks {
++						t.Fatal("optional next charge changed")
++					}
++					for i, assignment := range a.Assignments {
++						got := b.Assignments[i]
++						if uint32(assignment.Projectile) != got.Projectile || uint32(assignment.InterceptAt) != got.InterceptAt || assignment.Impact.X != got.GetImpact().GetX() || assignment.Impact.Y != got.GetImpact().GetY() {
++							t.Fatal("assignment changed", assignment, got)
++						}
++					}
++				}
++				if count == 0 {
++					t.Fatal("fixture did not exercise owner ranges")
++				}
++				sum := sha256.Sum256(wire)
++				key := filepath.Base(name) + "/player1"
++				if player == 2 {
++					key = filepath.Base(name) + "/player2"
++				}
++				records[key] = hex.EncodeToString(sum[:])
++				// Absent metadata from an older runtime must remain absent, not a fake
++				// zero-radius defense or zero-second deadline.
++				for i := range view.Entities {
++					if view.Entities[i].Private != nil {
++						view.Entities[i].Private.Ranges = nil
++					}
++				}
++				legacy, err := snapshot(view)
++				if err != nil {
++					t.Fatal(err)
++				}
++				for _, entity := range legacy.Entities {
++					if entity.GetPrivate().GetRanges() != nil {
++						t.Fatal("absent legacy metadata invented")
++					}
++				}
++			}
++			if before != e.Hash() {
++				t.Fatal("codec mutated authoritative state")
++			}
++		})
++	}
++	if name := os.Getenv("FRONTLINE_RANGES_CODEC_OUTPUT"); name != "" {
++		data, err := json.MarshalIndent(records, "", "  ")
++		if err != nil {
++			t.Fatal(err)
++		}
++		if err = os.WriteFile(name, data, 0644); err != nil {
++			t.Fatal(err)
++		}
++	}
++}
+--- a/pkg/sim/abilities.go
++++ b/pkg/sim/abilities.go
+@@ -345,17 +345,11 @@
+ 			cap = w.Ammo
+ 			required = w.IntervalTicks * 2
+ 		case role == "abm" && v.Active(e.state.Tick):
+-			cap = 2
+-			required = 24 * 20 * 2
+-			if p.LowPower() {
+-				work = 1
+-			}
++			rule, _ := e.interceptionParameters(v)
++			cap, required, work = rule.capacity, rule.required, rule.rate
+ 		case v.Type == "SA.mobile_abm" && v.Deployed && v.Active(e.state.Tick):
+-			cap = 1
+-			required = 30 * 20 * 2
+-			if p.HasUpgrade("SA.interception") {
+-				required = 25 * 20 * 2
+-			}
++			rule, _ := e.interceptionParameters(v)
++			cap, required, work = rule.capacity, rule.required, rule.rate
+ 		case role == "strategic" && v.Active(e.state.Tick) && !p.LowPower() && p.Tier == 3:
+ 			v.ChargeWork = min(e.strategicCharge(p.Faction), v.ChargeWork+2)
+ 		}
+--- a/pkg/sim/ai_knowledge.go
++++ b/pkg/sim/ai_knowledge.go
+@@ -159,7 +159,8 @@
+ 		return true
+ 	}
+ 	for _, v := range e.state.Entities {
+-		if v.Owner == p.ID && v.Complete && v.HP > 0 && (e.role(v) == "hq" || e.role(v) == "outpost") && distance(v.Position, pos) <= 14000 {
++		radius := e.buildRange(v)
++		if v.Owner == p.ID && radius > 0 && distance(v.Position, pos) <= radius {
+ 			return true
+ 		}
+ 	}
+--- a/pkg/sim/combat.go
++++ b/pkg/sim/combat.go
+@@ -300,10 +300,8 @@
+ 		if v.Charges <= 0 || e.state.Tick < v.FireAt {
+ 			continue
+ 		}
+-		coverage := int32(14000)
+-		if mobile {
+-			coverage = 10000
+-		}
++		rule, _ := e.interceptionParameters(v)
++		coverage := rule.radius
+ 		var selected *Projectile
+ 		for _, p := range e.state.Projectiles {
+ 			if !p.Interceptable || p.InterceptAt > 0 || p.ImpactAt > e.state.Tick+seconds(3) || e.allied(v.Owner, p.Owner) || distance(v.Position, p.Impact) > coverage {
+@@ -317,11 +315,7 @@
+ 			selected.ReservedBy = v.ID
+ 			selected.InterceptAt = e.state.Tick + 10
+ 			v.Charges--
+-			interval := seconds(1)
+-			if fixed && e.player(v.Owner).LowPower() {
+-				interval *= 2
+-			}
+-			v.FireAt = e.state.Tick + interval
++			v.FireAt = e.state.Tick + rule.interval
+ 			e.emit("interceptor_fired", v.Owner, v.ID, v.Position, "visible", 0)
+ 		}
+ 	}
+--- a/pkg/sim/orders.go
++++ b/pkg/sim/orders.go
+@@ -385,7 +385,8 @@
+ 	inRadius := b.Role == "outpost" || b.Role == "hq" && !e.has(p.ID, "hq")
+ 	if !inRadius {
+ 		for _, v := range e.state.Entities {
+-			if v.Owner == p.ID && v.Complete && v.HP > 0 && (e.role(v) == "hq" || e.role(v) == "outpost") && distance(v.Position, o.Position) <= 14000 {
++			radius := e.buildRange(v)
++			if v.Owner == p.ID && radius > 0 && distance(v.Position, o.Position) <= radius {
+ 				inRadius = true
+ 				break
+ 			}
+--- /dev/null
++++ b/pkg/sim/owner_ranges.go
+@@ -0,0 +1,138 @@
++package sim
++
++// These helpers are shared with execution. They describe existing rules;
++// projections must never become a second source of gameplay constants.
++type interceptionParameters struct {
++	radius         int32
++	capacity       int32
++	required, rate uint32
++	interval       Tick
++	mobile         bool
++}
++
++func (e *Engine) interceptionParameters(v *Entity) (interceptionParameters, bool) {
++	p := e.player(v.Owner)
++	if p == nil {
++		return interceptionParameters{}, false
++	}
++	if e.role(v) == "abm" {
++		rule := interceptionParameters{radius: 14000, capacity: 2, required: 24 * 20 * 2, rate: 2, interval: seconds(1)}
++		if p.LowPower() {
++			rule.rate = 1
++			rule.interval *= 2
++		}
++		return rule, true
++	}
++	if v.Type == "SA.mobile_abm" {
++		rule := interceptionParameters{radius: 10000, capacity: 1, required: 30 * 20 * 2, rate: 2, interval: seconds(1), mobile: true}
++		if p.HasUpgrade("SA.interception") {
++			rule.required = 25 * 20 * 2
++		}
++		return rule, true
++	}
++	return interceptionParameters{}, false
++}
++
++func (e *Engine) sightRange(v *Entity) int32 {
++	radius := int32(9000)
++	if !v.Building {
++		u, _ := e.catalog.Unit(v.Type)
++		radius = u.Sight
++	}
++	if e.state.Map.TileAt(v.Position).Height > 0 {
++		radius += 2000
++	}
++	if e.hasBuff(v, "relay") {
++		radius += 3000
++	}
++	return radius
++}
++
++func (e *Engine) detectionRange(v *Entity) int32 {
++	radius := int32(3000)
++	if !v.Building {
++		u, _ := e.catalog.Unit(v.Type)
++		radius = max(radius, u.Detection)
++	}
++	return radius
++}
++
++func (e *Engine) buildRange(v *Entity) int32 {
++	if v.Complete && v.HP > 0 && (e.role(v) == "hq" || e.role(v) == "outpost") {
++		return 14000
++	}
++	return 0
++}
++
++type InterceptionAssignment struct {
++	Projectile  ID   `json:"projectile"`
++	Impact      Vec  `json:"impact"`
++	InterceptAt Tick `json:"intercept_at"`
++}
++
++type InterceptionView struct {
++	Radius           int32                    `json:"radius"`
++	Capacity         int32                    `json:"capacity"`
++	Active           bool                     `json:"active"`
++	Ready            bool                     `json:"ready"`
++	RechargeRequired uint32                   `json:"recharge_required"`
++	RechargeRate     uint32                   `json:"recharge_rate"`
++	NextChargeTicks  *uint32                  `json:"next_charge_ticks,omitempty"`
++	FireReadyAt      Tick                     `json:"fire_ready_at"`
++	Assignments      []InterceptionAssignment `json:"assignments"`
++}
++
++// Sight and detection are distance upper bounds, not a visibility mask. Ground
++// sources additionally need the existing terrain line-of-sight test. All of
++// this information is placed only inside the exact owner's private entity.
++type EntityRanges struct {
++	SightRadius     int32             `json:"sight_radius"`
++	DetectionRadius int32             `json:"detection_radius"`
++	AirborneSight   bool              `json:"airborne_sight"`
++	BuildRadius     int32             `json:"build_radius"`
++	Interception    *InterceptionView `json:"interception,omitempty"`
++}
++
++func (e *Engine) ownerRanges(v *Entity) *EntityRanges {
++	out := &EntityRanges{}
++	p := e.player(v.Owner)
++	if p == nil {
++		return out
++	}
++	perceives := v.HP > 0 && !p.Defeated && v.Container == 0 && (!v.Building || v.Complete) && !(e.role(v) == "support_plane" && v.DisabledUntil > e.Tick())
++	if perceives {
++		out.SightRadius, out.DetectionRadius = e.sightRange(v), e.detectionRange(v)
++		out.AirborneSight = e.isAircraft(v) && !v.Landed
++	}
++	if !p.Defeated {
++		out.BuildRadius = e.buildRange(v)
++	}
++	if rule, ok := e.interceptionParameters(v); ok {
++		active := v.Active(e.Tick()) && !p.Defeated && (!rule.mobile || v.Deployed)
++		defense := &InterceptionView{Radius: rule.radius, Capacity: rule.capacity, Active: active, Ready: active && v.Charges > 0 && e.Tick() >= v.FireAt, RechargeRequired: rule.required, FireReadyAt: v.FireAt}
++		if active {
++			defense.RechargeRate = rule.rate
++			if e.hasBuff(v, "shieldline") {
++				defense.RechargeRate *= 2
++			}
++			if v.Charges < rule.capacity {
++				remaining := uint32(0)
++				if v.ChargeWork < rule.required {
++					remaining = rule.required - v.ChargeWork
++				}
++				ticks := max(uint32(1), (remaining+defense.RechargeRate-1)/defense.RechargeRate)
++				defense.NextChargeTicks = &ticks
++			}
++		}
++		// Only actual assignments to this owned defender; every listed target
++		// already has a public interceptable-projectile impact warning. There
++		// is no hidden body, route, launcher, or victim in this record.
++		for _, projectile := range e.state.Projectiles {
++			if projectile.Interceptable && projectile.ReservedBy == v.ID && projectile.InterceptAt > e.Tick() {
++				defense.Assignments = append(defense.Assignments, InterceptionAssignment{projectile.ID, projectile.Impact, projectile.InterceptAt})
++			}
++		}
++		out.Interception = defense
++	}
++	return out
++}
+--- /dev/null
++++ b/pkg/sim/owner_ranges_canonical_test.go
+@@ -0,0 +1,66 @@
++package sim
++
++import (
++	"frontlinecommand/pkg/content"
++	"testing"
++)
++
++// Run unchanged before and after extracting shared presentation rules. This
++// course exercises real ordinary ticks; only the initial mechanics fixture is
++// seeded. Its checkpoint hashes include every authoritative state field.
++func TestOwnerRangesCanonicalNoBehaviorChange(t *testing.T) {
++	for _, name := range []string{"fixed", "low-power", "shieldline", "disabled", "mobile", "mobile-upgrade", "mobile-shieldline", "mobile-packed"} {
++		t.Run(name, func(t *testing.T) {
++			e, err := New(content.MustBase(), Config{Map: fixtureMap(), Seed: 612, Players: []PlayerConfig{{ID: 1, Faction: "SA", Team: 1}, {ID: 2, Faction: "IR", Team: 2}}})
++			if err != nil {
++				t.Fatal(err)
++			}
++			e.state.Countdown = 0
++			typ := "abm"
++			if name == "mobile" || name == "mobile-upgrade" || name == "mobile-shieldline" || name == "mobile-packed" {
++				typ = "SA.mobile_abm"
++			}
++			v := e.spawn(typ, 1, Vec{X: 20000, Y: 16000}, true, 2000000)
++			v.Deployed = typ == "SA.mobile_abm" && name != "mobile-packed"
++			if v.Deployed {
++				v.State = "deployed"
++			}
++			v.Charges, v.ChargeWork = 1, 123
++			if name == "mobile-upgrade" {
++				e.player(1).Upgrades = append(e.player(1).Upgrades, "SA.interception")
++			}
++			if name == "low-power" {
++				e.spawn("radar", 1, Vec{X: 8000, Y: 22000}, true, 2000000)
++				e.spawn("radar", 1, Vec{X: 14000, Y: 22000}, true, 2000000)
++			}
++			if name == "disabled" {
++				v.DisabledUntil = 120
++			}
++			if name == "shieldline" || name == "mobile-shieldline" {
++				v.Buffs = append(v.Buffs, Buff{Kind: "shieldline", Until: 300, Source: v.ID})
++			}
++			for _, at := range []Tick{60, 90, 140, 610, 640, 910} {
++				point := Vec{X: 26000, Y: 18000}
++				e.state.Projectiles = append(e.state.Projectiles, &Projectile{ID: e.newID(), Owner: 2, Weapon: "IR_MISSILE", Origin: Vec{X: 50000, Y: 50000}, Position: Vec{X: 50000, Y: 50000}, Impact: point, ImpactAt: at, Damage: 350000, Splash: 2000, Interceptable: true})
++			}
++			e.recalculate()
++			e.updateFog()
++			hashes := map[Tick]string{0: e.Hash()}
++			for range 1000 {
++				e.Advance()
++				if e.Tick() <= 3 || e.Tick()%20 == 0 {
++					hashes[e.Tick()] = e.Hash()
++				}
++			}
++			saved, err := e.Save()
++			if err != nil {
++				t.Fatal(err)
++			}
++			restored, err := Restore(e.catalog, saved)
++			if err != nil || restored.Hash() != e.Hash() {
++				t.Fatal("canonical fixture restore", err)
++			}
++			exportFeedback(t, "ranges-canonical-"+name, hashes)
++		})
++	}
++}
+--- /dev/null
++++ b/pkg/sim/owner_ranges_test.go
+@@ -0,0 +1,251 @@
++package sim
++
++import (
++	"frontlinecommand/pkg/content"
++	"os"
++	"path/filepath"
++	"reflect"
++	"testing"
++)
++
++func rangeFixture(t *testing.T, mobile, lowPower, upgraded, shield bool) (*Engine, *Entity) {
++	t.Helper()
++	e, err := New(content.MustBase(), Config{Map: fixtureMap(), Seed: 916, Players: []PlayerConfig{{ID: 1, Faction: "SA", Team: 1}, {ID: 2, Faction: "IR", Team: 2}}})
++	if err != nil {
++		t.Fatal(err)
++	}
++	e.state.Countdown = 0
++	typ := "abm"
++	if mobile {
++		typ = "SA.mobile_abm"
++	}
++	v := e.spawn(typ, 1, Vec{X: 20000, Y: 16000}, true, 2000000)
++	if mobile {
++		v.Deployed = true
++		v.State = "deployed"
++	}
++	if upgraded {
++		e.player(1).Upgrades = append(e.player(1).Upgrades, "SA.interception")
++	}
++	if lowPower {
++		e.spawn("radar", 1, Vec{X: 8000, Y: 22000}, true, 2000000)
++		e.spawn("radar", 1, Vec{X: 14000, Y: 22000}, true, 2000000)
++		e.spawn("radar", 1, Vec{X: 20000, Y: 22000}, true, 2000000)
++	}
++	if shield {
++		v.Buffs = append(v.Buffs, Buff{Kind: "shieldline", Until: 5000, Source: v.ID})
++	}
++	e.recalculate()
++	e.updateFog()
++	if e.player(1).LowPower() != lowPower {
++		t.Fatal("incorrect power fixture", e.player(1).PowerCapacity, e.player(1).PowerDemand)
++	}
++	return e, v
++}
++
++func TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks(t *testing.T) {
++	for _, tc := range []struct {
++		name                         string
++		mobile, low, upgrade, shield bool
++		ticks                        uint32
++	}{
++		{"fixed", false, false, false, false, 480},
++		{"fixed-low", false, true, false, false, 960},
++		{"fixed-shield", false, false, false, true, 240},
++		{"fixed-low-shield", false, true, false, true, 480},
++		{"mobile", true, false, false, false, 600},
++		{"mobile-low", true, true, false, false, 600},
++		{"mobile-upgrade", true, false, true, false, 500},
++		{"mobile-upgrade-shield", true, true, true, true, 250},
++	} {
++		t.Run(tc.name, func(t *testing.T) {
++			e, v := rangeFixture(t, tc.mobile, tc.low, tc.upgrade, tc.shield)
++			r := e.ownerRanges(v).Interception
++			if r == nil || r.NextChargeTicks == nil || *r.NextChargeTicks != tc.ticks || !r.Active || r.Ready {
++				t.Fatal("incorrect empty magazine", r)
++			}
++			before := e.Hash()
++			view, _ := e.PlayerView(1)
++			if e.Hash() != before {
++				t.Fatal("projection mutated state")
++			}
++			exportFeedback(t, "ranges-"+tc.name, view)
++			saved, err := e.Save()
++			if err != nil {
++				t.Fatal(err)
++			}
++			exportRangeSave(t, e, "ranges-"+tc.name+".start.save.json", saved)
++			ticks(e, tc.ticks-1)
++			if v.Charges != 0 {
++				t.Fatal("charge appeared early")
++			}
++			r = e.ownerRanges(v).Interception
++			if r.NextChargeTicks == nil || *r.NextChargeTicks != 1 {
++				t.Fatal("last tick estimate", r)
++			}
++			e.Advance()
++			if v.Charges != 1 || !e.ownerRanges(v).Interception.Ready {
++				t.Fatal("charge missed exact ordinary tick")
++			}
++			if tc.mobile && e.ownerRanges(v).Interception.NextChargeTicks != nil {
++				t.Fatal("full mobile magazine claims another charge")
++			}
++		})
++	}
++}
++
++func TestOwnerRangesPausedAndPartialRecharge(t *testing.T) {
++	for _, mode := range []string{"disabled", "power-off", "constructing", "packed", "full", "partial"} {
++		t.Run(mode, func(t *testing.T) {
++			e, v := rangeFixture(t, mode == "packed", false, false, false)
++			v.ChargeWork = 123
++			switch mode {
++			case "disabled":
++				v.DisabledUntil = 100
++			case "power-off":
++				v.Enabled = false
++			case "constructing":
++				v.Complete = false
++			case "packed":
++				v.Deployed = false
++			case "full":
++				v.Charges = 2
++			}
++			r := e.ownerRanges(v).Interception
++			view, _ := e.PlayerView(1)
++			exportFeedback(t, "ranges-"+mode, view)
++			saved, err := e.Save()
++			if err != nil {
++				t.Fatal(err)
++			}
++			exportRangeSave(t, e, "ranges-"+mode+".start.save.json", saved)
++			if mode == "partial" {
++				if r.NextChargeTicks == nil || *r.NextChargeTicks != 419 {
++					t.Fatal("partial work must use integer ceiling", r)
++				}
++			} else if r.NextChargeTicks != nil {
++				t.Fatal("paused or full magazine invented a deadline", r)
++			}
++			if mode != "partial" && mode != "full" && (r.Active || r.Ready || r.RechargeRate != 0) {
++				t.Fatal("inactive defense shown operating", r)
++			}
++		})
++	}
++}
++
++func TestOwnerRangesAssignmentsAreRealPrivateAndDetached(t *testing.T) {
++	e, v := rangeFixture(t, false, false, false, false)
++	v.Charges = 2
++	e.spawn("IR.rifle", 2, Vec{X: 23000, Y: 18000}, true, 300000).Stance = "hold"
++	for _, at := range []Tick{60, 59, 70} {
++		point := Vec{X: 26000, Y: 18000}
++		e.state.Projectiles = append(e.state.Projectiles, &Projectile{ID: e.newID(), Owner: 2, Weapon: "IR_MISSILE", Position: Vec{X: 50000, Y: 50000}, Origin: Vec{X: 50000, Y: 50000}, Impact: point, ImpactAt: at, Damage: 350000, Splash: 2000, Interceptable: true})
++	}
++	e.updateFog()
++	e.Advance()
++	r := e.ownerRanges(v).Interception
++	if len(r.Assignments) != 1 || r.Assignments[0].Projectile != e.state.Projectiles[1].ID || r.Assignments[0].InterceptAt != 11 || r.Ready || r.FireReadyAt != 21 || v.Charges != 1 {
++		t.Fatal("assignment or interval guessed", r)
++	}
++	saved, err := e.Save()
++	if err != nil {
++		t.Fatal(err)
++	}
++	exportRangeSave(t, e, "ranges-assigned.start.save.json", saved)
++	before := e.Hash()
++	for _, allied := range []bool{false, true} {
++		if allied {
++			e.player(2).Team = 1
++			e.updateFog()
++			before = e.Hash()
++		}
++		for _, id := range []PlayerID{1, 2} {
++			view, _ := e.PlayerView(id)
++			var found *EntityView
++			for i := range view.Entities {
++				if view.Entities[i].ID == v.ID {
++					found = &view.Entities[i]
++				}
++			}
++			if found == nil {
++				t.Fatal("fixture lacks visible defender")
++			}
++			if id == 2 && found.Private != nil {
++				t.Fatal("foreign magazine/assignment leaked")
++			}
++			if id == 1 {
++				if found.Private.Ranges == nil || !reflect.DeepEqual(found.Private.Ranges.Interception, r) {
++					t.Fatal("owner view lost ranges")
++				}
++				exportFeedback(t, "ranges-assigned", view)
++				found.Private.Ranges.Interception.Assignments[0].Impact = Vec{}
++				*found.Private.Ranges.Interception.NextChargeTicks = 9999
++			}
++		}
++		if e.Hash() != before || e.ownerRanges(v).Interception.Assignments[0].Impact == (Vec{}) {
++			t.Fatal("range projection aliases state")
++		}
++	}
++	ticks(e, 10)
++	if len(e.ownerRanges(v).Interception.Assignments) != 0 {
++		t.Fatal("completed assignment persisted")
++	}
++}
++
++func TestOwnerRangesSightDetectionAndBuildBounds(t *testing.T) {
++	e := fixture(t)
++	drone := e.spawn("IR.isr", 1, Vec{X: 30000, Y: 30000}, true, 300000)
++	drone.Landed = false
++	e.state.Map.Tiles[30*64+30].Height = 2
++	drone.Buffs = append(drone.Buffs, Buff{Kind: "relay", Until: 1000, Source: drone.ID})
++	r := e.ownerRanges(drone)
++	if r.SightRadius != 17000 || r.DetectionRadius != 6000 || !r.AirborneSight || r.BuildRadius != 0 || r.Interception != nil {
++		t.Fatal("effective perception", r)
++	}
++	drone.Landed = true
++	if e.ownerRanges(drone).AirborneSight {
++		t.Fatal("landed detector ignores ground sight")
++	}
++	drone.Container = 999
++	r = e.ownerRanges(drone)
++	if r.SightRadius != 0 || r.DetectionRadius != 0 {
++		t.Fatal("passenger provides sight")
++	}
++	rig := e.entity(2)
++	if e.ownerRanges(rig).DetectionRadius != 3000 {
++		t.Fatal("ordinary close detection missing")
++	}
++	anchor := e.spawn("outpost", 1, Vec{X: 30000, Y: 30000}, true, 900000)
++	if e.ownerRanges(anchor).BuildRadius != 14000 {
++		t.Fatal("build anchor radius missing")
++	}
++	for _, delta := range []int32{0, 1} {
++		o := Order{Kind: "build", Type: "power", Position: Vec{X: 44000 + delta, Y: 30000}}
++		_, code := e.buildingRequirements(e.player(1), rig, o)
++		if (code == "ok") != (delta == 0) {
++			t.Fatal("display disagrees with ordinary build bound", delta, code)
++		}
++	}
++	anchor.Complete = false
++	if e.ownerRanges(anchor).BuildRadius != 0 {
++		t.Fatal("foundation grants build radius")
++	}
++}
++
++// Save envelope hashes cover exact embedded state bytes. Keep their original
++// encoding; pretty-printing a json.RawMessage changes the checksummed payload.
++func exportRangeSave(t *testing.T, e *Engine, name string, saved []byte) {
++	t.Helper()
++	restored, err := Restore(e.catalog, saved)
++	if err != nil || restored.Hash() != e.Hash() {
++		t.Fatal("range fixture must restore exactly", err)
++	}
++	if dir := os.Getenv("FRONTLINE_COMBAT_OUTPUT"); dir != "" {
++		if err = os.MkdirAll(dir, 0755); err != nil {
++			t.Fatal(err)
++		}
++		if err = os.WriteFile(filepath.Join(dir, name), saved, 0644); err != nil {
++			t.Fatal(err)
++		}
++	}
++}
+--- a/pkg/sim/visibility.go
++++ b/pkg/sim/visibility.go
+@@ -68,18 +68,11 @@
+ 		if e.role(v) == "support_plane" && v.DisabledUntil > e.state.Tick {
+ 			continue
+ 		}
+-		radius := int32(9000)
++		radius := e.sightRange(v)
+ 		air := false
+ 		if !v.Building {
+ 			u, _ := e.catalog.Unit(v.Type)
+-			radius = u.Sight
+ 			air = u.Armor == "air" && !v.Landed
+-		}
+-		if e.state.Map.TileAt(v.Position).Height > 0 {
+-			radius += 2000
+-		}
+-		if e.hasBuff(v, "relay") {
+-			radius += 3000
+ 		}
+ 
+ 		if e.fogCache == nil {
+@@ -229,11 +222,7 @@
+ 	if source.HP <= 0 || source.Owner == 0 || source.Container != 0 || e.defeated(source.Owner) || source.Building && !source.Complete || e.role(source) == "support_plane" && source.DisabledUntil > e.state.Tick {
+ 		return false
+ 	}
+-	radius := int32(3000)
+-	if !source.Building {
+-		u, _ := e.catalog.Unit(source.Type)
+-		radius = max(radius, u.Detection)
+-	}
++	radius := e.detectionRange(source)
+ 	// A grounded scout has ground sight; another unit's shared vision cannot
+ 	// let its detector see through a cliff. Foundations grant no sight.
+ 	return distance(source.Position, target.Position) <= radius && (e.isAircraft(source) && !source.Landed || e.lineOfSight(source.Position, target.Position))
+@@ -269,26 +258,27 @@
+ 	Cooldowns      []Cooldown `json:"cooldowns"`
+ }
+ type EntityPrivate struct {
+-	EmergencyTakeoffUntil Tick       `json:"emergency_takeoff_until"`
+-	MissionOrigin         string     `json:"mission_origin,omitempty"`
+-	AmbushReady           bool       `json:"ambush_ready"`
+-	RepeatSortie          bool       `json:"repeat_sortie"`
+-	HP                    int64      `json:"hp"`
+-	MaxHP                 int64      `json:"max_hp"`
+-	Jobs                  []Job      `json:"jobs"`
+-	Orders                []Order    `json:"orders"`
+-	Rally                 Vec        `json:"rally"`
+-	Cargo                 int64      `json:"cargo"`
+-	Home                  ID         `json:"home"`
+-	Ammo                  int32      `json:"ammo"`
+-	Endurance             uint32     `json:"endurance"`
+-	Charges               int32      `json:"charges"`
+-	ChargeWork            uint32     `json:"charge_work"`
+-	ServiceWork           uint32     `json:"service_work"`
+-	Experience            int64      `json:"experience"`
+-	Cooldowns             []Cooldown `json:"cooldowns"`
+-	Passengers            []ID       `json:"passengers"`
+-	Container             ID         `json:"container"`
++	Ranges                *EntityRanges `json:"ranges,omitempty"`
++	EmergencyTakeoffUntil Tick          `json:"emergency_takeoff_until"`
++	MissionOrigin         string        `json:"mission_origin,omitempty"`
++	AmbushReady           bool          `json:"ambush_ready"`
++	RepeatSortie          bool          `json:"repeat_sortie"`
++	HP                    int64         `json:"hp"`
++	MaxHP                 int64         `json:"max_hp"`
++	Jobs                  []Job         `json:"jobs"`
++	Orders                []Order       `json:"orders"`
++	Rally                 Vec           `json:"rally"`
++	Cargo                 int64         `json:"cargo"`
++	Home                  ID            `json:"home"`
++	Ammo                  int32         `json:"ammo"`
++	Endurance             uint32        `json:"endurance"`
++	Charges               int32         `json:"charges"`
++	ChargeWork            uint32        `json:"charge_work"`
++	ServiceWork           uint32        `json:"service_work"`
++	Experience            int64         `json:"experience"`
++	Cooldowns             []Cooldown    `json:"cooldowns"`
++	Passengers            []ID          `json:"passengers"`
++	Container             ID            `json:"container"`
+ }
+ type EntityView struct {
+ 	Effects         []StatusEffect `json:"effects"`
+@@ -488,6 +478,7 @@
+ 		s.Effects = e.visibleEffects(v)
+ 		if v.Owner == id {
+ 			s.Private = &EntityPrivate{
++				Ranges:      e.ownerRanges(v),
+ 				AmbushReady: e.ambushReady(v), RepeatSortie: v.RepeatSortie,
+ 				HP: v.HP, MaxHP: v.MaxHP, Jobs: append([]Job(nil), v.Jobs...),
+ 				Orders: cloneOrders(v.Orders), Rally: v.Rally, Cargo: v.Cargo,
+--- a/protocol/frontline.pb.go
++++ b/protocol/frontline.pb.go
+@@ -1347,6 +1347,7 @@
+ 	AmbushReady           bool                   `protobuf:"varint,18,opt,name=ambush_ready,json=ambushReady,proto3" json:"ambush_ready,omitempty"`
+ 	MissionOrigin         string                 `protobuf:"bytes,19,opt,name=mission_origin,json=missionOrigin,proto3" json:"mission_origin,omitempty"`
+ 	EmergencyTakeoffUntil *uint32                `protobuf:"varint,20,opt,name=emergency_takeoff_until,json=emergencyTakeoffUntil,proto3,oneof" json:"emergency_takeoff_until,omitempty"`
++	Ranges                *EntityRanges          `protobuf:"bytes,21,opt,name=ranges,proto3" json:"ranges,omitempty"`
+ 	unknownFields         protoimpl.UnknownFields
+ 	sizeCache             protoimpl.SizeCache
+ }
+@@ -1519,6 +1520,13 @@
+ 		return *x.EmergencyTakeoffUntil
+ 	}
+ 	return 0
++}
++
++func (x *EntityPrivate) GetRanges() *EntityRanges {
++	if x != nil {
++		return x.Ranges
++	}
++	return nil
+ }
+ 
+ type StatusEffect struct {
+@@ -3987,6 +3995,253 @@
+ 		return x.CoverMitigated
+ 	}
+ 	return false
++}
++
++// Exact-owner presentation only; distance bounds do not reveal fog or targets.
++type EntityRanges struct {
++	state           protoimpl.MessageState `protogen:"open.v1"`
++	SightRadius     int32                  `protobuf:"varint,1,opt,name=sight_radius,json=sightRadius,proto3" json:"sight_radius,omitempty"`
++	DetectionRadius int32                  `protobuf:"varint,2,opt,name=detection_radius,json=detectionRadius,proto3" json:"detection_radius,omitempty"`
++	AirborneSight   bool                   `protobuf:"varint,3,opt,name=airborne_sight,json=airborneSight,proto3" json:"airborne_sight,omitempty"`
++	BuildRadius     int32                  `protobuf:"varint,4,opt,name=build_radius,json=buildRadius,proto3" json:"build_radius,omitempty"`
++	Interception    *InterceptionView      `protobuf:"bytes,5,opt,name=interception,proto3" json:"interception,omitempty"`
++	unknownFields   protoimpl.UnknownFields
++	sizeCache       protoimpl.SizeCache
++}
++
++func (x *EntityRanges) Reset() {
++	*x = EntityRanges{}
++	mi := &file_frontline_proto_msgTypes[43]
++	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
++	ms.StoreMessageInfo(mi)
++}
++
++func (x *EntityRanges) String() string {
++	return protoimpl.X.MessageStringOf(x)
++}
++
++func (*EntityRanges) ProtoMessage() {}
++
++func (x *EntityRanges) ProtoReflect() protoreflect.Message {
++	mi := &file_frontline_proto_msgTypes[43]
++	if x != nil {
++		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
++		if ms.LoadMessageInfo() == nil {
++			ms.StoreMessageInfo(mi)
++		}
++		return ms
++	}
++	return mi.MessageOf(x)
++}
++
++// Deprecated: Use EntityRanges.ProtoReflect.Descriptor instead.
++func (*EntityRanges) Descriptor() ([]byte, []int) {
++	return file_frontline_proto_rawDescGZIP(), []int{43}
++}
++
++func (x *EntityRanges) GetSightRadius() int32 {
++	if x != nil {
++		return x.SightRadius
++	}
++	return 0
++}
++
++func (x *EntityRanges) GetDetectionRadius() int32 {
++	if x != nil {
++		return x.DetectionRadius
++	}
++	return 0
++}
++
++func (x *EntityRanges) GetAirborneSight() bool {
++	if x != nil {
++		return x.AirborneSight
++	}
++	return false
++}
++
++func (x *EntityRanges) GetBuildRadius() int32 {
++	if x != nil {
++		return x.BuildRadius
++	}
++	return 0
++}
++
++func (x *EntityRanges) GetInterception() *InterceptionView {
++	if x != nil {
++		return x.Interception
++	}
++	return nil
++}
++
++// Recharge estimate assumes the current rate continues; absence means full or paused.
++type InterceptionView struct {
++	state            protoimpl.MessageState    `protogen:"open.v1"`
++	Radius           int32                     `protobuf:"varint,1,opt,name=radius,proto3" json:"radius,omitempty"`
++	Capacity         int32                     `protobuf:"varint,2,opt,name=capacity,proto3" json:"capacity,omitempty"`
++	Active           bool                      `protobuf:"varint,3,opt,name=active,proto3" json:"active,omitempty"`
++	Ready            bool                      `protobuf:"varint,4,opt,name=ready,proto3" json:"ready,omitempty"`
++	RechargeRequired uint32                    `protobuf:"varint,5,opt,name=recharge_required,json=rechargeRequired,proto3" json:"recharge_required,omitempty"`
++	RechargeRate     uint32                    `protobuf:"varint,6,opt,name=recharge_rate,json=rechargeRate,proto3" json:"recharge_rate,omitempty"`
++	NextChargeTicks  *uint32                   `protobuf:"varint,7,opt,name=next_charge_ticks,json=nextChargeTicks,proto3,oneof" json:"next_charge_ticks,omitempty"`
++	FireReadyAt      uint32                    `protobuf:"varint,8,opt,name=fire_ready_at,json=fireReadyAt,proto3" json:"fire_ready_at,omitempty"`
++	Assignments      []*InterceptionAssignment `protobuf:"bytes,9,rep,name=assignments,proto3" json:"assignments,omitempty"`
++	unknownFields    protoimpl.UnknownFields
++	sizeCache        protoimpl.SizeCache
++}
++
++func (x *InterceptionView) Reset() {
++	*x = InterceptionView{}
++	mi := &file_frontline_proto_msgTypes[44]
++	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
++	ms.StoreMessageInfo(mi)
++}
++
++func (x *InterceptionView) String() string {
++	return protoimpl.X.MessageStringOf(x)
++}
++
++func (*InterceptionView) ProtoMessage() {}
++
++func (x *InterceptionView) ProtoReflect() protoreflect.Message {
++	mi := &file_frontline_proto_msgTypes[44]
++	if x != nil {
++		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
++		if ms.LoadMessageInfo() == nil {
++			ms.StoreMessageInfo(mi)
++		}
++		return ms
++	}
++	return mi.MessageOf(x)
++}
++
++// Deprecated: Use InterceptionView.ProtoReflect.Descriptor instead.
++func (*InterceptionView) Descriptor() ([]byte, []int) {
++	return file_frontline_proto_rawDescGZIP(), []int{44}
++}
++
++func (x *InterceptionView) GetRadius() int32 {
++	if x != nil {
++		return x.Radius
++	}
++	return 0
++}
++
++func (x *InterceptionView) GetCapacity() int32 {
++	if x != nil {
++		return x.Capacity
++	}
++	return 0
++}
++
++func (x *InterceptionView) GetActive() bool {
++	if x != nil {
++		return x.Active
++	}
++	return false
++}
++
++func (x *InterceptionView) GetReady() bool {
++	if x != nil {
++		return x.Ready
++	}
++	return false
++}
++
++func (x *InterceptionView) GetRechargeRequired() uint32 {
++	if x != nil {
++		return x.RechargeRequired
++	}
++	return 0
++}
++
++func (x *InterceptionView) GetRechargeRate() uint32 {
++	if x != nil {
++		return x.RechargeRate
++	}
++	return 0
++}
++
++func (x *InterceptionView) GetNextChargeTicks() uint32 {
++	if x != nil && x.NextChargeTicks != nil {
++		return *x.NextChargeTicks
++	}
++	return 0
++}
++
++func (x *InterceptionView) GetFireReadyAt() uint32 {
++	if x != nil {
++		return x.FireReadyAt
++	}
++	return 0
++}
++
++func (x *InterceptionView) GetAssignments() []*InterceptionAssignment {
++	if x != nil {
++		return x.Assignments
++	}
++	return nil
++}
++
++// Actual Go reservation to an already-public impact warning, never a flight path.
++type InterceptionAssignment struct {
++	state         protoimpl.MessageState `protogen:"open.v1"`
++	Projectile    uint32                 `protobuf:"varint,1,opt,name=projectile,proto3" json:"projectile,omitempty"`
++	Impact        *Vec                   `protobuf:"bytes,2,opt,name=impact,proto3" json:"impact,omitempty"`
++	InterceptAt   uint32                 `protobuf:"varint,3,opt,name=intercept_at,json=interceptAt,proto3" json:"intercept_at,omitempty"`
++	unknownFields protoimpl.UnknownFields
++	sizeCache     protoimpl.SizeCache
++}
++
++func (x *InterceptionAssignment) Reset() {
++	*x = InterceptionAssignment{}
++	mi := &file_frontline_proto_msgTypes[45]
++	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
++	ms.StoreMessageInfo(mi)
++}
++
++func (x *InterceptionAssignment) String() string {
++	return protoimpl.X.MessageStringOf(x)
++}
++
++func (*InterceptionAssignment) ProtoMessage() {}
++
++func (x *InterceptionAssignment) ProtoReflect() protoreflect.Message {
++	mi := &file_frontline_proto_msgTypes[45]
++	if x != nil {
++		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
++		if ms.LoadMessageInfo() == nil {
++			ms.StoreMessageInfo(mi)
++		}
++		return ms
++	}
++	return mi.MessageOf(x)
++}
++
++// Deprecated: Use InterceptionAssignment.ProtoReflect.Descriptor instead.
++func (*InterceptionAssignment) Descriptor() ([]byte, []int) {
++	return file_frontline_proto_rawDescGZIP(), []int{45}
++}
++
++func (x *InterceptionAssignment) GetProjectile() uint32 {
++	if x != nil {
++		return x.Projectile
++	}
++	return 0
++}
++
++func (x *InterceptionAssignment) GetImpact() *Vec {
++	if x != nil {
++		return x.Impact
++	}
++	return nil
++}
++
++func (x *InterceptionAssignment) GetInterceptAt() uint32 {
++	if x != nil {
++		return x.InterceptAt
++	}
++	return 0
+ }
+ 
+ var File_frontline_proto protoreflect.FileDescriptor
+@@ -4097,7 +4352,7 @@
+ 	"\bupgrades\x18\n" +
+ 	" \x03(\tR\bupgrades\x124\n" +
+ 	"\tcooldowns\x18\v \x03(\v2\x16.frontline.v1.CooldownR\tcooldowns\x12#\n" +
+-	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\xc9\x05\n" +
++	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\xfd\x05\n" +
+ 	"\rEntityPrivate\x12\x0e\n" +
+ 	"\x02hp\x18\x01 \x01(\x03R\x02hp\x12\x15\n" +
+ 	"\x06max_hp\x18\x02 \x01(\x03R\x05maxHp\x12%\n" +
+@@ -4124,7 +4379,8 @@
+ 	"\rrepeat_sortie\x18\x11 \x01(\bR\frepeatSortie\x12!\n" +
+ 	"\fambush_ready\x18\x12 \x01(\bR\vambushReady\x12%\n" +
+ 	"\x0emission_origin\x18\x13 \x01(\tR\rmissionOrigin\x12;\n" +
+-	"\x17emergency_takeoff_until\x18\x14 \x01(\rH\x00R\x15emergencyTakeoffUntil\x88\x01\x01B\x1a\n" +
++	"\x17emergency_takeoff_until\x18\x14 \x01(\rH\x00R\x15emergencyTakeoffUntil\x88\x01\x01\x122\n" +
++	"\x06ranges\x18\x15 \x01(\v2\x1a.frontline.v1.EntityRangesR\x06rangesB\x1a\n" +
+ 	"\x18_emergency_takeoff_until\"8\n" +
+ 	"\fStatusEffect\x12\x12\n" +
+ 	"\x04kind\x18\x01 \x01(\tR\x04kind\x12\x14\n" +
+@@ -4365,7 +4621,30 @@
+ 	"\x06weapon\x18\x01 \x01(\tR\x06weapon\x12\x18\n" +
+ 	"\aoutcome\x18\x02 \x01(\tR\aoutcome\x12!\n" +
+ 	"\ftarget_armor\x18\x03 \x01(\tR\vtargetArmor\x12'\n" +
+-	"\x0fcover_mitigated\x18\x04 \x01(\bR\x0ecoverMitigatedB$Z\"frontlinecommand/protocol;protocolb\x06proto3"
++	"\x0fcover_mitigated\x18\x04 \x01(\bR\x0ecoverMitigated\"\xea\x01\n" +
++	"\fEntityRanges\x12!\n" +
++	"\fsight_radius\x18\x01 \x01(\x05R\vsightRadius\x12)\n" +
++	"\x10detection_radius\x18\x02 \x01(\x05R\x0fdetectionRadius\x12%\n" +
++	"\x0eairborne_sight\x18\x03 \x01(\bR\rairborneSight\x12!\n" +
++	"\fbuild_radius\x18\x04 \x01(\x05R\vbuildRadius\x12B\n" +
++	"\finterception\x18\x05 \x01(\v2\x1e.frontline.v1.InterceptionViewR\finterception\"\xf9\x02\n" +
++	"\x10InterceptionView\x12\x16\n" +
++	"\x06radius\x18\x01 \x01(\x05R\x06radius\x12\x1a\n" +
++	"\bcapacity\x18\x02 \x01(\x05R\bcapacity\x12\x16\n" +
++	"\x06active\x18\x03 \x01(\bR\x06active\x12\x14\n" +
++	"\x05ready\x18\x04 \x01(\bR\x05ready\x12+\n" +
++	"\x11recharge_required\x18\x05 \x01(\rR\x10rechargeRequired\x12#\n" +
++	"\rrecharge_rate\x18\x06 \x01(\rR\frechargeRate\x12/\n" +
++	"\x11next_charge_ticks\x18\a \x01(\rH\x00R\x0fnextChargeTicks\x88\x01\x01\x12\"\n" +
++	"\rfire_ready_at\x18\b \x01(\rR\vfireReadyAt\x12F\n" +
++	"\vassignments\x18\t \x03(\v2$.frontline.v1.InterceptionAssignmentR\vassignmentsB\x14\n" +
++	"\x12_next_charge_ticks\"\x86\x01\n" +
++	"\x16InterceptionAssignment\x12\x1e\n" +
++	"\n" +
++	"projectile\x18\x01 \x01(\rR\n" +
++	"projectile\x12)\n" +
++	"\x06impact\x18\x02 \x01(\v2\x11.frontline.v1.VecR\x06impact\x12!\n" +
++	"\fintercept_at\x18\x03 \x01(\rR\vinterceptAtB$Z\"frontlinecommand/protocol;protocolb\x06proto3"
+ 
+ var (
+ 	file_frontline_proto_rawDescOnce sync.Once
+@@ -4379,51 +4658,54 @@
+ 	return file_frontline_proto_rawDescData
+ }
+ 
+-var file_frontline_proto_msgTypes = make([]protoimpl.MessageInfo, 43)
++var file_frontline_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
+ var file_frontline_proto_goTypes = []any{
+-	(*Envelope)(nil),           // 0: frontline.v1.Envelope
+-	(*ClientHello)(nil),        // 1: frontline.v1.ClientHello
+-	(*ResumeMatch)(nil),        // 2: frontline.v1.ResumeMatch
+-	(*MatchControl)(nil),       // 3: frontline.v1.MatchControl
+-	(*ConnectionState)(nil),    // 4: frontline.v1.ConnectionState
+-	(*MatchStatus)(nil),        // 5: frontline.v1.MatchStatus
+-	(*Ping)(nil),               // 6: frontline.v1.Ping
+-	(*ProtocolError)(nil),      // 7: frontline.v1.ProtocolError
+-	(*Vec)(nil),                // 8: frontline.v1.Vec
+-	(*Order)(nil),              // 9: frontline.v1.Order
+-	(*OrderBatch)(nil),         // 10: frontline.v1.OrderBatch
+-	(*OrderResult)(nil),        // 11: frontline.v1.OrderResult
+-	(*Metadata)(nil),           // 12: frontline.v1.Metadata
+-	(*Cooldown)(nil),           // 13: frontline.v1.Cooldown
+-	(*Job)(nil),                // 14: frontline.v1.Job
+-	(*Economy)(nil),            // 15: frontline.v1.Economy
+-	(*EntityPrivate)(nil),      // 16: frontline.v1.EntityPrivate
+-	(*StatusEffect)(nil),       // 17: frontline.v1.StatusEffect
+-	(*Entity)(nil),             // 18: frontline.v1.Entity
+-	(*PlayerSummary)(nil),      // 19: frontline.v1.PlayerSummary
+-	(*Projectile)(nil),         // 20: frontline.v1.Projectile
+-	(*Field)(nil),              // 21: frontline.v1.Field
+-	(*Station)(nil),            // 22: frontline.v1.Station
+-	(*Memory)(nil),             // 23: frontline.v1.Memory
+-	(*Event)(nil),              // 24: frontline.v1.Event
+-	(*Outcome)(nil),            // 25: frontline.v1.Outcome
+-	(*PlayerSnapshot)(nil),     // 26: frontline.v1.PlayerSnapshot
+-	(*StateDelta)(nil),         // 27: frontline.v1.StateDelta
+-	(*MatchResult)(nil),        // 28: frontline.v1.MatchResult
+-	(*Salvage)(nil),            // 29: frontline.v1.Salvage
+-	(*Zone)(nil),               // 30: frontline.v1.Zone
+-	(*StructureIndicator)(nil), // 31: frontline.v1.StructureIndicator
+-	(*ObjectiveProgress)(nil),  // 32: frontline.v1.ObjectiveProgress
+-	(*MissionProgress)(nil),    // 33: frontline.v1.MissionProgress
+-	(*OperationWarning)(nil),   // 34: frontline.v1.OperationWarning
+-	(*ConvoyProgress)(nil),     // 35: frontline.v1.ConvoyProgress
+-	(*EconomySample)(nil),      // 36: frontline.v1.EconomySample
+-	(*ProductionCount)(nil),    // 37: frontline.v1.ProductionCount
+-	(*PlayerTelemetry)(nil),    // 38: frontline.v1.PlayerTelemetry
+-	(*DebriefPlayer)(nil),      // 39: frontline.v1.DebriefPlayer
+-	(*DebriefEvent)(nil),       // 40: frontline.v1.DebriefEvent
+-	(*Debrief)(nil),            // 41: frontline.v1.Debrief
+-	(*CombatFeedback)(nil),     // 42: frontline.v1.CombatFeedback
++	(*Envelope)(nil),               // 0: frontline.v1.Envelope
++	(*ClientHello)(nil),            // 1: frontline.v1.ClientHello
++	(*ResumeMatch)(nil),            // 2: frontline.v1.ResumeMatch
++	(*MatchControl)(nil),           // 3: frontline.v1.MatchControl
++	(*ConnectionState)(nil),        // 4: frontline.v1.ConnectionState
++	(*MatchStatus)(nil),            // 5: frontline.v1.MatchStatus
++	(*Ping)(nil),                   // 6: frontline.v1.Ping
++	(*ProtocolError)(nil),          // 7: frontline.v1.ProtocolError
++	(*Vec)(nil),                    // 8: frontline.v1.Vec
++	(*Order)(nil),                  // 9: frontline.v1.Order
++	(*OrderBatch)(nil),             // 10: frontline.v1.OrderBatch
++	(*OrderResult)(nil),            // 11: frontline.v1.OrderResult
++	(*Metadata)(nil),               // 12: frontline.v1.Metadata
++	(*Cooldown)(nil),               // 13: frontline.v1.Cooldown
++	(*Job)(nil),                    // 14: frontline.v1.Job
++	(*Economy)(nil),                // 15: frontline.v1.Economy
++	(*EntityPrivate)(nil),          // 16: frontline.v1.EntityPrivate
++	(*StatusEffect)(nil),           // 17: frontline.v1.StatusEffect
++	(*Entity)(nil),                 // 18: frontline.v1.Entity
++	(*PlayerSummary)(nil),          // 19: frontline.v1.PlayerSummary
++	(*Projectile)(nil),             // 20: frontline.v1.Projectile
++	(*Field)(nil),                  // 21: frontline.v1.Field
++	(*Station)(nil),                // 22: frontline.v1.Station
++	(*Memory)(nil),                 // 23: frontline.v1.Memory
++	(*Event)(nil),                  // 24: frontline.v1.Event
++	(*Outcome)(nil),                // 25: frontline.v1.Outcome
++	(*PlayerSnapshot)(nil),         // 26: frontline.v1.PlayerSnapshot
++	(*StateDelta)(nil),             // 27: frontline.v1.StateDelta
++	(*MatchResult)(nil),            // 28: frontline.v1.MatchResult
++	(*Salvage)(nil),                // 29: frontline.v1.Salvage
++	(*Zone)(nil),                   // 30: frontline.v1.Zone
++	(*StructureIndicator)(nil),     // 31: frontline.v1.StructureIndicator
++	(*ObjectiveProgress)(nil),      // 32: frontline.v1.ObjectiveProgress
++	(*MissionProgress)(nil),        // 33: frontline.v1.MissionProgress
++	(*OperationWarning)(nil),       // 34: frontline.v1.OperationWarning
++	(*ConvoyProgress)(nil),         // 35: frontline.v1.ConvoyProgress
++	(*EconomySample)(nil),          // 36: frontline.v1.EconomySample
++	(*ProductionCount)(nil),        // 37: frontline.v1.ProductionCount
++	(*PlayerTelemetry)(nil),        // 38: frontline.v1.PlayerTelemetry
++	(*DebriefPlayer)(nil),          // 39: frontline.v1.DebriefPlayer
++	(*DebriefEvent)(nil),           // 40: frontline.v1.DebriefEvent
++	(*Debrief)(nil),                // 41: frontline.v1.Debrief
++	(*CombatFeedback)(nil),         // 42: frontline.v1.CombatFeedback
++	(*EntityRanges)(nil),           // 43: frontline.v1.EntityRanges
++	(*InterceptionView)(nil),       // 44: frontline.v1.InterceptionView
++	(*InterceptionAssignment)(nil), // 45: frontline.v1.InterceptionAssignment
+ }
+ var file_frontline_proto_depIdxs = []int32{
+ 	1,  // 0: frontline.v1.Envelope.hello:type_name -> frontline.v1.ClientHello
+@@ -4447,53 +4729,57 @@
+ 	9,  // 18: frontline.v1.EntityPrivate.orders:type_name -> frontline.v1.Order
+ 	8,  // 19: frontline.v1.EntityPrivate.rally:type_name -> frontline.v1.Vec
+ 	13, // 20: frontline.v1.EntityPrivate.cooldowns:type_name -> frontline.v1.Cooldown
+-	8,  // 21: frontline.v1.Entity.position:type_name -> frontline.v1.Vec
+-	16, // 22: frontline.v1.Entity.private:type_name -> frontline.v1.EntityPrivate
+-	17, // 23: frontline.v1.Entity.effects:type_name -> frontline.v1.StatusEffect
+-	8,  // 24: frontline.v1.Projectile.position:type_name -> frontline.v1.Vec
+-	8,  // 25: frontline.v1.Projectile.impact:type_name -> frontline.v1.Vec
+-	8,  // 26: frontline.v1.Field.position:type_name -> frontline.v1.Vec
+-	8,  // 27: frontline.v1.Station.position:type_name -> frontline.v1.Vec
+-	8,  // 28: frontline.v1.Memory.position:type_name -> frontline.v1.Vec
+-	8,  // 29: frontline.v1.Event.position:type_name -> frontline.v1.Vec
+-	42, // 30: frontline.v1.Event.combat:type_name -> frontline.v1.CombatFeedback
+-	12, // 31: frontline.v1.PlayerSnapshot.metadata:type_name -> frontline.v1.Metadata
+-	15, // 32: frontline.v1.PlayerSnapshot.economy:type_name -> frontline.v1.Economy
+-	19, // 33: frontline.v1.PlayerSnapshot.players:type_name -> frontline.v1.PlayerSummary
+-	18, // 34: frontline.v1.PlayerSnapshot.entities:type_name -> frontline.v1.Entity
+-	20, // 35: frontline.v1.PlayerSnapshot.projectiles:type_name -> frontline.v1.Projectile
+-	21, // 36: frontline.v1.PlayerSnapshot.fields:type_name -> frontline.v1.Field
+-	22, // 37: frontline.v1.PlayerSnapshot.stations:type_name -> frontline.v1.Station
+-	23, // 38: frontline.v1.PlayerSnapshot.memory:type_name -> frontline.v1.Memory
+-	24, // 39: frontline.v1.PlayerSnapshot.events:type_name -> frontline.v1.Event
+-	11, // 40: frontline.v1.PlayerSnapshot.results:type_name -> frontline.v1.OrderResult
+-	25, // 41: frontline.v1.PlayerSnapshot.outcome:type_name -> frontline.v1.Outcome
+-	29, // 42: frontline.v1.PlayerSnapshot.salvage:type_name -> frontline.v1.Salvage
+-	30, // 43: frontline.v1.PlayerSnapshot.zones:type_name -> frontline.v1.Zone
+-	31, // 44: frontline.v1.PlayerSnapshot.indicators:type_name -> frontline.v1.StructureIndicator
+-	33, // 45: frontline.v1.PlayerSnapshot.mission:type_name -> frontline.v1.MissionProgress
+-	34, // 46: frontline.v1.PlayerSnapshot.warnings:type_name -> frontline.v1.OperationWarning
+-	41, // 47: frontline.v1.PlayerSnapshot.debrief:type_name -> frontline.v1.Debrief
+-	26, // 48: frontline.v1.StateDelta.state:type_name -> frontline.v1.PlayerSnapshot
+-	25, // 49: frontline.v1.MatchResult.outcome:type_name -> frontline.v1.Outcome
+-	8,  // 50: frontline.v1.Salvage.position:type_name -> frontline.v1.Vec
+-	8,  // 51: frontline.v1.Zone.position:type_name -> frontline.v1.Vec
+-	8,  // 52: frontline.v1.StructureIndicator.position:type_name -> frontline.v1.Vec
+-	32, // 53: frontline.v1.MissionProgress.objectives:type_name -> frontline.v1.ObjectiveProgress
+-	35, // 54: frontline.v1.MissionProgress.convoys:type_name -> frontline.v1.ConvoyProgress
+-	8,  // 55: frontline.v1.OperationWarning.position:type_name -> frontline.v1.Vec
+-	8,  // 56: frontline.v1.OperationWarning.exits:type_name -> frontline.v1.Vec
+-	37, // 57: frontline.v1.PlayerTelemetry.units_produced:type_name -> frontline.v1.ProductionCount
+-	37, // 58: frontline.v1.PlayerTelemetry.buildings_constructed:type_name -> frontline.v1.ProductionCount
+-	36, // 59: frontline.v1.PlayerTelemetry.timeline:type_name -> frontline.v1.EconomySample
+-	38, // 60: frontline.v1.DebriefPlayer.metrics:type_name -> frontline.v1.PlayerTelemetry
+-	39, // 61: frontline.v1.Debrief.players:type_name -> frontline.v1.DebriefPlayer
+-	40, // 62: frontline.v1.Debrief.events:type_name -> frontline.v1.DebriefEvent
+-	63, // [63:63] is the sub-list for method output_type
+-	63, // [63:63] is the sub-list for method input_type
+-	63, // [63:63] is the sub-list for extension type_name
+-	63, // [63:63] is the sub-list for extension extendee
+-	0,  // [0:63] is the sub-list for field type_name
++	43, // 21: frontline.v1.EntityPrivate.ranges:type_name -> frontline.v1.EntityRanges
++	8,  // 22: frontline.v1.Entity.position:type_name -> frontline.v1.Vec
++	16, // 23: frontline.v1.Entity.private:type_name -> frontline.v1.EntityPrivate
++	17, // 24: frontline.v1.Entity.effects:type_name -> frontline.v1.StatusEffect
++	8,  // 25: frontline.v1.Projectile.position:type_name -> frontline.v1.Vec
++	8,  // 26: frontline.v1.Projectile.impact:type_name -> frontline.v1.Vec
++	8,  // 27: frontline.v1.Field.position:type_name -> frontline.v1.Vec
++	8,  // 28: frontline.v1.Station.position:type_name -> frontline.v1.Vec
++	8,  // 29: frontline.v1.Memory.position:type_name -> frontline.v1.Vec
++	8,  // 30: frontline.v1.Event.position:type_name -> frontline.v1.Vec
++	42, // 31: frontline.v1.Event.combat:type_name -> frontline.v1.CombatFeedback
++	12, // 32: frontline.v1.PlayerSnapshot.metadata:type_name -> frontline.v1.Metadata
++	15, // 33: frontline.v1.PlayerSnapshot.economy:type_name -> frontline.v1.Economy
++	19, // 34: frontline.v1.PlayerSnapshot.players:type_name -> frontline.v1.PlayerSummary
++	18, // 35: frontline.v1.PlayerSnapshot.entities:type_name -> frontline.v1.Entity
++	20, // 36: frontline.v1.PlayerSnapshot.projectiles:type_name -> frontline.v1.Projectile
++	21, // 37: frontline.v1.PlayerSnapshot.fields:type_name -> frontline.v1.Field
++	22, // 38: frontline.v1.PlayerSnapshot.stations:type_name -> frontline.v1.Station
++	23, // 39: frontline.v1.PlayerSnapshot.memory:type_name -> frontline.v1.Memory
++	24, // 40: frontline.v1.PlayerSnapshot.events:type_name -> frontline.v1.Event
++	11, // 41: frontline.v1.PlayerSnapshot.results:type_name -> frontline.v1.OrderResult
++	25, // 42: frontline.v1.PlayerSnapshot.outcome:type_name -> frontline.v1.Outcome
++	29, // 43: frontline.v1.PlayerSnapshot.salvage:type_name -> frontline.v1.Salvage
++	30, // 44: frontline.v1.PlayerSnapshot.zones:type_name -> frontline.v1.Zone
++	31, // 45: frontline.v1.PlayerSnapshot.indicators:type_name -> frontline.v1.StructureIndicator
++	33, // 46: frontline.v1.PlayerSnapshot.mission:type_name -> frontline.v1.MissionProgress
++	34, // 47: frontline.v1.PlayerSnapshot.warnings:type_name -> frontline.v1.OperationWarning
++	41, // 48: frontline.v1.PlayerSnapshot.debrief:type_name -> frontline.v1.Debrief
++	26, // 49: frontline.v1.StateDelta.state:type_name -> frontline.v1.PlayerSnapshot
++	25, // 50: frontline.v1.MatchResult.outcome:type_name -> frontline.v1.Outcome
++	8,  // 51: frontline.v1.Salvage.position:type_name -> frontline.v1.Vec
++	8,  // 52: frontline.v1.Zone.position:type_name -> frontline.v1.Vec
++	8,  // 53: frontline.v1.StructureIndicator.position:type_name -> frontline.v1.Vec
++	32, // 54: frontline.v1.MissionProgress.objectives:type_name -> frontline.v1.ObjectiveProgress
++	35, // 55: frontline.v1.MissionProgress.convoys:type_name -> frontline.v1.ConvoyProgress
++	8,  // 56: frontline.v1.OperationWarning.position:type_name -> frontline.v1.Vec
++	8,  // 57: frontline.v1.OperationWarning.exits:type_name -> frontline.v1.Vec
++	37, // 58: frontline.v1.PlayerTelemetry.units_produced:type_name -> frontline.v1.ProductionCount
++	37, // 59: frontline.v1.PlayerTelemetry.buildings_constructed:type_name -> frontline.v1.ProductionCount
++	36, // 60: frontline.v1.PlayerTelemetry.timeline:type_name -> frontline.v1.EconomySample
++	38, // 61: frontline.v1.DebriefPlayer.metrics:type_name -> frontline.v1.PlayerTelemetry
++	39, // 62: frontline.v1.Debrief.players:type_name -> frontline.v1.DebriefPlayer
++	40, // 63: frontline.v1.Debrief.events:type_name -> frontline.v1.DebriefEvent
++	44, // 64: frontline.v1.EntityRanges.interception:type_name -> frontline.v1.InterceptionView
++	45, // 65: frontline.v1.InterceptionView.assignments:type_name -> frontline.v1.InterceptionAssignment
++	8,  // 66: frontline.v1.InterceptionAssignment.impact:type_name -> frontline.v1.Vec
++	67, // [67:67] is the sub-list for method output_type
++	67, // [67:67] is the sub-list for method input_type
++	67, // [67:67] is the sub-list for extension type_name
++	67, // [67:67] is the sub-list for extension extendee
++	0,  // [0:67] is the sub-list for field type_name
+ }
+ 
+ func init() { file_frontline_proto_init() }
+@@ -4517,13 +4803,14 @@
+ 	file_frontline_proto_msgTypes[16].OneofWrappers = []any{}
+ 	file_frontline_proto_msgTypes[20].OneofWrappers = []any{}
+ 	file_frontline_proto_msgTypes[34].OneofWrappers = []any{}
++	file_frontline_proto_msgTypes[44].OneofWrappers = []any{}
+ 	type x struct{}
+ 	out := protoimpl.TypeBuilder{
+ 		File: protoimpl.DescBuilder{
+ 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
+ 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_frontline_proto_rawDesc), len(file_frontline_proto_rawDesc)),
+ 			NumEnums:      0,
+-			NumMessages:   43,
++			NumMessages:   46,
+ 			NumExtensions: 0,
+ 			NumServices:   0,
+ 		},
+--- a/protocol/frontline.proto
++++ b/protocol/frontline.proto
+@@ -34,7 +34,7 @@
+ message Cooldown { string id = 1; uint32 until = 2; }
+ message Job { string type = 1; bool research = 2; int64 paid = 3; uint32 work = 4; uint32 required = 5; int32 supply = 6; uint32 service = 7; bool started = 8; bool emergency = 9; }
+ message Economy { int64 credits = 1; int64 energy = 2; int32 supply = 3; int32 reserved_supply = 4; int32 power_capacity = 5; int32 power_demand = 6; int32 tier = 7; int64 income = 8; int64 repair_reserve = 9; repeated string upgrades = 10; repeated Cooldown cooldowns = 11; uint32 last_sequence = 12; }
+-message EntityPrivate { int64 hp = 1; int64 max_hp = 2; repeated Job jobs = 3; repeated Order orders = 4; Vec rally = 5; int64 cargo = 6; uint32 home = 7; int32 ammo = 8; uint32 endurance = 9; int32 charges = 10; uint32 charge_work = 11; uint32 service_work = 12; int64 experience = 13; repeated Cooldown cooldowns = 14; repeated uint32 passengers = 15; uint32 container = 16; bool repeat_sortie = 17; bool ambush_ready = 18; string mission_origin = 19; optional uint32 emergency_takeoff_until = 20; }
++message EntityPrivate { int64 hp = 1; int64 max_hp = 2; repeated Job jobs = 3; repeated Order orders = 4; Vec rally = 5; int64 cargo = 6; uint32 home = 7; int32 ammo = 8; uint32 endurance = 9; int32 charges = 10; uint32 charge_work = 11; uint32 service_work = 12; int64 experience = 13; repeated Cooldown cooldowns = 14; repeated uint32 passengers = 15; uint32 container = 16; bool repeat_sortie = 17; bool ambush_ready = 18; string mission_origin = 19; optional uint32 emergency_takeoff_until = 20; EntityRanges ranges = 21; }
+ message StatusEffect { string kind = 1; uint32 until = 2; }
+ message Entity { uint32 id = 1; string type = 2; uint32 owner = 3; Vec position = 4; int32 facing = 5; int32 health = 6; string state = 7; bool complete = 8; bool enabled = 9; bool landed = 10; bool deployed = 11; bool concealed = 12; int32 progress = 13; uint32 rank = 14; EntityPrivate private = 15; int32 turret_facing = 16; uint32 channel_until = 17; uint32 map_object = 18; int32 footprint_width = 19; int32 footprint_height = 20; string footprint_type = 21; repeated StatusEffect effects = 22; }
+ message PlayerSummary { uint32 id = 1; string name = 2; string faction = 3; uint32 team = 4; bool defeated = 5; uint32 defeat_at = 6; int32 strategic_progress = 7; bool surrender_vote = 8; uint32 color = 9; }
+@@ -70,3 +70,10 @@
+ message Debrief { repeated DebriefPlayer players = 1; repeated DebriefEvent events = 2; uint32 omitted_events = 3; }
+ 
+ message CombatFeedback { string weapon = 1; string outcome = 2; string target_armor = 3; bool cover_mitigated = 4; }
++
++// Exact-owner presentation only; distance bounds do not reveal fog or targets.
++message EntityRanges { int32 sight_radius = 1; int32 detection_radius = 2; bool airborne_sight = 3; int32 build_radius = 4; InterceptionView interception = 5; }
++// Recharge estimate assumes the current rate continues; absence means full or paused.
++message InterceptionView { int32 radius = 1; int32 capacity = 2; bool active = 3; bool ready = 4; uint32 recharge_required = 5; uint32 recharge_rate = 6; optional uint32 next_charge_ticks = 7; uint32 fire_ready_at = 8; repeated InterceptionAssignment assignments = 9; }
++// Actual Go reservation to an already-public impact warning, never a flight path.
++message InterceptionAssignment { uint32 projectile = 1; Vec impact = 2; uint32 intercept_at = 3; }

@@ -1,5 +1,6 @@
 import type {CatalogIndex, CatalogWeapon} from '../content/catalog';
 import type {PlayerSnapshot, Point} from '../runtime/types';
+import {ownerRanges,type OwnerRanges} from './owner-ranges';
 
 /** Geometry is in Go millitiles (1,000 per tile), never screen pixels. */
 export type TacticalRelation='own'|'allied'|'hostile'|'neutral'|'unknown';
@@ -40,6 +41,7 @@ export interface TacticalSelection {
  entity:number;position:Point;orders:TacticalOrderMarker[];rally?:Point;weaponRange?:TacticalWeaponRange;
  /** Catalog base values are not current sight, LOS, detection or attack legality. */
  catalogSight?:number;catalogDetection?:number;
+ ranges?:OwnerRanges;
 }
 export interface TacticalActorStatus {
  entity:number;position:Point;owner:number;relation:TacticalRelation;state:string;
@@ -159,8 +161,9 @@ export function tacticalPresentation(snapshot:PlayerSnapshot,catalog:CatalogInde
   if(!selected.has(entity.id))continue;
   const descriptor:TacticalSelection={entity:entity.id,position:{...position},orders:[]};result.selected.push(descriptor);
   if(unit){descriptor.catalogSight=nonnegative(unit.sight);descriptor.catalogDetection=nonnegative(unit.detection)}
-  gap('effective-sight-detection-not-disclosed',String(entity.id));
-  if(building?.role==='abm'||entity.type==='SA.mobile_abm')gap('abm-coverage-not-in-catalog',String(entity.id));
+  descriptor.ranges=ownerRanges(entity,snapshot);
+  if(!descriptor.ranges)gap('effective-sight-detection-not-disclosed',String(entity.id));
+  if((building?.role==='abm'||entity.type==='SA.mobile_abm')&&!descriptor.ranges?.interception)gap('abm-coverage-not-in-catalog',String(entity.id));
   if(entity.complete&&entity.health>0){
    const minimum=nonnegative(weapon?.min_range),maximum=nonnegative(weapon?.max_range);
    const width=entity.footprintWidth||building?.width||0,height=entity.footprintHeight||building?.height||0;

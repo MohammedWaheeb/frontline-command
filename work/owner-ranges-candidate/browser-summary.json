@@ -1,0 +1,37 @@
+{
+  "chromium-final": {
+    "path": "work/owner-ranges-candidate/browser/chromium-final/browser.json",
+    "sha256": "9870b9bd59f7322e69bcde89149b18dfbae1ba4720666b450921dd326447cbeb",
+    "status": "passed",
+    "errors": [],
+    "cases": 15
+  },
+  "webkit-final": {
+    "path": "work/owner-ranges-candidate/browser/webkit-final/browser.json",
+    "sha256": "66f54072fc708f5622511312002982df11b93bec5402e78dd651bf730a68cd5f",
+    "status": "passed",
+    "errors": [],
+    "cases": 15
+  },
+  "firefox-final": {
+    "path": "work/owner-ranges-candidate/browser/firefox-final/browser.json",
+    "sha256": "b6fa9efb07dceaa055b809ec8b960018f4c0208d91e098b9b628d675867f89a1",
+    "status": "failed",
+    "errors": [
+      "[JavaScript Error: \"Image corrupt or truncated.\" {file: \"http://127.0.0.1:51173/art/ui/chrome/button_pressed@2x.png\" line: 0}]"
+    ],
+    "cases": 15
+  },
+  "chromium-legacy": {
+    "path": "work/owner-ranges-candidate/browser/chromium-legacy/browser.json",
+    "sha256": "0f97eaf3e368599aa2b772d3cabe9d9a9498ac6652cad0dddbb6b1e25a9e5648",
+    "status": "passed",
+    "errors": [],
+    "cases": 1
+  },
+  "firefox_followup": {
+    "summary": "work/evidence/button-image-course/summary.json",
+    "sha256": "5f62d218ad52775933496153100859d26ddc01b68ba480d79ef6ae3b195ec1fe",
+    "scope": "Four15case clean Firefox contexts, extended pair150additionalmodalcycles each; original intermittent failure unreproduced, no product preload or claimed cure."
+  }
+}

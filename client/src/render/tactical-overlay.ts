@@ -6,7 +6,7 @@ import {tacticalCircle,tacticalLabels,layoutTacticalLabels,orderSymbol,TacticalP
 
 const WARNING=0xe8a568,ORDER=0xbccb91,INK=0x11140e;
 interface LabelNode {root:Container;back:Graphics;text:Text}
-export interface TacticalOverlayStats {warnings:number;zones:number;labels:number;orderMarkers:number;projectileBodies:number;pings:number;rebuilds:number}
+export interface TacticalOverlayStats {warnings:number;zones:number;labels:number;orderMarkers:number;projectileBodies:number;pings:number;rebuilds:number;coverageRings:number;assignments:number}
 /** Essential tactical geometry is independent of particle budgets and flashing.
  * No simulated trajectories, extrapolation, target lookup or gameplay lives here. */
 export class TacticalOverlay {
@@ -14,7 +14,7 @@ export class TacticalOverlay {
  private readonly labels=new Map<string,LabelNode>();private readonly orderLabels=new Map<string,LabelNode>();
  private last?:TacticalPresentation;private surface?:TerrainSurface;private zoom=0;private colorKey='';
  private pings=new TacticalPingHistory();private perspective?:number;private tick=-1;
- private stats:TacticalOverlayStats={warnings:0,zones:0,labels:0,orderMarkers:0,projectileBodies:0,pings:0,rebuilds:0};
+ private stats:TacticalOverlayStats={warnings:0,zones:0,labels:0,orderMarkers:0,projectileBodies:0,pings:0,rebuilds:0,coverageRings:0,assignments:0};
  constructor(){this.root.eventMode='none';this.root.addChild(this.graphics)}
  /** A new perspective, backwards seek or explicit replacement clears ephemeral
   * pings. Persistent warnings do not depend on receiving an activation event. */
@@ -37,7 +37,7 @@ export class TacticalOverlay {
   this.last=model;this.surface=surface;this.zoom=zoom;this.colorKey=colorKey;
   const g=this.graphics.clear(),project=(p:Point)=>surface.projectGround(p),px=1/zoom,usedLabels=new Set<string>(),usedOrder=new Set<string>();
   const orderMeasurements:Array<{key:string;point:Point;width:number;height:number}>=[];
-  this.stats={warnings:model.warnings.length,zones:model.zones.length,labels:0,orderMarkers:0,projectileBodies:0,pings:this.pings.values.length,rebuilds:this.stats.rebuilds+1};
+  this.stats={warnings:model.warnings.length,zones:model.zones.length,labels:0,orderMarkers:0,projectileBodies:0,pings:this.pings.values.length,rebuilds:this.stats.rebuilds+1,coverageRings:0,assignments:0};
   const line=(points:Point[],color:number,width=1.5,alpha=1,closed=false)=>{if(!points.length)return;g.moveTo(points[0].x,points[0].y);for(const p of points.slice(1))g.lineTo(p.x,p.y);if(closed)g.closePath();g.stroke({color,width:width*px,alpha})};
   const ring=(center:Point,radius:number,color:number,width=1.5,alpha=1)=>line(tacticalCircle(center,radius).map(project),color,width,alpha,true);
   const cross=(p:Point,color:number,size=6)=>{line([{x:p.x-size*px,y:p.y},{x:p.x+size*px,y:p.y}],color);line([{x:p.x,y:p.y-size*px},{x:p.x,y:p.y+size*px}],color)};
@@ -48,6 +48,21 @@ export class TacticalOverlay {
   }
   const blocked=new Set(model.actors.filter(actor=>actor.state==='blocked').map(actor=>actor.entity));
   for(const item of model.selected){
+   const defense=item.ranges?.interception;
+   if(defense){
+    // This ring protects impact points. It never reveals terrain occupants or
+    // suggests that ordinary aircraft/projectiles crossing it are intercepted.
+    const color=defense.active?ORDER:0xa99f87;
+    ring(item.position,defense.radius,color,defense.ready?1.5:1,defense.active?.65:.35);this.stats.coverageRings++;
+    const key=`coverage:${item.entity}`,node=this.label(this.orderLabels,key,`${defense.radius/1000}t MISSILE COVERAGE${defense.active?'':' · INACTIVE'}`,10),p=project(item.position);
+    usedOrder.add(key);node.root.scale.set(px);node.text.style.fill=color;node.back.clear().rect(-node.text.width/2-4,-1,node.text.width+8,14).fill({color:INK,alpha:.86});
+    orderMeasurements.push({key,point:{x:p.x*zoom,y:p.y*zoom+22},width:node.text.width+8,height:14});
+    for(const assignment of defense.assignments){
+     const p=project(assignment.impact),key=`assignment:${item.entity}:${assignment.projectile}`,node=this.label(this.orderLabels,key,`ASSIGNED #${assignment.projectile}`,10);
+     usedOrder.add(key);node.root.scale.set(px);node.text.style.fill=ORDER;node.back.clear().rect(-node.text.width/2-4,-1,node.text.width+8,14).fill({color:INK,alpha:.86});
+     orderMeasurements.push({key,point:{x:p.x*zoom,y:p.y*zoom+30},width:node.text.width+8,height:14});diamond(p,ORDER,5);this.stats.assignments++;
+    }
+   }
    let start:Point|undefined=project(item.position);
    for(const order of item.orders){
     const p=order.position?project(order.position):undefined;
@@ -86,7 +101,7 @@ export class TacticalOverlay {
  drawMinimap(ctx:CanvasRenderingContext2D,model:TacticalPresentation,project:(p:Point)=>Point,team:(owner:number)=>number){
   drawTacticalMinimap(ctx,model,project,team,this.activePings);
  }
- dispose(){this.pings.clear();this.labels.clear();this.orderLabels.clear();this.last=undefined;this.stats={warnings:0,zones:0,labels:0,orderMarkers:0,projectileBodies:0,pings:0,rebuilds:0};this.root.destroy({children:true})}
+ dispose(){this.pings.clear();this.labels.clear();this.orderLabels.clear();this.last=undefined;this.stats={warnings:0,zones:0,labels:0,orderMarkers:0,projectileBodies:0,pings:0,rebuilds:0,coverageRings:0,assignments:0};this.root.destroy({children:true})}
 }
 
 /** No world entities/target IDs are created for minimap-only pulses. The caller

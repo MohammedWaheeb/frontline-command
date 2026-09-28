@@ -1,6 +1,6 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 11:31 UTC / 14:31 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md).
+Updated 28 September 2026, 12:55 UTC / 15:55 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md).
 
 ## Current ownership and access
 
@@ -10,9 +10,9 @@ Claude01/04/05 resumed after the07:20 reset at08:35–08:40. Actual model **clau
 
 - Claude04/05 are idle under quota. Their old briefs are superseded: root finished menu/console and terrain integration; fresh bounded review reservations are required before resuming them.
 - Mencius is the **sole Blender worker**. Original-size fighter544/airlift672 exports are staged. Root accepted six actual-Go native source compositions; browser sorting remains open. Airlift service motion is static and remains a defect. Mencius owns its isolated correction, four-battery interceptor/structural-charge pilots, the remaining94assets/18,139poses, and a clearly diagnostic six-scene atlas overlay.
-- Einstein completed tactical/Skybreaker/wire, combat audio and synthetic FX renderer acceptance. It now owns six ordinary paid-combat multiplayer cases in a frozen isolated0.3.4 product, covering1–4 human clients and deterministic bots. No completed combat match claimed yet.
+- Einstein completed tactical/Skybreaker/wire, combat audio and synthetic FX renderer acceptance. It now owns six ordinary paid-combat multiplayer cases in a frozen isolated0.3.4 product, covering1–4 human clients and deterministic bots. First1H+1normalAI match passed ordinary elimination/reconnect/replay; the1H+3AI FFA exposed a texture-lifetime error. Its exact replay validated; fix de1b27f passes three-engine pressure/reappearance tests and the earned replay. Four remaining human configurations are running serially.
 - Boole owns frozen combined0.3.4 acceptance. The original102 main cases finished93pass/9fail; the original21 optional routes finished12pass/9fail. Next is a separate acceptance-driver-only tactics correction copy, with no production, objective or deadline changes.
-- Root completed combat renderer/reset integration1305dcb and owns the isolated owner-casualty view correction plus final cross-system integration. Shipping Go0.3.3 and combined frozen0.3.4 remain unchanged while these gates run.
+- Root completed combat renderer/reset1305dcb and owner-casualty47f35c7. Root now owns isolated owner-ranges projection/readout plus sprite/terrain depth integration and final cross-system review. Shipping Go0.3.3 and combined frozen0.3.4 remain unchanged while these gates run.
 
 The user permits Codex frontend logic and visual implementation during Claude quota. Claude remains primary visual author/reviewer. All old broad briefs are superseded by current explicit ownership.
 
@@ -128,3 +128,66 @@ renderer billboard integration remains pending. Original-size airlift672poses an
 fighter544poses are staged; airlift service motion needs its approved narrow
 correction. The US interceptor's isolated launch/last-charge pilot passes native
 review; three other batteries, structural-charge variants and full exports remain.
+
+
+## Current integration update at12:24 UTC
+
+The [owner-ranges candidate](../work/owner-ranges-candidate/README.md) preserves
+all eight baseline1,000tick canonical courses, matches41 native/WASM artifacts
+and30 actual codec records, and passes focused race/vet. Product15-case courses
+pass Chromium/WebKit and old-runtime absence passes Chromium. Firefox functional
+checks pass but a pressed-button PNG console error remains an active browser
+failure under Einstein's isolated diagnosis. The new readout also fixed WebKit
+mouse-trigger focus restoration. No shipping runtime promotion.
+
+The first real paid bot match wins by ordinary elimination at11224; exact full
+replay/midpoint restore agree. The longer1H+3AI FFA completed at25826 but its
+browser run remains failed: an evicted atlas left an actor holding a destroyed
+texture. Fix de1b27f passes real192MiB pressure/reload/shared/disposal courses in
+all three browser engines; actual earned FFA replay now renders without that
+error. A late diagnostic harness interruption is recorded separately. The
+remaining four human configurations are running serially. No physical LAN claim.
+
+All four interceptor base/launch and32 structural-charge variants passed root
+native contact review; Mencius may promote the reviewed source through recorded
+locks and finish full sheets. US/IR/SY service motion remains an isolated
+readability correction. Main and optional mission tactics are improving using
+ordinary legal commands only; original93/102 and12/21 results remain preserved.
+
+Six exact-Go parking scenes resolve all required original-size sprite frames
+and retain exact hashes, but root **rejected** their first renderer images:
+foreground flat terrain cuts off portions of aircraft/tanks. Root is testing
+per-pose ink-bound sort extents with unchanged pixels/anchors; raised-terrain,
+fog, shadows and maximum-load checks must pass before acceptance. The diagnostic
+sparse atlas is never a complete animation or production-art claim. Shipping
+Go0.3.3 and the original combined0.3.4 remain frozen.
+
+
+## Integration update at12:55 UTC
+
+Owner-range product follow-up now includes four clean actual Firefox153 courses
+(15 cases each; extended pair150 extra modal cycles each), preserving both original
+PNG console failures. No decoder cause or preload cure was established; no
+speculative production workaround was introduced. Chromium/WebKit and legacy
+absence courses already pass. The owner-range candidate remains isolated.
+
+Root rejected the first terrain-body sorting prototype after its flat sub-tile
+pixel course caught63/192 USstrike cuts. Exact per-pose alpha bounds plus the
+terrain triangle-fan centroid bound now pass1152 body and1152 combined body/shadow
+positions at both atlas resolutions; near cliffs retain occlusion. The initial
+CPU-projected shadow implementation passed pixels, slope/cliff/fog and atlas
+lifetime, but failed a synthetic688actor/1696shadow-plate load (one-moving median
+65ms, all-mobile318ms). It is not accepted. A replacement bounded GPU shadow stamp
+uses static terrain triangles and separate explicit service-deck plates. Its same
+synthetic load measures2.30ms/2.95ms medians, with1.87MiB temporary texture; full
+product/hardware and final pixel/browser gates remain. These timings are not
+complete-game FPS claims. All failures and source candidates are preserved.
+
+US airlift service v3 native four-direction review is accepted after32pilotposes,
+332 checks and exact unchanged-source proofs. Combined ISR/scout proof/pilots
+remain before source promotion. USbattery full replacement proceeds as the sole
+Blender job. Main/optional mission tactics still have unresolved routes. The
+two-human ordinary1v1 reached IRvictory12503 with exact native/full-replay/restore
+hashes and both debriefs; its strict browser row retains one unlocatedHTTP503
+failure. No rendering/decoder exception occurred. Remaining matches now capture
+response URL/status/code and run serially. Nothing is deployed or declared ready.

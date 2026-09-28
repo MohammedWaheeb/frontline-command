@@ -1,5 +1,6 @@
 import type {Entity,PlayerSnapshot} from '../runtime/types';
 import type {CatalogIndex} from '../content/catalog';
+import {ownerRanges,type OwnerRanges} from './owner-ranges';
 
 export type StatusTone='neutral'|'benefit'|'warning'|'critical';
 export interface ActorBadge {id:string;symbol:string;label:string;tone:StatusTone;priority:number;seconds?:number}
@@ -7,6 +8,7 @@ export interface ActorStatusModel {
  badges:ActorBadge[];
  ammunition?:{label:string;current:number;capacity?:number};
  channel?:{label:string;progress:number;seconds:number};
+ ranges?:OwnerRanges;
 }
 
 const EFFECTS:Readonly<Record<string,{symbol:string;label:string;tone:StatusTone;priority:number}>>={
@@ -37,6 +39,7 @@ export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:Catalo
  if(entity.state==='destroyed'||entity.health<=0||entity.private?.container&&entity.owner===snapshot.player)return out;
  const own=entity.owner===snapshot.player,unit=catalog.units.get(entity.type),building=catalog.buildings.get(entity.type);
  const privateState=own?entity.private:undefined;
+ const ranges=ownerRanges(entity,snapshot);if(ranges)out.ranges=ranges;
  const add=(id:string,symbol:string,label:string,tone:StatusTone,priority:number,until?:number)=>{
   if(out.badges.some(b=>b.id===id))return;
   out.badges.push({id,symbol,label,tone,priority,...until!==undefined&&until>0?{seconds:seconds(snapshot.tick,until)}:{}});
@@ -72,7 +75,7 @@ export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:Catalo
    const current=weapon?.kind==='tactical'?privateState.charges:privateState.ammo;
    if(uint(current))out.ammunition={label:weapon?.kind==='tactical'?'Charges':'Ammo',current,capacity};
   }else if(building?.role==='abm'||entity.type==='SA.mobile_abm'){
-   if(uint(privateState.charges))out.ammunition={label:'Interceptors',current:privateState.charges};
+   if(uint(privateState.charges))out.ammunition={label:'Interceptors',current:privateState.charges,...ranges?.interception?{capacity:ranges.interception.capacity}:{}};
   }
  }
  const channel=CHANNELS[entity.state];
