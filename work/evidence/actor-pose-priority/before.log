@@ -1,0 +1,56 @@
+✖ a new structural condition interrupts a current real ActorVisual launch and cannot revive it (15.924459ms)
+✖ strategic activation respects structural low power while enemy charge privacy stays generic (3.502959ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2248.253334
+
+✖ failing tests:
+
+test at client/.test-runtime/actor-pose-priority-before.mjs:694:1
+✖ a new structural condition interrupts a current real ActorVisual launch and cannot revive it (15.924459ms)
+  AssertionError [ERR_ASSERTION]: low power
+  + actual - expected
+  
+  + 'launch_empty'
+  - 'lowpower_charges_0'
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-runtime/actor-pose-priority-before.mjs:712:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'launch_empty',
+    expected: 'lowpower_charges_0',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at client/.test-runtime/actor-pose-priority-before.mjs:722:1
+✖ strategic activation respects structural low power while enemy charge privacy stays generic (3.502959ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'activate'
+  - 'lowpower'
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-runtime/actor-pose-priority-before.mjs:728:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'activate',
+    expected: 'lowpower',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

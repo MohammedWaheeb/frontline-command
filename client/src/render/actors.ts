@@ -156,7 +156,10 @@ export class ActorVisual {
   if(names)this.action={names,at:now};
  }
  private activeAction(now:number):SpriteState|undefined{
-  if(!this.action||!this.sheet||this.entity.state==='destroyed'||!this.entity.enabled||!this.entity.complete)return;
+  if(!this.action||!this.sheet)return;
+  // A short cosmetic cue cannot hide a newly disclosed structural condition.
+  // Discard it when interrupted so restoring power cannot replay an old launch.
+  if(this.entity.state==='destroyed'||this.entity.state==='selling'||this.entity.state==='low_power'||!this.entity.enabled||!this.entity.complete||this.presentation&&(this.presentation.lowPower||this.entity.health<=500)){this.action=undefined;return}
   for(const name of this.action.names){const state=this.sheet.states.get(name);if(state&&state.fps>0&&now-this.action.at<state.frames/state.fps*1000)return state}
  }
  position(now:number):Point{
@@ -167,7 +170,7 @@ export class ActorVisual {
  private state(now:number,reducedMotion=false):SpriteState|undefined{
   if(!this.sheet)return;
   const action=this.activeAction(now);
-  if(action&&action.part!=='turret'&&!(this.presentation&&this.entity.health<=500))return action;
+  if(action&&action.part!=='turret')return action;
   const transition=this.entity.enabled&&this.entity.complete?this.flight.state(now,this.sheet.states,reducedMotion):undefined;
   if(transition)return transition;
   const moving=Math.hypot(this.nextPosition.x-this.lastPosition.x,this.nextPosition.y-this.lastPosition.y)>4;
