@@ -455,3 +455,21 @@ Post-comparison UI follow-up: the eliminated frozen sidebar still labels itself
 labels are not new live data. Correct them using the actual terminal/result
 state after the controlled frozen-build repetitions; do not alter the compared
 build or invent a final live snapshot to make the labels appear current.
+
+
+### Quiet repetition interrupted by low-power sleep
+
+The unchanged optimized copy was launched with four human profiles and owned
+heavy work paused at 16:26:15 UTC. Eight seconds later macOS entered **Low Power
+Sleep** at 1% charge. It resumed at 20:09:54 UTC, after 13,411 seconds. Chromium
+reported `ERR_NETWORK_IO_SUSPENDED`; subsequent requests found the lobby expired
+and readiness ended with `map_context_missing`. The strict driver exited failed
+four seconds after wake. It remained in the lobby and issued **zero game
+commands**. This is an interrupted setup, not a combat or advice-timeout trial.
+
+Evidence: `work/multiplayer-combat/2026-09-28T16-26-14.812Z/receipt.json`, the
+source-specific driver and `power-transitions.log` (system timestamps UTC+03:00).
+The original report remains unchanged; its digest is recorded in the compact
+receipt. Mencius resumed the same verified paused Blender PID 49519 after host
+closure. No runtime, deadlines, client or art bytes changed. A clean quiet
+four-human combat repetition is still pending.

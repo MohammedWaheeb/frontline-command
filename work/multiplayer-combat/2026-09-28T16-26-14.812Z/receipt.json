@@ -1,0 +1,304 @@
+{
+  "status": "failed-before-gameplay",
+  "scope": "Actual rendered product; DOM lobby/readiness/reconnect/debrief, scripted normal-transport economy/combat. Separate loopback browser contexts, not physical LAN. Frozen combined 0.3.4, incomplete art recorded per client. No simulation mutations or deliberate loss.",
+  "started": "2026-09-28T16:26:15.584Z",
+  "completed": "2026-09-28T20:09:58.573Z",
+  "conditions": "Quiet owned-work window: root and Boole native/compiler/browser jobs closed; Mencius owned Blender49519 SIGSTOP confirmed16:23:38UTC with pause receipt. Same c7e0 runtime/client/art. Paused Blender memory and ordinary OS/user apps remain; functional acceptance, no reference-performance claim.",
+  "browser": "151.0.7922.34",
+  "build_sha256": {
+    "host": "1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379",
+    "wasm": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65",
+    "protocol": "89333b8afc6ad9094ec3905f99122babcbac9b762e588c02196ec3bdca0b9e3e",
+    "pack": "58fca5c8eefbf49a4368344a1a8cd44c32d786107f94ffbb78a5c01237e45960",
+    "clientSource": "4096954cd8b8aa2fd9fd915ea456dea44b7cf1c3d08c3d84e0dd5f5b1453df3e",
+    "entry": "1bb05e2dfa6163bc7c460da1cfd636f739a6fb155532a0fcb9d6b4898e9c47fa",
+    "baseClientSource": "c96bb88d91bcb87c755a99ab681ac2a1a6dec9d21891d3c4df8a79cf6ed77e4e",
+    "basePack": "b7cb86739b47168a99ae7b73e68b187df821b3197132c8d8274e5d78a498a8a4"
+  },
+  "driver_sha256": "6dc1896b78c2827fde563f1b01ba3cd2c8f5258aaa38fbce2acf1687806d1532",
+  "original_report_sha256": "eaa3eb4974b091d7525794b17073fcee74e3a183db831541024ff8262011e401",
+  "phase": "lobby",
+  "commands": 0,
+  "failure": "Error: Transmission interrupted\n\nJoin this lobby before loading its map.\n\nmap_context_missing\n\u00d7\n    at idle (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-combat.browser.mjs:25:205)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:502:9)\n    at async scenario (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-combat.browser.mjs:81:113)\n    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-combat.browser.mjs:117:73",
+  "errors": [
+    {
+      "player": 4,
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/maps/industrial-valley?lobby_id=eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 1,
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/maps/industrial-valley?lobby_id=eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 4,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 3,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 2,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 1,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 2,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 3,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 1,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 4,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 2,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 1,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/maps/industrial-valley?lobby_id=eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 3,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 1,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "player": 4,
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:57655/api/v1/lobbies/eb057a71b72929cbb15049fc",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "httpErrors": [
+    {
+      "player": 2,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 4,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 3,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 1,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 2,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 3,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 1,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 4,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 2,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 1,
+      "path": "/api/v1/maps/industrial-valley",
+      "status": 404,
+      "code": "map_context_missing",
+      "message": "Join this lobby before loading its map."
+    },
+    {
+      "player": 3,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 1,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    },
+    {
+      "player": 4,
+      "path": "/api/v1/lobbies/eb057a71b72929cbb15049fc",
+      "status": 404,
+      "code": "lobby_missing",
+      "message": "This lobby is no longer available."
+    }
+  ],
+  "power_log_timezone": "UTC+03:00",
+  "sleep_started_utc": "2026-09-28T16:26:23Z",
+  "wake_utc": "2026-09-28T20:09:54Z",
+  "sleep_seconds": 13411,
+  "power_evidence": "power-transitions.log",
+  "interpretation": "External low-power sleep interrupted lobby readiness before match creation. No four-player combat or advice-timeout conclusion. Original browser strict failure preserved. No host/client/runtime/art modifications."
+}
