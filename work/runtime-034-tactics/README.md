@@ -327,3 +327,17 @@ composition and unbuilt-background-turret pilots preserve exact source, commands
 current owner views and real defeat/nonterminal boundaries. No engine or authored
 content defect was established. The new consolidated run remains held during the
 long multiplayer product course.
+
+## 2026-09-28 22:47 UTC: SY05 Hard factory preservation passes
+
+[The separate optional Hard route](../runtime-034-capture-relief-gunner/README.md)
+wins at9637 with the original factory preserved and all three relays captured.
+All711 ordinary orders are accepted; midpoint1159/full replay/restart and
+independent surrender gates pass. It reuses an actual healthy safe-site AT for
+controlled fire and surviving engineers through ordinary reassignment; no
+production Go/content/cost/wait changes. Earlier defeats and nonterminal attempts
+remain unchanged. No turret was built despite the temporary funding intention.
+
+Separate successful routes now cover **9/9 old main failures and 7/9 old optional
+failures**. IR06 observer Normal/Hard remain open. Consolidated102/21 acceptance
+is still held during the active multiplayer course and has not run.

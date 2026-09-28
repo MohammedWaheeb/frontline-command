@@ -1,0 +1,71 @@
+{
+  "scope": "One optional Hard legal mid-capture relief gunner; same rules/objectives/budgets",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "cc20b7c036d5625ce863a282eef58a702a0606c36d43ebc70bb77309763c33dd",
+  "base_source_lock_sha256": "31f251c054bb7ef8bdeac86ed2fd82630d76a708645ec04e9fe276d85aafdfa2",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:46:50.080682+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-gunner/runs/20260928T224650Z-sy05-hard-mid-capture-relief-gunner/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-gunner/source",
+      "started": "2026-09-28T22:46:50.080883+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.875,
+      "completed": "2026-09-28T22:46:52.956015+00:00"
+    },
+    {
+      "name": "focused",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-gunner/runs/20260928T224650Z-sy05-hard-mid-capture-relief-gunner/sim.test",
+        "-test.run=^TestAuthoredCapture(RepairerReassignment|GunnerReassignment|ConstructionReserve|VisibleSiteObservedInfantry)$",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-gunner/source/pkg/sim",
+      "started": "2026-09-28T22:46:52.960319+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.166,
+      "completed": "2026-09-28T22:46:54.126810+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-gunner/runs/20260928T224650Z-sy05-hard-mid-capture-relief-gunner/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-relief-gunner/source/pkg/sim",
+      "started": "2026-09-28T22:46:54.127102+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 26.747,
+      "completed": "2026-09-28T22:47:20.874378+00:00"
+    }
+  ],
+  "binary_sha256": "a3c6bff6058ba294431132c37d4b01af1bd038514fe613aadf7e8b0c6c424bba",
+  "exit_code": 0,
+  "completed": "2026-09-28T22:47:20.874635+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.json": {
+      "bytes": 373344,
+      "sha256": "fe3c211260ae9426cea0042d66445a5a671eb70d499204d7dd695201ffb0dded"
+    }
+  }
+}

@@ -12,9 +12,9 @@ import shutil
 import time
 
 ROOT = Path(__file__).resolve().parent
-SOURCE_ROOT = ROOT.parent / 'runtime-034-capture-main-route'
+SOURCE_ROOT = ROOT.parent / 'runtime-034-capture-relief-gunner'
 SOURCE = SOURCE_ROOT / 'source'
-LOCK_SHA256 = 'cda55b903cef1f9eb78d5fd7d0e40a10528f147dd259b5a99197cedc79c34ad5'
+LOCK_SHA256 = 'cc20b7c036d5625ce863a282eef58a702a0606c36d43ebc70bb77309763c33dd'
 GO = '/opt/homebrew/bin/go'
 DIFFICULTIES = ('easy', 'normal', 'hard')
 GROUPS = {

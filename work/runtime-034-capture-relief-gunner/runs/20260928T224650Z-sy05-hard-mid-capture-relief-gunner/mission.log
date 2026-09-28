@@ -1,0 +1,18 @@
+=== RUN   TestAuthoredOptionalFactoryCapture
+=== RUN   TestAuthoredOptionalFactoryCapture/hard
+    authored_campaign_acceptance_test.go:1235: capture force ready tick515 targetrelay-guard-1 actors[37 38 39 40 41 42 46 47] tanks[46 47]
+    authored_campaign_acceptance_test.go:1398: relay-1 captured tick1158
+    authored_campaign_acceptance_test.go:1322: optional factory captured tick3399 actor79
+    authored_campaign_acceptance_test.go:1235: capture force ready tick5038 targetrelay-guard-2 actors[176 275 332 394 481 577 622 640 662 704 844 1165 1190] tanks[640 844]
+    authored_campaign_acceptance_test.go:846: funded optional turret abandoned tick5100 credits790585 builders0
+    authored_campaign_acceptance_test.go:1398: relay-2 captured tick6252
+    authored_campaign_acceptance_test.go:1359: reassigned completed repair engineer44 fromsite70 forrelay-3 tick7006
+    authored_campaign_acceptance_test.go:1235: capture force ready tick7185 targetrelay-guard-3 actors[662 704 1190 1301 1587 1873 1917] tanks[1873]
+    authored_campaign_acceptance_test.go:1248: mid-capture relief engineer2186 reassigned fromsite70 tick8782
+    authored_campaign_acceptance_test.go:1267: mid-capture relief gunner977 reassigned fromsite70 tick8784
+    authored_campaign_acceptance_test.go:1248: mid-capture relief engineer2186 reassigned fromsite70 tick9460
+    authored_campaign_acceptance_test.go:1398: relay-3 captured tick9637
+    authored_campaign_acceptance_test.go:1523: MISSION sy-05-relay-break faction=SY difficulty=hard tick=9637 midpoint=1159 receipts=668 hash=85b9a395931d47a744bf53af2f0af9e7774b3cc6c2164e6c4b0e6445d828f7b9
+--- PASS: TestAuthoredOptionalFactoryCapture (26.74s)
+    --- PASS: TestAuthoredOptionalFactoryCapture/hard (26.74s)
+PASS

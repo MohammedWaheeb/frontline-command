@@ -105,7 +105,7 @@
       "phase": "optional",
       "original_passed": 12,
       "original_failed": 9,
-      "failed_cases_with_separate_successful_routes": 6,
+      "failed_cases_with_separate_successful_routes": 7,
       "cases": [
         {
           "case": "TestAuthoredOptionalMechanicTeams/easy",
@@ -183,8 +183,15 @@
         },
         {
           "case": "TestAuthoredOptionalFactoryCapture/hard",
-          "has_separate_successful_route": false,
-          "passed_pilots": []
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "../runtime-034-capture-relief-gunner/runs/20260928T224650Z-sy05-hard-mid-capture-relief-gunner",
+              "source_lock_sha256": "cc20b7c036d5625ce863a282eef58a702a0606c36d43ebc70bb77309763c33dd",
+              "tick": 9637,
+              "optional_factory_complete": true
+            }
+          ]
         }
       ]
     }
