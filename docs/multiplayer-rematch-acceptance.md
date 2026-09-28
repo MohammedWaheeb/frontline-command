@@ -11,7 +11,7 @@ have not passed**. The existing six-configuration combat evidence is summarized 
 The authoritative design §26.3 requires two consecutive long matches without a
 page reload. It provides no numeric minimum. For this acceptance course we use
 **20 minutes of active simulation per match** (24,000 ticks), drawing from the
-lower bound of the §2 standard 1v1 duration target. This is an operational test
+lower bound of the §1.3 standard 1v1 duration target. This is an operational test
 criterion, not a new gameplay rule or a claim that every match should last that
 long. The verifier subtracts the actual initial Go countdown from the replay
 interval. Pauses, loading, postgame time, and wall-clock delays cannot satisfy it.

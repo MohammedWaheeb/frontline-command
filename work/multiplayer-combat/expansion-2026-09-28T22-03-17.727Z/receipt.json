@@ -1,0 +1,102 @@
+{
+  "started": "2026-09-28T22:03:17.738Z",
+  "completed": "2026-09-28T22:07:18.123Z",
+  "status": "incomplete-at-bounded-cap",
+  "sourceSHA256": "5d9e91188907409f5275c4f54d39f32ce21c53d3cdcc22c950cf610328f671ec",
+  "mapSHA256": "1dc851211269974f5cadb1c6e30850e67014970f90a96c0be9b85feb7ef7b747",
+  "seed": 731,
+  "maxTick": 48000,
+  "initialCountdown": 100,
+  "orders": 1325,
+  "rejections": {
+    "unseen_placement": 4,
+    "occupied": 66,
+    "target_not_visible": 4
+  },
+  "events": {
+    "foundation_placed": 26,
+    "construction_complete": 24,
+    "unit_ready": 193,
+    "cargo_delivered": 280,
+    "capture_interrupted": 6,
+    "under_attack": 1981,
+    "weapon_fired": 1993,
+    "impact": 1976,
+    "route_blocked": 140,
+    "destroyed": 133,
+    "research_complete": 2,
+    "emergency_rig_ready": 1,
+    "station_captured": 1
+  },
+  "info": {
+    "adapter": "1",
+    "metadata": {
+      "simulation": "0.3.4",
+      "protocol": 1,
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "map_version": "1",
+      "ruleset": "standard-v2",
+      "seed": 731
+    },
+    "tick": 48008,
+    "local_players": [
+      1,
+      2
+    ],
+    "finished": false,
+    "replay": false,
+    "replay_start": 0,
+    "replay_end": 0
+  },
+  "finalHash": "55cd78b78dc2fb05c8b512aefcec28e7de7eff30b99ba2a809bccd895c1a7945",
+  "finished": false,
+  "outcome": {
+    "finished": false,
+    "draw": false,
+    "winningTeam": 0,
+    "reason": "",
+    "tick": 0
+  },
+  "activeSeconds": 2395.4,
+  "long": false,
+  "replaySHA256": "78e7c2492d6e0bfcaac855439a010d9dfd65fd6066b5373734e5ad15bcf8d530",
+  "bridge": {
+    "code": 0,
+    "signal": null
+  },
+  "receipt": {
+    "sourceLockSHA256": "c7e0d79d1770491cc867037b7c0c69b31ce16738885022130dc3fea59c37d122",
+    "compiledAt": "2026-09-28T21:59:41.343Z",
+    "copied": {
+      "session.go": "585879f21089ed1818466dc43cc0ac66509a9ae0f005e8ad43c5788385a2ae5b",
+      "editor.go": "617a155eb5239a6ab3fad4dd3599a6c8ae3ebbf04f60ea8468af7a2a51cdebbc",
+      "replay.go": "d7c7c76a05a9553f500cbf1b079c5c534e0793692c1df3992a5258257c2df098"
+    },
+    "bridgeSHA256": "1bc06e217165f32ad09cbb3658adc781bbe7987b6c843da4bf0d6adf84888ada",
+    "binarySHA256": "33d462fbd47dc9ec407a3087d9a7e310ba4d925064a27b428959c89bce1c5f00",
+    "scope": "Frozen authoritative Session and Go engine with JSON-lines test transport only; no browser or runtime promotion."
+  },
+  "scope": "Native-only behavioral preflight; no rendered-browser/physical-LAN/endurance acceptance.",
+  "files": {
+    "report.json": {
+      "bytes": 1679565,
+      "sha256": "cad20f8138de1ee696cb5e378c9d30b2f5c0b32fed9012c0cc4d10c224c8c748"
+    },
+    "commands.jsonl": {
+      "bytes": 331186,
+      "sha256": "9098880206e59858dc9df9e6848d7180337a0bdda1703dc6cde2e1a0ed47ce11"
+    },
+    "commander.mjs": {
+      "bytes": 16156,
+      "sha256": "5d9e91188907409f5275c4f54d39f32ce21c53d3cdcc22c950cf610328f671ec"
+    },
+    "final.save.json": {
+      "bytes": 1039525,
+      "sha256": "4914a1827bfa3dec9cc37a5a2d915ed7ddb2414de4d9a5a618f29e7bd6bd885c"
+    },
+    "earned.replay.gz": {
+      "bytes": 2410078,
+      "sha256": "78e7c2492d6e0bfcaac855439a010d9dfd65fd6066b5373734e5ad15bcf8d530"
+    }
+  }
+}
