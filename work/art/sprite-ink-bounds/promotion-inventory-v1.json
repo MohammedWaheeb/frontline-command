@@ -1,0 +1,644 @@
+{
+  "scope": "Read-only inventory for optional metadata promotion. No live mutation, no renderer approval implied. Stage-v1 remains immutable; future stage-v2 copies require separate source approval.",
+  "candidate_lock_sha256": "589190547eac7605b061c9a7f816e55b8126645dfe7e979b197b08392b4feb90",
+  "locks": [
+    {
+      "path": "work/art/building-roster/production-lock.json",
+      "sha256": "23c43b59ec9006da0c9f6ef82586654628bf80ccdb5ce46d65e4db217a35c414",
+      "packer_pinned": "730b7f86232220acf5ed0b6f5858183a0509c8eec9076c63fbd77207fc1a198e",
+      "stage": null
+    },
+    {
+      "path": "work/art/vehicle-production/production-lock.json",
+      "sha256": "163cf666e01d7bc2a01c4bf95673fbd7bf9bc80cd79c78d74aa5fe78c9119340",
+      "packer_pinned": "730b7f86232220acf5ed0b6f5858183a0509c8eec9076c63fbd77207fc1a198e",
+      "stage": null
+    },
+    {
+      "path": "work/art/aircraft-production/production-lock.json",
+      "sha256": "89cb2ae5b617dac102d3ac62bb746a0db3d1d82c38b0c635644d0ec4b70cf2d4",
+      "packer_pinned": "730b7f86232220acf5ed0b6f5858183a0509c8eec9076c63fbd77207fc1a198e",
+      "stage": "work/art/aircraft-production/stage-v1"
+    },
+    {
+      "path": "work/art/infantry-roster/source-lock.json",
+      "sha256": "bca7f70f228ee554f4cf82ff1f6228dd40455cd5c9e927cce0edecae560bd7b1",
+      "packer_pinned": null,
+      "stage": null
+    }
+  ],
+  "exports": [
+    {
+      "id": "building.IR.repair_depot",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.IR.repair_depot/building.IR.repair_depot.sprite.json",
+      "sidecar_sha256": "83b60502056869932924e1211ef8e27a8802e94ddd84f72f42e362eb20b292b3",
+      "atlas_json_count": 12,
+      "frame_count": 28,
+      "annotation_present": false
+    },
+    {
+      "id": "building.SY.repair_depot",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.SY.repair_depot/building.SY.repair_depot.sprite.json",
+      "sidecar_sha256": "4d5686734fcd9d363a2273663f2e901ed4bf12e1afdcb092a9590bd24961eb64",
+      "atlas_json_count": 12,
+      "frame_count": 28,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.aa_post",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.aa_post/building.US.aa_post.sprite.json",
+      "sidecar_sha256": "bed3bb392e9105ea65a5ccede81a949428ea2900fd67614f438aea67aa3dd1ec",
+      "atlas_json_count": 18,
+      "frame_count": 150,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.barracks",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.barracks/building.US.barracks.sprite.json",
+      "sidecar_sha256": "675249af189c4a50e2817719d2cc6f4a58ac3b9741855318139e9eb3fc1857ff",
+      "atlas_json_count": 6,
+      "frame_count": 28,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.bunker",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.bunker/building.US.bunker.sprite.json",
+      "sidecar_sha256": "1c6df740938914f6976a228e8a472b3e947fe790b3a4d26099c4bafa0eed1754",
+      "atlas_json_count": 6,
+      "frame_count": 24,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.factory",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.factory/building.US.factory.sprite.json",
+      "sidecar_sha256": "972ccf5c203d430d827c4f3e40a6c501085ab0d2e95c0f16ba58bb0bbfaec7d7",
+      "atlas_json_count": 12,
+      "frame_count": 28,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.gun_turret",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.gun_turret/building.US.gun_turret.sprite.json",
+      "sidecar_sha256": "03594949e7499529b28be06a28db3ca52f490dfbb95d58e1fdf47cffd63c9c5d",
+      "atlas_json_count": 18,
+      "frame_count": 150,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.hq",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.hq/building.US.hq.sprite.json",
+      "sidecar_sha256": "39629e94d9b76094c83cd1ac1126035d1e0583cfe1f9dc5ce4d7ee5b584b0aec",
+      "atlas_json_count": 18,
+      "frame_count": 28,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.interceptor_battery",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.interceptor_battery/building.US.interceptor_battery.sprite.json",
+      "sidecar_sha256": "6baadb575ff6e42bd66e7e3c2c9b8c8d1c715222fafc5710b4ec6fedb5cb469c",
+      "atlas_json_count": 12,
+      "frame_count": 41,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.outpost",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.outpost/building.US.outpost.sprite.json",
+      "sidecar_sha256": "1288e37989ff6a890bb3951c965c52c441de40f9ffc8b6da4bada1d851aadce6",
+      "atlas_json_count": 6,
+      "frame_count": 22,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.power",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.power/building.US.power.sprite.json",
+      "sidecar_sha256": "d2224c3faa2d632bea1e12ef33daab40c1c3afdd53fecd5d9427d7fe6a099dae",
+      "atlas_json_count": 6,
+      "frame_count": 20,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.radar",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.radar/building.US.radar.sprite.json",
+      "sidecar_sha256": "e6a3b587c9ce636f89712e8a8ca1cdc739a61aafa2f9e07d64152777586c8292",
+      "atlas_json_count": 6,
+      "frame_count": 22,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.repair_depot",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.repair_depot/building.US.repair_depot.sprite.json",
+      "sidecar_sha256": "be0b7d1bad47bedee0d52c13e35586bd39825d4ffadb492a5566bb2d1d945aea",
+      "atlas_json_count": 12,
+      "frame_count": 28,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.strategic_site",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.strategic_site/building.US.strategic_site.sprite.json",
+      "sidecar_sha256": "0c5dffc43254c2ecc0093d30663e61b3218a7aa0b989b28ba0fcaa8097095c18",
+      "atlas_json_count": 18,
+      "frame_count": 44,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.supply",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.supply/building.US.supply.sprite.json",
+      "sidecar_sha256": "b650c326be4049097c91e1477ada4775acce88a18436d02ae4bb6fb43a67d233",
+      "atlas_json_count": 12,
+      "frame_count": 28,
+      "annotation_present": false
+    },
+    {
+      "id": "building.US.tech",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/building.US.tech/building.US.tech.sprite.json",
+      "sidecar_sha256": "6e030666eb8235be8977e8dc7642d891051108e80557d8912ebc0f33278eaa38",
+      "atlas_json_count": 6,
+      "frame_count": 22,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.bridge_permanent",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.bridge_permanent/prop.bridge_permanent.sprite.json",
+      "sidecar_sha256": "f07701e61b32caa0ebad20c44a67e133aec2e0fda0d206bc7064e9b9d9932ee9",
+      "atlas_json_count": 4,
+      "frame_count": 16,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.central_shipment_site",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.central_shipment_site/prop.central_shipment_site.sprite.json",
+      "sidecar_sha256": "c1847b2456c691a6b538f17e95cf900fd17bb9c2b52b292889a49bfe970e0a4b",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.command_relay_objective",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.command_relay_objective/prop.command_relay_objective.sprite.json",
+      "sidecar_sha256": "707fe713083f9f8aec66ddc622fe0013ff012c9fc591c1f048b6fe3b5cbbe1ec",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.concrete_barrier",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.concrete_barrier/prop.concrete_barrier.sprite.json",
+      "sidecar_sha256": "4e3ac6ae6401796bfe8a3d6d659cfc59c9fc94f0e052f39bfece47e58a73d046",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.container_stack",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.container_stack/prop.container_stack.sprite.json",
+      "sidecar_sha256": "0e49351816d4dbfdc359fff13c43c95016000c0ba87c68a55125de2bc8090906",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.decor_building_nongarrison",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.decor_building_nongarrison/prop.decor_building_nongarrison.sprite.json",
+      "sidecar_sha256": "8ff7c0470ea425268f831dbba9996848cc239bd49e177ce386c88d307480cdfd",
+      "atlas_json_count": 4,
+      "frame_count": 12,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.depot_objective",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.depot_objective/prop.depot_objective.sprite.json",
+      "sidecar_sha256": "442a837dbd6974968eec0beaeb031dfa37cf687b95d4d90257e7e97567d06a81",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.destructible_wall_hp_heavy",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.destructible_wall_hp_heavy/prop.destructible_wall_hp_heavy.sprite.json",
+      "sidecar_sha256": "3b4ff0170532167f0aa2f1f29c05f71020e207426f93b4088e995d020905a1e4",
+      "atlas_json_count": 4,
+      "frame_count": 12,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.destructible_wall_hp_light",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.destructible_wall_hp_light/prop.destructible_wall_hp_light.sprite.json",
+      "sidecar_sha256": "c9078bb88dfc2f982e0d6c69fbd390cf7c68aba34bd3d47c210b2ecd42c516e9",
+      "atlas_json_count": 4,
+      "frame_count": 12,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.fence_chainlink",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.fence_chainlink/prop.fence_chainlink.sprite.json",
+      "sidecar_sha256": "1aa6c2038a1562ff0756998531859b836a0123ae7422e7efd9643f5d08e29074",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.forest_edge_scrub",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.forest_edge_scrub/prop.forest_edge_scrub.sprite.json",
+      "sidecar_sha256": "43cc33c2f49cf64eedd2cae0a5a71750b4c3a85610da8c5eff3fe985e5ad6cd9",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.fuel_tanks",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.fuel_tanks/prop.fuel_tanks.sprite.json",
+      "sidecar_sha256": "7adb0fc11454a4f6cb9bc8b9716675165c12bd49e535908d129a2191cb31df5d",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.palm",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.palm/prop.palm.sprite.json",
+      "sidecar_sha256": "a799ed69864d0aa07db29a99d29e234759d4809adfd2e934543a17106b5901b3",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.power_pylon",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.power_pylon/prop.power_pylon.sprite.json",
+      "sidecar_sha256": "6a6bf0d6f11fb3fb1e12790cfe48154d806e8f24e310457007db451403b98c72",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.region_marker_editor",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.region_marker_editor/prop.region_marker_editor.sprite.json",
+      "sidecar_sha256": "77be27fa705ffd81bde7fe034cf3480171afd80c58ef06237049f85a6e98d884",
+      "atlas_json_count": 2,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.relay_objective",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.relay_objective/prop.relay_objective.sprite.json",
+      "sidecar_sha256": "137b0a7cceba38042404a6e368712a3417cd7d7477b547cfe1368f0bc24902aa",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.rocks",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.rocks/prop.rocks.sprite.json",
+      "sidecar_sha256": "40bdecd9cb85c6078ae3cc4f2e53107a245499163881b98f2464a2ba9c84623d",
+      "atlas_json_count": 4,
+      "frame_count": 1,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.rubble_cover",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+      "sidecar_sha256": "943abbe2568b9c2ded2a1be6efe051b7298660b53596d59751bd3b96b27e8da8",
+      "atlas_json_count": 4,
+      "frame_count": 1,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.ruined_house_garrisonable",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.ruined_house_garrisonable/prop.ruined_house_garrisonable.sprite.json",
+      "sidecar_sha256": "d2200ec5dac9de4737c4a5fd836344d12efc64fcf69b5023c53be93068220e03",
+      "atlas_json_count": 4,
+      "frame_count": 12,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.sandbags",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.sandbags/prop.sandbags.sprite.json",
+      "sidecar_sha256": "c730cc3a06695c53bfff9374cdbd1f88a46b24ea5428fea396d2193bfd2cf403",
+      "atlas_json_count": 4,
+      "frame_count": 1,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.shrub",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.shrub/prop.shrub.sprite.json",
+      "sidecar_sha256": "e6c9d39d46b4cb5956d57a3938ab9d79a604826a9ec46ca817eb109556024594",
+      "atlas_json_count": 4,
+      "frame_count": 1,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.spawn_marker_editor",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.spawn_marker_editor/prop.spawn_marker_editor.sprite.json",
+      "sidecar_sha256": "446f923fad9b180bd1418bf2c9c4ccb548b4c89dbbe2ae2f009ed042153142c6",
+      "atlas_json_count": 2,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.supply_field",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.supply_field/prop.supply_field.sprite.json",
+      "sidecar_sha256": "504e360b30c82c3e237748ceffecad94234961b3bb7eef7260d44bc6bfa9af4f",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.supply_station_neutral",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.supply_station_neutral/prop.supply_station_neutral.sprite.json",
+      "sidecar_sha256": "512e408ed4ebee8b8c7b980572e5de99691ce3f5bddc549c5524d660c6548a93",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.warehouse_garrisonable",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.warehouse_garrisonable/prop.warehouse_garrisonable.sprite.json",
+      "sidecar_sha256": "71e6a2abbbc704d4a50e748ee0dfbeaece0ed4e31e2dd8115cf13ec363d9c1ca",
+      "atlas_json_count": 4,
+      "frame_count": 12,
+      "annotation_present": false
+    },
+    {
+      "id": "prop.wreck_decor_vehicle",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/prop.wreck_decor_vehicle/prop.wreck_decor_vehicle.sprite.json",
+      "sidecar_sha256": "a1b1646a6526b989fa4688f60c1b61ee699d04f91f3adaed99924bfe980f68cb",
+      "atlas_json_count": 4,
+      "frame_count": 4,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.at",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.at/unit.IR.at.sprite.json",
+      "sidecar_sha256": "61980bd2b7b013732c77ae40b7bd03ac267ca8d5c730740f893acf9cab3033f5",
+      "atlas_json_count": 6,
+      "frame_count": 200,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.elite",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.elite/unit.IR.elite.sprite.json",
+      "sidecar_sha256": "9d5bc42c9f282dfa07b1e49dd4a15c55221b9d3ee5c5aaa5ecfa1ac6d388306c",
+      "atlas_json_count": 6,
+      "frame_count": 248,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.engineer",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.engineer/unit.IR.engineer.sprite.json",
+      "sidecar_sha256": "7ee1eca02992efde47a3d4eee9a2a15597bb51ebf45702b0a29122c5d71aa866",
+      "atlas_json_count": 6,
+      "frame_count": 256,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.hauler",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+      "sidecar_sha256": "e7e8aa7db56a3f9e21b12946a39d98f867873bf24b0fc814e5d5e60c6bac0e6e",
+      "atlas_json_count": 36,
+      "frame_count": 400,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.medic",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.medic/unit.IR.medic.sprite.json",
+      "sidecar_sha256": "d5c32b948b21e853b906474a54e515dc937c7924a11b77838a2fb32a6c2b21b9",
+      "atlas_json_count": 6,
+      "frame_count": 208,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.recon",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.recon/unit.IR.recon.sprite.json",
+      "sidecar_sha256": "9c74bfa6cafa7d9a847e32c1538c866ae5dde7cdb2c881b79f6811b78222f37d",
+      "atlas_json_count": 6,
+      "frame_count": 232,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.rifle",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.rifle/unit.IR.rifle.sprite.json",
+      "sidecar_sha256": "1e47b345a7b22a15d3e9a91e5d91e8e06fd948f59475852e1cfa1ecedf482f52",
+      "atlas_json_count": 6,
+      "frame_count": 200,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.rig",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+      "sidecar_sha256": "9abaef2f290b454104736f4248c83c9fa44af4310820de2a549a0a9cebae9efa",
+      "atlas_json_count": 42,
+      "frame_count": 336,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.IR.strike",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+      "sidecar_sha256": "a3de5ebab6e37dab408ddac49840226513d76c7bc04f5cdada439b21568b965e",
+      "atlas_json_count": 12,
+      "frame_count": 304,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.SA.hauler",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+      "sidecar_sha256": "c0c28feb9ea7b65ec901998361d7e23521082fde5ffbb67f6ad1710831419592",
+      "atlas_json_count": 34,
+      "frame_count": 400,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.SA.mobile_abm",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+      "sidecar_sha256": "e6fafc0cc9e813a92ce844ac39353efb95a5ca1b1d78cb67a52fdfff7f338214",
+      "atlas_json_count": 36,
+      "frame_count": 400,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.SA.rig",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+      "sidecar_sha256": "008672ede9db84baf86f00ee86b77b5fdf5652339ccc2c1a9c13b0e48cd383b2",
+      "atlas_json_count": 30,
+      "frame_count": 336,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.SY.car",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.SY.car/unit.SY.car.sprite.json",
+      "sidecar_sha256": "1a93d3baef1cb6de3c1993d89a0d2a1b80eba8baaa9d919c56aa198f68f6df5b",
+      "atlas_json_count": 10,
+      "frame_count": 240,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.SY.hauler",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+      "sidecar_sha256": "149a2e54f632bae53873391b779b4dbb8ca2c690f9cb490be9dc62d6234df133",
+      "atlas_json_count": 24,
+      "frame_count": 400,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.SY.rig",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+      "sidecar_sha256": "a224d59077d1a577c664ea81d70ea04d2d00d981a0d5e72bfbf44b9952e62ba1",
+      "atlas_json_count": 24,
+      "frame_count": 336,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.at",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.at/unit.US.at.sprite.json",
+      "sidecar_sha256": "57e7153d2fbd06f95fabca3a98cb4daf4e8e691ad12ab884cc145e89ac2643c2",
+      "atlas_json_count": 6,
+      "frame_count": 200,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.elite",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.elite/unit.US.elite.sprite.json",
+      "sidecar_sha256": "30a1c99725beab17c614375b506d0be0c7e347432b6a82285a0c8fa121d43a11",
+      "atlas_json_count": 6,
+      "frame_count": 248,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.engineer",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.engineer/unit.US.engineer.sprite.json",
+      "sidecar_sha256": "201d4b724e698d7631a3011b2044664e7bc9750dc20092620ec97f1710519d39",
+      "atlas_json_count": 6,
+      "frame_count": 256,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.hauler",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+      "sidecar_sha256": "963dabf69127204840e88fd847ac77ebaf26e93def5d2f0ddd2327309035ee4d",
+      "atlas_json_count": 34,
+      "frame_count": 400,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.medic",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.medic/unit.US.medic.sprite.json",
+      "sidecar_sha256": "620be289e9013e11e90af0e2fab9539c561afd2959a824b12f438a6cd4720496",
+      "atlas_json_count": 6,
+      "frame_count": 208,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.recon",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.recon/unit.US.recon.sprite.json",
+      "sidecar_sha256": "c163c4f751ab6ca98c64e0003080fd75486699160f985f37a5dc109fe6fa58b8",
+      "atlas_json_count": 6,
+      "frame_count": 232,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.rifle",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+      "sidecar_sha256": "4b5a305865e8410b6fdef9ae865f4824aa8a61d831807f9a32c86103c03390a8",
+      "atlas_json_count": 6,
+      "frame_count": 200,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.rig",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.rig/unit.US.rig.sprite.json",
+      "sidecar_sha256": "cf811d71a893a98c529be97d370005f90b54e1bbbaf8f9577b997aaceea29c0b",
+      "atlas_json_count": 30,
+      "frame_count": 336,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.tank",
+      "root": "shipping",
+      "sidecar": "assets/build/sprites/unit.US.tank/unit.US.tank.sprite.json",
+      "sidecar_sha256": "f066a18c95ce45bf546be807f6ab9e74aa017fa65289ae75670d1de63c8861e1",
+      "atlas_json_count": 26,
+      "frame_count": 240,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.airlift",
+      "root": "immutable-stage-v1",
+      "sidecar": "work/art/aircraft-production/stage-v1/assets/build/sprites/unit.US.airlift/unit.US.airlift.sprite.json",
+      "sidecar_sha256": "bd5080f8af5edde4767b724203ba1f3101858c008f4f174663ca575874f46f64",
+      "atlas_json_count": 98,
+      "frame_count": 672,
+      "annotation_present": false
+    },
+    {
+      "id": "unit.US.fighter",
+      "root": "immutable-stage-v1",
+      "sidecar": "work/art/aircraft-production/stage-v1/assets/build/sprites/unit.US.fighter/unit.US.fighter.sprite.json",
+      "sidecar_sha256": "8c6762362339d74c3af11c147f795e0f8abe455b6993521165288d9e6a5a1591",
+      "atlas_json_count": 34,
+      "frame_count": 544,
+      "annotation_present": false
+    }
+  ]
+}

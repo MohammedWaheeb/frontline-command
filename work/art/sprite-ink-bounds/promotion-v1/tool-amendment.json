@@ -1,0 +1,38 @@
+{
+  "scope": "Root-approved metadata-only tool promotion; no model/spec/source/manifest/PNG change. Aircraft stage-v1 immutable; independent stage-v2 retains originaldca923 geometry and service limitations.",
+  "changes": [
+    {
+      "path": "assets/pipeline/tools/pack_sprites.py",
+      "before_sha256": "730b7f86232220acf5ed0b6f5858183a0509c8eec9076c63fbd77207fc1a198e",
+      "after_sha256": "18a933faed0eb64a273ec273428047942fbb4b95f6a97d66a3d45375a366848a"
+    },
+    {
+      "path": "work/art/building-roster/production-lock.json",
+      "before_sha256": "23c43b59ec9006da0c9f6ef82586654628bf80ccdb5ce46d65e4db217a35c414",
+      "after_sha256": "a6d3df029306fff0803db5964b56c694c6b2a423b5b5c141bc5ac305544e8015"
+    },
+    {
+      "path": "work/art/vehicle-production/production-lock.json",
+      "before_sha256": "163cf666e01d7bc2a01c4bf95673fbd7bf9bc80cd79c78d74aa5fe78c9119340",
+      "after_sha256": "11e8e518ad1b93053b2fc33af56978532cb3928efe1ebd00547d816e5eb9db09"
+    },
+    {
+      "path": "work/art/infantry-roster/source-lock.json",
+      "before_sha256": "bca7f70f228ee554f4cf82ff1f6228dd40455cd5c9e927cce0edecae560bd7b1",
+      "after_sha256": "a500c2987bb61af79c29370b97913e152eaab0569e0244136fee1e5b14a3d961"
+    },
+    {
+      "path": "work/art/aircraft-production/production-lock.json",
+      "before_sha256": "89cb2ae5b617dac102d3ac62bb746a0db3d1d82c38b0c635644d0ec4b70cf2d4",
+      "after_sha256": "887c6ead2a966a756e03431feadb32a232f65e2cd79e05908f98716337533be7"
+    }
+  ],
+  "new_helper": {
+    "path": "assets/pipeline/tools/sprite_ink_bounds.py",
+    "sha256": "cda9670317a57b3d0693777978fa049b6e2ef035c120f5c1920aa0b8de05048e"
+  },
+  "new_test_sha256": "28899d7e8fd823ba98d0a398b55585235b5c01a2d66be0d04a5ea0e9d40b32c9",
+  "stage": "work/art/aircraft-production/stage-v2",
+  "stage_v2_model_sha256": "dca923b26bcb6bf81b70c3330ff60ac87ef00d2b6a38416d764f4d3a99ac76f2",
+  "descriptor_publication": "pending private validation"
+}

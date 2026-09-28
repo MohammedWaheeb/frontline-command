@@ -1,0 +1,8 @@
+{
+  "reason": "Old driver hardcoded stage-v1 despite active stage-v2 lock; no job ran with that mismatch. Read validated active stage and explicitly reject resolved original stage-v1.",
+  "driver": "work/art/aircraft-production/run-staged.sh",
+  "before_sha256": "e14c0cb10923cca2ae6a102e5a43eff02cecece87c9c615b9a7908ff0561f9d2",
+  "after_sha256": "4232e6a42a8332180fdb3653d381176964292f5a7f1c2392fddd88e74c8710ed",
+  "lock_change": "drivers[run-staged.sh] only; stage/model/spec/tool hashes unchanged",
+  "immutable_original_stage_preserved": true
+}

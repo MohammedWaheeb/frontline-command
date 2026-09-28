@@ -1,0 +1,56 @@
+{
+  "scope": "Parent-approved original-scale eleven-aircraft CANDIDATE production under work only; no promotion to shipping until Go parking and actual-position integration pass",
+  "stage": "work/art/aircraft-production/stage-v2",
+  "model_sha256": "dca923b26bcb6bf81b70c3330ff60ac87ef00d2b6a38416d764f4d3a99ac76f2",
+  "assets": [
+    "unit.IR.fighter",
+    "unit.IR.gunship",
+    "unit.IR.isr",
+    "unit.SA.fighter",
+    "unit.SA.gunship",
+    "unit.SA.strike",
+    "unit.SY.scout_drone",
+    "unit.US.airlift",
+    "unit.US.fighter",
+    "unit.US.gunship",
+    "unit.US.strike"
+  ],
+  "sources": {
+    "assets/pipeline/blender/fclib.py": "e5bb314a1f33765a65e0cf1656472eb48f333cf3e62627e349bf2ecb09a8be03",
+    "assets/pipeline/blender/render_asset.py": "8da035829b13704d678152f41fa3f86c5945e87be2503d9d0307157569bd38b4",
+    "assets/pipeline/blender/render_ui_shots.py": "6067b4ec709a18bdd68b32a45296d4e00f634477a9d57f700a21d11777cc3135",
+    "assets/pipeline/blender/models/aircraft_roster.py": "dca923b26bcb6bf81b70c3330ff60ac87ef00d2b6a38416d764f4d3a99ac76f2",
+    "assets/pipeline/tools/pack_sprites.py": "18a933faed0eb64a273ec273428047942fbb4b95f6a97d66a3d45375a366848a",
+    "assets/pipeline/tools/shadow_alpha.py": "40908f01475b4aa7c8ab3d64a0a882cfe26faa6311defb1e882296605cb2a25e",
+    "assets/pipeline/tools/check_assets.py": "d6d8406c75d28345cca9cda6db9a88dce18350bccaa0cfe5eea12486bed9135b",
+    "assets/pipeline/tools/composite.py": "adf3e87ee84cb9c8262e1008b503d6b28614af10b7074146c53986c9dcaa0505",
+    "assets/manifest/asset-manifest.json": "7f84481febe3b4f6003dd174c979de4b810740058639b8e3ef932e765ff5fe04",
+    "assets/pipeline/specs/unit.IR.fighter.json": "f5a6411674adc403bd25bb2326a58b3729b44c12702756c4dff6f6d0ee1e7474",
+    "assets/pipeline/specs/unit.IR.gunship.json": "9a2e225699503c9143a0d019f106e542fb73d08a0fcc0f225b78021383980501",
+    "assets/pipeline/specs/unit.IR.isr.json": "4fa5b5d5df80fc3f8b4c630d057166a3572d3e554e3bb8445986e97fd42eb79b",
+    "assets/pipeline/specs/unit.SA.fighter.json": "4645c3e55156e438a02d13d8d8a6db441d2c1c95ef9b075f3c1ece3a0d3067e2",
+    "assets/pipeline/specs/unit.SA.gunship.json": "ae57ffff4459ff4b75ba7600610838a51873be8124f89314b9e595605485b4fd",
+    "assets/pipeline/specs/unit.SA.strike.json": "b9850a81abc60ca3138ad90a1b88c8b5a26170e54f51213501610facf86dde7a",
+    "assets/pipeline/specs/unit.SY.scout_drone.json": "175558ff40478c5ab3914b108411fedd1111ec4e6c01e2e69b45b7493fb7a8b1",
+    "assets/pipeline/specs/unit.US.airlift.json": "ec7ecfe30839cc7fc0f00e56154a6121303a9d8385d3e20e3e18341e548eb914",
+    "assets/pipeline/specs/unit.US.fighter.json": "69732f04f78f5df9bd30b6ce658b4587a8db97a06853b386fc0ad8b5f84f07a7",
+    "assets/pipeline/specs/unit.US.gunship.json": "518c08ccb1bbeda6d09f5f896c2b88e1692fe25b97a47feb2c5fa14f824b8d80",
+    "assets/pipeline/specs/unit.US.strike.json": "6be5589a4f7d3b0c906bcfb7a6fde07614b3419398e77722425d255ea3b99d2d",
+    "assets/pipeline/tools/sprite_ink_bounds.py": "cda9670317a57b3d0693777978fa049b6e2ef035c120f5c1920aa0b8de05048e"
+  },
+  "drivers": {
+    "work/art/aircraft-production/check-one.py": "58da9ea49c1294f69c6716517da26cd226dc4d70afaaa6ea8e766ef803e8dd5c",
+    "work/art/aircraft-production/preflight.py": "13fa1e28d5e9289a2cc5971cbe38a0961e0a20f25df204ce6145fcbac0d6ee53",
+    "work/art/aircraft-production/prepare-stage.py": "e4089c5e18ee908f0725218698b62328fb11378a496ddad22def6b607c790857",
+    "work/art/aircraft-production/run-staged.sh": "4232e6a42a8332180fdb3653d381176964292f5a7f1c2392fddd88e74c8710ed",
+    "work/art/aircraft-production/ui-and-contacts.py": "a13896e753594c8750eefd508afc026f53148504670e36f94dc4cded9249cc32"
+  },
+  "legacy_excluded": "unit.IR.strike",
+  "approved_exterior_review": "work/art/exterior-parking-pilot/review.md",
+  "derived_manifest_amendment": {
+    "scope": "Root-approved11-target derived dimensions/counts only, after complete fighter boundary; no geometry/source/render changes",
+    "previous_manifest_sha256": "1bab444a161d96f6d6aa0564bdc119a7eb1e274e231ec912a4b46452e7ed6c08",
+    "previous_lock_sha256": "0d3918dfe5be356d48b5cac4b84938f2ccb45a30feed54b06dd11b8970c72789",
+    "receipt": "work/art/aircraft-production/stage-derived-amendment.json"
+  }
+}

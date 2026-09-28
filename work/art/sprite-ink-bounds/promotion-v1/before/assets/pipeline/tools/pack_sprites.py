@@ -22,7 +22,6 @@ import sys
 import numpy as np
 from PIL import Image
 from shadow_alpha import clean_shadow_alpha
-from sprite_ink_bounds import add_ink_bounds
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 FRAMES = os.path.join(REPO, 'assets', 'build', 'frames')
@@ -154,8 +153,6 @@ def pack_asset(aid):
                 with open(os.path.join(out_dir, name + '.json'), 'w') as f:
                     json.dump(pix, f, separators=(',', ':'))
                 atlases.setdefault(scale, {}).setdefault(layer, []).append(name + '.json')
-    # Read final PNG alpha; annotate JSON only after every layer/scale exists.
-    add_ink_bounds(out_dir, atlases)
     # hardpoints relative to anchor, in 2x pixels
     hp_path = os.path.join(src, 'hardpoints.json')
     hardpoints = {}
