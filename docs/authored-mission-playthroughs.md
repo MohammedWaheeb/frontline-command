@@ -7,6 +7,9 @@
 > [frozen matrix status](../work/runtime-034-candidate/README.md) and
 > [latest individual pilot status](../work/runtime-034-tactics/README.md).
 > A failed driver route does not establish that a mission is impossible.
+> Update23:02UTC: separate later pilots now cover all nine failed main and all
+> nine failed optional leaves. The revised combined102/21 rerun remains pending;
+> individual routes are not a consolidated pass.
 
 Status: active acceptance work, not a release certificate. Opening validation,
 file inventory, and a successful content-library download do not prove a mission

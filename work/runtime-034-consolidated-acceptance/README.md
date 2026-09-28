@@ -1,12 +1,12 @@
 # Prepared consolidated ordinary mission acceptance — NOT RUN
 
-This runner uses immutable source in `../runtime-034-capture-relief-gunner/source`,
-lock `cc20b7c036d5625ce863a282eef58a702a0606c36d43ebc70bb77309763c33dd`.
+This runner uses immutable source in `../runtime-034-observer-reboard/source`,
+lock `757b31785a0c0b869cca06ad01299ef199fd124989e722dce559c2919dddab8d`.
 Its production Go, bindings, mission and map bytes match original proposed 0.3.4
 `ed509668…`; only three existing and eleven added acceptance test files differ.
-All nine previous main failures have separate successful routes, but that does
-not establish that the combined tactics have no regressions. Two optional
-routes remain unresolved and the runner will retain their actual results.
+All nine previous main and all nine previous optional failures have separate
+successful routes. That does not establish that the combined tactics have no
+regressions; this runner will retain every actual result.
 
 The prepared plan contains exactly **102 main and 21 optional leaves**, runs
 serially with GOMAXPROCS=2, records source/binary/artifact hashes and each exact

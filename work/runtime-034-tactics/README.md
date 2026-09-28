@@ -345,3 +345,9 @@ is still held during the active multiplayer course and has not run.
 ## 2026-09-28 23:00 UTC — IR06 Normal observer route earned
 
 `runtime-034-observer-reboard` Normal PASS16938 with both original observation teams alive/disembarked at their real regions;1138/1138orders accepted and all save/replay/restart/surrender gates pass. Scoped commander changes preserve home defense, limit permanent escorts to tank/rifle pairs, dispatch after visibly cleared outer positions, and use ordinary reboarding when current visible threats make a post unsafe. Each prior failed source and cleanup artifact remains. Separate later evidence now covers9/9oldmain failures and8/9oldoptional failures; IR06Hard remains. The original93/102main,12/21optional broad matrix is unchanged and a consolidated matrix remains queued.
+
+## 2026-09-28 23:02 UTC — every old failed leaf has an individual route
+
+The exact Normal executable also passes **IR06Hard at22924**, both originals alive/disembarked in their proper sites at mission_complete.1746/1746orders accepted; midpoint1570 plus full restore/replay/restart/surrender gates pass. Source757b3178… and binary89b0bb0c… unchanged. Finalhashd58c96c073f52dafb507bb5c280ad317d1098079dde67694b13fb7e99527c335. No production or authored content changes.
+
+Later separate proofs now cover **9/9 old main failures and9/9 old optional failures**. This does not establish a consolidated102/102 or21/21 pass. `../runtime-034-consolidated-acceptance/` now points to the frozen final test-commander source, but broad execution remains held while the long two-human live browser course runs. Original93/102main and12/21optional evidence and every failed pilot are preserved. No native process remains active.

@@ -105,7 +105,7 @@
       "phase": "optional",
       "original_passed": 12,
       "original_failed": 9,
-      "failed_cases_with_separate_successful_routes": 8,
+      "failed_cases_with_separate_successful_routes": 9,
       "cases": [
         {
           "case": "TestAuthoredOptionalMechanicTeams/easy",
@@ -165,8 +165,15 @@
         },
         {
           "case": "TestAuthoredOptionalObserverNetwork/hard",
-          "has_separate_successful_route": false,
-          "passed_pilots": []
+          "has_separate_successful_route": true,
+          "passed_pilots": [
+            {
+              "pilot": "../runtime-034-observer-reboard/runs/20260928T230105Z-ir06-hard-reboard",
+              "source_lock_sha256": "757b31785a0c0b869cca06ad01299ef199fd124989e722dce559c2919dddab8d",
+              "tick": 22924,
+              "optional_observer_network_complete": true
+            }
+          ]
         },
         {
           "case": "TestAuthoredOptionalFactoryCapture/easy",

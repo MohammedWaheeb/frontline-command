@@ -1,0 +1,38 @@
+{
+  "scope": "IR06 Normal/Hard exposed original reboards its own surviving APC when current view makes observation post unsafe; ordinary transport rules unchanged",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "757b31785a0c0b869cca06ad01299ef199fd124989e722dce559c2919dddab8d",
+  "base_source_lock_sha256": "5f619e66127a129106f08da2dbde57e08e53832b04227509992797b9baace2c1",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T23:01:05.997612+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-reboard/runs/20260928T225910Z-ir06-normal-reboard/sim.test",
+        "-test.run=^TestAuthoredOptionalObserverNetwork$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-reboard/source/pkg/sim",
+      "started": "2026-09-28T23:01:06.011910+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 74.603,
+      "completed": "2026-09-28T23:02:20.614003+00:00"
+    }
+  ],
+  "binary_sha256": "89b0bb0c45c7493b8c6d04c36af25b730a7303b0ef201e1e566da0f62bc6d166",
+  "exit_code": 0,
+  "completed": "2026-09-28T23:02:20.614781+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/ir-06-iron-signal-IR-hard-optional-observer-network.json": {
+      "bytes": 912163,
+      "sha256": "456d98b003dde2c6a2435be784aca6e3e3c87af759a11890c5a62f1d416bacfc"
+    }
+  }
+}
