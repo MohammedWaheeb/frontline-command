@@ -1,0 +1,24 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ guard/pkg/sim/authored_campaign_acceptance_test.go
+@@ -934,6 +934,21 @@
+ 						r.tryIssue(sim.Order{Kind: "repair", Entities: []sim.ID{worker.ID}, Target: siteID})
+ 					}
+ 				}
++				if r.faction == "SY" && r.difficulty == "hard" && r.requiredOptional == "factory-captured" {
++					// Let ordinary Guard enforce its actual anchor leash instead of
++					// repeatedly chasing distant threats with Attack Move/Attack.
++					for _, id := range guards[siteID] {
++						actor, alive := r.seen(id)
++						if !alive || actor.Owner != 1 || actor.Private == nil {
++							continue
++						}
++						orders := actor.Private.Orders
++						if len(orders) == 0 || orders[0].Kind != "guard" || orders[0].Target != siteID {
++							r.tryIssue(sim.Order{Kind: "guard", Entities: []sim.ID{id}, Target: siteID})
++						}
++					}
++					continue
++				}
+ 				point := sim.Vec{X: site.Position.X - 1000, Y: site.Position.Y + 2500}
+ 				var enemyID sim.ID
+ 				closest := int64(14000 * 14000)

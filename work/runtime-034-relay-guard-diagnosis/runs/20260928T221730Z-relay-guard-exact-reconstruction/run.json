@@ -1,0 +1,73 @@
+{
+  "scope": "One exact failed optional Hard accepted-command reconstruction; no new commands or tactic change",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "65a46af670f666e5b233776e4e589933b5fbf4a0cb4dea7fb949c1a8c4d1741c",
+  "base_source_lock_sha256": "b30aa880d648466ba1323996726a50af4a4b734eabc885c6a82b22da2908d77e",
+  "ledger_sha256": "6c2180f8e3beb4242a67d0849d3763f48cf1df96939798893938ec25bddd6270",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:17:30.174626+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-relay-guard-diagnosis/runs/20260928T221730Z-relay-guard-exact-reconstruction/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-relay-guard-diagnosis/source",
+      "started": "2026-09-28T22:17:30.174833+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.918,
+      "completed": "2026-09-28T22:17:32.092696+00:00"
+    },
+    {
+      "name": "reconstruction",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-relay-guard-diagnosis/runs/20260928T221730Z-relay-guard-exact-reconstruction/sim.test",
+        "-test.run=^TestAuthoredRelayGuardDiagnosis$",
+        "-test.count=1",
+        "-test.timeout=10m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-relay-guard-diagnosis/source/pkg/sim",
+      "started": "2026-09-28T22:17:32.096659+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 5.067,
+      "completed": "2026-09-28T22:17:37.163563+00:00"
+    }
+  ],
+  "binary_sha256": "1136c3e5880a1a8e8a9b5ed7cf6fc2134eecd937071e8ce5884d0d0087650f46",
+  "exit_code": 0,
+  "completed": "2026-09-28T22:17:37.163803+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/final.owner-view.json": {
+      "bytes": 441783,
+      "sha256": "ee2b4bb306fae7d58a9f55bab66ac2182511146f632fd3cf3ca6fa1b795dc90c"
+    },
+    "evidence/reconstruction.json": {
+      "bytes": 248,
+      "sha256": "248bf749905a6bb2c037c44d69e4f5c6673754d947b79aa70010be0fdf346507"
+    },
+    "evidence/relay-authorized-events.json": {
+      "bytes": 14204,
+      "sha256": "d99dcb1c8f47a5f565d072c5df64e6614f9165b87ab9f3c05dc688d8fc3067ae"
+    },
+    "evidence/relay-owner-samples.json": {
+      "bytes": 4814463,
+      "sha256": "57917cc1026ae43a13efcb13751d4b6b7550c8062547e3af7e388a892274df13"
+    },
+    "evidence/target-identity.json": {
+      "bytes": 130,
+      "sha256": "ffddbda992f00f0fc19e6706cc14f6175501990aa4c426b7383e8bda5545daaa"
+    }
+  }
+}

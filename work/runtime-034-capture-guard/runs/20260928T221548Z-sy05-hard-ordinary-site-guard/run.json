@@ -1,0 +1,91 @@
+{
+  "scope": "One optional Hard ordinary Guard for captured site defenders; same rules/objectives/budgets",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "b30aa880d648466ba1323996726a50af4a4b734eabc885c6a82b22da2908d77e",
+  "base_source_lock_sha256": "8950b35bf329f08f8f28998a1741674ff240be45ff8d176385a5ab51a347061f",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:15:48.866332+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-guard/runs/20260928T221548Z-sy05-hard-ordinary-site-guard/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-guard/source",
+      "started": "2026-09-28T22:15:48.866527+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.472,
+      "completed": "2026-09-28T22:15:51.338712+00:00"
+    },
+    {
+      "name": "focused",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-guard/runs/20260928T221548Z-sy05-hard-ordinary-site-guard/sim.test",
+        "-test.run=^TestAuthoredCaptureRepairerReassignment$",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-guard/source/pkg/sim",
+      "started": "2026-09-28T22:15:51.342822+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.907,
+      "completed": "2026-09-28T22:15:52.249600+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-guard/runs/20260928T221548Z-sy05-hard-ordinary-site-guard/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-guard/source/pkg/sim",
+      "started": "2026-09-28T22:15:52.250465+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 26.925,
+      "completed": "2026-09-28T22:16:19.175169+00:00"
+    }
+  ],
+  "binary_sha256": "390658a93c145cbe9553ef0cc15cb554eec4532a4a8121905b2b995f92f5b4c0",
+  "exit_code": 1,
+  "completed": "2026-09-28T22:16:19.175423+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.save.json": {
+      "bytes": 1167487,
+      "sha256": "92b46c489fd006813c0d21b0a809bd83c40d124e004bededb4e5d3eff5517c9e"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.view.json": {
+      "bytes": 441782,
+      "sha256": "72e520d804edd47787ae526cb7b34c1086fbe798dbbc5acaeea095d0ffa424f7"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3747463567/driver-orders.json": {
+      "bytes": 385984,
+      "sha256": "6c2180f8e3beb4242a67d0849d3763f48cf1df96939798893938ec25bddd6270"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3747463567/manifest.json": {
+      "bytes": 860,
+      "sha256": "24ce845ec19f32e94867d5e5eb5aa6ef6b4d2733f8c54a3a1750b3b950472f4e"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3747463567/owner.view.json": {
+      "bytes": 441782,
+      "sha256": "72e520d804edd47787ae526cb7b34c1086fbe798dbbc5acaeea095d0ffa424f7"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3747463567/state.save.json": {
+      "bytes": 1167487,
+      "sha256": "92b46c489fd006813c0d21b0a809bd83c40d124e004bededb4e5d3eff5517c9e"
+    }
+  }
+}
