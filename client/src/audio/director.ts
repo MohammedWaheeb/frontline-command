@@ -10,17 +10,17 @@ const OWN_EVENTS=new Set(['construction_complete','unit_ready','research_complet
 /** Owns presentation history only. Its only world input is the authorized snapshot. */
 export class AudioDirector {
  private viewport?:()=>AudioViewport;private ambience='';private paused=false;private suspended=false;private loopTimer?:ReturnType<typeof setInterval>;private battlefieldToken=0;private advancedAt=0;private enduranceLost=new Map<number,number>();
- private previous?:PlayerSnapshot;private lastEvent=0;private scene='';private faction='US';private combatUntil=0;private tensionUntil=0;private scope='';private teammates=new Map<number,boolean>();
+ private previous?:PlayerSnapshot;private lastEvent=0;private scene='';private faction='US';private combatUntil=0;private tensionUntil=0;private scope='';private connectionPhase='';private teammates=new Map<number,boolean>();
  attachBattlefield(map:GameMap,viewport:()=>AudioViewport){const token=++this.battlefieldToken;this.viewport=viewport;this.ambience=ambienceFor(map);if(this.loopTimer)clearInterval(this.loopTimer);this.loopTimer=setInterval(()=>this.refreshContinuous(),150);this.refreshContinuous();return()=>{if(token!==this.battlefieldToken)return;this.viewport=undefined;if(this.loopTimer)clearInterval(this.loopTimer);this.loopTimer=undefined;this.mixer.continuous([])}}
  setPaused(paused:boolean){this.paused=paused;this.refreshContinuous()}
  private refreshContinuous(){const catalog=this.catalog();if(!this.previous||!catalog||!this.viewport||this.suspended||performance.now()-this.advancedAt>1000){this.mixer.continuous([]);return}this.mixer.continuous(battlefieldSounds(this.previous,catalog,this.viewport(),this.ambience,this.paused))}
  dispose(){if(this.loopTimer)clearInterval(this.loopTimer);this.viewport=undefined;this.mixer.continuous([])}
  constructor(readonly mixer:AudioMixer,private catalog:()=>CatalogIndex|undefined){}
- operation(scope:string){if(scope===this.scope)return;this.scope=scope;this.suspended=false;this.enduranceLost.clear();this.teammates.clear();this.previous=undefined;this.lastEvent=0;this.combatUntil=0;this.tensionUntil=0;this.scene='';this.mixer.reset();this.mixer.music([])}
+ operation(scope:string){if(scope===this.scope)return;this.scope=scope;this.connectionPhase='';this.suspended=false;this.enduranceLost.clear();this.teammates.clear();this.previous=undefined;this.lastEvent=0;this.combatUntil=0;this.tensionUntil=0;this.scene='';this.mixer.reset();this.mixer.music([])}
  discontinuity(){this.enduranceLost.clear();this.teammates.clear();this.previous=undefined;this.lastEvent=0;this.mixer.reset();this.mixer.music([]);this.scene=''}
  page(page:string,briefing?:string){if(this.scope)return;const scene=briefing?`briefing:${briefing}`:page==='editor'?'editor':page==='network'?'lobby':'menu';if(this.scene===scene)return;this.scene=scene;this.mixer.reset();this.mixer.music([`music.${briefing?'briefing_bed':page==='editor'?'editor_ambient':page==='network'?'lobby_loop':'menu_theme'}`])}
  briefing(id:string,faction?:string){this.mixer.stopTransient();this.mixer.clearCaptions();this.mixer.play(`vo.briefing.${id}${faction?`.${faction}`:''}`)}
- connection(phase:string){if(phase==='reconnecting'){this.suspended=true;this.discontinuity();this.announce('reconnecting',undefined,100)}else if(phase==='connected'){this.suspended=false;this.discontinuity()}}
+ connection(phase:string){if(phase===this.connectionPhase)return;this.connectionPhase=phase;if(phase==='reconnecting'){this.suspended=true;this.discontinuity();this.announce('reconnecting',undefined,100)}else if(phase==='connected'){this.suspended=false;this.discontinuity()}}
  status(status:MatchStatus){for(const teammate of status.teammates){if(this.teammates.get(teammate.player)===true&&!teammate.connected)this.announce('teammate_disconnected',undefined,100);this.teammates.set(teammate.player,teammate.connected)}}
  selection(entities:readonly Entity[],player:number){const entity=entities.find(entity=>entity.owner===player&&this.catalog()?.units.has(entity.type));if(entity)this.unit(entity,'select')}
  receipt(kind:string,accepted:boolean,entity?:Pick<Entity,'type'|'owner'>,code?:string){
