@@ -279,3 +279,99 @@ body:has(.battlefield-screen) .audio-captions{left:calc((100% - var(--fc-hud-sid
 .battlefield-screen .replay-controls select{width:100%;min-width:0;max-width:100%;padding:3px;font-size:inherit}
 .battlefield-screen .replay-controls button{min-width:0;min-height:32px;height:100%;padding:3px;white-space:normal}
 .battlefield-screen .replay-controls>span{font-family:var(--fc-font-mono);font-size:inherit;line-height:1.4;text-align:center}
+
+/* ==========================================================================
+   Console polish 08:35 (Claude, claude-opus-5-5). Menus, dialogs and the HUD
+   now share one tactile key and plate language; empty wells show sockets.
+   ========================================================================== */
+/* Command-center diorama replaces the up-scaled 192px portrait. */
+.command-backdrop{background:#0e0d0b}
+.command-backdrop::after{background:none}
+.menu-diorama{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* Global tactile keys outside the battlefield (menus, dialogs, pages). */
+button{background:none;border:6px solid transparent;border-image:var(--key) 12 fill / 6px stretch;box-shadow:0 2px 0 #0b0a09;color:#e6dcc2;border-radius:0;text-shadow:0 1px 0 #000;padding:5px 12px}
+button:hover:not(:disabled){background:none;border-image-source:var(--key-hover);color:#fff3d6}
+button:active:not(:disabled){border-image-source:var(--key-pressed);box-shadow:none}
+button:disabled{border-image-source:var(--key-disabled);opacity:1;filter:none;color:#80786a}
+button.active,button.selected,button[aria-pressed=true]{border-image-source:var(--key-active);background:none;color:#fff0c4;box-shadow:0 0 0 1px #0b0a09,0 0 10px rgba(226,162,50,.25)}
+button.primary{border:1px solid #e0bd74;border-image:none;background:linear-gradient(180deg,#c9a55a,#a8843f 45%,#7d6128);color:#1a1206;text-shadow:0 1px 0 rgba(255,236,190,.45);box-shadow:inset 0 1px 0 #f3dca0,inset 0 -2px 0 #5a4418,0 3px 0 #0b0a09,0 0 16px rgba(226,162,50,.18);padding:8px 16px}
+button.primary:hover:not(:disabled){background:linear-gradient(180deg,#dcb86a,#b99248 45%,#8a6a2c);border-image:none;color:#140d03}
+button.danger{color:#f0a48c;box-shadow:inset 3px 0 0 #b8452f,0 2px 0 #0b0a09}
+button.danger:hover:not(:disabled){color:#ffc2ad}
+.text-button,.text-button:hover:not(:disabled){border:0;border-image:none;box-shadow:none;background:none;padding:0}
+.icon-button{padding:2px}
+
+/* Plates for pages and the main menu column. */
+.command-nav.console,.page-panel.console{background:#1e1c18;border:14px solid transparent;border-image:var(--plate) 36 fill / 14px round;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.command-nav.console{padding:2px;gap:4px}
+.command-nav button{background:none;border-image-source:var(--key);min-height:44px;font-size:calc(17px * var(--fc-ui-scale));letter-spacing:.05em}
+.command-nav button .icon{color:var(--brass-hi)}
+.command-nav button.active{border-image-source:var(--key-active)}
+.page-panel.console{padding:18px 24px;background-clip:padding-box}
+.page-panel>header{border-bottom:2px solid var(--brass-dk);box-shadow:0 1px 0 var(--metal-hi)}
+.page-panel>header h2{font:800 calc(30px * var(--fc-ui-scale)) var(--fc-font-display);letter-spacing:.08em;color:#f1e8d2;text-shadow:0 2px 0 #000}
+.brand h1{text-shadow:0 2px 0 #000,0 0 30px rgba(0,0,0,.8)}
+.welcome h2{text-shadow:0 3px 0 #000,0 0 36px rgba(0,0,0,.9)}
+.welcome p{text-shadow:0 1px 0 #000,0 0 12px #000}
+.command-page.welcome{position:relative;isolation:isolate}
+.command-page.welcome::before{content:'';position:absolute;z-index:-1;pointer-events:none;left:-45px;top:-40px;bottom:-25px;width:min(650px,115%);background:radial-gradient(ellipse at 35% 50%,rgba(14,13,11,.9) 15%,rgba(14,13,11,.65) 48%,transparent 74%)}
+.field-summary{background:#0b0a09;box-shadow:inset 0 2px 5px #000,0 1px 0 var(--metal-hi);border-left:4px solid var(--brass)}
+.faction-choices button{min-height:96px;gap:6px;font-size:calc(15px * var(--fc-ui-scale))}
+.faction-choices button .emblem{color:var(--brass-hi)}
+.faction-choices button.active .emblem,.faction-choices button.selected .emblem{color:var(--amber-hi);filter:drop-shadow(0 0 6px rgba(226,162,50,.45))}
+select,input:not([type=checkbox]):not([type=range]),textarea{background:#0b0a09;border:1px solid #000;box-shadow:inset 0 2px 5px #000,0 1px 0 var(--metal-hi);color:#ede6d6}
+select:hover{border-color:var(--brass-dk)}
+.empty{background:#0b0a09;border:0;box-shadow:inset 0 2px 6px #000,0 1px 0 var(--metal-hi);color:#bdb4a2;font-family:var(--fc-font-label);letter-spacing:.03em}
+
+/* Pause: one primary action, then operation keys, then the separated exits. */
+.pause-menu{gap:6px}
+.pause-menu>button.danger{margin-top:0}
+.pause-menu>button.danger:first-of-type{margin-top:12px}
+.pause-menu>label{margin:8px 0 4px}
+
+/* Empty wells show real sockets instead of dead space (RA2 slot rhythm). */
+.battlefield-screen .command-grid{background:
+  repeating-linear-gradient(90deg,transparent 0 calc(64px * var(--fc-ui-scale) - 1px),rgba(255,238,205,.035) calc(64px * var(--fc-ui-scale) - 1px) calc(64px * var(--fc-ui-scale) + 4px)),
+  repeating-linear-gradient(180deg,transparent 0 calc(54px * var(--fc-ui-scale) - 1px),rgba(255,238,205,.035) calc(54px * var(--fc-ui-scale) - 1px) calc(54px * var(--fc-ui-scale) + 4px)),
+  #141310}
+.battlefield-screen .cameo-grid{background:
+  linear-gradient(90deg,transparent calc(50% - 3px),rgba(255,238,205,.04) calc(50% - 3px) calc(50% + 3px),transparent calc(50% + 3px)),
+  repeating-linear-gradient(180deg,transparent 0 calc(88px * var(--fc-ui-scale)),rgba(255,238,205,.04) calc(88px * var(--fc-ui-scale)) calc(88px * var(--fc-ui-scale) + 6px)),
+  #141310;box-shadow:inset 0 2px 5px #000,0 1px 0 var(--metal-hi)}
+/* Unit names wrap to two lines instead of truncating at 1280 / 150%. */
+.battlefield-screen .cameo-name{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;max-height:none;line-height:1.05}
+.battlefield-screen .production-facility select,.battlefield-screen .command-sidebar select{font:700 calc(13px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase}
+/* Material correction: chrome images supply only edges/rivets; centres are clean
+   gradients so wide keys and large plates never smear or tile visibly. */
+:root{
+ --key-fill:linear-gradient(180deg,#48443b,#36332d 55%,#2c2a25);
+ --key-fill-hover:linear-gradient(180deg,#58534a,#423e36 55%,#34312b);
+ --key-fill-pressed:linear-gradient(180deg,#26241f,#2e2c27);
+ --key-fill-active:linear-gradient(180deg,#6b5320,#4a3a18 55%,#3a2e14);
+ --key-fill-disabled:linear-gradient(180deg,#2a2824,#23211d);
+ --plate-fill:linear-gradient(180deg,rgba(255,238,205,.035),transparent 40%),repeating-linear-gradient(90deg,rgba(255,255,255,.011) 0 1px,transparent 1px 3px),linear-gradient(90deg,#2a2823,#34312b 45%,#2b2924);
+}
+button,.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button{border-image:var(--key) 12 / 6px stretch;background:var(--key-fill) padding-box}
+button:hover:not(:disabled),.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:hover:not(:disabled){border-image-source:var(--key-hover);background:var(--key-fill-hover) padding-box}
+button:active:not(:disabled),.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:active:not(:disabled){border-image-source:var(--key-pressed);background:var(--key-fill-pressed) padding-box}
+button:disabled,.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder) button:disabled{border-image-source:var(--key-disabled);background:var(--key-fill-disabled) padding-box}
+button.active,button.selected,button[aria-pressed=true],.battlefield-screen :is(.command-sidebar,.selection-tray) button.active,.battlefield-screen :is(.command-sidebar,.selection-tray) button[aria-selected=true]{border-image-source:var(--key-active);background:var(--key-fill-active) padding-box}
+button.primary,button.primary:hover:not(:disabled){border-image:none}
+.text-button,.text-button:hover:not(:disabled){background:none}
+/* Production tiles keep their lit well, not the key fill. */
+.battlefield-screen .production-cameo,.battlefield-screen .production-cameo:hover:not(:disabled){background:radial-gradient(ellipse 70% 60% at 50% 58%,#7d7157 0%,#4a4436 45%,#1b1a16 100%) padding-box;border-image:var(--cameo-frame) 10 / 5px stretch}
+.battlefield-screen .production-cameo[data-state=locked],.battlefield-screen .production-cameo[data-state=locked]:hover{background:repeating-linear-gradient(-45deg,rgba(0,0,0,.28) 0 6px,transparent 6px 12px) padding-box,radial-gradient(ellipse 70% 60% at 50% 58%,#4a4538,#1b1a16) padding-box}
+.battlefield-screen .command-sidebar::before,.battlefield-screen .selection-tray::before,.battlefield-screen .resource-shoulder::before{border-image-slice:36;border-image-repeat:round;background:var(--plate-fill);background-clip:padding-box}
+.battlefield-screen .command-sidebar::before{border-image:var(--plate) 36 / 18px round}
+.battlefield-screen .selection-tray::before{border-image:var(--plate) 36 / 18px round}
+.battlefield-screen .resource-shoulder::before{border-image:var(--plate) 36 / 14px round}
+.battlefield-screen .command-sidebar::before,.battlefield-screen .selection-tray::before,.battlefield-screen .resource-shoulder::before{background:var(--plate-fill) border-box}
+.command-nav.console,.page-panel.console{border-image:var(--plate) 36 / 14px round;background:var(--plate-fill) border-box}
+.command-nav.console{gap:3px}
+.command-nav button{min-height:40px}
+@media(max-height:760px){.command-nav button{min-height:36px;font-size:calc(15px * var(--fc-ui-scale))}}
+/* Enlarged labels determine their key height; the menu well scrolls instead
+   of compressing two-line labels across adjacent keys. */
+.command-nav button{flex:0 0 auto;line-height:1.15;text-align:left}
+.command-nav button>span:not(.nav-arrow){min-width:0;flex:1}
