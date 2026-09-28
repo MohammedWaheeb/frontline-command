@@ -1,0 +1,41 @@
+--- a/pkg/sim/navigation.go
++++ b/pkg/sim/navigation.go
+@@ -156,10 +156,14 @@
+ 		} else if mobiles {
+ 			point, otherRadius, blocks := Vec{}, int32(0), false
+ 			if air {
+-				if !e.isAircraft(v) || v.Landed {
+-					continue
+-				}
+-				point, otherRadius, blocks = v.Position, e.radius(v), true
++				if v.Landed {
++					continue
++				}
++				u, ok := e.catalog.Unit(v.Type)
++				if !ok || u.Armor != "air" {
++					continue
++				}
++				point, otherRadius, blocks = v.Position, u.Radius, true
+ 			} else {
+ 				point, otherRadius, blocks = e.groundObstacle(v)
+ 			}
+--- a/pkg/sim/service_parking.go
++++ b/pkg/sim/service_parking.go
+@@ -128,11 +128,14 @@
+ 	if v.Building || v.HP <= 0 || v.Container != 0 {
+ 		return Vec{}, 0, false
+ 	}
+-	if !e.isAircraft(v) {
+-		return v.Position, e.radius(v), true
++	// The catalog is immutable. Reuse this lookup for classification and
++	// radius instead of copying the same definition twice per obstacle.
++	u, ok := e.catalog.Unit(v.Type)
++	if !ok || u.Armor != "air" {
++		return v.Position, u.Radius, true
+ 	}
+ 	if v.Landed {
+-		return v.Position, max(e.radius(v), serviceParkingRadius(v.Type)) + serviceParkingMargin, true
++		return v.Position, max(u.Radius, serviceParkingRadius(v.Type)) + serviceParkingMargin, true
+ 	}
+ 	if v.Landing != nil {
+ 		return v.Landing.Position, serviceParkingRadius(v.Type) + serviceParkingMargin, true
