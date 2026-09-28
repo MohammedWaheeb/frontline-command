@@ -21,6 +21,7 @@ import {tacticalCircle} from './tactical-geometry';
 import {PlacementGhost} from './placement-ghost';
 import type {RangeMode} from './range-geometry';
 import {memoryCaption} from '../app/battlefield-cues';
+import {soldDestruction} from '../app/combat-feedback';
 import {actorStatus} from '../app/actor-status';
 import {ownedBoardingReceivers} from '../app/transport-presentation';
 import {tacticalPresentation,type TacticalPresentation} from '../app/tactical-presentation';
@@ -227,7 +228,7 @@ export class BattlefieldRenderer {
   // its route after sight loss. No distinction is guessed between fog/death.
   for(const [id,actor] of this.actors)if(!living.has(id)){
    const persistentRubble=actor.entity.type.startsWith('map.')&&(this.options.map.objects??[]).some(object=>snapshot.rubble.includes(object.id)&&object.position.x===actor.entity.position!.x&&object.position.y===actor.entity.position!.y);
-   if(!persistentRubble&&snapshot.events.some(event=>event.entity===id&&event.kind==='destroyed')){
+   if(!persistentRubble&&snapshot.events.some(event=>event.entity===id&&event.kind==='destroyed'&&!soldDestruction(event,snapshot))){
     actor.setServiceDeck(undefined);actor.update({...actor.entity,state:'destroyed',health:0},this.tickAt);this.deaths.push({actor,until:this.tickAt+2400});
    }else actor.dispose();
    this.actors.delete(id);
@@ -298,6 +299,7 @@ export class BattlefieldRenderer {
  private readFeedback(snapshot:PlayerSnapshot){
   for(const event of snapshot.events){
    if(event.id<=this.effectEvent)continue;this.effectEvent=event.id;
+   if(soldDestruction(event,snapshot))continue;
    if(event.tick+4>=snapshot.tick)this.actors.get(event.entity)?.cue(event.kind,this.tickAt-(snapshot.tick-event.tick)*50,this.actors.get(event.entity)?.entity.owner===snapshot.player);
    if(!event.position||event.tick+4<snapshot.tick||this.settings.reducedMotion||this.settings.reducedFlashing||this.settings.screenShake===0)continue;
    const p=this.project(event.position);if(p.x<0||p.y<0||p.x>this.app.screen.width||p.y>this.app.screen.height)continue;

@@ -5,6 +5,7 @@ import type {CatalogIndex} from '../content/catalog';
 import {classify} from '../content/catalog';
 import {AudioMixer} from './mixer';
 import {combatSound} from './combat-sound';
+import {soldDestruction} from '../app/combat-feedback';
 const title=(text:string)=>text.replaceAll('_',' ').replace(/^./,c=>c.toUpperCase());
 const OWN_EVENTS=new Set(['construction_complete','unit_ready','research_complete','aircraft_returning','capture_interrupted','building_captured','transfer_canceled']);
 /** Owns presentation history only. Its only world input is the authorized snapshot. */
@@ -57,6 +58,7 @@ export class AudioDirector {
  }
  private battleMusic(snapshot:PlayerSnapshot){const finished=snapshot.outcome?.finished,key=finished?'debrief':`battle:${this.faction}`;if(this.scene!==key){this.scene=key;if(finished)this.mixer.music(['music.debrief_bed']);else this.mixer.music(['calm','tension','combat'].map(layer=>`music.battle_${this.faction}_${layer}`))}if(!finished){const now=performance.now(),layer=now<this.combatUntil?2:now<this.tensionUntil?1:0;this.mixer.music(['calm','tension','combat'].map(value=>`music.battle_${this.faction}_${value}`),[0,1,2].map(index=>index===layer?1:0))}}
  private event(event:Event,snapshot:PlayerSnapshot,previous:PlayerSnapshot){
+  if(soldDestruction(event,snapshot))return;
   const entity=snapshot.entities.find(entity=>entity.id===event.entity)??previous.entities.find(entity=>entity.id===event.entity),own=event.owner===snapshot.player,catalog=this.catalog();
   const combat=combatSound(event,snapshot,previous,catalog);
   if(combat){if(combat.sound)this.mixer.play(combat.sound,{cooldown:combat.cooldown});if(combat.caption)this.mixer.caption(combat.caption,70);if(combat.kind==='weapon'||combat.kind==='impact')this.combatUntil=performance.now()+8000;return}

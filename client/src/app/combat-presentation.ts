@@ -1,7 +1,7 @@
 import type {CatalogIndex} from '../content/catalog';
 import type {PlayerSnapshot,Point,Entity} from '../runtime';
 import type {TacticalProjectile} from './tactical-presentation';
-import {combatFacts,type CombatArmor} from './combat-feedback';
+import {combatFacts,soldDestruction,type CombatArmor} from './combat-feedback';
 
 export type CombatCueKind='muzzle'|'interceptor-launch'|'impact'|'hit'|'intercepted'|'decoy'|'destroyed';
 export interface CombatCue {
@@ -33,6 +33,7 @@ export function combatCue(event:Event,snapshot:PlayerSnapshot,catalog:CatalogInd
  }else if(event.kind==='missile_intercepted'){kind='intercepted';effects=['fx.impact.intercepted_missile']}
  else if(event.kind==='decoy_triggered'){kind='decoy';effects=['fx.impact.decoy_defeat']}
  else if(event.kind==='destroyed'){
+  if(soldDestruction(event,snapshot))return;
   kind='destroyed';effects=['fx.explosion.small'];
   // Only the expressly identified destroyed actor may specialize the burst.
   // Do not consult fog memory, infer a class from a position or reuse this for

@@ -33,10 +33,11 @@ const capture=name=>page.screenshot({path:path.join(out,name+'.png')});
 async function run(name,effect){
  const key=effect.slice(3),result=await page.evaluate(name=>window.ambientQA[name](),name);report.cases[key]={opening:result};
  assert(result.ambient.some(cue=>cue.effect===effect),`${name}: actual state did not produce ${effect}`);
- if(['fx.building.sell_dust','fx.environment.depletion_dust','fx.environment.shipment_arrival','fx.environment.supply_station_capture'].includes(effect))report.cases[key].middle=await page.evaluate(()=>window.ambientQA.advance(12));
+ report.cases[key].middle=await page.evaluate(()=>window.ambientQA.advance(12));
  for(const variant of ['standard','low','reducedMotion','reducedFlashing','reduced']){
   const value=await page.evaluate(name=>window.ambientQA.variant(name),variant);report.cases[key][variant]=value;
   assert(value.decorations.some(d=>d.effect===effect&&d.variant===variant),`${name}: visible ${variant} art required`);assert(value.diagnostics.allocatedBytes<=32*1024*1024);assert(value.diagnostics.decorations<=192);
+  if(name==='sell'){assert.equal(value.diagnostics.cues,0,'An owned sale must not replay a combat destruction');assert(!value.decorations.some(d=>d.effect.startsWith('fx.explosion.')))}
   if(variant==='reducedMotion'||variant==='reduced')for(const decoration of value.decorations.filter(d=>d.effect===effect)){
    if(!['fx.building.sell_dust','fx.environment.depletion_dust','fx.environment.shipment_arrival','fx.environment.supply_station_capture'].includes(effect))assert.equal(decoration.frame,0);
   }

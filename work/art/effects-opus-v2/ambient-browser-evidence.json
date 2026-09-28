@@ -1,0 +1,785 @@
+{
+  "scope": "Actual Go presentation course. Earlier sale defect retained despite automated functional pass. Not final-art or full-game acceptance.",
+  "runs": [
+    {
+      "directory": "work/art/effects-opus-v2/ambient-chromium-01",
+      "automatedStatus": "passed",
+      "visualSaleDefect": true,
+      "sourceDigest": "62714660596fede6d101df8efe74cf98c9198c1458d2e88a1908d3e587e23e7b",
+      "files": {
+        "browser.json": {
+          "bytes": 478380,
+          "sha256": "881bebc843856617122b0866e7a334f7a666036910dc90921ecf9802e8639e64"
+        },
+        "building.construction_dust-reduced.png": {
+          "bytes": 330637,
+          "sha256": "80d2a9d3cb5222572e634902a06abaafd4c3b4e98c4819009979ae5a9b88b8ff"
+        },
+        "building.construction_dust-standard.png": {
+          "bytes": 330599,
+          "sha256": "2d292153b2134361f3bc6619a3da1d5ec269587e60ba98a0f076e54199500bb3"
+        },
+        "building.fire_damaged-reduced.png": {
+          "bytes": 286273,
+          "sha256": "0c0d21d522de83cc20264ec5bb99f5e4fe0f5e125c7af15ecccbb06cdcb72ee4"
+        },
+        "building.fire_damaged-standard.png": {
+          "bytes": 286727,
+          "sha256": "0ae2b805af29b086d4adb8e0673051b157155dfc54bb02d64ea0b66b657d210d"
+        },
+        "building.sell_dust-reduced.png": {
+          "bytes": 348264,
+          "sha256": "185b1f9c44041fc702b3d0b5657d231c05a58b6986b1ad07b856063d6b9843b4"
+        },
+        "building.sell_dust-standard.png": {
+          "bytes": 348819,
+          "sha256": "98e2199906a3d305399475f3f0a55cd4633c7591efcc22e7352b557812879e28"
+        },
+        "building.smoke_critical-reduced.png": {
+          "bytes": 285624,
+          "sha256": "5ae1ddeb8410b4110f4dbea7591e8af87aee0321b3f5c29a20f8fde68a71e34b"
+        },
+        "building.smoke_critical-standard.png": {
+          "bytes": 285790,
+          "sha256": "71030f798b4198a6f1647b2a3c23722ec7cfbf4caadb654bd72f37b1d02f0bed"
+        },
+        "clarity-before-defeat.save.json": {
+          "bytes": 210515,
+          "sha256": "0e33c4c059a5d428e755e204410d5b837649a547fe6394d8f2ec7464c6f7799f"
+        },
+        "clarity.save.json": {
+          "bytes": 219843,
+          "sha256": "6f21a90b65f174e3fe90735fa323714c769d03f486737a4a16c56eff05daffa9"
+        },
+        "course.replay.json": {
+          "bytes": 3261,
+          "sha256": "d5fe20d5673b54edc5ca769262be5abe7520d1addb7c52f9a65f4d9d8cebb5db"
+        },
+        "driver.mjs": {
+          "bytes": 10276,
+          "sha256": "9ca2155dedb843b3dc1f2d5b161a44878b757b559bae640afc22ce0d519b6555"
+        },
+        "environment.depletion_dust-reduced.png": {
+          "bytes": 396873,
+          "sha256": "4f1cc677a4d0016f708b7b42fdbbdb58aa0eb6c43af14ec328a802e3af1a172b"
+        },
+        "environment.depletion_dust-standard.png": {
+          "bytes": 396970,
+          "sha256": "6ec4567818f552997b59f1e44593302b73a650ff94c2d78e070bdaf950d53ea3"
+        },
+        "environment.shipment_arrival-reduced.png": {
+          "bytes": 390068,
+          "sha256": "4462f028fbe0ac550dcb203c64ad56cfdfdc9aeca5395cac4740a98f60dd7689"
+        },
+        "environment.shipment_arrival-standard.png": {
+          "bytes": 389772,
+          "sha256": "a9908d6b114d228e63c92e3f870adac8b4bb13e5d3de220200a7988d0db9597a"
+        },
+        "environment.supply_station_capture-reduced.png": {
+          "bytes": 315684,
+          "sha256": "98ebf051b45876397be3510364feff6f072a4c0c45cafe9711ebd1d27156e732"
+        },
+        "environment.supply_station_capture-standard.png": {
+          "bytes": 315730,
+          "sha256": "f8abad7f01105c43d1fbf54bcc3d42aae2121b8c8287b079c56dc81265540f45"
+        },
+        "fixture.ts": {
+          "bytes": 14102,
+          "sha256": "16dab56ad41f95b9485850debd1de9feb128598ed974ebc8af428b868871e004"
+        },
+        "last-seen-structure.png": {
+          "bytes": 401702,
+          "sha256": "ab14bf3dc5382de05a5433cf7ed30b1fe6601769a002d169d8767d5ef087552c"
+        },
+        "placement-pending-free.png": {
+          "bytes": 494927,
+          "sha256": "a18f915755ad799240d8874fa23fbacc3f269cdd41ddefe43a30f5bfd12d974b"
+        },
+        "placement-pending-occupied.png": {
+          "bytes": 437436,
+          "sha256": "fe3fea9a0924a256b5f2d36f721ce63c0f16d0c894a6dc4f2247212bde768541"
+        },
+        "range-detection.png": {
+          "bytes": 408371,
+          "sha256": "546d800260b4f852e8113174d51e230c09db0803ad766c6b36df71fe31c10585"
+        },
+        "range-off.png": {
+          "bytes": 401642,
+          "sha256": "149cf9c008edb7ab1d947c55c6b88d1c942c1480d03137be83d7f1979be0af39"
+        },
+        "range-sight.png": {
+          "bytes": 412517,
+          "sha256": "4d53416ab6371243c479655a439da61f32127b8f063883d4da1d16517b56105a"
+        },
+        "range-weapon.png": {
+          "bytes": 421534,
+          "sha256": "6f83f83af351e009cc3124e00f7d9687d251cba33c8db6c6785f5ae3c2740602"
+        },
+        "unit.dust_trail-reduced.png": {
+          "bytes": 362304,
+          "sha256": "5f5df9c035c56d4f23bca376ba8fe4eca9369d3891be846ad479e5b1098e1b78"
+        },
+        "unit.dust_trail-standard.png": {
+          "bytes": 362229,
+          "sha256": "34917265c795b309b07710d10ae8fc0b03413fab5a635084a93ea68d54517ae3"
+        },
+        "unit.fire_critical-reduced.png": {
+          "bytes": 282098,
+          "sha256": "3e121d15cbdd98c829a3a4db5bf9ab809b414412fc114084e06e4d89ad8c93d2"
+        },
+        "unit.fire_critical-standard.png": {
+          "bytes": 282262,
+          "sha256": "fc888f531021b9c06d544b949dbac71397d2010ae82f36603b30ee83507e7b1c"
+        },
+        "unit.rotor_wash-reduced.png": {
+          "bytes": 267412,
+          "sha256": "a3231952739d6207d18304160d13795526d15364bcc870a0c5e9c6dd0a5cd48e"
+        },
+        "unit.rotor_wash-standard.png": {
+          "bytes": 267774,
+          "sha256": "59b57106372ea46ae8e86730578a77075fcf86ba2a67ea04d1e5a9f6f5fccaa1"
+        },
+        "unit.smoke_damaged-reduced.png": {
+          "bytes": 282265,
+          "sha256": "50bc85bf203416c404e93a7a598d73a84332abde7df4ec2429b5f5b3ec9d9fa9"
+        },
+        "unit.smoke_damaged-standard.png": {
+          "bytes": 282411,
+          "sha256": "8b1aec1b0856dbb1ec20bf4750949a3ce7629c09f96f1d0e7b5050c23eb1a3dc"
+        },
+        "unit.wreck_smoke-reduced.png": {
+          "bytes": 274133,
+          "sha256": "1717ea686c0c8e15f19337330c3cec077e44b6c5f0a10a04bfdbafea1b27b566"
+        },
+        "unit.wreck_smoke-standard.png": {
+          "bytes": 274335,
+          "sha256": "fe50243d73a0da83dac215f231f1b075a10f2d17f3d655eac8e988563ccf2d1d"
+        }
+      }
+    },
+    {
+      "directory": "work/art/effects-opus-v2/ambient-firefox-01",
+      "automatedStatus": "passed",
+      "visualSaleDefect": true,
+      "sourceDigest": "62714660596fede6d101df8efe74cf98c9198c1458d2e88a1908d3e587e23e7b",
+      "files": {
+        "browser.json": {
+          "bytes": 478403,
+          "sha256": "a74f91e14c1dd7dac63bc501113ac4439cd827059e83d1c3de87171b36c10740"
+        },
+        "building.construction_dust-reduced.png": {
+          "bytes": 399925,
+          "sha256": "bb193d711271f84dd3728c8be5ccadf4daa5ef7313cd2e9acb05fc9fd8f0cbe2"
+        },
+        "building.construction_dust-standard.png": {
+          "bytes": 399978,
+          "sha256": "87a775906f95d3d714a2f41d3fbd29e3815219f1ce5f02e9be1dcee9f81bab8c"
+        },
+        "building.fire_damaged-reduced.png": {
+          "bytes": 394342,
+          "sha256": "88e7b166248b2cfd97306879a0572e15a4fe85c62be20a598aba08495db1ee81"
+        },
+        "building.fire_damaged-standard.png": {
+          "bytes": 394616,
+          "sha256": "a6db9018c561b7ba7641eb591c39ef867690e6116fe5ecc5f77f143ed7684f20"
+        },
+        "building.sell_dust-reduced.png": {
+          "bytes": 423951,
+          "sha256": "7b74ff99ffc97f37f94b619aedbbf9403ca0b8df27ba0b120ac24500b1cfe935"
+        },
+        "building.sell_dust-standard.png": {
+          "bytes": 424644,
+          "sha256": "639889c9e6673aa28848f3d1687e59f8a829eab7f320eacd147e6ebcb9eb6450"
+        },
+        "building.smoke_critical-reduced.png": {
+          "bytes": 394794,
+          "sha256": "94979aabbb1572c7f0a2b885099e5a99f42327f880cf0bb007431ff8ee73823e"
+        },
+        "building.smoke_critical-standard.png": {
+          "bytes": 394835,
+          "sha256": "673cdb73a1c68cd3741e974f2fd2161bf6d8dc54c3a55b60682f27d4a7c71d2a"
+        },
+        "clarity-before-defeat.save.json": {
+          "bytes": 210515,
+          "sha256": "0e33c4c059a5d428e755e204410d5b837649a547fe6394d8f2ec7464c6f7799f"
+        },
+        "clarity.save.json": {
+          "bytes": 219843,
+          "sha256": "6f21a90b65f174e3fe90735fa323714c769d03f486737a4a16c56eff05daffa9"
+        },
+        "course.replay.json": {
+          "bytes": 3261,
+          "sha256": "d5fe20d5673b54edc5ca769262be5abe7520d1addb7c52f9a65f4d9d8cebb5db"
+        },
+        "driver.mjs": {
+          "bytes": 10276,
+          "sha256": "9ca2155dedb843b3dc1f2d5b161a44878b757b559bae640afc22ce0d519b6555"
+        },
+        "environment.depletion_dust-reduced.png": {
+          "bytes": 498284,
+          "sha256": "bd21102513caba14fea2b71c56a69f3cfb4f6f27376cbda103292ee4cc11594a"
+        },
+        "environment.depletion_dust-standard.png": {
+          "bytes": 498110,
+          "sha256": "9b6a6329da6b172daadd12056cde3764065373863a9e95bcc2da4027b57fb79d"
+        },
+        "environment.shipment_arrival-reduced.png": {
+          "bytes": 477485,
+          "sha256": "03fa0c574a7cf4c022ea6d260746d71326c2debf78503ce1679c7cb17b1e00ec"
+        },
+        "environment.shipment_arrival-standard.png": {
+          "bytes": 477528,
+          "sha256": "249cebfea7cabc8ad1edbc29027209b1cbbfadd4aa0d8701a7a927caa84b3340"
+        },
+        "environment.supply_station_capture-reduced.png": {
+          "bytes": 414314,
+          "sha256": "624084c724c49e89e981a7aa0fd115f421651d0bcce8c34b39c89e6387923f93"
+        },
+        "environment.supply_station_capture-standard.png": {
+          "bytes": 414383,
+          "sha256": "bad3f614fe99672d29d37daea13add30612fc4cef1ac7656d9baa9582ea90f7e"
+        },
+        "fixture.ts": {
+          "bytes": 14102,
+          "sha256": "16dab56ad41f95b9485850debd1de9feb128598ed974ebc8af428b868871e004"
+        },
+        "last-seen-structure.png": {
+          "bytes": 509903,
+          "sha256": "dd60df023e896a02c713733398e80e035904b41999bf7a52b0073ffe4cd27359"
+        },
+        "placement-pending-free.png": {
+          "bytes": 616922,
+          "sha256": "dcc1aa83ed51e8725247d08799ae3756ca9c0bf55fdda5f25213b93a8ee94ecf"
+        },
+        "placement-pending-occupied.png": {
+          "bytes": 546680,
+          "sha256": "e272113bb9d94440068b1d790ee4a0a043a8fe19711f110933a61df1935f97b5"
+        },
+        "range-detection.png": {
+          "bytes": 514726,
+          "sha256": "b62d35d117a8facbe5f2bbcfbd205785cb4e65ec7475c6687129502cd18ea806"
+        },
+        "range-off.png": {
+          "bytes": 509687,
+          "sha256": "5601b77d7b4ed3d08c55d9e4142b961aac1203f64a39768036520a6fd8eea147"
+        },
+        "range-sight.png": {
+          "bytes": 517939,
+          "sha256": "48bd4417a6d6ef586bbfbcb03d84744b7ed17aaee84372dabd1763e384b79b15"
+        },
+        "range-weapon.png": {
+          "bytes": 525062,
+          "sha256": "155ee3214f25fff04581fd1778325647e5dda11c50ff4713522f64d3d2645e81"
+        },
+        "unit.dust_trail-reduced.png": {
+          "bytes": 460288,
+          "sha256": "53c94197e04247ebcc91efc421b471ed5dbf9848b5a51e5af05d1d78776bbe49"
+        },
+        "unit.dust_trail-standard.png": {
+          "bytes": 460297,
+          "sha256": "e0d1cfc23feaf95ec29c79b882e5fc13cc1225a079e94fe7700484352f35c18c"
+        },
+        "unit.fire_critical-reduced.png": {
+          "bytes": 390411,
+          "sha256": "b45756d92ee73d7937a72e59d45d38e3f533c233b2db90b714fe530b665db908"
+        },
+        "unit.fire_critical-standard.png": {
+          "bytes": 390541,
+          "sha256": "b24b9986d87793fa735638c011c786d119aefd00401b5d80e4057c5efb017980"
+        },
+        "unit.rotor_wash-reduced.png": {
+          "bytes": 373373,
+          "sha256": "daf1d5249f184b80e53fc9bfcf53dbf6882c4e7e374539cedcc9ceb66cc764a7"
+        },
+        "unit.rotor_wash-standard.png": {
+          "bytes": 373321,
+          "sha256": "acd6a41aeb7370140675414e29d0fc644359e656753ec0207ca965362489081c"
+        },
+        "unit.smoke_damaged-reduced.png": {
+          "bytes": 390618,
+          "sha256": "a8949d40e9505991a9bd6b03bca89f54a549b6ec9420906190a57eb3dd4e7dee"
+        },
+        "unit.smoke_damaged-standard.png": {
+          "bytes": 390745,
+          "sha256": "35839acbe5fe995af15fa556b0b49249552bad860e7a9f8cdc14570be3c79530"
+        },
+        "unit.wreck_smoke-reduced.png": {
+          "bytes": 373190,
+          "sha256": "2445b50e287b8bbe95fbba794c11d13563e6f2321e56aa366252f5862624dbf6"
+        },
+        "unit.wreck_smoke-standard.png": {
+          "bytes": 373258,
+          "sha256": "c69e0c8a4bc00791e3a990ed9e6f074dfecf1fb47c3bdfa868b31124548c618d"
+        }
+      }
+    },
+    {
+      "directory": "work/art/effects-opus-v2/ambient-chromium-02",
+      "automatedStatus": "passed",
+      "visualSaleDefect": false,
+      "sourceDigest": "0f53617a2af098784ef2993ffcbaadb43d30eab15aaf929017e4dfcfb2eaaf3b",
+      "files": {
+        "browser.json": {
+          "bytes": 493288,
+          "sha256": "134942af39c8962145af330dea0431700aca9ffe938d512e7d6e8a0678e4002c"
+        },
+        "building.construction_dust-reduced.png": {
+          "bytes": 331776,
+          "sha256": "06306b64b0665b6bbbd5ef18d6593c4def46bb3a498dbdff199b84d7392b7690"
+        },
+        "building.construction_dust-standard.png": {
+          "bytes": 331657,
+          "sha256": "8bae437b6f622f9ee2f392bfce3df3d457cd091e7ac52b2aae1ddcdcc1afda47"
+        },
+        "building.fire_damaged-reduced.png": {
+          "bytes": 286293,
+          "sha256": "40f294e5abf970a6e9535ab470cb88c66d093314b3be9d4eeb0d278210fcf258"
+        },
+        "building.fire_damaged-standard.png": {
+          "bytes": 286489,
+          "sha256": "f2a92981e213980ae215c80f8ccd844d189631d91f45ff71de59824cba16813f"
+        },
+        "building.sell_dust-reduced.png": {
+          "bytes": 342227,
+          "sha256": "1192b819e76e67657e9d580d4daf5ef6b5cb31bf7554c181dd1ff39450630cf1"
+        },
+        "building.sell_dust-standard.png": {
+          "bytes": 342281,
+          "sha256": "41ed648c65a21c7bbcd32591bab612842ddf67c0dda64e43b5ab4271c9e8ff30"
+        },
+        "building.smoke_critical-reduced.png": {
+          "bytes": 285669,
+          "sha256": "b3f59859eaac6d710de3132fb14fd4608e9825cb0cb57592a0078b8f6dab41a1"
+        },
+        "building.smoke_critical-standard.png": {
+          "bytes": 286111,
+          "sha256": "8379a53446e85816bab74d09c7ee86ee3075ebd454e99ed3a9b5c139bba387de"
+        },
+        "clarity-before-defeat.save.json": {
+          "bytes": 210515,
+          "sha256": "0e33c4c059a5d428e755e204410d5b837649a547fe6394d8f2ec7464c6f7799f"
+        },
+        "clarity.save.json": {
+          "bytes": 219843,
+          "sha256": "6f21a90b65f174e3fe90735fa323714c769d03f486737a4a16c56eff05daffa9"
+        },
+        "course.replay.json": {
+          "bytes": 3261,
+          "sha256": "d5fe20d5673b54edc5ca769262be5abe7520d1addb7c52f9a65f4d9d8cebb5db"
+        },
+        "driver.mjs": {
+          "bytes": 10310,
+          "sha256": "87b965641188d637fcab45e2c8106102a32ac4f79c8c42f5724382ed1f3cf821"
+        },
+        "environment.depletion_dust-reduced.png": {
+          "bytes": 396873,
+          "sha256": "4f1cc677a4d0016f708b7b42fdbbdb58aa0eb6c43af14ec328a802e3af1a172b"
+        },
+        "environment.depletion_dust-standard.png": {
+          "bytes": 396979,
+          "sha256": "226b58e76c389442eb5f6e3e6028f640a3fb960bfb7504a3c7ce27006caabdb5"
+        },
+        "environment.shipment_arrival-reduced.png": {
+          "bytes": 390068,
+          "sha256": "4462f028fbe0ac550dcb203c64ad56cfdfdc9aeca5395cac4740a98f60dd7689"
+        },
+        "environment.shipment_arrival-standard.png": {
+          "bytes": 390049,
+          "sha256": "26419b26ca2d22867fe831687ef4ac90dec7da838afb59a18cdae3b8b4d9d586"
+        },
+        "environment.supply_station_capture-reduced.png": {
+          "bytes": 315685,
+          "sha256": "127e9ebd0822c7e29db0a74b3bff3d3413df8d8dfc9f97dbeabe5e45d3957cf2"
+        },
+        "environment.supply_station_capture-standard.png": {
+          "bytes": 315741,
+          "sha256": "a326bb42db25f82b8f7e992a1e7bd266334400e5831ff1219df4cc2f478d249a"
+        },
+        "fixture.ts": {
+          "bytes": 14102,
+          "sha256": "16dab56ad41f95b9485850debd1de9feb128598ed974ebc8af428b868871e004"
+        },
+        "last-seen-structure.png": {
+          "bytes": 401750,
+          "sha256": "799e832163f5e575404abc1da775c97f7cb41904139f523210fd594ae5526b46"
+        },
+        "placement-pending-free.png": {
+          "bytes": 494927,
+          "sha256": "a18f915755ad799240d8874fa23fbacc3f269cdd41ddefe43a30f5bfd12d974b"
+        },
+        "placement-pending-occupied.png": {
+          "bytes": 437436,
+          "sha256": "fe3fea9a0924a256b5f2d36f721ce63c0f16d0c894a6dc4f2247212bde768541"
+        },
+        "range-detection.png": {
+          "bytes": 408371,
+          "sha256": "546d800260b4f852e8113174d51e230c09db0803ad766c6b36df71fe31c10585"
+        },
+        "range-off.png": {
+          "bytes": 401642,
+          "sha256": "149cf9c008edb7ab1d947c55c6b88d1c942c1480d03137be83d7f1979be0af39"
+        },
+        "range-sight.png": {
+          "bytes": 412517,
+          "sha256": "4d53416ab6371243c479655a439da61f32127b8f063883d4da1d16517b56105a"
+        },
+        "range-weapon.png": {
+          "bytes": 421534,
+          "sha256": "6f83f83af351e009cc3124e00f7d9687d251cba33c8db6c6785f5ae3c2740602"
+        },
+        "unit.dust_trail-reduced.png": {
+          "bytes": 382949,
+          "sha256": "da1b4a09a00366a2485da066e72c189aef3370cd54d19d2c7ad8d2f9fd79e5af"
+        },
+        "unit.dust_trail-standard.png": {
+          "bytes": 382998,
+          "sha256": "d1dc718b038978a3a6545ecd17a24a89ab48b3de939d6f63697926235b1fc5fd"
+        },
+        "unit.fire_critical-reduced.png": {
+          "bytes": 282038,
+          "sha256": "52432f885f3626adf23ca50c565e395e911ada4927580282b4490c2f361fadf9"
+        },
+        "unit.fire_critical-standard.png": {
+          "bytes": 282394,
+          "sha256": "7c322230bee7839bd5298c905b987cea3ce584f65c7662e05f8612c156a535b7"
+        },
+        "unit.rotor_wash-reduced.png": {
+          "bytes": 267412,
+          "sha256": "a3231952739d6207d18304160d13795526d15364bcc870a0c5e9c6dd0a5cd48e"
+        },
+        "unit.rotor_wash-standard.png": {
+          "bytes": 267922,
+          "sha256": "19397512eb1c7c758564edc514a2957fcfd43c5813394160d8b8e7ad565d7a44"
+        },
+        "unit.smoke_damaged-reduced.png": {
+          "bytes": 282327,
+          "sha256": "3aff0348dad69396f4bf4e90fdc34fae9693209735cca98313ac9864a6ab433e"
+        },
+        "unit.smoke_damaged-standard.png": {
+          "bytes": 282388,
+          "sha256": "934244336196ac9c16d97cf6ae23dd310941173ad9faa504e755bef83febbce5"
+        },
+        "unit.wreck_smoke-reduced.png": {
+          "bytes": 274121,
+          "sha256": "f24145dddaa3b06bcd24a601062526fd4d244747092809c57c4eecf2e355408d"
+        },
+        "unit.wreck_smoke-standard.png": {
+          "bytes": 276822,
+          "sha256": "5e6e7e4be74296ada4455fda0509953aef6f03e4a4fbf46e9b059f2209fa04b5"
+        }
+      }
+    },
+    {
+      "directory": "work/art/effects-opus-v2/ambient-firefox-02",
+      "automatedStatus": "passed",
+      "visualSaleDefect": false,
+      "sourceDigest": "0f53617a2af098784ef2993ffcbaadb43d30eab15aaf929017e4dfcfb2eaaf3b",
+      "files": {
+        "browser.json": {
+          "bytes": 493273,
+          "sha256": "2b485366622ddc03c7a656b0f25613c9114ea5032f2a4f612a4e399d6be72ef3"
+        },
+        "building.construction_dust-reduced.png": {
+          "bytes": 401682,
+          "sha256": "147681032687d9eaeaf98620bc975109a09a5403e112f4f9c8c671e497632bf2"
+        },
+        "building.construction_dust-standard.png": {
+          "bytes": 401443,
+          "sha256": "87c132e33c48440d3c5b0f5ea72bdfd8168a51bcdbec16e4ac39ce16d80406ad"
+        },
+        "building.fire_damaged-reduced.png": {
+          "bytes": 394335,
+          "sha256": "05b78b0f545bd548142071b2c0532a90f5b88d2062d54f6d30b5f18a35345bf8"
+        },
+        "building.fire_damaged-standard.png": {
+          "bytes": 394632,
+          "sha256": "d834eb0db0f33548b38390448dba1ed120ae30d5e6ce14d39a44ac4c44e64383"
+        },
+        "building.sell_dust-reduced.png": {
+          "bytes": 417223,
+          "sha256": "c46779f7a42eb228c841ac33f749bc89eb13ec21f687e3ddc163df632bb66961"
+        },
+        "building.sell_dust-standard.png": {
+          "bytes": 416837,
+          "sha256": "a5c2271c1b29055aee4540de9fdec9be4f59b4caef4bda4726066d1c485cb6cd"
+        },
+        "building.smoke_critical-reduced.png": {
+          "bytes": 394808,
+          "sha256": "fa440014fa9f6f8496213c911c958d0cd76278517014225607f93f97119bc80f"
+        },
+        "building.smoke_critical-standard.png": {
+          "bytes": 394968,
+          "sha256": "681967cd85ffe061d383d9a048cc431b710dc1c3dbfc77733bbca3982d90973c"
+        },
+        "clarity-before-defeat.save.json": {
+          "bytes": 210515,
+          "sha256": "0e33c4c059a5d428e755e204410d5b837649a547fe6394d8f2ec7464c6f7799f"
+        },
+        "clarity.save.json": {
+          "bytes": 219843,
+          "sha256": "6f21a90b65f174e3fe90735fa323714c769d03f486737a4a16c56eff05daffa9"
+        },
+        "course.replay.json": {
+          "bytes": 3261,
+          "sha256": "d5fe20d5673b54edc5ca769262be5abe7520d1addb7c52f9a65f4d9d8cebb5db"
+        },
+        "driver.mjs": {
+          "bytes": 10310,
+          "sha256": "87b965641188d637fcab45e2c8106102a32ac4f79c8c42f5724382ed1f3cf821"
+        },
+        "environment.depletion_dust-reduced.png": {
+          "bytes": 498284,
+          "sha256": "bd21102513caba14fea2b71c56a69f3cfb4f6f27376cbda103292ee4cc11594a"
+        },
+        "environment.depletion_dust-standard.png": {
+          "bytes": 498110,
+          "sha256": "9b6a6329da6b172daadd12056cde3764065373863a9e95bcc2da4027b57fb79d"
+        },
+        "environment.shipment_arrival-reduced.png": {
+          "bytes": 477485,
+          "sha256": "03fa0c574a7cf4c022ea6d260746d71326c2debf78503ce1679c7cb17b1e00ec"
+        },
+        "environment.shipment_arrival-standard.png": {
+          "bytes": 477563,
+          "sha256": "31c72fadf2b9fd14cefda21758fcd9f07aa3fbc010fa371d4d450a80c3475869"
+        },
+        "environment.supply_station_capture-reduced.png": {
+          "bytes": 414314,
+          "sha256": "624084c724c49e89e981a7aa0fd115f421651d0bcce8c34b39c89e6387923f93"
+        },
+        "environment.supply_station_capture-standard.png": {
+          "bytes": 414377,
+          "sha256": "940096d572ff732e0aa13835b15067ef46d192cfaf653b838fee1cf278d25dfe"
+        },
+        "fixture.ts": {
+          "bytes": 14102,
+          "sha256": "16dab56ad41f95b9485850debd1de9feb128598ed974ebc8af428b868871e004"
+        },
+        "last-seen-structure.png": {
+          "bytes": 509903,
+          "sha256": "dd60df023e896a02c713733398e80e035904b41999bf7a52b0073ffe4cd27359"
+        },
+        "placement-pending-free.png": {
+          "bytes": 616959,
+          "sha256": "85ea4457dc27d1f4912ed26fdd692944cc671088be4931ab320f919311ff6787"
+        },
+        "placement-pending-occupied.png": {
+          "bytes": 546454,
+          "sha256": "d37252a034e3d3b95739faa32aa2dae56888745ca3ceef722e74a15bc592c48f"
+        },
+        "range-detection.png": {
+          "bytes": 514727,
+          "sha256": "ea25142710cd0e9fc8b985382b2ca0734fb7501a4bb5b68b96f0cc6716f4b166"
+        },
+        "range-off.png": {
+          "bytes": 509674,
+          "sha256": "bc1f3ddc4f4d55f5f8869ef4bb93ce02f89d8db7edb6608ac3f64befc39f0df4"
+        },
+        "range-sight.png": {
+          "bytes": 518017,
+          "sha256": "fed491fa4a664ae9041183837d6a11d14cde46b540d9e21494aecc4a7cb57ad6"
+        },
+        "range-weapon.png": {
+          "bytes": 525062,
+          "sha256": "155ee3214f25fff04581fd1778325647e5dda11c50ff4713522f64d3d2645e81"
+        },
+        "unit.dust_trail-reduced.png": {
+          "bytes": 486233,
+          "sha256": "56ca4c4e663d67764b36f20fbcb5ff7b956e1c4c6e571afc4521204de068df8c"
+        },
+        "unit.dust_trail-standard.png": {
+          "bytes": 486209,
+          "sha256": "a73cf08ad519886970d021e7c3021dc398184a76c36dfdbdc2594209ade16dca"
+        },
+        "unit.fire_critical-reduced.png": {
+          "bytes": 390409,
+          "sha256": "8115f260837f6160b5aeb4e2807fdf109665338da4bf85683640789a0fa8ce9c"
+        },
+        "unit.fire_critical-standard.png": {
+          "bytes": 390523,
+          "sha256": "4fafcef1dd96a8afbeb8e54f4a35f11399cc5c180764072d2e19d4a02bfda8d8"
+        },
+        "unit.rotor_wash-reduced.png": {
+          "bytes": 373373,
+          "sha256": "daf1d5249f184b80e53fc9bfcf53dbf6882c4e7e374539cedcc9ceb66cc764a7"
+        },
+        "unit.rotor_wash-standard.png": {
+          "bytes": 373534,
+          "sha256": "be4c2d445478044eeafa7414a598314eef058ac33689bccbb6a21a188b60a46d"
+        },
+        "unit.smoke_damaged-reduced.png": {
+          "bytes": 390592,
+          "sha256": "c057a1125fc14a60ff753470440f12c92bea079d69c65355b14a4d3299b1f06d"
+        },
+        "unit.smoke_damaged-standard.png": {
+          "bytes": 390992,
+          "sha256": "fd61af9c7b8d210a590c71dc20d66e08239ff38a6b7c7af691f683cf71fbdf86"
+        },
+        "unit.wreck_smoke-reduced.png": {
+          "bytes": 373038,
+          "sha256": "57aa8ff9038e867750980b9fce6233ce9160abc3b224dfbdea87c479906147d8"
+        },
+        "unit.wreck_smoke-standard.png": {
+          "bytes": 374395,
+          "sha256": "8ee95355528d2ec129862a61ed1f540b984d37f62d1ba6d7d6ac2da8d120e085"
+        }
+      }
+    },
+    {
+      "directory": "work/art/effects-opus-v2/ambient-webkit-01",
+      "automatedStatus": "passed",
+      "visualSaleDefect": false,
+      "sourceDigest": "0f53617a2af098784ef2993ffcbaadb43d30eab15aaf929017e4dfcfb2eaaf3b",
+      "files": {
+        "browser.json": {
+          "bytes": 493265,
+          "sha256": "e30617a395aecb86e533f9c7327748500e952331547eefd482c80cbf2e944899"
+        },
+        "building.construction_dust-reduced.png": {
+          "bytes": 517262,
+          "sha256": "5b32e3f270a801e93601f2a0ef69965d6ece52325e2075ebd8813a9966269063"
+        },
+        "building.construction_dust-standard.png": {
+          "bytes": 517076,
+          "sha256": "f28c64f958449aab22b8ef7cb0e99e2602b1736672a41a5a4e9ae49a28057f0a"
+        },
+        "building.fire_damaged-reduced.png": {
+          "bytes": 503413,
+          "sha256": "737f847fcb07c736c43cdc7a9266459d55188c853b81edb8e4679c0287f6507e"
+        },
+        "building.fire_damaged-standard.png": {
+          "bytes": 503476,
+          "sha256": "7cf9fc81ff2a6fb11561c8d605d3052c2a4562bae7d4f2cab82501a6b8cf0eb2"
+        },
+        "building.sell_dust-reduced.png": {
+          "bytes": 542554,
+          "sha256": "bd2f6de82c7b1f0506eda11f7bdcbeba248683a9c006c766f81934d3078b11d4"
+        },
+        "building.sell_dust-standard.png": {
+          "bytes": 542427,
+          "sha256": "de2979e4a00d9ea00354c5b4c29cfe6262aea5e0870c62bb77e6a21b2195447b"
+        },
+        "building.smoke_critical-reduced.png": {
+          "bytes": 504007,
+          "sha256": "b05870c71e09a848adf84f016d86df50fa06195b2bf001cd875262534ec9017c"
+        },
+        "building.smoke_critical-standard.png": {
+          "bytes": 504396,
+          "sha256": "d7eb9bf7948ec235c793fd56f07feb347faeeb403e02f4de085b18dd547fea57"
+        },
+        "clarity-before-defeat.save.json": {
+          "bytes": 210515,
+          "sha256": "0e33c4c059a5d428e755e204410d5b837649a547fe6394d8f2ec7464c6f7799f"
+        },
+        "clarity.save.json": {
+          "bytes": 219843,
+          "sha256": "6f21a90b65f174e3fe90735fa323714c769d03f486737a4a16c56eff05daffa9"
+        },
+        "course.replay.json": {
+          "bytes": 3261,
+          "sha256": "d5fe20d5673b54edc5ca769262be5abe7520d1addb7c52f9a65f4d9d8cebb5db"
+        },
+        "driver.mjs": {
+          "bytes": 10310,
+          "sha256": "87b965641188d637fcab45e2c8106102a32ac4f79c8c42f5724382ed1f3cf821"
+        },
+        "environment.depletion_dust-reduced.png": {
+          "bytes": 642637,
+          "sha256": "b0111792df797c7992e93cb86282c1b0986bac6b4152fe6a1f3208da4589e2d7"
+        },
+        "environment.depletion_dust-standard.png": {
+          "bytes": 642610,
+          "sha256": "3eaa61638257176845e93d457addde1cc0a64b502b33423f73b565444fca1286"
+        },
+        "environment.shipment_arrival-reduced.png": {
+          "bytes": 610918,
+          "sha256": "b3735108252108db9a77b5965659cda3efd71653f40f620b20501c868a7061cd"
+        },
+        "environment.shipment_arrival-standard.png": {
+          "bytes": 610250,
+          "sha256": "661fb9c7dccbdef8b97fa48ffa387f40fcc9605c3d9c7a3a5e19858616ebd780"
+        },
+        "environment.supply_station_capture-reduced.png": {
+          "bytes": 540564,
+          "sha256": "f797e6d882df434a7ec915502b5d1cb3d956edf7c40f8dadc3d8cd50851ca66f"
+        },
+        "environment.supply_station_capture-standard.png": {
+          "bytes": 540789,
+          "sha256": "76a4192a545540365cc55470f04433b4b4b7f6ed722be4e7f6277aa56939b5a3"
+        },
+        "fixture.ts": {
+          "bytes": 14102,
+          "sha256": "16dab56ad41f95b9485850debd1de9feb128598ed974ebc8af428b868871e004"
+        },
+        "last-seen-structure.png": {
+          "bytes": 662215,
+          "sha256": "c03e9451da0115b7014ea02409ac294b2a51c56b01f2d9b532e2cc4957115b71"
+        },
+        "placement-pending-free.png": {
+          "bytes": 798455,
+          "sha256": "767d5728d50f3ebd58b6551f7167590af6bb3db07c23143efce3b3021452fdac"
+        },
+        "placement-pending-occupied.png": {
+          "bytes": 707460,
+          "sha256": "5841cf2e40c3edb22793650ada0781fd2db91345072cbea6cdb2e05ccf917578"
+        },
+        "range-detection.png": {
+          "bytes": 666683,
+          "sha256": "724630635e6b522f40f83f18bec7cee694e5e4a73bf1b470d9744dd0cd6cee6c"
+        },
+        "range-off.png": {
+          "bytes": 662055,
+          "sha256": "14870704d3b4472919b8bf90461e7859f290ee4802a8fcc3d27eb3634ec14663"
+        },
+        "range-sight.png": {
+          "bytes": 671365,
+          "sha256": "01eb22f151b8f986fb698e4066121873e260cb4f72ac53c03b80df1552b0a588"
+        },
+        "range-weapon.png": {
+          "bytes": 681715,
+          "sha256": "d77b10ec1e0ed316a84925d207ca2160642350c67b15fa8107b437210da26013"
+        },
+        "unit.dust_trail-reduced.png": {
+          "bytes": 623428,
+          "sha256": "fbe70af78ea952b3e61f6ac93aef8d785e4b0f54794140ab209d98aa29e13ddc"
+        },
+        "unit.dust_trail-standard.png": {
+          "bytes": 623927,
+          "sha256": "0b3e6f10134a3e12bb60eede88ae28d806214fe80b5e151cc010ac751215a582"
+        },
+        "unit.fire_critical-reduced.png": {
+          "bytes": 498813,
+          "sha256": "74dd04dac232f33061b45e92e2970ec1a936084551a46434d80672a671a6dbac"
+        },
+        "unit.fire_critical-standard.png": {
+          "bytes": 499643,
+          "sha256": "23c1acd9b1c51c3553e677d27aecf6acc1c8f2517e9b43af961b6a58d854b1f7"
+        },
+        "unit.rotor_wash-reduced.png": {
+          "bytes": 486903,
+          "sha256": "5ae5272d4197dada125481c0f3a364a431e7755b9a6fd25ff963cd5c49a7149e"
+        },
+        "unit.rotor_wash-standard.png": {
+          "bytes": 487541,
+          "sha256": "11f8744ee42f10fbccecf1809c9aaad577c0911e3cc7f49bfbff5351b518927c"
+        },
+        "unit.smoke_damaged-reduced.png": {
+          "bytes": 499782,
+          "sha256": "4393b466132493f192682b8ea4d603bb3f3e8692a5b8ab8eacb89abdd338de0e"
+        },
+        "unit.smoke_damaged-standard.png": {
+          "bytes": 499499,
+          "sha256": "6b04c03865ecc84ec5468440a09e70b377565344e224414b35790f7aa7b35d28"
+        },
+        "unit.wreck_smoke-reduced.png": {
+          "bytes": 480353,
+          "sha256": "abfb8c1974d9e7a3562fbf37f824d916cc22bd0af9b4f5928c4c2aa94c00562c"
+        },
+        "unit.wreck_smoke-standard.png": {
+          "bytes": 481902,
+          "sha256": "820c17103594d300f9db9b4dd788e1f2e2edc39310ccde5ae86f37769739467e"
+        }
+      }
+    }
+  ]
+}

@@ -10,6 +10,13 @@ type CombatEvent=PlayerSnapshot['events'][number];
 const ARMOR=new Set<string>(['infantry','light','heavy','structure','air']);
 const special=(id:string)=>id==='SATURATION'||id==='SKYBREAKER';
 
+/** A sale's cleanup also emits a public destruction event. Only the owner's
+ * explicit, same-tick sale receipt distinguishes it from combat destruction. */
+export function soldDestruction(event:CombatEvent,snapshot:PlayerSnapshot):boolean {
+ return event.kind==='destroyed'&&event.owner===snapshot.player&&Number.isSafeInteger(event.entity)&&event.entity>0&&
+  snapshot.events.some(sale=>sale.kind==='building_sold'&&sale.scope==='owner'&&sale.owner===snapshot.player&&sale.entity===event.entity&&sale.tick===event.tick&&Number.isSafeInteger(sale.id)&&sale.id>0);
+}
+
 /** Shared visual/audio facts from the current authorized wire only. In particular,
  * absence is not a miss, false is not a no-cover verdict, and an actor's current
  * equipment never substitutes for the weapon captured when its round was fired. */
