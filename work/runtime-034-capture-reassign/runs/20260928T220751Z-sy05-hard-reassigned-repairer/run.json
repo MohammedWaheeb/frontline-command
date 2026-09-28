@@ -1,0 +1,91 @@
+{
+  "scope": "One optional Hard actual repairer reassignment from completed safe own site; same rules/objectives/budgets",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "8950b35bf329f08f8f28998a1741674ff240be45ff8d176385a5ab51a347061f",
+  "base_source_lock_sha256": "5163c3810db202a128386ee6d9aa5de0533ee9ec509a25d8bc1a41997edcd8cf",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:07:51.154413+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-reassign/runs/20260928T220751Z-sy05-hard-reassigned-repairer/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-reassign/source",
+      "started": "2026-09-28T22:07:51.154669+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.754,
+      "completed": "2026-09-28T22:07:53.908481+00:00"
+    },
+    {
+      "name": "focused",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-reassign/runs/20260928T220751Z-sy05-hard-reassigned-repairer/sim.test",
+        "-test.run=^TestAuthoredCaptureRepairerReassignment$",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-reassign/source/pkg/sim",
+      "started": "2026-09-28T22:07:53.912912+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.902,
+      "completed": "2026-09-28T22:07:54.815163+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-reassign/runs/20260928T220751Z-sy05-hard-reassigned-repairer/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-reassign/source/pkg/sim",
+      "started": "2026-09-28T22:07:54.815414+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 20.993,
+      "completed": "2026-09-28T22:08:15.808239+00:00"
+    }
+  ],
+  "binary_sha256": "0c972b6a90dff58f9db6fea9eff03ae79fd4c61de483c014b0cb796d49bcc4f5",
+  "exit_code": 1,
+  "completed": "2026-09-28T22:08:15.808504+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.save.json": {
+      "bytes": 1117674,
+      "sha256": "34b38288a80733913e5df62ca6a65c987210bfdb54a195519fb2715d8e01abe1"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.view.json": {
+      "bytes": 418938,
+      "sha256": "93f1cc8da5b6f2d4d3251993cf99a175405060401959ca919c140165ad2e617c"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-2074011936/driver-orders.json": {
+      "bytes": 298644,
+      "sha256": "f035fec504d5e17eb28ec976cda446f0005204d2d8ff386b8ad76b0e4ad46ff5"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-2074011936/manifest.json": {
+      "bytes": 860,
+      "sha256": "a76bb556bff1e82cbb139dfb8ee32c6e731312fa9e41f4bcba5daa8e064bbf40"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-2074011936/owner.view.json": {
+      "bytes": 418938,
+      "sha256": "93f1cc8da5b6f2d4d3251993cf99a175405060401959ca919c140165ad2e617c"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-2074011936/state.save.json": {
+      "bytes": 1117674,
+      "sha256": "34b38288a80733913e5df62ca6a65c987210bfdb54a195519fb2715d8e01abe1"
+    }
+  }
+}
