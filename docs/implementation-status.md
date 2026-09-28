@@ -1,6 +1,6 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 15:25 UTC / 18:25 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates below supersede earlier in-progress receipts.
+Updated 28 September 2026, 16:12 UTC / 19:12 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates below supersede earlier in-progress receipts.
 
 ## Current ownership and access
 
@@ -308,3 +308,64 @@ SA/IR/SY producer pilots, accepted-pilot reuse production, US airlift rearm and
 the remaining full roster continue under the sole Blender worker. Root's17/132
 FX candidate and main-menu key art remain unaccepted. Claude next returns at the
 recorded18:30UTC reset for exact-model visual authorship/review. No deployment.
+
+## Integration update at16:12 UTC
+
+Shipping runtime remains0.3.3. Current0.3.4 lookup/direct-codec candidate remains
+isolated under356-file lock c7e0d79d…; the quiet maximum-load result at15:25 is
+bounded evidence and is not final promotion.
+
+- Aircraft body picking is checkpointed in aac90ea: exact cached beauty/team
+  alpha, current pose/depth, no empty-padding or shadow hits; Chromium, Firefox
+  and WebKit each pass33 checks, and all14 renderer groups pass. Both TypeScript
+  checks and347 runtime tests passed at that checkpoint.
+- Structural cue priority is checkpointed in093393f. Low power, selling, damage,
+  disable, incomplete and destruction discard stale building launch/activation
+  cues; restoration cannot revive them. New actual ActorVisual tests reproduce
+  the old defect, pass after the fix; both TypeScript checks and349 runtime tests
+  pass. This is separate from the earlier pixel-regression run.
+- First fresh4H2v2 reached ordinary team2 victory at13840. All4 owners paid
+  opening costs, rejected foreign commands and remained functional; host
+  reconnect and eliminated-view freezing worked. Full/checkpoint/restore replay
+  matches575d8a65…600ff. Its strict browser result remains **failed** for one
+  advice_timeout. Host did fetch recorded history and display the new result cue,
+  but the former early assertion stopped before archive entry.74691a8 preserves
+  the failure and successor driver, which checks independent recovery before
+  its unchanged final strict error gate.
+- Optimized host/WASM-only copy preserves3625 other served files and recovery-v3
+  client/art. Its second fresh4H is running. It also hit one advice_timeout, on
+  player3's24 barracks-order batch; the sanitized request and2282ms timing are
+  preserved. These are sequential advisory orders, not24 independent geometry
+  searches. No simulation deadline/authentication gate was relaxed. A quiet
+  four-player follow-up is planned after current outcome/audit and diagnostics.
+- f6f4f69 profiles detached advice on actual prior3H saves: compact Restore about
+ 59ms/14.35MB per operation on the shared host; JSON decoding dominates. Move/train
+  and independent-context samples do not explain the live2s timeout. Exact new
+  request shape needs bounded replay-state diagnosis; its exact capture tick is
+  unavailable. No speculative production optimization has been made.
+-78e6e89 preserves original imagegen menu illustration candidates and real
+  Go-hosted menu review. First image is rejected as too realistic. Second passes
+  native1600/1280 composition, keyboard navigation,150% menu access and exact
+  injected404 fallback. Preview build/TypeScript pass. It is isolated and awaits
+  Claude's18:30UTC primary review plus final packaging; no shipping UI promotion.
+- Root is implementing owner-only aircraft payload variants with canonical cue
+  and transition clocks and guarded previous-frame fallback during atlas decode.
+  Five focused real ActorVisual/Pixi tests pass; broad checks and a prepared
+  actual-Go final-round/service/home-loss/replay course remain in progress. Art
+  variants themselves are not complete.
+- Mencius found35 real SA producer arm/door contacts in8 poses. The bounded
+  SA arm move passes58-other/2632-pose parity,342 non-arm objects,34 resets/bounds,
+ 42 bay rays and zero contacts in1584 pairs. Corrected native rendering is active;
+  original failures remain. IR/SY producers and US96-only service correction stay
+  queued. An isolated armed-payload source pilot adds2848 poses with canonical
+  timing and no speculative ammo refill; no live source/manifest promotion yet.
+- SA05Hard pilot stopped when its driver's paid capture-tank cohort was empty,
+  after two captures. This was nonterminal harness failure, not proven defeat;
+  original branch omitted final artifacts. Boole is adding diagnostic-only fatal
+  cleanup in a successor harness, preserving original evidence and mission rules.
+
+Claude still waits for the recorded18:30UTC /21:30Qatar reset, exact
+claude-opus-5-5 with fallback disabled. All three existing agents continue.
+Complete-art production,132FX, full mission/optional/balance acceptance, audio
+listening, two long-game/current-load checks and clean local/offline/LAN packaging
+remain open. The game is not ready for release.
