@@ -26,6 +26,16 @@ node client/tests/render/multiplayer-product-build.mjs
 FRONTLINE_RENDERED_REUSE=1 node client/tests/render/multiplayer-product.mjs
 ```
 
+The opt-in `FRONTLINE_RENDERED_HOLD_ADVICE=1` is restricted to
+`FRONTLINE_RENDERED_CASE=3`. It opens the first commander's real surrender
+confirmation, obtains a real HTTP 200 advice response from Go, and holds only
+its delivery at the browser response boundary. After the real surrender click,
+it requires a pending-request abort after the own defeated snapshot and within
+3.5 seconds of request start, well before the independent four-second advice
+timeout. The original response body/status are not replaced. This explicit
+network-delay probe is reported separately from ordinary transport; it adds no
+HTTP 400 exception and installs no test API inside the product.
+
 `FRONTLINE_RENDERED_CASE=1,1ai,2,2ai,3,4` selects a subset. Without a subset, all
 six cases run, stopping on the first failure. Without `FRONTLINE_RENDERED_REUSE=1`,
 the runner rebuilds before testing. `FRONTLINE_RENDERED_BUILD` selects another
@@ -130,6 +140,43 @@ both sizes. The console is legible and the battlefield remains dominant; visible
 placeholder headquarters and production structures remain a final-art blocker.
 Results and retained failures are timestamped; `latest.json` is only the latest
 selected run, not a declaration that the entire matrix passed in one invocation.
+
+## Fresh terminal-advice regression
+
+A second isolated native/WASM/Vite build completed at 02:18:04 UTC on
+2026-09-28, after the production terminal cancellation and mission-group UI
+changes. Its recorded revision is `25ab056959c05ce4fb99eef543a5f86ab5f7eba5`;
+this includes the previously stable UI checkpoint `18ae9d0` and the content
+checkpoint committed during the build. The immutable source/binary/pack hashes
+are in [`build-terminal/build.json`](../work/evidence/rendered-multiplayer/build-terminal/build.json).
+This separate copy contains 2,892 pack files, 25 sprites, 15 portraits and 15
+build icons; artwork remains incomplete. It was copied before resumed Claude
+UI work, and both tests below use only that frozen product.
+
+The ordinary three-human run
+[`2026-09-28T02-18-22.696Z/results.json`](../work/evidence/rendered-multiplayer/2026-09-28T02-18-22.696Z/results.json)
+passed every production, reconnect, surrender, result, rematch and menu check.
+There were 228 advice requests and no page, HTTP or console errors. No new
+advice request began after the respective commander's terminal snapshot. One
+naturally in-flight advice response was HTTP 200 and then aborted eight
+milliseconds after the finished frame, sixteen milliseconds after request
+start.
+
+The independent controlled response-delay run
+[`2026-09-28T02-22-42.563Z/results.json`](../work/evidence/rendered-multiplayer/2026-09-28T02-22-42.563Z/results.json)
+also passed the complete three-human journey with zero page, HTTP or console
+errors. It held a real Go HTTP 200 response for commander one; after that
+commander confirmed surrender, the browser canceled the request 217 milliseconds
+after the defeated snapshot and 2,249 milliseconds after request start. This
+precedes the separate four-second request timeout and directly exercises the
+new terminal cancellation. The runner's later attempt to release the held
+response found the already-aborted route, as expected; that cleanup detail is
+recorded separately from application errors. No new advice began after a
+terminal frame, and all commanders still completed debrief/rematch/menu.
+
+The first build's intermittent advice HTTP 400 remains preserved in its original
+failure record. These fresh passes verify terminal cancellation without
+reclassifying the older event or treating arbitrary HTTP 400 responses as valid.
 
 ## Limits
 

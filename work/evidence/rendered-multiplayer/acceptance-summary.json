@@ -123,7 +123,31 @@
     "Browser engines other than Chromium",
     "Maximum688actor renderer",
     "Full AI combat victory",
-    "Final art or audio quality",
-    "Later production terminal-advice cancellation source"
-  ]
+    "Final art or audio quality"
+  ],
+  "terminal_fix_verification": {
+    "run": "2026-09-28T02-18-22.696Z",
+    "build": "build-terminal/build.json",
+    "result": "ordinary three-human journey passed",
+    "accepted_commands": 13,
+    "advice_requests": 228,
+    "new_requests_after_terminal": 0,
+    "actual_inflight_terminal_aborts": 1,
+    "observed_abort_after_terminal_ms": 8,
+    "observed_abort_after_request_ms": 16,
+    "http_errors": 0,
+    "page_errors": 0,
+    "console_errors": 0,
+    "controlled_response_hold": {
+      "run": "2026-09-28T02-22-42.563Z",
+      "result": "passed complete three-human journey",
+      "real_host_status": 200,
+      "abort_after_terminal_ms": 217,
+      "abort_after_request_ms": 2249,
+      "new_requests_after_terminal": 0,
+      "http_errors": 0,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  }
 }

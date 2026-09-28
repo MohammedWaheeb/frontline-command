@@ -1,0 +1,4399 @@
+{
+  "started": "2026-09-28T02:22:42.647Z",
+  "browser": "151.0.7922.34",
+  "browserPlugin": "not available; installed Playwright Chromium",
+  "viewports": [
+    {
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "build": {
+    "started": "2026-09-28T02:17:53.189Z",
+    "completed": "2026-09-28T02:18:04.096Z",
+    "revision": "25ab056959c05ce4fb99eef543a5f86ab5f7eba5",
+    "go": "go version go1.27.1 darwin/arm64",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.2.0"
+    },
+    "sha256": {
+      "host": "e81676c88bfca414440441aa906b22bfc29ba18df8d4c6fb2e549427da93ef9f",
+      "wasm": "622110058f3ff540f1bc81e90b8f05f00e6fca951c23888668323658e84340db",
+      "pack": "372c1846df77fc73664d5933729e9751dc60588375f467923b770416ea0a93db",
+      "clientSource": "d4ada3538058affd890ae73f60d27a792031d2235c564d4f02fb77efe3a7c581"
+    },
+    "packFiles": 2892,
+    "art": {
+      "format": 1,
+      "sprites": {
+        "building.US.hq": "sprites/building.US.hq/building.US.hq.sprite.json",
+        "building.US.power": "sprites/building.US.power/building.US.power.sprite.json",
+        "prop.rocks": "sprites/prop.rocks/prop.rocks.sprite.json",
+        "prop.rubble_cover": "sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+        "prop.sandbags": "sprites/prop.sandbags/prop.sandbags.sprite.json",
+        "prop.shrub": "sprites/prop.shrub/prop.shrub.sprite.json",
+        "prop.supply_field": "sprites/prop.supply_field/prop.supply_field.sprite.json",
+        "unit.IR.hauler": "sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+        "unit.IR.rig": "sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+        "unit.IR.strike": "sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+        "unit.SA.hauler": "sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+        "unit.SA.mobile_abm": "sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+        "unit.SA.rig": "sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+        "unit.SY.car": "sprites/unit.SY.car/unit.SY.car.sprite.json",
+        "unit.SY.hauler": "sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+        "unit.SY.rig": "sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+        "unit.US.at": "sprites/unit.US.at/unit.US.at.sprite.json",
+        "unit.US.elite": "sprites/unit.US.elite/unit.US.elite.sprite.json",
+        "unit.US.engineer": "sprites/unit.US.engineer/unit.US.engineer.sprite.json",
+        "unit.US.hauler": "sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+        "unit.US.medic": "sprites/unit.US.medic/unit.US.medic.sprite.json",
+        "unit.US.recon": "sprites/unit.US.recon/unit.US.recon.sprite.json",
+        "unit.US.rifle": "sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+        "unit.US.rig": "sprites/unit.US.rig/unit.US.rig.sprite.json",
+        "unit.US.tank": "sprites/unit.US.tank/unit.US.tank.sprite.json"
+      },
+      "terrain": [
+        "asphalt",
+        "concrete_slab",
+        "dry_riverbed",
+        "gravel",
+        "packed_earth",
+        "rubble_ground",
+        "sand",
+        "scrub_ground"
+      ],
+      "portraits": [
+        "IR.hauler",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.engineer",
+        "US.hauler",
+        "US.medic",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "buildIcons": [
+        "IR.hauler",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.engineer",
+        "US.hauler",
+        "US.medic",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "chrome": [
+        "brass_bezel@1x.png",
+        "brass_bezel@2x.png",
+        "button@1x.png",
+        "button@2x.png",
+        "button_active@2x.png",
+        "button_disabled@2x.png",
+        "button_hover@2x.png",
+        "button_normal@2x.png",
+        "button_pressed@2x.png",
+        "cameo_frame@1x.png",
+        "cameo_frame@2x.png",
+        "console_plate@1x.png",
+        "console_plate@2x.png",
+        "metal_noise.png",
+        "well@1x.png",
+        "well@2x.png"
+      ],
+      "icons": true,
+      "emblems": true
+    },
+    "scope": "Isolated actual product; current art incomplete. No shared build artifacts overwritten."
+  },
+  "scope": "Rendered product using independent loopback browser contexts, actual Go host and standard commands. Deliberate surrender completes lifecycle; this is not combat victory, full AI strategy, final-art, physical-LAN or reference-device performance acceptance.",
+  "cases": [
+    {
+      "id": "3",
+      "humans": 3,
+      "bots": 0,
+      "mode": "ffa",
+      "status": "passed",
+      "phase": "rematch",
+      "surrenderActions": [
+        {
+          "player": 1,
+          "started": 1790562334362,
+          "tick": 3092
+        },
+        {
+          "player": 2,
+          "started": 1790562340179,
+          "tick": 3204
+        }
+      ],
+      "pageErrors": [],
+      "console": [
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x104005b3000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x104005b3000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 2,
+          "level": "warning",
+          "message": "[.WebGL-0x134005dee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x104005b3000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        }
+      ],
+      "httpErrors": [],
+      "adviceRequests": [
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562178560,
+          "phase": "active-play",
+          "initial": {
+            "tick": 0,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562178887,
+          "status": 200,
+          "responseState": {
+            "tick": 0,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562178919,
+          "phase": "active-play",
+          "initial": {
+            "tick": 0,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562179259,
+          "status": 200,
+          "responseState": {
+            "tick": 0,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562179313,
+          "phase": "active-play",
+          "initial": {
+            "tick": 0,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562179567,
+          "status": 200,
+          "responseState": {
+            "tick": 0,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562179604,
+          "phase": "active-play",
+          "initial": {
+            "tick": 4,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562179606,
+          "status": 200,
+          "responseState": {
+            "tick": 8,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562179632,
+          "phase": "active-play",
+          "initial": {
+            "tick": 4,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562179636,
+          "status": 200,
+          "responseState": {
+            "tick": 8,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562179928,
+          "phase": "active-play",
+          "initial": {
+            "tick": 12,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562180063,
+          "status": 200,
+          "responseState": {
+            "tick": 12,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562182751,
+          "phase": "active-play",
+          "initial": {
+            "tick": 68,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562182870,
+          "status": 200,
+          "responseState": {
+            "tick": 72,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562182782,
+          "phase": "active-play",
+          "initial": {
+            "tick": 68,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562182898,
+          "status": 200,
+          "responseState": {
+            "tick": 72,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562182949,
+          "phase": "active-play",
+          "initial": {
+            "tick": 72,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562183058,
+          "status": 200,
+          "responseState": {
+            "tick": 72,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562185813,
+          "phase": "active-play",
+          "initial": {
+            "tick": 128,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562185980,
+          "status": 200,
+          "responseState": {
+            "tick": 132,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562185865,
+          "phase": "active-play",
+          "initial": {
+            "tick": 128,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562186010,
+          "status": 200,
+          "responseState": {
+            "tick": 132,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562186063,
+          "phase": "active-play",
+          "initial": {
+            "tick": 132,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562186203,
+          "status": 200,
+          "responseState": {
+            "tick": 136,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562188860,
+          "phase": "active-play",
+          "initial": {
+            "tick": 188,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562189021,
+          "status": 200,
+          "responseState": {
+            "tick": 192,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562189085,
+          "phase": "active-play",
+          "initial": {
+            "tick": 192,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562189224,
+          "status": 200,
+          "responseState": {
+            "tick": 196,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562189118,
+          "phase": "active-play",
+          "initial": {
+            "tick": 192,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562189277,
+          "status": 200,
+          "responseState": {
+            "tick": 196,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562190118,
+          "phase": "active-play",
+          "initial": {
+            "tick": 208,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562190257,
+          "status": 200,
+          "responseState": {
+            "tick": 212,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562191891,
+          "phase": "active-play",
+          "initial": {
+            "tick": 248,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562192035,
+          "status": 200,
+          "responseState": {
+            "tick": 252,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562192104,
+          "phase": "active-play",
+          "initial": {
+            "tick": 252,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562192260,
+          "status": 200,
+          "responseState": {
+            "tick": 256,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562192290,
+          "phase": "active-play",
+          "initial": {
+            "tick": 256,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562192448,
+          "status": 200,
+          "responseState": {
+            "tick": 260,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562192513,
+          "phase": "active-play",
+          "initial": {
+            "tick": 256,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562192645,
+          "status": 200,
+          "responseState": {
+            "tick": 260,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562192812,
+          "phase": "active-play",
+          "initial": {
+            "tick": 268,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562192944,
+          "status": 200,
+          "responseState": {
+            "tick": 272,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562193077,
+          "phase": "active-play",
+          "initial": {
+            "tick": 272,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562193219,
+          "status": 200,
+          "responseState": {
+            "tick": 276,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562193642,
+          "phase": "active-play",
+          "initial": {
+            "tick": 284,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562193768,
+          "status": 200,
+          "responseState": {
+            "tick": 288,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562194856,
+          "phase": "active-play",
+          "initial": {
+            "tick": 304,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562194975,
+          "status": 200,
+          "responseState": {
+            "tick": 308,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562195248,
+          "phase": "active-play",
+          "initial": {
+            "tick": 320,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562195248,
+          "status": 200,
+          "responseState": {
+            "tick": 320,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562195329,
+          "phase": "active-play",
+          "initial": {
+            "tick": 320,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562195422,
+          "status": 200,
+          "responseState": {
+            "tick": 320,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562196686,
+          "phase": "active-play",
+          "initial": {
+            "tick": 348,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562196688,
+          "status": 200,
+          "responseState": {
+            "tick": 348,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562196844,
+          "phase": "active-play",
+          "initial": {
+            "tick": 344,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562196992,
+          "status": 200,
+          "responseState": {
+            "tick": 348,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562197136,
+          "phase": "active-play",
+          "initial": {
+            "tick": 352,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562197289,
+          "status": 200,
+          "responseState": {
+            "tick": 356,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562197452,
+          "phase": "active-play",
+          "initial": {
+            "tick": 360,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562197597,
+          "status": 200,
+          "responseState": {
+            "tick": 364,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562197913,
+          "phase": "active-play",
+          "initial": {
+            "tick": 368,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562198091,
+          "status": 200,
+          "responseState": {
+            "tick": 372,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562198288,
+          "phase": "active-play",
+          "initial": {
+            "tick": 376,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562198288,
+          "status": 200,
+          "responseState": {
+            "tick": 380,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562199019,
+          "phase": "active-play",
+          "initial": {
+            "tick": 388,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562199162,
+          "status": 200,
+          "responseState": {
+            "tick": 392,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562200011,
+          "phase": "active-play",
+          "initial": {
+            "tick": 412,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562200142,
+          "status": 200,
+          "responseState": {
+            "tick": 416,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562201010,
+          "phase": "active-play",
+          "initial": {
+            "tick": 432,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562201169,
+          "status": 200,
+          "responseState": {
+            "tick": 436,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562201553,
+          "phase": "active-play",
+          "initial": {
+            "tick": 436,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562201675,
+          "status": 200,
+          "responseState": {
+            "tick": 440,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562201854,
+          "phase": "active-play",
+          "initial": {
+            "tick": 448,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562202011,
+          "status": 200,
+          "responseState": {
+            "tick": 452,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562202168,
+          "phase": "active-play",
+          "initial": {
+            "tick": 456,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562202524,
+          "status": 200,
+          "responseState": {
+            "tick": 456,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562202851,
+          "phase": "active-play",
+          "initial": {
+            "tick": 464,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562202993,
+          "status": 200,
+          "responseState": {
+            "tick": 468,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562203226,
+          "phase": "active-play",
+          "initial": {
+            "tick": 472,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562203367,
+          "status": 200,
+          "responseState": {
+            "tick": 476,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562204245,
+          "phase": "active-play",
+          "initial": {
+            "tick": 492,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562204397,
+          "status": 200,
+          "responseState": {
+            "tick": 496,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562205558,
+          "phase": "active-play",
+          "initial": {
+            "tick": 516,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562205708,
+          "status": 200,
+          "responseState": {
+            "tick": 520,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562206146,
+          "phase": "active-play",
+          "initial": {
+            "tick": 532,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562206261,
+          "status": 200,
+          "responseState": {
+            "tick": 532,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562206352,
+          "phase": "active-play",
+          "initial": {
+            "tick": 536,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562206465,
+          "status": 200,
+          "responseState": {
+            "tick": 536,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562207305,
+          "phase": "active-play",
+          "initial": {
+            "tick": 556,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562207305,
+          "status": 200,
+          "responseState": {
+            "tick": 556,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562209082,
+          "phase": "active-play",
+          "initial": {
+            "tick": 588,
+            "defeated": false,
+            "finished": false
+          },
+          "failed": 1790562209216,
+          "failure": "net::ERR_ABORTED",
+          "failureState": {
+            "tick": 592,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562209385,
+          "phase": "active-play",
+          "initial": {
+            "tick": 596,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562209507,
+          "status": 200,
+          "responseState": {
+            "tick": 600,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562209578,
+          "phase": "active-play",
+          "initial": {
+            "tick": 596,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562209703,
+          "status": 200,
+          "responseState": {
+            "tick": 604,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562210055,
+          "phase": "active-play",
+          "initial": {
+            "tick": 608,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562210194,
+          "status": 200,
+          "responseState": {
+            "tick": 612,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562210382,
+          "phase": "active-play",
+          "initial": {
+            "tick": 616,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562210493,
+          "status": 200,
+          "responseState": {
+            "tick": 620,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562210541,
+          "phase": "active-play",
+          "initial": {
+            "tick": 620,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562210663,
+          "status": 200,
+          "responseState": {
+            "tick": 620,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562211631,
+          "phase": "active-play",
+          "initial": {
+            "tick": 640,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562211750,
+          "status": 200,
+          "responseState": {
+            "tick": 640,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562212600,
+          "phase": "active-play",
+          "initial": {
+            "tick": 660,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562212766,
+          "status": 200,
+          "responseState": {
+            "tick": 664,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562213439,
+          "phase": "active-play",
+          "initial": {
+            "tick": 676,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562213558,
+          "status": 200,
+          "responseState": {
+            "tick": 680,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562213731,
+          "phase": "active-play",
+          "initial": {
+            "tick": 684,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562213844,
+          "status": 200,
+          "responseState": {
+            "tick": 684,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562215154,
+          "phase": "active-play",
+          "initial": {
+            "tick": 708,
+            "defeated": false,
+            "finished": false
+          },
+          "failed": 1790562215274,
+          "failure": "net::ERR_ABORTED",
+          "failureState": {
+            "tick": 712,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562215656,
+          "phase": "active-play",
+          "initial": {
+            "tick": 720,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562215782,
+          "status": 200,
+          "responseState": {
+            "tick": 724,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562215750,
+          "phase": "active-play",
+          "initial": {
+            "tick": 724,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562215863,
+          "status": 200,
+          "responseState": {
+            "tick": 724,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562216134,
+          "phase": "active-play",
+          "initial": {
+            "tick": 728,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562216256,
+          "status": 200,
+          "responseState": {
+            "tick": 732,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562216529,
+          "phase": "active-play",
+          "initial": {
+            "tick": 740,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562216658,
+          "status": 200,
+          "responseState": {
+            "tick": 740,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562216981,
+          "phase": "active-play",
+          "initial": {
+            "tick": 748,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562216984,
+          "status": 200,
+          "responseState": {
+            "tick": 752,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562218004,
+          "phase": "active-play",
+          "initial": {
+            "tick": 764,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562218254,
+          "status": 200,
+          "responseState": {
+            "tick": 768,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562218846,
+          "phase": "active-play",
+          "initial": {
+            "tick": 784,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562219020,
+          "status": 200,
+          "responseState": {
+            "tick": 788,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562219669,
+          "phase": "active-play",
+          "initial": {
+            "tick": 796,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562219855,
+          "status": 200,
+          "responseState": {
+            "tick": 800,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562219985,
+          "phase": "active-play",
+          "initial": {
+            "tick": 804,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562220154,
+          "status": 200,
+          "responseState": {
+            "tick": 808,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562221901,
+          "phase": "active-play",
+          "initial": {
+            "tick": 844,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562222051,
+          "status": 200,
+          "responseState": {
+            "tick": 848,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562222734,
+          "phase": "active-play",
+          "initial": {
+            "tick": 860,
+            "defeated": false,
+            "finished": false
+          },
+          "failed": 1790562222874,
+          "failure": "net::ERR_ABORTED",
+          "failureState": {
+            "tick": 860,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562222918,
+          "phase": "active-play",
+          "initial": {
+            "tick": 864,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562223072,
+          "status": 200,
+          "responseState": {
+            "tick": 868,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562223181,
+          "phase": "active-play",
+          "initial": {
+            "tick": 868,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562223332,
+          "status": 200,
+          "responseState": {
+            "tick": 872,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562223286,
+          "phase": "active-play",
+          "initial": {
+            "tick": 872,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562223432,
+          "status": 200,
+          "responseState": {
+            "tick": 876,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562223478,
+          "phase": "active-play",
+          "initial": {
+            "tick": 872,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562223639,
+          "status": 200,
+          "responseState": {
+            "tick": 880,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562224087,
+          "phase": "active-play",
+          "initial": {
+            "tick": 888,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562224220,
+          "status": 200,
+          "responseState": {
+            "tick": 892,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562226037,
+          "phase": "active-play",
+          "initial": {
+            "tick": 928,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562226175,
+          "status": 200,
+          "responseState": {
+            "tick": 932,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562226374,
+          "phase": "active-play",
+          "initial": {
+            "tick": 936,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562226501,
+          "status": 200,
+          "responseState": {
+            "tick": 936,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562227169,
+          "phase": "active-play",
+          "initial": {
+            "tick": 952,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562227282,
+          "status": 200,
+          "responseState": {
+            "tick": 952,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562229081,
+          "phase": "active-play",
+          "initial": {
+            "tick": 988,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562229221,
+          "status": 200,
+          "responseState": {
+            "tick": 992,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562229430,
+          "phase": "active-play",
+          "initial": {
+            "tick": 996,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562229608,
+          "status": 200,
+          "responseState": {
+            "tick": 1000,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562230256,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1012,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562230410,
+          "status": 200,
+          "responseState": {
+            "tick": 1016,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562232146,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1052,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562232291,
+          "status": 200,
+          "responseState": {
+            "tick": 1052,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562232477,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1056,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562232630,
+          "status": 200,
+          "responseState": {
+            "tick": 1060,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562233270,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1072,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562233410,
+          "status": 200,
+          "responseState": {
+            "tick": 1076,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562235276,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1112,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562235421,
+          "status": 200,
+          "responseState": {
+            "tick": 1112,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562235547,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1116,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562235680,
+          "status": 200,
+          "responseState": {
+            "tick": 1120,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562236340,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1132,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562236462,
+          "status": 200,
+          "responseState": {
+            "tick": 1136,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562238312,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1172,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562238488,
+          "status": 200,
+          "responseState": {
+            "tick": 1176,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562238682,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1180,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562238802,
+          "status": 200,
+          "responseState": {
+            "tick": 1184,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562239452,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1196,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562239557,
+          "status": 200,
+          "responseState": {
+            "tick": 1196,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562241566,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1236,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562241713,
+          "status": 200,
+          "responseState": {
+            "tick": 1240,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562241816,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1244,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562241943,
+          "status": 200,
+          "responseState": {
+            "tick": 1244,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562242479,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1256,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562242615,
+          "status": 200,
+          "responseState": {
+            "tick": 1256,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562244653,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1300,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562244784,
+          "status": 200,
+          "responseState": {
+            "tick": 1300,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562244903,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1304,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562245044,
+          "status": 200,
+          "responseState": {
+            "tick": 1308,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562245770,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1320,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562245910,
+          "status": 200,
+          "responseState": {
+            "tick": 1324,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562245818,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1320,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562245965,
+          "status": 200,
+          "responseState": {
+            "tick": 1324,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562247728,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1360,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562247891,
+          "status": 200,
+          "responseState": {
+            "tick": 1364,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562247934,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1364,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562248061,
+          "status": 200,
+          "responseState": {
+            "tick": 1368,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562248848,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1384,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562248961,
+          "status": 200,
+          "responseState": {
+            "tick": 1384,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562249066,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1384,
+            "defeated": false,
+            "finished": false
+          },
+          "failed": 1790562249197,
+          "failure": "net::ERR_ABORTED",
+          "failureState": {
+            "tick": 1388,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562249531,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1396,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562249657,
+          "status": 200,
+          "responseState": {
+            "tick": 1400,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562249978,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1404,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562250100,
+          "status": 200,
+          "responseState": {
+            "tick": 1408,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562250430,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1412,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562250542,
+          "status": 200,
+          "responseState": {
+            "tick": 1416,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562250834,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1424,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562250935,
+          "status": 200,
+          "responseState": {
+            "tick": 1424,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562251376,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1432,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562251491,
+          "status": 200,
+          "responseState": {
+            "tick": 1432,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562251927,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1448,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562251927,
+          "status": 200,
+          "responseState": {
+            "tick": 1448,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562253234,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1472,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562253347,
+          "status": 200,
+          "responseState": {
+            "tick": 1472,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562253947,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1484,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562254061,
+          "status": 200,
+          "responseState": {
+            "tick": 1488,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562254635,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1496,
+            "defeated": false,
+            "finished": false
+          },
+          "failed": 1790562254755,
+          "failure": "net::ERR_ABORTED",
+          "failureState": {
+            "tick": 1500,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562255010,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1508,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562255118,
+          "status": 200,
+          "responseState": {
+            "tick": 1508,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562255077,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1504,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562255195,
+          "status": 200,
+          "responseState": {
+            "tick": 1512,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562255508,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1516,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562255625,
+          "status": 200,
+          "responseState": {
+            "tick": 1520,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562255854,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1524,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562255950,
+          "status": 200,
+          "responseState": {
+            "tick": 1524,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562256246,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1536,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562256292,
+          "status": 200,
+          "responseState": {
+            "tick": 1536,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562256729,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1540,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562256822,
+          "status": 200,
+          "responseState": {
+            "tick": 1540,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562258120,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1568,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562258221,
+          "status": 200,
+          "responseState": {
+            "tick": 1572,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562258969,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1588,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562259068,
+          "status": 200,
+          "responseState": {
+            "tick": 1588,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562259440,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1596,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562259536,
+          "status": 200,
+          "responseState": {
+            "tick": 1596,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562259499,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1596,
+            "defeated": false,
+            "finished": false
+          },
+          "failed": 1790562259595,
+          "failure": "net::ERR_ABORTED",
+          "failureState": {
+            "tick": 1596,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562259895,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1604,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562259993,
+          "status": 200,
+          "responseState": {
+            "tick": 1608,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562260290,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1612,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562260398,
+          "status": 200,
+          "responseState": {
+            "tick": 1616,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562260598,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1620,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562260697,
+          "status": 200,
+          "responseState": {
+            "tick": 1620,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562262044,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1648,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562262133,
+          "status": 200,
+          "responseState": {
+            "tick": 1648,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562262607,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1660,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562262703,
+          "status": 200,
+          "responseState": {
+            "tick": 1660,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562263861,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1684,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562263954,
+          "status": 200,
+          "responseState": {
+            "tick": 1688,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562265203,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1712,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562265302,
+          "status": 200,
+          "responseState": {
+            "tick": 1712,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562265780,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1724,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562265877,
+          "status": 200,
+          "responseState": {
+            "tick": 1724,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562267029,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1748,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562267123,
+          "status": 200,
+          "responseState": {
+            "tick": 1748,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562268262,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1772,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562268494,
+          "status": 200,
+          "responseState": {
+            "tick": 1776,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562268871,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1784,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562269022,
+          "status": 200,
+          "responseState": {
+            "tick": 1788,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562270030,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1808,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562270128,
+          "status": 200,
+          "responseState": {
+            "tick": 1808,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562271373,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1836,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562271486,
+          "status": 200,
+          "responseState": {
+            "tick": 1836,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562272093,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1848,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562272205,
+          "status": 200,
+          "responseState": {
+            "tick": 1852,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562273262,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1872,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562273379,
+          "status": 200,
+          "responseState": {
+            "tick": 1872,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562274396,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1896,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562274519,
+          "status": 200,
+          "responseState": {
+            "tick": 1896,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562275293,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1912,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562275416,
+          "status": 200,
+          "responseState": {
+            "tick": 1916,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562276304,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1932,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562276414,
+          "status": 200,
+          "responseState": {
+            "tick": 1936,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562277413,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1956,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562277534,
+          "status": 200,
+          "responseState": {
+            "tick": 1956,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562278372,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1976,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562278479,
+          "status": 200,
+          "responseState": {
+            "tick": 1976,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562279409,
+          "phase": "active-play",
+          "initial": {
+            "tick": 1996,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562279508,
+          "status": 200,
+          "responseState": {
+            "tick": 1996,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562280597,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2020,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562280703,
+          "status": 200,
+          "responseState": {
+            "tick": 2020,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562281452,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2036,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562281537,
+          "status": 200,
+          "responseState": {
+            "tick": 2036,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562282424,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2056,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562282528,
+          "status": 200,
+          "responseState": {
+            "tick": 2056,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562283642,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2080,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562283765,
+          "status": 200,
+          "responseState": {
+            "tick": 2080,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562283839,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2084,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562284389,
+          "status": 200,
+          "responseState": {
+            "tick": 2084,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562284653,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2096,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562284788,
+          "status": 200,
+          "responseState": {
+            "tick": 2104,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562285502,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2116,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562285626,
+          "status": 200,
+          "responseState": {
+            "tick": 2120,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562286648,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2140,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562286842,
+          "status": 200,
+          "responseState": {
+            "tick": 2140,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562287848,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2164,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562287963,
+          "status": 200,
+          "responseState": {
+            "tick": 2164,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562288676,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2180,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562288801,
+          "status": 200,
+          "responseState": {
+            "tick": 2184,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562289347,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2192,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562289471,
+          "status": 200,
+          "responseState": {
+            "tick": 2192,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562289849,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2200,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562289985,
+          "status": 200,
+          "responseState": {
+            "tick": 2208,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562289889,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2204,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562290012,
+          "status": 200,
+          "responseState": {
+            "tick": 2208,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562290238,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2212,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562290360,
+          "status": 200,
+          "responseState": {
+            "tick": 2212,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562291272,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2228,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562291907,
+          "status": 200,
+          "responseState": {
+            "tick": 2228,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562291885,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2240,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562291885,
+          "status": 200,
+          "responseState": {
+            "tick": 2244,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562292932,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2264,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562293054,
+          "status": 200,
+          "responseState": {
+            "tick": 2264,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562293239,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2272,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562293363,
+          "status": 200,
+          "responseState": {
+            "tick": 2272,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562293466,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2276,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562293577,
+          "status": 200,
+          "responseState": {
+            "tick": 2276,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562294500,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2292,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562294637,
+          "status": 200,
+          "responseState": {
+            "tick": 2296,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562294783,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2300,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562295114,
+          "status": 200,
+          "responseState": {
+            "tick": 2304,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562295281,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2308,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562295395,
+          "status": 200,
+          "responseState": {
+            "tick": 2312,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562295356,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2312,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562295474,
+          "status": 200,
+          "responseState": {
+            "tick": 2316,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562296146,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2324,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562296767,
+          "status": 200,
+          "responseState": {
+            "tick": 2324,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562296314,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2332,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562296382,
+          "status": 200,
+          "responseState": {
+            "tick": 2336,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562297738,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2356,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562297864,
+          "status": 200,
+          "responseState": {
+            "tick": 2360,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562298310,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2372,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562298444,
+          "status": 200,
+          "responseState": {
+            "tick": 2372,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562298403,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2372,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562298535,
+          "status": 200,
+          "responseState": {
+            "tick": 2376,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562299348,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2388,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562299497,
+          "status": 200,
+          "responseState": {
+            "tick": 2392,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562299557,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2396,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562299676,
+          "status": 200,
+          "responseState": {
+            "tick": 2400,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562299636,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2396,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562299748,
+          "status": 200,
+          "responseState": {
+            "tick": 2400,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562300111,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2408,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562300232,
+          "status": 200,
+          "responseState": {
+            "tick": 2408,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562301485,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2436,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562301603,
+          "status": 200,
+          "responseState": {
+            "tick": 2436,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562302797,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2460,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562302955,
+          "status": 200,
+          "responseState": {
+            "tick": 2464,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562303211,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2468,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562303348,
+          "status": 200,
+          "responseState": {
+            "tick": 2472,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562304595,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2496,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562304749,
+          "status": 200,
+          "responseState": {
+            "tick": 2500,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562306176,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2528,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562306340,
+          "status": 200,
+          "responseState": {
+            "tick": 2532,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562306407,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2532,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562306564,
+          "status": 200,
+          "responseState": {
+            "tick": 2536,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562307698,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2560,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562307837,
+          "status": 200,
+          "responseState": {
+            "tick": 2560,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562309260,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2592,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562309389,
+          "status": 200,
+          "responseState": {
+            "tick": 2592,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562309631,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2596,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562309795,
+          "status": 200,
+          "responseState": {
+            "tick": 2600,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562310992,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2624,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562311189,
+          "status": 200,
+          "responseState": {
+            "tick": 2628,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562311424,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2628,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562311591,
+          "status": 200,
+          "responseState": {
+            "tick": 2632,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562312297,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2652,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562312406,
+          "status": 200,
+          "responseState": {
+            "tick": 2652,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562312759,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2660,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562312878,
+          "status": 200,
+          "responseState": {
+            "tick": 2664,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562313712,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2676,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562313866,
+          "status": 200,
+          "responseState": {
+            "tick": 2680,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562314163,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2688,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562314303,
+          "status": 200,
+          "responseState": {
+            "tick": 2692,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562315529,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2716,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562315645,
+          "status": 200,
+          "responseState": {
+            "tick": 2720,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562315848,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2724,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562316100,
+          "status": 200,
+          "responseState": {
+            "tick": 2724,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562317418,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2752,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562317567,
+          "status": 200,
+          "responseState": {
+            "tick": 2756,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562318732,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2780,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562318846,
+          "status": 200,
+          "responseState": {
+            "tick": 2784,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562318890,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2784,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562318998,
+          "status": 200,
+          "responseState": {
+            "tick": 2784,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562320509,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2816,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562320525,
+          "status": 200,
+          "responseState": {
+            "tick": 2820,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562321928,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2844,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562322080,
+          "status": 200,
+          "responseState": {
+            "tick": 2848,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562321983,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2844,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562322128,
+          "status": 200,
+          "responseState": {
+            "tick": 2848,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562323576,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2876,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562323734,
+          "status": 200,
+          "responseState": {
+            "tick": 2880,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562325067,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2908,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562325207,
+          "status": 200,
+          "responseState": {
+            "tick": 2908,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562325150,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2908,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562325301,
+          "status": 200,
+          "responseState": {
+            "tick": 2912,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562326155,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2924,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562326287,
+          "status": 200,
+          "responseState": {
+            "tick": 2928,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562326765,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2940,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562326896,
+          "status": 200,
+          "responseState": {
+            "tick": 2944,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562327657,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2956,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562327802,
+          "status": 200,
+          "responseState": {
+            "tick": 2956,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562327953,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2964,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562328101,
+          "status": 200,
+          "responseState": {
+            "tick": 2968,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562328162,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2968,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562328284,
+          "status": 200,
+          "responseState": {
+            "tick": 2972,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562328369,
+          "phase": "active-play",
+          "initial": {
+            "tick": 2972,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562328511,
+          "status": 200,
+          "responseState": {
+            "tick": 2976,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562330045,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3004,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562330202,
+          "status": 200,
+          "responseState": {
+            "tick": 3008,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562331157,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3028,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562331333,
+          "status": 200,
+          "responseState": {
+            "tick": 3032,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562331395,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3032,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562331549,
+          "status": 200,
+          "responseState": {
+            "tick": 3036,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562333136,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3068,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562333296,
+          "status": 200,
+          "responseState": {
+            "tick": 3072,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562334195,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3088,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562334196,
+          "status": 200,
+          "responseState": {
+            "tick": 3092,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562334795,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3100,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562334931,
+          "status": 200,
+          "responseState": {
+            "tick": 3104,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562336215,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3128,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562336362,
+          "status": 200,
+          "responseState": {
+            "tick": 3132,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 1,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562337258,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3148,
+            "defeated": false,
+            "finished": false
+          },
+          "failed": 1790562339507,
+          "failure": "net::ERR_ABORTED",
+          "failureState": {
+            "tick": 3188,
+            "defeated": true,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562337901,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3160,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562338088,
+          "status": 200,
+          "responseState": {
+            "tick": 3164,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562339617,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3196,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562339619,
+          "status": 200,
+          "responseState": {
+            "tick": 3200,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 3,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562341058,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3224,
+            "defeated": false,
+            "finished": false
+          },
+          "responded": 1790562341215,
+          "status": 200,
+          "responseState": {
+            "tick": 3228,
+            "defeated": false,
+            "finished": false
+          }
+        },
+        {
+          "player": 2,
+          "path": "/api/v1/matches/cd4c6220221ae83509f17c44/advice",
+          "started": 1790562343060,
+          "phase": "surrender",
+          "initial": {
+            "tick": 3260,
+            "defeated": false,
+            "finished": false
+          },
+          "failed": 1790562343067,
+          "failure": "net::ERR_ABORTED",
+          "failureState": {
+            "tick": 3265,
+            "defeated": true,
+            "finished": true
+          }
+        }
+      ],
+      "terminalSnapshots": [
+        {
+          "player": 1,
+          "received": 1790562339290,
+          "tick": 3188,
+          "defeated": true,
+          "finished": false
+        },
+        {
+          "player": 3,
+          "received": 1790562343012,
+          "tick": 3265,
+          "defeated": false,
+          "finished": true
+        },
+        {
+          "player": 2,
+          "received": 1790562343063,
+          "tick": 3265,
+          "defeated": true,
+          "finished": true
+        }
+      ],
+      "players": [
+        {
+          "player": 1,
+          "faction": "US",
+          "team": 1,
+          "color": 1,
+          "tick": 132,
+          "privateOwners": [
+            1
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 25500
+          },
+          "rig": 2,
+          "initialRig": {
+            "x": 28700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            1,
+            2
+          ],
+          "power": {
+            "x": 20500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            27
+          ]
+        },
+        {
+          "player": 2,
+          "faction": "IR",
+          "team": 2,
+          "color": 2,
+          "tick": 152,
+          "privateOwners": [
+            2
+          ],
+          "hq": {
+            "x": 134500,
+            "y": 25500
+          },
+          "rig": 4,
+          "initialRig": {
+            "x": 137700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            3,
+            4
+          ],
+          "power": {
+            "x": 139500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 134500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            28
+          ]
+        },
+        {
+          "player": 3,
+          "faction": "SY",
+          "team": 3,
+          "color": 3,
+          "tick": 168,
+          "privateOwners": [
+            3
+          ],
+          "hq": {
+            "x": 134500,
+            "y": 134500
+          },
+          "rig": 6,
+          "initialRig": {
+            "x": 137700,
+            "y": 134500
+          },
+          "initialEntityIDs": [
+            5,
+            6
+          ],
+          "power": {
+            "x": 139500,
+            "y": 134500
+          },
+          "barracks": {
+            "x": 134500,
+            "y": 139500
+          },
+          "trainedRifles": [
+            29
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 29963,
+            "y": 29257
+          },
+          "tick": 284,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 129488,
+            "y": 29091
+          },
+          "tick": 372,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 129438,
+            "y": 129829
+          },
+          "tick": 468,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 20500,
+            "y": 24500
+          },
+          "tick": 620,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 139000,
+            "y": 25500
+          },
+          "tick": 742,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 139000,
+            "y": 134500
+          },
+          "tick": 889,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 25000,
+            "y": 20000
+          },
+          "tick": 1416,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 134000,
+            "y": 19500
+          },
+          "tick": 1527,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 134000,
+            "y": 139000
+          },
+          "tick": 1622,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "US.rifle",
+          "entities": [
+            24
+          ],
+          "tick": 2215,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "IR.rifle",
+          "entities": [
+            25
+          ],
+          "tick": 2316,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "SY.rifle",
+          "entities": [
+            26
+          ],
+          "tick": 2410,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 5,
+          "index": 0,
+          "kind": "stop",
+          "type": "",
+          "entities": [
+            6
+          ],
+          "tick": 2976,
+          "code": "ok"
+        }
+      ],
+      "completion": "Deliberate surrender; no combat-victory claim",
+      "origin": "http://127.0.0.1:55897",
+      "profiles": [
+        "866e02b5d90dfb729e37d247",
+        "1ed5ed71bd8147b9c28771f5",
+        "68e4ccad9f0b875fa2ca3502"
+      ],
+      "lobby": "784541bbb1410d08d94c1ed0",
+      "startBlockedBeforeReady": true,
+      "reconnect": {
+        "player": 3,
+        "oldTick": 2792,
+        "newTick": 2976,
+        "oldSequence": 4,
+        "newSequence": 5
+      },
+      "delayedAdvice": {
+        "player": 1,
+        "kind": "Real Go advice200 held at browser response boundary; no payload/status substitution",
+        "requestStarted": 1790562337258,
+        "hostStatus": 200,
+        "hostResponded": 1790562337284,
+        "terminalReceived": 1790562339290,
+        "terminalTick": 3188,
+        "aborted": 1790562339507,
+        "failure": "net::ERR_ABORTED",
+        "elapsedToAbort": 2249,
+        "passed": true,
+        "deliveryAfterAbort": "route.fulfill: Route is already handled!"
+      },
+      "outcome": {
+        "winningTeam": 3,
+        "draw": false,
+        "reason": "elimination",
+        "committed": true
+      },
+      "rematch": {
+        "id": "d4821ac711eb64d87ce4b411",
+        "newFormingLobby": true,
+        "requiresReady": true
+      },
+      "terminalAdvice": {
+        "newRequestsAfterTerminal": 0,
+        "inflightAborts": 2
+      }
+    }
+  ],
+  "completed": "2026-09-28T02:25:52.220Z",
+  "status": "passed"
+}

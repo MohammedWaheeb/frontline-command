@@ -25,6 +25,8 @@ const definitions=[
 ];
 const selected=process.env.FRONTLINE_RENDERED_CASE?.split(',')??definitions.map(value=>value.id);
 assert.ok(selected.every(id=>definitions.some(value=>value.id===id)),'Unknown case');
+const holdAdvice=process.env.FRONTLINE_RENDERED_HOLD_ADVICE==='1';
+if(holdAdvice)assert.deepEqual(selected,['3'],'Delayed advice proof is an explicit three-human case');
 const browser=await chromium.launch({headless:true});
 const report={started:new Date().toISOString(),browser:browser.version(),browserPlugin:'not available; installed Playwright Chromium',viewports:[{width:1600,height:900},{width:1280,height:720}],build,scope:'Rendered product using independent loopback browser contexts, actual Go host and standard commands. Deliberate surrender completes lifecycle; this is not combat victory, full AI strategy, final-art, physical-LAN or reference-device performance acceptance.',cases:[]};
 const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
@@ -37,8 +39,8 @@ async function serverStart(id){
  return {origin,async close(){if(child.exitCode===null){const stopped=new Promise(resolve=>child.once('exit',resolve));child.kill('SIGTERM');await stopped}await writeFile(path.join(runDir,`host-${id}.log`),log);await rm(data,{recursive:true,force:true})}};
 }
 function observe(page,record,index){
- const state={snapshot:undefined,receipts:new Map(),orders:[],sockets:0,result:undefined,status:undefined};
- const requests=new WeakMap();
+ const state={snapshot:undefined,receipts:new Map(),orders:[],sockets:0,result:undefined,status:undefined,requests:new WeakMap()};
+ const requests=state.requests;
  const snapshotState=()=>({tick:state.snapshot?.tick,defeated:state.snapshot?.players.find(value=>value.id===state.snapshot.player)?.defeated??false,finished:state.snapshot?.outcome?.finished??false});
  page.on('request',request=>{if(new URL(request.url()).pathname.endsWith('/advice')){const item={player:index+1,path:new URL(request.url()).pathname,started:Date.now(),phase:record.phase,initial:snapshotState()};requests.set(request,item);record.adviceRequests.push(item)}});
  page.on('pageerror',error=>record.pageErrors.push({player:index+1,message:error.message}));
@@ -48,6 +50,31 @@ function observe(page,record,index){
  const receive=value=>{if(typeof value.payload==='string')return;try{const previous=snapshotState();const message=fromBinary(EnvelopeSchema,new Uint8Array(value.payload)).message;if(message.case==='snapshot')state.snapshot=message.value;else if(message.case==='delta')state.snapshot=applyDelta(state.snapshot,message.value);else if(message.case==='result')state.result=message.value;else if(message.case==='status')state.status=message.value;else if(message.case==='orderResult')state.receipts.set(`${message.value.sequence}:${message.value.index}`,message.value);if(['snapshot','delta'].includes(message.case)){for(const receipt of state.snapshot.results)state.receipts.set(`${receipt.sequence}:${receipt.index}`,receipt);const current=snapshotState();if((current.defeated&&!previous.defeated)||(current.finished&&!previous.finished))record.terminalSnapshots.push({player:index+1,received:Date.now(),...current})}}catch(error){record.pageErrors.push({player:index+1,message:'Passive decoder: '+error.message})}};
  page.on('websocket',socket=>{state.sockets++;socket.on('framereceived',receive);socket.on('framesent',value=>{if(typeof value.payload==='string')return;try{const message=fromBinary(EnvelopeSchema,new Uint8Array(value.payload)).message;if(message.case==='orders')state.orders.push(message.value)}catch(error){record.pageErrors.push({player:index+1,message:'Passive order decoder: '+error.message})}})});
  return state;
+}
+async function delayedAdvice(page,state,record,player){
+ const probe=record.delayedAdvice={player,kind:'Real Go advice200 held at browser response boundary; no payload/status substitution'};let release;const gate=new Promise(resolve=>release=resolve);let used=false;
+ const pattern='**/api/v1/matches/*/advice';
+ const handler=async route=>{
+  if(used){await route.continue();return}used=true;
+  const timing=state.requests.get(route.request());assert.ok(timing,'Missing passive request timestamp');probe.requestStarted=timing.started;
+  const response=await route.fetch();probe.hostStatus=response.status();probe.hostResponded=Date.now();
+  await gate;
+  try{await route.fulfill({response})}catch(error){probe.deliveryAfterAbort=String(error.message??error)}finally{await response.dispose()}
+ };
+ await page.route(pattern,handler);
+ try{await until(()=>probe.hostStatus!==undefined,'No advice response to hold',10000);assert.equal(probe.hostStatus,200,'Held response was not accepted by real Go host')}catch(error){release();await page.unroute(pattern,handler);throw error}
+ return async()=>{
+  try{
+   await until(()=>record.terminalSnapshots.some(value=>value.player===player),'Held-advice commander never became terminal',8000);
+   const terminal=record.terminalSnapshots.find(value=>value.player===player);probe.terminalReceived=terminal.received;probe.terminalTick=terminal.tick;
+   const timing=record.adviceRequests.find(value=>value.player===player&&value.started===probe.requestStarted);assert.ok(timing);
+   await until(()=>timing.failed!==undefined,'Pending advice was not aborted after terminal snapshot',5000);
+   probe.aborted=timing.failed;probe.failure=timing.failure;probe.elapsedToAbort=probe.aborted-probe.requestStarted;
+   assert.equal(timing.failure,'net::ERR_ABORTED');assert.ok(probe.requestStarted<probe.terminalReceived&&probe.aborted>=probe.terminalReceived,'Abort was not ordered after the terminal frame');
+   assert.ok(probe.elapsedToAbort<3500,'Cancellation was too close to the independent4second timeout to prove terminal handling');
+   assert.equal(await page.getByRole('dialog',{name:'Command interrupted',exact:true}).count(),0);probe.passed=true;
+  }finally{release();await page.unroute(pattern,handler)}
+ };
 }
 async function screen(page,name){await page.screenshot({path:path.join(runDir,name+'.png'),fullPage:false})}
 async function center(page,position){const mini=await page.getByLabel('Tactical minimap',{exact:true}).boundingBox();assert.ok(mini);await page.mouse.click(mini.x+position.x/(map.width*1000)*mini.width,mini.y+position.y/(map.height*1000)*mini.height);await pause(80)}
@@ -103,7 +130,7 @@ async function scenario(config){
   const reconnectIndex=pages.length-1,reconnectPage=pages[reconnectIndex],reconnectFrame=frames[reconnectIndex],prior={sockets:reconnectFrame.sockets,tick:reconnectFrame.snapshot.tick,sequence:reconnectFrame.snapshot.economy.lastSequence};await openMenu(reconnectPage);await reconnectPage.getByRole('button',{name:'Reconnect',exact:true}).click();await idle(reconnectPage);await until(()=>reconnectFrame.sockets>prior.sockets&&reconnectFrame.snapshot.tick>=prior.tick,'Reconnect did not restore commander');assert.equal(reconnectFrame.snapshot.player,reconnectIndex+1);assert.ok(reconnectFrame.snapshot.economy.lastSequence>=prior.sequence);await reconnectPage.getByRole('button',{name:'Return to battlefield',exact:true}).click();await reconnectPage.getByRole('button',{name:'Build',exact:true}).click();const afterReconnect=await order(reconnectFrame,'stop',()=>reconnectPage.getByRole('button',{name:'Stop',exact:true}).click());assert.ok(afterReconnect.sequence>prior.sequence);record.commands.push({player:reconnectIndex+1,...afterReconnect});record.reconnect={player:reconnectIndex+1,oldTick:prior.tick,newTick:reconnectFrame.snapshot.tick,oldSequence:prior.sequence,newSequence:afterReconnect.sequence};
   record.phase='surrender';for(const page of pages)await openMenu(page);
   const losing=config.humans===1?[0]:config.id==='2ai'||config.id==='4'?[0,1]:Array.from({length:config.humans-1},(_,i)=>i);
-  for(const i of losing){const page=pages[i];record.surrenderActions.push({player:i+1,started:Date.now(),tick:frames[i].snapshot.tick});if(config.id==='4'){await page.getByRole('button',{name:'Vote team surrender',exact:true}).click();await idle(page);if(i===0){await until(()=>frames[0].snapshot.players.some(value=>value.id===1&&value.surrenderVote),'First surrender vote missing');assert.equal(frames[0].snapshot.outcome?.finished,false)}}else{await page.getByRole('button',{name:'Surrender…',exact:true}).click();await page.getByRole('button',{name:'Confirm surrender',exact:true}).click();await idle(page)}}
+  for(const i of losing){const page=pages[i];record.surrenderActions.push({player:i+1,started:Date.now(),tick:frames[i].snapshot.tick});if(config.id==='4'){await page.getByRole('button',{name:'Vote team surrender',exact:true}).click();await idle(page);if(i===0){await until(()=>frames[0].snapshot.players.some(value=>value.id===1&&value.surrenderVote),'First surrender vote missing');assert.equal(frames[0].snapshot.outcome?.finished,false)}}else{await page.getByRole('button',{name:'Surrender…',exact:true}).click();const finishDelay=holdAdvice&&i===losing[0]?await delayedAdvice(page,frames[i],record,i+1):undefined;await page.getByRole('button',{name:'Confirm surrender',exact:true}).click();if(finishDelay)await finishDelay();await idle(page)}}
   await until(()=>frames.some(value=>value.result?.committed),'No durable surrender result',30000);const result=frames.find(value=>value.result?.committed).result;record.outcome={winningTeam:result.outcome.winningTeam,draw:result.outcome.draw,reason:result.outcome.reason,committed:true};
   await until(async()=>{const visible=await Promise.all(pages.map(page=>page.locator('.network-result').allTextContents()));return visible.every(text=>text.some(value=>value.includes(result.outcome.draw?'Draw':result.outcome.winningTeam?`Team ${result.outcome.winningTeam} victorious`:'Operation failed')))},'A commander did not display the committed result',30000);
   if(config.bots){const debrief=frames.find(value=>value.snapshot?.debrief)?.snapshot.debrief;assert.ok(debrief);record.botSpend=debrief.players.filter(value=>value.player>config.humans).map(value=>({player:value.player,spent:Number(value.spent),structures:value.structuresBuilt}));assert.equal(record.botSpend.length,config.bots);assert.ok(record.botSpend.every(value=>value.spent>0),'AI made no paid progress')}
