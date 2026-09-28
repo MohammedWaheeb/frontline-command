@@ -1,0 +1,139 @@
+=== RUN   TestPatrolCyclesAndSurvivesSaveReplay
+--- PASS: TestPatrolCyclesAndSurvivesSaveReplay (0.34s)
+=== RUN   TestCaptureEjectsPassengersHealthyWithoutTransferringControl
+--- PASS: TestCaptureEjectsPassengersHealthyWithoutTransferringControl (0.03s)
+=== RUN   TestCaptureBlockedExitsWaitAtomicallyAndRecover
+--- PASS: TestCaptureBlockedExitsWaitAtomicallyAndRecover (0.09s)
+=== RUN   TestCapturedAirProducerRetainsPhysicalFoundationAcrossConversions
+--- PASS: TestCapturedAirProducerRetainsPhysicalFoundationAcrossConversions (0.13s)
+=== RUN   TestCaptureDropsOldServiceAssignmentsAndPreservesOwnedAircraft
+--- PASS: TestCaptureDropsOldServiceAssignmentsAndPreservesOwnedAircraft (0.08s)
+=== RUN   TestCaptureDoesNotRefillChargesAndMayExceedCaps
+=== RUN   TestCaptureDoesNotRefillChargesAndMayExceedCaps/structure
+--- PASS: TestCaptureDoesNotRefillChargesAndMayExceedCaps (0.05s)
+    --- PASS: TestCaptureDoesNotRefillChargesAndMayExceedCaps/structure (0.03s)
+=== RUN   TestCaptureFootprintValidationAndFogMemory
+--- PASS: TestCaptureFootprintValidationAndFogMemory (0.33s)
+=== RUN   TestCaptureSafehouseBecomesOutpostAndDoesNotShareResearch
+--- PASS: TestCaptureSafehouseBecomesOutpostAndDoesNotShareResearch (0.06s)
+=== RUN   TestCaptureReplayAndMidChannelSavePreserveOutcome
+--- PASS: TestCaptureReplayAndMidChannelSavePreserveOutcome (0.24s)
+=== RUN   TestCaptureRepairsOrDistanceCancelChannelWhileExitsWait
+=== RUN   TestCaptureRepairsOrDistanceCancelChannelWhileExitsWait/repair
+=== RUN   TestCaptureRepairsOrDistanceCancelChannelWhileExitsWait/damage
+=== RUN   TestCaptureRepairsOrDistanceCancelChannelWhileExitsWait/distance
+--- PASS: TestCaptureRepairsOrDistanceCancelChannelWhileExitsWait (0.08s)
+    --- PASS: TestCaptureRepairsOrDistanceCancelChannelWhileExitsWait/repair (0.03s)
+    --- PASS: TestCaptureRepairsOrDistanceCancelChannelWhileExitsWait/damage (0.03s)
+    --- PASS: TestCaptureRepairsOrDistanceCancelChannelWhileExitsWait/distance (0.02s)
+=== RUN   TestCapturedSmallAirfieldSupportsSixDistinctLegalPads
+--- PASS: TestCapturedSmallAirfieldSupportsSixDistinctLegalPads (0.08s)
+=== RUN   TestCapturedAirProducerWaitsForClearProductionPad
+--- PASS: TestCapturedAirProducerWaitsForClearProductionPad (0.03s)
+=== RUN   TestCapturedServiceReassignsOtherProducersPaidReservation
+--- PASS: TestCapturedServiceReassignsOtherProducersPaidReservation (0.03s)
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/direct-arrival
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=be26562f8ce43a478f7f45c29965c2dcfa188fcefa4c4597fa9068b7fef0dc12
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/adjusted-grid-endpoint
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=07a09a578f276375ac4290a8f9fc421cc358e67c68f3762152f66ac308509bed
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/direct-arrival
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=ac70f9b72bcf3b8c1260ff37dfffd90bd88807dc20d29c047d4b50c16f0d4c3d
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/adjusted-grid-endpoint
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=5d6870f20ff2d89e08a17f43936904523fb2613c3081e657683eff0d5e106479
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/patrol/queued-exit
+    queued_waypoint_acceptance_test.go:117: finished_tick=372 final={X:28498 Y:17890} hash=7feef0581fe495d7d79db682237aa399865132f63372672306c263eca493f80a
+--- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold (3.19s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/direct-arrival (0.64s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/adjusted-grid-endpoint (0.64s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/direct-arrival (0.64s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/adjusted-grid-endpoint (0.64s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/patrol/queued-exit (0.64s)
+=== RUN   TestQueuedMovementActivatesGuardAndPreservesOrdersAfterStop
+--- PASS: TestQueuedMovementActivatesGuardAndPreservesOrdersAfterStop (0.11s)
+=== RUN   TestQueuedHoldAfterAircraftService
+--- PASS: TestQueuedHoldAfterAircraftService (1.03s)
+=== RUN   TestQueuedHoldAfterEmptyTransportUnload
+--- PASS: TestQueuedHoldAfterEmptyTransportUnload (0.95s)
+=== RUN   TestQueuedMovementAfterStationCapture
+--- PASS: TestQueuedMovementAfterStationCapture (0.96s)
+=== RUN   TestQueuedHoldAfterFixedWingMove
+--- PASS: TestQueuedHoldAfterFixedWingMove (1.08s)
+=== RUN   TestQueuedMovementAfterPaidConstruction
+--- PASS: TestQueuedMovementAfterPaidConstruction (0.97s)
+=== RUN   TestQueuedMovementAfterSalvageCollection
+--- PASS: TestQueuedMovementAfterSalvageCollection (0.98s)
+=== RUN   TestQueuedMovementAfterLoadedTransportUnload
+--- PASS: TestQueuedMovementAfterLoadedTransportUnload (1.10s)
+=== RUN   TestSalvageEligibilityChannelAndCaps
+--- PASS: TestSalvageEligibilityChannelAndCaps (0.04s)
+=== RUN   TestTransportExactBoardUnloadDurationsAndDamageDoesNotCancel
+=== RUN   TestTransportExactBoardUnloadDurationsAndDamageDoesNotCancel/US.apc
+    transport_acceptance_test.go:107: US.apc capacity=3 boarding=40ticks unloading=40ticks; incoming damage did not cancel; distinct legal exits with full HP
+=== RUN   TestTransportExactBoardUnloadDurationsAndDamageDoesNotCancel/SY.apc
+    transport_acceptance_test.go:107: SY.apc capacity=2 boarding=20ticks unloading=20ticks; incoming damage did not cancel; distinct legal exits with full HP
+=== RUN   TestTransportExactBoardUnloadDurationsAndDamageDoesNotCancel/US.airlift
+    transport_acceptance_test.go:107: US.airlift capacity=2 boarding=60ticks unloading=60ticks; incoming damage did not cancel; distinct legal exits with full HP
+--- PASS: TestTransportExactBoardUnloadDurationsAndDamageDoesNotCancel (0.13s)
+    --- PASS: TestTransportExactBoardUnloadDurationsAndDamageDoesNotCancel/US.apc (0.04s)
+    --- PASS: TestTransportExactBoardUnloadDurationsAndDamageDoesNotCancel/SY.apc (0.03s)
+    --- PASS: TestTransportExactBoardUnloadDurationsAndDamageDoesNotCancel/US.airlift (0.05s)
+=== RUN   TestTransportMovementAndParticipantLossCancelBoarding
+=== RUN   TestTransportMovementAndParticipantLossCancelBoarding/moves
+=== RUN   TestTransportMovementAndParticipantLossCancelBoarding/carrier_destroyed
+=== RUN   TestTransportMovementAndParticipantLossCancelBoarding/passenger_destroyed
+--- PASS: TestTransportMovementAndParticipantLossCancelBoarding (0.09s)
+    --- PASS: TestTransportMovementAndParticipantLossCancelBoarding/moves (0.03s)
+    --- PASS: TestTransportMovementAndParticipantLossCancelBoarding/carrier_destroyed (0.03s)
+    --- PASS: TestTransportMovementAndParticipantLossCancelBoarding/passenger_destroyed (0.03s)
+=== RUN   TestTransportDestructionGroundBlockedAirborneAndLanded
+=== RUN   TestTransportDestructionGroundBlockedAirborneAndLanded/ground
+    transport_acceptance_test.go:199: ground: passengers=3 survived=true; prior HP half only on legal ground escape
+=== RUN   TestTransportDestructionGroundBlockedAirborneAndLanded/ground_blocked
+    transport_acceptance_test.go:199: ground_blocked: passengers=3 survived=false; prior HP half only on legal ground escape
+=== RUN   TestTransportDestructionGroundBlockedAirborneAndLanded/garrison
+    transport_acceptance_test.go:199: garrison: passengers=2 survived=true; prior HP half only on legal ground escape
+=== RUN   TestTransportDestructionGroundBlockedAirborneAndLanded/garrison_blocked
+    transport_acceptance_test.go:199: garrison_blocked: passengers=2 survived=false; prior HP half only on legal ground escape
+=== RUN   TestTransportDestructionGroundBlockedAirborneAndLanded/airborne
+    transport_acceptance_test.go:199: airborne: passengers=2 survived=false; prior HP half only on legal ground escape
+=== RUN   TestTransportDestructionGroundBlockedAirborneAndLanded/landed
+    transport_acceptance_test.go:199: landed: passengers=2 survived=true; prior HP half only on legal ground escape
+=== RUN   TestTransportDestructionGroundBlockedAirborneAndLanded/landed_blocked
+    transport_acceptance_test.go:199: landed_blocked: passengers=2 survived=false; prior HP half only on legal ground escape
+--- PASS: TestTransportDestructionGroundBlockedAirborneAndLanded (0.26s)
+    --- PASS: TestTransportDestructionGroundBlockedAirborneAndLanded/ground (0.03s)
+    --- PASS: TestTransportDestructionGroundBlockedAirborneAndLanded/ground_blocked (0.04s)
+    --- PASS: TestTransportDestructionGroundBlockedAirborneAndLanded/garrison (0.04s)
+    --- PASS: TestTransportDestructionGroundBlockedAirborneAndLanded/garrison_blocked (0.04s)
+    --- PASS: TestTransportDestructionGroundBlockedAirborneAndLanded/airborne (0.04s)
+    --- PASS: TestTransportDestructionGroundBlockedAirborneAndLanded/landed (0.04s)
+    --- PASS: TestTransportDestructionGroundBlockedAirborneAndLanded/landed_blocked (0.04s)
+=== RUN   TestTransportCongestedUnloadWaitsWithFeedbackAndResumesAfterRestore
+--- PASS: TestTransportCongestedUnloadWaitsWithFeedbackAndResumesAfterRestore (0.14s)
+=== RUN   TestTransportLossAccountsForEarlierCreatedPassengersExactlyOnce
+--- PASS: TestTransportLossAccountsForEarlierCreatedPassengersExactlyOnce (0.04s)
+=== RUN   TestTransportPassengerLossAwardsNoExperienceForEarlierDamage
+--- PASS: TestTransportPassengerLossAwardsNoExperienceForEarlierDamage (0.04s)
+=== RUN   TestTransportSimultaneousBoardersCannotOverfillCapacity
+--- PASS: TestTransportSimultaneousBoardersCannotOverfillCapacity (0.10s)
+=== RUN   TestTransportPartialUnloadReservesDistinctExitsAndPreservesRemainingSquad
+--- PASS: TestTransportPartialUnloadReservesDistinctExitsAndPreservesRemainingSquad (0.05s)
+=== RUN   TestTransportUnloadsAtUnsnappedLegalClick
+=== RUN   TestTransportUnloadsAtUnsnappedLegalClick/US.apc/49999-42499
+=== RUN   TestTransportUnloadsAtUnsnappedLegalClick/US.apc/49499-42999
+=== RUN   TestTransportUnloadsAtUnsnappedLegalClick/US.apc/49999-42999
+=== RUN   TestTransportUnloadsAtUnsnappedLegalClick/SY.apc/49999-42499
+=== RUN   TestTransportUnloadsAtUnsnappedLegalClick/SY.apc/49499-42999
+=== RUN   TestTransportUnloadsAtUnsnappedLegalClick/SY.apc/49999-42999
+--- PASS: TestTransportUnloadsAtUnsnappedLegalClick (1.01s)
+    --- PASS: TestTransportUnloadsAtUnsnappedLegalClick/US.apc/49999-42499 (0.18s)
+    --- PASS: TestTransportUnloadsAtUnsnappedLegalClick/US.apc/49499-42999 (0.18s)
+    --- PASS: TestTransportUnloadsAtUnsnappedLegalClick/US.apc/49999-42999 (0.18s)
+    --- PASS: TestTransportUnloadsAtUnsnappedLegalClick/SY.apc/49999-42499 (0.15s)
+    --- PASS: TestTransportUnloadsAtUnsnappedLegalClick/SY.apc/49499-42999 (0.15s)
+    --- PASS: TestTransportUnloadsAtUnsnappedLegalClick/SY.apc/49999-42999 (0.15s)
+=== RUN   TestRepairPoseEndsWhenNoRepairIsPerformed
+--- PASS: TestRepairPoseEndsWhenNoRepairIsPerformed (0.03s)
+PASS
+ok  	frontlinecommand/pkg/sim	15.305s

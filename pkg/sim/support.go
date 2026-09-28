@@ -193,7 +193,7 @@ func (e *Engine) updateSupport() {
 			}
 		case "unload":
 			if len(v.Passengers) == 0 {
-				v.Orders = v.Orders[1:]
+				e.completeMovementOrder(v)
 				continue
 			}
 			if !v.Building && (v.LastPosition != v.Position || o.Position != (Vec{}) && distance(v.Position, o.Position) > 400) {
@@ -341,7 +341,7 @@ func (e *Engine) updateChannel(v *Entity) {
 				}
 			}
 		}
-		v.Orders = nil
+		e.completeMovementOrder(v)
 	case "board":
 		if target != nil && len(target.Passengers) < int(e.capacity(target)) {
 			if target.Owner == 0 {
@@ -366,7 +366,7 @@ func (e *Engine) updateChannel(v *Entity) {
 			return
 		}
 		if len(v.Orders) > 0 {
-			v.Orders = v.Orders[1:]
+			e.completeMovementOrder(v)
 		}
 	case "sabotage":
 		if target != nil {

@@ -1,0 +1,195 @@
+=== RUN   TestPatrolCyclesAndSurvivesSaveReplay
+--- PASS: TestPatrolCyclesAndSurvivesSaveReplay (0.40s)
+=== RUN   TestHarvestDepotRecordedCongestionRecovers
+    harvest_depot_test.go:13: opt-in unedited authored congestion recovery
+--- SKIP: TestHarvestDepotRecordedCongestionRecovers (0.00s)
+=== RUN   TestHarvestDepotHumanGatherUsesLegalAlternateAndRestores
+--- PASS: TestHarvestDepotHumanGatherUsesLegalAlternateAndRestores (0.58s)
+=== RUN   TestHarvestDepotPreservesClearRadialAndUsablePath
+--- PASS: TestHarvestDepotPreservesClearRadialAndUsablePath (0.03s)
+=== RUN   TestHarvestDepotFailedAlternatesShareBudgetAndRetry
+--- PASS: TestHarvestDepotFailedAlternatesShareBudgetAndRetry (0.11s)
+=== RUN   TestHarvestAlternateLoadingSideAroundCliff
+--- PASS: TestHarvestAlternateLoadingSideAroundCliff (1.37s)
+=== RUN   TestHarvestEightHaulersAtMapEdgeContinueDelivering
+--- PASS: TestHarvestEightHaulersAtMapEdgeContinueDelivering (12.15s)
+=== RUN   TestHarvestDisabledDepotReleasesSharedFieldAndRecovers
+--- PASS: TestHarvestDisabledDepotReleasesSharedFieldAndRecovers (3.59s)
+=== RUN   TestHarvestReservationSurvivesRerouteThenWithdrawsOnConfirmedFailure
+--- PASS: TestHarvestReservationSurvivesRerouteThenWithdrawsOnConfirmedFailure (1.33s)
+=== RUN   TestHarvestQueueOrientationAndCloseDepot
+=== RUN   TestHarvestQueueOrientationAndCloseDepot/south/close
+    harvest_orientation_test.go:53: income=21600000 queue=[9] loader=8
+    harvest_orientation_test.go:56: hauler8 pos{X:31450 Y:32000} stateloading cargo258000 depot7 path[]
+    harvest_orientation_test.go:56: hauler9 pos{X:35300 Y:32000} statemoving cargo0 depot7 path[{35500 32000}]
+=== RUN   TestHarvestQueueOrientationAndCloseDepot/west/close
+    harvest_orientation_test.go:53: income=21600000 queue=[9] loader=8
+    harvest_orientation_test.go:56: hauler8 pos{X:33000 Y:31450} stateloading cargo238000 depot7 path[]
+    harvest_orientation_test.go:56: hauler9 pos{X:33000 Y:35300} statemoving cargo0 depot7 path[{33000 35500}]
+=== RUN   TestHarvestQueueOrientationAndCloseDepot/north/close
+    harvest_orientation_test.go:53: income=21600000 queue=[9] loader=8
+    harvest_orientation_test.go:56: hauler8 pos{X:33550 Y:33000} stateloading cargo238000 depot7 path[]
+    harvest_orientation_test.go:56: hauler9 pos{X:29700 Y:33000} statemoving cargo0 depot7 path[{29500 33000}]
+=== RUN   TestHarvestQueueOrientationAndCloseDepot/east/close
+    harvest_orientation_test.go:53: income=21600000 queue=[9] loader=8
+    harvest_orientation_test.go:56: hauler8 pos{X:32000 Y:33550} stateloading cargo258000 depot7 path[]
+    harvest_orientation_test.go:56: hauler9 pos{X:32000 Y:29700} statemoving cargo0 depot7 path[{32000 29500}]
+=== RUN   TestHarvestQueueOrientationAndCloseDepot/south/normal
+    harvest_orientation_test.go:53: income=21600000 queue=[9] loader=8
+    harvest_orientation_test.go:56: hauler8 pos{X:31500 Y:32000} stateloading cargo258000 depot7 path[]
+    harvest_orientation_test.go:56: hauler9 pos{X:35352 Y:32003} statemoving cargo0 depot7 path[{35500 32000}]
+=== RUN   TestHarvestQueueOrientationAndCloseDepot/west/normal
+    harvest_orientation_test.go:53: income=21600000 queue=[9] loader=0
+    harvest_orientation_test.go:56: hauler8 pos{X:32999 Y:31442} stateturning cargo600000 depot7 path[{32000 31500} {31500 31500} {31000 31500} {30500 31500} {30000 31500}]
+    harvest_orientation_test.go:56: hauler9 pos{X:32978 Y:35252} stateturning cargo0 depot7 path[{33000 34500} {33000 34000} {33000 33500} {33000 33000}]
+=== RUN   TestHarvestQueueOrientationAndCloseDepot/north/normal
+    harvest_orientation_test.go:53: income=21600000 queue=[9] loader=8
+    harvest_orientation_test.go:56: hauler8 pos{X:33450 Y:33000} stateloading cargo408000 depot7 path[]
+    harvest_orientation_test.go:56: hauler9 pos{X:29622 Y:32878} statemoving cargo0 depot7 path[{29500 33000}]
+=== RUN   TestHarvestQueueOrientationAndCloseDepot/east/normal
+    harvest_orientation_test.go:53: income=21600000 queue=[9] loader=8
+    harvest_orientation_test.go:56: hauler8 pos{X:32000 Y:33500} stateloading cargo428000 depot7 path[]
+    harvest_orientation_test.go:56: hauler9 pos{X:32152 Y:29652} statemoving cargo0 depot7 path[{32000 29500}]
+--- PASS: TestHarvestQueueOrientationAndCloseDepot (21.84s)
+    --- PASS: TestHarvestQueueOrientationAndCloseDepot/south/close (2.56s)
+    --- PASS: TestHarvestQueueOrientationAndCloseDepot/west/close (2.59s)
+    --- PASS: TestHarvestQueueOrientationAndCloseDepot/north/close (3.24s)
+    --- PASS: TestHarvestQueueOrientationAndCloseDepot/east/close (2.73s)
+    --- PASS: TestHarvestQueueOrientationAndCloseDepot/south/normal (2.70s)
+    --- PASS: TestHarvestQueueOrientationAndCloseDepot/west/normal (2.70s)
+    --- PASS: TestHarvestQueueOrientationAndCloseDepot/north/normal (2.65s)
+    --- PASS: TestHarvestQueueOrientationAndCloseDepot/east/normal (2.66s)
+=== RUN   TestHarvestQueueEightHaulersPreservesSaveAndReplay
+=== RUN   TestHarvestQueueEightHaulersPreservesSaveAndReplay/south
+    harvest_orientation_test.go:127: income=18000000 midpoint=9000000 queue[9 15 14 10 11 12 13] loader0
+    harvest_orientation_test.go:130: hauler8 pos{X:32000 Y:33000} statemoving cargo600000 depot7 path[{32000 33500} {32000 34000} {32000 34500}]
+    harvest_orientation_test.go:130: hauler9 pos{X:35250 Y:32000} stateturning cargo0 depot7 path[{34500 32000} {34000 32000} {33500 32000} {33000 32000}]
+    harvest_orientation_test.go:130: hauler10 pos{X:28500 Y:29500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler11 pos{X:36000 Y:29500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler12 pos{X:28000 Y:27500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler13 pos{X:36500 Y:27500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler14 pos{X:27000 Y:25000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler15 pos{X:37500 Y:25000} statemoving cargo0 depot7 path[]
+=== RUN   TestHarvestQueueEightHaulersPreservesSaveAndReplay/west
+    harvest_orientation_test.go:127: income=18000000 midpoint=9000000 queue[15 14 10 11 12 13] loader9
+    harvest_orientation_test.go:130: hauler8 pos{X:30903 Y:31499} stateunloading cargo600000 depot7 path[]
+    harvest_orientation_test.go:130: hauler9 pos{X:32999 Y:33452} stateloading cargo80000 depot7 path[]
+    harvest_orientation_test.go:130: hauler10 pos{X:35000 Y:28500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler11 pos{X:35000 Y:36000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler12 pos{X:37000 Y:28000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler13 pos{X:37000 Y:36500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler14 pos{X:39500 Y:27000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler15 pos{X:39500 Y:37400} statemoving cargo0 depot7 path[]
+=== RUN   TestHarvestQueueEightHaulersPreservesSaveAndReplay/north
+    harvest_orientation_test.go:127: income=18600000 midpoint=9000000 queue[9 10 11 12 14 13] loader8
+    harvest_orientation_test.go:130: hauler8 pos{X:33450 Y:33000} stateloading cargo76000 depot7 path[]
+    harvest_orientation_test.go:130: hauler9 pos{X:29622 Y:32878} statemoving cargo0 depot7 path[{29500 33000}]
+    harvest_orientation_test.go:130: hauler10 pos{X:36000 Y:35000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler11 pos{X:28500 Y:35000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler12 pos{X:36500 Y:37000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler13 pos{X:28000 Y:37000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler14 pos{X:37400 Y:39500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler15 pos{X:32000 Y:30900} stateunloading cargo600000 depot7 path[]
+=== RUN   TestHarvestQueueEightHaulersPreservesSaveAndReplay/east
+    harvest_orientation_test.go:127: income=18000000 midpoint=9000000 queue[14 9 10 11 15 12 13] loader0
+    harvest_orientation_test.go:130: hauler8 pos{X:34050 Y:33000} stateunloading cargo600000 depot7 path[]
+    harvest_orientation_test.go:130: hauler9 pos{X:32152 Y:29652} statemoving cargo0 depot7 path[{32000 29500}]
+    harvest_orientation_test.go:130: hauler10 pos{X:29500 Y:36000} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler11 pos{X:29500 Y:28500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler12 pos{X:27500 Y:36500} statemoving cargo0 depot7 path[]
+    harvest_orientation_test.go:130: hauler13 pos{X:27500 Y:28200} statemoving cargo0 depot7 path[{27500 28000}]
+    harvest_orientation_test.go:130: hauler14 pos{X:25848 Y:36652} statemoving cargo0 depot7 path[{26000 36500} {26500 36000} {27000 35500} {27500 35000} {28000 34500} {28500 34000} {29000 33500} {29500 33000} {30000 33000} {30500 33000} {31000 33000} {31500 33000} {32000 33000}]
+    harvest_orientation_test.go:130: hauler15 pos{X:25000 Y:27000} statemoving cargo0 depot7 path[]
+--- PASS: TestHarvestQueueEightHaulersPreservesSaveAndReplay (48.76s)
+    --- PASS: TestHarvestQueueEightHaulersPreservesSaveAndReplay/south (13.21s)
+    --- PASS: TestHarvestQueueEightHaulersPreservesSaveAndReplay/west (12.33s)
+    --- PASS: TestHarvestQueueEightHaulersPreservesSaveAndReplay/north (12.47s)
+    --- PASS: TestHarvestQueueEightHaulersPreservesSaveAndReplay/east (10.75s)
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/US.artillery/attack_move
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/US.artillery/patrol
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/IR.artillery/attack_move
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/IR.artillery/patrol
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/SY.artillery/attack_move
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/SY.artillery/patrol
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/SA.artillery/attack_move
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/SA.artillery/patrol
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/US.launcher/attack_move
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/US.launcher/patrol
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/IR.launcher/attack_move
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/IR.launcher/patrol
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/SY.launcher/attack_move
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/SY.launcher/patrol
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/SA.launcher/attack_move
+=== RUN   TestCombatRoutesWithdrawIntoLegalFiringRange/SA.launcher/patrol
+--- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange (2.42s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/US.artillery/attack_move (0.12s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/US.artillery/patrol (0.12s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/IR.artillery/attack_move (0.12s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/IR.artillery/patrol (0.13s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/SY.artillery/attack_move (0.11s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/SY.artillery/patrol (0.11s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/SA.artillery/attack_move (0.12s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/SA.artillery/patrol (0.12s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/US.launcher/attack_move (0.19s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/US.launcher/patrol (0.19s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/IR.launcher/attack_move (0.19s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/IR.launcher/patrol (0.19s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/SY.launcher/attack_move (0.17s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/SY.launcher/patrol (0.17s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/SA.launcher/attack_move (0.19s)
+    --- PASS: TestCombatRoutesWithdrawIntoLegalFiringRange/SA.launcher/patrol (0.19s)
+=== RUN   TestDeployedLauncherPacksForPursuitButHoldStaysPut
+=== RUN   TestDeployedLauncherPacksForPursuitButHoldStaysPut/attack
+=== RUN   TestDeployedLauncherPacksForPursuitButHoldStaysPut/attack_move
+=== RUN   TestDeployedLauncherPacksForPursuitButHoldStaysPut/patrol
+=== RUN   TestDeployedLauncherPacksForPursuitButHoldStaysPut/hold
+--- PASS: TestDeployedLauncherPacksForPursuitButHoldStaysPut (0.11s)
+    --- PASS: TestDeployedLauncherPacksForPursuitButHoldStaysPut/attack (0.03s)
+    --- PASS: TestDeployedLauncherPacksForPursuitButHoldStaysPut/attack_move (0.03s)
+    --- PASS: TestDeployedLauncherPacksForPursuitButHoldStaysPut/patrol (0.03s)
+    --- PASS: TestDeployedLauncherPacksForPursuitButHoldStaysPut/hold (0.03s)
+=== RUN   TestNavigationWorkspaceMatchesOriginalPaths
+=== RUN   TestNavigationWorkspaceMatchesOriginalPaths/US.rifle
+=== RUN   TestNavigationWorkspaceMatchesOriginalPaths/US.tank
+=== RUN   TestNavigationWorkspaceMatchesOriginalPaths/US.hauler
+--- PASS: TestNavigationWorkspaceMatchesOriginalPaths (0.81s)
+    --- PASS: TestNavigationWorkspaceMatchesOriginalPaths/US.rifle (0.27s)
+    --- PASS: TestNavigationWorkspaceMatchesOriginalPaths/US.tank (0.27s)
+    --- PASS: TestNavigationWorkspaceMatchesOriginalPaths/US.hauler (0.27s)
+=== RUN   TestNavigationWorkspaceKeepsSubgridBridgeAndRestorePaths
+--- PASS: TestNavigationWorkspaceKeepsSubgridBridgeAndRestorePaths (0.09s)
+=== RUN   TestNavigationWorkspaceReducesRepeatedSearchAllocations
+    navigation_search_test.go:161: repeated exact-equivalent paths: workspace 21 allocations; original 353
+--- PASS: TestNavigationWorkspaceReducesRepeatedSearchAllocations (0.04s)
+=== RUN   TestPathEscapesCollisionFreeSubgridStart
+--- PASS: TestPathEscapesCollisionFreeSubgridStart (0.31s)
+=== RUN   TestNavigationBridgeRejectsClearEndpointsAcrossObstacle
+=== RUN   TestNavigationBridgeRejectsClearEndpointsAcrossObstacle/mobile
+=== RUN   TestNavigationBridgeRejectsClearEndpointsAcrossObstacle/terrain_corner
+=== RUN   TestNavigationBridgeRejectsClearEndpointsAcrossObstacle/building_corner
+--- PASS: TestNavigationBridgeRejectsClearEndpointsAcrossObstacle (0.08s)
+    --- PASS: TestNavigationBridgeRejectsClearEndpointsAcrossObstacle/mobile (0.03s)
+    --- PASS: TestNavigationBridgeRejectsClearEndpointsAcrossObstacle/terrain_corner (0.03s)
+    --- PASS: TestNavigationBridgeRejectsClearEndpointsAcrossObstacle/building_corner (0.03s)
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/direct-arrival
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=00317f16b564332363f70dd855bf1afafcd85345ae791f3c834c168dcb84f084
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/adjusted-grid-endpoint
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=1031e653424c9314b85a17b55b8247c2ebe3f1c667203b2970b49e7273186e78
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/direct-arrival
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=97d79174d9507f8291693230f74aaede424ceb9b76646fffe90c16df1ab2e110
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/adjusted-grid-endpoint
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=759f0c19bbd4fba970c42a74888a0a41c3112b1215a27e4a34c51c6235765bb8
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/patrol/queued-exit
+    queued_waypoint_acceptance_test.go:117: finished_tick=372 final={X:28498 Y:17890} hash=bc5d59c1a8d1f410700fb819f7dd62a00c8e807cccd85d27835da994f8fa734c
+--- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold (3.27s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/direct-arrival (0.65s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/adjusted-grid-endpoint (0.66s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/direct-arrival (0.65s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/adjusted-grid-endpoint (0.65s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/patrol/queued-exit (0.65s)
+=== RUN   TestHarvestOneLoadingBayAndCargoLoss
+--- PASS: TestHarvestOneLoadingBayAndCargoLoss (0.05s)
+PASS
+ok  	frontlinecommand/pkg/sim	98.774s

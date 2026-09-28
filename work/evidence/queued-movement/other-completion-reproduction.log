@@ -1,0 +1,12 @@
+=== RUN   TestQueuedHoldAfterAircraftService
+    queued_waypoint_acceptance_test.go:160: service did not activate queued hold: landed=true work=0 stance=guard orders=[{Kind:hold Entities:[] Target:0 Position:{X:0 Y:0} Type: Queued:true Index:0 Points:[]}]
+--- FAIL: TestQueuedHoldAfterAircraftService (0.04s)
+=== RUN   TestQueuedHoldAfterEmptyTransportUnload
+    queued_waypoint_acceptance_test.go:174: unload did not activate queued hold: stance=guard orders=[{Kind:hold Entities:[] Target:0 Position:{X:0 Y:0} Type: Queued:true Index:0 Points:[]}]
+--- FAIL: TestQueuedHoldAfterEmptyTransportUnload (0.00s)
+=== RUN   TestQueuedMovementAfterStationCapture
+    queued_waypoint_acceptance_test.go:192: capture discarded queued movement/hold: pos={X:32000 Y:24000} stance=guard orders=[]
+--- FAIL: TestQueuedMovementAfterStationCapture (0.01s)
+FAIL
+FAIL	frontlinecommand/pkg/sim	0.478s
+FAIL

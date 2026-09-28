@@ -517,10 +517,7 @@ func (e *Engine) updateMovement() {
 		case "attack":
 			target := e.entity(o.Target)
 			if target != nil && e.canSeeEntity(v.Owner, target) && e.defeated(target.Owner) {
-				v.Orders = v.Orders[1:]
-				v.Target = 0
-				v.Path = nil
-				v.State = "idle"
+				e.completeMovementOrder(v)
 				continue
 			}
 			if target != nil && e.canSeeEntity(v.Owner, target) {
@@ -539,11 +536,7 @@ func (e *Engine) updateMovement() {
 				if distance(v.Position, goal) < 1000 {
 					// Searching the last observed position finishes this attack,
 					// not the later commands the player deliberately queued.
-					v.Orders = v.Orders[1:]
-					v.Path = nil
-					v.PathResolved = false
-					v.State = "idle"
-					v.Anchor = v.Position
+					e.completeMovementOrder(v)
 					moving = false
 				}
 			}
@@ -588,7 +581,7 @@ func (e *Engine) updateMovement() {
 				goal, arrive = crate.Position, 1000
 				moving = distance(v.Position, goal) > arrive
 			} else {
-				v.Orders = v.Orders[1:]
+				e.completeMovementOrder(v)
 			}
 		case "return":
 			home := e.entity(v.Home)
@@ -610,25 +603,19 @@ func (e *Engine) updateMovement() {
 		}
 		if distance(v.Position, goal) <= arrive {
 			if o.Kind == "patrol" {
-				e.advancePatrol(v)
+				e.advanceMovementPatrol(v)
 			}
 			if o.Kind == "move" || o.Kind == "attack_move" {
-				v.Orders = v.Orders[1:]
-				v.Path = nil
-				v.State = "idle"
-				v.Anchor = v.Position
+				e.completeMovementOrder(v)
 			}
 			continue
 		}
 		if len(v.Path) == 0 && v.PathResolved && distance(v.Position, v.PathEnd) < 250 && (o.Kind == "move" || o.Kind == "attack_move" || o.Kind == "patrol") {
 			if o.Kind == "patrol" {
-				e.advancePatrol(v)
+				e.advanceMovementPatrol(v)
 				continue
 			}
-			v.Orders = v.Orders[1:]
-			v.State = "idle"
-			v.Anchor = v.Position
-			v.PathResolved = false
+			e.completeMovementOrder(v)
 			continue
 		}
 		if len(v.Path) == 0 || distance(goal, v.PathGoal) > 1400 || v.PathRevision != e.state.NavigationRevision {
@@ -712,6 +699,53 @@ func (e *Engine) minimumRangeRetreat(v, target *Entity) Vec {
 	length := max(1, isqrt(int64(dx)*int64(dx)+int64(dy)*int64(dy)))
 	return Vec{X: clamp(v.Position.X+int32(int64(dx)*3000/int64(length)), 1000, e.state.Map.Width*1000-1000), Y: clamp(v.Position.Y+int32(int64(dy)*3000/int64(length)), 1000, e.state.Map.Height*1000-1000)}
 }
+
+// Completing a route invalidates its endpoint before a queued order becomes
+// current. Otherwise the next move can mistake the previous endpoint for its
+// own completed route. Activate queued orders through the ordinary assignment
+// setup so hold, guard and gather also receive their normal stance/task state.
+func (e *Engine) completeMovementOrder(v *Entity) {
+	if len(v.Orders) > 0 {
+		v.Orders = v.Orders[1:]
+	}
+	e.activateMovementQueue(v)
+}
+
+func (e *Engine) activateMovementQueue(v *Entity) {
+	remaining := v.Orders
+	v.Orders = nil
+	v.Path = nil
+	v.PathResolved = false
+	v.PathEnd, v.PathGoal = Vec{}, Vec{}
+	v.NextRouteAt = 0
+	v.Target = 0
+	v.AimUntil = 0
+	v.PassUntil = 0
+	v.RouteFailures = 0
+	v.Blocked = false
+	v.State = "idle"
+	v.Anchor = v.Position
+	for len(remaining) > 0 {
+		next := remaining[0]
+		remaining = remaining[1:]
+		e.assign(v, next)
+		// Stop and hold are immediate stance orders. If another accepted
+		// order follows, activate it too rather than leaving it uninitialized.
+		if len(v.Orders) > 0 {
+			v.Orders = append(v.Orders, remaining...)
+			return
+		}
+	}
+}
+
+func (e *Engine) advanceMovementPatrol(v *Entity) {
+	before := len(v.Orders)
+	e.advancePatrol(v)
+	if len(v.Orders) < before {
+		e.activateMovementQueue(v)
+	}
+}
+
 func (e *Engine) blocked(v *Entity) {
 	if e.state.Tick-v.LastProgress < seconds(2) {
 		return

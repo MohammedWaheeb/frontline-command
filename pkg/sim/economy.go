@@ -58,8 +58,7 @@ func (e *Engine) updateEconomy() {
 			if v.Work == b.BuildTicks*2 {
 				v.Complete = true
 				v.State = "idle"
-				rig.Orders = nil
-				rig.State = "idle"
+				e.completeMovementOrder(rig)
 				e.emit("construction_complete", p.ID, v.ID, v.Position, "owner", 0)
 			}
 		}

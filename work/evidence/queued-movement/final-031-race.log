@@ -1,0 +1,35 @@
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/direct-arrival
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=be26562f8ce43a478f7f45c29965c2dcfa188fcefa4c4597fa9068b7fef0dc12
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/adjusted-grid-endpoint
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=07a09a578f276375ac4290a8f9fc421cc358e67c68f3762152f66ac308509bed
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/direct-arrival
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=ac70f9b72bcf3b8c1260ff37dfffd90bd88807dc20d29c047d4b50c16f0d4c3d
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/adjusted-grid-endpoint
+    queued_waypoint_acceptance_test.go:117: finished_tick=281 final={X:28498 Y:17892} hash=5d6870f20ff2d89e08a17f43936904523fb2613c3081e657683eff0d5e106479
+=== RUN   TestQueuedMovementVisitsEveryWaypointAndActivatesHold/patrol/queued-exit
+    queued_waypoint_acceptance_test.go:117: finished_tick=372 final={X:28498 Y:17890} hash=7feef0581fe495d7d79db682237aa399865132f63372672306c263eca493f80a
+--- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold (3.35s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/direct-arrival (0.67s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/move/adjusted-grid-endpoint (0.68s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/direct-arrival (0.67s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/attack-move/adjusted-grid-endpoint (0.68s)
+    --- PASS: TestQueuedMovementVisitsEveryWaypointAndActivatesHold/patrol/queued-exit (0.66s)
+=== RUN   TestQueuedMovementActivatesGuardAndPreservesOrdersAfterStop
+--- PASS: TestQueuedMovementActivatesGuardAndPreservesOrdersAfterStop (0.12s)
+=== RUN   TestQueuedHoldAfterAircraftService
+--- PASS: TestQueuedHoldAfterAircraftService (1.07s)
+=== RUN   TestQueuedHoldAfterEmptyTransportUnload
+--- PASS: TestQueuedHoldAfterEmptyTransportUnload (0.99s)
+=== RUN   TestQueuedMovementAfterStationCapture
+--- PASS: TestQueuedMovementAfterStationCapture (0.97s)
+=== RUN   TestQueuedHoldAfterFixedWingMove
+--- PASS: TestQueuedHoldAfterFixedWingMove (1.11s)
+=== RUN   TestQueuedMovementAfterPaidConstruction
+--- PASS: TestQueuedMovementAfterPaidConstruction (1.01s)
+=== RUN   TestQueuedMovementAfterSalvageCollection
+--- PASS: TestQueuedMovementAfterSalvageCollection (1.00s)
+=== RUN   TestQueuedMovementAfterLoadedTransportUnload
+--- PASS: TestQueuedMovementAfterLoadedTransportUnload (1.10s)
+PASS
+ok  	frontlinecommand/pkg/sim	12.036s

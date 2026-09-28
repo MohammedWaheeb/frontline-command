@@ -39,7 +39,9 @@ func (e *Engine) collectSalvage(v *Entity) {
 	p.SalvageTotal += amount
 	p.SalvageIncome = append(p.SalvageIncome, SalvageIncome{e.state.Tick, amount})
 	crate.Until = e.state.Tick
-	v.Orders = nil
+	if len(v.Orders) > 0 {
+		e.completeMovementOrder(v)
+	}
 	kind := "salvage_collected"
 	if amount == 0 {
 		kind = "salvage_capped"

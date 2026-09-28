@@ -1,0 +1,9 @@
+=== RUN   TestQueuedMovementAfterPaidConstruction
+    queued_waypoint_acceptance_test.go:274: construction discarded queued move/hold: pos={X:11999 Y:10525} stance=guard orders=[]
+--- FAIL: TestQueuedMovementAfterPaidConstruction (0.09s)
+=== RUN   TestQueuedMovementAfterSalvageCollection
+    queued_waypoint_acceptance_test.go:295: salvage discarded queued move/hold: pos={X:22000 Y:22000} stance=guard orders=[]
+--- FAIL: TestQueuedMovementAfterSalvageCollection (0.08s)
+FAIL
+FAIL	frontlinecommand/pkg/sim	0.574s
+FAIL

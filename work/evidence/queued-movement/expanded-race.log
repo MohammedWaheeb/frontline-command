@@ -1,0 +1,27 @@
+=== RUN   TestPatrolCyclesAndSurvivesSaveReplay
+--- PASS: TestPatrolCyclesAndSurvivesSaveReplay (0.34s)
+=== RUN   TestCaptureEjectsPassengersHealthyWithoutTransferringControl
+--- PASS: TestCaptureEjectsPassengersHealthyWithoutTransferringControl (0.03s)
+=== RUN   TestCaptureBlockedExitsWaitAtomicallyAndRecover
+--- FAIL: TestCaptureBlockedExitsWaitAtomicallyAndRecover (0.08s)
+panic: runtime error: slice bounds out of range [1:0] [recovered, repanicked]
+
+goroutine 49 [running]:
+testing.tRunner.func1.2({0x104c26520, 0xc00001e180})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/testing/testing.go:2123 +0x2b8
+testing.tRunner.func1()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/testing/testing.go:2126 +0x438
+panic({0x104c26520?, 0xc00001e180?})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/panic.go:859 +0x120
+frontlinecommand/pkg/sim.(*Engine).completeMovementOrder(...)
+	/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/pkg/sim/navigation.go:708
+frontlinecommand/pkg/sim.(*Engine).updateChannel(0xc0004a3208, 0xc0001cd8c8)
+	/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/pkg/sim/support.go:344 +0x1ce0
+frontlinecommand/pkg/sim.TestCaptureBlockedExitsWaitAtomicallyAndRecover(0xc00047e6c8)
+	/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/pkg/sim/capture_test.go:91 +0xa48
+testing.tRunner(0xc00047e6c8, 0x104c3cbc8)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/testing/testing.go:2193 +0x168
+created by testing.(*T).Run in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/testing/testing.go:2258 +0x7c0
+FAIL	frontlinecommand/pkg/sim	0.898s
+FAIL
