@@ -49,6 +49,7 @@ export class Application {
    if(event.type==='autosave'){this.patch({autosave:event.status.phase});return}
    if(event.type!=='runtime')return;
    const current=event.event;
+   if(current.type==='presentation-reset')this.audioDirector.discontinuity();
    if(current.type==='connection')this.audioDirector.connection(current.phase);
    if(current.type==='snapshot'){
     this.audioDirector.snapshot(current.snapshot);

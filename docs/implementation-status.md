@@ -70,3 +70,39 @@ Status/readout checkpoints d9a57b6/6611669 use exact active Go effects, owner-pr
 FX infrastructure d06b1a9 adds optional pack compatibility, exact-byte/PNG/frame validation, low/reduced variants and a separate32MiB pending+resident graphics budget. Real insecure-HTTP Chromium151/Firefox153/WebKit26.5 courses verify uploaded pixels, stage rendering and two pages released to zero, with no application errors. Production FX art is absent and not marked complete. Combat presentation and audio are being integrated against explicit current-authorized event facts; no miss or projectile obstruction is inferred from a redacted impact. The design has no terrain/building projectile collision rule, so the current firing rules remain the default pending an optional user clarification.
 
 Airlift and fighter are staging exports only. The native receiver binding audit is being refreshed; interceptor launch will gain a narrow `launch_empty` state for an owned battery's final charge, preserving generic launch for undisclosed enemy charges. Twenty-one prop provenance records and two marker layer records are being corrected to their actual frozen sources, without promoting quality/status. Complete roster/FX/main key art and final gameplay/packaging gates remain open.
+
+## Combat integration update at11:10 UTC
+
+Root's truthful combat facts/timeline/renderer now pass actual combined0.3.4
+Chromium/Firefox/WebKit courses, including ordinary covered attack, landed armor,
+source loss/conversion, full-tick decoy, fixed/mobile interception, save/replay,
+paused/reduced/cull, raised ground/fog and Chromium context recovery. The additional
+ordinary death course clears corpses after same-player load and short forward
+seek. No missing outcome becomes a miss/blocked shot. The same327-test suite and
+both TypeScript checks pass, with focused exact-grid traversal refinement checks.
+The fourteen existing renderer groups also pass. See [combat presentation](combat-presentation.md).
+
+Einstein's separate real-Pixi synthetic-atlas course1d90d51 passes three browsers,
+all accessibility variants,688 essential marks/192decorations,32MiB pressure,
+paused loading/trim and late disposal to zero. Production FX art remains absent.
+Combat audio df3bbb6/7624f0c uses the same actual weapon/outcome facts; repeated
+observer connection notifications no longer suppress audio. The actual native/
+WASM course and restore-checked fixture scope are [documented](combat-audio.md);
+no audible mix claim. The initial decoy microfixture was unsuitable for full
+ordinary ticking;079b10a separately preserves a correctly initialized live
+fixture. First attempts remain in evidence directories.
+
+Current mission receipt:87/102 main cases finished,78pass/9fail. Six failures
+reproduce exactly on0.3.3 after excluding only simulation-version/combat metadata;
+three changed outcomes follow intended exterior aircraft spawn/return geometry
+and later scouting/combat choices. All nine remain failed acceptance cases.
+Frozen102+21 run continues unchanged; then Boole may improve only ordinary test
+commander tactics in a separate copy, never weaken missions or deadlines.
+
+Einstein now owns six actual paid-combat multiplayer cases using the isolated
+0.3.4 host and product,1–4human clients with deterministic bots where appropriate.
+These will distinguish DOM actions from scripted normal transport orders and
+same-host browser tests from physical LAN. No combat win is claimed yet.
+Mencius remains sole Blender worker, finishing the original-size672-pose airlift
+before the six actual Go service compositions. Root approved native interim
+boarding-door readability only; full asset/scene review is still pending.

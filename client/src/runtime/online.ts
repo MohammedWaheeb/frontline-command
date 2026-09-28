@@ -39,7 +39,7 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
      const message=incoming.message;
      switch(message.case){
       case 'snapshot':
-       assertSnapshot(message.value,this.connection.player,this.connection);this.publish(message.value);
+       assertSnapshot(message.value,this.connection.player,this.connection);this.emit({type:'presentation-reset'});this.publish(message.value);
        this.reconnectAt=0;this.attempt=0;this.change('connected');this.startPings();finish();break;
       case 'delta':{const next=applyDelta(this.current,message.value);assertSnapshot(next,this.connection.player,this.connection);this.publish(next);break}
       case 'orderResult':this.emit({type:'order-result',result:message.value});break;

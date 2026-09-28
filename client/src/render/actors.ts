@@ -5,7 +5,7 @@ import type {ArtLibrary,SpriteSheet,SpriteState} from './art';
 import {headingIndex,toScreen,LEVEL_PX} from './iso';
 import {TerrainSurface,projectSurfaceVertex} from './terrain-surface';
 import {drawStructure,structureHeight} from './structure';
-import {actorSpriteState,visibleSquadMembers,type BuildingPresentation} from './poses';
+import {actorSpriteState,actorEventStates,visibleSquadMembers,type BuildingPresentation} from './poses';
 import {FlightPresentation} from './flight-presentation';
 import {actorArtKey,physicalArtType} from './art-id';
 import {ActorStatusOverlay} from './actor-status';
@@ -121,8 +121,8 @@ export class ActorVisual {
   return Math.max(p.x+p.y+(w&&h?(w+h)*500:0),this.entity.landed&&this.serviceDeck?this.serviceDeck.groundDepth(now,reducedMotion)+.01:0)+(this.visualAltitude(now,reducedMotion)>0?1000000:0);
  }
  private cruiseAltitude(){return Math.max(20,(this.sheet?.meta.air?.cruise_altitude_mt??1400)/1000*25)}
- cue(kind:string,now:number){
-  const names=kind==='weapon_fired'?['fire','volley','launch']:kind==='interceptor_fired'?['launch']:kind==='strategic_activated'?['activate']:undefined;
+ cue(kind:string,now:number,owned=false){
+  const names=actorEventStates(kind,this.entity,owned);
   if(names)this.action={names,at:now};
  }
  private activeAction(now:number):SpriteState|undefined{

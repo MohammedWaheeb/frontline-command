@@ -2,11 +2,32 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {create} from '@bufbuild/protobuf';
 import {EntitySchema,PlayerSnapshotSchema} from '../../src/protocol/frontline_pb';
-import {actorSpriteState,buildingPresentations,visibleSquadMembers} from '../../src/render/poses';
+import {actorSpriteState,actorEventStates,buildingPresentations,visibleSquadMembers} from '../../src/render/poses';
 import type {SpriteState} from '../../src/render/art';
 import {CatalogIndex,type CatalogUnit,type CatalogBuilding} from '../../src/content/catalog';
 const names=['idle','complete','move','work_heal','work_repair','work_capture','channel','doors_open','work_unload','deploy','pack','low_power','damaged','deployed','wreck'];
 const states=new Map(names.map(name=>[name,{name,part:'whole',directions:8,frames:4,fps:8,loop:true} satisfies SpriteState]));
+test('final interceptor launch uses an empty rack only for disclosed owned charges',()=>{
+ const e=create(EntitySchema,{private:{charges:0}});
+ assert.deepEqual(actorEventStates('interceptor_fired',e,true),['launch_empty','launch']);
+ assert.deepEqual(actorEventStates('interceptor_fired',e,false),['launch']);
+ assert.deepEqual(actorEventStates('interceptor_fired',{...e,private:undefined},true),['launch']);
+ e.private!.charges=1;assert.deepEqual(actorEventStates('interceptor_fired',e,true),['launch']);
+ assert.deepEqual(actorEventStates('weapon_fired',e,true),['fire','volley','launch']);
+ assert.equal(actorEventStates('impact',e,true),undefined);
+});
+test('owned structural battery art preserves priority and known charge count with legacy fallback',()=>{
+ const art=new Map(['idle','damaged','critical','disabled','lowpower',...['damaged','critical','disabled','lowpower'].flatMap(state=>[`${state}_charges_0`,`${state}_charges_1`])].map(name=>[name,{name,part:'building',directions:1,frames:1,fps:0,loop:false} satisfies SpriteState]));
+ for(const [state,patch] of [['damaged',{health:450}],['critical',{health:200}],['disabled',{enabled:false}],['lowpower',{}]] as const){
+  for(const charges of [0,1]){
+   const e=create(EntitySchema,{type:'interceptor_battery',health:1000,complete:true,enabled:true,private:{charges},...patch});
+   const context={role:'abm',owned:true,lowPower:true,serviceActive:false};
+   assert.equal(actorSpriteState(e,undefined,false,art,context)?.name,`${state}_charges_${charges}`);
+   assert.equal(actorSpriteState(e,undefined,false,art,{...context,owned:false})?.name,state);
+   const old=new Map(art);old.delete(`${state}_charges_${charges}`);assert.equal(actorSpriteState(e,undefined,false,old,context)?.name,state);
+  }
+ }
+});
 test('cosmetic squad casualties follow only disclosed health and restore with healing',()=>{
  assert.deepEqual([1000,751,750,501,500,251,250,1,0].map(h=>visibleSquadMembers(h,4)),[4,4,3,3,2,2,1,1,0]);
  assert.equal(visibleSquadMembers(100,1),1);assert.equal(visibleSquadMembers(2000,4),4);assert.equal(visibleSquadMembers(-1,4),0);

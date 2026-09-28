@@ -23,6 +23,7 @@ export interface SaveData {data:Uint8Array;tick:number;hash:string;metadata:Engi
 export interface RuntimeVersion {adapter:string;simulation:string;protocol:number;go:string;content_hash:string}
 export type ConnectionPhase='idle'|'connecting'|'connected'|'reconnecting'|'closed';
 export type RuntimeEvent =
+ |{type:'presentation-reset'}
  |{type:'snapshot';snapshot:PlayerSnapshot}
  |{type:'order-result';result:OrderResult}
  |{type:'status';status:MatchStatus}

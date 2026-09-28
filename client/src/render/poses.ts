@@ -2,7 +2,14 @@ import type {Entity,PlayerSnapshot} from '../runtime';
 import type {CatalogUnit,CatalogIndex} from '../content/catalog';
 import type {SpriteState} from './art';
 
-export interface BuildingPresentation {role:string;lowPower:boolean;strategicProgress?:number;serviceActive:boolean}
+export interface BuildingPresentation {role:string;lowPower:boolean;strategicProgress?:number;serviceActive:boolean;owned?:boolean}
+
+/** Launch art can expose an empty rack only when Go already disclosed charges. */
+export function actorEventStates(kind:string,entity:Entity,owned=false):string[]|undefined {
+ if(kind==='weapon_fired')return ['fire','volley','launch'];
+ if(kind==='interceptor_fired')return owned&&entity.private?.charges===0?['launch_empty','launch']:['launch'];
+ if(kind==='strategic_activated')return ['activate'];
+}
 
 /** Cosmetic squad models; the Go actor retains its single health/damage pool. */
 export function visibleSquadMembers(health:number,members:number):number{
@@ -18,7 +25,7 @@ export function buildingPresentations(snapshot:PlayerSnapshot,catalog:CatalogInd
     const building=catalog.buildings.get(entity.type);if(!building)continue;
     const own=entity.owner===snapshot.player,economy=snapshot.economy;
     const progress=snapshot.players.find(p=>p.id===entity.owner)?.strategicProgress;
-    result.set(entity.id,{role:building.role,lowPower:own&&!!economy&&economy.powerDemand>economy.powerCapacity,serviceActive:own&&serviceHomes.has(entity.id),strategicProgress:building.role==='strategic'&&progress!==undefined&&progress>=0?progress:undefined});
+    result.set(entity.id,{role:building.role,owned:own,lowPower:own&&!!economy&&economy.powerDemand>economy.powerCapacity,serviceActive:own&&serviceHomes.has(entity.id),strategicProgress:building.role==='strategic'&&progress!==undefined&&progress>=0?progress:undefined});
   }
   return result;
 }
@@ -74,6 +81,10 @@ export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:bool
   else if(e.health<450)names=loaded?['damaged_loaded','damaged','idle_loaded','idle']:['damaged','idle'];
   else if(loaded)names=['idle_loaded','idle'];
   else names=['idle','complete','full'];
+  if(building?.role==='abm'&&building.owned&&e.private&&[0,1].includes(e.private.charges)){
+   const structural=names[0]==='low_power'?'lowpower':names[0];
+   if(['lowpower','disabled','damaged','critical'].includes(structural))names=[`${structural}_charges_${e.private.charges}`,...names];
+  }
   for(const name of names){const state=states.get(name);if(state&&state.part!=='turret')return state}
   return [...states.values()].find(s=>s.part!=='turret'&&['idle','fly','hover','full','complete'].includes(s.name))??[...states.values()][0];
  }

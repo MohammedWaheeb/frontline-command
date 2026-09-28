@@ -70,3 +70,11 @@ A dead actor must never remain selectable, block a route, or look like a current
 | Maximum legal 688 actors with warnings/returns/intercepts | Measure actual hardware separately in a quiet window; bounded allocations and no lost tactical information. Do not use software-renderer FPS as reference-device acceptance. |
 
 Read-only evidence is a source audit, not a new rendered combat pass. The existing tactical and actor-status acceptance remain independent. Actual miss versus actual projectile blocking is still not representable by this candidate; closing those two checklist entries needs a separately reviewed Go rule/event decision. Never synthesize a miss from `entity === 0` to make the checklist appear complete.
+
+## Implemented follow-up
+
+The reviewed descriptor/timeline/renderer and shared audio facts are now implemented
+with separate actual-Go and synthetic-atlas acceptance. See [combat presentation](combat-presentation.md),
+[audio](combat-audio.md) and [FX integration](combat-effects-assets.md). This original
+proposal remains a dated source audit; its missing-production-art and
+miss/obstruction disclosure limits remain open.

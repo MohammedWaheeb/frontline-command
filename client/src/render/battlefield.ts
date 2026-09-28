@@ -20,6 +20,7 @@ import {ownedBoardingReceivers} from '../app/transport-presentation';
 import {tacticalPresentation,type TacticalPresentation} from '../app/tactical-presentation';
 import {TacticalOverlay} from './tactical-overlay';
 import {StrikePreviewOverlay} from './strike-preview';
+import {CombatEffects} from './combat-effects';
 import type {SkybreakerPlan} from '../runtime/types';
 
 export interface BattlefieldGesture {
@@ -40,6 +41,7 @@ export class BattlefieldRenderer {
  private readonly app=new Application();private readonly world=new Container();
  private readonly ground=new Container();
  private readonly actorStatuses=new Container();
+ private combat:CombatEffects;private effectsReleased:Promise<void>=Promise.resolve();
  private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
  private readonly strikePreview=new StrikePreviewOverlay();private readonly tacticalOverlay=new TacticalOverlay();private tacticalModel?:TacticalPresentation;
  private readonly objectSkins=new Map<string,EnvironmentObjectSkin>();
@@ -53,28 +55,29 @@ export class BattlefieldRenderer {
  private drag?:{start:Point;last:Point;button:number;pointer:number};private pointer?:Point;
  private placement?:PlacementPreview;private targeting?:string;private lastHover=0;private frame=0;private fogTick=-1;
  private memoryKey='';private rubbleKey='';private terrainKey='';private lost=false;private presentationMap:GameMap;
- private effectEvent=0;private shake={until:0,strength:0,x:0,y:0};
+ private effectEvent=0;private feedbackBaseline=false;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
- private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface,options.environment);for(const skin of options.environment?.object_skins??[]){const object=options.map.objects?.find(o=>o.id===skin.object_id);if(object)this.objectSkins.set(`map.${object.class}:${object.position.x}:${object.position.y}`,skin)}}
+ private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.combat=new CombatEffects(options.catalog,options.map,options.onError);this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface,options.environment);for(const skin of options.environment?.object_skins??[]){const object=options.map.objects?.find(o=>o.id===skin.object_id);if(object)this.objectSkins.set(`map.${object.class}:${object.position.x}:${object.position.y}`,skin)}}
  static async create(host:HTMLElement,options:BattlefieldOptions):Promise<BattlefieldRenderer>{
   const renderer=new BattlefieldRenderer(host,options);
   try{await renderer.init();return renderer}catch(error){renderer.dispose();throw error}
  }
  private async init(){
   this.options.art.configure(this.settings.artQuality);await this.options.art.init();await this.baker.load();
+  try{await this.combat.init(this.options.art.index?.effects)}catch(error){this.options.onError?.(error instanceof Error?error:Error(String(error)))}
   await this.app.init({resizeTo:this.host,background:0x14130f,antialias:true,resolution:Math.min(devicePixelRatio,2),autoDensity:true,preference:'webgl'});
   if(this.disposed){this.app.destroy(true,{children:true});return}
   const canvas=this.app.canvas;canvas.tabIndex=0;canvas.setAttribute('aria-label','Battlefield. Select units and give orders.');canvas.style.display='block';canvas.style.touchAction='none';canvas.style.outlineColor='var(--fc-color-brass-light, #d0ae66)';canvas.style.outlineOffset='-2px';
   this.host.appendChild(canvas);
-  this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.tactical,this.tacticalOverlay.root,this.strikePreview.root,this.actorStatuses);this.ground.sortableChildren=true;this.actorStatuses.eventMode='none';
+  this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.combat.root,this.tactical,this.tacticalOverlay.root,this.strikePreview.root,this.actorStatuses);this.ground.sortableChildren=true;this.actorStatuses.eventMode='none';
   const m=this.options.map;
   this.center(m.spawns[0]?.position??{x:m.width*500,y:m.height*500});
   this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
   this.app.ticker.add(()=>this.render());
  }
- get missingArt():string[]{return [...new Set([...this.missing,...this.environment.missingArt])].sort()}
+ get missingArt():string[]{return [...new Set([...this.missing,...this.environment.missingArt,...this.combat.diagnostics.missing])].sort()}
  setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers)}
- async whenAssetsReady(){await Promise.all([...this.actors.values()].map(actor=>actor.ready));await this.environment.ready();this.render();await this.options.art.settle();this.render()}
+ async whenAssetsReady(){await Promise.all([...this.actors.values()].map(actor=>actor.ready));await this.environment.ready();this.render();await Promise.all([this.options.art.settle(),this.combat.settle()]);this.render();await this.combat.settle();this.render()}
  viewport():Rect{return {left:0,top:0,right:this.app.screen.width,bottom:this.app.screen.height}}
  center(point:Point){const p=this.surface.projectGround(point);this.camera.x=p.x;this.camera.y=p.y;this.cameraTransform()}
  pan(dxPixels:number,dyPixels:number){this.camera.x+=dxPixels/this.camera.zoom;this.camera.y+=dyPixels/this.camera.zoom;this.limitCamera();this.cameraTransform()}
@@ -150,8 +153,8 @@ export class BattlefieldRenderer {
   canvas.addEventListener('pointercancel',()=>this.cancelDrag(),{signal});
   canvas.addEventListener('pointerleave',()=>{this.pointer=undefined},{signal});
   canvas.addEventListener('wheel',event=>{event.preventDefault();if(!this.lost)this.zoomBy(Math.exp(-event.deltaY*.001*this.settings.zoomSpeed),local(event))},{signal,passive:false});
-  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();this.lost=true;this.cancelDrag();this.pointer=undefined;this.options.onError?.(new Error('Graphics context lost. Simulation remains in its worker; pause or save while graphics recover.'))},{signal});
-  canvas.addEventListener('webglcontextrestored',()=>{this.lost=false;this.invalidateTerrain();this.fogTick=-1},{signal});
+  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();this.lost=true;this.resetFeedback();this.cancelDrag();this.pointer=undefined;this.options.onError?.(new Error('Graphics context lost. Simulation remains in its worker; pause or save while graphics recover.'))},{signal});
+  canvas.addEventListener('webglcontextrestored',()=>{this.lost=false;this.resetFeedback();this.invalidateTerrain();this.fogTick=-1},{signal});
   window.addEventListener('blur',()=>{this.cancelDrag();this.pointer=undefined},{signal});
  }
  cancelDrag(){if(this.drag&&this.app.canvas?.hasPointerCapture(this.drag.pointer))this.app.canvas.releasePointerCapture(this.drag.pointer);this.drag=undefined;this.overlay.clear()}
@@ -163,21 +166,25 @@ export class BattlefieldRenderer {
  }
  private refreshTactical(reset=false){if(this.snapshot){this.tacticalModel=tacticalPresentation(this.snapshot,this.options.catalog,[...this.selected]);this.tacticalOverlay.sync(this.tacticalModel,this.snapshot.player,reset)}}
  get tacticalDiagnostics(){return {...this.tacticalOverlay.diagnostics,previewRoutes:this.strikePreview.routes}}
+ get combatDiagnostics(){return this.combat.diagnostics}
+ async whenEffectsReleased(){await this.effectsReleased}
+ resetFeedback(){this.feedbackBaseline=true;this.combat.reset();this.effectEvent=Math.max(0,...(this.snapshot?.events.map(event=>event.id)??[]));this.shake={until:0,strength:0,x:0,y:0};for(const actor of this.actors.values())actor.clearFeedback();for(const death of this.deaths)death.actor.dispose();this.deaths.length=0}
  setStrikePreview(plan:SkybreakerPlan|undefined,_observedTick?:number){this.strikePreview.set(plan)}
  updateSettings(settings:Settings){this.settings=settings;if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
  setSnapshot(snapshot:PlayerSnapshot){
   if(this.disposed)return;
   const tacticalReset=!this.snapshot||snapshot.tick<this.snapshot.tick||snapshot.player!==this.snapshot.player;
-  if(tacticalReset){
+  if(tacticalReset||this.feedbackBaseline){
    this.strikePreview.set(undefined);
    this.effectEvent=Math.max(0,...snapshot.events.map(event=>event.id));this.shake={until:0,strength:0,x:0,y:0};
+   this.feedbackBaseline=false;
   }
   if(this.snapshot&&(snapshot.tick<this.snapshot.tick||snapshot.player!==this.snapshot.player)){
    this.fogTick=-1;this.memoryKey='';
    for(const actor of this.actors.values())actor.clearFeedback();
    for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
   }
-  this.snapshot=snapshot;this.refreshTactical(tacticalReset);this.tickAt=performance.now();const living=new Set<number>();
+  this.snapshot=snapshot;this.refreshTactical(tacticalReset);this.combat.sync(snapshot,this.tacticalModel?.projectiles??[],tacticalReset);this.tickAt=performance.now();const living=new Set<number>();
   const presentations=buildingPresentations(snapshot,this.options.catalog),boardingReceivers=new Set(ownedBoardingReceivers(snapshot,this.options.catalog));
   for(const entity of snapshot.entities){
    if(!entity.position||entity.private?.container)continue;
@@ -266,7 +273,7 @@ export class BattlefieldRenderer {
  private readFeedback(snapshot:PlayerSnapshot){
   for(const event of snapshot.events){
    if(event.id<=this.effectEvent)continue;this.effectEvent=event.id;
-   if(event.tick+4>=snapshot.tick)this.actors.get(event.entity)?.cue(event.kind,this.tickAt-(snapshot.tick-event.tick)*50);
+   if(event.tick+4>=snapshot.tick)this.actors.get(event.entity)?.cue(event.kind,this.tickAt-(snapshot.tick-event.tick)*50,this.actors.get(event.entity)?.entity.owner===snapshot.player);
    if(!event.position||event.tick+4<snapshot.tick||this.settings.reducedMotion||this.settings.reducedFlashing||this.settings.screenShake===0)continue;
    const p=this.project(event.position);if(p.x<0||p.y<0||p.x>this.app.screen.width||p.y>this.app.screen.height)continue;
    let strength=event.kind==='impact'?1.4:event.kind==='missile_intercepted'?2.2:0;
@@ -295,7 +302,8 @@ export class BattlefieldRenderer {
    if(actor.standIn||actor.missingArt)this.missing.add(actor.entity.type);
   }
   for(let i=this.deaths.length-1;i>=0;i--){const death=this.deaths[i];if(now>=death.until){death.actor.dispose();this.deaths.splice(i,1);continue}death.actor.render(now,this.team(death.actor.entity.owner),false,'selected',this.settings.reducedMotion);death.actor.root.alpha=Math.min(1,(death.until-now)/700);if(death.actor.terrainShadow)death.actor.terrainShadow.alpha=death.actor.root.alpha}
-  if(this.frame%60===0)this.options.art.trim();
+  if(this.frame%60===0){this.options.art.trim();void this.combat.trim()}
+  this.combat.draw(this.surface,this.camera.zoom,this.settings,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom},id=>this.actors.get(id)?.visualAltitude(now,this.settings.reducedMotion));
   this.drawTactical(now);this.overlay.clear();
   if(this.drag&&this.drag.button!==this.settings.bindings.pointer.pan&&Math.hypot(this.drag.start.x-this.drag.last.x,this.drag.start.y-this.drag.last.y)>=this.settings.dragThreshold){const a=this.drag.start,b=this.drag.last;this.overlay.rect(Math.min(a.x,b.x),Math.min(a.y,b.y),Math.abs(a.x-b.x),Math.abs(a.y-b.y)).fill({color:0xbcce88,alpha:.08}).stroke({width:1,color:0xc7d895})}
  }
@@ -342,7 +350,7 @@ export class BattlefieldRenderer {
   if(this.disposed)return;this.disposed=true;this.listeners.abort();this.resizeObserver?.disconnect();
   for(const actor of this.actors.values())actor.dispose();this.actors.clear();this.environment.dispose();
   for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
-  this.invalidateTerrain();this.baker.disposeSurfaceResources();this.tacticalModel=undefined;this.tacticalOverlay.dispose();this.strikePreview.dispose();
+  this.invalidateTerrain();this.baker.disposeSurfaceResources();this.tacticalModel=undefined;this.tacticalOverlay.dispose();this.strikePreview.dispose();this.effectsReleased=this.combat.dispose();
   if(this.app.renderer)this.app.destroy(true,{children:true});
  }
 }
