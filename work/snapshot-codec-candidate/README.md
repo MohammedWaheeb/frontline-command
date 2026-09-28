@@ -1,8 +1,8 @@
 # Direct public snapshot conversion candidate
 
-Status: isolated candidate. Native Go and WebAssembly compatibility checks pass;
-browser integration and comparable end-to-end timing remain pending. Shipping
-runtime files have not changed.
+Status: isolated candidate. Native Go, WebAssembly and the Chromium product
+range/readout course pass. Paired historical browser timing improves but still
+fails on the second consecutive segment. Shipping runtime files have not changed.
 
 The existing host and WASM adapters serialize the authorized `sim.View` to JSON
 and then parse it into protobuf. This candidate shares an explicit Go converter
@@ -72,8 +72,30 @@ Original worker, WASM support script and version metadata are copied exactly.
 No save metadata is relabelled. The first native candidate benchmark passed the
 exact final hash but took 28.02 seconds during other active jobs, while an older
 baseline took 4.52 seconds under different load. Those times are not a valid
-performance comparison. A quiet paired browser course is still required.
+performance comparison.
 
-The current legal maximum fixture is prepared separately from frozen source.
+The quiet headed Chromium pair now uses the same opening save, frozen art and
+exact browser bundle (`ebce6753b5c49f4014dff5663cca02f829eb8e99d759df4f7bae682104729915`).
+Baseline segments reach 20.00/15.83 TPS; direct conversion reaches 20.00/17.93 TPS.
+All four retain exact native final hash, save/restore and clean disposal with no
+console errors. Both second segments miss the 20 TPS target. The candidate's
+explicit timing assertion therefore fails. `legacy-performance/paired-browser.json`
+indexes the unchanged reports. First-segment four-tick RPC p95 falls from 145.6
+to 112.1 ms, but the repeat slowdown remains unexplained. This is a measured
+bounded improvement, not performance acceptance.
+
+The Chromium product course passes all 15 actual-Go range/readout fixtures,
+save/restore, replay seeking, private-data absence for the other player, keyboard
+focus, 1280/1600 layouts and 150% interface scale. It uses the isolated current
+0.3.4 candidate WASM; screenshots and the receipt are under
+`browser-owner-ranges/chromium/`. Browser plugin was unavailable; the existing
+Playwright course was used. This is presentation/adapter integration, not an
+economy playthrough.
+
+The current legal maximum fixture is exported from separate test-only source
+under `current-load-fixture/runs/20260928T145716Z/fixture/`: 688 actors, four
+players, 64 ordinary returning aircraft and 64 public command batches over
+600 ticks. All 64 return, and all source hashes remain exact. The original dense
+layout and its failures remain separate. Current-fixture browser timing is pending.
 Full current-runtime performance, complete art, long matches, physical LAN and
 reference hardware remain release requirements.

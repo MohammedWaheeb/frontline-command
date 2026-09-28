@@ -1,0 +1,19 @@
+{
+  "scope": "Same688historical0.3.1fixture, same frozen04:18art and exact same browserbundle; two consecutive600tick courses per variant. Incomplete art, not current0.3.4/referencehardware acceptance.",
+  "same_bundle": true,
+  "same_opening": true,
+  "reports": {
+    "browser-baseline-01": "1bd18bab7bb8ebe37a6a9570708bdbbe79044b12d703596b1715d5e0fa292a7a",
+    "browser-candidate-01": "d640911fb3aca320fa312a32dff12fe21b6840da4cfa0239338280af49f34eb1"
+  },
+  "performance_gate": "FAILED on second segment for both variants; candidate strict gate was enabled",
+  "functional_gate": "both2segments exactnativefinalhash,save/restore,zeroerrors,zerodisposedcanvases/pages",
+  "baseline_tps": [
+    19.99953334419018,
+    15.830883943829642
+  ],
+  "candidate_tps": [
+    19.99740033805141,
+    17.933413236575632
+  ]
+}

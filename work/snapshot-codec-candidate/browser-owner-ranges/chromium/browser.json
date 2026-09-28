@@ -1,0 +1,1225 @@
+{
+  "time": "2026-09-28T14:57:03.241Z",
+  "scope": "Unchanged product App, DOM save import and status controls; Go-produced initial mechanics fixtures. Harness pauses, restores exact saves, selects/cameras and steps normal Go ticks. This is presentation acceptance, not an economy playthrough.",
+  "engine": "chromium",
+  "browser": "151.0.7922.34",
+  "legacy": false,
+  "candidate": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/snapshot-codec-candidate",
+  "errors": [],
+  "resources": [],
+  "requestFailures": [
+    {
+      "url": "http://127.0.0.1:55217/art/index.json",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    }
+  ],
+  "buttonImage": [
+    {
+      "status": 200,
+      "bytes": 2734,
+      "sha256": "c2d7bfcb6f78e043d1a7c37dbfa38081d8ab9c27585d0db77b49b7f05bd175b0"
+    },
+    {
+      "status": 200,
+      "bytes": 2734,
+      "sha256": "c2d7bfcb6f78e043d1a7c37dbfa38081d8ab9c27585d0db77b49b7f05bd175b0"
+    }
+  ],
+  "cases": [
+    {
+      "name": "fixed",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 2,
+          "nextChargeTicks": 480,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 3,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n0 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n24.0s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection."
+    },
+    {
+      "name": "fixed-low",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 1,
+          "nextChargeTicks": 960,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 4,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n0 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n48.0s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection.\nϟ\nLow power"
+    },
+    {
+      "name": "fixed-shield",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 4,
+          "nextChargeTicks": 240,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 5,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n0 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n12.0s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection.\n◇\nShieldline"
+    },
+    {
+      "name": "fixed-low-shield",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 2,
+          "nextChargeTicks": 480,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 6,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n0 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n24.0s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection.\nϟ\nLow power\n◇\nShieldline"
+    },
+    {
+      "name": "mobile",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 10000,
+          "capacity": 1,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 1200,
+          "rechargeRate": 2,
+          "nextChargeTicks": 600,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 0,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 7,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nAEGIS CARRIER\n\nDEPLOYED\n\nInterceptors\n0 / 1\n\nMISSILE DEFENSE\n\nProtected impact radius\n10 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n30.0s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection."
+    },
+    {
+      "name": "mobile-low",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 10000,
+          "capacity": 1,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 1200,
+          "rechargeRate": 2,
+          "nextChargeTicks": 600,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 0,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 8,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nAEGIS CARRIER\n\nDEPLOYED\n\nInterceptors\n0 / 1\n\nMISSILE DEFENSE\n\nProtected impact radius\n10 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n30.0s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection."
+    },
+    {
+      "name": "mobile-upgrade",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 10000,
+          "capacity": 1,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 1000,
+          "rechargeRate": 2,
+          "nextChargeTicks": 500,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 0,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 9,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nAEGIS CARRIER\n\nDEPLOYED\n\nInterceptors\n0 / 1\n\nMISSILE DEFENSE\n\nProtected impact radius\n10 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n25.0s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection."
+    },
+    {
+      "name": "mobile-upgrade-shield",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 10000,
+          "capacity": 1,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 1000,
+          "rechargeRate": 4,
+          "nextChargeTicks": 250,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 0,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 10,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nAEGIS CARRIER\n\nDEPLOYED\n\nInterceptors\n0 / 1\n\nMISSILE DEFENSE\n\nProtected impact radius\n10 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n12.5s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection.\n◇\nShieldline"
+    },
+    {
+      "name": "disabled",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": false,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 0,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 11,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n0 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nInactive\n\nNext interceptor\nRecharge paused\n\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection.\n×\nDisabled\n5s"
+    },
+    {
+      "name": "power-off",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": false,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 0,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 12,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n0 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nInactive\n\nNext interceptor\nRecharge paused\n\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection.\n×\nDisabled"
+    },
+    {
+      "name": "constructing",
+      "tick": 0,
+      "model": {
+        "sightRadius": 0,
+        "detectionRadius": 0,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": false,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 0,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 13,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n0 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nInactive\n\nNext interceptor\nRecharge paused\n\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n0 tiles\n\nConcealment detection\n0 tiles\n\nTerrain can obstruct ground sight and detection."
+    },
+    {
+      "name": "packed",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 10000,
+          "capacity": 1,
+          "active": false,
+          "ready": false,
+          "rechargeRequired": 1200,
+          "rechargeRate": 0,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 0,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 14,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nAEGIS CARRIER\n\nDEPLOYED\n\nInterceptors\n0 / 1\n\nMISSILE DEFENSE\n\nProtected impact radius\n10 tiles\n\nDefense\nInactive\n\nNext interceptor\nRecharge paused\n\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection."
+    },
+    {
+      "name": "full",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": true,
+          "ready": true,
+          "rechargeRequired": 960,
+          "rechargeRate": 2,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 15,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n2 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nReady\n\nNext interceptor\nMagazine full\n\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection."
+    },
+    {
+      "name": "partial",
+      "tick": 0,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 2,
+          "nextChargeTicks": 419,
+          "fireReadyAt": 0,
+          "assignments": []
+        }
+      },
+      "diagnostics": {
+        "warnings": 0,
+        "zones": 0,
+        "labels": 0,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 16,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n0 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nEmpty magazine\n\nNext interceptor\n20.9s\n\nTime at the current recharge rate.\nASSIGNMENTS\n\nNo interceptor in flight.\n\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection."
+    },
+    {
+      "name": "assigned",
+      "tick": 1,
+      "model": {
+        "sightRadius": 9000,
+        "detectionRadius": 3000,
+        "airborneSight": false,
+        "buildRadius": 0,
+        "interception": {
+          "radius": 14000,
+          "capacity": 2,
+          "active": true,
+          "ready": false,
+          "rechargeRequired": 960,
+          "rechargeRate": 2,
+          "nextChargeTicks": 479,
+          "fireReadyAt": 21,
+          "assignments": [
+            {
+              "projectile": 9,
+              "impact": {
+                "x": 26000,
+                "y": 18000
+              },
+              "interceptAt": 11
+            }
+          ]
+        }
+      },
+      "diagnostics": {
+        "warnings": 3,
+        "zones": 0,
+        "labels": 3,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 17,
+        "coverageRings": 1,
+        "assignments": 1,
+        "previewRoutes": 0
+      },
+      "text": "UNIT STATUS\nFIELD READOUT\nINTERCEPTOR BATTERY\n\nIDLE\n\nInterceptors\n1 / 2\n\nMISSILE DEFENSE\n\nProtected impact radius\n14 tiles\n\nDefense\nFiring interval\n\nNext interceptor\n23.9s\n\nTime at the current recharge rate.\n\nCan fire again\n1.0s\n\nASSIGNMENTS\nMissile #9 · impact 26, 18\n0.5s\nCoverage protects impact points. It does not stop ordinary aircraft, bullets or bombs.\nFIELD RANGES\n\nSight distance\n9 tiles\n\nConcealment detection\n3 tiles\n\nTerrain can obstruct ground sight and detection."
+    }
+  ],
+  "wasmSHA256": "edd5c367781896c2b5c0cd5eecfa0d1614bfefb23a47ac93d400d358db6d1b66",
+  "save": {
+    "before": {
+      "tick": 1,
+      "player": 1,
+      "selection": [
+        6
+      ],
+      "diagnostics": {
+        "warnings": 3,
+        "zones": 0,
+        "labels": 3,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 18,
+        "coverageRings": 1,
+        "assignments": 1,
+        "previewRoutes": 0
+      },
+      "entities": [
+        {
+          "id": 1,
+          "owner": 1,
+          "type": "hq",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 8000,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 14000
+          }
+        },
+        {
+          "id": 2,
+          "owner": 1,
+          "type": "SA.rig",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 11200,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0
+          }
+        },
+        {
+          "id": 6,
+          "owner": 1,
+          "type": "abm",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 16000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0,
+            "interception": {
+              "radius": 14000,
+              "capacity": 2,
+              "active": true,
+              "ready": false,
+              "rechargeRequired": 960,
+              "rechargeRate": 2,
+              "nextChargeTicks": 479,
+              "fireReadyAt": 21,
+              "assignments": [
+                {
+                  "projectile": 9,
+                  "impact": {
+                    "x": 26000,
+                    "y": 18000
+                  },
+                  "interceptAt": 11
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 7,
+          "owner": 2,
+          "type": "IR.rifle",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 23000,
+            "y": 18000
+          }
+        }
+      ]
+    },
+    "after": {
+      "tick": 1,
+      "player": 1,
+      "selection": [
+        6
+      ],
+      "diagnostics": {
+        "warnings": 3,
+        "zones": 0,
+        "labels": 3,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 19,
+        "coverageRings": 1,
+        "assignments": 1,
+        "previewRoutes": 0
+      },
+      "entities": [
+        {
+          "id": 1,
+          "owner": 1,
+          "type": "hq",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 8000,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 14000
+          }
+        },
+        {
+          "id": 2,
+          "owner": 1,
+          "type": "SA.rig",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 11200,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0
+          }
+        },
+        {
+          "id": 6,
+          "owner": 1,
+          "type": "abm",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 16000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0,
+            "interception": {
+              "radius": 14000,
+              "capacity": 2,
+              "active": true,
+              "ready": false,
+              "rechargeRequired": 960,
+              "rechargeRate": 2,
+              "nextChargeTicks": 479,
+              "fireReadyAt": 21,
+              "assignments": [
+                {
+                  "projectile": 9,
+                  "impact": {
+                    "x": 26000,
+                    "y": 18000
+                  },
+                  "interceptAt": 11
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 7,
+          "owner": 2,
+          "type": "IR.rifle",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 23000,
+            "y": 18000
+          }
+        }
+      ]
+    },
+    "savedHash": "355d442d2e4aab67090ad09640f525d09bb5d3c62b6085c76e2632b5529cc2af",
+    "hash": "355d442d2e4aab67090ad09640f525d09bb5d3c62b6085c76e2632b5529cc2af"
+  },
+  "paused": {
+    "before": {
+      "tick": 1,
+      "player": 1,
+      "selection": [
+        6
+      ],
+      "diagnostics": {
+        "warnings": 3,
+        "zones": 0,
+        "labels": 3,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 19,
+        "coverageRings": 1,
+        "assignments": 1,
+        "previewRoutes": 0
+      },
+      "entities": [
+        {
+          "id": 1,
+          "owner": 1,
+          "type": "hq",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 8000,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 14000
+          }
+        },
+        {
+          "id": 2,
+          "owner": 1,
+          "type": "SA.rig",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 11200,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0
+          }
+        },
+        {
+          "id": 6,
+          "owner": 1,
+          "type": "abm",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 16000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0,
+            "interception": {
+              "radius": 14000,
+              "capacity": 2,
+              "active": true,
+              "ready": false,
+              "rechargeRequired": 960,
+              "rechargeRate": 2,
+              "nextChargeTicks": 479,
+              "fireReadyAt": 21,
+              "assignments": [
+                {
+                  "projectile": 9,
+                  "impact": {
+                    "x": 26000,
+                    "y": 18000
+                  },
+                  "interceptAt": 11
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 7,
+          "owner": 2,
+          "type": "IR.rifle",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 23000,
+            "y": 18000
+          }
+        }
+      ]
+    },
+    "after": {
+      "tick": 1,
+      "player": 1,
+      "selection": [
+        6
+      ],
+      "diagnostics": {
+        "warnings": 3,
+        "zones": 0,
+        "labels": 3,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 19,
+        "coverageRings": 1,
+        "assignments": 1,
+        "previewRoutes": 0
+      },
+      "entities": [
+        {
+          "id": 1,
+          "owner": 1,
+          "type": "hq",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 8000,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 14000
+          }
+        },
+        {
+          "id": 2,
+          "owner": 1,
+          "type": "SA.rig",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 11200,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0
+          }
+        },
+        {
+          "id": 6,
+          "owner": 1,
+          "type": "abm",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 16000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0,
+            "interception": {
+              "radius": 14000,
+              "capacity": 2,
+              "active": true,
+              "ready": false,
+              "rechargeRequired": 960,
+              "rechargeRate": 2,
+              "nextChargeTicks": 479,
+              "fireReadyAt": 21,
+              "assignments": [
+                {
+                  "projectile": 9,
+                  "impact": {
+                    "x": 26000,
+                    "y": 18000
+                  },
+                  "interceptAt": 11
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 7,
+          "owner": 2,
+          "type": "IR.rifle",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 23000,
+            "y": 18000
+          }
+        }
+      ]
+    }
+  },
+  "replay": {
+    "start": 1,
+    "target": 11,
+    "hash": "a5184f60606bbd0a69e961abaccd6280f99da1281586270cd8969286e50136a2",
+    "replayHash": "a5184f60606bbd0a69e961abaccd6280f99da1281586270cd8969286e50136a2",
+    "atEnd": {
+      "tick": 11,
+      "player": 1,
+      "selection": [
+        6
+      ],
+      "diagnostics": {
+        "warnings": 2,
+        "zones": 0,
+        "labels": 2,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 22,
+        "coverageRings": 1,
+        "assignments": 0,
+        "previewRoutes": 0
+      },
+      "entities": [
+        {
+          "id": 1,
+          "owner": 1,
+          "type": "hq",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 8000,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 14000
+          }
+        },
+        {
+          "id": 2,
+          "owner": 1,
+          "type": "SA.rig",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 11200,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0
+          }
+        },
+        {
+          "id": 6,
+          "owner": 1,
+          "type": "abm",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 16000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0,
+            "interception": {
+              "radius": 14000,
+              "capacity": 2,
+              "active": true,
+              "ready": false,
+              "rechargeRequired": 960,
+              "rechargeRate": 2,
+              "nextChargeTicks": 469,
+              "fireReadyAt": 21,
+              "assignments": []
+            }
+          }
+        },
+        {
+          "id": 7,
+          "owner": 2,
+          "type": "IR.rifle",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 23000,
+            "y": 18000
+          }
+        }
+      ]
+    },
+    "atStart": {
+      "tick": 1,
+      "player": 1,
+      "selection": [
+        6
+      ],
+      "diagnostics": {
+        "warnings": 3,
+        "zones": 0,
+        "labels": 3,
+        "orderMarkers": 1,
+        "projectileBodies": 0,
+        "pings": 0,
+        "rebuilds": 23,
+        "coverageRings": 1,
+        "assignments": 1,
+        "previewRoutes": 0
+      },
+      "entities": [
+        {
+          "id": 1,
+          "owner": 1,
+          "type": "hq",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 8000,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 14000
+          }
+        },
+        {
+          "id": 2,
+          "owner": 1,
+          "type": "SA.rig",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 11200,
+            "y": 8000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0
+          }
+        },
+        {
+          "id": 6,
+          "owner": 1,
+          "type": "abm",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 20000,
+            "y": 16000
+          },
+          "ranges": {
+            "sightRadius": 9000,
+            "detectionRadius": 3000,
+            "airborneSight": false,
+            "buildRadius": 0,
+            "interception": {
+              "radius": 14000,
+              "capacity": 2,
+              "active": true,
+              "ready": false,
+              "rechargeRequired": 960,
+              "rechargeRate": 2,
+              "nextChargeTicks": 479,
+              "fireReadyAt": 21,
+              "assignments": [
+                {
+                  "projectile": 9,
+                  "impact": {
+                    "x": 26000,
+                    "y": 18000
+                  },
+                  "interceptAt": 11
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 7,
+          "owner": 2,
+          "type": "IR.rifle",
+          "position": {
+            "$typeName": "frontline.v1.Vec",
+            "x": 23000,
+            "y": 18000
+          }
+        }
+      ]
+    }
+  },
+  "foreign": {
+    "tick": 1,
+    "player": 2,
+    "selection": [],
+    "diagnostics": {
+      "warnings": 3,
+      "zones": 0,
+      "labels": 3,
+      "orderMarkers": 0,
+      "projectileBodies": 0,
+      "pings": 0,
+      "rebuilds": 25,
+      "coverageRings": 0,
+      "assignments": 0,
+      "previewRoutes": 0
+    },
+    "entities": [
+      {
+        "id": 3,
+        "owner": 2,
+        "type": "hq",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 56000,
+          "y": 56000
+        },
+        "ranges": {
+          "sightRadius": 9000,
+          "detectionRadius": 3000,
+          "airborneSight": false,
+          "buildRadius": 14000
+        }
+      },
+      {
+        "id": 4,
+        "owner": 2,
+        "type": "IR.rig",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 59200,
+          "y": 56000
+        },
+        "ranges": {
+          "sightRadius": 9000,
+          "detectionRadius": 3000,
+          "airborneSight": false,
+          "buildRadius": 0
+        }
+      },
+      {
+        "id": 6,
+        "owner": 1,
+        "type": "abm",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 16000
+        }
+      },
+      {
+        "id": 7,
+        "owner": 2,
+        "type": "IR.rifle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 23000,
+          "y": 18000
+        },
+        "ranges": {
+          "sightRadius": 9000,
+          "detectionRadius": 3000,
+          "airborneSight": false,
+          "buildRadius": 0
+        }
+      }
+    ]
+  },
+  "disposal": {
+    "canvases": 0
+  },
+  "status": "passed"
+}
