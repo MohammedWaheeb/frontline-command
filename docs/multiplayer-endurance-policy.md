@@ -180,3 +180,17 @@ fresh explicit immutable `FRONTLINE_COMBAT_BUILD`, `FRONTLINE_COMBAT_REUSE=1`,
 headed hardware selection and the source-matched native replay verifier, as in
 the original rematch recipe. It must still earn both complete games and preserve
 every strict error before the browser endurance requirement can pass.
+
+## Integrated browser preparation
+
+`build-expansion-current-v1` freezes current source, shipping actor art and the
+unchanged receipt-verified c7e0 host/WASM. Its client source digest is
+`87f0e5c0faf91d0c728b101479cbdc17d10d2b31f91cfff4967896baead03766`.
+The 59 effects remain an **isolated reviewed candidate**, not shipping art.
+`multiplayer-expansion-effects.mjs` validates its whole dependency graph, copies
+exact files into this unrun test product, preserves the original build/art/pack
+receipts, and regenerates the exact offline pack. The effect-index SHA is
+`7ed104b52445915761e17654500fb217ca79843924a3a56c000e4a009d49aac5`;
+the final 4060-file base-pack SHA is
+`ef697e4543c312294c7c27381d5dc1be28ba6d529689242047a6a8a5496d2b22`.
+These preparations alone do not pass either browser game or complete the art.
