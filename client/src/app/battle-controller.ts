@@ -3,17 +3,20 @@ import {BattlefieldRenderer,type BattlefieldGesture} from '../render/battlefield
 import {art} from '../render/art';
 import {COMMANDS,ABILITIES,STRATEGIC,reason} from '../content/labels';
 import {Observable} from './store';
+import {SkybreakerReview,type StrikeReviewState} from './strike-review';
+import type {OrderPreview} from '../runtime/types';
 import {productionFocus,productionSources,selectionAffordances} from './production-focus';
 import type {ProductionTab} from '../content/catalog';
 import type {Application} from './application';
 import {readMissionMarkers,type MissionMarker} from './mission-markers';
 import {readMissionGroupLabels,missionGroups,type MissionGroupLabel} from './mission-groups';
 export interface ProductionChoice {type:string;kind:'build'|'train'|'research';producer:number;available:boolean;reason?:string;waitsFor?:string}
-export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];productionSource?:number;target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[]}
+export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];productionSource?:number;target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[];strikeReview?:StrikeReviewState}
 /** Input only: every executable decision is validated by the Go runtime. */
 export class BattleController {
  readonly selection=new BattlefieldSelection();readonly modifiers=new ModifierToggles();readonly targeting=new CommandTargeting();
  readonly state=new Observable<BattleState>({ids:[],production:[],pending:false,learned:[],markers:[],missionGroups:[]});
+ private readonly strikeReview=new SkybreakerReview();private strikeAbort?:AbortController;
  private markerMission?:string;
  private terminal=false;
  private inactive(){return !!this.snapshot?.outcome?.finished||!!this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.defeated}
@@ -22,7 +25,7 @@ export class BattleController {
   if(!entry?.presentation_url||!map)return;
   try{const response=await fetch(entry.presentation_url,{signal:this.keyAbort.signal});if(!response.ok)throw Error('Objective locations are unavailable.');const text=await response.text();if(text.length>256*1024)throw Error('Operation presentation is too large.');const data=JSON.parse(text),markers=readMissionMarkers(data,map,mission),groups=this.snapshot?readMissionGroupLabels(data,this.snapshot):[];if(this.closed)return;this.state.update(state=>({...state,markers,missionGroups:groups}));this.renderer?.setMissionMarkers(markers)}catch(error){if(!this.closed)this.app.patch({notice:error instanceof Error?error.message:'Objective locations unavailable.'})}
  }
- renderer?:BattlefieldRenderer;private detachAudio?:()=>void;private snapshot?:PlayerSnapshot;private practicePlacement?:OrderIntent;private tutorialMission?:{id:string;version:string};private orderKinds=new Map<number,Array<{kind:string;entity?:Pick<Entity,'type'|'owner'>}>>();private unsubscribeResults?:()=>void;private subgroupCycle?:{groups:number[][];index:number};private scope:string;private closed=false;private generation=0;private refreshAt=0;private refreshing=false;private hoverPending=false;private advisoryWork?:Promise<unknown>;private hoverAt=0;private keyAbort=new AbortController();private activeTarget?:{kind:string;type?:string;label:string};
+ renderer?:BattlefieldRenderer;private detachAudio?:()=>void;private snapshot?:PlayerSnapshot;private practicePlacement?:OrderIntent;private tutorialMission?:{id:string;version:string};private orderKinds=new Map<number,Array<{kind:string;entity?:Pick<Entity,'type'|'owner'>}>>();private unsubscribeResults?:()=>void;private subgroupCycle?:{groups:number[][];index:number};private scope:string;private closed=false;private generation=0;private refreshAt=0;private refreshing=false;private hoverPending=false;private advisoryWork?:Promise<unknown>;private hoverAt=0;private keyAbort=new AbortController();private activeTarget?:{kind:string;type?:string;label:string;groundOnly?:boolean};
  constructor(readonly app:Application,readonly openPause:()=>void,readonly chooseEntryEdge:()=>void){this.scope=app.sessions.state.id!;this.unsubscribeResults=app.sessions.subscribe(event=>{if(event.type!=='runtime'||event.session!==this.scope||event.event.type!=='order-result')return;const result=event.event.result,kinds=this.orderKinds.get(result.sequence);if(!kinds)return;if(result.accepted){const kind=kinds[result.index]?.kind;if(kind)this.learn(kind)}else this.learn('rejected_order');const command=kinds[result.index];if(command)app.audioDirector.receipt(command.kind,result.accepted,command.entity,result.code);if(result.index===kinds.length-1)this.orderKinds.delete(result.sequence)})}
  private learn(kind:string){if(this.app.sessions.state.kind!=='solo'||this.state.get().learned.includes(kind))return;this.state.update(state=>({...state,learned:[...state.learned,kind]}));const mission=this.tutorialMission;if(mission)void this.app.tutorialInput.record(mission.id,mission.version,kind).catch(error=>this.app.error(error))}
  async mount(host:HTMLElement){
@@ -39,7 +42,7 @@ export class BattleController {
    this.terminal=true;this.cancel();if(this.app.sessions.state.kind==='online')this.app.commandAdvice().cancel();this.state.update(state=>({...state,production:[],productionSource:undefined,affordances:undefined,pending:false}));
   }
   if(!this.closed&&snapshot.mission&&this.markerMission!==snapshot.mission.id){this.markerMission=snapshot.mission.id;void this.loadMarkers(snapshot.mission)}
-  if(this.closed)return;this.snapshot=snapshot;if(!this.tutorialMission&&this.app.sessions.state.kind==='solo'&&this.app.state.get().index?.missions.some(entry=>entry.mode==='tutorial'&&entry.id===snapshot.mission?.id)){const mission=this.tutorialMission={id:snapshot.mission!.id,version:snapshot.mission!.version};void this.app.tutorialInput.read(mission.id,mission.version).then(learned=>{if(!this.closed)this.state.update(state=>({...state,learned:[...new Set([...state.learned,...learned])]}))}).catch(error=>this.app.error(error))}const before=this.selection.token;this.selection.reconcile(snapshot,this.scope);this.renderer?.setSnapshot(snapshot);
+  if(this.closed)return;this.snapshot=snapshot;if(this.state.get().strikeReview&&!this.strikeReview.state)this.clearStrikeReview();if(!this.tutorialMission&&this.app.sessions.state.kind==='solo'&&this.app.state.get().index?.missions.some(entry=>entry.mode==='tutorial'&&entry.id===snapshot.mission?.id)){const mission=this.tutorialMission={id:snapshot.mission!.id,version:snapshot.mission!.version};void this.app.tutorialInput.read(mission.id,mission.version).then(learned=>{if(!this.closed)this.state.update(state=>({...state,learned:[...new Set([...state.learned,...learned])]}))}).catch(error=>this.app.error(error))}const before=this.selection.token;this.selection.reconcile(snapshot,this.scope);this.renderer?.setSnapshot(snapshot);
   if(!sameSelection(before,this.selection.token))this.changed(true,false);
   this.reconcileProduction();
   if(!this.closed&&snapshot.events.some(event=>event.kind==='route_blocked'&&event.owner===snapshot.player))this.learn('rejected_order');
@@ -58,11 +61,11 @@ export class BattleController {
   const catalog=this.app.state.get().catalog;if(!this.snapshot||!catalog)return;
   const id=productionFocus(this.snapshot,catalog,this.state.get().productionSource,[],category);if(id!==undefined&&id!==this.state.get().productionSource)this.chooseProduction(id);
  }
- private changed(resetCycle=true,audible=true){if(audible&&this.snapshot)this.app.audioDirector.selection(this.snapshot.entities.filter(entity=>this.selection.ids.includes(entity.id)),this.snapshot.player);if(resetCycle)this.subgroupCycle=undefined;this.generation++;this.targeting.reconcile(this.selection.token);if(!this.targeting.targeting)this.clearTarget(false);this.renderer?.setSelection(this.selection.ids);this.reconcileProduction(true);this.state.update(state=>({...state,ids:this.selection.ids,production:[],affordances:undefined}));void this.refresh()}
+ private changed(resetCycle=true,audible=true){this.clearStrikeReview();if(audible&&this.snapshot)this.app.audioDirector.selection(this.snapshot.entities.filter(entity=>this.selection.ids.includes(entity.id)),this.snapshot.player);if(resetCycle)this.subgroupCycle=undefined;this.generation++;this.targeting.reconcile(this.selection.token);if(!this.targeting.targeting)this.clearTarget(false);this.renderer?.setSelection(this.selection.ids);this.reconcileProduction(true);this.state.update(state=>({...state,ids:this.selection.ids,production:[],affordances:undefined}));void this.refresh()}
  select(ids:number[]){this.selection.apply(ids);this.changed()}
  selectMissionGroup(origin:string){if(!this.snapshot)return;const group=missionGroups(this.state.get().missionGroups,this.snapshot).find(group=>group.origin===origin);if(!group?.ids.length)return;this.select(group.ids);const point=this.selection.center();if(point)this.renderer?.center(point)}
  cancel(){this.generation++;this.targeting.cancel();this.clearTarget(false);this.renderer?.cancelDrag()}
- private clearTarget(cancel=true){if(cancel)this.targeting.cancel();this.practicePlacement=undefined;this.activeTarget=undefined;this.renderer?.setTargeting(undefined);this.renderer?.setPlacement(undefined);this.state.update(state=>({...state,target:undefined,placementReason:undefined}))}
+ private clearTarget(cancel=true){if(/^Choose \d+ more target point/.test(this.app.state.get().notice??''))this.app.patch({notice:undefined});this.clearStrikeReview();if(cancel)this.targeting.cancel();this.practicePlacement=undefined;this.activeTarget=undefined;this.renderer?.setTargeting(undefined);this.renderer?.setPlacement(undefined);this.state.update(state=>({...state,target:undefined,placementReason:undefined}))}
  private runtime(){const transport=this.app.sessions.transport;if(!transport)throw Error('No active operation.');return transport}
  private affordances(ids:number[]){const runtime=this.runtime();return runtime instanceof OfflineTransport?runtime.affordances(ids):this.app.commandAdvice().affordances(ids)}
  private preview(orders:Parameters<OfflineTransport['previewOrders']>[0]){const runtime=this.runtime();return runtime instanceof OfflineTransport?runtime.previewOrders(orders):this.app.commandAdvice().preview(orders)}
@@ -85,7 +88,8 @@ export class BattleController {
  }
  placePractice(order:OrderIntent){if(this.app.sessions.state.kind!=='practice')return;this.cancel();this.practicePlacement=structuredClone(order);this.activeTarget={kind:'practice_spawn',type:order.type,label:'Place practice forces'};this.state.update(state=>({...state,target:this.activeTarget}));this.renderer?.setTargeting('practice_spawn')}
  async command(kind:string,type?:string,producer?:number,queued=false,index?:number){
-  if(['observer','replay'].includes(this.app.sessions.state.kind??'')||this.inactive())return;
+  if(['observer','replay'].includes(this.app.sessions.state.kind??'')||this.inactive()||this.state.get().pending)return;
+  this.cancel();
   // Rebase is a targeting affordance for Go's targeted Return order.
   // The ordinary Return button and hotkey keep their immediate behavior.
   const rebase=kind==='rebase';if(rebase)kind='return';
@@ -97,12 +101,13 @@ export class BattleController {
   if(kind==='ability'&&type){const ability=type==='strategic'?STRATEGIC[this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.faction as keyof typeof STRATEGIC]:ABILITIES[type];if(ability){label=ability.label;target=ability.target==='points'?'ground':ability.target;count=ability.points??1}}
   if(kind==='build'){target='ground';label=`Place ${this.app.state.get().catalog?.name(type??'')}`}
   if(target==='none'){await this.execute({kind,type,index,entities:producer?[producer]:this.selection.ids,queued});return}
-  this.generation++;this.targeting.begin({kind,type,index,queued},this.selection.token,count);this.activeTarget={kind,type,label};this.state.update(state=>({...state,target:this.activeTarget}));this.renderer?.setTargeting(kind);
+  this.generation++;this.targeting.begin({kind,type,index,queued},this.selection.token,count);this.activeTarget={kind,type,label,groundOnly:kind==='ability'&&target==='ground'};this.state.update(state=>({...state,target:this.activeTarget}));this.renderer?.setTargeting(kind);
   const building=kind==='build'?this.app.state.get().catalog?.buildings.get(type??''):undefined;if(building)this.renderer?.setPlacement({type:type!,width:building.width,height:building.height});
  }
  private point(point:Point):Point{return {x:Math.round(point.x),y:Math.round(point.y)}}
  private target(gesture:BattlefieldGesture):CommandTarget{
   if(this.activeTarget?.kind==='build')return {kind:'ground',position:{x:Math.round(gesture.point.x/500)*500,y:Math.round(gesture.point.y/500)*500}};
+  if(this.activeTarget?.groundOnly)return {kind:'ground',position:this.point(gesture.point)};
   const descriptor=STANDARD_COMMAND_DESCRIPTORS.find(value=>value.kind===this.activeTarget?.kind);
   return gesture.hit&&(!descriptor||descriptor.targets.includes(gesture.hit.kind))?gesture.hit:{kind:'ground',position:this.point(gesture.point)};
  }
@@ -121,7 +126,8 @@ export class BattleController {
   else if(intent.action==='clear-selection'){this.selection.clear();this.changed()}
   else if(intent.action==='confirm-target'){
    const choice=this.targeting.choose(this.target(gesture),this.selection.token,intent.queued);
-   if(choice.status==='ready')void this.execute(choice.request,choice.generation).finally(()=>{if(this.targeting.current(choice.generation,this.selection.token))this.clearTarget()});
+   if(choice.status==='ready'&&this.isSkybreaker(choice.request))void this.reviewStrike(choice.request);
+   else if(choice.status==='ready')void this.execute(choice.request,choice.generation).finally(()=>{if(this.targeting.current(choice.generation,this.selection.token))this.clearTarget()});
    else if(choice.status==='pending')this.app.patch({notice:`Choose ${choice.remaining} more target point${choice.remaining===1?'':'s'}.`});
   }else if(intent.action==='context-command')void this.executeContext(gesture.hit??{kind:'ground',position:this.point(gesture.point)},intent.queued);
   else if(intent.action==='force-fire')void this.execute({kind:'force_fire',entities:this.selection.ids,target:{kind:'ground',position:this.point(gesture.point)},queued:intent.queued});
@@ -132,8 +138,31 @@ export class BattleController {
   this.renderer?.setPlacement({type,width:building.width,height:building.height,position:target.position});
   try{const work=this.preview([{kind:'build',type,entities:this.selection.ids.slice(0,1),position:target.position}]);this.advisoryWork=work;const result=await work;if(generation===this.generation&&!this.closed){this.renderer?.setPlacement({type,width:building.width,height:building.height,position:target.position,valid:result.results[0]?.code==='indeterminate'?undefined:result.results[0]?.accepted&&result.results[0].code==='ok'});this.state.update(state=>({...state,placementReason:reason(result.results[0]?.code)}))}}catch{/* final confirmation reports actionable errors */}finally{this.hoverPending=false}
  }
- private async executeContext(target:CommandTarget,queued:boolean){await this.plan(async environment=>planContextCommand(this.selection.ids,target,environment,{queued}))}
- async execute(request:CommandRequest,targetGeneration?:number){await this.plan(environment=>planCommand(request,environment),targetGeneration,request.entities)}
+ private isSkybreaker(request:CommandRequest){return request.kind==='ability'&&request.type==='strategic'&&this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.faction==='US'}
+ private clearStrikeReview(){
+  this.strikeAbort?.abort();this.strikeAbort=undefined;this.strikeReview.clear();this.renderer?.setStrikePreview(undefined);
+  if(this.state.get().strikeReview)this.state.update(state=>({...state,strikeReview:undefined,pending:false}));
+ }
+ private async reviewStrike(request:CommandRequest){
+  if(!this.snapshot||this.inactive()||this.state.get().pending||['replay','observer'].includes(this.app.sessions.state.kind??''))return;
+  this.cancel();const token=this.selection.token,generation=this.generation,runtime=this.runtime(),player=this.snapshot.player,abort=this.strikeAbort=new AbortController();
+  const current=()=>!this.closed&&!abort.signal.aborted&&!this.inactive()&&this.app.sessions.state.id===this.scope&&this.app.sessions.transport===runtime&&this.snapshot?.player===player&&!['replay','observer'].includes(this.app.sessions.state.kind??'')&&generation===this.generation&&sameSelection(token,this.selection.token);
+  const ticket=this.strikeReview.begin(request,current);this.state.update(state=>({...state,strikeReview:this.strikeReview.state,pending:true}));
+  try{
+   if(!(runtime instanceof OfflineTransport)){this.app.commandAdvice().cancel();await Promise.allSettled([this.advisoryWork]);if(!current())return}
+   let preview:OrderPreview|undefined;const options={signal:abort.signal,isCurrent:current,onPreview:(value:OrderPreview)=>{preview=value}};
+   const environment=await (runtime instanceof OfflineTransport?createOfflineCommandEnvironment(runtime,this.snapshot,request.entities,options):createOnlineCommandEnvironment(this.app.commandAdvice(),this.snapshot,request.entities,options));
+   const plan=await planCommand(request,environment);if(!current())return;
+   if(plan.issues.length||plan.orders.length!==1||!preview){this.strikeReview.fail(ticket,reason(plan.issues[0]?.code??'preview_unavailable',plan.issues[0]?.message));if(plan.issues.length)this.learn('rejected_order')}
+   else this.strikeReview.complete(ticket,preview);
+   const review=this.strikeReview.state;this.state.update(state=>({...state,strikeReview:review}));this.renderer?.setStrikePreview(review?.plan,review?.observedTick);
+  }catch(error){if(current()){const review=this.strikeReview.fail(ticket,error instanceof Error?error.message:'Approach preview unavailable.');this.state.update(state=>({...state,strikeReview:review}))}}
+  finally{if(current())this.state.update(state=>({...state,pending:false}))}
+ }
+ async confirmStrike(){if(this.state.get().pending)return;const request=this.strikeReview.consume();if(!request)return;this.clearStrikeReview();await this.plan(environment=>planCommand(request,environment),undefined,request.entities)}
+ retargetStrike(){const edge=this.strikeReview.state?.edge;this.cancel();if(edge!==undefined)void this.command('ability','strategic',undefined,false,edge)}
+ private async executeContext(target:CommandTarget,queued:boolean){this.cancel();await this.plan(async environment=>planContextCommand(this.selection.ids,target,environment,{queued}))}
+ async execute(request:CommandRequest,targetGeneration?:number){if(this.isSkybreaker(request)){await this.reviewStrike(request);return}this.clearStrikeReview();await this.plan(environment=>planCommand(request,environment),targetGeneration,request.entities)}
  private async plan(create:(environment:Awaited<ReturnType<typeof createOfflineCommandEnvironment>>)=>ReturnType<typeof planCommand>,targetGeneration?:number,adviceIDs:readonly number[]=this.selection.ids){
   if(!this.snapshot||this.inactive()||this.state.get().pending||['replay','observer'].includes(this.app.sessions.state.kind??''))return;const token=this.selection.token,generation=this.generation,runtime=this.runtime();const current=()=>!this.closed&&!this.inactive()&&generation===this.generation&&sameSelection(token,this.selection.token)&&(targetGeneration===undefined||this.targeting.current(targetGeneration,this.selection.token));
   this.state.update(state=>({...state,pending:true}));
@@ -146,7 +175,7 @@ export class BattleController {
  }
  private key=(event:KeyboardEvent)=>{
   const focus=event.target as HTMLElement|null;const intent=resolveShortcut(event,this.app.state.get().settings.bindings,{...this.modifiers.context,tagName:focus?.tagName,role:focus?.getAttribute('role')??undefined,isContentEditable:focus?.isContentEditable,enabled:!document.querySelector('[role="dialog"]')});if(!intent)return;event.preventDefault();const action=intent.action;
-  if(action==='escape'){if(this.targeting.targeting||this.practicePlacement)this.cancel();else this.openPause();return}
+  if(action==='escape'){if(this.targeting.targeting||this.practicePlacement||this.state.get().strikeReview)this.cancel();else this.openPause();return}
   if(action==='center_selection'){const point=this.selection.center();if(point)this.renderer?.center(point);return}
   if(action.startsWith('pan_')){if(this.app.state.get().settings.keyboardCamera){const delta=35*this.app.state.get().settings.scrollSpeed;this.renderer?.pan(action==='pan_left'?-delta:action==='pan_right'?delta:0,action==='pan_up'?-delta:action==='pan_down'?delta:0)}return}
   if(action==='zoom_in'||action==='zoom_out'){this.renderer?.zoomBy(action==='zoom_in'?1.12:1/1.12);return}
@@ -165,5 +194,5 @@ export class BattleController {
   if(action==='center_alert'){const event=this.snapshot?.events.slice().reverse().find(value=>value.position);if(event?.position)this.renderer?.center(event.position);return}
   void this.command(action,undefined,undefined,intent.queued);
  };
- dispose(){this.closed=true;this.detachAudio?.();this.generation++;this.keyAbort.abort();this.unsubscribeResults?.();this.orderKinds.clear();this.app.frames.delete(this.frame);this.renderer?.dispose();this.renderer=undefined;void this.app.releaseBattlefieldArt()}
+ dispose(){this.clearStrikeReview();this.closed=true;this.detachAudio?.();this.generation++;this.keyAbort.abort();this.unsubscribeResults?.();this.orderKinds.clear();this.app.frames.delete(this.frame);this.renderer?.dispose();this.renderer=undefined;void this.app.releaseBattlefieldArt()}
 }

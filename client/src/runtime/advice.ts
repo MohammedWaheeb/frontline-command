@@ -1,20 +1,21 @@
 import {RuntimeError} from './errors';
+import {parseOperationPlans} from './operation-preview';
 import type {MatchConnection} from './online';
-import type {CommandAffordances,EntityAffordance,OrderIntent,PlayerSnapshot,ProductionStatus} from './types';
+import type {CommandAffordances,EntityAffordance,OrderIntent,PlayerSnapshot,ProductionStatus,AdviceOrderResult,OrderPreview} from './types';
 import type {OfflineTransport} from './offline';
 import type {CommandDescriptor,CommandLegality,CommandEnvironment} from './command-intent';
 
 /** Accepted means an intention may be submitted. Only execution is authoritative. */
-export interface AdviceOrderResult {player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number}
-export interface CommandAdvice extends CommandAffordances {results:AdviceOrderResult[]}
+export type {AdviceOrderResult} from './types';
+export interface CommandAdvice extends CommandAffordances,OrderPreview {}
 export interface AdviceOptions {signal?:AbortSignal;isCurrent?:()=>boolean;independent?:boolean}
 export interface AdvisoryLegality extends CommandLegality {certainty:'checked'|'indeterminate'|'rejected'}
 const id=(value:unknown):value is number=>Number.isInteger(value)&&Number(value)>0&&Number(value)<=0xffffffff;
 const tick=(value:unknown):value is number=>Number.isInteger(value)&&Number(value)>=0&&Number(value)<=0xffffffff;
 function invalid():never{throw new RuntimeError('invalid_advice','The host returned invalid command advice.')}
 function stringList(value:unknown):value is string[]{return Array.isArray(value)&&value.length<=256&&value.every(item=>typeof item==='string'&&item.length<=80)&&new Set(value).size===value.length}
-function parseAdvice(value:any,player:number,entities:readonly number[],orderCount:number):CommandAdvice{
- if(!value||value.player!==player||!tick(value.tick)||!stringList(value.player_commands)||!Array.isArray(value.entities)||value.entities.length!==entities.length||!Array.isArray(value.results)||value.results.length!==orderCount)invalid();
+function parseAdvice(value:any,player:number,entities:readonly number[],orders:readonly OrderIntent[],independent=false):CommandAdvice{
+ if(!value||value.player!==player||!tick(value.tick)||!stringList(value.player_commands)||!Array.isArray(value.entities)||value.entities.length!==entities.length||!Array.isArray(value.results)||value.results.length!==orders.length)invalid();
  const seen=new Set<number>();const authorized=new Set(entities);
  const parsed:EntityAffordance[]=value.entities.map((entity:any)=>{
   if(!entity||!id(entity.id)||!authorized.has(entity.id)||seen.has(entity.id)||!stringList(entity.commands)||!stringList(entity.abilities)||!stringList(entity.builds)||!stringList(entity.trains)||!stringList(entity.research))invalid();
@@ -34,7 +35,8 @@ function parseAdvice(value:any,player:number,entities:readonly number[],orderCou
   if(!result||result.player!==player||result.index!==index||result.tick!==value.tick||result.sequence!==0||typeof result.accepted!=='boolean'||typeof result.code!=='string'||result.code.length>80||result.accepted!==(result.code==='ok'||result.code==='indeterminate'))invalid();
   return {player,index,sequence:0,tick:value.tick,accepted:result.accepted,code:result.code};
  });
- return {tick:value.tick,player,entities:parsed,player_commands:[...value.player_commands],results};
+ const plans=parseOperationPlans(value.plans,orders,value.tick,independent);
+ return {tick:value.tick,player,entities:parsed,player_commands:[...value.player_commands],results,...plans!==undefined?{plans}:{}};
 }
 async function boundedJSON(response:Response):Promise<any>{
  if(!response.body)invalid();const reader=response.body.getReader(),chunks:Uint8Array[]=[];let size=0;
@@ -84,7 +86,7 @@ export class OnlineCommandAdvice {
    const result=await boundedJSON(response);
    if(signal.aborted||this.disposed||options.isCurrent&&!options.isCurrent())throw new RuntimeError('targeting_changed','The selection or targeting changed.');
    if(!response.ok)throw new RuntimeError(typeof result?.code==='string'?result.code:'advice_unavailable',typeof result?.message==='string'?result.message:'Command advice is unavailable.');
-   return parseAdvice(result,this.connection.player,entities,orders.length);
+   return parseAdvice(result,this.connection.player,entities,orders,!!options.independent);
   }catch(error){
    if(controller.signal.aborted||options.signal?.aborted||options.isCurrent&&!options.isCurrent())throw new RuntimeError('targeting_changed','The selection or targeting changed.');
    if(error instanceof RuntimeError)throw error;
@@ -93,7 +95,7 @@ export class OnlineCommandAdvice {
  }
  async affordances(entities:readonly number[],options?:AdviceOptions):Promise<CommandAffordances>{return this.request(entities,[],options)}
  async candidates(orders:readonly OrderIntent[],options?:AdviceOptions):Promise<Pick<CommandAdvice,'tick'|'results'>>{const {tick,results}=await this.request([],orders,{...options,independent:true});return {tick,results}}
- async preview(orders:readonly OrderIntent[],options?:AdviceOptions):Promise<Pick<CommandAdvice,'tick'|'results'>>{const {tick,results}=await this.request([],orders,{...options,independent:false});return {tick,results}}
+ async preview(orders:readonly OrderIntent[],options?:AdviceOptions):Promise<OrderPreview>{const {tick,results,plans}=await this.request([],orders,{...options,independent:false});return {tick,results,...plans!==undefined?{plans}:{}}}
  cancel(){this.pending?.abort()}
  dispose(){this.disposed=true;this.cancel()}
 }
@@ -103,8 +105,8 @@ export function adviceSupports(affordances:CommandAffordances,entity:{id:number;
 export function adviceLegality(result:AdviceOrderResult):AdvisoryLegality{return {accepted:result.accepted,code:result.code,certainty:!result.accepted?'rejected':result.code==='indeterminate'?'indeterminate':'checked',...(result.code==='indeterminate'?{message:'The host will check placement, target state and other unresolved conditions when this order executes.'}:{})}}
 
 /** Keep the guard bound to the current session, selection token and targeting generation. */
-export interface CommandEnvironmentOptions {signal?:AbortSignal;isCurrent:()=>boolean}
-type AdviceFrame=Pick<CommandAdvice,'tick'|'results'>;
+export interface CommandEnvironmentOptions {signal?:AbortSignal;isCurrent:()=>boolean;onPreview?:(preview:OrderPreview)=>void}
+type AdviceFrame=OrderPreview;
 interface EnvironmentSource {
  affordances(ids:readonly number[],options:CommandEnvironmentOptions):Promise<CommandAffordances>;
  preview(orders:OrderIntent[],options:CommandEnvironmentOptions):Promise<AdviceFrame>;
@@ -127,10 +129,12 @@ async function commandEnvironment(source:EnvironmentSource,snapshot:PlayerSnapsh
   guard();if(orders.length>32)throw new RuntimeError('command_limit','Advice batches cannot exceed 32 orders.');
   const result=independent?await source.candidates(structuredClone(orders),options):await source.preview(structuredClone(orders),options);guard();
   if(result.tick<frame.tick||result.results.length!==orders.length)invalid();
-  return result.results.map((entry,index)=>{
+  const values=result.results.map((entry,index)=>{
    if(entry.player!==frame.player||entry.index!==index||entry.sequence!==0||entry.tick!==result.tick||entry.accepted!==(entry.code==='ok'||entry.code==='indeterminate'))invalid();
    return adviceLegality(entry);
   });
+  if(!independent)options.onPreview?.(structuredClone(result));
+  return values;
  };
  return {snapshot:frame,isCurrent:current,supports:(entity,command)=>entity.owner===frame.player&&capabilities.get(entity.id)?.commands.includes(command.kind)===true,validateBatch:orders=>validate(orders,false),validateCandidates:orders=>validate(orders,true)};
 }

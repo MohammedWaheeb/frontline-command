@@ -47,3 +47,10 @@ export interface ReplayCommandPage {commands:ReplayCommand[];next:number}
 export interface ProductionStatus{kind:'build'|'train'|'research';type:string;code:string;waits_for?:string}
 export interface EntityAffordance{id:number;commands:string[];abilities:string[];builds:string[];trains:string[];research:string[];production_status?:ProductionStatus[]}
 export interface CommandAffordances{tick:number;player:number;entities:EntityAffordance[];player_commands:string[]}
+
+/** Nonbinding owner-only advice. Absolute estimates share Go's actual launch
+ * geometry; execution, delay and interception remain authoritative. */
+export interface SkybreakerRoute {entry:Point;drop:Point;impact:Point;entry_at:number;release_at:number;impact_at:number;splash:number}
+export interface SkybreakerPlan {order_index:number;kind:'skybreaker';edge:0|1|2|3;routes:SkybreakerRoute[]}
+export interface AdviceOrderResult {player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number}
+export interface OrderPreview {tick:number;results:AdviceOrderResult[];plans?:SkybreakerPlan[]}

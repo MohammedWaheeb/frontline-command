@@ -1,7 +1,8 @@
 import {create,fromBinary,toBinary} from '@bufbuild/protobuf';
 import {OrderBatchSchema,PlayerSnapshotSchema} from '../protocol/frontline_pb';
 import {RuntimeError} from './errors';
-import type {CommandAffordances,ReplayLobby,Point} from './types';
+import {parseOperationPlans} from './operation-preview';
+import type {CommandAffordances,ReplayLobby,Point,OrderPreview} from './types';
 import {sequenceAfter} from './fixed';
 import {RuntimeEvents,type GameTransport,type GameMap,type OfflineConfig,type OrderIntent,type PlayerSnapshot,type RuntimeVersion,type ReplayCommandPage,type SaveData,type SessionInfo,type Speed} from './types';
 export interface EditorPreviewRequest {kind:'path'|'sight';unit_type:string;from:Point;to?:Point}
@@ -50,7 +51,7 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
  async previewEditor(map:Uint8Array,request:EditorPreviewRequest){await this.ready;return this.rpc<EditorPreviewResult>('previewEditor',map,request)}
  async validateMap(data:Uint8Array){await this.ready;return this.rpc<GameMap>('validateMap',data)}
  async validateMission(map:Uint8Array,mission:Uint8Array){await this.ready;return this.rpc<Record<string,unknown>>('validateMission',map,mission)}
- async previewOrders(orders:OrderIntent[]){await this.ready;return this.rpc<{tick:number;results:Array<{player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number}>}>('previewOrders',toBinary(OrderBatchSchema,create(OrderBatchSchema,{orders})))}
+ async previewOrders(orders:OrderIntent[]):Promise<OrderPreview>{await this.ready;const result=await this.rpc<OrderPreview>('previewOrders',toBinary(OrderBatchSchema,create(OrderBatchSchema,{orders})));const plans=parseOperationPlans(result.plans,orders,result.tick);return {...result,...plans!==undefined?{plans}:{}}}
  async previewCandidates(orders:OrderIntent[]){await this.ready;return this.rpc<{tick:number;results:Array<{player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number}>}>('candidates',toBinary(OrderBatchSchema,create(OrderBatchSchema,{orders})))}
  map(){return this.rpc<GameMap>('map')}
  async inspectReplay(data:Uint8Array){await this.ready;return this.rpc<{metadata:SaveData['metadata'];start_tick:number;end_tick:number;players:number[];lobby?:ReplayLobby}>('inspectReplay',data)}
