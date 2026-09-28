@@ -1,0 +1,76 @@
+{
+  "scope": "One optional Hard actual paid engineer admission retry; same rules/objectives/worker budget",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "5163c3810db202a128386ee6d9aa5de0533ee9ec509a25d8bc1a41997edcd8cf",
+  "base_source_lock_sha256": "698e509d0a6e0a4c5d43a79caca9557423d2057300a739a8643e72bdc31f8ed7",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:04:46.495118+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-worker/runs/20260928T220446Z-sy05-hard-paid-worker-admission/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-worker/source",
+      "started": "2026-09-28T22:04:46.495354+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.542,
+      "completed": "2026-09-28T22:04:49.036936+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-worker/runs/20260928T220446Z-sy05-hard-paid-worker-admission/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-worker/source/pkg/sim",
+      "started": "2026-09-28T22:04:49.041276+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 23.219,
+      "completed": "2026-09-28T22:05:12.260215+00:00"
+    }
+  ],
+  "binary_sha256": "921735d2faab3e4770e82c1c7525b589bf9370a1647282431f8442b9229c27f3",
+  "exit_code": 1,
+  "completed": "2026-09-28T22:05:12.260657+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.save.json": {
+      "bytes": 1115164,
+      "sha256": "19a74f7360f06ea992c1291b18a2f5be60db31435f4de45fc44614418a89c0a5"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.view.json": {
+      "bytes": 420562,
+      "sha256": "13141725ad659ae152ada9de82870192d0e159bd15e7d65b895d44274c0260e0"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-295850349/driver-orders.json": {
+      "bytes": 302217,
+      "sha256": "785cb35ef7d4149a957f9455acf8c66eb0ca0be8276297a13013769757ac5166"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-295850349/manifest.json": {
+      "bytes": 860,
+      "sha256": "72e00cf84e3ca56b334f462ff9ef116dc6156141a7b4301f2ac788f1b2d2c9fa"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-295850349/owner.view.json": {
+      "bytes": 420562,
+      "sha256": "13141725ad659ae152ada9de82870192d0e159bd15e7d65b895d44274c0260e0"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-295850349/state.save.json": {
+      "bytes": 1115164,
+      "sha256": "19a74f7360f06ea992c1291b18a2f5be60db31435f4de45fc44614418a89c0a5"
+    }
+  }
+}

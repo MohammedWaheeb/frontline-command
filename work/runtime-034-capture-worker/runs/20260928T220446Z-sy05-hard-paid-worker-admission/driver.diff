@@ -1,0 +1,28 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ candidate/pkg/sim/authored_campaign_acceptance_test.go
+@@ -1189,8 +1189,23 @@
+ 			return false
+ 		}
+ 		if !findWorker() {
+-			r.issue(1, sim.Order{Kind: "train", Entities: r.ownedType("barracks")[:1], Type: r.faction + ".engineer"})
+-			r.wait("paid independent capture engineer", 2400, findWorker)
++			if r.faction == "SY" && r.difficulty == "hard" && r.requiredOptional == "factory-captured" {
++				r.wait("paid independent capture engineer", 2400, func() bool {
++					if findWorker() {
++						return true
++					}
++					kind := r.faction + ".engineer"
++					if r.scheduledType(kind) == len(r.ownedType(kind)) {
++						if barracks := r.ownedType("barracks"); len(barracks) > 0 {
++							r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: kind})
++						}
++					}
++					return findWorker()
++				})
++			} else {
++				r.issue(1, sim.Order{Kind: "train", Entities: r.ownedType("barracks")[:1], Type: r.faction + ".engineer"})
++				r.wait("paid independent capture engineer", 2400, findWorker)
++			}
+ 		}
+ 		clearGuards(guard)
+ 		var tank sim.ID
