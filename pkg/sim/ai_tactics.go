@@ -49,7 +49,7 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 			}
 			if !selected {
 				for _, station := range view.Stations {
-					if !e.allied(p.ID, station.Owner) && !e.aiThreatNear(p, station.Position, 5000) {
+					if (station.Owner == 0 || aiActiveOpponent(p, view, station.Owner)) && !e.aiThreatNear(p, station.Position, 5000) {
 						add(v, "capture", station.ID, "", Vec{})
 						selected = true
 						break

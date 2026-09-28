@@ -1,0 +1,40 @@
+=== RUN   TestAISpecialOrdersDoNotTargetPubliclyDefeatedActors
+--- PASS: TestAISpecialOrdersDoNotTargetPubliclyDefeatedActors (0.05s)
+=== RUN   TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative
+=== RUN   TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative/#00
+=== RUN   TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative/IR.car
+=== RUN   TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative/IR.tank
+=== RUN   TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative/power
+--- PASS: TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative (0.24s)
+    --- PASS: TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative/#00 (0.05s)
+    --- PASS: TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative/IR.car (0.06s)
+    --- PASS: TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative/IR.tank (0.06s)
+    --- PASS: TestAIDesignationSkipsVisibleInfantryAndUsesValidAlternative/power (0.06s)
+=== RUN   TestAICaptureSkipsVisibleFoundationAndUsesCompletedAlternative
+=== RUN   TestAICaptureSkipsVisibleFoundationAndUsesCompletedAlternative/foundation_only
+=== RUN   TestAICaptureSkipsVisibleFoundationAndUsesCompletedAlternative/completed_alternative
+--- PASS: TestAICaptureSkipsVisibleFoundationAndUsesCompletedAlternative (0.09s)
+    --- PASS: TestAICaptureSkipsVisibleFoundationAndUsesCompletedAlternative/foundation_only (0.04s)
+    --- PASS: TestAICaptureSkipsVisibleFoundationAndUsesCompletedAlternative/completed_alternative (0.04s)
+=== RUN   TestAIObservedTargetFilteringIgnoresHiddenAlternatives
+--- PASS: TestAIObservedTargetFilteringIgnoresHiddenAlternatives (0.05s)
+=== RUN   TestAIStationCaptureUsesPublicOwnerStatus
+=== RUN   TestAIStationCaptureUsesPublicOwnerStatus/neutral
+=== RUN   TestAIStationCaptureUsesPublicOwnerStatus/active_enemy
+=== RUN   TestAIStationCaptureUsesPublicOwnerStatus/defeated_enemy
+=== RUN   TestAIStationCaptureUsesPublicOwnerStatus/allied
+=== RUN   TestAIStationCaptureUsesPublicOwnerStatus/owned
+=== RUN   TestAIStationCaptureUsesPublicOwnerStatus/defeated_with_neutral_alternative
+--- PASS: TestAIStationCaptureUsesPublicOwnerStatus (0.28s)
+    --- PASS: TestAIStationCaptureUsesPublicOwnerStatus/neutral (0.05s)
+    --- PASS: TestAIStationCaptureUsesPublicOwnerStatus/active_enemy (0.05s)
+    --- PASS: TestAIStationCaptureUsesPublicOwnerStatus/defeated_enemy (0.05s)
+    --- PASS: TestAIStationCaptureUsesPublicOwnerStatus/allied (0.04s)
+    --- PASS: TestAIStationCaptureUsesPublicOwnerStatus/owned (0.04s)
+    --- PASS: TestAIStationCaptureUsesPublicOwnerStatus/defeated_with_neutral_alternative (0.04s)
+=== RUN   TestAIFactionAbilityPlannedOnceForMultipleSources
+--- PASS: TestAIFactionAbilityPlannedOnceForMultipleSources (0.04s)
+=== RUN   TestAIIndependentActorAbilitiesRemainAvailableTogether
+--- PASS: TestAIIndependentActorAbilitiesRemainAvailableTogether (0.05s)
+PASS
+ok  	frontlinecommand/pkg/sim	2.745s

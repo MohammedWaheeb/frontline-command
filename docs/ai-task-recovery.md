@@ -102,3 +102,20 @@ The source still reports developmental0.3.1 while this bounded planner fix is
 evaluated. Original0.3.1 compatibility and final packaging must be handled
 explicitly at the next simulation-version boundary. A final-source thirteen-case
 matrix is required before replacing the earlier12/13 report.
+
+## Public defeated-station eligibility
+
+The complete0.3.2 matrix still ended all thirteen games ordinarily, but its team
+game exposed104 repeated attempts to capture station10 after its owner was
+publicly defeated. All312 inspected public snapshots (three boundaries per
+receipt) show the same defeated owner. This was a planner filter omission;
+ordinary capture validation remained correct.
+
+The station branch now uses neutral ownership or the existing public
+`aiActiveOpponent` predicate, matching the building-target branch. It reads no
+hidden actor state and changes no capture rules. Six focused scenarios cover
+neutral, active enemy, defeated enemy, ally, already owned, and a defeated first
+station followed by a usable neutral alternative. Actual capture admissions for
+eligible cases and existing ability/target regressions pass under race in2.745s.
+A final simulation-version boundary and affected full-match recheck remain
+required; the frozen0.3.2 records are unchanged.
