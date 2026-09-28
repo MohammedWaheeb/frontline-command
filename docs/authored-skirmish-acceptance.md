@@ -1,5 +1,10 @@
 # Complete deterministic bot matches on authored launch maps
 
+The final simulation **0.3.0 matrix passes all thirteen cases**, including real
+income/spending, ordinary elimination, initial/final saves and exact full replay.
+See the latest-source results below. This is functional acceptance, not a balance
+approval or a multi-seed/human playtest sample.
+
 The original thirteen-match matrix completed with thirteen ordinary elimination
 endings and exact save/full-replay hashes, but four economic failures. It is not
 a balance approval. Two subsequent source versions each pass all thirteen cases after the
@@ -429,3 +434,38 @@ this targeted correction is not relabeled as a full latest-source matrix or a
 balance approval. The original 51-minute trajectory and exact five-minute stall
 remain preserved. Historical opt-in diagnostics require their original0.2.0
 version/source overlay after the release compatibility boundary changes.
+
+## Final complete simulation 0.3.0 matrix
+
+All thirteen cases pass in one serial invocation (186.732 native seconds on the
+shared development host). Every captured `pkg/sim` file hash is unchanged during
+the run. The new directory `final-0.3.0-2026-09-28` contains per-case original
+map identity, executable hash, metadata, all command receipts, economic samples,
+saves, replay and debrief. `source-identity.json` records the exact source tree;
+`summary.json` is the compact result. Older records retain their own versions.
+
+| Case | End tick | Duration including countdown | Winning team | Execution rejections |
+|---|---:|---:|---:|---|
+| four-ffa | 20075 | 16:43.75 | 3 | None |
+| four-team | 13997 | 11:39.85 | 1 | 1 not_owner |
+| mirror-IR | 18160 | 15:08.00 | 1 | None |
+| mirror-SA | 15525 | 12:56.25 | 1 | None |
+| mirror-SY | 20278 | 16:53.90 | 2 | 1 not_owner |
+| mirror-US | 10275 | 8:33.75 | 2 | None |
+| pair-IR-SA | 17259 | 14:22.95 | 1 | 1 not_owner |
+| pair-IR-SY | 24919 | 20:45.95 | 2 | None |
+| pair-SY-SA | 27182 | 22:39.10 | 2 | 1 not_owner |
+| pair-US-IR | 31409 | 26:10.45 | 2 | 2 not_owner |
+| pair-US-SA | 25812 | 21:30.60 | 1 | None |
+| pair-US-SY | 19504 | 16:15.20 | 2 | None |
+| three-ffa | 21101 | 17:35.05 | 1 | None |
+
+All six remaining `not_owner` receipts are individually classified using current
+authorized views before the decision tick, after that tick and at execution. In
+every case the selected owned actor receives lethal owner-visible damage during
+the decision tick and is absent at execution. Four also expose a visible
+destruction event; two expose the lethal private-HP/damage evidence. All five
+inspected full replays finish at their recorded hashes before contextual evidence
+is accepted. These are execution races, not blanket ignored errors. There are
+no invalid designation, invalid capture, disabled producer or occupied-site
+rejections in this final matrix. See `rejection-classification.json`.

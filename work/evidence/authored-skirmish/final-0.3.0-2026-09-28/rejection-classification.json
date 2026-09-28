@@ -1,0 +1,305 @@
+[
+  {
+    "case": "four-team",
+    "receipt": {
+      "player": 4,
+      "sequence": 122,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 10742
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        121
+      ],
+      "position": {
+        "x": 132500,
+        "y": 125500
+      }
+    },
+    "source_id": 121,
+    "private_hp_before": 11600,
+    "authorized_damage_during_decision": 11600,
+    "events": [
+      {
+        "id": 5097,
+        "tick": 10741,
+        "kind": "under_attack",
+        "owner": 4,
+        "entity": 121,
+        "position": {
+          "x": 118774,
+          "y": 123115
+        },
+        "value": 11600,
+        "scope": "owner"
+      },
+      {
+        "id": 5098,
+        "tick": 10741,
+        "kind": "destroyed",
+        "owner": 4,
+        "entity": 121,
+        "position": {
+          "x": 118774,
+          "y": 123115
+        },
+        "scope": "visible"
+      }
+    ],
+    "owned_after_decision": false,
+    "owned_at_execution": false,
+    "classification": "selected own actor destroyed by lethal authorized damage after planning and before execution; complete replay final hash verified"
+  },
+  {
+    "case": "mirror-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 228,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 14342
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        1062
+      ],
+      "target": 1094,
+      "position": {
+        "x": 36499,
+        "y": 56314
+      }
+    },
+    "source_id": 1062,
+    "private_hp_before": 16000,
+    "authorized_damage_during_decision": 16000,
+    "events": [
+      {
+        "id": 3253,
+        "tick": 14341,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 1062,
+        "position": {
+          "x": 79485,
+          "y": 62001
+        },
+        "value": 16000,
+        "scope": "owner"
+      }
+    ],
+    "owned_after_decision": false,
+    "owned_at_execution": false,
+    "classification": "selected own actor destroyed by lethal authorized damage after planning and before execution; complete replay final hash verified"
+  },
+  {
+    "case": "pair-IR-SA",
+    "receipt": {
+      "player": 2,
+      "sequence": 117,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 11022
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        430
+      ],
+      "position": {
+        "x": 137500,
+        "y": 121500
+      }
+    },
+    "source_id": 430,
+    "private_hp_before": 12000,
+    "authorized_damage_during_decision": 12000,
+    "events": [
+      {
+        "id": 1725,
+        "tick": 11021,
+        "kind": "under_attack",
+        "owner": 2,
+        "entity": 430,
+        "position": {
+          "x": 130943,
+          "y": 120500
+        },
+        "value": 12000,
+        "scope": "owner"
+      },
+      {
+        "id": 1726,
+        "tick": 11021,
+        "kind": "destroyed",
+        "owner": 2,
+        "entity": 430,
+        "position": {
+          "x": 130943,
+          "y": 120500
+        },
+        "scope": "visible"
+      }
+    ],
+    "owned_after_decision": false,
+    "owned_at_execution": false,
+    "classification": "selected own actor destroyed by lethal authorized damage after planning and before execution; complete replay final hash verified"
+  },
+  {
+    "case": "pair-SY-SA",
+    "receipt": {
+      "player": 1,
+      "sequence": 232,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 24222
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        702
+      ],
+      "position": {
+        "x": 27500,
+        "y": 39500
+      }
+    },
+    "source_id": 702,
+    "private_hp_before": 19200,
+    "authorized_damage_during_decision": 19200,
+    "events": [
+      {
+        "id": 6732,
+        "tick": 24221,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 702,
+        "position": {
+          "x": 25813,
+          "y": 41999
+        },
+        "value": 19200,
+        "scope": "owner"
+      },
+      {
+        "id": 6733,
+        "tick": 24221,
+        "kind": "destroyed",
+        "owner": 1,
+        "entity": 702,
+        "position": {
+          "x": 25813,
+          "y": 41999
+        },
+        "scope": "visible"
+      }
+    ],
+    "owned_after_decision": false,
+    "owned_at_execution": false,
+    "classification": "selected own actor destroyed by lethal authorized damage after planning and before execution; complete replay final hash verified"
+  },
+  {
+    "case": "pair-US-IR",
+    "receipt": {
+      "player": 2,
+      "sequence": 128,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 8982
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        113
+      ],
+      "target": 348,
+      "position": {
+        "x": 93921,
+        "y": 48001
+      }
+    },
+    "source_id": 113,
+    "private_hp_before": 18400,
+    "authorized_damage_during_decision": 18400,
+    "events": [
+      {
+        "id": 1084,
+        "tick": 8981,
+        "kind": "under_attack",
+        "owner": 2,
+        "entity": 113,
+        "position": {
+          "x": 75227,
+          "y": 34228
+        },
+        "value": 18400,
+        "scope": "owner"
+      },
+      {
+        "id": 1085,
+        "tick": 8981,
+        "kind": "destroyed",
+        "owner": 2,
+        "entity": 113,
+        "position": {
+          "x": 75227,
+          "y": 34228
+        },
+        "scope": "visible"
+      }
+    ],
+    "owned_after_decision": false,
+    "owned_at_execution": false,
+    "classification": "selected own actor destroyed by lethal authorized damage after planning and before execution; complete replay final hash verified"
+  },
+  {
+    "case": "pair-US-IR",
+    "receipt": {
+      "player": 1,
+      "sequence": 147,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 11742
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        622
+      ],
+      "target": 33,
+      "position": {
+        "x": 99626,
+        "y": 22499
+      }
+    },
+    "source_id": 622,
+    "private_hp_before": 22000,
+    "authorized_damage_during_decision": 22000,
+    "events": [
+      {
+        "id": 1875,
+        "tick": 11741,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 622,
+        "position": {
+          "x": 41415,
+          "y": 54501
+        },
+        "value": 22000,
+        "scope": "owner"
+      }
+    ],
+    "owned_after_decision": false,
+    "owned_at_execution": false,
+    "classification": "selected own actor destroyed by lethal authorized damage after planning and before execution; complete replay final hash verified"
+  }
+]
