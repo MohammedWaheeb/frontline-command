@@ -1,0 +1,91 @@
+{
+  "scope": "One optional Hard ground Guard screen; same rules/objectives/budgets",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "e33120083e6b4de09c36fb504ef6b6ad3f142ede57d416a64bb36e18cb4a51d9",
+  "base_source_lock_sha256": "86c16554bb6b50d9a58395f267fd629509f291f806295f5e107e0a0634cca064",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:26:19.822600+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ground-screen/runs/20260928T222619Z-sy05-hard-ground-guard-screen/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ground-screen/source",
+      "started": "2026-09-28T22:26:19.822834+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.734,
+      "completed": "2026-09-28T22:26:22.556380+00:00"
+    },
+    {
+      "name": "focused",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ground-screen/runs/20260928T222619Z-sy05-hard-ground-guard-screen/sim.test",
+        "-test.run=^TestAuthoredCapture(RepairerReassignment|GuardScreen)$",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ground-screen/source/pkg/sim",
+      "started": "2026-09-28T22:26:22.560668+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.91,
+      "completed": "2026-09-28T22:26:23.470330+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ground-screen/runs/20260928T222619Z-sy05-hard-ground-guard-screen/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-ground-screen/source/pkg/sim",
+      "started": "2026-09-28T22:26:23.470634+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 20.865,
+      "completed": "2026-09-28T22:26:44.335875+00:00"
+    }
+  ],
+  "binary_sha256": "84258b941e8ecf39c37d0fe163e3b38f7decf65a659d843b05e10e2406d01b19",
+  "exit_code": 1,
+  "completed": "2026-09-28T22:26:44.336153+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.save.json": {
+      "bytes": 1167832,
+      "sha256": "0880ca1a44b066fa48115edbdb70dc437afa3836eb7d6ca8a26760debc2996bd"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.view.json": {
+      "bytes": 443943,
+      "sha256": "8f0b254078c26ae9cfa406075ecd8fbca354458d21ff49624a3878f26a0e9ef3"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-1517717705/driver-orders.json": {
+      "bytes": 342948,
+      "sha256": "6f20ccecf4f778151dc9da8d8c0873e5c4fccf7c6c9ee1a3a1cec73c22a4513d"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-1517717705/manifest.json": {
+      "bytes": 860,
+      "sha256": "38fb4591e1627043d2f84c3dcd9b13cc9c45696763fac44d4a4366df05ed5fb9"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-1517717705/owner.view.json": {
+      "bytes": 443943,
+      "sha256": "8f0b254078c26ae9cfa406075ecd8fbca354458d21ff49624a3878f26a0e9ef3"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-1517717705/state.save.json": {
+      "bytes": 1167832,
+      "sha256": "0880ca1a44b066fa48115edbdb70dc437afa3836eb7d6ca8a26760debc2996bd"
+    }
+  }
+}
