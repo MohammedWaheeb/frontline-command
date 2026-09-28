@@ -58,6 +58,13 @@ export async function writeBasePack(outDir){
    const bytes=await readFile(path.join(outDir,entry.url));
    if(bytes.length!==entry.bytes||createHash('sha256').update(bytes).digest('hex')!==entry.sha256)throw Error(`Content changed while packaging: ${entry.id}. Retry once authoring has finished.`);
   }
+  for(const entry of index.maps){
+   if(entry.environment===undefined)continue;
+   const scene=entry.environment;
+   if(!scene||typeof scene.url!=='string'||!/^\/content\/environment\/[A-Za-z0-9][A-Za-z0-9._-]*\.json$/.test(scene.url)||!safe(scene.url.slice(1))||!Number.isSafeInteger(scene.bytes)||scene.bytes<1||scene.bytes>1024*1024||typeof scene.sha256!=='string'||!/^[0-9a-f]{64}$/.test(scene.sha256))throw Error(`Invalid scenery descriptor while packaging: ${entry.id}.`);
+   const bytes=await readFile(path.join(outDir,scene.url));
+   if(bytes.length!==scene.bytes||createHash('sha256').update(bytes).digest('hex')!==scene.sha256)throw Error(`Scenery changed while packaging: ${entry.id}. Retry once authoring has finished.`);
+  }
  }
  const audioPath=path.join(outDir,'art/audio/index.json');
  if(await exists(audioPath)){

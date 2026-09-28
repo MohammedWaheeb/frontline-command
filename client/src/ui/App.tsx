@@ -25,7 +25,8 @@ const factions=Object.keys(FACTIONS) as Faction[];
 const menu:Array<{page:Page;label:string;icon:string}>=[{page:'skirmish',label:'Skirmish',icon:'i-attack'},{page:'campaign',label:'Campaign',icon:'i-objective'},{page:'tutorials',label:'Field training',icon:'i-flag-checker'},{page:'practice',label:'Practice range',icon:'i-tank'},{page:'network',label:'Multiplayer',icon:'i-users'},{page:'saves',label:'Load operation',icon:'i-download'},{page:'replays',label:'Replay archive',icon:'i-replay'},{page:'editor',label:'Editor',icon:'i-building'},{page:'content',label:'Installed content',icon:'i-building'},{page:'settings',label:'Options',icon:'i-settings'},{page:'help',label:'Help',icon:'i-info'}];
 export function App({app}:{app:Application}){
  const state=useObservable(app.state);
- useEffect(()=>{if(!state.notice)return;const timer=setTimeout(()=>app.patch({notice:undefined}),8000);return()=>clearTimeout(timer)},[app,state.notice]);
+ const preparing=!!(state.busy||state.booting||state.assetProgress||state.session.phase==='loading');
+ useEffect(()=>{if(!state.notice||preparing)return;const timer=setTimeout(()=>app.patch({notice:undefined}),8000);return()=>clearTimeout(timer)},[app,state.notice,preparing]);
  return <><AudioCaptions app={app}/><div className="game-shell">{state.session.id&&state.session.map&&state.catalog?<Battlefield key={state.session.id} app={app}/>:<CommandCenter app={app}/>}</div>
  {state.firstRun&&!state.booting&&<FirstRun app={app}/>}
  {state.briefing&&<Briefing app={app}/>}

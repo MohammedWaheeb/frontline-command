@@ -42,6 +42,20 @@ test('audio pack verifies primary and codec fallback exact bytes',async()=>{
  }finally{await rm(dir,{recursive:true,force:true})}
 });
 
+test('optional scenery packaging verifies exact bytes and preserves the last valid pack on mismatch',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'frontline-pack-scenery-'));try{
+  const hash=text=>createHash('sha256').update(text).digest('hex');
+  await put(dir,'index.html','game');await put(dir,'runtime/frontline.wasm','wasm fixture');await put(dir,'content/maps/test.json','map');await put(dir,'content/environment/test.json','scene');
+  const entry={id:'test',url:'/content/maps/test.json',bytes:3,sha256:hash('map'),environment:{url:'/content/environment/test.json',bytes:5,sha256:hash('scene')}};
+  await put(dir,'content/index.json',JSON.stringify({format_version:1,maps:[entry],missions:[]}));
+  const pack=await writeBasePack(dir);assert(pack.files.some(file=>file.path==='/content/environment/test.json'&&file.sha256===hash('scene')));
+  const original=await readFile(path.join(dir,'assets/packs/base.json'),'utf8');await put(dir,'content/environment/test.json','stale');
+  await assert.rejects(writeBasePack(dir),/Scenery changed while packaging/);assert.equal(await readFile(path.join(dir,'assets/packs/base.json'),'utf8'),original);
+  entry.environment.url='/content/maps/test.json';await put(dir,'content/index.json',JSON.stringify({format_version:1,maps:[entry],missions:[]}));
+  await assert.rejects(writeBasePack(dir),/Invalid scenery descriptor/);assert.equal(await readFile(path.join(dir,'assets/packs/base.json'),'utf8'),original);
+ }finally{await rm(dir,{recursive:true,force:true})}
+});
+
 test('paired build illustrations are indexed and packaged from the rendered build directory',async()=>{
  const dir=await mkdtemp(path.join(tmpdir(),'frontline-ui-art-'));try{
   const assets=path.join(dir,'assets'),outDir=path.join(dir,'dist');
