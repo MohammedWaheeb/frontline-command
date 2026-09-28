@@ -46,3 +46,34 @@ test('a source lost during a prior awaited command is not submitted from the ear
  const h=harness(),stale={id:77,type:'US.rifle',owner:1,health:1000,private:{orders:[]}};await h.c.command(stale,{kind:'attack_move',position:map.spawns[1].position},'test');assert.equal(h.sent.length,0);
  const skipped=[];h.c.record=entry=>skipped.push(entry);await h.c.issue([{kind:'research',entities:[77],type:'weapons_training'}],'test');assert.equal(h.sent.length,0);assert.equal(skipped[0].kind,'stale-intention');
 });
+const failedCourse=new URL('../../../work/multiplayer-combat/expansion-rematch-2026-09-28T22-23-52.445Z/',import.meta.url);
+const capturedViews=JSON.parse(readFileSync(new URL('policy-abort-views.json',failedCourse)));
+const capturedCommanders=JSON.parse(readFileSync(new URL('policy-abort-commanders.json',failedCourse)));
+function capturedHarness(player){
+ const view=structuredClone(capturedViews[player-1]),sent=[];
+ const c=new ExpansionCommander({player,map,catalog,view:()=>view,send:async(orders,note)=>{sent.push({orders,note});return orders.map(()=>({accepted:true,code:'ok'}))},advice:async(_ids,orders)=>({results:orders.map(()=>({accepted:true,code:'ok'}))})});
+ c.searches=new Map(capturedCommanders[player-1].searches);return {c,view,sent};
+}
+test('actual failed-course owner view cancels only the blocked ordinary queue head before requesting an emergency rig',async()=>{
+ const h=capturedHarness(1),factory=h.view.entities.find(e=>e.owner===1&&e.type==='factory');assert.equal(factory.state,'prerequisite_lost');assert.equal(factory.private.jobs[0].work,538);
+ await h.c.economy(h.view,h.c.context(h.view));assert.deepEqual(h.sent[0].orders,[{kind:'cancel',entities:[factory.id],index:0}]);
+ // This callback fixture checks policy sequencing only; Go owns real refunds,
+ // prerequisites and emergency production in the separately measured preflight.
+ factory.private.jobs=[];await h.c.economy(h.view,h.c.context(h.view));assert.deepEqual(h.sent[1].orders,[{kind:'train',entities:[factory.id],type:'US.rig'}]);
+});
+test('emergency recovery does not cancel a productive job, disabled producer or existing emergency rig',async()=>{
+ for(const variant of ['productive','disabled','emergency']){const h=capturedHarness(1),factory=h.view.entities.find(e=>e.owner===1&&e.type==='factory');if(variant==='productive')factory.state='producing';if(variant==='disabled')factory.enabled=false;if(variant==='emergency')factory.private.jobs[0].emergency=true;await h.c.economy(h.view,h.c.context(h.view));assert.deepEqual(h.sent,[],variant)}
+});
+test('actual exhausted endgame search visits finite public fog frontiers instead of repeating the six known locations',()=>{
+ const h=capturedHarness(2),c=h.c.context(h.view),army=c.own.filter(e=>catalog.units.find(u=>u.id===e.type)?.weapon),knownPoints=new Set(h.c.searches.keys()),targets=new Set();
+ assert.equal(c.seen.length,0);assert.equal(h.view.indicators.length,0);assert(h.view.memory.every(e=>e.owner===0));
+ let frontierCount=0;for(let y=4;y<map.height;y+=8)for(let x=4;x<map.width;x+=8)if(!['blocked','cliff'].includes(map.tiles[y*map.width+x].terrain)&&!h.view.visible[y*map.width+x])frontierCount++;
+ assert(frontierCount>0&&frontierCount<=256);
+ for(let i=0;i<frontierCount;i++){
+  const p=h.c.searchDestination(h.view,c,army),key=`${p.x}:${p.y}`,index=Math.floor(p.y/1000)*map.width+Math.floor(p.x/1000);
+  assert(!knownPoints.has(key));assert(!targets.has(key));assert(!h.view.visible[index]);assert(!['blocked','cliff'].includes(map.tiles[index].terrain));assert.equal(p.target,undefined);
+  assert.deepEqual(h.c.searchDestination(h.view,c,army),p,'An unseen destination must not churn before its current-view inspection');
+  targets.add(key);h.view.visible[index]=true;h.view.explored[index]=true;h.view.tick++;
+ }
+ assert.equal(targets.size,frontierCount);assert([...targets].some(key=>{const[x,y]=key.split(':').map(Number);return Math.hypot(x-8500,y-64500)<9000}),'Search eventually inspects west of the old HQ without reading the hidden factory');
+});

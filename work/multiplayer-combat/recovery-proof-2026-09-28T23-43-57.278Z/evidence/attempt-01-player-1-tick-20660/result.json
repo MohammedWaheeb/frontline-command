@@ -1,0 +1,82 @@
+{
+  "cancellations": [
+    {
+      "job": {
+        "type": "US.artillery",
+        "research": false,
+        "paid": 1100000,
+        "work": 58,
+        "required": 1200,
+        "supply": 3,
+        "service": 0,
+        "started": true
+      },
+      "order": {
+        "kind": "cancel",
+        "entities": [
+          20
+        ],
+        "position": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "refund_milli": 785125,
+      "sequence": 611,
+      "tick": 20661
+    }
+  ],
+  "completion_event": {
+    "id": 4462,
+    "tick": 21261,
+    "kind": "emergency_rig_ready",
+    "owner": 1,
+    "entity": 1478,
+    "position": {
+      "x": 11400,
+      "y": 64500
+    },
+    "value": 1200000,
+    "scope": "owner"
+  },
+  "emergency_order": {
+    "job": {
+      "type": "US.rig",
+      "research": false,
+      "paid": 1200000,
+      "work": 2,
+      "required": 1200,
+      "supply": 0,
+      "service": 0,
+      "started": true,
+      "emergency": true
+    },
+    "order": {
+      "kind": "train",
+      "entities": [
+        20
+      ],
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "type": "US.rig"
+    },
+    "paid_milli": 1200000,
+    "sequence": 612,
+    "tick": 20662
+  },
+  "factory": 20,
+  "final_hash": "a9b0e760ee758ec2d95e6a68a2a6a5a21937c2a6c58b6f316fc6ef8b7faa0a39",
+  "final_tick": 21261,
+  "full_replay_and_midpoint_restore_equal": true,
+  "initial_hash": "894a50cc0f4fa75c876f4c6d88e6d8a106dff814b04ae2c914dca2e789f4c9fb",
+  "initial_owned_rigs": 1,
+  "initial_tick": 20660,
+  "midpoint_hash": "0aafe5ee5bc6f9d3e65349ec3bfda3dbc19718086abfdb800f422dbab343ca4c",
+  "midpoint_tick": 20962,
+  "player": 1,
+  "replay_sha256": "c4f876325a4ab57217bd4eef95b3e9462bd6aa46b713f5e01aa516b95d593d6c",
+  "scope": "Narrow ordinary-order branch from an earned replay. Existing orders remain; no further enemy commander inputs, state edits, free resources or victory claim.",
+  "success": true
+}

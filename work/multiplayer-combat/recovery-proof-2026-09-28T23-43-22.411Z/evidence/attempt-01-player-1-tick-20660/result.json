@@ -1,0 +1,61 @@
+{
+  "cancellations": [
+    {
+      "job": {
+        "type": "US.artillery",
+        "research": false,
+        "paid": 1100000,
+        "work": 58,
+        "required": 1200,
+        "supply": 3,
+        "service": 0,
+        "started": true
+      },
+      "order": {
+        "kind": "cancel",
+        "entities": [
+          20
+        ],
+        "position": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      "refund_milli": 785125,
+      "sequence": 611,
+      "tick": 20661
+    }
+  ],
+  "emergency_order": {
+    "job": {
+      "type": "US.rig",
+      "research": false,
+      "paid": 1200000,
+      "work": 2,
+      "required": 1200,
+      "supply": 0,
+      "service": 0,
+      "started": true,
+      "emergency": true
+    },
+    "order": {
+      "kind": "train",
+      "entities": [
+        20
+      ],
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "type": "US.rig"
+    },
+    "paid_milli": 1200000,
+    "sequence": 612,
+    "tick": 20662
+  },
+  "factory": 20,
+  "initial_hash": "894a50cc0f4fa75c876f4c6d88e6d8a106dff814b04ae2c914dca2e789f4c9fb",
+  "initial_tick": 20660,
+  "player": 1,
+  "scope": "Narrow ordinary-order branch from an earned replay. Existing orders remain; no further enemy commander inputs, state edits, free resources or victory claim."
+}

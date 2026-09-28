@@ -160,9 +160,20 @@ async function reconnect(record){
 async function ordinaryCombat(record){
  phase=record.phase='ordinary-combat';record.started=new Date().toISOString();
  const commanders=pages.map((page,index)=>new Commander(page,frames[index],record,index+1));
+ let abortRequested=false;const requestAbort=()=>{abortRequested=true};process.on('SIGUSR2',requestAbort);
  let lastLog=0,lastCapture=0;const started=Date.now(),wallLimit=Number(process.env.FRONTLINE_COMBAT_MINUTES??60)*60000;
  assert(Number.isFinite(wallLimit)&&wallLimit>0);
+ try{
  while(!frames.some(frame=>frame.result?.committed||frame.snapshot?.outcome?.finished)){
+  if(abortRequested){
+   const reason='Explicit requested test-policy abort; no forced result or gameplay mutation';
+   report.intentionalAbort={kind:'failed-test-policy',reason,time:new Date().toISOString(),ticks:frames.map(frame=>frame.snapshot?.tick),unfinishedAuthoritativeExport:'Normal1v1 has no unfinished save/replay export; exact authorized views and command receipts are preserved.'};
+   await writeFile(path.join(runDir,'policy-abort-views.json'),json(frames.map(frame=>frame.snapshot)));
+   await writeFile(path.join(runDir,'policy-abort-commanders.json'),json(commanders.map(c=>({player:c.player,routes:[...c.routes],searches:[...c.searches],frontierSearch:c.frontierSearch,last:[...c.last],recovering:[...c.recovering],failed:[...c.failed]}))));
+   for(let index=0;index<pages.length;index++)await capture(pages[index],`policy-abort-player-${index+1}`);
+   try{for(const page of pages)await commandCenter(page);await menuBoundary('aborted-operation',report.initialLifetime)}catch(error){report.intentionalAbort.cleanupFailure=String(error.stack??error)}
+   throw new Error(reason);
+  }
   if(Date.now()-started>wallLimit)throw Error(`Incomplete ordinary match after ${wallLimit/60000} wall minutes; no forced result`);
   for(const commander of commanders)await commander.step();
   const tick=Math.max(...frames.map(frame=>frame.snapshot?.tick??0));
@@ -178,6 +189,7 @@ async function ordinaryCombat(record){
   }
   await sleep(1800);
  }
+ }finally{process.off('SIGUSR2',requestAbort)}
  record.adviceRetries=commanders.map(commander=>({player:commander.player,count:commander.adviceErrors}));
 }
 async function collectResultAndArchive(record){

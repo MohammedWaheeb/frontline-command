@@ -1,0 +1,1820 @@
+{
+  "events": {
+    "capture_interrupted": 10,
+    "cargo_delivered": 212,
+    "construction_complete": 31,
+    "defeat_countdown": 1,
+    "destroyed": 135,
+    "emergency_rig_ready": 2,
+    "foundation_placed": 33,
+    "impact": 2841,
+    "match_ended": 1,
+    "player_defeated": 1,
+    "research_complete": 1,
+    "route_blocked": 54,
+    "station_captured": 2,
+    "under_attack": 2888,
+    "unit_ready": 139,
+    "weapon_fired": 2841
+  },
+  "final_hash": "e621335ffd5129ab7857b21053fe0102e8513c07f859a9b20c3799301bdc3f18",
+  "final_tick": 37046,
+  "full_checkpoint_and_resumed_hashes_equal": true,
+  "initial_countdown_ticks": 100,
+  "initial_tick": 0,
+  "lobby": null,
+  "map_id": "dry-river",
+  "midpoint_hash": "04d5523804ded96def33d2a10f4906a67e6e6865406a00ac81f576bb72d523f3",
+  "midpoint_tick": 18523,
+  "outcome": {
+    "finished": true,
+    "draw": false,
+    "winning_team": 1,
+    "reason": "elimination",
+    "tick": 37046
+  },
+  "players": [
+    {
+      "ai": "",
+      "defeated": false,
+      "faction": "US",
+      "id": 1,
+      "income_milli": 75075600,
+      "kills": 48,
+      "lost_milli": 34550000,
+      "orders": {
+        "attack": 156,
+        "attack_move": 921,
+        "build": 35,
+        "capture": 9,
+        "guard": 195,
+        "move": 311,
+        "repair": 99,
+        "repair_reserve": 1,
+        "research": 1,
+        "resume": 3,
+        "train": 74
+      },
+      "spent_milli": 80100734,
+      "team": 1
+    },
+    {
+      "ai": "",
+      "defeated": true,
+      "faction": "SA",
+      "id": 2,
+      "income_milli": 58300800,
+      "kills": 37,
+      "lost_milli": 59900000,
+      "orders": {
+        "attack": 142,
+        "attack_move": 421,
+        "build": 48,
+        "capture": 3,
+        "guard": 175,
+        "move": 461,
+        "repair": 118,
+        "repair_reserve": 1,
+        "train": 62
+      },
+      "spent_milli": 59797625,
+      "team": 2
+    }
+  ],
+  "replay_sha256": "0ce5322467c699a3ae7d1cc7da08c53bd82466591c17c4915b9770ad2654109a",
+  "scope": "Actual host orders replayed from initial state; ordinary paid production and combat, no fixture mutations. Save/restore verification is offline, not live multiplayer checkpoint resume.",
+  "seed_uint64": "733",
+  "simulation": "0.3.4",
+  "telemetry": {
+    "players": [
+      {
+        "player": 1,
+        "units_produced": [
+          {
+            "type": "US.artillery",
+            "count": 5
+          },
+          {
+            "type": "US.at",
+            "count": 7
+          },
+          {
+            "type": "US.engineer",
+            "count": 2
+          },
+          {
+            "type": "US.hauler",
+            "count": 6
+          },
+          {
+            "type": "US.medic",
+            "count": 2
+          },
+          {
+            "type": "US.recon",
+            "count": 4
+          },
+          {
+            "type": "US.repair",
+            "count": 3
+          },
+          {
+            "type": "US.rifle",
+            "count": 25
+          },
+          {
+            "type": "US.rig",
+            "count": 5
+          },
+          {
+            "type": "US.tank",
+            "count": 16
+          }
+        ],
+        "buildings_constructed": [
+          {
+            "type": "barracks",
+            "count": 4
+          },
+          {
+            "type": "depot",
+            "count": 1
+          },
+          {
+            "type": "factory",
+            "count": 2
+          },
+          {
+            "type": "hq",
+            "count": 1
+          },
+          {
+            "type": "outpost",
+            "count": 2
+          },
+          {
+            "type": "power",
+            "count": 2
+          },
+          {
+            "type": "radar",
+            "count": 1
+          },
+          {
+            "type": "supply",
+            "count": 3
+          },
+          {
+            "type": "tech",
+            "count": 1
+          },
+          {
+            "type": "turret",
+            "count": 1
+          }
+        ],
+        "units_lost": 48,
+        "buildings_lost": 8,
+        "repair_spent": 1450734,
+        "missile_spent": 0,
+        "interceptors_fired": 0,
+        "station_control_ticks": 30757,
+        "timeline": [
+          {
+            "tick": 0,
+            "credits": 6000000,
+            "income": 0,
+            "spent": 0,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 400,
+            "credits": 5500000,
+            "income": 0,
+            "spent": 500000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 800,
+            "credits": 3700000,
+            "income": 0,
+            "spent": 2300000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 1200,
+            "credits": 3700000,
+            "income": 0,
+            "spent": 2300000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 1600,
+            "credits": 2200000,
+            "income": 0,
+            "spent": 3800000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 2000,
+            "credits": 2800000,
+            "income": 600000,
+            "spent": 3800000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 2400,
+            "credits": 3400000,
+            "income": 1200000,
+            "spent": 3800000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 2800,
+            "credits": 1550000,
+            "income": 1800000,
+            "spent": 6250000,
+            "supply": 1,
+            "stations": 0
+          },
+          {
+            "tick": 3200,
+            "credits": 1550000,
+            "income": 2400000,
+            "spent": 6850000,
+            "supply": 5,
+            "stations": 0
+          },
+          {
+            "tick": 3600,
+            "credits": 350000,
+            "income": 3000000,
+            "spent": 8650000,
+            "supply": 7,
+            "stations": 0
+          },
+          {
+            "tick": 4000,
+            "credits": 250000,
+            "income": 4200000,
+            "spent": 9950000,
+            "supply": 9,
+            "stations": 0
+          },
+          {
+            "tick": 4400,
+            "credits": 850000,
+            "income": 4800000,
+            "spent": 9950000,
+            "supply": 12,
+            "stations": 0
+          },
+          {
+            "tick": 4800,
+            "credits": 150000,
+            "income": 5400000,
+            "spent": 11250000,
+            "supply": 12,
+            "stations": 0
+          },
+          {
+            "tick": 5200,
+            "credits": 450000,
+            "income": 6000000,
+            "spent": 11550000,
+            "supply": 14,
+            "stations": 0
+          },
+          {
+            "tick": 5600,
+            "credits": 350000,
+            "income": 7200000,
+            "spent": 12850000,
+            "supply": 18,
+            "stations": 0
+          },
+          {
+            "tick": 6000,
+            "credits": 450000,
+            "income": 7800000,
+            "spent": 13350000,
+            "supply": 18,
+            "stations": 0
+          },
+          {
+            "tick": 6400,
+            "credits": 1061000,
+            "income": 8411000,
+            "spent": 13350000,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 6800,
+            "credits": 101000,
+            "income": 9051000,
+            "spent": 14950000,
+            "supply": 20,
+            "stations": 1
+          },
+          {
+            "tick": 7200,
+            "credits": 331250,
+            "income": 10291000,
+            "spent": 15959750,
+            "supply": 23,
+            "stations": 1
+          },
+          {
+            "tick": 7600,
+            "credits": 671250,
+            "income": 10931000,
+            "spent": 16259750,
+            "supply": 21,
+            "stations": 1
+          },
+          {
+            "tick": 8000,
+            "credits": 639650,
+            "income": 11571000,
+            "spent": 16931350,
+            "supply": 20,
+            "stations": 1
+          },
+          {
+            "tick": 8400,
+            "credits": 1279650,
+            "income": 12211000,
+            "spent": 16931350,
+            "supply": 20,
+            "stations": 1
+          },
+          {
+            "tick": 8800,
+            "credits": 219650,
+            "income": 13451000,
+            "spent": 19231350,
+            "supply": 16,
+            "stations": 1
+          },
+          {
+            "tick": 9200,
+            "credits": 496000,
+            "income": 14091000,
+            "spent": 19595000,
+            "supply": 16,
+            "stations": 1
+          },
+          {
+            "tick": 9600,
+            "credits": 328810,
+            "income": 14731000,
+            "spent": 20402190,
+            "supply": 16,
+            "stations": 1
+          },
+          {
+            "tick": 10000,
+            "credits": 668810,
+            "income": 15371000,
+            "spent": 20702190,
+            "supply": 16,
+            "stations": 1
+          },
+          {
+            "tick": 10400,
+            "credits": 1608810,
+            "income": 16611000,
+            "spent": 21002190,
+            "supply": 18,
+            "stations": 1
+          },
+          {
+            "tick": 10800,
+            "credits": 448810,
+            "income": 17251000,
+            "spent": 22802190,
+            "supply": 18,
+            "stations": 1
+          },
+          {
+            "tick": 11200,
+            "credits": 1088810,
+            "income": 17891000,
+            "spent": 22802190,
+            "supply": 18,
+            "stations": 1
+          },
+          {
+            "tick": 11600,
+            "credits": 28810,
+            "income": 18531000,
+            "spent": 24502190,
+            "supply": 16,
+            "stations": 1
+          },
+          {
+            "tick": 12000,
+            "credits": 968810,
+            "income": 20371000,
+            "spent": 25402190,
+            "supply": 18,
+            "stations": 1
+          },
+          {
+            "tick": 12400,
+            "credits": 2201010,
+            "income": 21611000,
+            "spent": 25409990,
+            "supply": 14,
+            "stations": 1
+          },
+          {
+            "tick": 12800,
+            "credits": 41010,
+            "income": 22851000,
+            "spent": 28809990,
+            "supply": 13,
+            "stations": 1
+          },
+          {
+            "tick": 13200,
+            "credits": 938710,
+            "income": 24091000,
+            "spent": 29152290,
+            "supply": 15,
+            "stations": 1
+          },
+          {
+            "tick": 13600,
+            "credits": 1324260,
+            "income": 25331000,
+            "spent": 30006740,
+            "supply": 16,
+            "stations": 1
+          },
+          {
+            "tick": 14000,
+            "credits": 2564260,
+            "income": 27171000,
+            "spent": 30606740,
+            "supply": 10,
+            "stations": 1
+          },
+          {
+            "tick": 14400,
+            "credits": 1704260,
+            "income": 28411000,
+            "spent": 32706740,
+            "supply": 10,
+            "stations": 1
+          },
+          {
+            "tick": 14800,
+            "credits": 1144260,
+            "income": 30251000,
+            "spent": 35106740,
+            "supply": 14,
+            "stations": 1
+          },
+          {
+            "tick": 15200,
+            "credits": 1257110,
+            "income": 31491000,
+            "spent": 36233890,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 15600,
+            "credits": 2463789,
+            "income": 32731000,
+            "spent": 36267211,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 16000,
+            "credits": 3656689,
+            "income": 33971000,
+            "spent": 36314311,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 16400,
+            "credits": 4861889,
+            "income": 35211000,
+            "spent": 36349111,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 16800,
+            "credits": 6058839,
+            "income": 36451000,
+            "spent": 36392161,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 17200,
+            "credits": 6674539,
+            "income": 37091000,
+            "spent": 36416461,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 17600,
+            "credits": 7878239,
+            "income": 38331000,
+            "spent": 36452761,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 18000,
+            "credits": 9058453,
+            "income": 39571000,
+            "spent": 36512547,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 18400,
+            "credits": 8890403,
+            "income": 40211000,
+            "spent": 37320597,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 18800,
+            "credits": 10079325,
+            "income": 41451000,
+            "spent": 37371675,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 19200,
+            "credits": 10117375,
+            "income": 42091000,
+            "spent": 37973625,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 19600,
+            "credits": 10556446,
+            "income": 43331000,
+            "spent": 38774554,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 20000,
+            "credits": 11796446,
+            "income": 44571000,
+            "spent": 38774554,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 20400,
+            "credits": 12236446,
+            "income": 45811000,
+            "spent": 39574554,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 20800,
+            "credits": 12864296,
+            "income": 46451000,
+            "spent": 39586704,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 21200,
+            "credits": 10586480,
+            "income": 47691000,
+            "spent": 43104520,
+            "supply": 12,
+            "stations": 1
+          },
+          {
+            "tick": 21600,
+            "credits": 11198082,
+            "income": 48931000,
+            "spent": 43732918,
+            "supply": 14,
+            "stations": 1
+          },
+          {
+            "tick": 22000,
+            "credits": 10079982,
+            "income": 49571000,
+            "spent": 45491018,
+            "supply": 21,
+            "stations": 1
+          },
+          {
+            "tick": 22400,
+            "credits": 8469982,
+            "income": 49611000,
+            "spent": 47141018,
+            "supply": 25,
+            "stations": 1
+          },
+          {
+            "tick": 22800,
+            "credits": 8299982,
+            "income": 50251000,
+            "spent": 47951018,
+            "supply": 28,
+            "stations": 1
+          },
+          {
+            "tick": 23200,
+            "credits": 6739982,
+            "income": 51491000,
+            "spent": 50751018,
+            "supply": 34,
+            "stations": 1
+          },
+          {
+            "tick": 23600,
+            "credits": 5279982,
+            "income": 52131000,
+            "spent": 52851018,
+            "supply": 42,
+            "stations": 1
+          },
+          {
+            "tick": 24000,
+            "credits": 3819982,
+            "income": 52771000,
+            "spent": 54951018,
+            "supply": 36,
+            "stations": 1
+          },
+          {
+            "tick": 24400,
+            "credits": 2353382,
+            "income": 53411000,
+            "spent": 57057618,
+            "supply": 40,
+            "stations": 1
+          },
+          {
+            "tick": 24800,
+            "credits": 689032,
+            "income": 54051000,
+            "spent": 59361968,
+            "supply": 44,
+            "stations": 1
+          },
+          {
+            "tick": 25200,
+            "credits": 14542,
+            "income": 54691000,
+            "spent": 60676458,
+            "supply": 44,
+            "stations": 1
+          },
+          {
+            "tick": 25600,
+            "credits": 928592,
+            "income": 55931000,
+            "spent": 61002408,
+            "supply": 38,
+            "stations": 1
+          },
+          {
+            "tick": 26000,
+            "credits": 652275,
+            "income": 55971000,
+            "spent": 61318725,
+            "supply": 40,
+            "stations": 1
+          },
+          {
+            "tick": 26400,
+            "credits": 1251475,
+            "income": 56611000,
+            "spent": 61359525,
+            "supply": 36,
+            "stations": 1
+          },
+          {
+            "tick": 26800,
+            "credits": 1831475,
+            "income": 57251000,
+            "spent": 61419525,
+            "supply": 30,
+            "stations": 1
+          },
+          {
+            "tick": 27200,
+            "credits": 271475,
+            "income": 57291000,
+            "spent": 63019525,
+            "supply": 28,
+            "stations": 1
+          },
+          {
+            "tick": 27600,
+            "credits": 899300,
+            "income": 57931000,
+            "spent": 63031700,
+            "supply": 31,
+            "stations": 1
+          },
+          {
+            "tick": 28000,
+            "credits": 1479351,
+            "income": 58571000,
+            "spent": 63091649,
+            "supply": 31,
+            "stations": 1
+          },
+          {
+            "tick": 28400,
+            "credits": 2063251,
+            "income": 59211000,
+            "spent": 63147749,
+            "supply": 31,
+            "stations": 1
+          },
+          {
+            "tick": 28800,
+            "credits": 1143251,
+            "income": 59851000,
+            "spent": 64707749,
+            "supply": 31,
+            "stations": 1
+          },
+          {
+            "tick": 29200,
+            "credits": 1723517,
+            "income": 60491000,
+            "spent": 64767483,
+            "supply": 31,
+            "stations": 1
+          },
+          {
+            "tick": 29600,
+            "credits": 1007567,
+            "income": 61131000,
+            "spent": 66123433,
+            "supply": 31,
+            "stations": 1
+          },
+          {
+            "tick": 30000,
+            "credits": 1029717,
+            "income": 61171000,
+            "spent": 66141283,
+            "supply": 33,
+            "stations": 1
+          },
+          {
+            "tick": 30400,
+            "credits": 2269717,
+            "income": 62411000,
+            "spent": 66141283,
+            "supply": 33,
+            "stations": 1
+          },
+          {
+            "tick": 30800,
+            "credits": 406267,
+            "income": 63051000,
+            "spent": 68644733,
+            "supply": 33,
+            "stations": 1
+          },
+          {
+            "tick": 31200,
+            "credits": 441472,
+            "income": 63691000,
+            "spent": 69249528,
+            "supply": 35,
+            "stations": 1
+          },
+          {
+            "tick": 31600,
+            "credits": 1058522,
+            "income": 64331000,
+            "spent": 69272478,
+            "supply": 37,
+            "stations": 1
+          },
+          {
+            "tick": 32000,
+            "credits": 392522,
+            "income": 64971000,
+            "spent": 70578478,
+            "supply": 37,
+            "stations": 1
+          },
+          {
+            "tick": 32400,
+            "credits": 85152,
+            "income": 66211000,
+            "spent": 72125848,
+            "supply": 41,
+            "stations": 1
+          },
+          {
+            "tick": 32800,
+            "credits": 725152,
+            "income": 66851000,
+            "spent": 72125848,
+            "supply": 42,
+            "stations": 1
+          },
+          {
+            "tick": 33200,
+            "credits": 29477,
+            "income": 67491000,
+            "spent": 73461523,
+            "supply": 45,
+            "stations": 1
+          },
+          {
+            "tick": 33600,
+            "credits": 650077,
+            "income": 68131000,
+            "spent": 73480923,
+            "supply": 49,
+            "stations": 1
+          },
+          {
+            "tick": 34000,
+            "credits": 1231036,
+            "income": 68771000,
+            "spent": 73539964,
+            "supply": 49,
+            "stations": 1
+          },
+          {
+            "tick": 34400,
+            "credits": 852911,
+            "income": 70011000,
+            "spent": 75158089,
+            "supply": 51,
+            "stations": 1
+          },
+          {
+            "tick": 34800,
+            "credits": 368966,
+            "income": 70651000,
+            "spent": 76282034,
+            "supply": 55,
+            "stations": 1
+          },
+          {
+            "tick": 35200,
+            "credits": 975516,
+            "income": 71291000,
+            "spent": 76315484,
+            "supply": 55,
+            "stations": 1
+          },
+          {
+            "tick": 35600,
+            "credits": 287966,
+            "income": 71931000,
+            "spent": 77643034,
+            "supply": 58,
+            "stations": 1
+          },
+          {
+            "tick": 36000,
+            "credits": 884591,
+            "income": 72571000,
+            "spent": 77686409,
+            "supply": 58,
+            "stations": 1
+          },
+          {
+            "tick": 36400,
+            "credits": 210817,
+            "income": 73211000,
+            "spent": 79000183,
+            "supply": 62,
+            "stations": 1
+          },
+          {
+            "tick": 36800,
+            "credits": 350266,
+            "income": 74451000,
+            "spent": 80100734,
+            "supply": 66,
+            "stations": 1
+          },
+          {
+            "tick": 37046,
+            "credits": 974866,
+            "income": 75075600,
+            "spent": 80100734,
+            "supply": 66,
+            "stations": 1
+          }
+        ]
+      },
+      {
+        "player": 2,
+        "units_produced": [
+          {
+            "type": "SA.artillery",
+            "count": 8
+          },
+          {
+            "type": "SA.at",
+            "count": 3
+          },
+          {
+            "type": "SA.engineer",
+            "count": 2
+          },
+          {
+            "type": "SA.hauler",
+            "count": 4
+          },
+          {
+            "type": "SA.medic",
+            "count": 4
+          },
+          {
+            "type": "SA.recon",
+            "count": 7
+          },
+          {
+            "type": "SA.repair",
+            "count": 4
+          },
+          {
+            "type": "SA.rifle",
+            "count": 22
+          },
+          {
+            "type": "SA.rig",
+            "count": 2
+          },
+          {
+            "type": "SA.tank",
+            "count": 8
+          }
+        ],
+        "buildings_constructed": [
+          {
+            "type": "barracks",
+            "count": 1
+          },
+          {
+            "type": "depot",
+            "count": 1
+          },
+          {
+            "type": "factory",
+            "count": 3
+          },
+          {
+            "type": "hq",
+            "count": 1
+          },
+          {
+            "type": "outpost",
+            "count": 1
+          },
+          {
+            "type": "power",
+            "count": 2
+          },
+          {
+            "type": "radar",
+            "count": 1
+          },
+          {
+            "type": "supply",
+            "count": 2
+          },
+          {
+            "type": "turret",
+            "count": 1
+          }
+        ],
+        "units_lost": 65,
+        "buildings_lost": 14,
+        "repair_spent": 1697625,
+        "missile_spent": 0,
+        "interceptors_fired": 0,
+        "station_control_ticks": 31008,
+        "timeline": [
+          {
+            "tick": 0,
+            "credits": 6000000,
+            "income": 0,
+            "spent": 0,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 400,
+            "credits": 5500000,
+            "income": 0,
+            "spent": 500000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 800,
+            "credits": 3700000,
+            "income": 0,
+            "spent": 2300000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 1200,
+            "credits": 3700000,
+            "income": 0,
+            "spent": 2300000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 1600,
+            "credits": 2200000,
+            "income": 0,
+            "spent": 3800000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 2000,
+            "credits": 2800000,
+            "income": 600000,
+            "spent": 3800000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 2400,
+            "credits": 1250000,
+            "income": 1200000,
+            "spent": 5950000,
+            "supply": 0,
+            "stations": 0
+          },
+          {
+            "tick": 2800,
+            "credits": 1250000,
+            "income": 1800000,
+            "spent": 6550000,
+            "supply": 3,
+            "stations": 0
+          },
+          {
+            "tick": 3200,
+            "credits": 1150000,
+            "income": 2400000,
+            "spent": 7250000,
+            "supply": 7,
+            "stations": 0
+          },
+          {
+            "tick": 3600,
+            "credits": 200000,
+            "income": 3600000,
+            "spent": 9400000,
+            "supply": 8,
+            "stations": 0
+          },
+          {
+            "tick": 4000,
+            "credits": 450000,
+            "income": 4200000,
+            "spent": 9750000,
+            "supply": 10,
+            "stations": 0
+          },
+          {
+            "tick": 4400,
+            "credits": 1050000,
+            "income": 4800000,
+            "spent": 9750000,
+            "supply": 11,
+            "stations": 0
+          },
+          {
+            "tick": 4800,
+            "credits": 250000,
+            "income": 5400000,
+            "spent": 11150000,
+            "supply": 11,
+            "stations": 0
+          },
+          {
+            "tick": 5200,
+            "credits": 150000,
+            "income": 6600000,
+            "spent": 12450000,
+            "supply": 16,
+            "stations": 0
+          },
+          {
+            "tick": 5600,
+            "credits": 750000,
+            "income": 7200000,
+            "spent": 12450000,
+            "supply": 18,
+            "stations": 0
+          },
+          {
+            "tick": 6000,
+            "credits": 1350000,
+            "income": 7800000,
+            "spent": 12450000,
+            "supply": 18,
+            "stations": 0
+          },
+          {
+            "tick": 6400,
+            "credits": 86200,
+            "income": 8436200,
+            "spent": 14350000,
+            "supply": 20,
+            "stations": 1
+          },
+          {
+            "tick": 6800,
+            "credits": 820920,
+            "income": 9676200,
+            "spent": 14855280,
+            "supply": 26,
+            "stations": 1
+          },
+          {
+            "tick": 7200,
+            "credits": 446670,
+            "income": 10316200,
+            "spent": 15869530,
+            "supply": 26,
+            "stations": 1
+          },
+          {
+            "tick": 7600,
+            "credits": 1045870,
+            "income": 10956200,
+            "spent": 15910330,
+            "supply": 26,
+            "stations": 1
+          },
+          {
+            "tick": 8000,
+            "credits": 85870,
+            "income": 11596200,
+            "spent": 17510330,
+            "supply": 23,
+            "stations": 1
+          },
+          {
+            "tick": 8400,
+            "credits": 325870,
+            "income": 12836200,
+            "spent": 18510330,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 8800,
+            "credits": 352520,
+            "income": 13476200,
+            "spent": 19123680,
+            "supply": 22,
+            "stations": 1
+          },
+          {
+            "tick": 9200,
+            "credits": 975570,
+            "income": 14116200,
+            "spent": 19140630,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 9600,
+            "credits": 148320,
+            "income": 14756200,
+            "spent": 20607880,
+            "supply": 21,
+            "stations": 1
+          },
+          {
+            "tick": 10000,
+            "credits": 1371820,
+            "income": 15996200,
+            "spent": 20624380,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 10400,
+            "credits": 194270,
+            "income": 16636200,
+            "spent": 22441930,
+            "supply": 22,
+            "stations": 1
+          },
+          {
+            "tick": 10800,
+            "credits": 449320,
+            "income": 17276200,
+            "spent": 22826880,
+            "supply": 21,
+            "stations": 1
+          },
+          {
+            "tick": 11200,
+            "credits": 737870,
+            "income": 17916200,
+            "spent": 23178330,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 11600,
+            "credits": 517870,
+            "income": 19156200,
+            "spent": 24638330,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 12000,
+            "credits": 1131011,
+            "income": 19796200,
+            "spent": 24665189,
+            "supply": 23,
+            "stations": 1
+          },
+          {
+            "tick": 12400,
+            "credits": 1756611,
+            "income": 20436200,
+            "spent": 24679589,
+            "supply": 23,
+            "stations": 1
+          },
+          {
+            "tick": 12800,
+            "credits": 242111,
+            "income": 21076200,
+            "spent": 26834089,
+            "supply": 21,
+            "stations": 1
+          },
+          {
+            "tick": 13200,
+            "credits": 1164559,
+            "income": 22316200,
+            "spent": 27151641,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 13600,
+            "credits": 391009,
+            "income": 22956200,
+            "spent": 28565191,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 14000,
+            "credits": 1020449,
+            "income": 23596200,
+            "spent": 28575751,
+            "supply": 17,
+            "stations": 1
+          },
+          {
+            "tick": 14400,
+            "credits": 189599,
+            "income": 24236200,
+            "spent": 30046601,
+            "supply": 21,
+            "stations": 1
+          },
+          {
+            "tick": 14800,
+            "credits": 1429599,
+            "income": 25476200,
+            "spent": 30046601,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 15200,
+            "credits": 669599,
+            "income": 26116200,
+            "spent": 31446601,
+            "supply": 22,
+            "stations": 1
+          },
+          {
+            "tick": 15600,
+            "credits": 159599,
+            "income": 26756200,
+            "spent": 32596601,
+            "supply": 26,
+            "stations": 1
+          },
+          {
+            "tick": 16000,
+            "credits": 771599,
+            "income": 27396200,
+            "spent": 32624601,
+            "supply": 25,
+            "stations": 1
+          },
+          {
+            "tick": 16400,
+            "credits": 879224,
+            "income": 28636200,
+            "spent": 33756976,
+            "supply": 21,
+            "stations": 1
+          },
+          {
+            "tick": 16800,
+            "credits": 74349,
+            "income": 29276200,
+            "spent": 35201851,
+            "supply": 21,
+            "stations": 1
+          },
+          {
+            "tick": 17200,
+            "credits": 695349,
+            "income": 29916200,
+            "spent": 35220851,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 17600,
+            "credits": 1297439,
+            "income": 30556200,
+            "spent": 35258761,
+            "supply": 28,
+            "stations": 1
+          },
+          {
+            "tick": 18000,
+            "credits": 177239,
+            "income": 31196200,
+            "spent": 37018961,
+            "supply": 28,
+            "stations": 1
+          },
+          {
+            "tick": 18400,
+            "credits": 812889,
+            "income": 31836200,
+            "spent": 37023311,
+            "supply": 22,
+            "stations": 1
+          },
+          {
+            "tick": 18800,
+            "credits": 897300,
+            "income": 33076200,
+            "spent": 38178900,
+            "supply": 26,
+            "stations": 1
+          },
+          {
+            "tick": 19200,
+            "credits": 87800,
+            "income": 33716200,
+            "spent": 39628400,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 19600,
+            "credits": 713700,
+            "income": 34356200,
+            "spent": 39642500,
+            "supply": 26,
+            "stations": 1
+          },
+          {
+            "tick": 20000,
+            "credits": 1353700,
+            "income": 34996200,
+            "spent": 39642500,
+            "supply": 28,
+            "stations": 1
+          },
+          {
+            "tick": 20400,
+            "credits": 838300,
+            "income": 36236200,
+            "spent": 41397900,
+            "supply": 29,
+            "stations": 1
+          },
+          {
+            "tick": 20800,
+            "credits": 845450,
+            "income": 36876200,
+            "spent": 42030750,
+            "supply": 31,
+            "stations": 1
+          },
+          {
+            "tick": 21200,
+            "credits": 1429239,
+            "income": 37516200,
+            "spent": 42086961,
+            "supply": 33,
+            "stations": 1
+          },
+          {
+            "tick": 21600,
+            "credits": 354239,
+            "income": 37556200,
+            "spent": 43201961,
+            "supply": 30,
+            "stations": 1
+          },
+          {
+            "tick": 22000,
+            "credits": 636489,
+            "income": 38196200,
+            "spent": 43559711,
+            "supply": 31,
+            "stations": 1
+          },
+          {
+            "tick": 22400,
+            "credits": 929039,
+            "income": 38836200,
+            "spent": 43907161,
+            "supply": 26,
+            "stations": 1
+          },
+          {
+            "tick": 22800,
+            "credits": 119039,
+            "income": 40076200,
+            "spent": 45957161,
+            "supply": 24,
+            "stations": 1
+          },
+          {
+            "tick": 23200,
+            "credits": 727689,
+            "income": 40716200,
+            "spent": 45988511,
+            "supply": 25,
+            "stations": 1
+          },
+          {
+            "tick": 23600,
+            "credits": 517689,
+            "income": 41956200,
+            "spent": 47438511,
+            "supply": 26,
+            "stations": 1
+          },
+          {
+            "tick": 24000,
+            "credits": 508039,
+            "income": 41996200,
+            "spent": 47488161,
+            "supply": 27,
+            "stations": 1
+          },
+          {
+            "tick": 24400,
+            "credits": 1127339,
+            "income": 42636200,
+            "spent": 47508861,
+            "supply": 29,
+            "stations": 1
+          },
+          {
+            "tick": 24800,
+            "credits": 1722639,
+            "income": 43276200,
+            "spent": 47553561,
+            "supply": 23,
+            "stations": 1
+          },
+          {
+            "tick": 25200,
+            "credits": 819139,
+            "income": 44516200,
+            "spent": 49697061,
+            "supply": 23,
+            "stations": 1
+          },
+          {
+            "tick": 25600,
+            "credits": 231839,
+            "income": 44556200,
+            "spent": 50324361,
+            "supply": 27,
+            "stations": 1
+          },
+          {
+            "tick": 26000,
+            "credits": 837489,
+            "income": 45196200,
+            "spent": 50358711,
+            "supply": 29,
+            "stations": 1
+          },
+          {
+            "tick": 26400,
+            "credits": 1386005,
+            "income": 45836200,
+            "spent": 50450195,
+            "supply": 29,
+            "stations": 1
+          },
+          {
+            "tick": 26800,
+            "credits": 1936405,
+            "income": 46476200,
+            "spent": 50539795,
+            "supply": 29,
+            "stations": 1
+          },
+          {
+            "tick": 27200,
+            "credits": 1911655,
+            "income": 46516200,
+            "spent": 50604545,
+            "supply": 29,
+            "stations": 1
+          },
+          {
+            "tick": 27600,
+            "credits": 2481770,
+            "income": 47156200,
+            "spent": 50674430,
+            "supply": 29,
+            "stations": 1
+          },
+          {
+            "tick": 28000,
+            "credits": 780145,
+            "income": 48996200,
+            "spent": 54216055,
+            "supply": 29,
+            "stations": 1
+          },
+          {
+            "tick": 28400,
+            "credits": 163294,
+            "income": 49036200,
+            "spent": 54872906,
+            "supply": 22,
+            "stations": 1
+          },
+          {
+            "tick": 28800,
+            "credits": 484294,
+            "income": 49676200,
+            "spent": 55191906,
+            "supply": 20,
+            "stations": 1
+          },
+          {
+            "tick": 29200,
+            "credits": 338219,
+            "income": 50316200,
+            "spent": 55977981,
+            "supply": 9,
+            "stations": 1
+          },
+          {
+            "tick": 29600,
+            "credits": 948094,
+            "income": 50956200,
+            "spent": 56008106,
+            "supply": 11,
+            "stations": 1
+          },
+          {
+            "tick": 30000,
+            "credits": 221344,
+            "income": 50996200,
+            "spent": 56774856,
+            "supply": 7,
+            "stations": 1
+          },
+          {
+            "tick": 30400,
+            "credits": 555844,
+            "income": 51636200,
+            "spent": 57080356,
+            "supply": 5,
+            "stations": 1
+          },
+          {
+            "tick": 30800,
+            "credits": 892844,
+            "income": 52276200,
+            "spent": 57383356,
+            "supply": 9,
+            "stations": 1
+          },
+          {
+            "tick": 31200,
+            "credits": 321700,
+            "income": 52916200,
+            "spent": 58594500,
+            "supply": 5,
+            "stations": 1
+          },
+          {
+            "tick": 31600,
+            "credits": 958575,
+            "income": 53556200,
+            "spent": 58597625,
+            "supply": 2,
+            "stations": 1
+          },
+          {
+            "tick": 32000,
+            "credits": 1598575,
+            "income": 54196200,
+            "spent": 58597625,
+            "supply": 2,
+            "stations": 1
+          },
+          {
+            "tick": 32400,
+            "credits": 1038575,
+            "income": 54836200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 32800,
+            "credits": 1678575,
+            "income": 55476200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 33200,
+            "credits": 2918575,
+            "income": 56716200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 33600,
+            "credits": 2958575,
+            "income": 56756200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 34000,
+            "credits": 3598575,
+            "income": 57396200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 34400,
+            "credits": 4238575,
+            "income": 58036200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 34800,
+            "credits": 4278575,
+            "income": 58076200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 35200,
+            "credits": 4318575,
+            "income": 58116200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 35600,
+            "credits": 4358575,
+            "income": 58156200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 36000,
+            "credits": 4398575,
+            "income": 58196200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 36400,
+            "credits": 4438575,
+            "income": 58236200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 36800,
+            "credits": 4478575,
+            "income": 58276200,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 1
+          },
+          {
+            "tick": 37046,
+            "credits": 4503175,
+            "income": 58300800,
+            "spent": 59797625,
+            "supply": 0,
+            "stations": 0
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "tick": 6038,
+        "kind": "station_captured",
+        "player": 2,
+        "type": "",
+        "text": ""
+      },
+      {
+        "tick": 6290,
+        "kind": "station_captured",
+        "player": 1,
+        "type": "",
+        "text": ""
+      },
+      {
+        "tick": 36446,
+        "kind": "defeat_countdown",
+        "player": 2,
+        "type": "",
+        "text": ""
+      },
+      {
+        "tick": 37046,
+        "kind": "player_defeated",
+        "player": 2,
+        "type": "",
+        "text": ""
+      },
+      {
+        "tick": 37046,
+        "kind": "match_ended",
+        "player": 0,
+        "type": "",
+        "text": ""
+      }
+    ],
+    "omitted_events": 0
+  }
+}
