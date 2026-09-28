@@ -1,0 +1,75 @@
+{
+  "scope": "IR06 observer optional Normal/Hard assault prioritizes currently visible armed home threats; no other tactics or budgets changed",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "7fa0b3e625b0edae188c2607a66d8551cb667381854d13969803c2af0262335d",
+  "base_source_lock_sha256": "cc20b7c036d5625ce863a282eef58a702a0606c36d43ebc70bb77309763c33dd",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:53:32.984951+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-home-defense/runs/20260928T225332Z-ir06-normal-home-defense/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-home-defense/source",
+      "started": "2026-09-28T22:53:32.985261+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 3.493,
+      "completed": "2026-09-28T22:53:36.478125+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-home-defense/runs/20260928T225332Z-ir06-normal-home-defense/sim.test",
+        "-test.run=^TestAuthoredOptionalObserverNetwork$/^normal$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-home-defense/source/pkg/sim",
+      "started": "2026-09-28T22:53:36.484890+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 38.527,
+      "completed": "2026-09-28T22:54:15.011367+00:00"
+    }
+  ],
+  "binary_sha256": "e3701de11b9788abb62f577749a3b7c966e1b35e70abc95c9373cedadad2e689",
+  "exit_code": 1,
+  "completed": "2026-09-28T22:54:15.012201+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.failed.save.json": {
+      "bytes": 1250477,
+      "sha256": "0bb133e236aefa9837db0b98c219facc4fcce9d669e325437a6414b11a0dc18e"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.failed.view.json": {
+      "bytes": 458329,
+      "sha256": "beb420d32ac5609e4a0e3c66c0f7251faa1dba8f524204a5a03620f810aaaf92"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.fatal-2901052790/driver-orders.json": {
+      "bytes": 588934,
+      "sha256": "18e385d1b9f328f6be3e7e06581fcbcf54cf0620396054aea7bc789ee8f83bea"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.fatal-2901052790/manifest.json": {
+      "bytes": 866,
+      "sha256": "1b5fe4ef5718b9c47cb7bc4296fc5c293a8f83d18245f0fc092d5c7d843311c8"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.fatal-2901052790/owner.view.json": {
+      "bytes": 458329,
+      "sha256": "beb420d32ac5609e4a0e3c66c0f7251faa1dba8f524204a5a03620f810aaaf92"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.fatal-2901052790/state.save.json": {
+      "bytes": 1250477,
+      "sha256": "0bb133e236aefa9837db0b98c219facc4fcce9d669e325437a6414b11a0dc18e"
+    }
+  }
+}

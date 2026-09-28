@@ -1,0 +1,11 @@
+--- a/pkg/sim/authored_campaign_acceptance_test.go
++++ b/pkg/sim/authored_campaign_acceptance_test.go
+@@ -1689,7 +1689,7 @@
+ 				}
+ 			}
+ 		}
+-		if r.definition.ID == "sy-06-open-road" && r.difficulty != "hard" || r.definition.ID == "sa-06-shieldline" {
++		if r.definition.ID == "sy-06-open-road" && r.difficulty != "hard" || r.definition.ID == "sa-06-shieldline" || r.requiredOptional == "observer-network" && r.difficulty != "easy" {
+ 			closest := int64(22000 * 22000)
+ 			for _, enemy := range r.view().Entities {
+ 				if enemy.Owner != 2 && enemy.Owner != 4 {
