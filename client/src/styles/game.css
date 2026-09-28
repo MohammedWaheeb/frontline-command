@@ -375,3 +375,82 @@ button.primary,button.primary:hover:not(:disabled){border-image:none}
    of compressing two-line labels across adjacent keys. */
 .command-nav button{flex:0 0 auto;line-height:1.15;text-align:left}
 .command-nav button>span:not(.nav-arrow){min-width:0;flex:1}
+
+/* ==========================================================================
+   Console polish 13:30 (Claude, claude-opus-5-5). Presentation only: removes
+   faux socket grids, replaces native blue/white form widgets with warm device
+   parts, and gives empty wells a single engraved instruction.
+   ========================================================================== */
+:root{--chevron:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23d0ae66' stroke-width='2'/%3E%3C/svg%3E")}
+
+/* Selectors read as brass-latched LCD fields, not browser dropdowns. */
+select{appearance:none;-webkit-appearance:none;background-image:var(--chevron);background-repeat:no-repeat;background-position:right 10px center;background-size:12px 8px;padding-right:30px!important;cursor:pointer}
+select:disabled{cursor:not-allowed;opacity:.6}
+select option{background:#1e1c18;color:#ede6d6}
+
+/* Sliders: recessed slot with a brass thumb (replay timeline, minimap, audio). */
+input[type=range]{-webkit-appearance:none;appearance:none;height:22px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;background:linear-gradient(90deg,#6e5528,#a8843f);background-color:#0b0a09;box-shadow:inset 0 1px 3px #000,0 1px 0 var(--metal-hi);border:1px solid #000}
+input[type=range]::-moz-range-track{height:6px;background:#0b0a09;box-shadow:inset 0 1px 3px #000;border:1px solid #000}
+input[type=range]::-moz-range-progress{height:6px;background:linear-gradient(90deg,#6e5528,#a8843f)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:20px;margin-top:-8px;background:linear-gradient(180deg,#e0c079,#a8843f 55%,#6e5528);border:1px solid #1a1206;box-shadow:inset 0 1px 0 #f3dca0,0 2px 0 #0b0a09}
+input[type=range]::-moz-range-thumb{width:14px;height:20px;border-radius:0;background:linear-gradient(180deg,#e0c079,#a8843f 55%,#6e5528);border:1px solid #1a1206;box-shadow:inset 0 1px 0 #f3dca0,0 2px 0 #0b0a09}
+input[type=range]:focus-visible{outline:2px solid var(--fc-color-focus-ring);outline-offset:2px}
+
+/* Charge/progress meters: amber element in a black slot (no white native bar). */
+progress{-webkit-appearance:none;appearance:none;height:8px;border:1px solid #000;background:#0b0a09;box-shadow:inset 0 1px 3px #000,0 1px 0 var(--metal-hi);color:var(--amber)}
+progress::-webkit-progress-bar{background:#0b0a09}
+progress::-webkit-progress-value{background:repeating-linear-gradient(90deg,#e2a232 0 6px,#8a5f1a 6px 8px);box-shadow:0 0 6px rgba(226,162,50,.4)}
+progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0 6px,#8a5f1a 6px 8px)}
+.status-defense progress::-webkit-progress-value{background:repeating-linear-gradient(90deg,#9fd45a 0 6px,#3d5222 6px 8px);box-shadow:0 0 6px rgba(159,212,90,.35)}
+.status-defense progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#9fd45a 0 6px,#3d5222 6px 8px)}
+
+/* ---- Battlefield command well ------------------------------------------------ */
+/* One recessed well; no painted socket lattice that disagrees with real keys. */
+.battlefield-screen .command-grid,.battlefield-screen .cameo-grid{background:radial-gradient(ellipse 90% 70% at 50% 40%,#1b1915,#0e0d0b);box-shadow:inset 0 3px 6px #000,inset 0 0 0 1px #000,0 1px 0 var(--metal-hi)}
+.battlefield-screen .command-grid:empty{display:flex;align-items:center;justify-content:center}
+.battlefield-screen .command-grid:empty::after{content:'Select forces to arm command keys';font:700 calc(15px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.14em;text-transform:uppercase;color:#5d5647;text-shadow:0 1px 0 rgba(255,238,205,.06)}
+.battlefield-screen .cameo-grid .production-empty{grid-column:1/-1;align-self:start;margin:4px;padding:14px 10px;background:transparent;box-shadow:none;border:1px dashed #3f3a30;color:#bdb4a2;font:600 calc(14px * var(--fc-ui-scale))/1.4 var(--fc-font-label)}
+
+/* Awaiting orders: the faction seal sits in the portrait bezel, like a unit. */
+.battlefield-screen .selection-overview>.emblem{width:calc(78px * var(--fc-ui-scale));height:calc(78px * var(--fc-ui-scale));padding:12px;flex:none;border-radius:50%;color:var(--faction-accent);opacity:1;background:radial-gradient(circle,#1d1b16 55%,#0b0a09 72%);box-shadow:0 0 0 3px var(--brass),0 0 0 4px #0b0a09,inset 0 3px 8px #000}
+.battlefield-screen .selection-overview h2{color:#f1e8d2}
+
+/* Faction paint stripe under the brass rail binds tray and sidebar to one device. */
+.battlefield-screen .selection-tray::after{height:6px;background:linear-gradient(180deg,var(--brass-hi) 0 2px,var(--brass-dk) 2px 3px,var(--faction-paint) 3px 6px)}
+
+/* Production queue: legible empty line; progress under, not over, the name. */
+.battlefield-screen .production-queue>.muted{display:block;font:600 calc(13px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.04em;color:#8a8273}
+.battlefield-screen .queue-items button>span,.battlefield-screen .queue-items button>small{position:relative;z-index:1}
+.battlefield-screen .queue-items i{top:auto;height:3px;background:linear-gradient(90deg,var(--amber),var(--amber-hi));border-right:0;box-shadow:0 0 6px rgba(244,194,78,.5)}
+.battlefield-screen .queue-items button:not(:disabled):hover>small::after{content:' ✕';color:#f0a48c}
+
+/* Facility selector matches the nameplate above it. */
+.battlefield-screen .production-source{padding:0 8px 6px}
+.battlefield-screen .production-source select{min-height:calc(30px * var(--fc-ui-scale));color:#e6dcc2;background-color:#0b0a09}
+
+/* Replay transport in the bottom well: engraved labels, primary play key. */
+.battlefield-screen .replay-controls label{color:var(--brass-hi);font:700 calc(12px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.1em;text-transform:uppercase}
+.battlefield-screen .replay-controls>span{color:var(--lcd);background:#0b0a09;box-shadow:inset 0 1px 3px #000;padding:2px 6px;text-shadow:0 0 6px rgba(242,179,64,.35)}
+.battlefield-screen .replay-controls>button:first-child{color:#fff0c4;border-image-source:var(--key-active);background:var(--key-fill-active) padding-box}
+.battlefield-screen .replay-controls>button:first-child .icon{color:var(--amber-hi)}
+
+/* ---- Command center ----------------------------------------------------------- */
+.doctrine-row>div{font:700 calc(13px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.12em;color:#c8bb90}
+.doctrine-row .emblem{color:var(--brass-hi);opacity:.9}
+.faction-choices button .emblem{width:calc(46px * var(--fc-ui-scale));height:calc(46px * var(--fc-ui-scale))}
+.doctrine{font-family:var(--fc-font-label);font-size:calc(15px * var(--fc-ui-scale));letter-spacing:.03em;color:#d0c396}
+
+/* Dialog readouts: section heads engraved in brass on a quiet rule. */
+.unit-status-readout .status-defense h4,.unit-status-readout .status-ranges h4{color:var(--brass-hi);letter-spacing:.1em}
+
+/* Painted menu illustration (column-02 candidate). The painting reserves only its
+   left third; the menu needs more, so the image slides right by up to 10% and
+   crops its dark right margin, never past the hero tank's rear (88.5% of width).
+   Overrides the legacy portrait rule: no opacity, sepia, desaturation or zoom. */
+.command-backdrop .menu-keyart{position:absolute;inset:0;overflow:hidden;background:#15120e;--ka-w:max(177.8vh,90%)}
+.command-backdrop .menu-keyart img{position:absolute;top:0;right:auto;bottom:auto;left:min(10%,calc(100% - .9 * var(--ka-w)));width:var(--ka-w);height:auto;aspect-ratio:1672/941;opacity:1;filter:none;transform:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%);mask-image:linear-gradient(90deg,transparent,#000 9%)}
+.command-backdrop .menu-keyart::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(14,13,11,.62),rgba(14,13,11,.2) 34%,transparent 52%),linear-gradient(0deg,rgba(14,13,11,.9),transparent 17%)}
+/* Three-beat directive copy keeps clear of the painted cannon at 1280 and 1600. */
+.welcome p{max-width:16em}
+@media(max-width:1300px){.deploy-button{width:min(100%,320px)}}

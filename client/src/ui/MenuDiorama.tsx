@@ -1,8 +1,9 @@
 // Command-center backdrop: a staged motor-pool diorama composed at native 2×
 // resolution from the real terrain materials and authored sprite layers
-// (beauty / shadow / team mask). Presentation only — it is not a simulation,
-// not the pending key-art illustration, and it never claims unfinished art.
-import {useEffect,useRef} from 'react';
+// (beauty / shadow / team mask). Presentation only — it is not a simulation.
+// A packaged painted illustration replaces it when the art index lists one;
+// this canvas remains the offline/unpackaged and image-error fallback.
+import {useEffect,useRef,useState} from 'react';
 
 interface Frame {frame:{x:number;y:number;w:number;h:number};anchor?:{x:number;y:number}}
 interface Atlas {frames:Record<string,Frame>;meta:{image:string}}
@@ -21,7 +22,7 @@ const SCENE:Piece[]=[
  {id:'prop.sandbags',x:9.4,y:12.2,state:'idle',dir:0,team:TEAM},
  {id:'unit.US.tank',x:9.3,y:9.1,state:'idle',dir:5,turret:9,team:TEAM},
  {id:'unit.US.tank',x:11.2,y:10.4,state:'idle',dir:5,turret:10,team:TEAM},
- {id:'unit.SA.mobile_abm',x:6.8,y:10.6,state:'idle',dir:4,team:TEAM},
+ {id:'unit.SA.mobile_abm',x:12.8,y:12.6,state:'idle',dir:4,team:TEAM},   // clear of the directive copy
  {id:'unit.US.rig',x:4.8,y:6.9,state:'idle',dir:3,team:TEAM},
  {id:'unit.US.rifle',x:7.6,y:12.6,state:'idle',dir:2,team:TEAM},
  {id:'unit.US.rifle',x:5.9,y:12.9,state:'idle',dir:2,team:TEAM},
@@ -108,7 +109,20 @@ async function draw(canvas:HTMLCanvasElement,signal:AbortSignal,resources:Return
  g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(14,13,11,.55)');g.addColorStop(.18,'rgba(14,13,11,0)');g.addColorStop(.78,'rgba(14,13,11,0)');g.addColorStop(1,'rgba(14,13,11,.96)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
 }
 
+/** Painted main-menu illustration when the installed art index advertises one
+ * (`keyArt`, a path under /art/). Absent or failed images keep the authored
+ * canvas diorama, so an unpackaged candidate never produces a request or 404. */
 export function MenuDiorama(){
+ const [keyArt,setKeyArt]=useState<string|null>();
+ useEffect(()=>{const abort=new AbortController();
+  fetch('/art/index.json',{signal:abort.signal}).then(r=>r.ok?r.json():{}).then((index:{keyArt?:unknown})=>setKeyArt(typeof index.keyArt==='string'&&/^ui\/[\w./-]+\.(png|webp|jpg)$/.test(index.keyArt)?`/art/${index.keyArt}`:null)).catch(()=>{if(!abort.signal.aborted)setKeyArt(null)});
+  return()=>abort.abort()},[]);
+ if(keyArt===undefined)return null;
+ if(keyArt===null)return <CanvasDiorama/>;
+ return <div className="menu-keyart" data-key-art={keyArt} aria-hidden="true"><img alt="" src={keyArt} decoding="async" onError={()=>setKeyArt(null)}/></div>;
+}
+
+function CanvasDiorama(){
  const canvas=useRef<HTMLCanvasElement>(null);
  useEffect(()=>{
   const node=canvas.current;if(!node)return;let active:AbortController|undefined;
