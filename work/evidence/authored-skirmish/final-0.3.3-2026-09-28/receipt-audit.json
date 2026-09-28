@@ -1,0 +1,530 @@
+[
+  {
+    "case": "four-ffa",
+    "receipt": {
+      "player": 4,
+      "sequence": 111,
+      "index": 0,
+      "accepted": false,
+      "code": "occupied",
+      "tick": 10302
+    },
+    "order": {
+      "kind": "build",
+      "entities": [
+        1043
+      ],
+      "position": {
+        "x": 137500,
+        "y": 48500
+      },
+      "type": "SA.airfield"
+    },
+    "classification": "visible own moving actor enters proposed footprint after planning",
+    "actor": 22,
+    "positions": [
+      {
+        "tick": 10300,
+        "stage": "before_decision_tick",
+        "position": {
+          "x": 139500,
+          "y": 45200
+        }
+      },
+      {
+        "tick": 10301,
+        "stage": "after_decision_tick",
+        "position": {
+          "x": 139500,
+          "y": 45350
+        }
+      },
+      {
+        "tick": 10302,
+        "stage": "execution_tick",
+        "position": {
+          "x": 139500,
+          "y": 45500
+        }
+      }
+    ]
+  },
+  {
+    "case": "four-ffa",
+    "receipt": {
+      "player": 3,
+      "sequence": 156,
+      "index": 0,
+      "accepted": false,
+      "code": "occupied",
+      "tick": 10702
+    },
+    "order": {
+      "kind": "build",
+      "entities": [
+        1558
+      ],
+      "position": {
+        "x": 18500,
+        "y": 115500
+      },
+      "type": "power"
+    },
+    "classification": "visible own moving actor enters proposed footprint after planning",
+    "actor": 2143,
+    "positions": [
+      {
+        "tick": 10700,
+        "stage": "before_decision_tick",
+        "position": {
+          "x": 17589,
+          "y": 116911
+        }
+      },
+      {
+        "tick": 10701,
+        "stage": "after_decision_tick",
+        "position": {
+          "x": 17688,
+          "y": 116812
+        }
+      },
+      {
+        "tick": 10702,
+        "stage": "execution_tick",
+        "position": {
+          "x": 17688,
+          "y": 116812
+        }
+      }
+    ]
+  },
+  {
+    "case": "four-ffa",
+    "receipt": {
+      "player": 3,
+      "sequence": 206,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 12942
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        437
+      ],
+      "position": {
+        "x": 22500,
+        "y": 119500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 437,
+        "type": "SY.at",
+        "health": 15
+      }
+    ],
+    "after_events": [
+      {
+        "id": 7789,
+        "tick": 12941,
+        "kind": "under_attack",
+        "owner": 3,
+        "entity": 437,
+        "position": {
+          "x": 22999,
+          "y": 108880
+        },
+        "value": 3000,
+        "scope": "owner"
+      },
+      {
+        "id": 7790,
+        "tick": 12941,
+        "kind": "destroyed",
+        "owner": 3,
+        "entity": 437,
+        "position": {
+          "x": 22999,
+          "y": 108880
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "mirror-IR",
+    "receipt": {
+      "player": 2,
+      "sequence": 63,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 6142
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        24
+      ],
+      "target": 30,
+      "position": {
+        "x": 104280,
+        "y": 65001
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 24,
+        "type": "IR.engineer",
+        "health": 40
+      }
+    ],
+    "after_events": [
+      {
+        "id": 335,
+        "tick": 6141,
+        "kind": "under_attack",
+        "owner": 2,
+        "entity": 24,
+        "position": {
+          "x": 102999,
+          "y": 64261
+        },
+        "value": 6000,
+        "scope": "owner"
+      },
+      {
+        "id": 336,
+        "tick": 6141,
+        "kind": "destroyed",
+        "owner": 2,
+        "entity": 24,
+        "position": {
+          "x": 102999,
+          "y": 64261
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "mirror-IR",
+    "receipt": {
+      "player": 2,
+      "sequence": 315,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 17702
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        1449
+      ],
+      "position": {
+        "x": 109500,
+        "y": 63500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 1449,
+        "type": "IR.at",
+        "health": 127
+      }
+    ],
+    "after_events": [
+      {
+        "id": 5147,
+        "tick": 17701,
+        "kind": "under_attack",
+        "owner": 2,
+        "entity": 1449,
+        "position": {
+          "x": 64935,
+          "y": 51001
+        },
+        "value": 28000,
+        "scope": "owner"
+      },
+      {
+        "id": 5148,
+        "tick": 17701,
+        "kind": "destroyed",
+        "owner": 2,
+        "entity": 1449,
+        "position": {
+          "x": 64935,
+          "y": 51001
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "mirror-SA",
+    "receipt": {
+      "player": 1,
+      "sequence": 94,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 7302
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        40
+      ],
+      "target": 25,
+      "position": {
+        "x": 150475,
+        "y": 142470
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 40,
+        "type": "SA.medic",
+        "health": 100
+      }
+    ],
+    "after_events": [
+      {
+        "id": 528,
+        "tick": 7301,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 40,
+        "position": {
+          "x": 104088,
+          "y": 119088
+        },
+        "value": 16000,
+        "scope": "owner"
+      }
+    ]
+  },
+  {
+    "case": "mirror-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 70,
+      "index": 1,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 5862
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        105
+      ],
+      "position": {
+        "x": 20500,
+        "y": 64500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 105,
+        "type": "SY.at",
+        "health": 84
+      }
+    ],
+    "after_events": [
+      {
+        "id": 451,
+        "tick": 5861,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 105,
+        "position": {
+          "x": 58278,
+          "y": 59432
+        },
+        "value": 16000,
+        "scope": "owner"
+      }
+    ]
+  },
+  {
+    "case": "mirror-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 110,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 8142
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        31
+      ],
+      "target": 200,
+      "position": {
+        "x": 64242,
+        "y": 61879
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 31,
+        "type": "SY.rifle",
+        "health": 64
+      }
+    ],
+    "after_events": [
+      {
+        "id": 1270,
+        "tick": 8141,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 31,
+        "position": {
+          "x": 65999,
+          "y": 60640
+        },
+        "value": 16000,
+        "scope": "owner"
+      },
+      {
+        "id": 1271,
+        "tick": 8141,
+        "kind": "destroyed",
+        "owner": 1,
+        "entity": 31,
+        "position": {
+          "x": 65999,
+          "y": 60640
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "pair-IR-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 111,
+      "index": 0,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 7462
+    },
+    "order": {
+      "kind": "guard",
+      "entities": [
+        296
+      ],
+      "target": 38,
+      "position": {
+        "x": 61875,
+        "y": 70500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 296,
+        "type": "SY.at",
+        "health": 84
+      }
+    ],
+    "after_events": [
+      {
+        "id": 1010,
+        "tick": 7461,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 296,
+        "position": {
+          "x": 101527,
+          "y": 25343
+        },
+        "value": 16000,
+        "scope": "owner"
+      },
+      {
+        "id": 1012,
+        "tick": 7461,
+        "kind": "destroyed",
+        "owner": 1,
+        "entity": 296,
+        "position": {
+          "x": 101527,
+          "y": 25343
+        },
+        "scope": "visible"
+      }
+    ]
+  },
+  {
+    "case": "pair-IR-SY",
+    "receipt": {
+      "player": 1,
+      "sequence": 256,
+      "index": 3,
+      "accepted": false,
+      "code": "not_owner",
+      "tick": 14022
+    },
+    "order": {
+      "kind": "move",
+      "entities": [
+        957
+      ],
+      "position": {
+        "x": 25500,
+        "y": 25500
+      }
+    },
+    "classification": "owned unit destroyed between decision and execution",
+    "before_sources": [
+      {
+        "id": 957,
+        "type": "SY.rifle",
+        "health": 73
+      }
+    ],
+    "after_events": [
+      {
+        "id": 2936,
+        "tick": 14021,
+        "kind": "under_attack",
+        "owner": 1,
+        "entity": 957,
+        "position": {
+          "x": 39060,
+          "y": 27500
+        },
+        "value": 18400,
+        "scope": "owner"
+      },
+      {
+        "id": 2937,
+        "tick": 14021,
+        "kind": "destroyed",
+        "owner": 1,
+        "entity": 957,
+        "position": {
+          "x": 39060,
+          "y": 27500
+        },
+        "scope": "visible"
+      }
+    ]
+  }
+]

@@ -1,11 +1,12 @@
 # Complete deterministic bot matches on authored launch maps
 
-The simulation **0.3.2 matrix passes all thirteen lifecycle/economy cases**,
-including ordinary elimination, initial/final saves and exact full replay.
-Its receipt audit exposes a remaining public defeated-station planner defect;
-this is not an all-orders-clean report. The earlier0.3.0 success and0.3.1 Port
-timeout remain separately preserved. This is functional acceptance, not a
-balance approval or a multi-seed/human playtest sample.
+The simulation **0.3.3 matrix passes all thirteen cases**, including real
+income/spending, ordinary elimination, initial/final saves and exact full replay.
+Its ten rejected execution receipts were individually classified: eight actors
+destroyed between planning and execution, and two moving placement blockers.
+The repeated invalid station-capture intentions from 0.3.2 are absent.
+This is functional acceptance, not a balance approval or a multi-seed/human
+playtest sample. Every earlier source run and failure remains preserved below.
 
 ## Existing evidence and the gap
 
@@ -516,3 +517,40 @@ See `receipt-audit.json` and each affected case's `rejection-context.json` and
 inspection logs. The Port recovery details, including the old90-minute timeout
 and actual untouched-checkpoint movement, are in
 [AI task recovery](ai-task-recovery.md).
+
+## Current simulation 0.3.3 complete matrix
+
+The final thirteen-case rerun uses a fresh captured 0.3.3 production/test overlay
+in `final-0.3.3-2026-09-28/source`, following the public defeated-station filter
+checkpoint `f2b41e8`. Every case passes the same standard-start economy,
+ordinary-elimination, initial/final restore and checkpoint-free replay gates.
+The serial suite passed in 183.970s on the shared host; no hardware performance
+or balance claim is inferred from that wall duration.
+
+| Case | Final tick | Winning team | Exact final hash prefix |
+|---|---:|---:|---|
+| four-ffa | 36898 | 1 | `1d13f596f5dd` |
+| four-team | 14202 | 1 | `136fe0c0df6e` |
+| mirror-IR | 27507 | 1 | `20c89620e249` |
+| mirror-SA | 17875 | 1 | `2d4435af572a` |
+| mirror-SY | 18783 | 1 | `760b461c1e32` |
+| mirror-US | 12639 | 2 | `6a9e617a07c9` |
+| pair-IR-SA | 15988 | 1 | `71c43a2ba662` |
+| pair-IR-SY | 16819 | 2 | `ac661f523dbd` |
+| pair-SY-SA | 19720 | 2 | `4a6f89c483df` |
+| pair-US-IR | 21107 | 1 | `e4dd63d42a7c` |
+| pair-US-SA | 13670 | 2 | `77ddd579f2d5` |
+| pair-US-SY | 14706 | 1 | `a74d12dbaa09` |
+| three-ffa | 21503 | 1 | `61d0cefbbf9f` |
+
+The team match ends at tick 14202 with zero rejected execution receipts. The
+prior 104 defeated-station attempts are gone. The other cases retain exactly
+eight `not_owner` receipts after loss of the selected actor and two `occupied`
+receipts after visible owned units move into proposed building footprints.
+All ten were independently replayed again using 0.3.3, with three authorized
+boundary snapshots per receipt; their exact records are in `receipt-audit.json`.
+No rejection was silently discarded or reclassified as accepted. Full hashes,
+map hashes, native executable hashes and receipt counts are in `summary.json`;
+the original state, replay, command trace and minute samples remain in each
+case directory. This current result supersedes the 0.3.2 lifecycle report for
+acceptance while retaining that report's diagnosed planner defect as history.

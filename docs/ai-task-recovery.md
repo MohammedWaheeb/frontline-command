@@ -119,3 +119,11 @@ station followed by a usable neutral alternative. Actual capture admissions for
 eligible cases and existing ability/target regressions pass under race in2.745s.
 A final simulation-version boundary and affected full-match recheck remain
 required; the frozen0.3.2 records are unchanged.
+
+
+The final 0.3.3 thirteen-match rerun is now complete: all standard-start economy,
+ordinary elimination, initial/final restore and full replay gates pass. The
+team match has no rejected execution receipts, including no defeated-station
+attempts. The complete current-source results and the ten individually checked
+dynamic race receipts are recorded in
+[Authored skirmish acceptance](authored-skirmish-acceptance.md).
