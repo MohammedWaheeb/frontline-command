@@ -197,9 +197,20 @@ func (e *Engine) aiRecoveryOrders(p *Player, own []EntityView, goal Vec) []Order
 				continue
 			}
 		}
-		if len(v.Orders) > 0 && v.Orders[0].Kind == "guard" && v.HP*100 >= v.MaxHP*85 {
-			if target := e.aiOwnEntity(own, v.Orders[0].Target); target != nil && target.Building && e.repairRate(target, v) > 0 {
-				orders = append(orders, Order{Kind: "attack_move", Entities: []ID{v.ID}, Position: goal})
+		if len(v.Orders) > 0 && v.Orders[0].Kind == "guard" && v.Orders[0].Target != 0 {
+			target := e.aiOwnEntity(own, v.Orders[0].Target)
+			recovered := target != nil && e.repairRate(target, v) > 0 && v.HP*100 >= v.MaxHP*85
+			// Mobile medics/repair teams are recovery destinations too. Leaving
+			// their healed followers parked forever creates reciprocal guard
+			// clusters. A lost owned destination likewise cannot remain a task;
+			// critically damaged units still use the normal HQ retreat below.
+			orphaned := target == nil && v.HP*3 >= v.MaxHP
+			if recovered || orphaned {
+				kind := "stop"
+				if _, armed := e.weapon(v); armed {
+					kind = "attack_move"
+				}
+				orders = append(orders, Order{Kind: kind, Entities: []ID{v.ID}, Position: goal})
 				continue
 			}
 		}

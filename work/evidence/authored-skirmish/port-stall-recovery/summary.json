@@ -1,0 +1,183 @@
+{
+  "baseline": {
+    "directory": "work/evidence/authored-skirmish/final-0.3.1-2026-09-28/pair-SY-SA",
+    "completed_cases": 12,
+    "total_cases": 13,
+    "port_end": "time_limit",
+    "port_tick": 108100,
+    "independent_replay_exact": true,
+    "execution_rejections": 0
+  },
+  "untouched_preterminal_branch": {
+    "InitialHash": "79437dec8c0806d11b711827098e5948bf36f0c74e4e2285c2c349683ef3a589",
+    "FinalHash": "9f84f93a3dab1e7aaa32a6a3cb6691abcf8e110a395cce7834d977c0748c5687",
+    "Tick": 36000,
+    "Outcome": {
+      "finished": false,
+      "draw": false,
+      "winning_team": 0,
+      "reason": "",
+      "tick": 0
+    },
+    "Moved": {
+      "1": 38,
+      "2": 23
+    }
+  },
+  "runs": {
+    "fresh-match": {
+      "metadata": {
+        "simulation": "0.3.1",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28006
+      },
+      "map_sha256": "8c8a040e82cdacbb67ecb0f8fa40b5f0f5da1293809dc63f752490860a806830",
+      "go": "go1.27.1",
+      "executable_sha256": "3d99d623e583451c7cf9dec220b8550c5164d0f529058f49cbed5dc319a1a7aa",
+      "started": "2026-09-28T04:37:17.688205Z",
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "wall_seconds": 8.993719083,
+      "tick": 19720,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 19720
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 5068,
+      "final_hash": "8cba23e9d97732cdebea5c3cef10643a2d193366dfea6d4f9b1ec3ef139ed2d4",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 381,
+          "accepted": 380,
+          "rejected_by_code": {
+            "cooldown": 1
+          },
+          "executed_by_kind": {
+            "ability": 4,
+            "attack_move": 108,
+            "build": 6,
+            "capture": 5,
+            "deploy": 13,
+            "guard": 51,
+            "move": 141,
+            "pack": 11,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 4,
+            "train": 36
+          }
+        },
+        "2": {
+          "executed": 619,
+          "accepted": 619,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 6,
+            "attack_move": 201,
+            "board": 3,
+            "build": 9,
+            "capture": 9,
+            "escort": 5,
+            "gather": 1,
+            "guard": 64,
+            "hold": 3,
+            "move": 256,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 10,
+            "train": 48,
+            "unload": 2
+          }
+        }
+      }
+    },
+    "final-port-match": {
+      "metadata": {
+        "simulation": "0.3.1",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28006
+      },
+      "map_sha256": "8c8a040e82cdacbb67ecb0f8fa40b5f0f5da1293809dc63f752490860a806830",
+      "go": "go1.27.1",
+      "executable_sha256": "5b9db7fefacae838d99c86c90e7779f27dcfa678e126044fb12575a7b6a85470",
+      "started": "2026-09-28T04:41:14.100154Z",
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "wall_seconds": 11.756654042,
+      "tick": 19720,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 19720
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 5068,
+      "final_hash": "d10a644903091abb9a829797ddaa330efe8bf375a4366ceca315bf04d80d5a26",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "orders": {
+        "1": {
+          "executed": 380,
+          "accepted": 380,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 3,
+            "attack_move": 108,
+            "build": 6,
+            "capture": 5,
+            "deploy": 13,
+            "guard": 51,
+            "move": 141,
+            "pack": 11,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 4,
+            "train": 36
+          }
+        },
+        "2": {
+          "executed": 619,
+          "accepted": 619,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 6,
+            "attack_move": 201,
+            "board": 3,
+            "build": 9,
+            "capture": 9,
+            "escort": 5,
+            "gather": 1,
+            "guard": 64,
+            "hold": 3,
+            "move": 256,
+            "repair": 1,
+            "repair_reserve": 1,
+            "stop": 10,
+            "train": 48,
+            "unload": 2
+          }
+        }
+      }
+    }
+  },
+  "limits": [
+    "Development source remains0.3.1 pending next compatibility boundary",
+    "Single seed/pair corrected; final13 matrix required",
+    "Shared-host wall time is functional acceptance, not performance or balance evidence"
+  ],
+  "source_manifest": "final-source/manifest.json"
+}

@@ -4,7 +4,14 @@ package sim
 // intentions still pass through the normal execution validator and cost nothing.
 func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Vec) []Order {
 	orders := []Order{}
+	plannedFactionAbilities := map[string]bool{}
 	add := func(v *Entity, kind string, target ID, typ string, pos Vec) {
+		if kind == "ability" && aiFactionAbility(typ) {
+			if plannedFactionAbilities[typ] {
+				return
+			}
+			plannedFactionAbilities[typ] = true
+		}
 		orders = append(orders, Order{Kind: kind, Entities: []ID{v.ID}, Target: target, Type: typ, Position: pos})
 	}
 	var leader *Entity
@@ -197,4 +204,14 @@ func (e *Engine) aiDesignationTarget(target EntityView) bool {
 	}
 	unit, ok := e.catalog.Unit(target.Type)
 	return ok && (unit.Armor == "light" || unit.Armor == "heavy")
+}
+
+// Command-energy abilities share one player cooldown regardless of the chosen
+// source. Per-actor skills such as designate and volley remain independent.
+func aiFactionAbility(typ string) bool {
+	switch typ {
+	case "recon_sweep", "rapid_sortie", "relay_boost", "drone_recall", "rapid_transfer", "disperse", "emergency_power", "recovery_order":
+		return true
+	}
+	return false
 }

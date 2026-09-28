@@ -1,0 +1,42 @@
+=== RUN   TestAIRetreatChoosesOwnedPaidRepairAndCoverStaysWithinEngagementRange
+--- PASS: TestAIRetreatChoosesOwnedPaidRepairAndCoverStaysWithinEngagementRange (0.03s)
+=== RUN   TestAIFighterEscortsMovingFriendlyAircraftAndRecoversWhenItLands
+--- PASS: TestAIFighterEscortsMovingFriendlyAircraftAndRecoversWhenItLands (0.04s)
+=== RUN   TestAIDroneRecoveryUsesPaidRecallAndFallsBackToReturn
+--- PASS: TestAIDroneRecoveryUsesPaidRecallAndFallsBackToReturn (0.03s)
+=== RUN   TestAIHealedMobileSupportGuardRejoinsOrdinaryCombat
+=== RUN   TestAIHealedMobileSupportGuardRejoinsOrdinaryCombat/US.medic
+=== RUN   TestAIHealedMobileSupportGuardRejoinsOrdinaryCombat/US.repair
+--- PASS: TestAIHealedMobileSupportGuardRejoinsOrdinaryCombat (2.92s)
+    --- PASS: TestAIHealedMobileSupportGuardRejoinsOrdinaryCombat/US.medic (1.45s)
+    --- PASS: TestAIHealedMobileSupportGuardRejoinsOrdinaryCombat/US.repair (1.47s)
+=== RUN   TestAIRecoveryRetainsWorkingGuardsAndReleasesOrphans
+--- PASS: TestAIRecoveryRetainsWorkingGuardsAndReleasesOrphans (0.04s)
+=== RUN   TestAIConfirmedFailedProducerRallyReceivesOneOrdinaryGoal
+--- PASS: TestAIConfirmedFailedProducerRallyReceivesOneOrdinaryGoal (1.43s)
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/working
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/recent
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/damaged
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/other_destination
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/queued
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/channel
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/deployed
+=== RUN   TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/same_goal
+--- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement (0.29s)
+    --- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/working (0.04s)
+    --- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/recent (0.04s)
+    --- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/damaged (0.04s)
+    --- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/other_destination (0.03s)
+    --- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/queued (0.04s)
+    --- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/channel (0.03s)
+    --- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/deployed (0.03s)
+    --- PASS: TestAIStalledRallyPreservesActiveWorkAndRecentOrDamagedMovement/same_goal (0.04s)
+=== RUN   TestAITaskRecoveryIgnoresUnseenEnemyState
+--- PASS: TestAITaskRecoveryIgnoresUnseenEnemyState (0.07s)
+=== RUN   TestAIFactionAbilityPlannedOnceForMultipleSources
+--- PASS: TestAIFactionAbilityPlannedOnceForMultipleSources (0.04s)
+=== RUN   TestAIIndependentActorAbilitiesRemainAvailableTogether
+--- PASS: TestAIIndependentActorAbilitiesRemainAvailableTogether (0.03s)
+PASS
+ok  	frontlinecommand/pkg/sim	6.840s

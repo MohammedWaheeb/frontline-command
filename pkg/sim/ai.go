@@ -317,6 +317,10 @@ func (e *Engine) updateAI() {
 			if unit.Channel != "" || unit.DeployUntil > 0 || unit.PackingUntil > 0 {
 				continue
 			}
+			if recovery, ok := e.aiStalledRallyOrder(unit, own, goal); ok {
+				orders = append(orders, recovery)
+				continue
+			}
 			if role == "recon" || role == "isr" || role == "scout_drone" {
 				if len(unit.Orders) == 0 && (!e.isAircraft(unit) || unit.ServiceWork == 0) {
 					scout := e.aiExplore(p, unit.Position)
@@ -352,6 +356,7 @@ func (e *Engine) updateAI() {
 		// One chosen intention per unit per planning cycle. A later generic
 		// movement order must not cancel an accepted channel or deployment.
 		used := map[ID]bool{}
+		factionAbilities := map[string]bool{}
 		chosen := orders[:0]
 		for _, order := range orders {
 			conflict := false
@@ -362,6 +367,12 @@ func (e *Engine) updateAI() {
 			}
 			if conflict {
 				continue
+			}
+			if order.Kind == "ability" && aiFactionAbility(order.Type) {
+				if factionAbilities[order.Type] {
+					continue
+				}
+				factionAbilities[order.Type] = true
 			}
 			chosen = append(chosen, order)
 			for _, id := range order.Entities {
@@ -582,4 +593,27 @@ func (e *Engine) aiExplore(p *Player, from Vec) Vec {
 		}
 	}
 	return best
+}
+
+// A producer's automatic rally move is a staging intention, not a permanent
+// combat assignment. Recover only a confirmed stalled, healthy ground fighter
+// still moving to an owned compatible producer's exact declared rally point.
+// Actual navigation remains the ordinary command executor's responsibility.
+func (e *Engine) aiStalledRallyOrder(v *Entity, own []EntityView, goal Vec) (Order, bool) {
+	if !v.Blocked || e.Tick()-v.StationarySince < seconds(12) || v.HP*100 < v.MaxHP*85 || v.Channel != "" || v.Container != 0 || v.Deployed || v.DeployUntil > 0 || v.PackingUntil > 0 || e.isAircraft(v) || len(v.Orders) != 1 || v.Orders[0].Kind != "move" || v.Orders[0].Position == goal {
+		return Order{}, false
+	}
+	u, ok := e.catalog.Unit(v.Type)
+	if !ok || u.Weapon == "" {
+		return Order{}, false
+	}
+	for _, observed := range own {
+		if observed.Private == nil || !observed.Complete || observed.Private.Rally != v.Orders[0].Position {
+			continue
+		}
+		if b, ok := e.buildingRule(observed.Type); ok && b.Role == u.Producer {
+			return Order{Kind: "attack_move", Entities: []ID{v.ID}, Position: goal}, true
+		}
+	}
+	return Order{}, false
 }
