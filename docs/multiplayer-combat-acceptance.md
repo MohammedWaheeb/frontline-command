@@ -239,3 +239,22 @@ renders. It requires an Apple/Metal renderer and rejects SwiftShader/software
 for this explicitly hardware-backed course; merely setting headed mode is not
 considered GPU proof. Strict HTTP/console assertions are unchanged. This is
 resource isolation for the functional course, not a performance benchmark.
+
+## Fresh headed product freeze
+
+The next serial course uses `work/multiplayer-combat/build-headed-current/`.
+The builder now copies the client source, Vite configuration, packaging scripts
+and acceptance entry before compilation; `source/client` preserves those exact
+inputs while root development continues. Art publication was explicitly complete
+before packaging. This build advertises67 available sprite exports, including
+the metadata-only ink backfill, and3601 base-pack files. It retains the unchanged
+combined0.3.4 host/WASM/protocol and incomplete-art disclosure.
+
+Client-source SHA256:
+`c96bb88d91bcb87c755a99ab681ac2a1a6dec9d21891d3c4df8a79cf6ed77e4e`.
+Base-pack SHA256:
+`b7cb86739b47168a99ae7b73e68b187df821b3197132c8d8274e5d78a498a8a4`.
+The builder receipt records all other fixed hashes. Earlier frozen outputs are
+preserved. This is a new functional course, not maximum-load performance or
+shipping runtime promotion; the three-human result remains pending until the
+ordinary match and strict browser/replay checks finish.
