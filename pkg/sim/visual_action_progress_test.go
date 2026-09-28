@@ -1,6 +1,9 @@
 package sim
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestDeploymentPresentationFollowsAuthoritativeClockAndRestore(t *testing.T) {
 	for _, typ := range []string{"US.launcher", "IR.launcher", "SY.launcher", "SA.launcher", "SA.tank", "SA.mobile_abm", "SA.repair"} {
@@ -132,5 +135,61 @@ func TestSellingPresentationUsesChannelClockAndRestores(t *testing.T) {
 	}
 	if building.HP != 0 || e.Hash() != restored.Hash() {
 		t.Fatal("sell completion/restore mismatch")
+	}
+}
+
+func TestSafehousePresentationRetainsAcceptedDuration(t *testing.T) {
+	for _, duration := range []Tick{seconds(3), seconds(5), seconds(6)} {
+		t.Run(fmt.Sprint(duration), func(t *testing.T) {
+			e, house, ids := containerValidationFixture(t, containerValidationCase{"SY.safehouse", "SY", 2})
+			containerBoardAll(t, e, house, ids)
+			destination := e.spawn("SY.safehouse", 1, Vec{X: 40000, Y: 36000}, true, 800000)
+			if duration == seconds(5) {
+				e.player(1).Upgrades = append(e.player(1).Upgrades, "SY.prepared_exits")
+			}
+			if duration == seconds(3) {
+				setCooldown(&e.player(1).Cooldowns, "rapid_transfer_window", e.Tick()+seconds(20))
+			}
+			e.updateFog()
+			issue(t, e, 1, Order{Kind: "ability", Type: "transfer", Entities: []ID{house.ID}, Target: destination.ID})
+			if house.ChannelDuration != duration {
+				t.Fatalf("accepted duration %d want%d", house.ChannelDuration, duration)
+			}
+			if cooldown(e.player(1).Cooldowns, "rapid_transfer_window", e.Tick()) {
+				t.Fatal("rapid transfer window should already be consumed")
+			}
+			midpoint := house.ChannelUntil - duration/2
+			for e.Tick() < midpoint {
+				e.Advance()
+			}
+			check := func(engine *Engine) {
+				t.Helper()
+				view, _ := engine.PlayerView(1)
+				for _, actor := range view.Entities {
+					if actor.ID == house.ID {
+						if actor.State != "transit" || actor.Progress != 500 {
+							t.Fatalf("mid-transit visual %+v", actor)
+						}
+						return
+					}
+				}
+				t.Fatal("own transit missing")
+			}
+			check(e)
+			restored := containerRestore(t, e)
+			check(restored)
+			for range uint32(duration) {
+				e.Advance()
+				restored.Advance()
+			}
+			if house.ChannelDuration != 0 || len(house.Passengers) != 0 || e.Hash() != restored.Hash() {
+				t.Fatal("channel completion/restore mismatch")
+			}
+			bad := restored.entity(house.ID)
+			bad.ChannelDuration = seconds(3)
+			if restored.validateState() == nil {
+				t.Fatal("orphan channel duration accepted")
+			}
+		})
 	}
 }

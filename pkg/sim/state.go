@@ -204,6 +204,7 @@ type Entity struct {
 	Container             ID             `json:"container"`
 	Channel               string         `json:"channel"`
 	ChannelTarget         ID             `json:"channel_target"`
+	ChannelDuration       Tick           `json:"channel_duration,omitempty"`
 	ChannelUntil          Tick           `json:"channel_until"`
 	ChannelStartDamage    Tick           `json:"channel_start_damage"`
 	ChannelTargetDamage   Tick           `json:"channel_target_damage"`

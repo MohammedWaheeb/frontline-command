@@ -239,6 +239,7 @@ func (e *Engine) validCapture(engineer *Entity, target ID) bool {
 func (e *Engine) beginChannel(v *Entity, kind string, target ID, duration Tick) {
 	v.Channel = kind
 	v.ChannelTarget = target
+	v.ChannelDuration = duration
 	v.ChannelUntil = e.state.Tick + duration
 	v.ChannelStartDamage = v.LastDamage
 	if t := e.entity(target); t != nil {
@@ -259,6 +260,7 @@ func (e *Engine) interruptChannel(v *Entity) {
 	}
 	v.Channel = ""
 	v.ChannelUntil = 0
+	v.ChannelDuration = 0
 	v.State = "idle"
 	if kind == "capture" {
 		e.emit("capture_interrupted", v.Owner, v.ID, v.Position, "owner", 0)
@@ -402,6 +404,7 @@ func (e *Engine) updateChannel(v *Entity) {
 	}
 	v.Channel = ""
 	v.ChannelUntil = 0
+	v.ChannelDuration = 0
 	if v.Container == 0 && v.HP > 0 {
 		v.State = "idle"
 	}
@@ -435,6 +438,7 @@ func (e *Engine) captureBuilding(owner PlayerID, v *Entity) bool {
 	v.Builder = 0
 	v.Channel = ""
 	v.ChannelUntil = 0
+	v.ChannelDuration = 0
 	v.Target = 0
 	v.AimUntil = 0
 	v.Path = nil

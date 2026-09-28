@@ -199,6 +199,7 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 			return "completed_building_required"
 		}
 		v.Channel = "sell"
+		v.ChannelDuration = seconds(5)
 		v.ChannelUntil = e.state.Tick + seconds(5)
 		v.ChannelStartDamage = v.LastDamage
 		v.State = "selling"
@@ -275,6 +276,7 @@ func (e *Engine) assign(v *Entity, o Order) {
 	}
 	v.Channel = ""
 	v.ChannelUntil = 0
+	v.ChannelDuration = 0
 	v.Path = nil
 	v.NextRouteAt = 0
 	v.PathResolved = false

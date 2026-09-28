@@ -37,6 +37,9 @@ func (e *Engine) validateState() error {
 		return true
 	}
 	for _, v := range s.Entities {
+		if v.ChannelDuration > 0 && (v.Channel == "" || v.ChannelUntil < v.ChannelDuration || uint64(v.ChannelUntil) > uint64(s.Tick)+uint64(v.ChannelDuration)) {
+			return fmt.Errorf("invalid channel timeline")
+		}
 		if v.DeploymentStarted > s.Tick || v.DeploymentStarted > 0 && max(v.DeployUntil, v.PackingUntil) <= v.DeploymentStarted {
 			return fmt.Errorf("invalid saved deployment start %d", v.ID)
 		}

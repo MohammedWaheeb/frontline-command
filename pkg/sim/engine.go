@@ -358,6 +358,7 @@ func (e *Engine) defeat(p *Player) {
 			v.AimUntil = 0
 			v.Channel = ""
 			v.ChannelUntil = 0
+			v.ChannelDuration = 0
 		}
 	}
 	e.emit("player_defeated", p.ID, 0, Vec{}, "all", 0)
