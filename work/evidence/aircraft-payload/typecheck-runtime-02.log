@@ -1,0 +1,10 @@
+client/tests/runtime/aircraft-payload.test.ts(12,84): error TS2345: Argument of type '{ $typeName?: undefined; id?: number | undefined; type?: string | undefined; owner?: number | undefined; position?: MessageInit<Vec> | undefined; facing?: number | undefined; ... 15 more ...; footprintType?: string | undefined; } | { ...; }' is not assignable to parameter of type 'MessageInit<Entity> | undefined'.
+  Type '{ $typeName: "frontline.v1.Entity"; $unknown?: UnknownField[] | undefined; id: number; type: string; owner: number; position?: MessageInit<Vec> | undefined; facing: number; ... 15 more ...; footprintType: string; }' is not assignable to type 'MessageInit<Entity> | undefined'.
+    Type '{ $typeName: "frontline.v1.Entity"; $unknown?: UnknownField[] | undefined; id: number; type: string; owner: number; position?: MessageInit<Vec> | undefined; facing: number; ... 15 more ...; footprintType: string; }' is not assignable to type 'Entity'.
+      Type '{ $typeName: "frontline.v1.Entity"; $unknown?: UnknownField[] | undefined; id: number; type: string; owner: number; position?: MessageInit<Vec> | undefined; facing: number; ... 15 more ...; footprintType: string; }' is not assignable to type '{ id: number; type: string; owner: number; position?: Vec | undefined; facing: number; health: number; state: string; complete: boolean; enabled: boolean; landed: boolean; deployed: boolean; ... 9 more ...; footprintType: string; }'.
+        Types of property 'position' are incompatible.
+          Type 'MessageInit<Vec> | undefined' is not assignable to type 'Vec | undefined'.
+            Type '{ readonly $typeName?: undefined; x?: number | undefined; y?: number | undefined; }' is not assignable to type 'Vec'.
+              Type '{ readonly $typeName?: undefined; x?: number | undefined; y?: number | undefined; }' is not assignable to type 'Message<"frontline.v1.Vec">'.
+                Types of property '$typeName' are incompatible.
+                  Type 'undefined' is not assignable to type '"frontline.v1.Vec"'.

@@ -7,6 +7,7 @@ import {TerrainSurface,projectSurfaceVertex,spriteFrontDepth} from './terrain-su
 import {drawStructure,structureHeight} from './structure';
 import {actorSpriteState,actorEventStates,visibleSquadMembers,type BuildingPresentation} from './poses';
 import {FlightPresentation} from './flight-presentation';
+import {canonicalAircraftPose,emptyAircraftPose,hasEmptyAircraftPayload,knownEmptyAircraft} from './aircraft-payload';
 import {actorArtKey,physicalArtType} from './art-id';
 import {ActorStatusOverlay} from './actor-status';
 import type {ActorStatusModel} from '../app/actor-status';
@@ -43,6 +44,8 @@ export class ActorVisual {
  useSurfaceShadows(){this.projectedShadows=true;this.groundShadows.visible=false}
  private readonly flight=new FlightPresentation();private suppressTransition=false;
  presentation?:BuildingPresentation;
+ /** Current snapshot viewer; undefined never grants private payload knowledge. */
+ viewer?:number;missingPayloadArt?:string;
  receivingBoarder=false;
  status?:ActorStatusModel;private readonly statusOverlay=new ActorStatusOverlay();private externalStatus=false;
  /** Authorized information stays above world geometry, including a collapsed
@@ -74,6 +77,7 @@ export class ActorVisual {
   }):Promise.resolve();
  }
  update(entity:Entity,now:number){
+  this.missingPayloadArt=undefined;
   const p=this.suppressTransition?entity.position!:this.position(now);this.lastPosition=p;this.nextPosition={...entity.position!};this.changedAt=now;
   this.previousFacing=this.suppressTransition?entity.facing:this.nextFacing;this.nextFacing=entity.facing;
   const unit=this.catalog.units.get(entity.type);
@@ -82,7 +86,7 @@ export class ActorVisual {
   if(entity.state!==this.lastState){this.lastState=entity.state;this.stateAt=now}
   this.entity=entity;
  }
- clearFeedback(){this.action=undefined;this.flight.reset();this.suppressTransition=true}
+ clearFeedback(){this.action=undefined;this.flight.reset();this.suppressTransition=true;this.missingPayloadArt=undefined}
  setSurface(surface:TerrainSurface){this.surface=surface;this.support=undefined}
  /** A rigid foundation reaches the highest exact clipped terrain point. This
   * changes presentation only; Go remains the authority for legal footprints. */
@@ -168,18 +172,27 @@ export class ActorVisual {
   return {x:this.lastPosition.x+(this.nextPosition.x-this.lastPosition.x)*a,y:this.lastPosition.y+(this.nextPosition.y-this.lastPosition.y)*a};
  }
  private state(now:number,reducedMotion=false):SpriteState|undefined{
+  this.missingPayloadArt=undefined;
   if(!this.sheet)return;
   const action=this.activeAction(now);
-  if(action&&action.part!=='turret')return action;
+  if(action&&action.part!=='turret')return this.payloadState(action);
   const transition=this.entity.enabled&&this.entity.complete?this.flight.state(now,this.sheet.states,reducedMotion):undefined;
-  if(transition)return transition;
+  if(transition)return this.payloadState(transition);
   const moving=Math.hypot(this.nextPosition.x-this.lastPosition.x,this.nextPosition.y-this.lastPosition.y)>4;
   const turning=reducedMotion?0:((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000;
-  return actorSpriteState(this.entity,this.catalog.units.get(this.entity.type),moving,this.sheet.states,this.presentation,turning,this.receivingBoarder);
+  return this.payloadState(actorSpriteState(this.entity,this.catalog.units.get(this.entity.type),moving,this.sheet.states,this.presentation,turning,this.receivingBoarder,this.viewer!==undefined&&this.viewer===this.entity.owner));
+ }
+ private payloadState(state:SpriteState|undefined):SpriteState|undefined{
+  if(!state||!knownEmptyAircraft(this.entity,this.catalog.units.get(this.entity.type),this.viewer))return state;
+  const name=emptyAircraftPose(state.name);if(!name)return state;
+  const variant=this.sheet?.states.get(name);
+  if(!variant)this.missingPayloadArt=name;
+  return variant??state;
  }
  private frameIndex(state:SpriteState,now:number){
   const progress=state.name==='charging'?this.presentation?.strategicProgress??0:this.entity.progress;
-  const start=this.action?.names.includes(state.name)?this.action.at:this.flight.startedAt(state.name,now)??this.stateAt;
+  const canonical=canonicalAircraftPose(state.name);
+  const start=this.action?.names.includes(canonical)?this.action.at:this.flight.startedAt(canonical,now)??this.stateAt;
   let frame=state.progress_driven?Math.min(state.frames-1,Math.max(0,Math.floor(progress/1000*state.frames))):state.fps>0?Math.max(0,Math.floor((now-start)/1000*state.fps)):0;
   return state.loop?frame%state.frames:Math.min(state.frames-1,frame);
  }
@@ -192,6 +205,7 @@ export class ActorVisual {
  }
  private paintPart(p:LayeredPart,state:SpriteState,heading:number,now:number,team:number,altitude:number,groundOffset=0,position=this.position(now)){
   const sheet=this.sheet!,frame=this.frameIndex(state,now);
+  const unit=this.catalog.units.get(this.entity.type),payloadScoped=unit?.armor==='air'&&!!unit.weapon;
   const d=headingIndex(heading,state.directions),offset=toScreen(p.offset.x,p.offset.y);
   p.root.position.set(offset.x,offset.y-altitude+groundOffset);
   p.shadowRoot.position.copyFrom(p.root.position);
@@ -203,7 +217,9 @@ export class ActorVisual {
     // Resolve the previous pose through the sheet again: the Sprite's old
     // Texture may already have a destroyed shared source during async reload.
     const exists=sheet.hasFrame(name,state.name,d,frame)||sheet.hasFrame(name,state.name,d,0),previous=p.poses[name];
-    if(exists&&previous)f=sheet.frame(name,previous.state,previous.direction,previous.frame);
+    // A page awaiting decode must not resurrect loaded missiles after the final
+    // round, or retain private empty artwork after changing the current viewer.
+    if(exists&&previous&&(!payloadScoped||hasEmptyAircraftPayload(previous.state)===hasEmptyAircraftPayload(state.name)))f=sheet.frame(name,previous.state,previous.direction,previous.frame);
     if(!exists)delete p.poses[name];
    }
    if(!f){sprite.visible=false;sprite.texture=Texture.EMPTY;continue}

@@ -31,7 +31,7 @@ export function buildingPresentations(snapshot:PlayerSnapshot,catalog:CatalogInd
 }
 
 /** Select only presentation states supported by the currently permitted Go actor. */
-export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:boolean,states:ReadonlyMap<string,SpriteState>,building?:BuildingPresentation,turning=0,receivingBoarder=false):SpriteState|undefined{
+export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:boolean,states:ReadonlyMap<string,SpriteState>,building?:BuildingPresentation,turning=0,receivingBoarder=false,owned=false):SpriteState|undefined{
   const air=unit?.armor==='air';
   const loaded=!!e.private?.cargo||e.state==='returning_cargo';
   let names:string[]=[];
@@ -72,8 +72,8 @@ export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:bool
   else if(air){
    if(e.landed)names=e.state==='servicing'?['rearm','parked','idle']:['parked','idle'];
    else if(e.health<450)names=['damaged','fly','hover'];
-   else if(unit?.weapon&&e.private?.ammo===0)names=['empty','fly','hover'];
-   else if(e.private?.orders[0]?.kind==='orbit')names=['orbit','hover','fly'];
+   else if(owned&&unit?.weapon&&e.private?.ammo===0)names=['empty','fly','hover'];
+   else if(owned&&e.private?.orders[0]?.kind==='orbit')names=['orbit','hover','fly'];
    else if(moving&&Math.abs(turning)>1000)names=[turning>0?'bank_left':'bank_right','fly','move','hover'];
    else names=moving?['fly','move','hover']:['hover','fly'];
   }

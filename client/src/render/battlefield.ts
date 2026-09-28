@@ -78,7 +78,7 @@ export class BattlefieldRenderer {
   this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
   this.app.ticker.add(()=>this.render());
  }
- get missingArt():string[]{return [...new Set([...this.missing,...this.environment.missingArt,...this.combat.diagnostics.missing])].sort()}
+ get missingArt():string[]{return [...new Set([...this.missing,...this.environment.missingArt,...this.combat.diagnostics.missing,...[...this.actors.values()].filter(actor=>actor.root.visible&&actor.missingPayloadArt).map(actor=>`${actor.entity.type}:${actor.missingPayloadArt}`)])].sort()}
  setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers)}
  async whenAssetsReady(){await Promise.all([...this.actors.values()].map(actor=>actor.ready));await this.environment.ready();this.render();await Promise.all([this.options.art.settle(),this.combat.settle()]);this.render();await this.combat.settle();this.render()}
  viewport():Rect{return {left:0,top:0,right:this.app.screen.width,bottom:this.app.screen.height}}
@@ -200,7 +200,7 @@ export class BattlefieldRenderer {
    living.add(entity.id);let actor=this.actors.get(entity.id);const faction=snapshot.players.find(p=>p.id===entity.owner)?.faction;
    if(actor&&actor.artKey!==actorArtKey(entity,faction)){actor.dispose();this.actors.delete(entity.id);actor=undefined}
    if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);actor.attachStatusLayer(this.actorStatuses);actor.useSurfaceShadows();if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
-   actor.presentation=presentations.get(entity.id);actor.status=actorStatus(entity,snapshot,this.options.catalog);actor.receivingBoarder=boardingReceivers.has(entity.id);actor.update(entity,this.tickAt);
+   actor.viewer=snapshot.player;actor.presentation=presentations.get(entity.id);actor.status=actorStatus(entity,snapshot,this.options.catalog);actor.receivingBoarder=boardingReceivers.has(entity.id);actor.update(entity,this.tickAt);
   }
   const serviceBases=[...this.actors.values()].filter(actor=>living.has(actor.id)&&(this.options.catalog.buildings.get(actor.entity.type)?.service_slots??0)>0);
   for(const actor of this.actors.values()){

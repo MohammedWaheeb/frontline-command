@@ -1,0 +1,107 @@
+✖ actual aircraft poses retain current owned empty payload through parked, service, damage and final-shot cues (13.50725ms)
+✖ payload appearance checks current viewer, current owner and current private data every time (1.935375ms)
+✖ all departure/recovery aliases keep canonical frame clocks and altitude when payload changes (2.142375ms)
+✖ missing empty variants stay explicit incomplete art without changing authoritative state (1.627875ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4810.4045
+
+✖ failing tests:
+
+test at client/.test-runtime/aircraft-payload.test.mjs:700:1
+✖ actual aircraft poses retain current owned empty payload through parked, service, damage and final-shot cues (13.50725ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'parked'
+  - 'parked_empty'
+           ^
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-runtime/aircraft-payload.test.mjs:712:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'parked',
+    expected: 'parked_empty',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at client/.test-runtime/aircraft-payload.test.mjs:728:1
+✖ payload appearance checks current viewer, current owner and current private data every time (1.935375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'rearm'
+  - 'rearm_empty'
+          ^
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-runtime/aircraft-payload.test.mjs:730:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'rearm',
+    expected: 'rearm_empty',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at client/.test-runtime/aircraft-payload.test.mjs:755:1
+✖ all departure/recovery aliases keep canonical frame clocks and altitude when payload changes (2.142375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'takeoff'
+  - 'takeoff_empty'
+            ^
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-runtime/aircraft-payload.test.mjs:759:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'takeoff',
+    expected: 'takeoff_empty',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at client/.test-runtime/aircraft-payload.test.mjs:794:1
+✖ missing empty variants stay explicit incomplete art without changing authoritative state (1.627875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'rearm_empty'
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-runtime/aircraft-payload.test.mjs:799:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'rearm_empty',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

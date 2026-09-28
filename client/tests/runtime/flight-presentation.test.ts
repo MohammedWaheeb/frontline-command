@@ -10,7 +10,7 @@ const art=new Map(['fly','hover','parked','rearm','takeoff','landing','launch','
 const aircraft={role:'fighter',armor:'air',faction:'US',weapon:'AIR_CANNON'} as CatalogUnit;
 const entity=(patch:MessageInitShape<typeof EntitySchema>={})=>create(EntitySchema,{id:7,type:'US.fighter',owner:1,complete:true,enabled:true,health:1000,state:'flying',...patch});
 test('aircraft empty payload and orbit art use only owner-private facts; observed service is public',()=>{
- const choose=(e:ReturnType<typeof entity>,unit=aircraft,turning=0)=>actorSpriteState(e,unit,true,art,undefined,turning)?.name;
+ const choose=(e:ReturnType<typeof entity>,unit=aircraft,turning=0)=>actorSpriteState(e,unit,true,art,undefined,turning,false,e.owner===1)?.name;
  assert.equal(choose(entity({private:{ammo:0}})),'empty');assert.equal(choose(entity({private:{ammo:2}})),'fly');
  assert.equal(choose(entity({owner:2})),'fly');assert.equal(choose(entity({owner:3})),'fly');
  assert.equal(choose(entity({private:{ammo:0}}),{...aircraft,weapon:''}),'fly');

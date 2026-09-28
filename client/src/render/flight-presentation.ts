@@ -1,5 +1,6 @@
 import type {Entity} from '../runtime';
 import type {SpriteState} from './art';
+import {canonicalAircraftPose} from './aircraft-payload';
 
 type Phase={names:string[];at:number;duration:number;from:number;to:number};
 /** A short visual bridge between already-authorized flight states. It never
@@ -27,5 +28,5 @@ export class FlightPresentation {
   if(reducedMotion||!this.phase||now-this.phase.at>=this.phase.duration)return;
   return this.phase.names.map(name=>states.get(name)).find(Boolean);
  }
- startedAt(name:string,now:number){return this.phase?.names.includes(name)&&now-this.phase.at<this.phase.duration?this.phase.at:undefined}
+ startedAt(name:string,now:number){return this.phase?.names.includes(canonicalAircraftPose(name))&&now-this.phase.at<this.phase.duration?this.phase.at:undefined}
 }
