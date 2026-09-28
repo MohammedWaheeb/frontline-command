@@ -1,0 +1,450 @@
+{
+  "date": "2026-09-28T04:58:33.330Z",
+  "browserPath": "Browser plugin not available; installed Playwright browsers used.",
+  "native": [
+    {
+      "label": "start",
+      "tick": 100,
+      "hash": "9fd9db05023104b98d3a3e3655acdf2990f1f8cba43ec019944a8868c2697ba6"
+    },
+    {
+      "label": "moving",
+      "tick": 137,
+      "hash": "a48adf8d8682a19e6b7a10efb0e814e4953e23aad7dc7066e3422073b38ed2ed"
+    },
+    {
+      "label": "economy",
+      "tick": 937,
+      "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06"
+    }
+  ],
+  "browsers": [
+    {
+      "name": "chromium",
+      "status": "passed",
+      "consoleErrors": [],
+      "version": "151.0.7922.34",
+      "parity": {
+        "replay": {
+          "readOnly": "replay_read_only",
+          "replaySeek": true,
+          "replayStream": true,
+          "replayPerspective": 2,
+          "history": 4,
+          "map": "runtime-fixture",
+          "start": 0,
+          "end": 741,
+          "badSeek": "replay_seek",
+          "seekPreserved": true
+        },
+        "compatibility": {
+          "current": "0.3.3",
+          "old": "0.3.2",
+          "code": "save_incompatible",
+          "activePreserved": true,
+          "inputPreserved": true
+        },
+        "checkpoints": [
+          {
+            "label": "start",
+            "tick": 100,
+            "hash": "9fd9db05023104b98d3a3e3655acdf2990f1f8cba43ec019944a8868c2697ba6"
+          },
+          {
+            "label": "moving",
+            "tick": 137,
+            "hash": "a48adf8d8682a19e6b7a10efb0e814e4953e23aad7dc7066e3422073b38ed2ed"
+          },
+          {
+            "label": "economy",
+            "tick": 937,
+            "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06"
+          }
+        ],
+        "submits": [
+          "accepted",
+          "not_owner",
+          "accepted"
+        ],
+        "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "before": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "records": 4,
+        "autosaves": 3,
+        "corruption": "save_corrupt",
+        "preserved": true,
+        "isolated": true,
+        "exact": true,
+        "conflict": "save_conflict",
+        "downloadedHash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "privateOnly": true,
+        "uploadRevision": 1
+      },
+      "session": {
+        "advisory": {
+          "builder": true,
+          "types": 15,
+          "code": "indeterminate",
+          "unchanged": true
+        },
+        "corrupt": "save_corrupt",
+        "preserved": true,
+        "restart": {
+          "tick": 0,
+          "newSession": true
+        },
+        "resumed": true,
+        "replayMode": "replay",
+        "replaySave": "save_unavailable",
+        "good": true,
+        "bad": false,
+        "blocked": "editor_validation",
+        "repaired": true,
+        "draftRevision": 1,
+        "practice": {
+          "kind": "practice",
+          "ruleset": "practice-v1",
+          "fog": true,
+          "document": "actual-go-draft"
+        },
+        "menu": "menu",
+        "debrief": {
+          "privateWhileLive": true,
+          "stillPrivate": true,
+          "replayPrivate": true,
+          "savedDebrief": true,
+          "replayDebrief": true,
+          "produced": [
+            {
+              "$typeName": "frontline.v1.ProductionCount",
+              "type": "US.rig",
+              "count": 1
+            }
+          ],
+          "spent": "800000",
+          "samples": 3,
+          "firstTick": 0,
+          "lastTick": 701,
+          "finalTick": 701
+        },
+        "workers": 0,
+        "phase": "closed"
+      },
+      "offlineProbe": {
+        "controlled": true,
+        "online": false,
+        "/runtime/version.json": {
+          "status": 200,
+          "length": 169
+        },
+        "/": {
+          "status": 503,
+          "length": 97
+        }
+      },
+      "offline": {
+        "files": 6,
+        "corrupt": "content_corrupt",
+        "packs": 1,
+        "controlled": true,
+        "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "networkBlocked": true,
+        "tick": 937,
+        "method": "offline-emulation"
+      },
+      "multiplayer": {
+        "distinctPerspectives": true,
+        "moveAccepted": true,
+        "enemyOrderRejected": true,
+        "reconnect": true,
+        "committedWinner": 2,
+        "identicalDebrief": true,
+        "privateHistoryDebrief": true
+      }
+    },
+    {
+      "name": "firefox",
+      "status": "passed",
+      "consoleErrors": [],
+      "version": "153.0",
+      "parity": {
+        "replay": {
+          "readOnly": "replay_read_only",
+          "replaySeek": true,
+          "replayStream": true,
+          "replayPerspective": 2,
+          "history": 4,
+          "map": "runtime-fixture",
+          "start": 0,
+          "end": 741,
+          "badSeek": "replay_seek",
+          "seekPreserved": true
+        },
+        "compatibility": {
+          "current": "0.3.3",
+          "old": "0.3.2",
+          "code": "save_incompatible",
+          "activePreserved": true,
+          "inputPreserved": true
+        },
+        "checkpoints": [
+          {
+            "label": "start",
+            "tick": 100,
+            "hash": "9fd9db05023104b98d3a3e3655acdf2990f1f8cba43ec019944a8868c2697ba6"
+          },
+          {
+            "label": "moving",
+            "tick": 137,
+            "hash": "a48adf8d8682a19e6b7a10efb0e814e4953e23aad7dc7066e3422073b38ed2ed"
+          },
+          {
+            "label": "economy",
+            "tick": 937,
+            "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06"
+          }
+        ],
+        "submits": [
+          "accepted",
+          "not_owner",
+          "accepted"
+        ],
+        "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "before": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "records": 4,
+        "autosaves": 3,
+        "corruption": "save_corrupt",
+        "preserved": true,
+        "isolated": true,
+        "exact": true,
+        "conflict": "save_conflict",
+        "downloadedHash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "privateOnly": true,
+        "uploadRevision": 1
+      },
+      "session": {
+        "advisory": {
+          "builder": true,
+          "types": 15,
+          "code": "indeterminate",
+          "unchanged": true
+        },
+        "corrupt": "save_corrupt",
+        "preserved": true,
+        "restart": {
+          "tick": 0,
+          "newSession": true
+        },
+        "resumed": true,
+        "replayMode": "replay",
+        "replaySave": "save_unavailable",
+        "good": true,
+        "bad": false,
+        "blocked": "editor_validation",
+        "repaired": true,
+        "draftRevision": 1,
+        "practice": {
+          "kind": "practice",
+          "ruleset": "practice-v1",
+          "fog": true,
+          "document": "actual-go-draft"
+        },
+        "menu": "menu",
+        "debrief": {
+          "privateWhileLive": true,
+          "stillPrivate": true,
+          "replayPrivate": true,
+          "savedDebrief": true,
+          "replayDebrief": true,
+          "produced": [
+            {
+              "$typeName": "frontline.v1.ProductionCount",
+              "type": "US.rig",
+              "count": 1
+            }
+          ],
+          "spent": "800000",
+          "samples": 3,
+          "firstTick": 0,
+          "lastTick": 701,
+          "finalTick": 701
+        },
+        "workers": 0,
+        "phase": "closed"
+      },
+      "offlineProbe": {
+        "controlled": true,
+        "online": false,
+        "/runtime/version.json": {
+          "status": 200,
+          "length": 169
+        },
+        "/": {
+          "status": 200,
+          "length": 152
+        }
+      },
+      "offline": {
+        "files": 6,
+        "corrupt": "content_corrupt",
+        "packs": 1,
+        "controlled": true,
+        "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "networkBlocked": true,
+        "tick": 937,
+        "method": "offline-emulation"
+      },
+      "multiplayer": {
+        "distinctPerspectives": true,
+        "moveAccepted": true,
+        "enemyOrderRejected": true,
+        "reconnect": true,
+        "committedWinner": 2,
+        "identicalDebrief": true,
+        "privateHistoryDebrief": true
+      }
+    },
+    {
+      "name": "webkit",
+      "status": "passed",
+      "consoleErrors": [],
+      "version": "26.5",
+      "parity": {
+        "replay": {
+          "readOnly": "replay_read_only",
+          "replaySeek": true,
+          "replayStream": true,
+          "replayPerspective": 2,
+          "history": 4,
+          "map": "runtime-fixture",
+          "start": 0,
+          "end": 741,
+          "badSeek": "replay_seek",
+          "seekPreserved": true
+        },
+        "compatibility": {
+          "current": "0.3.3",
+          "old": "0.3.2",
+          "code": "save_incompatible",
+          "activePreserved": true,
+          "inputPreserved": true
+        },
+        "checkpoints": [
+          {
+            "label": "start",
+            "tick": 100,
+            "hash": "9fd9db05023104b98d3a3e3655acdf2990f1f8cba43ec019944a8868c2697ba6"
+          },
+          {
+            "label": "moving",
+            "tick": 137,
+            "hash": "a48adf8d8682a19e6b7a10efb0e814e4953e23aad7dc7066e3422073b38ed2ed"
+          },
+          {
+            "label": "economy",
+            "tick": 937,
+            "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06"
+          }
+        ],
+        "submits": [
+          "accepted",
+          "not_owner",
+          "accepted"
+        ],
+        "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "before": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "records": 4,
+        "autosaves": 3,
+        "corruption": "save_corrupt",
+        "preserved": true,
+        "isolated": true,
+        "exact": true,
+        "conflict": "save_conflict",
+        "downloadedHash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "privateOnly": true,
+        "uploadRevision": 1
+      },
+      "session": {
+        "advisory": {
+          "builder": true,
+          "types": 15,
+          "code": "indeterminate",
+          "unchanged": true
+        },
+        "corrupt": "save_corrupt",
+        "preserved": true,
+        "restart": {
+          "tick": 0,
+          "newSession": true
+        },
+        "resumed": true,
+        "replayMode": "replay",
+        "replaySave": "save_unavailable",
+        "good": true,
+        "bad": false,
+        "blocked": "editor_validation",
+        "repaired": true,
+        "draftRevision": 1,
+        "practice": {
+          "kind": "practice",
+          "ruleset": "practice-v1",
+          "fog": true,
+          "document": "actual-go-draft"
+        },
+        "menu": "menu",
+        "debrief": {
+          "privateWhileLive": true,
+          "stillPrivate": true,
+          "replayPrivate": true,
+          "savedDebrief": true,
+          "replayDebrief": true,
+          "produced": [
+            {
+              "$typeName": "frontline.v1.ProductionCount",
+              "type": "US.rig",
+              "count": 1
+            }
+          ],
+          "spent": "800000",
+          "samples": 3,
+          "firstTick": 0,
+          "lastTick": 701,
+          "finalTick": 701
+        },
+        "workers": 0,
+        "phase": "closed"
+      },
+      "offlineLimitation": "Playwright WebKit offline emulation fails before service-worker handling (upstream #42775). Tested with the actual host stopped and an uncached negative control; Safari device certification remains pending.",
+      "offlineProbe": {
+        "controlled": true,
+        "online": true,
+        "/runtime/version.json": {
+          "status": 200,
+          "length": 169
+        },
+        "/": {
+          "status": 503,
+          "length": 97
+        }
+      },
+      "offline": {
+        "files": 6,
+        "corrupt": "content_corrupt",
+        "packs": 1,
+        "controlled": true,
+        "hash": "aa6e036177b15332354b5731545d8c2f366001de8e08cefdb42d92ab346f7a06",
+        "networkBlocked": true,
+        "tick": 937,
+        "method": "host-stopped"
+      },
+      "multiplayer": {
+        "distinctPerspectives": true,
+        "moveAccepted": true,
+        "enemyOrderRejected": true,
+        "reconnect": true,
+        "committedWinner": 2,
+        "identicalDebrief": true,
+        "privateHistoryDebrief": true
+      }
+    }
+  ]
+}
