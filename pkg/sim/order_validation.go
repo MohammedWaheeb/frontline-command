@@ -90,6 +90,9 @@ func (e *Engine) validateMobileOrder(player PlayerID, o Order, selected []*Entit
 			}
 		}
 	}
+	if o.Kind == "return" && o.Target != 0 {
+		return e.validateRebase(player, o, selected)
+	}
 	return "ok"
 }
 

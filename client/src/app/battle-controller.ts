@@ -63,10 +63,14 @@ export class BattleController {
  placePractice(order:OrderIntent){if(this.app.sessions.state.kind!=='practice')return;this.cancel();this.practicePlacement=structuredClone(order);this.activeTarget={kind:'practice_spawn',type:order.type,label:'Place practice forces'};this.state.update(state=>({...state,target:this.activeTarget}));this.renderer?.setTargeting('practice_spawn')}
  async command(kind:string,type?:string,producer?:number,queued=false,index?:number){
   if(['observer','replay'].includes(this.app.sessions.state.kind??'')||this.inactive())return;
+  // Rebase is a targeting affordance for Go's targeted Return order.
+  // The ordinary Return button and hotkey keep their immediate behavior.
+  const rebase=kind==='rebase';if(rebase)kind='return';
   if(producer!==undefined&&(this.selection.ids.length!==1||this.selection.ids[0]!==producer))this.select([producer]);
   if(kind==='ability'&&type==='strategic'&&index===undefined&&this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.faction==='US'){this.chooseEntryEdge();return}
   const descriptor=STANDARD_COMMAND_DESCRIPTORS.find(value=>value.kind===kind);if(!descriptor)return;
   let target=COMMANDS[kind]?.target??(descriptor.targetOptional?'none':'ground');let count=1;let label=COMMANDS[kind]?.label??kind;
+  if(rebase){target='entity';label='Rebase';queued=false}
   if(kind==='ability'&&type){const ability=type==='strategic'?STRATEGIC[this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.faction as keyof typeof STRATEGIC]:ABILITIES[type];if(ability){label=ability.label;target=ability.target==='points'?'ground':ability.target;count=ability.points??1}}
   if(kind==='build'){target='ground';label=`Place ${this.app.state.get().catalog?.name(type??'')}`}
   if(target==='none'){await this.execute({kind,type,index,entities:producer?[producer]:this.selection.ids,queued});return}

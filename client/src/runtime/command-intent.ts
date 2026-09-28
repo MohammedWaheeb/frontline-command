@@ -20,7 +20,8 @@ export const STANDARD_COMMAND_DESCRIPTORS:readonly CommandDescriptor[]=[
  command('attack',['entity'],'group',true,true),
  command('guard',['ground','entity'],'group',true,true),
  command('escort',['entity'],'group',true,true),
- ...['stop','hold','return'].map(kind=>command(kind,[],'group',true,true,true)),
+ ...['stop','hold'].map(kind=>command(kind,[],'group',true,true,true)),
+ command('return',['entity'],'group',true,true,true),
  ...['repair','board'].map(kind=>command(kind,['entity'],'group',true,true)),
  command('resume',['entity'],'each',false,false),
  command('capture',['entity','station'],'group',true,true),
@@ -136,6 +137,7 @@ export async function planCommand(request:CommandRequest,env:CommandEnvironment)
  if(request.type!==undefined&&(typeof request.type!=='string'||request.type.length>80)||request.index!==undefined&&(!Number.isInteger(request.index)||request.index<0||request.index>1000000))return reject('invalid_order');
  if(request.points&&((request.points.length>COMMAND_LIMITS.pointsPerOrder)||request.points.some(point=>!pointValid(point))))return reject('invalid_points');
  if(request.queued&&!descriptor.queueable)return reject('cannot_queue');
+ if(request.kind==='return'&&request.target&&request.queued)return reject('rebase_not_queueable');
  if(!request.target&&!descriptor.targetOptional)return reject('target_required');
  if(request.target&&!descriptor.targets.includes(request.target.kind))return reject('invalid_target_kind');
  const resolved=request.target?resolvedTarget(env.snapshot,request.target):undefined;
@@ -156,7 +158,7 @@ export async function planCommand(request:CommandRequest,env:CommandEnvironment)
  if(descriptor.selection==='none')orders.push(materialize(request,[],resolved));
  else if(descriptor.selection==='each')for(const id of selection)orders.push(materialize(request,[id],resolved));
  else {
-  if(selection.length>COMMAND_LIMITS.entitiesPerOrder&&!descriptor.splittable)return reject('selection_limit',selection);
+  if(selection.length>COMMAND_LIMITS.entitiesPerOrder&&(!descriptor.splittable||request.kind==='return'&&request.target))return reject('selection_limit',selection);
   for(let i=0;i<selection.length;i+=COMMAND_LIMITS.entitiesPerOrder)orders.push(materialize(request,selection.slice(i,i+COMMAND_LIMITS.entitiesPerOrder),resolved));
  }
  const advice=await checkOrders(orders,env);
@@ -195,7 +197,7 @@ export function contextualCandidates(entity:Entity,target:CommandTarget,snapshot
    if(!hit)return [];
    if(entity.id===hit.id&&entity.private?.passengers.length)return ['unload'];
    const relation=targetRelationship(snapshot,hit);
-   if(relation==='own')return hit.complete?['repair','board','guard']:['resume','repair','board','guard'];
+   if(relation==='own')return hit.complete?['return','repair','board','guard']:['resume','repair','board','guard'];
    if(relation==='allied')return ['board','escort','guard'];
    if(relation==='hostile'||relation==='neutral')return ['capture','attack','board'];
    return [];

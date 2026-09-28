@@ -220,6 +220,12 @@ func (e *Engine) airliftDropPoint(v *Entity) (Vec, bool) {
 // or escort orders. Ground attacks repeat only when the owner enabled it.
 func (e *Engine) returnForService(v *Entity) {
 	if len(v.Orders) > 0 && v.Orders[0].Kind == "return" {
+		if v.Orders[0].Target != 0 {
+			v.Orders[0].Target = v.Home
+			if home := e.entity(v.Home); home != nil {
+				v.Orders[0].Position = home.Position
+			}
+		}
 		return
 	}
 	orders := cloneOrders(v.Orders)

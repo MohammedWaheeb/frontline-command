@@ -245,6 +245,19 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 	if code := e.validateMobileOrder(player, o, selected); code != "ok" {
 		return code
 	}
+	if o.Kind == "return" && o.Target != 0 {
+		// Check the entire group before moving any reservation. Takeoff uses
+		// the same collision rules as an ordinary departure.
+		for _, v := range selected {
+			if v.Home != o.Target && v.Landed && !e.clear(v.Position, e.radius(v), v.ID, true, true) {
+				return "takeoff_blocked"
+			}
+		}
+		for _, v := range selected {
+			e.rebaseAircraft(v, o.Target)
+		}
+		o.Position = e.entity(o.Target).Position
+	}
 	for i, v := range selected {
 		copyOrder := o
 		copyOrder.Entities = nil

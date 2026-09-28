@@ -134,6 +134,23 @@ func (e *Engine) previewKnowledge(p *Player, o Order) string {
 			return code
 		}
 	}
+	if o.Kind == "return" && o.Target != 0 {
+		selected := make([]*Entity, 0, len(o.Entities))
+		for _, id := range o.Entities {
+			selected = append(selected, e.entity(id))
+		}
+		if code := e.validateRebase(p.ID, o, selected); code != "ok" {
+			return code
+		}
+		for _, v := range selected {
+			// Hidden aircraft can obstruct departure. Advice must not expose
+			// them, so execution alone checks grounded takeoff geometry.
+			if v.Home != o.Target && v.Landed {
+				return "indeterminate"
+			}
+		}
+		return "ok"
+	}
 	// Only these commands interpret Target as an entity/object ID. Irrelevant
 	// target fields cannot cause another command to inspect a guessed enemy.
 	switch o.Kind {

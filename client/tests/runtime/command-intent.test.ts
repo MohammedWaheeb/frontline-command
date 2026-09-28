@@ -7,6 +7,33 @@ import {BattlefieldSelection} from '../../src/runtime/interaction';
 import {planCommand,planContextCommand,commonCommands,batchOrders,CommandTargeting,targetRelationship,type CommandEnvironment,type CommandLegality} from '../../src/runtime/command-intent';
 
 const unit=(id:number,type='rifle',owner=1)=>create(EntitySchema,{id,type,owner,health:1000,complete:true,position:{x:id*10,y:1000},private:owner===1?{hp:100n,maxHp:100n}:undefined});
+
+test('rebase retains targeted Return semantics while ordinary Return remains queueable',async()=>{
+ const env=environment();const original=structuredClone(env.snapshot);let calls=0;
+ env.validate=order=>{calls++;return {accepted:order.target!==6,code:order.target===6?'service_full':'ok'}};
+ const ordinary=await planCommand({kind:'return',entities:[4],queued:true},env);
+ assert.deepEqual(ordinary.orders,[{kind:'return',entities:[4],queued:true}]);
+ const full=await planCommand({kind:'return',entities:[4],target:{kind:'entity',id:6}},env);
+ assert.equal(full.issues[0].code,'service_full');assert.equal(full.orders.length,0);
+ const rebase=await planCommand({kind:'return',entities:[4],target:{kind:'entity',id:5}},env);
+ assert.equal(rebase.orders[0].target,5);assert.equal(rebase.orders[0].kind,'return');assert.equal(rebase.orders[0].queued,false);
+ const before=calls;
+ for(const id of [99,999]){const hidden=await planCommand({kind:'return',entities:[4],target:{kind:'entity',id}},env);assert.equal(hidden.issues[0].code,'target_not_visible')}
+ const queued=await planCommand({kind:'return',entities:[4],target:{kind:'entity',id:5},queued:true},env);
+ assert.equal(queued.issues[0].code,'rebase_not_queueable');assert.equal(calls,before);assert.deepEqual(env.snapshot,original);
+});
+
+test('context aircraft choose rebase only through Go capability and target approval',async()=>{
+ const env=environment();
+ let plan=await planContextCommand([4],{kind:'entity',id:6},env);
+ assert.equal(plan.orders[0].kind,'return');assert.equal(plan.orders[0].target,6);
+ env.validate=order=>({accepted:order.kind!=='return',code:order.kind==='return'?'incompatible_service':'ok'});
+ plan=await planContextCommand([4],{kind:'entity',id:6},env);
+ assert.equal(plan.orders.length,0);assert.equal(plan.issues[0].code,'incompatible_service');
+ plan=await planContextCommand([4],{kind:'entity',id:91},env);
+ assert.equal(plan.orders[0].kind,'escort');
+});
+
 function environment():CommandEnvironment{
  const snapshot=create(PlayerSnapshotSchema,{player:1,tick:100,players:[{id:1,team:1},{id:2,team:1},{id:3,team:2}],entities:[unit(1),unit(2,'engineer'),unit(3,'rig'),unit(4,'fighter'),unit(5,'carrier'),unit(6,'factory'),unit(7,'support'),unit(90,'tank',3),unit(91,'rifle',2)],memory:[{id:99,type:'hidden',position:{x:5000,y:5000}}],fields:[{id:500,position:{x:5000,y:6000}}],stations:[{id:600,position:{x:1000,y:2000}}],salvage:[{id:700,position:{x:9000,y:8000}}]});
  const capabilities:Record<string,string[]>={rifle:['move','attack','guard','board','stop'],engineer:['move','capture','repair','guard'],rig:['move','repair','resume','build'],fighter:['move','attack','escort','return'],carrier:['move','unload'],factory:['rally','train','power'],support:['move']};
