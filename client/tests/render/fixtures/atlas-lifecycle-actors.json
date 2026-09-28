@@ -1,0 +1,153 @@
+{
+  "provenance": {
+    "match_id": "c0fecac934875c0e3892a7f0",
+    "tick": 19356,
+    "player": 1,
+    "snapshot_sha256": "40a8958a048e2c8ababb98682c517f6b740493cdb948b98c3fc9d016c2b12399",
+    "replay_sha256": "d76c2be709ce87c37635f6db2fb11ad08626404a52f55e34392d35aa37a1a9c1"
+  },
+  "entities": [
+    {
+      "$typeName": "frontline.v1.Entity",
+      "id": 58,
+      "type": "US.rifle",
+      "owner": 1,
+      "facing": 45000,
+      "health": 540,
+      "state": "moving",
+      "complete": true,
+      "enabled": true,
+      "landed": false,
+      "deployed": false,
+      "concealed": false,
+      "progress": 0,
+      "rank": 2,
+      "turretFacing": 252497,
+      "channelUntil": 0,
+      "mapObject": 0,
+      "footprintWidth": 0,
+      "footprintHeight": 0,
+      "footprintType": "",
+      "effects": [],
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 86917,
+        "y": 50917
+      },
+      "private": {
+        "$typeName": "frontline.v1.EntityPrivate",
+        "hp": "178200",
+        "maxHp": "330000",
+        "jobs": [],
+        "orders": [
+          {
+            "$typeName": "frontline.v1.Order",
+            "kind": "attack_move",
+            "entities": [],
+            "target": 0,
+            "type": "",
+            "queued": false,
+            "index": 0,
+            "points": [],
+            "position": {
+              "$typeName": "frontline.v1.Vec",
+              "x": 132700,
+              "y": 132700
+            }
+          }
+        ],
+        "cargo": "0",
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "chargeWork": 0,
+        "serviceWork": 0,
+        "experience": "1823265",
+        "cooldowns": [],
+        "passengers": [],
+        "container": 0,
+        "repeatSortie": false,
+        "ambushReady": false,
+        "missionOrigin": "",
+        "rally": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27650,
+          "y": 21500
+        },
+        "emergencyTakeoffUntil": 0
+      }
+    },
+    {
+      "$typeName": "frontline.v1.Entity",
+      "id": 70,
+      "type": "US.rifle",
+      "owner": 1,
+      "facing": 45000,
+      "health": 280,
+      "state": "moving",
+      "complete": true,
+      "enabled": true,
+      "landed": false,
+      "deployed": false,
+      "concealed": false,
+      "progress": 0,
+      "rank": 2,
+      "turretFacing": 245133,
+      "channelUntil": 0,
+      "mapObject": 0,
+      "footprintWidth": 0,
+      "footprintHeight": 0,
+      "footprintType": "",
+      "effects": [],
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 88755,
+        "y": 50755
+      },
+      "private": {
+        "$typeName": "frontline.v1.EntityPrivate",
+        "hp": "92400",
+        "maxHp": "330000",
+        "jobs": [],
+        "orders": [
+          {
+            "$typeName": "frontline.v1.Order",
+            "kind": "attack_move",
+            "entities": [],
+            "target": 0,
+            "type": "",
+            "queued": false,
+            "index": 0,
+            "points": [],
+            "position": {
+              "$typeName": "frontline.v1.Vec",
+              "x": 134500,
+              "y": 132700
+            }
+          }
+        ],
+        "cargo": "0",
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "chargeWork": 0,
+        "serviceWork": 0,
+        "experience": "1036864",
+        "cooldowns": [],
+        "passengers": [],
+        "container": 0,
+        "repeatSortie": false,
+        "ambushReady": false,
+        "missionOrigin": "",
+        "rally": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 27650,
+          "y": 21500
+        },
+        "emergencyTakeoffUntil": 0
+      }
+    }
+  ]
+}

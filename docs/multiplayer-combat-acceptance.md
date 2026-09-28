@@ -133,3 +133,21 @@ pre-match snapshot when recording setup failures. Its early-elimination loop als
 checks the product's recovered committed history result, because an eliminated
 socket correctly stops receiving live match frames. These are harness corrections;
 no lobby or transport implementation was changed.
+
+
+## FFA combat recording, failed visual run
+
+The subsequent1H+3NormalAI FFA produced an ordinary US human victory at tick25,826
+with exact seed `7019274743248845888`. All four sides earned income, paid for
+production and used ordinary orders. The recording contains4,442 weapon events
+and188 destruction events. Full replay/checkpoint/midpoint-restored hashes agree
+at `5618aa67f13b5bd11f0c141cd4f4c350deb87d81d035a6716a68441e87c1f664`.
+
+**This is not a passing rendered case.** The original renderer threw after an
+atlas eviction; a later diagnostic attachment separately interrupted the test
+runner. The surviving host finished from existing ordinary commands and persisted
+its result. Original logs, snapshots and replay remain in
+`work/multiplayer-combat/2026-09-28T11-34-59.603Z/`. See
+[the texture lifecycle diagnosis](atlas-texture-lifecycle.md). Four remaining
+configurations have not yet run; the FFA visual row must be repeated after the
+repair. The first verified1H+1AI row remains valid.

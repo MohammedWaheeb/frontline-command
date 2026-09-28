@@ -7,7 +7,7 @@ import {CatalogIndex} from '../../src/content/catalog';
 import {toScreen} from '../../src/render/iso';
 import type {PlayerSnapshot} from '../../src/runtime';
 const app=new Application();await app.init({width:800,height:600,background:0x25281d,resolution:1,antialias:false});app.stop();document.body.appendChild(app.canvas);
-const catalog=new CatalogIndex(await(await fetch('/catalog.json')).json()),snapshot:PlayerSnapshot=await(await fetch('/snapshot.json')).json(),entity=snapshot.entities.find(e=>e.type==='US.rifle'&&e.owner===1)!;
+const catalog=new CatalogIndex(await(await fetch('/catalog.json')).json()),snapshot:Pick<PlayerSnapshot,'entities'>=await(await fetch('/snapshot.json')).json(),entity=snapshot.entities.find(e=>e.type==='US.rifle'&&e.owner===1)!;
 let clock=performance.now();Object.defineProperty(performance,'now',{configurable:true,value:()=>clock});
 const art=new ArtLibrary();await art.init();const sheet=(await art.sheet('unit.US.rifle'))!,actor=new ActorVisual(entity,catalog,art,'US');await actor.ready;app.stage.addChild(actor.root);const p=toScreen(entity.position!.x,entity.position!.y);app.stage.position.set(400-p.x,300-p.y);
 function textures(){const values:unknown[]=[];function visit(c:Container){if(c instanceof Sprite)values.push({visible:c.visible,destroyed:c.texture.destroyed,source:!!c.texture.source,style:!!c.texture.source?.style});for(const child of c.children)visit(child)}visit(actor.root);return values}

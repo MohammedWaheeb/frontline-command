@@ -77,3 +77,31 @@ continuation agree at final hash
 The human remained alive and the three opponents lost through ordinary defeat
 countdowns. No surrender, practice grants, save mutation or forced damage was
 used. This proves the combat recording, not recovery of the failed visual run.
+
+## Exact recording in the product
+
+The separate fixed build freezes the original `1305dcb` client and its original
+art/runtime, adding only the reviewed actor lifecycle and advisory pacing fixes.
+`client/tests/render/multiplayer-combat-fixed-build.mjs` produces it without
+rewriting the failed baseline. Its receipt explicitly records both changed files.
+
+The actual product archive imported the exact FFA replay, selected a late interval,
+played until authorized own TANK `weapon_fired` event8401 at tick19,795, paused,
+and focused that public event position through the minimap. The actual1600px and
+1280px images and zero-error report are at
+`work/multiplayer-combat/replay-camera-2026-09-28T12-15-21.581Z/`.
+A prior camera course selected75% while its harness still asserted45–65%; that
+failed assertion is preserved at `replay-camera-2026-09-28T12-09-48.982Z` and was
+corrected without changing product code or gameplay.
+
+This replay check is supplemental, not a replacement live pass. Native images
+also show the separately reported terrain-depth clipping of some tank/aircraft
+sprite portions; that independent renderer defect is owned by the terrain lane.
+No claim of complete artwork or flawless final visual presentation is made.
+
+The committed fixture contains only the two captured own actors in
+`client/tests/render/fixtures/atlas-lifecycle-actors.json`, with original snapshot
+and replay hashes. The atlas source remains the frozen isolated multiplayer pack.
+Reproduction: build that pack first, then run
+`node client/tests/render/atlas-lifecycle-browser.mjs`; use
+`FRONTLINE_ATLAS_BROWSER=firefox` or `webkit` for the other engines.

@@ -27,9 +27,10 @@ normal transport/advice. The exact receipt is `build/build.json`.
 
 ## Current serial matrix
 
-`2026-09-28T11-34-59.603Z/` currently owns the only active host in this lane.
-Its runner first executes 1H+3AI FFA, then 2H 1v1, 2H+2AI teams, 3H FFA, 4H 2v2.
-`latest.json` and `remaining-matrix-02.log` contain current progress; do not interpret
+`2026-09-28T11-34-59.603Z/` is preserved as a failed visual run; its host is stopped.
+Its FFA won through ordinary combat, but the renderer failed before completion.
+The subsequent four configurations did not start. See `docs/atlas-texture-lifecycle.md`.
+`remaining-matrix-02.log` preserves the renderer/harness investigation; do not interpret
 `running` or a partial log as a completed case. Each run preserves its actual
 Node driver source to distinguish subsequent test-only improvements.
 
@@ -64,3 +65,20 @@ asset fallback lists explicitly record unfinished visual assets.
 The separate advice-dispatch pacing fix is checkpoint `644e8c9`; its red/green
 and 333-test proof are described in `advice-pacing.md`. The active match build is
 intentionally unchanged by that source fix.
+
+## Lifecycle repair and resumed matrix
+
+`de1b27f` fixes the deterministic stale-texture reload crash. All three browser
+engines pass actual-atlas eviction,207.8MiB pressure, sharing, rapid recull and
+pending-disposal checks. The interrupted FFA's native replay hashes agree; its
+original visual failure is retained. Exact product replay contact screenshots
+are in `replay-camera-2026-09-28T12-15-21.581Z/`.
+
+`build-lifecycle-fixed/` freezes the original1305dcb client/art with exactly two
+reviewed source changes: actor texture lifecycle and advisory pacing. Its new
+receipt records source hashes. The original `build/` remains untouched.
+The resumed four-case matrix uses this build and writes
+`remaining-fixed-matrix.log`. Each successful live row stops its host, then runs
+native full/checkpoint/midpoint replay verification before the next row starts.
+A new1H+3AI visual completion is still required; recovered combat proof alone
+is not counted as its passing rendered case.

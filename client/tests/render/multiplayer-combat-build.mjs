@@ -7,7 +7,7 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 export const client=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),root=path.dirname(client),evidence=path.join(root,'work/multiplayer-combat');
-export const buildDir=path.join(evidence,'build'),product=path.join(buildDir,'product'),candidate=path.join(root,'work/runtime-034-candidate');
+export const buildDir=process.env.FRONTLINE_COMBAT_BUILD?path.resolve(process.env.FRONTLINE_COMBAT_BUILD):path.join(evidence,'build'),product=path.join(buildDir,'product'),candidate=path.join(root,'work/runtime-034-candidate');
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function sourceDigest(dir){const digest=createHash('sha256');async function visit(folder){for(const entry of(await readdir(folder,{withFileTypes:true})).sort((a,b)=>a.name.localeCompare(b.name))){const file=path.join(folder,entry.name);if(entry.isDirectory())await visit(file);else if(/\.(ts|tsx|css)$/.test(entry.name)){digest.update(path.relative(dir,file));digest.update(await readFile(file))}}}await visit(dir);return digest.digest('hex')}
 export async function prepareProduct(){
