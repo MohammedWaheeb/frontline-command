@@ -1,9 +1,6 @@
 package sim
 
-import (
-	"container/heap"
-	"frontlinecommand/pkg/content"
-)
+import "frontlinecommand/pkg/content"
 
 func (e *Engine) radius(v *Entity) int32 {
 	if v.Building {
@@ -308,27 +305,24 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 	}
 	coarse := e.coarseCorridor(sx/2, sy/2, gx/2, gy/2, r, v.ID)
 	search := func(restrict bool) []Vec {
-		scores := make([]int32, int(gridW*gridH))
-		parents := make([]int32, int(gridW*gridH))
-		closed := make([]bool, int(gridW*gridH))
-		for i := range scores {
-			scores[i] = 1 << 30
-			parents[i] = -1
-		}
-		h := &pathHeap{}
+		work := e.navigationSearch.begin(int(gridW * gridH))
+		scores, parents := work.scores, work.parents
 		for _, seed := range starts {
+			work.mark[seed.index] = work.generation
 			scores[seed.index] = seed.g
-			*h = append(*h, seed)
+			parents[seed.index] = -1
+			work.heap = append(work.heap, seed)
 		}
-		heap.Init(h)
+		work.heap.initialize()
+		h := &work.heap
 		serial := uint32(len(starts))
 		expansions := 0
 		for h.Len() > 0 && expansions < 32768 {
-			n := heap.Pop(h).(pathNode)
-			if closed[n.index] {
+			n := h.popNode()
+			if work.mark[n.index] == work.generation+1 {
 				continue
 			}
-			closed[n.index] = true
+			work.mark[n.index] = work.generation + 1
 			expansions++
 			if n.index == end {
 				path := []Vec{}
@@ -350,7 +344,7 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 					continue
 				}
 				index := ny*gridW + nx
-				if closed[index] {
+				if work.mark[index] == work.generation+1 {
 					continue
 				}
 				if restrict && !coarse[(ny/16)*((m.Width+7)/8)+nx/16] {
@@ -374,11 +368,12 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 					}
 				}
 				g := n.g + cost
-				if g < scores[index] {
+				if work.mark[index] != work.generation || g < scores[index] {
+					work.mark[index] = work.generation
 					scores[index] = g
 					parents[index] = n.index
 					serial++
-					heap.Push(h, pathNode{index, g, g + heuristic(nx, ny, gx, gy), serial})
+					h.pushNode(pathNode{index, g, g + heuristic(nx, ny, gx, gy), serial})
 				}
 			}
 		}
@@ -393,6 +388,18 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 }
 func (e *Engine) coarseCorridor(sx, sy, gx, gy, r int32, ignore ID) map[int32]bool {
 	m := e.state.Map
+	staticClear := func(position Vec) bool { return e.clear(position, r, ignore, false, false) }
+	// Portal samples are exact half-tile grid points. The existing static cache
+	// uses the same clearance test and revision invalidation, with no mobiles.
+	// Ignoring a structure changes that test, so retain the direct path for it.
+	if ignored := e.entity(ignore); ignored == nil || !ignored.Building {
+		cells := e.navigationCells(r)
+		w, h := m.Width*2, m.Height*2
+		staticClear = func(position Vec) bool {
+			x, y := position.X/500, position.Y/500
+			return position.X >= 0 && position.Y >= 0 && x < w && y < h && cells[y*w+x]
+		}
+	}
 	cw, ch := (m.Width+7)/8, (m.Height+7)/8
 	start, goal := (sy/8)*cw+sx/8, (gy/8)*cw+gx/8
 	parents := make([]int32, cw*ch)
@@ -428,7 +435,7 @@ func (e *Engine) coarseCorridor(sx, sy, gx, gy, r int32, ignore ID) map[int32]bo
 					a = Vec{X: (x*8+k)*1000 + 500, Y: edge - 500}
 					b = Vec{X: a.X, Y: edge + 500}
 				}
-				if e.clear(a, r, ignore, false, false) && e.clear(b, r, ignore, false, false) {
+				if staticClear(a) && staticClear(b) {
 					portal = true
 					break
 				}

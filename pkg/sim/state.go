@@ -350,6 +350,8 @@ type Engine struct {
 	navCache       map[int32][]bool
 	fogCache       map[ID]fogSource
 	harvestParking map[uint32]harvestParkingCache
+
+	navigationSearch navigationSearch
 }
 type fogSource struct {
 	position Vec
