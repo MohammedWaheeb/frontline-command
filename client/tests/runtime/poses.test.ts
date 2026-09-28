@@ -15,6 +15,19 @@ function pose(state:string,role='rifle',extra:Record<string,unknown>={}){const e
 test('authoritative support and channel names select their authored work animation',()=>{assert.equal(pose('repairing','medic'),'work_heal');assert.equal(pose('repairing','engineer'),'work_repair');assert.equal(pose('designate','recon'),'channel');assert.equal(pose('beacon','recon'),'channel');assert.equal(pose('unload','apc'),'doors_open');assert.equal(pose('unloading','hauler'),'work_unload');assert.equal(pose('capturing','engineer'),'work_capture');assert.equal(pose('capture_exit_blocked','engineer'),'idle')});
 test('deployment, packing and damage cannot disappear behind ordinary idle art',()=>{assert.equal(pose('deploying','mobile_abm',{progress:500}),'deploy');assert.equal(pose('packing','mobile_abm',{progress:500}),'pack');assert.equal(pose('deployed','mobile_abm',{deployed:true}),'deployed');assert.equal(pose('low_power','power'),'low_power');const building=create(EntitySchema,{type:'power',state:'idle',complete:true,enabled:true,health:300});assert.equal(actorSpriteState(building,undefined,false,states)?.name,'damaged');assert.equal(pose('destroyed','rifle',{enabled:false}),'wreck')});
 
+test('boarding receiver context opens only authored doors and blocked unloading keeps them open',()=>{
+ const entity=create(EntitySchema,{id:1,type:'US.apc',state:'idle',complete:true,enabled:true,health:1000});
+ const choose=(patch:Partial<typeof entity>={},receiving=true,art=states)=>actorSpriteState({...entity,...patch},{role:'apc',armor:'light'} as CatalogUnit,false,art,undefined,0,receiving)?.name;
+ assert.equal(choose(),'doors_open');assert.equal(choose({},false),'idle');
+ assert.equal(choose({state:'unload_exit_blocked'},false),'doors_open');
+ assert.equal(choose({state:'destroyed'}),'wreck');assert.equal(choose({enabled:false}),'damaged');assert.equal(choose({health:300}),'damaged');
+ const withoutDoors=new Map(states);withoutDoors.delete('doors_open');assert.equal(choose({},true,withoutDoors),'idle');
+ const building={role:'safehouse',lowPower:false,serviceActive:false},buildingArt=new Map(states);buildingArt.set('exit_open',{name:'exit_open',part:'building',directions:1,frames:4,fps:8,loop:true});
+ assert.equal(actorSpriteState({...entity,type:'SY.safehouse',state:'unload_exit_blocked'},undefined,false,buildingArt,building)?.name,'exit_open');
+ assert.equal(actorSpriteState({...entity,type:'SY.safehouse'},undefined,false,buildingArt,building,0,true)?.name,'exit_open');
+ assert.equal(actorSpriteState({...entity,type:'SY.safehouse',health:300},undefined,false,buildingArt,building,0,true)?.name,'damaged');
+});
+
 test('building animations follow known power and service facts without disclosing enemy assignments',()=>{
  const catalog=new CatalogIndex({version:'test',units:[],weapons:[],upgrades:[],buildings:[{id:'airfield',role:'airfield'},{id:'abm',role:'abm'},{id:'strategic',role:'strategic'}] as CatalogBuilding[]});
  const snapshot=create(PlayerSnapshotSchema,{player:1,economy:{powerDemand:200,powerCapacity:100},players:[{id:1,strategicProgress:500},{id:2,strategicProgress:1000}],entities:[

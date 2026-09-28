@@ -1,0 +1,256 @@
+{
+  "time": "2026-09-28T10:25:37.755Z",
+  "scope": "Actual product import, selection and readout controls with real Go practice effects; isolated candidate protocol/runtime.",
+  "errors": [],
+  "resources": [],
+  "wasmSHA256": "7b5c451ed5b5ee759eb1e25f3f58a429d4973b127d7dd31312a2d1f66f6448d1",
+  "setup": {
+    "tick": 4126,
+    "model": [
+      {
+        "id": 1,
+        "type": "hq",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 8000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 2,
+        "type": "IR.rig",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11200,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 5,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 5000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 10000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 7,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 8,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 9,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 25000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 10,
+        "type": "power",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30000,
+          "y": 44000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 11,
+        "type": "barracks",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 12,
+        "type": "factory",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 13,
+        "type": "radar",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29000,
+          "y": 8000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 14,
+        "type": "tech",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 33000,
+          "y": 14000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 15,
+        "type": "IR.drone_hub",
+        "owner": 1,
+        "state": "idle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 23000,
+          "y": 26000
+        },
+        "status": {
+          "badges": []
+        }
+      },
+      {
+        "id": 16,
+        "type": "IR.isr",
+        "owner": 1,
+        "state": "turning",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 30992,
+          "y": 31002
+        },
+        "status": {
+          "badges": [
+            {
+              "id": "return",
+              "symbol": "↩",
+              "label": "Returning to base",
+              "tone": "warning",
+              "priority": 170
+            },
+            {
+              "id": "recall",
+              "symbol": "↩",
+              "label": "Drone recall",
+              "tone": "benefit",
+              "priority": 150,
+              "seconds": 8
+            },
+            {
+              "id": "relay",
+              "symbol": "⌁",
+              "label": "Relay boost",
+              "tone": "benefit",
+              "priority": 110,
+              "seconds": 10
+            }
+          ]
+        }
+      }
+    ],
+    "visual": [
+      {
+        "id": 16,
+        "labels": 3,
+        "width": 106.70000000000005,
+        "height": 48.700000000000045
+      }
+    ]
+  },
+  "reusedSetup": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/actor-status/product",
+  "scale": 1.5,
+  "identity": {
+    "title": "Frontline Command",
+    "url": "http://127.0.0.1:65183/",
+    "browser": "151.0.7922.34"
+  },
+  "text": "UNIT STATUS\nFIELD READOUT\nSURVEY DRONE\n\nMOVING\n\n↩\nReturning to base\n↩\nDrone recall\n7s\n⌁\nRelay boost\n9s",
+  "compactBounds": {
+    "x": 390,
+    "y": 143.5,
+    "width": 500,
+    "height": 433
+  },
+  "selectionCleared": true,
+  "status": "passed"
+}

@@ -24,7 +24,7 @@ export function buildingPresentations(snapshot:PlayerSnapshot,catalog:CatalogInd
 }
 
 /** Select only presentation states supported by the currently permitted Go actor. */
-export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:boolean,states:ReadonlyMap<string,SpriteState>,building?:BuildingPresentation,turning=0):SpriteState|undefined{
+export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:boolean,states:ReadonlyMap<string,SpriteState>,building?:BuildingPresentation,turning=0,receivingBoarder=false):SpriteState|undefined{
   const air=unit?.armor==='air';
   const loaded=!!e.private?.cargo||e.state==='returning_cargo';
   let names:string[]=[];
@@ -42,7 +42,8 @@ export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:bool
   else if(e.state==='firing')names=['fire','launch','volley'];
   else if(e.state==='aiming')names=['aim','ready','idle'];
   else if(building&&e.state==='transit')names=['transfer_prep','idle'];
-  else if(building&&e.state==='unload')names=['exit_open','idle'];
+  else if(building&&(e.state==='unload'||e.state==='unload_exit_blocked'))names=['exit_open','idle'];
+  else if(receivingBoarder&&(building||e.health>=450)&&['doors_open','exit_open'].some(name=>states.has(name)))names=building?['exit_open','doors_open','idle']:['doors_open','exit_open','idle'];
   else if(building&&e.state==='producing')names=['produce','idle'];
   else if(building?.serviceActive)names=['service_active','idle'];
   else if(building?.role==='abm'&&e.private)names=[`charges_${Math.max(0,Math.min(2,e.private.charges))}`,'idle'];
@@ -54,7 +55,7 @@ export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:bool
   else if(e.state.includes('build'))names=['work_build','deploy_build','idle'];
   else if(e.state==='loading')names=['work_load','idle'];
   else if(e.state==='unloading')names=['work_unload','doors_open','idle'];
-  else if(e.state==='unload')names=['doors_open','channel','idle'];
+  else if(e.state==='unload'||e.state==='unload_exit_blocked')names=['doors_open','channel','idle'];
   else if(e.state==='designate'||e.state==='beacon')names=['channel','idle'];
   else if(e.state==='capture_exit_blocked')names=['idle'];
   else if(e.state.includes('captur'))names=['work_capture','channel','idle'];

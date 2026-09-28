@@ -12,8 +12,11 @@ anchor, including aircraft altitude. Selected actors show named labels and exact
 rounded-up seconds, ammunition counts/pips and Go channel progress. Unselected
 actors use up to four symbols; selected stacks show the three highest-priority
 badges plus the number of additional effects. Selections larger than four use
-compact symbols on the battlefield. This cap controls world clutter; it is not
-a complete detailed inspector for arbitrarily many simultaneous buffs.
+compact symbols on the battlefield. This cap controls world clutter. Clicking
+the selected actor's state readout opens every disclosed effect, exact remaining
+seconds, ammunition and channel progress in a keyboard-accessible field readout.
+The readout follows the selected entity and perspective; it never submits orders.
+Servicing aircraft are labeled as servicing even while Go retains a Return order.
 Label size stays constant through camera zoom. Reduced motion/flashing use the
 same steady information. Statuses clear on actor destruction/removal/replacement.
 
@@ -46,3 +49,20 @@ application errors. These are presentation fixtures with recorded practice
 setup, not ordinary economy or balance wins. The runtime/protocol are isolated;
 shipping0.3.3 remains unchanged. See [the exact evidence](../work/evidence/actor-status/acceptance.md).
 This does not certify the132-effect manifest or complete presentation.
+
+## Product readout follow-up
+
+The actual product imported the recorded Go effect save, selected the drone and
+opened its field readout at1600×900 and1280×720, including150% UI scale. Root
+inspected the native captures. Click, Enter, Escape, focus restoration, command-key
+isolation and switching selection pass with zero page/console/resource errors.
+The initial stable run found Enter on buttons was consumed by the chat shortcut;
+native Enter/Space activation now takes priority on buttons, links and summaries,
+while battlefield shortcuts still work on the canvas. Focused tests cover both.
+
+`work/evidence/actor-status/product-keyboard-fixed/` and `product-scale150/`
+contain the passing product reports. Earlier hot reload and keyboard failures
+remain in logs and preceding directories; hot reload is disabled for this QA
+runner. The final150% capture also demonstrates the corrected servicing label.
+The combined workspace suite passes299 tests and both TypeScript checks. This
+includes concurrent FX infrastructure tests; it is not299 status-only tests.

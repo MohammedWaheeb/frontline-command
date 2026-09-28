@@ -2,6 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {defaultBindings,validateBindings,remapBindings,resolveShortcut,resolvePointer,textEntryFocused,exceedsDragThreshold,ModifierToggles} from '../../src/runtime/keybindings';
 
+test('native keyboard activation is not consumed as chat or alert navigation',()=>{
+ const bindings=defaultBindings();
+ for(const focus of [{tagName:'button'},{tagName:'A'},{tagName:'SUMMARY'},{role:'button'},{role:'link'}])for(const code of ['Enter','Space','NumpadEnter'])assert.equal(resolveShortcut({code},bindings,focus),undefined);
+ assert.equal(resolveShortcut({code:'Enter'},bindings,{tagName:'CANVAS'})?.action,'chat');
+ assert.equal(resolveShortcut({code:'Space'},bindings,{tagName:'CANVAS'})?.action,'center_alert');
+ assert.equal(resolveShortcut({code:'KeyA'},bindings,{tagName:'BUTTON'})?.action,'attack_move');
+});
+
 test('default and classic controls have no shortcut conflicts, including queued commands and groups',()=>{
  for(const preset of ['standard','classic'] as const){
   const bindings=defaultBindings(preset);assert.deepEqual(validateBindings(bindings),[]);

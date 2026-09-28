@@ -54,6 +54,7 @@ export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:Catalo
  if(entity.state==='landing_blocked')add('landing_blocked','!','Landing area blocked','critical',270);
  if(entity.state==='exit_blocked')add('exit_blocked','!','Production exit blocked','warning',250);
  if(entity.state==='capture_exit_blocked')add('capture_exit_blocked','!','Capture exits blocked','warning',250);
+ if(entity.state==='unload_exit_blocked')add('unload_exit_blocked','!','Unload exits blocked','warning',250);
  if(entity.state==='repairing')add('repairing','+','Repairing','benefit',90);
  if(entity.state==='healing')add('healing','+','Healing','benefit',90);
  if(privateState&&unit?.armor==='air'){
@@ -61,7 +62,8 @@ export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:Catalo
   if(uint(emergency)&&emergency>snapshot.tick)add('emergency_takeoff','↑','Emergency takeoff','critical',300,emergency);
   else if(entity.state==='emergency_takeoff')add('emergency_takeoff','↑','Emergency takeoff','critical',300);
   if(!entity.landed&&privateState.home===0)add('no_home','!','No service base','critical',280);
-  if(privateState.orders.some(order=>order.kind==='return'))add('return','↩','Returning to base','warning',170);
+  if(!entity.landed&&privateState.orders.some(order=>order.kind==='return'))add('return','↩','Returning to base','warning',170);
+  if(entity.landed&&entity.state==='servicing')add('servicing','↻','Aircraft servicing','neutral',160);
  }
  const weapon=catalog.weapons.get(unit?.weapon??building?.weapon??'');
  if(privateState){

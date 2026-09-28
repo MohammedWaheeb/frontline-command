@@ -40,6 +40,12 @@ test('runtime without new metadata never starts an invented emergency timer or a
  assert.deepEqual(actorStatus(e,snapshot(700),catalog).badges,actorStatus(e,snapshot(),catalog).badges);
 });
 
+test('a retained Return order does not label a landed aircraft as still returning',()=>{
+ const e=entity({landed:true,state:'servicing',private:{home:5,orders:[{kind:'return'}]}}),status=actorStatus(e,snapshot(),catalog);
+ assert.ok(status.badges.some(b=>b.id==='servicing'));assert.ok(!status.badges.some(b=>b.id==='return'));
+ assert.ok(!actorStatus({...e,state:'landed'},snapshot(),catalog).badges.some(b=>b.id==='servicing'||b.id==='return'));
+});
+
 test('known public effects remain visible on foreign authorized actors without private economy',()=>{
  const e=extended({owner:3,type:'SA.tank',deployed:true},[{kind:'designated',until:160},{kind:'launch_reveal',until:150},{kind:'hull_down',until:0}]);
  assert.deepEqual(actorStatus(e,snapshot(),catalog).badges.map(b=>b.id),['designated','launch_reveal','hull_down']);

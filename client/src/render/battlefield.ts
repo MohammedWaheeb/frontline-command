@@ -16,6 +16,7 @@ import {drawStructure} from './structure';
 import {activeMissionMarkers,type MissionMarker} from '../app/mission-markers';
 import {minimapLayout,minimapProject,minimapWorldPoint} from './minimap';
 import {actorStatus} from '../app/actor-status';
+import {ownedBoardingReceivers} from '../app/transport-presentation';
 import {tacticalPresentation,type TacticalPresentation} from '../app/tactical-presentation';
 import {TacticalOverlay} from './tactical-overlay';
 import {StrikePreviewOverlay} from './strike-preview';
@@ -177,13 +178,13 @@ export class BattlefieldRenderer {
    for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
   }
   this.snapshot=snapshot;this.refreshTactical(tacticalReset);this.tickAt=performance.now();const living=new Set<number>();
-  const presentations=buildingPresentations(snapshot,this.options.catalog);
+  const presentations=buildingPresentations(snapshot,this.options.catalog),boardingReceivers=new Set(ownedBoardingReceivers(snapshot,this.options.catalog));
   for(const entity of snapshot.entities){
    if(!entity.position||entity.private?.container)continue;
    living.add(entity.id);let actor=this.actors.get(entity.id);const faction=snapshot.players.find(p=>p.id===entity.owner)?.faction;
    if(actor&&actor.artKey!==actorArtKey(entity,faction)){actor.dispose();this.actors.delete(entity.id);actor=undefined}
    if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);actor.attachStatusLayer(this.actorStatuses);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
-   actor.presentation=presentations.get(entity.id);actor.status=actorStatus(entity,snapshot,this.options.catalog);actor.update(entity,this.tickAt);
+   actor.presentation=presentations.get(entity.id);actor.status=actorStatus(entity,snapshot,this.options.catalog);actor.receivingBoarder=boardingReceivers.has(entity.id);actor.update(entity,this.tickAt);
   }
   const serviceBases=[...this.actors.values()].filter(actor=>living.has(actor.id)&&(this.options.catalog.buildings.get(actor.entity.type)?.service_slots??0)>0);
   for(const actor of this.actors.values()){

@@ -111,6 +111,9 @@ export interface ShortcutIntent {action:string;queued:boolean;preventDefault:tru
 /** No listeners are installed. The UI passes its current focus and a keyboard event shape. */
 export function resolveShortcut(event:KeyboardStroke,bindings:ControlBindings,focus:InputContext={},definitions:readonly ShortcutDefinition[]=SHORTCUT_DEFINITIONS):ShortcutIntent|undefined{
  if(focus.enabled===false||textEntryFocused(focus)||event.isComposing||event.defaultPrevented)return undefined;
+ // Native control activation wins over battlefield chat/alert shortcuts.
+ // Other command keys remain usable after clicking a command-panel button.
+ if(['Enter','NumpadEnter','Space'].includes(event.code)&&(['BUTTON','A','SUMMARY'].includes((focus.tagName??'').toUpperCase())||['button','link'].includes((focus.role??'').toLowerCase())))return undefined;
  for(const def of definitions){
   if(event.repeat&&!def.repeat)continue;
   for(const binding of bindings.keys[def.id]??[]){

@@ -37,6 +37,7 @@ export class ActorVisual {
  private livingMembers=Infinity;
  private readonly flight=new FlightPresentation();private suppressTransition=false;
  presentation?:BuildingPresentation;
+ receivingBoarder=false;
  status?:ActorStatusModel;private readonly statusOverlay=new ActorStatusOverlay();private externalStatus=false;
  /** Authorized information stays above world geometry, including a collapsed
   * service building beneath an aircraft's emergency takeoff. */
@@ -141,7 +142,7 @@ export class ActorVisual {
   if(transition)return transition;
   const moving=Math.hypot(this.nextPosition.x-this.lastPosition.x,this.nextPosition.y-this.lastPosition.y)>4;
   const turning=reducedMotion?0:((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000;
-  return actorSpriteState(this.entity,this.catalog.units.get(this.entity.type),moving,this.sheet.states,this.presentation,turning);
+  return actorSpriteState(this.entity,this.catalog.units.get(this.entity.type),moving,this.sheet.states,this.presentation,turning,this.receivingBoarder);
  }
  private frameIndex(state:SpriteState,now:number){
   const progress=state.name==='charging'?this.presentation?.strategicProgress??0:this.entity.progress;
