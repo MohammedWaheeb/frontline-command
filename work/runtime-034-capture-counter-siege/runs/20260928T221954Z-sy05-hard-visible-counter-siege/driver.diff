@@ -1,0 +1,37 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ counter-siege/pkg/sim/authored_campaign_acceptance_test.go
+@@ -943,6 +943,34 @@
+ 							continue
+ 						}
+ 						orders := actor.Private.Orders
++						// Visible long-range anti-tank infantry can siege the relay
++						// outside Guard's leash. Send rifles, then return them using
++						// a real queued Guard; armor keeps its defensive anchor.
++						var siege sim.ID
++						closest := int64(14000 * 14000)
++						if actor.Type == "SY.rifle" {
++							for _, enemy := range r.view().Entities {
++								if enemy.Owner != 2 && enemy.Owner != 4 {
++									continue
++								}
++								u, known := r.catalog.Unit(enemy.Type)
++								if !known || u.Weapon != "AT" {
++									continue
++								}
++								dx, dy := int64(enemy.Position.X-site.Position.X), int64(enemy.Position.Y-site.Position.Y)
++								if d := dx*dx + dy*dy; d < closest || d == closest && (siege == 0 || enemy.ID < siege) {
++									closest, siege = d, enemy.ID
++								}
++							}
++						}
++						if siege != 0 {
++							if len(orders) == 0 || orders[0].Kind != "attack" || orders[0].Target != siege {
++								if r.tryIssue(sim.Order{Kind: "attack", Entities: []sim.ID{id}, Target: siege}) {
++									r.tryIssue(sim.Order{Kind: "guard", Entities: []sim.ID{id}, Target: siteID, Queued: true})
++								}
++							}
++							continue
++						}
+ 						if len(orders) == 0 || orders[0].Kind != "guard" || orders[0].Target != siteID {
+ 							r.tryIssue(sim.Order{Kind: "guard", Entities: []sim.ID{id}, Target: siteID})
+ 						}
