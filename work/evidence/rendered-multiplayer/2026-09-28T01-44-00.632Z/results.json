@@ -1,0 +1,433 @@
+{
+  "started": "2026-09-28T01:44:00.805Z",
+  "browser": "151.0.7922.34",
+  "browserPlugin": "not available; installed Playwright Chromium",
+  "viewports": [
+    {
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "build": {
+    "started": "2026-09-28T01:39:45.625Z",
+    "completed": "2026-09-28T01:39:55.671Z",
+    "revision": "79eaf21bb6e73b6bbe11b2609e4aa2991c434d13",
+    "go": "go version go1.27.1 darwin/arm64",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.2.0"
+    },
+    "sha256": {
+      "host": "6c8a2797051db556564fa59950669ff0c42e6075af31cde768b4337b76d13e28",
+      "wasm": "b1515e1a693735a2858d09bb433dc521f6ae2365df4640da74213e2eaaaa5ca5",
+      "pack": "9751f917f970f987a27ea4b3e81960dc12015404017030860c5ae4d93834e20f",
+      "clientSource": "32104a308c3957ebd432ec0f2280cfbff7dfc8416a748a941476d8783ab37f63"
+    },
+    "packFiles": 2858,
+    "art": {
+      "format": 1,
+      "sprites": {
+        "building.US.hq": "sprites/building.US.hq/building.US.hq.sprite.json",
+        "building.US.power": "sprites/building.US.power/building.US.power.sprite.json",
+        "prop.rocks": "sprites/prop.rocks/prop.rocks.sprite.json",
+        "prop.rubble_cover": "sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+        "prop.sandbags": "sprites/prop.sandbags/prop.sandbags.sprite.json",
+        "prop.shrub": "sprites/prop.shrub/prop.shrub.sprite.json",
+        "prop.supply_field": "sprites/prop.supply_field/prop.supply_field.sprite.json",
+        "unit.IR.hauler": "sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+        "unit.IR.rig": "sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+        "unit.IR.strike": "sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+        "unit.SA.hauler": "sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+        "unit.SA.mobile_abm": "sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+        "unit.SA.rig": "sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+        "unit.SY.car": "sprites/unit.SY.car/unit.SY.car.sprite.json",
+        "unit.SY.hauler": "sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+        "unit.SY.rig": "sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+        "unit.US.at": "sprites/unit.US.at/unit.US.at.sprite.json",
+        "unit.US.elite": "sprites/unit.US.elite/unit.US.elite.sprite.json",
+        "unit.US.hauler": "sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+        "unit.US.recon": "sprites/unit.US.recon/unit.US.recon.sprite.json",
+        "unit.US.rifle": "sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+        "unit.US.rig": "sprites/unit.US.rig/unit.US.rig.sprite.json",
+        "unit.US.tank": "sprites/unit.US.tank/unit.US.tank.sprite.json"
+      },
+      "terrain": [
+        "asphalt",
+        "concrete_slab",
+        "dry_riverbed",
+        "gravel",
+        "packed_earth",
+        "rubble_ground",
+        "sand",
+        "scrub_ground"
+      ],
+      "portraits": [
+        "IR.hauler",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.hauler",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "buildIcons": [
+        "IR.hauler",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.hauler",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "chrome": [
+        "brass_bezel@1x.png",
+        "brass_bezel@2x.png",
+        "button@1x.png",
+        "button@2x.png",
+        "button_active@2x.png",
+        "button_disabled@2x.png",
+        "button_hover@2x.png",
+        "button_normal@2x.png",
+        "button_pressed@2x.png",
+        "cameo_frame@1x.png",
+        "cameo_frame@2x.png",
+        "console_plate@1x.png",
+        "console_plate@2x.png",
+        "metal_noise.png",
+        "well@1x.png",
+        "well@2x.png"
+      ],
+      "icons": true,
+      "emblems": true
+    },
+    "scope": "Isolated actual product; current art incomplete. No shared build artifacts overwritten."
+  },
+  "scope": "Rendered product using independent loopback browser contexts, actual Go host and standard commands. Deliberate surrender completes lifecycle; this is not combat victory, full AI strategy, final-art, physical-LAN or reference-device performance acceptance.",
+  "cases": [
+    {
+      "id": "1",
+      "humans": 1,
+      "bots": 0,
+      "mode": "custom",
+      "status": "failed",
+      "pageErrors": [],
+      "console": [
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x11c0051f000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x11c0051f000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x11c0051f000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x11c0051f000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        }
+      ],
+      "httpErrors": [],
+      "players": [
+        {
+          "player": 1,
+          "faction": "US",
+          "team": 1,
+          "color": 1,
+          "tick": 132,
+          "privateOwners": [
+            1
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 25500
+          },
+          "rig": 2,
+          "initialRig": {
+            "x": 28700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            1,
+            2
+          ],
+          "power": {
+            "x": 20500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            19
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 29963,
+            "y": 29257
+          },
+          "tick": 178,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 20500,
+            "y": 24500
+          },
+          "tick": 244,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 25000,
+            "y": 20000
+          },
+          "tick": 711,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "US.rifle",
+          "entities": [
+            18
+          ],
+          "tick": 1102,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 5,
+          "index": 0,
+          "kind": "stop",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "tick": 1426,
+          "code": "ok"
+        }
+      ],
+      "completion": "Deliberate surrender; no combat-victory claim",
+      "origin": "http://127.0.0.1:53557",
+      "profiles": [
+        "9cfe2c3eb50e126554a6037d"
+      ],
+      "lobby": "fa1fc96ec0cafc2a42188fbf",
+      "startBlockedBeforeReady": true,
+      "reconnect": {
+        "player": 1,
+        "oldTick": 1336,
+        "newTick": 1428,
+        "oldSequence": 4,
+        "newSequence": 5
+      },
+      "outcome": {
+        "winningTeam": 0,
+        "draw": true,
+        "reason": "simultaneous_elimination",
+        "committed": true
+      },
+      "error": "Error: A commander did not display the committed result\n    at until (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-product.mjs:30:134)\n    at async scenario (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-product.mjs:102:3)\n    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-product.mjs:114:84",
+      "frames": [
+        {
+          "tick": 1465,
+          "player": 1,
+          "outcome": {
+            "$typeName": "frontline.v1.Outcome",
+            "finished": true,
+            "draw": true,
+            "winningTeam": 0,
+            "reason": "simultaneous_elimination",
+            "tick": 1465
+          },
+          "orders": [
+            {
+              "sequence": 1,
+              "orders": [
+                {
+                  "kind": "move",
+                  "type": "",
+                  "entities": [
+                    2
+                  ],
+                  "position": {
+                    "x": 29963,
+                    "y": 29257
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 2,
+              "orders": [
+                {
+                  "kind": "build",
+                  "type": "power",
+                  "entities": [
+                    2
+                  ],
+                  "position": {
+                    "x": 20500,
+                    "y": 24500
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 3,
+              "orders": [
+                {
+                  "kind": "build",
+                  "type": "barracks",
+                  "entities": [
+                    2
+                  ],
+                  "position": {
+                    "x": 25000,
+                    "y": 20000
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 4,
+              "orders": [
+                {
+                  "kind": "train",
+                  "type": "US.rifle",
+                  "entities": [
+                    18
+                  ]
+                }
+              ]
+            },
+            {
+              "sequence": 5,
+              "orders": [
+                {
+                  "kind": "stop",
+                  "type": "",
+                  "entities": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "sequence": 6,
+              "orders": [
+                {
+                  "kind": "surrender",
+                  "type": "",
+                  "entities": []
+                }
+              ]
+            }
+          ],
+          "receipts": [
+            {
+              "sequence": 1,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 178
+            },
+            {
+              "sequence": 2,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 244
+            },
+            {
+              "sequence": 3,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 711
+            },
+            {
+              "sequence": 4,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 1102
+            },
+            {
+              "sequence": 5,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 1426
+            },
+            {
+              "sequence": 6,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 1465
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "completed": "2026-09-28T01:45:51.949Z",
+  "status": "failed"
+}

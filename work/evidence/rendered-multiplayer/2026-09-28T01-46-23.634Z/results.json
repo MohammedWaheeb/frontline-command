@@ -1,0 +1,1652 @@
+{
+  "started": "2026-09-28T01:46:23.720Z",
+  "browser": "151.0.7922.34",
+  "browserPlugin": "not available; installed Playwright Chromium",
+  "viewports": [
+    {
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "build": {
+    "started": "2026-09-28T01:39:45.625Z",
+    "completed": "2026-09-28T01:39:55.671Z",
+    "revision": "79eaf21bb6e73b6bbe11b2609e4aa2991c434d13",
+    "go": "go version go1.27.1 darwin/arm64",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.2.0"
+    },
+    "sha256": {
+      "host": "6c8a2797051db556564fa59950669ff0c42e6075af31cde768b4337b76d13e28",
+      "wasm": "b1515e1a693735a2858d09bb433dc521f6ae2365df4640da74213e2eaaaa5ca5",
+      "pack": "9751f917f970f987a27ea4b3e81960dc12015404017030860c5ae4d93834e20f",
+      "clientSource": "32104a308c3957ebd432ec0f2280cfbff7dfc8416a748a941476d8783ab37f63"
+    },
+    "packFiles": 2858,
+    "art": {
+      "format": 1,
+      "sprites": {
+        "building.US.hq": "sprites/building.US.hq/building.US.hq.sprite.json",
+        "building.US.power": "sprites/building.US.power/building.US.power.sprite.json",
+        "prop.rocks": "sprites/prop.rocks/prop.rocks.sprite.json",
+        "prop.rubble_cover": "sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+        "prop.sandbags": "sprites/prop.sandbags/prop.sandbags.sprite.json",
+        "prop.shrub": "sprites/prop.shrub/prop.shrub.sprite.json",
+        "prop.supply_field": "sprites/prop.supply_field/prop.supply_field.sprite.json",
+        "unit.IR.hauler": "sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+        "unit.IR.rig": "sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+        "unit.IR.strike": "sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+        "unit.SA.hauler": "sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+        "unit.SA.mobile_abm": "sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+        "unit.SA.rig": "sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+        "unit.SY.car": "sprites/unit.SY.car/unit.SY.car.sprite.json",
+        "unit.SY.hauler": "sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+        "unit.SY.rig": "sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+        "unit.US.at": "sprites/unit.US.at/unit.US.at.sprite.json",
+        "unit.US.elite": "sprites/unit.US.elite/unit.US.elite.sprite.json",
+        "unit.US.hauler": "sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+        "unit.US.recon": "sprites/unit.US.recon/unit.US.recon.sprite.json",
+        "unit.US.rifle": "sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+        "unit.US.rig": "sprites/unit.US.rig/unit.US.rig.sprite.json",
+        "unit.US.tank": "sprites/unit.US.tank/unit.US.tank.sprite.json"
+      },
+      "terrain": [
+        "asphalt",
+        "concrete_slab",
+        "dry_riverbed",
+        "gravel",
+        "packed_earth",
+        "rubble_ground",
+        "sand",
+        "scrub_ground"
+      ],
+      "portraits": [
+        "IR.hauler",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.hauler",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "buildIcons": [
+        "IR.hauler",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.hauler",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "chrome": [
+        "brass_bezel@1x.png",
+        "brass_bezel@2x.png",
+        "button@1x.png",
+        "button@2x.png",
+        "button_active@2x.png",
+        "button_disabled@2x.png",
+        "button_hover@2x.png",
+        "button_normal@2x.png",
+        "button_pressed@2x.png",
+        "cameo_frame@1x.png",
+        "cameo_frame@2x.png",
+        "console_plate@1x.png",
+        "console_plate@2x.png",
+        "metal_noise.png",
+        "well@1x.png",
+        "well@2x.png"
+      ],
+      "icons": true,
+      "emblems": true
+    },
+    "scope": "Isolated actual product; current art incomplete. No shared build artifacts overwritten."
+  },
+  "scope": "Rendered product using independent loopback browser contexts, actual Go host and standard commands. Deliberate surrender completes lifecycle; this is not combat victory, full AI strategy, final-art, physical-LAN or reference-device performance acceptance.",
+  "cases": [
+    {
+      "id": "1",
+      "humans": 1,
+      "bots": 0,
+      "mode": "custom",
+      "status": "passed",
+      "pageErrors": [],
+      "console": [
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x13c005dee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x13c005dee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x13c005dee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x13c005dee00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        }
+      ],
+      "httpErrors": [],
+      "players": [
+        {
+          "player": 1,
+          "faction": "US",
+          "team": 1,
+          "color": 1,
+          "tick": 132,
+          "privateOwners": [
+            1
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 25500
+          },
+          "rig": 2,
+          "initialRig": {
+            "x": 28700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            1,
+            2
+          ],
+          "power": {
+            "x": 20500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            19
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 29963,
+            "y": 29257
+          },
+          "tick": 182,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 20500,
+            "y": 24500
+          },
+          "tick": 264,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 25000,
+            "y": 20000
+          },
+          "tick": 732,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "US.rifle",
+          "entities": [
+            18
+          ],
+          "tick": 1122,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 5,
+          "index": 0,
+          "kind": "stop",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "tick": 1442,
+          "code": "ok"
+        }
+      ],
+      "completion": "Deliberate surrender; no combat-victory claim",
+      "origin": "http://127.0.0.1:53642",
+      "profiles": [
+        "553bb55b2524c495b2afe9f1"
+      ],
+      "lobby": "5297345242a40cafb40e64f5",
+      "startBlockedBeforeReady": true,
+      "reconnect": {
+        "player": 1,
+        "oldTick": 1360,
+        "newTick": 1444,
+        "oldSequence": 4,
+        "newSequence": 5
+      },
+      "outcome": {
+        "winningTeam": 0,
+        "draw": true,
+        "reason": "simultaneous_elimination",
+        "committed": true
+      },
+      "rematch": {
+        "id": "0780278e333165ce37b65246",
+        "newFormingLobby": true,
+        "requiresReady": true
+      }
+    },
+    {
+      "id": "1ai",
+      "humans": 1,
+      "bots": 1,
+      "mode": "custom",
+      "status": "passed",
+      "pageErrors": [],
+      "console": [],
+      "httpErrors": [],
+      "players": [
+        {
+          "player": 1,
+          "faction": "US",
+          "team": 1,
+          "color": 1,
+          "tick": 132,
+          "privateOwners": [
+            1
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 25500
+          },
+          "rig": 2,
+          "initialRig": {
+            "x": 28700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            1,
+            2
+          ],
+          "power": {
+            "x": 20500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            25
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 29963,
+            "y": 29257
+          },
+          "tick": 190,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 20500,
+            "y": 24500
+          },
+          "tick": 279,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 25000,
+            "y": 20000
+          },
+          "tick": 737,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "US.rifle",
+          "entities": [
+            22
+          ],
+          "tick": 1134,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 5,
+          "index": 0,
+          "kind": "stop",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "tick": 1451,
+          "code": "ok"
+        }
+      ],
+      "completion": "Deliberate surrender; no combat-victory claim",
+      "origin": "http://127.0.0.1:53681",
+      "profiles": [
+        "e4d30998cf038c5985243800"
+      ],
+      "lobby": "159fce5baee022827b7d37d2",
+      "startBlockedBeforeReady": true,
+      "reconnect": {
+        "player": 1,
+        "oldTick": 1372,
+        "newTick": 1452,
+        "oldSequence": 4,
+        "newSequence": 5
+      },
+      "outcome": {
+        "winningTeam": 2,
+        "draw": false,
+        "reason": "elimination",
+        "committed": true
+      },
+      "botSpend": [
+        {
+          "player": 2,
+          "spent": 3800000
+        }
+      ],
+      "rematch": {
+        "id": "cfaa69fb9bf858a848c6490f",
+        "newFormingLobby": true,
+        "requiresReady": true
+      }
+    },
+    {
+      "id": "2",
+      "humans": 2,
+      "bots": 0,
+      "mode": "custom",
+      "status": "passed",
+      "pageErrors": [],
+      "console": [],
+      "httpErrors": [],
+      "players": [
+        {
+          "player": 1,
+          "faction": "US",
+          "team": 1,
+          "color": 1,
+          "tick": 132,
+          "privateOwners": [
+            1
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 25500
+          },
+          "rig": 2,
+          "initialRig": {
+            "x": 28700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            1,
+            2
+          ],
+          "power": {
+            "x": 20500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            23
+          ]
+        },
+        {
+          "player": 2,
+          "faction": "IR",
+          "team": 2,
+          "color": 2,
+          "tick": 144,
+          "privateOwners": [
+            2
+          ],
+          "hq": {
+            "x": 134500,
+            "y": 25500
+          },
+          "rig": 4,
+          "initialRig": {
+            "x": 137700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            3,
+            4
+          ],
+          "power": {
+            "x": 139500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 134500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            24
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 29963,
+            "y": 29257
+          },
+          "tick": 215,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 129488,
+            "y": 29091
+          },
+          "tick": 287,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 20500,
+            "y": 24500
+          },
+          "tick": 399,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 139000,
+            "y": 25500
+          },
+          "tick": 488,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 25000,
+            "y": 20000
+          },
+          "tick": 1022,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 134000,
+            "y": 19500
+          },
+          "tick": 1195,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "US.rifle",
+          "entities": [
+            21
+          ],
+          "tick": 1736,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "IR.rifle",
+          "entities": [
+            22
+          ],
+          "tick": 1864,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 5,
+          "index": 0,
+          "kind": "stop",
+          "type": "",
+          "entities": [
+            4
+          ],
+          "tick": 2460,
+          "code": "ok"
+        }
+      ],
+      "completion": "Deliberate surrender; no combat-victory claim",
+      "origin": "http://127.0.0.1:53729",
+      "profiles": [
+        "4d7ca05ab77fb99c604b32d3",
+        "c78de988d8674250c2b2b74b"
+      ],
+      "lobby": "a58803ed1726de4ca19d5a76",
+      "startBlockedBeforeReady": true,
+      "reconnect": {
+        "player": 2,
+        "oldTick": 2212,
+        "newTick": 2460,
+        "oldSequence": 4,
+        "newSequence": 5
+      },
+      "outcome": {
+        "winningTeam": 2,
+        "draw": false,
+        "reason": "elimination",
+        "committed": true
+      },
+      "rematch": {
+        "id": "e791cb53e8ab6103e300b0e9",
+        "newFormingLobby": true,
+        "requiresReady": true
+      }
+    },
+    {
+      "id": "2ai",
+      "humans": 2,
+      "bots": 2,
+      "mode": "custom",
+      "status": "passed",
+      "pageErrors": [],
+      "console": [],
+      "httpErrors": [],
+      "players": [
+        {
+          "player": 1,
+          "faction": "US",
+          "team": 1,
+          "color": 1,
+          "tick": 248,
+          "privateOwners": [
+            1
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 25500
+          },
+          "rig": 2,
+          "initialRig": {
+            "x": 28700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            1,
+            2
+          ],
+          "power": {
+            "x": 20500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            39
+          ]
+        },
+        {
+          "player": 2,
+          "faction": "IR",
+          "team": 1,
+          "color": 2,
+          "tick": 264,
+          "privateOwners": [
+            2
+          ],
+          "hq": {
+            "x": 134500,
+            "y": 25500
+          },
+          "rig": 4,
+          "initialRig": {
+            "x": 137700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            3,
+            4
+          ],
+          "power": {
+            "x": 139500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 134500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            40
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 29963,
+            "y": 29257
+          },
+          "tick": 394,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 129488,
+            "y": 29091
+          },
+          "tick": 503,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 20500,
+            "y": 24500
+          },
+          "tick": 628,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 139000,
+            "y": 25500
+          },
+          "tick": 752,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 25000,
+            "y": 20000
+          },
+          "tick": 1250,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 134000,
+            "y": 19500
+          },
+          "tick": 1349,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "US.rifle",
+          "entities": [
+            33
+          ],
+          "tick": 1914,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "IR.rifle",
+          "entities": [
+            34
+          ],
+          "tick": 2048,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 5,
+          "index": 0,
+          "kind": "stop",
+          "type": "",
+          "entities": [
+            4
+          ],
+          "tick": 2712,
+          "code": "ok"
+        }
+      ],
+      "completion": "Deliberate surrender; no combat-victory claim",
+      "origin": "http://127.0.0.1:53861",
+      "profiles": [
+        "5665baa26706a7160ca76a0d",
+        "43b4553428d04aa14bc7fa0c"
+      ],
+      "lobby": "9d7fadd657b92681c384b2d9",
+      "startBlockedBeforeReady": true,
+      "reconnect": {
+        "player": 2,
+        "oldTick": 2408,
+        "newTick": 2712,
+        "oldSequence": 4,
+        "newSequence": 5
+      },
+      "outcome": {
+        "winningTeam": 2,
+        "draw": false,
+        "reason": "elimination",
+        "committed": true
+      },
+      "botSpend": [
+        {
+          "player": 3,
+          "spent": 6300000
+        },
+        {
+          "player": 4,
+          "spent": 5600000
+        }
+      ],
+      "rematch": {
+        "id": "590d581eca30a24c02805a63",
+        "newFormingLobby": true,
+        "requiresReady": true
+      }
+    },
+    {
+      "id": "3",
+      "humans": 3,
+      "bots": 0,
+      "mode": "ffa",
+      "status": "failed",
+      "pageErrors": [],
+      "console": [
+        {
+          "player": 2,
+          "level": "error",
+          "message": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+        }
+      ],
+      "httpErrors": [
+        {
+          "player": 2,
+          "path": "/api/v1/matches/6e71a401fa3ecf11ab1044f2/advice",
+          "status": 400,
+          "body": "{\"code\":\"advice_unavailable\",\"message\":\"Command advice is unavailable for this selection or match state.\"}\n"
+        }
+      ],
+      "players": [
+        {
+          "player": 1,
+          "faction": "US",
+          "team": 1,
+          "color": 1,
+          "tick": 176,
+          "privateOwners": [
+            1
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 25500
+          },
+          "rig": 2,
+          "initialRig": {
+            "x": 28700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            1,
+            2
+          ],
+          "power": {
+            "x": 20500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            27
+          ]
+        },
+        {
+          "player": 2,
+          "faction": "IR",
+          "team": 2,
+          "color": 2,
+          "tick": 192,
+          "privateOwners": [
+            2
+          ],
+          "hq": {
+            "x": 134500,
+            "y": 25500
+          },
+          "rig": 4,
+          "initialRig": {
+            "x": 137700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            3,
+            4
+          ],
+          "power": {
+            "x": 139500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 134500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            28
+          ]
+        },
+        {
+          "player": 3,
+          "faction": "SY",
+          "team": 3,
+          "color": 3,
+          "tick": 204,
+          "privateOwners": [
+            3
+          ],
+          "hq": {
+            "x": 134500,
+            "y": 134500
+          },
+          "rig": 6,
+          "initialRig": {
+            "x": 137700,
+            "y": 134500
+          },
+          "initialEntityIDs": [
+            5,
+            6
+          ],
+          "power": {
+            "x": 139500,
+            "y": 134500
+          },
+          "barracks": {
+            "x": 134500,
+            "y": 139500
+          },
+          "trainedRifles": [
+            29
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 29963,
+            "y": 29257
+          },
+          "tick": 314,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 129488,
+            "y": 29091
+          },
+          "tick": 408,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 129438,
+            "y": 129829
+          },
+          "tick": 503,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 20500,
+            "y": 24500
+          },
+          "tick": 670,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 139000,
+            "y": 25500
+          },
+          "tick": 796,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 139000,
+            "y": 134500
+          },
+          "tick": 931,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 25000,
+            "y": 20000
+          },
+          "tick": 1535,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 134000,
+            "y": 19500
+          },
+          "tick": 1658,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 134000,
+            "y": 139000
+          },
+          "tick": 1790,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "US.rifle",
+          "entities": [
+            24
+          ],
+          "tick": 2329,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "IR.rifle",
+          "entities": [
+            25
+          ],
+          "tick": 2434,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "SY.rifle",
+          "entities": [
+            26
+          ],
+          "tick": 2515,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 5,
+          "index": 0,
+          "kind": "stop",
+          "type": "",
+          "entities": [
+            6
+          ],
+          "tick": 3080,
+          "code": "ok"
+        }
+      ],
+      "completion": "Deliberate surrender; no combat-victory claim",
+      "origin": "http://127.0.0.1:53972",
+      "profiles": [
+        "53761e008c80377cdbc9d569",
+        "a261d55ba0f263d3cf83b9a5",
+        "b3768ea20f44a554bd22061c"
+      ],
+      "lobby": "691e0fa6d3fb02dd1adc0fb5",
+      "startBlockedBeforeReady": true,
+      "reconnect": {
+        "player": 3,
+        "oldTick": 2900,
+        "newTick": 3080,
+        "oldSequence": 4,
+        "newSequence": 5
+      },
+      "outcome": {
+        "winningTeam": 3,
+        "draw": false,
+        "reason": "elimination",
+        "committed": true
+      },
+      "rematch": {
+        "id": "896b691d64491f0c26f9150a",
+        "newFormingLobby": true,
+        "requiresReady": true
+      },
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   {\n+     body: '{\"code\":\"advice_unavailable\",\"message\":\"Command advice is unavailable for this selection or match state.\"}\\n',\n+     path: '/api/v1/matches/6e71a401fa3ecf11ab1044f2/advice',\n+     player: 2,\n+     status: 400\n+   }\n+ ]\n- []\n\n    at scenario (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-product.mjs:109:49)\n    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-product.mjs:114:84",
+      "frames": [
+        {
+          "tick": 3238,
+          "player": 1,
+          "outcome": {
+            "$typeName": "frontline.v1.Outcome",
+            "finished": false,
+            "draw": false,
+            "winningTeam": 0,
+            "reason": "",
+            "tick": 0
+          },
+          "orders": [
+            {
+              "sequence": 1,
+              "orders": [
+                {
+                  "kind": "move",
+                  "type": "",
+                  "entities": [
+                    2
+                  ],
+                  "position": {
+                    "x": 29963,
+                    "y": 29257
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 2,
+              "orders": [
+                {
+                  "kind": "build",
+                  "type": "power",
+                  "entities": [
+                    2
+                  ],
+                  "position": {
+                    "x": 20500,
+                    "y": 24500
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 3,
+              "orders": [
+                {
+                  "kind": "build",
+                  "type": "barracks",
+                  "entities": [
+                    2
+                  ],
+                  "position": {
+                    "x": 25000,
+                    "y": 20000
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 4,
+              "orders": [
+                {
+                  "kind": "train",
+                  "type": "US.rifle",
+                  "entities": [
+                    24
+                  ]
+                }
+              ]
+            },
+            {
+              "sequence": 5,
+              "orders": [
+                {
+                  "kind": "surrender",
+                  "type": "",
+                  "entities": []
+                }
+              ]
+            }
+          ],
+          "receipts": [
+            {
+              "sequence": 1,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 314
+            },
+            {
+              "sequence": 2,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 670
+            },
+            {
+              "sequence": 3,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 1535
+            },
+            {
+              "sequence": 4,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 2329
+            },
+            {
+              "sequence": 5,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 3238
+            }
+          ]
+        },
+        {
+          "tick": 3311,
+          "player": 2,
+          "outcome": {
+            "$typeName": "frontline.v1.Outcome",
+            "finished": true,
+            "draw": false,
+            "winningTeam": 3,
+            "reason": "elimination",
+            "tick": 3311
+          },
+          "orders": [
+            {
+              "sequence": 1,
+              "orders": [
+                {
+                  "kind": "move",
+                  "type": "",
+                  "entities": [
+                    4
+                  ],
+                  "position": {
+                    "x": 129488,
+                    "y": 29091
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 2,
+              "orders": [
+                {
+                  "kind": "build",
+                  "type": "power",
+                  "entities": [
+                    4
+                  ],
+                  "position": {
+                    "x": 139000,
+                    "y": 25500
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 3,
+              "orders": [
+                {
+                  "kind": "build",
+                  "type": "barracks",
+                  "entities": [
+                    4
+                  ],
+                  "position": {
+                    "x": 134000,
+                    "y": 19500
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 4,
+              "orders": [
+                {
+                  "kind": "train",
+                  "type": "IR.rifle",
+                  "entities": [
+                    25
+                  ]
+                }
+              ]
+            },
+            {
+              "sequence": 5,
+              "orders": [
+                {
+                  "kind": "surrender",
+                  "type": "",
+                  "entities": []
+                }
+              ]
+            }
+          ],
+          "receipts": [
+            {
+              "sequence": 1,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 408
+            },
+            {
+              "sequence": 2,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 796
+            },
+            {
+              "sequence": 3,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 1658
+            },
+            {
+              "sequence": 4,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 2434
+            },
+            {
+              "sequence": 5,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 3311
+            }
+          ]
+        },
+        {
+          "tick": 3311,
+          "player": 3,
+          "outcome": {
+            "$typeName": "frontline.v1.Outcome",
+            "finished": true,
+            "draw": false,
+            "winningTeam": 3,
+            "reason": "elimination",
+            "tick": 3311
+          },
+          "orders": [
+            {
+              "sequence": 1,
+              "orders": [
+                {
+                  "kind": "move",
+                  "type": "",
+                  "entities": [
+                    6
+                  ],
+                  "position": {
+                    "x": 129438,
+                    "y": 129829
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 2,
+              "orders": [
+                {
+                  "kind": "build",
+                  "type": "power",
+                  "entities": [
+                    6
+                  ],
+                  "position": {
+                    "x": 139000,
+                    "y": 134500
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 3,
+              "orders": [
+                {
+                  "kind": "build",
+                  "type": "barracks",
+                  "entities": [
+                    6
+                  ],
+                  "position": {
+                    "x": 134000,
+                    "y": 139000
+                  }
+                }
+              ]
+            },
+            {
+              "sequence": 4,
+              "orders": [
+                {
+                  "kind": "train",
+                  "type": "SY.rifle",
+                  "entities": [
+                    26
+                  ]
+                }
+              ]
+            },
+            {
+              "sequence": 5,
+              "orders": [
+                {
+                  "kind": "stop",
+                  "type": "",
+                  "entities": [
+                    6
+                  ]
+                }
+              ]
+            }
+          ],
+          "receipts": [
+            {
+              "sequence": 1,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 503
+            },
+            {
+              "sequence": 2,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 931
+            },
+            {
+              "sequence": 3,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 1790
+            },
+            {
+              "sequence": 4,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 2515
+            },
+            {
+              "sequence": 5,
+              "index": 0,
+              "accepted": true,
+              "code": "ok",
+              "tick": 3080
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "completed": "2026-09-28T01:58:02.238Z",
+  "status": "failed"
+}

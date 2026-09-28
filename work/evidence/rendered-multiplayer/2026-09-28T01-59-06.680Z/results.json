@@ -1,0 +1,580 @@
+{
+  "started": "2026-09-28T01:59:06.864Z",
+  "browser": "151.0.7922.34",
+  "browserPlugin": "not available; installed Playwright Chromium",
+  "viewports": [
+    {
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "build": {
+    "started": "2026-09-28T01:39:45.625Z",
+    "completed": "2026-09-28T01:39:55.671Z",
+    "revision": "79eaf21bb6e73b6bbe11b2609e4aa2991c434d13",
+    "go": "go version go1.27.1 darwin/arm64",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.2.0"
+    },
+    "sha256": {
+      "host": "6c8a2797051db556564fa59950669ff0c42e6075af31cde768b4337b76d13e28",
+      "wasm": "b1515e1a693735a2858d09bb433dc521f6ae2365df4640da74213e2eaaaa5ca5",
+      "pack": "9751f917f970f987a27ea4b3e81960dc12015404017030860c5ae4d93834e20f",
+      "clientSource": "32104a308c3957ebd432ec0f2280cfbff7dfc8416a748a941476d8783ab37f63"
+    },
+    "packFiles": 2858,
+    "art": {
+      "format": 1,
+      "sprites": {
+        "building.US.hq": "sprites/building.US.hq/building.US.hq.sprite.json",
+        "building.US.power": "sprites/building.US.power/building.US.power.sprite.json",
+        "prop.rocks": "sprites/prop.rocks/prop.rocks.sprite.json",
+        "prop.rubble_cover": "sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+        "prop.sandbags": "sprites/prop.sandbags/prop.sandbags.sprite.json",
+        "prop.shrub": "sprites/prop.shrub/prop.shrub.sprite.json",
+        "prop.supply_field": "sprites/prop.supply_field/prop.supply_field.sprite.json",
+        "unit.IR.hauler": "sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+        "unit.IR.rig": "sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+        "unit.IR.strike": "sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+        "unit.SA.hauler": "sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+        "unit.SA.mobile_abm": "sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+        "unit.SA.rig": "sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+        "unit.SY.car": "sprites/unit.SY.car/unit.SY.car.sprite.json",
+        "unit.SY.hauler": "sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+        "unit.SY.rig": "sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+        "unit.US.at": "sprites/unit.US.at/unit.US.at.sprite.json",
+        "unit.US.elite": "sprites/unit.US.elite/unit.US.elite.sprite.json",
+        "unit.US.hauler": "sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+        "unit.US.recon": "sprites/unit.US.recon/unit.US.recon.sprite.json",
+        "unit.US.rifle": "sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+        "unit.US.rig": "sprites/unit.US.rig/unit.US.rig.sprite.json",
+        "unit.US.tank": "sprites/unit.US.tank/unit.US.tank.sprite.json"
+      },
+      "terrain": [
+        "asphalt",
+        "concrete_slab",
+        "dry_riverbed",
+        "gravel",
+        "packed_earth",
+        "rubble_ground",
+        "sand",
+        "scrub_ground"
+      ],
+      "portraits": [
+        "IR.hauler",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.hauler",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "buildIcons": [
+        "IR.hauler",
+        "IR.rig",
+        "SA.hauler",
+        "SA.rig",
+        "SY.car",
+        "SY.hauler",
+        "SY.rig",
+        "US.at",
+        "US.elite",
+        "US.hauler",
+        "US.recon",
+        "US.rig",
+        "US.tank"
+      ],
+      "chrome": [
+        "brass_bezel@1x.png",
+        "brass_bezel@2x.png",
+        "button@1x.png",
+        "button@2x.png",
+        "button_active@2x.png",
+        "button_disabled@2x.png",
+        "button_hover@2x.png",
+        "button_normal@2x.png",
+        "button_pressed@2x.png",
+        "cameo_frame@1x.png",
+        "cameo_frame@2x.png",
+        "console_plate@1x.png",
+        "console_plate@2x.png",
+        "metal_noise.png",
+        "well@1x.png",
+        "well@2x.png"
+      ],
+      "icons": true,
+      "emblems": true
+    },
+    "scope": "Isolated actual product; current art incomplete. No shared build artifacts overwritten."
+  },
+  "scope": "Rendered product using independent loopback browser contexts, actual Go host and standard commands. Deliberate surrender completes lifecycle; this is not combat victory, full AI strategy, final-art, physical-LAN or reference-device performance acceptance.",
+  "cases": [
+    {
+      "id": "4",
+      "humans": 4,
+      "bots": 0,
+      "mode": "2v2",
+      "status": "passed",
+      "pageErrors": [],
+      "console": [
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x11c0aa44e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x11c0aa44e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 2,
+          "level": "warning",
+          "message": "[.WebGL-0x13c09b3ae00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "player": 1,
+          "level": "warning",
+          "message": "[.WebGL-0x11c0aa44e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        }
+      ],
+      "httpErrors": [],
+      "players": [
+        {
+          "player": 1,
+          "faction": "US",
+          "team": 1,
+          "color": 1,
+          "tick": 132,
+          "privateOwners": [
+            1
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 25500
+          },
+          "rig": 2,
+          "initialRig": {
+            "x": 28700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            1,
+            2
+          ],
+          "power": {
+            "x": 20500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            31
+          ]
+        },
+        {
+          "player": 2,
+          "faction": "IR",
+          "team": 1,
+          "color": 2,
+          "tick": 152,
+          "privateOwners": [
+            2
+          ],
+          "hq": {
+            "x": 134500,
+            "y": 25500
+          },
+          "rig": 4,
+          "initialRig": {
+            "x": 137700,
+            "y": 25500
+          },
+          "initialEntityIDs": [
+            3,
+            4
+          ],
+          "power": {
+            "x": 139500,
+            "y": 25500
+          },
+          "barracks": {
+            "x": 134500,
+            "y": 20500
+          },
+          "trainedRifles": [
+            32
+          ]
+        },
+        {
+          "player": 3,
+          "faction": "SY",
+          "team": 2,
+          "color": 3,
+          "tick": 172,
+          "privateOwners": [
+            3
+          ],
+          "hq": {
+            "x": 134500,
+            "y": 134500
+          },
+          "rig": 6,
+          "initialRig": {
+            "x": 137700,
+            "y": 134500
+          },
+          "initialEntityIDs": [
+            5,
+            6
+          ],
+          "power": {
+            "x": 139500,
+            "y": 134500
+          },
+          "barracks": {
+            "x": 134500,
+            "y": 139500
+          },
+          "trainedRifles": [
+            33
+          ]
+        },
+        {
+          "player": 4,
+          "faction": "SA",
+          "team": 2,
+          "color": 4,
+          "tick": 192,
+          "privateOwners": [
+            4
+          ],
+          "hq": {
+            "x": 25500,
+            "y": 134500
+          },
+          "rig": 8,
+          "initialRig": {
+            "x": 28700,
+            "y": 134500
+          },
+          "initialEntityIDs": [
+            7,
+            8
+          ],
+          "power": {
+            "x": 20500,
+            "y": 134500
+          },
+          "barracks": {
+            "x": 25500,
+            "y": 139500
+          },
+          "trainedRifles": [
+            34
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 29963,
+            "y": 29257
+          },
+          "tick": 335,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 129488,
+            "y": 29091
+          },
+          "tick": 464,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 129438,
+            "y": 129829
+          },
+          "tick": 590,
+          "code": "ok"
+        },
+        {
+          "player": 4,
+          "sequence": 1,
+          "index": 0,
+          "kind": "move",
+          "type": "",
+          "entities": [
+            8
+          ],
+          "position": {
+            "x": 29767,
+            "y": 129697
+          },
+          "tick": 710,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 20500,
+            "y": 24500
+          },
+          "tick": 891,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 139000,
+            "y": 25500
+          },
+          "tick": 1050,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 139000,
+            "y": 134500
+          },
+          "tick": 1248,
+          "code": "ok"
+        },
+        {
+          "player": 4,
+          "sequence": 2,
+          "index": 0,
+          "kind": "build",
+          "type": "power",
+          "entities": [
+            8
+          ],
+          "position": {
+            "x": 20000,
+            "y": 133500
+          },
+          "tick": 1390,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            2
+          ],
+          "position": {
+            "x": 25000,
+            "y": 20000
+          },
+          "tick": 2018,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            4
+          ],
+          "position": {
+            "x": 134000,
+            "y": 19500
+          },
+          "tick": 2289,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            6
+          ],
+          "position": {
+            "x": 134000,
+            "y": 139000
+          },
+          "tick": 2541,
+          "code": "ok"
+        },
+        {
+          "player": 4,
+          "sequence": 3,
+          "index": 0,
+          "kind": "build",
+          "type": "barracks",
+          "entities": [
+            8
+          ],
+          "position": {
+            "x": 25500,
+            "y": 139500
+          },
+          "tick": 2782,
+          "code": "ok"
+        },
+        {
+          "player": 1,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "US.rifle",
+          "entities": [
+            27
+          ],
+          "tick": 3282,
+          "code": "ok"
+        },
+        {
+          "player": 2,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "IR.rifle",
+          "entities": [
+            28
+          ],
+          "tick": 3422,
+          "code": "ok"
+        },
+        {
+          "player": 3,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "SY.rifle",
+          "entities": [
+            29
+          ],
+          "tick": 3573,
+          "code": "ok"
+        },
+        {
+          "player": 4,
+          "sequence": 4,
+          "index": 0,
+          "kind": "train",
+          "type": "SA.rifle",
+          "entities": [
+            30
+          ],
+          "tick": 3768,
+          "code": "ok"
+        },
+        {
+          "player": 4,
+          "sequence": 5,
+          "index": 0,
+          "kind": "stop",
+          "type": "",
+          "entities": [
+            8
+          ],
+          "tick": 4481,
+          "code": "ok"
+        }
+      ],
+      "completion": "Deliberate surrender; no combat-victory claim",
+      "origin": "http://127.0.0.1:54163",
+      "profiles": [
+        "575db03deccbad19b1b0f2eb",
+        "0b28f416b576fa6c0f511613",
+        "b95361a98ac673e31d5b99ae",
+        "50b3f3c9b0e7e5e3742c90a6"
+      ],
+      "lobby": "cb1f68dcc96262a9223c97e9",
+      "startBlockedBeforeReady": true,
+      "reconnect": {
+        "player": 4,
+        "oldTick": 4264,
+        "newTick": 4484,
+        "oldSequence": 4,
+        "newSequence": 5
+      },
+      "outcome": {
+        "winningTeam": 2,
+        "draw": false,
+        "reason": "elimination",
+        "committed": true
+      },
+      "rematch": {
+        "id": "e6ea598e599d4b2617528200",
+        "newFormingLobby": true,
+        "requiresReady": true
+      }
+    }
+  ],
+  "completed": "2026-09-28T02:03:46.768Z",
+  "status": "passed"
+}
