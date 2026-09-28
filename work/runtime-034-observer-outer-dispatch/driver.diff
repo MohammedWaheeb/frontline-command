@@ -1,0 +1,37 @@
+--- a/pkg/sim/authored_optional_routes_test.go
++++ b/pkg/sim/authored_optional_routes_test.go
+@@ -278,12 +278,12 @@
+ 				}
+ 				next = r.engine.Tick() + 20
+ 				if !lateArrivalReady {
+-					// Delay exposed observation posts until normal combat has removed
+-					// the authored production buildings. Only current player sight and
+-					// remembered observations establish that a building was cleared.
++					// Dispatch after the two public forward positions are visibly
++					// cleared. Waiting for every distant producer lets autonomous
++					// ordinary fire finish the HQ before the observers can arrive.
+ 					ready := true
+ 					view := r.view()
+-					for _, tag := range []string{"enemy-barracks", "enemy-factory", "enemy-service"} {
++					for _, tag := range []string{"relay-1", "relay-2"} {
+ 						ids := r.tags[tag]
+ 						if len(ids) != 1 {
+ 							ready = false
+@@ -306,7 +306,7 @@
+ 					}
+ 					if ready {
+ 						lateArrivalReady = true
+-						r.t.Logf("observer dispatch after visibly cleared enemy production tick%d", r.engine.Tick())
++						r.t.Logf("observer dispatch after visibly cleared forward sites tick%d", r.engine.Tick())
+ 					}
+ 				}
+ 				if r.difficulty != "easy" && r.engine.Tick() >= productionAt {
+@@ -389,7 +389,7 @@
+ 							r.tryIssue(sim.Order{Kind: "hold", Entities: []sim.ID{id}, Queued: true})
+ 							unloaded[id] = true
+ 							// Persistent escorts were assigned before the carrier advanced.
+-							r.t.Logf("original observer unloaded tick%d actor%d health%d", r.engine.Tick(), id, actor.Health)
++							r.t.Logf("original observer observed disembarked tick%d actor%d health%d", r.engine.Tick(), id, actor.Health)
+ 						}
+ 						continue
+ 					}

@@ -1,0 +1,75 @@
+{
+  "scope": "IR06 Normal/Hard observer dispatch after two visibly cleared forward positions; retained safe-point/escort/unload and real objectives",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "5f4341f39c25f5c62fedd617af962f38f5963637b05306f21b5f3575f34e2cbb",
+  "base_source_lock_sha256": "7fa0b3e625b0edae188c2607a66d8551cb667381854d13969803c2af0262335d",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T22:55:28.057277+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-outer-dispatch/runs/20260928T225528Z-ir06-normal-outer-dispatch/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-outer-dispatch/source",
+      "started": "2026-09-28T22:55:28.057654+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 3.695,
+      "completed": "2026-09-28T22:55:31.753150+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-outer-dispatch/runs/20260928T225528Z-ir06-normal-outer-dispatch/sim.test",
+        "-test.run=^TestAuthoredOptionalObserverNetwork$/^normal$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-observer-outer-dispatch/source/pkg/sim",
+      "started": "2026-09-28T22:55:31.759212+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 45.232,
+      "completed": "2026-09-28T22:56:16.990827+00:00"
+    }
+  ],
+  "binary_sha256": "495b908e161e59f7bdde4afac74603a371b2ce27074ba6ae310926f5c464bc82",
+  "exit_code": 1,
+  "completed": "2026-09-28T22:56:16.991475+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.failed.save.json": {
+      "bytes": 1282971,
+      "sha256": "1b68858533ec24f8bb778f29f90c21542328612fa44a65a62f01c199530e5f7b"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.failed.view.json": {
+      "bytes": 381550,
+      "sha256": "ed273a492fab8101cb35fa342b68b353568814f4f54370154cea38fb47ca186f"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.fatal-4130885305/driver-orders.json": {
+      "bytes": 896713,
+      "sha256": "2459b3eb3edc308f07d11bc9a075a4d02cd750e163899ba8b3837319aecdcdd1"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.fatal-4130885305/manifest.json": {
+      "bytes": 866,
+      "sha256": "849cd4ee48ea7da30bf631b44b8dcc6895b8c9c190689aa58329f28e6e6857f4"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.fatal-4130885305/owner.view.json": {
+      "bytes": 381550,
+      "sha256": "ed273a492fab8101cb35fa342b68b353568814f4f54370154cea38fb47ca186f"
+    },
+    "evidence/ir-06-iron-signal-IR-normal-optional-observer-network.fatal-4130885305/state.save.json": {
+      "bytes": 1282971,
+      "sha256": "1b68858533ec24f8bb778f29f90c21542328612fa44a65a62f01c199530e5f7b"
+    }
+  }
+}

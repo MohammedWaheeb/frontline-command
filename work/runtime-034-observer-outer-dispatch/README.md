@@ -1,0 +1,5 @@
+# IR06 observer forward-site dispatch
+
+The prior protected-home route won the main mission before its original observers left their APCs. This successor changes only the discretionary dispatch gate: two visibly cleared public forward positions instead of every enemy producer. The real region-safety, escort, transport and unload rules/checks remain. Diagnostic text now distinguishes observed disembarkation from a proven player Unload command. No rules/content/resources/deadlines change.
+
+Normal FAIL at10701: western original is lost; outcome still nonterminal. Dispatch opened2547, but six reserved escort roles per observer drained the ordinary assault/defense cohort to zero at5525. By final save the supply/factory/rig are lost while reserved tank/AA still follow the dead western observer. All1845 receipts accepted. One issued Unload targeted eastern APC174 at3332; this is not proof western observer unloaded by command. Full fatal save/view/ledger retained. Next bounded correction reduces permanently reserved escorts to the already-used tank/rifle pair per original, retaining home defense and real safety checks.
