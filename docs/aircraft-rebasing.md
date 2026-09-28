@@ -40,6 +40,24 @@ Both TypeScript checks and 209 runtime tests pass, including targeted command
 shape, unchanged ordinary Return, current-visibility filtering and Go-controlled
 context selection.
 
-Actual product US04 rebasing and final native/WASM build verification are pending.
-The optional mission route requires paid battle-damage repair as well as
-service and evacuation; the bounded rebasing test alone will not certify it.
+Actual US04 product input passes original-save import, native/WASM start-hash
+agreement, Rebase to the backup field, ordinary service, quick-save, right-click
+Rebase back and unchanged targetless Return. The first run exposed a missing
+Return entry in the read-only candidate allowlist; that failure is retained.
+The correction also proves independent advice does not consume service slots,
+while a combined over-capacity order remains rejected. Enlarging the command
+tray fixes the clipped aircraft command rows at 1600×900 and 1280×720.
+
+Evidence: `work/evidence/aircraft-rebase/source/work/evidence/aircraft-rebase/`,
+04:08 failed and 04:15 successful runs, exact build hashes and captured source
+provenance. This isolated client is deliberately the pre-height renderer. The
+terrain agent separately verifies the serviced plane remains visibly above its
+service footprint in the current renderer; neither screenshot is substituted for
+the other source revision.
+
+US04's optional route also passes all three difficulties using genuine hostile
+damage, paid repair, service and evacuation of both original jets, followed by
+normal timed victory, midpoint restoration, full replay, restart and failure
+checks. The bounded UI rebase journey does not itself claim that full route.
+The shared runtime build still needs the subsequent candidate allowlist change;
+the 04:25 product run also passes at 1280×720 / 150% interface scale, with first-row visibility, last-command scrolling and normal Return/Rebase still working. No page or console errors occurred.

@@ -256,3 +256,12 @@ body:has(.battlefield-screen) .audio-captions{left:calc((100% - var(--fc-hud-sid
  .battlefield-screen .selection-tray{padding-top:12px;padding-bottom:8px;gap:8px}
  .battlefield-screen .command-grid button{min-height:calc(42px * var(--fc-ui-scale))}
 }
+
+/* Actual aircraft command sets need two complete visible rows. Keep scrolling
+   aligned to whole rows at enlarged UI scales instead of clipping labels. */
+:root{--fc-hud-tray-h:calc(144px * var(--fc-ui-scale))}
+.battlefield-screen .selection-tray{width:calc(100% - var(--fc-hud-sidebar-w));max-width:calc(100% - var(--fc-hud-sidebar-w));padding-top:12px;padding-bottom:8px}
+.battlefield-screen .unit-subgroups:has(button:only-child){display:none}
+.battlefield-screen .command-grid{height:100%;min-height:0;align-content:start;grid-auto-rows:calc((100% - 5px)/2);overflow-x:hidden;overflow-y:auto;scroll-snap-type:y mandatory;scroll-padding-block:4px}
+.battlefield-screen .command-grid button{min-height:0;min-width:0;gap:2px;padding-block:3px;scroll-snap-align:start}
+.battlefield-screen .command-grid .icon{width:20px;height:20px;flex-shrink:0}

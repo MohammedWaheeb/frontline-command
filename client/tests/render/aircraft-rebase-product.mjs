@@ -23,11 +23,25 @@ const data=await mkdtemp(path.join(tmpdir(),'frontline-rebase-')),child=spawn(pa
 const origin=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Host startup timeout')),20000);child.stdout.on('data',bytes=>{log+=bytes;const m=log.match(/http:\/\/127\.0\.0\.1:\d+/);if(m){clearTimeout(timer);resolve(m[0])}});child.stderr.on('data',bytes=>log+=bytes);child.once('exit',code=>{clearTimeout(timer);reject(Error(`Host exited ${code}`))})});
 const browser=await chromium.launch({headless:true}),page=await browser.newPage({viewport:{width:1600,height:900}}),report={time:new Date().toISOString(),build,origin,scope:'Actual US04 original start import and visible Rebase/Return controls. Not full mission optional completion.',native:native.checkpoints,errors:[],consoleErrors:[],checks:{}};
 page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.consoleErrors.push(m.text())});
-await page.addInitScript(()=>{const Native=window.Worker;window.orderBytes=[];window.Worker=class extends Native{constructor(...args){super(...args);this.addEventListener('message',event=>{if(event.data.event==='frame')window.frameBytes=Array.from(event.data.bytes)});const post=this.postMessage;this.postMessage=function(message,...rest){if(message.method==='submit')window.orderBytes.push(Array.from(message.args[0]));return post.call(this,message,...rest)}}}});
+await page.addInitScript(()=>{const Native=window.Worker;window.orderBytes=[];window.workerErrors=[];window.Worker=class extends Native{constructor(...args){super(...args);this.addEventListener('message',event=>{if(event.data.event==='frame')window.frameBytes=Array.from(event.data.bytes);if(event.data.ok===false)window.workerErrors.push(event.data.error)});const post=this.postMessage;this.postMessage=function(message,...rest){if(message.method==='submit')window.orderBytes.push(Array.from(message.args[0]));return post.call(this,message,...rest)}}}});
 async function snapshot(){const bytes=await page.evaluate(()=>window.frameBytes);return bytes?fromBinary(PlayerSnapshotSchema,new Uint8Array(bytes)):undefined}
 async function until(check,label,timeout=45000){const start=Date.now();while(!await check()){if(Date.now()-start>timeout)throw Error(label);await new Promise(resolve=>setTimeout(resolve,100))}}
 async function centerAt(point){const b=await page.getByLabel('Tactical minimap').boundingBox(),p=minimapProject(minimapLayout(map.width,map.height,b.width,b.height),point);await page.mouse.click(b.x+p.x,b.y+p.y);await page.waitForTimeout(80)}
 async function clickCenter(button='left',dy=-20){const b=await page.locator('.battlefield-canvas canvas').boundingBox();await page.mouse.click(b.x+b.width/2,b.y+b.height/2+dy,{button})}
+async function commandLayout(label){
+ const grid=page.locator('.command-grid');await grid.evaluate(el=>{el.scrollTop=0});
+ const metrics=await grid.evaluate(el=>{const box=el.getBoundingClientRect();return {height:el.clientHeight,scrollHeight:el.scrollHeight,buttons:[...el.querySelectorAll('button')].map(button=>{const r=button.getBoundingClientRect();return {text:button.innerText,top:r.top-box.top,bottom:r.bottom-box.top,height:r.height}})}});
+ assert.ok(metrics.buttons.every(button=>button.height>=40),'Command keys became too small');
+ assert.ok(metrics.buttons[0].top>=0&&metrics.buttons[0].bottom<=metrics.height,'First command row is clipped');
+ await grid.locator('button').last().scrollIntoViewIfNeeded();
+ const last=await grid.evaluate(el=>{const box=el.getBoundingClientRect(),r=el.querySelector('button:last-child').getBoundingClientRect();return {top:r.top-box.top,bottom:r.bottom-box.top,height:el.clientHeight}});
+ assert.ok(last.top>=0&&last.bottom<=last.height+1,'Last command cannot be fully reached');
+ await page.screenshot({path:path.join(out,`rebase-commands-${label}.png`)});return {...metrics,last};
+}
+async function interfaceScale(value){
+ await page.getByRole('button',{name:'Open pause menu',exact:true}).click();await page.getByRole('dialog',{name:'Operation paused',exact:true}).getByRole('button',{name:'Options',exact:true}).click();
+ const options=page.getByRole('dialog',{name:'Options',exact:true});await options.getByLabel('Interface scale',{exact:true}).selectOption(value);await options.getByRole('button',{name:'Close',exact:true}).click();await page.getByRole('button',{name:'Resume operation',exact:true}).click();
+}
 const own=(f,origin)=>f.entities.find(e=>e.private?.missionOrigin===origin);
 try{
  await page.goto(origin+'/rebase-harness.html');
@@ -43,10 +57,13 @@ try{
  await until(async()=>{const f=await snapshot(),e=f?.entities.find(e=>e.id===id);return e?.landed&&e.state==='landed'&&e.private.home===backup.id},'Aircraft did not reach and complete service at the chosen base',120000);
  frame=await snapshot();const arrived=frame.entities.find(e=>e.id===id);assert.ok(Math.hypot(arrived.position.x-backup.position.x,arrived.position.y-backup.position.y)<6000);report.checks.arrival={tick:frame.tick,home:arrived.private.home,landed:arrived.landed,position:arrived.position};await page.screenshot({path:path.join(out,'rebase-serviced.png')});
  await page.keyboard.press('F5');await until(async()=>/saved/i.test(await page.locator('.notice').innerText().catch(()=>'')),'Quick save not confirmed');report.checks.saved=true;
+ await page.setViewportSize({width:1280,height:720});report.checks.commandGrid=await commandLayout('1280');
+ await interfaceScale('1.5');report.checks.commandGrid150=await commandLayout('1280-150');await interfaceScale('1');
+ await page.setViewportSize({width:1600,height:900});
  // Right-click chooses the same Go rebase intent after independent advice.
  await page.getByRole('button',{name:'Select Original strike wing one',exact:true}).click();await centerAt(old.position);await clickCenter('right');await until(async()=>{const e=(await snapshot())?.entities.find(e=>e.id===id);return e?.private?.home===old.id},'Context rebase did not assign original airfield');
  await page.locator('.command-grid button').filter({hasText:/^Return/}).click();await until(async()=>{const bytes=await page.evaluate(()=>window.orderBytes);return bytes.flatMap(b=>fromBinary(OrderBatchSchema,new Uint8Array(b)).orders).some(o=>o.kind==='return'&&o.target===0)},'Ordinary Return did not remain targetless');
  const orders=(await page.evaluate(()=>window.orderBytes)).flatMap(b=>fromBinary(OrderBatchSchema,new Uint8Array(b)).orders);report.orders=orders.map(o=>({kind:o.kind,entities:o.entities,target:o.target,queued:o.queued}));assert.ok(report.orders.some(o=>o.kind==='return'&&o.target===backup.id));assert.ok(report.orders.some(o=>o.kind==='return'&&o.target===old.id));
  assert.deepEqual(report.errors,[]);assert.deepEqual(report.consoleErrors,[]);report.status='passed';
-}catch(error){report.status='failed';report.error=String(error.stack??error);const f=await snapshot();report.last=f?{tick:f.tick,actors:f.entities.filter(e=>e.owner===1).map(e=>({id:e.id,type:e.type,home:e.private?.home,state:e.state,landed:e.landed,pos:e.position}))}:undefined;await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});await writeFile(path.join(out,'failure.txt'),await page.locator('body').innerText().catch(()=>''));process.exitCode=1}
+}catch(error){report.status='failed';report.error=String(error.stack??error);report.workerErrors=await page.evaluate(()=>window.workerErrors);const f=await snapshot();report.last=f?{tick:f.tick,actors:f.entities.filter(e=>e.owner===1).map(e=>({id:e.id,type:e.type,home:e.private?.home,state:e.state,landed:e.landed,pos:e.position}))}:undefined;await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});await writeFile(path.join(out,'failure.txt'),await page.locator('body').innerText().catch(()=>''));process.exitCode=1}
 finally{await writeFile(path.join(out,'result.json'),JSON.stringify(report,null,2));await browser.close();if(child.exitCode===null){const stopped=new Promise(resolve=>child.once('exit',resolve));child.kill('SIGTERM');await stopped}await writeFile(path.join(out,'host.log'),log);await rm(data,{recursive:true,force:true});console.log(JSON.stringify({status:report.status,error:report.error,checks:report.checks,out},null,2))}

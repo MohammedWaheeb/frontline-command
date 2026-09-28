@@ -7,7 +7,7 @@ import (
 
 // Independent probes are restricted to contextual intentions that can be
 // checked without applying spending, production or ability effects.
-var candidateKinds = map[string]bool{"move": true, "rally": true, "repair": true, "resume": true, "board": true, "guard": true, "escort": true, "capture": true, "attack": true, "gather": true, "salvage": true, "unload": true}
+var candidateKinds = map[string]bool{"move": true, "rally": true, "repair": true, "resume": true, "board": true, "guard": true, "escort": true, "capture": true, "attack": true, "gather": true, "salvage": true, "unload": true, "return": true}
 
 // PreviewCandidates checks alternatives independently against one tick. Never
 // interpret these as a sequential purchase/queue/ability batch. The planner must

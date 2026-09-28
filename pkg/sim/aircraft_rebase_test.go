@@ -105,6 +105,27 @@ func TestRebaseReservationsAtomicAndPaidJobs(t *testing.T) {
 	}
 }
 
+func TestRebaseContextCandidatesDoNotConsumeReservations(t *testing.T) {
+	e, old, next, a := rebaseFixture(t, "US.fighter")
+	b := droneFixtureActor(e, old.ID, "US.fighter")
+	rule, _ := e.buildingRule(next.Type)
+	for range rule.ServiceSlots - 1 {
+		droneFixtureActor(e, next.ID, "US.fighter")
+	}
+	a.Landed, b.Landed = false, false
+	orders := []Order{{Kind: "return", Entities: []ID{a.ID}, Target: next.ID}, {Kind: "return", Entities: []ID{b.ID}, Target: next.ID}}
+	before := e.Hash()
+	advice, err := e.PreviewCandidates(1, orders)
+	if err != nil || len(advice) != 2 || advice[0].Code != "ok" || advice[1].Code != "ok" || e.Hash() != before {
+		t.Fatal("independent context probes changed a reservation", advice, err)
+	}
+	combined := Order{Kind: "return", Entities: []ID{a.ID, b.ID}, Target: next.ID}
+	advice, err = e.PreviewOrders(1, []Order{combined})
+	if err != nil || len(advice) != 1 || advice[0].Code != "service_full" || e.Hash() != before {
+		t.Fatal("combined context group exceeded available slots", advice, err)
+	}
+}
+
 func TestRebaseRejectsUnavailableTargetsAndService(t *testing.T) {
 	for _, scenario := range []string{"unknown", "enemy", "allied", "incomplete", "disabled", "selling", "incompatible", "servicing", "recovering", "queued"} {
 		t.Run(scenario, func(t *testing.T) {

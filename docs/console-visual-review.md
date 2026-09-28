@@ -56,3 +56,20 @@ The renderer fixture checks actual 300×100 canvas clicks at center, quarter and
 map edges; pure tests also cover nonsquare maps, both diagonal directions and
 multiple accessibility panel sizes. The complete renderer lifecycle suite
 passes after this change. Full-map visibility was not enabled for these shots.
+
+## Aircraft command tray
+
+The actual US04 product exposed clipped command labels after explicit Rebase
+was added to the complete aircraft action set. The tray now spans the battlefield
+width, uses two full-height command rows and scrolls any further actions. Single
+subgroup tabs are hidden because they do not change selection. The 04:25 UTC
+28 September product run passes at 1600×900 and 1280×720 / 100% and 150%.
+First-row buttons are fully visible, every last command can be scrolled into
+view, and aircraft Rebase, right-click Rebase, normal Return and quick-save work.
+All 209 runtime tests and both TypeScript checks pass.
+
+Evidence: `work/evidence/aircraft-rebase/source/work/evidence/aircraft-rebase/2026-09-28T04-25-37.349Z/`.
+Native screenshots were inspected. This isolated command-control build deliberately
+uses the pre-height renderer and incomplete art; the terrain/service-depth fix
+has separate source-specific evidence. Remaining empty production panels and
+missing building silhouettes are not accepted as final presentation.
