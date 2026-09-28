@@ -1,6 +1,6 @@
 import type {LocalStore} from '../runtime/storage';
 import {sha256Hex} from '../runtime/crypto';
-const skills=new Set(['single_select','box_select','group_store','group_recall','stop','rally','rejected_order']);
+const skills=new Set(['single_select','box_select','group_store','group_recall','stop','rally','rejected_order','board','unload']);
 interface Memory{version:1;mission:string;missionVersion:string;skills:string[]}
 /** UI teaching memory only. It cannot record campaign completion or change Go state. */
 export class TutorialInputMemory{

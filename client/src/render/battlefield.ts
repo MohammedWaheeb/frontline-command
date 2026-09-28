@@ -11,6 +11,7 @@ import {buildingPresentations} from './poses';
 import {CHUNK,TerrainBaker} from './terrain';
 import {toScreen,toWorld,HALF_W,HALF_H} from './iso';
 import {drawStructure} from './structure';
+import {activeMissionMarkers,type MissionMarker} from '../app/mission-markers';
 
 export interface BattlefieldGesture {
  kind:'click'|'double-click'|'context'|'box'|'hover';point:Point;hit?:CommandTarget;rect?:Rect;
@@ -41,6 +42,7 @@ export class BattlefieldRenderer {
  private placement?:PlacementPreview;private targeting?:string;private lastHover=0;private frame=0;private fogTick=-1;
  private memoryKey='';private rubbleKey='';private lost=false;private presentationMap:GameMap;
  private effectEvent=0;private shake={until:0,strength:0,x:0,y:0};
+ private missionMarkers:MissionMarker[]=[];
  private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art)}
  static async create(host:HTMLElement,options:BattlefieldOptions):Promise<BattlefieldRenderer>{
   const renderer=new BattlefieldRenderer(host,options);
@@ -68,6 +70,7 @@ export class BattlefieldRenderer {
   this.app.ticker.add(()=>this.render());
  }
  get missingArt():string[]{return [...this.missing].sort()}
+ setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers)}
  async whenAssetsReady(){await Promise.all([...this.actors.values(),...this.props].map(actor=>actor.ready));this.render();await this.options.art.settle();this.render()}
  viewport():Rect{return {left:0,top:0,right:this.app.screen.width,bottom:this.app.screen.height}}
  center(point:Point){const p=toScreen(point.x,point.y);this.camera.x=p.x;this.camera.y=p.y;this.cameraTransform()}
@@ -281,6 +284,10 @@ export class BattlefieldRenderer {
  }
  private drawTactical(now:number){
   const g=this.tactical.clear(),s=this.snapshot;if(!s)return;
+  for(const marker of activeMissionMarkers(this.missionMarkers,s.mission)){
+   this.diamond(g,marker.position,(marker.max.x-marker.min.x+1)/1000,(marker.max.y-marker.min.y+1)/1000,0xe0bc65,.04);
+   const p=toScreen(marker.position.x,marker.position.y);g.ellipse(p.x,p.y,15,7.5).stroke({width:2,color:0xf1ce78});g.moveTo(p.x-23,p.y).lineTo(p.x-10,p.y).moveTo(p.x+10,p.y).lineTo(p.x+23,p.y).moveTo(p.x,p.y-15).lineTo(p.x,p.y-6).moveTo(p.x,p.y+6).lineTo(p.x,p.y+15).stroke({width:2,color:0xf1ce78});
+  }
   for(const station of s.stations){if(!station.position)continue;const p=toScreen(station.position.x,station.position.y);g.rect(p.x-11,p.y-18,22,18).fill({color:0x4c4b3b}).stroke({width:2,color:this.team(station.owner)});g.moveTo(p.x,p.y-18).lineTo(p.x,p.y-36).lineTo(p.x+12,p.y-32).lineTo(p.x,p.y-27).fill({color:this.team(station.owner)}).stroke({width:1,color:0xdbd0a5})}
   for(const salvage of s.salvage){if(salvage.position)this.diamond(g,salvage.position,.5,.5,0xb9934b,.65)}
   for(const projectile of s.projectiles){
@@ -290,7 +297,7 @@ export class BattlefieldRenderer {
    if(projectile.warning){g.ellipse(end.x,end.y,38,19).stroke({width:2,color:0xe18348});g.moveTo(end.x-10,end.y).lineTo(end.x+10,end.y).moveTo(end.x,end.y-7).lineTo(end.x,end.y+7).stroke({width:1,color:0xffd19b})}
   }
   for(const warning of s.warnings){if(!warning.position)continue;const p=toScreen(warning.position.x,warning.position.y);g.ellipse(p.x,p.y,55,27.5).stroke({width:2,color:warning.kind==='transfer'?0xd8bd79:0xdf7046})}
-  for(const entity of s.entities){if(!this.selected.has(entity.id)||!entity.position||!entity.private)continue;let start=toScreen(entity.position.x,entity.position.y);for(const order of entity.private.orders){if(!order.position)continue;const end=toScreen(order.position.x,order.position.y);g.moveTo(start.x,start.y).lineTo(end.x,end.y).stroke({width:1,color:0xc5cb91,alpha:.5});g.ellipse(end.x,end.y,6,3).stroke({width:1,color:0xc5cb91});start=end}}
+  for(const entity of s.entities){if(!this.selected.has(entity.id)||!entity.position||!entity.private)continue;let start=toScreen(entity.position.x,entity.position.y);for(const order of entity.private.orders){if(!order.position)continue;const end=toScreen(order.position.x,order.position.y);g.moveTo(start.x,start.y).lineTo(end.x,end.y).stroke({width:1,color:0xc5cb91,alpha:.5});g.ellipse(end.x,end.y,6,3).stroke({width:1,color:0xc5cb91});if(entity.state==='blocked'){g.moveTo(end.x-7,end.y-7).lineTo(end.x+7,end.y+7).moveTo(end.x+7,end.y-7).lineTo(end.x-7,end.y+7).stroke({width:2,color:0xea926f})}start=end}}
   if(this.placement){const p=this.placement.position??(this.pointer?this.point(this.pointer):undefined);if(p)this.diamond(g,p,this.placement.width,this.placement.height,this.placement.valid===false?0xdb5c46:this.placement.valid?0xa9cc79:0xd8b766)}
   void now;
  }
@@ -300,6 +307,7 @@ export class BattlefieldRenderer {
   for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++){const i=y*m.width+x,[r,g,b]=TerrainBaker.minimapColor(this.presentationMap,x,y),k=s.visible[i]?1:s.explored[i]?.4:.04;image.data.set([r*k,g*k,b*k,255],i*4)}
   const temp=document.createElement('canvas');temp.width=m.width;temp.height=m.height;temp.getContext('2d')!.putImageData(image,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(temp,0,0,canvas.width,canvas.height);
   const sx=canvas.width/(m.width*1000),sy=canvas.height/(m.height*1000);
+  for(const marker of activeMissionMarkers(this.missionMarkers,s.mission)){const x=marker.position.x*sx,y=marker.position.y*sy;ctx.strokeStyle='#f1ce78';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y-5);ctx.lineTo(x+5,y);ctx.lineTo(x,y+5);ctx.lineTo(x-5,y);ctx.closePath();ctx.stroke()}
   for(const e of s.entities){if(!e.position||e.private?.container)continue;ctx.fillStyle=`#${this.team(e.owner).toString(16).padStart(6,'0')}`;const size=this.options.catalog.isBuilding(e.type)?4:2;ctx.fillRect(e.position.x*sx-size/2,e.position.y*sy-size/2,size,size)}
   ctx.strokeStyle='#e2d6ad';ctx.lineWidth=1;ctx.beginPath();const corners=[{x:0,y:0},{x:this.app.screen.width,y:0},{x:this.app.screen.width,y:this.app.screen.height},{x:0,y:this.app.screen.height}].map(p=>this.point(p));corners.forEach((p,i)=>{if(i===0)ctx.moveTo(p.x*sx,p.y*sy);else ctx.lineTo(p.x*sx,p.y*sy)});ctx.closePath();ctx.stroke();
  }

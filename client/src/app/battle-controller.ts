@@ -4,12 +4,21 @@ import {art} from '../render/art';
 import {COMMANDS,ABILITIES,STRATEGIC,reason} from '../content/labels';
 import {Observable} from './store';
 import type {Application} from './application';
+import {readMissionMarkers,type MissionMarker} from './mission-markers';
 export interface ProductionChoice {type:string;kind:'build'|'train'|'research';producer:number;available:boolean;reason?:string;waitsFor?:string}
-export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string}
+export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[]}
 /** Input only: every executable decision is validated by the Go runtime. */
 export class BattleController {
  readonly selection=new BattlefieldSelection();readonly modifiers=new ModifierToggles();readonly targeting=new CommandTargeting();
- readonly state=new Observable<BattleState>({ids:[],production:[],pending:false,learned:[]});
+ readonly state=new Observable<BattleState>({ids:[],production:[],pending:false,learned:[],markers:[]});
+ private markerMission?:string;
+ private terminal=false;
+ private inactive(){return !!this.snapshot?.outcome?.finished||!!this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.defeated}
+ private async loadMarkers(mission:NonNullable<PlayerSnapshot['mission']>){
+  const state=this.app.state.get(),entry=state.index?.missions.find(entry=>entry.id===mission.id&&entry.version===mission.version),map=state.session.map;
+  if(!entry?.presentation_url||!map)return;
+  try{const response=await fetch(entry.presentation_url,{signal:this.keyAbort.signal});if(!response.ok)throw Error('Objective locations are unavailable.');const text=await response.text();if(text.length>256*1024)throw Error('Operation presentation is too large.');const markers=readMissionMarkers(JSON.parse(text),map,mission);if(this.closed)return;this.state.update(state=>({...state,markers}));this.renderer?.setMissionMarkers(markers)}catch(error){if(!this.closed)this.app.patch({notice:error instanceof Error?error.message:'Objective locations unavailable.'})}
+ }
  renderer?:BattlefieldRenderer;private detachAudio?:()=>void;private snapshot?:PlayerSnapshot;private practicePlacement?:OrderIntent;private tutorialMission?:{id:string;version:string};private orderKinds=new Map<number,Array<{kind:string;entity?:Pick<Entity,'type'|'owner'>}>>();private unsubscribeResults?:()=>void;private subgroupCycle?:{groups:number[][];index:number};private scope:string;private closed=false;private generation=0;private refreshAt=0;private refreshing=false;private hoverPending=false;private advisoryWork?:Promise<unknown>;private hoverAt=0;private keyAbort=new AbortController();private activeTarget?:{kind:string;type?:string;label:string};
  constructor(readonly app:Application,readonly openPause:()=>void,readonly chooseEntryEdge:()=>void){this.scope=app.sessions.state.id!;this.unsubscribeResults=app.sessions.subscribe(event=>{if(event.type!=='runtime'||event.session!==this.scope||event.event.type!=='order-result')return;const result=event.event.result,kinds=this.orderKinds.get(result.sequence);if(!kinds)return;if(result.accepted){const kind=kinds[result.index]?.kind;if(kind)this.learn(kind)}else this.learn('rejected_order');const command=kinds[result.index];if(command)app.audioDirector.receipt(command.kind,result.accepted,command.entity,result.code);if(result.index===kinds.length-1)this.orderKinds.delete(result.sequence)})}
  private learn(kind:string){if(this.app.sessions.state.kind!=='solo'||this.state.get().learned.includes(kind))return;this.state.update(state=>({...state,learned:[...state.learned,kind]}));const mission=this.tutorialMission;if(mission)void this.app.tutorialInput.record(mission.id,mission.version,kind).catch(error=>this.app.error(error))}
@@ -17,14 +26,19 @@ export class BattleController {
   await this.app.beforeBattlefield();if(this.closed)return;
   const state=this.app.state.get();if(!state.catalog||!state.session.map)throw Error('The session map and catalog must be loaded.');
   const renderer=await BattlefieldRenderer.create(host,{map:state.session.map,catalog:state.catalog,art,settings:state.settings,onGesture:gesture=>this.gesture(gesture),onError:error=>this.app.error(error)});
-  if(this.closed){renderer.dispose();return}this.renderer=renderer;this.detachAudio=this.app.audioDirector.attachBattlefield(state.session.map,()=>({viewport:renderer.viewport(),bounds:entity=>renderer.bounds(entity)}));
+  if(this.closed){renderer.dispose();return}this.renderer=renderer;renderer.setMissionMarkers(this.state.get().markers);this.detachAudio=this.app.audioDirector.attachBattlefield(state.session.map,()=>({viewport:renderer.viewport(),bounds:entity=>renderer.bounds(entity)}));
   this.app.frames.add(this.frame);if(this.app.sessions.transport?.current)this.frame(this.app.sessions.transport.current);
   await renderer.whenAssetsReady();if(this.closed||this.app.sessions.state.id!==this.scope)return;if(!['online','observer'].includes(this.app.sessions.state.kind??''))await this.app.sessions.resume();
   window.addEventListener('keydown',this.key,{signal:this.keyAbort.signal});window.addEventListener('blur',()=>this.modifiers.clear(),{signal:this.keyAbort.signal});
  }
  frame=(snapshot:PlayerSnapshot)=>{
+  if(!this.closed&&!this.terminal&&(snapshot.outcome?.finished||snapshot.players.find(player=>player.id===snapshot.player)?.defeated)){
+   this.terminal=true;this.cancel();if(this.app.sessions.state.kind==='online')this.app.commandAdvice().cancel();this.state.update(state=>({...state,production:[],affordances:undefined,pending:false}));
+  }
+  if(!this.closed&&snapshot.mission&&this.markerMission!==snapshot.mission.id){this.markerMission=snapshot.mission.id;void this.loadMarkers(snapshot.mission)}
   if(this.closed)return;this.snapshot=snapshot;if(!this.tutorialMission&&this.app.sessions.state.kind==='solo'&&this.app.state.get().index?.missions.some(entry=>entry.mode==='tutorial'&&entry.id===snapshot.mission?.id)){const mission=this.tutorialMission={id:snapshot.mission!.id,version:snapshot.mission!.version};void this.app.tutorialInput.read(mission.id,mission.version).then(learned=>{if(!this.closed)this.state.update(state=>({...state,learned:[...new Set([...state.learned,...learned])]}))}).catch(error=>this.app.error(error))}const before=this.selection.token;this.selection.reconcile(snapshot,this.scope);this.renderer?.setSnapshot(snapshot);
   if(!sameSelection(before,this.selection.token))this.changed(true,false);
+  if(!this.closed&&snapshot.events.some(event=>event.kind==='route_blocked'&&event.owner===snapshot.player))this.learn('rejected_order');
   if(performance.now()>this.refreshAt&&!this.refreshing){this.refreshAt=performance.now()+3000;void this.refresh()}
  };
  private changed(resetCycle=true,audible=true){if(audible&&this.snapshot)this.app.audioDirector.selection(this.snapshot.entities.filter(entity=>this.selection.ids.includes(entity.id)),this.snapshot.player);if(resetCycle)this.subgroupCycle=undefined;this.generation++;this.targeting.reconcile(this.selection.token);if(!this.targeting.targeting)this.clearTarget(false);this.renderer?.setSelection(this.selection.ids);this.state.update(state=>({...state,ids:this.selection.ids,production:[],affordances:undefined}));void this.refresh()}
@@ -46,7 +60,7 @@ export class BattleController {
  }
  placePractice(order:OrderIntent){if(this.app.sessions.state.kind!=='practice')return;this.cancel();this.practicePlacement=structuredClone(order);this.activeTarget={kind:'practice_spawn',type:order.type,label:'Place practice forces'};this.state.update(state=>({...state,target:this.activeTarget}));this.renderer?.setTargeting('practice_spawn')}
  async command(kind:string,type?:string,producer?:number,queued=false,index?:number){
-  if(['observer','replay'].includes(this.app.sessions.state.kind??'')||this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.defeated)return;
+  if(['observer','replay'].includes(this.app.sessions.state.kind??'')||this.inactive())return;
   if(producer!==undefined&&(this.selection.ids.length!==1||this.selection.ids[0]!==producer))this.select([producer]);
   if(kind==='ability'&&type==='strategic'&&index===undefined&&this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.faction==='US'){this.chooseEntryEdge();return}
   const descriptor=STANDARD_COMMAND_DESCRIPTORS.find(value=>value.kind===kind);if(!descriptor)return;
@@ -92,10 +106,10 @@ export class BattleController {
  private async executeContext(target:CommandTarget,queued:boolean){await this.plan(async environment=>planContextCommand(this.selection.ids,target,environment,{queued}))}
  async execute(request:CommandRequest,targetGeneration?:number){await this.plan(environment=>planCommand(request,environment),targetGeneration)}
  private async plan(create:(environment:Awaited<ReturnType<typeof createOfflineCommandEnvironment>>)=>ReturnType<typeof planCommand>,targetGeneration?:number){
-  if(!this.snapshot||this.state.get().pending||['replay','observer'].includes(this.app.sessions.state.kind??''))return;const token=this.selection.token,generation=this.generation,runtime=this.runtime();const current=()=>!this.closed&&generation===this.generation&&sameSelection(token,this.selection.token)&&(targetGeneration===undefined||this.targeting.current(targetGeneration,this.selection.token));
+  if(!this.snapshot||this.inactive()||this.state.get().pending||['replay','observer'].includes(this.app.sessions.state.kind??''))return;const token=this.selection.token,generation=this.generation,runtime=this.runtime();const current=()=>!this.closed&&!this.inactive()&&generation===this.generation&&sameSelection(token,this.selection.token)&&(targetGeneration===undefined||this.targeting.current(targetGeneration,this.selection.token));
   this.state.update(state=>({...state,pending:true}));
   try{if(!(runtime instanceof OfflineTransport)){this.app.commandAdvice().cancel();await Promise.allSettled([this.advisoryWork]);if(!current())return}const environment=await (runtime instanceof OfflineTransport?createOfflineCommandEnvironment(runtime,this.snapshot,this.selection.ids,{isCurrent:current}):createOnlineCommandEnvironment(this.app.commandAdvice(),this.snapshot,this.selection.ids,{isCurrent:current}));const plan=await create(environment);if(!current())return;
-   if(plan.issues.some(issue=>['blocked_terrain','route_blocked','terrain_blocked','outside_map'].includes(issue.code)))this.learn('rejected_order');
+   if(plan.issues.length)this.learn('rejected_order');
    if(plan.issues.length){this.app.patch({notice:reason(plan.issues[0].code,plan.issues[0].message)});this.app.audioDirector.receipt('',false,this.snapshot.entities.find(entity=>this.selection.ids.includes(entity.id)&&entity.owner===this.snapshot?.player),plan.issues[0].code)}
    for(const batch of plan.batches){if(!current())return;this.orderKinds.set(await runtime.sendOrders(batch),batch.map(order=>{const entity=this.snapshot?.entities.find(entity=>entity.id===order.entities?.[0]&&entity.owner===this.snapshot?.player);return {kind:order.kind??'',entity:entity?{type:entity.type,owner:entity.owner}:undefined}}));while(this.orderKinds.size>256)this.orderKinds.delete(this.orderKinds.keys().next().value!)}
    this.refreshAt=0;
