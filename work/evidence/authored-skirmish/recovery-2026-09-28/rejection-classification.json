@@ -1,0 +1,491 @@
+{
+  "classified_receipts": 10,
+  "results": [
+    {
+      "case": "four-ffa",
+      "receipt": {
+        "player": 3,
+        "sequence": 210,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 13782
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          2464
+        ],
+        "target": 51,
+        "position": {
+          "x": 140783,
+          "y": 110499
+        }
+      },
+      "classification": "lethal_damage_after_planning_before_execution",
+      "owned_hp_before": 16000,
+      "owner_visible_damage": 16000,
+      "events": [
+        {
+          "id": 8859,
+          "tick": 13781,
+          "kind": "under_attack",
+          "owner": 3,
+          "entity": 2464,
+          "position": {
+            "x": 19275,
+            "y": 112954
+          },
+          "value": 16000,
+          "scope": "owner"
+        },
+        {
+          "id": 8860,
+          "tick": 13781,
+          "kind": "destroyed",
+          "owner": 3,
+          "entity": 2464,
+          "position": {
+            "x": 19275,
+            "y": 112954
+          },
+          "scope": "visible"
+        }
+      ]
+    },
+    {
+      "case": "four-team",
+      "receipt": {
+        "player": 2,
+        "sequence": 90,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 8862
+      },
+      "order": {
+        "kind": "move",
+        "entities": [
+          713
+        ],
+        "position": {
+          "x": 132500,
+          "y": 39500
+        }
+      },
+      "classification": "lethal_damage_after_planning_before_execution",
+      "owned_hp_before": 12000,
+      "owner_visible_damage": 12000,
+      "events": [
+        {
+          "id": 3920,
+          "tick": 8861,
+          "kind": "under_attack",
+          "owner": 2,
+          "entity": 713,
+          "position": {
+            "x": 98600,
+            "y": 40622
+          },
+          "value": 12000,
+          "scope": "owner"
+        },
+        {
+          "id": 3921,
+          "tick": 8861,
+          "kind": "destroyed",
+          "owner": 2,
+          "entity": 713,
+          "position": {
+            "x": 98600,
+            "y": 40622
+          },
+          "scope": "visible"
+        }
+      ]
+    },
+    {
+      "case": "mirror-IR",
+      "receipt": {
+        "player": 1,
+        "sequence": 132,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 10062
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          23
+        ],
+        "target": 29,
+        "position": {
+          "x": 28736,
+          "y": 28999
+        }
+      },
+      "classification": "lethal_damage_after_planning_before_execution",
+      "owned_hp_before": 6000,
+      "owner_visible_damage": 6000,
+      "events": [
+        {
+          "id": 1891,
+          "tick": 10061,
+          "kind": "under_attack",
+          "owner": 1,
+          "entity": 23,
+          "position": {
+            "x": 78010,
+            "y": 53986
+          },
+          "value": 6000,
+          "scope": "owner"
+        }
+      ]
+    },
+    {
+      "case": "mirror-SY",
+      "receipt": {
+        "player": 2,
+        "sequence": 185,
+        "index": 0,
+        "accepted": false,
+        "code": "occupied",
+        "tick": 11422
+      },
+      "order": {
+        "kind": "build",
+        "entities": [
+          4
+        ],
+        "position": {
+          "x": 111500,
+          "y": 67500
+        },
+        "type": "depot"
+      },
+      "classification": "own_hauler_enters_placement_after_planning",
+      "hauler": 14,
+      "before": {
+        "x": 110500,
+        "y": 69800
+      },
+      "after": {
+        "x": 110500,
+        "y": 69650
+      },
+      "depot_half_height": 1500,
+      "hauler_radius": 800
+    },
+    {
+      "case": "pair-IR-SA",
+      "receipt": {
+        "player": 1,
+        "sequence": 238,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 15542
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          611
+        ],
+        "target": 1040,
+        "position": {
+          "x": 51875,
+          "y": 44500
+        }
+      },
+      "classification": "lethal_damage_after_planning_before_execution",
+      "owned_hp_before": 18400,
+      "owner_visible_damage": 18400,
+      "events": [
+        {
+          "id": 3236,
+          "tick": 15541,
+          "kind": "under_attack",
+          "owner": 1,
+          "entity": 611,
+          "position": {
+            "x": 132201,
+            "y": 113901
+          },
+          "value": 18400,
+          "scope": "owner"
+        },
+        {
+          "id": 3237,
+          "tick": 15541,
+          "kind": "destroyed",
+          "owner": 1,
+          "entity": 611,
+          "position": {
+            "x": 132201,
+            "y": 113901
+          },
+          "scope": "visible"
+        }
+      ]
+    },
+    {
+      "case": "pair-US-SY",
+      "receipt": {
+        "player": 1,
+        "sequence": 415,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 28102
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          2095
+        ],
+        "target": 1163,
+        "position": {
+          "x": 25847,
+          "y": 65652
+        }
+      },
+      "classification": "lethal_damage_after_planning_before_execution",
+      "owned_hp_before": 10000,
+      "owner_visible_damage": 10000,
+      "events": [
+        {
+          "id": 6343,
+          "tick": 28101,
+          "kind": "under_attack",
+          "owner": 1,
+          "entity": 2095,
+          "position": {
+            "x": 76580,
+            "y": 74996
+          },
+          "value": 10000,
+          "scope": "owner"
+        },
+        {
+          "id": 6344,
+          "tick": 28101,
+          "kind": "destroyed",
+          "owner": 1,
+          "entity": 2095,
+          "position": {
+            "x": 76580,
+            "y": 74996
+          },
+          "scope": "visible"
+        }
+      ]
+    },
+    {
+      "case": "pair-US-SY",
+      "receipt": {
+        "player": 1,
+        "sequence": 584,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 44382
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          1870
+        ],
+        "target": 1163,
+        "position": {
+          "x": 25847,
+          "y": 65652
+        }
+      },
+      "classification": "lethal_damage_after_planning_before_execution",
+      "owned_hp_before": 10000,
+      "owner_visible_damage": 10000,
+      "events": [
+        {
+          "id": 8482,
+          "tick": 44381,
+          "kind": "under_attack",
+          "owner": 1,
+          "entity": 1870,
+          "position": {
+            "x": 80600,
+            "y": 76500
+          },
+          "value": 10000,
+          "scope": "owner"
+        }
+      ]
+    },
+    {
+      "case": "three-ffa",
+      "receipt": {
+        "player": 2,
+        "sequence": 274,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 19262
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          2310
+        ],
+        "target": 1024,
+        "position": {
+          "x": 119989,
+          "y": 13999
+        }
+      },
+      "classification": "lethal_damage_after_planning_before_execution",
+      "owned_hp_before": 400,
+      "owner_visible_damage": 400,
+      "events": [
+        {
+          "id": 8136,
+          "tick": 19261,
+          "kind": "under_attack",
+          "owner": 2,
+          "entity": 2310,
+          "position": {
+            "x": 87132,
+            "y": 23501
+          },
+          "value": 400,
+          "scope": "owner"
+        },
+        {
+          "id": 8137,
+          "tick": 19261,
+          "kind": "destroyed",
+          "owner": 2,
+          "entity": 2310,
+          "position": {
+            "x": 87132,
+            "y": 23501
+          },
+          "scope": "visible"
+        }
+      ]
+    },
+    {
+      "case": "three-ffa",
+      "receipt": {
+        "player": 2,
+        "sequence": 286,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 19942
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          1790
+        ],
+        "target": 661,
+        "position": {
+          "x": 78647,
+          "y": 13070
+        }
+      },
+      "classification": "lethal_damage_after_planning_before_execution",
+      "owned_hp_before": 11200,
+      "owner_visible_damage": 11200,
+      "events": [
+        {
+          "id": 8453,
+          "tick": 19941,
+          "kind": "under_attack",
+          "owner": 2,
+          "entity": 1790,
+          "position": {
+            "x": 88021,
+            "y": 18501
+          },
+          "value": 11200,
+          "scope": "owner"
+        },
+        {
+          "id": 8454,
+          "tick": 19941,
+          "kind": "destroyed",
+          "owner": 2,
+          "entity": 1790,
+          "position": {
+            "x": 88021,
+            "y": 18501
+          },
+          "scope": "visible"
+        }
+      ]
+    },
+    {
+      "case": "three-ffa",
+      "receipt": {
+        "player": 1,
+        "sequence": 364,
+        "index": 0,
+        "accepted": false,
+        "code": "producer_disabled",
+        "tick": 25982
+      },
+      "order": {
+        "kind": "train",
+        "entities": [
+          3977
+        ],
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "type": "US.rig"
+      },
+      "classification": "planner_missing_active_factory_check",
+      "sources": [
+        {
+          "stage": "before_decision_tick",
+          "actors": [
+            {
+              "id": 3977,
+              "type": "factory",
+              "complete": false,
+              "state": "constructing",
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "stage": "after_decision_tick",
+          "actors": [
+            {
+              "id": 3977,
+              "type": "factory",
+              "complete": false,
+              "state": "constructing",
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "stage": "execution_tick",
+          "actors": [
+            {
+              "id": 3977,
+              "type": "factory",
+              "complete": false,
+              "state": "constructing",
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

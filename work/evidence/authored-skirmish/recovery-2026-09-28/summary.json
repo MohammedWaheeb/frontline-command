@@ -1,0 +1,1150 @@
+{
+  "status": "13_complete_with_all_economic_restore_replay_gates",
+  "runs": [
+    "recovery-endgames.log",
+    "recovery-remaining.log"
+  ],
+  "ai_source_sha256": {
+    "ai_tactics.go": "8eb7dfd474fcf153f819460bd68ffdd645055390a269f32478b673f45bd58ce7",
+    "ai.go": "09edabda443f6922af3641ab2fa62e372ef908189763ebabe3f9a5c22cfcb968"
+  },
+  "matrix": [
+    {
+      "case": {
+        "id": "pair-US-IR",
+        "map": "copper-junction",
+        "factions": [
+          "US",
+          "IR"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28001
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28001
+      },
+      "map_sha256": "9ce72f0cbb236557ad75e37feed6c2aa7f5726e6f77cd61803eb84d0b1545057",
+      "map_bytes": 540779,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:05:01.593436Z",
+      "wall_seconds": 12.715617708,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 14067,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 14067
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 3951,
+      "final_hash": "4238721b8958a75b36046a530a5a42cf4ce0f2408eb26395df266b81df7f8312",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 13160,
+      "orders": {
+        "1": {
+          "executed": 154,
+          "accepted": 154,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 4,
+            "attack_move": 22,
+            "build": 7,
+            "capture": 5,
+            "gather": 1,
+            "guard": 19,
+            "move": 81,
+            "repair_reserve": 1,
+            "train": 14
+          }
+        },
+        "2": {
+          "executed": 337,
+          "accepted": 337,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 3,
+            "attack_move": 140,
+            "board": 1,
+            "build": 6,
+            "capture": 8,
+            "escort": 3,
+            "guard": 8,
+            "hold": 2,
+            "move": 116,
+            "repair": 1,
+            "repair_reserve": 1,
+            "resume": 1,
+            "train": 46,
+            "unload": 1
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "pair-US-SY",
+        "map": "relay-heights",
+        "factions": [
+          "SY",
+          "US"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28002
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28002
+      },
+      "map_sha256": "09f300f41176794465aa0b1a87a0900bbf60a7d5c35e010521a3154f7bdc8d86",
+      "map_bytes": 544567,
+      "go": "go1.27.1",
+      "executable_sha256": "f97e555f01a1555c59b31085ca3d71af8fcf41ffaf64c289a452de8dd529adf5",
+      "started": "2026-09-28T02:59:29.108344Z",
+      "wall_seconds": 272.4886165,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 61520,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 61520
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 3970,
+      "final_hash": "a126aa1e8ee3d6f1e3aede823bbfebe7e8c291fbafeffa05969135ddcfc5309e",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 29281,
+      "orders": {
+        "1": {
+          "executed": 997,
+          "accepted": 995,
+          "rejected_by_code": {
+            "not_owner": 2
+          },
+          "executed_by_kind": {
+            "ability": 14,
+            "attack_move": 234,
+            "board": 1,
+            "build": 9,
+            "capture": 4,
+            "escort": 2,
+            "gather": 1,
+            "guard": 114,
+            "hold": 1,
+            "move": 520,
+            "repair_reserve": 1,
+            "return": 4,
+            "train": 91,
+            "unload": 1
+          }
+        },
+        "2": {
+          "executed": 975,
+          "accepted": 975,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 44,
+            "attack_move": 422,
+            "build": 10,
+            "capture": 15,
+            "escort": 4,
+            "gather": 1,
+            "guard": 134,
+            "move": 206,
+            "repair": 1,
+            "repair_reserve": 1,
+            "research": 1,
+            "train": 136
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "pair-US-SA",
+        "map": "dry-river",
+        "factions": [
+          "US",
+          "SA"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28003
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28003
+      },
+      "map_sha256": "1dc851211269974f5cadb1c6e30850e67014970f90a96c0be9b85feb7ef7b747",
+      "map_bytes": 508476,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:05:14.309838Z",
+      "wall_seconds": 5.996268084,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 13031,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 13031
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 4366,
+      "final_hash": "6e9138a8b08c43b47b5f80e77d7978d6c8ea89bf5341c48363475521610404f2",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 13912,
+      "orders": {
+        "1": {
+          "executed": 201,
+          "accepted": 201,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 26,
+            "build": 5,
+            "capture": 4,
+            "gather": 1,
+            "guard": 26,
+            "move": 111,
+            "repair_reserve": 1,
+            "train": 22
+          }
+        },
+        "2": {
+          "executed": 332,
+          "accepted": 332,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 2,
+            "attack_move": 126,
+            "build": 8,
+            "capture": 8,
+            "deploy": 5,
+            "gather": 1,
+            "guard": 11,
+            "move": 137,
+            "pack": 5,
+            "repair_reserve": 1,
+            "train": 28
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "pair-IR-SY",
+        "map": "industrial-valley",
+        "factions": [
+          "SY",
+          "IR"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28004
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28004
+      },
+      "map_sha256": "e4ab7d00a49fc79ba5dfa44ba86bcfdb5e6b2d7da02b3abc3fee59ccf3238489",
+      "map_bytes": 861254,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:05:20.306616Z",
+      "wall_seconds": 14.087240959,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 19868,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 19868
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 4494,
+      "final_hash": "76b4d4b4b12d679a4333168651ff1697d118643e43efbd97fe0f50a2a8f14edc",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 19813,
+      "orders": {
+        "1": {
+          "executed": 325,
+          "accepted": 325,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 44,
+            "build": 6,
+            "capture": 5,
+            "guard": 42,
+            "move": 178,
+            "repair": 1,
+            "repair_reserve": 1,
+            "return": 3,
+            "train": 40
+          }
+        },
+        "2": {
+          "executed": 457,
+          "accepted": 457,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 3,
+            "attack_move": 165,
+            "board": 2,
+            "build": 9,
+            "capture": 10,
+            "escort": 2,
+            "guard": 34,
+            "hold": 2,
+            "move": 167,
+            "repair_reserve": 1,
+            "train": 61,
+            "unload": 1
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "pair-IR-SA",
+        "map": "border-depots",
+        "factions": [
+          "IR",
+          "SA"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28005
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28005
+      },
+      "map_sha256": "2d6c38f195acc031be61741f4dfec72bfbeae5ede062fa68d8af225c74291a83",
+      "map_bytes": 821581,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:05:34.39423Z",
+      "wall_seconds": 7.183193666,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 18716,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 18716
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 4664,
+      "final_hash": "c88a885e74a47e130dab6ed924f13a8e93b437f90c6a4b589ea3d2538e1655df",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 15513,
+      "orders": {
+        "1": {
+          "executed": 430,
+          "accepted": 429,
+          "rejected_by_code": {
+            "not_owner": 1
+          },
+          "executed_by_kind": {
+            "ability": 3,
+            "attack_move": 134,
+            "build": 6,
+            "capture": 7,
+            "escort": 1,
+            "guard": 21,
+            "move": 207,
+            "repair_reserve": 1,
+            "train": 50
+          }
+        },
+        "2": {
+          "executed": 314,
+          "accepted": 314,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "attack_move": 63,
+            "build": 6,
+            "capture": 1,
+            "gather": 1,
+            "guard": 4,
+            "move": 223,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 14
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "pair-SY-SA",
+        "map": "port-outskirts",
+        "factions": [
+          "SA",
+          "SY"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28006
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28006
+      },
+      "map_sha256": "8c8a040e82cdacbb67ecb0f8fa40b5f0f5da1293809dc63f752490860a806830",
+      "map_bytes": 839642,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:05:41.577907Z",
+      "wall_seconds": 5.666921,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 14078,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 14078
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 5084,
+      "final_hash": "ecc45dde0cd3cbb2ffe0dd65cb0b618addbf350926e4decd85416cc9457631d3",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 16650,
+      "orders": {
+        "1": {
+          "executed": 295,
+          "accepted": 295,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 1,
+            "attack_move": 67,
+            "build": 9,
+            "deploy": 2,
+            "guard": 18,
+            "move": 159,
+            "pack": 2,
+            "repair_reserve": 1,
+            "train": 36
+          }
+        },
+        "2": {
+          "executed": 189,
+          "accepted": 189,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 3,
+            "attack_move": 31,
+            "build": 5,
+            "capture": 1,
+            "gather": 1,
+            "guard": 20,
+            "move": 104,
+            "repair": 1,
+            "repair_reserve": 1,
+            "salvage": 1,
+            "train": 21
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "mirror-US",
+        "map": "copper-junction",
+        "factions": [
+          "US",
+          "US"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28007
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28007
+      },
+      "map_sha256": "9ce72f0cbb236557ad75e37feed6c2aa7f5726e6f77cd61803eb84d0b1545057",
+      "map_bytes": 540779,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:05:47.245231Z",
+      "wall_seconds": 2.965416667,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 10361,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 10361
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 3002,
+      "final_hash": "9f0c46ce35e732a2ce49432f89f112f52b24100e3c3d9d25c095859d0a2145a6",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 12093,
+      "orders": {
+        "1": {
+          "executed": 194,
+          "accepted": 194,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 4,
+            "attack_move": 79,
+            "build": 5,
+            "capture": 1,
+            "gather": 1,
+            "guard": 10,
+            "move": 77,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 15
+          }
+        },
+        "2": {
+          "executed": 273,
+          "accepted": 273,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 34,
+            "build": 8,
+            "capture": 11,
+            "guard": 4,
+            "move": 188,
+            "repair_reserve": 1,
+            "train": 22
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "mirror-IR",
+        "map": "relay-heights",
+        "factions": [
+          "IR",
+          "IR"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28008
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28008
+      },
+      "map_sha256": "09f300f41176794465aa0b1a87a0900bbf60a7d5c35e010521a3154f7bdc8d86",
+      "map_bytes": 544567,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:05:50.211006Z",
+      "wall_seconds": 6.040855583,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 16535,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 16535
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 4653,
+      "final_hash": "a20839e967568d70dc2d5aa7766a2849a325f3041ff8de78220ad3a1f933bca0",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 14375,
+      "orders": {
+        "1": {
+          "executed": 277,
+          "accepted": 276,
+          "rejected_by_code": {
+            "not_owner": 1
+          },
+          "executed_by_kind": {
+            "ability": 2,
+            "attack_move": 57,
+            "build": 8,
+            "capture": 6,
+            "escort": 1,
+            "gather": 1,
+            "guard": 41,
+            "move": 127,
+            "repair": 1,
+            "repair_reserve": 1,
+            "return": 2,
+            "train": 30
+          }
+        },
+        "2": {
+          "executed": 310,
+          "accepted": 310,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 4,
+            "attack_move": 88,
+            "build": 8,
+            "capture": 2,
+            "gather": 1,
+            "guard": 30,
+            "move": 130,
+            "repair": 2,
+            "repair_reserve": 1,
+            "resume": 1,
+            "train": 43
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "mirror-SY",
+        "map": "dry-river",
+        "factions": [
+          "SY",
+          "SY"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28009
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28009
+      },
+      "map_sha256": "1dc851211269974f5cadb1c6e30850e67014970f90a96c0be9b85feb7ef7b747",
+      "map_bytes": 508476,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:05:56.252279Z",
+      "wall_seconds": 13.950746041,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 25204,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 25204
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 4337,
+      "final_hash": "42ddfd7eefd1cd7ec44a1fff65506607102b6e7f3e3f4928ffea69241c6d85b5",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 23197,
+      "orders": {
+        "1": {
+          "executed": 424,
+          "accepted": 424,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 8,
+            "attack_move": 90,
+            "build": 8,
+            "capture": 2,
+            "escort": 1,
+            "gather": 1,
+            "guard": 59,
+            "move": 180,
+            "repair_reserve": 1,
+            "return": 14,
+            "train": 60
+          }
+        },
+        "2": {
+          "executed": 865,
+          "accepted": 864,
+          "rejected_by_code": {
+            "occupied": 1
+          },
+          "executed_by_kind": {
+            "ability": 9,
+            "attack_move": 375,
+            "build": 10,
+            "capture": 20,
+            "escort": 2,
+            "gather": 1,
+            "guard": 68,
+            "move": 294,
+            "repair_reserve": 1,
+            "return": 4,
+            "train": 81
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "mirror-SA",
+        "map": "border-depots",
+        "factions": [
+          "SA",
+          "SA"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28010
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28010
+      },
+      "map_sha256": "2d6c38f195acc031be61741f4dfec72bfbeae5ede062fa68d8af225c74291a83",
+      "map_bytes": 821581,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:06:10.203425Z",
+      "wall_seconds": 5.459147958,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 14458,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 14458
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 4664,
+      "final_hash": "e44c69a075c2d943fa1914b3f9bad6a83f9689e72656e0a700d0075cc6abe452",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 13377,
+      "orders": {
+        "1": {
+          "executed": 329,
+          "accepted": 329,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 1,
+            "attack_move": 57,
+            "build": 8,
+            "capture": 12,
+            "deploy": 1,
+            "escort": 1,
+            "guard": 10,
+            "move": 209,
+            "pack": 1,
+            "repair_reserve": 1,
+            "train": 28
+          }
+        },
+        "2": {
+          "executed": 148,
+          "accepted": 148,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "attack_move": 4,
+            "build": 5,
+            "capture": 1,
+            "gather": 1,
+            "guard": 3,
+            "move": 122,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 10
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "three-ffa",
+        "map": "industrial-valley",
+        "factions": [
+          "US",
+          "IR",
+          "SY"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28011
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28011
+      },
+      "map_sha256": "e4ab7d00a49fc79ba5dfa44ba86bcfdb5e6b2d7da02b3abc3fee59ccf3238489",
+      "map_bytes": 861254,
+      "go": "go1.27.1",
+      "executable_sha256": "f97e555f01a1555c59b31085ca3d71af8fcf41ffaf64c289a452de8dd529adf5",
+      "started": "2026-09-28T03:04:01.596068Z",
+      "wall_seconds": 24.213155874999998,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 28763,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 28763
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 3878,
+      "final_hash": "5cdf4726b35a44811bbea53451198544a5d393c685e5d522271dd2f9f0d37acf",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 28321,
+      "orders": {
+        "1": {
+          "executed": 565,
+          "accepted": 564,
+          "rejected_by_code": {
+            "producer_disabled": 1
+          },
+          "executed_by_kind": {
+            "ability": 20,
+            "attack_move": 184,
+            "build": 13,
+            "capture": 5,
+            "escort": 1,
+            "guard": 52,
+            "move": 226,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 62
+          }
+        },
+        "2": {
+          "executed": 707,
+          "accepted": 705,
+          "rejected_by_code": {
+            "not_owner": 2
+          },
+          "executed_by_kind": {
+            "ability": 11,
+            "attack_move": 342,
+            "board": 1,
+            "build": 6,
+            "escort": 2,
+            "guard": 68,
+            "hold": 2,
+            "move": 181,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 92
+          }
+        },
+        "3": {
+          "executed": 207,
+          "accepted": 207,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 24,
+            "build": 6,
+            "capture": 4,
+            "gather": 1,
+            "guard": 20,
+            "move": 126,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 19
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "four-ffa",
+        "map": "border-depots",
+        "factions": [
+          "US",
+          "IR",
+          "SY",
+          "SA"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28012
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28012
+      },
+      "map_sha256": "2d6c38f195acc031be61741f4dfec72bfbeae5ede062fa68d8af225c74291a83",
+      "map_bytes": 821581,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:06:15.662985Z",
+      "wall_seconds": 26.230827041,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 21248,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 21248
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 2699,
+      "final_hash": "df6291c3d716c79152edec122665f5d9c338537558f92af5a2fc0f42fdd1e2bb",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 20962,
+      "orders": {
+        "1": {
+          "executed": 586,
+          "accepted": 586,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 19,
+            "attack_move": 314,
+            "build": 7,
+            "capture": 11,
+            "escort": 1,
+            "guard": 24,
+            "move": 139,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 69
+          }
+        },
+        "2": {
+          "executed": 67,
+          "accepted": 67,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "attack_move": 6,
+            "build": 5,
+            "capture": 1,
+            "gather": 1,
+            "guard": 4,
+            "move": 41,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 7
+          }
+        },
+        "3": {
+          "executed": 403,
+          "accepted": 402,
+          "rejected_by_code": {
+            "not_owner": 1
+          },
+          "executed_by_kind": {
+            "ability": 6,
+            "attack_move": 107,
+            "build": 8,
+            "capture": 7,
+            "guard": 37,
+            "move": 196,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 40
+          }
+        },
+        "4": {
+          "executed": 62,
+          "accepted": 62,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 1,
+            "attack_move": 8,
+            "build": 5,
+            "gather": 1,
+            "move": 37,
+            "repair_reserve": 1,
+            "train": 9
+          }
+        }
+      },
+      "issues": null
+    },
+    {
+      "case": {
+        "id": "four-team",
+        "map": "port-outskirts",
+        "factions": [
+          "US",
+          "IR",
+          "SY",
+          "SA"
+        ],
+        "authored_spawn_teams": true,
+        "seed": 28013
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28013
+      },
+      "map_sha256": "8c8a040e82cdacbb67ecb0f8fa40b5f0f5da1293809dc63f752490860a806830",
+      "map_bytes": 839642,
+      "go": "go1.27.1",
+      "executable_sha256": "adbcf439d18074f54409ca539a24a54dbc0a5429929414bb3c8c167ddc68c378",
+      "started": "2026-09-28T03:06:41.894205Z",
+      "wall_seconds": 16.077397709,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 12571,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 1,
+        "reason": "elimination",
+        "tick": 12571
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 3381,
+      "final_hash": "fb7565495e9e9adea27b90358da3aa7e934858da6f4cfbb9cb0382d3610eb8c1",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 23082,
+      "orders": {
+        "1": {
+          "executed": 307,
+          "accepted": 307,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 13,
+            "attack_move": 64,
+            "build": 8,
+            "capture": 14,
+            "guard": 21,
+            "move": 153,
+            "repair_reserve": 1,
+            "train": 33
+          }
+        },
+        "2": {
+          "executed": 152,
+          "accepted": 151,
+          "rejected_by_code": {
+            "not_owner": 1
+          },
+          "executed_by_kind": {
+            "attack_move": 26,
+            "build": 5,
+            "capture": 3,
+            "gather": 1,
+            "guard": 13,
+            "move": 86,
+            "repair_reserve": 1,
+            "train": 17
+          }
+        },
+        "3": {
+          "executed": 344,
+          "accepted": 344,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 4,
+            "attack_move": 89,
+            "board": 1,
+            "build": 8,
+            "capture": 9,
+            "guard": 13,
+            "hold": 1,
+            "move": 181,
+            "repair_reserve": 1,
+            "train": 36,
+            "unload": 1
+          }
+        },
+        "4": {
+          "executed": 105,
+          "accepted": 105,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 2,
+            "attack_move": 8,
+            "build": 5,
+            "deploy": 1,
+            "gather": 1,
+            "guard": 7,
+            "move": 68,
+            "repair_reserve": 1,
+            "train": 12
+          }
+        }
+      },
+      "issues": null
+    }
+  ]
+}

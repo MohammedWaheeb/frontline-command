@@ -51,7 +51,7 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 			}
 			if !selected {
 				for _, target := range view.Entities {
-					if !aiActiveOpponent(p, view, target.Owner) || target.Health >= 250 {
+					if !aiActiveOpponent(p, view, target.Owner) || !target.Complete || target.Health >= 250 {
 						continue
 					}
 					if b, ok := e.buildingRule(target.Type); ok && b.Role != "hq" && b.Role != "strategic" && target.MapObject == 0 {
@@ -100,7 +100,7 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 		}
 		if v.Type == "US.recon" && !cooldown(v.Cooldowns, "designate", e.Tick()) {
 			for _, target := range view.Entities {
-				if aiActiveOpponent(p, view, target.Owner) && distance(v.Position, target.Position) < 6500 {
+				if aiActiveOpponent(p, view, target.Owner) && e.aiDesignationTarget(target) && distance(v.Position, target.Position) < 6500 {
 					add(v, "ability", target.ID, "designate", Vec{})
 					break
 				}
@@ -187,4 +187,14 @@ func (e *Engine) aiSpecialOrders(p *Player, view View, own []EntityView, goal Ve
 		}
 	}
 	return orders
+}
+
+// Eligibility comes from the observed type and public catalog, never the live
+// enemy entity. The ordinary execution validator still checks vision/range.
+func (e *Engine) aiDesignationTarget(target EntityView) bool {
+	if _, building := e.buildingRule(target.Type); building {
+		return true
+	}
+	unit, ok := e.catalog.Unit(target.Type)
+	return ok && (unit.Armor == "light" || unit.Armor == "heavy")
 }

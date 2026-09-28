@@ -1,6 +1,9 @@
 package sim
 
-import "frontlinecommand/pkg/content"
+import (
+	"frontlinecommand/pkg/content"
+	"sort"
+)
 
 // AI consumes the same fog-filtered view as a human. It inspects internal state
 // only for its own entities, and routes decisions through normal Submit/execute.
@@ -50,6 +53,21 @@ func (e *Engine) updateAI() {
 			}
 		}
 		budget = e.aiPlanningBudget(p, own)
+		needSupplyScout := true
+		for _, field := range p.AIFields {
+			if field.Remaining > 0 {
+				needSupplyScout = false
+				break
+			}
+		}
+		replacementProducer := ID(0)
+		if counts["hq"] > 0 && counts["supply"] > 0 && counts["power"] > 0 && e.aiPowerMargin(p, own) >= 35 {
+			if replacement, ok := e.aiReplacementHauler(p, own, &budget); ok {
+				orders = append(orders, replacement)
+				replacementProducer = replacement.Entities[0]
+				counts["hauler"]++
+			}
+		}
 		serviceMargin := e.aiServiceMargin(own)
 		plannedSupply := p.Supply + p.ReservedSupply
 		for _, v := range own {
@@ -63,7 +81,13 @@ func (e *Engine) updateAI() {
 		if hq == nil && rig == nil {
 			for _, v := range own {
 				if e.role(e.entity(v.ID)) == "factory" && len(v.Private.Jobs) == 0 {
-					orders = append(orders, Order{Kind: "train", Entities: []ID{v.ID}, Type: p.Faction + ".rig"})
+					order := Order{Kind: "train", Entities: []ID{v.ID}, Type: p.Faction + ".rig"}
+					producer := e.entity(v.ID)
+					job, code := e.productionJob(p, producer, order)
+					if code != "ok" || !e.jobReady(p, producer, &job) {
+						continue
+					}
+					orders = append(orders, order)
 					budget = max(int64(0), budget-1200000)
 					break
 				}
@@ -110,6 +134,10 @@ func (e *Engine) updateAI() {
 				}
 			case counts["barracks"] == 0:
 				buildType = "barracks"
+			case needSupplyScout && counts["recon"] == 0:
+				// Sight must precede optional infrastructure when no supplies
+				// are known. Otherwise the last credits can strand both haulers
+				// and prevent buying the ordinary scout that would find income.
 			case counts["factory"] == 0:
 				buildType = "factory"
 			case expand:
@@ -156,7 +184,9 @@ func (e *Engine) updateAI() {
 				}
 			}
 		}
-		orders = append(orders, e.aiResearchOrders(p, own, &budget)...)
+		if !needSupplyScout {
+			orders = append(orders, e.aiResearchOrders(p, own, &budget)...)
+		}
 		enemyAir, enemyArmor := false, false
 		for _, v := range p.AIKnowledge {
 			if !aiActiveOpponent(p, view, v.Owner) {
@@ -174,12 +204,12 @@ func (e *Engine) updateAI() {
 		}
 		for _, v := range own {
 			unit := e.entity(v.ID)
-			if unit.Building && unit.Active(e.state.Tick) && len(unit.Jobs) == 0 {
+			if unit.Building && unit.Active(e.state.Tick) && len(unit.Jobs) == 0 && unit.ID != replacementProducer {
 				role := e.role(unit)
 				typ := ""
 				switch role {
 				case "supply":
-					if counts["hauler"] < min(int32(6), max(int32(2), counts["supply"]*2)) {
+					if (!needSupplyScout || counts["hauler"] == 0) && counts["hauler"] < min(int32(6), max(int32(2), counts["supply"]*2)) {
 						typ = p.Faction + ".hauler"
 					}
 				case "hq":
@@ -202,6 +232,9 @@ func (e *Engine) updateAI() {
 					}
 					typ = p.Faction + "." + choose
 				case "factory":
+					if needSupplyScout && counts["recon"] == 0 {
+						break
+					}
 					choose := []string{"car", "tank", "aa", "apc", "tank", "repair"}[p.AIStage%6]
 					if enemyAir {
 						choose = "aa"
@@ -223,6 +256,9 @@ func (e *Engine) updateAI() {
 					}
 					typ = p.Faction + "." + choose
 				case "airfield", "drone_hub", "workshop_air":
+					if needSupplyScout && counts["recon"] == 0 {
+						break
+					}
 					choose := "strike"
 					if p.Faction == "SY" {
 						choose = "scout_drone"
@@ -263,6 +299,11 @@ func (e *Engine) updateAI() {
 		orders = append(orders, e.aiTransportOrders(p, own, goal)...)
 		orders = append(orders, e.aiEscortOrders(p, own)...)
 		orders = append(orders, e.aiSpecialOrders(p, view, own, goal)...)
+		if needSupplyScout && counts["recon"] == 0 {
+			if scout, ok := e.aiSupplyScoutOrder(p, own, orders, period); ok {
+				orders = append(orders, scout)
+			}
+		}
 		for _, v := range own {
 			unit := e.entity(v.ID)
 			if unit.Building || unit.Container != 0 {
@@ -270,7 +311,7 @@ func (e *Engine) updateAI() {
 			}
 			role := e.role(unit)
 			u, _ := e.catalog.Unit(v.Type)
-			if role == "hauler" && len(unit.Orders) == 0 {
+			if role == "hauler" && (len(unit.Orders) == 0 || !needSupplyScout && unit.Blocked && len(unit.Orders) == 1 && unit.Orders[0].Kind == "move" && e.Tick()-unit.StationarySince >= seconds(12)) {
 				orders = append(orders, Order{Kind: "gather", Entities: []ID{v.ID}})
 			}
 			if unit.Channel != "" || unit.DeployUntil > 0 || unit.PackingUntil > 0 {
@@ -336,6 +377,101 @@ func (e *Engine) updateAI() {
 			_ = e.Submit(p.ID, p.LastSequence+1, orders)
 		}
 	}
+}
+
+// Rebuild the first lost collector before optional spending can consume a
+// trickle of station income. All knowledge and producer state are our own;
+// the shared production checks and normal train order retain real costs/limits.
+func (e *Engine) aiReplacementHauler(p *Player, own []EntityView, budget *int64) (Order, bool) {
+	knownSupply := false
+	for _, field := range p.AIFields {
+		if field.Remaining > 0 {
+			knownSupply = true
+			break
+		}
+	}
+	if !knownSupply {
+		return Order{}, false
+	}
+	for _, observed := range own {
+		v := e.entity(observed.ID)
+		if e.role(v) == "hauler" {
+			return Order{}, false
+		}
+		for _, job := range v.Jobs {
+			if unit, ok := e.catalog.Unit(job.Type); ok && unit.Role == "hauler" {
+				return Order{}, false
+			}
+		}
+	}
+	for _, observed := range own {
+		v := e.entity(observed.ID)
+		if e.role(v) != "supply" || len(v.Jobs) != 0 {
+			continue
+		}
+		order := Order{Kind: "train", Entities: []ID{v.ID}, Type: p.Faction + ".hauler"}
+		job, code := e.productionJob(p, v, order)
+		if code != "ok" || !e.jobReady(p, v, &job) {
+			continue
+		}
+		_, _, _, code = e.productionAllocation(p, &job)
+		if code != "ok" && code != "insufficient_credits" {
+			continue
+		}
+		unit, _ := e.catalog.Unit(job.Type)
+		affordable := *budget >= unit.Cost
+		*budget = max(int64(0), *budget-unit.Cost)
+		return order, affordable
+	}
+	return Order{}, false
+}
+
+// A cash-starved opening can lack even a barracks or scout. At most once per
+// twelve seconds, send one idle worker to an ordinary public exploration point.
+// Productive gather tasks, cargo, construction and already planned orders win.
+// Failed routes rotate among nearby unexplored waypoints; no hidden field or
+// collision lookup informs this choice. Actual movement validates the route.
+func (e *Engine) aiSupplyScoutOrder(p *Player, own []EntityView, planned []Order, period Tick) (Order, bool) {
+	if e.Tick()%seconds(12) >= period {
+		return Order{}, false
+	}
+	used := map[ID]bool{}
+	for _, order := range planned {
+		for _, id := range order.Entities {
+			used[id] = true
+		}
+	}
+	for _, role := range []string{"hauler", "rig"} {
+		for _, observed := range own {
+			v := e.entity(observed.ID)
+			if used[v.ID] || e.role(v) != role || v.Container != 0 || !v.Active(e.Tick()) || v.Channel != "" || v.Cargo != 0 {
+				continue
+			}
+			idle := len(v.Orders) == 0 || role == "hauler" && len(v.Orders) == 1 && v.Orders[0].Kind == "gather" && v.State == "no_known_supplies"
+			failed := len(v.Orders) == 1 && v.Orders[0].Kind == "move" && v.Blocked && e.Tick()-v.StationarySince >= seconds(12)
+			if !idle && !failed {
+				continue
+			}
+			points := []Vec{}
+			m := e.state.Map
+			for y := int32(6); y < m.Height-6; y += 8 {
+				for x := int32(6); x < m.Width-6; x += 8 {
+					point := Vec{X: x*1000 + 500, Y: y*1000 + 500}
+					if !p.Explored[y*m.Width+x] && m.Tiles[y*m.Width+x].Passable() && distance(v.Position, point) >= 3000 && (!failed || point != v.Orders[0].Position) {
+						points = append(points, point)
+					}
+				}
+			}
+			if len(points) == 0 {
+				continue
+			}
+			sort.SliceStable(points, func(i, j int) bool { return dist2(v.Position, points[i]) < dist2(v.Position, points[j]) })
+			point := points[p.AIScout%uint32(min(4, len(points)))]
+			p.AIScout++
+			return Order{Kind: "move", Entities: []ID{v.ID}, Position: point}, true
+		}
+	}
+	return Order{}, false
 }
 func (e *Engine) aiPlacement(owner PlayerID, center Vec, width, height int32) (Vec, bool) {
 	known := e.aiPlacementKnowledge(e.player(owner))

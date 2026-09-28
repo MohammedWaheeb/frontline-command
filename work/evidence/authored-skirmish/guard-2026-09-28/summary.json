@@ -1,0 +1,110 @@
+{
+  "status": "affected_three_ffa_rerun_after_emergency_producer_guard",
+  "scope": "Other12 cases were tested on the preceding three-fix source, not rerun after this final predicate guard.",
+  "ai_source_sha256": {
+    "ai_tactics.go": "8eb7dfd474fcf153f819460bd68ffdd645055390a269f32478b673f45bd58ce7",
+    "ai.go": "38bf7d7d2b65f1848c32efb2a646450f9517eb8293cb41d62a1368def2ca7fce"
+  },
+  "matrix": [
+    {
+      "case": {
+        "id": "three-ffa",
+        "map": "industrial-valley",
+        "factions": [
+          "US",
+          "IR",
+          "SY"
+        ],
+        "authored_spawn_teams": false,
+        "seed": 28011
+      },
+      "metadata": {
+        "simulation": "0.2.0",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 28011
+      },
+      "map_sha256": "e4ab7d00a49fc79ba5dfa44ba86bcfdb5e6b2d7da02b3abc3fee59ccf3238489",
+      "map_bytes": 861254,
+      "go": "go1.27.1",
+      "executable_sha256": "2bf9a05484999ebcf6e18005a67f3087813f3d1a4e6f52265f1e255cffd6bdd7",
+      "started": "2026-09-28T03:14:35.252528Z",
+      "wall_seconds": 19.655953042,
+      "conditions": "Native deterministic functional acceptance on a shared busy development host; wall duration is not performance or reference-device evidence.",
+      "tick": 28763,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 28763
+      },
+      "ordinary_completion": true,
+      "first_weapon_tick": 3878,
+      "final_hash": "08e8153353ecb458d26e8df8f2ddef83d3de1ab961123b79439f690a04e0bf98",
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "replay_bytes": 28306,
+      "orders": {
+        "1": {
+          "executed": 564,
+          "accepted": 564,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 20,
+            "attack_move": 184,
+            "build": 13,
+            "capture": 5,
+            "escort": 1,
+            "guard": 52,
+            "move": 226,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 61
+          }
+        },
+        "2": {
+          "executed": 707,
+          "accepted": 705,
+          "rejected_by_code": {
+            "not_owner": 2
+          },
+          "executed_by_kind": {
+            "ability": 11,
+            "attack_move": 342,
+            "board": 1,
+            "build": 6,
+            "escort": 2,
+            "guard": 68,
+            "hold": 2,
+            "move": 181,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 92
+          }
+        },
+        "3": {
+          "executed": 207,
+          "accepted": 207,
+          "rejected_by_code": {},
+          "executed_by_kind": {
+            "ability": 5,
+            "attack_move": 24,
+            "build": 6,
+            "capture": 4,
+            "gather": 1,
+            "guard": 20,
+            "move": 126,
+            "repair": 1,
+            "repair_reserve": 1,
+            "train": 19
+          }
+        }
+      },
+      "issues": null
+    }
+  ]
+}
