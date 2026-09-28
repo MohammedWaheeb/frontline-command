@@ -77,7 +77,7 @@ export class AmbientTimeline {
     if(unit.armor!=='infantry'&&e.health<=250)add('fx.unit.fire_critical','actor');
     else if(unit.armor!=='infantry'&&e.health<=500)add('fx.unit.smoke_damaged','actor');
     if(this.moving.has(e.id))add('fx.unit.dust_trail','ground');
-    if(unit.armor==='air'&&!e.landed&&['gunship','airlift','scout_drone'].includes(unit.role))add('fx.unit.rotor_wash','ground',24);
+    if(unit.armor==='air'&&!e.landed&&['gunship','airlift','scout_drone'].includes(unit.role))add('fx.unit.rotor_wash','ground',48);
    }
   }
   this.cues=cues;this.previous=snapshot;

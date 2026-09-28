@@ -1,0 +1,17 @@
+unit.dust_trail 102
+unit.rotor_wash 102
+building.construction_dust 153
+building.sell_dust 554
+unit.smoke_damaged 360
+unit.fire_critical 472
+unit.wreck_smoke 584
+building.fire_damaged 696
+building.smoke_critical 1032
+environment.depletion_dust 121
+environment.shipment_arrival 3721
+environment.supply_station_capture 222
+failed Error: Go preview rejected {"order":{"kind":"capture","entities":[8],"target":10},"results":[{"player":1,"sequence":0,"index":0,"accepted":false,"code":"invalid_capture_target","tick":4216}]}
+    at command2 (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/ambient-native-06/fixture.mjs:5986:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async Object.recovery (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/ambient-native-06/fixture.mjs:6195:5)
+    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/ambient-native-preflight.mjs:70:18

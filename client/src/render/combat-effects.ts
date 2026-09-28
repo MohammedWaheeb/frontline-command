@@ -26,7 +26,12 @@ export class CombatEffects {
   this.root.eventMode='none';this.root.addChild(this.decoration,this.marks);this.library=new EffectLibrary({onError});this.ambient=new AmbientTimeline(map);
  }
  async init(descriptor?:EffectDescriptor){await this.library.init(descriptor)}
- get diagnostics(){return {...this.stats,...this.library.statistics,missing:[...this.missing].sort()}}
+ get diagnostics(){
+  // Asset failures may remain cached across perspectives, but their names
+  // must describe this currently authorized timeline, never a prior viewer.
+  const current=new Set([...this.history.values.flatMap(cue=>cue.effects),...this.history.projectiles.flatMap(trace=>trace.effect?[trace.effect]:[]),...this.ambient.values.map(cue=>cue.effect)]);
+  return {...this.stats,...this.library.statistics,missing:[...this.missing].filter(id=>current.has(id)).sort()};
+ }
  get cues(){return this.history.values}
  reset(){this.baseline=true;this.history.reset();this.ambient.reset();this.elevations.clear();this.clearSprites();this.marks.clear();this.clearLabels();this.drawKey='';this.stats={cues:0,drawnCues:0,confirmedHits:0,cover:0,intercepted:0,decoys:0,trails:0,decorations:0,labels:0,ambientCues:0,ambientDrawn:0}}
  sync(snapshot:PlayerSnapshot,bodies:readonly TacticalProjectile[],replace=false,altitude?:(id:number)=>number|undefined){

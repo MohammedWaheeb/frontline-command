@@ -36,8 +36,8 @@ test('ambient attachments track displayed actor height and interpolation; motion
 test('rotor wash stays on ground and requires a disclosed low visual altitude',async()=>{
  const {effects,internal}=harness();try{
   const s=snapshot(100);s.entities[0].type='US.gunship';s.entities[0].health=1000;effects.sync(s,[]);
-  for(const height of [undefined,35]){effects.draw(surface,1,DEFAULT_SETTINGS,view,()=>height,undefined,()=>({x:80,y:90}));assert.equal(effects.diagnostics.decorations,0)}
-  effects.draw(surface,1,DEFAULT_SETTINGS,view,()=>20,undefined,()=>({x:80,y:90}));assert.equal(effects.diagnostics.ambientDrawn,1);assert.equal(([...internal.sprites.values()][0] as any).sprite.y,90);
+  for(const height of [undefined,60]){effects.draw(surface,1,DEFAULT_SETTINGS,view,()=>height,undefined,()=>({x:80,y:90}));assert.equal(effects.diagnostics.decorations,0)}
+  effects.draw(surface,1,DEFAULT_SETTINGS,view,()=>35,undefined,()=>({x:80,y:90}));assert.equal(effects.diagnostics.ambientDrawn,1);assert.equal(([...internal.sprites.values()][0] as any).sprite.y,90);
   effects.sync({...s,tick:101,entities:[{...s.entities[0],landed:true}]},[]);effects.draw(surface,1,DEFAULT_SETTINGS,view,()=>0);assert.equal(effects.diagnostics.decorations,0);
  }finally{await effects.dispose()}
 });

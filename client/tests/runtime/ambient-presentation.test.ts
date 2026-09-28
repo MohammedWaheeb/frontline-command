@@ -24,7 +24,7 @@ test('all twelve ambient effects come from current disclosed state or an exact t
   'fx.building.sell_dust','fx.building.fire_damaged','fx.building.smoke_critical','fx.building.construction_dust',
   'fx.environment.depletion_dust','fx.environment.shipment_arrival','fx.environment.supply_station_capture',
  ].sort());
- assert.equal(timeline.values.find(cue=>cue.effect==='fx.unit.rotor_wash')?.maxAltitude,24);
+ assert.equal(timeline.values.find(cue=>cue.effect==='fx.unit.rotor_wash')?.maxAltitude,48);
  assert(!timeline.values.some(cue=>cue.anchor===7),'infantry never gain vehicle fires');
  assert.deepEqual(after,untouched);
 });

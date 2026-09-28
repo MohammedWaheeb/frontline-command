@@ -1,6 +1,15 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 22:41 UTC / 29 September 01:41 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates supersede earlier in-progress receipts.
+Updated 28 September 2026, 23:28 UTC / 29 September 02:28 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates supersede earlier in-progress receipts.
+
+## Current update at 23:28 UTC, 28 September
+
+- All twelve ambient consumers pass actual optimized-Go native requests and authorized-view checks. A separate ordinary standard-match course earns a real defeat countdown and cancels it through a paid engineer's capture. The 71-effect product is frozen as `integration-v16`; actual browser rendering, all-page residency and four-aspect/100–150% product layout remain queued. All 383 runtime tests and TypeScript checks pass. Missing-art diagnostics now exclude earlier perspectives and expired cues. Earlier fixture failures remain preserved; no game rules changed.
+- All nine originally failed main mission leaves and all nine originally failed optional routes now have individual successful commander corrections, including SY05 Hard factory preservation and IR06 Normal/Hard original-observer preservation. The consolidated 102+21 matrix has a locked runner but remains unrun. Historical broad totals stay 93/102 and 12/21 until that rerun.
+- The current-art Dry River round earned ordinary US victory at tick 44034 after 36m36.7s active play. Both result/archive recoveries and the same-App hosted rematch passed. The second round exposed test-commander omissions: recovery never cancels a prerequisite-blocked tank queue, and late scouting stops making progress. It is being preserved as an explicit failed-policy abort, not a two-long-game acceptance. Root waits for browser/host release before its queued UI/effects checks.
+- The full US fighter now has 896 packed poses with all 24 integrity and 20 UI checks passing. Native staged review passes; actual runtime payload/service lifecycle remains open. The sole Blender worker is rendering the airlift next. Buildings remain 21/59, new infantry 15/24 and new ground vehicles 0/27 complete; pilots and staged exports do not imply final roster acceptance.
+- The bounded two-pass rotor mask helper is promoted under recorded source/native acceptance; strict byte-comparison failures are retained alongside unchanged-source quantization controls. Aircraft manifest attribution now separates original Claude authorship from Codex corrections/render operation. No aircraft images or shipping runtime are promoted by those metadata/helper changes.
+- Claude remains scheduled for a fresh exact `claude-opus-5-5` recheck after 29 September 01:20 UTC /04:20 Qatar. Fresh bounded legacy-strike lifecycle and game-presentation briefs are prepared. Full art, audio listening/mix, current final-product 1–4-player acceptance, physical LAN and clean local packaging remain unfinished. Nothing has been deployed.
 
 ## Current update at 22:41 UTC, 28 September
 

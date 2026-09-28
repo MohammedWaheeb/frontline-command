@@ -53,7 +53,7 @@ export class BattlefieldRenderer {
  private readonly strikePreview=new StrikePreviewOverlay();private readonly tacticalOverlay=new TacticalOverlay();private tacticalModel?:TacticalPresentation;
  private readonly objectSkins=new Map<string,EnvironmentObjectSkin>();
  private readonly actors=new Map<number,ActorVisual>();private environment:EnvironmentRenderer;
- private readonly chunks=new Map<string,Chunk>();private readonly missing=new Set<string>();
+ private readonly chunks=new Map<string,Chunk>();
  private readonly deaths:Array<{actor:ActorVisual;until:number}>=[];
  private surface:TerrainSurface;
  private readonly listeners=new AbortController();private resizeObserver?:ResizeObserver;
@@ -83,7 +83,13 @@ export class BattlefieldRenderer {
   this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
   this.app.ticker.add(()=>this.render());
  }
- get missingArt():string[]{return [...new Set([...this.missing,...this.environment.missingArt,...this.combat.diagnostics.missing,...[...this.actors.values()].filter(actor=>actor.root.visible&&actor.missingPayloadArt).map(actor=>`${actor.entity.type}:${actor.missingPayloadArt}`)])].sort()}
+ get missingArt():string[]{
+  const actors=[...this.actors.values()].filter(actor=>actor.root.visible).flatMap(actor=>[
+   ...(actor.standIn||actor.missingArt?[actor.entity.type]:[]),
+   ...(actor.missingPayloadArt?[`${actor.entity.type}:${actor.missingPayloadArt}`]:[]),
+  ]);
+  return [...new Set([...this.environment.missingArt,...this.combat.diagnostics.missing,...actors])].sort();
+ }
  setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers)}
  async whenAssetsReady(){await Promise.all([...this.actors.values()].map(actor=>actor.ready));await this.environment.ready();this.render();await this.placementGhost.settle();this.render();await Promise.all([this.options.art.settle(),this.combat.settle()]);this.render();await this.combat.settle();this.render()}
  viewport():Rect{return {left:0,top:0,right:this.app.screen.width,bottom:this.app.screen.height}}
@@ -318,7 +324,6 @@ export class BattlefieldRenderer {
    const bounds=this.bounds(actor.entity);actor.root.visible=!!bounds&&bounds.right>=-200&&bounds.left<=this.app.screen.width+200&&bounds.bottom>=-200&&bounds.top<=this.app.screen.height+200;
    if(actor.terrainShadow)actor.terrainShadow.visible=actor.root.visible;
    if(actor.root.visible)actor.render(now,this.team(actor.entity.owner),this.selected.has(actor.id),this.settings.healthBars,this.settings.reducedMotion,this.camera.zoom,this.selected.size<=4);else actor.hideStatus();
-   if(actor.standIn||actor.missingArt)this.missing.add(actor.entity.type);
   }
   for(let i=this.deaths.length-1;i>=0;i--){const death=this.deaths[i];if(now>=death.until){death.actor.dispose();this.deaths.splice(i,1);continue}death.actor.render(now,this.team(death.actor.entity.owner),false,'selected',this.settings.reducedMotion);death.actor.root.alpha=Math.min(1,(death.until-now)/700);if(death.actor.terrainShadow)death.actor.terrainShadow.alpha=death.actor.root.alpha}
   this.surfaceShadows.update([...this.actors.values()].filter(actor=>actor.root.visible).flatMap(actor=>actor.shadowPlates).concat(this.deaths.flatMap(({actor,until})=>actor.shadowPlates.map(plate=>({...plate,alpha:plate.alpha*Math.min(1,(until-now)/700)}))),this.environment.shadowPlates),this.surface,this.snapshot?.visible,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom,zoom:this.camera.zoom});
