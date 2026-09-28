@@ -1,0 +1,11 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ candidate/pkg/sim/authored_campaign_acceptance_test.go
+@@ -775,7 +775,7 @@
+ }
+ 
+ func playCampaignCapture(r *authoredRun) {
+-	preserveCaptureForce := r.faction == "SA" && r.difficulty == "hard"
++	preserveCaptureForce := r.difficulty == "hard" && (r.faction == "SA" || r.faction == "SY" && r.requiredOptional == "factory-captured")
+ 	reinforceCaptured := r.difficulty == "hard" && (r.faction == "SY" || r.faction == "SA") || r.faction == "SY" && (r.difficulty == "normal" || r.requiredOptional == "factory-captured")
+ 	r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1}, sim.Order{Kind: "rally", Entities: r.ids("home-factory"), Position: sim.Vec{X: 35500, Y: 94500}}, sim.Order{Kind: "rally", Entities: r.ids("home-barracks"), Position: sim.Vec{X: 35500, Y: 94500}})
+ 	if r.faction == "SY" && (r.difficulty == "hard" || r.requiredOptional == "factory-captured") {

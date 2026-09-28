@@ -1,0 +1,13 @@
+=== RUN   TestAuthoredOptionalFactoryCapture
+=== RUN   TestAuthoredOptionalFactoryCapture/hard
+    authored_campaign_acceptance_test.go:1135: capture force ready tick515 targetrelay-guard-1 actors[37 38 39 40 41 42 46 47] tanks[46 47]
+    authored_campaign_acceptance_test.go:1209: relay-1 captured tick1158
+    authored_campaign_acceptance_test.go:1159: optional factory captured tick2484 actor79
+    authored_capture_visible_site_test.go:62: visible capture defense outpost tick4898 site{41500 88500} actor1133
+    authored_capture_visible_site_test.go:48: abandon unstarted turret: builder lost before placement tick6735
+    authored_capture_visible_site_test.go:48: abandon unstarted turret: builder lost before placement tick6735
+    authored_campaign_acceptance_test.go:1133: completed unreserved capture force after guards timed out at tick 9857; outcome {Finished:true Draw:false WinningTeam:0 Reason:mission_failed Tick:9857}; objectives [{ID:no-command-assets Text:Lose all HQs, production structures and engineering rigs. Optional:false Failure:true Complete:false Progress:3 Required:0} {ID:communications Text:Capture all three communication buildings. Optional:false Failure:false Complete:false Progress:0 Required:0} {ID:factory-captured Text:Capture the marked factory and preserve it under your control. Optional:true Failure:false Complete:false Progress:0 Required:1} {ID:communications-destroyed Text:Destroy any required communication building. Optional:false Failure:true Complete:true Progress:1 Required:0}]; owned [28:barracks hp1000 at{13500 111500} insufficient_credits 30:factory hp1000 at{28500 111500} prerequisite_lost 31:radar hp999 at{20500 115500} idle 32:power hp889 at{11500 98500} idle 34:tech hp1000 at{35500 112500} idle 35:power hp1000 at{11500 107500} idle 36:depot hp998 at{35500 117500} idle 45:SY.engineer hp1000 at{47255 91116} idle 49:SY.repair hp40 at{25500 111500} idle 1133:outpost hp871 at{41500 88500} idle 2095:SY.engineer hp1000 at{53323 97175} moving]
+    authored_failure_diagnostics_test.go:120: failure diagnostics: /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-free-tank/runs/20260928T220051Z-sy05-hard-free-capture-tank/evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-2526155551 (state available=true, unchanged=true)
+--- FAIL: TestAuthoredOptionalFactoryCapture (33.93s)
+    --- FAIL: TestAuthoredOptionalFactoryCapture/hard (33.93s)
+FAIL

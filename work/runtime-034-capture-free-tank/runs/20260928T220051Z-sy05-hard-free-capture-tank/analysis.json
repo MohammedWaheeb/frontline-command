@@ -1,0 +1,67 @@
+{
+  "tick": 9857,
+  "hash": "a3c4b42a924ec9fb1db730f3347e18c08de263f98365f735df44eda03398b631",
+  "outcome": {
+    "finished": true,
+    "draw": false,
+    "winning_team": 0,
+    "reason": "mission_failed",
+    "tick": 9857
+  },
+  "batches": 506,
+  "receipts": 530,
+  "accepted": 530,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "text": "Lose all HQs, production structures and engineering rigs.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 3,
+      "required": 0
+    },
+    {
+      "id": "communications",
+      "text": "Capture all three communication buildings.",
+      "optional": false,
+      "failure": false,
+      "complete": false,
+      "progress": 0,
+      "required": 0
+    },
+    {
+      "id": "factory-captured",
+      "text": "Capture the marked factory and preserve it under your control.",
+      "optional": true,
+      "failure": false,
+      "complete": false,
+      "progress": 0,
+      "required": 1
+    },
+    {
+      "id": "communications-destroyed",
+      "text": "Destroy any required communication building.",
+      "optional": false,
+      "failure": true,
+      "complete": true,
+      "progress": 1,
+      "required": 0
+    }
+  ],
+  "economy": {
+    "last_sequence": 506,
+    "credits": 281808,
+    "energy": 100000,
+    "supply": 4,
+    "reserved_supply": 0,
+    "power_capacity": 200,
+    "power_demand": 105,
+    "tier": 3,
+    "income": 11400000,
+    "repair_reserve": 0,
+    "upgrades": null,
+    "cooldowns": null
+  },
+  "interpretation": "Actual required communication-building loss at9857; current cohort readiness no longer falsely reports all tanks absent. Optionalfactory and homeeconomy are also lost before reinforcements can complete. Not a time-bound-only failure."
+}
