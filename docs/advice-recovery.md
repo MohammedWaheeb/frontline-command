@@ -160,6 +160,10 @@ Evidence is
 `background-timeout.png` shows the 800-credit price and Engineering rig label
 unobscured beside the concise two-line reason; `recovered-1280.png` shows the
 completed second rig and 5,200 credits. Both native images were inspected.
+At1280, that immediate post-completion capture also preserves a separate existing
+layout issue: the cached “Wait: Queued.” status overlaps the two-line rig name
+while the live queue is already empty. Advice refresh and layout polish remain
+separate; no App/CSS change or general visual-completion claim is made here.
 
 Normal reconnect recovered tick196→200. The sole explicit retry was accepted at
 tick365, sequence1; the ordinary400-tick rig job completed by the sampled tick764.
