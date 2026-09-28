@@ -258,3 +258,55 @@ The builder receipt records all other fixed hashes. Earlier frozen outputs are
 preserved. This is a new functional course, not maximum-load performance or
 shipping runtime promotion; the three-human result remains pending until the
 ordinary match and strict browser/replay checks finish.
+
+## Fresh three-human ordinary victory and separate archive recovery
+
+The fresh headed three-human FFA produced an ordinary IR/team 2 elimination win
+at tick 16,074 (13:23.70), seed `17931671840595635671`. Actual CDP metadata reports
+`ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))`.
+US, IR and SY used three independent profiles and ordinary paid orders. All
+clients passed asset readiness; the current 65 fallbacks per client remain
+explicitly recorded. This is not final visual acceptance.
+
+| Player | Income | Spending | Train orders | Build orders |
+|---|---:|---:|---:|---:|
+| US human | 7,800 | 13,700 | 20 | 11 |
+| IR human | 21,000 | 26,800 | 51 | 12 |
+| SY human | 21,600 | 27,550 | 54 | 11 |
+
+The driver submitted 333 ordinary batches. There were 3,213 weapon/impact events
+and 114 destructions. Every player received `not_owner` on the explicit foreign
+command probe. DOM reconnect advanced host tick 3,612 to 3,618 and retained
+acknowledged sequence 19. The full ordinary match recorded zero page, console,
+decoder or HTTP errors, and no advisory retries.
+
+**The original browser report remains failed.** US was eliminated at tick 9,020;
+its own frozen view did not receive the later final battlefield. IR and SY received
+the committed final result, but the driver's immediate host capture had no result.
+It then waited for an archive button without opening the ordinary operation menu
+and timed out. This run alone does not prove eliminated-host durable recovery.
+
+Original evidence:
+`work/multiplayer-combat/2026-09-28T14-32-48.454Z/`.
+Its compact `receipt.json` retains the failure, result, exact build/GPU hashes,
+private-field checks and art limitations; the unchanged 9.9 MB original browser
+report remains locally preserved and its SHA256 is in the receipt.
+
+The exact earned host replay was independently audited from its initial state,
+final checkpoint and restored midpoint at tick 8,037. All final hashes agree:
+`87e577699a4f0c97ad88b9d450f3731e917650eda8beff732bf297513eeac9f7`.
+Replay SHA256, 560,009 bytes:
+`f9fb9af2e46c11cbcf2d9ee221b3b6b097a60c9f7f2a9100586ea16095e690c0`.
+
+The resulting bounded product fix and actual copied-host recovery course are
+documented in [Recorded-result recovery](recorded-result-recovery.md). Normal
+profile history, exact replay archive, profile isolation, retained-lobby polling,
+the keyboard cue, and unchanged private snapshot all pass there. The future
+combat driver explicitly waits for the host's own matching committed result,
+checks an eliminated snapshot remains unchanged, and opens the normal menu when
+needed. Successful history response IDs are recorded without tokens. Strict
+HTTP/console assertions also run after archive. No old run is relabeled.
+
+Four-human ordinary 2v2 has not yet started. Fresh clean repetitions of the
+previously failed one-human/three-bot visual and two-human HTTP cases also remain
+open. Same-host contexts do not establish physical LAN acceptance.

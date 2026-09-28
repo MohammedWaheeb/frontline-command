@@ -1,0 +1,479 @@
+{
+  "started": "2026-09-28T14:32:27.904Z",
+  "completed": "2026-09-28T14:32:39.777Z",
+  "revision": "58085c669d37cda089e9bb9ee827dd31c419c806",
+  "version": {
+    "adapter": "1",
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "go": "go1.27.1",
+    "protocol": 1,
+    "simulation": "0.3.4"
+  },
+  "sha256": {
+    "host": "aa474267ab3c2c19f64deb526f5dc500516d4e2ac73a2a50c96664d06b6b1a8b",
+    "wasm": "a0bf6dadb578e2f80875ad7471efe480637c94b0101da8e84324f349c058bcc4",
+    "protocol": "89333b8afc6ad9094ec3905f99122babcbac9b762e588c02196ec3bdca0b9e3e",
+    "pack": "79f9c79d76f9145d631b418255d4a9298d774c09cf038b658e3ecee00fc55c6c",
+    "clientSource": "4096954cd8b8aa2fd9fd915ea456dea44b7cf1c3d08c3d84e0dd5f5b1453df3e",
+    "entry": "1bb05e2dfa6163bc7c460da1cfd636f739a6fb155532a0fcb9d6b4898e9c47fa",
+    "baseClientSource": "c96bb88d91bcb87c755a99ab681ac2a1a6dec9d21891d3c4df8a79cf6ed77e4e",
+    "basePack": "b7cb86739b47168a99ae7b73e68b187df821b3197132c8d8274e5d78a498a8a4"
+  },
+  "packFiles": 3601,
+  "art": {
+    "format": 1,
+    "sprites": {
+      "building.IR.interceptor_battery": "sprites/building.IR.interceptor_battery/building.IR.interceptor_battery.sprite.json",
+      "building.IR.repair_depot": "sprites/building.IR.repair_depot/building.IR.repair_depot.sprite.json",
+      "building.SY.repair_depot": "sprites/building.SY.repair_depot/building.SY.repair_depot.sprite.json",
+      "building.US.aa_post": "sprites/building.US.aa_post/building.US.aa_post.sprite.json",
+      "building.US.barracks": "sprites/building.US.barracks/building.US.barracks.sprite.json",
+      "building.US.bunker": "sprites/building.US.bunker/building.US.bunker.sprite.json",
+      "building.US.factory": "sprites/building.US.factory/building.US.factory.sprite.json",
+      "building.US.gun_turret": "sprites/building.US.gun_turret/building.US.gun_turret.sprite.json",
+      "building.US.hq": "sprites/building.US.hq/building.US.hq.sprite.json",
+      "building.US.interceptor_battery": "sprites/building.US.interceptor_battery/building.US.interceptor_battery.sprite.json",
+      "building.US.outpost": "sprites/building.US.outpost/building.US.outpost.sprite.json",
+      "building.US.power": "sprites/building.US.power/building.US.power.sprite.json",
+      "building.US.radar": "sprites/building.US.radar/building.US.radar.sprite.json",
+      "building.US.repair_depot": "sprites/building.US.repair_depot/building.US.repair_depot.sprite.json",
+      "building.US.strategic_site": "sprites/building.US.strategic_site/building.US.strategic_site.sprite.json",
+      "building.US.supply": "sprites/building.US.supply/building.US.supply.sprite.json",
+      "building.US.tech": "sprites/building.US.tech/building.US.tech.sprite.json",
+      "prop.bridge_permanent": "sprites/prop.bridge_permanent/prop.bridge_permanent.sprite.json",
+      "prop.central_shipment_site": "sprites/prop.central_shipment_site/prop.central_shipment_site.sprite.json",
+      "prop.command_relay_objective": "sprites/prop.command_relay_objective/prop.command_relay_objective.sprite.json",
+      "prop.concrete_barrier": "sprites/prop.concrete_barrier/prop.concrete_barrier.sprite.json",
+      "prop.container_stack": "sprites/prop.container_stack/prop.container_stack.sprite.json",
+      "prop.decor_building_nongarrison": "sprites/prop.decor_building_nongarrison/prop.decor_building_nongarrison.sprite.json",
+      "prop.depot_objective": "sprites/prop.depot_objective/prop.depot_objective.sprite.json",
+      "prop.destructible_wall_hp_heavy": "sprites/prop.destructible_wall_hp_heavy/prop.destructible_wall_hp_heavy.sprite.json",
+      "prop.destructible_wall_hp_light": "sprites/prop.destructible_wall_hp_light/prop.destructible_wall_hp_light.sprite.json",
+      "prop.fence_chainlink": "sprites/prop.fence_chainlink/prop.fence_chainlink.sprite.json",
+      "prop.forest_edge_scrub": "sprites/prop.forest_edge_scrub/prop.forest_edge_scrub.sprite.json",
+      "prop.fuel_tanks": "sprites/prop.fuel_tanks/prop.fuel_tanks.sprite.json",
+      "prop.palm": "sprites/prop.palm/prop.palm.sprite.json",
+      "prop.power_pylon": "sprites/prop.power_pylon/prop.power_pylon.sprite.json",
+      "prop.region_marker_editor": "sprites/prop.region_marker_editor/prop.region_marker_editor.sprite.json",
+      "prop.relay_objective": "sprites/prop.relay_objective/prop.relay_objective.sprite.json",
+      "prop.rocks": "sprites/prop.rocks/prop.rocks.sprite.json",
+      "prop.rubble_cover": "sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+      "prop.ruined_house_garrisonable": "sprites/prop.ruined_house_garrisonable/prop.ruined_house_garrisonable.sprite.json",
+      "prop.sandbags": "sprites/prop.sandbags/prop.sandbags.sprite.json",
+      "prop.shrub": "sprites/prop.shrub/prop.shrub.sprite.json",
+      "prop.spawn_marker_editor": "sprites/prop.spawn_marker_editor/prop.spawn_marker_editor.sprite.json",
+      "prop.supply_field": "sprites/prop.supply_field/prop.supply_field.sprite.json",
+      "prop.supply_station_neutral": "sprites/prop.supply_station_neutral/prop.supply_station_neutral.sprite.json",
+      "prop.warehouse_garrisonable": "sprites/prop.warehouse_garrisonable/prop.warehouse_garrisonable.sprite.json",
+      "prop.wreck_decor_vehicle": "sprites/prop.wreck_decor_vehicle/prop.wreck_decor_vehicle.sprite.json",
+      "unit.IR.at": "sprites/unit.IR.at/unit.IR.at.sprite.json",
+      "unit.IR.elite": "sprites/unit.IR.elite/unit.IR.elite.sprite.json",
+      "unit.IR.engineer": "sprites/unit.IR.engineer/unit.IR.engineer.sprite.json",
+      "unit.IR.hauler": "sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+      "unit.IR.medic": "sprites/unit.IR.medic/unit.IR.medic.sprite.json",
+      "unit.IR.recon": "sprites/unit.IR.recon/unit.IR.recon.sprite.json",
+      "unit.IR.rifle": "sprites/unit.IR.rifle/unit.IR.rifle.sprite.json",
+      "unit.IR.rig": "sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+      "unit.IR.strike": "sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+      "unit.SA.hauler": "sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+      "unit.SA.mobile_abm": "sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+      "unit.SA.rig": "sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+      "unit.SY.car": "sprites/unit.SY.car/unit.SY.car.sprite.json",
+      "unit.SY.hauler": "sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+      "unit.SY.rig": "sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+      "unit.US.at": "sprites/unit.US.at/unit.US.at.sprite.json",
+      "unit.US.elite": "sprites/unit.US.elite/unit.US.elite.sprite.json",
+      "unit.US.engineer": "sprites/unit.US.engineer/unit.US.engineer.sprite.json",
+      "unit.US.hauler": "sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+      "unit.US.medic": "sprites/unit.US.medic/unit.US.medic.sprite.json",
+      "unit.US.recon": "sprites/unit.US.recon/unit.US.recon.sprite.json",
+      "unit.US.rifle": "sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+      "unit.US.rig": "sprites/unit.US.rig/unit.US.rig.sprite.json",
+      "unit.US.tank": "sprites/unit.US.tank/unit.US.tank.sprite.json"
+    },
+    "terrain": [
+      "asphalt",
+      "cliff_face_tier1",
+      "cliff_face_tier2",
+      "coast_sand",
+      "concrete_slab",
+      "deep_water",
+      "dry_riverbed",
+      "farmland_dry",
+      "gravel",
+      "gravel_wash",
+      "ground_macro",
+      "height_tier_edges",
+      "industrial_pavement",
+      "packed_earth",
+      "ramp",
+      "road_asphalt_decal",
+      "road_dirt_decal",
+      "rubble_ground",
+      "sand",
+      "scrub_ground",
+      "shallow_water",
+      "transition_masks"
+    ],
+    "portraits": [
+      "IR.at",
+      "IR.elite",
+      "IR.engineer",
+      "IR.hauler",
+      "IR.medic",
+      "IR.recon",
+      "IR.rifle",
+      "IR.rig",
+      "SA.hauler",
+      "SA.rig",
+      "SY.car",
+      "SY.hauler",
+      "SY.rig",
+      "US.at",
+      "US.elite",
+      "US.engineer",
+      "US.hauler",
+      "US.medic",
+      "US.recon",
+      "US.rig",
+      "US.tank",
+      "building.IR.interceptor_battery",
+      "building.IR.repair_depot",
+      "building.SY.repair_depot",
+      "building.US.aa_post",
+      "building.US.barracks",
+      "building.US.bunker",
+      "building.US.factory",
+      "building.US.gun_turret",
+      "building.US.interceptor_battery",
+      "building.US.outpost",
+      "building.US.radar",
+      "building.US.repair_depot",
+      "building.US.strategic_site",
+      "building.US.supply",
+      "building.US.tech"
+    ],
+    "buildIcons": [
+      "IR.at",
+      "IR.elite",
+      "IR.engineer",
+      "IR.hauler",
+      "IR.medic",
+      "IR.recon",
+      "IR.rifle",
+      "IR.rig",
+      "SA.hauler",
+      "SA.rig",
+      "SY.car",
+      "SY.hauler",
+      "SY.rig",
+      "US.at",
+      "US.elite",
+      "US.engineer",
+      "US.hauler",
+      "US.medic",
+      "US.recon",
+      "US.rig",
+      "US.tank",
+      "building.IR.interceptor_battery",
+      "building.IR.repair_depot",
+      "building.SY.repair_depot",
+      "building.US.aa_post",
+      "building.US.barracks",
+      "building.US.bunker",
+      "building.US.factory",
+      "building.US.gun_turret",
+      "building.US.interceptor_battery",
+      "building.US.outpost",
+      "building.US.radar",
+      "building.US.repair_depot",
+      "building.US.strategic_site",
+      "building.US.supply",
+      "building.US.tech"
+    ],
+    "chrome": [
+      "brass_bezel@1x.png",
+      "brass_bezel@2x.png",
+      "button@1x.png",
+      "button@2x.png",
+      "button_active@2x.png",
+      "button_disabled@2x.png",
+      "button_hover@2x.png",
+      "button_normal@2x.png",
+      "button_pressed@2x.png",
+      "cameo_frame@1x.png",
+      "cameo_frame@2x.png",
+      "console_plate@1x.png",
+      "console_plate@2x.png",
+      "metal_noise.png",
+      "well@1x.png",
+      "well@2x.png"
+    ],
+    "icons": true,
+    "emblems": true
+  },
+  "sourceSnapshot": "source/client",
+  "scope": "Frozen headed3H client/art/runtime plus only authenticated-history and recorded-result-cue files. Includes explicitly labeled retained-client memory fixture. No renderer changes, simulation mutation or shipping promotion.",
+  "historyRecovery": {
+    "time": "2026-09-28T15:09:58.933Z",
+    "sourceRevision": "4c235862bf591054cc92df69a855b393b7c3fb25",
+    "sourceSnapshot": "source/client/src",
+    "patchedFiles": [
+      "src/app/network-controller.ts",
+      "src/app/recorded-result.ts",
+      "src/ui/App.tsx",
+      "src/ui/network/index.tsx",
+      "src/ui/network/recorded-results.tsx",
+      "src/ui/network/recorded-results.css"
+    ],
+    "baseArtRuntime": "../build-headed-current/product",
+    "codeFiles": [
+      {
+        "path": "/assets/Barlow-Bold-CqhdknQi.ttf",
+        "sha256": "84e6a4d61e7c3e21f3c50ea6a4f7e5303a3467864c038be6ea3759bab8d547f9",
+        "bytes": 108220
+      },
+      {
+        "path": "/assets/Barlow-Medium-BYD2zMwq.ttf",
+        "sha256": "f8906f762cb73dca441da034bc363b2d8e2e68bc10d5c05e58717646c20cc4b4",
+        "bytes": 103536
+      },
+      {
+        "path": "/assets/Barlow-Regular-BeTQORF1.ttf",
+        "sha256": "95aa02c7c43096e0dd44d787ba6216864a67157e402adab59b35572e0c1577ea",
+        "bytes": 104068
+      },
+      {
+        "path": "/assets/Barlow-SemiBold-DrsHaTWO.ttf",
+        "sha256": "86577cb32f8abe3673db53ca0f4221e6856751a4f6730c867e00f720f8bb1fc5",
+        "bytes": 108348
+      },
+      {
+        "path": "/assets/BarlowCondensed-Bold-v1X23fbx.ttf",
+        "sha256": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65",
+        "bytes": 109912
+      },
+      {
+        "path": "/assets/BarlowCondensed-Medium-kxnlQoDx.ttf",
+        "sha256": "262bd143292ce479ee0cd09a42b47ab173fca8e9c6eb5ed0b5c8a845bc371d17",
+        "bytes": 103360
+      },
+      {
+        "path": "/assets/BarlowCondensed-Regular-u9oSiJc6.ttf",
+        "sha256": "583cec5da3b84bc4dc7c9c72e2a565c94d34e431518b19d7e250b7830ad5f996",
+        "bytes": 102480
+      },
+      {
+        "path": "/assets/BarlowCondensed-SemiBold-B7YG4rBL.ttf",
+        "sha256": "7b619d14bc2327509a9ef32b0890f709626f7ecc9ff61191c2a4314c5499d2d9",
+        "bytes": 109428
+      },
+      {
+        "path": "/assets/BigShouldersStencilDisplay-wght-D7r8AJdo.ttf",
+        "sha256": "93bbefb9f3a497fcfeec5d1ac85c4a947a32b8e5bcaf3b7b5efff52f1b11b0e4",
+        "bytes": 226508
+      },
+      {
+        "path": "/assets/BufferResource-IhUeC-gJ.js",
+        "sha256": "298f807dc3584bacc763267eb121b3054f3e811e0c7a4fb334889f5dc2788c7a",
+        "bytes": 11120
+      },
+      {
+        "path": "/assets/BufferResource-IhUeC-gJ.js.map",
+        "sha256": "cb10114a6fc2fe2f93014a647eee7da6c724b49678bc31a4392d9850cd68d867",
+        "bytes": 27609
+      },
+      {
+        "path": "/assets/Cache-B-Py5JMU.js",
+        "sha256": "2f1eefc8ff6f5abd147e97043a7c61bf8e63fb1a4f2ede6e9ccc54fd61217189",
+        "bytes": 1143
+      },
+      {
+        "path": "/assets/Cache-B-Py5JMU.js.map",
+        "sha256": "f8adfa719c83f3c50021ac4862296082ae8e8baf08ca1e12069244690fe661a5",
+        "bytes": 5161
+      },
+      {
+        "path": "/assets/CanvasPool-CdpxiL_8.js",
+        "sha256": "50e5aa55657062e88bcc068d6703c69c5ae2800c5c9e8ecf4cc6b07b958666c5",
+        "bytes": 68535
+      },
+      {
+        "path": "/assets/CanvasPool-CdpxiL_8.js.map",
+        "sha256": "60bed7098779f024121bb0037b8f4a0f2029fc2a70e7ab6531edea1a22df087d",
+        "bytes": 353870
+      },
+      {
+        "path": "/assets/Filter-3CUtaXed.js",
+        "sha256": "0c54e89639f0e50f363bad317ee9cee7dded7e6a4db6982a26b5301934c63e12",
+        "bytes": 42064
+      },
+      {
+        "path": "/assets/Filter-3CUtaXed.js.map",
+        "sha256": "fc1795575cf9672c375c9d52758d3cd3aa41084be744f5f7f4d1a17160ee0a9b",
+        "bytes": 199535
+      },
+      {
+        "path": "/assets/GCManagedHash-6nsD-PfN.js",
+        "sha256": "7a7b0a641d046b4589e742206171241fef35cd1556b6862d77e7092f1fa67a6b",
+        "bytes": 19407
+      },
+      {
+        "path": "/assets/GCManagedHash-6nsD-PfN.js.map",
+        "sha256": "5a6d8aeb6b19c78f5795ed3ea627eacbdc0e958f320cac19de21520b8f759859",
+        "bytes": 71929
+      },
+      {
+        "path": "/assets/GraphicsContext-DIbcJY56.js",
+        "sha256": "73ec20d341db0f40669f43e3ca9f933afc72bb5ea46b2d9fda49fdfa04ed72ed",
+        "bytes": 61781
+      },
+      {
+        "path": "/assets/GraphicsContext-DIbcJY56.js.map",
+        "sha256": "e98978ebf5ddff87584b44a50ca6b12e4086f407cc8d3f30b354c7c90c2b9157",
+        "bytes": 367907
+      },
+      {
+        "path": "/assets/RenderTargetSystem-BHdEFPDr.js",
+        "sha256": "fec9b5f1ea2e53a112936178fd8fd7513a5a106acff8171462ad1beee1b6b860",
+        "bytes": 58850
+      },
+      {
+        "path": "/assets/RenderTargetSystem-BHdEFPDr.js.map",
+        "sha256": "42f78234a5a90476c81cea722b0a0104ce7c416fa1efdc1453f03f795e5c8db6",
+        "bytes": 227143
+      },
+      {
+        "path": "/assets/ShareTechMono-Regular-BC4QgGwP.ttf",
+        "sha256": "9ceab1f87414829af259c0f537573ae03ef7dd3147c0b27a36a1a0beb6732677",
+        "bytes": 43272
+      },
+      {
+        "path": "/assets/app-6dFCt8hf.css",
+        "sha256": "f892409082c2127ef864ef18fcf75735beb46cf9f92bfa975e61a2eaf28a3121",
+        "bytes": 4042
+      },
+      {
+        "path": "/assets/app-Cz31xb5x.js",
+        "sha256": "0432dc63f9cec943c01c75e728702f31787966191ba25a5f19f5214452172b36",
+        "bytes": 439059
+      },
+      {
+        "path": "/assets/app-Cz31xb5x.js.map",
+        "sha256": "d1d5a5f692e634a8c2969072b61d5e27dcab2a86b303615a1c300bc1247c612d",
+        "bytes": 1259866
+      },
+      {
+        "path": "/assets/brass_bezel@2x-D8ufsW9Q.png",
+        "sha256": "3d1dd2c497a97a217881702fc124bee405892167b7b16a113039fd78c8084695",
+        "bytes": 5412
+      },
+      {
+        "path": "/assets/browserAll-D6-WW2cP.js",
+        "sha256": "125c3aaa25061fa00a7e996fbbd3590c1719f491d42e1acba60f52175143e496",
+        "bytes": 42723
+      },
+      {
+        "path": "/assets/browserAll-D6-WW2cP.js.map",
+        "sha256": "bf76780b55be9f5fbd47701e6dc5c3ccdbaaf779f19ba5881f52c7efa1f29d72",
+        "bytes": 161440
+      },
+      {
+        "path": "/assets/button@2x-DfSzGOnj.png",
+        "sha256": "5e923589dac16d126e108f3cc2332b5feb8d84797a5f7000f86336896fa06c6d",
+        "bytes": 13711
+      },
+      {
+        "path": "/assets/cameo_frame@2x-b-4_uaIk.png",
+        "sha256": "736280ab91800bcbdcd2eda2342ee24fc7f72d2d70985b886e74dd70a416c137",
+        "bytes": 2248
+      },
+      {
+        "path": "/assets/canvasUtils-Bw_OEwXd.js",
+        "sha256": "c98be5568a5773ad0b889a291c1703001c068a1ec572bd446e9c1d325a581388",
+        "bytes": 6103
+      },
+      {
+        "path": "/assets/canvasUtils-Bw_OEwXd.js.map",
+        "sha256": "19d367dfaa2067dd2461ae1d6613193018b29e0df8d6c4e036786876ddd5f030",
+        "bytes": 23339
+      },
+      {
+        "path": "/assets/console_plate@2x-BNHCQEd0.png",
+        "sha256": "8315834afd3e9361cdd9ab452ad4cb216e6683a6be4e5d75c1c8fdb3bd91e80d",
+        "bytes": 10327
+      },
+      {
+        "path": "/assets/game-DZuOQy-_.js",
+        "sha256": "953a7f29d229bcdcd7fb6ea4f843442998517dcd5714d8405a74105950a5fb1e",
+        "bytes": 727239
+      },
+      {
+        "path": "/assets/game-DZuOQy-_.js.map",
+        "sha256": "5ac83297c053f16c7718027486e72e050cfd6f463173bc6c4317dadfcfe3fd46",
+        "bytes": 2909930
+      },
+      {
+        "path": "/assets/game-NHTfiR_p.css",
+        "sha256": "9e6dc02992ec8c9015e1e881c2c719acbda26148edd04682b592e2488746ac21",
+        "bytes": 100460
+      },
+      {
+        "path": "/assets/getPo2TextureFromSource-Cc6dAAAz.js",
+        "sha256": "bcb4ac369516003d72331613079466b91227727c61c1fc8e610bef3be778d0a7",
+        "bytes": 566
+      },
+      {
+        "path": "/assets/getPo2TextureFromSource-Cc6dAAAz.js.map",
+        "sha256": "3d4794ad68e68f4d991f64c7553a89e5cfe82ff55293f2cbc9c2e08ea11e27e2",
+        "bytes": 1904
+      },
+      {
+        "path": "/assets/getTextureBatchBindGroup-DPo_HrKb.js",
+        "sha256": "8703066783c2beef8247a8efb0fac81ad08419244bb88149861b88ea26e33eb4",
+        "bytes": 406
+      },
+      {
+        "path": "/assets/getTextureBatchBindGroup-DPo_HrKb.js.map",
+        "sha256": "8ec4c4ea8d1bbb22727adc3eede81407122190f4040c03d9a6919a2f46fb0f37",
+        "bytes": 2036
+      },
+      {
+        "path": "/assets/init-I8RTi419.js",
+        "sha256": "6cba9d2fb0e5e7ce8937a36ee3f4a218618a18283d029a7e119819d5aeda2ed2",
+        "bytes": 15449
+      },
+      {
+        "path": "/assets/init-I8RTi419.js.map",
+        "sha256": "5cba2dca6b3236883fa3225760f5d44cd26f307de350cd6d4f71d0e3b8795d58",
+        "bytes": 56238
+      },
+      {
+        "path": "/assets/metal_noise-CFnlGhM8.png",
+        "sha256": "c906d05fd865d9762bf349cee30622914fffe75d482ab49695727909f9e53aba",
+        "bytes": 20097
+      },
+      {
+        "path": "/assets/retained-BeTKFRrY.js",
+        "sha256": "0b3e6713bb82cb3973f50d324edcd8406f594317241f75a2cce6ab48585a1984",
+        "bytes": 2666
+      },
+      {
+        "path": "/assets/retained-BeTKFRrY.js.map",
+        "sha256": "175e3c32311e719623ef6e2295b74004a38b48c622bdf478f5cb1854c3438906",
+        "bytes": 7087
+      },
+      {
+        "path": "/assets/webworkerAll-DIO-Q0LH.js",
+        "sha256": "779bb3f8452e363f5ad721d6c18a1fcef37db9ced6d71f0731e584baac997fc5",
+        "bytes": 54
+      },
+      {
+        "path": "/assets/well@2x-BcfMkIZy.png",
+        "sha256": "168107121d20009f192b08149e25b100db90ad99e9f1628062c38df459f55b4a",
+        "bytes": 1001
+      }
+    ],
+    "indexSHA256": "a1ef1ec71752052faad0168def1b60f2251290a85614d3e581837226e662e218"
+  }
+}

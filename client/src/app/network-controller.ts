@@ -1,7 +1,6 @@
 import {Observable} from './store';
 import {ModerationController} from './moderation-controller';
-import {create} from '@bufbuild/protobuf';
-import {MatchResultSchema} from '../protocol/frontline_pb';
+import {recordedOperation,type RecordedOperation} from './recorded-result';
 import {LocalAPI,type Lobby,type LobbyAI,type LobbyChanges,type LobbyConfig,type LobbyInvite,type LobbyResponse,type LobbySlot,type LocalReport,type MapRecord,type MapReport,type QueueResponse,type RankedMap,type SaveSummary,type SocialAction,type SocialRelation} from '../runtime/api';
 import {LocalProfileSession,type AccountState} from '../runtime/account';
 import {SaveSynchronizer,syncSelectionBudget,type SyncInventory,type SaveMapping,type SaveSyncPreview,type SyncDecision,type SyncExecution} from '../runtime/save-sync';
@@ -19,9 +18,9 @@ export interface NetworkChat{id:number;room:string;sender:string;name:string;tea
 export interface NetworkState{
  host:string;connected:boolean;hostLatency?:number;account?:AccountState;busy?:string;error?:{code:string;message:string};pollError?:string;
  maps:Awaited<ReturnType<LocalAPI['listMaps']>>;missions:Awaited<ReturnType<LocalAPI['listMissions']>>;lobbies:Lobby[];
- lobby?:Lobby;lobbyState?:LobbyResponse['state'];joinCode?:string;chat:NetworkChat[];
+ lobby?:Lobby;lobbyState?:LobbyResponse['state'];lobbyUnavailable?:boolean;joinCode?:string;chat:NetworkChat[];
  ownMaps:MapRecord[];mapReports:MapReport[];mapReportCursor?:string;mapUpload?:{map:GameMap;filename:string;bytes:number;expectedRevision:number};
- relations:SocialRelation[];invites:LobbyInvite[];saves:SaveSummary[];reports:LocalReport[];
+ history:RecordedOperation[];historyLoaded?:boolean;relations:SocialRelation[];invites:LobbyInvite[];saves:SaveSummary[];reports:LocalReport[];
  queue?:QueueResponse;rankedMaps:RankedMap[];rankedMessage?:string;
  connection:ConnectionPhase;remainingMs?:number;latency?:number;tick:number;status?:MatchStatus;result?:MatchResult;
  eliminated?:boolean;observer?:{matchID:string;player:number;delayTicks:number;buffering:boolean;error?:string};
@@ -54,7 +53,7 @@ export class NetworkController{
  constructor(private readonly options:NetworkOptions){
   this.references=options.references;try{this.references??=globalThis.sessionStorage}catch{}
   const host=globalThis.location?.origin??'http://127.0.0.1:8080';
-  this.state=new Observable<NetworkState>({host,connected:false,maps:[],ownMaps:[],mapReports:[],mapReportCursor:undefined,missions:[],lobbies:[],chat:[],relations:[],invites:[],saves:[],reports:[],rankedMaps:[],connection:'idle',tick:0});
+  this.state=new Observable<NetworkState>({host,connected:false,maps:[],ownMaps:[],mapReports:[],mapReportCursor:undefined,missions:[],lobbies:[],chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],rankedMaps:[],connection:'idle',tick:0});
   this.sessionUnsubscribe=options.sessions.subscribe(event=>this.sessionEvent(event));
  }
  private patch(change:Partial<NetworkState>){if(!this.disposed)this.state.update(value=>({...value,...change}))}
@@ -72,9 +71,9 @@ export class NetworkController{
  private privateActivity(){const s=this.state.get();return !!this.#account?.context&&(!!s.lobby&&s.lobbyState!=='completed'||s.queue?.status==='searching')||this.options.sessions.state.kind==='online'&&!s.result?.committed}
  private clearPrivateState(){
   this.chatEpoch++;this.uploadGeneration++;this.syncAbort?.abort();this.#connection=undefined;this.mapCache=undefined;this.autoJoin=false;this.joinedMatch=undefined;this.moderation.lock();
-  this.patch({ownMaps:[],mapReports:[],mapReportCursor:undefined,mapUpload:undefined,maps:this.state.get().maps.filter(map=>map.installed||map.published!==false),lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],relations:[],invites:[],saves:[],reports:[],lobbies:[],queue:undefined,rankedMaps:[],status:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined,syncProgress:undefined,observer:undefined,eliminated:undefined,notice:undefined,error:undefined,pollError:undefined,connection:'idle',tick:0,remainingMs:undefined,latency:undefined});
+  this.patch({ownMaps:[],mapReports:[],mapReportCursor:undefined,mapUpload:undefined,maps:this.state.get().maps.filter(map=>map.installed||map.published!==false),lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],lobbies:[],queue:undefined,rankedMaps:[],status:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined,syncProgress:undefined,observer:undefined,eliminated:undefined,notice:undefined,error:undefined,pollError:undefined,connection:'idle',tick:0,remainingMs:undefined,latency:undefined});
  }
- private reconcileProfile(){const lobby=this.state.get().lobby;if(lobby&&!lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],status:undefined,queue:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined})}}
+ private reconcileProfile(){const lobby=this.state.get().lobby;if(lobby&&!lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],status:undefined,queue:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined})}}
  async initialize(){if(this.initialized)return;this.initialized=true;await this.connect(this.state.get().host)}
  async connect(address:string){return this.run('Connecting to host…',async()=>{
   if(this.privateActivity())throw new RuntimeError('activity_active','Leave the forming lobby or finish the active match before changing hosts.');
@@ -83,7 +82,7 @@ export class NetworkController{
   this.accountUnsubscribe?.();const epoch=++this.epoch;const account=this.options.makeAccount?.(host)??new LocalProfileSession({baseURL:host});this.#account=account;this.#connection=undefined;this.#sync=new SaveSynchronizer(account,this.options.store,data=>this.options.validator.inspect(data));
   this.identity=undefined;this.moderation.setHost(host);
   this.accountUnsubscribe=account.subscribe(value=>{if(epoch!==this.epoch)return;const identity=account.context?.profileId;if(identity!==this.identity){this.clearPrivateState();this.identity=identity}this.patch({account:value,...(value.phase==='sign-in-required'?{error:value.error}: {})})});
-  this.patch({host,connected:true,hostLatency,maps,ownMaps:[],mapReports:[],mapUpload:undefined,mapReportCursor:undefined,missions,lobbies:[],lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],relations:[],invites:[],saves:[],reports:[],account:account.state,sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined,connection:'idle',status:undefined,result:undefined,tick:0});
+  this.patch({host,connected:true,hostLatency,maps,ownMaps:[],mapReports:[],mapUpload:undefined,mapReportCursor:undefined,missions,lobbies:[],lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],account:account.state,sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined,connection:'idle',status:undefined,result:undefined,tick:0});
   await account.restore();await this.refreshData();
   if(account.context)try{const raw=this.references?.getItem(referenceKey);const ref=raw?JSON.parse(raw):undefined;if(ref?.host===host&&ref.profile===account.context.profileId&&typeof ref.id==='string')await this.accept(await account.authenticated(api=>api.lobby(ref.id)),false)}catch{/* An expired lobby reference does not prevent local play or account use. */}
   if(!this.timer)this.timer=setInterval(()=>void this.poll(),this.options.pollMs??2000);
@@ -92,8 +91,8 @@ export class NetworkController{
  restoreProfile(token:string,remember:boolean){return this.run('Restoring local profile…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the lobby before changing profiles.');await this.account().restoreToken(token,{remember});this.reconcileProfile();await this.refreshData()})}
  exportSignInKey(){return this.run('Exporting private sign-in key…',async()=>{const file=this.account().exportSignInKey(),url=URL.createObjectURL(file);try{const link=document.createElement('a');link.href=url;link.download='frontline-local-sign-in.private.json';link.click()}finally{setTimeout(()=>URL.revokeObjectURL(url),10000)}this.inform('Private sign-in key exported. Keep it separately from shared game files.')})}
  restoreSignInKey(file:Blob,remember:boolean){return this.run('Verifying private sign-in key…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the lobby before changing profiles.');await this.account().restoreSignInKey(file,{remember});this.reconcileProfile();await this.refreshData()})}
- logout(){return this.run('Signing out…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the forming lobby or finish the match before signing out.');this.syncAbort?.abort();await this.account().logout();this.remember();this.#connection=undefined;this.patch({lobby:undefined,lobbyState:undefined,chat:[],relations:[],invites:[],saves:[],reports:[],sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined});this.inform('Signed out of this host. Local saves and campaign progress remain available.')})}
- refresh(){return this.run('Refreshing host…',async()=>{await this.refreshData();const lobby=this.state.get().lobby;if(lobby)await this.accept(await this.authenticated(api=>api.lobby(lobby.id)),this.autoJoin)})}
+ logout(){return this.run('Signing out…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the forming lobby or finish the match before signing out.');this.syncAbort?.abort();await this.account().logout();this.remember();this.#connection=undefined;this.patch({lobby:undefined,lobbyState:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined});this.inform('Signed out of this host. Local saves and campaign progress remain available.')})}
+ refresh(){return this.run('Refreshing host…',async()=>{await this.refreshData();const lobby=this.state.get().lobby;if(lobby)await this.refreshLobby(lobby)})}
  private async refreshData(){
   const account=this.#account,epoch=this.epoch;if(!account)return;
   if(!account.context){this.patch({lobbies:[]});return}
@@ -104,32 +103,40 @@ export class NetworkController{
  private async poll(){
   if(this.disposed||this.polling||this.state.get().busy||!this.#account?.context)return;this.polling=true;const epoch=this.epoch;
   try{
-   const lobby=this.state.get().lobby;if(lobby){await this.accept(await this.authenticated(api=>api.lobby(lobby.id)),this.autoJoin);if(this.options.sessions.state.kind!=='observer')await this.refreshChat()}else await this.refreshData();
+   const lobby=this.state.get().lobby;if(lobby){await this.refreshLobby(lobby);if(!this.state.get().lobbyUnavailable&&this.options.sessions.state.kind!=='observer')await this.refreshChat()}else await this.refreshData();
    if(epoch===this.epoch)this.patch({pollError:undefined});
   }catch(error){if(epoch===this.epoch)this.patch({pollError:publicError(error).message})}finally{this.polling=false}
+ }
+ private async refreshLobby(lobby:Lobby){
+  if(this.state.get().lobbyUnavailable&&this.state.get().result?.committed)return;
+  try{await this.accept(await this.authenticated(api=>api.lobby(lobby.id)),this.autoJoin)}
+  catch(error){
+   if(RuntimeError.from(error).code!=='lobby_missing'||!lobby.match_id||this.options.sessions.state.kind==='observer')throw error;
+   if(!await this.recoverResult(lobby))throw error;
+   this.#connection=undefined;this.autoJoin=false;this.patch({lobbyState:'completed',lobbyUnavailable:true});
+  }
  }
  private async accept(response:LobbyResponse,autoJoin:boolean){
   const current=this.state.get().lobby;if(current?.id===response.lobby.id&&current.revision>response.lobby.revision)return;
   const changed=this.state.get().lobby?.id!==response.lobby.id;this.#connection=response.connection;this.autoJoin=autoJoin;
-  this.patch({lobby:response.lobby,lobbyState:response.state??(response.lobby.match_id?'active':'forming'),joinCode:response.code??(changed?undefined:this.state.get().joinCode),...(changed?{chat:[],result:undefined,status:undefined,tick:0,connection:'idle' as const,eliminated:undefined}: {})});this.remember(response.lobby);
+  this.patch({lobby:response.lobby,lobbyUnavailable:undefined,lobbyState:response.state??(response.lobby.match_id?'active':'forming'),joinCode:response.code??(changed?undefined:this.state.get().joinCode),...(changed?{chat:[],result:undefined,status:undefined,tick:0,connection:'idle' as const,eliminated:undefined}: {})});this.remember(response.lobby);
   if(response.state==='completed'&&this.options.sessions.state.kind!=='observer'&&!this.state.get().result?.committed)await this.recoverResult(response.lobby);
   if(response.connection&&autoJoin&&response.state!=='completed'&&this.joinedMatch!==response.connection.match_id&&!this.joining)await this.enterMatch();
  }
  private async recoverResult(lobby:Lobby){
-  const record=(await this.authenticated(api=>api.history())).find(value=>value.id===lobby.match_id);if(!record||this.state.get().lobby?.id!==lobby.id)return;
-  let value:any;try{value=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(record.payload),character=>character.charCodeAt(0))))}catch{throw new RuntimeError('result_invalid','The host result could not be read. Its original record remains on the host.')}
-  if(value.match_id!==lobby.match_id)throw new RuntimeError('result_invalid','The host returned a different match result.');
-  const outcome=value.outcome??(record.void?{finished:true,draw:true,winning_team:0,reason:value.reason??'void',tick:value.tick}:undefined);
-  if(!outcome?.finished||!Number.isSafeInteger(outcome.tick)||outcome.tick<0||!Number.isInteger(outcome.winning_team)||outcome.winning_team<0||outcome.winning_team>4||typeof outcome.reason!=='string')throw new RuntimeError('result_invalid','The host result has incomplete outcome metadata.');
-  this.patch({result:create(MatchResultSchema,{matchId:record.id,committed:true,void:record.void,outcome:{finished:true,draw:!!outcome.draw,winningTeam:outcome.winning_team,reason:outcome.reason,tick:outcome.tick}}),tick:outcome.tick});
+  const record=(await this.authenticated(api=>api.history())).find(value=>value.id===lobby.match_id);if(!record||this.state.get().lobby?.id!==lobby.id||this.state.get().lobby?.match_id!==lobby.match_id)return false;
+  const entry=recordedOperation(record);this.patch({result:entry.result,tick:entry.result.outcome!.tick});return true;
  }
+ loadHistory(){return this.run('Loading recorded operations…',async()=>{const records=await this.authenticated(api=>api.history());this.patch({history:records.map(recordedOperation),historyLoaded:true})})}
+ archiveRecorded(id:string){return this.run('Saving verified replay…',async()=>{const record=this.state.get().history.find(entry=>entry.id===id);if(!record||record.result.void)throw new RuntimeError('replay_unavailable','Select a completed recorded operation with an available replay.');const bytes=await this.authenticated(api=>api.replay(id));await this.options.store.putReplay(`match-${randomUUID()}`,`Recorded operation ${id}`,bytes,0);this.inform('Replay saved to this browser’s replay archive.')})}
+
  createLobby(config:LobbyConfig){return this.run('Creating lobby…',async()=>this.accept(await this.authenticated(api=>api.createLobby(config)),true))}
  joinLobby(id:string,options:{code?:string;faction?:Faction|'random';team?:number;color?:number}={}){return this.run('Joining lobby…',async()=>this.accept(await this.authenticated(api=>api.joinLobby(id.trim(),options)),true))}
  changeLobby(changes:LobbyChanges){return this.run('Updating lobby…',async()=>this.accept(await this.authenticated(api=>api.updateLobby(this.lobby().id,changes)),this.autoJoin))}
  addAI(config:LobbyAI){return this.run('Adding AI commander…',async()=>this.accept(await this.authenticated(api=>api.addLobbyAI(this.lobby().id,config)),this.autoJoin))}
  changeAI(player:number,config:Partial<LobbyAI>){return this.run('Updating AI commander…',async()=>this.accept(await this.authenticated(api=>api.updateLobbyAI(this.lobby().id,player,config)),this.autoJoin))}
  removeSlot(player:number){return this.run('Removing commander…',async()=>this.accept(await this.authenticated(api=>api.removeLobbySlot(this.lobby().id,player)),this.autoJoin))}
- leaveLobby(){return this.run('Leaving lobby…',async()=>{await this.authenticated(api=>api.leaveLobby(this.lobby().id));this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,joinCode:undefined,chat:[],status:undefined});await this.refreshData()})}
+ leaveLobby(){return this.run('Leaving lobby…',async()=>{if(!this.state.get().lobbyUnavailable)await this.authenticated(api=>api.leaveLobby(this.lobby().id));this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],status:undefined});await this.refreshData()})}
  private async compatible(){const [local,remote]=await Promise.all([this.options.validator.ready,this.publicAPI().health()]);if(local.protocol!==remote.protocol||local.simulation!==remote.simulation||local.content_hash!==remote.content_hash)throw new RuntimeError('version_mismatch','This browser and host use different game versions. Load the game from this host before marking ready.');return local}
  private async mapFor(lobby:Lobby){
   const key=`${this.state.get().host}:${lobby.map_id}:${lobby.map_version}:${lobby.map_hash}`;if(this.mapCache?.key===key)return structuredClone(this.mapCache.map);
@@ -144,7 +151,7 @@ export class NetworkController{
   catch(error){if(RuntimeError.from(error).code==='lobby_changed'){await this.accept(await this.authenticated(api=>api.lobby(lobby.id)),false);throw new RuntimeError('lobby_changed','The lobby changed while your assets were loading. Review the updated commanders and battlefield, then mark ready again.')}throw error}
  })}
  start(){return this.run('Starting operation…',async()=>this.accept(await this.authenticated(api=>api.startLobby(this.lobby().id)),true))}
- joinMatch(){return this.run('Connecting to operation…',async()=>{await this.accept(await this.authenticated(api=>api.lobby(this.lobby().id)),false);await this.enterMatch()})}
+ joinMatch(){return this.run('Connecting to operation…',async()=>{await this.refreshLobby(this.lobby());if(!this.state.get().result?.committed)await this.enterMatch()})}
  private async enterMatch(){
   const connection=this.#connection;if(!connection)throw new RuntimeError('match_not_ready','This lobby has no match connection yet.');this.joining=true;
   try{await this.compatible();const lobby=this.lobby(),map=await this.mapFor(lobby);await this.options.prepareAssets(map,lobby.slots);this.patch({connection:'connecting'});await this.options.joinOnline(this.state.get().host,{...connection},map);this.joinedMatch=connection.match_id;this.patch({connection:'connected'});this.autoJoin=true}

@@ -1,0 +1,118 @@
+[
+  {
+    "directory": "work/multiplayer-combat/history-recovery-2026-09-28T15-07-41.728Z",
+    "status": "failed",
+    "started": "2026-09-28T15:07:41.850Z",
+    "completed": "2026-09-28T15:08:21.825Z",
+    "failure": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Commander name', { exact: true })\u001b[22m\n\n    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/history-recovery.browser.mjs:33:232",
+    "checks": [
+      {
+        "name": "Ordinary product profile restore on restarted copied host"
+      },
+      {
+        "name": "Actual authenticated history exposes earned result without a lobby"
+      },
+      {
+        "name": "Normal replay download and Go inspector archive exact earned bytes",
+        "bytes": 560009,
+        "sha256": "f9fb9af2e46c11cbcf2d9ee221b3b6b097a60c9f7f2a9100586ea16095e690c0"
+      }
+    ],
+    "driverSHA256": "4c14bddb906e044ae42db28649851bdab47e6b7834f4f2dde96dc01648056c61",
+    "browserReportSHA256": "0336bd3afbe618bc40e9244811b4483a560bc75c7089e80a1eda4606f721917d",
+    "browserReportBytes": 22787
+  },
+  {
+    "directory": "work/multiplayer-combat/history-recovery-2026-09-28T15-08-50.762Z",
+    "status": "failed",
+    "started": "2026-09-28T15:08:50.940Z",
+    "completed": "2026-09-28T15:09:01.336Z",
+    "failure": "page.evaluate: Error: Private fixture sign-in failed\n    at Object.start (http://127.0.0.1:55644/assets/retained-CHEomc_J.js:1:1922)\n    at async <anonymous>:337:30\n    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/history-recovery.browser.mjs:35:17",
+    "checks": [
+      {
+        "name": "Ordinary product profile restore on restarted copied host"
+      },
+      {
+        "name": "Actual authenticated history exposes earned result without a lobby"
+      },
+      {
+        "name": "Normal replay download and Go inspector archive exact earned bytes",
+        "bytes": 560009,
+        "sha256": "f9fb9af2e46c11cbcf2d9ee221b3b6b097a60c9f7f2a9100586ea16095e690c0"
+      },
+      {
+        "name": "Different real profile sees no prior result; browser replay survives sign-out"
+      }
+    ],
+    "driverSHA256": "e3f658b7fe5d99fec173a1941e0d3cb840f578eca1919a26c38e74831ec0d640",
+    "browserReportSHA256": "84f0c7a42cb91ae682c5c04b803f79caba6a72af1265e36958e1557f20951e15",
+    "browserReportBytes": 22925
+  },
+  {
+    "directory": "work/multiplayer-combat/history-recovery-2026-09-28T15-09-59.545Z",
+    "status": "failed",
+    "started": "2026-09-28T15:09:59.698Z",
+    "completed": "2026-09-28T15:10:16.116Z",
+    "failure": "page.evaluate: TypeError: h.close is not a function\n    at Object.dispose (http://127.0.0.1:55677/assets/retained-BeTKFRrY.js:1:2577)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:27)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/history-recovery.browser.mjs:36:890",
+    "checks": [
+      {
+        "name": "Ordinary product profile restore on restarted copied host"
+      },
+      {
+        "name": "Actual authenticated history exposes earned result without a lobby"
+      },
+      {
+        "name": "Normal replay download and Go inspector archive exact earned bytes",
+        "bytes": 560009,
+        "sha256": "f9fb9af2e46c11cbcf2d9ee221b3b6b097a60c9f7f2a9100586ea16095e690c0"
+      },
+      {
+        "name": "Different real profile sees no prior result; browser replay survives sign-out"
+      },
+      {
+        "name": "Automatic retained-lobby poll observes real404, recovers exact durable history, leaves own tick9020 unchanged"
+      },
+      {
+        "name": "Keyboard result cue opens normal network menu and archives exact replay"
+      }
+    ],
+    "driverSHA256": "fc891c778818bf3dcc5c760b45c12f46688cfc3e5c0411ccb4945e255c586e59",
+    "browserReportSHA256": "3ff1e972f9dd943be086d6d63149ac12bd9bfe43f678afc87f5292352326c7b5",
+    "browserReportBytes": 23830
+  },
+  {
+    "directory": "work/multiplayer-combat/history-recovery-2026-09-28T15-11-03.629Z",
+    "status": "passed",
+    "started": "2026-09-28T15:11:03.772Z",
+    "completed": "2026-09-28T15:11:21.314Z",
+    "failure": null,
+    "checks": [
+      {
+        "name": "Ordinary product profile restore on restarted copied host"
+      },
+      {
+        "name": "Actual authenticated history exposes earned result without a lobby"
+      },
+      {
+        "name": "Normal replay download and Go inspector archive exact earned bytes",
+        "bytes": 560009,
+        "sha256": "f9fb9af2e46c11cbcf2d9ee221b3b6b097a60c9f7f2a9100586ea16095e690c0"
+      },
+      {
+        "name": "Different real profile sees no prior result; browser replay survives sign-out"
+      },
+      {
+        "name": "Automatic retained-lobby poll observes real404, recovers exact durable history, leaves own tick9020 unchanged"
+      },
+      {
+        "name": "Keyboard result cue opens normal network menu and archives exact replay"
+      },
+      {
+        "name": "Only expected missing-lobby404 retained; no page or unrelated console/HTTP errors"
+      }
+    ],
+    "driverSHA256": "fc891c778818bf3dcc5c760b45c12f46688cfc3e5c0411ccb4945e255c586e59",
+    "browserReportSHA256": "f03781fd86a81f4f85b2a2c394b5042115e99764d5cdd62aad78fbc296459b8f",
+    "browserReportBytes": 23509
+  }
+]
