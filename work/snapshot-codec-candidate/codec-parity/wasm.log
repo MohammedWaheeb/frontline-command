@@ -1,0 +1,47 @@
+fatal error: newosproc: not implemented
+
+runtime stack:
+runtime.throw({0x21d4f, 0x1a})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/panic.go:1243 +0x3 fp=0x4e5020 sp=0x4e4ff8 pc=0x15d10003
+runtime.newosproc(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/os_wasm.go:114
+runtime.newm1(0x5ca008)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:2942 +0x11 fp=0x4e5058 sp=0x4e5020 pc=0x133d0011
+runtime.newm(0x4918b0, 0x5b7808, 0x1)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:2920 +0x33 fp=0x4e5088 sp=0x4e5058 pc=0x133c0033
+runtime.startm(0x5b7808, 0x1, 0x0)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:3111 +0x49 fp=0x4e50d0 sp=0x4e5088 pc=0x13400049
+runtime.wakep()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:3258 +0x21 fp=0x4e5108 sp=0x4e50d0 pc=0x15d50021
+runtime.newproc.func1()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:5344 +0x9 fp=0x4e5138 sp=0x4e5108 pc=0x15000009
+runtime.systemstack(0x4e5148)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_wasm.s:165 +0x3 fp=0x4e5140 sp=0x4e5138 pc=0x16210003
+runtime.mstart()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_wasm.s:29 fp=0x4e5148 sp=0x4e5140 pc=0x161e0000
+
+goroutine 1 gp=0x5821c0 m=0 mp=0x4d0e40 [running]:
+runtime.systemstack_switch()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_wasm.s:176 fp=0x5c6540 sp=0x5c6538 pc=0x16220000
+runtime.newproc(0x491580)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:5337 +0x2 fp=0x5c6570 sp=0x5c6540 pc=0x13610002
+runtime.init.6()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:375 +0x2 fp=0x5c6580 sp=0x5c6570 pc=0x13090002
+runtime.doInit1(0x494cc0)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:8154 +0x17 fp=0x5c66b8 sp=0x5c6580 pc=0x13910017
+runtime.doInit(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:8121
+runtime.main()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:207 +0x16 fp=0x5c67e0 sp=0x5c66b8 pc=0x13070016
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_wasm.s:413 +0x1 fp=0x5c67e8 sp=0x5c67e0 pc=0x16470001
+
+goroutine 2 gp=0x582380 m=nil [runnable]:
+runtime.forcegchelper()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:378 fp=0x5c6fe0 sp=0x5c6fd8 pc=0x130a0000
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_wasm.s:413 +0x1 fp=0x5c6fe8 sp=0x5c6fe0 pc=0x16470001
+created by runtime.init.6 in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:375 +0x2
+FAIL	frontlinecommand/cmd/wasm	0.228s
+FAIL

@@ -1,0 +1,36 @@
+{
+  "three_adapters_equal": true,
+  "cases": [
+    "ranges",
+    "casualty",
+    "combat"
+  ],
+  "wasm_command": [
+    "/opt/homebrew/bin/go",
+    "test",
+    "./cmd/wasm",
+    "-run",
+    "^(TestOwnerRangesActualCodec|TestOwnerCasualtyActualCodec|TestCombatFeedbackCodecActualAuthorizedOutputs)$",
+    "-count=1",
+    "-v",
+    "-exec",
+    "/opt/homebrew/Cellar/go/1.27.1/libexec/lib/wasm/go_js_wasm_exec"
+  ],
+  "wasm_gomaxprocs": 1,
+  "failed_attempt": "wasm.log forcedGOMAXPROCS2 is unsupported on Go js/wasm; no candidate code changed",
+  "files": {
+    "ranges-host.json": "c57d7138f331ac2da4f780165eca3f698fbd94641872e17d39dc186e9b83a0df",
+    "wasm.log": "b8f13e3c25cc1ca05e0a53ef92993a0ead509461541ab48b35893e066c933ee6",
+    "combat-native.json": "b9e922fee34c1757a70c49c98b974e1d8700a1871907e6ac56853977361cc24a",
+    "ranges-wasm.json": "c57d7138f331ac2da4f780165eca3f698fbd94641872e17d39dc186e9b83a0df",
+    "casualty-host.json": "4812e23db11d9372e0956341ad01a272df8f2a652d8a69ab3c4aa50c8dc93d94",
+    "native.log": "583ec4166b1099cf2bfb713f8860bedfeef94c39199945e402b316ed1fe700b0",
+    "combat-wasm.json": "b9e922fee34c1757a70c49c98b974e1d8700a1871907e6ac56853977361cc24a",
+    "ranges-native.json": "c57d7138f331ac2da4f780165eca3f698fbd94641872e17d39dc186e9b83a0df",
+    "wasm-02.log": "f5c443449ebaab4948c0e7b83939ba3a40d43638e7152e3d23556c7f50213f9d",
+    "casualty-wasm.json": "4812e23db11d9372e0956341ad01a272df8f2a652d8a69ab3c4aa50c8dc93d94",
+    "host.log": "ccec50090401acd1b7e758f991c35f3de3ccd231c3df77e3d790ff511cbe04cd",
+    "combat-host.json": "b9e922fee34c1757a70c49c98b974e1d8700a1871907e6ac56853977361cc24a",
+    "casualty-native.json": "4812e23db11d9372e0956341ad01a272df8f2a652d8a69ab3c4aa50c8dc93d94"
+  }
+}

@@ -1,0 +1,12 @@
+goos: darwin
+goarch: arm64
+pkg: frontlinecommand/internal/viewproto
+cpu: Apple M4
+BenchmarkSnapshotConversion/JSON-2         	      10	  21179758 ns/op	 3478900 B/op	   92957 allocs/op
+BenchmarkSnapshotConversion/JSON-2         	      10	  22773829 ns/op	 3385890 B/op	   92208 allocs/op
+BenchmarkSnapshotConversion/JSON-2         	      10	  21376458 ns/op	 2877982 B/op	   92200 allocs/op
+BenchmarkSnapshotConversion/Direct-2       	     477	    509642 ns/op	  370433 B/op	    5769 allocs/op
+BenchmarkSnapshotConversion/Direct-2       	     370	    596440 ns/op	  370433 B/op	    5769 allocs/op
+BenchmarkSnapshotConversion/Direct-2       	     482	    511093 ns/op	  370433 B/op	    5769 allocs/op
+PASS
+ok  	frontlinecommand/internal/viewproto	1.869s
