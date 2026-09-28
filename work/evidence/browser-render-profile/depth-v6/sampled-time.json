@@ -1,0 +1,5807 @@
+{
+  "input": "work/art/sprite-terrain-depth/product-load-profile-v6/main-0.cpuprofile",
+  "sha256": "0f16b58680d2fb53eb2cd497276f4c0944306dc2cfdca0fe2cf0cf27747e88bb",
+  "profile_wall_ms": 73899.496,
+  "sampled_ms": 73898.778,
+  "samples": 48612,
+  "exclusive_top": [
+    {
+      "id": 298,
+      "function": "packAttributes",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22619,
+      "column": 21,
+      "exclusive_ms": 15656.075,
+      "inclusive_ms": 16907.662,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        },
+        {
+          "id": 297,
+          "function": "break",
+          "line": 22223
+        },
+        {
+          "id": 298,
+          "function": "packAttributes",
+          "line": 22619
+        }
+      ]
+    },
+    {
+      "id": 301,
+      "function": "packIndex",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22427,
+      "column": 16,
+      "exclusive_ms": 5348.284,
+      "inclusive_ms": 5397.535,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        },
+        {
+          "id": 297,
+          "function": "break",
+          "line": 22223
+        },
+        {
+          "id": 301,
+          "function": "packIndex",
+          "line": 22427
+        }
+      ]
+    },
+    {
+      "id": 267,
+      "function": "collectRenderables",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3206,
+      "column": 25,
+      "exclusive_ms": 4960.335,
+      "inclusive_ms": 21763.739,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        }
+      ]
+    },
+    {
+      "id": 342,
+      "function": "collectRenderablesSimple",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 9934,
+      "column": 31,
+      "exclusive_ms": 4516.412,
+      "inclusive_ms": 9266.345,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        }
+      ]
+    },
+    {
+      "id": 554,
+      "function": "updateBuffer",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 29749,
+      "column": 19,
+      "exclusive_ms": 2581.693,
+      "inclusive_ms": 2581.693,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 302,
+          "function": "executeInstructions",
+          "line": 21324
+        },
+        {
+          "id": 303,
+          "function": "execute",
+          "line": 22788
+        },
+        {
+          "id": 551,
+          "function": "start",
+          "line": 29546
+        },
+        {
+          "id": 552,
+          "function": "bind",
+          "line": 30262
+        },
+        {
+          "id": 553,
+          "function": "updateBuffers",
+          "line": 30277
+        },
+        {
+          "id": 554,
+          "function": "updateBuffer",
+          "line": 29749
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "function": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "exclusive_ms": 2266.536,
+      "inclusive_ms": 2266.536,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 24,
+          "function": "(garbage collector)",
+          "line": 0
+        }
+      ]
+    },
+    {
+      "id": 269,
+      "function": "collectRenderables",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3206,
+      "column": 25,
+      "exclusive_ms": 2221.229,
+      "inclusive_ms": 16465.006,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        }
+      ]
+    },
+    {
+      "id": 455,
+      "function": "update",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50458,
+      "column": 9,
+      "exclusive_ms": 2080.582,
+      "inclusive_ms": 5918.173,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 455,
+          "function": "update",
+          "line": 50458
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "function": "(idle)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "exclusive_ms": 1988.015,
+      "inclusive_ms": 1988.015,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 3,
+          "function": "(idle)",
+          "line": 0
+        }
+      ]
+    },
+    {
+      "id": 296,
+      "function": "buildEnd",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22767,
+      "column": 15,
+      "exclusive_ms": 1261.814,
+      "inclusive_ms": 25719.357,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        }
+      ]
+    },
+    {
+      "id": 297,
+      "function": "break",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22223,
+      "column": 12,
+      "exclusive_ms": 1249.355,
+      "inclusive_ms": 24397.219,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        },
+        {
+          "id": 297,
+          "function": "break",
+          "line": 22223
+        }
+      ]
+    },
+    {
+      "id": 385,
+      "function": "add",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22182,
+      "column": 10,
+      "exclusive_ms": 1218.815,
+      "inclusive_ms": 1475.46,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 343,
+          "function": "addRenderable",
+          "line": 47371
+        },
+        {
+          "id": 374,
+          "function": "addToBatch",
+          "line": 22752
+        },
+        {
+          "id": 385,
+          "function": "add",
+          "line": 22182
+        }
+      ]
+    },
+    {
+      "id": 344,
+      "function": "_getMeshData",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 47412,
+      "column": 15,
+      "exclusive_ms": 1119.828,
+      "inclusive_ms": 1125.99,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 343,
+          "function": "addRenderable",
+          "line": 47371
+        },
+        {
+          "id": 344,
+          "function": "_getMeshData",
+          "line": 47412
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "function": "(program)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "exclusive_ms": 1021.654,
+      "inclusive_ms": 1021.654,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 2,
+          "function": "(program)",
+          "line": 0
+        }
+      ]
+    },
+    {
+      "id": 439,
+      "function": "frame",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 53650,
+      "column": 8,
+      "exclusive_ms": 957.86,
+      "inclusive_ms": 1380.494,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 232,
+          "function": "render",
+          "line": 50227
+        },
+        {
+          "id": 402,
+          "function": "paintPart",
+          "line": 50185
+        },
+        {
+          "id": 439,
+          "function": "frame",
+          "line": 53650
+        }
+      ]
+    },
+    {
+      "id": 197,
+      "function": "render",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 53388,
+      "column": 9,
+      "exclusive_ms": 835.77,
+      "inclusive_ms": 15239.962,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        }
+      ]
+    },
+    {
+      "id": 903,
+      "function": "update",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50322,
+      "column": 9,
+      "exclusive_ms": 820.605,
+      "inclusive_ms": 2026.969,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 455,
+          "function": "update",
+          "line": 50458
+        },
+        {
+          "id": 903,
+          "function": "update",
+          "line": 50322
+        }
+      ]
+    },
+    {
+      "id": 232,
+      "function": "render",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50227,
+      "column": 9,
+      "exclusive_ms": 747.96,
+      "inclusive_ms": 6663.377,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 232,
+          "function": "render",
+          "line": 50227
+        }
+      ]
+    },
+    {
+      "id": 374,
+      "function": "addToBatch",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22752,
+      "column": 17,
+      "exclusive_ms": 589.127,
+      "inclusive_ms": 2064.587,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 343,
+          "function": "addRenderable",
+          "line": 47371
+        },
+        {
+          "id": 374,
+          "function": "addToBatch",
+          "line": 22752
+        }
+      ]
+    },
+    {
+      "id": 517,
+      "function": "topTriangles",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 49560,
+      "column": 15,
+      "exclusive_ms": 556.552,
+      "inclusive_ms": 866.018,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 455,
+          "function": "update",
+          "line": 50458
+        },
+        {
+          "id": 516,
+          "function": "triangles",
+          "line": 49595
+        },
+        {
+          "id": 517,
+          "function": "topTriangles",
+          "line": 49560
+        }
+      ]
+    },
+    {
+      "id": 299,
+      "function": "get uvs",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 47288,
+      "column": 10,
+      "exclusive_ms": 546.094,
+      "inclusive_ms": 830.555,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        },
+        {
+          "id": 297,
+          "function": "break",
+          "line": 22223
+        },
+        {
+          "id": 298,
+          "function": "packAttributes",
+          "line": 22619
+        },
+        {
+          "id": 299,
+          "function": "get uvs",
+          "line": 47288
+        }
+      ]
+    },
+    {
+      "id": 386,
+      "function": "popBlendMode",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 23492,
+      "column": 19,
+      "exclusive_ms": 539.083,
+      "inclusive_ms": 592.079,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 386,
+          "function": "popBlendMode",
+          "line": 23492
+        }
+      ]
+    },
+    {
+      "id": 247,
+      "function": "toStrokeStyle",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 38494,
+      "column": 23,
+      "exclusive_ms": 453.38,
+      "inclusive_ms": 599.148,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 232,
+          "function": "render",
+          "line": 50227
+        },
+        {
+          "id": 233,
+          "function": "drawStructure",
+          "line": 49676
+        },
+        {
+          "id": 244,
+          "function": "stroke",
+          "line": 40065
+        },
+        {
+          "id": 245,
+          "function": "_callContextMethod",
+          "line": 39905
+        },
+        {
+          "id": 246,
+          "function": "stroke",
+          "line": 38725
+        },
+        {
+          "id": 247,
+          "function": "toStrokeStyle",
+          "line": 38494
+        }
+      ]
+    },
+    {
+      "id": 235,
+      "function": "bounds",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 52995,
+      "column": 9,
+      "exclusive_ms": 420.029,
+      "inclusive_ms": 777.717,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 235,
+          "function": "bounds",
+          "line": 52995
+        }
+      ]
+    },
+    {
+      "id": 271,
+      "function": "collectRenderables",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3206,
+      "column": 25,
+      "exclusive_ms": 413.06,
+      "inclusive_ms": 4900.511,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        }
+      ]
+    },
+    {
+      "id": 1365,
+      "function": "clip2",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50299,
+      "column": 15,
+      "exclusive_ms": 385.896,
+      "inclusive_ms": 393.163,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 455,
+          "function": "update",
+          "line": 50458
+        },
+        {
+          "id": 903,
+          "function": "update",
+          "line": 50322
+        },
+        {
+          "id": 1365,
+          "function": "clip2",
+          "line": 50299
+        }
+      ]
+    },
+    {
+      "id": 288,
+      "function": "<anonymous>",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 35266,
+      "column": 37,
+      "exclusive_ms": 381.076,
+      "inclusive_ms": 1154.768,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 272,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 273,
+          "function": "addRenderable",
+          "line": 39627
+        },
+        {
+          "id": 274,
+          "function": "updateGpuContext",
+          "line": 36307
+        },
+        {
+          "id": 275,
+          "function": "buildContextBatches",
+          "line": 35197
+        },
+        {
+          "id": 287,
+          "function": "addShapePathToGeometryData",
+          "line": 35264
+        },
+        {
+          "id": 288,
+          "function": "<anonymous>",
+          "line": 35266
+        }
+      ]
+    },
+    {
+      "id": 785,
+      "function": "getAdjustedBlendModeBlend",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 21994,
+      "column": 35,
+      "exclusive_ms": 367.137,
+      "inclusive_ms": 367.137,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        },
+        {
+          "id": 297,
+          "function": "break",
+          "line": 22223
+        },
+        {
+          "id": 785,
+          "function": "getAdjustedBlendModeBlend",
+          "line": 21994
+        }
+      ]
+    },
+    {
+      "id": 402,
+      "function": "paintPart",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50185,
+      "column": 12,
+      "exclusive_ms": 356.392,
+      "inclusive_ms": 2434.278,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 232,
+          "function": "render",
+          "line": 50227
+        },
+        {
+          "id": 402,
+          "function": "paintPart",
+          "line": 50185
+        }
+      ]
+    },
+    {
+      "id": 600,
+      "function": "setBlendMode",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 23505,
+      "column": 19,
+      "exclusive_ms": 349.119,
+      "inclusive_ms": 349.119,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 440,
+          "function": "pushBlendMode",
+          "line": 23484
+        },
+        {
+          "id": 600,
+          "function": "setBlendMode",
+          "line": 23505
+        }
+      ]
+    },
+    {
+      "id": 1348,
+      "function": "add",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50335,
+      "column": 17,
+      "exclusive_ms": 348.275,
+      "inclusive_ms": 382.816,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 455,
+          "function": "update",
+          "line": 50458
+        },
+        {
+          "id": 903,
+          "function": "update",
+          "line": 50322
+        },
+        {
+          "id": 1348,
+          "function": "add",
+          "line": 50335
+        }
+      ]
+    },
+    {
+      "id": 343,
+      "function": "addRenderable",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 47371,
+      "column": 16,
+      "exclusive_ms": 302.68,
+      "inclusive_ms": 3777.207,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 343,
+          "function": "addRenderable",
+          "line": 47371
+        }
+      ]
+    },
+    {
+      "id": 540,
+      "function": "collectRenderablesSimple",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 9934,
+      "column": 31,
+      "exclusive_ms": 293.091,
+      "inclusive_ms": 563.617,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 538,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 539,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 540,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        }
+      ]
+    },
+    {
+      "id": 311,
+      "function": "uploadImageWebGL2",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 32949,
+      "column": 27,
+      "exclusive_ms": 285.121,
+      "inclusive_ms": 285.121,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 302,
+          "function": "executeInstructions",
+          "line": 21324
+        },
+        {
+          "id": 303,
+          "function": "execute",
+          "line": 22788
+        },
+        {
+          "id": 304,
+          "function": "execute",
+          "line": 29556
+        },
+        {
+          "id": 305,
+          "function": "bind",
+          "line": 33555
+        },
+        {
+          "id": 306,
+          "function": "bindSource",
+          "line": 33569
+        },
+        {
+          "id": 307,
+          "function": "getGlSource",
+          "line": 33838
+        },
+        {
+          "id": 308,
+          "function": "_initSource",
+          "line": 33612
+        },
+        {
+          "id": 309,
+          "function": "onSourceUpdate",
+          "line": 33670
+        },
+        {
+          "id": 310,
+          "function": "upload",
+          "line": 33054
+        },
+        {
+          "id": 311,
+          "function": "uploadImageWebGL2",
+          "line": 32949
+        }
+      ]
+    },
+    {
+      "id": 239,
+      "function": "draw",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 49899,
+      "column": 7,
+      "exclusive_ms": 282.426,
+      "inclusive_ms": 348.246,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 232,
+          "function": "render",
+          "line": 50227
+        },
+        {
+          "id": 239,
+          "function": "draw",
+          "line": 49899
+        }
+      ]
+    },
+    {
+      "id": 703,
+      "function": "setFog",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 51019,
+      "column": 22,
+      "exclusive_ms": 281.323,
+      "inclusive_ms": 986.442,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 4,
+          "function": "OfflineTransport.worker.onmessage",
+          "line": 58559
+        },
+        {
+          "id": 5,
+          "function": "receive",
+          "line": 58567
+        },
+        {
+          "id": 683,
+          "function": "emit",
+          "line": 53931
+        },
+        {
+          "id": 684,
+          "function": "<anonymous>",
+          "line": 58906
+        },
+        {
+          "id": 685,
+          "function": "setSnapshot",
+          "line": 53156
+        },
+        {
+          "id": 702,
+          "function": "updateFog",
+          "line": 53278
+        },
+        {
+          "id": 703,
+          "function": "setFog",
+          "line": 51019
+        }
+      ]
+    },
+    {
+      "id": 203,
+      "function": "fillRect",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "exclusive_ms": 261.186,
+      "inclusive_ms": 261.186,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 198,
+          "function": "terrainFrame",
+          "line": 53313
+        },
+        {
+          "id": 199,
+          "function": "bake",
+          "line": 50849
+        },
+        {
+          "id": 202,
+          "function": "fillMaterial",
+          "line": 51067
+        },
+        {
+          "id": 203,
+          "function": "fillRect",
+          "line": 0
+        }
+      ]
+    },
+    {
+      "id": 612,
+      "function": "key",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 53633,
+      "column": 6,
+      "exclusive_ms": 253.849,
+      "inclusive_ms": 253.849,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 232,
+          "function": "render",
+          "line": 50227
+        },
+        {
+          "id": 402,
+          "function": "paintPart",
+          "line": 50185
+        },
+        {
+          "id": 439,
+          "function": "frame",
+          "line": 53650
+        },
+        {
+          "id": 612,
+          "function": "key",
+          "line": 53633
+        }
+      ]
+    },
+    {
+      "id": 433,
+      "function": "_getBatchableMesh",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 47425,
+      "column": 20,
+      "exclusive_ms": 245.684,
+      "inclusive_ms": 251.287,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 343,
+          "function": "addRenderable",
+          "line": 47371
+        },
+        {
+          "id": 433,
+          "function": "_getBatchableMesh",
+          "line": 47425
+        }
+      ]
+    },
+    {
+      "id": 327,
+      "function": "reset",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 36232,
+      "column": 12,
+      "exclusive_ms": 241.514,
+      "inclusive_ms": 395.435,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 272,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 273,
+          "function": "addRenderable",
+          "line": 39627
+        },
+        {
+          "id": 274,
+          "function": "updateGpuContext",
+          "line": 36307
+        },
+        {
+          "id": 327,
+          "function": "reset",
+          "line": 36232
+        }
+      ]
+    }
+  ],
+  "inclusive_top": [
+    {
+      "id": 1,
+      "function": "(root)",
+      "url": "",
+      "line": 0,
+      "column": 0,
+      "exclusive_ms": 0.0,
+      "inclusive_ms": 73898.778,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        }
+      ]
+    },
+    {
+      "id": 193,
+      "function": "_tick",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 8264,
+      "column": 22,
+      "exclusive_ms": 7.497,
+      "inclusive_ms": 66385.88,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        }
+      ]
+    },
+    {
+      "id": 194,
+      "function": "update",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 8562,
+      "column": 13,
+      "exclusive_ms": 1.571,
+      "inclusive_ms": 66353.003,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        }
+      ]
+    },
+    {
+      "id": 195,
+      "function": "emit",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 8189,
+      "column": 11,
+      "exclusive_ms": 3.102,
+      "inclusive_ms": 66351.432,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        }
+      ]
+    },
+    {
+      "id": 255,
+      "function": "render",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 44805,
+      "column": 9,
+      "exclusive_ms": 7.703,
+      "inclusive_ms": 51067.369,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        }
+      ]
+    },
+    {
+      "id": 256,
+      "function": "render",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 19881,
+      "column": 13,
+      "exclusive_ms": 4.609,
+      "inclusive_ms": 51053.649,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        }
+      ]
+    },
+    {
+      "id": 257,
+      "function": "emit",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 19730,
+      "column": 11,
+      "exclusive_ms": 0.0,
+      "inclusive_ms": 51046.27,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        }
+      ]
+    },
+    {
+      "id": 258,
+      "function": "render",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 21603,
+      "column": 13,
+      "exclusive_ms": 5.554,
+      "inclusive_ms": 50975.564,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        }
+      ]
+    },
+    {
+      "id": 259,
+      "function": "_updateRenderGroups",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 21677,
+      "column": 26,
+      "exclusive_ms": 6.11,
+      "inclusive_ms": 47774.768,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        }
+      ]
+    },
+    {
+      "id": 262,
+      "function": "_buildInstructions",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 21711,
+      "column": 25,
+      "exclusive_ms": 6.006,
+      "inclusive_ms": 47529.626,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        }
+      ]
+    },
+    {
+      "id": 296,
+      "function": "buildEnd",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22767,
+      "column": 15,
+      "exclusive_ms": 1261.814,
+      "inclusive_ms": 25719.357,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        }
+      ]
+    },
+    {
+      "id": 297,
+      "function": "break",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22223,
+      "column": 12,
+      "exclusive_ms": 1249.355,
+      "inclusive_ms": 24397.219,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        },
+        {
+          "id": 297,
+          "function": "break",
+          "line": 22223
+        }
+      ]
+    },
+    {
+      "id": 263,
+      "function": "collectRenderablesWithEffects",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3226,
+      "column": 36,
+      "exclusive_ms": 7.433,
+      "inclusive_ms": 21790.913,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        }
+      ]
+    },
+    {
+      "id": 264,
+      "function": "collectRenderablesSimple",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3219,
+      "column": 31,
+      "exclusive_ms": 1.53,
+      "inclusive_ms": 21783.48,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        }
+      ]
+    },
+    {
+      "id": 265,
+      "function": "collectRenderables",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3206,
+      "column": 25,
+      "exclusive_ms": 10.663,
+      "inclusive_ms": 21781.95,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        }
+      ]
+    },
+    {
+      "id": 266,
+      "function": "collectRenderablesSimple",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3219,
+      "column": 31,
+      "exclusive_ms": 4.503,
+      "inclusive_ms": 21768.242,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        }
+      ]
+    },
+    {
+      "id": 267,
+      "function": "collectRenderables",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3206,
+      "column": 25,
+      "exclusive_ms": 4960.335,
+      "inclusive_ms": 21763.739,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        }
+      ]
+    },
+    {
+      "id": 298,
+      "function": "packAttributes",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22619,
+      "column": 21,
+      "exclusive_ms": 15656.075,
+      "inclusive_ms": 16907.662,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        },
+        {
+          "id": 297,
+          "function": "break",
+          "line": 22223
+        },
+        {
+          "id": 298,
+          "function": "packAttributes",
+          "line": 22619
+        }
+      ]
+    },
+    {
+      "id": 268,
+      "function": "collectRenderablesSimple",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3219,
+      "column": 31,
+      "exclusive_ms": 54.99,
+      "inclusive_ms": 16519.996,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        }
+      ]
+    },
+    {
+      "id": 269,
+      "function": "collectRenderables",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3206,
+      "column": 25,
+      "exclusive_ms": 2221.229,
+      "inclusive_ms": 16465.006,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        }
+      ]
+    },
+    {
+      "id": 196,
+      "function": "<anonymous>",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 52929,
+      "column": 25,
+      "exclusive_ms": 15.016,
+      "inclusive_ms": 15265.411,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        }
+      ]
+    },
+    {
+      "id": 197,
+      "function": "render",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 53388,
+      "column": 9,
+      "exclusive_ms": 835.77,
+      "inclusive_ms": 15239.962,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        }
+      ]
+    },
+    {
+      "id": 342,
+      "function": "collectRenderablesSimple",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 9934,
+      "column": 31,
+      "exclusive_ms": 4516.412,
+      "inclusive_ms": 9266.345,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        }
+      ]
+    },
+    {
+      "id": 232,
+      "function": "render",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50227,
+      "column": 9,
+      "exclusive_ms": 747.96,
+      "inclusive_ms": 6663.377,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 232,
+          "function": "render",
+          "line": 50227
+        }
+      ]
+    },
+    {
+      "id": 455,
+      "function": "update",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50458,
+      "column": 9,
+      "exclusive_ms": 2080.582,
+      "inclusive_ms": 5918.173,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 455,
+          "function": "update",
+          "line": 50458
+        }
+      ]
+    },
+    {
+      "id": 301,
+      "function": "packIndex",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22427,
+      "column": 16,
+      "exclusive_ms": 5348.284,
+      "inclusive_ms": 5397.535,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 296,
+          "function": "buildEnd",
+          "line": 22767
+        },
+        {
+          "id": 297,
+          "function": "break",
+          "line": 22223
+        },
+        {
+          "id": 301,
+          "function": "packIndex",
+          "line": 22427
+        }
+      ]
+    },
+    {
+      "id": 270,
+      "function": "collectRenderablesSimple",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3219,
+      "column": 31,
+      "exclusive_ms": 20.721,
+      "inclusive_ms": 4921.232,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        }
+      ]
+    },
+    {
+      "id": 271,
+      "function": "collectRenderables",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 3206,
+      "column": 25,
+      "exclusive_ms": 413.06,
+      "inclusive_ms": 4900.511,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        }
+      ]
+    },
+    {
+      "id": 272,
+      "function": "collectRenderablesSimple",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 9934,
+      "column": 31,
+      "exclusive_ms": 136.468,
+      "inclusive_ms": 3792.858,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 272,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        }
+      ]
+    },
+    {
+      "id": 343,
+      "function": "addRenderable",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 47371,
+      "column": 16,
+      "exclusive_ms": 302.68,
+      "inclusive_ms": 3777.207,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 342,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 343,
+          "function": "addRenderable",
+          "line": 47371
+        }
+      ]
+    },
+    {
+      "id": 273,
+      "function": "addRenderable",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 39627,
+      "column": 20,
+      "exclusive_ms": 88.458,
+      "inclusive_ms": 3619.565,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 272,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 273,
+          "function": "addRenderable",
+          "line": 39627
+        }
+      ]
+    },
+    {
+      "id": 302,
+      "function": "executeInstructions",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 21324,
+      "column": 29,
+      "exclusive_ms": 1.516,
+      "inclusive_ms": 3177.6,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 302,
+          "function": "executeInstructions",
+          "line": 21324
+        }
+      ]
+    },
+    {
+      "id": 303,
+      "function": "execute",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 22788,
+      "column": 14,
+      "exclusive_ms": 17.734,
+      "inclusive_ms": 3176.084,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 302,
+          "function": "executeInstructions",
+          "line": 21324
+        },
+        {
+          "id": 303,
+          "function": "execute",
+          "line": 22788
+        }
+      ]
+    },
+    {
+      "id": 274,
+      "function": "updateGpuContext",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 36307,
+      "column": 23,
+      "exclusive_ms": 145.197,
+      "inclusive_ms": 2865.713,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 272,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 273,
+          "function": "addRenderable",
+          "line": 39627
+        },
+        {
+          "id": 274,
+          "function": "updateGpuContext",
+          "line": 36307
+        }
+      ]
+    },
+    {
+      "id": 551,
+      "function": "start",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 29546,
+      "column": 12,
+      "exclusive_ms": 0.0,
+      "inclusive_ms": 2618.769,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 302,
+          "function": "executeInstructions",
+          "line": 21324
+        },
+        {
+          "id": 303,
+          "function": "execute",
+          "line": 22788
+        },
+        {
+          "id": 551,
+          "function": "start",
+          "line": 29546
+        }
+      ]
+    },
+    {
+      "id": 552,
+      "function": "bind",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 30262,
+      "column": 11,
+      "exclusive_ms": 4.126,
+      "inclusive_ms": 2587.336,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 302,
+          "function": "executeInstructions",
+          "line": 21324
+        },
+        {
+          "id": 303,
+          "function": "execute",
+          "line": 22788
+        },
+        {
+          "id": 551,
+          "function": "start",
+          "line": 29546
+        },
+        {
+          "id": 552,
+          "function": "bind",
+          "line": 30262
+        }
+      ]
+    },
+    {
+      "id": 553,
+      "function": "updateBuffers",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 30277,
+      "column": 20,
+      "exclusive_ms": 1.517,
+      "inclusive_ms": 2583.21,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 302,
+          "function": "executeInstructions",
+          "line": 21324
+        },
+        {
+          "id": 303,
+          "function": "execute",
+          "line": 22788
+        },
+        {
+          "id": 551,
+          "function": "start",
+          "line": 29546
+        },
+        {
+          "id": 552,
+          "function": "bind",
+          "line": 30262
+        },
+        {
+          "id": 553,
+          "function": "updateBuffers",
+          "line": 30277
+        }
+      ]
+    },
+    {
+      "id": 554,
+      "function": "updateBuffer",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 29749,
+      "column": 19,
+      "exclusive_ms": 2581.693,
+      "inclusive_ms": 2581.693,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 302,
+          "function": "executeInstructions",
+          "line": 21324
+        },
+        {
+          "id": 303,
+          "function": "execute",
+          "line": 22788
+        },
+        {
+          "id": 551,
+          "function": "start",
+          "line": 29546
+        },
+        {
+          "id": 552,
+          "function": "bind",
+          "line": 30262
+        },
+        {
+          "id": 553,
+          "function": "updateBuffers",
+          "line": 30277
+        },
+        {
+          "id": 554,
+          "function": "updateBuffer",
+          "line": 29749
+        }
+      ]
+    },
+    {
+      "id": 402,
+      "function": "paintPart",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 50185,
+      "column": 12,
+      "exclusive_ms": 356.392,
+      "inclusive_ms": 2434.278,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 196,
+          "function": "<anonymous>",
+          "line": 52929
+        },
+        {
+          "id": 197,
+          "function": "render",
+          "line": 53388
+        },
+        {
+          "id": 232,
+          "function": "render",
+          "line": 50227
+        },
+        {
+          "id": 402,
+          "function": "paintPart",
+          "line": 50185
+        }
+      ]
+    },
+    {
+      "id": 275,
+      "function": "buildContextBatches",
+      "url": "http://127.0.0.1:53598/main.js",
+      "line": 35197,
+      "column": 29,
+      "exclusive_ms": 140.883,
+      "inclusive_ms": 2323.592,
+      "stack": [
+        {
+          "id": 1,
+          "function": "(root)",
+          "line": 0
+        },
+        {
+          "id": 193,
+          "function": "_tick",
+          "line": 8264
+        },
+        {
+          "id": 194,
+          "function": "update",
+          "line": 8562
+        },
+        {
+          "id": 195,
+          "function": "emit",
+          "line": 8189
+        },
+        {
+          "id": 255,
+          "function": "render",
+          "line": 44805
+        },
+        {
+          "id": 256,
+          "function": "render",
+          "line": 19881
+        },
+        {
+          "id": 257,
+          "function": "emit",
+          "line": 19730
+        },
+        {
+          "id": 258,
+          "function": "render",
+          "line": 21603
+        },
+        {
+          "id": 259,
+          "function": "_updateRenderGroups",
+          "line": 21677
+        },
+        {
+          "id": 262,
+          "function": "_buildInstructions",
+          "line": 21711
+        },
+        {
+          "id": 263,
+          "function": "collectRenderablesWithEffects",
+          "line": 3226
+        },
+        {
+          "id": 264,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 265,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 266,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 267,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 268,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 269,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 270,
+          "function": "collectRenderablesSimple",
+          "line": 3219
+        },
+        {
+          "id": 271,
+          "function": "collectRenderables",
+          "line": 3206
+        },
+        {
+          "id": 272,
+          "function": "collectRenderablesSimple",
+          "line": 9934
+        },
+        {
+          "id": 273,
+          "function": "addRenderable",
+          "line": 39627
+        },
+        {
+          "id": 274,
+          "function": "updateGpuContext",
+          "line": 36307
+        },
+        {
+          "id": 275,
+          "function": "buildContextBatches",
+          "line": 35197
+        }
+      ]
+    }
+  ],
+  "qualification": "Sampled elapsed attribution, not independent CPU utilization, exact call counts, GPU time, or uninstrumented benchmark. Inclusive rows overlap and must not be summed."
+}
