@@ -80,9 +80,12 @@ export class OnlineCommandAdvice {
    // previews share one budget. Delays are cancelable; failures are not retried.
    await adviceDelay(Math.max(0,this.nextRequestAt-performance.now()),signal);
    if(signal.aborted||options.isCurrent&&!options.isCurrent())throw new RuntimeError('targeting_changed','The selection or targeting changed.');
-   this.nextRequestAt=performance.now()+260;
    const url=new URL(`/api/v1/matches/${encodeURIComponent(this.connection.match_id)}/advice`,this.baseURL);
-   const response=await fetch(url,{method:'POST',headers:{Authorization:`Bearer ${this.connection.token}`,'Content-Type':'application/json'},body,signal,cache:'no-store',credentials:'omit',redirect:'error'});
+   const responsePromise=fetch(url,{method:'POST',headers:{Authorization:`Bearer ${this.connection.token}`,'Content-Type':'application/json'},body,signal,cache:'no-store',credentials:'omit',redirect:'error'});
+   // Anchor spacing to dispatch, not earlier request preparation: a main-thread
+   // stall before fetch must not shorten the next request's minimum interval.
+   this.nextRequestAt=performance.now()+260;
+   const response=await responsePromise;
    const result=await boundedJSON(response);
    if(signal.aborted||this.disposed||options.isCurrent&&!options.isCurrent())throw new RuntimeError('targeting_changed','The selection or targeting changed.');
    if(!response.ok)throw new RuntimeError(typeof result?.code==='string'?result.code:'advice_unavailable',typeof result?.message==='string'?result.message:'Command advice is unavailable.');

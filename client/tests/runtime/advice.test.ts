@@ -89,3 +89,24 @@ test('canceling a paced advice update prevents a second network request',async()
   const advice=new OnlineCommandAdvice('http://localhost',connection);await advice.request();const pending=advice.request();advice.cancel();await assert.rejects(pending,(error:any)=>error.code==='targeting_changed');assert.equal(calls,1);advice.dispose();
  }finally{globalThis.fetch=original}
 });
+
+test('advice pacing starts after dispatch even when request setup is delayed',async t=>{
+ const originalFetch=globalThis.fetch,OriginalURL=globalThis.URL;
+ let now=1000,delayNextURL=false;
+ const calls:number[]=[],delays:number[]=[];
+ t.mock.method(performance,'now',()=>now);
+ // Model a scheduling stall between the pacing check and fetch without a
+ // busy-wait or dependency on the host machine's CPU load.
+ globalThis.URL=class extends OriginalURL {
+  constructor(input:string|URL,base?:string|URL){super(input,base);if(delayNextURL){now+=200;delayNextURL=false}}
+ };
+ t.mock.method(globalThis,'setTimeout',(callback:()=>void,delay=0)=>{
+  delays.push(delay);queueMicrotask(()=>{now+=delay;callback()});return {} as ReturnType<typeof setTimeout>;
+ });
+ const source=new OnlineCommandAdvice('http://localhost',connection);
+ try{
+  globalThis.fetch=async()=>{calls.push(now);return Response.json({tick:100,player:1,player_commands:[],entities:[],results:[]})};
+  delayNextURL=true;await source.request();await source.request();
+  assert.deepEqual(calls,[1200,1460]);assert.deepEqual(delays,[260]);
+ }finally{source.dispose();globalThis.fetch=originalFetch;globalThis.URL=OriginalURL}
+});
