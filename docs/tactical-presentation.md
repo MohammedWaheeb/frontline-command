@@ -4,7 +4,7 @@ Audit date: 2026-09-28. Baseline inspected at `588f48b`; simulation/runtime 0.3.
 
 Authoritative references: [design](../outputs/frontline-command-game-design.md) sections 4.1, 5, 6.3–6.5, 7–8, 12, 14, 21.4–21.5, 22–23; [Go view filtering](../pkg/sim/visibility.go), [operation views](../pkg/sim/operation_views.go), [combat](../pkg/sim/combat.go), [strategic operations](../pkg/sim/abilities.go), [service loss](../pkg/sim/service_loss.go), [catalog](../pkg/content/rules.json), [protocol](../client/src/protocol/frontline_pb.ts).
 
-Follow-up: the bounded [renderer integration and actual Go acceptance](tactical-overlay-acceptance.md) now supersedes the pre-integration renderer findings below. This document preserves the original source audit and 132-entry inventory; its missing-wire and unmounted-effect limitations remain explicit.
+Follow-up: the bounded [renderer integration and actual Go acceptance](tactical-overlay-acceptance.md) now supersedes the pre-integration renderer findings below. This document preserves the original source audit and 132-entry inventory; its missing-wire and unmounted-effect limitations remain explicit. The later [optional wire consumer](tactical-wire-consumer.md) closes instance splash/body ambiguity when the matching Go/runtime/protocol candidate is promoted; the owner [Skybreaker route review](skybreaker-preview.md) is separately verified.
 
 ## Pre-integration correctness findings
 

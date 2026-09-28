@@ -158,3 +158,34 @@ test('cosmetic projectile choices reference manifest effects without inventing i
  assert.equal(out.projectiles.find(p=>p.weapon==='US_STRIKE')?.bodyEffect,'fx.projectile.bomb');
  assert.ok(!out.projectiles.some(p=>p.bodyEffect==='fx.projectile.interceptor'));
 });
+
+
+test('optional instance splash overrides catalog and explicit body visibility preserves presence semantics',()=>{
+ const s=snapshot({projectiles:[
+  {id:1,weapon:'SATURATION',owner:3,position:pos,impact:pos,warning:true,impactAt:260},
+  {id:2,weapon:'MISSILE',owner:3,position:{x:1000,y:2000},impact:pos,warning:true,impactAt:260},
+  {id:3,weapon:'ART',owner:3,position:pos,impact:pos,warning:false,impactAt:260},
+  {id:4,weapon:'MISSILE',owner:3,position:pos,impact:pos,warning:true,impactAt:260},
+ ]});
+ Object.assign(s.projectiles[0],{splash:2000,positionVisible:true});
+ Object.assign(s.projectiles[1],{splash:1750,positionVisible:false});
+ Object.assign(s.projectiles[2],{splash:0,positionVisible:false});
+ const out=tacticalPresentation(s,catalog);
+ assert.deepEqual(out.warnings[0].area,{kind:'circle',radius:2000,source:'snapshot-splash'});
+ assert.deepEqual(out.projectiles[0].bodyPosition,pos,'Explicitly visible final position must remain a body');
+ assert.equal(out.projectiles[1].bodyPosition,undefined,'Explicit hidden wins even when position differs from impact');
+ assert.equal(out.projectiles[2].bodyPosition,undefined,'Non-warning explicit hidden does not become visible');
+ assert.deepEqual(out.warnings[1].area,{kind:'circle',radius:1750,source:'snapshot-splash'});
+ assert.equal(out.projectiles[3].bodyPosition,undefined,'Older equal-position warning retains conservative fallback');
+ assert.deepEqual(out.warnings[2].area,{kind:'circle',radius:2000,source:'catalog-splash'});
+ assert.deepEqual(out.gaps.filter(g=>g.code==='projectile-position-visibility-not-disclosed').map(g=>g.subject),['4']);
+});
+test('operation splash is authoritative only for blast warnings; missing or invalid radii never get invented',()=>{
+ const s=snapshot({warnings:[{kind:'skybreaker',owner:3,position:pos,at:400},{kind:'second_volley',owner:1,source:99,position:pos,at:130},{kind:'transfer',owner:3,position:pos,at:150}],projectiles:[{id:1,weapon:'MISSILE',owner:3,position:pos,impact:pos,warning:true,impactAt:200},{id:2,weapon:'SATURATION',owner:3,position:pos,impact:pos,warning:true,impactAt:200}]});
+ Object.assign(s.warnings[0],{splash:2000});Object.assign(s.warnings[1],{splash:1800});Object.assign(s.warnings[2],{splash:9000});
+ Object.assign(s.projectiles[0],{splash:0,positionVisible:true});Object.assign(s.projectiles[1],{splash:-1,positionVisible:false});
+ const out=tacticalPresentation(s,catalog);
+ assert.deepEqual(out.warnings.map(w=>w.area),[{kind:'point',reason:'single-target'},{kind:'point',reason:'radius-not-disclosed'},{kind:'circle',radius:2000,source:'snapshot-splash'},{kind:'circle',radius:1800,source:'snapshot-splash'},{kind:'point',reason:'destination'}]);
+ assert(!out.gaps.some(g=>g.code==='operation-splash-not-disclosed'));
+ assert(out.gaps.some(g=>g.code==='projectile-splash-not-disclosed'));
+});

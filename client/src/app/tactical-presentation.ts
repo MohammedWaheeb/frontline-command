@@ -5,7 +5,7 @@ import type {PlayerSnapshot, Point} from '../runtime/types';
 export type TacticalRelation='own'|'allied'|'hostile'|'neutral'|'unknown';
 export interface TacticalDeadline {at:number; remainingTicks:number; remainingSeconds:number}
 export type TacticalArea=
- |{kind:'circle';radius:number;source:'catalog-splash'|'snapshot-zone'}
+ |{kind:'circle';radius:number;source:'catalog-splash'|'snapshot-splash'|'snapshot-zone'}
  |{kind:'point';reason:'destination'|'single-target'|'radius-not-disclosed'};
 export interface TacticalWarning {
  key:string;kind:string;owner:number;relation:TacticalRelation;position:Point;
@@ -74,10 +74,10 @@ function point(p:Point|undefined):Point|undefined {
 function nonnegative(value:unknown):number|undefined {
  return typeof value==='number'&&Number.isFinite(value)&&value>=0?value:undefined;
 }
-function blastArea(weapon:CatalogWeapon|undefined):TacticalArea {
- const radius=nonnegative(weapon?.splash);
+function blastArea(weapon:CatalogWeapon|undefined,instanceSplash?:unknown):TacticalArea {
+ const radius=nonnegative(instanceSplash===undefined?weapon?.splash:instanceSplash);
  return radius===undefined?{kind:'point',reason:'radius-not-disclosed'}:
-  radius===0?{kind:'point',reason:'single-target'}:{kind:'circle',radius,source:'catalog-splash'};
+  radius===0?{kind:'point',reason:'single-target'}:{kind:'circle',radius,source:instanceSplash===undefined?'catalog-splash':'snapshot-splash'};
 }
 function equal(a:Point,b:Point){return a.x===b.x&&a.y===b.y}
 const BODY_EFFECT:Readonly<Record<string,string>>={small:'tracer_small',auto:'tracer_auto',cannon:'shell_cannon',antiarmor:'missile_at',shell:'shell_artillery',antiair:'missile_aa',tactical:'tactical_missile'};
@@ -106,13 +106,15 @@ export function tacticalPresentation(snapshot:PlayerSnapshot,catalog:CatalogInde
  };
  for(const projectile of snapshot.projectiles){
   const position=point(projectile.position),impact=point(projectile.impact);
-  // Go replaces a warning projectile's hidden position with its impact point.
-  // Equality cannot distinguish that substitution from a visible final position.
-  const body=position&&(!projectile.warning||!!impact&&!equal(position,impact))?position:undefined;
+  // Optional presence distinguishes a legacy snapshot from explicit false.
+  // Only older feeds use the conservative impact-substitution equality fallback.
+  const disclosure=projectile as typeof projectile&{splash?:number;positionVisible?:boolean};
+  const disclosed=disclosure.positionVisible===undefined?(!projectile.warning||!!position&&!!impact&&!equal(position,impact)):disclosure.positionVisible===true;
+  const body=position&&disclosed?position:undefined;
   result.projectiles.push({id:projectile.id,owner:projectile.owner,weapon:projectile.weapon,interceptable:projectile.interceptable,bodyPosition:body,bodyEffect:body?projectileEffect(projectile.weapon,catalog):undefined});
-  if(projectile.warning&&!body)gap('projectile-position-visibility-not-disclosed',String(projectile.id));
+  if(projectile.warning&&disclosure.positionVisible===undefined&&!body)gap('projectile-position-visibility-not-disclosed',String(projectile.id));
   if(!projectile.warning||!impact)continue;
-  const area=blastArea(catalog.weapons.get(projectile.weapon));
+  const area=blastArea(catalog.weapons.get(projectile.weapon),disclosure.splash);
   if(area.kind==='point'&&area.reason==='radius-not-disclosed')gap('projectile-splash-not-disclosed',projectile.weapon);
   result.warnings.push({key:`projectile:${projectile.id}`,kind:projectile.weapon==='SATURATION'?'saturation':projectile.weapon==='SKYBREAKER'?'skybreaker':catalog.weapons.get(projectile.weapon)?.kind==='tactical'?'tactical':'projectile',owner:projectile.owner,relation:relation(projectile.owner),position:impact,area,deadline:tacticalDeadline(snapshot.tick,projectile.impactAt),deadlineKind:'impact',exits:[],weapon:projectile.weapon});
  }
@@ -123,8 +125,9 @@ export function tacticalPresentation(snapshot:PlayerSnapshot,catalog:CatalogInde
   if(warning.kind==='second_volley'&&warning.owner!==snapshot.player)continue;
   const base=`operation:${warning.kind}:${warning.owner}:${warning.source}:${position.x}:${position.y}`,occurrence=warningKeys.get(base)??0;warningKeys.set(base,occurrence+1);
   const candidate=entities.get(warning.source),source=candidate?.owner===warning.owner?candidate:undefined,sourceWeapon=source&&(catalog.units.get(source.type)?.weapon??catalog.buildings.get(source.type)?.weapon);
-  const area:TacticalArea=warning.kind==='second_volley'?blastArea(sourceWeapon?catalog.weapons.get(sourceWeapon):undefined):warning.kind==='skybreaker'?{kind:'point',reason:'radius-not-disclosed'}:{kind:'point',reason:'destination'};
-  if(warning.kind==='skybreaker'){gap('skybreaker-route-not-disclosed','skybreaker');gap('operation-splash-not-disclosed','skybreaker')}
+  const splash=(warning as typeof warning&{splash?:number}).splash;
+  const area:TacticalArea=warning.kind==='second_volley'?blastArea(sourceWeapon?catalog.weapons.get(sourceWeapon):undefined,splash):warning.kind==='skybreaker'?blastArea(undefined,splash):{kind:'point',reason:'destination'};
+  if(warning.kind==='skybreaker'){gap('skybreaker-route-not-disclosed','skybreaker');if(area.kind==='point'&&area.reason==='radius-not-disclosed')gap('operation-splash-not-disclosed','skybreaker')}
   if(warning.kind==='second_volley'&&area.kind==='point'&&area.reason==='radius-not-disclosed')gap('operation-splash-not-disclosed','second_volley');
   if(warning.kind==='transfer')gap('transfer-exits-intentionally-private','transfer');
   result.warnings.push({key:`${base}:${occurrence}`,kind:warning.kind,owner:warning.owner,relation:relation(warning.owner),position,area,deadline:tacticalDeadline(snapshot.tick,warning.at),deadlineKind:warning.kind==='second_volley'?'launch':warning.kind==='skybreaker'?'impact':warning.kind==='transfer'?'arrival':warning.kind==='raid'?'deployment':'unknown',exits:warning.kind==='raid'?warning.exits.flatMap(p=>{const value=point(p);return value?[value]:[]}):[],source:['raid','second_volley'].includes(warning.kind)?source?.id:undefined});
