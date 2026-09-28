@@ -1,6 +1,6 @@
 # FX integration candidate derived from Claude Opus 5.5
 
-Status: 59 distinct manifest IDs have compact candidate atlases and actual runtime-schema validation. They are not installed into production and are not the complete 132-effect release. The remaining 73 IDs include dynamic unit/building/environment cosmetics and existing code-native status/order/range/warning/fog presentation, which needs explicit per-ID final review rather than replacing dynamic gameplay geometry with static pictures.
+Status: 59 distinct manifest IDs have compact candidate atlases and actual runtime-schema validation. Bounded actual-Go integration now passes Chromium, Firefox, WebKit and the combined 688-actor course; see [integration acceptance](integration-acceptance.md). They are not installed into production and are not the complete 132-effect release. The remaining 73 IDs include dynamic unit/building/environment cosmetics and existing code-native status/order/range/warning/fog presentation, which needs explicit per-ID final review rather than replacing dynamic gameplay geometry with static pictures.
 
 Claude Opus 5.5 authored the preserved five-file explosion foundation in `../effects-opus-v1` (`92045f5`). Codex continued under the user's quota fallback, correcting timing/compositing iteration cost and shape readability, building the atlas packer, and adding material impacts and weapon/projectile families. `derivation.json` records exact original source hashes. No external game assets, fonts or textures were copied.
 
@@ -10,7 +10,7 @@ Claude Opus 5.5 authored the preserved five-file explosion foundation in `../eff
 
 - `explosions-04`: complete eight-ID family, common 20 Hz variant timing and transparent burst terminals; validated source and source-edge/crop/atlas round trips. Grounded debris smoke now stops at the same cosmetic ground plane as its fragment.
 - `impacts-02`: complete eleven-ID family. Material contacts differ from destruction blasts. Decoy and interception use distinct high-contrast symbolic forms; interception does not invent a breakup at its disclosed warning point.
-- `ballistics-02`: complete 28-flash / twelve-body family. Infantry, cannon, launcher, mortar and mechanical bomb release have different silhouettes. Bodies include finned missiles, squat mortar rounds, tapered shells and bombs. Their +X convention requires actual orientation/attachment integration before installation.
+- `ballistics-02`: complete 28-flash / twelve-body family. Infantry, cannon, launcher, mortar and mechanical bomb release have different silhouettes. Bodies include finned missiles, squat mortar rounds, tapered shells and bombs. Their +X convention now has isolated attachment/orientation integration; all-roster and pitched-axis review still precede final acceptance.
 
 ## Native review and preserved failures
 
@@ -24,7 +24,7 @@ All five variants are present. Burst variants have equal duration and an empty c
 
 Actual Go information controls every effect. `miss_ground`, `blocked_shot`, the instantaneous tracer and interceptor body remain explicitly unwired because current rules/events do not disclose the required outcome/path. A missing/redacted hit is never a miss. Cosmetic local-axis bodies need direction from successive authorized samples; muzzle art needs the current rendered hardpoint/facing without reconstructing hidden targets. Destruction specialization needs a prior permitted actor class, and persistent cosmetics must disappear with visibility.
 
-Root must integrate the candidate into an isolated actual product, check all variants and native pixels against real Go combat and load/save/replay/fog/cull/reset behavior, then complete the remaining families and visual review. Essential warning geometry stays in its unbudgeted tactical layer. No production manifest, shipping FX, Go rule, expiry, warning deadline or deployment is changed here.
+Root has integrated the candidate into an isolated product and checked all variants and representative native pixels against real Go combat and load/save/replay/cull/reset behavior. Complete-family, all-roster and final visual review remain, along with the remaining families. Essential warning geometry stays in its unbudgeted tactical layer. No production manifest, shipping FX, Go rule, expiry, warning deadline or deployment is changed here.
 
 ## Reproduce
 

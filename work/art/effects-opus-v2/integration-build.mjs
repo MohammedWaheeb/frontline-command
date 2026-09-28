@@ -1,0 +1,38 @@
+// Freeze exact product sources/runtime/art before any browser acceptance. This
+// candidate is isolated; no production manifest or shared package is changed.
+import {createRequire} from 'node:module';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {readFile,writeFile,mkdir,copyFile,symlink,readdir,cp} from 'node:fs/promises';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../../..');
+const require=createRequire(path.join(root,'client/package.json')),{build}=await import(pathToFileURL(require.resolve('vite')).href);
+const {writeBasePack}=await import(pathToFileURL(path.join(root,'client/scripts/ui/art-plugin.mjs')).href);
+const name=process.argv[2];assert(/^integration-v[1-9][0-9]*$/.test(name),'Supply a new integration-vN output name');
+const base=path.join(root,'work/art/menu-keyart-generated-v3/product-preview'),out=path.join(here,name),source=path.join(out,'source'),client=path.join(source,'client'),bundle=path.join(out,'bundle'),product=path.join(out,'product');
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+await mkdir(out);await mkdir(client,{recursive:true});await writeFile(path.join(out,'.gitignore'),'*\n!.gitignore\n!build.json\n');
+await cp(path.join(root,'client/src'),path.join(client,'src'),{recursive:true,filter:file=>!file.split(path.sep).includes('node_modules')});
+await copyFile(path.join(root,'work/navigation-lookup-candidate/runtime/frontline_pb.ts'),path.join(client,'src/protocol/frontline_pb.ts'));
+for(const file of ['index.html','tsconfig.json'])await copyFile(path.join(root,'client',file),path.join(client,file));
+await mkdir(path.join(client,'tests/render'),{recursive:true});
+for(const file of ['multiplayer-combat-entry.tsx','fx-integration-fixture.ts'])await copyFile(path.join(root,'client/tests/render',file),path.join(client,'tests/render',file));
+await symlink(path.join(root,'client/node_modules'),path.join(client,'node_modules'));
+await symlink(path.join(root,'assets'),path.join(source,'assets'));
+const sourceFiles={};
+async function inventory(dir){for(const entry of (await readdir(dir,{withFileTypes:true})).sort((a,b)=>a.name.localeCompare(b.name))){if(entry.name==='node_modules')continue;const file=path.join(dir,entry.name);if(entry.isDirectory())await inventory(file);else if(entry.isFile())sourceFiles[path.relative(client,file)]=sha(await readFile(file))}}
+await inventory(client);
+await build({configFile:false,root:client,publicDir:false,plugins:[{name:'acceptance-entry',transformIndexHtml:{order:'pre',handler:html=>html.replace('/src/main.tsx','/tests/render/multiplayer-combat-entry.tsx')}}],resolve:{dedupe:['@bufbuild/protobuf']},build:{outDir:bundle,emptyOutDir:true,target:'es2022',sourcemap:true,assetsInlineLimit:0,chunkSizeWarningLimit:2048}});
+await mkdir(product);execFileSync('cp',['-cR',path.join(base,'product')+'/.',product]);
+await cp(bundle,product,{recursive:true});await copyFile(path.join(base,'frontline'),path.join(out,'frontline'));
+const runtime=JSON.parse(await readFile(path.join(root,'work/navigation-lookup-candidate/runtime-build-receipt.json'),'utf8'));
+assert.equal(sha(await readFile(path.join(out,'frontline'))),runtime.files['bin/frontline-host'].sha256);
+for(const name of ['frontline.wasm','worker.js','wasm_exec.js','version.json'])assert.equal(sha(await readFile(path.join(product,'runtime',name))),runtime.files[name].sha256);
+await cp(path.join(here,'candidate-59/fx'),path.join(product,'art/fx'),{recursive:true});
+const effectBytes=await readFile(path.join(product,'art/fx/index.json')),effects={url:'fx/index.json',sha256:sha(effectBytes),bytes:effectBytes.length};
+const indexPath=path.join(product,'art/index.json'),index=JSON.parse(await readFile(indexPath,'utf8'));index.effects=effects;await writeFile(indexPath,JSON.stringify(index));
+await writeBasePack(product);
+await writeFile(path.join(out,'build.json'),JSON.stringify({time:new Date().toISOString(),scope:'Captured product code with attached/oriented combat effects, exact optimized0.3.4 Go, previous frozen incomplete actor art plus59 candidate effects. Not a complete release or final asset acceptance.',base:path.relative(root,base),baseReceipt:sha(await readFile(path.join(base,'build.json'))),sourceFiles,sourceDigest:sha(JSON.stringify(sourceFiles)),effects,runtime,pack:sha(await readFile(path.join(product,'assets/packs/base.json')))},null,2)+'\n');
+console.log(out);

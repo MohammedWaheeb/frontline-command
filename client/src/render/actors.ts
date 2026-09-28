@@ -12,6 +12,7 @@ import {actorArtKey,physicalArtType} from './art-id';
 import {ActorStatusOverlay} from './actor-status';
 import type {ActorStatusModel} from '../app/actor-status';
 import type {ShadowPlate} from './surface-shadows';
+import {muzzleRotation,type CombatAttachment} from './combat-geometry';
 
 interface LayeredPart {root:Container;shadowRoot:Container;shadow:Sprite;beauty:Sprite;team:Sprite;offset:Point;poses:Record<string,{state:string;direction:number;frame:number}>}
 function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart {
@@ -40,6 +41,7 @@ export class ActorVisual {
  private bodyBottom?:number;private nextBodyBottom?:number;
  private paintedBounds?:Rect;private nextPaintedBounds?:Rect;
  private readonly paintedParts:Array<{frame:FrameSet;x:number;y:number;scale:number}>=[];private paintedCount=0;
+ private readonly paintedMuzzles:CombatAttachment[]=[];
  private projectedShadows=false;readonly shadowPlates:ShadowPlate[]=[];
  useSurfaceShadows(){this.projectedShadows=true;this.groundShadows.visible=false}
  private readonly flight=new FlightPresentation();private suppressTransition=false;
@@ -144,6 +146,13 @@ export class ActorVisual {
   const b=this.paintedBounds;if(!b)return;
   return {left:this.root.x+b.left,top:this.root.y+b.top,right:this.root.x+b.right,bottom:this.root.y+b.bottom};
  }
+ /** A squad shot is one Go event. Pick one currently drawn member as its
+  * cosmetic source; never synthesize additional shots or use a hidden member. */
+ muzzleAttachment(eventID=0):CombatAttachment|undefined{
+  if(!this.root.visible||this.entity.health<=0||this.entity.state==='destroyed'||this.entity.private?.container||!this.paintedMuzzles.length)return;
+  const p=this.paintedMuzzles[Math.abs(eventID)%this.paintedMuzzles.length];
+  return {x:this.root.x+p.x,y:this.root.y+p.y,rotation:p.rotation};
+ }
  /** Exact current body opacity with ordinary screen tolerance converted by
   * the caller. Undefined retains geometric picking for development/missing art. */
  containsPaintedBody(point:Point,tolerance:number):boolean|undefined{
@@ -210,21 +219,29 @@ export class ActorVisual {
   p.root.position.set(offset.x,offset.y-altitude+groundOffset);
   p.shadowRoot.position.copyFrom(p.root.position);
   for(const [name,sprite] of [['shadow',p.shadow],['beauty',p.beauty],['team',p.team]] as const){
-   let f=sheet.frame(name,state.name,d,frame)??sheet.frame(name,state.name,d,0);
-   if(f)p.poses[name]={state:state.name,direction:d,frame};
-   else {
+   let pose={state:state.name,direction:d,frame},f=sheet.frame(name,state.name,d,frame);
+   if(!f){f=sheet.frame(name,state.name,d,0);if(f)pose={...pose,frame:0}}
+   if(!f){
     // A cached pose can have been evicted while this actor was offscreen.
     // Resolve the previous pose through the sheet again: the Sprite's old
     // Texture may already have a destroyed shared source during async reload.
     const exists=sheet.hasFrame(name,state.name,d,frame)||sheet.hasFrame(name,state.name,d,0),previous=p.poses[name];
     // A page awaiting decode must not resurrect loaded missiles after the final
     // round, or retain private empty artwork after changing the current viewer.
-    if(exists&&previous&&(!payloadScoped||hasEmptyAircraftPayload(previous.state)===hasEmptyAircraftPayload(state.name)))f=sheet.frame(name,previous.state,previous.direction,previous.frame);
+    if(exists&&previous&&(!payloadScoped||hasEmptyAircraftPayload(previous.state)===hasEmptyAircraftPayload(state.name))){f=sheet.frame(name,previous.state,previous.direction,previous.frame);if(f)pose=previous}
     if(!exists)delete p.poses[name];
    }
    if(!f){sprite.visible=false;sprite.texture=Texture.EMPTY;continue}
+   p.poses[name]=pose;
    sprite.visible=true;
    sprite.texture=f.texture;sprite.anchor.set(f.anchorX,f.anchorY);sprite.scale.set(sheet.pixelScale);
+   if(name==='beauty'&&p.root.visible&&sheet.meta.hardpoints_2x_rel_anchor?.muzzle){
+    // Metadata and part offsets describe the same actually painted frame,
+    // including async page fallback, recoil, aliases and independent turrets.
+    const source=sheet.sourceFrame(pose.state,pose.direction,pose.frame),rotation=muzzleRotation(source.direction,sheet.states.get(source.state)!.directions);
+    const key=`${source.state}/d${String(source.direction).padStart(2,'0')}_f${String(source.index).padStart(2,'0')}`,muzzle=sheet.meta.hardpoints_2x_rel_anchor?.muzzle?.[key];
+    if(muzzle&&rotation!==undefined){if(p===this.turret)this.paintedMuzzles.length=0;this.paintedMuzzles.push({x:p.root.x+muzzle[0]/2,y:p.root.y+muzzle[1]/2,rotation})}
+   }
    if(name==='beauty'&&f.bodyBottom!==undefined)this.nextBodyBottom=Math.max(this.nextBodyBottom??-Infinity,p.root.y+altitude+f.bodyBottom);
    if(name!=='shadow'&&f.containsAlpha){
     const previous=this.paintedParts[this.paintedCount];
@@ -249,6 +266,7 @@ export class ActorVisual {
  }
  render(now:number,team:number,selected:boolean,healthBars:'always'|'selected'|'damaged',reducedMotion:boolean,zoom=1,statusDetail=selected){
   this.shadowPlates.length=0;
+  this.paintedMuzzles.length=0;
   const e=this.entity,p=this.position(now),screen=this.groundAnchor(now,reducedMotion),unit=this.catalog.units.get(e.type),building=this.catalog.buildings.get(e.type);
   const altitude=this.visualAltitude(now,reducedMotion);
   this.root.position.set(screen.x,screen.y);this.root.zIndex=this.groundDepth(now,reducedMotion);

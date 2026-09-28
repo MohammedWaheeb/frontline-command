@@ -6,7 +6,7 @@ import {CombatTimeline} from '../app/combat-presentation';
 import type {TacticalProjectile} from '../app/tactical-presentation';
 import {EffectLibrary,type EffectDescriptor,type EffectTextureSheet,type EffectVariant} from './effect-assets';
 import type {TerrainSurface} from './terrain-surface';
-import {combatEffectVariant,visibleTrace} from './combat-geometry';
+import {combatEffectVariant,visibleTrace,projectileRotation,effectFrameVisible,type CombatAttachment} from './combat-geometry';
 
 const BRASS=0xe7bd72,PALE=0xf4ddb0,OLIVE=0xc5d59b,INK=0x171910;
 const DECORATIVE_NODES=192;
@@ -44,21 +44,28 @@ export class CombatEffects {
   used.add(key);label.text.position.set(p.x,p.y+10*px);label.text.scale.set(px);
   label.back.clear().rect(p.x-(label.text.width+6*px)/2,p.y+9*px,label.text.width+6*px,13*px).fill({color:INK,alpha:.92});
  }
- draw(surface:TerrainSurface,zoom:number,settings:Settings,viewport:{left:number;right:number;top:number;bottom:number},altitude:(id:number)=>number|undefined){
+ draw(surface:TerrainSurface,zoom:number,settings:Settings,viewport:{left:number;right:number;top:number;bottom:number},altitude:(id:number)=>number|undefined,muzzle?:(id:number,eventID:number)=>CombatAttachment|undefined){
   const snapshot=this.snapshot;if(!snapshot||this.closed)return;
+  const attachments=new Map<string,CombatAttachment>();
+  for(const cue of this.history.values)if(cue.kind==='muzzle'&&cue.anchor!==undefined){const p=muzzle?.(cue.anchor,cue.id);if(p)attachments.set(cue.key,p)}
   const variant=combatEffectVariant(settings),key=`${this.revision}:${snapshot.tick}:${zoom}:${variant}:${viewport.left}:${viewport.top}:${viewport.right}:${viewport.bottom}`;
   // Pending pages may resolve without a new snapshot. Frame() triggers loading;
   // a ready-page count participates in the key, and settle() invalidates it.
-  const cacheKey=key+':'+this.library.statistics.residentPages;if(cacheKey===this.drawKey)return;this.drawKey=cacheKey;
+  const cacheKey=key+':'+this.library.statistics.residentPages+':'+[...attachments].map(([id,p])=>`${id}/${p.x}/${p.y}/${p.rotation}`).join(';');if(cacheKey===this.drawKey)return;this.drawKey=cacheKey;
   const g=this.marks.clear(),px=1/zoom,usedSprites=new Set<string>(),usedLabels=new Set<string>();let decorative=0;
   this.stats={cues:this.history.values.length,drawnCues:0,confirmedHits:0,cover:0,intercepted:0,decoys:0,trails:0,decorations:0,labels:0};
   const line=(points:Point[],color=BRASS,width=1.4,alpha=1,close=false)=>{if(!points.length)return;g.moveTo(points[0].x,points[0].y);for(const p of points.slice(1))g.lineTo(p.x,p.y);if(close)g.closePath();g.stroke({color,width:width*px,alpha})};
   const inView=(p:Point)=>p.x>=viewport.left-96&&p.x<=viewport.right+96&&p.y>=viewport.top-96&&p.y<=viewport.bottom+96;
-  const sprite=(id:string,nodeKey:string,p:Point,elapsed:number)=>{
-   if(decorative>=DECORATIVE_NODES)return false;this.request(id);const sheet=this.sheets.get(id),clip=sheet?.clip(variant);if(!sheet||!clip)return false;
-   const raw=Math.floor(elapsed*clip.fps/20),index=clip.loop?raw%clip.frames.length:Math.min(raw,clip.frames.length-1),frame=sheet.frame(variant,index);if(!frame)return false;
+  const artFrame=(id:string,p:Point,elapsed:number,rotation:number)=>{
+   this.request(id);const sheet=this.sheets.get(id),clip=sheet?.clip(variant);if(!sheet||!clip)return;
+   const raw=Math.floor(elapsed*clip.fps/20),index=clip.loop?raw%clip.frames.length:Math.min(raw,clip.frames.length-1);
+   if(effectFrameVisible(clip.frames[index],sheet.pixelScale,p,rotation,viewport))return {sheet,index};
+  };
+  const sprite=(id:string,nodeKey:string,p:Point,elapsed:number,rotation=0)=>{
+   if(decorative>=DECORATIVE_NODES)return false;const art=artFrame(id,p,elapsed,rotation);if(!art)return false;
+   const {sheet,index}=art,frame=sheet.frame(variant,index);if(!frame)return false;
    let node=this.sprites.get(nodeKey);if(!node){node={sprite:new Sprite(frame.texture),sheet,variant,frame:index};this.sprites.set(nodeKey,node);this.decoration.addChild(node.sprite)}
-   node.sprite.texture=frame.texture;node.sprite.anchor.set(frame.anchorX,frame.anchorY);node.sprite.scale.set(frame.pixelScale);node.sprite.position.set(p.x,p.y);node.variant=variant;node.sheet=sheet;node.frame=index;usedSprites.add(nodeKey);decorative++;return true;
+   node.sprite.texture=frame.texture;node.sprite.anchor.set(frame.anchorX,frame.anchorY);node.sprite.scale.set(frame.pixelScale);node.sprite.position.set(p.x,p.y);node.sprite.rotation=rotation;node.variant=variant;node.sheet=sheet;node.frame=index;usedSprites.add(nodeKey);decorative++;return true;
   };
   for(const trace of this.history.projectiles){
    const samples=trace.samples;if(!samples.length)continue;
@@ -69,14 +76,21 @@ export class CombatEffects {
     // the wire, and no target endpoint or future position is invented.
     line([{x:a.x,y:a.y-7*px},{x:b.x,y:b.y-7*px}],PALE,1,.32);this.stats.trails++;
    }
-   const last=samples.at(-1)!,p=surface.projectGround(last.position);if(inView(p)&&trace.effect)sprite(trace.effect,`projectile:${trace.id}`,{x:p.x,y:p.y-7*px},snapshot.tick-samples[0].tick);
+   const last=samples.at(-1)!,p=surface.projectGround(last.position),rotation=projectileRotation(samples,this.map,snapshot.visible);
+   // The tactical layer still draws the authorized point on the first sample.
+   if(inView(p)&&trace.effect&&rotation!==undefined)sprite(trace.effect,`projectile:${trace.id}`,{x:p.x,y:p.y-7*px},snapshot.tick-samples[0].tick,rotation);
   }
   for(const cue of this.history.values){
    const ground=surface.projectGround(cue.position);
    if(!this.elevations.has(cue.key))this.elevations.set(cue.key,cue.anchor===undefined?0:altitude(cue.anchor)??0);
-   const p={x:ground.x,y:ground.y-this.elevations.get(cue.key)!};if(!inView(p))continue;this.stats.drawnCues++;
-   const elapsed=snapshot.tick-cue.tick;let decorated=false;
-   for(const [i,effect] of cue.effects.entries())decorated=sprite(effect,`${cue.key}:${i}`,p,elapsed)||decorated;
+   const attachment=attachments.get(cue.key),p=attachment??{x:ground.x,y:ground.y-this.elevations.get(cue.key)!},elapsed=snapshot.tick-cue.tick;
+   if(!inView(p)&&!cue.effects.some(effect=>artFrame(effect,p,elapsed,attachment?.rotation??0)))continue;this.stats.drawnCues++;
+   let decorated=false,coverDecorated=false;
+   // Missing source art has no truthful barrel attachment. Retain its existing
+   // directionless fallback instead of drawing a sideways flash at its feet.
+   if(cue.kind!=='muzzle'||attachment)for(const [i,effect] of cue.effects.entries()){
+    const drawn=sprite(effect,`${cue.key}:${i}`,p,elapsed,attachment?.rotation??0);decorated=drawn||decorated;if(effect==='fx.impact.cover_mitigated')coverDecorated=drawn;
+   }
    if(cue.kind==='hit'){
     this.stats.confirmedHits++;const s=cue.armor==='structure'?7:cue.armor==='heavy'?6:5;
     line([{x:p.x-s*px,y:p.y-4*px},{x:p.x-2*px,y:p.y},{x:p.x-s*px,y:p.y+4*px}],PALE,1.6);
@@ -84,17 +98,17 @@ export class CombatEffects {
     if(cue.armor==='heavy'||cue.armor==='structure')g.rect(p.x-8*px,p.y-7*px,16*px,14*px).stroke({color:BRASS,width:px,alpha:.75});
     if(cue.armor==='air')line([{x:p.x-6*px,y:p.y-7*px},{x:p.x,y:p.y-11*px},{x:p.x+6*px,y:p.y-7*px}],OLIVE);
    }else if(cue.kind==='intercepted'){
-    this.stats.intercepted++;g.circle(p.x,p.y,8*px).stroke({color:BRASS,width:1.8*px});line([{x:p.x-4*px,y:p.y-4*px},{x:p.x+4*px,y:p.y+4*px}],PALE,2);line([{x:p.x+4*px,y:p.y-4*px},{x:p.x-4*px,y:p.y+4*px}],PALE,2);
+    this.stats.intercepted++;if(!decorated){g.circle(p.x,p.y,8*px).stroke({color:BRASS,width:1.8*px});line([{x:p.x-4*px,y:p.y-4*px},{x:p.x+4*px,y:p.y+4*px}],PALE,2);line([{x:p.x+4*px,y:p.y-4*px},{x:p.x-4*px,y:p.y+4*px}],PALE,2)}
     this.label(`intercepted:${Math.round(p.x*zoom/24)}:${Math.round(p.y*zoom/24)}`,'INTERCEPTED',p,px,usedLabels);
    }else if(cue.kind==='decoy'){
-    this.stats.decoys++;line([{x:p.x-9*px,y:p.y},{x:p.x-4*px,y:p.y-6*px},{x:p.x+1*px,y:p.y},{x:p.x-4*px,y:p.y+6*px}],OLIVE,1.8,1,true);line([{x:p.x+1*px,y:p.y},{x:p.x+6*px,y:p.y-6*px},{x:p.x+11*px,y:p.y},{x:p.x+6*px,y:p.y+6*px}],BRASS,1.8,1,true);
+    this.stats.decoys++;if(!decorated){line([{x:p.x-9*px,y:p.y},{x:p.x-4*px,y:p.y-6*px},{x:p.x+1*px,y:p.y},{x:p.x-4*px,y:p.y+6*px}],OLIVE,1.8,1,true);line([{x:p.x+1*px,y:p.y},{x:p.x+6*px,y:p.y-6*px},{x:p.x+11*px,y:p.y},{x:p.x+6*px,y:p.y+6*px}],BRASS,1.8,1,true)}
     this.label(`decoy:${Math.round(p.x*zoom/24)}:${Math.round(p.y*zoom/24)}`,'DECOY',p,px,usedLabels);
    }else if(!decorated){
     const s=cue.kind==='destroyed'?11:cue.kind==='interceptor-launch'?8:cue.kind==='muzzle'?3:6;
     g.circle(p.x,p.y,s*px).stroke({color:cue.kind==='muzzle'?PALE:BRASS,width:1.5*px,alpha:.9});
     if(cue.kind==='impact'||cue.kind==='destroyed')line([{x:p.x-s*px,y:p.y+2*px},{x:p.x,y:p.y-s*.7*px},{x:p.x+s*px,y:p.y+2*px}],BRASS,1.3);
    }
-   if(cue.cover){this.stats.cover++;line([{x:p.x-5*px,y:p.y-9*px},{x:p.x+5*px,y:p.y-9*px},{x:p.x+4*px,y:p.y-14*px},{x:p.x,y:p.y-17*px},{x:p.x-4*px,y:p.y-14*px}],OLIVE,1.8,1,true)}
+   if(cue.cover){this.stats.cover++;if(!coverDecorated)line([{x:p.x-5*px,y:p.y-9*px},{x:p.x+5*px,y:p.y-9*px},{x:p.x+4*px,y:p.y-14*px},{x:p.x,y:p.y-17*px},{x:p.x-4*px,y:p.y-14*px}],OLIVE,1.8,1,true)}
   }
   for(const [key,node] of this.sprites)if(!usedSprites.has(key)){node.sprite.destroy();this.sprites.delete(key)}
   for(const [key,node] of this.labels)if(!usedLabels.has(key)){node.text.destroy();node.back.destroy();this.labels.delete(key)}
