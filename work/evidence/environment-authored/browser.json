@@ -1,0 +1,2930 @@
+{
+  "time": "2026-09-28T05:28:32.111Z",
+  "browser": "151.0.7922.34",
+  "errors": [],
+  "wasmSHA256": "4e67eebdd53c6ce588c14f0f01b54c236e193feacfbd2936bed0af4002a45efa",
+  "mapSHA256": "9ce72f0cbb236557ad75e37feed6c2aa7f5726e6f77cd61803eb84d0b1545057",
+  "initialize": {
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.3",
+      "tick_rate": 20
+    },
+    "metadata": {
+      "simulation": "0.3.3",
+      "protocol": 1,
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "map_version": "1",
+      "ruleset": "standard-v2",
+      "seed": 249030696
+    },
+    "environment": {
+      "schema": "fc-map-environment/1",
+      "map": {
+        "id": "copper-junction",
+        "version": "1",
+        "sha256": "9ce72f0cbb236557ad75e37feed6c2aa7f5726e6f77cd61803eb84d0b1545057"
+      },
+      "object_skins": [
+        {
+          "object_id": 3,
+          "asset": "prop.ruined_house_garrisonable",
+          "direction": 0
+        },
+        {
+          "object_id": 4,
+          "asset": "prop.ruined_house_garrisonable",
+          "direction": 2
+        }
+      ],
+      "placements": [
+        {
+          "id": "west-pylon",
+          "asset": "prop.power_pylon",
+          "position": {
+            "x": 45500,
+            "y": 46500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "east-pylon",
+          "asset": "prop.power_pylon",
+          "position": {
+            "x": 82500,
+            "y": 81500
+          },
+          "direction": 2,
+          "state": "idle"
+        },
+        {
+          "id": "west-cover-a",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 34500,
+            "y": 53500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "east-cover-a",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 93500,
+            "y": 74500
+          },
+          "direction": 2,
+          "state": "idle"
+        },
+        {
+          "id": "west-cover-b",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 35500,
+            "y": 57500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "east-cover-b",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 92500,
+            "y": 70500
+          },
+          "direction": 2,
+          "state": "idle"
+        },
+        {
+          "id": "east-cover-c",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 87500,
+            "y": 52500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "west-cover-c",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 40500,
+            "y": 75500
+          },
+          "direction": 2,
+          "state": "idle"
+        }
+      ]
+    },
+    "opening": {
+      "label": "opening",
+      "tick": 105,
+      "hash": "9e4ce0614a076f591f432599503e1e7b2ede93c1ca152096545221a8a0bde243"
+    },
+    "nodes": []
+  },
+  "economy": {
+    "tick": 2599,
+    "credits": "3350000",
+    "recon": 14,
+    "rifle": 15,
+    "log": [
+      {
+        "tick": 107,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "power",
+          "position": {
+            "x": 23000,
+            "y": 69000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 1,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 106
+          }
+        ]
+      },
+      {
+        "tick": 469,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "supply",
+          "position": {
+            "x": 22000,
+            "y": 58500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 2,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 468
+          }
+        ]
+      },
+      {
+        "tick": 1271,
+        "order": {
+          "kind": "train",
+          "entities": [
+            10
+          ],
+          "type": "US.hauler"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 3,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1270
+          }
+        ]
+      },
+      {
+        "tick": 1793,
+        "order": {
+          "kind": "gather",
+          "entities": [
+            12
+          ],
+          "target": 1
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 4,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1792
+          }
+        ]
+      },
+      {
+        "tick": 1795,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "barracks",
+          "position": {
+            "x": 27500,
+            "y": 63000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 5,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1794
+          }
+        ]
+      },
+      {
+        "tick": 2157,
+        "order": {
+          "kind": "train",
+          "entities": [
+            13
+          ],
+          "type": "US.recon"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 6,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2156
+          }
+        ]
+      },
+      {
+        "tick": 2399,
+        "order": {
+          "kind": "train",
+          "entities": [
+            13
+          ],
+          "type": "US.rifle"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 7,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2398
+          }
+        ]
+      }
+    ]
+  },
+  "west": {
+    "checkpoint": {
+      "label": "west cover and occupied garrison",
+      "tick": 3007,
+      "hash": "f24cb8dd3b2fa05c21f4aa82922b1f0506b1831cfc990bfe5584c8aa071b6643"
+    },
+    "garrison": {
+      "$typeName": "frontline.v1.Entity",
+      "id": 7,
+      "type": "map.garrison",
+      "owner": 1,
+      "facing": 0,
+      "health": 1000,
+      "state": "idle",
+      "complete": true,
+      "enabled": true,
+      "landed": false,
+      "deployed": false,
+      "concealed": false,
+      "progress": 0,
+      "rank": 0,
+      "turretFacing": 0,
+      "channelUntil": 0,
+      "mapObject": 3,
+      "footprintWidth": 3,
+      "footprintHeight": 3,
+      "footprintType": "map.garrison",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 39500,
+        "y": 84500
+      },
+      "private": {
+        "$typeName": "frontline.v1.EntityPrivate",
+        "hp": "900000",
+        "maxHp": "900000",
+        "jobs": [],
+        "orders": [],
+        "cargo": "0",
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "chargeWork": 0,
+        "serviceWork": 0,
+        "experience": "0",
+        "cooldowns": [],
+        "passengers": [
+          15
+        ],
+        "container": 0,
+        "repeatSortie": false,
+        "ambushReady": false,
+        "missionOrigin": "",
+        "rally": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 42500,
+          "y": 87000
+        }
+      }
+    },
+    "passenger": {
+      "$typeName": "frontline.v1.Entity",
+      "id": 15,
+      "type": "US.rifle",
+      "owner": 1,
+      "facing": 89758,
+      "health": 1000,
+      "state": "embarked",
+      "complete": true,
+      "enabled": true,
+      "landed": false,
+      "deployed": false,
+      "concealed": false,
+      "progress": 0,
+      "rank": 0,
+      "turretFacing": 0,
+      "channelUntil": 0,
+      "mapObject": 0,
+      "footprintWidth": 0,
+      "footprintHeight": 0,
+      "footprintType": "",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 39500,
+        "y": 84500
+      },
+      "private": {
+        "$typeName": "frontline.v1.EntityPrivate",
+        "hp": "300000",
+        "maxHp": "300000",
+        "jobs": [],
+        "orders": [],
+        "cargo": "0",
+        "home": 0,
+        "ammo": 0,
+        "endurance": 0,
+        "charges": 0,
+        "chargeWork": 0,
+        "serviceWork": 0,
+        "experience": "0",
+        "cooldowns": [],
+        "passengers": [],
+        "container": 7,
+        "repeatSortie": false,
+        "ambushReady": false,
+        "missionOrigin": "",
+        "rally": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 29650,
+          "y": 63000
+        }
+      }
+    },
+    "nodes": [
+      {
+        "key": "field:1",
+        "asset": "prop.supply_field",
+        "state": "full",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": true
+      }
+    ]
+  },
+  "coverWest": {
+    "nodes": [
+      {
+        "key": "field:1",
+        "asset": "prop.supply_field",
+        "state": "full",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": true
+      }
+    ]
+  },
+  "air": {
+    "checkpoint": {
+      "label": "paid air scouts west plateau",
+      "tick": 6079,
+      "hash": "82313b1fff01ae77ad13b76a0787121d7347bd73f39fbc5f3b345c31e01612fd"
+    },
+    "nodes": [
+      {
+        "key": "field:1",
+        "asset": "prop.supply_field",
+        "state": "full",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      }
+    ],
+    "log": [
+      {
+        "tick": 107,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "power",
+          "position": {
+            "x": 23000,
+            "y": 69000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 1,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 106
+          }
+        ]
+      },
+      {
+        "tick": 469,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "supply",
+          "position": {
+            "x": 22000,
+            "y": 58500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 2,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 468
+          }
+        ]
+      },
+      {
+        "tick": 1271,
+        "order": {
+          "kind": "train",
+          "entities": [
+            10
+          ],
+          "type": "US.hauler"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 3,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1270
+          }
+        ]
+      },
+      {
+        "tick": 1793,
+        "order": {
+          "kind": "gather",
+          "entities": [
+            12
+          ],
+          "target": 1
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 4,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1792
+          }
+        ]
+      },
+      {
+        "tick": 1795,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "barracks",
+          "position": {
+            "x": 27500,
+            "y": 63000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 5,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1794
+          }
+        ]
+      },
+      {
+        "tick": 2157,
+        "order": {
+          "kind": "train",
+          "entities": [
+            13
+          ],
+          "type": "US.recon"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 6,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2156
+          }
+        ]
+      },
+      {
+        "tick": 2399,
+        "order": {
+          "kind": "train",
+          "entities": [
+            13
+          ],
+          "type": "US.rifle"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 7,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2398
+          }
+        ]
+      },
+      {
+        "tick": 2601,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 34500,
+            "y": 53500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 8,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2600
+          }
+        ]
+      },
+      {
+        "tick": 2723,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 35500,
+            "y": 57500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 9,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2722
+          }
+        ]
+      },
+      {
+        "tick": 2765,
+        "order": {
+          "kind": "move",
+          "entities": [
+            15
+          ],
+          "position": {
+            "x": 38500,
+            "y": 80000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 10,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2764
+          }
+        ]
+      },
+      {
+        "tick": 2927,
+        "order": {
+          "kind": "board",
+          "entities": [
+            15
+          ],
+          "target": 7
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 11,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2926
+          }
+        ]
+      },
+      {
+        "tick": 3009,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "radar",
+          "position": {
+            "x": 27500,
+            "y": 68000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 12,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 3008
+          }
+        ]
+      },
+      {
+        "tick": 3771,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "power",
+          "position": {
+            "x": 16000,
+            "y": 71000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 13,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 3770
+          }
+        ]
+      },
+      {
+        "tick": 4213,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "US.airfield",
+          "position": {
+            "x": 18000,
+            "y": 76500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 14,
+            "index": 0,
+            "accepted": false,
+            "code": "mandatory_corridor",
+            "tick": 4212
+          }
+        ]
+      },
+      {
+        "tick": 4235,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "US.airfield",
+          "position": {
+            "x": 17000,
+            "y": 75500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 15,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 4234
+          }
+        ]
+      },
+      {
+        "tick": 5197,
+        "order": {
+          "kind": "train",
+          "entities": [
+            18
+          ],
+          "type": "US.fighter"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 16,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 5196
+          }
+        ]
+      },
+      {
+        "tick": 5959,
+        "order": {
+          "kind": "move",
+          "entities": [
+            19
+          ],
+          "position": {
+            "x": 45500,
+            "y": 46500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 17,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 5958
+          }
+        ]
+      }
+    ]
+  },
+  "east": {
+    "checkpoint": {
+      "label": "east plateau",
+      "tick": 6201,
+      "hash": "f82808ee7d3ce660f1c305b633f06f9da45dd45c27b2311df886e10b41ce6b45"
+    },
+    "nodes": [
+      {
+        "key": "field:1",
+        "asset": "prop.supply_field",
+        "state": "full",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "field:5",
+        "asset": "prop.supply_field",
+        "state": "unknown",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "shipment-site",
+        "asset": "prop.central_shipment_site",
+        "state": "idle",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      }
+    ]
+  },
+  "eastCover": {
+    "checkpoint": {
+      "label": "ground traverses four cover pockets",
+      "tick": 6969,
+      "hash": "a7323e6c857008a36c0bcb6847d4973c01a040a0ac5963fb74feb5174214ffb5"
+    },
+    "nodes": [
+      {
+        "key": "field:1",
+        "asset": "prop.supply_field",
+        "state": "high",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "field:5",
+        "asset": "prop.supply_field",
+        "state": "unknown",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "shipment-site",
+        "asset": "prop.central_shipment_site",
+        "state": "idle",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "field:6",
+        "asset": "prop.supply_field",
+        "state": "full",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "station-at:45500:66500",
+        "asset": "prop.supply_station_neutral",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "station-at:82500:61500",
+        "asset": "prop.supply_station_neutral",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:east-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      }
+    ],
+    "position": {
+      "$typeName": "frontline.v1.Vec",
+      "x": 92500,
+      "y": 70550
+    }
+  },
+  "ruinEast": {
+    "checkpoint": {
+      "label": "east ruin",
+      "tick": 7211,
+      "hash": "636f0dc5db1ea54a69803c8966ef1b73bfd02307c887050319aa8f3453e0685e"
+    },
+    "garrison": {
+      "$typeName": "frontline.v1.Entity",
+      "id": 8,
+      "type": "map.garrison",
+      "owner": 0,
+      "facing": 0,
+      "health": 1000,
+      "state": "idle",
+      "complete": true,
+      "enabled": true,
+      "landed": false,
+      "deployed": false,
+      "concealed": false,
+      "progress": 0,
+      "rank": 0,
+      "turretFacing": 0,
+      "channelUntil": 0,
+      "mapObject": 4,
+      "footprintWidth": 3,
+      "footprintHeight": 3,
+      "footprintType": "map.garrison",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 88500,
+        "y": 43500
+      }
+    },
+    "nodes": [
+      {
+        "key": "field:1",
+        "asset": "prop.supply_field",
+        "state": "high",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "field:5",
+        "asset": "prop.supply_field",
+        "state": "unknown",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "shipment-site",
+        "asset": "prop.central_shipment_site",
+        "state": "idle",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "field:6",
+        "asset": "prop.supply_field",
+        "state": "full",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "station-at:45500:66500",
+        "asset": "prop.supply_station_neutral",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "station-at:82500:61500",
+        "asset": "prop.supply_station_neutral",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      }
+    ]
+  },
+  "damage": {
+    "checkpoint": {
+      "label": "paid tank damages east ruin",
+      "tick": 9839,
+      "hash": "0fc969c0616b60f2e90f26839dfd2b21a9e7b34a2afbf126d616ee58055d990b"
+    },
+    "health": 455,
+    "nodes": [
+      {
+        "key": "field:1",
+        "asset": "prop.supply_field",
+        "state": "high",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "field:5",
+        "asset": "prop.supply_field",
+        "state": "unknown",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "shipment-site",
+        "asset": "prop.central_shipment_site",
+        "state": "idle",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "field:6",
+        "asset": "prop.supply_field",
+        "state": "full",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "station-at:45500:66500",
+        "asset": "prop.supply_station_neutral",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "station-at:82500:61500",
+        "asset": "prop.supply_station_neutral",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      }
+    ]
+  },
+  "destroy": {
+    "checkpoint": {
+      "label": "paid tank destroys east ruin",
+      "tick": 10199,
+      "hash": "b2bc4e4cad9d6b7deff581743820fdbe7159228051656e33d9de0263f71ef0d2"
+    },
+    "rubble": [
+      4
+    ],
+    "nodes": [
+      {
+        "key": "field:1",
+        "asset": "prop.supply_field",
+        "state": "high",
+        "visible": false,
+        "beauty": true,
+        "remembered": false
+      },
+      {
+        "key": "dressing:west-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:west-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "field:5",
+        "asset": "prop.supply_field",
+        "state": "unknown",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "shipment-site",
+        "asset": "prop.central_shipment_site",
+        "state": "idle",
+        "visible": false,
+        "beauty": false,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-pylon",
+        "asset": "prop.power_pylon",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "field:6",
+        "asset": "prop.supply_field",
+        "state": "full",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "station-at:45500:66500",
+        "asset": "prop.supply_station_neutral",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "station-at:82500:61500",
+        "asset": "prop.supply_station_neutral",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-c",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": true,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-b",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "dressing:east-cover-a",
+        "asset": "prop.forest_edge_scrub",
+        "state": "idle",
+        "visible": false,
+        "beauty": true,
+        "remembered": true
+      },
+      {
+        "key": "rubble:4",
+        "asset": "prop.ruined_house_garrisonable",
+        "state": "destroyed",
+        "visible": true,
+        "beauty": true,
+        "remembered": false
+      }
+    ],
+    "log": [
+      {
+        "tick": 107,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "power",
+          "position": {
+            "x": 23000,
+            "y": 69000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 1,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 106
+          }
+        ]
+      },
+      {
+        "tick": 469,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "supply",
+          "position": {
+            "x": 22000,
+            "y": 58500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 2,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 468
+          }
+        ]
+      },
+      {
+        "tick": 1271,
+        "order": {
+          "kind": "train",
+          "entities": [
+            10
+          ],
+          "type": "US.hauler"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 3,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1270
+          }
+        ]
+      },
+      {
+        "tick": 1793,
+        "order": {
+          "kind": "gather",
+          "entities": [
+            12
+          ],
+          "target": 1
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 4,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1792
+          }
+        ]
+      },
+      {
+        "tick": 1795,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "barracks",
+          "position": {
+            "x": 27500,
+            "y": 63000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 5,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1794
+          }
+        ]
+      },
+      {
+        "tick": 2157,
+        "order": {
+          "kind": "train",
+          "entities": [
+            13
+          ],
+          "type": "US.recon"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 6,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2156
+          }
+        ]
+      },
+      {
+        "tick": 2399,
+        "order": {
+          "kind": "train",
+          "entities": [
+            13
+          ],
+          "type": "US.rifle"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 7,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2398
+          }
+        ]
+      },
+      {
+        "tick": 2601,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 34500,
+            "y": 53500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 8,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2600
+          }
+        ]
+      },
+      {
+        "tick": 2723,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 35500,
+            "y": 57500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 9,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2722
+          }
+        ]
+      },
+      {
+        "tick": 2765,
+        "order": {
+          "kind": "move",
+          "entities": [
+            15
+          ],
+          "position": {
+            "x": 38500,
+            "y": 80000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 10,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2764
+          }
+        ]
+      },
+      {
+        "tick": 2927,
+        "order": {
+          "kind": "board",
+          "entities": [
+            15
+          ],
+          "target": 7
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 11,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2926
+          }
+        ]
+      },
+      {
+        "tick": 3009,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "radar",
+          "position": {
+            "x": 27500,
+            "y": 68000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 12,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 3008
+          }
+        ]
+      },
+      {
+        "tick": 3771,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "power",
+          "position": {
+            "x": 16000,
+            "y": 71000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 13,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 3770
+          }
+        ]
+      },
+      {
+        "tick": 4213,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "US.airfield",
+          "position": {
+            "x": 18000,
+            "y": 76500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 14,
+            "index": 0,
+            "accepted": false,
+            "code": "mandatory_corridor",
+            "tick": 4212
+          }
+        ]
+      },
+      {
+        "tick": 4235,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "US.airfield",
+          "position": {
+            "x": 17000,
+            "y": 75500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 15,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 4234
+          }
+        ]
+      },
+      {
+        "tick": 5197,
+        "order": {
+          "kind": "train",
+          "entities": [
+            18
+          ],
+          "type": "US.fighter"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 16,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 5196
+          }
+        ]
+      },
+      {
+        "tick": 5959,
+        "order": {
+          "kind": "move",
+          "entities": [
+            19
+          ],
+          "position": {
+            "x": 45500,
+            "y": 46500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 17,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 5958
+          }
+        ]
+      },
+      {
+        "tick": 6081,
+        "order": {
+          "kind": "move",
+          "entities": [
+            19
+          ],
+          "position": {
+            "x": 82500,
+            "y": 81500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 18,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6080
+          }
+        ]
+      },
+      {
+        "tick": 6203,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 40500,
+            "y": 75500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 19,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6202
+          }
+        ]
+      },
+      {
+        "tick": 6365,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 87500,
+            "y": 52500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 20,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6364
+          }
+        ]
+      },
+      {
+        "tick": 6767,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 93500,
+            "y": 74500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 21,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6766
+          }
+        ]
+      },
+      {
+        "tick": 6929,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 92500,
+            "y": 70500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 22,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6928
+          }
+        ]
+      },
+      {
+        "tick": 6971,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 88500,
+            "y": 38500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 23,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6970
+          }
+        ]
+      },
+      {
+        "tick": 7233,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "factory",
+          "position": {
+            "x": 29000,
+            "y": 72000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 24,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 7232
+          }
+        ]
+      },
+      {
+        "tick": 8235,
+        "order": {
+          "kind": "train",
+          "entities": [
+            20
+          ],
+          "type": "US.tank"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 25,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8234
+          }
+        ]
+      },
+      {
+        "tick": 8837,
+        "order": {
+          "kind": "move",
+          "entities": [
+            21
+          ],
+          "position": {
+            "x": 83500,
+            "y": 43500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 26,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8836
+          }
+        ]
+      },
+      {
+        "tick": 9479,
+        "order": {
+          "kind": "attack",
+          "entities": [
+            21
+          ],
+          "target": 8
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 27,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 9478
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "checkpoint": {
+      "label": "exact save restoration",
+      "tick": 10199,
+      "hash": "b2bc4e4cad9d6b7deff581743820fdbe7159228051656e33d9de0263f71ef0d2"
+    },
+    "checkpoints": [
+      {
+        "label": "opening",
+        "tick": 105,
+        "hash": "9e4ce0614a076f591f432599503e1e7b2ede93c1ca152096545221a8a0bde243"
+      },
+      {
+        "label": "built power",
+        "tick": 467,
+        "hash": "08d506c23ab2574c8e69f7a5371f09c8474b2d216bfec04bce8d91298fd169d6"
+      },
+      {
+        "label": "built supply",
+        "tick": 1269,
+        "hash": "2ffd4923d292a73d2e11b063f9ec322a6837c2c10f50e9011c0560349b2b8011"
+      },
+      {
+        "label": "trained US.hauler",
+        "tick": 1791,
+        "hash": "806b97778cd7af1ba973c45abdf2b13591ce417df5e81ef20f4671785fc4610c"
+      },
+      {
+        "label": "built barracks",
+        "tick": 2155,
+        "hash": "04530b3f93c20cfa5d6216f8fd6e68482fe502c71cd1d7dc63a829a4c3d473f5"
+      },
+      {
+        "label": "trained US.recon",
+        "tick": 2397,
+        "hash": "bc0ebcd29deefc77da7075d7114493fadff06da60b18cd71f3dca75d22f79224"
+      },
+      {
+        "label": "trained US.rifle",
+        "tick": 2599,
+        "hash": "a023c7bd67073507bff7bb548d9490a804a962c6a1f5be7db4e4038dd00ee191"
+      },
+      {
+        "label": "west cover and occupied garrison",
+        "tick": 3007,
+        "hash": "f24cb8dd3b2fa05c21f4aa82922b1f0506b1831cfc990bfe5584c8aa071b6643"
+      },
+      {
+        "label": "built radar",
+        "tick": 3769,
+        "hash": "a319711c618aba1b9781265844b5403d5c756285d0e4b76faaa88ebc3ccdfcff"
+      },
+      {
+        "label": "built power",
+        "tick": 4211,
+        "hash": "f4069aff699a1ab5db915ec8809864d2472edad7d76da21103a87cbf9496f876"
+      },
+      {
+        "label": "built US.airfield",
+        "tick": 5195,
+        "hash": "c439a5ddc330391fc54cdbd8e11c91b304819b7a46d1ac1bc4388f56876a8eac"
+      },
+      {
+        "label": "trained US.fighter",
+        "tick": 5957,
+        "hash": "98882ebf81baed75178d1437cf532214d809dcd75455bb166c4b8aab89c1b5b3"
+      },
+      {
+        "label": "paid air scouts west plateau",
+        "tick": 6079,
+        "hash": "82313b1fff01ae77ad13b76a0787121d7347bd73f39fbc5f3b345c31e01612fd"
+      },
+      {
+        "label": "east plateau",
+        "tick": 6201,
+        "hash": "f82808ee7d3ce660f1c305b633f06f9da45dd45c27b2311df886e10b41ce6b45"
+      },
+      {
+        "label": "ground traverses four cover pockets",
+        "tick": 6969,
+        "hash": "a7323e6c857008a36c0bcb6847d4973c01a040a0ac5963fb74feb5174214ffb5"
+      },
+      {
+        "label": "east ruin",
+        "tick": 7211,
+        "hash": "636f0dc5db1ea54a69803c8966ef1b73bfd02307c887050319aa8f3453e0685e"
+      },
+      {
+        "label": "built factory",
+        "tick": 8233,
+        "hash": "4dbc0cfe41b35dcc8439376577ed8050f577670edf88e5c1c032b284a305c37c"
+      },
+      {
+        "label": "trained US.tank",
+        "tick": 8835,
+        "hash": "4aa51b07dce4404e036b9136101e17987a9a338022551b0e67ddd10b85558be4"
+      },
+      {
+        "label": "paid tank damages east ruin",
+        "tick": 9839,
+        "hash": "0fc969c0616b60f2e90f26839dfd2b21a9e7b34a2afbf126d616ee58055d990b"
+      },
+      {
+        "label": "paid tank destroys east ruin",
+        "tick": 10199,
+        "hash": "b2bc4e4cad9d6b7deff581743820fdbe7159228051656e33d9de0263f71ef0d2"
+      },
+      {
+        "label": "exact save restoration",
+        "tick": 10199,
+        "hash": "b2bc4e4cad9d6b7deff581743820fdbe7159228051656e33d9de0263f71ef0d2"
+      }
+    ],
+    "orders": [
+      {
+        "tick": 107,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "power",
+          "position": {
+            "x": 23000,
+            "y": 69000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 1,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 106
+          }
+        ]
+      },
+      {
+        "tick": 469,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "supply",
+          "position": {
+            "x": 22000,
+            "y": 58500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 2,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 468
+          }
+        ]
+      },
+      {
+        "tick": 1271,
+        "order": {
+          "kind": "train",
+          "entities": [
+            10
+          ],
+          "type": "US.hauler"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 3,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1270
+          }
+        ]
+      },
+      {
+        "tick": 1793,
+        "order": {
+          "kind": "gather",
+          "entities": [
+            12
+          ],
+          "target": 1
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 4,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1792
+          }
+        ]
+      },
+      {
+        "tick": 1795,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "barracks",
+          "position": {
+            "x": 27500,
+            "y": 63000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 5,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 1794
+          }
+        ]
+      },
+      {
+        "tick": 2157,
+        "order": {
+          "kind": "train",
+          "entities": [
+            13
+          ],
+          "type": "US.recon"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 6,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2156
+          }
+        ]
+      },
+      {
+        "tick": 2399,
+        "order": {
+          "kind": "train",
+          "entities": [
+            13
+          ],
+          "type": "US.rifle"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 7,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2398
+          }
+        ]
+      },
+      {
+        "tick": 2601,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 34500,
+            "y": 53500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 8,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2600
+          }
+        ]
+      },
+      {
+        "tick": 2723,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 35500,
+            "y": 57500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 9,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2722
+          }
+        ]
+      },
+      {
+        "tick": 2765,
+        "order": {
+          "kind": "move",
+          "entities": [
+            15
+          ],
+          "position": {
+            "x": 38500,
+            "y": 80000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 10,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2764
+          }
+        ]
+      },
+      {
+        "tick": 2927,
+        "order": {
+          "kind": "board",
+          "entities": [
+            15
+          ],
+          "target": 7
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 11,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 2926
+          }
+        ]
+      },
+      {
+        "tick": 3009,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "radar",
+          "position": {
+            "x": 27500,
+            "y": 68000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 12,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 3008
+          }
+        ]
+      },
+      {
+        "tick": 3771,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "power",
+          "position": {
+            "x": 16000,
+            "y": 71000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 13,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 3770
+          }
+        ]
+      },
+      {
+        "tick": 4213,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "US.airfield",
+          "position": {
+            "x": 18000,
+            "y": 76500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 14,
+            "index": 0,
+            "accepted": false,
+            "code": "mandatory_corridor",
+            "tick": 4212
+          }
+        ]
+      },
+      {
+        "tick": 4235,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "US.airfield",
+          "position": {
+            "x": 17000,
+            "y": 75500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 15,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 4234
+          }
+        ]
+      },
+      {
+        "tick": 5197,
+        "order": {
+          "kind": "train",
+          "entities": [
+            18
+          ],
+          "type": "US.fighter"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 16,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 5196
+          }
+        ]
+      },
+      {
+        "tick": 5959,
+        "order": {
+          "kind": "move",
+          "entities": [
+            19
+          ],
+          "position": {
+            "x": 45500,
+            "y": 46500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 17,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 5958
+          }
+        ]
+      },
+      {
+        "tick": 6081,
+        "order": {
+          "kind": "move",
+          "entities": [
+            19
+          ],
+          "position": {
+            "x": 82500,
+            "y": 81500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 18,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6080
+          }
+        ]
+      },
+      {
+        "tick": 6203,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 40500,
+            "y": 75500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 19,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6202
+          }
+        ]
+      },
+      {
+        "tick": 6365,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 87500,
+            "y": 52500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 20,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6364
+          }
+        ]
+      },
+      {
+        "tick": 6767,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 93500,
+            "y": 74500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 21,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6766
+          }
+        ]
+      },
+      {
+        "tick": 6929,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 92500,
+            "y": 70500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 22,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6928
+          }
+        ]
+      },
+      {
+        "tick": 6971,
+        "order": {
+          "kind": "move",
+          "entities": [
+            14
+          ],
+          "position": {
+            "x": 88500,
+            "y": 38500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 23,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 6970
+          }
+        ]
+      },
+      {
+        "tick": 7233,
+        "order": {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "factory",
+          "position": {
+            "x": 29000,
+            "y": 72000
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 24,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 7232
+          }
+        ]
+      },
+      {
+        "tick": 8235,
+        "order": {
+          "kind": "train",
+          "entities": [
+            20
+          ],
+          "type": "US.tank"
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 25,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8234
+          }
+        ]
+      },
+      {
+        "tick": 8837,
+        "order": {
+          "kind": "move",
+          "entities": [
+            21
+          ],
+          "position": {
+            "x": 83500,
+            "y": 43500
+          }
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 26,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 8836
+          }
+        ]
+      },
+      {
+        "tick": 9479,
+        "order": {
+          "kind": "attack",
+          "entities": [
+            21
+          ],
+          "target": 8
+        },
+        "results": [
+          {
+            "$typeName": "frontline.v1.OrderResult",
+            "player": 1,
+            "sequence": 27,
+            "index": 0,
+            "accepted": true,
+            "code": "ok",
+            "tick": 9478
+          }
+        ]
+      }
+    ],
+    "credits": "8350000"
+  },
+  "fallback": {
+    "notices": [
+      "Order rejected: mandatory corridor",
+      "Optional scenery unavailable: Optional scenery differs from its installed checksum."
+    ],
+    "hash": "29aaaecfd3acb86747a22d3c5781d474f351cc0321b3e88c8487f6671948b02d",
+    "openingHash": "d591a3fb9a3cc138a593dee211525dccf3fdea2bc1e8f809087aba4e8119d73b",
+    "map": "copper-junction"
+  },
+  "dispose": {
+    "canvases": 0
+  },
+  "status": "passed"
+}
