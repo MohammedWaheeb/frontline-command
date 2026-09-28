@@ -1,8 +1,17 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 22:28 UTC / 29 September 01:28 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates supersede earlier in-progress receipts.
+Updated 28 September 2026, 22:41 UTC / 29 September 01:41 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates supersede earlier in-progress receipts.
 
-## Current update at 22:28 UTC, 28 September
+## Current update at 22:41 UTC, 28 September
+
+- Battlefield clarity now has current-tick defeat warnings, timestamped last-seen structures, optional one-actor weapon/minimum/sight/detection overlays, ordinary build-anchor radius, internal footprint grid, prospective power totals and a translucent actual building preview. All 371 runtime tests and both TypeScript checks pass, including delayed-art cancellation and @2x/turret alignment. Browser/layout review is still pending; Einstein retains the sole live browser lane.
+- The twelve ambient candidates passed isolated native review and graph validation. Their union with the 59 combat candidates is 30,622,144 decoded RGBA bytes, below the existing 32 MiB FX budget. Ambient consumers and complete in-game residency review remain open; no live FX publication.
+- SY05 Hard main now independently passes at tick8313 with all restore/full-replay/restart/surrender checks. The factory bonus remains false. All nine originally failed main leaves now have separate successful routes; the historical broad total is still 93/102 until a consolidated rerun. Three optional leaves remain unresolved.
+- The current-art two-human Dry River course is running without observed browser/HTTP errors. It has no completed endurance/rematch result yet. Root is doing source and unit work without another browser/host.
+- The isolated two-pass rotor team mask visually improves airlift team stripes and preserves boarding doors in root-reviewed native samples. Strict byte comparisons remain failed; fresh unchanged-source repeat controls are in progress. Live art helper remains unchanged.
+- The full game remains incomplete. Claude exact-model recheck remains 29 September 01:20 UTC /04:20 Qatar; no deployment.
+
+## Current update at 22:17 UTC, 28 September
 
 The full game remains incomplete; no deployment or shipping runtime promotion.
 

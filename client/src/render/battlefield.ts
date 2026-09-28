@@ -1,4 +1,4 @@
-import {Application,Container,Graphics,Texture} from 'pixi.js';
+import {Application,Container,Graphics,Texture,Text} from 'pixi.js';
 import type {CommandTarget,Entity,GameMap,PlayerSnapshot,Point,Rect} from '../runtime';
 import type {MapEnvironment,EnvironmentObjectSkin} from '../content/environment';
 import type {CatalogIndex} from '../content/catalog';
@@ -16,6 +16,11 @@ import {toWorld} from './iso';
 import {drawStructure} from './structure';
 import {activeMissionMarkers,type MissionMarker} from '../app/mission-markers';
 import {minimapLayout,minimapProject,minimapWorldPoint} from './minimap';
+import {ownerRanges} from '../app/owner-ranges';
+import {tacticalCircle} from './tactical-geometry';
+import {PlacementGhost} from './placement-ghost';
+import type {RangeMode} from './range-geometry';
+import {memoryCaption} from '../app/battlefield-cues';
 import {actorStatus} from '../app/actor-status';
 import {ownedBoardingReceivers} from '../app/transport-presentation';
 import {tacticalPresentation,type TacticalPresentation} from '../app/tactical-presentation';
@@ -43,8 +48,8 @@ export class BattlefieldRenderer {
  private readonly ground=new Container();
  private readonly surfaceShadows=new SurfaceShadows(this.ground);
  private readonly actorStatuses=new Container();
- private combat:CombatEffects;private effectsReleased:Promise<void>=Promise.resolve();
- private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
+ private readonly placementGhost:PlacementGhost;private combat:CombatEffects;private effectsReleased:Promise<void>=Promise.resolve();
+ private readonly memoryLabels:Text[]=[];private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
  private readonly strikePreview=new StrikePreviewOverlay();private readonly tacticalOverlay=new TacticalOverlay();private tacticalModel?:TacticalPresentation;
  private readonly objectSkins=new Map<string,EnvironmentObjectSkin>();
  private readonly actors=new Map<number,ActorVisual>();private environment:EnvironmentRenderer;
@@ -55,11 +60,11 @@ export class BattlefieldRenderer {
  private baker:TerrainBaker;private snapshot?:PlayerSnapshot;private selected=new Set<number>();private settings:Settings;
  private camera={x:0,y:0,zoom:1};private centered=false;private disposed=false;private tickAt=0;
  private drag?:{start:Point;last:Point;button:number;pointer:number};private pointer?:Point;
- private placement?:PlacementPreview;private targeting?:string;private lastHover=0;private frame=0;private fogTick=-1;
+ private rangeMode:RangeMode='off';private placement?:PlacementPreview;private targeting?:string;private lastHover=0;private frame=0;private fogTick=-1;
  private memoryKey='';private rubbleKey='';private terrainKey='';private lost=false;private presentationMap:GameMap;
  private effectEvent=0;private feedbackBaseline=false;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
- private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.combat=new CombatEffects(options.catalog,options.map,options.onError);this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface,options.environment);for(const skin of options.environment?.object_skins??[]){const object=options.map.objects?.find(o=>o.id===skin.object_id);if(object)this.objectSkins.set(`map.${object.class}:${object.position.x}:${object.position.y}`,skin)}}
+ private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.placementGhost=new PlacementGhost(options.art);this.combat=new CombatEffects(options.catalog,options.map,options.onError);this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface,options.environment);for(const skin of options.environment?.object_skins??[]){const object=options.map.objects?.find(o=>o.id===skin.object_id);if(object)this.objectSkins.set(`map.${object.class}:${object.position.x}:${object.position.y}`,skin)}}
  static async create(host:HTMLElement,options:BattlefieldOptions):Promise<BattlefieldRenderer>{
   const renderer=new BattlefieldRenderer(host,options);
   try{await renderer.init();return renderer}catch(error){renderer.dispose();throw error}
@@ -72,7 +77,7 @@ export class BattlefieldRenderer {
   const canvas=this.app.canvas;canvas.tabIndex=0;canvas.setAttribute('aria-label','Battlefield. Select units and give orders.');canvas.style.display='block';canvas.style.touchAction='none';canvas.style.outlineColor='var(--fc-color-brass-light, #d0ae66)';canvas.style.outlineOffset='-2px';
   this.host.appendChild(canvas);
   this.surfaceShadows.configure(this.app.renderer);
-  this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.combat.root,this.tactical,this.tacticalOverlay.root,this.strikePreview.root,this.actorStatuses);this.ground.sortableChildren=true;this.actorStatuses.eventMode='none';
+  this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.combat.root,this.tactical,this.tacticalOverlay.root,this.strikePreview.root,this.placementGhost.root,this.actorStatuses);this.ground.sortableChildren=true;this.actorStatuses.eventMode='none';
   const m=this.options.map;
   this.center(m.spawns[0]?.position??{x:m.width*500,y:m.height*500});
   this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
@@ -80,7 +85,7 @@ export class BattlefieldRenderer {
  }
  get missingArt():string[]{return [...new Set([...this.missing,...this.environment.missingArt,...this.combat.diagnostics.missing,...[...this.actors.values()].filter(actor=>actor.root.visible&&actor.missingPayloadArt).map(actor=>`${actor.entity.type}:${actor.missingPayloadArt}`)])].sort()}
  setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers)}
- async whenAssetsReady(){await Promise.all([...this.actors.values()].map(actor=>actor.ready));await this.environment.ready();this.render();await Promise.all([this.options.art.settle(),this.combat.settle()]);this.render();await this.combat.settle();this.render()}
+ async whenAssetsReady(){await Promise.all([...this.actors.values()].map(actor=>actor.ready));await this.environment.ready();this.render();await this.placementGhost.settle();this.render();await Promise.all([this.options.art.settle(),this.combat.settle()]);this.render();await this.combat.settle();this.render()}
  viewport():Rect{return {left:0,top:0,right:this.app.screen.width,bottom:this.app.screen.height}}
  center(point:Point){const p=this.surface.projectGround(point);this.camera.x=p.x;this.camera.y=p.y;this.cameraTransform()}
  pan(dxPixels:number,dyPixels:number){this.camera.x+=dxPixels/this.camera.zoom;this.camera.y+=dyPixels/this.camera.zoom;this.limitCamera();this.cameraTransform()}
@@ -168,7 +173,8 @@ export class BattlefieldRenderer {
  }
  cancelDrag(){if(this.drag&&this.app.canvas?.hasPointerCapture(this.drag.pointer))this.app.canvas.releasePointerCapture(this.drag.pointer);this.drag=undefined;this.overlay.clear()}
  setTargeting(kind:string|undefined){this.targeting=kind;if(this.app.canvas)this.app.canvas.style.cursor=kind?'crosshair':'default'}
- setPlacement(placement:PlacementPreview|undefined){this.placement=placement}
+ setRangeMode(mode:RangeMode){this.rangeMode=mode}
+ setPlacement(placement:PlacementPreview|undefined){this.placement=placement;if(!placement)this.placementGhost.clear()}
  setSelection(ids:number[]){
   if(ids.length===this.selected.size&&ids.every(id=>this.selected.has(id)))return;
   this.selected=new Set(ids);this.refreshTactical();
@@ -248,15 +254,16 @@ export class BattlefieldRenderer {
   for(const chunk of this.chunks.values())for(const fragment of chunk.fragments)fragment.setFog(snapshot.visible,snapshot.explored);
  }
  private updateMemories(){
-  const snapshot=this.snapshot;if(!snapshot)return;const key=JSON.stringify(snapshot.memory);
+  const snapshot=this.snapshot;if(!snapshot)return;const occupied=new Set(snapshot.entities.map(entity=>entity.id));const known=snapshot.memory.filter(memory=>{if(!memory.position||occupied.has(memory.id))return false;const i=Math.floor(memory.position.y/1000)*this.options.map.width+Math.floor(memory.position.x/1000);return snapshot.explored[i]&&!snapshot.visible[i]&&memoryCaption(memory.seen,snapshot.tick)!==undefined});const key=JSON.stringify(known);
   if(key===this.memoryKey)return;this.memoryKey=key;
-  for(const child of this.memories)child.destroy();this.memories.length=0;
-  for(const memory of snapshot.memory){
+  for(const child of this.memories)child.destroy({children:true});this.memories.length=0;this.memoryLabels.length=0;
+  for(const memory of known){
    if(!memory.position||snapshot.entities.some(entity=>entity.id===memory.id))continue;
    const i=Math.floor(memory.position.y/1000)*this.options.map.width+Math.floor(memory.position.x/1000);
    if(!snapshot.explored[i])continue;
    const g=new Graphics(),b=this.options.catalog.buildings.get(physicalArtType(memory)),support=this.surface.footprintSurface(memory.position,memory.footprintWidth||b?.width||2,memory.footprintHeight||b?.height||2),p=projectSurfaceVertex({...memory.position,height:support.height});
    drawStructure(g,{width:memory.footprintWidth||b?.width||2,height:memory.footprintHeight||b?.height||2,role:b?.role??'garrison',paint:0x514d41,team:0x666353,progress:1000,complete:true,health:1000,enabled:false,memory:true});
+   const label=new Text({text:memoryCaption(memory.seen,snapshot.tick)!,style:{fontFamily:'Arial,sans-serif',fontSize:10,fontWeight:'600',fill:0xc3b89d,stroke:{color:0x14150f,width:3}}});label.anchor.set(.5,1);label.position.set(0,-48);label.eventMode='none';g.addChild(label);this.memoryLabels.push(label);
    g.position.set(p.x,p.y);g.zIndex=memory.position.x+memory.position.y+((memory.footprintWidth||b?.width||2)+(memory.footprintHeight||b?.height||2))*500+.001;this.memories.push(g);this.ground.addChild(g);
   }
  }
@@ -317,6 +324,7 @@ export class BattlefieldRenderer {
   this.surfaceShadows.update([...this.actors.values()].filter(actor=>actor.root.visible).flatMap(actor=>actor.shadowPlates).concat(this.deaths.flatMap(({actor,until})=>actor.shadowPlates.map(plate=>({...plate,alpha:plate.alpha*Math.min(1,(until-now)/700)}))),this.environment.shadowPlates),this.surface,this.snapshot?.visible,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom,zoom:this.camera.zoom});
   if(this.frame%60===0){this.options.art.trim();void this.combat.trim()}
   this.combat.draw(this.surface,this.camera.zoom,this.settings,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom},id=>this.actors.get(id)?.visualAltitude(now,this.settings.reducedMotion),(id,eventID)=>this.actors.get(id)?.muzzleAttachment(eventID));
+  for(const label of this.memoryLabels)label.scale.set(1/this.camera.zoom);
   this.drawTactical(now);this.overlay.clear();
   if(this.drag&&this.drag.button!==this.settings.bindings.pointer.pan&&Math.hypot(this.drag.start.x-this.drag.last.x,this.drag.start.y-this.drag.last.y)>=this.settings.dragThreshold){const a=this.drag.start,b=this.drag.last;this.overlay.rect(Math.min(a.x,b.x),Math.min(a.y,b.y),Math.abs(a.x-b.x),Math.abs(a.y-b.y)).fill({color:0xbcce88,alpha:.08}).stroke({width:1,color:0xc7d895})}
  }
@@ -332,9 +340,24 @@ export class BattlefieldRenderer {
    const p=this.surface.projectGround(marker.position);g.ellipse(p.x,p.y,15,7.5).stroke({width:2,color:0xf1ce78});g.moveTo(p.x-23,p.y).lineTo(p.x-10,p.y).moveTo(p.x+10,p.y).lineTo(p.x+23,p.y).moveTo(p.x,p.y-15).lineTo(p.x,p.y-6).moveTo(p.x,p.y+6).lineTo(p.x,p.y+15).stroke({width:2,color:0xf1ce78});
   }
   for(const salvage of s.salvage){if(salvage.position)this.diamond(g,salvage.position,.5,.5,0xb9934b,.65)}
-  if(this.tacticalModel)this.tacticalOverlay.draw(this.tacticalModel,this.surface,this.camera.zoom,owner=>this.team(owner));
+  if(this.tacticalModel)this.tacticalOverlay.draw(this.tacticalModel,this.surface,this.camera.zoom,owner=>this.team(owner),this.rangeMode);
   this.strikePreview.draw(this.surface,this.camera.zoom);
-  if(this.placement){const p=this.placement.position??(this.pointer?this.point(this.pointer):undefined);if(p)this.diamond(g,p,this.placement.width,this.placement.height,this.placement.valid===false?0xdb5c46:this.placement.valid?0xa9cc79:0xd8b766)}
+  if(this.placement){
+   const p=this.placement.position??(this.pointer?this.point(this.pointer):undefined),b=this.options.catalog.buildings.get(this.placement.type);
+   if(p&&b){
+    const paint=this.placement.valid===false?0xdb5c46:this.placement.valid?0xa9cc79:0xd8b766;
+    const line=(points:Point[],alpha=.4)=>{const projected=points.map(point=>this.surface.projectGround(point));if(!projected.length)return;g.moveTo(projected[0].x,projected[0].y);for(const at of projected.slice(1))g.lineTo(at.x,at.y);g.stroke({width:1/this.camera.zoom,color:paint,alpha})};
+    // Go measures the ordinary build radius between anchor and proposed center.
+    // Exceptions (outpost and HQ replacement) need no circle constraint.
+    if(b.role!=='outpost'&&!(b.role==='hq'&&!s.entities.some(e=>e.owner===s.player&&e.type==='hq'&&e.complete&&e.health>0)))for(const e of s.entities){
+     const radius=ownerRanges(e,s)?.buildRadius;if(radius&&e.position){const points=tacticalCircle(e.position,radius);line([...points,points[0]],.25)}
+    }
+    this.diamond(g,p,b.width,b.height,paint,.12);
+    for(let x=1;x<b.width;x++)line(Array.from({length:b.height*4+1},(_,i)=>({x:p.x-b.width*500+x*1000,y:p.y-b.height*500+i*250})));
+    for(let y=1;y<b.height;y++)line(Array.from({length:b.width*4+1},(_,i)=>({x:p.x-b.width*500+i*250,y:p.y-b.height*500+y*1000})));
+    this.placementGhost.draw(b,s.players.find(player=>player.id===s.player)?.faction,p,this.placement.valid,this.surface);
+   }else this.placementGhost.clear();
+  }else this.placementGhost.clear();
   void now;
  }
  renderMinimap(canvas:HTMLCanvasElement){
@@ -363,8 +386,8 @@ export class BattlefieldRenderer {
   if(this.disposed)return;this.disposed=true;this.listeners.abort();this.resizeObserver?.disconnect();
   for(const actor of this.actors.values())actor.dispose();this.actors.clear();this.environment.dispose();
   for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
-  this.surfaceShadows.dispose();
-  this.invalidateTerrain();this.baker.disposeSurfaceResources();this.tacticalModel=undefined;this.tacticalOverlay.dispose();this.strikePreview.dispose();this.effectsReleased=this.combat.dispose();
+  this.surfaceShadows.dispose();this.memoryLabels.length=0;this.memories.length=0;
+  this.invalidateTerrain();this.baker.disposeSurfaceResources();this.tacticalModel=undefined;this.tacticalOverlay.dispose();this.strikePreview.dispose();this.placementGhost.dispose();this.effectsReleased=this.combat.dispose();
   if(this.app.renderer)this.app.destroy(true,{children:true});
  }
 }
