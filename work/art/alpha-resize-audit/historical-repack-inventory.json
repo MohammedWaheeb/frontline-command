@@ -1,0 +1,784 @@
+{
+  "scope": "Parent-approved derivative re-export only; preserve raw, blend, 2x and independent chrome outputs.",
+  "pending_sprite_assets": [
+    {
+      "id": "building.US.hq",
+      "spec": "assets/pipeline/specs/building.US.hq.json",
+      "model": "us_buildings",
+      "sidecar": "assets/build/sprites/building.US.hq/building.US.hq.sprite.json",
+      "states": 9,
+      "poses": 28,
+      "one_x_atlas_pages": 9
+    },
+    {
+      "id": "building.US.power",
+      "spec": "assets/pipeline/specs/building.US.power.json",
+      "model": "us_buildings",
+      "sidecar": "assets/build/sprites/building.US.power/building.US.power.sprite.json",
+      "states": 8,
+      "poses": 20,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "prop.rocks",
+      "spec": "assets/pipeline/specs/prop.rocks.json",
+      "model": "props",
+      "sidecar": "assets/build/sprites/prop.rocks/prop.rocks.sprite.json",
+      "states": 1,
+      "poses": 1,
+      "one_x_atlas_pages": 2
+    },
+    {
+      "id": "prop.rubble_cover",
+      "spec": "assets/pipeline/specs/prop.rubble_cover.json",
+      "model": "props",
+      "sidecar": "assets/build/sprites/prop.rubble_cover/prop.rubble_cover.sprite.json",
+      "states": 1,
+      "poses": 1,
+      "one_x_atlas_pages": 2
+    },
+    {
+      "id": "prop.sandbags",
+      "spec": "assets/pipeline/specs/prop.sandbags.json",
+      "model": "props",
+      "sidecar": "assets/build/sprites/prop.sandbags/prop.sandbags.sprite.json",
+      "states": 1,
+      "poses": 1,
+      "one_x_atlas_pages": 2
+    },
+    {
+      "id": "prop.shrub",
+      "spec": "assets/pipeline/specs/prop.shrub.json",
+      "model": "props",
+      "sidecar": "assets/build/sprites/prop.shrub/prop.shrub.sprite.json",
+      "states": 1,
+      "poses": 1,
+      "one_x_atlas_pages": 2
+    },
+    {
+      "id": "prop.supply_field",
+      "spec": "assets/pipeline/specs/prop.supply_field.json",
+      "model": "props",
+      "sidecar": "assets/build/sprites/prop.supply_field/prop.supply_field.sprite.json",
+      "states": 4,
+      "poses": 4,
+      "one_x_atlas_pages": 2
+    },
+    {
+      "id": "unit.IR.at",
+      "spec": "assets/pipeline/specs/unit.IR.at.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.IR.at/unit.IR.at.sprite.json",
+      "states": 6,
+      "poses": 200,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.IR.elite",
+      "spec": "assets/pipeline/specs/unit.IR.elite.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.IR.elite/unit.IR.elite.sprite.json",
+      "states": 7,
+      "poses": 248,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.IR.engineer",
+      "spec": "assets/pipeline/specs/unit.IR.engineer.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.IR.engineer/unit.IR.engineer.sprite.json",
+      "states": 6,
+      "poses": 256,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.IR.hauler",
+      "spec": "assets/pipeline/specs/unit.IR.hauler.json",
+      "model": "logistics",
+      "sidecar": "assets/build/sprites/unit.IR.hauler/unit.IR.hauler.sprite.json",
+      "states": 9,
+      "poses": 400,
+      "one_x_atlas_pages": 18
+    },
+    {
+      "id": "unit.IR.medic",
+      "spec": "assets/pipeline/specs/unit.IR.medic.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.IR.medic/unit.IR.medic.sprite.json",
+      "states": 5,
+      "poses": 208,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.IR.recon",
+      "spec": "assets/pipeline/specs/unit.IR.recon.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.IR.recon/unit.IR.recon.sprite.json",
+      "states": 7,
+      "poses": 232,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.IR.rifle",
+      "spec": "assets/pipeline/specs/unit.IR.rifle.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.IR.rifle/unit.IR.rifle.sprite.json",
+      "states": 6,
+      "poses": 200,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.IR.rig",
+      "spec": "assets/pipeline/specs/unit.IR.rig.json",
+      "model": "logistics",
+      "sidecar": "assets/build/sprites/unit.IR.rig/unit.IR.rig.sprite.json",
+      "states": 6,
+      "poses": 336,
+      "one_x_atlas_pages": 21
+    },
+    {
+      "id": "unit.IR.strike",
+      "spec": "assets/pipeline/specs/unit.IR.strike.json",
+      "model": "drone_fixed",
+      "sidecar": "assets/build/sprites/unit.IR.strike/unit.IR.strike.sprite.json",
+      "states": 7,
+      "poses": 304,
+      "one_x_atlas_pages": 6
+    },
+    {
+      "id": "unit.SA.hauler",
+      "spec": "assets/pipeline/specs/unit.SA.hauler.json",
+      "model": "logistics",
+      "sidecar": "assets/build/sprites/unit.SA.hauler/unit.SA.hauler.sprite.json",
+      "states": 9,
+      "poses": 400,
+      "one_x_atlas_pages": 17
+    },
+    {
+      "id": "unit.SA.mobile_abm",
+      "spec": "assets/pipeline/specs/unit.SA.mobile_abm.json",
+      "model": "aegis_carrier",
+      "sidecar": "assets/build/sprites/unit.SA.mobile_abm/unit.SA.mobile_abm.sprite.json",
+      "states": 7,
+      "poses": 400,
+      "one_x_atlas_pages": 18
+    },
+    {
+      "id": "unit.SA.rig",
+      "spec": "assets/pipeline/specs/unit.SA.rig.json",
+      "model": "logistics",
+      "sidecar": "assets/build/sprites/unit.SA.rig/unit.SA.rig.sprite.json",
+      "states": 6,
+      "poses": 336,
+      "one_x_atlas_pages": 15
+    },
+    {
+      "id": "unit.SY.car",
+      "spec": "assets/pipeline/specs/unit.SY.car.json",
+      "model": "technical",
+      "sidecar": "assets/build/sprites/unit.SY.car/unit.SY.car.sprite.json",
+      "states": 6,
+      "poses": 240,
+      "one_x_atlas_pages": 5
+    },
+    {
+      "id": "unit.SY.hauler",
+      "spec": "assets/pipeline/specs/unit.SY.hauler.json",
+      "model": "logistics",
+      "sidecar": "assets/build/sprites/unit.SY.hauler/unit.SY.hauler.sprite.json",
+      "states": 9,
+      "poses": 400,
+      "one_x_atlas_pages": 12
+    },
+    {
+      "id": "unit.SY.rig",
+      "spec": "assets/pipeline/specs/unit.SY.rig.json",
+      "model": "logistics",
+      "sidecar": "assets/build/sprites/unit.SY.rig/unit.SY.rig.sprite.json",
+      "states": 6,
+      "poses": 336,
+      "one_x_atlas_pages": 12
+    },
+    {
+      "id": "unit.US.at",
+      "spec": "assets/pipeline/specs/unit.US.at.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.US.at/unit.US.at.sprite.json",
+      "states": 6,
+      "poses": 200,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.US.elite",
+      "spec": "assets/pipeline/specs/unit.US.elite.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.US.elite/unit.US.elite.sprite.json",
+      "states": 7,
+      "poses": 248,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.US.engineer",
+      "spec": "assets/pipeline/specs/unit.US.engineer.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.US.engineer/unit.US.engineer.sprite.json",
+      "states": 6,
+      "poses": 256,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.US.hauler",
+      "spec": "assets/pipeline/specs/unit.US.hauler.json",
+      "model": "logistics",
+      "sidecar": "assets/build/sprites/unit.US.hauler/unit.US.hauler.sprite.json",
+      "states": 9,
+      "poses": 400,
+      "one_x_atlas_pages": 17
+    },
+    {
+      "id": "unit.US.medic",
+      "spec": "assets/pipeline/specs/unit.US.medic.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.US.medic/unit.US.medic.sprite.json",
+      "states": 5,
+      "poses": 208,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.US.recon",
+      "spec": "assets/pipeline/specs/unit.US.recon.json",
+      "model": "infantry_roster",
+      "sidecar": "assets/build/sprites/unit.US.recon/unit.US.recon.sprite.json",
+      "states": 7,
+      "poses": 232,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.US.rifle",
+      "spec": "assets/pipeline/specs/unit.US.rifle.json",
+      "model": "infantry",
+      "sidecar": "assets/build/sprites/unit.US.rifle/unit.US.rifle.sprite.json",
+      "states": 6,
+      "poses": 200,
+      "one_x_atlas_pages": 3
+    },
+    {
+      "id": "unit.US.rig",
+      "spec": "assets/pipeline/specs/unit.US.rig.json",
+      "model": "logistics",
+      "sidecar": "assets/build/sprites/unit.US.rig/unit.US.rig.sprite.json",
+      "states": 6,
+      "poses": 336,
+      "one_x_atlas_pages": 15
+    },
+    {
+      "id": "unit.US.tank",
+      "spec": "assets/pipeline/specs/unit.US.tank.json",
+      "model": "tank_tracked",
+      "sidecar": "assets/build/sprites/unit.US.tank/unit.US.tank.sprite.json",
+      "states": 6,
+      "poses": 240,
+      "one_x_atlas_pages": 13
+    }
+  ],
+  "pending_ui_derivatives": [
+    {
+      "derived": "assets/build/ui/icons/build/IR.at@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/IR.at@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "48abca4bf133e53f99792c9fa6da3ad2ff10474402d6d1b73e88896cdfb0a308"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.at@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/IR.at@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "8fa20f1433f0b239b3c124d3df5eada24216edd4c0547e1381a254f3b5358e61"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.elite@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/IR.elite@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "5f7e50127270007ae79e4e40efd67ed98720ae996371a695954ad1266f26f34b"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.elite@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/IR.elite@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "779a062775b9847a5065930e9a4ab3fa2ed87374bbc1b949dc02c69dd0638790"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.engineer@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/IR.engineer@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "bd705969de64be31b34d98946fb89de5058e71c2833f6b5cd5aedf2ef37604cf"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.engineer@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/IR.engineer@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "ec1c2a2a40188fa55d2877f6a8ba26319958fffa625d4ddfa08bc8430d073836"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.hauler@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/IR.hauler@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "bbd20a5ef389de7c11e632c68d66e236ad17b12d9011fa9a01c109cb89ced85a"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.hauler@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/IR.hauler@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "6e8ac873126bea9b15e63fc713242f8321714418669244da03ece957ea0265b3"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.medic@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/IR.medic@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "bcbbacd772b990e7b5808d0e17ef124aedbfc66ff3a2193c15786dd90c4ffcea"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.medic@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/IR.medic@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "cec57a1f8b837bc8df0fd34fbeafe28ecbb04c5fee924a9bc5ed1a9b2b8dfb7d"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.recon@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/IR.recon@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "90a3ad5f451c83e82bb052fb165f4daa039ce5181c5d9b4e49f3594b74cdd8fa"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.recon@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/IR.recon@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "05448d344ce8c515bf811cbb8439dcb13c84a8faa9e7e3d6f07f0e85c6ac1b23"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.rifle@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/IR.rifle@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "039c329329146be500cd09f5895b25cb4b6a8e8a08bb1872d9f46f5e56f811d3"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.rifle@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/IR.rifle@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "fb6908d3ed149f3e08030723408b865c91b4df173aed7a77e79ced2e916e3879"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.rig@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/IR.rig@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "bfbd0fcc26f3e409bf19869487035c088087644599b6a79a058626f01f54406b"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/IR.rig@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/IR.rig@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "7c2b8a7e19e97c5b47e98973def469fd4dd8c2535e9fdb65d2c423df1b46f2e0"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/SA.hauler@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/SA.hauler@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "f2f6145a00641b5ab49f86b51da5f0189c6414c72e434fa357e5e65ffe5b382a"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/SA.hauler@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/SA.hauler@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "7726189ef7d07642db939312570943726c62848459dac7c0f4785ad43c088dfe"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/SA.rig@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/SA.rig@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "c638cfb075878e00ccfe8f29ccdf58952d894c479255921346470c1d9124fc92"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/SA.rig@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/SA.rig@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "42a12d495285b03a5fdbf95b280a0c7036221a7458cd26d2376b42e7025ef4a2"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/SY.hauler@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/SY.hauler@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "259adb27f1968bb4e41e6942e08a36f3882981e478c03a2978f6bcb16dc3083a"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/SY.hauler@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/SY.hauler@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "ec3651f524a9e5cb500e9e1ec8e7c0734f959fe342cc761495f8f82387bf78dd"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/SY.rig@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/SY.rig@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "cea9bc033ea6fff2a50556957d46bc2119c7eac68c6e976fae990cd7844e635f"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/SY.rig@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/SY.rig@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "c6850e77448acdcd9dd91f7037148a4ad963a34a0fe4a9505733057e4e350fcf"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.at@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/US.at@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "c9a4b3c6b4b4af2fc716b1b87a95bdba60df0715c9e2106f5823b5c6db1f99ef"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.at@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/US.at@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "340fd45d6c0fe77e51700e9eb451d0c0068cf98de4ec0fa1b286838c337a846f"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.elite@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/US.elite@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "99ca6da2b5d222fd2ed87f4d15a4dd06a44965e4b572f6a8bca20c42d3753c9f"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.elite@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/US.elite@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "9602cd09a8fb4117033652b59bbab7b8a2552b47e3b85da644575604ff80a19c"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.engineer@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/US.engineer@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "c60a6cd8b5a2fad4fad4b2973428dec6d7f32c8c4d2442e2829b06673361452b"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.engineer@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/US.engineer@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "e67417bbbbf0d47a91dff2bac5b9af7d9962a622dcad50235e3f58d49ea8de77"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.hauler@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/US.hauler@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "e52bc70f34ee6e727d2ce20cfceb39463ed2ab3068e5ebda6fd48a4e801d6f60"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.hauler@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/US.hauler@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "07374973559abdb2b24b4bdbef82bbacd91bf933e83847618458d6016608b16d"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.medic@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/US.medic@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "f50b78afceeb21b769d4600ff43c06789edc7c8d18358c218bbc240e09300204"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.medic@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/US.medic@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "f48a24c26e3d71fb278d7723cfeddb34c810fe18884152a2ceaba15b4e34f046"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.recon@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/US.recon@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "79517e352fbd618b3ecbcd96419e17039b9283f6889e338b3a5bb50feaa596b0"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.recon@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/US.recon@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "6b40aef4baf1ee35044d97b6bdc1c08641b14c2c869d9c7fb61ac191502150a6"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.rig@1x.beauty.png",
+      "source_2x": "assets/build/ui/icons/build/US.rig@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "55c88c97c5381e0d57cffb636cfd5e1bd9c24422b9af758cf3ac7ec3ffbe00ee"
+    },
+    {
+      "derived": "assets/build/ui/icons/build/US.rig@1x.team.png",
+      "source_2x": "assets/build/ui/icons/build/US.rig@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "54397ce528232d319b661f7def1b391b346bb51d078110b03a3289bd7d5001f0"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.at@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/IR.at@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "1261ebf81143b24afefc8780e33142c6bb582e15e0db08c9a0b423a1cf2b4dab"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.at@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/IR.at@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "630fc0797ebc3cf0830b3308bcc6126cf1845f5cadff92e5d529ba7909454720"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.elite@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/IR.elite@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "10e0411b4e6152a646b9c8278518cc6a93d96983230279a271d117cd1f2106b6"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.elite@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/IR.elite@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "a8b67cfdc8adeef35292e157ba2583faa633bca3e6dd2f9e4cd2452ea4a6ace9"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.engineer@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/IR.engineer@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "2b02bc0f7a1e3049b3eb4024dd71a15ef5a51b59a5cbe18d9c047685a74aa7ab"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.engineer@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/IR.engineer@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "e4454cd9579ba4b4fd5745137aed8eb93425ac46bd478cc29fdc81304673d933"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.hauler@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/IR.hauler@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "573f7c2dde13b7bafd9a3405eb130a038746fd443b3fbe1f9b560aa303cf7958"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.hauler@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/IR.hauler@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "abeaa147a4d8e5d4b34ed851feb7666e1ed4a88d7f45183e080502b853fcd0aa"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.medic@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/IR.medic@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "5c7e823ad84d69d1676490397a26e6e7a1827a2b172030d4a4caf433c4e697ed"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.medic@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/IR.medic@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "2945344688d4caab755c812b5a8240eca13aeacbdfe0f171d3bbdb6f56a3921b"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.recon@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/IR.recon@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "24a12057f57eecbf49cd6d9f9a3d500896d7fad85ea30350ac0766035bab7f08"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.recon@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/IR.recon@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "25be6adc93d5fc3542881c6fe983885eedca51156f03041af213c11413558915"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.rifle@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/IR.rifle@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "faab970bd30238cb8bb76aa51e09ae952a13b14c8a4c1b9ecc97a1e8b72092d1"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.rifle@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/IR.rifle@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "297aaf7caba4eaa01ce1461b9d9d8da0848128bf80ca318c2b8e4e622bd959b9"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.rig@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/IR.rig@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "452545c9890a8825e6a8e2ada3ba88ef6d1f29b872bddeea34f57da5cbec73b1"
+    },
+    {
+      "derived": "assets/build/ui/portraits/IR.rig@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/IR.rig@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "5eb0a0ac91a18cd551aa9b2ff81776bab0e9496d9be0e809fd78e66beb0f026b"
+    },
+    {
+      "derived": "assets/build/ui/portraits/SA.hauler@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/SA.hauler@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "be8cc21371f4ea60baf6ec447a61c641b97e02dee3915cb44114df11a81f37fc"
+    },
+    {
+      "derived": "assets/build/ui/portraits/SA.hauler@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/SA.hauler@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "4bf43182f5b63ea4a097a7849c16af84dcabbcd24e5cc25847b036728cc9115f"
+    },
+    {
+      "derived": "assets/build/ui/portraits/SA.rig@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/SA.rig@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "77decb47914322cc3071ca513f75675ec0a7128eb79f4a8249d1b6ed5c62d702"
+    },
+    {
+      "derived": "assets/build/ui/portraits/SA.rig@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/SA.rig@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "a8078c86f075e806624a9b897cc433c74f7d4e4676b64eb5348a450fd95b791b"
+    },
+    {
+      "derived": "assets/build/ui/portraits/SY.hauler@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/SY.hauler@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "74c66c022c8da094ed03ea61e63cc769c329a1c012f6e8f4bbed300cb0029246"
+    },
+    {
+      "derived": "assets/build/ui/portraits/SY.hauler@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/SY.hauler@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "c478bc9584c6576265360cf8255f1e1f8a05d6884504cb36daaab1c3b7f6c507"
+    },
+    {
+      "derived": "assets/build/ui/portraits/SY.rig@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/SY.rig@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "89f466edd3f1148673e9d07096d2132359a8b3c9448006f004451b08f2c83a85"
+    },
+    {
+      "derived": "assets/build/ui/portraits/SY.rig@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/SY.rig@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "f80494ac4907c8a951295f066bc51fbc5363c2209613f679911352ac0ed3b0d5"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.at@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/US.at@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "34170e0c36bfc54954daeb7335746ee7121dd395c5ceec8aea664b6a3874f5d6"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.at@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/US.at@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "a2663f5a4776db3780ca06d44755b678c6d965c9ca27e9b71b4c0bdd377380fb"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.elite@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/US.elite@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "2aa2a9f6333ef5bed8227cd6347308b281cda1cf5b270d90ecf34916f24f6364"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.elite@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/US.elite@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "9bd455e52acdee0ecb2247707ffdbab404b0a3108cb30d1426c2af0e8cd6665e"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.engineer@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/US.engineer@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "b3b9351f15b5bc13eab29f557a81baf70f68b8f88d4af4c6ce8d4e8ad09abd48"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.engineer@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/US.engineer@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "843afb0ad2fe4ed87b6d8ff954ee7d63060a75b52765f7e0b5642e560307dd72"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.hauler@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/US.hauler@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "00c28f2be3dad40ed5efa9c9f155b480dabaeef3b91770e115691ec92f048fdd"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.hauler@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/US.hauler@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "340aaed900999f07090b49bf312c6616d2dfe9deebfc42ebd9e7b180b37bbdfc"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.medic@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/US.medic@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "aa93a07eee7eae83b469bc765e203653198d55b09ff2112b3d9780adf6b8e066"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.medic@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/US.medic@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "a4a38d88eb143677b7754037f7e63073ad84f18e15f21c6edd3daa2d5d144dd5"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.recon@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/US.recon@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "46483f1956d3181dd0b3488d97652168ed0f6684793389ad736f2bc8d19c7c54"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.recon@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/US.recon@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "3661c7bfa68de15b184e0ab1cf119617a58e15868570afba1da8e88333794370"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.rig@1x.beauty.png",
+      "source_2x": "assets/build/ui/portraits/US.rig@2x.beauty.png",
+      "source_exists": true,
+      "source_sha256": "9ffc98d4dab3fa625da93ed30810a41e08bee11b15c37d7251ce2ad5bc43b9d0"
+    },
+    {
+      "derived": "assets/build/ui/portraits/US.rig@1x.team.png",
+      "source_2x": "assets/build/ui/portraits/US.rig@2x.team.png",
+      "source_exists": true,
+      "source_sha256": "a0bd712b4725afb21713acfad5ee55dd80f26f1b00aaa9744bc6382a31bc2fd6"
+    }
+  ],
+  "other_paired_build_derivatives": [],
+  "totals": {
+    "sprite_assets": 31,
+    "sprite_poses": 6872,
+    "one_x_atlas_pages": 227,
+    "ui_png_derivatives": 76,
+    "other_png_derivatives": 0,
+    "unaffected_chrome_derivatives": 5
+  },
+  "unaffected_ui_derivatives": [
+    {
+      "derived": "assets/build/ui/chrome/brass_bezel@1x.png",
+      "source_2x": "assets/build/ui/chrome/brass_bezel@2x.png",
+      "source_exists": true,
+      "source_sha256": "3d1dd2c497a97a217881702fc124bee405892167b7b16a113039fd78c8084695"
+    },
+    {
+      "derived": "assets/build/ui/chrome/button@1x.png",
+      "source_2x": "assets/build/ui/chrome/button@2x.png",
+      "source_exists": true,
+      "source_sha256": "5e923589dac16d126e108f3cc2332b5feb8d84797a5f7000f86336896fa06c6d"
+    },
+    {
+      "derived": "assets/build/ui/chrome/cameo_frame@1x.png",
+      "source_2x": "assets/build/ui/chrome/cameo_frame@2x.png",
+      "source_exists": true,
+      "source_sha256": "736280ab91800bcbdcd2eda2342ee24fc7f72d2d70985b886e74dd70a416c137"
+    },
+    {
+      "derived": "assets/build/ui/chrome/console_plate@1x.png",
+      "source_2x": "assets/build/ui/chrome/console_plate@2x.png",
+      "source_exists": true,
+      "source_sha256": "8315834afd3e9361cdd9ab452ad4cb216e6683a6be4e5d75c1c8fdb3bd91e80d"
+    },
+    {
+      "derived": "assets/build/ui/chrome/well@1x.png",
+      "source_2x": "assets/build/ui/chrome/well@2x.png",
+      "source_exists": true,
+      "source_sha256": "168107121d20009f192b08149e25b100db90ad99e9f1628062c38df459f55b4a"
+    }
+  ],
+  "chrome_exclusion": "gen_chrome.py uses Pillow RGBA.resize directly without manual premultiplication; these five images were never affected by pack_sprites helper."
+}
