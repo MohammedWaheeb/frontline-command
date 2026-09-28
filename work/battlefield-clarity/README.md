@@ -10,8 +10,8 @@ After lane release, from the repository root:
 
 ```sh
 node client/tests/render/battlefield-clarity-product.browser.mjs \
-  --product "$PWD/work/art/effects-opus-v2/integration-v14/product" \
-  --saves "$PWD/work/art/effects-opus-v2/ambient-native-05" \
+  --product "$PWD/work/art/effects-opus-v2/integration-v16/product" \
+  --saves "$PWD/work/art/effects-opus-v2/ambient-native-07" \
   --out "$PWD/work/battlefield-clarity/chromium-01" \
   --engine chromium --headless false
 ```
