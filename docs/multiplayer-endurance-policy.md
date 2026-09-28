@@ -194,3 +194,9 @@ receipts, and regenerates the exact offline pack. The effect-index SHA is
 the final 4060-file base-pack SHA is
 `ef697e4543c312294c7c27381d5dc1be28ba6d529689242047a6a8a5496d2b22`.
 These preparations alone do not pass either browser game or complete the art.
+
+The first integrated attempt is now preserved in
+[multiplayer-expansion-acceptance.md](multiplayer-expansion-acceptance.md): the
+first36m36.7s victory passed exact native replay/restore checks; the second was
+explicitly aborted for queue-recovery and finite-search omissions in this test
+policy. The two-long-match gate is still open despite zero browser/HTTP errors.

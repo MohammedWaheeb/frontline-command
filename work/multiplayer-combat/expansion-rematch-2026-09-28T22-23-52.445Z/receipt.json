@@ -1,0 +1,683 @@
+{
+  "started": "2026-09-28T22:23:52.466Z",
+  "completed": "2026-09-28T23:25:49.518Z",
+  "status": "failed",
+  "strictStatus": "passed",
+  "combatStatus": "failed",
+  "browserAndHostClosed": "2026-09-28T23:25:34.875Z",
+  "hostExit": {
+    "code": 0,
+    "signal": null
+  },
+  "conditions": "Shared-host correctness; isolated four-thread Blender and light authoring may run. Scoped caffeinate -di. No quiet performance claim.",
+  "browser": "151.0.7922.34",
+  "headless": false,
+  "driverSHA256": "b1b8b1cc1dc54ec08a0211f42f63d67a2412abd70ea49d3d62f470a4d994571f",
+  "commanderSHA256": "31e2fba43279ce37b89f5d08f72019bd2d55c37451f9d84309ffa30bb05b68b5",
+  "actualBuild": {
+    "host": {
+      "bytes": 20805138,
+      "sha256": "1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379"
+    },
+    "wasm": {
+      "bytes": 11237971,
+      "sha256": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65"
+    },
+    "pack": {
+      "bytes": 776428,
+      "sha256": "ef697e4543c312294c7c27381d5dc1be28ba6d529689242047a6a8a5496d2b22"
+    },
+    "wasm_exec.js": {
+      "bytes": 16992,
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+    },
+    "worker.js": {
+      "bytes": 8144,
+      "sha256": "ea75602152555b60d8049765d7238c54e9650d7afea4c23b949c711093c1706f"
+    },
+    "version.json": {
+      "bytes": 169,
+      "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea"
+    },
+    "decoder": "bb8b1dd5badcd9f5533e1c250dd85ea8a7ed2e9baec62f4fc9e3c51b78dfd7a9"
+  },
+  "intentionalAbort": {
+    "kind": "failed-test-policy",
+    "reason": "Explicit failed-policy abort: US factory queue remains prerequisite_lost without emergency-rig cancellation; SA repeated public-field search has produced no new combat since tick18372. No forced outcome or gameplay intervention.",
+    "time": "2026-09-28T23:25:33.850Z",
+    "ticks": [
+      29080,
+      29080
+    ],
+    "unfinishedAuthoritativeExport": "This normal1v1 host exposes replay only after committed completion, and checkpoint saves only for co-op. No unfinished Go save/replay is claimed."
+  },
+  "boundaries": [
+    {
+      "label": "between-matches",
+      "time": "2026-09-28T23:01:02.929Z",
+      "players": [
+        {
+          "app": {
+            "appInstance": "89f10456-84d5-41f3-8fd0-4732ea460fa6",
+            "timeOrigin": 1790634234293.5,
+            "phase": "menu",
+            "transportPresent": false,
+            "observedSessions": [
+              "session-1"
+            ],
+            "presentationResets": 1,
+            "frameSubscribers": 0,
+            "art": {
+              "indexedPages": 0,
+              "residentPages": 0,
+              "residentBytes": 0,
+              "pickingBytes": 0
+            },
+            "audio": {
+              "context": "absent",
+              "sources": 0,
+              "continuous": 0,
+              "buffers": 0,
+              "decodedBytes": 0,
+              "pending": 0,
+              "generation": 10,
+              "gains": {
+                "master": 0,
+                "voice": 0,
+                "music": 0,
+                "effects": 0,
+                "ui": 0
+              }
+            }
+          },
+          "page": {
+            "pageInstance": "1790634234293.5-0.eyc9b6x37tw",
+            "timeOrigin": 1790634234293.5,
+            "hardwareConcurrency": 10,
+            "activeWorkers": 11,
+            "createdWorkers": 12,
+            "terminatedWorkers": 1,
+            "workers": [
+              {
+                "id": 1,
+                "url": "http://127.0.0.1:61700/runtime/worker.js",
+                "name": "Frontline Go simulation",
+                "active": true,
+                "role": "go-runtime",
+                "messages": 10,
+                "completed": 0,
+                "messageIDs": [],
+                "pendingJobs": 0
+              },
+              {
+                "id": 2,
+                "url": "blob:http://127.0.0.1:61700/9bfd8f28-3f2d-4d4c-9eb4-abd61b6f0bff",
+                "name": "",
+                "active": false,
+                "role": "pixi-image-probe",
+                "sourceBytes": 674,
+                "messages": 0,
+                "completed": 0,
+                "messageIDs": [],
+                "pendingJobs": 0
+              },
+              {
+                "id": 3,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 83,
+                "completed": 83,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 4,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 110,
+                "completed": 110,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 5,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 120,
+                "completed": 120,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 6,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 59,
+                "completed": 59,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 7,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 72,
+                "completed": 72,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 8,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 147,
+                "completed": 147,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 9,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 105,
+                "completed": 105,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 10,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 172,
+                "completed": 172,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 11,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 73,
+                "completed": 73,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 12,
+                "url": "blob:http://127.0.0.1:61700/86251675-b18d-48aa-b94e-85fa48c9c734",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 84,
+                "completed": 84,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              }
+            ],
+            "heapUsed": 69543348
+          },
+          "navigationCount": 1,
+          "openSockets": 0
+        },
+        {
+          "app": {
+            "appInstance": "3cd27960-1517-4328-a2a2-bdcb8629c9a0",
+            "timeOrigin": 1790634235252.1,
+            "phase": "menu",
+            "transportPresent": false,
+            "observedSessions": [
+              "session-1"
+            ],
+            "presentationResets": 0,
+            "frameSubscribers": 0,
+            "art": {
+              "indexedPages": 0,
+              "residentPages": 0,
+              "residentBytes": 0,
+              "pickingBytes": 0
+            },
+            "audio": {
+              "context": "absent",
+              "sources": 0,
+              "continuous": 0,
+              "buffers": 0,
+              "decodedBytes": 0,
+              "pending": 0,
+              "generation": 7,
+              "gains": {
+                "master": 0,
+                "voice": 0,
+                "music": 0,
+                "effects": 0,
+                "ui": 0
+              }
+            }
+          },
+          "page": {
+            "pageInstance": "1790634235252.1-0.bi7wlfh7bkg",
+            "timeOrigin": 1790634235252.1,
+            "hardwareConcurrency": 10,
+            "activeWorkers": 6,
+            "createdWorkers": 7,
+            "terminatedWorkers": 1,
+            "workers": [
+              {
+                "id": 1,
+                "url": "http://127.0.0.1:61700/runtime/worker.js",
+                "name": "Frontline Go simulation",
+                "active": true,
+                "role": "go-runtime",
+                "messages": 8,
+                "completed": 0,
+                "messageIDs": [],
+                "pendingJobs": 0
+              },
+              {
+                "id": 2,
+                "url": "blob:http://127.0.0.1:61700/8db21c18-cc87-40c2-a18d-c001dbe64a41",
+                "name": "",
+                "active": false,
+                "role": "pixi-image-probe",
+                "sourceBytes": 674,
+                "messages": 0,
+                "completed": 0,
+                "messageIDs": [],
+                "pendingJobs": 0
+              },
+              {
+                "id": 3,
+                "url": "blob:http://127.0.0.1:61700/2be9efed-6ec1-4bc2-817e-90ac4587dda3",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 33,
+                "completed": 33,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 4,
+                "url": "blob:http://127.0.0.1:61700/2be9efed-6ec1-4bc2-817e-90ac4587dda3",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 10,
+                "completed": 10,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 5,
+                "url": "blob:http://127.0.0.1:61700/2be9efed-6ec1-4bc2-817e-90ac4587dda3",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 31,
+                "completed": 31,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 6,
+                "url": "blob:http://127.0.0.1:61700/2be9efed-6ec1-4bc2-817e-90ac4587dda3",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 16,
+                "completed": 16,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              },
+              {
+                "id": 7,
+                "url": "blob:http://127.0.0.1:61700/2be9efed-6ec1-4bc2-817e-90ac4587dda3",
+                "name": "",
+                "active": true,
+                "role": "pixi-image-decoder",
+                "sourceBytes": 932,
+                "messages": 36,
+                "completed": 36,
+                "messageIDs": [
+                  "loadImageBitmap"
+                ],
+                "pendingJobs": 0
+              }
+            ],
+            "heapUsed": 73519512
+          },
+          "navigationCount": 1,
+          "openSockets": 0
+        }
+      ]
+    }
+  ],
+  "scope": "Failed two-long-match acceptance: first genuine long victory/replay verified; second explicitly aborted for test-policy stagnation, no fabricated result. Same-host contexts, incomplete roster art and isolated59FX.",
+  "errors": [],
+  "httpErrors": [],
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))",
+  "firstRound": {
+    "result": {
+      "$typeName": "frontline.v1.MatchResult",
+      "matchId": "eaa450901ae696b684ab37e8",
+      "committed": true,
+      "void": false,
+      "outcome": {
+        "$typeName": "frontline.v1.Outcome",
+        "finished": true,
+        "draw": false,
+        "winningTeam": 1,
+        "reason": "elimination",
+        "tick": 44034
+      }
+    },
+    "duration": {
+      "initialTick": 0,
+      "countdownTicks": 100,
+      "finalTick": 44034,
+      "activeTicks": 43934,
+      "activeSeconds": 2196.7,
+      "minimumActiveTicks": 24000,
+      "qualifies": true
+    },
+    "replay": {
+      "id": "match-63cfe522-b77f-4cae-afbd-2d5feca393f3",
+      "sha256": "021fae398157c92851213594e32fb85b070dfbbce512985114f53c32fe21fbcd",
+      "bytes": 3032806,
+      "startTick": 0,
+      "endTick": 44034
+    },
+    "reconnect": {
+      "player": 1,
+      "before": {
+        "tick": 3616,
+        "sequence": 25,
+        "sockets": 1
+      },
+      "after": {
+        "tick": 3620,
+        "sequence": 25,
+        "sockets": 2
+      }
+    },
+    "adviceRetries": [
+      {
+        "player": 1,
+        "count": 0
+      },
+      {
+        "player": 2,
+        "count": 0
+      }
+    ],
+    "native": {
+      "seed_uint64": "14202220773566754874",
+      "final_hash": "f363fc970f596d159df9f8836f47420bf72810f1f7b575d2b927855b1aa29df1",
+      "midpoint_hash": "63a2135916b335412295efaf0ca19a0c4d42d4fb6fb64ab36a71df420f3808f3",
+      "midpoint_tick": 22017,
+      "events": {
+        "capture_interrupted": 17,
+        "cargo_delivered": 244,
+        "construction_complete": 31,
+        "defeat_countdown": 1,
+        "destroyed": 170,
+        "foundation_placed": 31,
+        "impact": 4101,
+        "match_ended": 1,
+        "player_defeated": 1,
+        "research_complete": 2,
+        "route_blocked": 305,
+        "station_captured": 2,
+        "under_attack": 4077,
+        "unit_ready": 178,
+        "weapon_fired": 4103
+      },
+      "full_checkpoint_and_resumed_hashes_equal": true
+    }
+  },
+  "secondRound": {
+    "lastProgress": [
+      {
+        "player": 1,
+        "tick": 28512,
+        "economy": {
+          "$typeName": "frontline.v1.Economy",
+          "credits": "13913450",
+          "energy": "100000",
+          "supply": 0,
+          "reservedSupply": 4,
+          "powerCapacity": 0,
+          "powerDemand": 25,
+          "tier": 1,
+          "income": "36458100",
+          "repairReserve": "300000",
+          "upgrades": [],
+          "cooldowns": [],
+          "lastSequence": 331
+        },
+        "owned": {
+          "factory": 1
+        },
+        "players": [
+          {
+            "id": 1,
+            "defeated": false
+          },
+          {
+            "id": 2,
+            "defeated": false
+          }
+        ],
+        "events": {
+          "foundation_placed": 12,
+          "construction_complete": 10,
+          "unit_ready": 31,
+          "cargo_delivered": 59,
+          "capture_interrupted": 4,
+          "weapon_fired": 1405,
+          "impact": 1459,
+          "under_attack": 1031,
+          "destroyed": 54,
+          "route_blocked": 4,
+          "station_captured": 1
+        }
+      },
+      {
+        "player": 2,
+        "tick": 28512,
+        "economy": {
+          "$typeName": "frontline.v1.Economy",
+          "credits": "3315250",
+          "energy": "100000",
+          "supply": 96,
+          "reservedSupply": 0,
+          "powerCapacity": 240,
+          "powerDemand": 180,
+          "tier": 3,
+          "income": "54041800",
+          "repairReserve": "300000",
+          "upgrades": [
+            "weapons_training"
+          ],
+          "cooldowns": [],
+          "lastSequence": 1713
+        },
+        "owned": {
+          "hq": 1,
+          "power": 2,
+          "supply": 2,
+          "SA.hauler": 4,
+          "barracks": 1,
+          "factory": 2,
+          "SA.recon": 2,
+          "SA.rifle": 7,
+          "radar": 1,
+          "SA.engineer": 1,
+          "turret": 1,
+          "SA.tank": 13,
+          "SA.artillery": 6,
+          "depot": 1,
+          "outpost": 1,
+          "SA.medic": 1,
+          "SA.rig": 1,
+          "SA.repair": 1,
+          "SA.at": 3,
+          "tech": 1
+        },
+        "players": [
+          {
+            "id": 1,
+            "defeated": false
+          },
+          {
+            "id": 2,
+            "defeated": false
+          }
+        ],
+        "events": {
+          "foundation_placed": 13,
+          "construction_complete": 12,
+          "unit_ready": 49,
+          "cargo_delivered": 87,
+          "route_blocked": 47,
+          "weapon_fired": 1467,
+          "impact": 1466,
+          "destroyed": 54,
+          "under_attack": 409,
+          "capture_interrupted": 11,
+          "station_captured": 2,
+          "research_complete": 1
+        }
+      }
+    ],
+    "reconnect": {
+      "player": 2,
+      "before": {
+        "tick": 3624,
+        "sequence": 25,
+        "sockets": 2
+      },
+      "after": {
+        "tick": 3628,
+        "sequence": 25,
+        "sockets": 3
+      }
+    },
+    "completedOutcome": false,
+    "secondMenuBoundary": false,
+    "unfinishedSaveReplayExport": false
+  },
+  "files": {
+    "browser.json": {
+      "bytes": 4158548,
+      "sha256": "0aeb7f49098fe6e8c5cbb07d61c45ecf60ef1e33a68935b1797560317e8decde"
+    },
+    "round-1.replay.gz": {
+      "bytes": 3032806,
+      "sha256": "021fae398157c92851213594e32fb85b070dfbbce512985114f53c32fe21fbcd"
+    },
+    "round-1-native-audit/audit.json": {
+      "bytes": 50960,
+      "sha256": "955f0111cbc63f4a745a4a2c418f5557939451825ca5486c7bcfcb4214980084"
+    },
+    "round-1-commands.jsonl": {
+      "bytes": 1583817,
+      "sha256": "9773c90f47a51d202572fd44c7a840473984393c20ef3b5364e5a73f07c2e184"
+    },
+    "round-2-commands.jsonl": {
+      "bytes": 934175,
+      "sha256": "816f87fe8afcf13913c02c3f6da83b2b6b1c83493623df216c0dcd0ffd1a950e"
+    },
+    "policy-abort-views.json": {
+      "bytes": 949935,
+      "sha256": "860b8b546e45aae864c936b3dd02ad52d5af57a8df335ce4bf47246d438dae0f"
+    },
+    "policy-abort-commanders.json": {
+      "bytes": 19707,
+      "sha256": "10e666afb354398b70e5827ead9898e4a3652bc4e9bb2c343d2d0e2b65d784ae"
+    },
+    "failure-player-1.png": {
+      "bytes": 807881,
+      "sha256": "df52506e1b9cbdf99648b23927a64dbabc7249f2d0f188ef47822a44bfd2c5e7"
+    },
+    "failure-player-2.png": {
+      "bytes": 514755,
+      "sha256": "0949b1bea26de6eea86d5fd005500fc1e6ee54f93f7ca6c2de2a4fcec8fbc449"
+    },
+    "round-1-player-1-result.png": {
+      "bytes": 446951,
+      "sha256": "634e4fa6dce3a5f6b37666726cd195a4e64bd46923cf3db31cba6351c83b459d"
+    },
+    "round-1-tick-43756.png": {
+      "bytes": 690969,
+      "sha256": "29bf80c4169f1c178b2c67816cced1838d3dc00de36f6e9c8d6bc511805ca019"
+    },
+    "driver.mjs": {
+      "bytes": 31386,
+      "sha256": "b1b8b1cc1dc54ec08a0211f42f63d67a2412abd70ea49d3d62f470a4d994571f"
+    },
+    "expansion-commander.mjs": {
+      "bytes": 19775,
+      "sha256": "31e2fba43279ce37b89f5d08f72019bd2d55c37451f9d84309ffa30bb05b68b5"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+const targets=await(await fetch('http://127.0.0.1:9229/json/list')).json();
+assert.equal(targets.length,1);assert(targets[0].url.endsWith('/client/tests/render/multiplayer-expansion-rematch.browser.mjs'));
+const ws=new WebSocket(targets[0].webSocketDebuggerUrl);await new Promise((r,j)=>{ws.onopen=r;ws.onerror=j});
+let next=0;const pending=new Map(),scripts=[];let onPause;
+ws.onmessage=ev=>{const m=JSON.parse(ev.data);if(m.id){const p=pending.get(m.id);if(p){pending.delete(m.id);m.error?p.reject(Error(JSON.stringify(m.error))):p.resolve(m.result)}}else if(m.method==='Debugger.scriptParsed')scripts.push(m.params);else if(m.method==='Debugger.paused')onPause?.(m.params)};
+const send=(method,params={})=>new Promise((resolve,reject)=>{const id=++next;pending.set(id,{resolve,reject});ws.send(JSON.stringify({id,method,params}))});
+await send('Debugger.enable');const script=scripts.find(s=>s.url.endsWith('/client/tests/render/multiplayer-expansion-rematch.browser.mjs'));assert(script);
+const paused=new Promise((r,j)=>{onPause=r;setTimeout(()=>j(Error('Owned driver did not reach capture boundary')),30000).unref()});
+await send('Debugger.setBreakpoint',{location:{scriptId:script.scriptId,lineNumber:163}});
+const stop=await paused;const frame=stop.callFrames.find(f=>f.functionName==='ordinaryCombat');assert(frame,'Not at owned ordinaryCombat boundary');
+const expression=`(()=>{const reason='Explicit failed-policy abort: US factory queue remains prerequisite_lost without emergency-rig cancellation; SA repeated public-field search has produced no new combat since tick18372. No forced outcome or gameplay intervention.';report.intentionalAbort={kind:'failed-test-policy',reason,time:new Date().toISOString(),ticks:frames.map(f=>f.snapshot?.tick),unfinishedAuthoritativeExport:'This normal1v1 host exposes replay only after committed completion, and checkpoint saves only for co-op. No unfinished Go save/replay is claimed.'};const captureTasks=Promise.all([writeFile(path.join(runDir,'policy-abort-views.json'),json(frames.map(f=>f.snapshot))),writeFile(path.join(runDir,'policy-abort-commanders.json'),json(commanders.map(c=>({player:c.player,routes:[...c.routes],searches:[...c.searches],last:[...c.last],recovering:[...c.recovering],failed:[...c.failed]}))))]);Commander.prototype.step=async function(){await captureTasks;throw new Error(reason)};return {ticks:report.intentionalAbort.ticks,kind:report.intentionalAbort.kind};})()`;
+const result=await send('Debugger.evaluateOnCallFrame',{callFrameId:frame.callFrameId,expression,returnByValue:true});assert(!result.exceptionDetails,JSON.stringify(result.exceptionDetails));console.log(JSON.stringify(result.result.value));
+await send('Debugger.resume');await send('Debugger.disable');ws.close();
