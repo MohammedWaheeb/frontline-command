@@ -60,3 +60,27 @@ still requires an actual boarding/unloading product journey. The first lesson no
 updated markers across all campaigns/co-op still need visual playthroughs. Initial marked mission actors also need a
 safe owned-only identity cue to distinguish them from later same-type production.
 All original art and broader visual polish are still in production.
+
+## Original transport groups in the real tutorial
+
+After the private Go `mission_origin` field and presentation labels were added,
+`client/tests/render/tutorial-transport-product.mjs` passed against the isolated
+actual native/WASM product built at 02:18 UTC on 28 September. It used Chromium
+151.0.7922.34 at 1600×900 and an original T3 start, with only real buttons,
+keys and mouse orders. Worker observation is read-only.
+
+The run selected the original Boarding team, boarded both squads, verified its
+button was disabled with two aboard, selected the cover team, earned the Go
+cover/detection objectives, cleared the forward area, moved the original APC,
+unloaded both original squads, earned transport at tick1428, reselected the
+survivors and saved through F5. Board/unload input memories were recorded.
+No page or console errors occurred. This is a bounded transport journey, not
+claimed as the full T3 browser victory. Native full T3 victories are separate.
+Evidence: `work/evidence/tutorial-transport-product/result.json` and its native
+screenshots. Root visually inspected the delivered group and objective console.
+
+The first attempt incorrectly required the APC to stop within1.5tiles of an
+occupied formation center. Go legitimately chose a nearby safe tile inside the
+marked region. The corrected test admits safe arrival within4.5tiles; it still
+requires the genuine Go delivery predicate for both original infantry. The
+original failed attempt remains in `attempt-01`. No gameplay rule was relaxed.
