@@ -1,0 +1,2172 @@
+{
+  "engine": "chromium",
+  "expectedLoadErrors": [
+    {
+      "kind": "controlled-atlas-503",
+      "url": "http://127.0.0.1:55854/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png",
+      "status": 503
+    }
+  ],
+  "warnings": [
+    "Sprite page failed to load unit.US.airlift /art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png Error: [Loader.load] Failed to load http://127.0.0.1:55854/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png.\nError: [WorkerManager.loadImageBitmap] Failed to fetch http://127.0.0.1:55854/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png: 503 Service Unavailable\n    at loadImageBitmap (blob:http://127.0.0.1:55854/d4659814-b5ff-4e60-9dfe-7dbda8e06518:7:15)\n    at async self.onmessage (blob:http://127.0.0.1:55854/d4659814-b5ff-4e60-9dfe-7dbda8e06518:14:29)"
+  ],
+  "time": "2026-09-28T15:16:31.053Z",
+  "scope": "Actual Go0.3.4 six-aircraft save and native-scale authored parked poses; normal canvas clicks. Separate synthetic cliff presentation negative control, no changed Go map or movement claim. Sparse art overlay, not full asset release acceptance.",
+  "browserPlugin": "not available; existing Playwright workflow",
+  "cases": [
+    {
+      "id": 7,
+      "type": "US.airlift",
+      "quality": "standard",
+      "zoom": 1,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 2,
+        "frame": 0
+      },
+      "body": {
+        "x": 800.5,
+        "y": 379.5
+      },
+      "bodyPixel": {
+        "x": 112,
+        "y": 65,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png",
+        "key": "parked/d02_f00"
+      },
+      "bounds": {
+        "left": 764,
+        "top": 363,
+        "right": 830,
+        "bottom": 443
+      },
+      "union": {
+        "left": 764.5,
+        "right": 829.5,
+        "top": 363.5,
+        "bottom": 442.5
+      },
+      "padding": {
+        "x": 690.5,
+        "y": 316.5
+      },
+      "nearBody": {
+        "x": 820.5,
+        "y": 367.5
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 25,
+        "residentBytes": 5920576,
+        "pickingBytes": 117853
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": [],
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      }
+    },
+    {
+      "id": 11,
+      "type": "US.strike",
+      "quality": "standard",
+      "zoom": 1,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 13,
+        "frame": 0
+      },
+      "body": {
+        "x": 842.5,
+        "y": 410.5
+      },
+      "bodyPixel": {
+        "x": 154,
+        "y": 96,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.strike/unit.US.strike@1x.beauty.0.png",
+        "key": "parked/d13_f00"
+      },
+      "bounds": {
+        "left": 751,
+        "top": 390,
+        "right": 852,
+        "bottom": 449
+      },
+      "union": {
+        "left": 751.5,
+        "right": 851.5,
+        "top": 390.5,
+        "bottom": 448.5
+      },
+      "padding": {
+        "x": 690.5,
+        "y": 316.5
+      },
+      "buildingFront": {
+        "x": 834.9000000000001,
+        "y": 391.29999999999995
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 25,
+        "residentBytes": 5920576,
+        "pickingBytes": 117853
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": [],
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      }
+    },
+    {
+      "id": 7,
+      "type": "US.airlift",
+      "quality": "high",
+      "zoom": 1,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 2,
+        "frame": 0
+      },
+      "body": {
+        "x": 800.25,
+        "y": 379.25
+      },
+      "bodyPixel": {
+        "x": 224,
+        "y": 130,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.0.png",
+        "key": "parked/d02_f00"
+      },
+      "bounds": {
+        "left": 766,
+        "top": 365.5,
+        "right": 828,
+        "bottom": 440.5
+      },
+      "union": {
+        "left": 766.25,
+        "right": 827.75,
+        "top": 365.75,
+        "bottom": 440.25
+      },
+      "padding": {
+        "x": 689.25,
+        "y": 315.25
+      },
+      "nearBody": {
+        "x": 822.75,
+        "y": 366.25
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 25,
+        "residentBytes": 23682304,
+        "pickingBytes": 471412
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": [],
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      }
+    },
+    {
+      "id": 11,
+      "type": "US.strike",
+      "quality": "high",
+      "zoom": 1,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 13,
+        "frame": 0
+      },
+      "body": {
+        "x": 842.25,
+        "y": 410.25
+      },
+      "bodyPixel": {
+        "x": 308,
+        "y": 192,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.strike/unit.US.strike@2x.beauty.0.png",
+        "key": "parked/d13_f00"
+      },
+      "bounds": {
+        "left": 753,
+        "top": 392.5,
+        "right": 850,
+        "bottom": 447
+      },
+      "union": {
+        "left": 753.25,
+        "right": 849.75,
+        "top": 392.75,
+        "bottom": 446.75
+      },
+      "padding": {
+        "x": 689.25,
+        "y": 315.25
+      },
+      "buildingFront": {
+        "x": 837.6500000000001,
+        "y": 393.04999999999995
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 25,
+        "residentBytes": 23682304,
+        "pickingBytes": 471412
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": [],
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      }
+    },
+    {
+      "id": 7,
+      "type": "US.airlift",
+      "quality": "standard",
+      "zoom": 1,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 2,
+        "frame": 0
+      },
+      "body": {
+        "x": 640.5,
+        "y": 289.5
+      },
+      "bodyPixel": {
+        "x": 112,
+        "y": 65,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png",
+        "key": "parked/d02_f00"
+      },
+      "bounds": {
+        "left": 604,
+        "top": 273,
+        "right": 670,
+        "bottom": 353
+      },
+      "union": {
+        "left": 604.5,
+        "right": 669.5,
+        "top": 273.5,
+        "bottom": 352.5
+      },
+      "padding": {
+        "x": 530.5,
+        "y": 226.5
+      },
+      "nearBody": {
+        "x": 660.5,
+        "y": 277.5
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 25,
+        "residentBytes": 5920576,
+        "pickingBytes": 117853
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": [],
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": 11,
+      "type": "US.strike",
+      "quality": "standard",
+      "zoom": 1,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 13,
+        "frame": 0
+      },
+      "body": {
+        "x": 682.5,
+        "y": 320.5
+      },
+      "bodyPixel": {
+        "x": 154,
+        "y": 96,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.strike/unit.US.strike@1x.beauty.0.png",
+        "key": "parked/d13_f00"
+      },
+      "bounds": {
+        "left": 591,
+        "top": 300,
+        "right": 692,
+        "bottom": 359
+      },
+      "union": {
+        "left": 591.5,
+        "right": 691.5,
+        "top": 300.5,
+        "bottom": 358.5
+      },
+      "padding": {
+        "x": 530.5,
+        "y": 226.5
+      },
+      "buildingFront": {
+        "x": 674.9000000000001,
+        "y": 301.29999999999995
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 23,
+        "residentBytes": 5550336,
+        "pickingBytes": 112068
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": [],
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": 7,
+      "type": "US.airlift",
+      "quality": "high",
+      "zoom": 1,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 2,
+        "frame": 0
+      },
+      "body": {
+        "x": 640.25,
+        "y": 289.25
+      },
+      "bodyPixel": {
+        "x": 224,
+        "y": 130,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.0.png",
+        "key": "parked/d02_f00"
+      },
+      "bounds": {
+        "left": 606,
+        "top": 275.5,
+        "right": 668,
+        "bottom": 350.5
+      },
+      "union": {
+        "left": 606.25,
+        "right": 667.75,
+        "top": 275.75,
+        "bottom": 350.25
+      },
+      "padding": {
+        "x": 529.25,
+        "y": 225.25
+      },
+      "nearBody": {
+        "x": 662.75,
+        "y": 276.25
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 25,
+        "residentBytes": 23682304,
+        "pickingBytes": 471412
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": [],
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": 11,
+      "type": "US.strike",
+      "quality": "high",
+      "zoom": 1,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 13,
+        "frame": 0
+      },
+      "body": {
+        "x": 682.25,
+        "y": 320.25
+      },
+      "bodyPixel": {
+        "x": 308,
+        "y": 192,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.strike/unit.US.strike@2x.beauty.0.png",
+        "key": "parked/d13_f00"
+      },
+      "bounds": {
+        "left": 593,
+        "top": 302.5,
+        "right": 690,
+        "bottom": 357
+      },
+      "union": {
+        "left": 593.25,
+        "right": 689.75,
+        "top": 302.75,
+        "bottom": 356.75
+      },
+      "padding": {
+        "x": 529.25,
+        "y": 225.25
+      },
+      "buildingFront": {
+        "x": 677.6500000000001,
+        "y": 303.04999999999995
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 23,
+        "residentBytes": 22201344,
+        "pickingBytes": 448272
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": [],
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": 7,
+      "type": "US.airlift",
+      "quality": "standard",
+      "zoom": 0.6,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 2,
+        "frame": 0
+      },
+      "body": {
+        "x": 640.3,
+        "y": 309.7
+      },
+      "bodyPixel": {
+        "x": 112,
+        "y": 65,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png",
+        "key": "parked/d02_f00"
+      },
+      "bounds": {
+        "left": 618.4,
+        "top": 299.79999999999995,
+        "right": 658,
+        "bottom": 347.79999999999995
+      },
+      "union": {
+        "left": 618.7,
+        "right": 657.7,
+        "top": 300.1,
+        "bottom": 347.5
+      },
+      "padding": {
+        "x": 574.3,
+        "y": 271.9
+      },
+      "nearBody": {
+        "x": 652.3,
+        "y": 302.5
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 31,
+        "residentBytes": 26386720,
+        "pickingBytes": 544231
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": []
+    },
+    {
+      "id": 7,
+      "type": "US.airlift",
+      "quality": "standard",
+      "zoom": 1.8,
+      "syntheticCliff": false,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 2,
+        "frame": 0
+      },
+      "body": {
+        "x": 640.9000000000001,
+        "y": 249.1
+      },
+      "bodyPixel": {
+        "x": 112,
+        "y": 65,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png",
+        "key": "parked/d02_f00"
+      },
+      "bounds": {
+        "left": 575.2,
+        "top": 219.4000000000001,
+        "right": 694.0000000000001,
+        "bottom": 363.4000000000001
+      },
+      "union": {
+        "left": 576.1000000000001,
+        "right": 693.1000000000001,
+        "top": 220.3,
+        "bottom": 362.5
+      },
+      "padding": {
+        "x": 442.9000000000001,
+        "y": 135.7
+      },
+      "nearBody": {
+        "x": 676.9000000000001,
+        "y": 227.5
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 23,
+        "residentBytes": 5550336,
+        "pickingBytes": 112068
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": []
+    },
+    {
+      "id": 7,
+      "type": "US.airlift",
+      "quality": "standard",
+      "zoom": 1,
+      "syntheticCliff": true,
+      "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+      "pose": {
+        "state": "parked",
+        "direction": 2,
+        "frame": 0
+      },
+      "body": {
+        "x": 640.5,
+        "y": 289.5
+      },
+      "bodyPixel": {
+        "x": 112,
+        "y": 65,
+        "alpha": 255,
+        "url": "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png",
+        "key": "parked/d02_f00"
+      },
+      "bounds": {
+        "left": 604,
+        "top": 273,
+        "right": 670,
+        "bottom": 353
+      },
+      "union": {
+        "left": 604.5,
+        "right": 669.5,
+        "top": 273.5,
+        "bottom": 352.5
+      },
+      "padding": {
+        "x": 530.5,
+        "y": 226.5
+      },
+      "occluded": {
+        "x": 623.5,
+        "y": 324.5
+      },
+      "nearBody": {
+        "x": 660.5,
+        "y": 277.5
+      },
+      "statistics": {
+        "indexedPages": 72,
+        "residentPages": 25,
+        "residentBytes": 5920576,
+        "pickingBytes": 117853
+      },
+      "bodyOutsideCurrentBounds": false,
+      "tolerance": 6,
+      "errors": []
+    }
+  ],
+  "checks": [
+    {
+      "label": "7-standard-1600-opaque-body",
+      "id": 7,
+      "point": {
+        "x": 800.5,
+        "y": 379.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "7-standard-1600-transparent-within-tolerance",
+      "id": 7,
+      "point": {
+        "x": 820.5,
+        "y": 367.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "7-standard-1600-empty-atlas-padding",
+      "id": 7,
+      "point": {
+        "x": 690.5,
+        "y": 316.5
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 31442,
+          "y": 33964
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "11-standard-1600-opaque-body",
+      "id": 11,
+      "point": {
+        "x": 842.5,
+        "y": 410.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 11
+      },
+      "passed": true
+    },
+    {
+      "label": "11-standard-1600-opaque-building-front",
+      "id": 6,
+      "point": {
+        "x": 834.9000000000001,
+        "y": 391.29999999999995
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 6
+      },
+      "passed": true
+    },
+    {
+      "label": "11-standard-1600-empty-atlas-padding",
+      "id": 11,
+      "point": {
+        "x": 690.5,
+        "y": 316.5
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 34742,
+          "y": 42364
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "7-high-1600-opaque-body",
+      "id": 7,
+      "point": {
+        "x": 800.25,
+        "y": 379.25
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "7-high-1600-transparent-within-tolerance",
+      "id": 7,
+      "point": {
+        "x": 822.75,
+        "y": 366.25
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "7-high-1600-empty-atlas-padding",
+      "id": 7,
+      "point": {
+        "x": 689.25,
+        "y": 315.25
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 31384,
+          "y": 33945
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "11-high-1600-opaque-body",
+      "id": 11,
+      "point": {
+        "x": 842.25,
+        "y": 410.25
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 11
+      },
+      "passed": true
+    },
+    {
+      "label": "11-high-1600-opaque-building-front",
+      "id": 6,
+      "point": {
+        "x": 837.6500000000001,
+        "y": 393.04999999999995
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 6
+      },
+      "passed": true
+    },
+    {
+      "label": "11-high-1600-empty-atlas-padding",
+      "id": 11,
+      "point": {
+        "x": 689.25,
+        "y": 315.25
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 34684,
+          "y": 42345
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "7-standard-1280-opaque-body",
+      "id": 7,
+      "point": {
+        "x": 640.5,
+        "y": 289.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "7-standard-1280-transparent-within-tolerance",
+      "id": 7,
+      "point": {
+        "x": 660.5,
+        "y": 277.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "7-standard-1280-empty-atlas-padding",
+      "id": 7,
+      "point": {
+        "x": 530.5,
+        "y": 226.5
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 31442,
+          "y": 33964
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "11-standard-1280-opaque-body",
+      "id": 11,
+      "point": {
+        "x": 682.5,
+        "y": 320.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 11
+      },
+      "passed": true
+    },
+    {
+      "label": "11-standard-1280-opaque-building-front",
+      "id": 6,
+      "point": {
+        "x": 674.9000000000001,
+        "y": 301.29999999999995
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 6
+      },
+      "passed": true
+    },
+    {
+      "label": "11-standard-1280-empty-atlas-padding",
+      "id": 11,
+      "point": {
+        "x": 530.5,
+        "y": 226.5
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 34742,
+          "y": 42364
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "7-high-1280-opaque-body",
+      "id": 7,
+      "point": {
+        "x": 640.25,
+        "y": 289.25
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "7-high-1280-transparent-within-tolerance",
+      "id": 7,
+      "point": {
+        "x": 662.75,
+        "y": 276.25
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "7-high-1280-empty-atlas-padding",
+      "id": 7,
+      "point": {
+        "x": 529.25,
+        "y": 225.25
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 31384,
+          "y": 33945
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "11-high-1280-opaque-body",
+      "id": 11,
+      "point": {
+        "x": 682.25,
+        "y": 320.25
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 11
+      },
+      "passed": true
+    },
+    {
+      "label": "11-high-1280-opaque-building-front",
+      "id": 6,
+      "point": {
+        "x": 677.6500000000001,
+        "y": 303.04999999999995
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 6
+      },
+      "passed": true
+    },
+    {
+      "label": "11-high-1280-empty-atlas-padding",
+      "id": 11,
+      "point": {
+        "x": 529.25,
+        "y": 225.25
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 34684,
+          "y": 42345
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "zoom-0.6-body",
+      "id": 7,
+      "point": {
+        "x": 640.3,
+        "y": 309.7
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "zoom-0.6-tolerance",
+      "id": 7,
+      "point": {
+        "x": 652.3,
+        "y": 302.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "zoom-1.8-body",
+      "id": 7,
+      "point": {
+        "x": 640.9000000000001,
+        "y": 249.1
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "zoom-1.8-tolerance",
+      "id": 7,
+      "point": {
+        "x": 676.9000000000001,
+        "y": 227.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "synthetic-foreground-cliff",
+      "id": 7,
+      "point": {
+        "x": 623.5,
+        "y": 324.5
+      },
+      "expected": false,
+      "actual": {
+        "kind": "ground",
+        "position": {
+          "x": 37208,
+          "y": 36823
+        }
+      },
+      "passed": true
+    },
+    {
+      "label": "after-atlas-reload",
+      "id": 7,
+      "point": {
+        "x": 640.5,
+        "y": 289.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "after-context-restore",
+      "id": 7,
+      "point": {
+        "x": 640.5,
+        "y": 289.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "fresh-scene-after-failed-reload",
+      "id": 7,
+      "point": {
+        "x": 640.5,
+        "y": 289.5
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    },
+    {
+      "label": "explicit-development-fallback",
+      "id": 7,
+      "point": {
+        "x": 640,
+        "y": 332
+      },
+      "expected": true,
+      "actual": {
+        "kind": "entity",
+        "id": 7
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "resources": [],
+  "served": {
+    "/runtime/worker.js": {
+      "sha256": "6b188237551e361162b2b3755c4596d38cb43421d88dfcd0e714d31bf9564a69",
+      "bytes": 8134
+    },
+    "/runtime/wasm_exec.js": {
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+      "bytes": 16992
+    },
+    "/runtime/frontline.wasm": {
+      "sha256": "f6102c94f95723b5fa770cdc0f6b74f35efef8338d9304e072fc93a18b72528d",
+      "bytes": 11466796
+    },
+    "/parking-fixtures/US-six.json": {
+      "sha256": "34c2e5e20a65ac2580a5c6fd1030b2c28f1521e2e096832dcb9e65d9ec8fa766",
+      "bytes": 121143
+    },
+    "/parking-fixtures/US-six.save.json": {
+      "sha256": "0f9accb01012cc4be22a0cefa4cd6553b492d69db673c7033fb493e9d4eb98be",
+      "bytes": 191004
+    },
+    "/art/index.json": {
+      "sha256": "2e94dbb135657a136c8559ea1b01f6b87f15a0b3e76aa6750c518093d360df61",
+      "bytes": 9086
+    },
+    "/art/terrain/sand.png": {
+      "sha256": "856268fbc9d9c97ab4d2b4cf580067d011be9f0d200d40bd7362e6afa8b6e869",
+      "bytes": 89330
+    },
+    "/art/terrain/packed_earth.png": {
+      "sha256": "2ff581e5f1450e7790fcb1dea23678d644e1095ee306620bdc535e8e5bbc820b",
+      "bytes": 71849
+    },
+    "/art/terrain/rubble_ground.png": {
+      "sha256": "e4afffe07c913f49ee0507430d261989e0f4621f0e7fcffe30407d491d030de6",
+      "bytes": 127468
+    },
+    "/art/terrain/scrub_ground.png": {
+      "sha256": "0866785b8aaa68d9734212cd942ff0b19b4991f31552ff33443d8348d90ed77f",
+      "bytes": 126502
+    },
+    "/art/terrain/gravel_wash.png": {
+      "sha256": "21bdefb15f5df380586b77610db52c8f65c1afd11185b48f99c6451814f91301",
+      "bytes": 96432
+    },
+    "/art/terrain/gravel.png": {
+      "sha256": "bbfc2c05a74ab33aef00cfc68b11061890aec5481871c444a0787b9342d36367",
+      "bytes": 157176
+    },
+    "/art/terrain/shallow_water.png": {
+      "sha256": "1ce2c87197d586b87ea259075d9ae1820d3b31b195aab9d5ba934187a85dc2f3",
+      "bytes": 83051
+    },
+    "/art/terrain/asphalt.png": {
+      "sha256": "57e0160af34ad5e66efb66b428802c663cc4067ed2968beaf2dc5962e63a7c67",
+      "bytes": 173173
+    },
+    "/art/terrain/ramp.png": {
+      "sha256": "c321a94941e4e78e4d981a9b6ed90821934d69535f2988998b953eb64ce08599",
+      "bytes": 51941
+    },
+    "/art/terrain/coast_sand.png": {
+      "sha256": "b454e53592a40f065e10b1c5d0ce34dec689c59f52f7a7d7dda510ffd2baedbd",
+      "bytes": 73108
+    },
+    "/art/terrain/deep_water.png": {
+      "sha256": "b3df9310ed9715a08a30c58a514e8f260beee01e892cbea64afd9ce208e578b7",
+      "bytes": 96849
+    },
+    "/art/terrain/ground_macro.png": {
+      "sha256": "08b6134a7503017acb41da90c9ef71eec8ebdbc3571dd5f79b5615ba02376192",
+      "bytes": 69055
+    },
+    "/art/terrain/road_asphalt_decal.png": {
+      "sha256": "2a35c79d45fb1d41e7be1bcbdbd956e2bb145b575a239deb88d10ead312a0927",
+      "bytes": 33684
+    },
+    "/art/terrain/cliff_face_tier2.png": {
+      "sha256": "38ac2da75ca0f9c95f2629166b0f0e0b58ee86b1d2b307d85ce850a249219fe8",
+      "bytes": 97540
+    },
+    "/art/terrain/cliff_face_tier1.png": {
+      "sha256": "22729b3817a0d475e3a9605479afaed9a7b9fab6d92b92159b163106994a2d04",
+      "bytes": 61018
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield.sprite.json": {
+      "sha256": "cafc683c38afa4bffe0c13fb4ec58891756cd3f136f65fa39a2b0d7b4f24fe15",
+      "bytes": 1038
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig.sprite.json": {
+      "sha256": "cf811d71a893a98c529be97d370005f90b54e1bbbaf8f9577b997aaceea29c0b",
+      "bytes": 37446
+    },
+    "/art/sprites/building.US.hq/building.US.hq.sprite.json": {
+      "sha256": "39629e94d9b76094c83cd1ac1126035d1e0583cfe1f9dc5ce4d7ee5b584b0aec",
+      "bytes": 8702
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift.sprite.json": {
+      "sha256": "8f84421a62b04bca4f2a663ae2708dc7657ca36d5d428be215b75618d2ddd1e3",
+      "bytes": 2976
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike.sprite.json": {
+      "sha256": "e4777a9d15d5551b9713f47adf3bfa64a228d8d8b77f1e57dbf99d7ce4936683",
+      "bytes": 1081
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship.sprite.json": {
+      "sha256": "db4bbbf72a8185b4ac876729fb620a8d961ef771d9622d6b81b9d5eaec486b55",
+      "bytes": 1324
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter.sprite.json": {
+      "sha256": "1008128391f5fe3c5f902b5c1ee79f556598116b48ab96582b70755e57f46211",
+      "bytes": 1088
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site.sprite.json": {
+      "sha256": "c1847b2456c691a6b538f17e95cf900fd17bb9c2b52b292889a49bfe970e0a4b",
+      "bytes": 1311
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral.sprite.json": {
+      "sha256": "512e408ed4ebee8b8c7b980572e5de99691ce3f5bddc549c5524d660c6548a93",
+      "bytes": 1522
+    },
+    "/art/sprites/prop.supply_field/prop.supply_field.sprite.json": {
+      "sha256": "504e360b30c82c3e237748ceffecad94234961b3bb7eef7260d44bc6bfa9af4f",
+      "bytes": 1750
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@1x.beauty.0.json": {
+      "sha256": "d649b12919c467ccbec8c9ebbde3a68f8bb7b20492bbda5aa601ced200a31d13",
+      "bytes": 349
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.beauty.0.json": {
+      "sha256": "37d50ce79bbf4bc9fc93a1251cc4d7d4c903fa6c0996ee0723fc66db8f97209f",
+      "bytes": 14744
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.beauty.0.json": {
+      "sha256": "f441ef4fcf95cb787be00a367171271c8391031e1bb34ba2f481504c004767f8",
+      "bytes": 328
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.beauty.0.json": {
+      "sha256": "7e12947f00e0038a2c10c56ffbb3459967d0ff9860c43f0df6014e8cc6b43807",
+      "bytes": 2676
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.0.json": {
+      "sha256": "ca399245a0c0f0972a471a50b6dd6b70198d87fda2aebabac2464fd215150b75",
+      "bytes": 329
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.json": {
+      "sha256": "603cf28083644f3bc5d3c07deb18484c78f85b1ca3a90217583d9de2b606451d",
+      "bytes": 328
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.0.json": {
+      "sha256": "acf89920efd82af7fd48ab619a71c11d1f7eb13fa05591e4df718479ec45869a",
+      "bytes": 328
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site@1x.beauty.json": {
+      "sha256": "dcf8ee8d840b319abaf9bc91a1a33f828ebe63ae1d15d3d7ac07ddae16aa8a86",
+      "bytes": 996
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral@1x.beauty.json": {
+      "sha256": "46ce592a9cbc2bd6753d816d0df6d8885e77489dbcab6c664c2fc42cea0bf173",
+      "bytes": 972
+    },
+    "/art/sprites/prop.supply_field/prop.supply_field@1x.beauty.json": {
+      "sha256": "803e7c697ab51ab7e2243d431e7048c017a48c596c2c8591beab5741d7cfcec6",
+      "bytes": 945
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@1x.team.0.json": {
+      "sha256": "c123a675510a29bd8a26e149bb5ba49af0cae70d594c630e1ff740183c27795f",
+      "bytes": 347
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.beauty.1.json": {
+      "sha256": "58b5bab10a535915ba786621586c2f1501a41d28eb0c35c8b47d03323674fd66",
+      "bytes": 15064
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.team.0.json": {
+      "sha256": "e5da99a6ee7df3c2d2324528ee61db5e0225ae25fcd24dd925fe15b8c4d4e060",
+      "bytes": 326
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.beauty.1.json": {
+      "sha256": "ceeacded7aa2dade14a9a0c9bc2ee98edf8585f60425f7f1e2089bf060cda4da",
+      "bytes": 2653
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.1.json": {
+      "sha256": "f65dd81fe8d4831e2dabe2b9b985ea142354e052ecfa0661760110e1ac8906f8",
+      "bytes": 329
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.1.json": {
+      "sha256": "028633c5a578189949bdef4cb63cc3ec05eaba75860cecf8e51fb4de8695cf96",
+      "bytes": 328
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@1x.team.0.json": {
+      "sha256": "554af7170e5af7cc7905c98a08e9df343b58dcb44d2fc5d3f019c75ef731cab4",
+      "bytes": 326
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site@1x.shadow.json": {
+      "sha256": "0871094c87f04fe0e4786dc42553751fd69ec44f5b55a1a29fe0f8b0b102913d",
+      "bytes": 996
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral@1x.shadow.json": {
+      "sha256": "b3c2205eeba9b1f9f62a6af63bfb9152a40860ea82b21bc426688fcad139df44",
+      "bytes": 972
+    },
+    "/art/sprites/prop.supply_field/prop.supply_field@1x.shadow.json": {
+      "sha256": "b4d7c1a28240c25ff45fb81e41bd79931f6831bd407a6fdb709c55541f53882d",
+      "bytes": 945
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.beauty.2.json": {
+      "sha256": "3c6caccdf381bcea5714270079d2041502ce889197880e3ff8981a4ba17b79b6",
+      "bytes": 15320
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@1x.shadow.0.json": {
+      "sha256": "8387499a8190c6cf908eda9ba2cde98478fd2240bf1c9e0beb1c015511112bdf",
+      "bytes": 600
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.shadow.0.json": {
+      "sha256": "7dd101964794da07dd751e7d41e3af0e4190e50efa9202cc62cacfc662b2a627",
+      "bytes": 579
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.beauty.2.json": {
+      "sha256": "b9758ec4eecbb30ebee7563596c8ea1284e66928b1f980469662bff0af5eba37",
+      "bytes": 998
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.team.0.json": {
+      "sha256": "257cf5ea13492a7966ccee601b393fc80bba8aec640aae842463df3bca9fe537",
+      "bytes": 327
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.2.json": {
+      "sha256": "5c9470291b633698a30634421b79703b2cacbb89408f839843b0f2d41828d5e1",
+      "bytes": 329
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.0.json": {
+      "sha256": "838c54728511b1fa85e0334454868d38d40d1e4317dfb695cb165d10c0441301",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.beauty.3.json": {
+      "sha256": "061319fcf71bff6b9f533f651c294b99286db262907ac7672491ae5af35ba219",
+      "bytes": 15224
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.shadow.0.json": {
+      "sha256": "b5443456e397c36da117734e7325c91bffa01d3aed42f540af22c4f038190701",
+      "bytes": 2676
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.3.json": {
+      "sha256": "875e381d3e32f3e2b97bb1f8f3d22ace2ed1b26a16665953528f50a7dc75cd4a",
+      "bytes": 329
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.team.1.json": {
+      "sha256": "ee77cd6ef7a33eed2190727a89a71b05cf4e8f41df70fb706216872f8ccd0758",
+      "bytes": 327
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.beauty.4.json": {
+      "sha256": "65211cd9644551752e161759556fd1482251ee69c241a050051617f714b36d2d",
+      "bytes": 10167
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.shadow.1.json": {
+      "sha256": "1ccb91b3e22b0c2daa00e5e1f17af66d1587944233d8cd3096b21491863934a4",
+      "bytes": 2653
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.4.json": {
+      "sha256": "b3add36118188506743c60df904c171aa50f1ca8c57d6acadf9b6015d45cac35",
+      "bytes": 329
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.0.json": {
+      "sha256": "89eb0dd85155f4d3a14ea7a47a75b62c8239c21043e0da5b8a265f16dd121be1",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.shadow.0.json": {
+      "sha256": "0270f25248788bd55f0ef5cfef797497a1fb1cd2826be891245406a0be7cbdc8",
+      "bytes": 14744
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.shadow.2.json": {
+      "sha256": "91a3017c2f87a79c99adea9ae4b2f9e593cc21bfa2a1766871547e7adf38c7c7",
+      "bytes": 998
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.5.json": {
+      "sha256": "bd19d9ae487d5face0715e6df7e7722dc676c59c53e7c3eb291d199539ebbb0d",
+      "bytes": 328
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.1.json": {
+      "sha256": "f872c4d76a75d1a5ac48d6147882a6ecb63b2a7a64d99ed2b6b4ddfc72c52171",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.shadow.1.json": {
+      "sha256": "9e4fa63589a63ebcecb3bc0d33d937f41f8a1894eddb06db4230bf2c5ca0da0d",
+      "bytes": 15064
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.team.0.json": {
+      "sha256": "2f1846f1e495f3a8f98dbdcaee372fe9aac74e9123521e138323aed594bc5dee",
+      "bytes": 2674
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.6.json": {
+      "sha256": "a5611558fd30935a62c308ed0ace9305caf72667f3e1076983f9eb8f0a2bb093",
+      "bytes": 329
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.shadow.2.json": {
+      "sha256": "8c070a358a2233c7b0ee256be0b856bcf95b7f070cf18519536b894d90a51f7c",
+      "bytes": 15320
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.team.1.json": {
+      "sha256": "dfd49c79cc8184357123d5345209414e6e27ec3a806f580490976b508aba012c",
+      "bytes": 2652
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@1x.team.0.png": {
+      "sha256": "8c97489c786109a42f85433ac9d191bc2db555382ead4f0f86533f08795db6ee",
+      "bytes": 7739
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral@1x.shadow.png": {
+      "sha256": "d1081cf181d691146b3fca29a149d05de31e1e6c8e0b2c7f295b1feff01fb50f",
+      "bytes": 10202
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral@1x.beauty.png": {
+      "sha256": "b83b31c4291be469ca6f48cd84fef481b29369bbd8bfe1835348c8080d8c2e95",
+      "bytes": 38732
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@1x.beauty.0.png": {
+      "sha256": "6281614ec5d2453be036ae8986f4dbc5624ca7febaf4f390630c9af57b9b3215",
+      "bytes": 67934
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site@1x.beauty.png": {
+      "sha256": "eef3748ff3b769df12986f8a8008caa4e557138de3239d1926c7cffca22e971c",
+      "bytes": 70437
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.team.0.png": {
+      "sha256": "6cc421165b0fe0633bb8789939c75c907f99d71c2ebf476d5d6db1b49b6941d9",
+      "bytes": 929
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@1x.shadow.0.png": {
+      "sha256": "bea5963bdd7b4b6fbe73e26dd671fc4867ed5a770aefbc9669adf97416a52f17",
+      "bytes": 9835
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.0.png": {
+      "sha256": "89e7cceaab0e11973e5d14130d393543d866dd2ce860ac19691f8ce8c436f2cb",
+      "bytes": 3547
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.shadow.0.png": {
+      "sha256": "53fbef5f9b4dcc15b392bc3d1f0848792c0aa299c4c1f05a2770fe2e861974d1",
+      "bytes": 4269
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@1x.beauty.0.png": {
+      "sha256": "2e04e57cbb2a51b0ea3ec8818cd48d56f3177f855106d9ef343ea067fb4a7b1b",
+      "bytes": 8711
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.7.json": {
+      "sha256": "b47996d793e9be0b240cb8019f673b263cf4a3211e0402fc8f104302ea704192",
+      "bytes": 329
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.team.2.json": {
+      "sha256": "4df4e1b7a6479cc6bae4939c34433fb94a3beb27b8b96b604894ee2c8ce66e04",
+      "bytes": 789
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.team.1.png": {
+      "sha256": "c25bba6ab439c0ff82519a943b155d25f791cbbf493c6f47482cadec8288de20",
+      "bytes": 1570
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.shadow.3.json": {
+      "sha256": "f16ecac7635e5e9d4219fb8069d0ffeefb409fea2eace67f3a5a2ed650e38a5e",
+      "bytes": 15224
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.1.png": {
+      "sha256": "afd0ad4824587cc00ce14da24d8b67200843c1ac137b57af52f587d136d71217",
+      "bytes": 3589
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.team.0.png": {
+      "sha256": "c9b0f1984b1aafcfdf0568627a370de923f05e6618f1cf5be03f85bedae5872f",
+      "bytes": 1247
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.1.png": {
+      "sha256": "a56e220dfee952e1ad14a6f6fcc4782e73c462692737234467c2b6d7a1b925d1",
+      "bytes": 8985
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.0.png": {
+      "sha256": "ba3903608c6bb2371eb50384805e596c40d3f1e689d837bb8886ea71db257b3f",
+      "bytes": 9473
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.0.png": {
+      "sha256": "6eac930bb0dd4823c5656338465dda82192078cda5144cee10b09bf95fd347b3",
+      "bytes": 3783
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site@1x.shadow.png": {
+      "sha256": "e4c144d0511218d07a66d228f2f5249aa0206255e2a43e848552eec31979f4b0",
+      "bytes": 12627
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.0.png": {
+      "sha256": "61f0f8a92c68562f64f96dec4e16d40e4de16b0fe0a50dbb1e66606569fed3d7",
+      "bytes": 7405
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@1x.team.0.png": {
+      "sha256": "4d6aed3f269876b10ea0e84fea668d648130f4e415dbadfdcde3ad7ac0c3bbbc",
+      "bytes": 1060
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.8.json": {
+      "sha256": "625b49986461c3af6ad414793dc9e61423780d0fcbbde1760a836d02d5ede7ee",
+      "bytes": 329
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.shadow.4.json": {
+      "sha256": "234d43788f72640ee4469f849f82dbc7cc846ac84ef0956b235bef8a74c16f31",
+      "bytes": 10167
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.0.json": {
+      "sha256": "020409ab6aebd93b07246a768187a88f2966ed32aa07cc6f46fffe0c31f84866",
+      "bytes": 326
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.team.0.json": {
+      "sha256": "024675b06ca340b2de26652292f7ac561e557b2d601ae78da47eaf5033816a49",
+      "bytes": 14742
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.1.json": {
+      "sha256": "eea93f8e49fe3154099acfea4d9609c648ed36dbd6511374e128d509d66d5fc5",
+      "bytes": 326
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.team.1.json": {
+      "sha256": "5b23baddfe74578afd127c4a69790995214dd25a1f8ad04326877ce6c2eb4202",
+      "bytes": 15174
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.2.json": {
+      "sha256": "ea2971132cb4fd558730c612ca541ed4137719e7ebd0406c9dc631eba8500c37",
+      "bytes": 327
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.team.2.json": {
+      "sha256": "45351e8c45dc24269cd81e3d5af63fcef03c9bcab8675f48935cd2ac777dfb8d",
+      "bytes": 15318
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.3.json": {
+      "sha256": "f1012672895f3619d65dc106234f94e137cfdff1f5f6eb2f9ef556c263d184ad",
+      "bytes": 327
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.team.3.json": {
+      "sha256": "0ff0b9cb7d56d521409d4593b2a732395c06bfe96af89b9fe4f22cb965e49045",
+      "bytes": 15190
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.4.json": {
+      "sha256": "384ded09507348c4fe32fdaa6cc67e5f05f56b98f4b0ea47e964517e218d835e",
+      "bytes": 327
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.5.json": {
+      "sha256": "7160ea1d514ecf3daa43982cd648cc8699956d5c8b747a3d82597f3b7e5ba50f",
+      "bytes": 326
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.team.4.json": {
+      "sha256": "12ba01da85c6ec103e6ce4271e49fdf3f2d6ca816a04caafcb4e18d0074b9377",
+      "bytes": 6825
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.6.json": {
+      "sha256": "7d4a5ea01714ca3be9f0f4ff1c86ef4b3423a573fa98a93e95ecaff3ec01e1c1",
+      "bytes": 327
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.7.json": {
+      "sha256": "9fcd157b41a05f1287cdce117946ba0e9a28fc6c962674989605114e20aeb90f",
+      "bytes": 327
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.8.json": {
+      "sha256": "031bc61913d5fc3996ef476a8fb30852fb29695913ba83d20237e506fd9c83bd",
+      "bytes": 327
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.0.json": {
+      "sha256": "d606faed5688ac474e29be8565c726c49b7147395927d1a9cce4ae756b0ff23c",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.1.json": {
+      "sha256": "c04bc65fd39b2048df155c7c1e9d4a4129999020c680a0527d7b760e1122b2df",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.2.json": {
+      "sha256": "b2890ffbb836542f7e8f39d23c81467232b12b590964485dc39051eefa5de5c4",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.3.json": {
+      "sha256": "d60a60bbccf445b35b2f4625b834c7ac8734c39b966ea7402187de494423697d",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.4.json": {
+      "sha256": "9ded49a7bc10394d8e1000426feea8644c0c0d1bd0df9a068aff6bd581615faa",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.5.json": {
+      "sha256": "ef425cbad2057501775e6ff3076d93c45b4f196da08c18aab42204302df73564",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.6.json": {
+      "sha256": "e04d855b8cb68816b797de3a730e682921817215714bf281a7c14195ad7d4aad",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.7.json": {
+      "sha256": "e124a0c857cb556ab9682bd08e26d09d57a7396c9f5d5645bffbd311701dc200",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.8.json": {
+      "sha256": "736267475a4a429d2230b0958fc07a6d4d2844e3061c3c94111985af2af1a2ed",
+      "bytes": 580
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png": {
+      "sha256": "65bcefda3769a90cd5993e309090e44356793b2658110f07e5968317476da1de",
+      "bytes": 8090
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.0.png": {
+      "sha256": "51f3a01515f4125b42924341b5cf0c295a2fd9141671813f7bef21204e77b654",
+      "bytes": 1972
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.1.png": {
+      "sha256": "46c0be9f0ced355927db99cecdb609e46435fcf941e5b713aa0c8d3908c4a8b8",
+      "bytes": 4123
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.0.png": {
+      "sha256": "808f8970557aa12da223f8c2d3b27bdfcde8fad0697fe103ea4e1172a2c24f57",
+      "bytes": 3938
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.1.png": {
+      "sha256": "f9334a51be54fb17db9857affb12bae2e561bc006546bf238d374da0cecc7da6",
+      "bytes": 9776
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@1x.team.1.png": {
+      "sha256": "7492e0ad045581ddbf550d06a029b4ba34b831f6a044cfdad7e79300c37be964",
+      "bytes": 1932
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.0.json": {
+      "sha256": "ac35db04ee0b4145d46477b025cee354df9933816139dfa154000ca010874ad5",
+      "bytes": 332
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.beauty.0.json": {
+      "sha256": "fbc911eacbb5a8c67343ab664907f3c7fb4389fe1803ec48017db920a7cd05b5",
+      "bytes": 15027
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.beauty.0.json": {
+      "sha256": "adafd5bd3df3f8821b703b8149e72ce62965e7536403480519a0d45702c9d520",
+      "bytes": 2685
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.0.json": {
+      "sha256": "2e7167802c7646c89234907c4f25aace3bc3434f4b277ebb73e50550cb1f9a39",
+      "bytes": 332
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@2x.beauty.0.json": {
+      "sha256": "63a5733e07cea8f51f9fdfb23827031549530315c58647be9cca907c7cb9b2d8",
+      "bytes": 349
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@2x.beauty.0.json": {
+      "sha256": "be150cfd386993b34cc824f452c8dda2beb8eebf1ac296adb32d77681597abed",
+      "bytes": 331
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.0.json": {
+      "sha256": "4352f5d53d11af0752978314b700a1f048ed90a6177bc29c4a79f5027192dc02",
+      "bytes": 331
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral@2x.beauty.json": {
+      "sha256": "5956325757f20b309c55f76579f7a24f530b34a7a6b89082df528eb26a705ec8",
+      "bytes": 986
+    },
+    "/art/sprites/prop.supply_field/prop.supply_field@2x.beauty.json": {
+      "sha256": "521f9d6bae95ea1a3e494a3092181818d34a2c78c09e6fd4983aa16b16662c9f",
+      "bytes": 960
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site@2x.beauty.json": {
+      "sha256": "a4ade02ecf2af138dd820f63557a0f62ba2646c1eb885faebe20030ee7116804",
+      "bytes": 998
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.beauty.1.json": {
+      "sha256": "c65ad265847898a8155f85ea496867ec538a9cb68f96d32fcc4376d552affcd0",
+      "bytes": 15347
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.1.json": {
+      "sha256": "cdaf5dfbb8f9872eac08ff93dea4e175537fa05ad7b35d47ffd58aef0968f9b9",
+      "bytes": 331
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.beauty.1.json": {
+      "sha256": "91386def397da2ce22ffa926691ca19bf0f68c1fcee1946970f538ae8e09b281",
+      "bytes": 2662
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.1.json": {
+      "sha256": "24a2da35ff5c41d2e28099609b3b33eef85d4303e447f125989f0f20ce859dbd",
+      "bytes": 332
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@2x.team.0.json": {
+      "sha256": "4981101c2ffab6b71ac0cb5069d508079c52563326ab66f92febcb61d1759d10",
+      "bytes": 329
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@2x.team.0.json": {
+      "sha256": "36183b0d23ba9fa9e9f37a8442f60c7c74949e0db6e7e4602e76af16b416ed8f",
+      "bytes": 329
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@2x.team.0.json": {
+      "sha256": "6691dedc3f826e6490d26e4dc390011946321511098e6728b706a4fd1dbd7438",
+      "bytes": 347
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral@2x.shadow.json": {
+      "sha256": "bf342bfc0fec53b517b09c299e25a0a4a98d6168c71096b44b2cba7a5c8ecc7d",
+      "bytes": 986
+    },
+    "/art/sprites/prop.supply_field/prop.supply_field@2x.shadow.json": {
+      "sha256": "3d2b224b568d4e9e06d5c1a4e9d13285c81b47a61bd2fbfd5ff2e6ec01e66238",
+      "bytes": 960
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site@2x.shadow.json": {
+      "sha256": "721676697729e95db4a7e4247029c6fe6c8bbc7dddd2cb1fcd6caa2222d19532",
+      "bytes": 998
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.beauty.2.json": {
+      "sha256": "3608a49f19c44dedbe4642a2df7136917afc3b9b60bc6440c4f5ea3ebdd5d2f3",
+      "bytes": 15603
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.team.0.json": {
+      "sha256": "ca17242cb5f444512b4f060d72f37a91016a0dec89eb1a631663522c7dc22897",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.2.json": {
+      "sha256": "116805d79fb6b6f1e712ac922e4b1dfa211514926819e172a66e31c0416cdc4d",
+      "bytes": 332
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.beauty.2.json": {
+      "sha256": "feb8a797ece5611043895646f867ae954def288b3311988bb8cb230ec1e30092",
+      "bytes": 1000
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.0.json": {
+      "sha256": "5fac992529d149277deda333828b4b849ad4c14d76398621e2ddcd834c56a4c2",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@2x.shadow.0.json": {
+      "sha256": "0a02853b0fdb282fff8b55c390c4b4a846b0d0c1d4d40115aaf49f021c2bddaa",
+      "bytes": 582
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.team.1.json": {
+      "sha256": "7cdbfa918148662b5569942892482da7babe5730dad5ee94f8c7615f7b7c6af8",
+      "bytes": 329
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@2x.shadow.0.json": {
+      "sha256": "bad8e3a09c253f2c4e041db36a657e5079576bafe438b6ea0b71b8f16908606a",
+      "bytes": 600
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.beauty.3.json": {
+      "sha256": "39b2ae04570f9af2b36f9e9b9fc960a0c8e814cdd988e4459cf1e383c6f4893e",
+      "bytes": 15507
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.3.json": {
+      "sha256": "db75b97114ef00e503b86098017b03a38bde0ac8fe4ce0e1fd5ddf9a6dc45e24",
+      "bytes": 332
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.shadow.0.json": {
+      "sha256": "669eaa0cc2cd8fbb24ae569542deeb50d44b4b0b274246f7a54ab4afe1486625",
+      "bytes": 2685
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.0.json": {
+      "sha256": "bb3a4cae3638c914a7b0efa27cbdbd944126f823a7ccf3ccaaf35235c7cdb291",
+      "bytes": 582
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.beauty.4.json": {
+      "sha256": "631ff39e1e789565d903550a613c6bcec17c0f9fcbda7e83299eda88e061e4c0",
+      "bytes": 10347
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.4.json": {
+      "sha256": "49bfeda34865154ffe38c3ca365599a1c685491e5e7e148fa06d948ce503391c",
+      "bytes": 332
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.shadow.1.json": {
+      "sha256": "c08595389d7ef7cabec91bb75c6eac5706bbbfcf5e17292e6add48370e99dcfc",
+      "bytes": 2662
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.1.json": {
+      "sha256": "54a7914e27c358efa6009f6ea84c571b1ab94e971311a8a11cf6a126d33cc793",
+      "bytes": 581
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.shadow.0.json": {
+      "sha256": "8be05e1ed34a4394581377141e351be5f777a2c7d6bf5758ee7e91c7bc7f5210",
+      "bytes": 15027
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.5.json": {
+      "sha256": "aeb4e002dab87a539ab2891db56494c2ad442b81581dc2970c24cdc6f47503f5",
+      "bytes": 332
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.shadow.2.json": {
+      "sha256": "e81dcb36a738bade95e55b622653253b63ca5c56848018fe92d8fdead98fb9fe",
+      "bytes": 1000
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.shadow.1.json": {
+      "sha256": "1ee4b7191fc63088fac79c06c20db82c5be5913737852dcb07261a64b4ef1eea",
+      "bytes": 15347
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.6.json": {
+      "sha256": "9167784324b04d224c91d68e3b35d9388445f67b58d8ceb0449398047adaa0c6",
+      "bytes": 332
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.team.0.json": {
+      "sha256": "2344106cc5d08165b5262d14218b109a2b51d90fa58c9b37f9f577ef806afe16",
+      "bytes": 2683
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.shadow.2.json": {
+      "sha256": "170bac920c6f479c7845780a1b26b62dc690477bae6a0d0edc7d67a1757b14ab",
+      "bytes": 15603
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.7.json": {
+      "sha256": "d6e358a5841ad762389c6a5bfbc12c3fee4e19a4baa99bac5db5b3dd982f89c4",
+      "bytes": 332
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.team.1.json": {
+      "sha256": "6b9ca334a950ffad109faac34ca459b4fb16142c8a0703aa13dd88565ccae11c",
+      "bytes": 2661
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.shadow.3.json": {
+      "sha256": "cb98fa2b9b14362a7c984293a21537b8838c06587b60d13dca0ea0a00b36e833",
+      "bytes": 15507
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.8.json": {
+      "sha256": "c6a1dd695d7be415958fe6d890db261aacd82fd6d03f5c86bed453151064efad",
+      "bytes": 332
+    },
+    "/art/sprites/building.US.hq/building.US.hq@2x.team.2.json": {
+      "sha256": "5bcf86447247ffc2a07173c23edaa72cf2c058ba10cba6d05cd23943f7776e6b",
+      "bytes": 791
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.shadow.4.json": {
+      "sha256": "4f611eed64b24e0af9a8fce5ae8965a6cb4f586ed7c605f498a17f9ecae8250e",
+      "bytes": 10347
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.0.json": {
+      "sha256": "55d5577749334053134f40190c93068f80f6e88e61e9b53cf36bbacf3db0ca54",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.team.0.json": {
+      "sha256": "646e30867f9d42953d621b15714d21e5aa0402afa4cbf32d16dc5247dfa03a15",
+      "bytes": 15025
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.1.json": {
+      "sha256": "6a644bb2f3184610cf192d5e152a3479edce0e53726a2cd4576f2ac3b5cd75f8",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.2.json": {
+      "sha256": "636af1d4551f5f7b6473cecf7531e3f7360106188cbdc5e5c29f70f2ad14fb69",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.team.1.json": {
+      "sha256": "b225dd9fe16295ae1336ad04535c151c5034de1ff092289542aa497f98670d11",
+      "bytes": 15457
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.3.json": {
+      "sha256": "b015d62a24080a9632c8bf4cee2f86c0ff0b889b111a3270d5fc80e6374bbc73",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.team.2.json": {
+      "sha256": "94769f43d9ee649a851d011d45b87e90f93d7229f49dad02b0ae11b2aa76a276",
+      "bytes": 15601
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.4.json": {
+      "sha256": "5279edab3cefe22a5cd9c4f0af960b1c574d4fb1e338ec56fa100378ce8e1ded",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.team.3.json": {
+      "sha256": "7e7bf523235c00e802786ba04f261982e9f227a9d88fdd014ad7e24afce3d377",
+      "bytes": 15473
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@2x.shadow.0.png": {
+      "sha256": "c7d9ef5c41d61c669dca0a98d64aa99d3ff382accf9531e78ec24a71c5b650d1",
+      "bytes": 30451
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.5.json": {
+      "sha256": "93cfbef0518564107e54e02be3aa4919f9674d3aafe80e2510872d018bbe655d",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.0.png": {
+      "sha256": "ea869d36f7f76201e62fa09f558885f01b3d09628b8d61d2e7cae5443e19b8a8",
+      "bytes": 10537
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@2x.beauty.0.png": {
+      "sha256": "38b5f028fc00f17c36d7ee80a2d6b46cd045a87249c97a325b0a4009e68aad4f",
+      "bytes": 352384
+    },
+    "/art/sprites/building.US.airfield/building.US.airfield@2x.team.0.png": {
+      "sha256": "c3c664ef7c6fa562f0e39aa2646329649b0f3bb8563a65c485a8a0a1dfc93e69",
+      "bytes": 173296
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site@2x.beauty.png": {
+      "sha256": "dc4cdabbf0308a47a5fe30b7b6d31fead3ded23563dff904cb41b99e66d0ad29",
+      "bytes": 207265
+    },
+    "/art/sprites/prop.central_shipment_site/prop.central_shipment_site@2x.shadow.png": {
+      "sha256": "bd67241e14deddbfbcc52649590ee84451eda9154614bd38cad03aea5b6dc54d",
+      "bytes": 43958
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.team.0.png": {
+      "sha256": "541d37e50ef440c299bee5721ee4c684b3eb916b4117945f0e6ff995b35c0937",
+      "bytes": 39258
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.0.png": {
+      "sha256": "a19bcc55b1136b4968152fc9c6d27fe7bb0300133b97e26a3d984793680b22d3",
+      "bytes": 62128
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@2x.team.4.json": {
+      "sha256": "b3c586a0efb6b214e423d2a51f10c1b0b897bee911354b56e6833751dde80ac1",
+      "bytes": 6939
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral@2x.shadow.png": {
+      "sha256": "30d93eb2581071af872c88644c748c4c230be452d1d9c4ec656d3491d08d2901",
+      "bytes": 28852
+    },
+    "/art/sprites/prop.supply_station_neutral/prop.supply_station_neutral@2x.beauty.png": {
+      "sha256": "92178a6a0bde80bea980b41b1b654ba4f237af3355507fbd7b08c368cdbd44a8",
+      "bytes": 109731
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.6.json": {
+      "sha256": "1c3674949dc211b98c28d403cec42ed91d7f647b164f0028bfdded46e10b1b05",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@2x.team.0.png": {
+      "sha256": "bc005c1856fee95432ae2ebbdf5b65a62476aaf7a94863bc278f72b6945f735f",
+      "bytes": 39053
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@2x.team.0.png": {
+      "sha256": "2dfbadd4588fab6b5b76ecc4fda083df337499516998f2c0e6fcd27ad213c1d7",
+      "bytes": 38570
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.0.png": {
+      "sha256": "b2446fd6efa88a4c9ffd9469be04cea9e5aecc8dfe07b44f3be0a9bb873c4b93",
+      "bytes": 9393
+    },
+    "/art/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.0.png": {
+      "sha256": "74411a977ef407a0155c28a62cdcb007aadc741f2ca2afe74934f8077c3f80a7",
+      "bytes": 58720
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@2x.beauty.0.png": {
+      "sha256": "7fd104b1b965e6135aa92d3da6d747ff6b006af72caa266c900d12679fb4c0d9",
+      "bytes": 61196
+    },
+    "/art/sprites/unit.US.strike/unit.US.strike@2x.shadow.0.png": {
+      "sha256": "90aa2c983651f2af3a863d0eb9595a1e1546082bdf6ec645e22e6772c9aa40eb",
+      "bytes": 11387
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.1.png": {
+      "sha256": "20f27d99119282f793daac56ebc0579eecf3a45af4967f10c4cb9cfbc9c3de26",
+      "bytes": 9753
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.team.1.png": {
+      "sha256": "ac0bb04a6ee41f61a6b4e75a9378a884730e0d5a6d22827967b7d7b2406f77d9",
+      "bytes": 40471
+    },
+    "/art/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.1.png": {
+      "sha256": "1f86504bc90886cc2ddda2f7e4b53c18f279f1bd2dc023f1bfd1fa907f5b29c3",
+      "bytes": 62431
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.7.json": {
+      "sha256": "99fb2eb89463dfbd6d990e2d991d234e8ee547aeab003344c84e5e2e33a51f1f",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.8.json": {
+      "sha256": "581c59f9562c8fb9af49def7576464e9236dccbdc1443b5cc0e9b025a4b75d16",
+      "bytes": 330
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.0.json": {
+      "sha256": "c178d9c37b7855611e9fbfc28023fb300efceec7dc4471e128d03ea827f774c6",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.1.json": {
+      "sha256": "55a5caade7feb202cd5b60cfb749802331e83a68686c4a3fde77c0a280cae654",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.2.json": {
+      "sha256": "dbbdf535db3a56ac86bf07b2bc0e3740649d54df656a7bd63aac7c51c692cdcc",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.3.json": {
+      "sha256": "87306ebac4b94094a5305054fe6fb14c38b7a49db7cc92d42bef0760fe6e294a",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.4.json": {
+      "sha256": "94de850d70a8fb0f5b4e578649bcc1ff0f969300ac6b9f8b9a7390cdc3b53b78",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.5.json": {
+      "sha256": "4d5881ada0e06d357d34009b3f41212cf947166ba8eb948acf1a00da0f39dde4",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.6.json": {
+      "sha256": "841a454a631a01ab29a7c33ab918694621137379e78c888270d9af6b44e92f91",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.7.json": {
+      "sha256": "1dc9eb0030d9bfe01bdc1917f9268dd91565fbf7b20bd15fd35bac07502a47b9",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.8.json": {
+      "sha256": "9e2fef7612b725881ece70a9c82fcfc9fbf2ef2a0f76cd3c5d8e231bcd0ecd2d",
+      "bytes": 583
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.0.png": {
+      "sha256": "8623f039952264e3a1054e604f7b3ae6860f17f1dffc5c82db3b2bf1c32a6301",
+      "bytes": 10280
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.0.png": {
+      "sha256": "221c7b2fa507ed4b632841da193fa4cc9959569c6c3a2f08338ea463493486ca",
+      "bytes": 61807
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.0.png": {
+      "sha256": "b9bac033de44ffbb756238c625f0689657f71663e5371fc08a35ef903d791954",
+      "bytes": 42591
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.1.png": {
+      "sha256": "a3b8694095c094450010582f1761d9fcfc6618f79ace1c4183b494b2eed29eb5",
+      "bytes": 10871
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.1.png": {
+      "sha256": "66663da23b3e337be127c5833e8d061256f51346dc0939ea90d5f2789ac086a7",
+      "bytes": 65014
+    },
+    "/art/sprites/unit.US.airlift/unit.US.airlift@2x.team.1.png": {
+      "sha256": "5f40c7534c712930276e04917bd340dd403d1e245bf3ca2427cdaa8d4c075b51",
+      "bytes": 42616
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.shadow.0.png": {
+      "sha256": "4d4c277791960b18cb03769daa8509cdf873f8b409e5c03d691ebdb1e12c129f",
+      "bytes": 74994
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.team.0.png": {
+      "sha256": "8276667e4c515a56e66375b17669ec409d401409e2e2199db764b31c2429f849",
+      "bytes": 60435
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.team.0.png": {
+      "sha256": "7a7222ed9d562e265e641ebf868f25ae156bde883601d73928ac295610e5f987",
+      "bytes": 188328
+    },
+    "/art/sprites/building.US.hq/building.US.hq@1x.beauty.0.png": {
+      "sha256": "8f28856f2e63892b4cfd5b93f20a1b612ef505f1b5e1ff7cfc9f82c6412dbdcf",
+      "bytes": 447056
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.beauty.0.png": {
+      "sha256": "adca13f49eb51a67346bee0b0973feb09884c338cd7711d54a17472b594efd96",
+      "bytes": 480499
+    },
+    "/art/sprites/unit.US.rig/unit.US.rig@1x.shadow.0.png": {
+      "sha256": "aa5a4286dc5ad4dc0dfa860cdb4450cff1a0c5f3a525b993327c5d41ce17c303",
+      "bytes": 151344
+    }
+  },
+  "source": {
+    "client/src/render/actors.ts": "2b41a96f72bcab7e7c2cce9205fcb85b3c3c7f869a1350afe2961ee29ccf878f",
+    "client/src/render/battlefield.ts": "4ba8a7e32e1cde76a865c630b466950c6aad69fe255ed18d8d4ac4ee7ec22bb9",
+    "client/src/render/art.ts": "055284d03ba1bffa53e1128ccd42a68003a9c184d4534b7f964cad8736bb37ab",
+    "client/tests/render/aircraft-hitbox-entry.ts": "22e1303cd72b4683c17a6a149c410b9cb1b6202b861525e68d1c9b2fa7f079a4",
+    "client/tests/render/aircraft-hitbox-browser.mjs": "80af224f722d91b7fe4af8785be9f2f31fb647def351e249e8c97a277f321e4d"
+  },
+  "wasmSHA256": "f6102c94f95723b5fa770cdc0f6b74f35efef8338d9304e072fc93a18b72528d",
+  "page": {
+    "url": "http://127.0.0.1:55854/",
+    "title": "Frontline Command · aircraft painted body selection"
+  },
+  "eviction": {
+    "before": {
+      "indexedPages": 27,
+      "residentPages": 6,
+      "residentBytes": 946176,
+      "pickingBytes": 19712
+    },
+    "after": {
+      "indexedPages": 27,
+      "residentPages": 0,
+      "residentBytes": 0,
+      "pickingBytes": 0
+    },
+    "oldFrameStillHits": false,
+    "sameSheet": true
+  },
+  "reload": {
+    "sheet": {
+      "indexedPages": 27,
+      "residentPages": 6,
+      "residentBytes": 946176,
+      "pickingBytes": 19712
+    },
+    "statistics": {
+      "indexedPages": 72,
+      "residentPages": 25,
+      "residentBytes": 5920576,
+      "pickingBytes": 117853
+    },
+    "oldFrameStillHits": false
+  },
+  "contextRestore": {
+    "pickingBefore": {
+      "indexedPages": 72,
+      "residentPages": 25,
+      "residentBytes": 5920576,
+      "pickingBytes": 117853
+    },
+    "pickingAfter": {
+      "indexedPages": 72,
+      "residentPages": 25,
+      "residentBytes": 5920576,
+      "pickingBytes": 117853
+    }
+  },
+  "failedReload": {
+    "sheet": {
+      "indexedPages": 27,
+      "residentPages": 5,
+      "residentBytes": 788480,
+      "pickingBytes": 14784
+    },
+    "statistics": {
+      "indexedPages": 72,
+      "residentPages": 24,
+      "residentBytes": 5762880,
+      "pickingBytes": 112925
+    },
+    "oldFrameStillHits": false
+  },
+  "failedPages": [
+    {
+      "url": "/art/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png",
+      "pickingBytes": 0,
+      "resident": false
+    }
+  ],
+  "fallback": {
+    "hash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+    "afterHash": "fda83068182d3d513f335984a32355b4ead87ca8978a70566b24af9cf95a1394",
+    "missingArt": true,
+    "point": {
+      "x": 640,
+      "y": 332
+    },
+    "statistics": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0,
+      "pickingBytes": 0
+    }
+  },
+  "disposal": {
+    "statistics": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0,
+      "pickingBytes": 0
+    },
+    "errors": [],
+    "canvases": 0
+  },
+  "status": "passed"
+}

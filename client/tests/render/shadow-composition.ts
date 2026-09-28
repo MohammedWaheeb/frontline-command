@@ -10,7 +10,7 @@ export async function checkShadowComposition(catalog:CatalogIndex,source:Entity)
  const width=384,height=300,origin={x:192,y:226};
  const states=[{name:'idle',part:'building',directions:1,frames:1,fps:0,loop:true},{name:'aim',part:'turret',directions:32,frames:1,fps:0,loop:true}];
  const meta:SpriteMeta={id:'building.US.gun_turret',frame_size_2x:[512,480],anchor_2x:[224,324],layers:['beauty','team','shadow'],atlases:{'1x':{},'2x':{}},states};
- const pages=states.flatMap(state=>meta.layers.map(layer=>({url:`/pilot/building.US.gun_turret/${layer}/${state.name}/d${state.name==='aim'?'08':'00'}_f00.png`,layer,descriptors:{[`${state.name}/d${state.name==='aim'?'08':'00'}_f00`]:{frame:{x:0,y:0,w:512,h:480},sourceSize:{w:512,h:480},anchor:{x:224/512,y:324/480}}},frames:new Map(),lastUsed:0,bytes:0})));
+ const pages=states.flatMap(state=>meta.layers.map(layer=>({url:`/pilot/building.US.gun_turret/${layer}/${state.name}/d${state.name==='aim'?'08':'00'}_f00.png`,layer,descriptors:{[`${state.name}/d${state.name==='aim'?'08':'00'}_f00`]:{frame:{x:0,y:0,w:512,h:480},sourceSize:{w:512,h:480},anchor:{x:224/512,y:324/480}}},frames:new Map(),lastUsed:0,bytes:0,generation:0})));
  const sheet=new SpriteSheet(meta.id,meta,'2x',pages);
  const testArt={resolve:()=>({id:meta.id,standIn:false}),sheet:async()=>sheet} as unknown as ArtLibrary;
  const entity={...source,type:'turret',state:'idle',health:1000,progress:1000,complete:true,enabled:true,position:{...source.position!,x:0,y:0},facing:0,turretFacing:90000,footprintWidth:2,footprintHeight:2};

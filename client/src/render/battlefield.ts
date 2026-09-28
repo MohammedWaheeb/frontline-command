@@ -104,7 +104,11 @@ export class BattlefieldRenderer {
  private project(p:Point):Point{const iso=this.surface.projectGround(p);return {x:iso.x*this.camera.zoom+this.world.x,y:iso.y*this.camera.zoom+this.world.y}}
  bounds(entity:Entity):Rect|undefined{
   if(!entity.position||entity.private?.container)return;
-  const actor=this.actors.get(entity.id),now=performance.now(),p=actor?.position(now)??entity.position,anchor=actor?.groundAnchor(now,this.settings.reducedMotion)??this.surface.projectGround(p),s={x:anchor.x*this.camera.zoom+this.world.x,y:anchor.y*this.camera.zoom+this.world.y},b=this.options.catalog.buildings.get(entity.type);
+  const actor=this.actors.get(entity.id),painted=actor?.paintedBodyBounds();
+  if(painted)return {left:painted.left*this.camera.zoom+this.world.x,top:painted.top*this.camera.zoom+this.world.y,right:painted.right*this.camera.zoom+this.world.x,bottom:painted.bottom*this.camera.zoom+this.world.y};
+  // Loading/development markers without known body ink keep their existing
+  // geometric target until an authored displayed pose supplies exact bounds.
+  const now=performance.now(),p=actor?.position(now)??entity.position,anchor=actor?.groundAnchor(now,this.settings.reducedMotion)??this.surface.projectGround(p),s={x:anchor.x*this.camera.zoom+this.world.x,y:anchor.y*this.camera.zoom+this.world.y},b=this.options.catalog.buildings.get(entity.type);
   const airborne=this.options.catalog.units.get(entity.type)?.armor==='air'&&!entity.landed;
   const width=b?(entity.footprintWidth+entity.footprintHeight)*16:Math.max(14,(this.options.catalog.units.get(entity.type)?.radius??400)/1000*40),height=b?width*.5+30:airborne?Math.max(80,(actor?.visualAltitude(now,this.settings.reducedMotion)??0)+30):30;
   return {left:s.x-width*this.camera.zoom,right:s.x+width*this.camera.zoom,top:s.y-height*this.camera.zoom,bottom:s.y+Math.max(10,width*.4)*this.camera.zoom};
@@ -116,7 +120,9 @@ export class BattlefieldRenderer {
    for(const entity of snap.entities){
     const rect=this.bounds(entity);if(!rect)continue;
     if(p.x>=rect.left-this.settings.selectionTolerance&&p.x<=rect.right+this.settings.selectionTolerance&&p.y>=rect.top-this.settings.selectionTolerance&&p.y<=rect.bottom+this.settings.selectionTolerance){
-     const depth=this.actors.get(entity.id)?.groundDepth(performance.now(),this.settings.reducedMotion)??entity.position!.x+entity.position!.y;
+     const actor=this.actors.get(entity.id);
+     if(actor?.containsPaintedBody(this.screenToIso(p),this.settings.selectionTolerance/this.camera.zoom)===false)continue;
+     const depth=actor?.groundDepth(performance.now(),this.settings.reducedMotion)??entity.position!.x+entity.position!.y;
      if(terrainHit&&terrainHit.triangle.depth>depth+.01)continue;
      if(depth>bestDepth){best=entity;bestDepth=depth}
     }

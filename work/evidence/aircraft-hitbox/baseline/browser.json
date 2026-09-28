@@ -1,0 +1,37 @@
+{
+  "time": "2026-09-28T14:59:01.246Z",
+  "scope": "Actual Go0.3.4 six-aircraft save and native-scale authored parked poses; normal canvas clicks. Separate synthetic cliff presentation negative control, no changed Go map or movement claim. Sparse art overlay, not full asset release acceptance.",
+  "browserPlugin": "not available; existing Playwright workflow",
+  "cases": [],
+  "checks": [],
+  "errors": [],
+  "resources": [],
+  "served": {
+    "/runtime/worker.js": {
+      "sha256": "6b188237551e361162b2b3755c4596d38cb43421d88dfcd0e714d31bf9564a69",
+      "bytes": 8134
+    },
+    "/runtime/wasm_exec.js": {
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+      "bytes": 16992
+    },
+    "/runtime/frontline.wasm": {
+      "sha256": "f6102c94f95723b5fa770cdc0f6b74f35efef8338d9304e072fc93a18b72528d",
+      "bytes": 11466796
+    }
+  },
+  "source": {
+    "client/src/render/actors.ts": "be7857b24645b00f5fc906cf31b2bb9c6f0268b39e4cf9c9884ccbe7ae50b379",
+    "client/src/render/battlefield.ts": "f33f160a29df8f5dd3c33e1e91caac2e956a078d7ffbc636a7da39aea78fd505",
+    "client/src/render/art.ts": "bfb0547f73ecb9e712b731686d163435d6e90a1de4fb7a28213a7b9cf3242aa8",
+    "client/tests/render/aircraft-hitbox-entry.ts": "11587deace1dd693f9c0d191a9b5b9912db5107c54fe9ff6a708d62a0cfd1f2b",
+    "client/tests/render/aircraft-hitbox-browser.mjs": "1d6192456365d31d18f281abe8e0c0e54a8868368bb78c4732cb0ad858a174f8"
+  },
+  "wasmSHA256": "f6102c94f95723b5fa770cdc0f6b74f35efef8338d9304e072fc93a18b72528d",
+  "page": {
+    "url": "http://127.0.0.1:55302/",
+    "title": "Frontline Command Â· aircraft painted body selection"
+  },
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'Frontline Command Â· aircraft painted body selection'\n- 'Frontline Command · aircraft painted body selection'\n\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/aircraft-hitbox-browser.mjs:32:63"
+}

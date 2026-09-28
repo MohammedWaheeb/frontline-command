@@ -1,7 +1,7 @@
 import {Container,Graphics,Sprite,Texture} from 'pixi.js';
-import type {Entity,Point} from '../runtime';
+import type {Entity,Point,Rect} from '../runtime';
 import type {CatalogIndex} from '../content/catalog';
-import type {ArtLibrary,SpriteSheet,SpriteState} from './art';
+import type {ArtLibrary,SpriteSheet,SpriteState,FrameSet} from './art';
 import {headingIndex,toScreen,LEVEL_PX,HALF_H} from './iso';
 import {TerrainSurface,projectSurfaceVertex,spriteFrontDepth} from './terrain-surface';
 import {drawStructure,structureHeight} from './structure';
@@ -37,6 +37,8 @@ export class ActorVisual {
  private action?:{names:string[];at:number};
  private livingMembers=Infinity;
  private bodyBottom?:number;private nextBodyBottom?:number;
+ private paintedBounds?:Rect;private nextPaintedBounds?:Rect;
+ private readonly paintedParts:Array<{frame:FrameSet;x:number;y:number;scale:number}>=[];private paintedCount=0;
  private projectedShadows=false;readonly shadowPlates:ShadowPlate[]=[];
  useSurfaceShadows(){this.projectedShadows=true;this.groundShadows.visible=false}
  private readonly flight=new FlightPresentation();private suppressTransition=false;
@@ -131,6 +133,23 @@ export class ActorVisual {
   const depth=this.surface&&this.bodyBottom!==undefined?spriteFrontDepth(front):front;
   return Math.max(depth,this.entity.landed&&this.serviceDeck?this.serviceDeck.groundDepth(now,reducedMotion)+.01:0)+(this.visualAltitude(now,reducedMotion)>0?1000000:0);
  }
+ /** Last displayed beauty/team ink in projected world pixels. Shadow plates,
+  * status overlays and empty atlas padding never enlarge selection. Reset each
+  * paint so a changed pose, lost squad member or missing frame cannot linger. */
+ paintedBodyBounds():Rect|undefined{
+  const b=this.paintedBounds;if(!b)return;
+  return {left:this.root.x+b.left,top:this.root.y+b.top,right:this.root.x+b.right,bottom:this.root.y+b.bottom};
+ }
+ /** Exact current body opacity with ordinary screen tolerance converted by
+  * the caller. Undefined retains geometric picking for development/missing art. */
+ containsPaintedBody(point:Point,tolerance:number):boolean|undefined{
+  if(!this.paintedCount)return;
+  for(let index=0;index<this.paintedCount;index++){
+   const part=this.paintedParts[index],frame=part.frame;
+   if(frame.containsAlpha?.((point.x-this.root.x-part.x)/part.scale+frame.anchorX*frame.texture.width,(point.y-this.root.y-part.y)/part.scale+frame.anchorY*frame.texture.height,tolerance/part.scale))return true;
+  }
+  return false;
+ }
  private cruiseAltitude(){return Math.max(20,(this.sheet?.meta.air?.cruise_altitude_mt??1400)/1000*25)}
  cue(kind:string,now:number,owned=false){
   const names=actorEventStates(kind,this.entity,owned);
@@ -188,6 +207,15 @@ export class ActorVisual {
    sprite.visible=true;
    sprite.texture=f.texture;sprite.anchor.set(f.anchorX,f.anchorY);sprite.scale.set(sheet.pixelScale);
    if(name==='beauty'&&f.bodyBottom!==undefined)this.nextBodyBottom=Math.max(this.nextBodyBottom??-Infinity,p.root.y+altitude+f.bodyBottom);
+   if(name!=='shadow'&&f.containsAlpha){
+    const previous=this.paintedParts[this.paintedCount];
+    if(previous){previous.frame=f;previous.x=p.root.x;previous.y=p.root.y;previous.scale=sheet.pixelScale}else this.paintedParts.push({frame:f,x:p.root.x,y:p.root.y,scale:sheet.pixelScale});
+    this.paintedCount++;
+   }
+   if(name!=='shadow'&&f.inkBounds){
+    const ink=f.inkBounds,scale=sheet.pixelScale,left=p.root.x+(ink.x-f.anchorX*f.texture.width)*scale,top=p.root.y+(ink.y-f.anchorY*f.texture.height)*scale,right=left+ink.w*scale,bottom=top+ink.h*scale,old=this.nextPaintedBounds;
+    this.nextPaintedBounds=old?{left:Math.min(old.left,left),top:Math.min(old.top,top),right:Math.max(old.right,right),bottom:Math.max(old.bottom,bottom)}:{left,top,right,bottom};
+   }
    sprite.tint=name==='team'?team:0xffffff;
    if(name==='shadow'&&this.projectedShadows&&p.shadowRoot.visible&&p.root.visible){
     const deck=this.serviceDeck,center=deck?.position(now),home=deck?.entity,support=deck?.groundAnchor(now);
@@ -207,7 +235,7 @@ export class ActorVisual {
   this.root.position.set(screen.x,screen.y);this.root.zIndex=this.groundDepth(now,reducedMotion);
   this.root.alpha=e.concealed?.65:1;
   if(this.terrainShadow){this.terrainShadow.position.set(screen.x,screen.y);this.terrainShadow.zIndex=Math.max(p.x+p.y+altitude*12.5+.001,this.serviceDeck?this.serviceDeck.groundDepth(now)+.005:0);this.terrainShadow.alpha=this.root.alpha;this.terrainShadow.visible=this.root.visible}
-  this.nextBodyBottom=undefined;
+  this.nextBodyBottom=undefined;this.nextPaintedBounds=undefined;this.paintedCount=0;
   const state=this.state(now,reducedMotion),facing=this.skin?this.skin.direction*90000:reducedMotion?e.facing:this.previousFacing+(((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000)*Math.min(1,(now-this.changedAt)/50);
   const animationTime=reducedMotion?(e.state==='destroyed'?this.stateAt+10000:this.activeAction(now)?this.action!.at:this.stateAt):now;
   this.fallback.visible=!state;
@@ -238,7 +266,7 @@ export class ActorVisual {
    // Explicit development marker until the missing sprite is authored.
    this.fallback.clear().poly([-10,0,0,-10,10,0,0,7]).fill({color:team}).stroke({width:2,color:0x15130f});
   }
-  this.bodyBottom=this.nextBodyBottom;this.root.zIndex=this.groundDepth(now,reducedMotion);
+  this.bodyBottom=this.nextBodyBottom;this.paintedBounds=this.nextPaintedBounds;this.root.zIndex=this.groundDepth(now,reducedMotion);
   if(this.projectedShadows)this.groundShadows.visible=false;
   this.overlays.clear();
   const radius=building?(e.footprintWidth+e.footprintHeight)*16:Math.max(12,(unit?.radius??400)/1000*48);

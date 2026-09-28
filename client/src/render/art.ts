@@ -1,6 +1,7 @@
 import {Assets,Rectangle,Texture} from 'pixi.js';
 import {classify,type CatalogIndex} from '../content/catalog';
 import {authoredArtId} from './art-id';
+import {makeAlphaMask,alphaInFrame,type AlphaMask} from './alpha-picking';
 import type {EffectDescriptor} from '../content/effect-assets.mjs';
 
 export interface ArtIndex {effects?:EffectDescriptor;format:1;sprites:Record<string,string>;terrain:string[];portraits:string[];buildIcons?:string[];chrome:string[];icons:boolean;emblems:boolean}
@@ -14,10 +15,10 @@ export interface SpriteMeta {
  hardpoints_2x_rel_anchor?:Record<string,Record<string,[number,number]>>;
 }
 interface AtlasFrame {frame:{x:number;y:number;w:number;h:number};anchor?:{x:number;y:number};sourceSize:{w:number;h:number};ink_bounds?:{x:number;y:number;w:number;h:number}|null}
-export interface FrameSet {texture:Texture;atlasTexture:Texture;anchorX:number;anchorY:number;bodyBottom?:number;inkBounds?:{x:number;y:number;w:number;h:number}}
+export interface FrameSet {texture:Texture;atlasTexture:Texture;anchorX:number;anchorY:number;bodyBottom?:number;inkBounds?:{x:number;y:number;w:number;h:number};containsAlpha?:(x:number,y:number,tolerance:number)=>boolean}
 interface AtlasPage {
  url:string;descriptors:Record<string,AtlasFrame>;layer:string;frames:Map<string,FrameSet>;
- texture?:Texture;pending?:Promise<void>;unloading?:Promise<void>;failed?:boolean;lastUsed:number;bytes:number;
+ generation:number;alpha?:AlphaMask;texture?:Texture;pending?:Promise<void>;unloading?:Promise<void>;failed?:boolean;lastUsed:number;bytes:number;
 }
 export class SpriteSheet {
  readonly states=new Map<string,SpriteState>();private readonly lookup=new Map<string,AtlasPage>();private disposed=false;
@@ -34,7 +35,7 @@ export class SpriteSheet {
  }
  /** Screen scale that converts this atlas to 1× world pixels. */
  get pixelScale(){return this.scale==='2x'?0.5:1}
- get statistics(){return {indexedPages:this.pages.length,residentPages:this.pages.filter(page=>page.texture).length,residentBytes:this.pages.reduce((sum,page)=>sum+(page.texture?page.bytes:0),0)}}
+ get statistics(){return {indexedPages:this.pages.length,residentPages:this.pages.filter(page=>page.texture).length,residentBytes:this.pages.reduce((sum,page)=>sum+(page.texture?page.bytes:0),0),pickingBytes:this.pages.reduce((sum,page)=>sum+(page.alpha?.bits.byteLength??0),0)}}
  private key(layer:string,state:string,direction:number,index:number){return `${layer}|${state}/d${String(direction).padStart(2,'0')}_f${String(index).padStart(2,'0')}`}
  sourceFrame(state:string,direction:number,index:number){
   for(let depth=0;depth<this.aliases.size;depth++){const alias=this.aliases.get(state);if(!alias)break;const source=this.states.get(alias.source)!;if(alias.reverse)index=source.frames-1-index;state=alias.source}
@@ -51,20 +52,30 @@ export class SpriteSheet {
   page.pending=(async()=>{
    await page.unloading;if(this.disposed)return;
    // Atlas rectangles are physical pixels; suppress Pixi's @2x inference.
-   const texture=await Assets.load<Texture>({src:page.url,data:{resolution:1}});page.texture=texture;
+   const generation=++page.generation,texture=await Assets.load<Texture>({src:page.url,data:{resolution:1}});page.texture=texture;
    page.bytes=texture.source.pixelWidth*texture.source.pixelHeight*4;
+   if(page.layer==='beauty'||page.layer==='team'){
+    // Decode picking opacity once on page admission, never from the rendered
+    // world or on a pointer event. One bit/pixel adds at most ~1/32 of these
+    // resident RGBA texture bytes; shadow pages allocate no picking data.
+    const canvas=document.createElement('canvas');canvas.width=texture.source.pixelWidth;canvas.height=texture.source.pixelHeight;
+    const context=canvas.getContext('2d',{willReadFrequently:true});if(!context)throw Error('Atlas picking context unavailable');
+    context.drawImage(texture.source.resource as CanvasImageSource,0,0);
+    page.alpha=makeAlphaMask(canvas.width,canvas.height,context.getImageData(0,0,canvas.width,canvas.height).data);
+    canvas.width=canvas.height=0;
+   }
    for(const [key,frame] of Object.entries(page.descriptors)){
     const t=new Texture({source:texture.source,frame:new Rectangle(frame.frame.x,frame.frame.y,frame.frame.w,frame.frame.h)});
     const ink=frame.ink_bounds,anchorY=frame.anchor?.y??.5;
     const valid=ink&&[ink.x,ink.y,ink.w,ink.h].every(Number.isInteger)&&ink.x>=0&&ink.y>=0&&ink.w>0&&ink.h>0&&ink.x+ink.w<=frame.frame.w&&ink.y+ink.h<=frame.frame.h;
-    page.frames.set(`${page.layer}|${key}`,{texture:t,atlasTexture:texture,anchorX:frame.anchor?.x??.5,anchorY,...valid?{bodyBottom:(ink.y+ink.h-anchorY*frame.frame.h)*this.pixelScale,inkBounds:ink}:{}});
+    page.frames.set(`${page.layer}|${key}`,{texture:t,atlasTexture:texture,anchorX:frame.anchor?.x??.5,anchorY,...page.alpha?{containsAlpha:(x:number,y:number,tolerance:number)=>page.generation===generation&&!!page.alpha&&alphaInFrame(page.alpha,frame.frame,x,y,tolerance)}:{},...valid?{bodyBottom:(ink.y+ink.h-anchorY*frame.frame.h)*this.pixelScale,inkBounds:ink}:{}});
    }
-  })().catch(error=>{page.failed=true;console.warn('Sprite page failed to load',this.id,page.url,error)}).finally(()=>{page.pending=undefined});
+  })().catch(async error=>{page.failed=true;page.generation++;page.alpha=undefined;for(const frame of page.frames.values())frame.texture.destroy(false);page.frames.clear();const admitted=!!page.texture;page.texture=undefined;if(admitted)await Assets.unload(page.url).catch(()=>{});console.warn('Sprite page failed to load',this.id,page.url,error)}).finally(()=>{page.pending=undefined});
  }
  async settle(){await Promise.all(this.pages.map(page=>page.pending))}
  private unload(page:AtlasPage){
   if(page.pending||!page.texture)return;
-  for(const frame of page.frames.values())frame.texture.destroy(false);page.frames.clear();page.texture=undefined;
+  page.generation++;page.alpha=undefined;for(const frame of page.frames.values())frame.texture.destroy(false);page.frames.clear();page.texture=undefined;
   page.unloading=Assets.unload(page.url).catch(()=>{}).finally(()=>{page.unloading=undefined});
  }
  evictBefore(before:number){for(const page of this.pages)if(page.lastUsed<before)this.unload(page)}
@@ -81,7 +92,7 @@ export class ArtLibrary {
  private releaseWork:Promise<void>=Promise.resolve();
  private loaded=new Set<SpriteSheet>();
  configure(quality:'auto'|'high'|'standard'){this.scale=quality==='high'?'2x':'1x'}
- get statistics(){return [...this.loaded].reduce((sum,sheet)=>{const next=sheet.statistics;return {indexedPages:sum.indexedPages+next.indexedPages,residentPages:sum.residentPages+next.residentPages,residentBytes:sum.residentBytes+next.residentBytes}},{indexedPages:0,residentPages:0,residentBytes:0})}
+ get statistics(){return [...this.loaded].reduce((sum,sheet)=>{const next=sheet.statistics;return {indexedPages:sum.indexedPages+next.indexedPages,residentPages:sum.residentPages+next.residentPages,residentBytes:sum.residentBytes+next.residentBytes,pickingBytes:sum.pickingBytes+next.pickingBytes}},{indexedPages:0,residentPages:0,residentBytes:0,pickingBytes:0})}
  async settle(){await Promise.all([...this.loaded].map(sheet=>sheet.settle()))}
  /** Keep current on-screen frames; reclaim animations unused for ten seconds. */
  trim(){const budget=this.scale==='2x'?384*1024*1024:192*1024*1024;if(this.statistics.residentBytes>budget)for(const sheet of this.loaded)sheet.evictBefore(performance.now()-10000)}
@@ -131,7 +142,7 @@ export class ArtLibrary {
   for(const [layer,files] of Object.entries(meta.atlases[scale]))for(const file of files){
    const result=await fetch(base+file);if(!result.ok)throw new Error('Sprite atlas unavailable');
    const atlas=await result.json() as {frames:Record<string,AtlasFrame>;meta:{image:string}};
-   pages.push({url:base+atlas.meta.image,layer,descriptors:atlas.frames,frames:new Map(),lastUsed:0,bytes:0});
+   pages.push({url:base+atlas.meta.image,layer,descriptors:atlas.frames,frames:new Map(),lastUsed:0,bytes:0,generation:0});
   }
   const sheet=new SpriteSheet(id,meta,scale,pages);this.loaded.add(sheet);return sheet;
  }
