@@ -530,7 +530,12 @@ func (e *Engine) updateMovement() {
 				goal = v.LastTarget
 				moving = true
 				if distance(v.Position, goal) < 1000 {
-					v.Orders = nil
+					// Searching the last observed position finishes this attack,
+					// not the later commands the player deliberately queued.
+					v.Orders = v.Orders[1:]
+					v.Path = nil
+					v.PathResolved = false
+					v.State = "idle"
 					v.Anchor = v.Position
 					moving = false
 				}
@@ -687,7 +692,7 @@ func (e *Engine) updateMovement() {
 			}
 			v.StationarySince = e.state.Tick
 			v.Concealed = false
-		} else {
+		} else if !air || !e.airDetour(v, p) {
 			e.blocked(v)
 		}
 	}

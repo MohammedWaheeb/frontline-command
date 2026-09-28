@@ -85,7 +85,7 @@ func (e *Engine) validateMobileOrder(player PlayerID, o Order, selected []*Entit
 				return "transport_required"
 			}
 		case "return":
-			if e.armor(v) != "air" {
+			if !e.isAircraft(v) {
 				return "aircraft_required"
 			}
 		}
