@@ -1,0 +1,1264 @@
+{
+  "started": "2026-09-28T21:00:22.234Z",
+  "completed": "2026-09-28T21:12:18.524Z",
+  "status": "failed",
+  "combatStatus": "failed",
+  "strictStatus": "passed",
+  "browserFailure": "Error: Player 1 did not release the old match at between-matches: An extra runtime worker survived teardown\n\n10 !== 1\n\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-rematch.browser.mjs:135:249\n    at async menuBoundary (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-rematch.browser.mjs:135:3)\n    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/render/multiplayer-rematch.browser.mjs:272:4",
+  "browserAndHostClosed": "2026-09-28T21:12:13.045Z",
+  "driverSHA256": "9c122c1f601cdb3ea073fa970125f498123cf72f63bbdb0c0e808f4b70d1745d",
+  "auditorSHA256": "02837beaf121a6c800618d22e6a6026ad67d15fd1db89c8bf610a71615230fb6",
+  "browser": "151.0.7922.34",
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))",
+        "driverVendor": "Apple",
+        "driverVersion": "26.5.1"
+      }
+    ],
+    "auxAttributes": {
+      "amdSwitchable": false,
+      "canSupportThreadedTextureMailbox": false,
+      "directRenderingVersion": "",
+      "displayType": "ANGLE_METAL",
+      "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_compressed_texture_etc GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_rgbx_internal_format GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_compressed_ETC1_RGB8_sub_texture GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_multisampled_render_to_texture GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_pvrtc_sRGB GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_sRGB_R8 GL_EXT_texture_sRGB_RG8 GL_EXT_texture_shadow_lod GL_EXT_texture_storage GL_IMG_texture_compression_pvrtc GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_KHR_texture_compression_astc_hdr GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_NV_fence GL_NV_framebuffer_blit GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_sync GL_OES_compressed_EAC_R11_signed_texture GL_OES_compressed_EAC_R11_unsigned_texture GL_OES_compressed_EAC_RG11_signed_texture GL_OES_compressed_EAC_RG11_unsigned_texture GL_OES_compressed_ETC1_RGB8_texture GL_OES_compressed_ETC2_RGB8_texture GL_OES_compressed_ETC2_RGBA8_texture GL_OES_compressed_ETC2_punchthroughA_RGBA8_texture GL_OES_compressed_ETC2_punchthroughA_sRGB8_alpha_texture GL_OES_compressed_ETC2_sRGB8_alpha8_texture GL_OES_compressed_ETC2_sRGB8_texture GL_OES_depth24 GL_OES_depth32 GL_OES_depth_texture GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_3D GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_vertex_array_object GL_QCOM_render_shared_exponent ",
+      "glImplementationParts": "(gl=egl-angle,angle=metal)",
+      "glRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))",
+      "glResetNotificationStrategy": 33362,
+      "glVendor": "Google Inc. (Apple)",
+      "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28222 git hash: 6dab7c7e742b)",
+      "glWsExtensions": "",
+      "glWsVendor": "",
+      "glWsVersion": "",
+      "inProcessGpu": false,
+      "initializationTime": 0.066809,
+      "isAsan": false,
+      "isClangCoverage": false,
+      "jpegDecodeAcceleratorSupported": false,
+      "maxMsaaSamples": "4",
+      "optimus": false,
+      "passthroughCmdDecoder": true,
+      "pixelShaderVersion": "3.00",
+      "processCrashCount": 0,
+      "sandboxed": false,
+      "skiaBackendType": "GraphiteDawnMetal",
+      "subpixelFontRendering": true,
+      "targetCpuBits": 64,
+      "vertexShaderVersion": "3.00",
+      "visibilityCallbackCallCount": 0
+    },
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    },
+    "driverBugWorkarounds": [
+      "disable_2d_canvas_auto_flush",
+      "enable_webgl_timer_query_extensions",
+      "disabled_extension_GL_KHR_blend_equation_advanced",
+      "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+    ],
+    "videoDecoding": [],
+    "videoEncoding": []
+  },
+  "conditions": "Current UI/art frozen; receipt-verified optimized 0.3.4. Shared host, sole isolated Blender/light authoring may continue. No performance claim. Scoped caffeinate -di; preflight rematch-v1-preflight.json.",
+  "scope": "First earned game passes ordinary replay verification; same-page two-match course FAILED at overly broad worker-count assertion before round2. No long-match pass.",
+  "build": {
+    "revision": "e055b4655a645c93153e63ac253f2e847c32b6ec",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.4"
+    },
+    "sha256": {
+      "host": "1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379",
+      "wasm": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65",
+      "protocol": "89333b8afc6ad9094ec3905f99122babcbac9b762e588c02196ec3bdca0b9e3e",
+      "pack": "3f0543e7d7e30d9f4bf1a864643223025e2609c8f14179b5078a354a698adfb0",
+      "clientSource": "d133f781de75f75b96e3ede5629130e56e0c1e04696b800cc2ad944674914d40",
+      "entry": "4573c94b97141142bb1d9bd6821ebb28ae2e7fd19c8cca22cc9391031c9cfb17"
+    },
+    "runtimeSuccessor": {
+      "sourceLockSHA256": "c7e0d79d1770491cc867037b7c0c69b31ce16738885022130dc3fea59c37d122",
+      "receiptSHA256": "4bcefec6b485e4178d92ed796af3e60da0ef9f95882306d14b2b54cc17257b4f",
+      "replaced": [
+        {
+          "source": "bin/frontline-host",
+          "target": "frontline",
+          "before": {
+            "bytes": 20841378,
+            "sha256": "aa474267ab3c2c19f64deb526f5dc500516d4e2ac73a2a50c96664d06b6b1a8b"
+          },
+          "after": {
+            "bytes": 20805138,
+            "sha256": "1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379"
+          }
+        },
+        {
+          "source": "frontline.wasm",
+          "target": "product/runtime/frontline.wasm",
+          "before": {
+            "bytes": 11441170,
+            "sha256": "a0bf6dadb578e2f80875ad7471efe480637c94b0101da8e84324f349c058bcc4"
+          },
+          "after": {
+            "bytes": 11237971,
+            "sha256": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65"
+          }
+        },
+        {
+          "source": "wasm_exec.js",
+          "target": "product/runtime/wasm_exec.js",
+          "before": {
+            "bytes": 16992,
+            "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+          },
+          "after": {
+            "bytes": 16992,
+            "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+          }
+        },
+        {
+          "source": "worker.js",
+          "target": "product/runtime/worker.js",
+          "before": {
+            "bytes": 8078,
+            "sha256": "926e623ab0a4d5515ea5b87322f5186e3372f5ca27b05859e3a4e720be94aa85"
+          },
+          "after": {
+            "bytes": 8144,
+            "sha256": "ea75602152555b60d8049765d7238c54e9650d7afea4c23b949c711093c1706f"
+          }
+        },
+        {
+          "source": "worker.js.map",
+          "target": "product/runtime/worker.js.map",
+          "after": {
+            "bytes": 13069,
+            "sha256": "e61551a5b463bd29b3fe76388db8ca8b11dec4199536e50ab188ded77802806d"
+          }
+        },
+        {
+          "source": "version.json",
+          "target": "product/runtime/version.json",
+          "before": {
+            "bytes": 169,
+            "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea"
+          },
+          "after": {
+            "bytes": 169,
+            "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea"
+          }
+        }
+      ]
+    },
+    "auditor": {
+      "path": "audit-replay",
+      "sha256": "02837beaf121a6c800618d22e6a6026ad67d15fd1db89c8bf610a71615230fb6",
+      "contract": {
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "initial_countdown_ticks": true,
+        "simulation": "0.3.4",
+        "verification": "initial/checkpoint/midpoint-restored"
+      }
+    }
+  },
+  "match": {
+    "id": "round-1",
+    "commands": 163,
+    "reconnect": {
+      "player": 1,
+      "before": {
+        "tick": 3632,
+        "sequence": 19,
+        "sockets": 1
+      },
+      "after": {
+        "tick": 3636,
+        "sequence": 19,
+        "sockets": 2
+      }
+    },
+    "ownershipRejections": [
+      {
+        "player": 1,
+        "tick": 4760,
+        "target": 41,
+        "code": "not_owner"
+      },
+      {
+        "player": 2,
+        "tick": 4760,
+        "target": 39,
+        "code": "not_owner"
+      }
+    ],
+    "result": {
+      "$typeName": "frontline.v1.MatchResult",
+      "matchId": "2adf3c97d85f8ff1c37042f9",
+      "committed": true,
+      "void": false,
+      "outcome": {
+        "$typeName": "frontline.v1.Outcome",
+        "finished": true,
+        "draw": false,
+        "winningTeam": 2,
+        "reason": "elimination",
+        "tick": 13185
+      }
+    },
+    "replay": {
+      "id": "match-c50125d3-2aa8-47bc-ba56-5a46c1ed67da",
+      "sha256": "04fe7f29eade905834495052a9ad89c1306a2d64391f744a609f0ee3eff32434",
+      "bytes": 324883,
+      "startTick": 0,
+      "endTick": 13185
+    },
+    "duration": {
+      "initialTick": 0,
+      "countdownTicks": 100,
+      "finalTick": 13185,
+      "activeTicks": 13085,
+      "activeSeconds": 654.25,
+      "minimumActiveTicks": 24000,
+      "qualifies": false
+    },
+    "rematch": {
+      "id": "1a334a0fc64057dbce15107e",
+      "requiresNewReadiness": true
+    },
+    "nativeProof": {
+      "events": {
+        "cargo_delivered": 44,
+        "construction_complete": 10,
+        "defeat_countdown": 1,
+        "destroyed": 50,
+        "foundation_placed": 10,
+        "impact": 1525,
+        "match_ended": 1,
+        "player_defeated": 1,
+        "route_blocked": 20,
+        "under_attack": 1399,
+        "unit_ready": 68,
+        "weapon_fired": 1525
+      },
+      "final_hash": "61ca68ed9587e44d22265c2bb9b7bf5a306723f4926c229304ad751d141f8e07",
+      "final_tick": 13185,
+      "full_checkpoint_and_resumed_hashes_equal": true,
+      "initial_countdown_ticks": 100,
+      "initial_tick": 0,
+      "lobby": {
+        "name": "Two consecutive ordinary operations",
+        "mode": "1v1",
+        "private": false,
+        "live_observers": false,
+        "pause_enabled": false,
+        "rated": false
+      },
+      "map_id": "industrial-valley",
+      "midpoint_hash": "5b21427fdff4f80dfeab9ae1a1317b501e06b51562ad84584ecc6e5a137a3db9",
+      "midpoint_tick": 6592,
+      "outcome": {
+        "finished": true,
+        "draw": false,
+        "winning_team": 2,
+        "reason": "elimination",
+        "tick": 13185
+      },
+      "players": [
+        {
+          "ai": "",
+          "defeated": true,
+          "faction": "US",
+          "id": 1,
+          "income_milli": 8400000,
+          "kills": 20,
+          "lost_milli": 15200000,
+          "orders": {
+            "attack": 1,
+            "attack_move": 17,
+            "build": 11,
+            "train": 22
+          },
+          "spent_milli": 14300000,
+          "team": 1
+        },
+        {
+          "ai": "",
+          "defeated": false,
+          "faction": "IR",
+          "id": 2,
+          "income_milli": 18000000,
+          "kills": 20,
+          "lost_milli": 7600000,
+          "orders": {
+            "attack": 15,
+            "attack_move": 52,
+            "build": 12,
+            "train": 46
+          },
+          "spent_milli": 23700000,
+          "team": 2
+        }
+      ],
+      "replay_sha256": "04fe7f29eade905834495052a9ad89c1306a2d64391f744a609f0ee3eff32434",
+      "scope": "Actual host orders replayed from initial state; ordinary paid production and combat, no fixture mutations. Save/restore verification is offline, not live multiplayer checkpoint resume.",
+      "seed_uint64": "859761103783007190",
+      "simulation": "0.3.4",
+      "telemetry": {
+        "players": [
+          {
+            "player": 1,
+            "units_produced": [
+              {
+                "type": "US.at",
+                "count": 6
+              },
+              {
+                "type": "US.hauler",
+                "count": 3
+              },
+              {
+                "type": "US.rifle",
+                "count": 14
+              }
+            ],
+            "buildings_constructed": [
+              {
+                "type": "barracks",
+                "count": 2
+              },
+              {
+                "type": "factory",
+                "count": 1
+              },
+              {
+                "type": "power",
+                "count": 1
+              },
+              {
+                "type": "supply",
+                "count": 1
+              }
+            ],
+            "units_lost": 24,
+            "buildings_lost": 6,
+            "repair_spent": 0,
+            "missile_spent": 0,
+            "interceptors_fired": 0,
+            "station_control_ticks": 0,
+            "timeline": [
+              {
+                "tick": 0,
+                "credits": 6000000,
+                "income": 0,
+                "spent": 0,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 400,
+                "credits": 5500000,
+                "income": 0,
+                "spent": 500000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 800,
+                "credits": 3700000,
+                "income": 0,
+                "spent": 2300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 1200,
+                "credits": 3700000,
+                "income": 0,
+                "spent": 2300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 1600,
+                "credits": 2200000,
+                "income": 0,
+                "spent": 3800000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 2000,
+                "credits": 100000,
+                "income": 600000,
+                "spent": 6500000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 2400,
+                "credits": 700000,
+                "income": 1200000,
+                "spent": 6500000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 2800,
+                "credits": 1600000,
+                "income": 2400000,
+                "spent": 6800000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 3200,
+                "credits": 1100000,
+                "income": 3000000,
+                "spent": 7900000,
+                "supply": 2,
+                "stations": 0
+              },
+              {
+                "tick": 3600,
+                "credits": 100000,
+                "income": 3600000,
+                "spent": 9500000,
+                "supply": 8,
+                "stations": 0
+              },
+              {
+                "tick": 4000,
+                "credits": 100000,
+                "income": 4200000,
+                "spent": 10100000,
+                "supply": 12,
+                "stations": 0
+              },
+              {
+                "tick": 4400,
+                "credits": 200000,
+                "income": 4800000,
+                "spent": 10600000,
+                "supply": 16,
+                "stations": 0
+              },
+              {
+                "tick": 4800,
+                "credits": 200000,
+                "income": 5400000,
+                "spent": 11200000,
+                "supply": 18,
+                "stations": 0
+              },
+              {
+                "tick": 5200,
+                "credits": 800000,
+                "income": 6000000,
+                "spent": 11200000,
+                "supply": 18,
+                "stations": 0
+              },
+              {
+                "tick": 5600,
+                "credits": 300000,
+                "income": 6600000,
+                "spent": 12300000,
+                "supply": 10,
+                "stations": 0
+              },
+              {
+                "tick": 6000,
+                "credits": 400000,
+                "income": 7200000,
+                "spent": 12800000,
+                "supply": 6,
+                "stations": 0
+              },
+              {
+                "tick": 6400,
+                "credits": 100000,
+                "income": 7800000,
+                "spent": 13700000,
+                "supply": 6,
+                "stations": 0
+              },
+              {
+                "tick": 6800,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 10,
+                "stations": 0
+              },
+              {
+                "tick": 7200,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 14,
+                "stations": 0
+              },
+              {
+                "tick": 7600,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 12,
+                "stations": 0
+              },
+              {
+                "tick": 8000,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 10,
+                "stations": 0
+              },
+              {
+                "tick": 8400,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 10,
+                "stations": 0
+              },
+              {
+                "tick": 8800,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 2,
+                "stations": 0
+              },
+              {
+                "tick": 9200,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 9600,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 10000,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 10400,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 10800,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 11200,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 11600,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 12000,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 12400,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 12800,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 13185,
+                "credits": 100000,
+                "income": 8400000,
+                "spent": 14300000,
+                "supply": 0,
+                "stations": 0
+              }
+            ]
+          },
+          {
+            "player": 2,
+            "units_produced": [
+              {
+                "type": "IR.at",
+                "count": 17
+              },
+              {
+                "type": "IR.hauler",
+                "count": 3
+              },
+              {
+                "type": "IR.rifle",
+                "count": 25
+              }
+            ],
+            "buildings_constructed": [
+              {
+                "type": "barracks",
+                "count": 2
+              },
+              {
+                "type": "factory",
+                "count": 1
+              },
+              {
+                "type": "power",
+                "count": 1
+              },
+              {
+                "type": "supply",
+                "count": 1
+              }
+            ],
+            "units_lost": 20,
+            "buildings_lost": 0,
+            "repair_spent": 0,
+            "missile_spent": 0,
+            "interceptors_fired": 0,
+            "station_control_ticks": 0,
+            "timeline": [
+              {
+                "tick": 0,
+                "credits": 6000000,
+                "income": 0,
+                "spent": 0,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 400,
+                "credits": 5500000,
+                "income": 0,
+                "spent": 500000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 800,
+                "credits": 3700000,
+                "income": 0,
+                "spent": 2300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 1200,
+                "credits": 3700000,
+                "income": 0,
+                "spent": 2300000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 1600,
+                "credits": 2200000,
+                "income": 0,
+                "spent": 3800000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 2000,
+                "credits": 2800000,
+                "income": 600000,
+                "spent": 3800000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 2400,
+                "credits": 700000,
+                "income": 1200000,
+                "spent": 6500000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 2800,
+                "credits": 1300000,
+                "income": 1800000,
+                "spent": 6500000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 3200,
+                "credits": 1000000,
+                "income": 2400000,
+                "spent": 7400000,
+                "supply": 0,
+                "stations": 0
+              },
+              {
+                "tick": 3600,
+                "credits": 500000,
+                "income": 3000000,
+                "spent": 8500000,
+                "supply": 4,
+                "stations": 0
+              },
+              {
+                "tick": 4000,
+                "credits": 100000,
+                "income": 3600000,
+                "spent": 9500000,
+                "supply": 8,
+                "stations": 0
+              },
+              {
+                "tick": 4400,
+                "credits": 100000,
+                "income": 4200000,
+                "spent": 10100000,
+                "supply": 14,
+                "stations": 0
+              },
+              {
+                "tick": 4800,
+                "credits": 200000,
+                "income": 4800000,
+                "spent": 10600000,
+                "supply": 16,
+                "stations": 0
+              },
+              {
+                "tick": 5200,
+                "credits": 0,
+                "income": 5400000,
+                "spent": 11400000,
+                "supply": 14,
+                "stations": 0
+              },
+              {
+                "tick": 5600,
+                "credits": 0,
+                "income": 6000000,
+                "spent": 12000000,
+                "supply": 18,
+                "stations": 0
+              },
+              {
+                "tick": 6000,
+                "credits": 100000,
+                "income": 6600000,
+                "spent": 12500000,
+                "supply": 16,
+                "stations": 0
+              },
+              {
+                "tick": 6400,
+                "credits": 100000,
+                "income": 7200000,
+                "spent": 13100000,
+                "supply": 22,
+                "stations": 0
+              },
+              {
+                "tick": 6800,
+                "credits": 200000,
+                "income": 7800000,
+                "spent": 13600000,
+                "supply": 22,
+                "stations": 0
+              },
+              {
+                "tick": 7200,
+                "credits": 200000,
+                "income": 8400000,
+                "spent": 14200000,
+                "supply": 14,
+                "stations": 0
+              },
+              {
+                "tick": 7600,
+                "credits": 300000,
+                "income": 9000000,
+                "spent": 14700000,
+                "supply": 6,
+                "stations": 0
+              },
+              {
+                "tick": 8000,
+                "credits": 100000,
+                "income": 9600000,
+                "spent": 15500000,
+                "supply": 6,
+                "stations": 0
+              },
+              {
+                "tick": 8400,
+                "credits": 100000,
+                "income": 10200000,
+                "spent": 16100000,
+                "supply": 8,
+                "stations": 0
+              },
+              {
+                "tick": 8800,
+                "credits": 200000,
+                "income": 10800000,
+                "spent": 16600000,
+                "supply": 10,
+                "stations": 0
+              },
+              {
+                "tick": 9200,
+                "credits": 200000,
+                "income": 11400000,
+                "spent": 17200000,
+                "supply": 14,
+                "stations": 0
+              },
+              {
+                "tick": 9600,
+                "credits": 300000,
+                "income": 12000000,
+                "spent": 17700000,
+                "supply": 16,
+                "stations": 0
+              },
+              {
+                "tick": 10000,
+                "credits": 400000,
+                "income": 13200000,
+                "spent": 18800000,
+                "supply": 18,
+                "stations": 0
+              },
+              {
+                "tick": 10400,
+                "credits": 1000000,
+                "income": 13800000,
+                "spent": 18800000,
+                "supply": 22,
+                "stations": 0
+              },
+              {
+                "tick": 10800,
+                "credits": 0,
+                "income": 13800000,
+                "spent": 19800000,
+                "supply": 26,
+                "stations": 0
+              },
+              {
+                "tick": 11200,
+                "credits": 0,
+                "income": 15000000,
+                "spent": 21000000,
+                "supply": 30,
+                "stations": 0
+              },
+              {
+                "tick": 11600,
+                "credits": 100000,
+                "income": 15600000,
+                "spent": 21500000,
+                "supply": 34,
+                "stations": 0
+              },
+              {
+                "tick": 12000,
+                "credits": 700000,
+                "income": 16200000,
+                "spent": 21500000,
+                "supply": 36,
+                "stations": 0
+              },
+              {
+                "tick": 12400,
+                "credits": 200000,
+                "income": 16800000,
+                "spent": 22600000,
+                "supply": 38,
+                "stations": 0
+              },
+              {
+                "tick": 12800,
+                "credits": 300000,
+                "income": 17400000,
+                "spent": 23100000,
+                "supply": 42,
+                "stations": 0
+              },
+              {
+                "tick": 13185,
+                "credits": 300000,
+                "income": 18000000,
+                "spent": 23700000,
+                "supply": 44,
+                "stations": 0
+              }
+            ]
+          }
+        ],
+        "events": [
+          {
+            "tick": 12585,
+            "kind": "defeat_countdown",
+            "player": 1,
+            "type": "",
+            "text": ""
+          },
+          {
+            "tick": 13185,
+            "kind": "player_defeated",
+            "player": 1,
+            "type": "",
+            "text": ""
+          },
+          {
+            "tick": 13185,
+            "kind": "match_ended",
+            "player": 0,
+            "type": "",
+            "text": ""
+          }
+        ],
+        "omitted_events": 0
+      }
+    }
+  },
+  "rawBrowserReport": {
+    "file": "browser.json",
+    "sha256": "8ffc9d79baa2ea42d280c7424763d0033573b7156a96b5727a91d9d358845ab0",
+    "bytes": 6662170
+  },
+  "initialLifetime": [
+    {
+      "app": {
+        "appInstance": "6e2e1e70-d8ed-4901-82a2-c4e26cea6571",
+        "timeOrigin": 1790629224817.8,
+        "phase": "menu",
+        "transportPresent": false,
+        "observedSessions": [],
+        "presentationResets": 0,
+        "frameSubscribers": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "audio": {
+          "context": "absent",
+          "sources": 0,
+          "continuous": 0,
+          "buffers": 0,
+          "decodedBytes": 0,
+          "pending": 0,
+          "generation": 2,
+          "gains": {
+            "master": 0,
+            "voice": 0,
+            "music": 0,
+            "effects": 0,
+            "ui": 0
+          }
+        }
+      },
+      "page": {
+        "pageInstance": "1790629224817.8-0.03l7x6f5luw",
+        "activeWorkers": 1,
+        "createdWorkers": 1,
+        "terminatedWorkers": 0,
+        "timeOrigin": 1790629224817.8,
+        "heapUsed": 14675019
+      },
+      "navigationCount": 1,
+      "openSockets": 0
+    },
+    {
+      "app": {
+        "appInstance": "d8cc0880-13bb-403e-afe3-bfe7f7e3105b",
+        "timeOrigin": 1790629225467.5,
+        "phase": "menu",
+        "transportPresent": false,
+        "observedSessions": [],
+        "presentationResets": 0,
+        "frameSubscribers": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "audio": {
+          "context": "absent",
+          "sources": 0,
+          "continuous": 0,
+          "buffers": 0,
+          "decodedBytes": 0,
+          "pending": 0,
+          "generation": 2,
+          "gains": {
+            "master": 0,
+            "voice": 0,
+            "music": 0,
+            "effects": 0,
+            "ui": 0
+          }
+        }
+      },
+      "page": {
+        "pageInstance": "1790629225467.5-0.mwc2umw7lua",
+        "activeWorkers": 1,
+        "createdWorkers": 1,
+        "terminatedWorkers": 0,
+        "timeOrigin": 1790629225467.5,
+        "heapUsed": 14732662
+      },
+      "navigationCount": 1,
+      "openSockets": 0
+    }
+  ],
+  "firstMatchLifetime": [
+    {
+      "app": {
+        "appInstance": "6e2e1e70-d8ed-4901-82a2-c4e26cea6571",
+        "timeOrigin": 1790629224817.8,
+        "session": "session-1",
+        "phase": "active",
+        "kind": "online",
+        "transportPresent": true,
+        "observedSessions": [
+          "session-1"
+        ],
+        "presentationResets": 0,
+        "frameSubscribers": 1,
+        "art": {
+          "indexedPages": 26,
+          "residentPages": 11,
+          "residentBytes": 30534048,
+          "pickingBytes": 632909
+        },
+        "audio": {
+          "context": "absent",
+          "sources": 0,
+          "continuous": 0,
+          "buffers": 0,
+          "decodedBytes": 0,
+          "pending": 0,
+          "generation": 3,
+          "gains": {
+            "master": 0,
+            "voice": 0,
+            "music": 0,
+            "effects": 0,
+            "ui": 0
+          }
+        }
+      },
+      "page": {
+        "pageInstance": "1790629224817.8-0.03l7x6f5luw",
+        "activeWorkers": 10,
+        "createdWorkers": 11,
+        "terminatedWorkers": 1,
+        "timeOrigin": 1790629224817.8,
+        "heapUsed": 88867321
+      },
+      "navigationCount": 1,
+      "openSockets": 1
+    },
+    {
+      "app": {
+        "appInstance": "d8cc0880-13bb-403e-afe3-bfe7f7e3105b",
+        "timeOrigin": 1790629225467.5,
+        "session": "session-1",
+        "phase": "active",
+        "kind": "online",
+        "transportPresent": true,
+        "observedSessions": [
+          "session-1"
+        ],
+        "presentationResets": 0,
+        "frameSubscribers": 1,
+        "art": {
+          "indexedPages": 21,
+          "residentPages": 3,
+          "residentBytes": 11713536,
+          "pickingBytes": 244032
+        },
+        "audio": {
+          "context": "absent",
+          "sources": 0,
+          "continuous": 0,
+          "buffers": 0,
+          "decodedBytes": 0,
+          "pending": 0,
+          "generation": 3,
+          "gains": {
+            "master": 0,
+            "voice": 0,
+            "music": 0,
+            "effects": 0,
+            "ui": 0
+          }
+        }
+      },
+      "page": {
+        "pageInstance": "1790629225467.5-0.mwc2umw7lua",
+        "activeWorkers": 4,
+        "createdWorkers": 5,
+        "terminatedWorkers": 1,
+        "timeOrigin": 1790629225467.5,
+        "heapUsed": 55173168
+      },
+      "navigationCount": 1,
+      "openSockets": 1
+    }
+  ],
+  "artFallbacks": [
+    {
+      "player": 1,
+      "assets": {
+        "files": 1042,
+        "fallbacks": [
+          "IR:IR.aa",
+          "IR:IR.apc",
+          "IR:IR.artillery",
+          "IR:IR.car",
+          "IR:IR.drone_hub",
+          "IR:IR.fighter",
+          "IR:IR.gunship",
+          "IR:IR.isr",
+          "IR:IR.launcher",
+          "IR:IR.repair",
+          "IR:IR.tank",
+          "IR:aa_post",
+          "IR:barracks",
+          "IR:bunker",
+          "IR:factory",
+          "IR:hq",
+          "IR:outpost",
+          "IR:power",
+          "IR:radar",
+          "IR:strategic",
+          "IR:supply",
+          "IR:tech",
+          "IR:turret",
+          "US:US.aa",
+          "US:US.airfield",
+          "US:US.airlift",
+          "US:US.apc",
+          "US:US.artillery",
+          "US:US.car",
+          "US:US.fighter",
+          "US:US.gunship",
+          "US:US.launcher",
+          "US:US.repair",
+          "US:US.strike"
+        ]
+      }
+    },
+    {
+      "player": 2,
+      "assets": {
+        "files": 1042,
+        "fallbacks": [
+          "IR:IR.aa",
+          "IR:IR.apc",
+          "IR:IR.artillery",
+          "IR:IR.car",
+          "IR:IR.drone_hub",
+          "IR:IR.fighter",
+          "IR:IR.gunship",
+          "IR:IR.isr",
+          "IR:IR.launcher",
+          "IR:IR.repair",
+          "IR:IR.tank",
+          "IR:aa_post",
+          "IR:barracks",
+          "IR:bunker",
+          "IR:factory",
+          "IR:hq",
+          "IR:outpost",
+          "IR:power",
+          "IR:radar",
+          "IR:strategic",
+          "IR:supply",
+          "IR:tech",
+          "IR:turret",
+          "US:US.aa",
+          "US:US.airfield",
+          "US:US.airlift",
+          "US:US.apc",
+          "US:US.artillery",
+          "US:US.car",
+          "US:US.fighter",
+          "US:US.gunship",
+          "US:US.launcher",
+          "US:US.repair",
+          "US:US.strike"
+        ]
+      }
+    }
+  ],
+  "strictErrors": {
+    "browser": [],
+    "http": []
+  }
+}

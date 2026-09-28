@@ -11,7 +11,6 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {prepareProduct,root,evidence,buildDir,product} from './multiplayer-combat-build.mjs';
 import {activeMatchDuration,assertSameApplication,assertReleasedAtMenu,pairDuration} from './rematch-contract.mjs';
-import {installWorkerObservation} from './worker-observation.mjs';
 assert.equal(process.env.FRONTLINE_COMBAT_REUSE,'1','Use an explicitly frozen integrated acceptance build; this driver never rebuilds it.');
 const build=await prepareProduct(),runDir=path.join(evidence,'rematch-'+new Date().toISOString().replaceAll(':','-'));await mkdir(runDir,{recursive:true});
 const {fromBinary,EnvelopeSchema,applyDelta}=await import(pathToFileURL(path.join(buildDir,'decode.mjs')));
@@ -26,18 +25,17 @@ assert.equal(auditorContract.content_hash,build.version.content_hash);
 assert.equal(auditorContract.initial_countdown_ticks,true,'Auditor must report the actual initial countdown.');
 const report={started:new Date().toISOString(),build,driverSHA256:sha(source),auditorSHA256:sha(await readFile(auditor)),headless:process.env.FRONTLINE_COMBAT_HEADED!=='1',conditions:process.env.FRONTLINE_COMBAT_CONDITIONS??'Shared host; no performance claim.',scope:'Two independent profiles, same host/contexts/pages/Applications, DOM hosted rematch and ordinary paid combat. No page reload, surrender, free resources or altered deadlines. Twenty active minutes per match is a separate operational long-session criterion; natural shorter outcomes remain valid combat evidence.',cases:[],errors:[],httpErrors:[],boundaries:[]};
 report.auditorContract=auditorContract;
-const workerSources={};
-for(const [key,name] of [['imageWorkerSource','loadImageBitmap'],['probeWorkerSource','checkImageBitmap']]){
- const source=await readFile(path.join(root,'client/node_modules/pixi.js/lib/_virtual',name+'.worker.mjs'),'utf8');workerSources[key]=JSON.parse(source.split('\n')[0].slice('const WORKER_CODE = '.length,-1));
-}
-report.workerSourceSHA256=Object.fromEntries(Object.entries(workerSources).map(([key,source])=>[key,sha(source)]));
-report.helpers={};for(const file of ['worker-observation.mjs','rematch-contract.mjs']){const bytes=await readFile(new URL(file,import.meta.url));report.helpers[file]=sha(bytes);await writeFile(path.join(runDir,file),bytes)}
 let activeRecord,phase='setup';const contexts=[],pages=[],frames=[];
 async function until(check,message,timeout=30000){const started=Date.now();while(!await check()){if(Date.now()-started>timeout)throw Error(message);await sleep(150)}}
 async function idle(page){await until(async()=>await page.locator('.network-operation,.loading-screen').count()===0,'Product remained busy',120000);if(await page.locator('.network-error').count())throw Error(await page.locator('.network-error').allInnerTexts());if(await page.getByRole('dialog',{name:'Command interrupted',exact:true}).count())throw Error(await page.getByRole('dialog',{name:'Command interrupted',exact:true}).innerText())}
 async function saveReport(){await writeFile(path.join(runDir,'browser.json'),json(report));await writeFile(path.join(evidence,'latest-rematch.json'),json({runDir,phase,cases:report.cases.map(({id,status,progress})=>({id,status,ticks:progress?.map(value=>value.tick)}))}))}
 async function capture(page,id){await page.screenshot({path:path.join(runDir,id+'.png')})}
 async function focus(page,position){const box=await page.getByLabel('Tactical minimap',{exact:true}).boundingBox();if(box){const point=minimapProject(minimapLayout(map.width,map.height,box.width,box.height),position);await page.mouse.click(box.x+point.x,box.y+point.y);await sleep(150)}}
+function pageTelemetry(){
+ const active=new Set();let created=0,terminated=0;const NativeWorker=window.Worker,pageInstance=String(performance.timeOrigin)+'-'+Math.random().toString(36);
+ window.Worker=new Proxy(NativeWorker,{construct(target,args,newTarget){const worker=Reflect.construct(target,args,newTarget),id=++created;active.add(id);const terminate=worker.terminate.bind(worker);worker.terminate=()=>{if(active.delete(id))terminated++;return terminate()};return worker}});
+ Object.defineProperty(window,'rematchPageTelemetry',{value:()=>({pageInstance,activeWorkers:active.size,createdWorkers:created,terminatedWorkers:terminated,timeOrigin:performance.timeOrigin,heapUsed:performance.memory?.usedJSHeapSize})});
+}
 function observe(page,player){
  const state={snapshot:undefined,result:undefined,sockets:0,openSockets:new Set(),results:new Map(),orders:[],events:new Map(),navigationCount:0,firstSnapshot:undefined},requestViews=new WeakMap();
  const entry=kind=>({player,round:activeRecord?.id,phase,kind,time:new Date().toISOString()});
@@ -134,7 +132,7 @@ async function menuBoundary(label,initial){
  phase='menu-boundary';const checks=[];
  for(let index=0;index<pages.length;index++){
   let current,lastError;
-  await until(async()=>{current=await lifetime(index);try{assertReleasedAtMenu(initial[index],current);return true}catch(error){lastError=error;return false}},`Player ${index+1} did not release the old match at ${label}`,30000).catch(error=>{report.boundaryFailure={label,player:index+1,current};throw new Error(error.message+': '+lastError?.message)});
+  await until(async()=>{current=await lifetime(index);try{assertReleasedAtMenu(initial[index],current);return true}catch(error){lastError=error;return false}},`Player ${index+1} did not release the old match at ${label}`,30000).catch(error=>{throw new Error(error.message+': '+lastError?.message)});
   checks.push(current);assert.equal(await pages[index].getByLabel('Your profile ID').inputValue(),report.profiles[index],'Profile changed across rematch');
   await capture(pages[index],`${label}-player-${index+1}`);
  }
@@ -250,7 +248,7 @@ try{
  if(!report.headless){const renderer=report.gpu.auxAttributes?.glRenderer??'';assert.match(renderer,/Metal|Apple/i);assert.doesNotMatch(renderer,/SwiftShader|software/i)}
  activeRecord={id:'round-1',round:1,status:'running',clients:[],commands:0};report.cases.push(activeRecord);
  for(let index=0;index<2;index++){
-  const context=await browser.newContext({viewport:{width:index?1280:1600,height:index?720:900},acceptDownloads:true});contexts.push(context);await context.addInitScript(installWorkerObservation,workerSources);
+  const context=await browser.newContext({viewport:{width:index?1280:1600,height:index?720:900},acceptDownloads:true});contexts.push(context);await context.addInitScript(pageTelemetry);
   const page=await context.newPage();pages.push(page);page.setDefaultTimeout(90000);frames.push(observe(page,index+1));
   await page.goto(server.origin);assert.equal(await page.title(),'Frontline Command');
   assert(await page.evaluate(()=>typeof window.multiplayerCombat?.lifetime==='function'&&typeof window.multiplayerCombat?.replays==='function'),'Frozen build lacks the readonly lifetime/archive hooks. Prepare the next integrated freeze first.');

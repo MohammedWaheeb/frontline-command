@@ -40,8 +40,11 @@ implementation. At both menu boundaries the driver requires:
 - Original page time origin, instrumentation identity, Application identity and
   main-frame navigation count.
 - No match transport, open match socket, or battlefield snapshot subscriber.
-- Runtime worker count and resident sprite pages/bytes/picking bits back at the
-  initial menu baseline.
+- The original Go worker identities and resident sprite pages/bytes/picking bits
+  back at the initial menu baseline. Source-identified Pixi decoder workers may
+  remain in their documented bounded pool, but must have no pending work; unknown
+  workers, extra/replaced Go workers, live support probes, or a pool beyond the
+  actual hardware-concurrency bound fail.
 - Original profile IDs and preservation of both exact replay archives.
 
 Audio buffer counts and optional heap measurements are recorded as diagnostics;
@@ -108,3 +111,46 @@ Prepared contract checks pass: actual countdown subtraction and the exact
 threshold; application/page replacement rejection; socket/worker/subscriber/
 sprite-residency cleanup rejection. Browser and earned-result evidence will be
 added only after the actual course.
+
+## First actual course and worker diagnosis
+
+`work/multiplayer-combat/rematch-2026-09-28T21-00-22.222Z/` is **FAILED at the
+between-match test gate**, not a two-match pass. Its first ordinary game is valid
+separate evidence: IR won by elimination at tick 13,185, seed
+`859761103783007190`, after 163 command batches. Both ownership probes rejected
+with `not_owner`; the host reconnected at 3,632→3,636 preserving sequence 19.
+Both committed results and the normal host replay archive succeeded, with zero
+unexpected browser/HTTP errors. Replay SHA-256 is
+`04fe7f29eade905834495052a9ad89c1306a2d64391f744a609f0ee3eff32434`;
+initial/checkpoint/restored-midpoint playback all end at
+`61ca68ed9587e44d22265c2bb9b7bf5a306723f4926c229304ad751d141f8e07`.
+The actual initial countdown is 100 ticks, leaving **654.25 active seconds**;
+this does not qualify as a long match.
+
+The first test counted every Worker against a cold-menu count of one. It stopped
+after the legitimate rematch lobby was created because ten workers remained.
+That instrumentation did not record URLs, so the original outcome is preserved
+without retrospectively assigning ownership to every worker.
+
+The separate short diagnostic at
+`work/multiplayer-combat/worker-diagnostic-2026-09-28T21-16-38.162Z/` used the
+same frozen client/art/runtime and actual ordinary admission/render/menu return.
+It records constructor URLs/names, exact Blob-script comparisons, and decoder
+message/completion counters. Each original named Go worker remained unchanged.
+Player 1 retained six Pixi decoders and player 2 retained three, all idle with
+every job completed; the actual pool limit was ten. Each support-probe worker
+terminated. Transport and battlefield subscriber counts returned to zero, as did
+resident sprite pages/bytes/picking bits. There were no unexpected browser/HTTP
+errors. This deliberately interrupted short match is ownership diagnosis, not
+combat or rematch acceptance.
+
+The matched Pixi worker source hashes are
+`9d10b11cf15844e5bb768493df95ad58334901be58d1e5aa62b973a0889b90d7`
+(decoder, 932 bytes) and
+`fa376b4c9c8b4d4973191c0ebb515f8f6ea8e7d35724a162a818da0902ed7a63`
+(support probe, 674 bytes). Pixi 8.21.0 `WorkerManager` retains its decoder pool
+up to `navigator.hardwareConcurrency`; the successor test accounts for that
+explicitly. It does not reset the library or change any production code.
+Four focused contract tests pass, including pending jobs, unknown workers,
+replaced Go identities and exceeded pool limits as failures. A fresh full
+same-page repetition is still required.
