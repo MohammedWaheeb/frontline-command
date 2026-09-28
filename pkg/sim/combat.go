@@ -55,14 +55,15 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 	}
 	leash := e.combatLeash(v)
 	w, _ := e.weapon(v)
-	if current := e.entity(v.Target); current != nil && current.Owner != 0 && e.canAttack(v, current) && e.canSeeEntity(v.Owner, current) && (len(v.Orders) > 0 && v.Orders[0].Kind == "attack_move" || distance(v.Anchor, current.Position) <= leash) {
+	combatRoute := len(v.Orders) > 0 && (v.Orders[0].Kind == "attack_move" || v.Orders[0].Kind == "patrol")
+	if current := e.entity(v.Target); current != nil && current.Owner != 0 && e.canAttack(v, current) && e.canSeeEntity(v.Owner, current) && (combatRoute || distance(v.Anchor, current.Position) <= leash) {
 		return current
 	}
 	var best *Entity
 	priority := -1
 	score := int64(1 << 62)
 	center, searchRadius := v.Anchor, leash+6000
-	if len(v.Orders) > 0 && v.Orders[0].Kind == "attack_move" {
+	if combatRoute {
 		center = v.Position
 		searchRadius = w.MaxRange + 6000
 	}
@@ -70,7 +71,7 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 		if target.Owner == 0 || !e.canAttack(v, target) || !e.canSeeEntity(v.Owner, target) || e.defeated(target.Owner) {
 			continue
 		}
-		if distance(v.Anchor, target.Position) > leash && (len(v.Orders) == 0 || v.Orders[0].Kind != "attack_move") {
+		if distance(v.Anchor, target.Position) > leash && !combatRoute {
 			continue
 		}
 		pr := 0
@@ -143,6 +144,11 @@ func (e *Engine) updateCombat() {
 		}
 		if dist > w.MaxRange || dist < w.MinRange {
 			v.AimUntil = 0
+			if w.Kind == "tactical" && v.Deployed && (o.Kind == "attack" || o.Kind == "attack_move" || o.Kind == "patrol") {
+				// These orders authorize pursuit. Preserve normal pack/deploy
+				// channels when a formerly valid target moves outside the ring.
+				e.changeDeployment(v, false)
+			}
 			if !v.Building && v.Stance != "hold" && o.Kind == "" && w.Kind != "tactical" {
 				v.Orders = []Order{{Kind: v.Stance, Position: v.Anchor}}
 			}
@@ -338,6 +344,10 @@ func (e *Engine) updateProjectiles() {
 			continue
 		}
 		w, _ := e.catalog.Weapon(p.Weapon)
+		// This identity is private until PlayerView verifies the viewer can
+		// currently identify the target. Ground, decoy and area impacts carry
+		// no particular target, even when their blast damages hidden actors.
+		var impactTarget ID
 		if p.Splash > 0 {
 			for _, target := range e.state.Entities {
 				if target.HP <= 0 || target.Container != 0 || e.defeated(target.Owner) {
@@ -366,6 +376,7 @@ func (e *Engine) updateProjectiles() {
 				amount := e.projectileDamage(p, target, w)
 				if amount > 0 {
 					e.damages = append(e.damages, damage{target.ID, p.Shooter, p.Owner, amount, w.Kind})
+					impactTarget = target.ID
 				}
 			}
 		} else if p.Target == 0 && w.Kind == "cannon" {
@@ -374,12 +385,13 @@ func (e *Engine) updateProjectiles() {
 					amount := e.projectileDamage(p, target, w)
 					if amount > 0 {
 						e.damages = append(e.damages, damage{target.ID, p.Shooter, p.Owner, amount, w.Kind})
+						impactTarget = target.ID
 						break
 					}
 				}
 			}
 		}
-		e.emit("impact", p.Owner, 0, p.Impact, "visible", 0)
+		e.emit("impact", p.Owner, impactTarget, p.Impact, "visible", 0)
 	}
 	e.state.Projectiles = keep
 }

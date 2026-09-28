@@ -421,6 +421,9 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 			b, _ := e.buildingRule(v.Type)
 			s.Progress = int32(v.Work * 1000 / (b.BuildTicks * 2))
 		}
+		if until := max(v.DeployUntil, v.PackingUntil); !v.Building && until > e.Tick() && until > v.DeploymentStarted {
+			s.Progress = clamp(int32(uint64(e.Tick()-v.DeploymentStarted)*1000/uint64(until-v.DeploymentStarted)), 0, 1000)
+		}
 		if v.Owner == id {
 			s.Private = &EntityPrivate{e.ambushReady(v), v.RepeatSortie, v.HP, v.MaxHP, append([]Job(nil), v.Jobs...), cloneOrders(v.Orders), v.Rally, v.Cargo, v.Home, v.Ammo, v.Endurance, v.Charges, v.ChargeWork, v.ServiceWork, v.Experience, append([]Cooldown(nil), v.Cooldowns...), append([]ID(nil), v.Passengers...), v.Container}
 		} else {
@@ -457,6 +460,14 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 	}
 	for _, event := range e.state.Events {
 		if event.Scope == "all" || event.Scope == "owner" && event.Owner == id || event.Scope == "team" && e.allied(id, event.Owner) || event.Scope == "visible" && e.canSee(id, event.Position) {
+			if event.Kind == "impact" && event.Entity != 0 {
+				// Seeing an explosion must not identify a concealed, embarked,
+				// destroyed or out-of-sight victim. Never infer from fog memory.
+				target := e.entity(event.Entity)
+				if target == nil || !e.canSeeEntity(id, target) {
+					event.Entity = 0
+				}
+			}
 			view.Events = append(view.Events, event)
 		}
 	}

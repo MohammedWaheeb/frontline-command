@@ -192,6 +192,7 @@ type Entity struct {
 	Charges               int32          `json:"charges"`
 	ChargeWork            uint32         `json:"charge_work"`
 	Deployed              bool           `json:"deployed"`
+	DeploymentStarted     Tick           `json:"deployment_started,omitempty"`
 	DeployUntil           Tick           `json:"deploy_until"`
 	PackingUntil          Tick           `json:"packing_until"`
 	Cooldowns             []Cooldown     `json:"cooldowns"`
@@ -347,6 +348,7 @@ type Engine struct {
 	navRevision    uint32
 	navCache       map[int32][]bool
 	fogCache       map[ID]fogSource
+	harvestParking map[uint32]harvestParkingCache
 }
 type fogSource struct {
 	position Vec

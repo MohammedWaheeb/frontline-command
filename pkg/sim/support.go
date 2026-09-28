@@ -58,6 +58,11 @@ func (e *Engine) repairRate(source, target *Entity) int64 {
 }
 func (e *Engine) updateSupport() {
 	assigned := map[ID]int32{}
+	for _, v := range e.state.Entities {
+		if v.State == "repairing" {
+			v.State = "idle"
+		}
+	}
 	for _, target := range e.state.Entities {
 		if target.Owner == 0 || target.HP <= 0 || target.HP >= target.MaxHP || target.Container != 0 || e.defeated(target.Owner) || !e.outOfCombat(target) || !target.Complete {
 			continue
@@ -542,6 +547,7 @@ func (e *Engine) changeDeployment(v *Entity, deploy bool) {
 			duration = seconds(2)
 		}
 		v.DeployUntil = e.state.Tick + duration
+		v.DeploymentStarted = e.state.Tick
 		v.Path = nil
 		v.State = "deploying"
 	} else {
@@ -561,6 +567,7 @@ func (e *Engine) changeDeployment(v *Entity, deploy bool) {
 		v.Deployed = false
 		v.DeployUntil = 0
 		v.PackingUntil = e.state.Tick + duration
+		v.DeploymentStarted = e.state.Tick
 		v.State = "packing"
 		e.removeBuff(v, "shield_anchor")
 	}

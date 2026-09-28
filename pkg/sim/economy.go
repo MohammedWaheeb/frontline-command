@@ -2,6 +2,20 @@ package sim
 
 import "sort"
 
+type harvestParkingMember struct {
+	id          ID
+	radius      int32
+	depot       ID
+	destination Vec
+}
+type harvestParkingCache struct {
+	revision uint32
+	field    Vec
+	members  []harvestParkingMember
+	slots    map[ID]Vec
+	adapted  bool
+}
+
 func (e *Engine) updateEconomy() {
 	// Live aircraft reserve replacement capacity before production can claim it.
 	// Damage resolved last tick may have removed their previous producer.
@@ -287,25 +301,31 @@ func (e *Engine) updateHarvest() {
 		q := f.Queue[:0]
 		for _, id := range f.Queue {
 			v := e.entity(id)
-			if v != nil && v.HP > 0 && v.Field == f.ID && len(v.Orders) > 0 && v.Orders[0].Kind == "gather" && v.Cargo < 600000 {
+			if e.harvestReservationActive(v, f.ID) && v.Cargo < 600000 {
 				q = append(q, id)
 			}
 		}
 		f.Queue = q
 		if f.Loader != 0 {
 			v := e.entity(f.Loader)
-			if v == nil || v.HP <= 0 || v.Field != f.ID || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" || distance(v.Position, f.Position) > 1700 {
+			if !e.harvestReservationActive(v, f.ID) || distance(v.Position, f.Position) > 1700 {
 				f.Loader = 0
+				if v != nil && v.State == "loading" {
+					v.State = "gathering"
+				}
 			}
 		}
 	}
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || e.role(v) != "hauler" || e.defeated(v.Owner) || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" {
+		if !v.Active(e.state.Tick) || e.role(v) != "hauler" || e.defeated(v.Owner) || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" {
 			continue
 		}
 		if d := e.entity(v.Depot); d == nil || !d.Active(e.state.Tick) || d.Owner != v.Owner {
 			if d = e.chooseDepot(v); d != nil {
 				v.Depot = d.ID
+				if v.State == "no_supply_center" {
+					v.State = "gathering"
+				}
 			} else {
 				v.Depot = 0
 				v.State = "no_supply_center"
@@ -359,7 +379,15 @@ func (e *Engine) updateHarvest() {
 		if f == nil || f.Remaining == 0 {
 			continue
 		}
-		if distance(v.Position, f.Position) <= 7000 {
+		// Constrained terrain can require a real waiting slot beyond the usual
+		// field approach radius. Arrival there also joins the same FIFO queue.
+		atQueue := distance(v.Position, f.Position) <= 7000
+		if !atQueue {
+			point := e.harvestParkingPoint(v, f)
+			_, hasSlot := e.harvestParking[f.ID].slots[v.ID]
+			atQueue = hasSlot && e.harvestParking[f.ID].adapted && distance(v.Position, point) <= 1000
+		}
+		if atQueue && !v.Blocked {
 			queued := false
 			for _, id := range f.Queue {
 				if id == v.ID {
@@ -387,8 +415,49 @@ func (e *Engine) updateHarvest() {
 		}
 	}
 }
+
+// Design §5.3 retains short-reroute reservations and withdraws them after the
+// movement system confirms two failed attempts. Cargo and gather intent remain.
+func (e *Engine) harvestReservationActive(v *Entity, field uint32) bool {
+	if v == nil || !v.Active(e.state.Tick) || e.defeated(v.Owner) || v.Blocked || v.Field != field || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" {
+		return false
+	}
+	depot := e.entity(v.Depot)
+	return depot != nil && depot.Owner == v.Owner && e.role(depot) == "supply" && depot.Active(e.state.Tick)
+}
+
+// Keep the normal loading lane when legal. A nearby cliff or structure may
+// cover that lane while another part of the same field remains accessible.
+// Search actual path-grid endpoints inside the unchanged loading circle; do
+// not let A* relocate the destination outside the extraction radius forever.
+func (e *Engine) harvestLoadingPoint(v *Entity, field, preferred Vec) Vec {
+	mobiles := false
+	snapped := Vec{X: preferred.X / 500 * 500, Y: preferred.Y / 500 * 500}
+	if distance(snapped, field) <= 1200 && e.clear(preferred, e.radius(v), v.ID, false, mobiles) && e.clear(snapped, e.radius(v), v.ID, false, mobiles) {
+		return preferred
+	}
+	best, bestScore := preferred, int64(1<<62)
+	for y := field.Y/500 - 3; y <= field.Y/500+3; y++ {
+		for x := field.X/500 - 3; x <= field.X/500+3; x++ {
+			candidate := Vec{X: x * 500, Y: y * 500}
+			if distance(candidate, field) > 1000 || !e.clear(candidate, e.radius(v), v.ID, false, mobiles) {
+				continue
+			}
+			if score := dist2(candidate, preferred); score < bestScore {
+				best, bestScore = candidate, score
+			}
+		}
+	}
+	return best
+}
 func (e *Engine) harvestGoal(v *Entity) (Vec, bool, int32) {
-	if v.State == "unloading" || v.State == "loading" || v.State == "no_supply_center" || v.State == "no_known_supplies" {
+	if v.State == "no_supply_center" {
+		if f := e.field(v.Field); f != nil {
+			goal := e.harvestParkingPoint(v, f)
+			return goal, distance(v.Position, goal) > 250, 200
+		}
+	}
+	if v.State == "unloading" || v.State == "loading" || v.State == "no_known_supplies" {
 		return v.Position, false, 200
 	}
 	if v.Cargo >= 600000 || v.State == "returning_cargo" {
@@ -398,6 +467,16 @@ func (e *Engine) harvestGoal(v *Entity) (Vec, bool, int32) {
 	}
 	if f := e.field(v.Field); f != nil {
 		index := 0
+		// A withdrawn reservation cannot keep obstructing the loading circle.
+		if v.Blocked {
+			index = 1
+		}
+		if len(f.Queue) > 0 {
+			e.harvestParkingPoint(v, f)
+			if e.harvestParking[f.ID].adapted {
+				index = 1
+			}
+		}
 		for i, id := range f.Queue {
 			if id == v.ID {
 				index = i
@@ -407,13 +486,161 @@ func (e *Engine) harvestGoal(v *Entity) (Vec, bool, int32) {
 		if f.Loader != 0 && f.Loader != v.ID {
 			index++
 		}
-		goal := f.Position
-		if index > 0 {
-			goal = Vec{X: f.Position.X + int32(index)*2000, Y: f.Position.Y + 2000}
-			goal.X = clamp(goal.X, 1000, e.state.Map.Width*1000-1000)
-			goal.Y = clamp(goal.Y, 1000, e.state.Map.Height*1000-1000)
+		// Stable approach sides let the next loader enter while the previous
+		// hauler leaves. Rotate them with the actual unloading route instead of
+		// privileging a hard-coded southeast supply-building orientation.
+		dx, dy := int32(0), int32(1000)
+		if depot := e.entity(v.Depot); depot != nil {
+			dx, dy = depot.Position.X-f.Position.X, depot.Position.Y-f.Position.Y
 		}
-		return goal, distance(v.Position, goal) > 700, 600
+		length := max(1, isqrt(int64(dx)*int64(dx)+int64(dy)*int64(dy)))
+		ordinal := 0
+		for _, other := range e.state.Entities {
+			if other.ID >= v.ID {
+				break
+			}
+			if other.HP > 0 && other.Field == f.ID && e.role(other) == "hauler" && len(other.Orders) > 0 && other.Orders[0].Kind == "gather" {
+				ordinal++
+			}
+		}
+		side := int32(1)
+		if ordinal%2 != 0 {
+			side = -1
+		}
+		across, along := side*650, int32(-500)
+		if index > 0 {
+			// Stable, unique parking slots do not swap sides when a delivery
+			// changes FIFO order. Only the head approaches the loading area.
+			// Leave more than two hauler radii between successive rows.
+			row := int32(ordinal / 2)
+			across = side * (3000 + row*700)
+			along = -500 - row*2200
+		}
+		goal := Vec{X: f.Position.X + int32((int64(dx)*int64(along)-int64(dy)*int64(across))/int64(length)),
+			Y: f.Position.Y + int32((int64(dy)*int64(along)+int64(dx)*int64(across))/int64(length))}
+		if index == 0 {
+			goal = e.harvestLoadingPoint(v, f.Position, goal)
+		} else {
+			goal = e.harvestParkingPoint(v, f)
+		}
+		return goal, distance(v.Position, goal) > 250, 200
 	}
 	return v.Position, false, 200
+}
+
+// Parking is derived from the stable roster and static geometry, never FIFO
+// position or moving actor locations. Rebuilding it after Restore yields the
+// same destinations. Reserve a through-lane for each depot so parked haulers
+// cannot seal the only exit from a field beside the map boundary.
+func (e *Engine) harvestParkingPoint(v *Entity, field *ResourceField) Vec {
+	members := []harvestParkingMember{}
+	for _, other := range e.state.Entities {
+		if other.HP <= 0 || other.Container != 0 || other.Field != field.ID || e.role(other) != "hauler" || len(other.Orders) == 0 || other.Orders[0].Kind != "gather" {
+			continue
+		}
+		member := harvestParkingMember{id: other.ID, radius: e.radius(other), depot: other.Depot}
+		if depot := e.entity(other.Depot); depot != nil {
+			member.destination = depot.Position
+		}
+		members = append(members, member)
+	}
+	cache := e.harvestParking[field.ID]
+	same := cache.revision == e.state.NavigationRevision && cache.field == field.Position && len(cache.members) == len(members)
+	if same {
+		for i := range members {
+			if members[i] != cache.members[i] {
+				same = false
+				break
+			}
+		}
+	}
+	if !same || cache.slots == nil {
+		cache = harvestParkingCache{revision: e.state.NavigationRevision, field: field.Position, members: members, slots: map[ID]Vec{}}
+		reserved := []reservedExit{}
+		for ordinal, member := range members {
+			preferred := harvestParkingPreferred(field.Position, member.destination, ordinal)
+			valid := func(candidate Vec) bool {
+				snapped := Vec{X: candidate.X / 500 * 500, Y: candidate.Y / 500 * 500}
+				if distance(snapped, field.Position) < 3000 || !e.clear(candidate, member.radius, member.id, false, false) || !e.clear(snapped, member.radius, member.id, false, false) {
+					return false
+				}
+				for _, old := range reserved {
+					r := member.radius + old.radius + 400
+					if dist2(snapped, old.position) < int64(r)*int64(r) {
+						return false
+					}
+				}
+				for _, route := range members {
+					if route.destination != (Vec{}) && harvestLaneDistance(snapped, field.Position, route.destination) < member.radius+1400 {
+						return false
+					}
+				}
+				return true
+			}
+			point, found := preferred, valid(preferred)
+			if !found {
+				cache.adapted = true
+				best := int64(1 << 62)
+				// A bounded grid has wider gaps than two hauler radii and normal arrival
+				// tolerance. Every fallback endpoint is a real 500-millitile path node.
+				for y := int32(-5); y <= 5; y++ {
+					for x := int32(-5); x <= 5; x++ {
+						candidate := Vec{X: field.Position.X/500*500 + x*4000, Y: field.Position.Y/500*500 + y*4000}
+						score := dist2(candidate, preferred)
+						if score >= best || !valid(candidate) || !e.clear(candidate, member.radius*3+500, member.id, false, false) {
+							continue
+						}
+						passing := true
+						for _, old := range reserved {
+							r := member.radius*2 + old.radius + 1000
+							if dist2(candidate, old.position) < int64(r)*int64(r) {
+								passing = false
+								break
+							}
+						}
+						if !passing {
+							continue
+						}
+						point, found, best = candidate, true, score
+					}
+				}
+			}
+			if found {
+				cache.slots[member.id] = point
+				reserved = append(reserved, reservedExit{position: Vec{X: point.X / 500 * 500, Y: point.Y / 500 * 500}, radius: member.radius})
+			}
+		}
+		if e.harvestParking == nil {
+			e.harvestParking = map[uint32]harvestParkingCache{}
+		}
+		e.harvestParking[field.ID] = cache
+	}
+	if point, ok := cache.slots[v.ID]; ok {
+		return point
+	}
+	return v.Position
+}
+func harvestParkingPreferred(field, depot Vec, ordinal int) Vec {
+	dx, dy := int32(0), int32(1000)
+	if depot != (Vec{}) {
+		dx, dy = depot.X-field.X, depot.Y-field.Y
+	}
+	length := max(1, isqrt(int64(dx)*int64(dx)+int64(dy)*int64(dy)))
+	side := int32(1)
+	if ordinal%2 != 0 {
+		side = -1
+	}
+	row := int32(ordinal / 2)
+	across, along := side*(3000+row*700), -500-row*2200
+	return Vec{X: field.X + int32((int64(dx)*int64(along)-int64(dy)*int64(across))/int64(length)), Y: field.Y + int32((int64(dy)*int64(along)+int64(dx)*int64(across))/int64(length))}
+}
+func harvestLaneDistance(point, from, to Vec) int32 {
+	dx, dy := int64(to.X-from.X), int64(to.Y-from.Y)
+	length := dx*dx + dy*dy
+	if length == 0 {
+		return distance(point, from)
+	}
+	along := max(int64(0), min(length, int64(point.X-from.X)*dx+int64(point.Y-from.Y)*dy))
+	nearest := Vec{X: from.X + int32(dx*along/length), Y: from.Y + int32(dy*along/length)}
+	return distance(point, nearest)
 }

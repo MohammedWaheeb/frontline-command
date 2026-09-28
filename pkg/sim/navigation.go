@@ -282,6 +282,27 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 		return nil
 	}
 	start, end := sy*gridW+sx, gy*gridW+gx
+	// Flooring a legal physical position can put its A* start inside a nearby
+	// collision circle. Seed reachable adjacent nodes from the actual position
+	// instead of applying corner-cut rules to that fictitious blocked start.
+	bridged := !passable(Vec{X: sx * 500, Y: sy * 500})
+	starts := []pathNode{{start, 0, heuristic(sx, sy, gx, gy), 0}}
+	if bridged {
+		starts = nil
+		for dy := int32(-1); dy <= 1; dy++ {
+			for dx := int32(-1); dx <= 1; dx++ {
+				p := Vec{X: (sx + dx) * 500, Y: (sy + dy) * 500}
+				if !passable(p) || !e.navigationBridgeClear(v, p, dynamic) {
+					continue
+				}
+				cost := distance(v.Position, p) * 2
+				starts = append(starts, pathNode{(sy+dy)*gridW + sx + dx, cost, cost + heuristic(sx+dx, sy+dy, gx, gy), uint32(len(starts))})
+			}
+		}
+		if len(starts) == 0 {
+			return nil
+		}
+	}
 	if start == end {
 		return []Vec{{X: gx * 500, Y: gy * 500}}
 	}
@@ -294,10 +315,13 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 			scores[i] = 1 << 30
 			parents[i] = -1
 		}
-		scores[start] = 0
-		h := &pathHeap{{start, 0, heuristic(sx, sy, gx, gy), 0}}
+		h := &pathHeap{}
+		for _, seed := range starts {
+			scores[seed.index] = seed.g
+			*h = append(*h, seed)
+		}
 		heap.Init(h)
-		serial := uint32(0)
+		serial := uint32(len(starts))
 		expansions := 0
 		for h.Len() > 0 && expansions < 32768 {
 			n := heap.Pop(h).(pathNode)
@@ -308,9 +332,9 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 			expansions++
 			if n.index == end {
 				path := []Vec{}
-				for i := end; i != start; i = parents[i] {
-					if i < 0 {
-						return nil
+				for i := end; i >= 0; i = parents[i] {
+					if i == start && !bridged {
+						break
 					}
 					path = append(path, Vec{X: i % gridW * 500, Y: i / gridW * 500})
 				}
@@ -473,10 +497,13 @@ func (e *Engine) updateMovement() {
 			moving = true
 			if (o.Kind == "attack_move" || o.Kind == "patrol") && v.Target != 0 {
 				target := e.entity(v.Target)
-				if target != nil && e.canSeeEntity(v.Owner, target) {
+				if target != nil && e.canAttack(v, target) && e.canSeeEntity(v.Owner, target) {
 					w, ok := e.weapon(v)
 					if ok && e.edgeDistance(v, target) <= w.MaxRange {
-						moving = false
+						moving = e.edgeDistance(v, target) < w.MinRange
+						if moving {
+							goal = e.minimumRangeRetreat(v, target)
+						}
 					}
 				}
 			}
@@ -496,9 +523,7 @@ func (e *Engine) updateMovement() {
 				w, _ := e.weapon(v)
 				moving = e.edgeDistance(v, target) > w.MaxRange || e.edgeDistance(v, target) < w.MinRange
 				if e.edgeDistance(v, target) < w.MinRange {
-					dx, dy := v.Position.X-target.Position.X, v.Position.Y-target.Position.Y
-					length := max(1, distance(v.Position, target.Position))
-					goal = Vec{X: clamp(v.Position.X+dx*3000/length, 1000, e.state.Map.Width*1000-1000), Y: clamp(v.Position.Y+dy*3000/length, 1000, e.state.Map.Height*1000-1000)}
+					goal = e.minimumRangeRetreat(v, target)
 				}
 			} else {
 				v.Target = 0
@@ -602,6 +627,16 @@ func (e *Engine) updateMovement() {
 				continue
 			}
 			v.Path = e.findPath(v, goal, v.RouteFailures > 0)
+			if o.Kind == "unload" && len(v.Path) > 0 {
+				end := v.Path[len(v.Path)-1]
+				// Grid nodes are 500 millitiles apart; truncating a legal click can
+				// leave the carrier 706 away, outside its 400-unit unload radius.
+				// Finish within the same grid cell, without accepting a relocated
+				// blocked destination or broadening the unloading tolerance.
+				if end != goal && end.X/500 == goal.X/500 && end.Y/500 == goal.Y/500 && e.clear(goal, e.radius(v), v.ID, false, false) {
+					v.Path = append(v.Path, goal)
+				}
+			}
 			v.PathGoal = goal
 			v.PathRevision = e.state.NavigationRevision
 			if len(v.Path) == 0 {
@@ -656,6 +691,14 @@ func (e *Engine) updateMovement() {
 			e.blocked(v)
 		}
 	}
+}
+func (e *Engine) minimumRangeRetreat(v, target *Entity) Vec {
+	dx, dy := v.Position.X-target.Position.X, v.Position.Y-target.Position.Y
+	if dx == 0 && dy == 0 {
+		dx = 1000
+	}
+	length := max(1, isqrt(int64(dx)*int64(dx)+int64(dy)*int64(dy)))
+	return Vec{X: clamp(v.Position.X+int32(int64(dx)*3000/int64(length)), 1000, e.state.Map.Width*1000-1000), Y: clamp(v.Position.Y+int32(int64(dy)*3000/int64(length)), 1000, e.state.Map.Height*1000-1000)}
 }
 func (e *Engine) blocked(v *Entity) {
 	if e.state.Tick-v.LastProgress < seconds(2) {

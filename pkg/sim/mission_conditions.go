@@ -190,11 +190,13 @@ func (e *Engine) missionCondition(q content.MissionCondition, progress *Conditio
 	case "region_entered", "region_held":
 		region, enemy := e.missionRegion(q.Region), false
 		for _, v := range e.state.Entities {
-			if v.HP <= 0 || v.Container != 0 || v.Owner == 0 || !inMissionRegion(v.Position, region) {
+			if v.HP <= 0 || v.Container != 0 || v.Owner == 0 || e.defeated(v.Owner) || !inMissionRegion(v.Position, region) {
 				continue
 			}
 			if uint32(v.Owner) == q.Owner {
-				count++
+				if q.Type == "" || v.Type == q.Type {
+					count++
+				}
 			} else if !e.allied(PlayerID(q.Owner), v.Owner) {
 				enemy = true
 			}

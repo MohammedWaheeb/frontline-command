@@ -37,6 +37,9 @@ func (e *Engine) validateState() error {
 		return true
 	}
 	for _, v := range s.Entities {
+		if v.DeploymentStarted > s.Tick || v.DeploymentStarted > 0 && max(v.DeployUntil, v.PackingUntil) <= v.DeploymentStarted {
+			return fmt.Errorf("invalid saved deployment start %d", v.ID)
+		}
 		if !claim(v.ID) || v.Cargo < 0 || v.Cargo > 600000 || v.Paid < 0 || v.Paid > 1000000000 || v.Ammo < 0 || v.Ammo > 32 || v.Charges < 0 || v.Charges > 2 || v.Endurance > 2400 || len(v.Passengers) > 3 || len(v.Buffs) > 256 || len(v.Cooldowns) > 32 || len(v.Contributions) > 4096 || v.Experience < 0 || v.Rank > 2 {
 			return fmt.Errorf("invalid saved entity state %d", v.ID)
 		}

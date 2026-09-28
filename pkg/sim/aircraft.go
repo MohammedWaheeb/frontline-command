@@ -150,6 +150,7 @@ func (e *Engine) updateAircraft() {
 			// wins that boundary; otherwise zero endurance still destroys the
 			// aircraft. Endurance remains zero until ordinary service completes.
 			if !v.Landed && v.Endurance == 0 {
+				e.emit("aircraft_endurance_lost", v.Owner, v.ID, v.Position, "owner", 0)
 				v.HP = 0
 			}
 			continue

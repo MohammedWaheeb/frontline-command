@@ -331,6 +331,13 @@ func (v Mission) Validate(c *Catalog, m Map) error {
 			if !regions[q.Region] || q.Owner == 0 {
 				return fmt.Errorf("condition region/owner missing")
 			}
+			if q.Type != "" {
+				if _, unit := c.Unit(q.Type); !unit {
+					if _, building := c.Building(q.Type); !building {
+						return fmt.Errorf("unknown region condition type %s", q.Type)
+					}
+				}
+			}
 		case "tag_destroyed", "tag_alive", "tag_owned", "tag_operational", "tag_in_region", "tag_concealed", "tag_stationary":
 			if !tags[q.Tag] {
 				return fmt.Errorf("condition tag missing")

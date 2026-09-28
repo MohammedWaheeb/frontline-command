@@ -58,6 +58,14 @@ Maps cannot contain executable code. Mission trigger schemas are defined in
 `pkg/content/mission.go`; do not invent unbounded script execution to work around
 a missing trigger.
 
+Mission `region_entered` and `region_held` conditions accept an optional catalog
+`type`. It filters the owning player's qualifying entities, allowing a normally
+produced replacement of the required type to complete an objective. It does not
+filter opposition: every living, unembarked, nondefeated enemy type still
+contests `region_held`. Continuous hold resets when qualification or control is
+lost and retains its exact timer across save/restore. Original-unit preservation
+continues to use a tagged condition when that identity is actually required.
+
 ## Pure Go simulation API
 
 `content.Base()` loads and validates the embedded catalog.
@@ -77,6 +85,12 @@ locally submitted sequence. Never restart a resumed command stream at one.
 
 Orders, authorized views and all field names are defined in `pkg/sim/state.go`
 and `pkg/sim/visibility.go`. The protobuf wire mirrors these views.
+
+Structures and fog memories expose `footprint_width`, `footprint_height` and
+`footprint_type`; a captured producer retains its original physical foundation
+while its operating type changes. See
+[capture-and-footprints.md](capture-and-footprints.md) for collision, healthy
+garrison exits, conversion outage and service-pad behavior.
 
 An accepted Submit receipt means scheduled, not paid/executed. Inspect per-tick
 OrderResults for authoritative acceptance. Positions on building placement snap
@@ -193,6 +207,9 @@ identical retries are no-ops, conflicting retries fail. Solo, AI and custom
 matches never affect the local ranked ladder. Public accounts remain separate.
 
 ## Mission and co-op contracts
+
+The detailed condition/action, difficulty, metric and convoy schema is in
+[mission-runtime.md](mission-runtime.md).
 
 Installed mission JSON comes from `content/missions` (override `-missions`).
 GET `/api/v1/missions` lists presentation metadata; GET `/api/v1/missions/{id}`

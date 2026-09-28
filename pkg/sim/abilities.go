@@ -344,10 +344,12 @@ func (e *Engine) updateSpecial() {
 		if v.DeployUntil > 0 && e.state.Tick >= v.DeployUntil {
 			v.Deployed = true
 			v.DeployUntil = 0
+			v.DeploymentStarted = 0
 			v.State = "deployed"
 		}
 		if v.PackingUntil > 0 && e.state.Tick >= v.PackingUntil {
 			v.PackingUntil = 0
+			v.DeploymentStarted = 0
 			v.State = "idle"
 		}
 		p := e.player(v.Owner)
