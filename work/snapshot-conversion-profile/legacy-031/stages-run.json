@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/snapshot-conversion-profile/legacy-031/profile.test",
+    "-test.run=^$",
+    "-test.bench=^BenchmarkMaximumSnapshotStages$",
+    "-test.benchtime=1s",
+    "-test.benchmem",
+    "-test.cpuprofile=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/snapshot-conversion-profile/legacy-031/stages.cpu.pprof",
+    "-test.memprofile=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/snapshot-conversion-profile/legacy-031/stages.alloc.pprof",
+    "-test.timeout=3m",
+    "-test.v"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 17.08,
+  "finished_utc": "2026-09-28T14:27:17.043915+00:00",
+  "source_verified_after": true,
+  "binary_sha256": "e439cc876003a88813bf7104fd549c7fb996968c4269fc2314c9d351787acaf7",
+  "scope": "Legacy0.3.1 exact final public-view stage costs. Profile includes setup/fullAdvance outside subbenchmark timing; not a current0.3.4/browser performance certification."
+}

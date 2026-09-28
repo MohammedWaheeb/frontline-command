@@ -1,0 +1,19 @@
+goos: darwin
+goarch: arm64
+pkg: frontlinecommand/cmd/wasm
+cpu: Apple M4
+BenchmarkMaximumSnapshotStages
+    snapshot_profile_test.go:107: fixture tick=600 visibleEntities=257 JSON=437521 protobuf=68812 hash=34473b9e07c2f822d77be9f2448f938fe994f26bce09a0b078401837a77c667c
+BenchmarkMaximumSnapshotStages/PlayerView
+BenchmarkMaximumSnapshotStages/PlayerView-2         	   22590	     51318 ns/op	  164560 B/op	     286 allocs/op
+BenchmarkMaximumSnapshotStages/JSONMarshal
+BenchmarkMaximumSnapshotStages/JSONMarshal-2        	    1314	   1056344 ns/op	  445179 B/op	       3 allocs/op
+BenchmarkMaximumSnapshotStages/ProtoJSONUnmarshal
+BenchmarkMaximumSnapshotStages/ProtoJSONUnmarshal-2 	     159	   6972302 ns/op	 1769775 B/op	   73594 allocs/op
+BenchmarkMaximumSnapshotStages/SnapshotJSONRoundtrip
+BenchmarkMaximumSnapshotStages/SnapshotJSONRoundtrip-2         	     146	   8925443 ns/op	 2430724 B/op	   73601 allocs/op
+BenchmarkMaximumSnapshotStages/ProtobufMarshal
+BenchmarkMaximumSnapshotStages/ProtobufMarshal-2               	    6621	    215206 ns/op	   73728 B/op	       1 allocs/op
+BenchmarkMaximumSnapshotStages/SessionView
+BenchmarkMaximumSnapshotStages/SessionView-2                   	     139	   8702588 ns/op	 2722620 B/op	   73889 allocs/op
+PASS

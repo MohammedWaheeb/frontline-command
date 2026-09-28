@@ -1,0 +1,40 @@
+{
+  "at_utc": "2026-09-28T14:30:46.156370+00:00",
+  "scope": "Independent read-only exact public view codec review; no candidate mutations",
+  "reviewed_files": {
+    "internal/viewproto/snapshot.go": "93252f40e30010b13a9b3711d2476e7b213aa04e785a0f880e6261ad8cf85afd",
+    "internal/viewproto/snapshot_generated.go": "2a641ebbbd143723213953797519b7d9351bbcc5dbb3a5574790330ab664228b",
+    "internal/viewproto/snapshot_test.go": "51ce26c5770f5273eada673898a0610aede5987dcda32afa21b7ab1f9519d25a",
+    "internal/viewproto/gen/main.go": "7be98df772de98b2f1b8f9427343c2a06e339628bfab2eb3354f45bef7b610d7",
+    "cmd/wasm/session.go": "585879f21089ed1818466dc43cc0ac66509a9ae0f005e8ad43c5788385a2ae5b",
+    "internal/server/codec.go": "efab28ed9e829a1128006212ec3e442111e719e7841aad10f6d19ceef72aeb84"
+  },
+  "reviewed_files_unchanged": true,
+  "runs": [
+    {
+      "label": "oracle",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "./internal/viewproto",
+        "-run",
+        "^(TestSnapshotMatchesPriorJSONContract|TestOptionalZeroPresenceAndAbsentPrivate)$",
+        "-count=1",
+        "-v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/snapshot-codec-candidate/source",
+      "exit_code": 0
+    },
+    {
+      "label": "generated-check",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "run",
+        "./gen",
+        "-check"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/snapshot-codec-candidate/source/internal/viewproto",
+      "exit_code": 0
+    }
+  ]
+}

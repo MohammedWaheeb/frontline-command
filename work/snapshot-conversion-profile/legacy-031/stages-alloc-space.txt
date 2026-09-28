@@ -1,0 +1,32 @@
+File: profile.test
+Type: alloc_space
+Time: 2026-09-28 17:27:17 +03
+Showing nodes accounting for 8360.73MB, 98.39% of 8497.51MB total
+Dropped 114 nodes (cum <= 42.49MB)
+Showing top 25 nodes out of 59
+      flat  flat%   sum%        cum   cum%
+ 4787.39MB 56.34% 56.34%  5143.43MB 60.53%  frontlinecommand/pkg/sim.(*Engine).PlayerView
+ 1049.52MB 12.35% 68.69%  1257.11MB 14.79%  reflect.Value.extendSlice
+  867.07MB 10.20% 78.89%   867.07MB 10.20%  bytes.Clone (inline)
+  509.67MB  6.00% 84.89%   509.67MB  6.00%  google.golang.org/protobuf/proto.MarshalOptions.marshal
+  356.04MB  4.19% 89.08%   356.04MB  4.19%  frontlinecommand/pkg/sim.cloneOrders (inline)
+  214.14MB  2.52% 91.60%   214.14MB  2.52%  reflect.growslice
+  143.52MB  1.69% 93.29%   143.52MB  1.69%  reflect.unsafe_New
+  131.47MB  1.55% 94.84%   131.47MB  1.55%  internal/strconv.AppendBool (inline)
+   79.77MB  0.94% 95.78%   242.20MB  2.85%  encoding/json/v2.makeStructArshaler.func2
+   77.50MB  0.91% 96.69%    77.50MB  0.91%  google.golang.org/protobuf/internal/encoding/json.(*Decoder).parseString
+   76.57MB   0.9% 97.59%    76.57MB   0.9%  frontlinecommand/pkg/sim.(*Engine).nearby
+   65.56MB  0.77% 98.36%    65.56MB  0.77%  frontlinecommand/pkg/sim.(*Engine).mobileObstacleCells
+    1.50MB 0.018% 98.38%   590.11MB  6.94%  frontlinecommand/cmd/wasm.BenchmarkMaximumSnapshotStages.func2
+    0.50MB 0.0059% 98.38%  1532.75MB 18.04%  frontlinecommand/cmd/wasm.snapshot
+    0.50MB 0.0059% 98.39%   438.89MB  5.16%  frontlinecommand/cmd/wasm.BenchmarkMaximumSnapshotStages.func3
+         0     0% 98.39%  1110.27MB 13.07%  encoding/json.Marshal (inline)
+         0     0% 98.39%  1110.27MB 13.07%  encoding/json/v2.Marshal
+         0     0% 98.39%   154.26MB  1.82%  encoding/json/v2.makeBoolArshaler.func1
+         0     0% 98.39%    59.10MB   0.7%  encoding/json/v2.makePointerArshaler.func2
+         0     0% 98.39%   241.70MB  2.84%  encoding/json/v2.makeSliceArshaler.func2
+         0     0% 98.39%   243.20MB  2.86%  encoding/json/v2.marshalEncode
+         0     0% 98.39%    59.60MB   0.7%  frontlinecommand/cmd/wasm.(*Session).Load
+         0     0% 98.39%   193.35MB  2.28%  frontlinecommand/cmd/wasm.(*Session).Step
+         0     0% 98.39%  1014.02MB 11.93%  frontlinecommand/cmd/wasm.(*Session).View
+         0     0% 98.39%   193.35MB  2.28%  frontlinecommand/cmd/wasm.(*Session).advance

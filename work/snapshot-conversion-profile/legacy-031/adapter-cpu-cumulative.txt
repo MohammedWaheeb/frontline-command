@@ -1,0 +1,43 @@
+File: profile.test
+Type: cpu
+Time: 2026-09-28 17:26:31 +03
+Duration: 4.79s, Total samples = 4.27s (89.17%)
+Showing nodes accounting for 2.44s, 57.14% of 4.27s total
+Dropped 158 nodes (cum <= 0.02s)
+Showing top 35 nodes out of 111
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%         4s 93.68%  frontlinecommand/cmd/wasm.BenchmarkMaximumBrowserAdapter
+         0     0%     0%         4s 93.68%  testing.(*B).run1.func1
+         0     0%     0%         4s 93.68%  testing.(*B).runN
+         0     0%     0%      3.21s 75.18%  frontlinecommand/cmd/wasm.(*Session).Step
+         0     0%     0%      3.21s 75.18%  frontlinecommand/cmd/wasm.(*Session).advance
+         0     0%     0%      3.21s 75.18%  frontlinecommand/pkg/sim.(*Engine).Advance
+     0.01s  0.23%  0.23%      1.91s 44.73%  frontlinecommand/pkg/sim.(*Engine).updateMovement
+     0.72s 16.86% 17.10%      1.33s 31.15%  frontlinecommand/pkg/sim.(*Engine).clearExcept
+         0     0% 17.10%      1.04s 24.36%  frontlinecommand/pkg/sim.(*Engine).clear (inline)
+     0.11s  2.58% 19.67%      0.83s 19.44%  frontlinecommand/pkg/sim.(*Engine).updateFog
+     0.09s  2.11% 21.78%      0.78s 18.27%  frontlinecommand/pkg/content.(*Catalog).Unit (inline)
+         0     0% 21.78%      0.76s 17.80%  frontlinecommand/pkg/sim.(*Engine).findPath
+         0     0% 21.78%      0.74s 17.33%  frontlinecommand/cmd/wasm.(*Session).View
+     0.18s  4.22% 26.00%      0.73s 17.10%  runtime.mapaccess2
+     0.25s  5.85% 31.85%      0.72s 16.86%  frontlinecommand/pkg/sim.(*Engine).computeVisibility
+         0     0% 31.85%      0.71s 16.63%  frontlinecommand/cmd/wasm.snapshot
+     0.18s  4.22% 36.07%      0.63s 14.75%  frontlinecommand/pkg/sim.(*Engine).findPath.func2
+         0     0% 36.07%      0.63s 14.75%  google.golang.org/protobuf/encoding/protojson.Unmarshal (inline)
+         0     0% 36.07%      0.63s 14.75%  google.golang.org/protobuf/encoding/protojson.UnmarshalOptions.Unmarshal (inline)
+         0     0% 36.07%      0.63s 14.75%  google.golang.org/protobuf/encoding/protojson.UnmarshalOptions.unmarshal
+         0     0% 36.07%      0.63s 14.75%  google.golang.org/protobuf/encoding/protojson.decoder.unmarshalMessage
+     0.01s  0.23% 36.30%      0.62s 14.52%  google.golang.org/protobuf/encoding/protojson.decoder.unmarshalList
+     0.40s  9.37% 45.67%      0.42s  9.84%  frontlinecommand/pkg/sim.(*Engine).lineOfSight
+     0.02s  0.47% 46.14%      0.35s  8.20%  frontlinecommand/pkg/sim.(*pathHeap).popNode
+     0.19s  4.45% 50.59%      0.32s  7.49%  frontlinecommand/pkg/sim.(*pathHeap).downNode
+         0     0% 50.59%      0.30s  7.03%  frontlinecommand/pkg/sim.(*Engine).serviceLandingPosition
+         0     0% 50.59%      0.29s  6.79%  frontlinecommand/pkg/sim.(*Engine).serviceLandingPosition.func1 (inline)
+     0.02s  0.47% 51.05%      0.29s  6.79%  runtime.strhash
+     0.16s  3.75% 54.80%      0.27s  6.32%  internal/runtime/maps.MemHash
+         0     0% 54.80%      0.27s  6.32%  internal/runtime/maps.StrHash (inline)
+     0.01s  0.23% 55.04%      0.26s  6.09%  google.golang.org/protobuf/internal/impl.(*listReflect).Append
+         0     0% 55.04%      0.21s  4.92%  runtime.systemstack
+     0.09s  2.11% 57.14%      0.20s  4.68%  google.golang.org/protobuf/internal/encoding/json.(*Decoder).Read
+         0     0% 57.14%      0.19s  4.45%  frontlinecommand/pkg/sim.(*Engine).landingPoint (inline)
+         0     0% 57.14%      0.17s  3.98%  frontlinecommand/pkg/sim.(*Engine).updateSupport

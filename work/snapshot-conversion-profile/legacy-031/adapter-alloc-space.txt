@@ -1,0 +1,37 @@
+File: profile.test
+Type: alloc_space
+Time: 2026-09-28 17:26:35 +03
+Showing nodes accounting for 611.60MB, 95.52% of 640.25MB total
+Dropped 77 nodes (cum <= 3.20MB)
+Showing top 30 nodes out of 80
+      flat  flat%   sum%        cum   cum%
+     174MB 27.18% 27.18%   207.51MB 32.41%  reflect.Value.extendSlice
+   80.15MB 12.52% 39.70%    80.15MB 12.52%  bytes.Clone (inline)
+   69.57MB 10.87% 50.56%    69.57MB 10.87%  frontlinecommand/pkg/sim.(*Engine).nearby
+   60.52MB  9.45% 60.01%    60.52MB  9.45%  frontlinecommand/pkg/sim.(*Engine).mobileObstacleCells
+   50.44MB  7.88% 67.89%    50.44MB  7.88%  internal/strconv.AppendBool (inline)
+   39.34MB  6.14% 74.04%    39.34MB  6.14%  reflect.growslice
+   25.99MB  4.06% 78.09%    92.85MB 14.50%  encoding/json/v2.makeStructArshaler.func2
+      16MB  2.50% 80.59%       16MB  2.50%  reflect.unsafe_New
+   15.30MB  2.39% 82.98%    16.30MB  2.55%  frontlinecommand/pkg/sim.(*Engine).PlayerView
+   15.03MB  2.35% 85.33%    15.03MB  2.35%  encoding/json/jsontext.(*decoderState).fetch
+   13.85MB  2.16% 87.49%    13.85MB  2.16%  google.golang.org/protobuf/proto.MarshalOptions.marshal
+   11.52MB  1.80% 89.29%    11.52MB  1.80%  frontlinecommand/pkg/sim.(*Engine).rebuildSpatial
+    9.50MB  1.48% 90.78%     9.50MB  1.48%  google.golang.org/protobuf/internal/encoding/json.(*Decoder).parseString
+    8.75MB  1.37% 92.14%     8.75MB  1.37%  encoding/json/jsontext.stateMachine.MayAppendDelim
+    8.01MB  1.25% 93.39%     8.01MB  1.25%  frontlinecommand/pkg/sim.(*Engine).coarseCorridor
+    5.51MB  0.86% 94.25%     6.95MB  1.09%  frontlinecommand/pkg/sim.(*Engine).findPath.func2
+    4.69MB  0.73% 94.99%     4.69MB  0.73%  encoding/json/jsontext.(*Value).UnmarshalJSON
+    3.44MB  0.54% 95.52%     3.44MB  0.54%  slices.Grow[go.shape.[]uint8,go.shape.uint8] (inline)
+         0     0% 95.52%    19.67MB  3.07%  encoding/json.(*Decoder).Decode
+         0     0% 95.52%      173MB 27.02%  encoding/json.Marshal
+         0     0% 95.52%     5.87MB  0.92%  encoding/json.Unmarshal
+         0     0% 95.52%     3.44MB  0.54%  encoding/json/internal/jsonwire.AppendQuote
+         0     0% 95.52%    15.03MB  2.35%  encoding/json/jsontext.(*Decoder).ReadValue (inline)
+         0     0% 95.52%    15.03MB  2.35%  encoding/json/jsontext.(*decoderState).ReadValue
+         0     0% 95.52%    15.03MB  2.35%  encoding/json/jsontext.(*decoderState).consumeArray
+         0     0% 95.52%    15.03MB  2.35%  encoding/json/jsontext.(*decoderState).consumeObject
+         0     0% 95.52%     9.79MB  1.53%  encoding/json/jsontext.(*decoderState).consumeString
+         0     0% 95.52%    15.03MB  2.35%  encoding/json/jsontext.(*decoderState).consumeValue
+         0     0% 95.52%      173MB 27.02%  encoding/json/v2.Marshal
+         0     0% 95.52%    10.51MB  1.64%  encoding/json/v2.Unmarshal

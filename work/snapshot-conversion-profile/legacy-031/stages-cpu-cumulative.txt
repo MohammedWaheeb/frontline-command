@@ -1,0 +1,43 @@
+File: profile.test
+Type: cpu
+Time: 2026-09-28 17:26:59 +03
+Duration: 17.06s, Total samples = 15.65s (91.75%)
+Showing nodes accounting for 2.76s, 17.64% of 15.65s total
+Dropped 314 nodes (cum <= 0.08s)
+Showing top 35 nodes out of 165
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%     12.73s 81.34%  testing.(*B).runN
+         0     0%     0%      7.69s 49.14%  testing.(*B).launch
+         0     0%     0%      5.14s 32.84%  google.golang.org/protobuf/encoding/protojson.Unmarshal (inline)
+         0     0%     0%      5.14s 32.84%  google.golang.org/protobuf/encoding/protojson.UnmarshalOptions.Unmarshal (inline)
+         0     0%     0%      5.14s 32.84%  google.golang.org/protobuf/encoding/protojson.UnmarshalOptions.unmarshal
+     0.08s  0.51%  0.51%      5.14s 32.84%  google.golang.org/protobuf/encoding/protojson.decoder.unmarshalMessage
+     0.06s  0.38%  0.89%      5.13s 32.78%  google.golang.org/protobuf/encoding/protojson.decoder.unmarshalList
+         0     0%  0.89%      5.04s 32.20%  testing.(*B).run1.func1
+         0     0%  0.89%      5.03s 32.14%  frontlinecommand/cmd/wasm.BenchmarkMaximumSnapshotStages
+         0     0%  0.89%      5.02s 32.08%  frontlinecommand/cmd/wasm.profileFinalSession
+     0.01s 0.064%  0.96%      4.19s 26.77%  frontlinecommand/cmd/wasm.snapshot
+         0     0%  0.96%      3.95s 25.24%  frontlinecommand/cmd/wasm.(*Session).Step
+         0     0%  0.96%      3.95s 25.24%  frontlinecommand/cmd/wasm.(*Session).advance
+         0     0%  0.96%      3.93s 25.11%  frontlinecommand/pkg/sim.(*Engine).Advance
+         0     0%  0.96%      2.61s 16.68%  frontlinecommand/cmd/wasm.(*Session).View
+         0     0%  0.96%      2.31s 14.76%  runtime.systemstack
+         0     0%  0.96%      2.24s 14.31%  frontlinecommand/pkg/sim.(*Engine).updateMovement
+     0.79s  5.05%  6.01%      1.84s 11.76%  google.golang.org/protobuf/internal/encoding/json.(*Decoder).Read
+     0.07s  0.45%  6.45%      1.75s 11.18%  google.golang.org/protobuf/internal/impl.(*listReflect).Append
+         0     0%  6.45%      1.73s 11.05%  encoding/json.Marshal (inline)
+         0     0%  6.45%      1.73s 11.05%  encoding/json/v2.Marshal
+     0.81s  5.18% 11.63%      1.73s 11.05%  frontlinecommand/pkg/sim.(*Engine).clearExcept
+     0.07s  0.45% 12.08%      1.67s 10.67%  encoding/json/v2.makeSliceArshaler.func2
+     0.19s  1.21% 13.29%      1.67s 10.67%  encoding/json/v2.makeStructArshaler.func2
+         0     0% 13.29%      1.67s 10.67%  encoding/json/v2.marshalEncode
+         0     0% 13.29%      1.67s 10.67%  frontlinecommand/cmd/wasm.BenchmarkMaximumSnapshotStages.func4
+     0.35s  2.24% 15.53%      1.62s 10.35%  google.golang.org/protobuf/internal/encoding/json.(*Decoder).Peek
+         0     0% 15.53%      1.60s 10.22%  frontlinecommand/cmd/wasm.BenchmarkMaximumSnapshotStages.func6
+         0     0% 15.53%      1.47s  9.39%  frontlinecommand/cmd/wasm.BenchmarkMaximumSnapshotStages.func3
+         0     0% 15.53%      1.27s  8.12%  frontlinecommand/pkg/sim.(*Engine).clear (inline)
+         0     0% 15.53%      1.18s  7.54%  frontlinecommand/cmd/wasm.BenchmarkMaximumSnapshotStages.func2
+     0.33s  2.11% 17.64%      1.18s  7.54%  frontlinecommand/pkg/content.(*Catalog).Unit (inline)
+         0     0% 17.64%      1.17s  7.48%  google.golang.org/protobuf/proto.Marshal
+         0     0% 17.64%      1.17s  7.48%  google.golang.org/protobuf/proto.MarshalOptions.marshal
+         0     0% 17.64%      1.11s  7.09%  frontlinecommand/cmd/wasm.BenchmarkMaximumSnapshotStages.func5

@@ -1,0 +1,61 @@
+{
+  "simulation": "0.3.1",
+  "scope": "Native historical snapshot conversion diagnosis, no current0.3.4 or browser FPS claim",
+  "captured_utc": "2026-09-28T14:29:19.373467+00:00",
+  "source_lock_sha256": "c59c5142154b29de53ab57898641781234e645c3ccd32545df0ea8f140eae225",
+  "binary_sha256": "e439cc876003a88813bf7104fd549c7fb996968c4269fc2314c9d351787acaf7",
+  "opening_sha256": "68f3b795490f7fe2771b25c6e467380566c34a3e15f74a622f07ae98e7fb0f12",
+  "final_hash": "34473b9e07c2f822d77be9f2448f938fe994f26bce09a0b078401837a77c667c",
+  "stages": [
+    {
+      "stage": "PlayerView",
+      "iterations": 22590,
+      "ns_per_op": 51318,
+      "bytes_per_op": 164560,
+      "allocations_per_op": 286
+    },
+    {
+      "stage": "JSONMarshal",
+      "iterations": 1314,
+      "ns_per_op": 1056344,
+      "bytes_per_op": 445179,
+      "allocations_per_op": 3
+    },
+    {
+      "stage": "ProtoJSONUnmarshal",
+      "iterations": 159,
+      "ns_per_op": 6972302,
+      "bytes_per_op": 1769775,
+      "allocations_per_op": 73594
+    },
+    {
+      "stage": "SnapshotJSONRoundtrip",
+      "iterations": 146,
+      "ns_per_op": 8925443,
+      "bytes_per_op": 2430724,
+      "allocations_per_op": 73601
+    },
+    {
+      "stage": "ProtobufMarshal",
+      "iterations": 6621,
+      "ns_per_op": 215206,
+      "bytes_per_op": 73728,
+      "allocations_per_op": 1
+    },
+    {
+      "stage": "SessionView",
+      "iterations": 139,
+      "ns_per_op": 8702588,
+      "bytes_per_op": 2722620,
+      "allocations_per_op": 73889
+    }
+  ],
+  "adapter": {
+    "ticks": 600,
+    "view_every_ticks": 4,
+    "ns_per_iteration": 4518941291,
+    "bytes_per_iteration": 638247584,
+    "allocations_per_iteration": 11052246
+  },
+  "source_verified_after": true
+}
