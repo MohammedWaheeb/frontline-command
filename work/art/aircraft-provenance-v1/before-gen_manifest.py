@@ -146,8 +146,11 @@ def unit_states(u):
         st = [S('idle', 16, 1, part=hull), S('move', 16, 4, 12, part=hull), S('damaged', 16, 1, part=hull),
               S('wreck', 16, 1, loop=False, part='whole', layers=NOTEAM)]
         if hull == 'hull':
-            st += [S('aim', 32, 1, part='turret', layers=('beauty', 'team')),
-                   S('fire', 32, 3, 15, False, part='turret', layers=('beauty', 'team'))]
+            # New approved roster turrets carry their rotating ground shadow.
+            # Preserve the two legacy sample contracts until their own audit.
+            turret_layers = ('beauty', 'team') if rid in ('US.tank', 'SY.car') else ('beauty', 'team', 'shadow')
+            st += [S('aim', 32, 1, part='turret', layers=turret_layers),
+                   S('fire', 32, 3, 15, False, part='turret', layers=turret_layers)]
         elif u['weapon'] not in ('Unarmed',):
             st += [S('fire', 16, 4, 12, False)]
         if r == 'rig':
@@ -165,15 +168,16 @@ def unit_states(u):
                    S('launch', 16, 4, 12, False)]
             if rid == 'IR.launcher':
                 st += [S('ready_two_charges', 16, 1), S('volley', 16, 6, 12, False)]
+            st += [S('ready_empty', 16, 1)]
         if r == 'artillery':
             if rid == 'IR.artillery':
                 st += [S('deploy', 16, 6, 0, False, progress_driven=True), S('volley', 16, 8, 10, False)]
             if rid == 'SY.artillery':
                 st += [S('mortar_fire', 16, 4, 10, False)]
         if r == 'apc':
-            st += [S('doors_open', 16, 4, 10, False, note='board/unload')]
+            st += [S('doors_open', 16, 4, 10, False, part=hull, note='board/unload')]
         if rid == 'SA.tank':
-            st += [S('hulldown', 16, 6, 0, False, progress_driven=True), S('hulldown_idle', 16, 1)]
+            st += [S('hulldown', 16, 6, 0, False, part=hull, progress_driven=True), S('hulldown_idle', 16, 1, part=hull)]
         if rid == 'SA.mobile_abm':
             st = [S('idle', 16, 1), S('move', 16, 4, 12), S('deploy', 16, 8, 0, False, progress_driven=True),
                   S('deployed', 16, 6, 6), S('launch', 16, 4, 12, False), S('damaged', 16, 1),
@@ -248,7 +252,11 @@ def building_states(bname, faction):
                S('fire', 32, 3, 15, False, part='turret')]
     if bname == 'Interceptor battery':
         st += [S('charges_0', 1, 1, part=B), S('charges_1', 1, 1, part=B), S('charges_2', 1, 1, part=B),
-               S('launch', 1, 4, 12, False, part=B)]
+               S('launch', 1, 4, 12, False, part=B),
+               S('launch_empty', 1, 4, 12, False, part=B)]
+        for structural in ('lowpower', 'disabled', 'damaged', 'critical'):
+            for charges in (0, 1):
+                st.append(S(f'{structural}_charges_{charges}', 1, 1, part=B))
     if bname == 'Strategic operations site':
         st += [S('charging', 1, 8, 0, False, part=B, progress_driven=True), S('ready', 1, 6, 6, part=B),
                S('activate', 1, 8, 10, False, part=B)]
@@ -280,23 +288,7 @@ def sprite_status(aid):
     return 'planned', spec, side
 
 
-def aircraft_provenance(spec):
-    # Explicit reviewed roster only; never overwrite unrelated authorship.
-    path = os.path.join(REPO, 'assets/pipeline/manifest/aircraft_provenance.json')
-    with open(path, encoding='utf-8') as source:
-        attribution = json.load(source)
-    return attribution if spec.get('id') in attribution['ids'] else None
-
-
-def blender_provenance(spec):
-    attribution = aircraft_provenance(spec)
-    return attribution['provenance'] if attribution else spec.get('provenance')
-
-
 def blender_source(spec):
-    attribution = aircraft_provenance(spec)
-    if attribution:
-        return attribution['source']
     """Keep original-model authorship distinct from the shared render library."""
     if spec.get('author') == 'Codex' or spec.get('model') == 'building_roster':
         return ('blender-procedural (original model authored by Codex during user-authorized Claude quota takeover; '
@@ -421,7 +413,7 @@ def build_manifest():
         frames = sum(s['directions'] * s['frames'] for s in states)
         E.append(entry(id=aid, category='unit_sprite', subcategory=cls, faction=u['faction'], name=u['name'],
                        source=blender_source(sp), license=LIC_ORIGINAL,
-                       provenance=blender_provenance(sp),
+                       provenance=sp.get('provenance'),
                        editable_origin=f'assets/pipeline/blender/models/{sp.get("model", "<model>")}.py + assets/pipeline/specs/{aid}.json'
                                        f' (+ assets/source/blender/{aid}.blend written on render)',
                        output=f'assets/build/sprites/{aid}/ (@2x and @1x atlases per layer + {aid}.sprite.json)',
@@ -464,6 +456,7 @@ def build_manifest():
                            output=f'assets/build/sprites/{aid}/',
                            spec={'footprint_tiles': list(FOOT[b]), 'canvas_2x': cv, 'anchor_2x': an,
                                  'layers': ['beauty', 'team', 'shadow'], 'states': states,
+                                 'total_poses': sum(st['directions'] * st['frames'] for st in states),
                                  'aliases': [{'name': 'sell', 'source': 'construct', 'reverse': True}],
                                  'overlays': ['fx.building.capture_channel', 'fx.building.sabotage_disabled',
                                               'fx.building.sell_dust', 'fx.building.fire_damaged',
@@ -587,12 +580,26 @@ def build_manifest():
              'spawn_marker_editor', 'region_marker_editor']
     for p in props:
         st = 'sample' if p in props_done else 'planned'
-        E.append(entry(id=f'prop.{p}', category='prop', name=p, source=SRC_BLENDER, license=LIC_ORIGINAL,
-                       editable_origin=f'assets/pipeline/blender/models/props.py + assets/pipeline/specs/prop.{p}.json',
+        prop_source = SRC_BLENDER
+        prop_model = 'props'
+        prop_spec = {'layers': ['beauty', 'shadow'],
+                     'states': ['full', 'high', 'low', 'depleted'] if p == 'supply_field' else
+                     (['intact', 'damaged', 'destroyed'] if 'destructible' in p or 'garrison' in p else ['idle'])}
+        spec_path = os.path.join(REPO, 'assets', 'pipeline', 'specs', f'prop.{p}.json')
+        if os.path.exists(spec_path):
+            with open(spec_path) as source:
+                authored = json.load(source)
+            prop_spec.update(canvas_2x=authored['canvas'], anchor_2x=authored['anchor'],
+                             states=authored['states'],
+                             total_poses=sum(state['directions'] * state['frames'] for state in authored['states']))
+            if authored['model'] == 'environment_roster':
+                prop_source = blender_source(authored)
+                prop_model = authored['model']
+                prop_spec['layers'] = authored['passes']
+        E.append(entry(id=f'prop.{p}', category='prop', name=p, source=prop_source, license=LIC_ORIGINAL,
+                       editable_origin=f'assets/pipeline/blender/models/{prop_model}.py + assets/pipeline/specs/prop.{p}.json',
                        output=f'assets/build/sprites/prop.{p}/',
-                       spec={'layers': ['beauty', 'shadow'],
-                             'states': ['full', 'high', 'low', 'depleted'] if p == 'supply_field' else
-                             (['intact', 'damaged', 'destroyed'] if 'destructible' in p or 'garrison' in p else ['idle'])},
+                       spec=prop_spec,
                        status=st))
     # ---------------- UI / menus / presentation
     ui = ['logo_wordmark', 'faction_emblem_US', 'faction_emblem_IR', 'faction_emblem_SY', 'faction_emblem_SA',

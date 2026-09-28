@@ -1,0 +1,31 @@
+{
+  "scope": "Commit only attribution additions on HEAD; preserve unrelated working-tree manifest and generator changes",
+  "selectively_staged": {
+    "assets/manifest/asset-manifest.json": {
+      "sha256": "001d8052dfb45969751f9417c4d24e99e9ea5bb8c4d86159892c6e7ee7d676e6",
+      "working_tree_sha256": "ad6388273e5fdc27d288fa4435d0798aefda1586310344ee634328b93e99eedf"
+    },
+    "assets/pipeline/manifest/gen_manifest.py": {
+      "sha256": "7784d48285258e999cc8d905077eaa1a01fa05d41afdfed4e7cbba174cd65a10",
+      "working_tree_sha256": "c91f72ca15ba2373b8b23628d2f3dd86ea8881def480f713d9537d1a92bc580d"
+    }
+  },
+  "other_paths": [
+    "assets/pipeline/manifest/aircraft_provenance.json",
+    "work/art/aircraft-provenance-v1/check-generator.py",
+    "work/art/aircraft-provenance-v1/README.md",
+    "work/art/aircraft-provenance-v1/aircraft_provenance.json",
+    "work/art/aircraft-provenance-v1/publication.json",
+    "work/art/aircraft-provenance-v1/before-gen_manifest.py",
+    "work/art/aircraft-provenance-v1/generator-check.json",
+    "work/art/aircraft-provenance-v1/candidate-gen_manifest.py",
+    "work/art/aircraft-provenance-v1/publish.py",
+    "work/art/aircraft-provenance-v1/source-lock.json",
+    "work/art/aircraft-provenance-v1/before-publication/gen_manifest.py",
+    "work/art/aircraft-provenance-v1/before-author-history-correction/aircraft_provenance.json",
+    "work/art/aircraft-provenance-v1/before-author-history-correction/generator-check.json",
+    "work/art/aircraft-provenance-v1/before-author-history-correction/source-lock.json",
+    "work/art/aircraft-provenance-v1/semantic-proof.json"
+  ],
+  "local_only_large_archive": "work/art/aircraft-provenance-v1/before-publication/asset-manifest.json"
+}
