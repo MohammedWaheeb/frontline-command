@@ -1,0 +1,108 @@
+{
+  "time": "2026-09-28T15:25:00Z",
+  "scope": "Sequential quiet current0.3.4 A/B, two consecutive600tick segments per runtime, same688actor/64aircraft/64command fixture and exact frozen renderer/art. AppleM4 hardware Chromium. Not complete-art, long-match, referenceIntel or actualSafari acceptance.",
+  "quietWindow": "All three agents confirmed Blender, host, browser, native tests and compilers held. Root ran only these courses and read-only text/native-image review. Unrelated user apps were not changed.",
+  "baseline": {
+    "report": "browser-current-baseline-01/browser.json",
+    "sha256": {
+      "bundle": "ebce6753b5c49f4014dff5663cca02f829eb8e99d759df4f7bae682104729915",
+      "opening": "ab1bd37affe4af49a6884cf3ed223ca92e2e7d28c23a9b07ad388174b5acd8e5",
+      "wasm": "edd5c367781896c2b5c0cd5eecfa0d1614bfefb23a47ac93d400d358db6d1b66"
+    },
+    "functional": "passed",
+    "budget": "missed"
+  },
+  "candidate": {
+    "report": "browser-current-candidate-01/browser.json",
+    "sha256": {
+      "bundle": "ebce6753b5c49f4014dff5663cca02f829eb8e99d759df4f7bae682104729915",
+      "opening": "ab1bd37affe4af49a6884cf3ed223ca92e2e7d28c23a9b07ad388174b5acd8e5",
+      "wasm": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65"
+    },
+    "functional": "passed",
+    "budget": "met"
+  },
+  "rows": [
+    {
+      "runtime": "baseline",
+      "segment": 1,
+      "elapsedMs": 33185.59999990463,
+      "ticksPerSecond": 18.080131141269835,
+      "rpcP95Ms": 419.7000000476837,
+      "frameP95Ms": 33.30000000000018,
+      "frameP99Ms": 34.899999999999636,
+      "framesOver50ms": 8,
+      "finalHash": "bf5e8b30b347b551b0631389e9d8f2c8728c2748ffcd90765a65485aac999dc0",
+      "restored": true,
+      "disposal": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0
+        }
+      }
+    },
+    {
+      "runtime": "baseline",
+      "segment": 2,
+      "elapsedMs": 30022.599999904633,
+      "ticksPerSecond": 19.984944675074974,
+      "rpcP95Ms": 191.59999990463257,
+      "frameP95Ms": 17,
+      "frameP99Ms": 18.400000000001455,
+      "framesOver50ms": 0,
+      "finalHash": "bf5e8b30b347b551b0631389e9d8f2c8728c2748ffcd90765a65485aac999dc0",
+      "restored": true,
+      "disposal": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0
+        }
+      }
+    },
+    {
+      "runtime": "candidate",
+      "segment": 1,
+      "elapsedMs": 30002,
+      "ticksPerSecond": 19.998666755549632,
+      "rpcP95Ms": 109.40000009536743,
+      "frameP95Ms": 17.199999999999818,
+      "frameP99Ms": 18.400000000001455,
+      "framesOver50ms": 0,
+      "finalHash": "bf5e8b30b347b551b0631389e9d8f2c8728c2748ffcd90765a65485aac999dc0",
+      "restored": true,
+      "disposal": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0
+        }
+      }
+    },
+    {
+      "runtime": "candidate",
+      "segment": 2,
+      "elapsedMs": 30000.700000047684,
+      "ticksPerSecond": 19.99953334419018,
+      "rpcP95Ms": 107.09999990463257,
+      "frameP95Ms": 17.5,
+      "frameP99Ms": 18.400000000001455,
+      "framesOver50ms": 0,
+      "finalHash": "bf5e8b30b347b551b0631389e9d8f2c8728c2748ffcd90765a65485aac999dc0",
+      "restored": true,
+      "disposal": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0
+        }
+      }
+    }
+  ],
+  "conclusion": "Candidate meets the unchanged20TPS budget for both segments and retains exact expected authoritative hash. Baseline misses first segment. A/B is one controlled pair, not a universal speedup claim."
+}

@@ -2,7 +2,8 @@
 
 Status: isolated successor to the direct snapshot converter. Full short Go
 simulation/adapter/server suites and the native current maximum-load hash pass.
-Current-WASM browser performance is pending. Shipping files are unchanged.
+The current-WASM candidate also passes both consecutive maximum-load segments
+in the controlled browser pair below. Shipping files are unchanged.
 
 ## Exact scope
 
@@ -50,3 +51,32 @@ bundle `ebce6753b5c49f4014dff5663cca02f829eb8e99d759df4f7bae682104729915`.
 It intentionally excludes ongoing aircraft hit-testing changes so those cannot
 confound the Go-runtime comparison. No art or frontend product file is promoted
 by this candidate.
+
+## Quiet current browser pair — 15:22–15:25 UTC
+
+All three agent lanes paused Blender, native tests, compilers, hosts and browsers.
+Baseline then candidate ran in headed Chromium on Apple M4 Metal with the exact
+same renderer, frozen artwork and current 688-actor/64-aircraft fixture. Each
+runtime performed two consecutive 600-tick segments. The unchanged timing gate
+allows one tick of scheduling tolerance over the 30-second simulation interval.
+
+| Runtime | Segment | Wall time | Tick rate | RPC p95 | Frame p95/p99 |
+| --- | --- | --- | --- | --- | --- |
+| Snapshot converter baseline | 1 | 33.186 s | 18.080 | 419.7 ms | 33.3 / 34.9 ms |
+| Snapshot converter baseline | 2 | 30.023 s | 19.985 | 191.6 ms | 17.0 / 18.4 ms |
+| Single collision lookup | 1 | 30.002 s | 19.999 | 109.4 ms | 17.2 / 18.4 ms |
+| Single collision lookup | 2 | 30.001 s | 20.000 | 107.1 ms | 17.5 / 18.4 ms |
+
+Both candidate segments meet the 20 TPS budget; neither has a frame over 50 ms.
+All four segments retain the expected final hash above, pass save/restore and
+release every renderer canvas and resident art page, with no application errors.
+The baseline report remains failed because its first segment misses timing.
+`paired-current-browser.json` indexes the full reports. The baseline output-path
+correction is recorded separately, and the previous default report/images were
+preserved before completion and restored byte for byte.
+
+This is one controlled pair on this machine, with incomplete frozen artwork.
+It accepts the bounded lookup optimization without claiming universal speedup,
+complete-art performance, long-match stability, Intel performance or actual
+Safari acceptance. Earlier failed timing courses remain unchanged. The combined
+runtime and complete release still require their remaining integration gates.

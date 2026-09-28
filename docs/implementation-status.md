@@ -1,6 +1,6 @@
 # Frontline Command implementation status
 
-Updated 28 September 2026, 14:15 UTC / 17:15 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates below supersede earlier in-progress receipts.
+Updated 28 September 2026, 15:25 UTC / 18:25 Qatar. **The full game is not ready for release.** Continue the complete handoff; do not deploy. The previous detailed state is preserved in [history](history/implementation-through-2026-09-28-0933.md). Dated updates below supersede earlier in-progress receipts.
 
 ## Current ownership and access
 
@@ -260,3 +260,51 @@ art and mission tactics. Claude's13:30 exact-model review succeeded before later
 jobs reached quota; the next recorded retry is18:30UTC. Partial UI edits and all
 failed mission/performance runs remain visible in their evidence. Nothing is
 published or declared the finished game.
+
+## Integration update at15:25 UTC
+
+The direct Go snapshot converter preserves the exact old protobuf representation
+for201 constructed views and31 actual saves/62 player views on native/WASM, and
+passes the15-case real product owner-ranges course. The older0.3.1 timing pair
+still misses repeated20TPS with both runtimes; those failures remain intact.
+A separate current0.3.4 legal688-actor fixture now reaches its native expected
+hash after600ticks/64commands with all64 aircraft landed. No old fixture was
+relabeled or given extra time.
+
+The next isolated candidate reuses one immutable unit-definition lookup in two
+collision functions. All75 unit types and four special/unknown cases across32
+states plus9600 clearance queries match the retained preceding implementation.
+Full short simulation/adapter/server, focused race, vet and current native hash
+checks pass. In a quiet headed Chromium/Metal pair with identical renderer,
+artwork and current fixture, the baseline reaches18.08/19.98TPS; the candidate
+meets the unchanged20TPS budget in both consecutive600-tick segments, with
+RPC p95 of109.4/107.1ms and no frames over50ms. All four hashes, saves/restores and
+resource disposal checks pass. See
+[the exact evidence](../work/navigation-lookup-candidate/README.md). This accepts
+the bounded optimization on this Mac; complete-art/reference-hardware/long-match
+performance and combined runtime promotion remain open. Shipping stays0.3.3.
+
+The fresh three-human match earned an ordinary IR victory at16074 with zero
+HTTP/page/console errors, exact native replay/checkpoint hashes and successful
+reconnect. Its original browser driver nevertheless failed its archive-button
+assumption on the eliminated host; that report remains failed. Checkpoint41264bc
+adds authenticated recorded operations, replay archiving and recovery after a
+host restart removes the old lobby. A copied-host browser course passes seven
+checks, including real404 recovery and preservation of the eliminated player's
+exact frozen view, with347 runtime tests and both TypeScript checks. See
+[recovery evidence](recorded-result-recovery.md). A fresh four-human2v2 ordinary
+combat course has now started with the corrected result-handling driver.
+
+Aircraft picking now has a bounded candidate using actual current beauty/team
+opacity, excluding transparent padding and shadows while retaining real foreground
+occlusion. Chromium/Firefox each pass33 checks; WebKit and final regressions are
+in progress. It fixes real US airlift and strike body clicks that previously
+selected ground or the neighboring airfield. No Go collision geometry changes.
+
+All four interceptor identities have accepted native charge/launch contacts.
+The new US airfield completes34 world poses and UI, with visible opening doors
+and hangar interior; service motion remains modest and is recorded as such.
+SA/IR/SY producer pilots, accepted-pilot reuse production, US airlift rearm and
+the remaining full roster continue under the sole Blender worker. Root's17/132
+FX candidate and main-menu key art remain unaccepted. Claude next returns at the
+recorded18:30UTC reset for exact-model visual authorship/review. No deployment.
