@@ -10,14 +10,16 @@ import type {ProductionTab} from '../content/catalog';
 import type {Application} from './application';
 import {readMissionMarkers,type MissionMarker} from './mission-markers';
 import {readMissionGroupLabels,missionGroups,type MissionGroupLabel} from './mission-groups';
+import {adviceFeedback} from './advice-feedback';
 export interface ProductionChoice {type:string;kind:'build'|'train'|'research';producer:number;available:boolean;reason?:string;waitsFor?:string}
-export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];productionSource?:number;target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[];strikeReview?:StrikeReviewState}
+export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];productionSource?:number;adviceUnavailable?:string;target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[];strikeReview?:StrikeReviewState}
 /** Input only: every executable decision is validated by the Go runtime. */
 export class BattleController {
  readonly selection=new BattlefieldSelection();readonly modifiers=new ModifierToggles();readonly targeting=new CommandTargeting();
  readonly state=new Observable<BattleState>({ids:[],production:[],pending:false,learned:[],markers:[],missionGroups:[]});
  private readonly strikeReview=new SkybreakerReview();private strikeAbort?:AbortController;
  private markerMission?:string;
+ private adviceNotice?:string;
  private terminal=false;
  private inactive(){return !!this.snapshot?.outcome?.finished||!!this.snapshot?.players.find(player=>player.id===this.snapshot?.player)?.defeated}
  private async loadMarkers(mission:NonNullable<PlayerSnapshot['mission']>){
@@ -69,6 +71,18 @@ export class BattleController {
  private runtime(){const transport=this.app.sessions.transport;if(!transport)throw Error('No active operation.');return transport}
  private affordances(ids:number[]){const runtime=this.runtime();return runtime instanceof OfflineTransport?runtime.affordances(ids):this.app.commandAdvice().affordances(ids)}
  private preview(orders:Parameters<OfflineTransport['previewOrders']>[0]){const runtime=this.runtime();return runtime instanceof OfflineTransport?runtime.previewOrders(orders):this.app.commandAdvice().preview(orders)}
+ private adviceFailed(error:unknown,phase:'background'|'command'){
+  const feedback=adviceFeedback(error,phase);
+  if(feedback.kind==='ignore')return;
+  if(feedback.kind==='error'){this.app.error(error);return}
+  this.adviceNotice=feedback.message;
+  if(phase==='background'){
+   const changed=this.state.get().adviceUnavailable!==feedback.message;
+   this.state.update(state=>({...state,adviceUnavailable:feedback.message,production:state.production.map(choice=>({...choice,available:false,reason:feedback.message}))}));
+   if(changed)this.app.patch({notice:feedback.message});
+  }else this.app.patch({notice:feedback.message});
+ }
+ private adviceRecovered(){if(this.adviceNotice&&this.app.state.get().notice===this.adviceNotice)this.app.patch({notice:undefined});this.adviceNotice=undefined}
  async refresh(){
   if(this.closed||this.refreshing||this.state.get().pending||!this.snapshot||this.snapshot.outcome?.finished||this.snapshot.players.find(player=>player.id===this.snapshot?.player)?.defeated||['replay','observer'].includes(this.app.sessions.state.kind??''))return;this.refreshing=true;const token=this.selection.token,generation=this.generation;
   try{
@@ -83,8 +97,9 @@ export class BattleController {
    const production:ProductionChoice[]=[];
    for(const entity of combined.entities.filter(entity=>entity.id===source)){for(const [key,kind] of [['builds','build'],['trains','train'],['research','research']] as const)for(const type of entity[key])if(!production.some(item=>item.type===type&&item.kind===kind)){const status=entity.production_status?.find(status=>status.kind===kind&&status.type===type);production.push({type,kind,producer:entity.id,available:status?.code==='ok'||status?.code==='indeterminate',reason:status&&status.code!=='ok'&&status.code!=='indeterminate'?reason(status.code):status?undefined:'Availability unavailable',waitsFor:status?.waits_for?reason(status.waits_for):undefined})}}
    if(this.closed||generation!==this.generation||!sameSelection(token,this.selection.token))return;
-   this.state.update(state=>({...state,affordances,production}));
-  }catch(error){if(!this.closed&&generation===this.generation&&sameSelection(token,this.selection.token)&&!['advice_pending','advice_unavailable','targeting_changed','player_inactive'].includes((error as {code?:string}).code??''))this.app.error(error)}finally{this.refreshing=false}
+   this.state.update(state=>({...state,affordances,production,adviceUnavailable:undefined}));
+   this.adviceRecovered();
+  }catch(error){if(!this.closed&&generation===this.generation&&sameSelection(token,this.selection.token)&&!this.inactive())this.adviceFailed(error,'background')}finally{this.refreshing=false}
  }
  placePractice(order:OrderIntent){if(this.app.sessions.state.kind!=='practice')return;this.cancel();this.practicePlacement=structuredClone(order);this.activeTarget={kind:'practice_spawn',type:order.type,label:'Place practice forces'};this.state.update(state=>({...state,target:this.activeTarget}));this.renderer?.setTargeting('practice_spawn')}
  async command(kind:string,type?:string,producer?:number,queued=false,index?:number){
@@ -171,7 +186,8 @@ export class BattleController {
    if(plan.issues.length){this.app.patch({notice:reason(plan.issues[0].code,plan.issues[0].message)});this.app.audioDirector.receipt('',false,this.snapshot.entities.find(entity=>this.selection.ids.includes(entity.id)&&entity.owner===this.snapshot?.player),plan.issues[0].code)}
    for(const batch of plan.batches){if(!current())return;this.orderKinds.set(await runtime.sendOrders(batch),batch.map(order=>{const entity=this.snapshot?.entities.find(entity=>entity.id===order.entities?.[0]&&entity.owner===this.snapshot?.player);return {kind:order.kind??'',entity:entity?{type:entity.type,owner:entity.owner}:undefined}}));while(this.orderKinds.size>256)this.orderKinds.delete(this.orderKinds.keys().next().value!)}
    this.refreshAt=0;
-  }catch(error){if(current())this.app.error(error)}finally{if(!this.closed)this.state.update(state=>({...state,pending:false}))}
+   this.adviceRecovered();
+  }catch(error){if(current())this.adviceFailed(error,'command')}finally{if(!this.closed)this.state.update(state=>({...state,pending:false}))}
  }
  private key=(event:KeyboardEvent)=>{
   const focus=event.target as HTMLElement|null;const intent=resolveShortcut(event,this.app.state.get().settings.bindings,{...this.modifiers.context,tagName:focus?.tagName,role:focus?.getAttribute('role')??undefined,isContentEditable:focus?.isContentEditable,enabled:!document.querySelector('[role="dialog"]')});if(!intent)return;event.preventDefault();const action=intent.action;

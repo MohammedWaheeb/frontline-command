@@ -201,5 +201,17 @@ The 672,926-byte replay SHA256 is
 Full replay, final checkpoint and restored-midpoint continuation all produce
 `c1ebd3ab453cfa586e1f4a694193959f8d3a10be494bb8606d189ed4c34d1226`.
 Evidence: `work/multiplayer-combat/2026-09-28T12-40-48.386Z/`.
-The frozen client/art limitations above still apply. Three-human FFA and
-four-human 2v2 remain in progress.
+The frozen client/art limitations above still apply.
+
+## Three-human attempt under contention
+
+The subsequent three-human FFA stopped before an outcome. Its final authorized
+views were ticks 3,908–3,920, with every commander alive. The run recorded 53
+advisory HTTP 503 responses during severe host contention. A background advice
+timeout opened a blocking error modal, causing the planned reconnect-menu click
+to time out. Original screenshots, responses and command receipts are preserved
+in the same evidence directory. This is not an ordinary combat completion.
+
+See [the bounded advice-recovery correction](advice-recovery.md). Four-human 2v2
+did not start. New live runs are held for coordinated resource use; neither the
+strict browser gate nor gameplay deadlines have been relaxed.
