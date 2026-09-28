@@ -1,0 +1,29 @@
+--- base/pkg/sim/authored_factory_diagnosis_test.go
++++ candidate/pkg/sim/authored_factory_diagnosis_test.go
+@@ -48,6 +48,8 @@
+ 		}
+ 	}
+ 	r := newAuthoredRun(t, "sy-05-relay-break", "hard", "")
++	factoryID := r.tags["capture-factory"][0]
++	write("target-identity.json", map[string]any{"mission_tag": "capture-factory", "id": factoryID, "source": "effective authored initial tag mapping; not a fixed cross-difficulty ID"})
+ 	type sample struct {
+ 		Tick    sim.Tick         `json:"tick"`
+ 		Factory *sim.EntityView  `json:"factory,omitempty"`
+@@ -66,7 +68,7 @@
+ 			}
+ 			seenEvents[event.ID] = true
+ 			dx, dy := int64(event.Position.X-50500), int64(event.Position.Y-88500)
+-			if event.Entity == 78 || event.Entity == 472 || dx*dx+dy*dy < 3000*3000 {
++			if event.Entity == factoryID || event.Entity == 472 || dx*dx+dy*dy < 3000*3000 {
+ 				events = append(events, event)
+ 			}
+ 		}
+@@ -75,7 +77,7 @@
+ 			view := r.view()
+ 			entry := sample{Tick: tick}
+ 			for _, actor := range view.Entities {
+-				if actor.ID == 78 {
++				if actor.ID == factoryID {
+ 					copy := actor
+ 					entry.Factory = &copy
+ 				}

@@ -1,0 +1,91 @@
+{
+  "scope": "One SY05 Hard optional bounded visible-site construction pilot; unchanged production/content and budgets",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "7d72615a244c5e6c2ac801f83754e446493c75ae6d60c2e4c4d6cf156f5b0364",
+  "base_source_lock_sha256": "cd82f1e43a109a01a5ee1f5919bd78c58a261442c25012a4e7fc1b2d780238b6",
+  "placement_fixture_sha256": "2012071841a6504c3ab0e18a12b87c3464ef3852842c9f8b6ea24b1ad65e5f7e",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T21:47:26.412798+00:00",
+  "status": "failed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-visible-defense/runs/20260928T214726Z-sy05-hard-optional-visible-defense/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-visible-defense/source",
+      "started": "2026-09-28T21:47:26.413088+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.741,
+      "completed": "2026-09-28T21:47:29.154557+00:00"
+    },
+    {
+      "name": "budget",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-visible-defense/runs/20260928T214726Z-sy05-hard-optional-visible-defense/sim.test",
+        "-test.run=^TestAuthored(CaptureVisibleSite|ExpansionSites)",
+        "-test.count=1",
+        "-test.timeout=2m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-visible-defense/source/pkg/sim",
+      "started": "2026-09-28T21:47:29.158986+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 1.123,
+      "completed": "2026-09-28T21:47:30.282328+00:00"
+    },
+    {
+      "name": "mission",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-visible-defense/runs/20260928T214726Z-sy05-hard-optional-visible-defense/sim.test",
+        "-test.run=^TestAuthoredOptionalFactoryCapture$/^hard$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-capture-visible-defense/source/pkg/sim",
+      "started": "2026-09-28T21:47:30.282665+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 19.48,
+      "completed": "2026-09-28T21:47:49.762727+00:00"
+    }
+  ],
+  "binary_sha256": "0a9d8206b0be29f42628d1d02fcfe6cab329a72104715d3f878e2d82d7b4fbd0",
+  "exit_code": 1,
+  "completed": "2026-09-28T21:47:49.762989+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.save.json": {
+      "bytes": 1126855,
+      "sha256": "d150107bfb9b3666de3a411f45ea6b9e9b7fe1f5a860ea80bbbd021a3b22609d"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.failed.view.json": {
+      "bytes": 390589,
+      "sha256": "b781717653d44065bcd6bc149c6e934e0ccdfdc81b2da0510c61bd651627ab1d"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3777591204/driver-orders.json": {
+      "bytes": 212045,
+      "sha256": "4762704f803fcbde714e8c2416a6c8de26f4186cf10e98cd801f249e92069c3d"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3777591204/manifest.json": {
+      "bytes": 860,
+      "sha256": "f80c6b656319e8e4e6e4121c309c55ddc89cc00c511de5da45ac278dfcbd67d6"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3777591204/owner.view.json": {
+      "bytes": 390589,
+      "sha256": "b781717653d44065bcd6bc149c6e934e0ccdfdc81b2da0510c61bd651627ab1d"
+    },
+    "evidence/sy-05-relay-break-SY-hard-optional-factory-captured.fatal-3777591204/state.save.json": {
+      "bytes": 1126855,
+      "sha256": "d150107bfb9b3666de3a411f45ea6b9e9b7fe1f5a860ea80bbbd021a3b22609d"
+    }
+  }
+}

@@ -1,0 +1,90 @@
+package sim_test
+
+import (
+	"frontlinecommand/pkg/sim"
+	"os"
+	"testing"
+)
+
+// This player-side construction choice reuses the existing conservative current
+// view prefilter. Go preview and actual execution still decide legality/cost.
+// Only SY05 Hard's optional route calls it; other capture routes stay unchanged.
+func (r *authoredRun) buildVisibleCaptureDefense(kind string, point sim.Vec) {
+	rig := r.ids("home-rig")
+	scout := sim.Vec{X: point.X + 4000, Y: point.Y}
+	r.issue(1, sim.Order{Kind: "move", Entities: rig, Position: scout})
+	r.wait("rig scouts "+kind+" foundation", 2400, func() bool {
+		actor, alive := r.seen(rig[0])
+		if !alive {
+			return false
+		}
+		dx, dy := int64(actor.Position.X-scout.X), int64(actor.Position.Y-scout.Y)
+		return dx*dx+dy*dy < 1500*1500
+	})
+	var foundation sim.ID
+	// Placement and paid construction share the ORIGINAL 3600-tick construction
+	// budget. No additional wait is granted for choosing another nearby site.
+	r.wait("visible paid "+kind+" construction", 3600, func() bool {
+		if foundation != 0 {
+			actor, alive := r.seen(foundation)
+			return alive && actor.Complete
+		}
+		for _, candidate := range authoredExpansionSites(point) {
+			if !r.visibleFoundationLooksClear(kind, candidate) {
+				continue
+			}
+			if !r.tryIssue(sim.Order{Kind: "build", Entities: rig, Type: kind, Position: candidate}) {
+				continue
+			}
+			for _, actor := range r.view().Entities {
+				if actor.Owner == 1 && actor.Type == kind && actor.Position == candidate {
+					foundation = actor.ID
+					r.t.Logf("visible capture defense %s tick%d site%v actor%d", kind, r.engine.Tick(), candidate, foundation)
+					return actor.Complete
+				}
+			}
+			r.t.Fatal("accepted visible construction did not emit its foundation")
+		}
+		return false
+	})
+}
+
+func TestAuthoredCaptureVisibleSiteObservedInfantry(t *testing.T) {
+	path := os.Getenv("FRONTLINE_CAPTURE_PLACEMENT_FIXTURE")
+	if path == "" {
+		t.Skip("exact preserved Hard occupied-site owner-state fixture")
+	}
+	r := newAuthoredRun(t, "sy-05-relay-break", "hard", "")
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	restored, err := sim.Restore(r.catalog, data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	r.engine = restored
+	hash := r.engine.Hash()
+	center := sim.Vec{X: 41500, Y: 88500}
+	if r.visibleFoundationLooksClear("outpost", center) {
+		t.Fatal("known occupied original site accepted by visual prefilter")
+	}
+	var candidates int
+	for _, p := range authoredExpansionSites(center) {
+		if !r.visibleFoundationLooksClear("outpost", p) {
+			continue
+		}
+		candidates++
+		preview, err := r.engine.PreviewOrders(1, []sim.Order{{Kind: "build", Entities: []sim.ID{29}, Type: "outpost", Position: p}})
+		if err != nil || len(preview) != 1 {
+			t.Fatal("real preview unavailable", err, preview)
+		}
+		t.Logf("visible alternative %v authoritative advisory %+v", p, preview[0])
+	}
+	if candidates == 0 {
+		t.Fatal("no current visible nearby alternate site")
+	}
+	if r.engine.Hash() != hash {
+		t.Fatal("view/advice changed source state")
+	}
+}
