@@ -1,0 +1,50 @@
+--- base/pkg/sim/authored_campaign_acceptance_test.go
++++ screen/pkg/sim/authored_campaign_acceptance_test.go
+@@ -943,8 +943,45 @@
+ 							continue
+ 						}
+ 						orders := actor.Private.Orders
+-						if len(orders) == 0 || orders[0].Kind != "guard" || orders[0].Target != siteID {
+-							r.tryIssue(sim.Order{Kind: "guard", Entities: []sim.ID{id}, Target: siteID})
++						order := sim.Order{Kind: "guard", Entities: []sim.ID{id}, Target: siteID}
++						if actor.Type == "SY.rifle" {
++							// An exterior rifle screen covers visible siege positions
++							// while the normal Guard leash bounds further pursuit.
++							var threat *sim.EntityView
++							closest := int64(12000 * 12000)
++							for _, enemy := range r.view().Entities {
++								if enemy.Owner != 2 && enemy.Owner != 4 {
++									continue
++								}
++								u, known := r.catalog.Unit(enemy.Type)
++								if !known || u.Weapon != "AT" {
++									continue
++								}
++								dx, dy := int64(enemy.Position.X-site.Position.X), int64(enemy.Position.Y-site.Position.Y)
++								if d := dx*dx + dy*dy; d < closest {
++									copy := enemy
++									threat, closest = &copy, d
++								}
++							}
++							if threat != nil {
++								dx, dy := threat.Position.X-site.Position.X, threat.Position.Y-site.Position.Y
++								sx, sy := dx, dy
++								if sx < 0 {
++									sx = -sx
++								}
++								if sy < 0 {
++									sy = -sy
++								}
++								span := sx + sy
++								if span > 0 {
++									offset := min(int32(3000), span/2)
++									order.Target = 0
++									order.Position = sim.Vec{X: site.Position.X + dx*offset/span, Y: site.Position.Y + dy*offset/span}
++								}
++							}
++						}
++						if len(orders) == 0 || orders[0].Kind != order.Kind || orders[0].Target != order.Target || orders[0].Position != order.Position {
++							r.tryIssue(order)
+ 						}
+ 					}
+ 					continue
