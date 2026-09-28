@@ -98,12 +98,18 @@ not a performance measurement.
 ## Remaining environment work
 
 All 21 new prop assets have separately passed production pixel checks and native
-review, recorded in `work/art/environment-roster/production-summary.md`. This
-renderer slice binds five of them. The other sixteen require explicit map/editor
-placement or a reviewed public styling contract. It does not infer hidden mission
-tags, dress every map automatically, or insert visual barriers into legal paths.
+review, recorded in `work/art/environment-roster/production-summary.md`. The
+original renderer slice above binds five. The accepted Copper Junction pilot adds
+three explicit shipping uses (scrub, pylon, ruined house), and the editor handle
+slice adds the two editor-only marks: ten of the 21 now have product bindings.
+The remaining eleven need explicit map placement or a reviewed public styling
+contract. Synthetic tests exercise additional bridge/industrial assets, but those
+are not claimed as shipping map placements.
 
-The subsequently approved public presentation contract and synthetic Go/browser
-pilot are in `docs/environment-sidecar.md`. It still does not constitute authored
-shipping map dressing; `docs/environment-sidecar-proposal.md` preserves the
-original reviewed architecture.
+The public contract and synthetic Go/browser pilot are in
+`docs/environment-sidecar.md`; `docs/environment-sidecar-proposal.md` preserves
+its original architecture. The approved ten-entry Copper Junction map pilot is
+in `docs/environment-authored-pilot.md`, and the bounded editor integration is in
+`docs/editor-handle-art.md`. Other maps are not automatically dressed. These
+bindings do not infer hidden mission tags or insert visual barriers into legal
+paths.

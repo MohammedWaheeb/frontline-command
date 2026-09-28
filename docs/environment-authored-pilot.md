@@ -58,9 +58,11 @@ Final balance is 8,350 credits after genuine income and purchases.
 
 The negative path supplies a mismatched sidecar response to the real loader. It
 emits “Optional scenery unavailable: Optional scenery differs from its installed
-checksum.”, loads Copper Junction, and returns no optional environment. The
-8-second generic notice can expire during a long asset preflight; root has been
-notified of this presentation timing limitation. The fallback mount naturally
+checksum.”, loads Copper Junction, and returns no optional environment. The original run exposed an 8-second notice timeout during long asset preflight.
+Root fixed that timing in `26e20f6`; a focused actual-product rerun now confirms the
+checksum warning remains visible after preparation and battlefield mount, with no
+browser errors. Its report and screenshot are in
+`work/evidence/environment-authored/notice-after-loading/`. The fallback mount naturally
 resumes for a few ticks, so its post-mount hash is not asserted against the paused
 opening tick. Exact same-tick scenery/no-scenery parity is proven separately at
 all 21 checkpoints. Leaving the session removes every battlefield canvas.
@@ -100,6 +102,9 @@ npm --prefix client run typecheck
 npm --prefix client run typecheck:app
 npm --prefix client run test:runtime
 ```
+
+`FRONTLINE_ENV_ONLY_NOTICE=1` runs just the opening and checksum-fallback path,
+without repeating the paid gameplay sequence.
 
 `FRONTLINE_REUSE_PRODUCT=1` skips only the static packaged asset copy during local
 harness iteration; the test entry is still rebuilt. Omit it for a clean run.

@@ -1,0 +1,146 @@
+{
+  "time": "2026-09-28T08:35:02.713Z",
+  "browser": "151.0.7922.34",
+  "errors": [],
+  "wasmSHA256": "4e67eebdd53c6ce588c14f0f01b54c236e193feacfbd2936bed0af4002a45efa",
+  "mapSHA256": "9ce72f0cbb236557ad75e37feed6c2aa7f5726e6f77cd61803eb84d0b1545057",
+  "initialize": {
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.3",
+      "tick_rate": 20
+    },
+    "metadata": {
+      "simulation": "0.3.3",
+      "protocol": 1,
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "map_version": "1",
+      "ruleset": "standard-v2",
+      "seed": 688678972
+    },
+    "environment": {
+      "schema": "fc-map-environment/1",
+      "map": {
+        "id": "copper-junction",
+        "version": "1",
+        "sha256": "9ce72f0cbb236557ad75e37feed6c2aa7f5726e6f77cd61803eb84d0b1545057"
+      },
+      "object_skins": [
+        {
+          "object_id": 3,
+          "asset": "prop.ruined_house_garrisonable",
+          "direction": 0
+        },
+        {
+          "object_id": 4,
+          "asset": "prop.ruined_house_garrisonable",
+          "direction": 2
+        }
+      ],
+      "placements": [
+        {
+          "id": "west-pylon",
+          "asset": "prop.power_pylon",
+          "position": {
+            "x": 45500,
+            "y": 46500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "east-pylon",
+          "asset": "prop.power_pylon",
+          "position": {
+            "x": 82500,
+            "y": 81500
+          },
+          "direction": 2,
+          "state": "idle"
+        },
+        {
+          "id": "west-cover-a",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 34500,
+            "y": 53500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "east-cover-a",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 93500,
+            "y": 74500
+          },
+          "direction": 2,
+          "state": "idle"
+        },
+        {
+          "id": "west-cover-b",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 35500,
+            "y": 57500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "east-cover-b",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 92500,
+            "y": 70500
+          },
+          "direction": 2,
+          "state": "idle"
+        },
+        {
+          "id": "east-cover-c",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 87500,
+            "y": 52500
+          },
+          "direction": 0,
+          "state": "idle"
+        },
+        {
+          "id": "west-cover-c",
+          "asset": "prop.forest_edge_scrub",
+          "position": {
+            "x": 40500,
+            "y": 75500
+          },
+          "direction": 2,
+          "state": "idle"
+        }
+      ]
+    },
+    "opening": {
+      "label": "opening",
+      "tick": 106,
+      "hash": "5df974c9692ca70693a962f6e97fee1f2764589edac24e85fcf9d96c4e26eca6"
+    },
+    "nodes": []
+  },
+  "fallback": {
+    "notices": [
+      "Optional scenery unavailable: Optional scenery differs from its installed checksum."
+    ],
+    "notice": "Optional scenery unavailable: Optional scenery differs from its installed checksum.",
+    "hash": "ec9276c1e3dee3117c6938022aa8b69d79355dfd2c3b446ab1cf88c99950fea4",
+    "openingHash": "a43ab2b89458116214ce8469d4d49978083182b6e0eee7f2a6f2c2c8865585f1",
+    "map": "copper-junction"
+  },
+  "dispose": {
+    "canvases": 0
+  },
+  "status": "passed"
+}
