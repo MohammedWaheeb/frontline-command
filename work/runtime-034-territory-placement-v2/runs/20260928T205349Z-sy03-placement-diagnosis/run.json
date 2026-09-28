@@ -1,0 +1,79 @@
+{
+  "scope": "Exact failed SY03 accepted-command replay with authorized-view placement diagnosis",
+  "simulation": "0.3.4",
+  "source_lock_sha256": "bef6cda7dff292c9926f496a35ec0fe89ede84247a4b877014f633190411daf8",
+  "base_source_lock_sha256": "83273ff7ab73e939cfa641e8993b6f05bd77bf01abc716f3cd30a3c95b37b341",
+  "host": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "host_conditions": "GOMAXPROCS=2, serial native correctness tests; shared desktop, no performance claim",
+  "started": "2026-09-28T20:53:49.653709+00:00",
+  "status": "passed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "test",
+        "-p=1",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-placement-v2/runs/20260928T205349Z-sy03-placement-diagnosis/sim.test",
+        "./pkg/sim"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-placement-v2/source",
+      "started": "2026-09-28T20:53:49.653935+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 2.422,
+      "completed": "2026-09-28T20:53:52.076158+00:00"
+    },
+    {
+      "name": "diagnostic",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-placement-v2/runs/20260928T205349Z-sy03-placement-diagnosis/sim.test",
+        "-test.run=^TestAuthoredTerritoryPlacementDiagnosis$",
+        "-test.count=1",
+        "-test.timeout=10m",
+        "-test.v"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-territory-placement-v2/source/pkg/sim",
+      "started": "2026-09-28T20:53:52.080128+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 5.872,
+      "completed": "2026-09-28T20:53:57.952439+00:00"
+    }
+  ],
+  "binary_sha256": "267a93171c35f49ddb80fc814d8d9f73cc1fa21cd3fb5d665d5197cb163eb453",
+  "exit_code": 0,
+  "completed": "2026-09-28T20:53:57.952685+00:00",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "artifacts": {
+    "evidence/reconstruction.json": {
+      "bytes": 250,
+      "sha256": "ee72461e41d4e42df8c6ad66c7782731b3dbf670252dec80896854c8239f1e2d"
+    },
+    "evidence/tick-1839.owner-view.json": {
+      "bytes": 401685,
+      "sha256": "84047369e8e7b3c4891de8852d3f52e36dc162fd3a5bbe157c0f0869ab1c69fe"
+    },
+    "evidence/tick-1839.placement.json": {
+      "bytes": 1784,
+      "sha256": "5f7641aa46da8a4bee49d26460a97e121676fc15691f2743f12b0c5321e87cfd"
+    },
+    "evidence/tick-2462.owner-view.json": {
+      "bytes": 401001,
+      "sha256": "89f3924fa42d0566ab1bd802aa2bfa2654eaa68700ff17dedc06a0045a1e7cc2"
+    },
+    "evidence/tick-2462.placement.json": {
+      "bytes": 1784,
+      "sha256": "687b5c4bae17733f0be404090671a9bba21ef76a1adaac8049daa04076fb57ab"
+    },
+    "evidence/tick-4353.owner-view.json": {
+      "bytes": 398720,
+      "sha256": "95d9677b52e9cf6dd9e6dbe04626ded5bc83477c7d551f126eaad5f5c4445487"
+    },
+    "evidence/tick-4353.placement.json": {
+      "bytes": 1784,
+      "sha256": "c3d4901b0b7dc60da708073a63d7708c79bd69ae3110b503436f9ceeb82b8ae4"
+    }
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "classification": "Nonterminal acceptance timeout, not mission defeat; bounded placement worked but regional-control strategy remains insufficient",
+  "source_lock_sha256": "c89d2a3d38c94f07b1392cd8c2d68c0b3b97b826234746aceba20e19fe0e3cf7",
+  "binary_sha256": "e44dd33d14a2fbd708facfd0b3cff799a584537b54466ae1afe6501f8252d2cf",
+  "tick": 22610,
+  "state_hash": "9836cee839f636a8bde190ea24de0776db802746ec0a3e787b7a2070d75128ad",
+  "outcome": {
+    "finished": false,
+    "draw": false,
+    "winning_team": 0,
+    "reason": "",
+    "tick": 0
+  },
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "text": "Lose all HQs, production structures and engineering rigs.",
+      "optional": false,
+      "failure": true,
+      "complete": false,
+      "progress": 2,
+      "required": 0
+    },
+    {
+      "id": "two-approaches",
+      "text": "Hold any two approaches continuously for three minutes.",
+      "optional": false,
+      "failure": false,
+      "complete": false,
+      "progress": 0,
+      "required": 3600
+    },
+    {
+      "id": "scout-mark",
+      "text": "Optional: keep the marked scout concealed for one uninterrupted minute.",
+      "optional": true,
+      "failure": false,
+      "complete": true,
+      "progress": 1200,
+      "required": 1200
+    }
+  ],
+  "batches": 1500,
+  "orders": 1509,
+  "receipt_codes": {
+    "ok": 1509
+  },
+  "builds": [
+    {
+      "tick": 100,
+      "order": {
+        "kind": "build",
+        "entities": [
+          17
+        ],
+        "position": {
+          "x": 28500,
+          "y": 100500
+        },
+        "type": "turret"
+      }
+    },
+    {
+      "tick": 726,
+      "order": {
+        "kind": "build",
+        "entities": [
+          17
+        ],
+        "position": {
+          "x": 43500,
+          "y": 85500
+        },
+        "type": "outpost"
+      }
+    },
+    {
+      "tick": 1838,
+      "order": {
+        "kind": "build",
+        "entities": [
+          17
+        ],
+        "position": {
+          "x": 53500,
+          "y": 80500
+        },
+        "type": "turret"
+      }
+    }
+  ],
+  "economy": {
+    "last_sequence": 1500,
+    "credits": 529963,
+    "energy": 100000,
+    "supply": 14,
+    "reserved_supply": 2,
+    "power_capacity": 240,
+    "power_demand": 75,
+    "tier": 2,
+    "income": 37800000,
+    "repair_reserve": 0,
+    "upgrades": null,
+    "cooldowns": null
+  },
+  "observed_fields": [
+    {
+      "id": 1,
+      "position": {
+        "x": 21500,
+        "y": 91500
+      },
+      "remaining": 0
+    },
+    {
+      "id": 2,
+      "position": {
+        "x": 47500,
+        "y": 78500
+      },
+      "remaining": 22200000
+    }
+  ],
+  "own_actors": [
+    {
+      "id": 11,
+      "type": "hq",
+      "position": {
+        "x": 20500,
+        "y": 104500
+      },
+      "health": 985,
+      "state": "idle"
+    },
+    {
+      "id": 12,
+      "type": "power",
+      "position": {
+        "x": 12500,
+        "y": 103500
+      },
+      "health": 998,
+      "state": "idle"
+    },
+    {
+      "id": 13,
+      "type": "supply",
+      "position": {
+        "x": 26500,
+        "y": 96500
+      },
+      "health": 1000,
+      "state": "idle"
+    },
+    {
+      "id": 14,
+      "type": "SY.hauler",
+      "position": {
+        "x": 43772,
+        "y": 79728
+      },
+      "health": 651,
+      "state": "moving"
+    },
+    {
+      "id": 16,
+      "type": "barracks",
+      "position": {
+        "x": 13500,
+        "y": 111500
+      },
+      "health": 1000,
+      "state": "producing"
+    },
+    {
+      "id": 18,
+      "type": "factory",
+      "position": {
+        "x": 28500,
+        "y": 111500
+      },
+      "health": 1000,
+      "state": "insufficient_credits"
+    },
+    {
+      "id": 19,
+      "type": "radar",
+      "position": {
+        "x": 20500,
+        "y": 115500
+      },
+      "health": 1000,
+      "state": "idle"
+    },
+    {
+      "id": 20,
+      "type": "power",
+      "position": {
+        "x": 11500,
+        "y": 98500
+      },
+      "health": 1000,
+      "state": "idle"
+    },
+    {
+      "id": 30,
+      "type": "SY.engineer",
+      "position": {
+        "x": 24497,
+        "y": 99131
+      },
+      "health": 824,
+      "state": "idle"
+    },
+    {
+      "id": 34,
+      "type": "SY.repair",
+      "position": {
+        "x": 25500,
+        "y": 111500
+      },
+      "health": 1000,
+      "state": "idle"
+    },
+    {
+      "id": 52,
+      "type": "SY.recon",
+      "position": {
+        "x": 41934,
+        "y": 111986
+      },
+      "health": 938,
+      "state": "moving"
+    },
+    {
+      "id": 2571,
+      "type": "SY.rifle",
+      "position": {
+        "x": 48500,
+        "y": 83580
+      },
+      "health": 366,
+      "state": "firing"
+    },
+    {
+      "id": 2646,
+      "type": "SY.rifle",
+      "position": {
+        "x": 49280,
+        "y": 82000
+      },
+      "health": 202,
+      "state": "moving"
+    },
+    {
+      "id": 2743,
+      "type": "SY.rifle",
+      "position": {
+        "x": 20360,
+        "y": 86500
+      },
+      "health": 1000,
+      "state": "aiming"
+    },
+    {
+      "id": 2807,
+      "type": "SY.rifle",
+      "position": {
+        "x": 48540,
+        "y": 82000
+      },
+      "health": 1000,
+      "state": "moving"
+    },
+    {
+      "id": 3188,
+      "type": "SY.at",
+      "position": {
+        "x": 50000,
+        "y": 82000
+      },
+      "health": 854,
+      "state": "idle"
+    }
+  ],
+  "limits": [
+    "Original22000tick territory wait unchanged",
+    "Scouting bonus complete does not earn optional path without mission victory",
+    "Only currently observed resource and owner state used for next strategy",
+    "No exact builder/hauler killer inferred from later snapshot"
+  ]
+}

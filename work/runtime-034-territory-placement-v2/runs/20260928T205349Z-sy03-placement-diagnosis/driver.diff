@@ -1,0 +1,19 @@
+--- placement-v1/pkg/sim/authored_territory_placement_diagnosis_test.go
++++ placement-v2/pkg/sim/authored_territory_placement_diagnosis_test.go
+@@ -64,9 +64,13 @@
+ 				orders = append(orders, sim.Order{Kind: "build", Entities: []sim.ID{17}, Type: "turret", Position: p})
+ 				clear = append(clear, r.visibleFoundationLooksClear("turret", p))
+ 			}
+-			preview, e := r.engine.PreviewCandidates(1, orders)
+-			if e != nil {
+-				t.Fatal(e)
++			var preview []sim.OrderResult
++			for _, order := range orders {
++				rows, e := r.engine.PreviewOrders(1, []sim.Order{order})
++				if e != nil {
++					t.Fatal(e)
++				}
++				preview = append(preview, rows...)
+ 			}
+ 			write(fmt.Sprintf("tick-%d.placement.json", tick), struct {
+ 				Tick        sim.Tick          `json:"tick"`
