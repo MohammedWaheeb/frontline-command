@@ -36,12 +36,12 @@ func (e *Engine) flyPass(v *Entity) {
 			}
 			v.PassUntil = e.state.Tick + seconds(2)
 			if distance(v.Position, v.FlightPass) < 1500 {
-				if o.Kind == "patrol" {
-					e.advancePatrol(v)
-				} else {
-					v.Orders = v.Orders[1:]
-				}
 				v.Anchor = v.Position
+				if o.Kind == "patrol" {
+					e.advanceMovementPatrol(v)
+				} else {
+					e.completeMovementOrder(v)
+				}
 				v.PassUntil = 0
 			}
 		} else {
@@ -182,10 +182,10 @@ func (e *Engine) updateAircraft() {
 			if ok {
 				v.Ammo = w.Ammo
 			}
-			v.State = "landed"
 			if len(v.Orders) > 0 && v.Orders[0].Kind == "return" {
-				v.Orders = v.Orders[1:]
+				e.completeMovementOrder(v)
 			}
+			v.State = "landed"
 			setCooldown(&v.Cooldowns, "decoy_initial", 0)
 			e.emit("aircraft_serviced", v.Owner, v.ID, v.Position, "owner", 0)
 		}

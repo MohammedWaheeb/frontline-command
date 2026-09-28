@@ -3,9 +3,9 @@ package sim
 
 import "frontlinecommand/pkg/content"
 
-// Planner choices and legal depot approaches changed deterministic outcomes.
+// Aircraft rebasing and queued-order completion change deterministic outcomes.
 // Older development saves/replays stay exportable, never silently reinterpreted.
-const Version = "0.3.0"
+const Version = "0.3.1"
 const TickRate uint32 = 20
 const Scale int64 = 1000
 

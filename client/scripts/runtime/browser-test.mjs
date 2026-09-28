@@ -58,11 +58,11 @@ for(const browserType of [chromium,firefox,webkit].filter(b=>!selected||b.name()
    const preserved=(await runtime.hash())===loaded;
    // A valid checksum cannot make an older deterministic engine compatible.
    // Retain its exact input and the currently running match after rejection.
-   const legacyEnvelope=JSON.parse(new TextDecoder().decode(saved.data));legacyEnvelope.state.metadata.simulation='0.2.0';
+   const legacyEnvelope=JSON.parse(new TextDecoder().decode(saved.data));legacyEnvelope.state.metadata.simulation='0.3.0';
    const legacyState=JSON.stringify(legacyEnvelope.state),legacyHash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(legacyState)))).map(v=>v.toString(16).padStart(2,'0')).join('');
    const legacyBytes=new TextEncoder().encode(`{"version":1,"sha256":"${legacyHash}","state":${legacyState}}`),legacyOriginal=legacyBytes.slice();let legacyCode='';
    try{await runtime.load(legacyBytes,saved.local_players)}catch(error){legacyCode=error.code}
-   const compatibility={current:(await runtime.info()).metadata.simulation,old:'0.2.0',code:legacyCode,activePreserved:(await runtime.hash())===loaded,inputPreserved:legacyBytes.every((v,i)=>v===legacyOriginal[i])};
+   const compatibility={current:(await runtime.info()).metadata.simulation,old:'0.3.0',code:legacyCode,activePreserved:(await runtime.hash())===loaded,inputPreserved:legacyBytes.every((v,i)=>v===legacyOriginal[i])};
    const second=new R.OfflineTransport('/runtime/');await second.ready;await second.create(scenario.config);await second.step(4);const isolated=(await runtime.hash())===loaded;
    await second.sendOrders([{kind:'move',entities:[2],position:{x:19000,y:14000}}]);await second.step(37);const replayMid={tick:(await second.info()).tick,hash:await second.hash()};
    await second.sendOrders([{kind:'move',entities:[2],position:{x:23000,y:17000}}]);for(let i=0;i<3;i++)await second.step(200);const replayEnd={tick:(await second.info()).tick,hash:await second.hash()};
@@ -80,7 +80,7 @@ for(const browserType of [chromium,firefox,webkit].filter(b=>!selected||b.name()
   },scenario);
   assert.deepEqual(parity.checkpoints,native.checkpoints);assert.deepEqual(parity.submits,native.submits);assert.equal(parity.hash,native.final_hash);assert.equal(parity.downloadedHash,native.final_hash);assert.equal(parity.before,parity.hash);assert.equal(parity.records,4);assert.equal(parity.autosaves,3);assert.ok(parity.corruption.startsWith('save_'));assert.ok(parity.preserved&&parity.isolated&&parity.exact&&parity.privateOnly);assert.equal(parity.conflict,'save_conflict');assert.equal(parity.replay.readOnly,'replay_read_only');assert.equal(parity.replay.badSeek,'replay_seek');assert.ok(parity.replay.replaySeek&&parity.replay.replayStream&&parity.replay.seekPreserved);assert.equal(parity.replay.replayPerspective,2);assert.ok(parity.replay.history>=2);assert.equal(parity.replay.map,map.id);result.parity=parity;
   result.session=await testBrowserSession(page,scenario.config);
-  assert.equal(parity.compatibility.current,'0.3.0');assert.equal(parity.compatibility.code,'save_incompatible');assert.ok(parity.compatibility.activePreserved&&parity.compatibility.inputPreserved);
+  assert.equal(parity.compatibility.current,'0.3.1');assert.equal(parity.compatibility.code,'save_incompatible');assert.ok(parity.compatibility.activePreserved&&parity.compatibility.inputPreserved);
   const installed=await page.evaluate(async pack=>{const R=globalThis.FrontlineTest;await R.registerOfflineWorker();const saved=await R.installPack(pack);let corrupt='';try{await R.installPack({...pack,version:'bad',files:[{...pack.files[0],sha256:'0'.repeat(64)}]})}catch(error){corrupt=error.code}const packs=await R.installedPacks();globalThis.testRuntime.dispose();return {files:saved.files,corrupt,packs:packs.length,controlled:!!navigator.serviceWorker.controller}},pack);
   assert.equal(installed.files,pack.files.length);assert.equal(installed.corrupt,'content_corrupt');assert.equal(installed.packs,1);assert.ok(installed.controlled);
   const originStopped=browserType.name()==='webkit';
