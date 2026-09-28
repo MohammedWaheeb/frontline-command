@@ -1,0 +1,3 @@
+# Preserved feedback-oracle mismatch
+
+The browser reached actual tick 4 without page, console or HTTP errors, then the test rejected the owner boundary. The original native exporter recorded `Engine.PlayerView.Events`, which covers only the most recent tick. Actual `Session.advance` accumulates every tick's authorized feedback and `Session.View` drains that queue after each four-tick worker step. The successor exporter records exact owner event IDs accumulated over those same four ticks, retaining the original one-tick counts separately. No engine, worker, event privacy or rendering behavior is changed. The original failed driver and screenshot are preserved here. A fresh native run and matching browser course are required before claiming parity.

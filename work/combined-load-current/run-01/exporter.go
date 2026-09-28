@@ -125,14 +125,12 @@ func TestExportCurrentCombinedBrowserLoad(t *testing.T) {
 		Orders   []Order  `json:"orders"`
 	}
 	type observation struct {
-		Tick              Tick          `json:"tick"`
-		Hash              string        `json:"hash"`
-		Entities          int           `json:"entities"`
-		Projectiles       int           `json:"projectiles"`
-		Events            int           `json:"events"`
-		ViewSHA256        string        `json:"view_sha256"`
-		DeliveredEventIDs []uint32      `json:"delivered_event_ids"`
-		DeliveredResults  []OrderResult `json:"delivered_results"`
+		Tick        Tick   `json:"tick"`
+		Hash        string `json:"hash"`
+		Entities    int    `json:"entities"`
+		Projectiles int    `json:"projectiles"`
+		Events      int    `json:"events"`
+		ViewSHA256  string `json:"view_sha256"`
 	}
 	commands := []request{}
 	frames := []observation{}
@@ -141,8 +139,6 @@ func TestExportCurrentCombinedBrowserLoad(t *testing.T) {
 	const ticks = 600
 	peakProjectiles, fired, intercepted, peakReturning, landed := 0, 0, 0, 0, 0
 	measurements := []time.Duration{}
-	deliveredIDs := []uint32{}
-	deliveredResults := []OrderResult{}
 	// Cleanup also retains useful authoritative state if any strict gate fails.
 	t.Cleanup(func() {
 		saved, saveErr := e.Save()
@@ -206,16 +202,6 @@ func TestExportCurrentCombinedBrowserLoad(t *testing.T) {
 		}
 		start := time.Now()
 		e.Advance()
-		// Match Session.advance/View: feedback accumulates over all four ticks,
-		// independently of the engine's one-tick PlayerView.Events field.
-		feedback, ok := e.PlayerFeedback(1)
-		if !ok {
-			t.Fatal("owner feedback missing")
-		}
-		for _, event := range feedback.Events {
-			deliveredIDs = append(deliveredIDs, event.ID)
-		}
-		deliveredResults = append(deliveredResults, feedback.Results...)
 		measurements = append(measurements, time.Since(start))
 		for _, result := range e.state.Results {
 			if !result.Accepted {
@@ -255,9 +241,7 @@ func TestExportCurrentCombinedBrowserLoad(t *testing.T) {
 				t.Fatal(err)
 			}
 			digest := sha256.Sum256(data)
-			frames = append(frames, observation{Tick: e.Tick(), Hash: e.Hash(), Entities: len(view.Entities), Projectiles: len(view.Projectiles), Events: len(view.Events), ViewSHA256: hex.EncodeToString(digest[:]), DeliveredEventIDs: deliveredIDs, DeliveredResults: deliveredResults})
-			deliveredIDs = []uint32{}
-			deliveredResults = []OrderResult{}
+			frames = append(frames, observation{e.Tick(), e.Hash(), len(view.Entities), len(view.Projectiles), len(view.Events), hex.EncodeToString(digest[:])})
 		}
 		if e.Tick() == 300 || e.Tick() == 600 {
 			save, err := e.Save()
