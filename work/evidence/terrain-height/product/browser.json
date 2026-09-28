@@ -1,0 +1,2823 @@
+{
+  "date": "2026-09-28T04:25:53.518Z",
+  "browser": "151.0.7922.34",
+  "wasmSHA256": "cafa10367f08dc4e68a75a2e9f4d21587977a776b1e38c744481b31960c8a75c",
+  "errors": [],
+  "status": "passed",
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))",
+        "driverVendor": "Apple",
+        "driverVersion": "26.5.1"
+      }
+    ],
+    "auxAttributes": {
+      "amdSwitchable": false,
+      "canSupportThreadedTextureMailbox": false,
+      "directRenderingVersion": "",
+      "displayType": "ANGLE_METAL",
+      "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_compressed_texture_etc GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_rgbx_internal_format GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_compressed_ETC1_RGB8_sub_texture GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_multisampled_render_to_texture GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_pvrtc_sRGB GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_sRGB_R8 GL_EXT_texture_sRGB_RG8 GL_EXT_texture_shadow_lod GL_EXT_texture_storage GL_IMG_texture_compression_pvrtc GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_KHR_texture_compression_astc_hdr GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_NV_fence GL_NV_framebuffer_blit GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_sync GL_OES_compressed_EAC_R11_signed_texture GL_OES_compressed_EAC_R11_unsigned_texture GL_OES_compressed_EAC_RG11_signed_texture GL_OES_compressed_EAC_RG11_unsigned_texture GL_OES_compressed_ETC1_RGB8_texture GL_OES_compressed_ETC2_RGB8_texture GL_OES_compressed_ETC2_RGBA8_texture GL_OES_compressed_ETC2_punchthroughA_RGBA8_texture GL_OES_compressed_ETC2_punchthroughA_sRGB8_alpha_texture GL_OES_compressed_ETC2_sRGB8_alpha8_texture GL_OES_compressed_ETC2_sRGB8_texture GL_OES_depth24 GL_OES_depth32 GL_OES_depth_texture GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_3D GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_vertex_array_object GL_QCOM_render_shared_exponent ",
+      "glImplementationParts": "(gl=egl-angle,angle=metal)",
+      "glRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))",
+      "glResetNotificationStrategy": 33362,
+      "glVendor": "Google Inc. (Apple)",
+      "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28222 git hash: 6dab7c7e742b)",
+      "glWsExtensions": "",
+      "glWsVendor": "",
+      "glWsVersion": "",
+      "inProcessGpu": false,
+      "initializationTime": 0.067361,
+      "isAsan": false,
+      "isClangCoverage": false,
+      "jpegDecodeAcceleratorSupported": false,
+      "maxMsaaSamples": "4",
+      "optimus": false,
+      "passthroughCmdDecoder": true,
+      "pixelShaderVersion": "3.00",
+      "processCrashCount": 0,
+      "sandboxed": false,
+      "skiaBackendType": "GraphiteDawnMetal",
+      "subpixelFontRendering": true,
+      "targetCpuBits": 64,
+      "vertexShaderVersion": "3.00",
+      "visibilityCallbackCallCount": 0
+    },
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    },
+    "driverBugWorkarounds": [
+      "disable_2d_canvas_auto_flush",
+      "enable_webgl_timer_query_extensions",
+      "disabled_extension_GL_KHR_blend_equation_advanced",
+      "disabled_extension_GL_KHR_blend_equation_advanced_coherent"
+    ],
+    "videoDecoding": [],
+    "videoEncoding": []
+  },
+  "opening": {
+    "info": {
+      "adapter": "1",
+      "metadata": {
+        "simulation": "0.3.1",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "scenario-v2",
+        "seed": 73
+      },
+      "tick": 100,
+      "local_players": [
+        1
+      ],
+      "finished": false,
+      "replay": false,
+      "replay_start": 0,
+      "replay_end": 0
+    },
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.1",
+      "tick_rate": 20
+    },
+    "tick": 100,
+    "entities": [
+      {
+        "id": 1,
+        "type": "hq",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 16000,
+          "y": 16000
+        },
+        "ground": {
+          "x": 0,
+          "y": 492
+        },
+        "expectedGround": {
+          "x": 0,
+          "y": 492
+        },
+        "level": 2,
+        "depth": 36000,
+        "altitude": 0,
+        "bounds": {
+          "left": 720,
+          "right": 976,
+          "top": 222.5,
+          "bottom": 367.7
+        },
+        "screen": {
+          "x": 848,
+          "y": 316.5
+        }
+      },
+      {
+        "id": 2,
+        "type": "US.rig",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 19200,
+          "y": 16000
+        },
+        "ground": {
+          "x": 102.39999999999998,
+          "y": 542.2
+        },
+        "expectedGround": {
+          "x": 102.39999999999998,
+          "y": 542.2
+        },
+        "level": 2.0999999999999996,
+        "depth": 35200,
+        "altitude": 0,
+        "bounds": {
+          "left": 926.4,
+          "right": 974.4,
+          "top": 336.70000000000005,
+          "bottom": 376.70000000000005
+        },
+        "screen": {
+          "x": 950.4,
+          "y": 366.70000000000005
+        }
+      },
+      {
+        "id": 5,
+        "type": "IR.drone_hub",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24500,
+          "y": 14500
+        },
+        "ground": {
+          "x": 320,
+          "y": 594
+        },
+        "expectedGround": {
+          "x": 320,
+          "y": 594
+        },
+        "level": 3,
+        "depth": 43000,
+        "altitude": 0,
+        "bounds": {
+          "left": 1040,
+          "right": 1296,
+          "top": 324.5,
+          "bottom": 469.7
+        },
+        "screen": {
+          "x": 1168,
+          "y": 418.5
+        }
+      },
+      {
+        "id": 6,
+        "type": "power",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20500,
+          "y": 19500
+        },
+        "ground": {
+          "x": 32,
+          "y": 610
+        },
+        "expectedGround": {
+          "x": 32,
+          "y": 610
+        },
+        "level": 3,
+        "depth": 42000,
+        "altitude": 0,
+        "bounds": {
+          "left": 816,
+          "right": 944,
+          "top": 372.5,
+          "bottom": 460.1
+        },
+        "screen": {
+          "x": 880,
+          "y": 434.5
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11500,
+          "y": 23500
+        },
+        "ground": {
+          "x": -384,
+          "y": 560
+        },
+        "expectedGround": {
+          "x": -384,
+          "y": 560
+        },
+        "level": 0,
+        "depth": 35000,
+        "altitude": 0,
+        "bounds": {
+          "left": 432,
+          "right": 496,
+          "top": 354.5,
+          "bottom": 397.3
+        },
+        "screen": {
+          "x": 464,
+          "y": 384.5
+        }
+      },
+      {
+        "id": 8,
+        "type": "US.rifle",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15500,
+          "y": 25500
+        },
+        "ground": {
+          "x": -320,
+          "y": 636
+        },
+        "expectedGround": {
+          "x": -320,
+          "y": 636
+        },
+        "level": 2,
+        "depth": 41000,
+        "altitude": 0,
+        "bounds": {
+          "left": 514,
+          "right": 542,
+          "top": 430.5,
+          "bottom": 470.5
+        },
+        "screen": {
+          "x": 528,
+          "y": 460.5
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24500,
+          "y": 19500
+        },
+        "ground": {
+          "x": 160,
+          "y": 674
+        },
+        "expectedGround": {
+          "x": 160,
+          "y": 674
+        },
+        "level": 3,
+        "depth": 1044000,
+        "altitude": 45,
+        "bounds": {
+          "left": 984,
+          "right": 1032,
+          "top": 418.5,
+          "bottom": 508.5
+        },
+        "screen": {
+          "x": 1008,
+          "y": 498.5
+        },
+        "shadow": {
+          "x": 160,
+          "y": 674,
+          "z": 44562.501
+        }
+      }
+    ],
+    "chunks": 16,
+    "unknownEntities": 0
+  },
+  "foundation": {
+    "actor": {
+      "id": 6,
+      "type": "power",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 20500,
+        "y": 19500
+      },
+      "ground": {
+        "x": 32,
+        "y": 610
+      },
+      "expectedGround": {
+        "x": 32,
+        "y": 610
+      },
+      "level": 3,
+      "depth": 42000,
+      "altitude": 0,
+      "bounds": {
+        "left": 816,
+        "right": 944,
+        "top": 372.5,
+        "bottom": 460.1
+      },
+      "screen": {
+        "x": 880,
+        "y": 434.5
+      }
+    },
+    "support": {
+      "height": 3,
+      "top": [
+        {
+          "x": 19500,
+          "y": 18500,
+          "height": 3
+        },
+        {
+          "x": 21500,
+          "y": 18500,
+          "height": 3
+        },
+        {
+          "x": 21500,
+          "y": 20500,
+          "height": 3
+        },
+        {
+          "x": 19500,
+          "y": 20500,
+          "height": 3
+        }
+      ],
+      "boundary": [
+        {
+          "x": 19500,
+          "y": 19000,
+          "height": 2.25
+        },
+        {
+          "x": 19500,
+          "y": 18500,
+          "height": 2
+        },
+        {
+          "x": 20000,
+          "y": 18500,
+          "height": 2.5
+        },
+        {
+          "x": 20500,
+          "y": 18500,
+          "height": 3
+        },
+        {
+          "x": 21000,
+          "y": 18500,
+          "height": 3
+        },
+        {
+          "x": 21500,
+          "y": 18500,
+          "height": 3
+        },
+        {
+          "x": 21500,
+          "y": 19000,
+          "height": 3
+        },
+        {
+          "x": 21500,
+          "y": 19500,
+          "height": 3
+        },
+        {
+          "x": 21500,
+          "y": 20000,
+          "height": 3
+        },
+        {
+          "x": 21500,
+          "y": 20500,
+          "height": 3
+        },
+        {
+          "x": 21000,
+          "y": 20500,
+          "height": 3
+        },
+        {
+          "x": 20500,
+          "y": 20500,
+          "height": 3
+        },
+        {
+          "x": 20000,
+          "y": 20500,
+          "height": 2.5
+        },
+        {
+          "x": 19500,
+          "y": 20500,
+          "height": 2
+        },
+        {
+          "x": 19500,
+          "y": 20000,
+          "height": 2.25
+        },
+        {
+          "x": 19500,
+          "y": 19500,
+          "height": 2
+        }
+      ]
+    }
+  },
+  "structureClick": {
+    "kind": "click",
+    "point": {
+      "x": 19673,
+      "y": 18673
+    },
+    "hit": {
+      "kind": "entity",
+      "id": 6
+    },
+    "shift": false,
+    "ctrl": false,
+    "alt": false,
+    "meta": false,
+    "button": 0
+  },
+  "clicks": [
+    {
+      "value": {
+        "world": {
+          "x": 14500,
+          "y": 22500
+        },
+        "screen": {
+          "x": 592,
+          "y": 396.5
+        },
+        "level": 2
+      },
+      "gesture": {
+        "kind": "context",
+        "point": {
+          "x": 14500,
+          "y": 22500
+        },
+        "hit": {
+          "kind": "ground",
+          "position": {
+            "x": 14500,
+            "y": 22500
+          }
+        },
+        "shift": false,
+        "ctrl": false,
+        "alt": false,
+        "meta": false,
+        "button": 2
+      }
+    },
+    {
+      "value": {
+        "world": {
+          "x": 20500,
+          "y": 22500
+        },
+        "screen": {
+          "x": 784,
+          "y": 482.5
+        },
+        "level": 3
+      },
+      "gesture": {
+        "kind": "context",
+        "point": {
+          "x": 20500,
+          "y": 22500
+        },
+        "hit": {
+          "kind": "ground",
+          "position": {
+            "x": 20500,
+            "y": 22500
+          }
+        },
+        "shift": false,
+        "ctrl": false,
+        "alt": false,
+        "meta": false,
+        "button": 2
+      }
+    },
+    {
+      "value": {
+        "world": {
+          "x": 26500,
+          "y": 19500
+        },
+        "screen": {
+          "x": 1072,
+          "y": 530.5
+        },
+        "level": 3
+      },
+      "gesture": {
+        "kind": "context",
+        "point": {
+          "x": 26500,
+          "y": 19500
+        },
+        "hit": {
+          "kind": "ground",
+          "position": {
+            "x": 26500,
+            "y": 19500
+          }
+        },
+        "shift": false,
+        "ctrl": false,
+        "alt": false,
+        "meta": false,
+        "button": 2
+      }
+    }
+  ],
+  "move": {
+    "before": {
+      "id": 7,
+      "type": "US.tank",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 11500,
+        "y": 23500
+      },
+      "ground": {
+        "x": -384,
+        "y": 560
+      },
+      "expectedGround": {
+        "x": -384,
+        "y": 560
+      },
+      "level": 0,
+      "depth": 35000,
+      "altitude": 0,
+      "bounds": {
+        "left": 432,
+        "right": 496,
+        "top": 354.5,
+        "bottom": 397.3
+      },
+      "screen": {
+        "x": 464,
+        "y": 384.5
+      }
+    },
+    "destination": {
+      "x": 24500,
+      "y": 25000
+    },
+    "after": {
+      "id": 7,
+      "type": "US.tank",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 24220,
+        "y": 24999
+      },
+      "ground": {
+        "x": -24.927999999999997,
+        "y": 757.5039999999999
+      },
+      "expectedGround": {
+        "x": -24.927999999999997,
+        "y": 757.5039999999999
+      },
+      "level": 3,
+      "depth": 49219,
+      "altitude": 0,
+      "bounds": {
+        "left": 791.072,
+        "right": 855.072,
+        "top": 552.0039999999999,
+        "bottom": 594.8039999999999
+      },
+      "screen": {
+        "x": 823.072,
+        "y": 582.0039999999999
+      }
+    },
+    "samples": [
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11743,
+          "y": 23743
+        },
+        "ground": {
+          "x": -383.99999999999994,
+          "y": 562.9159999999999
+        },
+        "expectedGround": {
+          "x": -383.99999999999994,
+          "y": 562.9159999999999
+        },
+        "level": 0.48600000000000065,
+        "depth": 35486,
+        "altitude": 0,
+        "bounds": {
+          "left": 432.00000000000006,
+          "right": 496.00000000000006,
+          "top": 357.41599999999994,
+          "bottom": 400.21599999999995
+        },
+        "screen": {
+          "x": 464.00000000000006,
+          "y": 387.41599999999994
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 12067,
+          "y": 24067
+        },
+        "ground": {
+          "x": -384,
+          "y": 566.804
+        },
+        "expectedGround": {
+          "x": -384,
+          "y": 566.804
+        },
+        "level": 1.1340000000000003,
+        "depth": 36134,
+        "altitude": 0,
+        "bounds": {
+          "left": 432,
+          "right": 496,
+          "top": 361.304,
+          "bottom": 404.104
+        },
+        "screen": {
+          "x": 464,
+          "y": 391.304
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 12391,
+          "y": 24391
+        },
+        "ground": {
+          "x": -383.99999999999994,
+          "y": 570.692
+        },
+        "expectedGround": {
+          "x": -383.99999999999994,
+          "y": 570.692
+        },
+        "level": 1.7819999999999983,
+        "depth": 36782,
+        "altitude": 0,
+        "bounds": {
+          "left": 432.00000000000006,
+          "right": 496.00000000000006,
+          "top": 365.192,
+          "bottom": 407.992
+        },
+        "screen": {
+          "x": 464.00000000000006,
+          "y": 395.192
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 12715,
+          "y": 24715
+        },
+        "ground": {
+          "x": -384,
+          "y": 578.88
+        },
+        "expectedGround": {
+          "x": -384,
+          "y": 578.88
+        },
+        "level": 2,
+        "depth": 37430,
+        "altitude": 0,
+        "bounds": {
+          "left": 432,
+          "right": 496,
+          "top": 373.38,
+          "bottom": 416.18
+        },
+        "screen": {
+          "x": 464,
+          "y": 403.38
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 12958,
+          "y": 24958
+        },
+        "ground": {
+          "x": -383.99999999999994,
+          "y": 586.656
+        },
+        "expectedGround": {
+          "x": -383.99999999999994,
+          "y": 586.656
+        },
+        "level": 2,
+        "depth": 37916,
+        "altitude": 0,
+        "bounds": {
+          "left": 432.00000000000006,
+          "right": 496.00000000000006,
+          "top": 381.15599999999995,
+          "bottom": 423.95599999999996
+        },
+        "screen": {
+          "x": 464.00000000000006,
+          "y": 411.15599999999995
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 13186,
+          "y": 24975
+        },
+        "ground": {
+          "x": -377.24800000000005,
+          "y": 590.576
+        },
+        "expectedGround": {
+          "x": -377.24800000000005,
+          "y": 590.576
+        },
+        "level": 2,
+        "depth": 38161,
+        "altitude": 0,
+        "bounds": {
+          "left": 438.75199999999995,
+          "right": 502.75199999999995,
+          "top": 385.076,
+          "bottom": 427.87600000000003
+        },
+        "screen": {
+          "x": 470.75199999999995,
+          "y": 415.076
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 13646,
+          "y": 24995
+        },
+        "ground": {
+          "x": -363.168,
+          "y": 598.2560000000001
+        },
+        "expectedGround": {
+          "x": -363.168,
+          "y": 598.2560000000001
+        },
+        "level": 2,
+        "depth": 38641,
+        "altitude": 0,
+        "bounds": {
+          "left": 452.832,
+          "right": 516.832,
+          "top": 392.7560000000001,
+          "bottom": 435.5560000000001
+        },
+        "screen": {
+          "x": 484.832,
+          "y": 422.7560000000001
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14106,
+          "y": 24999
+        },
+        "ground": {
+          "x": -348.57599999999996,
+          "y": 605.68
+        },
+        "expectedGround": {
+          "x": -348.57599999999996,
+          "y": 605.68
+        },
+        "level": 2,
+        "depth": 39105,
+        "altitude": 0,
+        "bounds": {
+          "left": 467.42400000000004,
+          "right": 531.424,
+          "top": 400.17999999999995,
+          "bottom": 442.97999999999996
+        },
+        "screen": {
+          "x": 499.42400000000004,
+          "y": 430.17999999999995
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14451,
+          "y": 24999
+        },
+        "ground": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "expectedGround": {
+          "x": -337.53599999999994,
+          "y": 611.2
+        },
+        "level": 2,
+        "depth": 39450,
+        "altitude": 0,
+        "bounds": {
+          "left": 478.46400000000006,
+          "right": 542.464,
+          "top": 405.70000000000005,
+          "bottom": 448.50000000000006
+        },
+        "screen": {
+          "x": 510.46400000000006,
+          "y": 435.70000000000005
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14456,
+          "y": 24885
+        },
+        "ground": {
+          "x": -333.72800000000007,
+          "y": 609.456
+        },
+        "expectedGround": {
+          "x": -333.72800000000007,
+          "y": 609.456
+        },
+        "level": 2,
+        "depth": 39341,
+        "altitude": 0,
+        "bounds": {
+          "left": 482.27199999999993,
+          "right": 546.2719999999999,
+          "top": 403.956,
+          "bottom": 446.75600000000003
+        },
+        "screen": {
+          "x": 514.2719999999999,
+          "y": 433.956
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14477,
+          "y": 24426
+        },
+        "ground": {
+          "x": -318.36799999999994,
+          "y": 602.448
+        },
+        "expectedGround": {
+          "x": -318.36799999999994,
+          "y": 602.448
+        },
+        "level": 2,
+        "depth": 38903,
+        "altitude": 0,
+        "bounds": {
+          "left": 497.63200000000006,
+          "right": 561.6320000000001,
+          "top": 396.948,
+          "bottom": 439.748
+        },
+        "screen": {
+          "x": 529.6320000000001,
+          "y": 426.948
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14495,
+          "y": 24081
+        },
+        "ground": {
+          "x": -306.752,
+          "y": 597.216
+        },
+        "expectedGround": {
+          "x": -306.752,
+          "y": 597.216
+        },
+        "level": 2,
+        "depth": 38576,
+        "altitude": 0,
+        "bounds": {
+          "left": 509.24800000000005,
+          "right": 573.248,
+          "top": 391.716,
+          "bottom": 434.516
+        },
+        "screen": {
+          "x": 541.248,
+          "y": 421.716
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14495,
+          "y": 24081
+        },
+        "ground": {
+          "x": -306.752,
+          "y": 597.216
+        },
+        "expectedGround": {
+          "x": -306.752,
+          "y": 597.216
+        },
+        "level": 2,
+        "depth": 38576,
+        "altitude": 0,
+        "bounds": {
+          "left": 509.24800000000005,
+          "right": 573.248,
+          "top": 391.716,
+          "bottom": 434.516
+        },
+        "screen": {
+          "x": 541.248,
+          "y": 421.716
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14721,
+          "y": 24045
+        },
+        "ground": {
+          "x": -298.36800000000005,
+          "y": 600.2560000000001
+        },
+        "expectedGround": {
+          "x": -298.36800000000005,
+          "y": 600.2560000000001
+        },
+        "level": 2,
+        "depth": 38766,
+        "altitude": 0,
+        "bounds": {
+          "left": 517.632,
+          "right": 581.632,
+          "top": 394.7560000000001,
+          "bottom": 437.5560000000001
+        },
+        "screen": {
+          "x": 549.632,
+          "y": 424.7560000000001
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15177,
+          "y": 24006
+        },
+        "ground": {
+          "x": -282.528,
+          "y": 606.928
+        },
+        "expectedGround": {
+          "x": -282.528,
+          "y": 606.928
+        },
+        "level": 2,
+        "depth": 39183,
+        "altitude": 0,
+        "bounds": {
+          "left": 533.472,
+          "right": 597.472,
+          "top": 401.428,
+          "bottom": 444.228
+        },
+        "screen": {
+          "x": 565.472,
+          "y": 431.428
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15637,
+          "y": 24002
+        },
+        "ground": {
+          "x": -267.67999999999995,
+          "y": 614.2239999999999
+        },
+        "expectedGround": {
+          "x": -267.67999999999995,
+          "y": 614.2239999999999
+        },
+        "level": 2,
+        "depth": 39639,
+        "altitude": 0,
+        "bounds": {
+          "left": 548.32,
+          "right": 612.32,
+          "top": 408.72399999999993,
+          "bottom": 451.52399999999994
+        },
+        "screen": {
+          "x": 580.32,
+          "y": 438.72399999999993
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 16097,
+          "y": 24001
+        },
+        "ground": {
+          "x": -252.928,
+          "y": 621.568
+        },
+        "expectedGround": {
+          "x": -252.928,
+          "y": 621.568
+        },
+        "level": 2,
+        "depth": 40098,
+        "altitude": 0,
+        "bounds": {
+          "left": 563.072,
+          "right": 627.072,
+          "top": 416.068,
+          "bottom": 458.868
+        },
+        "screen": {
+          "x": 595.072,
+          "y": 446.068
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 16442,
+          "y": 24001
+        },
+        "ground": {
+          "x": -241.88800000000003,
+          "y": 627.088
+        },
+        "expectedGround": {
+          "x": -241.88800000000003,
+          "y": 627.088
+        },
+        "level": 2,
+        "depth": 40443,
+        "altitude": 0,
+        "bounds": {
+          "left": 574.112,
+          "right": 638.112,
+          "top": 421.58799999999997,
+          "bottom": 464.388
+        },
+        "screen": {
+          "x": 606.112,
+          "y": 451.58799999999997
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 16612,
+          "y": 24153
+        },
+        "ground": {
+          "x": -241.312,
+          "y": 632.24
+        },
+        "expectedGround": {
+          "x": -241.312,
+          "y": 632.24
+        },
+        "level": 2,
+        "depth": 40765,
+        "altitude": 0,
+        "bounds": {
+          "left": 574.688,
+          "right": 638.688,
+          "top": 426.74,
+          "bottom": 469.54
+        },
+        "screen": {
+          "x": 606.688,
+          "y": 456.74
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 16952,
+          "y": 24457
+        },
+        "ground": {
+          "x": -240.15999999999997,
+          "y": 642.5440000000001
+        },
+        "expectedGround": {
+          "x": -240.15999999999997,
+          "y": 642.5440000000001
+        },
+        "level": 2,
+        "depth": 41409,
+        "altitude": 0,
+        "bounds": {
+          "left": 575.84,
+          "right": 639.84,
+          "top": 437.0440000000001,
+          "bottom": 479.8440000000001
+        },
+        "screen": {
+          "x": 607.84,
+          "y": 467.0440000000001
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 17276,
+          "y": 24778
+        },
+        "ground": {
+          "x": -240.06399999999996,
+          "y": 652.864
+        },
+        "expectedGround": {
+          "x": -240.06399999999996,
+          "y": 652.864
+        },
+        "level": 2,
+        "depth": 42054,
+        "altitude": 0,
+        "bounds": {
+          "left": 575.936,
+          "right": 639.936,
+          "top": 447.36400000000003,
+          "bottom": 490.16400000000004
+        },
+        "screen": {
+          "x": 607.936,
+          "y": 477.36400000000003
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 17439,
+          "y": 24940
+        },
+        "ground": {
+          "x": -240.03200000000004,
+          "y": 658.0640000000001
+        },
+        "expectedGround": {
+          "x": -240.03200000000004,
+          "y": 658.0640000000001
+        },
+        "level": 2,
+        "depth": 42379,
+        "altitude": 0,
+        "bounds": {
+          "left": 575.968,
+          "right": 639.968,
+          "top": 452.5640000000001,
+          "bottom": 495.3640000000001
+        },
+        "screen": {
+          "x": 607.968,
+          "y": 482.5640000000001
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 17781,
+          "y": 24976
+        },
+        "ground": {
+          "x": -230.24,
+          "y": 664.112
+        },
+        "expectedGround": {
+          "x": -230.24,
+          "y": 664.112
+        },
+        "level": 2,
+        "depth": 42757,
+        "altitude": 0,
+        "bounds": {
+          "left": 585.76,
+          "right": 649.76,
+          "top": 458.61199999999997,
+          "bottom": 501.412
+        },
+        "screen": {
+          "x": 617.76,
+          "y": 488.61199999999997
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 18240,
+          "y": 24994
+        },
+        "ground": {
+          "x": -216.12800000000004,
+          "y": 671.7439999999999
+        },
+        "expectedGround": {
+          "x": -216.12800000000004,
+          "y": 671.7439999999999
+        },
+        "level": 2,
+        "depth": 43234,
+        "altitude": 0,
+        "bounds": {
+          "left": 599.872,
+          "right": 663.872,
+          "top": 466.2439999999999,
+          "bottom": 509.0439999999999
+        },
+        "screen": {
+          "x": 631.872,
+          "y": 496.2439999999999
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 18700,
+          "y": 24999
+        },
+        "ground": {
+          "x": -201.56799999999998,
+          "y": 679.184
+        },
+        "expectedGround": {
+          "x": -201.56799999999998,
+          "y": 679.184
+        },
+        "level": 2,
+        "depth": 43699,
+        "altitude": 0,
+        "bounds": {
+          "left": 614.432,
+          "right": 678.432,
+          "top": 473.68399999999997,
+          "bottom": 516.4839999999999
+        },
+        "screen": {
+          "x": 646.432,
+          "y": 503.68399999999997
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 19160,
+          "y": 24999
+        },
+        "ground": {
+          "x": -186.84799999999996,
+          "y": 685.749
+        },
+        "expectedGround": {
+          "x": -186.84799999999996,
+          "y": 685.749
+        },
+        "level": 2.0794999999999995,
+        "depth": 44159,
+        "altitude": 0,
+        "bounds": {
+          "left": 629.152,
+          "right": 693.152,
+          "top": 480.249,
+          "bottom": 523.049
+        },
+        "screen": {
+          "x": 661.152,
+          "y": 510.249
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 19620,
+          "y": 24999
+        },
+        "ground": {
+          "x": -172.12799999999993,
+          "y": 690.809
+        },
+        "expectedGround": {
+          "x": -172.12799999999993,
+          "y": 690.809
+        },
+        "level": 2.3095,
+        "depth": 44619,
+        "altitude": 0,
+        "bounds": {
+          "left": 643.8720000000001,
+          "right": 707.8720000000001,
+          "top": 485.30899999999997,
+          "bottom": 528.1089999999999
+        },
+        "screen": {
+          "x": 675.8720000000001,
+          "y": 515.309
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20080,
+          "y": 24999
+        },
+        "ground": {
+          "x": -157.40800000000002,
+          "y": 695.8589999999999
+        },
+        "expectedGround": {
+          "x": -157.40800000000002,
+          "y": 695.8589999999999
+        },
+        "level": 2.5404999999999998,
+        "depth": 45079,
+        "altitude": 0,
+        "bounds": {
+          "left": 658.592,
+          "right": 722.592,
+          "top": 490.3589999999999,
+          "bottom": 533.1589999999999
+        },
+        "screen": {
+          "x": 690.592,
+          "y": 520.3589999999999
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20540,
+          "y": 24999
+        },
+        "ground": {
+          "x": -142.688,
+          "y": 700.919
+        },
+        "expectedGround": {
+          "x": -142.688,
+          "y": 700.919
+        },
+        "level": 2.7705,
+        "depth": 45539,
+        "altitude": 0,
+        "bounds": {
+          "left": 673.312,
+          "right": 737.312,
+          "top": 495.419,
+          "bottom": 538.2189999999999
+        },
+        "screen": {
+          "x": 705.312,
+          "y": 525.419
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 21000,
+          "y": 24999
+        },
+        "ground": {
+          "x": -127.96799999999996,
+          "y": 705.9839999999999
+        },
+        "expectedGround": {
+          "x": -127.96799999999996,
+          "y": 705.9839999999999
+        },
+        "level": 3,
+        "depth": 45999,
+        "altitude": 0,
+        "bounds": {
+          "left": 688.032,
+          "right": 752.032,
+          "top": 500.4839999999999,
+          "bottom": 543.2839999999999
+        },
+        "screen": {
+          "x": 720.032,
+          "y": 530.4839999999999
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 21460,
+          "y": 24999
+        },
+        "ground": {
+          "x": -113.24799999999993,
+          "y": 713.344
+        },
+        "expectedGround": {
+          "x": -113.24799999999993,
+          "y": 713.344
+        },
+        "level": 3,
+        "depth": 46459,
+        "altitude": 0,
+        "bounds": {
+          "left": 702.7520000000001,
+          "right": 766.7520000000001,
+          "top": 507.84400000000005,
+          "bottom": 550.644
+        },
+        "screen": {
+          "x": 734.7520000000001,
+          "y": 537.844
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 21920,
+          "y": 24999
+        },
+        "ground": {
+          "x": -98.5279999999999,
+          "y": 720.704
+        },
+        "expectedGround": {
+          "x": -98.5279999999999,
+          "y": 720.704
+        },
+        "level": 3,
+        "depth": 46919,
+        "altitude": 0,
+        "bounds": {
+          "left": 717.4720000000001,
+          "right": 781.4720000000001,
+          "top": 515.204,
+          "bottom": 558.0039999999999
+        },
+        "screen": {
+          "x": 749.4720000000001,
+          "y": 545.204
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22380,
+          "y": 24999
+        },
+        "ground": {
+          "x": -83.80799999999999,
+          "y": 728.064
+        },
+        "expectedGround": {
+          "x": -83.80799999999999,
+          "y": 728.064
+        },
+        "level": 3,
+        "depth": 47379,
+        "altitude": 0,
+        "bounds": {
+          "left": 732.192,
+          "right": 796.192,
+          "top": 522.564,
+          "bottom": 565.3639999999999
+        },
+        "screen": {
+          "x": 764.192,
+          "y": 552.564
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 22840,
+          "y": 24999
+        },
+        "ground": {
+          "x": -69.08799999999997,
+          "y": 735.424
+        },
+        "expectedGround": {
+          "x": -69.08799999999997,
+          "y": 735.424
+        },
+        "level": 3,
+        "depth": 47839,
+        "altitude": 0,
+        "bounds": {
+          "left": 746.912,
+          "right": 810.912,
+          "top": 529.924,
+          "bottom": 572.7239999999999
+        },
+        "screen": {
+          "x": 778.912,
+          "y": 559.924
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 23300,
+          "y": 24999
+        },
+        "ground": {
+          "x": -54.36799999999994,
+          "y": 742.784
+        },
+        "expectedGround": {
+          "x": -54.36799999999994,
+          "y": 742.784
+        },
+        "level": 3,
+        "depth": 48299,
+        "altitude": 0,
+        "bounds": {
+          "left": 761.6320000000001,
+          "right": 825.6320000000001,
+          "top": 537.284,
+          "bottom": 580.084
+        },
+        "screen": {
+          "x": 793.6320000000001,
+          "y": 567.284
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 23760,
+          "y": 24999
+        },
+        "ground": {
+          "x": -39.64799999999991,
+          "y": 750.144
+        },
+        "expectedGround": {
+          "x": -39.64799999999991,
+          "y": 750.144
+        },
+        "level": 3,
+        "depth": 48759,
+        "altitude": 0,
+        "bounds": {
+          "left": 776.3520000000001,
+          "right": 840.3520000000001,
+          "top": 544.644,
+          "bottom": 587.444
+        },
+        "screen": {
+          "x": 808.3520000000001,
+          "y": 574.644
+        }
+      },
+      {
+        "id": 7,
+        "type": "US.tank",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 24220,
+          "y": 24999
+        },
+        "ground": {
+          "x": -24.927999999999997,
+          "y": 757.5039999999999
+        },
+        "expectedGround": {
+          "x": -24.927999999999997,
+          "y": 757.5039999999999
+        },
+        "level": 3,
+        "depth": 49219,
+        "altitude": 0,
+        "bounds": {
+          "left": 791.072,
+          "right": 855.072,
+          "top": 552.0039999999999,
+          "bottom": 594.8039999999999
+        },
+        "screen": {
+          "x": 823.072,
+          "y": 582.0039999999999
+        }
+      }
+    ]
+  },
+  "build": {
+    "before": "6000000",
+    "after": "5500000",
+    "preview": {
+      "tick": 294,
+      "results": [
+        {
+          "player": 1,
+          "sequence": 0,
+          "index": 0,
+          "accepted": true,
+          "code": "indeterminate",
+          "tick": 294
+        }
+      ]
+    },
+    "actor": {
+      "id": 6,
+      "type": "power",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 20500,
+        "y": 19500
+      },
+      "ground": {
+        "x": 32,
+        "y": 610
+      },
+      "expectedGround": {
+        "x": 32,
+        "y": 610
+      },
+      "level": 3,
+      "depth": 42000,
+      "altitude": 0,
+      "bounds": {
+        "left": 816,
+        "right": 944,
+        "top": 372.5,
+        "bottom": 460.1
+      },
+      "screen": {
+        "x": 880,
+        "y": 434.5
+      }
+    }
+  },
+  "flight": {
+    "landed": {
+      "id": 9,
+      "type": "IR.strike",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 23200,
+        "y": 13850
+      },
+      "ground": {
+        "x": 299.2,
+        "y": 548.8
+      },
+      "expectedGround": {
+        "x": 299.2,
+        "y": 562.8
+      },
+      "level": 3,
+      "depth": 43000.01,
+      "altitude": 0,
+      "bounds": {
+        "left": 1123.2,
+        "right": 1171.2,
+        "top": 343.29999999999995,
+        "bottom": 383.29999999999995
+      },
+      "screen": {
+        "x": 1147.2,
+        "y": 387.29999999999995
+      },
+      "shadow": {
+        "x": 299.2,
+        "y": 548.8,
+        "z": 43000.005
+      }
+    },
+    "beforeDeparture": {
+      "id": 9,
+      "type": "IR.strike",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 23200,
+        "y": 13850
+      },
+      "ground": {
+        "x": 299.2,
+        "y": 548.8
+      },
+      "expectedGround": {
+        "x": 299.2,
+        "y": 562.8
+      },
+      "level": 3,
+      "depth": 43000.01,
+      "altitude": 0,
+      "bounds": {
+        "left": 1123.2,
+        "right": 1171.2,
+        "top": 343.29999999999995,
+        "bottom": 383.29999999999995
+      },
+      "screen": {
+        "x": 1147.2,
+        "y": 387.29999999999995
+      },
+      "shadow": {
+        "x": 299.2,
+        "y": 548.8,
+        "z": 43000.005
+      }
+    },
+    "departure": {
+      "id": 9,
+      "type": "IR.strike",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 22859,
+        "y": 13423
+      },
+      "ground": {
+        "x": 299.2440320104981,
+        "y": 548.6034665534568
+      },
+      "expectedGround": {
+        "x": 299.2440320104981,
+        "y": 562.603391953125
+      },
+      "level": 3,
+      "depth": 1037037.7119970703,
+      "altitude": 0.00023978678095501037,
+      "bounds": {
+        "left": 1123.2440320104981,
+        "right": 1171.2440320104981,
+        "top": 293.10346655345677,
+        "bottom": 383.10346655345677
+      },
+      "screen": {
+        "x": 1147.2440320104981,
+        "y": 387.10339195312497
+      },
+      "shadow": {
+        "x": 299.2,
+        "y": 548.8,
+        "z": 43000.005
+      }
+    },
+    "samples": [
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 21876,
+          "y": 12975
+        },
+        "ground": {
+          "x": 284.83200000000005,
+          "y": 527.616
+        },
+        "expectedGround": {
+          "x": 284.83200000000005,
+          "y": 527.616
+        },
+        "level": 3,
+        "depth": 1034851,
+        "altitude": 45,
+        "bounds": {
+          "left": 1108.832,
+          "right": 1156.832,
+          "top": 272.116,
+          "bottom": 362.116
+        },
+        "screen": {
+          "x": 1132.832,
+          "y": 352.116
+        },
+        "shadow": {
+          "x": 284.83200000000005,
+          "y": 527.616,
+          "z": 35413.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20817,
+          "y": 13192
+        },
+        "ground": {
+          "x": 244,
+          "y": 514.144
+        },
+        "expectedGround": {
+          "x": 244,
+          "y": 514.144
+        },
+        "level": 3,
+        "depth": 1034009,
+        "altitude": 45,
+        "bounds": {
+          "left": 1068,
+          "right": 1116,
+          "top": 258.644,
+          "bottom": 348.644
+        },
+        "screen": {
+          "x": 1092,
+          "y": 338.644
+        },
+        "shadow": {
+          "x": 244,
+          "y": 514.144,
+          "z": 34571.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 20022,
+          "y": 13939
+        },
+        "ground": {
+          "x": 194.65599999999995,
+          "y": 518.156
+        },
+        "expectedGround": {
+          "x": 194.65599999999995,
+          "y": 518.156
+        },
+        "level": 2.5219999999999985,
+        "depth": 1033961,
+        "altitude": 49.780000000000015,
+        "bounds": {
+          "left": 1018.656,
+          "right": 1066.656,
+          "top": 262.65599999999995,
+          "bottom": 352.65599999999995
+        },
+        "screen": {
+          "x": 1042.656,
+          "y": 342.65599999999995
+        },
+        "shadow": {
+          "x": 194.65599999999995,
+          "y": 518.156,
+          "z": 34583.251
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 19286,
+          "y": 14751
+        },
+        "ground": {
+          "x": 145.12000000000006,
+          "y": 524.4069999999999
+        },
+        "expectedGround": {
+          "x": 145.12000000000006,
+          "y": 524.4069999999999
+        },
+        "level": 2.0185000000000004,
+        "depth": 1034037,
+        "altitude": 54.815,
+        "bounds": {
+          "left": 969.1200000000001,
+          "right": 1017.1200000000001,
+          "top": 264.0919999999999,
+          "bottom": 358.9069999999999
+        },
+        "screen": {
+          "x": 993.1200000000001,
+          "y": 348.9069999999999
+        },
+        "shadow": {
+          "x": 145.12000000000006,
+          "y": 524.4069999999999,
+          "z": 34722.1885
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 18550,
+          "y": 15563
+        },
+        "ground": {
+          "x": 95.584,
+          "y": 525.808
+        },
+        "expectedGround": {
+          "x": 95.584,
+          "y": 525.808
+        },
+        "level": 2,
+        "depth": 1034113,
+        "altitude": 55,
+        "bounds": {
+          "left": 919.5840000000001,
+          "right": 967.5840000000001,
+          "top": 265.308,
+          "bottom": 360.308
+        },
+        "screen": {
+          "x": 943.5840000000001,
+          "y": 350.308
+        },
+        "shadow": {
+          "x": 95.584,
+          "y": 525.808,
+          "z": 34800.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 17814,
+          "y": 16375
+        },
+        "ground": {
+          "x": 46.048,
+          "y": 527.024
+        },
+        "expectedGround": {
+          "x": 46.048,
+          "y": 527.024
+        },
+        "level": 2,
+        "depth": 1034189,
+        "altitude": 55,
+        "bounds": {
+          "left": 870.048,
+          "right": 918.048,
+          "top": 266.524,
+          "bottom": 361.524
+        },
+        "screen": {
+          "x": 894.048,
+          "y": 351.524
+        },
+        "shadow": {
+          "x": 46.048,
+          "y": 527.024,
+          "z": 34876.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 17078,
+          "y": 17187
+        },
+        "ground": {
+          "x": -3.4880000000000564,
+          "y": 528.24
+        },
+        "expectedGround": {
+          "x": -3.4880000000000564,
+          "y": 528.24
+        },
+        "level": 2,
+        "depth": 1034265,
+        "altitude": 55,
+        "bounds": {
+          "left": 820.512,
+          "right": 868.512,
+          "top": 267.74,
+          "bottom": 362.74
+        },
+        "screen": {
+          "x": 844.512,
+          "y": 352.74
+        },
+        "shadow": {
+          "x": -3.4880000000000564,
+          "y": 528.24,
+          "z": 34952.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 16342,
+          "y": 17999
+        },
+        "ground": {
+          "x": -53.024,
+          "y": 529.4559999999999
+        },
+        "expectedGround": {
+          "x": -53.024,
+          "y": 529.4559999999999
+        },
+        "level": 2,
+        "depth": 1034341,
+        "altitude": 55,
+        "bounds": {
+          "left": 770.976,
+          "right": 818.976,
+          "top": 268.9559999999999,
+          "bottom": 363.9559999999999
+        },
+        "screen": {
+          "x": 794.976,
+          "y": 353.9559999999999
+        },
+        "shadow": {
+          "x": -53.024,
+          "y": 529.4559999999999,
+          "z": 35028.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 15602,
+          "y": 18811
+        },
+        "ground": {
+          "x": -102.68799999999999,
+          "y": 530.608
+        },
+        "expectedGround": {
+          "x": -102.68799999999999,
+          "y": 530.608
+        },
+        "level": 2,
+        "depth": 1034413,
+        "altitude": 55,
+        "bounds": {
+          "left": 721.312,
+          "right": 769.312,
+          "top": 270.10799999999995,
+          "bottom": 365.10799999999995
+        },
+        "screen": {
+          "x": 745.312,
+          "y": 355.10799999999995
+        },
+        "shadow": {
+          "x": -102.68799999999999,
+          "y": 530.608,
+          "z": 35100.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14862,
+          "y": 19623
+        },
+        "ground": {
+          "x": -152.35200000000003,
+          "y": 531.76
+        },
+        "expectedGround": {
+          "x": -152.35200000000003,
+          "y": 531.76
+        },
+        "level": 2,
+        "depth": 1034485,
+        "altitude": 55,
+        "bounds": {
+          "left": 671.6479999999999,
+          "right": 719.6479999999999,
+          "top": 271.26,
+          "bottom": 366.26
+        },
+        "screen": {
+          "x": 695.6479999999999,
+          "y": 356.26
+        },
+        "shadow": {
+          "x": -152.35200000000003,
+          "y": 531.76,
+          "z": 35172.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 14122,
+          "y": 20435
+        },
+        "ground": {
+          "x": -202.01599999999996,
+          "y": 532.912
+        },
+        "expectedGround": {
+          "x": -202.01599999999996,
+          "y": 532.912
+        },
+        "level": 2,
+        "depth": 1034557,
+        "altitude": 55,
+        "bounds": {
+          "left": 621.984,
+          "right": 669.984,
+          "top": 272.41200000000003,
+          "bottom": 367.41200000000003
+        },
+        "screen": {
+          "x": 645.984,
+          "y": 357.41200000000003
+        },
+        "shadow": {
+          "x": -202.01599999999996,
+          "y": 532.912,
+          "z": 35244.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 13382,
+          "y": 21247
+        },
+        "ground": {
+          "x": -251.68,
+          "y": 534.064
+        },
+        "expectedGround": {
+          "x": -251.68,
+          "y": 534.064
+        },
+        "level": 2,
+        "depth": 1034629,
+        "altitude": 55,
+        "bounds": {
+          "left": 572.3199999999999,
+          "right": 620.3199999999999,
+          "top": 273.56399999999996,
+          "bottom": 368.56399999999996
+        },
+        "screen": {
+          "x": 596.3199999999999,
+          "y": 358.56399999999996
+        },
+        "shadow": {
+          "x": -251.68,
+          "y": 534.064,
+          "z": 35316.501
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 12642,
+          "y": 22059
+        },
+        "ground": {
+          "x": -301.34400000000005,
+          "y": 538.206
+        },
+        "expectedGround": {
+          "x": -301.34400000000005,
+          "y": 538.206
+        },
+        "level": 1.7010000000000005,
+        "depth": 1034701,
+        "altitude": 57.989999999999995,
+        "bounds": {
+          "left": 522.656,
+          "right": 570.656,
+          "top": 274.716,
+          "bottom": 372.706
+        },
+        "screen": {
+          "x": 546.656,
+          "y": 362.706
+        },
+        "shadow": {
+          "x": -301.34400000000005,
+          "y": 538.206,
+          "z": 35425.876
+        }
+      },
+      {
+        "id": 9,
+        "type": "IR.strike",
+        "position": {
+          "$typeName": "frontline.v1.Vec",
+          "x": 11902,
+          "y": 22871
+        },
+        "ground": {
+          "x": -351.008,
+          "y": 548.328
+        },
+        "expectedGround": {
+          "x": -351.008,
+          "y": 548.328
+        },
+        "level": 0.8039999999999985,
+        "depth": 1034773,
+        "altitude": 66.96000000000001,
+        "bounds": {
+          "left": 472.992,
+          "right": 520.992,
+          "top": 275.86799999999994,
+          "bottom": 382.828
+        },
+        "screen": {
+          "x": 496.992,
+          "y": 372.828
+        },
+        "shadow": {
+          "x": -351.008,
+          "y": 548.328,
+          "z": 35610.001
+        }
+      }
+    ],
+    "maxHeight": 4
+  },
+  "save": {
+    "hash": "490d71621a073e441af6b9b5c34f15cadf59fac71deae2a61e230cf8f0e160de",
+    "restored": "490d71621a073e441af6b9b5c34f15cadf59fac71deae2a61e230cf8f0e160de",
+    "localPlayers": [
+      1
+    ]
+  },
+  "syntheticDisposal": {
+    "canvases": 0,
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0
+    }
+  },
+  "authoredLanding": {
+    "aircraft": {
+      "id": 59,
+      "type": "US.strike",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 51200,
+        "y": 79850
+      },
+      "ground": {
+        "x": -916.7999999999997,
+        "y": 2073.8
+      },
+      "expectedGround": {
+        "x": -916.7999999999997,
+        "y": 2096.8
+      },
+      "level": 0,
+      "depth": 138500.01,
+      "altitude": 0,
+      "bounds": {
+        "left": 755.2000000000003,
+        "right": 803.2000000000003,
+        "top": 365.8000000000002,
+        "bottom": 405.8000000000002
+      },
+      "screen": {
+        "x": 779.2000000000003,
+        "y": 418.8000000000002
+      },
+      "shadow": {
+        "x": -916.7999999999997,
+        "y": 2073.8,
+        "z": 138500.005
+      }
+    },
+    "home": {
+      "id": 57,
+      "type": "US.airfield",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 52500,
+        "y": 80500
+      },
+      "ground": {
+        "x": -896,
+        "y": 2113
+      },
+      "expectedGround": {
+        "x": -896,
+        "y": 2128
+      },
+      "level": 0,
+      "depth": 138500,
+      "altitude": 0,
+      "bounds": {
+        "left": 624,
+        "right": 976,
+        "top": 317,
+        "bottom": 505.4
+      },
+      "screen": {
+        "x": 800,
+        "y": 450
+      }
+    },
+    "bodyPixels": 864,
+    "tick": 578
+  },
+  "disposed": {
+    "canvases": 0,
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0
+    }
+  }
+}

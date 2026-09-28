@@ -1,4 +1,4 @@
-import {Application,Container,Graphics,Matrix,Sprite,Texture,type Mesh} from 'pixi.js';
+import {Application,Container,Graphics,Texture} from 'pixi.js';
 import {create} from '@bufbuild/protobuf';
 import {EntitySchema} from '../protocol/frontline_pb';
 import type {CommandTarget,Entity,GameMap,PlayerSnapshot,Point,Rect} from '../runtime';
@@ -8,8 +8,9 @@ import {tokens} from '../design/tokens';
 import {ArtLibrary} from './art';
 import {ActorVisual} from './actors';
 import {buildingPresentations} from './poses';
-import {CHUNK,TerrainBaker} from './terrain';
-import {toScreen,toWorld,HALF_W,HALF_H} from './iso';
+import {CHUNK,TerrainBaker,type TerrainFragment} from './terrain';
+import {TerrainSurface,projectSurfaceVertex} from './terrain-surface';
+import {toWorld} from './iso';
 import {drawStructure} from './structure';
 import {activeMissionMarkers,type MissionMarker} from '../app/mission-markers';
 import {minimapLayout,minimapProject,minimapWorldPoint} from './minimap';
@@ -23,28 +24,28 @@ export interface BattlefieldOptions {
  onGesture:(event:BattlefieldGesture)=>void;onError?:(error:Error)=>void;
 }
 export interface PlacementPreview {type:string;width:number;height:number;position?:Point;valid?:boolean}
-interface Chunk {sprite:Mesh;texture:Texture;used:number}
+interface Chunk {fragments:TerrainFragment[];texture:Texture;used:number;visible:boolean}
 const color=(hex:string)=>parseInt(hex.replace('#',''),16);
 const clamp=(value:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,value));
 
 /** Fixed-camera presentation over authorized snapshots; never simulates game rules. */
 export class BattlefieldRenderer {
  private readonly app=new Application();private readonly world=new Container();
- private readonly terrain=new Container();private readonly actorsLayer=new Container();private readonly propsLayer=new Container();
- private readonly memories=new Container();private readonly tactical=new Graphics();private readonly overlay=new Graphics();
+ private readonly ground=new Container();
+ private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
  private readonly actors=new Map<number,ActorVisual>();private readonly props:ActorVisual[]=[];
  private readonly chunks=new Map<string,Chunk>();private readonly missing=new Set<string>();
  private readonly deaths:Array<{actor:ActorVisual;until:number}>=[];
- private readonly fogCanvas=document.createElement('canvas');private fogTexture?:Texture;private fogSprite?:Sprite;
+ private surface:TerrainSurface;
  private readonly listeners=new AbortController();private resizeObserver?:ResizeObserver;
  private baker:TerrainBaker;private snapshot?:PlayerSnapshot;private selected=new Set<number>();private settings:Settings;
  private camera={x:0,y:0,zoom:1};private centered=false;private disposed=false;private tickAt=0;
  private drag?:{start:Point;last:Point;button:number;pointer:number};private pointer?:Point;
  private placement?:PlacementPreview;private targeting?:string;private lastHover=0;private frame=0;private fogTick=-1;
- private memoryKey='';private rubbleKey='';private lost=false;private presentationMap:GameMap;
+ private memoryKey='';private rubbleKey='';private terrainKey='';private lost=false;private presentationMap:GameMap;
  private effectEvent=0;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
- private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art)}
+ private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap)}
  static async create(host:HTMLElement,options:BattlefieldOptions):Promise<BattlefieldRenderer>{
   const renderer=new BattlefieldRenderer(host,options);
   try{await renderer.init();return renderer}catch(error){renderer.dispose();throw error}
@@ -55,16 +56,11 @@ export class BattlefieldRenderer {
   if(this.disposed){this.app.destroy(true,{children:true});return}
   const canvas=this.app.canvas;canvas.tabIndex=0;canvas.setAttribute('aria-label','Battlefield. Select units and give orders.');canvas.style.display='block';canvas.style.touchAction='none';canvas.style.outlineColor='var(--fc-color-brass-light, #d0ae66)';canvas.style.outlineOffset='-2px';
   this.host.appendChild(canvas);
-  this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.terrain,this.propsLayer,this.actorsLayer);
-  this.actorsLayer.sortableChildren=true;this.propsLayer.sortableChildren=true;
-  const m=this.options.map;this.fogCanvas.width=m.width;this.fogCanvas.height=m.height;
-  const fogContext=this.fogCanvas.getContext('2d')!;fogContext.fillStyle='#080907';fogContext.fillRect(0,0,m.width,m.height);
-  this.fogTexture=Texture.from(this.fogCanvas);this.fogTexture.source.scaleMode='linear';
-  this.fogSprite=new Sprite(this.fogTexture);this.fogSprite.setFromMatrix(new Matrix(HALF_W,HALF_H,-HALF_W,HALF_H,0,0));
-  this.world.addChild(this.fogSprite,this.memories,this.tactical);
+  this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.tactical);this.ground.sortableChildren=true;
+  const m=this.options.map;
   for(const field of m.fields??[]){
-   const visual=new ActorVisual(create(EntitySchema,{id:field.id,type:'map.supply_field',position:field.position,health:1000,complete:true,enabled:true}),this.options.catalog,this.options.art);
-   this.props.push(visual);this.propsLayer.addChild(visual.root);
+   const visual=new ActorVisual(create(EntitySchema,{id:field.id,type:'map.supply_field',position:field.position,health:1000,complete:true,enabled:true}),this.options.catalog,this.options.art,undefined,this.surface);
+   this.props.push(visual);this.ground.addChild(visual.root);
   }
   this.center(m.spawns[0]?.position??{x:m.width*500,y:m.height*500});
   this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
@@ -74,7 +70,7 @@ export class BattlefieldRenderer {
  setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers)}
  async whenAssetsReady(){await Promise.all([...this.actors.values(),...this.props].map(actor=>actor.ready));this.render();await this.options.art.settle();this.render()}
  viewport():Rect{return {left:0,top:0,right:this.app.screen.width,bottom:this.app.screen.height}}
- center(point:Point){const p=toScreen(point.x,point.y);this.camera.x=p.x;this.camera.y=p.y;this.cameraTransform()}
+ center(point:Point){const p=this.surface.projectGround(point);this.camera.x=p.x;this.camera.y=p.y;this.cameraTransform()}
  pan(dxPixels:number,dyPixels:number){this.camera.x+=dxPixels/this.camera.zoom;this.camera.y+=dyPixels/this.camera.zoom;this.limitCamera();this.cameraTransform()}
  zoomBy(factor:number,anchor?:Point){
   if(!Number.isFinite(factor)||factor<=0)return;
@@ -83,31 +79,34 @@ export class BattlefieldRenderer {
   this.camera.x+=before.x-after.x;this.camera.y+=before.y-after.y;this.limitCamera();this.cameraTransform();
  }
  private limitCamera(){
-  const p=toWorld(this.camera.x,this.camera.y),m=this.options.map;
-  const s=toScreen(clamp(p.x,0,m.width*1000),clamp(p.y,0,m.height*1000));this.camera.x=s.x;this.camera.y=s.y;
+  const iso={x:this.camera.x,y:this.camera.y},m=this.options.map,p=this.surface.pickSurface(iso)?.point??toWorld(iso.x,iso.y);
+  if(p.x>=0&&p.y>=0&&p.x<=m.width*1000&&p.y<=m.height*1000)return;
+  const s=this.surface.projectGround({x:clamp(p.x,0,m.width*1000),y:clamp(p.y,0,m.height*1000)});this.camera.x=s.x;this.camera.y=s.y;
  }
  private cameraTransform(){
   if(!this.app.renderer)return;
   this.world.scale.set(this.camera.zoom);this.world.position.set(this.app.screen.width/2-this.camera.x*this.camera.zoom+this.shake.x,this.app.screen.height/2-this.camera.y*this.camera.zoom+this.shake.y);
  }
  private screenToIso(p:Point):Point{return {x:(p.x-this.world.x)/this.camera.zoom,y:(p.y-this.world.y)/this.camera.zoom}}
- private point(p:Point):Point{const iso=this.screenToIso(p),w=toWorld(iso.x,iso.y),m=this.options.map;return {x:Math.round(clamp(w.x,0,m.width*1000-1)),y:Math.round(clamp(w.y,0,m.height*1000-1))}}
- private project(p:Point):Point{const iso=toScreen(p.x,p.y);return {x:iso.x*this.camera.zoom+this.world.x,y:iso.y*this.camera.zoom+this.world.y}}
+ private point(p:Point):Point{const iso=this.screenToIso(p),w=this.surface.pickSurface(iso)?.commandPoint??toWorld(iso.x,iso.y),m=this.options.map;return {x:Math.round(clamp(w.x,0,m.width*1000-1)),y:Math.round(clamp(w.y,0,m.height*1000-1))}}
+ private project(p:Point):Point{const iso=this.surface.projectGround(p);return {x:iso.x*this.camera.zoom+this.world.x,y:iso.y*this.camera.zoom+this.world.y}}
  bounds(entity:Entity):Rect|undefined{
   if(!entity.position||entity.private?.container)return;
-  const actor=this.actors.get(entity.id),p=actor?.position(performance.now())??entity.position,s=this.project(p),b=this.options.catalog.buildings.get(entity.type);
+  const actor=this.actors.get(entity.id),now=performance.now(),p=actor?.position(now)??entity.position,anchor=actor?.groundAnchor(now,this.settings.reducedMotion)??this.surface.projectGround(p),s={x:anchor.x*this.camera.zoom+this.world.x,y:anchor.y*this.camera.zoom+this.world.y},b=this.options.catalog.buildings.get(entity.type);
   const airborne=this.options.catalog.units.get(entity.type)?.armor==='air'&&!entity.landed;
-  const width=b?(entity.footprintWidth+entity.footprintHeight)*16:Math.max(14,(this.options.catalog.units.get(entity.type)?.radius??400)/1000*40),height=b?width*.5+30:airborne?80:30;
+  const width=b?(entity.footprintWidth+entity.footprintHeight)*16:Math.max(14,(this.options.catalog.units.get(entity.type)?.radius??400)/1000*40),height=b?width*.5+30:airborne?Math.max(80,(actor?.visualAltitude(now,this.settings.reducedMotion)??0)+30):30;
   return {left:s.x-width*this.camera.zoom,right:s.x+width*this.camera.zoom,top:s.y-height*this.camera.zoom,bottom:s.y+Math.max(10,width*.4)*this.camera.zoom};
  }
  private hit(p:Point):CommandTarget{
   const snap=this.snapshot;
   if(snap){
-   let best:Entity|undefined;
+   let best:Entity|undefined,bestDepth=-Infinity;const terrainHit=this.surface.pickSurface(this.screenToIso(p));
    for(const entity of snap.entities){
     const rect=this.bounds(entity);if(!rect)continue;
     if(p.x>=rect.left-this.settings.selectionTolerance&&p.x<=rect.right+this.settings.selectionTolerance&&p.y>=rect.top-this.settings.selectionTolerance&&p.y<=rect.bottom+this.settings.selectionTolerance){
-     if(!best||(entity.position!.x+entity.position!.y)>(best.position!.x+best.position!.y))best=entity;
+     const depth=this.actors.get(entity.id)?.groundDepth(performance.now(),this.settings.reducedMotion)??entity.position!.x+entity.position!.y;
+     if(terrainHit&&terrainHit.triangle.depth>depth+.01)continue;
+     if(depth>bestDepth){best=entity;bestDepth=depth}
     }
    }
    if(best)return {kind:'entity',id:best.id};
@@ -177,15 +176,23 @@ export class BattlefieldRenderer {
    if(!entity.position||entity.private?.container)continue;
    living.add(entity.id);let actor=this.actors.get(entity.id);
    if(actor&&actor.entity.type!==entity.type){actor.dispose();this.actors.delete(entity.id);actor=undefined}
-   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,snapshot.players.find(p=>p.id===entity.owner)?.faction);this.actors.set(entity.id,actor);this.actorsLayer.addChild(actor.root)}
+   if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,snapshot.players.find(p=>p.id===entity.owner)?.faction,this.surface);this.actors.set(entity.id,actor);this.ground.addChild(actor.root);if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
    actor.presentation=presentations.get(entity.id);actor.update(entity,this.tickAt);
+  }
+  const serviceBases=[...this.actors.values()].filter(actor=>living.has(actor.id)&&(this.options.catalog.buildings.get(actor.entity.type)?.service_slots??0)>0);
+  for(const actor of this.actors.values()){
+   const e=actor.entity;if(this.options.catalog.units.get(e.type)?.armor!=='air')continue;
+   // Home is owner-private. Foreign aircraft only use already-visible, same-owner
+   // overlapping geometry; this presentation never infers a hidden service base.
+   const departing=actor.departureDeck(this.tickAt),deck=serviceBases.find(base=>base.entity.owner===e.owner&&(base.id===departing||e.landed&&(!e.private?.home||base.id===e.private.home)&&Math.abs(base.entity.position!.x-e.position!.x)<=base.entity.footprintWidth*500&&Math.abs(base.entity.position!.y-e.position!.y)<=base.entity.footprintHeight*500));
+   actor.setServiceDeck(deck);
   }
   this.readFeedback(snapshot);
   // A disappeared enemy is removed immediately: interpolation cannot expose
   // its route after sight loss. No distinction is guessed between fog/death.
   for(const [id,actor] of this.actors)if(!living.has(id)){
    if(snapshot.events.some(event=>event.entity===id&&event.kind==='destroyed')){
-    actor.update({...actor.entity,state:'destroyed',health:0},this.tickAt);this.deaths.push({actor,until:this.tickAt+2400});
+    actor.setServiceDeck(undefined);actor.update({...actor.entity,state:'destroyed',health:0},this.tickAt);this.deaths.push({actor,until:this.tickAt+2400});
    }else actor.dispose();
    this.actors.delete(id);
   }
@@ -208,41 +215,45 @@ export class BattlefieldRenderer {
    for(let cy=Math.max(0,Math.floor((y-2)/CHUNK));cy<=Math.floor((y+2)/CHUNK);cy++)for(let cx=Math.max(0,Math.floor((x-2)/CHUNK));cx<=Math.floor((x+2)/CHUNK);cx++)changed.add(`${cx}:${cy}`);
   }
   map.tiles=next;
-  for(const key of changed){const chunk=this.chunks.get(key);if(chunk){chunk.sprite.destroy();chunk.texture.destroy(true);this.chunks.delete(key)}}
+  if(changed.size){this.terrainKey='';this.surface=new TerrainSurface(map);for(const actor of [...this.actors.values(),...this.props,...this.deaths.map(d=>d.actor)])actor.setSurface(this.surface);this.memoryKey='';this.fogTick=-1}
+  for(const key of changed){const chunk=this.chunks.get(key);if(chunk){this.disposeChunk(chunk);this.chunks.delete(key)}}
  }
  private team(owner:number){const player=this.snapshot?.players.find(p=>p.id===owner);const palette=tokens.color.team[this.settings.palette];return color(palette[Math.max(0,(player?.color??owner)-1)%palette.length]??'#b9b4a6')}
  private updateFog(){
   const snapshot=this.snapshot;if(!snapshot||snapshot.tick===this.fogTick)return;this.fogTick=snapshot.tick;
-  const context=this.fogCanvas.getContext('2d')!,pixels=context.createImageData(this.fogCanvas.width,this.fogCanvas.height);
-  for(let i=0;i<snapshot.visible.length;i++){const a=i*4;pixels.data[a]=8;pixels.data[a+1]=9;pixels.data[a+2]=7;pixels.data[a+3]=snapshot.visible[i]?0:snapshot.explored[i]?175:255}
-  context.putImageData(pixels,0,0);this.fogTexture?.source.update();
+  for(const chunk of this.chunks.values())for(const fragment of chunk.fragments)fragment.setFog(snapshot.visible,snapshot.explored);
  }
  private updateMemories(){
   const snapshot=this.snapshot;if(!snapshot)return;const key=JSON.stringify(snapshot.memory);
   if(key===this.memoryKey)return;this.memoryKey=key;
-  for(const child of this.memories.removeChildren())child.destroy({children:true});
+  for(const child of this.memories)child.destroy();this.memories.length=0;
   for(const memory of snapshot.memory){
    if(!memory.position||snapshot.entities.some(entity=>entity.id===memory.id))continue;
    const i=Math.floor(memory.position.y/1000)*this.options.map.width+Math.floor(memory.position.x/1000);
    if(!snapshot.explored[i])continue;
-   const g=new Graphics(),b=this.options.catalog.buildings.get(memory.type),p=toScreen(memory.position.x,memory.position.y);
+   const g=new Graphics(),b=this.options.catalog.buildings.get(memory.type),support=this.surface.footprintSurface(memory.position,memory.footprintWidth||b?.width||2,memory.footprintHeight||b?.height||2),p=projectSurfaceVertex({...memory.position,height:support.height});
    drawStructure(g,{width:memory.footprintWidth||b?.width||2,height:memory.footprintHeight||b?.height||2,role:b?.role??'garrison',paint:0x514d41,team:0x666353,progress:1000,complete:true,health:1000,enabled:false,memory:true});
-   g.position.set(p.x,p.y);this.memories.addChild(g);
+   g.position.set(p.x,p.y);g.zIndex=memory.position.x+memory.position.y+((memory.footprintWidth||b?.width||2)+(memory.footprintHeight||b?.height||2))*500+.001;this.memories.push(g);this.ground.addChild(g);
   }
  }
- private invalidateTerrain(){for(const chunk of this.chunks.values()){chunk.sprite.geometry.destroy();chunk.sprite.destroy();chunk.texture.destroy(true)}this.chunks.clear()}
+ private disposeChunk(chunk:Chunk){for(const fragment of chunk.fragments)fragment.dispose();chunk.texture.destroy(true)}
+ private invalidateTerrain(){for(const chunk of this.chunks.values())this.disposeChunk(chunk);this.chunks.clear();this.terrainKey=''}
  private terrainFrame(){
-  const corners=[this.point({x:-600,y:-400}),this.point({x:this.app.screen.width+600,y:-400}),this.point({x:-600,y:this.app.screen.height+400}),this.point({x:this.app.screen.width+600,y:this.app.screen.height+400})];
+  // Culling uses a conservative flat inverse, not command picking. The 440px
+  // vertical guard includes the entire 40px maximum raised surface.
+  const corners=[{x:-600,y:-440},{x:this.app.screen.width+600,y:-440},{x:-600,y:this.app.screen.height+440},{x:this.app.screen.width+600,y:this.app.screen.height+440}].map(p=>{const iso=this.screenToIso(p),w=toWorld(iso.x,iso.y);return {x:clamp(w.x,0,this.options.map.width*1000-1),y:clamp(w.y,0,this.options.map.height*1000-1)}});
   const minX=Math.floor(Math.min(...corners.map(p=>p.x))/1000/CHUNK),maxX=Math.floor(Math.max(...corners.map(p=>p.x))/1000/CHUNK);
   const minY=Math.floor(Math.min(...corners.map(p=>p.y))/1000/CHUNK),maxY=Math.floor(Math.max(...corners.map(p=>p.y))/1000/CHUNK);
-  for(const c of this.chunks.values())c.sprite.visible=false;
-  let baked=0;
+  const keyBounds=`${minX}:${maxX}:${minY}:${maxY}`;if(this.terrainKey===keyBounds)return;
+  const wanted=new Set<string>();let baked=0,pending=false;
   for(let y=minY;y<=Math.min(maxY,this.baker.chunksY-1);y++)for(let x=minX;x<=Math.min(maxX,this.baker.chunksX-1);x++){
-   const key=`${x}:${y}`;let chunk=this.chunks.get(key);
-   if(!chunk){if(baked>=2)continue;const texture=this.baker.bake(x,y),sprite=this.baker.mesh(x,y,texture);this.terrain.addChild(sprite);chunk={texture,sprite,used:this.frame};this.chunks.set(key,chunk);baked++}
-   chunk.sprite.visible=true;chunk.used=this.frame;
+   const key=`${x}:${y}`;wanted.add(key);let chunk=this.chunks.get(key);
+   if(!chunk){if(baked>=2){pending=true;continue}const texture=this.baker.bake(x,y,true),fragments=this.baker.surfaceFragments(x,y,texture,this.surface);for(const fragment of fragments){fragment.setFog(this.snapshot?.visible??[],this.snapshot?.explored??[]);this.ground.addChild(fragment.mesh,fragment.fog)}chunk={texture,fragments,used:this.frame,visible:true};this.chunks.set(key,chunk);baked++}
+   if(!chunk.visible){chunk.visible=true;for(const fragment of chunk.fragments)fragment.setVisible(true)}chunk.used=this.frame;
   }
-  if(this.chunks.size>36){for(const [key,chunk] of [...this.chunks].sort(([,a],[,b])=>a.used-b.used)){if(this.chunks.size<=36)break;if(chunk.sprite.visible)continue;chunk.sprite.geometry.destroy();chunk.sprite.destroy();chunk.texture.destroy(true);this.chunks.delete(key)}}
+  for(const [key,chunk] of this.chunks)if(chunk.visible&&!wanted.has(key)){chunk.visible=false;for(const fragment of chunk.fragments)fragment.setVisible(false)}
+  this.terrainKey=pending?'':keyBounds;
+  if(this.chunks.size>36){for(const [key,chunk] of [...this.chunks].sort(([,a],[,b])=>a.used-b.used)){if(this.chunks.size<=36)break;if(chunk.visible)continue;this.disposeChunk(chunk);this.chunks.delete(key)}}
  }
  private readFeedback(snapshot:PlayerSnapshot){
   for(const event of snapshot.events){
@@ -268,37 +279,39 @@ export class BattlefieldRenderer {
   if(this.disposed||this.lost)return;
   const now=performance.now();this.frame++;this.updateShake(now);this.cameraTransform();this.terrainFrame();
   if(this.settings.edgeScroll&&this.pointer&&!this.drag){const p=this.pointer,w=this.app.screen.width,h=this.app.screen.height,s=7*this.settings.scrollSpeed;this.pan(p.x<12?-s:p.x>w-12?s:0,p.y<12?-s:p.y>h-12?s:0)}
-  for(const prop of this.props)prop.render(now,0xaaa584,false,'selected',true);
+  for(const prop of this.props){const p=prop.entity.position!,tile=Math.floor(p.y/1000)*this.options.map.width+Math.floor(p.x/1000);prop.root.visible=!!this.snapshot?.explored[tile];if(prop.root.visible){prop.render(now,0xaaa584,false,'selected',true);prop.root.alpha=this.snapshot?.visible[tile]?1:.35}}
   for(const actor of this.actors.values()){
    const bounds=this.bounds(actor.entity);actor.root.visible=!!bounds&&bounds.right>=-200&&bounds.left<=this.app.screen.width+200&&bounds.bottom>=-200&&bounds.top<=this.app.screen.height+200;
+   if(actor.terrainShadow)actor.terrainShadow.visible=actor.root.visible;
    if(actor.root.visible)actor.render(now,this.team(actor.entity.owner),this.selected.has(actor.id),this.settings.healthBars,this.settings.reducedMotion);
    if(actor.standIn||actor.missingArt)this.missing.add(actor.entity.type);
   }
-  for(let i=this.deaths.length-1;i>=0;i--){const death=this.deaths[i];if(now>=death.until){death.actor.dispose();this.deaths.splice(i,1);continue}death.actor.render(now,this.team(death.actor.entity.owner),false,'selected',this.settings.reducedMotion);death.actor.root.alpha=Math.min(1,(death.until-now)/700)}
+  for(let i=this.deaths.length-1;i>=0;i--){const death=this.deaths[i];if(now>=death.until){death.actor.dispose();this.deaths.splice(i,1);continue}death.actor.render(now,this.team(death.actor.entity.owner),false,'selected',this.settings.reducedMotion);death.actor.root.alpha=Math.min(1,(death.until-now)/700);if(death.actor.terrainShadow)death.actor.terrainShadow.alpha=death.actor.root.alpha}
   if(this.frame%60===0)this.options.art.trim();
   this.drawTactical(now);this.overlay.clear();
   if(this.drag&&this.drag.button!==this.settings.bindings.pointer.pan&&Math.hypot(this.drag.start.x-this.drag.last.x,this.drag.start.y-this.drag.last.y)>=this.settings.dragThreshold){const a=this.drag.start,b=this.drag.last;this.overlay.rect(Math.min(a.x,b.x),Math.min(a.y,b.y),Math.abs(a.x-b.x),Math.abs(a.y-b.y)).fill({color:0xbcce88,alpha:.08}).stroke({width:1,color:0xc7d895})}
  }
  private diamond(g:Graphics,p:Point,w:number,h:number,paint:number,alpha=.2){
-  const a=toScreen(p.x-w*500,p.y-h*500),b=toScreen(p.x+w*500,p.y-h*500),c=toScreen(p.x+w*500,p.y+h*500),d=toScreen(p.x-w*500,p.y+h*500);
-  g.poly([a.x,a.y,b.x,b.y,c.x,c.y,d.x,d.y]).fill({color:paint,alpha}).stroke({width:1.5,color:paint});
+  const corners=[{x:p.x-w*500,y:p.y-h*500},{x:p.x+w*500,y:p.y-h*500},{x:p.x+w*500,y:p.y+h*500},{x:p.x-w*500,y:p.y+h*500}],outline:Point[]=[];
+  for(let i=0;i<4;i++){const a=corners[i],b=corners[(i+1)%4],steps=Math.max(1,Math.ceil(Math.hypot(a.x-b.x,a.y-b.y)/250));for(let j=0;j<steps;j++)outline.push(this.surface.projectGround({x:a.x+(b.x-a.x)*j/steps,y:a.y+(b.y-a.y)*j/steps}))}
+  g.poly(outline.flatMap(v=>[v.x,v.y])).fill({color:paint,alpha}).stroke({width:1.5,color:paint});
  }
  private drawTactical(now:number){
   const g=this.tactical.clear(),s=this.snapshot;if(!s)return;
   for(const marker of activeMissionMarkers(this.missionMarkers,s.mission)){
    this.diamond(g,marker.position,(marker.max.x-marker.min.x+1)/1000,(marker.max.y-marker.min.y+1)/1000,0xe0bc65,.04);
-   const p=toScreen(marker.position.x,marker.position.y);g.ellipse(p.x,p.y,15,7.5).stroke({width:2,color:0xf1ce78});g.moveTo(p.x-23,p.y).lineTo(p.x-10,p.y).moveTo(p.x+10,p.y).lineTo(p.x+23,p.y).moveTo(p.x,p.y-15).lineTo(p.x,p.y-6).moveTo(p.x,p.y+6).lineTo(p.x,p.y+15).stroke({width:2,color:0xf1ce78});
+   const p=this.surface.projectGround(marker.position);g.ellipse(p.x,p.y,15,7.5).stroke({width:2,color:0xf1ce78});g.moveTo(p.x-23,p.y).lineTo(p.x-10,p.y).moveTo(p.x+10,p.y).lineTo(p.x+23,p.y).moveTo(p.x,p.y-15).lineTo(p.x,p.y-6).moveTo(p.x,p.y+6).lineTo(p.x,p.y+15).stroke({width:2,color:0xf1ce78});
   }
-  for(const station of s.stations){if(!station.position)continue;const p=toScreen(station.position.x,station.position.y);g.rect(p.x-11,p.y-18,22,18).fill({color:0x4c4b3b}).stroke({width:2,color:this.team(station.owner)});g.moveTo(p.x,p.y-18).lineTo(p.x,p.y-36).lineTo(p.x+12,p.y-32).lineTo(p.x,p.y-27).fill({color:this.team(station.owner)}).stroke({width:1,color:0xdbd0a5})}
+  for(const station of s.stations){if(!station.position)continue;const p=this.surface.projectGround(station.position);g.rect(p.x-11,p.y-18,22,18).fill({color:0x4c4b3b}).stroke({width:2,color:this.team(station.owner)});g.moveTo(p.x,p.y-18).lineTo(p.x,p.y-36).lineTo(p.x+12,p.y-32).lineTo(p.x,p.y-27).fill({color:this.team(station.owner)}).stroke({width:1,color:0xdbd0a5})}
   for(const salvage of s.salvage){if(salvage.position)this.diamond(g,salvage.position,.5,.5,0xb9934b,.65)}
   for(const projectile of s.projectiles){
    if(!projectile.position||!projectile.impact)continue;
-   const p=toScreen(projectile.position.x,projectile.position.y),end=toScreen(projectile.impact.x,projectile.impact.y);
+   const p=this.surface.projectGround(projectile.position),end=this.surface.projectGround(projectile.impact);
    g.circle(p.x,p.y-10,projectile.interceptable?3:1.7).fill({color:projectile.interceptable?0xe9caa0:0xeed49a});
    if(projectile.warning){g.ellipse(end.x,end.y,38,19).stroke({width:2,color:0xe18348});g.moveTo(end.x-10,end.y).lineTo(end.x+10,end.y).moveTo(end.x,end.y-7).lineTo(end.x,end.y+7).stroke({width:1,color:0xffd19b})}
   }
-  for(const warning of s.warnings){if(!warning.position)continue;const p=toScreen(warning.position.x,warning.position.y);g.ellipse(p.x,p.y,55,27.5).stroke({width:2,color:warning.kind==='transfer'?0xd8bd79:0xdf7046})}
-  for(const entity of s.entities){if(!this.selected.has(entity.id)||!entity.position||!entity.private)continue;let start=toScreen(entity.position.x,entity.position.y);for(const order of entity.private.orders){if(!order.position)continue;const end=toScreen(order.position.x,order.position.y);g.moveTo(start.x,start.y).lineTo(end.x,end.y).stroke({width:1,color:0xc5cb91,alpha:.5});g.ellipse(end.x,end.y,6,3).stroke({width:1,color:0xc5cb91});if(entity.state==='blocked'){g.moveTo(end.x-7,end.y-7).lineTo(end.x+7,end.y+7).moveTo(end.x+7,end.y-7).lineTo(end.x-7,end.y+7).stroke({width:2,color:0xea926f})}start=end}}
+  for(const warning of s.warnings){if(!warning.position)continue;const p=this.surface.projectGround(warning.position);g.ellipse(p.x,p.y,55,27.5).stroke({width:2,color:warning.kind==='transfer'?0xd8bd79:0xdf7046})}
+  for(const entity of s.entities){if(!this.selected.has(entity.id)||!entity.position||!entity.private)continue;let start=this.surface.projectGround(entity.position);for(const order of entity.private.orders){if(!order.position)continue;const end=this.surface.projectGround(order.position);g.moveTo(start.x,start.y).lineTo(end.x,end.y).stroke({width:1,color:0xc5cb91,alpha:.5});g.ellipse(end.x,end.y,6,3).stroke({width:1,color:0xc5cb91});if(entity.state==='blocked'){g.moveTo(end.x-7,end.y-7).lineTo(end.x+7,end.y+7).moveTo(end.x+7,end.y-7).lineTo(end.x-7,end.y+7).stroke({width:2,color:0xea926f})}start=end}}
   if(this.placement){const p=this.placement.position??(this.pointer?this.point(this.pointer):undefined);if(p)this.diamond(g,p,this.placement.width,this.placement.height,this.placement.valid===false?0xdb5c46:this.placement.valid?0xa9cc79:0xd8b766)}
   void now;
  }
@@ -326,7 +339,7 @@ export class BattlefieldRenderer {
   if(this.disposed)return;this.disposed=true;this.listeners.abort();this.resizeObserver?.disconnect();
   for(const actor of this.actors.values())actor.dispose();this.actors.clear();for(const prop of this.props)prop.dispose();
   for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
-  this.invalidateTerrain();this.fogTexture?.destroy(true);
+  this.invalidateTerrain();this.baker.disposeSurfaceResources();
   if(this.app.renderer)this.app.destroy(true,{children:true});
  }
 }

@@ -14,6 +14,7 @@ export {materialFor,heightAt,terrainAt} from './terrain-materials';
 export interface TerrainFragment {
  mesh:Mesh;fog:Mesh;triangles:readonly SurfaceTriangle[];depth:number;
  setFog(visible:readonly boolean[],explored:readonly boolean[]):void;
+ setVisible(visible:boolean):void;
  dispose():void;
 }
 
@@ -130,12 +131,13 @@ export class TerrainBaker {
    if(face)mesh.tint=first.vertices[0].x===first.vertices[1].x&&first.vertices[1].x===first.vertices[2].x?0xb8b09f:0x999183;
    const fogGeometry=new MeshGeometry({positions:new Float32Array(positions),uvs:fogUVs,indices:new Uint32Array(indices)});fogGeometry.batchMode='batch';
    const fog=new Mesh({texture:this.fogPalette!,geometry:fogGeometry});fog.position.copyFrom(mesh.position);fog.zIndex=first.depth+.0001;
+   let shown=true,fogNeeded=true;
    const setFog=(visible:readonly boolean[],explored:readonly boolean[])=>{
     let any=false;for(let i=0;i<triangles.length;i++){const alpha=surfaceFogOpacity(triangles[i],visible,explored),u=((alpha===0?0:alpha===175?1:2)+.5)/3;any ||= alpha!==0;for(let j=0;j<3;j++){fogUVs[i*6+j*2]=u;fogUVs[i*6+j*2+1]=.5}}
-    fog.visible=any;fogGeometry.attributes.aUV.buffer.update();
+    fogNeeded=any;fog.visible=shown&&any;fogGeometry.attributes.aUV.buffer.update();
    };
    setFog([],[]);
-   return {mesh,fog,triangles,depth:first.depth,setFog,dispose(){geometry.destroy();fogGeometry.destroy();mesh.destroy();fog.destroy()}};
+   return {mesh,fog,triangles,depth:first.depth,setFog,setVisible(visible:boolean){shown=visible;mesh.visible=visible;fog.visible=visible&&fogNeeded},dispose(){geometry.destroy();fogGeometry.destroy();mesh.destroy();fog.destroy()}};
   });
  }
  /** Only after all raised fragments have been detached/disposed. */

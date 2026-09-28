@@ -1,0 +1,373 @@
+{
+  "at": "2026-09-28T04:18:59.626Z",
+  "browser": "151.0.7922.34",
+  "status": "passed",
+  "errors": [],
+  "warnings": [
+    "[.WebGL-0x13c00517800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x13c00517800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x13c00517800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x13c00517800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+  ],
+  "checks": {
+    "minimapGeometry": {
+      "center": {
+        "x": 32000,
+        "y": 32000
+      },
+      "quarter": {
+        "x": 16000,
+        "y": 48000
+      },
+      "near": {
+        "x": 0,
+        "y": 0
+      },
+      "far": {
+        "x": 63999,
+        "y": 63999
+      },
+      "backing": [
+        300,
+        100
+      ],
+      "css": [
+        300,
+        100
+      ]
+    },
+    "lazyArt": {
+      "indexedPages": 59,
+      "residentPages": 21,
+      "residentBytes": 60665184
+    },
+    "illustrations": {
+      "build": [
+        128,
+        96
+      ],
+      "portrait": [
+        192,
+        192
+      ],
+      "tinted": true,
+      "requests": [
+        "/art/ui/icons/build/US.rig@2x.beauty.png",
+        "/art/ui/icons/build/US.rig@2x.team.png",
+        "/art/ui/portraits/US.rig@2x.beauty.png",
+        "/art/ui/portraits/US.rig@2x.team.png"
+      ]
+    },
+    "selection": "actual visible headquarters identity",
+    "box": "passed",
+    "destruction": {
+      "feedbackPeak": 3,
+      "rubble": [
+        90
+      ],
+      "tick": 232,
+      "visibleObject": false,
+      "shots": [
+        {
+          "id": 3,
+          "tick": 113,
+          "cue": true,
+          "duplicateStable": true
+        },
+        {
+          "id": 6,
+          "tick": 169,
+          "cue": true,
+          "duplicateStable": true
+        },
+        {
+          "id": 9,
+          "tick": 225,
+          "cue": true,
+          "duplicateStable": true
+        }
+      ],
+      "art": {
+        "indexedPages": 59,
+        "residentPages": 24,
+        "residentBytes": 69584160
+      },
+      "tile": "rubble",
+      "sourceTile": "open",
+      "actors": 4,
+      "deaths": 1,
+      "missing": []
+    },
+    "rewind": "original map and no future destruction effects",
+    "feedbackAccessibility": [
+      {
+        "setting": {
+          "reducedMotion": true
+        },
+        "peak": 0
+      },
+      {
+        "setting": {
+          "reducedFlashing": true
+        },
+        "peak": 0
+      },
+      {
+        "setting": {
+          "screenShake": 0
+        },
+        "peak": 0
+      }
+    ],
+    "deploymentAnimation": {
+      "deploy": {
+        "state": "deploy",
+        "frame": 4,
+        "frames": 8,
+        "source": {
+          "state": "deploy",
+          "direction": 0,
+          "index": 4
+        },
+        "progress": 500,
+        "tick": 131
+      },
+      "pack": {
+        "state": "pack",
+        "frame": 4,
+        "frames": 8,
+        "source": {
+          "state": "deploy",
+          "direction": 0,
+          "index": 3
+        },
+        "progress": 500,
+        "tick": 192
+      }
+    },
+    "buildingAnimation": {
+      "production": {
+        "state": "produce",
+        "frames": 6,
+        "frame": 4,
+        "source": {
+          "state": "produce",
+          "direction": 0,
+          "index": 4
+        },
+        "progress": 0
+      },
+      "lowpower": {
+        "state": "lowpower",
+        "frames": 1,
+        "frame": 0,
+        "source": {
+          "state": "lowpower",
+          "direction": 0,
+          "index": 0
+        },
+        "progress": 0
+      },
+      "disabled": {
+        "state": "disabled",
+        "frames": 1,
+        "frame": 0,
+        "source": {
+          "state": "disabled",
+          "direction": 0,
+          "index": 0
+        },
+        "progress": 0
+      },
+      "selling": {
+        "state": "sell",
+        "frames": 8,
+        "frame": 4,
+        "source": {
+          "state": "construct",
+          "direction": 0,
+          "index": 3
+        },
+        "progress": 500
+      },
+      "demand": 75,
+      "capacity": 40
+    },
+    "aircraftLifecycle": {
+      "flying": {
+        "tick": 108,
+        "state": "flying",
+        "landed": false,
+        "pose": "fly",
+        "altitude": 35,
+        "changedAt": 11785.200000047684,
+        "at": 13650.599999904633,
+        "authoredStates": [
+          "fly",
+          "bank_left",
+          "bank_right",
+          "fire",
+          "empty",
+          "damaged",
+          "crash"
+        ]
+      },
+      "landing": {
+        "tick": 170,
+        "state": "servicing",
+        "landed": true,
+        "pose": "fly",
+        "altitude": 34.999813499170365,
+        "changedAt": 14293.099999904633,
+        "at": 14293.900000095367,
+        "authoredStates": [
+          "fly",
+          "bank_left",
+          "bank_right",
+          "fire",
+          "empty",
+          "damaged",
+          "crash"
+        ]
+      },
+      "service": {
+        "tick": 170,
+        "state": "servicing",
+        "landed": true,
+        "pose": "fly",
+        "altitude": 0,
+        "changedAt": 14293.099999904633,
+        "at": 15042.700000047684,
+        "authoredStates": [
+          "fly",
+          "bank_left",
+          "bank_right",
+          "fire",
+          "empty",
+          "damaged",
+          "crash"
+        ]
+      },
+      "ready": {
+        "tick": 650,
+        "state": "landed",
+        "landed": true,
+        "pose": "fly",
+        "altitude": 0,
+        "changedAt": 20903.200000047684,
+        "at": 20903.900000095367,
+        "authoredStates": [
+          "fly",
+          "bank_left",
+          "bank_right",
+          "fire",
+          "empty",
+          "damaged",
+          "crash"
+        ]
+      },
+      "takeoff": {
+        "tick": 652,
+        "state": "flying",
+        "landed": false,
+        "pose": "bank_right",
+        "altitude": 0.00010493005001783968,
+        "changedAt": 21061.099999904633,
+        "at": 21061.700000047684,
+        "authoredStates": [
+          "fly",
+          "bank_left",
+          "bank_right",
+          "fire",
+          "empty",
+          "damaged",
+          "crash"
+        ]
+      },
+      "cruising": {
+        "tick": 652,
+        "state": "flying",
+        "landed": false,
+        "pose": "bank_right",
+        "altitude": 35,
+        "changedAt": 21061.099999904633,
+        "at": 21829.799999952316,
+        "authoredStates": [
+          "fly",
+          "bank_left",
+          "bank_right",
+          "fire",
+          "empty",
+          "damaged",
+          "crash"
+        ]
+      },
+      "crash": {
+        "tick": 654,
+        "state": "destroyed",
+        "landed": false,
+        "pose": "crash",
+        "altitude": 34.99986000001669,
+        "changedAt": 21989,
+        "at": 21989.799999952316,
+        "authoredStates": [
+          "fly",
+          "bank_left",
+          "bank_right",
+          "fire",
+          "empty",
+          "damaged",
+          "crash"
+        ]
+      },
+      "grounded": {
+        "tick": 654,
+        "state": "destroyed",
+        "landed": false,
+        "pose": "crash",
+        "altitude": 0,
+        "changedAt": 21989,
+        "at": 23032.599999904633,
+        "authoredStates": [
+          "fly",
+          "bank_left",
+          "bank_right",
+          "fire",
+          "empty",
+          "damaged",
+          "crash"
+        ]
+      },
+      "hashBefore": "0e348c7b16799155fb532741742808c9527175d6b6bb0a3e04e07e3d3c4914d6",
+      "hashAfter": "0e348c7b16799155fb532741742808c9527175d6b6bb0a3e04e07e3d3c4914d6",
+      "removal": "public practice_remove; not a combat kill",
+      "legacyArtGap": "IR.strike legacy sample lacks parked, rearm, launch and recover poses"
+    },
+    "contextRecovery": {
+      "before": 100,
+      "during": 120,
+      "saveRestored": true,
+      "actors": 5,
+      "pages": 44,
+      "recovery": "Graphics context lost. Simulation remains in its worker; pause or save while graphics recover."
+    },
+    "disposal": {
+      "scenes": 5,
+      "canvases": 0,
+      "art": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0
+      }
+    },
+    "shadowComposition": {
+      "groundPixelsChanged": 1741,
+      "opaqueBodyChanged": 0,
+      "opaqueBodyPixels": 3552,
+      "damagedHidden": true,
+      "healthyVisible": true,
+      "loadedPages": 6,
+      "shadowVisible": true
+    }
+  }
+}

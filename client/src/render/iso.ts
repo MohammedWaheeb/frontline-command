@@ -5,10 +5,11 @@ export const TILE_W=64,TILE_H=32,HALF_W=32,HALF_H=16;
 /** Height step in screen px per terrain level (presentation only). */
 export const LEVEL_PX=10;
 export interface Vec2 {x:number;y:number}
-/** Millitiles → world pixels. */
+/** Flat millitiles → world pixels. Use TerrainSurface.projectGround for public
+ * terrain positions; retain this helper for rigid sprite/turret-relative offsets. */
 export function toScreen(xMt:number,yMt:number):Vec2{const x=xMt/1000,y=yMt/1000;return {x:(x-y)*HALF_W,y:(x+y)*HALF_H}}
 export function tileToScreen(x:number,y:number):Vec2{return {x:(x-y)*HALF_W,y:(x+y)*HALF_H}}
-/** World pixels → millitiles (ground plane). */
+/** Flat inverse only. Live map input uses TerrainSurface.pickSurface first. */
 export function toWorld(sx:number,sy:number):Vec2{const a=sx/HALF_W,b=sy/HALF_H;return {x:(a+b)/2*1000,y:(b-a)/2*1000}}
 /** Go facing is millidegrees measured from +x toward +y; sprite heading d of N uses the same convention. */
 export function headingIndex(facing:number,directions:number){if(directions<=1)return 0;const a=((facing%360000)+360000)%360000;return Math.round(a/360000*directions)%directions}

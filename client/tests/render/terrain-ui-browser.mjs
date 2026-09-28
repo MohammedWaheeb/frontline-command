@@ -1,0 +1,36 @@
+// Full product UI on an isolated static build, using a real Go-generated save.
+import {createServer} from 'node:http';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import {build as viteBuild} from 'vite';
+import {chromium} from 'playwright-core';
+const root=fileURLToPath(new URL('../../../',import.meta.url)),out=path.join(root,'work/evidence/terrain-height/ui'),product=path.join(out,'build');await mkdir(out,{recursive:true});
+await viteBuild({configFile:path.join(root,'client/vite.config.ts'),build:{outDir:product,emptyOutDir:true}});
+await build({stdin:{contents:"export {fromBinary} from '@bufbuild/protobuf';export {PlayerSnapshotSchema,OrderBatchSchema} from './protocol/frontline_pb';export {TerrainSurface} from './render/terrain-surface';export {minimapLayout,minimapProject,minimapWorldPoint} from './render/minimap';",resolveDir:path.join(root,'client/src')},outfile:path.join(out,'decode.mjs'),bundle:true,platform:'node',format:'esm'});
+const {fromBinary,PlayerSnapshotSchema,OrderBatchSchema,TerrainSurface,minimapLayout,minimapProject,minimapWorldPoint}=await import(pathToFileURL(path.join(out,'decode.mjs')));
+const saveFile=path.join(root,'work/evidence/terrain-height/product/height-actual-orders.save.json'),saved=JSON.parse(await readFile(saveFile,'utf8')),engine=JSON.parse(saved.engine),map=engine.state?.map??engine.map;
+// The exact map comes from the fixture's Go-produced engine save, never roundtripped back into Go.
+if(!map)throw Error('Missing public map in Go save');const surface=new TerrainSurface(map);
+const mime={'.js':'text/javascript','.json':'application/json','.css':'text/css','.wasm':'application/wasm','.png':'image/png','.svg':'image/svg+xml','.ogg':'audio/ogg','.mp3':'audio/mpeg'};
+const server=createServer(async(req,res)=>{try{const p=decodeURIComponent(new URL(req.url,'http://local').pathname);if(p.split('/').includes('..'))throw Error('Unsafe path');res.setHeader('Content-Type',mime[path.extname(p)]??'text/html');res.end(await readFile(path.join(product,p==='/'?'index.html':p)))}catch(error){res.statusCode=404;res.end(String(error))}});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+const browser=await chromium.launch({headless:false,channel:'chromium'}),page=await browser.newPage({viewport:{width:1600,height:900}}),report={time:new Date().toISOString(),browser:browser.version(),errors:[],checks:{},wasmSHA256:createHash('sha256').update(await readFile(path.join(product,'runtime/frontline.wasm'))).digest('hex')};
+page.on('pageerror',e=>report.errors.push(e.message));
+await page.addInitScript(()=>{const Native=window.Worker;window.orderBytes=[];window.Worker=class extends Native{constructor(...args){super(...args);this.addEventListener('message',event=>{if(event.data.event==='frame')window.frameBytes=Array.from(event.data.bytes)});const post=this.postMessage;this.postMessage=function(message,...rest){if(message.method==='submit')window.orderBytes.push(Array.from(message.args[0]));return post.call(this,message,...rest)}}}});
+async function snapshot(){const bytes=await page.evaluate(()=>window.frameBytes);return bytes?fromBinary(PlayerSnapshotSchema,new Uint8Array(bytes)):undefined}
+async function until(check,label,timeout=60000){const start=Date.now();while(!await check()){if(Date.now()-start>timeout)throw Error(label);await page.waitForTimeout(120)}}
+let center;async function centerAt(p){const box=await page.getByLabel('Tactical minimap').boundingBox(),q=minimapProject(minimapLayout(map.width,map.height,box.width,box.height),p);await page.getByLabel('Tactical minimap').evaluate(canvas=>canvas.addEventListener('click',event=>window.minimapClick={x:event.clientX,y:event.clientY},{once:true}));await page.mouse.click(box.x+q.x,box.y+q.y);const actual=await page.evaluate(()=>window.minimapClick);center=minimapWorldPoint(map.width,map.height,box.width,box.height,{x:actual.x-box.x,y:actual.y-box.y});await page.waitForTimeout(80)}
+async function screen(p,dy=0){const box=await page.locator('.battlefield-canvas canvas').boundingBox(),a=surface.projectGround(p),b=surface.projectGround(center);return {x:box.x+box.width/2+a.x-b.x,y:box.y+box.height/2+a.y-b.y+dy}}
+async function clickWorld(p,button='left',dy=0){const q=await screen(p,dy);await page.mouse.click(q.x,q.y,{button})}
+try{
+ await page.goto(`http://127.0.0.1:${server.address().port}`);await page.getByRole('button',{name:'Explore game modes',exact:true}).click({timeout:60000});await page.getByRole('button',{name:'Load operation',exact:true}).click();await page.getByLabel('Import save',{exact:true}).setInputFiles(saveFile);await page.locator('.archive-row').filter({hasText:saved.name}).getByRole('button',{name:'Load',exact:true}).click();await page.locator('.battlefield-canvas canvas').waitFor({timeout:90000});await page.locator('.scene-loading').waitFor({state:'hidden',timeout:90000});
+ const f=await snapshot(),tank=f.entities.find(e=>e.type==='US.tank'),power=f.entities.find(e=>e.type==='power');assert(tank&&power);await centerAt(tank.position);await clickWorld(tank.position,'left',-12);await until(async()=>/tank/i.test(await page.locator('.production-heading h2').innerText()),'Tank not selected on raised terrain');
+ const destination={x:14500,y:23500};await clickWorld(destination,'right');await until(async()=>{const e=(await snapshot()).entities.find(e=>e.id===tank.id);return Math.hypot(e.position.x-destination.x,e.position.y-destination.y)<650},'UI move did not reach raised target');report.checks.move={destination,position:(await snapshot()).entities.find(e=>e.id===tank.id).position};await page.screenshot({path:path.join(out,'actual-ui-raised-move.png')});
+ await centerAt(power.position);await clickWorld(power.position,'left',-30);await until(async()=>/power station/i.test(await page.locator('.production-heading h2').innerText()),'Raised foundation structure not selected');report.checks.structureSelected=true;await page.screenshot({path:path.join(out,'actual-ui-mixed-foundation.png')});
+ await page.keyboard.press('F5');await until(async()=>/saved/i.test(await page.locator('.notice').innerText().catch(()=>'')),'Quick save did not confirm');report.checks.saved=true;
+ const orders=(await page.evaluate(()=>window.orderBytes)).flatMap(bytes=>fromBinary(OrderBatchSchema,new Uint8Array(bytes)).orders);report.orders=orders.map(o=>({kind:o.kind,position:o.position,entities:o.entities}));assert(orders.some(o=>o.kind==='move'&&o.entities.includes(tank.id)&&Math.hypot(o.position.x-destination.x,o.position.y-destination.y)<50));assert.deepEqual(report.errors,[]);report.status='passed';
+}catch(error){report.status='failed';report.error=String(error.stack??error);await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{});await writeFile(path.join(out,'failure.txt'),await page.locator('body').innerText().catch(()=>''));process.exitCode=1}
+finally{await writeFile(path.join(out,'browser.json'),JSON.stringify(report,null,2));await browser.close();await new Promise(resolve=>server.close(resolve));console.log(report.status,report.error??'')}
