@@ -1,8 +1,9 @@
 import {Assets,Rectangle,Texture} from 'pixi.js';
 import {classify,type CatalogIndex} from '../content/catalog';
 import {authoredArtId} from './art-id';
+import type {EffectDescriptor} from '../content/effect-assets.mjs';
 
-export interface ArtIndex {format:1;sprites:Record<string,string>;terrain:string[];portraits:string[];buildIcons?:string[];chrome:string[];icons:boolean;emblems:boolean}
+export interface ArtIndex {effects?:EffectDescriptor;format:1;sprites:Record<string,string>;terrain:string[];portraits:string[];buildIcons?:string[];chrome:string[];icons:boolean;emblems:boolean}
 export interface SpriteState {name:string;part:string;directions:number;frames:number;fps:number;loop:boolean;layers?:string[];progress_driven?:boolean}
 export interface SpriteMeta {
  id:string;faction?:string;frame_size_2x:[number,number];anchor_2x:[number,number];layers:string[];
