@@ -1,8 +1,10 @@
 # Frozen v24 multiplayer acceptance preparation
 
-Status: **prepared, not executed**. This checkpoint adds test drivers and evidence
-only. No browser, game host, live match, production code, content or art was changed.
-The existing earned outcomes and failures retain their original source scopes.
+The preparation checkpoint changed only test drivers and evidence. A subsequent
+fresh 1H+3AI course earned a human victory and passed gameplay/lifecycle checks,
+but its overall strict result is **FAILED** on 1,131 raw request diagnostics.
+No production code, content or art was changed. Earlier outcomes and failures
+retain their original source scopes; the two-game endurance pair is still unrun.
 
 ## Exact product and preparation
 
@@ -51,7 +53,7 @@ recorded from the earned replay; the driver does not select or replace it.
 | Case | Humans / normal bots | Format and human factions | Earlier evidence; current v24 status |
 | --- | --- | --- | --- |
 | `1h1ai` | 1 / 1 | Opposing teams, US | Earlier strict PASS; v24 unrun |
-| `1h3ai` | 1 / 3 | FFA, US | Earned win, atlas-eviction FAIL; repaired replay camera PASS is not fresh live acceptance; v24 unrun |
+| `1h3ai` | 1 / 3 | FFA, US | Earned win, atlas-eviction FAIL; repaired replay camera PASS preserved; fresh v24 gameplay/lifecycle PASS, strict FAILED on raw diagnostics |
 | `2h` | 2 / 0 | 1v1, US/IR | Two same-App strict PASS matches, about 9m36s each; v24 unrun |
 | `2h2ai` | 2 / 2 | Human team versus bot team, US/IR | Earlier strict PASS; v24 unrun |
 | `3h` | 3 / 0 | FFA, US/IR/SY | Clean earned combat, original archive/recovery FAIL; separate copied-host recovery PASS is not a new full course; v24 unrun |
@@ -170,4 +172,54 @@ checks; frozen application and exact acceptance-entry TypeScript checks pass.
 Syntax checks pass. The first entry-only typecheck used an incorrect relative
 path, and the second lacked an explicit external `vite/client` type resolution;
 both harness failures remain in numbered logs. The corrected third config checks
-the immutable entry without changing it. No runtime/game outcome has been added.
+the immutable entry without changing it. These preparation checks did not add a runtime/game outcome; the later execution is recorded below.
+
+## Fresh 1H+3AI course — 29 September, 10:06 UTC
+
+Evidence: `work/multiplayer-combat/v24-1h3ai-2026-09-29T09-39-29.139Z/`.
+Genuine Chrome 154.0.8037.58, actual Apple M4 Metal, unchanged v24 +34 overlay and
+integrated 0.3.4. US won ordinary elimination at tick 31479, seed
+`13106153005153403633`. Subtracting the 100-tick countdown gives 31379 active ticks,
+**26m08.95s**. This single FFA does not replace the two-human same-App pair.
+All four players spent/earned ordinary resources; the complete replay contains
+3496 shots, 170 destructions, 30 completed structures and 185 ready units. The human
+spent 60,785.923 credits, including 1,585.923 paid repair, with 58,800 income.
+
+Reconnect, visible-enemy ownership rejection, committed result, normal-menu
+archive, unchanged App/document and final menu resource checks all passed.
+Art resident/picking bytes, frame subscribers and match transports/sockets returned
+to their original zero baseline; the original validator and bounded idle Pixi
+decoder pool remain. No actual eliminated-human/frozen-view path occurred because
+the sole human won; a fresh 3H recovery course is still needed. The client reported
+79 fallback IDs, retained exactly in the compact receipt.
+
+Replay SHA-256 is
+`0586defa052904d795074f6d97926b14c27293efe2b08533fa9ebce310721c62`.
+Full replay, final checkpoint and midpoint 15739 save/restore continuation agree on
+`7378d9dd1694bc4d6f7aaaa2ab8828e64b5e742091cf70fdbf17ae187c4bdfe2`.
+Browser/host closed 10:06:04 UTC; native audit closed 10:06:28 UTC. Driver exit 1
+correctly preserves strict failure. No next case was launched; root took the
+browser lane for the independent APC course.
+
+All 1,131 raw CDP failures match the independent PW count and have distinct CDP
+RequestIds, Fetch resource type, status 200 and `net::ERR_ABORTED`. There are
+1,121 GET art requests (371 JSON / 750 PNG) and 10 POST advice requests. 1,116 occurred
+during readiness and 15 during combat. The status callback preceded every failure;
+none had `loadingFinished`. There were zero page/console/HTTP errors, collector
+faults or rejected application advice calls. Those successes **do not** prove
+complete native bodies for the failed request identities.
+
+This driver collected no JS-reader EOF/chunk hashes, initiator stack or proven
+window-fetch realm. The native-response classifier therefore cannot retrospectively
+classify these requests; all remain unresolved strict failures. The independent
+small Chrome primitive course is relevant context, not an attribution or waiver.
+A new bounded readiness/paid-opening trace is being prepared separately: prove
+actual consumed chunks/EOF and exact request/realm/ordinal/order, keeping failures
+before versus after EOF and any real cancellation separate. No identical long
+match needs repeating merely to investigate asset-preflight diagnostics.
+
+The run started on battery at 76%, ending at 59%, while the sole Blender remained active.
+Its original free-text conditions argument incorrectly says AC; the explicit
+`launch-conditions-correction.json` and actual power samples preserve/correct that
+reporting mistake without changing the original driver output. No timing or
+reference-hardware claim is made.

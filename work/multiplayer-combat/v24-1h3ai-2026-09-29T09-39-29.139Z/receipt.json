@@ -1,0 +1,434 @@
+{
+  "scope": "Actual frozen v24 1 human US versus3 normal Go bots, FFA, ordinary paid-combat elimination. Shared-host battery-powered functional evidence; no performance/complete-art/LAN claim. Original raw diagnostics remain strict failures.",
+  "source_checkpoint": "72495f0",
+  "run_directory": "work/multiplayer-combat/v24-1h3ai-2026-09-29T09-39-29.139Z",
+  "statuses": {
+    "status": "failed",
+    "combatStatus": "passed",
+    "lifecycleStatus": "passed",
+    "strictStatus": "failed",
+    "diagnosticStatus": "failed"
+  },
+  "build": {
+    "sha256": {
+      "host": "36ca8c93f538696206317113d50af6ee31ac92fcbcd626a0a9f9b0ceaab8a5e0",
+      "wasm": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+      "protocol": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+      "pack": "bde24f48151997777c460c01e33ec6bc8703977b9c39ef1e12897e6aba633a1a",
+      "clientSource": "a3ab58d362a8536ede222db4be37f4a6661c2817e9f07a56b9026617303f0878",
+      "entry": "4573c94b97141142bb1d9bd6821ebb28ae2e7fd19c8cca22cc9391031c9cfb17"
+    },
+    "overlaySHA256": "1c86560a299c2c2ae99fd6c44df476d4cecab091bb1b4d4b6e78d8b63ee8077d",
+    "baseSHA256": "f73a3447173a6b4e1e752ed374175044019565375dd342d893a377187658817e",
+    "sourceLockSHA256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "runtimeReceiptSHA256": "cc990ac7f78d5a1094dd635d06bff0cb04d2c055ce413dbd114a7233bb176e69"
+  },
+  "browser": "154.0.8037.58",
+  "executable": {
+    "path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "sha256": "633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740",
+    "explicit": true
+  },
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Version 26.5.1 (Build 25F80))",
+  "conditions_actual": "Battery76% at launch,59% after closure; sole Blender/shared authoring; command-scoped caffeinate -di. Original free-text argument incorrectly said AC; separate correction preserved.",
+  "closed": "2026-09-29T10:06:04.349Z",
+  "completed": "2026-09-29T10:06:28.399Z",
+  "outcome": {
+    "$typeName": "frontline.v1.MatchResult",
+    "matchId": "99bd950eadafcd8585548142",
+    "committed": true,
+    "void": false,
+    "outcome": {
+      "$typeName": "frontline.v1.Outcome",
+      "finished": true,
+      "draw": false,
+      "winningTeam": 1,
+      "reason": "elimination",
+      "tick": 31479
+    }
+  },
+  "duration": {
+    "initialTick": 0,
+    "countdownTicks": 100,
+    "finalTick": 31479,
+    "activeTicks": 31379,
+    "activeSeconds": 1568.95,
+    "minimumActiveTicks": 24000,
+    "qualifies": true
+  },
+  "replay": {
+    "id": "match-3b026c85-1abf-4dcb-9889-72c661cb6f18",
+    "sha256": "0586defa052904d795074f6d97926b14c27293efe2b08533fa9ebce310721c62",
+    "bytes": 2629231,
+    "startTick": 0,
+    "endTick": 31479
+  },
+  "seed_uint64": "13106153005153403633",
+  "hashes": {
+    "final_hash": "7378d9dd1694bc4d6f7aaaa2ab8828e64b5e742091cf70fdbf17ae187c4bdfe2",
+    "midpoint_hash": "c195b5f5975239cbe0c3936f0cdecba419a12a1b905ce1f2444e12bb384e6529",
+    "full_checkpoint_and_resumed_hashes_equal": true
+  },
+  "paid_players": [
+    {
+      "ai": "",
+      "defeated": false,
+      "faction": "US",
+      "id": 1,
+      "income_milli": 58800000,
+      "kills": 77,
+      "lost_milli": 10950000,
+      "orders": {
+        "attack": 241,
+        "attack_move": 1727,
+        "build": 16,
+        "capture": 6,
+        "guard": 118,
+        "move": 178,
+        "repair": 60,
+        "repair_reserve": 1,
+        "research": 1,
+        "train": 51
+      },
+      "spent_milli": 60785923,
+      "team": 1
+    },
+    {
+      "ai": "normal",
+      "defeated": true,
+      "faction": "IR",
+      "id": 2,
+      "income_milli": 44128000,
+      "kills": 17,
+      "lost_milli": 46400000,
+      "orders": {
+        "ability": 1,
+        "attack_move": 171,
+        "board": 1,
+        "build": 6,
+        "capture": 21,
+        "guard": 76,
+        "hold": 2,
+        "move": 299,
+        "repair": 1,
+        "repair_reserve": 1,
+        "stop": 20,
+        "train": 88,
+        "unload": 1
+      },
+      "spent_milli": 47867970,
+      "team": 2
+    },
+    {
+      "ai": "normal",
+      "defeated": true,
+      "faction": "SY",
+      "id": 3,
+      "income_milli": 6600000,
+      "kills": 11,
+      "lost_milli": 13150000,
+      "orders": {
+        "ability": 2,
+        "attack_move": 21,
+        "build": 5,
+        "gather": 1,
+        "guard": 17,
+        "move": 49,
+        "repair": 1,
+        "repair_reserve": 1,
+        "stop": 5,
+        "train": 16
+      },
+      "spent_milli": 12250000,
+      "team": 3
+    },
+    {
+      "ai": "normal",
+      "defeated": true,
+      "faction": "SA",
+      "id": 4,
+      "income_milli": 13800000,
+      "kills": 14,
+      "lost_milli": 20200000,
+      "orders": {
+        "attack_move": 55,
+        "board": 1,
+        "build": 6,
+        "capture": 4,
+        "gather": 2,
+        "guard": 27,
+        "hold": 2,
+        "move": 284,
+        "repair": 1,
+        "repair_reserve": 1,
+        "stop": 4,
+        "train": 26,
+        "unload": 1
+      },
+      "spent_milli": 19447211,
+      "team": 4
+    }
+  ],
+  "event_counts": {
+    "ability_activated": 2,
+    "capture_interrupted": 31,
+    "cargo_delivered": 203,
+    "construction_complete": 30,
+    "defeat_countdown": 3,
+    "destroyed": 170,
+    "foundation_placed": 31,
+    "impact": 3495,
+    "match_ended": 1,
+    "player_defeated": 3,
+    "research_complete": 1,
+    "route_blocked": 158,
+    "station_captured": 1,
+    "under_attack": 3403,
+    "unit_ready": 185,
+    "weapon_fired": 3496
+  },
+  "reconnect": {
+    "player": 1,
+    "before": {
+      "tick": 3604,
+      "sequence": 18,
+      "sockets": 1
+    },
+    "after": {
+      "tick": 3612,
+      "sequence": 18,
+      "sockets": 2
+    }
+  },
+  "ownershipRejections": [
+    {
+      "player": 1,
+      "tick": 3152,
+      "target": 45,
+      "code": "not_owner"
+    }
+  ],
+  "art_status": {
+    "files": 1213,
+    "fallbacks": [
+      "IR:IR.aa",
+      "IR:IR.apc",
+      "IR:IR.artillery",
+      "IR:IR.car",
+      "IR:IR.drone_hub",
+      "IR:IR.fighter",
+      "IR:IR.gunship",
+      "IR:IR.isr",
+      "IR:IR.launcher",
+      "IR:IR.repair",
+      "IR:IR.tank",
+      "IR:aa_post",
+      "IR:barracks",
+      "IR:bunker",
+      "IR:factory",
+      "IR:hq",
+      "IR:outpost",
+      "IR:power",
+      "IR:radar",
+      "IR:strategic",
+      "IR:supply",
+      "IR:tech",
+      "IR:turret",
+      "SA:SA.aa",
+      "SA:SA.airfield",
+      "SA:SA.apc",
+      "SA:SA.artillery",
+      "SA:SA.car",
+      "SA:SA.fighter",
+      "SA:SA.gunship",
+      "SA:SA.launcher",
+      "SA:SA.repair",
+      "SA:SA.strike",
+      "SA:SA.tank",
+      "SA:aa_post",
+      "SA:abm",
+      "SA:barracks",
+      "SA:bunker",
+      "SA:depot",
+      "SA:factory",
+      "SA:hq",
+      "SA:outpost",
+      "SA:power",
+      "SA:radar",
+      "SA:strategic",
+      "SA:supply",
+      "SA:tech",
+      "SA:turret",
+      "SY:SY.aa",
+      "SY:SY.artillery",
+      "SY:SY.buggy",
+      "SY:SY.launcher",
+      "SY:SY.repair",
+      "SY:SY.safehouse",
+      "SY:SY.scout_drone",
+      "SY:SY.tank",
+      "SY:SY.workshop_air",
+      "SY:aa_post",
+      "SY:abm",
+      "SY:barracks",
+      "SY:bunker",
+      "SY:factory",
+      "SY:hq",
+      "SY:outpost",
+      "SY:power",
+      "SY:radar",
+      "SY:strategic",
+      "SY:supply",
+      "SY:tech",
+      "SY:turret",
+      "US:US.aa",
+      "US:US.airfield",
+      "US:US.apc",
+      "US:US.artillery",
+      "US:US.car",
+      "US:US.gunship",
+      "US:US.launcher",
+      "US:US.repair",
+      "US:US.strike"
+    ]
+  },
+  "diagnostics": {
+    "method": {
+      "GET": 1121,
+      "POST": 10
+    },
+    "resource": {
+      ".json": 371,
+      ".png": 750,
+      "advice": 10
+    },
+    "status": {
+      "200": 1131
+    },
+    "phase": {
+      "readiness": 1116,
+      "ordinary-combat": 15
+    },
+    "type": {
+      "Fetch": 1131
+    },
+    "service_worker": {
+      "False": 1131
+    },
+    "unique_cdp_ids": 1131,
+    "unique_full_urls": 738,
+    "response_order_before_failure": 1131,
+    "loading_finished_before_failure": 0,
+    "native_eof_collected": false,
+    "native_body_hash_collected": false,
+    "initiator_stack_collected": false,
+    "advice_failures_returned": 0,
+    "advice_retries": [
+      {
+        "player": 1,
+        "count": 0
+      }
+    ],
+    "driver_sha": "de381fac98af65fa08eb49df7c9b537451d09eea36ec5cbea8625b56ea7ecee0",
+    "overall": "failed",
+    "combat": "passed",
+    "lifecycle": "passed"
+  },
+  "errors": [],
+  "httpErrors": [],
+  "cleanup": {
+    "same_application": true,
+    "same_document": true,
+    "app": {
+      "phase": "menu",
+      "transportPresent": false,
+      "frameSubscribers": 0,
+      "art": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "audio": {
+        "context": "absent",
+        "sources": 0,
+        "continuous": 0,
+        "buffers": 0,
+        "decodedBytes": 0,
+        "pending": 0,
+        "generation": 10,
+        "gains": {
+          "master": 0,
+          "voice": 0,
+          "music": 0,
+          "effects": 0,
+          "ui": 0
+        }
+      }
+    },
+    "activeWorkers": 11,
+    "worker_scope": "Original Go validator plus bounded idle source-identified Pixi image decoders; all match sockets/extra workers/pending jobs checks passed. No FX residency hook in frozen entry.",
+    "hostExit": {
+      "code": 0,
+      "signal": null
+    }
+  },
+  "files": {
+    "browser.json": {
+      "sha256": "b57a40814aba502539d8c03c5ed55f810da0d10045529ed1fe3337b3de810d3f",
+      "bytes": 5141534
+    },
+    "driver.mjs": {
+      "sha256": "de381fac98af65fa08eb49df7c9b537451d09eea36ec5cbea8625b56ea7ecee0",
+      "bytes": 35802
+    },
+    "expansion-commander.mjs": {
+      "sha256": "51e6fb82bc555ae1175e659d3b707e0bba6d8639a0bd63be98e24244758dfd9f",
+      "bytes": 21717
+    },
+    "multiplayer-v24-contract.mjs": {
+      "sha256": "83eebf5375d607c9cf194bac29923c0a38be247437c96b5bb0c543ea2e52f633",
+      "bytes": 2543
+    },
+    "multiplayer-passive-diagnostics.mjs": {
+      "sha256": "bf05c4eaa82d50e41c3d167a1c7bddd295964ba86a87f76a5400456fa79001d7",
+      "bytes": 2415
+    },
+    "round-1.replay.gz": {
+      "sha256": "0586defa052904d795074f6d97926b14c27293efe2b08533fa9ebce310721c62",
+      "bytes": 2629231
+    },
+    "round-1-native-audit/audit.json": {
+      "sha256": "b1a7b091af97b20e810082409009e319f68b7d3768745cde42982ab2a397dc32",
+      "bytes": 73281
+    },
+    "round-1-commands.jsonl": {
+      "sha256": "696669551bc17d622d21fce826b3dc2413bc2cce0a8337c93aadf891757a79a3",
+      "bytes": 1098822
+    },
+    "round-1-progress.jsonl": {
+      "sha256": "c6ce35c2c74a823a4aed66fd7d52479cc33be01c58796e405e49efaea8acddf0",
+      "bytes": 73159
+    },
+    "round-1-player-1-result.png": {
+      "sha256": "4581774ca7036bc9398172220421f301cf511043c1e47bd89ef4f7383ad54e97",
+      "bytes": 455850
+    },
+    "round-1-tick-21908.png": {
+      "sha256": "2d513571327539c1eff50b88459d2bf467ff98664be26936d59150a6a7e14d7f",
+      "bytes": 991665
+    },
+    "after-1-matches-player-1.png": {
+      "sha256": "181a9e85cda5f83b5260255b369b4cede078496e809c2348d30a5109057e780f",
+      "bytes": 1158255
+    },
+    "raw-diagnostic-summary.json": {
+      "sha256": "3299103eabd0be54e976f57c300058397aa7ee1c57630f389ef4b34e11de478b",
+      "bytes": 815
+    },
+    "launch-conditions-correction.json": {
+      "sha256": "169fe3a8b2ab05fd4eb0de6fa3eedb899d5ebbab3876fff37028467abcafbb94",
+      "bytes": 3143
+    }
+  }
+}
