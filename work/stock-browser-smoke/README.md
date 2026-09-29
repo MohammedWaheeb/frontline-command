@@ -1,5 +1,9 @@
 # Genuine stock Firefox / Safari App smoke — authoring handoff
 
+## Execution update, 29 September
+
+`firefox-02` passes all17 recorded checkpoints with real Firefox156.0.1/geckodriver0.37.1, exact Go save/export/import/load/replay and zero observed errors. The first attempt remains failed on a test-script quoting error, fixed by passing CSS selectors as WebDriver arguments. `safari-01` is setup-blocked on Safari's explicit “Allow remote automation” requirement; the user opt-in is requested and no setting was bypassed. All sessions/processes are closed. Full details and limitations: `docs/genuine-browser-acceptance.md`. Historical authoring-only statements below retain their original scope.
+
 2026-09-29: **author preflight passes for both browsers; four dependency-free W3C helper tests pass. The actual browser course is UNRUN.** No browser, WebDriver server/session, HTTP server or game host was started by these checks. Root owns serial browser execution.
 
 The shared runner is `client/tests/stock-browser/product-smoke.mjs`; it uses the W3C HTTP protocol directly, not Playwright's patched Firefox or WebKit. Existing esbuild bundles a passive observer against the exact frozen protocol. No additional package installation was needed.

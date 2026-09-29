@@ -1,0 +1,378 @@
+{
+  "scope": "Bounded genuine-browser App compatibility. Chrome/Edge v24 union, Firefox/Safari v23. No final release or all-aspect/browser/network/hardware claim.",
+  "runs": [
+    {
+      "path": "work/battlefield-clarity/union-v24-stock-chrome-01/browser.json",
+      "sha256": "46614dad68dff8b3c84bbfd754e5147c45ec4ce396fc4b43e326e689c5e4e450",
+      "driverStatus": "passed",
+      "browser": "154.0.8037.58",
+      "identity": {
+        "driverSHA256": "ff052345f97c40915a9aed18c10f6089a53f5c1c13c1e078353db7cff8a21f75",
+        "wasmSHA256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+        "runtimeVersion": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.4"
+        },
+        "indexSHA256": "2a7122ea258b5e4838a29510d72d2ea9398bf95b8bb870c84b788c22a99b9ed3",
+        "stock": {
+          "name": "chrome",
+          "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "executableSHA256": "633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740",
+          "applicationVersion": "154.0.8037.58",
+          "receiptPath": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/executables.json",
+          "receiptSHA256": "6d96287d3490248659ef31e8471379a533ca83be8b9693cdc7a0ddd4f95872ac"
+        },
+        "buildReceiptSHA256": "1c86560a299c2c2ae99fd6c44df476d4cecab091bb1b4d4b6e78d8b63ee8077d",
+        "browserReportedVersion": "154.0.8037.58"
+      },
+      "checks": 0,
+      "cases": [
+        {
+          "id": "1280x720-scale150",
+          "status": "passed",
+          "checkpoints": 21
+        }
+      ],
+      "pageConsoleErrors": [],
+      "consoleErrors": [],
+      "httpErrors": [],
+      "rawRequestFailures": 280,
+      "sourceChanges": [],
+      "failedPhase": null,
+      "error": null,
+      "webdriverError": null,
+      "actualCapabilities": null,
+      "sessionDeleted": null,
+      "inputsVerifiedAfter": null
+    },
+    {
+      "path": "work/battlefield-clarity/union-v24-stock-edge-01/browser.json",
+      "sha256": "62ca1fba4c687aae236be90d6248a71f4a35cb161d94ea81b69025447e9dd020",
+      "driverStatus": "passed",
+      "browser": "154.0.4258.37",
+      "identity": {
+        "driverSHA256": "ff052345f97c40915a9aed18c10f6089a53f5c1c13c1e078353db7cff8a21f75",
+        "wasmSHA256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+        "runtimeVersion": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.4"
+        },
+        "indexSHA256": "2a7122ea258b5e4838a29510d72d2ea9398bf95b8bb870c84b788c22a99b9ed3",
+        "stock": {
+          "name": "edge",
+          "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+          "executableSHA256": "41b21abd1ca2fef589969392ffbefabadf3cca09bdc41bb9b728281759617869",
+          "applicationVersion": "154.0.4258.37",
+          "receiptPath": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/executables.json",
+          "receiptSHA256": "6d96287d3490248659ef31e8471379a533ca83be8b9693cdc7a0ddd4f95872ac"
+        },
+        "buildReceiptSHA256": "1c86560a299c2c2ae99fd6c44df476d4cecab091bb1b4d4b6e78d8b63ee8077d",
+        "browserReportedVersion": "154.0.4258.37"
+      },
+      "checks": 0,
+      "cases": [
+        {
+          "id": "1280x720-scale150",
+          "status": "passed",
+          "checkpoints": 21
+        }
+      ],
+      "pageConsoleErrors": [],
+      "consoleErrors": [],
+      "httpErrors": [],
+      "rawRequestFailures": 252,
+      "sourceChanges": [],
+      "failedPhase": null,
+      "error": null,
+      "webdriverError": null,
+      "actualCapabilities": null,
+      "sessionDeleted": null,
+      "inputsVerifiedAfter": null
+    },
+    {
+      "path": "work/stock-browser-smoke/firefox-01/result.json",
+      "sha256": "c8abedac4c32627072bf3f8b72bbc294fbe034dd4ca88ccc8385ae6d9cbb3fe1",
+      "driverStatus": "failed",
+      "browser": "firefox",
+      "identity": {
+        "buildSHA256": "0debf4ba46647aa0af24d95ba216463f2ef0025e67b850ffa1749543fbe91777",
+        "sourceDigest": "723651b29547fa9b62e37b1e96d148a2f186ca691f28af558cf8092a793a65c1",
+        "packSHA256": "d2e53993df9635172a11fb227ac7410bca482969a9ca04258b3d80fe548649e0",
+        "runtime": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.4"
+        },
+        "app": {
+          "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox",
+          "version": "156.0.1",
+          "architectures": [
+            "x86_64",
+            "arm64"
+          ],
+          "executable_sha256": "f2559282d3ef1ceeb0083700e57092c905f043eddb02a9b8ac09009ec9719ac3",
+          "automation": "W3C WebDriver through task-local geckodriver; moz:firefoxOptions.binary; temporary profile",
+          "launched": false
+        },
+        "driver": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver",
+        "appSignature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox\nIdentifier=org.mozilla.firefox\nFormat=app bundle with Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=927 flags=0x10000(runtime) hashes=18+7 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=f52a9f7f34d93175e9393d3e0e33b00a47332d40\nCandidateCDHashFull sha256=f52a9f7f34d93175e9393d3e0e33b00a47332d40b839cecb7cab5653b55c2921\nHash choices=sha256\nCMSDigest=f52a9f7f34d93175e9393d3e0e33b00a47332d40b839cecb7cab5653b55c2921\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=32768\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=f52a9f7f34d93175e9393d3e0e33b00a47332d40\nSignature size=8988\nAuthority=Developer ID Application: Mozilla Corporation (43AQ936H96)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=21 Sep 2026 at 5:53:56\u202fpm\nNotarization Ticket=stapled\nInfo.plist entries=37\nTeamIdentifier=43AQ936H96\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=73\nInternal requirements count=1 size=180\n"
+        },
+        "driverSignature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver\nIdentifier=geckodriver\nFormat=Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=37751 flags=0x10000(runtime) hashes=1174+2 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=f13524c698f8361a534f3f6d8190e67cb7505ad7\nCandidateCDHashFull sha256=f13524c698f8361a534f3f6d8190e67cb7505ad76fe82b21eb01a4878a87363c\nHash choices=sha256\nCMSDigest=f13524c698f8361a534f3f6d8190e67cb7505ad76fe82b21eb01a4878a87363c\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=3391488\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=f13524c698f8361a534f3f6d8190e67cb7505ad7\nSignature size=8988\nAuthority=Developer ID Application: Mozilla Corporation (43AQ936H96)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=17 Jul 2026 at 12:36:08\u202fpm\nInfo.plist=not bound\nTeamIdentifier=43AQ936H96\nRuntime Version=26.5.0\nSealed Resources=none\nInternal requirements count=1 size=148\n"
+        },
+        "observerBundleSHA256": "156238bb2521881b68d847deecc004b834eefd04f8783e9cc6121c9722fb7a2c",
+        "sources": {
+          "product-smoke.mjs": "528b32579354825e83eef5c92649e12f400f741f2fe84ce16636652ba080e742",
+          "observe.mjs": "6e10adec0991f490a4dda13e9a67b1fd3d90222179bc586a90831c69e1cb7dd2",
+          "w3c.mjs": "ef1db6e0ceb415536429bf8d34170b440fd3c0b852612af1d39ea15c871c286e"
+        }
+      },
+      "checks": 1,
+      "cases": [],
+      "pageConsoleErrors": [],
+      "consoleErrors": [],
+      "httpErrors": [],
+      "rawRequestFailures": "not CDP/BiDi-covered; passive observer only",
+      "sourceChanges": [],
+      "failedPhase": "settings",
+      "error": "WebDriverError: POST /session/8e376a62-9db6-4b1f-9b48-d509ba675e37/execute/sync: javascript error: SyntaxError: missing ) after argument list\n    at WebDriver.request (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/stock-browser/w3c.mjs:8:539)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/stock-browser/product-smoke.mjs:57:293",
+      "webdriverError": {
+        "status": 500,
+        "value": {
+          "error": "javascript error",
+          "message": "SyntaxError: missing ) after argument list",
+          "stacktrace": "@http://127.0.0.1:54368/:2:57\n"
+        },
+        "method": "POST",
+        "path": "/session/8e376a62-9db6-4b1f-9b48-d509ba675e37/execute/sync"
+      },
+      "actualCapabilities": {
+        "acceptInsecureCerts": false,
+        "browserName": "firefox",
+        "browserVersion": "156.0.1",
+        "moz:accessibilityChecks": false,
+        "moz:buildID": "20260921121718",
+        "moz:geckodriverVersion": "0.37.1",
+        "moz:headless": false,
+        "moz:platformVersion": "25.5.0",
+        "moz:processID": 55306,
+        "moz:profile": "/var/folders/n4/43n_jxh10gg3s770b_8jbzb80000gn/T/rust_mozprofileZ4DkHn",
+        "moz:shutdownTimeout": 60000,
+        "moz:webdriverClick": true,
+        "moz:windowless": false,
+        "pageLoadStrategy": "normal",
+        "platformName": "mac",
+        "proxy": {},
+        "setWindowRect": true,
+        "strictFileInteractability": false,
+        "timeouts": {
+          "implicit": 0,
+          "pageLoad": 300000,
+          "script": 30000
+        },
+        "unhandledPromptBehavior": "dismiss and notify",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:156.0) Gecko/20100101 Firefox/156.0"
+      },
+      "sessionDeleted": true,
+      "inputsVerifiedAfter": 145
+    },
+    {
+      "path": "work/stock-browser-smoke/firefox-02/result.json",
+      "sha256": "22b5117ff29b0259bcddbe727bb8560b95caea7ad578481717dcdc3fdda45f66",
+      "driverStatus": "passed",
+      "browser": "firefox",
+      "identity": {
+        "buildSHA256": "0debf4ba46647aa0af24d95ba216463f2ef0025e67b850ffa1749543fbe91777",
+        "sourceDigest": "723651b29547fa9b62e37b1e96d148a2f186ca691f28af558cf8092a793a65c1",
+        "packSHA256": "d2e53993df9635172a11fb227ac7410bca482969a9ca04258b3d80fe548649e0",
+        "runtime": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.4"
+        },
+        "app": {
+          "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox",
+          "version": "156.0.1",
+          "architectures": [
+            "x86_64",
+            "arm64"
+          ],
+          "executable_sha256": "f2559282d3ef1ceeb0083700e57092c905f043eddb02a9b8ac09009ec9719ac3",
+          "automation": "W3C WebDriver through task-local geckodriver; moz:firefoxOptions.binary; temporary profile",
+          "launched": false
+        },
+        "driver": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver",
+        "appSignature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox\nIdentifier=org.mozilla.firefox\nFormat=app bundle with Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=927 flags=0x10000(runtime) hashes=18+7 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=f52a9f7f34d93175e9393d3e0e33b00a47332d40\nCandidateCDHashFull sha256=f52a9f7f34d93175e9393d3e0e33b00a47332d40b839cecb7cab5653b55c2921\nHash choices=sha256\nCMSDigest=f52a9f7f34d93175e9393d3e0e33b00a47332d40b839cecb7cab5653b55c2921\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=32768\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=f52a9f7f34d93175e9393d3e0e33b00a47332d40\nSignature size=8988\nAuthority=Developer ID Application: Mozilla Corporation (43AQ936H96)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=21 Sep 2026 at 5:53:56\u202fpm\nNotarization Ticket=stapled\nInfo.plist entries=37\nTeamIdentifier=43AQ936H96\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=73\nInternal requirements count=1 size=180\n"
+        },
+        "driverSignature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver\nIdentifier=geckodriver\nFormat=Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=37751 flags=0x10000(runtime) hashes=1174+2 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=f13524c698f8361a534f3f6d8190e67cb7505ad7\nCandidateCDHashFull sha256=f13524c698f8361a534f3f6d8190e67cb7505ad76fe82b21eb01a4878a87363c\nHash choices=sha256\nCMSDigest=f13524c698f8361a534f3f6d8190e67cb7505ad76fe82b21eb01a4878a87363c\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=3391488\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=f13524c698f8361a534f3f6d8190e67cb7505ad7\nSignature size=8988\nAuthority=Developer ID Application: Mozilla Corporation (43AQ936H96)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=17 Jul 2026 at 12:36:08\u202fpm\nInfo.plist=not bound\nTeamIdentifier=43AQ936H96\nRuntime Version=26.5.0\nSealed Resources=none\nInternal requirements count=1 size=148\n"
+        },
+        "observerBundleSHA256": "156238bb2521881b68d847deecc004b834eefd04f8783e9cc6121c9722fb7a2c",
+        "sources": {
+          "product-smoke.mjs": "4e6b6ee120afb8a7771c673ede21e27fa84d6d1f59af721aac771306ede9d573",
+          "observe.mjs": "6e10adec0991f490a4dda13e9a67b1fd3d90222179bc586a90831c69e1cb7dd2",
+          "w3c.mjs": "ef1db6e0ceb415536429bf8d34170b440fd3c0b852612af1d39ea15c871c286e"
+        }
+      },
+      "checks": 17,
+      "cases": [],
+      "pageConsoleErrors": [],
+      "consoleErrors": [],
+      "httpErrors": [],
+      "rawRequestFailures": "not CDP/BiDi-covered; passive observer only",
+      "sourceChanges": [],
+      "failedPhase": null,
+      "error": null,
+      "webdriverError": null,
+      "actualCapabilities": {
+        "acceptInsecureCerts": false,
+        "browserName": "firefox",
+        "browserVersion": "156.0.1",
+        "moz:accessibilityChecks": false,
+        "moz:buildID": "20260921121718",
+        "moz:geckodriverVersion": "0.37.1",
+        "moz:headless": false,
+        "moz:platformVersion": "25.5.0",
+        "moz:processID": 55659,
+        "moz:profile": "/var/folders/n4/43n_jxh10gg3s770b_8jbzb80000gn/T/rust_mozprofilewLetlT",
+        "moz:shutdownTimeout": 60000,
+        "moz:webdriverClick": true,
+        "moz:windowless": false,
+        "pageLoadStrategy": "normal",
+        "platformName": "mac",
+        "proxy": {},
+        "setWindowRect": true,
+        "strictFileInteractability": false,
+        "timeouts": {
+          "implicit": 0,
+          "pageLoad": 300000,
+          "script": 30000
+        },
+        "unhandledPromptBehavior": "dismiss and notify",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:156.0) Gecko/20100101 Firefox/156.0"
+      },
+      "sessionDeleted": true,
+      "inputsVerifiedAfter": 145
+    },
+    {
+      "path": "work/stock-browser-smoke/safari-01/result.json",
+      "sha256": "ed6b5fa9c0ca3d4385ec35991a5c13dea210104411bb8b11faaba369a990345f",
+      "driverStatus": "setup-failed",
+      "browser": "safari",
+      "identity": {
+        "buildSHA256": "0debf4ba46647aa0af24d95ba216463f2ef0025e67b850ffa1749543fbe91777",
+        "sourceDigest": "723651b29547fa9b62e37b1e96d148a2f186ca691f28af558cf8092a793a65c1",
+        "packSHA256": "d2e53993df9635172a11fb227ac7410bca482969a9ca04258b3d80fe548649e0",
+        "runtime": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.4"
+        },
+        "app": {
+          "executable": "/Applications/Safari.app/Contents/MacOS/Safari",
+          "version": "26.5",
+          "driver": "/usr/bin/safaridriver",
+          "automation": "W3C WebDriver; remote automation readiness unproven; settings unchanged",
+          "launched": false
+        },
+        "driver": "/usr/bin/safaridriver",
+        "appSignature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/Applications/Safari.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari\nIdentifier=com.apple.Safari\nFormat=app bundle with Mach-O universal (x86_64 arm64e)\nCodeDirectory v=20400 size=617 flags=0x2000(library-validation) hashes=9+7 location=embedded\nPlatform identifier=26\nVersionPlatform=1\nVersionMin=1705216\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=12b701f597f3dda38d2f5b605b1e2073cc2d60ca\nCandidateCDHashFull sha256=12b701f597f3dda38d2f5b605b1e2073cc2d60ca523efbe20c7d68a47f4ec0ca\nHash choices=sha256\nCMSDigest=12b701f597f3dda38d2f5b605b1e2073cc2d60ca523efbe20c7d68a47f4ec0ca\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=12b701f597f3dda38d2f5b605b1e2073cc2d60ca\nSignature size=4442\nAuthority=Software Signing\nAuthority=Apple Code Signing Certification Authority\nAuthority=Apple Root CA\nSigned Time=21 May 2026 at 11:14:53\u202fam\nInfo.plist entries=48\nTeamIdentifier=not set\nSealed Resources version=2 rules=13 files=1602\nInternal requirements count=1 size=64\n"
+        },
+        "driverSignature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/usr/bin/safaridriver"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/System/Volumes/Preboot/Cryptexes/App/usr/bin/safaridriver\nIdentifier=com.apple.safaridriver\nFormat=Mach-O universal (x86_64 arm64e)\nCodeDirectory v=20400 size=623 flags=0x2000(library-validation) hashes=9+7 location=embedded\nPlatform identifier=26\nVersionPlatform=1\nVersionMin=1705216\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=c37bf839668695bb31d98105cc5bbf609d196db6\nCandidateCDHashFull sha256=c37bf839668695bb31d98105cc5bbf609d196db64c95371f78a94cff323bba72\nHash choices=sha256\nCMSDigest=c37bf839668695bb31d98105cc5bbf609d196db64c95371f78a94cff323bba72\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=c37bf839668695bb31d98105cc5bbf609d196db6\nSignature size=4442\nAuthority=Software Signing\nAuthority=Apple Code Signing Certification Authority\nAuthority=Apple Root CA\nSigned Time=23 Apr 2026 at 9:36:51\u202fam\nInfo.plist entries=19\nTeamIdentifier=not set\nSealed Resources=none\nInternal requirements count=1 size=72\n"
+        },
+        "observerBundleSHA256": "156238bb2521881b68d847deecc004b834eefd04f8783e9cc6121c9722fb7a2c",
+        "sources": {
+          "product-smoke.mjs": "4e6b6ee120afb8a7771c673ede21e27fa84d6d1f59af721aac771306ede9d573",
+          "observe.mjs": "6e10adec0991f490a4dda13e9a67b1fd3d90222179bc586a90831c69e1cb7dd2",
+          "w3c.mjs": "ef1db6e0ceb415536429bf8d34170b440fd3c0b852612af1d39ea15c871c286e"
+        }
+      },
+      "checks": 0,
+      "cases": [],
+      "pageConsoleErrors": [],
+      "consoleErrors": [],
+      "httpErrors": [],
+      "rawRequestFailures": "not CDP/BiDi-covered; passive observer only",
+      "sourceChanges": [],
+      "failedPhase": "new-session",
+      "error": "WebDriverError: POST /session: session not created: Could not create a session: You must enable 'Allow remote automation' in the Developer section of Safari Settings to control Safari via WebDriver.\n    at WebDriver.request (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/stock-browser/w3c.mjs:8:539)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async WebDriver.create (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/stock-browser/w3c.mjs:9:40)\n    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/stock-browser/product-smoke.mjs:45:65",
+      "webdriverError": {
+        "status": 500,
+        "value": {
+          "error": "session not created",
+          "message": "Could not create a session: You must enable 'Allow remote automation' in the Developer section of Safari Settings to control Safari via WebDriver.",
+          "stacktrace": ""
+        },
+        "method": "POST",
+        "path": "/session"
+      },
+      "actualCapabilities": null,
+      "sessionDeleted": null,
+      "inputsVerifiedAfter": 145
+    }
+  ]
+}

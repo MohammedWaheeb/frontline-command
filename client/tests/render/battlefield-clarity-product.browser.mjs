@@ -8,12 +8,12 @@ import {chromium,firefox,webkit} from 'playwright-core';
 
 // Full frozen App, original Go saves, normal controls only. This driver never
 // calls a fixture API, installs a fake snapshot, or sends a worker RPC itself.
-const usage='node client/tests/render/battlefield-clarity-product.browser.mjs --product /absolute/frozen/product --saves /absolute/ambient/course --out /absolute/new/evidence [--engine chromium|firefox|webkit] [--headless true|false] [--case WIDTHxHEIGHT-scale100|150]';
+const usage='node client/tests/render/battlefield-clarity-product.browser.mjs --product /absolute/frozen/product --saves /absolute/ambient/course --out /absolute/new/evidence [--engine chromium|firefox|webkit] [--headless true|false] [--case WIDTHxHEIGHT-scale100|150] [--stock chrome|edge]';
 if(process.argv.includes('--help')){console.log(usage);process.exit(0)}
 const argv=process.argv.slice(2),args={};
 assert.equal(argv.length%2,0,usage);
 for(let i=0;i<argv.length;i+=2){
- assert(['--product','--saves','--out','--engine','--headless','--case'].includes(argv[i]),`Unknown argument ${argv[i]}`);
+ assert(['--product','--saves','--out','--engine','--headless','--case','--stock'].includes(argv[i]),`Unknown argument ${argv[i]}`);
  assert(!Object.hasOwn(args,argv[i]),`Duplicate argument ${argv[i]}`);args[argv[i]]=argv[i+1];
 }
 assert(args['--product']&&args['--saves']&&args['--out'],usage);
@@ -24,6 +24,16 @@ const caseFilter=args['--case'];assert(caseFilter===undefined||/^(1600x900|1280x
 const headless=args['--headless']===undefined?engine!=='chromium':args['--headless']==='true';
 const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
 const driverPath=fileURLToPath(import.meta.url),driverBytes=await readFile(driverPath);
+let stock;
+if(args['--stock']){
+ assert.equal(engine,'chromium','Stock Chrome/Edge require the Chromium automation protocol');
+ assert(['chrome','edge'].includes(args['--stock']),'Unknown stock browser');
+ const receiptPath=path.resolve(path.dirname(driverPath),'../../../work/tools/browsers/20260929-prerequisites/executables.json');
+ const bytes=await readFile(receiptPath),entry=JSON.parse(bytes)[args['--stock']==='chrome'?'Google Chrome.app':'Microsoft Edge.app'];
+ const executable=await realpath(entry.executable);
+ assert.equal(digest(await readFile(executable)),entry.executable_sha256,'Verified stock executable changed');
+ stock={name:args['--stock'],executable,executableSHA256:entry.executable_sha256,applicationVersion:entry.version,receiptPath,receiptSHA256:digest(bytes)};
+}
 const fixtures={},fixtureBytes=new Map();
 for(const [key,name] of Object.entries({before:'clarity-before-defeat.save.json',defeat:'clarity.save.json'})){
  const file=path.join(saves,name),bytes=await readFile(file),wrapper=JSON.parse(bytes.toString('utf8'));
@@ -53,7 +63,7 @@ for(const [key,value] of Object.entries(fixtures))await writeFile(value.importFi
 const report={started:new Date().toISOString(),status:'running',engine,headless,product,saves,
  caseFilter,scope:'Full frozen product UI; real Go practice artillery/memory save and separately earned standard defeat-countdown save. Eight serial desktop/scale cases. No mock snapshots, fixture bridge, direct commands, host, or production edits. Screenshots require visual review; this is not campaign, final-art, GPU-memory, performance, or exhaustive pixel acceptance.',
  tooling:'Browser plugin not available; regular Playwright. Authoring alone does not constitute a browser pass.',
- identity:{driverSHA256:digest(driverBytes),wasmSHA256:digest(runtimeBytes),runtimeVersion,indexSHA256:digest(await readFile(path.join(product,'index.html'))),buildReceipt},
+ identity:{driverSHA256:digest(driverBytes),wasmSHA256:digest(runtimeBytes),runtimeVersion,indexSHA256:digest(await readFile(path.join(product,'index.html'))),buildReceipt,stock},
  fixtures,servedFiles:{},cases:[],errors:[],httpErrors:[],requestFailures:[],sourceChanges:[]};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.json':'application/json','.wasm':'application/wasm','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2','.woff':'font/woff','.ogg':'audio/ogg','.mp3':'audio/mpeg','.gz':'application/gzip','.ico':'image/x-icon'};
 // No SPA fallback for missing resources and no fabricated health/API responses.
@@ -293,7 +303,8 @@ async function countdownCourse(page,baseline){
 }
 try{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin=`http://127.0.0.1:${server.address().port}`;
- browser=await({chromium,firefox,webkit})[engine].launch({headless,...engine==='chromium'?{channel:'chromium'}:{}});report.browser=browser.version();
+ browser=await({chromium,firefox,webkit})[engine].launch({headless,...stock?{executablePath:stock.executable}:engine==='chromium'?{channel:'chromium'}:{}});report.browser=browser.version();
+ if(stock?.name==='chrome')assert.equal(report.browser,stock.applicationVersion);
  for(const viewport of [{width:1600,height:900},{width:1280,height:720},{width:1440,height:900},{width:1728,height:1117}])for(const scale of [1,1.5]){
   if(caseFilter&&caseFilter!==`${viewport.width}x${viewport.height}-scale${scale*100}`)continue;
   activeCase={id:`${viewport.width}x${viewport.height}-scale${scale*100}`,viewport,scale,status:'running',checkpoints:[]};report.cases.push(activeCase);phase='first-run';
@@ -345,7 +356,7 @@ finally{
   // Include diagnostics delivered during the last context/browser teardown.
   // Raw requestfailed events remain recorded separately, without a blanket
   // assertion that aborted product transitions were harmless.
-  try{assert.deepEqual(report.errors,[]);assert.deepEqual(report.httpErrors,[]);assert.deepEqual(report.sourceChanges,[])}catch(error){report.finalDiagnosticFailure=String(error.stack??error);if(report.status==='passed')report.failure=report.finalDiagnosticFailure;report.status='failed';process.exitCode=1}
+  try{assert.deepEqual(report.errors,[]);assert.deepEqual(report.httpErrors,[]);assert.deepEqual(report.sourceChanges,[]);if(stock)assert.equal(digest(await readFile(stock.executable)),stock.executableSHA256,'Stock executable changed during course')}catch(error){report.finalDiagnosticFailure=String(error.stack??error);if(report.status==='passed')report.failure=report.finalDiagnosticFailure;report.status='failed';process.exitCode=1}
   report.finished=new Date().toISOString();await flush()}
  console.log(report.status,report.failure??`${report.cases.length} actual product cases`);
 }
