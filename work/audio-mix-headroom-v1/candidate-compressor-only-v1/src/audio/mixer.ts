@@ -8,26 +8,13 @@ export interface ContinuousSound {key:string;id:string;gain:number;pan?:number;r
 interface Source {key?:string;panner?:StereoPannerNode;node:AudioBufferSourceNode;gain:GainNode;bus:AudioBus;priority:number;music:boolean}
 const BUSES:AudioBus[]=['voice','music','effects','ui'];
 const MEMORY=64*1024**2,VOICES=24;
-/** Pass quiet samples unchanged, then soften peaks before the device clips them.
- * WaveShaper clamps inputs outside [-1,1] to the curve endpoints. Keeping
- * oversampling off retains that sample bound; the compressor handles the mix's
- * sustained level and this final curve catches its transient overshoot.
- */
-function outputCeilingCurve(){
- const curve=new Float32Array(4097);
- for(let i=0;i<curve.length;i++){
-  const x=i*2/(curve.length-1)-1,a=Math.abs(x);
-  curve[i]=a<=.8?x:Math.sign(x)*(.8+.2*Math.tanh((a-.8)/.2));
- }
- return curve;
-}
 /** No AudioContext exists until saved consent and a trusted browser input coincide. */
 export class AudioMixer {
  readonly state=new Observable<AudioState>({status:'disabled',captions:[]});
  readonly cooldowns=new AudioCooldowns();
  private continuousRequests=new Map<string,ContinuousSound>();private continuousSources=new Map<string,Source>();private continuousPending=new Map<string,number>();private continuousNext=new Map<string,number>();private continuousEpoch=0;
  private indexDigest?:string;
- private preferences:AudioPreferences;private context?:AudioContext;private master?:GainNode;private limiter?:DynamicsCompressorNode;private ceiling?:WaveShaperNode;private buses=new Map<AudioBus,GainNode>();private index?:AudioIndex;private indexWork?:Promise<void>;private life=new AbortController();private loads=new AbortController();private generation=0;private closed=false;private focused=true;private captionID=0;private expiry?:ReturnType<typeof setTimeout>;private sources=new Set<Source>();private buffers=new Map<string,{buffer:AudioBuffer;bytes:number;used:number}>();private pending=new Map<string,Promise<AudioBuffer>>();private variants=new Map<string,number>();private pins=new Map<AudioBuffer,number>();private outputEpoch=0;private scheduled=new Set<ReturnType<typeof setTimeout>>();private voiceEpoch=0;private voicePriority=-1;private voiceDeadline=0;private musicNames:string[]=[];private musicLevels:number[]=[];private musicSources:Source[]=[];private musicWork=false;private musicEpoch=0;private inFlight=0;
+ private preferences:AudioPreferences;private context?:AudioContext;private master?:GainNode;private limiter?:DynamicsCompressorNode;private buses=new Map<AudioBus,GainNode>();private index?:AudioIndex;private indexWork?:Promise<void>;private life=new AbortController();private loads=new AbortController();private generation=0;private closed=false;private focused=true;private captionID=0;private expiry?:ReturnType<typeof setTimeout>;private sources=new Set<Source>();private buffers=new Map<string,{buffer:AudioBuffer;bytes:number;used:number}>();private pending=new Map<string,Promise<AudioBuffer>>();private variants=new Map<string,number>();private pins=new Map<AudioBuffer,number>();private outputEpoch=0;private scheduled=new Set<ReturnType<typeof setTimeout>>();private voiceEpoch=0;private voicePriority=-1;private voiceDeadline=0;private musicNames:string[]=[];private musicLevels:number[]=[];private musicSources:Source[]=[];private musicWork=false;private musicEpoch=0;private inFlight=0;
  constructor(preferences:AudioPreferences,private fetcher:typeof fetch=(...args)=>globalThis.fetch(...args)){this.preferences=preferences;this.state.update(state=>({...state,status:preferences.audioConsent?'gesture':'disabled'}))}
  get manifest(){return this.index}
  get statistics(){return {context:this.context?.state??'absent',sources:this.sources.size,continuous:this.continuousSources.size,buffers:this.buffers.size,decodedBytes:[...this.buffers.values()].reduce((sum,value)=>sum+value.bytes,0),pending:this.pending.size,generation:this.generation,gains:Object.fromEntries([['master',this.master?.gain.value??0],...BUSES.map(bus=>[bus,this.buses.get(bus)?.gain.value??0])])}}
@@ -35,19 +22,7 @@ export class AudioMixer {
  async loadIndex(retry=false){if(this.closed||this.index&&!retry)return;if(this.indexWork)return this.indexWork;this.indexWork=(async()=>{try{const response=await this.fetcher('/art/audio/index.json',{signal:this.life.signal,credentials:'omit',redirect:'error',cache:'no-cache'});const bytes=await boundedAudioBytes(response,4*1024**2);const index=parseAudioIndex(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes))),digest=await sha256Hex(bytes);if(!this.closed){if(this.index&&this.indexDigest!==digest)this.reset();this.index=index;this.indexDigest=digest;this.state.update(state=>({...state,error:undefined,status:this.preferences.audioConsent?(this.context?.state==='running'?'ready':'gesture'):'disabled'}));void this.ensureMusic();this.ensureContinuous()}}catch(error){if(!this.closed)this.state.update(state=>({...state,status:'unavailable',error:error instanceof Error?error.message:'Audio unavailable.'}))}finally{this.indexWork=undefined}})();return this.indexWork}
  update(preferences:AudioPreferences){const withdrawn=this.preferences.audioConsent&&!preferences.audioConsent;this.preferences=preferences;if(withdrawn){this.reset();void this.context?.suspend()}this.applyGains();if(!preferences.captions)this.state.update(state=>({...state,captions:[]}));this.state.update(state=>({...state,status:!preferences.audioConsent?'disabled':this.context?.state==='running'?'ready':this.index?'gesture':state.status}));this.ensureContinuous()}
  private applyGains(){if(!this.context)return;this.master!.gain.setValueAtTime(this.preferences.audioConsent?this.preferences.audio.master:0,this.context.currentTime);for(const bus of BUSES)this.buses.get(bus)!.gain.setValueAtTime(this.preferences.audio[bus],this.context.currentTime)}
- private gesture=(event:Event)=>{if(!event.isTrusted||!this.preferences.audioConsent||this.closed||document.visibilityState==='hidden')return;this.focused=true;if(!this.context){this.context=new AudioContext({sampleRate:24000});this.master=this.context.createGain();this.master.connect(this.context.destination);this.ceiling=this.context.createWaveShaper();this.ceiling.curve=outputCeilingCurve();this.ceiling.oversample='none';this.ceiling.connect(this.master);for(const bus of BUSES)this.buses.set(bus,this.context.createGain());this.resetLimiter();this.applyGains()}void this.context.resume().then(()=>{if(!this.closed){this.state.update(state=>({...state,status:'ready'}));void this.ensureMusic();this.ensureContinuous()}}).catch(()=>this.state.update(state=>({...state,status:'gesture'})))};
- /** Drop compressor lookahead at session/seek/focus boundaries while retaining
-  * existing bus gains and continuing music sources. A stopped source alone
-  * cannot clear the audio already buffered by the old compressor. */
- private resetLimiter(){
-  if(this.closed||!this.context||!this.ceiling)return;
-  this.limiter?.disconnect();
-  const limiter=this.context.createDynamicsCompressor();
-  limiter.threshold.value=-3;limiter.knee.value=3;limiter.ratio.value=20;limiter.attack.value=0;limiter.release.value=.1;
-  limiter.connect(this.ceiling);
-  for(const bus of this.buses.values()){bus.disconnect();bus.connect(limiter)}
-  this.limiter=limiter;
- }
+ private gesture=(event:Event)=>{if(!event.isTrusted||!this.preferences.audioConsent||this.closed||document.visibilityState==='hidden')return;this.focused=true;if(!this.context){this.context=new AudioContext({sampleRate:24000});this.master=this.context.createGain();this.master.connect(this.context.destination);this.limiter=this.context.createDynamicsCompressor();this.limiter.threshold.value=-3;this.limiter.knee.value=3;this.limiter.ratio.value=20;this.limiter.attack.value=0;this.limiter.release.value=.1;this.limiter.connect(this.master);for(const bus of BUSES){const gain=this.context.createGain();gain.connect(this.limiter);this.buses.set(bus,gain)}this.applyGains()}void this.context.resume().then(()=>{if(!this.closed){this.state.update(state=>({...state,status:'ready'}));void this.ensureMusic();this.ensureContinuous()}}).catch(()=>this.state.update(state=>({...state,status:'gesture'})))};
  private click=(event:Event)=>{if(event.isTrusted&&(event.target as Element|null)?.closest?.('button')&&!((event.target as Element).closest('button') as HTMLButtonElement).disabled)this.play('sfx.ui_click')};
  private blur=()=>{this.focused=false;this.stopTransient();void this.context?.suspend()};
  private focus=()=>{this.focused=true;/* Output resumes only on the next trusted gesture. */};
@@ -87,8 +62,8 @@ export class AudioMixer {
  private mixMusic(){if(!this.context)return;this.musicSources.forEach((source,i)=>source.gain.gain.setTargetAtTime(Math.max(0,Math.min(1,this.musicLevels[i]??0)),this.context!.currentTime,.6))}
  afterSpeech(id:string){const generation=this.generation,timer=setTimeout(()=>{this.scheduled.delete(timer);if(generation===this.generation&&!this.closed)this.play(id)},Math.max(100,this.voiceDeadline-performance.now()+100));this.scheduled.add(timer)}
  clearCaptions(){if(this.expiry)clearTimeout(this.expiry);this.state.update(state=>({...state,captions:[]}))}
- stopTransient(){this.continuousNext.clear();this.outputEpoch++;this.voiceEpoch++;this.voiceDeadline=0;for(const source of this.sources)if(!source.music)this.stop(source);this.resetLimiter()}
+ stopTransient(){this.continuousNext.clear();this.outputEpoch++;this.voiceEpoch++;this.voiceDeadline=0;for(const source of this.sources)if(!source.music)this.stop(source)}
  /** Session/seek/reconnect boundary: abort late loads and prevent stale warnings. */
- reset(){this.continuousRequests.clear();this.continuousPending.clear();this.continuousNext.clear();this.outputEpoch++;for(const timer of this.scheduled)clearTimeout(timer);this.scheduled.clear();this.generation++;this.musicEpoch++;this.loads.abort();this.loads=new AbortController();for(const source of this.sources)this.stop(source);this.musicSources=[];this.musicWork=false;this.pending.clear();this.buffers.clear();this.pins.clear();this.cooldowns.clear();this.variants.clear();this.voiceEpoch++;this.voiceDeadline=0;this.voicePriority=-1;this.state.update(state=>({...state,captions:[]}));if(this.expiry)clearTimeout(this.expiry);this.resetLimiter()}
- dispose(){if(this.closed)return;this.closed=true;this.life.abort();this.reset();this.musicNames=[];for(const bus of this.buses.values())bus.disconnect();this.buses.clear();this.limiter?.disconnect();this.ceiling?.disconnect();this.master?.disconnect();const context=this.context;this.limiter=undefined;this.ceiling=undefined;this.master=undefined;this.context=undefined;void context?.close()}
+ reset(){this.continuousRequests.clear();this.continuousPending.clear();this.continuousNext.clear();this.outputEpoch++;for(const timer of this.scheduled)clearTimeout(timer);this.scheduled.clear();this.generation++;this.musicEpoch++;this.loads.abort();this.loads=new AbortController();for(const source of this.sources)this.stop(source);this.musicSources=[];this.musicWork=false;this.pending.clear();this.buffers.clear();this.pins.clear();this.cooldowns.clear();this.variants.clear();this.voiceEpoch++;this.voiceDeadline=0;this.voicePriority=-1;this.state.update(state=>({...state,captions:[]}));if(this.expiry)clearTimeout(this.expiry)}
+ dispose(){if(this.closed)return;this.closed=true;this.life.abort();this.reset();this.musicNames=[];this.buses.clear();void this.context?.close();this.context=undefined}
 }

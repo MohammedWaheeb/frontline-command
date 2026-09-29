@@ -1,0 +1,18 @@
+{
+  "status": "private-awaiting-native-checks",
+  "scope": "v3: compressor/soft-peak ceiling plus compressor lookahead flush at reset/stopTransient and complete graph reference cleanup. Original clips/scheduling/bus preferences unchanged.",
+  "baseline": {
+    "client/src/audio/mixer.ts": "adfab5522ebc325ee3714a2fc6215581195ec2d94362176411aca815912e3a4e",
+    "client/src/audio/index.ts": "066a6287badd16d1c8a1dad3f2f40c4c5af5a5bd5d4adc2b48330cd37abf8795",
+    "client/src/runtime/crypto.ts": "08eefc374ac92cd54e58607ae989cc660e4e8ab6953594949f944747cc786994",
+    "client/src/app/store.ts": "1f4fff946929b9b73f3cee33879a77ae2149052fbc89ecda90bb54b68b70cc1a",
+    "client/src/runtime/errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77"
+  },
+  "candidate": {
+    "candidate/src/app/store.ts": "1f4fff946929b9b73f3cee33879a77ae2149052fbc89ecda90bb54b68b70cc1a",
+    "candidate/src/runtime/errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77",
+    "candidate/src/runtime/crypto.ts": "08eefc374ac92cd54e58607ae989cc660e4e8ab6953594949f944747cc786994",
+    "candidate/src/audio/mixer.ts": "9d073e9e34a03c225efc3c624be69e217aa50e4ab4482a1ff32b09aa6ae860cf",
+    "candidate/src/audio/index.ts": "066a6287badd16d1c8a1dad3f2f40c4c5af5a5bd5d4adc2b48330cd37abf8795"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "status": "integrated-checks-passed",
+  "at": "2026-09-29T17:07:04.259906+00:00",
+  "path": "client/src/audio/mixer.ts",
+  "before": "adfab5522ebc325ee3714a2fc6215581195ec2d94362176411aca815912e3a4e",
+  "after": "9d073e9e34a03c225efc3c624be69e217aa50e4ab4482a1ff32b09aa6ae860cf",
+  "guardedSourceInputs": 1721,
+  "nativeEvidence": {
+    "run-11": "caf01201411109f0517740f18f9c4567aa20073dd375586ba8ebc2ced3ee0a79",
+    "run-12": "e537427c56753f6c0b99e640db8ea95749137e66ce14d6a0c6a0a2f710d11212",
+    "run-13": "33a581ab3d7da6feea8db30ccd4f6ed0699e6d5007df62d2f3bdfe1b6ec85349"
+  },
+  "commands": [
+    {
+      "script": "typecheck",
+      "exit": 0,
+      "logSHA256": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76"
+    },
+    {
+      "script": "typecheck:app",
+      "exit": 0,
+      "logSHA256": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0"
+    },
+    {
+      "script": "test:runtime",
+      "exit": 0,
+      "logSHA256": "da1fca4405bd1e5463d3a627f31920620e4515ed74d1145213e860426bea6d99"
+    }
+  ],
+  "inputsVerifiedAfter": true
+}
