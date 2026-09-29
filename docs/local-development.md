@@ -69,3 +69,47 @@ standalone launchers use the package's own `data/` directory.
 
 No infrastructure is deployed. Future hosting is described in
 [deployment-plan.md](deployment-plan.md).
+
+## Packaging integrity and updates (29 September 2026)
+
+On Windows, GNU Make is optional: `node scripts/local.mjs doctor`, `build`,
+`play` and `lan` expose the same commands. The runner invokes installed npm's
+JavaScript with Node, rather than trying to execute `npm.cmd` directly. Native
+builds explicitly choose this Node process's OS/CPU and `CGO_ENABLED=0`; an
+inherited `GOOS=js` or `GOARCH=wasm` cannot silently mislabel the package.
+The final executable's PE/ELF/Mach-O header must match the recorded target.
+Windows runtime inspection uses `runtime-native.exe`. Native execution on each
+supported Windows/Linux/macOS target still needs a real clean-machine gate.
+
+The package validator checks the full offline manifest, exact file hashes/sizes,
+required worker/WASM/Go shim/service-worker/index dependencies, local HTML
+references and index/manifest identity. It rejects symlinks, case collisions,
+unsafe or Windows-incompatible names, and unmanifested runtime files. Go/content
+source fingerprints before and after build must match; the stage records those
+inputs and its own runtime metadata. Checksums are streamed, not accumulated in
+memory. The package includes the Go runtime/`wasm_exec.js` license in addition
+to dependency notices. The new runtime build script imports
+`scripts/package-integrity.mjs`, which must be included in isolated source copies.
+
+A read-only check starts no server or browser:
+
+```sh
+node scripts/audit-package.mjs --product /absolute/path/to/product \
+  --out /absolute/path/to/new-integrity-receipt.json
+```
+
+Add `--previous /absolute/path/to/older/product` to reject changed bytes under
+an unchanged offline pack identity. Use a fresh receipt path. This check does
+not establish correct HTTP MIME responses, cold offline boot, complete art or
+native platform support. The detailed current audit and remaining gates are in
+[packaging-release-audit.md](packaging-release-audit.md).
+
+Future builds retain base pack ID `2.0.0` but derive the version from their
+canonical file inventory. Only the index's generated self-reference is
+normalized during hashing; all other staged file descriptors contribute. The
+resulting version is written into the **staged** content index, whose final
+exact bytes are then hashed into the manifest. Authoring sources and frozen
+products are not changed. Index/manifest validation completes before publication;
+JSON files are written via temporary-file rename inside an unpublished build
+directory. Publish/replace the completed package directory as a unit; do not
+serve the directory while a builder is updating its index and manifest.

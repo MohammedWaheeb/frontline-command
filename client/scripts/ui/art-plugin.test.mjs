@@ -94,3 +94,17 @@ test('optional menu illustration is copied byte-for-byte into the offline pack a
   assert.equal((await artIndex(assets)).keyArt,undefined);
  }finally{await rm(dir,{recursive:true,force:true})}
 });
+
+test('base identity changes with content and propagates into staged index without a self-hash cycle',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'frontline-pack-version-'));try{
+  await put(dir,'index.html','first shell');await put(dir,'runtime/frontline.wasm','wasm');
+  await put(dir,'content/index.json',JSON.stringify({format_version:1,version:'authored-v1',packs:[{id:'2.0.0',version:'2.0.0',manifest_url:'/assets/packs/base.json'}],maps:[],missions:[]}));
+  const first=await writeBasePack(dir);assert.match(first.version,/^content-v1-[a-f0-9]{64}$/);
+  const index=JSON.parse(await readFile(path.join(dir,'content/index.json'),'utf8'));assert.equal(index.packs[0].version,first.version);assert.equal(index.version,'authored-v1');
+  assert.deepEqual(await writeBasePack(dir),first,'unchanged rebuild must not change identity');
+  await put(dir,'index.html','other shell');const second=await writeBasePack(dir);assert.notEqual(second.version,first.version);assert.equal(second.id,first.id);
+  await put(dir,'added.txt','a');const added=await writeBasePack(dir);assert.notEqual(added.version,second.version);await put(dir,'added.txt','aa');const resized=await writeBasePack(dir);assert.notEqual(resized.version,added.version);await put(dir,'renamed.txt','aa');await rm(path.join(dir,'added.txt'));const renamed=await writeBasePack(dir);assert.notEqual(renamed.version,resized.version,'path-only change must change identity');
+  const oldIndex=await readFile(path.join(dir,'content/index.json'));const last=await readFile(path.join(dir,'assets/packs/base.json'));await put(dir,'art/audio/index.json',JSON.stringify({format:1,entries:{bad:{variants:[{url:'/art/audio/missing.ogg',bytes:1,sha256:'a'.repeat(64)}]}}}));
+  await assert.rejects(writeBasePack(dir));assert.deepEqual(await readFile(path.join(dir,'content/index.json')),oldIndex);assert.deepEqual(await readFile(path.join(dir,'assets/packs/base.json')),last);
+ }finally{await rm(dir,{recursive:true,force:true})}
+});

@@ -26,7 +26,34 @@ export async function installedPacks():Promise<InstalledPack[]>{
   if(!marker)continue;
   try{const value=await marker.json();if(typeof value.id==='string'&&typeof value.version==='string'&&Number.isFinite(value.installedAt)&&(await cache.keys()).length>=value.files+1)result.push({...value,cacheName:name})}catch{}
  }
- return result.sort((a,b)=>b.installedAt-a.installedAt);
+ return result.sort((a,b)=>b.installedAt-a.installedAt||(a.cacheName<b.cacheName?-1:a.cacheName>b.cacheName?1:0));
+}
+const activationWork=new Map<string,Promise<unknown>>();
+function notCanceled(signal?:AbortSignal){if(signal?.aborted)throw new RuntimeError('download_canceled','The content download was canceled. Previously installed packs are preserved.')}
+async function activationLock<T>(id:string,signal:AbortSignal|undefined,work:()=>Promise<T>):Promise<T>{
+ notCanceled(signal);const guarded=async()=>{notCanceled(signal);return work()};
+ if(navigator.locks?.request){try{return await navigator.locks.request(PACK_PREFIX+'activate:'+id,{mode:'exclusive',...(signal?{signal}:{})},guarded)}catch(error){notCanceled(signal);throw error}}
+ // Legacy fallback orders this context only. Cross-tab atomic activation needs
+ // Web Locks; the reader still chooses one whole generation on timestamp ties.
+ const previous=activationWork.get(id)??Promise.resolve(),result=previous.catch(()=>{}).then(guarded);
+ activationWork.set(id,result);try{return await result}finally{if(activationWork.get(id)===result)activationWork.delete(id)}
+}
+async function activate(pack:ContentPack,signal?:AbortSignal,candidate?:{name:string;cache:Cache;bytes:number}):Promise<InstalledPack|undefined>{
+ return activationLock(pack.id,signal,async()=>{
+  const completed=await installedPacks();notCanceled(signal);
+  const nextTime=()=>completed.reduce((time,p)=>Math.max(time,p.installedAt+1),Date.now());
+  const existing=completed.find(p=>p.id===pack.id&&p.version===pack.version);
+  if(existing){
+   if(completed.find(p=>p.id===pack.id)?.cacheName!==existing.cacheName){
+    existing.installedAt=nextTime();const cache=await caches.open(existing.cacheName);notCanceled(signal);
+    await cache.put(READY_PATH,new Response(JSON.stringify(existing),{headers:{'Content-Type':'application/json'}}));
+   }
+   if(candidate)await caches.delete(candidate.name);return existing;
+  }
+  if(!candidate)return;
+  const installed={id:pack.id,version:pack.version,installedAt:nextTime(),files:pack.files.length,bytes:candidate.bytes,cacheName:candidate.name};
+  notCanceled(signal);await candidate.cache.put(READY_PATH,new Response(JSON.stringify(installed),{headers:{'Content-Type':'application/json'}}));return installed;
+ });
 }
 async function readBounded(response:Response,expected:number):Promise<ArrayBuffer>{
  const length=response.headers.get('Content-Length');
@@ -37,6 +64,7 @@ async function readBounded(response:Response,expected:number):Promise<ArrayBuffe
  const joined=new Uint8Array(size);let offset=0;for(const chunk of chunks){joined.set(chunk,offset);offset+=chunk.byteLength}return joined.buffer;
 }
 export async function installPack(pack:ContentPack,onProgress?:(progress:{complete:number;total:number;bytes:number})=>void,signal?:AbortSignal):Promise<InstalledPack>{
+ notCanceled(signal);
  if(!offlineCapability().supported)throw new RuntimeError('offline_unavailable',offlineCapability().reason||'Offline caching is unavailable in this browser.');
  if(!/^[\w.-]{1,100}$/.test(pack.id)||!/^[\w.-]{1,100}$/.test(pack.version)||pack.files.length<1||pack.files.length>16000)throw new RuntimeError('pack_invalid','The game content manifest is invalid.');
  const seen=new Set<string>();let expectedBytes=0;
@@ -47,7 +75,7 @@ export async function installPack(pack:ContentPack,onProgress?:(progress:{comple
   seen.add(url.href);expectedBytes+=file.bytes;
  }
  if(expectedBytes>2*1024*1024*1024)throw new RuntimeError('pack_too_large','Install a smaller map or faction pack first.');
- const existing=(await installedPacks()).find(p=>p.id===pack.id&&p.version===pack.version);if(existing){onProgress?.({complete:pack.files.length,total:pack.files.length,bytes:existing.bytes});return existing}
+ const existing=await activate(pack,signal);if(existing){onProgress?.({complete:pack.files.length,total:pack.files.length,bytes:existing.bytes});return existing}
  const name=PACK_PREFIX+pack.id+':'+pack.version+':'+randomUUID(),cache=await caches.open(name);let bytes=0,complete=0;
  try{
   for(const file of pack.files){
@@ -66,9 +94,9 @@ export async function installPack(pack:ContentPack,onProgress?:(progress:{comple
    headers.delete('Vary');headers.delete('Content-Encoding');headers.delete('Content-Length');
    await cache.put(url,new Response(data,{status:200,headers}));bytes+=data.byteLength;complete++;onProgress?.({complete,total:pack.files.length,bytes});
   }
-  const installed={id:pack.id,version:pack.version,installedAt:Date.now(),files:pack.files.length,bytes,cacheName:name};
-  // Marker-last makes incomplete downloads unavailable to the service worker.
-  await cache.put(READY_PATH,new Response(JSON.stringify(installed),{headers:{'Content-Type':'application/json'}}));return installed;
- }catch(error){await caches.delete(name);if(error instanceof RuntimeError)throw error;throw new RuntimeError('content_cache_failed','The pack could not be cached. Check storage space and retry; installed packs are preserved.',true,error)}
+  // Activation is marker-last and uses fresh completion order inside a short
+  // cross-tab lock where supported; network transfers never hold that lock.
+  return (await activate(pack,signal,{name,cache,bytes}))!;
+ }catch(error){await caches.delete(name);notCanceled(signal);if(error instanceof RuntimeError)throw error;throw new RuntimeError('content_cache_failed','The pack could not be cached. Check storage space and retry; installed packs are preserved.',true,error)}
 }
 export async function removePack(cacheName:string){if(!cacheName.startsWith(PACK_PREFIX))throw new RuntimeError('invalid_pack','Choose an installed Frontline pack.');return caches.delete(cacheName)}

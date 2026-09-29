@@ -1,3 +1,4 @@
+import {nativeBuildEnvironment} from '../../../scripts/package-integrity.mjs';
 import './gen-proto.mjs';
 import {execFileSync} from 'node:child_process';
 import {copyFile,mkdir,writeFile} from 'node:fs/promises';
@@ -8,10 +9,11 @@ const client=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),
 const out=path.join(client,'public/runtime');
 await mkdir(out,{recursive:true});await mkdir(path.join(root,'bin'),{recursive:true});
 const goroot=execFileSync('go',['env','GOROOT'],{cwd:root,encoding:'utf8'}).trim();
-execFileSync('go',['build','-trimpath','-o',path.join(out,'frontline.wasm'),'./cmd/wasm'],{cwd:root,stdio:'inherit',env:{...process.env,GOOS:'js',GOARCH:'wasm'}});
-execFileSync('go',['build','-trimpath','-o',path.join(root,'bin/runtime-native'),'./cmd/wasm'],{cwd:root,stdio:'inherit'});
+execFileSync('go',['build','-trimpath','-o',path.join(out,'frontline.wasm'),'./cmd/wasm'],{cwd:root,stdio:'inherit',env:{...process.env,GOOS:'js',GOARCH:'wasm',CGO_ENABLED:'0'}});
+const native=path.join(root,'bin',process.platform==='win32'?'runtime-native.exe':'runtime-native');
+execFileSync('go',['build','-trimpath','-o',native,'./cmd/wasm'],{cwd:root,stdio:'inherit',env:nativeBuildEnvironment()});
 await copyFile(path.join(goroot,'lib/wasm/wasm_exec.js'),path.join(out,'wasm_exec.js'));
-const version=JSON.parse(execFileSync(path.join(root,'bin/runtime-native'),['-version'],{encoding:'utf8'}));
+const version=JSON.parse(execFileSync(native,['-version'],{encoding:'utf8'}));
 await writeFile(path.join(out,'version.json'),JSON.stringify(version,null,2)+'\n');
 await build({entryPoints:[path.join(client,'src/runtime/worker.ts')],outfile:path.join(out,'worker.js'),bundle:true,format:'iife',platform:'browser',target:'es2022',sourcemap:true});
 await build({entryPoints:[path.join(client,'src/runtime/service-worker.ts')],outfile:path.join(client,'public/service-worker.js'),bundle:true,format:'iife',platform:'browser',target:'es2022',sourcemap:true});

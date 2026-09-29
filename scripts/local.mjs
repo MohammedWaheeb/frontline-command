@@ -1,8 +1,9 @@
+import {nativeBuildEnvironment,verifyProduct,verifyNativeExecutable,fileInventory,fileDigest,buildSourceIdentity} from './package-integrity.mjs';
+import {existsSync} from 'node:fs';
 import {spawn,execFileSync} from 'node:child_process';
 import {access,chmod,copyFile,cp,mkdir,mkdtemp,readFile,readdir,rename,stat,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {createHash} from 'node:crypto';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),client=path.join(root,'client');
 const npm=process.platform==='win32'?'npm.cmd':'npm';
@@ -11,8 +12,18 @@ const packageDir=path.join(root,'dist',`frontline-${process.platform}-${process.
 const command=process.argv[2];
 // Use a locally installed Go generator without changing the user's shell setup.
 try{const goPaths=execFileSync('go',['env','GOPATH'],{encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim().split(path.delimiter);process.env.PATH=[...goPaths.map(dir=>path.join(dir,'bin')),process.env.PATH??''].join(path.delimiter)}catch{}
-function run(program,args,options={}){execFileSync(program,args,{cwd:root,stdio:'inherit',...options})}
-function capture(program,args,options={}){return execFileSync(program,args,{cwd:root,encoding:'utf8',...options}).trim()}
+function invocation(program,args){
+ if(process.platform==='win32'&&program==='npm.cmd'){
+  // .cmd is not directly executable by execFile/spawn. Run the installed npm
+  // JavaScript with Node rather than introducing a shell and path quoting.
+  const candidates=[path.join(path.dirname(process.execPath),'node_modules/npm/bin/npm-cli.js')];
+  try{for(const shim of execFileSync('where.exe',['npm.cmd'],{encoding:'utf8'}).trim().split(/\r?\n/))candidates.push(path.join(path.dirname(shim),'node_modules/npm/bin/npm-cli.js'))}catch{}
+  const cli=candidates.find(existsSync);if(!cli)throw Error('Cannot locate npm-cli.js beside the Windows Node/npm installation. Install the pinned official Node toolchain.');
+  return {program:process.execPath,args:[cli,...args]};
+ }return {program,args};
+}
+function run(program,args,options={}){const command=invocation(program,args);execFileSync(command.program,command.args,{cwd:root,stdio:'inherit',...(program==='go'?{env:nativeBuildEnvironment()}:{}),...options})}
+function capture(program,args,options={}){const command=invocation(program,args);return execFileSync(command.program,command.args,{cwd:root,encoding:'utf8',...(program==='go'?{env:nativeBuildEnvironment()}:{}),...options}).trim()}
 async function exists(file){try{await access(file);return true}catch{return false}}
 async function clientScript(name){const pkg=JSON.parse(await readFile(path.join(client,'package.json'),'utf8'));if(!pkg.scripts?.[name])throw new Error(`The Claude-authored product client does not yet provide npm run ${name}. This implementation is unfinished; runtime checks are available with make test.`)}
 async function dependencies(){if(!await exists(path.join(client,'node_modules/.package-lock.json')))throw new Error('Install the pinned client dependencies with npm --prefix client ci.');}
@@ -31,7 +42,7 @@ async function doctor(){
  console.log('Browser verification uses the pinned Playwright CLI: node client/node_modules/playwright-core/cli.js install chromium firefox webkit');
  if(missing)process.exitCode=1;
 }
-async function buildServer(){await mkdir(path.join(root,'bin'),{recursive:true});run('go',['build','-trimpath','-o',path.join(root,'bin',executable),'./cmd/frontline'])}
+async function buildServer(){await mkdir(path.join(root,'bin'),{recursive:true});run('go',['build','-trimpath','-o',path.join(root,'bin',executable),'./cmd/frontline'],{env:nativeBuildEnvironment()})}
 async function dev(){
  await dependencies();await clientScript('dev');await buildServer();run(npm,['--prefix',client,'run','runtime:build']);
  const children=new Set(),groups=new Set();let stopping=false;
@@ -39,7 +50,7 @@ async function dev(){
  // descendants whose npm parent exits first, without touching other dev servers.
  const stop=()=>{if(stopping)return;stopping=true;for(const pid of groups){try{if(process.platform==='win32')execFileSync('taskkill',['/pid',String(pid),'/T','/F'],{stdio:'ignore'});else process.kill(-pid,'SIGTERM')}catch(error){if(error.code!=='ESRCH'&&process.platform!=='win32')console.error(`Could not stop owned development process group ${pid}: ${error.message}`)}}};
  process.once('SIGINT',stop);process.once('SIGTERM',stop);
- const launch=(program,args)=>new Promise((resolve,reject)=>{const child=spawn(program,args,{cwd:root,stdio:'inherit',detached:process.platform!=='win32'});children.add(child);if(child.pid)groups.add(child.pid);child.once('error',error=>{stop();reject(error)});child.once('exit',(code,signal)=>{children.delete(child);stop();if(code&&code!==0)reject(new Error(`${program} exited ${code}`));else resolve(signal)})});
+ const launch=(program,args)=>new Promise((resolve,reject)=>{const command=invocation(program,args);const child=spawn(command.program,command.args,{cwd:root,stdio:'inherit',detached:process.platform!=='win32'});children.add(child);if(child.pid)groups.add(child.pid);child.once('error',error=>{stop();reject(error)});child.once('exit',(code,signal)=>{children.delete(child);stop();if(code&&code!==0)reject(new Error(`${program} exited ${code}`));else resolve(signal)})});
  console.log('Development API: http://127.0.0.1:8080; client: http://127.0.0.1:5173. Ctrl-C stops both.');
  const results=await Promise.allSettled([
   launch(path.join(root,'bin',executable),['-addr','127.0.0.1:8080','-data','.local','-maps','content/maps','-missions','content/missions','-static','client/dist','-dev-origins','http://127.0.0.1:5173']),
@@ -54,6 +65,7 @@ async function licenseFiles(moduleDir,out){
 }
 async function licenses(stage){
  const dest=path.join(stage,'licenses');await mkdir(dest,{recursive:true});const rows=['# Third-party notices','','These dependency licenses accompany the local package. UI/art attribution is','maintained by the Claude-authored asset manifest and credits.',''];
+ await copyFile(path.join(capture('go',['env','GOROOT']),'LICENSE'),path.join(dest,'Go-LICENSE'));rows.push('- Go runtime and wasm_exec.js: [Go BSD license](Go-LICENSE)');
  const modules=capture('go',['list','-m','-json','all']).trim().split(/\n(?=\{)/).map(item=>JSON.parse(item));
  for(const item of modules){if(item.Main)continue;const info=item.Replace??item;if(!info.Dir)throw new Error(`Missing license source for ${item.Path}; run go mod download first.`);const label=`go/${item.Path.replaceAll('/','_')}@${item.Version}`;const count=await licenseFiles(info.Dir,path.join(dest,label));if(!count)throw new Error(`No license file found for Go dependency ${item.Path}`);rows.push(`- ${item.Path} ${item.Version}: [license files](${label}/)`)}
  const lock=JSON.parse(await readFile(path.join(client,'package-lock.json'),'utf8'));
@@ -64,28 +76,30 @@ async function licenses(stage){
  await writeFile(path.join(dest,'README.md'),rows.join('\n')+'\n');
 }
 async function checksums(stage){
- const entries=[];
- async function walk(dir){for(const name of (await readdir(dir)).sort()){const file=path.join(dir,name),info=await stat(file);if(info.isDirectory())await walk(file);else if(info.isFile()){const data=await readFile(file);entries.push({path:path.relative(stage,file).split(path.sep).join('/'),bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')})}}}
- await walk(stage);await writeFile(path.join(stage,'package-files.json'),JSON.stringify({format_version:1,files:entries},null,2)+'\n');
+ const entries=[];for(const entry of await fileInventory(stage))entries.push({...entry,...await fileDigest(path.join(stage,entry.path))});
+ await writeFile(path.join(stage,'package-files.json'),JSON.stringify({format_version:1,files:entries},null,2)+'\n');
 }
 async function buildPackage(){
- await dependencies();await clientScript('build');
+ await dependencies();await clientScript('build');const sourceBefore=await buildSourceIdentity(root);
  run('go',['run','./cmd/contentcheck','-content','content','-release']);
  run(npm,['--prefix',client,'run','runtime:build']);run(npm,['--prefix',client,'run','build']);
  if(!await exists(path.join(client,'dist/index.html')))throw new Error('Product build did not emit client/dist/index.html.');
+ await verifyProduct(path.join(client,'dist'));await fileInventory(path.join(root,'content'));
  await mkdir(path.dirname(packageDir),{recursive:true});const stage=await mkdtemp(path.join(path.dirname(packageDir),'.frontline-build-'));
- run('go',['build','-trimpath','-ldflags=-s -w','-o',path.join(stage,executable),'./cmd/frontline']);
+ run('go',['build','-trimpath','-ldflags=-s -w','-o',path.join(stage,executable),'./cmd/frontline'],{env:nativeBuildEnvironment()});
+ await verifyNativeExecutable(path.join(stage,executable));
  await cp(path.join(client,'dist'),path.join(stage,'client'),{recursive:true,errorOnExist:true,force:false});
  await cp(path.join(root,'content'),path.join(stage,'content'),{recursive:true,errorOnExist:true,force:false});
- await licenses(stage);
+ const productIntegrity=await verifyProduct(path.join(stage,'client'));await licenses(stage);
  await writeFile(path.join(stage,'Play.command'),'#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./frontline -addr 127.0.0.1:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\n');
  await writeFile(path.join(stage,'Host-LAN.command'),'#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./frontline -lan -addr 0.0.0.0:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\n');
- await writeFile(path.join(stage,'Play.cmd'),'@echo off\r\ncd /d "%~dp0"\r\nfrontline.exe -addr 127.0.0.1:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\r\n');
- await writeFile(path.join(stage,'Host-LAN.cmd'),'@echo off\r\ncd /d "%~dp0"\r\nfrontline.exe -lan -addr 0.0.0.0:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\r\n');
+ await writeFile(path.join(stage,'Play.cmd'),'@echo off\r\ncd /d "%~dp0" || exit /b 1\r\n".\\frontline.exe" -addr 127.0.0.1:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\r\n');
+ await writeFile(path.join(stage,'Host-LAN.cmd'),'@echo off\r\ncd /d "%~dp0" || exit /b 1\r\n".\\frontline.exe" -lan -addr 0.0.0.0:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\r\n');
  for(const name of ['Play.command','Host-LAN.command'])await chmod(path.join(stage,name),0o755);
  await copyFile(path.join(root,'docs/local-package.md'),path.join(stage,'README.md'));
- const version=JSON.parse(await readFile(path.join(client,'public/runtime/version.json'),'utf8'));
- await writeFile(path.join(stage,'version.json'),JSON.stringify({...version,platform:process.platform,arch:process.arch,source_revision:capture('git',['rev-parse','HEAD']),source_dirty:!!capture('git',['status','--porcelain']),built_at:new Date().toISOString(),acceptance:'See release evidence; successful packaging alone does not certify release readiness.'},null,2)+'\n');
+ const sourceAfter=await buildSourceIdentity(root);if(sourceBefore.sha256!==sourceAfter.sha256)throw Error('Go/content sources changed during packaging; preserve this staging output and rebuild from a frozen source.');
+ const version=JSON.parse(await readFile(path.join(stage,'client/runtime/version.json'),'utf8'));
+ await writeFile(path.join(stage,'version.json'),JSON.stringify({...version,source_inputs:sourceAfter,product_pack:productIntegrity,platform:process.platform,arch:process.arch,source_revision:capture('git',['rev-parse','HEAD']),source_dirty:!!capture('git',['status','--porcelain']),built_at:new Date().toISOString(),acceptance:'See release evidence; successful packaging alone does not certify release readiness.'},null,2)+'\n');
  await checksums(stage);
  if(await exists(packageDir))await rename(packageDir,`${packageDir}.previous-${Date.now()}`);
  await rename(stage,packageDir);console.log(`Local package: ${packageDir}. No deployment performed.`);

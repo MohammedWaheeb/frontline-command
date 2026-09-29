@@ -1,0 +1,17 @@
+✔ an in-progress sprite is excluded until every declared atlas image exists (13.74775ms)
+✔ base pack uses exact built file hashes and excludes self and source maps (12.36ms)
+✔ a frontend-only build cannot advertise a working offline game pack (2.060833ms)
+✔ packaging rejects content whose bytes changed after the index was authored (3.526917ms)
+✔ audio pack verifies primary and codec fallback exact bytes (7.148958ms)
+✔ optional scenery packaging verifies exact bytes and preserves the last valid pack on mismatch (11.516458ms)
+✔ paired build illustrations are indexed and packaged from the rendered build directory (15.266333ms)
+✔ optional menu illustration is copied byte-for-byte into the offline pack and absent art is not advertised (34.609791ms)
+✔ base identity changes with content and propagates into staged index without a self-hash cycle (21.3685ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 194.172

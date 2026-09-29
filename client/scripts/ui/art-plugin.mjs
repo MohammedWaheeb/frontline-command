@@ -1,6 +1,6 @@
 // Packages actual runtime outputs only. The art pipeline remains a separate owner.
 import {createReadStream} from 'node:fs';
-import {mkdir,readdir,readFile,stat,copyFile,writeFile} from 'node:fs/promises';
+import {mkdir,readdir,readFile,stat,copyFile,writeFile,rename,rm} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {authoredEffectPack,inspectEffectPack,readAuthoredEffectFile} from './effect-pack.mjs';
@@ -82,14 +82,32 @@ export async function writeBasePack(outDir){
    for(const [url,size,hash] of versions){if(typeof url!=='string'||!url.startsWith('/art/audio/')||!safe(url.slice(1)))throw Error('The audio index references an unsafe path.');const bytes=await readFile(path.join(outDir,url));if(bytes.length!==size||createHash('sha256').update(bytes).digest('hex')!==hash)throw Error(`Audio changed while packaging: ${id}. Retry after audio authoring has finished.`)}
   }
  }
+ // The index contains the generated version, so canonicalize that one field
+ // before deriving identity. No authored content version or map hash changes.
+ let stagedIndex;
+ if(await exists(indexPath)){
+  const index=JSON.parse(await readFile(indexPath,'utf8'));
+  const rows=(index.packs??[]).filter(pack=>pack.id==='2.0.0');
+  if(rows.length>1||rows.length===1&&rows[0].manifest_url!=='/assets/packs/base.json')throw Error('Invalid base pack reference in the content index.');
+  if(rows.length===1){rows[0].version='__base_pack_content_version__';stagedIndex=index}
+ }
  const files=[];
  for(const rel of await walk(outDir)){
+  if(/\.pending-\d+$/.test(rel))throw Error('Incomplete previous pack staging file: '+rel);
   if(rel==='assets/packs/base.json'||rel.endsWith('.map'))continue;
-  const data=await readFile(path.join(outDir,rel));files.push({path:`/${rel}`,sha256:createHash('sha256').update(data).digest('hex'),bytes:data.byteLength});
+  const data=rel==='content/index.json'&&stagedIndex?Buffer.from(JSON.stringify(stagedIndex,null,2)+'\n'):await readFile(path.join(outDir,rel));files.push({path:`/${rel}`,sha256:createHash('sha256').update(data).digest('hex'),bytes:data.byteLength});
  }
  if(!files.some(file=>file.path==='/index.html')||!files.some(file=>file.path==='/runtime/frontline.wasm'))throw Error('Build the actual Go runtime before packaging the product (npm run runtime:build).');
- const pack={id:'2.0.0',version:'2.0.0',files};if(files.length>16000||files.reduce((sum,file)=>sum+file.bytes,0)>2*1024**3)throw Error('The base pack exceeds the offline installer limits; split content packs before shipping.');
- const target=path.join(outDir,'assets/packs/base.json');await mkdir(path.dirname(target),{recursive:true});await writeFile(target,JSON.stringify(pack,null,2)+'\n');return pack;
+ const version='content-v1-'+createHash('sha256').update(JSON.stringify(files)).digest('hex');
+ let finalIndex;
+ if(stagedIndex){stagedIndex.packs.find(pack=>pack.id==='2.0.0').version=version;finalIndex=Buffer.from(JSON.stringify(stagedIndex,null,2)+'\n');const descriptor=files.find(file=>file.path==='/content/index.json');descriptor.bytes=finalIndex.length;descriptor.sha256=createHash('sha256').update(finalIndex).digest('hex')}
+ const pack={id:'2.0.0',version,files};if(files.length>16000||files.reduce((sum,file)=>sum+file.bytes,0)>2*1024**3)throw Error('The base pack exceeds the offline installer limits; split content packs before shipping.');
+ const target=path.join(outDir,'assets/packs/base.json');await mkdir(path.dirname(target),{recursive:true});
+ // This runs in a new unpublished build directory. Validate everything before
+ // writing; rename complete files rather than exposing a partially written JSON.
+ const suffix='.pending-'+process.pid,packTemp=target+suffix,indexTemp=indexPath+suffix;
+ try{await writeFile(packTemp,JSON.stringify(pack,null,2)+'\n');if(finalIndex){await writeFile(indexTemp,finalIndex);await rename(indexTemp,indexPath)}await rename(packTemp,target)}
+ finally{await rm(packTemp,{force:true});await rm(indexTemp,{force:true})}return pack;
 }
 export function artPlugin({assets,content=path.join(path.dirname(assets),'content')}){
  let outDir='',building=false;
