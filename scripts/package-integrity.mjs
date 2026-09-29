@@ -33,6 +33,19 @@ export async function fileInventory(root){
   if(entry.isDirectory())await walk(file,rel+'/');else if(entry.isFile())files.push({path:rel,bytes:entry.size});else throw Error(`Unsupported package entry: ${rel}`);
  }}await walk(root);return files;
 }
+/** Generated CSS must not retain source-tree paths or depend on remote fonts. */
+export function verifyCSSDependencies(css,stylesheet,listed){
+ const base=new URL(stylesheet,'https://frontline.invalid'),references=[];
+ const source=css.replace(/\/\*[\s\S]*?\*\//g,'');
+ const matches=[...source.matchAll(/url\(\s*(?:"([^"]*)"|'([^']*)'|([^\s)]*))\s*\)/gi),...source.matchAll(/@import\s+(?:"([^"]+)"|'([^']+)')/gi)];
+ for(const match of matches){
+  const reference=match[1]??match[2]??match[3];if(reference.startsWith('data:')||reference.startsWith('#'))continue;
+  const resolved=new URL(reference,base);
+  if(resolved.origin!==base.origin||resolved.search||!listed.has(resolved.pathname))throw Error(`CSS dependency is external or not cached: ${stylesheet} -> ${reference}`);
+  references.push(resolved.pathname);
+ }
+ return references;
+}
 export async function verifyProduct(root,{previous}={}){
  const inventory=await fileInventory(root),actual=new Map(inventory.map(f=>['/'+f.path,f])),packBytes=await readFile(path.join(root,'assets/packs/base.json')),pack=JSON.parse(packBytes);
  if(!/^[\w.-]{1,100}$/.test(pack.id)||!/^[\w.-]{1,100}$/.test(pack.version)||!Array.isArray(pack.files)||!pack.files.length||pack.files.length>16000)throw Error('Invalid offline pack identity/count');
@@ -50,10 +63,11 @@ export async function verifyProduct(root,{previous}={}){
  const html=await readFile(path.join(root,'index.html'),'utf8');for(const match of html.matchAll(/(?:src|href)=["']([^"']+)["']/g)){
   const ref=match[1];if(ref.startsWith('data:')||ref.startsWith('#'))continue;if(!ref.startsWith('/')||ref.startsWith('//')||!listed.has(ref.split('#')[0]))throw Error(`HTML dependency is external or not cached: ${ref}`);
  }
+ let cssDependencies=0;for(const file of actual.keys())if(file.endsWith('.css'))cssDependencies+=verifyCSSDependencies(await readFile(path.join(root,file.slice(1)),'utf8'),file,listed).length;
  const version=JSON.parse(await readFile(path.join(root,'runtime/version.json'),'utf8'));if(!version.simulation||!version.content_hash||!version.protocol)throw Error('Runtime version metadata is incomplete');
  const content=JSON.parse(await readFile(path.join(root,'content/index.json'),'utf8')),base=content.packs?.find(p=>p.id===pack.id);if(!base||base.version!==pack.version||base.manifest_url!=='/assets/packs/base.json')throw Error('Offline manifest and content index identity differ');
  if(previous){const old=JSON.parse(await readFile(path.join(previous,'assets/packs/base.json'),'utf8'));if(old.id===pack.id&&old.version===pack.version&&JSON.stringify(old.files)!==JSON.stringify(pack.files))throw Error('Changed content reuses a previously published offline pack identity')}
- return {files:pack.files.length,bytes:total,id:pack.id,version:pack.version,packSHA256:createHash('sha256').update(packBytes).digest('hex'),runtime:version,inventoryFiles:inventory.length,scope:'Read-only static integrity; no browser boot, MIME response, art completeness or release certification'};
+ return {files:pack.files.length,bytes:total,id:pack.id,version:pack.version,packSHA256:createHash('sha256').update(packBytes).digest('hex'),runtime:version,inventoryFiles:inventory.length,cssDependencies,scope:'Read-only static integrity; no browser boot, MIME response, art completeness or release certification'};
 }
 export async function verifyNativeExecutable(file,platform=process.platform,arch=process.arch){
  const handle=await open(file);const b=Buffer.alloc(4096);let bytesRead;try{({bytesRead}=await handle.read(b,0,b.length,0))}finally{await handle.close()}

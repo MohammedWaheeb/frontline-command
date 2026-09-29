@@ -1,7 +1,14 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,readFile,rm,symlink} from 'node:fs/promises';import {tmpdir} from 'node:os';import path from 'node:path';import {createHash} from 'node:crypto';
-import {nativeBuildEnvironment,portablePath,fileInventory,verifyProduct,verifyNativeExecutable,resolveGoLicense} from './package-integrity.mjs';
+import {nativeBuildEnvironment,portablePath,fileInventory,verifyProduct,verifyNativeExecutable,resolveGoLicense,verifyCSSDependencies} from './package-integrity.mjs';
 const put=async(root,name,bytes)=>{await mkdir(path.dirname(path.join(root,name)),{recursive:true});await writeFile(path.join(root,name),bytes)};
+test('packaged CSS resolves fonts, textures and imports and rejects unresolved source paths',()=>{
+ const files=new Set(['/assets/fonts/body.ttf','/art/ui/metal.png','/assets/theme.css']);
+ assert.deepEqual(verifyCSSDependencies('@font-face{src:url("fonts/body.ttf")}x{background:url(/art/ui/metal.png)}@import "theme.css";', '/assets/app.css',files),['/assets/fonts/body.ttf','/art/ui/metal.png','/assets/theme.css']);
+ assert.deepEqual(verifyCSSDependencies('/* url(missing.png) */x{mask:url(#glyph);background:url(data:image/png;base64,a)}','/assets/app.css',files),[]);
+ for(const ref of ['../../../assets/build/ui/chrome/metal_noise.png','https://remote.invalid/font.ttf','//remote.invalid/font.ttf','fonts/body.ttf?rev=1'])assert.throws(()=>verifyCSSDependencies(`x{src:url('${ref}')}`,'/assets/app.css',files),/CSS dependency/);
+ assert.throws(()=>verifyCSSDependencies('@import "missing.css";','/assets/app.css',files),/CSS dependency/);
+});
 test('Go notices support archive and Homebrew layouts without accepting unrelated licenses',async()=>{
  const dir=await mkdtemp(path.join(tmpdir(),'package-go-license-'));try{
   const license='Copyright The Go Authors.\nRedistribution and use in source and binary forms\nTHIS SOFTWARE IS PROVIDED';

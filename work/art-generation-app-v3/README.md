@@ -1,0 +1,11 @@
+# Actual App generation-consumer v3 check
+
+Genuine Firefox156.0.1 passed17 bounded checks on29September2026,11:21:30–11:22:28UTC. The product combines frozen generation-consumer-v3 code with unchanged v25+36 art and Go0.3.4; it remains an incomplete art roster. Build SHA256:`f714d2d6c761dc9b389f91034f361e4662f0c420e42905b1229b1ee76d7cd445`; pack:`9387365786fcd3f53049bdd1a87482a37eac8f18561fa276d36c977f26224559`.
+
+The actual App accepted an ordinary move and paid rig production against a deterministic Go bot, persisted preferences, paused the worker, saved, exported exact bytes, imported a new copy without replacing the original, loaded the exact authoritative hash, archived and sought a read-only replay to its end/opening, and returned to the menu with session workers removed. Save/export/load hash:`81e52dcc3eb5d08b11f70132a3f3eea66b58181dfbd5ace8daedcddd31eb465e`. All144 pinned inputs rehashed unchanged; zero observed page/console/fetch/server errors. W3C session, driver and fixture HTTP server closed.
+
+The driver preserves the existing stock-browser course. Its bounded adapter changes only the root path, pinned candidate receipt/schema, scope label and manifest endpoint (now required by the verified ArtLibrary). It serves exact manifest-listed files and the pinned pack manifest. Test-only worker/view/export observations do not submit simulation calls or alter rules. Actual OS download dispatch is intercepted to inspect the original export Blob. Browser plugin not available; genuine local W3C tooling is used under the recorded frontend-testing fallback.
+
+Root viewed the actual paid-production, replay-end and final-menu screenshots. Warm gunmetal/brass controls and current atlas textures render. **Fog scallops/isolated edge diamonds and the SKYBREAKE / R WING label split remain visible defects assigned to Claude's post-reset review.** This pass is functional integration, not visual approval. Native screenshots are retained alongside exact driver, observer, exports and result.
+
+This is not exhaustive browser network/CDP attribution, two-tab upgrade or full-App cold offline evidence, a combat victory,1–4-player matrix, long-session, physical LAN, audio listening or release acceptance. The separate Chromium tiny-document course still retains three unclassified aborts; no previous failure is relabeled by this Firefox result.
