@@ -282,7 +282,7 @@ func (e *Engine) launch(v, target *Entity, point Vec, w content.Weapon, amount i
 		p.ImpactAt += Tick(max(1, distance(v.Position, point)*20/12000))
 	}
 	e.state.Projectiles = append(e.state.Projectiles, p)
-	e.emit("weapon_fired", v.Owner, v.ID, v.Position, "visible", 0)
+	e.emitCombat("weapon_fired", v.Owner, v.ID, v.Position, w.ID)
 	if p.Interceptable {
 		e.emit("missile_warning", v.Owner, 0, point, "all", int64(p.ImpactAt))
 	}
@@ -300,10 +300,8 @@ func (e *Engine) updateProjectiles() {
 		if v.Charges <= 0 || e.state.Tick < v.FireAt {
 			continue
 		}
-		coverage := int32(14000)
-		if mobile {
-			coverage = 10000
-		}
+		rule, _ := e.interceptionParameters(v)
+		coverage := rule.radius
 		var selected *Projectile
 		for _, p := range e.state.Projectiles {
 			if !p.Interceptable || p.InterceptAt > 0 || p.ImpactAt > e.state.Tick+seconds(3) || e.allied(v.Owner, p.Owner) || distance(v.Position, p.Impact) > coverage {
@@ -317,11 +315,7 @@ func (e *Engine) updateProjectiles() {
 			selected.ReservedBy = v.ID
 			selected.InterceptAt = e.state.Tick + 10
 			v.Charges--
-			interval := seconds(1)
-			if fixed && e.player(v.Owner).LowPower() {
-				interval *= 2
-			}
-			v.FireAt = e.state.Tick + interval
+			v.FireAt = e.state.Tick + rule.interval
 			e.emit("interceptor_fired", v.Owner, v.ID, v.Position, "visible", 0)
 		}
 	}
@@ -365,7 +359,7 @@ func (e *Engine) updateProjectiles() {
 					amount /= 2
 				}
 				if amount > 0 {
-					e.damages = append(e.damages, damage{target.ID, p.Shooter, p.Owner, amount, w.Kind})
+					e.damages = append(e.damages, damage{Target: target.ID, Shooter: p.Shooter, Owner: p.Owner, Amount: amount, Kind: w.Kind})
 				}
 			}
 		} else if target := e.entity(p.Target); target != nil && target.HP > 0 && target.Container == 0 && !e.defeated(target.Owner) {
@@ -373,34 +367,39 @@ func (e *Engine) updateProjectiles() {
 				e.removeBuff(target, "decoy")
 				e.emit("decoy_triggered", target.Owner, target.ID, target.Position, "visible", 0)
 			} else {
-				amount := e.projectileDamage(p, target, w)
+				amount, covered := e.projectileDamageFeedback(p, target, w)
 				if amount > 0 {
-					e.damages = append(e.damages, damage{target.ID, p.Shooter, p.Owner, amount, w.Kind})
+					e.damages = append(e.damages, damage{Target: target.ID, Shooter: p.Shooter, Owner: p.Owner, Amount: amount, Kind: w.Kind, FeedbackIndex: uint32(len(e.state.Events)) + 1, CoverMitigated: covered})
 					impactTarget = target.ID
 				}
 			}
 		} else if p.Target == 0 && w.Kind == "cannon" {
 			for _, target := range e.state.Entities {
 				if target.HP > 0 && target.Container == 0 && !e.defeated(target.Owner) && e.distanceTo(target, p.Impact) < 200 && !e.allied(p.Owner, target.Owner) {
-					amount := e.projectileDamage(p, target, w)
+					amount, covered := e.projectileDamageFeedback(p, target, w)
 					if amount > 0 {
-						e.damages = append(e.damages, damage{target.ID, p.Shooter, p.Owner, amount, w.Kind})
+						e.damages = append(e.damages, damage{Target: target.ID, Shooter: p.Shooter, Owner: p.Owner, Amount: amount, Kind: w.Kind, FeedbackIndex: uint32(len(e.state.Events)) + 1, CoverMitigated: covered})
 						impactTarget = target.ID
 						break
 					}
 				}
 			}
 		}
-		e.emit("impact", p.Owner, impactTarget, p.Impact, "visible", 0)
+		e.emitCombat("impact", p.Owner, impactTarget, p.Impact, p.Weapon)
 	}
 	e.state.Projectiles = keep
 }
 func (e *Engine) projectileDamage(p *Projectile, target *Entity, w content.Weapon) int64 {
+	amount, _ := e.projectileDamageFeedback(p, target, w)
+	return amount
+}
+func (e *Engine) projectileDamageFeedback(p *Projectile, target *Entity, w content.Weapon) (int64, bool) {
+	covered := false
 	armor := e.armor(target)
 	amount := p.Damage
 	if p.Strategic || w.Kind == "tactical" {
 		if armor == "air" {
-			return 0
+			return 0, false
 		}
 		switch armor {
 		case "infantry":
@@ -412,11 +411,13 @@ func (e *Engine) projectileDamage(p *Projectile, target *Entity, w content.Weapo
 				amount = amount * 70 / 100
 			}
 		}
-		return amount
+		return amount, covered
 	}
 	amount = amount * int64(e.catalog.Multiplier(w.Kind, armor)) / 1000
 	if armor == "infantry" && e.state.Map.TileAt(target.Position).Cover() && (w.Kind == "small" || w.Kind == "auto") {
+		before := amount
 		amount = amount * 75 / 100
+		covered = amount < before
 	}
 	if target.Type == "SA.tank" && target.Deployed && (w.Kind == "small" || w.Kind == "auto" || w.Kind == "cannon" || w.Kind == "antiarmor") {
 		amount = amount * 85 / 100
@@ -424,7 +425,7 @@ func (e *Engine) projectileDamage(p *Projectile, target *Entity, w content.Weapo
 	if e.hasBuff(target, "shieldline") && w.Kind == "airground" && (armor == "light" || armor == "heavy") {
 		amount = amount * 80 / 100
 	}
-	return amount
+	return amount, covered
 }
 func (e *Engine) resolveDamage() {
 	// Attribute actual damage proportionally within each victim's simultaneous
@@ -475,6 +476,11 @@ func (e *Engine) resolveDamage() {
 					}
 					v.AttributedDamage += portion
 				}
+			}
+		}
+		if actual > 0 {
+			for _, d := range e.damages[start:end] {
+				e.resolveImpactFeedback(d, v)
 			}
 		}
 		v.HP -= actual

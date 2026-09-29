@@ -68,18 +68,11 @@ func (e *Engine) computeVisibility() {
 		if e.role(v) == "support_plane" && v.DisabledUntil > e.state.Tick {
 			continue
 		}
-		radius := int32(9000)
+		radius := e.sightRange(v)
 		air := false
 		if !v.Building {
 			u, _ := e.catalog.Unit(v.Type)
-			radius = u.Sight
 			air = u.Armor == "air" && !v.Landed
-		}
-		if e.state.Map.TileAt(v.Position).Height > 0 {
-			radius += 2000
-		}
-		if e.hasBuff(v, "relay") {
-			radius += 3000
 		}
 
 		if e.fogCache == nil {
@@ -229,11 +222,7 @@ func (e *Engine) detectsConcealment(source, target *Entity) bool {
 	if source.HP <= 0 || source.Owner == 0 || source.Container != 0 || e.defeated(source.Owner) || source.Building && !source.Complete || e.role(source) == "support_plane" && source.DisabledUntil > e.state.Tick {
 		return false
 	}
-	radius := int32(3000)
-	if !source.Building {
-		u, _ := e.catalog.Unit(source.Type)
-		radius = max(radius, u.Detection)
-	}
+	radius := e.detectionRange(source)
 	// A grounded scout has ground sight; another unit's shared vision cannot
 	// let its detector see through a cliff. Foundations grant no sight.
 	return distance(source.Position, target.Position) <= radius && (e.isAircraft(source) && !source.Landed || e.lineOfSight(source.Position, target.Position))
@@ -269,27 +258,30 @@ type EconomyView struct {
 	Cooldowns      []Cooldown `json:"cooldowns"`
 }
 type EntityPrivate struct {
-	MissionOrigin string     `json:"mission_origin,omitempty"`
-	AmbushReady   bool       `json:"ambush_ready"`
-	RepeatSortie  bool       `json:"repeat_sortie"`
-	HP            int64      `json:"hp"`
-	MaxHP         int64      `json:"max_hp"`
-	Jobs          []Job      `json:"jobs"`
-	Orders        []Order    `json:"orders"`
-	Rally         Vec        `json:"rally"`
-	Cargo         int64      `json:"cargo"`
-	Home          ID         `json:"home"`
-	Ammo          int32      `json:"ammo"`
-	Endurance     uint32     `json:"endurance"`
-	Charges       int32      `json:"charges"`
-	ChargeWork    uint32     `json:"charge_work"`
-	ServiceWork   uint32     `json:"service_work"`
-	Experience    int64      `json:"experience"`
-	Cooldowns     []Cooldown `json:"cooldowns"`
-	Passengers    []ID       `json:"passengers"`
-	Container     ID         `json:"container"`
+	Ranges                *EntityRanges `json:"ranges,omitempty"`
+	EmergencyTakeoffUntil Tick          `json:"emergency_takeoff_until"`
+	MissionOrigin         string        `json:"mission_origin,omitempty"`
+	AmbushReady           bool          `json:"ambush_ready"`
+	RepeatSortie          bool          `json:"repeat_sortie"`
+	HP                    int64         `json:"hp"`
+	MaxHP                 int64         `json:"max_hp"`
+	Jobs                  []Job         `json:"jobs"`
+	Orders                []Order       `json:"orders"`
+	Rally                 Vec           `json:"rally"`
+	Cargo                 int64         `json:"cargo"`
+	Home                  ID            `json:"home"`
+	Ammo                  int32         `json:"ammo"`
+	Endurance             uint32        `json:"endurance"`
+	Charges               int32         `json:"charges"`
+	ChargeWork            uint32        `json:"charge_work"`
+	ServiceWork           uint32        `json:"service_work"`
+	Experience            int64         `json:"experience"`
+	Cooldowns             []Cooldown    `json:"cooldowns"`
+	Passengers            []ID          `json:"passengers"`
+	Container             ID            `json:"container"`
 }
 type EntityView struct {
+	Effects         []StatusEffect `json:"effects"`
 	FootprintWidth  int32          `json:"footprint_width"`
 	FootprintHeight int32          `json:"footprint_height"`
 	FootprintType   string         `json:"footprint_type"`
@@ -324,14 +316,16 @@ type PlayerSummary struct {
 	StrategicProgress int32    `json:"strategic_progress"`
 }
 type ProjectileView struct {
-	ID            ID       `json:"id"`
-	Owner         PlayerID `json:"owner"`
-	Weapon        string   `json:"weapon"`
-	Position      Vec      `json:"position"`
-	Impact        Vec      `json:"impact"`
-	ImpactAt      Tick     `json:"impact_at"`
-	Interceptable bool     `json:"interceptable"`
-	Warning       bool     `json:"warning"`
+	Splash          int32    `json:"splash"`
+	PositionVisible bool     `json:"position_visible"`
+	ID              ID       `json:"id"`
+	Owner           PlayerID `json:"owner"`
+	Weapon          string   `json:"weapon"`
+	Position        Vec      `json:"position"`
+	Impact          Vec      `json:"impact"`
+	ImpactAt        Tick     `json:"impact_at"`
+	Interceptable   bool     `json:"interceptable"`
+	Warning         bool     `json:"warning"`
 }
 type FieldView struct {
 	ID        uint32 `json:"id"`
@@ -481,12 +475,14 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		if until := max(v.DeployUntil, v.PackingUntil); !v.Building && until > e.Tick() && until > v.DeploymentStarted {
 			s.Progress = clamp(int32(uint64(e.Tick()-v.DeploymentStarted)*1000/uint64(until-v.DeploymentStarted)), 0, 1000)
 		}
+		s.Effects = e.visibleEffects(v)
 		if v.Owner == id {
 			s.Private = &EntityPrivate{
+				Ranges:      e.ownerRanges(v),
 				AmbushReady: e.ambushReady(v), RepeatSortie: v.RepeatSortie,
 				HP: v.HP, MaxHP: v.MaxHP, Jobs: append([]Job(nil), v.Jobs...),
 				Orders: cloneOrders(v.Orders), Rally: v.Rally, Cargo: v.Cargo,
-				Home: v.Home, Ammo: v.Ammo, Endurance: v.Endurance,
+				Home: v.Home, Ammo: v.Ammo, Endurance: v.Endurance, EmergencyTakeoffUntil: v.EmergencyTakeoffUntil,
 				Charges: v.Charges, ChargeWork: v.ChargeWork, ServiceWork: v.ServiceWork,
 				Experience: v.Experience, Cooldowns: append([]Cooldown(nil), v.Cooldowns...),
 				Passengers: append([]ID(nil), v.Passengers...), Container: v.Container,
@@ -517,7 +513,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		if !warning && !e.canSee(id, v.Position) {
 			continue
 		}
-		p := ProjectileView{ID: v.ID, Owner: v.Owner, Weapon: v.Weapon, Position: v.Position, Impact: v.Impact, ImpactAt: v.ImpactAt, Interceptable: v.Interceptable, Warning: warning}
+		p := ProjectileView{ID: v.ID, Owner: v.Owner, Weapon: v.Weapon, Position: v.Position, Impact: v.Impact, ImpactAt: v.ImpactAt, Interceptable: v.Interceptable, Warning: warning, Splash: v.Splash, PositionVisible: e.canSee(id, v.Position)}
 		if warning && !e.canSee(id, v.Position) {
 			p.Position = v.Impact
 		}
@@ -593,7 +589,12 @@ func (e *Engine) PlayerFeedback(id PlayerID) (Feedback, bool) {
 	}
 	feedback := Feedback{}
 	for _, event := range e.state.Events {
-		if event.Scope == "all" || event.Scope == "owner" && event.Owner == id || event.Scope == "team" && e.allied(id, event.Owner) || event.Scope == "visible" && e.canSee(id, event.Position) {
+		// A casualty can remove its owner's last sight of this position before
+		// feedback is projected. The owner still knows that actor was lost.
+		// Other players require current sight, including allies; this exception
+		// does not disclose an attacker or broaden impact/weapon feedback.
+		ownedCasualty := event.Kind == "destroyed" && event.Owner == id
+		if event.Scope == "all" || event.Scope == "owner" && event.Owner == id || event.Scope == "team" && e.allied(id, event.Owner) || event.Scope == "visible" && (e.canSee(id, event.Position) || ownedCasualty) {
 			if event.Kind == "impact" && event.Entity != 0 {
 				// Seeing an explosion must not identify a concealed, embarked,
 				// destroyed or out-of-sight victim. Never infer from fog memory.
@@ -602,6 +603,7 @@ func (e *Engine) PlayerFeedback(id PlayerID) (Feedback, bool) {
 					event.Entity = 0
 				}
 			}
+			event.Combat = e.sanitizedCombatFeedback(event)
 			feedback.Events = append(feedback.Events, event)
 		}
 	}

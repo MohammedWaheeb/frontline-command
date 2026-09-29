@@ -1,0 +1,251 @@
+{
+  "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "started": "20260929T081201Z",
+  "stages": [
+    {
+      "stage": "toolchain-go",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.03,
+      "log_sha256": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+    },
+    {
+      "stage": "toolchain-protoc",
+      "command": [
+        "/opt/homebrew/bin/protoc",
+        "--version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.347,
+      "log_sha256": "29a645a23ed3faa5d85781dfce8478c3e394eb3344b7d6260dff9f6f5eb76b3a"
+    },
+    {
+      "stage": "toolchain-go-plugin",
+      "command": [
+        "/Users/mohammedkalouti/go/bin/protoc-gen-go",
+        "--version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.025,
+      "log_sha256": "66a5b1785e66f264cac3f01c42f696ab40f09f1b05a619c340c14a5ea7a2093d"
+    },
+    {
+      "stage": "toolchain-es-plugin",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/.bin/protoc-gen-es",
+        "--version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.169,
+      "log_sha256": "a143142c5ba9266e399126b3cf2e5f3d9527e5d4411f515ccedb5935c87ca2fb"
+    },
+    {
+      "stage": "generate-go",
+      "command": [
+        "/opt/homebrew/bin/protoc",
+        "-I",
+        "protocol",
+        "--plugin=protoc-gen-go=/Users/mohammedkalouti/go/bin/protoc-gen-go",
+        "--go_out=protocol",
+        "--go_opt=paths=source_relative",
+        "protocol/frontline.proto"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.072,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "generate-ts",
+      "command": [
+        "/opt/homebrew/bin/protoc",
+        "-I",
+        "protocol",
+        "--plugin=protoc-gen-es=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/.bin/protoc-gen-es",
+        "--es_out=client/src/protocol",
+        "--es_opt=target=ts",
+        "protocol/frontline.proto"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.212,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "generate-viewproto",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "generate",
+        "./internal/viewproto"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.63,
+      "log_sha256": "e5ee345b7967de280af88e5c6069e63eee4435b49b99dbef45bd47b228c97845"
+    },
+    {
+      "stage": "check-viewproto",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "run",
+        "./gen",
+        "-check"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source/internal/viewproto",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.136,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "build-wasm",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "build",
+        "-trimpath",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081201Z/runtime/frontline.wasm",
+        "./cmd/wasm"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {
+        "GOOS": "js",
+        "GOARCH": "wasm"
+      },
+      "exit_code": 0,
+      "seconds": 1.152,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "build-native-adapter",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "build",
+        "-trimpath",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081201Z/runtime/bin/runtime-native",
+        "./cmd/wasm"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 1.006,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "build-native-host",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "build",
+        "-trimpath",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081201Z/runtime/bin/frontline-host",
+        "./cmd/frontline"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 1.693,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "goroot",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "env",
+        "GOROOT"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.007,
+      "log_sha256": "8ed7fe46e1d1cb4611bdb9de72a93c5585e4ed1a652a231f9b785371d4017966"
+    },
+    {
+      "stage": "artifact-version",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081201Z/runtime/bin/runtime-native",
+        "-version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.983,
+      "log_sha256": "45c434f2726a76697e4ac75df05c78ba169d91f3be3cfec0fcb26f02a7ad2a45"
+    },
+    {
+      "stage": "build-worker",
+      "command": [
+        "node",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/build-worker.mjs",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081201Z"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i",
+      "environment": {},
+      "exit_code": 0,
+      "seconds": 0.091,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "build-info-frontline.wasm",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "version",
+        "-m",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081201Z/runtime/frontline.wasm"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "environment": {},
+      "exit_code": 1,
+      "seconds": 0.009,
+      "log_sha256": "693364f68a52e347960f6bd7d67c981c5b11a8ee7235284ae84a86afa23011e4"
+    }
+  ],
+  "status": "failed",
+  "conditions": "Serial GOMAXPROCS1 and Go package/compiler parallelism1. Root browser and Blender may run; correctness only, no performance claim.",
+  "shipping_inputs": {
+    "client/public/runtime/frontline.wasm": "4e67eebdd53c6ce588c14f0f01b54c236e193feacfbd2936bed0af4002a45efa",
+    "client/public/runtime/version.json": "9471fc047fd77bb3dc57568bdeac22ace3f3c01ecb527350286f62fce5138c3b",
+    "client/public/runtime/worker.js.map": "718f32fba3eee2305d91608155cd478de1b9ce1e17384424284f79346ea3f13d",
+    "client/public/runtime/worker.js": "be5f92962e19fdb6229c514e8b75849508a42c3a321a49beaec873d5d901fd71",
+    "client/public/runtime/wasm_exec.js": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+    "client/src/protocol/frontline_pb.ts": "1a143e9e54bf4953edb8425004755f8f879c07e8d9b515d4d661616fd2ebca79"
+  },
+  "prior_runtime": {
+    "frontline.wasm": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65",
+    "wasm_exec.js": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+    "worker.js": "ea75602152555b60d8049765d7238c54e9650d7afea4c23b949c711093c1706f",
+    "worker.js.map": "e61551a5b463bd29b3fe76388db8ca8b11dec4199536e50ab188ded77802806d",
+    "version.json": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+    "frontline_pb.ts": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+    "bin/runtime-native": "7a03f5be61c70a1d03706b1c121f1c503382e66efe2e58e19321b29a7d5400e9",
+    "bin/frontline-host": "1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379"
+  },
+  "worker_inputs": {
+    "worker.ts": "67184757fc147d0aacf2cfe94c68c167585adf2ac524e817b6cb552b856d9ef8",
+    "errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77",
+    "types.ts": "3fdeb4ffb5a7b09861b9d69d6df32d9d475a9aa1d016b024116f2a767c37f14f"
+  },
+  "files": {},
+  "version": {
+    "adapter": "1",
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "go": "go1.27.1",
+    "protocol": 1,
+    "simulation": "0.3.4"
+  }
+}

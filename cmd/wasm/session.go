@@ -15,6 +15,7 @@ import (
 	"fmt"
 	"io"
 
+	"frontlinecommand/internal/viewproto"
 	"frontlinecommand/pkg/content"
 	"frontlinecommand/pkg/sim"
 	pb "frontlinecommand/protocol"
@@ -443,15 +444,7 @@ func (s *Session) Dispose() {
 // snapshot and decodeOrders follow the conversion used by internal/server so
 // offline and online views are byte-compatible protobuf messages.
 func snapshot(view sim.View) (*pb.PlayerSnapshot, error) {
-	b, err := json.Marshal(view)
-	if err != nil {
-		return nil, err
-	}
-	p := new(pb.PlayerSnapshot)
-	if err = protojson.Unmarshal(b, p); err != nil {
-		return nil, err
-	}
-	return p, nil
+	return viewproto.Snapshot(view), nil
 }
 
 func decodeOrders(batch *pb.OrderBatch) ([]sim.Order, error) {

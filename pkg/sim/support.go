@@ -181,7 +181,7 @@ func (e *Engine) updateSupport() {
 				v.Orders = nil
 				continue
 			}
-			if e.edgeDistance(v, target) <= 1000 && target.LastPosition == target.Position {
+			if e.boardingDistance(v, target) <= 1000 && target.LastPosition == target.Position {
 				duration := seconds(2)
 				if target.Type == "SY.apc" {
 					duration = seconds(1)

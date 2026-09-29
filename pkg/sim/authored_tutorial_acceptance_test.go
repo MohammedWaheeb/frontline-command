@@ -37,11 +37,22 @@ type authoredRun struct {
 	midpoint            sim.Tick
 	initialHash         string
 	evidenceSuffix      string
+	requiredOptional    string
+	excludedArmy        map[sim.ID]bool
 	tactical            func()
+	diagnosticAttempt   *authoredAttempt
 }
 
 func newAuthoredRun(t *testing.T, id, difficulty, faction string) *authoredRun {
 	t.Helper()
+	run := &authoredRun{t: t, difficulty: difficulty, faction: faction, definition: content.Mission{ID: id}}
+	// Register before setup: every later helper/driver Fatal runs this cleanup.
+	// Successful/skipped leaves create no failure artifacts.
+	t.Cleanup(func() {
+		if t.Failed() {
+			run.captureFatalDiagnostics()
+		}
+	})
 	catalog := content.MustBase()
 	bytes, err := os.ReadFile(filepath.Join("..", "..", "content", "missions", id+".json"))
 	if err != nil {
@@ -71,15 +82,17 @@ func newAuthoredRun(t *testing.T, id, difficulty, faction string) *authoredRun {
 			t.Fatal(err)
 		}
 	}
+	run.catalog, run.gameMap, run.definition, run.faction = catalog, gameMap, definition, definition.Faction
 	engine, err := sim.NewMission(catalog, gameMap, definition, difficulty, 19027)
 	if err != nil {
 		t.Fatal(err)
 	}
+	run.engine = engine
 	replay, err := sim.NewReplay(engine)
 	if err != nil {
 		t.Fatal(err)
 	}
-	run := &authoredRun{t: t, engine: engine, catalog: catalog, gameMap: gameMap, definition: definition, difficulty: difficulty, faction: definition.Faction, replay: replay, tags: map[string][]sim.ID{}, sequences: map[sim.PlayerID]uint32{}, initialHash: engine.Hash()}
+	*run = authoredRun{t: t, engine: engine, catalog: catalog, gameMap: gameMap, definition: definition, difficulty: difficulty, faction: definition.Faction, replay: replay, tags: map[string][]sim.ID{}, sequences: map[sim.PlayerID]uint32{}, initialHash: engine.Hash()}
 	for _, entity := range engine.StateCopy().Entities {
 		if entity.Tag != "" {
 			run.tags[entity.Tag] = append(run.tags[entity.Tag], entity.ID)
@@ -114,29 +127,58 @@ func (r *authoredRun) issue(player sim.PlayerID, orders ...sim.Order) {
 	r.sequences[player]++
 	sequence := r.sequences[player]
 	tick := r.engine.Tick()
+	r.diagnosticAttempt = &authoredAttempt{authoredOrder: authoredOrder{tick, player, sequence, copyDiagnosticOrders(orders), nil}, Stage: "submit"}
 	if err := r.engine.Submit(player, sequence, orders); err != nil {
+		r.diagnosticAttemptError("submit", err)
+		if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {
+			_ = os.MkdirAll(directory, 0755)
+			prefix := filepath.Join(directory, r.definition.ID+"-"+r.faction+"-"+r.difficulty+r.evidenceSuffix+".submit-error")
+			saved, _ := r.engine.Save()
+			_ = os.WriteFile(prefix+".save.json", saved, 0644)
+			view, _ := json.MarshalIndent(r.view(), "", "  ")
+			_ = os.WriteFile(prefix+".view.json", view, 0644)
+		}
 		r.t.Fatalf("%s at tick %d: submit %+v: %v", r.definition.ID, tick, orders, err)
 	}
+	r.diagnosticAttempt.Stage = "await_execution"
 	if r.twin != nil {
 		if err := r.twin.Submit(player, sequence, orders); err != nil {
+			r.diagnosticAttemptError("restored_submit", err)
 			r.t.Fatalf("restored submit: %v", err)
 		}
 	}
 	r.advance(1)
 	v, _ := r.engine.PlayerView(player)
+	// Capture every available receipt before the original first-rejection fatal.
+	for _, result := range v.Results {
+		if result.Player == player && result.Sequence == sequence {
+			r.diagnosticAttempt.Results = append(r.diagnosticAttempt.Results, result)
+		}
+	}
 	receipts := []sim.OrderResult{}
 	for _, result := range v.Results {
 		if result.Player == player && result.Sequence == sequence {
 			receipts = append(receipts, result)
 			if !result.Accepted {
+				r.diagnosticAttemptError("execution_rejected", result.Code)
+				if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {
+					_ = os.MkdirAll(directory, 0755)
+					prefix := filepath.Join(directory, r.definition.ID+"-"+r.faction+"-"+r.difficulty+r.evidenceSuffix+".rejected")
+					saved, _ := r.engine.Save()
+					_ = os.WriteFile(prefix+".save.json", saved, 0644)
+					view, _ := json.MarshalIndent(r.view(), "", "  ")
+					_ = os.WriteFile(prefix+".view.json", view, 0644)
+				}
 				r.t.Fatalf("tick %d order %+v rejected: %+v", tick, orders[result.Index], result)
 			}
 		}
 	}
 	if len(receipts) != len(orders) {
+		r.diagnosticAttemptError("receipt_count", fmt.Sprintf("got %d, expected %d", len(receipts), len(orders)))
 		r.t.Fatalf("missing execution receipts for sequence %d: %+v", sequence, receipts)
 	}
 	r.orders = append(r.orders, authoredOrder{tick, player, sequence, orders, receipts})
+	r.diagnosticAttempt = nil
 }
 func (r *authoredRun) ids(tag string) []sim.ID {
 	r.t.Helper()
@@ -178,11 +220,17 @@ func (r *authoredRun) complete(id string) bool {
 func (r *authoredRun) wait(label string, limit sim.Tick, predicate func() bool) {
 	r.t.Helper()
 	end := r.engine.Tick() + limit
+	nextDiagnostic := r.engine.Tick() + 2000
 	for !predicate() && r.engine.Tick() < end && !r.engine.Outcome().Finished {
 		if r.tactical != nil {
 			r.tactical()
 		}
 		r.advance(10)
+		if r.engine.Tick() >= nextDiagnostic {
+			nextDiagnostic = r.engine.Tick() + 2000
+			view := r.view()
+			r.t.Logf("route progress %s tick%d credits%d army%d objectives%+v", label, r.engine.Tick(), view.Economy.Credits, len(r.army()), view.Mission.Objectives)
+		}
 	}
 	if !predicate() {
 		if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {
@@ -237,6 +285,9 @@ func (r *authoredRun) finish() {
 	outcome := r.engine.Outcome()
 	if !outcome.Finished || outcome.Reason != "mission_complete" || outcome.WinningTeam != 1 {
 		r.wait("real mission victory", 0, func() bool { return false })
+	}
+	if r.requiredOptional != "" {
+		r.requireOptional(r.requiredOptional)
 	}
 	if r.midpoint == 0 || r.twin == nil || r.engine.Hash() != r.twin.Hash() {
 		r.t.Fatal("midpoint save branch did not finish with the same state hash")
@@ -514,7 +565,7 @@ func playDefendTheSky(r *authoredRun) {
 func (r *authoredRun) army() []sim.ID {
 	var ids []sim.ID
 	for _, entity := range r.view().Entities {
-		if entity.Owner != 1 || entity.Private == nil || entity.Private.Container != 0 {
+		if entity.Owner != 1 || entity.Private == nil || entity.Private.Container != 0 || r.excludedArmy[entity.ID] {
 			continue
 		}
 		unit, ok := r.catalog.Unit(entity.Type)

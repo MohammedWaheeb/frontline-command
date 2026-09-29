@@ -65,9 +65,13 @@ func (e *Engine) navigationBridgeClear(v *Entity, goal Vec, mobiles bool) bool {
 			if !bridgeRectangleClear(a, goal, r, other.Position.X-w*500, other.Position.Y-h*500, other.Position.X+w*500, other.Position.Y+h*500) {
 				return false
 			}
-		} else if mobiles && (!e.isAircraft(other) || other.Landed) {
-			sum := int64(r + e.radius(other))
-			if segmentPointDistance2(a, goal, other.Position) < sum*sum {
+		} else if mobiles {
+			point, otherRadius, blocks := e.groundObstacle(other)
+			if !blocks {
+				continue
+			}
+			sum := int64(r + otherRadius)
+			if segmentPointDistance2(a, goal, point) < sum*sum {
 				return false
 			}
 		}

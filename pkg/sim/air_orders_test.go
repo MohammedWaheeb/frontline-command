@@ -124,6 +124,7 @@ func TestAutomaticServicePreservesExplicitWorkAndDefaultWaits(t *testing.T) {
 			if len(jet.Orders) != 1+btoi(wantResume) {
 				t.Fatal("wrong service resume", kind, repeat, jet.Orders)
 			}
+			e.updateServiceParking()
 			jet.Position = e.landingPoint(jet, home)
 			e.updateAircraft()
 			if !jet.Landed || jet.ServiceWork == 0 {

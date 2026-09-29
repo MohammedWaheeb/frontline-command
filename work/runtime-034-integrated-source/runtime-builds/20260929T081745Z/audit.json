@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "receipt_sha256": "cc990ac7f78d5a1094dd635d06bff0cb04d2c055ce413dbd114a7233bb176e69",
+  "selected_tests": {
+    "fixtures-native": 22,
+    "fixtures-wasm": 22,
+    "codec-native-adapter": 4,
+    "codec-native-host": 3,
+    "codec-wasm-adapter": 4,
+    "actual-save-json-oracle": 1
+  },
+  "native_wasm_fixture_files": 73,
+  "codec_records_per_target": 40,
+  "actual_save_oracle": {
+    "saves": 29,
+    "player_views": 58
+  },
+  "production_wasm_service_scenes": 6,
+  "actual_wasm_api_version": {
+    "adapter": "1",
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "go": "go1.27.1",
+    "protocol": 1,
+    "simulation": "0.3.4",
+    "tick_rate": 20
+  },
+  "worker_executable_code_equals_prior": true,
+  "worker_source_map_differs_only_source_paths": true,
+  "binaries_byte_identical_to_prior": false,
+  "limitation": "No browser, HTTP host journey, product pack, offline, timing or release qualification. Binary byte identity is not claimed; native VCS metadata differs.",
+  "shipping_unchanged": true,
+  "prior_runtime_unchanged": true,
+  "frozen_source_unchanged": true
+}

@@ -1,0 +1,397 @@
+{
+  "status": "passed",
+  "started_utc": "2026-09-29T08:25:31.410242+00:00",
+  "manifest_sha256": "970dde9b71798e6a41888580918de0713446a42cd1260880ed10df9d83d56537",
+  "copied": [
+    {
+      "path": "client/src/protocol/frontline_pb.ts",
+      "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+    },
+    {
+      "path": "cmd/wasm/combat_feedback_codec_test.go",
+      "sha256": "7280e23e1978f4ccfbd215652338d1413a30ae8346827141a24e7100b610b8b8"
+    },
+    {
+      "path": "cmd/wasm/editor.go",
+      "sha256": "617a155eb5239a6ab3fad4dd3599a6c8ae3ebbf04f60ea8468af7a2a51cdebbc"
+    },
+    {
+      "path": "cmd/wasm/editor_test.go",
+      "sha256": "36affb22ff11a1494621e39f98f3007395f8e679258f065884a7401c79765700"
+    },
+    {
+      "path": "cmd/wasm/owner_casualty_codec_test.go",
+      "sha256": "e81c4f8e86a5746677d90783de2389c0d43ea98b7b0c07080e842a7d6a9a50ab"
+    },
+    {
+      "path": "cmd/wasm/owner_ranges_codec_test.go",
+      "sha256": "0b60d7c0b12dfcbe60f505b6972fc05dbb75373efec8552a4a19b9e0b7d5c4c0"
+    },
+    {
+      "path": "cmd/wasm/service_parking_candidate_test.go",
+      "sha256": "ebe06d7ac87e7e57d49017b3f02542eb272bd457b4b3dc0664297878bedd5f5f"
+    },
+    {
+      "path": "cmd/wasm/session.go",
+      "sha256": "585879f21089ed1818466dc43cc0ac66509a9ae0f005e8ad43c5788385a2ae5b"
+    },
+    {
+      "path": "cmd/wasm/tactical_wire_test.go",
+      "sha256": "cb8bf9edd29e4d3bb0129c829693c361a89325d1b4f2c84af58dda81c4d572fd"
+    },
+    {
+      "path": "internal/server/advice.go",
+      "sha256": "d465a14b153dc2129f571834d1c9a0c7d59d636bd322101aafe6ff8605068ce1"
+    },
+    {
+      "path": "internal/server/advice_test.go",
+      "sha256": "3b545ee3b80c66e08f10248f7dee5f79f8770f18028c2261e0f03924efe88561"
+    },
+    {
+      "path": "internal/server/codec.go",
+      "sha256": "efab28ed9e829a1128006212ec3e442111e719e7841aad10f6d19ceef72aeb84"
+    },
+    {
+      "path": "internal/server/combat_feedback_codec_test.go",
+      "sha256": "56b7c767fc447938b1d58bc864c9119cbca2ba944549505140c2b3c310e37400"
+    },
+    {
+      "path": "internal/server/owner_casualty_codec_test.go",
+      "sha256": "3592bc9e15f811ea9905ca17316f5c1fb804da6c6596e96dbd2f9ce91e09a683"
+    },
+    {
+      "path": "internal/server/owner_ranges_codec_test.go",
+      "sha256": "56e3058a2195704f6a0e827afc605324bd19de4b9d675fd31bb18d1c905f3664"
+    },
+    {
+      "path": "internal/server/tactical_wire_test.go",
+      "sha256": "e557b819cdf47e0ccd80af3e82899f5db911bdd4fed7c43424c34833e3be7990"
+    },
+    {
+      "path": "internal/viewproto/gen/main.go",
+      "sha256": "7be98df772de98b2f1b8f9427343c2a06e339628bfab2eb3354f45bef7b610d7"
+    },
+    {
+      "path": "internal/viewproto/snapshot.go",
+      "sha256": "93252f40e30010b13a9b3711d2476e7b213aa04e785a0f880e6261ad8cf85afd"
+    },
+    {
+      "path": "internal/viewproto/snapshot_generated.go",
+      "sha256": "2a641ebbbd143723213953797519b7d9351bbcc5dbb3a5574790330ab664228b"
+    },
+    {
+      "path": "internal/viewproto/snapshot_test.go",
+      "sha256": "51ce26c5770f5273eada673898a0610aede5987dcda32afa21b7ab1f9519d25a"
+    },
+    {
+      "path": "pkg/sim/abilities.go",
+      "sha256": "d9afee83a85a2977fd687592db81b74cd37eba1a75c4f16a5e075f52108d3c9e"
+    },
+    {
+      "path": "pkg/sim/ai_knowledge.go",
+      "sha256": "819d16c7d1e86422d77f16a786b3e113ed3e9a3a915c7d8d66eb27427d0020ac"
+    },
+    {
+      "path": "pkg/sim/air_orders_test.go",
+      "sha256": "5b2d0705c2a9cb2b0128ff53d18a1854f728d65305d6edd2259e0285d4649332"
+    },
+    {
+      "path": "pkg/sim/aircraft.go",
+      "sha256": "9e8d986429491009311de260edc08c50a3ca374504e5e9c50319228b015b365f"
+    },
+    {
+      "path": "pkg/sim/aircraft_rebase.go",
+      "sha256": "0530bd4275d8a11d0c9ca9fea0e9d168a9aa757218be2854e6004746c24f7c9e"
+    },
+    {
+      "path": "pkg/sim/authored_campaign_acceptance_test.go",
+      "sha256": "24f11fc0fdf8fe5ac61f8105068092e11661c139ded29620492f117647e721ec"
+    },
+    {
+      "path": "pkg/sim/authored_candidate_tactics_test.go",
+      "sha256": "915fd219bcead5492d5e6849b4a5ea0b951477ee77c38ec9a6e1254498d4b14f"
+    },
+    {
+      "path": "pkg/sim/authored_capture_gunner_test.go",
+      "sha256": "150090f8440ef295367f92ad34865fe3cf6e2f2326ee90d286a4c83341d84150"
+    },
+    {
+      "path": "pkg/sim/authored_capture_readiness_test.go",
+      "sha256": "bd830d8099a9854c4a6d27a8eec7fb2e36b36bfa56fd9da83ff9555efefdf238"
+    },
+    {
+      "path": "pkg/sim/authored_capture_reassignment_test.go",
+      "sha256": "6dd6a703095fe4c851e345ecc8e89449105728c12c8cb6cf91eb2d9085882b23"
+    },
+    {
+      "path": "pkg/sim/authored_capture_visible_site_test.go",
+      "sha256": "0f6212270f0c8adc8ce9be34f7c87b6cc260e166045d9f66eed49c393eca587f"
+    },
+    {
+      "path": "pkg/sim/authored_expansion_budget_test.go",
+      "sha256": "514c78a8c6045e70b77abdbef05881a816a8144c3196a1aa635ced5c4cc622e5"
+    },
+    {
+      "path": "pkg/sim/authored_expansion_logistics_test.go",
+      "sha256": "9dcebf48c25230445cdd299fc4b8d6a002cee3bbc9c934f9198ad6324f4295ff"
+    },
+    {
+      "path": "pkg/sim/authored_expansion_response_test.go",
+      "sha256": "5a62e2a1c9c083f286c5bab9fc04abc4991122decd89e5f851d4576f852c9966"
+    },
+    {
+      "path": "pkg/sim/authored_expansion_sites_test.go",
+      "sha256": "2fb3155b7d1b029ea891dc0ef8393a6ea86748cc54583ac50c28725bc59ce334"
+    },
+    {
+      "path": "pkg/sim/authored_failure_diagnostics_probe_test.go",
+      "sha256": "7862680bcbe0361c6d43cec373ab4180454f74b192021ca34913f4010599cfd2"
+    },
+    {
+      "path": "pkg/sim/authored_failure_diagnostics_test.go",
+      "sha256": "7bacaf09686107debe5f7efed2fc54a0e86e7ba8af5a28d0717d19e8a8cd0ac9"
+    },
+    {
+      "path": "pkg/sim/authored_optional_routes_test.go",
+      "sha256": "80fe2f8a03b9406e27f46578101be4c3b7b21739a4eb7b4b7acfc07059923ec2"
+    },
+    {
+      "path": "pkg/sim/authored_tutorial_acceptance_test.go",
+      "sha256": "c8c276677931102268355d16ad63fd14b2b9d0cb19e8ef2a515b7d57c5ca94f4"
+    },
+    {
+      "path": "pkg/sim/capture_test.go",
+      "sha256": "aea3135863c4de92156c911fd62f2a5ede6321df7db1ab0ba9c28740a5c4dc2e"
+    },
+    {
+      "path": "pkg/sim/combat.go",
+      "sha256": "ae78599a9a150e2b9b7b1e979504dab338af3048517565dd07ceca709b5bd6da"
+    },
+    {
+      "path": "pkg/sim/combat_feedback.go",
+      "sha256": "334bfe8e31574a534fa0e0432c35e2462aec06b0e26755d224e7b09f8f5a1132"
+    },
+    {
+      "path": "pkg/sim/combat_feedback_test.go",
+      "sha256": "a7a2a151c87ec8ae15c3abcb0cd9684bb9cfda0a76746fe99c1b45641a53af9e"
+    },
+    {
+      "path": "pkg/sim/combat_rules_projection_test.go",
+      "sha256": "8b176c1597f594b462e8cea5e5bfbdcbcbb72560b3d5b452d4e7f32a9b411442"
+    },
+    {
+      "path": "pkg/sim/economy.go",
+      "sha256": "28698e542a382ce4e1a032fa14867eb8f2af1917be784f772b9a745a30be16d7"
+    },
+    {
+      "path": "pkg/sim/engine.go",
+      "sha256": "20dc78e3674f378085d453a5f02552145e111a0132dc9a0ea0a1349ee4154f4f"
+    },
+    {
+      "path": "pkg/sim/mission.go",
+      "sha256": "b2f0dde97c549afd140d8886f535a3702d887b6472159ae537cddc15d02a09bb"
+    },
+    {
+      "path": "pkg/sim/navigation.go",
+      "sha256": "c491052f776c4b4e46adcc64b47eabf5137277b6e6105cad05b0760d07288694"
+    },
+    {
+      "path": "pkg/sim/navigation_bridge.go",
+      "sha256": "8fb5453324956cf9a326688dd1b7e561562e635e6b9ef0ab6e5f68c10fdab2af"
+    },
+    {
+      "path": "pkg/sim/navigation_lookup_reference_test.go",
+      "sha256": "e2aa8f05e836ef607095581fe72f618c79bc894b20ad8a7246a3ddcc0c3e46c0"
+    },
+    {
+      "path": "pkg/sim/navigation_lookup_test.go",
+      "sha256": "91056a1dd1258409d9e2e5e98ed7a65682324fb7ea659a64996c979da06ef9b2"
+    },
+    {
+      "path": "pkg/sim/navigation_mobile.go",
+      "sha256": "b3215dc7c63fba0c5b2a424fd1632d2ecd9c62f5bbd840177bdf912ad895a73c"
+    },
+    {
+      "path": "pkg/sim/operation_views.go",
+      "sha256": "abbcbf370c2679aea056a74ab9e0f13a5efe7740222ae0d9c7284c784a9b336d"
+    },
+    {
+      "path": "pkg/sim/orders.go",
+      "sha256": "4986bd28a877a8e3942354c5cd5e56e72642444a815bb607d1e93925ad3749bd"
+    },
+    {
+      "path": "pkg/sim/owner_casualty_test.go",
+      "sha256": "cfe64cb5cfaa50a48b5fdaee2c412dfd9a401b382baf88f9de7679c6809c9297"
+    },
+    {
+      "path": "pkg/sim/owner_ranges.go",
+      "sha256": "c3df1ee0952195530afbb874abf63e885405378e2a6e34519dc9cdebe29b815a"
+    },
+    {
+      "path": "pkg/sim/owner_ranges_canonical_test.go",
+      "sha256": "5d71ad8dd11c1c2453d00f2aca6a36f7b1aa7f22f93e0d91dc395896b4d27703"
+    },
+    {
+      "path": "pkg/sim/owner_ranges_test.go",
+      "sha256": "b0ea8ff44b9be9a929ae3f79a2bb4f45b47b85a96decb54867bb91ee2d786964"
+    },
+    {
+      "path": "pkg/sim/preview.go",
+      "sha256": "b75fb849ecf5b0a58867b9f7c778001f605dedcecf867e90e043356843b7103d"
+    },
+    {
+      "path": "pkg/sim/service_boarding_test.go",
+      "sha256": "e6056f7ab46b1c0363a6c20c190c31b10f2c1e72bad9d918f91d9f707bb5b483"
+    },
+    {
+      "path": "pkg/sim/service_geometry.go",
+      "sha256": "cfd8affd885e32d39231445494bdf0a4be0e547267ebcf8d9257295b44441424"
+    },
+    {
+      "path": "pkg/sim/service_interactions.go",
+      "sha256": "3c6c87a00809eab30b333e73d205ce53890c59d0afbd0dcfde6b469c098a9a9c"
+    },
+    {
+      "path": "pkg/sim/service_loss.go",
+      "sha256": "875e2c2528b0aa3eee0abb985ad4f522a2faeeea7df37e1807a2eb7bca076687"
+    },
+    {
+      "path": "pkg/sim/service_navigation.go",
+      "sha256": "5f58712f529ef8dbafd4bfb9c1daab3e486d1aeba77d35100adbea707c735b42"
+    },
+    {
+      "path": "pkg/sim/service_parking.go",
+      "sha256": "14fd9af9e85757bfa1a7f852f9fe345469bc38f35afeab3c8594c5402df160ae"
+    },
+    {
+      "path": "pkg/sim/service_parking_boundary_test.go",
+      "sha256": "7eaa0a32adaedf0c785c57acc1721bb541887d8c4c4d410b902e9e0de6d3b31c"
+    },
+    {
+      "path": "pkg/sim/service_parking_candidate_test.go",
+      "sha256": "1d207f6ecc0bb7e640097f2daca7aa99f26cdf1dc36c20c39bda4baa3eb401f2"
+    },
+    {
+      "path": "pkg/sim/service_parking_combined_test.go",
+      "sha256": "5b397b671b8bb4089c148a3312ffd9fa706d9005ff81b33905f1cc97d170ea49"
+    },
+    {
+      "path": "pkg/sim/service_parking_invariants_test.go",
+      "sha256": "219f7ae82c46be3d41b33ef5873c061bdde2cb5ba23025aca980caf75e13c7c9"
+    },
+    {
+      "path": "pkg/sim/service_parking_maximum_test.go",
+      "sha256": "86e882590227ccf62abe0de7d329519ba7a482f3e5f96f4a38c5beb7afa28511"
+    },
+    {
+      "path": "pkg/sim/service_parking_mission_test.go",
+      "sha256": "92a4924072e5eb87046c78798afb863a0c77ae00fff4ed3e7ea817aca2d4c162"
+    },
+    {
+      "path": "pkg/sim/sim_test.go",
+      "sha256": "ec6e4206634591fdcdb0018a04856f8738efa44d9069a7ce1a02c3fb2e911d87"
+    },
+    {
+      "path": "pkg/sim/state.go",
+      "sha256": "c47c577325d38327d10aaf5d488135aa7f62781f07ac319271dd340857b26ce8"
+    },
+    {
+      "path": "pkg/sim/strategic_preview.go",
+      "sha256": "9fd8219a748a739a6608ae9423725f8b8bf5c9914f3bb9d137458debd928291d"
+    },
+    {
+      "path": "pkg/sim/strategic_preview_test.go",
+      "sha256": "96ea24c97616d68ca4e2df89dfbdef539ef1381c1d5952693368abfdb73aab42"
+    },
+    {
+      "path": "pkg/sim/support.go",
+      "sha256": "a309abb5f8ded98cd169e87547d49e94d98340617f3c306ec2f55ea3ec5e1132"
+    },
+    {
+      "path": "pkg/sim/tactical_canonical_test.go",
+      "sha256": "08e1e9dbdac69006a01a6484539d0be3440a8c6ac8a001135d139e8d52705a5f"
+    },
+    {
+      "path": "pkg/sim/tactical_view_test.go",
+      "sha256": "73449fb013e4e22880c6c4c26ae2df4541fab9614ff7ac6d30f1acce18394dfb"
+    },
+    {
+      "path": "pkg/sim/validate.go",
+      "sha256": "012e7c7d18ed4e8f9229250114de142177b060b9047f810b279ccdbc6a1bd0fb"
+    },
+    {
+      "path": "pkg/sim/visibility.go",
+      "sha256": "f4cf4977faaa281551565ebd9f7458e447c1879baaea111fe4da649105cd5dd1"
+    },
+    {
+      "path": "pkg/sim/visible_effects.go",
+      "sha256": "128a9b64f25d54841f572f61c41cea9a01480696d91e8755d05e7e498f445b22"
+    },
+    {
+      "path": "protocol/frontline.pb.go",
+      "sha256": "983df81b0a5b882cfe12aa159a9fd9c221a64a4da8f0cb3641d1576ecac6a28d"
+    },
+    {
+      "path": "protocol/frontline.proto",
+      "sha256": "52b049c9e87f43d5cc78421e7b1e4c9e6a0db50099fb66fd7a7ea6bc5d5f35fe"
+    },
+    {
+      "path": "client/public/runtime/frontline.wasm",
+      "sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae"
+    },
+    {
+      "path": "client/public/runtime/wasm_exec.js",
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+    },
+    {
+      "path": "client/public/runtime/worker.js",
+      "sha256": "ced862a30a9d91dbab59befcf6ea0e4af9dabfc289acffbe7678a6dd33b2bed9"
+    },
+    {
+      "path": "client/public/runtime/worker.js.map",
+      "sha256": "883f857ebdafa92063880bff097c0b648736a5c46f84d71f8f7edd66c0ee6dc8"
+    },
+    {
+      "path": "client/public/runtime/version.json",
+      "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea"
+    },
+    {
+      "path": "bin/runtime-native",
+      "sha256": "2e7201360d5241f69b66a4dadffe1ee8ccba3dcb1802597bebbd362cb73320e5"
+    },
+    {
+      "path": "bin/frontline",
+      "sha256": "36ca8c93f538696206317113d50af6ee31ac92fcbcd626a0a9f9b0ceaab8a5e0"
+    }
+  ],
+  "all355_live_source_files_exact": true,
+  "all7_runtime_files_exact": true,
+  "source_version": "0.3.4",
+  "native_version": {
+    "adapter": "1",
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "go": "go1.27.1",
+    "protocol": 1,
+    "simulation": "0.3.4"
+  },
+  "service_worker_inputs": {
+    "client/src/runtime/crypto.ts": "08eefc374ac92cd54e58607ae989cc660e4e8ab6953594949f944747cc786994",
+    "client/src/runtime/cache.ts": "5832298a11dbcfb3f3a9bf52a8f6bdd47dd176179c8e3a3fbc19e87c329d6b55",
+    "client/src/runtime/service-worker.ts": "dfcaa7075fefa83aaa71d1a732a9df2d6bd0fa3fa19b2d520d8e2f493696966f"
+  },
+  "service_worker": "No regeneration needed: three embedded source-map inputs exactly equal current sources; files unchanged.",
+  "host_startup": "Frontline Command local server: http://127.0.0.1:52463",
+  "host_health": {
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "local": true,
+    "protocol": 1,
+    "simulation": "0.3.4",
+    "status": "ok",
+    "tick_rate": 20
+  },
+  "served_wasm_sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+  "host_exit_code": 0,
+  "host_stderr": "",
+  "finished_utc": "2026-09-29T08:25:33.258643+00:00",
+  "limitations": "Selective source/runtime promotion and metadata/static-WASM smoke only. No browser, product/art pack publication, offline installation, save migration, deployment or new broad tests."
+}

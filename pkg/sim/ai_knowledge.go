@@ -159,7 +159,8 @@ func (e *Engine) aiInBuildRadius(p *Player, typ string, pos Vec) bool {
 		return true
 	}
 	for _, v := range e.state.Entities {
-		if v.Owner == p.ID && v.Complete && v.HP > 0 && (e.role(v) == "hq" || e.role(v) == "outpost") && distance(v.Position, pos) <= 14000 {
+		radius := e.buildRange(v)
+		if v.Owner == p.ID && radius > 0 && distance(v.Position, pos) <= radius {
 			return true
 		}
 	}

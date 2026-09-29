@@ -1,9 +1,15 @@
 # Isolated c7e0 and passing-commander integration
 
-2026-09-29. Internal integration only; **shipping stays0.3.3**. No shared
-runtime, product, asset, prior source lock or v19 input was changed. No host,
-browser, WASM artifact build, full mission matrix or skirmish matrix was launched
-by this preparation. Root owns those later scheduling/promotion decisions.
+2026-09-29. The exact reviewed Go/protocol/runtime integration was selectively
+promoted at08:25UTC after root authorization. **Live source and runtime are now
+0.3.4; product/art-pack publication remains separate.** Prior source locks, old
+saves/replays and frozen products are unchanged. The serial native matrix completed102/102 main
+and21/21 optional routes. The13 authored skirmishes also passed; all12 rejected
+receipts have exact authorized decision/execution timing classifications.
+The fresh isolated host/adapter/WASM build and native/WASM parity pass.
+[Runtime evidence](RUNTIME.md) records exact binaries and both preserved failed
+orchestration attempts. [Promotion and rollback scope](PROMOTION.md) records
+the83 source paths, seven artifacts, reversible backups and minimal host smoke.
 
 ## Frozen source and merge decisions
 
@@ -34,8 +40,46 @@ inventory before making a new source directory; it refuses to overwrite it.
 `integration-receipt.json` records all copy/override/exclusion decisions and
 the parent HEAD. Input source locks and the selective inventory are copied under
 `inputs/`. The existing c7e0 and successful original-combined matrix are preserved.
-This source has not yet earned its own123-case result merely by including the
-previously passing commander.
+The source did not inherit acceptance merely by including a previously passing
+commander. Its new123-case result was earned by the fresh runs below.
+
+## Fresh integrated mission acceptance
+
+`completed-mission-audit.json` and `audit-mission-matrix.py` independently check
+both completed run receipts, artifact/log hashes, all required main objective
+flags and the seven named optional objectives on all three difficulties.
+
+| Phase | Fresh run | Passed / failed / unrun | Accepted winning-route orders |
+|---|---|---|---|
+| Main | `authored-runs/20260929T072337Z-main` |102 /0 /0 |13,261 |
+| Optional | `authored-runs/20260929T074800Z-optional` |21 /0 /0 |10,109 |
+
+Both use exact executable SHA-256
+`5fe5ff8ce86775e2d6c42a2739d720207becb880ee2cce3a234cd8cacc9eb943`.
+Every winning receipt is accepted with code`ok`; the winning ledgers contain
+no practice or surrender orders. Meaningful midpoint restore/twin execution,
+full replay without seek checkpoints, ended save restoration, same-seed restart
+and separate all-human surrender/failure checks remain required by each leaf.
+The surrender check is a generic failure-path gate, not proof of every authored
+loss condition.
+
+All123 final hashes **and complete winning order ledgers** equal the corresponding
+earlier original-combined0.3.4 commander evidence. Both sources and old failures
+remain preserved. This comparison does not replace the fresh integrated result.
+Source and executable bytes were verified after both phases. Run coordination
+records explicitly retain active browser/Blender and brief authorized native
+probe overlap; command elapsed times are not reference-performance evidence.
+
+`mission-ledgers.tar.gz` is a deterministic compact archive of all123 exact
+winning-route JSON ledgers and leaf logs, plus both phase receipts, source locks
+and coordination records. `mission-ledger-archive.json` records every entry's
+original byte length/SHA-256; reopening the archive reproduced all252 digests.
+The large saves and compiled executable remain in the local raw run directories
+and are not included in this selective metadata checkpoint.
+
+The [fresh skirmish table and receipt scope](SKIRMISH.md) records13/13 ordinary
+eliminations,13,951 accepted orders and12 preserved, individually classified
+rejections. Lifecycle success is separate from pacing and balance.
 
 ## Generation and bounded checks
 
@@ -83,13 +127,12 @@ must provide exact current fixtures and compare native/WASM/host results; the
 historical candidate parity receipts remain separately valid at their recorded
 source boundaries. Skips are preserved in the JSON test logs.
 
-## Prepared next gates — coordinate before running
+## Reproduction commands and remaining product gates
 
 `run-mission-matrix.py` is the audited serial runner adapted only to this source
 lock and integration receipt. Its default planning invocation validates355
 source bytes and writes `authored-matrix-plan.json` without compiling or running
-Go. It enumerates exactly102 main and21 optional leaves. After root releases a
-sustained correctness slot, planned separate phases are:
+Go. It enumerates exactly102 main and21 optional leaves. The authorized fresh separate phases above used:
 
 ```sh
 python3 work/runtime-034-integrated-source/run-mission-matrix.py --run main --execute-after-release
@@ -100,7 +143,7 @@ Each compiles one isolated test binary, runs one leaf at a time under
 GOMAXPROCS=1, records exact source/binary/artifact hashes and stops on resource
 failure. Subsets must remain labeled subsets. Record actual concurrent host
 conditions at launch. All old failed attempts and the original102+21 pass remain
-unchanged; a fresh completed audit is needed for an integrated-source claim.
+unchanged. The completed audit above supplies the integrated-source claim.
 
 The unchanged `TestAuthoredSkirmishAcceptance` already defines13 serial real
 matches: six faction pairs, four mirrors,3FFA,4FFA and2v2 on the original authored
@@ -113,11 +156,10 @@ Require actual ordinary elimination, income/spending, initial/final restore and
 full replay equality; inspect every rejection rather than declaring all receipts
 clean from a test-process exit. Preserve timeouts and exact state/trace artifacts.
 
-Root must release an artifact-build window before rebuilding native host,
-adapter and Go WASM together into a new isolated runtime directory. Reuse the
-reviewed pinned build procedure, verify the new source lock before/after, and
-regenerate the exact-byte pack with the selected product freeze. This preparation
-does not overwrite `client/public/runtime`, `client/dist` or integration-v19.
+The authorized isolated artifact stage and exact source/runtime promotion are
+complete; do not rebuild them merely to reproduce this document. Root owns the
+next product freeze and regenerated exact-byte pack. `client/dist`, integration-v19
+and prior saved states were not overwritten by this promotion.
 
 Remaining full-product gates and their exact historical scope are in
 `../go-promotion-audit/README.md`: fresh failed-configuration multiplayer repeats,

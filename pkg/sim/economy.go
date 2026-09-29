@@ -20,6 +20,8 @@ func (e *Engine) updateEconomy() {
 	// Live aircraft reserve replacement capacity before production can claim it.
 	// Damage resolved last tick may have removed their previous producer.
 	e.reconcileAircraftService()
+	e.prepareAircraftReturns()
+	e.updateServiceParking()
 	for _, p := range e.state.Players {
 		if p.Defeated {
 			continue
@@ -210,6 +212,10 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 	} else {
 		pos, ok := e.exitPosition(v, j.Type, 0, 6000)
 		if u, found := e.catalog.Unit(j.Type); found && u.Armor == "air" && j.Service == v.ID {
+			if !e.parkingAttempt(v) {
+				v.State = "exit_blocked"
+				return
+			}
 			candidate := &Entity{ID: e.state.NextID, Type: j.Type, Owner: p.ID, Home: v.ID}
 			pos, ok = e.serviceLandingPosition(candidate, v)
 		}
@@ -217,6 +223,7 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 			v.State = "exit_blocked"
 			return
 		}
+		v.ParkingRetryAt = 0
 		unit := e.spawn(j.Type, p.ID, pos, true, j.Paid)
 		unit.Home = j.Service
 		if e.isAircraft(unit) {

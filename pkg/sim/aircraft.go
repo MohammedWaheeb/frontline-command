@@ -88,6 +88,40 @@ func (e *Engine) serviceRequired(v *Entity) uint32 {
 	}
 	return max(base/2, required)
 }
+
+// Automatic Return decisions run before the explicit reservation/movement
+// stage. Initial601 is the same threshold as post-decrement600; endurance,
+// warning and service work still update in updateAircraft. This intentionally
+// advances forced-return movement by one tick in this candidate version.
+func (e *Engine) prepareAircraftReturns() {
+	for _, v := range e.state.Entities {
+		if v.HP <= 0 || !e.isAircraft(v) || e.role(v) == "support_plane" || e.defeated(v.Owner) {
+			continue
+		}
+		if v.EmergencyTakeoffUntil > e.state.Tick {
+			continue
+		}
+		if v.EmergencyTakeoffUntil > 0 {
+			v.EmergencyTakeoffUntil = 0
+			v.Landed = false
+			v.State = "taking_off"
+		}
+		if v.Landed || v.TaskUntil > e.state.Tick && v.Endurance > 1 {
+			continue
+		}
+		returning := len(v.Orders) > 0 && (v.Orders[0].Kind == "return" || v.Orders[0].Kind == "unload" && len(v.Orders) > 1 && v.Orders[1].Kind == "return")
+		if v.Endurance <= 601 && !returning {
+			e.returnForService(v)
+			if len(v.Passengers) > 0 {
+				if drop, ok := e.airliftDropPoint(v); ok {
+					v.Orders = append([]Order{{Kind: "unload", Position: drop}}, v.Orders...)
+				}
+			}
+			e.emit("aircraft_returning", v.Owner, v.ID, v.Position, "owner", 0)
+		}
+	}
+}
+
 func (e *Engine) updateAircraft() {
 	for _, v := range e.state.Entities {
 		if e.role(v) == "support_plane" {
@@ -96,13 +130,8 @@ func (e *Engine) updateAircraft() {
 		if v.HP <= 0 || !e.isAircraft(v) || e.defeated(v.Owner) {
 			continue
 		}
-		if v.EmergencyTakeoffUntil > 0 {
-			if e.state.Tick < v.EmergencyTakeoffUntil {
-				continue
-			}
-			v.EmergencyTakeoffUntil = 0
-			v.Landed = false
-			v.State = "taking_off"
+		if v.EmergencyTakeoffUntil > e.state.Tick {
+			continue
 		}
 		home := e.entity(v.Home)
 		if home == nil || home.HP <= 0 || home.Owner != v.Owner || !home.Complete {
@@ -120,22 +149,18 @@ func (e *Engine) updateAircraft() {
 			if v.TaskUntil > e.state.Tick && v.Endurance > 0 {
 				continue
 			}
-			returning := len(v.Orders) > 0 && (v.Orders[0].Kind == "return" || v.Orders[0].Kind == "unload" && len(v.Orders) > 1 && v.Orders[1].Kind == "return")
-			if v.Endurance <= 600 && !returning {
-				e.returnForService(v)
-				if len(v.Passengers) > 0 {
-					if drop, ok := e.airliftDropPoint(v); ok {
-						v.Orders = append([]Order{{Kind: "unload", Position: drop}}, v.Orders...)
-					}
-				}
-				e.emit("aircraft_returning", v.Owner, v.ID, v.Position, "owner", 0)
-			}
 			if home != nil && len(v.Orders) > 0 && v.Orders[0].Kind == "return" {
-				point, legal := e.serviceLandingPosition(v, home)
+				point, legal := Vec{}, false
+				if v.Landing != nil && v.Landing.Home == home.ID {
+					point = v.Landing.Position
+					legal = e.serviceParkingClear(v, home, point, nil)
+				}
 				if legal && distance(v.Position, point) <= 500 {
 					v.Position = point
 					v.LastPosition = point
 					v.Landed = true
+					v.Landing = nil
+					v.ParkingRetryAt = 0
 					v.ServiceWork = 1
 					v.Path = nil
 					v.State = "servicing"

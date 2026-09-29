@@ -1326,28 +1326,30 @@ func (x *Economy) GetLastSequence() uint32 {
 }
 
 type EntityPrivate struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Hp            int64                  `protobuf:"varint,1,opt,name=hp,proto3" json:"hp,omitempty"`
-	MaxHp         int64                  `protobuf:"varint,2,opt,name=max_hp,json=maxHp,proto3" json:"max_hp,omitempty"`
-	Jobs          []*Job                 `protobuf:"bytes,3,rep,name=jobs,proto3" json:"jobs,omitempty"`
-	Orders        []*Order               `protobuf:"bytes,4,rep,name=orders,proto3" json:"orders,omitempty"`
-	Rally         *Vec                   `protobuf:"bytes,5,opt,name=rally,proto3" json:"rally,omitempty"`
-	Cargo         int64                  `protobuf:"varint,6,opt,name=cargo,proto3" json:"cargo,omitempty"`
-	Home          uint32                 `protobuf:"varint,7,opt,name=home,proto3" json:"home,omitempty"`
-	Ammo          int32                  `protobuf:"varint,8,opt,name=ammo,proto3" json:"ammo,omitempty"`
-	Endurance     uint32                 `protobuf:"varint,9,opt,name=endurance,proto3" json:"endurance,omitempty"`
-	Charges       int32                  `protobuf:"varint,10,opt,name=charges,proto3" json:"charges,omitempty"`
-	ChargeWork    uint32                 `protobuf:"varint,11,opt,name=charge_work,json=chargeWork,proto3" json:"charge_work,omitempty"`
-	ServiceWork   uint32                 `protobuf:"varint,12,opt,name=service_work,json=serviceWork,proto3" json:"service_work,omitempty"`
-	Experience    int64                  `protobuf:"varint,13,opt,name=experience,proto3" json:"experience,omitempty"`
-	Cooldowns     []*Cooldown            `protobuf:"bytes,14,rep,name=cooldowns,proto3" json:"cooldowns,omitempty"`
-	Passengers    []uint32               `protobuf:"varint,15,rep,packed,name=passengers,proto3" json:"passengers,omitempty"`
-	Container     uint32                 `protobuf:"varint,16,opt,name=container,proto3" json:"container,omitempty"`
-	RepeatSortie  bool                   `protobuf:"varint,17,opt,name=repeat_sortie,json=repeatSortie,proto3" json:"repeat_sortie,omitempty"`
-	AmbushReady   bool                   `protobuf:"varint,18,opt,name=ambush_ready,json=ambushReady,proto3" json:"ambush_ready,omitempty"`
-	MissionOrigin string                 `protobuf:"bytes,19,opt,name=mission_origin,json=missionOrigin,proto3" json:"mission_origin,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                 protoimpl.MessageState `protogen:"open.v1"`
+	Hp                    int64                  `protobuf:"varint,1,opt,name=hp,proto3" json:"hp,omitempty"`
+	MaxHp                 int64                  `protobuf:"varint,2,opt,name=max_hp,json=maxHp,proto3" json:"max_hp,omitempty"`
+	Jobs                  []*Job                 `protobuf:"bytes,3,rep,name=jobs,proto3" json:"jobs,omitempty"`
+	Orders                []*Order               `protobuf:"bytes,4,rep,name=orders,proto3" json:"orders,omitempty"`
+	Rally                 *Vec                   `protobuf:"bytes,5,opt,name=rally,proto3" json:"rally,omitempty"`
+	Cargo                 int64                  `protobuf:"varint,6,opt,name=cargo,proto3" json:"cargo,omitempty"`
+	Home                  uint32                 `protobuf:"varint,7,opt,name=home,proto3" json:"home,omitempty"`
+	Ammo                  int32                  `protobuf:"varint,8,opt,name=ammo,proto3" json:"ammo,omitempty"`
+	Endurance             uint32                 `protobuf:"varint,9,opt,name=endurance,proto3" json:"endurance,omitempty"`
+	Charges               int32                  `protobuf:"varint,10,opt,name=charges,proto3" json:"charges,omitempty"`
+	ChargeWork            uint32                 `protobuf:"varint,11,opt,name=charge_work,json=chargeWork,proto3" json:"charge_work,omitempty"`
+	ServiceWork           uint32                 `protobuf:"varint,12,opt,name=service_work,json=serviceWork,proto3" json:"service_work,omitempty"`
+	Experience            int64                  `protobuf:"varint,13,opt,name=experience,proto3" json:"experience,omitempty"`
+	Cooldowns             []*Cooldown            `protobuf:"bytes,14,rep,name=cooldowns,proto3" json:"cooldowns,omitempty"`
+	Passengers            []uint32               `protobuf:"varint,15,rep,packed,name=passengers,proto3" json:"passengers,omitempty"`
+	Container             uint32                 `protobuf:"varint,16,opt,name=container,proto3" json:"container,omitempty"`
+	RepeatSortie          bool                   `protobuf:"varint,17,opt,name=repeat_sortie,json=repeatSortie,proto3" json:"repeat_sortie,omitempty"`
+	AmbushReady           bool                   `protobuf:"varint,18,opt,name=ambush_ready,json=ambushReady,proto3" json:"ambush_ready,omitempty"`
+	MissionOrigin         string                 `protobuf:"bytes,19,opt,name=mission_origin,json=missionOrigin,proto3" json:"mission_origin,omitempty"`
+	EmergencyTakeoffUntil *uint32                `protobuf:"varint,20,opt,name=emergency_takeoff_until,json=emergencyTakeoffUntil,proto3,oneof" json:"emergency_takeoff_until,omitempty"`
+	Ranges                *EntityRanges          `protobuf:"bytes,21,opt,name=ranges,proto3" json:"ranges,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
 }
 
 func (x *EntityPrivate) Reset() {
@@ -1513,6 +1515,72 @@ func (x *EntityPrivate) GetMissionOrigin() string {
 	return ""
 }
 
+func (x *EntityPrivate) GetEmergencyTakeoffUntil() uint32 {
+	if x != nil && x.EmergencyTakeoffUntil != nil {
+		return *x.EmergencyTakeoffUntil
+	}
+	return 0
+}
+
+func (x *EntityPrivate) GetRanges() *EntityRanges {
+	if x != nil {
+		return x.Ranges
+	}
+	return nil
+}
+
+type StatusEffect struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Kind          string                 `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
+	Until         uint32                 `protobuf:"varint,2,opt,name=until,proto3" json:"until,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StatusEffect) Reset() {
+	*x = StatusEffect{}
+	mi := &file_frontline_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StatusEffect) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StatusEffect) ProtoMessage() {}
+
+func (x *StatusEffect) ProtoReflect() protoreflect.Message {
+	mi := &file_frontline_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StatusEffect.ProtoReflect.Descriptor instead.
+func (*StatusEffect) Descriptor() ([]byte, []int) {
+	return file_frontline_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *StatusEffect) GetKind() string {
+	if x != nil {
+		return x.Kind
+	}
+	return ""
+}
+
+func (x *StatusEffect) GetUntil() uint32 {
+	if x != nil {
+		return x.Until
+	}
+	return 0
+}
+
 type Entity struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	Id              uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -1536,13 +1604,14 @@ type Entity struct {
 	FootprintWidth  int32                  `protobuf:"varint,19,opt,name=footprint_width,json=footprintWidth,proto3" json:"footprint_width,omitempty"`
 	FootprintHeight int32                  `protobuf:"varint,20,opt,name=footprint_height,json=footprintHeight,proto3" json:"footprint_height,omitempty"`
 	FootprintType   string                 `protobuf:"bytes,21,opt,name=footprint_type,json=footprintType,proto3" json:"footprint_type,omitempty"`
+	Effects         []*StatusEffect        `protobuf:"bytes,22,rep,name=effects,proto3" json:"effects,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
 
 func (x *Entity) Reset() {
 	*x = Entity{}
-	mi := &file_frontline_proto_msgTypes[17]
+	mi := &file_frontline_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1554,7 +1623,7 @@ func (x *Entity) String() string {
 func (*Entity) ProtoMessage() {}
 
 func (x *Entity) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[17]
+	mi := &file_frontline_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1567,7 +1636,7 @@ func (x *Entity) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Entity.ProtoReflect.Descriptor instead.
 func (*Entity) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{17}
+	return file_frontline_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *Entity) GetId() uint32 {
@@ -1717,6 +1786,13 @@ func (x *Entity) GetFootprintType() string {
 	return ""
 }
 
+func (x *Entity) GetEffects() []*StatusEffect {
+	if x != nil {
+		return x.Effects
+	}
+	return nil
+}
+
 type PlayerSummary struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	Id                uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -1734,7 +1810,7 @@ type PlayerSummary struct {
 
 func (x *PlayerSummary) Reset() {
 	*x = PlayerSummary{}
-	mi := &file_frontline_proto_msgTypes[18]
+	mi := &file_frontline_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1746,7 +1822,7 @@ func (x *PlayerSummary) String() string {
 func (*PlayerSummary) ProtoMessage() {}
 
 func (x *PlayerSummary) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[18]
+	mi := &file_frontline_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1759,7 +1835,7 @@ func (x *PlayerSummary) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerSummary.ProtoReflect.Descriptor instead.
 func (*PlayerSummary) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{18}
+	return file_frontline_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *PlayerSummary) GetId() uint32 {
@@ -1826,22 +1902,24 @@ func (x *PlayerSummary) GetColor() uint32 {
 }
 
 type Projectile struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Owner         uint32                 `protobuf:"varint,2,opt,name=owner,proto3" json:"owner,omitempty"`
-	Weapon        string                 `protobuf:"bytes,3,opt,name=weapon,proto3" json:"weapon,omitempty"`
-	Position      *Vec                   `protobuf:"bytes,4,opt,name=position,proto3" json:"position,omitempty"`
-	Impact        *Vec                   `protobuf:"bytes,5,opt,name=impact,proto3" json:"impact,omitempty"`
-	ImpactAt      uint32                 `protobuf:"varint,6,opt,name=impact_at,json=impactAt,proto3" json:"impact_at,omitempty"`
-	Interceptable bool                   `protobuf:"varint,7,opt,name=interceptable,proto3" json:"interceptable,omitempty"`
-	Warning       bool                   `protobuf:"varint,8,opt,name=warning,proto3" json:"warning,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Owner           uint32                 `protobuf:"varint,2,opt,name=owner,proto3" json:"owner,omitempty"`
+	Weapon          string                 `protobuf:"bytes,3,opt,name=weapon,proto3" json:"weapon,omitempty"`
+	Position        *Vec                   `protobuf:"bytes,4,opt,name=position,proto3" json:"position,omitempty"`
+	Impact          *Vec                   `protobuf:"bytes,5,opt,name=impact,proto3" json:"impact,omitempty"`
+	ImpactAt        uint32                 `protobuf:"varint,6,opt,name=impact_at,json=impactAt,proto3" json:"impact_at,omitempty"`
+	Interceptable   bool                   `protobuf:"varint,7,opt,name=interceptable,proto3" json:"interceptable,omitempty"`
+	Warning         bool                   `protobuf:"varint,8,opt,name=warning,proto3" json:"warning,omitempty"`
+	Splash          *int32                 `protobuf:"varint,9,opt,name=splash,proto3,oneof" json:"splash,omitempty"`
+	PositionVisible *bool                  `protobuf:"varint,10,opt,name=position_visible,json=positionVisible,proto3,oneof" json:"position_visible,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *Projectile) Reset() {
 	*x = Projectile{}
-	mi := &file_frontline_proto_msgTypes[19]
+	mi := &file_frontline_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1853,7 +1931,7 @@ func (x *Projectile) String() string {
 func (*Projectile) ProtoMessage() {}
 
 func (x *Projectile) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[19]
+	mi := &file_frontline_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1866,7 +1944,7 @@ func (x *Projectile) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Projectile.ProtoReflect.Descriptor instead.
 func (*Projectile) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{19}
+	return file_frontline_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *Projectile) GetId() uint32 {
@@ -1925,6 +2003,20 @@ func (x *Projectile) GetWarning() bool {
 	return false
 }
 
+func (x *Projectile) GetSplash() int32 {
+	if x != nil && x.Splash != nil {
+		return *x.Splash
+	}
+	return 0
+}
+
+func (x *Projectile) GetPositionVisible() bool {
+	if x != nil && x.PositionVisible != nil {
+		return *x.PositionVisible
+	}
+	return false
+}
+
 type Field struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -1936,7 +2028,7 @@ type Field struct {
 
 func (x *Field) Reset() {
 	*x = Field{}
-	mi := &file_frontline_proto_msgTypes[20]
+	mi := &file_frontline_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1948,7 +2040,7 @@ func (x *Field) String() string {
 func (*Field) ProtoMessage() {}
 
 func (x *Field) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[20]
+	mi := &file_frontline_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1961,7 +2053,7 @@ func (x *Field) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Field.ProtoReflect.Descriptor instead.
 func (*Field) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{20}
+	return file_frontline_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *Field) GetId() uint32 {
@@ -1996,7 +2088,7 @@ type Station struct {
 
 func (x *Station) Reset() {
 	*x = Station{}
-	mi := &file_frontline_proto_msgTypes[21]
+	mi := &file_frontline_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2008,7 +2100,7 @@ func (x *Station) String() string {
 func (*Station) ProtoMessage() {}
 
 func (x *Station) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[21]
+	mi := &file_frontline_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2021,7 +2113,7 @@ func (x *Station) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Station.ProtoReflect.Descriptor instead.
 func (*Station) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{21}
+	return file_frontline_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *Station) GetId() uint32 {
@@ -2061,7 +2153,7 @@ type Memory struct {
 
 func (x *Memory) Reset() {
 	*x = Memory{}
-	mi := &file_frontline_proto_msgTypes[22]
+	mi := &file_frontline_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2073,7 +2165,7 @@ func (x *Memory) String() string {
 func (*Memory) ProtoMessage() {}
 
 func (x *Memory) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[22]
+	mi := &file_frontline_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2086,7 +2178,7 @@ func (x *Memory) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Memory.ProtoReflect.Descriptor instead.
 func (*Memory) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{22}
+	return file_frontline_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *Memory) GetId() uint32 {
@@ -2156,13 +2248,14 @@ type Event struct {
 	Value         int64                  `protobuf:"varint,7,opt,name=value,proto3" json:"value,omitempty"`
 	Scope         string                 `protobuf:"bytes,8,opt,name=scope,proto3" json:"scope,omitempty"`
 	Text          string                 `protobuf:"bytes,9,opt,name=text,proto3" json:"text,omitempty"`
+	Combat        *CombatFeedback        `protobuf:"bytes,10,opt,name=combat,proto3" json:"combat,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Event) Reset() {
 	*x = Event{}
-	mi := &file_frontline_proto_msgTypes[23]
+	mi := &file_frontline_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2174,7 +2267,7 @@ func (x *Event) String() string {
 func (*Event) ProtoMessage() {}
 
 func (x *Event) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[23]
+	mi := &file_frontline_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2187,7 +2280,7 @@ func (x *Event) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Event.ProtoReflect.Descriptor instead.
 func (*Event) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{23}
+	return file_frontline_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *Event) GetId() uint32 {
@@ -2253,6 +2346,13 @@ func (x *Event) GetText() string {
 	return ""
 }
 
+func (x *Event) GetCombat() *CombatFeedback {
+	if x != nil {
+		return x.Combat
+	}
+	return nil
+}
+
 type Outcome struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Finished      bool                   `protobuf:"varint,1,opt,name=finished,proto3" json:"finished,omitempty"`
@@ -2266,7 +2366,7 @@ type Outcome struct {
 
 func (x *Outcome) Reset() {
 	*x = Outcome{}
-	mi := &file_frontline_proto_msgTypes[24]
+	mi := &file_frontline_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2278,7 +2378,7 @@ func (x *Outcome) String() string {
 func (*Outcome) ProtoMessage() {}
 
 func (x *Outcome) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[24]
+	mi := &file_frontline_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2291,7 +2391,7 @@ func (x *Outcome) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Outcome.ProtoReflect.Descriptor instead.
 func (*Outcome) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{24}
+	return file_frontline_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *Outcome) GetFinished() bool {
@@ -2361,7 +2461,7 @@ type PlayerSnapshot struct {
 
 func (x *PlayerSnapshot) Reset() {
 	*x = PlayerSnapshot{}
-	mi := &file_frontline_proto_msgTypes[25]
+	mi := &file_frontline_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2373,7 +2473,7 @@ func (x *PlayerSnapshot) String() string {
 func (*PlayerSnapshot) ProtoMessage() {}
 
 func (x *PlayerSnapshot) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[25]
+	mi := &file_frontline_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2386,7 +2486,7 @@ func (x *PlayerSnapshot) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerSnapshot.ProtoReflect.Descriptor instead.
 func (*PlayerSnapshot) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{25}
+	return file_frontline_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *PlayerSnapshot) GetMetadata() *Metadata {
@@ -2570,7 +2670,7 @@ type StateDelta struct {
 
 func (x *StateDelta) Reset() {
 	*x = StateDelta{}
-	mi := &file_frontline_proto_msgTypes[26]
+	mi := &file_frontline_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2582,7 +2682,7 @@ func (x *StateDelta) String() string {
 func (*StateDelta) ProtoMessage() {}
 
 func (x *StateDelta) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[26]
+	mi := &file_frontline_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2595,7 +2695,7 @@ func (x *StateDelta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StateDelta.ProtoReflect.Descriptor instead.
 func (*StateDelta) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{26}
+	return file_frontline_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *StateDelta) GetBaselineTick() uint32 {
@@ -2631,7 +2731,7 @@ type MatchResult struct {
 
 func (x *MatchResult) Reset() {
 	*x = MatchResult{}
-	mi := &file_frontline_proto_msgTypes[27]
+	mi := &file_frontline_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2643,7 +2743,7 @@ func (x *MatchResult) String() string {
 func (*MatchResult) ProtoMessage() {}
 
 func (x *MatchResult) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[27]
+	mi := &file_frontline_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2656,7 +2756,7 @@ func (x *MatchResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MatchResult.ProtoReflect.Descriptor instead.
 func (*MatchResult) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{27}
+	return file_frontline_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *MatchResult) GetMatchId() string {
@@ -2700,7 +2800,7 @@ type Salvage struct {
 
 func (x *Salvage) Reset() {
 	*x = Salvage{}
-	mi := &file_frontline_proto_msgTypes[28]
+	mi := &file_frontline_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2712,7 +2812,7 @@ func (x *Salvage) String() string {
 func (*Salvage) ProtoMessage() {}
 
 func (x *Salvage) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[28]
+	mi := &file_frontline_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2725,7 +2825,7 @@ func (x *Salvage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Salvage.ProtoReflect.Descriptor instead.
 func (*Salvage) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{28}
+	return file_frontline_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *Salvage) GetId() uint32 {
@@ -2777,7 +2877,7 @@ type Zone struct {
 
 func (x *Zone) Reset() {
 	*x = Zone{}
-	mi := &file_frontline_proto_msgTypes[29]
+	mi := &file_frontline_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2789,7 +2889,7 @@ func (x *Zone) String() string {
 func (*Zone) ProtoMessage() {}
 
 func (x *Zone) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[29]
+	mi := &file_frontline_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2802,7 +2902,7 @@ func (x *Zone) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Zone.ProtoReflect.Descriptor instead.
 func (*Zone) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{29}
+	return file_frontline_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *Zone) GetKind() string {
@@ -2857,7 +2957,7 @@ type StructureIndicator struct {
 
 func (x *StructureIndicator) Reset() {
 	*x = StructureIndicator{}
-	mi := &file_frontline_proto_msgTypes[30]
+	mi := &file_frontline_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2869,7 +2969,7 @@ func (x *StructureIndicator) String() string {
 func (*StructureIndicator) ProtoMessage() {}
 
 func (x *StructureIndicator) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[30]
+	mi := &file_frontline_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2882,7 +2982,7 @@ func (x *StructureIndicator) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StructureIndicator.ProtoReflect.Descriptor instead.
 func (*StructureIndicator) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{30}
+	return file_frontline_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *StructureIndicator) GetOwner() uint32 {
@@ -2914,7 +3014,7 @@ type ObjectiveProgress struct {
 
 func (x *ObjectiveProgress) Reset() {
 	*x = ObjectiveProgress{}
-	mi := &file_frontline_proto_msgTypes[31]
+	mi := &file_frontline_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2926,7 +3026,7 @@ func (x *ObjectiveProgress) String() string {
 func (*ObjectiveProgress) ProtoMessage() {}
 
 func (x *ObjectiveProgress) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[31]
+	mi := &file_frontline_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2939,7 +3039,7 @@ func (x *ObjectiveProgress) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObjectiveProgress.ProtoReflect.Descriptor instead.
 func (*ObjectiveProgress) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{31}
+	return file_frontline_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *ObjectiveProgress) GetId() string {
@@ -3007,7 +3107,7 @@ type MissionProgress struct {
 
 func (x *MissionProgress) Reset() {
 	*x = MissionProgress{}
-	mi := &file_frontline_proto_msgTypes[32]
+	mi := &file_frontline_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3019,7 +3119,7 @@ func (x *MissionProgress) String() string {
 func (*MissionProgress) ProtoMessage() {}
 
 func (x *MissionProgress) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[32]
+	mi := &file_frontline_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3032,7 +3132,7 @@ func (x *MissionProgress) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MissionProgress.ProtoReflect.Descriptor instead.
 func (*MissionProgress) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{32}
+	return file_frontline_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *MissionProgress) GetId() string {
@@ -3099,13 +3199,14 @@ type OperationWarning struct {
 	At            uint32                 `protobuf:"varint,4,opt,name=at,proto3" json:"at,omitempty"`
 	Source        uint32                 `protobuf:"varint,5,opt,name=source,proto3" json:"source,omitempty"`
 	Exits         []*Vec                 `protobuf:"bytes,6,rep,name=exits,proto3" json:"exits,omitempty"`
+	Splash        *int32                 `protobuf:"varint,7,opt,name=splash,proto3,oneof" json:"splash,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OperationWarning) Reset() {
 	*x = OperationWarning{}
-	mi := &file_frontline_proto_msgTypes[33]
+	mi := &file_frontline_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3117,7 +3218,7 @@ func (x *OperationWarning) String() string {
 func (*OperationWarning) ProtoMessage() {}
 
 func (x *OperationWarning) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[33]
+	mi := &file_frontline_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3130,7 +3231,7 @@ func (x *OperationWarning) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OperationWarning.ProtoReflect.Descriptor instead.
 func (*OperationWarning) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{33}
+	return file_frontline_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *OperationWarning) GetKind() string {
@@ -3175,6 +3276,13 @@ func (x *OperationWarning) GetExits() []*Vec {
 	return nil
 }
 
+func (x *OperationWarning) GetSplash() int32 {
+	if x != nil && x.Splash != nil {
+		return *x.Splash
+	}
+	return 0
+}
+
 type ConvoyProgress struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Id             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -3192,7 +3300,7 @@ type ConvoyProgress struct {
 
 func (x *ConvoyProgress) Reset() {
 	*x = ConvoyProgress{}
-	mi := &file_frontline_proto_msgTypes[34]
+	mi := &file_frontline_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3204,7 +3312,7 @@ func (x *ConvoyProgress) String() string {
 func (*ConvoyProgress) ProtoMessage() {}
 
 func (x *ConvoyProgress) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[34]
+	mi := &file_frontline_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3217,7 +3325,7 @@ func (x *ConvoyProgress) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConvoyProgress.ProtoReflect.Descriptor instead.
 func (*ConvoyProgress) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{34}
+	return file_frontline_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *ConvoyProgress) GetId() string {
@@ -3299,7 +3407,7 @@ type EconomySample struct {
 
 func (x *EconomySample) Reset() {
 	*x = EconomySample{}
-	mi := &file_frontline_proto_msgTypes[35]
+	mi := &file_frontline_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3311,7 +3419,7 @@ func (x *EconomySample) String() string {
 func (*EconomySample) ProtoMessage() {}
 
 func (x *EconomySample) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[35]
+	mi := &file_frontline_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3324,7 +3432,7 @@ func (x *EconomySample) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EconomySample.ProtoReflect.Descriptor instead.
 func (*EconomySample) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{35}
+	return file_frontline_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *EconomySample) GetTick() uint32 {
@@ -3379,7 +3487,7 @@ type ProductionCount struct {
 
 func (x *ProductionCount) Reset() {
 	*x = ProductionCount{}
-	mi := &file_frontline_proto_msgTypes[36]
+	mi := &file_frontline_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3391,7 +3499,7 @@ func (x *ProductionCount) String() string {
 func (*ProductionCount) ProtoMessage() {}
 
 func (x *ProductionCount) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[36]
+	mi := &file_frontline_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3404,7 +3512,7 @@ func (x *ProductionCount) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProductionCount.ProtoReflect.Descriptor instead.
 func (*ProductionCount) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{36}
+	return file_frontline_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *ProductionCount) GetType() string {
@@ -3439,7 +3547,7 @@ type PlayerTelemetry struct {
 
 func (x *PlayerTelemetry) Reset() {
 	*x = PlayerTelemetry{}
-	mi := &file_frontline_proto_msgTypes[37]
+	mi := &file_frontline_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3451,7 +3559,7 @@ func (x *PlayerTelemetry) String() string {
 func (*PlayerTelemetry) ProtoMessage() {}
 
 func (x *PlayerTelemetry) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[37]
+	mi := &file_frontline_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3464,7 +3572,7 @@ func (x *PlayerTelemetry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerTelemetry.ProtoReflect.Descriptor instead.
 func (*PlayerTelemetry) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{37}
+	return file_frontline_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *PlayerTelemetry) GetPlayer() uint32 {
@@ -3559,7 +3667,7 @@ type DebriefPlayer struct {
 
 func (x *DebriefPlayer) Reset() {
 	*x = DebriefPlayer{}
-	mi := &file_frontline_proto_msgTypes[38]
+	mi := &file_frontline_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3571,7 +3679,7 @@ func (x *DebriefPlayer) String() string {
 func (*DebriefPlayer) ProtoMessage() {}
 
 func (x *DebriefPlayer) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[38]
+	mi := &file_frontline_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3584,7 +3692,7 @@ func (x *DebriefPlayer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DebriefPlayer.ProtoReflect.Descriptor instead.
 func (*DebriefPlayer) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{38}
+	return file_frontline_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *DebriefPlayer) GetPlayer() uint32 {
@@ -3698,7 +3806,7 @@ type DebriefEvent struct {
 
 func (x *DebriefEvent) Reset() {
 	*x = DebriefEvent{}
-	mi := &file_frontline_proto_msgTypes[39]
+	mi := &file_frontline_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3710,7 +3818,7 @@ func (x *DebriefEvent) String() string {
 func (*DebriefEvent) ProtoMessage() {}
 
 func (x *DebriefEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[39]
+	mi := &file_frontline_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3723,7 +3831,7 @@ func (x *DebriefEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DebriefEvent.ProtoReflect.Descriptor instead.
 func (*DebriefEvent) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{39}
+	return file_frontline_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *DebriefEvent) GetTick() uint32 {
@@ -3772,7 +3880,7 @@ type Debrief struct {
 
 func (x *Debrief) Reset() {
 	*x = Debrief{}
-	mi := &file_frontline_proto_msgTypes[40]
+	mi := &file_frontline_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3784,7 +3892,7 @@ func (x *Debrief) String() string {
 func (*Debrief) ProtoMessage() {}
 
 func (x *Debrief) ProtoReflect() protoreflect.Message {
-	mi := &file_frontline_proto_msgTypes[40]
+	mi := &file_frontline_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3797,7 +3905,7 @@ func (x *Debrief) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Debrief.ProtoReflect.Descriptor instead.
 func (*Debrief) Descriptor() ([]byte, []int) {
-	return file_frontline_proto_rawDescGZIP(), []int{40}
+	return file_frontline_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *Debrief) GetPlayers() []*DebriefPlayer {
@@ -3817,6 +3925,321 @@ func (x *Debrief) GetEvents() []*DebriefEvent {
 func (x *Debrief) GetOmittedEvents() uint32 {
 	if x != nil {
 		return x.OmittedEvents
+	}
+	return 0
+}
+
+type CombatFeedback struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Weapon         string                 `protobuf:"bytes,1,opt,name=weapon,proto3" json:"weapon,omitempty"`
+	Outcome        string                 `protobuf:"bytes,2,opt,name=outcome,proto3" json:"outcome,omitempty"`
+	TargetArmor    string                 `protobuf:"bytes,3,opt,name=target_armor,json=targetArmor,proto3" json:"target_armor,omitempty"`
+	CoverMitigated bool                   `protobuf:"varint,4,opt,name=cover_mitigated,json=coverMitigated,proto3" json:"cover_mitigated,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *CombatFeedback) Reset() {
+	*x = CombatFeedback{}
+	mi := &file_frontline_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CombatFeedback) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CombatFeedback) ProtoMessage() {}
+
+func (x *CombatFeedback) ProtoReflect() protoreflect.Message {
+	mi := &file_frontline_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CombatFeedback.ProtoReflect.Descriptor instead.
+func (*CombatFeedback) Descriptor() ([]byte, []int) {
+	return file_frontline_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *CombatFeedback) GetWeapon() string {
+	if x != nil {
+		return x.Weapon
+	}
+	return ""
+}
+
+func (x *CombatFeedback) GetOutcome() string {
+	if x != nil {
+		return x.Outcome
+	}
+	return ""
+}
+
+func (x *CombatFeedback) GetTargetArmor() string {
+	if x != nil {
+		return x.TargetArmor
+	}
+	return ""
+}
+
+func (x *CombatFeedback) GetCoverMitigated() bool {
+	if x != nil {
+		return x.CoverMitigated
+	}
+	return false
+}
+
+// Exact-owner presentation only; distance bounds do not reveal fog or targets.
+type EntityRanges struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	SightRadius     int32                  `protobuf:"varint,1,opt,name=sight_radius,json=sightRadius,proto3" json:"sight_radius,omitempty"`
+	DetectionRadius int32                  `protobuf:"varint,2,opt,name=detection_radius,json=detectionRadius,proto3" json:"detection_radius,omitempty"`
+	AirborneSight   bool                   `protobuf:"varint,3,opt,name=airborne_sight,json=airborneSight,proto3" json:"airborne_sight,omitempty"`
+	BuildRadius     int32                  `protobuf:"varint,4,opt,name=build_radius,json=buildRadius,proto3" json:"build_radius,omitempty"`
+	Interception    *InterceptionView      `protobuf:"bytes,5,opt,name=interception,proto3" json:"interception,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *EntityRanges) Reset() {
+	*x = EntityRanges{}
+	mi := &file_frontline_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EntityRanges) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EntityRanges) ProtoMessage() {}
+
+func (x *EntityRanges) ProtoReflect() protoreflect.Message {
+	mi := &file_frontline_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EntityRanges.ProtoReflect.Descriptor instead.
+func (*EntityRanges) Descriptor() ([]byte, []int) {
+	return file_frontline_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *EntityRanges) GetSightRadius() int32 {
+	if x != nil {
+		return x.SightRadius
+	}
+	return 0
+}
+
+func (x *EntityRanges) GetDetectionRadius() int32 {
+	if x != nil {
+		return x.DetectionRadius
+	}
+	return 0
+}
+
+func (x *EntityRanges) GetAirborneSight() bool {
+	if x != nil {
+		return x.AirborneSight
+	}
+	return false
+}
+
+func (x *EntityRanges) GetBuildRadius() int32 {
+	if x != nil {
+		return x.BuildRadius
+	}
+	return 0
+}
+
+func (x *EntityRanges) GetInterception() *InterceptionView {
+	if x != nil {
+		return x.Interception
+	}
+	return nil
+}
+
+// Recharge estimate assumes the current rate continues; absence means full or paused.
+type InterceptionView struct {
+	state            protoimpl.MessageState    `protogen:"open.v1"`
+	Radius           int32                     `protobuf:"varint,1,opt,name=radius,proto3" json:"radius,omitempty"`
+	Capacity         int32                     `protobuf:"varint,2,opt,name=capacity,proto3" json:"capacity,omitempty"`
+	Active           bool                      `protobuf:"varint,3,opt,name=active,proto3" json:"active,omitempty"`
+	Ready            bool                      `protobuf:"varint,4,opt,name=ready,proto3" json:"ready,omitempty"`
+	RechargeRequired uint32                    `protobuf:"varint,5,opt,name=recharge_required,json=rechargeRequired,proto3" json:"recharge_required,omitempty"`
+	RechargeRate     uint32                    `protobuf:"varint,6,opt,name=recharge_rate,json=rechargeRate,proto3" json:"recharge_rate,omitempty"`
+	NextChargeTicks  *uint32                   `protobuf:"varint,7,opt,name=next_charge_ticks,json=nextChargeTicks,proto3,oneof" json:"next_charge_ticks,omitempty"`
+	FireReadyAt      uint32                    `protobuf:"varint,8,opt,name=fire_ready_at,json=fireReadyAt,proto3" json:"fire_ready_at,omitempty"`
+	Assignments      []*InterceptionAssignment `protobuf:"bytes,9,rep,name=assignments,proto3" json:"assignments,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *InterceptionView) Reset() {
+	*x = InterceptionView{}
+	mi := &file_frontline_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InterceptionView) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InterceptionView) ProtoMessage() {}
+
+func (x *InterceptionView) ProtoReflect() protoreflect.Message {
+	mi := &file_frontline_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InterceptionView.ProtoReflect.Descriptor instead.
+func (*InterceptionView) Descriptor() ([]byte, []int) {
+	return file_frontline_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *InterceptionView) GetRadius() int32 {
+	if x != nil {
+		return x.Radius
+	}
+	return 0
+}
+
+func (x *InterceptionView) GetCapacity() int32 {
+	if x != nil {
+		return x.Capacity
+	}
+	return 0
+}
+
+func (x *InterceptionView) GetActive() bool {
+	if x != nil {
+		return x.Active
+	}
+	return false
+}
+
+func (x *InterceptionView) GetReady() bool {
+	if x != nil {
+		return x.Ready
+	}
+	return false
+}
+
+func (x *InterceptionView) GetRechargeRequired() uint32 {
+	if x != nil {
+		return x.RechargeRequired
+	}
+	return 0
+}
+
+func (x *InterceptionView) GetRechargeRate() uint32 {
+	if x != nil {
+		return x.RechargeRate
+	}
+	return 0
+}
+
+func (x *InterceptionView) GetNextChargeTicks() uint32 {
+	if x != nil && x.NextChargeTicks != nil {
+		return *x.NextChargeTicks
+	}
+	return 0
+}
+
+func (x *InterceptionView) GetFireReadyAt() uint32 {
+	if x != nil {
+		return x.FireReadyAt
+	}
+	return 0
+}
+
+func (x *InterceptionView) GetAssignments() []*InterceptionAssignment {
+	if x != nil {
+		return x.Assignments
+	}
+	return nil
+}
+
+// Actual Go reservation to an already-public impact warning, never a flight path.
+type InterceptionAssignment struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Projectile    uint32                 `protobuf:"varint,1,opt,name=projectile,proto3" json:"projectile,omitempty"`
+	Impact        *Vec                   `protobuf:"bytes,2,opt,name=impact,proto3" json:"impact,omitempty"`
+	InterceptAt   uint32                 `protobuf:"varint,3,opt,name=intercept_at,json=interceptAt,proto3" json:"intercept_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InterceptionAssignment) Reset() {
+	*x = InterceptionAssignment{}
+	mi := &file_frontline_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InterceptionAssignment) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InterceptionAssignment) ProtoMessage() {}
+
+func (x *InterceptionAssignment) ProtoReflect() protoreflect.Message {
+	mi := &file_frontline_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InterceptionAssignment.ProtoReflect.Descriptor instead.
+func (*InterceptionAssignment) Descriptor() ([]byte, []int) {
+	return file_frontline_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *InterceptionAssignment) GetProjectile() uint32 {
+	if x != nil {
+		return x.Projectile
+	}
+	return 0
+}
+
+func (x *InterceptionAssignment) GetImpact() *Vec {
+	if x != nil {
+		return x.Impact
+	}
+	return nil
+}
+
+func (x *InterceptionAssignment) GetInterceptAt() uint32 {
+	if x != nil {
+		return x.InterceptAt
 	}
 	return 0
 }
@@ -3929,7 +4352,7 @@ const file_frontline_proto_rawDesc = "" +
 	"\bupgrades\x18\n" +
 	" \x03(\tR\bupgrades\x124\n" +
 	"\tcooldowns\x18\v \x03(\v2\x16.frontline.v1.CooldownR\tcooldowns\x12#\n" +
-	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\xf0\x04\n" +
+	"\rlast_sequence\x18\f \x01(\rR\flastSequence\"\xfd\x05\n" +
 	"\rEntityPrivate\x12\x0e\n" +
 	"\x02hp\x18\x01 \x01(\x03R\x02hp\x12\x15\n" +
 	"\x06max_hp\x18\x02 \x01(\x03R\x05maxHp\x12%\n" +
@@ -3955,7 +4378,13 @@ const file_frontline_proto_rawDesc = "" +
 	"\tcontainer\x18\x10 \x01(\rR\tcontainer\x12#\n" +
 	"\rrepeat_sortie\x18\x11 \x01(\bR\frepeatSortie\x12!\n" +
 	"\fambush_ready\x18\x12 \x01(\bR\vambushReady\x12%\n" +
-	"\x0emission_origin\x18\x13 \x01(\tR\rmissionOrigin\"\x8a\x05\n" +
+	"\x0emission_origin\x18\x13 \x01(\tR\rmissionOrigin\x12;\n" +
+	"\x17emergency_takeoff_until\x18\x14 \x01(\rH\x00R\x15emergencyTakeoffUntil\x88\x01\x01\x122\n" +
+	"\x06ranges\x18\x15 \x01(\v2\x1a.frontline.v1.EntityRangesR\x06rangesB\x1a\n" +
+	"\x18_emergency_takeoff_until\"8\n" +
+	"\fStatusEffect\x12\x12\n" +
+	"\x04kind\x18\x01 \x01(\tR\x04kind\x12\x14\n" +
+	"\x05until\x18\x02 \x01(\rR\x05until\"\xc0\x05\n" +
 	"\x06Entity\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x14\n" +
@@ -3979,7 +4408,8 @@ const file_frontline_proto_rawDesc = "" +
 	"map_object\x18\x12 \x01(\rR\tmapObject\x12'\n" +
 	"\x0ffootprint_width\x18\x13 \x01(\x05R\x0efootprintWidth\x12)\n" +
 	"\x10footprint_height\x18\x14 \x01(\x05R\x0ffootprintHeight\x12%\n" +
-	"\x0efootprint_type\x18\x15 \x01(\tR\rfootprintType\"\x86\x02\n" +
+	"\x0efootprint_type\x18\x15 \x01(\tR\rfootprintType\x124\n" +
+	"\aeffects\x18\x16 \x03(\v2\x1a.frontline.v1.StatusEffectR\aeffects\"\x86\x02\n" +
 	"\rPlayerSummary\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
@@ -3989,7 +4419,7 @@ const file_frontline_proto_rawDesc = "" +
 	"\tdefeat_at\x18\x06 \x01(\rR\bdefeatAt\x12-\n" +
 	"\x12strategic_progress\x18\a \x01(\x05R\x11strategicProgress\x12%\n" +
 	"\x0esurrender_vote\x18\b \x01(\bR\rsurrenderVote\x12\x14\n" +
-	"\x05color\x18\t \x01(\rR\x05color\"\x81\x02\n" +
+	"\x05color\x18\t \x01(\rR\x05color\"\xee\x02\n" +
 	"\n" +
 	"Projectile\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x14\n" +
@@ -3999,7 +4429,12 @@ const file_frontline_proto_rawDesc = "" +
 	"\x06impact\x18\x05 \x01(\v2\x11.frontline.v1.VecR\x06impact\x12\x1b\n" +
 	"\timpact_at\x18\x06 \x01(\rR\bimpactAt\x12$\n" +
 	"\rinterceptable\x18\a \x01(\bR\rinterceptable\x12\x18\n" +
-	"\awarning\x18\b \x01(\bR\awarning\"d\n" +
+	"\awarning\x18\b \x01(\bR\awarning\x12\x1b\n" +
+	"\x06splash\x18\t \x01(\x05H\x00R\x06splash\x88\x01\x01\x12.\n" +
+	"\x10position_visible\x18\n" +
+	" \x01(\bH\x01R\x0fpositionVisible\x88\x01\x01B\t\n" +
+	"\a_splashB\x13\n" +
+	"\x11_position_visible\"d\n" +
 	"\x05Field\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12-\n" +
 	"\bposition\x18\x02 \x01(\v2\x11.frontline.v1.VecR\bposition\x12\x1c\n" +
@@ -4016,7 +4451,7 @@ const file_frontline_proto_rawDesc = "" +
 	"\x04seen\x18\x05 \x01(\rR\x04seen\x12'\n" +
 	"\x0ffootprint_width\x18\x06 \x01(\x05R\x0efootprintWidth\x12)\n" +
 	"\x10footprint_height\x18\a \x01(\x05R\x0ffootprintHeight\x12%\n" +
-	"\x0efootprint_type\x18\b \x01(\tR\rfootprintType\"\xdc\x01\n" +
+	"\x0efootprint_type\x18\b \x01(\tR\rfootprintType\"\x92\x02\n" +
 	"\x05Event\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x12\n" +
 	"\x04tick\x18\x02 \x01(\rR\x04tick\x12\x12\n" +
@@ -4026,7 +4461,9 @@ const file_frontline_proto_rawDesc = "" +
 	"\bposition\x18\x06 \x01(\v2\x11.frontline.v1.VecR\bposition\x12\x14\n" +
 	"\x05value\x18\a \x01(\x03R\x05value\x12\x14\n" +
 	"\x05scope\x18\b \x01(\tR\x05scope\x12\x12\n" +
-	"\x04text\x18\t \x01(\tR\x04text\"\x88\x01\n" +
+	"\x04text\x18\t \x01(\tR\x04text\x124\n" +
+	"\x06combat\x18\n" +
+	" \x01(\v2\x1c.frontline.v1.CombatFeedbackR\x06combat\"\x88\x01\n" +
 	"\aOutcome\x12\x1a\n" +
 	"\bfinished\x18\x01 \x01(\bR\bfinished\x12\x12\n" +
 	"\x04draw\x18\x02 \x01(\bR\x04draw\x12!\n" +
@@ -4110,14 +4547,16 @@ const file_frontline_proto_rawDesc = "" +
 	"objectives\x18\x06 \x03(\v2\x1f.frontline.v1.ObjectiveProgressR\n" +
 	"objectives\x126\n" +
 	"\aconvoys\x18\a \x03(\v2\x1c.frontline.v1.ConvoyProgressR\aconvoys\x12\x18\n" +
-	"\aversion\x18\b \x01(\tR\aversion\"\xbc\x01\n" +
+	"\aversion\x18\b \x01(\tR\aversion\"\xe4\x01\n" +
 	"\x10OperationWarning\x12\x12\n" +
 	"\x04kind\x18\x01 \x01(\tR\x04kind\x12\x14\n" +
 	"\x05owner\x18\x02 \x01(\rR\x05owner\x12-\n" +
 	"\bposition\x18\x03 \x01(\v2\x11.frontline.v1.VecR\bposition\x12\x0e\n" +
 	"\x02at\x18\x04 \x01(\rR\x02at\x12\x16\n" +
 	"\x06source\x18\x05 \x01(\rR\x06source\x12'\n" +
-	"\x05exits\x18\x06 \x03(\v2\x11.frontline.v1.VecR\x05exits\"\xf9\x01\n" +
+	"\x05exits\x18\x06 \x03(\v2\x11.frontline.v1.VecR\x05exits\x12\x1b\n" +
+	"\x06splash\x18\a \x01(\x05H\x00R\x06splash\x88\x01\x01B\t\n" +
+	"\a_splash\"\xf9\x01\n" +
 	"\x0eConvoyProgress\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
 	"\x06active\x18\x02 \x01(\bR\x06active\x12\x1c\n" +
@@ -4177,7 +4616,35 @@ const file_frontline_proto_rawDesc = "" +
 	"\aDebrief\x125\n" +
 	"\aplayers\x18\x01 \x03(\v2\x1b.frontline.v1.DebriefPlayerR\aplayers\x122\n" +
 	"\x06events\x18\x02 \x03(\v2\x1a.frontline.v1.DebriefEventR\x06events\x12%\n" +
-	"\x0eomitted_events\x18\x03 \x01(\rR\romittedEventsB$Z\"frontlinecommand/protocol;protocolb\x06proto3"
+	"\x0eomitted_events\x18\x03 \x01(\rR\romittedEvents\"\x8e\x01\n" +
+	"\x0eCombatFeedback\x12\x16\n" +
+	"\x06weapon\x18\x01 \x01(\tR\x06weapon\x12\x18\n" +
+	"\aoutcome\x18\x02 \x01(\tR\aoutcome\x12!\n" +
+	"\ftarget_armor\x18\x03 \x01(\tR\vtargetArmor\x12'\n" +
+	"\x0fcover_mitigated\x18\x04 \x01(\bR\x0ecoverMitigated\"\xea\x01\n" +
+	"\fEntityRanges\x12!\n" +
+	"\fsight_radius\x18\x01 \x01(\x05R\vsightRadius\x12)\n" +
+	"\x10detection_radius\x18\x02 \x01(\x05R\x0fdetectionRadius\x12%\n" +
+	"\x0eairborne_sight\x18\x03 \x01(\bR\rairborneSight\x12!\n" +
+	"\fbuild_radius\x18\x04 \x01(\x05R\vbuildRadius\x12B\n" +
+	"\finterception\x18\x05 \x01(\v2\x1e.frontline.v1.InterceptionViewR\finterception\"\xf9\x02\n" +
+	"\x10InterceptionView\x12\x16\n" +
+	"\x06radius\x18\x01 \x01(\x05R\x06radius\x12\x1a\n" +
+	"\bcapacity\x18\x02 \x01(\x05R\bcapacity\x12\x16\n" +
+	"\x06active\x18\x03 \x01(\bR\x06active\x12\x14\n" +
+	"\x05ready\x18\x04 \x01(\bR\x05ready\x12+\n" +
+	"\x11recharge_required\x18\x05 \x01(\rR\x10rechargeRequired\x12#\n" +
+	"\rrecharge_rate\x18\x06 \x01(\rR\frechargeRate\x12/\n" +
+	"\x11next_charge_ticks\x18\a \x01(\rH\x00R\x0fnextChargeTicks\x88\x01\x01\x12\"\n" +
+	"\rfire_ready_at\x18\b \x01(\rR\vfireReadyAt\x12F\n" +
+	"\vassignments\x18\t \x03(\v2$.frontline.v1.InterceptionAssignmentR\vassignmentsB\x14\n" +
+	"\x12_next_charge_ticks\"\x86\x01\n" +
+	"\x16InterceptionAssignment\x12\x1e\n" +
+	"\n" +
+	"projectile\x18\x01 \x01(\rR\n" +
+	"projectile\x12)\n" +
+	"\x06impact\x18\x02 \x01(\v2\x11.frontline.v1.VecR\x06impact\x12!\n" +
+	"\fintercept_at\x18\x03 \x01(\rR\vinterceptAtB$Z\"frontlinecommand/protocol;protocolb\x06proto3"
 
 var (
 	file_frontline_proto_rawDescOnce sync.Once
@@ -4191,58 +4658,63 @@ func file_frontline_proto_rawDescGZIP() []byte {
 	return file_frontline_proto_rawDescData
 }
 
-var file_frontline_proto_msgTypes = make([]protoimpl.MessageInfo, 41)
+var file_frontline_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
 var file_frontline_proto_goTypes = []any{
-	(*Envelope)(nil),           // 0: frontline.v1.Envelope
-	(*ClientHello)(nil),        // 1: frontline.v1.ClientHello
-	(*ResumeMatch)(nil),        // 2: frontline.v1.ResumeMatch
-	(*MatchControl)(nil),       // 3: frontline.v1.MatchControl
-	(*ConnectionState)(nil),    // 4: frontline.v1.ConnectionState
-	(*MatchStatus)(nil),        // 5: frontline.v1.MatchStatus
-	(*Ping)(nil),               // 6: frontline.v1.Ping
-	(*ProtocolError)(nil),      // 7: frontline.v1.ProtocolError
-	(*Vec)(nil),                // 8: frontline.v1.Vec
-	(*Order)(nil),              // 9: frontline.v1.Order
-	(*OrderBatch)(nil),         // 10: frontline.v1.OrderBatch
-	(*OrderResult)(nil),        // 11: frontline.v1.OrderResult
-	(*Metadata)(nil),           // 12: frontline.v1.Metadata
-	(*Cooldown)(nil),           // 13: frontline.v1.Cooldown
-	(*Job)(nil),                // 14: frontline.v1.Job
-	(*Economy)(nil),            // 15: frontline.v1.Economy
-	(*EntityPrivate)(nil),      // 16: frontline.v1.EntityPrivate
-	(*Entity)(nil),             // 17: frontline.v1.Entity
-	(*PlayerSummary)(nil),      // 18: frontline.v1.PlayerSummary
-	(*Projectile)(nil),         // 19: frontline.v1.Projectile
-	(*Field)(nil),              // 20: frontline.v1.Field
-	(*Station)(nil),            // 21: frontline.v1.Station
-	(*Memory)(nil),             // 22: frontline.v1.Memory
-	(*Event)(nil),              // 23: frontline.v1.Event
-	(*Outcome)(nil),            // 24: frontline.v1.Outcome
-	(*PlayerSnapshot)(nil),     // 25: frontline.v1.PlayerSnapshot
-	(*StateDelta)(nil),         // 26: frontline.v1.StateDelta
-	(*MatchResult)(nil),        // 27: frontline.v1.MatchResult
-	(*Salvage)(nil),            // 28: frontline.v1.Salvage
-	(*Zone)(nil),               // 29: frontline.v1.Zone
-	(*StructureIndicator)(nil), // 30: frontline.v1.StructureIndicator
-	(*ObjectiveProgress)(nil),  // 31: frontline.v1.ObjectiveProgress
-	(*MissionProgress)(nil),    // 32: frontline.v1.MissionProgress
-	(*OperationWarning)(nil),   // 33: frontline.v1.OperationWarning
-	(*ConvoyProgress)(nil),     // 34: frontline.v1.ConvoyProgress
-	(*EconomySample)(nil),      // 35: frontline.v1.EconomySample
-	(*ProductionCount)(nil),    // 36: frontline.v1.ProductionCount
-	(*PlayerTelemetry)(nil),    // 37: frontline.v1.PlayerTelemetry
-	(*DebriefPlayer)(nil),      // 38: frontline.v1.DebriefPlayer
-	(*DebriefEvent)(nil),       // 39: frontline.v1.DebriefEvent
-	(*Debrief)(nil),            // 40: frontline.v1.Debrief
+	(*Envelope)(nil),               // 0: frontline.v1.Envelope
+	(*ClientHello)(nil),            // 1: frontline.v1.ClientHello
+	(*ResumeMatch)(nil),            // 2: frontline.v1.ResumeMatch
+	(*MatchControl)(nil),           // 3: frontline.v1.MatchControl
+	(*ConnectionState)(nil),        // 4: frontline.v1.ConnectionState
+	(*MatchStatus)(nil),            // 5: frontline.v1.MatchStatus
+	(*Ping)(nil),                   // 6: frontline.v1.Ping
+	(*ProtocolError)(nil),          // 7: frontline.v1.ProtocolError
+	(*Vec)(nil),                    // 8: frontline.v1.Vec
+	(*Order)(nil),                  // 9: frontline.v1.Order
+	(*OrderBatch)(nil),             // 10: frontline.v1.OrderBatch
+	(*OrderResult)(nil),            // 11: frontline.v1.OrderResult
+	(*Metadata)(nil),               // 12: frontline.v1.Metadata
+	(*Cooldown)(nil),               // 13: frontline.v1.Cooldown
+	(*Job)(nil),                    // 14: frontline.v1.Job
+	(*Economy)(nil),                // 15: frontline.v1.Economy
+	(*EntityPrivate)(nil),          // 16: frontline.v1.EntityPrivate
+	(*StatusEffect)(nil),           // 17: frontline.v1.StatusEffect
+	(*Entity)(nil),                 // 18: frontline.v1.Entity
+	(*PlayerSummary)(nil),          // 19: frontline.v1.PlayerSummary
+	(*Projectile)(nil),             // 20: frontline.v1.Projectile
+	(*Field)(nil),                  // 21: frontline.v1.Field
+	(*Station)(nil),                // 22: frontline.v1.Station
+	(*Memory)(nil),                 // 23: frontline.v1.Memory
+	(*Event)(nil),                  // 24: frontline.v1.Event
+	(*Outcome)(nil),                // 25: frontline.v1.Outcome
+	(*PlayerSnapshot)(nil),         // 26: frontline.v1.PlayerSnapshot
+	(*StateDelta)(nil),             // 27: frontline.v1.StateDelta
+	(*MatchResult)(nil),            // 28: frontline.v1.MatchResult
+	(*Salvage)(nil),                // 29: frontline.v1.Salvage
+	(*Zone)(nil),                   // 30: frontline.v1.Zone
+	(*StructureIndicator)(nil),     // 31: frontline.v1.StructureIndicator
+	(*ObjectiveProgress)(nil),      // 32: frontline.v1.ObjectiveProgress
+	(*MissionProgress)(nil),        // 33: frontline.v1.MissionProgress
+	(*OperationWarning)(nil),       // 34: frontline.v1.OperationWarning
+	(*ConvoyProgress)(nil),         // 35: frontline.v1.ConvoyProgress
+	(*EconomySample)(nil),          // 36: frontline.v1.EconomySample
+	(*ProductionCount)(nil),        // 37: frontline.v1.ProductionCount
+	(*PlayerTelemetry)(nil),        // 38: frontline.v1.PlayerTelemetry
+	(*DebriefPlayer)(nil),          // 39: frontline.v1.DebriefPlayer
+	(*DebriefEvent)(nil),           // 40: frontline.v1.DebriefEvent
+	(*Debrief)(nil),                // 41: frontline.v1.Debrief
+	(*CombatFeedback)(nil),         // 42: frontline.v1.CombatFeedback
+	(*EntityRanges)(nil),           // 43: frontline.v1.EntityRanges
+	(*InterceptionView)(nil),       // 44: frontline.v1.InterceptionView
+	(*InterceptionAssignment)(nil), // 45: frontline.v1.InterceptionAssignment
 }
 var file_frontline_proto_depIdxs = []int32{
 	1,  // 0: frontline.v1.Envelope.hello:type_name -> frontline.v1.ClientHello
 	10, // 1: frontline.v1.Envelope.orders:type_name -> frontline.v1.OrderBatch
 	11, // 2: frontline.v1.Envelope.order_result:type_name -> frontline.v1.OrderResult
-	25, // 3: frontline.v1.Envelope.snapshot:type_name -> frontline.v1.PlayerSnapshot
-	26, // 4: frontline.v1.Envelope.delta:type_name -> frontline.v1.StateDelta
+	26, // 3: frontline.v1.Envelope.snapshot:type_name -> frontline.v1.PlayerSnapshot
+	27, // 4: frontline.v1.Envelope.delta:type_name -> frontline.v1.StateDelta
 	2,  // 5: frontline.v1.Envelope.resume:type_name -> frontline.v1.ResumeMatch
-	27, // 6: frontline.v1.Envelope.result:type_name -> frontline.v1.MatchResult
+	28, // 6: frontline.v1.Envelope.result:type_name -> frontline.v1.MatchResult
 	7,  // 7: frontline.v1.Envelope.error:type_name -> frontline.v1.ProtocolError
 	6,  // 8: frontline.v1.Envelope.ping:type_name -> frontline.v1.Ping
 	3,  // 9: frontline.v1.Envelope.control:type_name -> frontline.v1.MatchControl
@@ -4257,51 +4729,57 @@ var file_frontline_proto_depIdxs = []int32{
 	9,  // 18: frontline.v1.EntityPrivate.orders:type_name -> frontline.v1.Order
 	8,  // 19: frontline.v1.EntityPrivate.rally:type_name -> frontline.v1.Vec
 	13, // 20: frontline.v1.EntityPrivate.cooldowns:type_name -> frontline.v1.Cooldown
-	8,  // 21: frontline.v1.Entity.position:type_name -> frontline.v1.Vec
-	16, // 22: frontline.v1.Entity.private:type_name -> frontline.v1.EntityPrivate
-	8,  // 23: frontline.v1.Projectile.position:type_name -> frontline.v1.Vec
-	8,  // 24: frontline.v1.Projectile.impact:type_name -> frontline.v1.Vec
-	8,  // 25: frontline.v1.Field.position:type_name -> frontline.v1.Vec
-	8,  // 26: frontline.v1.Station.position:type_name -> frontline.v1.Vec
-	8,  // 27: frontline.v1.Memory.position:type_name -> frontline.v1.Vec
-	8,  // 28: frontline.v1.Event.position:type_name -> frontline.v1.Vec
-	12, // 29: frontline.v1.PlayerSnapshot.metadata:type_name -> frontline.v1.Metadata
-	15, // 30: frontline.v1.PlayerSnapshot.economy:type_name -> frontline.v1.Economy
-	18, // 31: frontline.v1.PlayerSnapshot.players:type_name -> frontline.v1.PlayerSummary
-	17, // 32: frontline.v1.PlayerSnapshot.entities:type_name -> frontline.v1.Entity
-	19, // 33: frontline.v1.PlayerSnapshot.projectiles:type_name -> frontline.v1.Projectile
-	20, // 34: frontline.v1.PlayerSnapshot.fields:type_name -> frontline.v1.Field
-	21, // 35: frontline.v1.PlayerSnapshot.stations:type_name -> frontline.v1.Station
-	22, // 36: frontline.v1.PlayerSnapshot.memory:type_name -> frontline.v1.Memory
-	23, // 37: frontline.v1.PlayerSnapshot.events:type_name -> frontline.v1.Event
-	11, // 38: frontline.v1.PlayerSnapshot.results:type_name -> frontline.v1.OrderResult
-	24, // 39: frontline.v1.PlayerSnapshot.outcome:type_name -> frontline.v1.Outcome
-	28, // 40: frontline.v1.PlayerSnapshot.salvage:type_name -> frontline.v1.Salvage
-	29, // 41: frontline.v1.PlayerSnapshot.zones:type_name -> frontline.v1.Zone
-	30, // 42: frontline.v1.PlayerSnapshot.indicators:type_name -> frontline.v1.StructureIndicator
-	32, // 43: frontline.v1.PlayerSnapshot.mission:type_name -> frontline.v1.MissionProgress
-	33, // 44: frontline.v1.PlayerSnapshot.warnings:type_name -> frontline.v1.OperationWarning
-	40, // 45: frontline.v1.PlayerSnapshot.debrief:type_name -> frontline.v1.Debrief
-	25, // 46: frontline.v1.StateDelta.state:type_name -> frontline.v1.PlayerSnapshot
-	24, // 47: frontline.v1.MatchResult.outcome:type_name -> frontline.v1.Outcome
-	8,  // 48: frontline.v1.Salvage.position:type_name -> frontline.v1.Vec
-	8,  // 49: frontline.v1.Zone.position:type_name -> frontline.v1.Vec
-	8,  // 50: frontline.v1.StructureIndicator.position:type_name -> frontline.v1.Vec
-	31, // 51: frontline.v1.MissionProgress.objectives:type_name -> frontline.v1.ObjectiveProgress
-	34, // 52: frontline.v1.MissionProgress.convoys:type_name -> frontline.v1.ConvoyProgress
-	8,  // 53: frontline.v1.OperationWarning.position:type_name -> frontline.v1.Vec
-	8,  // 54: frontline.v1.OperationWarning.exits:type_name -> frontline.v1.Vec
-	36, // 55: frontline.v1.PlayerTelemetry.units_produced:type_name -> frontline.v1.ProductionCount
-	36, // 56: frontline.v1.PlayerTelemetry.buildings_constructed:type_name -> frontline.v1.ProductionCount
-	35, // 57: frontline.v1.PlayerTelemetry.timeline:type_name -> frontline.v1.EconomySample
-	37, // 58: frontline.v1.DebriefPlayer.metrics:type_name -> frontline.v1.PlayerTelemetry
-	38, // 59: frontline.v1.Debrief.players:type_name -> frontline.v1.DebriefPlayer
-	39, // 60: frontline.v1.Debrief.events:type_name -> frontline.v1.DebriefEvent
-	61, // [61:61] is the sub-list for method output_type
-	61, // [61:61] is the sub-list for method input_type
-	61, // [61:61] is the sub-list for extension type_name
-	61, // [61:61] is the sub-list for extension extendee
-	0,  // [0:61] is the sub-list for field type_name
+	43, // 21: frontline.v1.EntityPrivate.ranges:type_name -> frontline.v1.EntityRanges
+	8,  // 22: frontline.v1.Entity.position:type_name -> frontline.v1.Vec
+	16, // 23: frontline.v1.Entity.private:type_name -> frontline.v1.EntityPrivate
+	17, // 24: frontline.v1.Entity.effects:type_name -> frontline.v1.StatusEffect
+	8,  // 25: frontline.v1.Projectile.position:type_name -> frontline.v1.Vec
+	8,  // 26: frontline.v1.Projectile.impact:type_name -> frontline.v1.Vec
+	8,  // 27: frontline.v1.Field.position:type_name -> frontline.v1.Vec
+	8,  // 28: frontline.v1.Station.position:type_name -> frontline.v1.Vec
+	8,  // 29: frontline.v1.Memory.position:type_name -> frontline.v1.Vec
+	8,  // 30: frontline.v1.Event.position:type_name -> frontline.v1.Vec
+	42, // 31: frontline.v1.Event.combat:type_name -> frontline.v1.CombatFeedback
+	12, // 32: frontline.v1.PlayerSnapshot.metadata:type_name -> frontline.v1.Metadata
+	15, // 33: frontline.v1.PlayerSnapshot.economy:type_name -> frontline.v1.Economy
+	19, // 34: frontline.v1.PlayerSnapshot.players:type_name -> frontline.v1.PlayerSummary
+	18, // 35: frontline.v1.PlayerSnapshot.entities:type_name -> frontline.v1.Entity
+	20, // 36: frontline.v1.PlayerSnapshot.projectiles:type_name -> frontline.v1.Projectile
+	21, // 37: frontline.v1.PlayerSnapshot.fields:type_name -> frontline.v1.Field
+	22, // 38: frontline.v1.PlayerSnapshot.stations:type_name -> frontline.v1.Station
+	23, // 39: frontline.v1.PlayerSnapshot.memory:type_name -> frontline.v1.Memory
+	24, // 40: frontline.v1.PlayerSnapshot.events:type_name -> frontline.v1.Event
+	11, // 41: frontline.v1.PlayerSnapshot.results:type_name -> frontline.v1.OrderResult
+	25, // 42: frontline.v1.PlayerSnapshot.outcome:type_name -> frontline.v1.Outcome
+	29, // 43: frontline.v1.PlayerSnapshot.salvage:type_name -> frontline.v1.Salvage
+	30, // 44: frontline.v1.PlayerSnapshot.zones:type_name -> frontline.v1.Zone
+	31, // 45: frontline.v1.PlayerSnapshot.indicators:type_name -> frontline.v1.StructureIndicator
+	33, // 46: frontline.v1.PlayerSnapshot.mission:type_name -> frontline.v1.MissionProgress
+	34, // 47: frontline.v1.PlayerSnapshot.warnings:type_name -> frontline.v1.OperationWarning
+	41, // 48: frontline.v1.PlayerSnapshot.debrief:type_name -> frontline.v1.Debrief
+	26, // 49: frontline.v1.StateDelta.state:type_name -> frontline.v1.PlayerSnapshot
+	25, // 50: frontline.v1.MatchResult.outcome:type_name -> frontline.v1.Outcome
+	8,  // 51: frontline.v1.Salvage.position:type_name -> frontline.v1.Vec
+	8,  // 52: frontline.v1.Zone.position:type_name -> frontline.v1.Vec
+	8,  // 53: frontline.v1.StructureIndicator.position:type_name -> frontline.v1.Vec
+	32, // 54: frontline.v1.MissionProgress.objectives:type_name -> frontline.v1.ObjectiveProgress
+	35, // 55: frontline.v1.MissionProgress.convoys:type_name -> frontline.v1.ConvoyProgress
+	8,  // 56: frontline.v1.OperationWarning.position:type_name -> frontline.v1.Vec
+	8,  // 57: frontline.v1.OperationWarning.exits:type_name -> frontline.v1.Vec
+	37, // 58: frontline.v1.PlayerTelemetry.units_produced:type_name -> frontline.v1.ProductionCount
+	37, // 59: frontline.v1.PlayerTelemetry.buildings_constructed:type_name -> frontline.v1.ProductionCount
+	36, // 60: frontline.v1.PlayerTelemetry.timeline:type_name -> frontline.v1.EconomySample
+	38, // 61: frontline.v1.DebriefPlayer.metrics:type_name -> frontline.v1.PlayerTelemetry
+	39, // 62: frontline.v1.Debrief.players:type_name -> frontline.v1.DebriefPlayer
+	40, // 63: frontline.v1.Debrief.events:type_name -> frontline.v1.DebriefEvent
+	44, // 64: frontline.v1.EntityRanges.interception:type_name -> frontline.v1.InterceptionView
+	45, // 65: frontline.v1.InterceptionView.assignments:type_name -> frontline.v1.InterceptionAssignment
+	8,  // 66: frontline.v1.InterceptionAssignment.impact:type_name -> frontline.v1.Vec
+	67, // [67:67] is the sub-list for method output_type
+	67, // [67:67] is the sub-list for method input_type
+	67, // [67:67] is the sub-list for extension type_name
+	67, // [67:67] is the sub-list for extension extendee
+	0,  // [0:67] is the sub-list for field type_name
 }
 
 func init() { file_frontline_proto_init() }
@@ -4322,13 +4800,17 @@ func file_frontline_proto_init() {
 		(*Envelope_Control)(nil),
 		(*Envelope_Status)(nil),
 	}
+	file_frontline_proto_msgTypes[16].OneofWrappers = []any{}
+	file_frontline_proto_msgTypes[20].OneofWrappers = []any{}
+	file_frontline_proto_msgTypes[34].OneofWrappers = []any{}
+	file_frontline_proto_msgTypes[44].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_frontline_proto_rawDesc), len(file_frontline_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   41,
+			NumMessages:   46,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

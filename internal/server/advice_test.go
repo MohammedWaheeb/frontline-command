@@ -118,6 +118,32 @@ func TestCommandAdviceRateAndInFlightBounds(t *testing.T) {
 	request(t, h, "POST", path, "slot-one", adviceRequest{}, 429)
 	request(t, h, "POST", path, "slot-two", adviceRequest{}, 200)
 }
+
+func TestCommandAdviceSkybreakerOwnerPlan(t *testing.T) {
+	s, h := testServer(t)
+	m := adviceMatch(t, s)
+	path := "/api/v1/matches/" + m.id + "/advice"
+	before := m.call(context.Background(), matchRequest{kind: "save"})
+	point := sim.Vec{X: 8000, Y: 8000}
+	body := adviceRequest{Orders: []sim.Order{{Kind: "ability", Type: "strategic", Entities: []sim.ID{2}, Index: 3, Points: []sim.Vec{point, point, point}}}}
+	got := request(t, h, "POST", path, "slot-one", body, 200)
+	var plans []sim.StrategicPlan
+	if err := json.Unmarshal(got["plans"], &plans); err != nil || len(plans) != 1 || plans[0].Edge != 3 || len(plans[0].Routes) != 3 {
+		t.Fatal("owner plan lost at HTTP boundary", plans, err)
+	}
+	for _, route := range plans[0].Routes {
+		if route.Impact != point || route.Splash != 2000 || route.ImpactAt != route.ReleaseAt+1 {
+			t.Fatal(route)
+		}
+	}
+	request(t, h, "POST", path, "slot-two", body, 400)
+	body.Independent = true
+	request(t, h, "POST", path, "slot-one", body, 400)
+	after := m.call(context.Background(), matchRequest{kind: "save"})
+	if before.err != nil || after.err != nil || string(before.data) != string(after.data) {
+		t.Fatal("route advice mutated hosted game")
+	}
+}
 func TestAdviceDoesNotConsumeGeneralWriteAdmission(t *testing.T) {
 	var gate admissionControl
 	now := time.Unix(1, 0)

@@ -1,5 +1,8 @@
 package sim
 
+// Used both by actual strategic impacts and their public area warnings.
+const strategicImpactRadius int32 = 2000
+
 func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
 	v := selection[0]
 	target := e.entity(o.Target)
@@ -282,45 +285,24 @@ func (e *Engine) activateStrategic(p *Player, selection []*Entity, o Order) stri
 	case "IR":
 		for i, pt := range o.Points {
 			for wave := 0; wave < 2; wave++ {
-				projectile := &Projectile{ID: e.newID(), Owner: p.ID, Shooter: site.ID, Weapon: "SATURATION", Origin: site.Position, Position: site.Position, Impact: pt, ImpactAt: e.state.Tick + seconds(uint32(14+wave*3)), Damage: 220000, Splash: 2000, Interceptable: true, Strategic: true}
+				projectile := &Projectile{ID: e.newID(), Owner: p.ID, Shooter: site.ID, Weapon: "SATURATION", Origin: site.Position, Position: site.Position, Impact: pt, ImpactAt: e.state.Tick + seconds(uint32(14+wave*3)), Damage: 220000, Splash: strategicImpactRadius, Interceptable: true, Strategic: true}
 				e.state.Projectiles = append(e.state.Projectiles, projectile)
 				e.emit("missile_warning", p.ID, 0, pt, "all", int64(projectile.ImpactAt))
 			}
 			_ = i
 		}
 	case "US":
-		center := Vec{}
-		for _, pt := range o.Points {
-			center.X += pt.X / 3
-			center.Y += pt.Y / 3
-		}
-		center.X = clamp(center.X, 2200, e.state.Map.Width*1000-2200)
-		center.Y = clamp(center.Y, 2200, e.state.Map.Height*1000-2200)
-		for i, pt := range o.Points {
-			lane := int32(i-1) * 1600
-			drop := Vec{X: center.X, Y: center.Y + lane}
-			entry := Vec{X: 601, Y: drop.Y}
-			switch o.Index {
-			case 1:
-				entry = Vec{X: e.state.Map.Width*1000 - 601, Y: drop.Y}
-			case 2:
-				drop = Vec{X: center.X + lane, Y: center.Y}
-				entry = Vec{X: drop.X, Y: 601}
-			case 3:
-				drop = Vec{X: center.X + lane, Y: center.Y}
-				entry = Vec{X: drop.X, Y: e.state.Map.Height*1000 - 601}
-			}
-			flight := Tick((distance(entry, drop)*20 + 5999) / 6000)
-			eta := e.state.Tick + max(seconds(12), flight)
-			plane := e.spawn("US.support_plane", p.ID, entry, true, 200000)
+		for _, route := range e.skybreakerRoutes(o, e.state.Tick) {
+			flight := route.ReleaseAt - route.EntryAt
+			plane := e.spawn("US.support_plane", p.ID, route.Entry, true, 200000)
 			plane.Landed = false
 			plane.Endurance = 2400
-			plane.TemporaryUntil = eta + flight + seconds(30)
-			plane.Facing = direction(drop.X-entry.X, drop.Y-entry.Y)
-			plane.Orders = []Order{{Kind: "move", Position: drop}}
-			plane.DisabledUntil = eta - flight
-			e.state.Operations = append(e.state.Operations, Operation{Kind: "skybreaker", Owner: p.ID, At: eta, Source: plane.ID, Points: []Vec{pt, entry, drop}})
-			e.emit("airstrike_warning", p.ID, 0, pt, "all", int64(eta))
+			plane.TemporaryUntil = route.ReleaseAt + flight + seconds(30)
+			plane.Facing = direction(route.Drop.X-route.Entry.X, route.Drop.Y-route.Entry.Y)
+			plane.Orders = []Order{{Kind: "move", Position: route.Drop}}
+			plane.DisabledUntil = route.EntryAt
+			e.state.Operations = append(e.state.Operations, Operation{Kind: "skybreaker", Owner: p.ID, At: route.ReleaseAt, Source: plane.ID, Points: []Vec{route.Impact, route.Entry, route.Drop}})
+			e.emit("airstrike_warning", p.ID, 0, route.Impact, "all", int64(route.ReleaseAt))
 		}
 	case "SY":
 		for _, house := range selection {
@@ -363,17 +345,11 @@ func (e *Engine) updateSpecial() {
 			cap = w.Ammo
 			required = w.IntervalTicks * 2
 		case role == "abm" && v.Active(e.state.Tick):
-			cap = 2
-			required = 24 * 20 * 2
-			if p.LowPower() {
-				work = 1
-			}
+			rule, _ := e.interceptionParameters(v)
+			cap, required, work = rule.capacity, rule.required, rule.rate
 		case v.Type == "SA.mobile_abm" && v.Deployed && v.Active(e.state.Tick):
-			cap = 1
-			required = 30 * 20 * 2
-			if p.HasUpgrade("SA.interception") {
-				required = 25 * 20 * 2
-			}
+			rule, _ := e.interceptionParameters(v)
+			cap, required, work = rule.capacity, rule.required, rule.rate
 		case role == "strategic" && v.Active(e.state.Tick) && !p.LowPower() && p.Tier == 3:
 			v.ChargeWork = min(e.strategicCharge(p.Faction), v.ChargeWork+2)
 		}
@@ -473,7 +449,7 @@ func (e *Engine) updateSpecial() {
 				continue
 			}
 			pt := op.Points[0]
-			e.state.Projectiles = append(e.state.Projectiles, &Projectile{ID: e.newID(), Owner: op.Owner, Shooter: source.ID, Weapon: "SKYBREAKER", Origin: source.Position, Position: source.Position, Impact: pt, ImpactAt: e.state.Tick + 1, Damage: 400000, Splash: 2000, Strategic: true})
+			e.state.Projectiles = append(e.state.Projectiles, &Projectile{ID: e.newID(), Owner: op.Owner, Shooter: source.ID, Weapon: "SKYBREAKER", Origin: source.Position, Position: source.Position, Impact: pt, ImpactAt: e.state.Tick + 1, Damage: 400000, Splash: strategicImpactRadius, Strategic: true})
 			e.assign(source, Order{Kind: "move", Position: op.Points[1]})
 		}
 	}

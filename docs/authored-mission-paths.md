@@ -1,14 +1,16 @@
 # Authored failure and optional-objective acceptance
 
-> Status update — 2026-09-29: the fresh consolidated ordinary-commander run
-> passed **102/102 main and 21/21 targeted optional routes**, with zero failed
-> or unrun leaves and all 23,370 winning-route order receipts accepted. Both
-> phases used the same locked executable and original combined proposed 0.3.4
-> production/content bytes. See the [audited consolidated result](../work/runtime-034-consolidated-acceptance/README.md).
-> This is native route/determinism evidence, not final optimized-runtime or
-> browser qualification. Earlier 93/102 main and 12/21 optional failures and
-> subsequent individual pilots remain preserved as source-specific history;
-> the historical records below must not be read as additional current coverage.
+> Status update — 2026-09-29: the frozen optimized0.3.4 integration now
+> independently passes **102/102 main and21/21 targeted optional routes**,
+> zero failed/unrun, all23,370 winning-route orders accepted. All123 final
+> hashes and complete winning order ledgers equal the earlier consolidated
+> commander run. See the [integrated source audit](../work/runtime-034-integrated-source/completed-mission-audit.json)
+> and [source/acceptance scope](../work/runtime-034-integrated-source/README.md).
+> Exact source/runtime0.3.4 was promoted after native/WASM/host parity on
+> 2026-09-29; this remains native route/determinism evidence, not final product
+> or browser qualification. The [earlier consolidated result](../work/runtime-034-consolidated-acceptance/README.md),
+> original93/102 and12/21 failures, and individual tactics pilots remain
+> preserved history, not additional current coverage.
 
 The clean 102-case main-completion matrix proves victory, restoration, replay,
 restart and the generic all-human surrender path. Surrender alone does **not**

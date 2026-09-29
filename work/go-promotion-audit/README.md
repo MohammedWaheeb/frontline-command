@@ -1,5 +1,14 @@
 # Read-only Go 0.3.4 promotion recipe
 
+> Historical proposal, superseded2026-09-29: the isolated3d49 integration
+> earned437 native-short passes, vet, bounded race,102main+21optional,13authored
+> skirmishes and fresh native/WASM/host parity. Root then reviewed and authorized
+> exact83-path source plus seven-artifact promotion. Live source/runtime now
+> report0.3.4. See [completed promotion and exact rollback archive](../runtime-034-integrated-source/PROMOTION.md)
+> and [runtime receipts](../runtime-034-integrated-source/RUNTIME.md). Product/art
+> packaging and the remaining full-product gates below remain separate. The
+> original read-only inventory and its then-open gates are preserved below.
+
 Audit date: 2026-09-29. **No promotion, build, browser launch or Go test was run
 for this audit.** Shipping source and `client/public/runtime/version.json` both
 still report simulation **0.3.3**. Parent retains the browser lane and the

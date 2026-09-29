@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file frontline.proto.
  */
 export const file_frontline: GenFile = /*@__PURE__*/
-  fileDesc("Cg9mcm9udGxpbmUucHJvdG8SDGZyb250bGluZS52MSKFBAoIRW52ZWxvcGUSKgoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG9IABIqCgZvcmRlcnMYAiABKAsyGC5mcm9udGxpbmUudjEuT3JkZXJCYXRjaEgAEjEKDG9yZGVyX3Jlc3VsdBgDIAEoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdEgAEjAKCHNuYXBzaG90GAQgASgLMhwuZnJvbnRsaW5lLnYxLlBsYXllclNuYXBzaG90SAASKQoFZGVsdGEYBSABKAsyGC5mcm9udGxpbmUudjEuU3RhdGVEZWx0YUgAEisKBnJlc3VtZRgGIAEoCzIZLmZyb250bGluZS52MS5SZXN1bWVNYXRjaEgAEisKBnJlc3VsdBgHIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFJlc3VsdEgAEiwKBWVycm9yGAggASgLMhsuZnJvbnRsaW5lLnYxLlByb3RvY29sRXJyb3JIABIiCgRwaW5nGAkgASgLMhIuZnJvbnRsaW5lLnYxLlBpbmdIABItCgdjb250cm9sGAogASgLMhouZnJvbnRsaW5lLnYxLk1hdGNoQ29udHJvbEgAEisKBnN0YXR1cxgLIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFN0YXR1c0gAQgkKB21lc3NhZ2UiagoLQ2xpZW50SGVsbG8SEAoIcHJvdG9jb2wYASABKA0SEgoKc2ltdWxhdGlvbhgCIAEoCRIUCgxjb250ZW50X2hhc2gYAyABKAkSDQoFdG9rZW4YBCABKAkSEAoIbWF0Y2hfaWQYBSABKAkiSgoLUmVzdW1lTWF0Y2gSKAoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG8SEQoJbGFzdF90aWNrGAIgASgNIh4KDE1hdGNoQ29udHJvbBIOCgZhY3Rpb24YASABKAkiVAoPQ29ubmVjdGlvblN0YXRlEg4KBnBsYXllchgBIAEoDRIRCgljb25uZWN0ZWQYAiABKAgSHgoWcmVjb25uZWN0X3JlbWFpbmluZ19tcxgDIAEoDSKYAQoLTWF0Y2hTdGF0dXMSFQoNcGF1c2VfZW5hYmxlZBgBIAEoCBIOCgZwYXVzZWQYAiABKAgSEwoLcGF1c2Vfdm90ZXMYAyADKA0SMAoJdGVhbW1hdGVzGAQgAygLMh0uZnJvbnRsaW5lLnYxLkNvbm5lY3Rpb25TdGF0ZRIbChN3YWl0aW5nX2Zvcl9wbGF5ZXJzGAUgASgIIhUKBFBpbmcSDQoFbm9uY2UYASABKA0iQwoNUHJvdG9jb2xFcnJvchIMCgRjb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkSEwoLcmVjb3ZlcmFibGUYAyABKAgiGwoDVmVjEgkKAXgYASABKBESCQoBeRgCIAEoESKsAQoFT3JkZXISDAoEa2luZBgBIAEoCRIQCghlbnRpdGllcxgCIAMoDRIOCgZ0YXJnZXQYAyABKA0SIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEgwKBHR5cGUYBSABKAkSDgoGcXVldWVkGAYgASgIEg0KBWluZGV4GAcgASgFEiEKBnBvaW50cxgIIAMoCzIRLmZyb250bGluZS52MS5WZWMiQwoKT3JkZXJCYXRjaBIQCghzZXF1ZW5jZRgBIAEoDRIjCgZvcmRlcnMYAiADKAsyEy5mcm9udGxpbmUudjEuT3JkZXIibAoLT3JkZXJSZXN1bHQSDgoGcGxheWVyGAEgASgNEhAKCHNlcXVlbmNlGAIgASgNEg0KBWluZGV4GAMgASgFEhAKCGFjY2VwdGVkGAQgASgIEgwKBGNvZGUYBSABKAkSDAoEdGljaxgGIAEoDSJ6CghNZXRhZGF0YRISCgpzaW11bGF0aW9uGAEgASgJEhAKCHByb3RvY29sGAIgASgNEhQKDGNvbnRlbnRfaGFzaBgDIAEoCRITCgttYXBfdmVyc2lvbhgEIAEoCRIPCgdydWxlc2V0GAUgASgJEgwKBHNlZWQYBiABKAQiJQoIQ29vbGRvd24SCgoCaWQYASABKAkSDQoFdW50aWwYAiABKA0imAEKA0pvYhIMCgR0eXBlGAEgASgJEhAKCHJlc2VhcmNoGAIgASgIEgwKBHBhaWQYAyABKAMSDAoEd29yaxgEIAEoDRIQCghyZXF1aXJlZBgFIAEoDRIOCgZzdXBwbHkYBiABKAUSDwoHc2VydmljZRgHIAEoDRIPCgdzdGFydGVkGAggASgIEhEKCWVtZXJnZW5jeRgJIAEoCCKLAgoHRWNvbm9teRIPCgdjcmVkaXRzGAEgASgDEg4KBmVuZXJneRgCIAEoAxIOCgZzdXBwbHkYAyABKAUSFwoPcmVzZXJ2ZWRfc3VwcGx5GAQgASgFEhYKDnBvd2VyX2NhcGFjaXR5GAUgASgFEhQKDHBvd2VyX2RlbWFuZBgGIAEoBRIMCgR0aWVyGAcgASgFEg4KBmluY29tZRgIIAEoAxIWCg5yZXBhaXJfcmVzZXJ2ZRgJIAEoAxIQCgh1cGdyYWRlcxgKIAMoCRIpCgljb29sZG93bnMYCyADKAsyFi5mcm9udGxpbmUudjEuQ29vbGRvd24SFQoNbGFzdF9zZXF1ZW5jZRgMIAEoDSK4AwoNRW50aXR5UHJpdmF0ZRIKCgJocBgBIAEoAxIOCgZtYXhfaHAYAiABKAMSHwoEam9icxgDIAMoCzIRLmZyb250bGluZS52MS5Kb2ISIwoGb3JkZXJzGAQgAygLMhMuZnJvbnRsaW5lLnYxLk9yZGVyEiAKBXJhbGx5GAUgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgVjYXJnbxgGIAEoAxIMCgRob21lGAcgASgNEgwKBGFtbW8YCCABKAUSEQoJZW5kdXJhbmNlGAkgASgNEg8KB2NoYXJnZXMYCiABKAUSEwoLY2hhcmdlX3dvcmsYCyABKA0SFAoMc2VydmljZV93b3JrGAwgASgNEhIKCmV4cGVyaWVuY2UYDSABKAMSKQoJY29vbGRvd25zGA4gAygLMhYuZnJvbnRsaW5lLnYxLkNvb2xkb3duEhIKCnBhc3NlbmdlcnMYDyADKA0SEQoJY29udGFpbmVyGBAgASgNEhUKDXJlcGVhdF9zb3J0aWUYESABKAgSFAoMYW1idXNoX3JlYWR5GBIgASgIEhYKDm1pc3Npb25fb3JpZ2luGBMgASgJIrgDCgZFbnRpdHkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVvd25lchgDIAEoDRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSDgoGZmFjaW5nGAUgASgFEg4KBmhlYWx0aBgGIAEoBRINCgVzdGF0ZRgHIAEoCRIQCghjb21wbGV0ZRgIIAEoCBIPCgdlbmFibGVkGAkgASgIEg4KBmxhbmRlZBgKIAEoCBIQCghkZXBsb3llZBgLIAEoCBIRCgljb25jZWFsZWQYDCABKAgSEAoIcHJvZ3Jlc3MYDSABKAUSDAoEcmFuaxgOIAEoDRIsCgdwcml2YXRlGA8gASgLMhsuZnJvbnRsaW5lLnYxLkVudGl0eVByaXZhdGUSFQoNdHVycmV0X2ZhY2luZxgQIAEoBRIVCg1jaGFubmVsX3VudGlsGBEgASgNEhIKCm1hcF9vYmplY3QYEiABKA0SFwoPZm9vdHByaW50X3dpZHRoGBMgASgFEhgKEGZvb3RwcmludF9oZWlnaHQYFCABKAUSFgoOZm9vdHByaW50X3R5cGUYFSABKAkisAEKDVBsYXllclN1bW1hcnkSCgoCaWQYASABKA0SDAoEbmFtZRgCIAEoCRIPCgdmYWN0aW9uGAMgASgJEgwKBHRlYW0YBCABKA0SEAoIZGVmZWF0ZWQYBSABKAgSEQoJZGVmZWF0X2F0GAYgASgNEhoKEnN0cmF0ZWdpY19wcm9ncmVzcxgHIAEoBRIWCg5zdXJyZW5kZXJfdm90ZRgIIAEoCBINCgVjb2xvchgJIAEoDSK6AQoKUHJvamVjdGlsZRIKCgJpZBgBIAEoDRINCgVvd25lchgCIAEoDRIOCgZ3ZWFwb24YAyABKAkSIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEiEKBmltcGFjdBgFIAEoCzIRLmZyb250bGluZS52MS5WZWMSEQoJaW1wYWN0X2F0GAYgASgNEhUKDWludGVyY2VwdGFibGUYByABKAgSDwoHd2FybmluZxgIIAEoCCJLCgVGaWVsZBIKCgJpZBgBIAEoDRIjCghwb3NpdGlvbhgCIAEoCzIRLmZyb250bGluZS52MS5WZWMSEQoJcmVtYWluaW5nGAMgASgDIkkKB1N0YXRpb24SCgoCaWQYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjEg0KBW93bmVyGAMgASgNIq8BCgZNZW1vcnkSCgoCaWQYASABKA0SDAoEdHlwZRgCIAEoCRINCgVvd25lchgDIAEoDRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSDAoEc2VlbhgFIAEoDRIXCg9mb290cHJpbnRfd2lkdGgYBiABKAUSGAoQZm9vdHByaW50X2hlaWdodBgHIAEoBRIWCg5mb290cHJpbnRfdHlwZRgIIAEoCSKfAQoFRXZlbnQSCgoCaWQYASABKA0SDAoEdGljaxgCIAEoDRIMCgRraW5kGAMgASgJEg0KBW93bmVyGAQgASgNEg4KBmVudGl0eRgFIAEoDRIjCghwb3NpdGlvbhgGIAEoCzIRLmZyb250bGluZS52MS5WZWMSDQoFdmFsdWUYByABKAMSDQoFc2NvcGUYCCABKAkSDAoEdGV4dBgJIAEoCSJdCgdPdXRjb21lEhAKCGZpbmlzaGVkGAEgASgIEgwKBGRyYXcYAiABKAgSFAoMd2lubmluZ190ZWFtGAMgASgNEg4KBnJlYXNvbhgEIAEoCRIMCgR0aWNrGAUgASgNIuAGCg5QbGF5ZXJTbmFwc2hvdBIoCghtZXRhZGF0YRgBIAEoCzIWLmZyb250bGluZS52MS5NZXRhZGF0YRIMCgR0aWNrGAIgASgNEhEKCWNvdW50ZG93bhgDIAEoDRIOCgZwbGF5ZXIYBCABKA0SJgoHZWNvbm9teRgFIAEoCzIVLmZyb250bGluZS52MS5FY29ub215EiwKB3BsYXllcnMYBiADKAsyGy5mcm9udGxpbmUudjEuUGxheWVyU3VtbWFyeRImCghlbnRpdGllcxgHIAMoCzIULmZyb250bGluZS52MS5FbnRpdHkSLQoLcHJvamVjdGlsZXMYCCADKAsyGC5mcm9udGxpbmUudjEuUHJvamVjdGlsZRIjCgZmaWVsZHMYCSADKAsyEy5mcm9udGxpbmUudjEuRmllbGQSJwoIc3RhdGlvbnMYCiADKAsyFS5mcm9udGxpbmUudjEuU3RhdGlvbhIUCghleHBsb3JlZBgLIAMoCEICEAESEwoHdmlzaWJsZRgMIAMoCEICEAESJAoGbWVtb3J5GA0gAygLMhQuZnJvbnRsaW5lLnYxLk1lbW9yeRIjCgZldmVudHMYDiADKAsyEy5mcm9udGxpbmUudjEuRXZlbnQSKgoHcmVzdWx0cxgPIAMoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdBITCgtzaGlwbWVudF9hdBgQIAEoDRImCgdvdXRjb21lGBEgASgLMhUuZnJvbnRsaW5lLnYxLk91dGNvbWUSJgoHc2FsdmFnZRgSIAMoCzIVLmZyb250bGluZS52MS5TYWx2YWdlEiEKBXpvbmVzGBMgAygLMhIuZnJvbnRsaW5lLnYxLlpvbmUSNAoKaW5kaWNhdG9ycxgUIAMoCzIgLmZyb250bGluZS52MS5TdHJ1Y3R1cmVJbmRpY2F0b3ISLgoHbWlzc2lvbhgVIAEoCzIdLmZyb250bGluZS52MS5NaXNzaW9uUHJvZ3Jlc3MSDgoGcnViYmxlGBYgAygNEjAKCHdhcm5pbmdzGBcgAygLMh4uZnJvbnRsaW5lLnYxLk9wZXJhdGlvbldhcm5pbmcSJgoHZGVicmllZhgYIAEoCzIVLmZyb250bGluZS52MS5EZWJyaWVmImoKClN0YXRlRGVsdGESFQoNYmFzZWxpbmVfdGljaxgBIAEoDRIrCgVzdGF0ZRgCIAEoCzIcLmZyb250bGluZS52MS5QbGF5ZXJTbmFwc2hvdBIYChByZW1vdmVkX2VudGl0aWVzGAMgAygNImgKC01hdGNoUmVzdWx0EhAKCG1hdGNoX2lkGAEgASgJEiYKB291dGNvbWUYAiABKAsyFS5mcm9udGxpbmUudjEuT3V0Y29tZRIRCgljb21taXR0ZWQYAyABKAgSDAoEdm9pZBgEIAEoCCJnCgdTYWx2YWdlEgoKAmlkGAEgASgNEg0KBW93bmVyGAIgASgNEiMKCHBvc2l0aW9uGAMgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgV2YWx1ZRgEIAEoAxINCgV1bnRpbBgFIAEoDSJ2CgRab25lEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEg4KBnJhZGl1cxgEIAEoBRINCgVzdGFydBgFIAEoDRINCgV1bnRpbBgGIAEoDSJIChJTdHJ1Y3R1cmVJbmRpY2F0b3ISDQoFb3duZXIYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjIoYBChFPYmplY3RpdmVQcm9ncmVzcxIKCgJpZBgBIAEoCRIMCgR0ZXh0GAIgASgJEhAKCG9wdGlvbmFsGAMgASgIEg8KB2ZhaWx1cmUYBCABKAgSEAoIY29tcGxldGUYBSABKAgSEAoIcHJvZ3Jlc3MYBiABKA0SEAoIcmVxdWlyZWQYByABKA0i4gEKD01pc3Npb25Qcm9ncmVzcxIKCgJpZBgBIAEoCRINCgV0aXRsZRgCIAEoCRISCgpkaWZmaWN1bHR5GAMgASgJEhIKCmNoZWNrcG9pbnQYBCABKAkSFwoPY2hlY2twb2ludF90aWNrGAUgASgNEjMKCm9iamVjdGl2ZXMYBiADKAsyHy5mcm9udGxpbmUudjEuT2JqZWN0aXZlUHJvZ3Jlc3MSLQoHY29udm95cxgHIAMoCzIcLmZyb250bGluZS52MS5Db252b3lQcm9ncmVzcxIPCgd2ZXJzaW9uGAggASgJIpIBChBPcGVyYXRpb25XYXJuaW5nEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEgoKAmF0GAQgASgNEg4KBnNvdXJjZRgFIAEoDRIgCgVleGl0cxgGIAMoCzIRLmZyb250bGluZS52MS5WZWMiqQEKDkNvbnZveVByb2dyZXNzEgoKAmlkGAEgASgJEg4KBmFjdGl2ZRgCIAEoCBIRCgljb21wbGV0ZWQYAyABKAgSDAoEaGVsZBgEIAEoCBIOCgZtb3ZpbmcYBSABKAgSDQoFcm91dGUYBiABKA0SEAoId2F5cG9pbnQYByABKA0SFwoPY291bnRkb3duX3VudGlsGAggASgNEhAKCGFwcHJvdmVkGAkgAygNIm8KDUVjb25vbXlTYW1wbGUSDAoEdGljaxgBIAEoDRIPCgdjcmVkaXRzGAIgASgDEg4KBmluY29tZRgDIAEoAxINCgVzcGVudBgEIAEoAxIOCgZzdXBwbHkYBSABKAUSEAoIc3RhdGlvbnMYBiABKA0iLgoPUHJvZHVjdGlvbkNvdW50EgwKBHR5cGUYASABKAkSDQoFY291bnQYAiABKA0i2QIKD1BsYXllclRlbGVtZXRyeRIOCgZwbGF5ZXIYASABKA0SNQoOdW5pdHNfcHJvZHVjZWQYAiADKAsyHS5mcm9udGxpbmUudjEuUHJvZHVjdGlvbkNvdW50EjwKFWJ1aWxkaW5nc19jb25zdHJ1Y3RlZBgDIAMoCzIdLmZyb250bGluZS52MS5Qcm9kdWN0aW9uQ291bnQSEgoKdW5pdHNfbG9zdBgEIAEoDRIWCg5idWlsZGluZ3NfbG9zdBgFIAEoDRIUCgxyZXBhaXJfc3BlbnQYBiABKAMSFQoNbWlzc2lsZV9zcGVudBgHIAEoAxIaChJpbnRlcmNlcHRvcnNfZmlyZWQYCCABKA0SHQoVc3RhdGlvbl9jb250cm9sX3RpY2tzGAkgASgNEi0KCHRpbWVsaW5lGAogAygLMhsuZnJvbnRsaW5lLnYxLkVjb25vbXlTYW1wbGUisAIKDURlYnJpZWZQbGF5ZXISDgoGcGxheWVyGAEgASgNEgwKBG5hbWUYAiABKAkSDwoHZmFjdGlvbhgDIAEoCRIMCgR0ZWFtGAQgASgNEg0KBWNvbG9yGAUgASgNEhAKCGRlZmVhdGVkGAYgASgIEg8KB2NyZWRpdHMYByABKAMSDgoGaW5jb21lGAggASgDEg0KBXNwZW50GAkgASgDEhIKCmxvc3RfdmFsdWUYCiABKAMSFwoPdW5pdHNfc3Vydml2aW5nGAsgASgNEhwKFHN0cnVjdHVyZXNfc3Vydml2aW5nGAwgASgNEhYKDmV4cGxvcmVkX3RpbGVzGA0gASgNEi4KB21ldHJpY3MYDiABKAsyHS5mcm9udGxpbmUudjEuUGxheWVyVGVsZW1ldHJ5IlYKDERlYnJpZWZFdmVudBIMCgR0aWNrGAEgASgNEgwKBGtpbmQYAiABKAkSDgoGcGxheWVyGAMgASgNEgwKBHR5cGUYBCABKAkSDAoEdGV4dBgFIAEoCSJ7CgdEZWJyaWVmEiwKB3BsYXllcnMYASADKAsyGy5mcm9udGxpbmUudjEuRGVicmllZlBsYXllchIqCgZldmVudHMYAiADKAsyGi5mcm9udGxpbmUudjEuRGVicmllZkV2ZW50EhYKDm9taXR0ZWRfZXZlbnRzGAMgASgNQiRaImZyb250bGluZWNvbW1hbmQvcHJvdG9jb2w7cHJvdG9jb2xiBnByb3RvMw");
+  fileDesc("Cg9mcm9udGxpbmUucHJvdG8SDGZyb250bGluZS52MSKFBAoIRW52ZWxvcGUSKgoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG9IABIqCgZvcmRlcnMYAiABKAsyGC5mcm9udGxpbmUudjEuT3JkZXJCYXRjaEgAEjEKDG9yZGVyX3Jlc3VsdBgDIAEoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdEgAEjAKCHNuYXBzaG90GAQgASgLMhwuZnJvbnRsaW5lLnYxLlBsYXllclNuYXBzaG90SAASKQoFZGVsdGEYBSABKAsyGC5mcm9udGxpbmUudjEuU3RhdGVEZWx0YUgAEisKBnJlc3VtZRgGIAEoCzIZLmZyb250bGluZS52MS5SZXN1bWVNYXRjaEgAEisKBnJlc3VsdBgHIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFJlc3VsdEgAEiwKBWVycm9yGAggASgLMhsuZnJvbnRsaW5lLnYxLlByb3RvY29sRXJyb3JIABIiCgRwaW5nGAkgASgLMhIuZnJvbnRsaW5lLnYxLlBpbmdIABItCgdjb250cm9sGAogASgLMhouZnJvbnRsaW5lLnYxLk1hdGNoQ29udHJvbEgAEisKBnN0YXR1cxgLIAEoCzIZLmZyb250bGluZS52MS5NYXRjaFN0YXR1c0gAQgkKB21lc3NhZ2UiagoLQ2xpZW50SGVsbG8SEAoIcHJvdG9jb2wYASABKA0SEgoKc2ltdWxhdGlvbhgCIAEoCRIUCgxjb250ZW50X2hhc2gYAyABKAkSDQoFdG9rZW4YBCABKAkSEAoIbWF0Y2hfaWQYBSABKAkiSgoLUmVzdW1lTWF0Y2gSKAoFaGVsbG8YASABKAsyGS5mcm9udGxpbmUudjEuQ2xpZW50SGVsbG8SEQoJbGFzdF90aWNrGAIgASgNIh4KDE1hdGNoQ29udHJvbBIOCgZhY3Rpb24YASABKAkiVAoPQ29ubmVjdGlvblN0YXRlEg4KBnBsYXllchgBIAEoDRIRCgljb25uZWN0ZWQYAiABKAgSHgoWcmVjb25uZWN0X3JlbWFpbmluZ19tcxgDIAEoDSKYAQoLTWF0Y2hTdGF0dXMSFQoNcGF1c2VfZW5hYmxlZBgBIAEoCBIOCgZwYXVzZWQYAiABKAgSEwoLcGF1c2Vfdm90ZXMYAyADKA0SMAoJdGVhbW1hdGVzGAQgAygLMh0uZnJvbnRsaW5lLnYxLkNvbm5lY3Rpb25TdGF0ZRIbChN3YWl0aW5nX2Zvcl9wbGF5ZXJzGAUgASgIIhUKBFBpbmcSDQoFbm9uY2UYASABKA0iQwoNUHJvdG9jb2xFcnJvchIMCgRjb2RlGAEgASgJEg8KB21lc3NhZ2UYAiABKAkSEwoLcmVjb3ZlcmFibGUYAyABKAgiGwoDVmVjEgkKAXgYASABKBESCQoBeRgCIAEoESKsAQoFT3JkZXISDAoEa2luZBgBIAEoCRIQCghlbnRpdGllcxgCIAMoDRIOCgZ0YXJnZXQYAyABKA0SIwoIcG9zaXRpb24YBCABKAsyES5mcm9udGxpbmUudjEuVmVjEgwKBHR5cGUYBSABKAkSDgoGcXVldWVkGAYgASgIEg0KBWluZGV4GAcgASgFEiEKBnBvaW50cxgIIAMoCzIRLmZyb250bGluZS52MS5WZWMiQwoKT3JkZXJCYXRjaBIQCghzZXF1ZW5jZRgBIAEoDRIjCgZvcmRlcnMYAiADKAsyEy5mcm9udGxpbmUudjEuT3JkZXIibAoLT3JkZXJSZXN1bHQSDgoGcGxheWVyGAEgASgNEhAKCHNlcXVlbmNlGAIgASgNEg0KBWluZGV4GAMgASgFEhAKCGFjY2VwdGVkGAQgASgIEgwKBGNvZGUYBSABKAkSDAoEdGljaxgGIAEoDSJ6CghNZXRhZGF0YRISCgpzaW11bGF0aW9uGAEgASgJEhAKCHByb3RvY29sGAIgASgNEhQKDGNvbnRlbnRfaGFzaBgDIAEoCRITCgttYXBfdmVyc2lvbhgEIAEoCRIPCgdydWxlc2V0GAUgASgJEgwKBHNlZWQYBiABKAQiJQoIQ29vbGRvd24SCgoCaWQYASABKAkSDQoFdW50aWwYAiABKA0imAEKA0pvYhIMCgR0eXBlGAEgASgJEhAKCHJlc2VhcmNoGAIgASgIEgwKBHBhaWQYAyABKAMSDAoEd29yaxgEIAEoDRIQCghyZXF1aXJlZBgFIAEoDRIOCgZzdXBwbHkYBiABKAUSDwoHc2VydmljZRgHIAEoDRIPCgdzdGFydGVkGAggASgIEhEKCWVtZXJnZW5jeRgJIAEoCCKLAgoHRWNvbm9teRIPCgdjcmVkaXRzGAEgASgDEg4KBmVuZXJneRgCIAEoAxIOCgZzdXBwbHkYAyABKAUSFwoPcmVzZXJ2ZWRfc3VwcGx5GAQgASgFEhYKDnBvd2VyX2NhcGFjaXR5GAUgASgFEhQKDHBvd2VyX2RlbWFuZBgGIAEoBRIMCgR0aWVyGAcgASgFEg4KBmluY29tZRgIIAEoAxIWCg5yZXBhaXJfcmVzZXJ2ZRgJIAEoAxIQCgh1cGdyYWRlcxgKIAMoCRIpCgljb29sZG93bnMYCyADKAsyFi5mcm9udGxpbmUudjEuQ29vbGRvd24SFQoNbGFzdF9zZXF1ZW5jZRgMIAEoDSKmBAoNRW50aXR5UHJpdmF0ZRIKCgJocBgBIAEoAxIOCgZtYXhfaHAYAiABKAMSHwoEam9icxgDIAMoCzIRLmZyb250bGluZS52MS5Kb2ISIwoGb3JkZXJzGAQgAygLMhMuZnJvbnRsaW5lLnYxLk9yZGVyEiAKBXJhbGx5GAUgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgVjYXJnbxgGIAEoAxIMCgRob21lGAcgASgNEgwKBGFtbW8YCCABKAUSEQoJZW5kdXJhbmNlGAkgASgNEg8KB2NoYXJnZXMYCiABKAUSEwoLY2hhcmdlX3dvcmsYCyABKA0SFAoMc2VydmljZV93b3JrGAwgASgNEhIKCmV4cGVyaWVuY2UYDSABKAMSKQoJY29vbGRvd25zGA4gAygLMhYuZnJvbnRsaW5lLnYxLkNvb2xkb3duEhIKCnBhc3NlbmdlcnMYDyADKA0SEQoJY29udGFpbmVyGBAgASgNEhUKDXJlcGVhdF9zb3J0aWUYESABKAgSFAoMYW1idXNoX3JlYWR5GBIgASgIEhYKDm1pc3Npb25fb3JpZ2luGBMgASgJEiQKF2VtZXJnZW5jeV90YWtlb2ZmX3VudGlsGBQgASgNSACIAQESKgoGcmFuZ2VzGBUgASgLMhouZnJvbnRsaW5lLnYxLkVudGl0eVJhbmdlc0IaChhfZW1lcmdlbmN5X3Rha2VvZmZfdW50aWwiKwoMU3RhdHVzRWZmZWN0EgwKBGtpbmQYASABKAkSDQoFdW50aWwYAiABKA0i5QMKBkVudGl0eRIKCgJpZBgBIAEoDRIMCgR0eXBlGAIgASgJEg0KBW93bmVyGAMgASgNEiMKCHBvc2l0aW9uGAQgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIOCgZmYWNpbmcYBSABKAUSDgoGaGVhbHRoGAYgASgFEg0KBXN0YXRlGAcgASgJEhAKCGNvbXBsZXRlGAggASgIEg8KB2VuYWJsZWQYCSABKAgSDgoGbGFuZGVkGAogASgIEhAKCGRlcGxveWVkGAsgASgIEhEKCWNvbmNlYWxlZBgMIAEoCBIQCghwcm9ncmVzcxgNIAEoBRIMCgRyYW5rGA4gASgNEiwKB3ByaXZhdGUYDyABKAsyGy5mcm9udGxpbmUudjEuRW50aXR5UHJpdmF0ZRIVCg10dXJyZXRfZmFjaW5nGBAgASgFEhUKDWNoYW5uZWxfdW50aWwYESABKA0SEgoKbWFwX29iamVjdBgSIAEoDRIXCg9mb290cHJpbnRfd2lkdGgYEyABKAUSGAoQZm9vdHByaW50X2hlaWdodBgUIAEoBRIWCg5mb290cHJpbnRfdHlwZRgVIAEoCRIrCgdlZmZlY3RzGBYgAygLMhouZnJvbnRsaW5lLnYxLlN0YXR1c0VmZmVjdCKwAQoNUGxheWVyU3VtbWFyeRIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEg8KB2ZhY3Rpb24YAyABKAkSDAoEdGVhbRgEIAEoDRIQCghkZWZlYXRlZBgFIAEoCBIRCglkZWZlYXRfYXQYBiABKA0SGgoSc3RyYXRlZ2ljX3Byb2dyZXNzGAcgASgFEhYKDnN1cnJlbmRlcl92b3RlGAggASgIEg0KBWNvbG9yGAkgASgNIo4CCgpQcm9qZWN0aWxlEgoKAmlkGAEgASgNEg0KBW93bmVyGAIgASgNEg4KBndlYXBvbhgDIAEoCRIjCghwb3NpdGlvbhgEIAEoCzIRLmZyb250bGluZS52MS5WZWMSIQoGaW1wYWN0GAUgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIRCglpbXBhY3RfYXQYBiABKA0SFQoNaW50ZXJjZXB0YWJsZRgHIAEoCBIPCgd3YXJuaW5nGAggASgIEhMKBnNwbGFzaBgJIAEoBUgAiAEBEh0KEHBvc2l0aW9uX3Zpc2libGUYCiABKAhIAYgBAUIJCgdfc3BsYXNoQhMKEV9wb3NpdGlvbl92aXNpYmxlIksKBUZpZWxkEgoKAmlkGAEgASgNEiMKCHBvc2l0aW9uGAIgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIRCglyZW1haW5pbmcYAyABKAMiSQoHU3RhdGlvbhIKCgJpZBgBIAEoDRIjCghwb3NpdGlvbhgCIAEoCzIRLmZyb250bGluZS52MS5WZWMSDQoFb3duZXIYAyABKA0irwEKBk1lbW9yeRIKCgJpZBgBIAEoDRIMCgR0eXBlGAIgASgJEg0KBW93bmVyGAMgASgNEiMKCHBvc2l0aW9uGAQgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxIMCgRzZWVuGAUgASgNEhcKD2Zvb3RwcmludF93aWR0aBgGIAEoBRIYChBmb290cHJpbnRfaGVpZ2h0GAcgASgFEhYKDmZvb3RwcmludF90eXBlGAggASgJIs0BCgVFdmVudBIKCgJpZBgBIAEoDRIMCgR0aWNrGAIgASgNEgwKBGtpbmQYAyABKAkSDQoFb3duZXIYBCABKA0SDgoGZW50aXR5GAUgASgNEiMKCHBvc2l0aW9uGAYgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgV2YWx1ZRgHIAEoAxINCgVzY29wZRgIIAEoCRIMCgR0ZXh0GAkgASgJEiwKBmNvbWJhdBgKIAEoCzIcLmZyb250bGluZS52MS5Db21iYXRGZWVkYmFjayJdCgdPdXRjb21lEhAKCGZpbmlzaGVkGAEgASgIEgwKBGRyYXcYAiABKAgSFAoMd2lubmluZ190ZWFtGAMgASgNEg4KBnJlYXNvbhgEIAEoCRIMCgR0aWNrGAUgASgNIuAGCg5QbGF5ZXJTbmFwc2hvdBIoCghtZXRhZGF0YRgBIAEoCzIWLmZyb250bGluZS52MS5NZXRhZGF0YRIMCgR0aWNrGAIgASgNEhEKCWNvdW50ZG93bhgDIAEoDRIOCgZwbGF5ZXIYBCABKA0SJgoHZWNvbm9teRgFIAEoCzIVLmZyb250bGluZS52MS5FY29ub215EiwKB3BsYXllcnMYBiADKAsyGy5mcm9udGxpbmUudjEuUGxheWVyU3VtbWFyeRImCghlbnRpdGllcxgHIAMoCzIULmZyb250bGluZS52MS5FbnRpdHkSLQoLcHJvamVjdGlsZXMYCCADKAsyGC5mcm9udGxpbmUudjEuUHJvamVjdGlsZRIjCgZmaWVsZHMYCSADKAsyEy5mcm9udGxpbmUudjEuRmllbGQSJwoIc3RhdGlvbnMYCiADKAsyFS5mcm9udGxpbmUudjEuU3RhdGlvbhIUCghleHBsb3JlZBgLIAMoCEICEAESEwoHdmlzaWJsZRgMIAMoCEICEAESJAoGbWVtb3J5GA0gAygLMhQuZnJvbnRsaW5lLnYxLk1lbW9yeRIjCgZldmVudHMYDiADKAsyEy5mcm9udGxpbmUudjEuRXZlbnQSKgoHcmVzdWx0cxgPIAMoCzIZLmZyb250bGluZS52MS5PcmRlclJlc3VsdBITCgtzaGlwbWVudF9hdBgQIAEoDRImCgdvdXRjb21lGBEgASgLMhUuZnJvbnRsaW5lLnYxLk91dGNvbWUSJgoHc2FsdmFnZRgSIAMoCzIVLmZyb250bGluZS52MS5TYWx2YWdlEiEKBXpvbmVzGBMgAygLMhIuZnJvbnRsaW5lLnYxLlpvbmUSNAoKaW5kaWNhdG9ycxgUIAMoCzIgLmZyb250bGluZS52MS5TdHJ1Y3R1cmVJbmRpY2F0b3ISLgoHbWlzc2lvbhgVIAEoCzIdLmZyb250bGluZS52MS5NaXNzaW9uUHJvZ3Jlc3MSDgoGcnViYmxlGBYgAygNEjAKCHdhcm5pbmdzGBcgAygLMh4uZnJvbnRsaW5lLnYxLk9wZXJhdGlvbldhcm5pbmcSJgoHZGVicmllZhgYIAEoCzIVLmZyb250bGluZS52MS5EZWJyaWVmImoKClN0YXRlRGVsdGESFQoNYmFzZWxpbmVfdGljaxgBIAEoDRIrCgVzdGF0ZRgCIAEoCzIcLmZyb250bGluZS52MS5QbGF5ZXJTbmFwc2hvdBIYChByZW1vdmVkX2VudGl0aWVzGAMgAygNImgKC01hdGNoUmVzdWx0EhAKCG1hdGNoX2lkGAEgASgJEiYKB291dGNvbWUYAiABKAsyFS5mcm9udGxpbmUudjEuT3V0Y29tZRIRCgljb21taXR0ZWQYAyABKAgSDAoEdm9pZBgEIAEoCCJnCgdTYWx2YWdlEgoKAmlkGAEgASgNEg0KBW93bmVyGAIgASgNEiMKCHBvc2l0aW9uGAMgASgLMhEuZnJvbnRsaW5lLnYxLlZlYxINCgV2YWx1ZRgEIAEoAxINCgV1bnRpbBgFIAEoDSJ2CgRab25lEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEg4KBnJhZGl1cxgEIAEoBRINCgVzdGFydBgFIAEoDRINCgV1bnRpbBgGIAEoDSJIChJTdHJ1Y3R1cmVJbmRpY2F0b3ISDQoFb3duZXIYASABKA0SIwoIcG9zaXRpb24YAiABKAsyES5mcm9udGxpbmUudjEuVmVjIoYBChFPYmplY3RpdmVQcm9ncmVzcxIKCgJpZBgBIAEoCRIMCgR0ZXh0GAIgASgJEhAKCG9wdGlvbmFsGAMgASgIEg8KB2ZhaWx1cmUYBCABKAgSEAoIY29tcGxldGUYBSABKAgSEAoIcHJvZ3Jlc3MYBiABKA0SEAoIcmVxdWlyZWQYByABKA0i4gEKD01pc3Npb25Qcm9ncmVzcxIKCgJpZBgBIAEoCRINCgV0aXRsZRgCIAEoCRISCgpkaWZmaWN1bHR5GAMgASgJEhIKCmNoZWNrcG9pbnQYBCABKAkSFwoPY2hlY2twb2ludF90aWNrGAUgASgNEjMKCm9iamVjdGl2ZXMYBiADKAsyHy5mcm9udGxpbmUudjEuT2JqZWN0aXZlUHJvZ3Jlc3MSLQoHY29udm95cxgHIAMoCzIcLmZyb250bGluZS52MS5Db252b3lQcm9ncmVzcxIPCgd2ZXJzaW9uGAggASgJIrIBChBPcGVyYXRpb25XYXJuaW5nEgwKBGtpbmQYASABKAkSDQoFb3duZXIYAiABKA0SIwoIcG9zaXRpb24YAyABKAsyES5mcm9udGxpbmUudjEuVmVjEgoKAmF0GAQgASgNEg4KBnNvdXJjZRgFIAEoDRIgCgVleGl0cxgGIAMoCzIRLmZyb250bGluZS52MS5WZWMSEwoGc3BsYXNoGAcgASgFSACIAQFCCQoHX3NwbGFzaCKpAQoOQ29udm95UHJvZ3Jlc3MSCgoCaWQYASABKAkSDgoGYWN0aXZlGAIgASgIEhEKCWNvbXBsZXRlZBgDIAEoCBIMCgRoZWxkGAQgASgIEg4KBm1vdmluZxgFIAEoCBINCgVyb3V0ZRgGIAEoDRIQCgh3YXlwb2ludBgHIAEoDRIXCg9jb3VudGRvd25fdW50aWwYCCABKA0SEAoIYXBwcm92ZWQYCSADKA0ibwoNRWNvbm9teVNhbXBsZRIMCgR0aWNrGAEgASgNEg8KB2NyZWRpdHMYAiABKAMSDgoGaW5jb21lGAMgASgDEg0KBXNwZW50GAQgASgDEg4KBnN1cHBseRgFIAEoBRIQCghzdGF0aW9ucxgGIAEoDSIuCg9Qcm9kdWN0aW9uQ291bnQSDAoEdHlwZRgBIAEoCRINCgVjb3VudBgCIAEoDSLZAgoPUGxheWVyVGVsZW1ldHJ5Eg4KBnBsYXllchgBIAEoDRI1Cg51bml0c19wcm9kdWNlZBgCIAMoCzIdLmZyb250bGluZS52MS5Qcm9kdWN0aW9uQ291bnQSPAoVYnVpbGRpbmdzX2NvbnN0cnVjdGVkGAMgAygLMh0uZnJvbnRsaW5lLnYxLlByb2R1Y3Rpb25Db3VudBISCgp1bml0c19sb3N0GAQgASgNEhYKDmJ1aWxkaW5nc19sb3N0GAUgASgNEhQKDHJlcGFpcl9zcGVudBgGIAEoAxIVCg1taXNzaWxlX3NwZW50GAcgASgDEhoKEmludGVyY2VwdG9yc19maXJlZBgIIAEoDRIdChVzdGF0aW9uX2NvbnRyb2xfdGlja3MYCSABKA0SLQoIdGltZWxpbmUYCiADKAsyGy5mcm9udGxpbmUudjEuRWNvbm9teVNhbXBsZSKwAgoNRGVicmllZlBsYXllchIOCgZwbGF5ZXIYASABKA0SDAoEbmFtZRgCIAEoCRIPCgdmYWN0aW9uGAMgASgJEgwKBHRlYW0YBCABKA0SDQoFY29sb3IYBSABKA0SEAoIZGVmZWF0ZWQYBiABKAgSDwoHY3JlZGl0cxgHIAEoAxIOCgZpbmNvbWUYCCABKAMSDQoFc3BlbnQYCSABKAMSEgoKbG9zdF92YWx1ZRgKIAEoAxIXCg91bml0c19zdXJ2aXZpbmcYCyABKA0SHAoUc3RydWN0dXJlc19zdXJ2aXZpbmcYDCABKA0SFgoOZXhwbG9yZWRfdGlsZXMYDSABKA0SLgoHbWV0cmljcxgOIAEoCzIdLmZyb250bGluZS52MS5QbGF5ZXJUZWxlbWV0cnkiVgoMRGVicmllZkV2ZW50EgwKBHRpY2sYASABKA0SDAoEa2luZBgCIAEoCRIOCgZwbGF5ZXIYAyABKA0SDAoEdHlwZRgEIAEoCRIMCgR0ZXh0GAUgASgJInsKB0RlYnJpZWYSLAoHcGxheWVycxgBIAMoCzIbLmZyb250bGluZS52MS5EZWJyaWVmUGxheWVyEioKBmV2ZW50cxgCIAMoCzIaLmZyb250bGluZS52MS5EZWJyaWVmRXZlbnQSFgoOb21pdHRlZF9ldmVudHMYAyABKA0iYAoOQ29tYmF0RmVlZGJhY2sSDgoGd2VhcG9uGAEgASgJEg8KB291dGNvbWUYAiABKAkSFAoMdGFyZ2V0X2FybW9yGAMgASgJEhcKD2NvdmVyX21pdGlnYXRlZBgEIAEoCCKiAQoMRW50aXR5UmFuZ2VzEhQKDHNpZ2h0X3JhZGl1cxgBIAEoBRIYChBkZXRlY3Rpb25fcmFkaXVzGAIgASgFEhYKDmFpcmJvcm5lX3NpZ2h0GAMgASgIEhQKDGJ1aWxkX3JhZGl1cxgEIAEoBRI0CgxpbnRlcmNlcHRpb24YBSABKAsyHi5mcm9udGxpbmUudjEuSW50ZXJjZXB0aW9uVmlldyKNAgoQSW50ZXJjZXB0aW9uVmlldxIOCgZyYWRpdXMYASABKAUSEAoIY2FwYWNpdHkYAiABKAUSDgoGYWN0aXZlGAMgASgIEg0KBXJlYWR5GAQgASgIEhkKEXJlY2hhcmdlX3JlcXVpcmVkGAUgASgNEhUKDXJlY2hhcmdlX3JhdGUYBiABKA0SHgoRbmV4dF9jaGFyZ2VfdGlja3MYByABKA1IAIgBARIVCg1maXJlX3JlYWR5X2F0GAggASgNEjkKC2Fzc2lnbm1lbnRzGAkgAygLMiQuZnJvbnRsaW5lLnYxLkludGVyY2VwdGlvbkFzc2lnbm1lbnRCFAoSX25leHRfY2hhcmdlX3RpY2tzImUKFkludGVyY2VwdGlvbkFzc2lnbm1lbnQSEgoKcHJvamVjdGlsZRgBIAEoDRIhCgZpbXBhY3QYAiABKAsyES5mcm9udGxpbmUudjEuVmVjEhQKDGludGVyY2VwdF9hdBgDIAEoDUIkWiJmcm9udGxpbmVjb21tYW5kL3Byb3RvY29sO3Byb3RvY29sYgZwcm90bzM");
 
 /**
  * A WebSocket binary frame contains exactly one Envelope. The server rejects
@@ -711,6 +711,16 @@ export type EntityPrivate = Message<"frontline.v1.EntityPrivate"> & {
    * @generated from field: string mission_origin = 19;
    */
   missionOrigin: string;
+
+  /**
+   * @generated from field: optional uint32 emergency_takeoff_until = 20;
+   */
+  emergencyTakeoffUntil?: number | undefined;
+
+  /**
+   * @generated from field: frontline.v1.EntityRanges ranges = 21;
+   */
+  ranges?: EntityRanges | undefined;
 };
 
 /**
@@ -719,6 +729,28 @@ export type EntityPrivate = Message<"frontline.v1.EntityPrivate"> & {
  */
 export const EntityPrivateSchema: GenMessage<EntityPrivate> = /*@__PURE__*/
   messageDesc(file_frontline, 16);
+
+/**
+ * @generated from message frontline.v1.StatusEffect
+ */
+export type StatusEffect = Message<"frontline.v1.StatusEffect"> & {
+  /**
+   * @generated from field: string kind = 1;
+   */
+  kind: string;
+
+  /**
+   * @generated from field: uint32 until = 2;
+   */
+  until: number;
+};
+
+/**
+ * Describes the message frontline.v1.StatusEffect.
+ * Use `create(StatusEffectSchema)` to create a new message.
+ */
+export const StatusEffectSchema: GenMessage<StatusEffect> = /*@__PURE__*/
+  messageDesc(file_frontline, 17);
 
 /**
  * @generated from message frontline.v1.Entity
@@ -828,6 +860,11 @@ export type Entity = Message<"frontline.v1.Entity"> & {
    * @generated from field: string footprint_type = 21;
    */
   footprintType: string;
+
+  /**
+   * @generated from field: repeated frontline.v1.StatusEffect effects = 22;
+   */
+  effects: StatusEffect[];
 };
 
 /**
@@ -835,7 +872,7 @@ export type Entity = Message<"frontline.v1.Entity"> & {
  * Use `create(EntitySchema)` to create a new message.
  */
 export const EntitySchema: GenMessage<Entity> = /*@__PURE__*/
-  messageDesc(file_frontline, 17);
+  messageDesc(file_frontline, 18);
 
 /**
  * @generated from message frontline.v1.PlayerSummary
@@ -892,7 +929,7 @@ export type PlayerSummary = Message<"frontline.v1.PlayerSummary"> & {
  * Use `create(PlayerSummarySchema)` to create a new message.
  */
 export const PlayerSummarySchema: GenMessage<PlayerSummary> = /*@__PURE__*/
-  messageDesc(file_frontline, 18);
+  messageDesc(file_frontline, 19);
 
 /**
  * @generated from message frontline.v1.Projectile
@@ -937,6 +974,16 @@ export type Projectile = Message<"frontline.v1.Projectile"> & {
    * @generated from field: bool warning = 8;
    */
   warning: boolean;
+
+  /**
+   * @generated from field: optional int32 splash = 9;
+   */
+  splash?: number | undefined;
+
+  /**
+   * @generated from field: optional bool position_visible = 10;
+   */
+  positionVisible?: boolean | undefined;
 };
 
 /**
@@ -944,7 +991,7 @@ export type Projectile = Message<"frontline.v1.Projectile"> & {
  * Use `create(ProjectileSchema)` to create a new message.
  */
 export const ProjectileSchema: GenMessage<Projectile> = /*@__PURE__*/
-  messageDesc(file_frontline, 19);
+  messageDesc(file_frontline, 20);
 
 /**
  * @generated from message frontline.v1.Field
@@ -971,7 +1018,7 @@ export type Field = Message<"frontline.v1.Field"> & {
  * Use `create(FieldSchema)` to create a new message.
  */
 export const FieldSchema: GenMessage<Field> = /*@__PURE__*/
-  messageDesc(file_frontline, 20);
+  messageDesc(file_frontline, 21);
 
 /**
  * @generated from message frontline.v1.Station
@@ -998,7 +1045,7 @@ export type Station = Message<"frontline.v1.Station"> & {
  * Use `create(StationSchema)` to create a new message.
  */
 export const StationSchema: GenMessage<Station> = /*@__PURE__*/
-  messageDesc(file_frontline, 21);
+  messageDesc(file_frontline, 22);
 
 /**
  * @generated from message frontline.v1.Memory
@@ -1050,7 +1097,7 @@ export type Memory = Message<"frontline.v1.Memory"> & {
  * Use `create(MemorySchema)` to create a new message.
  */
 export const MemorySchema: GenMessage<Memory> = /*@__PURE__*/
-  messageDesc(file_frontline, 22);
+  messageDesc(file_frontline, 23);
 
 /**
  * @generated from message frontline.v1.Event
@@ -1100,6 +1147,11 @@ export type Event = Message<"frontline.v1.Event"> & {
    * @generated from field: string text = 9;
    */
   text: string;
+
+  /**
+   * @generated from field: frontline.v1.CombatFeedback combat = 10;
+   */
+  combat?: CombatFeedback | undefined;
 };
 
 /**
@@ -1107,7 +1159,7 @@ export type Event = Message<"frontline.v1.Event"> & {
  * Use `create(EventSchema)` to create a new message.
  */
 export const EventSchema: GenMessage<Event> = /*@__PURE__*/
-  messageDesc(file_frontline, 23);
+  messageDesc(file_frontline, 24);
 
 /**
  * @generated from message frontline.v1.Outcome
@@ -1144,7 +1196,7 @@ export type Outcome = Message<"frontline.v1.Outcome"> & {
  * Use `create(OutcomeSchema)` to create a new message.
  */
 export const OutcomeSchema: GenMessage<Outcome> = /*@__PURE__*/
-  messageDesc(file_frontline, 24);
+  messageDesc(file_frontline, 25);
 
 /**
  * @generated from message frontline.v1.PlayerSnapshot
@@ -1276,7 +1328,7 @@ export type PlayerSnapshot = Message<"frontline.v1.PlayerSnapshot"> & {
  * Use `create(PlayerSnapshotSchema)` to create a new message.
  */
 export const PlayerSnapshotSchema: GenMessage<PlayerSnapshot> = /*@__PURE__*/
-  messageDesc(file_frontline, 25);
+  messageDesc(file_frontline, 26);
 
 /**
  * state contains current permitted non-entity fields and only changed entities;
@@ -1306,7 +1358,7 @@ export type StateDelta = Message<"frontline.v1.StateDelta"> & {
  * Use `create(StateDeltaSchema)` to create a new message.
  */
 export const StateDeltaSchema: GenMessage<StateDelta> = /*@__PURE__*/
-  messageDesc(file_frontline, 26);
+  messageDesc(file_frontline, 27);
 
 /**
  * @generated from message frontline.v1.MatchResult
@@ -1338,7 +1390,7 @@ export type MatchResult = Message<"frontline.v1.MatchResult"> & {
  * Use `create(MatchResultSchema)` to create a new message.
  */
 export const MatchResultSchema: GenMessage<MatchResult> = /*@__PURE__*/
-  messageDesc(file_frontline, 27);
+  messageDesc(file_frontline, 28);
 
 /**
  * @generated from message frontline.v1.Salvage
@@ -1375,7 +1427,7 @@ export type Salvage = Message<"frontline.v1.Salvage"> & {
  * Use `create(SalvageSchema)` to create a new message.
  */
 export const SalvageSchema: GenMessage<Salvage> = /*@__PURE__*/
-  messageDesc(file_frontline, 28);
+  messageDesc(file_frontline, 29);
 
 /**
  * @generated from message frontline.v1.Zone
@@ -1417,7 +1469,7 @@ export type Zone = Message<"frontline.v1.Zone"> & {
  * Use `create(ZoneSchema)` to create a new message.
  */
 export const ZoneSchema: GenMessage<Zone> = /*@__PURE__*/
-  messageDesc(file_frontline, 29);
+  messageDesc(file_frontline, 30);
 
 /**
  * @generated from message frontline.v1.StructureIndicator
@@ -1439,7 +1491,7 @@ export type StructureIndicator = Message<"frontline.v1.StructureIndicator"> & {
  * Use `create(StructureIndicatorSchema)` to create a new message.
  */
 export const StructureIndicatorSchema: GenMessage<StructureIndicator> = /*@__PURE__*/
-  messageDesc(file_frontline, 30);
+  messageDesc(file_frontline, 31);
 
 /**
  * @generated from message frontline.v1.ObjectiveProgress
@@ -1486,7 +1538,7 @@ export type ObjectiveProgress = Message<"frontline.v1.ObjectiveProgress"> & {
  * Use `create(ObjectiveProgressSchema)` to create a new message.
  */
 export const ObjectiveProgressSchema: GenMessage<ObjectiveProgress> = /*@__PURE__*/
-  messageDesc(file_frontline, 31);
+  messageDesc(file_frontline, 32);
 
 /**
  * @generated from message frontline.v1.MissionProgress
@@ -1538,7 +1590,7 @@ export type MissionProgress = Message<"frontline.v1.MissionProgress"> & {
  * Use `create(MissionProgressSchema)` to create a new message.
  */
 export const MissionProgressSchema: GenMessage<MissionProgress> = /*@__PURE__*/
-  messageDesc(file_frontline, 32);
+  messageDesc(file_frontline, 33);
 
 /**
  * @generated from message frontline.v1.OperationWarning
@@ -1573,6 +1625,11 @@ export type OperationWarning = Message<"frontline.v1.OperationWarning"> & {
    * @generated from field: repeated frontline.v1.Vec exits = 6;
    */
   exits: Vec[];
+
+  /**
+   * @generated from field: optional int32 splash = 7;
+   */
+  splash?: number | undefined;
 };
 
 /**
@@ -1580,7 +1637,7 @@ export type OperationWarning = Message<"frontline.v1.OperationWarning"> & {
  * Use `create(OperationWarningSchema)` to create a new message.
  */
 export const OperationWarningSchema: GenMessage<OperationWarning> = /*@__PURE__*/
-  messageDesc(file_frontline, 33);
+  messageDesc(file_frontline, 34);
 
 /**
  * @generated from message frontline.v1.ConvoyProgress
@@ -1637,7 +1694,7 @@ export type ConvoyProgress = Message<"frontline.v1.ConvoyProgress"> & {
  * Use `create(ConvoyProgressSchema)` to create a new message.
  */
 export const ConvoyProgressSchema: GenMessage<ConvoyProgress> = /*@__PURE__*/
-  messageDesc(file_frontline, 34);
+  messageDesc(file_frontline, 35);
 
 /**
  * Post-match only. Never populate while a match is active, including an
@@ -1682,7 +1739,7 @@ export type EconomySample = Message<"frontline.v1.EconomySample"> & {
  * Use `create(EconomySampleSchema)` to create a new message.
  */
 export const EconomySampleSchema: GenMessage<EconomySample> = /*@__PURE__*/
-  messageDesc(file_frontline, 35);
+  messageDesc(file_frontline, 36);
 
 /**
  * @generated from message frontline.v1.ProductionCount
@@ -1704,7 +1761,7 @@ export type ProductionCount = Message<"frontline.v1.ProductionCount"> & {
  * Use `create(ProductionCountSchema)` to create a new message.
  */
 export const ProductionCountSchema: GenMessage<ProductionCount> = /*@__PURE__*/
-  messageDesc(file_frontline, 36);
+  messageDesc(file_frontline, 37);
 
 /**
  * @generated from message frontline.v1.PlayerTelemetry
@@ -1766,7 +1823,7 @@ export type PlayerTelemetry = Message<"frontline.v1.PlayerTelemetry"> & {
  * Use `create(PlayerTelemetrySchema)` to create a new message.
  */
 export const PlayerTelemetrySchema: GenMessage<PlayerTelemetry> = /*@__PURE__*/
-  messageDesc(file_frontline, 37);
+  messageDesc(file_frontline, 38);
 
 /**
  * @generated from message frontline.v1.DebriefPlayer
@@ -1848,7 +1905,7 @@ export type DebriefPlayer = Message<"frontline.v1.DebriefPlayer"> & {
  * Use `create(DebriefPlayerSchema)` to create a new message.
  */
 export const DebriefPlayerSchema: GenMessage<DebriefPlayer> = /*@__PURE__*/
-  messageDesc(file_frontline, 38);
+  messageDesc(file_frontline, 39);
 
 /**
  * @generated from message frontline.v1.DebriefEvent
@@ -1885,7 +1942,7 @@ export type DebriefEvent = Message<"frontline.v1.DebriefEvent"> & {
  * Use `create(DebriefEventSchema)` to create a new message.
  */
 export const DebriefEventSchema: GenMessage<DebriefEvent> = /*@__PURE__*/
-  messageDesc(file_frontline, 39);
+  messageDesc(file_frontline, 40);
 
 /**
  * @generated from message frontline.v1.Debrief
@@ -1912,5 +1969,164 @@ export type Debrief = Message<"frontline.v1.Debrief"> & {
  * Use `create(DebriefSchema)` to create a new message.
  */
 export const DebriefSchema: GenMessage<Debrief> = /*@__PURE__*/
-  messageDesc(file_frontline, 40);
+  messageDesc(file_frontline, 41);
+
+/**
+ * @generated from message frontline.v1.CombatFeedback
+ */
+export type CombatFeedback = Message<"frontline.v1.CombatFeedback"> & {
+  /**
+   * @generated from field: string weapon = 1;
+   */
+  weapon: string;
+
+  /**
+   * @generated from field: string outcome = 2;
+   */
+  outcome: string;
+
+  /**
+   * @generated from field: string target_armor = 3;
+   */
+  targetArmor: string;
+
+  /**
+   * @generated from field: bool cover_mitigated = 4;
+   */
+  coverMitigated: boolean;
+};
+
+/**
+ * Describes the message frontline.v1.CombatFeedback.
+ * Use `create(CombatFeedbackSchema)` to create a new message.
+ */
+export const CombatFeedbackSchema: GenMessage<CombatFeedback> = /*@__PURE__*/
+  messageDesc(file_frontline, 42);
+
+/**
+ * Exact-owner presentation only; distance bounds do not reveal fog or targets.
+ *
+ * @generated from message frontline.v1.EntityRanges
+ */
+export type EntityRanges = Message<"frontline.v1.EntityRanges"> & {
+  /**
+   * @generated from field: int32 sight_radius = 1;
+   */
+  sightRadius: number;
+
+  /**
+   * @generated from field: int32 detection_radius = 2;
+   */
+  detectionRadius: number;
+
+  /**
+   * @generated from field: bool airborne_sight = 3;
+   */
+  airborneSight: boolean;
+
+  /**
+   * @generated from field: int32 build_radius = 4;
+   */
+  buildRadius: number;
+
+  /**
+   * @generated from field: frontline.v1.InterceptionView interception = 5;
+   */
+  interception?: InterceptionView | undefined;
+};
+
+/**
+ * Describes the message frontline.v1.EntityRanges.
+ * Use `create(EntityRangesSchema)` to create a new message.
+ */
+export const EntityRangesSchema: GenMessage<EntityRanges> = /*@__PURE__*/
+  messageDesc(file_frontline, 43);
+
+/**
+ * Recharge estimate assumes the current rate continues; absence means full or paused.
+ *
+ * @generated from message frontline.v1.InterceptionView
+ */
+export type InterceptionView = Message<"frontline.v1.InterceptionView"> & {
+  /**
+   * @generated from field: int32 radius = 1;
+   */
+  radius: number;
+
+  /**
+   * @generated from field: int32 capacity = 2;
+   */
+  capacity: number;
+
+  /**
+   * @generated from field: bool active = 3;
+   */
+  active: boolean;
+
+  /**
+   * @generated from field: bool ready = 4;
+   */
+  ready: boolean;
+
+  /**
+   * @generated from field: uint32 recharge_required = 5;
+   */
+  rechargeRequired: number;
+
+  /**
+   * @generated from field: uint32 recharge_rate = 6;
+   */
+  rechargeRate: number;
+
+  /**
+   * @generated from field: optional uint32 next_charge_ticks = 7;
+   */
+  nextChargeTicks?: number | undefined;
+
+  /**
+   * @generated from field: uint32 fire_ready_at = 8;
+   */
+  fireReadyAt: number;
+
+  /**
+   * @generated from field: repeated frontline.v1.InterceptionAssignment assignments = 9;
+   */
+  assignments: InterceptionAssignment[];
+};
+
+/**
+ * Describes the message frontline.v1.InterceptionView.
+ * Use `create(InterceptionViewSchema)` to create a new message.
+ */
+export const InterceptionViewSchema: GenMessage<InterceptionView> = /*@__PURE__*/
+  messageDesc(file_frontline, 44);
+
+/**
+ * Actual Go reservation to an already-public impact warning, never a flight path.
+ *
+ * @generated from message frontline.v1.InterceptionAssignment
+ */
+export type InterceptionAssignment = Message<"frontline.v1.InterceptionAssignment"> & {
+  /**
+   * @generated from field: uint32 projectile = 1;
+   */
+  projectile: number;
+
+  /**
+   * @generated from field: frontline.v1.Vec impact = 2;
+   */
+  impact?: Vec | undefined;
+
+  /**
+   * @generated from field: uint32 intercept_at = 3;
+   */
+  interceptAt: number;
+};
+
+/**
+ * Describes the message frontline.v1.InterceptionAssignment.
+ * Use `create(InterceptionAssignmentSchema)` to create a new message.
+ */
+export const InterceptionAssignmentSchema: GenMessage<InterceptionAssignment> = /*@__PURE__*/
+  messageDesc(file_frontline, 45);
 

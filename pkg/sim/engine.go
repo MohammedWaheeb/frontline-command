@@ -267,6 +267,7 @@ func (e *Engine) Advance() {
 	e.recalculate()
 	e.updateFog()
 	e.updateMission()
+	e.pruneServiceParking()
 	e.updateVictory()
 	e.sampleTelemetry(false)
 }
@@ -348,6 +349,7 @@ func (e *Engine) defeat(p *Player) {
 	p.DefeatAt = 0
 	for _, v := range e.state.Entities {
 		if v.Owner == p.ID {
+			v.Landing = nil
 			v.State = "inactive"
 			v.Orders = nil
 			v.Jobs = nil

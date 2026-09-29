@@ -14,13 +14,14 @@ func (e *Engine) mobileObstacleCells(radius int32) []ID {
 	w, h := e.state.Map.Width*2, e.state.Map.Height*2
 	cells := make([]ID, int(w*h))
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || v.Building || v.Container != 0 || e.isAircraft(v) && !v.Landed {
+		point, otherRadius, blocks := e.groundObstacle(v)
+		if !blocks {
 			continue
 		}
-		r := radius + e.radius(v)
-		for y := max(int32(0), (v.Position.Y-r)/500); y <= min(h-1, (v.Position.Y+r)/500); y++ {
-			for x := max(int32(0), (v.Position.X-r)/500); x <= min(w-1, (v.Position.X+r)/500); x++ {
-				if dist2(v.Position, Vec{X: x * 500, Y: y * 500}) >= int64(r)*int64(r) {
+		r := radius + otherRadius
+		for y := max(int32(0), (point.Y-r)/500); y <= min(h-1, (point.Y+r)/500); y++ {
+			for x := max(int32(0), (point.X-r)/500); x <= min(w-1, (point.X+r)/500); x++ {
+				if dist2(point, Vec{X: x * 500, Y: y * 500}) >= int64(r)*int64(r) {
 					continue
 				}
 				index := y*w + x

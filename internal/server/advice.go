@@ -17,7 +17,8 @@ type adviceRequest struct {
 }
 type adviceResponse struct {
 	sim.CommandAffordances
-	Results []sim.OrderResult `json:"results"`
+	Results []sim.OrderResult   `json:"results"`
+	Plans   []sim.StrategicPlan `json:"plans,omitempty"`
 }
 type adviceWindow struct {
 	started time.Time
@@ -137,11 +138,15 @@ func (s *Server) commandAdvice(w http.ResponseWriter, r *http.Request) {
 			fail(w, 503, "advice_timeout", "Command advice timed out.")
 			return
 		}
-		preview := sim.PreviewSavedOrders
+		var results []sim.OrderResult
+		var err error
 		if body.Independent {
-			preview = sim.PreviewSavedCandidates
+			results, err = sim.PreviewSavedCandidates(s.catalog, reply.data, slot.Player, body.Orders)
+		} else {
+			var advice sim.OrderPreview
+			advice, err = sim.PreviewSavedOrderAdvice(s.catalog, reply.data, slot.Player, body.Orders)
+			results, result.Plans = advice.Results, advice.Plans
 		}
-		results, err := preview(s.catalog, reply.data, slot.Player, body.Orders)
 		if err != nil {
 			fail(w, 400, "advice_unavailable", "The proposed batch cannot currently be submitted.")
 			return

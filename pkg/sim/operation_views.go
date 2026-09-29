@@ -12,6 +12,7 @@ func (e *Engine) pendingVolley(id ID) bool {
 // Warnings persist across snapshots/reconnects. Source IDs are omitted for
 // public airstrike warnings, so an unseen aircraft or launcher is not revealed.
 type OperationWarning struct {
+	Splash   *int32   `json:"splash,omitempty"`
 	Kind     string   `json:"kind"`
 	Owner    PlayerID `json:"owner"`
 	Position Vec      `json:"position"`
@@ -40,14 +41,20 @@ func (e *Engine) operationWarnings(id PlayerID) []OperationWarning {
 		}
 		switch op.Kind {
 		case "skybreaker":
-			warnings = append(warnings, OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: op.Points[0], At: op.At + 1})
+			radius := strategicImpactRadius
+			warnings = append(warnings, OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: op.Points[0], At: op.At + 1, Splash: &radius})
 		case "raid":
 			if e.canSee(id, source.Position) {
 				warnings = append(warnings, OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: source.Position, Source: source.ID, At: op.At, Exits: append([]Vec(nil), op.Points...)})
 			}
 		case "second_volley":
 			if op.Owner == id {
-				warnings = append(warnings, OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: op.Points[0], Source: source.ID, At: op.At})
+				warning := OperationWarning{Kind: op.Kind, Owner: op.Owner, Position: op.Points[0], Source: source.ID, At: op.At}
+				if weapon, ok := e.weapon(source); ok {
+					radius := weapon.Splash
+					warning.Splash = &radius
+				}
+				warnings = append(warnings, warning)
 			}
 		}
 	}

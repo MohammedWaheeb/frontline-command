@@ -49,10 +49,7 @@ func (s *Session) Affordances(player sim.PlayerID, ids []sim.ID) (sim.CommandAff
 	return result, nil
 }
 
-type PreviewResult struct {
-	Tick    sim.Tick          `json:"tick"`
-	Results []sim.OrderResult `json:"results"`
-}
+type PreviewResult = sim.OrderPreview
 
 func (s *Session) PreviewOrders(player sim.PlayerID, data []byte) (PreviewResult, error) {
 	return s.preview(player, data, false)
@@ -81,16 +78,17 @@ func (s *Session) preview(player sim.PlayerID, data []byte, independent bool) (P
 	if err != nil {
 		return PreviewResult{}, fail("invalid_order", err.Error(), true)
 	}
-	var results []sim.OrderResult
+	var result PreviewResult
 	if independent {
-		results, err = s.engine.PreviewCandidates(player, orders)
+		result.Results, err = s.engine.PreviewCandidates(player, orders)
+		result.Tick = s.engine.Tick()
 	} else {
-		results, err = s.engine.PreviewOrders(player, orders)
+		result, err = s.engine.PreviewOrderAdvice(player, orders)
 	}
 	if err != nil {
 		return PreviewResult{}, fail(err.Error(), "The proposed orders are not currently legal.", true)
 	}
-	return PreviewResult{Tick: s.engine.Tick(), Results: results}, nil
+	return result, nil
 }
 
 // PreviewEditor never replaces or reads the active session. The same endpoint

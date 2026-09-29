@@ -18,6 +18,8 @@ func (e *Engine) reconcileAircraftService() {
 func (e *Engine) loseService(v *Entity) {
 	hadHome := v.Home != 0
 	v.Home = 0
+	v.Landing = nil
+	v.ParkingRetryAt = 0
 	v.Endurance = min(v.Endurance, uint32(1200))
 	v.ServiceWork = 0
 	if v.Landed && v.EmergencyTakeoffUntil == 0 {

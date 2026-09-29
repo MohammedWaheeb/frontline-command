@@ -73,7 +73,7 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 		}
 	}
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || v.Container != 0 || e.isAircraft(v) && !v.Landed {
+		if v.HP <= 0 || v.Container != 0 {
 			continue
 		}
 		if v.Building {
@@ -82,9 +82,12 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 				return "occupied"
 			}
 		} else {
-			dx := max(0, abs(v.Position.X-pos.X)-width*500)
-			dy := max(0, abs(v.Position.Y-pos.Y)-height*500)
-			r := e.radius(v)
+			point, r, blocks := e.groundObstacle(v)
+			if !blocks {
+				continue
+			}
+			dx := max(0, abs(point.X-pos.X)-width*500)
+			dy := max(0, abs(point.Y-pos.Y)-height*500)
 			if int64(dx)*int64(dx)+int64(dy)*int64(dy) < int64(r)*int64(r) {
 				return "occupied"
 			}
@@ -151,15 +154,27 @@ func (e *Engine) clearExcept(pos Vec, radius int32, ignore, ignoredStructure ID,
 				return false
 			}
 		} else if mobiles {
-			unit, _ := e.catalog.Unit(v.Type)
-			if (unit.Armor == "air" && !v.Landed) != air {
+			point, otherRadius, blocks := Vec{}, int32(0), false
+			if air {
+				if v.Landed {
+					continue
+				}
+				u, ok := e.catalog.Unit(v.Type)
+				if !ok || u.Armor != "air" {
+					continue
+				}
+				point, otherRadius, blocks = v.Position, u.Radius, true
+			} else {
+				point, otherRadius, blocks = e.groundObstacle(v)
+			}
+			if !blocks {
 				continue
 			}
-			r := radius + unit.Radius
-			if abs(pos.X-v.Position.X) >= r || abs(pos.Y-v.Position.Y) >= r {
+			r := radius + otherRadius
+			if abs(pos.X-point.X) >= r || abs(pos.Y-point.Y) >= r {
 				continue
 			}
-			if dist2(pos, v.Position) < int64(r)*int64(r) {
+			if dist2(pos, point) < int64(r)*int64(r) {
 				return false
 			}
 		}
@@ -219,11 +234,15 @@ func (e *Engine) navigationCells(radius int32) []bool {
 }
 func (e *Engine) mobileClear(pos Vec, radius int32, ignore ID) bool {
 	for _, v := range e.state.Entities {
-		if v.ID == ignore || v.Building || v.HP <= 0 || v.Container != 0 || e.isAircraft(v) && !v.Landed {
+		if v.ID == ignore || v.Building || v.HP <= 0 || v.Container != 0 {
 			continue
 		}
-		r := radius + e.radius(v)
-		if dist2(pos, v.Position) < int64(r)*int64(r) {
+		point, otherRadius, blocks := e.groundObstacle(v)
+		if !blocks {
+			continue
+		}
+		r := radius + otherRadius
+		if dist2(pos, point) < int64(r)*int64(r) {
 			return false
 		}
 	}
@@ -246,8 +265,10 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 	gridW, gridH := m.Width*2, m.Height*2
 	cells := e.navigationCells(r)
 	var mobileCells []ID
+	var serviceEdges []uint8
 	if dynamic {
 		mobileCells = e.mobileObstacleCells(r)
+		serviceEdges = e.serviceObstacleEdges(r)
 	}
 	passable := func(p Vec) bool {
 		x, y := p.X/500, p.Y/500
@@ -282,7 +303,8 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 	// Flooring a legal physical position can put its A* start inside a nearby
 	// collision circle. Seed reachable adjacent nodes from the actual position
 	// instead of applying corner-cut rules to that fictitious blocked start.
-	bridged := !passable(Vec{X: sx * 500, Y: sy * 500})
+	startPoint := Vec{X: sx * 500, Y: sy * 500}
+	bridged := !passable(startPoint) || dynamic && !e.serviceSegmentClear(v.Position, startPoint, r)
 	starts := []pathNode{{start, 0, heuristic(sx, sy, gx, gy), 0}}
 	if bridged {
 		starts = nil
@@ -335,10 +357,19 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 				for a, b := 0, len(path)-1; a < b; a, b = a+1, b-1 {
 					path[a], path[b] = path[b], path[a]
 				}
+				if dynamic && !bridged && len(path) > 0 && !e.serviceSegmentClear(v.Position, path[0], r) {
+					if !e.navigationBridgeClear(v, startPoint, true) {
+						return nil
+					}
+					path = append([]Vec{startPoint}, path...)
+				}
 				return path
 			}
 			x, y := n.index%gridW, n.index/gridW
-			for _, d := range neighbors {
+			for edge, d := range neighbors {
+				if len(serviceEdges) > 0 && serviceEdges[n.index]&(1<<edge) != 0 {
+					continue
+				}
 				nx, ny := x+d.X, y+d.Y
 				if nx < 0 || ny < 0 || nx >= gridW || ny >= gridH {
 					continue
@@ -480,6 +511,7 @@ func (e *Engine) updateMovement() {
 			case "attack", "attack_move", "move", "guard", "escort", "patrol", "aggressive":
 				if e.clear(v.Position, e.radius(v), v.ID, true, true) {
 					v.Landed = false
+					v.Landing = nil
 					v.State = "taking_off"
 				}
 			}
@@ -545,6 +577,10 @@ func (e *Engine) updateMovement() {
 			if target != nil {
 				goal = e.approachPoint(v, target)
 				moving = e.edgeDistance(v, target) > 900
+				if o.Kind == "board" {
+					goal = e.boardingApproachPoint(v, target)
+					moving = e.boardingDistance(v, target) > 900
+				}
 				arrive = 350
 			} else if o.Kind == "capture" {
 				for _, s := range e.state.Stations {
@@ -675,13 +711,13 @@ func (e *Engine) updateMovement() {
 			next = Vec{X: v.Position.X + int32(int64(p.X-v.Position.X)*int64(step)/int64(d)), Y: v.Position.Y + int32(int64(p.Y-v.Position.Y)*int64(step)/int64(d))}
 		}
 		air := e.isAircraft(v) && !v.Landed
-		if e.clear(next, e.radius(v), v.ID, air, true) {
+		if e.clear(next, e.radius(v), v.ID, air, true) && (air || e.serviceSegmentClear(v.Position, next, e.radius(v))) {
 			v.Position = next
 			v.State = "moving"
 			v.LastProgress = e.state.Tick
 			v.Blocked = false
 			v.RouteFailures = 0
-			if distance(next, p) < 120 {
+			if distance(next, p) < 120 && (next == p || air || len(v.Path) < 2 || e.serviceSegmentClear(next, v.Path[1], e.radius(v))) {
 				v.Path = v.Path[1:]
 			}
 			v.StationarySince = e.state.Tick

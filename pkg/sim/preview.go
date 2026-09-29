@@ -41,10 +41,11 @@ func PreviewSavedOrders(c *content.Catalog, save []byte, player PlayerID, orders
 	if err != nil {
 		return nil, err
 	}
-	return preview.previewDetached(player, orders)
+	result, err := preview.previewDetachedAdvice(player, orders)
+	return result.Results, err
 }
 
-func (e *Engine) previewDetached(player PlayerID, orders []Order) ([]OrderResult, error) {
+func (e *Engine) previewDetachedAdvice(player PlayerID, orders []Order) (OrderPreview, error) {
 	// Preview is not command admission: sequence, pending and command-rate
 	// counters belong exclusively to actual submitted commands.
 	p := e.player(player)
@@ -56,8 +57,9 @@ func (e *Engine) previewDetached(player PlayerID, orders []Order) ([]OrderResult
 	e.state.Results = nil
 	e.state.Events = nil
 	if err := e.Submit(player, 1, orders); err != nil {
-		return nil, err
+		return OrderPreview{}, err
 	}
+	plans := e.strategicPlans(p, e.state.Pending[0].Orders)
 	results := make([]OrderResult, 0, len(orders))
 	deferred := false
 	for i, o := range e.state.Pending[0].Orders {
@@ -84,7 +86,7 @@ func (e *Engine) previewDetached(player PlayerID, orders []Order) ([]OrderResult
 		}
 		results = append(results, OrderResult{Player: player, Index: int32(i), Accepted: code == "ok" || code == "indeterminate", Code: code, Tick: e.state.Tick})
 	}
-	return results, nil
+	return OrderPreview{Tick: e.state.Tick, Results: results, Plans: plans}, nil
 }
 
 // Check only private information belonging to this player and public target

@@ -1,0 +1,379 @@
+{
+  "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "binary_sha256": "5fe5ff8ce86775e2d6c42a2739d720207becb880ee2cce3a234cd8cacc9eb943",
+  "rejections": [
+    {
+      "case": "pair-IR-SY",
+      "receipt": {
+        "player": 1,
+        "sequence": 111,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 7462
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          296
+        ],
+        "target": 38,
+        "position": {
+          "x": 61875,
+          "y": 70500
+        }
+      },
+      "context_sha256": "e023f058d91a01fb681eb3abe4b18f173ead83f3406a6f8946a87151c5750902",
+      "category": "selected_owned_actor_destroyed_before_execution",
+      "actor": 296,
+      "before_health": 84,
+      "death_tick": 7461
+    },
+    {
+      "case": "pair-IR-SY",
+      "receipt": {
+        "player": 1,
+        "sequence": 289,
+        "index": 1,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 15822
+      },
+      "order": {
+        "kind": "move",
+        "entities": [
+          936
+        ],
+        "position": {
+          "x": 25500,
+          "y": 25500
+        }
+      },
+      "context_sha256": "e023f058d91a01fb681eb3abe4b18f173ead83f3406a6f8946a87151c5750902",
+      "category": "selected_owned_actor_destroyed_before_execution",
+      "actor": 936,
+      "before_health": 10,
+      "death_tick": 15821
+    },
+    {
+      "case": "mirror-IR",
+      "receipt": {
+        "player": 2,
+        "sequence": 63,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 6142
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          24
+        ],
+        "target": 30,
+        "position": {
+          "x": 104280,
+          "y": 65001
+        }
+      },
+      "context_sha256": "971398b12e83f855b702f7465080fed0aea27f237a164af19bfa7d2fb94e5131",
+      "category": "selected_owned_actor_destroyed_before_execution",
+      "actor": 24,
+      "before_health": 40,
+      "death_tick": 6141
+    },
+    {
+      "case": "mirror-IR",
+      "receipt": {
+        "player": 1,
+        "sequence": 299,
+        "index": 2,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 18502
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          1144
+        ],
+        "target": 1560,
+        "position": {
+          "x": 50750,
+          "y": 55000
+        }
+      },
+      "context_sha256": "971398b12e83f855b702f7465080fed0aea27f237a164af19bfa7d2fb94e5131",
+      "category": "selected_owned_actor_destroyed_before_execution",
+      "actor": 1144,
+      "before_health": 12,
+      "death_tick": 18501
+    },
+    {
+      "case": "mirror-IR",
+      "receipt": {
+        "player": 2,
+        "sequence": 449,
+        "index": 0,
+        "accepted": false,
+        "code": "survey_drone_required",
+        "tick": 25062
+      },
+      "order": {
+        "kind": "ability",
+        "entities": [
+          2416
+        ],
+        "position": {
+          "x": 101800,
+          "y": 56174
+        },
+        "type": "relay_boost"
+      },
+      "context_sha256": "971398b12e83f855b702f7465080fed0aea27f237a164af19bfa7d2fb94e5131",
+      "category": "survey_drone_landed_before_execution",
+      "actor": 2416,
+      "before_position": {
+        "x": 101800,
+        "y": 56174
+      },
+      "landed_position": {
+        "x": 102200,
+        "y": 55800
+      }
+    },
+    {
+      "case": "mirror-SY",
+      "receipt": {
+        "player": 1,
+        "sequence": 70,
+        "index": 1,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 5862
+      },
+      "order": {
+        "kind": "move",
+        "entities": [
+          105
+        ],
+        "position": {
+          "x": 20500,
+          "y": 64500
+        }
+      },
+      "context_sha256": "038533941329662d557f7aaad18500d75d655e47921f485bd6e8bec60218cfdb",
+      "category": "selected_owned_actor_destroyed_before_execution",
+      "actor": 105,
+      "before_health": 84,
+      "death_tick": 5861
+    },
+    {
+      "case": "mirror-SA",
+      "receipt": {
+        "player": 1,
+        "sequence": 94,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 7302
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          40
+        ],
+        "target": 25,
+        "position": {
+          "x": 150475,
+          "y": 142470
+        }
+      },
+      "context_sha256": "a4ed59d912be3c3e1d810ed7958dfa1135339b6e459523fa95d701d17b3d6ef7",
+      "category": "selected_owned_actor_destroyed_before_execution",
+      "actor": 40,
+      "before_health": 100,
+      "death_tick": 7301
+    },
+    {
+      "case": "three-ffa",
+      "receipt": {
+        "player": 2,
+        "sequence": 249,
+        "index": 0,
+        "accepted": false,
+        "code": "player_inactive",
+        "tick": 17862
+      },
+      "order": {
+        "kind": "move",
+        "entities": [
+          1777
+        ],
+        "position": {
+          "x": 54500,
+          "y": 22500
+        }
+      },
+      "context_sha256": "9bc592707dffbe685931eaf54d99cf4896ae22c282d5274c5d86559540a08b37",
+      "category": "player_defeated_before_execution",
+      "public_defeated": [
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "case": "four-ffa",
+      "receipt": {
+        "player": 4,
+        "sequence": 111,
+        "index": 0,
+        "accepted": false,
+        "code": "occupied",
+        "tick": 10302
+      },
+      "order": {
+        "kind": "build",
+        "entities": [
+          1043
+        ],
+        "position": {
+          "x": 137500,
+          "y": 48500
+        },
+        "type": "SA.airfield"
+      },
+      "context_sha256": "675088d125c5d9dfddd370d3cf6fdfa8badbd715ff9a6a5c59c7d6ed05418839",
+      "category": "visible_ground_actor_entered_planned_building_footprint",
+      "witnesses": [
+        {
+          "actor": 22,
+          "type": "SA.hauler",
+          "before": {
+            "distance_squared": 640000,
+            "radius": 800,
+            "position": {
+              "x": 139500,
+              "y": 45200
+            }
+          },
+          "after": {
+            "distance_squared": 422500,
+            "radius": 800,
+            "position": {
+              "x": 139500,
+              "y": 45350
+            }
+          }
+        }
+      ]
+    },
+    {
+      "case": "four-ffa",
+      "receipt": {
+        "player": 3,
+        "sequence": 156,
+        "index": 0,
+        "accepted": false,
+        "code": "occupied",
+        "tick": 10702
+      },
+      "order": {
+        "kind": "build",
+        "entities": [
+          1558
+        ],
+        "position": {
+          "x": 18500,
+          "y": 115500
+        },
+        "type": "power"
+      },
+      "context_sha256": "675088d125c5d9dfddd370d3cf6fdfa8badbd715ff9a6a5c59c7d6ed05418839",
+      "category": "visible_ground_actor_entered_planned_building_footprint",
+      "witnesses": [
+        {
+          "actor": 2143,
+          "type": "SY.rifle",
+          "before": {
+            "distance_squared": 168921,
+            "radius": 350,
+            "position": {
+              "x": 17589,
+              "y": 116911
+            }
+          },
+          "after": {
+            "distance_squared": 97344,
+            "radius": 350,
+            "position": {
+              "x": 17688,
+              "y": 116812
+            }
+          }
+        }
+      ]
+    },
+    {
+      "case": "four-ffa",
+      "receipt": {
+        "player": 3,
+        "sequence": 206,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 12942
+      },
+      "order": {
+        "kind": "move",
+        "entities": [
+          437
+        ],
+        "position": {
+          "x": 22500,
+          "y": 119500
+        }
+      },
+      "context_sha256": "675088d125c5d9dfddd370d3cf6fdfa8badbd715ff9a6a5c59c7d6ed05418839",
+      "category": "selected_owned_actor_destroyed_before_execution",
+      "actor": 437,
+      "before_health": 15,
+      "death_tick": 12941
+    },
+    {
+      "case": "four-ffa",
+      "receipt": {
+        "player": 1,
+        "sequence": 343,
+        "index": 0,
+        "accepted": false,
+        "code": "not_owner",
+        "tick": 21862
+      },
+      "order": {
+        "kind": "guard",
+        "entities": [
+          2923
+        ],
+        "target": 2282,
+        "position": {
+          "x": 52497,
+          "y": 60378
+        }
+      },
+      "context_sha256": "675088d125c5d9dfddd370d3cf6fdfa8badbd715ff9a6a5c59c7d6ed05418839",
+      "category": "selected_owned_actor_destroyed_before_execution",
+      "actor": 2923,
+      "before_health": 187,
+      "death_tick": 21861
+    }
+  ],
+  "categories": {
+    "selected_owned_actor_destroyed_before_execution": 8,
+    "survey_drone_landed_before_execution": 1,
+    "player_defeated_before_execution": 1,
+    "visible_ground_actor_entered_planned_building_footprint": 2
+  },
+  "claim": "Every rejection retained. Twelve observed decision/execution boundary races; no blanket code exclusion or all-orders-accepted claim. This classifies this run, not all future requests."
+}

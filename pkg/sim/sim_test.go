@@ -264,7 +264,7 @@ func TestTargetLayersAndSimultaneousDamage(t *testing.T) {
 	}
 	a.HP = 1000
 	b.HP = 1000
-	e.damages = []damage{{a.ID, b.ID, 2, 2000, "small"}, {b.ID, a.ID, 1, 2000, "small"}}
+	e.damages = []damage{{Target: a.ID, Shooter: b.ID, Owner: 2, Amount: 2000, Kind: "small"}, {Target: b.ID, Shooter: a.ID, Owner: 1, Amount: 2000, Kind: "small"}}
 	e.resolveDamage()
 	if a.HP != 0 || b.HP != 0 {
 		t.Fatal("damage did not resolve simultaneously")

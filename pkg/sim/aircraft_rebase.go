@@ -57,6 +57,8 @@ func (e *Engine) rebaseAircraft(v *Entity, home ID) {
 		return
 	}
 	v.Home = home
+	v.Landing = nil
+	v.ParkingRetryAt = 0
 	if v.Landed {
 		v.Landed = false
 		v.State = "taking_off"

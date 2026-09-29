@@ -1,5 +1,13 @@
 # Complete deterministic bot matches on authored launch maps
 
+> 2026-09-29 update: the fresh integrated0.3.4 matrix also passes13/13
+> ordinary eliminations, paid economy, initial/final restore and full replay.
+> Its13,951 accepted and12 rejected receipts were individually audited; the
+> rejected orders are preserved and classified at actual planning/execution
+> boundaries. See the [new source-specific table](../work/runtime-034-integrated-source/SKIRMISH.md).
+> Source/runtime0.3.4 is selectively promoted; final product/balance approval
+> does not follow. The0.3.3 result and prior failed histories below remain intact.
+
 The simulation **0.3.3 matrix passes all thirteen cases**, including real
 income/spending, ordinary elimination, initial/final saves and exact full replay.
 Its ten rejected execution receipts were individually classified: eight actors

@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"frontlinecommand/internal/viewproto"
 	"frontlinecommand/pkg/sim"
 	pb "frontlinecommand/protocol"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -10,15 +11,7 @@ import (
 )
 
 func snapshot(view sim.View) (*pb.PlayerSnapshot, error) {
-	b, err := json.Marshal(view)
-	if err != nil {
-		return nil, err
-	}
-	p := new(pb.PlayerSnapshot)
-	if err = protojson.Unmarshal(b, p); err != nil {
-		return nil, err
-	}
-	return p, nil
+	return viewproto.Snapshot(view), nil
 }
 func decodeOrders(batch *pb.OrderBatch) ([]sim.Order, error) {
 	b, err := protojson.Marshal(batch)

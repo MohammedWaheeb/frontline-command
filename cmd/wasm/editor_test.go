@@ -83,6 +83,36 @@ func TestEditorMissionTestKeepsPracticeVersionThroughSave(t *testing.T) {
 	}
 }
 
+func TestTacticalSkybreakerSessionPreview(t *testing.T) {
+	s := newSession(t)
+	before, _ := s.Hash()
+	point := &pb.Vec{X: 8000, Y: 8000}
+	data := batch(t, 1, &pb.Order{Kind: "ability", Type: "strategic", Entities: []uint32{2}, Index: 2, Points: []*pb.Vec{point, point, point}})
+	result, err := s.PreviewOrders(1, data)
+	if err != nil || len(result.Plans) != 1 || result.Plans[0].Edge != 2 || len(result.Plans[0].Routes) != 3 {
+		t.Fatal(result, err)
+	}
+	if _, err := s.PreviewOrders(2, data); code(err) != "unauthorized_player" {
+		t.Fatal("nonlocal plan was accepted", err)
+	}
+	if _, err := s.PreviewCandidates(1, data); err == nil {
+		t.Fatal("strategic alternative accepted")
+	}
+	if after, _ := s.Hash(); before != after {
+		t.Fatal("route preview mutated live session")
+	}
+	replay, err := s.ExportReplay()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err = s.LoadReplay(replay); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = s.PreviewOrders(1, data); code(err) != "replay_read_only" {
+		t.Fatal("replay preview accepted", err)
+	}
+}
+
 func TestEditorGeometryPreviewIsIndependentOfActiveSession(t *testing.T) {
 	s := newSession(t)
 	before, _ := s.Hash()

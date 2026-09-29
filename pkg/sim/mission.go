@@ -155,9 +155,8 @@ func (e *Engine) scenarioPositions(s content.MissionSpawn) ([]Vec, bool) {
 								overlap = true
 							}
 						}
-						if !v.Building && v.HP > 0 && v.Container == 0 && (!e.isAircraft(v) || v.Landed) {
-							dx, dy := max(int32(0), abs(v.Position.X-pos.X)-b.Width*500), max(int32(0), abs(v.Position.Y-pos.Y)-b.Height*500)
-							r := e.radius(v)
+						if point, r, blocks := e.groundObstacle(v); blocks {
+							dx, dy := max(int32(0), abs(point.X-pos.X)-b.Width*500), max(int32(0), abs(point.Y-pos.Y)-b.Height*500)
 							if int64(dx)*int64(dx)+int64(dy)*int64(dy) < int64(r)*int64(r) {
 								overlap = true
 							}

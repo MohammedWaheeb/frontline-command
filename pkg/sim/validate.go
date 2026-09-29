@@ -5,6 +5,9 @@ import (
 )
 
 func (e *Engine) validateState() error {
+	if err := e.validateCombatFeedback(); err != nil {
+		return err
+	}
 	if err := e.validateTelemetry(); err != nil {
 		return err
 	}
@@ -37,6 +40,24 @@ func (e *Engine) validateState() error {
 		return true
 	}
 	for _, v := range s.Entities {
+		if v.ParkingRetryAt > 0 {
+			allowed := serviceParkingRadius(v.Type) > 0
+			if v.Building {
+				b, ok := e.buildingRule(v.Type)
+				allowed = ok && b.ServiceSlots > 0
+			}
+			if !allowed || v.ParkingRetryAt > s.Tick+serviceRetryTicks {
+				return fmt.Errorf("invalid parking retry timeline")
+			}
+		}
+		if v.Landing != nil {
+			if !e.returningToService(v) || e.defeated(v.Owner) || serviceParkingRadius(v.Type) == 0 || v.Landing.Home != v.Home || e.serviceHome(v) == nil || !s.Map.InBounds(v.Landing.Position) {
+				return fmt.Errorf("invalid landing reservation %d", v.ID)
+			}
+			if !e.serviceParkingClear(v, e.serviceHome(v), v.Landing.Position, nil) {
+				return fmt.Errorf("obstructed landing reservation %d", v.ID)
+			}
+		}
 		if v.ChannelDuration > 0 && (v.Channel == "" || v.ChannelUntil < v.ChannelDuration || uint64(v.ChannelUntil) > uint64(s.Tick)+uint64(v.ChannelDuration)) {
 			return fmt.Errorf("invalid channel timeline")
 		}

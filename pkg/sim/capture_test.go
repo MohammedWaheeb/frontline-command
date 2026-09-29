@@ -417,6 +417,8 @@ func TestCapturedAirProducerWaitsForClearProductionPad(t *testing.T) {
 	for _, obstacle := range obstacles {
 		obstacle.HP = 0
 	}
+	// Exterior allocation retries on its declared one-second cadence.
+	e.state.Tick += serviceRetryTicks
 	e.updateJobs(e.player(1), home)
 	if len(home.Jobs) != 0 || len(e.state.Entities) != count+1 {
 		t.Fatal("production failed to resume after clearing legal pads")

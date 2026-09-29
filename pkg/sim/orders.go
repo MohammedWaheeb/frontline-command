@@ -281,6 +281,10 @@ func (e *Engine) assign(v *Entity, o Order) {
 		v.Orders = append(v.Orders, o)
 		return
 	}
+	if o.Kind != "return" || v.Landing != nil && v.Landing.Home != v.Home {
+		v.Landing = nil
+		v.ParkingRetryAt = 0
+	}
 	if v.Channel == "transit" {
 		e.interruptChannel(v)
 	}
@@ -381,7 +385,8 @@ func (e *Engine) buildingRequirements(p *Player, rig *Entity, o Order) (content.
 	inRadius := b.Role == "outpost" || b.Role == "hq" && !e.has(p.ID, "hq")
 	if !inRadius {
 		for _, v := range e.state.Entities {
-			if v.Owner == p.ID && v.Complete && v.HP > 0 && (e.role(v) == "hq" || e.role(v) == "outpost") && distance(v.Position, o.Position) <= 14000 {
+			radius := e.buildRange(v)
+			if v.Owner == p.ID && radius > 0 && distance(v.Position, o.Position) <= radius {
 				inRadius = true
 				break
 			}
