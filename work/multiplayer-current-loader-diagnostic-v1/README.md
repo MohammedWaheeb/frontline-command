@@ -1,3 +1,15 @@
+# First actual attempt — prelaunch harness failure
+
+29 September2026, 15:12:38–15:12:39UTC: `chromium-01` is preserved as a strict
+failed attempt. The host started and exited0, but browser launch never began: a
+dynamic import of Playwright’s resolved CommonJS entry lacked the named
+`chromium` export. No page navigation, native-reader observations, game commands
+or product acceptance occurred. All12 diagnostic and5,627 prepared inputs stayed
+unchanged. `browser.json`, `host.log` and the outer log preserve the exact failure.
+A separately locked `../multiplayer-current-loader-diagnostic-v2` corrects the
+harness import and checks its actual API during build-only preflight. Historical
+source, source lock, and original author-only note below remain intact.
+
 # Current-loader original-reader diagnostic — prepared, unrun
 
 29 September 2026. Separate source-only successor; **no browser or host has run**.

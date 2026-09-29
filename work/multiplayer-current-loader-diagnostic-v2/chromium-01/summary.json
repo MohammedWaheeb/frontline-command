@@ -1,0 +1,511 @@
+{
+  "status": "failed",
+  "functionalStatus": "passed-bounded-nonterminal-opening",
+  "rawDiagnosticStatus": "failed",
+  "bodyStatus": "passed-for-supported-static-readers",
+  "started": "2026-09-29T15:17:22.086Z",
+  "closedAt": "2026-09-29T15:18:07.931Z",
+  "scope": "Exact frozen current-loader App build03, one real local profile plus three deterministic normal Go bots; readiness and one ordinary paid power building only. Intentionally nonterminal; no full-match/reconnect/result/replay/1\u20134/endurance/performance claim. Observation changes scheduling; every raw failure retains its strict result.",
+  "conditions": "AC power, shared host with parent source/typecheck work and artist activity; original-reader observation adds scheduling overhead; correctness only.",
+  "preflight": {
+    "status": "author-preflight-only",
+    "sourceLockSHA256": "4a465e0e4e4435eeadd8490cb0569e063d6c6a1fc1913aa7f4420029f100f610",
+    "preparedSHA256": "e7637f6546778c4bc38c79d4f00317860c69c405b627cfa5415e4dac444875f2",
+    "sourceInputs": 12,
+    "preparedInputs": 5627,
+    "productReceiptSHA256": "f714d2d6c761dc9b389f91034f361e4662f0c420e42905b1229b1ee76d7cd445",
+    "packSHA256": "9387365786fcd3f53049bdd1a87482a37eac8f18561fa276d36c977f26224559",
+    "limits": {
+      "limit": 16384,
+      "maxBody": 8388608,
+      "maxTotal": 805306368,
+      "maxActive": 16,
+      "maxBlob": 8388608,
+      "maxBlobRetained": 16777216
+    },
+    "browserAPI": {
+      "module": "playwright-core",
+      "loader": "createRequire",
+      "launch": true,
+      "executablePath": true
+    }
+  },
+  "browser": "151.0.7922.34",
+  "executable": {
+    "path": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+    "sha256": "a596b1cfc6353e987fcec8d71a23a28cd6a9e7a6b4e20b908e4c4fcffe51158e"
+  },
+  "readyRoster": [
+    {
+      "player": 1,
+      "faction": "US",
+      "team": 1,
+      "ai": "",
+      "profile": "f11a0460c4d9b1ef710e9f95",
+      "ready": true,
+      "assets_ready": true
+    },
+    {
+      "player": 2,
+      "faction": "IR",
+      "team": 2,
+      "ai": "normal",
+      "ready": true,
+      "assets_ready": true
+    },
+    {
+      "player": 3,
+      "faction": "SY",
+      "team": 3,
+      "ai": "normal",
+      "ready": true,
+      "assets_ready": true
+    },
+    {
+      "player": 4,
+      "faction": "SA",
+      "team": 4,
+      "ai": "normal",
+      "ready": true,
+      "assets_ready": true
+    }
+  ],
+  "readyAssets": {
+    "files": 1331,
+    "fallbacks": [
+      "IR:IR.aa",
+      "IR:IR.apc",
+      "IR:IR.artillery",
+      "IR:IR.car",
+      "IR:IR.drone_hub",
+      "IR:IR.fighter",
+      "IR:IR.gunship",
+      "IR:IR.isr",
+      "IR:IR.repair",
+      "IR:IR.tank",
+      "IR:aa_post",
+      "IR:barracks",
+      "IR:bunker",
+      "IR:factory",
+      "IR:hq",
+      "IR:outpost",
+      "IR:power",
+      "IR:radar",
+      "IR:strategic",
+      "IR:supply",
+      "IR:tech",
+      "IR:turret",
+      "SA:SA.aa",
+      "SA:SA.airfield",
+      "SA:SA.apc",
+      "SA:SA.artillery",
+      "SA:SA.car",
+      "SA:SA.fighter",
+      "SA:SA.gunship",
+      "SA:SA.launcher",
+      "SA:SA.repair",
+      "SA:SA.strike",
+      "SA:aa_post",
+      "SA:abm",
+      "SA:barracks",
+      "SA:bunker",
+      "SA:depot",
+      "SA:factory",
+      "SA:hq",
+      "SA:outpost",
+      "SA:power",
+      "SA:radar",
+      "SA:strategic",
+      "SA:supply",
+      "SA:tech",
+      "SA:turret",
+      "SY:SY.aa",
+      "SY:SY.artillery",
+      "SY:SY.buggy",
+      "SY:SY.launcher",
+      "SY:SY.repair",
+      "SY:SY.safehouse",
+      "SY:SY.scout_drone",
+      "SY:SY.tank",
+      "SY:SY.workshop_air",
+      "SY:aa_post",
+      "SY:abm",
+      "SY:barracks",
+      "SY:bunker",
+      "SY:factory",
+      "SY:hq",
+      "SY:outpost",
+      "SY:power",
+      "SY:radar",
+      "SY:strategic",
+      "SY:supply",
+      "SY:tech",
+      "SY:turret",
+      "US:US.aa",
+      "US:US.airfield",
+      "US:US.apc",
+      "US:US.artillery",
+      "US:US.car",
+      "US:US.gunship",
+      "US:US.launcher",
+      "US:US.repair",
+      "US:US.strike"
+    ]
+  },
+  "commands": [
+    {
+      "tick": 132,
+      "sequence": 1,
+      "orders": [
+        {
+          "kind": "repair_reserve",
+          "index": 300
+        }
+      ],
+      "note": "Reserve300credits for player-controlled repair spending",
+      "results": [
+        {
+          "$typeName": "frontline.v1.OrderResult",
+          "player": 1,
+          "sequence": 1,
+          "index": 0,
+          "accepted": true,
+          "code": "ok",
+          "tick": 135
+        }
+      ]
+    },
+    {
+      "tick": 140,
+      "sequence": 2,
+      "orders": [
+        {
+          "kind": "build",
+          "entities": [
+            2
+          ],
+          "type": "power",
+          "position": {
+            "x": 19500,
+            "y": 25500
+          }
+        }
+      ],
+      "note": "Paid power construction",
+      "results": [
+        {
+          "$typeName": "frontline.v1.OrderResult",
+          "player": 1,
+          "sequence": 2,
+          "index": 0,
+          "accepted": true,
+          "code": "ok",
+          "tick": 142
+        }
+      ]
+    }
+  ],
+  "beforeMenu": {
+    "appInstance": "4c8054f1-4f06-4b7b-9a2f-fa70faa8b4bb",
+    "timeOrigin": 1790695044730.4,
+    "session": "session-1",
+    "phase": "active",
+    "kind": "online",
+    "transportPresent": true,
+    "observedSessions": [
+      "session-1"
+    ],
+    "presentationResets": 0,
+    "frameSubscribers": 1,
+    "art": {
+      "indexedPages": 29,
+      "residentPages": 17,
+      "residentBytes": 45897696,
+      "pickingBytes": 952985
+    },
+    "audio": {
+      "context": "absent",
+      "sources": 0,
+      "continuous": 0,
+      "buffers": 0,
+      "decodedBytes": 0,
+      "pending": 0,
+      "generation": 3,
+      "gains": {
+        "master": 0,
+        "voice": 0,
+        "music": 0,
+        "effects": 0,
+        "ui": 0
+      }
+    }
+  },
+  "afterMenu": {
+    "appInstance": "4c8054f1-4f06-4b7b-9a2f-fa70faa8b4bb",
+    "timeOrigin": 1790695044730.4,
+    "phase": "menu",
+    "transportPresent": false,
+    "observedSessions": [
+      "session-1"
+    ],
+    "presentationResets": 0,
+    "frameSubscribers": 0,
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0,
+      "pickingBytes": 0
+    },
+    "audio": {
+      "context": "absent",
+      "sources": 0,
+      "continuous": 0,
+      "buffers": 0,
+      "decodedBytes": 0,
+      "pending": 0,
+      "generation": 6,
+      "gains": {
+        "master": 0,
+        "voice": 0,
+        "music": 0,
+        "effects": 0,
+        "ui": 0
+      }
+    }
+  },
+  "remainingSockets": 0,
+  "hostExit": {
+    "code": 0,
+    "signal": null
+  },
+  "inputGuard": {
+    "status": "passed",
+    "sourceInputs": 12,
+    "preparedInputs": 5627
+  },
+  "sourceReportSHA256": "bc6c6c8dc0e874ae61d4f764174ebb466b0a731cc9e5a7187b823bd40db05a43",
+  "sourceReportBytes": 22801479,
+  "openingTicks": {
+    "before": 132,
+    "after": 576
+  },
+  "counts": {
+    "rawFailures": 387,
+    "exactBodyFailures": 385,
+    "unprovedRawFailures": 2,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "httpErrors": 0,
+    "staticObserved": 2742,
+    "supported": 2740,
+    "complete": 2740,
+    "unsupported": 2,
+    "unobservedRequests": 131
+  },
+  "diagnosticsAgree": true,
+  "accounting": [
+    {
+      "scope": "current-loader:40d403c6-79e6-450e-b047-59d008b1d542",
+      "activeHashes": 0,
+      "peakActiveHashes": 4,
+      "totalHashedBytes": 235286432,
+      "hashArrayBytesPerActive": 608,
+      "retainedResponseChunkBytes": 0,
+      "retainedBlobBytes": 0,
+      "peakRetainedBlobBytes": 0,
+      "pendingBlobProofs": 0,
+      "limits": {
+        "records": 16384,
+        "maxBody": 8388608,
+        "maxTotal": 805306368,
+        "maxActive": 16,
+        "maxBlob": 8388608,
+        "maxBlobRetained": 16777216
+      }
+    }
+  ],
+  "faults": [],
+  "unsupported": [
+    {
+      "url": "http://127.0.0.1:58264/art/index.json",
+      "ordinal": 1,
+      "completion": "native-json-fulfilled",
+      "reason": "native-json-does-not-expose-original-bytes"
+    },
+    {
+      "url": "http://127.0.0.1:58264/art/index.json",
+      "ordinal": 3,
+      "completion": "native-json-fulfilled",
+      "reason": "native-json-does-not-expose-original-bytes"
+    }
+  ],
+  "failurePhaseCounts": {
+    "four-faction-readiness": 382,
+    "ordinary-paid-opening": 5
+  },
+  "failureObservedOrderCounts": {
+    "network-failure-before-native-eof": 385
+  },
+  "unprovedRequests": [
+    {
+      "failure": {
+        "requestId": "5791B3B9DDF2DA67BC8AD57F80D1859E:96227.2881",
+        "url": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "message": "net::ERR_ABORTED",
+        "canceled": true,
+        "order": 25221,
+        "phase": "ordinary-paid-opening",
+        "clientTick": 264
+      },
+      "native": {
+        "scope": "current-loader:40d403c6-79e6-450e-b047-59d008b1d542",
+        "url": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "method": "POST",
+        "ordinal": 7,
+        "startedAt": 26399.5,
+        "startedOrder": 18821,
+        "bytesRead": 358,
+        "hashedBytes": 358,
+        "readCalls": 2,
+        "readerCount": 1,
+        "bodyMethods": [],
+        "hashImplementation": "incremental-sha256-v1",
+        "updatedOrder": 19225,
+        "responseAt": 26400.400000095367,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "redirected": false,
+        "readerMode": "default",
+        "completion": "explicit-native-reader",
+        "eofAt": 26400.599999904633,
+        "eofOrder": 18825,
+        "sha256": "ab42d2c9e8a8e600bc328c35d31cb37855eed4fa2c30048a405ef921d6b481d3",
+        "hashAt": 26400.599999904633,
+        "hashOrder": 18826,
+        "signalAbortAt": 30399.299999952316,
+        "signalAbortOrder": 19225,
+        "cdpObserved": {
+          "eofOrder": 25222,
+          "hashOrder": 25223,
+          "signalAbortOrder": 25646
+        }
+      },
+      "request": {
+        "id": "5791B3B9DDF2DA67BC8AD57F80D1859E:96227.2881",
+        "nativeRequestId": "96227.2881",
+        "url": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "method": "POST",
+        "type": "Fetch",
+        "frameId": "5791B3B9DDF2DA67BC8AD57F80D1859E",
+        "loaderId": "9676A3FAE661AD94B393C117FDCA6680",
+        "documentURL": "http://127.0.0.1:58264/",
+        "initiator": "script",
+        "scriptIds": [
+          "6",
+          "7"
+        ],
+        "redirected": false,
+        "order": 25216,
+        "stamp": {
+          "phase": "ordinary-paid-opening",
+          "clientTick": 260
+        },
+        "status": 200,
+        "responseURL": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "fromServiceWorker": false,
+        "responseOrder": 25218,
+        "realm": "window-fetch",
+        "scope": "current-loader:40d403c6-79e6-450e-b047-59d008b1d542",
+        "proof": {
+          "targetId": "5791B3B9DDF2DA67BC8AD57F80D1859E",
+          "executionContextId": 3,
+          "executionContextUniqueId": "-7629050711368215019.3845228444040280393",
+          "frameId": "5791B3B9DDF2DA67BC8AD57F80D1859E",
+          "observerURL": "http://127.0.0.1:58264/__diagnostics__/current-loader-native-reader.js"
+        },
+        "ordinal": 7
+      },
+      "reason": "server-advice-provenance-incomplete",
+      "claim": "Native completion observed only; no expected server body, cancellation cause, decode success, or raw-error waiver."
+    },
+    {
+      "failure": {
+        "requestId": "5791B3B9DDF2DA67BC8AD57F80D1859E:96227.2908",
+        "url": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "message": "net::ERR_ABORTED",
+        "canceled": true,
+        "order": 25734,
+        "phase": "ordinary-paid-opening",
+        "clientTick": 576
+      },
+      "native": {
+        "scope": "current-loader:40d403c6-79e6-450e-b047-59d008b1d542",
+        "url": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "method": "POST",
+        "ordinal": 12,
+        "startedAt": 41999.700000047684,
+        "startedOrder": 19263,
+        "bytesRead": 358,
+        "hashedBytes": 358,
+        "readCalls": 2,
+        "readerCount": 1,
+        "bodyMethods": [],
+        "hashImplementation": "incremental-sha256-v1",
+        "updatedOrder": 19268,
+        "responseAt": 42000.5,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "redirected": false,
+        "readerMode": "default",
+        "completion": "explicit-native-reader",
+        "eofAt": 42000.90000009537,
+        "eofOrder": 19267,
+        "sha256": "37a97bff940eecb4357b3667f2f94248196d18efe4b4b25724fffb59c40e6056",
+        "hashAt": 42001,
+        "hashOrder": 19268,
+        "cdpObserved": {
+          "eofOrder": 25735,
+          "hashOrder": 25736
+        }
+      },
+      "request": {
+        "id": "5791B3B9DDF2DA67BC8AD57F80D1859E:96227.2908",
+        "nativeRequestId": "96227.2908",
+        "url": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "method": "POST",
+        "type": "Fetch",
+        "frameId": "5791B3B9DDF2DA67BC8AD57F80D1859E",
+        "loaderId": "9676A3FAE661AD94B393C117FDCA6680",
+        "documentURL": "http://127.0.0.1:58264/",
+        "initiator": "script",
+        "scriptIds": [
+          "6",
+          "7"
+        ],
+        "redirected": false,
+        "order": 25729,
+        "stamp": {
+          "phase": "ordinary-paid-opening",
+          "clientTick": 572
+        },
+        "status": 200,
+        "responseURL": "http://127.0.0.1:58264/api/v1/matches/d9acdce78640b9deaf69228c/advice",
+        "fromServiceWorker": false,
+        "responseOrder": 25731,
+        "realm": "window-fetch",
+        "scope": "current-loader:40d403c6-79e6-450e-b047-59d008b1d542",
+        "proof": {
+          "targetId": "5791B3B9DDF2DA67BC8AD57F80D1859E",
+          "executionContextId": 3,
+          "executionContextUniqueId": "-7629050711368215019.3845228444040280393",
+          "frameId": "5791B3B9DDF2DA67BC8AD57F80D1859E",
+          "observerURL": "http://127.0.0.1:58264/__diagnostics__/current-loader-native-reader.js"
+        },
+        "ordinal": 12
+      },
+      "reason": "server-advice-provenance-incomplete",
+      "claim": "Native completion observed only; no expected server body, cancellation cause, decode success, or raw-error waiver."
+    }
+  ],
+  "meaning": "A functional bounded nonterminal opening and identified static-byte integrity proof. Overall strict FAIL is unchanged; not full-match/matrix, all-network-clean, cause, performance, or art-completeness acceptance."
+}

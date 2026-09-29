@@ -1,0 +1,23 @@
+{
+  "status": "author-preflight-only",
+  "sourceLockSHA256": "4a465e0e4e4435eeadd8490cb0569e063d6c6a1fc1913aa7f4420029f100f610",
+  "preparedSHA256": "e7637f6546778c4bc38c79d4f00317860c69c405b627cfa5415e4dac444875f2",
+  "sourceInputs": 12,
+  "preparedInputs": 5627,
+  "productReceiptSHA256": "f714d2d6c761dc9b389f91034f361e4662f0c420e42905b1229b1ee76d7cd445",
+  "packSHA256": "9387365786fcd3f53049bdd1a87482a37eac8f18561fa276d36c977f26224559",
+  "limits": {
+    "limit": 16384,
+    "maxBody": 8388608,
+    "maxTotal": 805306368,
+    "maxActive": 16,
+    "maxBlob": 8388608,
+    "maxBlobRetained": 16777216
+  },
+  "browserAPI": {
+    "module": "playwright-core",
+    "loader": "createRequire",
+    "launch": true,
+    "executablePath": true
+  }
+}
