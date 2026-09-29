@@ -1,0 +1,104 @@
+{
+  "createdAt": "2026-09-29T11:17:21.725985+00:00",
+  "scope": "Read-only source inventory/proposal against frozen-v3. No browser, host, audio playback, UI/style/asset or production changes.",
+  "sourceLockSHA256": "a70a5df5cb053b9f1ee96f5ced310b83f99c2514764f6409c27b286d8ab21282",
+  "confirmedSourceRisks": [
+    "Canvas menu fallback uses uncaptured metadata and PNG requests.",
+    "Audio retry replaces index while decoded/pending buffers remain keyed only by URL."
+  ],
+  "notClaimed": [
+    "No new browser reproduction of consumer mixing.",
+    "No gameplay/fog corruption found in static decoration.",
+    "No separate briefing bitmap consumer exists in the inspected UI."
+  ],
+  "v25EmittedCSS": {
+    "path": "work/art/effects-opus-v2/integration-v25/product/assets/index-B9POc7XP.css",
+    "sha256": "c0009e1d3f3c0b94f8924a723a99108cdace1298cb04521b03f63e2171b1a783",
+    "boundedURLExamples": [
+      "/assets/Barlow-Regular-BeTQORF1.ttf",
+      "/assets/Barlow-Medium-BYD2zMwq.ttf",
+      "/assets/Barlow-SemiBold-DrsHaTWO.ttf",
+      "/assets/Barlow-Bold-CqhdknQi.ttf",
+      "/assets/BarlowCondensed-Regular-u9oSiJc6.ttf",
+      "/assets/BarlowCondensed-Medium-kxnlQoDx.ttf",
+      "/assets/BarlowCondensed-SemiBold-B7YG4rBL.ttf",
+      "/assets/BarlowCondensed-Bold-v1X23fbx.ttf",
+      "/assets/console_plate@2x-BNHCQEd0.png",
+      "/art/ui/chrome/console_plate@2x.png"
+    ]
+  },
+  "files": {
+    "work/art-generation-consumer-v1/frozen-v3/client/src/ui/MenuDiorama.tsx": {
+      "bytes": 10426,
+      "sha256": "b3d9e33ca26b051ef7b12728063924e44d7f8867a8ddc1bdee8cf2c1b164444c"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/ui/primitives.tsx": {
+      "bytes": 3139,
+      "sha256": "dd8c404d43aaa0d84b51d4588fa26d8eed97f6ee9721de64a4b03b4f430b6ad9"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/ui/Briefing.tsx": {
+      "bytes": 4151,
+      "sha256": "69c3c6d53f4647a640d35d4c4d6570e99ac7372f1758c77dbdea033a94264715"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/ui/SettingsPanel.tsx": {
+      "bytes": 8673,
+      "sha256": "fcb0826182d9c7c09585089ffdb9aa241aed39d443421a1fc1471493005d46cc"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/ui/TutorialGuide.tsx": {
+      "bytes": 4780,
+      "sha256": "8de7e060043c5f7086938e9413641c0869087de9efc637eddd79764f449f655c"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/ui/HelpPanel.tsx": {
+      "bytes": 4351,
+      "sha256": "dadbf36561e4f8b838ce3604f5916337b809c2c3cfd330f92d5f320e876ff4b3"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/styles/game.css": {
+      "bytes": 85858,
+      "sha256": "c3b43dd3d2054356a185dfa6e952c81f6b3690fd8930acac2b74dad71dbb5011"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/design/tokens.css": {
+      "bytes": 15295,
+      "sha256": "4fdeb15b131bf9c6735546e90575759b603053e819901ea5160a3daec318bf00"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/audio/index.ts": {
+      "bytes": 4788,
+      "sha256": "8bdc67d31259477994b9a1958297e4dfb0021799cb80ce84dd7e998157c59db4"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/audio/mixer.ts": {
+      "bytes": 18353,
+      "sha256": "83b20903bfcf09c055a8618d1a88bd7d40d922057bc85c9dcde3216009ef8f80"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/app/application.ts": {
+      "bytes": 16567,
+      "sha256": "3295c6a6ed30f566f79e473bfc6b1317b1189cc20e8d0d88db252278349a3a78"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/app/battle-controller.ts": {
+      "bytes": 32146,
+      "sha256": "fed3adc8662c774f17651c1272181fdd3bec151e0751b55a41254bdce4097818"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/app/mission-markers.ts": {
+      "bytes": 2378,
+      "sha256": "81ac77b122896cb535943a7e15bff37991891179681eae6bfc822dd5523f70ee"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/app/mission-groups.ts": {
+      "bytes": 2537,
+      "sha256": "dbdfdbc59a34c24cc60446d20dd513c31439ef8f19e1138ca2b3495a5baa4a97"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/runtime/content-library.ts": {
+      "bytes": 20334,
+      "sha256": "f36a69922fa139e75e2f651c2318b39d8664e0f5549250293bd30fc43301af42"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/runtime/cache.ts": {
+      "bytes": 10717,
+      "sha256": "0e5e75b84382c4b3440a7d61cd07192765f05f04e9a444cbe192c9b9f5d33221"
+    },
+    "work/art-generation-consumer-v1/frozen-v3/client/src/runtime/offline-response.ts": {
+      "bytes": 1695,
+      "sha256": "3ec3d8195f559266cc136da1f0f515f5c2b7b697c5957da893cfec5e72f9b25a"
+    },
+    "docs/asset-consumer-generation-scope.md": {
+      "bytes": 10917,
+      "sha256": "a8bc273e49bf46e4ea1605983b2d8c6fd4db49e7c9b28595b5d38fedef28f299"
+    }
+  }
+}
