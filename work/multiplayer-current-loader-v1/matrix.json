@@ -1,8 +1,8 @@
 {
-  "status": "prepared-all-browser-cases-unrun",
+  "status": "one-current-package-gameplay-lifecycle-pass-strict-failure",
   "date": "2026-09-29",
-  "preparation": "prepared-02",
-  "preparationSHA256": "e7637f6546778c4bc38c79d4f00317860c69c405b627cfa5415e4dac444875f2",
+  "preparation": "prepared-03",
+  "preparationSHA256": "55422bb2345e7381ac7cd886eb1c6e262c91623a95198633867582cb73693c83",
   "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/app-v3-build-03/product",
   "productReceiptSHA256": "f714d2d6c761dc9b389f91034f361e4662f0c420e42905b1229b1ee76d7cd445",
   "pack": {
@@ -111,7 +111,19 @@
         "SA"
       ],
       "rounds": 1,
-      "status": "unrun"
+      "status": "failed",
+      "evidence": "3h1ai-01",
+      "started": "2026-09-29T15:29:54.430Z",
+      "combatStatus": "passed",
+      "lifecycleStatus": "passed",
+      "nativeStatus": "passed",
+      "strictStatus": "failed",
+      "rawFailures": 3111,
+      "completed": "2026-09-29T16:07:41.600Z",
+      "winner": 2,
+      "finalTick": 43791,
+      "activeSeconds": 2184.55,
+      "finalHash": "70100402aa2328889bbedcffc9c43fa4cc630a3a1eaefb3ee8e2359357f691f7"
     },
     {
       "id": "4h2v2",
@@ -148,9 +160,10 @@
   ],
   "limitations": [
     "Art incomplete v25+36",
-    "No current-package multiplayer result yet",
+    "One current-package3H+1AI functional result; seven rows unrun; no strict current-matrix pass",
     "No physical LAN or brand-browser compatibility proof",
     "No reference performance claim",
     "No diagnostic abort whitelist"
-  ]
+  ],
+  "updated": "2026-09-29T16:07:41.600Z"
 }

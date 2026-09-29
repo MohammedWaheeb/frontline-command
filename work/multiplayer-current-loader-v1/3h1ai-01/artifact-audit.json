@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "scope": "Read-only exact archive, receipt, native-audit, replay-byte and derived-summary reconciliation. Does not waive raw failures, rerun a match, or establish request-body delivery.",
+  "courseStatus": "failed",
+  "strictStatus": "failed",
+  "rawFailures": 3111,
+  "rawReportSHA256": "cfb34368cbbf124dfcd8a8d2ec7cddd9840b0774e16573844859c0f7945e031d",
+  "archiveReceiptSHA256": "35948f66446d23cb922892b5b98fff7f67133b0ef572fb656abba48a57b1f109",
+  "summarySHA256": "cf4d9997b9e3243a80b461d1ff1c8aced637db29157a7bcc396fc40d503d2886",
+  "cases": [
+    {
+      "id": "round-1",
+      "orders": 2949,
+      "batches": 2935,
+      "finalTick": 43791,
+      "finalHash": "70100402aa2328889bbedcffc9c43fa4cc630a3a1eaefb3ee8e2359357f691f7",
+      "replaySHA256": "fb919a81b98bc2d0ec9754406fb546dab089c55f50b83de7fbdbc893d97f0168"
+    }
+  ]
+}
