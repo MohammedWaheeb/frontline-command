@@ -1,0 +1,15 @@
+# Private graphics build review
+
+No blocking issue was found in the retained **build-02** artifact. Review only: no compilation, browser, source/asset mutation or full payload rehash was performed. Root's separate `post-build-audit.json` records complete-byte/output-set verification.
+
+`review.py` independently extracts the actual original/candidate Vite source maps: 122 mapped client source files in each, 119 exact, and precisely the declared `render/art.ts`, `render/battlefield.ts`, `render/terrain.ts` replacements at their approved hashes. This closes the source relationship between the original ordinary App and the private clone without assuming that current live source still equals a past compiled bundle. Source maps are compiler-produced evidence, not an independent compiler correctness proof.
+
+The builder preserves nested source/dependency links and config, verifies its initial clone, installs exactly three replacements, and rechecks live and staged input identities after Vite. It disables the art/public copying plugins and inherits the original immutable package's runtime/art. CSS dependencies must have bytes already admitted by the original pack. `writeBasePack` derives the new identity; the authored content index is compared after normalizing only its derived pack version. Native host content/launchers/licenses are separately compared. Build-01's incorrect bare-array wrapper inventory remains preserved; build-02 uses the versioned object and checks all listed files.
+
+Read-only descriptor checks independently confirmed 4,382 protected art/runtime/font/license/notice pack entries, plus all 156 nonclient entries, unchanged. Both full package manifests contain 4,699 listed files; the private receipt reports 4,700 including the manifest itself. The differing count convention does not imply an unexplained extra artifact. Exactly seven old emitted chunk/map paths are replaced by seven new ones; nonclient changes are limited to version metadata.
+
+Current artifact pins: version `a20da5913d75fb125fa0c03ada0eee76c2867be0ec9d2345d688d3b1816d1904`, pack `56673aca898ee4344ceb323eae01f0b1e4f8af19ed5299f222569c0c9056afec`, root receipt `295ab39f1c08f2997baff33eeac7086b8a33b8fc4090d285a28398a93501378c`. Exact builder/receipts/manifests/maps are pinned in `result.json`.
+
+One bounded future reuse caveat: the builder admits every emitted Vite path as replaceable. Its fixed output has no art/runtime collision, as verified here. If generalized, restrict emitted paths or apply the existing presentation-output collision checks before copying, rather than allowing an arbitrary plugin output to remove itself from the preservation set. This is not a current package defect and does not require rebuilding the already reviewed artifact.
+
+The candidate remains private, with incomplete original art. Native rendering, warm pixels, actor reentry/picking, pending terrain and actual-App resource acceptance are separate gates. The original native/Go source revision is intentionally inherited and the three presentation deltas are explicitly recorded in `private_candidate`; this is not an ordinary final release rebuild.
