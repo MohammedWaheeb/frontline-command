@@ -1,5 +1,9 @@
 # Full-art aircraft payload course — authoring handoff
 
+## 2026-09-29 browser execution
+
+Corrected `firefox-01` and `webkit-01` **pass** all 80 rendered boundaries each, four replay courses, four cull/return checks and four deferred-page checks with zero recorded errors. `chromium-03` completes the same functional checks but **fails** the strict diagnostic gate on two raw damaged-smoke PNG aborts; no request is whitelisted. Cleanup returns worker/canvas/atlas/picking counts to zero, and all 264 inputs are reverified. Root's scoped screenshot review and limitations are recorded in `docs/aircraft-payload-full-course.md`; exact report hashes are in `three-engine-receipts.json`. Earlier pending statements below describe the preserved authoring checkpoints.
+
 ## 2026-09-29 adapter-delivery correction
 
 `chromium-01` and `chromium-02` are preserved **failed** browser attempts. The first last-shot boundary had identical authoritative state/hash but a wire mismatch: raw `Engine.PlayerView` retained the tick's shot event, whereas `Session.Load`/`SeekReplay` initialize an empty pending-feedback buffer. `Session.View` emits and drains that buffer. A perspective change is another View; pause alone does not drain it. This is an oracle mismatch, not evidence of a production or payload-art defect.
