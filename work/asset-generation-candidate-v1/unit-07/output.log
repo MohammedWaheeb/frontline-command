@@ -1,0 +1,23 @@
+✔ captures exact index/manifest and verifies online bytes before JSON/decode (16.34725ms)
+✔ retained A reads only A cache after B activation; explicit removal is fail closed (2.671667ms)
+✔ cold new generation needs no worker or network; legacy reconnect must match exact index (2.296541ms)
+✔ copied index, canonical manifest identity and private/unknown path exclusion (0.599958ms)
+✔ manifest/index mismatch, duplicates, reserved URLs and corrupt cache metadata fail before payload (1.163958ms)
+✔ truncated/oversized/corrupt payloads and canceled streams do not return bytes (1.602167ms)
+✔ leased object URLs are verified, keyed, reference-counted, bounded and disposed (1.647666ms)
+✔ bounded metadata, declared file sizes and redirected origins are rejected (0.504959ms)
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/unit-07/unit.mjs (47200.217292ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 47204.3595
+
+✖ failing tests:
+
+test at work/asset-generation-candidate-v1/unit-07/unit.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/unit-07/unit.mjs (47200.217292ms)
+  'test failed'

@@ -1,0 +1,35 @@
+{
+  "time": "2026-09-29T10:49:37.985181+00:00",
+  "status": "private-unit-and-typecheck-passed-browser-successor-unrun",
+  "sourceLockSHA256": "2772859b45570515bd7743371544b7a3f7a80a679cb14b50fe213ba3c677b5aa",
+  "productionChanged": [
+    "runtime/asset-generation.ts",
+    "runtime/cache.ts",
+    "runtime/offline-response.ts"
+  ],
+  "unit": {
+    "path": "unit-final/receipt.json",
+    "sha256": "3f9930c1dd1c7b09f249422ad9089e9ba589accd14b7a3f2aadf6435ad0855d1",
+    "passed": 13
+  },
+  "cacheRegression": {
+    "path": "cache-regression-02/receipt.json",
+    "sha256": "b9c25bb74c0ed7c733a685ee26dc3ebc14bdc07f4817f9f68f813158f8c93705",
+    "passed": 2
+  },
+  "actualV25": {
+    "path": "actual-product-01/receipt.json",
+    "sha256": "3410109d684da72fe096b69ead5d8bacdf0208fcd777767f74364444b0043ca3"
+  },
+  "typecheck": {
+    "command": "./client/node_modules/.bin/tsc --project work/asset-generation-candidate-v1/source/client/tsconfig.json",
+    "exit_code": 0,
+    "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limits": [
+    "No live source/product/runtime promotion.",
+    "No browser proof for the new helper or separate root consumer.",
+    "Original v25 actual A-descriptor/B-pixel mismatch and strict request failures preserved in52f0859.",
+    "Unit and filesystem-backed fetch timings are not performance benchmarks."
+  ]
+}

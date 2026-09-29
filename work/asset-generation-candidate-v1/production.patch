@@ -1,0 +1,195 @@
+diff --git a/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts b/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts
+new file mode 100644
+index 0000000..3d5e44c
+--- /dev/null
++++ b/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts
+@@ -0,0 +1,95 @@
++import {decodeContentIndex} from './content-library';
++import {PACK_PREFIX,READY_PATH,MANIFEST_PATH,type ContentPack} from './cache';
++import {sha256Hex} from './crypto';
++import {RuntimeError} from './errors';
++
++const MAX_MANIFEST=4<<20,MAX_FILE=128<<20,MAX_TOTAL=2*1024**3;
++function fail(code:string,message:string):never{throw new RuntimeError(code,message)}
++const canceled=(signal?:AbortSignal)=>{if(signal?.aborted)fail('asset_canceled','The asset load was canceled.')};
++const object=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
++function pathOf(value:unknown):string {
++ if(typeof value!=='string'||value.length>512||!/^\/[A-Za-z0-9_.@~/-]+$/.test(value)||value.includes('//')||value.split('/').some(x=>x==='.'||x==='..')||(value==='/api'||value.startsWith('/api/'))||value===READY_PATH||value===MANIFEST_PATH)fail('asset_path','Choose a declared same-origin public asset path.');
++ return value as string;
++}
++async function bytes(response:Response,maximum:number,signal?:AbortSignal){
++ canceled(signal);if(!response.ok||response.redirected)fail('asset_unavailable','The requested asset response is unavailable.');
++ const length=response.headers.get('Content-Length');if(length!==null&&(!/^\d+$/.test(length)||Number(length)>maximum))fail('asset_size','The asset response exceeds its allowed size.');
++ const reader=response.body?.getReader();if(!reader)return new Uint8Array();const chunks:Uint8Array[]=[];let count=0;
++ const abort=()=>{void reader.cancel().catch(()=>{})};signal?.addEventListener('abort',abort,{once:true});
++ try{for(;;){canceled(signal);const value=await reader.read();canceled(signal);if(value.done)break;count+=value.value.byteLength;if(count>maximum){void reader.cancel().catch(()=>{});fail('asset_size','The asset response exceeds its allowed size.')}chunks.push(value.value)}}finally{signal?.removeEventListener('abort',abort);reader.releaseLock()}
++ const joined=new Uint8Array(count);let offset=0;for(const chunk of chunks){joined.set(chunk,offset);offset+=chunk.length}return joined;
++}
++function parse(source:Uint8Array):unknown {try{return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(source))}catch{fail('asset_manifest_invalid','The asset metadata is not valid UTF-8 JSON.')}}
++function manifest(source:Uint8Array):ContentPack {
++ const data=parse(source);if(!object(data)||Object.keys(data).some(k=>!['id','version','files'].includes(k))||typeof data.id!=='string'||typeof data.version!=='string'||!Array.isArray(data.files)||data.files.length<1||data.files.length>16000)fail('asset_manifest_invalid','The asset manifest is invalid.');
++ if(!/^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$/.test(data.id)||!/^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$/.test(data.version))fail('asset_manifest_invalid','The asset manifest identity is invalid.');
++ const seen=new Set<string>();let total=0;const files=data.files.map(value=>{if(!object(value)||Object.keys(value).some(k=>!['path','sha256','bytes'].includes(k))||typeof value.sha256!=='string'||!/^[a-f0-9]{64}$/.test(value.sha256)||!Number.isSafeInteger(value.bytes)||Number(value.bytes)<0||Number(value.bytes)>MAX_FILE)fail('asset_manifest_invalid','An asset descriptor is invalid.');const path=pathOf(value.path);if(seen.has(path))fail('asset_manifest_invalid','An asset descriptor is duplicated.');seen.add(path);total+=Number(value.bytes);return Object.freeze({path,sha256:value.sha256,bytes:Number(value.bytes)})});
++ if(total>MAX_TOTAL)fail('asset_manifest_invalid','The asset manifest is too large.');return {id:data.id,version:data.version,files};
++}
++interface Ready {name:string;installedAt:number;files:number;manifestSHA256?:string;metadataFiles?:number}
++export interface AssetGenerationIdentity {readonly id:string;readonly version:string;readonly indexSHA256:string;readonly manifestSHA256:string;readonly key:string}
++export interface AssetLease {readonly url:string;readonly key:string;release():void}
++export interface AssetGenerationOptions {origin?:string;signal?:AbortSignal;fetcher?:typeof fetch;cacheStorage?:CacheStorage;maxLeaseBytes?:number}
++export interface AssetGeneration {
++ readonly identity:AssetGenerationIdentity;
++ readonly statistics:{readonly inFlight:number;readonly inFlightBytes:number;readonly queued:number;readonly leases:number;readonly leaseBytes:number;readonly disposed:boolean};
++ key(path:string):string;
++ read(path:string,signal?:AbortSignal):Promise<Uint8Array>;
++ json<T=unknown>(path:string,signal?:AbortSignal):Promise<T>;
++ lease(path:string,signal?:AbortSignal):Promise<AssetLease>;
++ dispose():void;
++}
++/** Capture one exact index/manifest generation. There is no raw-manifest bypass.
++ * This helper neither activates packs nor changes the running game's rules. */
++export async function captureAssetGeneration(indexSource:Uint8Array,packId:string,options:AssetGenerationOptions={}):Promise<AssetGeneration>{
++ const indexBytes=indexSource.slice(),index=decodeContentIndex(indexBytes),descriptor=index.packs.find(p=>p.id===packId);if(!descriptor)fail('asset_identity','The requested asset pack is absent from this content index.');
++ const base=new URL(options.origin??globalThis.location?.origin??'http://127.0.0.1:8080');if(!['http:','https:'].includes(base.protocol)||base.username||base.password||base.pathname!=='/'||base.search||base.hash)fail('asset_origin','Choose the game origin without credentials or a path.');
++ const origin=base.origin,fetcher=options.fetcher??globalThis.fetch.bind(globalThis),storage=options.cacheStorage??globalThis.caches;
++ const lifetime=new AbortController(),combined=(signal?:AbortSignal)=>AbortSignal.any([lifetime.signal,...options.signal?[options.signal]:[],...signal?[signal]:[]]);
++ const initialSignal=combined();canceled(initialSignal);let bound:Ready|undefined;
++ const present=async(name:string)=>!!storage&&(await storage.keys()).includes(name);
++ const ready=async():Promise<Ready|undefined>=>{
++  if(!storage)return;const names=(await storage.keys()).filter(n=>n.startsWith(PACK_PREFIX));if(names.length>128)fail('asset_cache_limit','Too many cached generations to inspect safely.');const candidates:Ready[]=[];
++  for(const name of names){canceled(initialSignal);if(!await present(name))continue;const cache=await storage.open(name),response=await cache.match(READY_PATH);if(!response)continue;let value:unknown;try{value=parse(await bytes(response,4096,initialSignal))}catch{continue}
++   if(!object(value)||value.id!==descriptor.id||value.version!==descriptor.version||!Number.isSafeInteger(value.installedAt)||Number(value.installedAt)<0||!Number.isSafeInteger(value.files)||Number(value.files)<1||Number(value.files)>16000)continue;
++   const metadata=value.metadataFiles??0;if(metadata!==0&&metadata!==1)continue;if(metadata===1&&(typeof value.manifestSHA256!=='string'||!/^[a-f0-9]{64}$/.test(value.manifestSHA256)))continue;
++   if((await cache.keys()).length<Number(value.files)+1+Number(metadata))continue;
++   candidates.push({name,installedAt:Number(value.installedAt),files:Number(value.files),metadataFiles:Number(metadata),...typeof value.manifestSHA256==='string'?{manifestSHA256:value.manifestSHA256}:{}});
++  }
++  return candidates.sort((a,b)=>b.installedAt-a.installedAt||(a.name<b.name?-1:a.name>b.name?1:0))[0];
++ };
++ const network=async(path:string,maximum:number,signal:AbortSignal)=>{canceled(signal);signal=AbortSignal.any([signal,AbortSignal.timeout(15000)]);let response:Response;try{response=await fetcher(new URL(path,origin),{credentials:'omit',redirect:'error',cache:'no-store',signal})}catch(error){canceled(signal);throw new RuntimeError('asset_unavailable','The exact asset generation is unavailable. Reconnect to its matching host or reinstall that generation.',true,error)}if(response.url&&new URL(response.url).origin!==origin)fail('asset_origin','The asset response came from another origin.');return bytes(response,maximum,signal)};
++ bound=await ready();let manifestBytes:Uint8Array|undefined;
++ if(bound){if(!await present(bound.name))fail('asset_generation_unavailable','The selected cached generation was removed.');const cache=await storage!.open(bound.name),response=await cache.match(MANIFEST_PATH);if(response){manifestBytes=await bytes(response,MAX_MANIFEST,initialSignal);if(bound.manifestSHA256&&await sha256Hex(manifestBytes)!==bound.manifestSHA256)fail('asset_integrity','The cached manifest failed its integrity check.')}else if(bound.metadataFiles)fail('asset_generation_unavailable','The completed generation is missing its manifest.');}
++ // Legacy caches lack the reserved manifest; reconnect for this exact indexed
++ // identity. Never derive trusted descriptors from arbitrary cached payloads.
++ manifestBytes??=await network(descriptor.manifest_url,MAX_MANIFEST,initialSignal);
++ const pack=manifest(manifestBytes),indexSHA256=await sha256Hex(indexBytes),manifestSHA256=await sha256Hex(new TextEncoder().encode(JSON.stringify(pack)));canceled(initialSignal);
++ if(pack.id!==descriptor.id||pack.version!==descriptor.version)fail('asset_identity','The pack manifest differs from the captured content index.');
++ const byPath=new Map(pack.files.map(f=>[f.path,f])),indexFile=byPath.get('/content/index.json');if(!indexFile||indexFile.bytes!==indexBytes.length||indexFile.sha256!==indexSHA256)fail('asset_identity','The manifest does not describe the exact captured content index.');
++ if(bound&&bound.files!==pack.files.length)fail('asset_identity','The completed cache does not match its captured manifest.');
++ const identity=Object.freeze({id:pack.id,version:pack.version,indexSHA256,manifestSHA256,key:`${pack.id}:${pack.version}:${manifestSHA256}`});
++ let disposed=false,inFlight=0,inFlightBytes=0,leaseBytes=0;const leases=new Map<string,{url:string;bytes:number;refs:number}>(),maximum=options.maxLeaseBytes??64<<20;
++ if(!Number.isSafeInteger(maximum)||maximum<1||maximum>256<<20)fail('asset_limit','The decoded asset lease limit is invalid.');
++ type Waiting={bytes:number;signal:AbortSignal;start:()=>void;abort:()=>void};const waiting:Waiting[]=[];
++ const pump=()=>{while(!disposed&&waiting.length&&inFlight<4&&inFlightBytes+waiting[0].bytes<=MAX_FILE){const job=waiting.shift()!;job.signal.removeEventListener('abort',job.abort);inFlight++;inFlightBytes+=job.bytes;job.start()}};
++ const acquire=(size:number,signal:AbortSignal):Promise<void>=>{canceled(signal);if(waiting.length>=64)fail('asset_busy','The bounded asset request queue is full.');return new Promise<void>((resolve,reject)=>{const job:Waiting={bytes:size,signal,start:resolve,abort:()=>{const index=waiting.indexOf(job);if(index<0)return;waiting.splice(index,1);signal.removeEventListener('abort',job.abort);reject(new RuntimeError('asset_canceled','The queued asset load was canceled.'));pump()}};waiting.push(job);signal.addEventListener('abort',job.abort,{once:true});if(signal.aborted)job.abort();else pump()})};
++ const file=(path:string)=>{const f=byPath.get(pathOf(path));if(!f)fail('asset_unknown','The asset is not declared by the captured manifest.');return f};
++ const live=(signal?:AbortSignal)=>{canceled(combined(signal));if(disposed)fail('asset_canceled','The asset generation was disposed.')};
++ const key=(path:string)=>{const f=file(path);return `${identity.key}:${f.path}:${f.sha256}`};
++ const read=async(path:string,signal?:AbortSignal)=>{
++  live(signal);const f=file(path),active=combined(signal);await acquire(f.bytes,active);
++  try{
++   if(!bound)bound=await ready();let data:Uint8Array;
++   if(bound){if(!await present(bound.name))fail('asset_generation_unavailable','The selected cached generation was removed.');const cache=await storage!.open(bound.name),response=await cache.match(new URL(f.path,origin).href);if(!response)fail('asset_generation_unavailable','The selected generation is missing a required asset.');data=await bytes(response,f.bytes,active);if(!await present(bound.name))fail('asset_generation_unavailable','The selected cached generation was removed during loading.');}
++   else data=await network(f.path,f.bytes,active);
++   live(signal);if(data.length!==f.bytes||await sha256Hex(data)!==f.sha256)fail('asset_integrity','The asset bytes differ from the captured generation.');live(signal);return data;
++  }finally{inFlight--;inFlightBytes-=f.bytes;pump()}
++ };
++ const lease=async(path:string,signal?:AbortSignal):Promise<AssetLease>=>{
++  live(signal);const f=file(path),cacheKey=key(path);let entry=leases.get(cacheKey);
++  if(!entry){const data=await read(path,signal);live(signal);entry=leases.get(cacheKey);if(!entry){if(leaseBytes+data.length>maximum)fail('asset_memory','Release unused asset leases before loading more pages.');const suffix=path.slice(path.lastIndexOf('.')),type=({'.png':'image/png','.svg':'image/svg+xml','.webp':'image/webp','.json':'application/json','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wasm':'application/wasm'} as Record<string,string>)[suffix]??'application/octet-stream';entry={url:URL.createObjectURL(new Blob([new Uint8Array(data).buffer],{type})),bytes:data.length,refs:0};leases.set(cacheKey,entry);leaseBytes+=data.length;}}
++  entry.refs++;let released=false;const retained=entry;return Object.freeze({url:entry.url,key:cacheKey,release(){if(released)return;released=true;retained.refs--;if(retained.refs===0&&leases.get(cacheKey)===retained){URL.revokeObjectURL(retained.url);leaseBytes-=retained.bytes;leases.delete(cacheKey)}}});
++ };
++ return Object.freeze({identity,key,read,json:async<T>(path:string,signal?:AbortSignal)=>parse(await read(path,signal)) as T,lease,get statistics(){return Object.freeze({inFlight,inFlightBytes,queued:waiting.length,leases:leases.size,leaseBytes,disposed})},dispose(){if(disposed)return;disposed=true;lifetime.abort();for(const entry of leases.values())URL.revokeObjectURL(entry.url);leases.clear();leaseBytes=0}});
++}
+diff --git a/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v25/source/client/src/runtime/cache.ts b/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/source/client/src/runtime/cache.ts
+index 0b9b30d..1d28bcc 100644
+--- a/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v25/source/client/src/runtime/cache.ts
++++ b/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/source/client/src/runtime/cache.ts
+@@ -2,9 +2,10 @@ import {sha256Hex,randomUUID} from './crypto';
+ import {RuntimeError} from './errors';
+ export const PACK_PREFIX='frontline-pack-v1:';
+ export const READY_PATH='/__frontline_pack_ready__';
++export const MANIFEST_PATH='/__frontline_pack_manifest__';
+ export interface PackFile{path:string;sha256:string;bytes:number}
+ export interface ContentPack{id:string;version:string;files:PackFile[]}
+-export interface InstalledPack{id:string;version:string;installedAt:number;files:number;bytes:number;cacheName:string}
++export interface InstalledPack{id:string;version:string;installedAt:number;files:number;bytes:number;cacheName:string;metadataFiles?:1;manifestSHA256?:string}
+ export function offlineCapability(){return {supported:globalThis.isSecureContext===true&&'serviceWorker' in navigator&&'caches' in globalThis&&!!globalThis.crypto?.subtle,reason:globalThis.isSecureContext?'':'Offline caching requires localhost or HTTPS. An ordinary LAN address still supports connected multiplayer.'}}
+ export async function registerOfflineWorker(url='/service-worker.js'){
+  if(!offlineCapability().supported)throw new RuntimeError('offline_unavailable',offlineCapability().reason||'This browser does not support offline game caching.');
+@@ -24,7 +25,7 @@ export async function installedPacks():Promise<InstalledPack[]>{
+   if(!name.startsWith(PACK_PREFIX))continue;
+   const cache=await caches.open(name),marker=await cache.match(READY_PATH);
+   if(!marker)continue;
+-  try{const value=await marker.json();if(typeof value.id==='string'&&typeof value.version==='string'&&Number.isFinite(value.installedAt)&&(await cache.keys()).length>=value.files+1)result.push({...value,cacheName:name})}catch{}
++  try{const value=await marker.json();if(typeof value.id==='string'&&typeof value.version==='string'&&Number.isFinite(value.installedAt)&&(value.metadataFiles===undefined||value.metadataFiles===1&&typeof value.manifestSHA256==='string'&&/^[a-f0-9]{64}$/.test(value.manifestSHA256))&&(await cache.keys()).length>=value.files+1+(value.metadataFiles??0))result.push({...value,cacheName:name})}catch{}
+  }
+  return result.sort((a,b)=>b.installedAt-a.installedAt||(a.cacheName<b.cacheName?-1:a.cacheName>b.cacheName?1:0));
+ }
+@@ -38,11 +39,12 @@ async function activationLock<T>(id:string,signal:AbortSignal|undefined,work:()=
+  const previous=activationWork.get(id)??Promise.resolve(),result=previous.catch(()=>{}).then(guarded);
+  activationWork.set(id,result);try{return await result}finally{if(activationWork.get(id)===result)activationWork.delete(id)}
+ }
+-async function activate(pack:ContentPack,signal?:AbortSignal,candidate?:{name:string;cache:Cache;bytes:number}):Promise<InstalledPack|undefined>{
++async function activate(pack:ContentPack,signal:AbortSignal|undefined,manifestSource:string,manifestSHA256:string,candidate?:{name:string;cache:Cache;bytes:number}):Promise<InstalledPack|undefined>{
+  return activationLock(pack.id,signal,async()=>{
+   const completed=await installedPacks();notCanceled(signal);
+   const nextTime=()=>completed.reduce((time,p)=>Math.max(time,p.installedAt+1),Date.now());
+-  const existing=completed.find(p=>p.id===pack.id&&p.version===pack.version);
++  let existing:InstalledPack|undefined;
++  for(const item of completed){if(item.id!==pack.id||item.version!==pack.version||item.metadataFiles!==1||item.manifestSHA256!==manifestSHA256)continue;const cache=await caches.open(item.cacheName),response=await cache.match(MANIFEST_PATH);if(!response)continue;try{const data=await readBounded(response,new TextEncoder().encode(manifestSource).length);if(new TextDecoder('utf-8',{fatal:true}).decode(data)===manifestSource){existing=item;break}}catch{}}
+   if(existing){
+    if(completed.find(p=>p.id===pack.id)?.cacheName!==existing.cacheName){
+     existing.installedAt=nextTime();const cache=await caches.open(existing.cacheName);notCanceled(signal);
+@@ -51,7 +53,7 @@ async function activate(pack:ContentPack,signal?:AbortSignal,candidate?:{name:st
+    if(candidate)await caches.delete(candidate.name);return existing;
+   }
+   if(!candidate)return;
+-  const installed={id:pack.id,version:pack.version,installedAt:nextTime(),files:pack.files.length,bytes:candidate.bytes,cacheName:candidate.name};
++  const installed={id:pack.id,version:pack.version,installedAt:nextTime(),files:pack.files.length,bytes:candidate.bytes,cacheName:candidate.name,metadataFiles:1 as const,manifestSHA256};
+   notCanceled(signal);await candidate.cache.put(READY_PATH,new Response(JSON.stringify(installed),{headers:{'Content-Type':'application/json'}}));return installed;
+  });
+ }
+@@ -65,17 +67,19 @@ async function readBounded(response:Response,expected:number):Promise<ArrayBuffe
+ }
+ export async function installPack(pack:ContentPack,onProgress?:(progress:{complete:number;total:number;bytes:number})=>void,signal?:AbortSignal):Promise<InstalledPack>{
+  notCanceled(signal);
++ try{pack=structuredClone(pack)}catch{throw new RuntimeError('pack_invalid','The content manifest cannot be captured.')}
+  if(!offlineCapability().supported)throw new RuntimeError('offline_unavailable',offlineCapability().reason||'Offline caching is unavailable in this browser.');
+  if(!/^[\w.-]{1,100}$/.test(pack.id)||!/^[\w.-]{1,100}$/.test(pack.version)||pack.files.length<1||pack.files.length>16000)throw new RuntimeError('pack_invalid','The game content manifest is invalid.');
+  const seen=new Set<string>();let expectedBytes=0;
+  for(const file of pack.files){
+   const url=new URL(file.path,location.origin);
+   const publicAPI=/^\/api\/v1\/(content|maps(?:\/[^/]+)?|missions(?:\/[^/]+)?)$/.test(url.pathname);
+-  if(url.origin!==location.origin||url.username||url.password||url.hash||url.pathname.startsWith('/api/')&&!publicAPI||url.pathname===READY_PATH||seen.has(url.href)||!(/^[a-f0-9]{64}$/i.test(file.sha256))||!Number.isSafeInteger(file.bytes)||file.bytes<0||file.bytes>128*1024*1024)throw new RuntimeError('pack_invalid','A content file is invalid, duplicated, private or outside this host.');
++  if(url.origin!==location.origin||url.username||url.password||url.hash||url.pathname.startsWith('/api/')&&!publicAPI||url.pathname===READY_PATH||url.pathname===MANIFEST_PATH||typeof file.path!=='string'||file.path.length>512||seen.has(url.href)||!(/^[a-f0-9]{64}$/i.test(file.sha256))||!Number.isSafeInteger(file.bytes)||file.bytes<0||file.bytes>128*1024*1024)throw new RuntimeError('pack_invalid','A content file is invalid, duplicated, private or outside this host.');
+   seen.add(url.href);expectedBytes+=file.bytes;
+  }
+  if(expectedBytes>2*1024*1024*1024)throw new RuntimeError('pack_too_large','Install a smaller map or faction pack first.');
+- const existing=await activate(pack,signal);if(existing){onProgress?.({complete:pack.files.length,total:pack.files.length,bytes:existing.bytes});return existing}
++ const manifestSource=JSON.stringify({id:pack.id,version:pack.version,files:pack.files.map(file=>({path:file.path,sha256:file.sha256,bytes:file.bytes}))}),manifestBytes=new TextEncoder().encode(manifestSource);if(manifestBytes.length>4*1024*1024)throw new RuntimeError('pack_invalid','The captured content manifest exceeds 4 MiB.');const manifestSHA256=await sha256Hex(manifestBytes);
++ const existing=await activate(pack,signal,manifestSource,manifestSHA256);if(existing){onProgress?.({complete:pack.files.length,total:pack.files.length,bytes:existing.bytes});return existing}
+  const name=PACK_PREFIX+pack.id+':'+pack.version+':'+randomUUID(),cache=await caches.open(name);let bytes=0,complete=0;
+  try{
+   for(const file of pack.files){
+@@ -96,7 +100,8 @@ export async function installPack(pack:ContentPack,onProgress?:(progress:{comple
+   }
+   // Activation is marker-last and uses fresh completion order inside a short
+   // cross-tab lock where supported; network transfers never hold that lock.
+-  return (await activate(pack,signal,{name,cache,bytes}))!;
++  notCanceled(signal);await cache.put(MANIFEST_PATH,new Response(manifestSource,{headers:{'Content-Type':'application/json'}}));
++  return (await activate(pack,signal,manifestSource,manifestSHA256,{name,cache,bytes}))!;
+  }catch(error){await caches.delete(name);notCanceled(signal);if(error instanceof RuntimeError)throw error;throw new RuntimeError('content_cache_failed','The pack could not be cached. Check storage space and retry; installed packs are preserved.',true,error)}
+ }
+ export async function removePack(cacheName:string){if(!cacheName.startsWith(PACK_PREFIX))throw new RuntimeError('invalid_pack','Choose an installed Frontline pack.');return caches.delete(cacheName)}
+diff --git a/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v25/source/client/src/runtime/offline-response.ts b/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/source/client/src/runtime/offline-response.ts
+index 09bab0d..7584ce8 100644
+--- a/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v25/source/client/src/runtime/offline-response.ts
++++ b/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/source/client/src/runtime/offline-response.ts
+@@ -8,7 +8,7 @@ export async function offlineResponse(request:Request):Promise<Response>{
+  for(const name of await caches.keys()){
+   if(!name.startsWith(PACK_PREFIX))continue;
+   const cache=await caches.open(name),marker=await cache.match(READY_PATH);
+-  if(marker)try{const data=await marker.json();if(typeof data.id==='string'&&Number.isFinite(data.installedAt)&&Number.isSafeInteger(data.files)&&data.files>0&&(await cache.keys()).length>=data.files+1)ready.push({id:data.id,cache,installedAt:data.installedAt,name})}catch{}
++  if(marker)try{const data=await marker.json();if(typeof data.id==='string'&&Number.isFinite(data.installedAt)&&Number.isSafeInteger(data.files)&&data.files>0&&(await cache.keys()).length>=data.files+1+(data.metadataFiles===1?1:0))ready.push({id:data.id,cache,installedAt:data.installedAt,name})}catch{}
+  }
+  ready.sort((a,b)=>b.installedAt-a.installedAt||(a.name<b.name?-1:a.name>b.name?1:0));
+  const seen=new Set<string>();

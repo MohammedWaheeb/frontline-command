@@ -1,0 +1,28 @@
+✔ captures exact index/manifest and verifies online bytes before JSON/decode (14.780709ms)
+✔ retained A reads only A cache after B activation; explicit removal is fail closed (2.460125ms)
+✔ cold new generation needs no worker or network; legacy reconnect must match exact index (2.058958ms)
+✔ copied index, canonical manifest identity and private/unknown path exclusion (0.537458ms)
+✔ manifest/index mismatch, duplicates, reserved URLs and corrupt cache metadata fail before payload (1.068667ms)
+✔ truncated/oversized/corrupt payloads and canceled streams do not return bytes (1.341292ms)
+✔ leased object URLs are verified, keyed, reference-counted, bounded and disposed (1.430042ms)
+✖ installer stores canonical manifest before READY; metadata failure/cancel keeps old usable cache (1.648958ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 64.644458
+
+✖ failing tests:
+
+test at work/asset-generation-candidate-v1/unit-03/unit.mjs:864:1
+✖ installer stores canonical manifest before READY; metadata failure/cancel keeps old usable cache (1.648958ms)
+  ReferenceError: manifestSHA256 is not defined
+      at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/unit-03/unit.mjs:330:181
+      at async activationLock (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/unit-03/unit.mjs:295:12)
+      at async installPack (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/unit-03/unit.mjs:384:20)
+      at async TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/unit-03/unit.mjs:870:19)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

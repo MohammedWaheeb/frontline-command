@@ -1,0 +1,20 @@
+✔ captures exact index/manifest and verifies online bytes before JSON/decode (16.827875ms)
+✔ retained A reads only A cache after B activation; explicit removal is fail closed (2.439125ms)
+✔ cold new generation needs no worker or network; legacy reconnect must match exact index (1.957625ms)
+✔ copied index, canonical manifest identity and private/unknown path exclusion (0.599875ms)
+✔ manifest/index mismatch, duplicates, reserved URLs and corrupt cache metadata fail before payload (1.80675ms)
+✔ truncated/oversized/corrupt payloads and canceled streams do not return bytes (1.478708ms)
+✔ leased object URLs are verified, keyed, reference-counted, bounded and disposed (1.548125ms)
+✔ bounded metadata, declared file sizes and redirected origins are rejected (0.496833ms)
+✔ normal startup fan-out queues FIFO and all reads finish within the active bound (5.237458ms)
+✔ queued cancellation and dispose never start waiting network; queue length is bounded (1.590542ms)
+✔ installer stores canonical manifest before READY; metadata failure/cancel keeps old usable cache (4.027583ms)
+✔ legacy reinstall creates a verified successor; mutation of caller manifest cannot alter the transaction (2.032709ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 83.517625

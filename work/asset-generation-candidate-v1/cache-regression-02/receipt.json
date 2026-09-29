@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "tests": 2,
+  "scope": "Existing focused cache tests copied unchanged; private metadata delta; no browser or server",
+  "command": "node --test --test-concurrency=1 --test-timeout=10000 work/asset-generation-candidate-v1/cache-regression-02/*.mjs",
+  "sources": [
+    {
+      "path": "source/client/tests/runtime/cache-response.test.ts",
+      "sha256": "63361e3ded46147f5feed776e51b7da705664a4697d238a64ff2ac19b9094ddf"
+    },
+    {
+      "path": "source/client/tests/runtime/offline-upgrade.test.ts",
+      "sha256": "c27c3cc567cf08ca0d9fe886bceccf2cec06a7769132857f1a105c1c97d2c9d2"
+    }
+  ],
+  "productionLockSHA256": "2772859b45570515bd7743371544b7a3f7a80a679cb14b50fe213ba3c677b5aa",
+  "logSHA256": "1bfda76104bb8acc6611dc6b1b9cd47b6a445bf149e940568c1e19935306308e"
+}

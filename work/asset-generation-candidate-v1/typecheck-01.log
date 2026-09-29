@@ -1,0 +1,36 @@
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(25,47): error TS18046: 'data' is of type 'unknown'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(25,99): error TS18046: 'data' is of type 'unknown'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(26,55): error TS18046: 'data' is of type 'unknown'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(26,70): error TS7006: Parameter 'value' implicitly has an 'any' type.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(27,98): error TS18046: 'data' is of type 'unknown'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(27,114): error TS18046: 'data' is of type 'unknown'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(54,34): error TS18048: 'descriptor' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(54,65): error TS18048: 'descriptor' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(66,32): error TS18048: 'descriptor' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(68,15): error TS18048: 'descriptor' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(68,45): error TS18048: 'descriptor' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(76,73): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(76,83): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(78,89): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(78,198): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(81,206): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(81,349): error TS2345: Argument of type 'Response | undefined' is not assignable to parameter of type 'Response'.
+  Type 'undefined' is not assignable to type 'Response'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(81,358): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(82,28): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(82,35): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(83,34): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(83,67): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(84,38): error TS18048: 'f' is possibly 'undefined'.
+work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts(88,526): error TS2322: Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BlobPart'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'.
+          Types of property '[Symbol.toStringTag]' are incompatible.
+            Type '"SharedArrayBuffer"' is not assignable to type '"ArrayBuffer"'.
+work/asset-generation-candidate-v1/source/client/tests/runtime/asset-generation.test.ts(22,401): error TS2345: Argument of type 'Uint8Array<ArrayBufferLike> | undefined' is not assignable to parameter of type 'BodyInit | null | undefined'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'BodyInit | null | undefined'.
+    Type 'Uint8Array<ArrayBufferLike>' is missing the following properties from type 'URLSearchParams': size, append, delete, get, and 2 more.
+work/asset-generation-candidate-v1/source/client/tests/runtime/asset-generation.test.ts(23,227): error TS2345: Argument of type 'Uint8Array<ArrayBufferLike>' is not assignable to parameter of type 'BodyInit | null | undefined'.
+  Type 'Uint8Array<ArrayBufferLike>' is missing the following properties from type 'URLSearchParams': size, append, delete, get, and 2 more.

@@ -1,0 +1,30 @@
+✔ captures exact index/manifest and verifies online bytes before JSON/decode (18.635416ms)
+✔ retained A reads only A cache after B activation; explicit removal is fail closed (2.806875ms)
+✔ cold new generation needs no worker or network; legacy reconnect must match exact index (2.368541ms)
+✔ copied index, canonical manifest identity and private/unknown path exclusion (0.632542ms)
+✔ manifest/index mismatch, duplicates, reserved URLs and corrupt cache metadata fail before payload (1.242208ms)
+✔ truncated/oversized/corrupt payloads and canceled streams do not return bytes (1.636542ms)
+✔ leased object URLs are verified, keyed, reference-counted, bounded and disposed (1.900334ms)
+✖ installer stores canonical manifest before READY; metadata failure/cancel keeps old usable cache (0.506833ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 78.63
+
+✖ failing tests:
+
+test at work/asset-generation-candidate-v1/unit-02/unit.mjs:864:1
+✖ installer stores canonical manifest before READY; metadata failure/cancel keeps old usable cache (0.506833ms)
+  Error [RuntimeError]: Offline caching is unavailable in this browser.
+      at installPack (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/unit-02/unit.mjs:371:45)
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/asset-generation-candidate-v1/unit-02/unit.mjs:870:25)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    code: 'offline_unavailable',
+    recoverable: true,
+    details: undefined
+  }
