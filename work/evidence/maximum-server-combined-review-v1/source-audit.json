@@ -1,0 +1,124 @@
+{
+  "createdAt": "2026-09-29T17:34:16.566220+00:00",
+  "scope": "Read-only file/hash/source comparison, no compiler/tests/host/browser/timing execution.",
+  "sourceLockSHA256": "7ac31472467322e374eee42781735b2ada2ab2f062445d38097ed43681e2abd3",
+  "lockedFiles": 360,
+  "actualFiles": 361,
+  "changedHashes": [],
+  "missing": [],
+  "extra": [],
+  "symlinks": [],
+  "ignoreExact": true,
+  "vsOriginalInstrumented": {
+    "changed": [
+      "internal/server/match.go",
+      "pkg/sim/navigation.go",
+      "pkg/sim/replay.go"
+    ],
+    "added": [
+      "internal/server/replay_checkpoint.go",
+      "internal/server/replay_checkpoint_test.go",
+      "pkg/sim/navigation_raster_test.go",
+      "pkg/sim/replay_checkpoint_test.go"
+    ],
+    "removed": []
+  },
+  "vsReuse": {
+    "changed": [
+      "pkg/sim/navigation.go"
+    ],
+    "added": [
+      "pkg/sim/navigation_raster_test.go"
+    ],
+    "removed": []
+  },
+  "cleanFiles": [
+    {
+      "path": "internal/server/match.go",
+      "candidateHashMatches": true,
+      "baselineHashMatches": true,
+      "matchesInstrumented": false
+    },
+    {
+      "path": "internal/server/replay_checkpoint.go",
+      "candidateHashMatches": true,
+      "baselineHashMatches": true,
+      "matchesInstrumented": true
+    },
+    {
+      "path": "internal/server/replay_checkpoint_test.go",
+      "candidateHashMatches": true,
+      "baselineHashMatches": true,
+      "matchesInstrumented": true
+    },
+    {
+      "path": "pkg/sim/navigation.go",
+      "candidateHashMatches": true,
+      "baselineHashMatches": true,
+      "matchesInstrumented": true
+    },
+    {
+      "path": "pkg/sim/navigation_raster_test.go",
+      "candidateHashMatches": true,
+      "baselineHashMatches": true,
+      "matchesInstrumented": true
+    },
+    {
+      "path": "pkg/sim/replay.go",
+      "candidateHashMatches": true,
+      "baselineHashMatches": true,
+      "matchesInstrumented": true
+    },
+    {
+      "path": "pkg/sim/replay_checkpoint_test.go",
+      "candidateHashMatches": true,
+      "baselineHashMatches": true,
+      "matchesInstrumented": true
+    }
+  ],
+  "cleanMatchExactlyCheckpointReplacement": true,
+  "timingWorkloadExact": true,
+  "timingWorkloadSHA256": "f014953ce8253f4684751bde42aeb2055b05c55d8f4dd1ad1870cb797b94be8a",
+  "runnerGuardExact": true,
+  "runnerOnlyPathCorrection": true,
+  "cleanSourceProbeTokens": [],
+  "reviewedFiles": {
+    "source-lock.json": {
+      "sha256": "7ac31472467322e374eee42781735b2ada2ab2f062445d38097ed43681e2abd3",
+      "bytes": 39757
+    },
+    "production-inventory.json": {
+      "sha256": "5e245676eaf690224ee9ddc941abbff0889c7a3219819ea549dc5cb373f5fe77",
+      "bytes": 2037
+    },
+    "production.diff": {
+      "sha256": "3dfd0ac8ac2a09c05a468a41a93b24d526c867ef90525498a35de53796d77805",
+      "bytes": 19828
+    },
+    "run-server.py": {
+      "sha256": "0b2b1a451dd6d12a809817889d6ed4e25dbd23a62e87f237229111f22f4cf3a6",
+      "bytes": 3663
+    },
+    "run-server-paths-before-review.py": {
+      "sha256": "5068e5f584f77d2a99e293c34c9e30cb075edf82aacfa514b928f45933a418e5",
+      "bytes": 3677
+    },
+    "runner_guard.py": {
+      "sha256": "55bc657f42ab0cc53fed601dbb2c75a0c86d9e412d4a524e1d39e5d4a7e3a3db",
+      "bytes": 3463
+    },
+    "preflight.json": {
+      "sha256": "fa162fcf823277fddbcde83974d5581e286c2364026e7b42444f85f416223db7",
+      "bytes": 2065
+    },
+    "author-checks.json": {
+      "sha256": "0393a27b502d020701fbdecbc16f87ab82f1a01811860aae3e0e8f88407e9618",
+      "bytes": 661
+    },
+    "prepare.py": {
+      "sha256": "e9a38d51ea8395ffd63a480996352ad8e045f20aa6cbd870fa83379004617e3a",
+      "bytes": 6128
+    }
+  },
+  "conclusion": "No remaining read-only source blocker after path correction; correctness and strict quiet timing remain separate unexecuted gates in this review."
+}

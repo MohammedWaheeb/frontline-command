@@ -1,0 +1,39 @@
+{
+  "status": "prepared_not_executed",
+  "utc": "2026-09-29T17:30:45.070605+00:00",
+  "preparer_sha256": "e9a38d51ea8395ffd63a480996352ad8e045f20aa6cbd870fa83379004617e3a",
+  "source_guard": {
+    "source_lock_sha256": "7ac31472467322e374eee42781735b2ada2ab2f062445d38097ed43681e2abd3",
+    "base_lock_sha256": "36a7a73678c71dc57709ab4a655e545382e24ae808900b784832f747292c6444",
+    "locked_files": 360,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 361
+  },
+  "raster_lock_file": "candidate-source-lock-v3.json",
+  "raster_lock_sha256": "16f9b43d7f5fe97ee35f9a74ecbec529d4763a14e1d8eb86565675327dedfb74",
+  "imported_files": {
+    "pkg/sim/navigation.go": "6a51329f420cebbff652e493409f0aa1337a03c47e12910d664008fe824732b9",
+    "pkg/sim/navigation_raster_test.go": "120e4b387a6f6817500b8d61b5a9d1c79617b5341b915df4b0b6ee7a658b4b8f"
+  },
+  "unchanged_from_reuse": 358,
+  "changed_from_reuse": [
+    "pkg/sim/navigation.go"
+  ],
+  "added_from_reuse": [
+    "pkg/sim/navigation_raster_test.go"
+  ],
+  "removed_from_reuse": [],
+  "original_timing_test_sha256": "f014953ce8253f4684751bde42aeb2055b05c55d8f4dd1ad1870cb797b94be8a",
+  "runner_sha256": "0b2b1a451dd6d12a809817889d6ed4e25dbd23a62e87f237229111f22f4cf3a6",
+  "guard_sha256": "55bc657f42ab0cc53fed601dbb2c75a0c86d9e412d4a524e1d39e5d4a7e3a3db",
+  "production_diff_sha256": "3dfd0ac8ac2a09c05a468a41a93b24d526c867ef90525498a35de53796d77805",
+  "production_inventory_sha256": "5e245676eaf690224ee9ddc941abbff0889c7a3219819ea549dc5cb373f5fe77",
+  "compiled": false,
+  "executed": false,
+  "runner_review_correction": {
+    "scope": "Read-only review caught nonexistent inherited source paths before compile/execution. Corrected two runner path literals; source lock/workload unchanged. Original runner/preparer/preflight preserved.",
+    "original_runner_sha256": "5068e5f584f77d2a99e293c34c9e30cb075edf82aacfa514b928f45933a418e5",
+    "original_preflight_sha256": "1ea108c6aacebde10665dc5c5bad7150df4d9418a513f83c7619c9ca36715aff",
+    "corrected_utc": "2026-09-29T17:32:05.442207+00:00"
+  }
+}
