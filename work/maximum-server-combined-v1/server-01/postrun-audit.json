@@ -1,0 +1,128 @@
+{
+  "status": "passed",
+  "audited_utc": "2026-09-29T18:09:58.176039+00:00",
+  "scope": "Read-only completed receipt/raw-sample/hash audit; no rerun. Exact original save/full-replay byte comparison; protocol counts and original privacy checks are not relabeled as retained per-frame wire-byte equality.",
+  "script_sha256": "6f4a85f48cf290ea10f9ef00acbe4ec39ae93032efdc0a0f433eee93a26ad33a",
+  "receipt_sha256": "5c8482df045dae8c5eee34bc6b10f6331c15d8f90143414f62da640ae9968a54",
+  "server_json_sha256": "20945d90c3b0ccf104051b1d47191bdf9442bed9426bc429c40fcd410a9dd8d3",
+  "binary_sha256": "7bcd3f5eb0d8e74d6db8752d294712bed692eba4e94913b38a8736debefc03aa",
+  "source_guard": {
+    "source_lock_sha256": "7ac31472467322e374eee42781735b2ada2ab2f062445d38097ed43681e2abd3",
+    "base_lock_sha256": "36a7a73678c71dc57709ab4a655e545382e24ae808900b784832f747292c6444",
+    "locked_files": 360,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 361
+  },
+  "clean_guard": {
+    "source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 359,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 360
+  },
+  "artifact_hashes_verified": 13,
+  "original_receipt_status": "failed",
+  "exact_original_artifacts": {
+    "final.save.json": {
+      "bytes": 2983528,
+      "sha256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a"
+    },
+    "closed.save.json": {
+      "bytes": 2983528,
+      "sha256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a"
+    },
+    "replay.gz": {
+      "bytes": 108026,
+      "sha256": "357b19e8774d8e9f3b695a3a66e622cfbd890e3fca49746a539fe0a60fcf46bd"
+    },
+    "captured.replay.gz": {
+      "bytes": 108026,
+      "sha256": "357b19e8774d8e9f3b695a3a66e622cfbd890e3fca49746a539fe0a60fcf46bd"
+    }
+  },
+  "summary": {
+    "actor_tick": {
+      "max_ms": 42.876417,
+      "p50_ms": 11.461625,
+      "p95_ms": 20.421166,
+      "p99_ms": 26.085334,
+      "samples": 600
+    },
+    "advance": {
+      "max_ms": 26.515334,
+      "p50_ms": 10.633375,
+      "p95_ms": 16.078792,
+      "p99_ms": 19.581167,
+      "samples": 600
+    },
+    "archive": {
+      "max_ms": 4.332875,
+      "p50_ms": 0.445709,
+      "p95_ms": 3.348,
+      "p99_ms": 3.998875,
+      "samples": 600
+    },
+    "dequeue_lag": {
+      "max_ms": 4.573458,
+      "p50_ms": 2.018084,
+      "p95_ms": 2.056126,
+      "p99_ms": 2.063334,
+      "samples": 600
+    },
+    "peer_encode_enqueue": {
+      "max_ms": 5.434375,
+      "p50_ms": 0.000625,
+      "p95_ms": 3.579083,
+      "p99_ms": 4.881166,
+      "samples": 600
+    }
+  },
+  "tick2": {
+    "tick": 2,
+    "scheduled": "2026-09-29T21:07:53.954264833+03:00",
+    "started": "2026-09-29T21:07:53.956282+03:00",
+    "advance_ns": 6297083,
+    "archive_ns": 316916,
+    "replay_checkpoint_ns": 0,
+    "save_enqueue_ns": 0,
+    "peer_encode_enqueue_ns": 666,
+    "actor_tick_ns": 6616041
+  },
+  "tick600": {
+    "tick": 600,
+    "scheduled": "2026-09-29T21:08:23.854116083+03:00",
+    "started": "2026-09-29T21:08:23.856164+03:00",
+    "advance_ns": 12593750,
+    "archive_ns": 3340667,
+    "replay_checkpoint_ns": 24645584,
+    "save_enqueue_ns": 667,
+    "peer_encode_enqueue_ns": 2292166,
+    "actor_tick_ns": 42876417
+  },
+  "maximum_actor_sample": {
+    "tick": 600,
+    "scheduled": "2026-09-29T21:08:23.854116083+03:00",
+    "started": "2026-09-29T21:08:23.856164+03:00",
+    "advance_ns": 12593750,
+    "archive_ns": 3340667,
+    "replay_checkpoint_ns": 24645584,
+    "save_enqueue_ns": 667,
+    "peer_encode_enqueue_ns": 2292166,
+    "actor_tick_ns": 42876417
+  },
+  "checkpoint": [
+    {
+      "Tick": 600,
+      "NS": 10014583,
+      "Bytes": 2983528,
+      "SHA256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+      "RowExact": true,
+      "Error": ""
+    }
+  ],
+  "canonical_hash": "71bf256a2a95d16e3a65c39977e5d247ebcd81b3088495864806fca313beb8c1",
+  "executed_results": 72,
+  "landed": 64,
+  "missed_ticker_slots": 0,
+  "actor_ticks_at_or_over50ms": 0
+}

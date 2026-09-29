@@ -1,6 +1,25 @@
 # Combined static-grid and checkpoint candidate
 
-29 September 2026. **Isolated preparation; real actor timing has not run.** Live Go/runtime, the original failed server-01 course and both independently reviewed candidates remain untouched. The earlier tick2 and tick600 overruns remain failures until a fresh course passes the unchanged gates.
+29 September 2026. **The single combined actor course passed the unchanged gates.** Live Go/runtime, the original failed server-01 course and both independently reviewed candidates remain untouched. The original tick2 and tick600 overruns are preserved as failures; the new result below is a separate source-specific proof.
+
+## Actual result —18:07:50–18:08:27 UTC
+
+`server-01/receipt.json` records one compile2.49s and one native test34.67s, both exit0. Root coordinated a quiet agent window after IR ISR completed render/pack/UI/native/handoff and held the next SA fighter; Einstein's browser/HTTP and root's heavy work were closed. Actual power was AC100%. No Blender/Go/compiler/host/test/automation-browser was active at prelaunch. Ordinary desktop/background activity remained, including WindowServer around35% CPU and single-digit wallpaper/Claude/node usage; the full process-name snapshot is retained. This is Apple M4/16GiB, Go1.27.1/GOMAXPROCS1, not an Intel/reference-hardware or fully idle OS claim.
+
+All600 actual ticks passed: **zero actor spans at/over50ms, zero missed ticker slots**. Tick2 Advance was6.297ms (original142.362ms); tick600 actor total was42.876ms (original58.262ms). No warm-up or checkpoint sample was excluded.
+
+| Span | p95 ms | p99 ms | Maximum ms |
+| --- | --- | --- | --- |
+| Engine.Advance |16.079 |19.581 |26.515 |
+| Entire measured actor tick |20.421 |26.085 |42.876 |
+| Four-view archive capture |3.348 |3.999 |4.333 |
+| Peer encode/enqueue |3.579 |4.881 |5.434 |
+
+The maximum is tick600:12.594ms Advance,3.341ms archive,24.646ms replay capture,0.000667ms save enqueue,2.292ms peer serialization/enqueue. Actual asynchronous SQLite checkpoint persistence took10.015ms and the independently read2983528-byte row matched exactly. All72 accepted batches,64 landings,24 interceptions,151 state deliveries per perspective, private-owner filtering, canonical final state, restore, full replay and checkpoint replay checks passed. Final hash is `71bf256a2a95d16e3a65c39977e5d247ebcd81b3088495864806fca313beb8c1`.
+
+Both final/closed save files are byte-identical to the original failed timing run: `dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a`. Both full/captured replay files likewise match:108026bytes, `357b19e8774d8e9f3b695a3a66e622cfbd890e3fca49746a539fe0a60fcf46bd`. Executable SHA is `7bcd3f5eb0d8e74d6db8752d294712bed692eba4e94913b38a8736debefc03aa`. `audit-result.py` independently verifies all13 artifact hashes, executable/source locks, raw600 samples and original save/replay byte equality; `server-01/postrun-audit.json` records the proof. Original receipt status remains failed. Per-peer byte/count totals also match, but are not relabeled as retained per-frame byte-equality proof.
+
+All raw samples and compact receipts are checkpointed; large save/replay/SQLite objects and the executable remain locally at the hashed paths. The measured native memory-peer course excludes public HTTP/WebSocket/advice, slow clients, concurrent matches, final-art browser load and long-session/reference-device acceptance. No live source/runtime promotion has occurred.
 
 ## Source identity
 
@@ -28,7 +47,7 @@ The complete timing test is byte-identical SHA `f014953ce8253f4684751bde42aeb205
 
 The runner retains the reviewed exact-inventory guard, before/after source checks, failure-preserving receipts, bounded compile/test process groups and fresh output requirement. New candidate output will be here at `server-01/`, distinct from the original failed course. Four bounded memory sinks remain; no public-network/advice/cloud/reference-hardware claim is added.
 
-After independent review and an explicit whole-asset quiet dispatch only:
+The single executed command used the following form after independent review and explicit whole-asset quiet dispatch; exact actual conditions are retained in its receipt:
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 work/maximum-server-combined-v1/run-server.py server-01 \
@@ -43,4 +62,4 @@ One GOMAXPROCS1 compile is bounded60s; one exact600-tick test uses Go75s/outer80
 
 `run-clean-checks.py` uses that clean twin for serial all-package short, focused native checkpoint checks and actual Go/WASM artifact equality, checking both source locks before and after. It never launches the real actor course. Its distinct output is `checks-02`; command duration on the shared host is not a performance result. Original `run-checks.py` remains as failed-attempt provenance.
 
-**`checks-02` passed:** all-package short72.24s, focused native3.40s, actual WASM5.14s command spans. Both complete source inventories/hashes passed before and after; root's five raster tests are included in the clean short suite. The retained688-actor tick600 save (`dd8de215…876a`,2983528bytes), boundary replay (`e33edfcf…11d5`,158677bytes) and packed checkpoint (`79556230…23ce`,78880bytes) are exact native/WASM matches and match the separately checked reuse candidate. These files remain local; the receipt contains full digests. No combined race repetition was needed after both unchanged slices' focused race proofs. Real actor timing remains unrun and no cadence pass is claimed.
+**`checks-02` passed:** all-package short72.24s, focused native3.40s, actual WASM5.14s command spans. Both complete source inventories/hashes passed before and after; root's five raster tests are included in the clean short suite. The retained688-actor tick600 save (`dd8de215…876a`,2983528bytes), boundary replay (`e33edfcf…11d5`,158677bytes) and packed checkpoint (`79556230…23ce`,78880bytes) are exact native/WASM matches and match the separately checked reuse candidate. These files remain local; the receipt contains full digests. No combined race repetition was needed after both unchanged slices' focused race proofs. The later actor qualification is separately documented above.
