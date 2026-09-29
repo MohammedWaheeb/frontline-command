@@ -1,0 +1,78 @@
+{
+  "scope": "Saved evidence recomputation only. No browser, additional product request, runtime execution or diagnostic waiver.",
+  "status": "passed-scoped-review",
+  "inputPins": 88,
+  "rawStatus": "failed",
+  "originalBodies": 689,
+  "exactFailedBodyProofs": 25,
+  "unprovedFailures": 0,
+  "unsupportedSuccessfulRequests": 102,
+  "ordering": {
+    "network-failure-before-native-eof": 25
+  },
+  "extensions": {
+    ".json": 3,
+    ".png": 22
+  },
+  "controls": [
+    {
+      "kind": "valid",
+      "url": "http://127.0.0.1:49426/__native_body_controls__/valid",
+      "complete": true,
+      "reason": "native-consumer-complete-and-bytes-exact",
+      "requestId": "6EF27512F1462B7BFAE7FEE893B03792:68010.920"
+    },
+    {
+      "kind": "truncated",
+      "url": "http://127.0.0.1:49426/__native_body_controls__/truncated",
+      "complete": false,
+      "reason": "incomplete-native-body",
+      "requestId": "6EF27512F1462B7BFAE7FEE893B03792:68010.921"
+    },
+    {
+      "kind": "network",
+      "url": "http://127.0.0.1:49426/__native_body_controls__/network",
+      "complete": false,
+      "reason": "response-provenance-incomplete"
+    },
+    {
+      "kind": "wrong-hash",
+      "url": "http://127.0.0.1:49426/__native_body_controls__/wrong-hash",
+      "complete": false,
+      "reason": "native-body-hash-mismatch",
+      "requestId": "6EF27512F1462B7BFAE7FEE893B03792:68010.923"
+    }
+  ],
+  "paid": 500000,
+  "save": {
+    "tick": 471,
+    "hash": "7c191c45895605c810d5f874d44b12d457d16efa6f1ecb21ef6bb57b0b84a2b5"
+  },
+  "workerCleanup": "passed",
+  "accounting": [
+    {
+      "scope": "current-loader:52e19fcf-9135-4469-bf07-4922bc8b3334",
+      "activeHashes": 0,
+      "peakActiveHashes": 4,
+      "totalHashedBytes": 65066329,
+      "hashArrayBytesPerActive": 608,
+      "retainedResponseChunkBytes": 0,
+      "retainedBlobBytes": 0,
+      "peakRetainedBlobBytes": 0,
+      "pendingBlobProofs": 0,
+      "limits": {
+        "records": 16384,
+        "maxBody": 67108864,
+        "maxTotal": 2147483648,
+        "maxActive": 16,
+        "maxBlob": 8388608,
+        "maxBlobRetained": 16777216
+      }
+    }
+  ],
+  "limitations": [
+    "CDP delivery ordering is recorded separately from native consumption; cause remains unproved.",
+    "Original-reader EOF/hash proves consumed static bytes, not decoder success or clean network.",
+    "102 successful browser-native/unproven requests remain outside original-reader proof."
+  ]
+}
