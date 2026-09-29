@@ -1,0 +1,7 @@
+# Private normal-App build for compact fog
+
+`build-01/package` is ready for the separately owned actual App course. Exactly one authored source changes from the current ordinary package: terrain de219a85…005 becomes3574f247…cda. Every other reviewed UI/renderer source remains exact. Production source maps account for all application originals; emitted Vite paths use the closed owned namespace and decoration checks.4,502 unrelated browser descriptors and156 non-client files remain exact, including fresh Go54fb runtime and original art. No live source or asset publication occurs.
+
+Build receipt SHA256 is f58e68013e66f526f8b0773ab95d73d9db227ca93f707d2bf0fee101141269ec. ROOT version SHA501b68409bbb8d66e56c495c76c31d896cd0ecd5bdad405f99aa03f84d3013ab; pack SHA c58e85ccf97d99e6362491af7e941840234e91584170cf7a120b153e0bb308c1. Browser pack contains4,531 files/552,393,121 bytes; wrapper4,700 files. Simulation0.3.4 is unchanged.
+
+The183-file archive preserves build recipe, source (excluding installed dependencies and public binaries), input inventories and complete receipt with exact readback. Full package and emitted bundles remain on disk. Build success is not native appearance, original privacy floor, current pixel monotonicity or complete-game acceptance. The separate228-case synthetic native course retains its current-pixel diagnostic failure; actual enemy and earned-opening App courses are ongoing elsewhere.
