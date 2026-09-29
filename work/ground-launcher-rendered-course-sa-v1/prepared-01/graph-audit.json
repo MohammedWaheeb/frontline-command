@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "scope": "CPU-only exact PNG/atlas closure and prepared plan admission, not decoded/rendered pixel acceptance",
+  "receiptSHA256": "c0b124db17bd662541f402bfda0f4607c2b2ad45aa2eb3d0f2e5429582be2a59",
+  "packSHA256": "5fe88b3791e43fa56bdae77335e49fc6386ced8066d656612c4891bd5eabb39a",
+  "planBytes": 33258,
+  "wireRecords": 110,
+  "graphs": [
+    {
+      "id": "unit.SA.launcher",
+      "poses": 688,
+      "pages": 48,
+      "frames": 4096,
+      "cold": [
+        {
+          "scale": "2x",
+          "genericPages": [
+            "/art/sprites/unit.SA.launcher/unit.SA.launcher@2x.beauty.0.png"
+          ],
+          "emptyPages": [
+            "/art/sprites/unit.SA.launcher/unit.SA.launcher@2x.beauty.4.png",
+            "/art/sprites/unit.SA.launcher/unit.SA.launcher@2x.beauty.5.png"
+          ],
+          "disjoint": true
+        },
+        {
+          "scale": "1x",
+          "genericPages": [
+            "/art/sprites/unit.SA.launcher/unit.SA.launcher@1x.beauty.0.png"
+          ],
+          "emptyPages": [
+            "/art/sprites/unit.SA.launcher/unit.SA.launcher@1x.beauty.4.png",
+            "/art/sprites/unit.SA.launcher/unit.SA.launcher@1x.beauty.5.png"
+          ],
+          "disjoint": true
+        }
+      ]
+    }
+  ],
+  "negativeControls": 4
+}

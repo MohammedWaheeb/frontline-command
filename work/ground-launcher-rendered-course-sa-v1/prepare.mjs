@@ -42,6 +42,8 @@ try{
  const handoffHashes={SA:suppliedSHA};
  for(const [faction,digest]of Object.entries(handoffHashes)){
   const handoff=JSON.parse(await pin(path.resolve(root,suppliedHandoff),digest));assert.equal(handoff.id,'unit.SA.launcher');assert.equal(handoff.poses,688);
+  for(const [name,expected]of Object.entries(handoff.receipts??{}))await pin(path.resolve(root,name),expected);
+  for(const kind of ['model','spec'])await pin(path.resolve(root,handoff[kind]),handoff[kind+'_sha256']);
   for(const [name,file]of Object.entries(handoff.files)){assert(!name.startsWith('/')&&!name.split('/').includes('..'));const b=await pin(path.resolve(root,file.source),file.sha256);assert.equal(b.length,file.bytes);const dest=path.join(product,'art',name);await mkdir(path.dirname(dest),{recursive:true});await writeFile(dest,b)}
   const id=`unit.${faction}.launcher`,metadata=`sprites/${id}/${id}.sprite.json`;artIndex.sprites[id]=metadata;
   const meta=JSON.parse(await readFile(path.join(product,'art',metadata)));assert.equal(meta.id,id);assert.equal(meta.states.reduce((n,s)=>n+s.frames*s.directions,0),handoff.poses);

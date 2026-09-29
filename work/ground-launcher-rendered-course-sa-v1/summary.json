@@ -1,0 +1,106 @@
+{
+  "scope": "SA-only actual native Go presentation candidate; granted fixture starting state, not paid opening",
+  "sourceRequirement": "d710a15",
+  "preparedReceiptSHA256": "c0b124db17bd662541f402bfda0f4607c2b2ad45aa2eb3d0f2e5429582be2a59",
+  "sourceLockSHA256": "0267ce613218da9231f2286a7d541da611ce2bc51c25225239f9246703bb10d5",
+  "bundleSHA256": "1df5bd2886d27520784fe8b8311baf8595cdfd6201981a59d5ce3a598798757e",
+  "packSHA256": "5fe88b3791e43fa56bdae77335e49fc6386ced8066d656612c4891bd5eabb39a",
+  "driverSHA256": "e30b13ba9a07fa1ee5ec978d3bc23225f77bebd32a52c071c77b915b91013174",
+  "handoffSHA256": "f5147f59e3122f1eb4db306870f10ebd35bb9f62e119a9e073a4910dcae0538f",
+  "runtime": {
+    "frontline.wasm": {
+      "sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+      "bytes": 11237971
+    },
+    "worker.js": {
+      "sha256": "ced862a30a9d91dbab59befcf6ea0e4af9dabfc289acffbe7678a6dd33b2bed9",
+      "bytes": 8198
+    },
+    "wasm_exec.js": {
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+      "bytes": 16992
+    },
+    "version.json": {
+      "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+      "bytes": 169
+    }
+  },
+  "totalRendererObservations": 432,
+  "totalReplayViews": 228,
+  "nativePNGCount": 234,
+  "imagesWithAlphaZero": 0,
+  "engines": [
+    {
+      "path": "work/ground-launcher-rendered-course-sa-v1/chromium-01",
+      "receiptSHA256": "f043d71bdf009f2e5727b19ae43b53f4d05936e742a0ee33ade9626adca28fb1",
+      "status": "failed",
+      "functional": "passed",
+      "failure": null,
+      "browser": "151.0.7922.34",
+      "boundaries": 144,
+      "replayViews": 76,
+      "qualities": [
+        "standard",
+        "high"
+      ],
+      "scenarios": [
+        "SA.launcher",
+        "SA.launcher-damaged-empty"
+      ],
+      "rawFailures": 106,
+      "pageConsoleErrors": 0,
+      "httpErrors": 0,
+      "closedAt": "2026-09-29T16:46:22.530Z",
+      "inputsVerifiedAfter": 537,
+      "workersAfter": 0
+    },
+    {
+      "path": "work/ground-launcher-rendered-course-sa-v1/firefox-01",
+      "receiptSHA256": "0f2787a5ca57cb1de0657f3920730e14e85209dc7b19c227b42c9277f7ca2f1a",
+      "status": "passed",
+      "functional": "passed",
+      "failure": null,
+      "browser": "153.0",
+      "boundaries": 144,
+      "replayViews": 76,
+      "qualities": [
+        "standard",
+        "high"
+      ],
+      "scenarios": [
+        "SA.launcher",
+        "SA.launcher-damaged-empty"
+      ],
+      "rawFailures": 0,
+      "pageConsoleErrors": 0,
+      "httpErrors": 0,
+      "closedAt": "2026-09-29T16:48:11.388Z",
+      "inputsVerifiedAfter": 537,
+      "workersAfter": 0
+    },
+    {
+      "path": "work/ground-launcher-rendered-course-sa-v1/webkit-01",
+      "receiptSHA256": "9a69774b6609ec59defc1bc24b42354f038526abbc3cd9b1f5d6f00b2fcb4fcd",
+      "status": "passed",
+      "functional": "passed",
+      "failure": null,
+      "browser": "26.5",
+      "boundaries": 144,
+      "replayViews": 76,
+      "qualities": [
+        "standard",
+        "high"
+      ],
+      "scenarios": [
+        "SA.launcher",
+        "SA.launcher-damaged-empty"
+      ],
+      "rawFailures": 0,
+      "pageConsoleErrors": 0,
+      "httpErrors": 0,
+      "closedAt": "2026-09-29T16:49:05.369Z",
+      "inputsVerifiedAfter": 537,
+      "workersAfter": 0
+    }
+  ]
+}
