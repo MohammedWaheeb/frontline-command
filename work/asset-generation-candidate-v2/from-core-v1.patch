@@ -1,0 +1,21 @@
+--- work/asset-generation-candidate-v1/source/client/src/runtime/asset-generation.ts	2026-09-29 13:43:24
++++ work/asset-generation-candidate-v2/source/client/src/runtime/asset-generation.ts	2026-09-29 14:03:09
+@@ -4,6 +4,9 @@
+ import {RuntimeError} from './errors';
+ 
+ const MAX_MANIFEST=4<<20,MAX_FILE=128<<20,MAX_TOTAL=2*1024**3;
++// Descriptor-only roster envelope: 162 world IDs × two qualities + 544 UI
++// layers + 71 effects + 22 terrain requests = 961. Active bytes stay capped.
++const MAX_WAITING=1024;
+ function fail(code:string,message:string):never{throw new RuntimeError(code,message)}
+ const canceled=(signal?:AbortSignal)=>{if(signal?.aborted)fail('asset_canceled','The asset load was canceled.')};
+ const object=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
+@@ -73,7 +76,7 @@
+  if(!Number.isSafeInteger(maximum)||maximum<1||maximum>256<<20)fail('asset_limit','The decoded asset lease limit is invalid.');
+  type Waiting={bytes:number;signal:AbortSignal;start:()=>void;abort:()=>void};const waiting:Waiting[]=[];
+  const pump=()=>{while(!disposed&&waiting.length&&inFlight<4&&inFlightBytes+waiting[0].bytes<=MAX_FILE){const job=waiting.shift()!;job.signal.removeEventListener('abort',job.abort);inFlight++;inFlightBytes+=job.bytes;job.start()}};
+- const acquire=(size:number,signal:AbortSignal):Promise<void>=>{canceled(signal);if(waiting.length>=64)fail('asset_busy','The bounded asset request queue is full.');return new Promise<void>((resolve,reject)=>{const job:Waiting={bytes:size,signal,start:resolve,abort:()=>{const index=waiting.indexOf(job);if(index<0)return;waiting.splice(index,1);signal.removeEventListener('abort',job.abort);reject(new RuntimeError('asset_canceled','The queued asset load was canceled.'));pump()}};waiting.push(job);signal.addEventListener('abort',job.abort,{once:true});if(signal.aborted)job.abort();else pump()})};
++ const acquire=(size:number,signal:AbortSignal):Promise<void>=>{canceled(signal);if(waiting.length>=MAX_WAITING)fail('asset_busy','The bounded asset request queue is full.');return new Promise<void>((resolve,reject)=>{const job:Waiting={bytes:size,signal,start:resolve,abort:()=>{const index=waiting.indexOf(job);if(index<0)return;waiting.splice(index,1);signal.removeEventListener('abort',job.abort);reject(new RuntimeError('asset_canceled','The queued asset load was canceled.'));pump()}};waiting.push(job);signal.addEventListener('abort',job.abort,{once:true});if(signal.aborted)job.abort();else pump()})};
+  const file=(path:string)=>{const f=byPath.get(pathOf(path));if(!f)fail('asset_unknown','The asset is not declared by the captured manifest.');return f};
+  const live=(signal?:AbortSignal)=>{canceled(combined(signal));if(disposed)fail('asset_canceled','The asset generation was disposed.')};
+  const key=(path:string)=>{const f=file(path);return `${identity.key}:${f.path}:${f.sha256}`};
