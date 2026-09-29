@@ -1,0 +1,282 @@
+{
+  "scope": "Independent read-only file/git/receipt inspection; no SQLite connection, test execution, compiler, host or browser.",
+  "pins": {
+    "work/storage-recovery-rehearsal-v1/run.py": "e35aa8ce2771d0e2be0d546169441271a0f96349899d0314687025f6995795db",
+    "work/storage-recovery-rehearsal-v1/seed.go": "f9a4ee34b00965fd308bd7bc1d7b8615fdcf2755e1cbf52a9fb38bee0ff1f874",
+    "work/storage-recovery-rehearsal-v1/verify.go": "a706f08dcabd1ba2752e26624f4bdde350206e5789ab6b891696f3976c0eaf85",
+    "work/storage-recovery-rehearsal-v1/run-02/receipt.json": "1498c545fa6b0100d0f06d08f017bb2c5b4c7a3c5e3571a391a3465e2935888c",
+    "work/storage-recovery-rehearsal-v1/run-02/post-build-source-audit.json": "eb077f54faf1aeabe0f20e94e91c893817b80a7a43bd78adc1fde1cb2f5d1512",
+    "work/storage-recovery-rehearsal-v1/run-02/current-source/source-lock.json": "8b68c65da91674dd5e4e5aa3a733738d0e729165a71c55150aca9ac55b85ae2f",
+    "work/storage-recovery-rehearsal-v1/run-02/historical-6/source-lock.json": "bbc3fb77cbc0aba8e548b348a1d7864d4cbaad513fbdfb8f7338bfee01a22b4b",
+    "work/storage-recovery-rehearsal-v1/run-02/historical-7/source-lock.json": "2c9833075776122f5a85f4d4fe00fc27c2317abcadaca94c6f512756649c59ff"
+  },
+  "sourceAudits": [
+    {
+      "source": "current-source",
+      "revision": "current",
+      "files": 16,
+      "mismatches": []
+    },
+    {
+      "source": "historical-6",
+      "revision": "2774b38",
+      "files": 13,
+      "mismatches": []
+    },
+    {
+      "source": "historical-7",
+      "revision": "d316398",
+      "files": 15,
+      "mismatches": []
+    }
+  ],
+  "preservedDBHeaders": [
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/corrupt schema 6/frontline.db",
+      "bytes": 122,
+      "sha256": "c63f34f17fd7fe3d5f64c37d292510c03dfa0dd8c5afff2d95c8b6bda1dde695",
+      "headerUserVersion": null,
+      "siblings": [
+        {
+          "name": "frontline.db-shm",
+          "bytes": 32768,
+          "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+        },
+        {
+          "name": "frontline.db-wal",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/corrupt schema 7/frontline.db",
+      "bytes": 122,
+      "sha256": "fd3ca3fec22cdfb30b1491393b1a11ac43ef81468355b5ab74aaf76f77411f43",
+      "headerUserVersion": null,
+      "siblings": [
+        {
+          "name": "frontline.db-shm",
+          "bytes": 32768,
+          "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+        },
+        {
+          "name": "frontline.db-wal",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/future schema 6/frontline.db",
+      "bytes": 548864,
+      "sha256": "70ae47e6a1949aece017148458359082fecef85dd5cd502a41ed316289e80267",
+      "headerUserVersion": 9,
+      "siblings": []
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/future schema 7/frontline.db",
+      "bytes": 585728,
+      "sha256": "34d8bb171e42f6c878816c18ff11fe6195577e4335845ae7533b4d509911d356",
+      "headerUserVersion": 9,
+      "siblings": []
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/original schema 6/frontline.db",
+      "bytes": 548864,
+      "sha256": "95c9f90091ce40708a77e27c0d9b5563280dac1c1e2a669f05d6b226642f6e01",
+      "headerUserVersion": 6,
+      "siblings": [
+        {
+          "name": "frontline.db-shm",
+          "bytes": 32768,
+          "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+        },
+        {
+          "name": "frontline.db-wal",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/original schema 7/frontline.db",
+      "bytes": 585728,
+      "sha256": "c4564372f7184b17c0604ca0ccf4c81a398c17549ecad82d6de69ea9c829ce00",
+      "headerUserVersion": 7,
+      "siblings": [
+        {
+          "name": "frontline.db-shm",
+          "bytes": 32768,
+          "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+        },
+        {
+          "name": "frontline.db-wal",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/restore schema 6/frontline.db",
+      "bytes": 548864,
+      "sha256": "08f2562334ba2c4d0cbb718f3b928ed22b12bd665e82ee7eff2ef9668f50f629",
+      "headerUserVersion": 8,
+      "siblings": [
+        {
+          "name": "frontline.db-shm",
+          "bytes": 32768,
+          "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+        },
+        {
+          "name": "frontline.db-wal",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/restore schema 7/frontline.db",
+      "bytes": 585728,
+      "sha256": "23cf32118ce6dddc7278ac2d9c005c5c6cd412af8e58d00e2a658f318a74d944",
+      "headerUserVersion": 8,
+      "siblings": [
+        {
+          "name": "frontline.db-shm",
+          "bytes": 32768,
+          "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+        },
+        {
+          "name": "frontline.db-wal",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "payloads": [
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/corrupt schema 6/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/corrupt schema 7/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/future schema 6/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/future schema 7/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/original schema 6/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/original schema 7/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/restore schema 6/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/restore schema 7/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/restored backup 6/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    },
+    {
+      "path": "work/storage-recovery-rehearsal-v1/run-02/restored backup 7/objects/exact-replay",
+      "bytes": 3706,
+      "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38",
+      "matchesNativeReplay": true
+    }
+  ],
+  "commandLogsVerified": 19,
+  "tableReceiptChecks": [
+    {
+      "fromSchema": 6,
+      "originalTableCount": 18,
+      "nonemptyOriginalTables": {
+        "maps": 1,
+        "profile_settings": 1,
+        "profiles": 2,
+        "record_revisions": 4,
+        "relations": 1,
+        "results": 1,
+        "saves": 1
+      },
+      "emptyOriginalTables": [
+        "active_matches",
+        "chat",
+        "chat_recipients",
+        "match_access",
+        "match_members",
+        "moderation",
+        "rating_events",
+        "ratings",
+        "report_reviews",
+        "reports",
+        "sqlite_sequence"
+      ],
+      "allOldRowHashesUnchanged": true,
+      "backupAllRowsEqual": true
+    },
+    {
+      "fromSchema": 7,
+      "originalTableCount": 22,
+      "nonemptyOriginalTables": {
+        "map_state": 1,
+        "map_versions": 2,
+        "maps": 1,
+        "profile_settings": 1,
+        "profiles": 2,
+        "record_revisions": 4,
+        "relations": 1,
+        "results": 1,
+        "saves": 1
+      },
+      "emptyOriginalTables": [
+        "active_matches",
+        "chat",
+        "chat_recipients",
+        "map_report_reviews",
+        "map_reports",
+        "match_access",
+        "match_members",
+        "moderation",
+        "rating_events",
+        "ratings",
+        "report_reviews",
+        "reports",
+        "sqlite_sequence"
+      ],
+      "allOldRowHashesUnchanged": true,
+      "backupAllRowsEqual": true
+    }
+  ]
+}
