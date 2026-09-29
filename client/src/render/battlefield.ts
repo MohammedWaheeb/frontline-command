@@ -42,6 +42,7 @@ export interface PlacementPreview {type:string;width:number;height:number;positi
 interface Chunk {fragments:TerrainFragment[];texture:Texture;used:number;visible:boolean}
 const color=(hex:string)=>parseInt(hex.replace('#',''),16);
 const clamp=(value:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,value));
+const MINIMAP_MS=80;
 
 /** Fixed-camera presentation over authorized snapshots; never simulates game rules. */
 export class BattlefieldRenderer {
@@ -66,6 +67,8 @@ export class BattlefieldRenderer {
  private effectEvent=0;private feedbackBaseline=false;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
  private rejection?:{point:Point;player:number;tick:number;until:number};
+ // Attached minimap: dirtied by snapshot/overlay/camera changes, repainted from the existing ticker at most every MINIMAP_MS.
+ private minimap?:{canvas:HTMLCanvasElement;resize:ResizeObserver;view:number[]};private minimapDirty=false;private minimapAt=-Infinity;
  private constructor(private host:HTMLElement,private options:BattlefieldOptions){this.placementGhost=new PlacementGhost(options.art);this.combat=new CombatEffects(options.catalog,options.map,options.onError);this.settings=options.settings;this.presentationMap={...options.map,tiles:options.map.tiles.map(tile=>({...tile}))};this.baker=new TerrainBaker(this.presentationMap,options.art);this.surface=new TerrainSurface(this.presentationMap);this.environment=new EnvironmentRenderer(options.map,options.art,this.ground,this.surface,options.environment);for(const skin of options.environment?.object_skins??[]){const object=options.map.objects?.find(o=>o.id===skin.object_id);if(object)this.objectSkins.set(`map.${object.class}:${object.position.x}:${object.position.y}`,skin)}}
  static async create(host:HTMLElement,options:BattlefieldOptions):Promise<BattlefieldRenderer>{
   const renderer=new BattlefieldRenderer(host,options);
@@ -92,7 +95,7 @@ export class BattlefieldRenderer {
   ]);
   return [...new Set([...this.environment.missingArt,...this.combat.diagnostics.missing,...actors])].sort();
  }
- setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers)}
+ setMissionMarkers(markers:MissionMarker[]){this.missionMarkers=structuredClone(markers);this.minimapDirty=true}
  async whenAssetsReady(){await Promise.all([...this.actors.values()].map(actor=>actor.ready));await this.environment.ready();this.render();await this.placementGhost.settle();this.render();await Promise.all([this.options.art.settle(),this.combat.settle()]);this.render();await this.combat.settle();this.render()}
  viewport():Rect{return {left:0,top:0,right:this.app.screen.width,bottom:this.app.screen.height}}
  center(point:Point){const p=this.surface.projectGround(point);this.camera.x=p.x;this.camera.y=p.y;this.cameraTransform()}
@@ -193,13 +196,13 @@ export class BattlefieldRenderer {
   if(ids.length===this.selected.size&&ids.every(id=>this.selected.has(id)))return;
   this.selected=new Set(ids);this.refreshTactical();
  }
- private refreshTactical(reset=false){if(this.snapshot){this.tacticalModel=tacticalPresentation(this.snapshot,this.options.catalog,[...this.selected]);this.tacticalOverlay.sync(this.tacticalModel,this.snapshot.player,reset)}}
+ private refreshTactical(reset=false){this.minimapDirty=true;if(this.snapshot){this.tacticalModel=tacticalPresentation(this.snapshot,this.options.catalog,[...this.selected]);this.tacticalOverlay.sync(this.tacticalModel,this.snapshot.player,reset)}}
  get tacticalDiagnostics(){return {...this.tacticalOverlay.diagnostics,previewRoutes:this.strikePreview.routes}}
  get combatDiagnostics(){return this.combat.diagnostics}
  async whenEffectsReleased(){await this.effectsReleased}
  resetFeedback(){this.rejection=undefined;this.feedbackBaseline=true;this.combat.reset();this.surfaceShadows.clear();this.effectEvent=Math.max(0,...(this.snapshot?.events.map(event=>event.id)??[]));this.shake={until:0,strength:0,x:0,y:0};for(const actor of this.actors.values())actor.clearFeedback();for(const death of this.deaths)death.actor.dispose();this.deaths.length=0}
- setStrikePreview(plan:SkybreakerPlan|undefined,_observedTick?:number){this.strikePreview.set(plan)}
- updateSettings(settings:Settings){this.settings=settings;if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
+ setStrikePreview(plan:SkybreakerPlan|undefined,_observedTick?:number){this.strikePreview.set(plan);this.minimapDirty=true}
+ updateSettings(settings:Settings){this.settings=settings;this.minimapDirty=true;if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
  setSnapshot(snapshot:PlayerSnapshot){
   if(this.disposed)return;
   const tacticalReset=!this.snapshot||snapshot.tick<this.snapshot.tick||snapshot.player!==this.snapshot.player;
@@ -342,6 +345,24 @@ export class BattlefieldRenderer {
   for(const label of this.memoryLabels)label.scale.set(1/this.camera.zoom);
   this.drawTactical(now);this.overlay.clear();
   if(this.drag&&this.drag.button!==this.settings.bindings.pointer.pan&&Math.hypot(this.drag.start.x-this.drag.last.x,this.drag.start.y-this.drag.last.y)>=this.settings.dragThreshold){const a=this.drag.start,b=this.drag.last;this.overlay.rect(Math.min(a.x,b.x),Math.min(a.y,b.y),Math.abs(a.x-b.x),Math.abs(a.y-b.y)).fill({color:0xbcce88,alpha:.08}).stroke({width:1,color:0xc7d895})}
+  this.paintMinimap(now);
+ }
+ /** Attaches one HUD minimap. Draws immediately when a snapshot exists, then only when dirtied. The returned detach is a no-op once another canvas replaced it. */
+ attachMinimap(canvas:HTMLCanvasElement):()=>void{
+  this.detachMinimap();if(this.disposed)return()=>{};
+  const resize=new ResizeObserver(()=>{this.minimapDirty=true});resize.observe(canvas);
+  const attachment={canvas,resize,view:[] as number[]};
+  this.minimap=attachment;this.minimapDirty=true;this.minimapAt=-Infinity;this.paintMinimap(performance.now());
+  return()=>{if(this.minimap===attachment)this.detachMinimap()};
+ }
+ private detachMinimap(){this.minimap?.resize.disconnect();this.minimap=undefined;this.minimapDirty=false}
+ private paintMinimap(now:number){
+  const attached=this.minimap;if(!attached||!this.snapshot||!this.app.renderer)return;
+  // Camera pans, zooms, minimap clicks and resizes change this key even while the simulation is paused.
+  const view=[this.camera.x,this.camera.y,this.camera.zoom,this.app.screen.width,this.app.screen.height];
+  if(view.some((value,i)=>value!==attached.view[i])){attached.view=view;this.minimapDirty=true}
+  if(!this.minimapDirty||now-this.minimapAt<MINIMAP_MS)return;
+  this.minimapDirty=false;this.minimapAt=now;this.renderMinimap(attached.canvas);
  }
  private diamond(g:Graphics,p:Point,w:number,h:number,paint:number,alpha=.2){
   const corners=[{x:p.x-w*500,y:p.y-h*500},{x:p.x+w*500,y:p.y-h*500},{x:p.x+w*500,y:p.y+h*500},{x:p.x-w*500,y:p.y+h*500}],outline:Point[]=[];
@@ -409,7 +430,7 @@ export class BattlefieldRenderer {
  }
  minimapPoint(canvas:HTMLCanvasElement,clientX:number,clientY:number):Point{const r=canvas.getBoundingClientRect(),m=this.options.map;return minimapWorldPoint(m.width,m.height,r.width,r.height,{x:clientX-r.left,y:clientY-r.top})}
  dispose(){
-  if(this.disposed)return;this.disposed=true;this.listeners.abort();this.resizeObserver?.disconnect();
+  if(this.disposed)return;this.disposed=true;this.listeners.abort();this.resizeObserver?.disconnect();this.detachMinimap();
   for(const actor of this.actors.values())actor.dispose();this.actors.clear();this.environment.dispose();
   for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
   this.surfaceShadows.dispose();this.memoryLabels.length=0;this.memories.length=0;

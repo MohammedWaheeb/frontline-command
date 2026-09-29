@@ -8,18 +8,19 @@ import {chromium,firefox,webkit} from 'playwright-core';
 
 // Full frozen App, original Go saves, normal controls only. This driver never
 // calls a fixture API, installs a fake snapshot, or sends a worker RPC itself.
-const usage='node client/tests/render/battlefield-clarity-product.browser.mjs --product /absolute/frozen/product --saves /absolute/ambient/course --out /absolute/new/evidence [--engine chromium|firefox|webkit] [--headless true|false]';
+const usage='node client/tests/render/battlefield-clarity-product.browser.mjs --product /absolute/frozen/product --saves /absolute/ambient/course --out /absolute/new/evidence [--engine chromium|firefox|webkit] [--headless true|false] [--case WIDTHxHEIGHT-scale100|150]';
 if(process.argv.includes('--help')){console.log(usage);process.exit(0)}
 const argv=process.argv.slice(2),args={};
 assert.equal(argv.length%2,0,usage);
 for(let i=0;i<argv.length;i+=2){
- assert(['--product','--saves','--out','--engine','--headless'].includes(argv[i]),`Unknown argument ${argv[i]}`);
+ assert(['--product','--saves','--out','--engine','--headless','--case'].includes(argv[i]),`Unknown argument ${argv[i]}`);
  assert(!Object.hasOwn(args,argv[i]),`Duplicate argument ${argv[i]}`);args[argv[i]]=argv[i+1];
 }
 assert(args['--product']&&args['--saves']&&args['--out'],usage);
 const product=await realpath(path.resolve(args['--product'])),saves=await realpath(path.resolve(args['--saves'])),out=path.resolve(args['--out']);
 const engine=args['--engine']??'chromium';assert(['chromium','firefox','webkit'].includes(engine));
 assert(args['--headless']===undefined||['true','false'].includes(args['--headless']));
+const caseFilter=args['--case'];assert(caseFilter===undefined||/^(1600x900|1280x720|1440x900|1728x1117)-scale(100|150)$/.test(caseFilter),'Unknown bounded case');
 const headless=args['--headless']===undefined?engine!=='chromium':args['--headless']==='true';
 const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
 const driverPath=fileURLToPath(import.meta.url),driverBytes=await readFile(driverPath);
@@ -50,7 +51,7 @@ await mkdir(path.dirname(out),{recursive:true});await mkdir(out); // Never overw
 await writeFile(path.join(out,'driver.mjs'),driverBytes);
 for(const [key,value] of Object.entries(fixtures))await writeFile(value.importFile,fixtureBytes.get(key));
 const report={started:new Date().toISOString(),status:'running',engine,headless,product,saves,
- scope:'Full frozen product UI; real Go practice artillery/memory save and separately earned standard defeat-countdown save. Eight serial desktop/scale cases. No mock snapshots, fixture bridge, direct commands, host, or production edits. Screenshots require visual review; this is not campaign, final-art, GPU-memory, performance, or exhaustive pixel acceptance.',
+ caseFilter,scope:'Full frozen product UI; real Go practice artillery/memory save and separately earned standard defeat-countdown save. Eight serial desktop/scale cases. No mock snapshots, fixture bridge, direct commands, host, or production edits. Screenshots require visual review; this is not campaign, final-art, GPU-memory, performance, or exhaustive pixel acceptance.',
  tooling:'Browser plugin not available; regular Playwright. Authoring alone does not constitute a browser pass.',
  identity:{driverSHA256:digest(driverBytes),wasmSHA256:digest(runtimeBytes),runtimeVersion,indexSHA256:digest(await readFile(path.join(product,'index.html'))),buildReceipt},
  fixtures,servedFiles:{},cases:[],errors:[],httpErrors:[],requestFailures:[],sourceChanges:[]};
@@ -84,6 +85,25 @@ async function notice(page){
  const dismiss=page.getByRole('button',{name:'Dismiss notification',exact:true});if(await dismiss.isVisible())await dismiss.click();
 }
 async function workers(page){return page.evaluate(()=>structuredClone(window.__clarityWorkers))}
+async function minimapPixels(page){
+ return page.getByLabel('Tactical minimap',{exact:true}).evaluate(canvas=>{
+  const bytes=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;let painted=0,opaque=0,fingerprint=2166136261;
+  for(let i=0;i<bytes.length;i+=4){if(bytes[i+3]){opaque++;if(bytes[i]!==11||bytes[i+1]!==12||bytes[i+2]!==8)painted++}for(let j=0;j<4;j++)fingerprint=Math.imul(fingerprint^bytes[i+j],16777619)}
+  return {width:canvas.width,height:canvas.height,painted,opaque,pixelFingerprint:fingerprint>>>0};
+ });
+}
+async function paintedMinimap(page){
+ await waitFor(async()=>(await minimapPixels(page)).painted>100,'Ready battlefield minimap is blank',3000);return minimapPixels(page);
+}
+async function pausedMinimapCourse(page,end){
+ await page.getByRole('button',{name:'Play replay',exact:true}).waitFor();const rows=[{action:'initial',...await paintedMinimap(page)}];
+ const changed=async action=>{const prior=rows.at(-1).pixelFingerprint;await waitFor(async()=>(await minimapPixels(page)).pixelFingerprint!==prior,`Paused minimap did not update after ${action}`,3000);rows.push({action,...await paintedMinimap(page)});assert.equal(Number(await page.getByLabel('Replay timeline',{exact:true}).inputValue()),end,'Camera input advanced paused Go replay')};
+ await center(page,40000,40000);await changed('minimap click');
+ for(let i=0;i<4;i++)await page.keyboard.press('ArrowRight');await changed('keyboard pan');
+ const point=await fieldCenter(page);await page.mouse.move(point.x,point.y);await page.mouse.wheel(0,-160);await changed('wheel zoom');
+ const viewport=page.viewportSize();await page.setViewportSize({width:viewport.width-80,height:viewport.height-40});await changed('viewport resize');await page.setViewportSize(viewport);
+ activeCase.pausedMinimap=rows;await checkpoint(page,'replay-paused-camera');
+}
 async function checkpoint(page,label){
  await noModal(page);const prefix=path.join(out,`${activeCase.id}-${label}`);
  const geometry=await page.evaluate(()=>{
@@ -98,9 +118,14 @@ async function checkpoint(page,label){
  }
  const hint=geometry.boxes['.targeting-hint'][0],sidebar=geometry.boxes['.command-sidebar'][0];
  if(hint&&sidebar)assert(hint.x+hint.width<=sidebar.x,'Target guidance covers command-sidebar controls');
- for(const caption of geometry.boxes['.audio-captions']??[])if(hint)assert(caption.y+caption.height<=hint.y||caption.y>=hint.y+hint.height||caption.x+caption.width<=hint.x||caption.x>=hint.x+hint.width,'Audio captions cover target guidance');
+ for(const caption of geometry.boxes['.audio-captions']??[])if(hint){
+  assert(caption.y+caption.height<=hint.y||caption.y>=hint.y+hint.height||caption.x+caption.width<=hint.x||caption.x>=hint.x+hint.width,'Audio captions cover target guidance');
+  assert(caption.x>=0&&caption.x+caption.width<=sidebar.x,'Targeting caption column covers sidebar controls');
+  if(activeCase.aimPoint){const p=activeCase.aimPoint;assert(p.x<caption.x||p.x>caption.x+caption.width||p.y<caption.y||p.y>caption.y+caption.height,'Audio caption covers the actual placement pointer');}
+ }
+ const minimap=await page.getByLabel('Tactical minimap',{exact:true}).count()?await paintedMinimap(page):undefined;
  await page.screenshot({path:prefix+'.png'});await writeFile(prefix+'.txt',await page.locator('body').innerText());
- activeCase.checkpoints.push({label,geometry,workers:await workers(page)});await flush();
+ activeCase.checkpoints.push({label,geometry,minimap,workers:await workers(page)});await flush();
 }
 async function reachable(locator){
  await locator.scrollIntoViewIfNeeded();
@@ -178,10 +203,31 @@ async function saveReplayCourse(page,baseline){
  const controls=page.getByRole('region',{name:'Replay controls',exact:true});await controls.waitFor();
  const timeline=page.getByLabel('Replay timeline',{exact:true});await reachable(timeline);
  const end=Number(await timeline.getAttribute('max'));assert(end>=fixtures.before.tick,'Archived replay lost its real ending');
+ activeCase.replaySeek={expected:end,min:Number(await timeline.getAttribute('min')),before:Number(await timeline.inputValue())};
  await timeline.focus();await timeline.press('End');await idle(page);
+ activeCase.replaySeek.afterInput=Number(await timeline.inputValue());activeCase.replaySeek.workers=await workers(page);
  await waitFor(async()=>Number(await timeline.inputValue())===end,'Replay did not seek to its real end');
- activeCase.replayEnd=end;await checkpoint(page,'replay-end');await leave(page,baseline);await checkpoint(page,'menu-after-replay');
+ const seek=(await workers(page)).seeks.at(-1);assert(seek?.ok&&seek.requestedTick===end&&seek.resultTick===end,'Replay UI end must match the ordinary seek request and authoritative reply');
+ activeCase.replayEnd=end;await checkpoint(page,'replay-end');await pausedMinimapCourse(page,end);await leave(page,baseline);await checkpoint(page,'menu-after-replay');
  const methods=(await workers(page)).methods;for(const method of ['save','exportReplay','loadReplay','seekReplay'])assert(methods[method]>0,`Normal UI never invoked ${method}`);
+}
+async function commandOverflowCourse(page){
+ const grid=page.getByRole('group',{name:'Unit commands; scroll for more actions',exact:true});
+ const inspect=()=>grid.evaluate(node=>{
+  const box=node.getBoundingClientRect(),keys=[...node.children].map(key=>{const b=key.getBoundingClientRect(),label=key.querySelector(':scope > span'),range=label?document.createRange():undefined;if(range)range.selectNodeContents(label);return {text:key.textContent,top:b.top,bottom:b.bottom,label:label?{clientWidth:label.clientWidth,scrollWidth:label.scrollWidth,rects:[...range.getClientRects()].map(r=>({left:r.left,right:r.right,top:r.top,bottom:r.bottom})),key:{left:b.left,right:b.right,top:b.top,bottom:b.bottom}}:undefined}});
+  const above=keys.filter(k=>k.top<box.top-1).length,below=keys.filter(k=>k.top>=box.top-1&&k.bottom>box.bottom+1).length;
+  const cue=document.querySelector('.command-overflow'),up=cue?.querySelector('.more-above'),down=cue?.querySelector('.more-below');
+  return {above,below,keys,scrollTop:node.scrollTop,maxScroll:node.scrollHeight-node.clientHeight,state:node.dataset.overflow??'',actualUp:Number(up?.getAttribute('data-count')??0),actualDown:Number(down?.getAttribute('data-count')??0),upVisible:!!up&&getComputedStyle(up).visibility==='visible',downVisible:!!down&&getComputedStyle(down).visibility==='visible',cuePresent:!!cue};
+ });
+ const matches=async()=>{const r=await inspect();return r.cuePresent&&r.above===r.actualUp&&r.below===r.actualDown&&r.upVisible===(r.above>0)&&r.downVisible===(r.below>0)&&r.state===(r.above&&r.below?'both':r.above?'above':r.below?'below':'')};
+ const labelsFit=value=>{for(const key of value.keys){const l=key.label;if(!l)continue;assert(l.scrollWidth<=l.clientWidth+1,`Command label overflows: ${JSON.stringify(key)}`);for(const r of l.rects)assert(r.left>=l.key.left+1&&r.right<=l.key.right-1&&r.top>=l.key.top&&r.bottom<=l.key.bottom,`Command text clips its key: ${JSON.stringify(key)}`)}};
+ await waitFor(matches,'Visible command overflow cue does not match real offscreen keys');const top=await inspect();labelsFit(top);activeCase.commandOverflow={top};
+ if(top.maxScroll>1){
+  const box=await grid.boundingBox();assert(box);await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,top.maxScroll+box.height);
+  await waitFor(async()=>{const r=await inspect();return r.scrollTop>=r.maxScroll-1&&await matches()},'Command well did not reach its last actions with an accurate overflow cue');
+  activeCase.commandOverflow.bottom=await inspect();labelsFit(activeCase.commandOverflow.bottom);assert.equal(activeCase.commandOverflow.bottom.below,0);await checkpoint(page,'command-overflow-bottom');
+  await page.mouse.wheel(0,-(top.maxScroll+box.height));await waitFor(async()=>{const r=await inspect();return r.scrollTop<=1&&await matches()},'Command well did not return to its first actions');
+ }
 }
 async function clarityCourse(page,baseline){
  await importFixture(page,'before');phase='selection-ranges';await center(page,18000,18000);
@@ -195,11 +241,11 @@ async function clarityCourse(page,baseline){
  }
  phase='placement';const before=(await workers(page)).methods.submit??0;
  await page.getByRole('button',{name:'Build',exact:true}).click();await page.getByRole('tab',{name:'structures',exact:true}).click();
- const power=page.locator('.production-cameo').filter({has:page.getByText('Power station',{exact:true})});await reachable(power);assert(await power.isEnabled());await power.click();
+ const power=page.locator('.production-cameo').filter({has:page.getByText('Power station',{exact:true})});await reachable(power);assert(await power.isEnabled());await commandOverflowCourse(page);await power.click();
  const hint=page.locator('.targeting-hint');await hint.waitFor();await waitFor(async()=>/Power after build/.test(await hint.innerText()),'No actual placement power estimate');
  activeCase.placement=[];
  for(const target of [{name:'free-site-pending',x:10000,y:14000},{name:'occupied-site-pending',x:8000,y:8000}]){
-  await center(page,target.x,target.y);const point=await fieldCenter(page),prior=(await workers(page)).previews.length;
+  await center(page,target.x,target.y);const point=await fieldCenter(page),prior=(await workers(page)).previews.length;activeCase.aimPoint=point;
   // Real pointer updates account for the product's 180ms hover throttle. Small
   // offsets stay inside the same 500mt placement snap cell; no force click.
   for(let attempt=0;attempt<10;attempt++){
@@ -217,14 +263,25 @@ async function clarityCourse(page,baseline){
  // through the real product and retain the resulting rejection, never assert
  // that an amber pending preview is a positive placement guarantee.
  phase='occupied-placement-execution';await power.click();await hint.waitFor();await center(page,8000,8000);const occupied=await fieldCenter(page);await page.mouse.click(occupied.x,occupied.y);
- const rejected=page.locator('.notice').filter({hasText:/Order rejected: (occupied|building overlap)/});await rejected.waitFor();
+ const rejected=page.locator('.notice').filter({hasText:/Order rejected: (occupied|building overlap|The site is occupied\.|Building overlap\.)/});await rejected.waitFor();
  activeCase.occupiedRejection=await rejected.innerText();assert.equal((await workers(page)).methods.submit,before+1,'Occupied click did not submit exactly one ordinary command');
  await hint.waitFor({state:'hidden'});await checkpoint(page,'occupied-placement-rejected');await notice(page);await saveReplayCourse(page,baseline);
+}
+async function sidebarQueueCourse(page){
+ const sidebar=page.locator('.command-sidebar'),queue=page.getByRole('region',{name:'Production queue',exact:true});
+ const geometry=()=>queue.evaluate(node=>{const pane=node.closest('.command-sidebar'),q=node.getBoundingClientRect(),s=pane.getBoundingClientRect();return {queue:{top:q.top,bottom:q.bottom,left:q.left,right:q.right},pane:{top:s.top,bottom:s.bottom,left:s.left,right:s.right},scrollTop:pane.scrollTop,scrollHeight:pane.scrollHeight,clientHeight:pane.clientHeight,overflowY:getComputedStyle(pane).overflowY,visible:q.top>=Math.max(0,s.top)&&q.bottom<=Math.min(innerHeight,s.bottom)&&q.left>=s.left&&q.right<=s.right}});
+ const before=await geometry();const b=await sidebar.boundingBox();assert(b);await page.mouse.move(b.x+b.width-15,b.y+b.height/2);
+ for(let i=0;i<8&&!(await geometry()).visible;i++){await page.mouse.wheel(0,160);await new Promise(resolve=>setTimeout(resolve,90));}
+ const after=await geometry();assert(after.visible,'Production queue cannot be reached through ordinary sidebar scroll');
+ if(!before.visible){assert(['auto','scroll'].includes(before.overflowY));assert(after.scrollTop>before.scrollTop,'Ordinary wheel did not scroll the overflowing sidebar');}
+ await page.screenshot({path:path.join(out,`${activeCase.id}-countdown-queue-reachable.png`)});activeCase.sidebarQueue={before,after};
+ for(let i=0;i<8&&(await geometry()).scrollTop>0;i++){await page.mouse.wheel(0,-240);await new Promise(resolve=>setTimeout(resolve,90));}
+ assert.equal((await geometry()).scrollTop,0,'Sidebar failed to restore its top through normal scroll');
 }
 async function countdownCourse(page,baseline){
  await importFixture(page,'defeat');phase='countdown';const timer=page.getByRole('timer',{name:'Seconds until defeat',exact:true});await timer.waitFor();
  const seconds=async()=>Number.parseInt(await timer.innerText(),10),first=await seconds();assert(first>0&&first<=30,`Invalid actual countdown ${first}`);
- await reachable(timer);await checkpoint(page,'countdown-live');
+ await reachable(timer);await checkpoint(page,'countdown-live');await sidebarQueueCourse(page);
  await waitFor(async()=>await seconds()<first,'Live defeat countdown did not decrease',6000);
  const afterLive=await seconds();await pause(page);
  // Wait for the real pause clock acknowledgement, not only modal appearance.
@@ -238,20 +295,26 @@ try{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin=`http://127.0.0.1:${server.address().port}`;
  browser=await({chromium,firefox,webkit})[engine].launch({headless,...engine==='chromium'?{channel:'chromium'}:{}});report.browser=browser.version();
  for(const viewport of [{width:1600,height:900},{width:1280,height:720},{width:1440,height:900},{width:1728,height:1117}])for(const scale of [1,1.5]){
+  if(caseFilter&&caseFilter!==`${viewport.width}x${viewport.height}-scale${scale*100}`)continue;
   activeCase={id:`${viewport.width}x${viewport.height}-scale${scale*100}`,viewport,scale,status:'running',checkpoints:[]};report.cases.push(activeCase);phase='first-run';
   const context=await browser.newContext({viewport,acceptDownloads:true});
   try{
    // Passive, runtime-specific lifecycle/request observation. Pixi decoder
    // workers are intentionally excluded; no message arguments/state are changed.
    await context.addInitScript(()=>{
-    const Native=window.Worker,metrics={created:0,terminated:0,live:0,frames:0,methods:{},previews:[],lastClock:null};window.__clarityWorkers=metrics;
+    const Native=window.Worker,metrics={created:0,terminated:0,live:0,frames:0,methods:{},previews:[],seeks:[],timelineEvents:[],lastClock:null};window.__clarityWorkers=metrics;
+    for(const type of ['keydown','input','change','keyup'])document.addEventListener(type,event=>{
+     const node=event.target;if(!(node instanceof HTMLInputElement)||node.getAttribute('aria-label')!=='Replay timeline')return;
+     metrics.timelineEvents.push({type,key:event.key,value:Number(node.value),min:Number(node.min),max:Number(node.max),time:performance.now()});if(metrics.timelineEvents.length>80)metrics.timelineEvents.shift();
+    },true);
     window.Worker=class extends Native{
      constructor(url,options){super(url,options);let runtime=false;try{runtime=new URL(String(url),location.href).pathname==='/runtime/worker.js'}catch{}
       if(!runtime)return;metrics.created++;metrics.live++;let ended=false;const post=this.postMessage,terminate=this.terminate,pending=new Map();
-      this.postMessage=function(message,...rest){if(typeof message?.method==='string'){metrics.methods[message.method]=(metrics.methods[message.method]??0)+1;if(message.method==='previewOrders')pending.set(message.id,message.method)}return post.call(this,message,...rest)};
+      this.postMessage=function(message,...rest){if(typeof message?.method==='string'){metrics.methods[message.method]=(metrics.methods[message.method]??0)+1;if(['previewOrders','seekReplay'].includes(message.method))pending.set(message.id,{method:message.method,requestedTick:message.method==='seekReplay'?message.args?.[0]:undefined,time:performance.now()})}return post.call(this,message,...rest)};
       this.terminate=function(){if(!ended){ended=true;metrics.terminated++;metrics.live--}return terminate.call(this)};
       this.addEventListener('message',event=>{const message=event.data;if(message?.event==='frame')metrics.frames++;if(message?.event==='clock')metrics.lastClock={paused:message.paused,speed:message.speed,stalled:message.stalled};
-       if(pending.delete(message?.id)){metrics.previews.push({ok:message.ok,tick:message.result?.tick,results:(message.result?.results??[]).map(result=>({accepted:result.accepted,code:result.code,tick:result.tick}))});if(metrics.previews.length>256)metrics.previews.shift()}
+       const request=pending.get(message?.id);if(request){pending.delete(message.id);if(request.method==='previewOrders'){metrics.previews.push({ok:message.ok,tick:message.result?.tick,results:(message.result?.results??[]).map(result=>({accepted:result.accepted,code:result.code,tick:result.tick}))});if(metrics.previews.length>256)metrics.previews.shift()}
+        else{metrics.seeks.push({id:message.id,requestedTick:request.requestedTick,requestedAt:request.time,repliedAt:performance.now(),ok:message.ok,resultTick:message.result?.tick,start:message.result?.replay_start,end:message.result?.replay_end,finished:message.result?.finished,errorCode:message.error?.code});if(metrics.seeks.length>64)metrics.seeks.shift()}}
       });
      }
     };
@@ -275,9 +338,14 @@ try{
    await writeFile(path.join(out,`${activeCase.id}-failure.txt`),await activePage?.locator('body').innerText().catch(()=>'' )??'');throw error;
   }finally{await context.close();activePage=undefined;await flush()}
  }
- assert.deepEqual(report.sourceChanges,[]);assert.equal(report.cases.length,8);report.status='passed';
+ assert.deepEqual(report.sourceChanges,[]);assert.equal(report.cases.length,caseFilter?1:8);report.status='passed';
 }catch(error){report.status='failed';report.failure=String(error.stack??error);process.exitCode=1}
 finally{
- try{await browser?.close()}finally{if(server.listening)await new Promise(resolve=>server.close(resolve));report.finished=new Date().toISOString();await flush()}
+ try{await browser?.close()}finally{if(server.listening)await new Promise(resolve=>server.close(resolve));
+  // Include diagnostics delivered during the last context/browser teardown.
+  // Raw requestfailed events remain recorded separately, without a blanket
+  // assertion that aborted product transitions were harmless.
+  try{assert.deepEqual(report.errors,[]);assert.deepEqual(report.httpErrors,[]);assert.deepEqual(report.sourceChanges,[])}catch(error){report.finalDiagnosticFailure=String(error.stack??error);if(report.status==='passed')report.failure=report.finalDiagnosticFailure;report.status='failed';process.exitCode=1}
+  report.finished=new Date().toISOString();await flush()}
  console.log(report.status,report.failure??`${report.cases.length} actual product cases`);
 }
