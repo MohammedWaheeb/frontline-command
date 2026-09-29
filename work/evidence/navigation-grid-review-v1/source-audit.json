@@ -1,0 +1,116 @@
+{
+  "createdAt": "2026-09-29T17:28:30.075629+00:00",
+  "head": "d95fadeabf8a7ff4ee827f0cbd8d5f1fe61b7803",
+  "scope": "Read-only source review. No Go/compiler/browser/host/test/profile invocation. Candidate test log is owner-run historical evidence, not reviewer execution.",
+  "productionInputs": {
+    "pkg/sim/navigation.go": {
+      "sha256": "c491052f776c4b4e46adcc64b47eabf5137277b6e6105cad05b0760d07288694",
+      "bytes": 26540
+    },
+    "pkg/sim/navigation_lookup_reference_test.go": {
+      "sha256": "e2aa8f05e836ef607095581fe72f618c79bc894b20ad8a7246a3ddcc0c3e46c0",
+      "bytes": 2329
+    },
+    "pkg/sim/navigation_lookup_test.go": {
+      "sha256": "91056a1dd1258409d9e2e5e98ed7a65682324fb7ea659a64996c979da06ef9b2",
+      "bytes": 3067
+    },
+    "pkg/sim/navigation_reference_test.go": {
+      "sha256": "a12e851d26fd036b4ba9b4078db7485c0abdf3f3dcf7320e12813f2cfda52b33",
+      "bytes": 5813
+    },
+    "pkg/sim/navigation_search_test.go": {
+      "sha256": "5069e79453f2bdd2c9bbd6a8d403f0470a3343f0dc7ebe7226b7d4bed79feacd",
+      "bytes": 5547
+    },
+    "pkg/sim/navigation_recovery_test.go": {
+      "sha256": "07b25029387d8ee5df63b61c2420178ba7d0430666dc9ec0c85ca647684c6c07",
+      "bytes": 1893
+    },
+    "pkg/sim/navigation_start_bridge_test.go": {
+      "sha256": "6a51047feeebb02fdeed84bee6aa4b18297e208384b3568be462ea9545218fb7",
+      "bytes": 3956
+    },
+    "pkg/sim/navigation_bridge.go": {
+      "sha256": "8fb5453324956cf9a326688dd1b7e561562e635e6b9ef0ab6e5f68c10fdab2af",
+      "bytes": 2741
+    },
+    "pkg/sim/footprint.go": {
+      "sha256": "47c7d25b7e1efd710d042ffb4438e253096273694340f511083e585d013bfe7c",
+      "bytes": 870
+    },
+    "pkg/sim/support.go": {
+      "sha256": "a309abb5f8ded98cd169e87547d49e94d98340617f3c306ec2f55ea3ec5e1132",
+      "bytes": 16057
+    },
+    "pkg/sim/engine.go": {
+      "sha256": "20dc78e3674f378085d453a5f02552145e111a0132dc9a0ea0a1349ee4154f4f",
+      "bytes": 13554
+    },
+    "pkg/sim/combat.go": {
+      "sha256": "ae78599a9a150e2b9b7b1e979504dab338af3048517565dd07ceca709b5bd6da",
+      "bytes": 18144
+    },
+    "pkg/sim/map_objects.go": {
+      "sha256": "6914e6391c80434ed232153031debf01f695253997f1e304476d9e9dfbcce3b7",
+      "bytes": 4270
+    },
+    "pkg/sim/mission.go": {
+      "sha256": "b2f0dde97c549afd140d8886f535a3702d887b6472159ae537cddc15d02a09bb",
+      "bytes": 11988
+    },
+    "pkg/sim/state.go": {
+      "sha256": "c47c577325d38327d10aaf5d488135aa7f62781f07ac319271dd340857b26ce8",
+      "bytes": 17292
+    },
+    "pkg/sim/spatial.go": {
+      "sha256": "60041c267d14ea1bae890bcfa8abb3c8f8a4bbb35d20af330ea0c54fcd2565e5",
+      "bytes": 939
+    },
+    "pkg/sim/ai_knowledge.go": {
+      "sha256": "819d16c7d1e86422d77f16a786b3e113ed3e9a3a915c7d8d66eb27427d0020ac",
+      "bytes": 6354
+    },
+    "pkg/sim/editor_preview.go": {
+      "sha256": "b189a909f773198dc20163ef40e0d0f47c5882122a148d00c3ccf924ab0c65dc",
+      "bytes": 2711
+    },
+    "pkg/sim/validate.go": {
+      "sha256": "012e7c7d18ed4e8f9229250114de142177b060b9047f810b279ccdbc6a1bd0fb",
+      "bytes": 12163
+    },
+    "pkg/content/map.go": {
+      "sha256": "803f2be4f871699925e60a1017e9490c75be017212577ae1dfeece8eefc71a45",
+      "bytes": 7109
+    },
+    "pkg/content/catalog.go": {
+      "sha256": "fffba898697ae6ee78771fbe5a2a4a5ab8429d6eed49e4975d58bfe2ae6eae7d",
+      "bytes": 10238
+    }
+  },
+  "reviewedCopies": {
+    "baseline-navigation.go": {
+      "source": "pkg/sim/navigation.go",
+      "sha256": "c491052f776c4b4e46adcc64b47eabf5137277b6e6105cad05b0760d07288694",
+      "bytes": 26540
+    },
+    "candidate-navigation.go": {
+      "source": "work/navigation-grid-raster-v1/source/pkg/sim/navigation.go",
+      "sha256": "6a51329f420cebbff652e493409f0aa1337a03c47e12910d664008fe824732b9",
+      "bytes": 28004
+    },
+    "candidate-navigation_raster_test.go": {
+      "source": "work/navigation-grid-raster-v1/source/pkg/sim/navigation_raster_test.go",
+      "sha256": "6afb2af1354f0e032df3e5a986450c5479adeb05f100bd50d916c33b7f7542d4",
+      "bytes": 4830
+    },
+    "owner-focused-02.log": {
+      "source": "work/navigation-grid-raster-v1/focused-02.log",
+      "sha256": "dc13542cf554c5cbcd153ec2d424a9e5d970ca837fb656a230d9c1ff06961340",
+      "bytes": 526
+    }
+  },
+  "onlyNavigationCellsDiffers": true,
+  "candidateSourceAcceptance": "No semantic blocker found within validated nonnegative input domain; meaningful test improvements proposed, no performance acceptance.",
+  "reportSHA256": "519726c8f28f944be7a4ba612f32ce7bf38a201d456ac4365a680f6c361dca25"
+}
