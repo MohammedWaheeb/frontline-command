@@ -1,0 +1,22 @@
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/protocol/frontline_pb.ts(5,42): error TS2307: Cannot find module '@bufbuild/protobuf/codegenv2' or its corresponding type declarations.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/protocol/frontline_pb.ts(6,39): error TS2307: Cannot find module '@bufbuild/protobuf/codegenv2' or its corresponding type declarations.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/offline.ts(26,8): error TS2322: Type 'Message | Message<string>' is not assignable to type 'PlayerSnapshot | undefined'.
+  Type 'Message' is not assignable to type 'PlayerSnapshot'.
+    Type 'Message' is not assignable to type 'Message<"frontline.v1.PlayerSnapshot">'.
+      Types of property '$typeName' are incompatible.
+        Type 'string' is not assignable to type '"frontline.v1.PlayerSnapshot"'.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/offline.ts(26,105): error TS2532: Object is possibly 'undefined'.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/offline.ts(26,233): error TS2322: Type 'PlayerSnapshot | undefined' is not assignable to type 'PlayerSnapshot'.
+  Type 'undefined' is not assignable to type 'PlayerSnapshot'.
+    Type 'undefined' is not assignable to type 'Message<"frontline.v1.PlayerSnapshot">'.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/offline.ts(26,277): error TS2532: Object is possibly 'undefined'.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/operation-preview.ts(15,12): error TS2339: Property 'kind' does not exist on type 'Record<string, unknown> | MessageInit<Message>'.
+  Property 'kind' does not exist on type 'Message'.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/operation-preview.ts(15,36): error TS2339: Property 'type' does not exist on type 'Record<string, unknown> | MessageInit<Message>'.
+  Property 'type' does not exist on type 'Message'.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/operation-preview.ts(15,63): error TS2339: Property 'index' does not exist on type 'Record<string, unknown> | MessageInit<Message>'.
+  Property 'index' does not exist on type 'Message'.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/operation-preview.ts(15,92): error TS2339: Property 'points' does not exist on type 'Record<string, unknown> | MessageInit<Message>'.
+  Property 'points' does not exist on type 'Message'.
+work/ui-mask-current53-browser-v1/prepared-02/source/client/src/runtime/operation-preview.ts(18,101): error TS2339: Property 'points' does not exist on type 'Record<string, unknown> | MessageInit<Message>'.
+  Property 'points' does not exist on type 'Message'.

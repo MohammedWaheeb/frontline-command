@@ -1,0 +1,116 @@
+{
+  "scope": "Original prepared-01 failure: encoded RGB at alpha zero was overconstrained; source-mask contract is exact alpha/coverage/grayscale, actual composited outside-mask equality remains a separate strict gate. No asset changes.",
+  "file": {
+    "id": "building.IR.drone_hub",
+    "destination": "ui/portraits/building.IR.drone_hub@2x.team.png",
+    "original_source": "work/art/building-polish-runtime-handoffs-v1/building.IR.drone_hub/stage/assets/build/ui/portraits/building.IR.drone_hub@2x.team.png",
+    "original_sha256": "565f887216a30da0316ae70392dacb208afb6b3b505702ea6ae9a1fcdae9c8d1",
+    "candidate": "work/art/ui-team-normalization-audit-v1/normalized-current53-v1/candidate/ui/portraits/building.IR.drone_hub@2x.team.png",
+    "candidate_sha256": "6fb4a1c6ebe7a1c04f919d04d7cddbd6810bdbd45f1d1091d773079b69504d74",
+    "reused_exact_prior_derivative": false,
+    "prior_candidate": null,
+    "alpha_changed_pixels": 0,
+    "coverage_changed_pixels": 0,
+    "non_gray_pixels": 0,
+    "changed_rgb_pixels": 603,
+    "dimensions": [
+      192,
+      192
+    ]
+  },
+  "alphaChanges": 0,
+  "coverageChanges": 0,
+  "transparentRGBChanges": 22,
+  "examples": [
+    {
+      "coordinate": [
+        4,
+        190
+      ],
+      "original": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "candidate": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "coordinate": [
+        69,
+        142
+      ],
+      "original": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "candidate": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "coordinate": [
+        70,
+        115
+      ],
+      "original": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "candidate": [
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "coordinate": [
+        71,
+        119
+      ],
+      "original": [
+        7,
+        9,
+        9,
+        0
+      ],
+      "candidate": [
+        10,
+        10,
+        10,
+        0
+      ]
+    },
+    {
+      "coordinate": [
+        72,
+        107
+      ],
+      "original": [
+        4,
+        4,
+        5,
+        0
+      ],
+      "candidate": [
+        5,
+        5,
+        5,
+        0
+      ]
+    }
+  ]
+}
