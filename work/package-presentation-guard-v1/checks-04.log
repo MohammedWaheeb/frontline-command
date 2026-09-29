@@ -1,0 +1,37 @@
+✔ actual Vite build: separate CSS font/chrome assets map to the exact originals (34.348042ms)
+✔ non-generated worker source drift during runtime build is rejected (31.281875ms)
+✔ generated runtime and protocol outputs may change during runtime build (27.935583ms)
+✔ nested source dependency bytes are guarded (26.874417ms)
+✔ presentation capture cannot adopt a newer worker than the runtime build baseline (33.914584ms)
+✔ hashed CSS .woff2 output corruption fails even with exact plugin copy (27.726375ms)
+✔ hashed CSS .png output corruption fails even with exact plugin copy (28.934042ms)
+✔ post-capture addition of a selected art file is rejected (27.8555ms)
+✔ post-capture art removal is rejected (33.773542ms)
+✔ new audio license notice is rejected (25.776167ms)
+✔ input-only effect approval manifest drift is rejected (25.011209ms)
+✔ public collision with art/ui/chrome/panel.png is rejected (25.546417ms)
+✔ public collision with content/index.json is rejected (28.9775ms)
+✔ public collision with build-assets.json is rejected (22.659917ms)
+✔ public collision with index.html is rejected (23.761708ms)
+✔ dynamic Vite output cannot collide with a public copy even with identical bytes (33.180291ms)
+✔ dynamic entry cannot overwrite reserved index.html (24.528ms)
+✔ dynamic entry cannot overwrite reserved assets/packs/base.json (26.360542ms)
+✔ dynamic entry cannot overwrite reserved build-assets.json (26.213416ms)
+✔ only generated pack version may alter the authored content index (26.321417ms)
+✔ generated pack version must match the actual base pack (25.645541ms)
+✔ source symlink escape is rejected (21.885292ms)
+✔ source directory cycle is rejected (19.1895ms)
+✔ native host keeps authored content exact while browser gets generated pack identity (21.3965ms)
+✔ transient copied extra art/audio/notices/transient.txt cannot survive source recapture (28.261791ms)
+✔ transient copied extra assets/fonts/transient.woff2 cannot survive source recapture (25.963ms)
+✔ transient copied extra content/maps/transient.json cannot survive source recapture (27.823875ms)
+✔ transient copied extra transient-public.txt cannot survive source recapture (28.765875ms)
+✔ native content rejects transient added JSON absent from authored path set (19.666708ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 936.269709

@@ -1,0 +1,50 @@
+{
+  "at": "2026-09-29T18:48:32.813509+00:00",
+  "scope": "Selective nonvisual packaging guard integration; no art/runtime/gameplay changes",
+  "files": {
+    "scripts/local.mjs": {
+      "before": "fd1d16f1c0651b6618eb2575d032ab93e0963f5559395dad5154788b5608444f",
+      "after": "2dede8d62a8fd450b4930410cb7327e0f2cfdaf60cff88ce93ca5b83de0cca78"
+    },
+    "scripts/package-presentation-inputs.mjs": {
+      "before": null,
+      "after": "737eed6ea52de0e5fe3401c33402313093fe044be3fef0d99ad04278bc13ec1d"
+    },
+    "client/vite.config.ts": {
+      "before": "bc422882062272ae521ff92b7f0c418ed7654d03e06c38457913d536fdb8cb47",
+      "after": "982455b8602ccaebe3f92b35b1f237898e4fd9100061cde646365b35829dd7ca"
+    },
+    "client/scripts/ui/art-plugin.mjs": {
+      "before": "12a90d421d8542689b6d1e3c8686b89f493d7ba44b9a4cdf3df7b2a67ae701af",
+      "after": "a23292d5e18c59fe07231a7aede4323e091dfb40a668eae732da85fbfe5fe7d1"
+    }
+  },
+  "extra_live_test_dispatch": "local.mjs make test now runs the three packaging regression files before existing Go/client checks; this one-line addition follows the exact candidate copy.",
+  "final_live_files": {
+    "scripts/local.mjs": {
+      "bytes": 14870,
+      "sha256": "4e508c6547f5062fed6b5b3b64cd0a6f0d112089ed7a04b31532cd40cd604d7b"
+    },
+    "scripts/package-presentation-inputs.mjs": {
+      "bytes": 9734,
+      "sha256": "737eed6ea52de0e5fe3401c33402313093fe044be3fef0d99ad04278bc13ec1d"
+    },
+    "client/vite.config.ts": {
+      "bytes": 1060,
+      "sha256": "982455b8602ccaebe3f92b35b1f237898e4fd9100061cde646365b35829dd7ca"
+    },
+    "client/scripts/ui/art-plugin.mjs": {
+      "bytes": 14439,
+      "sha256": "a23292d5e18c59fe07231a7aede4323e091dfb40a668eae732da85fbfe5fe7d1"
+    },
+    "scripts/package-presentation-inputs.test.mjs": {
+      "bytes": 10261,
+      "sha256": "387cb71fa22f4be47cf1244fbf31f6870748048c25fea7bf267218a9cdc89f52"
+    }
+  },
+  "live_tests": {
+    "count": 37,
+    "failed": 0,
+    "log_sha256": "1a653190f732db8b3fd7ee91c997e2e4da733bce0a70bff9d503301c1ced7a0d"
+  }
+}

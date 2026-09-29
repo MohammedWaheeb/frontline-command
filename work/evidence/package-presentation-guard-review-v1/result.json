@@ -1,0 +1,99 @@
+{
+  "scope": "Independent read-only source/receipt review; no tests, browser, runtime build or package build executed by reviewer.",
+  "candidate": {
+    "scripts/package-presentation-inputs.mjs": {
+      "bytes": 9734,
+      "sha256": "737eed6ea52de0e5fe3401c33402313093fe044be3fef0d99ad04278bc13ec1d"
+    },
+    "scripts/local.mjs": {
+      "bytes": 14717,
+      "sha256": "2dede8d62a8fd450b4930410cb7327e0f2cfdaf60cff88ce93ca5b83de0cca78"
+    },
+    "scripts/package-integrity.mjs": {
+      "bytes": 8745,
+      "sha256": "351de7f3e1850128b2865e324663063a51914c4581c33a4db9092e598aebcc2d"
+    },
+    "client/vite.config.ts": {
+      "bytes": 1060,
+      "sha256": "982455b8602ccaebe3f92b35b1f237898e4fd9100061cde646365b35829dd7ca"
+    },
+    "client/scripts/ui/art-plugin.mjs": {
+      "bytes": 14439,
+      "sha256": "a23292d5e18c59fe07231a7aede4323e091dfb40a668eae732da85fbfe5fe7d1"
+    },
+    "client/scripts/ui/effect-pack.mjs": {
+      "bytes": 5173,
+      "sha256": "e5e7cc2f6105715f0992266b91d7b306233ceca039b84cddb6241193239ba974"
+    },
+    "client/src/content/effect-assets.mjs": {
+      "bytes": 7254,
+      "sha256": "25f72c5a7a6c920403280498d28a8300c22c860ec8423a5f40d2f8ee34dfdb17"
+    }
+  },
+  "candidate_files_exact_to_product02_receipt": true,
+  "receipt": {
+    "path": "work/package-presentation-guard-v1/checks-product-02/receipt.json",
+    "sha256": "8b239651cb738550276e5682a3324da26c38b5cc3e233cab7ff685b46846e3da"
+  },
+  "checks04": {
+    "path": "work/package-presentation-guard-v1/checks-04.log",
+    "sha256": "96984f28067303c6525f90cf88b31e46e58c5a40c8f82d090fc72666aa3f7fa3",
+    "reported_passes": 29
+  },
+  "driver": {
+    "bytes": 3366,
+    "sha256": "6b57e95b278d4443cfa9c97f55510e26d25bb179a73529dfa88edab38026d651"
+  },
+  "product02": {
+    "files": 4531,
+    "bytes": 552381724,
+    "id": "2.0.0",
+    "version": "content-v1-1330e2fa8592008e640dd41d6281dfcba617d5762a359356bc9d95fa765e1d8a",
+    "packSHA256": "eb5199b52b2e7fde8c8671ccbaee7d4d60cdcc5adb140463326e175b8d655776",
+    "runtime": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.4"
+    },
+    "inventoryFiles": 4542,
+    "cssDependencies": 26,
+    "scope": "Read-only static integrity; no browser boot, MIME response, art completeness or release certification"
+  },
+  "presentation02": {
+    "sourceFiles": 6157,
+    "sourceSHA256": "ae274bfeb039b96e251d338711443bddff96c5ed0db751d73b73ea5201d37d50",
+    "copiedFiles": 4505,
+    "outputSHA256": "9195fa66a29b466ff31f926fa581d14d1f8d6dd136fea1e0b8a643b870576293",
+    "viteAssets": 16,
+    "scope": "Client sources, nested source dependencies, public outputs and selected art/content copies are consistent. Top-level installed tools use pinned lockfiles; final reviewed art completeness is a separate receipt gate."
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "issue": "Non-generated runtime input baseline could change between post-runtime check and presentation capture.",
+      "resolution": "authoredClientSHA256 from that exact capture is compared against pre-runtime clientBefore.",
+      "status": "resolved-source-and-regression"
+    },
+    {
+      "id": "R2",
+      "issue": "Dynamic Vite entry output could collide with reserved generated paths omitted from copied output set.",
+      "resolution": "Reserved index.html/art index/base pack/build-assets paths added to dynamic rejection.",
+      "status": "resolved-source-and-regression"
+    },
+    {
+      "id": "R3",
+      "issue": "Transient added file could survive copy after source path set returned to baseline; host extra JSON likewise.",
+      "resolution": "Actual product inventory constrained to copied/reserved/Vite output set; native JSON paths equal captured authored set.",
+      "status": "resolved-source-and-regression"
+    }
+  ],
+  "remaining_scope_limits": [
+    "Top-level installed dependency bytes are assumed from pinned npm installation, not fully hashed by this guard.",
+    "Input hashes before/after are not an atomic filesystem snapshot or proof against arbitrary source edit-and-restore during compilation.",
+    "Actual current-config Vite rehearsal uses existing accepted runtime and incomplete live art; no full make build/runtime/native package execution.",
+    "Final reviewed art selection/publication and complete roster/budget/native gameplay acceptance remain separate."
+  ],
+  "blocking_issues_remaining": []
+}

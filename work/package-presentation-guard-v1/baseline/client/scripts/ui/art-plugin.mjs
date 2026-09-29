@@ -53,14 +53,6 @@ async function runtimeFiles(assets,index){
  if(index.icons)files.push('ui/icons/fc-icons.svg');if(index.emblems)files.push('ui/emblems/fc-emblems.svg');return [...new Set(files)];
 }
 async function copy(from,to){await mkdir(path.dirname(to),{recursive:true});await copyFile(from,to)}
-/** The exact source-to-product mapping shared by packaging and its input guard. */
-export async function artPackageSources(assets){
- const index=await artIndex(assets),sources=[];
- for(const rel of await runtimeFiles(assets,index)){const source=resolveArt(assets,'/art/'+rel);if(!source)throw Error(`Unsafe art path ${rel}`);sources.push({source,output:'art/'+rel})}
- for(const rel of await walk(path.join(assets,'fonts')))if(/\.(ttf|woff2|txt)$/.test(rel))sources.push({source:path.join(assets,'fonts',rel),output:'assets/fonts/'+rel});
- for(const rel of ['README.md',...((await walk(path.join(assets,'audio/licenses'))).filter(rel=>/\.(md|txt)$/.test(rel)).map(rel=>`licenses/${rel}`))])if(await exists(path.join(assets,'audio',rel)))sources.push({source:path.join(assets,'audio',rel),output:'art/audio/notices/'+rel});
- return {index,sources};
-}
 export async function writeBasePack(outDir){
  const artPath=path.join(outDir,'art/index.json');
  if(await exists(artPath)){const art=JSON.parse(await readFile(artPath,'utf8'));if(art.effects!==undefined)await inspectEffectPack(path.join(outDir,'art'),{descriptor:art.effects})}
@@ -134,10 +126,12 @@ export function artPlugin({assets,content=path.join(path.dirname(assets),'conten
    res.setHeader('Content-Type',TYPES[path.extname(file)]??'application/octet-stream');res.setHeader('Cache-Control','no-cache');res.setHeader('Content-Length',String((await stat(file)).size));createReadStream(file).on('error',()=>res.destroy()).pipe(res);
   })},
   async closeBundle(){
-   if(!building)return;const {index,sources}=await artPackageSources(assets);
-   for(const {source,output} of sources)await copy(source,path.join(outDir,output));
+   if(!building)return;const index=await artIndex(assets);
+   for(const rel of await runtimeFiles(assets,index)){const from=resolveArt(assets,'/art/'+rel);if(!from)throw Error(`Unsafe art path ${rel}`);await copy(from,path.join(outDir,'art',rel))}
    await mkdir(path.join(outDir,'art'),{recursive:true});await writeFile(path.join(outDir,'art/index.json'),JSON.stringify(index));
+   for(const rel of await walk(path.join(assets,'fonts')))if(/\.(ttf|woff2|txt)$/.test(rel))await copy(path.join(assets,'fonts',rel),path.join(outDir,'assets/fonts',rel));
    for(const rel of await walk(content))if(rel.endsWith('.json'))await copy(path.join(content,rel),path.join(outDir,'content',rel));
+   for(const rel of ['README.md',...((await walk(path.join(assets,'audio/licenses'))).filter(rel=>/\.(md|txt)$/.test(rel)).map(rel=>`licenses/${rel}`))])if(await exists(path.join(assets,'audio',rel)))await copy(path.join(assets,'audio',rel),path.join(outDir,'art/audio/notices',rel));
    await writeBasePack(outDir);
   },
  };

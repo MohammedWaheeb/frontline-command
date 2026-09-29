@@ -1,5 +1,4 @@
 import {copyDependencyLicenses,copyNpmLicenses} from './package-licenses.mjs';
-import {captureClientInputs,capturePresentationInputs,requireSameInputs,verifyPresentationProduct,verifyHostContent} from './package-presentation-inputs.mjs';
 import {nativeBuildEnvironment,verifyProduct,verifyNativeExecutable,fileInventory,fileDigest,buildSourceIdentity,resolveGoLicense} from './package-integrity.mjs';
 import {existsSync} from 'node:fs';
 import {spawn,execFileSync} from 'node:child_process';
@@ -91,14 +90,9 @@ async function checksums(stage){
 async function buildPackage(){
  await dependencies();await clientScript('build');const sourceBefore=await buildSourceIdentity(root);
  run('go',['run','./cmd/contentcheck','-content','content','-release']);
- const clientBefore=await captureClientInputs(root,{includeGenerated:false});
- run(npm,['--prefix',client,'run','runtime:build']);
- requireSameInputs(clientBefore,await captureClientInputs(root,{includeGenerated:false}),'runtime build');
- const presentationInputs=await capturePresentationInputs(root);
- requireSameInputs(clientBefore,{sha256:presentationInputs.authoredClientSHA256},'presentation capture');
- run(npm,['--prefix',client,'run','build']);
+ run(npm,['--prefix',client,'run','runtime:build']);run(npm,['--prefix',client,'run','build']);
  if(!await exists(path.join(client,'dist/index.html')))throw new Error('Product build did not emit client/dist/index.html.');
- await verifyProduct(path.join(client,'dist'));await verifyPresentationProduct(root,path.join(client,'dist'),presentationInputs);await fileInventory(path.join(root,'content'));
+ await verifyProduct(path.join(client,'dist'));await fileInventory(path.join(root,'content'));
  await mkdir(path.dirname(packageDir),{recursive:true});const stage=await mkdtemp(path.join(path.dirname(packageDir),'.frontline-build-'));
  run('go',['build','-trimpath','-ldflags=-s -w','-o',path.join(stage,executable),'./cmd/frontline'],{env:nativeBuildEnvironment()});
  await verifyNativeExecutable(path.join(stage,executable));
@@ -113,10 +107,8 @@ async function buildPackage(){
  await copyFile(path.join(root,'docs/local-package.md'),path.join(stage,'README.md'));
  await copyFile(path.join(root,'docs/player-guide.md'),path.join(stage,'player-guide.md'));
  const sourceAfter=await buildSourceIdentity(root);if(sourceBefore.sha256!==sourceAfter.sha256)throw Error('Go/content sources changed during packaging; preserve this staging output and rebuild from a frozen source.');
- const presentationIdentity=await verifyPresentationProduct(root,path.join(stage,'client'),presentationInputs);
- const hostContentFiles=await verifyHostContent(stage,presentationInputs);
  const version=JSON.parse(await readFile(path.join(stage,'client/runtime/version.json'),'utf8'));
- await writeFile(path.join(stage,'version.json'),JSON.stringify({...version,source_inputs:sourceAfter,presentation_inputs:presentationIdentity,host_content_files:hostContentFiles,product_pack:productIntegrity,platform:process.platform,arch:process.arch,source_revision:capture('git',['rev-parse','HEAD']),source_dirty:!!capture('git',['status','--porcelain']),built_at:new Date().toISOString(),acceptance:'See release evidence; successful packaging alone does not certify release readiness.'},null,2)+'\n');
+ await writeFile(path.join(stage,'version.json'),JSON.stringify({...version,source_inputs:sourceAfter,product_pack:productIntegrity,platform:process.platform,arch:process.arch,source_revision:capture('git',['rev-parse','HEAD']),source_dirty:!!capture('git',['status','--porcelain']),built_at:new Date().toISOString(),acceptance:'See release evidence; successful packaging alone does not certify release readiness.'},null,2)+'\n');
  await checksums(stage);
  if(await exists(packageDir))await rename(packageDir,`${packageDir}.previous-${Date.now()}`);
  await rename(stage,packageDir);console.log(`Local package: ${packageDir}. No deployment performed.`);
@@ -130,7 +122,7 @@ try{
  switch(command){
   case 'doctor':await doctor();break;
   case 'dev':await dev();break;
-  case 'test':await dependencies();run(process.execPath,['--test','scripts/package-integrity.test.mjs','scripts/package-licenses.test.mjs','scripts/package-presentation-inputs.test.mjs']);run('go',['test','./...']);run('go',['vet','./...']);run(npm,['--prefix',client,'run','typecheck']);run(npm,['--prefix',client,'run','test:runtime']);break;
+  case 'test':await dependencies();run('go',['test','./...']);run('go',['vet','./...']);run(npm,['--prefix',client,'run','typecheck']);run(npm,['--prefix',client,'run','test:runtime']);break;
   case 'test-browser':await dependencies();run(npm,['--prefix',client,'run','test:browser']);break;
   case 'check-content':run('go',['run','./cmd/contentcheck','-content','content','-release']);break;
   case 'build':await buildPackage();break;

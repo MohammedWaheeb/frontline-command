@@ -1,0 +1,45 @@
+✔ packaged CSS resolves fonts, textures and imports and rejects unresolved source paths (1.186708ms)
+✔ Go notices support archive and Homebrew layouts without accepting unrelated licenses (5.998ms)
+✔ native target removes inherited cross and CGO settings (0.166ms)
+✔ portable inventory rejects escape, Windows reserved names and symlinks (1.933833ms)
+✔ native headers must match the recorded package platform and CPU (1.536709ms)
+✔ offline package rejects missing runtime, changed bytes, unlisted resources and reused version (20.1355ms)
+✔ installed runtime supplements include all pinned upstream notices (9.915ms)
+✔ missing, changed or version-mismatched supplemental notices fail before copying (8.927417ms)
+✔ actual Vite build: separate CSS font/chrome assets map to the exact originals (30.223792ms)
+✔ non-generated worker source drift during runtime build is rejected (23.709542ms)
+✔ generated runtime and protocol outputs may change during runtime build (21.6265ms)
+✔ nested source dependency bytes are guarded (21.524375ms)
+✔ presentation capture cannot adopt a newer worker than the runtime build baseline (24.775333ms)
+✔ hashed CSS .woff2 output corruption fails even with exact plugin copy (24.998583ms)
+✔ hashed CSS .png output corruption fails even with exact plugin copy (21.365083ms)
+✔ post-capture addition of a selected art file is rejected (21.318125ms)
+✔ post-capture art removal is rejected (19.663125ms)
+✔ new audio license notice is rejected (20.102458ms)
+✔ input-only effect approval manifest drift is rejected (22.352334ms)
+✔ public collision with art/ui/chrome/panel.png is rejected (23.922166ms)
+✔ public collision with content/index.json is rejected (20.977375ms)
+✔ public collision with build-assets.json is rejected (20.572709ms)
+✔ public collision with index.html is rejected (20.869125ms)
+✔ dynamic Vite output cannot collide with a public copy even with identical bytes (38.546959ms)
+✔ dynamic entry cannot overwrite reserved index.html (34.776792ms)
+✔ dynamic entry cannot overwrite reserved assets/packs/base.json (34.772125ms)
+✔ dynamic entry cannot overwrite reserved build-assets.json (25.51325ms)
+✔ only generated pack version may alter the authored content index (39.188125ms)
+✔ generated pack version must match the actual base pack (38.823ms)
+✔ source symlink escape is rejected (24.577583ms)
+✔ source directory cycle is rejected (20.582334ms)
+✔ native host keeps authored content exact while browser gets generated pack identity (20.170042ms)
+✔ transient copied extra art/audio/notices/transient.txt cannot survive source recapture (40.360459ms)
+✔ transient copied extra assets/fonts/transient.woff2 cannot survive source recapture (64.004583ms)
+✔ transient copied extra content/maps/transient.json cannot survive source recapture (53.24075ms)
+✔ transient copied extra transient-public.txt cannot survive source recapture (40.284083ms)
+✔ native content rejects transient added JSON absent from authored path set (19.26225ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1104.015875

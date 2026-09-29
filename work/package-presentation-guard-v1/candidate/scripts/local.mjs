@@ -130,7 +130,7 @@ try{
  switch(command){
   case 'doctor':await doctor();break;
   case 'dev':await dev();break;
-  case 'test':await dependencies();run(process.execPath,['--test','scripts/package-integrity.test.mjs','scripts/package-licenses.test.mjs','scripts/package-presentation-inputs.test.mjs']);run('go',['test','./...']);run('go',['vet','./...']);run(npm,['--prefix',client,'run','typecheck']);run(npm,['--prefix',client,'run','test:runtime']);break;
+  case 'test':await dependencies();run('go',['test','./...']);run('go',['vet','./...']);run(npm,['--prefix',client,'run','typecheck']);run(npm,['--prefix',client,'run','test:runtime']);break;
   case 'test-browser':await dependencies();run(npm,['--prefix',client,'run','test:browser']);break;
   case 'check-content':run('go',['run','./cmd/contentcheck','-content','content','-release']);break;
   case 'build':await buildPackage();break;

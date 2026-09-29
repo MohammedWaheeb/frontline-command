@@ -20,5 +20,5 @@ export default defineConfig({
   proxy:{'/api':{target:api,ws:true,changeOrigin:false},'/ws':{target:api,ws:true}},
  },
  preview:{host:'127.0.0.1',proxy:{'/api':{target:api,ws:true}}},
- build:{outDir:path.join(client,'dist'),emptyOutDir:true,target:'es2022',sourcemap:true,manifest:'build-assets.json',assetsInlineLimit:0,chunkSizeWarningLimit:2048},
+ build:{outDir:path.join(client,'dist'),emptyOutDir:true,target:'es2022',sourcemap:true,assetsInlineLimit:0,chunkSizeWarningLimit:2048},
 });

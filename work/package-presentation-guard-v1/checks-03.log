@@ -1,0 +1,32 @@
+✔ actual Vite build: separate CSS font/chrome assets map to the exact originals (31.079125ms)
+✔ non-generated worker source drift during runtime build is rejected (25.504333ms)
+✔ generated runtime and protocol outputs may change during runtime build (22.367083ms)
+✔ nested source dependency bytes are guarded (22.762167ms)
+✔ presentation capture cannot adopt a newer worker than the runtime build baseline (30.400125ms)
+✔ hashed CSS .woff2 output corruption fails even with exact plugin copy (24.802625ms)
+✔ hashed CSS .png output corruption fails even with exact plugin copy (22.390542ms)
+✔ post-capture addition of a selected art file is rejected (26.039583ms)
+✔ post-capture art removal is rejected (20.130333ms)
+✔ new audio license notice is rejected (21.831583ms)
+✔ input-only effect approval manifest drift is rejected (23.275292ms)
+✔ public collision with art/ui/chrome/panel.png is rejected (21.060625ms)
+✔ public collision with content/index.json is rejected (28.800292ms)
+✔ public collision with build-assets.json is rejected (32.446083ms)
+✔ public collision with index.html is rejected (20.856584ms)
+✔ dynamic Vite output cannot collide with a public copy even with identical bytes (27.804042ms)
+✔ dynamic entry cannot overwrite reserved index.html (22.939042ms)
+✔ dynamic entry cannot overwrite reserved assets/packs/base.json (24.537042ms)
+✔ dynamic entry cannot overwrite reserved build-assets.json (21.973459ms)
+✔ only generated pack version may alter the authored content index (20.895958ms)
+✔ generated pack version must match the actual base pack (23.350708ms)
+✔ source symlink escape is rejected (19.610833ms)
+✔ source directory cycle is rejected (16.641375ms)
+✔ native host keeps authored content exact while browser gets generated pack identity (19.580666ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 714.465417
