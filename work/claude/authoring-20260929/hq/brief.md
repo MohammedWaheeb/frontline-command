@@ -1,0 +1,9 @@
+Read AGENTS.md and work/claude/06-rts-reference-study.md. Implementation is already authorized by the user. Use only exact claude-opus-5-5; do not invoke another model or agent. This is source authoring in an isolated candidate. Do not run Blender, browser, host, tests, installs or deployments; Codex owns the serial validation lanes. Do not edit any live source, original evidence, immutable handoff, source lock, art pixels, gameplay or any path outside the write allowlist. Preserve all original failures. Give a concise Markdown report of actual edits, reasoning and remaining unrun gates. No claim of test/render acceptance.
+
+Implement the SY and SA HQ corrections you proposed in work/claude/29sept-hq-role-review.md in the already copied candidate model only. Both HQs should read as command anchors at1x through distinct massing, not just palette. Follow the improvised SY signals compound and SA buttressed command keep, including critical-state roof/crown removal. Gate every new branch with not small: outposts must remain exact. No shared helper, IR/US/other57 building, spec, footprint, camera, anchor, lamp, crate, ground pad or entry-door change. Keep the entry apron clear and rig height within2.67. Use existing materials/vocabulary. All new geometry must join structure/construction/rubble and correct detachable/critical_hide sets. Do not silently reuse a shared rotor change.
+
+Author only the candidate-building_roster.py and report. Record named changed objects and state sets, expected bounds, and exact unaffected model/pose parity expectations. Codex/Mencius will prove evaluated meshes, reset, hardpoints and outpost/IR equivalence before a tiny native pilot; original exports stay unchanged. No render approval is implied.
+
+Sole write allowlist:
+- `work/art/hq-role-candidate-v1/candidate-building_roster.py`
+- `work/art/hq-role-candidate-v1/report.md`

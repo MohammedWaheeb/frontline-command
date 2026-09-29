@@ -1,0 +1,746 @@
+
+> frontline-command-client@0.1.0 test:runtime
+> node scripts/runtime/test.mjs
+
+✔ guest solo needs no profile; remembered local profiles restore without appearing in state or game backups (48.970125ms)
+✔ 401 becomes a recoverable sign-in state and removes only the rejected token (4.344709ms)
+✔ offline restore retains remembered credentials and a later successful service request recovers (2.993625ms)
+✔ tokens are host scoped and stale logout cannot erase a newer remembered profile (3.565792ms)
+✔ session-only sign-in clears the prior remembered credential and logout preserves gameplay files (3.143084ms)
+✔ credential vault CAS rejects cross-tab replacement without exposing tokens in error details (3.202584ms)
+✔ credential revisions survive logout/recreation, rejecting stale writes and stale cleanup of the same token (3.364709ms)
+✔ schema-one credentials migrate without token loss and seed the next revision after removal (3.333958ms)
+✔ stale session logout cannot remove the same token restored into a newer credential generation (3.917709ms)
+✔ explicit private sign-in keys restore only their exact host and verified profile; never public state or backups (4.641541ms)
+✔ sign-in key parsing rejects malformed, oversized and unsupported files without exposing token in errors (2.065625ms)
+✔ profile changes during asynchronous key reads reject before adopting the old exported account (2.137084ms)
+✔ a new structural condition interrupts a current real ActorVisual launch and cannot revive it (4.682917ms)
+✔ strategic activation respects structural low power while enemy charge privacy stays generic (0.163291ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/actor-status.test.mjs:233:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/actor-status.test.mjs (101.367125ms)
+✔ only explicit recoverable advisor failures become nonblocking feedback (0.801708ms)
+✔ background timeout never opens global error dialog; stale production is disabled and later Go advice restores it (1.84175ms)
+✔ recovery preserves newer unrelated notices and unrelated failures still reach global error path (0.247084ms)
+✔ a late failure for an obsolete selection does not change controls or notices (0.212333ms)
+✔ explicit order advice failure sends nothing and never automatically resubmits the command (0.945416ms)
+✔ LAN advice uses only slot auth, preserves orders and exposes uncertainty (28.131291ms)
+✔ advice rejects wrong player, unexpected IDs, tick and result acceptance (1.310416ms)
+✔ one advice request is pending and stale selection discards its response (0.792625ms)
+✔ advice respects request bounds and propagates rate error without retries (0.567792ms)
+✔ production menu status remains independent, bounded and authorized (1.456417ms)
+✔ ready offline environment prefetches selection-wide affordances then separates alternatives from final orders (34.59475ms)
+✔ ready environment guards session changes during affordance prefetch and batch validation (0.494125ms)
+✔ online environment shares a paced request budget and uses independent candidate mode before sequential final check (544.322958ms)
+✔ canceling a paced advice update prevents a second network request (1.567292ms)
+✔ advice pacing starts after dispatch even when request setup is delayed (1.909958ms)
+✔ actual aircraft poses retain current owned empty payload through parked, service, damage and final-shot cues (8.792458ms)
+✔ payload appearance checks current viewer, current owner and current private data every time (1.090708ms)
+✔ all departure/recovery aliases keep canonical frame clocks and altitude when payload changes (0.97525ms)
+✔ missing empty variants stay explicit incomplete art without changing authoritative state (0.446042ms)
+✔ a decoding atlas cannot retain stale payload pixels across empty or viewer boundaries (1.862375ms)
+✔ atlas mask preserves faint body opacity across byte and row boundaries (1.177334ms)
+✔ normal tolerance reaches nearby body but never pixels belonging to a neighboring atlas frame (0.303125ms)
+✔ empty body page remains unselectable and malformed decoded dimensions are rejected (0.542417ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/ambient-presentation.test.mjs:173:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/ambient-presentation.test.mjs (101.485708ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/ambient-render.test.mjs:1582:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/ambient-render.test.mjs (549.58925ms)
+✔ seek publishes the replacement frame within 100ms before its paused clock and reply (1.304ms)
+✔ each reset while replacement is pending preserves the final authorized frame (0.121209ms)
+✔ pause flushes the last throttled frame even without a replacement or finished outcome (0.162667ms)
+✔ load/session replacement publishes its first frame immediately and clears the old owner (0.078458ms)
+✔ same-tick perspective replacement publishes the new authorized owner immediately (0.073417ms)
+✔ steady play retains the HUD throttle while every snapshot reaches the renderer (0.370041ms)
+✔ menu and a buffering replacement never flush the previous session snapshot on pause (0.355333ms)
+✔ already paused frames and a terminal outcome publish without waiting for another tick (0.391209ms)
+✔ simultaneous art initialization and sheet requests share one verified generation (42.032667ms)
+✔ a changed host cannot supply new sprite metadata beneath a retained art index (6.302959ms)
+✔ failed index replacement keeps prior art; valid idle replacement moves metadata and identity together (3.970625ms)
+✔ content reload canceled at its idle boundary cannot publish a new generation (1.180833ms)
+✔ dispose aborts pending initialization and prevents late generation publication (0.38175ms)
+✔ generation adapter keeps bytes exact and excludes private, cross-origin and non-GET requests (3.129833ms)
+✔ index capture preserves exact whitespace and rejects oversized/incompatible data (1.018167ms)
+✔ a full 136-type roster request completes without caching queue overflow as missing art (48.7375ms)
+✔ transient metadata failures can retry and explicit same-index reload verifies a fresh capture (15.673458ms)
+✔ an image download failure does not retain a rejected image promise (4.031333ms)
+✔ a transient sprite page retries after a bounded delay and disposes its owned texture (305.190125ms)
+✔ a hard integrity error after a transient retry is surfaced and remains held (303.395167ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/art-id.test.mjs:29:24
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/art-id.test.mjs (49.919667ms)
+✔ actual cameo consumer uses full advertised building portrait and build keys independently (1.119958ms)
+✔ actual build cameo falls back to its independently advertised portrait, and units retain legacy keys (0.216ms)
+✔ an advertised illustration load failure retains the existing missing-art result without unadvertised retries (0.120125ms)
+✔ resolver prefers exact advertised keys independently and never guesses absent UI (0.08875ms)
+✔ resolver rejects path traversal and URL syntax even when the malformed key is advertised (0.198791ms)
+✔ captures exact index/manifest and verifies online bytes before JSON/decode (57.270416ms)
+✔ retained A reads only A cache after B activation; explicit removal is fail closed (8.605791ms)
+✔ cold new generation needs no worker or network; legacy reconnect must match exact index (5.753417ms)
+✔ copied index, canonical manifest identity and private/unknown path exclusion (1.348333ms)
+✔ manifest/index mismatch, duplicates, reserved URLs and corrupt cache metadata fail before payload (2.328208ms)
+✔ truncated/oversized/corrupt payloads and canceled streams do not return bytes (6.444958ms)
+✔ leased object URLs are verified, keyed, reference-counted, bounded and disposed (4.635042ms)
+✔ bounded metadata, declared file sizes and redirected origins are rejected (12.037625ms)
+✔ 961-request roster envelope finishes through the bounded active queue (544.751167ms)
+✔ queued cancellation and dispose never start waiting network; queue length is bounded (27.671084ms)
+✔ aggregate declared active bytes stop a second large reader without allocating it (3.525334ms)
+✔ installer stores canonical manifest before READY; metadata failure/cancel keeps old usable cache (45.24675ms)
+✔ legacy reinstall creates a verified successor; mutation of caller manifest cannot alter the transaction (9.832083ms)
+✔ different queued descriptors preserve FIFO across canceled middle jobs (78.207084ms)
+✔ standard verifies selected world pages plus actual 2x portrait/build pairs, without unused 2x world pages (15.443625ms)
+✔ high quality uses 2x world pages; the missing-high fallback matches the renderer (2.516791ms)
+✔ a portrait also satisfies build fallback; missing portrait conservatively verifies every 2x beauty/team page (2.647541ms)
+✔ a high-quality cameo fallback shares already verified metadata and images (0.884792ms)
+✔ per-launch concurrent URL dedup counts bytes and decode only once; later launches reverify (1.8455ms)
+✔ image verification is sequential and closes each bitmap before the next decode (0.925042ms)
+✔ completed native EOF clears its deadline and detaches parent abort while preserving subsequent launch cancellation (1.436709ms)
+✔ in-flight parent cancellation keeps its exact reason and clears the deadline (0.758583ms)
+✔ in-flight 15s deadline remains a real TimeoutError and detaches parent listener (0.402417ms)
+✔ download deadline is cleared at EOF before an asynchronous image decode finishes (0.577667ms)
+✔ failure cleanup cannot be replaced by a later timeout or parent abort while reader cancellation settles (0.885916ms)
+✔ a queued already-canceled call performs no fetch (0.266834ms)
+✔ fetch/header failures and native body errors preserve cause and clean the deadline (0.296375ms)
+✔ parent cancellation during image decoding closes the bitmap and is never relabeled as a corrupt image (0.179209ms)
+✔ bad HTTP, empty body, malformed JSON and image decode failures remain failures (0.355041ms)
+✔ encoded per-file/total limits still fail, stop the reader, and are counted once (0.275833ms)
+✔ the file ceiling is bounded, sealed-roster-derived, and cannot be raised by a caller (0.163375ms)
+✔ a valid 4550-file graph exceeds the old ceiling and verifies within the new bound (160.146583ms)
+✔ path traversal, malformed or partial atlases, and conflicting image dimensions are rejected (0.619ms)
+✔ decoded atlas bounds and explicit UI pair dimensions must agree (0.292292ms)
+✔ full advertised building UI keys replace unused high-world fallback pages (0.268291ms)
+✔ preflight resolves portrait and build keys independently and keeps missing-portrait world fallback (0.71425ms)
+✔ newly reachable advertised building UI missing from disk fails preflight rather than taking an unadvertised fallback (0.245ms)
+✔ changed index at the same URL cannot reuse a decoded old clip (16.421042ms)
+✔ pending old decode cannot satisfy or delete the new descriptor request (4.537333ms)
+✔ failed candidate index retains the previous decoded generation (1.770042ms)
+✔ only a validated changed index stops old sources and clears old captions (1.836666ms)
+✔ exact same index retry verifies again without discarding coherent decoded clips (1.679ms)
+✔ buffer keys include byte/hash/duration and codec fallback identity (0.417291ms)
+✔ different same-URL descriptors and concurrent exact descriptors remain distinct/deduplicated (1.939042ms)
+✔ failed reads release pending entries; corrupt recovery never reaches the decoder (2.191041ms)
+✔ disposed pending decode cannot publish a buffer or issue more index requests (1.760084ms)
+✔ dispose during index capture prevents late index publication (0.810416ms)
+✔ index retry preserves four-decode admission until old decoders finish (4.058084ms)
+✔ audio manifest rejects unsafe URLs, malformed bounds and partial codec fallbacks (0.882041ms)
+✔ audio byte read bounds hold without length headers (12.680834ms)
+✔ warning bundles and selection cooldowns are location specific and resettable (0.351167ms)
+✔ director consumes only new permitted events; rewind/reconnect/new perspective never burst old sound (2.656958ms)
+✔ selection and command acknowledgment require owned actors or actual receipt; lost vision is not death (1.0295ms)
+✔ owner economy, teammate and public endgame transitions produce captions without inventing hidden readiness (0.916917ms)
+✔ service-loss audio warns only when the current living owned aircraft has no replacement home (3.586875ms)
+✔ service-loss warning does not repeat across duplicate IDs, reset, rewind or foreign perspective (0.4925ms)
+✔ autosaves follow simulation ticks, save checkpoints once, and begin a new schedule on load (1.714708ms)
+✔ failed checkpoint retries with simulation backoff and quota errors wait for explicit recovery (2.666958ms)
+✔ replay and online notifications never save; closing or replacing a session discards a captured old snapshot (0.467625ms)
+✔ concurrent tick notifications coalesce and never overlap writes (0.721125ms)
+✔ status callbacks may observe new ticks without reentrant captures and failed writes retain their exact snapshot (1.484542ms)
+✔ defeat countdowns follow the actual perspective and simulation tick, never the wall clock (0.968792ms)
+✔ recovery, defeat, finished outcomes and absent/invalid deadlines clear warnings (0.140041ms)
+✔ memory captions preserve the observation timestamp across later ticks and reject future or malformed times (0.091959ms)
+✔ build power estimate includes both capacity and demand without altering current economy (0.080083ms)
+✔ continuous sound selects nearest three current screen actors, with quiet bed and no fog memory (10.691041ms)
+✔ stationary, dead, landed and embarked actors have no engine, jets use bounded passes (0.2075ms)
+✔ impact material requires an identified authorized entity, never a nearest-target guess (0.077875ms)
+✔ map ambience derives solely from public map presentation (0.189125ms)
+✔ enemy strategic alert uses only public threshold transition and never initial/seek catchup or ally charge (0.762917ms)
+✔ endurance event alone supplies exact loss reason and suppresses generic duplicate independent of array order (0.9725ms)
+✔ impact event material can use only current or immediately previous permitted target (0.171459ms)
+✔ battlefield attachment follows explicit pause and detachment without retaining renderer callbacks (4.704625ms)
+✔ verified pack responses drop transport and Vary headers without changing bytes or content type (21.217167ms)
+✔ campaign order unlocks on any difficulty and keeps version-specific medals separate (38.298125ms)
+✔ missing story predecessor remains locked while prior completed missions can be replayed (2.701208ms)
+✔ live solo victory records authoritative mission version and completed optional objectives exactly once (12.024791ms)
+✔ replay, practice, unfinished, defeat and changing sessions never award progression (3.968208ms)
+✔ online completion requires committed matching commander result, excludes observers and remains host-scoped (19.366583ms)
+✔ first run requires explicit settings, preserves conflicting choices and returns a launch intent only (17.007333ms)
+✔ future first-run settings remain untouched and do not silently enable sound (3.24ms)
+✔ muzzle uses the exact displayed fallback frame, alias, part offset and heading while a page loads (8.778542ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-feedback.test.mjs:85:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-feedback.test.mjs (92.601875ms)
+✔ trace may not bridge a hidden pocket or extrapolate off the known map (0.462042ms)
+✔ accessibility variants take priority over decorative quality (0.07125ms)
+✔ axial flash direction follows dimetric displayed headings, including independent turret directions (0.141833ms)
+✔ projectile direction needs real successive movement and never a guessed first sample or target (0.881667ms)
+✔ rotated frame bounds keep large offscreen-origin smoke and cull genuinely absent ink (0.333542ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-presentation.test.mjs:206:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-presentation.test.mjs (75.282167ms)
+node:internal/fs/promises:1360
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at async open (node:internal/fs/promises:1360:25)
+    at async readFile (node:internal/fs/promises:2149:14)
+    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-sound.test.mjs:426:43 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-sound.test.mjs (85.82ms)
+✔ rebase retains targeted Return semantics while ordinary Return remains queueable (2.683125ms)
+✔ context aircraft choose rebase only through Go capability and target approval (2.827708ms)
+✔ explicit intents reject hostile ownership and hidden/memory targets before invoking gameplay preview (0.838ms)
+✔ large movement selections split safely while semantic abilities never repeat implicitly (2.544583ms)
+✔ mixed selection previews preserve exact failures and require explicit opt-in for partial commands (0.710375ms)
+✔ contextual mixed forces capture or attack legally without making support or air-only units chase ground targets (0.627209ms)
+✔ context commands use owned private data for unload and preserve producer-per-order semantics (0.269083ms)
+✔ queue and packet limits are explicit and never silently truncate or modify intentions (0.369834ms)
+✔ unavailable previews are labeled unverified and preview callbacks cannot mutate outbound order data (0.180791ms)
+✔ multi-point ability identity stays locked and selection changes invalidate pending previews (2.873084ms)
+✔ explicit command batches use one sequential preview and retain joint affordability failures (0.297292ms)
+✔ context prefetch batches 65 units, skips unused fallbacks, and sequentially rechecks combined orders (14.734584ms)
+✔ publicly impossible contextual candidates fall back, then final shared assignment failures stay rejected (0.371292ms)
+✔ candidate and final batch waits both discard stale selection without sending or mutating intentions (0.248875ms)
+✔ library passes exact detached map/mission bytes through Go adapters before preparing launch (32.579791ms)
+✔ strict index rejects traversal, private URLs, duplicates, unknown fields and missing dependencies (2.3325ms)
+✔ integrity or Go validation failure preserves source and never reports ready or launches substitute data (6.889792ms)
+✔ failed refresh retains last valid registry; explicit retry succeeds and original index remains exportable (4.088458ms)
+✔ mismatched authoritative metadata rejects the file and leaves caller buffers unchanged (4.000375ms)
+✔ stream overflow is canceled, canceled work is discarded and changing the index invalidates in-flight validation (3.431708ms)
+✔ empty installed index is explicit missing content, while private/executable pack manifests are rejected (0.208416ms)
+✔ lost vision removes entity and replaces private state without mutating the prior frame (2.486125ms)
+✔ protobuf retains large seed and currency values and new control/status fields (1.42525ms)
+✔ display conversion and reconnect sequence retain boundaries (0.129875ms)
+✔ SHA-256 fallback matches published empty, abc, multiblock and million-a vectors (52.169125ms)
+✔ SHA-256 handles every padding boundary, sliced views, high bytes, and arbitrary binary blocks (58.42825ms)
+✔ fallback snapshots input and yields during large-file hashing without accepting later mutations (63.84875ms)
+✔ insecure-origin capability fallback uses CSPRNG UUIDv4 and never weak randomness (2.515416ms)
+✔ editor handle stays 32 CSS pixels on square/rectangular resized grids and keeps exact anchor (1.096875ms)
+✔ editor loads immutable first beauty frames, paints fixed icons and releases only owned sheets (1.152334ms)
+✔ missing marker art and failed draw retain the callers vector fallback (0.240667ms)
+✔ leaving during editor atlas loading cannot publish a stale frame and still releases resources (0.199125ms)
+✔ a grouped paint/object/mission edit is one reversible transaction with detached snapshots (12.747ms)
+✔ failed transactions are atomic; no-op and escaped edits cannot corrupt undo history (6.453792ms)
+✔ undo history is bounded; editing after undo removes the abandoned redo branch (14.415708ms)
+✔ resizing preserves surviving cells and objects for explicit repair; snapping is geometry only (7.152583ms)
+✔ Go validation errors remain precise and prevent export and practice launch (9.785542ms)
+✔ validation that races an edit is stale and can never authorize a launch (2.284166ms)
+✔ editor exports verify checksums, preserve supported mission/presentation, and keep background edits dirty (13.988417ms)
+✔ map and mission practice launches are validated, cannot mutate editor state, and retain the draft on return (13.590125ms)
+✔ mission edits reject executable/non-JSON values and prototype paths without changing the document (4.8885ms)
+✔ draft persistence is CAS protected and preserves exact portable documents (26.077125ms)
+✔ a microtask edit after Go validation resolves cannot be substituted into a validated export (4.30275ms)
+✔ a failed summary write aborts the entire draft save and keeps the dirty document available (8.816209ms)
+✔ supported optional map arrays normalize without losing metadata, and mission corruption is detected on draft import (7.240792ms)
+✔ draft deletion retains revisions across reopen so stale tabs cannot overwrite or delete recreated drafts (16.05225ms)
+✔ schema-one draft migration preserves content and starts the tombstone above the old revision (21.542875ms)
+✔ FX schema is immutable, supports shared variants and rejects invalid paths/frames/references (2.453666ms)
+✔ FX PNG inspection rejects corruption, truncation, appended bytes and unsupported dimensions (0.841375ms)
+✔ FX metadata loads once, pages load on demand, shared variants reuse frames, release owns all textures (25.617042ms)
+✔ FX wrong bytes fail before decode and explicit retry recovers, without silent replacement (9.00375ms)
+✔ FX strict residency budget includes pending decode and evicts only old pages under pressure (2.387625ms)
+✔ FX late texture decode cannot resurrect a released session (0.767083ms)
+✔ FX decoded image dimension mismatch is released and index integrity mismatch rejects init (1.868167ms)
+✔ FX release during metadata fetch prevents late sheet installation (1.562125ms)
+✔ FX optional absence preserves old art index; complete exact dependency graph is advertised (34.012625ms)
+✔ FX partial/corrupt/unknown/symlink packs fail instead of advertising completion (29.223333ms)
+✔ FX symlinked root and traversal metadata cannot escape the installed build (12.473666ms)
+✔ FX dev middleware serves checked exact bytes only and rejects traversal/unlisted/corrupt pages (112.631667ms)
+✔ FX actual build hook packages referenced files with exact base-pack hashes; tampering rejects repack (49.093167ms)
+✖ Copper Junction pilot binds unchanged map bytes and exactly ten mirrored public entries (1.522166ms)
+✔ optional scenery is exact-byte verified after the public map passes Go validation (30.040208ms)
+✔ a reused map ID/version cannot authorize scenery for different terrain, objects or starts (4.279667ms)
+✔ corrupt optional bytes remain exportable and mismatched source bindings are rejected (4.888ms)
+✔ environment descriptors reject unsafe paths, unknown fields and excessive declared sizes (2.200458ms)
+✔ cancellation and index replacement cannot install an in-flight scenery response (2.806375ms)
+✔ environment decoder binds exact map bytes, rejects unsupported data and freezes detached output (7.413292ms)
+✔ skins cannot invent object classes, missing actors, duplicates, factions or state (2.011041ms)
+✔ solid props need the complete impassable safety area and opaque masses need real sight blocking (1.094833ms)
+✔ scrub cannot invent cover, overlap dressing or float across mixed-height support (0.53125ms)
+✔ bridge variants keep every internal road lane open in all four orientations (1.118209ms)
+✔ public dressing follows exploration and skin rubble still requires Go disclosure (11.973459ms)
+✔ Go maps with a null empty resource slice still disclose later shipment cargo (9.621958ms)
+✔ public explored locations never invent initial cargo or station ownership (0.268542ms)
+✔ only disclosed field and station facts update presentation memory; hidden changes do not (0.241ms)
+✔ dynamic shipment cargo follows real fields and coalesces old depleted shipments without timers (0.167708ms)
+✔ rubble requires explicit selected-player disclosure and disappears exactly on rewind or perspective change (0.250417ms)
+✔ object art uses explicit legal classes and actual health/destruction independently of neutral enabled status (0.2895ms)
+✔ aircraft empty payload and orbit art use only owner-private facts; observed service is public (1.195917ms)
+✔ launcher ready art never derives another player’s exact charges (0.143875ms)
+✔ initial and reset flight states are stable; transitions only follow observed landing changes (0.530333ms)
+✔ interrupted flight and crash remain continuous and settle on terrain without gameplay delay (0.132125ms)
+✔ selection uses owned live entities and never treats remembered or enemy entities as commandable (1.307292ms)
+✔ box and same-type screen selection preserve shift add/remove semantics without selecting fog memory (6.842583ms)
+✔ control groups prune removed/captured units, retain embarked members and center only on deliberate double tap (0.3185ms)
+✔ selection tokens change with composition, perspective and session but not with ordinary movement (0.164166ms)
+✔ escape and actionable alerts return camera/menu intentions without changing selection (0.104375ms)
+✔ native keyboard activation is not consumed as chat or alert navigation (2.131667ms)
+✔ default and classic controls have no shortcut conflicts, including queued commands and groups (3.267666ms)
+✔ remapping is transactional and detects overlaps introduced by the queue modifier (2.220875ms)
+✔ accessible modifier toggles preserve normal shortcuts and clear cleanly on focus loss (0.491083ms)
+✔ text entry, composition, disabled surfaces and already consumed events suppress battlefield shortcuts (0.446541ms)
+✔ standard and classic pointer presets return correct selection, targeting and queued command intentions (1.032083ms)
+✔ map context transmits only explicit admission and verifies declared map hash before exposing map (24.217292ms)
+✔ map moderator submits both displayed revisions and preserves reported evidence when author changes concurrently (2.572458ms)
+✔ minimap paints an already paused snapshot immediately after attachment (3.717792ms)
+✔ paused camera pan, zoom and resize repaint with a bounded cadence (0.93375ms)
+✔ mission and actual resize invalidation survive the paint throttle (1.196667ms)
+✔ detach releases its resize observer and stops later camera painting (0.212041ms)
+✔ stale cleanup cannot detach a newer attachment of the same canvas (0.185375ms)
+✔ an attachment before the first authorized snapshot paints when it arrives (0.149667ms)
+✔ radar keeps battlefield projection across maps and accessibility panel sizes (0.981875ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/missing-art-perspective.test.mjs:5344:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/missing-art-perspective.test.mjs (314.190417ms)
+✔ original-force labels merge only selected faction and reject ambiguous or incompatible metadata (2.661209ms)
+✔ marked forces contain only living currently-owned originals; carried members are counted without selecting their carrier (0.992416ms)
+✔ authored objective markers resolve public regions and disappear only after authoritative completion (0.958125ms)
+✔ mission marker loading rejects wrong versions, duplicate IDs, invalid regions and hidden/failure objectives (0.313333ms)
+✔ operator credential remains memory-only, reviews use displayed revision and locking drops all evidence (16.673583ms)
+✔ operator never sends credential to LAN or deceptively named hosts; malformed tokens stay local (0.628625ms)
+✔ locking during a pending privileged request discards its response and does not resurrect operator state (0.613791ms)
+✔ stale review keeps concrete evidence and requires explicit reload; writes are never retried automatically (1.285875ms)
+✔ revoked operator credential clears previously loaded private evidence on server denial (0.521541ms)
+✔ network guest can reach host without a profile; profile credentials stay out of public controller state (57.937917ms)
+✔ ready proves matching Go version and actual asset loading; failure never sends ready flags (4.382292ms)
+✔ configuration mutation during assets preflight uses captured revision and requires renewed readiness (11.81625ms)
+✔ start installs real slot connection and validated host map, while slot token never enters observable state (3.4895ms)
+✔ expired profile authentication produces recoverable local sign-in without deleting saves (5.541667ms)
+✔ product sync requires explicit per-item decisions and preserves exact engine bytes through migration (19.633458ms)
+✔ completed lobby recovers durable result for an eliminated socket without replaying commands (8.007917ms)
+✔ chat reads every retained page, displays new messages beyond the first 100 and removes newly filtered history (5.841167ms)
+✔ expired profile can create a replacement identity without inheriting old lobby membership or deleting files (7.928416ms)
+✔ profile replacement without a lobby clears private reports, host copies and prior notices immediately (4.18475ms)
+✔ credential expiry removes report evidence from public state even without a lobby (2.5145ms)
+✔ workshop preparation never uploads implicitly; explicit private write uses reviewed revision and stale writes preserve preview (3.825292ms)
+✔ leaving an active online session stops automatic re-entry while explicit reconnect remains available (6.766583ms)
+✔ missing retained lobby recovers only an exact durable result and never rejoins a frozen participant (3.712125ms)
+✔ missing lobby without a committed record stays unresolved and transient history failures can retry (4.245042ms)
+✔ recorded history is available without a lobby and is cleared on profile change (4.94125ms)
+✔ delayed observer installs no early world state, authenticates only through header and rejects every command/clock mutation (231.410584ms)
+✔ observer rejects wrong perspective, metadata, player command receipts and changed delay before publishing (3.266375ms)
+✔ observer reconnect preserves last permitted snapshot and rejects a rewind or terminal authorization loss (1.758917ms)
+✔ disposing while a response is in flight cannot publish a stale observer frame or restart polling (0.648208ms)
+✔ transient background observer failure retries without repeated command-error dialogs and clears the status on recovery (615.461417ms)
+✔ disposing during buffered response decoding leaves the feed closed (22.630333ms)
+✔ completed content upgrades remain coherent offline; corrupt staging cannot activate or delete old packs (51.386416ms)
+✔ elimination terminal preserves final permitted frame and stops reconnect without generic runtime error (373.6135ms)
+✔ owner operation preview preserves all three exact Go routes and deadlines without retaining response aliases (0.854833ms)
+✔ operation preview rejects mismatched intent, duplicate plans, invalid coordinates/times and independent disclosure (1.823541ms)
+✔ LAN preview exposes plans only through validated sequential advice and never turns estimates into certainty (24.131209ms)
+✔ strike review waits for advice, binds immutable targets, cancels stale responses and confirms only once (0.345833ms)
+✔ older runtimes and rejected previews cannot confirm a strike (0.129041ms)
+✔ rejected ground feedback copies only a finite explicit local order position (2.289208ms)
+✔ ordinary planned command receives exactly one current owner rejection marker and preserves the authoritative queue (3.2065ms)
+✔ accepted, foreign, reset and disconnected receipts never paint stale rejection positions (1.460792ms)
+✔ rejected marker stays bounded, static and expires without altering snapshots or looking up entities (1.303ms)
+✔ out-of-order batch receipts each acknowledge once without dropping earlier entries (0.462792ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/owner-ranges.test.mjs:162:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/owner-ranges.test.mjs (102.532334ms)
+✔ construction ghost waits for body beauty, keeps physical @2x scale, and suppresses unmatched turret paint (4.484375ms)
+✔ cleared, switched and disposed proposals reject late art admission (8.432208ms)
+✔ final interceptor launch uses an empty rack only for disclosed owned charges (1.128875ms)
+✔ owned structural battery art preserves priority and known charge count with legacy fallback (0.415417ms)
+✔ cosmetic squad casualties follow only disclosed health and restore with healing (0.098459ms)
+✔ authoritative support and channel names select their authored work animation (0.121416ms)
+✔ deployment, packing and damage cannot disappear behind ordinary idle art (0.120833ms)
+✔ boarding receiver context opens only authored doors and blocked unloading keeps them open (0.168875ms)
+✔ building animations follow known power and service facts without disclosing enemy assignments (0.435792ms)
+✔ F1 straight fog edges make each boundary fan coplanar, removing the centre-to-corner crease (17.069292ms)
+✔ F1 fully visible interiors stay exactly clear and an all-visible fragment needs no fog (2.3135ms)
+✔ F1 unknown/remembered vertices are unchanged, visible vertices never drop, and only fan centres rise (capped) (23.48875ms)
+✔ F1 a lone visible tile becomes a flat capped patch, identical across depth fragments (0.862167ms)
+✖ F1 topology reads every tile the far corners touch, so changed-tile memoization sees them; geometry untouched (0.708ms)
+✔ F5 last-seen tag follows the UI scale and never falls below 11px (0.08ms)
+✔ offline discontinuity arrives before replacement snapshots, but ordinary ticks do not reset effects (1.874292ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/production-focus.test.mjs:94:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/production-focus.test.mjs (77.880791ms)
+✔ campaign completion is idempotent across tabs and replay playback never updates progression (12.062459ms)
+✔ future progress schema and invalid completion remain untouched (2.555958ms)
+✔ damaged progress records cannot turn counters into invalid values (2.542875ms)
+✔ practice results cannot update campaign progress even when mislabeled as live by a caller (1.193792ms)
+✔ point-target reach preserves distance from circular and rectangular firing footprints (3.536792ms)
+✔ range modes never substitute public base sight/detection for absent owner disclosure (0.612417ms)
+✔ recorded result reads only authenticated result metadata and preserves original payload bytes (0.829083ms)
+✔ frozen result cue requires matching committed result and never replaces live or observer state (0.190667ms)
+✔ reports send participant context only and propagate quota without retrying (13.631708ms)
+✔ own report paging encodes cursors and history retains the exact result payload (0.454334ms)
+✔ conflict preview displays both timestamps and mission progress, with unchanged large integer engine bytes (33.210708ms)
+✔ guest migration previews exact stable copy targets and unsupported local-only items before explicit choices (17.357875ms)
+✔ any local or remote revision change after preview blocks all writes before execution (9.027208ms)
+✔ copying remote data to a manual local target preserves exact bytes and requires human commander choices (11.433792ms)
+✔ cancellation after a completed copy stops remaining copies and never rolls back by deleting files (13.331334ms)
+✔ an uncertain network write is reported honestly and never retried automatically (8.921375ms)
+✔ preview tampering cannot redirect targets or authorize another account (8.663541ms)
+✔ incompatible saves remain intact and can only be skipped or mapped to a separate destination (7.7565ms)
+✔ settings previews expose missing host timestamps and use both local and host revision checks (4.119917ms)
+✔ a source edit during upload remains local and the receipt identifies that the reviewed snapshot was copied (4.049ms)
+✔ host CAS still protects a change that occurs after preflight, and pre-start cancellation writes nothing (4.195541ms)
+✔ destination names are part of the reviewed copy mapping and obey actual host byte limits (6.120209ms)
+✔ delete/recreate before preflight is detected even if the revision number repeats (5.105792ms)
+✔ campaign preview compares actual mission records and timestamps; explicit replacement preserves authoritative results elsewhere (6.420875ms)
+✔ campaign remote changes and CAS races preserve both revisions; uncertain writes are not retried (7.078209ms)
+✔ campaign upload preserves a concurrently updated local ledger and never crosses account context (5.233375ms)
+✔ future or malformed campaign ledger remains preserved and cannot overwrite a supported copy (2.623541ms)
+✔ metadata-only archive selection supports more than64 files and downloads selected files only (6.749458ms)
+✔ inventory selected revision changes reject before downloading, and account changes invalidate selection (6.39875ms)
+✔ unknown host sizes reserve64MiB and aggregate byte bound applies before selected payload downloads (4.926ms)
+✔ real source heights support the actual service center/grid, highest plane and zero-height ground distinctly (0.900708ms)
+✔ retained physical footprint and sim-local axes determine support, not the converted faction capacity (0.392416ms)
+✔ edge/vertex sampling is inclusive for either winding but outside collinear extensions remain ground (0.826208ms)
+✔ invalid or invented support metadata cannot supply a blanket lift (0.585917ms)
+✔ an eliminated online commander has a frozen badge regardless of stale pause, without changing the permitted snapshot (0.998917ms)
+✔ observer, paused and replay labels retain priority; only a real finished snapshot labels the battlefield ended (0.144041ms)
+✔ terminal and disconnected menus never display old teammate, latency or shared-pause data as current (0.190375ms)
+✔ failed replacement retains live match, successful replacement disposes it once (1.7315ms)
+✔ a slower canceled launch cannot overwrite the latest session (0.283375ms)
+✔ replay skips autosave, has read-only save/restart controls, and releases worker on menu (0.293167ms)
+✔ manual save cannot write a newly selected session under an old request (0.286459ms)
+✔ new restart session has a new autosave identity and remains paused until UI resumes (0.346666ms)
+✔ observer replacement is read-only, may buffer without a snapshot, and never creates autosaves (0.279916ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/sold-building-feedback.test.mjs:5832:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/sold-building-feedback.test.mjs (271.546791ms)
+✔ authored reverse aliases retain progress and map all layers/hardpoints to exact source poses (0.74075ms)
+✔ concurrent save edits have exactly one winner and preserve the conflict (24.597542ms)
+✔ three autosaves rotate atomically without consuming manual saves (14.169042ms)
+✔ export/import preserves exact large integer bytes and previews existing records (5.487792ms)
+✔ settings use a separate revision and failed validation leaves saves untouched (3.391042ms)
+✔ backup restores saves/settings/progress/replays together with explicit decisions and exact bytes (18.173042ms)
+✔ backup conflict aborts every selected write and keeps both versions available (14.45725ms)
+✔ failed backup write rolls back earlier writes and never discards the source (17.485667ms)
+✔ unsupported backup and mixed incompatible save preserve exact originals for later recovery (7.015583ms)
+✔ preview mutations cannot bypass validation or overwrite a revision not reviewed (9.794542ms)
+✔ replay validation is bounded, integrity checked, CAS protected, and corrupt files remain exportable (7.965166ms)
+✔ schema upgrade preserves version-one saves and future databases are never downgraded (1.857833ms)
+✔ settings reject malformed JSON, byte limits and invalid revisions without replacing existing data (7.993833ms)
+✔ an unreadable backup can be kept byte for byte without replacing current records (2.326584ms)
+✔ deleted save and replay IDs never reuse revisions across tabs and reopen (12.316291ms)
+✔ atomic backup CAS rejects delete/recreate races; backup restore and autosave respect tombstones (7.838208ms)
+✔ legacy revisions migrate to durable high-water marks without rewriting their bytes (3.239291ms)
+✔ revision exhaustion fails safely and never wraps an existing save (5.335542ms)
+✔ campaign backup validation preserves malformed story originals without replacing a supported local ledger (2.710167ms)
+✔ browser backup streams cursor records without retaining all raw archive payloads (17.304167ms)
+✔ world-space rings preserve exact radius at every sample, including large zones (2.091916ms)
+✔ caption semantics retain pending launch versus impact and round up the last live tick (0.120292ms)
+✔ coincident and nearby salvo captions remain separate without moving their target points (0.54475ms)
+✔ command symbols distinguish target, ground, queued guard, patrol and return intent (0.084709ms)
+✔ restored ping baseline survives selection refresh; new pings expire and remain bounded (0.21725ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/tactical-presentation.test.mjs:258:22
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/tactical-presentation.test.mjs (108.176542ms)
+✔ open ground never displays the cover or rubble material, across broad material transitions (17.315542ms)
+✔ water, shore and beach remain distinct without changing gameplay terrain (4.568541ms)
+✔ low scree only dresses open neighbors of real rock and never changes their rules (4.991166ms)
+✔ flat surface preserves the original isometric projection and exact roundtrips, including partial chunks (42.516625ms)
+✔ all passable road/open/ramp height joins share exact geometry and are traversable in all four directions (7.552666ms)
+✔ disconnected diagonal walkable sectors do not average across impassable tiles (0.286125ms)
+✔ raised plateau centers and conservative map bounds include the full four-level lift (0.408375ms)
+✔ face picking selects the actual near cliff surface and returns its blocked owner rather than lower ground (0.21625ms)
+✔ arbitrary valid height maps have exact projected intersections and no duplicate edge ownership (12.690333ms)
+✔ fog geometry always uses conservative owner disclosure and does not mutate visible arrays (0.226041ms)
+✔ mixed-height structure support has an exact clipped perimeter and never mutates terrain or invents placement validity (0.844583ms)
+✔ surface is an immutable public-map snapshot and rejects unsupported heights (0.6185ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/transport-presentation.test.mjs:79:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/transport-presentation.test.mjs (89.036958ms)
+✔ tutorial gesture memory merges tab updates, survives restart, isolates mission versions and never grants campaign progress (13.584875ms)
+✔ incompatible tutorial memory stays preserved (2.7265ms)
+✔ transport input lessons persist independently of authoritative world objectives (2.178958ms)
+ℹ tests 406
+ℹ suites 0
+ℹ pass 391
+ℹ fail 15
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2255.969166
+
+✖ failing tests:
+
+test at .test-runtime/actor-status.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/actor-status.test.mjs (101.367125ms)
+  'test failed'
+
+test at .test-runtime/ambient-presentation.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/ambient-presentation.test.mjs (101.485708ms)
+  'test failed'
+
+test at .test-runtime/ambient-render.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/ambient-render.test.mjs (549.58925ms)
+  'test failed'
+
+test at .test-runtime/art-id.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/art-id.test.mjs (49.919667ms)
+  'test failed'
+
+test at .test-runtime/combat-feedback.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-feedback.test.mjs (92.601875ms)
+  'test failed'
+
+test at .test-runtime/combat-presentation.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-presentation.test.mjs (75.282167ms)
+  'test failed'
+
+test at .test-runtime/combat-sound.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-sound.test.mjs (85.82ms)
+  'test failed'
+
+test at .test-runtime/environment-authored.test.mjs:160:1
+✖ Copper Junction pilot binds unchanged map bytes and exactly ten mirrored public entries (1.522166ms)
+  Error: ENOENT: no such file or directory, open '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/content/maps/copper-junction.json'
+      at async open (node:internal/fs/promises:1360:25)
+      at async readFile (node:internal/fs/promises:2149:14)
+      at async TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/environment-authored.test.mjs:161:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/content/maps/copper-junction.json'
+  }
+
+test at .test-runtime/missing-art-perspective.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/missing-art-perspective.test.mjs (314.190417ms)
+  'test failed'
+
+test at .test-runtime/owner-ranges.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/owner-ranges.test.mjs (102.532334ms)
+  'test failed'
+
+test at .test-runtime/presentation-polish.test.mjs:507:1
+✖ F1 topology reads every tile the far corners touch, so changed-tile memoization sees them; geometry untouched (0.708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  43.75 !== 63.75
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/presentation-polish.test.mjs:516:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 43.75,
+    expected: 63.75,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .test-runtime/production-focus.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/production-focus.test.mjs (77.880791ms)
+  'test failed'
+
+test at .test-runtime/sold-building-feedback.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/sold-building-feedback.test.mjs (271.546791ms)
+  'test failed'
+
+test at .test-runtime/tactical-presentation.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/tactical-presentation.test.mjs (108.176542ms)
+  'test failed'
+
+test at .test-runtime/transport-presentation.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/transport-presentation.test.mjs (89.036958ms)
+  'test failed'
+node:internal/errors:999
+  const err = new Error(message);
+              ^
+
+Error: Command failed: /opt/homebrew/Cellar/node/26.5.0/bin/node --test /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/account.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/actor-pose-priority.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/actor-status.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/advice-feedback.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/advice.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/aircraft-payload.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/alpha-picking.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/ambient-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/ambient-render.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/application-snapshot.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/art-generation-consumer.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/art-id.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/art-ui.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/asset-generation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/asset-preflight.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/audio-retry.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/audio.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/autosave.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/battlefield-cues.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/battlefield-sound.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/cache-response.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/campaign-journey.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-attachments.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-feedback.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-geometry.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/combat-sound.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/command-intent.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/content-library.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/core.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/crypto.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/editor-handles.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/editor.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/effect-assets.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/effect-pack.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/environment-authored.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/environment-library.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/environment-sidecar.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/environment-state.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/flight-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/interaction.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/keybindings.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/map-workshop.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/minimap-lifecycle.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/minimap.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/missing-art-perspective.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/mission-groups.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/mission-markers.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/moderation-controller.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/network-controller.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/observer.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/offline-upgrade.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/online-terminal.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/operation-preview.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/order-feedback.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/owner-ranges.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/placement-ghost.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/poses.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/presentation-polish.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/presentation-reset.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/production-focus.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/progress.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/range-geometry.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/recorded-result.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/reports.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/save-sync.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/service-surfaces.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/session-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/session.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/sold-building-feedback.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/sprite-aliases.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/storage.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/tactical-geometry.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/tactical-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/terrain-materials.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/terrain-surface.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/transport-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/.test-runtime/tutorial-memory.test.mjs
+    at genericNodeError (node:internal/errors:999:15)
+    at wrappedFn (node:internal/errors:544:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at execFileSync (node:child_process:978:15)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/claude/presentation-polish-v1/integrated-v1/source/client/scripts/runtime/test.mjs:10:1
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 90409,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v26.5.0
