@@ -4,6 +4,7 @@ import type {ObserverConnection} from '../runtime/observer';
 import {randomUUID} from '../runtime/crypto';
 import {OfflineTransport,SessionController,LocalStore,ContentLibrary,CampaignJourney,CampaignProgressStore,FirstRunJourney,RuntimeError,OnlineCommandAdvice,type MatchConnection,type GameMap,type LobbySlot,type ContentIndex,type SessionState,type PlayerSnapshot,type Faction,type Difficulty,type LoadedMission,type OfflineConfig} from '../runtime';
 import {CatalogIndex,type Catalog} from '../content/catalog';
+import {reason} from '../content/labels';
 import {art} from '../render/art';
 import {TutorialInputMemory} from './tutorial-memory';
 import {EditorController} from './editor-controller';
@@ -12,6 +13,7 @@ import {prepareBattleAssets} from './asset-preparation';
 import {mapBlueprintKey} from '../runtime/content-library';
 import {environmentAssetIds,type MapEnvironment} from '../content/environment';
 import {Observable} from './store';
+import type {SessionEvent} from '../runtime/session';
 import {readSettingsMirror,writeSettingsMirror,applySettingsToDocument,sanitizeSettings,type Settings} from './settings';
 export type Page='command'|'skirmish'|'campaign'|'tutorials'|'saves'|'settings'|'network'|'replays'|'content'|'practice'|'help'|'editor';
 export interface ApplicationState {briefing?:{content:LoadedMission;config:OfflineConfig;difficulty:Difficulty};booting:boolean;busy?:string;error?:string;notice?:string;page:Page;session:SessionState;index?:ContentIndex;catalog?:CatalogIndex;firstRun:boolean;settings:Settings;paused:boolean;speed:number;snapshot?:PlayerSnapshot;autosave?:string;assetStatus?:{files:number;fallbacks:string[]};assetProgress?:string}
@@ -29,6 +31,7 @@ export class Application {
  readonly editor:EditorController;readonly tutorialInput:TutorialInputMemory;
  private assetGeneration=0;private artCleanup:Promise<void>=Promise.resolve();private onlineIdentity?:{session:string;baseURL:string;connection:Pick<MatchConnection,'match_id'|'player'|'protocol'|'simulation'|'content_hash'>};private networkProgressUnsubscribe?:()=>void;private onlineAdvice?:OnlineCommandAdvice;private settingsRevision=0;private settingsWrites:Promise<void>=Promise.resolve();private firstRunRevision=0;private lastHUD=0;private progressPending=false;private progressRecorded=new Set<string>();
  readonly frames=new Set<(snapshot:PlayerSnapshot)=>void>();
+ private hudSnapshot?:PlayerSnapshot;private forceHUD=true;
  private preparedEnvironment?:{mapKey:string;data:MapEnvironment};
  constructor(){
   this.store=new LocalStore('frontline-command',data=>this.validator.inspect(data),data=>this.validator.inspectReplay(data));
@@ -43,24 +46,32 @@ export class Application {
   this.editor=new EditorController(this);
   this.network=new NetworkController({library:this.library,store:this.store,validator:this.validator,sessions:this.sessions,joinOnline:(base,connection,map)=>this.joinOnline(base,connection,map),joinObserver:(base,connection,map)=>this.joinObserver(base,connection,map),prepareAssets:(map,slots)=>this.prepareAssets(map,slots),notice:notice=>this.patch({notice}),onSettingsDownloaded:()=>this.reloadSettings()});
   this.networkProgressUnsubscribe=this.network.state.subscribe(()=>this.recordOnlineProgress());
-  this.sessions.subscribe(event=>{
-   if(event.type==='session'){const changed=event.state.id!==this.state.get().session.id;this.audioDirector.operation(event.state.id??'');if(changed)this.audioDirector.setPaused(!['online','observer'].includes(event.state.kind??''));this.patch({session:event.state,...(event.state.phase==='menu'||event.state.id!==this.state.get().session.id)?{snapshot:undefined}: {}});return}
+  this.sessions.subscribe(event=>this.sessionEvent(event));
+ }
+ private sessionEvent(event:SessionEvent){
+   if(event.type==='session'){const changed=event.state.id!==this.state.get().session.id;if(changed||event.state.phase==='menu'){this.hudSnapshot=undefined;this.forceHUD=true}this.audioDirector.operation(event.state.id??'');if(changed)this.audioDirector.setPaused(!['online','observer'].includes(event.state.kind??''));this.patch({session:event.state,...(event.state.phase==='menu'||changed)?{snapshot:undefined}: {}});return}
    if(event.type==='error'){this.error(event.error);return}
    if(event.type==='autosave'){this.patch({autosave:event.status.phase});return}
    if(event.type!=='runtime')return;
    const current=event.event;
-   if(current.type==='presentation-reset')this.audioDirector.discontinuity();
+   if(current.type==='presentation-reset'){this.forceHUD=true;this.audioDirector.discontinuity()}
    if(current.type==='connection')this.audioDirector.connection(current.phase);
    if(current.type==='snapshot'){
     this.audioDirector.snapshot(current.snapshot);
     for(const listener of this.frames)listener(current.snapshot);this.recordOnlineProgress();
-    if(performance.now()-this.lastHUD>100||current.snapshot.outcome?.finished){this.lastHUD=performance.now();this.patch({snapshot:current.snapshot})}
+    this.hudSnapshot=current.snapshot;
+    if(this.forceHUD||this.state.get().paused||performance.now()-this.lastHUD>100||current.snapshot.outcome?.finished)this.publishHUD();
     if(current.snapshot.outcome?.finished&&this.sessions.transport instanceof OfflineTransport&&!this.progressPending&&!this.progressRecorded.has(event.session)){this.progressPending=true;const id=this.sessions.state.id;void this.campaign.recordSolo(this.sessions.transport,this.sessions.state.kind==='replay'?'replay':this.sessions.state.kind==='practice'?'practice':'solo',{isCurrent:()=>this.sessions.state.id===id}).then(()=>{if(id)this.progressRecorded.add(id)}).catch(error=>this.error(error)).finally(()=>{this.progressPending=false})}
-   }else if(current.type==='status'){this.audioDirector.status(current.status);this.audioDirector.setPaused(current.status.paused);this.patch({paused:current.status.paused})}
-   else if(current.type==='clock'){this.audioDirector.setPaused(current.paused);this.patch({paused:current.paused,speed:current.speed})}
+   }else if(current.type==='status'){this.audioDirector.status(current.status);this.audioDirector.setPaused(current.status.paused);if(current.status.paused)this.publishHUD();this.patch({paused:current.status.paused})}
+   else if(current.type==='clock'){this.audioDirector.setPaused(current.paused);if(current.paused)this.publishHUD();this.patch({paused:current.paused,speed:current.speed})}
    else if(current.type==='error')this.error(current.error);
-   else if(current.type==='order-result'&&!current.result.accepted)this.patch({notice:`Order rejected: ${current.result.code.replaceAll('_',' ')}`});
-  });
+   else if(current.type==='order-result'&&!current.result.accepted)this.patch({notice:`Order rejected: ${reason(current.result.code)}`});
+ }
+ private publishHUD(){
+  // Seek/load/perspective frames and the last frame before pause may have no
+  // successor. They cannot be discarded by the live-play React throttle.
+  if(!this.hudSnapshot)return;this.forceHUD=false;this.lastHUD=performance.now();
+  if(this.state.get().snapshot!==this.hudSnapshot)this.patch({snapshot:this.hudSnapshot});
  }
  patch(change:Partial<ApplicationState>){this.state.update(state=>({...state,...change}));if(this.audioDirector&&(change.page!==undefined||'briefing' in change||change.session!==undefined)){const state=this.state.get();this.audioDirector.page(state.page,state.briefing?.content.entry.id)}}
  error(error:unknown){this.patch({error:RuntimeError.from(error).message,busy:undefined})}

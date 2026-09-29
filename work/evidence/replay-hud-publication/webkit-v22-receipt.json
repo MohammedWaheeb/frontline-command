@@ -1,0 +1,1054 @@
+{
+  "scope": "v22 actual-App WebKit replay HUD confirmation, incomplete actor art; minimap follow-up not included.",
+  "reportSHA256": "73449c5b967038bdf5684748a96d93c553fa4400e30f577e77884767b3cef84a",
+  "driverSHA256": "edf6146b39473b70921c0b0bc24e36042ff80ae53a4c0894720505decce5ea3e",
+  "status": "passed",
+  "cases": [
+    {
+      "id": "1600x900-scale100",
+      "status": "passed",
+      "replayEnd": 197,
+      "replaySeek": {
+        "expected": 197,
+        "min": 125,
+        "before": 133,
+        "afterInput": 197,
+        "workers": {
+          "created": 4,
+          "terminated": 2,
+          "live": 2,
+          "frames": 25,
+          "methods": {
+            "init": 4,
+            "content": 1,
+            "inspect": 5,
+            "load": 2,
+            "map": 3,
+            "save": 3,
+            "affordances": 9,
+            "resume": 3,
+            "previewOrders": 4,
+            "submit": 1,
+            "pause": 2,
+            "exportReplay": 1,
+            "inspectReplay": 1,
+            "loadReplay": 1,
+            "seekReplay": 1
+          },
+          "previews": [
+            {
+              "ok": true,
+              "tick": 170,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 170
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 180,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 180
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 192,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 192
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 192,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 192
+                }
+              ]
+            }
+          ],
+          "seeks": [
+            {
+              "id": 5,
+              "requestedTick": 197,
+              "requestedAt": 31807,
+              "repliedAt": 31832,
+              "ok": true,
+              "resultTick": 197,
+              "start": 125,
+              "end": 197,
+              "finished": true
+            }
+          ],
+          "timelineEvents": [
+            {
+              "type": "keydown",
+              "key": "End",
+              "value": 133,
+              "min": 125,
+              "max": 197,
+              "time": 31805
+            },
+            {
+              "type": "input",
+              "value": 197,
+              "min": 125,
+              "max": 197,
+              "time": 31805
+            },
+            {
+              "type": "change",
+              "value": 197,
+              "min": 125,
+              "max": 197,
+              "time": 31806
+            },
+            {
+              "type": "keyup",
+              "key": "End",
+              "value": 197,
+              "min": 125,
+              "max": 197,
+              "time": 31806
+            }
+          ],
+          "lastClock": {
+            "paused": true,
+            "speed": 1,
+            "stalled": false
+          }
+        }
+      }
+    },
+    {
+      "id": "1600x900-scale150",
+      "status": "passed",
+      "replayEnd": 192,
+      "replaySeek": {
+        "expected": 192,
+        "min": 125,
+        "before": 125,
+        "afterInput": 192,
+        "workers": {
+          "created": 4,
+          "terminated": 2,
+          "live": 2,
+          "frames": 21,
+          "methods": {
+            "init": 4,
+            "content": 1,
+            "inspect": 5,
+            "load": 2,
+            "map": 3,
+            "save": 3,
+            "affordances": 9,
+            "resume": 3,
+            "previewOrders": 4,
+            "submit": 1,
+            "pause": 2,
+            "exportReplay": 1,
+            "inspectReplay": 1,
+            "loadReplay": 1,
+            "seekReplay": 1
+          },
+          "previews": [
+            {
+              "ok": true,
+              "tick": 164,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 164
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 173,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 173
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 185,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 185
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 186,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 186
+                }
+              ]
+            }
+          ],
+          "seeks": [
+            {
+              "id": 5,
+              "requestedTick": 192,
+              "requestedAt": 30984,
+              "repliedAt": 31013,
+              "ok": true,
+              "resultTick": 192,
+              "start": 125,
+              "end": 192,
+              "finished": true
+            }
+          ],
+          "timelineEvents": [
+            {
+              "type": "keydown",
+              "key": "End",
+              "value": 125,
+              "min": 125,
+              "max": 192,
+              "time": 30979
+            },
+            {
+              "type": "input",
+              "value": 192,
+              "min": 125,
+              "max": 192,
+              "time": 30979
+            },
+            {
+              "type": "change",
+              "value": 192,
+              "min": 125,
+              "max": 192,
+              "time": 30979
+            },
+            {
+              "type": "keyup",
+              "key": "End",
+              "value": 192,
+              "min": 125,
+              "max": 192,
+              "time": 30983
+            }
+          ],
+          "lastClock": {
+            "paused": true,
+            "speed": 1,
+            "stalled": false
+          }
+        }
+      }
+    },
+    {
+      "id": "1280x720-scale100",
+      "status": "passed",
+      "replayEnd": 194,
+      "replaySeek": {
+        "expected": 194,
+        "min": 125,
+        "before": 125,
+        "afterInput": 194,
+        "workers": {
+          "created": 4,
+          "terminated": 2,
+          "live": 2,
+          "frames": 24,
+          "methods": {
+            "init": 4,
+            "content": 1,
+            "inspect": 5,
+            "load": 2,
+            "map": 3,
+            "save": 3,
+            "affordances": 9,
+            "resume": 3,
+            "previewOrders": 4,
+            "submit": 1,
+            "pause": 2,
+            "exportReplay": 1,
+            "inspectReplay": 1,
+            "loadReplay": 1,
+            "seekReplay": 1
+          },
+          "previews": [
+            {
+              "ok": true,
+              "tick": 165,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 165
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 175,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 175
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 186,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 186
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 187,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 187
+                }
+              ]
+            }
+          ],
+          "seeks": [
+            {
+              "id": 5,
+              "requestedTick": 194,
+              "requestedAt": 31214,
+              "repliedAt": 31244,
+              "ok": true,
+              "resultTick": 194,
+              "start": 125,
+              "end": 194,
+              "finished": true
+            }
+          ],
+          "timelineEvents": [
+            {
+              "type": "keydown",
+              "key": "End",
+              "value": 125,
+              "min": 125,
+              "max": 194,
+              "time": 31211
+            },
+            {
+              "type": "input",
+              "value": 194,
+              "min": 125,
+              "max": 194,
+              "time": 31212
+            },
+            {
+              "type": "change",
+              "value": 194,
+              "min": 125,
+              "max": 194,
+              "time": 31212
+            },
+            {
+              "type": "keyup",
+              "key": "End",
+              "value": 194,
+              "min": 125,
+              "max": 194,
+              "time": 31213
+            }
+          ],
+          "lastClock": {
+            "paused": true,
+            "speed": 1,
+            "stalled": false
+          }
+        }
+      }
+    },
+    {
+      "id": "1280x720-scale150",
+      "status": "passed",
+      "replayEnd": 200,
+      "replaySeek": {
+        "expected": 200,
+        "min": 125,
+        "before": 125,
+        "afterInput": 200,
+        "workers": {
+          "created": 4,
+          "terminated": 2,
+          "live": 2,
+          "frames": 25,
+          "methods": {
+            "init": 4,
+            "content": 1,
+            "inspect": 5,
+            "load": 2,
+            "map": 3,
+            "save": 3,
+            "affordances": 9,
+            "resume": 3,
+            "previewOrders": 4,
+            "submit": 1,
+            "pause": 2,
+            "exportReplay": 1,
+            "inspectReplay": 1,
+            "loadReplay": 1,
+            "seekReplay": 1
+          },
+          "previews": [
+            {
+              "ok": true,
+              "tick": 171,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 171
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 180,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 180
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 193,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 193
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 193,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 193
+                }
+              ]
+            }
+          ],
+          "seeks": [
+            {
+              "id": 5,
+              "requestedTick": 200,
+              "requestedAt": 31691,
+              "repliedAt": 31722,
+              "ok": true,
+              "resultTick": 200,
+              "start": 125,
+              "end": 200,
+              "finished": true
+            }
+          ],
+          "timelineEvents": [
+            {
+              "type": "keydown",
+              "key": "End",
+              "value": 125,
+              "min": 125,
+              "max": 200,
+              "time": 31685
+            },
+            {
+              "type": "input",
+              "value": 200,
+              "min": 125,
+              "max": 200,
+              "time": 31685
+            },
+            {
+              "type": "change",
+              "value": 200,
+              "min": 125,
+              "max": 200,
+              "time": 31686
+            },
+            {
+              "type": "keyup",
+              "key": "End",
+              "value": 200,
+              "min": 125,
+              "max": 200,
+              "time": 31689
+            }
+          ],
+          "lastClock": {
+            "paused": true,
+            "speed": 1,
+            "stalled": false
+          }
+        }
+      }
+    },
+    {
+      "id": "1440x900-scale100",
+      "status": "passed",
+      "replayEnd": 198,
+      "replaySeek": {
+        "expected": 198,
+        "min": 125,
+        "before": 125,
+        "afterInput": 198,
+        "workers": {
+          "created": 4,
+          "terminated": 2,
+          "live": 2,
+          "frames": 23,
+          "methods": {
+            "init": 4,
+            "content": 1,
+            "inspect": 5,
+            "load": 2,
+            "map": 3,
+            "save": 3,
+            "affordances": 9,
+            "resume": 3,
+            "previewOrders": 4,
+            "submit": 1,
+            "pause": 2,
+            "exportReplay": 1,
+            "inspectReplay": 1,
+            "loadReplay": 1,
+            "seekReplay": 1
+          },
+          "previews": [
+            {
+              "ok": true,
+              "tick": 167,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 167
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 176,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 176
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 190,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 190
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 191,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 191
+                }
+              ]
+            }
+          ],
+          "seeks": [
+            {
+              "id": 5,
+              "requestedTick": 198,
+              "requestedAt": 31373,
+              "repliedAt": 31397,
+              "ok": true,
+              "resultTick": 198,
+              "start": 125,
+              "end": 198,
+              "finished": true
+            }
+          ],
+          "timelineEvents": [
+            {
+              "type": "keydown",
+              "key": "End",
+              "value": 125,
+              "min": 125,
+              "max": 198,
+              "time": 31371
+            },
+            {
+              "type": "input",
+              "value": 198,
+              "min": 125,
+              "max": 198,
+              "time": 31371
+            },
+            {
+              "type": "change",
+              "value": 198,
+              "min": 125,
+              "max": 198,
+              "time": 31372
+            },
+            {
+              "type": "keyup",
+              "key": "End",
+              "value": 198,
+              "min": 125,
+              "max": 198,
+              "time": 31372
+            }
+          ],
+          "lastClock": {
+            "paused": true,
+            "speed": 1,
+            "stalled": false
+          }
+        }
+      }
+    },
+    {
+      "id": "1440x900-scale150",
+      "status": "passed",
+      "replayEnd": 206,
+      "replaySeek": {
+        "expected": 206,
+        "min": 125,
+        "before": 125,
+        "afterInput": 206,
+        "workers": {
+          "created": 4,
+          "terminated": 2,
+          "live": 2,
+          "frames": 25,
+          "methods": {
+            "init": 4,
+            "content": 1,
+            "inspect": 5,
+            "load": 2,
+            "map": 3,
+            "save": 3,
+            "affordances": 9,
+            "resume": 3,
+            "previewOrders": 4,
+            "submit": 1,
+            "pause": 2,
+            "exportReplay": 1,
+            "inspectReplay": 1,
+            "loadReplay": 1,
+            "seekReplay": 1
+          },
+          "previews": [
+            {
+              "ok": true,
+              "tick": 174,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 174
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 184,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 184
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 198,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 198
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 199,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 199
+                }
+              ]
+            }
+          ],
+          "seeks": [
+            {
+              "id": 5,
+              "requestedTick": 206,
+              "requestedAt": 33201,
+              "repliedAt": 33230,
+              "ok": true,
+              "resultTick": 206,
+              "start": 125,
+              "end": 206,
+              "finished": true
+            }
+          ],
+          "timelineEvents": [
+            {
+              "type": "keydown",
+              "key": "End",
+              "value": 125,
+              "min": 125,
+              "max": 206,
+              "time": 33199
+            },
+            {
+              "type": "input",
+              "value": 206,
+              "min": 125,
+              "max": 206,
+              "time": 33199
+            },
+            {
+              "type": "change",
+              "value": 206,
+              "min": 125,
+              "max": 206,
+              "time": 33200
+            },
+            {
+              "type": "keyup",
+              "key": "End",
+              "value": 206,
+              "min": 125,
+              "max": 206,
+              "time": 33201
+            }
+          ],
+          "lastClock": {
+            "paused": true,
+            "speed": 1,
+            "stalled": false
+          }
+        }
+      }
+    },
+    {
+      "id": "1728x1117-scale100",
+      "status": "passed",
+      "replayEnd": 208,
+      "replaySeek": {
+        "expected": 208,
+        "min": 125,
+        "before": 125,
+        "afterInput": 208,
+        "workers": {
+          "created": 4,
+          "terminated": 2,
+          "live": 2,
+          "frames": 25,
+          "methods": {
+            "init": 4,
+            "content": 1,
+            "inspect": 5,
+            "load": 2,
+            "map": 3,
+            "save": 3,
+            "affordances": 9,
+            "resume": 3,
+            "previewOrders": 4,
+            "submit": 1,
+            "pause": 2,
+            "exportReplay": 1,
+            "inspectReplay": 1,
+            "loadReplay": 1,
+            "seekReplay": 1
+          },
+          "previews": [
+            {
+              "ok": true,
+              "tick": 170,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 170
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 182,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 182
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 196,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 196
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 197,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 197
+                }
+              ]
+            }
+          ],
+          "seeks": [
+            {
+              "id": 5,
+              "requestedTick": 208,
+              "requestedAt": 33193,
+              "repliedAt": 33223,
+              "ok": true,
+              "resultTick": 208,
+              "start": 125,
+              "end": 208,
+              "finished": true
+            }
+          ],
+          "timelineEvents": [
+            {
+              "type": "keydown",
+              "key": "End",
+              "value": 125,
+              "min": 125,
+              "max": 208,
+              "time": 33191
+            },
+            {
+              "type": "input",
+              "value": 208,
+              "min": 125,
+              "max": 208,
+              "time": 33191
+            },
+            {
+              "type": "change",
+              "value": 208,
+              "min": 125,
+              "max": 208,
+              "time": 33191
+            },
+            {
+              "type": "keyup",
+              "key": "End",
+              "value": 208,
+              "min": 125,
+              "max": 208,
+              "time": 33192
+            }
+          ],
+          "lastClock": {
+            "paused": true,
+            "speed": 1,
+            "stalled": false
+          }
+        }
+      }
+    },
+    {
+      "id": "1728x1117-scale150",
+      "status": "passed",
+      "replayEnd": 205,
+      "replaySeek": {
+        "expected": 205,
+        "min": 125,
+        "before": 125,
+        "afterInput": 205,
+        "workers": {
+          "created": 4,
+          "terminated": 2,
+          "live": 2,
+          "frames": 25,
+          "methods": {
+            "init": 4,
+            "content": 1,
+            "inspect": 5,
+            "load": 2,
+            "map": 3,
+            "save": 3,
+            "affordances": 9,
+            "resume": 3,
+            "previewOrders": 4,
+            "submit": 1,
+            "pause": 2,
+            "exportReplay": 1,
+            "inspectReplay": 1,
+            "loadReplay": 1,
+            "seekReplay": 1
+          },
+          "previews": [
+            {
+              "ok": true,
+              "tick": 172,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 172
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 182,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 182
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 197,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 197
+                }
+              ]
+            },
+            {
+              "ok": true,
+              "tick": 198,
+              "results": [
+                {
+                  "accepted": true,
+                  "code": "indeterminate",
+                  "tick": 198
+                }
+              ]
+            }
+          ],
+          "seeks": [
+            {
+              "id": 5,
+              "requestedTick": 205,
+              "requestedAt": 32442,
+              "repliedAt": 32474,
+              "ok": true,
+              "resultTick": 205,
+              "start": 125,
+              "end": 205,
+              "finished": true
+            }
+          ],
+          "timelineEvents": [
+            {
+              "type": "keydown",
+              "key": "End",
+              "value": 125,
+              "min": 125,
+              "max": 205,
+              "time": 32438
+            },
+            {
+              "type": "input",
+              "value": 205,
+              "min": 125,
+              "max": 205,
+              "time": 32440
+            },
+            {
+              "type": "change",
+              "value": 205,
+              "min": 125,
+              "max": 205,
+              "time": 32440
+            },
+            {
+              "type": "keyup",
+              "key": "End",
+              "value": 205,
+              "min": 125,
+              "max": 205,
+              "time": 32441
+            }
+          ],
+          "lastClock": {
+            "paused": true,
+            "speed": 1,
+            "stalled": false
+          }
+        }
+      }
+    }
+  ],
+  "diagnostics": {
+    "errors": 0,
+    "httpErrors": 0,
+    "requestFailures": 0,
+    "sourceChanges": 0
+  }
+}

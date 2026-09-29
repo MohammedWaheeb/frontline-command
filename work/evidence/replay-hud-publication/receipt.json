@@ -1,0 +1,67 @@
+{
+  "originalFailedReport": {
+    "path": "work/battlefield-clarity/webkit-02/browser.json",
+    "sha256": "670fc45ec1f944a75bcf98fd92c3be09c447fe1e7f1eacab74aae5629001cb7a"
+  },
+  "currentSource": {
+    "client/src/app/application.ts": "dc2ddc16634723e94d3ea309fbca3416e81b9d7a58a98658d1dbe121421176ba",
+    "client/tests/runtime/application-snapshot.test.ts": "17e34c36344f5c9e8cb310c0ad3fbd89532a086b8d006fccc4c4fd70e53a37e8",
+    "client/tests/render/battlefield-clarity-product.browser.mjs": "edf6146b39473b70921c0b0bc24e36042ff80ae53a4c0894720505decce5ea3e"
+  },
+  "checks": {
+    "before": {
+      "passed": 2,
+      "failed": 6
+    },
+    "after": {
+      "passed": 8,
+      "failed": 0
+    },
+    "appTypecheck": true,
+    "runtimeTypecheck": true,
+    "driverSyntax": true,
+    "browserRun": false
+  },
+  "evidence": {
+    "app-typecheck.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "application-after.ts": {
+      "sha256": "dc2ddc16634723e94d3ea309fbca3416e81b9d7a58a98658d1dbe121421176ba",
+      "bytes": 15948
+    },
+    "application-before.ts": {
+      "sha256": "dce3ab97882271779fd12b9dba15eba8bc1f37bc728171c9bbfb4a5bfdbc5e84",
+      "bytes": 15245
+    },
+    "application-snapshot.test.ts": {
+      "sha256": "17e34c36344f5c9e8cb310c0ad3fbd89532a086b8d006fccc4c4fd70e53a37e8",
+      "bytes": 5246
+    },
+    "green.log": {
+      "sha256": "3ee2b0f0d12c03f2f53850ee2ada964315a7e5aa83345b7f16fdf82e6bbcc198",
+      "bytes": 916
+    },
+    "green.test.mjs": {
+      "sha256": "27b67158a3e3a85058b46104681ea8ad4f8c334eda0e6c3a51ddeab38a7d02ee",
+      "bytes": 400599
+    },
+    "red.log": {
+      "sha256": "502e2369645c24c6a5512f9f300c58424fec4e57afd16d31790e8371a8d65af5",
+      "bytes": 13108
+    },
+    "red.test.mjs": {
+      "sha256": "7d15f77c36c0fe2f53013b0d48fbb21e3bf9ade5f627a041d0611d366d8af388",
+      "bytes": 400114
+    },
+    "runtime-typecheck.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "test-runner-missing-modules.log": {
+      "sha256": "e7539714d7cdae25bc6a647c7cdafa7d76d694fd8c5b767753d9b64531bbf797",
+      "bytes": 1436
+    }
+  }
+}
