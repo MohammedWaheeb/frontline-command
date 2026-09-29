@@ -1,0 +1,247 @@
+{
+  "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "started_utc": "20260929T071757Z",
+  "conditions": "GOMAXPROCS=1, package/compiler parallelism1, serial jobs; root browser and Blender may be active. Correctness only, not timing/performance qualification.",
+  "stages": [
+    {
+      "stage": "toolchain-go",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 0.035,
+      "log_sha256": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+    },
+    {
+      "stage": "toolchain-protoc",
+      "command": [
+        "/opt/homebrew/bin/protoc",
+        "--version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 0.062,
+      "log_sha256": "29a645a23ed3faa5d85781dfce8478c3e394eb3344b7d6260dff9f6f5eb76b3a"
+    },
+    {
+      "stage": "toolchain-protoc-go",
+      "command": [
+        "/Users/mohammedkalouti/go/bin/protoc-gen-go",
+        "--version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 0.034,
+      "log_sha256": "66a5b1785e66f264cac3f01c42f696ab40f09f1b05a619c340c14a5ea7a2093d"
+    },
+    {
+      "stage": "toolchain-protoc-es",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/.bin/protoc-gen-es",
+        "--version"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 0.21,
+      "log_sha256": "a143142c5ba9266e399126b3cf2e5f3d9527e5d4411f515ccedb5935c87ca2fb"
+    },
+    {
+      "stage": "generate-go-protobuf",
+      "command": [
+        "/opt/homebrew/bin/protoc",
+        "-I",
+        "protocol",
+        "--plugin=protoc-gen-go=/Users/mohammedkalouti/go/bin/protoc-gen-go",
+        "--go_out=protocol",
+        "--go_opt=paths=source_relative",
+        "protocol/frontline.proto"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 0.061,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "generate-ts-protobuf",
+      "command": [
+        "/opt/homebrew/bin/protoc",
+        "-I",
+        "protocol",
+        "--plugin=protoc-gen-es=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/.bin/protoc-gen-es",
+        "--es_out=client/src/protocol",
+        "--es_opt=target=ts",
+        "protocol/frontline.proto"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 0.245,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "generate-viewproto",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "generate",
+        "./internal/viewproto"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 3.483,
+      "log_sha256": "e5ee345b7967de280af88e5c6069e63eee4435b49b99dbef45bd47b228c97845"
+    },
+    {
+      "stage": "check-viewproto",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "run",
+        "./gen",
+        "-check"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source/internal/viewproto",
+      "exit_code": 0,
+      "elapsed_seconds": 0.447,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "all-package-short",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "./...",
+        "-short",
+        "-count=1",
+        "-timeout=20m",
+        "-json"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 71.539,
+      "log_sha256": "14216e4ec1decd34a5a137507560cecd67d0f78e388f291773fe2915dadaab52"
+    },
+    {
+      "stage": "all-package-vet",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "vet",
+        "-p=1",
+        "./..."
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 1.571,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "bounded-sim-race",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "-race",
+        "./pkg/sim",
+        "-short",
+        "-count=1",
+        "-timeout=20m",
+        "-run",
+        "^(TestCandidateAuthoredAirStartsAndReturnService|TestCandidateAutomaticReturnLastTick|TestCandidateAutomaticReturnNaturalThresholdAndTaskBoundary|TestCandidateAutomaticReturnPreservesQueuesAndEmergencyExpiry|TestCandidateBalancedRingCoverageFindsFarSidePocket|TestCandidateBoardingCancellationAndTransportMovement|TestCandidateBoardingGroundedAndHoveringContact|TestCandidateBoardingKeepsAlliedTransportOwnershipBoundary|TestCandidateBoardingLoadedRebaseAndLandingUnload|TestCandidateGroundRouteBridgeAndConstructionRespectReservation|TestCandidateNarrowPhysicalPassageRemainsRoutable|TestCandidatePreviewIsReadOnlyAndReservationFogSafe|TestCandidateServiceActualReturnsAndNativeScenes|TestCandidateServiceAllocationBudgetRetryAndLegalRecovery|TestCandidateServiceRejectsMalformedReservations|TestCandidateServiceReservationStabilityReleaseAndGroundGeometry|TestCandidateTangentSubgridStartAndNarrowPassage|TestCandidateTransientFoundationClearsReservationBeforeSave|TestClearanceLookupMatchesPriorDecisions|TestCombatFeedbackCoverResolutionAndPrivacy|TestCombatFeedbackRejectsMalformedMetadata|TestCombatFeedbackRequiresActualPositiveResolvedDamage|TestCombatFeedbackSaveReplayAndOrdinaryCommand|TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity|TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown|TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath|TestObstacleLookupRetainsPriorGeometry|TestOwnerCasualtyAirbornePassengersAfterLastSight|TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback|TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner|TestOwnerCasualtyOrdinaryLastSightSaveReplay|TestOwnerRangesAssignmentsAreRealPrivateAndDetached|TestOwnerRangesPausedAndPartialRecharge|TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks|TestOwnerRangesSightDetectionAndBuildBounds|TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored|TestTacticalNonblastWarningsKeepAreaUnknown|TestTacticalProjectileGeometryAndPositionDisclosure|TestTacticalSkybreakerLongFlightGeometry|TestTacticalSkybreakerPlanFogAndOwnership|TestTacticalSkybreakerPlanMatchesActualLaunchAllEdges|TestTacticalStrategicWarningsUseActualImpactRadius|TestTacticalVisibleEffectDeadlinesFollowState|TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded)$",
+        "-json"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 155.154,
+      "log_sha256": "0bb3fcd6e836270cc1ac9e589d52ec35af43e965e98df41ba878d21df593ad37"
+    },
+    {
+      "stage": "bounded-adapter-race",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "-race",
+        "./internal/viewproto",
+        "./cmd/wasm",
+        "./internal/server",
+        "-short",
+        "-count=1",
+        "-timeout=10m",
+        "-run",
+        "^(TestSnapshotMatchesPriorJSONContract|TestOptionalZeroPresenceAndAbsentPrivate|TestCombatFeedbackCodecPresenceAndLegacy|TestTacticalOptionalWirePresence|TestMissionOriginProtocolSnapshotAndOwnershipDelta|TestCommandAdviceUsesSlotAuthenticationAndNeverChangesMatch|TestCommandAdviceRateAndInFlightBounds|TestCommandAdviceSkybreakerOwnerPlan|TestAdviceDoesNotConsumeGeneralWriteAdmission)$",
+        "-json"
+      ],
+      "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+      "exit_code": 0,
+      "elapsed_seconds": 11.906,
+      "log_sha256": "8b2d96888ea831529163bb44e88a7f077cccc7f872110c27de0f88c8c567bb10"
+    }
+  ],
+  "selected_race_tests": {
+    "sim": [
+      "TestCandidateAuthoredAirStartsAndReturnService",
+      "TestCandidateAutomaticReturnLastTick",
+      "TestCandidateAutomaticReturnNaturalThresholdAndTaskBoundary",
+      "TestCandidateAutomaticReturnPreservesQueuesAndEmergencyExpiry",
+      "TestCandidateBalancedRingCoverageFindsFarSidePocket",
+      "TestCandidateBoardingCancellationAndTransportMovement",
+      "TestCandidateBoardingGroundedAndHoveringContact",
+      "TestCandidateBoardingKeepsAlliedTransportOwnershipBoundary",
+      "TestCandidateBoardingLoadedRebaseAndLandingUnload",
+      "TestCandidateGroundRouteBridgeAndConstructionRespectReservation",
+      "TestCandidateNarrowPhysicalPassageRemainsRoutable",
+      "TestCandidatePreviewIsReadOnlyAndReservationFogSafe",
+      "TestCandidateServiceActualReturnsAndNativeScenes",
+      "TestCandidateServiceAllocationBudgetRetryAndLegalRecovery",
+      "TestCandidateServiceRejectsMalformedReservations",
+      "TestCandidateServiceReservationStabilityReleaseAndGroundGeometry",
+      "TestCandidateTangentSubgridStartAndNarrowPassage",
+      "TestCandidateTransientFoundationClearsReservationBeforeSave",
+      "TestClearanceLookupMatchesPriorDecisions",
+      "TestCombatFeedbackCoverResolutionAndPrivacy",
+      "TestCombatFeedbackRejectsMalformedMetadata",
+      "TestCombatFeedbackRequiresActualPositiveResolvedDamage",
+      "TestCombatFeedbackSaveReplayAndOrdinaryCommand",
+      "TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity",
+      "TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown",
+      "TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath",
+      "TestObstacleLookupRetainsPriorGeometry",
+      "TestOwnerCasualtyAirbornePassengersAfterLastSight",
+      "TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback",
+      "TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner",
+      "TestOwnerCasualtyOrdinaryLastSightSaveReplay",
+      "TestOwnerRangesAssignmentsAreRealPrivateAndDetached",
+      "TestOwnerRangesPausedAndPartialRecharge",
+      "TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks",
+      "TestOwnerRangesSightDetectionAndBuildBounds",
+      "TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored",
+      "TestTacticalNonblastWarningsKeepAreaUnknown",
+      "TestTacticalProjectileGeometryAndPositionDisclosure",
+      "TestTacticalSkybreakerLongFlightGeometry",
+      "TestTacticalSkybreakerPlanFogAndOwnership",
+      "TestTacticalSkybreakerPlanMatchesActualLaunchAllEdges",
+      "TestTacticalStrategicWarningsUseActualImpactRadius",
+      "TestTacticalVisibleEffectDeadlinesFollowState",
+      "TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded"
+    ],
+    "adapters": [
+      "TestSnapshotMatchesPriorJSONContract",
+      "TestOptionalZeroPresenceAndAbsentPrivate",
+      "TestCombatFeedbackCodecPresenceAndLegacy",
+      "TestTacticalOptionalWirePresence",
+      "TestMissionOriginProtocolSnapshotAndOwnershipDelta",
+      "TestCommandAdviceUsesSlotAuthenticationAndNeverChangesMatch",
+      "TestCommandAdviceRateAndInFlightBounds",
+      "TestCommandAdviceSkybreakerOwnerPlan",
+      "TestAdviceDoesNotConsumeGeneralWriteAdmission"
+    ],
+    "excluded": [
+      "all long main/optional/skirmish matrices",
+      "maximum/dense timing diagnostics",
+      "environment-dependent actual-save codec tests (require separate artifact stage)"
+    ]
+  },
+  "source_and_prior_locks_verified_after": true,
+  "shipping_inventory_verified_after": true,
+  "result": "passed"
+}

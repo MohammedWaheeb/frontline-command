@@ -1,0 +1,172 @@
+{
+  "format_version": 1,
+  "mission_id": "sa-06-shieldline",
+  "mission_version": "1",
+  "title": "Shieldline",
+  "mode": "campaign",
+  "faction": "SA",
+  "operation": "Operation Shieldline",
+  "theater": "The fictional Aster Reach",
+  "order": 6,
+  "lesson": "Move coverage forward and maintain supply corridors.",
+  "design_reference": "19.5",
+  "art": {
+    "briefing": "briefing/sa-06-shieldline",
+    "loading": "loading/sa-06-shieldline",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.sa",
+    "battle": "music.battle.sa",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "shieldline",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Neutralize the command complex and forward production base."
+    },
+    {
+      "id": "connected-routes",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Keep both permanent supply corridors controlled and maintain two supply centers."
+    }
+  ],
+  "markers": [
+    {
+      "id": "western-corridor",
+      "text": "Western permanent supply-corridor section",
+      "region": "corridor1",
+      "objective": "connected-routes"
+    },
+    {
+      "id": "eastern-corridor",
+      "text": "Eastern permanent supply-corridor section",
+      "region": "corridor2",
+      "objective": "connected-routes"
+    },
+    {
+      "id": "command-base",
+      "text": "Main command-complex area",
+      "region": "enemy",
+      "objective": "shieldline"
+    },
+    {
+      "id": "forward-base",
+      "text": "Forward production-base area",
+      "region": "enemy2",
+      "objective": "shieldline"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "pressure-1",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 1: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-2",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 2: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "trigger": "pressure-3",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 3: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "All mission starting assets are listed in the opening state. Allied recovery transfers existing actors and preserves caps. Scripted enemy columns are finite, announced scenario exceptions; they are not paid AI production."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Commander Sami Nadir",
+      "text": "Neutralize the command complex and its forward production base. Keep both connected, marked supply-route sections under control and maintain two supply centers at victory for the optional objective. The permanent road network can be contested but cannot be destroyed.",
+      "voice": "vo.sa-06-shieldline.briefing.01"
+    },
+    {
+      "key": "briefing:2",
+      "speaker": "Operations",
+      "text": "Move coverage forward and maintain supply corridors.",
+      "voice": "vo.sa-06-shieldline.briefing.02"
+    },
+    {
+      "key": "trigger:pressure-warning-1",
+      "speaker": "Watch",
+      "text": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.sa-06-shieldline.pressure-warning-1"
+    },
+    {
+      "key": "trigger:pressure-1",
+      "speaker": "Watch",
+      "text": "Column 1 has entered. Its approach is east.",
+      "voice": "vo.sa-06-shieldline.pressure-1"
+    },
+    {
+      "key": "trigger:pressure-warning-2",
+      "speaker": "Watch",
+      "text": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.sa-06-shieldline.pressure-warning-2"
+    },
+    {
+      "key": "trigger:pressure-2",
+      "speaker": "Watch",
+      "text": "Column 2 has entered. Its approach is northwest.",
+      "voice": "vo.sa-06-shieldline.pressure-2"
+    },
+    {
+      "key": "trigger:pressure-warning-3",
+      "speaker": "Watch",
+      "text": "Hostile column 3 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.sa-06-shieldline.pressure-warning-3"
+    },
+    {
+      "key": "trigger:pressure-3",
+      "speaker": "Watch",
+      "text": "Column 3 has entered. Its approach is east.",
+      "voice": "vo.sa-06-shieldline.pressure-3"
+    },
+    {
+      "key": "checkpoint:forward-shield",
+      "speaker": "System",
+      "text": "Checkpoint reached: forward-shield.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-forward-shield",
+      "speaker": "Operations",
+      "text": "The forward base is down. Establish coverage before the final relocation.",
+      "voice": "vo.sa-06-shieldline.checkpoint-forward-shield"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Commander Sami Nadir",
+      "text": "Shieldline is complete. Keep the route secure; the next operation will depend on what we learned here.",
+      "voice": "vo.sa-06-shieldline.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Commander Sami Nadir",
+      "text": "We can no longer meet this operation’s requirements. Return to the last checkpoint and change the approach.",
+      "voice": "vo.sa-06-shieldline.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": []
+}

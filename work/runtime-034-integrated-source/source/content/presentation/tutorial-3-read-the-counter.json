@@ -1,0 +1,177 @@
+{
+  "format_version": 1,
+  "mission_id": "tutorial-3-read-the-counter",
+  "mission_version": "1",
+  "title": "Read the Counter",
+  "mode": "tutorial",
+  "faction": "US",
+  "operation": null,
+  "theater": null,
+  "order": 3,
+  "lesson": "Read the Counter",
+  "design_reference": "18.4",
+  "art": {
+    "briefing": "briefing/tutorial-3-read-the-counter",
+    "loading": "loading/tutorial-3-read-the-counter",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.us",
+    "battle": "music.battle.us",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "cover",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Move two original rifle squads into the marked cover."
+    },
+    {
+      "id": "counters",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Defeat the anti-armor infantry and the tank."
+    },
+    {
+      "id": "detection",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Find and defeat the covered scout."
+    },
+    {
+      "id": "transport",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Bring both marked transport squads to the forward marker outside a carrier."
+    },
+    {
+      "id": "transport-team-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose either marked transport squad before delivery."
+    },
+    {
+      "id": "apc-survives",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Preserve the training APC."
+    }
+  ],
+  "markers": [
+    {
+      "id": "transport-assembly",
+      "text": "Transport boarding area",
+      "region": "training-move",
+      "objective": "transport"
+    },
+    {
+      "id": "transport-destination",
+      "text": "Forward unload marker",
+      "region": "site1",
+      "objective": "transport"
+    },
+    {
+      "id": "counter-cover",
+      "text": "Infantry cover marker",
+      "region": "training-cover",
+      "objective": "cover"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "advanced-exercise",
+      "kind": "scripted_reinforcement",
+      "detail": "A finite late exercise column changes enemy composition and timing only; no training rule bonuses are applied."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "Interface steps and their browser-local input records are separate from Go mission objectives. World completion alone does not certify selection, control groups, rally feedback or boarding input."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Instructor Vale",
+      "text": "Rifles punish anti-armor infantry, cars threaten exposed rifles, and anti-armor teams stop heavier vehicles. Move rifle squads into cover, defeat both marked targets, reveal the covered scout with recon and unload two squads from the APC at the training position.",
+      "voice": "vo.tutorial-3-read-the-counter.briefing.01"
+    },
+    {
+      "key": "checkpoint:cover-lesson",
+      "speaker": "System",
+      "text": "Checkpoint reached: cover-lesson.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-cover-lesson",
+      "speaker": "Operations",
+      "text": "Cover confirmed. Use recon against concealment and unload infantry before asking it to capture or fire.",
+      "voice": "vo.tutorial-3-read-the-counter.checkpoint-cover-lesson"
+    },
+    {
+      "key": "trigger:advanced-exercise",
+      "speaker": "Instructor",
+      "text": "The late exercise detachment has entered the eastern road.",
+      "voice": "vo.tutorial-3-read-the-counter.advanced-exercise"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Instructor Vale",
+      "text": "Exercise complete. The same rules apply in skirmish and multiplayer.",
+      "voice": "vo.tutorial-3-read-the-counter.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Instructor Vale",
+      "text": "Restart the checkpoint and keep the required training assets alive.",
+      "voice": "vo.tutorial-3-read-the-counter.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [
+    {
+      "id": "board",
+      "kind": "board",
+      "text": "Board both marked squads into the APC."
+    },
+    {
+      "id": "unload",
+      "kind": "unload",
+      "text": "Move the APC and unload at the forward marker.",
+      "objective": "transport"
+    }
+  ],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:13",
+      "text": "Infantry cover team"
+    },
+    {
+      "origin": "initial:14",
+      "text": "Anti-armor team"
+    },
+    {
+      "origin": "initial:15",
+      "text": "Detection team"
+    },
+    {
+      "origin": "initial:23",
+      "text": "Training transport"
+    },
+    {
+      "origin": "initial:24",
+      "text": "Boarding team"
+    }
+  ]
+}

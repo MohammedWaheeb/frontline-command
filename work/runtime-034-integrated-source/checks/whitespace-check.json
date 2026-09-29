@@ -1,0 +1,9 @@
+{
+  "exact_artifact_check_exit": 2,
+  "reported_paths": [
+    "work/runtime-034-integrated-source/commander-only.diff",
+    "work/runtime-034-integrated-source/source/client/src/protocol/frontline_pb.ts"
+  ],
+  "reason": "Unified patch context deliberately has a space before Go tabs; pinned protoc-gen-es output deliberately has an extra final blank line. Both exact artifacts are preserved, not reformatted.",
+  "authored_script_markdown_check_exit": 0
+}

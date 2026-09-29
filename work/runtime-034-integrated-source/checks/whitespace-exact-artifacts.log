@@ -1,0 +1,897 @@
+work/runtime-034-integrated-source/commander-only.diff:4: space before tab in indent.
++ 	scout := sim.Vec{X: point.X + 4000, Y: point.Y}
+work/runtime-034-integrated-source/commander-only.diff:5: space before tab in indent.
++ 	if r.definition.ID == "sy-01-workshop-foothold" {
+work/runtime-034-integrated-source/commander-only.diff:6: space before tab in indent.
++ 		scout.X = point.X - 4000
+work/runtime-034-integrated-source/commander-only.diff:9: space before tab in indent.
++ 			scout.X = point.X + 4000
+work/runtime-034-integrated-source/commander-only.diff:10: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:11: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:15: space before tab in indent.
++ 	rifles := r.ids("starting-rifles")
+work/runtime-034-integrated-source/commander-only.diff:17: space before tab in indent.
++ 	hqPoint, powerPoint, supplyPoint, barracksPoint, factoryPoint := sim.Vec{X: 33500, Y: 105500}, sim.Vec{X: 25500, Y: 108500}, sim.Vec{X: 26500, Y: 96500}, sim.Vec{X: 25500, Y: 115500}, sim.Vec{X: 33500, Y: 115500}
+work/runtime-034-integrated-source/commander-only.diff:20: space before tab in indent.
++ 		// Establish inside the authored base region, with the workshop behind
+work/runtime-034-integrated-source/commander-only.diff:21: space before tab in indent.
++ 		// the HQ instead of on the exposed eastern approach.
+work/runtime-034-integrated-source/commander-only.diff:22: space before tab in indent.
++ 		hqPoint, factoryPoint = sim.Vec{X: 20500, Y: 104500}, sim.Vec{X: 19500, Y: 115500}
+work/runtime-034-integrated-source/commander-only.diff:23: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:27: space before tab in indent.
++ 	field := sim.ID(1)
+work/runtime-034-integrated-source/commander-only.diff:28: space before tab in indent.
++ 	reconPoint := sim.Vec{X: 41500, Y: 72500}
+work/runtime-034-integrated-source/commander-only.diff:31: space before tab in indent.
++ 		reconPoint = sim.Vec{X: 77500, Y: 87500}
+work/runtime-034-integrated-source/commander-only.diff:32: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:33: space before tab in indent.
++ 	r.issue(1, sim.Order{Kind: "attack_move", Entities: rifles[:2], Position: r.region("recoveryRig")}, sim.Order{Kind: "attack_move", Entities: append(rifles[2:], r.ids("starting-at")...), Position: r.region("recovery2")}, sim.Order{Kind: "move", Entities: r.ids("starting-recon"), Position: reconPoint}, sim.Order{Kind: "move", Entities: r.ids("starting-engineers"), Position: sim.Vec{X: 39500, Y: 87500}})
+work/runtime-034-integrated-source/commander-only.diff:34: space before tab in indent.
++ 	r.wait("recovery of original rig", 2400, func() bool { return r.hasTag("recovered-rig") })
+work/runtime-034-integrated-source/commander-only.diff:35: space before tab in indent.
++ 	rig := r.ids("recovered-rig")
+work/runtime-034-integrated-source/commander-only.diff:38: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "move", Entities: r.ids("mechanics-west"), Position: sim.Vec{X: 25500, Y: 83500}}, sim.Order{Kind: "move", Entities: r.ids("mechanics-west"), Position: sim.Vec{X: 22500, Y: 120500}, Queued: true})
+work/runtime-034-integrated-source/commander-only.diff:39: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:40: space before tab in indent.
++ 	r.wait("eastern mechanic recovery", 1200, func() bool { return r.hasTag("mechanics-east") })
+work/runtime-034-integrated-source/commander-only.diff:43: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "move", Entities: r.ids("mechanics-east"), Position: sim.Vec{X: 77500, Y: 113500}}, sim.Order{Kind: "move", Entities: r.ids("mechanics-east"), Position: sim.Vec{X: 26500, Y: 122500}, Queued: true}, sim.Order{Kind: "attack_move", Entities: r.army(), Position: sim.Vec{X: 33500, Y: 92500}})
+work/runtime-034-integrated-source/commander-only.diff:44: space before tab in indent.
++ 	} else {
+work/runtime-034-integrated-source/commander-only.diff:45: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "attack_move", Entities: r.army(), Position: sim.Vec{X: 33500, Y: 92500}})
+work/runtime-034-integrated-source/commander-only.diff:47: space before tab in indent.
++ 	nextGuard := r.engine.Tick()
+work/runtime-034-integrated-source/commander-only.diff:48: space before tab in indent.
++ 	optionalRecovery := r.tactical
+work/runtime-034-integrated-source/commander-only.diff:49: space before tab in indent.
++ 	r.tactical = func() {
+work/runtime-034-integrated-source/commander-only.diff:52: space before tab in indent.
++ 			optionalRecovery()
+work/runtime-034-integrated-source/commander-only.diff:63: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:64: space before tab in indent.
++ 		if r.engine.Tick() < nextGuard {
+work/runtime-034-integrated-source/commander-only.diff:65: space before tab in indent.
++ 			return
+work/runtime-034-integrated-source/commander-only.diff:67: space before tab in indent.
++ 			if entity.Owner != 2 && entity.Owner != 4 {
+work/runtime-034-integrated-source/commander-only.diff:68: space before tab in indent.
++ 				continue
+work/runtime-034-integrated-source/commander-only.diff:69: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:72: space before tab in indent.
++ 				unit, mobile := r.catalog.Unit(entity.Type)
+work/runtime-034-integrated-source/commander-only.diff:73: space before tab in indent.
++ 				if mobile && unit.Weapon == "" {
+work/runtime-034-integrated-source/commander-only.diff:74: space before tab in indent.
++ 					continue
+work/runtime-034-integrated-source/commander-only.diff:76: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:77: space before tab in indent.
++ 			dx, dy := int64(entity.Position.X-center.X), int64(entity.Position.Y-center.Y)
+work/runtime-034-integrated-source/commander-only.diff:78: space before tab in indent.
++ 			d := dx*dx + dy*dy
+work/runtime-034-integrated-source/commander-only.diff:81: space before tab in indent.
++ 				if builder, ok := r.seen(rig[0]); ok {
+work/runtime-034-integrated-source/commander-only.diff:82: space before tab in indent.
++ 					x, y := int64(entity.Position.X-builder.Position.X), int64(entity.Position.Y-builder.Position.Y)
+work/runtime-034-integrated-source/commander-only.diff:83: space before tab in indent.
++ 					d = min(d, x*x+y*y)
+work/runtime-034-integrated-source/commander-only.diff:85: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:86: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:87: space before tab in indent.
++ 		if army := r.army(); len(army) > 0 {
+work/runtime-034-integrated-source/commander-only.diff:90: space before tab in indent.
++ 				for _, id := range army {
+work/runtime-034-integrated-source/commander-only.diff:91: space before tab in indent.
++ 					actor, present := r.seen(id)
+work/runtime-034-integrated-source/commander-only.diff:92: space before tab in indent.
++ 					if !present {
+work/runtime-034-integrated-source/commander-only.diff:94: space before tab in indent.
++ 				r.tryIssue(sim.Order{Kind: "attack_move", Entities: army, Position: target})
+work/runtime-034-integrated-source/commander-only.diff:95: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:96: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:99: space before tab in indent.
++ 			if hqs := r.ownedType("hq"); len(hqs) > 0 {
+work/runtime-034-integrated-source/commander-only.diff:100: space before tab in indent.
++ 				for i := len(r.tags["starting-engineers"]) - 1; i >= 0; i-- {
+work/runtime-034-integrated-source/commander-only.diff:101: space before tab in indent.
++ 					worker, alive := r.seen(r.tags["starting-engineers"][i])
+work/runtime-034-integrated-source/commander-only.diff:103: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:104: trailing whitespace.
++ 
+work/runtime-034-integrated-source/commander-only.diff:105: space before tab in indent.
++ 	r.buildAt(rig, "hq", hqPoint)
+work/runtime-034-integrated-source/commander-only.diff:108: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "repair_reserve", Index: 1800})
+work/runtime-034-integrated-source/commander-only.diff:109: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:110: space before tab in indent.
++ 	r.buildAt(rig, "power", powerPoint)
+work/runtime-034-integrated-source/commander-only.diff:111: trailing whitespace.
++ 
+work/runtime-034-integrated-source/commander-only.diff:112: space before tab in indent.
++ 	r.buildAt(rig, "supply", supplyPoint)
+work/runtime-034-integrated-source/commander-only.diff:113: space before tab in indent.
++ 	r.issue(1, sim.Order{Kind: "gather", Entities: r.ownedType("SY.hauler"), Target: field})
+work/runtime-034-integrated-source/commander-only.diff:117: space before tab in indent.
++ 		// The only recovery rig waits behind the base while income accrues,
+work/runtime-034-integrated-source/commander-only.diff:118: space before tab in indent.
++ 		// rather than idling beside the exposed supply approach.
+work/runtime-034-integrated-source/commander-only.diff:119: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "move", Entities: rig, Position: sim.Vec{X: hqPoint.X, Y: hqPoint.Y + 7000}})
+work/runtime-034-integrated-source/commander-only.diff:121: space before tab in indent.
++ 	barracks, _ := r.catalog.Building("barracks")
+work/runtime-034-integrated-source/commander-only.diff:122: space before tab in indent.
++ 	r.wait("income funds real barracks construction", 3600, func() bool { return r.view().Economy.Credits >= barracks.Cost })
+work/runtime-034-integrated-source/commander-only.diff:123: space before tab in indent.
++ 	r.buildAt(rig, "barracks", barracksPoint)
+work/runtime-034-integrated-source/commander-only.diff:129: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "move", Entities: rig, Position: sim.Vec{X: hqPoint.X, Y: hqPoint.Y + 7000}})
+work/runtime-034-integrated-source/commander-only.diff:130: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:131: space before tab in indent.
++ 	workshop, _ := r.catalog.Building("factory")
+work/runtime-034-integrated-source/commander-only.diff:133: space before tab in indent.
++ 	if r.faction != "IR" {
+work/runtime-034-integrated-source/commander-only.diff:134: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1})
+work/runtime-034-integrated-source/commander-only.diff:135: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:137: space before tab in indent.
++ 	if r.faction == "SY" || (r.faction == "SA" && r.difficulty == "hard") {
+work/runtime-034-integrated-source/commander-only.diff:140: space before tab in indent.
++ 		for _, id := range r.tags["concealed-scout"] {
+work/runtime-034-integrated-source/commander-only.diff:141: space before tab in indent.
++ 			excluded[id] = true
+work/runtime-034-integrated-source/commander-only.diff:142: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:144: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:145: space before tab in indent.
++ 		})
+work/runtime-034-integrated-source/commander-only.diff:146: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:155: space before tab in indent.
++ 	r.advance(500)
+work/runtime-034-integrated-source/commander-only.diff:156: space before tab in indent.
++ 	r.checkpoint()
+work/runtime-034-integrated-source/commander-only.diff:157: space before tab in indent.
++ 	if r.faction == "SA" {
+work/runtime-034-integrated-source/commander-only.diff:159: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:160: space before tab in indent.
++ 	return sim.EntityView{}, false
+work/runtime-034-integrated-source/commander-only.diff:172: space before tab in indent.
++ 	target := r.tags[tag][0]
+work/runtime-034-integrated-source/commander-only.diff:173: space before tab in indent.
++ 	var point sim.Vec
+work/runtime-034-integrated-source/commander-only.diff:174: space before tab in indent.
++ 	for _, actor := range r.definition.Initial {
+work/runtime-034-integrated-source/commander-only.diff:176: space before tab in indent.
++ 			point = sim.Vec(actor.Position)
+work/runtime-034-integrated-source/commander-only.diff:177: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:178: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:214: space before tab in indent.
++ 	var live []sim.ID
+work/runtime-034-integrated-source/commander-only.diff:215: space before tab in indent.
++ 	for _, id := range screen {
+work/runtime-034-integrated-source/commander-only.diff:216: space before tab in indent.
++ 		if entity, ok := r.seen(id); ok && entity.Owner == 1 {
+work/runtime-034-integrated-source/commander-only.diff:218: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:219: space before tab in indent.
++ 	r.issue(1, stop...)
+work/runtime-034-integrated-source/commander-only.diff:220: space before tab in indent.
++ 	r.advance(60)
+work/runtime-034-integrated-source/commander-only.diff:224: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "move", Entities: []sim.ID{engineer}, Position: sim.Vec{X: point.X - 3500, Y: point.Y + 3500}})
+work/runtime-034-integrated-source/commander-only.diff:225: space before tab in indent.
++ 		r.wait("engineer observes objective before quarter-health fire control", 1800, func() bool { _, visible := r.seen(target); return visible })
+work/runtime-034-integrated-source/commander-only.diff:226: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:228: space before tab in indent.
++ 				return
+work/runtime-034-integrated-source/commander-only.diff:229: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:230: space before tab in indent.
++ 			next = r.engine.Tick() + 100
+work/runtime-034-integrated-source/commander-only.diff:243: space before tab in indent.
++ 			if _, ok := r.seen(gunner); !ok {
+work/runtime-034-integrated-source/commander-only.diff:244: space before tab in indent.
++ 				closest := int64(1 << 62)
+work/runtime-034-integrated-source/commander-only.diff:245: space before tab in indent.
++ 				eligible := map[sim.ID]bool{}
+work/runtime-034-integrated-source/commander-only.diff:247: space before tab in indent.
++ 					eligible[id] = true
+work/runtime-034-integrated-source/commander-only.diff:248: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:249: space before tab in indent.
++ 				for _, e := range r.view().Entities {
+work/runtime-034-integrated-source/commander-only.diff:252: space before tab in indent.
++ 						dx, dy := int64(e.Position.X-point.X), int64(e.Position.Y-point.Y)
+work/runtime-034-integrated-source/commander-only.diff:253: space before tab in indent.
++ 						if d := dx*dx + dy*dy; d < closest {
+work/runtime-034-integrated-source/commander-only.diff:254: space before tab in indent.
++ 							closest, gunner = d, e.ID
+work/runtime-034-integrated-source/commander-only.diff:256: space before tab in indent.
++ 					}
+work/runtime-034-integrated-source/commander-only.diff:257: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:258: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:264: space before tab in indent.
++ 			r.tryIssue(sim.Order{Kind: "attack", Entities: []sim.ID{gunner}, Target: target})
+work/runtime-034-integrated-source/commander-only.diff:265: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:266: space before tab in indent.
++ 		r.wait("ordinary quarter-health capture threshold", 2400, func() bool { entity, ok := r.seen(target); return ok && entity.Health < 240 })
+work/runtime-034-integrated-source/commander-only.diff:267: space before tab in indent.
++ 		r.tactical = previous
+work/runtime-034-integrated-source/commander-only.diff:278: space before tab in indent.
++ 		previousPerimeter := r.tactical
+work/runtime-034-integrated-source/commander-only.diff:279: space before tab in indent.
++ 		defer func() { r.tactical = previousPerimeter }()
+work/runtime-034-integrated-source/commander-only.diff:280: space before tab in indent.
++ 		perimeterThreats := func() []sim.EntityView {
+work/runtime-034-integrated-source/commander-only.diff:282: space before tab in indent.
++ 					// Keep fire off the fragile unowned relay when that hostile
+work/runtime-034-integrated-source/commander-only.diff:283: space before tab in indent.
++ 					// dies: queue a real explored-ground fire intention behind it.
+work/runtime-034-integrated-source/commander-only.diff:284: space before tab in indent.
++ 					if r.tryIssue(sim.Order{Kind: "attack", Entities: []sim.ID{id}, Target: target}) {
+work/runtime-034-integrated-source/commander-only.diff:297: space before tab in indent.
++ 					}
+work/runtime-034-integrated-source/commander-only.diff:298: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:299: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:300: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:301: space before tab in indent.
++ 		r.wait("clear observed armed threats before optional-route capture", 6000, func() bool { return len(perimeterThreats()) == 0 })
+work/runtime-034-integrated-source/commander-only.diff:302: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:330: space before tab in indent.
++ 	previousCapture := r.tactical
+work/runtime-034-integrated-source/commander-only.diff:331: space before tab in indent.
++ 	nextCapture := r.engine.Tick()
+work/runtime-034-integrated-source/commander-only.diff:332: space before tab in indent.
++ 	r.tactical = func() {
+work/runtime-034-integrated-source/commander-only.diff:335: trailing whitespace.
++ 
+work/runtime-034-integrated-source/commander-only.diff:339: space before tab in indent.
++ 	r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1}, sim.Order{Kind: "rally", Entities: r.ids("home-factory"), Position: sim.Vec{X: 35500, Y: 94500}}, sim.Order{Kind: "rally", Entities: r.ids("home-barracks"), Position: sim.Vec{X: 35500, Y: 94500}})
+work/runtime-034-integrated-source/commander-only.diff:342: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "train", Entities: r.ids("home-supply"), Type: "SY.hauler"}, sim.Order{Kind: "train", Entities: r.ids("home-supply"), Type: "SY.hauler"})
+work/runtime-034-integrated-source/commander-only.diff:355: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:356: space before tab in indent.
++ 	next := r.engine.Tick()
+work/runtime-034-integrated-source/commander-only.diff:357: space before tab in indent.
++ 	rally := sim.Vec{X: 35500, Y: 94500}
+work/runtime-034-integrated-source/commander-only.diff:368: space before tab in indent.
++ 	guards := map[sim.ID][]sim.ID{}
+work/runtime-034-integrated-source/commander-only.diff:370: space before tab in indent.
++ 	repairers := map[sim.ID]sim.ID{}
+work/runtime-034-integrated-source/commander-only.diff:371: space before tab in indent.
++ 	guardNext := r.engine.Tick()
+work/runtime-034-integrated-source/commander-only.diff:375: space before tab in indent.
++ 	r.tactical = func() {
+work/runtime-034-integrated-source/commander-only.diff:376: space before tab in indent.
++ 		if r.engine.Tick() >= guardNext {
+work/runtime-034-integrated-source/commander-only.diff:377: space before tab in indent.
++ 			guardNext = r.engine.Tick() + 100
+work/runtime-034-integrated-source/commander-only.diff:452: space before tab in indent.
++ 			targets := make([]sim.ID, 0, len(guards))
+work/runtime-034-integrated-source/commander-only.diff:453: space before tab in indent.
++ 			for id := range guards {
+work/runtime-034-integrated-source/commander-only.diff:454: space before tab in indent.
++ 				targets = append(targets, id)
+work/runtime-034-integrated-source/commander-only.diff:456: space before tab in indent.
++ 				if !ok || site.Owner != 1 {
+work/runtime-034-integrated-source/commander-only.diff:457: space before tab in indent.
++ 					continue
+work/runtime-034-integrated-source/commander-only.diff:458: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:510: space before tab in indent.
++ 				if worker, alive := r.seen(repairers[siteID]); alive && site.Health < 990 {
+work/runtime-034-integrated-source/commander-only.diff:511: space before tab in indent.
++ 					repairing := worker.Private != nil && len(worker.Private.Orders) > 0 && worker.Private.Orders[0].Kind == "repair"
+work/runtime-034-integrated-source/commander-only.diff:512: space before tab in indent.
++ 					if !repairing {
+work/runtime-034-integrated-source/commander-only.diff:513: space before tab in indent.
++ 						r.tryIssue(sim.Order{Kind: "repair", Entities: []sim.ID{worker.ID}, Target: siteID})
+work/runtime-034-integrated-source/commander-only.diff:514: space before tab in indent.
++ 					}
+work/runtime-034-integrated-source/commander-only.diff:567: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:568: space before tab in indent.
++ 				point := sim.Vec{X: site.Position.X - 1000, Y: site.Position.Y + 2500}
+work/runtime-034-integrated-source/commander-only.diff:569: space before tab in indent.
++ 				var enemyID sim.ID
+work/runtime-034-integrated-source/commander-only.diff:571: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:572: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:573: trailing whitespace.
++ 
+work/runtime-034-integrated-source/commander-only.diff:581: space before tab in indent.
++ 		if r.engine.Tick() < next {
+work/runtime-034-integrated-source/commander-only.diff:582: space before tab in indent.
++ 			return
+work/runtime-034-integrated-source/commander-only.diff:583: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:584: space before tab in indent.
++ 		next = r.engine.Tick() + 600
+work/runtime-034-integrated-source/commander-only.diff:585: space before tab in indent.
++ 		if factory := r.ownedType("factory"); len(factory) > 0 {
+work/runtime-034-integrated-source/commander-only.diff:588: space before tab in indent.
++ 				factory = r.ids("capture-factory")
+work/runtime-034-integrated-source/commander-only.diff:589: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:590: space before tab in indent.
++ 			r.tryIssue(sim.Order{Kind: "rally", Entities: factory[:1], Position: rally})
+work/runtime-034-integrated-source/commander-only.diff:592: space before tab in indent.
++ 		if aa := r.ownedType(r.faction + ".aa"); len(aa) > 0 {
+work/runtime-034-integrated-source/commander-only.diff:593: space before tab in indent.
++ 			if r.hasTag("relay-1") && len(aa) > 1 {
+work/runtime-034-integrated-source/commander-only.diff:594: space before tab in indent.
++ 				cover := sim.Vec{X: 50500, Y: 81500}
+work/runtime-034-integrated-source/commander-only.diff:597: space before tab in indent.
++ 					cover.Y = 85500
+work/runtime-034-integrated-source/commander-only.diff:598: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:599: space before tab in indent.
++ 				r.tryIssue(sim.Order{Kind: "move", Entities: aa[:1], Position: cover})
+work/runtime-034-integrated-source/commander-only.diff:601: space before tab in indent.
++ 			if r.scheduledType(r.faction+".engineer") < 4 {
+work/runtime-034-integrated-source/commander-only.diff:602: space before tab in indent.
++ 				r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: r.faction + ".engineer"})
+work/runtime-034-integrated-source/commander-only.diff:603: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:607: space before tab in indent.
++ 			for range 3 {
+work/runtime-034-integrated-source/commander-only.diff:608: space before tab in indent.
++ 				if r.scheduledType(r.faction+".rifle") < 16 {
+work/runtime-034-integrated-source/commander-only.diff:609: space before tab in indent.
++ 					r.tryIssue(sim.Order{Kind: "train", Entities: barracks[:1], Type: r.faction + ".rifle"})
+work/runtime-034-integrated-source/commander-only.diff:611: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:612: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:613: space before tab in indent.
++ 	r.tactical()
+work/runtime-034-integrated-source/commander-only.diff:615: space before tab in indent.
++ 	cohort := func() []sim.ID {
+work/runtime-034-integrated-source/commander-only.diff:620: space before tab in indent.
++ 		var ids []sim.ID
+work/runtime-034-integrated-source/commander-only.diff:621: space before tab in indent.
++ 		for _, entity := range r.view().Entities {
+work/runtime-034-integrated-source/commander-only.diff:622: space before tab in indent.
++ 			if entity.Owner == 1 && !reserve[entity.ID] && (entity.Type == r.faction+".rifle" || entity.Type == r.faction+".at" || entity.Type == r.faction+".tank") {
+work/runtime-034-integrated-source/commander-only.diff:624: space before tab in indent.
++ 		return ids
+work/runtime-034-integrated-source/commander-only.diff:625: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:626: space before tab in indent.
++ 	clearGuards := func(tag string) {
+work/runtime-034-integrated-source/commander-only.diff:632: space before tab in indent.
++ 		var point sim.Vec
+work/runtime-034-integrated-source/commander-only.diff:633: space before tab in indent.
++ 		for _, actor := range r.definition.Initial {
+work/runtime-034-integrated-source/commander-only.diff:634: space before tab in indent.
++ 			if actor.Tag == tag {
+work/runtime-034-integrated-source/commander-only.diff:636: space before tab in indent.
++ 		if r.faction == "SY" || r.faction == "SA" || r.difficulty == "easy" {
+work/runtime-034-integrated-source/commander-only.diff:637: space before tab in indent.
++ 			approach = "move"
+work/runtime-034-integrated-source/commander-only.diff:638: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:670: space before tab in indent.
++ 		previousApproach := r.tactical
+work/runtime-034-integrated-source/commander-only.diff:674: space before tab in indent.
++ 			nextApproach := r.engine.Tick()
+work/runtime-034-integrated-source/commander-only.diff:675: space before tab in indent.
++ 			r.tactical = func() {
+work/runtime-034-integrated-source/commander-only.diff:676: space before tab in indent.
++ 				previousApproach()
+work/runtime-034-integrated-source/commander-only.diff:680: space before tab in indent.
++ 					return
+work/runtime-034-integrated-source/commander-only.diff:681: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:682: space before tab in indent.
++ 				nextApproach = r.engine.Tick() + 200
+work/runtime-034-integrated-source/commander-only.diff:684: space before tab in indent.
++ 			// Initially declared static guards are legitimate mission targets,
+work/runtime-034-integrated-source/commander-only.diff:685: space before tab in indent.
++ 			// but explicit attacks still wait for current shared vision.
+work/runtime-034-integrated-source/commander-only.diff:686: space before tab in indent.
++ 			r.wait("ground screen acquires relay guard", 6000, func() bool {
+work/runtime-034-integrated-source/commander-only.diff:690: space before tab in indent.
++ 				_, ok := r.seen(id)
+work/runtime-034-integrated-source/commander-only.diff:691: space before tab in indent.
++ 				return ok || r.view().Visible[(point.Y/1000)*r.gameMap.Width+point.X/1000]
+work/runtime-034-integrated-source/commander-only.diff:692: space before tab in indent.
++ 			})
+work/runtime-034-integrated-source/commander-only.diff:694: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:695: space before tab in indent.
++ 			r.wait("mixed ground fire eliminates relay guard", 1800, func() bool { _, ok := r.seen(id); return !ok })
+work/runtime-034-integrated-source/commander-only.diff:696: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:740: space before tab in indent.
++ 	captureFactory := func() {
+work/runtime-034-integrated-source/commander-only.diff:743: space before tab in indent.
++ 			return
+work/runtime-034-integrated-source/commander-only.diff:744: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:745: space before tab in indent.
++ 		var worker sim.ID
+work/runtime-034-integrated-source/commander-only.diff:747: space before tab in indent.
++ 			r.t.Fatal("no independent optional factory engineer")
+work/runtime-034-integrated-source/commander-only.diff:748: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:749: space before tab in indent.
++ 		armor := r.ownedType(r.faction + ".tank")
+work/runtime-034-integrated-source/commander-only.diff:752: space before tab in indent.
++ 		usedWorkers[worker] = true
+work/runtime-034-integrated-source/commander-only.diff:753: space before tab in indent.
++ 		factory := r.tags["capture-factory"][0]
+work/runtime-034-integrated-source/commander-only.diff:754: space before tab in indent.
++ 		repairers[factory] = worker
+work/runtime-034-integrated-source/commander-only.diff:755: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "repair", Entities: []sim.ID{worker}, Target: factory})
+work/runtime-034-integrated-source/commander-only.diff:756: space before tab in indent.
++ 		guards[factory] = nil
+work/runtime-034-integrated-source/commander-only.diff:788: space before tab in indent.
++ 		r.t.Logf("optional factory captured tick%d actor%d", r.engine.Tick(), factory)
+work/runtime-034-integrated-source/commander-only.diff:789: space before tab in indent.
++ 		r.wait("repair captured factory behind the first relay", 4000, func() bool { v, ok := r.seen(factory); return ok && v.Owner == 1 && v.Health >= 900 })
+work/runtime-034-integrated-source/commander-only.diff:790: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:794: space before tab in indent.
++ 	limit := 2
+work/runtime-034-integrated-source/commander-only.diff:795: space before tab in indent.
++ 	if r.definition.ID != "us-03-relay-ridge" {
+work/runtime-034-integrated-source/commander-only.diff:796: space before tab in indent.
++ 		limit = 3
+work/runtime-034-integrated-source/commander-only.diff:798: space before tab in indent.
++ 					return true
+work/runtime-034-integrated-source/commander-only.diff:799: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:800: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:812: space before tab in indent.
++ 			return false
+work/runtime-034-integrated-source/commander-only.diff:813: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:814: space before tab in indent.
++ 		if !findWorker() {
+work/runtime-034-integrated-source/commander-only.diff:834: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:835: space before tab in indent.
++ 		clearGuards(guard)
+work/runtime-034-integrated-source/commander-only.diff:836: space before tab in indent.
++ 		var tank sim.ID
+work/runtime-034-integrated-source/commander-only.diff:838: space before tab in indent.
++ 		if tank == 0 {
+work/runtime-034-integrated-source/commander-only.diff:839: space before tab in indent.
++ 			r.t.Fatal("no surviving paid capture tank")
+work/runtime-034-integrated-source/commander-only.diff:840: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:843: space before tab in indent.
++ 		usedWorkers[worker] = true
+work/runtime-034-integrated-source/commander-only.diff:844: space before tab in indent.
++ 		r.t.Logf("%s captured tick%d", tag, r.engine.Tick())
+work/runtime-034-integrated-source/commander-only.diff:845: space before tab in indent.
++ 		if r.engine.Outcome().Finished {
+work/runtime-034-integrated-source/commander-only.diff:847: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:848: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "repair", Entities: []sim.ID{worker}, Target: r.tags[tag][0]})
+work/runtime-034-integrated-source/commander-only.diff:849: space before tab in indent.
++ 		repairers[r.tags[tag][0]] = worker
+work/runtime-034-integrated-source/commander-only.diff:865: space before tab in indent.
++ 		if stage == 1 {
+work/runtime-034-integrated-source/commander-only.diff:866: space before tab in indent.
++ 			r.checkpoint()
+work/runtime-034-integrated-source/commander-only.diff:867: space before tab in indent.
++ 			if r.faction == "SY" && r.difficulty == "hard" {
+work/runtime-034-integrated-source/commander-only.diff:910: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:911: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:912: space before tab in indent.
++ 		if stage < limit {
+work/runtime-034-integrated-source/commander-only.diff:913: space before tab in indent.
++ 			guards[r.tags[tag][0]] = cohort()
+work/runtime-034-integrated-source/commander-only.diff:914: space before tab in indent.
++ 			rally = sim.Vec{X: point.X - 1000, Y: point.Y + 2500}
+work/runtime-034-integrated-source/commander-only.diff:915: space before tab in indent.
++ 			r.wait("stabilize captured relay before advancing", 2400, func() bool { e, ok := r.seen(r.tags[tag][0]); return ok && e.Health >= 850 })
+work/runtime-034-integrated-source/commander-only.diff:918: space before tab in indent.
++ 				captureFactory()
+work/runtime-034-integrated-source/commander-only.diff:921: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:922: space before tab in indent.
++ 			if stage == 1 && r.faction == "SA" {
+work/runtime-034-integrated-source/commander-only.diff:923: space before tab in indent.
++ 				for _, candidate := range r.ownedType(r.faction + ".engineer") {
+work/runtime-034-integrated-source/commander-only.diff:925: space before tab in indent.
++ 					keep = true
+work/runtime-034-integrated-source/commander-only.diff:926: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:927: space before tab in indent.
++ 				if e.Type == r.faction+".tank" && tanks < 1 {
+work/runtime-034-integrated-source/commander-only.diff:939: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:940: space before tab in indent.
++ 				if keep {
+work/runtime-034-integrated-source/commander-only.diff:941: space before tab in indent.
++ 					reserve[id] = true
+work/runtime-034-integrated-source/commander-only.diff:943: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:944: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:945: space before tab in indent.
++ 			guards[r.tags[tag][0]] = defenders
+work/runtime-034-integrated-source/commander-only.diff:947: space before tab in indent.
++ 		} else {
+work/runtime-034-integrated-source/commander-only.diff:948: space before tab in indent.
++ 			guards[r.tags[tag][0]] = cohort()
+work/runtime-034-integrated-source/commander-only.diff:949: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:951: space before tab in indent.
++ 	if r.definition.ID == "sy-06-open-road" || r.definition.ID == "sa-06-shieldline" {
+work/runtime-034-integrated-source/commander-only.diff:952: space before tab in indent.
++ 		objectiveTags = []string{"enemy-barracks", "enemy-factory", "enemy-service", "enemy-hq", "forward-barracks", "forward-factory", "forward-command"}
+work/runtime-034-integrated-source/commander-only.diff:953: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:957: space before tab in indent.
++ 	cleared := map[sim.ID]bool{}
+work/runtime-034-integrated-source/commander-only.diff:958: trailing whitespace.
++ 
+work/runtime-034-integrated-source/commander-only.diff:959: space before tab in indent.
++ 	return func() {
+work/runtime-034-integrated-source/commander-only.diff:961: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:962: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:963: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:966: space before tab in indent.
++ 			closest := int64(22000 * 22000)
+work/runtime-034-integrated-source/commander-only.diff:967: space before tab in indent.
++ 			for _, enemy := range r.view().Entities {
+work/runtime-034-integrated-source/commander-only.diff:968: space before tab in indent.
++ 				if enemy.Owner != 2 && enemy.Owner != 4 {
+work/runtime-034-integrated-source/commander-only.diff:970: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:971: space before tab in indent.
++ 		if defeated {
+work/runtime-034-integrated-source/commander-only.diff:972: space before tab in indent.
++ 			split := len(army) / 2
+work/runtime-034-integrated-source/commander-only.diff:975: space before tab in indent.
++ 				split = min(4, len(army))
+work/runtime-034-integrated-source/commander-only.diff:976: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:977: space before tab in indent.
++ 			for i, group := range [][]sim.ID{army[:split], army[split:]} {
+work/runtime-034-integrated-source/commander-only.diff:979: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:980: space before tab in indent.
++ 	defendAt := sim.Tick(6000)
+work/runtime-034-integrated-source/commander-only.diff:981: space before tab in indent.
++ 	var repair func()
+work/runtime-034-integrated-source/commander-only.diff:995: space before tab in indent.
++ 	if r.faction == "SY" {
+work/runtime-034-integrated-source/commander-only.diff:996: space before tab in indent.
++ 		defendAt = 0
+work/runtime-034-integrated-source/commander-only.diff:997: space before tab in indent.
++ 		repair = func() {
+work/runtime-034-integrated-source/commander-only.diff:999: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:1000: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:1001: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1004: space before tab in indent.
++ 		defendAt = 0
+work/runtime-034-integrated-source/commander-only.diff:1005: space before tab in indent.
++ 		repair = func() {
+work/runtime-034-integrated-source/commander-only.diff:1006: space before tab in indent.
++ 			// The fixed missile battery has no ground weapon. Keep an ordinary
+work/runtime-034-integrated-source/commander-only.diff:1008: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:1009: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:1010: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1020: space before tab in indent.
++ 	r.tactical = r.assaultPolicy(excluded, repair, defendAt)
+work/runtime-034-integrated-source/commander-only.diff:1027: space before tab in indent.
++ 	if r.faction == "SA" {
+work/runtime-034-integrated-source/commander-only.diff:1028: space before tab in indent.
++ 		mobile := r.ids("mobile-aegis")
+work/runtime-034-integrated-source/commander-only.diff:1029: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "move", Entities: mobile, Position: sim.Vec{X: 75500, Y: 69500}})
+work/runtime-034-integrated-source/commander-only.diff:1032: trailing whitespace.
++ 
+work/runtime-034-integrated-source/commander-only.diff:1046: space before tab in indent.
++ 	if r.requiredOptional == "observer-network" {
+work/runtime-034-integrated-source/commander-only.diff:1047: space before tab in indent.
++ 		r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1}, sim.Order{Kind: "attack_move", Entities: r.army(), Position: r.region("site1")})
+work/runtime-034-integrated-source/commander-only.diff:1048: space before tab in indent.
++ 	} else {
+work/runtime-034-integrated-source/commander-only.diff:1050: space before tab in indent.
++ 	})
+work/runtime-034-integrated-source/commander-only.diff:1051: space before tab in indent.
++ 	if r.requiredOptional == "observer-network" && optionalPolicy != nil {
+work/runtime-034-integrated-source/commander-only.diff:1052: space before tab in indent.
++ 		macro := r.tactical
+work/runtime-034-integrated-source/commander-only.diff:1062: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1063: space before tab in indent.
++ 	r.wait("paid assault establishes its first command phase", 1400, func() bool { return r.engine.Tick() >= 1500 })
+work/runtime-034-integrated-source/commander-only.diff:1064: space before tab in indent.
++ 	r.checkpoint()
+work/runtime-034-integrated-source/commander-only.diff:1068: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1070: trailing whitespace.
++ 
+work/runtime-034-integrated-source/commander-only.diff:1096: space before tab in indent.
++ 	if testing.Short() {
+work/runtime-034-integrated-source/commander-only.diff:1097: space before tab in indent.
++ 		t.Skip("dedicated preservation of all original recovered mechanics")
+work/runtime-034-integrated-source/commander-only.diff:1099: space before tab in indent.
++ 			r := newAuthoredRun(t, "sy-01-workshop-foothold", difficulty, "")
+work/runtime-034-integrated-source/commander-only.diff:1100: space before tab in indent.
++ 			r.evidenceSuffix = "-optional-mechanic-teams"
+work/runtime-034-integrated-source/commander-only.diff:1101: space before tab in indent.
++ 			r.requiredOptional = "mechanic-teams"
+work/runtime-034-integrated-source/commander-only.diff:1148: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:1149: space before tab in indent.
++ 			playWorkshopFoothold(r)
+work/runtime-034-integrated-source/commander-only.diff:1150: space before tab in indent.
++ 		})
+work/runtime-034-integrated-source/commander-only.diff:1152: space before tab in indent.
++ 			next := r.engine.Tick()
+work/runtime-034-integrated-source/commander-only.diff:1153: space before tab in indent.
++ 			unloaded := map[sim.ID]bool{}
+work/runtime-034-integrated-source/commander-only.diff:1154: space before tab in indent.
++ 			escorts := map[int]map[string]sim.ID{}
+work/runtime-034-integrated-source/commander-only.diff:1161: space before tab in indent.
++ 			r.tactical = func() {
+work/runtime-034-integrated-source/commander-only.diff:1162: space before tab in indent.
++ 				if r.engine.Tick() < next {
+work/runtime-034-integrated-source/commander-only.diff:1163: space before tab in indent.
++ 					return
+work/runtime-034-integrated-source/commander-only.diff:1164: space before tab in indent.
++ 				}
+work/runtime-034-integrated-source/commander-only.diff:1165: space before tab in indent.
++ 				next = r.engine.Tick() + 20
+work/runtime-034-integrated-source/commander-only.diff:1214: space before tab in indent.
++ 				for i, id := range observers {
+work/runtime-034-integrated-source/commander-only.diff:1215: space before tab in indent.
++ 					actor, ok := r.seen(id)
+work/runtime-034-integrated-source/commander-only.diff:1216: space before tab in indent.
++ 					carrier, carrierOK := r.seen(carriers[i])
+work/runtime-034-integrated-source/commander-only.diff:1218: space before tab in indent.
++ 					}
+work/runtime-034-integrated-source/commander-only.diff:1219: space before tab in indent.
++ 					point.X -= 3000
+work/runtime-034-integrated-source/commander-only.diff:1220: space before tab in indent.
++ 					point.Y += 3000
+work/runtime-034-integrated-source/commander-only.diff:1227: space before tab in indent.
++ 						if escorts[i] == nil {
+work/runtime-034-integrated-source/commander-only.diff:1228: space before tab in indent.
++ 							escorts[i] = map[string]sim.ID{}
+work/runtime-034-integrated-source/commander-only.diff:1229: space before tab in indent.
++ 						}
+work/runtime-034-integrated-source/commander-only.diff:1235: space before tab in indent.
++ 							if !alive {
+work/runtime-034-integrated-source/commander-only.diff:1236: space before tab in indent.
++ 								var chosen sim.ID
+work/runtime-034-integrated-source/commander-only.diff:1237: space before tab in indent.
++ 								closest := int64(1 << 62)
+work/runtime-034-integrated-source/commander-only.diff:1239: space before tab in indent.
++ 								if chosen == 0 {
+work/runtime-034-integrated-source/commander-only.diff:1240: space before tab in indent.
++ 									continue
+work/runtime-034-integrated-source/commander-only.diff:1241: space before tab in indent.
++ 								}
+work/runtime-034-integrated-source/commander-only.diff:1244: space before tab in indent.
++ 								r.excludedArmy[chosen] = true
+work/runtime-034-integrated-source/commander-only.diff:1245: space before tab in indent.
++ 								guard, _ = r.seen(chosen)
+work/runtime-034-integrated-source/commander-only.diff:1246: space before tab in indent.
++ 							}
+work/runtime-034-integrated-source/commander-only.diff:1253: space before tab in indent.
++ 							if guard.Private != nil && (len(guard.Private.Orders) == 0 || guard.Private.Orders[0].Kind != "attack_move" || guard.Private.Orders[0].Position != point) {
+work/runtime-034-integrated-source/commander-only.diff:1254: space before tab in indent.
++ 								r.tryIssue(sim.Order{Kind: "attack_move", Entities: []sim.ID{guard.ID}, Position: point})
+work/runtime-034-integrated-source/commander-only.diff:1255: space before tab in indent.
++ 							}
+work/runtime-034-integrated-source/commander-only.diff:1256: space before tab in indent.
++ 						}
+work/runtime-034-integrated-source/commander-only.diff:1257: space before tab in indent.
++ 					}
+work/runtime-034-integrated-source/commander-only.diff:1258: space before tab in indent.
++ 					if actor.Private.Container == 0 {
+work/runtime-034-integrated-source/commander-only.diff:1272: space before tab in indent.
++ 						if !unloaded[id] {
+work/runtime-034-integrated-source/commander-only.diff:1273: space before tab in indent.
++ 							if !r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{id}, Position: point}) {
+work/runtime-034-integrated-source/commander-only.diff:1274: space before tab in indent.
++ 								continue
+work/runtime-034-integrated-source/commander-only.diff:1275: space before tab in indent.
++ 							}
+work/runtime-034-integrated-source/commander-only.diff:1276: space before tab in indent.
++ 							r.tryIssue(sim.Order{Kind: "hold", Entities: []sim.ID{id}, Queued: true})
+work/runtime-034-integrated-source/commander-only.diff:1277: space before tab in indent.
++ 							unloaded[id] = true
+work/runtime-034-integrated-source/commander-only.diff:1303: space before tab in indent.
++ 						}
+work/runtime-034-integrated-source/commander-only.diff:1304: space before tab in indent.
++ 						continue
+work/runtime-034-integrated-source/commander-only.diff:1305: space before tab in indent.
++ 					}
+work/runtime-034-integrated-source/commander-only.diff:1308: space before tab in indent.
++ 						shelter := sim.Vec{X: 16500, Y: 105500 + int32(i)*3000}
+work/runtime-034-integrated-source/commander-only.diff:1309: space before tab in indent.
++ 						if len(carrier.Private.Orders) == 0 || carrier.Private.Orders[0].Kind != "move" || carrier.Private.Orders[0].Position != shelter {
+work/runtime-034-integrated-source/commander-only.diff:1310: space before tab in indent.
++ 							r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{carrier.ID}, Position: shelter})
+work/runtime-034-integrated-source/commander-only.diff:1311: space before tab in indent.
++ 						}
+work/runtime-034-integrated-source/commander-only.diff:1312: space before tab in indent.
++ 						continue
+work/runtime-034-integrated-source/commander-only.diff:1313: space before tab in indent.
++ 					}
+work/runtime-034-integrated-source/commander-only.diff:1331: space before tab in indent.
++ 					dx, dy := int64(carrier.Position.X-point.X), int64(carrier.Position.Y-point.Y)
+work/runtime-034-integrated-source/commander-only.diff:1332: space before tab in indent.
++ 					if dx*dx+dy*dy <= 1200*1200 {
+work/runtime-034-integrated-source/commander-only.diff:1337: space before tab in indent.
++ 							r.tryIssue(sim.Order{Kind: "unload", Entities: []sim.ID{carrier.ID}, Position: point})
+work/runtime-034-integrated-source/commander-only.diff:1338: space before tab in indent.
++ 						}
+work/runtime-034-integrated-source/commander-only.diff:1339: space before tab in indent.
++ 					} else if len(carrier.Private.Orders) == 0 || carrier.Private.Orders[0].Kind != "move" || carrier.Private.Orders[0].Position != point {
+work/runtime-034-integrated-source/commander-only.diff:1343: space before tab in indent.
++ 	requiredOptional    string
+work/runtime-034-integrated-source/commander-only.diff:1344: space before tab in indent.
++ 	excludedArmy        map[sim.ID]bool
+work/runtime-034-integrated-source/commander-only.diff:1345: space before tab in indent.
++ 	tactical            func()
+work/runtime-034-integrated-source/commander-only.diff:1348: trailing whitespace.
++ 
+work/runtime-034-integrated-source/commander-only.diff:1350: space before tab in indent.
++ 	t.Helper()
+work/runtime-034-integrated-source/commander-only.diff:1359: space before tab in indent.
++ 	catalog := content.MustBase()
+work/runtime-034-integrated-source/commander-only.diff:1360: space before tab in indent.
++ 	bytes, err := os.ReadFile(filepath.Join("..", "..", "content", "missions", id+".json"))
+work/runtime-034-integrated-source/commander-only.diff:1361: space before tab in indent.
++ 	if err != nil {
+work/runtime-034-integrated-source/commander-only.diff:1363: space before tab in indent.
++ 			t.Fatal(err)
+work/runtime-034-integrated-source/commander-only.diff:1364: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:1365: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1367: space before tab in indent.
++ 	engine, err := sim.NewMission(catalog, gameMap, definition, difficulty, 19027)
+work/runtime-034-integrated-source/commander-only.diff:1368: space before tab in indent.
++ 	if err != nil {
+work/runtime-034-integrated-source/commander-only.diff:1369: space before tab in indent.
++ 		t.Fatal(err)
+work/runtime-034-integrated-source/commander-only.diff:1370: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1372: space before tab in indent.
++ 	replay, err := sim.NewReplay(engine)
+work/runtime-034-integrated-source/commander-only.diff:1373: space before tab in indent.
++ 	if err != nil {
+work/runtime-034-integrated-source/commander-only.diff:1374: space before tab in indent.
++ 		t.Fatal(err)
+work/runtime-034-integrated-source/commander-only.diff:1375: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1378: space before tab in indent.
++ 	for _, entity := range engine.StateCopy().Entities {
+work/runtime-034-integrated-source/commander-only.diff:1379: space before tab in indent.
++ 		if entity.Tag != "" {
+work/runtime-034-integrated-source/commander-only.diff:1380: space before tab in indent.
++ 			run.tags[entity.Tag] = append(run.tags[entity.Tag], entity.ID)
+work/runtime-034-integrated-source/commander-only.diff:1382: space before tab in indent.
++ 	r.sequences[player]++
+work/runtime-034-integrated-source/commander-only.diff:1383: space before tab in indent.
++ 	sequence := r.sequences[player]
+work/runtime-034-integrated-source/commander-only.diff:1384: space before tab in indent.
++ 	tick := r.engine.Tick()
+work/runtime-034-integrated-source/commander-only.diff:1386: space before tab in indent.
++ 	if err := r.engine.Submit(player, sequence, orders); err != nil {
+work/runtime-034-integrated-source/commander-only.diff:1396: space before tab in indent.
++ 		r.t.Fatalf("%s at tick %d: submit %+v: %v", r.definition.ID, tick, orders, err)
+work/runtime-034-integrated-source/commander-only.diff:1397: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1399: space before tab in indent.
++ 	if r.twin != nil {
+work/runtime-034-integrated-source/commander-only.diff:1400: space before tab in indent.
++ 		if err := r.twin.Submit(player, sequence, orders); err != nil {
+work/runtime-034-integrated-source/commander-only.diff:1402: space before tab in indent.
++ 			r.t.Fatalf("restored submit: %v", err)
+work/runtime-034-integrated-source/commander-only.diff:1403: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:1404: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1405: space before tab in indent.
++ 	r.advance(1)
+work/runtime-034-integrated-source/commander-only.diff:1406: space before tab in indent.
++ 	v, _ := r.engine.PlayerView(player)
+work/runtime-034-integrated-source/commander-only.diff:1413: space before tab in indent.
++ 	receipts := []sim.OrderResult{}
+work/runtime-034-integrated-source/commander-only.diff:1414: space before tab in indent.
++ 	for _, result := range v.Results {
+work/runtime-034-integrated-source/commander-only.diff:1415: space before tab in indent.
++ 		if result.Player == player && result.Sequence == sequence {
+work/runtime-034-integrated-source/commander-only.diff:1416: space before tab in indent.
++ 			receipts = append(receipts, result)
+work/runtime-034-integrated-source/commander-only.diff:1417: space before tab in indent.
++ 			if !result.Accepted {
+work/runtime-034-integrated-source/commander-only.diff:1427: space before tab in indent.
++ 				r.t.Fatalf("tick %d order %+v rejected: %+v", tick, orders[result.Index], result)
+work/runtime-034-integrated-source/commander-only.diff:1428: space before tab in indent.
++ 			}
+work/runtime-034-integrated-source/commander-only.diff:1429: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:1430: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1431: space before tab in indent.
++ 	if len(receipts) != len(orders) {
+work/runtime-034-integrated-source/commander-only.diff:1433: space before tab in indent.
++ 		r.t.Fatalf("missing execution receipts for sequence %d: %+v", sequence, receipts)
+work/runtime-034-integrated-source/commander-only.diff:1434: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1435: space before tab in indent.
++ 	r.orders = append(r.orders, authoredOrder{tick, player, sequence, orders, receipts})
+work/runtime-034-integrated-source/commander-only.diff:1439: space before tab in indent.
++ 	r.t.Helper()
+work/runtime-034-integrated-source/commander-only.diff:1442: space before tab in indent.
++ 	r.t.Helper()
+work/runtime-034-integrated-source/commander-only.diff:1443: space before tab in indent.
++ 	end := r.engine.Tick() + limit
+work/runtime-034-integrated-source/commander-only.diff:1445: space before tab in indent.
++ 	for !predicate() && r.engine.Tick() < end && !r.engine.Outcome().Finished {
+work/runtime-034-integrated-source/commander-only.diff:1446: space before tab in indent.
++ 		if r.tactical != nil {
+work/runtime-034-integrated-source/commander-only.diff:1447: space before tab in indent.
++ 			r.tactical()
+work/runtime-034-integrated-source/commander-only.diff:1448: space before tab in indent.
++ 		}
+work/runtime-034-integrated-source/commander-only.diff:1449: space before tab in indent.
++ 		r.advance(10)
+work/runtime-034-integrated-source/commander-only.diff:1455: space before tab in indent.
++ 	}
+work/runtime-034-integrated-source/commander-only.diff:1456: space before tab in indent.
++ 	if !predicate() {
+work/runtime-034-integrated-source/commander-only.diff:1457: space before tab in indent.
++ 		if directory := os.Getenv("FRONTLINE_MISSION_EVIDENCE"); directory != "" {
+work/runtime-034-integrated-source/source/client/src/protocol/frontline_pb.ts:2132: new blank line at EOF.

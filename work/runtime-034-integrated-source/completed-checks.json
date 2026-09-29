@@ -1,0 +1,379 @@
+{
+  "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "run": "checks/20260929T071757Z",
+  "conditions": "GOMAXPROCS=1, package/compiler parallelism1, serial jobs; root browser and Blender may be active. Correctness only, not timing/performance qualification.",
+  "stages": [
+    {
+      "stage": "toolchain-go",
+      "exit_code": 0,
+      "elapsed_seconds": 0.035,
+      "log_sha256": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+    },
+    {
+      "stage": "toolchain-protoc",
+      "exit_code": 0,
+      "elapsed_seconds": 0.062,
+      "log_sha256": "29a645a23ed3faa5d85781dfce8478c3e394eb3344b7d6260dff9f6f5eb76b3a"
+    },
+    {
+      "stage": "toolchain-protoc-go",
+      "exit_code": 0,
+      "elapsed_seconds": 0.034,
+      "log_sha256": "66a5b1785e66f264cac3f01c42f696ab40f09f1b05a619c340c14a5ea7a2093d"
+    },
+    {
+      "stage": "toolchain-protoc-es",
+      "exit_code": 0,
+      "elapsed_seconds": 0.21,
+      "log_sha256": "a143142c5ba9266e399126b3cf2e5f3d9527e5d4411f515ccedb5935c87ca2fb"
+    },
+    {
+      "stage": "generate-go-protobuf",
+      "exit_code": 0,
+      "elapsed_seconds": 0.061,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "generate-ts-protobuf",
+      "exit_code": 0,
+      "elapsed_seconds": 0.245,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "generate-viewproto",
+      "exit_code": 0,
+      "elapsed_seconds": 3.483,
+      "log_sha256": "e5ee345b7967de280af88e5c6069e63eee4435b49b99dbef45bd47b228c97845"
+    },
+    {
+      "stage": "check-viewproto",
+      "exit_code": 0,
+      "elapsed_seconds": 0.447,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "all-package-short",
+      "exit_code": 0,
+      "elapsed_seconds": 71.539,
+      "log_sha256": "14216e4ec1decd34a5a137507560cecd67d0f78e388f291773fe2915dadaab52",
+      "top_level_passed": 437,
+      "top_level_skipped": 56,
+      "skipped": [
+        {
+          "package": "frontlinecommand/cmd/wasm",
+          "test": "TestCandidateServiceSessionAdapterParity"
+        },
+        {
+          "package": "frontlinecommand/cmd/wasm",
+          "test": "TestCombatFeedbackCodecActualAuthorizedOutputs"
+        },
+        {
+          "package": "frontlinecommand/cmd/wasm",
+          "test": "TestOwnerCasualtyActualCodec"
+        },
+        {
+          "package": "frontlinecommand/cmd/wasm",
+          "test": "TestOwnerRangesActualCodec"
+        },
+        {
+          "package": "frontlinecommand/internal/server",
+          "test": "TestCombatFeedbackCodecActualAuthorizedOutputs"
+        },
+        {
+          "package": "frontlinecommand/internal/server",
+          "test": "TestOwnerCasualtyActualCodec"
+        },
+        {
+          "package": "frontlinecommand/internal/server",
+          "test": "TestOwnerRangesActualCodec"
+        },
+        {
+          "package": "frontlinecommand/internal/viewproto",
+          "test": "TestActualGoSavedViewsMatchJSON"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAICompleteStandardMatches"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAIFoggedSupplyOpeningOnAuthoredMaps"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAIRecordedPortRecoveryProgress"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAIUsesBaseEconomy"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredAIStallReadOnlyRoutes"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredAssetLossBoundaries"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCampaignAssaultCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCampaignCaptureCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCampaignDefenseCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCampaignEscortCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCampaignOpeningCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCampaignReplacementObserverCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCampaignTerritoryCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCaptureVisibleSiteObservedInfantry"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredCoopCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredDepotAlternateAccessEvidence"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredDepotCongestionEvidence"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredFatalDiagnostics"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredFatalProbeChild"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalDistantStations"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalFactoryCapture"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalMechanicTeams"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalMissileBudget"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalObserverNetwork"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalScoutPreservation"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalStations"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalTrailSalvage"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredOptionalWingEvacuation"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredSharedConvoyLoss"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredSkirmishAcceptance"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredSkirmishOpeningContext"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredSkirmishRejectionContext"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredSpecificFailures"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestAuthoredTutorialCompletion"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestBalanceAircraftSorties"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestBalanceGroundCompositions"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestBalanceLegalAirAndAAOpenings"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestBotsFinishThreeAndFourPlayerMatches"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestCombatRulesProjection"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestExportBrowserMaximumLoad"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestExteriorMaximum64OrdinaryReturns"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestExteriorMaximumCombinedReturnsRoutesInterception"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestHarvestDepotRecordedCongestionRecovers"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestMaximumActorTickBudget"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestMaximumActorsMovingAndFighting"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestMaximumActorsReturnsRoutesAndInterceptionTogether"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestMaximumActorsSimultaneousAirReturn"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "test": "TestTacticalCanonicalStatePreservation"
+        }
+      ],
+      "packages": [
+        {
+          "package": "frontlinecommand/cmd/contentcheck",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/cmd/frontline",
+          "action": "skip"
+        },
+        {
+          "package": "frontlinecommand/cmd/simcheck",
+          "action": "skip"
+        },
+        {
+          "package": "frontlinecommand/cmd/wasm",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/internal/server",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/internal/storage",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/internal/viewproto",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/internal/viewproto/gen",
+          "action": "skip"
+        },
+        {
+          "package": "frontlinecommand/pkg/content",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/protocol",
+          "action": "skip"
+        }
+      ]
+    },
+    {
+      "stage": "all-package-vet",
+      "exit_code": 0,
+      "elapsed_seconds": 1.571,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "bounded-sim-race",
+      "exit_code": 0,
+      "elapsed_seconds": 155.154,
+      "log_sha256": "0bb3fcd6e836270cc1ac9e589d52ec35af43e965e98df41ba878d21df593ad37",
+      "top_level_passed": 44,
+      "top_level_skipped": 0,
+      "skipped": [],
+      "packages": [
+        {
+          "package": "frontlinecommand/pkg/sim",
+          "action": "pass"
+        }
+      ]
+    },
+    {
+      "stage": "bounded-adapter-race",
+      "exit_code": 0,
+      "elapsed_seconds": 11.906,
+      "log_sha256": "8b2d96888ea831529163bb44e88a7f077cccc7f872110c27de0f88c8c567bb10",
+      "top_level_passed": 11,
+      "top_level_skipped": 0,
+      "skipped": [],
+      "packages": [
+        {
+          "package": "frontlinecommand/internal/viewproto",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/cmd/wasm",
+          "action": "pass"
+        },
+        {
+          "package": "frontlinecommand/internal/server",
+          "action": "pass"
+        }
+      ]
+    }
+  ]
+}
