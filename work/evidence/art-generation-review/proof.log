@@ -1,0 +1,37 @@
+{
+  "scope": "Nonbrowser metadata-only probes against immutable frozen-v1 consumer/core. Actual 136 catalog IDs; synthetic tiny declared byte bodies exercise normal ArtLibrary APIs, not visual art or Go gameplay.",
+  "fanout": {
+    "ids": 136,
+    "loaded": 68,
+    "missing": 68,
+    "errorCodes": [
+      "asset_busy"
+    ],
+    "retryStillMissing": true,
+    "retryAdditionalRequests": 0,
+    "statistics": {
+      "inFlight": 0,
+      "inFlightBytes": 0,
+      "queued": 0,
+      "leases": 0,
+      "leaseBytes": 0,
+      "disposed": false
+    }
+  },
+  "sameIndexReload": {
+    "sameIndexBytes": true,
+    "indexMarker": "A",
+    "manifestIdentityUnchanged": true,
+    "additionalRequests": 0
+  },
+  "metadataRetry": {
+    "additionalRequests": 0,
+    "stillMissing": true,
+    "afterReleaseRecovered": true
+  },
+  "imageRetry": {
+    "afterExplicitSameIndexReload": true,
+    "additionalRequests": 0,
+    "stillRejected": true
+  }
+}
