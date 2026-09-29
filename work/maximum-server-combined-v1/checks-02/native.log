@@ -1,0 +1,36 @@
+=== RUN   TestCaptureCheckpointOriginalBytesAndDetachedSave
+--- PASS: TestCaptureCheckpointOriginalBytesAndDetachedSave (0.04s)
+=== RUN   TestCaptureCheckpointOriginalErrorContract
+=== RUN   TestCaptureCheckpointOriginalErrorContract/metadata
+=== RUN   TestCaptureCheckpointOriginalErrorContract/version
+=== RUN   TestCaptureCheckpointOriginalErrorContract/backwards
+=== RUN   TestCaptureCheckpointOriginalErrorContract/missed_window
+=== RUN   TestCaptureCheckpointOriginalErrorContract/duplicate
+--- PASS: TestCaptureCheckpointOriginalErrorContract (0.02s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/metadata (0.00s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/version (0.00s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/backwards (0.00s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/missed_window (0.00s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/duplicate (0.01s)
+=== RUN   TestCaptureCheckpointActual688Artifact
+--- PASS: TestCaptureCheckpointActual688Artifact (0.13s)
+=== RUN   TestReplaySeekMatchesLiveHash
+--- PASS: TestReplaySeekMatchesLiveHash (0.03s)
+=== RUN   TestReplayCompressedExportImport
+--- PASS: TestReplayCompressedExportImport (0.01s)
+PASS
+ok  	frontlinecommand/pkg/sim	1.000s
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/success
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/metadata
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/version
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/recorded
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/duplicate
+--- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback (0.04s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/success (0.01s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/metadata (0.01s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/version (0.01s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/recorded (0.01s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/duplicate (0.01s)
+PASS
+ok  	frontlinecommand/internal/server	0.423s

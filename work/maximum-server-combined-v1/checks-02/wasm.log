@@ -1,0 +1,22 @@
+=== RUN   TestCaptureCheckpointOriginalBytesAndDetachedSave
+--- PASS: TestCaptureCheckpointOriginalBytesAndDetachedSave (0.28s)
+=== RUN   TestCaptureCheckpointOriginalErrorContract
+=== RUN   TestCaptureCheckpointOriginalErrorContract/metadata
+=== RUN   TestCaptureCheckpointOriginalErrorContract/version
+=== RUN   TestCaptureCheckpointOriginalErrorContract/backwards
+=== RUN   TestCaptureCheckpointOriginalErrorContract/missed_window
+=== RUN   TestCaptureCheckpointOriginalErrorContract/duplicate
+--- PASS: TestCaptureCheckpointOriginalErrorContract (0.13s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/metadata (0.03s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/version (0.02s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/backwards (0.02s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/missed_window (0.03s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/duplicate (0.03s)
+=== RUN   TestCaptureCheckpointActual688Artifact
+--- PASS: TestCaptureCheckpointActual688Artifact (0.55s)
+=== RUN   TestReplaySeekMatchesLiveHash
+--- PASS: TestReplaySeekMatchesLiveHash (0.09s)
+=== RUN   TestReplayCompressedExportImport
+--- PASS: TestReplayCompressedExportImport (0.04s)
+PASS
+ok  	frontlinecommand/pkg/sim	1.290s

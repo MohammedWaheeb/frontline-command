@@ -1,0 +1,55 @@
+{
+  "base_source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "scope": "Clean proposed integration copies; no actor timing annotations or coldprofile command. Live unchanged.",
+  "files": [
+    {
+      "path": "internal/server/match.go",
+      "baseline_sha256": "35ec0401584ce7a9117a3769f0bbdf5fbfb52010ffa3561145f4f01a2eeebf84",
+      "candidate_sha256": "903d39007004630679cc8c8d2415888f095ae5cde7bc95097bb0223f1ed22627",
+      "bytes": 20034,
+      "kind": "production"
+    },
+    {
+      "path": "internal/server/replay_checkpoint.go",
+      "baseline_sha256": null,
+      "candidate_sha256": "d8ffd6b0578d768db16fe69efa3cdd74736a473428d73b7606b7621898f10587",
+      "bytes": 426,
+      "kind": "production"
+    },
+    {
+      "path": "internal/server/replay_checkpoint_test.go",
+      "baseline_sha256": null,
+      "candidate_sha256": "457af6153dc1b9c5923712be2d9414f828a39ac8bd785c171e972dfc41a6a043",
+      "bytes": 1959,
+      "kind": "test"
+    },
+    {
+      "path": "pkg/sim/navigation.go",
+      "baseline_sha256": "c491052f776c4b4e46adcc64b47eabf5137277b6e6105cad05b0760d07288694",
+      "candidate_sha256": "6a51329f420cebbff652e493409f0aa1337a03c47e12910d664008fe824732b9",
+      "bytes": 28004,
+      "kind": "production"
+    },
+    {
+      "path": "pkg/sim/navigation_raster_test.go",
+      "baseline_sha256": null,
+      "candidate_sha256": "120e4b387a6f6817500b8d61b5a9d1c79617b5341b915df4b0b6ee7a658b4b8f",
+      "bytes": 6364,
+      "kind": "test"
+    },
+    {
+      "path": "pkg/sim/replay.go",
+      "baseline_sha256": "61aaac6b721bbe688d76174de7216df723d2a8cfe489d29427b5a10bb0e2de40",
+      "candidate_sha256": "c624f33997103e1b2fa4cf2cf811fded01e0976cfaf7c3ffdd499add755ba328",
+      "bytes": 11373,
+      "kind": "production"
+    },
+    {
+      "path": "pkg/sim/replay_checkpoint_test.go",
+      "baseline_sha256": null,
+      "candidate_sha256": "19ea509e3411beb319a8433b54e115fcba8f2e50a8525f6237e6554b7c45f6ff",
+      "bytes": 5739,
+      "kind": "test"
+    }
+  ]
+}

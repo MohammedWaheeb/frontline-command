@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "started": "2026-09-29T17:38:04.522391+00:00",
+  "scope": "Combined all-package short plus focused native/WASM correctness, shared host with rendering; no timing qualification or actor course.",
+  "stages": [
+    {
+      "stage": "short",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-short",
+        "-p=1",
+        "-count=1",
+        "-timeout=150s",
+        "./..."
+      ],
+      "environment_overrides": {},
+      "seconds": 72.2424272079952,
+      "exit": 0,
+      "log_sha256": "315a995d773e02ca70fdef80b81f7ac592d26d3287d7f60f6ee39290c314809a"
+    },
+    {
+      "stage": "native",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "-count=1",
+        "-v",
+        "-timeout=90s",
+        "-run=^Test(CaptureCheckpoint.*|RecordReplayCheckpointPreservesSaveAndFailureFallback|ReplaySeekMatchesLiveHash|ReplayCompressedExportImport)$",
+        "./pkg/sim",
+        "./internal/server"
+      ],
+      "environment_overrides": {
+        "FRONTLINE_CHECKPOINT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-load-034-course/server-01/evidence/final.save.json",
+        "FRONTLINE_CHECKPOINT_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-server-combined-v1/checks-02/native-files"
+      },
+      "seconds": 3.397428832948208,
+      "exit": 0,
+      "log_sha256": "0ba0676759e9d53668648a79b27aa8c1602f6a473f37de22462afb4a5aa48167"
+    },
+    {
+      "stage": "wasm",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "-count=1",
+        "-v",
+        "-timeout=90s",
+        "-exec=/opt/homebrew/Cellar/go/1.27.1/libexec/lib/wasm/go_js_wasm_exec",
+        "-run=^Test(CaptureCheckpoint.*|RecordReplayCheckpointPreservesSaveAndFailureFallback|ReplaySeekMatchesLiveHash|ReplayCompressedExportImport)$",
+        "./pkg/sim"
+      ],
+      "environment_overrides": {
+        "GOOS": "js",
+        "GOARCH": "wasm",
+        "FRONTLINE_CHECKPOINT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-load-034-course/server-01/evidence/final.save.json",
+        "FRONTLINE_CHECKPOINT_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-server-combined-v1/checks-02/wasm-files"
+      },
+      "seconds": 5.139808207983151,
+      "exit": 0,
+      "log_sha256": "4b9ce4f968711faf426b6a32107b464f6c6abde389ec33636fe5b95e19e8e3e1"
+    }
+  ],
+  "initial_source_guard": {
+    "source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 359,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 360,
+    "timing_source_lock_verified": "7ac31472467322e374eee42781735b2ada2ab2f062445d38097ed43681e2abd3"
+  },
+  "runner_sha256": "4693ef13cee43d013f37cc8fe460a08086b12ea4280b1475e97d90cb3532caca",
+  "actual_input_save_sha256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+  "native_wasm_exact_artifacts": {
+    "boundary.save.json": {
+      "sha256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+      "bytes": 2983528
+    },
+    "boundary.replay.gz": {
+      "sha256": "e33edfcf5c6f9fd5cc5d6e9f62fcda637692e2c09d545197e2161fce14c711d5",
+      "bytes": 158677
+    },
+    "checkpoint.gz": {
+      "sha256": "795562307c6d4e6a1d19af4f3cf49015a02e5947feeb411c75cebce6e55623ce",
+      "bytes": 78880
+    }
+  },
+  "final_source_guard": {
+    "source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 359,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 360,
+    "timing_source_lock_verified": "7ac31472467322e374eee42781735b2ada2ab2f062445d38097ed43681e2abd3"
+  },
+  "source_verified_after": true,
+  "artifacts": {
+    "native-files/boundary.replay.gz": "e33edfcf5c6f9fd5cc5d6e9f62fcda637692e2c09d545197e2161fce14c711d5",
+    "native-files/boundary.save.json": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+    "native-files/checkpoint.gz": "795562307c6d4e6a1d19af4f3cf49015a02e5947feeb411c75cebce6e55623ce",
+    "native.log": "0ba0676759e9d53668648a79b27aa8c1602f6a473f37de22462afb4a5aa48167",
+    "short.log": "315a995d773e02ca70fdef80b81f7ac592d26d3287d7f60f6ee39290c314809a",
+    "wasm-files/boundary.replay.gz": "e33edfcf5c6f9fd5cc5d6e9f62fcda637692e2c09d545197e2161fce14c711d5",
+    "wasm-files/boundary.save.json": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+    "wasm-files/checkpoint.gz": "795562307c6d4e6a1d19af4f3cf49015a02e5947feeb411c75cebce6e55623ce",
+    "wasm.log": "4b9ce4f968711faf426b6a32107b464f6c6abde389ec33636fe5b95e19e8e3e1"
+  },
+  "finished": "2026-09-29T17:39:25.505388+00:00"
+}

@@ -1,0 +1,45 @@
+{
+  "status": "failed",
+  "started": "2026-09-29T17:33:27.945500+00:00",
+  "scope": "Combined all-package short plus focused native/WASM correctness, shared host with rendering; no timing qualification or actor course.",
+  "stages": [
+    {
+      "stage": "short",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-short",
+        "-p=1",
+        "-count=1",
+        "-timeout=150s",
+        "./..."
+      ],
+      "environment_overrides": {},
+      "seconds": 58.07393441698514,
+      "exit": 1,
+      "log_sha256": "d40c08a2eda817cc2554ba0187821417c464a45eafff35121cd154b7d2186c65"
+    }
+  ],
+  "initial_source_guard": {
+    "source_lock_sha256": "7ac31472467322e374eee42781735b2ada2ab2f062445d38097ed43681e2abd3",
+    "base_lock_sha256": "36a7a73678c71dc57709ab4a655e545382e24ae808900b784832f747292c6444",
+    "locked_files": 360,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 361
+  },
+  "runner_sha256": "6b6db0794a29548e58bc055ce21b338b7fa36e29850d82e7a3f24fb67b03ee97",
+  "actual_input_save_sha256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+  "failure": "AssertionError('short')",
+  "final_source_guard": {
+    "source_lock_sha256": "7ac31472467322e374eee42781735b2ada2ab2f062445d38097ed43681e2abd3",
+    "base_lock_sha256": "36a7a73678c71dc57709ab4a655e545382e24ae808900b784832f747292c6444",
+    "locked_files": 360,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 361
+  },
+  "source_verified_after": true,
+  "artifacts": {
+    "short.log": "d40c08a2eda817cc2554ba0187821417c464a45eafff35121cd154b7d2186c65"
+  },
+  "finished": "2026-09-29T17:34:26.115795+00:00"
+}

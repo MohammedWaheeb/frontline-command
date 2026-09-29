@@ -1,0 +1,17 @@
+ok  	frontlinecommand/cmd/contentcheck	0.914s
+# frontlinecommand/internal/server
+internal/server/match.go:161:6: undefined: maximumLoopProbe
+internal/server/match.go:162:4: undefined: maximumLoopProbe
+internal/server/match.go:481:16: undefined: maximumLoopSample
+internal/server/match.go:688:7: undefined: maximumLoopProbe
+FAIL	frontlinecommand/cmd/frontline [build failed]
+?   	frontlinecommand/cmd/simcheck	[no test files]
+ok  	frontlinecommand/cmd/wasm	0.926s
+FAIL	frontlinecommand/internal/server [build failed]
+ok  	frontlinecommand/internal/storage	0.576s
+ok  	frontlinecommand/internal/viewproto	0.451s
+?   	frontlinecommand/internal/viewproto/gen	[no test files]
+ok  	frontlinecommand/pkg/content	0.433s
+ok  	frontlinecommand/pkg/sim	46.440s
+?   	frontlinecommand/protocol	[no test files]
+FAIL
