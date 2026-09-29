@@ -1,0 +1,82 @@
+{
+  "at": "2026-09-29T11:27:29.084948+00:00",
+  "sourceLockSHA256": "a70a5df5cb053b9f1ee96f5ced310b83f99c2514764f6409c27b286d8ab21282",
+  "scope": "Controlled live integration of the frozen loader, not complete-game or clean-Chromium acceptance. Tiny Chromium courses retain raw abort failures; Firefox17, unit466, independent review and generation/pixel/lifecycle assertions are separate observed evidence.",
+  "changes": [
+    {
+      "path": "client/src/app/application.ts",
+      "before": "dc2ddc16634723e94d3ea309fbca3416e81b9d7a58a98658d1dbe121421176ba",
+      "after": "3295c6a6ed30f566f79e473bfc6b1317b1189cc20e8d0d88db252278349a3a78"
+    },
+    {
+      "path": "client/src/app/asset-preparation.ts",
+      "before": "9c0d3f3e9b684fd1b713a5f561485be78f27ebfef8375e268362d0c0094539b5",
+      "after": "fed0a8e9ddabbbe49cfaa04c01b37b0c456417c6d66cce42c073da42f13a6728"
+    },
+    {
+      "path": "client/src/render/art.ts",
+      "before": "7d5c90ac69f48386f60c1f46c1eb7136a4ef6d49f670ca5bdb1033d389d60360",
+      "after": "2a99fa2e1f0b22d4ee1beb7081b958ccd99ad967ae4f3d8a4db7f1d608718484"
+    },
+    {
+      "path": "client/src/render/battlefield.ts",
+      "before": "46cf75f03c6d4a9a139d89558b0094cc92d1ff6b03f72af84185e01a6bc3ac9b",
+      "after": "71287e9b173323e64e3e4b711f6c7449e7f2acfcc0a3dc513217281ccb8b086e"
+    },
+    {
+      "path": "client/src/render/combat-effects.ts",
+      "before": "5424d75e6e8c4272a6597b81b1c7696a2060ef1f0bb806772756a2d6d4c8425d",
+      "after": "d254f0fa9e2978c7dadcf5511770412114458e2210fc6c2bb672870278557667"
+    },
+    {
+      "path": "client/src/runtime/asset-generation-input.ts",
+      "before": null,
+      "after": "c6bc82f92db053a2a5ef58675e93aaa8df7c11e5e50c53591309c3760aea9a15"
+    },
+    {
+      "path": "client/src/runtime/asset-generation.ts",
+      "before": null,
+      "after": "f856956b039d3dec464e2df22b8ffce411973257246c40be65f27aa352e6a0b9"
+    },
+    {
+      "path": "client/src/runtime/cache.ts",
+      "before": "7bd0b09663edfe74df2f0bd53eba094440c7e34b2b7f14bc196a3daf42b921fb",
+      "after": "0e5e75b84382c4b3440a7d61cd07192765f05f04e9a444cbe192c9b9f5d33221"
+    },
+    {
+      "path": "client/src/runtime/content-library.ts",
+      "before": "c96890dd7f229f891d99ff43f870b550f61ab3bcbf1b230cd3d1a424bb66b50d",
+      "after": "f36a69922fa139e75e2f651c2318b39d8664e0f5549250293bd30fc43301af42"
+    },
+    {
+      "path": "client/src/runtime/offline-response.ts",
+      "before": "27fd58604dff111c5c50d39e75438503454f9da8dcd958c02d393dab1cbf9f55",
+      "after": "3ec3d8195f559266cc136da1f0f515f5c2b7b697c5957da893cfec5e72f9b25a"
+    },
+    {
+      "path": "client/tests/runtime/art-generation-consumer.test.ts",
+      "before": null,
+      "after": "a707b27624f0c409e6e1ad18954d4f4c0a6f3933503004e7717e14e9f4857da8"
+    },
+    {
+      "path": "client/tests/runtime/asset-generation.test.ts",
+      "before": null,
+      "after": "9f6b3b54b34edb191b10bdfcdf10701cf48d6fcc46f905e0cbf5cb29f4f9ace7"
+    }
+  ],
+  "checks": {
+    "runtime": {
+      "tests": 466,
+      "passed": 466,
+      "failed": 0
+    },
+    "appTypeScript": "passed",
+    "runtimeTypeScript": "passed"
+  },
+  "logs": {
+    "typecheck-app.log": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0",
+    "typecheck-runtime.log": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76",
+    "runtime.log": "a2a5f0b3bee39cf94796f53647ad8a49b4d59c9586a2d1d1cbf2b43ba84755e5"
+  },
+  "allTwelveAfterHashesMatch": true
+}

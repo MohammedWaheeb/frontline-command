@@ -11,7 +11,7 @@ export async function prepareBattleAssets(map:GameMap,slots:readonly {faction:st
  for(const faction of factions){for(const unit of catalog.units.values())if(unit.faction===faction)resolve(unit.id,faction);for(const building of catalog.buildings.values())if(!building.faction||building.faction===faction)resolve(building.id,faction)}
  resolve('map.supply_field');resolve('map.central_shipment_site');for(const object of map.objects??[])resolve(`map.${object.class}`);if(map.stations?.length)resolve('map.energy_station');
  for(const id of environmentAssets){if(index.sprites[id])sheets.add(id);else fallbacks.add(id)}
- const verifier=new AssetPreflight({signal}),plan=await planArtPreparation(index,sheets,art.scale,verifier,onProgress);
+ const verifier=new AssetPreflight({signal,fetch:art.fetch}),plan=await planArtPreparation(index,sheets,art.scale,verifier,onProgress);
  const terrain=new Set<string>();for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++)terrain.add(materialFor(map,x,y));for(const material of terrain)if(index.terrain.includes(material))plan.images.set(`/art/terrain/${material}.png`,{right:0,bottom:0});else fallbacks.add(`terrain:${material}`);
  await verifyArtImages(plan,verifier,onProgress);
  return {files:verifier.files,fallbacks:[...fallbacks].sort()};

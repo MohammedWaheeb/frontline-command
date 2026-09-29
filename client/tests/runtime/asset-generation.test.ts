@@ -1,0 +1,106 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {captureAssetGeneration} from '../../src/runtime/asset-generation';
+import {installPack,PACK_PREFIX,READY_PATH,MANIFEST_PATH} from '../../src/runtime/cache';
+import {offlineResponse} from '../../src/runtime/offline-response';
+import {sha256Hex} from '../../src/runtime/crypto';
+const origin='http://127.0.0.1:17899',encode=(v:unknown)=>new TextEncoder().encode(typeof v==='string'?v:JSON.stringify(v));
+const hash=(v:Uint8Array)=>sha256Hex(v);
+class Storage {
+ stores=new Map<string,Map<string,{body:ArrayBuffer;headers:Headers;status:number}>>();failPath='';onPut:((path:string)=>void)|undefined;
+ key(request:RequestInfo|URL){return new URL(request instanceof Request?request.url:String(request),origin).href}
+ async keys(){return [...this.stores.keys()]}
+ async delete(name:string){return this.stores.delete(name)}
+ async open(name:string){let data=this.stores.get(name);if(!data){data=new Map();this.stores.set(name,data)}const current=data;return {match:async(request:RequestInfo|URL)=>{const value=current.get(this.key(request));return value?new Response(value.body.slice(0),{headers:value.headers,status:value.status}):undefined},put:async(request:RequestInfo|URL,response:Response)=>{const key=this.key(request),pathname=new URL(key).pathname;if(pathname===this.failPath)throw new DOMException('Injected storage failure','QuotaExceededError');this.onPut?.(pathname);current.set(key,{body:await response.arrayBuffer(),headers:new Headers(response.headers),status:response.status})},keys:async()=>[...current.keys()].map(key=>new Request(key)),delete:async(request:RequestInfo|URL)=>current.delete(this.key(request))}}
+}
+async function fixture(version='content-v1-A',payload='pixels A'){
+ const index=encode({format_version:1,version:'test',packs:[{id:'2.0.0',version,manifest_url:'/assets/packs/base.json'}],maps:[],missions:[]});
+ const bodies=new Map<string,Uint8Array>([['/content/index.json',index],['/art/index.json',encode({format:1,sprites:{test:'test.sprite.json'}})],['/art/test.png',encode(payload)]]);
+ const pack={id:'2.0.0',version,files:await Promise.all([...bodies].map(async([path,b])=>({path,sha256:await hash(b),bytes:b.length})))};
+ return {index,bodies,pack,manifest:encode(pack)};
+}
+function network(f:Awaited<ReturnType<typeof fixture>>){let requests:string[]=[];const fetcher:typeof fetch=async(input,init)=>{const path=new URL(input instanceof Request?input.url:String(input),origin).pathname;requests.push(path);if(init?.signal?.aborted)throw new DOMException('Canceled','AbortError');const body=path==='/assets/packs/base.json'?f.manifest:f.bodies.get(path),response=new Response(body?new Uint8Array(body).buffer:undefined,{status:body?200:404});Object.defineProperty(response,'url',{value:origin+path});return response};return {fetcher,requests}}
+async function cached(storage:Storage,f:Awaited<ReturnType<typeof fixture>>,legacy=false){const name=PACK_PREFIX+f.pack.version,cache=await storage.open(name);for(const [path,data]of f.bodies)await cache.put(path,new Response(new Uint8Array(data).buffer));if(!legacy)await cache.put(MANIFEST_PATH,new Response(f.manifest));await cache.put(READY_PATH,new Response(JSON.stringify({id:f.pack.id,version:f.pack.version,files:f.pack.files.length,bytes:[...f.bodies.values()].reduce((s,b)=>s+b.length,0),installedAt:100,...legacy?{}:{metadataFiles:1,manifestSHA256:await hash(f.manifest)}})));return name}
+const opts=(storage:Storage,fetcher:typeof fetch)=>({origin,cacheStorage:storage as unknown as CacheStorage,fetcher});
+const code=(expected:string)=>(e:any)=>e?.code===expected;
+
+test('captures exact index/manifest and verifies online bytes before JSON/decode',async()=>{
+ const f=await fixture(),net=network(f),g=await captureAssetGeneration(f.index,'2.0.0',opts(new Storage(),net.fetcher));assert(Object.isFrozen(g.identity));assert.equal(new TextDecoder().decode(await g.read('/art/test.png')),'pixels A');assert.deepEqual(await g.json('/art/index.json'),{format:1,sprites:{test:'test.sprite.json'}});assert.match(g.key('/art/test.png'),new RegExp(f.pack.files[2].sha256+'$'));
+ f.bodies.set('/art/test.png',encode('pixels B'));await assert.rejects(g.read('/art/test.png'),code('asset_integrity'));assert.equal(g.statistics.inFlightBytes,0);g.dispose();await assert.rejects(g.read('/art/test.png'),code('asset_canceled'));
+});
+test('retained A reads only A cache after B activation; explicit removal is fail closed',async()=>{
+ const a=await fixture(),b=await fixture('content-v1-B','pixels B'),store=new Storage(),name=await cached(store,a),net=network(b),g=await captureAssetGeneration(a.index,'2.0.0',opts(store,net.fetcher));await cached(store,b);assert.equal(new TextDecoder().decode(await g.read('/art/test.png')),'pixels A');assert.equal(net.requests.length,0);await store.delete(name);await assert.rejects(g.read('/art/test.png'),code('asset_generation_unavailable'));assert.equal(net.requests.length,0,'No latest/network fallback after explicit deletion');g.dispose();
+});
+test('cold new generation needs no worker or network; legacy reconnect must match exact index',async()=>{
+ const a=await fixture(),store=new Storage();await cached(store,a);let calls=0;const offline:typeof fetch=async()=>{calls++;throw Error('offline')};const g=await captureAssetGeneration(a.index,'2.0.0',opts(store,offline));assert.deepEqual(await g.read('/art/test.png'),a.bodies.get('/art/test.png'));assert.equal(calls,0);g.dispose();
+ const legacy=new Storage();await cached(legacy,a,true);await assert.rejects(captureAssetGeneration(a.index,'2.0.0',opts(legacy,offline)),code('asset_unavailable'));const b=await fixture('content-v1-B','pixels B');await assert.rejects(captureAssetGeneration(a.index,'2.0.0',opts(legacy,network(b).fetcher)),code('asset_identity'));const exact=await captureAssetGeneration(a.index,'2.0.0',opts(legacy,network(a).fetcher));assert.deepEqual(await exact.read('/art/test.png'),a.bodies.get('/art/test.png'));exact.dispose();
+});
+test('copied index, canonical manifest identity and private/unknown path exclusion',async()=>{
+ const a=await fixture(),net=network(a),source=a.index.slice(),g=await captureAssetGeneration(source,'2.0.0',opts(new Storage(),net.fetcher));source.fill(0);const pretty={...a,manifest:encode(JSON.stringify(a.pack,null,2))},g2=await captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),network(pretty).fetcher));assert.equal(g.identity.key,g2.identity.key);
+ for(const p of ['/api/v1/profile','https://foreign.test/art/x.png','/art/../secret','/art/%2e%2e/secret','/art/file.png?generation=A','//foreign.test/x',READY_PATH,MANIFEST_PATH])await assert.rejects(g.read(p),code('asset_path'));
+ await assert.rejects(g.read('/art/absent.png'),code('asset_unknown'));g.dispose();g2.dispose();
+});
+test('manifest/index mismatch, duplicates, reserved URLs and corrupt cache metadata fail before payload',async()=>{
+ for(const mutate of [(f:any)=>{f.pack.version='other'},(f:any)=>{f.pack.files[0].sha256='0'.repeat(64)},(f:any)=>{f.pack.files.push(f.pack.files[1])},(f:any)=>{f.pack.files[1].path=MANIFEST_PATH}]){const a=await fixture();mutate(a);a.manifest=encode(a.pack);const net=network(a);await assert.rejects(captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),net.fetcher)));assert.deepEqual(net.requests,['/assets/packs/base.json'])}
+ const a=await fixture(),store=new Storage(),name=await cached(store,a);await(await store.open(name)).put(MANIFEST_PATH,new Response('corrupt'));await assert.rejects(captureAssetGeneration(a.index,'2.0.0',opts(store,network(a).fetcher)),code('asset_integrity'));
+});
+test('truncated/oversized/corrupt payloads and canceled streams do not return bytes',async()=>{
+ const a=await fixture(),store=new Storage(),name=await cached(store,a),cache=await store.open(name),g=await captureAssetGeneration(a.index,'2.0.0',opts(store,network(a).fetcher));for(const text of ['x','pixels AAA','pixels B']){await cache.put('/art/test.png',new Response(text));await assert.rejects(g.read('/art/test.png'))}assert.equal(g.statistics.inFlight,0);g.dispose();
+ const stop=new AbortController();stop.abort();await assert.rejects(captureAssetGeneration(a.index,'2.0.0',{...opts(new Storage(),network(a).fetcher),signal:stop.signal}),code('asset_canceled'));
+ let opened!:()=>void;const started=new Promise<void>(r=>opened=r),fetcher:typeof fetch=async(input)=>new URL(String(input)).pathname.endsWith('base.json')?new Response(a.manifest):new Response(new ReadableStream({start(c){c.enqueue(encode('p'));opened()}}));const live=await captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),fetcher)),controller=new AbortController(),pending=live.read('/art/test.png',controller.signal);await started;controller.abort();await assert.rejects(pending,code('asset_canceled'));assert.equal(live.statistics.inFlight,0);live.dispose();
+});
+test('leased object URLs are verified, keyed, reference-counted, bounded and disposed',async()=>{
+ const a=await fixture(),g=await captureAssetGeneration(a.index,'2.0.0',{...opts(new Storage(),network(a).fetcher),maxLeaseBytes:100});const first=await g.lease('/art/test.png'),second=await g.lease('/art/test.png');assert.equal(first.url,second.url);assert.equal(first.key,second.key);assert.equal(g.statistics.leases,1);first.release();first.release();assert.equal(g.statistics.leases,1);second.release();assert.equal(g.statistics.leaseBytes,0);await assert.rejects(fetch(first.url));const third=await g.lease('/art/test.png');g.dispose();assert.equal(g.statistics.leaseBytes,0);await assert.rejects(fetch(third.url));third.release();
+ const small=await captureAssetGeneration(a.index,'2.0.0',{...opts(new Storage(),network(a).fetcher),maxLeaseBytes:1});await assert.rejects(small.lease('/art/test.png'),code('asset_memory'));assert.equal(small.statistics.leases,0);small.dispose();
+});
+test('bounded metadata, declared file sizes and redirected origins are rejected',async()=>{
+ const a=await fixture();await assert.rejects(captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),async()=>new Response('{}',{headers:{'Content-Length':String(5<<20)}}))),code('asset_size'));
+ const large={...a,pack:{...a.pack,files:[...a.pack.files,{path:'/art/large.png',bytes:(128<<20)+1,sha256:'0'.repeat(64)}]}};large.manifest=encode(large.pack);await assert.rejects(captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),network(large).fetcher)),code('asset_manifest_invalid'));
+ const foreign:typeof fetch=async()=>{const response=new Response(a.manifest);Object.defineProperty(response,'url',{value:'https://foreign.test/assets/packs/base.json'});return response};await assert.rejects(captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),foreign)),code('asset_origin'));
+ const redirect:typeof fetch=async()=>{const response=new Response(a.manifest);Object.defineProperty(response,'redirected',{value:true});return response};await assert.rejects(captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),redirect)),code('asset_unavailable'));
+});
+test('961-request roster envelope finishes through the bounded active queue',async()=>{
+ const rosterEnvelope=162*2+544+71+22;assert.equal(rosterEnvelope,961);
+ const a=await fixture(),resolvers:Array<()=>void>=[];let calls=0,active=0,peak=0;const fetcher:typeof fetch=async(input)=>{if(new URL(String(input)).pathname.endsWith('base.json'))return new Response(a.manifest);calls++;active++;peak=Math.max(peak,active);await new Promise<void>(r=>resolvers.push(r));active--;return new Response(a.bodies.get('/art/test.png')!.slice().buffer)};
+ const g=await captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),fetcher)),pending=Array.from({length:rosterEnvelope},()=>g.read('/art/test.png'));await new Promise(r=>setImmediate(r));assert.equal(calls,4);assert.equal(g.statistics.queued,rosterEnvelope-4);
+ let completed=0;for(const p of pending)void p.then(()=>{completed++});const deadline=Date.now()+3000;while(completed<rosterEnvelope&&Date.now()<deadline){resolvers.splice(0).forEach(r=>r());await new Promise(r=>setTimeout(r,1))}assert.equal(completed,rosterEnvelope);const values=await Promise.all(pending);assert.equal(values.length,rosterEnvelope);assert.equal(calls,rosterEnvelope);assert.equal(peak,4);assert.equal(g.statistics.queued,0);assert.equal(g.statistics.inFlightBytes,0);g.dispose();
+});
+test('queued cancellation and dispose never start waiting network; queue length is bounded',async()=>{
+ const a=await fixture();let calls=0;const fetcher:typeof fetch=async(input,init)=>{if(new URL(String(input)).pathname.endsWith('base.json'))return new Response(a.manifest);calls++;return new Promise<Response>((_resolve,reject)=>{const stop=()=>reject(new DOMException('Canceled','AbortError'));if(init?.signal?.aborted)stop();else init?.signal?.addEventListener('abort',stop,{once:true})})};
+ const g=await captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),fetcher)),pending=Array.from({length:4},()=>g.read('/art/test.png'));await new Promise(r=>setImmediate(r));const controller=new AbortController(),queued=g.read('/art/test.png',controller.signal);assert.equal(g.statistics.queued,1);controller.abort();await assert.rejects(queued,code('asset_canceled'));assert.equal(calls,4);const waiting=Array.from({length:1024},()=>g.read('/art/test.png'));assert.equal(g.statistics.queued,1024);assert.equal(calls,4);await assert.rejects(g.read('/art/test.png'),code('asset_busy'));g.dispose();for(const p of [...pending,...waiting])await assert.rejects(p,code('asset_canceled'));assert.equal(calls,4);assert.equal(g.statistics.inFlight,0);assert.equal(g.statistics.queued,0);assert.equal(g.statistics.inFlightBytes,0);
+});
+test('aggregate declared active bytes stop a second large reader without allocating it',async()=>{
+ const a=await fixture();a.pack.files.find(f=>f.path==='/art/test.png')!.bytes=80<<20;a.manifest=encode(a.pack);let calls=0;const fetcher:typeof fetch=async(input,init)=>{if(new URL(String(input)).pathname.endsWith('base.json'))return new Response(a.manifest);calls++;return new Promise<Response>((_resolve,reject)=>{const stop=()=>reject(new DOMException('Canceled','AbortError'));if(init?.signal?.aborted)stop();else init?.signal?.addEventListener('abort',stop,{once:true})})};
+ const g=await captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),fetcher)),first=g.read('/art/test.png'),second=g.read('/art/test.png');await new Promise(r=>setImmediate(r));assert.equal(calls,1);assert.equal(g.statistics.inFlightBytes,80<<20);assert.equal(g.statistics.queued,1);g.dispose();await assert.rejects(first,code('asset_canceled'));await assert.rejects(second,code('asset_canceled'));assert.equal(calls,1);
+});
+test('installer stores canonical manifest before READY; metadata failure/cancel keeps old usable cache',async()=>{
+ const store=new Storage(),a=await fixture(),b=await fixture('content-v1-B','pixels B');let current=a,stopped:AbortController|undefined;const globals=['caches','navigator','location','isSecureContext','fetch'] as const,old=new Map(globals.map(k=>[k,Object.getOwnPropertyDescriptor(globalThis,k)]));
+ for(const [k,value]of Object.entries({caches:store,navigator:{serviceWorker:{}},location:new URL(origin),isSecureContext:true,fetch:async(...args:Parameters<typeof fetch>)=>network(current).fetcher(...args)}))Object.defineProperty(globalThis,k,{value,configurable:true});
+ try{const first=await installPack(a.pack);assert.equal(first.metadataFiles,1);const cache=await store.open(first.cacheName);assert(await cache.match(MANIFEST_PATH));assert.equal((await cache.keys()).length,a.pack.files.length+2);const captured=await captureAssetGeneration(a.index,'2.0.0',opts(store,async()=>{throw Error('offline')}));assert.deepEqual(await captured.read('/art/test.png'),a.bodies.get('/art/test.png'));captured.dispose();
+  current=b;store.failPath=MANIFEST_PATH;await assert.rejects(installPack(b.pack),code('content_cache_failed'));assert.deepEqual(await store.keys(),[first.cacheName]);store.failPath='';stopped=new AbortController();store.onPut=p=>{if(p===MANIFEST_PATH)stopped!.abort()};await assert.rejects(installPack(b.pack,undefined,stopped.signal),code('download_canceled'));assert.deepEqual(await store.keys(),[first.cacheName]);store.onPut=undefined;
+  store.failPath=READY_PATH;await assert.rejects(installPack(b.pack),code('content_cache_failed'));assert.deepEqual(await store.keys(),[first.cacheName]);store.failPath='';const next=await installPack(b.pack);assert(next.manifestSHA256);Object.defineProperty(globalThis,'fetch',{value:async()=>{throw Error('offline')},configurable:true});assert.equal((await installPack(b.pack)).cacheName,next.cacheName,'Unchanged manifest reuses without any network');assert.equal(await(await offlineResponse(new Request(origin+'/art/test.png'))).text(),'pixels B');
+  await(await store.open(next.cacheName)).delete(MANIFEST_PATH);assert.equal(await(await offlineResponse(new Request(origin+'/art/test.png'))).text(),'pixels A','New marker missing required manifest cannot win readiness count');
+  const invalid={...a.pack,version:'invalid',files:[...a.pack.files,{path:MANIFEST_PATH,bytes:1,sha256:'0'.repeat(64)}]};await assert.rejects(installPack(invalid),code('pack_invalid'));
+ }finally{for(const [key,d]of old){if(d)Object.defineProperty(globalThis,key,d);else Reflect.deleteProperty(globalThis,key)}}
+});
+test('legacy reinstall creates a verified successor; mutation of caller manifest cannot alter the transaction',async()=>{
+ const store=new Storage(),a=await fixture(),legacy=await cached(store,a,true),original=structuredClone(a.pack),globals=['caches','navigator','location','isSecureContext','fetch'] as const,old=new Map(globals.map(k=>[k,Object.getOwnPropertyDescriptor(globalThis,k)]));let changed=false;
+ const fetcher:typeof fetch=async(...args)=>{if(!changed){changed=true;a.pack.files[2].sha256='0'.repeat(64);a.pack.version='mutated-after-capture'}return network(a).fetcher(...args)};
+ for(const [k,value]of Object.entries({caches:store,navigator:{serviceWorker:{}},location:new URL(origin),isSecureContext:true,fetch:fetcher}))Object.defineProperty(globalThis,k,{value,configurable:true});
+ try{const installed=await installPack(a.pack);assert.notEqual(installed.cacheName,legacy);assert.equal(installed.version,original.version);assert((await store.keys()).includes(legacy),'Legacy cache remains explicitly retained');const stored=await(await store.open(installed.cacheName)).match(MANIFEST_PATH);assert.deepEqual(await stored!.json(),original);assert(await(await store.open(installed.cacheName)).match(READY_PATH))}finally{for(const [key,d]of old){if(d)Object.defineProperty(globalThis,key,d);else Reflect.deleteProperty(globalThis,key)}}
+});
+
+test('different queued descriptors preserve FIFO across canceled middle jobs',async()=>{
+ const a=await fixture(),paths=Array.from({length:136},(_,i)=>'/art/fanout-'+i+'.png');
+ for(const path of paths)a.bodies.set(path,encode(path));
+ a.pack.files=await Promise.all([...a.bodies].map(async([path,data])=>({path,bytes:data.length,sha256:await hash(data)})));a.manifest=encode(a.pack);
+ const started:string[]=[],releases:Array<()=>void>=[];
+ const fetcher:typeof fetch=async(input)=>{const path=new URL(String(input)).pathname;if(path.endsWith('base.json'))return new Response(a.manifest);started.push(path);await new Promise<void>(resolve=>releases.push(resolve));return new Response(a.bodies.get(path)!.slice().buffer)};
+ const g=await captureAssetGeneration(a.index,'2.0.0',opts(new Storage(),fetcher)),stop=new AbortController(),cancelIndex=73;
+ const pending=paths.map((path,index)=>g.read(path,index===cancelIndex?stop.signal:undefined).then(data=>({data}),error=>({error})));
+ await new Promise(resolve=>setImmediate(resolve));assert.deepEqual(started,paths.slice(0,4));assert.equal(g.statistics.queued,132);stop.abort();
+ let completed=0;for(const work of pending)void work.then(()=>{completed++});const deadline=Date.now()+3000;while(completed<paths.length&&Date.now()<deadline){releases.splice(0).forEach(release=>release());await new Promise(resolve=>setTimeout(resolve,1))}
+ assert.equal(completed,paths.length);const outcomes=await Promise.all(pending);assert.deepEqual(started,paths.filter((_,i)=>i!==cancelIndex));
+ for(const [index,outcome]of outcomes.entries()){if(index===cancelIndex)assert.equal('error'in outcome&&outcome.error.code,'asset_canceled');else{assert('data'in outcome);assert.deepEqual(outcome.data,a.bodies.get(paths[index]))}}
+ assert.equal(g.statistics.inFlight,0);assert.equal(g.statistics.inFlightBytes,0);assert.equal(g.statistics.queued,0);g.dispose();
+});

@@ -88,6 +88,9 @@ export class ContentLibrary{
   try{for(;;){abort(signal);const {done,value}=await reader.read();if(done)break;count+=value.length;if(count>maximum){await reader.cancel();throw new RuntimeError('content_size','The content response exceeds its declared size.')}chunks.push(value);progress(count)}}catch(error){await reader.cancel().catch(()=>{});abort(signal);if(error instanceof RuntimeError)throw error;throw new RuntimeError('content_unavailable','The content download was interrupted. Retry explicitly.')}finally{reader.releaseLock()}
   const data=new Uint8Array(count);let offset=0;for(const chunk of chunks){data.set(chunk,offset);offset+=chunk.length}return data;
  }
+ /** Fetch exact bytes without publishing a new registry. Art and gameplay
+  * indices can therefore commit together only after generation verification. */
+ async fetchIndexSource(signal?:AbortSignal):Promise<Uint8Array>{return this.bytes('/content/index.json',LIMITS.index,signal,()=>{})}
  async loadIndex(signal?:AbortSignal):Promise<ContentIndex>{
   const generation=++this.generation;this.stateValue={phase:'loading',index:this.index};this.event({kind:'index',id:'index',stage:'fetching'});
   let source:Uint8Array|undefined;

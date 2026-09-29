@@ -2,9 +2,10 @@ import {sha256Hex,randomUUID} from './crypto';
 import {RuntimeError} from './errors';
 export const PACK_PREFIX='frontline-pack-v1:';
 export const READY_PATH='/__frontline_pack_ready__';
+export const MANIFEST_PATH='/__frontline_pack_manifest__';
 export interface PackFile{path:string;sha256:string;bytes:number}
 export interface ContentPack{id:string;version:string;files:PackFile[]}
-export interface InstalledPack{id:string;version:string;installedAt:number;files:number;bytes:number;cacheName:string}
+export interface InstalledPack{id:string;version:string;installedAt:number;files:number;bytes:number;cacheName:string;metadataFiles?:1;manifestSHA256?:string}
 export function offlineCapability(){return {supported:globalThis.isSecureContext===true&&'serviceWorker' in navigator&&'caches' in globalThis&&!!globalThis.crypto?.subtle,reason:globalThis.isSecureContext?'':'Offline caching requires localhost or HTTPS. An ordinary LAN address still supports connected multiplayer.'}}
 export async function registerOfflineWorker(url='/service-worker.js'){
  if(!offlineCapability().supported)throw new RuntimeError('offline_unavailable',offlineCapability().reason||'This browser does not support offline game caching.');
@@ -24,7 +25,7 @@ export async function installedPacks():Promise<InstalledPack[]>{
   if(!name.startsWith(PACK_PREFIX))continue;
   const cache=await caches.open(name),marker=await cache.match(READY_PATH);
   if(!marker)continue;
-  try{const value=await marker.json();if(typeof value.id==='string'&&typeof value.version==='string'&&Number.isFinite(value.installedAt)&&(await cache.keys()).length>=value.files+1)result.push({...value,cacheName:name})}catch{}
+  try{const value=await marker.json();if(typeof value.id==='string'&&typeof value.version==='string'&&Number.isFinite(value.installedAt)&&(value.metadataFiles===undefined||value.metadataFiles===1&&typeof value.manifestSHA256==='string'&&/^[a-f0-9]{64}$/.test(value.manifestSHA256))&&(await cache.keys()).length>=value.files+1+(value.metadataFiles??0))result.push({...value,cacheName:name})}catch{}
  }
  return result.sort((a,b)=>b.installedAt-a.installedAt||(a.cacheName<b.cacheName?-1:a.cacheName>b.cacheName?1:0));
 }
@@ -38,11 +39,12 @@ async function activationLock<T>(id:string,signal:AbortSignal|undefined,work:()=
  const previous=activationWork.get(id)??Promise.resolve(),result=previous.catch(()=>{}).then(guarded);
  activationWork.set(id,result);try{return await result}finally{if(activationWork.get(id)===result)activationWork.delete(id)}
 }
-async function activate(pack:ContentPack,signal?:AbortSignal,candidate?:{name:string;cache:Cache;bytes:number}):Promise<InstalledPack|undefined>{
+async function activate(pack:ContentPack,signal:AbortSignal|undefined,manifestSource:string,manifestSHA256:string,candidate?:{name:string;cache:Cache;bytes:number}):Promise<InstalledPack|undefined>{
  return activationLock(pack.id,signal,async()=>{
   const completed=await installedPacks();notCanceled(signal);
   const nextTime=()=>completed.reduce((time,p)=>Math.max(time,p.installedAt+1),Date.now());
-  const existing=completed.find(p=>p.id===pack.id&&p.version===pack.version);
+  let existing:InstalledPack|undefined;
+  for(const item of completed){if(item.id!==pack.id||item.version!==pack.version||item.metadataFiles!==1||item.manifestSHA256!==manifestSHA256)continue;const cache=await caches.open(item.cacheName),response=await cache.match(MANIFEST_PATH);if(!response)continue;try{const data=await readBounded(response,new TextEncoder().encode(manifestSource).length);if(new TextDecoder('utf-8',{fatal:true}).decode(data)===manifestSource){existing=item;break}}catch{}}
   if(existing){
    if(completed.find(p=>p.id===pack.id)?.cacheName!==existing.cacheName){
     existing.installedAt=nextTime();const cache=await caches.open(existing.cacheName);notCanceled(signal);
@@ -51,7 +53,7 @@ async function activate(pack:ContentPack,signal?:AbortSignal,candidate?:{name:st
    if(candidate)await caches.delete(candidate.name);return existing;
   }
   if(!candidate)return;
-  const installed={id:pack.id,version:pack.version,installedAt:nextTime(),files:pack.files.length,bytes:candidate.bytes,cacheName:candidate.name};
+  const installed={id:pack.id,version:pack.version,installedAt:nextTime(),files:pack.files.length,bytes:candidate.bytes,cacheName:candidate.name,metadataFiles:1 as const,manifestSHA256};
   notCanceled(signal);await candidate.cache.put(READY_PATH,new Response(JSON.stringify(installed),{headers:{'Content-Type':'application/json'}}));return installed;
  });
 }
@@ -65,17 +67,19 @@ async function readBounded(response:Response,expected:number):Promise<ArrayBuffe
 }
 export async function installPack(pack:ContentPack,onProgress?:(progress:{complete:number;total:number;bytes:number})=>void,signal?:AbortSignal):Promise<InstalledPack>{
  notCanceled(signal);
+ try{pack=structuredClone(pack)}catch{throw new RuntimeError('pack_invalid','The content manifest cannot be captured.')}
  if(!offlineCapability().supported)throw new RuntimeError('offline_unavailable',offlineCapability().reason||'Offline caching is unavailable in this browser.');
  if(!/^[\w.-]{1,100}$/.test(pack.id)||!/^[\w.-]{1,100}$/.test(pack.version)||pack.files.length<1||pack.files.length>16000)throw new RuntimeError('pack_invalid','The game content manifest is invalid.');
  const seen=new Set<string>();let expectedBytes=0;
  for(const file of pack.files){
   const url=new URL(file.path,location.origin);
   const publicAPI=/^\/api\/v1\/(content|maps(?:\/[^/]+)?|missions(?:\/[^/]+)?)$/.test(url.pathname);
-  if(url.origin!==location.origin||url.username||url.password||url.hash||url.pathname.startsWith('/api/')&&!publicAPI||url.pathname===READY_PATH||seen.has(url.href)||!(/^[a-f0-9]{64}$/i.test(file.sha256))||!Number.isSafeInteger(file.bytes)||file.bytes<0||file.bytes>128*1024*1024)throw new RuntimeError('pack_invalid','A content file is invalid, duplicated, private or outside this host.');
+  if(url.origin!==location.origin||url.username||url.password||url.hash||url.pathname.startsWith('/api/')&&!publicAPI||url.pathname===READY_PATH||url.pathname===MANIFEST_PATH||typeof file.path!=='string'||file.path.length>512||seen.has(url.href)||!(/^[a-f0-9]{64}$/i.test(file.sha256))||!Number.isSafeInteger(file.bytes)||file.bytes<0||file.bytes>128*1024*1024)throw new RuntimeError('pack_invalid','A content file is invalid, duplicated, private or outside this host.');
   seen.add(url.href);expectedBytes+=file.bytes;
  }
  if(expectedBytes>2*1024*1024*1024)throw new RuntimeError('pack_too_large','Install a smaller map or faction pack first.');
- const existing=await activate(pack,signal);if(existing){onProgress?.({complete:pack.files.length,total:pack.files.length,bytes:existing.bytes});return existing}
+ const manifestSource=JSON.stringify({id:pack.id,version:pack.version,files:pack.files.map(file=>({path:file.path,sha256:file.sha256,bytes:file.bytes}))}),manifestBytes=new TextEncoder().encode(manifestSource);if(manifestBytes.length>4*1024*1024)throw new RuntimeError('pack_invalid','The captured content manifest exceeds 4 MiB.');const manifestSHA256=await sha256Hex(manifestBytes);
+ const existing=await activate(pack,signal,manifestSource,manifestSHA256);if(existing){onProgress?.({complete:pack.files.length,total:pack.files.length,bytes:existing.bytes});return existing}
  const name=PACK_PREFIX+pack.id+':'+pack.version+':'+randomUUID(),cache=await caches.open(name);let bytes=0,complete=0;
  try{
   for(const file of pack.files){
@@ -96,7 +100,8 @@ export async function installPack(pack:ContentPack,onProgress?:(progress:{comple
   }
   // Activation is marker-last and uses fresh completion order inside a short
   // cross-tab lock where supported; network transfers never hold that lock.
-  return (await activate(pack,signal,{name,cache,bytes}))!;
+  notCanceled(signal);await cache.put(MANIFEST_PATH,new Response(manifestSource,{headers:{'Content-Type':'application/json'}}));
+  return (await activate(pack,signal,manifestSource,manifestSHA256,{name,cache,bytes}))!;
  }catch(error){await caches.delete(name);notCanceled(signal);if(error instanceof RuntimeError)throw error;throw new RuntimeError('content_cache_failed','The pack could not be cached. Check storage space and retry; installed packs are preserved.',true,error)}
 }
 export async function removePack(cacheName:string){if(!cacheName.startsWith(PACK_PREFIX))throw new RuntimeError('invalid_pack','Choose an installed Frontline pack.');return caches.delete(cacheName)}

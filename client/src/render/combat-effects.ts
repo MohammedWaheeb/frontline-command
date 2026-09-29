@@ -22,8 +22,8 @@ export class CombatEffects {
  private sprites=new Map<string,Decoration>();private elevations=new Map<string,number>();private closed=false;private baseline=true;private snapshot?:PlayerSnapshot;
  private missing=new Set<string>();private drawKey='';private revision=0;
  private stats={cues:0,drawnCues:0,confirmedHits:0,cover:0,intercepted:0,decoys:0,trails:0,decorations:0,labels:0,ambientCues:0,ambientDrawn:0};
- constructor(private catalog:CatalogIndex,private map:Pick<GameMap,'width'|'height'>,onError?:(error:Error)=>void){
-  this.root.eventMode='none';this.root.addChild(this.decoration,this.marks);this.library=new EffectLibrary({onError});this.ambient=new AmbientTimeline(map);
+ constructor(private catalog:CatalogIndex,private map:Pick<GameMap,'width'|'height'>,onError?:(error:Error)=>void,fetcher?:typeof fetch){
+  this.root.eventMode='none';this.root.addChild(this.decoration,this.marks);this.library=new EffectLibrary({onError,fetch:fetcher});this.ambient=new AmbientTimeline(map);
  }
  async init(descriptor?:EffectDescriptor){await this.library.init(descriptor)}
  get diagnostics(){

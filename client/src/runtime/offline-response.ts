@@ -8,7 +8,7 @@ export async function offlineResponse(request:Request):Promise<Response>{
  for(const name of await caches.keys()){
   if(!name.startsWith(PACK_PREFIX))continue;
   const cache=await caches.open(name),marker=await cache.match(READY_PATH);
-  if(marker)try{const data=await marker.json();if(typeof data.id==='string'&&Number.isFinite(data.installedAt)&&Number.isSafeInteger(data.files)&&data.files>0&&(await cache.keys()).length>=data.files+1)ready.push({id:data.id,cache,installedAt:data.installedAt,name})}catch{}
+  if(marker)try{const data=await marker.json();if(typeof data.id==='string'&&Number.isFinite(data.installedAt)&&Number.isSafeInteger(data.files)&&data.files>0&&(await cache.keys()).length>=data.files+1+(data.metadataFiles===1?1:0))ready.push({id:data.id,cache,installedAt:data.installedAt,name})}catch{}
  }
  ready.sort((a,b)=>b.installedAt-a.installedAt||(a.name<b.name?-1:a.name>b.name?1:0));
  const seen=new Set<string>();

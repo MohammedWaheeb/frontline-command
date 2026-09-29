@@ -29,19 +29,21 @@ export class Application {
  readonly state:Observable<ApplicationState>;
  readonly network:NetworkController;
  readonly editor:EditorController;readonly tutorialInput:TutorialInputMemory;
+ private contentReload?:Promise<ContentIndex>;
  private assetGeneration=0;private artCleanup:Promise<void>=Promise.resolve();private onlineIdentity?:{session:string;baseURL:string;connection:Pick<MatchConnection,'match_id'|'player'|'protocol'|'simulation'|'content_hash'>};private networkProgressUnsubscribe?:()=>void;private onlineAdvice?:OnlineCommandAdvice;private settingsRevision=0;private settingsWrites:Promise<void>=Promise.resolve();private firstRunRevision=0;private lastHUD=0;private progressPending=false;private progressRecorded=new Set<string>();
  readonly frames=new Set<(snapshot:PlayerSnapshot)=>void>();
  private hudSnapshot?:PlayerSnapshot;private forceHUD=true;
  private preparedEnvironment?:{mapKey:string;data:MapEnvironment};
  constructor(){
   this.store=new LocalStore('frontline-command',data=>this.validator.inspect(data),data=>this.validator.inspectReplay(data));
-  this.sessions=new SessionController({store:this.store,prepare:async(input,signal)=>{await art.init();const map=input.map??input.config?.map,catalog=this.state?.get().catalog;if(map&&catalog&&input.kind!=='online'){const missionPlayers=input.config?.mission?.players as Array<{faction:Faction}>|undefined;const slots=input.config?.players??missionPlayers??[{faction:'US'},{faction:'IR'},{faction:'SY'},{faction:'SA'}];await this.prepareVisuals(map,[...slots,...(input.config?.tutorial_faction?[{faction:input.config.tutorial_faction}]:[])],signal)}}});
+  this.sessions=new SessionController({store:this.store,prepare:async(input,signal)=>{await this.contentReload?.catch(()=>{});await art.init();const map=input.map??input.config?.map,catalog=this.state?.get().catalog;if(map&&catalog&&input.kind!=='online'){const missionPlayers=input.config?.mission?.players as Array<{faction:Faction}>|undefined;const slots=input.config?.players??missionPlayers??[{faction:'US'},{faction:'IR'},{faction:'SY'},{faction:'SA'}];await this.prepareVisuals(map,[...slots,...(input.config?.tutorial_faction?[{faction:input.config.tutorial_faction}]:[])],signal)}}});
   this.library=new ContentLibrary({validator:this.validator,onLoad:event=>{if(event.stage!=='ready'&&event.stage!=='error')this.patch({busy:`${event.stage[0].toUpperCase()+event.stage.slice(1)} ${event.id}…`})}});
   this.campaign=new CampaignJourney(this.library,new CampaignProgressStore(this.store));
   this.firstRun=new FirstRunJourney(this.store,{languages:['en'],scales:[.85,1,1.15,1.25,1.5]});
   const settings=readSettingsMirror();applySettingsToDocument(settings);
   this.state=new Observable<ApplicationState>({booting:true,page:'command',session:this.sessions.state,firstRun:false,settings,paused:true,speed:1});
   this.audio=new AudioMixer(settings);this.audioDirector=new AudioDirector(this.audio,()=>this.state.get().catalog);this.audio.attach();void this.audio.loadIndex();this.audioDirector.page('command');
+  art.onError=error=>this.error(error);
   this.tutorialInput=new TutorialInputMemory(this.store);
   this.editor=new EditorController(this);
   this.network=new NetworkController({library:this.library,store:this.store,validator:this.validator,sessions:this.sessions,joinOnline:(base,connection,map)=>this.joinOnline(base,connection,map),joinObserver:(base,connection,map)=>this.joinObserver(base,connection,map),prepareAssets:(map,slots)=>this.prepareAssets(map,slots),notice:notice=>this.patch({notice}),onSettingsDownloaded:()=>this.reloadSettings()});
@@ -77,13 +79,18 @@ export class Application {
  error(error:unknown){this.patch({error:RuntimeError.from(error).message,busy:undefined})}
  async task<T>(label:string,work:()=>Promise<T>):Promise<T|undefined>{this.patch({busy:label,error:undefined});try{return await work()}catch(error){if((error as {code?:string}).code==='launch_canceled')this.patch({notice:'Loading canceled.'});else this.error(error)}finally{this.patch({busy:undefined})}}
  async boot(){await this.task('Initializing command systems…',async()=>{
-  const [setting,onboarding]=await Promise.all([this.store.setting<Settings>('settings'),this.firstRun.read(),this.validator.ready,art.init()]);
+  const [setting,onboarding]=await Promise.all([this.store.setting<Settings>('settings'),this.firstRun.read(),this.validator.ready]);
   if(setting){this.settingsRevision=setting.revision;this.setSettings(setting.data,false)}
   this.firstRunRevision=onboarding.record?.revision??0;this.patch({firstRun:onboarding.required});
   const catalog=new CatalogIndex(await this.library.catalog() as unknown as Catalog);this.patch({catalog});
   await this.reloadContent();
  });this.patch({booting:false})}
- async reloadContent(){const index=await this.library.loadIndex();this.patch({index});return index}
+ async reloadContent():Promise<ContentIndex>{
+  if(this.contentReload)return this.contentReload;
+  if(this.sessions.state.phase!=='menu')throw new RuntimeError('content_busy','Return to the command menu before updating game content.');
+  const work=(async()=>{const source=await this.library.fetchIndexSource();await art.useIndex(source,()=>this.sessions.state.phase==='menu');const index=this.library.useIndex(source);this.patch({index});return index})();
+  this.contentReload=work;const clear=()=>{if(this.contentReload===work)this.contentReload=undefined};void work.then(clear,clear);return work;
+ }
  setSettings(settings:Settings,persist=true){settings=sanitizeSettings(settings);this.audio?.update(settings);this.patch({settings});applySettingsToDocument(settings);writeSettingsMirror(settings);if(persist){const copy=structuredClone(settings);this.settingsWrites=this.settingsWrites.then(async()=>{const record=await this.store.putSetting('settings',copy,this.settingsRevision);this.settingsRevision=record.revision}).catch(error=>this.error(error))}}
  async finishFirstRun(sound:boolean,scale:number,tutorial:boolean){await this.task('Saving commander preferences…',async()=>{
   const record=await this.firstRun.complete({language:'en',ui_scale:scale,sound:sound?'enabled':'disabled',destination:tutorial?'tutorial':'modes'},this.firstRunRevision);this.firstRunRevision=record.revision;
