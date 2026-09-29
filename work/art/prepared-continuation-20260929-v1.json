@@ -1,0 +1,436 @@
+{
+  "recorded_at_utc": "2026-09-29T16:24:17.513227+00:00",
+  "queue": "activeSA688 \u2192 approvedUSrifle200 \u2192 eightaircraft \u219221remainingground \u219232remainingbuildings; one Blender and native review after every wholeasset.",
+  "aircraft": {
+    "family": "work/art/aircraft-final-production-v3",
+    "production_lock_sha256": "47fcc7d990cc5c67dea70692c0332af9e48460d8f7cdb8a61104713f22a758d6",
+    "model_sha256": "a8207dddec57da229ba8c2d9b09d4d8e4b6498ae0aeb4325617444675abcb50a",
+    "assets": [
+      {
+        "id": "unit.IR.fighter",
+        "poses": 832,
+        "exact_opaque_pilot_reuse": 40,
+        "fresh": 792,
+        "spec_sha256": "4f7adc5db474ac642fd5f2a9be3dd72c31824254aa2f4baf9d1a421ab04f8570"
+      },
+      {
+        "id": "unit.IR.gunship",
+        "poses": 832,
+        "exact_opaque_pilot_reuse": 40,
+        "fresh": 792,
+        "spec_sha256": "2e37940975c856341cf9f7c9e7b9a6db2a6a893dc09de066c3c7770eff2a82f8"
+      },
+      {
+        "id": "unit.IR.isr",
+        "poses": 512,
+        "exact_opaque_pilot_reuse": 0,
+        "fresh": 512,
+        "spec_sha256": "4fa5b5d5df80fc3f8b4c630d057166a3572d3e554e3bb8445986e97fd42eb79b"
+      },
+      {
+        "id": "unit.SA.fighter",
+        "poses": 896,
+        "exact_opaque_pilot_reuse": 40,
+        "fresh": 856,
+        "spec_sha256": "f1a1ef446fff64574f8003cc13a04d7504a337f01926a42da772444e2918d8fe"
+      },
+      {
+        "id": "unit.SA.gunship",
+        "poses": 1120,
+        "exact_opaque_pilot_reuse": 40,
+        "fresh": 1080,
+        "spec_sha256": "fb06fb1050d0b21e75ef1fd1e73f131d0149138405f183bfb796671ba0beacf7"
+      },
+      {
+        "id": "unit.SA.strike",
+        "poses": 896,
+        "exact_opaque_pilot_reuse": 40,
+        "fresh": 856,
+        "spec_sha256": "af11c182e0a6567fab294707d6da0954ed13dc93a46bf5f4844641ce92b772b1"
+      },
+      {
+        "id": "unit.SY.scout_drone",
+        "poses": 464,
+        "exact_opaque_pilot_reuse": 0,
+        "fresh": 464,
+        "spec_sha256": "175558ff40478c5ab3914b108411fedd1111ec4e6c01e2e69b45b7493fb7a8b1"
+      },
+      {
+        "id": "unit.US.strike",
+        "poses": 896,
+        "exact_opaque_pilot_reuse": 40,
+        "fresh": 856,
+        "spec_sha256": "bd205fb630a672ef9665d9bf15630e1a48fdd48ac2a1644404074ad5b59bd44c"
+      }
+    ],
+    "poses": 6448,
+    "fresh": 6208
+  },
+  "other_stages": [
+    {
+      "stage_family": "work/art/ground-launcher-charge-contract-v1/production-sa-v1",
+      "preparation_sha256": "6ace1e1cfe1a282a53953a79c90c2dc9eab87aeb3c9fe7f292b9de4f42b027ef",
+      "driver_lock_sha256": "17adb1bc26be5129d4a361934af049f23870a36aafaf3c31e41f48d56f8d0188",
+      "assets": [
+        {
+          "id": "unit.SA.launcher",
+          "poses": 688,
+          "reused_poses": 64,
+          "fresh_poses": 624,
+          "reuse_sha256": "e2b833f9f730356472c0f0ff6ed546ef84025e6d94553a0e138100402cb7806c"
+        }
+      ]
+    },
+    {
+      "stage_family": "work/art/us-rifle-style-candidate-v1/production-v1",
+      "preparation_sha256": "b736d1c30b3411fdc2740a5f21f3c623b7cccf201890baa67ed8c13bac094d13",
+      "driver_lock_sha256": "0060eb73b05f687acf2979b83bd335fb76243116003f846972abbffae8e03c40",
+      "assets": [
+        {
+          "id": "unit.US.rifle",
+          "poses": 200,
+          "reused": 50,
+          "fresh": 150
+        }
+      ]
+    },
+    {
+      "stage_family": "work/art/vehicle-final-production-v1",
+      "preparation_sha256": "ed202e69eaacaa8698151bcb7200d585867e91f9c6c2b1a30a5e50fe23d85cea",
+      "driver_lock_sha256": "db5c12a8e2592df64c7bc7615d7046550baacc2e8214b869b19eaec45163698b",
+      "assets": [
+        {
+          "id": "unit.IR.aa",
+          "poses": 240,
+          "spec_sha256": "848b925196104617b8eb6fcc5559dc7494aba5a8125687e6521ee7cc2a5ac494",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.IR.apc",
+          "poses": 304,
+          "spec_sha256": "c6c60418d3a1bb019ef078ed556b84c32b957e3f26bdc241dc40061715bb0ea6",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.IR.artillery",
+          "poses": 400,
+          "spec_sha256": "cddab9d85840372eace8b76206b98397d8e9ec21b4773ed3302eb0fc1de24068",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.IR.car",
+          "poses": 240,
+          "spec_sha256": "6a5e2deb532a087b6e2ea4d969bc07034f73f263271049f69a65dfc7c155ee67",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.IR.repair",
+          "poses": 208,
+          "spec_sha256": "4c55089a891addba28a4295e519ce7e479bdcb5ddb87d3109fced0c9ca56060a",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.IR.tank",
+          "poses": 240,
+          "spec_sha256": "5c5e4571154935da32d3361ff556e45ca3ea4676f21a2ff708d955219e54bb31",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SA.aa",
+          "poses": 240,
+          "spec_sha256": "81f0b934c2c707280a3d6da9c6fcd7a9d3e93a6e3551d232adab0d171c28e996",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SA.apc",
+          "poses": 304,
+          "spec_sha256": "22286dbf49daaafa555a99002b3dab63d9a0a6b13826c0586a3c6cd98f36fb65",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SA.artillery",
+          "poses": 240,
+          "spec_sha256": "824690006645efb68f2bbc1fa48035bce53649644da9b48afb8188a549318e7b",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SA.car",
+          "poses": 240,
+          "spec_sha256": "eee070ea332aebb7926f2c4d227a17251288a248a982325f0efa22776a060953",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SA.repair",
+          "poses": 432,
+          "spec_sha256": "a807289111977de4623203eb806d048d0ebef22aea9d5573aa6fda3bc3c82564",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SY.aa",
+          "poses": 240,
+          "spec_sha256": "9e46648d5f0b885b349da130dbad95a2fc7ec9b23b35f9a4cbabd199a118daf7",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SY.artillery",
+          "poses": 240,
+          "spec_sha256": "8be5aee256d716c1c50f734e41412c5aa40e1447adbb4c4725374e040344cb63",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SY.buggy",
+          "poses": 240,
+          "spec_sha256": "7623356d9900e7e53fc08811bb82af92911832eafb75b4f0ef68b76aff9299b0",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SY.repair",
+          "poses": 304,
+          "spec_sha256": "39277e8668ecd1546085e00e126fba6daf121b3f312f9c8a0099b831d07e3e1e",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.SY.tank",
+          "poses": 240,
+          "spec_sha256": "4e6a06fa09b9d06f6f8f30570467dcd04b1b9162ce182029dc205a6354d7ab42",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.US.aa",
+          "poses": 240,
+          "spec_sha256": "e2acc13317a01369d724256b843a5437ff6124612456802a24436f1a918dd7c0",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.US.apc",
+          "poses": 304,
+          "spec_sha256": "b155afa234de6f369276888bb12fe24633e97f8804a525a61c27ea4278030aff",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.US.artillery",
+          "poses": 240,
+          "spec_sha256": "16208fb8f6542b5b7f5c3fc7692bccda15bf29418f65570e47e2276e27869a0d",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.US.car",
+          "poses": 240,
+          "spec_sha256": "1441ac737b836c09508366f468c0a81da0b1826ea83e347f9f26a6e9cd98d99c",
+          "status": "Approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "unit.US.repair",
+          "poses": 208,
+          "spec_sha256": "04529dc05dbc2e300c35abd3670ca3e44c96b0ecd3802cac12852aba0bdd36a1",
+          "status": "Approved unchanged source; not rendered in this stage."
+        }
+      ]
+    },
+    {
+      "stage_family": "work/art/building-final-production-v1",
+      "preparation_sha256": "34d29ef0ad5f5c948165a4c02c3d3cc57d8ed76320fb8895e668c847f5183047",
+      "driver_lock_sha256": "c69b5cf5ed0f2f01cebba63bc4e84e5c84061c73ccdf7488cb3cbbca8d595d3a",
+      "assets": [
+        {
+          "id": "building.IR.aa_post",
+          "poses": 150,
+          "spec_sha256": "bb78d34fb67e0379fb3270e1318dc35717a5ada703fef105cf40f160f9740096",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.barracks",
+          "poses": 28,
+          "spec_sha256": "76f6b26a6b468042d713cc0376ca1b49c0b67cfee7ef640b2ed76fab912c9d02",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.bunker",
+          "poses": 24,
+          "spec_sha256": "6855cc0e6da6b5fcaa4c3626ae6a6acffae68c0e8675713325896a0e6dc3a676",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.factory",
+          "poses": 28,
+          "spec_sha256": "3a1763fa278bb655448ec5cf8dbb4b325182bbad50a01463aa3f6863f6042f80",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.gun_turret",
+          "poses": 150,
+          "spec_sha256": "05da01d3f871053a9920ffa345d107066f506e5542628e431cb2a59a69cf8803",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.outpost",
+          "poses": 22,
+          "spec_sha256": "abc4145e3f42cbc904a287035b378b49c45bf6b8cae7c3b35c2fa9e0d39ca6f1",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.radar",
+          "poses": 22,
+          "spec_sha256": "5f474d2e6f049b618c57d09b632562f91608efd5e37f44be198f6402a5a98052",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.strategic_site",
+          "poses": 44,
+          "spec_sha256": "fef24491fa290d815020011fe32e006c0ededd1369cc5af88772e10c148edb6c",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.supply",
+          "poses": 28,
+          "spec_sha256": "b3c5a2f8551f06e22be9c83ffc531ad7df868b1bf9243274902e3c6f803b0589",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.IR.tech",
+          "poses": 22,
+          "spec_sha256": "c12e759db106b229e11105872551e4bded0f33fff5eed2135ea078e34d7b2564",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.aa_post",
+          "poses": 150,
+          "spec_sha256": "18c62241a0cb9aa219d2a05435034ae9f24160a67d2432c68b6ef459caf59ba1",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.barracks",
+          "poses": 28,
+          "spec_sha256": "304852e9fe41e3c4186fa325af810b0d01469eac5f9df58ded42376888158cc6",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.bunker",
+          "poses": 24,
+          "spec_sha256": "0667731386a839c327e2d458447d7d7c0d8cff80f84559bfe6029cae3ee97378",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.factory",
+          "poses": 28,
+          "spec_sha256": "8468e6d86d09729f536c28a36ec9a88b97acc111649f6ccf1c109ff2c8795748",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.gun_turret",
+          "poses": 150,
+          "spec_sha256": "9278c67279d0b55b97cdb58c7e063e8f26715c6af8a09f86967a62188bb43710",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.outpost",
+          "poses": 22,
+          "spec_sha256": "2345256380b7fcf3196329033c507996a726cb85c3620b17faca227442309efa",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.radar",
+          "poses": 22,
+          "spec_sha256": "e65f08c5ede1bd0bf704b5570b456cb9442c5b8654eabd7a86c17b7cfb38aca9",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.repair_depot",
+          "poses": 28,
+          "spec_sha256": "11eb1a8d76d4a82e3154760c502f49391e434dc4049379b6911c09d7a75dfa7a",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.strategic_site",
+          "poses": 44,
+          "spec_sha256": "8126f8cfef24d0687eca0ad9631cf7e0014a59298f921b2379cbba5e36010396",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.supply",
+          "poses": 28,
+          "spec_sha256": "052bb15c459d996e90e60fa98c9d1968df08938c262f0f18c315f010aab4af48",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SA.tech",
+          "poses": 22,
+          "spec_sha256": "b4690628d76c2e7901ee488f112b018cb45e348404301f5a840ecd37562d999a",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.aa_post",
+          "poses": 150,
+          "spec_sha256": "c7837435d4316e9ace8af263c6d629dc0b46546b6ca91274e712daea52795745",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.barracks",
+          "poses": 28,
+          "spec_sha256": "1a0657ec689d5b867228e5142a5fc14f00291f9a27ef7ad1111ac6547efe61a9",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.bunker",
+          "poses": 24,
+          "spec_sha256": "12af04fcf2914a3dd55563b01706ca7ae6a3ae6522bcc7504615345419bd6a80",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.factory",
+          "poses": 28,
+          "spec_sha256": "68fd0b903b8c6c28b1492661e0220008a38c0c0e113fa4e87c2fc6438b846517",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.gun_turret",
+          "poses": 150,
+          "spec_sha256": "cc5735485bdeea13a20685a9a7f69565c82ab04c29d98fda1d7494b9f2721642",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.outpost",
+          "poses": 22,
+          "spec_sha256": "08a5a1e3ce6958139d110a221a42cb5db10586a72749835d058fa917108248c9",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.radar",
+          "poses": 22,
+          "spec_sha256": "74732d6a44d2ea936c394e54464b6390cb35bb857f05b3237c54f130fcfb91d6",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.safehouse",
+          "poses": 32,
+          "spec_sha256": "1a3bab360bee73555fc74bdff22e0c830d201ff1c80695935fa5d78f6edcc594",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.strategic_site",
+          "poses": 44,
+          "spec_sha256": "d1b6f77b1a2cc0252c3aae650b5ac950f033fa978ccf81efd62f70073febba73",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.supply",
+          "poses": 28,
+          "spec_sha256": "46647a65be533a4bbf142ab4b644cd9cf43015a136eb0c1977e9939fbce779c4",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        },
+        {
+          "id": "building.SY.tech",
+          "poses": 22,
+          "spec_sha256": "67fec0fc1010c0f85942da342c45a1615301286d0662bfce5a94f04ee1ce05b6",
+          "status": "Previously approved unchanged source; not rendered in this stage."
+        }
+      ]
+    }
+  ],
+  "scope": "Read-only prepared source inventory, not completion, publication or final visual acceptance. Accepted source fixes and historical failed gates remain in separately pinned receipts.",
+  "planning_seconds_per_fresh_aircraft_pose": [
+    2.18,
+    2.31
+  ],
+  "timing_limit": "Historical measured range for specific completed aircraft only; not a throughput guarantee. Packing/UI/review and transparency vary."
+}
