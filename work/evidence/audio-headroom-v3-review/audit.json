@@ -1,0 +1,472 @@
+{
+  "scope": "Independent read-only source/receipt/hash review; no compilation, test execution, browser or playback performed by reviewer.",
+  "reviewedAt": "2026-09-29T17:06:36.355266+00:00",
+  "files": {
+    "client/src/audio/mixer.ts": "adfab5522ebc325ee3714a2fc6215581195ec2d94362176411aca815912e3a4e",
+    "client/src/audio/index.ts": "066a6287badd16d1c8a1dad3f2f40c4c5af5a5bd5d4adc2b48330cd37abf8795",
+    "client/src/runtime/crypto.ts": "08eefc374ac92cd54e58607ae989cc660e4e8ab6953594949f944747cc786994",
+    "client/src/app/store.ts": "1f4fff946929b9b73f3cee33879a77ae2149052fbc89ecda90bb54b68b70cc1a",
+    "client/src/runtime/errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77",
+    "work/audio-mix-headroom-v1/candidate/src/app/store.ts": "1f4fff946929b9b73f3cee33879a77ae2149052fbc89ecda90bb54b68b70cc1a",
+    "work/audio-mix-headroom-v1/candidate/src/runtime/errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77",
+    "work/audio-mix-headroom-v1/candidate/src/runtime/crypto.ts": "08eefc374ac92cd54e58607ae989cc660e4e8ab6953594949f944747cc786994",
+    "work/audio-mix-headroom-v1/candidate/src/audio/mixer.ts": "9d073e9e34a03c225efc3c624be69e217aa50e4ab4482a1ff32b09aa6ae860cf",
+    "work/audio-mix-headroom-v1/candidate/src/audio/index.ts": "066a6287badd16d1c8a1dad3f2f40c4c5af5a5bd5d4adc2b48330cd37abf8795",
+    "work/audio-mix-headroom-v1/candidate/source-lock.json": "9bde193db8735aa0bb678ef09968fd1c906b68744a12ea3263cf06a9e5699e0d",
+    "work/audio-mix-headroom-v1/candidate-softpeak-v2/source-lock.json": "bdff1e34ab4d82a976930a656ba2c825adf714970e3c0437edeb82712f87ba47",
+    "work/audio-mix-headroom-v1/candidate-softpeak-v2/src/audio/mixer.ts": "5ce837d9d5a0d562fde7233e88b56f03699e7408fe89a4128a5cd8adf56fd8f5",
+    "work/audio-mix-headroom-v1/run-11/receipt.json": "caf01201411109f0517740f18f9c4567aa20073dd375586ba8ebc2ced3ee0a79",
+    "work/audio-mix-headroom-v1/run-11/fixture-candidate.ts": "72d06d346ec8b66723829934e4d201f0a749eedb729d791524ae25f380a27fb1",
+    "work/audio-mix-headroom-v1/run-11/run-candidate.mjs": "dc6196ceca8d331c517d7bed90f9061ef869396b67a7455128f8c52ecae234c2",
+    "work/audio-mix-headroom-v1/run-11/meter.js": "d7476ed06dc9a8db17e8bd216512d71ae7fc5085447b659b1224f91211b3bb69",
+    "work/audio-mix-headroom-v1/run-11/bundle.js": "863aff2e4a77946f2e1b4af1ff4abecd58c1a1ff5adebda8cad3ebeac2a77950",
+    "work/audio-mix-headroom-v1/run-11/typecheck.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/audio-mix-headroom-v1/run-12/receipt.json": "e537427c56753f6c0b99e640db8ea95749137e66ce14d6a0c6a0a2f710d11212",
+    "work/audio-mix-headroom-v1/run-12/fixture-candidate.ts": "72d06d346ec8b66723829934e4d201f0a749eedb729d791524ae25f380a27fb1",
+    "work/audio-mix-headroom-v1/run-12/run-candidate.mjs": "dc6196ceca8d331c517d7bed90f9061ef869396b67a7455128f8c52ecae234c2",
+    "work/audio-mix-headroom-v1/run-12/meter.js": "d7476ed06dc9a8db17e8bd216512d71ae7fc5085447b659b1224f91211b3bb69",
+    "work/audio-mix-headroom-v1/run-12/bundle.js": "863aff2e4a77946f2e1b4af1ff4abecd58c1a1ff5adebda8cad3ebeac2a77950",
+    "work/audio-mix-headroom-v1/run-12/typecheck.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/audio-mix-headroom-v1/run-13/receipt.json": "33a581ab3d7da6feea8db30ccd4f6ed0699e6d5007df62d2f3bdfe1b6ec85349",
+    "work/audio-mix-headroom-v1/run-13/fixture-candidate.ts": "72d06d346ec8b66723829934e4d201f0a749eedb729d791524ae25f380a27fb1",
+    "work/audio-mix-headroom-v1/run-13/run-candidate.mjs": "dc6196ceca8d331c517d7bed90f9061ef869396b67a7455128f8c52ecae234c2",
+    "work/audio-mix-headroom-v1/run-13/meter.js": "d7476ed06dc9a8db17e8bd216512d71ae7fc5085447b659b1224f91211b3bb69",
+    "work/audio-mix-headroom-v1/run-13/bundle.js": "863aff2e4a77946f2e1b4af1ff4abecd58c1a1ff5adebda8cad3ebeac2a77950",
+    "work/audio-mix-headroom-v1/run-13/typecheck.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "baselineVerified": true,
+  "candidateVerified": true,
+  "runs": [
+    {
+      "run": "work/audio-mix-headroom-v1/run-11",
+      "receiptSha256": "caf01201411109f0517740f18f9c4567aa20073dd375586ba8ebc2ced3ee0a79",
+      "status": "failed",
+      "functional": "passed",
+      "headroom": "passed",
+      "diagnostics": "failed",
+      "browser": "151.0.7922.34",
+      "pinsVerified": 169,
+      "mismatched": [],
+      "rawRequestFailures": 20,
+      "errors": 0,
+      "consoleErrors": 0,
+      "httpErrors": 0,
+      "tailLimitation": null,
+      "tailProbes": [
+        {
+          "mode": "reset",
+          "version": "before",
+          "boundary": 1536,
+          "samples": 6144,
+          "before": 0.48086321353912354,
+          "after": 0.5024449825286865,
+          "nonzeroAfter": 144,
+          "nonfinite": 0,
+          "replaced": false,
+          "statistics": {
+            "context": "closed",
+            "sources": 0,
+            "continuous": 0,
+            "buffers": 0,
+            "decodedBytes": 0,
+            "pending": 0,
+            "generation": 1,
+            "gains": {
+              "master": 1,
+              "voice": 1,
+              "music": 1,
+              "effects": 1,
+              "ui": 1
+            }
+          },
+          "offlineState": "closed"
+        },
+        {
+          "mode": "reset",
+          "version": "after",
+          "boundary": 1536,
+          "samples": 6144,
+          "before": 0.48086321353912354,
+          "after": 0,
+          "nonzeroAfter": 0,
+          "nonfinite": 0,
+          "replaced": true,
+          "statistics": {
+            "context": "closed",
+            "sources": 0,
+            "continuous": 0,
+            "buffers": 0,
+            "decodedBytes": 0,
+            "pending": 0,
+            "generation": 1,
+            "gains": {
+              "master": 1,
+              "voice": 1,
+              "music": 1,
+              "effects": 1,
+              "ui": 1
+            }
+          },
+          "offlineState": "closed"
+        },
+        {
+          "mode": "transient",
+          "version": "before",
+          "boundary": 1536,
+          "samples": 6144,
+          "before": 0.48086321353912354,
+          "after": 0.5024449825286865,
+          "nonzeroAfter": 144,
+          "nonfinite": 0,
+          "replaced": false,
+          "statistics": {
+            "context": "closed",
+            "sources": 0,
+            "continuous": 0,
+            "buffers": 0,
+            "decodedBytes": 0,
+            "pending": 0,
+            "generation": 0,
+            "gains": {
+              "master": 1,
+              "voice": 1,
+              "music": 1,
+              "effects": 1,
+              "ui": 1
+            }
+          },
+          "offlineState": "closed"
+        },
+        {
+          "mode": "transient",
+          "version": "after",
+          "boundary": 1536,
+          "samples": 6144,
+          "before": 0.48086321353912354,
+          "after": 0,
+          "nonzeroAfter": 0,
+          "nonfinite": 0,
+          "replaced": true,
+          "statistics": {
+            "context": "closed",
+            "sources": 0,
+            "continuous": 0,
+            "buffers": 0,
+            "decodedBytes": 0,
+            "pending": 0,
+            "generation": 0,
+            "gains": {
+              "master": 1,
+              "voice": 1,
+              "music": 1,
+              "effects": 1,
+              "ui": 1
+            }
+          },
+          "offlineState": "closed"
+        }
+      ],
+      "caseSignals": [
+        {
+          "name": "default-six",
+          "peak": 0.7618550658226013,
+          "aboveOne": 0,
+          "frames": 84352,
+          "samples": 168704,
+          "channels": 2
+        },
+        {
+          "name": "default-sixteen",
+          "peak": 0.7618550658226013,
+          "aboveOne": 0,
+          "frames": 84352,
+          "samples": 168704,
+          "channels": 2
+        },
+        {
+          "name": "maximum-sixteen",
+          "peak": 0.9523188471794128,
+          "aboveOne": 0,
+          "frames": 84352,
+          "samples": 168704,
+          "channels": 2
+        }
+      ],
+      "disposal": {
+        "statistics": {
+          "context": "absent",
+          "sources": 0,
+          "continuous": 0,
+          "buffers": 0,
+          "decodedBytes": 0,
+          "pending": 0,
+          "generation": 7,
+          "gains": {
+            "master": 0,
+            "voice": 0,
+            "music": 0,
+            "effects": 0,
+            "ui": 0
+          }
+        },
+        "closedContext": "closed",
+        "retainedGraph": {
+          "master": false,
+          "limiter": false,
+          "ceiling": false,
+          "buses": 0
+        }
+      }
+    },
+    {
+      "run": "work/audio-mix-headroom-v1/run-12",
+      "receiptSha256": "e537427c56753f6c0b99e640db8ea95749137e66ce14d6a0c6a0a2f710d11212",
+      "status": "passed",
+      "functional": "passed",
+      "headroom": "passed",
+      "diagnostics": "passed",
+      "browser": "153.0",
+      "pinsVerified": 168,
+      "mismatched": [],
+      "rawRequestFailures": 0,
+      "errors": 0,
+      "consoleErrors": 0,
+      "httpErrors": 0,
+      "tailLimitation": "Engine does not implement OfflineAudioContext.suspend; native exact-boundary tail course not run on this engine.",
+      "tailProbes": [],
+      "caseSignals": [
+        {
+          "name": "default-six",
+          "peak": 0.6323575973510742,
+          "aboveOne": 0,
+          "frames": 84480,
+          "samples": 168960,
+          "channels": 2
+        },
+        {
+          "name": "default-sixteen",
+          "peak": 0.6337783932685852,
+          "aboveOne": 0,
+          "frames": 84480,
+          "samples": 168960,
+          "channels": 2
+        },
+        {
+          "name": "maximum-sixteen",
+          "peak": 0.8092775344848633,
+          "aboveOne": 0,
+          "frames": 84352,
+          "samples": 168704,
+          "channels": 2
+        }
+      ],
+      "disposal": {
+        "statistics": {
+          "context": "absent",
+          "sources": 0,
+          "continuous": 0,
+          "buffers": 0,
+          "decodedBytes": 0,
+          "pending": 0,
+          "generation": 7,
+          "gains": {
+            "master": 0,
+            "voice": 0,
+            "music": 0,
+            "effects": 0,
+            "ui": 0
+          }
+        },
+        "closedContext": "closed",
+        "retainedGraph": {
+          "master": false,
+          "limiter": false,
+          "ceiling": false,
+          "buses": 0
+        }
+      }
+    },
+    {
+      "run": "work/audio-mix-headroom-v1/run-13",
+      "receiptSha256": "33a581ab3d7da6feea8db30ccd4f6ed0699e6d5007df62d2f3bdfe1b6ec85349",
+      "status": "passed",
+      "functional": "passed",
+      "headroom": "passed",
+      "diagnostics": "passed",
+      "browser": "26.5",
+      "pinsVerified": 169,
+      "mismatched": [],
+      "rawRequestFailures": 0,
+      "errors": 0,
+      "consoleErrors": 0,
+      "httpErrors": 0,
+      "tailLimitation": null,
+      "tailProbes": [
+        {
+          "mode": "reset",
+          "version": "before",
+          "boundary": 1536,
+          "samples": 6144,
+          "before": 0.48086321353912354,
+          "after": 0.5024449825286865,
+          "nonzeroAfter": 144,
+          "nonfinite": 0,
+          "replaced": false,
+          "statistics": {
+            "context": "closed",
+            "sources": 0,
+            "continuous": 0,
+            "buffers": 0,
+            "decodedBytes": 0,
+            "pending": 0,
+            "generation": 1,
+            "gains": {
+              "master": 1,
+              "voice": 1,
+              "music": 1,
+              "effects": 1,
+              "ui": 1
+            }
+          },
+          "offlineState": "closed"
+        },
+        {
+          "mode": "reset",
+          "version": "after",
+          "boundary": 1536,
+          "samples": 6144,
+          "before": 0.48086321353912354,
+          "after": 0,
+          "nonzeroAfter": 0,
+          "nonfinite": 0,
+          "replaced": true,
+          "statistics": {
+            "context": "closed",
+            "sources": 0,
+            "continuous": 0,
+            "buffers": 0,
+            "decodedBytes": 0,
+            "pending": 0,
+            "generation": 1,
+            "gains": {
+              "master": 1,
+              "voice": 1,
+              "music": 1,
+              "effects": 1,
+              "ui": 1
+            }
+          },
+          "offlineState": "closed"
+        },
+        {
+          "mode": "transient",
+          "version": "before",
+          "boundary": 1536,
+          "samples": 6144,
+          "before": 0.48086321353912354,
+          "after": 0.5024449825286865,
+          "nonzeroAfter": 144,
+          "nonfinite": 0,
+          "replaced": false,
+          "statistics": {
+            "context": "closed",
+            "sources": 0,
+            "continuous": 0,
+            "buffers": 0,
+            "decodedBytes": 0,
+            "pending": 0,
+            "generation": 0,
+            "gains": {
+              "master": 1,
+              "voice": 1,
+              "music": 1,
+              "effects": 1,
+              "ui": 1
+            }
+          },
+          "offlineState": "closed"
+        },
+        {
+          "mode": "transient",
+          "version": "after",
+          "boundary": 1536,
+          "samples": 6144,
+          "before": 0.48086321353912354,
+          "after": 0,
+          "nonzeroAfter": 0,
+          "nonfinite": 0,
+          "replaced": true,
+          "statistics": {
+            "context": "closed",
+            "sources": 0,
+            "continuous": 0,
+            "buffers": 0,
+            "decodedBytes": 0,
+            "pending": 0,
+            "generation": 0,
+            "gains": {
+              "master": 1,
+              "voice": 1,
+              "music": 1,
+              "effects": 1,
+              "ui": 1
+            }
+          },
+          "offlineState": "closed"
+        }
+      ],
+      "caseSignals": [
+        {
+          "name": "default-six",
+          "peak": 0.7618550658226013,
+          "aboveOne": 0,
+          "frames": 84352,
+          "samples": 168704,
+          "channels": 2
+        },
+        {
+          "name": "default-sixteen",
+          "peak": 0.7618550658226013,
+          "aboveOne": 0,
+          "frames": 84480,
+          "samples": 168960,
+          "channels": 2
+        },
+        {
+          "name": "maximum-sixteen",
+          "peak": 0.9523188471794128,
+          "aboveOne": 0,
+          "frames": 84224,
+          "samples": 168448,
+          "channels": 2
+        }
+      ],
+      "disposal": {
+        "statistics": {
+          "context": "absent",
+          "sources": 0,
+          "continuous": 0,
+          "buffers": 0,
+          "decodedBytes": 0,
+          "pending": 0,
+          "generation": 7,
+          "gains": {
+            "master": 0,
+            "voice": 0,
+            "music": 0,
+            "effects": 0,
+            "ui": 0
+          }
+        },
+        "closedContext": "closed",
+        "retainedGraph": {
+          "master": false,
+          "limiter": false,
+          "ceiling": false,
+          "buses": 0
+        }
+      }
+    }
+  ],
+  "newProductBlockerFound": false
+}
