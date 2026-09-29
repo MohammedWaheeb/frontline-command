@@ -1,0 +1,887 @@
+{
+  "scope": "Bounded standalone native fetch diagnostic. Reports remain explicit; no game/root-cause implementation claim, whitelist, production fix, forced GC, personal browser profile or app art modification.",
+  "runs": [
+    {
+      "name": "chrome154-01",
+      "path": "work/evidence/native-fetch-primitives/chrome154-01/browser.json",
+      "bytes": 3263446,
+      "sha256": "497c874c23e8efd2b8837b9c068afe1f489f0487af10f6fed24167be53ef94ab",
+      "started": "2026-09-29T09:13:46.347Z",
+      "finished": "2026-09-29T09:13:48.115Z",
+      "status": "failed-diagnostic-integrity",
+      "browser": "154.0.8037.58",
+      "identity": {
+        "driverSHA256": "2efaa31809d13d8aa734d63cc9c42aaed8b4b1fa6ef98a7cf89a01da34df79d6",
+        "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v23/product",
+        "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "executableSHA256": "633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740",
+        "profile": "Fresh Playwright temporary profile",
+        "executableUnchanged": true
+      },
+      "resources": [
+        {
+          "name": "small.json",
+          "path": "art/sprites/building.US.hq/building.US.hq@2x.beauty.0.json",
+          "type": "application/json",
+          "bytes": 3328,
+          "sha256": "9db2e8f87832345569c511b42aba4f73acc64bcd9d9090c5e83d01eb0d860d22"
+        },
+        {
+          "name": "small.png",
+          "path": "art/ui/chrome/button_pressed@2x.png",
+          "type": "image/png",
+          "bytes": 2734,
+          "sha256": "c2d7bfcb6f78e043d1a7c37dbfa38081d8ab9c27585d0db77b49b7f05bd175b0"
+        },
+        {
+          "name": "medium.png",
+          "path": "art/sprites/unit.US.elite/unit.US.elite@1x.beauty.png",
+          "type": "image/png",
+          "bytes": 287401,
+          "sha256": "6a2f91866e4c5eebe68f5c7d500a5cee5f6df3bd70a337f40fbb77b8565b0d49"
+        }
+      ],
+      "summary": [
+        {
+          "caseID": "local:stream-release-none",
+          "requests": 48,
+          "failures": 9,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-signal",
+          "requests": 48,
+          "failures": 8,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-hold-none",
+          "requests": 48,
+          "failures": 10,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-hold-signal",
+          "requests": 48,
+          "failures": 13,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-retain-response",
+          "requests": 48,
+          "failures": 14,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-retain-reader",
+          "requests": 48,
+          "failures": 13,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:arraybuffer-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:arraybuffer-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:blob-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:blob-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:json-none",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "local:json-signal",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "local:explicit-abort-after-eof",
+          "requests": 48,
+          "failures": 3,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-none",
+          "requests": 48,
+          "failures": 5,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-signal",
+          "requests": 48,
+          "failures": 5,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-hold-none",
+          "requests": 48,
+          "failures": 2,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-hold-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-retain-response",
+          "requests": 48,
+          "failures": 6,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-retain-reader",
+          "requests": 48,
+          "failures": 10,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:arraybuffer-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:arraybuffer-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:blob-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:blob-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:json-none",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "binding:json-signal",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "binding:explicit-abort-after-eof",
+          "requests": 48,
+          "failures": 2,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        }
+      ],
+      "diagnosticsAgree": true,
+      "uniqueIdentity": null,
+      "errors": [
+        {
+          "phase": "local:stream-release-none",
+          "kind": "console",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "httpErrors": [],
+      "networkFailures": 100,
+      "bindingOrder": {
+        "errorBeforeEOF": 30
+      },
+      "negativeControls": [],
+      "completeFailureResources": {
+        "small.json": 1,
+        "small.png": 2,
+        "medium.png": 97
+      }
+    },
+    {
+      "name": "chrome154-02",
+      "path": "work/evidence/native-fetch-primitives/chrome154-02/browser.json",
+      "bytes": 3271336,
+      "sha256": "eaf15358ac2309e96dc7ff296f426922d26356543c57086bb6e424ac69656ec3",
+      "started": "2026-09-29T09:14:51.497Z",
+      "finished": "2026-09-29T09:14:52.734Z",
+      "status": "observed-network-failures",
+      "browser": "154.0.8037.58",
+      "identity": {
+        "driverSHA256": "34966889377bc235cc6300ceb87d363e3fccd35bc43f136a2352b714d85a7437",
+        "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v23/product",
+        "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "executableSHA256": "633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740",
+        "profile": "Fresh Playwright temporary profile",
+        "executableUnchanged": true
+      },
+      "resources": [
+        {
+          "name": "small.json",
+          "path": "art/sprites/building.US.hq/building.US.hq@2x.beauty.0.json",
+          "type": "application/json",
+          "bytes": 3328,
+          "sha256": "9db2e8f87832345569c511b42aba4f73acc64bcd9d9090c5e83d01eb0d860d22"
+        },
+        {
+          "name": "small.png",
+          "path": "art/ui/chrome/button_pressed@2x.png",
+          "type": "image/png",
+          "bytes": 2734,
+          "sha256": "c2d7bfcb6f78e043d1a7c37dbfa38081d8ab9c27585d0db77b49b7f05bd175b0"
+        },
+        {
+          "name": "medium.png",
+          "path": "art/sprites/unit.US.elite/unit.US.elite@1x.beauty.png",
+          "type": "image/png",
+          "bytes": 287401,
+          "sha256": "6a2f91866e4c5eebe68f5c7d500a5cee5f6df3bd70a337f40fbb77b8565b0d49"
+        }
+      ],
+      "summary": [
+        {
+          "caseID": "local:stream-release-none",
+          "requests": 48,
+          "failures": 6,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-signal",
+          "requests": 48,
+          "failures": 8,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-hold-none",
+          "requests": 48,
+          "failures": 8,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-hold-signal",
+          "requests": 48,
+          "failures": 8,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-retain-response",
+          "requests": 48,
+          "failures": 6,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-retain-reader",
+          "requests": 48,
+          "failures": 8,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:arraybuffer-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:arraybuffer-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:blob-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:blob-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:json-none",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "local:json-signal",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "local:explicit-abort-after-eof",
+          "requests": 48,
+          "failures": 7,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-none",
+          "requests": 48,
+          "failures": 3,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-hold-none",
+          "requests": 48,
+          "failures": 4,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-hold-signal",
+          "requests": 48,
+          "failures": 14,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-retain-response",
+          "requests": 48,
+          "failures": 10,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-retain-reader",
+          "requests": 48,
+          "failures": 11,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:arraybuffer-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:arraybuffer-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:blob-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:blob-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:json-none",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "binding:json-signal",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "binding:explicit-abort-after-eof",
+          "requests": 48,
+          "failures": 2,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        }
+      ],
+      "diagnosticsAgree": true,
+      "uniqueIdentity": {
+        "nativeURLs": true,
+        "eachServedOnce": true,
+        "eachNetworkOnce": true
+      },
+      "errors": [],
+      "httpErrors": [],
+      "networkFailures": 95,
+      "bindingOrder": {
+        "errorBeforeEOF": 44
+      },
+      "negativeControls": [],
+      "completeFailureResources": {
+        "medium.png": 89,
+        "small.json": 2,
+        "small.png": 4
+      }
+    },
+    {
+      "name": "chromium151-01",
+      "path": "work/evidence/native-fetch-primitives/chromium151-01/browser.json",
+      "bytes": 3273143,
+      "sha256": "14357319f2ca1e868c2af4494cbf369896d9e942bcc515db5f67c3a45b3574ec",
+      "started": "2026-09-29T09:14:52.931Z",
+      "finished": "2026-09-29T09:14:54.405Z",
+      "status": "observed-network-failures",
+      "browser": "151.0.7922.34",
+      "identity": {
+        "driverSHA256": "34966889377bc235cc6300ceb87d363e3fccd35bc43f136a2352b714d85a7437",
+        "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v23/product",
+        "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+        "executableSHA256": "a596b1cfc6353e987fcec8d71a23a28cd6a9e7a6b4e20b908e4c4fcffe51158e",
+        "profile": "Fresh Playwright temporary profile",
+        "executableUnchanged": true
+      },
+      "resources": [
+        {
+          "name": "small.json",
+          "path": "art/sprites/building.US.hq/building.US.hq@2x.beauty.0.json",
+          "type": "application/json",
+          "bytes": 3328,
+          "sha256": "9db2e8f87832345569c511b42aba4f73acc64bcd9d9090c5e83d01eb0d860d22"
+        },
+        {
+          "name": "small.png",
+          "path": "art/ui/chrome/button_pressed@2x.png",
+          "type": "image/png",
+          "bytes": 2734,
+          "sha256": "c2d7bfcb6f78e043d1a7c37dbfa38081d8ab9c27585d0db77b49b7f05bd175b0"
+        },
+        {
+          "name": "medium.png",
+          "path": "art/sprites/unit.US.elite/unit.US.elite@1x.beauty.png",
+          "type": "image/png",
+          "bytes": 287401,
+          "sha256": "6a2f91866e4c5eebe68f5c7d500a5cee5f6df3bd70a337f40fbb77b8565b0d49"
+        }
+      ],
+      "summary": [
+        {
+          "caseID": "local:stream-release-none",
+          "requests": 48,
+          "failures": 4,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-signal",
+          "requests": 48,
+          "failures": 4,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-hold-none",
+          "requests": 48,
+          "failures": 8,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-hold-signal",
+          "requests": 48,
+          "failures": 14,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-retain-response",
+          "requests": 48,
+          "failures": 15,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:stream-release-retain-reader",
+          "requests": 48,
+          "failures": 6,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:arraybuffer-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:arraybuffer-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:blob-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:blob-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:json-none",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "local:json-signal",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "local:explicit-abort-after-eof",
+          "requests": 48,
+          "failures": 4,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-none",
+          "requests": 48,
+          "failures": 5,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-signal",
+          "requests": 48,
+          "failures": 4,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-hold-none",
+          "requests": 48,
+          "failures": 6,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-hold-signal",
+          "requests": 48,
+          "failures": 1,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-retain-response",
+          "requests": 48,
+          "failures": 9,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-retain-reader",
+          "requests": 48,
+          "failures": 8,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:arraybuffer-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:arraybuffer-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:blob-none",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:blob-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:json-none",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "binding:json-signal",
+          "requests": 16,
+          "failures": 0,
+          "completeWithHash": 0,
+          "parsedJSON": 16
+        },
+        {
+          "caseID": "binding:explicit-abort-after-eof",
+          "requests": 48,
+          "failures": 7,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        }
+      ],
+      "diagnosticsAgree": true,
+      "uniqueIdentity": {
+        "nativeURLs": true,
+        "eachServedOnce": true,
+        "eachNetworkOnce": true
+      },
+      "errors": [],
+      "httpErrors": [],
+      "networkFailures": 95,
+      "bindingOrder": {
+        "errorBeforeEOF": 40
+      },
+      "negativeControls": [],
+      "completeFailureResources": {
+        "medium.png": 92,
+        "small.json": 2,
+        "small.png": 1
+      }
+    },
+    {
+      "name": "chrome154-pipe-01",
+      "path": "work/evidence/native-fetch-primitives/chrome154-pipe-01/browser.json",
+      "bytes": 817743,
+      "sha256": "7d17b2a05ae312acf824b30c5d1df9c252582439a5be3de3a93093033ef8ae02",
+      "started": "2026-09-29T09:18:26.766Z",
+      "finished": "2026-09-29T09:18:28.050Z",
+      "status": "observed-network-failures",
+      "browser": "154.0.8037.58",
+      "identity": {
+        "pipeCandidateSHA256": "019899bcff517608cf9bba030672d9e646ef43f004033cd078cb6446e709a760",
+        "driverSHA256": "c7e5f38e4fbbf8f970c6bba820dde28e13aa562f487c6f682102e5f1ae46eed2",
+        "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v23/product",
+        "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "executableSHA256": "633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740",
+        "profile": "Fresh Playwright temporary profile",
+        "executableUnchanged": true
+      },
+      "resources": [
+        {
+          "name": "small.json",
+          "path": "art/sprites/building.US.hq/building.US.hq@2x.beauty.0.json",
+          "type": "application/json",
+          "bytes": 3328,
+          "sha256": "9db2e8f87832345569c511b42aba4f73acc64bcd9d9090c5e83d01eb0d860d22"
+        },
+        {
+          "name": "small.png",
+          "path": "art/ui/chrome/button_pressed@2x.png",
+          "type": "image/png",
+          "bytes": 2734,
+          "sha256": "c2d7bfcb6f78e043d1a7c37dbfa38081d8ab9c27585d0db77b49b7f05bd175b0"
+        },
+        {
+          "name": "medium.png",
+          "path": "art/sprites/unit.US.elite/unit.US.elite@1x.beauty.png",
+          "type": "image/png",
+          "bytes": 287401,
+          "sha256": "6a2f91866e4c5eebe68f5c7d500a5cee5f6df3bd70a337f40fbb77b8565b0d49"
+        }
+      ],
+      "summary": [
+        {
+          "caseID": "local:stream-release-signal",
+          "requests": 48,
+          "failures": 11,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:arraybuffer-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "local:bounded-pipe-signal",
+          "requests": 48,
+          "failures": 6,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:stream-release-signal",
+          "requests": 48,
+          "failures": 4,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:arraybuffer-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        },
+        {
+          "caseID": "binding:bounded-pipe-signal",
+          "requests": 48,
+          "failures": 0,
+          "completeWithHash": 48,
+          "parsedJSON": 0
+        }
+      ],
+      "diagnosticsAgree": true,
+      "uniqueIdentity": {
+        "nativeURLs": true,
+        "eachServedOnce": true,
+        "eachNetworkOnce": true
+      },
+      "errors": [],
+      "httpErrors": [],
+      "networkFailures": 25,
+      "bindingOrder": {
+        "errorBeforeEOF": 4
+      },
+      "negativeControls": [
+        {
+          "name": "per-file",
+          "url": "http://127.0.0.1:54043/medium.png?request=negative-limit",
+          "error": "Error",
+          "message": "Asset exceeds its supported size",
+          "causePreserved": true
+        },
+        {
+          "name": "shared-total",
+          "url": "http://127.0.0.1:54043/small.json?request=negative-total-next",
+          "error": "Error",
+          "message": "Asset exceeds its supported size",
+          "causePreserved": true
+        },
+        {
+          "name": "parent-cancel",
+          "url": "http://127.0.0.1:54043/medium.png?request=negative-parent&slow=1",
+          "error": "Error",
+          "message": "Exact parent cancellation",
+          "causePreserved": true
+        },
+        {
+          "name": "deadline",
+          "url": "http://127.0.0.1:54043/medium.png?request=negative-timeout&slow=1",
+          "error": "TimeoutError",
+          "message": "Battlefield asset download timed out.",
+          "causePreserved": true
+        }
+      ],
+      "completeFailureResources": {
+        "small.png": 4,
+        "small.json": 2,
+        "medium.png": 15
+      }
+    }
+  ],
+  "sourceLock": [
+    {
+      "path": "client/tests/render/native-fetch-primitives.browser.mjs",
+      "sha256": "c7e5f38e4fbbf8f970c6bba820dde28e13aa562f487c6f682102e5f1ae46eed2"
+    },
+    {
+      "path": "client/tests/render/native-fetch-pipe-candidate.mjs",
+      "sha256": "019899bcff517608cf9bba030672d9e646ef43f004033cd078cb6446e709a760"
+    },
+    {
+      "path": "client/tests/render/native-fetch-pipe-candidate.test.mjs",
+      "sha256": "3d686074919812c273c98d6ba018603d5e64bbadc0b3b1c90ac7637afc64d291"
+    },
+    {
+      "path": "work/evidence/native-fetch-pipe-candidate-tests-01.log",
+      "sha256": "10824127e251ceeb46c85d81e0e3c3961178cd681d77d4f020a48b79b9f49675"
+    }
+  ]
+}
