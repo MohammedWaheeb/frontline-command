@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "source_guard": {
+    "source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 359,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 360
+  },
+  "receipt_sha256": "48b920bbeb1ed8096f7c99f964cb3ee5ebff94b1720da5678e44a67732e6731d",
+  "artifact_files": 67,
+  "pinned_inputs": 40,
+  "runtime_files": 8,
+  "produced_runtime_differences": [
+    "frontline.wasm",
+    "bin/runtime-native",
+    "bin/frontline-host"
+  ],
+  "native_selected_passes": 8,
+  "native_selected_skips": 0,
+  "actual_wasm_service_scenes": 6,
+  "actual_wasm_checkpoint_stages": [
+    600,
+    601,
+    620
+  ],
+  "whole_checkpoint_views": 12,
+  "whole_checkpoint_saves": 3,
+  "shipping_unchanged": true,
+  "scope": "Native Session and actual produced WASM parity. No browser, listening host or throughput claim."
+}

@@ -1,0 +1,15 @@
+/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/runtime-builds/20260929T182132Z/runtime/bin/runtime-native: go1.27.1
+	path	frontlinecommand/cmd/wasm
+	mod	frontlinecommand	v0.0.0-20260929181926-cfc85547792f+dirty	
+	dep	google.golang.org/protobuf	v1.36.12	h1:pJOKDDOyeXErUroCihFAd5LQuwXBSpVnKGrj5o/fwxc=
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=1
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
+	build	vcs=git
+	build	vcs.revision=cfc85547792ff54c4a93e47dc5ba730488f557a5
+	build	vcs.time=2026-09-29T18:19:26Z
+	build	vcs.modified=true
