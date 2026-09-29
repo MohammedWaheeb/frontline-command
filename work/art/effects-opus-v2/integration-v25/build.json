@@ -1,0 +1,808 @@
+{
+  "time": "2026-09-29T09:51:50.021Z",
+  "scope": "Captured product code with exact optimized0.3.4 Go, previous frozen incomplete actor art plus71 candidate effects. Browser acceptance is pending; not a complete release or final asset acceptance.",
+  "base": "work/art/menu-keyart-generated-v3/product-preview",
+  "baseReceipt": "a8ce4593edce318902dffb4e54d8f3709bba1f9778ccbfe43c15ee3f13c5cbe7",
+  "sourceFiles": {
+    "index.html": "ff838c07b492cefea2c32c66e40ccd4af73bddbae5d8243e6d1be1421922d4e5",
+    "src/app/actor-status.ts": "eb72ea78244e343b5b69dd963b42b5ff74f3fcc7b9ab88ffda48ba9e7b6c18f1",
+    "src/app/advice-feedback.ts": "553ecf97f8b88652f99b46d0347eabebb9de49aa8cc98bca5b51ff2a0bc42ef2",
+    "src/app/ambient-presentation.ts": "7f0b05e52968556340587936ac2a83d0709971c0e6e48378320f57aeaebe78da",
+    "src/app/application.ts": "dc2ddc16634723e94d3ea309fbca3416e81b9d7a58a98658d1dbe121421176ba",
+    "src/app/asset-preflight.ts": "65bfb0812d6234f96fdd15aa3cd1d7193b265df7cd06d67ecaef255184bca0f0",
+    "src/app/asset-preparation.ts": "9c0d3f3e9b684fd1b713a5f561485be78f27ebfef8375e268362d0c0094539b5",
+    "src/app/battle-controller.ts": "fed3adc8662c774f17651c1272181fdd3bec151e0751b55a41254bdce4097818",
+    "src/app/battlefield-cues.ts": "6af458e3e8ec5cf6ec3f412eb0e65bf31469d30cf0a7ba1e8e0daffa0489a71a",
+    "src/app/combat-feedback.ts": "66f40d727b23cbcaaaf1a92848820d450177174bf57afe7fa57c25e25c1c26fd",
+    "src/app/combat-presentation.ts": "405c386c024870782bf40797f596d75f13cdeb4ae530b0edcbd1830345003755",
+    "src/app/editor-controller.ts": "1f0cbd7290c402a7ff97b0a3e1fdf0efe7230c7460cf7d70969f7df604eee6c9",
+    "src/app/mission-groups.ts": "dbdfdbc59a34c24cc60446d20dd513c31439ef8f19e1138ca2b3495a5baa4a97",
+    "src/app/mission-markers.ts": "81ac77b122896cb535943a7e15bff37991891179681eae6bfc822dd5523f70ee",
+    "src/app/moderation-controller.ts": "5fe9b61fe6e17799aaae0fddd5b83df15a060debe3c9ccb19cfbe4927cb4ba99",
+    "src/app/network-controller.ts": "cef158f5e9aeb1238572020ddee20582ae2c480688d664c83f535927f3d833d2",
+    "src/app/order-feedback.ts": "a3c966e7d9988c77512da7d6db9122130b45af9d43d099f445f3ec9540fe62e9",
+    "src/app/owner-ranges.ts": "e761296590f9852b6e4720834a0714b7bcfd4da8237534b49278840045b9f605",
+    "src/app/production-focus.ts": "09651ea1c1402363f148120676cc6d213b3e4097cd53bdbd855c8ef88d8767cd",
+    "src/app/recorded-result.ts": "1c3e20b3e8b76ab4bbc223649c38ec7096eb3fcaa34afba0d599f2f5a5d16d03",
+    "src/app/session-presentation.ts": "3e3a099ed159f244acf549bc5952046276dc95c43eb6f162bc4365fe9c6afbcd",
+    "src/app/settings.ts": "1645806cdf6c1484626541cae68cf57af51f32ca3914e9f36ceadb814b214e58",
+    "src/app/store.ts": "1f4fff946929b9b73f3cee33879a77ae2149052fbc89ecda90bb54b68b70cc1a",
+    "src/app/strike-review.ts": "0c05dc8e04e1825b53d6f5ae4cb03619caebeb371fdae80bd5c34ac91a1d676b",
+    "src/app/tactical-presentation.ts": "679f3ce1bcdc7f73217d8d1f5b39e9b0f4b6a190bb938787e5e1ddb063934e61",
+    "src/app/transport-presentation.ts": "ace6a7886394cef954ecfa580a0a710c4059cec020e9c3847274ec348f00998f",
+    "src/app/tutorial-memory.ts": "6b6922bf6bfb2ee922e68cc35f2862c36967123f9661f1fa390d8367840cbacd",
+    "src/audio/battlefield-sound.ts": "904bd3cd7f0c2ddedd7d90fb6416706bdb4d18a6be042aace7b028b3c74794e8",
+    "src/audio/combat-sound.ts": "8f653dd2b910ff98b6d0084c1775894c295fcf34af8bc174dbb360fca5aee051",
+    "src/audio/director.ts": "456707c817c338bb39aff283dcd8e953711340869af9d59bd70b7713e169d4c2",
+    "src/audio/index.ts": "8bdc67d31259477994b9a1958297e4dfb0021799cb80ce84dd7e998157c59db4",
+    "src/audio/mixer.ts": "83b20903bfcf09c055a8618d1a88bd7d40d922057bc85c9dcde3216009ef8f80",
+    "src/content/art-ui.ts": "02d3fb6f8fe78eb94e30534193e7f8cde7c0785395b8d26a0211d46766edcccb",
+    "src/content/catalog.ts": "6b3c269a59c72fadcd573597d9d0db23791a72fe53be92814cd90e3d85d6b0db",
+    "src/content/effect-assets.d.mts": "64998de5b950634aaae3960d11a0ce747bc5e3885b8cc8927d0f511dc2631df4",
+    "src/content/effect-assets.mjs": "25f72c5a7a6c920403280498d28a8300c22c860ec8423a5f40d2f8ee34dfdb17",
+    "src/content/environment.ts": "eddf3b571e93848308b412d121cf4a93c1189352bcd2c5772e391cecd74a5c53",
+    "src/content/labels.ts": "1185a3d4b2a6677a1d0f398324d1f692fe2d764ce170c2a19719f8e7568754ba",
+    "src/content/production-order.ts": "77a4808ca64fdd1813e4877f57550877487fa235bd1c3953913c8f6fda91f2ec",
+    "src/design/tokens.css": "4fdeb15b131bf9c6735546e90575759b603053e819901ea5160a3daec318bf00",
+    "src/design/tokens.json": "a8fd9c1d085885f53e70a6a62be5bb6bcd1cd1bb4b1fc48b01daa30ee62a4da2",
+    "src/design/tokens.ts": "76b8bec51c02d296f92006ead6e942d6111efbb6304b1d294862a84aa6fb3af3",
+    "src/main.tsx": "e9583d8d8fc77970d7113a819b35f0c39dbe2772d2967de1c9ceb57e2a86a2bb",
+    "src/protocol/frontline_pb.ts": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+    "src/render/actor-status.ts": "9c80a95f5e1dab5df4e2a0272ff7fc1647db38b08819c00753102e697ca90ca4",
+    "src/render/actors.ts": "6f14bab7e85d423528ed05faa03b85dc746716474abca3379fde0cbfa451cdfa",
+    "src/render/aircraft-payload.ts": "daacb1e5df4ef4c1297835e08cb189d6a30e947986d303ffd7d4081aae1884cc",
+    "src/render/alpha-picking.ts": "b2d8dcf17bb6c8ae2f471b509d8942b71fcfa66379fc369b9b8f0841c03b9c2f",
+    "src/render/art-id.ts": "2ca669f33fd999b867bdac9e110f581eda20c04b798577688a9c16ef3f61019e",
+    "src/render/art.ts": "7d5c90ac69f48386f60c1f46c1eb7136a4ef6d49f670ca5bdb1033d389d60360",
+    "src/render/battlefield.ts": "46cf75f03c6d4a9a139d89558b0094cc92d1ff6b03f72af84185e01a6bc3ac9b",
+    "src/render/combat-effects.ts": "5424d75e6e8c4272a6597b81b1c7696a2060ef1f0bb806772756a2d6d4c8425d",
+    "src/render/combat-geometry.ts": "fd8284a1f0ed41d5624ad2c169281cbb37164f7aa3851f6d99f6e3d9709257e5",
+    "src/render/editor-handles.ts": "7753113869ed9052de785480ea9e09bafc9e9dbde6d2a043dcaedf5ed8c74d5c",
+    "src/render/effect-assets.ts": "e3003b072a113449f922ef2f9dc5d895f1f1e72829c30d5d1acab6fa386ea005",
+    "src/render/environment-state.ts": "a353b45cf97c72407a9ee821005128ff45a93055e304c3620643f2e1f012a369",
+    "src/render/environment.ts": "01bc7af869b242fc08be6625237f452c6e8a60e2fe66faf81949dc1fa21b6048",
+    "src/render/flight-presentation.ts": "7d54dc53252942fe4a8d7880a555009f684b42b2efc9b65e4546b14b83826cae",
+    "src/render/iso.ts": "98654186dbd723fdefdb70ff9bcdc26b6f74b7a5d4d0579c3d6e4244ef9aebdf",
+    "src/render/minimap.ts": "992a4273b5528ea4f10b89dc6ac4cad08a9c29df3801f9630c32850f473990dc",
+    "src/render/placement-ghost.ts": "455919a89fbba4b550636eef14990fd811f751859a236f711233fc7ed532b99e",
+    "src/render/poses.ts": "4b733d78b85ad338756531bf68462d8ca49bb1d61eccb16750c712c5d94d8ec4",
+    "src/render/range-geometry.ts": "3a3713e968d76d50c833492909d30a6a36aaea6d247371feaeb447308c7431ee",
+    "src/render/service-surfaces.ts": "509511670026224d0ddc8957409ac25635dd080ab818039d2c501bb41028f029",
+    "src/render/strike-preview.ts": "0b05ca0ac93cb8ed09ffe494ef48f4efeafa6b679e88ae4d18ef9644d1e64955",
+    "src/render/structure.ts": "fc77be1cb534fc4e1ba239aa7326ae948496ef6eda90a7b8d28ec2f7f424083e",
+    "src/render/surface-shadows.ts": "80bd4830807d3fe4677617af8aaa7de68aab8ce9f1268f81eda3d1d057dfb1b1",
+    "src/render/tactical-geometry.ts": "b1f174e8c72cac9924de4a4d205c4461757237b03c1881b94c9d831901012419",
+    "src/render/tactical-overlay.ts": "6adceb6c00d81960152a7eab3aa25acddadf0acd77bbb66311ac361e593a0ca8",
+    "src/render/terrain-materials.ts": "c1c466f0ffddcd77e62a7272b0d0963f81393714feb0177aaedeb0d3f41d8588",
+    "src/render/terrain-surface.ts": "7d498da7b940e4741ed8e74b7996d2d7a420e310066dba28a7ed6b328437ef2e",
+    "src/render/terrain.ts": "65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656",
+    "src/runtime/account.ts": "4e2178bab9008ae418d3a6d76645c01eca9fd43c1dd0e7a594398ad5cda9a8f0",
+    "src/runtime/advice.ts": "7faa9adca1c74b58383d5729746c630b15713c7453a6476e0fe74a00f0b4e0cf",
+    "src/runtime/api.ts": "cd3a065729cd945a02401a8190b966473b1010f5ee3fd6531fec92f4fd480058",
+    "src/runtime/autosave.ts": "938222d3244faa0a353940c0155b720d5296934a1ed8d6f0683211c1159a1c09",
+    "src/runtime/cache.ts": "7bd0b09663edfe74df2f0bd53eba094440c7e34b2b7f14bc196a3daf42b921fb",
+    "src/runtime/campaign-journey.ts": "d59b1970a4642b6fbeb935f320419daa34bc43a8e671babfe2b69512a1aa0dd9",
+    "src/runtime/command-intent.ts": "2d720d062e3a232b22b9c9280fbcbbc4350c952d30cf4df0e5a07ed0660aa94e",
+    "src/runtime/content-library.ts": "c96890dd7f229f891d99ff43f870b550f61ab3bcbf1b230cd3d1a424bb66b50d",
+    "src/runtime/crypto.ts": "08eefc374ac92cd54e58607ae989cc660e4e8ab6953594949f944747cc786994",
+    "src/runtime/editor.ts": "383ed27386a8cedfbac91b95acdcacc9ce66d51ee39d72ff6572792846472228",
+    "src/runtime/effect-library.ts": "54ffd74caa7c852ddb90dcc8dbca1f46089a8d3dca93fdc9da461209317736fd",
+    "src/runtime/errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77",
+    "src/runtime/fixed.ts": "1a6aebfcf04df4f95685c8f6a4f66e2fb11407504ec3078dc000a6c677c22d0a",
+    "src/runtime/idb-revisions.ts": "597da11ede3e6f950ab40467cffa573abb866107eede0127d0a17eb3e885c656",
+    "src/runtime/index.ts": "75ddf362d385946589eabb6a5349077a8063cd16c89c7966ea92e0eb65d94040",
+    "src/runtime/interaction.ts": "30f32ac942f76abaca98b55babf23c528ec0e37cbb5b146f8865fc7b5bdd637c",
+    "src/runtime/keybindings.ts": "de9fa0d531aa5c9c9a8fe3e2c1ffa29390166f5124a7605ab566f8373044ed40",
+    "src/runtime/observer.ts": "64e7e13e1e66aa290f6cf2f44bece817b58fd6b4b2a3e08d9b87d27ebdb94424",
+    "src/runtime/offline-response.ts": "27fd58604dff111c5c50d39e75438503454f9da8dcd958c02d393dab1cbf9f55",
+    "src/runtime/offline.ts": "2f0c75af1e221ea766143d0fd293dce3daae5bf5b9c81c700879ccaab1b56cde",
+    "src/runtime/online.ts": "6a2aa5888cac911ab9969d9f9bf64e4e535673c123f7c6991d51d15117548733",
+    "src/runtime/operation-preview.ts": "d5a47dfbe56ce5ec6665e21c2f852448a77378e3906fae5ab0fd3c43b0f214a0",
+    "src/runtime/package-lock.json": "50236cdea358c3042b86348592a185ce9feb27c0bf7db8f0f348ce7639f09f66",
+    "src/runtime/package.json": "83b08e75db7bd8236796696a041eb34521a9b0153099cd902a1e1fa827ed8ba0",
+    "src/runtime/progress.ts": "5766710eb44368c9788c5eeaa908f26d184a6a643199f3fbde3e29cc7ce0c76c",
+    "src/runtime/save-sync.ts": "a071d5f84d32adb948db4b957b5b786a738b6b2a8a5f804dd3061c9a2a34f759",
+    "src/runtime/service-worker.ts": "c7dbe09ef0d8a5945879e7bf3fc54a4b3d76ae95b5fb50928d23b6c82f43c822",
+    "src/runtime/session.ts": "72c10b1d17e2f0b744aeb9ab1463630c7666c8fae50953d6ee20cf217f7141e8",
+    "src/runtime/snapshot.ts": "ea5e48075aaa20f84f0974848de4a6061af65ee6f684f1a899649d9709703f06",
+    "src/runtime/storage.ts": "1984c3df5d1bc5d3b7402ef0e9769f430d5b8847068018cbca68ceefe143e550",
+    "src/runtime/types.ts": "3fdeb4ffb5a7b09861b9d69d6df32d9d475a9aa1d016b024116f2a767c37f14f",
+    "src/runtime/worker.ts": "67184757fc147d0aacf2cfe94c68c167585adf2ac524e817b6cb552b856d9ef8",
+    "src/styles/game.css": "c3b43dd3d2054356a185dfa6e952c81f6b3690fd8930acac2b74dad71dbb5011",
+    "src/ui/actor-status-details.css": "325cc38fc3c2178b31a12dd351f1a0b27a535c75e7f464abad740900609fa200",
+    "src/ui/ActorStatusDetails.tsx": "9191b5ec37708842a9ddc3523d2adedd7517a336d01015402e9557bbf03e364d",
+    "src/ui/App.tsx": "7434ce855daaad980f48c5e5d34401e8fd2b4dcedb72224f32558a583253a37a",
+    "src/ui/Archives.tsx": "32fdf961ad61946b3783e0c86aadd0eb2686a714606d5df73f89446d001619f6",
+    "src/ui/AudioCaptions.tsx": "fe06574a421e9e4200b3b2061062ee402c11183bd34011eb74556fdad3380366",
+    "src/ui/BackupPanel.tsx": "b2428c063926f7cf4664f015c773f2f761fb60876a4ea46fcd4e3fcf6c20788c",
+    "src/ui/BattlefieldStatus.tsx": "487c733fbd6741ebf4648a5aa341983a98d8057e270611dea2daf31b408bf031",
+    "src/ui/Briefing.tsx": "69c3c6d53f4647a640d35d4c4d6570e99ac7372f1758c77dbdea033a94264715",
+    "src/ui/DebriefStats.tsx": "01426859476b6c371d67bb1cb1dec829eb4f9f92190cef34812689efc34f3b8b",
+    "src/ui/DefeatWarning.tsx": "66e6f11ea4e35066b02100655ede1ab59a43c809ab45f484512f150bd500cd57",
+    "src/ui/EditorPanel.tsx": "fc3296cf75a65d66a851ebba0acd01bcffe58e39453a69e47de0ff0f82ceb6df",
+    "src/ui/HelpPanel.tsx": "dadbf36561e4f8b838ce3604f5916337b809c2c3cfd330f92d5f320e876ff4b3",
+    "src/ui/MenuDiorama.tsx": "b3d9e33ca26b051ef7b12728063924e44d7f8867a8ddc1bdee8cf2c1b164444c",
+    "src/ui/MissionObjectives.tsx": "948bbeeda172283cc1cb39003f031e923f277c56860c8c404d636331402cac17",
+    "src/ui/network/index.tsx": "d5a44d9458405e3e9c6cdab293f7cd30ffab3d120d91acf9df2858ab6fb5e594",
+    "src/ui/network/map-preview.tsx": "6c7e36b31e3756a5e54eb98fdfd02bcbc7868a42aa105c2ce5a4583e5671efbd",
+    "src/ui/network/maps.tsx": "a7266010f233aa91f1f0688a43bd12e3c25b22eaef24c67ec64da3088a08b322",
+    "src/ui/network/moderation.tsx": "2483db0ce3b6c6900e6f2e5f2ec8f58653c3774f2378a40420de0eb41b856623",
+    "src/ui/network/network.css": "885f708f8a975ecd2894f323f1b5a9e411b96190909fca94a4ecb340ef228409",
+    "src/ui/network/recorded-results.css": "f32619c6ba8c1fc65987e13ab7a131bc27b31f329ea4a38ea20d9e98ab29c1c7",
+    "src/ui/network/recorded-results.tsx": "dbca7b5fe16ef4008333d9e0a3a071e2c632d6fb43ac33b418d355f9829b96c7",
+    "src/ui/network/sync-selection.tsx": "1af207fe4287d65567893213a77c6274fab523e1e5cc9b1b10abc27e25e8e069",
+    "src/ui/Practice.tsx": "57cff8374cd11d996981416268f0563ae2076e4c372d7f46aa9de60935aebb1f",
+    "src/ui/primitives.tsx": "dd8c404d43aaa0d84b51d4588fa26d8eed97f6ee9721de64a4b03b4f430b6ad9",
+    "src/ui/ReplayDock.tsx": "84226a32cdc96b4a4cb9d28d22ed9aaf1d68e49532a58edd763f99c9f2e6510c",
+    "src/ui/SettingsPanel.tsx": "fcb0826182d9c7c09585089ffdb9aa241aed39d443421a1fc1471493005d46cc",
+    "src/ui/strike-review.css": "037fa71a1c0478b1acc12437c4837eb8ef937436b0717cd0ab198e21a8b2fcc1",
+    "src/ui/StrikeReview.tsx": "747a800dd7150549058d64717472780861bf7a1375b5f216d030c6651db61d80",
+    "src/ui/TutorialGuide.tsx": "8de7e060043c5f7086938e9413641c0869087de9efc637eddd79764f449f655c",
+    "tests/render/ambient-integration-fixture.ts": "16dab56ad41f95b9485850debd1de9feb128598ed974ebc8af428b868871e004",
+    "tests/render/fx-integration-fixture.ts": "5de9cf2ae6e336b45da62d9a268aeaa977597318e9f1c49b7cb514609378e00a",
+    "tests/render/multiplayer-combat-entry.tsx": "4573c94b97141142bb1d9bd6821ebb28ae2e7fd19c8cca22cc9391031c9cfb17",
+    "tsconfig.json": "24693ad825f76f17ab01ecac13d06f4a5cfb677ebee51d7843468da6b1e163aa"
+  },
+  "sourceDigest": "d297183a44bf211a1d19862809985c3669a5ab7fd3b4b71f34b0cdd290e91253",
+  "packagingSources": {
+    "work/art/effects-opus-v2/integration-build.mjs": "4cb3ef395ab7572bcfed74c75a2fbf1a687ba449400930dcc8394a29b137f16f",
+    "client/package.json": "00a55400bd568b28d575f3d6127b52e2113bfcf306b84881289080082c519ab8",
+    "client/package-lock.json": "cd082f54638eb77b131a9a0a5354ac9703e327a45c1255e87f524a1d76e952cf",
+    "client/scripts/ui/art-plugin.mjs": "12a90d421d8542689b6d1e3c8686b89f493d7ba44b9a4cdf3df7b2a67ae701af",
+    "client/scripts/ui/effect-pack.mjs": "e5e7cc2f6105715f0992266b91d7b306233ceca039b84cddb6241193239ba974",
+    "client/src/content/effect-assets.mjs": "25f72c5a7a6c920403280498d28a8300c22c860ec8423a5f40d2f8ee34dfdb17"
+  },
+  "serviceWorkerSHA256": "7ff452b5702d26fa936bc5b2869da131538622a01f6df652c5ac1bf57564b537",
+  "effectSet": "candidate-71",
+  "effectCount": 71,
+  "effects": {
+    "url": "fx/index.json",
+    "sha256": "66cb4983012797da482d63cd4be42fbb33178c32adef788d0f097032238b55a4",
+    "bytes": 11561
+  },
+  "runtimeSet": "integrated-034",
+  "runtimeReceiptPath": "work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/receipt.json",
+  "runtimeReceiptSHA256": "cc990ac7f78d5a1094dd635d06bff0cb04d2c055ce413dbd114a7233bb176e69",
+  "runtime": {
+    "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "started": "20260929T081745Z",
+    "stages": [
+      {
+        "stage": "toolchain-go",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "version"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.029,
+        "log_sha256": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+      },
+      {
+        "stage": "toolchain-protoc",
+        "command": [
+          "/opt/homebrew/bin/protoc",
+          "--version"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.071,
+        "log_sha256": "29a645a23ed3faa5d85781dfce8478c3e394eb3344b7d6260dff9f6f5eb76b3a"
+      },
+      {
+        "stage": "toolchain-go-plugin",
+        "command": [
+          "/Users/mohammedkalouti/go/bin/protoc-gen-go",
+          "--version"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.013,
+        "log_sha256": "66a5b1785e66f264cac3f01c42f696ab40f09f1b05a619c340c14a5ea7a2093d"
+      },
+      {
+        "stage": "toolchain-es-plugin",
+        "command": [
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/.bin/protoc-gen-es",
+          "--version"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.232,
+        "log_sha256": "a143142c5ba9266e399126b3cf2e5f3d9527e5d4411f515ccedb5935c87ca2fb"
+      },
+      {
+        "stage": "generate-go",
+        "command": [
+          "/opt/homebrew/bin/protoc",
+          "-I",
+          "protocol",
+          "--plugin=protoc-gen-go=/Users/mohammedkalouti/go/bin/protoc-gen-go",
+          "--go_out=protocol",
+          "--go_opt=paths=source_relative",
+          "protocol/frontline.proto"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.048,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "generate-ts",
+        "command": [
+          "/opt/homebrew/bin/protoc",
+          "-I",
+          "protocol",
+          "--plugin=protoc-gen-es=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/.bin/protoc-gen-es",
+          "--es_out=client/src/protocol",
+          "--es_opt=target=ts",
+          "protocol/frontline.proto"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.2,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "generate-viewproto",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "generate",
+          "./internal/viewproto"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.438,
+        "log_sha256": "e5ee345b7967de280af88e5c6069e63eee4435b49b99dbef45bd47b228c97845"
+      },
+      {
+        "stage": "check-viewproto",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "run",
+          "./gen",
+          "-check"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source/internal/viewproto",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.097,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "build-wasm",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "build",
+          "-trimpath",
+          "-o",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/frontline.wasm",
+          "./cmd/wasm"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {
+          "GOOS": "js",
+          "GOARCH": "wasm"
+        },
+        "exit_code": 0,
+        "seconds": 0.674,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "build-native-adapter",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "build",
+          "-trimpath",
+          "-o",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/runtime-native",
+          "./cmd/wasm"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.685,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "build-native-host",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "build",
+          "-trimpath",
+          "-o",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/frontline-host",
+          "./cmd/frontline"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 1.234,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "goroot",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "env",
+          "GOROOT"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.012,
+        "log_sha256": "8ed7fe46e1d1cb4611bdb9de72a93c5585e4ed1a652a231f9b785371d4017966"
+      },
+      {
+        "stage": "artifact-version",
+        "command": [
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/runtime-native",
+          "-version"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.944,
+        "log_sha256": "45c434f2726a76697e4ac75df05c78ba169d91f3be3cfec0fcb26f02a7ad2a45"
+      },
+      {
+        "stage": "build-worker",
+        "command": [
+          "node",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/build-worker.mjs",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.121,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "build-info-bin-runtime-native",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "version",
+          "-m",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/runtime-native"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.008,
+        "log_sha256": "9c161f819cd78a1b55ad47faa5954c672b513ac7d184223da4a18458569dc76e"
+      },
+      {
+        "stage": "build-info-bin-frontline-host",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "version",
+          "-m",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/frontline-host"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.008,
+        "log_sha256": "381cd70fa858d8490144d92e1d2b804d2a5fedebfd9cb189a0d362e2fa17beec"
+      },
+      {
+        "stage": "fixtures-native",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "test",
+          "-p=1",
+          "./pkg/sim",
+          "-count=1",
+          "-timeout=20m",
+          "-json",
+          "-run",
+          "^(TestCandidateServiceActualReturnsAndNativeScenes|TestCombatFeedbackCoverResolutionAndPrivacy|TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath|TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown|TestCombatFeedbackRequiresActualPositiveResolvedDamage|TestCombatFeedbackSaveReplayAndOrdinaryCommand|TestCombatFeedbackRejectsMalformedMetadata|TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity|TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback|TestOwnerCasualtyOrdinaryLastSightSaveReplay|TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner|TestOwnerCasualtyAirbornePassengersAfterLastSight|TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks|TestOwnerRangesPausedAndPartialRecharge|TestOwnerRangesAssignmentsAreRealPrivateAndDetached|TestOwnerRangesSightDetectionAndBuildBounds|TestTacticalProjectileGeometryAndPositionDisclosure|TestTacticalStrategicWarningsUseActualImpactRadius|TestTacticalNonblastWarningsKeepAreaUnknown|TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored|TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded|TestTacticalVisibleEffectDeadlinesFollowState)$"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {
+          "FRONTLINE_SERVICE_SCENES": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/service",
+          "FRONTLINE_COMBAT_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_TACTICAL_VIEW_DIR": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/tactical"
+        },
+        "exit_code": 0,
+        "seconds": 1.753,
+        "log_sha256": "16437e6e26514075c5add8d98b0fd40e6d917edc888c3992f68bbf111f045da1",
+        "selected_passed": [
+          "TestCandidateServiceActualReturnsAndNativeScenes",
+          "TestCombatFeedbackCoverResolutionAndPrivacy",
+          "TestCombatFeedbackRejectsMalformedMetadata",
+          "TestCombatFeedbackRequiresActualPositiveResolvedDamage",
+          "TestCombatFeedbackSaveReplayAndOrdinaryCommand",
+          "TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity",
+          "TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown",
+          "TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath",
+          "TestOwnerCasualtyAirbornePassengersAfterLastSight",
+          "TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback",
+          "TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner",
+          "TestOwnerCasualtyOrdinaryLastSightSaveReplay",
+          "TestOwnerRangesAssignmentsAreRealPrivateAndDetached",
+          "TestOwnerRangesPausedAndPartialRecharge",
+          "TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks",
+          "TestOwnerRangesSightDetectionAndBuildBounds",
+          "TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored",
+          "TestTacticalNonblastWarningsKeepAreaUnknown",
+          "TestTacticalProjectileGeometryAndPositionDisclosure",
+          "TestTacticalStrategicWarningsUseActualImpactRadius",
+          "TestTacticalVisibleEffectDeadlinesFollowState",
+          "TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded"
+        ]
+      },
+      {
+        "stage": "fixtures-wasm",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "test",
+          "-p=1",
+          "./pkg/sim",
+          "-count=1",
+          "-timeout=20m",
+          "-json",
+          "-run",
+          "^(TestCandidateServiceActualReturnsAndNativeScenes|TestCombatFeedbackCoverResolutionAndPrivacy|TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath|TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown|TestCombatFeedbackRequiresActualPositiveResolvedDamage|TestCombatFeedbackSaveReplayAndOrdinaryCommand|TestCombatFeedbackRejectsMalformedMetadata|TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity|TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback|TestOwnerCasualtyOrdinaryLastSightSaveReplay|TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner|TestOwnerCasualtyAirbornePassengersAfterLastSight|TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks|TestOwnerRangesPausedAndPartialRecharge|TestOwnerRangesAssignmentsAreRealPrivateAndDetached|TestOwnerRangesSightDetectionAndBuildBounds|TestTacticalProjectileGeometryAndPositionDisclosure|TestTacticalStrategicWarningsUseActualImpactRadius|TestTacticalNonblastWarningsKeepAreaUnknown|TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored|TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded|TestTacticalVisibleEffectDeadlinesFollowState)$"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {
+          "FRONTLINE_SERVICE_SCENES": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/wasm/service",
+          "FRONTLINE_COMBAT_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/wasm/combat",
+          "FRONTLINE_TACTICAL_VIEW_DIR": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/wasm/tactical",
+          "GOOS": "js",
+          "GOARCH": "wasm",
+          "PATH": "/opt/homebrew/Cellar/go/1.27.1/libexec/lib/wasm:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/opt/homebrew/bin:/Users/mohammedkalouti/.codex/tmp/arg0/codex-arg0PgVB3Q:/Users/mohammedkalouti/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/mohammedkalouti/.opencode/bin:/Users/mohammedkalouti/.local/bin:/Users/mohammedkalouti/.bun/bin:/opt/homebrew/sbin:/Users/mohammedkalouti/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Applications/ChatGPT.app/Contents/Resources"
+        },
+        "exit_code": 0,
+        "seconds": 4.096,
+        "log_sha256": "70dc5b6e2f9211e4741a4f9ddd33e46a952cbf699bdf8d2e34a5534305686cbd",
+        "selected_passed": [
+          "TestCandidateServiceActualReturnsAndNativeScenes",
+          "TestCombatFeedbackCoverResolutionAndPrivacy",
+          "TestCombatFeedbackRejectsMalformedMetadata",
+          "TestCombatFeedbackRequiresActualPositiveResolvedDamage",
+          "TestCombatFeedbackSaveReplayAndOrdinaryCommand",
+          "TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity",
+          "TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown",
+          "TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath",
+          "TestOwnerCasualtyAirbornePassengersAfterLastSight",
+          "TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback",
+          "TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner",
+          "TestOwnerCasualtyOrdinaryLastSightSaveReplay",
+          "TestOwnerRangesAssignmentsAreRealPrivateAndDetached",
+          "TestOwnerRangesPausedAndPartialRecharge",
+          "TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks",
+          "TestOwnerRangesSightDetectionAndBuildBounds",
+          "TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored",
+          "TestTacticalNonblastWarningsKeepAreaUnknown",
+          "TestTacticalProjectileGeometryAndPositionDisclosure",
+          "TestTacticalStrategicWarningsUseActualImpactRadius",
+          "TestTacticalVisibleEffectDeadlinesFollowState",
+          "TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded"
+        ]
+      },
+      {
+        "stage": "codec-native-adapter",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "test",
+          "-p=1",
+          "./cmd/wasm",
+          "-count=1",
+          "-timeout=20m",
+          "-json",
+          "-run",
+          "^(TestCombatFeedbackCodecActualAuthorizedOutputs|TestOwnerCasualtyActualCodec|TestOwnerRangesActualCodec|TestCandidateServiceSessionAdapterParity)$"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {
+          "FRONTLINE_COMBAT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_COMBAT_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-adapter/combat.json",
+          "FRONTLINE_CASUALTY_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_CASUALTY_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-adapter/casualty.json",
+          "FRONTLINE_RANGES_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_RANGES_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-adapter/ranges.json",
+          "FRONTLINE_SERVICE_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/service",
+          "FRONTLINE_SERVICE_ADAPTER_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-adapter/service"
+        },
+        "exit_code": 0,
+        "seconds": 0.838,
+        "log_sha256": "d01f08e05767aa87d98d660ef1693cd040bd85bafad473597cec286744f54caa",
+        "selected_passed": [
+          "TestCandidateServiceSessionAdapterParity",
+          "TestCombatFeedbackCodecActualAuthorizedOutputs",
+          "TestOwnerCasualtyActualCodec",
+          "TestOwnerRangesActualCodec"
+        ]
+      },
+      {
+        "stage": "codec-native-host",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "test",
+          "-p=1",
+          "./internal/server",
+          "-count=1",
+          "-timeout=20m",
+          "-json",
+          "-run",
+          "^(TestCombatFeedbackCodecActualAuthorizedOutputs|TestOwnerCasualtyActualCodec|TestOwnerRangesActualCodec)$"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {
+          "FRONTLINE_COMBAT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_COMBAT_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-host/combat.json",
+          "FRONTLINE_CASUALTY_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_CASUALTY_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-host/casualty.json",
+          "FRONTLINE_RANGES_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_RANGES_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-host/ranges.json"
+        },
+        "exit_code": 0,
+        "seconds": 1.53,
+        "log_sha256": "6ffacd860546086835d4b3108f100560a067a395ce3d650e37decbacab732c32",
+        "selected_passed": [
+          "TestCombatFeedbackCodecActualAuthorizedOutputs",
+          "TestOwnerCasualtyActualCodec",
+          "TestOwnerRangesActualCodec"
+        ]
+      },
+      {
+        "stage": "codec-wasm-adapter",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "test",
+          "-p=1",
+          "./cmd/wasm",
+          "-count=1",
+          "-timeout=20m",
+          "-json",
+          "-run",
+          "^(TestCombatFeedbackCodecActualAuthorizedOutputs|TestOwnerCasualtyActualCodec|TestOwnerRangesActualCodec|TestCandidateServiceSessionAdapterParity)$"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {
+          "FRONTLINE_COMBAT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_COMBAT_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/wasm-adapter/combat.json",
+          "FRONTLINE_CASUALTY_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_CASUALTY_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/wasm-adapter/casualty.json",
+          "FRONTLINE_RANGES_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+          "FRONTLINE_RANGES_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/wasm-adapter/ranges.json",
+          "FRONTLINE_SERVICE_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/service",
+          "FRONTLINE_SERVICE_ADAPTER_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/wasm-adapter/service",
+          "GOOS": "js",
+          "GOARCH": "wasm",
+          "PATH": "/opt/homebrew/Cellar/go/1.27.1/libexec/lib/wasm:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/opt/homebrew/bin:/Users/mohammedkalouti/.codex/tmp/arg0/codex-arg0PgVB3Q:/Users/mohammedkalouti/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/mohammedkalouti/.opencode/bin:/Users/mohammedkalouti/.local/bin:/Users/mohammedkalouti/.bun/bin:/opt/homebrew/sbin:/Users/mohammedkalouti/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Applications/ChatGPT.app/Contents/Resources"
+        },
+        "exit_code": 0,
+        "seconds": 1.292,
+        "log_sha256": "83f40775a8b7e89c283732fa2cf9722e498f4979b95a8181a63b41de58eaba5a",
+        "selected_passed": [
+          "TestCandidateServiceSessionAdapterParity",
+          "TestCombatFeedbackCodecActualAuthorizedOutputs",
+          "TestOwnerCasualtyActualCodec",
+          "TestOwnerRangesActualCodec"
+        ]
+      },
+      {
+        "stage": "actual-save-json-oracle",
+        "command": [
+          "/opt/homebrew/bin/go",
+          "test",
+          "-p=1",
+          "./internal/viewproto",
+          "-count=1",
+          "-timeout=20m",
+          "-json",
+          "-run",
+          "^(TestActualGoSavedViewsMatchJSON)$"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+        "environment": {
+          "FRONTLINE_SNAPSHOT_SAVE_DIRS": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/service:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/tactical"
+        },
+        "exit_code": 0,
+        "seconds": 0.792,
+        "log_sha256": "82c6a0cd70d2f96e91d1dd00ed4c8a2db4976749d1e127dc77c5d288ab44c5a3",
+        "selected_passed": [
+          "TestActualGoSavedViewsMatchJSON"
+        ]
+      },
+      {
+        "stage": "actual-production-wasm-parity",
+        "command": [
+          "node",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/production-wasm-parity.mjs",
+          "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z"
+        ],
+        "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i",
+        "environment": {},
+        "exit_code": 0,
+        "seconds": 0.505,
+        "log_sha256": "04a8b16a898624cc2c0747eb91513f55c0b9d4efe469ade7d48b943662ac60b2"
+      }
+    ],
+    "status": "passed",
+    "conditions": "Serial GOMAXPROCS1 and Go package/compiler parallelism1. Root browser and Blender may run; correctness only, no performance claim.",
+    "shipping_inputs": {
+      "client/public/runtime/frontline.wasm": "4e67eebdd53c6ce588c14f0f01b54c236e193feacfbd2936bed0af4002a45efa",
+      "client/public/runtime/version.json": "9471fc047fd77bb3dc57568bdeac22ace3f3c01ecb527350286f62fce5138c3b",
+      "client/public/runtime/worker.js.map": "718f32fba3eee2305d91608155cd478de1b9ce1e17384424284f79346ea3f13d",
+      "client/public/runtime/worker.js": "be5f92962e19fdb6229c514e8b75849508a42c3a321a49beaec873d5d901fd71",
+      "client/public/runtime/wasm_exec.js": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+      "client/src/protocol/frontline_pb.ts": "1a143e9e54bf4953edb8425004755f8f879c07e8d9b515d4d661616fd2ebca79"
+    },
+    "prior_runtime": {
+      "frontline.wasm": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65",
+      "wasm_exec.js": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+      "worker.js": "ea75602152555b60d8049765d7238c54e9650d7afea4c23b949c711093c1706f",
+      "worker.js.map": "e61551a5b463bd29b3fe76388db8ca8b11dec4199536e50ab188ded77802806d",
+      "version.json": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+      "frontline_pb.ts": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+      "bin/runtime-native": "7a03f5be61c70a1d03706b1c121f1c503382e66efe2e58e19321b29a7d5400e9",
+      "bin/frontline-host": "1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379"
+    },
+    "worker_inputs": {
+      "worker.ts": "67184757fc147d0aacf2cfe94c68c167585adf2ac524e817b6cb552b856d9ef8",
+      "errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77",
+      "types.ts": "3fdeb4ffb5a7b09861b9d69d6df32d9d475a9aa1d016b024116f2a767c37f14f"
+    },
+    "files": {
+      "frontline.wasm": {
+        "bytes": 11237971,
+        "sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+        "equals_prior": false
+      },
+      "wasm_exec.js": {
+        "bytes": 16992,
+        "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+        "equals_prior": true
+      },
+      "worker.js": {
+        "bytes": 8198,
+        "sha256": "ced862a30a9d91dbab59befcf6ea0e4af9dabfc289acffbe7678a6dd33b2bed9",
+        "equals_prior": false
+      },
+      "worker.js.map": {
+        "bytes": 13055,
+        "sha256": "883f857ebdafa92063880bff097c0b648736a5c46f84d71f8f7edd66c0ee6dc8",
+        "equals_prior": false
+      },
+      "version.json": {
+        "bytes": 169,
+        "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+        "equals_prior": true
+      },
+      "frontline_pb.ts": {
+        "bytes": 55786,
+        "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+        "equals_prior": true
+      },
+      "bin/runtime-native": {
+        "bytes": 8629298,
+        "sha256": "2e7201360d5241f69b66a4dadffe1ee8ccba3dcb1802597bebbd362cb73320e5",
+        "equals_prior": false
+      },
+      "bin/frontline-host": {
+        "bytes": 20805138,
+        "sha256": "36ca8c93f538696206317113d50af6ee31ac92fcbcd626a0a9f9b0ceaab8a5e0",
+        "equals_prior": false
+      }
+    },
+    "orchestration_inputs": {
+      "build-runtime.py": "ae7038c5cdfe0ae06d075846051ea8c5da52b5a81789810b61c21574aa48070e",
+      "build-worker.mjs": "3f974a14f1ce8028096c0353864a2d9be42e17fc31b9ba624ef3d12799dc4a14",
+      "production-wasm-parity.mjs": "4856e868e4667e0d1c63e853f730654af89705125fa9e86571770d006182d76a"
+    },
+    "wasm_build_info": "go version -m does not support the WASM file format. Use pinned build command, output digest and the actual production WASM session/version parity below.",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.4"
+    },
+    "fixture_files_equal": {
+      "combat/ranges-mobile-upgrade-shield.json": "4b8f45307adbb7e175a2e774a7c2164b0ad569cadbaf04e58f58407df790dbdd",
+      "combat/ranges-disabled.start.save.json": "8660ad9a7d0df0539a7474f6e576137dd1e34011ea01a8dd25132e95bafd585f",
+      "combat/ranges-fixed-low-shield.json": "76fb93f5eadc886de5e86c2ff9f528f7465a90091189ef818c90fd3baa77ec4e",
+      "combat/casualty-ordinary.save.json": "bea3bf50c1d057e35166b6a8f82364d95bfccc0bc3af10935302c561bc05ec3c",
+      "combat/ranges-fixed-shield.json": "d3a13c1c276a2aa2892bb42bbae7cb5b646af2c422258a2fb408469ad86dd894",
+      "combat/unknown-area-many.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+      "combat/ranges-fixed-low.start.save.json": "13bbcc4884b1f64383d29ee96564c67006f33b8560d502e5cab7c0e389e0840a",
+      "combat/ranges-mobile.start.save.json": "1fe82d8980b26fc95dc37bd4f36c692ab7dcbf328ab348d45582688fd619afe3",
+      "combat/privacy-visible.json": "64c3524995ff33f0dd26ccb9039951ad6ba4aabca713c300065e732a5d7a4137",
+      "combat/ranges-disabled.json": "64a444485f5ea6118e9703e0421d31eea7bf062c10adc8b3b709b870fed90530",
+      "combat/ranges-full.start.save.json": "bf958d868dd942d5c3c8797b9172da21786f5c278ba243b6396f59555e14e0c9",
+      "combat/ranges-constructing.json": "c60d43211065b5d837a0c186a3d8074ddee08ece0f1c7c26941b256908c191fc",
+      "combat/ranges-fixed-low.json": "92a0284f2e93e6c8fbc9c92b85f44c279b4207cbff92daf890cb7c25527768da",
+      "combat/ranges-fixed.json": "2d1ff427eed50d2c0a36d11a3d35223e0c727274f964db51dfaa5f4d1a692ca0",
+      "combat/privacy-embarked.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+      "combat/ranges-packed.json": "a4b81bba8cf181c060d46a39097cc902cf8e197d97c5d48c98dac5cb9e9ac7fa",
+      "combat/ranges-mobile-low.start.save.json": "9b9256ec59c4f980ccaea2c5e60be3134785d484bf615262f78048a21c8be1ff",
+      "combat/privacy-dead.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+      "combat/simultaneous.json": "c545e262b781c2aaf5f82ddcf742f32dcc5d277050157a1033149593eb0db5fc",
+      "combat/ordinary-result.json": "d632c527849629ef62005c4fa418dc5fdf8973f33fdf08bd9ffbd92db7d4db18",
+      "combat/ranges-partial.json": "5cc83cc6198174136119e6c8a4abc1c8074ec89bbd976ac6b833adaa8e4c1118",
+      "combat/ranges-constructing.start.save.json": "d936148d4e24d70a9915418c2aa3fdee4dd70489f00f82a58bbfbea03f60988c",
+      "combat/unknown-empty.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+      "combat/ranges-mobile-upgrade-shield.start.save.json": "692a404ba6fddf77f0f1af9363c3cd79bc8936c34f2b6557eb1c52d9233cc8d0",
+      "combat/ranges-mobile-upgrade.json": "251c7728e7aca5c08a92d7518ff26bba85fde4205909953872b8bb65553aaaff",
+      "combat/unknown-decoy.json": "40bf00bb6e9ded3d3a03ed4d7611d7ad1d8346e13fc849acb057b35938edcccf",
+      "combat/ranges-fixed-shield.start.save.json": "440e5e62fb5ae75b563ed90e6c8f35d76be1d81507eb18053e344cc19b5b3141",
+      "combat/casualty-ordinary.json": "b894f1ade02f5596772cbc141a4cfef512ef7116059758ffe17ebea0ed89fdf1",
+      "combat/unknown-area-zero.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+      "combat/ranges-assigned.start.save.json": "f63752534cc9527a155e631a698c63ff78d61f09859d9dbf575f3bc3af02f847",
+      "combat/casualty-continuation.json": "7b04c40ebf77ab29e5c0adfaab5320ec39cabb23c46f7416933b5fad0dae1621",
+      "combat/ranges-power-off.start.save.json": "447a8c4a4687920cd780b1cdd98328de4defcd3f6cab288e81ecec0af14e4fb4",
+      "combat/ranges-partial.start.save.json": "c65055b273abcbc2c25996d2c41cef9aa019c3315a8a1483adc7f44dbd9c27c6",
+      "combat/ranges-mobile-low.json": "cd4b53487179bdbf22b713878535699a4c577222c7dc9cd155d2ee65b62f560c",
+      "combat/ranges-full.json": "949cfab7c1fb13f62a0bcb0c76d2d1cee88c857b9ecd82e33d3ad32efdb9eb0a",
+      "combat/ranges-power-off.json": "c4935355678c5ba9bf3d633825487251fe18deb7d5d628103c52035a207346e5",
+      "combat/privacy-removed.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+      "combat/ranges-mobile.json": "8f99a069ca16eb5914480b9a61a342a36d681618a9775c80f3373b90744f7f12",
+      "combat/unknown-zero-damage.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+      "combat/ranges-mobile-upgrade.start.save.json": "e26ded79dfdf57a9b067385f81c6a39ece00dc17f29b9b3fac9068be4b9eceb7",
+      "combat/ranges-packed.start.save.json": "4962fea38f1eb46941dcd430cba87dace0102abd713624f54ba91040f6e7f7c3",
+      "combat/privacy-concealed.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+      "combat/unknown-area-one.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+      "combat/ranges-fixed.start.save.json": "a2dfe1dc28ae1fa77ab4bebf86424afc1b161d089e9d81a6a5219168fb8e0749",
+      "combat/ranges-fixed-low-shield.start.save.json": "8d8a7031e84a01ca04d9e2180fec5796b5f9ca87d52140b71ec5866634d3966a",
+      "combat/privacy-fog.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+      "combat/ordinary.save.json": "9aa8217d02020ddf523b4072d973d464133e8ce0a0eb9458df760f5a275e98fb",
+      "combat/ranges-assigned.json": "23b333bb7d2971e2424bc39f4e3a9a3e37b56a87ec64e27397eb727f79dbf6d2",
+      "tactical/nonblast.json": "f855cae22f546bae9bbf500e2aa75aef49242673b1154005d21f63d6b2ffe078",
+      "tactical/emergency.json": "74de023f9b240dc820e719b23cf50f4eacd5da84194d65718981cc83d5f8573b",
+      "tactical/strategic-US.json": "6c6b742543f5bc012fb4377f62cfb9642fa102a59d2444f4624ba99b5057fdb4",
+      "tactical/effects-deadlines.json": "336ecf7bf7223d134ae3df3d82607cb1f33f68315650db3b806d4e99e48a2922",
+      "tactical/strategic-IR.json": "caa355f84204ef24ec308d933b45664ead91a427d89de9b427e270f8d5d42240",
+      "tactical/effects-privacy.json": "98d522c5b795359c2af7c734b66708f64d40069ea82a720986ff08f71101d5c7",
+      "tactical/projectiles.json": "5a6b4fb384228158181b5ee7c859d82c51b25bb661a718b35b56d4ff57170941",
+      "service/SY-two.approach.save.json": "83609bf8b4ceee2861bde2996f0e367ff8a9506829f3826fc74a72c8900bb4ba",
+      "service/SA-four.approach.save.json": "9bae9db70797e4d7eb96cb399456fa7fcb0a326fb7c9db1130fe23e5792d5ed1",
+      "service/US-six.approach.save.json": "ce1836c5e439fb3befdcfe86e785d372902f7b366ab3457b21286015aabbd73a",
+      "service/SA-four.json": "9ca6b20b74eb1387626d85840c69f94dbbef38c2486d22a8e279bf3a25f597a5",
+      "service/SY-two.json": "f4ab69536fd57f27ac4b28aa01408d707d488970c4156586bb09ecd37f4a0546",
+      "service/SY-retained-US-six.approach.save.json": "17f3a33374c3f0a82beda904fcf88820c46ff960644cb0da159a6edc482bb13b",
+      "service/SY-retained-US-six.json": "f3cbd654a60c0326db6ef9e7529d7796e934fe557725e9c7f6812afc34d89532",
+      "service/SA-four.save.json": "1d54e541507f365b0f9083495d0f2f197c4fbc0de091b866a0b6831e9f322e69",
+      "service/IR-retained-US-six.save.json": "7b929112dd5c6676bc69e5bc5bce117a221fcb780993a1e80a0471687223a910",
+      "service/US-six.json": "4b2f5d11acb1c0cae924b872d45d8c66b9c9ad73949e8868494e0863a07e9005",
+      "service/IR-six.approach.save.json": "69845f2896b2a547ca19898b019ef797cf7fc486231a315f26d65bdf1328c626",
+      "service/SY-two.save.json": "35cca964303c63dcd36e275d465d4165f57f1b7ded6903df08da7e2608c7b8b7",
+      "service/IR-retained-US-six.json": "216024f15a7b91091079755431ecbf41307687db36d7281dcfb2e3ecca783b72",
+      "service/IR-six.save.json": "b334291b68bd4ca9283067321efe17f5f01eb07bb1b8ce3fa5e32e8d4023a9bf",
+      "service/SY-retained-US-six.save.json": "0f9a890e9b9aeac3b3c9cd66e57b6612759429cd1eb32dc069e515fef955aa48",
+      "service/US-six.save.json": "0f9accb01012cc4be22a0cefa4cd6553b492d69db673c7033fb493e9d4eb98be",
+      "service/IR-six.json": "63b05f877fda8a45acbc55af42ad275a0928bf04e8a2f7872e20f5b7aad63436",
+      "service/IR-retained-US-six.approach.save.json": "93e9dee2aac33c81551596bd52ba42a9bffbe0354d27b96156696a8f401e2e60"
+    },
+    "codec_parity": {
+      "combat": {
+        "sha256": "b9e922fee34c1757a70c49c98b974e1d8700a1871907e6ac56853977361cc24a",
+        "records": 8
+      },
+      "casualty": {
+        "sha256": "4812e23db11d9372e0956341ad01a272df8f2a652d8a69ab3c4aa50c8dc93d94",
+        "records": 2
+      },
+      "ranges": {
+        "sha256": "c57d7138f331ac2da4f780165eca3f698fbd94641872e17d39dc186e9b83a0df",
+        "records": 30
+      }
+    },
+    "shipping_unchanged": true,
+    "prior_runtime_unchanged": true,
+    "source_verified_after": true,
+    "finished": "2026-09-29T08:18:03.589421+00:00"
+  },
+  "pack": "120fd4095f8da3cd15f51e5b2d97ffd0b5bbd9a666502685b5b153219841dcba"
+}
