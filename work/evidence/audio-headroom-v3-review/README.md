@@ -37,3 +37,7 @@ The meter's `samples` is the sum across channels, while `frames` measures time. 
 The top-level audio-course README still describes the earlier compressor-only candidate and pending execution. Update it before integration reporting to include the shaper, v3 tail flush, Firefox capability limit and run 11 strict failure. These are reporting corrections, not production-source changes requested from the reviewer.
 
 The exact tail fixture measures reset/stopTransient without continuing music; music object/bus retention is confirmed by source, not an independent uninterrupted-music PCM experiment. This is an explicit coverage boundary rather than a claim of a proven audible regression.
+
+## Subsequent owner update
+
+After this review was pinned and checkpointed as `34bedcb`, the parent reported guarded integration of exact v3 mixer `9d073e9e…860cf`, 498 passing runtime tests and both TypeScript checks, an updated top-level course README, and a future driver assertion using frame count. Original run helpers and receipts stay immutable. Those later integration/tests were performed by the parent, not this reviewer; the preintegration source/hash evidence in `audit.json` retains its original boundary.
