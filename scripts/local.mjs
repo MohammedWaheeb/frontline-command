@@ -1,6 +1,6 @@
 import {copyDependencyLicenses,copyNpmLicenses} from './package-licenses.mjs';
 import {captureClientInputs,capturePresentationInputs,requireSameInputs,verifyPresentationProduct,verifyHostContent} from './package-presentation-inputs.mjs';
-import {nativeBuildEnvironment,verifyProduct,verifyNativeExecutable,fileInventory,fileDigest,buildSourceIdentity,resolveGoLicense} from './package-integrity.mjs';
+import {nativeBuildEnvironment,verifyProduct,verifyNativeExecutable,fileInventory,fileDigest,buildSourceIdentity,resolveGoLicense,commandHasOutput} from './package-integrity.mjs';
 import {existsSync} from 'node:fs';
 import {spawn,execFileSync} from 'node:child_process';
 import {access,chmod,copyFile,cp,mkdir,mkdtemp,readFile,readdir,rename,stat,writeFile} from 'node:fs/promises';
@@ -116,7 +116,7 @@ async function buildPackage(){
  const presentationIdentity=await verifyPresentationProduct(root,path.join(stage,'client'),presentationInputs);
  const hostContentFiles=await verifyHostContent(stage,presentationInputs);
  const version=JSON.parse(await readFile(path.join(stage,'client/runtime/version.json'),'utf8'));
- await writeFile(path.join(stage,'version.json'),JSON.stringify({...version,source_inputs:sourceAfter,presentation_inputs:presentationIdentity,host_content_files:hostContentFiles,product_pack:productIntegrity,platform:process.platform,arch:process.arch,source_revision:capture('git',['rev-parse','HEAD']),source_dirty:!!capture('git',['status','--porcelain']),built_at:new Date().toISOString(),acceptance:'See release evidence; successful packaging alone does not certify release readiness.'},null,2)+'\n');
+ await writeFile(path.join(stage,'version.json'),JSON.stringify({...version,source_inputs:sourceAfter,presentation_inputs:presentationIdentity,host_content_files:hostContentFiles,product_pack:productIntegrity,platform:process.platform,arch:process.arch,source_revision:capture('git',['rev-parse','HEAD']),source_dirty:await commandHasOutput('git',['status','--porcelain'],{cwd:root}),built_at:new Date().toISOString(),acceptance:'See release evidence; successful packaging alone does not certify release readiness.'},null,2)+'\n');
  await checksums(stage);
  if(await exists(packageDir))await rename(packageDir,`${packageDir}.previous-${Date.now()}`);
  await rename(stage,packageDir);console.log(`Local package: ${packageDir}. No deployment performed.`);

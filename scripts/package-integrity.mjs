@@ -1,7 +1,21 @@
 import {createReadStream} from 'node:fs';
 import {lstat,readdir,readFile,open} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {spawn} from 'node:child_process';
 import path from 'node:path';
+
+/** Drain large metadata output without retaining it or resolving before exit.
+ * A dirty art workspace can exceed execFileSync's default 1 MiB buffer.
+ */
+export function commandHasOutput(program,args,{cwd}={}){
+ return new Promise((resolve,reject)=>{
+  const child=spawn(program,args,{cwd,stdio:['ignore','pipe','pipe']});let any=false,errorBytes=0;const errors=[];
+  child.stdout.on('data',chunk=>{any ||= chunk.length>0});
+  child.stderr.on('data',chunk=>{const part=chunk.subarray(0,Math.max(0,16384-errorBytes));if(part.length){errors.push(part);errorBytes+=part.length}});
+  child.once('error',reject);
+  child.once('close',(code,signal)=>{if(code!==0)reject(Error(`${program} exited ${code??signal}: ${Buffer.concat(errors).toString('utf8')}`));else resolve(any)});
+ });
+}
 
 export function nativeBuildEnvironment(platform=process.platform,arch=process.arch,base=process.env){
  const GOOS={darwin:'darwin',linux:'linux',win32:'windows'}[platform],GOARCH={x64:'amd64',arm64:'arm64'}[arch];

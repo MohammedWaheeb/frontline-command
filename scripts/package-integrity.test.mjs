@@ -1,7 +1,22 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,readFile,rm,symlink} from 'node:fs/promises';import {tmpdir} from 'node:os';import path from 'node:path';import {createHash} from 'node:crypto';
-import {nativeBuildEnvironment,portablePath,fileInventory,verifyProduct,verifyNativeExecutable,resolveGoLicense,verifyCSSDependencies} from './package-integrity.mjs';
+import {nativeBuildEnvironment,portablePath,fileInventory,verifyProduct,verifyNativeExecutable,resolveGoLicense,verifyCSSDependencies,commandHasOutput} from './package-integrity.mjs';
+import {execFileSync} from 'node:child_process';
 const put=async(root,name,bytes)=>{await mkdir(path.dirname(path.join(root,name)),{recursive:true});await writeFile(path.join(root,name),bytes)};
+test('metadata status streams beyond default capture limit and still checks final exit',async()=>{
+ assert.equal(await commandHasOutput(process.execPath,['-e','process.stdout.write(Buffer.alloc(3*1024*1024,120))']),true);
+ assert.equal(await commandHasOutput(process.execPath,['-e','process.stderr.write("notice")']),false);
+ await assert.rejects(commandHasOutput(process.execPath,['-e','process.stdout.write("dirty");process.stderr.write(Buffer.alloc(2*1024*1024,120));process.exitCode=7']),error=>error.message.includes('exited 7')&&error.message.length<17000);
+ await assert.rejects(commandHasOutput('frontline-command-does-not-exist',[]),/ENOENT/);
+});
+test('actual git metadata distinguishes clean, untracked and staged work',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'package-git-status-'));try{
+  execFileSync('git',['init','--quiet',dir]);
+  assert.equal(await commandHasOutput('git',['status','--porcelain'],{cwd:dir}),false);
+  await put(dir,'asset.png','fixture');assert.equal(await commandHasOutput('git',['status','--porcelain'],{cwd:dir}),true);
+  execFileSync('git',['add','asset.png'],{cwd:dir});assert.equal(await commandHasOutput('git',['status','--porcelain'],{cwd:dir}),true);
+ }finally{await rm(dir,{recursive:true,force:true})}
+});
 test('packaged CSS resolves fonts, textures and imports and rejects unresolved source paths',()=>{
  const files=new Set(['/assets/fonts/body.ttf','/art/ui/metal.png','/assets/theme.css']);
  assert.deepEqual(verifyCSSDependencies('@font-face{src:url("fonts/body.ttf")}x{background:url(/art/ui/metal.png)}@import "theme.css";', '/assets/app.css',files),['/assets/fonts/body.ttf','/art/ui/metal.png','/assets/theme.css']);
