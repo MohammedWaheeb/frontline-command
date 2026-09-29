@@ -1,0 +1,61 @@
+{
+  "scope": "Sequential immutable functional courses; raw diagnostic failure retained independently; stop on functional/page/console/HTTP/input/cleanup error.",
+  "engine": "chromium",
+  "scenarios": [
+    "US.launcher-damaged-empty",
+    "IR.launcher-damaged-empty",
+    "SY.launcher-damaged-empty",
+    "IR.launcher-cancel-volley"
+  ],
+  "started": "2026-09-29T16:25:15.317Z",
+  "driverSHA256": "d62ddeb2ea7be316139aef8cfb87a6731c4a87b63807e15e7240bb952710521a",
+  "courses": [
+    {
+      "scenario": "US.launcher-damaged-empty",
+      "out": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-rendered-course-v1/chromium-branches-01/US.launcher-damaged-empty",
+      "exitCode": 1,
+      "receiptSHA256": "7f81558466399e91bbbb2769337779851b3ad5d9b035ebbdb966eb960ab0810e",
+      "functional": "passed",
+      "status": "failed",
+      "rawFailures": 41,
+      "boundaries": 60,
+      "closedAt": "2026-09-29T16:25:29.111Z"
+    },
+    {
+      "scenario": "IR.launcher-damaged-empty",
+      "out": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-rendered-course-v1/chromium-branches-01/IR.launcher-damaged-empty",
+      "exitCode": 1,
+      "receiptSHA256": "9193572aa4c3ceaa9b781f0f4cbb14ec457f85d9ae478e695a4d5d9373d74a53",
+      "functional": "passed",
+      "status": "failed",
+      "rawFailures": 56,
+      "boundaries": 60,
+      "closedAt": "2026-09-29T16:25:42.860Z"
+    },
+    {
+      "scenario": "SY.launcher-damaged-empty",
+      "out": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-rendered-course-v1/chromium-branches-01/SY.launcher-damaged-empty",
+      "exitCode": 1,
+      "receiptSHA256": "f206546a0d8fc4f586c680ddbfd750348c70b16aa3b4197868fc298bba681bf5",
+      "functional": "passed",
+      "status": "failed",
+      "rawFailures": 23,
+      "boundaries": 60,
+      "closedAt": "2026-09-29T16:25:56.863Z"
+    },
+    {
+      "scenario": "IR.launcher-cancel-volley",
+      "out": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-rendered-course-v1/chromium-branches-01/IR.launcher-cancel-volley",
+      "exitCode": 1,
+      "receiptSHA256": "3640d82b12012bc2e5ec57243e2da091b6bbd017018caed15406bf1d987fd1f7",
+      "functional": "passed",
+      "status": "failed",
+      "rawFailures": 33,
+      "boundaries": 92,
+      "closedAt": "2026-09-29T16:26:17.550Z"
+    }
+  ],
+  "status": "strict-failed",
+  "functional": "passed",
+  "finished": "2026-09-29T16:26:17.571Z"
+}

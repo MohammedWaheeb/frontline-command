@@ -1,6 +1,8 @@
-# Ground-launcher rendered course — prepared, not executed
+# Ground-launcher rendered course — US/IR/SY bounded results
 
-`prepared-02` is ready for a separately coordinated browser run. No browser, HTTP host, native simulation, Blender, production source or live asset write was performed in this task. SA is explicitly held until its full art handoff is accepted. This is a component presentation course, **not ordinary paid-opening, multiplayer, balance, full-roster or final visual acceptance**.
+`prepared-02` has now run against actual native Go boundaries. Chromium passes all seven branches at both qualities functionally but remains strict FAILED on 339 raw aborts. Firefox and WebKit pass the three main families at both qualities with zero observed errors. See `matrix-review.md`, `matrix-summary.json` and exact per-engine audits. All browser/HTTP processes are closed. SA remains held until its full checked art handoff. This is component presentation acceptance, **not ordinary paid-opening, multiplayer, balance, full-roster or final visual acceptance**. No production source, Go, content or live asset was edited.
+
+The historical preparation and initial failures below remain pinned and preserved.
 
 ## Frozen inputs
 
@@ -22,7 +24,7 @@ Private art is a copy of immutable `work/presentation-fallback-v5/build-01/produ
 | SY launcher | 688 | 105 | `de11de332394387866e26b585d7fb06a4e240de70ee3f19c6f4d21afcc6d21f7` |
 | SA launcher | — | — | Held; no accepted full art candidate |
 
-## Real Go evidence and future checks
+## Real Go evidence and checks
 
 The unchanged `work/ground-launcher-runtime-course-v1/native-03` starts with explicitly granted units/resources and three declared damaged-empty branches. All subsequent deployment, shots, packing, movement, cancellation and refills were earned through ordinary Submit/Advance. The renderer does not invent charges, mutate saves or create foreign private fields.
 
@@ -44,11 +46,11 @@ All page, console, HTTP and request failures are retained through final browser 
 - CPU exact graph audit: **222 atlas pages, 14,880 frame rectangles** inside actual PNG dimensions, aliases/progress declarations valid, every referenced byte included in the hash-verified pack.
 - Four negative admission controls reject missing path, traversal, truncated bytes and same-size changed bytes.
 - Plan references original protobuf files on demand: **127,918 bytes**, rather than retaining all full snapshots concurrently.
-- **No browser result exists yet.** No subjective native screenshot review or GPU budget is claimed.
+- These were preparation-only checks; subsequent browser results and limited native image review are recorded separately in `matrix-review.md`. No GPU budget claim is made.
 
 `prepared-01` is preserved as the first successful build/typecheck receipt. Its 101.7 MiB plan duplicated raw views and oracle JSON; it was never run. `prepared-02` removes that unnecessary retention while preserving all original binary comparisons. Do not execute or relabel `prepared-01`.
 
-## Smallest next browser slice (only after lane release)
+## Historical first browser slice
 
 Run from repository root:
 
@@ -59,10 +61,10 @@ node work/ground-launcher-rendered-course-v1/browser.mjs \
   --engine chromium --scenario US.launcher --quality standard
 ```
 
-Then add the other scenarios/quality only after preserving and inspecting that first result. Omit `--scenario`/`--quality` for the entire prepared subset; it is not necessary for the initial bounded validation. Chromium/Firefox/WebKit are supported by the driver, but none has been launched for this course. The executable/version is recorded by every future run; same-host browser contexts are not physical-device acceptance.
+Then add the other scenarios/quality only after preserving and inspecting that first result. Omit `--scenario`/`--quality` for the entire prepared subset; it is not necessary for the initial bounded validation. The historical browser.mjs import failed before launch; browser-v2 corrected that test import. Browser-v3 additionally hides only the fixture caption after isolated native A/B attribution. Current results use exact prepared-02 code/art/runtime. Browser versions are recorded per run; same-host browser contexts are not physical-device acceptance.
 
 Reproduce source-only preparation under a **new** label with `node .../prepare.mjs prepared-N`; never overwrite a prior output. `audit.mjs prepared-N` performs only CPU integrity checks. Product/source trees are local frozen artifacts; the committed receipts and helper sources pin their bytes.
 
 ## First executed subset
 
-The subsequent US-standard Chromium run is documented in `browser-us-standard-review.md`: 42 render boundaries and 22 replay views functionally passed, but strict status remains FAILED on 35 raw request diagnostics. Attempt01's Playwright import failure is preserved; `browser-v2.mjs` fixes only the test import. No other faction/quality/engine has run. The native review also records an unexplained bottom-left black capture rectangle; no blanket visual acceptance is claimed.
+The subsequent US-standard Chromium run is documented in `browser-us-standard-review.md`: 42 render boundaries and 22 replay views functionally passed, but strict status remains FAILED on 35 raw request diagnostics. Attempt01's Playwright import failure is preserved; `browser-v2.mjs` fixes only the test import. Later faction/quality/engine courses are in `matrix-review.md`. The initial bottom-left black-looking rectangle is now attributed to the test caption interaction in `caption-diagnostic-review.md`; it is an alpha-zero screenshot hole, not authored black pixels. Cause limits and original images remain preserved.
