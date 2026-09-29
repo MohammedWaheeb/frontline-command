@@ -1,0 +1,279 @@
+{
+  "status": "passed",
+  "scope": "Frozen v1 actual TerrainBaker cache/Float32/upload path with non-rendering Pixi adapter; no browser/GPU/alpha-pixel/performance acceptance",
+  "pins": {
+    "terrain.ts": "6820e55a251ea711e3121033c0f5264ad46c3cb1832a2064a4c511d27d3c3788",
+    "terrain-surface.ts": "7d498da7b940e4741ed8e74b7996d2d7a420e310066dba28a7ed6b328437ef2e",
+    "terrain-materials.ts": "c1c466f0ffddcd77e62a7272b0d0963f81393714feb0177aaedeb0d3f41d8588",
+    "iso.ts": "98654186dbd723fdefdb70ff9bcdc26b6f74b7a5d4d0579c3d6e4244ef9aebdf",
+    "adapter": "555b58188d21cac2819fc931160220c551bd7bfce7ded9ce8ed47c2cdddeeef2"
+  },
+  "cases": [
+    {
+      "name": "all visible",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "same values fresh perspective",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "far diagonal remembered while fragment hidden",
+      "uploadDelta": 2,
+      "hidden": true
+    },
+    {
+      "name": "show remembered unchanged",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "far diagonal becomes unknown in same arrays",
+      "uploadDelta": 2,
+      "hidden": false
+    },
+    {
+      "name": "same unknown values fresh perspective",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "same array returns visible",
+      "uploadDelta": 2,
+      "hidden": false
+    },
+    {
+      "name": "explored bit irrelevant on visible tile",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "rewind missing vectors",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "unchanged missing hidden",
+      "uploadDelta": 0,
+      "hidden": true
+    },
+    {
+      "name": "missing restored",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 0",
+      "uploadDelta": 62,
+      "hidden": true
+    },
+    {
+      "name": "identical current public state 0",
+      "uploadDelta": 0,
+      "hidden": true
+    },
+    {
+      "name": "in-place mixed public state 1",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 1",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 2",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 2",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 3",
+      "uploadDelta": 62,
+      "hidden": true
+    },
+    {
+      "name": "identical current public state 3",
+      "uploadDelta": 0,
+      "hidden": true
+    },
+    {
+      "name": "in-place mixed public state 4",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 4",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 5",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 5",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 6",
+      "uploadDelta": 62,
+      "hidden": true
+    },
+    {
+      "name": "identical current public state 6",
+      "uploadDelta": 0,
+      "hidden": true
+    },
+    {
+      "name": "in-place mixed public state 7",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 7",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 8",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 8",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 9",
+      "uploadDelta": 62,
+      "hidden": true
+    },
+    {
+      "name": "identical current public state 9",
+      "uploadDelta": 0,
+      "hidden": true
+    },
+    {
+      "name": "in-place mixed public state 10",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 10",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 11",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 11",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 12",
+      "uploadDelta": 62,
+      "hidden": true
+    },
+    {
+      "name": "identical current public state 12",
+      "uploadDelta": 0,
+      "hidden": true
+    },
+    {
+      "name": "in-place mixed public state 13",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 13",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 14",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 14",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 15",
+      "uploadDelta": 62,
+      "hidden": true
+    },
+    {
+      "name": "identical current public state 15",
+      "uploadDelta": 0,
+      "hidden": true
+    },
+    {
+      "name": "in-place mixed public state 16",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 16",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 17",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 17",
+      "uploadDelta": 0,
+      "hidden": false
+    },
+    {
+      "name": "in-place mixed public state 18",
+      "uploadDelta": 62,
+      "hidden": true
+    },
+    {
+      "name": "identical current public state 18",
+      "uploadDelta": 0,
+      "hidden": true
+    },
+    {
+      "name": "in-place mixed public state 19",
+      "uploadDelta": 62,
+      "hidden": false
+    },
+    {
+      "name": "identical current public state 19",
+      "uploadDelta": 0,
+      "hidden": false
+    }
+  ],
+  "farDiagonal": {
+    "tile": 270,
+    "far": 288,
+    "rememberedCentre": 43.75,
+    "unknownCentre": 63.75,
+    "outsideChunk": true
+  },
+  "publicIndicesRead": 289,
+  "geometryUnchanged": true,
+  "ownedDisposed": true,
+  "helperSHA256": "32f51cf8550f850f28b1f202198a18ddaaf035b1b1645c817229e5c22dfedee8"
+}

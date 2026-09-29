@@ -1,0 +1,25 @@
+{
+  "reviewedAt": "2026-09-29T14:57:07.975717+00:00",
+  "scope": "Independent read-only source/privacy/lifetime review; no new tests or browser",
+  "authorAuditSHA256": "808a92491ba3a9a2ecd0fada65f8ea71e51e0ec5a9ae6ee78252c6751a9b92fe",
+  "reportSHA256": "41b72af8c38564620ddbaedac7ab7d86e85685e5b1f9c05ca9b4ee6357c2b57d",
+  "outputs": {
+    "work/claude/presentation-polish-v1/source/client/src/render/terrain.ts": "6820e55a251ea711e3121033c0f5264ad46c3cb1832a2064a4c511d27d3c3788",
+    "work/claude/presentation-polish-v1/source/client/src/render/actors.ts": "6f14bab7e85d423528ed05faa03b85dc746716474abca3379fde0cbfa451cdfa",
+    "work/claude/presentation-polish-v1/source/client/src/render/battlefield.ts": "b0ac869e0e825bc11cd934ebfb781a588aa04bc68a4a1041b470818a49a6196c",
+    "work/claude/presentation-polish-v1/source/client/src/styles/game.css": "57bdd8accd90daf15b5dfaf2ca4e691a4039c2fb0fd249479080d101cf923835",
+    "work/claude/presentation-polish-v1/source/client/src/ui/App.tsx": "3ec882e99de4a0100a7c47b32f1cd362eea373f3fe90cac9ab7cf5bd3e614160",
+    "work/claude/presentation-polish-v1/source/client/tests/runtime/presentation-polish.test.ts": "f5701b25b340a1ed5984f1de42c5a363725dd55d79dc6ee17e7808340383c80d",
+    "work/claude/presentation-polish-v1/report.md": "41b72af8c38564620ddbaedac7ab7d86e85685e5b1f9c05ca9b4ee6357c2b57d"
+  },
+  "changedFromFrozenV3": [
+    "src/ui/App.tsx",
+    "src/render/battlefield.ts",
+    "src/render/terrain.ts",
+    "src/styles/game.css",
+    "tests/runtime/presentation-polish.test.ts"
+  ],
+  "actorsUnchanged": true,
+  "reviewedDiffSHA256": "d97fd01283942834822b2d88b3808abf5e57508eec076e207793105401e8d6ee",
+  "disposition": "F6 overlap blocks final acceptance; F1 GPU and F5 native readability/lifecycle checks remain. No new hidden-world reads or obvious owned-resource leak found in bounded static review."
+}

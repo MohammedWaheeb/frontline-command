@@ -1,0 +1,366 @@
+--- frozen-v3/src/ui/App.tsx
++++ presentation-v1/src/ui/App.tsx
+@@ -31,7 +31,7 @@
+ import {Icon,Emblem,Cameo,Modal,Empty} from './primitives';
+ const factions=Object.keys(FACTIONS) as Faction[];
+ /** Short visible tags for locked/waiting production tiles, keyed by the same readable text the controller shows. Unknown reasons fall back to the full text. */
+-const REASON_TAGS=new Map([['missing_prerequisite','Needs building'],['missing_tier','Needs tier'],['insufficient_credits','Credits'],['insufficient_energy','Energy'],['producer_disabled','Offline'],['queue_full','Queue full'],['supply_cap','Supply cap'],['structure_limit','At limit'],['defense_limit','At limit'],['unique_limit','Only one'],['already_researched','Researched'],['already_queued','Queued'],['cooldown','Cooling']].map(([code,tag]):[string,string]=>[reason(code),tag]));
++const REASON_TAGS=new Map([['missing_prerequisite','Needs building'],['missing_tier','Needs tier'],['insufficient_credits','Credits'],['insufficient_energy','Energy'],['producer_disabled','Offline'],['queue_full','Queue full'],['supply_cap','Supply cap'],['structure_limit','At limit'],['defense_limit','At limit'],['unique_limit','Only one'],['already_researched','Researched'],['already_queued','Queued'],['cooldown','Cooling'],['queued','Queued'],['prerequisite_lost','Prereq. lost']].map(([code,tag]):[string,string]=>[reason(code),tag]));
+ function reasonTag(choice:{available:boolean;reason?:string;waitsFor?:string}){const tag=REASON_TAGS.get((choice.available?choice.waitsFor:choice.reason)??'');return tag&&(choice.available?`Wait · ${tag}`:tag)}
+ /** Counts command keys hidden above/below the scrolled well. Writes DOM attributes once per frame at most; never React state. */
+ function useCommandOverflow(grid:HTMLDivElement|null,cue:HTMLDivElement|null){
+@@ -45,6 +45,24 @@
+   const resize=new ResizeObserver(schedule),mutation=new MutationObserver(schedule);resize.observe(grid);mutation.observe(grid,{childList:true});grid.addEventListener('scroll',schedule,{passive:true});schedule();
+   return()=>{cancelAnimationFrame(frame);resize.disconnect();mutation.disconnect();grid.removeEventListener('scroll',schedule);mark(above,0);mark(below,0);delete grid.dataset.overflow};
+  },[grid,cue]);
++}
++/** Command-well order: core orders first so Move, Attack, Stop and Hold occupy the
++ * unscrolled rows; stance and rare contextual keys follow; abilities stay last.
++ * Presentation only; unlisted kinds keep their affordance order between the two groups. */
++const COMMAND_FIRST=['move','attack_move','attack','stop','hold','guard','patrol','escort','force_fire'],COMMAND_LAST=['aggressive','resume'];
++const commandRank=(kind:string)=>{const first=COMMAND_FIRST.indexOf(kind),last=COMMAND_LAST.indexOf(kind);return first>=0?first:last>=0?COMMAND_FIRST.length+1+last:COMMAND_FIRST.length};
++const orderCommands=(kinds:readonly string[])=>[...kinds].sort((a,b)=>commandRank(a)-commandRank(b));
++/** Publishes the event rail's current lower edge (viewport px) as --fc-event-rail-bottom so targeting-time
++ * captions can stack directly beneath live alerts, never over them. One write per frame at most; never React state. */
++function useEventRailBottom(rail:HTMLDivElement|null){
++ useEffect(()=>{
++  if(!rail)return;
++  const root=document.documentElement;let frame=0;
++  const measure=()=>{frame=0;root.style.setProperty('--fc-event-rail-bottom',`${Math.ceil(rail.getBoundingClientRect().bottom)}px`)};
++  const schedule=()=>{if(!frame)frame=requestAnimationFrame(measure)};
++  const resize=new ResizeObserver(schedule);resize.observe(rail);window.addEventListener('resize',schedule);schedule();
++  return()=>{cancelAnimationFrame(frame);resize.disconnect();window.removeEventListener('resize',schedule);root.style.removeProperty('--fc-event-rail-bottom')};
++ },[rail]);
+ }
+ const menu:Array<{page:Page;label:string;icon:string}>=[{page:'skirmish',label:'Skirmish',icon:'i-attack'},{page:'campaign',label:'Campaign',icon:'i-objective'},{page:'tutorials',label:'Field training',icon:'i-flag-checker'},{page:'practice',label:'Practice range',icon:'i-tank'},{page:'network',label:'Multiplayer',icon:'i-users'},{page:'saves',label:'Load operation',icon:'i-download'},{page:'replays',label:'Replay archive',icon:'i-replay'},{page:'editor',label:'Editor',icon:'i-building'},{page:'content',label:'Installed content',icon:'i-building'},{page:'settings',label:'Options',icon:'i-settings'},{page:'help',label:'Help',icon:'i-info'}];
+ export function App({app}:{app:Application}){
+@@ -100,6 +118,7 @@
+  const replay=state.session.kind==='replay',[commandGrid,setCommandGrid]=useState<HTMLDivElement|null>(null),[commandCue,setCommandCue]=useState<HTMLDivElement|null>(null);
+  const commandGridRef=useCallback((node:HTMLDivElement|null)=>{setCommandGrid(node);setReplayHost(replay?node:null)},[replay]);
+  useCommandOverflow(replay?null:commandGrid,commandCue);
++ const [eventRail,setEventRail]=useState<HTMLDivElement|null>(null);useEventRailBottom(eventRail);
+  useEffect(()=>{let canceled=false;setSceneLoading(true);if(host.current)void control.mount(host.current).catch(error=>app.error(error)).finally(()=>{if(!canceled)setSceneLoading(false)});return()=>{canceled=true;control.dispose()}},[control,app]);
+  useEffect(()=>{control.renderer?.updateSettings(state.settings)},[control,state.settings,sceneLoading]);
+  useEffect(()=>{control.renderer?.setRangeMode(rangeMode)},[control,rangeMode,sceneLoading]);
+@@ -113,7 +132,7 @@
+  const sources=snapshot?productionSources(snapshot,catalog):[],producer=sources.find(entity=>entity.id===battle.productionSource);
+  const choices=productionOrder(battle.production.filter(choice=>tabFor(catalog,choice.type)===tab),catalog),availableTabs=[...new Set(sources.flatMap(entity=>productionCategories(entity,catalog,faction)))],sourceTabs=[...new Set(battle.production.map(choice=>tabFor(catalog,choice.type)))];
+  useEffect(()=>{if(sourceTabs.length&&!sourceTabs.includes(tab))setTab(sourceTabs[0])},[sourceTabs.join(','),tab]);
+- const commandKinds=[...new Set(battle.affordances?.entities.flatMap(entity=>entity.commands)??[])].filter(kind=>COMMANDS[kind]);
++ const commandKinds=orderCommands([...new Set(battle.affordances?.entities.flatMap(entity=>entity.commands)??[])].filter(kind=>COMMANDS[kind]));
+  const abilities=[...new Set(battle.affordances?.entities.flatMap(entity=>entity.abilities)??[])];
+  const recent=snapshot?.events.map(event=>({event,style:EVENT_ALERTS[event.kind]?.(event.value,event.text)})).filter(entry=>entry.style).slice(-3)??[];
+  // Placement preview is advisory: a clear preview still says the host confirms on execution.
+@@ -131,7 +150,7 @@
+  <section className="production-queue" aria-label="Production queue"><h3>Production queue <span>{producer?.private?.jobs.length??0}/6</span></h3>{producer?.private?.jobs.length?<div className="queue-items">{producer.private.jobs.map((job,index)=><button key={`${job.type}-${index}`} title={`${catalog.name(job.type)} · ${job.started?`${credits(job.paid)} paid`:'Unpaid waiting job'}${readOnly?'':' · click to cancel'}`} disabled={readOnly||battle.pending} onClick={()=>void control.execute({kind:'cancel',entities:[producer.id],index})}><span>{catalog.name(job.type)}</span><small>{job.started?`${Math.floor(job.work/Math.max(1,job.required)*100)}%`:'WAIT'}</small><i style={{width:`${job.work/Math.max(1,job.required)*100}%`}}/></button>)}</div>:<small className="muted">No queued production</small>}</section>
+  <footer className="strategic-panel"><Icon id="i-missile"/><div><strong>{STRATEGIC[faction].label}</strong><small>{(player?.strategicProgress??-1)<0?'Strategic site required':`${Math.floor(Math.min(1000,player?.strategicProgress??0)/10)}% charged`}</small></div><b>{economy?.tier??1}<small>TECH</small></b></footer></aside>
+  <section className="selection-tray console" aria-label="Selection"><div className="selection-overview">{first?<><Cameo type={first.type} faction={faction} catalog={catalog} color={teamColor}/><div><h2>{selected.length===1?catalog.name(first.type):`${selected.length} units selected`}</h2><div className="health-track"><i style={{width:`${first.health/10}%`}}/></div><small>{first.private?`${Number(first.private.hp)/1000} / ${Number(first.private.maxHp)/1000} HP`:''} {first.rank>0?`· Rank ${first.rank}`:''}</small><ActorStatusDetails key={`${snapshot!.player}:${first.id}`} entity={first} snapshot={snapshot!} catalog={catalog}/><button className="range-mode" disabled={selected.length!==1} aria-label={`Range overlay: ${rangeMode}. Cycle weapon, sight, detection, off.`} title="Select one actor. Weapon reach is a catalog reference to a point target; target size, terrain, ammo and stance still affect attacks. Sight and detection use your current disclosed values." onClick={()=>setRangeMode(RANGE_MODES[(RANGE_MODES.indexOf(rangeMode)+1)%RANGE_MODES.length])}>Range: {rangeMode}</button>{first.private&&<small className="unit-telemetry">{['aircraft','drone','rotor'].includes(catalog.unitClass(first.type))?`Ammo ${first.private.ammo} · Endurance ${formatClock(first.private.endurance)} · Home ${first.private.home||'LOST'}`:first.private.cargo>0n?`Cargo ${credits(first.private.cargo)}`:first.private.charges>0?`Charges ${first.private.charges}`:''}{first.private.passengers.length?` · ${first.private.passengers.length} aboard`:''}{first.private.container?` · Transit ${first.private.container}`:''}</small>}</div></>:<><Emblem faction={faction}/><div><h2 className="awaiting-orders">Awaiting orders</h2><p>Select forces on the battlefield.</p><small>Drag to select · <span className="nowrap">Right-click</span> to command</small></div></>}</div><div className="unit-subgroups">{control.selection.subgroups().map(group=><button key={group.type} onClick={()=>control.select(group.ids)} title={`Select ${catalog.name(group.type)}`}><span>{catalog.name(group.type)}</span><b>{group.ids.length}</b></button>)}</div><div ref={commandGridRef} className={`command-grid ${replay?'replay-command-grid':''}`} role="group" aria-label={replay?'Replay console':'Unit commands; scroll for more actions'}>{commandKinds.map(kind=><button key={kind} title={`${COMMANDS[kind].label}: ${COMMANDS[kind].hint}`} disabled={battle.pending||!!snapshot?.countdown} className={battle.target?.kind===kind?'active':''} onClick={()=>void control.command(kind)}><Icon id={COMMANDS[kind].icon}/><span>{COMMANDS[kind].label}</span>{(()=>{const code=COMMANDS[kind].shortcut?state.settings.bindings.keys[COMMANDS[kind].shortcut!]?.[0]?.code:undefined;return code?<kbd aria-hidden="true">{code.replace(/^(Key|Digit)/,'')}</kbd>:null})()}</button>)}{commandKinds.includes('return')&&<button title="Rebase: choose an owned compatible airfield or drone service building with free slots. Immediate order; cannot be queued." disabled={battle.pending||!!snapshot?.countdown} className={battle.target?.label==='Rebase'?'active':''} onClick={()=>void control.command('rebase')}><Icon id="i-aircraft"/><span>Rebase</span></button>}{abilities.map(type=><button key={type} title={ABILITIES[type]?.hint??type} disabled={battle.pending||!!snapshot?.countdown} className={`ability-key ${battle.target?.kind==='ability'&&battle.target.type===type?'active':''}`} onClick={()=>void control.command('ability',type)}><Icon id="i-energy"/><span>{type==='strategic'?STRATEGIC[faction].label:ABILITIES[type]?.label??type}</span></button>)}</div>{!replay&&<div ref={setCommandCue} className="command-overflow" aria-hidden="true"><span className="more-above"/><span className="more-below"/></div>}</section>
+- <div className="battle-alerts" aria-live="polite">{recent.map(({event,style})=><button key={event.id} className={`battle-alert ${style!.priority}`} onClick={()=>{if(event.position)control.renderer?.center(event.position)}}><Icon id={style!.icon}/>{style!.text}</button>)}</div><MissionObjectives key={state.session.id} app={app} control={control}/>
++ <div ref={setEventRail} className="battle-alerts" aria-live="polite">{recent.map(({event,style})=><button key={event.id} className={`battle-alert ${style!.priority}`} onClick={()=>{if(event.position)control.renderer?.center(event.position)}}><Icon id={style!.icon}/>{style!.text}</button>)}</div><MissionObjectives key={state.session.id} app={app} control={control}/>
+  {battle.strikeReview&&<StrikeReview review={battle.strikeReview} control={control} tick={snapshot?.tick??0}/>}
+  {battle.target&&<div className="targeting-hint" data-verdict={hintVerdict}><Icon id="i-crosshair"/><span className="hint-head"><strong>{battle.target.label}</strong>{battle.target.kind==='build'&&<><span>{credits(catalog.cost(battle.target.type??'')??0)} credits</span><span>{placementPower(catalog.buildings.get(battle.target.type??''),economy)}</span></>}</span><small>{hintReason}</small><button onClick={()=>control.cancel()} aria-keyshortcuts={escapeCode==='Escape'?'Escape':escapeKey}>Cancel{escapeKey&&<kbd aria-hidden="true">{escapeKey}</kbd>}</button></div>}{!!snapshot?.countdown&&<div className="countdown"><span>DEPLOYMENT</span><b>{Math.ceil(snapshot.countdown/20)}</b></div>}
+  {pause&&<Modal title={state.session.kind==='observer'?'Observer controls':state.session.kind==='online'?'Network operation':'Operation paused'} onClose={()=>{setPause(false);if(!['online','observer'].includes(state.session.kind??''))void app.sessions.resume()}}>{state.session.kind==='online'&&<NetworkMatchPanel controller={app.network}/>} {state.session.kind==='observer'&&<NetworkObserverPanel controller={app.network}/>}{state.session.kind==='online'&&<p className="muted">This menu does not pause the other commanders. Shared pause uses the explicit host controls.</p>}<div className="pause-menu"><button className="primary" onClick={()=>{setPause(false);if(!['online','observer'].includes(state.session.kind??''))void app.sessions.resume()}}>{['online','observer'].includes(state.session.kind??'')?'Return to battlefield':'Resume operation'}</button>{state.session.kind!=='replay'&&!['online','observer'].includes(state.session.kind??'')&&<button onClick={()=>void app.save(`${state.session.map?.title??'Operation'} · ${formatClock(snapshot?.tick??0)}`)}>Save operation</button>}<button onClick={()=>setSettings(true)}>Options</button>{!['online','observer'].includes(state.session.kind??'')&&<label>Simulation speed<select value={state.speed} onChange={event=>void app.sessions.setSpeed(Number(event.target.value) as .75|1|1.5).catch(error=>app.error(error))}><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.5">1.5×</option></select></label>}{state.session.kind!=='replay'&&!['online','observer'].includes(state.session.kind??'')&&<button onClick={()=>void app.task('Restarting operation…',async()=>{await app.sessions.restart()})}>Restart operation</button>}{!['online','observer'].includes(state.session.kind??'')&&<button onClick={()=>void app.task('Archiving replay…',async()=>{await app.sessions.archiveReplay(randomUUID(),state.session.map?.title??'Operation');app.patch({notice:'Replay stored in your local archive.'})})}>Archive replay</button>}{(state.session.kind==='solo'||state.session.kind==='practice')&&!snapshot?.outcome?.finished&&<button className="danger" onClick={()=>setSurrender(true)}>Surrender commander…</button>}<button className="danger" onClick={()=>void app.leave()}>{app.editor.state.get().testActive?'Return to editor':'Return to command center'}</button></div>{!['online','observer'].includes(state.session.kind??'')&&<p className="muted">Autosave: {state.autosave??'waiting'}.</p>}</Modal>}
+--- frozen-v3/src/render/battlefield.ts
++++ presentation-v1/src/render/battlefield.ts
+@@ -43,6 +43,8 @@
+ const color=(hex:string)=>parseInt(hex.replace('#',''),16);
+ const clamp=(value:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,value));
+ const MINIMAP_MS=80;
++/** Last-seen tag size in screen px: follows the HUD scale, never below 11px. */
++export const memoryLabelSize=(uiScale:number)=>Math.round(Math.max(11,12*(Number.isFinite(uiScale)?uiScale:1)));
+ 
+ /** Fixed-camera presentation over authorized snapshots; never simulates game rules. */
+ export class BattlefieldRenderer {
+@@ -51,7 +53,7 @@
+  private readonly surfaceShadows=new SurfaceShadows(this.ground);
+  private readonly actorStatuses=new Container();
+  private readonly placementGhost:PlacementGhost;private combat:CombatEffects;private effectsReleased:Promise<void>=Promise.resolve();
+- private readonly memoryLabels:Text[]=[];private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
++ private readonly memoryLabels:Container[]=[];private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
+  private readonly strikePreview=new StrikePreviewOverlay();private readonly tacticalOverlay=new TacticalOverlay();private tacticalModel?:TacticalPresentation;
+  private readonly objectSkins=new Map<string,EnvironmentObjectSkin>();
+  private readonly actors=new Map<number,ActorVisual>();private environment:EnvironmentRenderer;
+@@ -202,7 +204,7 @@
+  async whenEffectsReleased(){await this.effectsReleased}
+  resetFeedback(){this.rejection=undefined;this.feedbackBaseline=true;this.combat.reset();this.surfaceShadows.clear();this.effectEvent=Math.max(0,...(this.snapshot?.events.map(event=>event.id)??[]));this.shake={until:0,strength:0,x:0,y:0};for(const actor of this.actors.values())actor.clearFeedback();for(const death of this.deaths)death.actor.dispose();this.deaths.length=0}
+  setStrikePreview(plan:SkybreakerPlan|undefined,_observedTick?:number){this.strikePreview.set(plan);this.minimapDirty=true}
+- updateSettings(settings:Settings){this.settings=settings;this.minimapDirty=true;if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
++ updateSettings(settings:Settings){const rescale=settings.uiScale!==this.settings.uiScale;this.settings=settings;this.minimapDirty=true;if(rescale&&!this.disposed){this.memoryKey='';this.updateMemories()}if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
+  setSnapshot(snapshot:PlayerSnapshot){
+   if(this.disposed)return;
+   const tacticalReset=!this.snapshot||snapshot.tick<this.snapshot.tick||snapshot.player!==this.snapshot.player;
+@@ -281,7 +283,11 @@
+    if(!snapshot.explored[i])continue;
+    const g=new Graphics(),b=this.options.catalog.buildings.get(physicalArtType(memory)),support=this.surface.footprintSurface(memory.position,memory.footprintWidth||b?.width||2,memory.footprintHeight||b?.height||2),p=projectSurfaceVertex({...memory.position,height:support.height});
+    drawStructure(g,{width:memory.footprintWidth||b?.width||2,height:memory.footprintHeight||b?.height||2,role:b?.role??'garrison',paint:0x514d41,team:0x666353,progress:1000,complete:true,health:1000,enabled:false,memory:true});
+-   const label=new Text({text:memoryCaption(memory.seen,snapshot.tick)!,style:{fontFamily:'Arial,sans-serif',fontSize:10,fontWeight:'600',fill:0xc3b89d,stroke:{color:0x14150f,width:3}}});label.anchor.set(.5,1);label.position.set(0,-48);label.eventMode='none';g.addChild(label);this.memoryLabels.push(label);
++   // Screen-constant LCD tag: amber text on a dark plate, sized by the UI scale
++   // (never below 11px) and rasterised at that size rather than stretched.
++   const label=new Container(),text=new Text({text:memoryCaption(memory.seen,snapshot.tick)!,style:{fontFamily:'Arial,sans-serif',fontSize:memoryLabelSize(this.settings.uiScale),fontWeight:'700',letterSpacing:.5,fill:0xf2b340}}),plate=new Graphics();
++   text.anchor.set(.5,1);text.position.set(0,-2);plate.rect(-text.width/2-5,-text.height-4,text.width+10,text.height+4).fill({color:0x0b0a09,alpha:.86}).stroke({width:1,color:0x6e5528,alignment:1});
++   label.addChild(plate,text);label.position.set(0,-48);label.eventMode=plate.eventMode=text.eventMode='none';g.addChild(label);this.memoryLabels.push(label);
+    g.position.set(p.x,p.y);g.zIndex=memory.position.x+memory.position.y+((memory.footprintWidth||b?.width||2)+(memory.footprintHeight||b?.height||2))*500+.001;this.memories.push(g);this.ground.addChild(g);
+   }
+  }
+--- frozen-v3/src/render/terrain.ts
++++ presentation-v1/src/render/terrain.ts
+@@ -36,19 +36,51 @@
+  * reads: each triangle's tile and neighbour, and every tile touching each vertex.
+  * Vertices at the same ground point share one tile run. Construction Maps, lists
+  * and the `slot` closure live only in this call's scope, so a fragment's runtime
+- * closures capture the returned typed arrays and nothing else from here. */
+-function fogTopology(triangles:readonly SurfaceTriangle[],width:number,height:number){
+- const slotOf=new Map<number,number>(),pointOf=new Map<string,number>(),tileList:number[]=[],pointStart:number[]=[0],pointSlots:number[]=[],vertexPoints:number[]=[];
++ * closures capture the returned typed arrays and nothing else from here.
++ * `fogFanCorners` holds each top triangle's four tile-corner points (NW, NE, SE,
++ * SW), keyed by ground x,y, because a fan's four triangles fall into two depth
++ * fragments; face triangles hold unused zeros. */
++export function fogTopology(triangles:readonly SurfaceTriangle[],width:number,height:number){
++ const slotOf=new Map<number,number>(),pointOf=new Map<string,number>(),tileList:number[]=[],pointStart:number[]=[0],pointSlots:number[]=[],vertexPoints:number[]=[],fanCorners:number[]=[];
+  const slot=(tile:number)=>{let s=slotOf.get(tile);if(s===undefined){s=tileList.length;slotOf.set(tile,s);tileList.push(tile)}return s};
++ const pointAt=(x:number,y:number)=>{
++  const key=`${x},${y}`;let point=pointOf.get(key);
++  if(point===undefined){point=pointStart.length-1;pointOf.set(key,point);for(const tile of pointFogTiles(x,y,width,height))pointSlots.push(slot(tile));pointStart.push(pointSlots.length)}
++  return point;
++ };
+  for(const triangle of triangles){
+   slot(triangle.tile);if(triangle.neighbor!==undefined)slot(triangle.neighbor);
+-  for(const v of triangle.vertices){
+-   const key=`${v.x},${v.y}`;let point=pointOf.get(key);
+-   if(point===undefined){point=pointStart.length-1;pointOf.set(key,point);for(const tile of pointFogTiles(v.x,v.y,width,height))pointSlots.push(slot(tile));pointStart.push(pointSlots.length)}
+-   vertexPoints.push(point);
+-  }
+- }
+- return {fogTiles:Int32Array.from(tileList),fogPoints:indexArray(vertexPoints),fogPointStart:indexArray(pointStart),fogPointSlots:indexArray(pointSlots)};
++  for(const v of triangle.vertices)vertexPoints.push(pointAt(v.x,v.y));
++  if(triangle.kind==='top'){const x=triangle.tile%width,y=Math.floor(triangle.tile/width);for(const [dx,dy] of [[0,0],[1,0],[1,1],[0,1]])fanCorners.push(pointAt((x+dx)*1000,(y+dy)*1000))}
++  else fanCorners.push(0,0,0,0);
++ }
++ return {fogTiles:Int32Array.from(tileList),fogPoints:indexArray(vertexPoints),fogPointStart:indexArray(pointStart),fogPointSlots:indexArray(pointSlots),fogFanCorners:indexArray(fanCorners)};
++}
++export type FogTopology=ReturnType<typeof fogTopology>;
++/** Fan-centre ceiling: half of unknown, so boundary ground stays readable. */
++export const FOG_FAN_CENTRE_CAP=128;
++/** Writes three vertex alphas per triangle into `out` and reports whether any
++ * is non-zero. `opacity[k]` is the current opacity of `fogTiles[k]`.
++ * Explored (175) and unknown (255) triangles keep one constant opacity on all
++ * three vertices. Only visible (0) triangles feather: each corner takes the
++ * darkest tile touching that ground point, and a top fan's centre is raised to
++ * the mean of its tile's four corners, capped at FOG_FAN_CENTRE_CAP. On a
++ * straight boundary that mean makes all four fan triangles coplanar, so no
++ * bright crease runs from the centre to the corners; a centre is never lowered. */
++export function fogVertexAlphas(triangles:readonly SurfaceTriangle[],topology:FogTopology,opacity:ArrayLike<number>,visible:readonly boolean[],explored:readonly boolean[],out:Float32Array):boolean{
++ const {fogPoints,fogPointStart,fogPointSlots,fogFanCorners}=topology;
++ const pointAlpha=(point:number)=>{let alpha=0;for(let s=fogPointStart[point];s<fogPointStart[point+1];s++)alpha=Math.max(alpha,opacity[fogPointSlots[s]]);return alpha};
++ let any=false;
++ for(let i=0;i<triangles.length;i++){
++  const base=surfaceFogOpacity(triangles[i],visible,explored);let centre=0;
++  if(base===0&&triangles[i].kind==='top'){let sum=0;for(let c=0;c<4;c++)sum+=pointAlpha(fogFanCorners[i*4+c]);centre=Math.min(FOG_FAN_CENTRE_CAP,sum/4)}
++  for(let j=0;j<3;j++){
++   let alpha=base;
++   if(base===0){alpha=pointAlpha(fogPoints[i*3+j]);if(j===0)alpha=Math.max(alpha,centre)}
++   out[i*3+j]=alpha;any ||= alpha!==0;
++  }
++ }
++ return any;
+ }
+ /** Fallback painted colours if a material image is missing (never silently blank). */
+ const FLAT:Record<Material,string>={sand:'#b59a6a',packed_earth:'#8f7852',gravel_wash:'#998c72',scrub_ground:'#7c7448',gravel:'#8a8272',rubble_ground:'#6f675c',asphalt:'#4a4843',shallow_water:'#64847b',deep_water:'#305e64',coast_sand:'#cbbb8e',ramp:'#937c59'};
+@@ -169,9 +201,9 @@
+    const bounds:Rect={left:Infinity,top:Infinity,right:-Infinity,bottom:-Infinity};
+    for(let i=0;i<positions.length;i+=2){bounds.left=Math.min(bounds.left,positions[i]+origin.x);bounds.right=Math.max(bounds.right,positions[i]+origin.x);bounds.top=Math.min(bounds.top,positions[i+1]+origin.y);bounds.bottom=Math.max(bounds.bottom,positions[i+1]+origin.y)}
+    // Built once in module scope; only its typed arrays enter this closure scope.
+-   const {fogTiles,fogPoints,fogPointStart,fogPointSlots}=fogTopology(triangles,this.map.width,this.map.height);
++   const topology=fogTopology(triangles,this.map.width,this.map.height),{fogTiles}=topology;
+    // Opacity of each fog tile at the last recompute; 1 is never a tile opacity.
+-   const lastOpacity=new Uint8Array(fogTiles.length).fill(1);
++   const lastOpacity=new Uint8Array(fogTiles.length).fill(1),alphas=new Float32Array(triangles.length*3);
+    let shown=true,fogNeeded=true;
+    const setFog=(visible:readonly boolean[],explored:readonly boolean[])=>{
+     // Read the CURRENT value of every dependency, never array identity or tick.
+@@ -184,17 +216,13 @@
+     // all three vertices, so no sample can differ from before: antialiased MSAA
+     // evaluates Pixi's non-centroid vUV at the pixel centre, which may lie outside
+     // the triangle, and a varying vUV would then extrapolate below every vertex.
+-    // Only visible (0) triangles feather, each vertex taking the darkest tile
+-    // touching that ground point; any extrapolation below 0 clamps to texel 0.
+-    // The explored/unknown boundary therefore stays hard, while fog softens only
+-    // into currently visible ground, and all-clear triangles stay exactly clear.
++    // Only visible (0) triangles feather (see fogVertexAlphas); any extrapolation
++    // below 0 clamps to texel 0. The explored/unknown boundary therefore stays
++    // hard, while fog softens only into currently visible ground, and all-clear
++    // triangles stay exactly clear.
+     // lastOpacity now holds this call's opacity for every tile read below.
+-    let any=false;
+-    for(let i=0;i<triangles.length;i++){const base=surfaceFogOpacity(triangles[i],visible,explored);for(let j=0;j<3;j++){
+-     let alpha=base;
+-     if(base===0){const point=fogPoints[i*3+j];alpha=0;for(let s=fogPointStart[point];s<fogPointStart[point+1];s++)alpha=Math.max(alpha,lastOpacity[fogPointSlots[s]])}
+-     any ||= alpha!==0;fogUVs[i*6+j*2]=alpha===0?0:(alpha+.75)/256;fogUVs[i*6+j*2+1]=.5;
+-    }}
++    const any=fogVertexAlphas(triangles,topology,lastOpacity,visible,explored,alphas);
++    for(let v=0;v<alphas.length;v++){const alpha=alphas[v];fogUVs[v*2]=alpha===0?0:(alpha+.75)/256;fogUVs[v*2+1]=.5}
+     fogNeeded=any;fog.visible=shown&&any;fogGeometry.attributes.aUV.buffer.update();
+    };
+    setFog([],[]);
+--- frozen-v3/src/styles/game.css
++++ presentation-v1/src/styles/game.css
+@@ -500,11 +500,12 @@
+ .battlefield-screen .targeting-hint[data-verdict=pending]>small{color:#e8c27a}
+ .battlefield-screen .targeting-hint[data-verdict=blocked]{border-left-color:#d7865e}
+ .battlefield-screen .targeting-hint[data-verdict=blocked]>small{color:#f0b49a}
+-/* While targeting, captions take the column beside the card: 20px past its widest
+-   extent, 24px before the sidebar, sharing its baseline above the tray, so the
+-   middle of the field (where the placement ghost sits) stays clear. Full text wraps. */
+-body:has(.targeting-hint) .audio-captions{left:calc(44px + var(--fc-targeting-hint-span));right:calc(var(--fc-hud-sidebar-w) + 24px);bottom:calc(var(--fc-hud-tray-h) + 14px);width:auto;max-width:none;transform:none}
+-body:has(.targeting-hint) .audio-captions p{overflow-wrap:break-word}
++/* While targeting, captions join the upper-left event rail directly beneath the
++   live alerts (App publishes the rail's lower edge), so neither the placement card,
++   the ghost nor the bottom battlefield band is covered and no alert is overlapped.
++   Full text wraps; every caption stays. Position switches instantly (no motion). */
++body:has(.targeting-hint) .audio-captions{left:18px;top:calc(var(--fc-event-rail-bottom,20px) + 6px);right:auto;bottom:auto;width:min(calc(330px * var(--fc-ui-scale)),calc(100vw - var(--fc-hud-sidebar-w) - 36px));max-width:none;transform:none;transition:none}
++body:has(.targeting-hint) .audio-captions p{overflow-wrap:break-word;text-align:left;padding:5px 10px;font-size:calc(14px * var(--fc-ui-scale));border-left-width:4px;background:linear-gradient(90deg,rgba(20,19,16,.95),rgba(20,19,16,.84))}
+ 
+ /* Command well overflow: brass tabs in the tray's right margin count keys hidden
+    above or below the actual scroll position. Static; never animated or flashing. */
+@@ -515,3 +516,26 @@
+ .battlefield-screen .command-overflow>.more-above::before,.battlefield-screen .command-overflow>.more-below::after{content:'';width:0;height:0;border:5px solid transparent}
+ .battlefield-screen .command-overflow>.more-above::before{border-top:0;border-bottom-color:currentColor}
+ .battlefield-screen .command-overflow>.more-below::after{border-bottom:0;border-top-color:currentColor}
++
++/* ==========================================================================
++   Presentation polish v1 (Claude, claude-opus-5-5). Refinement of the warm
++   console only: v24 review findings F2-F4 (F1 terrain, F5 world label and the
++   F6 caption rail live in terrain.ts, battlefield.ts and the rule above).
++   ========================================================================== */
++/* F2: the lower tab spells MORE beside its count, read down the tab, so a still
++   frame says "more commands below", not a stray number. A brass rule under the
++   last visible row repeats the cue. Static; nothing animates. */
++.battlefield-screen .command-overflow>.more-below::before{content:'MORE\00a0' attr(data-count);writing-mode:vertical-rl;letter-spacing:.06em;font-size:calc(11px * var(--fc-ui-scale))}
++.battlefield-screen .command-grid:is([data-overflow=below],[data-overflow=both]){box-shadow:inset 0 -2px 0 var(--brass),inset 0 3px 6px #000,inset 0 0 0 1px #000,0 1px 0 var(--metal-hi)}
++
++/* F3: columns leave at least 8px beside the longest single words (SKYBREAKER,
++   COORDINATED) at every UI scale, and a word never breaks mid-letter. */
++.battlefield-screen .command-grid{grid-template-columns:repeat(auto-fill,minmax(calc(88px * var(--fc-ui-scale)),1fr))}
++.battlefield-screen .command-grid button>span{overflow-wrap:normal;word-break:normal;hyphens:manual}
++.battlefield-screen .command-grid button.ability-key{padding-inline:6px 2px;font-size:calc(11px * var(--fc-ui-scale))}
++
++/* F4: a locked or waiting tile keeps one name line and puts its state strip in the
++   second caption line, so the portrait is covered no more than a ready tile's.
++   The full name and reason remain in the accessible name and the tooltip. */
++.battlefield-screen .production-cameo:has(>.disabled-reason){--fc-cameo-caption-h:calc(14px * var(--fc-ui-scale) + 5px)}
++.battlefield-screen .production-cameo:has(>.disabled-reason) .cameo-name{-webkit-line-clamp:1;line-clamp:1}
+--- frozen-v3/tests/runtime/presentation-polish.test.ts
++++ presentation-v1/tests/runtime/presentation-polish.test.ts
+@@ -0,0 +1,112 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {TerrainSurface,surfaceFogOpacity,type SurfaceTriangle} from '../../src/render/terrain-surface';
++import {fogTopology,fogVertexAlphas,FOG_FAN_CENTRE_CAP} from '../../src/render/terrain';
++import {memoryLabelSize} from '../../src/render/battlefield';
++
++type Tile={terrain:string;height:number};
++const map=(width:number,height:number,tile:(x:number,y:number)=>Tile=()=>({terrain:'open',height:0}))=>({width,height,tiles:Array.from({length:width*height},(_,i)=>tile(i%width,Math.floor(i/width)))});
++const opacity=(tile:number,visible:readonly boolean[],explored:readonly boolean[])=>visible[tile]?0:explored[tile]?175:255;
++/** Front-facing triangles split into the same depth/kind fragments the baker draws. */
++function fragments(surface:TerrainSurface){
++ const groups=new Map<string,SurfaceTriangle[]>();
++ for(const t of surface.triangles()){if(!t.frontFacing)continue;const key=`${t.depth.toFixed(6)}:${t.kind}`;const g=groups.get(key)??[];g.push(t);groups.set(key,g)}
++ return [...groups.values()];
++}
++/** Production path for one fragment: topology, then current tile opacities per slot. */
++function alphas(triangles:readonly SurfaceTriangle[],width:number,height:number,visible:boolean[],explored:boolean[]){
++ const topology=fogTopology(triangles,width,height),tiles=Array.from(topology.fogTiles,tile=>opacity(tile,visible,explored)),out=new Float32Array(triangles.length*3);
++ const any=fogVertexAlphas(triangles,topology,tiles,visible,explored,out);
++ return {out,any,topology};
++}
++/** Pre-change reference: every vertex takes the darkest in-map tile touching its ground point. */
++function legacy(triangle:SurfaceTriangle,width:number,height:number,visible:boolean[],explored:boolean[]){
++ const base=surfaceFogOpacity(triangle,visible,explored);if(base!==0)return triangle.vertices.map(()=>base);
++ return triangle.vertices.map(v=>{let alpha=0;for(const tile of pointTiles(v.x,v.y,width,height))alpha=Math.max(alpha,opacity(tile,visible,explored));return alpha});
++}
++function pointTiles(x:number,y:number,width:number,height:number){
++ const tx=x/1000,ty=y/1000,x0=Math.max(0,Number.isInteger(tx)?tx-1:Math.floor(tx)),x1=Math.min(width-1,Math.floor(tx)),y0=Math.max(0,Number.isInteger(ty)?ty-1:Math.floor(ty)),y1=Math.min(height-1,Math.floor(ty)),out:number[]=[];
++ for(let j=y0;j<=y1;j++)for(let i=x0;i<=x1;i++)out.push(j*width+i);
++ return out;
++}
++/** Every fragment's alphas keyed by triangle id. */
++function alphasById(surface:TerrainSurface,visible:boolean[],explored:boolean[]){
++ const byId=new Map<string,{triangle:SurfaceTriangle;alpha:number[]}>();
++ for(const group of fragments(surface)){const {out}=alphas(group,surface.width,surface.height,visible,explored);group.forEach((t,i)=>byId.set(t.id,{triangle:t,alpha:[out[i*3],out[i*3+1],out[i*3+2]]}))}
++ return byId;
++}
++/** Fan planes of one tile, alpha as a function of ground x,y: all 12 vertices on triangle 0's plane. */
++function assertCoplanarFan(byId:ReturnType<typeof alphasById>,tile:number){
++ const fan=[0,1,2,3].map(i=>byId.get(`t${tile}.${i}`)!);
++ const [a,b,c]=fan[0].triangle.vertices.map((v,j)=>({x:v.x/1000,y:v.y/1000,z:fan[0].alpha[j]}));
++ const ux=b.x-a.x,uy=b.y-a.y,uz=b.z-a.z,vx=c.x-a.x,vy=c.y-a.y,vz=c.z-a.z,nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;
++ for(const {triangle,alpha} of fan)triangle.vertices.forEach((v,j)=>{
++  const plane=a.z-(nx*(v.x/1000-a.x)+ny*(v.y/1000-a.y))/nz;
++  assert(Math.abs(alpha[j]-plane)<=1,`${triangle.id} vertex ${j}: ${alpha[j]} is off the fan plane ${plane} by more than 1/255`);
++ });
++}
++const lcg=(seed:number)=>()=>(seed=(seed*1103515245+12345)%2147483648)/2147483648;
++
++test('F1 straight fog edges make each boundary fan coplanar, removing the centre-to-corner crease',()=>{
++ const w=8,h=8,surface=new TerrainSurface(map(w,h));
++ for(const hidden of ['unknown','remembered'] as const){
++  const visible=Array.from({length:w*h},(_,i)=>Math.floor(i/w)>=3),explored=visible.map(v=>v||hidden==='remembered'),byId=alphasById(surface,visible,explored);
++  const edge=hidden==='unknown'?255:175;
++  for(let x=1;x<w-1;x++){
++   const tile=3*w+x;assertCoplanarFan(byId,tile);
++   assert.equal(byId.get(`t${tile}.0`)!.alpha[0],edge/2,'centre = mean of (edge,edge,0,0)');
++  }
++  // A vertical straight edge is coplanar too.
++  const vVisible=Array.from({length:w*h},(_,i)=>i%w>=3),vById=alphasById(surface,vVisible,vVisible.map(v=>v||hidden==='remembered'));
++  for(let y=1;y<h-1;y++)assertCoplanarFan(vById,y*w+3);
++ }
++});
++
++test('F1 fully visible interiors stay exactly clear and an all-visible fragment needs no fog',()=>{
++ const w=9,h=9,surface=new TerrainSurface(map(w,h));
++ const visible=Array.from({length:w*h},(_,i)=>{const x=i%w,y=Math.floor(i/w);return x>=2&&x<=6&&y>=2&&y<=6}),explored=[...visible],byId=alphasById(surface,visible,explored);
++ for(let y=3;y<=5;y++)for(let x=3;x<=5;x++)for(let i=0;i<4;i++)assert.deepEqual(byId.get(`t${y*w+x}.${i}`)!.alpha,[0,0,0],`tile ${x},${y} has all nine surrounding tiles visible`);
++ const all=Array(w*h).fill(true);for(const group of fragments(surface))assert.equal(alphas(group,w,h,all,all).any,false);
++});
++
++test('F1 unknown/remembered vertices are unchanged, visible vertices never drop, and only fan centres rise (capped)',()=>{
++ // Heights and cliffs add edge-face triangles; a pseudo-random public view mixes all three states.
++ const w=14,h=12,rand=lcg(7),m=map(w,h,(x,y)=>({terrain:(x*7+y*3)%11===0?'cliff':'open',height:(x>6&&y>4)?2:(x+y)%9===0?1:0})),surface=new TerrainSurface(m);
++ for(let round=0;round<6;round++){
++  const visible=Array.from({length:w*h},()=>rand()<.45),explored=visible.map(v=>v||rand()<.5),byId=alphasById(surface,visible,explored);
++  let raised=0;
++  for(const {triangle,alpha} of byId.values()){
++   const before=legacy(triangle,w,h,visible,explored),base=surfaceFogOpacity(triangle,visible,explored);
++   if(base!==0){assert.deepEqual(alpha,before,`${triangle.id}: ${base} triangle changed`);assert(alpha.every(a=>a===base));continue}
++   alpha.forEach((a,j)=>assert(a>=before[j],`${triangle.id} vertex ${j} reduced ${before[j]} -> ${a}`));
++   if(triangle.kind==='face'){assert.deepEqual(alpha,before,`${triangle.id}: face fog changed`);continue}
++   assert.deepEqual(alpha.slice(1),before.slice(1),`${triangle.id}: corner changed`);
++   assert(alpha[0]<=Math.max(before[0],FOG_FAN_CENTRE_CAP));if(alpha[0]>before[0])raised++;
++  }
++  assert(raised>0,'the fixture exercises raised centres');
++ }
++});
++
++test('F1 a lone visible tile becomes a flat capped patch, identical across depth fragments',()=>{
++ const w=7,h=7,surface=new TerrainSurface(map(w,h)),tile=3*w+3,visible=Array.from({length:w*h},(_,i)=>i===tile),explored=[...visible];
++ const byId=alphasById(surface,visible,explored);
++ // Fan triangles 0/3 and 1/2 fall into different depth fragments; each reads all four corners.
++ assert.notEqual(byId.get(`t${tile}.0`)!.triangle.depth,byId.get(`t${tile}.1`)!.triangle.depth);
++ for(let i=0;i<4;i++)assert.deepEqual(byId.get(`t${tile}.${i}`)!.alpha,[FOG_FAN_CENTRE_CAP,255,255]);
++});
++
++test('F1 topology reads every tile the far corners touch, so changed-tile memoization sees them; geometry untouched',()=>{
++ const w=6,h=6,surface=new TerrainSurface(map(w,h,(x,y)=>({terrain:'open',height:x>2?1:0}))),tile=2*w+2,triangle=surface.topTriangles(tile)[0],before=structuredClone(triangle);
++ const topology=fogTopology([triangle],w,h),tiles=new Set(topology.fogTiles);
++ for(const [dx,dy] of [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]])assert(tiles.has(tile+dy*w+dx),`tile ${dx},${dy} missing from the fog dependency set`);
++ assert.deepEqual(triangle,before);
++ // Only the diagonal (3,3) changes: the NW-NE triangle's centre must follow it.
++ const visible=Array(w*h).fill(true),explored=[...visible];
++ const clear=alphas([triangle],w,h,visible,explored).out[0];visible[3*w+3]=false;
++ assert.equal(clear,0);assert.equal(alphas([triangle],w,h,visible,explored).out[0],255/4);
++});
++
++test('F5 last-seen tag follows the UI scale and never falls below 11px',()=>{
++ assert.equal(memoryLabelSize(.85),11);assert.equal(memoryLabelSize(1),12);assert.equal(memoryLabelSize(1.5),18);assert.equal(memoryLabelSize(Number.NaN),12);
++ for(let s=.85;s<=1.5;s+=.05)assert(memoryLabelSize(s)>=11);
++});

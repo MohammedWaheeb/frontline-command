@@ -1,0 +1,21 @@
+# Fallback v1 lifecycle and input review
+
+Read-only review of `work/presentation-fallback-v1/source/client`, with all249 locked files independently verified unchanged. `fallback-v1-review.json` pins the lock and reviewed App/CSS. No browser or production edits were made for this review. Root's successor v2 restores the first finding; this document preserves the original v1 facts.
+
+## Actionable findings
+
+1. **Unrelated CSS tail was removed.** Replacing the caption block deleted original command-overflow positioning/count styling, the MORE/brass F2 cue, F3 wider88px command columns and word-wrap rules, and F4 waiting-cameo caption rules. Those should be restored verbatim. Root confirmed the preparation mistake and restored the exact3,237-byte tail in a separate v2, leaving v1 immutable.
+
+2. **The common caption flow is conditional.** Only `body:has(.targeting-hint) .battle-information.active .audio-captions` becomes static. On the ordinary third-target→strike-review transition, `reviewStrike()` clears targeting, so captions return to viewport-fixed bottom styling while mission/strike content stays in the left column. The claimed shared-flow invariant therefore does not hold in that reachable state. Either keep captions in flow whenever the information column is active, or demonstrate that the actual alternative remains nonoverlapping across ordinary transitions. The exact overlap needs native layout evidence; source inspection does not establish its pixel dimensions.
+
+3. **React portal ancestry bypasses the scroll host's synthetic key handler.** `MissionObjectives` and alerts are portaled from `Battlefield`; their React event ancestry does not include the sibling `.battle-information-scroll` component's `onKeyDown`. When a portaled mission/alert button receives Arrow/Home/End, the window BattleController handler can therefore act instead of leaving those keys to the scroll region. `resolveShortcut` excludes text-entry controls and native button Enter/Space, but does not exclude button arrows. `StrikeReview` has its own stop-propagation guard already. A native capture listener on the stable scroll DOM element (with matching cleanup), or a same-tree portal wrapper handler, can cover all descendants. The regression should focus a mission control in an overflowed column, press navigation keys, and verify scroll without camera/order changes. This is a source-based routing finding; no new browser reproduction is claimed.
+
+4. **Portaled alerts lose their authored/scaled selectors.** The new alerts DOM is outside `.battlefield-screen`, while game.css220–225 still scopes the authored14px×scale font and success/info/warning/critical colors to that ancestor. Alerts fall back to the old global13px styling. Extend those selectors to the active information host as already done for mission/targeting. This preserves existing warning presentation, not a request for a redesign.
+
+## Lifetime and privacy assessment
+
+The persistent caption component remains at the same unkeyed App child position with the same stable host hierarchy. Toggling the active class, entering/leaving a session, or setting/clearing targeting does not change its component type or remount it. The three callback refs use stable state setters and their DOM hosts remain mounted. The keyed Battlefield owns the portaled alerts/objectives/review/target children; its unmount removes them while its existing controller cleanup cancels commands/listeners/renderer work. No new observer, timer, async asset load or borrowed texture ownership is introduced, and the old ResizeObserver/global style mutation hook is removed.
+
+The existing authorized snapshot/controller data is merely reparented; no additional hidden state is read. The region remains bounded above the command tray and separates target controls from the scrolling information portion. Native tests still need to verify exact caption DOM identity across menu/session/target/review transitions, full keyboard/wheel reachability, pointer access to uncovered battlefield, target cancel and review controls, text readability and overlay/modal stacking at the required resolutions/scales.
+
+The React best-practices skill informed this bounded lifecycle/listener review. No dependency, state-management redesign or speculative performance change is recommended.
