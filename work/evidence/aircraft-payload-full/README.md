@@ -1,5 +1,23 @@
 # Full-art aircraft payload course — authoring handoff
 
+## 2026-09-29 adapter-delivery correction
+
+`chromium-01` and `chromium-02` are preserved **failed** browser attempts. The first last-shot boundary had identical authoritative state/hash but a wire mismatch: raw `Engine.PlayerView` retained the tick's shot event, whereas `Session.Load`/`SeekReplay` initialize an empty pending-feedback buffer. `Session.View` emits and drains that buffer. A perspective change is another View; pause alone does not drain it. This is an oracle mismatch, not evidence of a production or payload-art defect.
+
+`adapter-oracle-01` is a new isolated 358-file source: the exact original 357-file course source plus one `cmd/wasm` test. Source-lock SHA-256: `5b9a9eccdcc40645882b2f1fa82e2369c44c4e49da34d02a1361580fbe02aaee`. Native receipt SHA-256: `10e9427176941454d6665827a5f72aed67bf8231bbb711664008c78b139c90ac`. One serial GOMAXPROCS=1 native fixture passed 84 actual Session delivery records: 40 Load/View, 40 Seek/View and four last-shot continuations. Shared-host timings are not performance evidence. Original source, course views, saves and replays were verified unchanged.
+
+The revised fixture compares full protobuf bytes with these native adapter outputs, without removing any JS fields. Static boundaries verify actual load/seek delivery and state hash; restored live saves also retain exact original save bytes. Final-shot presentation separately uses the original real replay: seek to shot tick minus one, choose the owner/foreign perspective, execute ordinary Step(1), then compare the resulting full current-event frame. It makes no post-Step perspective call. The same four native continuations equal the original raw Engine view including the genuine shot and explicitly prove feedback drains only once. No shot is injected.
+
+The 80 visual boundaries now comprise 72 static loaded perspectives and eight real replay-continuation shot perspectives (two types, two qualities). The independent full replay comparison still checks 80 seek-delivery perspectives. This remains prepared-infrastructure component evidence, not App input or paid-opening proof. The short cosmetic cue restart after image decoding is unchanged and may use only the current authorized replay event.
+
+`typecheck-02` and `build-only-04` pass. No browser/host was launched for this correction. **The corrected browser course remains unrun.** Use a new output directory and add:
+
+```sh
+--oracle work/evidence/aircraft-payload-full/adapter-oracle-01
+```
+
+`adapter_oracle_test.go` and `prepare-adapter-oracle.py` preserve the exact reproducible preparation. `adapter-oracle-evidence.tar.gz` is compact native oracle evidence; the original local saves/replays are still required to execute. Earlier authoring notes and their historical pending status remain below.
+
 2026-09-29: native fixture and strict fixture TypeScript **PASS**; final browser build-only check **PASS**. **Browser execution and visual acceptance remain pending.** Root owns serial browser execution. No production Go, renderer, UI or asset changes belong to this course.
 
 ## Frozen inputs

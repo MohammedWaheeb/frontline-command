@@ -2,7 +2,7 @@
  * ammunition, owner, visibility or asset mutation. Browser qualification is
  * earned only when the separately owned runner executes this course. */
 import {Application,Container} from 'pixi.js';
-import {fromJson,toBinary} from '@bufbuild/protobuf';
+import {fromJson,toBinary,toJson} from '@bufbuild/protobuf';
 import {PlayerSnapshotSchema} from '../../src/protocol/frontline_pb';
 import {OfflineTransport} from '../../src/runtime/offline';
 import {ArtLibrary,type SpriteSheet} from '../../src/render/art';
@@ -39,20 +39,32 @@ async function prepare(type:string,next:Quality){
  renderer=await BattlefieldRenderer.create(field,{map,catalog,art,settings:{...DEFAULT_SETTINGS,artQuality:quality,screenShake:0},onGesture:()=>{},onError:e=>errors.push(e.message)});
  (renderer as any).app.stop();
 }
-async function exact(point:Point,who:'owned'|'foreign',save?:Uint8Array){
+async function exact(point:Point,who:'owned'|'foreign',mode:'load'|'seek'|'continuation'='load',save?:Uint8Array){
  const snapshot=runtime.current!;check(snapshot.tick===point.tick,'Wrong WASM boundary tick');
  check(await runtime.hash()===point.hash,'Native/WASM state hash differs');
- const expected=fromJson(PlayerSnapshotSchema,point[who]);
- check(await sha(toBinary(PlayerSnapshotSchema,snapshot))===await sha(toBinary(PlayerSnapshotSchema,expected)),'Native/WASM authorized wire differs');
+ const delivery=plan.oracles[sceneType][mode][point.stage][who];
+ const expected=fromJson(PlayerSnapshotSchema,delivery.view);
+ check(await sha(toBinary(PlayerSnapshotSchema,expected))===delivery.wire_sha256,'Native delivery oracle bytes changed');
+ const actualSHA=await sha(toBinary(PlayerSnapshotSchema,snapshot)),expectedSHA=await sha(toBinary(PlayerSnapshotSchema,expected));
+ if(actualSHA!==expectedSHA){(window as any).payloadWireMismatch={mode,stage:point.stage,tick:point.tick,who,actualSHA,expectedSHA,actual:toJson(PlayerSnapshotSchema,snapshot),expected:toJson(PlayerSnapshotSchema,expected)};throw Error('Native/WASM authorized wire differs')}
  const entity=snapshot.entities.find(e=>e.id===point.actor);check(entity,'Aircraft not currently visible');
  if(who==='foreign')check(!entity.private,'Foreign private payload leaked');else check(!!entity.private,'Owner private payload absent');
  if(save){const current=await runtime.save();check(await sha(current.data)===await sha(save),'Restored save bytes differ')}
  return snapshot;
 }
 async function load(type:string,index:number,who:'owned'|'foreign'){
- const point=plan.courses[type][index] as Point,save=await get(`/native/${type}/${point.stage}.save.json`);
+ const point=plan.courses[type][index] as Point;
+ if(point.stage==='02-final-round'){
+  // Actual replay execution earns the shot at this tick. Loading/seek installs
+  // no historical feedback; choose the perspective BEFORE the ordinary Step.
+  await runtime.loadReplay(await get(`/native/${type}/course.fcr`));await runtime.pause();
+  await runtime.seekReplay(point.tick-1);await runtime.setPerspective(who==='owned'?1:2);
+  await runtime.step(1);
+  return {point,snapshot:await exact(point,who,'continuation')};
+ }
+ const save=await get(`/native/${type}/${point.stage}.save.json`);
  await runtime.load(save,[1,2]);await runtime.pause();await runtime.setPerspective(who==='owned'?1:2);
- return {point,snapshot:await exact(point,who,save)};
+ return {point,snapshot:await exact(point,who,'load',save)};
 }
 async function painted(target:ActorVisual,pixi:any,at:number){
  const internal=target as any,sheet=internal.sheet as SpriteSheet;check(sheet&&!target.standIn&&!target.missingArt&&!target.missingPayloadArt,'Required aircraft art is incomplete');
@@ -89,7 +101,7 @@ const qa={
  },
  async replay(type:string){
   await runtime.loadReplay(await get(`/native/${type}/course.fcr`));await runtime.pause();const records=[];
-  for(const point of plan.courses[type] as Point[]){await runtime.seekReplay(point.tick);for(const who of ['owned','foreign'] as const){await runtime.setPerspective(who==='owned'?1:2);await exact(point,who);records.push({stage:point.stage,tick:point.tick,viewer:runtime.current!.player,hash:await runtime.hash()})}}
+  for(const point of plan.courses[type] as Point[]){await runtime.seekReplay(point.tick);for(const who of ['owned','foreign'] as const){await runtime.setPerspective(who==='owned'?1:2);await exact(point,who,'seek');records.push({stage:point.stage,tick:point.tick,viewer:runtime.current!.player,hash:await runtime.hash()})}}
   return records;
  },
  async cull(){
