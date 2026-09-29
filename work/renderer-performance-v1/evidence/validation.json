@@ -1,0 +1,1134 @@
+{
+  "status": "PASS",
+  "scope": "Source-pinned Node exact-output and allocation/admission math; no browser, GPU, heap, FPS or benchmark measurement.",
+  "sourceFiles": 137,
+  "sourceLockSHA256": "ea0ad3fbe3d071228be79290431aaef90da2616de8a5ea6568e85a9cd50edf53",
+  "candidateDelta": [
+    "client/src/render/terrain.ts"
+  ],
+  "exactColorSamples": 300,
+  "callerMutationSamples": 300,
+  "exactRGBABytes": 299008,
+  "images": [
+    {
+      "size": 96,
+      "bytes": 36864,
+      "sha256": "69de97efa759c54d796e96a3ff5812011763f29e005b5dfd01e95b8c5ab8cf48",
+      "equal": true
+    },
+    {
+      "size": 256,
+      "bytes": 262144,
+      "sha256": "facbca6fb496432c0d36fd24a2ee27cb15062ea40e513a7b768f633097934b10",
+      "equal": true
+    }
+  ],
+  "typecheck": {
+    "exitCode": 0
+  },
+  "chunk": {
+    "width": 1028,
+    "height": 556,
+    "bytes": 2286272,
+    "bakerResolution": 1,
+    "sourceAdmissionMethodSHA256": "ed8c985a963aa2590cefcde614489b4d54d3d1efcda86e0c1be7f2b57ee6f0cb"
+  },
+  "flatChunk": {
+    "triangles": 1024,
+    "fragments": 62,
+    "attachedGroundAndFogMeshes": 124,
+    "geometryTypedArrayBytes": 122880,
+    "fogTopologyTypedArrayBytes": 43720,
+    "fogDependencyChecksPerSnapshot": 2808,
+    "note": "Exact flat interior chunk. No cliffs, actor/shadow nodes, JavaScript object memory or GPU driver overhead counted."
+  },
+  "rows": [
+    {
+      "size": 96,
+      "width": 960,
+      "height": 720,
+      "zoom": 0.45,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 960,
+      "height": 720,
+      "zoom": 1,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 960,
+      "height": 720,
+      "zoom": 1.8,
+      "centered": {
+        "count": 16,
+        "frames": 8,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 36580352
+      },
+      "witnessedMaximum": {
+        "chunks": 16,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 36580352
+      }
+    },
+    {
+      "size": 96,
+      "width": 1280,
+      "height": 720,
+      "zoom": 0.45,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 1280,
+      "height": 720,
+      "zoom": 1,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 1280,
+      "height": 720,
+      "zoom": 1.8,
+      "centered": {
+        "count": 16,
+        "frames": 8,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 36580352
+      },
+      "witnessedMaximum": {
+        "chunks": 25,
+        "cameraTiles": [
+          55.5,
+          55.5
+        ],
+        "nominalRGBABytes": 57156800
+      }
+    },
+    {
+      "size": 96,
+      "width": 1600,
+      "height": 900,
+      "zoom": 0.45,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 1600,
+      "height": 900,
+      "zoom": 1,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 1600,
+      "height": 900,
+      "zoom": 1.8,
+      "centered": {
+        "count": 16,
+        "frames": 8,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 36580352
+      },
+      "witnessedMaximum": {
+        "chunks": 25,
+        "cameraTiles": [
+          52.5,
+          52.5
+        ],
+        "nominalRGBABytes": 57156800
+      }
+    },
+    {
+      "size": 96,
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.45,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.8,
+      "centered": {
+        "count": 16,
+        "frames": 8,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 36580352
+      },
+      "witnessedMaximum": {
+        "chunks": 25,
+        "cameraTiles": [
+          49.5,
+          49.5
+        ],
+        "nominalRGBABytes": 57156800
+      }
+    },
+    {
+      "size": 96,
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.45,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.8,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 3840,
+      "height": 2160,
+      "zoom": 0.45,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 3840,
+      "height": 2160,
+      "zoom": 1,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "width": 3840,
+      "height": 2160,
+      "zoom": 1.8,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 256,
+      "width": 960,
+      "height": 720,
+      "zoom": 0.45,
+      "centered": {
+        "count": 144,
+        "frames": 72,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 329223168
+      },
+      "witnessedMaximum": {
+        "chunks": 169,
+        "cameraTiles": [
+          131,
+          131
+        ],
+        "nominalRGBABytes": 386379968
+      }
+    },
+    {
+      "size": 256,
+      "width": 960,
+      "height": 720,
+      "zoom": 1,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 49,
+        "cameraTiles": [
+          134.5,
+          134.5
+        ],
+        "nominalRGBABytes": 112027328
+      }
+    },
+    {
+      "size": 256,
+      "width": 960,
+      "height": 720,
+      "zoom": 1.8,
+      "centered": {
+        "count": 16,
+        "frames": 8,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 36580352
+      },
+      "witnessedMaximum": {
+        "chunks": 16,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 36580352
+      }
+    },
+    {
+      "size": 256,
+      "width": 1280,
+      "height": 720,
+      "zoom": 0.45,
+      "centered": {
+        "count": 196,
+        "frames": 98,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 448109312
+      },
+      "witnessedMaximum": {
+        "chunks": 196,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 448109312
+      }
+    },
+    {
+      "size": 256,
+      "width": 1280,
+      "height": 720,
+      "zoom": 1,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 49,
+        "cameraTiles": [
+          132,
+          132
+        ],
+        "nominalRGBABytes": 112027328
+      }
+    },
+    {
+      "size": 256,
+      "width": 1280,
+      "height": 720,
+      "zoom": 1.8,
+      "centered": {
+        "count": 16,
+        "frames": 8,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 36580352
+      },
+      "witnessedMaximum": {
+        "chunks": 25,
+        "cameraTiles": [
+          135.5,
+          135.5
+        ],
+        "nominalRGBABytes": 57156800
+      }
+    },
+    {
+      "size": 256,
+      "width": 1600,
+      "height": 900,
+      "zoom": 0.45,
+      "centered": {
+        "count": 196,
+        "frames": 98,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 448109312
+      },
+      "witnessedMaximum": {
+        "chunks": 225,
+        "cameraTiles": [
+          130,
+          130
+        ],
+        "nominalRGBABytes": 514411200
+      }
+    },
+    {
+      "size": 256,
+      "width": 1600,
+      "height": 900,
+      "zoom": 1,
+      "centered": {
+        "count": 64,
+        "frames": 32,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 146321408
+      },
+      "witnessedMaximum": {
+        "chunks": 64,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 146321408
+      }
+    },
+    {
+      "size": 256,
+      "width": 1600,
+      "height": 900,
+      "zoom": 1.8,
+      "centered": {
+        "count": 16,
+        "frames": 8,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 36580352
+      },
+      "witnessedMaximum": {
+        "chunks": 25,
+        "cameraTiles": [
+          132.5,
+          132.5
+        ],
+        "nominalRGBABytes": 57156800
+      }
+    },
+    {
+      "size": 256,
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.45,
+      "centered": {
+        "count": 256,
+        "frames": 128,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 585285632
+      },
+      "witnessedMaximum": {
+        "chunks": 256,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 585285632
+      }
+    },
+    {
+      "size": 256,
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "centered": {
+        "count": 64,
+        "frames": 32,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 146321408
+      },
+      "witnessedMaximum": {
+        "chunks": 64,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 146321408
+      }
+    },
+    {
+      "size": 256,
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.8,
+      "centered": {
+        "count": 16,
+        "frames": 8,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 36580352
+      },
+      "witnessedMaximum": {
+        "chunks": 25,
+        "cameraTiles": [
+          129.5,
+          129.5
+        ],
+        "nominalRGBABytes": 57156800
+      }
+    },
+    {
+      "size": 256,
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.45,
+      "centered": {
+        "count": 256,
+        "frames": 128,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 585285632
+      },
+      "witnessedMaximum": {
+        "chunks": 256,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 585285632
+      }
+    },
+    {
+      "size": 256,
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "centered": {
+        "count": 100,
+        "frames": 50,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 228627200
+      },
+      "witnessedMaximum": {
+        "chunks": 100,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 228627200
+      }
+    },
+    {
+      "size": 256,
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.8,
+      "centered": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "witnessedMaximum": {
+        "chunks": 36,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 256,
+      "width": 3840,
+      "height": 2160,
+      "zoom": 0.45,
+      "centered": {
+        "count": 256,
+        "frames": 128,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 585285632
+      },
+      "witnessedMaximum": {
+        "chunks": 256,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 585285632
+      }
+    },
+    {
+      "size": 256,
+      "width": 3840,
+      "height": 2160,
+      "zoom": 1,
+      "centered": {
+        "count": 144,
+        "frames": 72,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 329223168
+      },
+      "witnessedMaximum": {
+        "chunks": 144,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 329223168
+      }
+    },
+    {
+      "size": 256,
+      "width": 3840,
+      "height": 2160,
+      "zoom": 1.8,
+      "centered": {
+        "count": 64,
+        "frames": 32,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 146321408
+      },
+      "witnessedMaximum": {
+        "chunks": 64,
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "nominalRGBABytes": 146321408
+      }
+    }
+  ],
+  "layout": [
+    {
+      "size": 96,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "sidebar": 248,
+      "canvasWidth": 1032,
+      "minZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "sidebar": 372,
+      "canvasWidth": 908,
+      "minZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1,
+      "sidebar": 300,
+      "canvasWidth": 1300,
+      "minZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1.5,
+      "sidebar": 450,
+      "canvasWidth": 1150,
+      "minZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1,
+      "sidebar": 300,
+      "canvasWidth": 1620,
+      "minZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1.5,
+      "sidebar": 450,
+      "canvasWidth": 1470,
+      "minZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1,
+      "sidebar": 300,
+      "canvasWidth": 2260,
+      "minZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1.5,
+      "sidebar": 450,
+      "canvasWidth": 2110,
+      "minZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "sidebar": 248,
+      "canvasWidth": 1032,
+      "minZoom": {
+        "count": 144,
+        "frames": 72,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 329223168
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "sidebar": 372,
+      "canvasWidth": 908,
+      "minZoom": {
+        "count": 144,
+        "frames": 72,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 329223168
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1,
+      "sidebar": 300,
+      "canvasWidth": 1300,
+      "minZoom": {
+        "count": 196,
+        "frames": 98,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 448109312
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1.5,
+      "sidebar": 450,
+      "canvasWidth": 1150,
+      "minZoom": {
+        "count": 196,
+        "frames": 98,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 448109312
+      },
+      "normalZoom": {
+        "count": 36,
+        "frames": 18,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 82305792
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1,
+      "sidebar": 300,
+      "canvasWidth": 1620,
+      "minZoom": {
+        "count": 256,
+        "frames": 128,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 585285632
+      },
+      "normalZoom": {
+        "count": 64,
+        "frames": 32,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 146321408
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1.5,
+      "sidebar": 450,
+      "canvasWidth": 1470,
+      "minZoom": {
+        "count": 256,
+        "frames": 128,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 585285632
+      },
+      "normalZoom": {
+        "count": 64,
+        "frames": 32,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 146321408
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1,
+      "sidebar": 300,
+      "canvasWidth": 2260,
+      "minZoom": {
+        "count": 256,
+        "frames": 128,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 585285632
+      },
+      "normalZoom": {
+        "count": 64,
+        "frames": 32,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 146321408
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1.5,
+      "sidebar": 450,
+      "canvasWidth": 2110,
+      "minZoom": {
+        "count": 256,
+        "frames": 128,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 585285632
+      },
+      "normalZoom": {
+        "count": 64,
+        "frames": 32,
+        "maxPerFrame": 2,
+        "nominalRGBABytes": 146321408
+      }
+    }
+  ],
+  "cullingConcern": {
+    "status": "REPRODUCED_SOURCE_METHOD",
+    "lastPaintedBounds": {
+      "left": -600,
+      "top": 10,
+      "right": -550,
+      "bottom": 50
+    },
+    "changedAuthorizedPosition": {
+      "x": 32000,
+      "y": 32000
+    },
+    "resultAfterMove": {
+      "left": -600,
+      "top": 10,
+      "right": -550,
+      "bottom": 50
+    },
+    "note": "Exact bounds early return plus frozen render gate. Not an actual rendered-match reproduction; no correction included."
+  },
+  "allocationOpportunity": [
+    {
+      "size": 96,
+      "callsPerRepaint": 9216,
+      "removedObjectAndArrayLiteralEvaluationsPerRepaint": 82944,
+      "maximumRepaintsPerSecond": 12.5,
+      "remainingReturnedTuplePerCall": 1,
+      "note": "Source-level literal evaluations; JIT escape analysis/actual heap bytes are unmeasured."
+    },
+    {
+      "size": 256,
+      "callsPerRepaint": 65536,
+      "removedObjectAndArrayLiteralEvaluationsPerRepaint": 589824,
+      "maximumRepaintsPerSecond": 12.5,
+      "remainingReturnedTuplePerCall": 1,
+      "note": "Source-level literal evaluations; JIT escape analysis/actual heap bytes are unmeasured."
+    }
+  ],
+  "limits": [
+    "The full162-role final package is unfinished.",
+    "Canvas/GPU format overhead, CPU backing copies and allocator retention are unmeasured.",
+    "No visual/raster regression course or real-browser resource run was launched.",
+    "The36-chunk limit is a soft inactive-chunk LRU cap; all conservatively admitted chunks are marked visible even if every fragment is culled.",
+    "Quality/DPR/UI scale are not inputs to the frozen admission method; use the actual CSS canvas size after layout."
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "status": "PASS",
+  "scope": "Actual frozen BattlefieldRenderer.render + bounds and actual ActorVisual/real Pixi scene objects in Node, synthetic1pixel frame and authorized-shape entity. No GPU, browser, Go transport, raster or actual art acceptance.",
+  "baselineStatus": "REPRODUCED_FAILURE",
+  "candidateStatus": "PASS_8_REENTRY_AND_PICKING_CASES",
+  "baselineSHA256": "b0ac869e0e825bc11cd934ebfb781a588aa04bc68a4a1041b470818a49a6196c",
+  "candidateSHA256": "7793109d63fd652d2f345f07e12bdf1cc08ad1199be1b77368c1c6edc1937daf",
+  "delta": [
+    "client/src/render/battlefield.ts"
+  ],
+  "results": [
+    {
+      "variant": "baseline",
+      "height": 0,
+      "reducedMotion": false,
+      "air": false,
+      "reentry": false,
+      "rootFrozen": true,
+      "groundCalls": 0,
+      "renderCalls": 0
+    },
+    {
+      "variant": "baseline",
+      "height": 0,
+      "reducedMotion": false,
+      "air": true,
+      "reentry": false,
+      "rootFrozen": true,
+      "groundCalls": 0,
+      "renderCalls": 0
+    },
+    {
+      "variant": "baseline",
+      "height": 0,
+      "reducedMotion": true,
+      "air": false,
+      "reentry": false,
+      "rootFrozen": true,
+      "groundCalls": 0,
+      "renderCalls": 0
+    },
+    {
+      "variant": "baseline",
+      "height": 0,
+      "reducedMotion": true,
+      "air": true,
+      "reentry": false,
+      "rootFrozen": true,
+      "groundCalls": 0,
+      "renderCalls": 0
+    },
+    {
+      "variant": "baseline",
+      "height": 4,
+      "reducedMotion": false,
+      "air": false,
+      "reentry": false,
+      "rootFrozen": true,
+      "groundCalls": 0,
+      "renderCalls": 0
+    },
+    {
+      "variant": "baseline",
+      "height": 4,
+      "reducedMotion": false,
+      "air": true,
+      "reentry": false,
+      "rootFrozen": true,
+      "groundCalls": 0,
+      "renderCalls": 0
+    },
+    {
+      "variant": "baseline",
+      "height": 4,
+      "reducedMotion": true,
+      "air": false,
+      "reentry": false,
+      "rootFrozen": true,
+      "groundCalls": 0,
+      "renderCalls": 0
+    },
+    {
+      "variant": "baseline",
+      "height": 4,
+      "reducedMotion": true,
+      "air": true,
+      "reentry": false,
+      "rootFrozen": true,
+      "groundCalls": 0,
+      "renderCalls": 0
+    },
+    {
+      "variant": "candidate",
+      "height": 0,
+      "reducedMotion": false,
+      "air": false,
+      "reentry": true,
+      "picking": true,
+      "callsInVisibleFrame": 1,
+      "groundCalls": 3,
+      "renderCalls": 2
+    },
+    {
+      "variant": "candidate",
+      "height": 0,
+      "reducedMotion": false,
+      "air": true,
+      "reentry": true,
+      "picking": true,
+      "callsInVisibleFrame": 1,
+      "groundCalls": 3,
+      "renderCalls": 2
+    },
+    {
+      "variant": "candidate",
+      "height": 0,
+      "reducedMotion": true,
+      "air": false,
+      "reentry": true,
+      "picking": true,
+      "callsInVisibleFrame": 1,
+      "groundCalls": 3,
+      "renderCalls": 2
+    },
+    {
+      "variant": "candidate",
+      "height": 0,
+      "reducedMotion": true,
+      "air": true,
+      "reentry": true,
+      "picking": true,
+      "callsInVisibleFrame": 1,
+      "groundCalls": 3,
+      "renderCalls": 2
+    },
+    {
+      "variant": "candidate",
+      "height": 4,
+      "reducedMotion": false,
+      "air": false,
+      "reentry": true,
+      "picking": true,
+      "callsInVisibleFrame": 1,
+      "groundCalls": 3,
+      "renderCalls": 2
+    },
+    {
+      "variant": "candidate",
+      "height": 4,
+      "reducedMotion": false,
+      "air": true,
+      "reentry": true,
+      "picking": true,
+      "callsInVisibleFrame": 1,
+      "groundCalls": 3,
+      "renderCalls": 2
+    },
+    {
+      "variant": "candidate",
+      "height": 4,
+      "reducedMotion": true,
+      "air": false,
+      "reentry": true,
+      "picking": true,
+      "callsInVisibleFrame": 1,
+      "groundCalls": 3,
+      "renderCalls": 2
+    },
+    {
+      "variant": "candidate",
+      "height": 4,
+      "reducedMotion": true,
+      "air": true,
+      "reentry": true,
+      "picking": true,
+      "callsInVisibleFrame": 1,
+      "groundCalls": 3,
+      "renderCalls": 2
+    }
+  ],
+  "limits": [
+    "Per-frame ground projection is newly required for previously culled actors; current visible actors retain their prior path.",
+    "Bounds retain the existing200pixel margin and current pose/alpha rules; no culling-envelope redesign.",
+    "Actual App/browser pan/reentry, aircraft service decks, replay and actual-art regression remain required before promotion."
+  ]
+}

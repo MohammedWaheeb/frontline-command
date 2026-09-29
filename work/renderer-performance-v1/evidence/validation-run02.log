@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "sourceFiles": 137,
+  "exactColorSamples": 300,
+  "exactRGBABytes": 299008,
+  "wholeMapWitness": {
+    "size": 256,
+    "width": 1920,
+    "height": 1080,
+    "zoom": 0.45,
+    "centered": {
+      "count": 256,
+      "frames": 128,
+      "maxPerFrame": 2,
+      "nominalRGBABytes": 585285632
+    },
+    "witnessedMaximum": {
+      "chunks": 256,
+      "cameraTiles": [
+        128,
+        128
+      ],
+      "nominalRGBABytes": 585285632
+    }
+  },
+  "candidateDelta": [
+    "client/src/render/terrain.ts"
+  ]
+}
