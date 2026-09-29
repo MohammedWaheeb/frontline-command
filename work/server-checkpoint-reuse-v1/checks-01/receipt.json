@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "started": "2026-09-29T17:23:38.266313+00:00",
+  "scope": "Serial focused native/WASM/race correctness, shared host with rendering; no timing qualification or actor course.",
+  "stages": [
+    {
+      "stage": "native",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "-count=1",
+        "-v",
+        "-timeout=90s",
+        "-run=^Test(CaptureCheckpoint.*|RecordReplayCheckpointPreservesSaveAndFailureFallback|ReplaySeekMatchesLiveHash|ReplayCompressedExportImport)$",
+        "./pkg/sim",
+        "./internal/server"
+      ],
+      "environment_overrides": {
+        "FRONTLINE_CHECKPOINT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-load-034-course/server-01/evidence/final.save.json",
+        "FRONTLINE_CHECKPOINT_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/server-checkpoint-reuse-v1/checks-01/native-files"
+      },
+      "seconds": 8.843387166969478,
+      "exit": 0,
+      "log_sha256": "d643e699d6e901c48b58b2bc514594150231a40596c06301f4baa94d5e3c3237"
+    },
+    {
+      "stage": "wasm",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "-count=1",
+        "-v",
+        "-timeout=90s",
+        "-exec=/opt/homebrew/Cellar/go/1.27.1/libexec/lib/wasm/go_js_wasm_exec",
+        "-run=^Test(CaptureCheckpoint.*|RecordReplayCheckpointPreservesSaveAndFailureFallback|ReplaySeekMatchesLiveHash|ReplayCompressedExportImport)$",
+        "./pkg/sim"
+      ],
+      "environment_overrides": {
+        "GOOS": "js",
+        "GOARCH": "wasm",
+        "FRONTLINE_CHECKPOINT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-load-034-course/server-01/evidence/final.save.json",
+        "FRONTLINE_CHECKPOINT_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/server-checkpoint-reuse-v1/checks-01/wasm-files"
+      },
+      "seconds": 5.367421582806855,
+      "exit": 0,
+      "log_sha256": "8b6c81eda24f21d2487c69b2b39f441d7dc0d2ffb4ee0261fc75b68d6d249b42"
+    },
+    {
+      "stage": "race",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "-count=1",
+        "-v",
+        "-timeout=90s",
+        "-race",
+        "-run=^Test(CaptureCheckpointOriginal.*|RecordReplayCheckpointPreservesSaveAndFailureFallback)$",
+        "./pkg/sim",
+        "./internal/server"
+      ],
+      "environment_overrides": {},
+      "seconds": 14.187233958160505,
+      "exit": 0,
+      "log_sha256": "3f0ca323fa83d2646751365b776d33da2e28ac55e0217196d1aefbd5096f5dd9"
+    }
+  ],
+  "initial_source_guard": {
+    "source_lock_sha256": "36a7a73678c71dc57709ab4a655e545382e24ae808900b784832f747292c6444",
+    "base_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+    "locked_files": 359,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 360
+  },
+  "runner_sha256": "773e0a6c2adddbfe623c92ff9bf6af0e31b8ea9a34e174633eff4ac5dfbee6b9",
+  "actual_input_save_sha256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+  "native_wasm_exact_artifacts": {
+    "boundary.save.json": {
+      "sha256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+      "bytes": 2983528
+    },
+    "boundary.replay.gz": {
+      "sha256": "e33edfcf5c6f9fd5cc5d6e9f62fcda637692e2c09d545197e2161fce14c711d5",
+      "bytes": 158677
+    },
+    "checkpoint.gz": {
+      "sha256": "795562307c6d4e6a1d19af4f3cf49015a02e5947feeb411c75cebce6e55623ce",
+      "bytes": 78880
+    }
+  },
+  "final_source_guard": {
+    "source_lock_sha256": "36a7a73678c71dc57709ab4a655e545382e24ae808900b784832f747292c6444",
+    "base_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+    "locked_files": 359,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 360
+  },
+  "source_verified_after": true,
+  "artifacts": {
+    "native-files/boundary.replay.gz": "e33edfcf5c6f9fd5cc5d6e9f62fcda637692e2c09d545197e2161fce14c711d5",
+    "native-files/boundary.save.json": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+    "native-files/checkpoint.gz": "795562307c6d4e6a1d19af4f3cf49015a02e5947feeb411c75cebce6e55623ce",
+    "native.log": "d643e699d6e901c48b58b2bc514594150231a40596c06301f4baa94d5e3c3237",
+    "race.log": "3f0ca323fa83d2646751365b776d33da2e28ac55e0217196d1aefbd5096f5dd9",
+    "wasm-files/boundary.replay.gz": "e33edfcf5c6f9fd5cc5d6e9f62fcda637692e2c09d545197e2161fce14c711d5",
+    "wasm-files/boundary.save.json": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+    "wasm-files/checkpoint.gz": "795562307c6d4e6a1d19af4f3cf49015a02e5947feeb411c75cebce6e55623ce",
+    "wasm.log": "8b6c81eda24f21d2487c69b2b39f441d7dc0d2ffb4ee0261fc75b68d6d249b42"
+  },
+  "finished": "2026-09-29T17:24:06.772041+00:00"
+}

@@ -1,0 +1,373 @@
+--- reviewed-baseline/internal/server/match.go
++++ checkpoint-reuse/internal/server/match.go
+@@ -555,10 +555,11 @@
+ 				}
+ 				if m.engine.Tick()%600 == 0 && replayErr == nil {
+ 					part = time.Now()
+-					replayErr = replay.Capture(m.engine, true)
++					save, captureErr := recordReplayCheckpoint(replay, m.engine)
++					replayErr = captureErr
+ 					measured.ReplayCheckpointNS = time.Since(part).Nanoseconds()
+ 					part = time.Now()
+-					if save, err := m.engine.Save(); err == nil {
++					if save != nil {
+ 						select {
+ 						case m.checkpoints <- matchCheckpoint{tick: uint32(m.engine.Tick()), data: save}:
+ 						default:
+--- /dev/null
++++ checkpoint-reuse/internal/server/replay_checkpoint.go
+@@ -0,0 +1,13 @@
++package server
++
++import "frontlinecommand/pkg/sim"
++
++// Keep the replay error and ordinary persistence fallback independent. A failed
++// recorder must not remove the save attempt that the actor previously made.
++func recordReplayCheckpoint(replay *sim.Replay, engine *sim.Engine) ([]byte, error) {
++	save, replayErr := replay.CaptureCheckpoint(engine)
++	if replayErr != nil {
++		save, _ = engine.Save()
++	}
++	return save, replayErr
++}
+--- /dev/null
++++ checkpoint-reuse/internal/server/replay_checkpoint_test.go
+@@ -0,0 +1,70 @@
++package server
++
++import (
++	"bytes"
++	"encoding/json"
++	"frontlinecommand/pkg/content"
++	"frontlinecommand/pkg/sim"
++	"testing"
++)
++
++func TestRecordReplayCheckpointPreservesSaveAndFailureFallback(t *testing.T) {
++	for _, mode := range []string{"success", "metadata", "version", "recorded", "duplicate"} {
++		t.Run(mode, func(t *testing.T) {
++			e, err := sim.New(content.MustBase(), sim.Config{Map: testMap(), Seed: 9, Players: []sim.PlayerConfig{{ID: 1, Name: "A", Faction: "US", Team: 1}, {ID: 2, Name: "B", Faction: "IR", Team: 2}}})
++			if err != nil {
++				t.Fatal(err)
++			}
++			old, _ := sim.NewReplay(e)
++			got, _ := sim.NewReplay(e)
++			e.Advance()
++			if mode == "duplicate" {
++				if err := old.Capture(e, true); err != nil {
++					t.Fatal(err)
++				}
++				if err := got.Capture(e, true); err != nil {
++					t.Fatal(err)
++				}
++			}
++			switch mode {
++			case "metadata":
++				old.Metadata.Simulation = "wrong"
++				got.Metadata.Simulation = "wrong"
++			case "version":
++				old.Version = 0
++				got.Version = 0
++			case "recorded":
++				old.Recorded++
++				got.Recorded++
++			}
++			before := e.Hash()
++			oldErr := old.Capture(e, true)
++			want, err := e.Save() // Original server always attempts this even after capture error.
++			if err != nil {
++				t.Fatal(err)
++			}
++			save, gotErr := recordReplayCheckpoint(got, e)
++			if (oldErr == nil) != (gotErr == nil) || oldErr != nil && oldErr.Error() != gotErr.Error() {
++				t.Fatalf("error changed: %v / %v", oldErr, gotErr)
++			}
++			if mode != "success" && gotErr == nil {
++				t.Fatal("missing expected recorder error")
++			}
++			if !bytes.Equal(want, save) || e.Hash() != before {
++				t.Fatal("save bytes or state changed")
++			}
++			a, _ := json.Marshal(old)
++			b, _ := json.Marshal(got)
++			if !bytes.Equal(a, b) {
++				t.Fatal("replay partial/success state changed")
++			}
++			if mode == "success" {
++				a, _ = old.Encode()
++				b, _ = got.Encode()
++				if !bytes.Equal(a, b) {
++					t.Fatal("complete replay bytes changed")
++				}
++			}
++		})
++	}
++}
+--- reviewed-baseline/pkg/sim/replay.go
++++ checkpoint-reuse/pkg/sim/replay.go
+@@ -62,12 +62,24 @@
+ // Capture must be called at least every 30 simulation seconds. The engine keeps
+ // only 32,768 recent orders; archived replay chunks own their independent copies.
+ func (r *Replay) Capture(e *Engine, checkpoint bool) error {
++	_, err := r.capture(e, checkpoint)
++	return err
++}
++
++// CaptureCheckpoint records an ordinary checkpoint and returns the exact save
++// used to create it. The caller owns the returned bytes; changing them cannot
++// alter the engine or the compressed replay checkpoint.
++func (r *Replay) CaptureCheckpoint(e *Engine) ([]byte, error) {
++	return r.capture(e, true)
++}
++
++func (r *Replay) capture(e *Engine, checkpoint bool) ([]byte, error) {
+ 	if r.Metadata != e.Metadata() || r.Version != 2 || r.Recorded < e.state.LogBase {
+-		return errors.New("replay recorder missed its bounded command window")
++		return nil, errors.New("replay recorder missed its bounded command window")
+ 	}
+ 	end := e.state.LogBase + uint64(len(e.state.Log))
+ 	if r.Recorded > end {
+-		return errors.New("replay recorder moved backwards")
++		return nil, errors.New("replay recorder moved backwards")
+ 	}
+ 	for _, cmd := range e.state.Log[r.Recorded-e.state.LogBase:] {
+ 		cmd.Orders = cloneOrders(cmd.Orders)
+@@ -77,24 +89,26 @@
+ 	r.FinalTick = e.Tick()
+ 	if len(r.Commands) >= 1024 || checkpoint || e.Outcome().Finished {
+ 		if err := r.flush(); err != nil {
+-			return err
+-		}
+-	}
++			return nil, err
++		}
++	}
++	var checkpointSave []byte
+ 	if checkpoint {
+ 		if len(r.Checkpoints) > 0 && r.Checkpoints[len(r.Checkpoints)-1].Tick >= e.Tick() {
+-			return errors.New("checkpoint ticks must increase")
++			return nil, errors.New("checkpoint ticks must increase")
+ 		}
+ 		save, err := e.Save()
+ 		if err != nil {
+-			return err
++			return nil, err
+ 		}
+ 		packed, err := compressReplay(save)
+ 		if err != nil {
+-			return err
++			return nil, err
+ 		}
+ 		r.Checkpoints = append(r.Checkpoints, ReplayCheckpoint{Tick: e.Tick(), PackedSave: packed})
+-	}
+-	return nil
++		checkpointSave = save
++	}
++	return checkpointSave, nil
+ }
+ func (r *Replay) flush() error {
+ 	if len(r.Commands) == 0 {
+--- /dev/null
++++ checkpoint-reuse/pkg/sim/replay_checkpoint_test.go
+@@ -0,0 +1,201 @@
++package sim
++
++import (
++	"bytes"
++	"encoding/json"
++	"errors"
++	"frontlinecommand/pkg/content"
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++func checkpointSameReplay(t *testing.T, want, got *Replay) {
++	t.Helper()
++	a, err := json.Marshal(want)
++	if err != nil {
++		t.Fatal(err)
++	}
++	b, err := json.Marshal(got)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !bytes.Equal(a, b) {
++		t.Fatal("replay fields differ from original Capture")
++	}
++}
++
++func TestCaptureCheckpointOriginalBytesAndDetachedSave(t *testing.T) {
++	e := fixture(t)
++	old, _ := NewReplay(e)
++	wrapped, _ := NewReplay(e)
++	reused, _ := NewReplay(e)
++	for phase := 0; phase < 5; phase++ {
++		issue(t, e, 1, Order{Kind: "move", Entities: []ID{2}, Position: Vec{X: int32(18000 + phase*1000), Y: 16000}})
++		ticks(e, 3)
++		checkpoint := phase%2 == 0
++		before := e.Hash()
++		wantSave, _ := e.Save()
++		if err := old.legacyCheckpointCapture(e, checkpoint); err != nil {
++			t.Fatal(err)
++		}
++		if err := wrapped.Capture(e, checkpoint); err != nil {
++			t.Fatal(err)
++		}
++		if checkpoint {
++			save, err := reused.CaptureCheckpoint(e)
++			if err != nil {
++				t.Fatal(err)
++			}
++			if !bytes.Equal(wantSave, save) {
++				t.Fatal("returned persistence save differs")
++			}
++			checkpointSameReplay(t, old, reused)
++			save[len(save)/2] ^= 0xff
++			checkpointSameReplay(t, old, reused)
++		} else if err := reused.Capture(e, false); err != nil {
++			t.Fatal(err)
++		}
++		checkpointSameReplay(t, old, wrapped)
++		checkpointSameReplay(t, old, reused)
++		if e.Hash() != before {
++			t.Fatal("capturing or mutating returned save changed engine")
++		}
++	}
++	a, _ := old.Encode()
++	b, _ := reused.Encode()
++	if !bytes.Equal(a, b) {
++		t.Fatal("complete compressed replay bytes differ")
++	}
++	seek, err := reused.Seek(e.catalog, e.Tick())
++	if err != nil || seek.Hash() != e.Hash() {
++		t.Fatal("checkpoint seek", err)
++	}
++	reused.Checkpoints = nil
++	seek, err = reused.Seek(e.catalog, e.Tick())
++	if err != nil || seek.Hash() != e.Hash() {
++		t.Fatal("full replay", err)
++	}
++}
++
++func TestCaptureCheckpointOriginalErrorContract(t *testing.T) {
++	for _, mode := range []string{"metadata", "version", "backwards", "missed_window", "duplicate"} {
++		t.Run(mode, func(t *testing.T) {
++			e := fixture(t)
++			old, _ := NewReplay(e)
++			wrapped, _ := NewReplay(e)
++			reused, _ := NewReplay(e)
++			issue(t, e, 1, Order{Kind: "move", Entities: []ID{2}, Position: Vec{X: 18000, Y: 16000}})
++			for _, r := range []*Replay{old, wrapped, reused} {
++				switch mode {
++				case "metadata":
++					r.Metadata.Simulation = "wrong"
++				case "version":
++					r.Version = 0
++				case "backwards":
++					r.Recorded = 999
++				case "duplicate":
++					r.Checkpoints = []ReplayCheckpoint{{Tick: e.Tick()}}
++				}
++			}
++			if mode == "missed_window" {
++				e.state.LogBase = 1
++			}
++			want := old.legacyCheckpointCapture(e, true)
++			wrapErr := wrapped.Capture(e, true)
++			save, got := reused.CaptureCheckpoint(e)
++			if want == nil || wrapErr == nil || got == nil || want.Error() != wrapErr.Error() || want.Error() != got.Error() || save != nil {
++				t.Fatalf("error/save contract: %v / %v / %v", want, wrapErr, got)
++			}
++			checkpointSameReplay(t, old, wrapped)
++			checkpointSameReplay(t, old, reused)
++		})
++	}
++}
++
++func TestCaptureCheckpointActual688Artifact(t *testing.T) {
++	input, output := os.Getenv("FRONTLINE_CHECKPOINT_INPUT"), os.Getenv("FRONTLINE_CHECKPOINT_OUTPUT")
++	if input == "" || output == "" {
++		t.Skip("explicit actual688 artifact paths required")
++	}
++	raw, err := os.ReadFile(input)
++	if err != nil {
++		t.Fatal(err)
++	}
++	e, err := Restore(content.MustBase(), raw)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if e.Tick() != 600 || len(e.state.Entities) != 688 || e.Hash() != "71bf256a2a95d16e3a65c39977e5d247ebcd81b3088495864806fca313beb8c1" {
++		t.Fatal("actual server boundary identity changed")
++	}
++	old, _ := NewReplay(e)
++	reused, _ := NewReplay(e)
++	if err := old.legacyCheckpointCapture(e, true); err != nil {
++		t.Fatal(err)
++	}
++	save, err := reused.CaptureCheckpoint(e)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !bytes.Equal(raw, save) {
++		t.Fatal("actual original persistence bytes changed")
++	}
++	checkpointSameReplay(t, old, reused)
++	a, err := old.Encode()
++	if err != nil {
++		t.Fatal(err)
++	}
++	b, err := reused.Encode()
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !bytes.Equal(a, b) {
++		t.Fatal("actual replay bytes changed")
++	}
++	if err := os.Mkdir(output, 0700); err != nil {
++		t.Fatal(err)
++	}
++	for name, data := range map[string][]byte{"boundary.save.json": save, "boundary.replay.gz": b, "checkpoint.gz": reused.Checkpoints[0].PackedSave} {
++		if err := os.WriteFile(filepath.Join(output, name), data, 0600); err != nil {
++			t.Fatal(err)
++		}
++	}
++}
++
++// Exact 3d49 Capture implementation retained as a byte/error oracle.
++func (r *Replay) legacyCheckpointCapture(e *Engine, checkpoint bool) error {
++	if r.Metadata != e.Metadata() || r.Version != 2 || r.Recorded < e.state.LogBase {
++		return errors.New("replay recorder missed its bounded command window")
++	}
++	end := e.state.LogBase + uint64(len(e.state.Log))
++	if r.Recorded > end {
++		return errors.New("replay recorder moved backwards")
++	}
++	for _, cmd := range e.state.Log[r.Recorded-e.state.LogBase:] {
++		cmd.Orders = cloneOrders(cmd.Orders)
++		r.Commands = append(r.Commands, cmd)
++	}
++	r.Recorded = end
++	r.FinalTick = e.Tick()
++	if len(r.Commands) >= 1024 || checkpoint || e.Outcome().Finished {
++		if err := r.flush(); err != nil {
++			return err
++		}
++	}
++	if checkpoint {
++		if len(r.Checkpoints) > 0 && r.Checkpoints[len(r.Checkpoints)-1].Tick >= e.Tick() {
++			return errors.New("checkpoint ticks must increase")
++		}
++		save, err := e.Save()
++		if err != nil {
++			return err
++		}
++		packed, err := compressReplay(save)
++		if err != nil {
++			return err
++		}
++		r.Checkpoints = append(r.Checkpoints, ReplayCheckpoint{Tick: e.Tick(), PackedSave: packed})
++	}
++	return nil
++}

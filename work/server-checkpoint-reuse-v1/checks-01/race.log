@@ -1,0 +1,30 @@
+=== RUN   TestCaptureCheckpointOriginalBytesAndDetachedSave
+--- PASS: TestCaptureCheckpointOriginalBytesAndDetachedSave (0.86s)
+=== RUN   TestCaptureCheckpointOriginalErrorContract
+=== RUN   TestCaptureCheckpointOriginalErrorContract/metadata
+=== RUN   TestCaptureCheckpointOriginalErrorContract/version
+=== RUN   TestCaptureCheckpointOriginalErrorContract/backwards
+=== RUN   TestCaptureCheckpointOriginalErrorContract/missed_window
+=== RUN   TestCaptureCheckpointOriginalErrorContract/duplicate
+--- PASS: TestCaptureCheckpointOriginalErrorContract (0.49s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/metadata (0.10s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/version (0.10s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/backwards (0.10s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/missed_window (0.10s)
+    --- PASS: TestCaptureCheckpointOriginalErrorContract/duplicate (0.10s)
+PASS
+ok  	frontlinecommand/pkg/sim	2.813s
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/success
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/metadata
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/version
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/recorded
+=== RUN   TestRecordReplayCheckpointPreservesSaveAndFailureFallback/duplicate
+--- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback (0.69s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/success (0.18s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/metadata (0.11s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/version (0.11s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/recorded (0.12s)
+    --- PASS: TestRecordReplayCheckpointPreservesSaveAndFailureFallback/duplicate (0.16s)
+PASS
+ok  	frontlinecommand/internal/server	2.309s
