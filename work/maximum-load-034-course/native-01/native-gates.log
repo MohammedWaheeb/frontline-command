@@ -1,0 +1,37 @@
+=== RUN   TestMaximumActorTickBudget
+    performance_test.go:77: 688 actors steady tick p50=3.313209ms p95=4.016875ms p99=4.100542ms; host-specific measurement
+--- PASS: TestMaximumActorTickBudget (0.36s)
+=== RUN   TestMaximumActorsMovingAndFighting
+    performance_test.go:150: legal initial 688 actors, mass route changes + combat: p50=2.077292ms p95=7.509458ms p99=12.139834ms; shots=3935 peak projectiles=0 final actors=396; host-specific
+--- PASS: TestMaximumActorsMovingAndFighting (3.55s)
+=== RUN   TestExteriorMaximumCombinedReturnsRoutesInterception
+    service_parking_combined_test.go:145: legal initial688 actors,64 simultaneous returns,332 mass-routed scouts,24 strategic missiles intercepted: p50=5.170333ms p95=9.706834ms p99=12.141125ms; native host only
+--- PASS: TestExteriorMaximumCombinedReturnsRoutesInterception (3.48s)
+=== RUN   TestExteriorMaximum64OrdinaryReturns
+    service_parking_maximum_test.go:81: simulation0.3.4 688actors64returns samecaps exterior-layout ticks404 p503.966125ms p954.864083ms p995.066125ms
+--- PASS: TestExteriorMaximum64OrdinaryReturns (1.69s)
+=== RUN   TestMaximumActorTickBudget
+    performance_test.go:77: 688 actors steady tick p50=3.189166ms p95=3.941125ms p99=4.794416ms; host-specific measurement
+--- PASS: TestMaximumActorTickBudget (0.36s)
+=== RUN   TestMaximumActorsMovingAndFighting
+    performance_test.go:150: legal initial 688 actors, mass route changes + combat: p50=2.074333ms p95=7.357917ms p99=11.549416ms; shots=3935 peak projectiles=0 final actors=396; host-specific
+--- PASS: TestMaximumActorsMovingAndFighting (3.53s)
+=== RUN   TestExteriorMaximumCombinedReturnsRoutesInterception
+    service_parking_combined_test.go:145: legal initial688 actors,64 simultaneous returns,332 mass-routed scouts,24 strategic missiles intercepted: p50=5.200958ms p95=9.760292ms p99=12.020209ms; native host only
+--- PASS: TestExteriorMaximumCombinedReturnsRoutesInterception (3.50s)
+=== RUN   TestExteriorMaximum64OrdinaryReturns
+    service_parking_maximum_test.go:81: simulation0.3.4 688actors64returns samecaps exterior-layout ticks404 p503.9625ms p954.862208ms p995.112416ms
+--- PASS: TestExteriorMaximum64OrdinaryReturns (1.69s)
+=== RUN   TestMaximumActorTickBudget
+    performance_test.go:77: 688 actors steady tick p50=3.156541ms p95=3.857375ms p99=3.928416ms; host-specific measurement
+--- PASS: TestMaximumActorTickBudget (0.35s)
+=== RUN   TestMaximumActorsMovingAndFighting
+    performance_test.go:150: legal initial 688 actors, mass route changes + combat: p50=2.122916ms p95=7.447375ms p99=11.494042ms; shots=3935 peak projectiles=0 final actors=396; host-specific
+--- PASS: TestMaximumActorsMovingAndFighting (3.57s)
+=== RUN   TestExteriorMaximumCombinedReturnsRoutesInterception
+    service_parking_combined_test.go:145: legal initial688 actors,64 simultaneous returns,332 mass-routed scouts,24 strategic missiles intercepted: p50=5.185ms p95=9.648916ms p99=12.107334ms; native host only
+--- PASS: TestExteriorMaximumCombinedReturnsRoutesInterception (3.50s)
+=== RUN   TestExteriorMaximum64OrdinaryReturns
+    service_parking_maximum_test.go:81: simulation0.3.4 688actors64returns samecaps exterior-layout ticks404 p503.950458ms p954.787708ms p995.040917ms
+--- PASS: TestExteriorMaximum64OrdinaryReturns (1.68s)
+PASS

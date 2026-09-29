@@ -1,0 +1,81 @@
+--- integrated3d49/internal/server/match.go
++++ private-instrumented/internal/server/match.go
+@@ -156,7 +156,11 @@
+ 	defer close(m.persistenceDone)
+ 	for checkpoint := range m.checkpoints {
+ 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
++		persistStart := time.Now()
+ 		err := m.repo.CheckpointMatch(ctx, m.id, checkpoint.tick, checkpoint.data)
++		if maximumLoopProbe != nil {
++			maximumLoopProbe.persisted(checkpoint, time.Since(persistStart), err)
++		}
+ 		if err == nil && checkpoint.coop {
+ 			err = m.persistCoopCheckpoint(ctx, checkpoint)
+ 		}
+@@ -474,6 +478,7 @@
+ 			}
+ 			req.reply <- reply
+ 		case now := <-ticker.C:
++			measured := maximumLoopSample{Scheduled: now, Started: time.Now()}
+ 			if now.Sub(rateStart) >= time.Second {
+ 				rates = map[sim.PlayerID]int{}
+ 				controlRates = map[sim.PlayerID]int{}
+@@ -527,8 +532,12 @@
+ 			tickViews := map[sim.PlayerID]sim.View{}
+ 			advanced := !m.engine.Outcome().Finished && !controls.paused
+ 			if advanced {
++				part := time.Now()
+ 				m.engine.Advance()
++				measured.AdvanceNS = time.Since(part).Nanoseconds()
++				part = time.Now()
+ 				tickViews = archive.capture(m.engine, m.slots)
++				measured.ArchiveNS = time.Since(part).Nanoseconds()
+ 				if m.coop {
+ 					for _, slot := range m.slots {
+ 						if view := tickViews[slot.Player]; view.Mission != nil && view.Mission.CheckpointTick > lastCoopCheckpoint {
+@@ -545,7 +554,10 @@
+ 					finishedClockAt = now
+ 				}
+ 				if m.engine.Tick()%600 == 0 && replayErr == nil {
++					part = time.Now()
+ 					replayErr = replay.Capture(m.engine, true)
++					measured.ReplayCheckpointNS = time.Since(part).Nanoseconds()
++					part = time.Now()
+ 					if save, err := m.engine.Save(); err == nil {
+ 						select {
+ 						case m.checkpoints <- matchCheckpoint{tick: uint32(m.engine.Tick()), data: save}:
+@@ -553,6 +565,7 @@
+ 							log.Printf("match %s checkpoint writer busy", m.id)
+ 						}
+ 					}
++					measured.SaveEnqueueNS = time.Since(part).Nanoseconds()
+ 				}
+ 			}
+ 			if pendingCoop != nil {
+@@ -565,6 +578,7 @@
+ 			if !finishedClockAt.IsZero() {
+ 				observerClock = m.engine.Tick() + sim.Tick(now.Sub(finishedClockAt).Milliseconds()/50)
+ 			}
++			peerStart := time.Now()
+ 			// Filter events at their authoritative tick before aggregating network frames.
+ 			for id, p := range peers {
+ 				if !advanced {
+@@ -613,6 +627,7 @@
+ 					p.baseline = snap
+ 				}
+ 			}
++			measured.PeerEncodeEnqueueNS = time.Since(peerStart).Nanoseconds()
+ 			if m.engine.Outcome().Finished && !committed && now.Sub(lastCommitAttempt) >= time.Second {
+ 				lastCommitAttempt = now
+ 				state := m.engine.StateCopy()
+@@ -668,6 +683,10 @@
+ 			if now.Sub(lastStatus) >= time.Second {
+ 				broadcastStatus(now)
+ 			}
++			measured.TotalNS = time.Since(measured.Started).Nanoseconds()
++			if maximumLoopProbe != nil && maximumLoopProbe.finish(measured, m, archive, replay, replayErr, tickViews, advanced) {
++				return // Test-only exact600-tick shutdown; ordinary production defers still run.
++			}
+ 			if committed && now.Sub(finishedAt) > 5*time.Minute {
+ 				return
+ 			}

@@ -1,0 +1,112 @@
+{
+  "audited_utc": "2026-09-29T16:46:07.098239+00:00",
+  "status": "passed",
+  "scope": "Independent post-run artifact audit of12 successful actual native tests; original receipt remains failed due PASS-name parser leading-space error, no native rerun.",
+  "original_receipt_sha256": "f950f6b0e6a1040a551d8801272850a5ecbdf3621c6a887f7883f90c54977478",
+  "original_log_sha256": "d9cf4c00df9ac308337284f22381e7ab4305bfda65cea8ab9df01d4c5290faf4",
+  "auditor_sha256": "331a9a1c873f34d601c5b5915d5b9b18641cdb13a0f095929043d7aa1da678bf",
+  "binary_sha256": "5fe5ff8ce86775e2d6c42a2739d720207becb880ee2cce3a234cd8cacc9eb943",
+  "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "source_files_verified_now": 355,
+  "passed_tests": [
+    "TestMaximumActorTickBudget",
+    "TestMaximumActorsMovingAndFighting",
+    "TestExteriorMaximumCombinedReturnsRoutesInterception",
+    "TestExteriorMaximum64OrdinaryReturns",
+    "TestMaximumActorTickBudget",
+    "TestMaximumActorsMovingAndFighting",
+    "TestExteriorMaximumCombinedReturnsRoutesInterception",
+    "TestExteriorMaximum64OrdinaryReturns",
+    "TestMaximumActorTickBudget",
+    "TestMaximumActorsMovingAndFighting",
+    "TestExteriorMaximumCombinedReturnsRoutesInterception",
+    "TestExteriorMaximum64OrdinaryReturns"
+  ],
+  "measurements_ms": [
+    {
+      "test": "TestMaximumActorTickBudget",
+      "p50": 3.313209,
+      "p95": 4.016875,
+      "p99": 4.100542,
+      "raw": "performance_test.go:77: 688 actors steady tick p50=3.313209ms p95=4.016875ms p99=4.100542ms; host-specific measurement"
+    },
+    {
+      "test": "TestMaximumActorsMovingAndFighting",
+      "p50": 2.077292,
+      "p95": 7.509458,
+      "p99": 12.139834,
+      "raw": "performance_test.go:150: legal initial 688 actors, mass route changes + combat: p50=2.077292ms p95=7.509458ms p99=12.139834ms; shots=3935 peak projectiles=0 final actors=396; host-specific"
+    },
+    {
+      "test": "TestExteriorMaximumCombinedReturnsRoutesInterception",
+      "p50": 5.170333,
+      "p95": 9.706834,
+      "p99": 12.141125,
+      "raw": "service_parking_combined_test.go:145: legal initial688 actors,64 simultaneous returns,332 mass-routed scouts,24 strategic missiles intercepted: p50=5.170333ms p95=9.706834ms p99=12.141125ms; native host only"
+    },
+    {
+      "test": "TestExteriorMaximum64OrdinaryReturns",
+      "p50": 3.966125,
+      "p95": 4.864083,
+      "p99": 5.066125,
+      "raw": "service_parking_maximum_test.go:81: simulation0.3.4 688actors64returns samecaps exterior-layout ticks404 p503.966125ms p954.864083ms p995.066125ms"
+    },
+    {
+      "test": "TestMaximumActorTickBudget",
+      "p50": 3.189166,
+      "p95": 3.941125,
+      "p99": 4.794416,
+      "raw": "performance_test.go:77: 688 actors steady tick p50=3.189166ms p95=3.941125ms p99=4.794416ms; host-specific measurement"
+    },
+    {
+      "test": "TestMaximumActorsMovingAndFighting",
+      "p50": 2.074333,
+      "p95": 7.357917,
+      "p99": 11.549416,
+      "raw": "performance_test.go:150: legal initial 688 actors, mass route changes + combat: p50=2.074333ms p95=7.357917ms p99=11.549416ms; shots=3935 peak projectiles=0 final actors=396; host-specific"
+    },
+    {
+      "test": "TestExteriorMaximumCombinedReturnsRoutesInterception",
+      "p50": 5.200958,
+      "p95": 9.760292,
+      "p99": 12.020209,
+      "raw": "service_parking_combined_test.go:145: legal initial688 actors,64 simultaneous returns,332 mass-routed scouts,24 strategic missiles intercepted: p50=5.200958ms p95=9.760292ms p99=12.020209ms; native host only"
+    },
+    {
+      "test": "TestExteriorMaximum64OrdinaryReturns",
+      "p50": 3.9625,
+      "p95": 4.862208,
+      "p99": 5.112416,
+      "raw": "service_parking_maximum_test.go:81: simulation0.3.4 688actors64returns samecaps exterior-layout ticks404 p503.9625ms p954.862208ms p995.112416ms"
+    },
+    {
+      "test": "TestMaximumActorTickBudget",
+      "p50": 3.156541,
+      "p95": 3.857375,
+      "p99": 3.928416,
+      "raw": "performance_test.go:77: 688 actors steady tick p50=3.156541ms p95=3.857375ms p99=3.928416ms; host-specific measurement"
+    },
+    {
+      "test": "TestMaximumActorsMovingAndFighting",
+      "p50": 2.122916,
+      "p95": 7.447375,
+      "p99": 11.494042,
+      "raw": "performance_test.go:150: legal initial 688 actors, mass route changes + combat: p50=2.122916ms p95=7.447375ms p99=11.494042ms; shots=3935 peak projectiles=0 final actors=396; host-specific"
+    },
+    {
+      "test": "TestExteriorMaximumCombinedReturnsRoutesInterception",
+      "p50": 5.185,
+      "p95": 9.648916,
+      "p99": 12.107334,
+      "raw": "service_parking_combined_test.go:145: legal initial688 actors,64 simultaneous returns,332 mass-routed scouts,24 strategic missiles intercepted: p50=5.185ms p95=9.648916ms p99=12.107334ms; native host only"
+    },
+    {
+      "test": "TestExteriorMaximum64OrdinaryReturns",
+      "p50": 3.950458,
+      "p95": 4.787708,
+      "p99": 5.040917,
+      "raw": "service_parking_maximum_test.go:81: simulation0.3.4 688actors64returns samecaps exterior-layout ticks404 p503.950458ms p954.787708ms p995.040917ms"
+    }
+  ],
+  "limits": "Existing selectors retain only logged percentiles and workload counters, not every raw tick sample. Native Engine.Advance only; no full server loop/browser/reference Intel claim."
+}

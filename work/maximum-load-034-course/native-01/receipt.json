@@ -1,0 +1,131 @@
+{
+  "status": "failed",
+  "started": "2026-09-29T16:43:34.679678+00:00",
+  "scope": "Native Engine.Advance timing only, exact integrated source, correct exterior apron selectors; no server-loop, browser, final-art or Intel reference claim.",
+  "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "source_files": 355,
+  "runner_sha256": "86c1a9b05271f3cef0248ec2f27fb667d4932ae9830a01bf7fabe86c38719d78",
+  "selectors": [
+    "TestMaximumActorTickBudget",
+    "TestMaximumActorsMovingAndFighting",
+    "TestExteriorMaximum64OrdinaryReturns",
+    "TestExteriorMaximumCombinedReturnsRoutesInterception"
+  ],
+  "count": 3,
+  "conditions": "Root explicitly released <=5min quiet window: all agent Blender/packing/browser/host/native workloads closed; root lightweight source edits only. Normal OS/background processes not excluded. GOMAXPROCS=1.",
+  "environment": {
+    "GOMAXPROCS": "1",
+    "GOFLAGS": "-p=1",
+    "CGO_ENABLED": null,
+    "GOGC": null,
+    "GOMEMLIMIT": null
+  },
+  "host": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64"
+  },
+  "stages": [
+    {
+      "stage": "go",
+      "args": [
+        "/opt/homebrew/bin/go",
+        "version"
+      ],
+      "exit": 0,
+      "seconds": 0.04610295896418393,
+      "log_sha256": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+    },
+    {
+      "stage": "hardware",
+      "args": [
+        "/usr/sbin/sysctl",
+        "-n",
+        "machdep.cpu.brand_string",
+        "hw.memsize",
+        "hw.logicalcpu"
+      ],
+      "exit": 0,
+      "seconds": 0.003412541002035141,
+      "log_sha256": "c4b05c6e3138be1e9dfa7d37bf43ebfc7277612c1ea139626c51793c8d6e019d"
+    },
+    {
+      "stage": "power",
+      "args": [
+        "/usr/bin/pmset",
+        "-g",
+        "batt"
+      ],
+      "exit": 0,
+      "seconds": 0.011674332898110151,
+      "log_sha256": "d06767f83e286aca700919e4d9c03c38f65bb4ad755af9d732e9028ecc163f83"
+    },
+    {
+      "stage": "processes-before",
+      "args": [
+        "/bin/ps",
+        "-axo",
+        "pid,ppid,pcpu,pmem,comm"
+      ],
+      "exit": 0,
+      "seconds": 0.023607291048392653,
+      "log_sha256": "808d608f4b2ed1cf6d1b33a46ff2700749869f60e89927e5be3b81b9f9fa5538"
+    },
+    {
+      "stage": "compile",
+      "args": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "-p=1",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-load-034-course/native-01/sim.test",
+        "./pkg/sim"
+      ],
+      "exit": 0,
+      "seconds": 0.9684470829088241,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "native-gates",
+      "args": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-load-034-course/native-01/sim.test",
+        "-test.run=^(TestMaximumActorTickBudget|TestMaximumActorsMovingAndFighting|TestExteriorMaximum64OrdinaryReturns|TestExteriorMaximumCombinedReturnsRoutesInterception)$",
+        "-test.count=3",
+        "-test.v",
+        "-test.timeout=150s"
+      ],
+      "exit": 0,
+      "seconds": 28.28066333406605,
+      "log_sha256": "d9cf4c00df9ac308337284f22381e7ab4305bfda65cea8ab9df01d4c5290faf4"
+    },
+    {
+      "stage": "processes-after",
+      "args": [
+        "/bin/ps",
+        "-axo",
+        "pid,ppid,pcpu,pmem,comm"
+      ],
+      "exit": 0,
+      "seconds": 0.023605083115398884,
+      "log_sha256": "8c334b1421d32ff767d10a53166f7e223a2bdcda8d4193ea12969828e038a103"
+    }
+  ],
+  "binary_sha256": "5fe5ff8ce86775e2d6c42a2739d720207becb880ee2cce3a234cd8cacc9eb943",
+  "source_verified_after": true,
+  "passed_tests": [
+    " TestMaximumActorTickBudget",
+    " TestMaximumActorsMovingAndFighting",
+    " TestExteriorMaximumCombinedReturnsRoutesInterception",
+    " TestExteriorMaximum64OrdinaryReturns",
+    " TestMaximumActorTickBudget",
+    " TestMaximumActorsMovingAndFighting",
+    " TestExteriorMaximumCombinedReturnsRoutesInterception",
+    " TestExteriorMaximum64OrdinaryReturns",
+    " TestMaximumActorTickBudget",
+    " TestMaximumActorsMovingAndFighting",
+    " TestExteriorMaximumCombinedReturnsRoutesInterception",
+    " TestExteriorMaximum64OrdinaryReturns"
+  ],
+  "failure": "",
+  "finished": "2026-09-29T16:44:04.077323+00:00"
+}
