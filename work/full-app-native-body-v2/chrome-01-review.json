@@ -1,0 +1,653 @@
+{
+  "scope": "Separate read-only extraction; original course remains failed. No browser or product changes.",
+  "original_status": "failed",
+  "original_error": "Error: Go workers were not terminated on menu return\n    at until (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/full-app-native-body-v2/runner.mjs:27:196)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:502:9)\n    at async leave (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/full-app-native-body-v2/runner.mjs:43:66)\n    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/full-app-native-body-v2/runner.mjs:130:311",
+  "controls": "unrun-or-incomplete",
+  "run_pins": [
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/body-audit.json",
+      "bytes": 2731804,
+      "sha256": "dad66c98769fd47b06ec66860164bee4731fe55263b48a2cc769f6c2c1fafe4f"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/failure.png",
+      "bytes": 1860291,
+      "sha256": "7be2be900f4118cd482302b6164af53f1e58469124648ee5e907ac859d75313c"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/frontline_pb.ts",
+      "bytes": 55786,
+      "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/native-ledger.json",
+      "bytes": 2444860,
+      "sha256": "81aa3089cad048d48974b1955690abafde15e93158d42bb9dabe1bdd4f5e5f3b"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/native-observer.js",
+      "bytes": 276784,
+      "sha256": "5055d1b91e5c6113dc235ad95caafc800d148c44adf1b824a96f2e11fcc566c9"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/paid-power.png",
+      "bytes": 575032,
+      "sha256": "ace6083cb65499b3d87361931f15e619a14ff1dbbf1ffbc8d78800d8a22ba06a"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/result.json",
+      "bytes": 1133083,
+      "sha256": "1e22e0ae5dfdb4ff0a80dd648b24e0a116105cee17ee23143b41761cf788886c"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/scene-ready.png",
+      "bytes": 507292,
+      "sha256": "7d47e7a9eeaca2b225705065e167a41f929ee2e8607bb9633a7141147068c373"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/tsconfig.json",
+      "bytes": 962,
+      "sha256": "fb306224bd260c723252f94ccd06f5b4dd83c3f510088078530086cfedcc0d1c"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/worker-build.json",
+      "bytes": 16274,
+      "sha256": "756a050572bdaa226b3e9542993f03cbd68ee60bf4a37dd9ce098c11294a6a3c"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/worker-observer.js",
+      "bytes": 178464,
+      "sha256": "c122406505fef88fcca6cb75f856d503bc3624b0fc9b3ab21684469dd21f77f1"
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "client/src/app/application.ts",
+      "bytes": 16567,
+      "sha256": "3295c6a6ed30f566f79e473bfc6b1317b1189cc20e8d0d88db252278349a3a78",
+      "matches_prepackage_source_audit": true
+    },
+    {
+      "path": "client/src/runtime/session.ts",
+      "bytes": 13691,
+      "sha256": "72c10b1d17e2f0b744aeb9ab1463630c7666c8fae50953d6ee20cf217f7141e8"
+    },
+    {
+      "path": "client/src/runtime/offline.ts",
+      "bytes": 7680,
+      "sha256": "2f0c75af1e221ea766143d0fd293dce3daae5bf5b9c81c700879ccaab1b56cde",
+      "matches_prepackage_source_audit": true
+    },
+    {
+      "path": "client/tests/render/battlefield-clarity-product.browser.mjs",
+      "bytes": 38588,
+      "sha256": "ff052345f97c40915a9aed18c10f6089a53f5c1c13c1e078353db7cff8a21f75"
+    },
+    {
+      "path": "work/full-app-offline-v3/runner-v2.mjs",
+      "bytes": 14891,
+      "sha256": "a35b5d0ecb100b1682b6e647926ea5fbe0c73a27cb3a1f575fd44abf8fe3cf4e"
+    },
+    {
+      "path": "client/src/protocol/frontline_pb.ts",
+      "bytes": 55786,
+      "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+    },
+    {
+      "path": "pkg/sim/preview.go",
+      "bytes": 7996,
+      "sha256": "b75fb849ecf5b0a58867b9f7c778001f605dedcecf867e90e043356843b7103d"
+    }
+  ],
+  "paid": {
+    "sequence": 1,
+    "receipt": {
+      "player": 1,
+      "sequence": 1,
+      "accepted": true,
+      "code": "ok",
+      "tick": 166
+    },
+    "power": {
+      "id": 9,
+      "type": "power",
+      "owner": 1,
+      "position": {
+        "x": 24000,
+        "y": 66500
+      },
+      "health": 1000,
+      "state": "idle",
+      "complete": true,
+      "enabled": true,
+      "private": {
+        "hp": "1500000",
+        "maxHp": "1500000",
+        "rally": {
+          "x": 26500,
+          "y": 68500
+        },
+        "emergencyTakeoffUntil": 0,
+        "ranges": {
+          "sightRadius": 9000,
+          "detectionRadius": 3000
+        }
+      },
+      "footprintWidth": 2,
+      "footprintHeight": 2,
+      "footprintType": "power"
+    },
+    "paid": 500000,
+    "catalogCost": 500000,
+    "save": {
+      "tick": 475,
+      "hash": "ab0b92abcd87044b39c8a0d57082daa34048665729581dd740c7b8ec1dc1f3d4"
+    },
+    "point": {
+      "x": 24000,
+      "y": 66500
+    }
+  },
+  "worker_observation": {
+    "workers": [
+      {
+        "id": 1,
+        "url": "http://127.0.0.1:63307/runtime/worker.js",
+        "live": true,
+        "createdAt": 107.20000004768372,
+        "terminatedAt": 0,
+        "pending": 0,
+        "pendingAtTerminate": 0
+      },
+      {
+        "id": 2,
+        "url": "http://127.0.0.1:63307/runtime/worker.js",
+        "live": false,
+        "createdAt": 4228.400000095367,
+        "terminatedAt": 29812.10000014305,
+        "pending": 0,
+        "pendingAtTerminate": 0
+      }
+    ],
+    "requests": [
+      {
+        "worker": 2,
+        "id": 2,
+        "method": "create",
+        "time": 4274.799999952316
+      },
+      {
+        "worker": 2,
+        "id": 4,
+        "method": "save",
+        "time": 4418
+      },
+      {
+        "worker": 2,
+        "id": 6,
+        "method": "resume",
+        "time": 5621.799999952316
+      },
+      {
+        "worker": 2,
+        "id": 19,
+        "method": "submit",
+        "time": 13885.100000143051,
+        "batch": {
+          "sequence": 1,
+          "orders": [
+            {
+              "kind": "build",
+              "entities": [
+                2
+              ],
+              "position": {
+                "x": 24000,
+                "y": 66500
+              },
+              "type": "power"
+            }
+          ]
+        }
+      },
+      {
+        "worker": 2,
+        "id": 25,
+        "method": "pause",
+        "time": 29404
+      },
+      {
+        "worker": 2,
+        "id": 26,
+        "method": "save",
+        "time": 29581.10000014305
+      }
+    ],
+    "errors": [],
+    "overflow": false
+  },
+  "source_attribution": "Application-owned boot validator is retained at menu; actual create/submit/save worker closed. Observer v2 did not retain content/validate method names, so its first-worker label is source/order attribution, not an observed content RPC label.",
+  "resource_health": [
+    {
+      "label": "initial-menu",
+      "at": "2026-09-29T19:27:56.768Z",
+      "elapsedMs": 5052,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 28,
+          "total": 28,
+          "p50": 16.69999999999999,
+          "p95": 64.60000000000001,
+          "p99": 100.4,
+          "over50": 2
+        },
+        "contexts": []
+      },
+      "cdpMetrics": {
+        "Documents": 12,
+        "Frames": 8,
+        "Nodes": 803,
+        "LayoutDuration": 0.061437,
+        "RecalcStyleDuration": 0.012881,
+        "ScriptDuration": 0.064627,
+        "TaskDuration": 0.476388,
+        "JSHeapUsedSize": 9946904,
+        "JSHeapTotalSize": 19398656
+      },
+      "host": {
+        "loadAverage": [
+          3.08203125,
+          2.76318359375,
+          2.8544921875
+        ],
+        "freeMemory": 3545399296,
+        "totalMemory": 17179869184,
+        "conditions": "AC Power 100% charged before run. Mencius sole Blender continues SA gunship. Shared-host diagnostic; no quiet performance/FPS acceptance."
+      },
+      "dom": {
+        "canvas": 0,
+        "battlefieldCanvas": 0
+      }
+    },
+    {
+      "label": "scene-loading-dismissed",
+      "at": "2026-09-29T19:28:01.697Z",
+      "elapsedMs": 9981,
+      "tick": 0,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 258,
+          "total": 286,
+          "p50": 16.699999999999818,
+          "p95": 35.099999999999454,
+          "p99": 66.59999999999945,
+          "over50": 9
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": true,
+            "contextCollected": false,
+            "lost": false,
+            "created": 32,
+            "explicitDeleted": 3,
+            "liveCounts": {
+              "texture": 23,
+              "buffer": 4,
+              "framebuffer": 1,
+              "renderbuffer": 0,
+              "program": 1,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 61001380,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 61001380
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 4,
+        "Frames": 4,
+        "Nodes": 791,
+        "LayoutDuration": 0.086485,
+        "RecalcStyleDuration": 0.034198,
+        "ScriptDuration": 0.902324,
+        "TaskDuration": 3.70746,
+        "JSHeapUsedSize": 42767548,
+        "JSHeapTotalSize": 110395392
+      },
+      "host": {
+        "loadAverage": [
+          3.5556640625,
+          2.86669921875,
+          2.89013671875
+        ],
+        "freeMemory": 198606848,
+        "totalMemory": 17179869184,
+        "conditions": "AC Power 100% charged before run. Mencius sole Blender continues SA gunship. Shared-host diagnostic; no quiet performance/FPS acceptance."
+      },
+      "dom": {
+        "canvas": 2,
+        "battlefieldCanvas": 1
+      }
+    },
+    {
+      "label": "scene-ready",
+      "at": "2026-09-29T19:28:07.853Z",
+      "elapsedMs": 16137,
+      "tick": 120,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 367,
+          "total": 653,
+          "p50": 16.69999999999891,
+          "p95": 18.300000000000182,
+          "p99": 18.600000000000364,
+          "over50": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": true,
+            "contextCollected": false,
+            "lost": false,
+            "created": 32,
+            "explicitDeleted": 3,
+            "liveCounts": {
+              "texture": 23,
+              "buffer": 4,
+              "framebuffer": 1,
+              "renderbuffer": 0,
+              "program": 1,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 61001380,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 61001380
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 4,
+        "Frames": 4,
+        "Nodes": 822,
+        "LayoutDuration": 0.087669,
+        "RecalcStyleDuration": 0.034341,
+        "ScriptDuration": 1.4166,
+        "TaskDuration": 4.36953,
+        "JSHeapUsedSize": 68146540,
+        "JSHeapTotalSize": 115376128
+      },
+      "host": {
+        "loadAverage": [
+          3.4306640625,
+          2.85205078125,
+          2.884765625
+        ],
+        "freeMemory": 3769565184,
+        "totalMemory": 17179869184,
+        "conditions": "AC Power 100% charged before run. Mencius sole Blender continues SA gunship. Shared-host diagnostic; no quiet performance/FPS acceptance."
+      },
+      "dom": {
+        "canvas": 2,
+        "battlefieldCanvas": 1
+      }
+    },
+    {
+      "label": "completed-paid-power",
+      "at": "2026-09-29T19:28:25.176Z",
+      "elapsedMs": 33460,
+      "tick": 468,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 1035,
+          "total": 1688,
+          "p50": 16.700000000000728,
+          "p95": 18.399999999999636,
+          "p99": 18.600000000002183,
+          "over50": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": true,
+            "contextCollected": false,
+            "lost": false,
+            "created": 45,
+            "explicitDeleted": 5,
+            "liveCounts": {
+              "texture": 31,
+              "buffer": 6,
+              "framebuffer": 1,
+              "renderbuffer": 0,
+              "program": 2,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 78667168,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 78667168
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 7,
+        "Frames": 6,
+        "Nodes": 1740,
+        "LayoutDuration": 0.09907,
+        "RecalcStyleDuration": 0.050756,
+        "ScriptDuration": 3.346829,
+        "TaskDuration": 7.067681,
+        "JSHeapUsedSize": 46996588,
+        "JSHeapTotalSize": 118063104
+      },
+      "host": {
+        "loadAverage": [
+          3.9248046875,
+          2.9892578125,
+          2.9326171875
+        ],
+        "freeMemory": 177717248,
+        "totalMemory": 17179869184,
+        "conditions": "AC Power 100% charged before run. Mencius sole Blender continues SA gunship. Shared-host diagnostic; no quiet performance/FPS acceptance."
+      },
+      "dom": {
+        "canvas": 2,
+        "battlefieldCanvas": 1
+      }
+    },
+    {
+      "label": "before-final-close",
+      "at": "2026-09-29T19:28:46.345Z",
+      "elapsedMs": 54629,
+      "tick": 472,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 1267,
+          "total": 2955,
+          "p50": 16.69999999999709,
+          "p95": 18.19999999999709,
+          "p99": 18.599999999998545,
+          "over50": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": false,
+            "contextCollected": true,
+            "lost": true,
+            "created": 45,
+            "explicitDeleted": 43,
+            "liveCounts": {
+              "texture": 0,
+              "buffer": 0,
+              "framebuffer": 0,
+              "renderbuffer": 0,
+              "program": 0,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 0,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 78667168
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 5,
+        "Frames": 5,
+        "Nodes": 1052,
+        "LayoutDuration": 0.106174,
+        "RecalcStyleDuration": 0.060334,
+        "ScriptDuration": 3.470926,
+        "TaskDuration": 7.79743,
+        "JSHeapUsedSize": 16284520,
+        "JSHeapTotalSize": 18972672
+      },
+      "host": {
+        "loadAverage": [
+          3.4462890625,
+          2.9404296875,
+          2.91552734375
+        ],
+        "freeMemory": 95027200,
+        "totalMemory": 17179869184,
+        "conditions": "AC Power 100% charged before run. Mencius sole Blender continues SA gunship. Shared-host diagnostic; no quiet performance/FPS acceptance."
+      },
+      "dom": {
+        "canvas": 0,
+        "battlefieldCanvas": 0
+      }
+    }
+  ],
+  "network": {
+    "raw_status": "failed",
+    "raw_count": 24,
+    "body_status": "passed-for-supported-static-readers",
+    "body_facts": 24,
+    "unproved_failed_requests": 0,
+    "complete_original_bodies": 689,
+    "unobserved_requests": 102,
+    "unobserved_categories": {
+      "Document/unproven": 1,
+      "Script/unproven": 10,
+      "Stylesheet/unproven": 1,
+      "Other/unproven": 19,
+      "Image/unproven": 64,
+      "Font/unproven": 7
+    },
+    "event_order": {
+      "network-failure-before-native-eof": 24
+    },
+    "accounting": [
+      {
+        "scope": "current-loader:5fd33439-57d7-4e24-8853-7435f1b7df72",
+        "activeHashes": 0,
+        "peakActiveHashes": 4,
+        "totalHashedBytes": 65066263,
+        "hashArrayBytesPerActive": 608,
+        "retainedResponseChunkBytes": 0,
+        "retainedBlobBytes": 0,
+        "peakRetainedBlobBytes": 0,
+        "pendingBlobProofs": 0,
+        "limits": {
+          "records": 16384,
+          "maxBody": 67108864,
+          "maxTotal": 2147483648,
+          "maxActive": 16,
+          "maxBlob": 8388608,
+          "maxBlobRetained": 16777216
+        }
+      }
+    ],
+    "errors": {
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "httpErrors": 0,
+      "serverErrors": 0,
+      "cleanupErrors": 0,
+      "observerFaults": 0,
+      "definiteBodyMismatches": 0
+    }
+  },
+  "closed_process": {
+    "browserPID": 48374,
+    "browserExitCode": 0,
+    "browserSignal": null,
+    "httpListening": false
+  },
+  "pins_verified_after": 86,
+  "screenshots": [
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/scene-ready.png",
+      "bytes": 507292,
+      "sha256": "7d47e7a9eeaca2b225705065e167a41f929ee2e8607bb9633a7141147068c373"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/paid-power.png",
+      "bytes": 575032,
+      "sha256": "ace6083cb65499b3d87361931f15e619a14ff1dbbf1ffbc8d78800d8a22ba06a"
+    },
+    {
+      "path": "work/full-app-native-body-v2/chrome-01/failure.png",
+      "bytes": 1860291,
+      "sha256": "7be2be900f4118cd482302b6164af53f1e58469124648ee5e907ac859d75313c"
+    }
+  ],
+  "scope_limits": [
+    "Single short solo readiness/build/menu cycle; not victory/endurance acceptance.",
+    "Shared Blender host and passive observers; no quiet FPS/performance acceptance.",
+    "API allocation estimates exclude JS/image/2D/worker/audio caches and actual GPU total memory.",
+    "GL context loss/collection, not all-object explicit deletion: 45 created and 43 explicitly deleted.",
+    "Exact consumer bytes/EOF do not waive raw aborts or prove cancellation cause/decode.",
+    "All four native negative controls remain unrun in this course.",
+    "102 browser-native/other requests lack original-body proof; none had a failure here.",
+    "Current ordinary package contains incomplete live art; no final-art visual acceptance."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "paths": {
+      "pinned-frontline-protocol": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/full-app-native-body-v1/product-preflight-01/frontline_pb.ts"
+      ],
+      "@bufbuild/protobuf": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/@bufbuild/protobuf/dist/esm/index.d.ts"
+      ],
+      "@bufbuild/protobuf/*": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/@bufbuild/protobuf/dist/esm/*"
+      ]
+    }
+  },
+  "files": [
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/full-app-native-body-v1/worker-observer.ts",
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/full-app-native-body-v1/product-preflight-01/frontline_pb.ts"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "status": "failed-original-preserved",
+  "reviewedAt": "2026-09-29T19:27:15.485371+00:00",
+  "browser": "154.0.8037.58",
+  "sceneReadyIncludingCountdownMs": 10608,
+  "rawFailures": 30,
+  "originalStaticBodyProofs": 680,
+  "exactRawFailureBodies": 29,
+  "eofOrdering": {
+    "network-failure-before-native-eof": 29
+  },
+  "unprovedRawFailures": [
+    {
+      "requestId": "2352B460E412DA1C3E38AD519536C2B6:46270.68",
+      "url": "http://127.0.0.1:63113/content/maps/copper-junction.json",
+      "message": "net::ERR_ABORTED",
+      "canceled": true,
+      "order": 291,
+      "phase": "normal-app-readiness"
+    }
+  ],
+  "sourcePins": {
+    "pkg/sim/preview.go": "b75fb849ecf5b0a58867b9f7c778001f605dedcecf867e90e043356843b7103d",
+    "pkg/sim/engine.go": "20dc78e3674f378085d453a5f02552145e111a0132dc9a0ea0a1349ee4154f4f",
+    "client/src/app/battle-controller.ts": "fed3adc8662c774f17651c1272181fdd3bec151e0751b55a41254bdce4097818",
+    "client/src/ui/App.tsx": "3e843a199ea79f9f6d19fab6f7fb536ac9d338c27b1bddc4970ca235b04aabb7",
+    "client/src/runtime/content-library.ts": "f36a69922fa139e75e2f651c2318b39d8664e0f5549250293bd30fc43301af42"
+  },
+  "inputPinsRechecked": 86,
+  "closedProcess": {
+    "browserPID": 46237,
+    "browserExitCode": 0,
+    "browserSignal": null,
+    "httpListening": false
+  },
+  "classification": "Fixture expected clear while actual build preview intentionally returns accepted+indeterminate. No real preview RPC timeline retained in v1; no product hang or latency claim.",
+  "unexercisedFixtureBug": "Saved Go bytes use version1 state envelope; v1 incorrectly read top-level entities.",
+  "scope": "Readiness only. No paid order, ordinary menu resource-lifetime result or tiny-control run. All30 raw failures remain strictfailed."
+}
