@@ -1,0 +1,94 @@
+{
+  "scope": "Independent post-close assertions on preserved evidence only. The original browser course remains integrity FAILED; these narrower facts do not relabel it or any prior run.",
+  "browserReport": {
+    "path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/multiplayer-combat/readiness-all-art-01/browser.json",
+    "bytes": 17823318,
+    "sha256": "a8f05078ff2f5c8ab686a688b285f9f094a7fd5e7c57c03ffbda95f46fa2d02c"
+  },
+  "checks": [
+    {
+      "name": "Original course completed and remains strictly failed for its identity assertion",
+      "status": "pass"
+    },
+    {
+      "name": "Every original streamed art body is exact, with unique actual request identity",
+      "status": "pass"
+    },
+    {
+      "name": "Every actual failed request has its own complete native proof or exact deliberate-control proof",
+      "status": "pass"
+    },
+    {
+      "name": "All six native fault controls retain their exact expected positive/negative result",
+      "status": "pass"
+    },
+    {
+      "name": "No unexpected page, HTTP, console or observer errors after closure",
+      "status": "pass"
+    },
+    {
+      "name": "All actual advice response bytes match the exact server writes",
+      "status": "pass"
+    },
+    {
+      "name": "Menu and observer resources closed within recorded bounds",
+      "status": "pass"
+    }
+  ],
+  "status": "passed",
+  "raw": 226,
+  "actual": 223,
+  "exactActual": 223,
+  "unprovenActual": 0,
+  "actualByExtension": {
+    "JSON": 80,
+    "PNG": 143
+  },
+  "failureOrder": {
+    "network-failure-before-native-eof": 223
+  },
+  "cancellationObserved": 0,
+  "unsupportedNativeJSON": 36,
+  "ambiguousNative": [
+    {
+      "url": "http://127.0.0.1:55908/art/index.json",
+      "ordinal": 1,
+      "completion": "native-json-fulfilled",
+      "reason": "request-ordinal-or-realm-ambiguous"
+    },
+    {
+      "url": "http://127.0.0.1:55908/art/index.json",
+      "ordinal": 2,
+      "completion": "native-json-fulfilled",
+      "reason": "request-ordinal-or-realm-ambiguous"
+    },
+    {
+      "url": "http://127.0.0.1:55908/art/index.json",
+      "ordinal": 3,
+      "completion": "native-json-fulfilled",
+      "reason": "request-ordinal-or-realm-ambiguous"
+    }
+  ],
+  "browserNative": 42,
+  "accounting": [
+    {
+      "scope": "readiness-all-art:57ef01d8-bf8c-4d0c-a80d-d507e93b9b15",
+      "activeHashes": 0,
+      "peakActiveHashes": 1,
+      "totalHashedBytes": 209727891,
+      "hashArrayBytesPerActive": 608,
+      "retainedResponseChunkBytes": 0,
+      "retainedBlobBytes": 0,
+      "peakRetainedBlobBytes": 0,
+      "pendingBlobProofs": 0,
+      "limits": {
+        "records": 16384,
+        "maxBody": 67108864,
+        "maxTotal": 2147483648,
+        "maxActive": 128,
+        "maxBlob": 8388608,
+        "maxBlobRetained": 16777216
+      }
+    }
+  ]
+}

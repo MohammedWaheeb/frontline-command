@@ -27,3 +27,10 @@ test('only an actual failed negative control and its exact URL/code explain cons
  assert.deepEqual(r.expectedConsole,[exact]);assert.deepEqual(r.unexpectedConsole,[foreign,wrong]);assert.equal(r.expectedNetwork.length,1);assert.equal(r.otherNetwork.length,1);
  assert.equal(explicitControlDiagnostics({controls:[{kind:'truncated',url}],consoleErrors:[exact],failures:[]}).unexpectedConsole.length,1);
 });
+test('an ambiguous failed native JSON request is never waived by successful parsed output or a supplied hash',()=>{
+ const f=fixture(),r=f.snapshot.traces[0].records[0];Object.assign(r,{hashImplementation:'incremental-sha256-v1',hashedBytes:3,bodyMethods:['json'],readerCount:0,completion:'native-json-fulfilled',bodyMethodSettledOrder:10});delete r.eofOrder;
+ f.snapshot.traces[0].records.push({...r,ordinal:2,startedOrder:2,bodyMethodSettledOrder:11});f.snapshot.network.push({...f.snapshot.network[0],id:'page:request2',ordinal:2});
+ const result=reconcileConsumedBodies(f);assert.equal(result.rawFailures.length,1);assert.equal(result.knownNativeReports.length,0);assert(result.proofs.every(p=>!p.complete&&p.reason==='request-ordinal-or-realm-ambiguous'));
+ // Even an unambiguous native JSON response cannot use reserialized bytes.
+ f.snapshot.traces[0].records.pop();f.snapshot.network.pop();const single=reconcileConsumedBodies(f);assert.equal(single.knownNativeReports.length,0);assert.equal(single.proofs[0].complete,false);
+});

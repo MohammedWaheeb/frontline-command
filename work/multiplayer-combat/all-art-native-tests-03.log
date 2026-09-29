@@ -1,0 +1,32 @@
+✔ all art original reader identity and mutated chunks hash without retaining body chunks (1.632375ms)
+✔ native json/text remain the same parsed value but can never be reserialized as byte proof (1.102875ms)
+✔ native arrayBuffer retains its exact result and hashes before caller mutation (0.20525ms)
+✔ native returned Blob identity/delivery is not held for local proof, storage is bounded, no extra fetch (23.389875ms)
+✔ large/parallel Blob proof limits preserve original delivery and leave unsupported proof explicit (0.253833ms)
+✔ per-body/total/active limits do not cancel original streams or hide truncation/error identity (7.28025ms)
+✔ actual caller cancellation remains exact; observation never supplies EOF or hash (0.167125ms)
+✔ concurrent original readers honor active-state ceiling without canceling either consumer (0.235ms)
+✔ exact consumed hash proves a bounded fact both before/after EOF, never inventing cancellation (1.757375ms)
+✔ missing native hash, wrong hash, truncated byte count and read errors cannot be replaced by served proof (0.371ms)
+✔ ambiguous URL overlap, realm, identity, service worker and collector faults fail closed (0.169958ms)
+✔ POST proof requires exact serial server-written hash, no short write, and matching request count (0.207125ms)
+✔ other network errors stay raw even if a separate byte-integrity fact is complete (0.062167ms)
+✔ only an actual failed negative control and its exact URL/code explain console diagnostics (0.173791ms)
+✔ an ambiguous failed native JSON request is never waived by successful parsed output or a supplied hash (0.153708ms)
+✔ one native dispatch/read, exact response/result identity, caller-owned lock and copied consumed-byte digest (4.118625ms)
+✔ fetch and read rejections preserve the exact native error object and cannot prove EOF (0.403375ms)
+✔ truncated and wrong-hash bodies remain distinct integrity failures even after actual EOF (0.594ms)
+✔ native cancellation is forwarded once with exact result and is never filled in from a later failure (0.175292ms)
+✔ observer capacity exhaustion never cancels or changes the native result but excludes proof (0.1065ms)
+✔ redirects and absent hashes cannot be classified using expected served bytes alone (0.074292ms)
+✔ POST advice is observed without reading/logging request bodies, unrelated fetch stays untouched (0.11475ms)
+✔ SHA-256 known vectors and every padding boundary with fragmented views (223.658458ms)
+✔ incremental hashing retains no input reference, has fixed storage and forbids reuse after finalization (927.368375ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1198.36025
