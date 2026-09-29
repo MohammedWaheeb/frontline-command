@@ -1,0 +1,25 @@
+{
+  "checked_utc": "2026-09-29T17:04:54.410732+00:00",
+  "status": "passed",
+  "scope": "Six lightweight Python filesystem/receipt unit tests executed, source verification and parse only. No Go compilation/workload/browser/host.",
+  "unit_command": "PYTHONDONTWRITEBYTECODE=1 python3 work/maximum-load-034-course/test_runner_guard.py -v",
+  "unit_exit": 0,
+  "unit_tests": 6,
+  "unit_seconds_observed": 0.007,
+  "source_guard": {
+    "source_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 356,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 357
+  },
+  "pins": {
+    "run-server-before-review.py": "6811116576d2e0937aab992c4bc957e81a082c1806044b06e739e1fe0d3eae11",
+    "run-server.py": "4e9265c9cb5358e27cdf2d2ad8306c6097577f01fd0ba6deddba19540c148a1c",
+    "runner_guard.py": "55bc657f42ab0cc53fed601dbb2c75a0c86d9e412d4a524e1d39e5d4a7e3a3db",
+    "test_runner_guard.py": "547221bc1e042e907e584def8932e3e8286dbdf2c523c23a551d6e97a5ee7b13",
+    "server-source-lock.json": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+    "server_maximum_timing_test.go": "f014953ce8253f4684751bde42aeb2055b05c55d8f4dd1ad1870cb797b94be8a",
+    "server-instrumentation.diff": "c2b7fe07e4e670a498cc49019f021cc6bd4f80fea7e61fcff44162c238973446"
+  }
+}

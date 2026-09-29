@@ -51,6 +51,14 @@ The strict test distinguishes simulation p95<25ms/p99<40ms from whole-actor cade
 
 ## Proposed command and time budget
 
+### Runner review corrections — 29 September,17:04 UTC
+
+Einstein's read-only review (`work/evidence/maximum-server-timing-review-v1`) found two evidence-wrapper gaps, without finding a Go workload or scheduling blocker. The original runner is preserved as `run-server-before-review.py`. The successor keeps the exact compile/test commands, timeout bounds, Go instrumentation and source lock unchanged.
+
+`runner_guard.py` now checks the complete regular-file inventory, rejects symlinks and unlisted files (including injected Go tests), and allows only the exact documented `.gitignore` bytes beyond the356 locked inputs. Initial guard failure creates a finalized failed receipt before any workload starts. Final guard failure records its own error and artifact hashes while preserving an earlier compile/workload failure; a final-only failure also causes a nonzero runner exit. Receipt writes use a temporary file and atomic replacement. A forced process timeout still cannot guarantee execution of Go deferred save/replay cleanup; the runner retains whatever files actually exist.
+
+`test_runner_guard.py` passed six lightweight temporary-filesystem tests covering clean inventory, added/changed/missing/symlinked inputs, lock/ignore substitution, initial failure, original-error preservation and final-only drift. `runner-guard-checks.json` pins the successor, helper, tests and unchanged Go inputs; the actual source verification found356 locked files plus the one allowed ignore file. These checks did not compile Go or start a server/browser. Execution still requires independent delta review and a new explicit quiet-window dispatch.
+
 Wait for a new explicit whole-asset quiet release. No automatic follow-up starts.
 
 ```sh
