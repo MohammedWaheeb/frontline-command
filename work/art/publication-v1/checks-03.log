@@ -1,0 +1,30 @@
+✔ prepare/check/promote exact tree; stale own atlas removed only in stage; originals and old backup preserved (382.317541ms)
+✔ duplicate ID and missing ID rejected before copy (72.040375ms)
+✔ complete scope requires exact full162; subset cannot promote (310.461417ms)
+✔ changed export rejected and original baseline unchanged (50.512042ms)
+✔ unsafe source path and destination alias reject (95.851583ms)
+✔ symlink input and parent directory reject (84.935041ms)
+✔ failed integrity/native receipts reject even when handoff repinned (83.77975ms)
+✔ changed editable source and production helper reject (76.867625ms)
+✔ normalization handoff identity and full four-mask scope reject (100.925416ms)
+✔ mask ordering catches late original overwrite; failed stage is unsealed (115.994583ms)
+✔ dependency mutation during copy caught by complete post-check (114.868375ms)
+✔ check catches extra stale page, missing required2x and changed normalized mask (532.528708ms)
+✔ plugin silent omission cannot pass advertised ID inventory (51.427792ms)
+✔ unchanged baseline rejects late file addition before promotion (214.560833ms)
+✔ ordinary failures after either rename rollback old bytes and retain failure receipt (622.052958ms)
+✔ existing exclusive lock blocks mutation (250.8245ms)
+✔ interrupted process after renames or committed journal rolls back explicitly and idempotently (1574.825959ms)
+✔ fixture designation cannot target live assets (254.0595ms)
+✔ extra unselected advertised baseline ID rejects before publication (126.078958ms)
+✔ tampered check receipt and final stage reject promotion without mutation (493.279ms)
+✔ hard exit after lock mkdir leaves an unstealable orphan with unchanged old bytes (324.10975ms)
+✔ a sealed successful promotion is not automatically rolled back by recovery (307.012334ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6289.219666
