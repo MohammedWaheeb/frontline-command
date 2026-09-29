@@ -19,12 +19,26 @@ const root=fileURLToPath(new URL('../../../',import.meta.url)),product=await rea
 const engine=args['--engine']??'chromium';assert(['chromium','firefox','webkit'].includes(engine));assert(args['--headless']===undefined||['true','false'].includes(args['--headless']));
 const headless=args['--headless']===undefined?engine!=='chromium':args['--headless']==='true';
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex'),driver=fileURLToPath(import.meta.url),fixture=path.join(root,'client/tests/render/fx-pack-residency-fixture.ts');
+function classifyNetworkFailures(engine,failures,requests,servedFiles,expectedFiles,pendingRelease){
+ const completedBodyAbortReports=[],expectedCancellations=[],unexpectedFailures=[];
+ for(const failure of failures){
+  const url=new URL(failure.url).pathname;
+  const read=Number.isInteger(failure.ordinal)&&failure.ordinal>0?requests.find(value=>value.url===url&&value.ordinal===failure.ordinal):undefined,served=servedFiles[url];
+  // This category establishes native EOF and exact served-byte identity. Actual
+  // successful verification/decode is asserted separately by full/pressure/reload.
+  if(engine==='chromium'&&failure.message==='net::ERR_ABORTED'&&read?.bodyComplete&&read.status===200&&!read.aborted&&!read.readError&&read.bytesRead===served?.bytes&&expectedFiles.get(url)===served?.sha256){
+   completedBodyAbortReports.push({failure,nativeReader:read,served});
+  }else if(failure.phase==='pending-release'&&url===pendingRelease?.url&&read?.aborted&&!read.bodyComplete&&/abort|cancel/i.test(failure.message??''))expectedCancellations.push({failure,nativeReader:read});
+  else unexpectedFailures.push(failure);
+ }
+ return {completedBodyAbortReports,expectedCancellations,unexpectedFailures};
+}
 await mkdir(path.dirname(out),{recursive:true});await mkdir(out);
 const report={started:new Date().toISOString(),status:'running',product,source,engine,headless,
  scope:'Actual frozen 71-effect pack / five variants / real Pixi PNG loading, crop extraction and native-scale contacts. Default 32 MiB residency, constrained real-page pressure, idle eviction, reload, pending request release and final disposal. No synthetic artwork, product UI, Go simulation, performance, total GPU/heap or subjective-art approval claim.',
  tooling:'Browser plugin not available; existing Playwright. Authored tests are not passed evidence.',
  errors:[],httpErrors:[],requestFailures:[],served:{},changed:[],frozenSourceFiles:{},contacts:[]};
-let temp,server,browser,page,phase='preflight';const expectedFiles=new Map();
+let temp,server,browser,page,observed,phase='preflight';const expectedFiles=new Map();
 const mime={'.js':'text/javascript','.json':'application/json','.png':'image/png'};
 try{
  const driverBytes=await readFile(driver),fixtureBytes=await readFile(fixture),receiptBytes=await readFile(path.join(product,'../build.json'));
@@ -81,7 +95,9 @@ try{
  page.on('pageerror',error=>report.errors.push({phase,type:'pageerror',message:error.message}));
  page.on('console',message=>{if(message.type()==='error')report.errors.push({phase,type:'console',message:message.text()})});
  page.on('response',response=>{if(response.status()>=400)report.httpErrors.push({phase,url:response.url(),status:response.status()})});
- page.on('requestfailed',request=>report.requestFailures.push({phase,url:request.url(),message:request.failure()?.errorText}));
+ const requestOrdinals=new WeakMap(),urlRequests=new Map();
+ page.on('request',request=>{const ordinal=(urlRequests.get(request.url())??0)+1;urlRequests.set(request.url(),ordinal);requestOrdinals.set(request,ordinal)});
+ page.on('requestfailed',request=>report.requestFailures.push({phase,url:request.url(),ordinal:requestOrdinals.get(request),message:request.failure()?.errorText}));
  phase='boot';await page.goto(`http://127.0.0.1:${server.address().port}`);await page.waitForFunction(()=>document.body.dataset.ready==='true');
  phase='all-pages';report.full=await page.evaluate(()=>window.fxPackQA.full());assert.equal(report.full.effects,71);assert.equal(report.full.variants.length,355);assert.equal(report.full.pageUploads.length,132);
  assert.equal(report.full.statistics.allocatedBytes,30622144);assert(report.full.lazyMisses>0);assert(report.full.variants.every(value=>value.alphaPixels>0));
@@ -93,16 +109,30 @@ try{
  phase='release-full';report.released=await page.evaluate(()=>window.fxPackQA.releaseFull());assert.equal(report.released.statistics.allocatedBytes,0);
  phase='pressure';report.pressure=await page.evaluate(()=>window.fxPackQA.pressure());assert(report.pressure.denied.length>0);assert.equal(report.pressure.final.allocatedBytes,0);
  phase='pending-release';report.pendingRelease=await page.evaluate(()=>window.fxPackQA.pendingRelease());assert.equal(report.pendingRelease.final.allocatedBytes,0);
- // The only allowed failed network request is the exact page deliberately
- // canceled during the pending-release stage. Keep every failure in evidence.
- report.expectedCancellations=report.requestFailures.filter(value=>value.phase==='pending-release'&&new URL(value.url).pathname===report.pendingRelease.url&&/abort|cancel/i.test(value.message??''));
- assert.equal(report.expectedCancellations.length,report.requestFailures.length,'Unexpected network failure');
+ observed=await page.evaluate(()=>window.fxPackQA.stats());
  phase='dispose';report.disposal=await page.evaluate(()=>window.fxPackQA.dispose());assert.equal(report.disposal.canvases,0);assert.equal(report.disposal.statistics.allocatedBytes,0);
- assert.deepEqual(report.disposal.errors,[]);assert.deepEqual(report.errors,[]);assert.deepEqual(report.httpErrors,[]);assert.deepEqual(report.changed,[]);report.status='passed';
+ assert.deepEqual(report.disposal.errors,[]);report.status='passed';
 }catch(error){report.status='failed';report.failure=String(error.stack??error);report.failedPhase=phase;process.exitCode=1;
  if(page){report.failureState=await page.evaluate(()=>window.fxPackQA?.stats()).catch(()=>undefined);await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{})}
 }finally{
- if(page)report.cleanup=await page.evaluate(()=>window.fxPackQA?.dispose()).catch(error=>({failure:String(error)}));
- try{await browser?.close()}finally{if(server?.listening)await new Promise(resolve=>server.close(resolve));if(temp)await rm(temp,{recursive:true,force:true});report.finished=new Date().toISOString();await writeFile(path.join(out,'browser.json'),JSON.stringify(report,null,2))}
+ if(page){
+  report.cleanup=await page.evaluate(()=>window.fxPackQA?.dispose()).catch(error=>({failure:String(error)}));
+  observed=await page.evaluate(()=>window.fxPackQA?.stats()).catch(()=>observed);
+ }
+ // Request/console callbacks stay attached through disposal and browser close.
+ // Only then reconcile the complete raw ledger against the last native-reader
+ // trace. A late unclassified failure must not survive in a passing report.
+ phase='browser-close';
+ try{await browser?.close()}catch(error){report.errors.push({phase,type:'browser-close',message:String(error)})}
+ if(server?.listening)await new Promise(resolve=>server.close(resolve));
+ Object.assign(report,classifyNetworkFailures(engine,report.requestFailures,observed?.requests??[],report.served,expectedFiles,report.pendingRelease));
+ report.diagnosticReconciliation={afterBrowserClose:true,requestFailures:report.requestFailures.length,classified:report.completedBodyAbortReports.length+report.expectedCancellations.length+report.unexpectedFailures.length,readerRequests:observed?.requests.length??0};
+ try{
+  assert.deepEqual(report.unexpectedFailures,[],'Unexpected network failure or incomplete resource body');
+  assert.deepEqual(report.errors,[]);assert.deepEqual(report.httpErrors,[]);assert.deepEqual(report.changed,[]);
+  assert(!report.cleanup?.failure,'Fixture cleanup failed');assert.deepEqual(observed?.errors??[],[]);
+  assert.equal(report.diagnosticReconciliation.classified,report.requestFailures.length,'Unclassified late diagnostic');
+ }catch(error){report.diagnosticFailure=String(error.stack??error);if(report.status==='passed'){report.failure=report.diagnosticFailure;report.failedPhase='final-diagnostics'}report.status='failed';process.exitCode=1}
+ if(temp)await rm(temp,{recursive:true,force:true});report.finished=new Date().toISOString();await writeFile(path.join(out,'browser.json'),JSON.stringify(report,null,2));
  console.log(report.status,report.failure??out);
 }

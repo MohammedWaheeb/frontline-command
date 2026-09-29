@@ -7,12 +7,23 @@ import {EFFECT_VARIANTS} from '../../src/content/effect-assets.mjs';
 const app=new Application();await app.init({width:1800,height:1060,resolution:1,background:0x181b13,antialias:false});document.body.appendChild(app.canvas);
 const artResponse=await fetch('/art/index.json');if(!artResponse.ok)throw Error('Frozen art index unavailable');
 const descriptor=(await artResponse.json()).effects;
-const errors:string[]=[],requests:Array<{url:string;aborted:boolean}>=[];
-const fetcher:typeof fetch=async(input,init)=>{const record={url:String(input),aborted:false};requests.push(record);try{return await fetch(input,init)}catch(error){record.aborted=init?.signal?.aborted===true;throw error}};
+let phase='boot';
+const errors:string[]=[],requests:Array<{url:string;ordinal:number;aborted:boolean;started:string;signalPhase?:string;status?:number;bodyComplete?:string;bytesRead:number;readError?:string}>=[];
+// Passive observation of the exact native reader used by the production loader.
+// No cloned body, replacement bytes, extra fetch, or delayed response.
+const fetcher:typeof fetch=async(input,init)=>{
+ const record:typeof requests[number]={url:String(input),ordinal:requests.filter(value=>value.url===String(input)).length+1,aborted:false,started:phase,bytesRead:0};requests.push(record);
+ init?.signal?.addEventListener('abort',()=>{record.signalPhase=phase},{once:true});
+ try{
+  const response=await fetch(input,init);record.status=response.status;const body=response.body;
+  if(body){const getReader=body.getReader.bind(body);body.getReader=(()=>{const reader=getReader(),read=reader.read.bind(reader);reader.read=async()=>{try{const result=await read();if(result.done)record.bodyComplete=phase;else record.bytesRead+=result.value.byteLength;return result}catch(error){record.readError=String(error);throw error}};return reader}) as typeof body.getReader;}
+  return response;
+ }catch(error){record.aborted=init?.signal?.aborted===true;throw error}
+};
 const effects=new EffectLibrary({fetch:fetcher,onError:error=>errors.push(error.message)}),index=await effects.init(descriptor);
 if(!index)throw Error('Frozen product has no effect index');
 const ids=Object.keys(index.effects).sort(),sheets:EffectSheet[]=[],chosen=new Map<string,{frame:number;alphaPixels:number}>();
-let phase='ready',pressure:EffectLibrary|undefined,race:EffectLibrary|undefined,disposed=false;
+phase='ready';let pressure:EffectLibrary|undefined,race:EffectLibrary|undefined,disposed=false;
 type PageRef={sheet:EffectSheet;variant:EffectVariant;frame:number;page:number;bytes:number;url:string};
 const pageRefs:PageRef[]=[];
 function check(value:unknown,message:string):asserts value{if(!value)throw Error(message)}
