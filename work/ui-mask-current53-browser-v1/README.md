@@ -1,6 +1,6 @@
 # Current53 UI-mask actual-consumer course
 
-Prepared only; no browser result is claimed at this checkpoint. This course preserves the exact private `normalized-current53-v1` receipt SHA256 `2131210ccd1bfbe8a54dbb950629c19e964bead726f96249ea1bde7112fc36e6`, not the later 54/55-asset rosters. It makes no production, artwork, model, beauty, mask or world-atlas change.
+The prepared source checkpoint was `b41472d`. Subsequent `chromium-01` completed53 roles/424 comparisons and all cleanup/source guards, but its **overall strict result remains FAILED on14 unclassified raw ERR_ABORTED reports**. See `chromium-01/native-review.md` for the bounded visual review of20 new/replacement roles plus4 reused samples. This course preserves the exact private `normalized-current53-v1` receipt SHA256 `2131210ccd1bfbe8a54dbb950629c19e964bead726f96249ea1bde7112fc36e6`, not the later 54/55-asset rosters. It makes no production, artwork, model, beauty, mask or world-atlas change.
 
 The flow under test is: exact private mask/beauty generations → public current `ArtLibrary.cameo` → four actual team-palette extrema at portrait/build purposes → native contact capture → complete per-role disposal.
 
@@ -31,4 +31,4 @@ node work/ui-mask-current53-browser-v1/browser.mjs prepared-03 build-01 chromium
 
 The driver never overwrites an existing result directory. It preserves page, console, HTTP and raw request-failure events through context/browser close, then checks all input/source hashes again and rechecks protected originals. Any raw failure keeps the overall strict result failed; a completed composition is not byte-attribution evidence for a network diagnostic. Functional/color results and strict diagnostic status remain separate. Final browser/HTTP closure is recorded.
 
-No actual input/hardware timing, gameplay, final roster completeness or cross-engine compatibility is established by preparation. A native screenshot review and real browser run remain pending.
+No actual input/hardware timing, gameplay, final roster completeness or cross-engine compatibility is established. The subsequent native browser/review evidence is separately scoped in `chromium-01`; no network-clean claim is made.
