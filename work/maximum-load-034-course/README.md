@@ -19,9 +19,26 @@ Every measured p95 is strictly below25ms and p99 below40ms. These are the existi
 
 `native-01/receipt.json` deliberately remains **failed**: after the executable exited0, `run-native.py` sliced `--- PASS:` without stripping the following space, and its final name-count assertion failed. `native-01/native-gates.log` is unchanged and contains12 PASS lines plus terminal PASS. `audit-native.py` independently verifies those exact log bytes, the executable digest, source lock and each strict numerical gate; `native-01/independent-log-audit.json` records **passed**. No rerun or relabeling of the failed wrapper was used. The original buggy wrapper is retained for provenance, not recommended for another run.
 
-## Prepared actual actor course — UNRUN
+## Actual server course — 29 September,17:11:53–17:12:32 UTC
 
-`server-source/` is an isolated copy of the355 locked files plus one test. Exactly one existing file differs: **`internal/server/match.go`**, with measurement insertions shown completely in `server-instrumentation.diff`. `server-source-lock.json` pins all356 files. No shipping/source lock/runtime was modified. The Go test has only been formatted; Python files were AST-parsed and source hashes checked. **No server compilation or test execution has occurred.**
+**`server-01` is a strict cadence failure.** One compile took4.28s and the one native process took34.90s; no adaptive rerun followed. All agent rendering, packing, browser, host and test jobs were held; the M4/16GiB was on AC at100%. Production source remains unchanged. The instrumented356-file lock is `4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e`, compiled binary `2eeeed103cfddc902f6ff3f08b0d8bbc2dc45432c70e8e5a8dd1410ef334bcb5`.
+
+All600 authoritative ticks,72 accepted command batches,64 aircraft landings,24 interceptions,151 state deliveries per perspective, private-owner filtering, save restore, full replay and checkpoint replay checks passed. The final hash is `71bf256a2a95d16e3a65c39977e5d247ebcd81b3088495864806fca313beb8c1`. Actual asynchronous SQLite checkpoint persistence took11.472ms and the independently read row matched the2983528-byte save. These functional checks do not override the timing failure.
+
+| Span | p95 ms | p99 ms | Maximum ms |
+| --- | --- | --- | --- |
+| Engine.Advance |16.305 |22.494 |142.362 |
+| Whole measured actor tick |20.692 |26.271 |142.602 |
+| Four-view archive capture |3.316 |4.051 |4.451 |
+| Peer encode/enqueue |3.508 |4.554 |5.340 |
+
+The simulation25/40ms percentile gate passed. The separate50ms cadence gate failed twice: tick2 spent142.362ms in Advance (142.602ms total), followed by one missed ticker slot; tick600 spent58.262ms total, including12.509ms Advance,3.366ms archive,28.046ms replay capture,12.335ms a second Save/enqueue and2.002ms peers. Tick2's cause is unclassified without a separate profile. The source performs a Save inside replay checkpoint capture and another immediately afterwards; reuse is a candidate optimization, not a measured improvement. No failure is excluded as a warm-up or checkpoint exception.
+
+The original failed receipt, native log and600 raw records are immutable. `audit-server.py` verified all13 recorded artifact hashes, executable/source identity and raw overrun samples; `server-01/postrun-audit.json` reports integrity success while retaining both original statuses as failed. Full save/replay/SQLite artifacts remain locally at the receipt paths; only compact evidence is checkpointed. This is a single30-second native course with four memory protocol sinks, not a public-network/advice, multi-match, final-art/browser or Intel reference-hardware result.
+
+## Original actual actor preparation
+
+`server-source/` is an isolated copy of the355 locked files plus one test. Exactly one existing file differs: **`internal/server/match.go`**, with measurement insertions shown completely in `server-instrumentation.diff`. `server-source-lock.json` pins all356 files. No shipping/source lock/runtime was modified. The preparation was formatted, AST-parsed and independently reviewed before the single execution documented above.
 
 Read these review inputs before authorizing execution:
 

@@ -1,0 +1,125 @@
+{
+  "status": "failed",
+  "started": "2026-09-29T17:11:53.606982+00:00",
+  "expected_source_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+  "conditions": "Parent quiet dispatch 2026-09-29 after completed IR fighter whole-asset boundary: Mencius confirms all Blender, packing and UI checks closed; next IR gunship held. Root browser, host and test processes closed; Einstein source-only budget audit. One serial GOMAXPROCS=1 Go compile and one600-tick actor course only. Hardware, AC/battery and process snapshot recorded by runner; ordinary OS/background work remains.",
+  "environment": {
+    "GOMAXPROCS": "1",
+    "GOFLAGS": "-p=1",
+    "GOGC": null,
+    "GOMEMLIMIT": null
+  },
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "stages": [
+    {
+      "stage": "go",
+      "cmd": [
+        "/opt/homebrew/bin/go",
+        "version"
+      ],
+      "exit": 0,
+      "seconds": 0.04177995910868049,
+      "log_sha256": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+    },
+    {
+      "stage": "hardware",
+      "cmd": [
+        "/usr/sbin/sysctl",
+        "-n",
+        "machdep.cpu.brand_string",
+        "hw.memsize",
+        "hw.logicalcpu"
+      ],
+      "exit": 0,
+      "seconds": 0.003702125046402216,
+      "log_sha256": "c4b05c6e3138be1e9dfa7d37bf43ebfc7277612c1ea139626c51793c8d6e019d"
+    },
+    {
+      "stage": "power",
+      "cmd": [
+        "/usr/bin/pmset",
+        "-g",
+        "batt"
+      ],
+      "exit": 0,
+      "seconds": 0.011944707948714495,
+      "log_sha256": "e8936464105492c6225e3fd0a525addddeb60158a81511ab903923034bc17f23"
+    },
+    {
+      "stage": "processes-before",
+      "cmd": [
+        "/bin/ps",
+        "-axo",
+        "pid,ppid,pcpu,pmem,comm"
+      ],
+      "exit": 0,
+      "seconds": 0.023798124864697456,
+      "log_sha256": "fb98c15c410c26c9d4b4d50db0778abec0e14e81cd5103a303479a2f2264e0f6"
+    },
+    {
+      "stage": "compile",
+      "cmd": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "-p=1",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-load-034-course/server-01/server.test",
+        "./internal/server"
+      ],
+      "exit": 0,
+      "seconds": 4.279611959122121,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "actor600",
+      "cmd": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/maximum-load-034-course/server-01/server.test",
+        "-test.run=^TestMaximumActualServerActor600$",
+        "-test.count=1",
+        "-test.v",
+        "-test.timeout=75s"
+      ],
+      "exit": 1,
+      "seconds": 34.89945641695522,
+      "log_sha256": "eacf69c63009ae849519d60c7aa1f395bd4959710885dd34d300c6c80d594dc2"
+    }
+  ],
+  "runner_sha256": "4e9265c9cb5358e27cdf2d2ad8306c6097577f01fd0ba6deddba19540c148a1c",
+  "guard_sha256": "55bc657f42ab0cc53fed601dbb2c75a0c86d9e412d4a524e1d39e5d4a7e3a3db",
+  "initial_source_guard": {
+    "source_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 356,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 357
+  },
+  "source_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+  "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "binary_sha256": "2eeeed103cfddc902f6ff3f08b0d8bbc2dc45432c70e8e5a8dd1410ef334bcb5",
+  "failure": "AssertionError('actor600')",
+  "final_source_guard": {
+    "source_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 356,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 357
+  },
+  "source_verified_after": true,
+  "artifacts": {
+    "actor600.log": "eacf69c63009ae849519d60c7aa1f395bd4959710885dd34d300c6c80d594dc2",
+    "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence/captured.replay.gz": "357b19e8774d8e9f3b695a3a66e622cfbd890e3fca49746a539fe0a60fcf46bd",
+    "evidence/closed.save.json": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+    "evidence/final.save.json": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+    "evidence/host.sqlite": "9396230f27b55fa99e11d53a4159107872b5292c0d87383031606ed7979cba04",
+    "evidence/objects/maximum-timing.diagnostic": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+    "evidence/replay.gz": "357b19e8774d8e9f3b695a3a66e622cfbd890e3fca49746a539fe0a60fcf46bd",
+    "evidence/server.json": "20a6e28e1e729b73ce54b1fa9cc403e134d8d459e8c0332e6972574c318da21d",
+    "go.log": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58",
+    "hardware.log": "c4b05c6e3138be1e9dfa7d37bf43ebfc7277612c1ea139626c51793c8d6e019d",
+    "power.log": "e8936464105492c6225e3fd0a525addddeb60158a81511ab903923034bc17f23",
+    "processes-before.log": "fb98c15c410c26c9d4b4d50db0778abec0e14e81cd5103a303479a2f2264e0f6"
+  },
+  "finished": "2026-09-29T17:12:32.966842+00:00"
+}

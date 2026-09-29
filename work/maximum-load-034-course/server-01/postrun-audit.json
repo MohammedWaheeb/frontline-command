@@ -1,0 +1,146 @@
+{
+  "integrity_audit": "passed",
+  "original_course_status": "failed",
+  "original_native_status": "failed",
+  "scope": "Read-only digest and sample audit; original strict failure unchanged. No simulation, test, compiler, browser or host execution.",
+  "audited_utc": "2026-09-29T17:16:43.876934+00:00",
+  "receipt_sha256": "37e0f33968522d1bc126660845959ce68e7e14a4a91f3a9835051ee1d1098913",
+  "server_json_sha256": "20a6e28e1e729b73ce54b1fa9cc403e134d8d459e8c0332e6972574c318da21d",
+  "audit_script_sha256": "9e895d2d58ad322370dbfe3cd53a9ea71a9946c0cd394195ad5983651fa56b76",
+  "binary_sha256": "2eeeed103cfddc902f6ff3f08b0d8bbc2dc45432c70e8e5a8dd1410ef334bcb5",
+  "source_guard": {
+    "source_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 356,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 357
+  },
+  "artifact_hashes_verified": 13,
+  "summary": {
+    "actor_tick": {
+      "max_ms": 142.601708,
+      "p50_ms": 12.450625,
+      "p95_ms": 20.69175,
+      "p99_ms": 26.270791,
+      "samples": 600
+    },
+    "advance": {
+      "max_ms": 142.362083,
+      "p50_ms": 11.52975,
+      "p95_ms": 16.30475,
+      "p99_ms": 22.493875,
+      "samples": 600
+    },
+    "archive": {
+      "max_ms": 4.450667,
+      "p50_ms": 0.460833,
+      "p95_ms": 3.316459,
+      "p99_ms": 4.050875,
+      "samples": 600
+    },
+    "dequeue_lag": {
+      "max_ms": 94.625958,
+      "p50_ms": 2.02125,
+      "p95_ms": 2.060833,
+      "p99_ms": 2.08525,
+      "samples": 600
+    },
+    "peer_encode_enqueue": {
+      "max_ms": 5.340166,
+      "p50_ms": 0.000625,
+      "p95_ms": 3.5075,
+      "p99_ms": 4.554292,
+      "samples": 600
+    }
+  },
+  "overruns": [
+    {
+      "tick": 2,
+      "scheduled": "2026-09-29T20:11:59.253339792+03:00",
+      "started": "2026-09-29T20:11:59.255361+03:00",
+      "advance_ns": 142362083,
+      "archive_ns": 238292,
+      "replay_checkpoint_ns": 0,
+      "save_enqueue_ns": 0,
+      "peer_encode_enqueue_ns": 583,
+      "actor_tick_ns": 142601708
+    },
+    {
+      "tick": 600,
+      "scheduled": "2026-09-29T20:12:29.20319+03:00",
+      "started": "2026-09-29T20:12:29.205238+03:00",
+      "advance_ns": 12509375,
+      "archive_ns": 3365875,
+      "replay_checkpoint_ns": 28046083,
+      "save_enqueue_ns": 12334833,
+      "peer_encode_enqueue_ns": 2002208,
+      "actor_tick_ns": 58261916
+    }
+  ],
+  "scheduled_gaps": [
+    {
+      "tick": 4,
+      "prior_tick": 3,
+      "scheduled_gap_ms": 99.99900000000001
+    }
+  ],
+  "actual_tick": 600,
+  "hash": "71bf256a2a95d16e3a65c39977e5d247ebcd81b3088495864806fca313beb8c1",
+  "restore_full_and_checkpoint_replay_exact": true,
+  "executed_results": 72,
+  "landed": 64,
+  "archive_frames": {
+    "1": 151,
+    "2": 151,
+    "3": 151,
+    "4": 151
+  },
+  "wire": {
+    "1": {
+      "bytes": 8589767,
+      "frames": 184,
+      "last_tick": 600,
+      "state_frames": 151
+    },
+    "2": {
+      "bytes": 9128463,
+      "frames": 183,
+      "last_tick": 600,
+      "state_frames": 151
+    },
+    "3": {
+      "bytes": 8900121,
+      "frames": 182,
+      "last_tick": 600,
+      "state_frames": 151
+    },
+    "4": {
+      "bytes": 9058213,
+      "frames": 181,
+      "last_tick": 600,
+      "state_frames": 151
+    }
+  },
+  "checkpoint": [
+    {
+      "Tick": 600,
+      "NS": 11471750,
+      "Bytes": 2983528,
+      "SHA256": "dd8de215f6a2f67d0d9a558f5ee1f5ba2b520dd98c4ffdc51836fbce82f9876a",
+      "RowExact": true,
+      "Error": ""
+    }
+  ],
+  "authorized_unique_event_counts": {
+    "aircraft_serviced": 21,
+    "impact": 104,
+    "interceptor_fired": 24,
+    "missile_intercepted": 24,
+    "missile_warning": 24,
+    "shipment_countdown": 1,
+    "strategic_activated": 4,
+    "under_attack": 104,
+    "weapon_fired": 104
+  },
+  "unresolved": "Tick2 Advance wall-time cause needs separate profiling. Tick600 duplicates Save inside replay capture and immediately afterwards; measured components do not establish the speed of an unimplemented optimization."
+}
