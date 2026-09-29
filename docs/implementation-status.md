@@ -1,5 +1,15 @@
 # Frontline Command implementation status
 
+## Current coordination checkpoint — 30 September 2026, 00:10 Qatar (29 September21:10 UTC)
+
+- **Incomplete; no deployment.** Restart now exposes49slots. Root dispatches8coordinators with39child allocations, targeting48workers across art, rendering, UI, AI, gameplay, systems and release content. Actual activity must be read from collaboration inventory. Privateuniqueownership and oneBlender/onebrowser remain. Details: work/coordination/2026-09-30-fanout.md.
+- **Ordinary integrated package is preserved895af37 and reviewed2b98920.** Documented build succeeds; immutable build02 has4700files/592186087B. Fresh54fbWASM passes6service+3checkpoint parity/12views/exactsaves/nativewholeoutput. ActualSolo paidpower/save/menu/keyart and7lifecycle/4control gates pass; strict25App rawabortreports remainfailed despiteuniqueexactoriginal-readerbodySHA/EOF. No originalconsumer/cancellationcausalityclaim. SourceGo211identity remains unchanged.
+- **Compact fog3574 is private.** Source8tests/dependency accounting pass; syntheticnative228cases preserve originalprivacyfloor/protectedtriangles/geometry/disposal. Currentpixelmonotonicity remainsfailed34cases,max2,zeroopaqueLost. Native shape preservescorridors andremovesdetachedpoles; rootarchive895af37. Actuallegalenemyonleaf successorchrome02closed, rendererlead audits; browserlead runs actualearned-openingreplayAppcourse, withfirstnativewheelcalibrationfailurepreserved. No livefogpromotion.
+- **Art catalog61 covers109/162 IDs**,53remaining21ground/32buildings,3697files/735108451B/20753poses. USstrike896 and ISRservice512 mechanical/copygatesclosed; nativehandoffreviewcontinues. Existingafter-aircraftcontroller68341 ownssoleBlender; originalAPC36diagnosticclosed, ground40 thenbuilding15diagnostics/USAA240queued. Completeart/livepublication/finalmixedrosterresidencyremainopen.
+- **UI work continues privately.** ExactClaude powergauge3ff807/941541 completedwithfallbackoff/noinputdrift; rootreview/type/nativepending. Firstactual150App emptyqueueDOM shows queuebottom659 vsstickyfootertop647.5; layoutchildpreparesboundedcorrection, realnonemptyqueueproofstillneeded. Separateauditsidentifykeyboardfocus/capture, delayedselectionadvice andpause/loadflowrisks; candidates/tests areprivate. No broadpass/perfectionclaim.
+- **Release gates remain:** fullroster/native/in-gameart, actualUI/fog/audioquality, finalsamepackage1–4playermatrix/twoconsecutivequalifyinglonggames, coldlocal/offline/platformpackaging and externalphysicalLAN/referencehardware/humanbalance. Safariremainsopt-inpending. Existingmission/bot136exactpasses and historicalrawfailures arepreserved; expandedagentsmustfocusrealdefects, notinventnewgates.
+
+
 ## Current coordination checkpoint — 29 September 2026, 20:34 UTC
 
 - **Incomplete; no deployment.** Root plus three active subagents continue graphics, performance and complete art. One heavy Blender worker and one browser lane remain enforced. Full162-ID art and final same-package1–4/endurance gates remain open.
