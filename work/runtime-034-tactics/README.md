@@ -1,10 +1,16 @@
 # Ordinary authored-route tactics follow-up
 
+2026-09-29: the consolidated successor now passes 102/102 main and 21/21
+optional routes. See [the exact audit](../runtime-034-consolidated-acceptance/README.md).
+All individual failed attempts below remain historical evidence.
+
 Base: frozen proposed0.3.4 source lock ed50966897139f973e143ba0f83c9776849b6d7924839c228238e7dc1370ed20.
 The original102 main (93pass/9fail) and21 optional (12pass/9fail) evidence remains
 unchanged in ../runtime-034-candidate. Root authorizes only authored acceptance
 test-driver changes here. All production Go, bindings, content, difficulty,
-initial resources, objective predicates and existing time budgets stay identical.
+initial resources and objective predicates stay identical. The later documented
+SY03 diagnostic continuation justified an explicit test-only wait-bound revision;
+no authored mission deadline changed.
 The separate owner-casualty view-only candidate is not merged here.
 
 Each pilot preserves its exact test-driver copies, full source digest manifest,

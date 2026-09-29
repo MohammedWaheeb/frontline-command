@@ -1,0 +1,9 @@
+=== RUN   TestAuthoredCampaignCaptureCompletion
+=== RUN   TestAuthoredCampaignCaptureCompletion/us-03-relay-ridge/easy
+    authored_campaign_acceptance_test.go:1398: relay-1 captured tick1211
+    authored_campaign_acceptance_test.go:1398: relay-2 captured tick3573
+    authored_campaign_acceptance_test.go:1522: route progress captured communication objective and hold tick5575 credits1162020 army28 objectives[{ID:no-command-assets Text:Lose all HQs, production structures and engineering rigs. Optional:false Failure:true Complete:false Progress:0 Required:0} {ID:capture-relays Text:Capture both marked military radars. Optional:false Failure:false Complete:true Progress:2 Required:0} {ID:relay-hold Text:Hold either captured radar continuously for four minutes. Optional:false Failure:false Complete:false Progress:1 Required:0} {ID:scout-preserved Text:Finish without losing a scout. Optional:true Failure:false Complete:false Progress:0 Required:0} {ID:relay-destroyed Text:Lose either required relay to destruction. Optional:false Failure:true Complete:false Progress:0 Required:0}]
+    authored_campaign_acceptance_test.go:1523: MISSION us-03-relay-ridge faction=US difficulty=easy tick=6010 midpoint=1212 receipts=206 hash=dcfcf540107e873a348bd4cdbbe2689af801e5a0da109e5ba1ae7c90450bf300
+--- PASS: TestAuthoredCampaignCaptureCompletion (14.77s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/us-03-relay-ridge/easy (14.77s)
+PASS

@@ -1,0 +1,23 @@
+{
+  "time": "2026-09-28T23:41:52.075043+00:00",
+  "parent_authorization": "Serial 102+21 matrix released after live multiplayer closed; one native case at a time, GOMAXPROCS=1",
+  "runtime_session": 90528,
+  "runner_pid": 98410,
+  "sleep_inhibitor": {
+    "command": [
+      "caffeinate",
+      "-i",
+      "-w",
+      "98410"
+    ],
+    "session": 43418,
+    "scope": "Automatic expiry with this exact parent process; no permanent power setting changed"
+  },
+  "resource_sample": {
+    "child_pid": 98725,
+    "rss_kib": 40608,
+    "cpu_percent": 100.0,
+    "meaning": "single transient observed sample; not a memory/performance qualification"
+  },
+  "source_mutation": "none; fixed commander lock and executable unchanged"
+}

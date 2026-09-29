@@ -1,15 +1,14 @@
 # Authored failure and optional-objective acceptance
 
-> Status update — 2026-09-28: the passing matrices below are historical,
-> source-specific records. The current frozen proposed 0.3.4 matrix passed
-> **93/102 main routes and 12/21 optional routes**. Later ordinary-driver pilots
-> are separate evidence, not a consolidated replacement pass. See the
-> [frozen matrix status](../work/runtime-034-candidate/README.md) and
-> [latest individual pilot status](../work/runtime-034-tactics/README.md).
-> A failed driver route does not establish that a mission is impossible.
-> Update23:02UTC: separate later pilots now cover all nine failed main and all
-> nine failed optional leaves. The revised combined102/21 rerun remains pending;
-> individual routes are not a consolidated pass.
+> Status update — 2026-09-29: the fresh consolidated ordinary-commander run
+> passed **102/102 main and 21/21 targeted optional routes**, with zero failed
+> or unrun leaves and all 23,370 winning-route order receipts accepted. Both
+> phases used the same locked executable and original combined proposed 0.3.4
+> production/content bytes. See the [audited consolidated result](../work/runtime-034-consolidated-acceptance/README.md).
+> This is native route/determinism evidence, not final optimized-runtime or
+> browser qualification. Earlier 93/102 main and 12/21 optional failures and
+> subsequent individual pilots remain preserved as source-specific history;
+> the historical records below must not be read as additional current coverage.
 
 The clean 102-case main-completion matrix proves victory, restoration, replay,
 restart and the generic all-human surrender path. Surrender alone does **not**

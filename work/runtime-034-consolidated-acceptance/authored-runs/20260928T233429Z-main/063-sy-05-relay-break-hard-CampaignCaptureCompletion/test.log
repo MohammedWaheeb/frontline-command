@@ -1,0 +1,13 @@
+=== RUN   TestAuthoredCampaignCaptureCompletion
+=== RUN   TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/hard
+    authored_campaign_acceptance_test.go:1235: capture force ready tick515 targetrelay-guard-1 actors[37 38 39 40 41 42 46 47] tanks[46 47]
+    authored_campaign_acceptance_test.go:1398: relay-1 captured tick1158
+    authored_campaign_acceptance_test.go:1322: optional factory captured tick3393 actor79
+    authored_campaign_acceptance_test.go:1235: capture force ready tick5006 targetrelay-guard-2 actors[176 182 241 275 332 394 481 577 622 640 662 704 1123 1144] tanks[182 640 1123]
+    authored_campaign_acceptance_test.go:1398: relay-2 captured tick6189
+    authored_campaign_acceptance_test.go:1235: capture force ready tick7099 targetrelay-guard-3 actors[577 622 662 704 1144 1297 1608 1667] tanks[1667]
+    authored_campaign_acceptance_test.go:1398: relay-3 captured tick8313
+    authored_campaign_acceptance_test.go:1523: MISSION sy-05-relay-break faction=SY difficulty=hard tick=8313 midpoint=1159 receipts=659 hash=5fe8b425898b4ba76fd6f0f7775ca55db6f2481f5e4b4391e531802d35c60ca7
+--- PASS: TestAuthoredCampaignCaptureCompletion (35.20s)
+    --- PASS: TestAuthoredCampaignCaptureCompletion/sy-05-relay-break/hard (35.20s)
+PASS
