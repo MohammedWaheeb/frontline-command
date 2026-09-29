@@ -1,0 +1,1688 @@
+{
+  "scope": "Read-only source and JSON compatibility audit. No product assembly, browser, source-art edits, broad source rehash or new historical QA. Candidate PNG hashes only were checked for normalized-mask identity; historical base-file correctness is cited from its pinned original audit, not re-executed.",
+  "inputs": {
+    "work/art/roster-runtime-overlay-v1/overlay-v3.mjs": "c9669d1e2f0f8a69a8b51441f7535797a27f7d20b0097a592fa654ea501df44c",
+    "work/art/roster-runtime-overlay-v1/append-handoff-catalog.py": "2adff9e573ff6dad613f3a2c8ae763032faa847b23b21a785402d89aee5c3250",
+    "work/art/roster-runtime-overlay-v1/catalog-v53-v1/result.json": "80681d9f81777fc0593611c359d32ad7fae7e1a63773122a64371407ff0f0275",
+    "work/art/roster-runtime-overlay-v1/catalog-v55-v1/result.json": "69b18ed830140a747d289eccfef2f4169ec7713e16e1ef918dc2b550de63f199",
+    "work/art/roster-runtime-overlay-v1/catalog-v56-v1/result.json": "ba88dac0d544be94bb084c7c9d84e671e1a682f7ea0a48472f5ab05d538f8982",
+    "work/art/roster-runtime-overlay-v1/packaging-v3/lock.json": "9a29cbd10dadc935148cc46da5af27e48270eaff6234e234233201476ba47d95",
+    "work/art/roster-runtime-overlay-v1/packaging-v3/helpers/client/scripts/ui/art-plugin.mjs": "12a90d421d8542689b6d1e3c8686b89f493d7ba44b9a4cdf3df7b2a67ae701af",
+    "client/scripts/ui/art-plugin.mjs": "12a90d421d8542689b6d1e3c8686b89f493d7ba44b9a4cdf3df7b2a67ae701af",
+    "client/src/content/art-ui.ts": "02d3fb6f8fe78eb94e30534193e7f8cde7c0785395b8d26a0211d46766edcccb",
+    "client/src/runtime/asset-generation-input.ts": "c6bc82f92db053a2a5ef58675e93aaa8df7c11e5e50c53591309c3760aea9a15",
+    "client/src/runtime/asset-generation.ts": "f856956b039d3dec464e2df22b8ffce411973257246c40be65f27aa352e6a0b9",
+    "work/art/base-only-lineage-audit-v1/result.json": "d42cd91ea05ff435c78d1136037af1908a09d35f3a14877977b5c9e859beba7e",
+    "work/art/base-only-lineage-audit-v1/snapshot-recovery-v1/result.json": "c35bd8f46bdb65563b53fbe89a6c45c48db97cc2ab7be5f0f21c5c965e71851a",
+    "work/art/ui-team-normalization-audit-v1/normalized-current53-v1/result.json": "2131210ccd1bfbe8a54dbb950629c19e964bead726f96249ea1bde7112fc36e6",
+    "work/art/roster-runtime-overlay-v1/preflight-budget/incremental-through-ir-isr-v1.json": "9a9c568180d7ce3ee03da3f79c4a5aa5a6da4c09a1ffc626e653b3bd4a0693e7",
+    "Makefile": "5198535b87140e952f60c85dc0470de27672df7333971b4059dacf596ba33bb9",
+    "scripts/local.mjs": "fd1d16f1c0651b6618eb2575d032ab93e0963f5559395dad5154788b5608444f",
+    "scripts/package-integrity.mjs": "351de7f3e1850128b2865e324663063a51914c4581c33a4db9092e598aebcc2d",
+    "client/vite.config.ts": "bc422882062272ae521ff92b7f0c418ed7654d03e06c38457913d536fdb8cb47",
+    "client/package.json": "00a55400bd568b28d575f3d6127b52e2113bfcf306b84881289080082c519ab8"
+  },
+  "catalog": {
+    "handoffs": 56,
+    "files": 2980,
+    "bytes": 539169336,
+    "poses": 16481
+  },
+  "reference_union": {
+    "union_ids": 104,
+    "base_only_ids": [
+      "building.IR.repair_depot",
+      "building.SY.repair_depot",
+      "building.US.aa_post",
+      "building.US.barracks",
+      "building.US.bunker",
+      "building.US.factory",
+      "building.US.gun_turret",
+      "building.US.interceptor_battery",
+      "building.US.outpost",
+      "building.US.radar",
+      "building.US.repair_depot",
+      "building.US.strategic_site",
+      "building.US.supply",
+      "building.US.tech",
+      "prop.bridge_permanent",
+      "prop.central_shipment_site",
+      "prop.command_relay_objective",
+      "prop.concrete_barrier",
+      "prop.container_stack",
+      "prop.decor_building_nongarrison",
+      "prop.depot_objective",
+      "prop.destructible_wall_hp_heavy",
+      "prop.destructible_wall_hp_light",
+      "prop.fence_chainlink",
+      "prop.forest_edge_scrub",
+      "prop.fuel_tanks",
+      "prop.palm",
+      "prop.power_pylon",
+      "prop.region_marker_editor",
+      "prop.relay_objective",
+      "prop.rocks",
+      "prop.rubble_cover",
+      "prop.ruined_house_garrisonable",
+      "prop.sandbags",
+      "prop.shrub",
+      "prop.spawn_marker_editor",
+      "prop.supply_field",
+      "prop.supply_station_neutral",
+      "prop.warehouse_garrisonable",
+      "prop.wreck_decor_vehicle",
+      "unit.IR.hauler",
+      "unit.IR.rig",
+      "unit.SA.hauler",
+      "unit.SA.rig",
+      "unit.SY.hauler",
+      "unit.SY.rig",
+      "unit.US.hauler",
+      "unit.US.rig"
+    ],
+    "missing_ids": [
+      "building.IR.aa_post",
+      "building.IR.barracks",
+      "building.IR.bunker",
+      "building.IR.factory",
+      "building.IR.gun_turret",
+      "building.IR.outpost",
+      "building.IR.radar",
+      "building.IR.strategic_site",
+      "building.IR.supply",
+      "building.IR.tech",
+      "building.SA.aa_post",
+      "building.SA.barracks",
+      "building.SA.bunker",
+      "building.SA.factory",
+      "building.SA.gun_turret",
+      "building.SA.outpost",
+      "building.SA.radar",
+      "building.SA.repair_depot",
+      "building.SA.strategic_site",
+      "building.SA.supply",
+      "building.SA.tech",
+      "building.SY.aa_post",
+      "building.SY.barracks",
+      "building.SY.bunker",
+      "building.SY.factory",
+      "building.SY.gun_turret",
+      "building.SY.outpost",
+      "building.SY.radar",
+      "building.SY.safehouse",
+      "building.SY.strategic_site",
+      "building.SY.supply",
+      "building.SY.tech",
+      "unit.IR.aa",
+      "unit.IR.apc",
+      "unit.IR.artillery",
+      "unit.IR.car",
+      "unit.IR.repair",
+      "unit.IR.tank",
+      "unit.SA.aa",
+      "unit.SA.apc",
+      "unit.SA.artillery",
+      "unit.SA.car",
+      "unit.SA.fighter",
+      "unit.SA.gunship",
+      "unit.SA.repair",
+      "unit.SA.strike",
+      "unit.SY.aa",
+      "unit.SY.artillery",
+      "unit.SY.buggy",
+      "unit.SY.repair",
+      "unit.SY.scout_drone",
+      "unit.SY.tank",
+      "unit.US.aa",
+      "unit.US.apc",
+      "unit.US.artillery",
+      "unit.US.car",
+      "unit.US.repair",
+      "unit.US.strike"
+    ],
+    "missing_ids_exactly_match_approved_remaining_source_queues": true,
+    "warning": "Base-only presence is not a fresh source or visual audit."
+  },
+  "remaining_families": [
+    {
+      "family": "aircraft-final-production-v3",
+      "poses": 4272,
+      "remaining_ids": 5
+    },
+    {
+      "family": "vehicle-final-production-v1",
+      "poses": 5584,
+      "remaining_ids": 21
+    },
+    {
+      "family": "building-final-production-v1",
+      "poses": 1614,
+      "remaining_ids": 32
+    }
+  ],
+  "base_only": {
+    "assets": 48,
+    "props_without_indexed_ui": 26,
+    "totals": {
+      "assets": 48,
+      "poses": 3731,
+      "sprite_files": 1068,
+      "ui_files": 88,
+      "raw_files_verified": 10899
+    },
+    "historical_audit_failure_count": 0
+  },
+  "normalization": {
+    "catalog53_exact_subset_of56": true,
+    "handoff_identities_exact": 53,
+    "masks": 212,
+    "runtime_2x_masks": 106,
+    "newer_uncovered_handoff_ids": [
+      "unit.IR.fighter",
+      "unit.IR.gunship",
+      "unit.IR.isr"
+    ],
+    "rows": [
+      {
+        "id": "building.IR.drone_hub",
+        "destination": "ui/portraits/building.IR.drone_hub@2x.team.png",
+        "original_sha256": "565f887216a30da0316ae70392dacb208afb6b3b505702ea6ae9a1fcdae9c8d1",
+        "candidate_sha256": "6fb4a1c6ebe7a1c04f919d04d7cddbd6810bdbd45f1d1091d773079b69504d74",
+        "beauty_sha256": "22e270ee3323ce7de8e39488e47a6c611cd27853b5dd94238dda85c631847844"
+      },
+      {
+        "id": "building.IR.drone_hub",
+        "destination": "ui/portraits/building.IR.drone_hub@1x.team.png",
+        "original_sha256": "059dc4838e0fcda2d3dcc1b1d36f285eee07298183124a7a133843e568661434",
+        "candidate_sha256": "9ed7468427c99df8e72c0b1913e4410e3947ba113df078418ddac85e0d581f73",
+        "beauty_sha256": "f4b13b0198737779a078e71716778799334f3d8c5054e0add252ae7425b747b9"
+      },
+      {
+        "id": "building.IR.drone_hub",
+        "destination": "ui/icons/build/building.IR.drone_hub@2x.team.png",
+        "original_sha256": "bdf655c36b04c22cf2d543a26ff5ba75bd935e1e7e2434b330c50aa45a6e2962",
+        "candidate_sha256": "75916caec46511d73a6902c6bf5cb3375c6979e2623ae6332a9bb513bff03393",
+        "beauty_sha256": "fc73f5a6e22826c783695c78998c02b06222038e24fcde0d822281c749f7fef5"
+      },
+      {
+        "id": "building.IR.drone_hub",
+        "destination": "ui/icons/build/building.IR.drone_hub@1x.team.png",
+        "original_sha256": "1d7f690a3b236a15932895285da30c9bb5b5eb3a8fe78b22e9a52b4e0a5db8bb",
+        "candidate_sha256": "d943d5ff106af5cde2e076cd1dbbed985d5180c1185ca893f4c409d48d090a74",
+        "beauty_sha256": "0553654706ceaba5166ef5726d5bf760fdd7086388a803e6d1c3939ae6821e4c"
+      },
+      {
+        "id": "building.IR.hq",
+        "destination": "ui/icons/build/building.IR.hq@2x.team.png",
+        "original_sha256": "2478281a81c27aba4afe619b1d7100183255d8fdf0ada785799e1d7c03911840",
+        "candidate_sha256": "c5f1dbb8a73c8a086a8e90e4759578269c34457139f778a6609a1a33f4164f4e",
+        "beauty_sha256": "470b259d9fcc2e9c45b115f7c330b8f437afb68bc22ac30d468faad6bb8909ec"
+      },
+      {
+        "id": "building.IR.hq",
+        "destination": "ui/icons/build/building.IR.hq@1x.team.png",
+        "original_sha256": "f4254002225e07083c644813a525e24dcd01dd31344e4cef7ce569995d70e519",
+        "candidate_sha256": "84930f9c388a2c7a3bf2936b167f45b0238d85683776fe51b14c642ed824436f",
+        "beauty_sha256": "a6a280fd09a79f7fef7d322490d20596076c7ac78820abe229f3905aee0d289c"
+      },
+      {
+        "id": "building.IR.hq",
+        "destination": "ui/portraits/building.IR.hq@2x.team.png",
+        "original_sha256": "272176f64396054f5b5a62390a093d4099380ceeacfd3e9b6e9bb82f970fe9bd",
+        "candidate_sha256": "d696e2ffc4be1845552bf74dc86c880972f7865e9fadd096659f09906600cc1c",
+        "beauty_sha256": "3167a48149f3fb29d272be1a8f4364d9d681937ec82b67e03adcc70f9bfa67af"
+      },
+      {
+        "id": "building.IR.hq",
+        "destination": "ui/portraits/building.IR.hq@1x.team.png",
+        "original_sha256": "4304aed5350d2b1100bba4a28f06b2a1cc27f3d01a1aa17a686124a5f6838621",
+        "candidate_sha256": "e702a5d909c9114264e065b77bde06f6bddcce408a1bb9274166ead10014123c",
+        "beauty_sha256": "c5354f302c1cfd25361e5af8585b7d23e49925fe2c1c109951e6643016cfc6bf"
+      },
+      {
+        "id": "building.IR.interceptor_battery",
+        "destination": "ui/portraits/building.IR.interceptor_battery@2x.team.png",
+        "original_sha256": "6e9b8a296901fa42a3eee755bfae17de993d56fd5606f9578533662aecd30eac",
+        "candidate_sha256": "fdf5e1bc96686f892210b1c3a466173e34fd660cdb1a962c478414fcbf97999d",
+        "beauty_sha256": "4be8de0f971f05103f0d08afa3b00ac1811870de6310ae92b828a0b5205511a1"
+      },
+      {
+        "id": "building.IR.interceptor_battery",
+        "destination": "ui/portraits/building.IR.interceptor_battery@1x.team.png",
+        "original_sha256": "bad7f89ab32e5faf9257a03883f25248773f09da0e1560a25c460451c45801b3",
+        "candidate_sha256": "18a5e93d74b4dd1b94f158a0a0c34a1e5df369b4f1594cf3569514f48f8b796a",
+        "beauty_sha256": "069f79a2d76cd9e2406f299a377b8947f9dc3d5163b0eb4ed469bdad11ed53ae"
+      },
+      {
+        "id": "building.IR.interceptor_battery",
+        "destination": "ui/icons/build/building.IR.interceptor_battery@2x.team.png",
+        "original_sha256": "587c72fe4b0440fed8dc8d310be84076733e769f5c571aea7ecb36c49612ef19",
+        "candidate_sha256": "e092219fc4a6a5411f9b3e88ab012ea0012edb43f32f18367c798e362d83779d",
+        "beauty_sha256": "92bf6d9e2510876fba48bc264b11bbeb01346fe97adb80608fae08f3ac56ed39"
+      },
+      {
+        "id": "building.IR.interceptor_battery",
+        "destination": "ui/icons/build/building.IR.interceptor_battery@1x.team.png",
+        "original_sha256": "dd8516ad5e8bf56d1b4582aaa6492090d1b59c599a8f4660d4f13c5b096bbeb8",
+        "candidate_sha256": "e668f466ad7df81f4e825930e2dc8a616195901a8e41d764348b2fd8096d0868",
+        "beauty_sha256": "5ad6603fbe97d48bb6607161b270c647303f6153445d8e1a9e83fa6f556353c5"
+      },
+      {
+        "id": "building.IR.power",
+        "destination": "ui/icons/build/building.IR.power@2x.team.png",
+        "original_sha256": "c190c3061d0d3b7570ba06c02872b43341b6c68793d174a26b2b048de0fae1d7",
+        "candidate_sha256": "d8e3829f1bd74fec8d6c809b57a2e0a42a06818c7924b5be3153f738bce51a18",
+        "beauty_sha256": "a852e0b5838e15de586ba790d99ad30beddd8676104fa659a74bcddc109591e1"
+      },
+      {
+        "id": "building.IR.power",
+        "destination": "ui/icons/build/building.IR.power@1x.team.png",
+        "original_sha256": "a3990c1437eea11b5dfa1a76f337558c5611e7b90c8977ea481774174be32c2a",
+        "candidate_sha256": "312dbd79df944a4f4961a1987d0968334550d2f795d5586155ffb197e3fd74dd",
+        "beauty_sha256": "91551a05574b944971f772d9339051b39f6bcbeee46883bc9f856df728f3a86d"
+      },
+      {
+        "id": "building.IR.power",
+        "destination": "ui/portraits/building.IR.power@2x.team.png",
+        "original_sha256": "6b8af0eda50939da2e3314e09afc6ab28a7679b856d40ee590dcea6a20aa24f2",
+        "candidate_sha256": "00562f9bdb8df0c2f7497a1e85597ff892d108910d4727dc7bc8f9628c3d2e5f",
+        "beauty_sha256": "ef8495f413f8e2fb1b85438b8700b69a9d1940f307258c3c67786be938d7726b"
+      },
+      {
+        "id": "building.IR.power",
+        "destination": "ui/portraits/building.IR.power@1x.team.png",
+        "original_sha256": "3501574171edb6f5ff73ff0bf666c0a8d688bd332fd4689bb65a3358960c6114",
+        "candidate_sha256": "7aa75e7e96deda87071a585beab3fecb46bda4edac9ff9b0204a10b0ae33209b",
+        "beauty_sha256": "992fd115c035e3ac8af9f9c81a227c65355247a86e05cb47b4be4e0b08ad47b5"
+      },
+      {
+        "id": "building.SA.airfield",
+        "destination": "ui/portraits/building.SA.airfield@2x.team.png",
+        "original_sha256": "0e7a68345356c3f1c61d92908eab0e69c15e0ff18aeb4d28ef6f2ded32305af7",
+        "candidate_sha256": "a2598b75d551342a911b3584e294b5e43f20632b064b76f73da631f349c7d114",
+        "beauty_sha256": "91a5eccb791e980b2b1358cb9be437fb04dbd7f4ae11b211e05bee66053ad10d"
+      },
+      {
+        "id": "building.SA.airfield",
+        "destination": "ui/portraits/building.SA.airfield@1x.team.png",
+        "original_sha256": "17649549d5aa68dd46b008cf240a7161c7c29db230ac7bfc686fec3103dd0ff1",
+        "candidate_sha256": "08341229606d1bf5b2575b52c689a66d5adf5aef277ccf47b518aed5383b1883",
+        "beauty_sha256": "e0c32d3cc75ba8e5df2247671409c57930b841877afe9ff7fa604c1865105684"
+      },
+      {
+        "id": "building.SA.airfield",
+        "destination": "ui/icons/build/building.SA.airfield@2x.team.png",
+        "original_sha256": "1bd26e94286461846d80b7c0e5d677a9646400c215be6c4ea079505b8102b33a",
+        "candidate_sha256": "61ebaafdd20eeeb720f3059c95558775126e6caffcf9fdb9346de989de0f393c",
+        "beauty_sha256": "87deef6a88fb64748822456c837952570d5c3e56e60f0b82dc76a19311c73979"
+      },
+      {
+        "id": "building.SA.airfield",
+        "destination": "ui/icons/build/building.SA.airfield@1x.team.png",
+        "original_sha256": "9f02bd057c0dd5aefee3fa9054cf931a0614c99e45dc189e6bfbf36f41a10bb0",
+        "candidate_sha256": "b11bccaa9367751f0ee26d647d2930e87a779646140718d98c6ab613e3e1101d",
+        "beauty_sha256": "ef597d70ce7de2ae6bdf8239d5f22125e8b355090de84c9798bbd6f70d0cce82"
+      },
+      {
+        "id": "building.SA.hq",
+        "destination": "ui/portraits/building.SA.hq@2x.team.png",
+        "original_sha256": "e2b1782bb7caec0cc5ef8f9b53a51971b4f53365a2cf5a19050dfa3c3a66ed51",
+        "candidate_sha256": "d28c517a1aca8b25845f2ac3676aa123cbf789af9331a5f0eff78ad7e8b8cc78",
+        "beauty_sha256": "2883ee462c860332572f252a33537fd22a979112fd9367885216bfaf81cb4f69"
+      },
+      {
+        "id": "building.SA.hq",
+        "destination": "ui/portraits/building.SA.hq@1x.team.png",
+        "original_sha256": "8dca062ed14a4b3a96bfbe4b33fc4ea8e3b57d9e5890e6c1b00f92ab96e222e7",
+        "candidate_sha256": "ab3ad7e111f7a37e3d1a1c9d8d6927d6745c2ee56a623ac2427aec885fc0ac27",
+        "beauty_sha256": "4882234c47951a44c87464571e7a1a5729ffe4f773f212a21b1fa65fccfa45ee"
+      },
+      {
+        "id": "building.SA.hq",
+        "destination": "ui/icons/build/building.SA.hq@2x.team.png",
+        "original_sha256": "fec9a4081839289ce70cd0982e3433d2b3995bea7e557478c85f0342388eaab5",
+        "candidate_sha256": "5768570c50ab2fced703dcb465d8bd0fe98cd6bedd470133e1d9c77168642140",
+        "beauty_sha256": "2190057d7447dfe9426b69e8740058cef4e42bc517acf72901ae9afdcccbdc07"
+      },
+      {
+        "id": "building.SA.hq",
+        "destination": "ui/icons/build/building.SA.hq@1x.team.png",
+        "original_sha256": "6bfed6f2f5e223617649ccd21fbeea066ad2e74aeedf87ae61a8db5f04b7cb1e",
+        "candidate_sha256": "28a95531dc67865ac5a558bfe76121ca789f894a1f6124bd1ab038c96cd0ea26",
+        "beauty_sha256": "4544e4e49f54d8ea93b190058c5d1b92fd69400af65da91d9a320ba9fa175f99"
+      },
+      {
+        "id": "building.SA.interceptor_battery",
+        "destination": "ui/portraits/building.SA.interceptor_battery@2x.team.png",
+        "original_sha256": "d731808388ce6b9a96eb481d1ad6ce33342f99e8318acac4e04bf16394928ad8",
+        "candidate_sha256": "798d6efdc7ea4d1b41b835b075a5fce7a0c94ec3afd5df46c15837c9fd7940ce",
+        "beauty_sha256": "f6b2b88a702e5e53641c47d92f3ebcf55f641d7c6084d6321208978139e37a2b"
+      },
+      {
+        "id": "building.SA.interceptor_battery",
+        "destination": "ui/portraits/building.SA.interceptor_battery@1x.team.png",
+        "original_sha256": "3903eeb20ceb2cdffe96714956b4a6142e5612b1a6d2a15b167096995183c7a1",
+        "candidate_sha256": "90f371a6ee5d4e4b64e0ed5fac5f1ac19e1793a9308a74bc922a9eab65b41f40",
+        "beauty_sha256": "d99687e3ee5a59c8aa7589843cec7702941188cdcc7b66f738de121c4ca90853"
+      },
+      {
+        "id": "building.SA.interceptor_battery",
+        "destination": "ui/icons/build/building.SA.interceptor_battery@2x.team.png",
+        "original_sha256": "8162d892a96c0b8865a7eec598f0b2c6c9a485baff1ca2d0fb6b7daf1d15be80",
+        "candidate_sha256": "2fa2ba6ef4fcff3212d4dcc1e4b2b8fa5c6bd9b53d6e44830853196594e7333f",
+        "beauty_sha256": "703cafc5ef18fbb9dcd62756359d80ad3d8a547c0473ffe3404f827eebdc297a"
+      },
+      {
+        "id": "building.SA.interceptor_battery",
+        "destination": "ui/icons/build/building.SA.interceptor_battery@1x.team.png",
+        "original_sha256": "de1d504138d09689e4b6628b378871011773536f23b25b2b23c37e0543fc189a",
+        "candidate_sha256": "d9392bbd9272ab8e3ab6cb26057e36bd48373e6a8363946ac6f02b05850dba68",
+        "beauty_sha256": "0e281b321c4c474932bb288dab758edc970da3db81bd53acaea900c8e9d47a0a"
+      },
+      {
+        "id": "building.SA.power",
+        "destination": "ui/icons/build/building.SA.power@2x.team.png",
+        "original_sha256": "5a542c38677c4c0bee10a55620d5beb42690196c820bb2dd437910f50d736e50",
+        "candidate_sha256": "7087fc7b33e345158323d4e8bfa364c346697db71a1a3b527214c18cdd60a226",
+        "beauty_sha256": "55196e6cf7e0f9fe0f7b0f09119c4448c623038b0837ff1513f8b5f3f0d62f6c"
+      },
+      {
+        "id": "building.SA.power",
+        "destination": "ui/icons/build/building.SA.power@1x.team.png",
+        "original_sha256": "9c1e0af148b6bcdfbaed4caeb959e22aa28a5ef117e4160b5975fb847c5d22a5",
+        "candidate_sha256": "3bddae6b8d73efbee473e17a2c6ad300de20d1cbd3f254245289c2968247398f",
+        "beauty_sha256": "0df8b766680a15cc03a8e33873d773d4deca8fd6fc169432dabd2798cecabca5"
+      },
+      {
+        "id": "building.SA.power",
+        "destination": "ui/portraits/building.SA.power@2x.team.png",
+        "original_sha256": "4d774ca3a802f807016d7d3637b7a4d6c54ca8d7a57cfdba05f9d5e2cce79cca",
+        "candidate_sha256": "33ea6e7b366598d4ce85e31be182205e63ae26d47fd49ad86ede5b5cc55ffeb6",
+        "beauty_sha256": "65026651f5d215a8fe582ad5dea9b56be57499e1626318a54424406d50f587b1"
+      },
+      {
+        "id": "building.SA.power",
+        "destination": "ui/portraits/building.SA.power@1x.team.png",
+        "original_sha256": "efaa29c724ef6169a61c9674bd75cce656fd43f9c9b93975ef9946770a1ad094",
+        "candidate_sha256": "469dab760f19c48791d4d01a51d26a0df1e605ac17112cdadb6da24a9b46adaf",
+        "beauty_sha256": "484433c2cf0bc529dc37b941fdcc8939e487be1d082bb9eb69f44c7b4638f512"
+      },
+      {
+        "id": "building.SY.air_workshop",
+        "destination": "ui/portraits/building.SY.air_workshop@2x.team.png",
+        "original_sha256": "2c46c63f5b8c9b4740ffb99313c9dcffa4c964a88d907283eacdf8423bacdf78",
+        "candidate_sha256": "c0dad6acf5e30baf3c6586d2e509f4c0f3943294b958b4c454e07e89603bfb97",
+        "beauty_sha256": "8062b9d0a1b68565372cd1162749d37063cb8182970e8e34c2592f543a093e47"
+      },
+      {
+        "id": "building.SY.air_workshop",
+        "destination": "ui/portraits/building.SY.air_workshop@1x.team.png",
+        "original_sha256": "19bbe01725a88c02af340839603e7d44f63756d321fa30358151881211f6bf4a",
+        "candidate_sha256": "0313efcb2b81806b31b41af5f88573c01460f605a4f428e2faa0710ef7445dd6",
+        "beauty_sha256": "b365948f2defbf82b95df78f9dfd709c30644ffbd97e66b0c655aa14692e2dec"
+      },
+      {
+        "id": "building.SY.air_workshop",
+        "destination": "ui/icons/build/building.SY.air_workshop@2x.team.png",
+        "original_sha256": "95132d39fadd86c66c66bcb3e24a80ad05168c47598e7efbaeff2fcbb90b0503",
+        "candidate_sha256": "07b2203e1e5a38723a19fad87f604c371bb884b5b9cf9251527010f18a16eee3",
+        "beauty_sha256": "5f8c8579e86278576bd336efd046d6521182e9ab4fdb85378bb30eea93312afb"
+      },
+      {
+        "id": "building.SY.air_workshop",
+        "destination": "ui/icons/build/building.SY.air_workshop@1x.team.png",
+        "original_sha256": "c554091d149ad34d001c1b810656a4e830f8a40970fd58e94c703f1a7ac69a06",
+        "candidate_sha256": "b1f9d6dcc5a90f1bd091d442861dfa6d03a2e7de768c45469e7d35cfa8877bd5",
+        "beauty_sha256": "6b2f1081e15aa46fcb838f9c78d4d18ffc3ab61dd33a45573fe347abd92224d3"
+      },
+      {
+        "id": "building.SY.hq",
+        "destination": "ui/portraits/building.SY.hq@2x.team.png",
+        "original_sha256": "dc54c209ad6eceb8afa43a2998617efed34a8ca9bb9afc7c733993a659dd7ba0",
+        "candidate_sha256": "c00c2eb0bef1fee08e4ac6b5e735a5139825f17e11f9094ea8c0984812cb0bc7",
+        "beauty_sha256": "213d90659576d2658053ccebf578703918caf3f19118da3d80edcecaab2eb9e5"
+      },
+      {
+        "id": "building.SY.hq",
+        "destination": "ui/portraits/building.SY.hq@1x.team.png",
+        "original_sha256": "53e9f3d47f7fb51527be859e9ede82ead3ddc59d92fea43334d2b98ebfb334d5",
+        "candidate_sha256": "34872057f26b373d823d5d94b4204ed359cb1220a8a1bf127be4553f49388935",
+        "beauty_sha256": "98a1b74285ad3e67121f6727846597097aeff141e6f7eb22e5a0a85224a9496f"
+      },
+      {
+        "id": "building.SY.hq",
+        "destination": "ui/icons/build/building.SY.hq@2x.team.png",
+        "original_sha256": "5e14980f54210ab83e1400f9b291b1f4afe59e405aa1b3cc52677c26a71c07ec",
+        "candidate_sha256": "fd7866cbaa18d4a4b3a368476445f0c03ee265c89eb3fe5f24179410a4e173fb",
+        "beauty_sha256": "f79a3a37f6198c93582db36c7ae9e27633dcea703bc85c87db4d3b35cdb0a9b7"
+      },
+      {
+        "id": "building.SY.hq",
+        "destination": "ui/icons/build/building.SY.hq@1x.team.png",
+        "original_sha256": "7b529616e9ccddf512117695e34250c5e2f08e2f652808c64d025ad4573260f0",
+        "candidate_sha256": "5618f24ba6dd930d5f2f01ce414d069e98446e48407f00adb67f4dc1499f44ae",
+        "beauty_sha256": "4d404df3867831c085abc9b87d128e5c748585298abe7577fad2f4c0b5cbb1c2"
+      },
+      {
+        "id": "building.SY.interceptor_battery",
+        "destination": "ui/portraits/building.SY.interceptor_battery@2x.team.png",
+        "original_sha256": "13ef9fed3a9090410c4dcba2f34b86b2a49e93bd184fce3a087d9cba9157a93c",
+        "candidate_sha256": "d644349889d6b373ba5b5910e58d3b5d29b7bf0e6290d9712a9240bfea12d357",
+        "beauty_sha256": "a026ad89c18dd9583351ac947f8a74466cc7c71fd8843c71a579f24e20dadcdd"
+      },
+      {
+        "id": "building.SY.interceptor_battery",
+        "destination": "ui/portraits/building.SY.interceptor_battery@1x.team.png",
+        "original_sha256": "d0763c58cc4967eac68c09577cdd9d90834ab42fc2d1021b7bad2dc7ca0ab58d",
+        "candidate_sha256": "c76c58932adf4e57492d374d0978ea12cb4a1ae131969349b86b5f6d0eb3f808",
+        "beauty_sha256": "d80e198c082858a05b44815f35adb846e394cb429d6f51291324da769c7aaae6"
+      },
+      {
+        "id": "building.SY.interceptor_battery",
+        "destination": "ui/icons/build/building.SY.interceptor_battery@2x.team.png",
+        "original_sha256": "15173b135692a4b077b5348aa6c7ab0282b5203d575679ae7373505d48c2aa05",
+        "candidate_sha256": "057e92ba3b66a22f5b5a82c52055634f3996fd144128814bd67b77ebbe92e1ca",
+        "beauty_sha256": "d31f30747cf3d3b553eccce52e3be3d359f78cae3e972ae8820a42502523381b"
+      },
+      {
+        "id": "building.SY.interceptor_battery",
+        "destination": "ui/icons/build/building.SY.interceptor_battery@1x.team.png",
+        "original_sha256": "af135dab454a9fb8ec553a3d8c81da67f9e00e40c7df57bd44540fc44ae4fc21",
+        "candidate_sha256": "fef5827cccb93a79bad2faac1d90367dee25f33541d0bd59cad70775530d63a0",
+        "beauty_sha256": "b615e92c6deacef3592563b731c40cc289ba1da21ca2ec7e47c34fb15bf2caf5"
+      },
+      {
+        "id": "building.SY.power",
+        "destination": "ui/icons/build/building.SY.power@2x.team.png",
+        "original_sha256": "f9b7233458ad4f4fee2b57ccd1e444f9d770a628c92d8cdd5e12f6932d02b5e8",
+        "candidate_sha256": "d8e3829f1bd74fec8d6c809b57a2e0a42a06818c7924b5be3153f738bce51a18",
+        "beauty_sha256": "0cf3201d7067117b258f408fd9c1046cd52c66b6e88c6a1b74604a1218b84bed"
+      },
+      {
+        "id": "building.SY.power",
+        "destination": "ui/icons/build/building.SY.power@1x.team.png",
+        "original_sha256": "a3990c1437eea11b5dfa1a76f337558c5611e7b90c8977ea481774174be32c2a",
+        "candidate_sha256": "312dbd79df944a4f4961a1987d0968334550d2f795d5586155ffb197e3fd74dd",
+        "beauty_sha256": "8b13a0eb430a063d26566947d1f755fc09203759cdd1a36485860b64a5e2b2c6"
+      },
+      {
+        "id": "building.SY.power",
+        "destination": "ui/portraits/building.SY.power@2x.team.png",
+        "original_sha256": "b00e58360c1b0f9f436bd2c713610319ea086b21e5c70b6c7dd4ab0da9243076",
+        "candidate_sha256": "156eab1628e51f6065230f8b3f6602f7ff0c472f36bffed73a427001ebd2ff75",
+        "beauty_sha256": "bda1681d4b8be6a37fc309074db67830e56bc5bf25d94ab686f96ed510dfaa8d"
+      },
+      {
+        "id": "building.SY.power",
+        "destination": "ui/portraits/building.SY.power@1x.team.png",
+        "original_sha256": "43c16054c78550edcdd4c48902722fec6a89628cec781529265113decf3ca538",
+        "candidate_sha256": "e5adba9c2561d8498bf18dbdd1d3af7da6ba0d99a2ff5826d3db1da5bf50750d",
+        "beauty_sha256": "bd387ec62226983231544d26bfc3c4876d5dc16166b74bd33ac8aea63170db02"
+      },
+      {
+        "id": "building.US.airfield",
+        "destination": "ui/portraits/building.US.airfield@2x.team.png",
+        "original_sha256": "00b0096d7232f93b81d9b50426989a7d254127e41bceebaa9eb069108dbcf89c",
+        "candidate_sha256": "1fdbccb461fa78cc64657f18e840c2176244b90ffb3cedd8ca15efc879cf2157",
+        "beauty_sha256": "bf4c30a05b9274c75aa83550030fde716ef8ea9f08a90eec577fd66f8691fa43"
+      },
+      {
+        "id": "building.US.airfield",
+        "destination": "ui/portraits/building.US.airfield@1x.team.png",
+        "original_sha256": "ecc8175898dea29c3e1861ec060993a7f989814c7cd26fc14d39f4d1ad16c24d",
+        "candidate_sha256": "3e6e359b263adce23a6eabe7f602d16c1113c179f96c486bb1290d989beddab0",
+        "beauty_sha256": "ba1f2745e6e77f6be745269b2c01986567d027db772b18f6cf21fcc4c2dce777"
+      },
+      {
+        "id": "building.US.airfield",
+        "destination": "ui/icons/build/building.US.airfield@2x.team.png",
+        "original_sha256": "5c5ca28ed6dcd4c1056a79fa451811127b35c41bf81dd0855fddcde120ae2504",
+        "candidate_sha256": "3ebfa7e61dd4409a524f032c5d4f97faa156ef52878e7f362450788e208cc9e6",
+        "beauty_sha256": "fd07aa22314acc0a676711e25796f7e92c201d4eaad2ad9dbb83c4fecc6791c0"
+      },
+      {
+        "id": "building.US.airfield",
+        "destination": "ui/icons/build/building.US.airfield@1x.team.png",
+        "original_sha256": "31bee463d29c8bc03b947ce8acbc2485e04556fe55340ebbaf0a93c29b81c527",
+        "candidate_sha256": "4f81e40ab55f23d68d63442d38db9dedacc810616df09e783bb0001a96fee5f9",
+        "beauty_sha256": "cd7e31fba8cc411756451da4d521d953901f26000239791807c4d578a6dfa41e"
+      },
+      {
+        "id": "building.US.hq",
+        "destination": "ui/icons/build/building.US.hq@2x.team.png",
+        "original_sha256": "3059d3af4923f6c634ba072e20c34e6a4102bb00f999d48d68c8c30070bad9c3",
+        "candidate_sha256": "487844784bebc06fcb945895b0c243b0c42ce817e655ad72402f3bc932bbc254",
+        "beauty_sha256": "56df377bbe4875882994fb08d751cee6598c9d4fcdf8a33bf80c8c7009e2cd96"
+      },
+      {
+        "id": "building.US.hq",
+        "destination": "ui/icons/build/building.US.hq@1x.team.png",
+        "original_sha256": "ca941800915219cc824d1e3cd58d73b0a9bf532fddee8c6fef60735759f1db2f",
+        "candidate_sha256": "7339d539772de1aab3005c8e8408e08d258b4f9387f974fd46c17663ee4ef4a6",
+        "beauty_sha256": "794956ed4f182d1f0df9bd998d655b227bd0c819b612dc991430a1bbc2c3b597"
+      },
+      {
+        "id": "building.US.hq",
+        "destination": "ui/portraits/building.US.hq@2x.team.png",
+        "original_sha256": "09d6899bb932870878d710940abbacb25846406867721ed64841ca81cc25c571",
+        "candidate_sha256": "61b77879277e7f360dd2e68c5ead7324c839a99c6d85bea9add4422d9e122e8a",
+        "beauty_sha256": "85fc07c1f1d9612635c796f19d037fa35b80699cd4bdc9726f3d68c1a2613f3d"
+      },
+      {
+        "id": "building.US.hq",
+        "destination": "ui/portraits/building.US.hq@1x.team.png",
+        "original_sha256": "17547e7e2c5af0e990ac6bcd157e6968437213d96c95f7c8d822f0ad6b159a86",
+        "candidate_sha256": "fdab4ecbb0960c2dcc0b0be5ba47a419209f74ad8a3fe26fbe3a6a4a1dd860cf",
+        "beauty_sha256": "74a7a215fcfd140fa275f5dfb2fb1a2a52dce0042ef9ce31ca9f67b13d2c25bf"
+      },
+      {
+        "id": "building.US.power",
+        "destination": "ui/icons/build/building.US.power@2x.team.png",
+        "original_sha256": "981278a73d81f8507551f3d3847b0d0e7ef03b9f9a0ab6de50ed83429b3fb10f",
+        "candidate_sha256": "77ffd8a1cd42a4b5ea4fd1123fe2d4fbc91db4fac64b9ca052021f7f59a9c2d6",
+        "beauty_sha256": "888f6ea6f9dd26f1459fb4bf5e0cc85b107913ac69cc206bd53ce638132e89bd"
+      },
+      {
+        "id": "building.US.power",
+        "destination": "ui/icons/build/building.US.power@1x.team.png",
+        "original_sha256": "b38a3d4d54d8c65ca7c3ed13fe72ac1bf4028979b3d24949e5c62b81c3ec832a",
+        "candidate_sha256": "250b64f88034ff871a09e018962f140aa790471ec41bedfd0290f845dec35b9b",
+        "beauty_sha256": "3e2a45b2832f1fa4b31a3b5e94e7d1f96383e58c353816070ced7755fe292c03"
+      },
+      {
+        "id": "building.US.power",
+        "destination": "ui/portraits/building.US.power@2x.team.png",
+        "original_sha256": "c8929b4d77ccb27cdffdb6b6fe9d9b727209a0008c158b4d744c5d70b8745256",
+        "candidate_sha256": "6fe5f9c882952570d6a66febcb49969d35e8ca7c41607d0d4bd154698ee98e41",
+        "beauty_sha256": "04559bc41ba9b375e0b94ea2036a424e94be019cc81e5427c22896a25c8d2303"
+      },
+      {
+        "id": "building.US.power",
+        "destination": "ui/portraits/building.US.power@1x.team.png",
+        "original_sha256": "cd74d581eabedfaa45d75c2dfa690d7ff5a0afcbd98495f5dfb4a186e5b29c6c",
+        "candidate_sha256": "475ac76547d49f40231d3684ae8a55d4f5d271f3d477827bb72bbf1af34178e3",
+        "beauty_sha256": "c8f19c21dcb7eaab4aeffe7347aa67d6b039a28b0e7f35a71679320fe904ba6a"
+      },
+      {
+        "id": "unit.IR.at",
+        "destination": "ui/icons/build/IR.at@2x.team.png",
+        "original_sha256": "8fa20f1433f0b239b3c124d3df5eada24216edd4c0547e1381a254f3b5358e61",
+        "candidate_sha256": "c6455030e5de3357333d971a120b7ec7c430e06520daf8070320ae8d04ccf7b7",
+        "beauty_sha256": "48abca4bf133e53f99792c9fa6da3ad2ff10474402d6d1b73e88896cdfb0a308"
+      },
+      {
+        "id": "unit.IR.at",
+        "destination": "ui/icons/build/IR.at@1x.team.png",
+        "original_sha256": "ceeed0c7fd76fedba0ccbc8d480a9f1e2e37521c81f3912706dae72b98667083",
+        "candidate_sha256": "0a8dc318220266d930c4bc1f397d591ea50a70e7e8b614f370c4889aff7c888e",
+        "beauty_sha256": "7fe0c5d1a41e84363a846d6548b2083c70bf5f3c9c25677db2ad49cdb8d317dd"
+      },
+      {
+        "id": "unit.IR.at",
+        "destination": "ui/portraits/IR.at@2x.team.png",
+        "original_sha256": "630fc0797ebc3cf0830b3308bcc6126cf1845f5cadff92e5d529ba7909454720",
+        "candidate_sha256": "6acfd78149ad7805a35d09acdbb90b468f506df66cae275eec3e70e2b9ab34fa",
+        "beauty_sha256": "1261ebf81143b24afefc8780e33142c6bb582e15e0db08c9a0b423a1cf2b4dab"
+      },
+      {
+        "id": "unit.IR.at",
+        "destination": "ui/portraits/IR.at@1x.team.png",
+        "original_sha256": "ab8b160f8d4e277310bef7bcb0217a864bdc2f8a7d7d0ad5da003f0c18846c26",
+        "candidate_sha256": "a360dc7700d64c887bd9fe0828c9b00df60c36f6cacca569e90a6203c06c1062",
+        "beauty_sha256": "53c66609d75c84b2e241f131c4b3b7a976705aee2fad293242085c82764dce2d"
+      },
+      {
+        "id": "unit.IR.elite",
+        "destination": "ui/icons/build/IR.elite@2x.team.png",
+        "original_sha256": "779a062775b9847a5065930e9a4ab3fa2ed87374bbc1b949dc02c69dd0638790",
+        "candidate_sha256": "a6a199e21d6edc76c0c92cd5c725e1a39951cd37a14d92be4ef7d968b06b8943",
+        "beauty_sha256": "5f7e50127270007ae79e4e40efd67ed98720ae996371a695954ad1266f26f34b"
+      },
+      {
+        "id": "unit.IR.elite",
+        "destination": "ui/icons/build/IR.elite@1x.team.png",
+        "original_sha256": "7f8e2a0150bb7eb703f53f8cfb4956b7105473b0fc6115a2990fbe5e4e52d5e0",
+        "candidate_sha256": "1fd5c01190680c41400c235ea6563813b4df5010d7c2062256b7338b399e6faf",
+        "beauty_sha256": "4a9946b4a017e8e588209b0297c6af94b077c0a09756ba0e42cd1ed39a2ec402"
+      },
+      {
+        "id": "unit.IR.elite",
+        "destination": "ui/portraits/IR.elite@2x.team.png",
+        "original_sha256": "a8b67cfdc8adeef35292e157ba2583faa633bca3e6dd2f9e4cd2452ea4a6ace9",
+        "candidate_sha256": "57c4854629935d2ff5e58a282c5b3b974300538426d53db21bdd9f71ceeaa8ea",
+        "beauty_sha256": "10e0411b4e6152a646b9c8278518cc6a93d96983230279a271d117cd1f2106b6"
+      },
+      {
+        "id": "unit.IR.elite",
+        "destination": "ui/portraits/IR.elite@1x.team.png",
+        "original_sha256": "05c34dcd045d9bb3458c825725dc9e2e2e09813fdd2897e65e19e305d3d01d0a",
+        "candidate_sha256": "0a08a157fce209b0e2e8a17f60a4c30ad0595a626b8703924275a29c118bbacb",
+        "beauty_sha256": "0c42330f2c8ecd8b9b45d9fa9bd62568712290b801417892d9842c4f692b3076"
+      },
+      {
+        "id": "unit.IR.engineer",
+        "destination": "ui/icons/build/IR.engineer@2x.team.png",
+        "original_sha256": "ec1c2a2a40188fa55d2877f6a8ba26319958fffa625d4ddfa08bc8430d073836",
+        "candidate_sha256": "ac3337bb7ec7703e567cfffa87e6870cf3a0aacfcd83e8d14a4fc9065994f3dc",
+        "beauty_sha256": "bd705969de64be31b34d98946fb89de5058e71c2833f6b5cd5aedf2ef37604cf"
+      },
+      {
+        "id": "unit.IR.engineer",
+        "destination": "ui/icons/build/IR.engineer@1x.team.png",
+        "original_sha256": "799c7290af041a822704e4c400decba587d4b7d62b18d61a072c7e5d4d8dd5d6",
+        "candidate_sha256": "59b691c4acdf050fd0ab0d982f2dfc9a1d456e99bf7d3e75deef2bf149c40cfd",
+        "beauty_sha256": "c175f213bcf4d66bf2239fca5544597fbfa74461fb31554bc3c03371a2527945"
+      },
+      {
+        "id": "unit.IR.engineer",
+        "destination": "ui/portraits/IR.engineer@2x.team.png",
+        "original_sha256": "e4454cd9579ba4b4fd5745137aed8eb93425ac46bd478cc29fdc81304673d933",
+        "candidate_sha256": "d105ce3dd71c1204f010174f3652a98d3e71a579c4a2d2b6419e58eed6f0ef21",
+        "beauty_sha256": "2b02bc0f7a1e3049b3eb4024dd71a15ef5a51b59a5cbe18d9c047685a74aa7ab"
+      },
+      {
+        "id": "unit.IR.engineer",
+        "destination": "ui/portraits/IR.engineer@1x.team.png",
+        "original_sha256": "cdb56d5ebd916fee2c91e200fe0ccff5a29d6ecc4c9e47023e9d30b47925f464",
+        "candidate_sha256": "b1eb6b4ed870499e2d0030d2c4e40f7e3184a8b4b7e715ffb8aa1aa9a47029f5",
+        "beauty_sha256": "a4b0c55371d10bf3c5d27b3c48bb98cee2a4f6841bf464aeb1bf03f3ffa75495"
+      },
+      {
+        "id": "unit.IR.launcher",
+        "destination": "ui/portraits/IR.launcher@2x.team.png",
+        "original_sha256": "780a29c61d84df1ef60857414703c1f097c2a9918d9806f33fe2986b3cd23c7f",
+        "candidate_sha256": "2af4ba224d63611f7ca2772540a4cd0248a145a6dc06bacd02101b383211e7fd",
+        "beauty_sha256": "a007f41e6119f1e7457da7095d6140169291b1ae38a667a207bc028777b47e4d"
+      },
+      {
+        "id": "unit.IR.launcher",
+        "destination": "ui/portraits/IR.launcher@1x.team.png",
+        "original_sha256": "f0c4916fcb5f4e5a3d489a5b5f40ceca360ab4d58f389430cef369580eadf06f",
+        "candidate_sha256": "87d551f6cffd7c2d842ddbd256860460145c01aad1569f0ad61ca3c757c8c354",
+        "beauty_sha256": "710508a7751c723cd30391ca29b7a809f700eb10bfbc210ef7b2bff6bc4f16a5"
+      },
+      {
+        "id": "unit.IR.launcher",
+        "destination": "ui/icons/build/IR.launcher@2x.team.png",
+        "original_sha256": "b28fed802fb24f1f82068cff2fc9bb4d25b534af27831a95c6d52ca586e656f9",
+        "candidate_sha256": "b015b07d61eb5c5df37ff891857075ee4108096a6749744751e8461aa9cc22bd",
+        "beauty_sha256": "b3614f4da93c5783c96a5d97f525177ceec45e54e0ae41105647a8dd83cb179b"
+      },
+      {
+        "id": "unit.IR.launcher",
+        "destination": "ui/icons/build/IR.launcher@1x.team.png",
+        "original_sha256": "20a8a2830dba969f43cf70e5107cbf8b067e9e0c3a0a2e3c8f15a797e817daeb",
+        "candidate_sha256": "eb710055de809b7b48f0074144556db8d0d9c22d68d30ee0e687589d7905274a",
+        "beauty_sha256": "178ad76b0e8bcdcbb1c77a30fad290d12cf6e67dc5d95182b953f27a96cac44f"
+      },
+      {
+        "id": "unit.IR.medic",
+        "destination": "ui/icons/build/IR.medic@2x.team.png",
+        "original_sha256": "cec57a1f8b837bc8df0fd34fbeafe28ecbb04c5fee924a9bc5ed1a9b2b8dfb7d",
+        "candidate_sha256": "1abb531e656b4fd29b29c46bedcc1a2af45f989865e57443fa34cd047e34d9af",
+        "beauty_sha256": "bcbbacd772b990e7b5808d0e17ef124aedbfc66ff3a2193c15786dd90c4ffcea"
+      },
+      {
+        "id": "unit.IR.medic",
+        "destination": "ui/icons/build/IR.medic@1x.team.png",
+        "original_sha256": "d1a6abf4bc0e2441bde8057cc422f1fe054adfdfaa31346af458b8bfc6a16e2a",
+        "candidate_sha256": "d5f7afe28966102987f778a39453932eb03d3b77da5ab3a9bebd4c836c97f4a1",
+        "beauty_sha256": "191ba75406af629a1d3caf2d68cd22365321adf794f8e57b81d053473b5a314d"
+      },
+      {
+        "id": "unit.IR.medic",
+        "destination": "ui/portraits/IR.medic@2x.team.png",
+        "original_sha256": "2945344688d4caab755c812b5a8240eca13aeacbdfe0f171d3bbdb6f56a3921b",
+        "candidate_sha256": "e1dd904e5d65eeb3b482904b3b53ec24e1525f178e4531f1f7272901eb060a99",
+        "beauty_sha256": "5c7e823ad84d69d1676490397a26e6e7a1827a2b172030d4a4caf433c4e697ed"
+      },
+      {
+        "id": "unit.IR.medic",
+        "destination": "ui/portraits/IR.medic@1x.team.png",
+        "original_sha256": "92c839605a4a4ad2c23cbfa48665aec00b0c693d389767bd647ab0aa0e55ffe9",
+        "candidate_sha256": "acdfa9a33e9721fc67751fb1ea009847180d472064e43d8c04ac2abc663a3e96",
+        "beauty_sha256": "7cab9023e5fa9d98ad7aba2d0b484a3c5b4099ee154a69a7c97f414a690535bc"
+      },
+      {
+        "id": "unit.IR.recon",
+        "destination": "ui/icons/build/IR.recon@2x.team.png",
+        "original_sha256": "05448d344ce8c515bf811cbb8439dcb13c84a8faa9e7e3d6f07f0e85c6ac1b23",
+        "candidate_sha256": "a8c603883d88a557e462f35edb5942b5b44735213ae4731f0df1ab8cfd7e3cb1",
+        "beauty_sha256": "90a3ad5f451c83e82bb052fb165f4daa039ce5181c5d9b4e49f3594b74cdd8fa"
+      },
+      {
+        "id": "unit.IR.recon",
+        "destination": "ui/icons/build/IR.recon@1x.team.png",
+        "original_sha256": "ebfdd01324ee58214d5abd105ba913ac1c42302aacc7d7997b3af1849da86ca7",
+        "candidate_sha256": "0c18459cd8e2a656dbf77d4c466c4d68d2483a17d862626b9a89336b18e9b3cf",
+        "beauty_sha256": "e7ddfa2c1f580df8f9b0d1a445dc77c420b7e8fbfa4e6458097a96ffd6434c07"
+      },
+      {
+        "id": "unit.IR.recon",
+        "destination": "ui/portraits/IR.recon@2x.team.png",
+        "original_sha256": "25be6adc93d5fc3542881c6fe983885eedca51156f03041af213c11413558915",
+        "candidate_sha256": "744b505204a577008f41adb144cef62ca3f85ab1f847c453a997d452109d67cb",
+        "beauty_sha256": "24a12057f57eecbf49cd6d9f9a3d500896d7fad85ea30350ac0766035bab7f08"
+      },
+      {
+        "id": "unit.IR.recon",
+        "destination": "ui/portraits/IR.recon@1x.team.png",
+        "original_sha256": "ef526b23fad790be023063e319397bb62ad3a928efc7483b830a6c417214a1a5",
+        "candidate_sha256": "61f05846b3b4299094637e58650f543d2d4300477a907d58380684389f784a8c",
+        "beauty_sha256": "409019c4b139929ad948815cc974be505525612c440911e67ac367eaf3da5b24"
+      },
+      {
+        "id": "unit.IR.rifle",
+        "destination": "ui/icons/build/IR.rifle@2x.team.png",
+        "original_sha256": "fb6908d3ed149f3e08030723408b865c91b4df173aed7a77e79ced2e916e3879",
+        "candidate_sha256": "d0567ed4a99b8314755b502821198df86f0daadff8c09a510422a196b3030819",
+        "beauty_sha256": "039c329329146be500cd09f5895b25cb4b6a8e8a08bb1872d9f46f5e56f811d3"
+      },
+      {
+        "id": "unit.IR.rifle",
+        "destination": "ui/icons/build/IR.rifle@1x.team.png",
+        "original_sha256": "9ac4e72f6ac58326cdec354c16a749b0baed5568dbf614c4214ad2375b1ee80d",
+        "candidate_sha256": "19d4e8eab84e5ecfbf07c448300d5393106527db2ce185f5706dd39128a0de42",
+        "beauty_sha256": "5a04e1f96740f98f79e09c4352b46c55a25f05b1a7df49875e8ff729efce9d5c"
+      },
+      {
+        "id": "unit.IR.rifle",
+        "destination": "ui/portraits/IR.rifle@2x.team.png",
+        "original_sha256": "297aaf7caba4eaa01ce1461b9d9d8da0848128bf80ca318c2b8e4e622bd959b9",
+        "candidate_sha256": "6c5ccea9a6aa21626ac87689a727cf45fd278577da495ff6bd4167fa6a20b738",
+        "beauty_sha256": "faab970bd30238cb8bb76aa51e09ae952a13b14c8a4c1b9ecc97a1e8b72092d1"
+      },
+      {
+        "id": "unit.IR.rifle",
+        "destination": "ui/portraits/IR.rifle@1x.team.png",
+        "original_sha256": "64b07587dd222e46ed385f26f141125023c7ea874eef544b1b376ce2e0843210",
+        "candidate_sha256": "10b0a09393de31cf746f816ae49bbe0bb569ccc8f2eb9160532ad99b19b8afab",
+        "beauty_sha256": "79994c86f323d68b6adf886939aea195e7ed5253aad1b9cb9291a5fcf0c37eb6"
+      },
+      {
+        "id": "unit.IR.strike",
+        "destination": "ui/portraits/IR.strike@2x.team.png",
+        "original_sha256": "8067aaa2eec7d8b23c8255bb61a81940107e7c2e1b532d6e8c0208371d5a18f6",
+        "candidate_sha256": "584c36ae50c8c688b16f63470e188d96c44bb59fdebd1f9e4b5b949a938b675f",
+        "beauty_sha256": "31776713b6f94230ec24089449982026a7da07baed2803b308537c108ee07000"
+      },
+      {
+        "id": "unit.IR.strike",
+        "destination": "ui/portraits/IR.strike@1x.team.png",
+        "original_sha256": "eddeef518430f1419af336f4586533c1b3eed5f33ff1a7e6b17b43ebb0ca1f78",
+        "candidate_sha256": "0eb0655ac6462922a1466d1c2ef5c4dddc961701fdab726a40afad3aedbb9005",
+        "beauty_sha256": "c67ca83bcb8e4e047a21f25adae471ab69b88b472856b66c0efb6e6d6d8642ad"
+      },
+      {
+        "id": "unit.IR.strike",
+        "destination": "ui/icons/build/IR.strike@2x.team.png",
+        "original_sha256": "5568fd7ab0e2b72e32b6f9247352880ac516d76f5f950a3ce17f5d4171e15348",
+        "candidate_sha256": "39a716ad064e47c51d38ae4415f9c83753ef5102186eddef83c35e9d0d9399c2",
+        "beauty_sha256": "ace59217c136f7acd3cca83ced06a86429f5013f4afc8929d49582333c30b26b"
+      },
+      {
+        "id": "unit.IR.strike",
+        "destination": "ui/icons/build/IR.strike@1x.team.png",
+        "original_sha256": "9b7692c64d7bf645a1b3c6eff3fd8198c2687a7649090dff5d624e3b4a691c13",
+        "candidate_sha256": "5a918a9c1aa64ed3cced64628c90cea6b0f431f0e6035616fb489fdfa3952d8f",
+        "beauty_sha256": "3cc6c6aba86799ae6f6af121c693a3eac4654814376711c116d278897ae00af4"
+      },
+      {
+        "id": "unit.SA.at",
+        "destination": "ui/icons/build/SA.at@2x.team.png",
+        "original_sha256": "5e5948b592af3de59209bbce0183a42c61eb077a70ff052796026bc25f575ad3",
+        "candidate_sha256": "ae434af75312ede1e8aa181382f0725713fa1de465bb35828b7d834710621b1d",
+        "beauty_sha256": "1b37b469729d0b656fd35f3a9d4918bb757163b4bf279765f6a6d3cf72c50077"
+      },
+      {
+        "id": "unit.SA.at",
+        "destination": "ui/icons/build/SA.at@1x.team.png",
+        "original_sha256": "2e3f12cb52a7ba0a0c64b2ec76c1151e9ccae2fa4108a4263a399e2708b72670",
+        "candidate_sha256": "8f16ced200406c44e1521bba0a9f994908446097ce0b731b45d66c96e8a72c3b",
+        "beauty_sha256": "d448ae4178b066c513ef5ab2ab24bf9d6bee23288e5d36853ea8fb89fe5e5184"
+      },
+      {
+        "id": "unit.SA.at",
+        "destination": "ui/portraits/SA.at@2x.team.png",
+        "original_sha256": "ca37c8b9922c7892d079e0735033f59c54ca245ae2fa7ae34f53890353898f9a",
+        "candidate_sha256": "ff15dedd9d69b4f239f2d56ceb9f03ba22f00fab997216f1ada3d28c1a81be51",
+        "beauty_sha256": "07f0322478a8dbb5a8653b074cf2efd241af8b1ece4c85a3c2e112e158c0bf1a"
+      },
+      {
+        "id": "unit.SA.at",
+        "destination": "ui/portraits/SA.at@1x.team.png",
+        "original_sha256": "c0399840fbf23332ae1d3022e94900621cd3a8203cd5285de5b0291069568f5f",
+        "candidate_sha256": "c2be7eaac41f83bb854a7d74fa7a46b3c0e48367fefa832fe453036547bd8251",
+        "beauty_sha256": "83564f86b1033f406017e61a6d47dc941db6c84258fa2770bdab264c689e3b00"
+      },
+      {
+        "id": "unit.SA.elite",
+        "destination": "ui/icons/build/SA.elite@2x.team.png",
+        "original_sha256": "d5c42b73a183680d55ecfa33d0da8805e636e3ed5cd0979888804b1caae3af86",
+        "candidate_sha256": "4fff0244e840bda57729097d672b1d780c5e12080db64600349aabfca0a457fb",
+        "beauty_sha256": "b9857a8ca219b46391ef921cd2ad6c8d6ddf082440dffa131e464a16401971a6"
+      },
+      {
+        "id": "unit.SA.elite",
+        "destination": "ui/icons/build/SA.elite@1x.team.png",
+        "original_sha256": "38915c8319d1e55eda8973ddbad9e3c5157182182d4949c69e2dae0b9cdeffa3",
+        "candidate_sha256": "55c00bf3029ea369b0dc8af6ec322f391351d66d7aac50089bd87d37fb81a15f",
+        "beauty_sha256": "204d5e963eb2ec14b197fd77de74ee654e48ef7ffeed415e6f98c8f96d1dc708"
+      },
+      {
+        "id": "unit.SA.elite",
+        "destination": "ui/portraits/SA.elite@2x.team.png",
+        "original_sha256": "1509434ae76e15f66630f3d7d25722bb63fb1285bb8ae86f8a6f2e1d462e8a0b",
+        "candidate_sha256": "7406acad2e8582bc545b06984c530359d5fd18f21cc78c72553d6932e7d814d3",
+        "beauty_sha256": "549a96e6270ae37b504953a762b084db3a665b005c8a93ccaa27f262278923f3"
+      },
+      {
+        "id": "unit.SA.elite",
+        "destination": "ui/portraits/SA.elite@1x.team.png",
+        "original_sha256": "8f4d7b20e8b93a4b63558ce8adfd80b042f3a72cbd4afe1804f0708f627fc03e",
+        "candidate_sha256": "fd52fa0906148d8e67b55d0be2c86d3f7dcabb3c560aa3e2d8cf1999eb73d15f",
+        "beauty_sha256": "de02819a8fc36ef8141d1e7f1024a4dd99151fbfd564567c6a82b31e68a4520d"
+      },
+      {
+        "id": "unit.SA.engineer",
+        "destination": "ui/icons/build/SA.engineer@2x.team.png",
+        "original_sha256": "55afaac35e164a0af8513f51f47fe09c2e9fac5172b26c26e14c252a7092aa0e",
+        "candidate_sha256": "96aecea2e48525a4288cc9f28e30eff37ecfce5395204690e971348c71be2be8",
+        "beauty_sha256": "b54b46809cc27d13355cdac9fff8e90533d519d149996fdfebdc2a59cb008d2c"
+      },
+      {
+        "id": "unit.SA.engineer",
+        "destination": "ui/icons/build/SA.engineer@1x.team.png",
+        "original_sha256": "e899b92bad4181de06e9518250ef0b80d66b348a85d97978687c74c3dade2bb3",
+        "candidate_sha256": "45d6b01fde427087eb4d175b674ca3d5b5074d3dc278e51a0990722f86876166",
+        "beauty_sha256": "690e4daac5be702c182889cfcfdca04e7ad6226b479516c3a19c1f2fc1392b80"
+      },
+      {
+        "id": "unit.SA.engineer",
+        "destination": "ui/portraits/SA.engineer@2x.team.png",
+        "original_sha256": "a4ace00bbd30c14bf6e6a532b5451974b8eae6e24f1892e3c486d2f074c29abc",
+        "candidate_sha256": "1dc6807c19a8abdd081fc4aae9e5c588968fc8019298b67448fb2f31b786a2e7",
+        "beauty_sha256": "9d54d03791da7043f4c8a1bc91e3d60047c2658dfc2896e1a6555209e5d27219"
+      },
+      {
+        "id": "unit.SA.engineer",
+        "destination": "ui/portraits/SA.engineer@1x.team.png",
+        "original_sha256": "a48706c462c982fb8ba0240042918da4e4aa735860d973909d60d66044629062",
+        "candidate_sha256": "35f10dec441affd51720b341c7c3489aded109c3f768c5c069b9010cb65589d5",
+        "beauty_sha256": "24a92414f9551de76f17b6c8eb96113345581a61999f74d97f62037d946c70ca"
+      },
+      {
+        "id": "unit.SA.launcher",
+        "destination": "ui/portraits/SA.launcher@2x.team.png",
+        "original_sha256": "ad2556c0ed4ac5c0f6cb73378ed5a9dcd76eb06276667e7a80ebb64b44c1bc20",
+        "candidate_sha256": "c3f3b2254659e256ecd1f037dbfabb1cad0a4763bc294436a0a3c4d1f2fa3f65",
+        "beauty_sha256": "f3895a561c1470f63bfcfe75c0031653b7e15099d9ba3a57dd731bc75d20c96c"
+      },
+      {
+        "id": "unit.SA.launcher",
+        "destination": "ui/portraits/SA.launcher@1x.team.png",
+        "original_sha256": "68b2b43c585b7497cf4ab2f687d81c91e12995eb63b3309599cccbe2879108a3",
+        "candidate_sha256": "9de9af9e9d2b78009e44b812d07505f12b6d17071373ba21a705b2a46c95beb8",
+        "beauty_sha256": "09d4d8ca97ec78df7f28561853dca30ddb2993edfd40db872cbd451c07cb8bc3"
+      },
+      {
+        "id": "unit.SA.launcher",
+        "destination": "ui/icons/build/SA.launcher@2x.team.png",
+        "original_sha256": "3d31fb5702f9ee4ba2a2fe386861fb09ae7eb9c8713372b9f8db61902a7bef62",
+        "candidate_sha256": "586a08045d36f6aecb53a324c86640c1d038393996a6cae4af512b96674350e4",
+        "beauty_sha256": "b5193a379a780e9881b4a261335817151a8b18a0ea5fe38131cd7542a96f19e5"
+      },
+      {
+        "id": "unit.SA.launcher",
+        "destination": "ui/icons/build/SA.launcher@1x.team.png",
+        "original_sha256": "c042d885aaf972f30ea4618b1e368a65c87a6c3d697942dc3c38e49d449503e5",
+        "candidate_sha256": "e58e05bbd7bdc464a5b35014694a1e6f14a0ea7abbbb2fd49f41940ddb441b33",
+        "beauty_sha256": "5aa207ce126fb5ce8db005a759954301033988058b025c4869e4721fd774fc1b"
+      },
+      {
+        "id": "unit.SA.medic",
+        "destination": "ui/icons/build/SA.medic@2x.team.png",
+        "original_sha256": "a6a4f51f4df2e19409222c51ce56bfe35556f43a5646a86ba3c25bb5e28c0576",
+        "candidate_sha256": "04eb2173316ae954c6dc04d9e148b68123ec35c9291a5e24714e79258c396c81",
+        "beauty_sha256": "280e97f51f281bf9db2f4e166e3a7433b606bd5a557beb5f6daf8b412e6949bc"
+      },
+      {
+        "id": "unit.SA.medic",
+        "destination": "ui/icons/build/SA.medic@1x.team.png",
+        "original_sha256": "f86cc73a435a51cd3a3f26df7c7fd169c7872f24f1d22678503780849478fa2e",
+        "candidate_sha256": "1bce69eda88a2054d537d2e970f0d155731b3b253b8f978a9de5998c893333c5",
+        "beauty_sha256": "cfabbce63268858861fc2104cba4dfe30b650e71df5f9dfdfe2bb64553277005"
+      },
+      {
+        "id": "unit.SA.medic",
+        "destination": "ui/portraits/SA.medic@2x.team.png",
+        "original_sha256": "b3ce41e61750a49527206ce6386ff9345c7e4914ecab88fdd3e7192885a2c245",
+        "candidate_sha256": "1b7d6e4c9b7d5c8cb9de754e31bf06498187599a179062749e6825372d7526c4",
+        "beauty_sha256": "fa5a68310ed215b0b4c91c70ba732474992dbd2036faf7b49b5163579d2f4628"
+      },
+      {
+        "id": "unit.SA.medic",
+        "destination": "ui/portraits/SA.medic@1x.team.png",
+        "original_sha256": "433c12d0f5435a62498dab7e74d7aa40a7385ddbaae364f18ef6a864be42fa5e",
+        "candidate_sha256": "cd4b8c2a2822929793aa97e2de7ebf553b3a8e197bdd305fac44b6de7f6e1861",
+        "beauty_sha256": "661f463c58e001c1bf67763c09ced4f14f44e23906dab9e3ee9d19efba4a730c"
+      },
+      {
+        "id": "unit.SA.mobile_abm",
+        "destination": "ui/icons/build/SA.mobile_abm@2x.team.png",
+        "original_sha256": "3e4dd9c33f20817d6ec18565c12bab6fa086daa064629d6e38d73d26bc332086",
+        "candidate_sha256": "617fa2bff9831be544adfad97612e6f90425145be4d01dbf87058508ac00e347",
+        "beauty_sha256": "e9853a828a52af29565ed5fdadc89c87117af80ecd689b2826eda8e6a7471071"
+      },
+      {
+        "id": "unit.SA.mobile_abm",
+        "destination": "ui/icons/build/SA.mobile_abm@1x.team.png",
+        "original_sha256": "43b8de7ec7c03708573be3ffe6dc74f263a058508e09302cdfe041464f53c2c7",
+        "candidate_sha256": "5c4f7ece5cbb92b733a4d55f5d0e9f0c0acdd01ede9c41138cfacdeb1982f542",
+        "beauty_sha256": "846512d32cf4f3568b9ffd126a5273be2e81d2bd5aa215ed48776b0a422d3424"
+      },
+      {
+        "id": "unit.SA.mobile_abm",
+        "destination": "ui/portraits/SA.mobile_abm@2x.team.png",
+        "original_sha256": "6f98925f852e979b4d8380adfe021a3bfb0cdb9d259d1b5560fb275949dba8f9",
+        "candidate_sha256": "21961a6186b8809886ca1cd75aa00dabf8ed116faa74ab7296f5bbbac6371d88",
+        "beauty_sha256": "9f9a81efd55f0ec08500ebd88f7d423c7cc5a21040242921dee48082e9f474e0"
+      },
+      {
+        "id": "unit.SA.mobile_abm",
+        "destination": "ui/portraits/SA.mobile_abm@1x.team.png",
+        "original_sha256": "34a356626d0c0af3335724a5d50c1d239f5866e074cc81e73ce27371294a81fa",
+        "candidate_sha256": "227d3bd30176f2b02a66b2499f4086dcddb9c0e2afb1b967577e151dbf21dfc1",
+        "beauty_sha256": "46670a05b4fbea558e7ae59335a437811551c4cd69e93adcea816b2db23281f9"
+      },
+      {
+        "id": "unit.SA.recon",
+        "destination": "ui/icons/build/SA.recon@2x.team.png",
+        "original_sha256": "9d35b657afe892fa569a51946e8374c18d03938ecf905690c051e74d139338b1",
+        "candidate_sha256": "a0f0e3e64b0b3c8eed6328b739a009c30b1ecab72f6dc5c310e71c386b787faa",
+        "beauty_sha256": "882bb7cfd846a158112cdc9afaa2401f945fa0660a178da8bdd523092e89ef6a"
+      },
+      {
+        "id": "unit.SA.recon",
+        "destination": "ui/icons/build/SA.recon@1x.team.png",
+        "original_sha256": "1c10e7f05c42b74e01c9b6d09a0be88c620b5a4e97b15b645c2675f5f27247a0",
+        "candidate_sha256": "3ed0392702ec19f7f382a96e604e66b5841af0d100feb3a65defd6e79f985c82",
+        "beauty_sha256": "35085dbe7fab89bbb59b77853a149fa4870cfd57ce0cd45d464bd61e841f9636"
+      },
+      {
+        "id": "unit.SA.recon",
+        "destination": "ui/portraits/SA.recon@2x.team.png",
+        "original_sha256": "ab3c2a1ba809e7533c232cce44602a84578890998799dd4237f7ec6b5ad9ccb0",
+        "candidate_sha256": "0607a5ed8f4cfc4e1d46bc9827c7ae2e7e19acd90567ed91a73a2f15a09c5dcd",
+        "beauty_sha256": "2a218f80fec9bb871592c98241c0c183d4e19cd0cd63d18f9d58125a10cc8900"
+      },
+      {
+        "id": "unit.SA.recon",
+        "destination": "ui/portraits/SA.recon@1x.team.png",
+        "original_sha256": "9e654909a13666cc9c1c7f3b8525696e00cfaddbefc7bae82def869c8acdaebc",
+        "candidate_sha256": "7b962dc0cd32ad98f43e7c6f86b53579dba65b0fb1236dc57e0c25ace291ea32",
+        "beauty_sha256": "d4e587fe7c111bf708b075c2e59c2d23492b27f8a1a7274de8e78474f84aab25"
+      },
+      {
+        "id": "unit.SA.rifle",
+        "destination": "ui/icons/build/SA.rifle@2x.team.png",
+        "original_sha256": "bfd4d8b1716a5fcb3965a502546f1c88f6529d9e4ec55f8ca55e0c5e2444817b",
+        "candidate_sha256": "5638eece1babef81c2a1133a0258d374fbd7a251965ee1bfaea0a2240555817b",
+        "beauty_sha256": "44d783ca1254069cc619ebe30456f5ef2b101b3ac9660658f1492d7d5126861b"
+      },
+      {
+        "id": "unit.SA.rifle",
+        "destination": "ui/icons/build/SA.rifle@1x.team.png",
+        "original_sha256": "6aa4aee2e96dc456edfc94fe6248c1b3ed7de07d20e09b105553027627d982e0",
+        "candidate_sha256": "bc912377a78e8abdbb449235bb5aa490ff644a30f5da546f46ac42bb7bed5e5b",
+        "beauty_sha256": "58e14c9702baf42d319b57b861385fc68774a4e2d460525c55949541edd357c7"
+      },
+      {
+        "id": "unit.SA.rifle",
+        "destination": "ui/portraits/SA.rifle@2x.team.png",
+        "original_sha256": "0dc5f4d96fcebe4d7fc2aaf339b7a71e6019f3a3b273c292add789155cdbb763",
+        "candidate_sha256": "5bb1664e9399b584a96fd2541b0524edafa81701bfc9a7f83ff536990d826df7",
+        "beauty_sha256": "30a6a75c084211b324bc607e592e3d8c8227b67b067ca00a2f89c4eb1248458b"
+      },
+      {
+        "id": "unit.SA.rifle",
+        "destination": "ui/portraits/SA.rifle@1x.team.png",
+        "original_sha256": "b5b8908ed7cef141b366f1e08fa3919f5a7599498174d18b3450588c03e50bb5",
+        "candidate_sha256": "0395c7794f20b23d1546fe3b28d44bee03206bf4ef881aa54b2ecd85fad035f7",
+        "beauty_sha256": "379c9ced9f3a5c52fd437fd6503f8ddcc5966597ee6724475331051725af3cfe"
+      },
+      {
+        "id": "unit.SA.tank",
+        "destination": "ui/icons/build/SA.tank@2x.team.png",
+        "original_sha256": "b298ae36857659c0ec68ec11bda8f8a3cb74251a559dd5e60f6a5f26718417c8",
+        "candidate_sha256": "563900410f9f9f71f2a5300a2f6163c3002b0234d21f035cd75cb5b8fca21dbf",
+        "beauty_sha256": "84993f335edd37c01abd4f5e9809ca0211cc26f89e4b10709a6928903670297b"
+      },
+      {
+        "id": "unit.SA.tank",
+        "destination": "ui/icons/build/SA.tank@1x.team.png",
+        "original_sha256": "66071d55f5db844cacc214290ec2eb18df0a72900d3eb5c66d8178c9cba5f74b",
+        "candidate_sha256": "047aad05847d414c6b87694421a81119e33e00a6611e7bf3ca0f7c4467568815",
+        "beauty_sha256": "30e745375c7fa41c45cc6c1e71155affa3dedbbf786c1cd1e1253f23e330e9fe"
+      },
+      {
+        "id": "unit.SA.tank",
+        "destination": "ui/portraits/SA.tank@2x.team.png",
+        "original_sha256": "20ddac1c6685e561931f6c2e5a0423ebdccde1e1b6fafb2160395a353e64ee9b",
+        "candidate_sha256": "b01c0bb6ae7fcd0fd2770dfe46aeea9f78221f1196b1516e07c988bdf87b8036",
+        "beauty_sha256": "73962d4025edb3a6db7fef3861eeaed7b6634d5528d6d17da0400c58e233e812"
+      },
+      {
+        "id": "unit.SA.tank",
+        "destination": "ui/portraits/SA.tank@1x.team.png",
+        "original_sha256": "a0f748677f304ce2eb06220c1c9d5c0aee6b2b1fe4c2ad6ee2188a2d5a52a517",
+        "candidate_sha256": "e41da15777e758d5305345cde8eb3c10d2ae9ee44f28f1b6745bf2bff0c3514d",
+        "beauty_sha256": "f2e819acef62a8e45533d7317f6feaea5980cf6bebd2d38cb9ea199fe1b008b6"
+      },
+      {
+        "id": "unit.SY.apc",
+        "destination": "ui/icons/build/SY.apc@2x.team.png",
+        "original_sha256": "0e47449449e686ef79da0564a26c086cfc27084620cd0538b7930722dc267f58",
+        "candidate_sha256": "989acd35ceb609302d51601c7f665b62a00c56bc5dee57e8f2ea1f063bf5bacf",
+        "beauty_sha256": "f700b915dec2b38f17a1f0f2e819f0cd77a21c42469c713e9bd7c1f3a0cd7004"
+      },
+      {
+        "id": "unit.SY.apc",
+        "destination": "ui/icons/build/SY.apc@1x.team.png",
+        "original_sha256": "1fb7d2bb8acc91a001ee5aeeafa161df323bf4bf2732dc835d84c8373e7abbf7",
+        "candidate_sha256": "6eae1e0d394e71a970b0244899be3ef3b56b5251589b6f501450be8d48fcda3e",
+        "beauty_sha256": "be8086de1117460eb8e3a9091aad1fc1a8e86aab5d1f6e6bb607f5c4d18005aa"
+      },
+      {
+        "id": "unit.SY.apc",
+        "destination": "ui/portraits/SY.apc@2x.team.png",
+        "original_sha256": "a269a0945dabcb2a836b1215f0d45adf4b5e87ac529e90522cd0d8ccfd5c25cf",
+        "candidate_sha256": "a70881b2024e83487ebe7c6de48409a38a3ffef41b5d03a44f8b78b54d0d8849",
+        "beauty_sha256": "37057bf4637cb6992194104db629883b6074d30031c49090362b1c2699472f3e"
+      },
+      {
+        "id": "unit.SY.apc",
+        "destination": "ui/portraits/SY.apc@1x.team.png",
+        "original_sha256": "a941be6960a6a8d7647c3b71e3bcb975f5488aff03fd3e61849add6c39d12b78",
+        "candidate_sha256": "5e8e7831a5050218030aa2d440472dd6d58f6a8b1d534cdc427e1d5159622206",
+        "beauty_sha256": "c82623aa7ca920cbf6f48ff9c9a7289dc9508ff3032bebb0d054479dde8d4073"
+      },
+      {
+        "id": "unit.SY.at",
+        "destination": "ui/icons/build/SY.at@2x.team.png",
+        "original_sha256": "d1a4f3010b434704638f8fd460e27e053748253a1be16d79411934b4f710fd53",
+        "candidate_sha256": "f0b749af275ba16948e6c3b90f2f1bebcb8c6d7a8bf44178fe10b3d4be977a33",
+        "beauty_sha256": "bc07cd583f6bb620ffbeb7faf27eb16b513742fc27cd67830ba9da1435d79bd8"
+      },
+      {
+        "id": "unit.SY.at",
+        "destination": "ui/icons/build/SY.at@1x.team.png",
+        "original_sha256": "8fbf732597636d0831be355a77bc646e2c6307f40700519bae69c07848035ce7",
+        "candidate_sha256": "014d6ab0c763db9552ad53656aa1edbc7e5dac1c0b4c0f5c9650adf96bffde5c",
+        "beauty_sha256": "e90df57da9e3888313696a4e71309760cf4cb8d5461f8a482e7a34d073d11706"
+      },
+      {
+        "id": "unit.SY.at",
+        "destination": "ui/portraits/SY.at@2x.team.png",
+        "original_sha256": "bcaf319dfba0116adf6f3917425e8df15da68edeacad1778a8d4530889928faf",
+        "candidate_sha256": "30f0959e1acdf37e115723a3f89ad581442f752131be70e440fde317692d0310",
+        "beauty_sha256": "c7202cf8334e250d3d89bed493e48e96180d2e6ee9949c94a0507c88380b40ae"
+      },
+      {
+        "id": "unit.SY.at",
+        "destination": "ui/portraits/SY.at@1x.team.png",
+        "original_sha256": "5766f1a469044375cdbf63154bee18489e8754699c998ff7d2f7e82e119278ce",
+        "candidate_sha256": "c0ed95ead5c47b6186e4d444299ce2ff56198bde16019f45f11818915cf79b26",
+        "beauty_sha256": "18b9d7324e79e46e75f4dcc5ea96ef0b39540ebbbdb0dcfb0026cc8f4db3abdd"
+      },
+      {
+        "id": "unit.SY.car",
+        "destination": "ui/icons/build/SY.car@2x.team.png",
+        "original_sha256": "744bf14b870ce2d1316127c88eae89ed4fcfa092c23e7961b23bfae0ebaa1dea",
+        "candidate_sha256": "7664fffa06c33377341f410c7cd9dc785a5aaa3a226419abb8dcc478bc08a25d",
+        "beauty_sha256": "7c98cf3d3ad79730accd551a2e040d22fe0ea4b6d9d9ba36541e87e52dc86113"
+      },
+      {
+        "id": "unit.SY.car",
+        "destination": "ui/icons/build/SY.car@1x.team.png",
+        "original_sha256": "374bcb310224c129686d5b8e2a82ee4f5462ffd3121d2acdaff0611b388f054f",
+        "candidate_sha256": "88c4b72cd66257d34e217c293615adb9397a019539711010a4f44779a97d2d41",
+        "beauty_sha256": "732a824932909115dc691ae22e1e23ffa43115b41986c31dd2b9ba19da88aac3"
+      },
+      {
+        "id": "unit.SY.car",
+        "destination": "ui/portraits/SY.car@2x.team.png",
+        "original_sha256": "2d3c450d2c132f0d038cf4f6c60c3673d3e0aac13bba0a579cb15efb587780e3",
+        "candidate_sha256": "fb40509e5de59781bdd3d6f918f55e46da8e88c89d08a768d1ae4448f0ae10b9",
+        "beauty_sha256": "3f75197f3b3189d5d00070a65582dd406172f7f6743e65e8167b6def53476c1e"
+      },
+      {
+        "id": "unit.SY.car",
+        "destination": "ui/portraits/SY.car@1x.team.png",
+        "original_sha256": "c82e3ced9ce71aa7ef03b16e24e955d9d29f8b1eac9a6561a85d450802c71aea",
+        "candidate_sha256": "35a5f979ee116ae7ab0bfae5a3b7d9a08b36d6b410c4ffee00964fd6fbca10e2",
+        "beauty_sha256": "8ab16ca014284511a2c3762011206f637fbd941d744be4cb8ff4ddc1343583e5"
+      },
+      {
+        "id": "unit.SY.elite",
+        "destination": "ui/icons/build/SY.elite@2x.team.png",
+        "original_sha256": "a84dcd8f87abf0b1fbfc3a4f469008acdd0a2f9a51154f6e23dff56e325ef331",
+        "candidate_sha256": "c71dc1695d0d956cc43c1abd9347665ed33172d178feff936606554bdd0a7fb8",
+        "beauty_sha256": "17fe88c70405fdab44ced5a8e5d53767f3a16942e4491dfb2ca06bccb2113771"
+      },
+      {
+        "id": "unit.SY.elite",
+        "destination": "ui/icons/build/SY.elite@1x.team.png",
+        "original_sha256": "bc0599919b1adbab2529328f2777e0ec22e0c63c3f9ff0e113426d337d6365f0",
+        "candidate_sha256": "3f0b7e99747149c29866ecc697b8b60b55e4c0ffc98fcce67702bf8b9984c067",
+        "beauty_sha256": "370e1eda722efa813989eba384bc2694a20b1a2774262db25101d3701b799836"
+      },
+      {
+        "id": "unit.SY.elite",
+        "destination": "ui/portraits/SY.elite@2x.team.png",
+        "original_sha256": "38e452b1ee55624e35f851af135a5fd0042d6909a1b49f5434e9bc09586a624a",
+        "candidate_sha256": "78eeb76c673051730c07cb4cb83fef598e434e89b6b3c0887adb047fec535ca7",
+        "beauty_sha256": "6bdc510fa1f1ca87ec3df5d5805e861eac6c49dbf0b370b4c5f5723e090cd044"
+      },
+      {
+        "id": "unit.SY.elite",
+        "destination": "ui/portraits/SY.elite@1x.team.png",
+        "original_sha256": "ca1004e3fe2d95536abb252a7ad54468a40b449812ced868730ebfb85aa0257b",
+        "candidate_sha256": "2a11ba886a958bb5d73f6105b4b95123c2058b608f407be35f4007f219098d8a",
+        "beauty_sha256": "209621036eb8fbbd67746110dbd40e6ea9f9171dc2e4115842fa2c159bc6db03"
+      },
+      {
+        "id": "unit.SY.engineer",
+        "destination": "ui/icons/build/SY.engineer@2x.team.png",
+        "original_sha256": "ed5a4646ec59218ab96c3e7a7f7b0938fd4e61cb098d7906a9b9d3ac8732f952",
+        "candidate_sha256": "11d59af0cbc36eb73754ef36cdd94f2bc514774c4d70927b1a5f8f9639c08332",
+        "beauty_sha256": "c6df076f67e5f544fb7b2c6d198edd10e80b9ba176a84497e221fddcc21c22fc"
+      },
+      {
+        "id": "unit.SY.engineer",
+        "destination": "ui/icons/build/SY.engineer@1x.team.png",
+        "original_sha256": "7b456168fa3b2ddf17566fccf96773cb359c0c982af1c6d845e53e0e71cb8033",
+        "candidate_sha256": "118bc73f206e05f9227f06f549cdc97a55f8f18bb5d90bcc271d6bfb93e2ab9d",
+        "beauty_sha256": "5a939e6333900eb4910b1d2bd85552bde05abb3f942558a5e4524140e47793cd"
+      },
+      {
+        "id": "unit.SY.engineer",
+        "destination": "ui/portraits/SY.engineer@2x.team.png",
+        "original_sha256": "a67c8d1cf4768159a051df7e74985728d723653866c3ace0d2afd3426c3849ec",
+        "candidate_sha256": "04fe9735c1a0fb9f1cab4dfe354904c26ee7e3ffe452aa53aa4f4a36fc18d575",
+        "beauty_sha256": "02e75ad926bff24a4bb10483ae18d7ba320493c45058b1a71799a7edc9aa2b68"
+      },
+      {
+        "id": "unit.SY.engineer",
+        "destination": "ui/portraits/SY.engineer@1x.team.png",
+        "original_sha256": "11f491361ec487d0b1c2b1bd2bfefaa8ed8660380caa737d6cfef8b07b55a98c",
+        "candidate_sha256": "d1e5708d5de0f17fea7453b37b1ae04359bfae8488db7ec6003ec9cfee117819",
+        "beauty_sha256": "b91a440a6c26a43150c9f4b1d478e377ea07be0989148c20768a0129985e1fee"
+      },
+      {
+        "id": "unit.SY.launcher",
+        "destination": "ui/portraits/SY.launcher@2x.team.png",
+        "original_sha256": "8bf2146bf926ba461f93a67b17599c10a97ff48d679f32c6d6a170f570dafa49",
+        "candidate_sha256": "5cf430c8688a26dabf4052459dcef2d952667c627cc14fc5bc3174d7b1f2a01d",
+        "beauty_sha256": "80350d6e48ae5527c301a7fed321acaf30e34559b2daad5dc0ecf5325fcffa11"
+      },
+      {
+        "id": "unit.SY.launcher",
+        "destination": "ui/portraits/SY.launcher@1x.team.png",
+        "original_sha256": "16d9630225d0623e2fcd7a36b813cc73b893a2874cead85bcc79fbe059ce88fb",
+        "candidate_sha256": "36e80a3b6669814f330eb9c48092e06cb9f34b79428ff473eb6509e57ae7ea30",
+        "beauty_sha256": "4f12f7e02710a26c023d8de1f4a40b6e7abfcfa328221b5101099b9401b96bf9"
+      },
+      {
+        "id": "unit.SY.launcher",
+        "destination": "ui/icons/build/SY.launcher@2x.team.png",
+        "original_sha256": "674349342da80107c32f82f25a1561e8f94cb764f3a94f5a202d6e9570176cce",
+        "candidate_sha256": "677e5706dcef4cc4d86790e961ac83545dc7fdd7d9fb708d63cb39536c9b9582",
+        "beauty_sha256": "5dca2d99e4b05b3ccc6fe338366f925a2743bca3c76348f52aa30416a761fb94"
+      },
+      {
+        "id": "unit.SY.launcher",
+        "destination": "ui/icons/build/SY.launcher@1x.team.png",
+        "original_sha256": "479c6a09e8f7363eae88b2c97e8a69074a10f01a93c183021d06d96e7f81cdf2",
+        "candidate_sha256": "e783c63bb91d06f1fc6f8da513f91e4af6a767aa1ba30e06b3a58be1337d7796",
+        "beauty_sha256": "3b52e04f44d813407739b2ac9abf84c4816811c562be5841939998c8a8280929"
+      },
+      {
+        "id": "unit.SY.medic",
+        "destination": "ui/icons/build/SY.medic@2x.team.png",
+        "original_sha256": "af3a70721306612f2a29da6f4e74a7156dc7a55c9e8882bfa678b84782f0eee6",
+        "candidate_sha256": "6671b0ffc50c17b1af11dcfb531d0fdf95ca2c20c286cc3b473aeba161b8d7fd",
+        "beauty_sha256": "e6b8a125f73bd7002434d1c7e658ae90b4320d69fe1e03da118744b8c9081a30"
+      },
+      {
+        "id": "unit.SY.medic",
+        "destination": "ui/icons/build/SY.medic@1x.team.png",
+        "original_sha256": "f5e154912b1947bfe20fed7ecc7bf8b1b789ab86e95f37a307d8f5bf6bd56526",
+        "candidate_sha256": "28121b083935dd61f21575457b195c7d2788a9f7a9702d9addd6ee0dfea1d0b1",
+        "beauty_sha256": "7269d465f7dc72832ba5c13c3f25f8422114510ab26c393973256d0b86d32fe4"
+      },
+      {
+        "id": "unit.SY.medic",
+        "destination": "ui/portraits/SY.medic@2x.team.png",
+        "original_sha256": "f5871478b468d12d04e958913feb211ece6228282364c21a0d1b74ec7b75ff2a",
+        "candidate_sha256": "da50995b297459ddc693ea2cbe564cad662c804cc127a676c6ddcd74ca1fbe2e",
+        "beauty_sha256": "4902a2bb1ee3e2fb1a0866c3978a511c2bdde0a214adad4f09cb6681227d3c84"
+      },
+      {
+        "id": "unit.SY.medic",
+        "destination": "ui/portraits/SY.medic@1x.team.png",
+        "original_sha256": "15f03cd7b8c5c1460ddb1d6714105c1caee02cf3d24f64d4409b64fe376d0831",
+        "candidate_sha256": "45dcbd2a4ef19f45c25f46c8377977580ceffee5a1b91fdc7567a066a56b0df3",
+        "beauty_sha256": "4748de3a547fef6167d31d6b2ea1c9ce91b7c81a6650374593f8973dd35ee96e"
+      },
+      {
+        "id": "unit.SY.portable_aa",
+        "destination": "ui/icons/build/SY.portable_aa@2x.team.png",
+        "original_sha256": "9ed0caf1af28481d7db634c3c5e29366d77deaea655caa1acb799c1ec74a8187",
+        "candidate_sha256": "ffea771920579eec278e83f348875187c255d8654e01ad0ee9f79a5073154a39",
+        "beauty_sha256": "baa50700e260669747b5a104bce3e788e30ac6546552cc0323eed4eba98eb39c"
+      },
+      {
+        "id": "unit.SY.portable_aa",
+        "destination": "ui/icons/build/SY.portable_aa@1x.team.png",
+        "original_sha256": "08562e648347765fa931542d10bc5c0fa8d4645e64dc3e4d1198085febf809fa",
+        "candidate_sha256": "85c7a0ffdb45ad606c5e1eaee157d9e83bce1f30cb1eec8f01418aa4ba252b10",
+        "beauty_sha256": "6ce629c8da27dec565d9ff693bc52856a706f1001b9bba1ff1a5f221c81e3efa"
+      },
+      {
+        "id": "unit.SY.portable_aa",
+        "destination": "ui/portraits/SY.portable_aa@2x.team.png",
+        "original_sha256": "32eace2c98b2e84ab5111c7a16213e06cd4193280c548627aa4afafab8ecd557",
+        "candidate_sha256": "f2c7247951247354ec531b1267dc0daa8f9b7053f64f052f5aecb03e9751bf96",
+        "beauty_sha256": "549330f39b89b7dde0051490973ce3b0f6c35be5373e0b6b19c9d31754abd8df"
+      },
+      {
+        "id": "unit.SY.portable_aa",
+        "destination": "ui/portraits/SY.portable_aa@1x.team.png",
+        "original_sha256": "f058539b7dc346af2a9527b38526ae1dde841d8eb32fbf2b1f0632ab650f5002",
+        "candidate_sha256": "bf60a5f2ed49d1a42c42d9d3129368ad9594a2efef6e740476749555b4f1b2ac",
+        "beauty_sha256": "c3b8ce214cde62642806fffba58c6e791b55de3d63133c32c3dc627ebd6582a8"
+      },
+      {
+        "id": "unit.SY.recon",
+        "destination": "ui/icons/build/SY.recon@2x.team.png",
+        "original_sha256": "6b76b773be9692edec968fc6ddb924d8b86c56c7f9468de72a29ff8f1b827f39",
+        "candidate_sha256": "1d879b118728c7f1c417a7015b4b9ca89fe23590f1cd7bb4e2d0519fcab110ac",
+        "beauty_sha256": "6ec49640cb200e6dce2a2cbbe5a7ee2883001238959be570683b4e2d1e05ee76"
+      },
+      {
+        "id": "unit.SY.recon",
+        "destination": "ui/icons/build/SY.recon@1x.team.png",
+        "original_sha256": "be197b4a0e310cf36cbc4a6c89ac633c479c02b014f38a33ab9fa9c42bbba3ed",
+        "candidate_sha256": "5f53134fec8904a2cf0b9a7090c8bcd4c6152af069de5cb1844163cc5106f1eb",
+        "beauty_sha256": "41365285a0633db1cae5de646ecfb9f482b15bfe8e8670c6e32f2671e731a897"
+      },
+      {
+        "id": "unit.SY.recon",
+        "destination": "ui/portraits/SY.recon@2x.team.png",
+        "original_sha256": "1186757c82590d911718609fb770d436c03a45b1e681fb5d397ea6f26b19494d",
+        "candidate_sha256": "53079f71b7fda6fdda590f6f0fa6e81b2ea0502805046d4f49ec28069331a354",
+        "beauty_sha256": "9de44b7aedc560186af1739e259e72ce343990ac67f52f52e383bf1ac7838297"
+      },
+      {
+        "id": "unit.SY.recon",
+        "destination": "ui/portraits/SY.recon@1x.team.png",
+        "original_sha256": "627461fadcd7d919c8fee3597710afbd569d02999b9f3698b6b3f2b133246160",
+        "candidate_sha256": "8fd137de0a9cf8c3642f8e5c1088ccbe79f0b622fb953133b6b139650a3d71b6",
+        "beauty_sha256": "788921a384c73e4777a76f65127c0ae9976084f85724db7dca36b7b5845f0c3a"
+      },
+      {
+        "id": "unit.SY.rifle",
+        "destination": "ui/icons/build/SY.rifle@2x.team.png",
+        "original_sha256": "04025b371691371a973f35d517f6558b0d6c28e150bc616f977642ccf2e2178e",
+        "candidate_sha256": "38498bbcd0d30470dc4c14560fe60ebeb5b7943685e4d3849354f85ecd659b3b",
+        "beauty_sha256": "6bb79ef27d17746e20df170815b43d895579690a64eb6ef3c81572df244dc5df"
+      },
+      {
+        "id": "unit.SY.rifle",
+        "destination": "ui/icons/build/SY.rifle@1x.team.png",
+        "original_sha256": "bdf3e2a1610c84a70f8c98077f97f72bbb9d3e9858efb2c5090e7d761289e612",
+        "candidate_sha256": "0cdaa62632c5f92aafda8b3fbd027cc5c86c7843e527909c2bc1dd117248b90f",
+        "beauty_sha256": "41194fca6ddae59db4f7b29949d37bb228a34678d62c55cd869cb59ceb41441f"
+      },
+      {
+        "id": "unit.SY.rifle",
+        "destination": "ui/portraits/SY.rifle@2x.team.png",
+        "original_sha256": "2df53f64e4e46dc9bb359261790b1eb50fea3bba55d13e503de91fe336ab7bf1",
+        "candidate_sha256": "71915e258178a33a139d803c54de6b41977ee5e206e1cbd2ab89500e93d0ca02",
+        "beauty_sha256": "07148408ad3e8ff1111eb0643a3b40246c42dca928c578ba2d78d1ead4f914f4"
+      },
+      {
+        "id": "unit.SY.rifle",
+        "destination": "ui/portraits/SY.rifle@1x.team.png",
+        "original_sha256": "d721ecf41399ac919f1d80131ab917bef2cb7742e1eb8845c500ff02fcc76b7a",
+        "candidate_sha256": "fa581719cbaaebcb43c933c9f17cf484ad5ba23e720c35fb76d5540ab18a0406",
+        "beauty_sha256": "76015aa705234c6b502186bbdf39eeb8be025ea49496844a3bd677578c7faef0"
+      },
+      {
+        "id": "unit.US.airlift",
+        "destination": "ui/portraits/US.airlift@2x.team.png",
+        "original_sha256": "63276e0d2121ef9d5ec2b1dcad929c13d6ae4e23dfa95226c2a79af8967e3139",
+        "candidate_sha256": "d00579de3a16b8458b224f40d74c887ee4d7594cd4406ba7103109e85ae74108",
+        "beauty_sha256": "3d4c6d290e15b7c909b872a2d3f20a11ac7e683a9edee8ff9059c52f65e5fb47"
+      },
+      {
+        "id": "unit.US.airlift",
+        "destination": "ui/portraits/US.airlift@1x.team.png",
+        "original_sha256": "1e69638eaba6fc941f088ffecbff00e4fd3017a9502d36593f126b9bb6e2d7b6",
+        "candidate_sha256": "ff6e952e8871c47293c208921d318189f1e2973fcd9a415a3f9d896bfa5687f2",
+        "beauty_sha256": "b00fbd6487f9d8d8d3ad1b7fa836fe72b026471b81864804df5adbf6f27faeb4"
+      },
+      {
+        "id": "unit.US.airlift",
+        "destination": "ui/icons/build/US.airlift@2x.team.png",
+        "original_sha256": "8b559e2482224e30d37e75800905f16e4baa718647610a6afc8ddb37ef4059fa",
+        "candidate_sha256": "39e49bb76db91c6c59f46463265d4e184f2eac8007fb491da28a0b9187a71e29",
+        "beauty_sha256": "a1a2d9e065cd2b1baf8e3245cf077defd6e6860469ec69dafb121a8979e92c27"
+      },
+      {
+        "id": "unit.US.airlift",
+        "destination": "ui/icons/build/US.airlift@1x.team.png",
+        "original_sha256": "a5ecb04b7cf7e19c6c8934d76adff3800313f035d953f8826f3ab6c4e7e456b5",
+        "candidate_sha256": "ad788617e0d64eafbc9bb47e89837ea6e7facb3f857a06fd006ccaa0f0ede3b7",
+        "beauty_sha256": "65256d6eb92ba801d8f9ad9662881c0fbacf28ab47e116dda68fc4e7e4c7da53"
+      },
+      {
+        "id": "unit.US.at",
+        "destination": "ui/icons/build/US.at@2x.team.png",
+        "original_sha256": "340fd45d6c0fe77e51700e9eb451d0c0068cf98de4ec0fa1b286838c337a846f",
+        "candidate_sha256": "1d452a5a5e537afc2a4e7a9b5d8e3ed70093fb17f94dd01f2bf1772b4dbb92ae",
+        "beauty_sha256": "c9a4b3c6b4b4af2fc716b1b87a95bdba60df0715c9e2106f5823b5c6db1f99ef"
+      },
+      {
+        "id": "unit.US.at",
+        "destination": "ui/icons/build/US.at@1x.team.png",
+        "original_sha256": "70bff71a892abac3629424f5c8523bbfe04bb3b06962a7fdc206093cd9677ba3",
+        "candidate_sha256": "82b54120b4e874c66de742e346d232404a91821d9662132626742871d33dfd7d",
+        "beauty_sha256": "952e6f8a9a164b6c9f08e6d7f0f4d846c06a672262b632e42d5c051e562ca265"
+      },
+      {
+        "id": "unit.US.at",
+        "destination": "ui/portraits/US.at@2x.team.png",
+        "original_sha256": "a2663f5a4776db3780ca06d44755b678c6d965c9ca27e9b71b4c0bdd377380fb",
+        "candidate_sha256": "6c337b7605a299917e1d61073eadf9615af78e49212e4e2d784f8cb1b2183526",
+        "beauty_sha256": "34170e0c36bfc54954daeb7335746ee7121dd395c5ceec8aea664b6a3874f5d6"
+      },
+      {
+        "id": "unit.US.at",
+        "destination": "ui/portraits/US.at@1x.team.png",
+        "original_sha256": "845b214e73a2bf4fe975ce552f5e29e5455ffa3c27a312a3950e082391989bb3",
+        "candidate_sha256": "066d7251783bb5d91103a957ebb5fbd877e0bd8f2882e61b97c379fea92034a1",
+        "beauty_sha256": "49a45a620f925079d68de847ff78a9b2aac7f519a65767d3eac6dd463f68bd17"
+      },
+      {
+        "id": "unit.US.elite",
+        "destination": "ui/icons/build/US.elite@2x.team.png",
+        "original_sha256": "9602cd09a8fb4117033652b59bbab7b8a2552b47e3b85da644575604ff80a19c",
+        "candidate_sha256": "2e8ce0ff116a2be25014eab00b0eb999b22be1ddae5a51bc21289ef9a78542c7",
+        "beauty_sha256": "99ca6da2b5d222fd2ed87f4d15a4dd06a44965e4b572f6a8bca20c42d3753c9f"
+      },
+      {
+        "id": "unit.US.elite",
+        "destination": "ui/icons/build/US.elite@1x.team.png",
+        "original_sha256": "dabc45d5513670daa6aec39a99c64a343b604da885765c7823a4f186bd7fe487",
+        "candidate_sha256": "ff2316eb050af11cdd39a5bd6370e166b720c6d25855b581aa2f36b88f29db0b",
+        "beauty_sha256": "525fb608fa9fdb94069a2e471241a9c94e7d57eeffae35692c84d710044093c0"
+      },
+      {
+        "id": "unit.US.elite",
+        "destination": "ui/portraits/US.elite@2x.team.png",
+        "original_sha256": "9bd455e52acdee0ecb2247707ffdbab404b0a3108cb30d1426c2af0e8cd6665e",
+        "candidate_sha256": "b426ea66d87caac6725fece8fd9fcfe73af452e257ca89b974a3bcb5cfd63398",
+        "beauty_sha256": "2aa2a9f6333ef5bed8227cd6347308b281cda1cf5b270d90ecf34916f24f6364"
+      },
+      {
+        "id": "unit.US.elite",
+        "destination": "ui/portraits/US.elite@1x.team.png",
+        "original_sha256": "9f62dd6c596aabb15cde7839f0e11de714000abccce9fb1bc5d2c4add133077f",
+        "candidate_sha256": "f8424ae31ec3096333232e7f96d6b1af9dfe50cf2d3f99685ccb31b29301b891",
+        "beauty_sha256": "f9b16df0149a5ed7267fbdcc25c2b859a7a8396e8a8a7ab88d1b2bb19dbd228f"
+      },
+      {
+        "id": "unit.US.engineer",
+        "destination": "ui/icons/build/US.engineer@2x.team.png",
+        "original_sha256": "e67417bbbbf0d47a91dff2bac5b9af7d9962a622dcad50235e3f58d49ea8de77",
+        "candidate_sha256": "cf0f93b652b5fa47835aec3f191832e2c5297cbc3cf5fcad5e1bf92ea4802d34",
+        "beauty_sha256": "c60a6cd8b5a2fad4fad4b2973428dec6d7f32c8c4d2442e2829b06673361452b"
+      },
+      {
+        "id": "unit.US.engineer",
+        "destination": "ui/icons/build/US.engineer@1x.team.png",
+        "original_sha256": "40ad04157c9cce582c19555d47593fafc28208dd398b3edb6d5b2c49b4e2ea62",
+        "candidate_sha256": "399224d148adde0fe59660c40d4b65abe387f317fdc4e7ba039a26a63e96980e",
+        "beauty_sha256": "c11e63afdb00e8e9197f7ae8eeab8e552a0704f43c637664df87b2ba4eb914cb"
+      },
+      {
+        "id": "unit.US.engineer",
+        "destination": "ui/portraits/US.engineer@2x.team.png",
+        "original_sha256": "843afb0ad2fe4ed87b6d8ff954ee7d63060a75b52765f7e0b5642e560307dd72",
+        "candidate_sha256": "1367e018953010bd5a02d570f2213334a02e5a2bfe93963d5a9e68518c954a53",
+        "beauty_sha256": "b3b9351f15b5bc13eab29f557a81baf70f68b8f88d4af4c6ce8d4e8ad09abd48"
+      },
+      {
+        "id": "unit.US.engineer",
+        "destination": "ui/portraits/US.engineer@1x.team.png",
+        "original_sha256": "f2d299a5ba9a5c53d7960af60628a3bd93af68ab6051caefe23c7b0cb89d09b3",
+        "candidate_sha256": "e0b1aaad2beffb7507d5f8036918c3acc4c178308a129688f58df7837ddbc6da",
+        "beauty_sha256": "318cd93e0787926ea55c475593fcfc66630e12c6142776c83026c6892056a72b"
+      },
+      {
+        "id": "unit.US.fighter",
+        "destination": "ui/portraits/US.fighter@2x.team.png",
+        "original_sha256": "27e2143d54365270171263aa5b47ca6f45da236d254ffb22f5930df824b73843",
+        "candidate_sha256": "92b458a3a5b5d3af36487c4a38e1d05f9b703d35188e65b27443864fb7040a4b",
+        "beauty_sha256": "be394c1d07181d52f18c40cc1cbd69bfc497810eb0b3c58e212a77a335551b75"
+      },
+      {
+        "id": "unit.US.fighter",
+        "destination": "ui/portraits/US.fighter@1x.team.png",
+        "original_sha256": "8e63e88d7b57ba48992b0f837b191181cbc3ebd047b31cf9a123abbb0f5877c7",
+        "candidate_sha256": "b0c95a6e3afb2ed893b38b81867547e9cf0c39de04c9eacdd80c556ea81f697f",
+        "beauty_sha256": "c310c878cb003e8f3887361e5847a3711fd5e32a75e5517e8bfe26c6b20ce0f3"
+      },
+      {
+        "id": "unit.US.fighter",
+        "destination": "ui/icons/build/US.fighter@2x.team.png",
+        "original_sha256": "d8e587c6829796734b7ab82555668ff2dd50101273fa9f517bded3b84ff9b1ac",
+        "candidate_sha256": "103f18b5cb3fe27bbe1cb67b103246a713a649cce8aa5e2ff7a10c00e63e0f57",
+        "beauty_sha256": "87a1e2a3b315ccaa1b53ca5f971de93a97835112d799eae42f700cbb27274c05"
+      },
+      {
+        "id": "unit.US.fighter",
+        "destination": "ui/icons/build/US.fighter@1x.team.png",
+        "original_sha256": "38a12d294fc856e6445907a9141d45332b1b68850c31fe9351fdbbd7965a0425",
+        "candidate_sha256": "96a42ee58fb9c4a56458d0811330ad291c23186e4fa269c40c9f74a312686e97",
+        "beauty_sha256": "4d256015488ede80b23f580d7a4610f3052955a3b6d03c61924571b9eda5083b"
+      },
+      {
+        "id": "unit.US.gunship",
+        "destination": "ui/portraits/US.gunship@2x.team.png",
+        "original_sha256": "9a15e5409f2fa2491388a2127d35e81bce06d57d8d4294a05ed7d2947ad24451",
+        "candidate_sha256": "426f0e75e9e898a9b4937b07499405247fa34cd5cc34f52e018de8c0bcc28454",
+        "beauty_sha256": "e9397c38ab497d879f68e37d6976567aca20da2d3062db4cfa9d31a8f916fb6d"
+      },
+      {
+        "id": "unit.US.gunship",
+        "destination": "ui/portraits/US.gunship@1x.team.png",
+        "original_sha256": "ebc57b6ebc4c4b26349488f0a80dcd38851e8c36eab4498022518674ba063e0c",
+        "candidate_sha256": "69dc6dbfeaf8e015ee9e0a76d45314c1cec505e0b3e80011ec88dd496460b8c0",
+        "beauty_sha256": "dcdb8b3bb0a46f641d294e407256d3470cce24d6d61dc8aa64cd19eab8f2156b"
+      },
+      {
+        "id": "unit.US.gunship",
+        "destination": "ui/icons/build/US.gunship@2x.team.png",
+        "original_sha256": "fed8bcef63a0c298b9f46da0a48d897c5ec8733bdb5261652053a447713461a4",
+        "candidate_sha256": "24b4d8be695fd54af137d04dcf38c7186404718c2d624d0efd35eeb1bd65b537",
+        "beauty_sha256": "778cc8cab12a7d004206d49270192038cda984735fd31004e3eb9db7f0df3953"
+      },
+      {
+        "id": "unit.US.gunship",
+        "destination": "ui/icons/build/US.gunship@1x.team.png",
+        "original_sha256": "62bccf9af1b01dadad551bf70a4dd58b966bcd2a474722ae7c529275e67b657d",
+        "candidate_sha256": "8bf4fb321b47951d966fbca29c0b2591f0a81ab10d2df8718eefbd078b397a1f",
+        "beauty_sha256": "9de0d873c60b8d67f43038204861aff38879190a48ef026927b56b37376fe517"
+      },
+      {
+        "id": "unit.US.launcher",
+        "destination": "ui/portraits/US.launcher@2x.team.png",
+        "original_sha256": "d60de8ff0908a71cf6312547bf491931df25439e7fba87b5f970e51da383198c",
+        "candidate_sha256": "2413d45d2bfed6acc56263a6f56ab6a15a46d7d790add9c92b02a0cc546375fc",
+        "beauty_sha256": "7f3b9d0e6b2125d5d9f06d4334c1f6f0768768041e90b89a6dcc535a80974689"
+      },
+      {
+        "id": "unit.US.launcher",
+        "destination": "ui/portraits/US.launcher@1x.team.png",
+        "original_sha256": "72fccccfa801aa45dbad4aa95f7fee12ae623043ea02c9e1b4ae2bc3f3f37643",
+        "candidate_sha256": "457f495fba15b1760089ce7fd4d6419e2e1e0c821428e8053acb9f039a551ad7",
+        "beauty_sha256": "fae4dc1aa181132a8dc692e1d9327432a5401aa65b23c49f1e27502dd489ae52"
+      },
+      {
+        "id": "unit.US.launcher",
+        "destination": "ui/icons/build/US.launcher@2x.team.png",
+        "original_sha256": "c83c676cb991c2e90b96a25d1fb7e57f77a6d7ac5a807b931000dd37073ed49e",
+        "candidate_sha256": "8a7a44e0ac30d87c3ba9741529c82b8dc77cd9c2f0c98ff5e7d7d67958575433",
+        "beauty_sha256": "104a889a41c898e897bf13a151e95e66942ff165bc11c6c0dd67dca0c79cb9c7"
+      },
+      {
+        "id": "unit.US.launcher",
+        "destination": "ui/icons/build/US.launcher@1x.team.png",
+        "original_sha256": "91d383b66f00a0cac98131991f198ba6425a6b90dac7a27cf10cdb34c5fb1ef8",
+        "candidate_sha256": "e785ecb9e23ac4da50eaec96942e61b4832d9d10ffa3a64c506a04d757f8cc4c",
+        "beauty_sha256": "2f9709c07dc2e1d9e45e6d0dc7a6400014b50cb2f6de98f8b9f8878bdbe0e27f"
+      },
+      {
+        "id": "unit.US.medic",
+        "destination": "ui/icons/build/US.medic@2x.team.png",
+        "original_sha256": "f48a24c26e3d71fb278d7723cfeddb34c810fe18884152a2ceaba15b4e34f046",
+        "candidate_sha256": "30e3c459f691358f5db05357433721b5af1d51c8164eba395c57fffe6280c7fe",
+        "beauty_sha256": "f50b78afceeb21b769d4600ff43c06789edc7c8d18358c218bbc240e09300204"
+      },
+      {
+        "id": "unit.US.medic",
+        "destination": "ui/icons/build/US.medic@1x.team.png",
+        "original_sha256": "160dac437cfda38c826920177d898658f4ea2a711975a2303bf9818d6362f6ff",
+        "candidate_sha256": "f8262368c1ceb2267734f10df5ccff42c4670661341348a39df55e8fcbd6563a",
+        "beauty_sha256": "4504a1a86064c9cf10423928ac7c57749e325b505f64f3eaf8b19fc7b97a15d4"
+      },
+      {
+        "id": "unit.US.medic",
+        "destination": "ui/portraits/US.medic@2x.team.png",
+        "original_sha256": "a4a38d88eb143677b7754037f7e63073ad84f18e15f21c6edd3daa2d5d144dd5",
+        "candidate_sha256": "eed08b30a81a5204f94388dcdcb047005d3347f1d175fc090eae54a07d3b459c",
+        "beauty_sha256": "aa93a07eee7eae83b469bc765e203653198d55b09ff2112b3d9780adf6b8e066"
+      },
+      {
+        "id": "unit.US.medic",
+        "destination": "ui/portraits/US.medic@1x.team.png",
+        "original_sha256": "33d4eebdec6ee3ab6aa3ad80d3ee9c7636ac758732cc5f7db939ec5b6d28c69b",
+        "candidate_sha256": "1becd413c2e7645db45b78f85d4c7df7a4823381a190fc2d5e4734df5742f116",
+        "beauty_sha256": "2e0ce0113978cdcb6e38bc6aa3bf63d86639049e6ffa879d6d6a6372289ca9ac"
+      },
+      {
+        "id": "unit.US.recon",
+        "destination": "ui/icons/build/US.recon@2x.team.png",
+        "original_sha256": "6b40aef4baf1ee35044d97b6bdc1c08641b14c2c869d9c7fb61ac191502150a6",
+        "candidate_sha256": "e4359620272394011d4c89af1ac5230773149c37718aa33a8eab7c2eb3f2c2bd",
+        "beauty_sha256": "79517e352fbd618b3ecbcd96419e17039b9283f6889e338b3a5bb50feaa596b0"
+      },
+      {
+        "id": "unit.US.recon",
+        "destination": "ui/icons/build/US.recon@1x.team.png",
+        "original_sha256": "b4777f8b0682b3f625b766e97a91a7c9ddd42bb0c8a43e89ce4672783a627d9a",
+        "candidate_sha256": "54ef016c7f75932c82d2d0af6e1e23e8a0520672366e3111cf10669c6c087b7d",
+        "beauty_sha256": "4af71919d66eb1ccb76ae1a0e18e4fec416bb7bfd064e1c680e2742eb575f462"
+      },
+      {
+        "id": "unit.US.recon",
+        "destination": "ui/portraits/US.recon@2x.team.png",
+        "original_sha256": "3661c7bfa68de15b184e0ab1cf119617a58e15868570afba1da8e88333794370",
+        "candidate_sha256": "c735a477ac9018e52102168d99590ed7587b372e9200a00ed31137eb3bd2fa85",
+        "beauty_sha256": "46483f1956d3181dd0b3488d97652168ed0f6684793389ad736f2bc8d19c7c54"
+      },
+      {
+        "id": "unit.US.recon",
+        "destination": "ui/portraits/US.recon@1x.team.png",
+        "original_sha256": "ab9d09ef9cfde6fa2ae12cf283ffdb28abb7be74116eda2db39524228a9d747e",
+        "candidate_sha256": "0b7f532d05b4eddbf12a76607b71dd2cbd7f700de90b7a970e7fc5ac14a8b4d2",
+        "beauty_sha256": "53f47e1011535e77b5088359570d6ad9fc8120b6f516158db1c65864e75c733c"
+      },
+      {
+        "id": "unit.US.rifle",
+        "destination": "ui/portraits/US.rifle@2x.team.png",
+        "original_sha256": "ad004af572fb4c0b8bd6d6d9463ba4d7bd7d35846a0c7d64fcf61d3e66502995",
+        "candidate_sha256": "daaa10e2c241092b2707a7afc69da09fb6a0d8fe183e9b98e8e5adad1b185be9",
+        "beauty_sha256": "18436183e53f8544d000416d312b0f811adfaab6c0d7741f6a7ec1f46b4675ed"
+      },
+      {
+        "id": "unit.US.rifle",
+        "destination": "ui/portraits/US.rifle@1x.team.png",
+        "original_sha256": "8fcee3652fb8654df1fd151c6adfa511672ef87272196eb193c655e05eabecfd",
+        "candidate_sha256": "068b7f4fea1e9d1a1751e039b70bb181412c919a9c0a8ec9cf5125afb1eb0bf2",
+        "beauty_sha256": "4ef0182ae030f1da5239e2c4432a4db450e2dddb4a0b9f3b2247ab91786c70a9"
+      },
+      {
+        "id": "unit.US.rifle",
+        "destination": "ui/icons/build/US.rifle@2x.team.png",
+        "original_sha256": "a462b333e771f7955f5e305bd0cbfac60aa970f5969a501d7c0371bf6e4abf7e",
+        "candidate_sha256": "8b586d105960ab3abbdf491281350191ad59ecb39dbeebce10e47c4640e64e8e",
+        "beauty_sha256": "5bb6756001f90b76227ce5e54132d619c5e5e85784bfd61360d505ecd75bc998"
+      },
+      {
+        "id": "unit.US.rifle",
+        "destination": "ui/icons/build/US.rifle@1x.team.png",
+        "original_sha256": "0efad6c4b9f7c15abe1889f224827a57ffef4ff361075245d375693984b9eb18",
+        "candidate_sha256": "39f0e232192d213ea866b18aca418c37896e3f4259acd169909879ac51a4d3b6",
+        "beauty_sha256": "1eba9d027d5555fe9f535313f070d19399dcfe699351ab9f2d8698a613c547b7"
+      },
+      {
+        "id": "unit.US.tank",
+        "destination": "ui/portraits/US.tank@2x.team.png",
+        "original_sha256": "9ee28905c07e8daf11697cecc1157b3cb84bd37cbd7109e9197c4dd05ee06029",
+        "candidate_sha256": "f3cb9bedbc8814067148fa6fd73863b3c7a43dbbd9178bdb9fd4bd0c7728ada9",
+        "beauty_sha256": "d7a07815bba8fb2c4c53486b1c2c3075e74689c5730403086e2ea25d06b9a289"
+      },
+      {
+        "id": "unit.US.tank",
+        "destination": "ui/portraits/US.tank@1x.team.png",
+        "original_sha256": "ee3b6acadd0ae14674c43ddee5ba569f709d3632a86bf88ef5d62c46a445e2ea",
+        "candidate_sha256": "6b36bee23c8c6137f0141f4eefe011effb2b03f4818573065221cec3563f7759",
+        "beauty_sha256": "144dd2550aedb8ec1017c4c0d25db4eb38843d9b52d2fe10416cdc65cb588988"
+      },
+      {
+        "id": "unit.US.tank",
+        "destination": "ui/icons/build/US.tank@2x.team.png",
+        "original_sha256": "1c266e5e0d67747bcc1474bfddd2ff0ef21ea15e11c97aed49bd2e19814a2540",
+        "candidate_sha256": "a493a9b5efd6d201605bedaeb4d675e0b04e26a414e35e215722c1847b1bbf46",
+        "beauty_sha256": "ee7f2540910510afaec4c6ef1a1f448815f6a743c9e6ddffcd5c09c0c5810171"
+      },
+      {
+        "id": "unit.US.tank",
+        "destination": "ui/icons/build/US.tank@1x.team.png",
+        "original_sha256": "f3e7a5cd2fa6e17c841d9a0341987b53328d3039b5f5052831d126ede64f3e8b",
+        "candidate_sha256": "7f0de0a62c7a5e061cac0c7469ee45adfd003c7e09bcf5002d62a1f5278ea3b2",
+        "beauty_sha256": "2129f0a1e1528fbfe021ed23132ad2454a6d8a2dc3e178e3944a7fb1b126385d"
+      }
+    ]
+  },
+  "packaging": {
+    "frozen_helper_equals_current": true,
+    "all_eight_ui_projected_upper": 15005,
+    "count_margin": 995,
+    "limit": 16000,
+    "encoded_bytes_limit": 2147483648,
+    "actual_complete_pack_unbuilt": true
+  },
+  "ordinary_build": {
+    "entry": "make build",
+    "art_source": "assets/build via client/vite.config.ts root/assets",
+    "private_handoffs_consumed": false,
+    "current_local_script_commit": "cfc8554",
+    "buildSourceIdentity_covers_art_or_client": false,
+    "publication_or_explicit_manifest_integration_pending": true
+  }
+}
