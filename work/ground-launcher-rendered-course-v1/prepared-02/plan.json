@@ -1,0 +1,3226 @@
+{
+  "scope": "Private US/IR/SY rendered-course PREPARATION, no browser qualification. Native starting units/resources/damage are declared fixtures; subsequent ordinary orders are unchanged. SA held pending full accepted art.",
+  "held": [
+    "SA.launcher"
+  ],
+  "scenarios": [
+    "US.launcher",
+    "IR.launcher",
+    "SY.launcher",
+    "US.launcher-damaged-empty",
+    "IR.launcher-damaged-empty",
+    "SY.launcher-damaged-empty",
+    "IR.launcher-cancel-volley"
+  ],
+  "courses": {
+    "US.launcher": [
+      {
+        "stage": "01-initial",
+        "tick": 0,
+        "hash": "8bcfc540fdb84354d0e88ffba2a88f4a78b3f800f21bbb312e87a5472b96f772",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "02-deploy-half",
+        "tick": 41,
+        "hash": "bcbd3c10dfb4db78e0b397e02ec12664d8ca677eb68b3e7df04f3f7d2309e3e6",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "03-deployed",
+        "tick": 81,
+        "hash": "eebc3547ed1d1a1605ab9621f4a5886db430c23e40bacf69739e7e468036bdb3",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "04-last-shot-empty",
+        "tick": 88,
+        "hash": "f6e4fe03efdb02a03b8c915c47f686b4d71a68533f2ad89e5794ac1aaaf02adb",
+        "actor": 6,
+        "charges": 0,
+        "shot": true
+      },
+      {
+        "stage": "07-pack-half",
+        "tick": 119,
+        "hash": "d212a8f8e25f36a96c2b9d14c4c373ca1628665d5e9bca086e5f65a021ba5f48",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "08-moving",
+        "tick": 150,
+        "hash": "1ad22cc8a5e48b35e0dc2076a5e57f1a81e31ebe7d474b390b60ec9fdc6793b0",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "09-mobile-idle",
+        "tick": 181,
+        "hash": "21d6291e9258a2e74ecd160f074aa9f70a796a3adae733e72a71d8e0ef0fff32",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "10-deploy-half-after-shot",
+        "tick": 222,
+        "hash": "9e4dda509f1cfd77e233d52dd0695db5c5928a964d7021850d066e6b57fb7ef0",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "11-deployed-after-shot",
+        "tick": 262,
+        "hash": "3c7e0eec86c6f183f8dfbb0e079f8ce216ee304abffa7cacb83273ef3431998a",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "12-before-refill-1",
+        "tick": 1686,
+        "hash": "e3221649ea08412d6ff7b2be3972d4ea71aee03b565f0392f994ffd8c4bccdf2",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "13-refilled-1",
+        "tick": 1687,
+        "hash": "2e76a8833bbf531dc4617ba2302332c03afa97c5f0a1d24c211cfde0c76a43d6",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      }
+    ],
+    "IR.launcher": [
+      {
+        "stage": "01-initial",
+        "tick": 0,
+        "hash": "adb772431d4caa6e308e044ce8c0758c187416f908c8d6764a6930b5e75e7a79",
+        "actor": 6,
+        "charges": 2,
+        "shot": false
+      },
+      {
+        "stage": "02-deploy-half",
+        "tick": 41,
+        "hash": "75cfc60be3aa27359221791311226cea23373fd177169d8dbbcd6b58db369cbd",
+        "actor": 6,
+        "charges": 2,
+        "shot": false
+      },
+      {
+        "stage": "03-deployed",
+        "tick": 81,
+        "hash": "db9fce54fb1a280056b240824f05d771366f317e11d556f444bf25a0392b700f",
+        "actor": 6,
+        "charges": 2,
+        "shot": false
+      },
+      {
+        "stage": "04-first-shot-one-charge",
+        "tick": 82,
+        "hash": "7d5c0f1f33720a7270b348b17df620172a84d2c70ca76b761c0db50d757e3632",
+        "actor": 6,
+        "charges": 1,
+        "shot": true
+      },
+      {
+        "stage": "05-before-second-shot",
+        "tick": 111,
+        "hash": "0f8e1806183d7d02bc9d8a7fbc2a6a401747aca8e25e2d885546e126e6ef1a9e",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "06-last-shot-empty",
+        "tick": 112,
+        "hash": "bb40f8c482311199dc4aabf3af657b97237e975f780e3ee5634c1a881725d601",
+        "actor": 6,
+        "charges": 0,
+        "shot": true
+      },
+      {
+        "stage": "07-pack-half",
+        "tick": 143,
+        "hash": "de0a36c257c6fd8eff6495b51e566f53a119f376c6cb17c55b28b5d1e92311ca",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "08-moving",
+        "tick": 174,
+        "hash": "c32151808e94ab2b774d18aee6aabd5171e74de7bb90c615e86f90b439d61b60",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "09-mobile-idle",
+        "tick": 205,
+        "hash": "a76a753e14fa17562dcc7b0ee45969a62e3276b004f36575da4d3e428655002d",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "10-deploy-half-after-shot",
+        "tick": 246,
+        "hash": "de6a18a08dbeba3bf590a0223bdd683511073abee4c5778f4099f934b698cf36",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "11-deployed-after-shot",
+        "tick": 286,
+        "hash": "4526b644cfeabb5f4f9b59b25d73cc4afd7ba7f40a0376cb715e987da1db8c36",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "12-before-refill-1",
+        "tick": 1280,
+        "hash": "a5c6b054140117aa9d783aa20e7e646d1813809fada5016fdfaf6ad19ba7c9e1",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "13-refilled-1",
+        "tick": 1281,
+        "hash": "490f416f0056e16fa0ab4f0c75c0f692a77efc4a3e3410e4c541760b7fd22fc7",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "12-before-refill-2",
+        "tick": 2480,
+        "hash": "81b46f4aa8a057805bf502ad499ccc5f074855885a69439a3aa445c95ea9bec9",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "13-refilled-2",
+        "tick": 2481,
+        "hash": "c0b17ba03855805589eaa23a4b9c36502ff68189b46d349387fe08bb3e5b2054",
+        "actor": 6,
+        "charges": 2,
+        "shot": false
+      }
+    ],
+    "SY.launcher": [
+      {
+        "stage": "01-initial",
+        "tick": 0,
+        "hash": "6376bcf169a8f73c486f441ebe217e2b48a5ac6f3be6f7a7ce81232791fb61f1",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "02-deploy-half",
+        "tick": 41,
+        "hash": "ac1291b7f03de8c37c0f4af00f182ffb6d8eccd29134317c0ac5904a391b3b61",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "03-deployed",
+        "tick": 81,
+        "hash": "b3f21e21eec3535edc85457538ca7bfd2f079d3a7895102e9184c68f3e1b86c5",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "04-last-shot-empty",
+        "tick": 88,
+        "hash": "21dea9d5c5b6d164f3838610c0c79cf3d461628126a453b73d3c227f7d3e21ac",
+        "actor": 6,
+        "charges": 0,
+        "shot": true
+      },
+      {
+        "stage": "07-pack-half",
+        "tick": 119,
+        "hash": "5e4b564d272a2a687f57408a267b09295b5d841456b767c6361409cb851086af",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "08-moving",
+        "tick": 150,
+        "hash": "97cbaa3547ee9553db0377de1a2d82e25ded68e1c4a9c418c4e2641e42b76802",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "09-mobile-idle",
+        "tick": 175,
+        "hash": "0fc458765acc33cf05d0bb21d0aa6b9d991fffa67eec63ef0b2f140028a04bb0",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "10-deploy-half-after-shot",
+        "tick": 216,
+        "hash": "23602a4d216be0a80ae5ba8f39c3444fa32f3a69174073125b5424a0dcc1074c",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "11-deployed-after-shot",
+        "tick": 256,
+        "hash": "d8cadc134fe975a167afab3f551ed97356d52cd08e153e66e99f4bc121855705",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "12-before-refill-1",
+        "tick": 1386,
+        "hash": "8871cf6403b1a0509fbd7b4acc5b107cb55059370f8dc3ede49f184fca1db5de",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "13-refilled-1",
+        "tick": 1387,
+        "hash": "d7b698d46e0f5dca15e2d3642a6299a81141ddef05e9a78da2fe14294860d6b0",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      }
+    ],
+    "US.launcher-damaged-empty": [
+      {
+        "stage": "01-initial",
+        "tick": 0,
+        "hash": "1fe7f47816248f9a74469dcee23f2364981cfe9e176c604ebe2fc8902e034436",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "02-deploy-half",
+        "tick": 41,
+        "hash": "91be8f7feee0fc330708a39335737724592c15e8b835a1c7feb87668fce4d6b4",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "03-deployed",
+        "tick": 81,
+        "hash": "588a30c0db8ca10d1c60368a463c0eb3713b1122da37dfd290f27c88b3cfaa07",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "07-pack-half",
+        "tick": 112,
+        "hash": "85b17fdd5e86676dffb3b515d4ff998b623935e46faa84b126a31e3ad7956de6",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "08-moving",
+        "tick": 143,
+        "hash": "33761c4c79b5eeb745ce92fd8ef527665e96815a4c815d8d466d78f076d9b65e",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "09-mobile-idle",
+        "tick": 174,
+        "hash": "26b0bd87769a38190ce50d085437a96e8ea88e180e16357b0729aaff6ec14dcc",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "10-deploy-half-after-shot",
+        "tick": 215,
+        "hash": "dff94f7a1508a7c7fe9912b8f4388c96e448ca0b2f89e0824b79386a5b69e0d7",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "11-deployed-after-shot",
+        "tick": 255,
+        "hash": "9d3eb8d384b601b88047c700bc8acbd810668ea482eeaa4aca6a045fa7e873d5",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      }
+    ],
+    "IR.launcher-damaged-empty": [
+      {
+        "stage": "01-initial",
+        "tick": 0,
+        "hash": "f2f5332c209f36ca23f30a53150e68cbf1ff67dcf543720d65d5f60e8839db0e",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "02-deploy-half",
+        "tick": 41,
+        "hash": "0b7bb738044093e62dd2591b741fce680cbd4456be9c51975dadaac13d27f867",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "03-deployed",
+        "tick": 81,
+        "hash": "7853c79d0ab4f929013d961d2ecf91cb2a9a3fc89396fbcab14986a410c418e9",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "07-pack-half",
+        "tick": 112,
+        "hash": "068641cadaf43871790005d7ebf9b4f417ddb79773d06f9eeb1e02e9dc45ae63",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "08-moving",
+        "tick": 143,
+        "hash": "813331d8df6b5efdfe58dfa1d9c3ab2097d13c84aa61bc0b85c55de87040576e",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "09-mobile-idle",
+        "tick": 174,
+        "hash": "2511faf38e082eead74057510917aa5ba5bd181f9ceffae1af88abefb30d0f77",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "10-deploy-half-after-shot",
+        "tick": 215,
+        "hash": "312f0bd5d8b0cb936d5c836ce154128b828b6679c2502620dbfe6031ad434eda",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "11-deployed-after-shot",
+        "tick": 255,
+        "hash": "8bde76ab24b00b4c82a2610d0a6d832c3cf39f83c175af9b770a1fb3d4628a15",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      }
+    ],
+    "SY.launcher-damaged-empty": [
+      {
+        "stage": "01-initial",
+        "tick": 0,
+        "hash": "f1a4c0c9fe90f524d3f3c50e6123e11118fbe1a9af2b569a530a69f794a5d809",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "02-deploy-half",
+        "tick": 41,
+        "hash": "5b941ca44ead0554f235d65779660aaded73324e6f696b397db3847798b83c44",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "03-deployed",
+        "tick": 81,
+        "hash": "2775b3bb120858946249fc0f38d2c6907fe6310fc6616eff7526b43df763e627",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "07-pack-half",
+        "tick": 112,
+        "hash": "c98e14c446d487cf10da4a34b6eea17ec0871c8850483e3dd1b540d0a042261e",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "08-moving",
+        "tick": 143,
+        "hash": "d4573272045813ecca881fb5cf8c80f653f2de4882cc338b6afb6600a6dff629",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "09-mobile-idle",
+        "tick": 168,
+        "hash": "1244fdaf45065830d341957dd75afc16ebcc38d869475afc50f488c4172b4278",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "10-deploy-half-after-shot",
+        "tick": 209,
+        "hash": "cc473996e29a56fecf31e33f2f8c64f86f6e170d064d8c16339288e84a55c5ec",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      },
+      {
+        "stage": "11-deployed-after-shot",
+        "tick": 249,
+        "hash": "10482ed84374843e17b6056a6303a7f3b741aafa391861a8f5a3a14f244c2d55",
+        "actor": 6,
+        "charges": 0,
+        "shot": false
+      }
+    ],
+    "IR.launcher-cancel-volley": [
+      {
+        "stage": "01-initial",
+        "tick": 0,
+        "hash": "adb772431d4caa6e308e044ce8c0758c187416f908c8d6764a6930b5e75e7a79",
+        "actor": 6,
+        "charges": 2,
+        "shot": false
+      },
+      {
+        "stage": "02-deploy-half",
+        "tick": 41,
+        "hash": "75cfc60be3aa27359221791311226cea23373fd177169d8dbbcd6b58db369cbd",
+        "actor": 6,
+        "charges": 2,
+        "shot": false
+      },
+      {
+        "stage": "03-deployed",
+        "tick": 81,
+        "hash": "db9fce54fb1a280056b240824f05d771366f317e11d556f444bf25a0392b700f",
+        "actor": 6,
+        "charges": 2,
+        "shot": false
+      },
+      {
+        "stage": "04-first-shot-one-charge",
+        "tick": 82,
+        "hash": "7d5c0f1f33720a7270b348b17df620172a84d2c70ca76b761c0db50d757e3632",
+        "actor": 6,
+        "charges": 1,
+        "shot": true
+      },
+      {
+        "stage": "05-cancel-pack-half-one-charge",
+        "tick": 113,
+        "hash": "08af058ae46c375ce705f4a1ab98dcdfb61ee4763d57afc27022d5db78b32335",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "06-canceled-second-shot",
+        "tick": 113,
+        "hash": "08af058ae46c375ce705f4a1ab98dcdfb61ee4763d57afc27022d5db78b32335",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "08-moving",
+        "tick": 144,
+        "hash": "5aa699e640de644668c2891de32048042c5a8d395a00b443f5836b56175953ba",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "09-mobile-idle",
+        "tick": 175,
+        "hash": "2dcade7cf44fa6583bb94988d6fee0360916fd848584e4fe9738767b81afcf3e",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "10-deploy-half-after-shot",
+        "tick": 216,
+        "hash": "d27c9dbc07578a1947bf50f9e038c742b3dfd0b188d9f8a307efc2e49a685fd0",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "11-deployed-after-shot",
+        "tick": 256,
+        "hash": "f8ebedff3f386e6c7aa38fff4b4b24764b195aa7cc37a84eea01eb080f8aa8a0",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "12-before-refill-2",
+        "tick": 1280,
+        "hash": "18bcd0504f80c4af6b1b6c63848378f5bad911ec2bb2a7bc7b1f6e41157da6ed",
+        "actor": 6,
+        "charges": 1,
+        "shot": false
+      },
+      {
+        "stage": "13-refilled-2",
+        "tick": 1281,
+        "hash": "7d11f8ae2f97a904dea689669bd984af1e6113866a3b658f8f0917bd92a2256f",
+        "actor": 6,
+        "charges": 2,
+        "shot": false
+      }
+    ]
+  },
+  "oracles": {
+    "US.launcher": {
+      "load": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "4056be09b20e1ba15de961d09057cad1f2d775a5286430b2560cd89aed1ab011",
+            "bytes": 8890,
+            "url": "/oracle/US.launcher/load-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "72040f67123aa79769c91dd4c64f298b989b0fcb3b3ee64d28612ce58c0a46b5",
+            "bytes": 8871,
+            "url": "/oracle/US.launcher/load-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "71e188262250361d9102462efae2970ff696cd326b56d85506ca2f4fd2bc2375",
+            "bytes": 8907,
+            "url": "/oracle/US.launcher/load-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "24980660769d2c38282e9bc3ea2cd72e39c57edf56d9aa0f3c8832ed46940e53",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/load-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "6b9ccf760229ae7d150d5fd8f4c6ec6b0d944bb3eac4e85aac4de33b8d9f2697",
+            "bytes": 8905,
+            "url": "/oracle/US.launcher/load-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "3dbd17fd54a8eaba4672b99072916936ad1594458c3ea4d72561d7e089b32046",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher/load-03-deployed-foreign.pb"
+          }
+        },
+        "04-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "b3710d97e60b0dec1fb336a534058935d8cef4748cf7f3de1ae99b89d970758a",
+            "bytes": 8985,
+            "url": "/oracle/US.launcher/load-04-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "c442f44a5770c31d4fd16267a6500fa64dc0a43581c67be54d2d26292c0e0d48",
+            "bytes": 8948,
+            "url": "/oracle/US.launcher/load-04-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "abcf126e4c29e94abf5ec11baeb8e60bd6efce63e01bdf5494498ce05c91588d",
+            "bytes": 8991,
+            "url": "/oracle/US.launcher/load-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "963b51db6f15f0a26643ee34c1f639bb57c534a3aec429e456b5f7738129859c",
+            "bytes": 8950,
+            "url": "/oracle/US.launcher/load-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "3547ef543484db4448183e34ae37abe299fa8ffc66a08cf6ae321a7917114e1d",
+            "bytes": 8989,
+            "url": "/oracle/US.launcher/load-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "761a722743b81b033eec981fd4062e8171d947da25a427ed5d50d8ffb5d9f430",
+            "bytes": 8947,
+            "url": "/oracle/US.launcher/load-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "903616fa2a6bb0cfe218089fb97642bf971bfea27e44643a9c32fb5751b591d1",
+            "bytes": 8970,
+            "url": "/oracle/US.launcher/load-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "68ec344e0b2d10fc769db0cf0a86b3443eac9e65848d670bfbcf6ba7a4999c01",
+            "bytes": 8945,
+            "url": "/oracle/US.launcher/load-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "298c95d3735b38b114adc8d38a399a2226291f0e60e7c4b5e3fda3f2aedac8d9",
+            "bytes": 8957,
+            "url": "/oracle/US.launcher/load-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "4395e0528f418837fabd060c5806c747a55b69fa9e0021d4bca7db0497981181",
+            "bytes": 8932,
+            "url": "/oracle/US.launcher/load-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "bb39ac058f97009a27b02b8703750d3f1995166d57383df7b9128a1b1a30877d",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher/load-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "57c3549e6a72479b18592249c306d04e450cd43d25e45cc4b80c78a0ee35dad4",
+            "bytes": 8883,
+            "url": "/oracle/US.launcher/load-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "dbd2880f39cdca46359f50327407a2dc4689f006078e112f5a69b2074ff36fb6",
+            "bytes": 8909,
+            "url": "/oracle/US.launcher/load-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "74c53c5d079b3b396509c1158bf2c0d2735592982e9e87fa5245b9ea805b256b",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/load-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "aad2f4d81bed2bf7a34e33ef5987bf0ca1c168ab97bab0f410f1f46b6a263d43",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher/load-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "57923d4d1e05be7b27a89086eab3fa0480204177aff128e5ae0fc909a74abc97",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/load-13-refilled-1-foreign.pb"
+          }
+        }
+      },
+      "seek": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "4056be09b20e1ba15de961d09057cad1f2d775a5286430b2560cd89aed1ab011",
+            "bytes": 8890,
+            "url": "/oracle/US.launcher/seek-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "72040f67123aa79769c91dd4c64f298b989b0fcb3b3ee64d28612ce58c0a46b5",
+            "bytes": 8871,
+            "url": "/oracle/US.launcher/seek-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "71e188262250361d9102462efae2970ff696cd326b56d85506ca2f4fd2bc2375",
+            "bytes": 8907,
+            "url": "/oracle/US.launcher/seek-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "24980660769d2c38282e9bc3ea2cd72e39c57edf56d9aa0f3c8832ed46940e53",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/seek-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "6b9ccf760229ae7d150d5fd8f4c6ec6b0d944bb3eac4e85aac4de33b8d9f2697",
+            "bytes": 8905,
+            "url": "/oracle/US.launcher/seek-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "3dbd17fd54a8eaba4672b99072916936ad1594458c3ea4d72561d7e089b32046",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher/seek-03-deployed-foreign.pb"
+          }
+        },
+        "04-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "b3710d97e60b0dec1fb336a534058935d8cef4748cf7f3de1ae99b89d970758a",
+            "bytes": 8985,
+            "url": "/oracle/US.launcher/seek-04-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "c442f44a5770c31d4fd16267a6500fa64dc0a43581c67be54d2d26292c0e0d48",
+            "bytes": 8948,
+            "url": "/oracle/US.launcher/seek-04-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "abcf126e4c29e94abf5ec11baeb8e60bd6efce63e01bdf5494498ce05c91588d",
+            "bytes": 8991,
+            "url": "/oracle/US.launcher/seek-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "963b51db6f15f0a26643ee34c1f639bb57c534a3aec429e456b5f7738129859c",
+            "bytes": 8950,
+            "url": "/oracle/US.launcher/seek-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "3547ef543484db4448183e34ae37abe299fa8ffc66a08cf6ae321a7917114e1d",
+            "bytes": 8989,
+            "url": "/oracle/US.launcher/seek-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "761a722743b81b033eec981fd4062e8171d947da25a427ed5d50d8ffb5d9f430",
+            "bytes": 8947,
+            "url": "/oracle/US.launcher/seek-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "903616fa2a6bb0cfe218089fb97642bf971bfea27e44643a9c32fb5751b591d1",
+            "bytes": 8970,
+            "url": "/oracle/US.launcher/seek-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "68ec344e0b2d10fc769db0cf0a86b3443eac9e65848d670bfbcf6ba7a4999c01",
+            "bytes": 8945,
+            "url": "/oracle/US.launcher/seek-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "298c95d3735b38b114adc8d38a399a2226291f0e60e7c4b5e3fda3f2aedac8d9",
+            "bytes": 8957,
+            "url": "/oracle/US.launcher/seek-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "4395e0528f418837fabd060c5806c747a55b69fa9e0021d4bca7db0497981181",
+            "bytes": 8932,
+            "url": "/oracle/US.launcher/seek-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "bb39ac058f97009a27b02b8703750d3f1995166d57383df7b9128a1b1a30877d",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher/seek-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "57c3549e6a72479b18592249c306d04e450cd43d25e45cc4b80c78a0ee35dad4",
+            "bytes": 8883,
+            "url": "/oracle/US.launcher/seek-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "dbd2880f39cdca46359f50327407a2dc4689f006078e112f5a69b2074ff36fb6",
+            "bytes": 8909,
+            "url": "/oracle/US.launcher/seek-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "74c53c5d079b3b396509c1158bf2c0d2735592982e9e87fa5245b9ea805b256b",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/seek-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "aad2f4d81bed2bf7a34e33ef5987bf0ca1c168ab97bab0f410f1f46b6a263d43",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher/seek-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "57923d4d1e05be7b27a89086eab3fa0480204177aff128e5ae0fc909a74abc97",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/seek-13-refilled-1-foreign.pb"
+          }
+        }
+      },
+      "continuation": {
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "71e188262250361d9102462efae2970ff696cd326b56d85506ca2f4fd2bc2375",
+            "bytes": 8907,
+            "url": "/oracle/US.launcher/continuation-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "24980660769d2c38282e9bc3ea2cd72e39c57edf56d9aa0f3c8832ed46940e53",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/continuation-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "6b9ccf760229ae7d150d5fd8f4c6ec6b0d944bb3eac4e85aac4de33b8d9f2697",
+            "bytes": 8905,
+            "url": "/oracle/US.launcher/continuation-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "3dbd17fd54a8eaba4672b99072916936ad1594458c3ea4d72561d7e089b32046",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher/continuation-03-deployed-foreign.pb"
+          }
+        },
+        "04-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "aa7c81cf1d50b562f8e84a054b7437b21773b480bc9942a8b9ca32625db28c99",
+            "bytes": 9082,
+            "url": "/oracle/US.launcher/continuation-04-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "bab45513021d811118b3c623da0ab44490472197abaf4a1ffbc7311235a55dbf",
+            "bytes": 9045,
+            "url": "/oracle/US.launcher/continuation-04-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "abcf126e4c29e94abf5ec11baeb8e60bd6efce63e01bdf5494498ce05c91588d",
+            "bytes": 8991,
+            "url": "/oracle/US.launcher/continuation-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "963b51db6f15f0a26643ee34c1f639bb57c534a3aec429e456b5f7738129859c",
+            "bytes": 8950,
+            "url": "/oracle/US.launcher/continuation-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "3547ef543484db4448183e34ae37abe299fa8ffc66a08cf6ae321a7917114e1d",
+            "bytes": 8989,
+            "url": "/oracle/US.launcher/continuation-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "761a722743b81b033eec981fd4062e8171d947da25a427ed5d50d8ffb5d9f430",
+            "bytes": 8947,
+            "url": "/oracle/US.launcher/continuation-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "903616fa2a6bb0cfe218089fb97642bf971bfea27e44643a9c32fb5751b591d1",
+            "bytes": 8970,
+            "url": "/oracle/US.launcher/continuation-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "68ec344e0b2d10fc769db0cf0a86b3443eac9e65848d670bfbcf6ba7a4999c01",
+            "bytes": 8945,
+            "url": "/oracle/US.launcher/continuation-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "298c95d3735b38b114adc8d38a399a2226291f0e60e7c4b5e3fda3f2aedac8d9",
+            "bytes": 8957,
+            "url": "/oracle/US.launcher/continuation-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "4395e0528f418837fabd060c5806c747a55b69fa9e0021d4bca7db0497981181",
+            "bytes": 8932,
+            "url": "/oracle/US.launcher/continuation-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "bb39ac058f97009a27b02b8703750d3f1995166d57383df7b9128a1b1a30877d",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher/continuation-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "57c3549e6a72479b18592249c306d04e450cd43d25e45cc4b80c78a0ee35dad4",
+            "bytes": 8883,
+            "url": "/oracle/US.launcher/continuation-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "dbd2880f39cdca46359f50327407a2dc4689f006078e112f5a69b2074ff36fb6",
+            "bytes": 8909,
+            "url": "/oracle/US.launcher/continuation-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "74c53c5d079b3b396509c1158bf2c0d2735592982e9e87fa5245b9ea805b256b",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/continuation-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "aad2f4d81bed2bf7a34e33ef5987bf0ca1c168ab97bab0f410f1f46b6a263d43",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher/continuation-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "57923d4d1e05be7b27a89086eab3fa0480204177aff128e5ae0fc909a74abc97",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher/continuation-13-refilled-1-foreign.pb"
+          }
+        }
+      }
+    },
+    "IR.launcher": {
+      "load": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "ea7c3a59cda58015207c7b2641e74f1d292d90d3741d4d109eea2a6598e7f560",
+            "bytes": 8890,
+            "url": "/oracle/IR.launcher/load-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "6c7736caa9bc402d3c2dabebb6f6216dc52cf9cac9b71726c9b242bd4d88d404",
+            "bytes": 8871,
+            "url": "/oracle/IR.launcher/load-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "e7a792e7184b510779376f0c8caa7fc60068d03f4d8415397bfc3e8f9fa4f53f",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher/load-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5a677d317355be5901675f977fcad02a85b74a1618e4153b77588857d3f0569c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/load-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "2e0ef67b2f71493c3e56599b2e99db888440ea4ebe0c8c9555cfa383348c495f",
+            "bytes": 8905,
+            "url": "/oracle/IR.launcher/load-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d6b956043b26ae67c32e5b74792dbfe536b099d990615f6867cb5a697a47699",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher/load-03-deployed-foreign.pb"
+          }
+        },
+        "04-first-shot-one-charge": {
+          "owned": {
+            "wire_sha256": "035d90565fa8ba71ab4d291f04fe541a33dfee0249e7720334314cf2d00dc117",
+            "bytes": 9015,
+            "url": "/oracle/IR.launcher/load-04-first-shot-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d00d552caa083c7461e30bd2300036007eb5665cdeaf54f27bac195d1d247538",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher/load-04-first-shot-one-charge-foreign.pb"
+          }
+        },
+        "05-before-second-shot": {
+          "owned": {
+            "wire_sha256": "0631e8dede6ff3c528c876ec7e41769adfb9738c5ab1f2740351298eed97b5b4",
+            "bytes": 9015,
+            "url": "/oracle/IR.launcher/load-05-before-second-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "ea6eab77b363c34f73aa8f4d6f86ea8d4aa90d0ca71650a82e00e98421843b28",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher/load-05-before-second-shot-foreign.pb"
+          }
+        },
+        "06-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "8f3ee0bba16eb6901ce6459fa629c2535752547fc8bcdd466b0b8bab1b7e0c52",
+            "bytes": 9026,
+            "url": "/oracle/IR.launcher/load-06-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "716d7a2812e3cf7b0fc3bc9aaa2c473d965036d0566197ff10a9d44cc3a80a9c",
+            "bytes": 9003,
+            "url": "/oracle/IR.launcher/load-06-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "cb697393de9752b41a68b8ae66a47e7ce7b93ec7eae50069d1d28dac058e5e0d",
+            "bytes": 9046,
+            "url": "/oracle/IR.launcher/load-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "987d8b5460fe360c4b6510d3ba326d0a0f9260b5154271762f82efb697d11a5a",
+            "bytes": 9004,
+            "url": "/oracle/IR.launcher/load-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "76c38ea3cd30857e397dbd55babfb921dbe24e574064504fe787212457288acc",
+            "bytes": 9043,
+            "url": "/oracle/IR.launcher/load-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "c9a09713dc0db421a601efdccde0a1c2ea3ca7007a806859faf895b693210d4d",
+            "bytes": 9000,
+            "url": "/oracle/IR.launcher/load-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "73a3f30a31adf7ec72b30fd14336b9d31ed52a6c75512de589a85b505191f556",
+            "bytes": 9023,
+            "url": "/oracle/IR.launcher/load-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0f03f10b57e59cbd85a49dc59a83fb58d1808eda214c3752877d4e315120efcd",
+            "bytes": 8998,
+            "url": "/oracle/IR.launcher/load-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "d2be49fb8e584862cf9749c16e07e4642196b25c570405e73e8483dfc47a9c05",
+            "bytes": 8960,
+            "url": "/oracle/IR.launcher/load-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d15de22909010322ca81681c570805f3aee60f3264d8e606091eb2a1b2d36d06",
+            "bytes": 8935,
+            "url": "/oracle/IR.launcher/load-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "dce5eded7dee53e0e58117e62f3a70f24c4c3ff399d4544312e68fcfade2ed08",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/load-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f7fc32cbec6c3bf75d44e02c9654dc0c0398a65cb336290f3a92447c1151b508",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher/load-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "e20b14b7f3357784a60065f87872eb82fe2c604bdee6175c0c3924803345d800",
+            "bytes": 8909,
+            "url": "/oracle/IR.launcher/load-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f872fd79b7499768984d53dbeafd6e18123d9b844b541679841321c4a78ad642",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/load-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "557f3c365d2472bd9ef2f96df8d3158c3845895eee09e66dea284b12843fbebe",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/load-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a3cb0b5e54c50b7f95ad851c81415d1af2dc438a7a803a87212a117e088774da",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/load-13-refilled-1-foreign.pb"
+          }
+        },
+        "12-before-refill-2": {
+          "owned": {
+            "wire_sha256": "80a9265830bd6932ef64c7b002bf8f321bee657428d3452ef4cdf7d60d5acbed",
+            "bytes": 8911,
+            "url": "/oracle/IR.launcher/load-12-before-refill-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "810c7163a402f577325919cbdc9064287c97979e74519a7e507bd1530f900d4c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/load-12-before-refill-2-foreign.pb"
+          }
+        },
+        "13-refilled-2": {
+          "owned": {
+            "wire_sha256": "f1c145c23cc51ea0bcb421f705c762d818ece14079d1b8c6fad57b8125a2a32e",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/load-13-refilled-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "c56450dff2c70203a125cd424dbfb0539883bf6d6373df53de6250fb28d72047",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/load-13-refilled-2-foreign.pb"
+          }
+        }
+      },
+      "seek": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "ea7c3a59cda58015207c7b2641e74f1d292d90d3741d4d109eea2a6598e7f560",
+            "bytes": 8890,
+            "url": "/oracle/IR.launcher/seek-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "6c7736caa9bc402d3c2dabebb6f6216dc52cf9cac9b71726c9b242bd4d88d404",
+            "bytes": 8871,
+            "url": "/oracle/IR.launcher/seek-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "e7a792e7184b510779376f0c8caa7fc60068d03f4d8415397bfc3e8f9fa4f53f",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher/seek-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5a677d317355be5901675f977fcad02a85b74a1618e4153b77588857d3f0569c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/seek-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "2e0ef67b2f71493c3e56599b2e99db888440ea4ebe0c8c9555cfa383348c495f",
+            "bytes": 8905,
+            "url": "/oracle/IR.launcher/seek-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d6b956043b26ae67c32e5b74792dbfe536b099d990615f6867cb5a697a47699",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher/seek-03-deployed-foreign.pb"
+          }
+        },
+        "04-first-shot-one-charge": {
+          "owned": {
+            "wire_sha256": "035d90565fa8ba71ab4d291f04fe541a33dfee0249e7720334314cf2d00dc117",
+            "bytes": 9015,
+            "url": "/oracle/IR.launcher/seek-04-first-shot-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d00d552caa083c7461e30bd2300036007eb5665cdeaf54f27bac195d1d247538",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher/seek-04-first-shot-one-charge-foreign.pb"
+          }
+        },
+        "05-before-second-shot": {
+          "owned": {
+            "wire_sha256": "0631e8dede6ff3c528c876ec7e41769adfb9738c5ab1f2740351298eed97b5b4",
+            "bytes": 9015,
+            "url": "/oracle/IR.launcher/seek-05-before-second-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "ea6eab77b363c34f73aa8f4d6f86ea8d4aa90d0ca71650a82e00e98421843b28",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher/seek-05-before-second-shot-foreign.pb"
+          }
+        },
+        "06-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "8f3ee0bba16eb6901ce6459fa629c2535752547fc8bcdd466b0b8bab1b7e0c52",
+            "bytes": 9026,
+            "url": "/oracle/IR.launcher/seek-06-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "716d7a2812e3cf7b0fc3bc9aaa2c473d965036d0566197ff10a9d44cc3a80a9c",
+            "bytes": 9003,
+            "url": "/oracle/IR.launcher/seek-06-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "cb697393de9752b41a68b8ae66a47e7ce7b93ec7eae50069d1d28dac058e5e0d",
+            "bytes": 9046,
+            "url": "/oracle/IR.launcher/seek-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "987d8b5460fe360c4b6510d3ba326d0a0f9260b5154271762f82efb697d11a5a",
+            "bytes": 9004,
+            "url": "/oracle/IR.launcher/seek-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "76c38ea3cd30857e397dbd55babfb921dbe24e574064504fe787212457288acc",
+            "bytes": 9043,
+            "url": "/oracle/IR.launcher/seek-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "c9a09713dc0db421a601efdccde0a1c2ea3ca7007a806859faf895b693210d4d",
+            "bytes": 9000,
+            "url": "/oracle/IR.launcher/seek-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "73a3f30a31adf7ec72b30fd14336b9d31ed52a6c75512de589a85b505191f556",
+            "bytes": 9023,
+            "url": "/oracle/IR.launcher/seek-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0f03f10b57e59cbd85a49dc59a83fb58d1808eda214c3752877d4e315120efcd",
+            "bytes": 8998,
+            "url": "/oracle/IR.launcher/seek-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "d2be49fb8e584862cf9749c16e07e4642196b25c570405e73e8483dfc47a9c05",
+            "bytes": 8960,
+            "url": "/oracle/IR.launcher/seek-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d15de22909010322ca81681c570805f3aee60f3264d8e606091eb2a1b2d36d06",
+            "bytes": 8935,
+            "url": "/oracle/IR.launcher/seek-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "dce5eded7dee53e0e58117e62f3a70f24c4c3ff399d4544312e68fcfade2ed08",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/seek-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f7fc32cbec6c3bf75d44e02c9654dc0c0398a65cb336290f3a92447c1151b508",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher/seek-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "e20b14b7f3357784a60065f87872eb82fe2c604bdee6175c0c3924803345d800",
+            "bytes": 8909,
+            "url": "/oracle/IR.launcher/seek-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f872fd79b7499768984d53dbeafd6e18123d9b844b541679841321c4a78ad642",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/seek-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "557f3c365d2472bd9ef2f96df8d3158c3845895eee09e66dea284b12843fbebe",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/seek-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a3cb0b5e54c50b7f95ad851c81415d1af2dc438a7a803a87212a117e088774da",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/seek-13-refilled-1-foreign.pb"
+          }
+        },
+        "12-before-refill-2": {
+          "owned": {
+            "wire_sha256": "80a9265830bd6932ef64c7b002bf8f321bee657428d3452ef4cdf7d60d5acbed",
+            "bytes": 8911,
+            "url": "/oracle/IR.launcher/seek-12-before-refill-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "810c7163a402f577325919cbdc9064287c97979e74519a7e507bd1530f900d4c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/seek-12-before-refill-2-foreign.pb"
+          }
+        },
+        "13-refilled-2": {
+          "owned": {
+            "wire_sha256": "f1c145c23cc51ea0bcb421f705c762d818ece14079d1b8c6fad57b8125a2a32e",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/seek-13-refilled-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "c56450dff2c70203a125cd424dbfb0539883bf6d6373df53de6250fb28d72047",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/seek-13-refilled-2-foreign.pb"
+          }
+        }
+      },
+      "continuation": {
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "e7a792e7184b510779376f0c8caa7fc60068d03f4d8415397bfc3e8f9fa4f53f",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher/continuation-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5a677d317355be5901675f977fcad02a85b74a1618e4153b77588857d3f0569c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/continuation-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "2e0ef67b2f71493c3e56599b2e99db888440ea4ebe0c8c9555cfa383348c495f",
+            "bytes": 8905,
+            "url": "/oracle/IR.launcher/continuation-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d6b956043b26ae67c32e5b74792dbfe536b099d990615f6867cb5a697a47699",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher/continuation-03-deployed-foreign.pb"
+          }
+        },
+        "04-first-shot-one-charge": {
+          "owned": {
+            "wire_sha256": "6de89b0b8ccf64d2c27074d96e4ced52f7971434aefc1642f3de5509f017b19c",
+            "bytes": 9129,
+            "url": "/oracle/IR.launcher/continuation-04-first-shot-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "089cb70c64841374baae13e6fc7f6e7859f96750bf1bd75da4478160342c0ba7",
+            "bytes": 9053,
+            "url": "/oracle/IR.launcher/continuation-04-first-shot-one-charge-foreign.pb"
+          }
+        },
+        "05-before-second-shot": {
+          "owned": {
+            "wire_sha256": "0631e8dede6ff3c528c876ec7e41769adfb9738c5ab1f2740351298eed97b5b4",
+            "bytes": 9015,
+            "url": "/oracle/IR.launcher/continuation-05-before-second-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "ea6eab77b363c34f73aa8f4d6f86ea8d4aa90d0ca71650a82e00e98421843b28",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher/continuation-05-before-second-shot-foreign.pb"
+          }
+        },
+        "06-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "68e87cecbdeb3571b9ba8cf2eefd3efe651ff9abb5e9503ef8677c923aac6e39",
+            "bytes": 9126,
+            "url": "/oracle/IR.launcher/continuation-06-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "270a5bd94b5a17bb2b08f4d00e5ec4e019b4fbd2176ab3a23d8a10c24a61809c",
+            "bytes": 9103,
+            "url": "/oracle/IR.launcher/continuation-06-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "cb697393de9752b41a68b8ae66a47e7ce7b93ec7eae50069d1d28dac058e5e0d",
+            "bytes": 9046,
+            "url": "/oracle/IR.launcher/continuation-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "987d8b5460fe360c4b6510d3ba326d0a0f9260b5154271762f82efb697d11a5a",
+            "bytes": 9004,
+            "url": "/oracle/IR.launcher/continuation-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "76c38ea3cd30857e397dbd55babfb921dbe24e574064504fe787212457288acc",
+            "bytes": 9043,
+            "url": "/oracle/IR.launcher/continuation-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "c9a09713dc0db421a601efdccde0a1c2ea3ca7007a806859faf895b693210d4d",
+            "bytes": 9000,
+            "url": "/oracle/IR.launcher/continuation-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "73a3f30a31adf7ec72b30fd14336b9d31ed52a6c75512de589a85b505191f556",
+            "bytes": 9023,
+            "url": "/oracle/IR.launcher/continuation-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0f03f10b57e59cbd85a49dc59a83fb58d1808eda214c3752877d4e315120efcd",
+            "bytes": 8998,
+            "url": "/oracle/IR.launcher/continuation-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "d2be49fb8e584862cf9749c16e07e4642196b25c570405e73e8483dfc47a9c05",
+            "bytes": 8960,
+            "url": "/oracle/IR.launcher/continuation-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d15de22909010322ca81681c570805f3aee60f3264d8e606091eb2a1b2d36d06",
+            "bytes": 8935,
+            "url": "/oracle/IR.launcher/continuation-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "dce5eded7dee53e0e58117e62f3a70f24c4c3ff399d4544312e68fcfade2ed08",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/continuation-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f7fc32cbec6c3bf75d44e02c9654dc0c0398a65cb336290f3a92447c1151b508",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher/continuation-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "e20b14b7f3357784a60065f87872eb82fe2c604bdee6175c0c3924803345d800",
+            "bytes": 8909,
+            "url": "/oracle/IR.launcher/continuation-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f872fd79b7499768984d53dbeafd6e18123d9b844b541679841321c4a78ad642",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/continuation-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "557f3c365d2472bd9ef2f96df8d3158c3845895eee09e66dea284b12843fbebe",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/continuation-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a3cb0b5e54c50b7f95ad851c81415d1af2dc438a7a803a87212a117e088774da",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/continuation-13-refilled-1-foreign.pb"
+          }
+        },
+        "12-before-refill-2": {
+          "owned": {
+            "wire_sha256": "80a9265830bd6932ef64c7b002bf8f321bee657428d3452ef4cdf7d60d5acbed",
+            "bytes": 8911,
+            "url": "/oracle/IR.launcher/continuation-12-before-refill-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "810c7163a402f577325919cbdc9064287c97979e74519a7e507bd1530f900d4c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/continuation-12-before-refill-2-foreign.pb"
+          }
+        },
+        "13-refilled-2": {
+          "owned": {
+            "wire_sha256": "f1c145c23cc51ea0bcb421f705c762d818ece14079d1b8c6fad57b8125a2a32e",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher/continuation-13-refilled-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "c56450dff2c70203a125cd424dbfb0539883bf6d6373df53de6250fb28d72047",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher/continuation-13-refilled-2-foreign.pb"
+          }
+        }
+      }
+    },
+    "SY.launcher": {
+      "load": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "d7861a131957ceccdb40f52e039ef040ad1f8d597e2554b08ab643eab6271273",
+            "bytes": 8890,
+            "url": "/oracle/SY.launcher/load-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "b173d0ebc3ce5b986caea79380177a7dc9848845eaa52b2d9d15e0aada33ad31",
+            "bytes": 8871,
+            "url": "/oracle/SY.launcher/load-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "f2705aa7c3c8c21ef5c6ba16ba880db70231308e3eb24a9c3074e7639a8cc37e",
+            "bytes": 8907,
+            "url": "/oracle/SY.launcher/load-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a6847794e1dd65e58a3d51614290a804fe100ee36c168fa6362215e596f78eff",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/load-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "496fca9742d66e4ec9ff3f44e1c4609a6ae182c325a04c9a937b7a9efc3aa9fc",
+            "bytes": 8905,
+            "url": "/oracle/SY.launcher/load-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0bad366053a2d6725aead9ffbbec98fab24aa9df8a8ce8820646eaaf20e79ed0",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher/load-03-deployed-foreign.pb"
+          }
+        },
+        "04-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "60f66a7ca2aa67cd22f47c35238db378bece38fd534ff36ed50b50bf35b048b0",
+            "bytes": 8987,
+            "url": "/oracle/SY.launcher/load-04-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "7a539cf1a8c389f763ad16998721f68a792a3c7de34ac4413a336b467f5bf4bf",
+            "bytes": 8950,
+            "url": "/oracle/SY.launcher/load-04-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "84b028afef997c54881afaad34de085717970702b540d6d5e740ffb65810cf9c",
+            "bytes": 8993,
+            "url": "/oracle/SY.launcher/load-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "1a9dcbfbcdc16b5f10409706d30b0a8971977b9e1f9f25d0a05316f1fbf2f426",
+            "bytes": 8952,
+            "url": "/oracle/SY.launcher/load-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "f5dec7104e4adb232e4b38e9ce5aab8fe53e69f8ec2a5804c89ee264661a4893",
+            "bytes": 8991,
+            "url": "/oracle/SY.launcher/load-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "24ec63342a3b60cb12bfb78e2476bfe63beb237b82ca6b1ce1cfa54aa9c7180a",
+            "bytes": 8949,
+            "url": "/oracle/SY.launcher/load-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "8ba6fb9f9f68747ee528a6bc9ad589fc79246fdd65bb345ee99a7a6168b4efff",
+            "bytes": 8972,
+            "url": "/oracle/SY.launcher/load-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a604c36ff01f31821936b1687727716f1ec032d1e500c644a6e9fd9136cbe372",
+            "bytes": 8947,
+            "url": "/oracle/SY.launcher/load-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "687ac2187b9c36a5598b684f652eecdd18fddcb5db6e11dc9a411db82347e00b",
+            "bytes": 8959,
+            "url": "/oracle/SY.launcher/load-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "00f4f5c05323d945c459cfc52af14b036d657dec089821accd7f79efb5c7827d",
+            "bytes": 8934,
+            "url": "/oracle/SY.launcher/load-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "a62bcc614051823a51815f0e8969c1d66ca7d28d1945fb14c536ff702783426d",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher/load-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "2b3b5e6a177595bcfac4b886832d052067996acb0c36227008c4f5174ebabaf9",
+            "bytes": 8883,
+            "url": "/oracle/SY.launcher/load-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "2b9c18133cce35ac09c484f388ad1b468eb20d55cddaee5efba05dbfd1d90ea4",
+            "bytes": 8909,
+            "url": "/oracle/SY.launcher/load-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a72c2f283dbffcb1950eb6e7244d950bc9a70edf0fc865d36d303a8069c89bff",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/load-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "906e97b513a35ba442fa27994a3b3ce429603362a949a6f7ddcf6d3d83d47c8d",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher/load-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "aaff73930fd14810ba72af316bd56d43ec04527bb131322e0dca00dba3ccebb4",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/load-13-refilled-1-foreign.pb"
+          }
+        }
+      },
+      "seek": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "d7861a131957ceccdb40f52e039ef040ad1f8d597e2554b08ab643eab6271273",
+            "bytes": 8890,
+            "url": "/oracle/SY.launcher/seek-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "b173d0ebc3ce5b986caea79380177a7dc9848845eaa52b2d9d15e0aada33ad31",
+            "bytes": 8871,
+            "url": "/oracle/SY.launcher/seek-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "f2705aa7c3c8c21ef5c6ba16ba880db70231308e3eb24a9c3074e7639a8cc37e",
+            "bytes": 8907,
+            "url": "/oracle/SY.launcher/seek-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a6847794e1dd65e58a3d51614290a804fe100ee36c168fa6362215e596f78eff",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/seek-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "496fca9742d66e4ec9ff3f44e1c4609a6ae182c325a04c9a937b7a9efc3aa9fc",
+            "bytes": 8905,
+            "url": "/oracle/SY.launcher/seek-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0bad366053a2d6725aead9ffbbec98fab24aa9df8a8ce8820646eaaf20e79ed0",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher/seek-03-deployed-foreign.pb"
+          }
+        },
+        "04-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "60f66a7ca2aa67cd22f47c35238db378bece38fd534ff36ed50b50bf35b048b0",
+            "bytes": 8987,
+            "url": "/oracle/SY.launcher/seek-04-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "7a539cf1a8c389f763ad16998721f68a792a3c7de34ac4413a336b467f5bf4bf",
+            "bytes": 8950,
+            "url": "/oracle/SY.launcher/seek-04-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "84b028afef997c54881afaad34de085717970702b540d6d5e740ffb65810cf9c",
+            "bytes": 8993,
+            "url": "/oracle/SY.launcher/seek-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "1a9dcbfbcdc16b5f10409706d30b0a8971977b9e1f9f25d0a05316f1fbf2f426",
+            "bytes": 8952,
+            "url": "/oracle/SY.launcher/seek-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "f5dec7104e4adb232e4b38e9ce5aab8fe53e69f8ec2a5804c89ee264661a4893",
+            "bytes": 8991,
+            "url": "/oracle/SY.launcher/seek-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "24ec63342a3b60cb12bfb78e2476bfe63beb237b82ca6b1ce1cfa54aa9c7180a",
+            "bytes": 8949,
+            "url": "/oracle/SY.launcher/seek-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "8ba6fb9f9f68747ee528a6bc9ad589fc79246fdd65bb345ee99a7a6168b4efff",
+            "bytes": 8972,
+            "url": "/oracle/SY.launcher/seek-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a604c36ff01f31821936b1687727716f1ec032d1e500c644a6e9fd9136cbe372",
+            "bytes": 8947,
+            "url": "/oracle/SY.launcher/seek-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "687ac2187b9c36a5598b684f652eecdd18fddcb5db6e11dc9a411db82347e00b",
+            "bytes": 8959,
+            "url": "/oracle/SY.launcher/seek-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "00f4f5c05323d945c459cfc52af14b036d657dec089821accd7f79efb5c7827d",
+            "bytes": 8934,
+            "url": "/oracle/SY.launcher/seek-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "a62bcc614051823a51815f0e8969c1d66ca7d28d1945fb14c536ff702783426d",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher/seek-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "2b3b5e6a177595bcfac4b886832d052067996acb0c36227008c4f5174ebabaf9",
+            "bytes": 8883,
+            "url": "/oracle/SY.launcher/seek-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "2b9c18133cce35ac09c484f388ad1b468eb20d55cddaee5efba05dbfd1d90ea4",
+            "bytes": 8909,
+            "url": "/oracle/SY.launcher/seek-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a72c2f283dbffcb1950eb6e7244d950bc9a70edf0fc865d36d303a8069c89bff",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/seek-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "906e97b513a35ba442fa27994a3b3ce429603362a949a6f7ddcf6d3d83d47c8d",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher/seek-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "aaff73930fd14810ba72af316bd56d43ec04527bb131322e0dca00dba3ccebb4",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/seek-13-refilled-1-foreign.pb"
+          }
+        }
+      },
+      "continuation": {
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "f2705aa7c3c8c21ef5c6ba16ba880db70231308e3eb24a9c3074e7639a8cc37e",
+            "bytes": 8907,
+            "url": "/oracle/SY.launcher/continuation-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a6847794e1dd65e58a3d51614290a804fe100ee36c168fa6362215e596f78eff",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/continuation-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "496fca9742d66e4ec9ff3f44e1c4609a6ae182c325a04c9a937b7a9efc3aa9fc",
+            "bytes": 8905,
+            "url": "/oracle/SY.launcher/continuation-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0bad366053a2d6725aead9ffbbec98fab24aa9df8a8ce8820646eaaf20e79ed0",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher/continuation-03-deployed-foreign.pb"
+          }
+        },
+        "04-last-shot-empty": {
+          "owned": {
+            "wire_sha256": "8b3e6693993e197053b5001ea476d6f225d5db4b670e49921bc35802e2db6f14",
+            "bytes": 9086,
+            "url": "/oracle/SY.launcher/continuation-04-last-shot-empty-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "54681fda31c7c5183192a2433cd5ddc7371ccc0e8b97faa7a91e09e6c8f66589",
+            "bytes": 9049,
+            "url": "/oracle/SY.launcher/continuation-04-last-shot-empty-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "84b028afef997c54881afaad34de085717970702b540d6d5e740ffb65810cf9c",
+            "bytes": 8993,
+            "url": "/oracle/SY.launcher/continuation-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "1a9dcbfbcdc16b5f10409706d30b0a8971977b9e1f9f25d0a05316f1fbf2f426",
+            "bytes": 8952,
+            "url": "/oracle/SY.launcher/continuation-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "f5dec7104e4adb232e4b38e9ce5aab8fe53e69f8ec2a5804c89ee264661a4893",
+            "bytes": 8991,
+            "url": "/oracle/SY.launcher/continuation-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "24ec63342a3b60cb12bfb78e2476bfe63beb237b82ca6b1ce1cfa54aa9c7180a",
+            "bytes": 8949,
+            "url": "/oracle/SY.launcher/continuation-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "8ba6fb9f9f68747ee528a6bc9ad589fc79246fdd65bb345ee99a7a6168b4efff",
+            "bytes": 8972,
+            "url": "/oracle/SY.launcher/continuation-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a604c36ff01f31821936b1687727716f1ec032d1e500c644a6e9fd9136cbe372",
+            "bytes": 8947,
+            "url": "/oracle/SY.launcher/continuation-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "687ac2187b9c36a5598b684f652eecdd18fddcb5db6e11dc9a411db82347e00b",
+            "bytes": 8959,
+            "url": "/oracle/SY.launcher/continuation-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "00f4f5c05323d945c459cfc52af14b036d657dec089821accd7f79efb5c7827d",
+            "bytes": 8934,
+            "url": "/oracle/SY.launcher/continuation-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "a62bcc614051823a51815f0e8969c1d66ca7d28d1945fb14c536ff702783426d",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher/continuation-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "2b3b5e6a177595bcfac4b886832d052067996acb0c36227008c4f5174ebabaf9",
+            "bytes": 8883,
+            "url": "/oracle/SY.launcher/continuation-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-1": {
+          "owned": {
+            "wire_sha256": "2b9c18133cce35ac09c484f388ad1b468eb20d55cddaee5efba05dbfd1d90ea4",
+            "bytes": 8909,
+            "url": "/oracle/SY.launcher/continuation-12-before-refill-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "a72c2f283dbffcb1950eb6e7244d950bc9a70edf0fc865d36d303a8069c89bff",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/continuation-12-before-refill-1-foreign.pb"
+          }
+        },
+        "13-refilled-1": {
+          "owned": {
+            "wire_sha256": "906e97b513a35ba442fa27994a3b3ce429603362a949a6f7ddcf6d3d83d47c8d",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher/continuation-13-refilled-1-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "aaff73930fd14810ba72af316bd56d43ec04527bb131322e0dca00dba3ccebb4",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher/continuation-13-refilled-1-foreign.pb"
+          }
+        }
+      }
+    },
+    "US.launcher-damaged-empty": {
+      "load": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "4dab331fc4616b4cf3ff06c45103b13c06b16fa4895ab68c14485c4307bdc0d9",
+            "bytes": 8888,
+            "url": "/oracle/US.launcher-damaged-empty/load-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "ccb75cc9406d14db8a7391a04637c6953a7b4e84509d6c13986f65fb465f75e3",
+            "bytes": 8871,
+            "url": "/oracle/US.launcher-damaged-empty/load-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "986ebf04c2d0b07177566adcc7fa0dd354bd12fc1e281f98ac3ae2970cd9b4d9",
+            "bytes": 8907,
+            "url": "/oracle/US.launcher-damaged-empty/load-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "b2ac946bfba1604eb423fa958d12fbeab4a8022900ab527610b0cf35a622b42f",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher-damaged-empty/load-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "4e3c19a60cece7d7b58b8d988bce7dc15094827e066c61bcf3c75f1010bddf63",
+            "bytes": 8906,
+            "url": "/oracle/US.launcher-damaged-empty/load-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5ed72021e651e974cb6168ee1f3387429386254951704dd6e76bafbaa2aa95e0",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher-damaged-empty/load-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "08b5fc8b2e23241ab44438e5411d83e65361d678aa0875dea22a86a151a7e3d7",
+            "bytes": 8924,
+            "url": "/oracle/US.launcher-damaged-empty/load-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "dc4c43f78fde92df9b2f62055b69b485d6a88d0c9b44b4c395e3519cab280ea4",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher-damaged-empty/load-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "519990aa999d8423677175f8ebecde13662ab2e7890b8f71ed89a3f313a000bb",
+            "bytes": 8922,
+            "url": "/oracle/US.launcher-damaged-empty/load-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "93f672df71b7a0a05bfb59bac0cf80730067d7f7e0aa1fd5f1c79b6695501840",
+            "bytes": 8879,
+            "url": "/oracle/US.launcher-damaged-empty/load-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "b5a1a818c86bd62cb9cea1f6c3b22698c4629bb212410590897826855860e43e",
+            "bytes": 8902,
+            "url": "/oracle/US.launcher-damaged-empty/load-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "538f4c6668c58fb4a884b76eaafee786b9e793deb6c40c926490476c86a047e2",
+            "bytes": 8877,
+            "url": "/oracle/US.launcher-damaged-empty/load-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "e58cc7674a6a5e3e0bbff79d9c0b6aee163b52b0f09cb5c344dd5714cf94fe67",
+            "bytes": 8910,
+            "url": "/oracle/US.launcher-damaged-empty/load-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "558ae3914a1e328f5ea65a19e9e124ba91364a5852f57abe3a1a95c354857228",
+            "bytes": 8885,
+            "url": "/oracle/US.launcher-damaged-empty/load-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "548ba96377af3477205ea6fb8193930b2769fd077c2c6b229c3e09347b53aa89",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher-damaged-empty/load-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "53dea7f7eb5b4387e5f7638483a7737ef5ddcf76bb241ea20f9271130fd36aef",
+            "bytes": 8883,
+            "url": "/oracle/US.launcher-damaged-empty/load-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      },
+      "seek": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "4dab331fc4616b4cf3ff06c45103b13c06b16fa4895ab68c14485c4307bdc0d9",
+            "bytes": 8888,
+            "url": "/oracle/US.launcher-damaged-empty/seek-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "ccb75cc9406d14db8a7391a04637c6953a7b4e84509d6c13986f65fb465f75e3",
+            "bytes": 8871,
+            "url": "/oracle/US.launcher-damaged-empty/seek-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "986ebf04c2d0b07177566adcc7fa0dd354bd12fc1e281f98ac3ae2970cd9b4d9",
+            "bytes": 8907,
+            "url": "/oracle/US.launcher-damaged-empty/seek-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "b2ac946bfba1604eb423fa958d12fbeab4a8022900ab527610b0cf35a622b42f",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher-damaged-empty/seek-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "4e3c19a60cece7d7b58b8d988bce7dc15094827e066c61bcf3c75f1010bddf63",
+            "bytes": 8906,
+            "url": "/oracle/US.launcher-damaged-empty/seek-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5ed72021e651e974cb6168ee1f3387429386254951704dd6e76bafbaa2aa95e0",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher-damaged-empty/seek-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "08b5fc8b2e23241ab44438e5411d83e65361d678aa0875dea22a86a151a7e3d7",
+            "bytes": 8924,
+            "url": "/oracle/US.launcher-damaged-empty/seek-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "dc4c43f78fde92df9b2f62055b69b485d6a88d0c9b44b4c395e3519cab280ea4",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher-damaged-empty/seek-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "519990aa999d8423677175f8ebecde13662ab2e7890b8f71ed89a3f313a000bb",
+            "bytes": 8922,
+            "url": "/oracle/US.launcher-damaged-empty/seek-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "93f672df71b7a0a05bfb59bac0cf80730067d7f7e0aa1fd5f1c79b6695501840",
+            "bytes": 8879,
+            "url": "/oracle/US.launcher-damaged-empty/seek-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "b5a1a818c86bd62cb9cea1f6c3b22698c4629bb212410590897826855860e43e",
+            "bytes": 8902,
+            "url": "/oracle/US.launcher-damaged-empty/seek-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "538f4c6668c58fb4a884b76eaafee786b9e793deb6c40c926490476c86a047e2",
+            "bytes": 8877,
+            "url": "/oracle/US.launcher-damaged-empty/seek-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "e58cc7674a6a5e3e0bbff79d9c0b6aee163b52b0f09cb5c344dd5714cf94fe67",
+            "bytes": 8910,
+            "url": "/oracle/US.launcher-damaged-empty/seek-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "558ae3914a1e328f5ea65a19e9e124ba91364a5852f57abe3a1a95c354857228",
+            "bytes": 8885,
+            "url": "/oracle/US.launcher-damaged-empty/seek-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "548ba96377af3477205ea6fb8193930b2769fd077c2c6b229c3e09347b53aa89",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher-damaged-empty/seek-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "53dea7f7eb5b4387e5f7638483a7737ef5ddcf76bb241ea20f9271130fd36aef",
+            "bytes": 8883,
+            "url": "/oracle/US.launcher-damaged-empty/seek-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      },
+      "continuation": {
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "986ebf04c2d0b07177566adcc7fa0dd354bd12fc1e281f98ac3ae2970cd9b4d9",
+            "bytes": 8907,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "b2ac946bfba1604eb423fa958d12fbeab4a8022900ab527610b0cf35a622b42f",
+            "bytes": 8884,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "4e3c19a60cece7d7b58b8d988bce7dc15094827e066c61bcf3c75f1010bddf63",
+            "bytes": 8906,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5ed72021e651e974cb6168ee1f3387429386254951704dd6e76bafbaa2aa95e0",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "08b5fc8b2e23241ab44438e5411d83e65361d678aa0875dea22a86a151a7e3d7",
+            "bytes": 8924,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "dc4c43f78fde92df9b2f62055b69b485d6a88d0c9b44b4c395e3519cab280ea4",
+            "bytes": 8882,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "519990aa999d8423677175f8ebecde13662ab2e7890b8f71ed89a3f313a000bb",
+            "bytes": 8922,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "93f672df71b7a0a05bfb59bac0cf80730067d7f7e0aa1fd5f1c79b6695501840",
+            "bytes": 8879,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "b5a1a818c86bd62cb9cea1f6c3b22698c4629bb212410590897826855860e43e",
+            "bytes": 8902,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "538f4c6668c58fb4a884b76eaafee786b9e793deb6c40c926490476c86a047e2",
+            "bytes": 8877,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "e58cc7674a6a5e3e0bbff79d9c0b6aee163b52b0f09cb5c344dd5714cf94fe67",
+            "bytes": 8910,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "558ae3914a1e328f5ea65a19e9e124ba91364a5852f57abe3a1a95c354857228",
+            "bytes": 8885,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "548ba96377af3477205ea6fb8193930b2769fd077c2c6b229c3e09347b53aa89",
+            "bytes": 8908,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "53dea7f7eb5b4387e5f7638483a7737ef5ddcf76bb241ea20f9271130fd36aef",
+            "bytes": 8883,
+            "url": "/oracle/US.launcher-damaged-empty/continuation-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      }
+    },
+    "IR.launcher-damaged-empty": {
+      "load": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "78057c17185752b9f5a2359ba531233ad009fee9ba796a9932f4628e1cea1423",
+            "bytes": 8888,
+            "url": "/oracle/IR.launcher-damaged-empty/load-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "9c7ffeb217b2e254f368fe0b54ee44821ca9d5eed8a914c405b35014120e9762",
+            "bytes": 8871,
+            "url": "/oracle/IR.launcher-damaged-empty/load-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "74ce4c06d499114f9189d211d388135a337cd647faa1ac9ffef3cf2baef5661a",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher-damaged-empty/load-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "e0dcd9248447f30ad37202f825eafa64c4ae0d50a16179badb3027d190a6e825",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-damaged-empty/load-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "b6a55e96881b5384b38c6a70c165822c3d255be04ca456ea965305ed1a6a7842",
+            "bytes": 8906,
+            "url": "/oracle/IR.launcher-damaged-empty/load-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "68257e83edbaceb1813d9e8317ab4e3711ad0649ee3fa92664681e04defb4dc7",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-damaged-empty/load-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "03ad26081bb8b5ce3e2fffff6cca9011ab351b87b888153f496758a6c2427384",
+            "bytes": 8924,
+            "url": "/oracle/IR.launcher-damaged-empty/load-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "59a08d150de47a4afc56c9d3d36c6f850f7c5c5a382792a4321969bba9c4c962",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-damaged-empty/load-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "2d4a433fb166188b210e4870242fdc0ef463660a45975ad55d604f795a4ef0ba",
+            "bytes": 8922,
+            "url": "/oracle/IR.launcher-damaged-empty/load-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "056c53c37704c3fbfc5c3f8c12da5824e796715d576707f6e7db5671aefa112d",
+            "bytes": 8879,
+            "url": "/oracle/IR.launcher-damaged-empty/load-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "0c828c40412fe47a9630e8468388925fe8c8153e7d418047a28c406fcb96841b",
+            "bytes": 8902,
+            "url": "/oracle/IR.launcher-damaged-empty/load-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "6e0ee421984bd6efa17f6a7a6a36fa3c9f395a4a22a56012d9968bd56da90423",
+            "bytes": 8877,
+            "url": "/oracle/IR.launcher-damaged-empty/load-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "a585c2594be3592eb561a5ef938917c3d30cee75a59130c00e8520587fc7627d",
+            "bytes": 8910,
+            "url": "/oracle/IR.launcher-damaged-empty/load-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d9253d2f49eaf27bc89315cdfe97c114327a15545308db546614064494dae4da",
+            "bytes": 8885,
+            "url": "/oracle/IR.launcher-damaged-empty/load-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "353d1c3eb9d77dbf6032eef4591337112c591e35ee0203918bf4d6cbf1df0d66",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher-damaged-empty/load-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "70b6627922a78bb3020abe958e2735e16b56fc94c609ce45d7ed194050a0db17",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher-damaged-empty/load-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      },
+      "seek": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "78057c17185752b9f5a2359ba531233ad009fee9ba796a9932f4628e1cea1423",
+            "bytes": 8888,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "9c7ffeb217b2e254f368fe0b54ee44821ca9d5eed8a914c405b35014120e9762",
+            "bytes": 8871,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "74ce4c06d499114f9189d211d388135a337cd647faa1ac9ffef3cf2baef5661a",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "e0dcd9248447f30ad37202f825eafa64c4ae0d50a16179badb3027d190a6e825",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "b6a55e96881b5384b38c6a70c165822c3d255be04ca456ea965305ed1a6a7842",
+            "bytes": 8906,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "68257e83edbaceb1813d9e8317ab4e3711ad0649ee3fa92664681e04defb4dc7",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "03ad26081bb8b5ce3e2fffff6cca9011ab351b87b888153f496758a6c2427384",
+            "bytes": 8924,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "59a08d150de47a4afc56c9d3d36c6f850f7c5c5a382792a4321969bba9c4c962",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "2d4a433fb166188b210e4870242fdc0ef463660a45975ad55d604f795a4ef0ba",
+            "bytes": 8922,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "056c53c37704c3fbfc5c3f8c12da5824e796715d576707f6e7db5671aefa112d",
+            "bytes": 8879,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "0c828c40412fe47a9630e8468388925fe8c8153e7d418047a28c406fcb96841b",
+            "bytes": 8902,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "6e0ee421984bd6efa17f6a7a6a36fa3c9f395a4a22a56012d9968bd56da90423",
+            "bytes": 8877,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "a585c2594be3592eb561a5ef938917c3d30cee75a59130c00e8520587fc7627d",
+            "bytes": 8910,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d9253d2f49eaf27bc89315cdfe97c114327a15545308db546614064494dae4da",
+            "bytes": 8885,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "353d1c3eb9d77dbf6032eef4591337112c591e35ee0203918bf4d6cbf1df0d66",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "70b6627922a78bb3020abe958e2735e16b56fc94c609ce45d7ed194050a0db17",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher-damaged-empty/seek-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      },
+      "continuation": {
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "74ce4c06d499114f9189d211d388135a337cd647faa1ac9ffef3cf2baef5661a",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "e0dcd9248447f30ad37202f825eafa64c4ae0d50a16179badb3027d190a6e825",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "b6a55e96881b5384b38c6a70c165822c3d255be04ca456ea965305ed1a6a7842",
+            "bytes": 8906,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "68257e83edbaceb1813d9e8317ab4e3711ad0649ee3fa92664681e04defb4dc7",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "03ad26081bb8b5ce3e2fffff6cca9011ab351b87b888153f496758a6c2427384",
+            "bytes": 8924,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "59a08d150de47a4afc56c9d3d36c6f850f7c5c5a382792a4321969bba9c4c962",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "2d4a433fb166188b210e4870242fdc0ef463660a45975ad55d604f795a4ef0ba",
+            "bytes": 8922,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "056c53c37704c3fbfc5c3f8c12da5824e796715d576707f6e7db5671aefa112d",
+            "bytes": 8879,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "0c828c40412fe47a9630e8468388925fe8c8153e7d418047a28c406fcb96841b",
+            "bytes": 8902,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "6e0ee421984bd6efa17f6a7a6a36fa3c9f395a4a22a56012d9968bd56da90423",
+            "bytes": 8877,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "a585c2594be3592eb561a5ef938917c3d30cee75a59130c00e8520587fc7627d",
+            "bytes": 8910,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d9253d2f49eaf27bc89315cdfe97c114327a15545308db546614064494dae4da",
+            "bytes": 8885,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "353d1c3eb9d77dbf6032eef4591337112c591e35ee0203918bf4d6cbf1df0d66",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "70b6627922a78bb3020abe958e2735e16b56fc94c609ce45d7ed194050a0db17",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher-damaged-empty/continuation-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      }
+    },
+    "SY.launcher-damaged-empty": {
+      "load": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "ef9ee4017a7d225eb0a0f853a55aad0c694b4e730c93c6cdafb6b20c0a475513",
+            "bytes": 8888,
+            "url": "/oracle/SY.launcher-damaged-empty/load-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "61001a9d211fe1638e48f898bab90cda1bb4a2183b9d7a35e0a7338af2f46865",
+            "bytes": 8871,
+            "url": "/oracle/SY.launcher-damaged-empty/load-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "271a748f9d699ad0fb6bcf9098ddad335007c910d7cc6d45526b9fcb1415de2f",
+            "bytes": 8907,
+            "url": "/oracle/SY.launcher-damaged-empty/load-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "83ff8d1bf2b06ac31c815d6bead789d8372399d70f535f07969b8f3f7c61f906",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher-damaged-empty/load-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "63feb80651f414323cd497f72ffa28ce0410f9829d4ae662823148b4f73330cd",
+            "bytes": 8906,
+            "url": "/oracle/SY.launcher-damaged-empty/load-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "997a2ff68545ee75190bc8120b1685140cb6d40fff178968b9a7f865b7dcd6ea",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher-damaged-empty/load-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "20229dd93b94af3cc210f5f598668ca2468c3c58674bf9fff8695637e5aa3536",
+            "bytes": 8924,
+            "url": "/oracle/SY.launcher-damaged-empty/load-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "9ce4d3ca5b37390dcb4c96308a738d014247ee58490addb80985ba83040d8715",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher-damaged-empty/load-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "162e0bb880c0bd5fa423bb5329ad17b0658ad7678096535314a7d16b61ab8b5a",
+            "bytes": 8922,
+            "url": "/oracle/SY.launcher-damaged-empty/load-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d990875fee846a0db8bb109760fa293548f8c513e3478635c86100141e507764",
+            "bytes": 8879,
+            "url": "/oracle/SY.launcher-damaged-empty/load-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "6816193b98d78a3dc653bc52b6513c9fc67708de92300ee94fc035f23ffdf6d7",
+            "bytes": 8902,
+            "url": "/oracle/SY.launcher-damaged-empty/load-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f18b8268cc1162abef5e4aa7a72b680188ca7fd7936dca6f8e63698d52aaf2ca",
+            "bytes": 8877,
+            "url": "/oracle/SY.launcher-damaged-empty/load-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "f9b74cdb2143d59579bd6da485b57946c8fe0c10c7f12ffacfbbe358aa16610e",
+            "bytes": 8910,
+            "url": "/oracle/SY.launcher-damaged-empty/load-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "1597132f0b26e066ee3f72cba617e97a4757abe24fc56bd6b4c3f6fdf0e93957",
+            "bytes": 8885,
+            "url": "/oracle/SY.launcher-damaged-empty/load-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "17de7672ea577aa6de6c70382936c07e1b9fcc346fc319bf8f35e9ca02f09b53",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher-damaged-empty/load-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "e6ff2d7c34e68e72f397b85823390a2aae3196248af13bafbdb5a5b7c414e369",
+            "bytes": 8883,
+            "url": "/oracle/SY.launcher-damaged-empty/load-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      },
+      "seek": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "ef9ee4017a7d225eb0a0f853a55aad0c694b4e730c93c6cdafb6b20c0a475513",
+            "bytes": 8888,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "61001a9d211fe1638e48f898bab90cda1bb4a2183b9d7a35e0a7338af2f46865",
+            "bytes": 8871,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "271a748f9d699ad0fb6bcf9098ddad335007c910d7cc6d45526b9fcb1415de2f",
+            "bytes": 8907,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "83ff8d1bf2b06ac31c815d6bead789d8372399d70f535f07969b8f3f7c61f906",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "63feb80651f414323cd497f72ffa28ce0410f9829d4ae662823148b4f73330cd",
+            "bytes": 8906,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "997a2ff68545ee75190bc8120b1685140cb6d40fff178968b9a7f865b7dcd6ea",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "20229dd93b94af3cc210f5f598668ca2468c3c58674bf9fff8695637e5aa3536",
+            "bytes": 8924,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "9ce4d3ca5b37390dcb4c96308a738d014247ee58490addb80985ba83040d8715",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "162e0bb880c0bd5fa423bb5329ad17b0658ad7678096535314a7d16b61ab8b5a",
+            "bytes": 8922,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d990875fee846a0db8bb109760fa293548f8c513e3478635c86100141e507764",
+            "bytes": 8879,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "6816193b98d78a3dc653bc52b6513c9fc67708de92300ee94fc035f23ffdf6d7",
+            "bytes": 8902,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f18b8268cc1162abef5e4aa7a72b680188ca7fd7936dca6f8e63698d52aaf2ca",
+            "bytes": 8877,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "f9b74cdb2143d59579bd6da485b57946c8fe0c10c7f12ffacfbbe358aa16610e",
+            "bytes": 8910,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "1597132f0b26e066ee3f72cba617e97a4757abe24fc56bd6b4c3f6fdf0e93957",
+            "bytes": 8885,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "17de7672ea577aa6de6c70382936c07e1b9fcc346fc319bf8f35e9ca02f09b53",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "e6ff2d7c34e68e72f397b85823390a2aae3196248af13bafbdb5a5b7c414e369",
+            "bytes": 8883,
+            "url": "/oracle/SY.launcher-damaged-empty/seek-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      },
+      "continuation": {
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "271a748f9d699ad0fb6bcf9098ddad335007c910d7cc6d45526b9fcb1415de2f",
+            "bytes": 8907,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "83ff8d1bf2b06ac31c815d6bead789d8372399d70f535f07969b8f3f7c61f906",
+            "bytes": 8884,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "63feb80651f414323cd497f72ffa28ce0410f9829d4ae662823148b4f73330cd",
+            "bytes": 8906,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "997a2ff68545ee75190bc8120b1685140cb6d40fff178968b9a7f865b7dcd6ea",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-03-deployed-foreign.pb"
+          }
+        },
+        "07-pack-half": {
+          "owned": {
+            "wire_sha256": "20229dd93b94af3cc210f5f598668ca2468c3c58674bf9fff8695637e5aa3536",
+            "bytes": 8924,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-07-pack-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "9ce4d3ca5b37390dcb4c96308a738d014247ee58490addb80985ba83040d8715",
+            "bytes": 8882,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-07-pack-half-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "162e0bb880c0bd5fa423bb5329ad17b0658ad7678096535314a7d16b61ab8b5a",
+            "bytes": 8922,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d990875fee846a0db8bb109760fa293548f8c513e3478635c86100141e507764",
+            "bytes": 8879,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "6816193b98d78a3dc653bc52b6513c9fc67708de92300ee94fc035f23ffdf6d7",
+            "bytes": 8902,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "f18b8268cc1162abef5e4aa7a72b680188ca7fd7936dca6f8e63698d52aaf2ca",
+            "bytes": 8877,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "f9b74cdb2143d59579bd6da485b57946c8fe0c10c7f12ffacfbbe358aa16610e",
+            "bytes": 8910,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "1597132f0b26e066ee3f72cba617e97a4757abe24fc56bd6b4c3f6fdf0e93957",
+            "bytes": 8885,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "17de7672ea577aa6de6c70382936c07e1b9fcc346fc319bf8f35e9ca02f09b53",
+            "bytes": 8908,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "e6ff2d7c34e68e72f397b85823390a2aae3196248af13bafbdb5a5b7c414e369",
+            "bytes": 8883,
+            "url": "/oracle/SY.launcher-damaged-empty/continuation-11-deployed-after-shot-foreign.pb"
+          }
+        }
+      }
+    },
+    "IR.launcher-cancel-volley": {
+      "load": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "ea7c3a59cda58015207c7b2641e74f1d292d90d3741d4d109eea2a6598e7f560",
+            "bytes": 8890,
+            "url": "/oracle/IR.launcher-cancel-volley/load-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "6c7736caa9bc402d3c2dabebb6f6216dc52cf9cac9b71726c9b242bd4d88d404",
+            "bytes": 8871,
+            "url": "/oracle/IR.launcher-cancel-volley/load-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "e7a792e7184b510779376f0c8caa7fc60068d03f4d8415397bfc3e8f9fa4f53f",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher-cancel-volley/load-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5a677d317355be5901675f977fcad02a85b74a1618e4153b77588857d3f0569c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/load-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "2e0ef67b2f71493c3e56599b2e99db888440ea4ebe0c8c9555cfa383348c495f",
+            "bytes": 8905,
+            "url": "/oracle/IR.launcher-cancel-volley/load-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d6b956043b26ae67c32e5b74792dbfe536b099d990615f6867cb5a697a47699",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-cancel-volley/load-03-deployed-foreign.pb"
+          }
+        },
+        "04-first-shot-one-charge": {
+          "owned": {
+            "wire_sha256": "035d90565fa8ba71ab4d291f04fe541a33dfee0249e7720334314cf2d00dc117",
+            "bytes": 9015,
+            "url": "/oracle/IR.launcher-cancel-volley/load-04-first-shot-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d00d552caa083c7461e30bd2300036007eb5665cdeaf54f27bac195d1d247538",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher-cancel-volley/load-04-first-shot-one-charge-foreign.pb"
+          }
+        },
+        "05-cancel-pack-half-one-charge": {
+          "owned": {
+            "wire_sha256": "6f98fadf673c7f3e235be12a9e6e48b940f575e6469487734fe005118e036b81",
+            "bytes": 8996,
+            "url": "/oracle/IR.launcher-cancel-volley/load-05-cancel-pack-half-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "07b81ec42e70c1fb2893910b6fb7c2df0d5f4d95a5e64d9a34674b2721162bc6",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher-cancel-volley/load-05-cancel-pack-half-one-charge-foreign.pb"
+          }
+        },
+        "06-canceled-second-shot": {
+          "owned": {
+            "wire_sha256": "6f98fadf673c7f3e235be12a9e6e48b940f575e6469487734fe005118e036b81",
+            "bytes": 8996,
+            "url": "/oracle/IR.launcher-cancel-volley/load-06-canceled-second-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "07b81ec42e70c1fb2893910b6fb7c2df0d5f4d95a5e64d9a34674b2721162bc6",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher-cancel-volley/load-06-canceled-second-shot-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "9132b37a78357774e56e3a8aca7e6bf41ab7d1bbc54cff6c913d3f9ebf2255b8",
+            "bytes": 8994,
+            "url": "/oracle/IR.launcher-cancel-volley/load-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "2374e0c09e1a1e352fe1a1ea09d02eae728b8a997674f1773c50f13c5659cc6c",
+            "bytes": 8950,
+            "url": "/oracle/IR.launcher-cancel-volley/load-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "3ac36de74a6a688e1ef45d978ab732bf9a1b1c846fa954bbbc5401091d22eb74",
+            "bytes": 8975,
+            "url": "/oracle/IR.launcher-cancel-volley/load-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0b161a2bc77d0fbda03dc75ebe8215271c305cbf3e0af5860705262bfe93eac8",
+            "bytes": 8948,
+            "url": "/oracle/IR.launcher-cancel-volley/load-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "0495458fec7a97e46551497bdf69c1fd896a4d1e65424244df9ecbfd3350d670",
+            "bytes": 8962,
+            "url": "/oracle/IR.launcher-cancel-volley/load-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d2bf8ad8739ec91cbe5f34298800b212863c7469e31d8f5fe5c84c624e7c5d8",
+            "bytes": 8935,
+            "url": "/oracle/IR.launcher-cancel-volley/load-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "aff6e92164ae75c614348961d5be9326e41c30ef087f615ddf51edf46bed3953",
+            "bytes": 8910,
+            "url": "/oracle/IR.launcher-cancel-volley/load-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "bd6fbe696789a7c07ffc6bf26d85a9ba0e9636326ba1254d9505228c2e5d4b50",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher-cancel-volley/load-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-2": {
+          "owned": {
+            "wire_sha256": "e36db6d2415f8e6b5270da3bb872dee59cddc06a7f64a0c25fd8734d4f0c0cda",
+            "bytes": 8911,
+            "url": "/oracle/IR.launcher-cancel-volley/load-12-before-refill-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "7c2a3da638b5564ae9a9c02c917648cb11315998aedaaf55f69a3afec2091e95",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/load-12-before-refill-2-foreign.pb"
+          }
+        },
+        "13-refilled-2": {
+          "owned": {
+            "wire_sha256": "be37444f170928179e1a31cf4aeabb3b2f3567eace3c06a84e88f2e7b08f6afe",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher-cancel-volley/load-13-refilled-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "cba49bad475b369c07d17ab03297853ab0a4219e946d2777be1c39f892e5d48c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/load-13-refilled-2-foreign.pb"
+          }
+        }
+      },
+      "seek": {
+        "01-initial": {
+          "owned": {
+            "wire_sha256": "ea7c3a59cda58015207c7b2641e74f1d292d90d3741d4d109eea2a6598e7f560",
+            "bytes": 8890,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-01-initial-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "6c7736caa9bc402d3c2dabebb6f6216dc52cf9cac9b71726c9b242bd4d88d404",
+            "bytes": 8871,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-01-initial-foreign.pb"
+          }
+        },
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "e7a792e7184b510779376f0c8caa7fc60068d03f4d8415397bfc3e8f9fa4f53f",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5a677d317355be5901675f977fcad02a85b74a1618e4153b77588857d3f0569c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "2e0ef67b2f71493c3e56599b2e99db888440ea4ebe0c8c9555cfa383348c495f",
+            "bytes": 8905,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d6b956043b26ae67c32e5b74792dbfe536b099d990615f6867cb5a697a47699",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-03-deployed-foreign.pb"
+          }
+        },
+        "04-first-shot-one-charge": {
+          "owned": {
+            "wire_sha256": "035d90565fa8ba71ab4d291f04fe541a33dfee0249e7720334314cf2d00dc117",
+            "bytes": 9015,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-04-first-shot-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "d00d552caa083c7461e30bd2300036007eb5665cdeaf54f27bac195d1d247538",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-04-first-shot-one-charge-foreign.pb"
+          }
+        },
+        "05-cancel-pack-half-one-charge": {
+          "owned": {
+            "wire_sha256": "6f98fadf673c7f3e235be12a9e6e48b940f575e6469487734fe005118e036b81",
+            "bytes": 8996,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-05-cancel-pack-half-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "07b81ec42e70c1fb2893910b6fb7c2df0d5f4d95a5e64d9a34674b2721162bc6",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-05-cancel-pack-half-one-charge-foreign.pb"
+          }
+        },
+        "06-canceled-second-shot": {
+          "owned": {
+            "wire_sha256": "6f98fadf673c7f3e235be12a9e6e48b940f575e6469487734fe005118e036b81",
+            "bytes": 8996,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-06-canceled-second-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "07b81ec42e70c1fb2893910b6fb7c2df0d5f4d95a5e64d9a34674b2721162bc6",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-06-canceled-second-shot-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "9132b37a78357774e56e3a8aca7e6bf41ab7d1bbc54cff6c913d3f9ebf2255b8",
+            "bytes": 8994,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "2374e0c09e1a1e352fe1a1ea09d02eae728b8a997674f1773c50f13c5659cc6c",
+            "bytes": 8950,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "3ac36de74a6a688e1ef45d978ab732bf9a1b1c846fa954bbbc5401091d22eb74",
+            "bytes": 8975,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0b161a2bc77d0fbda03dc75ebe8215271c305cbf3e0af5860705262bfe93eac8",
+            "bytes": 8948,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "0495458fec7a97e46551497bdf69c1fd896a4d1e65424244df9ecbfd3350d670",
+            "bytes": 8962,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d2bf8ad8739ec91cbe5f34298800b212863c7469e31d8f5fe5c84c624e7c5d8",
+            "bytes": 8935,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "aff6e92164ae75c614348961d5be9326e41c30ef087f615ddf51edf46bed3953",
+            "bytes": 8910,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "bd6fbe696789a7c07ffc6bf26d85a9ba0e9636326ba1254d9505228c2e5d4b50",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-2": {
+          "owned": {
+            "wire_sha256": "e36db6d2415f8e6b5270da3bb872dee59cddc06a7f64a0c25fd8734d4f0c0cda",
+            "bytes": 8911,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-12-before-refill-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "7c2a3da638b5564ae9a9c02c917648cb11315998aedaaf55f69a3afec2091e95",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-12-before-refill-2-foreign.pb"
+          }
+        },
+        "13-refilled-2": {
+          "owned": {
+            "wire_sha256": "be37444f170928179e1a31cf4aeabb3b2f3567eace3c06a84e88f2e7b08f6afe",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-13-refilled-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "cba49bad475b369c07d17ab03297853ab0a4219e946d2777be1c39f892e5d48c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/seek-13-refilled-2-foreign.pb"
+          }
+        }
+      },
+      "continuation": {
+        "02-deploy-half": {
+          "owned": {
+            "wire_sha256": "e7a792e7184b510779376f0c8caa7fc60068d03f4d8415397bfc3e8f9fa4f53f",
+            "bytes": 8907,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-02-deploy-half-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "5a677d317355be5901675f977fcad02a85b74a1618e4153b77588857d3f0569c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-02-deploy-half-foreign.pb"
+          }
+        },
+        "03-deployed": {
+          "owned": {
+            "wire_sha256": "2e0ef67b2f71493c3e56599b2e99db888440ea4ebe0c8c9555cfa383348c495f",
+            "bytes": 8905,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-03-deployed-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d6b956043b26ae67c32e5b74792dbfe536b099d990615f6867cb5a697a47699",
+            "bytes": 8882,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-03-deployed-foreign.pb"
+          }
+        },
+        "04-first-shot-one-charge": {
+          "owned": {
+            "wire_sha256": "6de89b0b8ccf64d2c27074d96e4ced52f7971434aefc1642f3de5509f017b19c",
+            "bytes": 9129,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-04-first-shot-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "089cb70c64841374baae13e6fc7f6e7859f96750bf1bd75da4478160342c0ba7",
+            "bytes": 9053,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-04-first-shot-one-charge-foreign.pb"
+          }
+        },
+        "05-cancel-pack-half-one-charge": {
+          "owned": {
+            "wire_sha256": "6f98fadf673c7f3e235be12a9e6e48b940f575e6469487734fe005118e036b81",
+            "bytes": 8996,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-05-cancel-pack-half-one-charge-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "07b81ec42e70c1fb2893910b6fb7c2df0d5f4d95a5e64d9a34674b2721162bc6",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-05-cancel-pack-half-one-charge-foreign.pb"
+          }
+        },
+        "06-canceled-second-shot": {
+          "owned": {
+            "wire_sha256": "6f98fadf673c7f3e235be12a9e6e48b940f575e6469487734fe005118e036b81",
+            "bytes": 8996,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-06-canceled-second-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "07b81ec42e70c1fb2893910b6fb7c2df0d5f4d95a5e64d9a34674b2721162bc6",
+            "bytes": 8953,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-06-canceled-second-shot-foreign.pb"
+          }
+        },
+        "08-moving": {
+          "owned": {
+            "wire_sha256": "9132b37a78357774e56e3a8aca7e6bf41ab7d1bbc54cff6c913d3f9ebf2255b8",
+            "bytes": 8994,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-08-moving-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "2374e0c09e1a1e352fe1a1ea09d02eae728b8a997674f1773c50f13c5659cc6c",
+            "bytes": 8950,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-08-moving-foreign.pb"
+          }
+        },
+        "09-mobile-idle": {
+          "owned": {
+            "wire_sha256": "3ac36de74a6a688e1ef45d978ab732bf9a1b1c846fa954bbbc5401091d22eb74",
+            "bytes": 8975,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-09-mobile-idle-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0b161a2bc77d0fbda03dc75ebe8215271c305cbf3e0af5860705262bfe93eac8",
+            "bytes": 8948,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-09-mobile-idle-foreign.pb"
+          }
+        },
+        "10-deploy-half-after-shot": {
+          "owned": {
+            "wire_sha256": "0495458fec7a97e46551497bdf69c1fd896a4d1e65424244df9ecbfd3350d670",
+            "bytes": 8962,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-10-deploy-half-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "0d2bf8ad8739ec91cbe5f34298800b212863c7469e31d8f5fe5c84c624e7c5d8",
+            "bytes": 8935,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-10-deploy-half-after-shot-foreign.pb"
+          }
+        },
+        "11-deployed-after-shot": {
+          "owned": {
+            "wire_sha256": "aff6e92164ae75c614348961d5be9326e41c30ef087f615ddf51edf46bed3953",
+            "bytes": 8910,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-11-deployed-after-shot-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "bd6fbe696789a7c07ffc6bf26d85a9ba0e9636326ba1254d9505228c2e5d4b50",
+            "bytes": 8883,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-11-deployed-after-shot-foreign.pb"
+          }
+        },
+        "12-before-refill-2": {
+          "owned": {
+            "wire_sha256": "e36db6d2415f8e6b5270da3bb872dee59cddc06a7f64a0c25fd8734d4f0c0cda",
+            "bytes": 8911,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-12-before-refill-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "7c2a3da638b5564ae9a9c02c917648cb11315998aedaaf55f69a3afec2091e95",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-12-before-refill-2-foreign.pb"
+          }
+        },
+        "13-refilled-2": {
+          "owned": {
+            "wire_sha256": "be37444f170928179e1a31cf4aeabb3b2f3567eace3c06a84e88f2e7b08f6afe",
+            "bytes": 8908,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-13-refilled-2-owned.pb"
+          },
+          "foreign": {
+            "wire_sha256": "cba49bad475b369c07d17ab03297853ab0a4219e946d2777be1c39f892e5d48c",
+            "bytes": 8884,
+            "url": "/oracle/IR.launcher-cancel-volley/continuation-13-refilled-2-foreign.pb"
+          }
+        }
+      }
+    }
+  },
+  "types": {
+    "US.launcher": "US.launcher",
+    "IR.launcher": "IR.launcher",
+    "SY.launcher": "SY.launcher",
+    "US.launcher-damaged-empty": "US.launcher",
+    "IR.launcher-damaged-empty": "IR.launcher",
+    "SY.launcher-damaged-empty": "SY.launcher",
+    "IR.launcher-cancel-volley": "IR.launcher"
+  }
+}
