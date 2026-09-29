@@ -1,0 +1,75 @@
+{
+  "status": "failed",
+  "scope": "Actual existing native Session fixture with real complete US/IR/SY art. Prepared units/resources/damage are explicit. No paid opening, SA art, all-frame subjective acceptance, total memory or timing claim. Strict raw request diagnostics retained; no EOF/cancel classification in this course.",
+  "started": "2026-09-29T16:11:52.832Z",
+  "engine": "chromium",
+  "prepared": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-rendered-course-v1/prepared-02",
+  "errors": [],
+  "warnings": [],
+  "httpErrors": [],
+  "requestFailures": [],
+  "boundaries": [],
+  "replays": [],
+  "culling": [],
+  "reduced": [],
+  "deferred": [],
+  "served": {},
+  "identity": {
+    "preparedReceiptSHA256": "5115afa3d9311048206c10344ae992b023832cdee641e36e16bb4d376fce7328",
+    "sourceLockSHA256": "c23c9a52470520df3627ddc10280ed85f155a147cea1f7fc90595bd33b6a6e4a",
+    "packSHA256": "080ddd51d13244658c7292c00f8c65fe22dfc0c905201e25c9e749644c623e8b",
+    "bundleSHA256": "6676f2d76f640e56e41d3d39afad3734094460a7555905c7cf409c9a7dfa71a6",
+    "planSHA256": "93086f3efe712ae74ec4e698dd912097ea2d336c993236fb5101a22b18a05982",
+    "runtime": {
+      "frontline.wasm": {
+        "sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+        "bytes": 11237971
+      },
+      "worker.js": {
+        "sha256": "ced862a30a9d91dbab59befcf6ea0e4af9dabfc289acffbe7678a6dd33b2bed9",
+        "bytes": 8198
+      },
+      "wasm_exec.js": {
+        "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+        "bytes": 16992
+      },
+      "version.json": {
+        "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+        "bytes": 169
+      }
+    },
+    "handoffs": [
+      {
+        "id": "unit.US.launcher",
+        "sha256": "3361620bd33ba183de766b141e4096c1cf907390a39b0e6d092501150f7fc750",
+        "poses": 688,
+        "files": 141
+      },
+      {
+        "id": "unit.IR.launcher",
+        "sha256": "b5a4285dc78f5b2b9b7e5a8e77cceee96476733059b20c0c4718a4add4249284",
+        "poses": 1120,
+        "files": 225
+      },
+      {
+        "id": "unit.SY.launcher",
+        "sha256": "de11de332394387866e26b585d7fb06a4e240de70ee3f19c6f4d21afcc6d21f7",
+        "poses": 688,
+        "files": 105
+      }
+    ],
+    "scenarios": [
+      "US.launcher"
+    ],
+    "qualities": [
+      "standard"
+    ],
+    "held": [
+      "SA.launcher"
+    ]
+  },
+  "failedPhase": "preflight",
+  "failure": "TypeError: Cannot read properties of undefined (reading 'launch')\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-rendered-course-v1/browser.mjs:45:116\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "inputsVerifiedAfter": 157,
+  "closedAt": "2026-09-29T16:11:52.897Z"
+}

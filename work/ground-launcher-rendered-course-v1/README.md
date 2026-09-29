@@ -62,3 +62,7 @@ node work/ground-launcher-rendered-course-v1/browser.mjs \
 Then add the other scenarios/quality only after preserving and inspecting that first result. Omit `--scenario`/`--quality` for the entire prepared subset; it is not necessary for the initial bounded validation. Chromium/Firefox/WebKit are supported by the driver, but none has been launched for this course. The executable/version is recorded by every future run; same-host browser contexts are not physical-device acceptance.
 
 Reproduce source-only preparation under a **new** label with `node .../prepare.mjs prepared-N`; never overwrite a prior output. `audit.mjs prepared-N` performs only CPU integrity checks. Product/source trees are local frozen artifacts; the committed receipts and helper sources pin their bytes.
+
+## First executed subset
+
+The subsequent US-standard Chromium run is documented in `browser-us-standard-review.md`: 42 render boundaries and 22 replay views functionally passed, but strict status remains FAILED on 35 raw request diagnostics. Attempt01's Playwright import failure is preserved; `browser-v2.mjs` fixes only the test import. No other faction/quality/engine has run. The native review also records an unexplained bottom-left black capture rectangle; no blanket visual acceptance is claimed.
