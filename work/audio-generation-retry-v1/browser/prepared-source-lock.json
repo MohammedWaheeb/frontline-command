@@ -1,0 +1,41 @@
+{
+  "status": "prepared-browser-unrun",
+  "processes": "All preparation commands exited; no browser or HTTP server started.",
+  "checks": [
+    "node --check runner.mjs passed",
+    "node --check prepare.mjs passed",
+    "prepare.mjs exact input hash verification and esbuild bundle passed"
+  ],
+  "files": [
+    {
+      "path": "work/audio-generation-retry-v1/browser/fixture.ts",
+      "bytes": 2901,
+      "sha256": "3e5a3de0eefd05e23dd09938348bfdf58e1740d6705a2842c123b871c12d0470"
+    },
+    {
+      "path": "work/audio-generation-retry-v1/browser/prepare.mjs",
+      "bytes": 3644,
+      "sha256": "bb014cfeafdbbe420a4660c64fd360851b88b778d02fa839dcd979d6d8404bdf"
+    },
+    {
+      "path": "work/audio-generation-retry-v1/browser/runner.mjs",
+      "bytes": 9832,
+      "sha256": "6b7e1b1ad2b9451d6dbeb3464cb8c1c0ea785e3020f76b964973141615d67930"
+    },
+    {
+      "path": "work/audio-generation-retry-v1/browser/README.md",
+      "bytes": 2345,
+      "sha256": "957107c0f1e611277f187610b1d95d42544edda442f42890b223dc08394837f3"
+    },
+    {
+      "path": "work/audio-generation-retry-v1/browser-prepared-v1/prepared.json",
+      "bytes": 5239,
+      "sha256": "5fe5a08990d6de4bb0c4397fcf71536568db600b8976edd4665bdc6d20ed492b"
+    },
+    {
+      "path": "work/audio-generation-retry-v1/browser-preflight.log",
+      "bytes": 1432,
+      "sha256": "ddc5704ed2b00cc00ecfc1e9ec1f60e60ab75539d4babded61192c4355bb286d"
+    }
+  ]
+}
