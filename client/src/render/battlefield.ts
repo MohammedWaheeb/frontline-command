@@ -43,6 +43,8 @@ interface Chunk {fragments:TerrainFragment[];texture:Texture;used:number;visible
 const color=(hex:string)=>parseInt(hex.replace('#',''),16);
 const clamp=(value:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,value));
 const MINIMAP_MS=80;
+/** Last-seen tag size in screen px: follows the HUD scale, never below 11px. */
+export const memoryLabelSize=(uiScale:number)=>Math.round(Math.max(11,12*(Number.isFinite(uiScale)?uiScale:1)));
 
 /** Fixed-camera presentation over authorized snapshots; never simulates game rules. */
 export class BattlefieldRenderer {
@@ -51,7 +53,7 @@ export class BattlefieldRenderer {
  private readonly surfaceShadows=new SurfaceShadows(this.ground);
  private readonly actorStatuses=new Container();
  private readonly placementGhost:PlacementGhost;private combat:CombatEffects;private effectsReleased:Promise<void>=Promise.resolve();
- private readonly memoryLabels:Text[]=[];private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
+ private readonly memoryLabels:Container[]=[];private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
  private readonly strikePreview=new StrikePreviewOverlay();private readonly tacticalOverlay=new TacticalOverlay();private tacticalModel?:TacticalPresentation;
  private readonly objectSkins=new Map<string,EnvironmentObjectSkin>();
  private readonly actors=new Map<number,ActorVisual>();private environment:EnvironmentRenderer;
@@ -202,7 +204,7 @@ export class BattlefieldRenderer {
  async whenEffectsReleased(){await this.effectsReleased}
  resetFeedback(){this.rejection=undefined;this.feedbackBaseline=true;this.combat.reset();this.surfaceShadows.clear();this.effectEvent=Math.max(0,...(this.snapshot?.events.map(event=>event.id)??[]));this.shake={until:0,strength:0,x:0,y:0};for(const actor of this.actors.values())actor.clearFeedback();for(const death of this.deaths)death.actor.dispose();this.deaths.length=0}
  setStrikePreview(plan:SkybreakerPlan|undefined,_observedTick?:number){this.strikePreview.set(plan);this.minimapDirty=true}
- updateSettings(settings:Settings){this.settings=settings;this.minimapDirty=true;if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
+ updateSettings(settings:Settings){const rescale=settings.uiScale!==this.settings.uiScale;this.settings=settings;this.minimapDirty=true;if(rescale&&!this.disposed){this.memoryKey='';this.updateMemories()}if(settings.reducedMotion||settings.reducedFlashing||settings.screenShake===0)this.shake={until:0,strength:0,x:0,y:0}}
  setSnapshot(snapshot:PlayerSnapshot){
   if(this.disposed)return;
   const tacticalReset=!this.snapshot||snapshot.tick<this.snapshot.tick||snapshot.player!==this.snapshot.player;
@@ -281,7 +283,11 @@ export class BattlefieldRenderer {
    if(!snapshot.explored[i])continue;
    const g=new Graphics(),b=this.options.catalog.buildings.get(physicalArtType(memory)),support=this.surface.footprintSurface(memory.position,memory.footprintWidth||b?.width||2,memory.footprintHeight||b?.height||2),p=projectSurfaceVertex({...memory.position,height:support.height});
    drawStructure(g,{width:memory.footprintWidth||b?.width||2,height:memory.footprintHeight||b?.height||2,role:b?.role??'garrison',paint:0x514d41,team:0x666353,progress:1000,complete:true,health:1000,enabled:false,memory:true});
-   const label=new Text({text:memoryCaption(memory.seen,snapshot.tick)!,style:{fontFamily:'Arial,sans-serif',fontSize:10,fontWeight:'600',fill:0xc3b89d,stroke:{color:0x14150f,width:3}}});label.anchor.set(.5,1);label.position.set(0,-48);label.eventMode='none';g.addChild(label);this.memoryLabels.push(label);
+   // Screen-constant LCD tag: amber text on a dark plate, sized by the UI scale
+   // (never below 11px) and rasterised at that size rather than stretched.
+   const label=new Container(),text=new Text({text:memoryCaption(memory.seen,snapshot.tick)!,style:{fontFamily:'Arial,sans-serif',fontSize:memoryLabelSize(this.settings.uiScale),fontWeight:'700',letterSpacing:.5,fill:0xf2b340}}),plate=new Graphics();
+   text.anchor.set(.5,1);text.position.set(0,-2);plate.rect(-text.width/2-5,-text.height-4,text.width+10,text.height+4).fill({color:0x0b0a09,alpha:.86}).stroke({width:1,color:0x6e5528,alignment:1});
+   label.addChild(plate,text);label.position.set(0,-48);label.eventMode=plate.eventMode=text.eventMode='none';g.addChild(label);this.memoryLabels.push(label);
    g.position.set(p.x,p.y);g.zIndex=memory.position.x+memory.position.y+((memory.footprintWidth||b?.width||2)+(memory.footprintHeight||b?.height||2))*500+.001;this.memories.push(g);this.ground.addChild(g);
   }
  }

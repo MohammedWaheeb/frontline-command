@@ -2,7 +2,7 @@
 
 Claude's four completed reviews and four source revisions are preserved in `5a28fab`. Its next request stopped at the session limit before making edits. The actual reset is **29 September 19:30 UTC /22:30 Qatar**. The user authorized Codex to continue after Claude hits limits. The following limited fallback changes are authored by Codex, not Claude; a fresh Claude review remains due.
 
-All candidates are private. No live promotion or deployment is implied.
+The immutable candidates remain preserved. The exact v5 delta was subsequently integrated into the live development client; see `work/presentation-fallback-integration-v1/README.md`. No deployment or finished-game acceptance is implied.
 
 ## Preserved candidates
 
@@ -10,7 +10,7 @@ All candidates are private. No live promotion or deployment is implied.
 2. `v2` restores the exact 3,237-byte unrelated Claude CSS tail. The original v1 remains untouched.
 3. `v3` keeps captions in the column throughout active play and adds a native capture listener for scroll-navigation keys from portaled children, with matching cleanup. All 483 tests and both TypeScript checks pass again. No game rules or hidden-world reads change.
 4. `v4` preserves authored alert and target-button styles under the new host. Only CSS differs from v3; TypeScript/test source hashes are identical. Actual Firefox 156.0.1 passes **20 checks**, including real Go solo creation, paid production, movement, saved preferences, exact export/import/load, read-only replay seeking, cleanup, and exact1280×720/150% UI. All144 input pins remain unchanged; observed page/RPC/console/HTTP errors are zero. Native screenshots show Move, Attack-Move, Stop and Hold above the fold, the MORE cue, and an intact SKYBREAKER word. Root then found captions overlapping the resource shoulder at150%. Thus functional success does not constitute visual acceptance.
-5. `v5` changes only the column's top boundary to reserve the resource-shoulder height. The focused native overlap/keyboard/caption-lifetime stress course is pending. Its source and build are frozen separately from v4.
+5. `v5` changes only the column's top boundary to reserve the resource-shoulder height. The focused native overlap/keyboard/caption-lifetime stress course subsequently passed24 functional checks; its strict result remains failed on103 unclassified aborts. See `work/evidence/presentation-ui-stress/README.md`. Its source and build are frozen separately from v4.
 
 The v4 full-App build receipt is `1cf3bf90c23c806f246b441d734332ef50b99d1dc7f42f26af8b0e4752b7ca44`. It keeps4,815 art/runtime/content/font descriptors unchanged from the incomplete v25+36 base. Go0.3.4 is unchanged. No complete roster, long match, full audio, physical LAN or release claim follows from this course.
 

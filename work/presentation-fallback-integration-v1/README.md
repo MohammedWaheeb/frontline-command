@@ -1,0 +1,16 @@
+# Presentation integration, 29 September 2026
+
+The live client now contains the exact five-file delta from the frozen `presentation-fallback-v5` source. All 249 source inputs were checked; the four pre-existing destination hashes had to match their recorded baselines. Only `App.tsx`, `game.css`, `terrain.ts`, `battlefield.ts` and the new `presentation-polish.test.ts` changed. The accepted audio and asset-generation logic, Go0.3.4, game rules and existing art remain unchanged. Nothing was deployed.
+
+Claude authored command priority, clearer MORE indication, intact strategic-action words, compact cameo state strips, fog fan smoothing and larger last-seen plates using exactly `claude-opus-5-5`. After its correction request hit quota without edits, Codex used the user's explicit fallback authorization to correct one remembered/unknown test expectation and place alerts, captions, objectives, strategic review and targeting instructions in a bounded column. Captions keep the same DOM node; native scroll-key capture prevents camera motion from portaled children. The column starts below the resource display. A fresh Claude review remains due after the19:30UTC quota reset.
+
+## Validation and limits
+
+The integrated live source passes all **483 runtime tests**, with zero failures/skips, and both TypeScript checks. `integration.json` records the exact before/after source hashes and all check-log hashes; every destination was verified again after testing.
+
+- Genuine Firefox on v4 passed20 ordinary-App checks, including paid production, movement, save/export/import/load, replay and menu cleanup. Its resource/caption overlap at150% remains a preserved visual failure. v5 changes only the CSS column top boundary.
+- The exact v5 Chromium display-stress course passed24 functional checks at1600×900/100% and1280×720/150%, including complete text wrapping, clipped rectangle disjointness, native scrolling, exact caption identity, zero game orders, invariant Go hash/view and zero resources after disposal. Root directly inspected all three representative native images. Synthetic long display content is not gameplay acceptance. Its overall strict result remains failed on103 unclassified request aborts; page/console/HTTP errors were zero. See `work/evidence/presentation-ui-stress/README.md`.
+- Fog has51 CPU-transition checks and96 flat/raised GPU cases. Every candidate pixel preserves the original constant-fog privacy floor;192 protected remembered/unknown triangle-class comparisons are exact. The separate current-renderer monotonicity test remains failed, with decreases up to13 alpha from visible feather contributions. No tolerance waiver or perfect-render claim follows. See `work/evidence/presentation-privacy-review`.
+- The opening still has isolated tiny fog diamonds at visibility corners. Native last-seen readability at all required scales, every strategic label/cameo, final-art layout and the complete game still require review. Integration is a tested development improvement, not finished visual or release acceptance.
+
+The original Claude source, all rejected fallback versions, failed preparation runs and exact v4/v5 evidence remain preserved. `work/presentation-fallback-checkpoints/through-v5-source-evidence.tar.gz` and its hash manifest preserve the original snapshots; no receipt was overwritten or relabeled.

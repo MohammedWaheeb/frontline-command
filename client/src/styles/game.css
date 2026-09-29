@@ -66,14 +66,14 @@ body:has(.battlefield-screen) .audio-captions{left:calc((100% - var(--fc-hud-sid
 [data-faction=SA]{--faction-paint:#A08655;--faction-accent:#E0C27E;--faction-deep:#2A2316}
 
 /* ---- Tactile keys (HUD) ------------------------------------------------ */
-.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button{
+:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button{
  background:none;border:6px solid transparent;border-image:var(--key) 12 fill / 6px stretch;box-shadow:0 2px 0 #0b0a09;color:#e6dcc2;border-radius:0;
  text-shadow:0 1px 0 #000;
 }
-.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:hover:not(:disabled){border-image-source:var(--key-hover);background:none;color:#fff3d6}
-.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:active:not(:disabled){border-image-source:var(--key-pressed);box-shadow:none;transform:translateY(1px)}
-.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder) button:disabled{border-image-source:var(--key-disabled);opacity:1;filter:none;color:#8a8273}
-.battlefield-screen :is(.command-sidebar,.selection-tray) button.active,.battlefield-screen :is(.command-sidebar,.selection-tray) button[aria-selected=true]{border-image-source:var(--key-active);color:#fff0c4;box-shadow:0 0 0 1px #0b0a09,0 0 12px rgba(226,162,50,.28)}
+:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:hover:not(:disabled){border-image-source:var(--key-hover);background:none;color:#fff3d6}
+:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:active:not(:disabled){border-image-source:var(--key-pressed);box-shadow:none;transform:translateY(1px)}
+:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray,.resource-shoulder) button:disabled{border-image-source:var(--key-disabled);opacity:1;filter:none;color:#8a8273}
+:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray) button.active,:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray) button[aria-selected=true]{border-image-source:var(--key-active);color:#fff0c4;box-shadow:0 0 0 1px #0b0a09,0 0 12px rgba(226,162,50,.28)}
 .battlefield-screen button:focus-visible{outline:2px solid var(--fc-color-focus-ring);outline-offset:1px}
 
 /* ---- The appliance: sidebar plate ------------------------------------------ */
@@ -217,25 +217,25 @@ body:has(.battlefield-screen) .audio-captions{left:calc((100% - var(--fc-hud-sid
 .battlefield-screen .command-grid kbd{position:absolute;top:1px;right:2px;min-width:13px;padding:0 2px;background:#0b0a09;color:var(--lcd);font:calc(12px * var(--fc-ui-scale))/1.15 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000}
 
 /* ---- In-world readouts ------------------------------------------------------ */
-.battlefield-screen .battle-alert{min-height:32px;padding:6px 12px 6px 10px;border:0;border-left:4px solid #8a8273;background:linear-gradient(90deg,rgba(20,19,16,.95),rgba(20,19,16,.82));box-shadow:0 2px 8px rgba(0,0,0,.6),inset 0 1px 0 var(--metal-hi);font:700 calc(14px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.03em;text-transform:uppercase;color:#efe6cf}
-.battlefield-screen .battle-alert .icon{width:17px;height:17px}
-.battlefield-screen .battle-alert.success{border-left-color:#8dba5e}.battlefield-screen .battle-alert.success .icon{color:#8dba5e}
-.battlefield-screen .battle-alert.info .icon{color:var(--brass-hi)}
-.battlefield-screen .battle-alert.warning{border-left-color:#e8a33a}.battlefield-screen .battle-alert.warning .icon{color:#e8a33a}
-.battlefield-screen .battle-alert.critical{border-left-color:#ff4a35;background:linear-gradient(90deg,rgba(70,18,12,.95),rgba(20,19,16,.85))}.battlefield-screen .battle-alert.critical .icon{color:#ff6a4c}
-.battlefield-screen .targeting-hint{background:linear-gradient(90deg,rgba(20,19,16,.96),rgba(20,19,16,.88));border-left:4px solid var(--amber);box-shadow:0 2px 10px rgba(0,0,0,.6),inset 0 1px 0 var(--metal-hi);font:700 calc(16px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase}
-.battlefield-screen .targeting-hint .icon{color:var(--amber-hi)}
-.battlefield-screen .targeting-hint small{text-transform:none;letter-spacing:0;font-size:calc(13px * var(--fc-ui-scale));color:#cfc6ad}
+:is(.battlefield-screen,.battle-information.active) .battle-alert{min-height:32px;padding:6px 12px 6px 10px;border:0;border-left:4px solid #8a8273;background:linear-gradient(90deg,rgba(20,19,16,.95),rgba(20,19,16,.82));box-shadow:0 2px 8px rgba(0,0,0,.6),inset 0 1px 0 var(--metal-hi);font:700 calc(14px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.03em;text-transform:uppercase;color:#efe6cf}
+:is(.battlefield-screen,.battle-information.active) .battle-alert .icon{width:17px;height:17px}
+:is(.battlefield-screen,.battle-information.active) .battle-alert.success{border-left-color:#8dba5e}:is(.battlefield-screen,.battle-information.active) .battle-alert.success .icon{color:#8dba5e}
+:is(.battlefield-screen,.battle-information.active) .battle-alert.info .icon{color:var(--brass-hi)}
+:is(.battlefield-screen,.battle-information.active) .battle-alert.warning{border-left-color:#e8a33a}:is(.battlefield-screen,.battle-information.active) .battle-alert.warning .icon{color:#e8a33a}
+:is(.battlefield-screen,.battle-information.active) .battle-alert.critical{border-left-color:#ff4a35;background:linear-gradient(90deg,rgba(70,18,12,.95),rgba(20,19,16,.85))}:is(.battlefield-screen,.battle-information.active) .battle-alert.critical .icon{color:#ff6a4c}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint{background:linear-gradient(90deg,rgba(20,19,16,.96),rgba(20,19,16,.88));border-left:4px solid var(--amber);box-shadow:0 2px 10px rgba(0,0,0,.6),inset 0 1px 0 var(--metal-hi);font:700 calc(16px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint .icon{color:var(--amber-hi)}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint small{text-transform:none;letter-spacing:0;font-size:calc(13px * var(--fc-ui-scale));color:#cfc6ad}
 .battlefield-screen .countdown{padding:10px 42px 4px;background:linear-gradient(180deg,rgba(11,10,9,.85),rgba(11,10,9,.55));box-shadow:inset 0 0 0 1px #0b0a09,inset 0 1px 0 var(--metal-hi);border-top:3px solid var(--brass);border-bottom:3px solid var(--brass)}
 .battlefield-screen .countdown span{color:var(--brass-hi);font:700 calc(16px * var(--fc-ui-scale)) var(--fc-font-mono);letter-spacing:.35em}
 .battlefield-screen .countdown b{color:var(--lcd);font-weight:800;font-size:calc(104px * var(--fc-ui-scale));text-shadow:0 0 24px rgba(242,179,64,.35),0 4px 0 #000}
 .battlefield-screen .scene-loading{background:radial-gradient(ellipse at 50% 50%,#1e1c18,#0b0a09 75%);color:var(--brass-hi);font:800 calc(24px * var(--fc-ui-scale)) var(--fc-font-display);letter-spacing:.12em;text-transform:uppercase}
 
 /* Field cards over the world (objectives / training) share the console language. */
-.battlefield-screen .mission-objectives{background:linear-gradient(180deg,rgba(30,28,24,.95),rgba(20,19,16,.92));border:0;border-left:4px solid var(--brass);box-shadow:0 3px 12px rgba(0,0,0,.6),inset 0 1px 0 var(--metal-hi)}
-.battlefield-screen .mission-objectives h3{font:800 calc(17px * var(--fc-ui-scale)) var(--fc-font-display);letter-spacing:.08em;color:var(--stencil)}
-.battlefield-screen .mission-objectives p{font-size:calc(13px * var(--fc-ui-scale))}
-.battlefield-screen .mission-objectives .icon{color:var(--brass-hi)}
+:is(.battlefield-screen,.battle-information.active) .mission-objectives{background:linear-gradient(180deg,rgba(30,28,24,.95),rgba(20,19,16,.92));border:0;border-left:4px solid var(--brass);box-shadow:0 3px 12px rgba(0,0,0,.6),inset 0 1px 0 var(--metal-hi)}
+:is(.battlefield-screen,.battle-information.active) .mission-objectives h3{font:800 calc(17px * var(--fc-ui-scale)) var(--fc-font-display);letter-spacing:.08em;color:var(--stencil)}
+:is(.battlefield-screen,.battle-information.active) .mission-objectives p{font-size:calc(13px * var(--fc-ui-scale))}
+:is(.battlefield-screen,.battle-information.active) .mission-objectives .icon{color:var(--brass-hi)}
 
 /* ---- Dialogs: stamped plate with an engraved header --------------------------- */
 .scrim{background:radial-gradient(ellipse at 50% 45%,rgba(8,7,6,.55),rgba(8,7,6,.86))}
@@ -367,11 +367,11 @@ select:hover{border-color:var(--brass-dk)}
  --key-fill-disabled:linear-gradient(180deg,#2a2824,#23211d);
  --plate-fill:linear-gradient(180deg,rgba(255,238,205,.035),transparent 40%),repeating-linear-gradient(90deg,rgba(255,255,255,.011) 0 1px,transparent 1px 3px),linear-gradient(90deg,#2a2823,#34312b 45%,#2b2924);
 }
-button,.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button{border-image:var(--key) 12 / 6px stretch;background:var(--key-fill) padding-box}
-button:hover:not(:disabled),.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:hover:not(:disabled){border-image-source:var(--key-hover);background:var(--key-fill-hover) padding-box}
-button:active:not(:disabled),.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:active:not(:disabled){border-image-source:var(--key-pressed);background:var(--key-fill-pressed) padding-box}
-button:disabled,.battlefield-screen :is(.command-sidebar,.selection-tray,.resource-shoulder) button:disabled{border-image-source:var(--key-disabled);background:var(--key-fill-disabled) padding-box}
-button.active,button.selected,button[aria-pressed=true],.battlefield-screen :is(.command-sidebar,.selection-tray) button.active,.battlefield-screen :is(.command-sidebar,.selection-tray) button[aria-selected=true]{border-image-source:var(--key-active);background:var(--key-fill-active) padding-box}
+button,:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button{border-image:var(--key) 12 / 6px stretch;background:var(--key-fill) padding-box}
+button:hover:not(:disabled),:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:hover:not(:disabled){border-image-source:var(--key-hover);background:var(--key-fill-hover) padding-box}
+button:active:not(:disabled),:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray,.resource-shoulder,.targeting-hint) button:active:not(:disabled){border-image-source:var(--key-pressed);background:var(--key-fill-pressed) padding-box}
+button:disabled,:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray,.resource-shoulder) button:disabled{border-image-source:var(--key-disabled);background:var(--key-fill-disabled) padding-box}
+button.active,button.selected,button[aria-pressed=true],:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray) button.active,:is(.battlefield-screen,.battle-information.active) :is(.command-sidebar,.selection-tray) button[aria-selected=true]{border-image-source:var(--key-active);background:var(--key-fill-active) padding-box}
 button.primary,button.primary:hover:not(:disabled){border-image:none}
 .text-button,.text-button:hover:not(:disabled){background:none}
 /* Production tiles keep their lit well, not the key fill. */
@@ -490,21 +490,32 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
    Cancel carries its bound shortcut. The card spans at most 68% of the field and
    always leaves a caption column of at least 150px (scaled) to its right. */
 :root{--fc-targeting-hint-span:min(calc((100% - var(--fc-hud-sidebar-w)) * .68),calc(100% - var(--fc-hud-sidebar-w) - 68px - 150px * var(--fc-ui-scale)))}
-.battlefield-screen .targeting-hint{right:auto;max-width:var(--fc-targeting-hint-span);display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:3px 10px;padding:6px 8px 7px 11px}
-.battlefield-screen .targeting-hint .hint-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 12px;min-width:0}
-.battlefield-screen .targeting-hint .hint-head>strong{font:inherit;overflow-wrap:anywhere}
-.battlefield-screen .targeting-hint .hint-head>span{white-space:nowrap;font:600 calc(13px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.02em;text-transform:none;color:var(--lcd)}
-.battlefield-screen .targeting-hint>small{grid-column:2 / -1;grid-row:2;min-width:0;line-height:1.3;overflow-wrap:break-word}
-.battlefield-screen .targeting-hint>button{grid-column:3;grid-row:1;gap:6px;font-size:calc(12px * var(--fc-ui-scale))}
-.battlefield-screen .targeting-hint kbd{padding:0 3px;background:#0b0a09;color:var(--lcd);font:calc(12px * var(--fc-ui-scale))/1.2 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000}
-.battlefield-screen .targeting-hint[data-verdict=pending]>small{color:#e8c27a}
-.battlefield-screen .targeting-hint[data-verdict=blocked]{border-left-color:#d7865e}
-.battlefield-screen .targeting-hint[data-verdict=blocked]>small{color:#f0b49a}
-/* While targeting, captions take the column beside the card: 20px past its widest
-   extent, 24px before the sidebar, sharing its baseline above the tray, so the
-   middle of the field (where the placement ghost sits) stays clear. Full text wraps. */
-body:has(.targeting-hint) .audio-captions{left:calc(44px + var(--fc-targeting-hint-span));right:calc(var(--fc-hud-sidebar-w) + 24px);bottom:calc(var(--fc-hud-tray-h) + 14px);width:auto;max-width:none;transform:none}
-body:has(.targeting-hint) .audio-captions p{overflow-wrap:break-word}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint{right:auto;max-width:var(--fc-targeting-hint-span);display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:3px 10px;padding:6px 8px 7px 11px}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint .hint-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 12px;min-width:0}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint .hint-head>strong{font:inherit;overflow-wrap:anywhere}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint .hint-head>span{white-space:nowrap;font:600 calc(13px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.02em;text-transform:none;color:var(--lcd)}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint>small{grid-column:2 / -1;grid-row:2;min-width:0;line-height:1.3;overflow-wrap:break-word}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint>button{grid-column:3;grid-row:1;gap:6px;font-size:calc(12px * var(--fc-ui-scale))}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint kbd{padding:0 3px;background:#0b0a09;color:var(--lcd);font:calc(12px * var(--fc-ui-scale))/1.2 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint[data-verdict=pending]>small{color:#e8c27a}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint[data-verdict=blocked]{border-left-color:#d7865e}
+:is(.battlefield-screen,.battle-information.active) .targeting-hint[data-verdict=blocked]>small{color:#f0b49a}
+
+/* The information column has one vertical budget above the command tray.
+   Its captions stay mounted across every menu/session/target transition.
+   Target orders occupy the bottom row; notices and objectives scroll together. */
+.battle-information.active{position:fixed;z-index:115;left:18px;top:max(20px,calc(var(--fc-hud-shoulder-h) + 8px));bottom:calc(var(--fc-hud-tray-h) + 14px);width:min(calc(330px * var(--fc-ui-scale)),calc(100vw - var(--fc-hud-sidebar-w) - 36px));display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.battle-information.active .battle-information-scroll{min-height:0;flex:0 1 auto;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b09a63 #171812;pointer-events:auto;padding:2px 3px 4px 0}
+.battle-information.active .battle-information-scroll:focus-visible{outline:1px solid var(--brass-hi);outline-offset:2px}
+.battle-information.active .battle-information-orders{display:flex;flex-direction:column;gap:8px}
+.battle-information.active .battle-information-target{flex:none;margin-top:auto;pointer-events:auto}
+.battle-information.active .battle-alerts{position:static;max-width:none;margin:0 0 6px}
+.battle-information.active .battle-alerts:empty{margin:0}
+.battle-information.active :is(.mission-objectives,.strike-review){position:static;width:100%;max-width:none;max-height:none;overflow:visible;flex:none}
+.battle-information.active .targeting-hint{position:static;width:100%;max-width:none;margin:0}
+.battle-information.active .audio-captions{position:static;left:auto;top:auto;right:auto;bottom:auto;width:auto;max-width:none;transform:none;transition:none;margin:0 0 8px}
+.battle-information.active .audio-captions:empty{margin:0}
+.battle-information.active .audio-captions p{overflow-wrap:break-word;text-align:left;padding:5px 10px;font-size:calc(14px * var(--fc-ui-scale));border-left-width:4px;background:linear-gradient(90deg,rgba(20,19,16,.95),rgba(20,19,16,.84))}
 
 /* Command well overflow: brass tabs in the tray's right margin count keys hidden
    above or below the actual scroll position. Static; never animated or flashing. */
@@ -515,3 +526,26 @@ body:has(.targeting-hint) .audio-captions p{overflow-wrap:break-word}
 .battlefield-screen .command-overflow>.more-above::before,.battlefield-screen .command-overflow>.more-below::after{content:'';width:0;height:0;border:5px solid transparent}
 .battlefield-screen .command-overflow>.more-above::before{border-top:0;border-bottom-color:currentColor}
 .battlefield-screen .command-overflow>.more-below::after{border-bottom:0;border-top-color:currentColor}
+
+/* ==========================================================================
+   Presentation polish v1 (Claude, claude-opus-5-5). Refinement of the warm
+   console only: v24 review findings F2-F4 (F1 terrain, F5 world label and the
+   F6 caption rail live in terrain.ts, battlefield.ts and the rule above).
+   ========================================================================== */
+/* F2: the lower tab spells MORE beside its count, read down the tab, so a still
+   frame says "more commands below", not a stray number. A brass rule under the
+   last visible row repeats the cue. Static; nothing animates. */
+.battlefield-screen .command-overflow>.more-below::before{content:'MORE\00a0' attr(data-count);writing-mode:vertical-rl;letter-spacing:.06em;font-size:calc(11px * var(--fc-ui-scale))}
+.battlefield-screen .command-grid:is([data-overflow=below],[data-overflow=both]){box-shadow:inset 0 -2px 0 var(--brass),inset 0 3px 6px #000,inset 0 0 0 1px #000,0 1px 0 var(--metal-hi)}
+
+/* F3: columns leave at least 8px beside the longest single words (SKYBREAKER,
+   COORDINATED) at every UI scale, and a word never breaks mid-letter. */
+.battlefield-screen .command-grid{grid-template-columns:repeat(auto-fill,minmax(calc(88px * var(--fc-ui-scale)),1fr))}
+.battlefield-screen .command-grid button>span{overflow-wrap:normal;word-break:normal;hyphens:manual}
+.battlefield-screen .command-grid button.ability-key{padding-inline:6px 2px;font-size:calc(11px * var(--fc-ui-scale))}
+
+/* F4: a locked or waiting tile keeps one name line and puts its state strip in the
+   second caption line, so the portrait is covered no more than a ready tile's.
+   The full name and reason remain in the accessible name and the tooltip. */
+.battlefield-screen .production-cameo:has(>.disabled-reason){--fc-cameo-caption-h:calc(14px * var(--fc-ui-scale) + 5px)}
+.battlefield-screen .production-cameo:has(>.disabled-reason) .cameo-name{-webkit-line-clamp:1;line-clamp:1}

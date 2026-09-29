@@ -36,19 +36,51 @@ const indexArray=(values:readonly number[])=>values.every(n=>n<65536)?new Uint16
  * reads: each triangle's tile and neighbour, and every tile touching each vertex.
  * Vertices at the same ground point share one tile run. Construction Maps, lists
  * and the `slot` closure live only in this call's scope, so a fragment's runtime
- * closures capture the returned typed arrays and nothing else from here. */
-function fogTopology(triangles:readonly SurfaceTriangle[],width:number,height:number){
- const slotOf=new Map<number,number>(),pointOf=new Map<string,number>(),tileList:number[]=[],pointStart:number[]=[0],pointSlots:number[]=[],vertexPoints:number[]=[];
+ * closures capture the returned typed arrays and nothing else from here.
+ * `fogFanCorners` holds each top triangle's four tile-corner points (NW, NE, SE,
+ * SW), keyed by ground x,y, because a fan's four triangles fall into two depth
+ * fragments; face triangles hold unused zeros. */
+export function fogTopology(triangles:readonly SurfaceTriangle[],width:number,height:number){
+ const slotOf=new Map<number,number>(),pointOf=new Map<string,number>(),tileList:number[]=[],pointStart:number[]=[0],pointSlots:number[]=[],vertexPoints:number[]=[],fanCorners:number[]=[];
  const slot=(tile:number)=>{let s=slotOf.get(tile);if(s===undefined){s=tileList.length;slotOf.set(tile,s);tileList.push(tile)}return s};
+ const pointAt=(x:number,y:number)=>{
+  const key=`${x},${y}`;let point=pointOf.get(key);
+  if(point===undefined){point=pointStart.length-1;pointOf.set(key,point);for(const tile of pointFogTiles(x,y,width,height))pointSlots.push(slot(tile));pointStart.push(pointSlots.length)}
+  return point;
+ };
  for(const triangle of triangles){
   slot(triangle.tile);if(triangle.neighbor!==undefined)slot(triangle.neighbor);
-  for(const v of triangle.vertices){
-   const key=`${v.x},${v.y}`;let point=pointOf.get(key);
-   if(point===undefined){point=pointStart.length-1;pointOf.set(key,point);for(const tile of pointFogTiles(v.x,v.y,width,height))pointSlots.push(slot(tile));pointStart.push(pointSlots.length)}
-   vertexPoints.push(point);
+  for(const v of triangle.vertices)vertexPoints.push(pointAt(v.x,v.y));
+  if(triangle.kind==='top'){const x=triangle.tile%width,y=Math.floor(triangle.tile/width);for(const [dx,dy] of [[0,0],[1,0],[1,1],[0,1]])fanCorners.push(pointAt((x+dx)*1000,(y+dy)*1000))}
+  else fanCorners.push(0,0,0,0);
+ }
+ return {fogTiles:Int32Array.from(tileList),fogPoints:indexArray(vertexPoints),fogPointStart:indexArray(pointStart),fogPointSlots:indexArray(pointSlots),fogFanCorners:indexArray(fanCorners)};
+}
+export type FogTopology=ReturnType<typeof fogTopology>;
+/** Fan-centre ceiling: half of unknown, so boundary ground stays readable. */
+export const FOG_FAN_CENTRE_CAP=128;
+/** Writes three vertex alphas per triangle into `out` and reports whether any
+ * is non-zero. `opacity[k]` is the current opacity of `fogTiles[k]`.
+ * Explored (175) and unknown (255) triangles keep one constant opacity on all
+ * three vertices. Only visible (0) triangles feather: each corner takes the
+ * darkest tile touching that ground point, and a top fan's centre is raised to
+ * the mean of its tile's four corners, capped at FOG_FAN_CENTRE_CAP. On a
+ * straight boundary that mean makes all four fan triangles coplanar, so no
+ * bright crease runs from the centre to the corners; a centre is never lowered. */
+export function fogVertexAlphas(triangles:readonly SurfaceTriangle[],topology:FogTopology,opacity:ArrayLike<number>,visible:readonly boolean[],explored:readonly boolean[],out:Float32Array):boolean{
+ const {fogPoints,fogPointStart,fogPointSlots,fogFanCorners}=topology;
+ const pointAlpha=(point:number)=>{let alpha=0;for(let s=fogPointStart[point];s<fogPointStart[point+1];s++)alpha=Math.max(alpha,opacity[fogPointSlots[s]]);return alpha};
+ let any=false;
+ for(let i=0;i<triangles.length;i++){
+  const base=surfaceFogOpacity(triangles[i],visible,explored);let centre=0;
+  if(base===0&&triangles[i].kind==='top'){let sum=0;for(let c=0;c<4;c++)sum+=pointAlpha(fogFanCorners[i*4+c]);centre=Math.min(FOG_FAN_CENTRE_CAP,sum/4)}
+  for(let j=0;j<3;j++){
+   let alpha=base;
+   if(base===0){alpha=pointAlpha(fogPoints[i*3+j]);if(j===0)alpha=Math.max(alpha,centre)}
+   out[i*3+j]=alpha;any ||= alpha!==0;
   }
  }
- return {fogTiles:Int32Array.from(tileList),fogPoints:indexArray(vertexPoints),fogPointStart:indexArray(pointStart),fogPointSlots:indexArray(pointSlots)};
+ return any;
 }
 /** Fallback painted colours if a material image is missing (never silently blank). */
 const FLAT:Record<Material,string>={sand:'#b59a6a',packed_earth:'#8f7852',gravel_wash:'#998c72',scrub_ground:'#7c7448',gravel:'#8a8272',rubble_ground:'#6f675c',asphalt:'#4a4843',shallow_water:'#64847b',deep_water:'#305e64',coast_sand:'#cbbb8e',ramp:'#937c59'};
@@ -169,9 +201,9 @@ export class TerrainBaker {
    const bounds:Rect={left:Infinity,top:Infinity,right:-Infinity,bottom:-Infinity};
    for(let i=0;i<positions.length;i+=2){bounds.left=Math.min(bounds.left,positions[i]+origin.x);bounds.right=Math.max(bounds.right,positions[i]+origin.x);bounds.top=Math.min(bounds.top,positions[i+1]+origin.y);bounds.bottom=Math.max(bounds.bottom,positions[i+1]+origin.y)}
    // Built once in module scope; only its typed arrays enter this closure scope.
-   const {fogTiles,fogPoints,fogPointStart,fogPointSlots}=fogTopology(triangles,this.map.width,this.map.height);
+   const topology=fogTopology(triangles,this.map.width,this.map.height),{fogTiles}=topology;
    // Opacity of each fog tile at the last recompute; 1 is never a tile opacity.
-   const lastOpacity=new Uint8Array(fogTiles.length).fill(1);
+   const lastOpacity=new Uint8Array(fogTiles.length).fill(1),alphas=new Float32Array(triangles.length*3);
    let shown=true,fogNeeded=true;
    const setFog=(visible:readonly boolean[],explored:readonly boolean[])=>{
     // Read the CURRENT value of every dependency, never array identity or tick.
@@ -184,17 +216,13 @@ export class TerrainBaker {
     // all three vertices, so no sample can differ from before: antialiased MSAA
     // evaluates Pixi's non-centroid vUV at the pixel centre, which may lie outside
     // the triangle, and a varying vUV would then extrapolate below every vertex.
-    // Only visible (0) triangles feather, each vertex taking the darkest tile
-    // touching that ground point; any extrapolation below 0 clamps to texel 0.
-    // The explored/unknown boundary therefore stays hard, while fog softens only
-    // into currently visible ground, and all-clear triangles stay exactly clear.
+    // Only visible (0) triangles feather (see fogVertexAlphas); any extrapolation
+    // below 0 clamps to texel 0. The explored/unknown boundary therefore stays
+    // hard, while fog softens only into currently visible ground, and all-clear
+    // triangles stay exactly clear.
     // lastOpacity now holds this call's opacity for every tile read below.
-    let any=false;
-    for(let i=0;i<triangles.length;i++){const base=surfaceFogOpacity(triangles[i],visible,explored);for(let j=0;j<3;j++){
-     let alpha=base;
-     if(base===0){const point=fogPoints[i*3+j];alpha=0;for(let s=fogPointStart[point];s<fogPointStart[point+1];s++)alpha=Math.max(alpha,lastOpacity[fogPointSlots[s]])}
-     any ||= alpha!==0;fogUVs[i*6+j*2]=alpha===0?0:(alpha+.75)/256;fogUVs[i*6+j*2+1]=.5;
-    }}
+    const any=fogVertexAlphas(triangles,topology,lastOpacity,visible,explored,alphas);
+    for(let v=0;v<alphas.length;v++){const alpha=alphas[v];fogUVs[v*2]=alpha===0?0:(alpha+.75)/256;fogUVs[v*2+1]=.5}
     fogNeeded=any;fog.visible=shown&&any;fogGeometry.attributes.aUV.buffer.update();
    };
    setFog([],[]);

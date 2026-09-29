@@ -1,0 +1,51 @@
+{
+  "status": "integrated-checks-passed",
+  "at": "2026-09-29T15:33:26.335423+00:00",
+  "scope": "Exact v5 five-file presentation delta; no Go, gameplay, audio, art or deployment mutation. Fresh Claude review and full game acceptance remain open.",
+  "sourceLockSHA256": "e5aa5e887730ce67cbdbc31393eba2dae3d83ebaca958c19d8814ae585169bad",
+  "verifiedSourceFiles": 249,
+  "changes": [
+    {
+      "path": "client/src/render/battlefield.ts",
+      "before": "71287e9b173323e64e3e4b711f6c7449e7f2acfcc0a3dc513217281ccb8b086e",
+      "after": "b0ac869e0e825bc11cd934ebfb781a588aa04bc68a4a1041b470818a49a6196c"
+    },
+    {
+      "path": "client/src/render/terrain.ts",
+      "before": "65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656",
+      "after": "6820e55a251ea711e3121033c0f5264ad46c3cb1832a2064a4c511d27d3c3788"
+    },
+    {
+      "path": "client/src/styles/game.css",
+      "before": "c3b43dd3d2054356a185dfa6e952c81f6b3690fd8930acac2b74dad71dbb5011",
+      "after": "5e1fdecdecac61a3258829fad5e3e718dbc4d42b57a17f2101ec6d04049242a9"
+    },
+    {
+      "path": "client/src/ui/App.tsx",
+      "before": "7434ce855daaad980f48c5e5d34401e8fd2b4dcedb72224f32558a583253a37a",
+      "after": "e2d1e07aa00502eb380cfc4ed8468a8d4cd83a373da8dd72c61799e72faf27b2"
+    },
+    {
+      "path": "client/tests/runtime/presentation-polish.test.ts",
+      "before": null,
+      "after": "9c0871b0e978d9ee073601dd805602f6fa893aa0f5514103043dab989916c635"
+    }
+  ],
+  "completed_at": "2026-09-29T15:34:57.800737+00:00",
+  "checks": {
+    "runtime": {
+      "passed": 483,
+      "failed": 0,
+      "sha256": "77f77c801b7e7e30be62f6c6b220319cb25ba9fc1e69a948264d0375661c872e"
+    },
+    "runtimeTypeScript": {
+      "exit": 0,
+      "sha256": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76"
+    },
+    "appTypeScript": {
+      "exit": 0,
+      "sha256": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0"
+    }
+  },
+  "sourceVerifiedAfter": true
+}
