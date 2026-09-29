@@ -1,0 +1,21 @@
+✔ exact consumed hash proves a bounded fact both before/after EOF, never inventing cancellation (0.893625ms)
+✔ missing native hash, wrong hash, truncated byte count and read errors cannot be replaced by served proof (0.54125ms)
+✔ ambiguous URL overlap, realm, identity, service worker and collector faults fail closed (0.184ms)
+✔ POST proof requires exact serial server-written hash, no short write, and matching request count (0.195292ms)
+✔ other network errors stay raw even if a separate byte-integrity fact is complete (0.062334ms)
+✔ only an actual failed negative control and its exact URL/code explain console diagnostics (0.173125ms)
+✔ one native dispatch/read, exact response/result identity, caller-owned lock and copied consumed-byte digest (3.207042ms)
+✔ fetch and read rejections preserve the exact native error object and cannot prove EOF (0.376125ms)
+✔ truncated and wrong-hash bodies remain distinct integrity failures even after actual EOF (0.608833ms)
+✔ native cancellation is forwarded once with exact result and is never filled in from a later failure (0.171209ms)
+✔ observer capacity exhaustion never cancels or changes the native result but excludes proof (0.122833ms)
+✔ redirects and absent hashes cannot be classified using expected served bytes alone (0.070208ms)
+✔ POST advice is observed without reading/logging request bodies, unrelated fetch stays untouched (0.11225ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45.819833
