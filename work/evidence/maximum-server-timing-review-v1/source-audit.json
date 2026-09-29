@@ -1,0 +1,63 @@
+{
+  "reviewed_at": "2026-09-29T17:02:38.930251+00:00",
+  "scope": "Static independent source/diff/inventory review only. No Go compilation, native course, browser, host, or gameplay execution.",
+  "source_lock_sha256": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+  "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "input_sha256": {
+    "work/maximum-load-034-course/README.md": "6e61c2a54ca394e4b71d0a1bf2e131dece1198133eed9b70ac5e2874724d88d5",
+    "work/maximum-load-034-course/server-instrumentation.diff": "c2b7fe07e4e670a498cc49019f021cc6bd4f80fea7e61fcff44162c238973446",
+    "work/maximum-load-034-course/server_maximum_timing_test.go": "f014953ce8253f4684751bde42aeb2055b05c55d8f4dd1ad1870cb797b94be8a",
+    "work/maximum-load-034-course/prepare-server.py": "6bdc6bad1995369313b317b60b2e6e58a89921026e743ea9e78b715decaa7e13",
+    "work/maximum-load-034-course/run-server.py": "6811116576d2e0937aab992c4bc957e81a082c1806044b06e739e1fe0d3eae11",
+    "work/maximum-load-034-course/server-source-lock.json": "4671ae3aae65169d1824a84c200cdeadfe709a6ae821f773538e2e426e20836e",
+    "work/runtime-034-integrated-source/source-lock.json": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "work/combined-load-current/run-02/opening.json": "acdcea47599b98a9feb05df8b795b1166b0885139757e3e7df8d8cc37ecbd582",
+    "work/combined-load-current/run-02/native.json": "65b2a87eda9148643898eb3d12c564a69b46ee5db5c043f79bdc438917d7bd9f",
+    "work/maximum-load-034-course/server-source/pkg/sim/engine.go": "20dc78e3674f378085d453a5f02552145e111a0132dc9a0ea0a1349ee4154f4f",
+    "work/maximum-load-034-course/server-source/pkg/sim/state.go": "c47c577325d38327d10aaf5d488135aa7f62781f07ac319271dd340857b26ce8",
+    "work/maximum-load-034-course/server-source/pkg/sim/orders.go": "4986bd28a877a8e3942354c5cd5e56e72642444a815bb607d1e93925ad3749bd",
+    "work/maximum-load-034-course/server-source/pkg/sim/replay.go": "61aaac6b721bbe688d76174de7216df723d2a8cfe489d29427b5a10bb0e2de40",
+    "work/maximum-load-034-course/server-source/internal/server/observers.go": "25df882a36aa6af0917bbf63149822cb581bd2df4d76ba8443186f7332dcde05",
+    "work/maximum-load-034-course/server-source/internal/server/codec.go": "efab28ed9e829a1128006212ec3e442111e719e7841aad10f6d19ceef72aeb84",
+    "work/maximum-load-034-course/server-source/internal/storage/recovery.go": "af96edfc0a64ac412729ef7ab76fdcd09afdb17e197fb6b39a611d2990b65fef"
+  },
+  "inventory": {
+    "locked_count": 356,
+    "actual_file_count": 357,
+    "missing": [],
+    "unlisted": [
+      ".gitignore"
+    ],
+    "mismatched": [],
+    "changed_from_base": [
+      "internal/server/match.go"
+    ],
+    "added_to_base": [
+      "internal/server/server_maximum_timing_test.go"
+    ]
+  },
+  "fixture": {
+    "commands": 72,
+    "orders": 72,
+    "submission_tick_counts": {
+      "0": 16,
+      "80": 8,
+      "160": 8,
+      "240": 8,
+      "320": 8,
+      "400": 8,
+      "480": 8,
+      "560": 8
+    },
+    "opening_log_records": 0,
+    "opening_log_orders": 0,
+    "initial_hash": "1d50c5db8fd884d213f055465e50da1af63d6569f389e672e77e761b34679f31",
+    "final_hash": "71bf256a2a95d16e3a65c39977e5d247ebcd81b3088495864806fca313beb8c1"
+  },
+  "findings": [
+    "R1: Initial/final source verification can bypass failure receipt finalization.",
+    "R2: Listed-file hash validation does not reject extra compilable source files."
+  ],
+  "production_semantic_blocker_found": false,
+  "timing_execution_status": "UNRUN at this review boundary"
+}
