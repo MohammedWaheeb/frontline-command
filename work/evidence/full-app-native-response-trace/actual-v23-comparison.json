@@ -1,0 +1,109 @@
+{
+  "scope": "Same immutable product, separate Chromium151 and genuine Chrome154 fresh-profile diagnostic probes. Both remain strict failures. No timing, cancellation-cause, decoded-art or full8-layout claims.",
+  "runs": [
+    {
+      "path": "work/battlefield-clarity/chromium-v23-traced-01/browser.json",
+      "bytes": 13440380,
+      "sha256": "b8e8d5d755d111bbc8d6302d68406c62fe724218b6213d69645ba17cbf46c15c",
+      "started": "2026-09-29T08:57:46.448Z",
+      "finished": "2026-09-29T08:58:10.810Z",
+      "status": "failed",
+      "browser": "151.0.7922.34",
+      "identity": {
+        "driverSHA256": "ad244a31f0c2e0f24c643db84de2de3803c493dfca13eabc31521b961a1c0d7b",
+        "originalDriverSHA256": "b0d7705f1a7f994e200dc5edfb07f3a60def00ea84714dd01fdaacbf4f73955d",
+        "basePackSHA256": "d2e53993df9635172a11fb227ac7410bca482969a9ca04258b3d80fe548649e0",
+        "nativeHelperSHA256": "c964161253c10f830bd8525badf1103a3a045c5117b6bf39bdb3796b506e3086",
+        "cdpHelperSHA256": "6ef346cd9b98425c624aa31c52132e7829d314d3a28282011f71b8ac39460809",
+        "wasmSHA256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+        "runtimeVersion": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.4"
+        },
+        "indexSHA256": "0178d9ef89ed3f8e0c57aa3be1f2992c96203f0dbf725bbba27eebdf01c55cf7",
+        "buildReceipt": {
+          "sha256": "0debf4ba46647aa0af24d95ba216463f2ef0025e67b850ffa1749543fbe91777",
+          "sourceDigest": "723651b29547fa9b62e37b1e96d148a2f186ca691f28af558cf8092a793a65c1",
+          "scope": "Captured product code with exact optimized0.3.4 Go, previous frozen incomplete actor art plus71 candidate effects. Browser acceptance is pending; not a complete release or final asset acceptance."
+        }
+      },
+      "functionalCases": [
+        {
+          "id": "1600x900-scale100",
+          "status": "passed",
+          "checkpoints": 20
+        }
+      ],
+      "pageConsoleErrors": 0,
+      "httpErrors": 0,
+      "sourceChanges": 0,
+      "rawFailures": 78,
+      "completedBodyReportsUnderOriginalRule": 1,
+      "unclassifiedReasons": {
+        "no-observed-cancellation-after-eof": 75,
+        "ordinal-cardinality-or-overlap-ambiguous": 2
+      },
+      "diagnosticsAgree": true,
+      "collectorFaults": [],
+      "captureFailures": []
+    },
+    {
+      "path": "work/battlefield-clarity/chrome154-v23-traced-01/browser.json",
+      "bytes": 13746234,
+      "sha256": "f76e7c919c2337ee6de148a925fb7072c1e6f061047550a737bad9db74f77d11",
+      "started": "2026-09-29T09:02:56.071Z",
+      "finished": "2026-09-29T09:03:33.263Z",
+      "status": "failed",
+      "browser": "154.0.8037.58",
+      "identity": {
+        "executable": {
+          "path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "sha256": "633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740",
+          "explicit": true,
+          "profile": "Playwright fresh temporary profile; no user profile"
+        },
+        "driverSHA256": "0822a8fd036247a3b8f98866dda9f0745cd69dd5bf80d133a8c397e9a82cc786",
+        "originalDriverSHA256": "b0d7705f1a7f994e200dc5edfb07f3a60def00ea84714dd01fdaacbf4f73955d",
+        "basePackSHA256": "d2e53993df9635172a11fb227ac7410bca482969a9ca04258b3d80fe548649e0",
+        "nativeHelperSHA256": "c964161253c10f830bd8525badf1103a3a045c5117b6bf39bdb3796b506e3086",
+        "cdpHelperSHA256": "c24450bda284c3a112cdf7c9359058ce05b6bd6a520fb568f3c084dffc31943e",
+        "wasmSHA256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+        "runtimeVersion": {
+          "adapter": "1",
+          "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+          "go": "go1.27.1",
+          "protocol": 1,
+          "simulation": "0.3.4"
+        },
+        "indexSHA256": "0178d9ef89ed3f8e0c57aa3be1f2992c96203f0dbf725bbba27eebdf01c55cf7",
+        "buildReceipt": {
+          "sha256": "0debf4ba46647aa0af24d95ba216463f2ef0025e67b850ffa1749543fbe91777",
+          "sourceDigest": "723651b29547fa9b62e37b1e96d148a2f186ca691f28af558cf8092a793a65c1",
+          "scope": "Captured product code with exact optimized0.3.4 Go, previous frozen incomplete actor art plus71 candidate effects. Browser acceptance is pending; not a complete release or final asset acceptance."
+        }
+      },
+      "functionalCases": [
+        {
+          "id": "1600x900-scale100",
+          "status": "passed",
+          "checkpoints": 20
+        }
+      ],
+      "pageConsoleErrors": 0,
+      "httpErrors": 0,
+      "sourceChanges": 0,
+      "rawFailures": 68,
+      "completedBodyReportsUnderOriginalRule": 0,
+      "unclassifiedReasons": {
+        "no-observed-cancellation-after-eof": 66,
+        "ordinal-cardinality-or-overlap-ambiguous": 2
+      },
+      "diagnosticsAgree": true,
+      "collectorFaults": [],
+      "captureFailures": []
+    }
+  ]
+}

@@ -9,12 +9,12 @@ import {installNativeResponseCDP,reconcileCDPTraces} from './native-response-cdp
 
 // Full frozen App, original Go saves, normal controls only. This driver never
 // calls a fixture API, installs a fake snapshot, or sends a worker RPC itself.
-const usage='node client/tests/render/battlefield-clarity-traced.browser.mjs --product /absolute/frozen/product --saves /absolute/ambient/course --out /absolute/new/evidence [--engine chromium] [--cases 1..8] [--headless true|false]';
+const usage='node client/tests/render/battlefield-clarity-traced.browser.mjs --product /absolute/frozen/product --saves /absolute/ambient/course --out /absolute/new/evidence [--engine chromium] [--cases 1..8] [--headless true|false] [--executable /absolute/browser]';
 if(process.argv.includes('--help')){console.log(usage);process.exit(0)}
 const argv=process.argv.slice(2),args={};
 assert.equal(argv.length%2,0,usage);
 for(let i=0;i<argv.length;i+=2){
- assert(['--product','--saves','--out','--engine','--headless','--cases'].includes(argv[i]),`Unknown argument ${argv[i]}`);
+ assert(['--product','--saves','--out','--engine','--headless','--cases','--executable'].includes(argv[i]),`Unknown argument ${argv[i]}`);
  assert(!Object.hasOwn(args,argv[i]),`Duplicate argument ${argv[i]}`);args[argv[i]]=argv[i+1];
 }
 assert(args['--product']&&args['--saves']&&args['--out'],usage);
@@ -24,6 +24,8 @@ const caseCount=Number(args['--cases']??1);assert(Number.isInteger(caseCount)&&c
 assert(args['--headless']===undefined||['true','false'].includes(args['--headless']));
 const headless=args['--headless']===undefined?engine!=='chromium':args['--headless']==='true';
 const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
+const executable=args['--executable']?await realpath(path.resolve(args['--executable'])):chromium.executablePath();
+const executableIdentity={path:executable,sha256:digest(await readFile(executable)),explicit:!!args['--executable'],profile:'Playwright fresh temporary profile; no user profile'};
 const driverPath=fileURLToPath(import.meta.url),driverBytes=await readFile(driverPath);
 const originalDriverSHA256='b0d7705f1a7f994e200dc5edfb07f3a60def00ea84714dd01fdaacbf4f73955d';
 const basePackBytes=await readFile(path.join(product,'assets/packs/base.json')),basePack=JSON.parse(basePackBytes);
@@ -58,7 +60,7 @@ for(const [key,value] of Object.entries(fixtures))await writeFile(value.importFi
 const report={started:new Date().toISOString(),status:'running',engine,headless,product,saves,
  scope:'Passive native-response/CDP diagnostic copy with '+caseCount+' selected serial layout case(s), not full8 acceptance. Full frozen product UI; real Go practice artillery/memory save and separately earned standard defeat-countdown save. All retained controls and assertions are unchanged for each selected desktop/scale case. No mock snapshots, fixture bridge, direct commands, host, or production edits. Screenshots require visual review; this is not campaign, final-art, GPU-memory, performance, or exhaustive pixel acceptance.',
  tooling:'Browser plugin not available; regular Playwright. Authoring alone does not constitute a browser pass.',
- identity:{driverSHA256:digest(driverBytes),originalDriverSHA256,basePackSHA256:digest(basePackBytes),nativeHelperSHA256:digest(await readFile(new URL('./native-response-trace.mjs',import.meta.url))),cdpHelperSHA256:digest(await readFile(new URL('./native-response-cdp.mjs',import.meta.url))),wasmSHA256:digest(runtimeBytes),runtimeVersion,indexSHA256:digest(await readFile(path.join(product,'index.html'))),buildReceipt},
+ identity:{executable:executableIdentity,driverSHA256:digest(driverBytes),originalDriverSHA256,basePackSHA256:digest(basePackBytes),nativeHelperSHA256:digest(await readFile(new URL('./native-response-trace.mjs',import.meta.url))),cdpHelperSHA256:digest(await readFile(new URL('./native-response-cdp.mjs',import.meta.url))),wasmSHA256:digest(runtimeBytes),runtimeVersion,indexSHA256:digest(await readFile(path.join(product,'index.html'))),buildReceipt},
  fixtures,servedFiles:{},cases:[],errors:[],httpErrors:[],requestFailures:[],sourceChanges:[]};
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.json':'application/json','.wasm':'application/wasm','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.woff2':'font/woff2','.woff':'font/woff','.ogg':'audio/ogg','.mp3':'audio/mpeg','.gz':'application/gzip','.ico':'image/x-icon'};
 // No SPA fallback for missing resources and no fabricated health/API responses.
@@ -290,7 +292,7 @@ async function countdownCourse(page,baseline){
 }
 try{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin=`http://127.0.0.1:${server.address().port}`;
- browser=await({chromium,firefox,webkit})[engine].launch({headless,...engine==='chromium'?{channel:'chromium'}:{}});report.browser=browser.version();
+ browser=await({chromium,firefox,webkit})[engine].launch({headless,...args['--executable']?{executablePath:executable}:{channel:'chromium'}});report.browser=browser.version();
  const layouts=[{width:1600,height:900},{width:1280,height:720},{width:1440,height:900},{width:1728,height:1117}].flatMap(viewport=>[1,1.5].map(scale=>({viewport,scale}))).slice(0,caseCount);
  for(const {viewport,scale} of layouts){
   activeCase={id:`${viewport.width}x${viewport.height}-scale${scale*100}`,viewport,scale,status:'running',checkpoints:[]};report.cases.push(activeCase);phase='first-run';
@@ -346,6 +348,7 @@ finally{
   // Raw requestfailed events remain recorded separately, without a blanket
   // assertion that aborted product transitions were harmless.
   try{assert.deepEqual(report.errors,[]);assert.deepEqual(report.httpErrors,[]);assert.deepEqual(report.sourceChanges,[]);
+   assert.equal(digest(await readFile(executable)),executableIdentity.sha256,'Browser executable changed');
    const d=report.nativeReconciliation;assert.equal(d.diagnosticsAgree,true,'CDP and Playwright final diagnostic ledgers differ');assert.deepEqual(d.collectorFaults,[]);assert.deepEqual(d.captureFailures,[]);
    assert.deepEqual(d.unclassified,[],'Unclassified native/network diagnostic remains');assert.equal(d.classified,d.total);
    for(const snapshot of d.snapshots){assert(snapshot.traces.length>=2,'Reload document scope was not observed');for(const trace of snapshot.traces)assert.deepEqual(trace.faults,[],'Incomplete final native trace');}

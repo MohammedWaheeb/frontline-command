@@ -10,7 +10,7 @@ function fixture(){
  const bind=payload=>ledger.event('Runtime.bindingCalled',{name:'__frontlineNativeResponseBinding',executionContextId:1,payload:JSON.stringify({scope:'doc1',...payload})});
  bind({type:'document',url:'http://127.0.0.1:1234/'});
  const record={scope:'doc1',url,method:'GET',ordinal:1,startedOrder:1,updatedOrder:5,status:200,responseURL:url,redirected:false,readerCount:1,readerMode:'default',bytesRead:3,eofOrder:4,signalAbortOrder:5};
- bind({type:'record',record}); bind({type:'snapshot',reason:'before-close',snapshot:{scope:'doc1',records:[record],faults:[],overflow:0}});
+ bind({type:'record',record:{...record,updatedOrder:4,signalAbortOrder:undefined}}); bind({type:'record',record}); bind({type:'snapshot',reason:'before-close',snapshot:{scope:'doc1',records:[record],faults:[],overflow:0}});
  const request={requestId:'r1',request:{url,method:'GET'},type:'Fetch',frameId:'frame1',loaderId:'loader1',documentURL:'http://127.0.0.1:1234/',initiator:{type:'script',stack:{callFrames:[{scriptId:'s1'}]}}};
  ledger.event('Network.requestWillBeSent',request); ledger.event('Network.responseReceived',{requestId:'r1',response:{url,status:200,fromServiceWorker:false}});
  const fail=()=>ledger.event('Network.loadingFailed',{requestId:'r1',errorText:'net::ERR_ABORTED'});
@@ -71,4 +71,21 @@ test('installation is explicitly page-target-only and uses observation APIs, not
 test('a worker target can never be installed as a page observer',async()=>{
  const session={async send(){return {targetInfo:{type:'worker',targetId:'w'}};}};
  await assert.rejects(installNativeResponseCDP({context:()=>({newCDPSession:async()=>session})},{caseId:'one',origin:'http://127.0.0.1:1234'}),/actual page target/);
+});
+
+test('a later reset cannot classify an earlier network failure, even after exact EOF',()=>{
+ const f=fixture();const record=f.ledger.documents.get('doc1').records.values().next().value;
+ // Preserve the native EOF proof but place its actual abort callback after the
+ // network failure, as the first full-App trace demonstrated.
+ delete record.cdpObserved.signalAbortOrder;f.fail();
+ f.bind({type:'record',record:{...f.record,updatedOrder:6}});
+ f.bind({type:'snapshot',reason:'before-close',snapshot:{scope:'doc1',records:[{...f.record,updatedOrder:6}],faults:[],overflow:0}});
+ const result=f.reconcile();assert.equal(result.completedBodyAbortReports.length,0);
+ assert.equal(result.unclassified[0].reason,'eof-cancellation-network-order-unproved');
+});
+test('snapshot-only cancellation cannot establish its ordering before a network failure',()=>{
+ const f=fixture();const record=f.ledger.documents.get('doc1').records.values().next().value;
+ delete record.cdpObserved.signalAbortOrder;f.fail();
+ f.bind({type:'snapshot',reason:'before-close',snapshot:{scope:'doc1',records:[{...f.record,updatedOrder:6}],faults:[],overflow:0}});
+ assert.equal(f.reconcile().completedBodyAbortReports.length,0);
 });

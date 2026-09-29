@@ -25,7 +25,7 @@ Native records stream through a passive synchronous CDP binding; no collector pr
 
 The product's existing `assets/packs/base.json` supplies independently frozen SHA256/byte expectations. The local static server records exact bytes actually served for each full URL and retains the original missing-resource behavior. A changed file is still a failure. This does not add client-side body hashing or claim a decode succeeded.
 
-After all contexts and the browser close, the copy reconciles the entire CDP ledger with the native traces using the existing narrow classifier. Completed-body abort reports require exact native EOF/bytes and a later observed cancellation, along with unique scoped ordinals, status200 and immutable served identity. They remain **transport reports**, not successful-load/decode claims.
+After all contexts and the browser close, the copy reconciles the entire CDP ledger with the native traces using the existing narrow classifier. Completed-body abort reports require exact native EOF/bytes and a later observed cancellation **before** the network failure, along with unique scoped ordinals, status200 and immutable served identity. They remain **transport reports**, not successful-load/decode claims.
 
 The final gate fails on every unclassified diagnostic, collector/capture fault, source change, page/console/HTTP error or CDP-versus-Playwright diagnostic-count mismatch. The latter compares complete URL/error multisets; it does not pretend Playwright exposes CDP request IDs. Both raw ledgers remain in the report. There is no generic pending-cancel or transition whitelist.
 
@@ -46,3 +46,20 @@ node client/tests/render/battlefield-clarity-traced.browser.mjs \
 ```
 
 Use a new output path for every attempt. The initial browser run must verify actual CDP proof availability and preserve any incomplete join; unit fixtures alone cannot certify the browser's event stream.
+
+## Actual v23 probes (29 September)
+
+Both separate headless1600×900/100% probes completed all20 functional checkpoints, save/replay/minimap/countdown controls and cleanup. Each retained zero page/console/HTTP/source errors, complete final document traces and exact CDP/Playwright diagnostic counts. Both overall results remain **FAILED** under the strict diagnostic gate.
+
+| Browser | Raw abort reports | Exact EOF/size but no observed application cancellation | Other unresolved |
+| --- | ---: | ---: | --- |
+| Bundled Chromium151.0.7922.34 | 78 | 75 | 2 ordinal joins ambiguous; 1 incorrectly attributed by the original temporal rule |
+| Genuine Google Chrome154.0.8037.58 | 68 | 66 | 2 ordinal joins ambiguous |
+
+The exact product, runtime, base-pack, executable and driver hashes plus original receipt hashes are in `work/evidence/full-app-native-response-trace/actual-v23-comparison.json`. The original reports remain at `work/battlefield-clarity/chromium-v23-traced-01/browser.json` and `work/battlefield-clarity/chrome154-v23-traced-01/browser.json`. Chrome used explicit task-local executable SHA256 `633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740` and a fresh Playwright temporary profile. No personal profile/settings changed. The driver now accepts `--executable` and verifies its byte identity again after closure.
+
+The first probe exposed a concrete classifier defect: its one FX report had completed native EOF, then a network error, and a later reset abort. The old matcher required only EOF before abort, so the future reset could incorrectly explain a prior error. The CDP helper now records the actual streamed observation order for EOF/abort/cancel and requires EOF→cancellation→network-failure. A final snapshot cannot backdate that evidence. New regressions reproduce the late reset and snapshot-only ambiguity; all57 focused tracing tests pass. The initial report is preserved unchanged and its apparent one classified report is not accepted as evidence of cancellation cause.
+
+Exact native200/EOF/served-byte identity is a bounded useful fact even without a known cause. It does not prove image decoding, prove that a reported error was benign, or justify suppressing diagnostics. Repeated metadata URLs whose earlier native `Response.json()` consumption was not observed remain ambiguous. The observed counts differ from earlier uninstrumented courses; observer scheduling/GC overhead prevents a rate/performance comparison. The product code and deadline implementation were unchanged between these probes, and neither browser version alone resolved the diagnostics.
+
+No production fetch change is justified yet. A future isolated native-fetch reproduction can distinguish reader/Response lifetime, lock release, synchronous EOF completion and body-consumption APIs against an identical immutable resource. It must preserve strict product receipts; a behavioral experiment is separate from the passive full-App observer. Prior6770 and5104 raw full-layout diagnostics remain unclassified.

@@ -33,7 +33,7 @@ export class NativeResponseCDPLedger {
     doc = {scope: payload.scope, context, records: new Map(), faults: [], overflow: 0, snapshots: [], declared: false}; this.documents.set(payload.scope, doc);
    }
    if (payload.type === 'document') {doc.declared = true; doc.url = payload.url;}
-   else if (payload.type === 'record') {doc.lastRecordOrder = this.order; this.record(doc, payload.record);}
+   else if (payload.type === 'record') {doc.lastRecordOrder = this.order; this.record(doc, payload.record, true);}
    else if (payload.type === 'snapshot') {
     const snapshot = payload.snapshot;
     if (snapshot?.scope !== doc.scope || !Array.isArray(snapshot.records) || !Array.isArray(snapshot.faults)) {this.fault('invalid-snapshot'); return;}
@@ -57,11 +57,19 @@ export class NativeResponseCDPLedger {
    this.failures.push({requestId: `${this.targetId}:${value.requestId}`, url: request?.url, message: value.errorText, canceled: value.canceled, blockedReason: value.blockedReason, order: this.order, ...stamp});
   }
  }
- record(doc, record) {
+ record(doc, record, streamed = false) {
   if (doc.records.size >= this.limit) {this.fault('record-limit'); return;}
   if (!record || record.scope !== doc.scope || typeof record.url !== 'string' || typeof record.method !== 'string' || !Number.isInteger(record.ordinal) || record.ordinal < 1 || !Number.isInteger(record.updatedOrder)) {this.fault('invalid-native-record'); return;}
   const key = JSON.stringify([record.url, record.method, record.ordinal]), prior = doc.records.get(key);
-  if (!prior || record.updatedOrder >= prior.updatedOrder) doc.records.set(key, {...record});
+  if (!prior || record.updatedOrder >= prior.updatedOrder) {
+   // Only the actual streamed callback establishes ordering relative to CDP
+   // loadingFailed. A final snapshot cannot backdate an earlier cancellation.
+   const cdpObserved = {...prior?.cdpObserved};
+   if (streamed) for (const field of ['eofOrder', 'signalAbortOrder', 'cancelOrder']) {
+    if (Number.isInteger(record[field]) && cdpObserved[field] === undefined) cdpObserved[field] = this.order;
+   }
+   doc.records.set(key, {...record, cdpObserved});
+  }
  }
  snapshot() {
   const network = [], ordinals = new Map();
@@ -118,5 +126,14 @@ export function reconcileCDPTraces({ledgers, playwrightFailures, served, expecte
  const counts = values => {const map = new Map(); for (const value of values) {const key = JSON.stringify([value.url, value.message]); map.set(key, (map.get(key) ?? 0) + 1);} return [...map].sort(([a], [b]) => a.localeCompare(b));};
  const nativeCounts = counts(failures), playwrightCounts = counts(playwrightFailures);
  const result = reconcileNativeResponses({engine: 'chromium', failures, network, traces, served, expected});
+ // A later reset must not explain a diagnostic already emitted. Require the
+ // same collector's order: native EOF, native cancellation, network failure.
+ result.completedBodyAbortReports = result.completedBodyAbortReports.filter(report => {
+  const observed = report.nativeReader.cdpObserved, eof = observed?.eofOrder;
+  const cancellations = ['signalAbortOrder', 'cancelOrder'].filter(field => report.nativeReader[field] !== undefined).map(field => observed?.[field]);
+  const proved = Number.isInteger(eof) && cancellations.length > 0 && cancellations.every(order => Number.isInteger(order) && eof < order && order < report.failure.order);
+  if (!proved) result.unclassified.push({failure: report.failure, reason: 'eof-cancellation-network-order-unproved'});
+  return proved;
+ });
  return {...result, afterBrowserClose: true, snapshots, nativeCounts, playwrightCounts, diagnosticsAgree: JSON.stringify(nativeCounts) === JSON.stringify(playwrightCounts), collectorFaults: snapshots.flatMap(value => value.faults), captureFailures: snapshots.flatMap(value => value.captureFailures)};
 }
