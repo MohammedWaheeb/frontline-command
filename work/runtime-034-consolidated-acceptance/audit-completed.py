@@ -37,6 +37,7 @@ audit = dict(source_lock_sha256=LOCK, binary_sha256=BINARY,
              source_files=len(actual), changed_from_original_combined=changed,
              added_to_original_combined=added, production_protocol_content_unchanged=True,
              scope='Native ordinary mission commander; not a product UI or final optimized-runtime qualification', phases=[])
+plan = read(ROOT / 'authored-matrix-plan.json')
 for name in RUNS:
     directory = ROOT / 'authored-runs' / name
     run = read(directory / 'run.json')
@@ -47,6 +48,7 @@ for name in RUNS:
     assert sha(directory / 'source-lock.json') == LOCK == run['source_lock_sha256']
     assert sha(directory / 'sim.test') == BINARY == run['binary_sha256']
     assert len(run['results']) == len({r['case'] for r in run['results']}) == count
+    assert [r['case'] for r in run['results']] == ['/'.join(c) for c in plan['cases'][run['phase']]]
     phase = dict(phase=run['phase'], run=name, run_sha256=sha(directory / 'run.json'),
                  passed=count, failed=0, unrun=0, batches=0, orders=0, receipts=0,
                  receipt_codes={}, cases=[])
@@ -68,6 +70,7 @@ for name in RUNS:
         assert e['Metadata']['simulation'] == '0.3.4' and e['Metadata']['ruleset'] == 'scenario-v2'
         assert e['Outcome'] == dict(finished=True, draw=False, winning_team=1, reason='mission_complete', tick=e['Tick'])
         assert e['Debrief'] is not None
+        assert all(o['complete'] for o in e['Objectives'] if not o['optional'] and not o['failure'])
         batches = e['Orders']
         orders = sum(len(b['orders']) for b in batches)
         results = [r for b in batches for r in b['results']]

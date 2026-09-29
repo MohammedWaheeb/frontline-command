@@ -1,0 +1,632 @@
+{
+  "audit_date_utc": "2026-09-29",
+  "head": "69fabaf185d9b8fced5c2358fcd18f438ab9088b",
+  "candidate_source_lock_sha256": "c7e0d79d1770491cc867037b7c0c69b31ce16738885022130dc3fea59c37d122",
+  "candidate_locked_file_count": 356,
+  "changed_or_added": [
+    {
+      "path": "client/src/protocol/frontline_pb.ts",
+      "category": "generated",
+      "action": "replace_after_review",
+      "live_sha256": "1a143e9e54bf4953edb8425004755f8f879c07e8d9b515d4d661616fd2ebca79",
+      "candidate_sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+    },
+    {
+      "path": "cmd/wasm/combat_feedback_codec_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "7280e23e1978f4ccfbd215652338d1413a30ae8346827141a24e7100b610b8b8"
+    },
+    {
+      "path": "cmd/wasm/editor.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "47910f864cdfe3eae799de85f6816860cf20acfebc45e2e0b100c9ac09609541",
+      "candidate_sha256": "617a155eb5239a6ab3fad4dd3599a6c8ae3ebbf04f60ea8468af7a2a51cdebbc"
+    },
+    {
+      "path": "cmd/wasm/editor_test.go",
+      "category": "test",
+      "action": "replace_after_review",
+      "live_sha256": "5487b1f401ae2653c7d4f5fffdeaecf37b5c191043b663d9420db134868a7e53",
+      "candidate_sha256": "36affb22ff11a1494621e39f98f3007395f8e679258f065884a7401c79765700"
+    },
+    {
+      "path": "cmd/wasm/owner_casualty_codec_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "e81c4f8e86a5746677d90783de2389c0d43ea98b7b0c07080e842a7d6a9a50ab"
+    },
+    {
+      "path": "cmd/wasm/owner_ranges_codec_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "0b60d7c0b12dfcbe60f505b6972fc05dbb75373efec8552a4a19b9e0b7d5c4c0"
+    },
+    {
+      "path": "cmd/wasm/service_parking_candidate_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "ebe06d7ac87e7e57d49017b3f02542eb272bd457b4b3dc0664297878bedd5f5f"
+    },
+    {
+      "path": "cmd/wasm/session.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "727eb5ca09ac352e201e2e14f8595ec1de3392da9a1aa7b1e8516251e506fa3a",
+      "candidate_sha256": "585879f21089ed1818466dc43cc0ac66509a9ae0f005e8ad43c5788385a2ae5b"
+    },
+    {
+      "path": "cmd/wasm/tactical_wire_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "cb8bf9edd29e4d3bb0129c829693c361a89325d1b4f2c84af58dda81c4d572fd"
+    },
+    {
+      "path": "internal/server/advice.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "8e34cdae6f8ba82a5df9131b0458d463bc68f397d7792a25d2b278465879cbac",
+      "candidate_sha256": "d465a14b153dc2129f571834d1c9a0c7d59d636bd322101aafe6ff8605068ce1"
+    },
+    {
+      "path": "internal/server/advice_test.go",
+      "category": "test",
+      "action": "replace_after_review",
+      "live_sha256": "5c7ef7493e23edbca2936f62b68281e6da7189251cd7208c49ae316fc04340bf",
+      "candidate_sha256": "3b545ee3b80c66e08f10248f7dee5f79f8770f18028c2261e0f03924efe88561"
+    },
+    {
+      "path": "internal/server/codec.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "79468bb079b53c08e9f3deb289636770891cff5170a5c81cfb9869317cc1406d",
+      "candidate_sha256": "efab28ed9e829a1128006212ec3e442111e719e7841aad10f6d19ceef72aeb84"
+    },
+    {
+      "path": "internal/server/combat_feedback_codec_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "56b7c767fc447938b1d58bc864c9119cbca2ba944549505140c2b3c310e37400"
+    },
+    {
+      "path": "internal/server/owner_casualty_codec_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "3592bc9e15f811ea9905ca17316f5c1fb804da6c6596e96dbd2f9ce91e09a683"
+    },
+    {
+      "path": "internal/server/owner_ranges_codec_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "56e3058a2195704f6a0e827afc605324bd19de4b9d675fd31bb18d1c905f3664"
+    },
+    {
+      "path": "internal/server/tactical_wire_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "e557b819cdf47e0ccd80af3e82899f5db911bdd4fed7c43424c34833e3be7990"
+    },
+    {
+      "path": "internal/viewproto/gen/main.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "7be98df772de98b2f1b8f9427343c2a06e339628bfab2eb3354f45bef7b610d7"
+    },
+    {
+      "path": "internal/viewproto/snapshot.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "93252f40e30010b13a9b3711d2476e7b213aa04e785a0f880e6261ad8cf85afd"
+    },
+    {
+      "path": "internal/viewproto/snapshot_generated.go",
+      "category": "generated",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "2a641ebbbd143723213953797519b7d9351bbcc5dbb3a5574790330ab664228b"
+    },
+    {
+      "path": "internal/viewproto/snapshot_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "51ce26c5770f5273eada673898a0610aede5987dcda32afa21b7ab1f9519d25a"
+    },
+    {
+      "path": "pkg/native-scenes/IR-retained-US-six.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "aec1558703697448b584e23678626726b97449521a5d91094d52c976f4a0153c"
+    },
+    {
+      "path": "pkg/native-scenes/IR-retained-US-six.save.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "23732867b3da92c1c85cf365ef2c2ec528e05f5b40f5a2ac75e7f86786cf65a9"
+    },
+    {
+      "path": "pkg/native-scenes/IR-six.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "056fda952c22fa426a66d76d1b5e226a3d60479c30cd205880a5737c53cec4c9"
+    },
+    {
+      "path": "pkg/native-scenes/IR-six.save.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "6381fe6373e12931bb2933fc913fdc70a5ea37435159a0bc3895df6192297d38"
+    },
+    {
+      "path": "pkg/native-scenes/SA-four.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "afb657ba04c891b5d390e8380ed87f4432cc1722a6f2495c8a5115ba487f111b"
+    },
+    {
+      "path": "pkg/native-scenes/SA-four.save.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "01f0fa49cbcaaecb126a70b83bc665dba027793c7d00c48b7dbd3938e182553a"
+    },
+    {
+      "path": "pkg/native-scenes/SY-retained-US-six.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "5f530e6fad7298c4315c8233f71de9580e91d792c51eaecefce5a73a25432c39"
+    },
+    {
+      "path": "pkg/native-scenes/SY-retained-US-six.save.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "de1eb059e6cfb315f31daefc548642972f23b1ad3a7186c8de60d6df73371f40"
+    },
+    {
+      "path": "pkg/native-scenes/SY-two.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "7a6d963db44a60ef58319703680417ff87e0218c3566eed809fbce8a23a2f749"
+    },
+    {
+      "path": "pkg/native-scenes/SY-two.save.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "4f33830a92ef6d9f1899dad263740ff9fcf101626a64fa628d6b338b281a01f0"
+    },
+    {
+      "path": "pkg/native-scenes/US-six.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "96a572e460f8566d4e5e941c227eb95d4f60bafffff715cf3477ba871c382266"
+    },
+    {
+      "path": "pkg/native-scenes/US-six.save.json",
+      "category": "excluded_old_fixture",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "ed6474c7d9029f7a7257aa766a3b1ee61a7b5758bfd051133b347daef67c361e"
+    },
+    {
+      "path": "pkg/sim/abilities.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "3081ec3ae1bcd8e458e2c273e7c85a79a7e361331c2bce22cf198b950b1c4072",
+      "candidate_sha256": "d9afee83a85a2977fd687592db81b74cd37eba1a75c4f16a5e075f52108d3c9e"
+    },
+    {
+      "path": "pkg/sim/ai_knowledge.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "cf037e0281b8f3e4dccb43c483d61bef146a05ee2a78802f60add0822dd827e1",
+      "candidate_sha256": "819d16c7d1e86422d77f16a786b3e113ed3e9a3a915c7d8d66eb27427d0020ac"
+    },
+    {
+      "path": "pkg/sim/air_orders_test.go",
+      "category": "test",
+      "action": "replace_after_review",
+      "live_sha256": "cd779892c789171207e42039aa01a457a8ead553fe05114896bf7a06bda39abe",
+      "candidate_sha256": "5b2d0705c2a9cb2b0128ff53d18a1854f728d65305d6edd2259e0285d4649332"
+    },
+    {
+      "path": "pkg/sim/aircraft.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "3d475f53cac62d085418e8224118dc4ea15efb5f22607a1d823a7f328baeb129",
+      "candidate_sha256": "9e8d986429491009311de260edc08c50a3ca374504e5e9c50319228b015b365f"
+    },
+    {
+      "path": "pkg/sim/aircraft_rebase.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "ec7cf51d2d59e72d4bfc5ea1bfe683afb3210fdfcba387eb91cb9757d3bd8882",
+      "candidate_sha256": "0530bd4275d8a11d0c9ca9fea0e9d168a9aa757218be2854e6004746c24f7c9e"
+    },
+    {
+      "path": "pkg/sim/capture_test.go",
+      "category": "test",
+      "action": "replace_after_review",
+      "live_sha256": "ddd90bb116799dc2f81d33e4f16286f8bfa9bef5e35947880ccdd9c7380ce8fe",
+      "candidate_sha256": "aea3135863c4de92156c911fd62f2a5ede6321df7db1ab0ba9c28740a5c4dc2e"
+    },
+    {
+      "path": "pkg/sim/combat.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "6e89db3a73769e1ddd48300058f340c881536d69f321766ea9227f586c24ca02",
+      "candidate_sha256": "ae78599a9a150e2b9b7b1e979504dab338af3048517565dd07ceca709b5bd6da"
+    },
+    {
+      "path": "pkg/sim/combat_feedback.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "334bfe8e31574a534fa0e0432c35e2462aec06b0e26755d224e7b09f8f5a1132"
+    },
+    {
+      "path": "pkg/sim/combat_feedback_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "a7a2a151c87ec8ae15c3abcb0cd9684bb9cfda0a76746fe99c1b45641a53af9e"
+    },
+    {
+      "path": "pkg/sim/combat_rules_projection_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "8b176c1597f594b462e8cea5e5bfbdcbcbb72560b3d5b452d4e7f32a9b411442"
+    },
+    {
+      "path": "pkg/sim/economy.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "904fab61fbbd6d6727e85080387316d73b43f670d7ef0a03a4db34facfa8f9a7",
+      "candidate_sha256": "28698e542a382ce4e1a032fa14867eb8f2af1917be784f772b9a745a30be16d7"
+    },
+    {
+      "path": "pkg/sim/engine.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "a6db4df427da7931f4d12f193b69ea5e6315d0e1e40c3ced7a5442e7cdd80641",
+      "candidate_sha256": "20dc78e3674f378085d453a5f02552145e111a0132dc9a0ea0a1349ee4154f4f"
+    },
+    {
+      "path": "pkg/sim/mission.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "4127718c79f9e40259705069b81eadbacee1dc2a47201995e10c8704e4304b7c",
+      "candidate_sha256": "b2f0dde97c549afd140d8886f535a3702d887b6472159ae537cddc15d02a09bb"
+    },
+    {
+      "path": "pkg/sim/navigation.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "989916085150ec7ebb16b8e5afdff500e013dfcf3a7580795f0db5700493d01c",
+      "candidate_sha256": "c491052f776c4b4e46adcc64b47eabf5137277b6e6105cad05b0760d07288694"
+    },
+    {
+      "path": "pkg/sim/navigation_bridge.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "8a1ff87e688d266d36d987a802c739714cdd5066810ea6b91f921f5a966a7ec1",
+      "candidate_sha256": "8fb5453324956cf9a326688dd1b7e561562e635e6b9ef0ab6e5f68c10fdab2af"
+    },
+    {
+      "path": "pkg/sim/navigation_lookup_reference_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "e2aa8f05e836ef607095581fe72f618c79bc894b20ad8a7246a3ddcc0c3e46c0"
+    },
+    {
+      "path": "pkg/sim/navigation_lookup_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "91056a1dd1258409d9e2e5e98ed7a65682324fb7ea659a64996c979da06ef9b2"
+    },
+    {
+      "path": "pkg/sim/navigation_mobile.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "43b03b2c78177c646a924f2695d708b0f5670df6ef44e69575477566238c2387",
+      "candidate_sha256": "b3215dc7c63fba0c5b2a424fd1632d2ecd9c62f5bbd840177bdf912ad895a73c"
+    },
+    {
+      "path": "pkg/sim/operation_views.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "860484d6f8943fa15fae5cb57405245ca61459001ec129f85c727891bc3fb949",
+      "candidate_sha256": "abbcbf370c2679aea056a74ab9e0f13a5efe7740222ae0d9c7284c784a9b336d"
+    },
+    {
+      "path": "pkg/sim/orders.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "25cd46444abbcd508191806278ebc28c7c93ff5b6f67a3b842c7094f41053737",
+      "candidate_sha256": "4986bd28a877a8e3942354c5cd5e56e72642444a815bb607d1e93925ad3749bd"
+    },
+    {
+      "path": "pkg/sim/owner_casualty_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "cfe64cb5cfaa50a48b5fdaee2c412dfd9a401b382baf88f9de7679c6809c9297"
+    },
+    {
+      "path": "pkg/sim/owner_ranges.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "c3df1ee0952195530afbb874abf63e885405378e2a6e34519dc9cdebe29b815a"
+    },
+    {
+      "path": "pkg/sim/owner_ranges_canonical_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "5d71ad8dd11c1c2453d00f2aca6a36f7b1aa7f22f93e0d91dc395896b4d27703"
+    },
+    {
+      "path": "pkg/sim/owner_ranges_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "b0ea8ff44b9be9a929ae3f79a2bb4f45b47b85a96decb54867bb91ee2d786964"
+    },
+    {
+      "path": "pkg/sim/preview.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "28e12e869276737ffa22801f6b28fc16af80bf0bd983ce448fb7c14abdb6ab37",
+      "candidate_sha256": "b75fb849ecf5b0a58867b9f7c778001f605dedcecf867e90e043356843b7103d"
+    },
+    {
+      "path": "pkg/sim/service_boarding_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "e6056f7ab46b1c0363a6c20c190c31b10f2c1e72bad9d918f91d9f707bb5b483"
+    },
+    {
+      "path": "pkg/sim/service_geometry.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "6474d7a1025c2a68a3b1e9013208bf0138a59a675140429cfc1439ef204a5270",
+      "candidate_sha256": "cfd8affd885e32d39231445494bdf0a4be0e547267ebcf8d9257295b44441424"
+    },
+    {
+      "path": "pkg/sim/service_interactions.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "3c6c87a00809eab30b333e73d205ce53890c59d0afbd0dcfde6b469c098a9a9c"
+    },
+    {
+      "path": "pkg/sim/service_loss.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "8fa439cb12f9ca05b9892c96694d8da1581706f1639e8a16a142f9d182ec36dd",
+      "candidate_sha256": "875e2c2528b0aa3eee0abb985ad4f522a2faeeea7df37e1807a2eb7bca076687"
+    },
+    {
+      "path": "pkg/sim/service_navigation.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "5f58712f529ef8dbafd4bfb9c1daab3e486d1aeba77d35100adbea707c735b42"
+    },
+    {
+      "path": "pkg/sim/service_parking.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "14fd9af9e85757bfa1a7f852f9fe345469bc38f35afeab3c8594c5402df160ae"
+    },
+    {
+      "path": "pkg/sim/service_parking_boundary_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "7eaa0a32adaedf0c785c57acc1721bb541887d8c4c4d410b902e9e0de6d3b31c"
+    },
+    {
+      "path": "pkg/sim/service_parking_candidate_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "1d207f6ecc0bb7e640097f2daca7aa99f26cdf1dc36c20c39bda4baa3eb401f2"
+    },
+    {
+      "path": "pkg/sim/service_parking_combined_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "5b397b671b8bb4089c148a3312ffd9fa706d9005ff81b33905f1cc97d170ea49"
+    },
+    {
+      "path": "pkg/sim/service_parking_invariants_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "219f7ae82c46be3d41b33ef5873c061bdde2cb5ba23025aca980caf75e13c7c9"
+    },
+    {
+      "path": "pkg/sim/service_parking_maximum_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "86e882590227ccf62abe0de7d329519ba7a482f3e5f96f4a38c5beb7afa28511"
+    },
+    {
+      "path": "pkg/sim/service_parking_mission_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "92a4924072e5eb87046c78798afb863a0c77ae00fff4ed3e7ea817aca2d4c162"
+    },
+    {
+      "path": "pkg/sim/sim_test.go",
+      "category": "test",
+      "action": "replace_after_review",
+      "live_sha256": "65d2c405544d52993b364a4020c63e15ec4dff62d68e014405be9d2a46cd0060",
+      "candidate_sha256": "ec6e4206634591fdcdb0018a04856f8738efa44d9069a7ce1a02c3fb2e911d87"
+    },
+    {
+      "path": "pkg/sim/state.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "d82fd401b96e8a9444e05d2a61e7694a57ed15e015a252f8a3f0fd0166d89f58",
+      "candidate_sha256": "c47c577325d38327d10aaf5d488135aa7f62781f07ac319271dd340857b26ce8"
+    },
+    {
+      "path": "pkg/sim/strategic_preview.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "9fd8219a748a739a6608ae9423725f8b8bf5c9914f3bb9d137458debd928291d"
+    },
+    {
+      "path": "pkg/sim/strategic_preview_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "96ea24c97616d68ca4e2df89dfbdef539ef1381c1d5952693368abfdb73aab42"
+    },
+    {
+      "path": "pkg/sim/support.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "2e3c87863762282092d9044a317360b8f8fb475e85c8d62b1490305b23fe1bfc",
+      "candidate_sha256": "a309abb5f8ded98cd169e87547d49e94d98340617f3c306ec2f55ea3ec5e1132"
+    },
+    {
+      "path": "pkg/sim/tactical_canonical_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "08e1e9dbdac69006a01a6484539d0be3440a8c6ac8a001135d139e8d52705a5f"
+    },
+    {
+      "path": "pkg/sim/tactical_view_test.go",
+      "category": "test",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "73449fb013e4e22880c6c4c26ae2df4541fab9614ff7ac6d30f1acce18394dfb"
+    },
+    {
+      "path": "pkg/sim/validate.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "d4929f0038042a8478317c407e5774196ed2adbfc89bd03f3f2585a08cfc53bf",
+      "candidate_sha256": "012e7c7d18ed4e8f9229250114de142177b060b9047f810b279ccdbc6a1bd0fb"
+    },
+    {
+      "path": "pkg/sim/visibility.go",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "1faec02b09ee6c2aefb191a188ba6e2b9d77d721e104d69e2d03ca9e9274c136",
+      "candidate_sha256": "f4cf4977faaa281551565ebd9f7458e447c1879baaea111fe4da649105cd5dd1"
+    },
+    {
+      "path": "pkg/sim/visible_effects.go",
+      "category": "source",
+      "action": "add",
+      "live_sha256": null,
+      "candidate_sha256": "128a9b64f25d54841f572f61c41cea9a01480696d91e8755d05e7e498f445b22"
+    },
+    {
+      "path": "protocol/frontline.pb.go",
+      "category": "generated",
+      "action": "replace_after_review",
+      "live_sha256": "7c2bef7ffaf8c3b213adf0b652ae18474b9d4302379c418686a25d9125320b69",
+      "candidate_sha256": "983df81b0a5b882cfe12aa159a9fd9c221a64a4da8f0cb3641d1576ecac6a28d"
+    },
+    {
+      "path": "protocol/frontline.proto",
+      "category": "source",
+      "action": "replace_after_review",
+      "live_sha256": "bb38be0087ae92453a226c8e04d38f0fffe33b5bee4767dca5a20c3968822014",
+      "candidate_sha256": "52b049c9e87f43d5cc78421e7b1e4c9e6a0db50099fb66fd7a7ea6bc5d5f35fe"
+    }
+  ],
+  "live_only_tracked_files_preserve": [],
+  "runtime": {
+    "built_utc": "2026-09-28T15:10:57.691Z",
+    "source_lock_sha256": "c7e0d79d1770491cc867037b7c0c69b31ce16738885022130dc3fea59c37d122",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.4"
+    },
+    "worker_inputs": {
+      "worker.ts": "67184757fc147d0aacf2cfe94c68c167585adf2ac524e817b6cb552b856d9ef8",
+      "errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77",
+      "types.ts": "3fdeb4ffb5a7b09861b9d69d6df32d9d475a9aa1d016b024116f2a767c37f14f"
+    },
+    "files": {
+      "frontline.wasm": {
+        "bytes": 11237971,
+        "sha256": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65"
+      },
+      "wasm_exec.js": {
+        "bytes": 16992,
+        "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+      },
+      "worker.js": {
+        "bytes": 8144,
+        "sha256": "ea75602152555b60d8049765d7238c54e9650d7afea4c23b949c711093c1706f"
+      },
+      "worker.js.map": {
+        "bytes": 13069,
+        "sha256": "e61551a5b463bd29b3fe76388db8ca8b11dec4199536e50ab188ded77802806d"
+      },
+      "version.json": {
+        "bytes": 169,
+        "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea"
+      },
+      "frontline_pb.ts": {
+        "bytes": 55786,
+        "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+      },
+      "bin/runtime-native": {
+        "bytes": 8629298,
+        "sha256": "7a03f5be61c70a1d03706b1c121f1c503382e66efe2e58e19321b29a7d5400e9"
+      },
+      "bin/frontline-host": {
+        "bytes": 20805138,
+        "sha256": "1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379"
+      }
+    },
+    "shipping_runtime_changed": false
+  },
+  "notes": [
+    "Read-only inventory; no file was promoted.",
+    "Old pkg/native-scenes files are historical evidence, not source or current runtime inputs.",
+    "Existing working-tree test edits and live-only files must not be deleted by directory copy."
+  ]
+}

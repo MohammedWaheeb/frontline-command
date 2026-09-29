@@ -11,7 +11,8 @@ performance, player difficulty or optimal pacing.
 | Main: 24 tutorial, 72 campaign, 6 co-op | 102 | 12,588 | 13,261 / 13,261 |
 | Seven targeted optional routes × three difficulties | 21 | 9,875 | 10,109 / 10,109 |
 
-Every completion has a real team-1 `mission_complete`, meaningful midpoint,
+Every completion has all required main objectives complete, a real team-1
+`mission_complete`, meaningful midpoint,
 available debrief and a distinct failure-branch hash. Winning ledgers contain
 no practice commands or surrender. The common `finish()` gate also verifies the
 midpoint-restored twin, full replay with checkpoints removed, same-seed initial
