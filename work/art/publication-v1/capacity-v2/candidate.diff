@@ -1,0 +1,70 @@
+--- work/art/publication-v1/io.mjs	2026-09-29 23:07:13
++++ work/art/publication-v1/capacity-v2/candidate/io.mjs	2026-09-29 23:37:46
+@@ -22,7 +22,8 @@
+  return {bytes,sha256:h.digest('hex')};
+ }
+ export async function verify(root,d){descriptor(d);const p=await contained(root,d.path);assert.deepEqual(await hashFile(p),{bytes:d.bytes,sha256:d.sha256},`Identity changed ${d.path}`);return p}
+-export async function readJSON(root,d){const p=await verify(root,d);assert(d.bytes<=8*1024**2,'JSON exceeds8MiB');const b=await readFile(p);assert.equal(sha(b),d.sha256);return JSON.parse(b)}
++export const JSON_LIMITS=Object.freeze({asset:8*1024**2,inventory:64*1024**2,publication:128*1024**2});
++export async function readJSON(root,d,kind='asset'){descriptor(d);assert(Object.hasOwn(JSON_LIMITS,kind),'Unknown JSON purpose');assert(d.bytes<=JSON_LIMITS[kind],`${kind} JSON exceeds ${JSON_LIMITS[kind]} bytes`);const p=await verify(root,d);const b=await readFile(p);assert.equal(b.length,d.bytes);assert.equal(sha(b),d.sha256);return JSON.parse(b)}
+ export async function inventory(root){
+  const rows=[];async function walk(dir,rel=''){
+   const entries=await readdir(dir,{withFileTypes:true});entries.sort((a,b)=>a.name.localeCompare(b.name));
+--- work/art/publication-v1/publication.mjs	2026-09-29 23:20:43
++++ work/art/publication-v1/capacity-v2/candidate/publication.mjs	2026-09-29 23:37:46
+@@ -16,7 +16,7 @@
+  return Promise.all(['publication.mjs','io.mjs','cli.mjs','universe.json','upstream-lock.json',...lock.files.map(x=>x.path)].map(p=>pin(HERE,p)));
+ }
+ async function tree(assets){const rows=[];for(const name of ROOTS){const p=path.join(assets,name);if(await absent(p))continue;await contained(assets,name);for(const f of await inventory(p))rows.push({...f,path:name+'/'+f.path})}return rows.sort((a,b)=>a.path.localeCompare(b.path))}
+-async function baseline(root,m){const rows=(await readJSON(root,m.baseline.inventory)).files;unique(rows);assert(rows.every(f=>ROOTS.some(r=>f.path.startsWith(r+'/'))),'Unmanaged baseline path');const assets=await contained(root,m.baseline.assets);assert.deepEqual(await tree(assets),[...rows].sort((a,b)=>a.path.localeCompare(b.path)),'Baseline inventory changed');return rows}
++async function baseline(root,m){const rows=(await readJSON(root,m.baseline.inventory,'inventory')).files;unique(rows);assert(rows.every(f=>ROOTS.some(r=>f.path.startsWith(r+'/'))),'Unmanaged baseline path');const assets=await contained(root,m.baseline.assets);assert.deepEqual(await tree(assets),[...rows].sort((a,b)=>a.path.localeCompare(b.path)),'Baseline inventory changed');return rows}
+ function expectedIds(m,universe){
+  assert(m.format===1&&m.reviewed===true,'Selection must be explicitly reviewed');assert(['fixture','subset','complete'].includes(m.scope));
+  assert(Array.isArray(m.expectedIds)&&m.expectedIds.length>0&&m.expectedIds.length<=162);unique(m.expectedIds.map(id=>({id})),'id');assert(m.expectedIds.every(id=>ID.test(id)));
+@@ -108,7 +108,7 @@
+  }catch(error){await writeJSON(path.join(out,'state.json'),{status:'failed',error:String(error)});throw error}
+ }
+ export async function check({root,out,prepared,write=true}){
+- privateOutput(root,out);await contained(root,path.relative(root,out));const r=await readJSON(out,prepared);assert.equal(r.status,'prepared');assert.deepEqual(await codePins(),r.code,'Publication implementation changed');const p=await load(root,r.selection);await recheck(root,p);assert.deepEqual(p.dependencies,r.dependencies);assert.deepEqual(outputs(p),r.files);await verifyInventory(path.join(out,'assets'),r.files);assert.deepEqual(await graph(path.join(out,'assets'),p),r.runtime);await recheck(root,p);
++ privateOutput(root,out);await contained(root,path.relative(root,out));const r=await readJSON(out,prepared,'publication');assert.equal(r.status,'prepared');assert.deepEqual(await codePins(),r.code,'Publication implementation changed');const p=await load(root,r.selection);await recheck(root,p);assert.deepEqual(p.dependencies,r.dependencies);assert.deepEqual(outputs(p),r.files);await verifyInventory(path.join(out,'assets'),r.files);assert.deepEqual(await graph(path.join(out,'assets'),p),r.runtime);await recheck(root,p);
+  const result={format:1,status:'checked',prepared,selection:r.selection,filesSHA256:sha(Buffer.from(JSON.stringify(r.files))),runtimeSHA256:sha(Buffer.from(JSON.stringify(r.runtime)))};
+  if(write){await writeJSON(path.join(out,'checked.json'),result,{exclusive:true});return pin(out,'checked.json')}return {r,p,result};
+ }
+@@ -116,7 +116,7 @@
+ async function lockInfo(target){const lock=path.join(target,'.publication-lock');await mkdir(lock);return lock}
+ async function exactOrAbsent(p,files){if(await absent(p))return false;await verifyInventory(p,files);return true}
+ export async function promote({root,out,prepared,checked,boundary,hook}){
+- const checkReceipt=await readJSON(out,checked);const {r,p,result}=await check({root,out,prepared,write:false});assert.deepEqual(checkReceipt,result,'Wrong check receipt');
++ const checkReceipt=await readJSON(out,checked,'publication');const {r,p,result}=await check({root,out,prepared,write:false});assert.deepEqual(checkReceipt,result,'Wrong check receipt');
+  if(p.m.scope==='fixture')fixtureTarget(root,p.m);else{assert.equal(p.m.scope,'complete','Incomplete selection cannot promote');assert.equal(p.m.expectedIds.length,162);assert.equal(p.m.baseline.assets,'assets','Live destination is only repository assets');const b=await readJSON(root,boundary);assert(b.readersStopped===true&&b.writersStopped===true&&b.selectionSHA256===r.selection.sha256&&b.target==='assets/build','Explicit exclusive boundary receipt required');assert(typeof b.recordedBy==='string'&&b.recordedBy.length>0);assert(Number.isFinite(Date.parse(b.expiresAt))&&Date.parse(b.expiresAt)>Date.now(),'Exclusive boundary receipt expired')}
+  if(hook)assert.equal(p.m.scope,'fixture','Fault hooks are test-only');
+  const target=await contained(root,p.m.baseline.assets),stage=path.join(out,'assets/build');assert.equal((await lstat(stage)).dev,(await lstat(target)).dev,'Same-filesystem staging required');const lock=await lockInfo(target),token=path.basename(out)+'-'+process.pid;const live=path.join(target,'build'),backup=path.join(target,'.publication-backup-'+token),quarantine=path.join(target,'.publication-failed-'+token);
+@@ -141,7 +141,7 @@
+  await verifyInventory(tx.live,tx.oldFiles);
+ }
+ export async function recover({root,out,prepared,checked}){
+- privateOutput(root,out);const receipt=await readJSON(out,prepared),proof=await readJSON(out,checked);assert.deepEqual(proof,{format:1,status:'checked',prepared,selection:receipt.selection,filesSHA256:sha(Buffer.from(JSON.stringify(receipt.files))),runtimeSHA256:sha(Buffer.from(JSON.stringify(receipt.runtime)))});assert.deepEqual(await codePins(),receipt.code);const selection=await readJSON(root,receipt.selection);
++ privateOutput(root,out);const receipt=await readJSON(out,prepared,'publication'),proof=await readJSON(out,checked,'publication');assert.deepEqual(proof,{format:1,status:'checked',prepared,selection:receipt.selection,filesSHA256:sha(Buffer.from(JSON.stringify(receipt.files))),runtimeSHA256:sha(Buffer.from(JSON.stringify(receipt.runtime)))});assert.deepEqual(await codePins(),receipt.code);const selection=await readJSON(root,receipt.selection);
+  if(selection.scope==='fixture')fixtureTarget(root,selection);else assert(selection.scope==='complete'&&selection.baseline.assets==='assets'&&selection.expectedIds.length===162);
+  const target=await contained(root,selection.baseline.assets),lock=path.join(target,'.publication-lock');
+  const recovered=path.join(out,'transaction-recovered'),committed=path.join(out,'transaction-committed');let journal=lock,already=false;
+@@ -150,7 +150,7 @@
+  const tx=JSON.parse(await readFile(path.join(journal,'transaction.json'),'utf8'));
+  assert(Number.isSafeInteger(tx.pid)&&tx.pid>0,'Invalid transaction owner');
+  assert.equal(tx.root,root);assert.equal(tx.out,out);assert.deepEqual(tx.prepared,prepared);assert.deepEqual(tx.checked,checked);assert.equal(tx.live,path.join(target,'build'));assert.equal(tx.stage,path.join(out,'assets/build'));assert.equal(tx.backup,path.join(target,`.publication-backup-${path.basename(out)}-${tx.pid}`));assert.equal(tx.quarantine,path.join(target,`.publication-failed-${path.basename(out)}-${tx.pid}`));
+- assert.deepEqual(tx.newFiles,receipt.files.filter(x=>x.path.startsWith('build/')).map(x=>({...x,path:x.path.slice(6)})));const base=await readJSON(root,selection.baseline.inventory);assert.deepEqual(tx.oldFiles,base.files.filter(x=>x.path.startsWith('build/')).map(x=>({...x,path:x.path.slice(6)})));
++ assert.deepEqual(tx.newFiles,receipt.files.filter(x=>x.path.startsWith('build/')).map(x=>({...x,path:x.path.slice(6)})));const base=await readJSON(root,selection.baseline.inventory,'inventory');assert.deepEqual(tx.oldFiles,base.files.filter(x=>x.path.startsWith('build/')).map(x=>({...x,path:x.path.slice(6)})));
+  let alive=true;try{process.kill(tx.pid,0)}catch(e){if(e.code==='ESRCH')alive=false;else throw e}assert(!alive,'Transaction owner is still alive; do not steal its lock');
+  if(!await absent(path.join(out,'promotion.json'))){
+   const decision=JSON.parse(await readFile(path.join(out,'promotion.json'),'utf8'));assert.deepEqual(decision,{...tx,phase:'committed'},'Commit decision identity mismatch');await verifyInventory(tx.live,tx.newFiles);await verifyInventory(tx.backup,tx.oldFiles);for(const d of tx.external)await verify(target,d);
+--- work/art/publication-v1/publication.test.mjs	2026-09-29 23:19:35
++++ work/art/publication-v1/capacity-v2/candidate/publication.test.mjs	2026-09-29 23:37:46
+@@ -7,7 +7,7 @@
+ import {fixture} from './fixture.mjs';
+ import {prepare,check,promote,recover} from './publication.mjs';
+ import {pin,inventory,verifyInventory,absent,sha} from './io.mjs';
+-const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../../..'),run=process.env.PUBLICATION_TEST_RUN;assert(/^[a-z0-9-]+$/.test(run??''),'Fresh PUBLICATION_TEST_RUN required');
++const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../../../../..'),run=process.env.PUBLICATION_TEST_RUN;assert(/^[a-z0-9-]+$/.test(run??''),'Fresh PUBLICATION_TEST_RUN required');
+ await mkdir(path.join(here,'fixtures'),{recursive:true});let count=0;
+ const fresh=()=>fixture(root,`${run}-${String(++count).padStart(2,'0')}`);
+ const prep=async f=>{f.selection=await f.seal();f.prepared=await prepare({root,out:f.out,selection:f.selection});return f};

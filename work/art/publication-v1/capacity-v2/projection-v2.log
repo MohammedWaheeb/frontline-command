@@ -1,0 +1,11 @@
+{
+  "at": "2026-09-29T20:41:57.912Z",
+  "scope": "Guaranteed lower bound using captured paths/sizes and zero SHA placeholders only. Omits all potentially replaced sprite/UI output rows plus every additional handoff/source/code/runtime descriptor. No art body reads or hashes.",
+  "inputSHA256": "970c2e18cf3117bf360347fb3d8af362694c51b4b8532d4b8db7672c8934477c",
+  "inputFiles": 41229,
+  "guaranteedPreservedFiles": 38400,
+  "guaranteedPreparedJSONBytes": 15370566,
+  "oldJSONCap": 8388608,
+  "exceedsOldCap": true,
+  "correction": "projection.json used every old output row; that is an unchanged-output scenario, not a guaranteed post-replacement lower bound. The original artifact is preserved."
+}
