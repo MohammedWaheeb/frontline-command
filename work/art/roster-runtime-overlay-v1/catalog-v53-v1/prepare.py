@@ -1,0 +1,16 @@
+"""Append seven byte-preserved historical buildings to a new read-only catalog."""
+from pathlib import Path
+import hashlib,json,subprocess
+B=Path(__file__).resolve().parent;R=B.parents[3];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+prior=R/'work/art/roster-runtime-overlay-v1/catalog-v46-v1/result.json';more=R/'work/art/building-polish-runtime-handoffs-v1/result.json';p=json.loads(prior.read_text());m=json.loads(more.read_text());rows=[];ids=set()
+for row in p['assets']+m['assets']:
+ hpath=R/row['handoff'];want=row.get('handoff_sha256',row.get('sha256'));assert sha(hpath)==want;h=json.loads(hpath.read_text());aid=h['id'];assert aid not in ids;ids.add(aid);rows.append({'id':aid,'handoff':row['handoff'],'handoff_sha256':want,'poses':row['poses'],'files':len(h['files']),'bytes':sum(f['bytes']for f in h['files'].values())})
+assert len(rows)==53;rows.sort(key=lambda r:r['id']);cmd=['node','work/art/roster-runtime-overlay-v1/overlay-v3.mjs','--base-lock','work/art/aircraft-runtime-overlay-v1/base-locks/integration-v25.json','--check',*[r['handoff']for r in rows]];proc=subprocess.run(cmd,cwd=R,text=True,capture_output=True);(B/'adapter-check.log').write_text(proc.stdout+proc.stderr);assert proc.returncode==0,proc.stderr
+index=R/p['reference_base_only']['index'];assert sha(index)==p['reference_base_only']['sha256'];baseids=set(json.loads(index.read_text())['sprites']);expected={s.stem for s in (R/'assets/pipeline/specs').glob('*.json')if s.stem.startswith(('unit.','building.','prop.'))};union=baseids|ids;missing=expected-union
+queue=R/'work/art/prepared-continuation-20260929-v1.json';q=json.loads(queue.read_text());assert len(missing)==61
+# The exact frozen source queues, not presence of partially rendered files, define remaining work.
+planned=set()
+for family in ['work/art/aircraft-final-production-v3','work/art/vehicle-final-production-v1','work/art/building-final-production-v1']:
+ lockpath=R/family/'production-lock.json';lock=json.loads(lockpath.read_text());planned.update(lock['assets'])
+assert planned==missing,(sorted(planned-missing),sorted(missing-planned))
+result={'scope':'Private immutable handoff inventory, not a build/publication command. Reference v25 supplies only49 older base entries in the46 inventory,48 after adding IR battery; explicitly select a source-compatible current base before actual integration. Charge-state renderer/privacy, revised source art and final runtime QA remain separate.','inputs':{str(prior.relative_to(R)):sha(prior),str(more.relative_to(R)):sha(more),str(index.relative_to(R)):sha(index),str(queue.relative_to(R)):sha(queue)},'assets':rows,'totals':{'handoffs':len(rows),'files':sum(r['files']for r in rows),'bytes':sum(r['bytes']for r in rows),'poses':sum(r['poses']for r in rows)},'reference_graph_inventory':{'union_ids':len(union),'base_only_ids':sorted(baseids-ids),'missing_ids':sorted(missing),'missing_ids_exactly_match_approved_remaining_source_queues':True,'warning':'ID presence is not final visual/game acceptance, and base-only IDs are not newly audited handoffs.'},'adapter_check_sha256':sha(B/'adapter-check.log'),'script_sha256':sha(Path(__file__))};out=B/'result.json';assert not out.exists();out.write_text(json.dumps(result,indent=2)+'\n');print(result['totals']);print('Reference graph',len(union),'IDs; planned missing',len(missing))
