@@ -1,0 +1,57 @@
+{
+  "status": "COUNTEREXAMPLE_PROVEN_IN_SOURCE_MATH",
+  "scope": "Read-only actual current fogTopology/fogVertexAlphas, synthetic public visibility mask. No fog candidate or GPU claim.",
+  "proposalReviewSHA256": "5698376cc1b043576288fd829d026188dd3b798fe98f9efcaa469d007ee30b63",
+  "terrainSourceSHA256": "6820e55a251ea711e3121033c0f5264ad46c3cb1832a2064a4c511d27d3c3788",
+  "visibility": [
+    "E V E",
+    "E V E",
+    "U U E"
+  ],
+  "tile": 4,
+  "visibleCardinalNeighbors": [
+    1
+  ],
+  "corners": [
+    175,
+    175,
+    255,
+    255
+  ],
+  "actualTriangleAlphas": [
+    128,
+    175,
+    175,
+    128,
+    175,
+    255,
+    128,
+    255,
+    255,
+    128,
+    255,
+    175
+  ],
+  "proposedConstant": 175,
+  "loweredCornerAlpha": {
+    "before": 255,
+    "after": 175,
+    "delta": -80
+  },
+  "interiorBarycentric": {
+    "eastTriangle": [
+      128,
+      175,
+      255
+    ],
+    "weights": [
+      0.25,
+      0.25,
+      0.5
+    ],
+    "before": 203.25,
+    "after": 175,
+    "delta": -28.25
+  },
+  "conclusion": "The suggested min(cornerAlphas) fill lowers existing 255 corners to175 when explored and unknown neighbours mix. It also lowers a strictly interior affine sample. The claimed vertex/sample nondecrease cannot be accepted as stated. No live or combined terrain was edited."
+}

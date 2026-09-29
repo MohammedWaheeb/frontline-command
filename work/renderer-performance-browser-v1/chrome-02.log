@@ -1,0 +1,34 @@
+baseline flat 0.45 captured
+baseline flat 1 captured
+baseline flat 1.8 captured
+baseline raised 0.45 captured
+baseline raised 1 captured
+baseline raised 1.8 captured
+baseline ramp 0.45 captured
+baseline ramp 1 captured
+baseline ramp 1.8 captured
+baseline cliff 0.45 captured
+baseline cliff 1 captured
+baseline cliff 1.8 captured
+baseline mixed-visibility 0.45 captured
+baseline mixed-visibility 1 captured
+baseline mixed-visibility 1.8 captured
+baseline partial-edge 0.45 captured
+baseline partial-edge 1 captured
+baseline partial-edge 1.8 captured
+{
+  "status": "failed",
+  "captures": 28,
+  "comparisons": 0,
+  "pixelDifferences": [],
+  "raw": {
+    "page": 0,
+    "console": 2,
+    "requestfailed": 59,
+    "http": 0,
+    "cdp": 59,
+    "server": 0
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Original art unavailable: {\"stage\":\"before\",\"snapshotTicks\":[996,1112],\"actor\":{\"id\":66,\"type\":\"US.fighter\",\"position\":{\"$typeName\":\"frontline.v1.Vec\",\"x\":56400,\"y\":80500},\"visible\":true,\"root\":{\"x\":-771.2,\"y\":2190.4},\"bounds\":{\"left\":291.00026,\"top\":150.99976000000015,\"right\":350.00026,\"bottom\":185.99976000000015},\"projected\":{\"x\":320,\"y\":240},\"standIn\":true,\"missingArt\":false,\"painted\":true},\"stats\":{\"frame\":16,\"chunks\":30,\"visibleChunks\":30,\"visibleFragments\":138,\"terrainBytes\":68588160,\"art\":{\"indexedPages\":126,\"residentPages\":13,\"residentBytes\":26859616,\"pickingBytes\":554430},\"terrainReady\":true,\"errors\":[],\"missingArt\":[\"US.fighter\"],\"canvasCount\":1,\"tieGroups\":573},\"pick\":{\"point\":{\"x\":316,\"y\":151},\"hit\":{\"kind\":\"entity\",\"id\":66}}}\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/run.mjs:41:123",
+  "out": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/chrome-02"
+}
