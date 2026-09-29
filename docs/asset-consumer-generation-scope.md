@@ -1,5 +1,7 @@
 # Remaining asset consumers and generation boundaries
 
+Current follow-up (29September2026): audio retry was corrected and integrated in `0299904`, with11 new tests. The private menu scope candidate in `work/menu-generation-consumer-v1/README.md` passes491 total runtime tests and both TypeScript checks and has an independent source review, but native execution/integration remain pending. The inventory below intentionally preserves the original frozen-v3 findings; do not interpret its historical audio gap as an unfixed live issue. Mission presentation and static UI readers remain outside the new scope.
+
 This read-only proposal inventories the client frozen in
 `work/art-generation-consumer-v1/frozen-v3/client`, source lock SHA256
 `a70a5df5cb053b9f1ee96f5ced310b83f99c2514764f6409c27b286d8ab21282`.

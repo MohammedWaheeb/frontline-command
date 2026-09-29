@@ -1,0 +1,71 @@
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {createServer} from 'node:http';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {spawnSync} from 'node:child_process';
+import {build} from '../../client/node_modules/esbuild/lib/main.js';
+import {chromium} from '../../client/node_modules/playwright-core/index.mjs';
+
+const root=process.cwd(),here=path.dirname(fileURLToPath(import.meta.url)),product=path.join(root,'work/presentation-fallback-v5/build-01/product');
+const source=path.join(here,'source/client'),legacy=path.join(root,'work/presentation-fallback-v5/source/client'),out=path.resolve(process.argv[2]??'');assert(process.argv[2],'New output required');await mkdir(out);
+const buildOnly=process.argv.includes('--build-only'),sha=bytes=>createHash('sha256').update(bytes).digest('hex'),json=value=>Buffer.from(JSON.stringify(value));
+const report={status:'preparing',started:new Date().toISOString(),buildOnly,scope:'Actual unchanged menu artwork and React components only, with isolated exact generation fixtures and controlled cancellation. No Go, gameplay, full-App or final-art acceptance.',pins:{},checks:[],errors:[],consoleErrors:[],httpErrors:[],requestFailures:[],requests:[]};
+let browser,page,server,watchdog,phase='preflight',active='canvas-a',hold;const save=()=>writeFile(path.join(out,'result.json'),JSON.stringify(report,null,2)+'\n');
+const pin=async(file,expected)=>{const bytes=await readFile(file),digest=sha(bytes);if(expected)assert.equal(digest,expected,file);report.pins[file]=digest;return bytes};
+const waitBlock=async promise=>{let timer;try{return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Controlled request did not arrive in time')),20000)})])}finally{clearTimeout(timer)}};
+const record=async(name,value)=>{report.checks.push({name,phase,...value});await save()};
+try{
+ await pin(fileURLToPath(import.meta.url));await writeFile(path.join(out,'menu-browser.mjs'),await readFile(fileURLToPath(import.meta.url)));await pin(path.join(here,'menu-fixture.tsx'));await writeFile(path.join(out,'menu-fixture.tsx'),await readFile(path.join(here,'menu-fixture.tsx')));await pin(path.join(here,'source-lock.json'));
+ const lock=JSON.parse(await readFile(path.join(here,'source-lock.json')));for(const[file,digest]of Object.entries(lock.files))await pin(path.join(here,file),digest);
+ const receipt=JSON.parse(await pin(path.resolve(product,'../build.json'),'f9f5befce216281f51d46a180e7764f392119b690e48d85a1f334b924d991f7c'));
+ const packBytes=await pin(path.join(product,'assets/packs/base.json'),receipt.product.packSHA256),pack=JSON.parse(packBytes),descriptors=new Map(pack.files.map(file=>[file.path,file]));
+ const body=async url=>{const item=descriptors.get(url);assert(item,'Undeclared fixture product file: '+url);const bytes=await pin(path.join(product,url),item.sha256);assert.equal(bytes.length,item.bytes);return bytes};
+ const index=JSON.parse(await body('/content/index.json')),artIndex=JSON.parse(await body('/art/index.json'));
+ const variants=new Map();for(const name of ['canvas-a','canvas-b','painted-a','painted-b']){
+  const nextIndex=structuredClone(index),nextArt=structuredClone(artIndex);nextIndex.version='menu-'+name;nextIndex.packs.find(item=>item.id===pack.id).version='menu-'+name;if(name.startsWith('canvas'))delete nextArt.keyArt;
+  const files=new Map([['/content/index.json',json(nextIndex)],['/art/index.json',json(nextArt)]]),nextPack={...pack,version:'menu-'+name,files:pack.files.map(file=>files.has(file.path)?{...file,bytes:files.get(file.path).length,sha256:sha(files.get(file.path))}:file)};
+  files.set('/assets/packs/base.json',json(nextPack));variants.set(name,files);
+  await writeFile(path.join(out,name+'-index.json'),files.get('/content/index.json'));await writeFile(path.join(out,name+'-manifest.json'),files.get('/assets/packs/base.json'));
+ }
+ await pin(path.join(legacy,'src/ui/MenuDiorama.tsx'),'b3d9e33ca26b051ef7b12728063924e44d7f8867a8ddc1bdee8cf2c1b164444c');
+ variants.set('broken-b',new Map([...variants.get('painted-b'),['/assets/packs/base.json',json({})]]));
+ const config={compilerOptions:{noEmit:true,strict:true,skipLibCheck:true,target:'ES2022',module:'ESNext',moduleResolution:'bundler',lib:['ES2022','DOM','DOM.Iterable'],jsx:'react-jsx',paths:{'candidate/*':[path.join(source,'src/*')],'legacy/*':[path.join(legacy,'src/*')],'react':[path.join(root,'client/node_modules/@types/react')],'react/*':[path.join(root,'client/node_modules/@types/react/*')],'react-dom/*':[path.join(root,'client/node_modules/@types/react-dom/*')],'react-dom':[path.join(root,'client/node_modules/@types/react-dom')]}},files:[path.join(here,'menu-fixture.tsx')]};
+ await writeFile(path.join(out,'tsconfig.json'),JSON.stringify(config));const checked=spawnSync(process.execPath,[path.join(root,'client/node_modules/typescript/bin/tsc'),'-p',path.join(out,'tsconfig.json')],{encoding:'utf8',timeout:60000});await writeFile(path.join(out,'typecheck.log'),checked.stdout+checked.stderr);assert.equal(checked.status,0,'Fixture TypeScript failed');
+ await build({entryPoints:[path.join(here,'menu-fixture.tsx')],bundle:true,format:'esm',platform:'browser',target:'es2022',outfile:path.join(out,'bundle.js'),tsconfig:path.join(out,'tsconfig.json'),nodePaths:[path.join(root,'client/node_modules')],jsx:'automatic'});await pin(path.join(out,'bundle.js'));report.status='prepared-browser-unrun';
+ if(!buildOnly){
+  server=createServer(async(req,res)=>{const url=new URL(req.url,'http://fixture.invalid'),selected=active;report.requests.push({phase,url:url.pathname,variant:selected});try{
+   if(url.pathname==='/'){res.setHeader('Content-Type','text/html');return res.end('<!doctype html><html><head><style>html,body,#root{margin:0;width:100%;height:100%;overflow:hidden;background:#16140f}.menu-diorama,.menu-keyart{width:100%;height:100%;display:block}.menu-keyart img{width:100%;height:100%;object-fit:cover}</style></head><body><div id="root"></div><script type="module" src="/bundle.js"></script></body></html>')}
+   if(url.pathname==='/bundle.js'){res.setHeader('Content-Type','text/javascript');return res.end(await readFile(path.join(out,'bundle.js')))}
+   if(url.pathname==='/favicon.ico'){res.statusCode=204;return res.end()}
+   const bytes=variants.get(selected).get(url.pathname)??await body(url.pathname);
+   if(hold&&hold.variant===selected&&hold.path===url.pathname&&!hold.used){hold.used=true;hold.hit();await hold.wait}
+   if(res.destroyed)return;res.setHeader('Content-Type',url.pathname.endsWith('.json')?'application/json':url.pathname.endsWith('.png')?'image/png':'application/octet-stream');res.setHeader('Content-Length',bytes.length);res.setHeader('Cache-Control','no-store');res.end(bytes);
+  }catch(error){report.errors.push({phase,server:String(error)});res.statusCode=500;res.end('Fixture failure')}});
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const url='http://127.0.0.1:'+server.address().port;
+  browser=await chromium.launch({headless:false,channel:'chromium'});watchdog=setTimeout(()=>{report.errors.push({phase,watchdog:'Five-minute native course deadline reached'});hold?.hit();hold?.release();void browser?.close()},300000);page=await browser.newPage({viewport:{width:1600,height:900},deviceScaleFactor:1});report.browser=browser.version();
+  page.on('pageerror',error=>report.errors.push({phase,error:String(error)}));page.on('console',message=>{if(message.type()==='error')report.consoleErrors.push({phase,error:message.text()})});page.on('response',response=>{if(response.status()>=400)report.httpErrors.push({phase,url:response.url(),status:response.status()})});page.on('requestfailed',request=>report.requestFailures.push({phase,url:request.url(),failure:request.failure()}));
+  await page.goto(url);await page.waitForFunction(()=>window.menuQA);
+  const clear=async()=>{await page.evaluate(()=>window.menuQA.clear());await page.waitForFunction(()=>{const s=window.menuQA.observe();return !s.canvases&&!s.resources?.leases&&!s.resources?.inFlight&&!s.resources?.queued});return page.evaluate(()=>window.menuQA.observe())};
+  const canvas=async name=>{await page.waitForFunction(()=>document.querySelector('canvas')?.dataset.ready==='true',{},{timeout:45000});const value=await page.evaluate(()=>window.menuQA.canvasPixels());await page.screenshot({path:path.join(out,name+'.png')});return {width:value.width,height:value.height,pixelsSHA256:sha(Buffer.from(value.data.split(',')[1],'base64')),state:await page.evaluate(()=>window.menuQA.observe())}};
+  for(const [width,height]of [[1600,900],[1280,720]]){
+   await page.setViewportSize({width,height});active='canvas-a';phase=`baseline-canvas-${width}`;await page.evaluate(()=>window.menuQA.mount('legacy'));const baseline=await canvas(phase);await clear();
+   phase=`candidate-canvas-${width}`;await page.evaluate(()=>window.menuQA.mount('candidate'));const candidate=await canvas(phase);assert.equal(candidate.pixelsSHA256,baseline.pixelsSHA256,'Menu composition changed');assert.equal(candidate.state.resources.leases,0);await record('exact unchanged fallback composition',{width,height,baseline,candidate});await clear();
+  }
+  active='painted-a';phase='baseline-painted';await page.evaluate(()=>window.menuQA.mount('legacy'));await page.waitForFunction(()=>{const i=document.querySelector('.menu-keyart img');return i?.complete&&i.naturalWidth>0});const baselinePainted=await page.screenshot({path:path.join(out,phase+'.png')});await clear();
+  phase='candidate-painted';await page.evaluate(()=>window.menuQA.mount('candidate'));await page.waitForFunction(()=>{const i=document.querySelector('.menu-keyart img');return i?.complete&&i.naturalWidth>0&&i.src.startsWith('blob:')});const painted=await page.screenshot({path:path.join(out,phase+'.png')});assert.equal(sha(painted),sha(baselinePainted));await record('exact unchanged painted menu',{pixelsSHA256:sha(painted),state:await page.evaluate(()=>window.menuQA.observe())});
+  phase='failed-painted-replacement';const beforeFailure=await page.evaluate(()=>window.menuQA.observe());active='broken-b';const rejected=await page.evaluate(async()=>{try{await window.menuQA.retry();return false}catch{return true}});assert(rejected);const afterFailure=await page.evaluate(()=>window.menuQA.observe());assert.equal(afterFailure.generation,beforeFailure.generation);assert.equal(afterFailure.paintedSource,beforeFailure.paintedSource);assert.equal(sha(await page.screenshot()),sha(painted));await record('failed replacement retains mounted old image and scope',{beforeFailure,afterFailure});
+  phase='successful-painted-replacement';active='painted-b';await page.evaluate(()=>window.menuQA.retry());await page.waitForFunction(old=>{const s=window.menuQA.observe();return s.painted&&s.paintedSource!==old},beforeFailure.paintedSource);const afterReplacement=await page.evaluate(()=>window.menuQA.observe());assert(afterReplacement.generation.includes('menu-painted-b'));assert.equal(afterReplacement.resources.leases,1);assert.equal(sha(await page.screenshot()),sha(painted));await record('successful replacement selects a new verified image lease',afterReplacement);await clear();
+  const block=variant=>{let hit,release;const reached=new Promise(resolve=>hit=resolve),wait=new Promise(resolve=>release=resolve);hold={variant,path:'/art/terrain/sand.png',used:false,wait,hit,release};return reached};
+  active='canvas-a';phase='unmount-delayed-page';let blocked=block(active);await page.evaluate(()=>window.menuQA.mount('candidate'));await waitBlock(blocked);const cleared=await clear();assert(cleared.scopes.every(scope=>scope.aborted));hold.release();hold=undefined;await record('unmount cancels pending exact-generation image',cleared);
+  active='canvas-a';phase='replace-delayed-page';blocked=block(active);await page.evaluate(()=>window.menuQA.mount('candidate'));await waitBlock(blocked);active='canvas-b';await page.evaluate(()=>window.menuQA.retry());const replaced=await canvas(phase);assert(replaced.state.generation.includes('menu-canvas-b'));assert.equal(replaced.state.resources.leases,0);assert(replaced.state.scopes.every(scope=>scope.aborted));hold.release();hold=undefined;await record('replacement rejects old draw and completes new generation',replaced);await clear();
+  active='canvas-a';phase='resize-delayed-page';blocked=block(active);await page.evaluate(()=>window.menuQA.mount('candidate'));await waitBlock(blocked);await page.setViewportSize({width:1440,height:900});const resized=await canvas(phase);assert.equal(resized.width,1440);assert.equal(resized.state.resources.leases,0);hold.release();hold=undefined;await record('resize cancels old draw and releases replacement images',resized);await clear();
+  phase='cleanup';report.disposal=await page.evaluate(()=>window.menuQA.dispose());assert.equal(report.disposal.canvases,0);assert(report.disposal.scopes.every(scope=>scope.aborted));report.functional='passed';report.status='passed';
+ }
+}catch(error){report.status='failed';report.failure=String(error.stack??error);process.exitCode=1;if(page)await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{})}
+finally{
+ clearTimeout(watchdog);hold?.release();if(page&&!report.disposal)report.failureCleanup=await page.evaluate(()=>window.menuQA?.dispose()).catch(error=>({error:String(error)}));await browser?.close().catch(error=>report.errors.push({close:String(error)}));if(server?.listening)await new Promise(resolve=>server.close(resolve));
+ report.inputsUnchanged=true;for(const[file,digest]of Object.entries(report.pins))if(sha(await readFile(file))!==digest)report.inputsUnchanged=false;
+ report.diagnostics=report.errors.length||report.consoleErrors.length||report.httpErrors.length||report.requestFailures.length?'failed':'passed';if(report.diagnostics==='failed'||!report.inputsUnchanged){report.status='failed';process.exitCode=1}report.finished=new Date().toISOString();await save();console.log(JSON.stringify({status:report.status,functional:report.functional,diagnostics:report.diagnostics,failure:report.failure,out}));
+}

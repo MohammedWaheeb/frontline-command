@@ -25,3 +25,5 @@ Root's actual-App review still sees isolated tiny fog diamonds at the opening vi
 ## Reproducibility
 
 `through-v5-source-evidence.tar.gz` losslessly preserves all five exact source trees, source/build/test receipts, v4 browser text/data evidence, and Claude's quota-failed follow-up. `through-v5-files.json` records each original path, byte count and SHA-256; every archive entry was read back and verified. Native v4 screenshots remain beside their run and the key captures are committed directly. Earlier snapshots and logs are never overwritten or relabeled.
+
+The separate `root-fog-source-evidence.tar.gz` preserves both original root fog drivers, both exact source-input sets, their failed/passed receipts and native screenshots, with all entries verified against `root-fog-files.json`. It includes the failed48-flat-case current-baseline run and the separate96-case original privacy-floor pass, without reclassifying either result. Generated browser bundles are omitted; their source fixtures and bundle metadata remain.
