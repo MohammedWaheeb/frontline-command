@@ -1,0 +1,39 @@
+✔ observer performs one native fetch/read, preserves result identities and observes EOF before signal abort (26.550541ms)
+✔ native rejection object and synchronous throw reach the consumer without retry or substitution (0.574791ms)
+✔ reader rejection and caller cancel retain exact error/reason and are never converted to EOF (0.725042ms)
+✔ nonasset calls pass through and trace overflow remains an explicit classification blocker (0.869708ms)
+✔ the completed-body category requires exact document/request/reader/served identity and a later observed cancellation (0.394542ms)
+✔ does not waive missing request id (0.091708ms)
+✔ does not waive wrong full URL (0.643083ms)
+✔ does not waive wrong method (0.08425ms)
+✔ does not waive worker realm (0.311958ms)
+✔ does not waive different browser (0.496458ms)
+✔ does not waive different failure (0.094209ms)
+✔ does not waive wrong status (0.067833ms)
+✔ does not waive redirect (0.059083ms)
+✔ does not waive service worker (0.069167ms)
+✔ does not waive no EOF (0.111125ms)
+✔ does not waive wrong bytes (0.070833ms)
+✔ does not waive failed read (0.04725ms)
+✔ does not waive missing cancellation (0.05ms)
+✔ does not waive abort before EOF (0.043125ms)
+✔ does not waive cancel before EOF despite later abort (0.042208ms)
+✔ does not waive unverified server bytes (0.043ms)
+✔ does not waive wrong hash (0.039709ms)
+✔ does not waive missing ordinal (0.035083ms)
+✔ does not waive multiple readers (0.029458ms)
+✔ does not waive BYOB reader (0.0425ms)
+✔ does not waive lost records (0.026625ms)
+✔ does not waive observer fault (0.031666ms)
+✔ does not waive duplicate document scope (0.454917ms)
+✔ does not waive duplicate failure (0.0635ms)
+✔ serial repeated URLs use exact ordinal; overlapping or missing peer observations stay ambiguous (0.117417ms)
+✔ a late unmatched close failure remains in final reconciliation and cannot inherit an earlier body (0.047958ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 99.402042

@@ -1,0 +1,50 @@
+{
+  "sourceReport": "work/battlefield-clarity/chromium-09/browser.json",
+  "sourceReportSHA256": "ca7d14b2704b0a22fc5912a966c51cfab8c92c34410a3756fc3954a8d176db9d",
+  "originalStatus": "passed",
+  "scope": "Functional passes with raw unclassified request failures; no retrospective completed-body claim.",
+  "failures": 6770,
+  "messages": {
+    "net::ERR_ABORTED": 6770
+  },
+  "extensions": {
+    ".json": 1723,
+    ".png": 5047
+  },
+  "phases": {
+    "import-before": 1867,
+    "save-replay": 3272,
+    "import-defeat": 1627,
+    "countdown": 4
+  },
+  "cases": {
+    "1600x900-scale100": 896,
+    "1600x900-scale150": 893,
+    "1280x720-scale100": 786,
+    "1280x720-scale150": 830,
+    "1440x900-scale100": 819,
+    "1440x900-scale150": 810,
+    "1728x1117-scale100": 939,
+    "1728x1117-scale150": 797
+  },
+  "allFailedURLsHaveServedIdentity": true,
+  "requestFields": [
+    "case",
+    "message",
+    "phase",
+    "time",
+    "url"
+  ],
+  "pageConsoleErrors": 0,
+  "httpErrors": 0,
+  "sourceChanges": [],
+  "classification": "all 6770 remain unclassified",
+  "newFiles": {
+    "client/tests/render/native-response-trace.mjs": "c964161253c10f830bd8525badf1103a3a045c5117b6bf39bdb3796b506e3086",
+    "client/tests/render/native-response-trace.test.mjs": "8397f5ea2635036abd2451b69d78217542ed6742417025e2a6d17545157abaed",
+    "docs/full-app-response-tracing.md": "5e571cfe3e52de92337df4db0b165d9957f648ba027f42b0aaec26869a739a7c"
+  },
+  "testLogSHA256": "63992767107405715c0c89377c0b507328be5fc99a6030d42a796a001b6a0fb4",
+  "browserOrHostRun": false,
+  "focusedTests": 33
+}

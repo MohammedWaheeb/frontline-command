@@ -1,0 +1,41 @@
+✔ observer performs one native fetch/read, preserves result identities and observes EOF before signal abort (23.787208ms)
+✔ native rejection object and synchronous throw reach the consumer without retry or substitution (0.317875ms)
+✔ reader rejection and caller cancel retain exact error/reason and are never converted to EOF (0.388333ms)
+✔ nonasset calls pass through and trace overflow remains an explicit classification blocker (0.404041ms)
+✔ the completed-body category requires exact document/request/reader/served identity and a later observed cancellation (0.271167ms)
+✔ does not waive missing request id (0.063875ms)
+✔ does not waive wrong full URL (0.363709ms)
+✔ does not waive wrong method (0.075875ms)
+✔ does not waive worker realm (0.078375ms)
+✔ does not waive different browser (0.075708ms)
+✔ does not waive different failure (0.052583ms)
+✔ does not waive wrong status (0.043875ms)
+✔ does not waive redirect (0.042083ms)
+✔ does not waive unknown redirect provenance (0.047666ms)
+✔ does not waive service worker (0.041417ms)
+✔ does not waive unknown service-worker provenance (0.029542ms)
+✔ does not waive no EOF (0.062209ms)
+✔ does not waive wrong bytes (0.033542ms)
+✔ does not waive failed read (0.03375ms)
+✔ does not waive missing cancellation (0.034875ms)
+✔ does not waive abort before EOF (0.029834ms)
+✔ does not waive cancel before EOF despite later abort (0.031625ms)
+✔ does not waive unverified server bytes (0.025459ms)
+✔ does not waive wrong hash (0.02575ms)
+✔ does not waive missing ordinal (0.0235ms)
+✔ does not waive multiple readers (0.031708ms)
+✔ does not waive BYOB reader (0.024ms)
+✔ does not waive lost records (0.022291ms)
+✔ does not waive observer fault (0.022792ms)
+✔ does not waive duplicate document scope (0.325959ms)
+✔ does not waive duplicate failure (0.037125ms)
+✔ serial repeated URLs use exact ordinal; overlapping or missing peer observations stay ambiguous (0.070417ms)
+✔ a late unmatched close failure remains in final reconciliation and cannot inherit an earlier body (0.0375ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 75.455375
