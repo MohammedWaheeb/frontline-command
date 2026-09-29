@@ -1,0 +1,21 @@
+tests/runtime/ground-launcher-payload.test.ts(15,64): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+tests/runtime/ground-launcher-payload.test.ts(15,71): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+tests/runtime/ground-launcher-payload.test.ts(15,140): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+tests/runtime/ground-launcher-payload.test.ts(28,35): error TS2322: Type '{ charges: number; }' is not assignable to type 'EntityPrivate'.
+  Property '$typeName' is missing in type '{ charges: number; }' but required in type 'Message<"frontline.v1.EntityPrivate">'.
+tests/runtime/ground-launcher-payload.test.ts(33,79): error TS2322: Type '{ x: number; y: number; }' is not assignable to type 'Vec'.
+  Property '$typeName' is missing in type '{ x: number; y: number; }' but required in type 'Message<"frontline.v1.Vec">'.
+tests/runtime/ground-launcher-payload.test.ts(61,43): error TS2322: Type '{ charges: number; }' is not assignable to type 'EntityPrivate'.
+  Property '$typeName' is missing in type '{ charges: number; }' but required in type 'Message<"frontline.v1.EntityPrivate">'.
+tests/runtime/ground-launcher-payload.test.ts(72,18): error TS2345: Argument of type '{ $typeName: "frontline.v1.Entity"; $unknown?: UnknownField[] | undefined; id: number; type: string; owner: number; position?: MessageInit<Vec> | undefined; ... 17 more ...; effects: MessageInit<...>[]; } | { ...; }' is not assignable to parameter of type 'Entity'.
+  Type '{ $typeName: "frontline.v1.Entity"; $unknown?: UnknownField[] | undefined; id: number; type: string; owner: number; position?: MessageInit<Vec> | undefined; facing: number; ... 16 more ...; effects: MessageInit<...>[]; }' is not assignable to type 'Entity'.
+    Type '{ $typeName: "frontline.v1.Entity"; $unknown?: UnknownField[] | undefined; id: number; type: string; owner: number; position?: MessageInit<Vec> | undefined; facing: number; ... 16 more ...; effects: MessageInit<...>[]; }' is not assignable to type '{ id: number; type: string; owner: number; position?: Vec | undefined; facing: number; health: number; state: string; complete: boolean; enabled: boolean; landed: boolean; deployed: boolean; ... 10 more ...; effects: StatusEffect[]; }'.
+      Types of property 'position' are incompatible.
+        Type 'MessageInit<Vec> | undefined' is not assignable to type 'Vec | undefined'.
+          Type '{ readonly $typeName?: undefined; x?: number | undefined; y?: number | undefined; }' is not assignable to type 'Vec'.
+            Type '{ readonly $typeName?: undefined; x?: number | undefined; y?: number | undefined; }' is not assignable to type 'Message<"frontline.v1.Vec">'.
+              Types of property '$typeName' are incompatible.
+                Type 'undefined' is not assignable to type '"frontline.v1.Vec"'.

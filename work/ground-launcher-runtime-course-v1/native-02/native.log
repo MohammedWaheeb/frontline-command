@@ -1,0 +1,30 @@
+=== RUN   TestGroundLauncherPayloadCourse
+=== RUN   TestGroundLauncherPayloadCourse/US.launcher
+    launcher_payload_course_test.go:209: arrived at tick650 charges0 stateidle deployedfalse pos{X:22880 Y:30000}
+=== RUN   TestGroundLauncherPayloadCourse/US.launcher-damaged-empty
+    launcher_payload_course_test.go:209: arrived at tick643 charges0 stateidle deployedfalse pos{X:22880 Y:30000}
+=== RUN   TestGroundLauncherPayloadCourse/IR.launcher
+    launcher_payload_course_test.go:209: arrived at tick674 charges0 stateidle deployedfalse pos{X:22880 Y:30000}
+=== RUN   TestGroundLauncherPayloadCourse/IR.launcher-damaged-empty
+    launcher_payload_course_test.go:209: arrived at tick643 charges0 stateidle deployedfalse pos{X:22880 Y:30000}
+=== RUN   TestGroundLauncherPayloadCourse/SY.launcher
+    launcher_payload_course_test.go:209: arrived at tick650 charges0 stateidle deployedfalse pos{X:22860 Y:30000}
+=== RUN   TestGroundLauncherPayloadCourse/SY.launcher-damaged-empty
+    launcher_payload_course_test.go:209: arrived at tick643 charges0 stateidle deployedfalse pos{X:22860 Y:30000}
+=== RUN   TestGroundLauncherPayloadCourse/SA.launcher
+    launcher_payload_course_test.go:209: arrived at tick650 charges0 stateidle deployedfalse pos{X:22880 Y:30000}
+=== RUN   TestGroundLauncherPayloadCourse/SA.launcher-damaged-empty
+    launcher_payload_course_test.go:209: arrived at tick643 charges0 stateidle deployedfalse pos{X:22880 Y:30000}
+=== RUN   TestGroundLauncherPayloadCourse/IR.launcher-cancel-volley
+    launcher_payload_course_test.go:209: arrived at tick644 charges1 stateidle deployedfalse pos{X:22880 Y:30000}
+--- FAIL: TestGroundLauncherPayloadCourse (0.59s)
+    --- FAIL: TestGroundLauncherPayloadCourse/US.launcher (0.08s)
+    --- FAIL: TestGroundLauncherPayloadCourse/US.launcher-damaged-empty (0.06s)
+    --- FAIL: TestGroundLauncherPayloadCourse/IR.launcher (0.09s)
+    --- FAIL: TestGroundLauncherPayloadCourse/IR.launcher-damaged-empty (0.06s)
+    --- FAIL: TestGroundLauncherPayloadCourse/SY.launcher (0.06s)
+    --- FAIL: TestGroundLauncherPayloadCourse/SY.launcher-damaged-empty (0.05s)
+    --- FAIL: TestGroundLauncherPayloadCourse/SA.launcher (0.06s)
+    --- FAIL: TestGroundLauncherPayloadCourse/SA.launcher-damaged-empty (0.05s)
+    --- FAIL: TestGroundLauncherPayloadCourse/IR.launcher-cancel-volley (0.07s)
+FAIL

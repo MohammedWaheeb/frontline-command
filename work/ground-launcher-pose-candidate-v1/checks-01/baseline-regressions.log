@@ -1,0 +1,179 @@
+✖ all four owned launchers retain disclosed empty payload through mobile and transition states (3.617292ms)
+✖ IR first and last shots use separate real cue clocks and current post-shot charges (0.254709ms)
+✖ partial pose aliases preserve progress and current action epoch when knowledge changes (0.17525ms)
+✖ current ownership and private knowledge gate every mobile, ready and firing variant (0.434959ms)
+✖ packing, undeployment and structural interruptions discard launcher shot cues (0.125ms)
+✖ missing variants are an explicit incomplete-art diagnostic and unrelated actors remain unchanged (0.144834ms)
+✖ pending real atlas pages cannot keep stale payload or an expired departing missile (0.635792ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 278.474833
+
+✖ failing tests:
+
+test at .checks/baseline-ground.test.mjs:783:1
+✖ all four owned launchers retain disclosed empty payload through mobile and transition states (3.617292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'idle'
+  - 'idle_charges_0'
+         ^
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-pose-candidate-v1/source/client/.checks/baseline-ground.test.mjs:787:14)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'idle',
+    expected: 'idle_charges_0',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .checks/baseline-ground.test.mjs:798:1
+✖ IR first and last shots use separate real cue clocks and current post-shot charges (0.254709ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'fire'
+  - 'fire_charges_1'
+         ^
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-pose-candidate-v1/source/client/.checks/baseline-ground.test.mjs:801:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'fire',
+    expected: 'fire_charges_1',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .checks/baseline-ground.test.mjs:814:1
+✖ partial pose aliases preserve progress and current action epoch when knowledge changes (0.17525ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'fire'
+  - 'fire_charges_1'
+         ^
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-pose-candidate-v1/source/client/.checks/baseline-ground.test.mjs:817:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'fire',
+    expected: 'fire_charges_1',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .checks/baseline-ground.test.mjs:835:1
+✖ current ownership and private knowledge gate every mobile, ready and firing variant (0.434959ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'ready_empty'
+  - 'ready'
+          ^
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-pose-candidate-v1/source/client/.checks/baseline-ground.test.mjs:840:14)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ready_empty',
+    expected: 'ready',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .checks/baseline-ground.test.mjs:855:1
+✖ packing, undeployment and structural interruptions discard launcher shot cues (0.125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'fire'
+  - 'fire_charges_1'
+         ^
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-pose-candidate-v1/source/client/.checks/baseline-ground.test.mjs:859:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'fire',
+    expected: 'fire_charges_1',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .checks/baseline-ground.test.mjs:867:1
+✖ missing variants are an explicit incomplete-art diagnostic and unrelated actors remain unchanged (0.144834ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'idle_charges_1'
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-pose-candidate-v1/source/client/.checks/baseline-ground.test.mjs:872:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'idle_charges_1',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at .checks/baseline-ground.test.mjs:882:1
+✖ pending real atlas pages cannot keep stale payload or an expired departing missile (0.635792ms)
+  AssertionError [ERR_ASSERTION]: idle cannot stand in for idle_charges_0
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/ground-launcher-pose-candidate-v1/source/client/.checks/baseline-ground.test.mjs:895:61)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

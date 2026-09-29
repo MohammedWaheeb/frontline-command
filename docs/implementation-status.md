@@ -1,6 +1,6 @@
 # Frontline Command implementation status
 
-## Current coordination checkpoint — 29 September 2026, 10:20 UTC
+## Current coordination checkpoint — 29 September 2026, 10:09 UTC
 
 - **The complete game is not ready for release. No deployment.** Integrated Go 0.3.4 retains its exact accepted source/runtime. Current client passes **440 runtime tests and both TypeScript checks**. Remaining work includes complete art, visual review, final-package multiplayer/endurance, offline/local packaging, audio/mix and external hardware/LAN qualification.
 - Offline packaging correction `a53fda9` gives distinct bytes deterministic content versions, propagates the generated index version and commits complete generations under Web Locks. Retired generations cannot resurrect removed paths. Unit coverage includes corrupt/interrupted/canceled installs, concurrent completions and rollback; cross-tab legacy fallback does not claim Web Locks semantics. Root corrected the integration builder to compile the captured current service worker rather than copy the obsolete base worker. Fresh **v25** build `6c4f6f67…2f0`, service worker `7ff452b5…537` and read-only package integrity pass. Real browser transactions/cold-offline acceptance are being prepared, not yet passed.
