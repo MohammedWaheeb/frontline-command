@@ -1,4 +1,5 @@
-import {nativeBuildEnvironment,verifyProduct,verifyNativeExecutable,fileInventory,fileDigest,buildSourceIdentity} from './package-integrity.mjs';
+import {copyDependencyLicenses,copyNpmLicenses} from './package-licenses.mjs';
+import {nativeBuildEnvironment,verifyProduct,verifyNativeExecutable,fileInventory,fileDigest,buildSourceIdentity,resolveGoLicense} from './package-integrity.mjs';
 import {existsSync} from 'node:fs';
 import {spawn,execFileSync} from 'node:child_process';
 import {access,chmod,copyFile,cp,mkdir,mkdtemp,readFile,readdir,rename,stat,writeFile} from 'node:fs/promises';
@@ -58,20 +59,27 @@ async function dev(){
  ]);
  for(const result of results)if(result.status==='rejected')throw result.reason;
 }
-async function licenseFiles(moduleDir,out){
- const names=(await readdir(moduleDir)).filter(name=>/^(license|licence|copying|notice)(\.|$)/i.test(name));let count=0;
- for(const name of names){const from=path.join(moduleDir,name);if((await stat(from)).isFile()){await mkdir(out,{recursive:true});await copyFile(from,path.join(out,name));count++}}
- return count;
-}
 async function licenses(stage){
  const dest=path.join(stage,'licenses');await mkdir(dest,{recursive:true});const rows=['# Third-party notices','','These dependency licenses accompany the local package. UI/art attribution is','maintained by the Claude-authored asset manifest and credits.',''];
- await copyFile(path.join(capture('go',['env','GOROOT']),'LICENSE'),path.join(dest,'Go-LICENSE'));rows.push('- Go runtime and wasm_exec.js: [Go BSD license](Go-LICENSE)');
+ await copyFile(await resolveGoLicense(capture('go',['env','GOROOT'])),path.join(dest,'Go-LICENSE'));rows.push('- Go runtime and wasm_exec.js: [Go BSD license](Go-LICENSE)');
  const modules=capture('go',['list','-m','-json','all']).trim().split(/\n(?=\{)/).map(item=>JSON.parse(item));
- for(const item of modules){if(item.Main)continue;const info=item.Replace??item;if(!info.Dir)throw new Error(`Missing license source for ${item.Path}; run go mod download first.`);const label=`go/${item.Path.replaceAll('/','_')}@${item.Version}`;const count=await licenseFiles(info.Dir,path.join(dest,label));if(!count)throw new Error(`No license file found for Go dependency ${item.Path}`);rows.push(`- ${item.Path} ${item.Version}: [license files](${label}/)`)}
+ for(const item of modules){
+  if(item.Main)continue;let info=item.Replace??item;
+  if(!info.Dir){
+   // Some graph-only dependencies have no zip hash in go.sum, so go list can
+   // omit Dir even after the compiled dependencies are available. Resolve the
+   // exact declared version outside the source tree; Go retains checksum
+   // verification and cannot rewrite this build's frozen go.mod/go.sum.
+   const downloaded=JSON.parse(capture('go',['mod','download','-json',`${info.Path}@${info.Version}`],{cwd:stage,env:{...nativeBuildEnvironment(),GOWORK:'off'}}));
+   if(downloaded.Error||downloaded.Path!==info.Path||downloaded.Version!==info.Version||!downloaded.Dir)throw Error(`Could not resolve license source for ${item.Path}`);
+   info={...info,Dir:downloaded.Dir};
+  }
+  const label=`go/${item.Path.replaceAll('/','_')}@${item.Version}`;const count=await copyDependencyLicenses(info.Dir,path.join(dest,label));if(!count)throw new Error(`No license file found for Go dependency ${item.Path}`);rows.push(`- ${item.Path} ${item.Version}: [license files](${label}/)`);
+ }
  const lock=JSON.parse(await readFile(path.join(client,'package-lock.json'),'utf8'));
  for(const [location,item] of Object.entries(lock.packages??{})){
   if(!location||item.dev)continue;const dir=path.join(client,location),pkg=JSON.parse(await readFile(path.join(dir,'package.json'),'utf8'));const label=`npm/${pkg.name.replaceAll('/','_')}@${pkg.version}`;
-  const count=await licenseFiles(dir,path.join(dest,label));if(!count)throw new Error(`No license file found for npm runtime dependency ${pkg.name}`);rows.push(`- ${pkg.name} ${pkg.version} (${pkg.license??'see license'}): [license files](${label}/)`);
+  const count=await copyNpmLicenses({moduleDir:dir,out:path.join(dest,label),lockEntry:item,supplementRoot:path.join(root,'licenses/npm-supplemental')});if(!count)throw new Error(`No license file found for npm runtime dependency ${pkg.name}`);rows.push(`- ${pkg.name} ${pkg.version} (${pkg.license??'see license'}): [license files](${label}/)`);
  }
  await writeFile(path.join(dest,'README.md'),rows.join('\n')+'\n');
 }

@@ -1,0 +1,31 @@
+{
+  "status": "failed",
+  "scope": "Native macOS arm64 package-layout rehearsal from immutable v25+36 art/runtime. Not the make build pipeline or a complete release; no browser acceptance yet.",
+  "commands": [],
+  "checks": {
+    "originalProduct": {
+      "files": 4868,
+      "bytes": 591439212,
+      "id": "2.0.0",
+      "version": "content-v1-16a3f6e7109ae772d0ffdcf499e24fc10a714410815b1ba17409d38da528de55",
+      "packSHA256": "0fc30f4517ec9e36c8791ff9a4bd331ea166247dff7f68b9bc6b05bd643d62ee",
+      "runtime": {
+        "adapter": "1",
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "go": "go1.27.1",
+        "protocol": 1,
+        "simulation": "0.3.4"
+      },
+      "inventoryFiles": 4895,
+      "scope": "Read-only static integrity; no browser boot, MIME response, art completeness or release certification"
+    },
+    "executable": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "GOOS": "darwin",
+      "GOARCH": "arm64",
+      "machine": 16777228
+    }
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(actual.Dir)\n\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/local-package-v25/assemble.mjs:44:123"
+}

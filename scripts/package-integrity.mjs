@@ -13,6 +13,18 @@ export function portablePath(name){
  return name;
 }
 export async function fileDigest(file){const hash=createHash('sha256');let bytes=0;for await(const chunk of createReadStream(file)){hash.update(chunk);bytes+=chunk.length}return {bytes,sha256:hash.digest('hex')}}
+/** Official archives keep LICENSE in GOROOT. Homebrew keeps it one directory
+ * above its libexec GOROOT. Never silently omit it or substitute another license. */
+export async function resolveGoLicense(goRoot){
+ const candidates=[path.join(goRoot,'LICENSE')];
+ if(path.basename(goRoot)==='libexec')candidates.push(path.join(path.dirname(goRoot),'LICENSE'));
+ for(const file of candidates){
+  let text;try{text=await readFile(file,'utf8')}catch(error){if(error.code==='ENOENT')continue;throw error}
+  if(!text.includes('The Go Authors')||!text.includes('Redistribution and use in source and binary forms')||!text.includes('THIS SOFTWARE IS PROVIDED'))throw Error(`Unrecognized Go runtime license: ${file}`);
+  return file;
+ }
+ throw Error(`Go runtime LICENSE is missing from the toolchain: ${goRoot}`);
+}
 export async function fileInventory(root){
  const files=[],seen=new Set();
  async function walk(dir,prefix=''){for(const name of (await readdir(dir)).sort()){

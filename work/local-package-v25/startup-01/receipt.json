@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "scope": "Native macOS arm64 localhost launch and HTTP/static integrity only; not actual browser play, final release, Windows/Linux or physical LAN acceptance.",
+  "pathContainsSpaces": true,
+  "cwd": "/private/tmp",
+  "PATH": "/usr/bin:/bin",
+  "requests": [
+    {
+      "path": "/",
+      "status": 200,
+      "mime": "text/html; charset=utf-8",
+      "bytes": 1504,
+      "sha256": "f3f5a23f57b8020aabed28737db6ac81e94964be906c643369f0406ccfa40f57"
+    },
+    {
+      "path": "/service-worker.js",
+      "status": 200,
+      "mime": "text/javascript; charset=utf-8",
+      "bytes": 3917,
+      "sha256": "7ff452b5702d26fa936bc5b2869da131538622a01f6df652c5ac1bf57564b537"
+    },
+    {
+      "path": "/runtime/worker.js",
+      "status": 200,
+      "mime": "text/javascript; charset=utf-8",
+      "bytes": 8198,
+      "sha256": "ced862a30a9d91dbab59befcf6ea0e4af9dabfc289acffbe7678a6dd33b2bed9"
+    },
+    {
+      "path": "/runtime/frontline.wasm",
+      "status": 200,
+      "mime": "application/wasm",
+      "bytes": 11237971,
+      "sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae"
+    },
+    {
+      "path": "/runtime/version.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 169,
+      "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea"
+    },
+    {
+      "path": "/content/index.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 31168,
+      "sha256": "1d1b3b117849faaf7781087aa9722cdca39683082d4ba91f603f6ff971a32add"
+    },
+    {
+      "path": "/art/index.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 9386,
+      "sha256": "f214f5dcf1f3459476bf6758e8d51815b383fa473e36015e292ed8f2ba9dc1a5"
+    },
+    {
+      "path": "/assets/packs/base.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 923991,
+      "sha256": "0fc30f4517ec9e36c8791ff9a4bd331ea166247dff7f68b9bc6b05bd643d62ee"
+    },
+    {
+      "path": "/art/fx/building/construction_dust/page0.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 146737,
+      "sha256": "fceb283cef5f7cf1d858ef6f846cb9a9e9c12ba898fb77e0757d7d8a6f42d526"
+    },
+    {
+      "path": "/api/v1/content",
+      "status": 200,
+      "jsonType": "object",
+      "bytes": 32157
+    },
+    {
+      "path": "/api/v1/maps",
+      "status": 200,
+      "jsonType": "array",
+      "bytes": 9741
+    },
+    {
+      "path": "/api/v1/missions",
+      "status": 200,
+      "jsonType": "array",
+      "bytes": 21324
+    }
+  ],
+  "packageManifestSHA256": "bc4fe56b9490a493b41725367c9f7c1d8912c522307df09804b228939a6e40c9",
+  "pid": 71653,
+  "health": {
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "local": true,
+    "protocol": 1,
+    "simulation": "0.3.4",
+    "status": "ok",
+    "tick_rate": 20
+  },
+  "profileCreatedAndAuthenticated": true,
+  "originalPackageFilesUnchanged": true,
+  "hostExit": {
+    "code": 0,
+    "signal": null
+  },
+  "hostClosed": true,
+  "driverSHA256": "3a075b3cc67f4dabbe1b77b88146fd161c5597afec0a57b97aa86c0980e6a0df"
+}
