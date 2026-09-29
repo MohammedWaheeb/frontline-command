@@ -1,0 +1,168 @@
+PASS all per-tile boolean combinations on flat, raised/cliff and asymmetric edges
+PASS chunk boundaries, perspectives, in-place mutation, sparse/missing vectors, hide/update/show, rewind
+PASS every single dependency tile change including vertex-only neighbors reaches its fragment
+PASS only current public opacity elements are read; missing-array API rejection stays unchanged
+PASS disposed geometry rebuilds have independent initial fog state across map dimensions and revisions
+PASS unchanged hidden fragments restore visibility without an upload; external visibility edits are corrected
+{
+  "passed": true,
+  "cases": 6,
+  "timings": [
+    {
+      "kind": "v2",
+      "mode": "unchanged-clear",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "medianMS": 19.277000000000044,
+      "uploadCounts": [
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152
+      ],
+      "buildMS": 236.30833299999995,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 65536,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896
+      }
+    },
+    {
+      "kind": "v2",
+      "mode": "frontier-change",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "medianMS": 13.926333000000113,
+      "uploadCounts": [
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152
+      ],
+      "buildMS": 236.30833299999995,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 65536,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896
+      }
+    },
+    {
+      "kind": "v2",
+      "mode": "full-change",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "medianMS": 15.177083000000039,
+      "uploadCounts": [
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152
+      ],
+      "buildMS": 236.30833299999995,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 65536,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896
+      }
+    },
+    {
+      "kind": "v3",
+      "mode": "unchanged-clear",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "medianMS": 8.56637499999988,
+      "uploadCounts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buildMS": 527.718083,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 515552,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896,
+        "Int32Array": 1800064,
+        "Uint16Array": 3758496
+      }
+    },
+    {
+      "kind": "v3",
+      "mode": "frontier-change",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "medianMS": 8.374459000000115,
+      "uploadCounts": [
+        924,
+        924,
+        924,
+        924,
+        924,
+        924,
+        924,
+        924
+      ],
+      "buildMS": 527.718083,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 515552,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896,
+        "Int32Array": 1800064,
+        "Uint16Array": 3758496
+      }
+    },
+    {
+      "kind": "v3",
+      "mode": "full-change",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "medianMS": 17.43724999999995,
+      "uploadCounts": [
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152
+      ],
+      "buildMS": 527.718083,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 515552,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896,
+        "Int32Array": 1800064,
+        "Uint16Array": 3758496
+      }
+    }
+  ]
+}

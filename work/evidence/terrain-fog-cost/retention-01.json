@@ -1,0 +1,43 @@
+{
+  "scope": "Node/V8 weak-reference observation over unchanged compiled source; explicit GC, one16x16 public chunk. Heap-engine diagnostic, not browser/GPU measurement or proof for every JS engine.",
+  "results": [
+    {
+      "kind": "v2",
+      "fragments": 62,
+      "allocated": {
+        "other": 2,
+        "fragment-groups": 1
+      },
+      "retainedEntriesWhileLive": 0,
+      "liveAfterGC": {
+        "other": 2,
+        "fragment-groups": 1
+      },
+      "liveAfterDisposeGC": {
+        "other": 2,
+        "fragment-groups": 1
+      }
+    },
+    {
+      "kind": "v3",
+      "fragments": 62,
+      "allocated": {
+        "other": 2,
+        "fragment-groups": 1,
+        "tile-slot-map": 62,
+        "point-map": 62
+      },
+      "retainedEntriesWhileLive": 3580,
+      "liveAfterGC": {
+        "other": 2,
+        "tile-slot-map": 62,
+        "point-map": 1
+      },
+      "liveAfterDisposeGC": {
+        "other": 2,
+        "tile-slot-map": 1,
+        "point-map": 1
+      }
+    }
+  ]
+}
