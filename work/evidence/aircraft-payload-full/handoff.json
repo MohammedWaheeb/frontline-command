@@ -1,0 +1,93 @@
+{
+  "status": "authored-native-and-build-checked-browser-unrun",
+  "frozen_product": "work/art/roster-runtime-overlay-v1/outputs/current-five-v19/product",
+  "product_receipt_sha256": "069233376b8c34528986aa3712309fe0802e05a996136205740d3ee55ef2d964",
+  "native_source_lock_sha256": "6cd1adb63bf12026a496355cc2d5f44a72322e5ba61bee1cb762a1c5960c9387",
+  "native_receipt_sha256": "db91a5131bcc19065bbfba97036c81a037398ea96a78faabc7000805ec5beb2f",
+  "browser_gate": "Pending parent-owned serial Chromium/Firefox/WebKit execution; no browser/server launched in build-only checks.",
+  "typecheck_fixture_exact": true,
+  "us_fighter_prior_course": {
+    "path": "work/evidence/aircraft-payload/go-run-02/US.fighter",
+    "course_json_sha256": "2de114c0fde823d7e3d5fb574f596a7934f6af8ef874f8dfe9af444951e20135",
+    "ten_boundary_saves_exact": [
+      {
+        "path": "01-initial-one-round.save.json",
+        "sha256": "0ccef980cbec958691c01c8198ea2c94e58a7817fdecfd0befc7f18e67715efc"
+      },
+      {
+        "path": "02-final-round.save.json",
+        "sha256": "eb91962aa38c29b14ce525293fcd8cf9fd75febc140b03b5888f5753e3bb11e4"
+      },
+      {
+        "path": "03-service-admission.save.json",
+        "sha256": "ec2bd0435844757a0da8deaaa2d67b4f82614ad3e768f7ece62a8bcc5e7bc7d1"
+      },
+      {
+        "path": "04-half-service.save.json",
+        "sha256": "de104a0e4114048508c7b2cb8c9cb39bf017868c8ecabfbaf54375bca5a5887d"
+      },
+      {
+        "path": "05-disabled-service.save.json",
+        "sha256": "af08da98336e00a5ca570a8613ff164eff351028afa79426b5910066dfb118a8"
+      },
+      {
+        "path": "06-home-loss-grounded.save.json",
+        "sha256": "8af2bf28e526f109b4d8ccb2352c456d18e12245463f11fe71d3feb971918a52"
+      },
+      {
+        "path": "07-emergency-airborne.save.json",
+        "sha256": "95351b1f727cee4f5885fa372a746cbca65bed63426d1a74faf40d64105b1143"
+      },
+      {
+        "path": "08-backup-service.save.json",
+        "sha256": "60690d5fcd714229b5126d07c55db9e68f336cd19fbb8e37bea587352437a80b"
+      },
+      {
+        "path": "09-before-refill.save.json",
+        "sha256": "6111dc5220ae100c5aaa08fa88504053f7c1093d5f58986640fb8d1fa68e7e60"
+      },
+      {
+        "path": "10-refilled.save.json",
+        "sha256": "7c112ce6b1986a26c0caa644a5c1322e2d22a9d11a615b038c60bcfcc63896b0"
+      }
+    ]
+  },
+  "files": {
+    "client/tests/render/aircraft-payload-full-browser.mjs": {
+      "bytes": 13937,
+      "sha256": "7c2f9b6dfc6b2b63e0775cd92951baff84c94a8e066094409ad9821bf03cc3bb"
+    },
+    "client/tests/render/aircraft-payload-full-fixture.ts": {
+      "bytes": 11764,
+      "sha256": "5fbc59aca5e28c5dc69db786e9c27fb0dbbea4fab1034c5ccc11d65a4141fba0"
+    },
+    "work/evidence/aircraft-payload-full/full_art_payload_course_test.go": {
+      "bytes": 7324,
+      "sha256": "1eb8a4516652ba0e6f182f8186c65ec3a5faec61cf689ea2bb4daa8e81d4d3b1"
+    },
+    "work/evidence/aircraft-payload-full/prepare-native.py": {
+      "bytes": 3641,
+      "sha256": "91fe2ab4cbe2ec68c71627dbf510910529042e529ed6ed98762a09e3ed0b5e57"
+    },
+    "work/evidence/aircraft-payload-full/source-lock.json": {
+      "bytes": 39209,
+      "sha256": "6cd1adb63bf12026a496355cc2d5f44a72322e5ba61bee1cb762a1c5960c9387"
+    },
+    "work/evidence/aircraft-payload-full/native-boundaries.tar.gz": {
+      "bytes": 104809,
+      "sha256": "8e1935d25b8a94c6f5b4f0ef9e7ae11259f3d3c423f4560ce89f890544551a80"
+    },
+    "work/evidence/aircraft-payload-full/native-boundaries-archive.json": {
+      "bytes": 1893,
+      "sha256": "816cbc583deb766b8508a328b43eec538840cb29c345c1448d5107a4429e700e"
+    },
+    "work/evidence/aircraft-payload-full/build-only-03/browser.json": {
+      "bytes": 3916,
+      "sha256": "74f2682e9dd4a004cd10e27ba8f97b6eb5f56f386334bc90b052210013ee9cc5"
+    },
+    "work/evidence/aircraft-payload-full/typecheck-01/receipt.json": {
+      "bytes": 442,
+      "sha256": "0123c24523b1481d4022fc5be2f63e4c23c62318ebacf992a5324d3d909fda17"
+    }
+  }
+}

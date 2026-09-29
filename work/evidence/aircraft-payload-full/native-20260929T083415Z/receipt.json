@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "source_lock_sha256": "6cd1adb63bf12026a496355cc2d5f44a72322e5ba61bee1cb762a1c5960c9387",
+  "conditions": "One GOMAXPROCS1 fixture process, shared browser/Blender host; correctness only.",
+  "commands": [
+    {
+      "stage": "compile",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/aircraft-payload-full/native-20260929T083415Z/course.test",
+        "./pkg/sim"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "native",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/aircraft-payload-full/native-20260929T083415Z/course.test",
+        "-test.run",
+        "^TestFullArtAircraftPayloadCourse$",
+        "-test.v",
+        "-test.timeout",
+        "2m"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f0aa0f2eb14df6c5f28b2a681b9a912f429e1fb84d5e99c70c44732a77a1e8c5"
+    }
+  ],
+  "binary_sha256": "cab1a048618459366041c3d6130e5cb5c27f1f5309c44380c618ddfb799d7bd5",
+  "source_verified_after": true,
+  "artifacts": {
+    "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native.log": "f0aa0f2eb14df6c5f28b2a681b9a912f429e1fb84d5e99c70c44732a77a1e8c5",
+    "source-lock.json": "6cd1adb63bf12026a496355cc2d5f44a72322e5ba61bee1cb762a1c5960c9387",
+    "IR.strike/06-home-loss-grounded.save.json": "562bb19f2582edac3ede4c91796f952d61cb99e3ac6d953d1f1d6800b15885aa",
+    "IR.strike/result.json": "35a130054908e5d06c624d82425c732abb099a70998fb0a21857c7b097267ddf",
+    "IR.strike/09-before-refill.save.json": "b66382435cdfae714cb35dd65ff5081fb0009180d2115629077cd73e7fa8f74b",
+    "IR.strike/01-initial-one-round.save.json": "debf841f3671ce7f52cfe75b6ac5961a5536798576ffe534c2fe27faef823cf0",
+    "IR.strike/course.json": "3d0069c31c11c33b9555149be764311fc55fe9b9f180029cf08af1325e618fcd",
+    "IR.strike/02-final-round.save.json": "4931ad94490364f189636ae845fe9f1b40b7edc54a828b75087088bca108302d",
+    "IR.strike/10-refilled.save.json": "5a5eb86842cfbde52299e76175944173e78773b6105ba71635aea89309c3728d",
+    "IR.strike/05-disabled-service.save.json": "51bc5f385e4583204aad5576b2fe2f6d394732abb6096797d1cb38581286fc30",
+    "IR.strike/03-service-admission.save.json": "23e65ba3fe69ddb26ae5deb6c9a377c963e6ec3a6368bd2a3a733b43cb775c44",
+    "IR.strike/course.fcr": "7afff59b5d51bd9721c0d771de0d3e64bd52b94ed040b7a87cec3355ebea5f34",
+    "IR.strike/04-half-service.save.json": "54f4caa224f2cbf19d67fcba6b91d0ea2ca2affb26a861ceb579d263f96ed338",
+    "IR.strike/map.json": "17195fa96121ac06363c072b86898713d5bf427f72ff4b86822dd40d18084c07",
+    "IR.strike/08-backup-service.save.json": "be8f34b59aa3f77e9ddb5693c412fe910fedda8167f7eb5396aefa16c0872edb",
+    "IR.strike/07-emergency-airborne.save.json": "1c210c77fc40ff27d237a6fa1c2813788497a7a974b1393aed192db745c5969b",
+    "US.fighter/06-home-loss-grounded.save.json": "8af2bf28e526f109b4d8ccb2352c456d18e12245463f11fe71d3feb971918a52",
+    "US.fighter/result.json": "0657ea153a10977f32ca98927a83500e4a31a9258a14428e94ee5d4df3b48082",
+    "US.fighter/09-before-refill.save.json": "6111dc5220ae100c5aaa08fa88504053f7c1093d5f58986640fb8d1fa68e7e60",
+    "US.fighter/01-initial-one-round.save.json": "0ccef980cbec958691c01c8198ea2c94e58a7817fdecfd0befc7f18e67715efc",
+    "US.fighter/course.json": "2de114c0fde823d7e3d5fb574f596a7934f6af8ef874f8dfe9af444951e20135",
+    "US.fighter/02-final-round.save.json": "eb91962aa38c29b14ce525293fcd8cf9fd75febc140b03b5888f5753e3bb11e4",
+    "US.fighter/10-refilled.save.json": "7c112ce6b1986a26c0caa644a5c1322e2d22a9d11a615b038c60bcfcc63896b0",
+    "US.fighter/05-disabled-service.save.json": "af08da98336e00a5ca570a8613ff164eff351028afa79426b5910066dfb118a8",
+    "US.fighter/03-service-admission.save.json": "ec2bd0435844757a0da8deaaa2d67b4f82614ad3e768f7ece62a8bcc5e7bc7d1",
+    "US.fighter/course.fcr": "cbeaff805b132bb8014938fe43792144d6f6018739ae7c6a858a1ebf1e07752c",
+    "US.fighter/04-half-service.save.json": "de104a0e4114048508c7b2cb8c9cb39bf017868c8ecabfbaf54375bca5a5887d",
+    "US.fighter/map.json": "17195fa96121ac06363c072b86898713d5bf427f72ff4b86822dd40d18084c07",
+    "US.fighter/08-backup-service.save.json": "60690d5fcd714229b5126d07c55db9e68f336cd19fbb8e37bea587352437a80b",
+    "US.fighter/07-emergency-airborne.save.json": "95351b1f727cee4f5885fa372a746cbca65bed63426d1a74faf40d64105b1143"
+  }
+}
