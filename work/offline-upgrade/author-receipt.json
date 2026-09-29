@@ -1,0 +1,63 @@
+{
+  "status": "author-preflight-passed-browser-unrun",
+  "time": "2026-09-29T10:24:59.746573+00:00",
+  "commands": [
+    {
+      "command": "node --check client/tests/offline-upgrade/browser.mjs",
+      "exit_code": 0
+    },
+    {
+      "command": "node client/tests/offline-upgrade/browser.mjs --product work/art/effects-opus-v2/integration-v25/product --out work/offline-upgrade/build-only-06 --build-only true",
+      "exit_code": 0,
+      "cases": 0,
+      "input_guards": 152
+    },
+    {
+      "command": "./client/node_modules/.bin/tsc --project work/offline-upgrade/typecheck-03/tsconfig.json",
+      "exit_code": 0
+    }
+  ],
+  "files": [
+    {
+      "path": "client/tests/offline-upgrade/browser.mjs",
+      "sha256": "36d0909627b2b6d3e9c12eefd3599efc2759f57b1723a037a7c5f43f359b275a",
+      "bytes": 23769
+    },
+    {
+      "path": "client/tests/offline-upgrade/fixture.ts",
+      "sha256": "076a9cd2869a2be447c8942c3d7f492743c41c0fab7a5d9882bcb48f4dbcf985",
+      "bytes": 6479
+    },
+    {
+      "path": "work/offline-upgrade/build-only-06/receipt.json",
+      "sha256": "aa558e23d00bbf03c42a2d8d98ddea03d039a1f0e056c0f011f49d6072bba10d",
+      "bytes": 3249
+    },
+    {
+      "path": "work/offline-upgrade/typecheck-03/tsconfig.json",
+      "sha256": "72ea112534d453bbddf2d60406bc359131a93c0b646f1af90aff86aaae156240",
+      "bytes": 432
+    },
+    {
+      "path": "work/offline-upgrade/typecheck-03/output.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/offline-upgrade/README.md",
+      "sha256": "c1630cffbcdc4308a3368f39ea13c889441d80a7bc08d3305486ff3b1fb7c844",
+      "bytes": 6543
+    },
+    {
+      "path": "work/offline-upgrade/generation-coherence.md",
+      "sha256": "09f442d90a69a0d1477565d9782155b4aa56ee17d50a8c29654552e29e73dc52",
+      "bytes": 5617
+    }
+  ],
+  "limits": [
+    "No browser/server/Go process launched in author preflight.",
+    "All genuine transaction and cold-start cases remain unrun.",
+    "Known stale-art source finding requires actual prepared browser reproduction before correction.",
+    "Base v25 419323287 bytes is not later full-art union/final package."
+  ]
+}
