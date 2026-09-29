@@ -60,3 +60,13 @@ Cached updates improve in this diagnostic; all-changing updates and construction
 ## Reproduction and ownership
 
 Run the CPU helper with a fresh `--out` directory, then run the retention helper with `node --expose-gc`, `--inputs` pointing to that CPU output directory and `--out` pointing to a fresh JSON result. The JSON receipt pins both terrain sources and the frozen dependencies. The evidence retains failed precursor runs. Root owns browser tests and promotion; this review changes only test/evidence code and Markdown.
+
+## Accepted v4 follow-up
+
+Claude completed isolated v4 at SHA256`65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656`. It moves exactly the unchanged topology construction into a module helper returning only typed arrays. Root promoted those exact bytes after independent checks; v3 remains preserved and was never promoted. `work/terrain-polish-review/promotion-v4.json` binds all evidence.
+
+The six CPU equivalence/privacy/geometry courses pass unchanged assertions with explicit`--variant v4`. The WeakRef test observes zero construction tile-slot or point Maps after GC while the scene lives, and zero tracked Maps after disposal. The extra typed-array allocation remains6,008,576bytes at200,704triangles; no total-heap or GPU-memory claim follows. Shared-host Node medians v2/v4 were17.317/4.698ms unchanged,14.363/4.631ms moving frontier and17.224/15.310ms full changes. They are diagnostics, not a frame-rate guarantee.
+
+Each actual GPU engine passes96 strict alpha/geometry/picker/hide-update/cleanup cases with zero page/console/HTTP/request errors. Semantic application TypeScript passes on frozen v23 plus exactv4. Repeated-state minimum-zoom GPU-course CPU medians for candidate clear/frontier were2.1/4.4ms Chromium,1/2ms Firefox and2/3ms WebKit; the frontier geometry is fixed within those samples, unlike the separate moving-frontier CPU adapter course. Construction cost and final full-art/reference-device workloads remain gates. No opacity or privacy assertion was relaxed.
+
+The cost helper records and verifies the accepted-v2 live source during its isolated qualification. Its original qualification receipts predate promotion; reproducing them requires the corresponding source checkpoint. Later changes must not overwrite those outputs or relabel the frozen v23 product, which still containsv2.

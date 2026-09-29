@@ -7,9 +7,10 @@ import {build} from 'esbuild';
 
 const client = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'), root = path.dirname(client);
 const at = process.argv.indexOf('--out'); if (at < 0 || !process.argv[at + 1]) throw Error('Pass a fresh --out directory');
-const out = path.resolve(process.argv[at + 1]); await mkdir(out, {recursive: true});
-const sources = {v2: 'work/terrain-polish-v2/source/client/src/render/terrain.ts', v3: 'work/terrain-polish-v3/source/client/src/render/terrain.ts'};
-const expected = {v2: '968299e854349a7463f00d6b4cf7676b2cb035d2b4a3fbd46b62c50207980876', v3: 'f25faee16c90a801cb6153213106a54a89fa169a1481646e2824cb612ce734cd'};
+const out = path.resolve(process.argv[at + 1]); await mkdir(path.dirname(out), {recursive: true}); await mkdir(out);
+const variantAt=process.argv.indexOf('--variant'),candidateKey=variantAt<0?'v3':process.argv[variantAt+1];assert(['v3','v4'].includes(candidateKey),'Choose frozen --variant v3|v4');
+const sources = {v2: 'work/terrain-polish-v2/source/client/src/render/terrain.ts', [candidateKey]: `work/terrain-polish-${candidateKey}/source/client/src/render/terrain.ts`};
+const expected = {v2: '968299e854349a7463f00d6b4cf7676b2cb035d2b4a3fbd46b62c50207980876', [candidateKey]: candidateKey==='v3'?'f25faee16c90a801cb6153213106a54a89fa169a1481646e2824cb612ce734cd':'65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656'};
 const hash = value => createHash('sha256').update(value).digest('hex'), freeze = {}, modules = {}, cases = [], timings = [];
 const dependencies = path.join(root, 'work/terrain-polish-review/inputs-v2');
 for (const file of ['iso.ts', 'terrain-materials.ts', 'terrain-surface.ts']) freeze[file] = hash(await readFile(path.join(dependencies, file)));
@@ -62,7 +63,7 @@ const uploads = s => s.fragments.reduce((n, f) => n + f.fog.geometry.attributes.
 function step(a, b, visible, explored, stable = false) {
  const beforeA = uploads(a), beforeB = uploads(b); set(a, visible, explored); set(b, visible, explored); const compared = compare(a, b);
  assert.equal(uploads(a) - beforeA, a.fragments.length);
- if (stable) assert.equal(uploads(b), beforeB, 'unchanged opacities must skip every v3 upload');
+ if (stable) assert.equal(uploads(b), beforeB, 'unchanged opacities must skip every candidate upload');
  return compared;
 }
 function run(name, fn) {const start = performance.now(), details = fn(); cases.push({name, passed: true, milliseconds: performance.now() - start, ...details}); console.log('PASS', name);}
@@ -71,7 +72,7 @@ try {
  run('all per-tile boolean combinations on flat, raised/cliff and asymmetric edges', () => {
   let states = 0, comparedBytes = 0;
   for (const [w, h, shape] of [[1, 1, 'flat'], [1, 3, 'raised'], [3, 1, 'raised'], [2, 2, 'flat'], [2, 2, 'raised']]) {
-   const publicMap = map(w, h, shape), a = scene('v2', publicMap), b = scene('v3', publicMap); compare(a, b, true);
+   const publicMap = map(w, h, shape), a = scene('v2', publicMap), b = scene(candidateKey, publicMap); compare(a, b, true);
    const visible = [], explored = [];
    for (let bits = 0; bits < 4 ** (w * h); bits++) {
     let state = bits; for (let i = 0; i < w * h; i++) {visible[i] = (state & 1) !== 0; explored[i] = (state & 2) !== 0; state = Math.floor(state / 4);}
@@ -83,7 +84,7 @@ try {
   return {states, comparedBytes};
  });
  run('chunk boundaries, perspectives, in-place mutation, sparse/missing vectors, hide/update/show, rewind', () => {
-  const publicMap = map(35, 35, 'chunk'), a = scene('v2', publicMap), b = scene('v3', publicMap); compare(a, b, true);
+  const publicMap = map(35, 35, 'chunk'), a = scene('v2', publicMap), b = scene(candidateKey, publicMap); compare(a, b, true);
   const visible = [], explored = []; let comparedBytes = 0, states = 0, seed = 741852;
   for (let n = 0; n < 160; n++) {
    visible.length = publicMap.tiles.length; explored.length = publicMap.tiles.length;
@@ -102,7 +103,7 @@ try {
   const result = {states: states + 4, fragments: a.fragments.length, triangles: a.triangles, comparedBytes}; dispose(a); dispose(b); return result;
  });
  run('every single dependency tile change including vertex-only neighbors reaches its fragment', () => {
-  const publicMap = map(18, 18, 'raised'), a = scene('v2', publicMap, [[0, 0]]), b = scene('v3', publicMap, [[0, 0]]), visible = Array(324).fill(true), explored = Array(324).fill(true);
+  const publicMap = map(18, 18, 'raised'), a = scene('v2', publicMap, [[0, 0]]), b = scene(candidateKey, publicMap, [[0, 0]]), visible = Array(324).fill(true), explored = Array(324).fill(true);
   compare(a, b, true); step(a, b, visible, explored); let comparisons = 0;
   for (let tile = 0; tile < 324; tile++) {
    visible[tile] = false; step(a, b, visible, explored); comparisons++;
@@ -113,7 +114,7 @@ try {
  });
  run('only current public opacity elements are read; missing-array API rejection stays unchanged', () => {
   const publicMap = map(3, 3, 'raised'); Object.defineProperty(publicMap, 'entities', {get() {throw Error('Private data read');}});
-  const a = scene('v2', publicMap), b = scene('v3', publicMap); const accessed = new Set();
+  const a = scene('v2', publicMap), b = scene(candidateKey, publicMap); const accessed = new Set();
   const view = new Proxy(Array(9).fill(false), {get(target, key) {assert.match(String(key), /^\d+$/); assert.ok(Number(key) >= 0 && Number(key) < 9); accessed.add(Number(key)); return target[key];}});
   step(a, b, view, view); step(a, b, view, view, true);
   for (const s of [a, b]) assert.throws(() => set(s, undefined, undefined), TypeError);
@@ -122,7 +123,7 @@ try {
  run('disposed geometry rebuilds have independent initial fog state across map dimensions and revisions', () => {
   const signatures = [];
   for (const [w, h, shape] of [[17, 18, 'flat'], [17, 18, 'raised'], [18, 17, 'chunk'], [1, 1, 'raised']]) {
-   const publicMap = map(w, h, shape), a = scene('v2', publicMap), b = scene('v3', publicMap); compare(a, b, true);
+   const publicMap = map(w, h, shape), a = scene('v2', publicMap), b = scene(candidateKey, publicMap); compare(a, b, true);
    assert.ok(b.fragments.every(f => f.fog.visible)); assert.equal(uploads(b), b.fragments.length);
    step(a, b, Array(w * h).fill(true), []); step(a, b, [], []);
    signatures.push({width: w, height: h, shape, fragments: b.fragments.length, triangles: b.triangles}); dispose(a); dispose(b);
@@ -130,7 +131,7 @@ try {
   return {signatures};
  });
  run('unchanged hidden fragments restore visibility without an upload; external visibility edits are corrected', () => {
-  const publicMap = map(17, 17, 'raised'), a = scene('v2', publicMap), b = scene('v3', publicMap);
+  const publicMap = map(17, 17, 'raised'), a = scene('v2', publicMap), b = scene(candidateKey, publicMap);
   for (const s of [a, b]) for (const f of s.fragments) f.setVisible(false);
   step(a, b, [], [], true); for (const s of [a, b]) for (const f of s.fragments) {f.fog.visible = true;}
   step(a, b, [], [], true); assert.ok(b.fragments.every(f => !f.fog.visible));
@@ -140,7 +141,7 @@ try {
  // Timing is a single-process JS diagnostic with observed upload calls only.
  // No GPU work, browser schedule, wall-clock gameplay, or reference-device gate.
  const publicMap = map(256), chunks = []; for (let y = 1; y < 15; y++) for (let x = 1; x < 15; x++) chunks.push([x, y]);
- for (const kind of ['v2', 'v3']) {
+ for (const kind of ['v2', candidateKey]) {
   const allocated = {}, constructors = {};
   for (const name of ['Int32Array', 'Uint16Array', 'Uint32Array', 'Uint8Array', 'Float32Array']) {
    constructors[name] = globalThis[name]; globalThis[name] = new Proxy(constructors[name], {construct(target, args) {const value = Reflect.construct(target, args); allocated[name] = (allocated[name] ?? 0) + value.byteLength; return value;}});
@@ -158,15 +159,15 @@ try {
    }
    const sorted = [...samples].sort((a, b) => a - b);
    timings.push({kind, mode, chunks: chunks.length, fragments: s.fragments.length, triangles: s.triangles, hidden: s.fragments.filter(f => !f.mesh.visible).length, samples, medianMS: sorted[4], uploadCounts, buildMS, allocatedTypedArrayBytes: allocated});
-   if (kind === 'v3' && mode === 'unchanged-clear') assert.ok(uploadCounts.every(n => n === 0));
+   if (kind === candidateKey && mode === 'unchanged-clear') assert.ok(uploadCounts.every(n => n === 0));
   }
   dispose(s);
  }
  for (const [kind, relative] of Object.entries(sources)) assert.equal(hash(await readFile(path.join(root, relative))), expected[kind]);
  assert.equal(hash(await readFile(path.join(client, 'src/render/terrain.ts'))), freeze.live);
- const rows = (await readFile(path.join(root, 'work/claude/terrain-cost-20260929T082806Z.jsonl'), 'utf8')).trim().split('\n').map(line => JSON.parse(line));
+ const rows = (await readFile(path.join(root,candidateKey==='v3'?'work/claude/terrain-cost-20260929T082806Z.jsonl':'work/claude/terrain-memory-20260929T084258Z.jsonl'), 'utf8')).trim().split('\n').map(line => JSON.parse(line));
  const models = [...new Set(rows.filter(row => row.type === 'assistant').map(row => row.message?.model))], result = rows.find(row => row.type === 'result');
  assert.deepEqual(models, ['claude-opus-5-5']); assert.deepEqual(Object.keys(result.modelUsage), ['claude-opus-5-5']); assert.equal(result.is_error, false); assert.equal(result.terminal_reason, 'completed');
- const report = {passed: true, scope: 'Actual v2/v3 TerrainBaker with immutable public surface dependencies and non-rendering Pixi buffer adapter. Exact CPU Float32/upload bytes only; no GPU/browser/pixel/performance promotion.', sourceLocks: freeze, candidate: expected.v3, modelAudit: {returnedAssistantModels: models, modelUsage: Object.keys(result.modelUsage), terminalReason: result.terminal_reason, isError: result.is_error, subagents: result.subagent_stats}, cases, timings, helperSHA256: hash(await readFile(fileURLToPath(import.meta.url))), adapterSHA256: hash(await readFile(path.join(client, 'tests/render/terrain-fog-cost-pixi.mjs')))};
+ const report = {passed: true, variant:candidateKey, scope: 'Actual v2/candidate TerrainBaker with immutable public surface dependencies and non-rendering Pixi buffer adapter. Exact CPU Float32/upload bytes only; no GPU/browser/pixel/performance promotion.', sourceLocks: freeze, candidate: expected[candidateKey], modelAudit: {returnedAssistantModels: models, modelUsage: Object.keys(result.modelUsage), terminalReason: result.terminal_reason, isError: result.is_error, subagents: result.subagent_stats}, cases, timings, helperSHA256: hash(await readFile(fileURLToPath(import.meta.url))), adapterSHA256: hash(await readFile(path.join(client, 'tests/render/terrain-fog-cost-pixi.mjs')))};
  await writeFile(path.join(out, 'audit.json'), JSON.stringify(report, null, 2) + '\n'); console.log(JSON.stringify({passed: true, cases: cases.length, timings: timings.map(({samples, ...row}) => row)}, null, 2));
 } catch (error) {await writeFile(path.join(out, 'failure.json'), JSON.stringify({passed: false, stack: error.stack, sourceLocks: freeze, cases, timings}, null, 2) + '\n'); throw error;}

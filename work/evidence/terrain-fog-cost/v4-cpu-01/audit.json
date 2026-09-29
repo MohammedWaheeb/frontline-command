@@ -1,0 +1,349 @@
+{
+  "passed": true,
+  "variant": "v4",
+  "scope": "Actual v2/candidate TerrainBaker with immutable public surface dependencies and non-rendering Pixi buffer adapter. Exact CPU Float32/upload bytes only; no GPU/browser/pixel/performance promotion.",
+  "sourceLocks": {
+    "iso.ts": "98654186dbd723fdefdb70ff9bcdc26b6f74b7a5d4d0579c3d6e4244ef9aebdf",
+    "terrain-materials.ts": "c1c466f0ffddcd77e62a7272b0d0963f81393714feb0177aaedeb0d3f41d8588",
+    "terrain-surface.ts": "7d498da7b940e4741ed8e74b7996d2d7a420e310066dba28a7ed6b328437ef2e",
+    "live": "968299e854349a7463f00d6b4cf7676b2cb035d2b4a3fbd46b62c50207980876",
+    "v2": "968299e854349a7463f00d6b4cf7676b2cb035d2b4a3fbd46b62c50207980876",
+    "v4": "65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656"
+  },
+  "candidate": "65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656",
+  "modelAudit": {
+    "returnedAssistantModels": [
+      "claude-opus-5-5"
+    ],
+    "modelUsage": [
+      "claude-opus-5-5"
+    ],
+    "terminalReason": "completed",
+    "isError": false,
+    "subagents": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    }
+  },
+  "cases": [
+    {
+      "name": "all per-tile boolean combinations on flat, raised/cliff and asymmetric edges",
+      "passed": true,
+      "milliseconds": 15.028416999999997,
+      "states": 1288,
+      "comparedBytes": 578304
+    },
+    {
+      "name": "chunk boundaries, perspectives, in-place mutation, sparse/missing vectors, hide/update/show, rewind",
+      "passed": true,
+      "milliseconds": 221.62287500000002,
+      "states": 324,
+      "fragments": 474,
+      "triangles": 5001,
+      "comparedBytes": 38407680
+    },
+    {
+      "name": "every single dependency tile change including vertex-only neighbors reaches its fragment",
+      "passed": true,
+      "milliseconds": 151.100959,
+      "comparisons": 972,
+      "includesOutsideChunkTiles": true
+    },
+    {
+      "name": "only current public opacity elements are read; missing-array API rejection stays unchanged",
+      "passed": true,
+      "milliseconds": 1.0910829999999692,
+      "accessed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "name": "disposed geometry rebuilds have independent initial fog state across map dimensions and revisions",
+      "passed": true,
+      "milliseconds": 21.46108399999997,
+      "signatures": [
+        {
+          "width": 17,
+          "height": 18,
+          "shape": "flat",
+          "fragments": 132,
+          "triangles": 1224
+        },
+        {
+          "width": 17,
+          "height": 18,
+          "shape": "raised",
+          "fragments": 236,
+          "triangles": 1692
+        },
+        {
+          "width": 18,
+          "height": 17,
+          "shape": "chunk",
+          "fragments": 197,
+          "triangles": 1299
+        },
+        {
+          "width": 1,
+          "height": 1,
+          "shape": "raised",
+          "fragments": 2,
+          "triangles": 4
+        }
+      ]
+    },
+    {
+      "name": "unchanged hidden fragments restore visibility without an upload; external visibility edits are corrected",
+      "passed": true,
+      "milliseconds": 5.894374999999968
+    }
+  ],
+  "timings": [
+    {
+      "kind": "v2",
+      "mode": "unchanged-clear",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "samples": [
+        17.818333000000052,
+        17.528790999999956,
+        19.55154200000004,
+        17.31662499999993,
+        17.19908399999997,
+        17.11079200000006,
+        16.76745799999992,
+        16.496291999999926
+      ],
+      "medianMS": 17.31662499999993,
+      "uploadCounts": [
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152
+      ],
+      "buildMS": 174.90300000000002,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 65536,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896
+      }
+    },
+    {
+      "kind": "v2",
+      "mode": "frontier-change",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "samples": [
+        11.19987500000002,
+        14.549041999999986,
+        15.744709000000057,
+        14.758541000000037,
+        14.363374999999905,
+        12.962125000000015,
+        14.25083299999983,
+        14.292291999999861
+      ],
+      "medianMS": 14.363374999999905,
+      "uploadCounts": [
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152
+      ],
+      "buildMS": 174.90300000000002,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 65536,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896
+      }
+    },
+    {
+      "kind": "v2",
+      "mode": "full-change",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "samples": [
+        17.224458999999797,
+        9.089041999999836,
+        18.92470800000001,
+        8.05275000000006,
+        18.031957999999804,
+        7.948333000000048,
+        17.753875000000107,
+        8.06337499999995
+      ],
+      "medianMS": 17.224458999999797,
+      "uploadCounts": [
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152
+      ],
+      "buildMS": 174.90300000000002,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 65536,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896
+      }
+    },
+    {
+      "kind": "v4",
+      "mode": "unchanged-clear",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "samples": [
+        4.604500000000144,
+        4.953166999999894,
+        4.429500000000189,
+        4.390583000000106,
+        5.005499999999984,
+        4.698416999999836,
+        5.710291999999981,
+        4.299332999999933
+      ],
+      "medianMS": 4.698416999999836,
+      "uploadCounts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buildMS": 301.44654200000014,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 515552,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896,
+        "Int32Array": 1800064,
+        "Uint16Array": 3758496
+      }
+    },
+    {
+      "kind": "v4",
+      "mode": "frontier-change",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "samples": [
+        6.219542000000047,
+        6.386707999999999,
+        4.630582999999888,
+        5.62929199999985,
+        4.588999999999942,
+        3.870083999999906,
+        3.634416000000101,
+        3.5370419999999285
+      ],
+      "medianMS": 4.630582999999888,
+      "uploadCounts": [
+        924,
+        924,
+        924,
+        924,
+        924,
+        924,
+        924,
+        924
+      ],
+      "buildMS": 301.44654200000014,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 515552,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896,
+        "Int32Array": 1800064,
+        "Uint16Array": 3758496
+      }
+    },
+    {
+      "kind": "v4",
+      "mode": "full-change",
+      "chunks": 196,
+      "fragments": 12152,
+      "triangles": 200704,
+      "hidden": 6076,
+      "samples": [
+        18.584542000000056,
+        14.757790999999997,
+        16.287708000000066,
+        11.810291000000007,
+        16.244125000000167,
+        12.023666999999932,
+        15.310124999999971,
+        10.75958300000002
+      ],
+      "medianMS": 15.310124999999971,
+      "uploadCounts": [
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152,
+        12152
+      ],
+      "buildMS": 301.44654200000014,
+      "allocatedTypedArrayBytes": {
+        "Uint8Array": 515552,
+        "Float32Array": 19267584,
+        "Uint32Array": 4816896,
+        "Int32Array": 1800064,
+        "Uint16Array": 3758496
+      }
+    }
+  ],
+  "helperSHA256": "3bbe27920289e1171047c3c144de9629eec20d9296bdd64876bc7141c9005d81",
+  "adapterSHA256": "555b58188d21cac2819fc931160220c551bd7bfce7ded9ce8ed47c2cdddeeef2"
+}

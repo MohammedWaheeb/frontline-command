@@ -28,7 +28,8 @@ function count(records) {
 }
 function exercise(held) {for (const fragment of held.fragments) fragment.setFog(Array(256).fill(true), Array(256).fill(true)); assert.ok(held.fragments.every(f => !f.fog.visible));}
 function dispose(held, m) {for (const fragment of held.fragments) fragment.dispose(); held.baker.disposeSurfaceResources(); m.resetTest();}
-for (const kind of ['v2', 'v3']) {
+const variantAt=process.argv.indexOf('--variant'),candidateKey=variantAt<0?'v3':process.argv[variantAt+1];assert(['v3','v4'].includes(candidateKey),'Choose --variant v3|v4');
+for (const kind of ['v2', candidateKey]) {
  const m = await import(pathToFileURL(path.join(inputs, kind + '.mjs'))), records = [];
  globalThis.Map = new Proxy(nativeMap, {construct(target, args) {const map = Reflect.construct(target, args); records.push({ref: new WeakRef(map)}); return map;}});
  let held;
@@ -45,5 +46,6 @@ for (const kind of ['v2', 'v3']) {
  const afterDispose = count(records);
  results.push({kind, fragments, allocated: records.reduce((sum, row) => {sum[row.kind] = (sum[row.kind] ?? 0) + 1; return sum;}, {}), retainedEntriesWhileLive: live.entries, liveAfterGC: live.live, liveAfterDisposeGC: afterDispose.live});
 }
-const report = {scope: 'Node/V8 weak-reference observation over unchanged compiled source; explicit GC, one16x16 public chunk. Heap-engine diagnostic, not browser/GPU measurement or proof for every JS engine.', results};
-await writeFile(output, JSON.stringify(report, null, 2) + '\n'); console.log(JSON.stringify(report, null, 2));
+if(candidateKey==='v4')for(const row of results){assert.equal(row.liveAfterGC['tile-slot-map']??0,0);assert.equal(row.liveAfterGC['point-map']??0,0);assert.deepEqual(row.liveAfterDisposeGC,{});}
+const report = {variant:candidateKey,scope: 'Node/V8 weak-reference observation over unchanged compiled source; explicit GC, one16x16 public chunk. Heap-engine diagnostic, not browser/GPU measurement or proof for every JS engine.', results};
+await writeFile(output, JSON.stringify(report, null, 2) + '\n',{flag:'wx'}); console.log(JSON.stringify(report, null, 2));

@@ -1,0 +1,61 @@
+{
+  "time": "2026-09-29T08:54:04.637029+00:00",
+  "prior": "968299e854349a7463f00d6b4cf7676b2cb035d2b4a3fbd46b62c50207980876",
+  "candidate": "work/terrain-polish-v4/source/client/src/render/terrain.ts",
+  "after": "65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656",
+  "scope": "ExactClaudev4 topology construction helper and opacity-value cache. CPU Float32/geometry/privacy+GC+semanticTS and96GPU cases perengine pass. No gameplay visibility changes; final-art/hardware/frame gate remains.",
+  "checks": {
+    "work/evidence/terrain-fog-cost/v4-cpu-01/audit.json": "ce7dd7c887e4dd5db978ec110517956908db2c81582b1a97f2c614fdb33b2722",
+    "work/evidence/terrain-fog-cost/v4-retention-01.json": "69aaa832f893ac835175e7e2f9bfb8ecca054b7858208a22ae7d4f4fc0a872d4",
+    "work/terrain-polish-review/v4-typecheck/app.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/terrain-polish-review/inputs-v4/lock.json": "845c54110de16303e761333cd792fbe695f21b390b38607ad3117c867aa16cd1",
+    "work/claude/terrain-memory-20260929T084258Z.model-audit.json": "0966420ec36c85ac1e7745544f7ca7fe9e649423b4de6aebd828adc17e7dfb15"
+  },
+  "gpu": [
+    {
+      "engine": "chromium",
+      "report": "work/terrain-polish-review/v4-chromium-01/browser.json",
+      "sha256": "922a6c233f14e6c3dd196e84e4be63f2857995e9639b7db38fe57bdaf727bf23",
+      "driverSHA256": "07d99c83c18ce97fa9b3138025dbd53525028750dc45ba52c3383d9cbb67281f",
+      "fixtureSHA256": "ab879c5ceeca6bceb9df3ab3888c1aa054443829fd78e46ba525db5d3e59c2d5",
+      "inputLockSHA256": "845c54110de16303e761333cd792fbe695f21b390b38607ad3117c867aa16cd1",
+      "browserVersion": "151.0.7922.34",
+      "cases": 96,
+      "diagnostics": {
+        "errors": 0,
+        "httpErrors": 0,
+        "requestFailures": 0
+      }
+    },
+    {
+      "engine": "firefox",
+      "report": "work/terrain-polish-review/v4-firefox-01/browser.json",
+      "sha256": "f34da0a88713c10d9352e1eed746bbab5e709fef4df552c708a8a3eda5d0b815",
+      "driverSHA256": "07d99c83c18ce97fa9b3138025dbd53525028750dc45ba52c3383d9cbb67281f",
+      "fixtureSHA256": "ab879c5ceeca6bceb9df3ab3888c1aa054443829fd78e46ba525db5d3e59c2d5",
+      "inputLockSHA256": "845c54110de16303e761333cd792fbe695f21b390b38607ad3117c867aa16cd1",
+      "browserVersion": "153.0",
+      "cases": 96,
+      "diagnostics": {
+        "errors": 0,
+        "httpErrors": 0,
+        "requestFailures": 0
+      }
+    },
+    {
+      "engine": "webkit",
+      "report": "work/terrain-polish-review/v4-webkit-01/browser.json",
+      "sha256": "e6b081632719bbf629dbdb70bbb25245b917dd3297292bde7492639191f8dc38",
+      "driverSHA256": "07d99c83c18ce97fa9b3138025dbd53525028750dc45ba52c3383d9cbb67281f",
+      "fixtureSHA256": "ab879c5ceeca6bceb9df3ab3888c1aa054443829fd78e46ba525db5d3e59c2d5",
+      "inputLockSHA256": "845c54110de16303e761333cd792fbe695f21b390b38607ad3117c867aa16cd1",
+      "browserVersion": "26.5",
+      "cases": 96,
+      "diagnostics": {
+        "errors": 0,
+        "httpErrors": 0,
+        "requestFailures": 0
+      }
+    }
+  ]
+}
