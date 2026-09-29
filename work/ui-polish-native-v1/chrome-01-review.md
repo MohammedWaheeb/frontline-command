@@ -1,0 +1,5 @@
+# First native UI course
+
+The course stops at the howitzer heading test. It used `scrollHeight <= clientHeight + 1` as a text-clamp detector, but the actual stencil font has21px scroll extent in a19px line box even for a fully visible single line. The Engineering rig and Precision howitzer rows both have those same dimensions. Root directly inspected failure.png: the entire PRECISION HOWITZER label appears on one line.
+
+Preserve this failure and all69 raw request aborts. The diagnosed successor uses each actual character Range rectangle to check no more than two lines and full horizontal fit for the howitzer; it records font overhang rather than equating it to line truncation. Product source and font metrics stay unchanged. The1600/100% review heading, three pinned decisions, font scales, focus preservation, width cap, native scroll keys and Escape cancellation had passed before the failed assertion.720p and subsequent checks were unrun. Cleanup has zero canvases/frame subscriptions/art/audio resources and zero sent orders.

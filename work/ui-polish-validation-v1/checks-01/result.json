@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "scope": "Private existing complete runtime suite and semantic checks on exactly four UI and three renderer candidate files. No browser, art, gameplay, performance or release acceptance.",
+  "runtimeTests": 498,
+  "runtimeFailures": 0,
+  "appTypecheckExit": 0,
+  "runtimeTypecheckExit": 0,
+  "runtimeTestExit": 0,
+  "exitSource": "All three direct exec commands completed exit0; independently inspected logs and inputs below.",
+  "changes": [
+    {
+      "path": "client/src/ui/App.tsx",
+      "source": "work/claude/ui-polish-v4/candidate/client/src/ui/App.tsx",
+      "before": "3e843a199ea79f9f6d19fab6f7fb536ac9d338c27b1bddc4970ca235b04aabb7",
+      "after": "0144172730e73fded3de604785614f28e673eb47035785ed7d02e2c1c1b67a22"
+    },
+    {
+      "path": "client/src/styles/game.css",
+      "source": "work/claude/ui-polish-v4/candidate/client/src/styles/game.css",
+      "before": "5e1fdecdecac61a3258829fad5e3e718dbc4d42b57a17f2101ec6d04049242a9",
+      "after": "269a7838174ac18667c0a6caa6bcc921c4d26574caeab856723be94903427749"
+    },
+    {
+      "path": "client/src/ui/StrikeReview.tsx",
+      "source": "work/claude/ui-polish-v4/candidate/client/src/ui/StrikeReview.tsx",
+      "before": "747a800dd7150549058d64717472780861bf7a1375b5f216d030c6651db61d80",
+      "after": "7f01bc2b3f4fa63b9197b604a41ace4033f43a052c3709a29519153dc8e88d0a"
+    },
+    {
+      "path": "client/src/ui/strike-review.css",
+      "source": "work/claude/ui-polish-v4/candidate/client/src/ui/strike-review.css",
+      "before": "037fa71a1c0478b1acc12437c4837eb8ef937436b0717cd0ab198e21a8b2fcc1",
+      "after": "2302e851ca419fadc0480933488767031c0a32b92b5eb550417718df7b54a192"
+    },
+    {
+      "path": "client/src/render/art.ts",
+      "source": "work/renderer-performance-v1/combined-candidate/client/src/render/art.ts",
+      "before": "d4a4049fb2d9192fe13fff01f6725c2521dbd6382992cb8e9dfc41cc1822ce7a",
+      "after": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8"
+    },
+    {
+      "path": "client/src/render/battlefield.ts",
+      "source": "work/renderer-performance-v1/combined-candidate/client/src/render/battlefield.ts",
+      "before": "b0ac869e0e825bc11cd934ebfb781a588aa04bc68a4a1041b470818a49a6196c",
+      "after": "60a925f92a6a15d68a837c75b56a1d3148f48738d04cda79e94c1cbcb8b7069a"
+    },
+    {
+      "path": "client/src/render/terrain.ts",
+      "source": "work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts",
+      "before": "6820e55a251ea711e3121033c0f5264ad46c3cb1832a2064a4c511d27d3c3788",
+      "after": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005"
+    }
+  ],
+  "guardedLiveInputs": 247,
+  "logs": {
+    "app-typecheck.log": {
+      "sha256": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0"
+    },
+    "runtime-typecheck.log": {
+      "sha256": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76"
+    },
+    "runtime-tests.log": {
+      "sha256": "4c56e2f23ba1900fbe0db1c2186bd296190c9aa41e8165bd618ddcfa557a26f8"
+    }
+  }
+}

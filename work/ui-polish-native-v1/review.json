@@ -1,0 +1,83 @@
+{
+  "functional": "passed",
+  "strictOverall": "failed",
+  "rawRequestFailures": 89,
+  "pageErrors": 0,
+  "consoleErrors": 0,
+  "httpErrors": 0,
+  "checks": 56,
+  "inputsUnchanged": true,
+  "receiptSHA256": "22c0005fc7014d57071289aa884ecfbb403dfbec4e63c1a5df37e8e214336424",
+  "disposal": {
+    "captionDisconnected": true,
+    "canvases": 0,
+    "frames": 0,
+    "art": {
+      "indexedPages": 0,
+      "residentPages": 0,
+      "residentBytes": 0,
+      "pickingBytes": 0
+    },
+    "audio": {
+      "context": "absent",
+      "sources": 0,
+      "continuous": 0,
+      "buffers": 0,
+      "decodedBytes": 0,
+      "pending": 0,
+      "generation": 5,
+      "gains": {
+        "master": 0,
+        "voice": 0,
+        "music": 0,
+        "effects": 0,
+        "ui": 0
+      }
+    },
+    "sendCalls": 0
+  },
+  "selectionLayouts": [
+    {
+      "name": "selection layout US.rig layout-1600-900-1",
+      "heading": "Engineering rig",
+      "x": 320,
+      "columns": 10
+    },
+    {
+      "name": "selection layout US.artillery layout-1600-900-1",
+      "heading": "Precision howitzer",
+      "x": 320,
+      "columns": 10
+    },
+    {
+      "name": "selection layout IR.launcher layout-1600-900-1",
+      "heading": "Tactical missile launcher",
+      "x": 320,
+      "columns": 10
+    },
+    {
+      "name": "selection layout US.rig layout-1280-720-1.5",
+      "heading": "Engineering rig",
+      "x": 310,
+      "columns": 4
+    },
+    {
+      "name": "selection layout US.artillery layout-1280-720-1.5",
+      "heading": "Precision howitzer",
+      "x": 310,
+      "columns": 4
+    },
+    {
+      "name": "selection layout IR.launcher layout-1280-720-1.5",
+      "heading": "Tactical missile launcher",
+      "x": 310,
+      "columns": 4
+    }
+  ],
+  "rootNativeReview": [
+    "chrome-04/layout-1280-720-1.5-review-top.png",
+    "chrome-04/layout-1280-720-1.5-US-artillery-selection.png",
+    "chrome-04/layout-1280-720-1.5-sidebar-focus.png"
+  ],
+  "scope": "Real App/ordinary solo and paused Go, then explicitly synthetic display-only captions/events/objectives/strategic review/unit type/command affordances. No paid artillery/launcher or earned strategic gameplay assertion. No new sendOrders calls; original Go hash and authorized transport view unchanged."
+}

@@ -1,0 +1,27 @@
+/* Skybreaker review: the one irreversible strategic order, drawn as a recessed console
+   well with the strategic plate's hazard edge. Every size follows the UI scale. The
+   decision row is sticky to the bottom of whichever box scrolls the card: the
+   information column's scroll region in play, or the card itself when standalone. */
+.strike-review.console{--sr-pad:calc(14px * var(--fc-ui-scale));position:absolute;z-index:8;left:18px;top:72px;width:calc(390px * var(--fc-ui-scale));max-width:calc(100vw - 370px);max-height:calc(100vh - 290px);overflow:auto;padding:var(--sr-pad) var(--sr-pad) 0 calc(var(--sr-pad) + 7px);color:#e6dcc2;border:0;
+ background:repeating-linear-gradient(-45deg,#e2a232 0 5px,#1a1206 5px 10px) left top / 7px 100% no-repeat,linear-gradient(180deg,#24221d,#1b1a16);box-shadow:0 3px 12px rgba(0,0,0,.6),inset 0 1px 0 var(--metal-hi,rgba(255,238,205,.13)),inset 0 0 0 1px #0b0a09}
+.strike-review header{margin-bottom:calc(8px * var(--fc-ui-scale));padding-bottom:calc(7px * var(--fc-ui-scale));border-bottom:2px solid var(--brass-dk,#6e5528);box-shadow:0 1px 0 var(--metal-hi,rgba(255,238,205,.13))}
+.strike-review header>span{display:block;font:700 calc(11px * var(--fc-ui-scale)) var(--fc-font-mono);letter-spacing:.16em;color:var(--brass-hi,#d0ae66)}
+.strike-review h2{margin:calc(3px * var(--fc-ui-scale)) 0;font:800 calc(22px * var(--fc-ui-scale))/1.05 var(--fc-font-display);letter-spacing:.08em;color:#f1e8d2;text-shadow:0 2px 0 #000}
+.strike-review p{margin:calc(8px * var(--fc-ui-scale)) 0;font:calc(13px * var(--fc-ui-scale))/1.4 var(--fc-font-ui)}
+.strike-review header p{margin:0;font:600 calc(14px * var(--fc-ui-scale))/1.25 var(--fc-font-label);letter-spacing:.03em;color:var(--lcd,#f2b340)}
+.strike-review .strike-review-note{color:#cfc6ad}
+/* Timing readout: amber tabular figures in a black well. */
+.strike-review table{width:100%;margin:calc(8px * var(--fc-ui-scale)) 0;border-collapse:collapse;background:#0b0a09;box-shadow:inset 0 2px 5px #000,0 1px 0 var(--metal-hi,rgba(255,238,205,.13));font:calc(13px * var(--fc-ui-scale)) var(--fc-font-mono);font-variant-numeric:tabular-nums}
+.strike-review th,.strike-review td{text-align:left;padding:calc(4px * var(--fc-ui-scale)) calc(6px * var(--fc-ui-scale));border-bottom:1px solid #a8843f33}
+.strike-review tbody tr:last-child>*{border-bottom:0}
+.strike-review thead th{font:700 calc(12px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase;color:var(--brass-hi,#d0ae66)}
+.strike-review tbody th{font:700 calc(13px * var(--fc-ui-scale)) var(--fc-font-label);color:#f1e8d2}
+.strike-review td{color:var(--lcd,#f2b340);text-shadow:0 0 6px rgba(242,179,64,.35)}
+.strike-review small{display:block;margin-bottom:calc(4px * var(--fc-ui-scale));font:calc(12px * var(--fc-ui-scale))/1.35 var(--fc-font-mono);color:#bdb4a2}
+/* Decision row: CONFIRM STRIKE is the full-width brass key; RETARGET and CANCEL
+   share the row under it. Opaque so pinned keys never show text through them. */
+.strike-review .button-row{position:sticky;bottom:0;z-index:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(6px * var(--fc-ui-scale));margin:calc(10px * var(--fc-ui-scale)) calc(-1 * var(--sr-pad)) 0;padding:calc(8px * var(--fc-ui-scale)) var(--sr-pad) var(--sr-pad);background:#1b1a16;box-shadow:inset 0 1px 0 #6e552899,0 -8px 10px -6px rgba(0,0,0,.75)}
+.strike-review .button-row>.primary{grid-column:1 / -1}
+.strike-review .button-row>button{min-width:0;min-height:calc(34px * var(--fc-ui-scale));padding:calc(4px * var(--fc-ui-scale)) calc(8px * var(--fc-ui-scale));gap:calc(6px * var(--fc-ui-scale));font:700 calc(13px * var(--fc-ui-scale))/1.1 var(--fc-font-label);letter-spacing:.06em;white-space:normal;text-align:center}
+.strike-review button:focus-visible{outline:2px solid #e1c784;outline-offset:2px}
+.strike-review kbd{padding:0 3px;background:#0b0a09;color:var(--lcd,#f2b340);font:calc(12px * var(--fc-ui-scale))/1.2 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000}
