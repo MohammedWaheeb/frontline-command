@@ -1,0 +1,38 @@
+{
+  "status": "read-only-review-complete",
+  "scope": "No new execution, raw error suppression or production edit; current matrix remains unrun.",
+  "inputs": {
+    "work/art-generation-diagnostic-v1/native-diagnostic.mjs": "67a5db67955bb806e4e7cc5ff95a4e0484a4c85d762610d289a885a24cb8018b",
+    "work/art-generation-diagnostic-v1/helper-lock.json": "5fa8cae517af3a6b6a6cdbc01da85c4167c7024e691f586842df8b5d802ab1be",
+    "client/tests/render/all-art-consumed-body-trace.mjs": "669627ca15750f514adb82536cc850fce19135c8c6e27c1a869b9a658ac2e15d",
+    "client/tests/render/native-consumed-body-cdp.mjs": "c6abfa83af22e74abb23fca3920c488b887fcf2dcd6cab2e8c0ab079176fa70b",
+    "work/art-generation-consumer-v1/frozen-v3/client/src/runtime/asset-generation.ts": "f856956b039d3dec464e2df22b8ffce411973257246c40be65f27aa352e6a0b9",
+    "work/art-generation-diagnostic-v1/chromium-01/receipt.json": "ca2872938bd04cff75fcf11071b17e6595570028d823917db21de3769dec7523",
+    "work/art-generation-diagnostic-v1/chromium-01/posthoc-initial-A.json": "0b2bd3681f8dacd81fa75d87d4a40e5ec43157bfe440ac45dcd37b57168d6b0a",
+    "work/multiplayer-combat/readiness-all-art-01/independent-audit.json": "fd1247f51f60cc4bff8bd21a6d3c784a00c445a4b3adcba276f9515481177de3",
+    "work/art-generation-consumer-v1/app-v3-build-03/product/assets/packs/base.json": "9387365786fcd3f53049bdd1a87482a37eac8f18561fa276d36c977f26224559"
+  },
+  "productArt": {
+    "files": 4692,
+    "encodedBytes": 553387062,
+    "largest": {
+      "path": "/art/ui/keyart/main_menu.png",
+      "sha256": "5c8de06562f53672c7dd5b8c0490861e85a7aacab1e2e010c5bc3486974fee3f",
+      "bytes": 2521570
+    }
+  },
+  "latestGenerationCourse": {
+    "strict": "failed",
+    "unexpectedAborts": 1,
+    "predefinedAbortedRequestsWithBodyProof": 0,
+    "separatePosthocInitialABodyProof": true,
+    "causeEstablished": false
+  },
+  "historicalAllArt": {
+    "actualAborts": 223,
+    "exactOriginalBodies": 223,
+    "strict": "failed",
+    "ambiguousSuccessfulArtIndexReads": 3
+  },
+  "recommendation": "Separate bounded current-loader one-page paid-opening diagnostic; preserve locked uninstrumented matrix and all raw strict failures."
+}
