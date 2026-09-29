@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/us-rifle-style-candidate-v1/check-source-semantic-v3.py", line 69, in <module>
+    failure=B/'strict-semantic-failure-v3.json';assert not failure.exists();failure.write_text(json.dumps({'id':spec['id'],'script_sha256':sha(Path(__file__)),'source_sha256':sha(S/'assets/pipeline/blender/models/infantry_roster.py'),'differences':differences(a,b)},indent=2)+'\n');raise AssertionError((spec['id'],'unchanged role geometry/pose/material/hardpoint'))
+                                                                                                                                                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('unit.IR.at', 'unchanged role geometry/pose/material/hardpoint')
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

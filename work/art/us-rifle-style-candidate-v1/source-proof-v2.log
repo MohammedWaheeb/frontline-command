@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/us-rifle-style-candidate-v1/check-source-semantic.py", line 55, in <module>
+    spec=json.loads(p.read_text());assert sha(p)==sha(R/p.relative_to(S));a,b=run(control,spec),run(family,spec);assert a==b,(spec['id'],'unchanged role geometry/pose/material/hardpoint');rows.append({'id':spec['id'],'poses':len(a['poses']),'signature_sha256':digest(a)});print('FC_RIFLE_OTHER_ROLE_EXACT',spec['id'],len(a['poses']),flush=True)
+                                                                                                                        ^^^^
+AssertionError: ('unit.IR.at', 'unchanged role geometry/pose/material/hardpoint')
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

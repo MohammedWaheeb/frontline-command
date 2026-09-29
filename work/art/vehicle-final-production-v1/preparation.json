@@ -1,0 +1,285 @@
+{
+  "stage": "work/art/vehicle-final-production-v1/stage",
+  "original_lock": "work/art/vehicle-production/production-lock.json",
+  "original_lock_sha256": "0e8820801482fdcb859d29743fc1344d74adc2f69049cc1fd74727593ae26bfc",
+  "inputs": {
+    "assets/pipeline/blender/models/vehicle_roster.py": {
+      "path": "assets/pipeline/blender/models/vehicle_roster.py",
+      "sha256": "5259f3b44bb7b083881781043e3fed00040b3e47aefe68c7607786068442f422"
+    },
+    "assets/pipeline/blender/fclib.py": {
+      "path": "assets/pipeline/blender/fclib.py",
+      "sha256": "f2efa7bdc39742579bae5236af56a4d076def9be9541643be3e1b59a9604fe37"
+    },
+    "assets/pipeline/blender/render_asset.py": {
+      "path": "assets/pipeline/blender/render_asset.py",
+      "sha256": "8da035829b13704d678152f41fa3f86c5945e87be2503d9d0307157569bd38b4"
+    },
+    "assets/pipeline/blender/render_ui_shots.py": {
+      "path": "assets/pipeline/blender/render_ui_shots.py",
+      "sha256": "6067b4ec709a18bdd68b32a45296d4e00f634477a9d57f700a21d11777cc3135"
+    },
+    "assets/pipeline/tools/shadow_alpha.py": {
+      "path": "assets/pipeline/tools/shadow_alpha.py",
+      "sha256": "40908f01475b4aa7c8ab3d64a0a882cfe26faa6311defb1e882296605cb2a25e"
+    },
+    "assets/pipeline/tools/composite.py": {
+      "path": "assets/pipeline/tools/composite.py",
+      "sha256": "adf3e87ee84cb9c8262e1008b503d6b28614af10b7074146c53986c9dcaa0505"
+    },
+    "assets/pipeline/tools/check_assets.py": {
+      "path": "assets/pipeline/tools/check_assets.py",
+      "sha256": "d6d8406c75d28345cca9cda6db9a88dce18350bccaa0cfe5eea12486bed9135b"
+    },
+    "assets/pipeline/specs/unit.IR.aa.json": {
+      "path": "assets/pipeline/specs/unit.IR.aa.json",
+      "sha256": "848b925196104617b8eb6fcc5559dc7494aba5a8125687e6521ee7cc2a5ac494"
+    },
+    "assets/pipeline/specs/unit.IR.apc.json": {
+      "path": "assets/pipeline/specs/unit.IR.apc.json",
+      "sha256": "c6c60418d3a1bb019ef078ed556b84c32b957e3f26bdc241dc40061715bb0ea6"
+    },
+    "assets/pipeline/specs/unit.IR.artillery.json": {
+      "path": "assets/pipeline/specs/unit.IR.artillery.json",
+      "sha256": "cddab9d85840372eace8b76206b98397d8e9ec21b4773ed3302eb0fc1de24068"
+    },
+    "assets/pipeline/specs/unit.IR.car.json": {
+      "path": "assets/pipeline/specs/unit.IR.car.json",
+      "sha256": "6a5e2deb532a087b6e2ea4d969bc07034f73f263271049f69a65dfc7c155ee67"
+    },
+    "assets/pipeline/specs/unit.IR.repair.json": {
+      "path": "assets/pipeline/specs/unit.IR.repair.json",
+      "sha256": "4c55089a891addba28a4295e519ce7e479bdcb5ddb87d3109fced0c9ca56060a"
+    },
+    "assets/pipeline/specs/unit.IR.tank.json": {
+      "path": "assets/pipeline/specs/unit.IR.tank.json",
+      "sha256": "5c5e4571154935da32d3361ff556e45ca3ea4676f21a2ff708d955219e54bb31"
+    },
+    "assets/pipeline/specs/unit.SA.aa.json": {
+      "path": "assets/pipeline/specs/unit.SA.aa.json",
+      "sha256": "81f0b934c2c707280a3d6da9c6fcd7a9d3e93a6e3551d232adab0d171c28e996"
+    },
+    "assets/pipeline/specs/unit.SA.apc.json": {
+      "path": "assets/pipeline/specs/unit.SA.apc.json",
+      "sha256": "22286dbf49daaafa555a99002b3dab63d9a0a6b13826c0586a3c6cd98f36fb65"
+    },
+    "assets/pipeline/specs/unit.SA.artillery.json": {
+      "path": "assets/pipeline/specs/unit.SA.artillery.json",
+      "sha256": "824690006645efb68f2bbc1fa48035bce53649644da9b48afb8188a549318e7b"
+    },
+    "assets/pipeline/specs/unit.SA.car.json": {
+      "path": "assets/pipeline/specs/unit.SA.car.json",
+      "sha256": "eee070ea332aebb7926f2c4d227a17251288a248a982325f0efa22776a060953"
+    },
+    "assets/pipeline/specs/unit.SA.repair.json": {
+      "path": "assets/pipeline/specs/unit.SA.repair.json",
+      "sha256": "a807289111977de4623203eb806d048d0ebef22aea9d5573aa6fda3bc3c82564"
+    },
+    "assets/pipeline/specs/unit.SY.aa.json": {
+      "path": "assets/pipeline/specs/unit.SY.aa.json",
+      "sha256": "9e46648d5f0b885b349da130dbad95a2fc7ec9b23b35f9a4cbabd199a118daf7"
+    },
+    "assets/pipeline/specs/unit.SY.artillery.json": {
+      "path": "assets/pipeline/specs/unit.SY.artillery.json",
+      "sha256": "8be5aee256d716c1c50f734e41412c5aa40e1447adbb4c4725374e040344cb63"
+    },
+    "assets/pipeline/specs/unit.SY.buggy.json": {
+      "path": "assets/pipeline/specs/unit.SY.buggy.json",
+      "sha256": "7623356d9900e7e53fc08811bb82af92911832eafb75b4f0ef68b76aff9299b0"
+    },
+    "assets/pipeline/specs/unit.SY.repair.json": {
+      "path": "assets/pipeline/specs/unit.SY.repair.json",
+      "sha256": "39277e8668ecd1546085e00e126fba6daf121b3f312f9c8a0099b831d07e3e1e"
+    },
+    "assets/pipeline/specs/unit.SY.tank.json": {
+      "path": "assets/pipeline/specs/unit.SY.tank.json",
+      "sha256": "4e6a06fa09b9d06f6f8f30570467dcd04b1b9162ce182029dc205a6354d7ab42"
+    },
+    "assets/pipeline/specs/unit.US.aa.json": {
+      "path": "assets/pipeline/specs/unit.US.aa.json",
+      "sha256": "e2acc13317a01369d724256b843a5437ff6124612456802a24436f1a918dd7c0"
+    },
+    "assets/pipeline/specs/unit.US.apc.json": {
+      "path": "assets/pipeline/specs/unit.US.apc.json",
+      "sha256": "b155afa234de6f369276888bb12fe24633e97f8804a525a61c27ea4278030aff"
+    },
+    "assets/pipeline/specs/unit.US.artillery.json": {
+      "path": "assets/pipeline/specs/unit.US.artillery.json",
+      "sha256": "16208fb8f6542b5b7f5c3fc7692bccda15bf29418f65570e47e2276e27869a0d"
+    },
+    "assets/pipeline/specs/unit.US.car.json": {
+      "path": "assets/pipeline/specs/unit.US.car.json",
+      "sha256": "1441ac737b836c09508366f468c0a81da0b1826ea83e347f9f26a6e9cd98d99c"
+    },
+    "assets/pipeline/specs/unit.US.repair.json": {
+      "path": "assets/pipeline/specs/unit.US.repair.json",
+      "sha256": "04529dc05dbc2e300c35abd3670ca3e44c96b0ecd3802cac12852aba0bdd36a1"
+    },
+    "assets/pipeline/tools/sprite_ink_bounds.py": {
+      "path": "assets/pipeline/tools/sprite_ink_bounds.py",
+      "sha256": "cda9670317a57b3d0693777978fa049b6e2ef035c120f5c1920aa0b8de05048e"
+    },
+    "assets/pipeline/blender/team_mask_png.py": {
+      "path": "assets/pipeline/blender/team_mask_png.py",
+      "sha256": "cbea213441e9a32310e34ad89970b00f2e5c9c1b358e412b465a8c9b503e70b8"
+    },
+    "assets/pipeline/tools/pack_sprites.py": {
+      "path": "work/art/ground-launcher-charge-contract-v1/production-v2/stage/assets/pipeline/tools/pack_sprites.py",
+      "sha256": "8c3f07bb1fc85600a17ecfaaab82840ce6d6a9ab287799c0533a33347860abb0"
+    },
+    "work/art/vehicle-production/model-audit.py": {
+      "path": "work/art/vehicle-production/model-audit.py",
+      "sha256": "feab86e0c2ba597d8a5fa9194f240f154aaa7dbc7efb212ec7a992ab28353c05"
+    },
+    "work/art/vehicle-production/check-one.py": {
+      "path": "work/art/vehicle-production/check-one.py",
+      "sha256": "5dd0cb212d38b72722726f8d37f64c3582e6d18dafa52cb357064ce7de4dcb49"
+    },
+    "work/art/vehicle-production/ui-and-contacts.py": {
+      "path": "work/art/vehicle-production/ui-and-contacts.py",
+      "sha256": "a1617402acf5977a68c77a4204e2652d036d3480c7aabcf4adef9a936ba85f9f"
+    },
+    "assets/manifest/asset-manifest.json": {
+      "path": "work/art/ground-launcher-charge-contract-v1/production-v2/stage/assets/manifest/asset-manifest.json",
+      "sha256": "a059c303c6639ba087602379fa94158eb36a24ebca9d79ff68fd9b93b23a885e"
+    }
+  },
+  "assets": [
+    {
+      "id": "unit.IR.aa",
+      "poses": 240,
+      "spec_sha256": "848b925196104617b8eb6fcc5559dc7494aba5a8125687e6521ee7cc2a5ac494",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.IR.apc",
+      "poses": 304,
+      "spec_sha256": "c6c60418d3a1bb019ef078ed556b84c32b957e3f26bdc241dc40061715bb0ea6",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.IR.artillery",
+      "poses": 400,
+      "spec_sha256": "cddab9d85840372eace8b76206b98397d8e9ec21b4773ed3302eb0fc1de24068",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.IR.car",
+      "poses": 240,
+      "spec_sha256": "6a5e2deb532a087b6e2ea4d969bc07034f73f263271049f69a65dfc7c155ee67",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.IR.repair",
+      "poses": 208,
+      "spec_sha256": "4c55089a891addba28a4295e519ce7e479bdcb5ddb87d3109fced0c9ca56060a",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.IR.tank",
+      "poses": 240,
+      "spec_sha256": "5c5e4571154935da32d3361ff556e45ca3ea4676f21a2ff708d955219e54bb31",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SA.aa",
+      "poses": 240,
+      "spec_sha256": "81f0b934c2c707280a3d6da9c6fcd7a9d3e93a6e3551d232adab0d171c28e996",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SA.apc",
+      "poses": 304,
+      "spec_sha256": "22286dbf49daaafa555a99002b3dab63d9a0a6b13826c0586a3c6cd98f36fb65",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SA.artillery",
+      "poses": 240,
+      "spec_sha256": "824690006645efb68f2bbc1fa48035bce53649644da9b48afb8188a549318e7b",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SA.car",
+      "poses": 240,
+      "spec_sha256": "eee070ea332aebb7926f2c4d227a17251288a248a982325f0efa22776a060953",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SA.repair",
+      "poses": 432,
+      "spec_sha256": "a807289111977de4623203eb806d048d0ebef22aea9d5573aa6fda3bc3c82564",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SY.aa",
+      "poses": 240,
+      "spec_sha256": "9e46648d5f0b885b349da130dbad95a2fc7ec9b23b35f9a4cbabd199a118daf7",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SY.artillery",
+      "poses": 240,
+      "spec_sha256": "8be5aee256d716c1c50f734e41412c5aa40e1447adbb4c4725374e040344cb63",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SY.buggy",
+      "poses": 240,
+      "spec_sha256": "7623356d9900e7e53fc08811bb82af92911832eafb75b4f0ef68b76aff9299b0",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SY.repair",
+      "poses": 304,
+      "spec_sha256": "39277e8668ecd1546085e00e126fba6daf121b3f312f9c8a0099b831d07e3e1e",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.SY.tank",
+      "poses": 240,
+      "spec_sha256": "4e6a06fa09b9d06f6f8f30570467dcd04b1b9162ce182029dc205a6354d7ab42",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.US.aa",
+      "poses": 240,
+      "spec_sha256": "e2acc13317a01369d724256b843a5437ff6124612456802a24436f1a918dd7c0",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.US.apc",
+      "poses": 304,
+      "spec_sha256": "b155afa234de6f369276888bb12fe24633e97f8804a525a61c27ea4278030aff",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.US.artillery",
+      "poses": 240,
+      "spec_sha256": "16208fb8f6542b5b7f5c3fc7692bccda15bf29418f65570e47e2276e27869a0d",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.US.car",
+      "poses": 240,
+      "spec_sha256": "1441ac737b836c09508366f468c0a81da0b1826ea83e347f9f26a6e9cd98d99c",
+      "status": "Approved unchanged source; not rendered in this stage."
+    },
+    {
+      "id": "unit.US.repair",
+      "poses": 208,
+      "spec_sha256": "04529dc05dbc2e300c35abd3670ca3e44c96b0ecd3802cac12852aba0bdd36a1",
+      "status": "Approved unchanged source; not rendered in this stage."
+    }
+  ],
+  "poses": 5584,
+  "excluded": [
+    "unit.SY.apc",
+    "unit.SA.tank",
+    "unit.IR.launcher",
+    "unit.US.launcher",
+    "unit.SY.launcher",
+    "unit.SA.launcher"
+  ],
+  "scope": "Preparation only. Runs after queued8aircraft; exact original models/specs and approved pipeline. No Blender launched, accepted/frozen exports unchanged."
+}

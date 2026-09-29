@@ -1,0 +1,38 @@
+{
+  "id": "unit.US.rifle",
+  "reviewed_at_utc": "2026-09-29T16:12:06.242957+00:00",
+  "accepted_bounded_pilot": true,
+  "scope": "All50 selected candidate poses versus exact old references at native1x, four detailed2x state sheets, exact family context at1x2x and authored UI. Parent full-export gate pending.",
+  "images": {
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/cover-before-after-01@1x.png": "4fe93ea5182de193c59ec80b4657517f93d192dd0e5fb9b42f11dfe8df12686b",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/idle-before-after-01@1x.png": "40b64b75f72454552d17b9d1430662f5567bba62bb9102609500cd1cf7058567",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/move-before-after-01@1x.png": "cb849c92e2e5c937bfb0496148b9878665d8e38ae63e46e6cb426c86ea36d5dc",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/death-before-after-01@1x.png": "3e27871c999b9671934bedff64d441613510cb638d1699219d8855f09cb22d1b",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/fire-before-after-01@1x.png": "232e8da8777156e151b143d29aa30206259b4f2e9caa301c78bc431b9ac6c57b",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/move-before-after-02@1x.png": "3963d64811a0b4ba089052be158044ca764ca4b255ab5cf554d85f7c3826244c",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/aim-before-after-01@1x.png": "cc5f0de0977ef79bd29a3db9f7e904fc43bf17fae26cc5b46a9bb4df26d0f9f3",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/death-before-after-02@1x.png": "be7f5482ca69116be2ca94aaadfb7b1f70c2e547e53cb81897c9e9e207387758",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/move-before-after-01@2x.png": "a9bf2fc20d524465a157696248782e445711315cde77f499e607e7a73c21d76f",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/fire-before-after-01@2x.png": "8fa6901ad8f82b381d7f5ca2a5fbb5220ca5c0eeb2ec24e45b6cc39e5d723c3b",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/cover-before-after-01@2x.png": "c44188d3582665607241a7fdf669db9c2ba651c1126ce52428e4753cb676cfc1",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/contacts/death-before-after-02@2x.png": "2ffc89b1ee90122469f32fcccf3f4a7425ba5c1d8b86636fcc87c571d97d790a",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/family-ui/family@1x.png": "bd0289b523d9f98294c9f44d6df5a59114d49720079e3cd1cdec1329ca960473",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/family-ui/family@2x.png": "22dc890b49c1dd0d4d8c11e37b960364213630dfa8b7c8f35e4f60b240880c8b",
+    "work/art/us-rifle-style-candidate-v1/pilot-v1/family-ui/ui-before-after@1x-2x.png": "cb847647ab430c81a46027098d632f6ded69e021ab6f695cdbc199269bc60171"
+  },
+  "source_proof_sha256": "f514b32659c438c502fb21e19bc9d84b45dc91f1db52f7daeaa50f58d6141629",
+  "candidate_spec_sha256": "2278a60c400f5d2fdc68144549e1aa0e4bcb630b9578bd3f689baca0bc79d7b2",
+  "world_checks": 833,
+  "world_failures": 0,
+  "findings": [
+    "Fuller boots, armor/gear and shoulder mass now match existing US family without changing ground origin/world zoom.",
+    "Walking/kneeling, aim/recoil and fall poses retain visible phase changes; firing motion modest at1x, clearer2x.",
+    "Weapon stays with the fallen candidate body instead of the old final floating rifle.",
+    "UI helmet/head, vest, hands and rifle read as existing roster style; no clipping or false rescaling.",
+    "US rifle/elite geometry remains similar at small world scale, as already flagged for complete-family review; this routing correction resolves the legacy thin-body mismatch only."
+  ],
+  "limitations": [
+    "Two selected headings only in native pilot; full200/all8 directions required.",
+    "Source/pixel/functional validation is not final gameplay camera or character-quality acceptance."
+  ]
+}

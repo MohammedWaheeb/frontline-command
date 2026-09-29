@@ -1,0 +1,111 @@
+{
+  "id": "unit.US.rifle",
+  "role_id": "US.rifle",
+  "model": "infantry_roster",
+  "faction": "US",
+  "author": "Claude",
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Claude",
+    "spec_author": "Claude Code claude-opus-5-5 (29 Sept 2026): isolated US rifle style-alignment candidate spec, per work/claude/29sept-complete-infantry-ui-mask-review.md Q2",
+    "authorization": "User-authorized Claude candidate authoring; isolated path, no source/spec/pixel promotion",
+    "source_model": "assets/pipeline/blender/models/infantry_roster.py",
+    "source_model_author": "Codex, during the user-authorized Claude quota takeover (unchanged, reused via its existing US/rifle branch)",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "original_model": "assets/pipeline/blender/models/infantry.py (Claude source; unchanged and still used by the live assets/pipeline/specs/unit.US.rifle.json)",
+    "source_map": "work/art/us-rifle-style-mapping-v1/source-map.json",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "params": {
+    "role": "rifle"
+  },
+  "canvas": [
+    192,
+    160
+  ],
+  "anchor": [
+    84,
+    108
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 350,
+  "squad": {
+    "members": 4,
+    "member_offsets_mt": [
+      [
+        -120,
+        -90
+      ],
+      [
+        110,
+        -100
+      ],
+      [
+        -90,
+        110
+      ],
+      [
+        120,
+        90
+      ]
+    ]
+  },
+  "states": [
+    {
+      "name": "idle",
+      "part": "body",
+      "directions": 8,
+      "frames": 4,
+      "fps": 4,
+      "loop": true
+    },
+    {
+      "name": "move",
+      "part": "body",
+      "directions": 8,
+      "frames": 8,
+      "fps": 14,
+      "loop": true
+    },
+    {
+      "name": "aim",
+      "part": "body",
+      "directions": 8,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "fire",
+      "part": "body",
+      "directions": 8,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    {
+      "name": "cover",
+      "part": "body",
+      "directions": 8,
+      "frames": 2,
+      "fps": 2,
+      "loop": true
+    },
+    {
+      "name": "death",
+      "part": "body",
+      "directions": 8,
+      "frames": 6,
+      "fps": 12,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ]
+}

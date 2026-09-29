@@ -1,0 +1,9 @@
+"""Correct only stale-loop-variable report hashes; rerun actual rifle measurement proof."""
+from pathlib import Path
+p=Path(__file__).resolve().parent/'check-source-semantic-v5.py';s=p.read_text();prefix=s[:s.index('\noriginal=')];body=s[s.index('\noriginal='):s.index('\nprint("FC_RIFLE_OLD_NEW_EVALUATED_DONE"')];exec(compile(prefix+body,str(p),'exec'),globals())
+prior=B/'source-proof-v5.json';j=json.loads(prior.read_text());assert j['failures']==0 and len(j['unrelated_roles'])==24;assert j['source_lock_sha256']==sha(B/'pilot-source-lock.json');assert j['candidate_spec_sha256']==sha(B/'unit.US.rifle.json');assert j['comparisons']==comparisons
+# v5 checked the intended geometry and numerical assertions, but final hash fields used
+# the loop's last unrelated pair. Preserve v5 and explicitly replace those report fields.
+old_hash,new_hash=digest(a['poses']),digest(b['poses']);assert len(a['poses'])==len(b['poses'])==200
+changes={k:{'prior':j[k],'corrected':v} for k,v in {'old_signature_sha256':old_hash,'new_signature_sha256':new_hash,'max_grip_error_bu':b['max_grip_error_bu'],'ground_origin_relative_anchor':{'old':a['origin_relative_anchor'],'new':b['origin_relative_anchor']}}.items()}
+j.update({k:v['corrected'] for k,v in changes.items()});j['report_field_correction']=changes;j['unrelated_role_proof']={'path':str(prior.relative_to(R)),'sha256':sha(prior),'scope':'24 exact unaffected role checks from preserved v5, not rerun here.'};j['measurement_recheck']={'poses':200,'reverse_poses':200,'comparisons_exact_to_v5':True,'scope':'Rerun only actual old/new rifle measurements and intended signature hashes; no model/spec/threshold change.'};j['script_sha256']=sha(Path(__file__));out=B/'source-proof-v6.json';assert not out.exists();out.write_text(json.dumps(j,indent=2)+'\n');print('FC_RIFLE_SOURCE_PROOF_DONE',24,200,flush=True)

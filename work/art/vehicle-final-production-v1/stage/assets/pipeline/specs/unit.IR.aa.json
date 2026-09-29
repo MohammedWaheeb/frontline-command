@@ -1,0 +1,115 @@
+{
+  "id": "unit.IR.aa",
+  "role_id": "IR.aa",
+  "model": "vehicle_roster",
+  "faction": "IR",
+  "author": "Claude Code claude-opus-5-5; Codex audit and specifications",
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Claude Code claude-opus-5-5; Codex audit and specifications",
+    "authorization": "User-approved Claude quota takeover; assignment 09 continuation",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "source_model": "assets/pipeline/blender/models/vehicle_roster.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "params": {
+    "kind": "IR.aa"
+  },
+  "canvas": [
+    448,
+    384
+  ],
+  "anchor": [
+    224,
+    224
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 600,
+  "states": [
+    {
+      "name": "idle",
+      "part": "hull",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "move",
+      "part": "hull",
+      "directions": 16,
+      "frames": 4,
+      "fps": 12,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "damaged",
+      "part": "hull",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "wreck",
+      "part": "whole",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "aim",
+      "part": "turret",
+      "directions": 32,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "fire",
+      "part": "turret",
+      "directions": 32,
+      "frames": 3,
+      "fps": 15,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    }
+  ],
+  "turret_pivot_mt": [
+    -100,
+    0
+  ]
+}
