@@ -1,6 +1,8 @@
 # Frontline Command: fresh native presentation review
 
-Use exactly `claude-opus-5-5`, with fallback disabled. This assignment is prepared for after29September2026 19:30UTC/22:30Qatar. It must not be dispatched early. You remain the primary UI/art author. Your first presentation corrections were integrated as3d196fd; after your next request hit quota without edits, Codex used the user's explicit fallback authorization for caption layout and lifecycle corrections. Do not assume your earlier source was integrated unchanged.
+Latest user instruction on29September: Codex may author UI and assets directly without Claude. Your exact-model review remains useful, but your availability is no longer a gate or exclusive ownership requirement. Do not overwrite another author's active work.
+
+Use exactly `claude-opus-5-5`, with fallback disabled. This assignment is prepared for after29September2026 19:30UTC/22:30Qatar. It must not be dispatched early. You are the original UI/art author and an independent reviewer for this assignment. Your first presentation corrections were integrated as3d196fd; after your next request hit quota without edits, Codex used the user's explicit fallback authorization for caption layout and lifecycle corrections. Do not assume your earlier source was integrated unchanged.
 
 This is a **read-only review**. Your only writable output is `work/claude/29sept-integration-review-v3.md`. Do not edit product code, design, screenshots, raw evidence or previous reports. Do not use Bash, Agent, Task or another model. Do not run any application, browser or render process. The sole browser and Blender lanes may be busy. Read the referenced source and native images using Read. Return explicit bounded findings, severity, affected functions/selectors and a concrete fix proposal. Do not merely praise the work or infer a perfect game from successful tests.
 

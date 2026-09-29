@@ -1,0 +1,7 @@
+# Pending building attachment source audit
+
+Read-only source review of the exact remaining 32-building stage. Two explicit removal relationships are inconsistent: `Architect.block` removes its roof slab for damage, while SY patches/corrugated ribs remain separate root children; `Architect.vents` removes each vent box while its vent-slot siblings remain. Generic state visibility uses explicit hidden objects and their ancestors, so sibling details do not follow. The final roster pose does not repair these relationships. The later critical high-vent prefix filter can remove some slots in critical state; damaged state has no such filter.
+
+`result.json` lists the 18 affected pending IDs and their exact damaged/critical specs. This is source-level evidence only: roof/wall support, occlusion, shadows and native visibility require actual evaluated geometry and small native views before any visual-failure claim. Existing exported assets are outside this report. Factory sawtooth roofs/spines and other rooftop equipment are intentionally outside the confirmed pair inventory and need contextual visual judgment rather than blanket deletion.
+
+Mencius owns the next bounded evaluated/native proof at a whole-asset boundary before affected building bulk. Preserve existing geometry/materials/transforms/hardpoints and unrelated states if a visibility correction is justified. No second Blender process or render has been started; no model or production input changed.

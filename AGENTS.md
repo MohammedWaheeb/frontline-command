@@ -15,6 +15,13 @@ Read `outputs/frontline-command-agent-handoff.md` and the authoritative
   presentation and asset pipelines, through CLI exact `claude-opus-5-5`.
   Resume Claude when access returns. Existing jobs must be told of ownership
   changes before resuming; never have two authors edit the same files concurrently.
+- User update on 2026-09-29: Codex may now author UI, graphics and assets directly
+  without waiting for Claude. Prioritize parallel subagent work on graphics and
+  performance. This supersedes the earlier Claude-only/after-quota boundary.
+  Claude may still contribute using exact `claude-opus-5-5` with model auditing,
+  but its availability is no longer a gate for implementation or art fixes.
+  Keep one heavy Blender renderer and one browser benchmark lane on this16GB
+  host; parallel source authoring/review must have explicit file ownership.
 - Visual direction: original stylized classic C&C-inspired RTS, strong command
   sidebar, bold readable silhouettes and expressive military-industrial art;
   avoid a photorealistic presentation.

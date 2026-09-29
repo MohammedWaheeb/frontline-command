@@ -1,5 +1,7 @@
 # Native aircraft family visual review
 
+Latest user instruction on29September: Codex may author UI and assets directly without Claude. Your exact-model review remains useful, but your availability is no longer a gate or exclusive ownership requirement. Do not overwrite another author's active work.
+
 Use exactly `claude-opus-5-5`, with fallback disabled and no other model.
 Prepared for after 29 September 2026 19:30 UTC /22:30 Qatar; do not dispatch early.
 This is read-only visual review. Your only writable file is

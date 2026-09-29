@@ -1,0 +1,17 @@
+{
+  "status": "failed",
+  "assertion": "Input drift through ordinary make build",
+  "copied_package": false,
+  "differences": [
+    {
+      "path": "client/public/runtime/frontline.wasm",
+      "before": "2fb75dde5cf4e3dcc64ee34c78c818424c8b5e755bbcc3970b9e5decac5d6f26",
+      "after": "aa6405dd4a70815303feea88e9135ce1437e638b2026e35379023cf6703d459e"
+    },
+    {
+      "path": "bin/runtime-native",
+      "before": "86c1eaab4bfd891ed711ed8f834b287447e70f0653b51a12cd068e037e63583d",
+      "after": "731a83badb6b1cb1569a06312118675c3ee059dde966b744d339e8e89f09df0c"
+    }
+  ]
+}
