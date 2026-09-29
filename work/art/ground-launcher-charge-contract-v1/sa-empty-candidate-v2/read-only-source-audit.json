@@ -1,0 +1,13 @@
+{
+  "scope": "AST/source-only audit; no evaluated mesh, pose, clearance, pixel or visual acceptance yet.",
+  "baseline_sha256": "fdff1a6134c7128a15bffd1fdcf0d233ba63e3f8672b061e53b69bc3ff34ac66",
+  "candidate_sha256": "6deeb7073906bd8cabf79d269835c4580c8cdd5fd53b84cb3b157a4ac9e25841",
+  "changed_functions": [
+    "launcher_truck",
+    "pose"
+  ],
+  "untouched_top_level_functions_classes": 35,
+  "required_old_state_exception": "unit.SA.launcher ready_empty",
+  "required_unchanged_scope": "All26 other variants plus every SA state outside four charges_0 states and ready_empty; common geometry/material/hardpoints exact in changed states.",
+  "approved_future_native_inventory": "32 new empty tuples including ready_empty; references and fire f03 reused from immutable prior pilot where available."
+}

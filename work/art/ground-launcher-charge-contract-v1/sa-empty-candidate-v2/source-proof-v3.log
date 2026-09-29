@@ -1,0 +1,11 @@
+FC_SA_SHELL_SOURCE_ASSET unit.IR.aa 240
+FC_SA_SHELL_SOURCE_ASSET unit.IR.apc 304
+FC_SA_SHELL_SOURCE_ASSET unit.IR.artillery 400
+FC_SA_SHELL_SOURCE_ASSET unit.IR.car 240
+Traceback (most recent call last):
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/ground-launcher-charge-contract-v1/sa-empty-candidate-v2/check-source-debug.py", line 60, in <module>
+    raise AssertionError((aid,'geometry/materials',[(k,list(v)) for k,v in diff.items()]))
+AssertionError: ('unit.IR.launcher', 'geometry/materials', [('smoke_0', ['faces']), ('smoke_1', ['faces'])])
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

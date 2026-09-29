@@ -1,0 +1,45 @@
+{
+  "scope": "Read-only AST/source scope proof only; no evaluated geometry, height, cutter, pose or native acceptance.",
+  "baseline": "assets/pipeline/blender/models/building_roster.py",
+  "baseline_sha256": "f69e9291bcbe4b074d460b550f26b1dab1688dd1ae9f9518f8aae7a3be059b60",
+  "candidate": "work/art/hq-role-candidate-v1/candidate-building_roster.py",
+  "candidate_sha256": "71eb13ffb7503208da217d7950f9674c80026b8ee31e81cefabe78bc62d25f87",
+  "report_sha256": "25ea320f6b066978e6550ead1466753980cf66a866b2e92e3471c73b63c360fb",
+  "changed_functions": [
+    "Architect.make"
+  ],
+  "unchanged_functions": [
+    "Architect.__init__",
+    "Architect.b",
+    "Architect.block",
+    "Architect.c",
+    "Architect.crate",
+    "Architect.door",
+    "Architect.interceptor_ir",
+    "Architect.interceptor_sa",
+    "Architect.interceptor_sy",
+    "Architect.lamps",
+    "Architect.mast",
+    "Architect.producer_ir",
+    "Architect.producer_sa",
+    "Architect.producer_service_cue",
+    "Architect.producer_shell",
+    "Architect.producer_sy",
+    "Architect.producer_us",
+    "Architect.repair_apron_arm",
+    "Architect.service_arm",
+    "Architect.tanks",
+    "Architect.vents",
+    "Architect:header",
+    "build",
+    "pose"
+  ],
+  "required_isolation": "New SY/SA HQ arms only, explicit not small; all57 other building variants including SY/SA outposts exact.",
+  "next_gate": [
+    "Evaluated geometry/material/pose/hardpoint equality for57 unrelated variants.",
+    "SY/SA full28states source bounds/reset and intended height<=2.67, pad/apron/lamp/crate/vent clearance and construction cutter.",
+    "Foundation/rubble exact rendered membership/material/transform/hardpoint exemption audit; healthbar/smoke height changes explicit, rally exact.",
+    "Small native old/new structural/operational/UI pilot, then four-HQ comparison. Damaged floating ribs remain an explicit visual inspection risk."
+  ],
+  "promotion": "None; candidate-only Claude model authorship, Codex numerical/pipeline work queued after US/SY full launcher exports."
+}

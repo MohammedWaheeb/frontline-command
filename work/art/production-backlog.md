@@ -5,7 +5,7 @@ This is an operational inventory, not a release acceptance claim. US fighter896 
 | Family | Planned | Complete exports | Remaining | Remaining poses |
 |---|---:|---:|---:|---:|
 | New aircraft | 11 | 3 | 8 | 6,448 |
-| Ground vehicles | 27 | 3 | 24 | 6,880 |
+| Ground vehicles | 27 | 5 | 22 | 6,016 generic baseline; 6,272 with pending SA charge scope |
 | Buildings | 59 | 27 | 32 | 1,614 |
 | New infantry | 24 | 24 | 0 | 0 |
 
@@ -23,7 +23,7 @@ US gunship subsequently completed1,120 poses (1,080 freshly rendered in2,353.0se
 
 ## Ground vehicles
 
-unit.IR.aa, unit.IR.apc, unit.IR.artillery, unit.IR.car, unit.IR.repair, unit.IR.tank, unit.SA.aa, unit.SA.apc, unit.SA.artillery, unit.SA.car, unit.SA.launcher, unit.SA.repair, unit.SY.aa, unit.SY.artillery, unit.SY.buggy, unit.SY.launcher, unit.SY.repair, unit.SY.tank, unit.US.aa, unit.US.apc, unit.US.artillery, unit.US.car, unit.US.launcher, unit.US.repair
+unit.IR.aa, unit.IR.apc, unit.IR.artillery, unit.IR.car, unit.IR.repair, unit.IR.tank, unit.SA.aa, unit.SA.apc, unit.SA.artillery, unit.SA.car, unit.SA.launcher, unit.SA.repair, unit.SY.aa, unit.SY.artillery, unit.SY.buggy, unit.SY.repair, unit.SY.tank, unit.US.aa, unit.US.apc, unit.US.artillery, unit.US.car, unit.US.repair
 
 ## Buildings
 
@@ -32,3 +32,5 @@ building.IR.aa_post, building.IR.barracks, building.IR.bunker, building.IR.facto
 ## New infantry
 
 All24 complete; native style/readability and actual-game release gates remain separate.
+
+September29 15:30UTC: US688 and SY688 full charge exports are complete with46 integrity/UI checks each and29 native sheets each directly reviewed. The existing IR1120 correction remains separate from its earlier generic544 handoff, so there are five completed ground roster IDs, not six. US/SY raw rendering took1,479.7/1,461.2seconds, each56 exact reused/632 fresh. The next bounded Claude SA shell, HQ and rifle pilots remain private and must pass their numerical/native gates before any full corrected export. Eight unaffected aircraft/6,448poses remain queued after these small checks. At the recent2.18–2.31seconds per newly rendered pose, their raw work alone is roughly4hours if no further reuse, plus packing/UI/review; this is a planning estimate, not a completion promise.
