@@ -1,0 +1,41 @@
+✘ [ERROR] Could not resolve "./iso"
+
+    work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts:6:37:
+      6 │ import {HALF_H,HALF_W,LEVEL_PX} from './iso';
+        ╵                                      ~~~~~~~
+
+✘ [ERROR] Could not resolve "./terrain-materials"
+
+    work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts:8:69:
+      8 │ ...alFor,heightAt,terrainAt,type Material} from './terrain-materials';
+        ╵                                                 ~~~~~~~~~~~~~~~~~~~~~
+
+✘ [ERROR] Could not resolve "./terrain-surface"
+
+    work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts:9:113:
+      9 │ ...s,surfaceFogOpacity,type SurfaceTriangle} from './terrain-surface';
+        ╵                                                   ~~~~~~~~~~~~~~~~~~~
+
+/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1752
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 3 errors:
+work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts:6:37: ERROR: Could not resolve "./iso"
+work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts:8:69: ERROR: Could not resolve "./terrain-materials"
+work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts:9:113: ERROR: Could not resolve "./terrain-surface"
+    at failureErrorWithLog (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1752:15)
+    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1211:25
+    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1163:52
+    at buildResponseToResult (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1209:7)
+    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1236:16
+    at responseCallbacks.<computed> (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:886:9)
+    at handleIncomingPacket (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:941:12)
+    at Socket.readFromStdout (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:864:7)
+    at Socket.emit (node:events:509:20)
+    at addChunk (node:internal/streams/readable:568:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v26.5.0

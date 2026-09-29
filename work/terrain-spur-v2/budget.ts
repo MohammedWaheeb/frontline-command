@@ -1,0 +1,24 @@
+import {writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {TerrainSurface,compareSurfaceTriangles,type SurfaceTriangle} from './inputs/terrain-surface';
+import {fogTopology as before} from './inputs/current-terrain';
+import {fogTopology as indexed} from './inputs/indexed-terrain';
+import {fogTopology as after} from './inputs/candidate-module-terrain';
+const arrays=(x:object)=>Object.values(x).filter((v):v is Uint16Array|Uint32Array|Int32Array=>ArrayBuffer.isView(v)),bytes=(x:object)=>arrays(x).reduce((sum,v)=>sum+v.byteLength,0),results=[];
+for(const size of [40,256])for(const raised of [false,true]){
+ const surface=new TerrainSurface({width:size,height:size,tiles:Array.from({length:size*size},(_,i)=>({terrain:raised&&(i%size===16||Math.floor(i/size)%16===8)?'cliff':'open',height:raised?(i%size+Math.floor(i/size))%5:0}))});
+ const row={size,raised,fragments:0,triangles:0,faceTriangles:0,beforeBytes:0,indexedBytes:0,afterBytes:0,addedTopologyBytes:0,savedFromIndexedBytes:0,beforeMemoBytes:0,afterMemoBytes:0,addedMemoBytes:0,totalAddedTopologyAndMemoBytes:0,retainedFarIndexBytes:0,maxFragmentBeforeBytes:0,maxFragmentAfterBytes:0,maxChunkBeforeBytes:0,maxChunkAfterBytes:0,maxConstructionNumericElements:0,maxConstructionPointMapEntries:0,maxConstructionTileMapEntries:0,maxConstructionAddedTopSetEntries:0};
+ for(let cy=0;cy*16<size;cy++)for(let cx=0;cx*16<size;cx++){
+  const groups=new Map<string,SurfaceTriangle[]>();for(const t of surface.triangles({left:cx*16000,top:cy*16000,right:Math.min(cx*16+16,size)*1000,bottom:Math.min(cy*16+16,size)*1000})){if(!t.frontFacing)continue;const tier=t.kind==='face'&&Math.max(...t.vertices.map(v=>v.height))-Math.min(...t.vertices.map(v=>v.height))>1?2:1,key=`${t.depth.toFixed(6)}:${t.kind}:${tier}`;if(!groups.has(key))groups.set(key,[]);groups.get(key)!.push(t)}let chunkBefore=0,chunkAfter=0;
+  for(const triangles of groups.values()){
+   triangles.sort(compareSurfaceTriangles);const a=before(triangles,size,size),b=after(triangles,size,size),c=indexed(triangles,size,size),ab=bytes(a),bb=bytes(b),topTiles=new Set(triangles.filter(t=>t.kind==='top').map(t=>t.tile));
+   // No new point records, point ranges, or per-triangle/fan arrays survive.
+   for(const key of ['fogPoints','fogPointStart','fogPointSlots','fogFanCorners'] as const)assert.equal(b[key].length,a[key].length);
+   assert.equal(bb-ab,(b.fogTiles.length-a.fogTiles.length)*4);
+   if(triangles[0].kind==='face')assert.equal(bb,ab,'Face fragments retain no extra slots or dependencies');
+   row.fragments++;row.triangles+=triangles.length;row.faceTriangles+=triangles.filter(t=>t.kind==='face').length;row.beforeBytes+=ab;row.afterBytes+=bb;row.indexedBytes+=bytes(c);row.beforeMemoBytes+=a.fogTiles.length;row.afterMemoBytes+=b.fogTiles.length;chunkBefore+=ab;chunkAfter+=bb;row.maxFragmentBeforeBytes=Math.max(row.maxFragmentBeforeBytes,ab);row.maxFragmentAfterBytes=Math.max(row.maxFragmentAfterBytes,bb);row.maxConstructionNumericElements=Math.max(row.maxConstructionNumericElements,arrays(b).reduce((sum,x)=>sum+x.length,0));row.maxConstructionPointMapEntries=Math.max(row.maxConstructionPointMapEntries,b.fogPointStart.length-1);row.maxConstructionTileMapEntries=Math.max(row.maxConstructionTileMapEntries,b.fogTiles.length);row.maxConstructionAddedTopSetEntries=Math.max(row.maxConstructionAddedTopSetEntries,topTiles.size);
+  }row.maxChunkBeforeBytes=Math.max(row.maxChunkBeforeBytes,chunkBefore);row.maxChunkAfterBytes=Math.max(row.maxChunkAfterBytes,chunkAfter);
+ }row.addedTopologyBytes=row.afterBytes-row.beforeBytes;row.savedFromIndexedBytes=row.indexedBytes-row.afterBytes;row.addedMemoBytes=row.afterMemoBytes-row.beforeMemoBytes;row.totalAddedTopologyAndMemoBytes=row.addedTopologyBytes+row.addedMemoBytes;results.push(row);
+}
+const report={scope:'Source-executed topology storage accounting over actual TerrainSurface chunk/depth groups, one chunk at a time. Full-map totals are sums, not simultaneous measured residency. No browser, textures, GPU, heap high-water, timing or FPS measurement.',sizes:'40² and256² public maps, flat and a deterministic raised/cliff map',construction:'Compact topology creates the original numeric arrays/two Maps and a temporary per-top-tile Set. Recorded maximum numeric element and Map/Set-entry counts describe the conversion working set; engine object/string/Map overhead and garbage-collection timing are unmeasured. It retains only added Int32 fogTiles plus their1-byte memo entries, no far-point/range/fan arrays. Face fragments remain byte-identical in size. Far-corner clear checks allocate nothing and read at most2x4 current visible bits only after the leaf/shared-edge predicate passes.',results};
+if(!process.argv[2])throw Error('Explicit private output required');await writeFile(process.argv[2],JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));

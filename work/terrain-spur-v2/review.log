@@ -1,0 +1,171 @@
+{
+  "status": "SOURCE_GATES_PASS_NATIVE_UNRUN",
+  "preferredCandidate": {
+    "path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/terrain-spur-v2/inputs/candidate-module-terrain.ts",
+    "sha256": "3574f24748adfec6385184c611a5f21d56a8f0680c5b40c6eebf38e92de2ccda"
+  },
+  "baselineSHA256": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005",
+  "preservedAlternatives": {
+    "indexedAttempt01": "803d3de1ec752459a040c84536dbee0abd853f61335389a9303382645fc194e7",
+    "compactLocalClosures": "e789377d7f2be8a2e03b7fb8788979069efe077ab4fefb58f81f83f1d81969f3"
+  },
+  "predicate": [
+    "Visible top tile only; all four tile-corner opacities are nonzero.",
+    "Exactly one in-map cardinal neighbor is visible.",
+    "That neighbor has at least one clear corner. Since both shared corners are nonzero, only its two far corners need checking.",
+    "Both corners along the shared edge already equal the tile maximum. Only then fill the four top fan triangles at MAX."
+  ],
+  "dependencies": "Each in-map cardinal neighbor contributes every tile touching its two far corners to fogTiles at construction. The bounded direct visible reads are therefore included in lastOpacity invalidation. Visibility is equivalent to opacity0; no separate untracked boolean state is read.",
+  "geometryAndOtherBakerMethodsByteIdentical": true,
+  "tests": {
+    "focusedTests": 8,
+    "exhaustive3x3Masks": 19683,
+    "flatAndRaised": true,
+    "exactOutputComparisons": [
+      "Frozen de219 plus independent predicate oracle",
+      "Indexed803d alternate representation",
+      "Frozen compacte789 alternate helper placement"
+    ],
+    "diskRadii": [
+      2,
+      14
+    ],
+    "diskMemoryStates": [
+      "unknown surroundings",
+      "remembered surroundings"
+    ],
+    "diskChangedFans": "Exactly four leaf poles per disk; sixteen fan triangles.",
+    "unchangedShapes": [
+      "single sightings",
+      "diagonal-only/checkerboard sightings",
+      "one-tile cardinal chains/bars",
+      "L bends",
+      "multi-cardinal T junction center"
+    ],
+    "mixedSharedEdges": [
+      "175/175 shared edge with255 MAX rejects fill",
+      "175/255 shared edge with255 MAX rejects fill",
+      "255/255 shared edge with255 MAX preserves endpoints"
+    ],
+    "memo": "A distance-two diagonal flip is absent from old topology yet changes the leaf result; actual TerrainBaker setFog closures and real Pixi Mesh/Geometry pass11 in-place updates, shrink/regrow, far dependency flip and hidden/restored states. No browser or GPU context.",
+    "semanticTypecheck": true
+  },
+  "storage": {
+    "scope": "Source-executed topology storage accounting over actual TerrainSurface chunk/depth groups, one chunk at a time. Full-map totals are sums, not simultaneous measured residency. No browser, textures, GPU, heap high-water, timing or FPS measurement.",
+    "sizes": "40² and256² public maps, flat and a deterministic raised/cliff map",
+    "construction": "Compact topology creates the original numeric arrays/two Maps and a temporary per-top-tile Set. Recorded maximum numeric element and Map/Set-entry counts describe the conversion working set; engine object/string/Map overhead and garbage-collection timing are unmeasured. It retains only added Int32 fogTiles plus their1-byte memo entries, no far-point/range/fan arrays. Face fragments remain byte-identical in size. Far-corner clear checks allocate nothing and read at most2x4 current visible bits only after the leaf/shared-edge predicate passes.",
+    "results": [
+      {
+        "size": 40,
+        "raised": false,
+        "fragments": 462,
+        "triangles": 6400,
+        "faceTriangles": 0,
+        "beforeBytes": 268984,
+        "indexedBytes": 453144,
+        "afterBytes": 306488,
+        "addedTopologyBytes": 37504,
+        "savedFromIndexedBytes": 146656,
+        "beforeMemoBytes": 16896,
+        "afterMemoBytes": 26272,
+        "addedMemoBytes": 9376,
+        "totalAddedTopologyAndMemoBytes": 46880,
+        "retainedFarIndexBytes": 0,
+        "maxFragmentBeforeBytes": 1340,
+        "maxFragmentAfterBytes": 1508,
+        "maxChunkBeforeBytes": 43720,
+        "maxChunkAfterBytes": 50296,
+        "maxConstructionNumericElements": 628,
+        "maxConstructionPointMapEntries": 65,
+        "maxConstructionTileMapEntries": 126,
+        "maxConstructionAddedTopSetEntries": 16
+      },
+      {
+        "size": 40,
+        "raised": true,
+        "fragments": 686,
+        "triangles": 6736,
+        "faceTriangles": 336,
+        "beforeBytes": 283184,
+        "indexedBytes": 468016,
+        "afterBytes": 320688,
+        "addedTopologyBytes": 37504,
+        "savedFromIndexedBytes": 147328,
+        "beforeMemoBytes": 18034,
+        "afterMemoBytes": 27410,
+        "addedMemoBytes": 9376,
+        "totalAddedTopologyAndMemoBytes": 46880,
+        "retainedFarIndexBytes": 0,
+        "maxFragmentBeforeBytes": 1340,
+        "maxFragmentAfterBytes": 1508,
+        "maxChunkBeforeBytes": 45394,
+        "maxChunkAfterBytes": 51970,
+        "maxConstructionNumericElements": 628,
+        "maxConstructionPointMapEntries": 65,
+        "maxConstructionTileMapEntries": 126,
+        "maxConstructionAddedTopSetEntries": 16
+      },
+      {
+        "size": 256,
+        "raised": false,
+        "fragments": 15872,
+        "triangles": 262144,
+        "faceTriangles": 0,
+        "beforeBytes": 11151408,
+        "indexedBytes": 18929400,
+        "afterBytes": 12792480,
+        "addedTopologyBytes": 1641072,
+        "savedFromIndexedBytes": 6136920,
+        "beforeMemoBytes": 712712,
+        "afterMemoBytes": 1122980,
+        "addedMemoBytes": 410268,
+        "totalAddedTopologyAndMemoBytes": 2051340,
+        "retainedFarIndexBytes": 0,
+        "maxFragmentBeforeBytes": 1340,
+        "maxFragmentAfterBytes": 1508,
+        "maxChunkBeforeBytes": 43720,
+        "maxChunkAfterBytes": 50296,
+        "maxConstructionNumericElements": 628,
+        "maxConstructionPointMapEntries": 65,
+        "maxConstructionTileMapEntries": 126,
+        "maxConstructionAddedTopSetEntries": 16
+      },
+      {
+        "size": 256,
+        "raised": true,
+        "fragments": 20225,
+        "triangles": 270045,
+        "faceTriangles": 7901,
+        "beforeBytes": 11492012,
+        "indexedBytes": 19285806,
+        "afterBytes": 13133084,
+        "addedTopologyBytes": 1641072,
+        "savedFromIndexedBytes": 6152722,
+        "beforeMemoBytes": 740480,
+        "afterMemoBytes": 1150748,
+        "addedMemoBytes": 410268,
+        "totalAddedTopologyAndMemoBytes": 2051340,
+        "retainedFarIndexBytes": 0,
+        "maxFragmentBeforeBytes": 1340,
+        "maxFragmentAfterBytes": 1508,
+        "maxChunkBeforeBytes": 46026,
+        "maxChunkAfterBytes": 52184,
+        "maxConstructionNumericElements": 628,
+        "maxConstructionPointMapEntries": 65,
+        "maxConstructionTileMapEntries": 126,
+        "maxConstructionAddedTopSetEntries": 16
+      }
+    ]
+  },
+  "performanceLimits": [
+    "Source storage totals are sums over all map fragments, not simultaneously measured residency.",
+    "The compact rule adds410,268 memo-scanned dependencies on the full256² flat/raised probes; more fog cache scan work is a real tradeoff. No CPU timing, FPS or GPU memory claim.",
+    "Helpers live at module scope and bounded far-corner loops allocate no arrays; existing pointAlpha closure remains unchanged.",
+    "Construction still uses temporary tuples/tile arrays plus one Set per topology; garbage-collection and actual peak heap are unmeasured."
+  ],
+  "preservedFailures": [
+    "proof-01.log: initial test import referenced a three-file candidate directory lacking unchanged support files; fixed by an exact de219 private baseline copy beside its pinned support files.",
+    "typecheck-01.log: test context omitted Node types and typed empty TerrainFragment array; fixture type setup fixed, source predicate unchanged."
+  ],
+  "native": "No browser was launched by this agent for v2. Root received3574 for a fresh prepare-02; current→candidate GPU alpha monotonicity, original privacy floor/protected classes and native visible-world appearance remain separate required gates. V1 black corridor/monotonicity failures remain rejected; CPU vertex nondecrease does not waive them."
+}
