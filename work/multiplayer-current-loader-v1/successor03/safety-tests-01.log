@@ -1,0 +1,14 @@
+✔ dead first human is a failed requirement while both later survivors reconnect once (1.997667ms)
+✔ lost human during attempt remains failed and later cycle still visits next survivor (0.132208ms)
+✔ reconnect exceptions retain failed attempt then propagate without fake success (0.127959ms)
+✔ watchdog closes owned resources once even while main work never settles (0.164917ms)
+✔ normal completion cancels watchdog, including an already queued timer callback (0.077375ms)
+✔ watchdog cleanup failure remains visible and expiry cannot be canceled into a pass (0.087334ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45.8915

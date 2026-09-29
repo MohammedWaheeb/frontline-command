@@ -1,3 +1,35 @@
+# Preparation03: bounded cleanup and independent reconnect attempts
+
+29 September 2026, before the first3H+1AI launch. The execution target is now
+`prepared-03`, receipt
+`55422bb2345e7381ac7cd886eb1c6e262c91623a95198633867582cb73693c83`.
+It preserves the exact App build03 product and both commander files. Only the
+test driver plus new safety helper/tests differ from prepared02; six tests pass
+and build-only verifies5,631 pins. Prior preparations and their notes below
+remain unchanged historical author records.
+
+An independent `--minutes` timer (default60) now bounds all browser phases from
+successful browser launch through readiness/combat/replay/menu cleanup, even
+while a decision await stalls. It invokes the same once-only context/browser/host
+cleanup used by ordinary completion, records expiry as failure, and preserves
+raw diagnostics. Host/browser startup retain separate startup limits; the
+subsequent earned-replay native audit is outside this browser timer. For any
+future two-round endurance run, the caller must explicitly choose an adequate
+whole-course budget; no game timer or outcome is changed.
+
+Reconnect scheduling records each inactive/missed attempt as a failed requirement
+without starving later eligible humans. Death during an attempt or an actual
+error is also explicit; no skipped human counts as a reconnect pass. The existing
+all-human journey assertion still fails when any required reconnect is missing.
+
+The safety tests cover dead-first/survivor-next, mid-attempt loss, propagated
+reconnect error, cleanup despite stalled work, once-only cleanup, normal timer
+cancellation and retained cleanup failure. See `successor03/receipt.json`.
+Use the prepared03 copied driver/receipt; do not rewrite prepared01/02. The
+initial current-loader body diagnostic is separately checkpointed under
+`../multiplayer-current-loader-diagnostic-v2`; its strict387-abort FAIL is not
+relabeled and its instrumentation is not added to this match.
+
 # Frozen current-loader multiplayer course — author handoff
 
 29 September 2026. **Ready for coordinated execution; browser and native matches
