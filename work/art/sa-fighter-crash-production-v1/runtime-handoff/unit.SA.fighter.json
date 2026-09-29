@@ -1,0 +1,653 @@
+{
+  "id": "unit.SA.fighter",
+  "scope": "Checked full staged asset for diagnostic product integration; no shipping or runtime lifecycle acceptance inferred",
+  "stage": "work/art/sa-fighter-crash-production-v1/stage",
+  "model_sha256": "0b00b967b902cfa49715d03dadf431f1df048df6f7d3acd3ca4ad8527ad73635",
+  "spec_sha256": "f1a1ef446fff64574f8003cc13a04d7504a337f01926a42da772444e2918d8fe",
+  "state_pose_count": 896,
+  "canonical_empty_variants": [
+    "fire_empty",
+    "parked_empty",
+    "takeoff_empty",
+    "landing_empty",
+    "damaged_empty",
+    "rearm_empty"
+  ],
+  "checks": {
+    "work/art/sa-fighter-crash-production-v1/check-unit.SA.fighter.json": "815412a229c8b3e769a404dda0ed469814c342998d5fe816b6eca76905d3079d",
+    "work/art/sa-fighter-crash-production-v1/ui-check-unit.SA.fighter.json": "c08271e52688af051efd8efe2c1427b81fdea9c15b62c38344915027bc6b825e",
+    "work/art/sa-fighter-crash-production-v1/contacts/unit.SA.fighter/native-review.json": "55c70e9f4c2a2fbc9caa4ce36f5bad90799d1649c4a871592c398c2f7bd6ded0",
+    "work/art/sa-fighter-crash-production-v1/production-lock.json": "be85359b8d258cade27954faaab985f8910425749a7bf7cf386369e7018be687",
+    "work/art/sa-fighter-crash-production-v1/raw-reuse-audit.json": "8222049294ca4bea807157aa9b8a1fd7164f94391d95332bccc1e3474fe616b6"
+  },
+  "files": {
+    "sprites/unit.SA.fighter/unit.SA.fighter.sprite.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter.sprite.json",
+      "sha256": "11a5e2f43779ced83f7216b2c05734ae77f61435c84f4aebb8776628f76b8285",
+      "bytes": 144071
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.0.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.0.json",
+      "sha256": "b16d78179bc37d8f89dff8b55ae285c552bd79034cf8ebf7838b2689d6a6c4c4",
+      "bytes": 23788
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.0.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.0.png",
+      "sha256": "8502d3718c604a57dfc45e926f5d773037858fe4d7ed85c2b716c4e044d90ac2",
+      "bytes": 676670
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.1.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.1.json",
+      "sha256": "a26993441bdcab3a132f0dc6bf2f8538d9b0fc8480c3882470093058a8420017",
+      "bytes": 23565
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.1.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.1.png",
+      "sha256": "8b5cda9be7d95a3436affa8fb2457309e4ea1f3a1f856cb813eea554844cfb6e",
+      "bytes": 656643
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.2.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.2.json",
+      "sha256": "0a9bdbce34e468c73a9f7e23e38f5b0fd5e8671b71ecee5eb2edfaed4c4e6617",
+      "bytes": 23754
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.2.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.2.png",
+      "sha256": "aaf55a4dbec982842de412fd717b3eaeb682ee0648407120b4746b34ec503813",
+      "bytes": 668530
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.3.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.3.json",
+      "sha256": "2771f3745fe0fa79b5292852f9449f93c7db7cbd0a9d5b517655a6fe0317e002",
+      "bytes": 23759
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.3.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.3.png",
+      "sha256": "185fb9a772a2eac504b09f312be8d63ee5074956d2cf8078794f6fee19a8e95f",
+      "bytes": 670064
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.4.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.4.json",
+      "sha256": "e94f9f6679829f921f6534447095b844f595826a85aa96eee950aeb1cdbd2153",
+      "bytes": 23573
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.4.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.4.png",
+      "sha256": "f30f18c8826321da88ce7d026b3765cfcb0d6baecb1b0aa2e73ca57efcf4ce21",
+      "bytes": 580568
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.5.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.5.json",
+      "sha256": "e8eb4673dcc5555f0597ebde17ea4457f45a4742583630c448529b0596e5dcd7",
+      "bytes": 23723
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.5.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.5.png",
+      "sha256": "6360779d13e49d35de01e07faf07c482ad0601334743be2ed9c6493df7e37260",
+      "bytes": 593190
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.6.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.6.json",
+      "sha256": "70b31ed2de10b3f7b51f7a3d34d2a86cde3833492bd3b107e5c83172f6f37b2d",
+      "bytes": 24309
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.6.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.6.png",
+      "sha256": "77d59b8805420dd60939b1e0b7f569548aae32481ad33c098c356b6cd983ff9c",
+      "bytes": 652048
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.7.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.7.json",
+      "sha256": "db6489f7998e6ab80922428ccc894a6dbe8fc7f4b5abff9217975973dc62f01e",
+      "bytes": 24328
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.7.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.7.png",
+      "sha256": "35108b6d0764321bf6aa3fdc244f7f819f03e3eec5fe120fba59c60132dbd7a7",
+      "bytes": 648094
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.8.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.8.json",
+      "sha256": "b7cd039a557814fd76197df0f2693708b2da29b12757d8df6fa1467e20575b95",
+      "bytes": 24186
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.8.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.8.png",
+      "sha256": "b767230a506b06f7308b99deaec3e612b134764125e54cb1e698dfebb25790ea",
+      "bytes": 588529
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.9.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.9.json",
+      "sha256": "a0e93da1bf0a345043ffcfca55276e7b9c95ee4854311541133fc640e95bf4ea",
+      "bytes": 8232
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.9.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.beauty.9.png",
+      "sha256": "9085813564bdaeb61b1b6a9d9b4390d20da13b0aa82a274f925e519a0f2fc243",
+      "bytes": 194214
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.0.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.0.json",
+      "sha256": "8d10ee9f7cbb64cce8ff57bc16491fdcf1cceefd80c01809f7d732d1e0e5d1e0",
+      "bytes": 23914
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.0.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.0.png",
+      "sha256": "f49b5572911ddbb937663c1cec4a07ee615bfa881e3f2a6b2548ded6bb023018",
+      "bytes": 244283
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.1.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.1.json",
+      "sha256": "dc2395baaa0bd5efa2c3c80deda2396a74f2838425c7c0fd44e3900a4addb4cc",
+      "bytes": 23701
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.1.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.1.png",
+      "sha256": "fda45b1ff5758ad93c0ca1860016d0a83edfae59e586c4fb955ab3d5daf142f5",
+      "bytes": 248021
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.2.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.2.json",
+      "sha256": "c80fe1501705d05b472f3794c8ace809d33f88c1807287bfff7c02a9b5997da2",
+      "bytes": 23871
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.2.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.2.png",
+      "sha256": "d558b6803a00df37e9cb2e087ff519bb2b53aef04c891017ba5fcdccae8541d4",
+      "bytes": 240063
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.3.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.3.json",
+      "sha256": "cee902af132fa14884afe9ead361380d9f9f624c2377dee5c1a2b932bcaed13c",
+      "bytes": 23887
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.3.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.3.png",
+      "sha256": "21ae544d66d8159aa1e50c155d6d2b82c60f303da1e4144b2968707bd9e909f6",
+      "bytes": 241042
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.4.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.4.json",
+      "sha256": "51d7458b68b560bb5d25dc81ab9e7b83222c8dcadf1ca3acc52699ce67ded62e",
+      "bytes": 23663
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.4.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.4.png",
+      "sha256": "b7fcbc7d2d3230838c70eebc3345dbfabbe4cb61ea6b192f1c65a121cfcf4a8d",
+      "bytes": 209801
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.5.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.5.json",
+      "sha256": "15e8a88c2e1b600a7d640617e850b6c425b239d70d6ff7c50cf9d5a11a746331",
+      "bytes": 23855
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.5.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.5.png",
+      "sha256": "71399c3b1827d039fbbeaaa9c1cf2c09f81361317dba23ad3338b7f72d971cd6",
+      "bytes": 199969
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.6.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.6.json",
+      "sha256": "c94f06177a6731ea094891f0b0d7e4821063b2f8a87a5b295c28bfc519ce6c88",
+      "bytes": 24437
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.6.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.6.png",
+      "sha256": "8b138519f4606a2a53c62e10b167404833b9a79d6ac4cf5055868220f012fb45",
+      "bytes": 238654
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.7.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.7.json",
+      "sha256": "78929f005d9103998d42f6a85776e5da2c7d17953c2a26f0b72cdac563b326f7",
+      "bytes": 24453
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.7.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.7.png",
+      "sha256": "611e3de043618fc15b6da2b30d3a2ec39e970ee69af0f30cff58bc7d387f50f5",
+      "bytes": 235144
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.8.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.8.json",
+      "sha256": "ab0825db832edde2531c2d7fc7b371563483985b4bc70b418c6a4c9b5cb78f67",
+      "bytes": 24327
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.8.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.8.png",
+      "sha256": "a8c6d81b001bae4dca13a45a808bbbcdd3432e92e471a1e33227827e7d04281a",
+      "bytes": 200051
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.9.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.9.json",
+      "sha256": "470994c1fe3da033c56136bcceb0681b6d50082f81bd14321d1ad21340aadcd6",
+      "bytes": 8259
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.9.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.shadow.9.png",
+      "sha256": "a612f3cb7334b0ec87d4e7ff058f556072a30fce0d7a2ec4796e21bd6ccbd9d8",
+      "bytes": 58599
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.0.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.0.json",
+      "sha256": "63f4484d2ba5464a8b8c7ad3615e4f96d9aa96b2ec4ede2d13b7f6a963448920",
+      "bytes": 23786
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.0.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.0.png",
+      "sha256": "7492927716997186fe1c2b39209273633ae25e0d2ca77436676c1395aa319da1",
+      "bytes": 90749
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.1.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.1.json",
+      "sha256": "9b1f408e97289e38fbefb5fb653ff382c16cc1c32337b039c6e0bcf970500212",
+      "bytes": 23563
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.1.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.1.png",
+      "sha256": "9b28921a859db3470deb69d9ba1e4aab244a4a2e0e99edda267679088bfc5d70",
+      "bytes": 91992
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.2.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.2.json",
+      "sha256": "b91177036ab7d42c4c78fae3f284ce83b7aa011e85d4b3a30561846f24a42c22",
+      "bytes": 23752
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.2.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.2.png",
+      "sha256": "a3c5b2a13c7e609083248bbd0328559904b368faa2177514fce0b327692457b0",
+      "bytes": 91702
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.3.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.3.json",
+      "sha256": "de16337e10c2b0dde83c4d7ba75cd9324b4b1793df0f37a3a479f5a9e8f425d3",
+      "bytes": 23757
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.3.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.3.png",
+      "sha256": "84fcba54c0ff05d6b4c005060f449eafb16b12b40735d6a17c80f5b42bf75ec2",
+      "bytes": 93382
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.4.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.4.json",
+      "sha256": "dae615295f62178d89a895774145288306b7bdb89e2595e19d45d84fbef25443",
+      "bytes": 23547
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.4.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.4.png",
+      "sha256": "dbfe6c88370c7a39bdd321840ad0c77f7c79e0eeebcd2e19d9fa6b8a3fd6c80f",
+      "bytes": 57381
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.5.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.5.json",
+      "sha256": "7dd057d2aa1197a902c0a5a5d01885e4ef0a92b5077b3f6d3bd38399e73637ea",
+      "bytes": 24205
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.5.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.5.png",
+      "sha256": "1acdf1d80d9c60d04cf414278a958b7aa4c165d5f5b4d1628cb986d3e5122116",
+      "bytes": 92973
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.6.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.6.json",
+      "sha256": "03269abe29643f4685691177f639b832cc464257b0308fb2a3537dd3c19edbfb",
+      "bytes": 24326
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.6.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.6.png",
+      "sha256": "f53b7b0e272034fefdbbc54e456736e6cc7eb81ba7ed05589f99ab7d897018bc",
+      "bytes": 91371
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.7.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.7.json",
+      "sha256": "9ae01bb59730d6719dbc5565940e723b3d44a6fef8af71f9512ab2011e76b2bc",
+      "bytes": 24255
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.7.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.7.png",
+      "sha256": "1558ef2d677f28143cf7416fc1025af603fc8c359e40740a3da38da2da92d71f",
+      "bytes": 79321
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.8.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.8.json",
+      "sha256": "3250c49811f80b1bc6f386c6009b4b8e2229730c2332d7081a49f34d91eb991b",
+      "bytes": 16183
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@1x.team.8.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@1x.team.8.png",
+      "sha256": "61c426a0756b274ac6519b5e5966d72f015f1fc1525ecbde4d6e21097b4cecbb",
+      "bytes": 39587
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.0.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.0.json",
+      "sha256": "e49496ffd4abd2f9114fd555c85207de492d45e9e704dc32506c2c2db839c347",
+      "bytes": 24395
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.0.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.0.png",
+      "sha256": "f52f9f7ceef8180980ba7865781c46aca0a5a2e25378a7e87df809f782c6d124",
+      "bytes": 1847820
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.1.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.1.json",
+      "sha256": "6921a40f018d3f74d678e35a164a2068d310baa194b3a47fa67758ab45b10030",
+      "bytes": 24173
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.1.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.1.png",
+      "sha256": "327791d9d44ed25c66783c577c591a504624d90be7c9e7a46d6da67b15f7252e",
+      "bytes": 1802722
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.2.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.2.json",
+      "sha256": "a26d1d2e248a4eaa00c0665f7bceccd95ce95b44e496122f1863585944da3f4f",
+      "bytes": 24363
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.2.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.2.png",
+      "sha256": "5b858b21bac7bb5c8dd8d13f21f64d7cab89c1d09f18ae3e801f0c1c726f4335",
+      "bytes": 1818319
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.3.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.3.json",
+      "sha256": "7856a1c69d998215d6cb4cd6dd4557361a71877bf3bb8287e4b676b319ae5bbc",
+      "bytes": 24358
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.3.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.3.png",
+      "sha256": "caf6bda7edda8034d534b7784cdd78fa43119f57a371e3348470be77759ec346",
+      "bytes": 1831963
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.4.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.4.json",
+      "sha256": "f8a1d30f08e3b250dec21c36a30752dd2c08325b92be4549645bd1448c0e5d24",
+      "bytes": 24169
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.4.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.4.png",
+      "sha256": "da0c1fdae02c04f1712433b86da2d14b0300afb48d9e23838d1559b8782fd4c1",
+      "bytes": 1597583
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.5.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.5.json",
+      "sha256": "24082bd21b06bbf38171d2697423d6d0a7ea8eb4f6ec6453e4b739110ed40d3a",
+      "bytes": 24328
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.5.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.5.png",
+      "sha256": "e1ccdb78bafa43d8ddc75069d2b92e4ddf4d768ef4ac68179ce58bdf04b85b9b",
+      "bytes": 1648234
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.6.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.6.json",
+      "sha256": "8e4d3aa9fb9498aa469148c64fcc92cb5bdb1d1ff7b890d505b82912cd4b0884",
+      "bytes": 24923
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.6.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.6.png",
+      "sha256": "0e6007ccca531f1eeb76851d1297b48df6fab6cedffa0766516cf3beadcd6060",
+      "bytes": 1786577
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.7.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.7.json",
+      "sha256": "fe1cde054ef4d5c4ec1795be6a45a7b6e90a5fcfad09d35dbae813c9d3b25bcd",
+      "bytes": 24933
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.7.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.7.png",
+      "sha256": "bd0cf293e22a29418d532fbee37581023fe1405e573edc6eaa37c9dfce24dd3e",
+      "bytes": 1772864
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.8.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.8.json",
+      "sha256": "9c14aff6f1c8a04d8da97218d013d76bdf514cb4c25ce03636746285246ad4de",
+      "bytes": 24807
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.8.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.8.png",
+      "sha256": "2ff858c3ccc5400af3c2dedd4b9dd5ad0cb934a52d717a3a6c28220d3b3a10e4",
+      "bytes": 1638061
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.9.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.9.json",
+      "sha256": "2881fd0f72419bf9dafae987b690b234e96c2edcf8c02a33a5646986913c574f",
+      "bytes": 8422
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.9.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.beauty.9.png",
+      "sha256": "d378ad987bf6c32fba395d6283b73506a76f436cee331fcd5b2e5c9218c09e3d",
+      "bytes": 534176
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.0.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.0.json",
+      "sha256": "f4d73ae39d3cdc308e58859a23a4c15e39a0d0d426e4a015e80d59241027edfa",
+      "bytes": 24417
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.0.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.0.png",
+      "sha256": "f183d62f7cb90b96a3af2bf4454b22a6bd5ba37f3e80bbd16d38edd4ee9f4dbe",
+      "bytes": 659547
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.1.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.1.json",
+      "sha256": "37d49201d46c4b18f9d3f40f630cd900ed14418054ea76ea7764871d109bb922",
+      "bytes": 24217
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.1.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.1.png",
+      "sha256": "a722426e4277f3a0f6ebae6894cabee63235f87eb7f666194cd6a29ad3301034",
+      "bytes": 661910
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.2.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.2.json",
+      "sha256": "2e4e6d2b82387fc9e44ed4a4685f1d8904b932cf4b36dd39c35903c2151ac7a4",
+      "bytes": 24388
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.2.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.2.png",
+      "sha256": "9010b6848de7f59b14c809f1ea0718e7ae235612babb2b0fcbb2eeea4ffd22e0",
+      "bytes": 644624
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.3.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.3.json",
+      "sha256": "3e1b57e9246b81d8549458a093f6540ceb7a84022412c3a16e2b458bfe72afb9",
+      "bytes": 24394
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.3.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.3.png",
+      "sha256": "cd7d987bd6e60d312fddb50088a92b8f3166783f313a81ada1d8c2c9a500e143",
+      "bytes": 647399
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.4.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.4.json",
+      "sha256": "316724904485d17f10bddc9e47341d3bdcba7fc307d642d016c7a21925c28dd1",
+      "bytes": 24183
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.4.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.4.png",
+      "sha256": "8d170626041781d59772416b63f1b650307cfdb63d1aa549e716ad31b864d970",
+      "bytes": 565102
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.5.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.5.json",
+      "sha256": "6ef6e5c23701cc62b7adc5507fedf1a548529fe88577be9c583324a6c885bcf7",
+      "bytes": 24372
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.5.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.5.png",
+      "sha256": "ab80934d9d9f42003b5dce9f41328b35e73e0e472aa80a01c9f07dd354b79b7a",
+      "bytes": 546071
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.6.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.6.json",
+      "sha256": "19d00e21a085abee3171fba4fefdcbc82f3b924c797ece73c9963bff9669fbf6",
+      "bytes": 24950
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.6.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.6.png",
+      "sha256": "3ced7d53636bfb04749f19e9c9aca5c8d45b995a12b301c3a2b89f197025e74f",
+      "bytes": 639129
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.7.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.7.json",
+      "sha256": "ba9b7ceefe055fa995b914151ec5b94f8b107412573e4fea8a7130fd4e01e886",
+      "bytes": 24967
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.7.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.7.png",
+      "sha256": "b70fcc349d5bdfeb46a2df3d5f0b65e375b7f4e5d590c815a86bcfd11aa9c973",
+      "bytes": 630977
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.8.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.8.json",
+      "sha256": "5434945834b45e5e4fae2164b618fe0cf0f0f3c63107d99d6c336dc760f81634",
+      "bytes": 24855
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.8.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.8.png",
+      "sha256": "948835c72535a239761b286d5747b6761f0f8301c0f22e0a3969bfa5db77b7d2",
+      "bytes": 544765
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.9.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.9.json",
+      "sha256": "f7db8404f4603323fc2c4a4a6593aa628990d69ba5f98cb3c51c97fb13fa8500",
+      "bytes": 8423
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.9.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.shadow.9.png",
+      "sha256": "33984d872ed493c99f4129a242d6ced863cf9c8c211d2ee91881b7e92a81d90d",
+      "bytes": 163419
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.0.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.0.json",
+      "sha256": "438501168f5abbee5b323007e0040e733b30e034a66e13b255a6955adc20d818",
+      "bytes": 24393
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.0.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.0.png",
+      "sha256": "0c19447b0e639ecd378477635217dc034f4efc0923e0b69ec97be0b40dc7b104",
+      "bytes": 363758
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.1.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.1.json",
+      "sha256": "6e7a2523fac38b1867db903bafafcc5c1c361b2d4747e10748b42d55b9083c87",
+      "bytes": 24171
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.1.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.1.png",
+      "sha256": "e577b595b704005ad3bcf8fa01a3b82c05530a489748babd95ef49984ebd692a",
+      "bytes": 364557
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.2.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.2.json",
+      "sha256": "d6276e0dd6cba7bd5e8669ed9b2bfdbfd0dba15fb8371c4b125c1021fdc4b234",
+      "bytes": 24361
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.2.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.2.png",
+      "sha256": "7b42eadbdfca0a8a640e83604be22e6ef6dbc26eeb02201e38074d3b2566c928",
+      "bytes": 360852
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.3.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.3.json",
+      "sha256": "bcd98b07bc176a3ffcbdb5d0d977a36409e3f429d15e350b508dbec67fa4ea6c",
+      "bytes": 24356
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.3.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.3.png",
+      "sha256": "d25eb9a49cc492d1e1ae978f7aed34d0504f6953a93fe57f4d4ec530414f4308",
+      "bytes": 363601
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.4.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.4.json",
+      "sha256": "58814e05962fd1a8745c168c111bbbac1cddb52072abfa03d0a380e3bbc11107",
+      "bytes": 24170
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.4.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.4.png",
+      "sha256": "3b6fe3ca1edcc475616f8716ef70ee1b2adfcd67d5a65adde55c94006994fc6f",
+      "bytes": 294758
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.5.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.5.json",
+      "sha256": "f2c130a9fa61fb64a6d220f8e0e85f782fc330d15e4218a9dc7538e4418842c9",
+      "bytes": 24809
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.5.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.5.png",
+      "sha256": "cb4b046d13adbef927da2b37421781c9f5d5cb4214a5a634f967fea94b4a0b02",
+      "bytes": 363473
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.6.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.6.json",
+      "sha256": "c4a5ad73e28d936183a72a9fffb39c3493c40da83857d7edd463a5465271af88",
+      "bytes": 24937
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.6.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.6.png",
+      "sha256": "9924fc7b23937811e7a0a04f3cfa4c600d305258c0f81a4b505b973f08c8a4a9",
+      "bytes": 360619
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.7.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.7.json",
+      "sha256": "e239da9cc63871a98df26657a104ecb036903283fa377beeca445526a22b7d6c",
+      "bytes": 24874
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.7.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.7.png",
+      "sha256": "bc15497840ef269826f348b7b4d665bc5e4673107a667dc38d6b4f9b0fab8df7",
+      "bytes": 340974
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.8.json": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.8.json",
+      "sha256": "fbff6212059b04f89b11d84031042bf805f6907b1c8ee29421b85c74f69dcf8e",
+      "bytes": 16572
+    },
+    "sprites/unit.SA.fighter/unit.SA.fighter@2x.team.8.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/sprites/unit.SA.fighter/unit.SA.fighter@2x.team.8.png",
+      "sha256": "60c2d2c517b7b3102e6a5647741139d1d290a73ea3c5c4b0cee02e126d438027",
+      "bytes": 197101
+    },
+    "ui/portraits/SA.fighter@1x.beauty.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/ui/portraits/SA.fighter@1x.beauty.png",
+      "sha256": "9fa7bb39283f44f9200dcf5edba2356a538829e73deaf6d07b346103f1ed30be",
+      "bytes": 5687
+    },
+    "ui/portraits/SA.fighter@1x.team.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/ui/portraits/SA.fighter@1x.team.png",
+      "sha256": "8961249bef9704732ed031febcf53a27eb41b2e8412deaa28b88f9482df3cdd0",
+      "bytes": 1087
+    },
+    "ui/portraits/SA.fighter@2x.beauty.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/ui/portraits/SA.fighter@2x.beauty.png",
+      "sha256": "311976954f764a7fc1c7a893230abaea76ee6a33082c938527b7ec074a3191a7",
+      "bytes": 30821
+    },
+    "ui/portraits/SA.fighter@2x.team.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/ui/portraits/SA.fighter@2x.team.png",
+      "sha256": "ce33a9d36d33b0dd8a6c4f2d9f126bb87283865c7493c1435393605f18f81fa2",
+      "bytes": 17876
+    },
+    "ui/icons/build/SA.fighter@1x.beauty.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/ui/icons/build/SA.fighter@1x.beauty.png",
+      "sha256": "c342a2d20519fce56bab2c4b737ac3e1574b0b817589b7234663d373de9ade6b",
+      "bytes": 3693
+    },
+    "ui/icons/build/SA.fighter@1x.team.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/ui/icons/build/SA.fighter@1x.team.png",
+      "sha256": "83e94f3fc56147231a24f6d1137099dc8e1862d2d2314b22ac5f7f31c6ee3215",
+      "bytes": 780
+    },
+    "ui/icons/build/SA.fighter@2x.beauty.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/ui/icons/build/SA.fighter@2x.beauty.png",
+      "sha256": "bb4ccacf3784f4ca99ee03f8aa0da091d0d8d4877badd7b1fccca700c91175db",
+      "bytes": 14827
+    },
+    "ui/icons/build/SA.fighter@2x.team.png": {
+      "source": "work/art/sa-fighter-crash-production-v1/stage/assets/build/ui/icons/build/SA.fighter@2x.team.png",
+      "sha256": "874f154bc3710f6095aa5a882f95445adb94844b354c025c879b5c6660a09b62",
+      "bytes": 7129
+    }
+  },
+  "editable_blend": "work/art/sa-fighter-crash-production-v1/stage/assets/source/blender/unit.SA.fighter.blend",
+  "reviewed_source": "work/art/sa-fighter-crash-production-v1/stage/assets/pipeline/blender/models/aircraft_roster.py",
+  "prior_stages_untouched": true
+}

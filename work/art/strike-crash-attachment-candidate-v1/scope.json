@@ -1,0 +1,96 @@
+{
+  "before": "work/art/strike-crash-attachment-candidate-v1/before-aircraft_roster.py",
+  "before_sha256": "0b00b967b902cfa49715d03dadf431f1df048df6f7d3acd3ca4ad8527ad73635",
+  "candidate": "work/art/strike-crash-attachment-candidate-v1/candidate-aircraft_roster.py",
+  "candidate_sha256": "d6f595cfadc63ee158c7000535a2b9bbb4079f731a74751008ebb528e1dc45f5",
+  "frozen_family_stage": "work/art/aircraft-final-production-v3/stage",
+  "frozen_family_lock": "work/art/aircraft-final-production-v3/production-lock.json",
+  "frozen_family_lock_sha256": "47fcc7d990cc5c67dea70692c0332af9e48460d8f7cdb8a61104713f22a758d6",
+  "targets": {
+    "unit.US.strike": {
+      "states": [
+        "crash"
+      ],
+      "directions": 16,
+      "frames": 4,
+      "poses": 64,
+      "hide_only": [
+        "wing_team_-1",
+        "pylon_-1"
+      ],
+      "unchanged_poses": 832
+    },
+    "unit.SA.strike": {
+      "states": [
+        "crash"
+      ],
+      "directions": 16,
+      "frames": 4,
+      "poses": 64,
+      "hide_only": [
+        "wing_team_-1",
+        "pylon_-1"
+      ],
+      "unchanged_poses": 832
+    }
+  },
+  "specs": {
+    "unit.IR.fighter": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.IR.fighter.json",
+      "sha256": "4f7adc5db474ac642fd5f2a9be3dd72c31824254aa2f4baf9d1a421ab04f8570",
+      "poses": 832
+    },
+    "unit.IR.gunship": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.IR.gunship.json",
+      "sha256": "2e37940975c856341cf9f7c9e7b9a6db2a6a893dc09de066c3c7770eff2a82f8",
+      "poses": 832
+    },
+    "unit.IR.isr": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.IR.isr.json",
+      "sha256": "4fa5b5d5df80fc3f8b4c630d057166a3572d3e554e3bb8445986e97fd42eb79b",
+      "poses": 512
+    },
+    "unit.SA.fighter": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.SA.fighter.json",
+      "sha256": "f1a1ef446fff64574f8003cc13a04d7504a337f01926a42da772444e2918d8fe",
+      "poses": 896
+    },
+    "unit.SA.gunship": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.SA.gunship.json",
+      "sha256": "fb06fb1050d0b21e75ef1fd1e73f131d0149138405f183bfb796671ba0beacf7",
+      "poses": 1120
+    },
+    "unit.SA.strike": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.SA.strike.json",
+      "sha256": "af11c182e0a6567fab294707d6da0954ed13dc93a46bf5f4844641ce92b772b1",
+      "poses": 896
+    },
+    "unit.SY.scout_drone": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.SY.scout_drone.json",
+      "sha256": "175558ff40478c5ab3914b108411fedd1111ec4e6c01e2e69b45b7493fb7a8b1",
+      "poses": 464
+    },
+    "unit.US.airlift": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.US.airlift.json",
+      "sha256": "a44d80df806fe365b6d304c93adb369456d161ecdc1d4616ec25c88c4f325037",
+      "poses": 656
+    },
+    "unit.US.fighter": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.US.fighter.json",
+      "sha256": "eb7b6b74d8ac49eb54fd520891e27171f60086c8fa2db9ef3df65359080777e6",
+      "poses": 896
+    },
+    "unit.US.gunship": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.US.gunship.json",
+      "sha256": "4056e1d6c4480ede97cdbe39e04ff0ebefc858bbe2369854b985a14a741bc87d",
+      "poses": 1120
+    },
+    "unit.US.strike": {
+      "path": "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.US.strike.json",
+      "sha256": "bd205fb630a672ef9665d9bf15630e1a48fdd48ac2a1644404074ad5b59bd44c",
+      "poses": 896
+    }
+  },
+  "author": "Codex, explicit parent-authorized post-quota objective visual correction",
+  "scope": "Visibility-only correction for two pending strike variants. Preserve accepted SA fighter cleanup, independently mounted US tailplane, all geometry/materials/transforms/hardpoints/UI and non-crash poses. No live edit."
+}

@@ -1,0 +1,38 @@
+{
+  "id": "unit.SA.fighter",
+  "accepted": true,
+  "recorded_at_utc": "2026-09-29T18:57:00.753139+00:00",
+  "scope": "Direct native review of both corrected standard crash pages, all64 crash tuples across4 native1x pages, and fresh paired UI. Remaining64 contact pages are SHA-identical to previously reviewed source export. No runtime/all-heading payload readability claim.",
+  "images": {
+    "work/art/sa-fighter-crash-production-v1/contacts/unit.SA.fighter/crash-01@1x.png": "54d4ded371f4903f1c985974aa80e68f87ec344d6e1fca03a07ebf743eb7c705",
+    "work/art/sa-fighter-crash-production-v1/contacts/unit.SA.fighter/crash-02@1x.png": "1d3a834e19694e35ef650846664a5cb90addf8536e5100a8c9894d89527ca7b5",
+    "work/art/sa-fighter-crash-production-v1/contacts/unit.SA.fighter/ui-contact@1x-2x.png": "79babe68377e09bf68ea3d26696d3ca61fdbb8a391c575494f2017fa7616bc80",
+    "work/art/sa-fighter-crash-attachment-v1/all-crash-native-v2/crash-all-01@1x.png": "0ae045447f1937220572c1358d6a47e8b0319979444e48d64b4a1cd0f980356b",
+    "work/art/sa-fighter-crash-attachment-v1/all-crash-native-v2/crash-all-02@1x.png": "aed3531db7d3d234276e46b60f47f348e9836a49b93cdfdff5a11c5fee92fb91",
+    "work/art/sa-fighter-crash-attachment-v1/all-crash-native-v2/crash-all-03@1x.png": "711287b0da72ce04eaef79cfed2752d513501b5a4e44ecd83888039fd48aedf2",
+    "work/art/sa-fighter-crash-attachment-v1/all-crash-native-v2/crash-all-04@1x.png": "e6223a8010968d20af0da5f20d1bdbecaa2f5cde2f8723dc29c8705703113b35"
+  },
+  "prior_full_native_review": "work/art/aircraft-final-production-v3/contacts/unit.SA.fighter/native-review.json",
+  "prior_full_native_review_sha256": "d1a8a19661e5a5d6bcbac54504c13ec31f9cd6512aff785bf78b20b40526d6c9",
+  "reuse_verification": "work/art/sa-fighter-crash-attachment-v1/export-verification-v1.json",
+  "reuse_verification_sha256": "e1053ed0dd9fd165de2578783bbe13a7021160d69f5d72c43e3d4bbd980d81a3",
+  "observations": [
+    "Detached team strip/rail are removed in all64 native crash tuples.",
+    "Remaining wing, canards and keel silhouette remain coherent as body tilts and darkens.",
+    "No apparent clipping, isolated fitting or new shadow artifact in corrected crash views.",
+    "Fresh portrait/build silhouettes and team panels readable."
+  ],
+  "limitations": [
+    "Original modest crash/fire/gear/service cues and subtle native payload differences remain.",
+    "Previous original failed crash export and diagnostic harness missing-team failure retained."
+  ],
+  "world_checks": 24,
+  "ui_checks": 20,
+  "parent_bounded_review": {
+    "images": {
+      "work/art/sa-fighter-crash-production-v1/contacts/unit.SA.fighter/crash-01@1x.png": "54d4ded371f4903f1c985974aa80e68f87ec344d6e1fca03a07ebf743eb7c705",
+      "work/art/sa-fighter-crash-production-v1/contacts/unit.SA.fighter/crash-02@1x.png": "1d3a834e19694e35ef650846664a5cb90addf8536e5100a8c9894d89527ca7b5"
+    },
+    "message": "Parent directly reviewed both corrected SA crash native pages and accepts bounded cleanup; seal/catalog/queue approved."
+  }
+}

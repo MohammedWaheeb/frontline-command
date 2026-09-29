@@ -1,0 +1,11 @@
+--- accepted-sa-correction
++++ strike-candidate
+@@ -650,7 +650,7 @@
+             hidden.update(o for o in A.parts if o.name in ('wing_team_-1', 'pylon_-1', 'tailplane_-1'))
+             if frame >= 1:
+                 hidden.update(o for o in A.parts if o.name == 'fin_-1')
+-        if A.kind == 'SA.fighter':
++        if A.kind in ('SA.fighter', 'US.strike', 'SA.strike'):
+             # The lost wing owns its paint plate and payload rail.
+             hidden.update(o for o in A.parts if o.name in ('wing_team_-1', 'pylon_-1'))
+         effects.clear()

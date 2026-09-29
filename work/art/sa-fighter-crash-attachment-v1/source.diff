@@ -1,0 +1,12 @@
+--- work/art/sa-fighter-crash-attachment-v1/before-aircraft_roster.py
++++ work/art/sa-fighter-crash-attachment-v1/candidate-aircraft_roster.py
+@@ -650,6 +650,9 @@
+             hidden.update(o for o in A.parts if o.name in ('wing_team_-1', 'pylon_-1', 'tailplane_-1'))
+             if frame >= 1:
+                 hidden.update(o for o in A.parts if o.name == 'fin_-1')
++        if A.kind == 'SA.fighter':
++            # The lost wing owns its paint plate and payload rail.
++            hidden.update(o for o in A.parts if o.name in ('wing_team_-1', 'pylon_-1'))
+         effects.clear()
+         hidden.update(A.losses)
+         for _, pieces in A.payloads:
