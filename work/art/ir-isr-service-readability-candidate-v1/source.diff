@@ -1,0 +1,19 @@
+--- before-aircraft_roster.py
++++ candidate-aircraft_roster.py
+@@ -459,6 +459,7 @@
+     existing fixed parking envelope. +X/negative-Y is the clear forward apron.
+     """
+     positions = {'IR.fighter': (.56, -.50), 'IR.gunship': (.56, -.50),
++                 'IR.isr': (.45, -.43),
+                  'US.fighter': (.70, -.64), 'SA.fighter': (.70, -.64),
+                  'US.strike': (.78, -.72), 'SA.strike': (.78, -.72),
+                  'US.gunship': (.85, -.57), 'SA.gunship': (.85, -.57)}
+@@ -505,7 +506,7 @@
+         raise ValueError('Unknown aircraft/faction: ' + kind)
+     A = Airframe(faction, kind)
+     KINDS[kind](A)
+-    if A.payloads:
++    if A.payloads or kind == 'IR.isr':
+         armed_service_fixture(A)
+     rig = fclib.Rig(A.root)
+     rig.airframe = A

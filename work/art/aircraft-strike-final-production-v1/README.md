@@ -1,0 +1,1 @@
+Private complete US/SA strike exports after bounded crash correction.48 complete raw tuples reused per asset,848 rendered fresh, full metadata/UI/native gates required. No original stages or live assets changed.
