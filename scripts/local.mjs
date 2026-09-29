@@ -105,6 +105,7 @@ async function buildPackage(){
  await writeFile(path.join(stage,'Host-LAN.cmd'),'@echo off\r\ncd /d "%~dp0" || exit /b 1\r\n".\\frontline.exe" -lan -addr 0.0.0.0:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\r\n');
  for(const name of ['Play.command','Host-LAN.command'])await chmod(path.join(stage,name),0o755);
  await copyFile(path.join(root,'docs/local-package.md'),path.join(stage,'README.md'));
+ await copyFile(path.join(root,'docs/player-guide.md'),path.join(stage,'player-guide.md'));
  const sourceAfter=await buildSourceIdentity(root);if(sourceBefore.sha256!==sourceAfter.sha256)throw Error('Go/content sources changed during packaging; preserve this staging output and rebuild from a frozen source.');
  const version=JSON.parse(await readFile(path.join(stage,'client/runtime/version.json'),'utf8'));
  await writeFile(path.join(stage,'version.json'),JSON.stringify({...version,source_inputs:sourceAfter,product_pack:productIntegrity,platform:process.platform,arch:process.arch,source_revision:capture('git',['rev-parse','HEAD']),source_dirty:!!capture('git',['status','--porcelain']),built_at:new Date().toISOString(),acceptance:'See release evidence; successful packaging alone does not certify release readiness.'},null,2)+'\n');

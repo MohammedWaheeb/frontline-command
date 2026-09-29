@@ -1,5 +1,8 @@
 # Frontline Command local package
 
+The [player guide](player-guide.md) covers first battles, controls, bots, saves
+and joining a one-to-four-commander LAN operation.
+
 Open `Play.command` on macOS/Linux, or `Play.cmd` on Windows, then visit
 `http://127.0.0.1:8080`. The package contains a native executable for the platform
 listed in `version.json`; it does not run on a different operating system or CPU.
