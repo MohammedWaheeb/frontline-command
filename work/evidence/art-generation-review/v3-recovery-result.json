@@ -1,0 +1,57 @@
+{
+  "scope": "Frozen-v3 exact consumer/core, actual 136 catalog IDs, synthetic manifest-declared metadata and controlled transport failures. No browser/image decode/GPU/Go proof.",
+  "fanout": {
+    "requested": 136,
+    "loaded": 136,
+    "errors": [],
+    "statistics": {
+      "inFlight": 0,
+      "inFlightBytes": 0,
+      "queued": 0,
+      "leases": 0,
+      "leaseBytes": 0,
+      "disposed": false
+    }
+  },
+  "metadataRecovery": {
+    "additionalRequests": 1,
+    "loaded": true
+  },
+  "imageFailedPromiseEvicted": {
+    "attempts": 2,
+    "successfulDecodeClaim": false
+  },
+  "cameoFailedPromiseEvicted": {
+    "calls": 2,
+    "imageRequests": 4,
+    "successfulDecodeClaim": false
+  },
+  "explicitSameIndexRecapture": {
+    "sameExactIndexAndIdentity": true,
+    "newRequests": [
+      "/assets/packs/base.json",
+      "/art/index.json"
+    ]
+  },
+  "disposeQueuedFanout": {
+    "before": {
+      "inFlight": 4,
+      "inFlightBytes": 453,
+      "queued": 132,
+      "leases": 0,
+      "leaseBytes": 0,
+      "disposed": false
+    },
+    "after": {
+      "inFlight": 0,
+      "inFlightBytes": 0,
+      "queued": 0,
+      "leases": 0,
+      "leaseBytes": 0,
+      "disposed": true
+    },
+    "startedRequests": 4,
+    "lateQueuedStarts": 0,
+    "reportedErrors": []
+  }
+}

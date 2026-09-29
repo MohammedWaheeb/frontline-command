@@ -1,0 +1,42 @@
+{
+  "scope": "Frozen-v3 production SpriteSheet public API with deterministic clock; controlled failures before texture creation, no browser/GPU or production edits.",
+  "status": "PASS: terminal failure after transient retry is reported once and held",
+  "cases": [
+    {
+      "secondFailure": "asset_integrity",
+      "attempts": 2,
+      "reported": [
+        "asset_unavailable",
+        "asset_integrity"
+      ],
+      "hardFailureReported": true,
+      "laterFrames": 100,
+      "held": true,
+      "disposed": true
+    },
+    {
+      "secondFailure": "asset_generation_unavailable",
+      "attempts": 2,
+      "reported": [
+        "asset_unavailable",
+        "asset_generation_unavailable"
+      ],
+      "hardFailureReported": true,
+      "laterFrames": 100,
+      "held": true,
+      "disposed": true
+    },
+    {
+      "secondFailure": "decode",
+      "attempts": 2,
+      "reported": [
+        "asset_unavailable",
+        "decode"
+      ],
+      "hardFailureReported": true,
+      "laterFrames": 100,
+      "held": true,
+      "disposed": true
+    }
+  ]
+}
