@@ -1,0 +1,7 @@
+# Root native review and browser boundary
+
+29 September 2026. Chromium01, Firefox01 and WebKit01 all pass the immutable v19 full-fighter/full-airlift atlas course at both standard and high quality. Exact reports are indexed in three-engine-receipts.json. Each quality walks80 pages and4,496 physical layer/frame lookups;29 states include published aliases. Real cache pressure crosses192/384MiB soft trim thresholds and waits at least10 actual seconds before eviction, reload and cleanup. No unexpected page/console/HTTP/request failure; deliberate exact-page503 failures are recorded separately. This is texture accounting, not total GPU memory or frame-time approval.
+
+Root viewed Chromium standard airlift hover_low_board and rearm contacts plus high-quality actual-fighter sharing at native world scale. The open ramp and stopped/service rotor states read differently; service equipment remains discreet. Two owner-authorized fighters render distinct real states while sharing their atlas. The images do not establish animation quality across every frame or aircraft performance in a full battlefield. Aircraft surfaces are intentionally stylized and team markings retain their established color.
+
+Actual airlift gameplay is being tested separately with ordinary production, boarding, flight, unload, return and servicing; no actor state was fabricated for this atlas course. Full roster and full-game acceptance remain open.
