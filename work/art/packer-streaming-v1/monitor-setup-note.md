@@ -1,0 +1,1 @@
+The first prepared watcher was stopped before any pack process appeared. Actual macOS `ps` reports the interpreter as capitalized `Python`, so the matcher was corrected to the basename lowercased prefix. Only own verified watcher PID76438 was terminated; Blender/driver remained running. No pack sample or measurement was discarded. Original helper is preserved.

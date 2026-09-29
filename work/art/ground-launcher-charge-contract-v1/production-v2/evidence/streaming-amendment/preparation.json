@@ -1,0 +1,112 @@
+{
+  "scope": "Prepared private source/exports only. SA excluded after native FAIL. Full rendering still requires parent native acceptance of the three selected pilots.",
+  "stage": "work/art/ground-launcher-charge-contract-v1/production-v1/stage",
+  "model_sha256": "fdff1a6134c7128a15bffd1fdcf0d233ba63e3f8672b061e53b69bc3ff34ac66",
+  "source_provenance": {
+    "assets/pipeline/blender/fclib.py": {
+      "path": "assets/pipeline/blender/fclib.py",
+      "sha256": "f2efa7bdc39742579bae5236af56a4d076def9be9541643be3e1b59a9604fe37"
+    },
+    "assets/pipeline/blender/team_mask_png.py": {
+      "path": "assets/pipeline/blender/team_mask_png.py",
+      "sha256": "cbea213441e9a32310e34ad89970b00f2e5c9c1b358e412b465a8c9b503e70b8"
+    },
+    "assets/pipeline/blender/render_ui_shots.py": {
+      "path": "assets/pipeline/blender/render_ui_shots.py",
+      "sha256": "6067b4ec709a18bdd68b32a45296d4e00f634477a9d57f700a21d11777cc3135"
+    },
+    "assets/pipeline/tools/pack_sprites.py": {
+      "path": "assets/pipeline/tools/pack_sprites.py",
+      "sha256": "18a933faed0eb64a273ec273428047942fbb4b95f6a97d66a3d45375a366848a"
+    },
+    "assets/pipeline/tools/shadow_alpha.py": {
+      "path": "assets/pipeline/tools/shadow_alpha.py",
+      "sha256": "40908f01475b4aa7c8ab3d64a0a882cfe26faa6311defb1e882296605cb2a25e"
+    },
+    "assets/pipeline/tools/sprite_ink_bounds.py": {
+      "path": "assets/pipeline/tools/sprite_ink_bounds.py",
+      "sha256": "cda9670317a57b3d0693777978fa049b6e2ef035c120f5c1920aa0b8de05048e"
+    },
+    "assets/pipeline/tools/check_assets.py": {
+      "path": "assets/pipeline/tools/check_assets.py",
+      "sha256": "d6d8406c75d28345cca9cda6db9a88dce18350bccaa0cfe5eea12486bed9135b"
+    },
+    "assets/pipeline/tools/composite.py": {
+      "path": "assets/pipeline/tools/composite.py",
+      "sha256": "adf3e87ee84cb9c8262e1008b503d6b28614af10b7074146c53986c9dcaa0505"
+    },
+    "assets/pipeline/blender/models/vehicle_roster.py": {
+      "path": "work/art/ground-launcher-charge-contract-v1/candidate-v1/candidate-vehicle_roster.py",
+      "sha256": "fdff1a6134c7128a15bffd1fdcf0d233ba63e3f8672b061e53b69bc3ff34ac66"
+    },
+    "assets/pipeline/blender/render_reuse.py": {
+      "path": "work/art/aircraft-final-production-v2/stage-v4/assets/pipeline/blender/render_reuse.py",
+      "sha256": "8e4eb08be74d5945ea11f6c757f95f03b4aa12b940d872b82bda4b1d76b33048"
+    },
+    "work/art/vehicle-production/model-audit.py": {
+      "path": "work/art/vehicle-production/model-audit.py",
+      "sha256": "feab86e0c2ba597d8a5fa9194f240f154aaa7dbc7efb212ec7a992ab28353c05"
+    },
+    "work/art/vehicle-production/check-one.py": {
+      "path": "work/art/vehicle-production/check-one.py",
+      "sha256": "5dd0cb212d38b72722726f8d37f64c3582e6d18dafa52cb357064ce7de4dcb49"
+    },
+    "work/art/vehicle-production/ui-and-contacts.py": {
+      "path": "work/art/vehicle-production/ui-and-contacts.py",
+      "sha256": "a1617402acf5977a68c77a4204e2652d036d3480c7aabcf4adef9a936ba85f9f"
+    },
+    "assets/pipeline/specs/unit.IR.launcher.json": {
+      "path": "work/art/ground-launcher-charge-contract-v1/candidate-v1/specs/unit.IR.launcher.json",
+      "sha256": "53595e8cf4f1c4f3a76a1b63c1ee4a26f7fa6297dc88eeef4b749a681fd4e57d"
+    },
+    "assets/pipeline/specs/unit.US.launcher.json": {
+      "path": "work/art/ground-launcher-charge-contract-v1/candidate-v1/specs/unit.US.launcher.json",
+      "sha256": "97ab6fa946e71b488cb9893a168eebdb51d9279cd036d346fca7cd6d317f97a7"
+    },
+    "assets/pipeline/specs/unit.SY.launcher.json": {
+      "path": "work/art/ground-launcher-charge-contract-v1/candidate-v1/specs/unit.SY.launcher.json",
+      "sha256": "cdec6b93e16daed0d13e98d6d6371dc691b2a41b7cbc7c1ae2dead74a6f66d26"
+    }
+  },
+  "manifest_original_sha256": "ad6388273e5fdc27d288fa4435d0798aefda1586310344ee634328b93e99eedf",
+  "manifest_stage_sha256": "a059c303c6639ba087602379fa94158eb36a24ebca9d79ff68fd9b93b23a885e",
+  "manifest_changed_fields": {
+    "unit.IR.launcher": [
+      "spec.states",
+      "spec.total_poses"
+    ],
+    "unit.US.launcher": [
+      "spec.states",
+      "spec.total_poses"
+    ],
+    "unit.SY.launcher": [
+      "spec.states",
+      "spec.total_poses"
+    ]
+  },
+  "assets": [
+    {
+      "id": "unit.IR.launcher",
+      "poses": 1120,
+      "reused_poses": 628,
+      "fresh_poses": 492,
+      "reuse_sha256": "e785d4442639df09c6659b291a26372655925559ce526fd681fec271365a0005"
+    },
+    {
+      "id": "unit.US.launcher",
+      "poses": 688,
+      "reused_poses": 56,
+      "fresh_poses": 632,
+      "reuse_sha256": "68af43dca7424f2a53d14f79750b1cd86788fdc127234b27d72f81650bb875ed"
+    },
+    {
+      "id": "unit.SY.launcher",
+      "poses": 688,
+      "reused_poses": 56,
+      "fresh_poses": 632,
+      "reuse_sha256": "a68f9bfc9be7a8909d6222b50716b48c5c3c1fe3e26a259723a557968788bbd0"
+    }
+  ],
+  "production_lock_sha256": "0e9ea2671a12271b91540aeca02cefdc23ee22878479ab029784a42e6964258a",
+  "prepared_inputs_unchanged": true
+}

@@ -1,0 +1,61 @@
+{
+  "id": "unit.US.gunship",
+  "accepted": true,
+  "reviewed_at": "2026-09-29T11:12:02.084568+00:00",
+  "scope": "Bounded complete staged export review: all32 native1x pages across16 states, every heading first frame and every frame at heading3, plus paired native1x/2x UI. Numerical checks cover all1120 poses. No shipping/runtime/final art acceptance.",
+  "inspected": {
+    "hover-01@1x.png": "4eec06909e8c8bae5f7a03e4b382aefb33c064c77845b24dcdc849dbe63b70a1",
+    "hover-02@1x.png": "eab63880a64a34f244299dc400fd42295e09a7033cd49483db5547928ee8df0f",
+    "move-01@1x.png": "be4581ab964c9493f4bd16a7da07f23e8e6ace5b0297ee02fdd2621e266e9510",
+    "move-02@1x.png": "808b8673a6d11ca0315bf21926670e22fee005abfe38b1d2d19203453c6b9b82",
+    "fire-01@1x.png": "2aa7c7da868642532d3b818213381322465d52a2ece368153fd5e7357cc080ba",
+    "fire-02@1x.png": "aea749b895968c2fa64ac09d45529ae46d352fedba1f43574b5f6355095f6e97",
+    "parked-01@1x.png": "94ec3e2a4055fee60b50fde81a4e950cb9f8546f8da93f41c48f47721f6ac54f",
+    "parked-02@1x.png": "d412805dfe7aef3a7a09ad430bb4bdf52a7a359d39c76fbbbd8d91b0a2b86516",
+    "takeoff-01@1x.png": "efaa11a3d917815ec03f0cbde4dd867ece3db478dd502a35738c0bdd5d68d8f0",
+    "takeoff-02@1x.png": "5ead55c1d73f4a969c0af94ec6ceada248e0329f5a8f1b21a0e643bc11fe089f",
+    "landing-01@1x.png": "0948edd39c7638cc5ed6d0f67bd8952851d05153ecfc781bee13654100079f95",
+    "landing-02@1x.png": "51877652a89cef441a0772b40868df6f0c9bc1fae841be75824e3346b1eeeed0",
+    "damaged-01@1x.png": "1d5eeb904b53ebdd84fcee063e9b6a7f8923edcd2ed5d00f47ece5513616b19b",
+    "damaged-02@1x.png": "6151fab113b7fc93e3ea51cca7e223ce75bb077e15280f1026830dcfbb820af1",
+    "crash-01@1x.png": "98bad144662925b82e234a82a5691c77f11390ac2781d6b7afd7344be18380e2",
+    "crash-02@1x.png": "96d7de96a23cdd3de97c2daf3a36d40ae6524d1138ef791c48839f0fa3ec07a8",
+    "rearm-01@1x.png": "9ee41246615f8197dbc745c98550eaf894c5cdda2132e6f60c1c60370c0d8108",
+    "rearm-02@1x.png": "0340f385ca1f17589f88dd451b87a7060129c4bab228ff7c9c409211a33c63d2",
+    "empty-01@1x.png": "0fa4502728304f27f797351828c9c623f5f05b0bbfa50025be5863830b3644c7",
+    "empty-02@1x.png": "0301d125524a4043d48b49d1305e98adc94d239fd3846d26dda2c995bc9db348",
+    "fire_empty-01@1x.png": "bf018b3fd987edf52cc8789f9cb2e4ba04956bcaa770a38ef1d9087490745aa9",
+    "fire_empty-02@1x.png": "13f64cd2f0141b087f206e4b24b0f07fde4384fa2ea6c1035e7eb6bb985a4e84",
+    "parked_empty-01@1x.png": "1c7ef44c9da605e50740f104dd01c7641454fbf00ded58946fb15b6f216d11a8",
+    "parked_empty-02@1x.png": "054ba01407a1174d00020d760e666b1954d3ed073e8cd7e55d46653594f69608",
+    "takeoff_empty-01@1x.png": "8ac814c062944b1e0728f59a60a126dcf95f461774bc02aac39513d5e00cbf23",
+    "takeoff_empty-02@1x.png": "d543ffff7ef5a79f865641be4af048375387ece6241c3e449d3c49236cd8e8a4",
+    "landing_empty-01@1x.png": "a73ab95add78e5fd1e2b59330d601e18f2bdc3b7d68fcb30b1761ea70218cad8",
+    "landing_empty-02@1x.png": "7d193569ccb028ebac49bd321fcf3d140edd8941e9047644644139abefbd6ecd",
+    "damaged_empty-01@1x.png": "65bdca94a8c4f118aa1bdd55ca0981b3098f17c3fc6ccb13b450962b02c7770e",
+    "damaged_empty-02@1x.png": "689011fab983a87db29a90c3225414320c018136eb5504139b1ed93d706c636c",
+    "rearm_empty-01@1x.png": "a584b8534435ece19e8e4463ed2186d4b08c9c7c2101da5bc9165703559c250c",
+    "rearm_empty-02@1x.png": "bcb62558f5aa13d85c6eac7d66db36a21f4c534f6c7ada14503d3ec28a94c04e",
+    "ui-contact@1x-2x.png": "9feead0aa53c795f98a722a5c7406e4baeffec580122e8f7125ef81e50f57b3a"
+  },
+  "observations": [
+    "Single-rotor silhouette, body and shadow remain whole at all inspected headings; no visible atlas or canvas clipping.",
+    "Team panels remain visible through translucent rotor coverage; no roof cut-outs or black mask patches.",
+    "Parked rotor disc is absent; service kit appears only during service and small arm motion is visible at heading3.",
+    "Crash loses rotor blades and darkens; motion is modest, but distinct from normal hover.",
+    "Loaded and empty hardpoint details are subtle at native1x, especially oblique/front views; no claim of strong payload readability.",
+    "UI silhouette and small team panels remain readable."
+  ],
+  "limitations": [
+    "No actual-Go owner/enemy ammo or lifecycle/residency acceptance inferred.",
+    "Takeoff/landing and service movement remain modest; final animation/style review remains open.",
+    "Whole atlas inventory at2x is864.45MiB; renderer must load/evict frames or pages on demand. This is inventory, not measured residency.",
+    "Not every pose manually inspected; standard full checks and selected full-heading/phase pages cover distinct concerns."
+  ],
+  "checks": {
+    "world": 24,
+    "ui": 20,
+    "failures": 0
+  },
+  "model_sha256": "a8207dddec57da229ba8c2d9b09d4d8e4b6498ae0aeb4325617444675abcb50a"
+}

@@ -1,0 +1,267 @@
+{
+  "id": "unit.SA.strike",
+  "role_id": "SA.strike",
+  "model": "aircraft_roster",
+  "faction": "SA",
+  "author": "Codex",
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Codex",
+    "authorization": "User-approved Claude quota takeover; assignment 09 continuation",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "source_model": "assets/pipeline/blender/models/aircraft_roster.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "params": {
+    "kind": "SA.strike"
+  },
+  "canvas": [
+    448,
+    352
+  ],
+  "anchor": [
+    224,
+    232
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 600,
+  "states": [
+    {
+      "name": "fly",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 20,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "bank_left",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 20,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "bank_right",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 20,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "fire",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 20,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "parked",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "takeoff",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "landing",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "damaged",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "crash",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "rearm",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 8,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "channel": true
+    },
+    {
+      "name": "fire_empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+    },
+    {
+      "name": "parked_empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+    },
+    {
+      "name": "takeoff_empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+    },
+    {
+      "name": "landing_empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+    },
+    {
+      "name": "damaged_empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+    },
+    {
+      "name": "rearm_empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 8,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "channel": true,
+      "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+    }
+  ],
+  "air": {
+    "cruise_altitude_mt": 1400,
+    "shadow_from_ground_anchor": true,
+    "rendered_at_ground": true
+  }
+}

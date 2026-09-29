@@ -1,0 +1,63 @@
+{
+  "utc": "2026-09-29T11:21:04.093981+00:00",
+  "scope": "Completed full staged export and review records only; raw/atlas/blend originals remain on disk and are not added by this compact checkpoint. No shipping/runtime/final quality claim.",
+  "logs": {
+    "work/art/aircraft-final-production-v2/full-unit.US.gunship.log": {
+      "sha256": "94a5d780a9b675661867ea655bcc19738d1b57f8993e265c0573b85afff10c1d",
+      "bytes": 728287,
+      "tail": [
+        "Info: Saved as \"unit.US.gunship.blend\"",
+        "FC_REUSED_POSES unit.US.gunship poses=40",
+        "FC_RENDER_DONE unit.US.gunship poses=1120 seconds=2353.0",
+        "Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)",
+        "",
+        "Blender quit"
+      ]
+    },
+    "work/art/aircraft-final-production-v2/pack-unit.US.gunship.log": {
+      "sha256": "1c880c7032b5309e98c70a42ee7b0c5cb0e38c75bddedec30cf77feb274e99c1",
+      "bytes": 83,
+      "tail": [
+        "unit.US.gunship: 1120 poses, frame 328x208@2x, layers ['beauty', 'shadow', 'team']"
+      ]
+    },
+    "work/art/aircraft-final-production-v2/check-unit.US.gunship.log": {
+      "sha256": "f34fc1edad49938e2df9808e2ba9f6b042b66d1f6a708ada5c2336a887d4d198",
+      "bytes": 48,
+      "tail": [
+        "unit.US.gunship 1120 poses 24 checks 0 failures"
+      ]
+    },
+    "work/art/aircraft-final-production-v2/ui-unit.US.gunship.log": {
+      "sha256": "86a11d6747a9466b3b33413cd23ee9df165bd34e396a6449bb41c07a8d376826",
+      "bytes": 1098,
+      "tail": [
+        "00:03.735  render           | Saved: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/aircraft-final-production-v2/stage-v4/assets/build/ui/icons/build/US.gunship@2x.team.png'",
+        "00:03.965  render           | Saved: '/var/folders/n4/43n_jxh10gg3s770b_8jbzb80000gn/T/fc-team-coverage-ggel56x2.png'",
+        "FC_UI_SHOTS_DONE US.gunship",
+        "Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)",
+        "",
+        "Blender quit"
+      ]
+    },
+    "work/art/aircraft-final-production-v2/contacts-unit.US.gunship.log": {
+      "sha256": "0eec6f77fde7a9d9e0c78e2c8a7d2c99f1cbb9cb782ebec7474c71afdef5a71f",
+      "bytes": 72,
+      "tail": [
+        "FC_STAGED_UI_CONTACTS_DONE unit.US.gunship 20 UI checks 64 native pages"
+      ]
+    },
+    "work/art/aircraft-final-production-v2/driver-unit.US.gunship.log": {
+      "sha256": "129aebc63b257a2fef4ad1ce544b2e237f2c9be91889d617989fae4c90998a0b",
+      "bytes": 218,
+      "tail": [
+        "FC_STAGED_AIRCRAFT_PREFLIGHT_OK unit.US.gunship",
+        "FC_STAGED_AIRCRAFT_PREFLIGHT_OK unit.US.gunship",
+        "FC_ACCEPTED_PILOT_SEEDED unit.US.gunship 40 120",
+        "FC_STAGED_AIRCRAFT_COMPLETE unit.US.gunship",
+        "FC_STAGED_AIRCRAFT_BATCH_DONE"
+      ]
+    }
+  },
+  "handoff_sha256": "39d0bf33a2cd1c8201e7e1b9dca78ede82fd85d01f04b17c41b1dec14330c838"
+}

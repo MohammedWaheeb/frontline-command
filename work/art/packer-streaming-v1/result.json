@@ -1,0 +1,50 @@
+{
+  "scope": "Optimization-only isolated candidate. Three existing complete exports plus a forced multi-page alpha/layer/hardpoint fixture; every PNG, descriptor, sidecar and content hash byte exact. No universal render tolerance, metadata change or production mutation.",
+  "failures": 0,
+  "file_comparisons": 376,
+  "cases": [
+    {
+      "case": "actual-small-fuel-v1",
+      "asset": "prop.fuel_tanks",
+      "files": 9,
+      "all_output_file_bytes_exact": true,
+      "reference": "assets/build/sprites",
+      "peak_rss_bytes_shared_host": 69500928,
+      "wall_seconds_shared_host": 0.4147234170231968,
+      "result_sha256": "ced895f242ca0ec0a14d2117424baf04a14b3e72b5246202634acc6194721e3a"
+    },
+    {
+      "case": "actual-launcher-v1",
+      "asset": "unit.IR.launcher",
+      "files": 109,
+      "all_output_file_bytes_exact": true,
+      "reference": "work/art/vehicle-runtime-handoffs-v1/unit.IR.launcher/stage/assets/build/sprites",
+      "peak_rss_bytes_shared_host": 494534656,
+      "wall_seconds_shared_host": 42.19602583302185,
+      "result_sha256": "22c7b8027c73d8e8d87f9af16441faf479483bd4e164c733a2249b43910a2a00"
+    },
+    {
+      "case": "actual-airlift-v1",
+      "asset": "unit.US.airlift",
+      "files": 193,
+      "all_output_file_bytes_exact": true,
+      "reference": "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites",
+      "peak_rss_bytes_shared_host": 368427008,
+      "wall_seconds_shared_host": 61.95228683389723,
+      "result_sha256": "d2ee522ba8a1b2502fa48c13ebb19f50b1342199775efbe109024fb9546d3563"
+    },
+    {
+      "case": "synthetic-after-v1",
+      "asset": "prop.fixture_stream",
+      "files": 65,
+      "all_output_file_bytes_exact": true,
+      "reference": "work/art/packer-streaming-v1/synthetic-before-v1",
+      "peak_rss_bytes_shared_host": 41074688,
+      "wall_seconds_shared_host": 0.058681000024080276,
+      "result_sha256": "d49ad217327b03568d15b577dd1e2c8a5acde845183b008446f6bc4f49d3f398"
+    }
+  ],
+  "candidate_sha256": "8c3f07bb1fc85600a17ecfaaab82840ce6d6a9ab287799c0533a33347860abb0",
+  "baseline_sha256": "18a933faed0eb64a273ec273428047942fbb4b95f6a97d66a3d45375a366848a",
+  "helper_sha256": "f775a4838a65fd4fa51ee1fadd3b8d7f79b7600a3dcf6e253eb29e2cf7a81534"
+}

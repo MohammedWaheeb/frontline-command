@@ -1,0 +1,22 @@
+--- before/pack_sprites.py
++++ candidate/pack_sprites.py
+@@ -96,7 +96,7 @@
+             if im.size != (cw, ch):
+                 raise SystemExit(f'{p}: size {im.size} != canvas {(cw, ch)}')
+             arr = normalise(layer, im)
+-            imgs[(layer, st, d, fr)] = arr
++            imgs[(layer, st, d, fr)] = p  # Keep only a path; decode again per atlas page.
+             ys, xs = np.nonzero(arr[..., 3] > 2)
+             if len(xs):
+                 x0, y0 = min(x0, xs.min()), min(y0, ys.min())
+@@ -133,7 +133,9 @@
+             frames = {}
+             for i, (st, d, fr) in enumerate(chunk):
+                 gx, gy = (i % cols) * (fw + PAD), (i // cols) * (fh + PAD)
+-                sheet[gy:gy + fh, gx:gx + fw] = imgs[(layer, st, d, fr)][y0:y1, x0:x1]
++                with Image.open(imgs[(layer, st, d, fr)]) as source_frame:
++                    tile = normalise(layer, source_frame)
++                sheet[gy:gy + fh, gx:gx + fw] = tile[y0:y1, x0:x1]
+                 frames[f'{st}/d{d:02d}_f{fr:02d}'] = (gx, gy)
+             for scale, factor in (('2x', 1), ('1x', 2)):
+                 arr = sheet.clip(0, 255).astype(np.uint8) if factor == 1 else downsample_premultiplied(sheet, 2)

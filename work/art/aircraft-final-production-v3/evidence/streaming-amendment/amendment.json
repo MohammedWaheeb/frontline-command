@@ -1,0 +1,24 @@
+{
+  "scope": "New eight-aircraft private production family; accepted streaming memory optimization only. Completed v2 artifacts and locks remain immutable.",
+  "source_files": 23,
+  "only_stage_source_change": "assets/pipeline/tools/pack_sprites.py",
+  "driver_changes": "Exact old family path replaced with new family path only",
+  "remaining_assets": [
+    "unit.IR.fighter",
+    "unit.IR.gunship",
+    "unit.IR.isr",
+    "unit.SA.fighter",
+    "unit.SA.gunship",
+    "unit.SA.strike",
+    "unit.SY.scout_drone",
+    "unit.US.strike"
+  ],
+  "remaining_pose_count": 6448,
+  "old_handoff_files": {
+    "work/art/aircraft-final-production-v2/runtime-handoff/unit.US.airlift.json": "428059df28bd0d1295e3b854856faf407277278d045d5c8393365d89791fecfb",
+    "work/art/aircraft-final-production-v2/runtime-handoff/unit.US.gunship.json": "39d0bf33a2cd1c8201e7e1b9dca78ede82fd85d01f04b17c41b1dec14330c838"
+  },
+  "new_lock_sha256": "47fcc7d990cc5c67dea70692c0332af9e48460d8f7cdb8a61104713f22a758d6",
+  "all_models_specs_manifest_render_helpers_and_reuse_audit_exact": true,
+  "no_frames_or_exports_copied_or_rendered": true
+}

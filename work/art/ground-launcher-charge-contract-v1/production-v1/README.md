@@ -1,0 +1,9 @@
+# Three-launcher private full production
+
+Root inspected the seven exact native pages pinned in `parent-native-approval.json` and approved bounded US/IR/SY full exports after the current US gunship. This supersedes the preparation receipt's earlier pending-review wording. SA is excluded after its genuine empty-canister visual failure. No live source, manifest or output is promoted.
+
+The stage has2,496 poses: IR1,120, US688, SY688. It preserves740 exact raw poses (IR544 original generic +84 new accepted pilot, US/SY56 pilot each) and renders1,756 remaining poses. The copied source proof preserves all8,080 original ground poses. Full original IR helper bytes and all copied raw bytes match its immutable handoff. Every staged source/tool is locked; only three state/count fields changed in a private manifest copy, with all unrelated fields exact.
+
+Run one asset at a time using `zsh work/art/ground-launcher-charge-contract-v1/production-v1/run.sh unit.IR.launcher` (then US and SY), only when the sole Blender worker is free. Each asset gets a complete Blender bounds/reset/hardpoint audit, complete render or exact declared reuse, standard packing/integrity checks, fresh UI, all native contact pages, and an explicit whole-asset review boundary. All logs and outputs stay under this private stage. The driver refuses to overwrite started output.
+
+`preparation.json` records original helper provenance and exact reuse counts. The production model is fdff1a6134c7128a15bffd1fdcf0d233ba63e3f8672b061e53b69bc3ff34ac66; the independent generic vehicle source and prior544-pose IR export remain untouched. Source/style authorship remains original Claude vehicle work plus narrowly scoped Codex charge-state correction and pipeline operation. Numeric, native, actual-game and final visual-style acceptance remain distinct.

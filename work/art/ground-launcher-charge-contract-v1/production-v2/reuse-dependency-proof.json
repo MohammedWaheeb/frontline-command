@@ -1,0 +1,25 @@
+{
+  "scope": "Original IR reuse setup and material pass dependencies; driver adds exact hash-verified skip branch and preserves the original rendering path. All generic source poses were already independently proven exact.",
+  "checks": [
+    {
+      "file": "assets/pipeline/blender/fclib.py",
+      "sha256": "f2efa7bdc39742579bae5236af56a4d076def9be9541643be3e1b59a9604fe37",
+      "exact_old_helper": true
+    },
+    {
+      "file": "assets/pipeline/blender/team_mask_png.py",
+      "sha256": "cbea213441e9a32310e34ad89970b00f2e5c9c1b358e412b465a8c9b503e70b8",
+      "exact_old_helper": true
+    },
+    {
+      "file": "assets/pipeline/blender/render_ui_shots.py",
+      "sha256": "6067b4ec709a18bdd68b32a45296d4e00f634477a9d57f700a21d11777cc3135",
+      "exact_old_helper": true
+    }
+  ],
+  "original_spec_identical_except_appended_states_aliases": true,
+  "original_render_driver_sha256": "8da035829b13704d678152f41fa3f86c5945e87be2503d9d0307157569bd38b4",
+  "reuse_driver_sha256": "8e4eb08be74d5945ea11f6c757f95f03b4aa12b940d872b82bda4b1d76b33048",
+  "difference_path": "work/art/ground-launcher-charge-contract-v1/production-v1/render-reuse-driver.diff",
+  "failures": 0
+}
