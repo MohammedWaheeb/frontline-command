@@ -1,0 +1,397 @@
+{
+  "status": "BOUNDED_NATIVE_GATES_PASS_STRICT_RAW_RECEIPTS_REMAIN_FAILED",
+  "scope": "Independent post-close raw RGBA, ownership-delta, resource-accounting and lifecycle review. No live promotion; no tolerance waiver.",
+  "sources": [
+    {
+      "name": "art.ts",
+      "baseline": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/src/render/art.ts",
+      "baselineSHA256": "d4a4049fb2d9192fe13fff01f6725c2521dbd6382992cb8e9dfc41cc1822ce7a",
+      "candidate": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-v1/combined-candidate/client/src/render/art.ts",
+      "candidateSHA256": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8"
+    },
+    {
+      "name": "battlefield.ts",
+      "baseline": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/src/render/battlefield.ts",
+      "baselineSHA256": "b0ac869e0e825bc11cd934ebfb781a588aa04bc68a4a1041b470818a49a6196c",
+      "candidate": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/memory-label-v1/candidate-battlefield.ts",
+      "candidateSHA256": "259e490c099a7f1b67e22bece69ba6f1cab6a443839a47d96500eddd77d2648f"
+    },
+    {
+      "name": "terrain.ts",
+      "baseline": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/src/render/terrain.ts",
+      "baselineSHA256": "6820e55a251ea711e3121033c0f5264ad46c3cb1832a2064a4c511d27d3c3788",
+      "candidate": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts",
+      "candidateSHA256": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005"
+    }
+  ],
+  "performanceBattlefieldSHA256": "60a925f92a6a15d68a837c75b56a1d3148f48738d04cda79e94c1cbcb8b7069a",
+  "memoryDeltaExactlyReconstructsPerformance": true,
+  "verifiedComparisons": [
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "air-before",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "memory-0.45-1",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "memory-0.45-1.5",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "memory-1.8-1",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "memory-1.8-1.5",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "name": "pressure-trim-pixels",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "name": "pressure-reload-pixels",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    }
+  ],
+  "alphaCounts": [
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "original",
+      "name": "air-before",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "original",
+      "name": "air-culled",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "original",
+      "name": "air-after",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "original",
+      "name": "air-authorized-absence",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "air-before",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "air-culled",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "air-after",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "air-authorized-absence",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "memory-0.45-1",
+      "transparent": 48180,
+      "partial": 440,
+      "opaque": 258580
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "memory-0.45-1.5",
+      "transparent": 48180,
+      "partial": 440,
+      "opaque": 258580
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "memory-1.8-1",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "memory-1.8-1.5",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "memory",
+      "name": "memory-0.45-1",
+      "transparent": 48180,
+      "partial": 440,
+      "opaque": 258580
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "memory",
+      "name": "memory-0.45-1.5",
+      "transparent": 48180,
+      "partial": 440,
+      "opaque": 258580
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "memory",
+      "name": "memory-1.8-1",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "memory",
+      "name": "memory-1.8-1.5",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "variant": "performance",
+      "name": "pressure-before",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "variant": "performance",
+      "name": "pressure-after-trim",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "variant": "performance",
+      "name": "pressure-after-reload",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    }
+  ],
+  "opacityReview": "Attempt01 incorrectly required all extracted stage pixels opaque, including the low-zoom map-edge views. Preserved raw RGBA proves exact transparent/partial/opaque equality for both memory pairs. Interior fighter/pressure/large-zoom memory captures are fully opaque. No alpha values, source, captures, or pixel tolerance changed.",
+  "air": {
+    "initialExact": true,
+    "originalReentryVisible": false,
+    "candidateReentryVisible": true,
+    "actualArt": true,
+    "pick": {
+      "point": {
+        "x": 300,
+        "y": 205
+      },
+      "hit": {
+        "kind": "entity",
+        "id": 66
+      }
+    },
+    "click66": true,
+    "authorization": "Exact untouched owner actor set; earlier actual snapshot removes actor66. This is a rewind/absence gate, not foreign sight-loss gameplay.",
+    "otherMissingArt": [
+      "US.aa",
+      "US.strike"
+    ]
+  },
+  "memory": {
+    "views": 4,
+    "zooms": [
+      0.45,
+      1.8
+    ],
+    "uiScales": [
+      1,
+      1.5
+    ],
+    "exact": true,
+    "properContainer": true,
+    "inheritedAlpha": 0.55,
+    "warningCount": 0,
+    "knownMemoryNotPickable": true
+  },
+  "pressure": {
+    "sourceVariant": "Original performance candidate, without later Container correction; final source retains identical trim/caller/actor logic.",
+    "mapWidth": 128,
+    "viewport": [
+      640,
+      480
+    ],
+    "initialRiflePick": {
+      "point": {
+        "x": 320,
+        "y": 213
+      },
+      "hit": {
+        "kind": "entity",
+        "id": 27
+      }
+    },
+    "loadedRealFighterPages": 18,
+    "loadedBytes": 67284000,
+    "beforeBytes": 218135092,
+    "afterBytes": 199663636,
+    "afterReloadBytes": 203100916,
+    "softTargetBytes": 201326592,
+    "protectedCurrentPaintPages": 14,
+    "protectedLayerCounts": {
+      "beauty": 5,
+      "shadow": 5,
+      "team": 4
+    },
+    "evictedPages": 7,
+    "evictedBytes": 18471456,
+    "exactGlobalLRUPrefix": true,
+    "allEvictedTexturesDestroyedAndBitmapsClosed": true,
+    "reloaded": {
+      "sheet": "building.US.tech",
+      "url": "/art/sprites/building.US.tech/building.US.tech@1x.beauty.png",
+      "bytes": 3437280,
+      "width": 924,
+      "height": 930,
+      "newTexture": true
+    },
+    "exactPixelsAcrossTrimAndReload": true,
+    "actualRifleClick": true,
+    "maxObservedKnownTerrainAndArtBytes": 279864436,
+    "notes": [
+      "Pressure comes from actual existing ground-scene resources plus18 real fighter beauty/shadow pages requested through the actual public SpriteSheet API. Current painted ground-scene beauty/shadow/team pages are protected; fighter pages are the offscreen pressure source.",
+      "The real LRU victims are older ground pages; reload specifically exercises building.US.tech beauty.",
+      "Reload raises residency to203,100,916 bytes, above the192MiB soft target until a future trim; this is not a hard cap.",
+      "Offscreen decoded Texture resources are not necessarily GPU uploaded; no total GPU/JS memory claim."
+    ]
+  },
+  "validation": {
+    "status": "PASS_PRIVATE_FINAL_THREE_FILE_SOURCE",
+    "scope": "Frozen renderer candidate plus proper remembered-label Container ownership; existing frozen runtime tests/data reused. No live edits or new browser run.",
+    "sourceFiles": 137,
+    "copiedInputFiles": 247,
+    "sourceSHA256": {
+      "art.ts": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8",
+      "battlefield.ts": "259e490c099a7f1b67e22bece69ba6f1cab6a443839a47d96500eddd77d2648f",
+      "terrain.ts": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005"
+    },
+    "appTypecheck": 0,
+    "runtimeTypecheck": 0,
+    "runtimeTestsExitCode": 0,
+    "testSummary": [
+      "ℹ tests 498",
+      "ℹ suites 0",
+      "ℹ pass 498",
+      "ℹ fail 0",
+      "ℹ cancelled 0",
+      "ℹ skipped 0",
+      "ℹ todo 0"
+    ],
+    "inputsUnchanged": true,
+    "dataLinks": {
+      "assets": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-residency-v1/candidate/assets",
+      "content": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-residency-v1/candidate/content",
+      "pkg": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-residency-v1/candidate/pkg"
+    }
+  },
+  "raw": {
+    "supplement": {
+      "page": 0,
+      "console": 7,
+      "requestfailed": 288,
+      "http": 0,
+      "cdp": 288,
+      "server": 0
+    },
+    "pressure": {
+      "page": 0,
+      "console": 1,
+      "requestfailed": 34,
+      "http": 0,
+      "cdp": 34,
+      "server": 0
+    }
+  },
+  "strictStatuses": {
+    "supplement": "failed",
+    "pressure": "failed"
+  },
+  "preservedFailure": "Supplement first stopped at a picking assumption about the crowded initial rifle snapshot, before pressure loads; successor uses the previously proved later snapshot and records initial picking before assertion.",
+  "cleanup": {
+    "supplementDisposals": 11,
+    "pressureDisposals": 1,
+    "allZero": true,
+    "allSnapshotsUnchanged": true,
+    "inputsUnchanged": true,
+    "browserAndHTTPClosed": true
+  },
+  "recommendation": "Recommend parent-controlled promotion of only the three exact source files listed above. Retain the native strict failures and integration/runtime/packaging acceptance boundaries; do not promote this private fighter overlay as a side effect.",
+  "limits": [
+    "No ordinary App all-game feature acceptance, final roster, final-art or multiplayer/endurance claim.",
+    "Actual snapshots are source c7e0 owner views; component course does not execute WASM or qualify current Go cadence.",
+    "No256² native, hardware/FPS, total GPU/JS memory or active-page hard-cap claim.",
+    "No new fog topology change; separate root fog work is outside this source recommendation."
+  ],
+  "viewedNativeImages": [
+    "chrome-supplement-01/performance-air-after.screen.png",
+    "chrome-supplement-01/memory-memory-1.8-1.5.screen.png",
+    "chrome-supplement-01/failure.png",
+    "chrome-pressure-01/performance-pressure-after-trim.screen.png"
+  ]
+}

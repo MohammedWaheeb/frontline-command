@@ -1,0 +1,193 @@
+{
+  "status": "FUNCTIONAL_AND_EXACT_PIXEL_GATES_PASS_RAW_DIAGNOSTICS_FAIL",
+  "scope": "Post-close read-only review; does not supersede failed raw run receipts.",
+  "strictRunStatuses": {
+    "baseline": "failed",
+    "candidate": "failed"
+  },
+  "exact": {
+    "comparisons": 23,
+    "freshBaselineControls": 2,
+    "syntheticTerrainViews": 18,
+    "warmedPendingViews": 2,
+    "actualArtRifleInitialView": 1,
+    "differingPixels": 0,
+    "differingChannels": 0,
+    "tolerance": 0
+  },
+  "pending": {
+    "units": "actual synchronous render calls, not duration or FPS",
+    "coverage": "Required chunks from projected triangle bounds intersecting viewport fringe, not measured pixel coverage",
+    "baseline": {
+      "center": {
+        "firstRequiredAtCall": 4,
+        "allRequiredAtCall": 15,
+        "prefetchReadyAtCall": 18,
+        "requiredChunks": 14,
+        "retainedChunks": 36,
+        "terrainBytes": 82305792
+      },
+      "corner": {
+        "firstRequiredAtCall": 1,
+        "allRequiredAtCall": 1,
+        "prefetchReadyAtCall": 1,
+        "requiredChunks": 8,
+        "retainedChunks": 36,
+        "terrainBytes": 82305792
+      }
+    },
+    "candidate": {
+      "center": {
+        "firstRequiredAtCall": 1,
+        "allRequiredAtCall": 7,
+        "prefetchReadyAtCall": 17,
+        "requiredChunks": 14,
+        "retainedChunks": 34,
+        "terrainBytes": 77733248
+      },
+      "corner": {
+        "firstRequiredAtCall": 1,
+        "allRequiredAtCall": 1,
+        "prefetchReadyAtCall": 1,
+        "requiredChunks": 8,
+        "retainedChunks": 34,
+        "terrainBytes": 77733248
+      }
+    }
+  },
+  "ground": {
+    "source": "untouched Go owner snapshot pair661→1211, intermediate transport snapshots coalesced",
+    "baseline": {
+      "id": 27,
+      "type": "US.rifle",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 60669,
+        "y": 86544
+      },
+      "visible": false,
+      "root": {
+        "x": -2400,
+        "y": 2208
+      },
+      "bounds": {
+        "left": -1265.4000500000002,
+        "top": 65.23187999999982,
+        "right": -1234.2800499999998,
+        "bottom": 100.95188000000007
+      },
+      "projected": {
+        "x": 320,
+        "y": 240
+      },
+      "standIn": false,
+      "missingArt": false,
+      "painted": true
+    },
+    "candidate": {
+      "id": 27,
+      "type": "US.rifle",
+      "position": {
+        "$typeName": "frontline.v1.Vec",
+        "x": 60669,
+        "y": 86544
+      },
+      "visible": true,
+      "root": {
+        "x": -828,
+        "y": 2355.408
+      },
+      "bounds": {
+        "left": 305.59995000000004,
+        "top": 212.63987999999972,
+        "right": 338.71995000000004,
+        "bottom": 246.35987999999998
+      },
+      "projected": {
+        "x": 320,
+        "y": 240
+      },
+      "standIn": false,
+      "missingArt": false,
+      "painted": true
+    },
+    "actualAlphaPick": {
+      "point": {
+        "x": 320,
+        "y": 213
+      },
+      "hit": {
+        "kind": "entity",
+        "id": 27
+      }
+    },
+    "canvasClick": [
+      {
+        "kind": "hover",
+        "point": {
+          "x": 59825,
+          "y": 85700
+        },
+        "hit": {
+          "kind": "entity",
+          "id": 27
+        },
+        "shift": false,
+        "ctrl": false,
+        "alt": false,
+        "meta": false,
+        "button": -1
+      },
+      {
+        "kind": "click",
+        "point": {
+          "x": 59825,
+          "y": 85700
+        },
+        "hit": {
+          "kind": "entity",
+          "id": 27
+        },
+        "shift": false,
+        "ctrl": false,
+        "alt": false,
+        "meta": false,
+        "button": 0
+      }
+    ],
+    "missingOtherSceneArt": [
+      "US.airlift"
+    ]
+  },
+  "maxCapturedKnownRGBA": {
+    "baseline": 228584340,
+    "candidate": 212580436,
+    "scope": "Recorded terrain texture dimensions plus ArtLibrary resident page accounting only; excludes other memory and driver allocation."
+  },
+  "cleanup": {
+    "candidateDisposals": 22,
+    "allZero": true,
+    "allSnapshotsUnchanged": true,
+    "inputDrift": {},
+    "browserAndHTTPClosed": true
+  },
+  "raw": {
+    "page": 0,
+    "console": 1,
+    "requestfailed": 32,
+    "http": 0,
+    "cdp": 32,
+    "server": 0
+  },
+  "warning": "Actual Pixi8 addChild warning at updateMemories Graphics.addChild(label), also present in baseline. No suppression or waiver.",
+  "unavailable": [
+    "Actual fighter-art native gate: ordinary package uses a stand-in; prior run stops there.",
+    "Pressure trim, final art, total GPU/JS memory, FPS, 256² and multiplayer/endurance are not covered."
+  ],
+  "viewedNativeImages": [
+    "chrome-01/failure.png",
+    "chrome-02/baseline-ground-before.screen.png",
+    "chrome-02/baseline-ground-after.screen.png",
+    "chrome-03/candidate-ground-after.screen.png"
+  ]
+}

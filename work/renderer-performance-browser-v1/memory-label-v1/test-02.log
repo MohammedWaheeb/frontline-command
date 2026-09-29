@@ -1,0 +1,81 @@
+{
+  "status": "PASS_SOURCE_OWNERSHIP_AND_LIFETIME",
+  "scope": "Actual updateMemories method, TerrainSurface, drawStructure, real Pixi Container/Graphics; deterministic Text metrics only. No native pixel or font acceptance.",
+  "results": [
+    {
+      "variant": "baseline",
+      "scale": 0.85,
+      "sourceSHA256": "60a925f92a6a15d68a837c75b56a1d3148f48738d04cda79e94c1cbcb8b7069a",
+      "visibleRememberedRoots": 2,
+      "hiddenOrCurrentOrFutureExcluded": 4,
+      "snapshotUnchanged": true,
+      "unchangedRootIdentity": true,
+      "disposedDescendants": 8,
+      "warnings": [
+        "%cPixiJS Deprecation Warning: %c%s color:#614108;background:#fffbe6 font-weight:normal;color:#614108;background:#fffbe6 addChild: Only Containers will be allowed to add children in v8.0.0\nDeprecated since v8.0.0",
+        "    at Container.addChild (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/memory-label-v1/test.mjs:7:201)\n    at Object.updateMemories (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/memory-label-v1/baseline-probe.mjs:5006:9)\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/memory-label-v1/test.mjs:15:118\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+      ],
+      "nonContainerChildAdditions": 2
+    },
+    {
+      "variant": "baseline",
+      "scale": 1,
+      "sourceSHA256": "60a925f92a6a15d68a837c75b56a1d3148f48738d04cda79e94c1cbcb8b7069a",
+      "visibleRememberedRoots": 2,
+      "hiddenOrCurrentOrFutureExcluded": 4,
+      "snapshotUnchanged": true,
+      "unchangedRootIdentity": true,
+      "disposedDescendants": 8,
+      "warnings": [],
+      "nonContainerChildAdditions": 2
+    },
+    {
+      "variant": "baseline",
+      "scale": 1.5,
+      "sourceSHA256": "60a925f92a6a15d68a837c75b56a1d3148f48738d04cda79e94c1cbcb8b7069a",
+      "visibleRememberedRoots": 2,
+      "hiddenOrCurrentOrFutureExcluded": 4,
+      "snapshotUnchanged": true,
+      "unchangedRootIdentity": true,
+      "disposedDescendants": 8,
+      "warnings": [],
+      "nonContainerChildAdditions": 2
+    },
+    {
+      "variant": "candidate",
+      "scale": 0.85,
+      "sourceSHA256": "259e490c099a7f1b67e22bece69ba6f1cab6a443839a47d96500eddd77d2648f",
+      "visibleRememberedRoots": 2,
+      "hiddenOrCurrentOrFutureExcluded": 4,
+      "snapshotUnchanged": true,
+      "unchangedRootIdentity": true,
+      "disposedDescendants": 10,
+      "warnings": [],
+      "nonContainerChildAdditions": 0
+    },
+    {
+      "variant": "candidate",
+      "scale": 1,
+      "sourceSHA256": "259e490c099a7f1b67e22bece69ba6f1cab6a443839a47d96500eddd77d2648f",
+      "visibleRememberedRoots": 2,
+      "hiddenOrCurrentOrFutureExcluded": 4,
+      "snapshotUnchanged": true,
+      "unchangedRootIdentity": true,
+      "disposedDescendants": 10,
+      "warnings": [],
+      "nonContainerChildAdditions": 0
+    },
+    {
+      "variant": "candidate",
+      "scale": 1.5,
+      "sourceSHA256": "259e490c099a7f1b67e22bece69ba6f1cab6a443839a47d96500eddd77d2648f",
+      "visibleRememberedRoots": 2,
+      "hiddenOrCurrentOrFutureExcluded": 4,
+      "snapshotUnchanged": true,
+      "unchangedRootIdentity": true,
+      "disposedDescendants": 10,
+      "warnings": [],
+      "nonContainerChildAdditions": 0
+    }
+  ]
+}

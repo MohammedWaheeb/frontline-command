@@ -1,0 +1,465 @@
+{
+  "status": "BOUNDED_NATIVE_GATES_PASS_STRICT_RAW_RECEIPTS_REMAIN_FAILED",
+  "scope": "Independent post-close raw RGBA, ownership-delta, resource-accounting and lifecycle review. No live promotion; no tolerance waiver.",
+  "sources": [
+    {
+      "name": "art.ts",
+      "baseline": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/src/render/art.ts",
+      "baselineSHA256": "d4a4049fb2d9192fe13fff01f6725c2521dbd6382992cb8e9dfc41cc1822ce7a",
+      "candidate": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-v1/combined-candidate/client/src/render/art.ts",
+      "candidateSHA256": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8"
+    },
+    {
+      "name": "battlefield.ts",
+      "baseline": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/src/render/battlefield.ts",
+      "baselineSHA256": "b0ac869e0e825bc11cd934ebfb781a588aa04bc68a4a1041b470818a49a6196c",
+      "candidate": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/memory-label-v1/candidate-battlefield.ts",
+      "candidateSHA256": "259e490c099a7f1b67e22bece69ba6f1cab6a443839a47d96500eddd77d2648f"
+    },
+    {
+      "name": "terrain.ts",
+      "baseline": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/src/render/terrain.ts",
+      "baselineSHA256": "6820e55a251ea711e3121033c0f5264ad46c3cb1832a2064a4c511d27d3c3788",
+      "candidate": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts",
+      "candidateSHA256": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005"
+    }
+  ],
+  "performanceBattlefieldSHA256": "60a925f92a6a15d68a837c75b56a1d3148f48738d04cda79e94c1cbcb8b7069a",
+  "memoryDeltaExactlyReconstructsPerformance": true,
+  "verifiedComparisons": [
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "air-before",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "memory-0.45-1",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "memory-0.45-1.5",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "memory-1.8-1",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "name": "memory-1.8-1.5",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "name": "pressure-trim-pixels",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "name": "pressure-reload-pixels",
+      "exact": true,
+      "changedPixels": 0,
+      "changedChannels": 0
+    }
+  ],
+  "alphaCounts": [
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "original",
+      "name": "air-before",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "original",
+      "name": "air-culled",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "original",
+      "name": "air-after",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "original",
+      "name": "air-authorized-absence",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "air-before",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "air-culled",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "air-after",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "air-authorized-absence",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "memory-0.45-1",
+      "transparent": 48180,
+      "partial": 440,
+      "opaque": 258580
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "memory-0.45-1.5",
+      "transparent": 48180,
+      "partial": 440,
+      "opaque": 258580
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "memory-1.8-1",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "performance",
+      "name": "memory-1.8-1.5",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "memory",
+      "name": "memory-0.45-1",
+      "transparent": 48180,
+      "partial": 440,
+      "opaque": 258580
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "memory",
+      "name": "memory-0.45-1.5",
+      "transparent": 48180,
+      "partial": 440,
+      "opaque": 258580
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "memory",
+      "name": "memory-1.8-1",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-supplement-01",
+      "variant": "memory",
+      "name": "memory-1.8-1.5",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "variant": "performance",
+      "name": "pressure-before",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "variant": "performance",
+      "name": "pressure-after-trim",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    },
+    {
+      "receipt": "chrome-pressure-01",
+      "variant": "performance",
+      "name": "pressure-after-reload",
+      "transparent": 0,
+      "partial": 0,
+      "opaque": 307200
+    }
+  ],
+  "opacityReview": "Attempt01 incorrectly required all extracted stage pixels opaque, including the low-zoom map-edge views. Preserved raw RGBA proves exact transparent/partial/opaque equality for both memory pairs. Interior fighter/pressure/large-zoom memory captures are fully opaque. No alpha values, source, captures, or pixel tolerance changed.",
+  "air": {
+    "initialExact": true,
+    "originalReentryVisible": false,
+    "candidateReentryVisible": true,
+    "actualArt": true,
+    "pick": {
+      "point": {
+        "x": 300,
+        "y": 205
+      },
+      "hit": {
+        "kind": "entity",
+        "id": 66
+      }
+    },
+    "click66": true,
+    "authorization": "Exact untouched owner actor set; earlier actual snapshot removes actor66. This is a rewind/absence gate, not foreign sight-loss gameplay.",
+    "otherMissingArt": [
+      "US.aa",
+      "US.strike"
+    ]
+  },
+  "memory": {
+    "views": 4,
+    "zooms": [
+      0.45,
+      1.8
+    ],
+    "uiScales": [
+      1,
+      1.5
+    ],
+    "exact": true,
+    "properContainer": true,
+    "inheritedAlpha": 0.55,
+    "warningCount": 0,
+    "knownMemoryNotPickable": true
+  },
+  "pressure": {
+    "sourceVariant": "Original performance candidate, without later Container correction; final source retains identical trim/caller/actor logic.",
+    "mapWidth": 128,
+    "viewport": [
+      640,
+      480
+    ],
+    "initialRiflePick": {
+      "point": {
+        "x": 320,
+        "y": 213
+      },
+      "hit": {
+        "kind": "entity",
+        "id": 27
+      }
+    },
+    "loadedRealFighterPages": 18,
+    "loadedBytes": 67284000,
+    "beforeBytes": 218135092,
+    "afterBytes": 199663636,
+    "afterReloadBytes": 203100916,
+    "softTargetBytes": 201326592,
+    "protectedCurrentPaintPages": 14,
+    "protectedLayerCounts": {
+      "beauty": 5,
+      "shadow": 5,
+      "team": 4
+    },
+    "evictedPages": 7,
+    "evictedBytes": 18471456,
+    "exactGlobalLRUPrefix": true,
+    "allEvictedTexturesDestroyedAndBitmapsClosed": true,
+    "reloaded": {
+      "sheet": "building.US.tech",
+      "url": "/art/sprites/building.US.tech/building.US.tech@1x.beauty.png",
+      "bytes": 3437280,
+      "width": 924,
+      "height": 930,
+      "newTexture": true
+    },
+    "exactPixelsAcrossTrimAndReload": true,
+    "actualRifleClick": true,
+    "maxObservedKnownTerrainAndArtBytes": 279864436,
+    "notes": [
+      "Pressure comes from actual existing ground-scene resources plus18 real fighter beauty/shadow pages requested through the actual public SpriteSheet API. Current painted ground-scene beauty/shadow/team pages are protected; fighter pages are the offscreen pressure source.",
+      "The real LRU victims are older ground pages; reload specifically exercises building.US.tech beauty.",
+      "Reload raises residency to203,100,916 bytes, above the192MiB soft target until a future trim; this is not a hard cap.",
+      "Offscreen decoded Texture resources are not necessarily GPU uploaded; no total GPU/JS memory claim."
+    ]
+  },
+  "validation": {
+    "status": "PASS_PRIVATE_FINAL_THREE_FILE_SOURCE",
+    "scope": "Frozen renderer candidate plus proper remembered-label Container ownership; existing frozen runtime tests/data reused. No live edits or new browser run.",
+    "sourceFiles": 137,
+    "copiedInputFiles": 247,
+    "sourceSHA256": {
+      "art.ts": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8",
+      "battlefield.ts": "259e490c099a7f1b67e22bece69ba6f1cab6a443839a47d96500eddd77d2648f",
+      "terrain.ts": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005"
+    },
+    "appTypecheck": 0,
+    "runtimeTypecheck": 0,
+    "runtimeTestsExitCode": 0,
+    "testSummary": [
+      "ℹ tests 498",
+      "ℹ suites 0",
+      "ℹ pass 498",
+      "ℹ fail 0",
+      "ℹ cancelled 0",
+      "ℹ skipped 0",
+      "ℹ todo 0"
+    ],
+    "inputsUnchanged": true,
+    "dataLinks": {
+      "assets": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-residency-v1/candidate/assets",
+      "content": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-residency-v1/candidate/content",
+      "pkg": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-residency-v1/candidate/pkg"
+    }
+  },
+  "raw": {
+    "supplement": {
+      "page": 0,
+      "console": 7,
+      "requestfailed": 288,
+      "http": 0,
+      "cdp": 288,
+      "server": 0
+    },
+    "pressure": {
+      "page": 0,
+      "console": 1,
+      "requestfailed": 34,
+      "http": 0,
+      "cdp": 34,
+      "server": 0
+    }
+  },
+  "strictStatuses": {
+    "supplement": "failed",
+    "pressure": "failed"
+  },
+  "preservedFailure": "Supplement first stopped at a picking assumption about the crowded initial rifle snapshot, before pressure loads; successor uses the previously proved later snapshot and records initial picking before assertion.",
+  "cleanup": {
+    "supplementDisposals": 11,
+    "pressureDisposals": 1,
+    "allZero": true,
+    "allSnapshotsUnchanged": true,
+    "inputsUnchanged": true,
+    "browserAndHTTPClosed": true
+  },
+  "recommendation": "Recommend parent-controlled promotion of only the three exact source files listed above. Retain the native strict failures and integration/runtime/packaging acceptance boundaries; do not promote this private fighter overlay as a side effect.",
+  "limits": [
+    "No ordinary App all-game feature acceptance, final roster, final-art or multiplayer/endurance claim.",
+    "Actual snapshots are source c7e0 owner views; component course does not execute WASM or qualify current Go cadence.",
+    "No256² native, hardware/FPS, total GPU/JS memory or active-page hard-cap claim.",
+    "No new fog topology change; separate root fog work is outside this source recommendation."
+  ],
+  "viewedNativeImages": [
+    "chrome-supplement-01/performance-air-after.screen.png",
+    "chrome-supplement-01/memory-memory-1.8-1.5.screen.png",
+    "chrome-supplement-01/failure.png",
+    "chrome-pressure-01/performance-pressure-after-trim.screen.png"
+  ],
+  "pins": {
+    "chrome-supplement-01/failure.png": "5fc542495184c956fbf7585196f1c2d46cceb64ee31381ce4a49089b5c2d56bb",
+    "chrome-supplement-01/memory-memory-0.45-1.5.native-extract.png": "2bb7cfbb0531542ff53879a434c2401cffb467f769a0094c8f011338a26992cc",
+    "chrome-supplement-01/memory-memory-0.45-1.5.rgba.gz": "4a4c91bcb7263d8c0a7c1f03dd7abd124b1e8ae50a5a197e2df58e53abf66f6b",
+    "chrome-supplement-01/memory-memory-0.45-1.5.screen.png": "3b347ba4deae1c8071bc4a928208aa31cdedac91ab83933b0d9231fabc70b836",
+    "chrome-supplement-01/memory-memory-0.45-1.native-extract.png": "3476e4fc0ec1281f903c94f1d77696b042df51e75b59417d2147d6851ddd87f2",
+    "chrome-supplement-01/memory-memory-0.45-1.rgba.gz": "ab761b738ba17a4e67d7abe7bef876a809b43ee6a372e0a8efe27059535335f4",
+    "chrome-supplement-01/memory-memory-0.45-1.screen.png": "c4dc187ce4a9d7c3c31c63f24f6c4fa20ff76950a5242d83ba3abb5a64cc3f66",
+    "chrome-supplement-01/memory-memory-1.8-1.5.native-extract.png": "a8cf1501146496f7e502422e47d97edc57348ff33b5140c8009f2ac01bd62da2",
+    "chrome-supplement-01/memory-memory-1.8-1.5.rgba.gz": "82b0b0fd2b066cc38210834b233044d9e25f69fa328d19a617f6e021e3481dd1",
+    "chrome-supplement-01/memory-memory-1.8-1.5.screen.png": "6e8eab9d338a823acb9a9317d0bdf1e70eced552aae5f56840490ea76aea32a3",
+    "chrome-supplement-01/memory-memory-1.8-1.native-extract.png": "ca9c99ce5359d38146ad6db51fdca4aa9cfa47c08dca95ceba7e56a03170203d",
+    "chrome-supplement-01/memory-memory-1.8-1.rgba.gz": "dad89852e783126f40c6c395b8676304e9acba86c322dc1be67cee33945300bf",
+    "chrome-supplement-01/memory-memory-1.8-1.screen.png": "52467d39fb824ecfc6bc33f78cc84f019b737689780a02de6c41b094e2100ec1",
+    "chrome-supplement-01/original-air-after.native-extract.png": "ce7080526c7152b4b3b0bc0603385a49de3b854cac2d87bcd83998acbcabd7ee",
+    "chrome-supplement-01/original-air-after.rgba.gz": "6bbf505d78088050e01263d4673fb874538271c6eb9dce22a0e60218577ddcde",
+    "chrome-supplement-01/original-air-after.screen.png": "f20b37f3e1cc5616790c547934ccd894b0a1c59728c101f0a931baf3ac9ff17e",
+    "chrome-supplement-01/original-air-authorized-absence.native-extract.png": "93d9041ec892c68378f9d4e7fa0ade97631e4301ea418e39d36313460135f523",
+    "chrome-supplement-01/original-air-authorized-absence.rgba.gz": "39947c6d45a4ce31d96d7b5726597ae77923a3a6a7f336026bc4ff0564be8ecb",
+    "chrome-supplement-01/original-air-authorized-absence.screen.png": "42fb2bd7394ccaba2da73c92d2e76281ea0659349ad5b08465538be8c45ec35a",
+    "chrome-supplement-01/original-air-before.native-extract.png": "bc2c9f312e8fe8274a999aedae2ae59b5960e537f5a8e48b15dfa44329acc28c",
+    "chrome-supplement-01/original-air-before.rgba.gz": "87483984e616e25d6b192fe2af1748662971a2778af62cb8d75570415c8d196f",
+    "chrome-supplement-01/original-air-before.screen.png": "0221379fb17f1a1c84c0576680ff0e7b455f5b9d49821a6f44383f199195feeb",
+    "chrome-supplement-01/original-air-culled.native-extract.png": "3ea734eb413d5188b1069b81bda5751c305d8eebdbb7641411a292216067f5ac",
+    "chrome-supplement-01/original-air-culled.rgba.gz": "a4b8a9becab7b793802e1b053e3df6b9dbc250aa81e3c88cf28a01d0d422ae03",
+    "chrome-supplement-01/original-air-culled.screen.png": "ad054163e8bf0f0dc6e96c52e37d8f511d17cccda96763ab479e777cd51ad21d",
+    "chrome-supplement-01/performance-air-after.native-extract.png": "a94f47cef48d485f24df66ee65757e80d4e531b95c2c077309bbcb40ed36adb8",
+    "chrome-supplement-01/performance-air-after.rgba.gz": "72340b03b4cdebb8b3478d1a79e7a4da4b586cc0715116c5dd0de2a113e4a47b",
+    "chrome-supplement-01/performance-air-after.screen.png": "94e589e4a5fcd371bcc23cf2a69ada96bd49c27afb7d065c29dc3cd5a8fab272",
+    "chrome-supplement-01/performance-air-authorized-absence.native-extract.png": "93d9041ec892c68378f9d4e7fa0ade97631e4301ea418e39d36313460135f523",
+    "chrome-supplement-01/performance-air-authorized-absence.rgba.gz": "39947c6d45a4ce31d96d7b5726597ae77923a3a6a7f336026bc4ff0564be8ecb",
+    "chrome-supplement-01/performance-air-authorized-absence.screen.png": "96df0f0edd8de19accc75dcac86dabe374945e2b618606ae186e5cf2ea683b19",
+    "chrome-supplement-01/performance-air-before.native-extract.png": "bc2c9f312e8fe8274a999aedae2ae59b5960e537f5a8e48b15dfa44329acc28c",
+    "chrome-supplement-01/performance-air-before.rgba.gz": "87483984e616e25d6b192fe2af1748662971a2778af62cb8d75570415c8d196f",
+    "chrome-supplement-01/performance-air-before.screen.png": "0221379fb17f1a1c84c0576680ff0e7b455f5b9d49821a6f44383f199195feeb",
+    "chrome-supplement-01/performance-air-culled.native-extract.png": "3ea734eb413d5188b1069b81bda5751c305d8eebdbb7641411a292216067f5ac",
+    "chrome-supplement-01/performance-air-culled.rgba.gz": "a4b8a9becab7b793802e1b053e3df6b9dbc250aa81e3c88cf28a01d0d422ae03",
+    "chrome-supplement-01/performance-air-culled.screen.png": "ad054163e8bf0f0dc6e96c52e37d8f511d17cccda96763ab479e777cd51ad21d",
+    "chrome-supplement-01/performance-memory-0.45-1.5.native-extract.png": "2bb7cfbb0531542ff53879a434c2401cffb467f769a0094c8f011338a26992cc",
+    "chrome-supplement-01/performance-memory-0.45-1.5.rgba.gz": "4a4c91bcb7263d8c0a7c1f03dd7abd124b1e8ae50a5a197e2df58e53abf66f6b",
+    "chrome-supplement-01/performance-memory-0.45-1.5.screen.png": "3b347ba4deae1c8071bc4a928208aa31cdedac91ab83933b0d9231fabc70b836",
+    "chrome-supplement-01/performance-memory-0.45-1.native-extract.png": "3476e4fc0ec1281f903c94f1d77696b042df51e75b59417d2147d6851ddd87f2",
+    "chrome-supplement-01/performance-memory-0.45-1.rgba.gz": "ab761b738ba17a4e67d7abe7bef876a809b43ee6a372e0a8efe27059535335f4",
+    "chrome-supplement-01/performance-memory-0.45-1.screen.png": "c4dc187ce4a9d7c3c31c63f24f6c4fa20ff76950a5242d83ba3abb5a64cc3f66",
+    "chrome-supplement-01/performance-memory-1.8-1.5.native-extract.png": "a8cf1501146496f7e502422e47d97edc57348ff33b5140c8009f2ac01bd62da2",
+    "chrome-supplement-01/performance-memory-1.8-1.5.rgba.gz": "82b0b0fd2b066cc38210834b233044d9e25f69fa328d19a617f6e021e3481dd1",
+    "chrome-supplement-01/performance-memory-1.8-1.5.screen.png": "6e8eab9d338a823acb9a9317d0bdf1e70eced552aae5f56840490ea76aea32a3",
+    "chrome-supplement-01/performance-memory-1.8-1.native-extract.png": "ca9c99ce5359d38146ad6db51fdca4aa9cfa47c08dca95ceba7e56a03170203d",
+    "chrome-supplement-01/performance-memory-1.8-1.rgba.gz": "dad89852e783126f40c6c395b8676304e9acba86c322dc1be67cee33945300bf",
+    "chrome-supplement-01/performance-memory-1.8-1.screen.png": "52467d39fb824ecfc6bc33f78cc84f019b737689780a02de6c41b094e2100ec1",
+    "chrome-supplement-01/result.json": "ab1ac33df78e047ca576a65cfd2edcd3315f621e7be181dc1ec671c974bd1328",
+    "chrome-pressure-01/performance-pressure-after-reload.native-extract.png": "be6c852880bacf932fef4c578f9e4a74d83503a35bc0f76453b977b90e8b160e",
+    "chrome-pressure-01/performance-pressure-after-reload.rgba.gz": "f8368b417a918238682aba12662bec4edcb47725e1c6a42e04b3ff01afbffbf7",
+    "chrome-pressure-01/performance-pressure-after-reload.screen.png": "5b039bf30e986301ba65a876026cf0ebce55369b322055d5b4d9057bdfb373ec",
+    "chrome-pressure-01/performance-pressure-after-trim.native-extract.png": "be6c852880bacf932fef4c578f9e4a74d83503a35bc0f76453b977b90e8b160e",
+    "chrome-pressure-01/performance-pressure-after-trim.rgba.gz": "f8368b417a918238682aba12662bec4edcb47725e1c6a42e04b3ff01afbffbf7",
+    "chrome-pressure-01/performance-pressure-after-trim.screen.png": "5b039bf30e986301ba65a876026cf0ebce55369b322055d5b4d9057bdfb373ec",
+    "chrome-pressure-01/performance-pressure-before.native-extract.png": "be6c852880bacf932fef4c578f9e4a74d83503a35bc0f76453b977b90e8b160e",
+    "chrome-pressure-01/performance-pressure-before.rgba.gz": "f8368b417a918238682aba12662bec4edcb47725e1c6a42e04b3ff01afbffbf7",
+    "chrome-pressure-01/performance-pressure-before.screen.png": "5b039bf30e986301ba65a876026cf0ebce55369b322055d5b4d9057bdfb373ec",
+    "chrome-pressure-01/result.json": "3b9f50dd609caaa374cd2f912bd06d8032922ac6d502a1abd00686f55d2c5040",
+    "memory-label-v1/result.json": "fd5f6adaa56d80d923b93762eac0027ca10b3eaf441070ec36c5bb866cb12627",
+    "memory-label-v1/candidate-battlefield.ts": "259e490c099a7f1b67e22bece69ba6f1cab6a443839a47d96500eddd77d2648f",
+    "fighter-overlay-v1/build-01/receipt.json": "b14428a66244d7bef33b7dda69a34ea728d7231849f1761f0f6f29e1be21de3c",
+    "supplement-prepared/lock.json": "87a85b2524b59e5160a0e23c9524db3021dcacc8577f7e484618d4be0e0c2176",
+    "final-validation-01/result.json": "3467c6dfdde924f879a0d42c534deb053d6d8450ad8c7b6bc3062eca4b4b5490",
+    "final-validation-01/copied-inputs.json": "8c1e07c331b370af4c232bbdbd78c309884cdfa3e72e96a7b1506af126c02190"
+  }
+}

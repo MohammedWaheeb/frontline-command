@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Actual captured native pixel alpha must stay fully opaque
+
+0 !== 255
+
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/supplement-review.mjs:13:288 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 0,
+  expected: 255,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.5.0

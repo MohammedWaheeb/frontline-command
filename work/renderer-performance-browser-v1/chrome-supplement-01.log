@@ -1,0 +1,26 @@
+original actual reviewed fighter reentry/absence captured
+performance actual reviewed fighter reentry/absence captured
+performance memory-0.45-1 captured
+performance memory-0.45-1.5 captured
+performance memory-1.8-1 captured
+performance memory-1.8-1.5 captured
+memory memory-0.45-1 captured
+memory memory-0.45-1.5 captured
+memory memory-1.8-1 captured
+memory memory-1.8-1.5 captured
+{
+  "status": "failed",
+  "captures": 16,
+  "comparisons": 5,
+  "pixelDifferences": [],
+  "raw": {
+    "page": 0,
+    "console": 7,
+    "requestfailed": 288,
+    "http": 0,
+    "cdp": 288,
+    "server": 0
+  },
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(start.pick&&start.actor.visible&&!start.actor.standIn)\n\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/air-memory.mjs:43:103",
+  "out": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/renderer-performance-browser-v1/chrome-supplement-01"
+}
