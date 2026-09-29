@@ -1,0 +1,34 @@
+{
+  "status": "failed",
+  "source_lock_sha256": "dd85ebcdaf3cf92e7cd6ff167a6e6b935495597fe4e8742e4166f476b9ffd60e",
+  "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "conditions": "Shared host, single GOMAXPROCS1 native process; correctness only.",
+  "commands": [
+    {
+      "stage": "compile",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/apc-lifecycle/native-03/course.test",
+        "./pkg/sim"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "native",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/apc-lifecycle/native-03/course.test",
+        "-test.run",
+        "^TestAPCLifecycleCourse$",
+        "-test.v",
+        "-test.timeout",
+        "2m"
+      ],
+      "exit_code": 1,
+      "log_sha256": "7865b9e939d1287ddae571e3d3d1cb5b4d4ed59a17aac8bb1d479021eb7df397"
+    }
+  ]
+}

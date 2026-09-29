@@ -1,0 +1,8 @@
+=== RUN   TestAPCLifecycleCourse
+=== RUN   TestAPCLifecycleCourse/ordinary
+    apc_lifecycle_course_test.go:172: ordinary projectile during boarding tick19 carrier&{FootprintWidth:0 FootprintHeight:0 FootprintType: NextRouteAt:0 MapObject:0 EmergencyTakeoffUntil:0 SalvageEligible:false TurretFacing:0 FlightPass:{X:0 Y:0} PassUntil:0 Tag: ID:6 Type:SY.apc Owner:1 Position:{X:25000 Y:19000} HP:480000 MaxHP:480000 Paid:900000 Building:false Complete:true Enabled:true DisabledUntil:0 ResistanceUntil:0 State:firing Facing:0 LastPosition:{X:25000 Y:19000} StationarySince:0 LastDamage:0 LastDealt:4 EverDamaged:false EverDealt:true Work:0 Builder:0 Jobs:[] Rally:{X:25000 Y:19000} Orders:[] Anchor:{X:25000 Y:19000} Target:11 LastTarget:{X:31000 Y:19000} Stance:hold Path:[] PathGoal:{X:0 Y:0} PathEnd:{X:0 Y:0} PathResolved:false PathRevision:0 LastProgress:0 RouteFailures:0 Blocked:false MoveRemainder:0 FireAt:24 AimUntil:0 VolleyLeft:0 VolleyAt:4 Cargo:0 Field:0 Depot:0 TaskUntil:0 Home:0 Landing:<nil> ParkingRetryAt:0 Ammo:0 Endurance:0 Landed:false RepeatSortie:false ServiceWork:0 Charges:0 ChargeWork:0 Deployed:false DeploymentStarted:0 DeployUntil:0 PackingUntil:0 Cooldowns:[] Concealed:false ConcealedSince:0 RevealedUntil:124 PublicRevealUntil:0 Passengers:[] Container:0 Channel: ChannelTarget:0 ChannelDuration:0 ChannelUntil:0 ChannelStartDamage:0 ChannelTargetDamage:0 Experience:0 Rank:0 Contributions:[] AttributedDamage:0 TemporaryUntil:0 Buffs:[] Created:0 IncludedHauler:false}
+=== RUN   TestAPCLifecycleCourse/blocked
+--- FAIL: TestAPCLifecycleCourse (0.08s)
+    --- FAIL: TestAPCLifecycleCourse/ordinary (0.02s)
+    --- PASS: TestAPCLifecycleCourse/blocked (0.06s)
+FAIL

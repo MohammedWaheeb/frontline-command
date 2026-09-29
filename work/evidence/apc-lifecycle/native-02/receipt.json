@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "source_lock_sha256": "9cf8299b9b967debefc8d0fae0d7d24d9a7f4838c94ba19953a91a81a94229e2",
+  "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "conditions": "Shared host, single GOMAXPROCS1 native process; correctness only.",
+  "commands": [
+    {
+      "stage": "compile",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/apc-lifecycle/native-02/course.test",
+        "./pkg/sim"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "native",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/apc-lifecycle/native-02/course.test",
+        "-test.run",
+        "^TestAPCLifecycleCourse$",
+        "-test.v",
+        "-test.timeout",
+        "2m"
+      ],
+      "exit_code": 0,
+      "log_sha256": "49fb54c72c54e801e4910cb16b21cd9afa1d67fd9ceddb59702dd656d22a036a"
+    }
+  ],
+  "source_verified_after": true,
+  "binary_sha256": "e4766955ad5d4529dce74b57c6949bc43405ddd0502d2041926ef127cd1b478e",
+  "artifacts": {
+    "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native.log": "49fb54c72c54e801e4910cb16b21cd9afa1d67fd9ceddb59702dd656d22a036a",
+    "source-lock.json": "9cf8299b9b967debefc8d0fae0d7d24d9a7f4838c94ba19953a91a81a94229e2",
+    "ordinary/06-arrived-closed.save.json": "fd1f456ba0263fb97b8733b1aadfa30cd577499a19d33588bccc22f90c1eeb53",
+    "ordinary/09-unloaded-closed.save.json": "ebb9d684e7599d75bdac0e543c6039ee4370ee60beee9bbbbdf0577083c78b35",
+    "ordinary/result.json": "9c7759ba7c3380605f163ddb11ff5642001930c58847ba90e2fa76882ac8bd82",
+    "ordinary/10-reboard-open.save.json": "e79f4410682d968d35ad267a929dce6fe1076a10fe85711aa90312f473de3c56",
+    "ordinary/04-loaded-closed.save.json": "88cfb73e6ad2f89a046b8a068830df24ccbe8609de0a89dae558636ccbe052aa",
+    "ordinary/course.json": "8d1782a6b87b72719ee0b95fc94dd7b0323396db94cf0a277b8d1dd0fc5dec99",
+    "ordinary/07-unload-open.save.json": "966993891bf82f098a8c6e4d6cc3cc319d3e9d9f50187a041480f413c315b04d",
+    "ordinary/11-movement-canceled-boarding.save.json": "b3b9b8dc305661f8d1ce2dc13e126322dec02f839705e74b99898985b5bdec5d",
+    "ordinary/08-last-unload-tick.save.json": "7091b071bc912e75ee7432a679a9617977f72a41049303f90571931262fa0fcd",
+    "ordinary/12-stopped-closed.save.json": "cd282e447ad20263bfc310a09fd39cb5248da71859da87ce4058a340eb2a57d5",
+    "ordinary/13-damaged-closed.save.json": "31c0bce5aa4eee0069afa72404d77b68247068262bb64b2db9c62829b2533641",
+    "ordinary/course.fcr": "9e77e57259a3625ec019282fe523baa4eec931d6173dc3b6a58337e837d6aab0",
+    "ordinary/02-boarding-open.save.json": "1a02f90a6e44b0d4cfdcded4fef1a193bb2e8b3aa80435baeab45a38e97228c8",
+    "ordinary/01-closed.save.json": "32b16991b5bdbf2b5024ef59c850af4681f0ef1969a0662af55aef0c7cb3ad17",
+    "ordinary/03-boarding-midpoint.save.json": "061b80145f255fa3f043a52496c1083b9e1dae3d4eea00700bab575e1a906364",
+    "ordinary/map.json": "17195fa96121ac06363c072b86898713d5bf427f72ff4b86822dd40d18084c07",
+    "ordinary/05-loaded-moving.save.json": "5124b78988c5c59acd109c95f513197ccde4f2723003a1969ac60b2141dd5bae",
+    "blocked/02-unload-start.save.json": "25af4233005de0dc6ad2ce71728cc280a6c7e88c80ed5ff7e8e377722a433be6",
+    "blocked/05-canceled-closed.save.json": "d5d1868039fdbc6c457281ef0c705bcf4d2dc6a0226d89b96b621386fd69b1ef",
+    "blocked/result.json": "2fa3c9b0d2cc5cf983deaf79f052a23cb9cfd04a2a1d365d73621af2a51f8660",
+    "blocked/course.json": "8b87c26bf8fa809e4ad9c526cb7a01f54cbf2d19b90a57bec79a1457e61ef4fd",
+    "blocked/04-blocked-wait.save.json": "a42494a3d216c691cbb300fd5b5f76d6161ce92836cd45c0c3dc4b5ff57ccc9d",
+    "blocked/03-blocked-exit.save.json": "47a4ce688cc140aa46d8bb49cc5182675b168408704481f4efa74751be1038a0",
+    "blocked/course.fcr": "4f653c8d111fe2ae686a1ca1f4711b9af4182c9c655e6964ea449573cc4b6092",
+    "blocked/01-closed.save.json": "f5d49c3e7f3f977263139eb2ef7e189eb885570a6f210a3d9b74265247305976",
+    "blocked/map.json": "77607bcb67c0c84d7c31abc78a81ebebdfc4b6704c81f96874814a41249c3800"
+  }
+}

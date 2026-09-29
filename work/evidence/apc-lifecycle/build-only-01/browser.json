@@ -1,0 +1,681 @@
+{
+  "status": "compiled-only",
+  "started": "2026-09-29T09:59:03.359Z",
+  "engine": "chromium",
+  "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/roster-runtime-overlay-v1/outputs/infantry-vehicles-ui-v24/product",
+  "native": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/apc-lifecycle/native-04",
+  "oracle": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/apc-lifecycle/oracle-01",
+  "scope": "Actual Go prepared SY APC transport course, exact integrated0.3.4 native/WASM Session load/seek/continuation equality, frozen v24 renderer with all304-pose APC asset. Exercises lifecycle-selected pixels at1x/2x, owner/visible-foreign receiver privacy, pause/culling/disposal. Does not exhaust all304poses, prove paid opening/App controls/live multiplayer/performance or certify release.",
+  "errors": [],
+  "warnings": [],
+  "httpErrors": [],
+  "requestFailures": [],
+  "boundaries": [],
+  "replays": [],
+  "deferred": [],
+  "culling": [],
+  "served": {},
+  "identity": {
+    "overlayReceiptSHA256": "1c86560a299c2c2ae99fd6c44df476d4cecab091bb1b4d4b6e78d8b63ee8077d",
+    "baseReceiptSHA256": "f73a3447173a6b4e1e752ed374175044019565375dd342d893a377187658817e",
+    "sourceDigest": "a3ab58d362a8536ede222db4be37f4a6661c2817e9f07a56b9026617303f0878",
+    "runtime": {
+      "source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+      "started": "20260929T081745Z",
+      "stages": [
+        {
+          "stage": "toolchain-go",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "version"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.029,
+          "log_sha256": "c528ba02b39880f1357f51dee70e41c1ef03e3a70c7a03055c080532b9635f58"
+        },
+        {
+          "stage": "toolchain-protoc",
+          "command": [
+            "/opt/homebrew/bin/protoc",
+            "--version"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.071,
+          "log_sha256": "29a645a23ed3faa5d85781dfce8478c3e394eb3344b7d6260dff9f6f5eb76b3a"
+        },
+        {
+          "stage": "toolchain-go-plugin",
+          "command": [
+            "/Users/mohammedkalouti/go/bin/protoc-gen-go",
+            "--version"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.013,
+          "log_sha256": "66a5b1785e66f264cac3f01c42f696ab40f09f1b05a619c340c14a5ea7a2093d"
+        },
+        {
+          "stage": "toolchain-es-plugin",
+          "command": [
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/.bin/protoc-gen-es",
+            "--version"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.232,
+          "log_sha256": "a143142c5ba9266e399126b3cf2e5f3d9527e5d4411f515ccedb5935c87ca2fb"
+        },
+        {
+          "stage": "generate-go",
+          "command": [
+            "/opt/homebrew/bin/protoc",
+            "-I",
+            "protocol",
+            "--plugin=protoc-gen-go=/Users/mohammedkalouti/go/bin/protoc-gen-go",
+            "--go_out=protocol",
+            "--go_opt=paths=source_relative",
+            "protocol/frontline.proto"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.048,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "stage": "generate-ts",
+          "command": [
+            "/opt/homebrew/bin/protoc",
+            "-I",
+            "protocol",
+            "--plugin=protoc-gen-es=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/.bin/protoc-gen-es",
+            "--es_out=client/src/protocol",
+            "--es_opt=target=ts",
+            "protocol/frontline.proto"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.2,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "stage": "generate-viewproto",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "generate",
+            "./internal/viewproto"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.438,
+          "log_sha256": "e5ee345b7967de280af88e5c6069e63eee4435b49b99dbef45bd47b228c97845"
+        },
+        {
+          "stage": "check-viewproto",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "run",
+            "./gen",
+            "-check"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source/internal/viewproto",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.097,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "stage": "build-wasm",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "build",
+            "-trimpath",
+            "-o",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/frontline.wasm",
+            "./cmd/wasm"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {
+            "GOOS": "js",
+            "GOARCH": "wasm"
+          },
+          "exit_code": 0,
+          "seconds": 0.674,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "stage": "build-native-adapter",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "build",
+            "-trimpath",
+            "-o",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/runtime-native",
+            "./cmd/wasm"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.685,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "stage": "build-native-host",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "build",
+            "-trimpath",
+            "-o",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/frontline-host",
+            "./cmd/frontline"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 1.234,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "stage": "goroot",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "env",
+            "GOROOT"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.012,
+          "log_sha256": "8ed7fe46e1d1cb4611bdb9de72a93c5585e4ed1a652a231f9b785371d4017966"
+        },
+        {
+          "stage": "artifact-version",
+          "command": [
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/runtime-native",
+            "-version"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.944,
+          "log_sha256": "45c434f2726a76697e4ac75df05c78ba169d91f3be3cfec0fcb26f02a7ad2a45"
+        },
+        {
+          "stage": "build-worker",
+          "command": [
+            "node",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/build-worker.mjs",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.121,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "stage": "build-info-bin-runtime-native",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "version",
+            "-m",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/runtime-native"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.008,
+          "log_sha256": "9c161f819cd78a1b55ad47faa5954c672b513ac7d184223da4a18458569dc76e"
+        },
+        {
+          "stage": "build-info-bin-frontline-host",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "version",
+            "-m",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/runtime/bin/frontline-host"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.008,
+          "log_sha256": "381cd70fa858d8490144d92e1d2b804d2a5fedebfd9cb189a0d362e2fa17beec"
+        },
+        {
+          "stage": "fixtures-native",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "test",
+            "-p=1",
+            "./pkg/sim",
+            "-count=1",
+            "-timeout=20m",
+            "-json",
+            "-run",
+            "^(TestCandidateServiceActualReturnsAndNativeScenes|TestCombatFeedbackCoverResolutionAndPrivacy|TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath|TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown|TestCombatFeedbackRequiresActualPositiveResolvedDamage|TestCombatFeedbackSaveReplayAndOrdinaryCommand|TestCombatFeedbackRejectsMalformedMetadata|TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity|TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback|TestOwnerCasualtyOrdinaryLastSightSaveReplay|TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner|TestOwnerCasualtyAirbornePassengersAfterLastSight|TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks|TestOwnerRangesPausedAndPartialRecharge|TestOwnerRangesAssignmentsAreRealPrivateAndDetached|TestOwnerRangesSightDetectionAndBuildBounds|TestTacticalProjectileGeometryAndPositionDisclosure|TestTacticalStrategicWarningsUseActualImpactRadius|TestTacticalNonblastWarningsKeepAreaUnknown|TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored|TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded|TestTacticalVisibleEffectDeadlinesFollowState)$"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {
+            "FRONTLINE_SERVICE_SCENES": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/service",
+            "FRONTLINE_COMBAT_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_TACTICAL_VIEW_DIR": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/tactical"
+          },
+          "exit_code": 0,
+          "seconds": 1.753,
+          "log_sha256": "16437e6e26514075c5add8d98b0fd40e6d917edc888c3992f68bbf111f045da1",
+          "selected_passed": [
+            "TestCandidateServiceActualReturnsAndNativeScenes",
+            "TestCombatFeedbackCoverResolutionAndPrivacy",
+            "TestCombatFeedbackRejectsMalformedMetadata",
+            "TestCombatFeedbackRequiresActualPositiveResolvedDamage",
+            "TestCombatFeedbackSaveReplayAndOrdinaryCommand",
+            "TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity",
+            "TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown",
+            "TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath",
+            "TestOwnerCasualtyAirbornePassengersAfterLastSight",
+            "TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback",
+            "TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner",
+            "TestOwnerCasualtyOrdinaryLastSightSaveReplay",
+            "TestOwnerRangesAssignmentsAreRealPrivateAndDetached",
+            "TestOwnerRangesPausedAndPartialRecharge",
+            "TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks",
+            "TestOwnerRangesSightDetectionAndBuildBounds",
+            "TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored",
+            "TestTacticalNonblastWarningsKeepAreaUnknown",
+            "TestTacticalProjectileGeometryAndPositionDisclosure",
+            "TestTacticalStrategicWarningsUseActualImpactRadius",
+            "TestTacticalVisibleEffectDeadlinesFollowState",
+            "TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded"
+          ]
+        },
+        {
+          "stage": "fixtures-wasm",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "test",
+            "-p=1",
+            "./pkg/sim",
+            "-count=1",
+            "-timeout=20m",
+            "-json",
+            "-run",
+            "^(TestCandidateServiceActualReturnsAndNativeScenes|TestCombatFeedbackCoverResolutionAndPrivacy|TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath|TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown|TestCombatFeedbackRequiresActualPositiveResolvedDamage|TestCombatFeedbackSaveReplayAndOrdinaryCommand|TestCombatFeedbackRejectsMalformedMetadata|TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity|TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback|TestOwnerCasualtyOrdinaryLastSightSaveReplay|TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner|TestOwnerCasualtyAirbornePassengersAfterLastSight|TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks|TestOwnerRangesPausedAndPartialRecharge|TestOwnerRangesAssignmentsAreRealPrivateAndDetached|TestOwnerRangesSightDetectionAndBuildBounds|TestTacticalProjectileGeometryAndPositionDisclosure|TestTacticalStrategicWarningsUseActualImpactRadius|TestTacticalNonblastWarningsKeepAreaUnknown|TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored|TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded|TestTacticalVisibleEffectDeadlinesFollowState)$"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {
+            "FRONTLINE_SERVICE_SCENES": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/wasm/service",
+            "FRONTLINE_COMBAT_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/wasm/combat",
+            "FRONTLINE_TACTICAL_VIEW_DIR": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/wasm/tactical",
+            "GOOS": "js",
+            "GOARCH": "wasm",
+            "PATH": "/opt/homebrew/Cellar/go/1.27.1/libexec/lib/wasm:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/opt/homebrew/bin:/Users/mohammedkalouti/.codex/tmp/arg0/codex-arg0PgVB3Q:/Users/mohammedkalouti/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/mohammedkalouti/.opencode/bin:/Users/mohammedkalouti/.local/bin:/Users/mohammedkalouti/.bun/bin:/opt/homebrew/sbin:/Users/mohammedkalouti/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Applications/ChatGPT.app/Contents/Resources"
+          },
+          "exit_code": 0,
+          "seconds": 4.096,
+          "log_sha256": "70dc5b6e2f9211e4741a4f9ddd33e46a952cbf699bdf8d2e34a5534305686cbd",
+          "selected_passed": [
+            "TestCandidateServiceActualReturnsAndNativeScenes",
+            "TestCombatFeedbackCoverResolutionAndPrivacy",
+            "TestCombatFeedbackRejectsMalformedMetadata",
+            "TestCombatFeedbackRequiresActualPositiveResolvedDamage",
+            "TestCombatFeedbackSaveReplayAndOrdinaryCommand",
+            "TestCombatFeedbackSimultaneousHitsKeepTheirResolutionIdentity",
+            "TestCombatFeedbackUnknownAndAreaOutcomesStayUnknown",
+            "TestCombatFeedbackWeaponSurvivesSourceConversionOrDeath",
+            "TestOwnerCasualtyAirbornePassengersAfterLastSight",
+            "TestOwnerCasualtyAuthorizationDoesNotBroadenOtherFeedback",
+            "TestOwnerCasualtyCapturedBuildingUsesDeathTimeOwner",
+            "TestOwnerCasualtyOrdinaryLastSightSaveReplay",
+            "TestOwnerRangesAssignmentsAreRealPrivateAndDetached",
+            "TestOwnerRangesPausedAndPartialRecharge",
+            "TestOwnerRangesRechargeEstimateMatchesOrdinaryTicks",
+            "TestOwnerRangesSightDetectionAndBuildBounds",
+            "TestTacticalEmergencyDeadlineIsOwnerOnlyAndRestored",
+            "TestTacticalNonblastWarningsKeepAreaUnknown",
+            "TestTacticalProjectileGeometryAndPositionDisclosure",
+            "TestTacticalStrategicWarningsUseActualImpactRadius",
+            "TestTacticalVisibleEffectDeadlinesFollowState",
+            "TestTacticalVisibleEffectsAreSanitizedAndPerspectiveBounded"
+          ]
+        },
+        {
+          "stage": "codec-native-adapter",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "test",
+            "-p=1",
+            "./cmd/wasm",
+            "-count=1",
+            "-timeout=20m",
+            "-json",
+            "-run",
+            "^(TestCombatFeedbackCodecActualAuthorizedOutputs|TestOwnerCasualtyActualCodec|TestOwnerRangesActualCodec|TestCandidateServiceSessionAdapterParity)$"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {
+            "FRONTLINE_COMBAT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_COMBAT_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-adapter/combat.json",
+            "FRONTLINE_CASUALTY_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_CASUALTY_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-adapter/casualty.json",
+            "FRONTLINE_RANGES_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_RANGES_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-adapter/ranges.json",
+            "FRONTLINE_SERVICE_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/service",
+            "FRONTLINE_SERVICE_ADAPTER_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-adapter/service"
+          },
+          "exit_code": 0,
+          "seconds": 0.838,
+          "log_sha256": "d01f08e05767aa87d98d660ef1693cd040bd85bafad473597cec286744f54caa",
+          "selected_passed": [
+            "TestCandidateServiceSessionAdapterParity",
+            "TestCombatFeedbackCodecActualAuthorizedOutputs",
+            "TestOwnerCasualtyActualCodec",
+            "TestOwnerRangesActualCodec"
+          ]
+        },
+        {
+          "stage": "codec-native-host",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "test",
+            "-p=1",
+            "./internal/server",
+            "-count=1",
+            "-timeout=20m",
+            "-json",
+            "-run",
+            "^(TestCombatFeedbackCodecActualAuthorizedOutputs|TestOwnerCasualtyActualCodec|TestOwnerRangesActualCodec)$"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {
+            "FRONTLINE_COMBAT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_COMBAT_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-host/combat.json",
+            "FRONTLINE_CASUALTY_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_CASUALTY_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-host/casualty.json",
+            "FRONTLINE_RANGES_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_RANGES_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/native-host/ranges.json"
+          },
+          "exit_code": 0,
+          "seconds": 1.53,
+          "log_sha256": "6ffacd860546086835d4b3108f100560a067a395ce3d650e37decbacab732c32",
+          "selected_passed": [
+            "TestCombatFeedbackCodecActualAuthorizedOutputs",
+            "TestOwnerCasualtyActualCodec",
+            "TestOwnerRangesActualCodec"
+          ]
+        },
+        {
+          "stage": "codec-wasm-adapter",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "test",
+            "-p=1",
+            "./cmd/wasm",
+            "-count=1",
+            "-timeout=20m",
+            "-json",
+            "-run",
+            "^(TestCombatFeedbackCodecActualAuthorizedOutputs|TestOwnerCasualtyActualCodec|TestOwnerRangesActualCodec|TestCandidateServiceSessionAdapterParity)$"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {
+            "FRONTLINE_COMBAT_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_COMBAT_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/wasm-adapter/combat.json",
+            "FRONTLINE_CASUALTY_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_CASUALTY_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/wasm-adapter/casualty.json",
+            "FRONTLINE_RANGES_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat",
+            "FRONTLINE_RANGES_CODEC_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/wasm-adapter/ranges.json",
+            "FRONTLINE_SERVICE_INPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/service",
+            "FRONTLINE_SERVICE_ADAPTER_OUTPUT": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/parity/wasm-adapter/service",
+            "GOOS": "js",
+            "GOARCH": "wasm",
+            "PATH": "/opt/homebrew/Cellar/go/1.27.1/libexec/lib/wasm:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/opt/homebrew/bin:/Users/mohammedkalouti/.codex/tmp/arg0/codex-arg0PgVB3Q:/Users/mohammedkalouti/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/mohammedkalouti/.opencode/bin:/Users/mohammedkalouti/.local/bin:/Users/mohammedkalouti/.bun/bin:/opt/homebrew/sbin:/Users/mohammedkalouti/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Applications/ChatGPT.app/Contents/Resources"
+          },
+          "exit_code": 0,
+          "seconds": 1.292,
+          "log_sha256": "83f40775a8b7e89c283732fa2cf9722e498f4979b95a8181a63b41de58eaba5a",
+          "selected_passed": [
+            "TestCandidateServiceSessionAdapterParity",
+            "TestCombatFeedbackCodecActualAuthorizedOutputs",
+            "TestOwnerCasualtyActualCodec",
+            "TestOwnerRangesActualCodec"
+          ]
+        },
+        {
+          "stage": "actual-save-json-oracle",
+          "command": [
+            "/opt/homebrew/bin/go",
+            "test",
+            "-p=1",
+            "./internal/viewproto",
+            "-count=1",
+            "-timeout=20m",
+            "-json",
+            "-run",
+            "^(TestActualGoSavedViewsMatchJSON)$"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/source",
+          "environment": {
+            "FRONTLINE_SNAPSHOT_SAVE_DIRS": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/service:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/combat:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z/fixtures/native/tactical"
+          },
+          "exit_code": 0,
+          "seconds": 0.792,
+          "log_sha256": "82c6a0cd70d2f96e91d1dd00ed4c8a2db4976749d1e127dc77c5d288ab44c5a3",
+          "selected_passed": [
+            "TestActualGoSavedViewsMatchJSON"
+          ]
+        },
+        {
+          "stage": "actual-production-wasm-parity",
+          "command": [
+            "node",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/production-wasm-parity.mjs",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-integrated-source/runtime-builds/20260929T081745Z"
+          ],
+          "cwd": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i",
+          "environment": {},
+          "exit_code": 0,
+          "seconds": 0.505,
+          "log_sha256": "04a8b16a898624cc2c0747eb91513f55c0b9d4efe469ade7d48b943662ac60b2"
+        }
+      ],
+      "status": "passed",
+      "conditions": "Serial GOMAXPROCS1 and Go package/compiler parallelism1. Root browser and Blender may run; correctness only, no performance claim.",
+      "shipping_inputs": {
+        "client/public/runtime/frontline.wasm": "4e67eebdd53c6ce588c14f0f01b54c236e193feacfbd2936bed0af4002a45efa",
+        "client/public/runtime/version.json": "9471fc047fd77bb3dc57568bdeac22ace3f3c01ecb527350286f62fce5138c3b",
+        "client/public/runtime/worker.js.map": "718f32fba3eee2305d91608155cd478de1b9ce1e17384424284f79346ea3f13d",
+        "client/public/runtime/worker.js": "be5f92962e19fdb6229c514e8b75849508a42c3a321a49beaec873d5d901fd71",
+        "client/public/runtime/wasm_exec.js": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+        "client/src/protocol/frontline_pb.ts": "1a143e9e54bf4953edb8425004755f8f879c07e8d9b515d4d661616fd2ebca79"
+      },
+      "prior_runtime": {
+        "frontline.wasm": "f37220a4375f2ef1595e278673c811f1426807f41c6a4ad5925ddbcd66d2bd65",
+        "wasm_exec.js": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+        "worker.js": "ea75602152555b60d8049765d7238c54e9650d7afea4c23b949c711093c1706f",
+        "worker.js.map": "e61551a5b463bd29b3fe76388db8ca8b11dec4199536e50ab188ded77802806d",
+        "version.json": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+        "frontline_pb.ts": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+        "bin/runtime-native": "7a03f5be61c70a1d03706b1c121f1c503382e66efe2e58e19321b29a7d5400e9",
+        "bin/frontline-host": "1c8c2bc468e2a76baf40a1fa878d56873a9e38ed02020a09b1b1b3678acb1379"
+      },
+      "worker_inputs": {
+        "worker.ts": "67184757fc147d0aacf2cfe94c68c167585adf2ac524e817b6cb552b856d9ef8",
+        "errors.ts": "4ea69a8f3d288d6696075092ab71776254c63a3a0dbfc9784159c1938613ce77",
+        "types.ts": "3fdeb4ffb5a7b09861b9d69d6df32d9d475a9aa1d016b024116f2a767c37f14f"
+      },
+      "files": {
+        "frontline.wasm": {
+          "bytes": 11237971,
+          "sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+          "equals_prior": false
+        },
+        "wasm_exec.js": {
+          "bytes": 16992,
+          "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+          "equals_prior": true
+        },
+        "worker.js": {
+          "bytes": 8198,
+          "sha256": "ced862a30a9d91dbab59befcf6ea0e4af9dabfc289acffbe7678a6dd33b2bed9",
+          "equals_prior": false
+        },
+        "worker.js.map": {
+          "bytes": 13055,
+          "sha256": "883f857ebdafa92063880bff097c0b648736a5c46f84d71f8f7edd66c0ee6dc8",
+          "equals_prior": false
+        },
+        "version.json": {
+          "bytes": 169,
+          "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+          "equals_prior": true
+        },
+        "frontline_pb.ts": {
+          "bytes": 55786,
+          "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+          "equals_prior": true
+        },
+        "bin/runtime-native": {
+          "bytes": 8629298,
+          "sha256": "2e7201360d5241f69b66a4dadffe1ee8ccba3dcb1802597bebbd362cb73320e5",
+          "equals_prior": false
+        },
+        "bin/frontline-host": {
+          "bytes": 20805138,
+          "sha256": "36ca8c93f538696206317113d50af6ee31ac92fcbcd626a0a9f9b0ceaab8a5e0",
+          "equals_prior": false
+        }
+      },
+      "orchestration_inputs": {
+        "build-runtime.py": "ae7038c5cdfe0ae06d075846051ea8c5da52b5a81789810b61c21574aa48070e",
+        "build-worker.mjs": "3f974a14f1ce8028096c0353864a2d9be42e17fc31b9ba624ef3d12799dc4a14",
+        "production-wasm-parity.mjs": "4856e868e4667e0d1c63e853f730654af89705125fa9e86571770d006182d76a"
+      },
+      "wasm_build_info": "go version -m does not support the WASM file format. Use pinned build command, output digest and the actual production WASM session/version parity below.",
+      "version": {
+        "adapter": "1",
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "go": "go1.27.1",
+        "protocol": 1,
+        "simulation": "0.3.4"
+      },
+      "fixture_files_equal": {
+        "combat/ranges-mobile-upgrade-shield.json": "4b8f45307adbb7e175a2e774a7c2164b0ad569cadbaf04e58f58407df790dbdd",
+        "combat/ranges-disabled.start.save.json": "8660ad9a7d0df0539a7474f6e576137dd1e34011ea01a8dd25132e95bafd585f",
+        "combat/ranges-fixed-low-shield.json": "76fb93f5eadc886de5e86c2ff9f528f7465a90091189ef818c90fd3baa77ec4e",
+        "combat/casualty-ordinary.save.json": "bea3bf50c1d057e35166b6a8f82364d95bfccc0bc3af10935302c561bc05ec3c",
+        "combat/ranges-fixed-shield.json": "d3a13c1c276a2aa2892bb42bbae7cb5b646af2c422258a2fb408469ad86dd894",
+        "combat/unknown-area-many.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+        "combat/ranges-fixed-low.start.save.json": "13bbcc4884b1f64383d29ee96564c67006f33b8560d502e5cab7c0e389e0840a",
+        "combat/ranges-mobile.start.save.json": "1fe82d8980b26fc95dc37bd4f36c692ab7dcbf328ab348d45582688fd619afe3",
+        "combat/privacy-visible.json": "64c3524995ff33f0dd26ccb9039951ad6ba4aabca713c300065e732a5d7a4137",
+        "combat/ranges-disabled.json": "64a444485f5ea6118e9703e0421d31eea7bf062c10adc8b3b709b870fed90530",
+        "combat/ranges-full.start.save.json": "bf958d868dd942d5c3c8797b9172da21786f5c278ba243b6396f59555e14e0c9",
+        "combat/ranges-constructing.json": "c60d43211065b5d837a0c186a3d8074ddee08ece0f1c7c26941b256908c191fc",
+        "combat/ranges-fixed-low.json": "92a0284f2e93e6c8fbc9c92b85f44c279b4207cbff92daf890cb7c25527768da",
+        "combat/ranges-fixed.json": "2d1ff427eed50d2c0a36d11a3d35223e0c727274f964db51dfaa5f4d1a692ca0",
+        "combat/privacy-embarked.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+        "combat/ranges-packed.json": "a4b81bba8cf181c060d46a39097cc902cf8e197d97c5d48c98dac5cb9e9ac7fa",
+        "combat/ranges-mobile-low.start.save.json": "9b9256ec59c4f980ccaea2c5e60be3134785d484bf615262f78048a21c8be1ff",
+        "combat/privacy-dead.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+        "combat/simultaneous.json": "c545e262b781c2aaf5f82ddcf742f32dcc5d277050157a1033149593eb0db5fc",
+        "combat/ordinary-result.json": "d632c527849629ef62005c4fa418dc5fdf8973f33fdf08bd9ffbd92db7d4db18",
+        "combat/ranges-partial.json": "5cc83cc6198174136119e6c8a4abc1c8074ec89bbd976ac6b833adaa8e4c1118",
+        "combat/ranges-constructing.start.save.json": "d936148d4e24d70a9915418c2aa3fdee4dd70489f00f82a58bbfbea03f60988c",
+        "combat/unknown-empty.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+        "combat/ranges-mobile-upgrade-shield.start.save.json": "692a404ba6fddf77f0f1af9363c3cd79bc8936c34f2b6557eb1c52d9233cc8d0",
+        "combat/ranges-mobile-upgrade.json": "251c7728e7aca5c08a92d7518ff26bba85fde4205909953872b8bb65553aaaff",
+        "combat/unknown-decoy.json": "40bf00bb6e9ded3d3a03ed4d7611d7ad1d8346e13fc849acb057b35938edcccf",
+        "combat/ranges-fixed-shield.start.save.json": "440e5e62fb5ae75b563ed90e6c8f35d76be1d81507eb18053e344cc19b5b3141",
+        "combat/casualty-ordinary.json": "b894f1ade02f5596772cbc141a4cfef512ef7116059758ffe17ebea0ed89fdf1",
+        "combat/unknown-area-zero.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+        "combat/ranges-assigned.start.save.json": "f63752534cc9527a155e631a698c63ff78d61f09859d9dbf575f3bc3af02f847",
+        "combat/casualty-continuation.json": "7b04c40ebf77ab29e5c0adfaab5320ec39cabb23c46f7416933b5fad0dae1621",
+        "combat/ranges-power-off.start.save.json": "447a8c4a4687920cd780b1cdd98328de4defcd3f6cab288e81ecec0af14e4fb4",
+        "combat/ranges-partial.start.save.json": "c65055b273abcbc2c25996d2c41cef9aa019c3315a8a1483adc7f44dbd9c27c6",
+        "combat/ranges-mobile-low.json": "cd4b53487179bdbf22b713878535699a4c577222c7dc9cd155d2ee65b62f560c",
+        "combat/ranges-full.json": "949cfab7c1fb13f62a0bcb0c76d2d1cee88c857b9ecd82e33d3ad32efdb9eb0a",
+        "combat/ranges-power-off.json": "c4935355678c5ba9bf3d633825487251fe18deb7d5d628103c52035a207346e5",
+        "combat/privacy-removed.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+        "combat/ranges-mobile.json": "8f99a069ca16eb5914480b9a61a342a36d681618a9775c80f3373b90744f7f12",
+        "combat/unknown-zero-damage.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+        "combat/ranges-mobile-upgrade.start.save.json": "e26ded79dfdf57a9b067385f81c6a39ece00dc17f29b9b3fac9068be4b9eceb7",
+        "combat/ranges-packed.start.save.json": "4962fea38f1eb46941dcd430cba87dace0102abd713624f54ba91040f6e7f7c3",
+        "combat/privacy-concealed.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+        "combat/unknown-area-one.json": "4e73f332cd6c007bcb57e0d50c3dfbc5e678d33ffe255f45b71e4852e8698619",
+        "combat/ranges-fixed.start.save.json": "a2dfe1dc28ae1fa77ab4bebf86424afc1b161d089e9d81a6a5219168fb8e0749",
+        "combat/ranges-fixed-low-shield.start.save.json": "8d8a7031e84a01ca04d9e2180fec5796b5f9ca87d52140b71ec5866634d3966a",
+        "combat/privacy-fog.json": "48efedadf075d1ae891ba291067e7a43f35833b8fa3426aa46f839daf5441fb7",
+        "combat/ordinary.save.json": "9aa8217d02020ddf523b4072d973d464133e8ce0a0eb9458df760f5a275e98fb",
+        "combat/ranges-assigned.json": "23b333bb7d2971e2424bc39f4e3a9a3e37b56a87ec64e27397eb727f79dbf6d2",
+        "tactical/nonblast.json": "f855cae22f546bae9bbf500e2aa75aef49242673b1154005d21f63d6b2ffe078",
+        "tactical/emergency.json": "74de023f9b240dc820e719b23cf50f4eacd5da84194d65718981cc83d5f8573b",
+        "tactical/strategic-US.json": "6c6b742543f5bc012fb4377f62cfb9642fa102a59d2444f4624ba99b5057fdb4",
+        "tactical/effects-deadlines.json": "336ecf7bf7223d134ae3df3d82607cb1f33f68315650db3b806d4e99e48a2922",
+        "tactical/strategic-IR.json": "caa355f84204ef24ec308d933b45664ead91a427d89de9b427e270f8d5d42240",
+        "tactical/effects-privacy.json": "98d522c5b795359c2af7c734b66708f64d40069ea82a720986ff08f71101d5c7",
+        "tactical/projectiles.json": "5a6b4fb384228158181b5ee7c859d82c51b25bb661a718b35b56d4ff57170941",
+        "service/SY-two.approach.save.json": "83609bf8b4ceee2861bde2996f0e367ff8a9506829f3826fc74a72c8900bb4ba",
+        "service/SA-four.approach.save.json": "9bae9db70797e4d7eb96cb399456fa7fcb0a326fb7c9db1130fe23e5792d5ed1",
+        "service/US-six.approach.save.json": "ce1836c5e439fb3befdcfe86e785d372902f7b366ab3457b21286015aabbd73a",
+        "service/SA-four.json": "9ca6b20b74eb1387626d85840c69f94dbbef38c2486d22a8e279bf3a25f597a5",
+        "service/SY-two.json": "f4ab69536fd57f27ac4b28aa01408d707d488970c4156586bb09ecd37f4a0546",
+        "service/SY-retained-US-six.approach.save.json": "17f3a33374c3f0a82beda904fcf88820c46ff960644cb0da159a6edc482bb13b",
+        "service/SY-retained-US-six.json": "f3cbd654a60c0326db6ef9e7529d7796e934fe557725e9c7f6812afc34d89532",
+        "service/SA-four.save.json": "1d54e541507f365b0f9083495d0f2f197c4fbc0de091b866a0b6831e9f322e69",
+        "service/IR-retained-US-six.save.json": "7b929112dd5c6676bc69e5bc5bce117a221fcb780993a1e80a0471687223a910",
+        "service/US-six.json": "4b2f5d11acb1c0cae924b872d45d8c66b9c9ad73949e8868494e0863a07e9005",
+        "service/IR-six.approach.save.json": "69845f2896b2a547ca19898b019ef797cf7fc486231a315f26d65bdf1328c626",
+        "service/SY-two.save.json": "35cca964303c63dcd36e275d465d4165f57f1b7ded6903df08da7e2608c7b8b7",
+        "service/IR-retained-US-six.json": "216024f15a7b91091079755431ecbf41307687db36d7281dcfb2e3ecca783b72",
+        "service/IR-six.save.json": "b334291b68bd4ca9283067321efe17f5f01eb07bb1b8ce3fa5e32e8d4023a9bf",
+        "service/SY-retained-US-six.save.json": "0f9a890e9b9aeac3b3c9cd66e57b6612759429cd1eb32dc069e515fef955aa48",
+        "service/US-six.save.json": "0f9accb01012cc4be22a0cefa4cd6553b492d69db673c7033fb493e9d4eb98be",
+        "service/IR-six.json": "63b05f877fda8a45acbc55af42ad275a0928bf04e8a2f7872e20f5b7aad63436",
+        "service/IR-retained-US-six.approach.save.json": "93e9dee2aac33c81551596bd52ba42a9bffbe0354d27b96156696a8f401e2e60"
+      },
+      "codec_parity": {
+        "combat": {
+          "sha256": "b9e922fee34c1757a70c49c98b974e1d8700a1871907e6ac56853977361cc24a",
+          "records": 8
+        },
+        "casualty": {
+          "sha256": "4812e23db11d9372e0956341ad01a272df8f2a652d8a69ab3c4aa50c8dc93d94",
+          "records": 2
+        },
+        "ranges": {
+          "sha256": "c57d7138f331ac2da4f780165eca3f698fbd94641872e17d39dc186e9b83a0df",
+          "records": 30
+        }
+      },
+      "shipping_unchanged": true,
+      "prior_runtime_unchanged": true,
+      "source_verified_after": true,
+      "finished": "2026-09-29T08:18:03.589421+00:00"
+    },
+    "nativeReceiptSHA256": "17b2025059c390763d52c9992791d4f48ca966374a5b10a0e760de0a73f63a15",
+    "adapterOracleReceiptSHA256": "885eb122dfb642d49feee73ace2e65db5b3630454853715254a02f6894420789",
+    "adapterOracleSourceLockSHA256": "7a931352e5c0c26a5aadfea2b075ab4fe741a6b09ca9a004cd7feb9913df8d2b",
+    "nativeSourceLockSHA256": "166091dd9a00d76877aa5eb5117825ce275eaf08a25b8e29857863768c6146db",
+    "packSHA256": "bde24f48151997777c460c01e33ec6bc8703977b9c39ef1e12897e6aba633a1a",
+    "fixtureSHA256": "95c098a0a0038573ff560cd60970f5a5808e7767ae28c1d906a73d5ba368b184",
+    "driverSHA256": "2d649a22e3c04c95b2c189073a64a326958a5c0ab5c5579aedc223216e7f468e",
+    "bundleSHA256": "1fedbe5e371c3576752bacc7b2e50941f16736d5d73afcc067e40564d20808e5",
+    "planSHA256": "91ba6b37cbb9f8f5566f7e38aa737f969a6fea30b689b5fa5d273d167a1d03fb",
+    "types": [
+      "ordinary",
+      "blocked",
+      "under-fire"
+    ]
+  },
+  "noBrowserOrServer": true,
+  "inputsVerifiedAfter": 367,
+  "closedAt": "2026-09-29T09:59:04.008Z"
+}

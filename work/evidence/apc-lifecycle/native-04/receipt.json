@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "source_lock_sha256": "166091dd9a00d76877aa5eb5117825ce275eaf08a25b8e29857863768c6146db",
+  "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "conditions": "Shared host, single GOMAXPROCS1 native process; correctness only.",
+  "commands": [
+    {
+      "stage": "compile",
+      "command": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-c",
+        "-o",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/apc-lifecycle/native-04/course.test",
+        "./pkg/sim"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "native",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/apc-lifecycle/native-04/course.test",
+        "-test.run",
+        "^TestAPCLifecycleCourse$",
+        "-test.v",
+        "-test.timeout",
+        "2m"
+      ],
+      "exit_code": 0,
+      "log_sha256": "72bb1982b607f2a88ac9a21b381171e5822cb95a86eecab515f2eccfee310264"
+    }
+  ],
+  "source_verified_after": true,
+  "binary_sha256": "dab6eeb42e1f32d5ec517311b400292bb27ff349abe3785ee005987401d242af",
+  "artifacts": {
+    "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native.log": "72bb1982b607f2a88ac9a21b381171e5822cb95a86eecab515f2eccfee310264",
+    "source-lock.json": "166091dd9a00d76877aa5eb5117825ce275eaf08a25b8e29857863768c6146db",
+    "under-fire/result.json": "155ade1da382bda28b7ba9dc3dcf260725d7524eca379f8e0d26e2ebc68f8fdf",
+    "under-fire/02-boarding-under-fire.save.json": "e715c0afa4551525afd8fd4fb29ab469a327a98caea1de00e9bb9c951bb91fb7",
+    "under-fire/04-damaged-board-complete.save.json": "812c46888159a81aa4123394db1da0b4cfafbf8ac7ea1651861bbf6c911f2bd8",
+    "under-fire/course.json": "09061ece14dcd8b80373c5099b445e4de45902018d1a8d17a6106cf87bd17390",
+    "under-fire/course.fcr": "ca9eacbc322750372f768d03ebbfcf95ec6a88baccc3e5d0a9ad71c66a8bc329",
+    "under-fire/01-closed.save.json": "f85b1a73e04615d41f6de083028ded906b4230f4c64396c3915eb65bf9e3ce41",
+    "under-fire/03-hit-boarding-retained.save.json": "eac8254e1fa9c3730d9c4bd7852698a92d2d8eebe480baea7b6a48d7369bbb24",
+    "under-fire/map.json": "17195fa96121ac06363c072b86898713d5bf427f72ff4b86822dd40d18084c07",
+    "ordinary/14-damaged-closed.save.json": "8391e6ed107ac1b684093f0f1d72ab23f1cecf8e3ffb5b0579705002eaef5a18",
+    "ordinary/06-arrived-closed.save.json": "567dfcf97c2b026de463c3c61f99a2aee1d7fa73bf338c90e1e45344ebf133c9",
+    "ordinary/09-unloaded-closed.save.json": "789354cee144b2ed7ee817319d15fd5e96fccabe2a125252f6bf2206367bc78c",
+    "ordinary/result.json": "4afd158d64728fff575660be950b397068f91d8ba8692f8be20835de2a4c6306",
+    "ordinary/10-reboard-open.save.json": "3f95b5e0353d2204edf9d8a701f088a3dbe072260cc46eb247b3da010fbba53a",
+    "ordinary/04-loaded-closed.save.json": "d5befaf72d845e3c7da49fd899f6defcbd6fa5eff9c4b767e8e78226d50bc660",
+    "ordinary/course.json": "7d3a1b17b14e5c49309a49956f53d2a26424c2630954206090cc1635ca2b0bef",
+    "ordinary/07-unload-open.save.json": "20e3988d4844f5786f6bc1bc8a14c27dd4905b24a704d080e913af1293672cc1",
+    "ordinary/11-movement-canceled-boarding.save.json": "8149ec6c33572b109437f045d9216cc5c662c740543aaeec921c9c68cc2a40cf",
+    "ordinary/08-last-unload-tick.save.json": "561c1f8aca2bef9aea154144a636bdfbf550429fcc19f1b9a38f2acab5cd8faa",
+    "ordinary/12-stopped-closed.save.json": "ccb6d8e6991714bbe8a8fc7c4cfaa7844c6f19e4dacbd372939d472ce80a4a78",
+    "ordinary/course.fcr": "cb76102e716f617361c03487c366c2b6838ecc52f181e9417d8e974ee4bb5efe",
+    "ordinary/02-boarding-open.save.json": "22b78567c3a73e99fb4b3502dae2e1563d079eb9b57889262e2f57b73ed6b7c6",
+    "ordinary/13-actual-damage.save.json": "37ac44bb18a79fea0225173a0bab6a55c9031952fbf6ea004948e75093279218",
+    "ordinary/01-closed.save.json": "ddfdfc37a7b4a6f00e6e02c2f4872f65ce5162fdda1946d11eb9e51bfd802165",
+    "ordinary/03-boarding-midpoint.save.json": "50466290864208fc3696c2444117752b237fd56fb50589331ff8665c05072a0c",
+    "ordinary/map.json": "17195fa96121ac06363c072b86898713d5bf427f72ff4b86822dd40d18084c07",
+    "ordinary/05-loaded-moving.save.json": "5ae28e58ba67d284034d0286188fb22d32497cf5cc8967b2e9757ad8204cd831",
+    "blocked/02-unload-start.save.json": "84b2fc551abd75e19fa6f7a50cdb0f86ae2d7f14c03af17bbc3b3997ad641363",
+    "blocked/05-canceled-closed.save.json": "5b8af6acf9250f52934682bd012e7572d710671d3b18f2171a2b5dcb8726ffeb",
+    "blocked/result.json": "387a59a29b84de33bd484c7e62108e4d96a5ede346df9da0b1ba34c27cdf945c",
+    "blocked/course.json": "176b427da7a6e329c3f7ce027096b0f423d414e780af2ea0b112284b677f6992",
+    "blocked/04-blocked-wait.save.json": "1377913c496c8e339b9becd279b68b339caf4a02e36ddb543522317905bbf434",
+    "blocked/03-blocked-exit.save.json": "448ba429ce6490bcb705c14be5b10351a79eb57a13d209ec58212e7de805dd04",
+    "blocked/course.fcr": "c09d2329d56e19224200622c93e425038f122cb474a21d6100f493d22015be38",
+    "blocked/01-closed.save.json": "81821b4ca084be8737393dae09af4b866ee6b331e7ac383fc9e050f99052b811",
+    "blocked/map.json": "77607bcb67c0c84d7c31abc78a81ebebdfc4b6704c81f96874814a41249c3800"
+  }
+}

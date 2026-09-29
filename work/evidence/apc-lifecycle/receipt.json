@@ -1,0 +1,35 @@
+{
+  "time": "2026-09-29T10:02:53.224624+00:00",
+  "scope": "Native real-Go prepared APC transport + untouched native Session oracle passed; frozen browser author preflight only. No browser or host launched.",
+  "status": "native-and-author-preflight-passed-browser-unrun",
+  "base_go_lock": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "v24_wasm_sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+  "source": {
+    "client/tests/render/apc-lifecycle-fixture.ts": "8bd4a4c556a346860ad006fb0447e66503056cff485575fc8bbd40f1aab31fff",
+    "client/tests/render/apc-lifecycle-browser.mjs": "2a9bb35d63edf0e08664f8d735a4ba018aadf95699b688d1edbe13b5c6549623",
+    "work/evidence/apc-lifecycle/apc-lifecycle-course_test.go": "c213769fb58ab9541965eccdd10d509d3402ebd5b8897cbccec7c8df4da7a79d",
+    "work/evidence/apc-lifecycle/apc-lifecycle-oracle_test.go": "124fcf510316ad9e9044a38c3c925413f94b6f149b8872fa6f45bcee100c0238",
+    "work/evidence/apc-lifecycle/prepare-native.py": "add6445162227346b6a07abb6bc6da32051f287d518c15c700c1a174a5740586",
+    "work/evidence/apc-lifecycle/prepare-oracle.py": "0a57ea633f8ec169f9845d909c15d447b5b116ab9371fbd8cb84917a981409a2"
+  },
+  "native_boundaries": 23,
+  "native_session_wire_records": 132,
+  "frozen_build_only_inputs": 367,
+  "receipts": {
+    "native-04/receipt.json": "17b2025059c390763d52c9992791d4f48ca966374a5b10a0e760de0a73f63a15",
+    "native-04/source-lock.json": "166091dd9a00d76877aa5eb5117825ce275eaf08a25b8e29857863768c6146db",
+    "oracle-01/receipt.json": "885eb122dfb642d49feee73ace2e65db5b3630454853715254a02f6894420789",
+    "oracle-01/source-lock.json": "7a931352e5c0c26a5aadfea2b075ab4fe741a6b09ca9a004cd7feb9913df8d2b",
+    "artifact-archive.json": "345544186da265e6c14760dc241b83ba7ce128d5ba67323bafef40d98b56907b",
+    "build-only-03/browser.json": "06d886b21ef5b32ea2b2ab40d454dc5fd098fb1b6d49f696a5cb4ab90dc4d8fd",
+    "typecheck-02/receipt.json": "d956231653fd6a664abc83cf7c8d85a3838d70441c0efc55b6e6f468b224165c"
+  },
+  "archive_sha256": "ca804676f50c9b23c64ce9519bf149306c0ad845570fa6d43de3c339a36c39c9",
+  "preserved_failures": [
+    "native-01 ordinary timing assumption",
+    "native-03 prepared observer outside real visibility"
+  ],
+  "noProductionOrAssetChanges": true,
+  "browser_plan_bytes": 27839,
+  "oracle_delivery": "Original native protobuf bytes fetched on demand; no view/event field filtering"
+}
