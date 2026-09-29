@@ -1,0 +1,36 @@
+✔ actual cameo consumer uses full advertised building portrait and build keys independently (0.9505ms)
+✔ actual build cameo falls back to its independently advertised portrait, and units retain legacy keys (0.300041ms)
+✔ an advertised illustration load failure retains the existing missing-art result without unadvertised retries (0.13475ms)
+✔ resolver prefers exact advertised keys independently and never guesses absent UI (0.103917ms)
+✔ resolver rejects path traversal and URL syntax even when the malformed key is advertised (0.213834ms)
+✔ standard verifies selected world pages plus actual 2x portrait/build pairs, without unused 2x world pages (12.037083ms)
+✔ high quality uses 2x world pages; the missing-high fallback matches the renderer (1.477917ms)
+✔ a portrait also satisfies build fallback; missing portrait conservatively verifies every 2x beauty/team page (1.456542ms)
+✔ a high-quality cameo fallback shares already verified metadata and images (0.234292ms)
+✔ per-launch concurrent URL dedup counts bytes and decode only once; later launches reverify (0.518792ms)
+✔ image verification is sequential and closes each bitmap before the next decode (0.220708ms)
+✔ completed native EOF clears its deadline and detaches parent abort while preserving subsequent launch cancellation (0.38575ms)
+✔ in-flight parent cancellation keeps its exact reason and clears the deadline (0.224667ms)
+✔ in-flight 15s deadline remains a real TimeoutError and detaches parent listener (0.103416ms)
+✔ download deadline is cleared at EOF before an asynchronous image decode finishes (0.116ms)
+✔ failure cleanup cannot be replaced by a later timeout or parent abort while reader cancellation settles (0.198292ms)
+✔ a queued already-canceled call performs no fetch (0.06225ms)
+✔ fetch/header failures and native body errors preserve cause and clean the deadline (0.1415ms)
+✔ parent cancellation during image decoding closes the bitmap and is never relabeled as a corrupt image (0.095416ms)
+✔ bad HTTP, empty body, malformed JSON and image decode failures remain failures (0.249958ms)
+✔ encoded per-file/total limits still fail, stop the reader, and are counted once (0.188416ms)
+✔ the file ceiling is bounded, sealed-roster-derived, and cannot be raised by a caller (0.1135ms)
+✔ a valid 4550-file graph exceeds the old ceiling and verifies within the new bound (69.775166ms)
+✔ path traversal, malformed or partial atlases, and conflicting image dimensions are rejected (0.409792ms)
+✔ decoded atlas bounds and explicit UI pair dimensions must agree (0.201417ms)
+✔ full advertised building UI keys replace unused high-world fallback pages (0.177375ms)
+✔ preflight resolves portrait and build keys independently and keeps missing-portrait world fallback (1.376209ms)
+✔ newly reachable advertised building UI missing from disk fails preflight rather than taking an unadvertised fallback (0.184042ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 139.112084

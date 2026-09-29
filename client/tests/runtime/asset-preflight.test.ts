@@ -175,3 +175,34 @@ test('decoded atlas bounds and explicit UI pair dimensions must agree', async ()
  const plan = {images: new Map([['/art/beauty.png', {right: 0, bottom: 0}], ['/art/team.png', {right: 0, bottom: 0}]]), uiPairs: [['/art/beauty.png', '/art/team.png']] as [string, string][]};
  await assert.rejects(verifyArtImages(plan, v), /illustration layers do not match/);
 });
+
+test('full advertised building UI keys replace unused high-world fallback pages', async () => {
+ const g = graph(['building.US.barracks'], ['building.US.barracks']);
+ g.index.sprites = {'building.US.barracks': 'car/sprite.json'};
+ await verifyArtImages(await planArtPreparation(g.index, ['building.US.barracks'], '1x', g.verifier), g.verifier);
+ assert.equal(g.calls.filter(url => url.startsWith('/art/ui/')).length, 4);
+ assert.ok(g.calls.includes('/art/ui/portraits/building.US.barracks@2x.beauty.png'));
+ assert.ok(g.calls.includes('/art/ui/icons/build/building.US.barracks@2x.team.png'));
+ assert.ok(!g.calls.some(url => url.includes('-2.')));
+});
+test('preflight resolves portrait and build keys independently and keeps missing-portrait world fallback', async () => {
+ for (const [portraits, builds] of [
+  [['building.US.barracks'], ['US.barracks']],
+  [['US.barracks'], ['building.US.barracks']],
+  [[], ['building.US.barracks']],
+ ] as [string[], string[]][]) {
+  const g = graph(portraits, builds); g.index.sprites = {'building.US.barracks': 'car/sprite.json'};
+  await verifyArtImages(await planArtPreparation(g.index, ['building.US.barracks'], '1x', g.verifier), g.verifier);
+  for (const [kind, keys] of [['portraits', portraits], ['icons/build', builds]] as const) for (const key of keys) assert.ok(g.calls.includes(`/art/ui/${kind}/${key}@2x.beauty.png`));
+  assert.equal(g.calls.includes('/art/car/beauty-2.png'), portraits.length === 0);
+  assert.ok(!g.calls.includes('/art/car/shadow-2.png'));
+ }
+});
+test('newly reachable advertised building UI missing from disk fails preflight rather than taking an unadvertised fallback', async () => {
+ const g = graph(['building.US.barracks'], []); g.index.sprites = {'building.US.barracks': 'car/sprite.json'};
+ const v = new AssetPreflight({fetch: (async input => {
+  const url = String(input); if (url.startsWith('/art/ui/')) return new Response('missing', {status: 404});
+  return url.endsWith('.png') ? new Response(url) : json(g.resources.get(url));
+ }) as typeof fetch, decode: async () => ({width: 4, height: 4, close() {}})});
+ await assert.rejects(verifyArtImages(await planArtPreparation(g.index, ['building.US.barracks'], '1x', v), v), /failed to load/);
+});

@@ -1,0 +1,68 @@
+✖ actual cameo consumer uses full advertised building portrait and build keys independently (0.864125ms)
+✔ standard verifies selected world pages plus actual 2x portrait/build pairs, without unused 2x world pages (17.621708ms)
+✔ high quality uses 2x world pages; the missing-high fallback matches the renderer (1.616667ms)
+✔ a portrait also satisfies build fallback; missing portrait conservatively verifies every 2x beauty/team page (1.681875ms)
+✔ a high-quality cameo fallback shares already verified metadata and images (0.308334ms)
+✔ per-launch concurrent URL dedup counts bytes and decode only once; later launches reverify (0.569583ms)
+✔ image verification is sequential and closes each bitmap before the next decode (0.2245ms)
+✔ completed native EOF clears its deadline and detaches parent abort while preserving subsequent launch cancellation (0.440042ms)
+✔ in-flight parent cancellation keeps its exact reason and clears the deadline (0.232417ms)
+✔ in-flight 15s deadline remains a real TimeoutError and detaches parent listener (0.142042ms)
+✔ download deadline is cleared at EOF before an asynchronous image decode finishes (0.14675ms)
+✔ failure cleanup cannot be replaced by a later timeout or parent abort while reader cancellation settles (0.215209ms)
+✔ a queued already-canceled call performs no fetch (0.089084ms)
+✔ fetch/header failures and native body errors preserve cause and clean the deadline (0.170042ms)
+✔ parent cancellation during image decoding closes the bitmap and is never relabeled as a corrupt image (0.105875ms)
+✔ bad HTTP, empty body, malformed JSON and image decode failures remain failures (0.246541ms)
+✔ encoded per-file/total limits still fail, stop the reader, and are counted once (0.205584ms)
+✔ the file ceiling is bounded, sealed-roster-derived, and cannot be raised by a caller (0.122208ms)
+✔ a valid 4550-file graph exceeds the old ceiling and verifies within the new bound (77.454416ms)
+✔ path traversal, malformed or partial atlases, and conflicting image dimensions are rejected (0.477209ms)
+✔ decoded atlas bounds and explicit UI pair dimensions must agree (0.241208ms)
+✖ full advertised building UI keys replace unused high-world fallback pages (0.567334ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 20
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 208.483541
+
+✖ failing tests:
+
+test at client/.test-art-ui-key/art-ui.test.mjs:408:1
+✖ actual cameo consumer uses full advertised building portrait and build keys independently (0.864125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'data:image/png;real-composition-path'
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-art-ui-key/art-ui.test.mjs:419:14)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'data:image/png;real-composition-path',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at client/.test-art-ui-key/asset-preflight.test.mjs:561:1
+✖ full advertised building UI keys replace unused high-world fallback pages (0.567334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 4
+  
+      at TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/.test-art-ui-key/asset-preflight.test.mjs:565:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,4 +1,5 @@
 import type {ArtIndex, SpriteMeta} from '../render/art';
+import {artUIKeys} from '../content/art-ui';
 
 // Sealed roster: 14,222 sprite files + 22 terrain images + 136 × 4 UI images.
 // This bounds encoded verification, not GPU residency or completed-art coverage.
@@ -159,10 +160,9 @@ export async function planArtPreparation(index: ArtIndex, sheetIds: Iterable<str
    if (onlyCameo && !Array.isArray(layers.beauty)) throw Error(`Missing battlefield cameo atlas: ${id}`);
   };
   await loadLayers(meta.atlases[scale] ?? meta.atlases['1x']);
-  const key = id.replace(/^(unit|building)\./, '');
-  if (!safeAssetPath(key) || key.includes('/')) throw Error(`Invalid battlefield UI asset: ${id}`);
-  const portrait = index.portraits.includes(key), build = index.buildIcons?.includes(key);
-  for (const kind of [...(portrait ? ['portraits'] : []), ...(build ? ['icons/build'] : [])]) {
+  const {portrait, build} = artUIKeys(index, id);
+  for (const [kind, key] of [['portraits', portrait], ['icons/build', build]] as const) {
+   if (!key) continue;
    const pair = ['beauty', 'team'].map(layer => `/art/ui/${kind}/${key}@2x.${layer}.png`) as [string, string];
    pair.forEach(url => image(url)); uiPairs.push(pair);
   }

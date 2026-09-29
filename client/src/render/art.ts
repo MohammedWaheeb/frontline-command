@@ -1,6 +1,7 @@
 import {Assets,Rectangle,Texture} from 'pixi.js';
 import {classify,type CatalogIndex} from '../content/catalog';
 import {authoredArtId} from './art-id';
+import {artUIKeys} from '../content/art-ui';
 import {makeAlphaMask,alphaInFrame,type AlphaMask} from './alpha-picking';
 import type {EffectDescriptor} from '../content/effect-assets.mjs';
 
@@ -155,8 +156,9 @@ export class ArtLibrary {
   return p;
  }
  private async composeCameo(id:string,teamColor:string,stateName:string,direction:number|undefined,purpose:'build'|'portrait'){
-  const index=await this.init(),key=id.replace(/^(unit|building)\./,'');
-  const ui=purpose==='build'&&index.buildIcons?.includes(key)?'icons/build':index.portraits.includes(key)?'portraits':undefined;
+  const index=await this.init(),keys=artUIKeys(index,id);
+  const build=purpose==='build'&&keys.build,key=build||keys.portrait;
+  const ui=build?'icons/build':keys.portrait?'portraits':undefined;
   if(ui){
    const [beauty,team]=await Promise.all(['beauty','team'].map(layer=>this.image(`/art/ui/${ui}/${key}@2x.${layer}.png`)));
    if(beauty.naturalWidth!==team.naturalWidth||beauty.naturalHeight!==team.naturalHeight)throw Error('Illustration layers do not match');

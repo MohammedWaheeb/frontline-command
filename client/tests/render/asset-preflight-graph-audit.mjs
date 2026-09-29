@@ -12,7 +12,7 @@ const option = name => {const at = args.indexOf(name); if (at < 0 || !args[at + 
 const product = option('--product'), out = option('--out'), hash = value => createHash('sha256').update(value).digest('hex');
 if (out.startsWith(product + path.sep) || out === product) throw Error('Evidence must be outside the immutable product.');
 await mkdir(out, {recursive: true});
-const helperPath = path.join(client, 'src/app/asset-preflight.ts');
+const helperPath = args.includes('--helper') ? option('--helper') : path.join(client, 'src/app/asset-preflight.ts');
 await build({entryPoints: [helperPath], outfile: path.join(out, 'helper.mjs'), bundle: true, platform: 'node', format: 'esm', target: 'node24'});
 const {AssetPreflight, planArtPreparation, verifyArtImages, ASSET_PREFLIGHT_LIMITS} = await import(pathToFileURL(path.join(out, 'helper.mjs')));
 const indexPath = path.join(product, 'art/index.json'), indexBytes = await readFile(indexPath), index = JSON.parse(indexBytes);
@@ -58,6 +58,6 @@ for (const scope of ['four-complete-overlay-assets', 'entire-frozen-index-plus-t
  oldRuns.push({scope, scale, files: urls.size, encodedBytes, dedicatedUIIncluded: false, note: 'Unique dependency graph; old duplicate metadata requests are not recounted here.'});
 }
 if (hash(await readFile(indexPath)) !== hash(indexBytes) || hash(await readFile(buildPath)) !== hash(buildBytes)) throw Error('Frozen receipt/index changed');
-const report = {time: new Date().toISOString(), scope: 'Production helper over immutable real metadata and encoded PNG bytes, with PNG-header dimensions replacing browser decode. No browser, renderer, host, GPU or gameplay claim. This partial roster is not the sealed full-roster encoded-budget gate.', product: path.relative(root, product), indexSHA256: hash(indexBytes), buildSHA256: hash(buildBytes), helperSHA256: hash(await readFile(helperPath)), auditSHA256: hash(await readFile(fileURLToPath(import.meta.url))), limits: ASSET_PREFLIGHT_LIMITS, expectedOverlayFileCount: expected.size, checkedOverlayFiles: [...frozenFiles.keys()].filter(url => expected.has(url)).length, oldRuns, runs};
+const report = {time: new Date().toISOString(), scope: 'Production helper over immutable real metadata and encoded PNG bytes, with PNG-header dimensions replacing browser decode. No browser, renderer, host, GPU or gameplay claim. This partial roster is not the sealed full-roster encoded-budget gate.', product: path.relative(root, product), indexSHA256: hash(indexBytes), buildSHA256: hash(buildBytes), helperSHA256: hash(await readFile(helperPath)), bundledHelperSHA256: hash(await readFile(path.join(out, 'helper.mjs'))), auditSHA256: hash(await readFile(fileURLToPath(import.meta.url))), limits: ASSET_PREFLIGHT_LIMITS, expectedOverlayFileCount: expected.size, checkedOverlayFiles: [...frozenFiles.keys()].filter(url => expected.has(url)).length, oldRuns, runs};
 await import('node:fs/promises').then(fs => fs.writeFile(path.join(out, 'audit.json'), JSON.stringify(report, null, 2) + '\n'));
 console.log(JSON.stringify({...report, runs: runs.map(({filesDetail, ...row}) => row)}, null, 2));
