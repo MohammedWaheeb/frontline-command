@@ -1,0 +1,15 @@
+node:internal/fs/promises:1360
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: ENOENT: no such file or directory, open 'file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/presentation-ui-stress/browser.mjs'
+    at async open (node:internal/fs/promises:1360:25)
+    at async readFile (node:internal/fs/promises:2149:14)
+    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/presentation-ui-stress/browser.mjs:39:90 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/evidence/presentation-ui-stress/browser.mjs'
+}
+
+Node.js v26.5.0
