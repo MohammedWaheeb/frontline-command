@@ -1,0 +1,46 @@
+{
+  "baseline_source_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "candidate_source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+  "exact_same_case_selectors": true,
+  "main": 102,
+  "optional": 21,
+  "unchanged_authored_test_files": {
+    "pkg/sim/authored_ai_stall_inspection_test.go": "3288410933999c3f0dbb682df850281f7a37932106fe95c7a791b0769545d429",
+    "pkg/sim/authored_campaign_acceptance_test.go": "24f11fc0fdf8fe5ac61f8105068092e11661c139ded29620492f117647e721ec",
+    "pkg/sim/authored_candidate_tactics_test.go": "915fd219bcead5492d5e6849b4a5ea0b951477ee77c38ec9a6e1254498d4b14f",
+    "pkg/sim/authored_capture_gunner_test.go": "150090f8440ef295367f92ad34865fe3cf6e2f2326ee90d286a4c83341d84150",
+    "pkg/sim/authored_capture_readiness_test.go": "bd830d8099a9854c4a6d27a8eec7fb2e36b36bfa56fd9da83ff9555efefdf238",
+    "pkg/sim/authored_capture_reassignment_test.go": "6dd6a703095fe4c851e345ecc8e89449105728c12c8cb6cf91eb2d9085882b23",
+    "pkg/sim/authored_capture_visible_site_test.go": "0f6212270f0c8adc8ce9be34f7c87b6cc260e166045d9f66eed49c393eca587f",
+    "pkg/sim/authored_depot_diagnostic_test.go": "65f86a7332fdc9e4d9e04dea957ddc2d0a16797c569de54198056a6b88270fdb",
+    "pkg/sim/authored_expansion_budget_test.go": "514c78a8c6045e70b77abdbef05881a816a8144c3196a1aa635ced5c4cc622e5",
+    "pkg/sim/authored_expansion_logistics_test.go": "9dcebf48c25230445cdd299fc4b8d6a002cee3bbc9c934f9198ad6324f4295ff",
+    "pkg/sim/authored_expansion_response_test.go": "5a62e2a1c9c083f286c5bab9fc04abc4991122decd89e5f851d4576f852c9966",
+    "pkg/sim/authored_expansion_sites_test.go": "2fb3155b7d1b029ea891dc0ef8393a6ea86748cc54583ac50c28725bc59ce334",
+    "pkg/sim/authored_failure_diagnostics_probe_test.go": "7862680bcbe0361c6d43cec373ab4180454f74b192021ca34913f4010599cfd2",
+    "pkg/sim/authored_failure_diagnostics_test.go": "7bacaf09686107debe5f7efed2fc54a0e86e7ba8af5a28d0717d19e8a8cd0ac9",
+    "pkg/sim/authored_mission_paths_test.go": "994c65dac321d937f3571585e2f89d8f8cf1d8e0d1d267ce3468bde392ed862f",
+    "pkg/sim/authored_optional_routes_test.go": "80fe2f8a03b9406e27f46578101be4c3b7b21739a4eb7b4b7acfc07059923ec2",
+    "pkg/sim/authored_skirmish_acceptance_test.go": "52a65ef9eabd6c9b8c9c45f659cd5ac4736654a2e6997f220dd936cd103cafad",
+    "pkg/sim/authored_tutorial_acceptance_test.go": "c8c276677931102268355d16ad63fd14b2b9d0cb19e8ef2a515b7d57c5ca94f4"
+  },
+  "runner_files": {
+    "run-mission-matrix.py": {
+      "baseline": "427439eee7dac786e3c92e25f20734ba6c78bed907a3c0baa885ab57e1c89782",
+      "candidate": "6c1ed0f027d52536bc633aaacef9bfaa6066613c1c399cf3d57344a170e6d3c7"
+    },
+    "run-skirmish-matrix.py": {
+      "baseline": "e7293c9615e3f4ed2b842a717272f653e694c77e756961c5537b42076c94d83d",
+      "candidate": "7690477f593e3380c45f908fffd898d1aebb57404fabfca821564d5d7b9784a3"
+    },
+    "audit-mission-matrix.py": {
+      "baseline": "95869cb916e4331b52611ea4bb5a38cbd3f38933239a857a32352b67746e3211",
+      "candidate": "6cd51c01a17fc9126c9b3a0d552146b4536d9f288e785d5bcbe1e1dfa77f0b2b"
+    },
+    "audit-skirmish-matrix.py": {
+      "baseline": "f3e18bf1daf62c19d4eb7bb551b20e0d2f6204099e52e34966f05d3b7ae5abde",
+      "candidate": "f0d871fb3fb7a0bbb8fd67da1c39e6ee34858d34ba4b457e28e5aafffdfae82c"
+    }
+  },
+  "scope": "Runner path/inventory provenance, main stop-on-failure, exact accepted3d49 comparison only; no Go commander edits."
+}

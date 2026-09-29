@@ -1,0 +1,379 @@
+{
+  "source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+  "binary_sha256": "d762cf71d4062639e7406db6980a6069047063c1c960d8e94beaafcd97eaec3c",
+  "binary": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+  "expected_cases": 13,
+  "cases": [
+    {
+      "case": "pair-US-IR",
+      "exit_code": 0,
+      "elapsed_seconds": 7.039,
+      "log_sha256": "cb6ee2517ae0aefc28933373bc3976b9fb0b7d1a9519310901ffbce17c9fb28c",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^pair\\-US\\-IR$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "d4523388412ea4c631a47228d1b472ebf7e195328b3e3cc3619bcb9c77214eb0",
+      "tick": 21107,
+      "final_hash": "7a26837d78b10353454c5daca2bc7203fcabdf01118c5b75ca051ea3cf4feafe",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {},
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "pair-US-SY",
+      "exit_code": 0,
+      "elapsed_seconds": 5.067,
+      "log_sha256": "08dcb47ef46f10ee7cde26e287974d116cb933ad3a3262aef18b52348b644882",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^pair\\-US\\-SY$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "f9cb15ae62d77a6db3229126450a4992a2ac0628b6281a0e1366b6fd6630e7b6",
+      "tick": 14872,
+      "final_hash": "fb34ba8dbc84c24e0a69a088dc82aa0b23865dc6fe763300ace39b187965a456",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {},
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "pair-US-SA",
+      "exit_code": 0,
+      "elapsed_seconds": 4.103,
+      "log_sha256": "a254f002db566067f2bf1e9ce5fbb38b1bfeb172c4f7282070c047d1d0d9c8ae",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^pair\\-US\\-SA$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "f8bcc6e39d5b67d1f269f3bdf54303c89829b436f0f441ae1c3a16b731840632",
+      "tick": 13670,
+      "final_hash": "19dd0cb2a52ba49db7c578d23aa55e209bf1cb3e4404d9a26e2f5df19cfb2242",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {},
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "pair-IR-SY",
+      "exit_code": 0,
+      "elapsed_seconds": 14.938,
+      "log_sha256": "ddff3f182025ddd0276a6d3666d2dfe61520c453069449c34d92ca9e006ca7ce",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^pair\\-IR\\-SY$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "02dd05c1fde993a2cce6b1b291e910432a141434c2aa86375a1ff1f8d622e57c",
+      "tick": 17344,
+      "final_hash": "dd1da40c5fa413f2d300c108bbaee8f437c5923ae5c6535f98bc014af39e6b24",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {
+          "not_owner": 2
+        },
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "pair-IR-SA",
+      "exit_code": 0,
+      "elapsed_seconds": 6.988,
+      "log_sha256": "201dee47b55367751d05274e75e12ee8252e79aae7fb0251364900ac559a1f7c",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^pair\\-IR\\-SA$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "82bdd5d902e841bd736565b010d430aa63cbb9ccb99a0eac56e655864fed6d8f",
+      "tick": 15988,
+      "final_hash": "da4d8a520c294e4037e9a37c61a6bd5a11367bb4b58d67e5a628e2f528764253",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {},
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "pair-SY-SA",
+      "exit_code": 0,
+      "elapsed_seconds": 9.404,
+      "log_sha256": "1507fb72b797e600121179c492e3c717919672138ff2a3a589b1fa79c10aadb6",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^pair\\-SY\\-SA$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "8e345b5cee6b8a25861d7839698db405918ed01724c33f0c4bde733a59fed30e",
+      "tick": 21427,
+      "final_hash": "a6af04403dd6787d153d22481e70f8d50237751a91b66bb906b298a529c0aaba",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {},
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "mirror-US",
+      "exit_code": 0,
+      "elapsed_seconds": 3.214,
+      "log_sha256": "623be3490c19d2f72fa3528b8faecf36293ec7093a1e3ef5daa558bbb697f0e6",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^mirror\\-US$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "a4e8eb99497d5b41560bacf04eea997effd1d8e7ba88c874028da726b3e0ba43",
+      "tick": 12639,
+      "final_hash": "a8fc44b20d4a1b16b895c1db63cee446bc349db1f7d1a7de7917df7edea00dbb",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {},
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "mirror-IR",
+      "exit_code": 0,
+      "elapsed_seconds": 44.904,
+      "log_sha256": "15325cbb71a19cf00f184d4d2eb1f66dfe1b745217070730863f72cac3b670a4",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^mirror\\-IR$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "9f832cd43cd7d7aeff5abe2543880808d6e6c910dbd41862d833cc49f9fa5564",
+      "tick": 31225,
+      "final_hash": "d64ac67ed432215f7f414b04ccecb0f35e9f43aff700cb8332fe6abfa04e50f1",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {
+          "not_owner": 1
+        },
+        "2": {
+          "not_owner": 1,
+          "survey_drone_required": 1
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "mirror-SY",
+      "exit_code": 0,
+      "elapsed_seconds": 8.975,
+      "log_sha256": "58a1624bf4fad85a9da17424de97ed4f25d197095e3027dfc07d88fa32410ac6",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^mirror\\-SY$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "867583b173ee3b9952a4e7d6b787fcd77ce2fb01ed290bb45e1ae48a3dd3b8fe",
+      "tick": 22137,
+      "final_hash": "db99a2eb3ec2a4dfd4b2aea7b7e9166d532897ea64f0c34bc0cb0fe7cff87a93",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {
+          "not_owner": 1
+        },
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "mirror-SA",
+      "exit_code": 0,
+      "elapsed_seconds": 8.746,
+      "log_sha256": "6f1c920921f1cdcef79754552eeb369d56295b20b443e8fc25407bad72394114",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^mirror\\-SA$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "b6ad4ba4f4edc4319d8f0597e1987ef48a98345147b23db956132516a9e55fb8",
+      "tick": 17875,
+      "final_hash": "7991d82c8671d50d7ce4f844fd55fc95891804b0dda5c2ac8ee2f4e718b22ea3",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {
+          "not_owner": 1
+        },
+        "2": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "three-ffa",
+      "exit_code": 0,
+      "elapsed_seconds": 48.832,
+      "log_sha256": "e87c57b62b238a25886b2871833d47870b49b993617e44299fe7554e6469b1be",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^three\\-ffa$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "18381b2a6520df5ae0dacb7ef2fc33e2527d444bb481afff320174d49bbfc61f",
+      "tick": 33976,
+      "final_hash": "2235cd45f17fd57c87e5421d7d9cc154c0d1cd54265d8f6755696a492763928a",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {},
+        "2": {
+          "player_inactive": 1
+        },
+        "3": {}
+      },
+      "passed": true
+    },
+    {
+      "case": "four-ffa",
+      "exit_code": 0,
+      "elapsed_seconds": 23.565,
+      "log_sha256": "f90c04c03575f0f929721a78bbc9f28476e73c59f1a770122102056625ac974f",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^four\\-ffa$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "d8d193a2a83fab87d8d4925645bb073fd126e72e1ea49382ae4b5d05cfb541e4",
+      "tick": 25901,
+      "final_hash": "dbea9bc72cb06401d62dc0ca892d453d8e784bc8719f60bc1128ab60b3b44c98",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {
+          "not_owner": 1
+        },
+        "2": {},
+        "3": {
+          "not_owner": 1,
+          "occupied": 1
+        },
+        "4": {
+          "occupied": 1
+        }
+      },
+      "passed": true
+    },
+    {
+      "case": "four-team",
+      "exit_code": 0,
+      "elapsed_seconds": 21.859,
+      "log_sha256": "d83ec4bdbc0dea286114f53554a448b8af9f0f04794fcf3f6ad6c5f0a9362a2a",
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/authored-runs/20260929T184453Z-optional/sim.test",
+        "-test.run=^TestAuthoredSkirmishAcceptance$/^four\\-team$",
+        "-test.count=1",
+        "-test.timeout=30m",
+        "-test.v"
+      ],
+      "result_sha256": "9bf13c2d7c24432b2725d1d8a9e7fa349aa0070c01eb42c43303238d22e25bb7",
+      "tick": 13912,
+      "final_hash": "cca88c0e05ba66ee0ddbd5278fdfe21b478d14fb131020c25054d47059209c52",
+      "ordinary_completion": true,
+      "initial_restore_exact": true,
+      "final_restore_exact": true,
+      "full_replay_exact": true,
+      "issues": null,
+      "rejected_by_player": {
+        "1": {},
+        "2": {},
+        "3": {},
+        "4": {}
+      },
+      "passed": true
+    }
+  ],
+  "runner_sha256": "7690477f593e3380c45f908fffd898d1aebb57404fabfca821564d5d7b9784a3",
+  "conditions": "SerialGOMAXPROCS1 while root functional browser/Blender may be active; correctness only, no performance claim.",
+  "source_verified_after": true,
+  "binary_verified_after": true,
+  "passed": 13,
+  "failed": 0,
+  "unrun": 0,
+  "receipt_classification": "Pending independent contextual review; accepted lifecycle is not an all-orders-clean claim."
+}

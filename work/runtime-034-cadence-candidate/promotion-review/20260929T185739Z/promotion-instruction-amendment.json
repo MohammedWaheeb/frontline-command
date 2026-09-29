@@ -1,0 +1,150 @@
+{
+  "status": "passed",
+  "manifest_sha256": "dd9e6422036e897b3339d78a6a8f3c277039b3e36219405364eb3d366fb97f83",
+  "copied": [
+    {
+      "path": "internal/server/match.go",
+      "sha256": "903d39007004630679cc8c8d2415888f095ae5cde7bc95097bb0223f1ed22627",
+      "mode": 420
+    },
+    {
+      "path": "internal/server/replay_checkpoint.go",
+      "sha256": "d8ffd6b0578d768db16fe69efa3cdd74736a473428d73b7606b7621898f10587",
+      "mode": 420
+    },
+    {
+      "path": "internal/server/replay_checkpoint_test.go",
+      "sha256": "457af6153dc1b9c5923712be2d9414f828a39ac8bd785c171e972dfc41a6a043",
+      "mode": 420
+    },
+    {
+      "path": "pkg/sim/navigation.go",
+      "sha256": "6a51329f420cebbff652e493409f0aa1337a03c47e12910d664008fe824732b9",
+      "mode": 420
+    },
+    {
+      "path": "pkg/sim/navigation_raster_test.go",
+      "sha256": "120e4b387a6f6817500b8d61b5a9d1c79617b5341b915df4b0b6ee7a658b4b8f",
+      "mode": 420
+    },
+    {
+      "path": "pkg/sim/replay.go",
+      "sha256": "c624f33997103e1b2fa4cf2cf811fded01e0976cfaf7c3ffdd499add755ba328",
+      "mode": 420
+    },
+    {
+      "path": "pkg/sim/replay_checkpoint_test.go",
+      "sha256": "19ea509e3411beb319a8433b54e115fcba8f2e50a8525f6237e6554b7c45f6ff",
+      "mode": 420
+    },
+    {
+      "path": "client/public/runtime/frontline.wasm",
+      "sha256": "2fb75dde5cf4e3dcc64ee34c78c818424c8b5e755bbcc3970b9e5decac5d6f26",
+      "mode": 493
+    },
+    {
+      "path": "bin/runtime-native",
+      "sha256": "86c1eaab4bfd891ed711ed8f834b287447e70f0653b51a12cd068e037e63583d",
+      "mode": 493
+    },
+    {
+      "path": "bin/frontline",
+      "sha256": "54784d88879d2f59f4cfd869d412cb967cd71252f770afba8b5428d9463b8a7f",
+      "mode": 493
+    }
+  ],
+  "started_utc": "2026-09-29T19:02:20.772151+00:00",
+  "authorization": "Root independently reviewed the exact manifest and authorized these ten paths plus one loopback smoke.",
+  "clean_source_guard": {
+    "source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 359,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 360
+  },
+  "instruction_exception": {
+    "path": "AGENTS.md",
+    "frozen_sha256": "eee757a5aacbd4db0477c13614d7a763f049a0385cd17de56e5ab38049078d76",
+    "current_sha256": "8e45344321a86e38ba994709eb2e6a0ef1276ded0b988c3d1159830a3187a2aa",
+    "reason": "Root recorded latest user authorization for direct Codex UI/art work; noncompiled instruction file preserved. No Go/content/binding/rule/source change.",
+    "authorized_by": "Root explicit successor exception approval after failed preflight; same ten approved copies."
+  },
+  "service_worker_before": {
+    "client/public/service-worker.js": "74ad2614edc166baa60d576e85a6bff646dba43e6e45c0f51c05822cbeb11568",
+    "client/public/service-worker.js.map": "520546afac5d9460712dca217930d2813df593c100480b9abf78ccdff58bb83d"
+  },
+  "postcopy": {
+    "frozen_noninstruction_live_files": 358,
+    "preserved_instruction_files": 1,
+    "preserved_instruction_sha256": "8e45344321a86e38ba994709eb2e6a0ef1276ded0b988c3d1159830a3187a2aa",
+    "exact_runtime_files": 8,
+    "source_and_runtime_exact_except_authorized_instruction": true,
+    "service_worker_unchanged": true
+  },
+  "native_version": {
+    "adapter": "1",
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "go": "go1.27.1",
+    "protocol": 1,
+    "simulation": "0.3.4"
+  },
+  "smoke_command": [
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/bin/frontline",
+    "-addr",
+    "127.0.0.1:0",
+    "-data",
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/runtime-034-cadence-candidate/promotion-review/20260929T185739Z/smoke-data",
+    "-static",
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/public",
+    "-maps",
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/content/maps",
+    "-missions",
+    "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/content/missions"
+  ],
+  "host_startup": "Frontline Command local server: http://127.0.0.1:62798",
+  "http": [
+    {
+      "route": "/api/v1/health",
+      "status": 200,
+      "bytes": 160,
+      "content_type": "application/json",
+      "sha256": "a160fbf740023ad3337b5f83a7ff0b4894c942c4fc7cbf1f407b729bd4b0f2b7"
+    },
+    {
+      "route": "/runtime/version.json",
+      "status": 200,
+      "bytes": 169,
+      "content_type": "application/json",
+      "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea"
+    },
+    {
+      "route": "/runtime/frontline.wasm",
+      "status": 200,
+      "bytes": 11240965,
+      "content_type": "application/wasm",
+      "sha256": "2fb75dde5cf4e3dcc64ee34c78c818424c8b5e755bbcc3970b9e5decac5d6f26"
+    }
+  ],
+  "host_health": {
+    "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+    "local": true,
+    "protocol": 1,
+    "simulation": "0.3.4",
+    "status": "ok",
+    "tick_rate": 20
+  },
+  "served_wasm_sha256": "2fb75dde5cf4e3dcc64ee34c78c818424c8b5e755bbcc3970b9e5decac5d6f26",
+  "host_exit_code": 0,
+  "host_remaining_stdout": "",
+  "host_stderr": "",
+  "final_postcheck": {
+    "frozen_noninstruction_live_files": 358,
+    "preserved_instruction_files": 1,
+    "preserved_instruction_sha256": "8e45344321a86e38ba994709eb2e6a0ef1276ded0b988c3d1159830a3187a2aa",
+    "exact_runtime_files": 8,
+    "source_and_runtime_exact_except_authorized_instruction": true,
+    "service_worker_unchanged": true
+  },
+  "limitations": "Exact selective source/runtime promotion and isolated loopback health/version/WASM smoke only. No client/art package build, browser, save migration, deployment, broad test repetition or new performance claim.",
+  "finished_utc": "2026-09-29T19:02:22.985098+00:00"
+}

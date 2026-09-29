@@ -1,0 +1,223 @@
+--- accepted3d49/run-mission-matrix.py
++++ cadence/run-mission-matrix.py
+@@ -13,8 +13,8 @@
+ 
+ ROOT = Path(__file__).resolve().parent
+ SOURCE_ROOT = ROOT
+-SOURCE = SOURCE_ROOT / 'source'
+-LOCK_SHA256 = '3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750'
++SOURCE = ROOT.parent / 'maximum-server-combined-v1/clean-source'
++LOCK_SHA256 = 'a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0'
+ GO = '/opt/homebrew/bin/go'
+ DIFFICULTIES = ('easy', 'normal', 'hard')
+ GROUPS = {
+@@ -30,15 +30,15 @@
+ def sha(path):
+     return hashlib.sha256(path.read_bytes()).hexdigest()
+ 
++import importlib.util
++HELPER = ROOT.parent / 'maximum-server-combined-v1/runner_guard.py'
++assert hashlib.sha256(HELPER.read_bytes()).hexdigest() == '55bc657f42ab0cc53fed601dbb2c75a0c86d9e412d4a524e1d39e5d4a7e3a3db'
++spec = importlib.util.spec_from_file_location('cadence_runner_guard', HELPER)
++guard = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(guard)
++
+ def verify():
+-    lock_path = SOURCE_ROOT / 'source-lock.json'
+-    if sha(lock_path) != LOCK_SHA256:
+-        raise SystemExit('unexpected frozen source lock')
+-    expected = json.loads(lock_path.read_text())['files']
+-    actual = {str(p.relative_to(SOURCE)): sha(p)
+-              for p in sorted(SOURCE.rglob('*')) if p.is_file()}
+-    if actual != expected:
+-        raise SystemExit('frozen source changed, added or removed a file')
++    guard.verify_source(SOURCE, ROOT / 'source-lock.json', LOCK_SHA256)
+     return LOCK_SHA256
+ 
+ def cases():
+@@ -87,10 +87,13 @@
+ shutil.copyfile(Path(__file__), out / 'run-authored-matrix.py')
+ env = {key: value for key, value in os.environ.items() if not key.startswith('FRONTLINE_')}
+ env['GOMAXPROCS'] = '1'
++env['GOFLAGS'] = '-p=1'
++env.pop('GOOS', None)
++env.pop('GOARCH', None)
+ binary = out / 'sim.test'
+ with (out / 'build.log').open('w') as log:
+     subprocess.run([GO, 'test', '-p=1', '-c', '-o', str(binary), './pkg/sim'], cwd=SOURCE, env=env, stdout=log, stderr=subprocess.STDOUT, check=True)
+-manifest = dict(simulation='0.3.4', source_lock_sha256=identity, binary_sha256=sha(binary), phase=args.run, subset=args.select, expected_cases=len(selected), gomaxprocs=1, host_conditions='Integrated 0.3.4 commander acceptance: explicitly coordinate before launch; one native case at a time, GOMAXPROCS=1. Record actual shared-host conditions separately. Correctness only; not performance evidence.', results=[])
++manifest = dict(simulation='0.3.4', source_lock_sha256=identity, binary_sha256=sha(binary), phase=args.run, subset=args.select, expected_cases=len(selected), gomaxprocs=1, host_conditions='Clean a7cc candidate: serial GOMAXPROCS1, unchanged 3d49 commanders. Root browser and one Blender may be active. Correctness only; not performance evidence.', results=[])
+ (out / 'run.json').write_text(json.dumps(manifest, indent=2)+'\n')
+ for index, case in enumerate(selected):
+     name = '/'.join(case)
+@@ -121,6 +124,9 @@
+     manifest['results'].append(receipt)
+     (out / 'run.json').write_text(json.dumps(manifest, indent=2)+'\n')
+     print(f'{index+1}/{len(selected)} {name} {"PASS" if passed else "FAIL"} {receipt["elapsed_seconds"]}s', flush=True)
++    if not passed:
++        manifest['stopped_for_failure'] = dict(case=name, artifacts=receipt['artifacts'])
++        break
+     if process.returncode < 0 or re.search(r'runtime: out of memory|cannot allocate memory|failed to create new OS thread|signal: killed', text, re.I):
+         manifest['stopped_for_resource_issue'] = dict(case=name, exit_code=process.returncode, artifacts=receipt['artifacts'])
+         break
+--- accepted3d49/run-skirmish-matrix.py
++++ cadence/run-skirmish-matrix.py
+@@ -11,18 +11,24 @@
+ import time
+ 
+ ROOT = Path(__file__).resolve().parent
+-SOURCE = ROOT / 'source'
+-LOCK = '3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750'
++SOURCE = ROOT.parent / 'maximum-server-combined-v1/clean-source'
++LOCK = 'a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0'
+ CASES = ('pair-US-IR', 'pair-US-SY', 'pair-US-SA', 'pair-IR-SY', 'pair-IR-SA', 'pair-SY-SA',
+          'mirror-US', 'mirror-IR', 'mirror-SY', 'mirror-SA', 'three-ffa', 'four-ffa', 'four-team')
+ 
+ def sha(path):
+     return hashlib.sha256(path.read_bytes()).hexdigest()
+ 
++import importlib.util
++HELPER = ROOT.parent / 'maximum-server-combined-v1/runner_guard.py'
++assert hashlib.sha256(HELPER.read_bytes()).hexdigest() == '55bc657f42ab0cc53fed601dbb2c75a0c86d9e412d4a524e1d39e5d4a7e3a3db'
++spec = importlib.util.spec_from_file_location('cadence_runner_guard', HELPER)
++guard = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(guard)
++
+ def verify():
+-    assert sha(ROOT / 'source-lock.json') == LOCK
+-    lock = json.loads((ROOT / 'source-lock.json').read_text())['files']
+-    assert {str(p.relative_to(SOURCE)): sha(p) for p in SOURCE.rglob('*') if p.is_file()} == lock
++    guard.verify_source(SOURCE, ROOT / 'source-lock.json', LOCK)
++    return LOCK
+ 
+ parser = argparse.ArgumentParser()
+ parser.add_argument('--execute-after-release', action='store_true')
+@@ -46,7 +52,7 @@
+ env = {k: v for k, v in os.environ.items() if not k.startswith('FRONTLINE_')}
+ env.update(GOMAXPROCS='1', FRONTLINE_AUTHORED_AI='1', FRONTLINE_AUTHORED_AI_EVIDENCE=str(out))
+ receipt = dict(source_lock_sha256=LOCK, binary_sha256=sha(binary), binary=str(binary),
+-               expected_cases=13, cases=[],
++               expected_cases=13, cases=[], runner_sha256=sha(Path(__file__)),
+                conditions='SerialGOMAXPROCS1 while root functional browser/Blender may be active; correctness only, no performance claim.')
+ 
+ def save():
+--- accepted3d49/audit-mission-matrix.py
++++ cadence/audit-mission-matrix.py
+@@ -6,9 +6,9 @@
+ from collections import Counter
+ 
+ ROOT = Path(__file__).resolve().parent
+-SOURCE = ROOT / 'source'
+-LOCK = '3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750'
+-OLD = ROOT.parent / 'runtime-034-consolidated-acceptance/authored-runs'
++SOURCE = ROOT.parent / 'maximum-server-combined-v1/clean-source'
++LOCK = 'a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0'
++OLD = ROOT.parent / 'runtime-034-integrated-source/authored-runs'
+ OBJECTIVES = dict(MissileBudget='missile-budget', DistantStations='stations-together',
+                   TrailSalvage='limited-salvage', MechanicTeams='mechanic-teams',
+                   ObserverNetwork='observer-network', WingEvacuation='wing-evacuated',
+@@ -21,7 +21,14 @@
+     return json.loads(path.read_text())
+ 
+ assert sha(ROOT / 'source-lock.json') == LOCK
+-assert {str(p.relative_to(SOURCE)): sha(p) for p in SOURCE.rglob('*') if p.is_file()} == read(ROOT / 'source-lock.json')['files']
++import importlib.util
++HELPER = ROOT.parent / 'maximum-server-combined-v1/runner_guard.py'
++assert hashlib.sha256(HELPER.read_bytes()).hexdigest() == '55bc657f42ab0cc53fed601dbb2c75a0c86d9e412d4a524e1d39e5d4a7e3a3db'
++spec = importlib.util.spec_from_file_location('cadence_runner_guard', HELPER)
++guard = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(guard)
++guard.verify_source(SOURCE, ROOT / 'source-lock.json', LOCK)
++
+ plan = read(ROOT / 'authored-matrix-plan.json')
+ audit = dict(source_lock_sha256=LOCK, phases=[], scope='Fresh integrated native mission correctness; not browser, skirmish or performance qualification.')
+ for phase in ('main', 'optional'):
+@@ -35,7 +42,7 @@
+     assert sha(directory / 'source-lock.json') == LOCK == run['source_lock_sha256']
+     assert sha(directory / 'sim.test') == run['binary_sha256']
+     assert [r['case'] for r in run['results']] == ['/'.join(c) for c in plan['cases'][phase]]
+-    old_directory = OLD / ('20260928T233429Z-main' if phase == 'main' else '20260928T235819Z-optional')
++    old_directory = OLD / ('20260929T072337Z-main' if phase == 'main' else '20260929T074800Z-optional')
+     old = {r['case']: r for r in read(old_directory / 'run.json')['results']}
+     summary = dict(phase=phase, directory=str(directory.relative_to(ROOT)), run_sha256=sha(directory / 'run.json'),
+                    binary_sha256=run['binary_sha256'], passed=count, failed=0, unrun=0,
+@@ -91,3 +98,4 @@
+     audit['phases'].append(summary)
+ (ROOT / 'completed-mission-audit.json').write_text(json.dumps(audit, indent=2) + '\n')
+ print(json.dumps([{k: v for k, v in phase.items() if k != 'cases'} for phase in audit['phases']], indent=2))
++assert not any(p['historical_final_hash_differences'] or p['historical_order_ledger_differences'] for p in audit['phases']), 'Behavior/commander drift versus accepted3d49: preserved audit requires diagnosis'
+--- accepted3d49/audit-skirmish-matrix.py
++++ cadence/audit-skirmish-matrix.py
+@@ -8,8 +8,8 @@
+ from pathlib import Path
+ 
+ ROOT = Path(__file__).resolve().parent
+-SOURCE = ROOT / 'source'
+-LOCK = '3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750'
++SOURCE = ROOT.parent / 'maximum-server-combined-v1/clean-source'
++LOCK = 'a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0'
+ 
+ def sha(path):
+     return hashlib.sha256(path.read_bytes()).hexdigest()
+@@ -20,10 +20,24 @@
+ directory = args.run.resolve()
+ run = json.loads((directory / 'run.json').read_text())
+ assert sha(ROOT / 'source-lock.json') == LOCK == run['source_lock_sha256']
+-assert {str(p.relative_to(SOURCE)): sha(p) for p in SOURCE.rglob('*') if p.is_file()} == json.loads((ROOT / 'source-lock.json').read_text())['files']
++import importlib.util
++HELPER = ROOT.parent / 'maximum-server-combined-v1/runner_guard.py'
++assert hashlib.sha256(HELPER.read_bytes()).hexdigest() == '55bc657f42ab0cc53fed601dbb2c75a0c86d9e412d4a524e1d39e5d4a7e3a3db'
++spec = importlib.util.spec_from_file_location('cadence_runner_guard', HELPER)
++guard = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(guard)
++guard.verify_source(SOURCE, ROOT / 'source-lock.json', LOCK)
++
+ assert (run['passed'], run['failed'], run['unrun']) == (13, 0, 0)
+ assert run['source_verified_after'] and run['binary_verified_after'] and sha(Path(run['binary'])) == run['binary_sha256']
+ audit = dict(source_lock_sha256=LOCK, binary_sha256=run['binary_sha256'], run_sha256=sha(directory / 'run.json'), cases=[], accepted=0, rejected=0, rejection_codes={}, rejection_classification='Pending exact context review; none silently excused.')
++OLD = ROOT.parent / 'runtime-034-integrated-source/skirmish-runs/20260929T075631Z'
++old_audit = json.loads((OLD / 'receipt-audit.json').read_text())
++old_class = json.loads((OLD / 'rejection-classification.json').read_text())
++audit['baseline_run_sha256'] = sha(OLD / 'run.json')
++audit['baseline_classification_sha256'] = sha(OLD / 'rejection-classification.json')
++audit['baseline_contexts'] = {}
++audit['differences'] = []
+ codes = Counter()
+ for row in run['cases']:
+     folder = directory / row['case']
+@@ -70,9 +84,35 @@
+         assert counts['rejected_by_code'] == dict(counted.get(player, {}))
+     item = dict(case=row['case'], tick=report['tick'], minutes_including_countdown=report['tick']/1200, outcome=report['outcome'], final_hash=report['final_hash'], batches=batches, executed=sum(receipts.values()), accepted=sum(accepted.values()), rejected=len(rejected), rejections=rejected,
+                 files={name: dict(sha256=sha(folder/name), bytes=(folder/name).stat().st_size) for name in ('result.json', 'initial.save.json', 'final.save.json', 'replay.fcr', 'commands.jsonl.gz')})
++    previous = next(p for p in old_audit['cases'] if p['case'] == row['case'])
++    oldfolder = OLD / row['case']
++    for filename, pinned in previous['files'].items():
++        assert sha(oldfolder / filename) == pinned['sha256'], 'Baseline artifact drift: ' + filename
++    item['baseline_equality'] = {
++        'final_hash': report['final_hash'] == previous['final_hash'],
++        'outcome': report['outcome'] == previous['outcome'],
++        'complete_order_trace': gzip.decompress((folder / 'commands.jsonl.gz').read_bytes()) == gzip.decompress((oldfolder / 'commands.jsonl.gz').read_bytes()),
++        'initial_save': (folder / 'initial.save.json').read_bytes() == (oldfolder / 'initial.save.json').read_bytes(),
++        'final_save': (folder / 'final.save.json').read_bytes() == (oldfolder / 'final.save.json').read_bytes(),
++        'full_replay': (folder / 'replay.fcr').read_bytes() == (oldfolder / 'replay.fcr').read_bytes(),
++        'rejections': rejected == previous['rejections'],
++    }
++    if not all(item['baseline_equality'].values()):
++        audit['differences'].append({'case': row['case'], 'fields': [k for k, v in item['baseline_equality'].items() if not v]})
++    if rejected and all(item['baseline_equality'].values()):
++        context = oldfolder / 'rejection-context.json'
++        classified = [r for r in old_class['rejections'] if r['case'] == row['case']]
++        assert len(classified) == len(rejected) and all(r['context_sha256'] == sha(context) for r in classified)
++        item['rejection_classification'] = classified
++        audit['baseline_contexts'][row['case']] = {'path': str(context), 'sha256': sha(context), 'scope': 'Existing exact3d49 context reused only after complete trace, initial/final save and replay equality; no new context execution.'}
+     audit['cases'].append(item)
+     audit['accepted'] += item['accepted']
+     audit['rejected'] += len(rejected)
+ audit['rejection_codes'] = dict(codes)
++if not audit['differences']:
++    audit['rejection_classification'] = 'Exact same twelve accepted-baseline decision/execution races, with pinned contextual proof; not an all-orders-clean claim.'
++    assert audit['rejected'] == old_audit['rejected'] == 12 and dict(codes) == old_audit['rejection_codes']
+ (directory / 'receipt-audit.json').write_text(json.dumps(audit, indent=2) + '\n')
+ print(json.dumps({k: v for k, v in audit.items() if k != 'cases'}, indent=2))
++
++assert not audit['differences'], 'Canonical/order drift versus accepted3d49: preserve and diagnose'

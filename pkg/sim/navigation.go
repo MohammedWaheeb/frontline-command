@@ -226,8 +226,45 @@ func (e *Engine) navigationCells(radius int32) []bool {
 	cells := make([]bool, int(w*h))
 	for y := int32(0); y < h; y++ {
 		for x := int32(0); x < w; x++ {
-			cells[y*w+x] = e.clear(Vec{X: x * 500, Y: y * 500}, radius, 0, false, false)
+			px, py := x*500, y*500
+			cells[y*w+x] = px-radius >= 0 && py-radius >= 0 && px+radius < e.state.Map.Width*1000 && py+radius < e.state.Map.Height*1000
 		}
+	}
+	// Invert the static query: visit only the half-tile cells near each
+	// obstacle, rather than rescan every actor for every cell. Preserve the
+	// exact strict rounded-rectangle test used by clearExcept (tangency is
+	// passable), including the zero-radius case. Dynamic obstacles stay in
+	// their existing per-movement query and do not enter this revision cache.
+	block := func(left, top, right, bottom int32) {
+		for y := max(int32(0), (top-radius)/500); y <= min(h-1, (bottom+radius)/500); y++ {
+			py := y * 500
+			dy := max(int32(0), max(top-py, py-bottom))
+			for x := max(int32(0), (left-radius)/500); x <= min(w-1, (right+radius)/500); x++ {
+				index := y*w + x
+				if !cells[index] {
+					continue
+				}
+				px := x * 500
+				dx := max(int32(0), max(left-px, px-right))
+				if int64(dx)*int64(dx)+int64(dy)*int64(dy) < int64(radius)*int64(radius) {
+					cells[index] = false
+				}
+			}
+		}
+	}
+	for y := int32(0); y < e.state.Map.Height; y++ {
+		for x := int32(0); x < e.state.Map.Width; x++ {
+			if !e.state.Map.Tiles[y*e.state.Map.Width+x].Passable() {
+				block(x*1000, y*1000, (x+1)*1000, (y+1)*1000)
+			}
+		}
+	}
+	for _, v := range e.state.Entities {
+		if v.ID == 0 || !v.Building || v.HP <= 0 || v.Container != 0 {
+			continue
+		}
+		width, height := e.footprint(v)
+		block(v.Position.X-width*500, v.Position.Y-height*500, v.Position.X+width*500, v.Position.Y+height*500)
 	}
 	e.navCache[radius] = cells
 	return cells

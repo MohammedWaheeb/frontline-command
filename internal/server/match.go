@@ -545,8 +545,9 @@ func (m *liveMatch) run() {
 					finishedClockAt = now
 				}
 				if m.engine.Tick()%600 == 0 && replayErr == nil {
-					replayErr = replay.Capture(m.engine, true)
-					if save, err := m.engine.Save(); err == nil {
+					save, captureErr := recordReplayCheckpoint(replay, m.engine)
+					replayErr = captureErr
+					if save != nil {
 						select {
 						case m.checkpoints <- matchCheckpoint{tick: uint32(m.engine.Tick()), data: save}:
 						default:

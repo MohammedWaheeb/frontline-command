@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "source_guard": {
+    "source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+    "base_lock_sha256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "locked_files": 359,
+    "explicit_extra": ".gitignore",
+    "exact_inventory_files": 360
+  },
+  "production_paths": [
+    "internal/server/match.go",
+    "internal/server/replay_checkpoint.go",
+    "pkg/sim/navigation.go",
+    "pkg/sim/replay.go"
+  ],
+  "test_paths": [
+    "internal/server/replay_checkpoint_test.go",
+    "pkg/sim/navigation_raster_test.go",
+    "pkg/sim/replay_checkpoint_test.go"
+  ],
+  "no_timing_probe_symbols_in_match": true,
+  "no_timing_workload": true,
+  "no_coldprofile_command": true,
+  "unchanged_locked_ancestors": 352,
+  "inventory_sha256": "5e245676eaf690224ee9ddc941abbff0889c7a3219819ea549dc5cb373f5fe77",
+  "production_diff_sha256": "3dfd0ac8ac2a09c05a468a41a93b24d526c867ef90525498a35de53796d77805",
+  "native_build_receipt_sha256": "48b920bbeb1ed8096f7c99f964cb3ee5ebff94b1720da5678e44a67732e6731d",
+  "scope": "Read-only exact inventory and known annotation exclusion; production/native artifacts built from this clean source, not instrumented timing tree."
+}

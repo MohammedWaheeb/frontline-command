@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "promoted": false,
+  "source_lock_sha256": "a7ccba8c892abcf4bc643ed41109399741cf74d6b33161a0e5e29c977adcc5c0",
+  "routes": {
+    "main": 102,
+    "optional": 21,
+    "skirmish": 13,
+    "requested": 136,
+    "passed": 136,
+    "failed": 0,
+    "unrun": 0,
+    "unexpected_skips": 0
+  },
+  "mission_receipts": {
+    "accepted": 23370,
+    "rejected": 0
+  },
+  "skirmish_receipts": {
+    "accepted": 13951,
+    "rejected": 12,
+    "rejection_codes": {
+      "not_owner": 8,
+      "survey_drone_required": 1,
+      "player_inactive": 1,
+      "occupied": 2
+    }
+  },
+  "complete_mission_ledgers_and_hashes_equal_3d49": 123,
+  "complete_bot_traces_saves_replays_and_hashes_equal_3d49": 13,
+  "source_inventory": {
+    "locked_files": 359,
+    "explicit_ignore": 1,
+    "production_changed": 4,
+    "focused_tests_changed_or_added": 3,
+    "timing_instrumentation": false
+  },
+  "runtime": {
+    "actual_wasm_scenes": 6,
+    "checkpoint_stages": 3,
+    "whole_checkpoint_protobuf_views": 12,
+    "whole_checkpoint_saves": 3,
+    "changed_outputs": 3,
+    "unchanged_outputs": 5
+  },
+  "file_receipts": {
+    "completed-mission-audit.json": "1ac3881bd4c6db0ce6b34250b0a0223e3945081c500095a980a84d2a1b0c24b9",
+    "skirmish-runs/20260929T185233Z/receipt-audit.json": "5a8297a8a85f84928f9ec2318f9dc4ae90f3c64d2d4a3ba6c338a60d80b6517e",
+    "runtime-builds/20260929T182132Z/receipt.json": "48b920bbeb1ed8096f7c99f964cb3ee5ebff94b1720da5678e44a67732e6731d",
+    "runtime-builds/20260929T182132Z/audit.json": "efae586a6da4494383d44a128c24e13adcfb152c822b8ace65f36368ee914748",
+    "clean-source-proof.json": "87646ec03e1ecf84a7fd3fcd4972b8edec0c3b695b9b991c899a2dfae91bc63f",
+    "matrix-helper-lock.json": "c67fdc19cefeaffe0eaaac4bc2cd5012a3d86143cfea2b32028f2f3af9f9e1d9",
+    "evidence-lock.json": "91e0679a91ddcb0380efcd8eecf3afdeaa0d89559202564b5827ca4707b89ae8",
+    "promotion-review/20260929T185739Z/manifest.json": "2beefa9d34397de10a07692a3d6fd6c66b11558aa8fe16f40c34a9c92ad5474d"
+  },
+  "retained_route_artifacts": 338,
+  "retained_route_artifact_bytes": 65869041,
+  "scope": "Shared-host serial GOMAXPROCS1 correctness. Same12 bot rejections retained; baseline contexts reused only after exact trace/save/replay comparison, not newly reconstructed. No browser/listening-host/performance/platform/final-art certification. No live promotion."
+}

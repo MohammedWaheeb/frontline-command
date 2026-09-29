@@ -62,12 +62,24 @@ func NewReplay(e *Engine) (*Replay, error) {
 // Capture must be called at least every 30 simulation seconds. The engine keeps
 // only 32,768 recent orders; archived replay chunks own their independent copies.
 func (r *Replay) Capture(e *Engine, checkpoint bool) error {
+	_, err := r.capture(e, checkpoint)
+	return err
+}
+
+// CaptureCheckpoint records an ordinary checkpoint and returns the exact save
+// used to create it. The caller owns the returned bytes; changing them cannot
+// alter the engine or the compressed replay checkpoint.
+func (r *Replay) CaptureCheckpoint(e *Engine) ([]byte, error) {
+	return r.capture(e, true)
+}
+
+func (r *Replay) capture(e *Engine, checkpoint bool) ([]byte, error) {
 	if r.Metadata != e.Metadata() || r.Version != 2 || r.Recorded < e.state.LogBase {
-		return errors.New("replay recorder missed its bounded command window")
+		return nil, errors.New("replay recorder missed its bounded command window")
 	}
 	end := e.state.LogBase + uint64(len(e.state.Log))
 	if r.Recorded > end {
-		return errors.New("replay recorder moved backwards")
+		return nil, errors.New("replay recorder moved backwards")
 	}
 	for _, cmd := range e.state.Log[r.Recorded-e.state.LogBase:] {
 		cmd.Orders = cloneOrders(cmd.Orders)
@@ -77,24 +89,26 @@ func (r *Replay) Capture(e *Engine, checkpoint bool) error {
 	r.FinalTick = e.Tick()
 	if len(r.Commands) >= 1024 || checkpoint || e.Outcome().Finished {
 		if err := r.flush(); err != nil {
-			return err
+			return nil, err
 		}
 	}
+	var checkpointSave []byte
 	if checkpoint {
 		if len(r.Checkpoints) > 0 && r.Checkpoints[len(r.Checkpoints)-1].Tick >= e.Tick() {
-			return errors.New("checkpoint ticks must increase")
+			return nil, errors.New("checkpoint ticks must increase")
 		}
 		save, err := e.Save()
 		if err != nil {
-			return err
+			return nil, err
 		}
 		packed, err := compressReplay(save)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		r.Checkpoints = append(r.Checkpoints, ReplayCheckpoint{Tick: e.Tick(), PackedSave: packed})
+		checkpointSave = save
 	}
-	return nil
+	return checkpointSave, nil
 }
 func (r *Replay) flush() error {
 	if len(r.Commands) == 0 {

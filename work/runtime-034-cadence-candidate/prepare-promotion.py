@@ -38,6 +38,10 @@ receipt = read(BUILD / 'receipt.json')
 audit = read(BUILD / 'audit.json')
 assert receipt['status'] == audit['status'] == 'passed'
 assert sha(BUILD / 'receipt.json') == audit['receipt_sha256'] == '48b920bbeb1ed8096f7c99f964cb3ee5ebff94b1720da5678e44a67732e6731d'
+assert sha(COMBINED / 'checks-02/receipt.json') == '804bd749daf05d6f051f72cc6ba415cc144475634704ce817b87593b6f15e4d3'
+assert read(COMBINED / 'checks-02/receipt.json')['status'] == 'passed'
+assert read(COMBINED / 'server-01/receipt.json')['status'] == 'passed'
+assert read(COMBINED / 'server-01/postrun-audit.json')['status'] == 'passed'
 missions = read(HERE / 'completed-mission-audit.json')
 assert missions['source_lock_sha256'] == LOCK
 assert [(p['phase'], p['passed'], p['failed'], p['unrun']) for p in missions['phases']] == [('main', 102, 0, 0), ('optional', 21, 0, 0)]
@@ -105,7 +109,7 @@ manifest = dict(status='prepared_only_not_promoted', prepared_utc=datetime.datet
                 unchanged_runtime=runtime_unchanged, prior_live_backup=backup,
                 additions_absent_before=[r['path'] for r in changes if r['action'] == 'add'],
                 version=receipt['version'], simulation_compatibility='0.3.4 unchanged; no save migration or metadata relabeling',
-                evidence={str(p.relative_to(ROOT)): sha(p) for p in (BUILD / 'receipt.json', BUILD / 'audit.json', HERE / 'completed-mission-audit.json', bot_audit_path, COMBINED / 'server-01/receipt.json', COMBINED / 'server-01/postrun-audit.json')},
+                evidence={str(p.relative_to(ROOT)): sha(p) for p in (BUILD / 'receipt.json', BUILD / 'audit.json', HERE / 'completed-mission-audit.json', bot_audit_path, COMBINED / 'checks-02/receipt.json', COMBINED / 'server-01/receipt.json', COMBINED / 'server-01/postrun-audit.json')},
                 untouched='No live writes, browser, host, build or deployment. All frozen products and original failed evidence remain unchanged.')
 (out / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
 for entry in changes + runtime:
