@@ -1,6 +1,6 @@
 # Actual product clarity course
 
-Status, 2026-09-29: **authored, not run**. Only `node --check` has been used. No browser, game host, fixture execution, or production change belongs to this task. Coordinate a browser slot with root before execution. Browser plugin not available; the driver uses the existing Playwright installation.
+Status, 2026-09-29: **first real product runs failed; correction under test**. Root owns the serial browser lane. Runs `chromium-01` through `-04` preserve driver mistakes (case-transformed button text, a modal-obscured toast, asynchronous same-name archive rows and exact snapped-coordinate assumptions). `chromium-05` completed the first three cases and found real 1280×720/150% production-tile clipping: the tile was150px high in a133px scrollport. The source correction reserves a whole tile and lets the short sidebar scroll. The first correction passed8/8 in chromium-06 onv18, but visual review found target guidance overlapping the sidebar. v19 keeps guidance within the battlefield and captions above it; chromium-07 passes8/8 including new overlap checks. Root reviewed native1× placement, rejection and defeat-warning screenshots. Firefox/WebKit remain pending. Browser plugin is unavailable; the driver uses Playwright.
 
 Driver: `client/tests/render/battlefield-clarity-product.browser.mjs`.
 
@@ -10,9 +10,9 @@ After lane release, from the repository root:
 
 ```sh
 node client/tests/render/battlefield-clarity-product.browser.mjs \
-  --product "$PWD/work/art/effects-opus-v2/integration-v16/product" \
+  --product "$PWD/work/art/effects-opus-v2/integration-v19/product" \
   --saves "$PWD/work/art/effects-opus-v2/ambient-native-07" \
-  --out "$PWD/work/battlefield-clarity/chromium-01" \
+  --out "$PWD/work/battlefield-clarity/chromium-07" \
   --engine chromium --headless false
 ```
 
@@ -35,4 +35,4 @@ Each run writes `browser.json`, exact driver/input-save copies, SHA-256 of the W
 
 There are no blanket HTTP exclusions or fabricated readiness/health responses. The static server serves only the given frozen product; it does not start a multiplayer service. Asset incompleteness and fallback art remain release gaps even if controls pass. A screenshot alone cannot prove ring count, minimum-radius geometry, memory authorization, ghost color, pixel legibility or occlusion: those need visual inspection and the separate real-Go renderer course. The test does not claim all71 FX, audio quality, mobile layout, offline-cache installation, accessibility completeness, campaign rewards, multiplayer, memory pressure or performance.
 
-The campaign main/optional consolidated matrix remains queued independently; this driver changes none of its source, evidence or status.
+The campaign main/optional consolidated matrix runs independently; this driver changes none of its source, evidence or status.

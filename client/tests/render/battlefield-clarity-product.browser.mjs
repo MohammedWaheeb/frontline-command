@@ -77,12 +77,17 @@ async function waitFor(predicate,message,timeout=15000){
 }
 async function noModal(page){assert.equal(await page.getByRole('dialog',{name:'Command interrupted',exact:true}).count(),0,'Product reported Command interrupted')}
 async function idle(page){await page.locator('.loading-screen').waitFor({state:'hidden'});await noModal(page)}
-async function notice(page){const dismiss=page.getByRole('button',{name:'Dismiss notification',exact:true});if(await dismiss.isVisible())await dismiss.click()}
+async function notice(page){
+ // Toasts sit behind an active modal scrim. Let the normal dialog flow finish;
+ // never force a background click merely to dismiss transient feedback.
+ if(await page.getByRole('dialog').isVisible())return;
+ const dismiss=page.getByRole('button',{name:'Dismiss notification',exact:true});if(await dismiss.isVisible())await dismiss.click();
+}
 async function workers(page){return page.evaluate(()=>structuredClone(window.__clarityWorkers))}
 async function checkpoint(page,label){
  await noModal(page);const prefix=path.join(out,`${activeCase.id}-${label}`);
  const geometry=await page.evaluate(()=>{
-  const selectors=['.command-sidebar','.resource-shoulder','.selection-tray','.targeting-hint','.defeat-warning','[role="timer"]','.range-mode','.replay-controls','[role="dialog"]'];
+  const selectors=['.command-sidebar','.resource-shoulder','.selection-tray','.targeting-hint','.defeat-warning','[role="timer"]','.range-mode','.audio-captions','.replay-controls','[role="dialog"]'];
   const boxes={};for(const selector of selectors)boxes[selector]=[...document.querySelectorAll(selector)].filter(node=>node.getClientRects().length).map(node=>{
    const b=node.getBoundingClientRect();return {x:b.x,y:b.y,width:b.width,height:b.height,text:node.textContent?.slice(0,400),clientWidth:node.clientWidth,scrollWidth:node.scrollWidth};
   });return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,boxes};
@@ -91,6 +96,9 @@ async function checkpoint(page,label){
  for(const selector of ['.command-sidebar','.resource-shoulder','.selection-tray','.targeting-hint','.defeat-warning','[role="timer"]','[role="dialog"]']){
   for(const b of geometry.boxes[selector])assert(b.x>=-1&&b.y>=-1&&b.x+b.width<=geometry.width+1&&b.y+b.height<=geometry.height+1,`${label}: ${selector} outside viewport ${JSON.stringify(b)}`);
  }
+ const hint=geometry.boxes['.targeting-hint'][0],sidebar=geometry.boxes['.command-sidebar'][0];
+ if(hint&&sidebar)assert(hint.x+hint.width<=sidebar.x,'Target guidance covers command-sidebar controls');
+ for(const caption of geometry.boxes['.audio-captions']??[])if(hint)assert(caption.y+caption.height<=hint.y||caption.y>=hint.y+hint.height||caption.x+caption.width<=hint.x||caption.x>=hint.x+hint.width,'Audio captions cover target guidance');
  await page.screenshot({path:prefix+'.png'});await writeFile(prefix+'.txt',await page.locator('body').innerText());
  activeCase.checkpoints.push({label,geometry,workers:await workers(page)});await flush();
 }
@@ -108,9 +116,14 @@ async function reachable(locator){
 async function menu(page){return page.getByRole('navigation',{name:'Main menu',exact:true})}
 async function importFixture(page,key){
  phase=`import-${key}`;await (await menu(page)).getByRole('button',{name:'Load operation',exact:true}).click();
- const rows=page.locator('.archive-row').filter({has:page.getByText(fixtures[key].name,{exact:true})}),prior=await rows.count();
+ // These two original exports intentionally share a display name. Their real
+ // ruleset labels distinguish them without racing the initial async archive read.
+ const rows=page.locator('.archive-row').filter({has:page.getByText(fixtures[key].name,{exact:true})}).filter({hasText:fixtures[key].metadata.ruleset});
  await page.getByLabel('Import save',{exact:true}).setInputFiles(fixtures[key].importFile);await idle(page);
- await waitFor(async()=>await rows.count()===prior+1,'Imported save did not produce a new archive row');const row=rows.first();
+ await page.locator('.notice').filter({hasText:'Imported as a new local copy. Existing records were preserved.'}).waitFor();
+ await waitFor(async()=>await rows.count()===1,'Imported save did not produce its distinct archive row');
+ if(key==='defeat')assert.equal(await page.locator('.archive-row').filter({has:page.getByText(fixtures.before.name,{exact:true})}).filter({hasText:fixtures.before.metadata.ruleset}).count(),1,'Second import replaced the original practice save');
+ const row=rows.first();
  await row.getByRole('button',{name:'Load',exact:true}).click();await scene(page);await notice(page);
 }
 async function scene(page){
@@ -150,8 +163,12 @@ async function saveReplayCourse(page,baseline){
  const download=await downloadPromise,file=path.join(out,`${activeCase.id}-exported.save.json`);await download.saveAs(file);
  const bytes=await readFile(file),exported=JSON.parse(bytes.toString('utf8'));assert.equal(exported.format,'frontline-local-save');assert.equal(exported.name,name);
  const savedState=JSON.parse(exported.engine).state;
- const buildLog=(savedState.log??[]).filter(batch=>batch.player===1&&batch.orders.some(order=>order.kind==='build'&&order.type==='power'&&order.position.x===8000&&order.position.y===8000));
+ const buildLog=(savedState.log??[]).filter(batch=>batch.player===1&&batch.orders.some(order=>order.kind==='build'&&order.type==='power'));
  assert.equal(buildLog.length,1,'Actual rejected build request must remain in the authoritative saved command log');
+ const rejectedOrder=buildLog[0].orders.find(order=>order.kind==='build'&&order.type==='power');
+ // Browser pointer coordinates round at different UI scales. The saved snapped
+ // center must still lie inside the actual 4x4 occupied HQ, not an exact pixel.
+ assert(Math.abs(rejectedOrder.position.x-8000)<2000&&Math.abs(rejectedOrder.position.y-8000)<2000,'Rejected build click left the occupied HQ footprint');
  assert.equal(savedState.entities.filter(entity=>entity.owner===1&&entity.type==='power').length,fixtures.before.ownPowerCount,'Rejected placement created a power foundation');
  activeCase.exportedSave={bytes:bytes.length,sha256:digest(bytes),hash:exported.hash,rejectedBuildLog:buildLog,ownPowerCount:fixtures.before.ownPowerCount};
  await savedRow.getByRole('button',{name:'Load',exact:true}).click();await scene(page);await notice(page);await checkpoint(page,'reloaded-manual-save');await leave(page,baseline);
@@ -170,10 +187,10 @@ async function clarityCourse(page,baseline){
  await importFixture(page,'before');phase='selection-ranges';await center(page,18000,18000);
  const p=await fieldCenter(page);await page.mouse.move(p.x-85,p.y-125);await page.mouse.down();await page.mouse.move(p.x+85,p.y+35,{steps:8});await page.mouse.up();
  await page.getByRole('heading',{name:'Precision howitzer',exact:true}).waitFor();
- const range=page.getByRole('button',{name:/^Range overlay:/});assert.match(await range.innerText(),/Range: off/);await reachable(range);
+ const range=page.getByRole('button',{name:/^Range overlay:/});assert.match(await range.innerText(),/Range: off/i);await reachable(range);
  await center(page,24000,18000);await checkpoint(page,'last-seen-and-off');activeCase.ranges=[];
  for(const mode of ['weapon','sight','detection','off']){
-  await range.click();await waitFor(async()=>(await range.innerText())===`Range: ${mode}`,`Range button failed to show ${mode}`);
+  await range.click();await waitFor(async()=>(await range.innerText()).toLowerCase()===`range: ${mode}`,`Range button failed to show ${mode}`);
   activeCase.ranges.push({mode,aria:await range.getAttribute('aria-label'),bounds:await reachable(range)});await checkpoint(page,`range-${mode}`);
  }
  phase='placement';const before=(await workers(page)).methods.submit??0;
