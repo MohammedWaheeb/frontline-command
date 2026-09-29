@@ -4,6 +4,9 @@
 // A packaged painted illustration replaces it when the art index lists one;
 // this canvas remains the offline/unpackaged and image-error fallback.
 import {useEffect,useRef,useState} from 'react';
+import {art} from '../render/art';
+import type {AssetReadScope} from '../runtime/asset-read-scope';
+import type {ContentIndex} from '../runtime/content-library';
 
 interface Frame {frame:{x:number;y:number;w:number;h:number};anchor?:{x:number;y:number}}
 interface Atlas {frames:Record<string,Frame>;meta:{image:string}}
@@ -30,16 +33,14 @@ const SCENE:Piece[]=[
  {id:'unit.IR.strike',x:13.5,y:1.5,state:'fly',dir:6,air:1,team:RIVAL},
 ];
 
-/** Each draw owns its temporary atlas images. No module cache may keep whole
- * roster atlas pages alive after the menu has handed control to a battle. */
-function sceneResources(signal:AbortSignal){
- const json=new Map<string,Promise<unknown>>(),images=new Map<string,Promise<HTMLImageElement>>();
- const fetchJSON=<T,>(url:string)=>{signal.throwIfAborted();let p=json.get(url);if(!p){p=fetch(url,{signal}).then(r=>{if(!r.ok)throw Error(url);return r.json()});json.set(url,p)}return p as Promise<T>};
- const image=(url:string)=>{signal.throwIfAborted();let p=images.get(url);if(!p){p=new Promise<HTMLImageElement>((ok,fail)=>{const i=new Image();const clean=()=>{i.onload=i.onerror=null;signal.removeEventListener('abort',cancel)};const cancel=()=>{clean();i.src='';fail(signal.reason)};i.onload=()=>{clean();ok(i)};i.onerror=()=>{clean();fail(Error(url))};signal.addEventListener('abort',cancel,{once:true});i.src=url});images.set(url,p)}return p};
- return {fetchJSON,image,release(){json.clear();images.clear()}};
+/** One draw captures a verified generation; resize/unmount cancels it and
+ * releases its temporary image leases after the final canvas composition. */
+async function sceneResources(signal:AbortSignal){
+ const scope=await art.readScope(signal);
+ return {fetchJSON:scope.json,image:scope.image,assertCurrent:scope.assertCurrent,release:scope.release};
 }
 
-async function frameOf(resources:ReturnType<typeof sceneResources>,base:string,meta:Meta,layer:string,key:string){
+async function frameOf(resources:Awaited<ReturnType<typeof sceneResources>>,base:string,meta:Meta,layer:string,key:string){
  for(const file of meta.atlases['2x']?.[layer]??[]){const atlas=await resources.fetchJSON<Atlas>(base+file);const f=atlas.frames[key];if(f)return {f,img:await resources.image(base+atlas.meta.image)}}
  return undefined;
 }
@@ -51,11 +52,11 @@ function layerCanvas(img:HTMLImageElement,f:Frame,mode:'shadow'|'team'|'beauty',
  return c;
 }
 
-async function draw(canvas:HTMLCanvasElement,signal:AbortSignal,resources:ReturnType<typeof sceneResources>){
+async function draw(canvas:HTMLCanvasElement,signal:AbortSignal,resources:Awaited<ReturnType<typeof sceneResources>>){
  const {fetchJSON,image}=resources;
  const rect=canvas.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1);
  canvas.width=Math.max(1,Math.round(rect.width*dpr));canvas.height=Math.max(1,Math.round(rect.height*dpr));
- const ctx=canvas.getContext('2d');if(!ctx)return;
+ const ctx=canvas.getContext('2d');if(!ctx)return;resources.assertCurrent();
  const index=await fetchJSON<{sprites:Record<string,string>;terrain:string[]}>('/art/index.json');if(signal.aborted)return;
  const W=canvas.width,H=canvas.height,s=Math.min(W/2300,H/1250)*1.0;   // 2× art px → canvas px
  const ox=W*0.56,oy=H*0.06;
@@ -63,7 +64,7 @@ async function draw(canvas:HTMLCanvasElement,signal:AbortSignal,resources:Return
  // Ground: authored terrain materials projected at draw time (512² = 4×4 tiles).
  const mat=async(name:string)=>index.terrain.includes(name)?image(`/art/terrain/${name}.png`).catch(()=>undefined):undefined;
  const [sand,asphalt,slab,scrub]=await Promise.all(['sand','asphalt','concrete_slab','scrub_ground'].map(mat));if(signal.aborted)return;
- ctx.fillStyle='#16140f';ctx.fillRect(0,0,W,H);
+ resources.assertCurrent();ctx.fillStyle='#16140f';ctx.fillRect(0,0,W,H);
  const paint=(img:HTMLImageElement|undefined,fallback:string,x:number,y:number,w:number,h:number)=>{
   ctx.save();ctx.setTransform(64*s,32*s,-64*s,32*s,ox,oy);
   if(img){const p=ctx.createPattern(img,'repeat')!;p.setTransform(new DOMMatrix([1/128,0,0,1/128,0,0]));ctx.fillStyle=p}else ctx.fillStyle=fallback;
@@ -101,7 +102,7 @@ async function draw(canvas:HTMLCanvasElement,signal:AbortSignal,resources:Return
    if(signal.aborted)return;
   }
  }
- for(const d of shadows)d();for(const d of bodies)d();
+ resources.assertCurrent();for(const d of shadows)d();for(const d of bodies)d();
  // Late-afternoon light from the upper right, dust haze and a reading vignette on the left.
  let g=ctx.createRadialGradient(W*.78,H*.1,0,W*.78,H*.1,W*.7);g.addColorStop(0,'rgba(255,196,110,.22)');g.addColorStop(1,'rgba(255,196,110,0)');
  ctx.globalCompositeOperation='soft-light';ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.globalCompositeOperation='source-over';
@@ -112,24 +113,42 @@ async function draw(canvas:HTMLCanvasElement,signal:AbortSignal,resources:Return
 /** Painted main-menu illustration when the installed art index advertises one
  * (`keyArt`, a path under /art/). Absent or failed images keep the authored
  * canvas diorama, so an unpackaged candidate never produces a request or 404. */
-export function MenuDiorama(){
- const [keyArt,setKeyArt]=useState<string|null>();
- useEffect(()=>{const abort=new AbortController();
-  fetch('/art/index.json',{signal:abort.signal}).then(r=>r.ok?r.json():{}).then((index:{keyArt?:unknown})=>setKeyArt(typeof index.keyArt==='string'&&/^ui\/[\w./-]+\.(png|webp|jpg)$/.test(index.keyArt)?`/art/${index.keyArt}`:null)).catch(()=>{if(!abort.signal.aborted)setKeyArt(null)});
-  return()=>abort.abort()},[]);
- if(keyArt===undefined)return null;
- if(keyArt===null)return <CanvasDiorama/>;
- return <div className="menu-keyart" data-key-art={keyArt} aria-hidden="true"><img alt="" src={keyArt} decoding="async" onError={()=>setKeyArt(null)}/></div>;
+export function MenuDiorama({generation}:{generation?:ContentIndex}){
+ const [keyArt,setKeyArt]=useState<{generation:ContentIndex;path:string;image:HTMLImageElement;release:()=>void}|null>();
+ useEffect(()=>{
+  if(!generation)return;
+  const abort=new AbortController();let scope:AssetReadScope|undefined;
+  void(async()=>{try{
+   scope=await art.readScope(abort.signal);
+   const index=await scope.json<{keyArt?:unknown}>('/art/index.json');
+   const path=typeof index.keyArt==='string'&&/^ui\/[\w./-]+\.(png|webp|jpg)$/.test(index.keyArt)?`/art/${index.keyArt}`:undefined;
+   if(!path){scope.release();if(!abort.signal.aborted)setKeyArt(null);return}
+   const image=await scope.image(path);scope.assertCurrent();
+   if(!abort.signal.aborted)setKeyArt({generation,path,image,release:scope.release});
+  }catch{scope?.release();if(!abort.signal.aborted)setKeyArt(null)}})();
+  return()=>{abort.abort();scope?.release()};
+ },[generation]);
+ if(!generation||keyArt===undefined)return null;
+ if(keyArt===null)return <CanvasDiorama generation={generation}/>;
+ if(keyArt.generation!==generation)return null;
+ return <div className="menu-keyart" data-key-art={keyArt.path} aria-hidden="true"><img alt="" src={keyArt.image.src} decoding="async" onError={()=>{keyArt.release();setKeyArt(null)}}/></div>;
 }
 
-function CanvasDiorama(){
+function CanvasDiorama({generation}:{generation:ContentIndex}){
  const canvas=useRef<HTMLCanvasElement>(null);
  useEffect(()=>{
   const node=canvas.current;if(!node)return;let active:AbortController|undefined;
-  const run=()=>{active?.abort();const next=new AbortController();active=next;const resources=sceneResources(next.signal);node.dataset.ready='false';void draw(node,next.signal,resources).then(()=>{if(!next.signal.aborted)node.dataset.ready='true'}).catch(()=>{/* backdrop is decorative; menu stays usable */}).finally(()=>resources.release())};
+  const run=()=>{
+   active?.abort();const next=new AbortController();active=next;node.dataset.ready='false';
+   void(async()=>{let resources:Awaited<ReturnType<typeof sceneResources>>|undefined;
+    try{resources=await sceneResources(next.signal);await draw(node,next.signal,resources);resources.assertCurrent();node.dataset.ready='true'}
+    catch{/* backdrop is decorative; menu stays usable */}
+    finally{resources?.release()}
+   })();
+  };
   run();let timer:ReturnType<typeof setTimeout>|undefined;
   const resize=new ResizeObserver(()=>{clearTimeout(timer);timer=setTimeout(run,150)});resize.observe(node);
   return()=>{active?.abort();clearTimeout(timer);resize.disconnect();node.width=node.height=0};
- },[]);
+ },[generation]);
  return <canvas ref={canvas} className="menu-diorama" aria-hidden="true"/>;
 }

@@ -1,0 +1,59 @@
+{
+  "status": "integrated-checks-passed",
+  "at": "2026-09-29T16:22:39.147084+00:00",
+  "scope": "Exact resource-lifetime/generation correction; composition and artwork unchanged. No Go/gameplay/audio mutation; original strict native diagnostics remain failed.",
+  "sourceLockSHA256": "3d15c19d0a12c6301ba2b6a53078a3b52abf665ebda3e351a9943d68c81c9fbe",
+  "guardedInputs": 251,
+  "changes": [
+    {
+      "path": "client/src/render/art.ts",
+      "before": "2a99fa2e1f0b22d4ee1beb7081b958ccd99ad967ae4f3d8a4db7f1d608718484",
+      "after": "d4a4049fb2d9192fe13fff01f6725c2521dbd6382992cb8e9dfc41cc1822ce7a"
+    },
+    {
+      "path": "client/src/ui/App.tsx",
+      "before": "e2d1e07aa00502eb380cfc4ed8468a8d4cd83a373da8dd72c61799e72faf27b2",
+      "after": "3e843a199ea79f9f6d19fab6f7fb536ac9d338c27b1bddc4970ca235b04aabb7"
+    },
+    {
+      "path": "client/src/ui/MenuDiorama.tsx",
+      "before": "b3d9e33ca26b051ef7b12728063924e44d7f8867a8ddc1bdee8cf2c1b164444c",
+      "after": "bc48bf67e889f5fe17a175fcdf5e9ff94edc60dd9b5ff38d44f54b8505f32c81"
+    },
+    {
+      "path": "client/src/runtime/asset-read-scope.ts",
+      "before": null,
+      "after": "a70e8909f9462c9f55b77a6d9a887cced69f31f418be24b1255d0b1c03163053"
+    },
+    {
+      "path": "client/tests/runtime/asset-read-scope.test.ts",
+      "before": null,
+      "after": "44bd0fa99522ba3054efb21e0c840247ad70a23f02b56e80e1776f27fb1cae53"
+    }
+  ],
+  "native": {
+    "run01": "1e52c6f5a92a84fd5998a62b21c643d2c2cea47db014bc37a73a858d1207629b",
+    "run02": "0600b7c8d1dcd606fc02736a1234ad22dc6ce1fa3ee3dcbbe9344ebe77aef96c",
+    "functionalCases": 9,
+    "strict": "failed",
+    "rawAbortCount": 105
+  },
+  "completed_at": "2026-09-29T16:24:28.285217+00:00",
+  "checks": {
+    "runtime": {
+      "passed": 491,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "bcb67db5b4aae75f686c27bf38fbe07b7c65c23202b70f3baf69cebcaa7b36b9"
+    },
+    "runtimeTypeScript": {
+      "exit": 0,
+      "sha256": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76"
+    },
+    "appTypeScript": {
+      "exit": 0,
+      "sha256": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0"
+    }
+  },
+  "sourceUnchangedAfter": true
+}

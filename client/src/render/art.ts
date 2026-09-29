@@ -1,3 +1,4 @@
+import {assetReadScope,type AssetReadScope} from '../runtime/asset-read-scope';
 import {ImageSource,Rectangle,Texture} from 'pixi.js';
 import {captureAssetGeneration,type AssetGeneration,type AssetGenerationOptions} from '../runtime/asset-generation';
 import {artGenerationInput} from '../runtime/asset-generation-input';
@@ -98,12 +99,20 @@ export class ArtLibrary {
  constructor(private options:ArtLibraryOptions={}){this.generation=options.generation}
  get generationIdentity(){return this.generation?.identity}
  get generationStatistics(){return this.generation?.statistics}
+ /** Capture one operation's metadata and images; never follow a later index. */
+ async readScope(signal?:AbortSignal){
+  const epoch=this.epoch,index=await this.init();
+  if(this.closed||epoch!==this.epoch||index!==this.index)throw new DOMException('Art generation was replaced.','AbortError');
+  const scope=assetReadScope(this.generation!,signal);scope.assertCurrent();
+  this.readers.add(scope);scope.signal.addEventListener('abort',()=>this.readers.delete(scope),{once:true});return scope;
+ }
  readonly fetch:typeof fetch=async(input,init)=>{
   await this.init();const request=input instanceof Request?input:undefined,url=new URL(request?.url??String(input),this.options.origin??location.origin),method=init?.method??request?.method??'GET';
   if(method!=='GET'||url.origin!==new URL(this.options.origin??location.origin).origin||url.search||url.hash||url.username||url.password)throw Error('Only a declared same-origin asset GET is allowed.');
   const bytes=await this.generation!.read(url.pathname,init?.signal??request?.signal??undefined),type=url.pathname.endsWith('.png')?'image/png':url.pathname.endsWith('.json')?'application/json':'application/octet-stream';
   return new Response(new Uint8Array(bytes).buffer,{status:200,headers:{'Content-Type':type,'Content-Length':String(bytes.length)}});
  };
+ private readers=new Set<AssetReadScope>();
  private sheets=new Map<string,Promise<SpriteSheet|undefined>>();
  private images=new Map<string,Promise<HTMLImageElement>>();
  private cameos=new Map<string,Promise<string|undefined>>();
@@ -141,7 +150,7 @@ export class ArtLibrary {
    const previous=this.generation;this.epoch++;this.clearImages();this.generation=next;this.index=index;this.initialization=Promise.resolve(index);previous?.dispose();result=index;
   });this.binding=work.catch(()=>{});return work.then(()=>result);
  }
- private clearImages(){const images=this.images;this.images=new Map();this.cameos.clear();for(const image of images.values())void image.then(value=>{value.src=''}).catch(()=>{})}
+ private clearImages(){for(const scope of this.readers)scope.release();this.readers.clear();const images=this.images;this.images=new Map();this.cameos.clear();for(const image of images.values())void image.then(value=>{value.src=''}).catch(()=>{})}
  private async page(path:string,signal:AbortSignal,generation:AssetGeneration):Promise<OwnedPage>{
   const bytes=await generation.read(path,signal);signal.throwIfAborted();const bitmap=await createImageBitmap(new Blob([new Uint8Array(bytes).buffer],{type:'image/png'}));
   if(signal.aborted||generation.statistics.disposed){bitmap.close();throw new DOMException('Sprite loading was canceled.','AbortError')}

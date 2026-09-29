@@ -110,3 +110,7 @@ and lifecycle requirements; existing Go rules and art files stay unchanged.
 No browser or implementation is authorized by this document itself. Each
 accepted slice needs its own frozen source and evidence. Existing raw request
 diagnostics remain independently classified or unproven; none are waived here.
+
+## Menu correction integrated — 29September16:23UTC
+
+`work/menu-generation-integration-v1/README.md` records the exact five-file menu consumer correction,251 source guards,491 live runtime tests/both TypeScript checks, and native unchanged/changed-generation pixel and lifecycle evidence. The decorative menu now uses the verified generation rather than bare atlas fetches and HTML image URLs. Its authored composition is unchanged. Original strict browser diagnostics remain failed; other raw presentation consumers and final complete-package acceptance are not relabeled.
