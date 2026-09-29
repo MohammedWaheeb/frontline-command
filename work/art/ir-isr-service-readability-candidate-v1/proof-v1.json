@@ -1,0 +1,861 @@
+{
+  "scope": "Evaluated source proof only. Existing geometry/transforms/materials/visibility/hardpoints exact; new neutral service rig allowed only in IR ISR rearm. No pixel equality or native acceptance inferred.",
+  "candidate_sha256": "e14295d479430fd7e97510c516ffeab22dda6a645a295507fe5fea477a6f09d0",
+  "before_sha256": "a8207dddec57da229ba8c2d9b09d4d8e4b6498ae0aeb4325617444675abcb50a",
+  "helper_sha256": "80f7fa0bcf9690a46dc0a4131852ad94edbf4fa7f72de0372eeaaacf15dd95d6",
+  "material_helper_sha256": "0139a172a97ff00e0720a5ec8936c7954f2de2b3199e165dc8333c015545c2ce",
+  "assets": [
+    {
+      "id": "unit.IR.fighter",
+      "spec_sha256": "4f7adc5db474ac642fd5f2a9be3dd72c31824254aa2f4baf9d1a421ab04f8570",
+      "poses": 832,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "62541bd1fceb60273e8e935778f31072a2bae9b92da96e1cbc3c24c7d58dd554",
+      "candidate_pose_sha256": "62541bd1fceb60273e8e935778f31072a2bae9b92da96e1cbc3c24c7d58dd554",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.IR.gunship",
+      "spec_sha256": "2e37940975c856341cf9f7c9e7b9a6db2a6a893dc09de066c3c7770eff2a82f8",
+      "poses": 832,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "b10f26f3c264ba98a3ed8c693b0ffeeb1db4c5d26610ebd82a5228a305c19fde",
+      "candidate_pose_sha256": "b10f26f3c264ba98a3ed8c693b0ffeeb1db4c5d26610ebd82a5228a305c19fde",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.IR.isr",
+      "spec_sha256": "4fa5b5d5df80fc3f8b4c630d057166a3572d3e554e3bb8445986e97fd42eb79b",
+      "poses": 512,
+      "changed_keys": [
+        "rearm/d00_f00",
+        "rearm/d00_f01",
+        "rearm/d00_f02",
+        "rearm/d00_f03",
+        "rearm/d00_f04",
+        "rearm/d00_f05",
+        "rearm/d01_f00",
+        "rearm/d01_f01",
+        "rearm/d01_f02",
+        "rearm/d01_f03",
+        "rearm/d01_f04",
+        "rearm/d01_f05",
+        "rearm/d02_f00",
+        "rearm/d02_f01",
+        "rearm/d02_f02",
+        "rearm/d02_f03",
+        "rearm/d02_f04",
+        "rearm/d02_f05",
+        "rearm/d03_f00",
+        "rearm/d03_f01",
+        "rearm/d03_f02",
+        "rearm/d03_f03",
+        "rearm/d03_f04",
+        "rearm/d03_f05",
+        "rearm/d04_f00",
+        "rearm/d04_f01",
+        "rearm/d04_f02",
+        "rearm/d04_f03",
+        "rearm/d04_f04",
+        "rearm/d04_f05",
+        "rearm/d05_f00",
+        "rearm/d05_f01",
+        "rearm/d05_f02",
+        "rearm/d05_f03",
+        "rearm/d05_f04",
+        "rearm/d05_f05",
+        "rearm/d06_f00",
+        "rearm/d06_f01",
+        "rearm/d06_f02",
+        "rearm/d06_f03",
+        "rearm/d06_f04",
+        "rearm/d06_f05",
+        "rearm/d07_f00",
+        "rearm/d07_f01",
+        "rearm/d07_f02",
+        "rearm/d07_f03",
+        "rearm/d07_f04",
+        "rearm/d07_f05",
+        "rearm/d08_f00",
+        "rearm/d08_f01",
+        "rearm/d08_f02",
+        "rearm/d08_f03",
+        "rearm/d08_f04",
+        "rearm/d08_f05",
+        "rearm/d09_f00",
+        "rearm/d09_f01",
+        "rearm/d09_f02",
+        "rearm/d09_f03",
+        "rearm/d09_f04",
+        "rearm/d09_f05",
+        "rearm/d10_f00",
+        "rearm/d10_f01",
+        "rearm/d10_f02",
+        "rearm/d10_f03",
+        "rearm/d10_f04",
+        "rearm/d10_f05",
+        "rearm/d11_f00",
+        "rearm/d11_f01",
+        "rearm/d11_f02",
+        "rearm/d11_f03",
+        "rearm/d11_f04",
+        "rearm/d11_f05",
+        "rearm/d12_f00",
+        "rearm/d12_f01",
+        "rearm/d12_f02",
+        "rearm/d12_f03",
+        "rearm/d12_f04",
+        "rearm/d12_f05",
+        "rearm/d13_f00",
+        "rearm/d13_f01",
+        "rearm/d13_f02",
+        "rearm/d13_f03",
+        "rearm/d13_f04",
+        "rearm/d13_f05",
+        "rearm/d14_f00",
+        "rearm/d14_f01",
+        "rearm/d14_f02",
+        "rearm/d14_f03",
+        "rearm/d14_f04",
+        "rearm/d14_f05",
+        "rearm/d15_f00",
+        "rearm/d15_f01",
+        "rearm/d15_f02",
+        "rearm/d15_f03",
+        "rearm/d15_f04",
+        "rearm/d15_f05"
+      ],
+      "added_objects": [
+        "armed_service_arm",
+        "armed_service_case",
+        "armed_service_fixture",
+        "armed_service_foot_-1",
+        "armed_service_foot_1",
+        "armed_service_head",
+        "armed_service_light",
+        "armed_service_link",
+        "armed_service_mast",
+        "armed_service_shade"
+      ],
+      "before_pose_sha256": "d143258fda99658e616c464e473b74a37c28bdbbe280d0372c644614f438d422",
+      "candidate_pose_sha256": "d329f4b8e33d6a17d47663a35913a6b3ce1c3e2fd84cda4948d2dafb3215e49d",
+      "bounds": {
+        "rearm/d00_f00": [
+          138.9,
+          168.1,
+          304.6,
+          266.2
+        ],
+        "rearm/d00_f01": [
+          138.9,
+          168.1,
+          304.6,
+          266.2
+        ],
+        "rearm/d00_f02": [
+          138.9,
+          168.1,
+          304.6,
+          266.2
+        ],
+        "rearm/d00_f03": [
+          138.9,
+          168.1,
+          304.6,
+          266.2
+        ],
+        "rearm/d00_f04": [
+          138.9,
+          168.1,
+          304.6,
+          266.2
+        ],
+        "rearm/d00_f05": [
+          138.9,
+          168.1,
+          304.6,
+          266.2
+        ],
+        "rearm/d01_f00": [
+          122.2,
+          169.7,
+          323.4,
+          263.5
+        ],
+        "rearm/d01_f01": [
+          122.2,
+          169.7,
+          323.4,
+          263.5
+        ],
+        "rearm/d01_f02": [
+          122.2,
+          169.7,
+          323.4,
+          263.5
+        ],
+        "rearm/d01_f03": [
+          122.2,
+          169.7,
+          323.4,
+          263.5
+        ],
+        "rearm/d01_f04": [
+          122.2,
+          169.7,
+          323.4,
+          263.5
+        ],
+        "rearm/d01_f05": [
+          122.2,
+          169.7,
+          323.4,
+          263.5
+        ],
+        "rearm/d02_f00": [
+          120.9,
+          169.9,
+          327.1,
+          255.8
+        ],
+        "rearm/d02_f01": [
+          120.9,
+          169.9,
+          327.1,
+          255.8
+        ],
+        "rearm/d02_f02": [
+          120.9,
+          169.9,
+          327.1,
+          255.8
+        ],
+        "rearm/d02_f03": [
+          120.9,
+          169.9,
+          327.1,
+          255.8
+        ],
+        "rearm/d02_f04": [
+          120.9,
+          169.9,
+          327.1,
+          255.8
+        ],
+        "rearm/d02_f05": [
+          120.9,
+          169.9,
+          327.1,
+          255.8
+        ],
+        "rearm/d03_f00": [
+          124.6,
+          169.7,
+          325.8,
+          248.6
+        ],
+        "rearm/d03_f01": [
+          124.6,
+          169.7,
+          325.8,
+          248.6
+        ],
+        "rearm/d03_f02": [
+          124.6,
+          169.7,
+          325.8,
+          248.6
+        ],
+        "rearm/d03_f03": [
+          124.6,
+          169.7,
+          325.8,
+          248.6
+        ],
+        "rearm/d03_f04": [
+          124.6,
+          169.7,
+          325.8,
+          248.6
+        ],
+        "rearm/d03_f05": [
+          124.6,
+          169.7,
+          325.8,
+          248.6
+        ],
+        "rearm/d04_f00": [
+          143.4,
+          168.1,
+          309.1,
+          252.7
+        ],
+        "rearm/d04_f01": [
+          143.4,
+          168.1,
+          309.1,
+          252.7
+        ],
+        "rearm/d04_f02": [
+          143.4,
+          168.1,
+          309.1,
+          252.7
+        ],
+        "rearm/d04_f03": [
+          143.4,
+          168.1,
+          309.1,
+          252.7
+        ],
+        "rearm/d04_f04": [
+          143.4,
+          168.1,
+          309.1,
+          252.7
+        ],
+        "rearm/d04_f05": [
+          143.4,
+          168.1,
+          309.1,
+          252.7
+        ],
+        "rearm/d05_f00": [
+          159.6,
+          159.7,
+          298.9,
+          262.1
+        ],
+        "rearm/d05_f01": [
+          159.6,
+          159.7,
+          298.9,
+          262.1
+        ],
+        "rearm/d05_f02": [
+          159.6,
+          159.7,
+          298.9,
+          262.1
+        ],
+        "rearm/d05_f03": [
+          159.6,
+          159.7,
+          298.9,
+          262.1
+        ],
+        "rearm/d05_f04": [
+          159.6,
+          159.7,
+          298.9,
+          262.1
+        ],
+        "rearm/d05_f05": [
+          159.6,
+          159.7,
+          298.9,
+          262.1
+        ],
+        "rearm/d06_f00": [
+          165.5,
+          159.1,
+          298.1,
+          264.0
+        ],
+        "rearm/d06_f01": [
+          165.5,
+          159.1,
+          298.1,
+          264.0
+        ],
+        "rearm/d06_f02": [
+          165.5,
+          159.1,
+          298.1,
+          264.0
+        ],
+        "rearm/d06_f03": [
+          165.5,
+          159.1,
+          298.1,
+          264.0
+        ],
+        "rearm/d06_f04": [
+          165.5,
+          159.1,
+          298.1,
+          264.0
+        ],
+        "rearm/d06_f05": [
+          165.5,
+          159.1,
+          298.1,
+          264.0
+        ],
+        "rearm/d07_f00": [
+          166.9,
+          160.9,
+          298.9,
+          263.3
+        ],
+        "rearm/d07_f01": [
+          166.9,
+          160.9,
+          298.9,
+          263.3
+        ],
+        "rearm/d07_f02": [
+          166.9,
+          160.9,
+          298.9,
+          263.3
+        ],
+        "rearm/d07_f03": [
+          166.9,
+          160.9,
+          298.9,
+          263.3
+        ],
+        "rearm/d07_f04": [
+          166.9,
+          160.9,
+          298.9,
+          263.3
+        ],
+        "rearm/d07_f05": [
+          166.9,
+          160.9,
+          298.9,
+          263.3
+        ],
+        "rearm/d08_f00": [
+          143.4,
+          170.3,
+          309.1,
+          254.9
+        ],
+        "rearm/d08_f01": [
+          143.4,
+          170.2,
+          309.1,
+          254.9
+        ],
+        "rearm/d08_f02": [
+          143.4,
+          170.3,
+          309.1,
+          254.9
+        ],
+        "rearm/d08_f03": [
+          143.4,
+          170.3,
+          309.1,
+          254.9
+        ],
+        "rearm/d08_f04": [
+          143.4,
+          170.3,
+          309.1,
+          254.9
+        ],
+        "rearm/d08_f05": [
+          143.4,
+          170.3,
+          309.1,
+          254.9
+        ],
+        "rearm/d09_f00": [
+          124.6,
+          176.7,
+          325.8,
+          254.2
+        ],
+        "rearm/d09_f01": [
+          124.6,
+          174.4,
+          325.8,
+          254.2
+        ],
+        "rearm/d09_f02": [
+          124.6,
+          175.8,
+          325.8,
+          254.2
+        ],
+        "rearm/d09_f03": [
+          124.6,
+          176.9,
+          325.8,
+          254.2
+        ],
+        "rearm/d09_f04": [
+          124.6,
+          176.7,
+          325.8,
+          254.2
+        ],
+        "rearm/d09_f05": [
+          124.6,
+          176.6,
+          325.8,
+          254.2
+        ],
+        "rearm/d10_f00": [
+          120.9,
+          179.2,
+          327.1,
+          255.6
+        ],
+        "rearm/d10_f01": [
+          120.9,
+          179.2,
+          327.1,
+          255.6
+        ],
+        "rearm/d10_f02": [
+          120.9,
+          179.2,
+          327.1,
+          255.6
+        ],
+        "rearm/d10_f03": [
+          120.9,
+          179.2,
+          327.1,
+          255.6
+        ],
+        "rearm/d10_f04": [
+          120.9,
+          179.2,
+          327.1,
+          255.6
+        ],
+        "rearm/d10_f05": [
+          120.9,
+          179.2,
+          327.1,
+          255.6
+        ],
+        "rearm/d11_f00": [
+          122.2,
+          180.0,
+          323.4,
+          254.2
+        ],
+        "rearm/d11_f01": [
+          122.2,
+          180.0,
+          323.4,
+          254.2
+        ],
+        "rearm/d11_f02": [
+          122.2,
+          180.0,
+          323.4,
+          254.2
+        ],
+        "rearm/d11_f03": [
+          122.2,
+          180.0,
+          323.4,
+          254.2
+        ],
+        "rearm/d11_f04": [
+          122.2,
+          180.0,
+          323.4,
+          254.2
+        ],
+        "rearm/d11_f05": [
+          122.2,
+          180.0,
+          323.4,
+          254.2
+        ],
+        "rearm/d12_f00": [
+          138.9,
+          170.3,
+          304.6,
+          254.9
+        ],
+        "rearm/d12_f01": [
+          138.9,
+          170.3,
+          304.6,
+          254.9
+        ],
+        "rearm/d12_f02": [
+          138.9,
+          170.3,
+          304.6,
+          254.9
+        ],
+        "rearm/d12_f03": [
+          138.9,
+          170.3,
+          304.6,
+          254.9
+        ],
+        "rearm/d12_f04": [
+          138.9,
+          170.3,
+          304.6,
+          254.9
+        ],
+        "rearm/d12_f05": [
+          138.9,
+          170.3,
+          304.6,
+          254.9
+        ],
+        "rearm/d13_f00": [
+          149.1,
+          160.9,
+          288.4,
+          263.3
+        ],
+        "rearm/d13_f01": [
+          149.1,
+          160.9,
+          288.4,
+          263.3
+        ],
+        "rearm/d13_f02": [
+          149.1,
+          160.9,
+          288.4,
+          263.3
+        ],
+        "rearm/d13_f03": [
+          149.1,
+          160.9,
+          288.4,
+          263.3
+        ],
+        "rearm/d13_f04": [
+          149.1,
+          160.9,
+          288.4,
+          263.3
+        ],
+        "rearm/d13_f05": [
+          149.1,
+          160.9,
+          288.4,
+          263.3
+        ],
+        "rearm/d14_f00": [
+          149.9,
+          159.1,
+          282.5,
+          264.0
+        ],
+        "rearm/d14_f01": [
+          149.9,
+          159.1,
+          282.5,
+          264.0
+        ],
+        "rearm/d14_f02": [
+          149.9,
+          159.1,
+          282.5,
+          264.0
+        ],
+        "rearm/d14_f03": [
+          149.9,
+          159.1,
+          282.5,
+          264.0
+        ],
+        "rearm/d14_f04": [
+          149.9,
+          159.1,
+          282.5,
+          264.0
+        ],
+        "rearm/d14_f05": [
+          149.9,
+          159.1,
+          282.5,
+          264.0
+        ],
+        "rearm/d15_f00": [
+          149.1,
+          159.7,
+          281.1,
+          263.6
+        ],
+        "rearm/d15_f01": [
+          149.1,
+          159.7,
+          281.1,
+          263.6
+        ],
+        "rearm/d15_f02": [
+          149.1,
+          159.7,
+          281.1,
+          263.6
+        ],
+        "rearm/d15_f03": [
+          149.1,
+          159.7,
+          281.1,
+          263.6
+        ],
+        "rearm/d15_f04": [
+          149.1,
+          159.7,
+          281.1,
+          263.6
+        ],
+        "rearm/d15_f05": [
+          149.1,
+          159.7,
+          281.1,
+          263.6
+        ]
+      },
+      "contacts": {
+        "rearm/d00_f00": {
+          "surface_crossings": [],
+          "pairs": 189,
+          "scope": "Surface intersections, not a generic solid-containment proof."
+        },
+        "rearm/d00_f01": {
+          "surface_crossings": [],
+          "pairs": 189,
+          "scope": "Surface intersections, not a generic solid-containment proof."
+        },
+        "rearm/d00_f02": {
+          "surface_crossings": [],
+          "pairs": 189,
+          "scope": "Surface intersections, not a generic solid-containment proof."
+        },
+        "rearm/d00_f03": {
+          "surface_crossings": [],
+          "pairs": 189,
+          "scope": "Surface intersections, not a generic solid-containment proof."
+        },
+        "rearm/d00_f04": {
+          "surface_crossings": [],
+          "pairs": 189,
+          "scope": "Surface intersections, not a generic solid-containment proof."
+        },
+        "rearm/d00_f05": {
+          "surface_crossings": [],
+          "pairs": 189,
+          "scope": "Surface intersections, not a generic solid-containment proof."
+        }
+      },
+      "ui_exact": true
+    },
+    {
+      "id": "unit.SA.fighter",
+      "spec_sha256": "f1a1ef446fff64574f8003cc13a04d7504a337f01926a42da772444e2918d8fe",
+      "poses": 896,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "5ab156c12e0c44686145cdfd1c2f14d655bb95fda9bec8d6cd03d941ae77a7a7",
+      "candidate_pose_sha256": "5ab156c12e0c44686145cdfd1c2f14d655bb95fda9bec8d6cd03d941ae77a7a7",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.SA.gunship",
+      "spec_sha256": "fb06fb1050d0b21e75ef1fd1e73f131d0149138405f183bfb796671ba0beacf7",
+      "poses": 1120,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "590e813b0fe03814f29efc0b0ff1cb3044b1edff8caefdf6bc9c8147d39fc2f4",
+      "candidate_pose_sha256": "590e813b0fe03814f29efc0b0ff1cb3044b1edff8caefdf6bc9c8147d39fc2f4",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.SA.strike",
+      "spec_sha256": "af11c182e0a6567fab294707d6da0954ed13dc93a46bf5f4844641ce92b772b1",
+      "poses": 896,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "19cd784b8352de430822cf1e2d90ce4593aed36ee48f74b8aa562e04d6a877d3",
+      "candidate_pose_sha256": "19cd784b8352de430822cf1e2d90ce4593aed36ee48f74b8aa562e04d6a877d3",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.SY.scout_drone",
+      "spec_sha256": "175558ff40478c5ab3914b108411fedd1111ec4e6c01e2e69b45b7493fb7a8b1",
+      "poses": 464,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "70db3178a8484ae47c6847f1d4e0aae37b5eb8505642c190c57a4c932319104c",
+      "candidate_pose_sha256": "70db3178a8484ae47c6847f1d4e0aae37b5eb8505642c190c57a4c932319104c",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.US.airlift",
+      "spec_sha256": "a44d80df806fe365b6d304c93adb369456d161ecdc1d4616ec25c88c4f325037",
+      "poses": 656,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "6921548c4a505ea10f39796befcbb85242b277e9b32146f746bd0910267cc41b",
+      "candidate_pose_sha256": "6921548c4a505ea10f39796befcbb85242b277e9b32146f746bd0910267cc41b",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.US.fighter",
+      "spec_sha256": "eb7b6b74d8ac49eb54fd520891e27171f60086c8fa2db9ef3df65359080777e6",
+      "poses": 896,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "39aa343d24caf1530304e930636fba1f770e20daf6ce4ec04f1676b5f8509e64",
+      "candidate_pose_sha256": "39aa343d24caf1530304e930636fba1f770e20daf6ce4ec04f1676b5f8509e64",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.US.gunship",
+      "spec_sha256": "4056e1d6c4480ede97cdbe39e04ff0ebefc858bbe2369854b985a14a741bc87d",
+      "poses": 1120,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "197175f1717a222aacbca0dd74501e421196a0f102641d912c6b5e404f95ca6e",
+      "candidate_pose_sha256": "197175f1717a222aacbca0dd74501e421196a0f102641d912c6b5e404f95ca6e",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    },
+    {
+      "id": "unit.US.strike",
+      "spec_sha256": "bd205fb630a672ef9665d9bf15630e1a48fdd48ac2a1644404074ad5b59bd44c",
+      "poses": 896,
+      "changed_keys": [],
+      "added_objects": [],
+      "before_pose_sha256": "e9e7c1bfc4d8c5808b5dd56558a50956fb2b12d26bda97350cb450d7f02bb035",
+      "candidate_pose_sha256": "e9e7c1bfc4d8c5808b5dd56558a50956fb2b12d26bda97350cb450d7f02bb035",
+      "bounds": {},
+      "contacts": {},
+      "ui_exact": true
+    }
+  ],
+  "failures": 0,
+  "unchanged_poses": 9024,
+  "changed_poses": 96,
+  "reverse_resets": 9120
+}

@@ -1,0 +1,58 @@
+{
+  "id": "unit.SY.scout_drone",
+  "accepted": true,
+  "scope": "Completed frozen export accepted for isolated diagnostic integration only. No final gameplay camera, lifecycle, renderer or GPU residency acceptance.",
+  "reviewer": "Codex mission_runtime",
+  "reviewed_at_utc": "2026-09-29T20:00:31.570719+00:00",
+  "direct_native_review": {
+    "world_pages": 18,
+    "ui_pages": 1,
+    "sampling": "Every heading first frame and every remaining frame at heading3 across all9 states. Numerical/pixel checks cover464 poses; not all464 manually inspected.",
+    "files": {
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/bank_left-01@1x.png": "92729b2ad9c31d4261fbdcd33d87188be782b0b873f91fb725f8209e6b76be98",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/bank_left-02@1x.png": "629a7ecc151ef9118a673c1f99b9135af18633803205ded2934568e1b630470b",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/bank_right-01@1x.png": "334c456c97c4291d381c4da44c78653a0b92201867d638b722b504a19c374ef5",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/bank_right-02@1x.png": "5e5033e02793f3daea0488525b832de60ae7a250ad7382e718027f0f568a3b2e",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/crash-01@1x.png": "322f54f54cc18d9c6af636a485f3457faf0c3935bfc7b65b42dd51f530a713fd",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/crash-02@1x.png": "9e311413e59a542649c5555b3a94700651612295a54cda381aece46998f25e01",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/damaged-01@1x.png": "07374cfd3cc0066e652c0179c347c32843fdf0a7a33da39460b2971c450a2ed3",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/damaged-02@1x.png": "ca7e1d5eebcb70355ef1944972c7b1108e821a8c0757b43700834cf3eb82c4c0",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/fly-01@1x.png": "a7aad0d2e7cf23c5c6b3f8578dd330016dac175bc84dad24ce2b043aebe2610c",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/fly-02@1x.png": "c17e209d602a750b44186087269998a3c7baef1b361c7b02e03568e0c7f7f2db",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/launch-01@1x.png": "3a97d2db067580a21f5c6fd0068ad3c0ad41b54580fa94c9ae5ef3c2eec15f38",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/launch-02@1x.png": "fdfa8456cf77ac17393f54fc5141c97947ebce13a55d4a31269da5f1c20025a5",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/parked-01@1x.png": "7d6568d5778afeda0eb7b3d413a02736b011e22821dcc6e4893fa1813d915cb3",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/parked-02@1x.png": "87930dc56c7af2624a1f2a1dd1093b0d393644a90a7feace6ad8d5cbcf2fb98d",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/rearm-01@1x.png": "ab4dac2e8c9ea19f372958602156af76c908cf1366503439b9a1f77fe2a319cc",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/rearm-02@1x.png": "1ae30a02c7b09654ba5bc3ce89bc4662dbf804d0888c7b5b5c340c5b42a4dac0",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/recover-01@1x.png": "699a71497a45ccfba3887395b34bb33478e49d68a0e559a1dc780a7fa20abd2b",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/recover-02@1x.png": "3b1fe540b520068c44e7518f19de4abe002f472c2520f8d31353c325a1113b38",
+      "work/art/aircraft-final-production-v3/contacts/unit.SY.scout_drone/ui-contact@1x-2x.png": "af488c631170055566726bff3481deea4339eadc8bb45b81c72421c27ffb9a7f"
+    }
+  },
+  "observations": [
+    "Compact four-rotor silhouette, camera pod and landing legs remain legible across the sampled headings. No apparent edge clipping, stray detached fittings or team-mask holes.",
+    "Small warm team strips remain visible through rotor discs and in both UI scales.",
+    "Banking directions and dark progressive crash tilt distinguish these states; central service cover opening is visible in the heading3 sequence."
+  ],
+  "limitations": [
+    "Damage, launch/recover and service-cover differences remain modest at native1x; the compact scout depends on its role silhouette and runtime status cues.",
+    "Native sheets do not establish actual altitude, phase timing, owner/foreign service privacy or interrupted save/replay behavior.",
+    "Atlas inventory is not measured GPU residency; current-state and transition cache tests remain separate."
+  ],
+  "checks": {
+    "world": {
+      "path": "work/art/aircraft-final-production-v3/check-unit.SY.scout_drone.json",
+      "sha256": "5d8c17ab73f55bc432d8752fe47c37724e79fd8c497ed4e553c6a9b8cf1d4061",
+      "checks": 23,
+      "failures": 0
+    },
+    "ui": {
+      "path": "work/art/aircraft-final-production-v3/ui-check-unit.SY.scout_drone.json",
+      "sha256": "514559302ecbf5948ad3d520d90ae93dba8b730526875249858a7d2e82ae263c",
+      "checks": 20,
+      "failures": 0
+    }
+  },
+  "parent_full_export_authorization": "Already-approved unchanged aircraft family; per-asset integrity/native review retained. No live publication."
+}
