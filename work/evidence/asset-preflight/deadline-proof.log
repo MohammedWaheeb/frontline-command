@@ -1,0 +1,24 @@
+{
+  "scope": "Original and corrected production prepareBattleAssets, deterministic deadline scheduler and test response/image oracle. This proves source-level late abort cleanup, not the cause/classification of any prior browser ERR_ABORTED.",
+  "helperSHA256": "efeca0f385cbc56d7ccc42ed7f963ce79b945f3fa316ff75ce814461fa024a8f",
+  "results": [
+    {
+      "label": "before",
+      "sourceSHA256": "90bbc30cead2a43444cb430165ede5d58b8872b600f4cc43aae3afaeac4f08eb",
+      "requests": 4,
+      "verifiedFiles": 3,
+      "deadlinesRemainingAfterEOF": 4,
+      "abortedAfterDeadline": 4,
+      "abortedAfterParent": 4
+    },
+    {
+      "label": "after",
+      "sourceSHA256": "9c0d3f3e9b684fd1b713a5f561485be78f27ebfef8375e268362d0c0094539b5",
+      "requests": 3,
+      "verifiedFiles": 3,
+      "deadlinesRemainingAfterEOF": 0,
+      "abortedAfterDeadline": 0,
+      "abortedAfterParent": 0
+    }
+  ]
+}

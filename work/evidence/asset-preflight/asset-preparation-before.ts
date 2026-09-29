@@ -1,0 +1,23 @@
+import type {GameMap} from '../runtime';
+import type {CatalogIndex} from '../content/catalog';
+import type {ArtLibrary,SpriteMeta} from '../render/art';
+import {materialFor} from '../render/terrain';
+export interface AssetPreparation {files:number;fallbacks:string[]}
+const safePath=(path:string)=>typeof path==='string'&&path.length<240&&!path.startsWith('/')&&!path.includes('..')&&!/[\\?#%]/.test(path)&&/^[A-Za-z0-9_./@-]+$/.test(path);
+/** Preflight actual files without retaining every faction atlas in GPU memory. */
+export async function prepareBattleAssets(map:GameMap,slots:readonly {faction:string}[],catalog:CatalogIndex,art:ArtLibrary,onProgress?:(label:string)=>void,signal?:AbortSignal,environmentAssets:readonly string[]=[]):Promise<AssetPreparation>{
+ signal?.throwIfAborted();const index=await art.init(),factions=[...new Set(slots.map(slot=>slot.faction))],sheets=new Set<string>(),fallbacks=new Set<string>(),files=new Set<string>();
+ const resolve=(type:string,faction?:string)=>{const choice=art.resolve(type,faction,catalog);if(choice)sheets.add(choice.id);if(!choice||choice.standIn)fallbacks.add(`${faction??'neutral'}:${type}`)};
+ for(const faction of factions){for(const unit of catalog.units.values())if(unit.faction===faction)resolve(unit.id,faction);for(const building of catalog.buildings.values())if(!building.faction||building.faction===faction)resolve(building.id,faction)}
+ resolve('map.supply_field');resolve('map.central_shipment_site');for(const object of map.objects??[])resolve(`map.${object.class}`);if(map.stations?.length)resolve('map.energy_station');
+ for(const id of environmentAssets){if(index.sprites[id])sheets.add(id);else fallbacks.add(id)}
+ let totalBytes=0;const fetchFile=async(url:string,limit:number)=>{signal?.throwIfAborted();if(files.size>=4096)throw Error('The battlefield asset list exceeds its supported size.');const response=await fetch(url,{cache:'force-cache',credentials:'same-origin',redirect:'error',signal:signal?AbortSignal.any([signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)});if(!response.ok||!response.body)throw Error(`Battlefield asset failed to load: ${url}`);const reader=response.body.getReader(),chunks:Uint8Array<ArrayBuffer>[]=[];let size=0;try{for(;;){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;totalBytes+=value.byteLength;if(size>limit||totalBytes>2*1024*1024*1024){await reader.cancel();throw Error(`Battlefield asset exceeds its supported size: ${url}`)}chunks.push(value.slice())}}finally{reader.releaseLock()}if(!size)throw Error(`Battlefield asset is empty: ${url}`);files.add(url);return new Blob(chunks,{type:response.headers.get('content-type')??''})};
+ const json=async(url:string)=>{const blob=await fetchFile(url,8*1024*1024);try{return JSON.parse(await blob.text())}catch{throw Error(`Battlefield asset metadata is invalid: ${url}`)}};
+ const images=new Set<string>();
+ let model=0;for(const id of sheets){onProgress?.(`Preparing model files ${++model} / ${sheets.size}`);const path=index.sprites[id];if(!safePath(path))throw Error(`Invalid battlefield asset path: ${id}`);const base=`/art/${path.slice(0,path.lastIndexOf('/')+1)}`,meta=await json(`/art/${path}`) as SpriteMeta;
+  for(const scale of new Set([art.scale,'2x'] as const)){const layers=meta.atlases?.[scale]??meta.atlases?.['1x'];if(!layers||typeof layers!=='object'||Object.keys(layers).length>16)throw Error(`Missing battlefield atlas: ${id}`);for(const names of Object.values(layers)){if(!Array.isArray(names)||names.length>256)throw Error(`Invalid battlefield atlas: ${id}`);for(const name of names){if(!safePath(name))throw Error(`Invalid battlefield atlas path: ${id}`);const atlas=await json(base+name);if(!safePath(atlas.meta?.image)||!atlas.frames||typeof atlas.frames!=='object')throw Error(`Invalid battlefield atlas image: ${id}`);images.add(base+atlas.meta.image)}}}
+ }
+ const terrain=new Set<string>();for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++)terrain.add(materialFor(map,x,y));for(const material of terrain)if(index.terrain.includes(material))images.add(`/art/terrain/${material}.png`);else fallbacks.add(`terrain:${material}`);
+ const queue=[...images];let complete=0;onProgress?.(`Preparing battlefield images 0 / ${images.size}`);await Promise.all(Array.from({length:Math.min(1,queue.length)},async()=>{for(;;){const url=queue.pop();if(!url)return;const blob=await fetchFile(url,64*1024*1024);try{const bitmap=await createImageBitmap(blob);bitmap.close();signal?.throwIfAborted();onProgress?.(`Preparing battlefield images ${++complete} / ${images.size}`)}catch{throw Error(`Battlefield image could not be decoded: ${url}`)}}}));
+ return {files:files.size,fallbacks:[...fallbacks].sort()};
+}

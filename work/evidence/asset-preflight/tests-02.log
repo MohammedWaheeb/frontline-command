@@ -1,0 +1,28 @@
+✔ standard verifies selected world pages plus actual 2x portrait/build pairs, without unused 2x world pages (14.067167ms)
+✔ high quality uses 2x world pages; the missing-high fallback matches the renderer (1.62175ms)
+✔ a portrait also satisfies build fallback; missing portrait conservatively verifies every 2x beauty/team page (1.242042ms)
+✔ a high-quality cameo fallback shares already verified metadata and images (0.7265ms)
+✔ per-launch concurrent URL dedup counts bytes and decode only once; later launches reverify (0.626917ms)
+✔ image verification is sequential and closes each bitmap before the next decode (0.250208ms)
+✔ completed native EOF clears its deadline and detaches parent abort while preserving subsequent launch cancellation (0.491709ms)
+✔ in-flight parent cancellation keeps its exact reason and clears the deadline (0.23275ms)
+✔ in-flight 15s deadline remains a real TimeoutError and detaches parent listener (0.101792ms)
+✔ download deadline is cleared at EOF before an asynchronous image decode finishes (0.131083ms)
+✔ failure cleanup cannot be replaced by a later timeout or parent abort while reader cancellation settles (0.214375ms)
+✔ a queued already-canceled call performs no fetch (0.07575ms)
+✔ fetch/header failures and native body errors preserve cause and clean the deadline (0.153167ms)
+✔ parent cancellation during image decoding closes the bitmap and is never relabeled as a corrupt image (0.106958ms)
+✔ bad HTTP, empty body, malformed JSON and image decode failures remain failures (0.272541ms)
+✔ encoded per-file/total limits still fail, stop the reader, and are counted once (0.221125ms)
+✔ the file ceiling is bounded, sealed-roster-derived, and cannot be raised by a caller (0.137125ms)
+✔ a valid 4550-file graph exceeds the old ceiling and verifies within the new bound (92.952292ms)
+✔ path traversal, malformed or partial atlases, and conflicting image dimensions are rejected (0.543458ms)
+✔ decoded atlas bounds and explicit UI pair dimensions must agree (0.267375ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 161.130208

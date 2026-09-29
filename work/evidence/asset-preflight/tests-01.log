@@ -1,0 +1,26 @@
+✔ standard verifies selected world pages plus actual 2x portrait/build pairs, without unused 2x world pages (12.844ms)
+✔ high quality uses 2x world pages; the missing-high fallback matches the renderer (1.341375ms)
+✔ a portrait also satisfies build fallback; missing portrait conservatively verifies every 2x beauty/team page (1.1595ms)
+✔ a high-quality cameo fallback shares already verified metadata and images (0.538084ms)
+✔ per-launch concurrent URL dedup counts bytes and decode only once; later launches reverify (0.475209ms)
+✔ image verification is sequential and closes each bitmap before the next decode (0.195083ms)
+✔ completed native EOF clears its deadline and detaches parent abort while preserving subsequent launch cancellation (0.366291ms)
+✔ in-flight parent cancellation keeps its exact reason and clears the deadline (0.187541ms)
+✔ in-flight 15s deadline remains a real TimeoutError and detaches parent listener (0.0855ms)
+✔ a queued already-canceled call performs no fetch (0.070375ms)
+✔ fetch/header failures and native body errors preserve cause and clean the deadline (0.170292ms)
+✔ parent cancellation during image decoding closes the bitmap and is never relabeled as a corrupt image (0.083916ms)
+✔ bad HTTP, empty body, malformed JSON and image decode failures remain failures (0.237292ms)
+✔ encoded per-file/total limits still fail, stop the reader, and are counted once (0.193416ms)
+✔ the file ceiling is bounded, sealed-roster-derived, and cannot be raised by a caller (0.118ms)
+✔ a valid 4550-file graph exceeds the old ceiling and verifies within the new bound (65.115833ms)
+✔ path traversal, malformed or partial atlases, and conflicting image dimensions are rejected (0.446292ms)
+✔ decoded atlas bounds and explicit UI pair dimensions must agree (0.2265ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122.520042
