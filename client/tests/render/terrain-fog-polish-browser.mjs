@@ -51,10 +51,12 @@ try{
  }
  // Separate visual check: do not compare macro-induced luminance with fog alpha.
  report.macro=[];for(const kind of ['baseline','candidate']){report.macro.push(await page.evaluate(kind=>window.fogPolishQA.macro(kind),kind));await page.screenshot({path:path.join(out,`macro-${kind}.png`)})}
+ report.boundary=[];for(const kind of ['baseline','candidate']){report.boundary.push(await page.evaluate(kind=>window.fogPolishQA.macro(kind,true),kind));await page.screenshot({path:path.join(out,`boundary-${kind}.png`)})}
  // Two independent resident scopes; sequential scenes cap memory. Timings are
  // shared-host diagnostics, not a pass/fail threshold or full-frame benchmark.
- for(const extent of ['retained36','minimumZoom'])for(const kind of ['baseline','candidate']){
-  const value=await page.evaluate(({kind,extent})=>window.fogPolishQA.cpu(kind,extent),{kind,extent});report.cpu.push(value);assert(value.hiddenFragments>0);assert(value.chunks===(extent==='retained36'?36:196));
+ for(const extent of ['retained36','minimumZoom'])for(const mode of ['unknown','clear','frontier'])for(const kind of ['baseline','candidate']){
+  const value=await page.evaluate(({kind,extent,mode})=>window.fogPolishQA.cpu(kind,extent,mode),{kind,extent,mode});report.cpu.push(value);assert(value.hiddenFragments>0);assert(value.chunks===(extent==='retained36'?36:196));
+  if(mode==='unknown')assert.equal(value.residentVisibleTiles,0);else if(mode==='clear')assert.equal(value.residentVisibleTiles,value.residentTiles);else assert(value.residentVisibleTiles>0&&value.residentVisibleTiles<value.residentTiles);
  }
  report.disposal=await page.evaluate(()=>window.fogPolishQA.dispose());assert.equal(report.disposal.canvases,0);assert(report.disposal.disposals.every(d=>d.allMeshesDestroyed&&d.allOwnedTexturesDestroyed));report.status='passed';
  }

@@ -70,8 +70,8 @@ async function compareCourse(raised:boolean){
  bitvectors(map,'unknown',visible,explored);for(const f of b.fragments)f.setVisible(false);setFog(b,visible,explored);const hidden=b.fragments.every(f=>!f.fog.visible&&!f.mesh.visible);for(const f of b.fragments)f.setVisible(true);const restored=b.fragments.every(f=>f.fog.visible&&f.mesh.visible);
  present(b,1,0);return {raised,chunks:chunks.length,fragments:a.fragments.length,triangles:a.fragments.reduce((n,f)=>n+f.triangles.length,0),geometryEqual,picking,cases,hidden,restored};
 }
-async function macro(kind:'baseline'|'candidate'){
- disposeScenes();const map=makeMap(35,true),scene=await make(kind,map,[[0,0],[1,0],[0,1],[1,1]],true);setFog(scene,map.tiles.map(()=>true),map.tiles.map(()=>true));present(scene,1,0,true);return {kind,images:images.size,scope:'Authored textures; subjective visual comparison only, no luminance/identity assertion'};
+async function macro(kind:'baseline'|'candidate',fog=false){
+ disposeScenes();const map=makeMap(35,true),scene=await make(kind,map,[[0,0],[1,0],[0,1],[1,1]],true),visible:boolean[]=[],explored:boolean[]=[];bitvectors(map,fog?'edge':'clear',visible,explored);setFog(scene,visible,explored);present(scene,1,0,true);return {kind,fog,images:images.size,scope:'Authored textures; subjective visual comparison only, no luminance/identity assertion'};
 }
 function cameraChunks(){
  // Exact public camera admission formula at1600x900, centred on256², zoom0.45:
@@ -80,11 +80,13 @@ function cameraChunks(){
  const loX=Math.floor(Math.max(0,Math.min(...values.map(p=>p.x)))/16000),hiX=Math.floor(Math.min(255999,Math.max(...values.map(p=>p.x)))/16000),loY=Math.floor(Math.max(0,Math.min(...values.map(p=>p.y)))/16000),hiY=Math.floor(Math.min(255999,Math.max(...values.map(p=>p.y)))/16000),out:Array<[number,number]>=[];
  for(let y=loY;y<=hiY;y++)for(let x=loX;x<=hiX;x++)out.push([x,y]);return out;
 }
-async function cpu(kind:'baseline'|'candidate',extent:'retained36'|'minimumZoom'){
+async function cpu(kind:'baseline'|'candidate',extent:'retained36'|'minimumZoom',mode:'unknown'|'clear'|'frontier'){
  disposeScenes();const all=cameraChunks(),chunks=extent==='retained36'?all.slice(0,36):all,map=makeMap(256),scene=await make(kind,map,chunks),visible:boolean[]=[],explored:boolean[]=[],samples=[];
- bitvectors(map,'edge',visible,explored);for(let i=0;i<scene.fragments.length;i++)scene.fragments[i].setVisible(i%2===0);
- for(let iteration=0;iteration<7;iteration++){visible[16*map.width+15]=iteration%2===0;const start=performance.now();setFog(scene,visible,explored);const ms=performance.now()-start;if(iteration>=2)samples.push(ms)}
- return {kind,extent,chunks:chunks.length,fragments:scene.fragments.length,triangles:scene.fragments.reduce((n,f)=>n+f.triangles.length,0),hiddenFragments:scene.fragments.filter(f=>!f.mesh.visible).length,samples,conditions:'Shared-host diagnostic; no reference performance pass/fail threshold'};
+ const fill=(boundary:number)=>{for(let i=0;i<map.tiles.length;i++){const x=i%map.width;visible[i]=mode==='clear'||mode==='frontier'&&x<boundary;explored[i]=visible[i]||mode==='frontier'&&x<boundary+3}};
+ fill(128);for(let i=0;i<scene.fragments.length;i++)scene.fragments[i].setVisible(i%2===0);
+ for(let iteration=0;iteration<7;iteration++){fill(128+iteration%2);const start=performance.now();setFog(scene,visible,explored);const ms=performance.now()-start;if(iteration>=2)samples.push(ms)}
+ let residentVisibleTiles=0,residentTiles=0;for(const [cx,cy]of chunks)for(let y=cy*16;y<(cy+1)*16;y++)for(let x=cx*16;x<(cx+1)*16;x++){residentTiles++;if(visible[y*map.width+x])residentVisibleTiles++}
+ return {kind,extent,mode,chunks:chunks.length,fragments:scene.fragments.length,triangles:scene.fragments.reduce((n,f)=>n+f.triangles.length,0),residentVisibleTiles,residentTiles,hiddenFragments:scene.fragments.filter(f=>!f.mesh.visible).length,samples,conditions:'Shared-host diagnostic; current in-place bitvectors, no reference performance pass/fail threshold'};
 }
 function precision(){const gl=(app.renderer as unknown as {gl:WebGL2RenderingContext}).gl;return Object.fromEntries([['medium',gl.MEDIUM_FLOAT],['high',gl.HIGH_FLOAT]].map(([name,type])=>{const p=gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER,type as number)!;return [name,{precision:p.precision,rangeMin:p.rangeMin,rangeMax:p.rangeMax}]}))}
 Object.assign(window,{fogPolishQA:{compareCourse,macro,cpu,precision,disposeScenes,stats:()=>({scenes:scenes.length,disposals}),dispose:()=>{disposeScenes();app.destroy(true,{children:true});return {canvases:document.querySelectorAll('canvas').length,disposals}}}});document.body.dataset.ready='true';

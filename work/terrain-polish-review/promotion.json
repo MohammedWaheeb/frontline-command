@@ -1,0 +1,270 @@
+{
+  "time": "2026-09-29T08:24:14.561553+00:00",
+  "source": "work/terrain-polish-v2/source/client/src/render/terrain.ts",
+  "destination": "client/src/render/terrain.ts",
+  "beforeSHA256": "52d20cd00f5f3fbfc0f922661e929dbfb17f434463703914e60c213e0bdead69",
+  "afterSHA256": "968299e854349a7463f00d6b4cf7676b2cb035d2b4a3fbd46b62c50207980876",
+  "author": "Claude Code CLI claude-opus-5-5",
+  "review": "Root native macro/boundary screenshots and independent Boole source/MSAA review; full-game finalart/hardware performance remains open.",
+  "typecheck": "v2-typecheck-02/app.log, exit0; initialv2-typecheck setupfailed and is retained.",
+  "runs": [
+    {
+      "run": "v2-chromium-02",
+      "reportSHA256": "88f6b1840e4d3dd2192f326929dbc91f1a0584c68cba2ea682eb863eeee94f35",
+      "browserVersion": "151.0.7922.34",
+      "driverSHA256": "07d99c83c18ce97fa9b3138025dbd53525028750dc45ba52c3383d9cbb67281f",
+      "fixtureSHA256": "ab879c5ceeca6bceb9df3ab3888c1aa054443829fd78e46ba525db5d3e59c2d5",
+      "inputLockSHA256": "26a69a121c8ff4116b4a2e8a9289e8bf0f0b7020c49d1bfe83452522a4f62693",
+      "cases": 96,
+      "errors": 0,
+      "httpErrors": 0,
+      "requestFailures": 0,
+      "cpu": [
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "unknown",
+          "median_ms": 0.7000000476837158
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "unknown",
+          "median_ms": 1.0999999046325684
+        },
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "clear",
+          "median_ms": 0.6000001430511475
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "clear",
+          "median_ms": 1.8999998569488525
+        },
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "frontier",
+          "median_ms": 0.40000009536743164
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "frontier",
+          "median_ms": 1.6000001430511475
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "unknown",
+          "median_ms": 7.5
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "unknown",
+          "median_ms": 12.099999904632568
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "clear",
+          "median_ms": 7.200000047683716
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "clear",
+          "median_ms": 14.899999856948853
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "frontier",
+          "median_ms": 9.099999904632568
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "frontier",
+          "median_ms": 12.800000190734863
+        }
+      ]
+    },
+    {
+      "run": "v2-firefox-01",
+      "reportSHA256": "5b4fe0212f2f4c211eed61ec4a15f9c646b627826782d6bc48b1e6f1c33e6a10",
+      "browserVersion": "153.0",
+      "driverSHA256": "07d99c83c18ce97fa9b3138025dbd53525028750dc45ba52c3383d9cbb67281f",
+      "fixtureSHA256": "ab879c5ceeca6bceb9df3ab3888c1aa054443829fd78e46ba525db5d3e59c2d5",
+      "inputLockSHA256": "26a69a121c8ff4116b4a2e8a9289e8bf0f0b7020c49d1bfe83452522a4f62693",
+      "cases": 96,
+      "errors": 0,
+      "httpErrors": 0,
+      "requestFailures": 0,
+      "cpu": [
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "unknown",
+          "median_ms": 1
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "unknown",
+          "median_ms": 2
+        },
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "clear",
+          "median_ms": 1
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "clear",
+          "median_ms": 5
+        },
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "frontier",
+          "median_ms": 1
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "frontier",
+          "median_ms": 3
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "unknown",
+          "median_ms": 9
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "unknown",
+          "median_ms": 13
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "clear",
+          "median_ms": 11
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "clear",
+          "median_ms": 27
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "frontier",
+          "median_ms": 9
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "frontier",
+          "median_ms": 20
+        }
+      ]
+    },
+    {
+      "run": "v2-webkit-01",
+      "reportSHA256": "d23e38000d4eae0d6858ebe4194cd316836d56438ba7acaae1da7122e9317e9a",
+      "browserVersion": "26.5",
+      "driverSHA256": "07d99c83c18ce97fa9b3138025dbd53525028750dc45ba52c3383d9cbb67281f",
+      "fixtureSHA256": "ab879c5ceeca6bceb9df3ab3888c1aa054443829fd78e46ba525db5d3e59c2d5",
+      "inputLockSHA256": "26a69a121c8ff4116b4a2e8a9289e8bf0f0b7020c49d1bfe83452522a4f62693",
+      "cases": 96,
+      "errors": 0,
+      "httpErrors": 0,
+      "requestFailures": 0,
+      "cpu": [
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "unknown",
+          "median_ms": 1
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "unknown",
+          "median_ms": 2
+        },
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "clear",
+          "median_ms": 1
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "clear",
+          "median_ms": 3
+        },
+        {
+          "kind": "baseline",
+          "extent": "retained36",
+          "mode": "frontier",
+          "median_ms": 1
+        },
+        {
+          "kind": "candidate",
+          "extent": "retained36",
+          "mode": "frontier",
+          "median_ms": 3
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "unknown",
+          "median_ms": 12
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "unknown",
+          "median_ms": 15
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "clear",
+          "median_ms": 16
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "clear",
+          "median_ms": 23
+        },
+        {
+          "kind": "baseline",
+          "extent": "minimumZoom",
+          "mode": "frontier",
+          "median_ms": 15
+        },
+        {
+          "kind": "candidate",
+          "extent": "minimumZoom",
+          "mode": "frontier",
+          "median_ms": 19
+        }
+      ]
+    }
+  ]
+}
