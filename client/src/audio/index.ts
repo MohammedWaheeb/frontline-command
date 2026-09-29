@@ -2,6 +2,9 @@ export type AudioBus='voice'|'music'|'effects'|'ui';
 export interface AudioVariant {url:string;caption?:string;display_caption?:string;duration:number;bytes:number;sha256:string;mp3_url?:string;mp3_bytes?:number;mp3_sha256?:string}
 export interface AudioEntry {bus:AudioBus;priority:number;cooldown_ms:number;loop:boolean;bpm?:number;beats_per_bar?:number;variants:AudioVariant[]}
 export interface AudioIndex {format:1;sample_rate:number;entries:Record<string,AudioEntry>}
+/** A decoded clip is reusable only under these exact content/codec expectations.
+ * Captions belong to the separately committed index, not the decoded buffer. */
+export function audioVariantKey(variant:AudioVariant):string{return JSON.stringify([variant.url,variant.bytes,variant.sha256,variant.duration,variant.mp3_url??null,variant.mp3_bytes??null,variant.mp3_sha256??null])}
 const record=(value:unknown):value is Record<string,unknown>=>!!value&&typeof value==='object'&&!Array.isArray(value);
 const finite=(v:unknown,min:number,max:number):v is number=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
 const keys=(v:Record<string,unknown>,allowed:string[])=>Object.keys(v).every(key=>allowed.includes(key));

@@ -1,0 +1,71 @@
+{
+  "status": "integrated-and-verified",
+  "at": "2026-09-29T14:45:26.114601+00:00",
+  "head": "d43636f04f4bcdd5c85275b5258e32408afb0c04",
+  "baselineGuard": "Both live source hashes matched exact frozen baseline before either write",
+  "candidateLockSHA256": "4ccb087b72fb00c69f1e3c86fb5fd67db5321457b4affbca1f6c8cde7e3ebedd",
+  "sourceFiles": [
+    {
+      "path": "client/src/audio/index.ts",
+      "beforeSHA256": "8bdc67d31259477994b9a1958297e4dfb0021799cb80ce84dd7e998157c59db4",
+      "afterSHA256": "066a6287badd16d1c8a1dad3f2f40c4c5af5a5bd5d4adc2b48330cd37abf8795",
+      "candidate": "work/audio-generation-retry-v1/source/client/src/audio/index.ts",
+      "bytes": 5167
+    },
+    {
+      "path": "client/src/audio/mixer.ts",
+      "beforeSHA256": "83b20903bfcf09c055a8618d1a88bd7d40d922057bc85c9dcde3216009ef8f80",
+      "afterSHA256": "adfab5522ebc325ee3714a2fc6215581195ec2d94362176411aca815912e3a4e",
+      "candidate": "work/audio-generation-retry-v1/source/client/src/audio/mixer.ts",
+      "bytes": 18501
+    }
+  ],
+  "tests": {
+    "path": "client/tests/runtime/audio-retry.test.ts",
+    "sha256": "011db753cdc0c60976ab7944d9c27c60d719f5c83c67c8fe598af5f312dda6cb",
+    "candidateTestSHA256": "7b366803eda737053d5710bd5eab31fe85928ec957441baaf687642a96845d52",
+    "changes": "Only import paths changed to live source; all11 cases preserved"
+  },
+  "browserEvidence": {
+    "path": "work/audio-generation-retry-v1/browser-chrome-03/browser.json",
+    "sha256": "53442668949f66c0fac9d633339780115536c98529e362275c77f573d207d570",
+    "functional": "passed10",
+    "strict": "failed1unexpectedERR_ABORTED",
+    "scope": "Real AudioContext control/decode evidence, not listening or clean network acceptance"
+  },
+  "verifiedAt": "2026-09-29T14:46:23.041074+00:00",
+  "checks": {
+    "runtime": {
+      "command": "npm run test:runtime",
+      "exitCode": 0,
+      "tests": 477,
+      "passed": 477,
+      "failed": 0,
+      "log": "runtime-tests.log"
+    },
+    "runtimeTypecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "runtime-typecheck.log"
+    },
+    "appTypecheck": {
+      "command": "npm run typecheck:app",
+      "exitCode": 0,
+      "log": "app-typecheck.log"
+    }
+  },
+  "logs": {
+    "runtime-typecheck.log": {
+      "bytes": 91,
+      "sha256": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76"
+    },
+    "app-typecheck.log": {
+      "bytes": 81,
+      "sha256": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0"
+    },
+    "runtime-tests.log": {
+      "bytes": 50319,
+      "sha256": "10a0d1e91d3d9e21ad1a191d02c0d00f627b68be8afd20e5329e5e78c92d8698"
+    }
+  }
+}
