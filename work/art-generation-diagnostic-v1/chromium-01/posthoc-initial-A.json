@@ -1,0 +1,101 @@
+{
+  "scope": "POSTHOC read-only analysis of a newly located abort. Expected bytes come only from fixture A, which the immutable driver selects at initial-A installation; not hash-selected. The original predefined report and strict failed outcome remain unchanged.",
+  "originalReceiptSHA256": "ca2872938bd04cff75fcf11071b17e6595570028d823917db21de3769dec7523",
+  "manifestFileSHA256": "33bc5c1b52e484431097b0819f57a521a092ccd188e5446f065c0a41c5fb8383",
+  "sourceSHA256": "b85ba631299c6fe191be6f54783f01e7707ff2eda209a115f3d24c78c8b48a35",
+  "strictOutcome": "failed-unmodified",
+  "consumerSourceLockSHA256": "a70a5df5cb053b9f1ee96f5ced310b83f99c2514764f6409c27b286d8ab21282",
+  "plannedInitially": false,
+  "expectedGeneration": "fixture-A",
+  "proof": {
+    "request": {
+      "id": "EB86EE7DCCFCDC821D643FF905FA72EB:83073.11",
+      "nativeRequestId": "83073.11",
+      "url": "http://127.0.0.1:56725/art/offline-upgrade/page.png",
+      "method": "GET",
+      "type": "Fetch",
+      "frameId": "EB86EE7DCCFCDC821D643FF905FA72EB",
+      "loaderId": "F30CD618D3F80338336E8B8FFE5BFBFF",
+      "documentURL": "http://127.0.0.1:56725/generation-harness.html",
+      "initiator": "script",
+      "scriptIds": [
+        "6",
+        "5"
+      ],
+      "redirected": false,
+      "order": 79,
+      "stamp": {
+        "phase": "install-and-capture-A"
+      },
+      "status": 200,
+      "responseURL": "http://127.0.0.1:56725/art/offline-upgrade/page.png",
+      "fromServiceWorker": false,
+      "responseOrder": 81,
+      "realm": "window-fetch",
+      "scope": "first-A:eca5935a-15e7-4c1a-b997-6b39bb08854d",
+      "proof": {
+        "targetId": "EB86EE7DCCFCDC821D643FF905FA72EB",
+        "executionContextId": 3,
+        "executionContextUniqueId": "-6058595397737662354.1089478937897969381",
+        "frameId": "EB86EE7DCCFCDC821D643FF905FA72EB",
+        "observerURL": "http://127.0.0.1:56725/__diagnostics__/generation-first-A.js"
+      },
+      "ordinal": 1
+    },
+    "complete": true,
+    "expected": {
+      "phase": "install-and-capture-A",
+      "path": "/art/offline-upgrade/page.png",
+      "sha256": "b27d656eef21e02d034ac63f297e24b85d00e80caff6beb35fef29d962c8392f",
+      "bytes": 365377
+    },
+    "native": {
+      "scope": "first-A:eca5935a-15e7-4c1a-b997-6b39bb08854d",
+      "url": "http://127.0.0.1:56725/art/offline-upgrade/page.png",
+      "method": "GET",
+      "ordinal": 1,
+      "startedAt": 186,
+      "startedOrder": 31,
+      "bytesRead": 365377,
+      "hashedBytes": 365377,
+      "readCalls": 2,
+      "readerCount": 1,
+      "bodyMethods": [],
+      "hashImplementation": "incremental-sha256-v1",
+      "updatedOrder": 36,
+      "responseAt": 186.5,
+      "status": 200,
+      "responseURL": "http://127.0.0.1:56725/art/offline-upgrade/page.png",
+      "redirected": false,
+      "readerMode": "default",
+      "completion": "explicit-native-reader",
+      "eofAt": 194.19999980926514,
+      "eofOrder": 35,
+      "sha256": "b27d656eef21e02d034ac63f297e24b85d00e80caff6beb35fef29d962c8392f",
+      "hashAt": 194.19999980926514,
+      "hashOrder": 36,
+      "cdpObserved": {
+        "eofOrder": 85,
+        "hashOrder": 86
+      }
+    },
+    "reason": "native-consumer-complete-and-bytes-exact",
+    "completion": "explicit-native-reader",
+    "cancellationObserved": false,
+    "failures": [
+      {
+        "failure": {
+          "requestId": "EB86EE7DCCFCDC821D643FF905FA72EB:83073.11",
+          "url": "http://127.0.0.1:56725/art/offline-upgrade/page.png",
+          "message": "net::ERR_ABORTED",
+          "canceled": true,
+          "order": 84,
+          "phase": "install-and-capture-A"
+        },
+        "relativeEOFOrder": "failure-before-native-eof",
+        "cancellation": []
+      }
+    ]
+  },
+  "meaning": "This uniquely identified native request later returned all 365377 original bytes and reader EOF with the planned A SHA. CDP reported ERR_ABORTED before its streamed EOF/hash observations; no native cancellation was observed. This supports complete consumed-body integrity only, not an abort cause, retrospective clean run, benign diagnostic classification or prior-request attribution."
+}

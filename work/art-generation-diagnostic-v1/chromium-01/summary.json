@@ -1,0 +1,94 @@
+{
+  "status": "strict-failed-functional-and-cleanup-gates-reached",
+  "originalReceiptSHA256": "ca2872938bd04cff75fcf11071b17e6595570028d823917db21de3769dec7523",
+  "consumerSourceLockSHA256": "a70a5df5cb053b9f1ee96f5ced310b83f99c2514764f6409c27b286d8ab21282",
+  "functionalCasesReached": 22,
+  "perLibraryFinalCleanup": [
+    {
+      "name": "oldA",
+      "statistics": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "oldPickingLive": false
+    },
+    {
+      "name": "newB",
+      "statistics": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "oldPickingLive": false
+    },
+    {
+      "name": "onlineA",
+      "statistics": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "oldPickingLive": false
+    },
+    {
+      "name": "pendingOnlineA",
+      "statistics": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "oldPickingLive": false
+    },
+    {
+      "name": "disposePending",
+      "statistics": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "oldPickingLive": false
+    },
+    {
+      "name": "coldC",
+      "statistics": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "oldPickingLive": false
+    }
+  ],
+  "nativeDiagnostic": {
+    "faults": [],
+    "diagnosticsAgree": true,
+    "predefinedComplete": 3,
+    "predefinedAbortReports": 0,
+    "posthocNewAbortBodyComplete": true,
+    "posthocFailureRelativeEOFOrder": "failure-before-native-eof",
+    "cancellationObserved": false
+  },
+  "rawUnclassified": [
+    {
+      "phase": "install-and-capture-A",
+      "mode": "online",
+      "at": "2026-09-29T11:25:23.478Z",
+      "observedPhase": "install-and-capture-A",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56725/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    }
+  ],
+  "pageErrors": 0,
+  "unexpectedHTTPErrors": 0,
+  "inputGuardsAfter": 267,
+  "closedAt": "2026-09-29T11:25:24.368Z",
+  "limits": "Original failure outcome unchanged; neither original three aborts nor new abort cause established; no clean Chromium/full App/release claim."
+}
