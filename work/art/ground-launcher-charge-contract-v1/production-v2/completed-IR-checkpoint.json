@@ -1,0 +1,85 @@
+{
+  "utc": "2026-09-29T11:34:22.480482+00:00",
+  "scope": "Full isolated charge export completed and reviewed. No live art or pose selection promotion; old43-union plan still uses generic IR until matching runtime integration. All next heavy jobs held until power update.",
+  "poses": 1120,
+  "reused_poses": 628,
+  "fresh_poses": 492,
+  "render_seconds": 1090.8,
+  "checks": {
+    "source": 1120,
+    "reverse": 1120,
+    "integrity": 26,
+    "ui": 20,
+    "failures": 0
+  },
+  "handoff_sha256": "b5a4285dc78f5b2b9b7e5a8e77cceee96476733059b20c0c4718a4add4249284",
+  "parent_native_review_sha256": "9178623df1953993f077c94346f9647440e41fb7cadd30e7bbf9a6d528b7a94f",
+  "logs": {
+    "work/art/ground-launcher-charge-contract-v1/production-v2/stage/work/art/vehicle-production/source-unit.IR.launcher.log": {
+      "sha256": "7ba6bd3484537a768708e20a2ac86e142f5d3e7b1745078a4e2e95fb15b179a4",
+      "bytes": 128,
+      "tail": [
+        "FC_VEHICLE_MODEL_AUDIT_DONE unit.IR.launcher 1120",
+        "Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)",
+        "",
+        "Blender quit"
+      ]
+    },
+    "work/art/ground-launcher-charge-contract-v1/production-v2/stage/work/art/vehicle-production/full-unit.IR.launcher.log": {
+      "sha256": "9db7b19b8705e1208ce193fb9c724d3529c6bbb454c0e23c2b62de83805a85e0",
+      "bytes": 339015,
+      "tail": [
+        "Info: Saved as \"unit.IR.launcher.blend\"",
+        "FC_REUSED_POSES unit.IR.launcher poses=628",
+        "FC_RENDER_DONE unit.IR.launcher poses=1120 seconds=1090.8",
+        "Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)",
+        "",
+        "Blender quit"
+      ]
+    },
+    "work/art/ground-launcher-charge-contract-v1/production-v2/stage/work/art/vehicle-production/pack-unit.IR.launcher.log": {
+      "sha256": "3b3f88eae7eb1447ea16b8b14f4688fce44461cbec92ba85e4a2ffdbc2ac001f",
+      "bytes": 84,
+      "tail": [
+        "unit.IR.launcher: 1120 poses, frame 266x214@2x, layers ['beauty', 'shadow', 'team']"
+      ]
+    },
+    "work/art/ground-launcher-charge-contract-v1/production-v2/stage/work/art/vehicle-production/check-unit.IR.launcher.log": {
+      "sha256": "f7277fa50755dfba80ac35dc78b98301a111c7ae9df2cf4ba8810fb8d2c48fa3",
+      "bytes": 49,
+      "tail": [
+        "unit.IR.launcher 1120 poses 26 checks 0 failures"
+      ]
+    },
+    "work/art/ground-launcher-charge-contract-v1/production-v2/stage/work/art/vehicle-production/ui-unit.IR.launcher.log": {
+      "sha256": "8ea635d0e811fcf36c66992a2f77723cac8a8081915180343b0f5425659b9788",
+      "bytes": 935,
+      "tail": [
+        "00:01.647  render           | Saved: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/ground-launcher-charge-contract-v1/production-v2/stage/assets/build/ui/icons/build/IR.launcher@2x.beauty.png'",
+        "00:01.916  render           | Saved: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/ground-launcher-charge-contract-v1/production-v2/stage/assets/build/ui/icons/build/IR.launcher@2x.team.png'",
+        "FC_UI_SHOTS_DONE IR.launcher",
+        "Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)",
+        "",
+        "Blender quit"
+      ]
+    },
+    "work/art/ground-launcher-charge-contract-v1/production-v2/stage/work/art/vehicle-production/contact-unit.IR.launcher.log": {
+      "sha256": "a6999ef634eb8a6f3cb87dc75865c38ec0a80222ac15a033acc93ec512275cc5",
+      "bytes": 74,
+      "tail": [
+        "FC_VEHICLE_UI_CONTACTS_DONE unit.IR.launcher 20 UI checks 86 native pages"
+      ]
+    },
+    "work/art/ground-launcher-charge-contract-v1/production-v2/driver-unit.IR.launcher.log": {
+      "sha256": "9d528ab642aa9fd01ac29f0439e73797490b46fe4dffc648574170cfe6689864",
+      "bytes": 150,
+      "tail": [
+        "FC_CHARGE_PRODUCTION_PREFLIGHT_OK unit.IR.launcher",
+        "FC_CHARGE_PRODUCTION_PREFLIGHT_OK unit.IR.launcher",
+        "FC_CHARGE_FULL_EXPORT_COMPLETE unit.IR.launcher"
+      ]
+    }
+  },
+  "streaming_sampled_RSS_bytes": 413827072,
+  "memory_scope": "2-second RSS samples for this process only, not paired timing or universal-memory bound."
+}
