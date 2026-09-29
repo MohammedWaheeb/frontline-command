@@ -1,0 +1,157 @@
+{
+  "id": "unit.IR.fighter",
+  "status": "staged candidate only; runtime/Go parking acceptance pending",
+  "poses": 832,
+  "checks": 23,
+  "failures": 0,
+  "results": [
+    {
+      "asset": "unit.IR.fighter",
+      "check": "anchor_in_canvas",
+      "ok": true,
+      "detail": "anchor 224,232 canvas 448x352"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "coverage",
+      "ok": true,
+      "detail": "2432/2432 layer frames present"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "dimensions",
+      "ok": true,
+      "detail": "all 448x352"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "transparency",
+      "ok": true,
+      "detail": "corner-opaque 0, empty 0"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "clipping",
+      "ok": true,
+      "detail": "0 frames touch the border"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "team_subset",
+      "ok": true,
+      "detail": "0 frames with team pixels outside beauty"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "shadow",
+      "ok": true,
+      "detail": "0 empty shadow frames"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "directions",
+      "ok": true,
+      "detail": "all headings distinct"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "animation",
+      "ok": true,
+      "detail": "0 static animated states"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "anchor_near_art",
+      "ok": true,
+      "detail": "0 frames with anchor outside art x-range"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "packed",
+      "ok": true,
+      "detail": "2432/2432 frames in 2x atlases"
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "complete_manifest_contract",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "identity_role_radius",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "complete_sidecar_states",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "aliases_overlays",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "trimmed_anchor",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "healthbar_present",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "complete_projected_hardpoint_healthbar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "complete_projected_hardpoint_release",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "editable_blend",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "frozen_source_assets/pipeline/blender/models/aircraft_roster.py",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "frozen_source_assets/pipeline/specs/unit.IR.fighter.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "asset": "unit.IR.fighter",
+      "check": "isolated_output_root",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "memory_inventory": {
+    "2x": {
+      "pages": 20,
+      "decoded_mib_inventory_not_resident": 258.86
+    },
+    "1x": {
+      "pages": 20,
+      "decoded_mib_inventory_not_resident": 64.71
+    }
+  }
+}

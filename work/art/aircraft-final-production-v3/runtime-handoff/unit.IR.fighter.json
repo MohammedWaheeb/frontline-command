@@ -1,0 +1,473 @@
+{
+  "id": "unit.IR.fighter",
+  "scope": "Checked full staged asset for diagnostic product integration; no shipping or runtime lifecycle acceptance inferred",
+  "stage": "work/art/aircraft-final-production-v3/stage",
+  "model_sha256": "a8207dddec57da229ba8c2d9b09d4d8e4b6498ae0aeb4325617444675abcb50a",
+  "spec_sha256": "4f7adc5db474ac642fd5f2a9be3dd72c31824254aa2f4baf9d1a421ab04f8570",
+  "state_pose_count": 832,
+  "canonical_empty_variants": [
+    "parked_empty",
+    "launch_empty",
+    "recover_empty",
+    "damaged_empty",
+    "fire_empty",
+    "rearm_empty"
+  ],
+  "checks": {
+    "work/art/aircraft-final-production-v3/check-unit.IR.fighter.json": "f461929c360b144ec36863d077035f47f4348e9bdbb512bc5751aea0da4ca26f",
+    "work/art/aircraft-final-production-v3/ui-check-unit.IR.fighter.json": "4bd04ca51959908eb2c6da335badef088be8334a08fbe4f0786b6c7aade90760",
+    "work/art/aircraft-final-production-v3/contacts/unit.IR.fighter/native-review.json": "820a5be850cca097ba423118b15540b2fc6d949cb8a9223cb6c4be2c333f22d2",
+    "work/art/aircraft-final-production-v3/production-lock.json": "47fcc7d990cc5c67dea70692c0332af9e48460d8f7cdb8a61104713f22a758d6",
+    "work/art/aircraft-final-production-v3/pilot-reuse-audit.json": "3c8f29fb3eb0c02dd8ac29347a200e81d04b9f8a3c1f501ee6a0d170c1801391"
+  },
+  "files": {
+    "sprites/unit.IR.fighter/unit.IR.fighter.sprite.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter.sprite.json",
+      "sha256": "92368b5247e09232d61b03e3f3bfaa1823c5e3bbd09fb7cd9ad7cf1651ae775d",
+      "bytes": 89681
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.0.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.0.json",
+      "sha256": "fce20dd259330e461b3346aa51e8d42bb688af960d0382162ec04223c1cdbdac",
+      "bytes": 33760
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.0.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.0.png",
+      "sha256": "80c7a0ffc7f67f4a4315d9fa69334d494ab1af1fc1f9987c9144fb2f95faa6ba",
+      "bytes": 406998
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.1.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.1.json",
+      "sha256": "478264c00e82fd2643ed08632006393ae4438dc011776e838c035e125f1fbe9a",
+      "bytes": 33670
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.1.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.1.png",
+      "sha256": "0c17de3f7be77be8718b250f6afb30d9486ee684b62678d4ffd60345e7962a52",
+      "bytes": 598776
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.2.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.2.json",
+      "sha256": "b67bb68d34faccfced03eeecceb972bd32b2e3fda8620d69bcd71d7978a1fe58",
+      "bytes": 33486
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.2.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.2.png",
+      "sha256": "1221568bfe4309156243e85a8bb13baa799123cdee8ffbce5f29184f5cb04a03",
+      "bytes": 588150
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.3.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.3.json",
+      "sha256": "a15fbab5013871e5899db1fb03790bafb036d635bb485b31c5a6dc3f54257a86",
+      "bytes": 33421
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.3.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.3.png",
+      "sha256": "9355e56439d8653fdd4babe88073cb7bd99223a80091a75df6c36217b15b6762",
+      "bytes": 529341
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.4.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.4.json",
+      "sha256": "e4dd508447951718839d8b5bb4ece0cd04216c5fec3549735448492cf71f3a34",
+      "bytes": 34420
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.4.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.4.png",
+      "sha256": "56591ca049878472778c9046f2f0e554c3c66053e682ad63699ce84b880caf9e",
+      "bytes": 594804
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.5.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.5.json",
+      "sha256": "a0b93cf57fcd90b4c8814e26382b4bb816bb744dc48afec6d9ab3a5e16c28bb5",
+      "bytes": 34246
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.5.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.5.png",
+      "sha256": "f5ba9195c38907670591990020bddb6c5a66c906fc29c1bffcca331d1f600d05",
+      "bytes": 572853
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.6.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.6.json",
+      "sha256": "3b819ef10b98ecabcc0fd4d4b30ef873f3e438bb7178fa65c5f05e0832291c4c",
+      "bytes": 5800
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.6.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.6.png",
+      "sha256": "05ca632a00bd5f3d5992e2292e8f098a60dddd7b6f0d0e7384d313528ca16f97",
+      "bytes": 91780
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.0.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.0.json",
+      "sha256": "2a4570702898e69abbb70773d759733531868155711ce0f12867737f00bf2a33",
+      "bytes": 33807
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.0.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.0.png",
+      "sha256": "93bcc541c90df146b462a1a94944cd812547654ea41c171b61d0c02787d1beb8",
+      "bytes": 179132
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.1.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.1.json",
+      "sha256": "49652ccdfe7d9f58dff6e8f9691c7c5378c1d9ab29649cce34c0205cb90dc584",
+      "bytes": 33721
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.1.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.1.png",
+      "sha256": "7236511c3005941d2e2bf4d4af783e2380fab97d0e508d3f1a1e5e1723899a69",
+      "bytes": 246497
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.2.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.2.json",
+      "sha256": "275ebb756ac6fb09bd780e47ee309854ba4322a0076db6c495c88c4db4bfa95a",
+      "bytes": 33530
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.2.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.2.png",
+      "sha256": "14906fe4fbd8a1281566165798599b34d115815cacf1fa0a1e03684572f40896",
+      "bytes": 247074
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.3.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.3.json",
+      "sha256": "de0ed46b02fb20109c99a9cd8dc86dc141924200eb37ba9d1fefa389d5711f3f",
+      "bytes": 33486
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.3.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.3.png",
+      "sha256": "de899292cb8b0b6dea5727fffbe710440df4db3728c8c4a16096a1d969e3ff6f",
+      "bytes": 202246
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.4.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.4.json",
+      "sha256": "8cf8f034be244f7b1013f3c6a4d6fbc5ac346ac92bad398bd163921f5838de7c",
+      "bytes": 34472
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.4.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.4.png",
+      "sha256": "3d42de10a78e26a8cb9d9a959ce543e134c5dcd3b30d7e8a38267bcf1cf76f0d",
+      "bytes": 246378
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.5.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.5.json",
+      "sha256": "b9ac21832157b84baf2228769dc84596140f92d128f5c85badacf313852f9684",
+      "bytes": 34322
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.5.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.5.png",
+      "sha256": "8aef07478b9c513cfd966d65def69e96fbb1953fad7ef99714ccf101722a8c83",
+      "bytes": 225100
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.6.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.6.json",
+      "sha256": "5fbb4f7f6c03461301291c19cd5f7479b5a28b232295acb063b9d89d3705367d",
+      "bytes": 5799
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.6.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.6.png",
+      "sha256": "ea5a4df89874baf78271a03df12ec119865a19363ab05dd6e79af0d9c5de91da",
+      "bytes": 33395
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.0.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.0.json",
+      "sha256": "9a54a166f173da1d276db3f67a3c8f695234fe5c254dc1702e79f3440f3d99fa",
+      "bytes": 33758
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.0.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.0.png",
+      "sha256": "ff465e1a5e7f85cb6df848a08bed5daf88fc51ab1ad2c7cde8ec4b1a85f4b494",
+      "bytes": 61126
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.1.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.1.json",
+      "sha256": "b7d69135ee35e4f31d8113632ad0843b495e336c54b63ff3343b626a90900a27",
+      "bytes": 33668
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.1.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.1.png",
+      "sha256": "9bd50c20b791af5b4d3415795e8f6fda4fad1da8ab1e3614c10c49c23dc85261",
+      "bytes": 87334
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.2.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.2.json",
+      "sha256": "727f5d152433637586ef9763dc584d9e0916d57aa37f14dbc2818f14a4538468",
+      "bytes": 33459
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.2.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.2.png",
+      "sha256": "932921c3a06d3284e8fdaf38c1b7d6d8530ef5984e15107357a97dbc488f024d",
+      "bytes": 73152
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.3.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.3.json",
+      "sha256": "00730e13a8b461040025d0f77adb439f80747803733225f201e1e1487e2ff93f",
+      "bytes": 33852
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.3.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.3.png",
+      "sha256": "a667f99fef3ae254cfd8317a7baa61541c654043a70fceabeeb4f85bd0f03264",
+      "bytes": 69135
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.4.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.4.json",
+      "sha256": "c24891184a65ade1f7f06dda462f95b60ed1acf1b186462d6cd8ca2830341c4d",
+      "bytes": 34394
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.4.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.4.png",
+      "sha256": "47016b3ed17a02b9701e2937fd7249dc4552b6fb3c7dbcb9d17183c05bc51b9b",
+      "bytes": 88469
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.5.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.5.json",
+      "sha256": "53c499f1c88648cc2435dd7093b12b4d5c2b7456893434d306ee57ae2251258b",
+      "bytes": 23647
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@1x.team.5.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.5.png",
+      "sha256": "a8b76fd203417c157b41684b362e0921af40be8e521693df3ae80573a1c33f1f",
+      "bytes": 36197
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.0.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.0.json",
+      "sha256": "c3971c56917a32086836d333282bb6f72f4a47eeffba3cd2958d4f46e5c3bf11",
+      "bytes": 34505
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.0.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.0.png",
+      "sha256": "d92efc265465a72fbd961452a474ec9fdfb1517b1e2f3b634cd9454adc0999e1",
+      "bytes": 1112133
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.1.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.1.json",
+      "sha256": "ea28860da05224377056fb7a0f936d7c94fbb9adaa64cbc00d8d4f81586ab519",
+      "bytes": 34442
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.1.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.1.png",
+      "sha256": "072091944247de9a5bf401fa9a727748d776f8724a91364d994d14721d8494a4",
+      "bytes": 1554640
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.2.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.2.json",
+      "sha256": "8b2da177e79725de47d433057c177e8cdc002e9614a4f1d3a6daeab967e43ff5",
+      "bytes": 34271
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.2.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.2.png",
+      "sha256": "0fd670cee10b970e861c88198a6df95505e5cc820c8431377a354e29e605b768",
+      "bytes": 1535959
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.3.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.3.json",
+      "sha256": "03f5304064200fca7c0f01a0d44ab0c71c75c26f8b46981227b8bec4677e4ee0",
+      "bytes": 34232
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.3.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.3.png",
+      "sha256": "d092c4fde2f65d4a7d954342e1d1c7a5756f3964b1174bf4783a5d28e3cdbc9b",
+      "bytes": 1391879
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.4.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.4.json",
+      "sha256": "7ffac4850a267ed3c41d6ad93427a556be06a30d777a738631e5308eb087f748",
+      "bytes": 35197
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.4.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.4.png",
+      "sha256": "46cbca57721fc3ea5316cd9ef0c73343a6ef799e3def756d48113521cc7c0e44",
+      "bytes": 1539581
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.5.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.5.json",
+      "sha256": "f97bb5164de40f13f95d616b45f717ee24e27a3114e9daead524bb0f10e7d977",
+      "bytes": 35062
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.5.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.5.png",
+      "sha256": "4be863fbe2fda97a820ff02102ab12fec42a124b7410c2356bf8657357e81b8e",
+      "bytes": 1497471
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.6.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.6.json",
+      "sha256": "444317c9bdd604ea07b2c2e0241e3cd358708031d5b6ddea6892bb9ae29272c5",
+      "bytes": 5934
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.6.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.6.png",
+      "sha256": "4cd91da33d119bedf3c8a4af11e96b18cd9d41f1311d3e4cb4227c0a21e9ffbb",
+      "bytes": 244685
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.0.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.0.json",
+      "sha256": "d77eb82006237e06d6b0bd9eede7794d1ed89a4814b93ca4c71d26ece2295371",
+      "bytes": 34508
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.0.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.0.png",
+      "sha256": "fcbddadb08d331cb6ad5bd759eeab20a8b1d71058c948d7d2eebf1c47798840f",
+      "bytes": 487449
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.1.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.1.json",
+      "sha256": "1ada619e8346b8957fb2021fb18df8df9cb9fbb418fe7565b559af23f8fe755a",
+      "bytes": 34426
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.1.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.1.png",
+      "sha256": "1cf39d1ac0c3ecfc99f5690fa51df4396dd90fc5646fde5814ac8ce48b5fa78a",
+      "bytes": 663350
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.2.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.2.json",
+      "sha256": "330da2b7309026a139d678087856849f8236ab9f96903d5ae90ce93ddae2b108",
+      "bytes": 34232
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.2.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.2.png",
+      "sha256": "5d9898db08f9c58d511991c4cc1497dce6072fcdaae15bff4eae04f43a6d3f39",
+      "bytes": 663958
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.3.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.3.json",
+      "sha256": "cff6a019008e0b3f577f5e5de53996233b3f307c2fc46f53668affee757eb7a1",
+      "bytes": 34205
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.3.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.3.png",
+      "sha256": "3588bfd99a5617cbf79cae38167670d30e8f592304ce71dc4155db2b0fb07aca",
+      "bytes": 564515
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.4.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.4.json",
+      "sha256": "c53c9ec9db3fc8328c4a350e729fd72db92dbc42350da670e5d4a9b8c4cfcb44",
+      "bytes": 35169
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.4.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.4.png",
+      "sha256": "c2bf10ccd4161a08c4a4dbc92ea233d854e306adb463cd866306ecb919778f1c",
+      "bytes": 663343
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.5.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.5.json",
+      "sha256": "369b9200dbefed1e43221172f63436994f8feb928798a44dea21774addfa500c",
+      "bytes": 35039
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.5.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.5.png",
+      "sha256": "46faf2215216e8297df2c46e6e6feb1b48ecd53617bb4abf776356d7379ec854",
+      "bytes": 618268
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.6.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.6.json",
+      "sha256": "f377b2becd0fe0eda84f2adec0ffc60b8f881965fc8b7047c29cfe2e6592f78d",
+      "bytes": 5911
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.6.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.6.png",
+      "sha256": "aa61b29d1d94dc41e0357e042f7b8a983e38bbd047068428e93e50e1779e3449",
+      "bytes": 93084
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.0.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.0.json",
+      "sha256": "b5ea2e02295c86f3264be0ba5d071d50866af3409d5b7c8b854778bcac5ee2cb",
+      "bytes": 34503
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.0.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.0.png",
+      "sha256": "492f12f119f8a2c602478322fe33362e4de79b97f25aaaf44de6fe6df33674af",
+      "bytes": 282883
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.1.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.1.json",
+      "sha256": "edafa826c6414b0cdf44b11372864f433fadd582a23989a53c44f13abd806b5b",
+      "bytes": 34440
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.1.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.1.png",
+      "sha256": "eff83e6cf6ffa572f4aaff8c03aafab3b81ebb35bf9b0601ceb1ec988c3ea9fb",
+      "bytes": 331038
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.2.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.2.json",
+      "sha256": "4492a56dad9a79da8db8ee17c3a5efcb1997c5e7c4b6e7edc3b630bc4c39e800",
+      "bytes": 34261
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.2.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.2.png",
+      "sha256": "5230ea31acf52f078571aa9c943f6a0b53b386a7556049e39503de7579ff7881",
+      "bytes": 307648
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.3.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.3.json",
+      "sha256": "cfceda65f84dc5335ded7eb939d87e9383054652d975c1fdc4a367f636a660fa",
+      "bytes": 34647
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.3.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.3.png",
+      "sha256": "8a0f2fff755c1420962a0c2c8869dbad1211ddc92785378bc70a1cce9401a45c",
+      "bytes": 296848
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.4.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.4.json",
+      "sha256": "660fe8520fe0c4b49c4ca50b30186a4ff4b3b91508301c57332564897cbde45e",
+      "bytes": 35185
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.4.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.4.png",
+      "sha256": "83d7cde6a91cb3324c2217e89a0ddcfbdcb2c08ca6801e078041ab87cdd8d5b8",
+      "bytes": 332396
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.5.json": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.5.json",
+      "sha256": "7ffc397bea8775fddf4adc38fc77e844be89922b1be97d8531da5d158bc2ac24",
+      "bytes": 24200
+    },
+    "sprites/unit.IR.fighter/unit.IR.fighter@2x.team.5.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.5.png",
+      "sha256": "f9fe607c98a272dbb55c113fbb156aeea29b5bf51a738e573104a3ebc7c10967",
+      "bytes": 190752
+    },
+    "ui/portraits/IR.fighter@1x.beauty.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/ui/portraits/IR.fighter@1x.beauty.png",
+      "sha256": "4d44ed10687c6a48d4cd9c6a593fee1e1bb125d62e5994304c413ff5128c5103",
+      "bytes": 5694
+    },
+    "ui/portraits/IR.fighter@1x.team.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/ui/portraits/IR.fighter@1x.team.png",
+      "sha256": "f079506639de910abc3ecba9e4b66478224bc038f0f726303721f2c91e8d93e7",
+      "bytes": 989
+    },
+    "ui/portraits/IR.fighter@2x.beauty.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/ui/portraits/IR.fighter@2x.beauty.png",
+      "sha256": "de00ced0199c803e84dc3b5268e296633d99b9171c087b7696059313bcb63f17",
+      "bytes": 30063
+    },
+    "ui/portraits/IR.fighter@2x.team.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/ui/portraits/IR.fighter@2x.team.png",
+      "sha256": "927beb4b78323997d4354d6e3bac36e0aa7c4909380842b1f65f71397b121ce5",
+      "bytes": 17729
+    },
+    "ui/icons/build/IR.fighter@1x.beauty.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/ui/icons/build/IR.fighter@1x.beauty.png",
+      "sha256": "0fd6100e0a0d68dc3500d733fd33046425698cbb425572daaab617fbaa698520",
+      "bytes": 3749
+    },
+    "ui/icons/build/IR.fighter@1x.team.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/ui/icons/build/IR.fighter@1x.team.png",
+      "sha256": "3ca9eca695ffe6d6e269bb832ad1b89e85be52e3a42b300e88a0c2d2199dd5bf",
+      "bytes": 731
+    },
+    "ui/icons/build/IR.fighter@2x.beauty.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/ui/icons/build/IR.fighter@2x.beauty.png",
+      "sha256": "9a9d0f21235a46ffee41ec6b902f9ee8d153952c420f99ebfe01ae939f6792b2",
+      "bytes": 14534
+    },
+    "ui/icons/build/IR.fighter@2x.team.png": {
+      "source": "work/art/aircraft-final-production-v3/stage/assets/build/ui/icons/build/IR.fighter@2x.team.png",
+      "sha256": "7a0db9ca2ea382397e82f51001c6748132926d583d22b7b959233c2d686c46c0",
+      "bytes": 7040
+    }
+  },
+  "editable_blend": "work/art/aircraft-final-production-v3/stage/assets/source/blender/unit.IR.fighter.blend",
+  "reviewed_source": "work/art/aircraft-final-production-v3/stage/assets/pipeline/blender/models/aircraft_roster.py",
+  "prior_stages_untouched": true
+}
