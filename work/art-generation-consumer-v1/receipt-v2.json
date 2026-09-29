@@ -1,0 +1,22 @@
+{
+  "runtimeTests": 465,
+  "passed": 465,
+  "failed": 0,
+  "coreTestsIncluded": 14,
+  "consumerTestsIncluded": 11,
+  "typecheckAppExit": 0,
+  "typecheckRuntimeExit": 0,
+  "previousRegression": "checks-06: 10/11 focused pass;136-type fan-out fails against old64-waiter core, preserved.",
+  "corrections": [
+    "1024 descriptor-only waiting jobs; four active/128MiB unchanged",
+    "Failed sheet/image/cameo promises evicted by identity",
+    "Explicit idle same-index retry captures/verifies anew",
+    "Transient page unavailable/busy retries with250ms exponential cooldown capped15s; corrupt/missing-generation/decoder failures held"
+  ],
+  "sourceLockSHA256": "1182bfcdf111eff36f84e491d7c51642276642caaeff25083c8675c7b3b7b1cf",
+  "archiveSHA256": "1a9a4b7457d5d375c8c9d93cd4e11af45ecfd4919fc0e918a16e206befd547eb",
+  "inputs": 247,
+  "frozenSource": "frozen-v2/client",
+  "browser": "unrun",
+  "liveChanges": false
+}

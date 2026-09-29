@@ -1,0 +1,34 @@
+✘ [ERROR] Could not resolve "../../scripts/ui/art-plugin.mjs"
+
+    work/art-generation-consumer-v1/source/client/tests/runtime/effect-pack.test.ts:4:47:
+      4 │ ...ex,artPlugin,writeBasePack} from '../../scripts/ui/art-plugin.mjs';
+        ╵                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+✘ [ERROR] Could not resolve "../../scripts/ui/effect-pack.mjs"
+
+    work/art-generation-consumer-v1/source/client/tests/runtime/effect-pack.test.ts:6:51:
+      6 │ ...ectPack,inspectEffectPack} from '../../scripts/ui/effect-pack.mjs';
+        ╵                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1752
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 2 errors:
+work/art-generation-consumer-v1/source/client/tests/runtime/effect-pack.test.ts:4:47: ERROR: Could not resolve "../../scripts/ui/art-plugin.mjs"
+work/art-generation-consumer-v1/source/client/tests/runtime/effect-pack.test.ts:6:51: ERROR: Could not resolve "../../scripts/ui/effect-pack.mjs"
+    at failureErrorWithLog (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1752:15)
+    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1211:25
+    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1163:52
+    at buildResponseToResult (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1209:7)
+    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:1236:16
+    at responseCallbacks.<computed> (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:886:9)
+    at handleIncomingPacket (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:941:12)
+    at Socket.readFromStdout (/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/node_modules/esbuild/lib/main.js:864:7)
+    at Socket.emit (node:events:509:20)
+    at addChunk (node:internal/streams/readable:568:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v26.5.0

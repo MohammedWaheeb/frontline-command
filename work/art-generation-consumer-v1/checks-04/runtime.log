@@ -1,0 +1,698 @@
+✔ guest solo needs no profile; remembered local profiles restore without appearing in state or game backups (44.749708ms)
+✔ 401 becomes a recoverable sign-in state and removes only the rejected token (7.590833ms)
+✔ offline restore retains remembered credentials and a later successful service request recovers (5.022208ms)
+✔ tokens are host scoped and stale logout cannot erase a newer remembered profile (3.567917ms)
+✔ session-only sign-in clears the prior remembered credential and logout preserves gameplay files (3.424958ms)
+✔ credential vault CAS rejects cross-tab replacement without exposing tokens in error details (4.288875ms)
+✔ credential revisions survive logout/recreation, rejecting stale writes and stale cleanup of the same token (3.87025ms)
+✔ schema-one credentials migrate without token loss and seed the next revision after removal (8.073667ms)
+✔ stale session logout cannot remove the same token restored into a newer credential generation (14.579ms)
+✔ explicit private sign-in keys restore only their exact host and verified profile; never public state or backups (12.339666ms)
+✔ sign-in key parsing rejects malformed, oversized and unsupported files without exposing token in errors (5.024292ms)
+✔ profile changes during asynchronous key reads reject before adopting the old exported account (4.25175ms)
+✔ a new structural condition interrupts a current real ActorVisual launch and cannot revive it (3.077708ms)
+✔ strategic activation respects structural low power while enemy charge privacy stays generic (0.188917ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/actor-status.test.mjs:233:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/actor-status.test.mjs (141.652958ms)
+✔ only explicit recoverable advisor failures become nonblocking feedback (2.432875ms)
+✔ background timeout never opens global error dialog; stale production is disabled and later Go advice restores it (3.602167ms)
+✔ recovery preserves newer unrelated notices and unrelated failures still reach global error path (0.763958ms)
+✔ a late failure for an obsolete selection does not change controls or notices (0.255708ms)
+✔ explicit order advice failure sends nothing and never automatically resubmits the command (3.886208ms)
+✔ LAN advice uses only slot auth, preserves orders and exposes uncertainty (28.755917ms)
+✔ advice rejects wrong player, unexpected IDs, tick and result acceptance (2.625ms)
+✔ one advice request is pending and stale selection discards its response (0.919667ms)
+✔ advice respects request bounds and propagates rate error without retries (1.633584ms)
+✔ production menu status remains independent, bounded and authorized (3.336292ms)
+✔ ready offline environment prefetches selection-wide affordances then separates alternatives from final orders (26.900208ms)
+✔ ready environment guards session changes during affordance prefetch and batch validation (0.246ms)
+✔ online environment shares a paced request budget and uses independent candidate mode before sequential final check (521.295042ms)
+✔ canceling a paced advice update prevents a second network request (0.897166ms)
+✔ advice pacing starts after dispatch even when request setup is delayed (1.071542ms)
+✔ actual aircraft poses retain current owned empty payload through parked, service, damage and final-shot cues (3.126417ms)
+✔ payload appearance checks current viewer, current owner and current private data every time (0.307166ms)
+✔ all departure/recovery aliases keep canonical frame clocks and altitude when payload changes (0.35725ms)
+✔ missing empty variants stay explicit incomplete art without changing authoritative state (0.132458ms)
+✔ a decoding atlas cannot retain stale payload pixels across empty or viewer boundaries (0.725916ms)
+✔ atlas mask preserves faint body opacity across byte and row boundaries (0.606666ms)
+✔ normal tolerance reaches nearby body but never pixels belonging to a neighboring atlas frame (0.090458ms)
+✔ empty body page remains unselectable and malformed decoded dimensions are rejected (0.19425ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/ambient-presentation.test.mjs:173:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/ambient-presentation.test.mjs (126.332125ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/ambient-render.test.mjs:1582:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/ambient-render.test.mjs (414.984541ms)
+✔ seek publishes the replacement frame within 100ms before its paused clock and reply (12.873ms)
+✔ each reset while replacement is pending preserves the final authorized frame (0.175459ms)
+✔ pause flushes the last throttled frame even without a replacement or finished outcome (0.536625ms)
+✔ load/session replacement publishes its first frame immediately and clears the old owner (0.392625ms)
+✔ same-tick perspective replacement publishes the new authorized owner immediately (0.360625ms)
+✔ steady play retains the HUD throttle while every snapshot reaches the renderer (0.841417ms)
+✔ menu and a buffering replacement never flush the previous session snapshot on pause (0.285416ms)
+✔ already paused frames and a terminal outcome publish without waiting for another tick (1.851208ms)
+✔ simultaneous art initialization and sheet requests share one verified generation (34.350209ms)
+✔ a changed host cannot supply new sprite metadata beneath a retained art index (8.096541ms)
+✔ failed index replacement keeps prior art; valid idle replacement moves metadata and identity together (10.07475ms)
+✔ content reload canceled at its idle boundary cannot publish a new generation (5.91875ms)
+✔ dispose aborts pending initialization and prevents late generation publication (0.75275ms)
+✔ generation adapter keeps bytes exact and excludes private, cross-origin and non-GET requests (3.476792ms)
+✔ index capture preserves exact whitespace and rejects oversized/incompatible data (2.519625ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/art-id.test.mjs:29:24
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/art-id.test.mjs (51.994042ms)
+✔ actual cameo consumer uses full advertised building portrait and build keys independently (1.100792ms)
+✔ actual build cameo falls back to its independently advertised portrait, and units retain legacy keys (0.218333ms)
+✔ an advertised illustration load failure retains the existing missing-art result without unadvertised retries (0.109542ms)
+✔ resolver prefers exact advertised keys independently and never guesses absent UI (0.095792ms)
+✔ resolver rejects path traversal and URL syntax even when the malformed key is advertised (0.206458ms)
+✔ captures exact index/manifest and verifies online bytes before JSON/decode (41.21825ms)
+✔ retained A reads only A cache after B activation; explicit removal is fail closed (12.201459ms)
+✔ cold new generation needs no worker or network; legacy reconnect must match exact index (6.20925ms)
+✔ copied index, canonical manifest identity and private/unknown path exclusion (1.909541ms)
+✔ manifest/index mismatch, duplicates, reserved URLs and corrupt cache metadata fail before payload (3.053334ms)
+✔ truncated/oversized/corrupt payloads and canceled streams do not return bytes (4.393958ms)
+✔ leased object URLs are verified, keyed, reference-counted, bounded and disposed (5.308417ms)
+✔ bounded metadata, declared file sizes and redirected origins are rejected (1.976916ms)
+✔ normal startup fan-out queues FIFO and all reads finish within the active bound (6.404583ms)
+✔ queued cancellation and dispose never start waiting network; queue length is bounded (3.75275ms)
+✔ aggregate declared active bytes stop a second large reader without allocating it (1.293708ms)
+✔ installer stores canonical manifest before READY; metadata failure/cancel keeps old usable cache (11.566333ms)
+✔ legacy reinstall creates a verified successor; mutation of caller manifest cannot alter the transaction (3.511708ms)
+✔ standard verifies selected world pages plus actual 2x portrait/build pairs, without unused 2x world pages (24.478292ms)
+✔ high quality uses 2x world pages; the missing-high fallback matches the renderer (3.548834ms)
+✔ a portrait also satisfies build fallback; missing portrait conservatively verifies every 2x beauty/team page (3.231042ms)
+✔ a high-quality cameo fallback shares already verified metadata and images (0.845792ms)
+✔ per-launch concurrent URL dedup counts bytes and decode only once; later launches reverify (1.220834ms)
+✔ image verification is sequential and closes each bitmap before the next decode (0.295292ms)
+✔ completed native EOF clears its deadline and detaches parent abort while preserving subsequent launch cancellation (0.51125ms)
+✔ in-flight parent cancellation keeps its exact reason and clears the deadline (0.2565ms)
+✔ in-flight 15s deadline remains a real TimeoutError and detaches parent listener (0.1115ms)
+✔ download deadline is cleared at EOF before an asynchronous image decode finishes (0.139834ms)
+✔ failure cleanup cannot be replaced by a later timeout or parent abort while reader cancellation settles (0.234209ms)
+✔ a queued already-canceled call performs no fetch (0.068875ms)
+✔ fetch/header failures and native body errors preserve cause and clean the deadline (0.174209ms)
+✔ parent cancellation during image decoding closes the bitmap and is never relabeled as a corrupt image (0.123416ms)
+✔ bad HTTP, empty body, malformed JSON and image decode failures remain failures (0.29025ms)
+✔ encoded per-file/total limits still fail, stop the reader, and are counted once (1.260959ms)
+✔ the file ceiling is bounded, sealed-roster-derived, and cannot be raised by a caller (0.173042ms)
+✔ a valid 4550-file graph exceeds the old ceiling and verifies within the new bound (198.258ms)
+✔ path traversal, malformed or partial atlases, and conflicting image dimensions are rejected (1.962ms)
+✔ decoded atlas bounds and explicit UI pair dimensions must agree (8.992209ms)
+✔ full advertised building UI keys replace unused high-world fallback pages (0.387958ms)
+✔ preflight resolves portrait and build keys independently and keeps missing-portrait world fallback (0.983375ms)
+✔ newly reachable advertised building UI missing from disk fails preflight rather than taking an unadvertised fallback (1.260958ms)
+✔ audio manifest rejects unsafe URLs, malformed bounds and partial codec fallbacks (3.278625ms)
+✔ audio byte read bounds hold without length headers (23.287625ms)
+✔ warning bundles and selection cooldowns are location specific and resettable (0.110417ms)
+✔ director consumes only new permitted events; rewind/reconnect/new perspective never burst old sound (0.982041ms)
+✔ selection and command acknowledgment require owned actors or actual receipt; lost vision is not death (0.280542ms)
+✔ owner economy, teammate and public endgame transitions produce captions without inventing hidden readiness (0.24225ms)
+✔ service-loss audio warns only when the current living owned aircraft has no replacement home (3.9465ms)
+✔ service-loss warning does not repeat across duplicate IDs, reset, rewind or foreign perspective (0.423042ms)
+✔ autosaves follow simulation ticks, save checkpoints once, and begin a new schedule on load (0.80175ms)
+✔ failed checkpoint retries with simulation backoff and quota errors wait for explicit recovery (0.874416ms)
+✔ replay and online notifications never save; closing or replacing a session discards a captured old snapshot (0.147833ms)
+✔ concurrent tick notifications coalesce and never overlap writes (0.152959ms)
+✔ status callbacks may observe new ticks without reentrant captures and failed writes retain their exact snapshot (0.491208ms)
+✔ defeat countdowns follow the actual perspective and simulation tick, never the wall clock (1.921792ms)
+✔ recovery, defeat, finished outcomes and absent/invalid deadlines clear warnings (0.310291ms)
+✔ memory captions preserve the observation timestamp across later ticks and reject future or malformed times (0.180542ms)
+✔ build power estimate includes both capacity and demand without altering current economy (0.163334ms)
+✔ continuous sound selects nearest three current screen actors, with quiet bed and no fog memory (9.496041ms)
+✔ stationary, dead, landed and embarked actors have no engine, jets use bounded passes (0.227375ms)
+✔ impact material requires an identified authorized entity, never a nearest-target guess (0.097292ms)
+✔ map ambience derives solely from public map presentation (0.200084ms)
+✔ enemy strategic alert uses only public threshold transition and never initial/seek catchup or ally charge (0.900958ms)
+✔ endurance event alone supplies exact loss reason and suppresses generic duplicate independent of array order (0.317916ms)
+✔ impact event material can use only current or immediately previous permitted target (0.15975ms)
+✔ battlefield attachment follows explicit pause and detachment without retaining renderer callbacks (0.250375ms)
+✔ verified pack responses drop transport and Vary headers without changing bytes or content type (28.943333ms)
+✔ campaign order unlocks on any difficulty and keeps version-specific medals separate (42.669375ms)
+✔ missing story predecessor remains locked while prior completed missions can be replayed (9.296583ms)
+✔ live solo victory records authoritative mission version and completed optional objectives exactly once (8.85225ms)
+✔ replay, practice, unfinished, defeat and changing sessions never award progression (4.781875ms)
+✔ online completion requires committed matching commander result, excludes observers and remains host-scoped (10.300458ms)
+✔ first run requires explicit settings, preserves conflicting choices and returns a launch intent only (6.626833ms)
+✔ future first-run settings remain untouched and do not silently enable sound (6.828958ms)
+✔ muzzle uses the exact displayed fallback frame, alias, part offset and heading while a page loads (4.350708ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-feedback.test.mjs:85:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-feedback.test.mjs (92.803208ms)
+✔ trace may not bridge a hidden pocket or extrapolate off the known map (1.260542ms)
+✔ accessibility variants take priority over decorative quality (0.200541ms)
+✔ axial flash direction follows dimetric displayed headings, including independent turret directions (0.303875ms)
+✔ projectile direction needs real successive movement and never a guessed first sample or target (1.0085ms)
+✔ rotated frame bounds keep large offscreen-origin smoke and cull genuinely absent ink (0.272708ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-presentation.test.mjs:206:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-presentation.test.mjs (81.851167ms)
+node:internal/fs/promises:1360
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at async open (node:internal/fs/promises:1360:25)
+    at async readFile (node:internal/fs/promises:2149:14)
+    at async file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-sound.test.mjs:426:43 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-sound.test.mjs (108.043417ms)
+✔ rebase retains targeted Return semantics while ordinary Return remains queueable (2.312333ms)
+✔ context aircraft choose rebase only through Go capability and target approval (0.632167ms)
+✔ explicit intents reject hostile ownership and hidden/memory targets before invoking gameplay preview (0.338208ms)
+✔ large movement selections split safely while semantic abilities never repeat implicitly (1.211375ms)
+✔ mixed selection previews preserve exact failures and require explicit opt-in for partial commands (0.320166ms)
+✔ contextual mixed forces capture or attack legally without making support or air-only units chase ground targets (0.434042ms)
+✔ context commands use owned private data for unload and preserve producer-per-order semantics (0.227916ms)
+✔ queue and packet limits are explicit and never silently truncate or modify intentions (0.329708ms)
+✔ unavailable previews are labeled unverified and preview callbacks cannot mutate outbound order data (0.157667ms)
+✔ multi-point ability identity stays locked and selection changes invalidate pending previews (1.972792ms)
+✔ explicit command batches use one sequential preview and retain joint affordability failures (0.227667ms)
+✔ context prefetch batches 65 units, skips unused fallbacks, and sequentially rechecks combined orders (9.170916ms)
+✔ publicly impossible contextual candidates fall back, then final shared assignment failures stay rejected (0.383375ms)
+✔ candidate and final batch waits both discard stale selection without sending or mutating intentions (0.237875ms)
+✔ library passes exact detached map/mission bytes through Go adapters before preparing launch (34.253ms)
+✔ strict index rejects traversal, private URLs, duplicates, unknown fields and missing dependencies (2.352291ms)
+✔ integrity or Go validation failure preserves source and never reports ready or launches substitute data (2.474583ms)
+✔ failed refresh retains last valid registry; explicit retry succeeds and original index remains exportable (1.636042ms)
+✔ mismatched authoritative metadata rejects the file and leaves caller buffers unchanged (2.779959ms)
+✔ stream overflow is canceled, canceled work is discarded and changing the index invalidates in-flight validation (2.177458ms)
+✔ empty installed index is explicit missing content, while private/executable pack manifests are rejected (0.264208ms)
+✔ lost vision removes entity and replaces private state without mutating the prior frame (1.681125ms)
+✔ protobuf retains large seed and currency values and new control/status fields (1.766542ms)
+✔ display conversion and reconnect sequence retain boundaries (0.174125ms)
+✔ SHA-256 fallback matches published empty, abc, multiblock and million-a vectors (38.316791ms)
+✔ SHA-256 handles every padding boundary, sliced views, high bytes, and arbitrary binary blocks (50.069042ms)
+✔ fallback snapshots input and yields during large-file hashing without accepting later mutations (55.071542ms)
+✔ insecure-origin capability fallback uses CSPRNG UUIDv4 and never weak randomness (2.612667ms)
+✔ editor handle stays 32 CSS pixels on square/rectangular resized grids and keeps exact anchor (2.697ms)
+✔ editor loads immutable first beauty frames, paints fixed icons and releases only owned sheets (0.926459ms)
+✔ missing marker art and failed draw retain the callers vector fallback (1.019041ms)
+✔ leaving during editor atlas loading cannot publish a stale frame and still releases resources (0.274083ms)
+✔ a grouped paint/object/mission edit is one reversible transaction with detached snapshots (16.752958ms)
+✔ failed transactions are atomic; no-op and escaped edits cannot corrupt undo history (8.974166ms)
+✔ undo history is bounded; editing after undo removes the abandoned redo branch (11.251708ms)
+✔ resizing preserves surviving cells and objects for explicit repair; snapping is geometry only (7.66275ms)
+✔ Go validation errors remain precise and prevent export and practice launch (13.554667ms)
+✔ validation that races an edit is stale and can never authorize a launch (3.665333ms)
+✔ editor exports verify checksums, preserve supported mission/presentation, and keep background edits dirty (14.193375ms)
+✔ map and mission practice launches are validated, cannot mutate editor state, and retain the draft on return (12.955667ms)
+✔ mission edits reject executable/non-JSON values and prototype paths without changing the document (12.540209ms)
+✔ draft persistence is CAS protected and preserves exact portable documents (33.329208ms)
+✔ a microtask edit after Go validation resolves cannot be substituted into a validated export (5.788334ms)
+✔ a failed summary write aborts the entire draft save and keeps the dirty document available (6.913458ms)
+✔ supported optional map arrays normalize without losing metadata, and mission corruption is detected on draft import (10.81075ms)
+✔ draft deletion retains revisions across reopen so stale tabs cannot overwrite or delete recreated drafts (10.372083ms)
+✔ schema-one draft migration preserves content and starts the tombstone above the old revision (18.552292ms)
+✔ FX schema is immutable, supports shared variants and rejects invalid paths/frames/references (2.705625ms)
+✔ FX PNG inspection rejects corruption, truncation, appended bytes and unsupported dimensions (0.836792ms)
+✔ FX metadata loads once, pages load on demand, shared variants reuse frames, release owns all textures (21.248375ms)
+✔ FX wrong bytes fail before decode and explicit retry recovers, without silent replacement (7.375542ms)
+✔ FX strict residency budget includes pending decode and evicts only old pages under pressure (4.195042ms)
+✔ FX late texture decode cannot resurrect a released session (4.537792ms)
+✔ FX decoded image dimension mismatch is released and index integrity mismatch rejects init (4.7335ms)
+✔ FX release during metadata fetch prevents late sheet installation (2.611458ms)
+✔ FX optional absence preserves old art index; complete exact dependency graph is advertised (76.495584ms)
+✔ FX partial/corrupt/unknown/symlink packs fail instead of advertising completion (31.2585ms)
+✔ FX symlinked root and traversal metadata cannot escape the installed build (11.292917ms)
+✔ FX dev middleware serves checked exact bytes only and rejects traversal/unlisted/corrupt pages (54.559208ms)
+✔ FX actual build hook packages referenced files with exact base-pack hashes; tampering rejects repack (48.95325ms)
+✖ Copper Junction pilot binds unchanged map bytes and exactly ten mirrored public entries (6.189458ms)
+✔ optional scenery is exact-byte verified after the public map passes Go validation (34.371792ms)
+✔ a reused map ID/version cannot authorize scenery for different terrain, objects or starts (5.669083ms)
+✔ corrupt optional bytes remain exportable and mismatched source bindings are rejected (4.7345ms)
+✔ environment descriptors reject unsafe paths, unknown fields and excessive declared sizes (2.941125ms)
+✔ cancellation and index replacement cannot install an in-flight scenery response (2.314583ms)
+✔ environment decoder binds exact map bytes, rejects unsupported data and freezes detached output (5.750958ms)
+✔ skins cannot invent object classes, missing actors, duplicates, factions or state (3.274209ms)
+✔ solid props need the complete impassable safety area and opaque masses need real sight blocking (1.940167ms)
+✔ scrub cannot invent cover, overlap dressing or float across mixed-height support (0.839416ms)
+✔ bridge variants keep every internal road lane open in all four orientations (2.585291ms)
+✔ public dressing follows exploration and skin rubble still requires Go disclosure (10.844292ms)
+✔ Go maps with a null empty resource slice still disclose later shipment cargo (8.080959ms)
+✔ public explored locations never invent initial cargo or station ownership (0.261625ms)
+✔ only disclosed field and station facts update presentation memory; hidden changes do not (0.368625ms)
+✔ dynamic shipment cargo follows real fields and coalesces old depleted shipments without timers (0.900667ms)
+✔ rubble requires explicit selected-player disclosure and disappears exactly on rewind or perspective change (0.547375ms)
+✔ object art uses explicit legal classes and actual health/destruction independently of neutral enabled status (0.525458ms)
+✔ aircraft empty payload and orbit art use only owner-private facts; observed service is public (0.748875ms)
+✔ launcher ready art never derives another player’s exact charges (0.132ms)
+✔ initial and reset flight states are stable; transitions only follow observed landing changes (4.361917ms)
+✔ interrupted flight and crash remain continuous and settle on terrain without gameplay delay (0.317958ms)
+✔ selection uses owned live entities and never treats remembered or enemy entities as commandable (2.965125ms)
+✔ box and same-type screen selection preserve shift add/remove semantics without selecting fog memory (17.330375ms)
+✔ control groups prune removed/captured units, retain embarked members and center only on deliberate double tap (0.438292ms)
+✔ selection tokens change with composition, perspective and session but not with ordinary movement (0.207333ms)
+✔ escape and actionable alerts return camera/menu intentions without changing selection (0.124333ms)
+✔ native keyboard activation is not consumed as chat or alert navigation (1.705292ms)
+✔ default and classic controls have no shortcut conflicts, including queued commands and groups (2.618667ms)
+✔ remapping is transactional and detects overlaps introduced by the queue modifier (2.097209ms)
+✔ accessible modifier toggles preserve normal shortcuts and clear cleanly on focus loss (0.386625ms)
+✔ text entry, composition, disabled surfaces and already consumed events suppress battlefield shortcuts (0.290166ms)
+✔ standard and classic pointer presets return correct selection, targeting and queued command intentions (0.62975ms)
+✔ map context transmits only explicit admission and verifies declared map hash before exposing map (17.27075ms)
+✔ map moderator submits both displayed revisions and preserves reported evidence when author changes concurrently (1.005209ms)
+✔ minimap paints an already paused snapshot immediately after attachment (1.595042ms)
+✔ paused camera pan, zoom and resize repaint with a bounded cadence (0.170083ms)
+✔ mission and actual resize invalidation survive the paint throttle (0.190125ms)
+✔ detach releases its resize observer and stops later camera painting (0.157ms)
+✔ stale cleanup cannot detach a newer attachment of the same canvas (0.172209ms)
+✔ an attachment before the first authorized snapshot paints when it arrives (0.136917ms)
+✔ radar keeps battlefield projection across maps and accessibility panel sizes (1.031792ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/missing-art-perspective.test.mjs:5310:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/missing-art-perspective.test.mjs (323.395583ms)
+✔ original-force labels merge only selected faction and reject ambiguous or incompatible metadata (1.408208ms)
+✔ marked forces contain only living currently-owned originals; carried members are counted without selecting their carrier (0.327333ms)
+✔ authored objective markers resolve public regions and disappear only after authoritative completion (2.042917ms)
+✔ mission marker loading rejects wrong versions, duplicate IDs, invalid regions and hidden/failure objectives (0.305542ms)
+✔ operator credential remains memory-only, reviews use displayed revision and locking drops all evidence (19.727417ms)
+✔ operator never sends credential to LAN or deceptively named hosts; malformed tokens stay local (0.974875ms)
+✔ locking during a pending privileged request discards its response and does not resurrect operator state (1.737541ms)
+✔ stale review keeps concrete evidence and requires explicit reload; writes are never retried automatically (2.855542ms)
+✔ revoked operator credential clears previously loaded private evidence on server denial (0.909292ms)
+✔ network guest can reach host without a profile; profile credentials stay out of public controller state (43.694667ms)
+✔ ready proves matching Go version and actual asset loading; failure never sends ready flags (7.374291ms)
+✔ configuration mutation during assets preflight uses captured revision and requires renewed readiness (6.348791ms)
+✔ start installs real slot connection and validated host map, while slot token never enters observable state (8.209292ms)
+✔ expired profile authentication produces recoverable local sign-in without deleting saves (8.176583ms)
+✔ product sync requires explicit per-item decisions and preserves exact engine bytes through migration (18.756334ms)
+✔ completed lobby recovers durable result for an eliminated socket without replaying commands (5.560833ms)
+✔ chat reads every retained page, displays new messages beyond the first 100 and removes newly filtered history (11.412166ms)
+✔ expired profile can create a replacement identity without inheriting old lobby membership or deleting files (12.605708ms)
+✔ profile replacement without a lobby clears private reports, host copies and prior notices immediately (3.560958ms)
+✔ credential expiry removes report evidence from public state even without a lobby (4.057291ms)
+✔ workshop preparation never uploads implicitly; explicit private write uses reviewed revision and stale writes preserve preview (3.277292ms)
+✔ leaving an active online session stops automatic re-entry while explicit reconnect remains available (5.522417ms)
+✔ missing retained lobby recovers only an exact durable result and never rejoins a frozen participant (8.619084ms)
+✔ missing lobby without a committed record stays unresolved and transient history failures can retry (4.33175ms)
+✔ recorded history is available without a lobby and is cleared on profile change (5.317416ms)
+✔ delayed observer installs no early world state, authenticates only through header and rejects every command/clock mutation (237.108459ms)
+✔ observer rejects wrong perspective, metadata, player command receipts and changed delay before publishing (2.241583ms)
+✔ observer reconnect preserves last permitted snapshot and rejects a rewind or terminal authorization loss (1.60425ms)
+✔ disposing while a response is in flight cannot publish a stale observer frame or restart polling (0.528583ms)
+✔ transient background observer failure retries without repeated command-error dialogs and clears the status on recovery (615.531208ms)
+✔ disposing during buffered response decoding leaves the feed closed (21.71175ms)
+✔ completed content upgrades remain coherent offline; corrupt staging cannot activate or delete old packs (60.359417ms)
+✔ elimination terminal preserves final permitted frame and stops reconnect without generic runtime error (364.354709ms)
+✔ owner operation preview preserves all three exact Go routes and deadlines without retaining response aliases (0.998625ms)
+✔ operation preview rejects mismatched intent, duplicate plans, invalid coordinates/times and independent disclosure (1.686417ms)
+✔ LAN preview exposes plans only through validated sequential advice and never turns estimates into certainty (18.903541ms)
+✔ strike review waits for advice, binds immutable targets, cancels stale responses and confirms only once (0.290625ms)
+✔ older runtimes and rejected previews cannot confirm a strike (0.13325ms)
+✔ rejected ground feedback copies only a finite explicit local order position (0.708ms)
+✔ ordinary planned command receives exactly one current owner rejection marker and preserves the authoritative queue (1.622ms)
+✔ accepted, foreign, reset and disconnected receipts never paint stale rejection positions (0.780666ms)
+✔ rejected marker stays bounded, static and expires without altering snapshots or looking up entities (0.773292ms)
+✔ out-of-order batch receipts each acknowledge once without dropping earlier entries (0.238625ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/owner-ranges.test.mjs:162:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/owner-ranges.test.mjs (86.75325ms)
+✔ construction ghost waits for body beauty, keeps physical @2x scale, and suppresses unmatched turret paint (6.661ms)
+✔ cleared, switched and disposed proposals reject late art admission (7.225209ms)
+✔ final interceptor launch uses an empty rack only for disclosed owned charges (0.818166ms)
+✔ owned structural battery art preserves priority and known charge count with legacy fallback (0.383125ms)
+✔ cosmetic squad casualties follow only disclosed health and restore with healing (0.089417ms)
+✔ authoritative support and channel names select their authored work animation (0.104875ms)
+✔ deployment, packing and damage cannot disappear behind ordinary idle art (0.134208ms)
+✔ boarding receiver context opens only authored doors and blocked unloading keeps them open (0.290583ms)
+✔ building animations follow known power and service facts without disclosing enemy assignments (0.634958ms)
+✔ offline discontinuity arrives before replacement snapshots, but ordinary ticks do not reset effects (3.984791ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/production-focus.test.mjs:94:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/production-focus.test.mjs (92.467042ms)
+✔ campaign completion is idempotent across tabs and replay playback never updates progression (13.686958ms)
+✔ future progress schema and invalid completion remain untouched (2.398041ms)
+✔ damaged progress records cannot turn counters into invalid values (3.554959ms)
+✔ practice results cannot update campaign progress even when mislabeled as live by a caller (4.146917ms)
+✔ point-target reach preserves distance from circular and rectangular firing footprints (2.247708ms)
+✔ range modes never substitute public base sight/detection for absent owner disclosure (0.416125ms)
+✔ recorded result reads only authenticated result metadata and preserves original payload bytes (0.936583ms)
+✔ frozen result cue requires matching committed result and never replaces live or observer state (0.163292ms)
+✔ reports send participant context only and propagate quota without retrying (22.283209ms)
+✔ own report paging encodes cursors and history retains the exact result payload (0.503625ms)
+✔ conflict preview displays both timestamps and mission progress, with unchanged large integer engine bytes (53.574416ms)
+✔ guest migration previews exact stable copy targets and unsupported local-only items before explicit choices (15.536834ms)
+✔ any local or remote revision change after preview blocks all writes before execution (17.382875ms)
+✔ copying remote data to a manual local target preserves exact bytes and requires human commander choices (9.312583ms)
+✔ cancellation after a completed copy stops remaining copies and never rolls back by deleting files (5.157333ms)
+✔ an uncertain network write is reported honestly and never retried automatically (3.991834ms)
+✔ preview tampering cannot redirect targets or authorize another account (4.475875ms)
+✔ incompatible saves remain intact and can only be skipped or mapped to a separate destination (4.705916ms)
+✔ settings previews expose missing host timestamps and use both local and host revision checks (4.793708ms)
+✔ a source edit during upload remains local and the receipt identifies that the reviewed snapshot was copied (6.436959ms)
+✔ host CAS still protects a change that occurs after preflight, and pre-start cancellation writes nothing (15.580833ms)
+✔ destination names are part of the reviewed copy mapping and obey actual host byte limits (14.239458ms)
+✔ delete/recreate before preflight is detected even if the revision number repeats (13.628958ms)
+✔ campaign preview compares actual mission records and timestamps; explicit replacement preserves authoritative results elsewhere (13.314792ms)
+✔ campaign remote changes and CAS races preserve both revisions; uncertain writes are not retried (9.86425ms)
+✔ campaign upload preserves a concurrently updated local ledger and never crosses account context (4.891208ms)
+✔ future or malformed campaign ledger remains preserved and cannot overwrite a supported copy (5.660583ms)
+✔ metadata-only archive selection supports more than64 files and downloads selected files only (5.051ms)
+✔ inventory selected revision changes reject before downloading, and account changes invalidate selection (5.798125ms)
+✔ unknown host sizes reserve64MiB and aggregate byte bound applies before selected payload downloads (4.885708ms)
+✔ real source heights support the actual service center/grid, highest plane and zero-height ground distinctly (0.893459ms)
+✔ retained physical footprint and sim-local axes determine support, not the converted faction capacity (0.380125ms)
+✔ edge/vertex sampling is inclusive for either winding but outside collinear extensions remain ground (0.686959ms)
+✔ invalid or invented support metadata cannot supply a blanket lift (0.544ms)
+✔ an eliminated online commander has a frozen badge regardless of stale pause, without changing the permitted snapshot (0.9345ms)
+✔ observer, paused and replay labels retain priority; only a real finished snapshot labels the battlefield ended (0.124125ms)
+✔ terminal and disconnected menus never display old teammate, latency or shared-pause data as current (0.185791ms)
+✔ failed replacement retains live match, successful replacement disposes it once (2.774667ms)
+✔ a slower canceled launch cannot overwrite the latest session (0.293291ms)
+✔ replay skips autosave, has read-only save/restart controls, and releases worker on menu (0.322916ms)
+✔ manual save cannot write a newly selected session under an old request (0.272375ms)
+✔ new restart session has a new autosave identity and remains paused until UI resumes (0.310166ms)
+✔ observer replacement is read-only, may buffer without a snapshot, and never creates autosaves (0.251209ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '../pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/sold-building-feedback.test.mjs:5798:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '../pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/sold-building-feedback.test.mjs (249.477875ms)
+✔ authored reverse aliases retain progress and map all layers/hardpoints to exact source poses (0.88025ms)
+✔ concurrent save edits have exactly one winner and preserve the conflict (9.541042ms)
+✔ three autosaves rotate atomically without consuming manual saves (17.139167ms)
+✔ export/import preserves exact large integer bytes and previews existing records (3.538666ms)
+✔ settings use a separate revision and failed validation leaves saves untouched (1.732333ms)
+✔ backup restores saves/settings/progress/replays together with explicit decisions and exact bytes (10.600917ms)
+✔ backup conflict aborts every selected write and keeps both versions available (6.011667ms)
+✔ failed backup write rolls back earlier writes and never discards the source (7.907584ms)
+✔ unsupported backup and mixed incompatible save preserve exact originals for later recovery (3.516208ms)
+✔ preview mutations cannot bypass validation or overwrite a revision not reviewed (12.500083ms)
+✔ replay validation is bounded, integrity checked, CAS protected, and corrupt files remain exportable (3.866917ms)
+✔ schema upgrade preserves version-one saves and future databases are never downgraded (11.60025ms)
+✔ settings reject malformed JSON, byte limits and invalid revisions without replacing existing data (8.250917ms)
+✔ an unreadable backup can be kept byte for byte without replacing current records (1.58025ms)
+✔ deleted save and replay IDs never reuse revisions across tabs and reopen (11.199208ms)
+✔ atomic backup CAS rejects delete/recreate races; backup restore and autosave respect tombstones (12.990666ms)
+✔ legacy revisions migrate to durable high-water marks without rewriting their bytes (7.479625ms)
+✔ revision exhaustion fails safely and never wraps an existing save (1.796666ms)
+✔ campaign backup validation preserves malformed story originals without replacing a supported local ledger (5.532ms)
+✔ browser backup streams cursor records without retaining all raw archive payloads (26.464333ms)
+✔ world-space rings preserve exact radius at every sample, including large zones (1.6775ms)
+✔ caption semantics retain pending launch versus impact and round up the last live tick (0.277459ms)
+✔ coincident and nearby salvo captions remain separate without moving their target points (0.679083ms)
+✔ command symbols distinguish target, ground, queued guard, patrol and return intent (0.101ms)
+✔ restored ping baseline survives selection refresh; new pings expire and remain bounded (0.255708ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/tactical-presentation.test.mjs:258:22
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/tactical-presentation.test.mjs (78.931042ms)
+✔ open ground never displays the cover or rubble material, across broad material transitions (10.642541ms)
+✔ water, shore and beach remain distinct without changing gameplay terrain (5.414667ms)
+✔ low scree only dresses open neighbors of real rock and never changes their rules (3.187375ms)
+✔ flat surface preserves the original isometric projection and exact roundtrips, including partial chunks (41.418834ms)
+✔ all passable road/open/ramp height joins share exact geometry and are traversable in all four directions (4.910917ms)
+✔ disconnected diagonal walkable sectors do not average across impassable tiles (0.542209ms)
+✔ raised plateau centers and conservative map bounds include the full four-level lift (1.16675ms)
+✔ face picking selects the actual near cliff surface and returns its blocked owner rather than lower ground (0.5245ms)
+✔ arbitrary valid height maps have exact projected intersections and no duplicate edge ownership (12.171125ms)
+✔ fog geometry always uses conservative owner disclosure and does not mutate visible arrays (0.257041ms)
+✔ mixed-height structure support has an exact clipped perimeter and never mutates terrain or invents placement validity (0.481208ms)
+✔ surface is an immutable public-map snapshot and rejects unsupported heights (0.818208ms)
+node:fs:539
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/pkg/content/rules.json'
+    at readFileSync (node:fs:539:20)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/transport-presentation.test.mjs:79:43
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/pkg/content/rules.json'
+}
+
+Node.js v26.5.0
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/transport-presentation.test.mjs (102.0115ms)
+✔ tutorial gesture memory merges tab updates, survives restart, isolates mission versions and never grants campaign progress (14.299208ms)
+✔ incompatible tutorial memory stays preserved (0.744583ms)
+✔ transport input lessons persist independently of authoritative world objectives (2.094583ms)
+ℹ tests 383
+ℹ suites 0
+ℹ pass 369
+ℹ fail 14
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1975.794
+
+✖ failing tests:
+
+test at .test-runtime/actor-status.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/actor-status.test.mjs (141.652958ms)
+  'test failed'
+
+test at .test-runtime/ambient-presentation.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/ambient-presentation.test.mjs (126.332125ms)
+  'test failed'
+
+test at .test-runtime/ambient-render.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/ambient-render.test.mjs (414.984541ms)
+  'test failed'
+
+test at .test-runtime/art-id.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/art-id.test.mjs (51.994042ms)
+  'test failed'
+
+test at .test-runtime/combat-feedback.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-feedback.test.mjs (92.803208ms)
+  'test failed'
+
+test at .test-runtime/combat-presentation.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-presentation.test.mjs (81.851167ms)
+  'test failed'
+
+test at .test-runtime/combat-sound.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-sound.test.mjs (108.043417ms)
+  'test failed'
+
+test at .test-runtime/environment-authored.test.mjs:160:1
+✖ Copper Junction pilot binds unchanged map bytes and exactly ten mirrored public entries (6.189458ms)
+  Error: ENOENT: no such file or directory, open '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/content/maps/copper-junction.json'
+      at async open (node:internal/fs/promises:1360:25)
+      at async readFile (node:internal/fs/promises:2149:14)
+      at async TestContext.<anonymous> (file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/environment-authored.test.mjs:161:20)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/content/maps/copper-junction.json'
+  }
+
+test at .test-runtime/missing-art-perspective.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/missing-art-perspective.test.mjs (323.395583ms)
+  'test failed'
+
+test at .test-runtime/owner-ranges.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/owner-ranges.test.mjs (86.75325ms)
+  'test failed'
+
+test at .test-runtime/production-focus.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/production-focus.test.mjs (92.467042ms)
+  'test failed'
+
+test at .test-runtime/sold-building-feedback.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/sold-building-feedback.test.mjs (249.477875ms)
+  'test failed'
+
+test at .test-runtime/tactical-presentation.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/tactical-presentation.test.mjs (78.931042ms)
+  'test failed'
+
+test at .test-runtime/transport-presentation.test.mjs:1:1
+✖ /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/transport-presentation.test.mjs (102.0115ms)
+  'test failed'
+node:internal/errors:999
+  const err = new Error(message);
+              ^
+
+Error: Command failed: /opt/homebrew/Cellar/node/26.5.0/bin/node --test /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/account.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/actor-pose-priority.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/actor-status.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/advice-feedback.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/advice.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/aircraft-payload.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/alpha-picking.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/ambient-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/ambient-render.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/application-snapshot.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/art-generation-consumer.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/art-id.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/art-ui.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/asset-generation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/asset-preflight.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/audio.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/autosave.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/battlefield-cues.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/battlefield-sound.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/cache-response.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/campaign-journey.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-attachments.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-feedback.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-geometry.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/combat-sound.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/command-intent.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/content-library.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/core.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/crypto.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/editor-handles.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/editor.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/effect-assets.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/effect-pack.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/environment-authored.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/environment-library.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/environment-sidecar.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/environment-state.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/flight-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/interaction.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/keybindings.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/map-workshop.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/minimap-lifecycle.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/minimap.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/missing-art-perspective.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/mission-groups.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/mission-markers.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/moderation-controller.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/network-controller.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/observer.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/offline-upgrade.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/online-terminal.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/operation-preview.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/order-feedback.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/owner-ranges.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/placement-ghost.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/poses.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/presentation-reset.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/production-focus.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/progress.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/range-geometry.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/recorded-result.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/reports.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/save-sync.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/service-surfaces.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/session-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/session.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/sold-building-feedback.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/sprite-aliases.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/storage.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/tactical-geometry.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/tactical-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/terrain-materials.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/terrain-surface.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/transport-presentation.test.mjs /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/.test-runtime/tutorial-memory.test.mjs
+    at genericNodeError (node:internal/errors:999:15)
+    at wrappedFn (node:internal/errors:544:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at execFileSync (node:child_process:978:15)
+    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/source/client/scripts/runtime/test.mjs:10:1
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 74413,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v26.5.0

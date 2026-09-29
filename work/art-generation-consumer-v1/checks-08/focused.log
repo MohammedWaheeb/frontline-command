@@ -1,0 +1,20 @@
+✔ simultaneous art initialization and sheet requests share one verified generation (15.93ms)
+✔ a changed host cannot supply new sprite metadata beneath a retained art index (1.692333ms)
+✔ failed index replacement keeps prior art; valid idle replacement moves metadata and identity together (1.148166ms)
+✔ content reload canceled at its idle boundary cannot publish a new generation (0.660459ms)
+✔ dispose aborts pending initialization and prevents late generation publication (0.327791ms)
+✔ generation adapter keeps bytes exact and excludes private, cross-origin and non-GET requests (0.813959ms)
+✔ index capture preserves exact whitespace and rejects oversized/incompatible data (0.597708ms)
+✔ a full 136-type roster request completes without caching queue overflow as missing art (10.144625ms)
+✔ transient metadata failures can retry and explicit same-index reload verifies a fresh capture (1.971042ms)
+✔ an image download failure does not retain a rejected image promise (0.820708ms)
+✔ a transient sprite page retries after a bounded delay and disposes its owned texture (302.801417ms)
+✔ a hard integrity error after a transient retry is surfaced and remains held (302.609417ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 827.12125

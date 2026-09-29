@@ -1,0 +1,93 @@
+{
+  "started": "2026-09-29T11:20:21.798Z",
+  "status": "author-preflight-passed",
+  "browser": "firefox",
+  "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/app-v3-build-03/product",
+  "preflight": true,
+  "checks": [],
+  "httpErrors": [],
+  "served": {},
+  "scope": "Genuine stock browser, full immutable generation-consumer-v3 App with v25+36 art, ordinary solo versus Go bot. UI input only; passive worker/view/export observations. OS download dispatch intercepted; no paid-opening completion, combat victory, full audio, offline install, performance, long-session or release claim.",
+  "productCore": {
+    "/index.html": {
+      "path": "/index.html",
+      "sha256": "43a7043708e6c4c15a0a298a419ba877065aaded3c3a5bae610a421d06bd9c09",
+      "bytes": 1189
+    },
+    "/runtime/version.json": {
+      "path": "/runtime/version.json",
+      "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+      "bytes": 169
+    },
+    "/runtime/frontline.wasm": {
+      "path": "/runtime/frontline.wasm",
+      "sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+      "bytes": 11237971
+    },
+    "/runtime/worker.js": {
+      "path": "/runtime/worker.js",
+      "sha256": "ced862a30a9d91dbab59befcf6ea0e4af9dabfc289acffbe7678a6dd33b2bed9",
+      "bytes": 8198
+    },
+    "/runtime/wasm_exec.js": {
+      "path": "/runtime/wasm_exec.js",
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+      "bytes": 16992
+    }
+  },
+  "identity": {
+    "buildSHA256": "f714d2d6c761dc9b389f91034f361e4662f0c420e42905b1229b1ee76d7cd445",
+    "packSHA256": "9387365786fcd3f53049bdd1a87482a37eac8f18561fa276d36c977f26224559",
+    "runtime": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.4"
+    },
+    "app": {
+      "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox",
+      "version": "156.0.1",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "executable_sha256": "f2559282d3ef1ceeb0083700e57092c905f043eddb02a9b8ac09009ec9719ac3",
+      "automation": "W3C WebDriver through task-local geckodriver; moz:firefoxOptions.binary; temporary profile",
+      "launched": false
+    },
+    "driver": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver",
+    "appSignature": {
+      "command": [
+        "codesign",
+        "-dv",
+        "--verbose=4",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox\nIdentifier=org.mozilla.firefox\nFormat=app bundle with Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=927 flags=0x10000(runtime) hashes=18+7 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=f52a9f7f34d93175e9393d3e0e33b00a47332d40\nCandidateCDHashFull sha256=f52a9f7f34d93175e9393d3e0e33b00a47332d40b839cecb7cab5653b55c2921\nHash choices=sha256\nCMSDigest=f52a9f7f34d93175e9393d3e0e33b00a47332d40b839cecb7cab5653b55c2921\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=32768\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=f52a9f7f34d93175e9393d3e0e33b00a47332d40\nSignature size=8988\nAuthority=Developer ID Application: Mozilla Corporation (43AQ936H96)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=21 Sep 2026 at 5:53:56 pm\nNotarization Ticket=stapled\nInfo.plist entries=37\nTeamIdentifier=43AQ936H96\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=73\nInternal requirements count=1 size=180\n"
+    },
+    "driverSignature": {
+      "command": [
+        "codesign",
+        "-dv",
+        "--verbose=4",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver\nIdentifier=geckodriver\nFormat=Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=37751 flags=0x10000(runtime) hashes=1174+2 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=f13524c698f8361a534f3f6d8190e67cb7505ad7\nCandidateCDHashFull sha256=f13524c698f8361a534f3f6d8190e67cb7505ad76fe82b21eb01a4878a87363c\nHash choices=sha256\nCMSDigest=f13524c698f8361a534f3f6d8190e67cb7505ad76fe82b21eb01a4878a87363c\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=3391488\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=f13524c698f8361a534f3f6d8190e67cb7505ad7\nSignature size=8988\nAuthority=Developer ID Application: Mozilla Corporation (43AQ936H96)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=17 Jul 2026 at 12:36:08 pm\nInfo.plist=not bound\nTeamIdentifier=43AQ936H96\nRuntime Version=26.5.0\nSealed Resources=none\nInternal requirements count=1 size=148\n"
+    },
+    "observerBundleSHA256": "9b7445e820d02e735a2325c88578cacb70ecaa282d26a41c7b269a016e943c47",
+    "sources": {
+      "product-smoke.mjs": "2246f1ded17d2c6cfd37bb9726aba1464ceb0c085d72c0cecdd19b41ded24f14",
+      "observe.mjs": "6e10adec0991f490a4dda13e9a67b1fd3d90222179bc586a90831c69e1cb7dd2",
+      "w3c.mjs": "ef1db6e0ceb415536429bf8d34170b440fd3c0b852612af1d39ea15c871c286e"
+    }
+  },
+  "noBrowserOrHostStarted": true,
+  "webdriverCommands": [],
+  "inputsVerifiedAfter": 144,
+  "closedAt": "2026-09-29T11:20:23.785Z"
+}

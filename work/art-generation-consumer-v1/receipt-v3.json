@@ -1,0 +1,19 @@
+{
+  "runtimeTests": 466,
+  "passed": 466,
+  "failed": 0,
+  "coreTestsIncluded": 14,
+  "consumerTestsIncluded": 12,
+  "typecheckAppExit": 0,
+  "typecheckRuntimeExit": 0,
+  "previousRegression": "Frozen-v2 hid a terminal page error after a temporary error; independent proof is preserved.",
+  "corrections": [
+    "Report each terminal page failure even after an earlier transient failure; repeated transient retries remain quiet; hard errors stay held."
+  ],
+  "sourceLockSHA256": "a70a5df5cb053b9f1ee96f5ced310b83f99c2514764f6409c27b286d8ab21282",
+  "archiveSHA256": "8579e556577fab6dede6f5d9ec07da926877934f836c085553060f4b81a89b9e",
+  "inputs": 247,
+  "frozenSource": "frozen-v3/client",
+  "browser": "unrun",
+  "liveChanges": false
+}
