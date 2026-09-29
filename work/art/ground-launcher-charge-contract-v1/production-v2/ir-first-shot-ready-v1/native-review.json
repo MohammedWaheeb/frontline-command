@@ -1,0 +1,18 @@
+{
+  "reviewed_at_utc": "2026-09-29T14:47:32.448377+00:00",
+  "reviewer": "Codex direct native image inspection",
+  "scope": "Four diagonal final first-shot to one-charge ready source-atlas pairs at 1x and 2x, not runtime",
+  "images": {
+    "first-shot-ready-01@1x.png": "427b351a535e9bd0d498339e1cdecfd9701fa3317a6979d2873145650ca22f9f",
+    "first-shot-ready-02@1x.png": "84deec62530564520f180720b25a3f7f6f51417739fd0de8416a9d4847c78671",
+    "first-shot-ready-01@2x.png": "f257aeba4d5f577b31525829168d70165b98a56208bce221468b83cafad1dfe1",
+    "first-shot-ready-02@2x.png": "52ecda6382b953dec067cfa63c82c61252b9b148b90412598693083f0499cda8"
+  },
+  "accepted_bounded_transition": true,
+  "findings": [
+    "Retained missile stays on the same rail and at the same deployed angle in all four diagonal pairs. No refill, rack-side swap or body/anchor jump is visible.",
+    "The first-shot smoke remains visible at the final fire frame for rear/side views and vanishes in ready. This is an existing cosmetic state transition, not a payload count change.",
+    "One-vs-two charge read remains subtle in end-on views, as recorded by the Claude review; this contact does not resolve that general camera limitation."
+  ],
+  "result_sha256": "e73a3e25cc68612d53f202db1d89075f463b08faf84ad11e2692436a97337e6e"
+}

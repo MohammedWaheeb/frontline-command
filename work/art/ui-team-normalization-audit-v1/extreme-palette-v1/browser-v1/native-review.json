@@ -1,0 +1,27 @@
+{
+  "scope": "Direct native 1x/2x review of actual current ArtLibrary Canvas composites, private derivatives only. No source/model/world changes or whole-game claim.",
+  "reviewer": "Codex",
+  "reviewed_at_utc": "2026-09-29T14:54:20.050078+00:00",
+  "accepted_bounded_extreme_palette_comparison": true,
+  "browser_result_sha256": "3141f5aa679b8bfd47b76120e9d3a10ba4d1a87b919b9e8ab82870da62abb8de",
+  "images": {
+    "IR.recon-build-native-comparison.png": "e2f85ccae028c87ea4c7b220b8bd57eaec7486ef6c56957d37fcd4fb05228f2f",
+    "IR.recon-portrait-native-comparison.png": "967a3176095876363a670efc7f1f076eb706caa6318bc1cb1582c76f5939c8ec",
+    "SA.medic-build-native-comparison.png": "79b81bdfddb1f0ff437ace7f3b9de7dc3f051159505e910d771653af0d7f69c7",
+    "SA.medic-portrait-native-comparison.png": "96e5e1b180562cf534c95a5c7eede75c1044b0acf8e19c30e2d803bd16950a52",
+    "US.at-build-native-comparison.png": "4ad8a817ccaf41ccc3fb42c9171e2c33933a5d5352d0d4701aee6e53b8fd8326",
+    "US.at-portrait-native-comparison.png": "76b8395e242da6613304a7fa8a44965b5387bf7491ccb935ae2b0e4e79a68349",
+    "US.rifle-build-native-comparison.png": "eb16a9fc3d96f927054a61914f51ac567d3356e85d6600c3013c2eedb6f74ed6",
+    "US.rifle-portrait-native-comparison.png": "aaa2bbcc9e70ad6b54418b0168251daf35727b270dbee851619a0c7624756e8b",
+    "US.tank-build-native-comparison.png": "16fc45646fe8f47ff2a83ff111f3529c3a5098dfcb05b11b3d4477827d981b4f",
+    "US.tank-portrait-native-comparison.png": "91ad99636cd0f6e1bf31a3b821ef70ea64e7dad1820406538137211c4593bfdc"
+  },
+  "findings": [
+    "Both standard and CVD palette extremes remain legible for all five roles in portrait and build images.",
+    "White/light-gray normalized team regions are brighter but retain visible shape and shaded edges. Dark blue and red accents remain readable; no neutral-body hue shift, hole, outline fringe or change outside the mask was seen.",
+    "The change remains a modest team-color brightness/hue correction, strongest on the original US rifle helmet/chest and broad tank panels. It does not repair the known old rifle style mismatch.",
+    "Technical checks preserve every output alpha value and every pixel outside the original mask, across all40 cases.",
+    "The existing original US rifle images are historical reference; replacement rifle UI must be evaluated separately if its new spec is accepted."
+  ],
+  "limits": "Five representative roles and palette extrema; no final visual acceptance of every136 mask or any future newly authored UI. Existing full136 alpha/coverage/source audit remains separate."
+}

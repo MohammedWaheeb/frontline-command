@@ -1,0 +1,56 @@
+{
+  "utc": "2026-09-29T14:38:01.636658+00:00",
+  "scope": "AC-resumed sole-worker queue. No new model, UI, manifest or gameplay authoring. Whole-asset checks and native review remain required. Old handoffs immutable.",
+  "assets": [
+    {
+      "id": "unit.US.launcher",
+      "poses": 688,
+      "reused_poses": 56,
+      "fresh_poses": 632,
+      "spec_sha256": "97ab6fa946e71b488cb9893a168eebdb51d9279cd036d346fca7cd6d317f97a7",
+      "states": [
+        "idle",
+        "move",
+        "damaged",
+        "wreck",
+        "fire",
+        "deploy",
+        "ready",
+        "launch",
+        "ready_empty",
+        "idle_charges_0",
+        "move_charges_0",
+        "damaged_charges_0",
+        "deploy_charges_0"
+      ]
+    },
+    {
+      "id": "unit.SY.launcher",
+      "poses": 688,
+      "reused_poses": 56,
+      "fresh_poses": 632,
+      "spec_sha256": "cdec6b93e16daed0d13e98d6d6371dc691b2a41b7cbc7c1ae2dead74a6f66d26",
+      "states": [
+        "idle",
+        "move",
+        "damaged",
+        "wreck",
+        "fire",
+        "deploy",
+        "ready",
+        "launch",
+        "ready_empty",
+        "idle_charges_0",
+        "move_charges_0",
+        "damaged_charges_0",
+        "deploy_charges_0"
+      ]
+    }
+  ],
+  "next_aircraft_family": "work/art/aircraft-final-production-v3",
+  "review_dependencies": {
+    "US/SY launcher": "Neither depends on pending SA empty-canister or SY/SA HQ visual reviews. Frozen stage cannot be changed mid-job.",
+    "remaining aircraft": "Accepted a8207dddec57da229ba8c2d9b09d4d8e4b6498ae0aeb4325617444675abcb50a model; no overlap with four current Claude review briefs.",
+    "held": "SA launcher source/readability correction, HQ/style and infantry/UI-mask review remain parent/Claude-owned."
+  }
+}

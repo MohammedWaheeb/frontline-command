@@ -1,0 +1,21 @@
+// Static actual-consumer comparison; no game host, simulation or WebGL scene.
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import {mkdir,readFile,realpath,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
+import {chromium} from '../../../../client/node_modules/playwright-core/index.mjs';
+const root=path.dirname(fileURLToPath(import.meta.url)),repo=path.resolve(root,'../../../..'),name=process.argv[2];assert(/^[a-z0-9-]+$/.test(name??''));const out=path.join(root,name);await mkdir(out);
+const sha=b=>createHash('sha256').update(b).digest('hex');const report={started_at:new Date().toISOString(),status:'starting',scope:'Actual imported ArtLibrary.cameo, image routing only. Static palette-extreme diagnostic; no game/performance claim.'};
+const html='<!doctype html><meta charset="utf-8"><title>Frontline Command — cameo audit loading</title><style>body{background:#8c806b;font:12px sans-serif;color:#171713;margin:12px}.row{display:flex;align-items:center;position:relative;padding-top:26px;height:198px;width:680px}.row p{position:absolute;top:0;margin:0}.cell{display:flex;align-items:center;gap:5px;width:336px}h2{margin:4px}section{width:680px}</style><h1>Actual game cameo compositor — extreme team palette</h1><script type="module" src="/compare.js"></script>';
+const server=createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost');if(url.pathname==='/'){res.setHeader('Content-Type','text/html');res.end(html);return}if(url.pathname==='/favicon.ico'){res.writeHead(204).end();return}assert(!url.pathname.includes('..'));const p=path.resolve(root,'.'+decodeURIComponent(url.pathname));assert(p.startsWith(root+path.sep));res.setHeader('Content-Type',p.endsWith('.png')?'image/png':'text/javascript');res.end(await readFile(p))}catch{res.writeHead(404).end()}});let browser;const errors=[];
+try{
+ const lock=JSON.parse(await readFile(path.join(root,'harness-lock.json')));for(const [rel,want] of Object.entries(lock.files))assert.equal(sha(await readFile(path.join(repo,rel))),want,rel);
+ const executable=await realpath(process.argv[3]??chromium.executablePath());report.executable=executable;report.executable_sha256=sha(await readFile(executable));report.profile='Fresh Playwright temporary profile';report.status='launching';
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const url=`http://127.0.0.1:${server.address().port}`;report.url=url;
+ browser=await chromium.launch({executablePath:executable,headless:true});report.browser=browser.version();report.status='running';const page=await browser.newPage({viewport:{width:710,height:1000},deviceScaleFactor:1});page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(['error','warning'].includes(m.type()))errors.push(m.text())});await page.goto(url);await page.waitForFunction(()=>window.audit?.complete,{},{timeout:30000});const audit=await page.evaluate(()=>window.audit);assert.equal(audit.errors.length,0,JSON.stringify(audit.errors));assert.equal(errors.length,0,JSON.stringify(errors));assert.equal(audit.cases.length,40);assert.equal(await page.title(),'Frontline Command — extreme palette cameo audit');
+ for(const role of ['US.rifle','US.at','IR.recon','SA.medic','US.tank'])for(const purpose of ['portrait','build'])await page.locator(`section[id="${role}-${purpose}"]`).screenshot({path:path.join(out,`${role}-${purpose}-native-comparison.png`)});
+ for(const [key,data] of Object.entries(audit.images))await writeFile(path.join(out,`${key}.png`),Buffer.from(data.split(',')[1],'base64'));delete audit.images;
+ Object.assign(report,{viewport:{width:710,height:1000,deviceScaleFactor:1},harness_lock_sha256:sha(await readFile(path.join(root,'harness-lock.json'))),errors,...audit,status:'passed'});console.log(JSON.stringify({out,cases:audit.cases.length,errors:errors.length}));
+}catch(error){report.status='failed';report.failure=String(error?.stack??error);throw error}finally{await browser?.close();if(server.listening)await new Promise(resolve=>server.close(resolve));report.completed_at=new Date().toISOString();report.browser_and_server_closed=true;await writeFile(path.join(out,'result.json'),JSON.stringify(report,null,2)+'\n')}
