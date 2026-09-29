@@ -13,13 +13,10 @@ async function summarize(buffer:AudioBuffer){
  const digest=await crypto.subtle.digest('SHA-256',samples);
  return {id,duration:buffer.duration,sampleRate:buffer.sampleRate,channels:buffer.numberOfChannels,length:buffer.length,pcmSHA256:[...new Uint8Array(digest)].map(value=>value.toString(16).padStart(2,'0')).join('')};
 }
-const focusEvents:{type:string;trusted:boolean;visibility:DocumentVisibilityState;focused:boolean;at:number}[]=[];
-for(const name of ['focus','blur'])window.addEventListener(name,event=>focusEvents.push({type:event.type,trusted:event.isTrusted,visibility:document.visibilityState,focused:document.hasFocus(),at:performance.now()}));
-document.addEventListener('visibilitychange',event=>focusEvents.push({type:event.type,trusted:event.isTrusted,visibility:document.visibilityState,focused:document.hasFocus(),at:performance.now()}));
 const api={
  async ready(){await mixer.loadIndex();return this.state()},
  consent(value:boolean){preferences={...preferences,audioConsent:value};mixer.update(preferences)},
- state(){return {audio:mixer.state.get(),statistics:mixer.statistics,descriptor:descriptor(),closedContext:context?.state,pending,focus:{visibility:document.visibilityState,focused:document.hasFocus(),events:focusEvents}}},
+ state(){return {audio:mixer.state.get(),statistics:mixer.statistics,descriptor:descriptor(),closedContext:context?.state,pending}},
  syntheticGesture(){window.dispatchEvent(new PointerEvent('pointerdown'))},
  async load(){return summarize(await access.buffer(descriptor()))},
  queue(name:string){pending={name,status:'pending'};void access.buffer(descriptor()).then(async(buffer:AudioBuffer)=>{pending={name,status:'resolved',buffer:await summarize(buffer)}},(error:Error)=>{pending={name,status:'rejected',error:{name:error.name,message:error.message}}})},

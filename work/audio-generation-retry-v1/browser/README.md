@@ -1,3 +1,5 @@
+Current result: see [RESULTS.md](RESULTS.md). Chrome03 passes ten functional checks, but strict diagnostics remain failed for one raw index abort with exact consumed-byte proof. The original preparation receipt below is retained as history.
+
 # AudioContext browser course — prepared, not run
 
 Prepared against unchanged private audio-v1 (source lock SHA256 `4ccb087b72fb00c69f1e3c86fb5fd67db5321457b4affbca1f6c8cde7e3ebedd`). No production source, audio or art was changed. Browser execution remains held for power and lane clearance.

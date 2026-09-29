@@ -1,0 +1,189 @@
+{
+  "scope": "Post-close independent audit; original receipt/result unchanged",
+  "functional": "passed",
+  "strict": "failed",
+  "browser": "154.0.8037.58",
+  "browserReceiptSHA256": "53442668949f66c0fac9d633339780115536c98529e362275c77f573d207d570",
+  "sourceLockSHA256": "4ccb087b72fb00c69f1e3c86fb5fd67db5321457b4affbca1f6c8cde7e3ebedd",
+  "finalTraceBudget": {
+    "scope": "audio-retry-v1",
+    "faults": [],
+    "overflow": 0,
+    "pendingHashes": 0,
+    "copiedBytes": 0
+  },
+  "uniqueRequestAndBodyProof": [
+    {
+      "requestId": 3,
+      "url": "http://127.0.0.1:57274/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 1,
+      "servedId": 3,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 443,
+      "sha256": "a285a3712adf2c403e7e9626e41023f9e84e19530ef477582aea1ee2b275461e",
+      "eofOrder": 5,
+      "rawRequestFailures": []
+    },
+    {
+      "requestId": 4,
+      "url": "http://127.0.0.1:57274/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 1,
+      "servedId": 4,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 11972,
+      "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951",
+      "eofOrder": 11,
+      "rawRequestFailures": []
+    },
+    {
+      "requestId": 5,
+      "url": "http://127.0.0.1:57274/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 2,
+      "servedId": 5,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 445,
+      "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+      "eofOrder": 17,
+      "rawRequestFailures": []
+    },
+    {
+      "requestId": 6,
+      "url": "http://127.0.0.1:57274/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 2,
+      "servedId": 6,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 12353,
+      "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+      "eofOrder": 24,
+      "rawRequestFailures": []
+    },
+    {
+      "requestId": 7,
+      "url": "http://127.0.0.1:57274/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 3,
+      "servedId": 7,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 445,
+      "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+      "eofOrder": 30,
+      "rawRequestFailures": [
+        {
+          "errorText": "net::ERR_ABORTED"
+        }
+      ],
+      "causation": "Unexplained; exact bytes do not waive this diagnostic. Relative browser-failure/native-EOF ordering was not collected on one clock."
+    },
+    {
+      "requestId": 8,
+      "url": "http://127.0.0.1:57274/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 4,
+      "servedId": 8,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 16,
+      "sha256": "6e3ee3cb9a8ae00b1e06835517b3e0eeeb3eb03215bd2ac0677bee6a9381395a",
+      "eofOrder": 36,
+      "rawRequestFailures": []
+    },
+    {
+      "requestId": 9,
+      "url": "http://127.0.0.1:57274/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 5,
+      "servedId": 9,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 443,
+      "sha256": "a285a3712adf2c403e7e9626e41023f9e84e19530ef477582aea1ee2b275461e",
+      "eofOrder": 42,
+      "rawRequestFailures": []
+    },
+    {
+      "requestId": 10,
+      "url": "http://127.0.0.1:57274/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 3,
+      "servedId": 10,
+      "category": "controlled-pending-request-aborted",
+      "bytesRead": 0,
+      "signalAbortOrder": 53,
+      "fetchError": "AbortError: signal is aborted without reason",
+      "serverCanceledBeforeWrite": true,
+      "serverEndCalled": false,
+      "rawRequestFailures": [
+        {
+          "errorText": "net::ERR_ABORTED"
+        }
+      ]
+    },
+    {
+      "requestId": 11,
+      "url": "http://127.0.0.1:57274/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 6,
+      "servedId": 11,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 445,
+      "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+      "eofOrder": 51,
+      "rawRequestFailures": []
+    },
+    {
+      "requestId": 12,
+      "url": "http://127.0.0.1:57274/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 4,
+      "servedId": 12,
+      "category": "native-eof-and-exact-consumed-bytes",
+      "bytes": 12353,
+      "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+      "eofOrder": 59,
+      "rawRequestFailures": []
+    },
+    {
+      "requestId": 13,
+      "url": "http://127.0.0.1:57274/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 5,
+      "servedId": 13,
+      "category": "controlled-pending-request-aborted",
+      "bytesRead": 0,
+      "signalAbortOrder": 70,
+      "fetchError": "AbortError: signal is aborted without reason",
+      "serverCanceledBeforeWrite": false,
+      "serverEndCalled": true,
+      "rawRequestFailures": [
+        {
+          "errorText": "net::ERR_ABORTED"
+        }
+      ]
+    }
+  ],
+  "cleanup": {
+    "context": "absent",
+    "sources": 0,
+    "continuous": 0,
+    "buffers": 0,
+    "decodedBytes": 0,
+    "pending": 0,
+    "generation": 6,
+    "gains": {
+      "master": 1,
+      "voice": 0,
+      "music": 0,
+      "effects": 0,
+      "ui": 0
+    }
+  },
+  "contextState": "closed",
+  "chromeExit": {
+    "code": 0,
+    "signal": null
+  },
+  "processCheck": "No task-specific browser or runner remained on post-close process inspection.",
+  "auditCorrection": "Initial manual audit incorrectly required both held server responses to close before writing. In actual Request13, release called server res.end after client fetch had already rejected. Client signal/rejection/zero consumed bytes is proven, server pre-write close is not claimed for Request13."
+}

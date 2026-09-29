@@ -1,0 +1,147 @@
+{
+  "status": "prepared-browser-unrun",
+  "scope": "Exact frozen audio-v1 source, original packaged OGG/MP3 clips; HTTP alias metadata only. No generated/edited audio.",
+  "createdAt": "2026-09-29T14:37:55.810Z",
+  "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/app-v3-build-03/product",
+  "sourceLockSHA256": "4ccb087b72fb00c69f1e3c86fb5fd67db5321457b4affbca1f6c8cde7e3ebedd",
+  "packSHA256": "9387365786fcd3f53049bdd1a87482a37eac8f18561fa276d36c977f26224559",
+  "audioIndexSHA256": "e509585aba77734dd319a5159317fc86544898ebfe2ceef3b50ff5b5b2619433",
+  "clips": [
+    {
+      "label": "A",
+      "id": "vo.unit.US.pilot.select",
+      "original": {
+        "url": "/art/audio/vo/units/US/pilot/select_1.ogg",
+        "caption": "Flight crew ready.",
+        "duration": 1.0365833333333334,
+        "bytes": 11972,
+        "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951",
+        "mp3_url": "/art/audio/vo/units/US/pilot/select_1.mp3",
+        "mp3_bytes": 18092,
+        "mp3_sha256": "4e0357007f2eef7ea12b54542eb845fcd53496f520fb6f5ba8f4a77e119b4463"
+      },
+      "files": [
+        {
+          "codec": "ogg",
+          "url": "/art/audio/vo/units/US/pilot/select_1.ogg",
+          "file": "clips/A.ogg",
+          "bytes": 11972,
+          "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951"
+        },
+        {
+          "codec": "mp3",
+          "url": "/art/audio/vo/units/US/pilot/select_1.mp3",
+          "file": "clips/A.mp3",
+          "bytes": 18092,
+          "sha256": "4e0357007f2eef7ea12b54542eb845fcd53496f520fb6f5ba8f4a77e119b4463"
+        }
+      ],
+      "index": {
+        "format": 1,
+        "sample_rate": 24000,
+        "entries": {
+          "vo.review": {
+            "bus": "voice",
+            "priority": 10,
+            "cooldown_ms": 2500,
+            "variants": [
+              {
+                "url": "/art/audio/review/clip.ogg",
+                "caption": "Flight crew ready.",
+                "duration": 1.0365833333333334,
+                "bytes": 11972,
+                "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951",
+                "mp3_url": "/art/audio/review/clip.mp3",
+                "mp3_bytes": 18092,
+                "mp3_sha256": "4e0357007f2eef7ea12b54542eb845fcd53496f520fb6f5ba8f4a77e119b4463"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "label": "B",
+      "id": "vo.unit.US.pilot.move",
+      "original": {
+        "url": "/art/audio/vo/units/US/pilot/move_1.ogg",
+        "caption": "Moving to your mark.",
+        "duration": 1.0663333333333334,
+        "bytes": 12353,
+        "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+        "mp3_url": "/art/audio/vo/units/US/pilot/move_1.mp3",
+        "mp3_bytes": 18476,
+        "mp3_sha256": "da0b6a926efde0eddd03c85c9de44d90186a2f696acf9e2c248f15360fd864d7"
+      },
+      "files": [
+        {
+          "codec": "ogg",
+          "url": "/art/audio/vo/units/US/pilot/move_1.ogg",
+          "file": "clips/B.ogg",
+          "bytes": 12353,
+          "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654"
+        },
+        {
+          "codec": "mp3",
+          "url": "/art/audio/vo/units/US/pilot/move_1.mp3",
+          "file": "clips/B.mp3",
+          "bytes": 18476,
+          "sha256": "da0b6a926efde0eddd03c85c9de44d90186a2f696acf9e2c248f15360fd864d7"
+        }
+      ],
+      "index": {
+        "format": 1,
+        "sample_rate": 24000,
+        "entries": {
+          "vo.review": {
+            "bus": "voice",
+            "priority": 10,
+            "cooldown_ms": 1000,
+            "variants": [
+              {
+                "url": "/art/audio/review/clip.ogg",
+                "caption": "Moving to your mark.",
+                "duration": 1.0663333333333334,
+                "bytes": 12353,
+                "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+                "mp3_url": "/art/audio/review/clip.mp3",
+                "mp3_bytes": 18476,
+                "mp3_sha256": "da0b6a926efde0eddd03c85c9de44d90186a2f696acf9e2c248f15360fd864d7"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "files": {
+    "index.html": {
+      "bytes": 445,
+      "sha256": "94e0b68f48f6b89aef356e1bd6873329acf0f7988fa91fb50dbb2e1aaaf8f49f"
+    },
+    "fixture.js": {
+      "bytes": 89391,
+      "sha256": "d4a07fc9b9f6c6a71fb2128177b1fd0cb73b2a84929c1bda851193d36bd85d53"
+    },
+    "fixture.js.map": {
+      "bytes": 144321,
+      "sha256": "a56ebda66a2eb699f3a561eef72f5707060ca2533df90b595d272548955bcb3d"
+    },
+    "clips/A.ogg": {
+      "bytes": 11972,
+      "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951"
+    },
+    "clips/A.mp3": {
+      "bytes": 18092,
+      "sha256": "4e0357007f2eef7ea12b54542eb845fcd53496f520fb6f5ba8f4a77e119b4463"
+    },
+    "clips/B.ogg": {
+      "bytes": 12353,
+      "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654"
+    },
+    "clips/B.mp3": {
+      "bytes": 18476,
+      "sha256": "da0b6a926efde0eddd03c85c9de44d90186a2f696acf9e2c248f15360fd864d7"
+    }
+  }
+}

@@ -1,0 +1,811 @@
+{
+  "status": "failed",
+  "scope": "Real AudioContext with exact existing clips. Test-only server switches same-URL descriptors and holds one request; no subjective listening, gameplay, GPU or performance claim.",
+  "preparedSHA256": "900ddad18cd52a94c04c74d63de18fa6cdeb26f1a315df4c439bc2ac24d1f813",
+  "executable": "work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "executableSHA256": "633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740",
+  "checks": [
+    {
+      "name": "denied-and-synthetic-gesture",
+      "pass": true
+    },
+    {
+      "name": "consented-synthetic-gesture-still-blocked",
+      "pass": true
+    },
+    {
+      "name": "actual-A-decode",
+      "buffer": {
+        "id": 1,
+        "duration": 1.0365833333333334,
+        "sampleRate": 24000,
+        "channels": 1,
+        "length": 24878,
+        "pcmSHA256": "e349c3c26d383ded8f1eed37764d8cfbc64d5a59935e2a485acf2c331a01121e"
+      }
+    },
+    {
+      "name": "cached-sameURL-change",
+      "buffer": {
+        "id": 2,
+        "duration": 1.0663333333333334,
+        "sampleRate": 24000,
+        "channels": 1,
+        "length": 25592,
+        "pcmSHA256": "694b7fdb00a33e2211d86f6ec9c94340859109d807f8520fa74c718f3b710a38"
+      }
+    },
+    {
+      "name": "identical-index-retry-preserves-real-buffer",
+      "pass": true
+    },
+    {
+      "name": "failed-index-keeps-B",
+      "pass": true
+    },
+    {
+      "name": "pending-original-HTTP-canceled-on-change",
+      "heldServerRequest": 10,
+      "expectedBrowserRequest": 10,
+      "buffer": {
+        "id": 3,
+        "duration": 1.0663333333333334,
+        "sampleRate": 24000,
+        "channels": 1,
+        "length": 25592,
+        "pcmSHA256": "694b7fdb00a33e2211d86f6ec9c94340859109d807f8520fa74c718f3b710a38"
+      },
+      "pending": {
+        "name": "held-A",
+        "status": "rejected",
+        "error": {
+          "name": "AbortError",
+          "message": "signal is aborted without reason"
+        }
+      }
+    }
+  ],
+  "browser": "154.0.8037.58",
+  "focusAutomation": "Disabled Playwright default focus emulation; actual browser visibility/focus events recorded.",
+  "functional": "failed",
+  "error": "page.waitForFunction: Timeout 10000ms exceeded.\n    at /Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/audio-generation-retry-v1/browser/runner.mjs:34:315",
+  "state": {
+    "audio": {
+      "status": "ready",
+      "captions": []
+    },
+    "statistics": {
+      "context": "running",
+      "sources": 0,
+      "continuous": 0,
+      "buffers": 1,
+      "decodedBytes": 102368,
+      "pending": 0,
+      "generation": 4,
+      "gains": {
+        "master": 1,
+        "voice": 1,
+        "music": 0,
+        "effects": 1,
+        "ui": 0
+      }
+    },
+    "descriptor": {
+      "url": "/art/audio/review/clip.ogg",
+      "caption": "Moving to your mark.",
+      "duration": 1.0663333333333334,
+      "bytes": 12353,
+      "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+      "mp3_url": "/art/audio/review/clip.mp3",
+      "mp3_bytes": 18476,
+      "mp3_sha256": "da0b6a926efde0eddd03c85c9de44d90186a2f696acf9e2c248f15360fd864d7"
+    },
+    "pending": {
+      "name": "held-A",
+      "status": "rejected",
+      "error": {
+        "name": "AbortError",
+        "message": "signal is aborted without reason"
+      }
+    },
+    "focus": {
+      "visibility": "visible",
+      "focused": true,
+      "events": []
+    }
+  },
+  "nativeTrace": {
+    "scope": "audio-retry-v1",
+    "records": [
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 1,
+        "startedAt": 37.30000019073486,
+        "startedOrder": 1,
+        "bytesRead": 443,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 6,
+        "responseAt": 43.700000047683716,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 46.700000047683716,
+        "eofOrder": 5,
+        "sha256": "a285a3712adf2c403e7e9626e41023f9e84e19530ef477582aea1ee2b275461e",
+        "hashAt": 48.5,
+        "hashOrder": 6
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "method": "GET",
+        "ordinal": 1,
+        "startedAt": 309.90000009536743,
+        "startedOrder": 7,
+        "bytesRead": 11972,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 19,
+        "responseAt": 311.30000019073486,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 311.5,
+        "eofOrder": 11,
+        "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951",
+        "hashAt": 311.5,
+        "hashOrder": 12,
+        "signalAbortAt": 320.30000019073486,
+        "signalAbortOrder": 19
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 2,
+        "startedAt": 318.10000014305115,
+        "startedOrder": 13,
+        "bytesRead": 445,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 18,
+        "responseAt": 319.60000014305115,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 319.80000019073486,
+        "eofOrder": 17,
+        "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+        "hashAt": 319.80000019073486,
+        "hashOrder": 18
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "method": "GET",
+        "ordinal": 2,
+        "startedAt": 321.80000019073486,
+        "startedOrder": 20,
+        "bytesRead": 12353,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 44,
+        "responseAt": 323,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 323.2000000476837,
+        "eofOrder": 24,
+        "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+        "hashAt": 323.40000009536743,
+        "hashOrder": 25,
+        "signalAbortAt": 335.5,
+        "signalAbortOrder": 44
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 3,
+        "startedAt": 325.10000014305115,
+        "startedOrder": 26,
+        "bytesRead": 445,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 31,
+        "responseAt": 326,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 326.10000014305115,
+        "eofOrder": 30,
+        "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+        "hashAt": 326.2000000476837,
+        "hashOrder": 31
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 4,
+        "startedAt": 330.60000014305115,
+        "startedOrder": 32,
+        "bytesRead": 16,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 37,
+        "responseAt": 331.40000009536743,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 331.5,
+        "eofOrder": 36,
+        "sha256": "6e3ee3cb9a8ae00b1e06835517b3e0eeeb3eb03215bd2ac0677bee6a9381395a",
+        "hashAt": 331.5,
+        "hashOrder": 37
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 5,
+        "startedAt": 334.5,
+        "startedOrder": 38,
+        "bytesRead": 443,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 43,
+        "responseAt": 335.2000000476837,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 335.30000019073486,
+        "eofOrder": 42,
+        "sha256": "a285a3712adf2c403e7e9626e41023f9e84e19530ef477582aea1ee2b275461e",
+        "hashAt": 335.40000009536743,
+        "hashOrder": 43
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "method": "GET",
+        "ordinal": 3,
+        "startedAt": 337,
+        "startedOrder": 45,
+        "bytesRead": 0,
+        "readCalls": 0,
+        "readerCount": 0,
+        "updatedOrder": 54,
+        "signalAbortAt": 350.80000019073486,
+        "signalAbortOrder": 53,
+        "fetchError": "AbortError: signal is aborted without reason",
+        "fetchErrorOrder": 54
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 6,
+        "startedAt": 349.60000014305115,
+        "startedOrder": 47,
+        "bytesRead": 445,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 52,
+        "responseAt": 350.60000014305115,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 350.7000000476837,
+        "eofOrder": 51,
+        "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+        "hashAt": 350.7000000476837,
+        "hashOrder": 52
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "method": "GET",
+        "ordinal": 4,
+        "startedAt": 353.90000009536743,
+        "startedOrder": 55,
+        "bytesRead": 12353,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 60,
+        "responseAt": 354.5,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 354.5,
+        "eofOrder": 59,
+        "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+        "hashAt": 354.60000014305115,
+        "hashOrder": 60
+      }
+    ],
+    "faults": [],
+    "overflow": 0,
+    "pendingHashes": 0,
+    "copiedBytes": 0
+  },
+  "nativeTraceAfterDispose": {
+    "scope": "audio-retry-v1",
+    "records": [
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 1,
+        "startedAt": 37.30000019073486,
+        "startedOrder": 1,
+        "bytesRead": 443,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 61,
+        "responseAt": 43.700000047683716,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 46.700000047683716,
+        "eofOrder": 5,
+        "sha256": "a285a3712adf2c403e7e9626e41023f9e84e19530ef477582aea1ee2b275461e",
+        "hashAt": 48.5,
+        "hashOrder": 6,
+        "signalAbortAt": 10434.800000190735,
+        "signalAbortOrder": 61
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "method": "GET",
+        "ordinal": 1,
+        "startedAt": 309.90000009536743,
+        "startedOrder": 7,
+        "bytesRead": 11972,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 19,
+        "responseAt": 311.30000019073486,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 311.5,
+        "eofOrder": 11,
+        "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951",
+        "hashAt": 311.5,
+        "hashOrder": 12,
+        "signalAbortAt": 320.30000019073486,
+        "signalAbortOrder": 19
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 2,
+        "startedAt": 318.10000014305115,
+        "startedOrder": 13,
+        "bytesRead": 445,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 62,
+        "responseAt": 319.60000014305115,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 319.80000019073486,
+        "eofOrder": 17,
+        "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+        "hashAt": 319.80000019073486,
+        "hashOrder": 18,
+        "signalAbortAt": 10434.800000190735,
+        "signalAbortOrder": 62
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "method": "GET",
+        "ordinal": 2,
+        "startedAt": 321.80000019073486,
+        "startedOrder": 20,
+        "bytesRead": 12353,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 44,
+        "responseAt": 323,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 323.2000000476837,
+        "eofOrder": 24,
+        "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+        "hashAt": 323.40000009536743,
+        "hashOrder": 25,
+        "signalAbortAt": 335.5,
+        "signalAbortOrder": 44
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 3,
+        "startedAt": 325.10000014305115,
+        "startedOrder": 26,
+        "bytesRead": 445,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 63,
+        "responseAt": 326,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 326.10000014305115,
+        "eofOrder": 30,
+        "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+        "hashAt": 326.2000000476837,
+        "hashOrder": 31,
+        "signalAbortAt": 10434.800000190735,
+        "signalAbortOrder": 63
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 4,
+        "startedAt": 330.60000014305115,
+        "startedOrder": 32,
+        "bytesRead": 16,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 64,
+        "responseAt": 331.40000009536743,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 331.5,
+        "eofOrder": 36,
+        "sha256": "6e3ee3cb9a8ae00b1e06835517b3e0eeeb3eb03215bd2ac0677bee6a9381395a",
+        "hashAt": 331.5,
+        "hashOrder": 37,
+        "signalAbortAt": 10434.800000190735,
+        "signalAbortOrder": 64
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 5,
+        "startedAt": 334.5,
+        "startedOrder": 38,
+        "bytesRead": 443,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 65,
+        "responseAt": 335.2000000476837,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 335.30000019073486,
+        "eofOrder": 42,
+        "sha256": "a285a3712adf2c403e7e9626e41023f9e84e19530ef477582aea1ee2b275461e",
+        "hashAt": 335.40000009536743,
+        "hashOrder": 43,
+        "signalAbortAt": 10434.800000190735,
+        "signalAbortOrder": 65
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "method": "GET",
+        "ordinal": 3,
+        "startedAt": 337,
+        "startedOrder": 45,
+        "bytesRead": 0,
+        "readCalls": 0,
+        "readerCount": 0,
+        "updatedOrder": 54,
+        "signalAbortAt": 350.80000019073486,
+        "signalAbortOrder": 53,
+        "fetchError": "AbortError: signal is aborted without reason",
+        "fetchErrorOrder": 54
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/index.json",
+        "method": "GET",
+        "ordinal": 6,
+        "startedAt": 349.60000014305115,
+        "startedOrder": 47,
+        "bytesRead": 445,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 66,
+        "responseAt": 350.60000014305115,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/index.json",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 350.7000000476837,
+        "eofOrder": 51,
+        "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+        "hashAt": 350.7000000476837,
+        "hashOrder": 52,
+        "signalAbortAt": 10434.800000190735,
+        "signalAbortOrder": 66
+      },
+      {
+        "scope": "audio-retry-v1",
+        "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "method": "GET",
+        "ordinal": 4,
+        "startedAt": 353.90000009536743,
+        "startedOrder": 55,
+        "bytesRead": 12353,
+        "readCalls": 2,
+        "readerCount": 1,
+        "updatedOrder": 67,
+        "responseAt": 354.5,
+        "status": 200,
+        "responseURL": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+        "redirected": false,
+        "readerMode": "default",
+        "eofAt": 354.5,
+        "eofOrder": 59,
+        "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+        "hashAt": 354.60000014305115,
+        "hashOrder": 60,
+        "signalAbortAt": 10434.800000190735,
+        "signalAbortOrder": 67
+      }
+    ],
+    "faults": [],
+    "overflow": 0,
+    "pendingHashes": 0,
+    "copiedBytes": 0
+  },
+  "requests": [
+    {
+      "id": 1,
+      "url": "http://127.0.0.1:57235/",
+      "method": "GET",
+      "ordinal": 1
+    },
+    {
+      "id": 2,
+      "url": "http://127.0.0.1:57235/fixture.js",
+      "method": "GET",
+      "ordinal": 1
+    },
+    {
+      "id": 3,
+      "url": "http://127.0.0.1:57235/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 1
+    },
+    {
+      "id": 4,
+      "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 1
+    },
+    {
+      "id": 5,
+      "url": "http://127.0.0.1:57235/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 2
+    },
+    {
+      "id": 6,
+      "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 2
+    },
+    {
+      "id": 7,
+      "url": "http://127.0.0.1:57235/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 3
+    },
+    {
+      "id": 8,
+      "url": "http://127.0.0.1:57235/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 4
+    },
+    {
+      "id": 9,
+      "url": "http://127.0.0.1:57235/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 5
+    },
+    {
+      "id": 10,
+      "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 3
+    },
+    {
+      "id": 11,
+      "url": "http://127.0.0.1:57235/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 6
+    },
+    {
+      "id": 12,
+      "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 4
+    }
+  ],
+  "requestFailures": [
+    {
+      "id": 7,
+      "url": "http://127.0.0.1:57235/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 3,
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      },
+      "at": "2026-09-29T14:37:57.042Z"
+    },
+    {
+      "id": 10,
+      "url": "http://127.0.0.1:57235/art/audio/review/clip.ogg",
+      "method": "GET",
+      "ordinal": 3,
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      },
+      "at": "2026-09-29T14:37:57.068Z"
+    }
+  ],
+  "expectedIntentionalCancelRequestIds": [
+    10
+  ],
+  "unexpectedRequestFailures": [
+    {
+      "id": 7,
+      "url": "http://127.0.0.1:57235/art/audio/index.json",
+      "method": "GET",
+      "ordinal": 3,
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      },
+      "at": "2026-09-29T14:37:57.042Z"
+    }
+  ],
+  "httpErrors": [],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "served": [
+    {
+      "id": 1,
+      "path": "/",
+      "mode": "A",
+      "startedAt": "2026-09-29T14:37:56.720Z",
+      "bytes": 445,
+      "sha256": "94e0b68f48f6b89aef356e1bd6873329acf0f7988fa91fb50dbb2e1aaaf8f49f",
+      "finished": true
+    },
+    {
+      "id": 2,
+      "path": "/fixture.js",
+      "mode": "A",
+      "startedAt": "2026-09-29T14:37:56.733Z",
+      "bytes": 89391,
+      "sha256": "d4a07fc9b9f6c6a71fb2128177b1fd0cb73b2a84929c1bda851193d36bd85d53",
+      "finished": true
+    },
+    {
+      "id": 3,
+      "path": "/art/audio/index.json",
+      "mode": "A",
+      "startedAt": "2026-09-29T14:37:56.754Z",
+      "bytes": 443,
+      "sha256": "a285a3712adf2c403e7e9626e41023f9e84e19530ef477582aea1ee2b275461e",
+      "finished": true
+    },
+    {
+      "id": 4,
+      "path": "/art/audio/review/clip.ogg",
+      "mode": "A",
+      "startedAt": "2026-09-29T14:37:57.025Z",
+      "bytes": 11972,
+      "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951",
+      "finished": true
+    },
+    {
+      "id": 5,
+      "path": "/art/audio/index.json",
+      "mode": "B",
+      "startedAt": "2026-09-29T14:37:57.033Z",
+      "bytes": 445,
+      "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+      "finished": true
+    },
+    {
+      "id": 6,
+      "path": "/art/audio/review/clip.ogg",
+      "mode": "B",
+      "startedAt": "2026-09-29T14:37:57.037Z",
+      "bytes": 12353,
+      "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+      "finished": true
+    },
+    {
+      "id": 7,
+      "path": "/art/audio/index.json",
+      "mode": "B",
+      "startedAt": "2026-09-29T14:37:57.040Z",
+      "bytes": 445,
+      "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+      "finished": true
+    },
+    {
+      "id": 8,
+      "path": "/art/audio/index.json",
+      "mode": "invalid",
+      "startedAt": "2026-09-29T14:37:57.046Z",
+      "bytes": 16,
+      "sha256": "6e3ee3cb9a8ae00b1e06835517b3e0eeeb3eb03215bd2ac0677bee6a9381395a",
+      "finished": true
+    },
+    {
+      "id": 9,
+      "path": "/art/audio/index.json",
+      "mode": "A",
+      "startedAt": "2026-09-29T14:37:57.050Z",
+      "bytes": 443,
+      "sha256": "a285a3712adf2c403e7e9626e41023f9e84e19530ef477582aea1ee2b275461e",
+      "finished": true
+    },
+    {
+      "id": 10,
+      "path": "/art/audio/review/clip.ogg",
+      "mode": "A",
+      "startedAt": "2026-09-29T14:37:57.052Z",
+      "held": true,
+      "bytes": 11972,
+      "sha256": "c3ed4ccd827f67727c7a27be2fc7df93cd31706996595860239d5f1cab969951",
+      "canceledBeforeWrite": true
+    },
+    {
+      "id": 11,
+      "path": "/art/audio/index.json",
+      "mode": "B",
+      "startedAt": "2026-09-29T14:37:57.065Z",
+      "bytes": 445,
+      "sha256": "9f7b3398d897bce4c16a7d94c4f0ceb901cbad3abdb6b3a03455c0c8111d5f35",
+      "finished": true
+    },
+    {
+      "id": 12,
+      "path": "/art/audio/review/clip.ogg",
+      "mode": "B",
+      "startedAt": "2026-09-29T14:37:57.069Z",
+      "bytes": 12353,
+      "sha256": "1256554fa336eae23b09b31507d4ba7af398ea63ac4cecca60663f9e29689654",
+      "finished": true
+    }
+  ],
+  "closedAt": "2026-09-29T14:38:07.242Z"
+}
