@@ -1,0 +1,19 @@
+✔ changed index at the same URL cannot reuse a decoded old clip (12.789042ms)
+✔ pending old decode cannot satisfy or delete the new descriptor request (1.145625ms)
+✔ failed candidate index retains the previous decoded generation (0.637125ms)
+✔ only a validated changed index stops old sources and clears old captions (0.443875ms)
+✔ exact same index retry verifies again without discarding coherent decoded clips (0.464833ms)
+✔ buffer keys include byte/hash/duration and codec fallback identity (0.1115ms)
+✔ different same-URL descriptors and concurrent exact descriptors remain distinct/deduplicated (0.816083ms)
+✔ failed reads release pending entries; corrupt recovery never reaches the decoder (0.420291ms)
+✔ disposed pending decode cannot publish a buffer or issue more index requests (0.276208ms)
+✔ dispose during index capture prevents late index publication (0.262375ms)
+✔ index retry preserves four-decode admission until old decoders finish (0.588416ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 69.277375
