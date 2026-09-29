@@ -1,0 +1,45 @@
+{
+  "reviewedAt": "2026-09-29T14:49:37.304144+00:00",
+  "scope": "Read-only receipt/source audit; no rerun or browser",
+  "resultSHA256": "6bba698d1da5c29e602d92d8305472599f0ab9de223a04ceb7a76ed86d9c2c93",
+  "driverSHA256": "a35b5d0ecb100b1682b6e647926ea5fbe0c73a27cb3a1f575fd44abf8fe3cf4e",
+  "manualBytesSHA256": "75eb580da5ab253099ff703bfd1f6361f2cbdddb4f11e335684084c56aa9603f",
+  "functional": "7checks pass",
+  "strict": "FAILED702 raw ERR_ABORTED reports retained",
+  "inputsRehashed": 142,
+  "observerBundleHashMatches": true,
+  "cacheReceipt": {
+    "files": 4845,
+    "bytes": 587425553,
+    "keys": 4847,
+    "failures": 0
+  },
+  "savedState": {
+    "tick": 533,
+    "hash": "72c01ef056cbd0fd9d6725118570561ff5196e9946a9ee9d53320d53751c2393"
+  },
+  "savedBytesEqualAcrossOnlineAndCold": true,
+  "seekTargetsAndReplies": [
+    533,
+    0
+  ],
+  "rawByPhase": {
+    "online-solo": 114,
+    "install-full-pack": 585,
+    "cold-offline-boot": 2,
+    "cold-offline-replay": 1
+  },
+  "nativeBodyAttribution": "Not collected by this course; cache/pack hash checks do not classify individual raw browser failure reports",
+  "profileRemoved": true,
+  "fixedFindings": [
+    "online observation retained and asserted before restart",
+    "final postclose diagnostic aggregate checked",
+    "input and cleanup errors preserved without skipping final report/profile removal"
+  ],
+  "limitations": [
+    "Frozen generation-consumer-v3 App with incomplete v25+36 art",
+    "No full current-live/audio integration acceptance",
+    "One genuine Chrome154; no other browser or physical LAN claim",
+    "Catalog worker remains at menu; match workers terminated. No all-worker-zero claim."
+  ]
+}

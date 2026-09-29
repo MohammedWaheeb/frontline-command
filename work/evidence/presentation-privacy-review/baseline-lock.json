@@ -1,0 +1,110 @@
+{
+  "status": "baseline inventory only; final presentation candidate not yet reviewed",
+  "capturedAt": "2026-09-29T14:50:45.397649+00:00",
+  "terrainSHA256": "65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656",
+  "files": {
+    "client/src/render/terrain.ts": {
+      "bytes": 17957,
+      "sha256": "65421e5ee2ab54339a0f804c5936df01c8521105018c58a4105f21234818c656"
+    },
+    "client/src/render/terrain-surface.ts": {
+      "bytes": 12447,
+      "sha256": "7d498da7b940e4741ed8e74b7996d2d7a420e310066dba28a7ed6b328437ef2e"
+    },
+    "client/src/render/terrain-materials.ts": {
+      "bytes": 2155,
+      "sha256": "c1c466f0ffddcd77e62a7272b0d0963f81393714feb0177aaedeb0d3f41d8588"
+    },
+    "client/src/render/iso.ts": {
+      "bytes": 1562,
+      "sha256": "98654186dbd723fdefdb70ff9bcdc26b6f74b7a5d4d0579c3d6e4244ef9aebdf"
+    },
+    "client/tests/render/terrain-fog-polish-fixture.ts": {
+      "bytes": 10806,
+      "sha256": "ab879c5ceeca6bceb9df3ab3888c1aa054443829fd78e46ba525db5d3e59c2d5"
+    },
+    "client/tests/render/terrain-fog-polish-browser.mjs": {
+      "bytes": 10989,
+      "sha256": "07d99c83c18ce97fa9b3138025dbd53525028750dc45ba52c3383d9cbb67281f"
+    },
+    "client/tests/render/terrain-fog-cost-audit.mjs": {
+      "bytes": 16060,
+      "sha256": "3bbe27920289e1171047c3c144de9629eec20d9296bdd64876bc7141c9005d81"
+    },
+    "client/tests/render/terrain-fog-cost-retention.mjs": {
+      "bytes": 3993,
+      "sha256": "881dca1002f9f505c52bb62f25d47297d28d6af52dcf6926fa421ed3d7729646"
+    },
+    "work/terrain-polish-review/promotion-v4.json": {
+      "bytes": 3073,
+      "sha256": "7c56ea3d5be15e8e3d9480d8a9feaf7c5ee3e8a7aad26335fee4ddf6c3a123ba"
+    },
+    "work/evidence/terrain-fog-cost/v4-cpu-01/audit.json": {
+      "bytes": 8615,
+      "sha256": "ce7dd7c887e4dd5db978ec110517956908db2c81582b1a97f2c614fdb33b2722"
+    },
+    "work/evidence/terrain-fog-cost/v4-retention-01.json": {
+      "bytes": 802,
+      "sha256": "69aaa832f893ac835175e7e2f9bfb8ecca054b7858208a22ae7d4f4fc0a872d4"
+    },
+    "work/terrain-polish-review/v4-typecheck/app.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "work/terrain-polish-review/inputs-v4/lock.json": {
+      "bytes": 654,
+      "sha256": "845c54110de16303e761333cd792fbe695f21b390b38607ad3117c867aa16cd1"
+    },
+    "work/claude/terrain-memory-20260929T084258Z.model-audit.json": {
+      "bytes": 852,
+      "sha256": "0966420ec36c85ac1e7745544f7ca7fe9e649423b4de6aebd828adc17e7dfb15"
+    },
+    "work/terrain-polish-review/v4-chromium-01/browser.json": {
+      "bytes": 80314,
+      "sha256": "922a6c233f14e6c3dd196e84e4be63f2857995e9639b7db38fe57bdaf727bf23"
+    },
+    "work/terrain-polish-review/v4-firefox-01/browser.json": {
+      "bytes": 73510,
+      "sha256": "f34da0a88713c10d9352e1eed746bbab5e709fef4df552c708a8a3eda5d0b815"
+    },
+    "work/terrain-polish-review/v4-webkit-01/browser.json": {
+      "bytes": 73514,
+      "sha256": "e6b081632719bbf629dbdb70bbb25245b917dd3297292bde7492639191f8dc38"
+    }
+  },
+  "gpu": [
+    {
+      "engine": "chromium",
+      "browserVersion": "151.0.7922.34",
+      "cases": 96,
+      "diagnostics": {
+        "errors": 0,
+        "httpErrors": 0,
+        "requestFailures": 0
+      },
+      "report": "work/terrain-polish-review/v4-chromium-01/browser.json"
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "153.0",
+      "cases": 96,
+      "diagnostics": {
+        "errors": 0,
+        "httpErrors": 0,
+        "requestFailures": 0
+      },
+      "report": "work/terrain-polish-review/v4-firefox-01/browser.json"
+    },
+    {
+      "engine": "webkit",
+      "browserVersion": "26.5",
+      "cases": 96,
+      "diagnostics": {
+        "errors": 0,
+        "httpErrors": 0,
+        "requestFailures": 0
+      },
+      "report": "work/terrain-polish-review/v4-webkit-01/browser.json"
+    }
+  ]
+}
