@@ -1,0 +1,74 @@
+{
+  "id": "unit.SA.gunship",
+  "accepted": true,
+  "scope": "Complete frozen export accepted for isolated staged integration only. No final camera, owner/foreign ammo/service lifecycle, renderer sorting or memory residency acceptance.",
+  "reviewer": "Codex mission_runtime",
+  "reviewed_at_utc": "2026-09-29T19:41:26.293193+00:00",
+  "direct_native_review": {
+    "world_pages": 32,
+    "ui_pages": 1,
+    "sampling": "All 16 headings at frame0 plus all remaining frames at heading3 for all16 states. The 32 native1x sheets and paired UI sheet were directly inspected. Full numerical checks cover1120 poses; not all1120 manually inspected.",
+    "files": {
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/hover-01@1x.png": "80aa4738ca7901f8e5a345dc1c783e487ab06e3fd1f02534517946ab07ffea22",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/hover-02@1x.png": "4aa5b95a427cca487b21f3e375fd2e724daffa7f832c9a5a488e909613c820a6",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/move-01@1x.png": "ae8cde569581997ed8553e073683ac15f7d3641f7f8cf78b4865c6e7ff0daddb",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/move-02@1x.png": "22d5e3e14119f91be4daaf940416ad5a627314002c0d606c1ff1ab468af453a2",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/fire-01@1x.png": "3ab6f223938f3498da1df5ef4afcb4e8c0a125ff1c0b7ae094cfa564061ccbee",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/fire-02@1x.png": "2c88ead7433abdcf1048c325a902ace0c516e8d37aacec72be2991828bc042c0",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/parked-01@1x.png": "1559e278782e465c55d52d6612ae64ef9ad0e148bc581232736d8381ec222444",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/parked-02@1x.png": "9f60afc45631745d39df89703ae3a967d12bdb2f4ff50c4970e812142ebb6f09",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/takeoff-01@1x.png": "54a93be1c85e68796525f59aea9fa0827c35694fd0ad9ade55274e96eef415bb",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/takeoff-02@1x.png": "fe7a03753c87ab47e08278c90c6b14b57027dcde1f85ea2f7c1c766d98e018fe",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/landing-01@1x.png": "8ccc2aa3d1dfe2f1ea0ac06f8c8d1fe3e11b97084f0bffa62acc19bfa7587132",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/landing-02@1x.png": "5c6f72a6c1852bc61215cc00a02c305293fbd4110e218e08f771a22757bdf9eb",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/damaged-01@1x.png": "5020845f1be41d8000501d9387632af3377d9550fa32dcfaaa28b3d3885dbe01",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/damaged-02@1x.png": "1810570de47d484d31d7cb7f8f02ca84d06a6e19ec5bf0fe1c4d62cd50bbcf4d",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/crash-01@1x.png": "8dbb8628ce6c44d4bf180ee56ff3c9b505ea43b983ef6a9569459f6d6b05bd88",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/crash-02@1x.png": "ca9ff4beaebc516f1f6dfecb13da5cfcd2289d4a8178310b1297a41b45e3d10b",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/rearm-01@1x.png": "c22b812e40298250eb89ceafec74584a093262e5668610f0256af07be6fb87ac",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/rearm-02@1x.png": "a4aaece9085efdfa670985ce21855703c89fd6939c02fa919a82c3633b89706c",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/empty-01@1x.png": "acdbdc6bb7d1ef4a1f2a093c3dd398d351433bf8de1e50e6bada8f7c9ec80e4a",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/empty-02@1x.png": "38b2db540e859909f4e12773133969e0480a41afea4942dfbb1410db1d46d93c",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/fire_empty-01@1x.png": "cf6dc488e2c1cf18f1b10f68da00394ce7d090d71996da0e68f511fa07719d4c",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/fire_empty-02@1x.png": "95409128737e8b0d3e503f6870c3bf253906c476e7f1c5fc61aac6c73ec64fe4",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/parked_empty-01@1x.png": "43c8e260af530cd7d3cddd613641dbbab78f73f601b07464f0a38a2931a3b7b5",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/parked_empty-02@1x.png": "a7b6b384f210e630323dfa15a212b25ab6e9dbf471fcf624fe86fd54811412fe",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/takeoff_empty-01@1x.png": "6450abdcb8b1489a6e8d8637c5e1bdf24e1aa5aa92fa63a455df13ff65b94c0a",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/takeoff_empty-02@1x.png": "f60ecc057ac5bfbd59637e4eb1ec3eff0a469b8d3c87743faa8818afce892cdc",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/landing_empty-01@1x.png": "306367c9a4dd0e17684140289be3148caf0bfc5c4036047ced1c5078b4902fd6",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/landing_empty-02@1x.png": "c1a197ccface1605e33e02be23d991035d57008fa799506847ec7002563ee43d",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/damaged_empty-01@1x.png": "b695f9c4918011293a7d545d8321e00bbdea901e08bb9ec0ee0c254eb481035a",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/damaged_empty-02@1x.png": "3301174332e7fb9867d4eac557e0f58d0fec4674d4d57cf2cd0f08e83c9d3578",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/rearm_empty-01@1x.png": "d1c38d12f3520b96aa3f7a62ad7937b6e886a16915270da80cd3ffa13b4e86a3",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/rearm_empty-02@1x.png": "c74e7e5ddf39d7327c9a58e325b50b8858daa56118bf09b2bc7114bcf0de3d9e",
+      "work/art/aircraft-final-production-v3/contacts/unit.SA.gunship/ui-contact@1x-2x.png": "d79d1ba4b232d68d4f95fcbe24571d2c8a18c08c1c101cf0a63d590531f47c70"
+    }
+  },
+  "observations": [
+    "Broad armored cabin and enclosed tail rotor distinguish the heavy Saudi gunship; all sampled headings retain a clean silhouette and seated rotor/wing fittings.",
+    "Team panels and rotor-tip accents remain visible through transparent rotor coverage in world views and UI; no obvious holes or detached paint geometry.",
+    "Neutral maintenance case/light and raised covers distinguish rearm; the articulated light and cover movement are modest but visible in the heading3 frame strip.",
+    "Gear deployment and rotor variation remain continuous across sampled takeoff/landing; dark tilted crash and missing rotor blade read distinctly without floating trim."
+  ],
+  "limitations": [
+    "Loaded/empty payload differences are subtle at native1x and partly occluded; accurate owner HUD and actual runtime selection remain required.",
+    "Live damage contrast and takeoff/landing source motion are modest. Ground-level source sheets do not prove actual flight altitude or lifecycle timing.",
+    "World depth/shadow ordering, current-owner privacy, interruption/restore/replay and transition GPU residency require separate renderer courses."
+  ],
+  "checks": {
+    "world": {
+      "path": "work/art/aircraft-final-production-v3/check-unit.SA.gunship.json",
+      "sha256": "280226b5b154a705405833db51d8e3e516ce90e750860af2ce89ad22d86763b6",
+      "checks": 24,
+      "failures": 0
+    },
+    "ui": {
+      "path": "work/art/aircraft-final-production-v3/ui-check-unit.SA.gunship.json",
+      "sha256": "77f2cb0a3238ed4cb971310ccfdc4443945a7aed80711c62e35e5b17df0fa0ec",
+      "checks": 20,
+      "failures": 0
+    }
+  },
+  "source_lock_sha256": "47fcc7d990cc5c67dea70692c0332af9e48460d8f7cdb8a61104713f22a758d6",
+  "parent_full_export_authorization": "Approved unchanged eight-aircraft queue; per-asset checks and native review retained; no live publication."
+}

@@ -1,0 +1,14 @@
+{
+  "time": "2026-09-29T19:42:31.927423+00:00",
+  "failed_attempt": "pilot-v1",
+  "failure": "Blender process abort -6: uncaught NSInvalidArgumentException, NSURL initFileURLWithPath nil string parameter from MetalKernelPipeline.compile before first saved PNG. No Python assertion or source parity failure.",
+  "old_log_sha256": "638b52db5e5f793107a0ea7b236fa720774f2ffcd7f0f4b6c486663c56fc719f",
+  "old_script_sha256": "38a93ea711d24f188200a30809e56cbb3125e4c27876011f23aae943b3013018",
+  "preserved_output_files": [],
+  "retry_script_sha256": "0a4bda17b28aa53dff53e2cc063f50b5d2e7d1692f524e551f22839b15d18c86",
+  "retry_only_diff": "Output directory pilot-v1 -> pilot-v2. Exact model/spec/camera/lights/layer-helper unchanged. One controlled retry; stop on failure.",
+  "source_sha256": "d6f595cfadc63ee158c7000535a2b9bbb4079f731a74751008ebb528e1dc45f5",
+  "source_proof_sha256": "979b4ae72094ef36d8fa686866cf54f6af2f88ff28edd3614d3b037e8bed6247",
+  "no_blender_running_at_boundary": true,
+  "acceptance": "No native acceptance claimed by retry setup."
+}

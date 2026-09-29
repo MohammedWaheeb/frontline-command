@@ -1,0 +1,13 @@
+{"utc": "2026-09-29T19:07:59.136424+00:00", "phase": "waiting_for_owned_whole_asset", "pid": 40079, "asset": "unit.SA.gunship"}
+{"utc": "2026-09-29T19:39:01.154153+00:00", "phase": "gunship_mechanically_closed_native_review_pending"}
+{"utc": "2026-09-29T19:39:01.190111+00:00", "phase": "strike_source_proof", "command": ["blender", "-b", "-t", "4", "--factory-startup", "-P", "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/strike-crash-attachment-candidate-v1/prove.py"]}
+{"utc": "2026-09-29T19:40:23.498419+00:00", "phase": "strike_native_pilot", "command": ["blender", "-b", "-t", "4", "--factory-startup", "-P", "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/strike-crash-attachment-candidate-v1/pilot.py"]}
+{"utc": "2026-09-29T19:40:35.309150+00:00", "phase": "failed_preserved", "error": "AssertionError(('strike_native_pilot', -6))"}
+Traceback (most recent call last):
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/strike-crash-attachment-candidate-v1/after-gunship.py", line 47, in <module>
+    if not pilot.exists():job('strike_native_pilot',['blender','-b','-t','4','--factory-startup','-P',str(BASE/'pilot.py')],BASE/'pilot-v1.log','FC_STRIKE_CRASH_PILOT_DONE 128')
+                          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/strike-crash-attachment-candidate-v1/after-gunship.py", line 27, in job
+    assert result.returncode==0,(label,result.returncode)
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('strike_native_pilot', -6)

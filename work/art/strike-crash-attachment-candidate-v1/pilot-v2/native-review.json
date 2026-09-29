@@ -1,0 +1,29 @@
+{
+  "accepted": true,
+  "scope": "Bounded source-native strike crash cleanup;16 selected poses directly reviewed at1x and2x, with original1x comparisons. Full export/runtime acceptance remains separate.",
+  "reviewed_at_utc": "2026-09-29T19:44:18.011388+00:00",
+  "reviewer": "Codex mission_runtime",
+  "source_sha256": "d6f595cfadc63ee158c7000535a2b9bbb4079f731a74751008ebb528e1dc45f5",
+  "source_proof_sha256": "979b4ae72094ef36d8fa686866cf54f6af2f88ff28edd3614d3b037e8bed6247",
+  "pilot_result_sha256": "5826b0b82b40505af3e70e448149bbf593dd715aa9dce9025b17e5f1d3416c9b",
+  "files": {
+    "work/art/strike-crash-attachment-candidate-v1/pilot-v2/contacts/unit.SA.strike@1x.png": "af3e12527d12978039da7ac2d96a874879dbdd93796d564b061ffaf13cc6ba32",
+    "work/art/strike-crash-attachment-candidate-v1/pilot-v2/contacts/unit.SA.strike@2x.png": "e6ecca435d53272e32054b518af269507da9ad442aabc8496480442182d85fbb",
+    "work/art/strike-crash-attachment-candidate-v1/pilot-v2/contacts/unit.US.strike@1x.png": "2b1e4fedb20703badfe365052e14db6837d17529b77dd3068f95c9f365a8552b",
+    "work/art/strike-crash-attachment-candidate-v1/pilot-v2/contacts/unit.US.strike@2x.png": "7fa07cbb45f7bba0eb5d882f14ec6d3a3b386c89f074397add60c16597ec0507"
+  },
+  "original_comparison_files": {
+    "work/art/strike-crash-attachment-diagnostic-v1/contacts/unit.SA.strike@1x.png": "31b587e9082ca5d6f5cbbd134c93d0b602ff639834485927888a2d5d2dc5cb13",
+    "work/art/strike-crash-attachment-diagnostic-v1/contacts/unit.US.strike@1x.png": "cd99f2eb565775e3586479515f3b28c6524e90957725cf21b68d40369b78cb24"
+  },
+  "observations": [
+    "Detached pale wing paint and payload rail are absent on the lost-wing side at d03/d07/d11/d15 f00/f03.",
+    "US independent tailplane remains attached and visible; remaining wing, fuselage and dark tilted crash silhouette are preserved.",
+    "No apparent new clipping or isolated shadow fitting in these sampled native views."
+  ],
+  "limitations": [
+    "Full128 crash memberships checked numerically;16 native poses sampled, not all1792 full aircraft poses visually inspected.",
+    "Source-world scale/geometry/materials/hardpoints are exact; this is not raster equality between separately rendered original/candidate.",
+    "First Metal compiler abort before output remains a process failure; one unchanged-source fresh-output retry passed. No general tolerance was introduced."
+  ]
+}

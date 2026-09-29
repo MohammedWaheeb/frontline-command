@@ -1,0 +1,1059 @@
+{
+  "scope": "Visibility-only proof from actual Blender evaluated mesh geometry, all pose transforms/material values/projected hardpoints and body/shadow membership. Canonical oriented face cycles and coordinates rounded9 per established source audit; no raster tolerance or checker waiver.",
+  "before_sha256": "0b00b967b902cfa49715d03dadf431f1df048df6f7d3acd3ca4ad8527ad73635",
+  "candidate_sha256": "d6f595cfadc63ee158c7000535a2b9bbb4079f731a74751008ebb528e1dc45f5",
+  "proof_helper_sha256": "be3ab0f2c74e89c42b40f3ac5970799f47c7dad7d483eff651bc4b8f95cc95a4",
+  "material_helper_sha256": "0139a172a97ff00e0720a5ec8936c7954f2de2b3199e165dc8333c015545c2ce",
+  "results": [
+    {
+      "id": "unit.IR.fighter",
+      "poses": 832,
+      "evaluated_objects": 60,
+      "geometry_digest": "0a1778f2abc82f4903b3e8ff7567c289f1fdda3eda9fa8471c561aa88531ae00",
+      "unchanged_poses": 832,
+      "changed_keys": [],
+      "before_pose_digest": "4319698d1e6d9718266f81e956d5f7adbcbb7e08adaf13b4833ba7e6cfe85e2f",
+      "candidate_pose_digest": "4319698d1e6d9718266f81e956d5f7adbcbb7e08adaf13b4833ba7e6cfe85e2f",
+      "ui_pose_exact": true,
+      "reverse_resets": 832,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.IR.gunship",
+      "poses": 832,
+      "evaluated_objects": 111,
+      "geometry_digest": "563fd1563635109690ef3929ab08b1404006adea21dff7068789a7c2799b9bf3",
+      "unchanged_poses": 832,
+      "changed_keys": [],
+      "before_pose_digest": "0eb60c85c9dd2aed8e205b88748512d422f04326ac4f60ffe2b166ced0f57bce",
+      "candidate_pose_digest": "0eb60c85c9dd2aed8e205b88748512d422f04326ac4f60ffe2b166ced0f57bce",
+      "ui_pose_exact": true,
+      "reverse_resets": 832,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.IR.isr",
+      "poses": 512,
+      "evaluated_objects": 39,
+      "geometry_digest": "5e7dc70fe1ccc78ab4980429212e9c3de4bc481ae9d90e1a0df15a6a9ca6c107",
+      "unchanged_poses": 512,
+      "changed_keys": [],
+      "before_pose_digest": "96fc863869c6afc0afce56064f738b424802833bd7781f9cd10dbbc4dc9776ed",
+      "candidate_pose_digest": "96fc863869c6afc0afce56064f738b424802833bd7781f9cd10dbbc4dc9776ed",
+      "ui_pose_exact": true,
+      "reverse_resets": 512,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.SA.fighter",
+      "poses": 896,
+      "evaluated_objects": 72,
+      "geometry_digest": "99a96b894550e1bbd9692b06d3ac0b01bbea535f31c9fab2f1bec8f6ef2e535d",
+      "unchanged_poses": 896,
+      "changed_keys": [],
+      "before_pose_digest": "4707115678703b22ff159ef470de16c3f064c58b96835c00319a1c1e2bbdf576",
+      "candidate_pose_digest": "4707115678703b22ff159ef470de16c3f064c58b96835c00319a1c1e2bbdf576",
+      "ui_pose_exact": true,
+      "reverse_resets": 896,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.SA.gunship",
+      "poses": 1120,
+      "evaluated_objects": 112,
+      "geometry_digest": "749f1437dec52f712c9a9b084f9627f127a916021472e7efeb098c7617e043c5",
+      "unchanged_poses": 1120,
+      "changed_keys": [],
+      "before_pose_digest": "ed8d7ca7c0ee8762d83b106ea87ef31f69e73bdbbfe25063207d2d8061d32d35",
+      "candidate_pose_digest": "ed8d7ca7c0ee8762d83b106ea87ef31f69e73bdbbfe25063207d2d8061d32d35",
+      "ui_pose_exact": true,
+      "reverse_resets": 1120,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.SA.strike",
+      "poses": 896,
+      "evaluated_objects": 71,
+      "geometry_digest": "d2fdffc70db49b1270ce64bacb5ae02aef9a03c4aff5572aa46492b984133f66",
+      "unchanged_poses": 832,
+      "changed_keys": [
+        "crash/d00_f00",
+        "crash/d00_f01",
+        "crash/d00_f02",
+        "crash/d00_f03",
+        "crash/d01_f00",
+        "crash/d01_f01",
+        "crash/d01_f02",
+        "crash/d01_f03",
+        "crash/d02_f00",
+        "crash/d02_f01",
+        "crash/d02_f02",
+        "crash/d02_f03",
+        "crash/d03_f00",
+        "crash/d03_f01",
+        "crash/d03_f02",
+        "crash/d03_f03",
+        "crash/d04_f00",
+        "crash/d04_f01",
+        "crash/d04_f02",
+        "crash/d04_f03",
+        "crash/d05_f00",
+        "crash/d05_f01",
+        "crash/d05_f02",
+        "crash/d05_f03",
+        "crash/d06_f00",
+        "crash/d06_f01",
+        "crash/d06_f02",
+        "crash/d06_f03",
+        "crash/d07_f00",
+        "crash/d07_f01",
+        "crash/d07_f02",
+        "crash/d07_f03",
+        "crash/d08_f00",
+        "crash/d08_f01",
+        "crash/d08_f02",
+        "crash/d08_f03",
+        "crash/d09_f00",
+        "crash/d09_f01",
+        "crash/d09_f02",
+        "crash/d09_f03",
+        "crash/d10_f00",
+        "crash/d10_f01",
+        "crash/d10_f02",
+        "crash/d10_f03",
+        "crash/d11_f00",
+        "crash/d11_f01",
+        "crash/d11_f02",
+        "crash/d11_f03",
+        "crash/d12_f00",
+        "crash/d12_f01",
+        "crash/d12_f02",
+        "crash/d12_f03",
+        "crash/d13_f00",
+        "crash/d13_f01",
+        "crash/d13_f02",
+        "crash/d13_f03",
+        "crash/d14_f00",
+        "crash/d14_f01",
+        "crash/d14_f02",
+        "crash/d14_f03",
+        "crash/d15_f00",
+        "crash/d15_f01",
+        "crash/d15_f02",
+        "crash/d15_f03"
+      ],
+      "before_pose_digest": "751824c40c87f45e583263b5a2a184648d30481033530aa7d1f8d25b6d48d80e",
+      "candidate_pose_digest": "e109a83483f0b26d4e796ed40f612d0235bd3c80c9845cd0bfcd4625f415294b",
+      "ui_pose_exact": true,
+      "reverse_resets": 896,
+      "changed_pose_bounds": {
+        "crash/d00_f00": [
+          145.7,
+          143.9,
+          313.4,
+          265.1
+        ],
+        "crash/d00_f01": [
+          143.5,
+          140.2,
+          315.0,
+          270.8
+        ],
+        "crash/d00_f02": [
+          141.7,
+          137.2,
+          316.6,
+          276.3
+        ],
+        "crash/d00_f03": [
+          140.2,
+          134.9,
+          318.0,
+          281.8
+        ],
+        "crash/d01_f00": [
+          166.8,
+          140.3,
+          313.9,
+          273.6
+        ],
+        "crash/d01_f01": [
+          162.7,
+          142.3,
+          311.1,
+          279.9
+        ],
+        "crash/d01_f02": [
+          159.0,
+          141.9,
+          308.1,
+          286.1
+        ],
+        "crash/d01_f03": [
+          155.7,
+          138.5,
+          305.0,
+          292.2
+        ],
+        "crash/d02_f00": [
+          194.1,
+          140.6,
+          318.1,
+          274.3
+        ],
+        "crash/d02_f01": [
+          187.3,
+          141.3,
+          316.0,
+          281.2
+        ],
+        "crash/d02_f02": [
+          180.8,
+          142.5,
+          313.4,
+          288.0
+        ],
+        "crash/d02_f03": [
+          174.7,
+          144.4,
+          310.6,
+          294.8
+        ],
+        "crash/d03_f00": [
+          166.3,
+          141.1,
+          335.9,
+          271.6
+        ],
+        "crash/d03_f01": [
+          167.3,
+          143.7,
+          331.7,
+          276.1
+        ],
+        "crash/d03_f02": [
+          168.5,
+          145.1,
+          326.8,
+          282.3
+        ],
+        "crash/d03_f03": [
+          170.0,
+          145.6,
+          321.4,
+          289.2
+        ],
+        "crash/d04_f00": [
+          136.1,
+          143.6,
+          339.9,
+          264.1
+        ],
+        "crash/d04_f01": [
+          136.1,
+          144.7,
+          337.5,
+          268.9
+        ],
+        "crash/d04_f02": [
+          136.4,
+          146.4,
+          334.2,
+          273.7
+        ],
+        "crash/d04_f03": [
+          137.0,
+          148.7,
+          330.2,
+          278.7
+        ],
+        "crash/d05_f00": [
+          119.3,
+          151.3,
+          326.2,
+          251.9
+        ],
+        "crash/d05_f01": [
+          118.4,
+          151.1,
+          325.9,
+          255.0
+        ],
+        "crash/d05_f02": [
+          117.7,
+          151.5,
+          324.8,
+          260.2
+        ],
+        "crash/d05_f03": [
+          117.3,
+          152.5,
+          322.8,
+          265.7
+        ],
+        "crash/d06_f00": [
+          112.0,
+          163.0,
+          310.4,
+          254.0
+        ],
+        "crash/d06_f01": [
+          111.1,
+          162.0,
+          309.9,
+          250.0
+        ],
+        "crash/d06_f02": [
+          110.4,
+          161.4,
+          309.1,
+          246.0
+        ],
+        "crash/d06_f03": [
+          109.9,
+          161.3,
+          307.9,
+          248.9
+        ],
+        "crash/d07_f00": [
+          117.9,
+          172.6,
+          312.0,
+          260.8
+        ],
+        "crash/d07_f01": [
+          116.5,
+          172.5,
+          312.1,
+          253.7
+        ],
+        "crash/d07_f02": [
+          115.2,
+          172.9,
+          312.0,
+          246.4
+        ],
+        "crash/d07_f03": [
+          114.0,
+          173.6,
+          311.6,
+          240.0
+        ],
+        "crash/d08_f00": [
+          134.6,
+          160.7,
+          302.3,
+          262.8
+        ],
+        "crash/d08_f01": [
+          133.0,
+          167.3,
+          304.5,
+          256.5
+        ],
+        "crash/d08_f02": [
+          131.4,
+          173.7,
+          306.3,
+          250.1
+        ],
+        "crash/d08_f03": [
+          130.0,
+          178.4,
+          307.8,
+          246.7
+        ],
+        "crash/d09_f00": [
+          134.1,
+          152.3,
+          281.2,
+          260.8
+        ],
+        "crash/d09_f01": [
+          136.9,
+          158.4,
+          285.3,
+          259.6
+        ],
+        "crash/d09_f02": [
+          139.9,
+          164.8,
+          289.0,
+          258.3
+        ],
+        "crash/d09_f03": [
+          143.0,
+          171.5,
+          292.3,
+          257.0
+        ],
+        "crash/d10_f00": [
+          129.9,
+          150.2,
+          253.9,
+          264.0
+        ],
+        "crash/d10_f01": [
+          132.0,
+          154.1,
+          260.7,
+          264.2
+        ],
+        "crash/d10_f02": [
+          134.6,
+          158.2,
+          267.2,
+          264.4
+        ],
+        "crash/d10_f03": [
+          137.4,
+          162.5,
+          273.3,
+          264.5
+        ],
+        "crash/d11_f00": [
+          112.1,
+          150.0,
+          281.7,
+          263.1
+        ],
+        "crash/d11_f01": [
+          116.3,
+          153.7,
+          280.7,
+          264.1
+        ],
+        "crash/d11_f02": [
+          121.2,
+          157.5,
+          279.5,
+          265.1
+        ],
+        "crash/d11_f03": [
+          126.6,
+          161.6,
+          278.0,
+          266.0
+        ],
+        "crash/d12_f00": [
+          108.1,
+          157.8,
+          311.9,
+          256.2
+        ],
+        "crash/d12_f01": [
+          110.5,
+          161.3,
+          311.9,
+          258.8
+        ],
+        "crash/d12_f02": [
+          113.8,
+          164.9,
+          311.6,
+          261.2
+        ],
+        "crash/d12_f03": [
+          117.8,
+          164.4,
+          311.0,
+          263.7
+        ],
+        "crash/d13_f00": [
+          121.8,
+          159.0,
+          328.7,
+          245.5
+        ],
+        "crash/d13_f01": [
+          122.1,
+          157.5,
+          329.6,
+          248.8
+        ],
+        "crash/d13_f02": [
+          123.2,
+          156.4,
+          330.3,
+          252.1
+        ],
+        "crash/d13_f03": [
+          125.2,
+          155.6,
+          330.7,
+          255.2
+        ],
+        "crash/d14_f00": [
+          137.6,
+          156.4,
+          336.0,
+          237.6
+        ],
+        "crash/d14_f01": [
+          138.1,
+          154.2,
+          336.9,
+          240.9
+        ],
+        "crash/d14_f02": [
+          138.9,
+          152.4,
+          337.6,
+          244.1
+        ],
+        "crash/d14_f03": [
+          140.1,
+          151.0,
+          338.1,
+          247.3
+        ],
+        "crash/d15_f00": [
+          136.0,
+          145.9,
+          330.1,
+          249.9
+        ],
+        "crash/d15_f01": [
+          135.9,
+          143.1,
+          331.5,
+          255.1
+        ],
+        "crash/d15_f02": [
+          136.0,
+          140.9,
+          332.8,
+          260.3
+        ],
+        "crash/d15_f03": [
+          136.4,
+          139.3,
+          334.0,
+          265.3
+        ]
+      }
+    },
+    {
+      "id": "unit.SY.scout_drone",
+      "poses": 464,
+      "evaluated_objects": 57,
+      "geometry_digest": "63f12f0a8021f973c103e5d4489c0ca5f58675fd594c7fb52c5aab786a9da6c0",
+      "unchanged_poses": 464,
+      "changed_keys": [],
+      "before_pose_digest": "49469107cd3b29bf27b5d2c60901feb5a2c20ba82d41a4cf5037b2111c1dbea6",
+      "candidate_pose_digest": "49469107cd3b29bf27b5d2c60901feb5a2c20ba82d41a4cf5037b2111c1dbea6",
+      "ui_pose_exact": true,
+      "reverse_resets": 464,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.US.airlift",
+      "poses": 656,
+      "evaluated_objects": 139,
+      "geometry_digest": "1bcf1a2a4042006432d2dcb54625b4e1636e112457234b5eff3d403f060c7d4e",
+      "unchanged_poses": 656,
+      "changed_keys": [],
+      "before_pose_digest": "fbd7d5b01528fb33e99814cb83421d8bc56dffb70a9438e90ad816bedae238fa",
+      "candidate_pose_digest": "fbd7d5b01528fb33e99814cb83421d8bc56dffb70a9438e90ad816bedae238fa",
+      "ui_pose_exact": true,
+      "reverse_resets": 656,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.US.fighter",
+      "poses": 896,
+      "evaluated_objects": 73,
+      "geometry_digest": "d2c48856df6ef147a0e09e1852739767615deea171ad906359c92111f3c8ced6",
+      "unchanged_poses": 896,
+      "changed_keys": [],
+      "before_pose_digest": "ea89337bdf5c142f88ebf4b361b26574eaa420f62db73d0f03e6655120973ea1",
+      "candidate_pose_digest": "ea89337bdf5c142f88ebf4b361b26574eaa420f62db73d0f03e6655120973ea1",
+      "ui_pose_exact": true,
+      "reverse_resets": 896,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.US.gunship",
+      "poses": 1120,
+      "evaluated_objects": 93,
+      "geometry_digest": "3aa468994db2d805185654abe28284a54c500e29049b7ed00908fcf6645ad20e",
+      "unchanged_poses": 1120,
+      "changed_keys": [],
+      "before_pose_digest": "3f5fd86cf3b6c76dae030eaca67d28763bef9d8a620dae67c359b50fc83f126b",
+      "candidate_pose_digest": "3f5fd86cf3b6c76dae030eaca67d28763bef9d8a620dae67c359b50fc83f126b",
+      "ui_pose_exact": true,
+      "reverse_resets": 1120,
+      "changed_pose_bounds": {}
+    },
+    {
+      "id": "unit.US.strike",
+      "poses": 896,
+      "evaluated_objects": 74,
+      "geometry_digest": "065082adb1da944bb67caf36f7bbb07446ec10c3651adb6b5a4b1c23223cfa56",
+      "unchanged_poses": 832,
+      "changed_keys": [
+        "crash/d00_f00",
+        "crash/d00_f01",
+        "crash/d00_f02",
+        "crash/d00_f03",
+        "crash/d01_f00",
+        "crash/d01_f01",
+        "crash/d01_f02",
+        "crash/d01_f03",
+        "crash/d02_f00",
+        "crash/d02_f01",
+        "crash/d02_f02",
+        "crash/d02_f03",
+        "crash/d03_f00",
+        "crash/d03_f01",
+        "crash/d03_f02",
+        "crash/d03_f03",
+        "crash/d04_f00",
+        "crash/d04_f01",
+        "crash/d04_f02",
+        "crash/d04_f03",
+        "crash/d05_f00",
+        "crash/d05_f01",
+        "crash/d05_f02",
+        "crash/d05_f03",
+        "crash/d06_f00",
+        "crash/d06_f01",
+        "crash/d06_f02",
+        "crash/d06_f03",
+        "crash/d07_f00",
+        "crash/d07_f01",
+        "crash/d07_f02",
+        "crash/d07_f03",
+        "crash/d08_f00",
+        "crash/d08_f01",
+        "crash/d08_f02",
+        "crash/d08_f03",
+        "crash/d09_f00",
+        "crash/d09_f01",
+        "crash/d09_f02",
+        "crash/d09_f03",
+        "crash/d10_f00",
+        "crash/d10_f01",
+        "crash/d10_f02",
+        "crash/d10_f03",
+        "crash/d11_f00",
+        "crash/d11_f01",
+        "crash/d11_f02",
+        "crash/d11_f03",
+        "crash/d12_f00",
+        "crash/d12_f01",
+        "crash/d12_f02",
+        "crash/d12_f03",
+        "crash/d13_f00",
+        "crash/d13_f01",
+        "crash/d13_f02",
+        "crash/d13_f03",
+        "crash/d14_f00",
+        "crash/d14_f01",
+        "crash/d14_f02",
+        "crash/d14_f03",
+        "crash/d15_f00",
+        "crash/d15_f01",
+        "crash/d15_f02",
+        "crash/d15_f03"
+      ],
+      "before_pose_digest": "575d9033f92252eee6de1fc37809270207a85f9fdc7c7f0f742495defdf1a1e5",
+      "candidate_pose_digest": "78134f3890ad9d59a90bcc3dacb9db303a4f348ecefb9a0930d96d4d74f3dd70",
+      "ui_pose_exact": true,
+      "reverse_resets": 896,
+      "changed_pose_bounds": {
+        "crash/d00_f00": [
+          133.3,
+          143.1,
+          310.4,
+          263.6
+        ],
+        "crash/d00_f01": [
+          131.7,
+          141.7,
+          312.0,
+          269.3
+        ],
+        "crash/d00_f02": [
+          130.5,
+          138.1,
+          313.5,
+          274.8
+        ],
+        "crash/d00_f03": [
+          129.6,
+          135.2,
+          314.8,
+          280.3
+        ],
+        "crash/d01_f00": [
+          150.0,
+          139.3,
+          327.1,
+          271.7
+        ],
+        "crash/d01_f01": [
+          146.4,
+          140.6,
+          324.2,
+          277.9
+        ],
+        "crash/d01_f02": [
+          143.2,
+          142.6,
+          321.0,
+          284.1
+        ],
+        "crash/d01_f03": [
+          140.4,
+          143.3,
+          317.7,
+          290.1
+        ],
+        "crash/d02_f00": [
+          177.9,
+          140.9,
+          331.0,
+          272.2
+        ],
+        "crash/d02_f01": [
+          172.9,
+          141.0,
+          328.9,
+          279.0
+        ],
+        "crash/d02_f02": [
+          168.2,
+          141.7,
+          326.4,
+          285.7
+        ],
+        "crash/d02_f03": [
+          163.9,
+          143.0,
+          323.4,
+          292.4
+        ],
+        "crash/d03_f00": [
+          167.7,
+          141.1,
+          340.7,
+          269.6
+        ],
+        "crash/d03_f01": [
+          168.5,
+          144.2,
+          337.3,
+          274.0
+        ],
+        "crash/d03_f02": [
+          169.5,
+          145.6,
+          333.3,
+          280.1
+        ],
+        "crash/d03_f03": [
+          170.9,
+          145.6,
+          328.5,
+          286.9
+        ],
+        "crash/d04_f00": [
+          138.8,
+          142.5,
+          335.1,
+          262.5
+        ],
+        "crash/d04_f01": [
+          138.7,
+          144.2,
+          333.6,
+          267.2
+        ],
+        "crash/d04_f02": [
+          138.9,
+          146.4,
+          331.1,
+          271.9
+        ],
+        "crash/d04_f03": [
+          139.3,
+          149.0,
+          327.8,
+          276.6
+        ],
+        "crash/d05_f00": [
+          122.9,
+          149.3,
+          316.4,
+          257.8
+        ],
+        "crash/d05_f01": [
+          121.9,
+          149.8,
+          314.2,
+          253.9
+        ],
+        "crash/d05_f02": [
+          121.2,
+          150.7,
+          312.7,
+          258.9
+        ],
+        "crash/d05_f03": [
+          120.7,
+          152.2,
+          311.4,
+          264.2
+        ],
+        "crash/d06_f00": [
+          116.1,
+          160.8,
+          309.4,
+          259.8
+        ],
+        "crash/d06_f01": [
+          115.2,
+          160.2,
+          309.4,
+          255.1
+        ],
+        "crash/d06_f02": [
+          114.4,
+          160.2,
+          308.8,
+          250.5
+        ],
+        "crash/d06_f03": [
+          113.9,
+          160.7,
+          307.7,
+          248.2
+        ],
+        "crash/d07_f00": [
+          121.7,
+          170.6,
+          317.6,
+          262.9
+        ],
+        "crash/d07_f01": [
+          120.3,
+          171.0,
+          317.0,
+          256.0
+        ],
+        "crash/d07_f02": [
+          119.1,
+          171.8,
+          316.1,
+          248.9
+        ],
+        "crash/d07_f03": [
+          117.9,
+          173.1,
+          315.0,
+          241.8
+        ],
+        "crash/d08_f00": [
+          137.6,
+          162.0,
+          314.7,
+          260.2
+        ],
+        "crash/d08_f01": [
+          136.0,
+          168.4,
+          316.3,
+          254.1
+        ],
+        "crash/d08_f02": [
+          134.5,
+          173.7,
+          317.5,
+          247.9
+        ],
+        "crash/d08_f03": [
+          133.2,
+          178.4,
+          318.4,
+          246.1
+        ],
+        "crash/d09_f00": [
+          120.9,
+          154.0,
+          298.0,
+          259.5
+        ],
+        "crash/d09_f01": [
+          123.8,
+          160.0,
+          301.6,
+          258.4
+        ],
+        "crash/d09_f02": [
+          127.0,
+          166.2,
+          304.8,
+          257.2
+        ],
+        "crash/d09_f03": [
+          130.3,
+          171.9,
+          307.6,
+          256.0
+        ],
+        "crash/d10_f00": [
+          117.0,
+          152.1,
+          270.1,
+          262.5
+        ],
+        "crash/d10_f01": [
+          119.1,
+          155.9,
+          275.1,
+          262.8
+        ],
+        "crash/d10_f02": [
+          121.6,
+          159.9,
+          279.8,
+          263.1
+        ],
+        "crash/d10_f03": [
+          124.6,
+          164.1,
+          284.1,
+          263.3
+        ],
+        "crash/d11_f00": [
+          107.3,
+          151.8,
+          280.3,
+          261.7
+        ],
+        "crash/d11_f01": [
+          110.7,
+          155.4,
+          279.5,
+          262.8
+        ],
+        "crash/d11_f02": [
+          114.7,
+          159.1,
+          278.5,
+          263.8
+        ],
+        "crash/d11_f03": [
+          119.5,
+          163.1,
+          277.1,
+          264.8
+        ],
+        "crash/d12_f00": [
+          112.9,
+          159.1,
+          309.2,
+          255.7
+        ],
+        "crash/d12_f01": [
+          114.4,
+          159.6,
+          309.3,
+          259.3
+        ],
+        "crash/d12_f02": [
+          116.9,
+          157.9,
+          309.1,
+          262.8
+        ],
+        "crash/d12_f03": [
+          120.2,
+          156.4,
+          308.7,
+          266.2
+        ],
+        "crash/d13_f00": [
+          131.6,
+          151.7,
+          325.1,
+          247.3
+        ],
+        "crash/d13_f01": [
+          133.8,
+          149.7,
+          326.1,
+          251.9
+        ],
+        "crash/d13_f02": [
+          135.3,
+          148.0,
+          326.8,
+          256.3
+        ],
+        "crash/d13_f03": [
+          136.6,
+          146.6,
+          327.3,
+          260.7
+        ],
+        "crash/d14_f00": [
+          138.6,
+          149.4,
+          331.9,
+          237.6
+        ],
+        "crash/d14_f01": [
+          138.6,
+          146.6,
+          332.8,
+          240.9
+        ],
+        "crash/d14_f02": [
+          139.2,
+          144.2,
+          333.6,
+          244.3
+        ],
+        "crash/d14_f03": [
+          140.3,
+          142.4,
+          334.1,
+          249.6
+        ],
+        "crash/d15_f00": [
+          130.4,
+          143.3,
+          326.3,
+          249.2
+        ],
+        "crash/d15_f01": [
+          131.0,
+          139.9,
+          327.7,
+          254.3
+        ],
+        "crash/d15_f02": [
+          131.9,
+          137.0,
+          328.9,
+          259.4
+        ],
+        "crash/d15_f03": [
+          133.0,
+          134.8,
+          330.1,
+          264.5
+        ]
+      }
+    }
+  ],
+  "failures": 0,
+  "unchanged_poses": 8992,
+  "changed_poses": 128,
+  "reverse_resets": 9120,
+  "all_geometry_materials_transforms_hardpoints_exact": true,
+  "only_named_crash_memberships_removed": true,
+  "all11_ui_poses_exact": true
+}

@@ -1,0 +1,14 @@
+*** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '*** -[NSURL initFileURLWithPath:]: nil string parameter'
+*** First throw call stack:
+(
+	0   CoreFoundation                      0x000000018371d1c0 __exceptionPreprocess + 176
+	1   libobjc.A.dylib                     0x00000001831a691c objc_exception_throw + 88
+	2   Foundation                          0x0000000184ed3864 +[NSIndexSet allocWithZone:] + 0
+	3   Foundation                          0x0000000184ed34d0 +[NSURL(NSURL) fileURLWithPath:] + 84
+	4   Blender                             0x000000010740a670 _ZN3ccl19MetalKernelPipeline7compileEv + 3772
+	5   Blender                             0x0000000107409480 _ZN3ccl11ShaderCache19compile_thread_funcEv + 504
+	6   Blender                             0x000000010740e028 _ZNSt3__114__thread_proxyB8ne200100INS_5tupleIJNS_10unique_ptrINS_15__thread_structENS_14default_deleteIS3_EEEEZN3ccl11ShaderCache11load_kernelENS7_12DeviceKernelEPNS7_11MetalDeviceENS7_17MetalPi	7   libsystem_pthread.dylib             0x00000001835f1c58 _pthread_start + 136
+	8   libsystem_pthread.dylib             0x00000001835ecc1c thread_start + 8
+)
+libc++abi: terminating due to uncaught exception of type NSException
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
