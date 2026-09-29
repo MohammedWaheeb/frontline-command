@@ -1,0 +1,1187 @@
+{
+  "status": "failed",
+  "started": "2026-09-29T10:33:41.341Z",
+  "product": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art/effects-opus-v2/integration-v25/product",
+  "engine": "chromium",
+  "scope": "Real browser transaction mechanics with small declared fixture packs; optional separate full v25 cold App startup. No cross-platform/reference-performance/final-release claim.",
+  "cases": [
+    {
+      "name": "install-A",
+      "ok": true,
+      "value": {
+        "id": "offline-qa",
+        "version": "fixture-A",
+        "installedAt": 1790678022137,
+        "files": 10,
+        "bytes": 1400875,
+        "cacheName": "frontline-pack-v1:offline-qa:fixture-A:16312c54-5748-4c11-a243-cef91d50369f"
+      }
+    },
+    {
+      "name": "actual-previous-worker-upgrade",
+      "previousWorkerSHA256": "6bfcf74320ee86afdb20b225be83af64e704adcb8c7929c2e630f7d1e5c6410d",
+      "oldFallback": {
+        "status": 200,
+        "text": "retired A",
+        "bytes": 9
+      },
+      "oldTab": {
+        "ok": false,
+        "error": {
+          "code": "content_integrity",
+          "message": "The content file differs from its installed index. Keep the original and retry a matching version."
+        },
+        "validatorCalls": 0
+      },
+      "update": {
+        "controllerChanged": true,
+        "script": "http://127.0.0.1:55657/service-worker.js"
+      },
+      "scope": "Exact previous worker diagnostic demonstrates retired-path resurrection before update; new worker refuses it. Installer helper is current v25 in both tabs."
+    },
+    {
+      "name": "corrupt-B",
+      "ok": false,
+      "error": {
+        "code": "content_corrupt",
+        "message": "A required file failed its integrity check: /upgrade/shared.txt"
+      }
+    },
+    {
+      "name": "truncate-B",
+      "ok": false,
+      "error": {
+        "code": "content_size_mismatch",
+        "message": "A required file has the wrong size: /upgrade/shared.txt"
+      }
+    },
+    {
+      "name": "interrupt-B",
+      "ok": false,
+      "error": {
+        "code": "content_cache_failed",
+        "message": "The pack could not be cached. Check storage space and retry; installed packs are preserved."
+      }
+    },
+    {
+      "name": "quota-B",
+      "ok": false,
+      "error": {
+        "code": "content_cache_failed",
+        "message": "The pack could not be cached. Check storage space and retry; installed packs are preserved."
+      },
+      "injected": 1
+    },
+    {
+      "name": "quota-marker-B",
+      "ok": false,
+      "error": {
+        "code": "content_cache_failed",
+        "message": "The pack could not be cached. Check storage space and retry; installed packs are preserved."
+      },
+      "injected": 1
+    },
+    {
+      "name": "cancel-B",
+      "ok": false,
+      "error": {
+        "code": "download_canceled",
+        "message": "The content download was canceled. Previously installed packs are preserved."
+      }
+    },
+    {
+      "name": "install-B-stale-A-tab",
+      "result": {
+        "ok": true,
+        "value": {
+          "id": "offline-qa",
+          "version": "fixture-B",
+          "installedAt": 1790678022287,
+          "files": 9,
+          "bytes": 1244300,
+          "cacheName": "frontline-pack-v1:offline-qa:fixture-B:e2617b7b-de94-42e2-bf20-31ddae0b9116"
+        }
+      },
+      "stale": {
+        "ok": false,
+        "error": {
+          "code": "content_integrity",
+          "message": "The content file differs from its installed index. Keep the original and retry a matching version."
+        },
+        "validatorCalls": 0
+      },
+      "newIndexVersion": "fixture-B",
+      "newMap": {
+        "ok": false,
+        "error": {
+          "code": "runtime_failed",
+          "message": "tiny_fixture_validation_boundary"
+        },
+        "validatorCalls": 1
+      },
+      "refreshedOldTab": {
+        "ok": false,
+        "error": {
+          "code": "runtime_failed",
+          "message": "tiny_fixture_validation_boundary"
+        },
+        "validatorCalls": 1
+      },
+      "artMetadataPairing": "Measured by the next actual-loader diagnostic"
+    },
+    {
+      "name": "stale-art-loader-diagnostic",
+      "status": "KNOWN DEFECT REPRODUCED",
+      "staleArt": {
+        "sha256": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        }
+      },
+      "expectedA": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+      "expectedB": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+      "freshPixels": {
+        "sha256": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        }
+      },
+      "released": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "freshReleased": {
+        "indexedPages": 0,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "scope": "Frozen actual ArtLibrary retained A atlas descriptors but admitted B page pixels after another-tab upgrade. Tiny declared relocated real-art fixture; no live-game or art-quality claim."
+    },
+    {
+      "name": "unchanged-B",
+      "ok": true,
+      "value": {
+        "id": "offline-qa",
+        "version": "fixture-B",
+        "installedAt": 1790678022287,
+        "files": 9,
+        "bytes": 1244300,
+        "cacheName": "frontline-pack-v1:offline-qa:fixture-B:e2617b7b-de94-42e2-bf20-31ddae0b9116"
+      }
+    },
+    {
+      "name": "rollback-A",
+      "canceledRollback": {
+        "ok": false,
+        "error": {
+          "code": "download_canceled",
+          "message": "The content download was canceled. Previously installed packs are preserved."
+        }
+      }
+    },
+    {
+      "name": "concurrent-completion",
+      "earlier": {
+        "ok": true,
+        "value": {
+          "id": "offline-qa",
+          "version": "fixture-B",
+          "installedAt": 1790678022430,
+          "files": 9,
+          "bytes": 1244300,
+          "cacheName": "frontline-pack-v1:offline-qa:fixture-B:e2617b7b-de94-42e2-bf20-31ddae0b9116"
+        }
+      },
+      "later": {
+        "ok": true,
+        "value": {
+          "id": "offline-qa",
+          "version": "fixture-C",
+          "installedAt": 1790678022463,
+          "files": 9,
+          "bytes": 1244300,
+          "cacheName": "frontline-pack-v1:offline-qa:fixture-C:26e57d75-a3f3-44e0-a0e4-c36edbb63f4c"
+        }
+      }
+    },
+    {
+      "name": "cancel-real-lock-wait",
+      "ok": false,
+      "error": {
+        "code": "download_canceled",
+        "message": "The content download was canceled. Previously installed packs are preserved."
+      }
+    },
+    {
+      "name": "legacy-tie",
+      "ok": true,
+      "value": {
+        "id": "offline-qa",
+        "version": "fixture-B",
+        "installedAt": 1790678032546,
+        "files": 9,
+        "bytes": 1244300,
+        "cacheName": "frontline-pack-v1:offline-qa:fixture-B:e2617b7b-de94-42e2-bf20-31ddae0b9116"
+      }
+    },
+    {
+      "name": "cold-tiny-cache",
+      "browserRestarted": true,
+      "offline": true,
+      "generation": "B",
+      "scope": "Tiny self-contained cached document, no Go gameplay claim"
+    }
+  ],
+  "errors": [],
+  "responses": [
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "mode": "offline",
+      "url": "http://127.0.0.1:55657/upgrade/retired.txt",
+      "status": 503
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "mode": "offline",
+      "url": "http://127.0.0.1:55657/upgrade/retired.txt",
+      "status": 503
+    }
+  ],
+  "requests": [
+    {
+      "phase": "preflight",
+      "path": "/upgrade-harness.html",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "preflight",
+      "path": "/upgrade-harness.html",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "preflight",
+      "path": "/service-worker.js",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "install-A",
+      "path": "/upgrade-shell.html",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/content/index.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/upgrade/hold.bin",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/upgrade/retired.txt",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/art/index.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/art/offline-upgrade/sprite.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/art/offline-upgrade/atlas.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "install-A",
+      "path": "/content/index.json",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "install-A",
+      "path": "/art/index.json",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "install-A",
+      "path": "/art/offline-upgrade/sprite.json",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "install-A",
+      "path": "/art/offline-upgrade/atlas.json",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/upgrade-shell.html",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/content/index.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/upgrade/hold.bin",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/art/index.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/art/offline-upgrade/sprite.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/art/offline-upgrade/atlas.json",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "previous",
+      "download": true
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/upgrade/retired.txt",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "previous",
+      "download": false
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/service-worker.js",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/upgrade/retired.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "corrupt-B",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "corrupt-B",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "corrupt-B",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "corrupt-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "corrupt-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "truncate-B",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "truncate-B",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "truncate-B",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "truncate-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "truncate-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "interrupt-B",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "interrupt-B",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "interrupt-B",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "interrupt-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "interrupt-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "interrupt-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "quota-B",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-B",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-B",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/upgrade/hold.bin",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/art/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/art/offline-upgrade/sprite.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/art/offline-upgrade/atlas.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "quota-marker-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "cancel-B",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "cancel-B",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "cancel-B",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "cancel-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "cancel-B",
+      "path": "/upgrade/hold.bin",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "cancel-B",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/upgrade/hold.bin",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/art/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/art/offline-upgrade/sprite.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/art/offline-upgrade/atlas.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/upgrade/retired.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "stale-art-loader-diagnostic",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "stale-art-loader-diagnostic",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "stale-art-loader-diagnostic",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "stale-art-loader-diagnostic",
+      "path": "/art/index.json",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "stale-art-loader-diagnostic",
+      "path": "/art/offline-upgrade/sprite.json",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "stale-art-loader-diagnostic",
+      "path": "/art/offline-upgrade/atlas.json",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "stale-art-loader-diagnostic",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "rollback-A",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/content/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/content/maps/offline-fixture.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/upgrade/hold.bin",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/art/index.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/art/offline-upgrade/sprite.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/art/offline-upgrade/atlas.json",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/art/offline-upgrade/page.png",
+      "workerScript": "current",
+      "download": true
+    },
+    {
+      "phase": "concurrent-completion",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "cancel-real-lock-wait",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "legacy-tie",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "legacy-tie",
+      "path": "/upgrade/shared.txt",
+      "workerScript": "current",
+      "download": false
+    },
+    {
+      "phase": "cold-tiny-cache",
+      "path": "/upgrade-shell.html",
+      "workerScript": "current",
+      "download": false
+    }
+  ],
+  "failures": [
+    {
+      "phase": "install-A",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "install-A",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "mode": "offline",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "corrupt-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "truncate-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "interrupt-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/upgrade/shared.txt",
+      "reason": "net::ERR_EMPTY_RESPONSE"
+    },
+    {
+      "phase": "quota-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "quota-marker-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "cancel-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "cancel-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/upgrade/hold.bin",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "mode": "offline",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "concurrent-completion",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED"
+    }
+  ],
+  "fullPackRequested": false,
+  "identity": {
+    "buildSHA256": "6c4f6f675983c3ab428546487ee419212a2b798aa66c513cd5913058084524f0",
+    "sourceDigest": "d297183a44bf211a1d19862809985c3669a5ab7fd3b4b71f34b0cdd290e91253",
+    "packSHA256": "120fd4095f8da3cd15f51e5b2d97ffd0b5bbd9a666502685b5b153219841dcba",
+    "packVersion": "content-v1-4738887f82cc56851a08b02dc0fb5e3d5ad3e25f95401ea9f54671ae020df876",
+    "fullBytes": 419323287,
+    "fixtureSHA256": "076a9cd2869a2be447c8942c3d7f492743c41c0fab7a5d9882bcb48f4dbcf985",
+    "driverSHA256": "36d0909627b2b6d3e9c12eefd3599efc2759f57b1723a037a7c5f43f359b275a",
+    "bundleSHA256": "379009670ceb2455d371d97faaca262bf2e3622d605074e37e69774b48b66c1f",
+    "workerSHA256": "7ff452b5702d26fa936bc5b2869da131538622a01f6df652c5ac1bf57564b537",
+    "previousWorkerSHA256": "6bfcf74320ee86afdb20b225be83af64e704adcb8c7929c2e630f7d1e5c6410d",
+    "previousBuildSHA256": "f73a3447173a6b4e1e752ed374175044019565375dd342d893a377187658817e",
+    "artFixture": {
+      "A": {
+        "atlasPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.0.json",
+        "pngPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.0.png",
+        "pngSHA256": "b27d656eef21e02d034ac63f297e24b85d00e80caff6beb35fef29d962c8392f",
+        "frame": {
+          "state": "foundation",
+          "direction": 0,
+          "index": 0
+        },
+        "scope": "Exact product PNG, declared one-page metadata relocation; loader coherence only, not a complete or native gameplay sprite fixture"
+      },
+      "B": {
+        "atlasPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.1.json",
+        "pngPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.1.png",
+        "pngSHA256": "be32a13bc1dff9054e9d3eb6931471e62167b33066aff404970b1d3117da16d8",
+        "frame": {
+          "state": "fire",
+          "direction": 0,
+          "index": 0
+        },
+        "scope": "Exact product PNG, declared one-page metadata relocation; loader coherence only, not a complete or native gameplay sprite fixture"
+      },
+      "C": {
+        "atlasPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.1.json",
+        "pngPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.1.png",
+        "pngSHA256": "be32a13bc1dff9054e9d3eb6931471e62167b33066aff404970b1d3117da16d8",
+        "frame": {
+          "state": "fire",
+          "direction": 0,
+          "index": 0
+        },
+        "scope": "Exact product PNG, declared one-page metadata relocation; loader coherence only, not a complete or native gameplay sprite fixture"
+      }
+    }
+  },
+  "origin": "http://127.0.0.1:55657",
+  "launches": [
+    {
+      "engine": "chromium",
+      "version": "151.0.7922.34",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "profileReused": false,
+      "scope": "Bundled Playwright engine; not branded Chrome/Edge/stock Firefox/Safari"
+    },
+    {
+      "engine": "chromium",
+      "version": "151.0.7922.34",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "profileReused": true,
+      "scope": "Bundled Playwright engine; not branded Chrome/Edge/stock Firefox/Safari"
+    }
+  ],
+  "capabilities": {
+    "script": "http://127.0.0.1:55657/service-worker.js",
+    "secure": true,
+    "locks": true
+  },
+  "responseClassification": [
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "mode": "offline",
+      "url": "http://127.0.0.1:55657/upgrade/retired.txt",
+      "status": 503,
+      "expected": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "mode": "offline",
+      "url": "http://127.0.0.1:55657/upgrade/retired.txt",
+      "status": 503,
+      "expected": true
+    }
+  ],
+  "failureClassification": [
+    {
+      "phase": "install-A",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "install-A",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "actual-previous-worker-upgrade",
+      "mode": "offline",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "corrupt-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "truncate-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "interrupt-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/upgrade/shared.txt",
+      "reason": "net::ERR_EMPTY_RESPONSE",
+      "expected": true
+    },
+    {
+      "phase": "quota-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "quota-marker-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "cancel-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "cancel-B",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/upgrade/hold.bin",
+      "reason": "net::ERR_ABORTED",
+      "expected": true
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "install-B-stale-A-tab",
+      "mode": "offline",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "concurrent-completion",
+      "mode": "online",
+      "url": "http://127.0.0.1:55657/content/maps/offline-fixture.json",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    }
+  ],
+  "phase": "cold-tiny-cache",
+  "failure": "AssertionError [ERR_ASSERTION]: Unexpected request failure\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/client/tests/offline-upgrade/browser.mjs:77:599",
+  "inputsVerifiedAfter": 152,
+  "closedAt": "2026-09-29T10:33:42.832Z"
+}

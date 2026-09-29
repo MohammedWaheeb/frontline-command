@@ -1,6 +1,8 @@
-# Offline upgrade browser course — authored, not run
+# Offline upgrade browser course
 
-29 September 2026. The new driver compiles and its browser helper passes strict TypeScript checking. **No browser, HTTP server, game host or native process was launched for this task.** `build-only-06/receipt.json` records 152 verified inputs; `typecheck-03/output.log` is empty with exit 0. Earlier author receipts remain separate. No transaction or cold-start browser gate is earned yet.
+29 September 2026, browser update: [Chromium-01](chromium-01/receipt.json) reached all 16 functional cases and reproduced the stale-art mismatch, but remains a **strict failed run** due to 13 unclassified ERR_ABORTED requests. [Observed outcome and limits](browser-result.md). No full-pack cold App course has run.
+
+The authoring boundary below is preserved: the new driver compiles and its browser helper passes strict TypeScript checking. **No browser, HTTP server, game host or native process was launched during author preflight.** `build-only-06/receipt.json` records 152 verified inputs; `typecheck-03/output.log` is empty with exit 0. Earlier author receipts remain separate. That preflight alone earned no browser gate.
 
 Source: `client/tests/offline-upgrade/browser.mjs` and `fixture.ts`. It imports the actual frozen installer, ContentLibrary, ArtLibrary and worker, not a reimplementation. The browser plugin is unavailable, so the prepared execution uses bundled Playwright engines; those are not branded Chrome/Edge or stock Firefox/Safari compatibility evidence.
 
@@ -45,4 +47,4 @@ Each execution records exact hashes, actual browser version/executable, real cap
 
 ## Remaining gates
 
-All browser cases above are unrun. The stale-art fix and successor acceptance are open. Full v25+36 union/local package cold startup, actual App pack installation, branded desktop browsers, no-Web-Locks cross-tab behavior, persistent storage eviction and real quota pressure are separate. Retired completed generations are retained by current policy; this course tests explicit removal but does not claim a retirement UI or automatic garbage collection.
+Chromium-01 reached the 16 small-pack assertions but failed its strict error gate; it is not a clean course pass. Full-pack startup is unrun. The stale-art fix and successor browser acceptance are open. Full v25+36 union/local package cold startup, actual App pack installation, branded desktop browsers, no-Web-Locks cross-tab behavior, persistent storage eviction and real quota pressure are separate. Retired completed generations are retained by current policy; this course tests explicit removal but does not claim a retirement UI or automatic garbage collection.

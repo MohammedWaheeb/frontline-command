@@ -1,6 +1,6 @@
 # Active-tab generation coherence: evidence and bounded proposal
 
-29 September 2026. **Read-only design; not implemented or browser-proven.** Frozen v25 and all prior products remain unchanged. The authored diagnostic in `client/tests/offline-upgrade` is ready for coordinated execution.
+29 September 2026. **Design proposal; no live implementation.** Frozen v25 and all prior products remain unchanged. [Chromium-01](browser-result.md) now reproduces the mismatch; its strict error-gate failure is preserved. A separate private runtime helper candidate is being tested, without production promotion.
 
 ## Concrete source path
 
@@ -8,7 +8,7 @@
 
 `render/art.ts` retains ArtIndex, SpriteMeta and atlas descriptors, but later `SpriteSheet.load()` calls `Assets.load(page.url)` using an unversioned URL and no expected byte hash. `ArtLibrary.image()` and the cameo/terrain descendants also use unversioned URLs. Another tab can activate B while an A sheet has an unresident page. Its next load selects B by the latest marker, even though the frame rectangles came from A. An online host replacement has the same risk because successful network responses precede completed caches. An old decoded page surviving in Pixi's URL cache can cause the converse mixing in a new library too.
 
-The prepared real-loader diagnostic retains actual A descriptors, activates B in another tab, then compares decoded image bytes against both unchanged product PNGs. It deliberately does not claim that this browser observation has occurred yet. No missing-generation policy should be adopted based only on a green installer transaction test.
+The prepared real-loader diagnostic retains actual A descriptors, activates B in another tab, then compares decoded image bytes against both unchanged product PNGs. Chromium-01 observed the retained A sheet loading B decoded pixels. No missing-generation policy should be adopted based only on a green installer transaction test.
 
 ## Smallest robust correction to evaluate after the reproduction
 
