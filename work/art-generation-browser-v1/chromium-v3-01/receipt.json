@@ -1,0 +1,6503 @@
+{
+  "status": "failed",
+  "started": "2026-09-29T11:12:23.080Z",
+  "scope": "Actual frozen private ArtLibrary + installer + service worker, tiny declared real-PNG packs. No full App, Go gameplay, complete art roster, stock-browser, reference performance or release claim.",
+  "cases": [
+    {
+      "name": "reference-real-PNG",
+      "expectedA": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+      "expectedB": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+      "resources": {
+        "bitmapCreated": 2,
+        "bitmapLive": 0,
+        "blobURLs": 0,
+        "blobBytes": 0,
+        "canvases": 0
+      }
+    },
+    {
+      "name": "install-and-capture-A",
+      "installedA": {
+        "ok": true,
+        "value": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "installedAt": 1790680343880,
+          "files": 9,
+          "bytes": 410886,
+          "cacheName": "frontline-pack-v1:2.0.0:fixture-A:df1dc36d-1fc1-4f48-9896-d6ccc2cbee48",
+          "metadataFiles": 1,
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        }
+      },
+      "capturedA": {
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+          "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 2,
+          "bitmapLive": 0,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        },
+        "meta": {
+          "schema": "fc-sprite/1",
+          "id": "building.US.aa_post",
+          "role_id": null,
+          "faction": "US",
+          "source_spec": "assets/pipeline/specs/building.US.aa_post.json",
+          "frame_size_2x": [
+            312,
+            222
+          ],
+          "anchor_2x": [
+            130,
+            152
+          ],
+          "layers": [
+            "beauty",
+            "shadow",
+            "team"
+          ],
+          "atlases": {
+            "1x": {
+              "beauty": [
+                "atlas.json"
+              ]
+            },
+            "2x": {
+              "beauty": [
+                "atlas.json"
+              ]
+            }
+          },
+          "states": [
+            {
+              "name": "foundation",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "construct",
+              "part": "building",
+              "directions": 1,
+              "frames": 8,
+              "fps": 0,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ],
+              "progress_driven": true
+            },
+            {
+              "name": "idle",
+              "part": "building",
+              "directions": 1,
+              "frames": 8,
+              "fps": 8,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "lowpower",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "disabled",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "damaged",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "critical",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "rubble",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "shadow"
+              ]
+            },
+            {
+              "name": "aim",
+              "part": "turret",
+              "directions": 32,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "fire",
+              "part": "turret",
+              "directions": 32,
+              "frames": 3,
+              "fps": 15,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            }
+          ],
+          "aliases": [
+            {
+              "name": "sell",
+              "source": "construct",
+              "reverse": true,
+              "progress_driven": true,
+              "sim_seconds": 5
+            }
+          ],
+          "overlays": [
+            "fx.building.capture_channel",
+            "fx.building.sabotage_disabled",
+            "fx.building.sell_dust",
+            "fx.building.fire_damaged",
+            "fx.building.smoke_critical",
+            "fx.building.low_power_icon",
+            "fx.building.disabled_icon"
+          ],
+          "footprint_radius_mt": null,
+          "footprint_tiles": [
+            2,
+            2
+          ],
+          "footprint_mt": null,
+          "turret_pivot_mt": null,
+          "squad": null,
+          "air": null,
+          "hardpoints_2x_rel_anchor": {
+            "healthbar": {
+              "construct/d00_f00": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f01": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f02": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f03": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f04": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f05": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f06": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f07": [
+                0,
+                -120.7
+              ],
+              "critical/d00_f00": [
+                0,
+                -120.7
+              ],
+              "damaged/d00_f00": [
+                0,
+                -120.7
+              ],
+              "disabled/d00_f00": [
+                0,
+                -120.7
+              ],
+              "foundation/d00_f00": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f00": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f01": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f02": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f03": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f04": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f05": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f06": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f07": [
+                0,
+                -120.7
+              ],
+              "lowpower/d00_f00": [
+                0,
+                -120.7
+              ],
+              "rubble/d00_f00": [
+                0,
+                -120.7
+              ]
+            },
+            "muzzle": {
+              "aim/d00_f00": [
+                60.2,
+                -73.8
+              ],
+              "aim/d01_f00": [
+                56,
+                -68.1
+              ],
+              "aim/d02_f00": [
+                49.7,
+                -62.9
+              ],
+              "aim/d03_f00": [
+                41.5,
+                -58.4
+              ],
+              "aim/d04_f00": [
+                31.7,
+                -54.8
+              ],
+              "aim/d05_f00": [
+                20.7,
+                -52.2
+              ],
+              "aim/d06_f00": [
+                8.8,
+                -50.8
+              ],
+              "aim/d07_f00": [
+                -3.3,
+                -50.5
+              ],
+              "aim/d08_f00": [
+                -15.4,
+                -51.4
+              ],
+              "aim/d09_f00": [
+                -26.8,
+                -53.5
+              ],
+              "aim/d10_f00": [
+                -37.2,
+                -56.7
+              ],
+              "aim/d11_f00": [
+                -46.2,
+                -60.8
+              ],
+              "aim/d12_f00": [
+                -53.4,
+                -65.7
+              ],
+              "aim/d13_f00": [
+                -58.6,
+                -71.2
+              ],
+              "aim/d14_f00": [
+                -61.5,
+                -77.1
+              ],
+              "aim/d15_f00": [
+                -62,
+                -83.2
+              ],
+              "aim/d16_f00": [
+                -60.2,
+                -89.2
+              ],
+              "aim/d17_f00": [
+                -56,
+                -94.9
+              ],
+              "aim/d18_f00": [
+                -49.7,
+                -100.1
+              ],
+              "aim/d19_f00": [
+                -41.5,
+                -104.6
+              ],
+              "aim/d20_f00": [
+                -31.7,
+                -108.2
+              ],
+              "aim/d21_f00": [
+                -20.7,
+                -110.8
+              ],
+              "aim/d22_f00": [
+                -8.8,
+                -112.2
+              ],
+              "aim/d23_f00": [
+                3.3,
+                -112.5
+              ],
+              "aim/d24_f00": [
+                15.4,
+                -111.6
+              ],
+              "aim/d25_f00": [
+                26.8,
+                -109.5
+              ],
+              "aim/d26_f00": [
+                37.2,
+                -106.4
+              ],
+              "aim/d27_f00": [
+                46.2,
+                -102.3
+              ],
+              "aim/d28_f00": [
+                53.4,
+                -97.4
+              ],
+              "aim/d29_f00": [
+                58.6,
+                -91.8
+              ],
+              "aim/d30_f00": [
+                61.5,
+                -85.9
+              ],
+              "aim/d31_f00": [
+                62,
+                -79.9
+              ],
+              "fire/d00_f00": [
+                55,
+                -76.4
+              ],
+              "fire/d00_f01": [
+                57.6,
+                -75.1
+              ],
+              "fire/d00_f02": [
+                60.2,
+                -73.8
+              ],
+              "fire/d01_f00": [
+                52,
+                -71.1
+              ],
+              "fire/d01_f01": [
+                54,
+                -69.6
+              ],
+              "fire/d01_f02": [
+                56,
+                -68.1
+              ],
+              "fire/d02_f00": [
+                46.9,
+                -66.3
+              ],
+              "fire/d02_f01": [
+                48.3,
+                -64.6
+              ],
+              "fire/d02_f02": [
+                49.7,
+                -62.9
+              ],
+              "fire/d03_f00": [
+                40.1,
+                -62
+              ],
+              "fire/d03_f01": [
+                40.8,
+                -60.2
+              ],
+              "fire/d03_f02": [
+                41.5,
+                -58.4
+              ],
+              "fire/d04_f00": [
+                31.7,
+                -58.4
+              ],
+              "fire/d04_f01": [
+                31.7,
+                -56.6
+              ],
+              "fire/d04_f02": [
+                31.7,
+                -54.8
+              ],
+              "fire/d05_f00": [
+                22.1,
+                -55.8
+              ],
+              "fire/d05_f01": [
+                21.4,
+                -54
+              ],
+              "fire/d05_f02": [
+                20.7,
+                -52.2
+              ],
+              "fire/d06_f00": [
+                11.6,
+                -54.1
+              ],
+              "fire/d06_f01": [
+                10.2,
+                -52.5
+              ],
+              "fire/d06_f02": [
+                8.8,
+                -50.8
+              ],
+              "fire/d07_f00": [
+                0.7,
+                -53.5
+              ],
+              "fire/d07_f01": [
+                -1.3,
+                -52
+              ],
+              "fire/d07_f02": [
+                -3.3,
+                -50.5
+              ],
+              "fire/d08_f00": [
+                -10.2,
+                -54
+              ],
+              "fire/d08_f01": [
+                -12.8,
+                -52.7
+              ],
+              "fire/d08_f02": [
+                -15.4,
+                -51.4
+              ],
+              "fire/d09_f00": [
+                -20.8,
+                -55.5
+              ],
+              "fire/d09_f01": [
+                -23.8,
+                -54.5
+              ],
+              "fire/d09_f02": [
+                -26.8,
+                -53.5
+              ],
+              "fire/d10_f00": [
+                -30.5,
+                -58.1
+              ],
+              "fire/d10_f01": [
+                -33.9,
+                -57.4
+              ],
+              "fire/d10_f02": [
+                -37.2,
+                -56.7
+              ],
+              "fire/d11_f00": [
+                -39.1,
+                -61.5
+              ],
+              "fire/d11_f01": [
+                -42.6,
+                -61.1
+              ],
+              "fire/d11_f02": [
+                -46.2,
+                -60.8
+              ],
+              "fire/d12_f00": [
+                -46.2,
+                -65.7
+              ],
+              "fire/d12_f01": [
+                -49.8,
+                -65.7
+              ],
+              "fire/d12_f02": [
+                -53.4,
+                -65.7
+              ],
+              "fire/d13_f00": [
+                -51.5,
+                -70.5
+              ],
+              "fire/d13_f01": [
+                -55,
+                -70.8
+              ],
+              "fire/d13_f02": [
+                -58.6,
+                -71.2
+              ],
+              "fire/d14_f00": [
+                -54.8,
+                -75.7
+              ],
+              "fire/d14_f01": [
+                -58.1,
+                -76.4
+              ],
+              "fire/d14_f02": [
+                -61.5,
+                -77.1
+              ],
+              "fire/d15_f00": [
+                -56,
+                -81.2
+              ],
+              "fire/d15_f01": [
+                -59,
+                -82.2
+              ],
+              "fire/d15_f02": [
+                -62,
+                -83.2
+              ],
+              "fire/d16_f00": [
+                -55,
+                -86.6
+              ],
+              "fire/d16_f01": [
+                -57.6,
+                -87.9
+              ],
+              "fire/d16_f02": [
+                -60.2,
+                -89.2
+              ],
+              "fire/d17_f00": [
+                -52,
+                -91.9
+              ],
+              "fire/d17_f01": [
+                -54,
+                -93.4
+              ],
+              "fire/d17_f02": [
+                -56,
+                -94.9
+              ],
+              "fire/d18_f00": [
+                -46.9,
+                -96.8
+              ],
+              "fire/d18_f01": [
+                -48.3,
+                -98.5
+              ],
+              "fire/d18_f02": [
+                -49.7,
+                -100.1
+              ],
+              "fire/d19_f00": [
+                -40.1,
+                -101.1
+              ],
+              "fire/d19_f01": [
+                -40.8,
+                -102.8
+              ],
+              "fire/d19_f02": [
+                -41.5,
+                -104.6
+              ],
+              "fire/d20_f00": [
+                -31.7,
+                -104.6
+              ],
+              "fire/d20_f01": [
+                -31.7,
+                -106.4
+              ],
+              "fire/d20_f02": [
+                -31.7,
+                -108.2
+              ],
+              "fire/d21_f00": [
+                -22.1,
+                -107.2
+              ],
+              "fire/d21_f01": [
+                -21.4,
+                -109
+              ],
+              "fire/d21_f02": [
+                -20.7,
+                -110.8
+              ],
+              "fire/d22_f00": [
+                -11.6,
+                -108.9
+              ],
+              "fire/d22_f01": [
+                -10.2,
+                -110.6
+              ],
+              "fire/d22_f02": [
+                -8.8,
+                -112.2
+              ],
+              "fire/d23_f00": [
+                -0.7,
+                -109.5
+              ],
+              "fire/d23_f01": [
+                1.3,
+                -111
+              ],
+              "fire/d23_f02": [
+                3.3,
+                -112.5
+              ],
+              "fire/d24_f00": [
+                10.2,
+                -109
+              ],
+              "fire/d24_f01": [
+                12.8,
+                -110.3
+              ],
+              "fire/d24_f02": [
+                15.4,
+                -111.6
+              ],
+              "fire/d25_f00": [
+                20.8,
+                -107.5
+              ],
+              "fire/d25_f01": [
+                23.8,
+                -108.5
+              ],
+              "fire/d25_f02": [
+                26.8,
+                -109.5
+              ],
+              "fire/d26_f00": [
+                30.5,
+                -105
+              ],
+              "fire/d26_f01": [
+                33.9,
+                -105.7
+              ],
+              "fire/d26_f02": [
+                37.2,
+                -106.4
+              ],
+              "fire/d27_f00": [
+                39.1,
+                -101.6
+              ],
+              "fire/d27_f01": [
+                42.6,
+                -101.9
+              ],
+              "fire/d27_f02": [
+                46.2,
+                -102.3
+              ],
+              "fire/d28_f00": [
+                46.2,
+                -97.4
+              ],
+              "fire/d28_f01": [
+                49.8,
+                -97.4
+              ],
+              "fire/d28_f02": [
+                53.4,
+                -97.4
+              ],
+              "fire/d29_f00": [
+                51.5,
+                -92.6
+              ],
+              "fire/d29_f01": [
+                55,
+                -92.2
+              ],
+              "fire/d29_f02": [
+                58.6,
+                -91.8
+              ],
+              "fire/d30_f00": [
+                54.8,
+                -87.3
+              ],
+              "fire/d30_f01": [
+                58.1,
+                -86.6
+              ],
+              "fire/d30_f02": [
+                61.5,
+                -85.9
+              ],
+              "fire/d31_f00": [
+                56,
+                -81.9
+              ],
+              "fire/d31_f01": [
+                59,
+                -80.9
+              ],
+              "fire/d31_f02": [
+                62,
+                -79.9
+              ]
+            },
+            "rally": {
+              "construct/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f01": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f02": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f03": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f04": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f05": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f06": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f07": [
+                -83.2,
+                41.6
+              ],
+              "critical/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "damaged/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "disabled/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "foundation/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f01": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f02": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f03": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f04": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f05": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f06": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f07": [
+                -83.2,
+                41.6
+              ],
+              "lowpower/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "rubble/d00_f00": [
+                -83.2,
+                41.6
+              ]
+            },
+            "smoke_1": {
+              "construct/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f01": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f02": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f03": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f04": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f05": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f06": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f07": [
+                -11.5,
+                -91.3
+              ],
+              "critical/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "damaged/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "disabled/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "foundation/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f01": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f02": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f03": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f04": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f05": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f06": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f07": [
+                -11.5,
+                -91.3
+              ],
+              "lowpower/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "rubble/d00_f00": [
+                -11.5,
+                -91.3
+              ]
+            },
+            "smoke_2": {
+              "construct/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f01": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f02": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f03": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f04": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f05": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f06": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f07": [
+                19.2,
+                -24.1
+              ],
+              "critical/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "damaged/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "disabled/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "foundation/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f01": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f02": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f03": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f04": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f05": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f06": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f07": [
+                19.2,
+                -24.1
+              ],
+              "lowpower/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "rubble/d00_f00": [
+                19.2,
+                -24.1
+              ]
+            }
+          },
+          "frame_count": 150,
+          "content_sha256": "5d749a6ebaff323d6f9aba9d6d17c6afd5a96efbc50a7357307773e4bf89fba3"
+        }
+      }
+    },
+    {
+      "name": "corrupt-B",
+      "ok": false,
+      "error": {
+        "code": "content_corrupt",
+        "message": "A required file failed its integrity check: /upgrade/shared.txt"
+      }
+    },
+    {
+      "name": "truncate-B",
+      "ok": false,
+      "error": {
+        "code": "content_size_mismatch",
+        "message": "A required file has the wrong size: /upgrade/shared.txt"
+      }
+    },
+    {
+      "name": "interrupt-B",
+      "ok": false,
+      "error": {
+        "code": "content_cache_failed",
+        "message": "The pack could not be cached. Check storage space and retry; installed packs are preserved."
+      }
+    },
+    {
+      "name": "quota-file-B",
+      "ok": false,
+      "error": {
+        "code": "content_cache_failed",
+        "message": "The pack could not be cached. Check storage space and retry; installed packs are preserved."
+      },
+      "injected": 1
+    },
+    {
+      "name": "quota-manifest-B",
+      "ok": false,
+      "error": {
+        "code": "content_cache_failed",
+        "message": "The pack could not be cached. Check storage space and retry; installed packs are preserved."
+      },
+      "injected": 1
+    },
+    {
+      "name": "quota-ready-B",
+      "ok": false,
+      "error": {
+        "code": "content_cache_failed",
+        "message": "The pack could not be cached. Check storage space and retry; installed packs are preserved."
+      },
+      "injected": 1
+    },
+    {
+      "name": "cancel-B-held-download",
+      "ok": false,
+      "error": {
+        "code": "download_canceled",
+        "message": "The content download was canceled. Previously installed packs are preserved."
+      }
+    },
+    {
+      "name": "pending-A-across-other-tab-B",
+      "installedB": {
+        "ok": true,
+        "value": {
+          "id": "2.0.0",
+          "version": "fixture-B",
+          "installedAt": 1790680344021,
+          "files": 8,
+          "bytes": 254314,
+          "cacheName": "frontline-pack-v1:2.0.0:fixture-B:825584a8-97b1-44ee-9d30-21eb15324f61",
+          "metadataFiles": 1,
+          "manifestSHA256": "279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d"
+        }
+      },
+      "pendingA": {
+        "ok": true,
+        "sha256": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+        "picking": true,
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+          "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 3,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      },
+      "newB": {
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-B",
+          "indexSHA256": "8b7b8151d9d819c01a8e5b82e01b6298c288a1f463f39d8d566bd58f06fe29f1",
+          "manifestSHA256": "279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d",
+          "key": "2.0.0:fixture-B:279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 0,
+          "bitmapLive": 0,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        },
+        "meta": {
+          "schema": "fc-sprite/1",
+          "id": "building.US.aa_post",
+          "role_id": null,
+          "faction": "US",
+          "source_spec": "assets/pipeline/specs/building.US.aa_post.json",
+          "frame_size_2x": [
+            312,
+            222
+          ],
+          "anchor_2x": [
+            130,
+            152
+          ],
+          "layers": [
+            "beauty",
+            "shadow",
+            "team"
+          ],
+          "atlases": {
+            "1x": {
+              "beauty": [
+                "atlas.json"
+              ]
+            },
+            "2x": {
+              "beauty": [
+                "atlas.json"
+              ]
+            }
+          },
+          "states": [
+            {
+              "name": "foundation",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "construct",
+              "part": "building",
+              "directions": 1,
+              "frames": 8,
+              "fps": 0,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ],
+              "progress_driven": true
+            },
+            {
+              "name": "idle",
+              "part": "building",
+              "directions": 1,
+              "frames": 8,
+              "fps": 8,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "lowpower",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "disabled",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "damaged",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "critical",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "rubble",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "shadow"
+              ]
+            },
+            {
+              "name": "aim",
+              "part": "turret",
+              "directions": 32,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "fire",
+              "part": "turret",
+              "directions": 32,
+              "frames": 3,
+              "fps": 15,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            }
+          ],
+          "aliases": [
+            {
+              "name": "sell",
+              "source": "construct",
+              "reverse": true,
+              "progress_driven": true,
+              "sim_seconds": 5
+            }
+          ],
+          "overlays": [
+            "fx.building.capture_channel",
+            "fx.building.sabotage_disabled",
+            "fx.building.sell_dust",
+            "fx.building.fire_damaged",
+            "fx.building.smoke_critical",
+            "fx.building.low_power_icon",
+            "fx.building.disabled_icon"
+          ],
+          "footprint_radius_mt": null,
+          "footprint_tiles": [
+            2,
+            2
+          ],
+          "footprint_mt": null,
+          "turret_pivot_mt": null,
+          "squad": null,
+          "air": null,
+          "hardpoints_2x_rel_anchor": {
+            "healthbar": {
+              "construct/d00_f00": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f01": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f02": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f03": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f04": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f05": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f06": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f07": [
+                0,
+                -120.7
+              ],
+              "critical/d00_f00": [
+                0,
+                -120.7
+              ],
+              "damaged/d00_f00": [
+                0,
+                -120.7
+              ],
+              "disabled/d00_f00": [
+                0,
+                -120.7
+              ],
+              "foundation/d00_f00": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f00": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f01": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f02": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f03": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f04": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f05": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f06": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f07": [
+                0,
+                -120.7
+              ],
+              "lowpower/d00_f00": [
+                0,
+                -120.7
+              ],
+              "rubble/d00_f00": [
+                0,
+                -120.7
+              ]
+            },
+            "muzzle": {
+              "aim/d00_f00": [
+                60.2,
+                -73.8
+              ],
+              "aim/d01_f00": [
+                56,
+                -68.1
+              ],
+              "aim/d02_f00": [
+                49.7,
+                -62.9
+              ],
+              "aim/d03_f00": [
+                41.5,
+                -58.4
+              ],
+              "aim/d04_f00": [
+                31.7,
+                -54.8
+              ],
+              "aim/d05_f00": [
+                20.7,
+                -52.2
+              ],
+              "aim/d06_f00": [
+                8.8,
+                -50.8
+              ],
+              "aim/d07_f00": [
+                -3.3,
+                -50.5
+              ],
+              "aim/d08_f00": [
+                -15.4,
+                -51.4
+              ],
+              "aim/d09_f00": [
+                -26.8,
+                -53.5
+              ],
+              "aim/d10_f00": [
+                -37.2,
+                -56.7
+              ],
+              "aim/d11_f00": [
+                -46.2,
+                -60.8
+              ],
+              "aim/d12_f00": [
+                -53.4,
+                -65.7
+              ],
+              "aim/d13_f00": [
+                -58.6,
+                -71.2
+              ],
+              "aim/d14_f00": [
+                -61.5,
+                -77.1
+              ],
+              "aim/d15_f00": [
+                -62,
+                -83.2
+              ],
+              "aim/d16_f00": [
+                -60.2,
+                -89.2
+              ],
+              "aim/d17_f00": [
+                -56,
+                -94.9
+              ],
+              "aim/d18_f00": [
+                -49.7,
+                -100.1
+              ],
+              "aim/d19_f00": [
+                -41.5,
+                -104.6
+              ],
+              "aim/d20_f00": [
+                -31.7,
+                -108.2
+              ],
+              "aim/d21_f00": [
+                -20.7,
+                -110.8
+              ],
+              "aim/d22_f00": [
+                -8.8,
+                -112.2
+              ],
+              "aim/d23_f00": [
+                3.3,
+                -112.5
+              ],
+              "aim/d24_f00": [
+                15.4,
+                -111.6
+              ],
+              "aim/d25_f00": [
+                26.8,
+                -109.5
+              ],
+              "aim/d26_f00": [
+                37.2,
+                -106.4
+              ],
+              "aim/d27_f00": [
+                46.2,
+                -102.3
+              ],
+              "aim/d28_f00": [
+                53.4,
+                -97.4
+              ],
+              "aim/d29_f00": [
+                58.6,
+                -91.8
+              ],
+              "aim/d30_f00": [
+                61.5,
+                -85.9
+              ],
+              "aim/d31_f00": [
+                62,
+                -79.9
+              ],
+              "fire/d00_f00": [
+                55,
+                -76.4
+              ],
+              "fire/d00_f01": [
+                57.6,
+                -75.1
+              ],
+              "fire/d00_f02": [
+                60.2,
+                -73.8
+              ],
+              "fire/d01_f00": [
+                52,
+                -71.1
+              ],
+              "fire/d01_f01": [
+                54,
+                -69.6
+              ],
+              "fire/d01_f02": [
+                56,
+                -68.1
+              ],
+              "fire/d02_f00": [
+                46.9,
+                -66.3
+              ],
+              "fire/d02_f01": [
+                48.3,
+                -64.6
+              ],
+              "fire/d02_f02": [
+                49.7,
+                -62.9
+              ],
+              "fire/d03_f00": [
+                40.1,
+                -62
+              ],
+              "fire/d03_f01": [
+                40.8,
+                -60.2
+              ],
+              "fire/d03_f02": [
+                41.5,
+                -58.4
+              ],
+              "fire/d04_f00": [
+                31.7,
+                -58.4
+              ],
+              "fire/d04_f01": [
+                31.7,
+                -56.6
+              ],
+              "fire/d04_f02": [
+                31.7,
+                -54.8
+              ],
+              "fire/d05_f00": [
+                22.1,
+                -55.8
+              ],
+              "fire/d05_f01": [
+                21.4,
+                -54
+              ],
+              "fire/d05_f02": [
+                20.7,
+                -52.2
+              ],
+              "fire/d06_f00": [
+                11.6,
+                -54.1
+              ],
+              "fire/d06_f01": [
+                10.2,
+                -52.5
+              ],
+              "fire/d06_f02": [
+                8.8,
+                -50.8
+              ],
+              "fire/d07_f00": [
+                0.7,
+                -53.5
+              ],
+              "fire/d07_f01": [
+                -1.3,
+                -52
+              ],
+              "fire/d07_f02": [
+                -3.3,
+                -50.5
+              ],
+              "fire/d08_f00": [
+                -10.2,
+                -54
+              ],
+              "fire/d08_f01": [
+                -12.8,
+                -52.7
+              ],
+              "fire/d08_f02": [
+                -15.4,
+                -51.4
+              ],
+              "fire/d09_f00": [
+                -20.8,
+                -55.5
+              ],
+              "fire/d09_f01": [
+                -23.8,
+                -54.5
+              ],
+              "fire/d09_f02": [
+                -26.8,
+                -53.5
+              ],
+              "fire/d10_f00": [
+                -30.5,
+                -58.1
+              ],
+              "fire/d10_f01": [
+                -33.9,
+                -57.4
+              ],
+              "fire/d10_f02": [
+                -37.2,
+                -56.7
+              ],
+              "fire/d11_f00": [
+                -39.1,
+                -61.5
+              ],
+              "fire/d11_f01": [
+                -42.6,
+                -61.1
+              ],
+              "fire/d11_f02": [
+                -46.2,
+                -60.8
+              ],
+              "fire/d12_f00": [
+                -46.2,
+                -65.7
+              ],
+              "fire/d12_f01": [
+                -49.8,
+                -65.7
+              ],
+              "fire/d12_f02": [
+                -53.4,
+                -65.7
+              ],
+              "fire/d13_f00": [
+                -51.5,
+                -70.5
+              ],
+              "fire/d13_f01": [
+                -55,
+                -70.8
+              ],
+              "fire/d13_f02": [
+                -58.6,
+                -71.2
+              ],
+              "fire/d14_f00": [
+                -54.8,
+                -75.7
+              ],
+              "fire/d14_f01": [
+                -58.1,
+                -76.4
+              ],
+              "fire/d14_f02": [
+                -61.5,
+                -77.1
+              ],
+              "fire/d15_f00": [
+                -56,
+                -81.2
+              ],
+              "fire/d15_f01": [
+                -59,
+                -82.2
+              ],
+              "fire/d15_f02": [
+                -62,
+                -83.2
+              ],
+              "fire/d16_f00": [
+                -55,
+                -86.6
+              ],
+              "fire/d16_f01": [
+                -57.6,
+                -87.9
+              ],
+              "fire/d16_f02": [
+                -60.2,
+                -89.2
+              ],
+              "fire/d17_f00": [
+                -52,
+                -91.9
+              ],
+              "fire/d17_f01": [
+                -54,
+                -93.4
+              ],
+              "fire/d17_f02": [
+                -56,
+                -94.9
+              ],
+              "fire/d18_f00": [
+                -46.9,
+                -96.8
+              ],
+              "fire/d18_f01": [
+                -48.3,
+                -98.5
+              ],
+              "fire/d18_f02": [
+                -49.7,
+                -100.1
+              ],
+              "fire/d19_f00": [
+                -40.1,
+                -101.1
+              ],
+              "fire/d19_f01": [
+                -40.8,
+                -102.8
+              ],
+              "fire/d19_f02": [
+                -41.5,
+                -104.6
+              ],
+              "fire/d20_f00": [
+                -31.7,
+                -104.6
+              ],
+              "fire/d20_f01": [
+                -31.7,
+                -106.4
+              ],
+              "fire/d20_f02": [
+                -31.7,
+                -108.2
+              ],
+              "fire/d21_f00": [
+                -22.1,
+                -107.2
+              ],
+              "fire/d21_f01": [
+                -21.4,
+                -109
+              ],
+              "fire/d21_f02": [
+                -20.7,
+                -110.8
+              ],
+              "fire/d22_f00": [
+                -11.6,
+                -108.9
+              ],
+              "fire/d22_f01": [
+                -10.2,
+                -110.6
+              ],
+              "fire/d22_f02": [
+                -8.8,
+                -112.2
+              ],
+              "fire/d23_f00": [
+                -0.7,
+                -109.5
+              ],
+              "fire/d23_f01": [
+                1.3,
+                -111
+              ],
+              "fire/d23_f02": [
+                3.3,
+                -112.5
+              ],
+              "fire/d24_f00": [
+                10.2,
+                -109
+              ],
+              "fire/d24_f01": [
+                12.8,
+                -110.3
+              ],
+              "fire/d24_f02": [
+                15.4,
+                -111.6
+              ],
+              "fire/d25_f00": [
+                20.8,
+                -107.5
+              ],
+              "fire/d25_f01": [
+                23.8,
+                -108.5
+              ],
+              "fire/d25_f02": [
+                26.8,
+                -109.5
+              ],
+              "fire/d26_f00": [
+                30.5,
+                -105
+              ],
+              "fire/d26_f01": [
+                33.9,
+                -105.7
+              ],
+              "fire/d26_f02": [
+                37.2,
+                -106.4
+              ],
+              "fire/d27_f00": [
+                39.1,
+                -101.6
+              ],
+              "fire/d27_f01": [
+                42.6,
+                -101.9
+              ],
+              "fire/d27_f02": [
+                46.2,
+                -102.3
+              ],
+              "fire/d28_f00": [
+                46.2,
+                -97.4
+              ],
+              "fire/d28_f01": [
+                49.8,
+                -97.4
+              ],
+              "fire/d28_f02": [
+                53.4,
+                -97.4
+              ],
+              "fire/d29_f00": [
+                51.5,
+                -92.6
+              ],
+              "fire/d29_f01": [
+                55,
+                -92.2
+              ],
+              "fire/d29_f02": [
+                58.6,
+                -91.8
+              ],
+              "fire/d30_f00": [
+                54.8,
+                -87.3
+              ],
+              "fire/d30_f01": [
+                58.1,
+                -86.6
+              ],
+              "fire/d30_f02": [
+                61.5,
+                -85.9
+              ],
+              "fire/d31_f00": [
+                56,
+                -81.9
+              ],
+              "fire/d31_f01": [
+                59,
+                -80.9
+              ],
+              "fire/d31_f02": [
+                62,
+                -79.9
+              ]
+            },
+            "rally": {
+              "construct/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f01": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f02": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f03": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f04": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f05": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f06": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f07": [
+                -83.2,
+                41.6
+              ],
+              "critical/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "damaged/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "disabled/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "foundation/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f01": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f02": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f03": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f04": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f05": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f06": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f07": [
+                -83.2,
+                41.6
+              ],
+              "lowpower/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "rubble/d00_f00": [
+                -83.2,
+                41.6
+              ]
+            },
+            "smoke_1": {
+              "construct/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f01": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f02": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f03": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f04": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f05": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f06": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f07": [
+                -11.5,
+                -91.3
+              ],
+              "critical/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "damaged/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "disabled/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "foundation/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f01": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f02": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f03": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f04": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f05": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f06": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f07": [
+                -11.5,
+                -91.3
+              ],
+              "lowpower/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "rubble/d00_f00": [
+                -11.5,
+                -91.3
+              ]
+            },
+            "smoke_2": {
+              "construct/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f01": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f02": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f03": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f04": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f05": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f06": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f07": [
+                19.2,
+                -24.1
+              ],
+              "critical/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "damaged/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "disabled/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "foundation/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f01": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f02": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f03": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f04": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f05": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f06": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f07": [
+                19.2,
+                -24.1
+              ],
+              "lowpower/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "rubble/d00_f00": [
+                19.2,
+                -24.1
+              ]
+            }
+          },
+          "frame_count": 150,
+          "content_sha256": "5d749a6ebaff323d6f9aba9d6d17c6afd5a96efbc50a7357307773e4bf89fba3"
+        }
+      },
+      "pixelsB": {
+        "ok": true,
+        "sha256": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+        "picking": true,
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-B",
+          "indexSHA256": "8b7b8151d9d819c01a8e5b82e01b6298c288a1f463f39d8d566bd58f06fe29f1",
+          "manifestSHA256": "279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d",
+          "key": "2.0.0:fixture-B:279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 1,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      }
+    },
+    {
+      "name": "evict-reload-A-host-B",
+      "evictedA": {
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+          "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 3,
+          "bitmapLive": 0,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        },
+        "oldPickingLive": false
+      },
+      "reloadedA": {
+        "ok": true,
+        "sha256": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+        "picking": true,
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+          "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 4,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      },
+      "imageA": {
+        "ok": true,
+        "sha256": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+          "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 4,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      },
+      "imageB": {
+        "ok": true,
+        "sha256": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-B",
+          "indexSHA256": "8b7b8151d9d819c01a8e5b82e01b6298c288a1f463f39d8d566bd58f06fe29f1",
+          "manifestSHA256": "279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d",
+          "key": "2.0.0:fixture-B:279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 1,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      }
+    },
+    {
+      "name": "unchanged-B-reuse",
+      "ok": true,
+      "value": {
+        "id": "2.0.0",
+        "version": "fixture-B",
+        "installedAt": 1790680344021,
+        "files": 8,
+        "bytes": 254314,
+        "cacheName": "frontline-pack-v1:2.0.0:fixture-B:825584a8-97b1-44ee-9d30-21eb15324f61",
+        "metadataFiles": 1,
+        "manifestSHA256": "279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d"
+      }
+    },
+    {
+      "name": "rollback-A-retained-B",
+      "rollback": {
+        "ok": true,
+        "value": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "installedAt": 1790680344121,
+          "files": 9,
+          "bytes": 410886,
+          "cacheName": "frontline-pack-v1:2.0.0:fixture-A:df1dc36d-1fc1-4f48-9896-d6ccc2cbee48",
+          "metadataFiles": 1,
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        }
+      },
+      "evictedB": {
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-B",
+          "indexSHA256": "8b7b8151d9d819c01a8e5b82e01b6298c288a1f463f39d8d566bd58f06fe29f1",
+          "manifestSHA256": "279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d",
+          "key": "2.0.0:fixture-B:279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 1,
+          "bitmapLive": 0,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        },
+        "oldPickingLive": false
+      },
+      "retainedB": {
+        "ok": true,
+        "sha256": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+        "picking": true,
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-B",
+          "indexSHA256": "8b7b8151d9d819c01a8e5b82e01b6298c288a1f463f39d8d566bd58f06fe29f1",
+          "manifestSHA256": "279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d",
+          "key": "2.0.0:fixture-B:279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 2,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      },
+      "canceled": {
+        "ok": false,
+        "error": {
+          "code": "download_canceled",
+          "message": "The content download was canceled. Previously installed packs are preserved."
+        }
+      }
+    },
+    {
+      "name": "concurrent-completion-C-after-B",
+      "earlier": {
+        "ok": true,
+        "value": {
+          "id": "2.0.0",
+          "version": "fixture-B",
+          "installedAt": 1790680344170,
+          "files": 8,
+          "bytes": 254314,
+          "cacheName": "frontline-pack-v1:2.0.0:fixture-B:825584a8-97b1-44ee-9d30-21eb15324f61",
+          "metadataFiles": 1,
+          "manifestSHA256": "279a70c83e4a6635d05906026879d05ee25cb7524a8d49c598899cd7c498558d"
+        }
+      },
+      "later": {
+        "ok": true,
+        "value": {
+          "id": "2.0.0",
+          "version": "fixture-C",
+          "installedAt": 1790680344180,
+          "files": 8,
+          "bytes": 254314,
+          "cacheName": "frontline-pack-v1:2.0.0:fixture-C:61da367a-a4be-4254-a326-2c81cfad6255",
+          "metadataFiles": 1,
+          "manifestSHA256": "250a3c7e6ea0cd8030a504b914c25bc122dceecf348a58ece7924cf425d0cd36"
+        }
+      }
+    },
+    {
+      "name": "cancel-real-other-tab-lock",
+      "ok": false,
+      "error": {
+        "code": "download_canceled",
+        "message": "The content download was canceled. Previously installed packs are preserved."
+      }
+    },
+    {
+      "name": "retired-A-file-not-resurrected",
+      "status": 503,
+      "text": "Required offline content is not cached. Reconnect to the local host and download this mode first."
+    },
+    {
+      "name": "explicit-A-removal-fails-closed",
+      "ok": false,
+      "statistics": {
+        "indexedPages": 1,
+        "residentPages": 0,
+        "residentBytes": 0,
+        "pickingBytes": 0
+      },
+      "generation": {
+        "id": "2.0.0",
+        "version": "fixture-A",
+        "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+        "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+        "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+      },
+      "generationStatistics": {
+        "inFlight": 0,
+        "inFlightBytes": 0,
+        "queued": 0,
+        "leases": 0,
+        "leaseBytes": 0,
+        "disposed": false
+      },
+      "errors": [
+        {
+          "code": "asset_generation_unavailable",
+          "message": "The selected cached generation was removed."
+        }
+      ],
+      "resources": {
+        "bitmapCreated": 4,
+        "bitmapLive": 0,
+        "blobURLs": 0,
+        "blobBytes": 0,
+        "canvases": 0
+      }
+    },
+    {
+      "name": "no-worker-online-byte-change",
+      "onlineA": {
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+          "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 0,
+          "bitmapLive": 0,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        },
+        "meta": {
+          "schema": "fc-sprite/1",
+          "id": "building.US.aa_post",
+          "role_id": null,
+          "faction": "US",
+          "source_spec": "assets/pipeline/specs/building.US.aa_post.json",
+          "frame_size_2x": [
+            312,
+            222
+          ],
+          "anchor_2x": [
+            130,
+            152
+          ],
+          "layers": [
+            "beauty",
+            "shadow",
+            "team"
+          ],
+          "atlases": {
+            "1x": {
+              "beauty": [
+                "atlas.json"
+              ]
+            },
+            "2x": {
+              "beauty": [
+                "atlas.json"
+              ]
+            }
+          },
+          "states": [
+            {
+              "name": "foundation",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "construct",
+              "part": "building",
+              "directions": 1,
+              "frames": 8,
+              "fps": 0,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ],
+              "progress_driven": true
+            },
+            {
+              "name": "idle",
+              "part": "building",
+              "directions": 1,
+              "frames": 8,
+              "fps": 8,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "lowpower",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "disabled",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "damaged",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "critical",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "rubble",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "shadow"
+              ]
+            },
+            {
+              "name": "aim",
+              "part": "turret",
+              "directions": 32,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "fire",
+              "part": "turret",
+              "directions": 32,
+              "frames": 3,
+              "fps": 15,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            }
+          ],
+          "aliases": [
+            {
+              "name": "sell",
+              "source": "construct",
+              "reverse": true,
+              "progress_driven": true,
+              "sim_seconds": 5
+            }
+          ],
+          "overlays": [
+            "fx.building.capture_channel",
+            "fx.building.sabotage_disabled",
+            "fx.building.sell_dust",
+            "fx.building.fire_damaged",
+            "fx.building.smoke_critical",
+            "fx.building.low_power_icon",
+            "fx.building.disabled_icon"
+          ],
+          "footprint_radius_mt": null,
+          "footprint_tiles": [
+            2,
+            2
+          ],
+          "footprint_mt": null,
+          "turret_pivot_mt": null,
+          "squad": null,
+          "air": null,
+          "hardpoints_2x_rel_anchor": {
+            "healthbar": {
+              "construct/d00_f00": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f01": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f02": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f03": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f04": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f05": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f06": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f07": [
+                0,
+                -120.7
+              ],
+              "critical/d00_f00": [
+                0,
+                -120.7
+              ],
+              "damaged/d00_f00": [
+                0,
+                -120.7
+              ],
+              "disabled/d00_f00": [
+                0,
+                -120.7
+              ],
+              "foundation/d00_f00": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f00": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f01": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f02": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f03": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f04": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f05": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f06": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f07": [
+                0,
+                -120.7
+              ],
+              "lowpower/d00_f00": [
+                0,
+                -120.7
+              ],
+              "rubble/d00_f00": [
+                0,
+                -120.7
+              ]
+            },
+            "muzzle": {
+              "aim/d00_f00": [
+                60.2,
+                -73.8
+              ],
+              "aim/d01_f00": [
+                56,
+                -68.1
+              ],
+              "aim/d02_f00": [
+                49.7,
+                -62.9
+              ],
+              "aim/d03_f00": [
+                41.5,
+                -58.4
+              ],
+              "aim/d04_f00": [
+                31.7,
+                -54.8
+              ],
+              "aim/d05_f00": [
+                20.7,
+                -52.2
+              ],
+              "aim/d06_f00": [
+                8.8,
+                -50.8
+              ],
+              "aim/d07_f00": [
+                -3.3,
+                -50.5
+              ],
+              "aim/d08_f00": [
+                -15.4,
+                -51.4
+              ],
+              "aim/d09_f00": [
+                -26.8,
+                -53.5
+              ],
+              "aim/d10_f00": [
+                -37.2,
+                -56.7
+              ],
+              "aim/d11_f00": [
+                -46.2,
+                -60.8
+              ],
+              "aim/d12_f00": [
+                -53.4,
+                -65.7
+              ],
+              "aim/d13_f00": [
+                -58.6,
+                -71.2
+              ],
+              "aim/d14_f00": [
+                -61.5,
+                -77.1
+              ],
+              "aim/d15_f00": [
+                -62,
+                -83.2
+              ],
+              "aim/d16_f00": [
+                -60.2,
+                -89.2
+              ],
+              "aim/d17_f00": [
+                -56,
+                -94.9
+              ],
+              "aim/d18_f00": [
+                -49.7,
+                -100.1
+              ],
+              "aim/d19_f00": [
+                -41.5,
+                -104.6
+              ],
+              "aim/d20_f00": [
+                -31.7,
+                -108.2
+              ],
+              "aim/d21_f00": [
+                -20.7,
+                -110.8
+              ],
+              "aim/d22_f00": [
+                -8.8,
+                -112.2
+              ],
+              "aim/d23_f00": [
+                3.3,
+                -112.5
+              ],
+              "aim/d24_f00": [
+                15.4,
+                -111.6
+              ],
+              "aim/d25_f00": [
+                26.8,
+                -109.5
+              ],
+              "aim/d26_f00": [
+                37.2,
+                -106.4
+              ],
+              "aim/d27_f00": [
+                46.2,
+                -102.3
+              ],
+              "aim/d28_f00": [
+                53.4,
+                -97.4
+              ],
+              "aim/d29_f00": [
+                58.6,
+                -91.8
+              ],
+              "aim/d30_f00": [
+                61.5,
+                -85.9
+              ],
+              "aim/d31_f00": [
+                62,
+                -79.9
+              ],
+              "fire/d00_f00": [
+                55,
+                -76.4
+              ],
+              "fire/d00_f01": [
+                57.6,
+                -75.1
+              ],
+              "fire/d00_f02": [
+                60.2,
+                -73.8
+              ],
+              "fire/d01_f00": [
+                52,
+                -71.1
+              ],
+              "fire/d01_f01": [
+                54,
+                -69.6
+              ],
+              "fire/d01_f02": [
+                56,
+                -68.1
+              ],
+              "fire/d02_f00": [
+                46.9,
+                -66.3
+              ],
+              "fire/d02_f01": [
+                48.3,
+                -64.6
+              ],
+              "fire/d02_f02": [
+                49.7,
+                -62.9
+              ],
+              "fire/d03_f00": [
+                40.1,
+                -62
+              ],
+              "fire/d03_f01": [
+                40.8,
+                -60.2
+              ],
+              "fire/d03_f02": [
+                41.5,
+                -58.4
+              ],
+              "fire/d04_f00": [
+                31.7,
+                -58.4
+              ],
+              "fire/d04_f01": [
+                31.7,
+                -56.6
+              ],
+              "fire/d04_f02": [
+                31.7,
+                -54.8
+              ],
+              "fire/d05_f00": [
+                22.1,
+                -55.8
+              ],
+              "fire/d05_f01": [
+                21.4,
+                -54
+              ],
+              "fire/d05_f02": [
+                20.7,
+                -52.2
+              ],
+              "fire/d06_f00": [
+                11.6,
+                -54.1
+              ],
+              "fire/d06_f01": [
+                10.2,
+                -52.5
+              ],
+              "fire/d06_f02": [
+                8.8,
+                -50.8
+              ],
+              "fire/d07_f00": [
+                0.7,
+                -53.5
+              ],
+              "fire/d07_f01": [
+                -1.3,
+                -52
+              ],
+              "fire/d07_f02": [
+                -3.3,
+                -50.5
+              ],
+              "fire/d08_f00": [
+                -10.2,
+                -54
+              ],
+              "fire/d08_f01": [
+                -12.8,
+                -52.7
+              ],
+              "fire/d08_f02": [
+                -15.4,
+                -51.4
+              ],
+              "fire/d09_f00": [
+                -20.8,
+                -55.5
+              ],
+              "fire/d09_f01": [
+                -23.8,
+                -54.5
+              ],
+              "fire/d09_f02": [
+                -26.8,
+                -53.5
+              ],
+              "fire/d10_f00": [
+                -30.5,
+                -58.1
+              ],
+              "fire/d10_f01": [
+                -33.9,
+                -57.4
+              ],
+              "fire/d10_f02": [
+                -37.2,
+                -56.7
+              ],
+              "fire/d11_f00": [
+                -39.1,
+                -61.5
+              ],
+              "fire/d11_f01": [
+                -42.6,
+                -61.1
+              ],
+              "fire/d11_f02": [
+                -46.2,
+                -60.8
+              ],
+              "fire/d12_f00": [
+                -46.2,
+                -65.7
+              ],
+              "fire/d12_f01": [
+                -49.8,
+                -65.7
+              ],
+              "fire/d12_f02": [
+                -53.4,
+                -65.7
+              ],
+              "fire/d13_f00": [
+                -51.5,
+                -70.5
+              ],
+              "fire/d13_f01": [
+                -55,
+                -70.8
+              ],
+              "fire/d13_f02": [
+                -58.6,
+                -71.2
+              ],
+              "fire/d14_f00": [
+                -54.8,
+                -75.7
+              ],
+              "fire/d14_f01": [
+                -58.1,
+                -76.4
+              ],
+              "fire/d14_f02": [
+                -61.5,
+                -77.1
+              ],
+              "fire/d15_f00": [
+                -56,
+                -81.2
+              ],
+              "fire/d15_f01": [
+                -59,
+                -82.2
+              ],
+              "fire/d15_f02": [
+                -62,
+                -83.2
+              ],
+              "fire/d16_f00": [
+                -55,
+                -86.6
+              ],
+              "fire/d16_f01": [
+                -57.6,
+                -87.9
+              ],
+              "fire/d16_f02": [
+                -60.2,
+                -89.2
+              ],
+              "fire/d17_f00": [
+                -52,
+                -91.9
+              ],
+              "fire/d17_f01": [
+                -54,
+                -93.4
+              ],
+              "fire/d17_f02": [
+                -56,
+                -94.9
+              ],
+              "fire/d18_f00": [
+                -46.9,
+                -96.8
+              ],
+              "fire/d18_f01": [
+                -48.3,
+                -98.5
+              ],
+              "fire/d18_f02": [
+                -49.7,
+                -100.1
+              ],
+              "fire/d19_f00": [
+                -40.1,
+                -101.1
+              ],
+              "fire/d19_f01": [
+                -40.8,
+                -102.8
+              ],
+              "fire/d19_f02": [
+                -41.5,
+                -104.6
+              ],
+              "fire/d20_f00": [
+                -31.7,
+                -104.6
+              ],
+              "fire/d20_f01": [
+                -31.7,
+                -106.4
+              ],
+              "fire/d20_f02": [
+                -31.7,
+                -108.2
+              ],
+              "fire/d21_f00": [
+                -22.1,
+                -107.2
+              ],
+              "fire/d21_f01": [
+                -21.4,
+                -109
+              ],
+              "fire/d21_f02": [
+                -20.7,
+                -110.8
+              ],
+              "fire/d22_f00": [
+                -11.6,
+                -108.9
+              ],
+              "fire/d22_f01": [
+                -10.2,
+                -110.6
+              ],
+              "fire/d22_f02": [
+                -8.8,
+                -112.2
+              ],
+              "fire/d23_f00": [
+                -0.7,
+                -109.5
+              ],
+              "fire/d23_f01": [
+                1.3,
+                -111
+              ],
+              "fire/d23_f02": [
+                3.3,
+                -112.5
+              ],
+              "fire/d24_f00": [
+                10.2,
+                -109
+              ],
+              "fire/d24_f01": [
+                12.8,
+                -110.3
+              ],
+              "fire/d24_f02": [
+                15.4,
+                -111.6
+              ],
+              "fire/d25_f00": [
+                20.8,
+                -107.5
+              ],
+              "fire/d25_f01": [
+                23.8,
+                -108.5
+              ],
+              "fire/d25_f02": [
+                26.8,
+                -109.5
+              ],
+              "fire/d26_f00": [
+                30.5,
+                -105
+              ],
+              "fire/d26_f01": [
+                33.9,
+                -105.7
+              ],
+              "fire/d26_f02": [
+                37.2,
+                -106.4
+              ],
+              "fire/d27_f00": [
+                39.1,
+                -101.6
+              ],
+              "fire/d27_f01": [
+                42.6,
+                -101.9
+              ],
+              "fire/d27_f02": [
+                46.2,
+                -102.3
+              ],
+              "fire/d28_f00": [
+                46.2,
+                -97.4
+              ],
+              "fire/d28_f01": [
+                49.8,
+                -97.4
+              ],
+              "fire/d28_f02": [
+                53.4,
+                -97.4
+              ],
+              "fire/d29_f00": [
+                51.5,
+                -92.6
+              ],
+              "fire/d29_f01": [
+                55,
+                -92.2
+              ],
+              "fire/d29_f02": [
+                58.6,
+                -91.8
+              ],
+              "fire/d30_f00": [
+                54.8,
+                -87.3
+              ],
+              "fire/d30_f01": [
+                58.1,
+                -86.6
+              ],
+              "fire/d30_f02": [
+                61.5,
+                -85.9
+              ],
+              "fire/d31_f00": [
+                56,
+                -81.9
+              ],
+              "fire/d31_f01": [
+                59,
+                -80.9
+              ],
+              "fire/d31_f02": [
+                62,
+                -79.9
+              ]
+            },
+            "rally": {
+              "construct/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f01": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f02": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f03": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f04": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f05": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f06": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f07": [
+                -83.2,
+                41.6
+              ],
+              "critical/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "damaged/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "disabled/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "foundation/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f01": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f02": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f03": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f04": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f05": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f06": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f07": [
+                -83.2,
+                41.6
+              ],
+              "lowpower/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "rubble/d00_f00": [
+                -83.2,
+                41.6
+              ]
+            },
+            "smoke_1": {
+              "construct/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f01": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f02": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f03": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f04": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f05": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f06": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f07": [
+                -11.5,
+                -91.3
+              ],
+              "critical/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "damaged/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "disabled/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "foundation/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f01": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f02": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f03": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f04": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f05": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f06": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f07": [
+                -11.5,
+                -91.3
+              ],
+              "lowpower/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "rubble/d00_f00": [
+                -11.5,
+                -91.3
+              ]
+            },
+            "smoke_2": {
+              "construct/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f01": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f02": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f03": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f04": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f05": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f06": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f07": [
+                19.2,
+                -24.1
+              ],
+              "critical/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "damaged/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "disabled/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "foundation/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f01": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f02": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f03": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f04": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f05": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f06": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f07": [
+                19.2,
+                -24.1
+              ],
+              "lowpower/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "rubble/d00_f00": [
+                19.2,
+                -24.1
+              ]
+            }
+          },
+          "frame_count": 150,
+          "content_sha256": "5d749a6ebaff323d6f9aba9d6d17c6afd5a96efbc50a7357307773e4bf89fba3"
+        }
+      },
+      "changed": {
+        "ok": false,
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+          "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [
+          {
+            "code": "asset_integrity",
+            "message": "The asset bytes differ from the captured generation."
+          }
+        ],
+        "resources": {
+          "bitmapCreated": 0,
+          "bitmapLive": 0,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      },
+      "noServiceWorker": true,
+      "noCache": true
+    },
+    {
+      "name": "pending-network-A-host-swap",
+      "ok": true,
+      "sha256": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+      "picking": true,
+      "statistics": {
+        "indexedPages": 1,
+        "residentPages": 1,
+        "residentBytes": 3798144,
+        "pickingBytes": 118692
+      },
+      "generation": {
+        "id": "2.0.0",
+        "version": "fixture-A",
+        "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+        "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+        "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+      },
+      "generationStatistics": {
+        "inFlight": 0,
+        "inFlightBytes": 0,
+        "queued": 0,
+        "leases": 0,
+        "leaseBytes": 0,
+        "disposed": false
+      },
+      "errors": [],
+      "resources": {
+        "bitmapCreated": 1,
+        "bitmapLive": 1,
+        "blobURLs": 0,
+        "blobBytes": 0,
+        "canvases": 0
+      }
+    },
+    {
+      "name": "dispose-pending-network",
+      "disposed": {
+        "statistics": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 1,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        },
+        "oldPickingLive": false
+      },
+      "pendingDisposed": {
+        "ok": false,
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-A",
+          "indexSHA256": "5e2454bcc3c3dbfde1071260f0c53f9bbab5f4d5514ee1bfaaadbc8215ff650b",
+          "manifestSHA256": "76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e",
+          "key": "2.0.0:fixture-A:76146cb5b5608c84ea8dd90f3fdce70a54bd54017db7f6bd2589a768c3fd652e"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": true
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 1,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      }
+    },
+    {
+      "name": "dispose-all-generations",
+      "cleanA": {
+        "bitmapCreated": 4,
+        "bitmapLive": 0,
+        "blobURLs": 0,
+        "blobBytes": 0,
+        "canvases": 0
+      },
+      "cleanB": {
+        "bitmapCreated": 2,
+        "bitmapLive": 0,
+        "blobURLs": 0,
+        "blobBytes": 0,
+        "canvases": 0
+      },
+      "cleanPlain": {
+        "bitmapCreated": 1,
+        "bitmapLive": 0,
+        "blobURLs": 0,
+        "blobBytes": 0,
+        "canvases": 0
+      }
+    },
+    {
+      "name": "cold-restart-offline-C",
+      "cold": {
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-C",
+          "indexSHA256": "08d191871c4edf1f5900540ae2f39f4cf986e72960fe342e49177c54840d5aaf",
+          "manifestSHA256": "250a3c7e6ea0cd8030a504b914c25bc122dceecf348a58ece7924cf425d0cd36",
+          "key": "2.0.0:fixture-C:250a3c7e6ea0cd8030a504b914c25bc122dceecf348a58ece7924cf425d0cd36"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 0,
+          "bitmapLive": 0,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        },
+        "meta": {
+          "schema": "fc-sprite/1",
+          "id": "building.US.aa_post",
+          "role_id": null,
+          "faction": "US",
+          "source_spec": "assets/pipeline/specs/building.US.aa_post.json",
+          "frame_size_2x": [
+            312,
+            222
+          ],
+          "anchor_2x": [
+            130,
+            152
+          ],
+          "layers": [
+            "beauty",
+            "shadow",
+            "team"
+          ],
+          "atlases": {
+            "1x": {
+              "beauty": [
+                "atlas.json"
+              ]
+            },
+            "2x": {
+              "beauty": [
+                "atlas.json"
+              ]
+            }
+          },
+          "states": [
+            {
+              "name": "foundation",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "construct",
+              "part": "building",
+              "directions": 1,
+              "frames": 8,
+              "fps": 0,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ],
+              "progress_driven": true
+            },
+            {
+              "name": "idle",
+              "part": "building",
+              "directions": 1,
+              "frames": 8,
+              "fps": 8,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "lowpower",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "disabled",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "damaged",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "critical",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "rubble",
+              "part": "building",
+              "directions": 1,
+              "frames": 1,
+              "fps": 0,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "shadow"
+              ]
+            },
+            {
+              "name": "aim",
+              "part": "turret",
+              "directions": 32,
+              "frames": 1,
+              "fps": 0,
+              "loop": true,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            },
+            {
+              "name": "fire",
+              "part": "turret",
+              "directions": 32,
+              "frames": 3,
+              "fps": 15,
+              "loop": false,
+              "layers": [
+                "beauty",
+                "team",
+                "shadow"
+              ]
+            }
+          ],
+          "aliases": [
+            {
+              "name": "sell",
+              "source": "construct",
+              "reverse": true,
+              "progress_driven": true,
+              "sim_seconds": 5
+            }
+          ],
+          "overlays": [
+            "fx.building.capture_channel",
+            "fx.building.sabotage_disabled",
+            "fx.building.sell_dust",
+            "fx.building.fire_damaged",
+            "fx.building.smoke_critical",
+            "fx.building.low_power_icon",
+            "fx.building.disabled_icon"
+          ],
+          "footprint_radius_mt": null,
+          "footprint_tiles": [
+            2,
+            2
+          ],
+          "footprint_mt": null,
+          "turret_pivot_mt": null,
+          "squad": null,
+          "air": null,
+          "hardpoints_2x_rel_anchor": {
+            "healthbar": {
+              "construct/d00_f00": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f01": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f02": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f03": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f04": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f05": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f06": [
+                0,
+                -120.7
+              ],
+              "construct/d00_f07": [
+                0,
+                -120.7
+              ],
+              "critical/d00_f00": [
+                0,
+                -120.7
+              ],
+              "damaged/d00_f00": [
+                0,
+                -120.7
+              ],
+              "disabled/d00_f00": [
+                0,
+                -120.7
+              ],
+              "foundation/d00_f00": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f00": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f01": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f02": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f03": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f04": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f05": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f06": [
+                0,
+                -120.7
+              ],
+              "idle/d00_f07": [
+                0,
+                -120.7
+              ],
+              "lowpower/d00_f00": [
+                0,
+                -120.7
+              ],
+              "rubble/d00_f00": [
+                0,
+                -120.7
+              ]
+            },
+            "muzzle": {
+              "aim/d00_f00": [
+                60.2,
+                -73.8
+              ],
+              "aim/d01_f00": [
+                56,
+                -68.1
+              ],
+              "aim/d02_f00": [
+                49.7,
+                -62.9
+              ],
+              "aim/d03_f00": [
+                41.5,
+                -58.4
+              ],
+              "aim/d04_f00": [
+                31.7,
+                -54.8
+              ],
+              "aim/d05_f00": [
+                20.7,
+                -52.2
+              ],
+              "aim/d06_f00": [
+                8.8,
+                -50.8
+              ],
+              "aim/d07_f00": [
+                -3.3,
+                -50.5
+              ],
+              "aim/d08_f00": [
+                -15.4,
+                -51.4
+              ],
+              "aim/d09_f00": [
+                -26.8,
+                -53.5
+              ],
+              "aim/d10_f00": [
+                -37.2,
+                -56.7
+              ],
+              "aim/d11_f00": [
+                -46.2,
+                -60.8
+              ],
+              "aim/d12_f00": [
+                -53.4,
+                -65.7
+              ],
+              "aim/d13_f00": [
+                -58.6,
+                -71.2
+              ],
+              "aim/d14_f00": [
+                -61.5,
+                -77.1
+              ],
+              "aim/d15_f00": [
+                -62,
+                -83.2
+              ],
+              "aim/d16_f00": [
+                -60.2,
+                -89.2
+              ],
+              "aim/d17_f00": [
+                -56,
+                -94.9
+              ],
+              "aim/d18_f00": [
+                -49.7,
+                -100.1
+              ],
+              "aim/d19_f00": [
+                -41.5,
+                -104.6
+              ],
+              "aim/d20_f00": [
+                -31.7,
+                -108.2
+              ],
+              "aim/d21_f00": [
+                -20.7,
+                -110.8
+              ],
+              "aim/d22_f00": [
+                -8.8,
+                -112.2
+              ],
+              "aim/d23_f00": [
+                3.3,
+                -112.5
+              ],
+              "aim/d24_f00": [
+                15.4,
+                -111.6
+              ],
+              "aim/d25_f00": [
+                26.8,
+                -109.5
+              ],
+              "aim/d26_f00": [
+                37.2,
+                -106.4
+              ],
+              "aim/d27_f00": [
+                46.2,
+                -102.3
+              ],
+              "aim/d28_f00": [
+                53.4,
+                -97.4
+              ],
+              "aim/d29_f00": [
+                58.6,
+                -91.8
+              ],
+              "aim/d30_f00": [
+                61.5,
+                -85.9
+              ],
+              "aim/d31_f00": [
+                62,
+                -79.9
+              ],
+              "fire/d00_f00": [
+                55,
+                -76.4
+              ],
+              "fire/d00_f01": [
+                57.6,
+                -75.1
+              ],
+              "fire/d00_f02": [
+                60.2,
+                -73.8
+              ],
+              "fire/d01_f00": [
+                52,
+                -71.1
+              ],
+              "fire/d01_f01": [
+                54,
+                -69.6
+              ],
+              "fire/d01_f02": [
+                56,
+                -68.1
+              ],
+              "fire/d02_f00": [
+                46.9,
+                -66.3
+              ],
+              "fire/d02_f01": [
+                48.3,
+                -64.6
+              ],
+              "fire/d02_f02": [
+                49.7,
+                -62.9
+              ],
+              "fire/d03_f00": [
+                40.1,
+                -62
+              ],
+              "fire/d03_f01": [
+                40.8,
+                -60.2
+              ],
+              "fire/d03_f02": [
+                41.5,
+                -58.4
+              ],
+              "fire/d04_f00": [
+                31.7,
+                -58.4
+              ],
+              "fire/d04_f01": [
+                31.7,
+                -56.6
+              ],
+              "fire/d04_f02": [
+                31.7,
+                -54.8
+              ],
+              "fire/d05_f00": [
+                22.1,
+                -55.8
+              ],
+              "fire/d05_f01": [
+                21.4,
+                -54
+              ],
+              "fire/d05_f02": [
+                20.7,
+                -52.2
+              ],
+              "fire/d06_f00": [
+                11.6,
+                -54.1
+              ],
+              "fire/d06_f01": [
+                10.2,
+                -52.5
+              ],
+              "fire/d06_f02": [
+                8.8,
+                -50.8
+              ],
+              "fire/d07_f00": [
+                0.7,
+                -53.5
+              ],
+              "fire/d07_f01": [
+                -1.3,
+                -52
+              ],
+              "fire/d07_f02": [
+                -3.3,
+                -50.5
+              ],
+              "fire/d08_f00": [
+                -10.2,
+                -54
+              ],
+              "fire/d08_f01": [
+                -12.8,
+                -52.7
+              ],
+              "fire/d08_f02": [
+                -15.4,
+                -51.4
+              ],
+              "fire/d09_f00": [
+                -20.8,
+                -55.5
+              ],
+              "fire/d09_f01": [
+                -23.8,
+                -54.5
+              ],
+              "fire/d09_f02": [
+                -26.8,
+                -53.5
+              ],
+              "fire/d10_f00": [
+                -30.5,
+                -58.1
+              ],
+              "fire/d10_f01": [
+                -33.9,
+                -57.4
+              ],
+              "fire/d10_f02": [
+                -37.2,
+                -56.7
+              ],
+              "fire/d11_f00": [
+                -39.1,
+                -61.5
+              ],
+              "fire/d11_f01": [
+                -42.6,
+                -61.1
+              ],
+              "fire/d11_f02": [
+                -46.2,
+                -60.8
+              ],
+              "fire/d12_f00": [
+                -46.2,
+                -65.7
+              ],
+              "fire/d12_f01": [
+                -49.8,
+                -65.7
+              ],
+              "fire/d12_f02": [
+                -53.4,
+                -65.7
+              ],
+              "fire/d13_f00": [
+                -51.5,
+                -70.5
+              ],
+              "fire/d13_f01": [
+                -55,
+                -70.8
+              ],
+              "fire/d13_f02": [
+                -58.6,
+                -71.2
+              ],
+              "fire/d14_f00": [
+                -54.8,
+                -75.7
+              ],
+              "fire/d14_f01": [
+                -58.1,
+                -76.4
+              ],
+              "fire/d14_f02": [
+                -61.5,
+                -77.1
+              ],
+              "fire/d15_f00": [
+                -56,
+                -81.2
+              ],
+              "fire/d15_f01": [
+                -59,
+                -82.2
+              ],
+              "fire/d15_f02": [
+                -62,
+                -83.2
+              ],
+              "fire/d16_f00": [
+                -55,
+                -86.6
+              ],
+              "fire/d16_f01": [
+                -57.6,
+                -87.9
+              ],
+              "fire/d16_f02": [
+                -60.2,
+                -89.2
+              ],
+              "fire/d17_f00": [
+                -52,
+                -91.9
+              ],
+              "fire/d17_f01": [
+                -54,
+                -93.4
+              ],
+              "fire/d17_f02": [
+                -56,
+                -94.9
+              ],
+              "fire/d18_f00": [
+                -46.9,
+                -96.8
+              ],
+              "fire/d18_f01": [
+                -48.3,
+                -98.5
+              ],
+              "fire/d18_f02": [
+                -49.7,
+                -100.1
+              ],
+              "fire/d19_f00": [
+                -40.1,
+                -101.1
+              ],
+              "fire/d19_f01": [
+                -40.8,
+                -102.8
+              ],
+              "fire/d19_f02": [
+                -41.5,
+                -104.6
+              ],
+              "fire/d20_f00": [
+                -31.7,
+                -104.6
+              ],
+              "fire/d20_f01": [
+                -31.7,
+                -106.4
+              ],
+              "fire/d20_f02": [
+                -31.7,
+                -108.2
+              ],
+              "fire/d21_f00": [
+                -22.1,
+                -107.2
+              ],
+              "fire/d21_f01": [
+                -21.4,
+                -109
+              ],
+              "fire/d21_f02": [
+                -20.7,
+                -110.8
+              ],
+              "fire/d22_f00": [
+                -11.6,
+                -108.9
+              ],
+              "fire/d22_f01": [
+                -10.2,
+                -110.6
+              ],
+              "fire/d22_f02": [
+                -8.8,
+                -112.2
+              ],
+              "fire/d23_f00": [
+                -0.7,
+                -109.5
+              ],
+              "fire/d23_f01": [
+                1.3,
+                -111
+              ],
+              "fire/d23_f02": [
+                3.3,
+                -112.5
+              ],
+              "fire/d24_f00": [
+                10.2,
+                -109
+              ],
+              "fire/d24_f01": [
+                12.8,
+                -110.3
+              ],
+              "fire/d24_f02": [
+                15.4,
+                -111.6
+              ],
+              "fire/d25_f00": [
+                20.8,
+                -107.5
+              ],
+              "fire/d25_f01": [
+                23.8,
+                -108.5
+              ],
+              "fire/d25_f02": [
+                26.8,
+                -109.5
+              ],
+              "fire/d26_f00": [
+                30.5,
+                -105
+              ],
+              "fire/d26_f01": [
+                33.9,
+                -105.7
+              ],
+              "fire/d26_f02": [
+                37.2,
+                -106.4
+              ],
+              "fire/d27_f00": [
+                39.1,
+                -101.6
+              ],
+              "fire/d27_f01": [
+                42.6,
+                -101.9
+              ],
+              "fire/d27_f02": [
+                46.2,
+                -102.3
+              ],
+              "fire/d28_f00": [
+                46.2,
+                -97.4
+              ],
+              "fire/d28_f01": [
+                49.8,
+                -97.4
+              ],
+              "fire/d28_f02": [
+                53.4,
+                -97.4
+              ],
+              "fire/d29_f00": [
+                51.5,
+                -92.6
+              ],
+              "fire/d29_f01": [
+                55,
+                -92.2
+              ],
+              "fire/d29_f02": [
+                58.6,
+                -91.8
+              ],
+              "fire/d30_f00": [
+                54.8,
+                -87.3
+              ],
+              "fire/d30_f01": [
+                58.1,
+                -86.6
+              ],
+              "fire/d30_f02": [
+                61.5,
+                -85.9
+              ],
+              "fire/d31_f00": [
+                56,
+                -81.9
+              ],
+              "fire/d31_f01": [
+                59,
+                -80.9
+              ],
+              "fire/d31_f02": [
+                62,
+                -79.9
+              ]
+            },
+            "rally": {
+              "construct/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f01": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f02": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f03": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f04": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f05": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f06": [
+                -83.2,
+                41.6
+              ],
+              "construct/d00_f07": [
+                -83.2,
+                41.6
+              ],
+              "critical/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "damaged/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "disabled/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "foundation/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f01": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f02": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f03": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f04": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f05": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f06": [
+                -83.2,
+                41.6
+              ],
+              "idle/d00_f07": [
+                -83.2,
+                41.6
+              ],
+              "lowpower/d00_f00": [
+                -83.2,
+                41.6
+              ],
+              "rubble/d00_f00": [
+                -83.2,
+                41.6
+              ]
+            },
+            "smoke_1": {
+              "construct/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f01": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f02": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f03": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f04": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f05": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f06": [
+                -11.5,
+                -91.3
+              ],
+              "construct/d00_f07": [
+                -11.5,
+                -91.3
+              ],
+              "critical/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "damaged/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "disabled/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "foundation/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f01": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f02": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f03": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f04": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f05": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f06": [
+                -11.5,
+                -91.3
+              ],
+              "idle/d00_f07": [
+                -11.5,
+                -91.3
+              ],
+              "lowpower/d00_f00": [
+                -11.5,
+                -91.3
+              ],
+              "rubble/d00_f00": [
+                -11.5,
+                -91.3
+              ]
+            },
+            "smoke_2": {
+              "construct/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f01": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f02": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f03": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f04": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f05": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f06": [
+                19.2,
+                -24.1
+              ],
+              "construct/d00_f07": [
+                19.2,
+                -24.1
+              ],
+              "critical/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "damaged/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "disabled/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "foundation/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f01": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f02": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f03": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f04": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f05": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f06": [
+                19.2,
+                -24.1
+              ],
+              "idle/d00_f07": [
+                19.2,
+                -24.1
+              ],
+              "lowpower/d00_f00": [
+                19.2,
+                -24.1
+              ],
+              "rubble/d00_f00": [
+                19.2,
+                -24.1
+              ]
+            }
+          },
+          "frame_count": 150,
+          "content_sha256": "5d749a6ebaff323d6f9aba9d6d17c6afd5a96efbc50a7357307773e4bf89fba3"
+        }
+      },
+      "coldPixels": {
+        "ok": true,
+        "sha256": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+        "picking": true,
+        "statistics": {
+          "indexedPages": 1,
+          "residentPages": 1,
+          "residentBytes": 3798144,
+          "pickingBytes": 118692
+        },
+        "generation": {
+          "id": "2.0.0",
+          "version": "fixture-C",
+          "indexSHA256": "08d191871c4edf1f5900540ae2f39f4cf986e72960fe342e49177c54840d5aaf",
+          "manifestSHA256": "250a3c7e6ea0cd8030a504b914c25bc122dceecf348a58ece7924cf425d0cd36",
+          "key": "2.0.0:fixture-C:250a3c7e6ea0cd8030a504b914c25bc122dceecf348a58ece7924cf425d0cd36"
+        },
+        "generationStatistics": {
+          "inFlight": 0,
+          "inFlightBytes": 0,
+          "queued": 0,
+          "leases": 0,
+          "leaseBytes": 0,
+          "disposed": false
+        },
+        "errors": [],
+        "resources": {
+          "bitmapCreated": 1,
+          "bitmapLive": 1,
+          "blobURLs": 0,
+          "blobBytes": 0,
+          "canvases": 0
+        }
+      },
+      "coldClean": {
+        "bitmapCreated": 1,
+        "bitmapLive": 0,
+        "blobURLs": 0,
+        "blobBytes": 0,
+        "canvases": 0
+      },
+      "scope": "Persistent browser restart offline, actual default ArtLibrary exact stored index+manifest+PNG; tiny cached document only, not full App."
+    }
+  ],
+  "pageErrors": [],
+  "httpErrors": [
+    {
+      "phase": "retired-A-file-not-resurrected",
+      "mode": "offline",
+      "at": "2026-09-29T11:12:24.206Z",
+      "observedPhase": "retired-A-file-not-resurrected",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/retired.txt",
+      "status": 503
+    }
+  ],
+  "requestFailures": [
+    {
+      "phase": "install-and-capture-A",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.878Z",
+      "observedPhase": "install-and-capture-A",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/retired.txt",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "interrupt-B",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.922Z",
+      "observedPhase": "interrupt-B",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/shared.txt",
+      "reason": "net::ERR_EMPTY_RESPONSE"
+    },
+    {
+      "phase": "quota-ready-B",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.965Z",
+      "observedPhase": "quota-ready-B",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "cancel-B-held-download",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.977Z",
+      "observedPhase": "cancel-B-held-download",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/hold.bin",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "mode": "online",
+      "at": "2026-09-29T11:12:24.282Z",
+      "observedPhase": "pending-network-A-host-swap",
+      "label": "no-worker",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED"
+    },
+    {
+      "phase": "dispose-pending-network",
+      "mode": "online",
+      "at": "2026-09-29T11:12:24.337Z",
+      "observedPhase": "dispose-pending-network",
+      "label": "no-worker",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED"
+    }
+  ],
+  "requests": [
+    {
+      "phase": "preflight",
+      "generation": "A",
+      "mode": "online",
+      "path": "/generation-harness.html",
+      "download": false,
+      "received": "2026-09-29T11:12:23.736Z",
+      "finished": "2026-09-29T11:12:23.737Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.737Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "preflight",
+      "generation": "A",
+      "mode": "online",
+      "path": "/generation-harness.html",
+      "download": false,
+      "received": "2026-09-29T11:12:23.748Z",
+      "finished": "2026-09-29T11:12:23.749Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.749Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "preflight",
+      "generation": "A",
+      "mode": "online",
+      "path": "/service-worker.js",
+      "download": false,
+      "received": "2026-09-29T11:12:23.807Z",
+      "finished": "2026-09-29T11:12:23.808Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.808Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "reference-real-PNG",
+      "generation": "A",
+      "mode": "online",
+      "path": "/reference/A.png",
+      "download": false,
+      "received": "2026-09-29T11:12:23.831Z",
+      "finished": "2026-09-29T11:12:23.832Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.832Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "reference-real-PNG",
+      "generation": "A",
+      "mode": "online",
+      "path": "/reference/B.png",
+      "download": false,
+      "received": "2026-09-29T11:12:23.848Z",
+      "finished": "2026-09-29T11:12:23.848Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.848Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:23.862Z",
+      "finished": "2026-09-29T11:12:23.862Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.862Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.866Z",
+      "finished": "2026-09-29T11:12:23.866Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.866Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.868Z",
+      "finished": "2026-09-29T11:12:23.868Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.868Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/upgrade/hold.bin",
+      "download": true,
+      "received": "2026-09-29T11:12:23.869Z",
+      "finished": "2026-09-29T11:12:23.869Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.870Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.871Z",
+      "finished": "2026-09-29T11:12:23.871Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.871Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/sprite.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.873Z",
+      "finished": "2026-09-29T11:12:23.874Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.874Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/atlas.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.875Z",
+      "finished": "2026-09-29T11:12:23.875Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.875Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/page.png",
+      "download": true,
+      "received": "2026-09-29T11:12:23.876Z",
+      "finished": "2026-09-29T11:12:23.877Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.877Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/upgrade/retired.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.878Z",
+      "finished": "2026-09-29T11:12:23.878Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.878Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "install-and-capture-A",
+      "generation": "A",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:23.881Z",
+      "finished": "2026-09-29T11:12:23.881Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.881Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "corrupt-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:23.897Z",
+      "finished": "2026-09-29T11:12:23.897Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.897Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "corrupt-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.899Z",
+      "finished": "2026-09-29T11:12:23.899Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.899Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "corrupt-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.900Z",
+      "fault": "corrupt",
+      "finished": "2026-09-29T11:12:23.900Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.900Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "corrupt-B",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:23.903Z",
+      "finished": "2026-09-29T11:12:23.903Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:23.903Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "truncate-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:23.909Z",
+      "finished": "2026-09-29T11:12:23.909Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.909Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "truncate-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.910Z",
+      "finished": "2026-09-29T11:12:23.910Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.910Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "truncate-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.911Z",
+      "fault": "truncate",
+      "finished": "2026-09-29T11:12:23.911Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.911Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "truncate-B",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:23.914Z",
+      "finished": "2026-09-29T11:12:23.914Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:23.914Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "interrupt-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:23.920Z",
+      "finished": "2026-09-29T11:12:23.920Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.920Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "interrupt-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.921Z",
+      "finished": "2026-09-29T11:12:23.921Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.921Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "interrupt-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.922Z",
+      "fault": "interrupt",
+      "closed": "2026-09-29T11:12:23.923Z",
+      "writableFinished": false
+    },
+    {
+      "phase": "interrupt-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.923Z",
+      "fault": "interrupt",
+      "closed": "2026-09-29T11:12:23.923Z",
+      "writableFinished": false
+    },
+    {
+      "phase": "interrupt-B",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:23.926Z",
+      "finished": "2026-09-29T11:12:23.926Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:23.926Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-file-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:23.932Z",
+      "finished": "2026-09-29T11:12:23.932Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.932Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-file-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.933Z",
+      "finished": "2026-09-29T11:12:23.933Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.933Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-file-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.934Z",
+      "fault": "quota-file",
+      "finished": "2026-09-29T11:12:23.934Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.934Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-file-B",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:23.937Z",
+      "finished": "2026-09-29T11:12:23.937Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:23.937Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:23.943Z",
+      "finished": "2026-09-29T11:12:23.943Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.943Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.944Z",
+      "finished": "2026-09-29T11:12:23.944Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.944Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.945Z",
+      "fault": "quota-manifest",
+      "finished": "2026-09-29T11:12:23.945Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.945Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/hold.bin",
+      "download": true,
+      "received": "2026-09-29T11:12:23.946Z",
+      "finished": "2026-09-29T11:12:23.946Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.946Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.947Z",
+      "finished": "2026-09-29T11:12:23.947Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.947Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/sprite.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.947Z",
+      "finished": "2026-09-29T11:12:23.947Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.947Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/atlas.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.948Z",
+      "finished": "2026-09-29T11:12:23.949Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.949Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/page.png",
+      "download": true,
+      "received": "2026-09-29T11:12:23.950Z",
+      "finished": "2026-09-29T11:12:23.950Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.950Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-manifest-B",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:23.955Z",
+      "finished": "2026-09-29T11:12:23.955Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:23.955Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:23.959Z",
+      "finished": "2026-09-29T11:12:23.959Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.959Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.960Z",
+      "finished": "2026-09-29T11:12:23.960Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.960Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.961Z",
+      "fault": "quota-ready",
+      "finished": "2026-09-29T11:12:23.961Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.961Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/hold.bin",
+      "download": true,
+      "received": "2026-09-29T11:12:23.962Z",
+      "finished": "2026-09-29T11:12:23.962Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.962Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.963Z",
+      "finished": "2026-09-29T11:12:23.963Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.963Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/sprite.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.964Z",
+      "finished": "2026-09-29T11:12:23.964Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.964Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/atlas.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.964Z",
+      "finished": "2026-09-29T11:12:23.964Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.964Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/page.png",
+      "download": true,
+      "received": "2026-09-29T11:12:23.965Z",
+      "finished": "2026-09-29T11:12:23.965Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.966Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:23.970Z",
+      "finished": "2026-09-29T11:12:23.970Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:23.970Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "cancel-B-held-download",
+      "generation": "B",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:23.975Z",
+      "finished": "2026-09-29T11:12:23.975Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.975Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "cancel-B-held-download",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:23.976Z",
+      "finished": "2026-09-29T11:12:23.976Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.976Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "cancel-B-held-download",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:23.977Z",
+      "finished": "2026-09-29T11:12:23.977Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:23.977Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "cancel-B-held-download",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/hold.bin",
+      "download": true,
+      "received": "2026-09-29T11:12:23.978Z",
+      "fault": "hold",
+      "closed": "2026-09-29T11:12:23.997Z",
+      "writableFinished": false
+    },
+    {
+      "phase": "cancel-B-held-download",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:24.000Z",
+      "finished": "2026-09-29T11:12:24.000Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:24.000Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:24.009Z",
+      "finished": "2026-09-29T11:12:24.009Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.009Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:24.010Z",
+      "finished": "2026-09-29T11:12:24.010Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.010Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:24.012Z",
+      "finished": "2026-09-29T11:12:24.012Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.012Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/upgrade/hold.bin",
+      "download": true,
+      "received": "2026-09-29T11:12:24.013Z",
+      "finished": "2026-09-29T11:12:24.013Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.013Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:24.014Z",
+      "finished": "2026-09-29T11:12:24.014Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.014Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/sprite.json",
+      "download": true,
+      "received": "2026-09-29T11:12:24.015Z",
+      "finished": "2026-09-29T11:12:24.015Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.015Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/atlas.json",
+      "download": true,
+      "received": "2026-09-29T11:12:24.016Z",
+      "finished": "2026-09-29T11:12:24.016Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.016Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/page.png",
+      "download": true,
+      "received": "2026-09-29T11:12:24.017Z",
+      "finished": "2026-09-29T11:12:24.018Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.018Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:24.047Z",
+      "finished": "2026-09-29T11:12:24.047Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:24.047Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-A-across-other-tab-B",
+      "generation": "B",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.051Z",
+      "finished": "2026-09-29T11:12:24.051Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.051Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "rollback-A-retained-B",
+      "generation": "B",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:24.123Z",
+      "finished": "2026-09-29T11:12:24.123Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:24.123Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "online",
+      "path": "/generation-shell.html",
+      "download": true,
+      "received": "2026-09-29T11:12:24.146Z",
+      "finished": "2026-09-29T11:12:24.147Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.147Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:24.148Z",
+      "finished": "2026-09-29T11:12:24.148Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.148Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "online",
+      "path": "/upgrade/shared.txt",
+      "download": true,
+      "received": "2026-09-29T11:12:24.149Z",
+      "finished": "2026-09-29T11:12:24.149Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.149Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "online",
+      "path": "/upgrade/hold.bin",
+      "download": true,
+      "received": "2026-09-29T11:12:24.150Z",
+      "fault": "hold",
+      "finished": "2026-09-29T11:12:24.171Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.171Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "online",
+      "path": "/art/index.json",
+      "download": true,
+      "received": "2026-09-29T11:12:24.172Z",
+      "finished": "2026-09-29T11:12:24.172Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.172Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "online",
+      "path": "/art/offline-upgrade/sprite.json",
+      "download": true,
+      "received": "2026-09-29T11:12:24.173Z",
+      "finished": "2026-09-29T11:12:24.174Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.174Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "online",
+      "path": "/art/offline-upgrade/atlas.json",
+      "download": true,
+      "received": "2026-09-29T11:12:24.175Z",
+      "finished": "2026-09-29T11:12:24.175Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.175Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "online",
+      "path": "/art/offline-upgrade/page.png",
+      "download": true,
+      "received": "2026-09-29T11:12:24.176Z",
+      "finished": "2026-09-29T11:12:24.176Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.176Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "concurrent-completion-C-after-B",
+      "generation": "C",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:24.195Z",
+      "finished": "2026-09-29T11:12:24.195Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:24.195Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "cancel-real-other-tab-lock",
+      "generation": "C",
+      "mode": "offline",
+      "path": "/upgrade/shared.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:24.203Z",
+      "finished": "2026-09-29T11:12:24.203Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:24.203Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "retired-A-file-not-resurrected",
+      "generation": "C",
+      "mode": "offline",
+      "path": "/upgrade/retired.txt",
+      "download": false,
+      "received": "2026-09-29T11:12:24.206Z",
+      "finished": "2026-09-29T11:12:24.206Z",
+      "status": 503,
+      "closed": "2026-09-29T11:12:24.206Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "no-worker-online-byte-change",
+      "generation": "C",
+      "mode": "online",
+      "path": "/generation-harness.html",
+      "download": false,
+      "received": "2026-09-29T11:12:24.251Z",
+      "finished": "2026-09-29T11:12:24.251Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.251Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "no-worker-online-byte-change",
+      "generation": "A",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.263Z",
+      "finished": "2026-09-29T11:12:24.263Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.263Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "no-worker-online-byte-change",
+      "generation": "A",
+      "mode": "online",
+      "path": "/assets/packs/base.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.265Z",
+      "finished": "2026-09-29T11:12:24.265Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.265Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "no-worker-online-byte-change",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.266Z",
+      "finished": "2026-09-29T11:12:24.266Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.266Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "no-worker-online-byte-change",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/sprite.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.267Z",
+      "finished": "2026-09-29T11:12:24.267Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.267Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "no-worker-online-byte-change",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/atlas.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.267Z",
+      "finished": "2026-09-29T11:12:24.268Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.268Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "no-worker-online-byte-change",
+      "generation": "B",
+      "mode": "online",
+      "path": "/art/offline-upgrade/page.png",
+      "download": false,
+      "received": "2026-09-29T11:12:24.273Z",
+      "finished": "2026-09-29T11:12:24.274Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.274Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "generation": "A",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.275Z",
+      "finished": "2026-09-29T11:12:24.275Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.275Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "generation": "A",
+      "mode": "online",
+      "path": "/assets/packs/base.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.276Z",
+      "finished": "2026-09-29T11:12:24.276Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.276Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.276Z",
+      "finished": "2026-09-29T11:12:24.276Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.276Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/sprite.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.277Z",
+      "finished": "2026-09-29T11:12:24.277Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.277Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/atlas.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.277Z",
+      "finished": "2026-09-29T11:12:24.277Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.277Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/page.png",
+      "download": false,
+      "received": "2026-09-29T11:12:24.282Z",
+      "fault": "hold",
+      "finished": "2026-09-29T11:12:24.304Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.304Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "dispose-pending-network",
+      "generation": "A",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.328Z",
+      "finished": "2026-09-29T11:12:24.328Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.328Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "dispose-pending-network",
+      "generation": "A",
+      "mode": "online",
+      "path": "/assets/packs/base.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.329Z",
+      "finished": "2026-09-29T11:12:24.329Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.329Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "dispose-pending-network",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.329Z",
+      "finished": "2026-09-29T11:12:24.329Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.329Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "dispose-pending-network",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/sprite.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.330Z",
+      "finished": "2026-09-29T11:12:24.330Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.330Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "dispose-pending-network",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/atlas.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.330Z",
+      "finished": "2026-09-29T11:12:24.330Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.330Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "dispose-pending-network",
+      "generation": "A",
+      "mode": "online",
+      "path": "/art/offline-upgrade/page.png",
+      "download": false,
+      "received": "2026-09-29T11:12:24.337Z",
+      "fault": "hold",
+      "finished": "2026-09-29T11:12:24.359Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.359Z",
+      "writableFinished": true
+    },
+    {
+      "phase": "cold-restart-offline-C",
+      "generation": "C",
+      "mode": "online",
+      "path": "/content/index.json",
+      "download": false,
+      "received": "2026-09-29T11:12:24.557Z",
+      "finished": "2026-09-29T11:12:24.557Z",
+      "status": 200,
+      "closed": "2026-09-29T11:12:24.557Z",
+      "writableFinished": true
+    }
+  ],
+  "console": [
+    {
+      "phase": "interrupt-B",
+      "label": "persistent",
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_EMPTY_RESPONSE"
+    },
+    {
+      "phase": "retired-A-file-not-resurrected",
+      "label": "persistent",
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 503 ()"
+    },
+    {
+      "phase": "explicit-A-removal-fails-closed",
+      "label": "persistent",
+      "type": "warning",
+      "text": "Sprite page failed to load building.US.aa_post /art/offline-upgrade/page.png RuntimeError: The selected cached generation was removed.\n    at fail2 (<anonymous>:18537:11)\n    at Object.read (<anonymous>:18730:43)\n    at async ArtLibrary.page (<anonymous>:19155:22)\n    at async <anonymous>:18956:55\n    at async Promise.all (index 0)\n    at async SpriteSheet.settle (<anonymous>:19004:7)\n    at async Object.frame (<anonymous>:19584:7)\n    at async <anonymous>:337:30"
+    },
+    {
+      "phase": "no-worker-online-byte-change",
+      "label": "no-worker",
+      "type": "warning",
+      "text": "Sprite page failed to load building.US.aa_post /art/offline-upgrade/page.png RuntimeError: The asset bytes differ from the captured generation.\n    at fail2 (<anonymous>:18537:11)\n    at Object.read (<anonymous>:18737:78)\n    at async ArtLibrary.page (<anonymous>:19155:22)\n    at async <anonymous>:18956:55\n    at async Promise.all (index 0)\n    at async SpriteSheet.settle (<anonymous>:19004:7)\n    at async Object.frame (<anonymous>:19584:7)\n    at async <anonymous>:337:30"
+    }
+  ],
+  "identity": {
+    "consumerLockSHA256": "a70a5df5cb053b9f1ee96f5ced310b83f99c2514764f6409c27b286d8ab21282",
+    "consumerSource": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-consumer-v1/frozen-v3/client",
+    "consumerCapturedFiles": 247,
+    "productBuildSHA256": "6c4f6f675983c3ab428546487ee419212a2b798aa66c513cd5913058084524f0",
+    "productSourceDigest": "d297183a44bf211a1d19862809985c3669a5ab7fd3b4b71f34b0cdd290e91253",
+    "driverSHA256": "6846c686203bc5c26bff3248a12391cb04f1e329737f876e57c980111d7dea14",
+    "fixtureSHA256": "8d14017779a7f78ccd41b923de90128fc66c54159601e3bac83189986f06220a",
+    "bundleSHA256": "2b15ccdf8a3da1760215fee1bafabcaf2eefd84b1be4496e0fda709f557020fe",
+    "workerSHA256": "1de38112fef3aa3495a475a0d42df0f647d43e8a3922ea8737f526b82f97d7f4",
+    "art": {
+      "A": {
+        "pngPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.0.png",
+        "pngSHA256": "b27d656eef21e02d034ac63f297e24b85d00e80caff6beb35fef29d962c8392f",
+        "atlasPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.0.json",
+        "frame": {
+          "state": "foundation",
+          "direction": 0,
+          "index": 0
+        },
+        "scope": "Unmodified real PNG; atlas/meta paths relocated to same declared test URL, one beauty page. Loader identity only."
+      },
+      "B": {
+        "pngPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.1.png",
+        "pngSHA256": "be32a13bc1dff9054e9d3eb6931471e62167b33066aff404970b1d3117da16d8",
+        "atlasPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.1.json",
+        "frame": {
+          "state": "fire",
+          "direction": 0,
+          "index": 0
+        },
+        "scope": "Unmodified real PNG; atlas/meta paths relocated to same declared test URL, one beauty page. Loader identity only."
+      },
+      "C": {
+        "pngPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.1.png",
+        "pngSHA256": "be32a13bc1dff9054e9d3eb6931471e62167b33066aff404970b1d3117da16d8",
+        "atlasPath": "/art/sprites/building.US.aa_post/building.US.aa_post@1x.beauty.1.json",
+        "frame": {
+          "state": "fire",
+          "direction": 0,
+          "index": 0
+        },
+        "scope": "Unmodified real PNG; atlas/meta paths relocated to same declared test URL, one beauty page. Loader identity only."
+      }
+    }
+  },
+  "origin": "http://127.0.0.1:56399",
+  "launches": [
+    {
+      "version": "151.0.7922.34",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "persistentRestart": false,
+      "scope": "Bundled Chromium; not branded Chrome/Edge or stock Firefox/Safari"
+    },
+    {
+      "version": "151.0.7922.34",
+      "executable": "/Users/mohammedkalouti/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "persistentRestart": true,
+      "scope": "Bundled Chromium; not branded Chrome/Edge or stock Firefox/Safari"
+    }
+  ],
+  "capabilities": {
+    "controller": "http://127.0.0.1:56399/service-worker.js",
+    "secure": true,
+    "locks": true
+  },
+  "httpClassification": [
+    {
+      "phase": "retired-A-file-not-resurrected",
+      "mode": "offline",
+      "at": "2026-09-29T11:12:24.206Z",
+      "observedPhase": "retired-A-file-not-resurrected",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/retired.txt",
+      "status": 503,
+      "expected": true
+    }
+  ],
+  "failureClassification": [
+    {
+      "phase": "install-and-capture-A",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.878Z",
+      "observedPhase": "install-and-capture-A",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/retired.txt",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "interrupt-B",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.922Z",
+      "observedPhase": "interrupt-B",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/shared.txt",
+      "reason": "net::ERR_EMPTY_RESPONSE",
+      "expected": true
+    },
+    {
+      "phase": "quota-ready-B",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.965Z",
+      "observedPhase": "quota-ready-B",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "cancel-B-held-download",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.977Z",
+      "observedPhase": "cancel-B-held-download",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/hold.bin",
+      "reason": "net::ERR_ABORTED",
+      "expected": true
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "mode": "online",
+      "at": "2026-09-29T11:12:24.282Z",
+      "observedPhase": "pending-network-A-host-swap",
+      "label": "no-worker",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "dispose-pending-network",
+      "mode": "online",
+      "at": "2026-09-29T11:12:24.337Z",
+      "observedPhase": "dispose-pending-network",
+      "label": "no-worker",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": true
+    }
+  ],
+  "phase": "cold-restart-offline-C",
+  "failure": "AssertionError [ERR_ASSERTION]: Unclassified request failure; native integrity does not automatically excuse a browser error\n    at file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/art-generation-browser-v1/browser.mjs:86:371",
+  "inputsVerifiedAfter": 257,
+  "closedAt": "2026-09-29T11:12:24.633Z"
+}

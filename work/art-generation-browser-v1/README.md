@@ -1,6 +1,6 @@
 # Actual verified-generation browser successor
 
-29 September 2026. **Authored and build/type checked; browser has not run.** Root held the initially authorized Chromium launch after the consumer-v1 full-catalog fan-out failure. The original frozen v25 mismatch and its strict error failure remain in `../offline-upgrade/chromium-01` unchanged.
+29 September 2026, 11:12 UTC. **The frozen-v3 Chromium course reached all 22 functional assertions but remains a strict FAIL due to three unclassified ERR_ABORTED requests.** Browser/server are closed. See [result and boundaries](browser-result.md) and [exact receipt](chromium-v3-01/receipt.json). Root held v1/v2 launches for the real fan-out and error-reporting findings; neither old consumer earned a browser pass. The original frozen v25 mismatch and its strict error failure remain in `../offline-upgrade/chromium-01` unchanged.
 
 This test-only driver uses actual private `ArtLibrary`, installer and worker code, with small A/B/C declared packs. It defaults to frozen consumer v1 (`../art-generation-consumer-v1/frozen-v1/client`, source lock SHA `4859c10adaee194242b5f257d19cd4d02961d42a16278b560a69f7d417726037`). A successor can only be selected by supplying `--consumer`, `--lock`, and `--lock-sha` together. Every captured source is checked before and after; imports resolve directly to the selected frozen source, without rewriting it.
 
@@ -18,7 +18,7 @@ Prepared assertions:
 
 Faults are explicit HTTP/CacheStorage/Web Locks boundaries; no success snapshots or game state are injected. PNG reference decode is separate from the tested loader. Actual bitmap close, blob URL revoke, page bytes and picking bytes are counted. Only the exact interrupted/canceled requests and retired 503 are allowed; unexplained aborts still fail the strict browser gate. Server receive/finish/close and request-start phases are recorded without tokens or headers. This does not prove native EOF attribution for unrelated aborts.
 
-`build-only-01` failed before any browser/server because TypeScript 7 does not export `typescript/bin/tsc`. `build-only-02` corrected only that authoring invocation and passed bundle plus strict TypeScript; source copies and receipt preserve each boundary. Later build-only results must be cited separately if selecting consumer v2.
+`build-only-01` failed before any browser/server because TypeScript 7 does not export `typescript/bin/tsc`. `build-only-02` corrected only that authoring invocation and passed bundle plus strict TypeScript; source copies and receipt preserve each boundary. `build-only-03/04` pass the final original-v1 author source; `build-only-v2-01` and `build-only-v3-01` separately pass their selected frozen consumer bundles and strict fixture TypeScript. All verify 257 input hashes after completion. The v3 browser run uses the same driver/fixture source as its build-only receipt.
 
 ```sh
 node work/art-generation-browser-v1/browser.mjs \

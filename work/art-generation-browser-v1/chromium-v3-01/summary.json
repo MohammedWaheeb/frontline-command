@@ -1,0 +1,119 @@
+{
+  "status": "strict-failed-functional-gates-reached",
+  "receiptSHA256": "d0ac7500003c002877598d5c01bea06d88a1463843fabb5af6ce532e6a83d244",
+  "consumerLockSHA256": "a70a5df5cb053b9f1ee96f5ced310b83f99c2514764f6409c27b286d8ab21282",
+  "functionalCasesReached": 22,
+  "unclassifiedRequestFailures": [
+    {
+      "phase": "install-and-capture-A",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.878Z",
+      "observedPhase": "install-and-capture-A",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/retired.txt",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "quota-ready-B",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.965Z",
+      "observedPhase": "quota-ready-B",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    },
+    {
+      "phase": "pending-network-A-host-swap",
+      "mode": "online",
+      "at": "2026-09-29T11:12:24.282Z",
+      "observedPhase": "pending-network-A-host-swap",
+      "label": "no-worker",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": false
+    }
+  ],
+  "explicitInjectedRequestFailures": [
+    {
+      "phase": "interrupt-B",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.922Z",
+      "observedPhase": "interrupt-B",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/shared.txt",
+      "reason": "net::ERR_EMPTY_RESPONSE",
+      "expected": true
+    },
+    {
+      "phase": "cancel-B-held-download",
+      "mode": "online",
+      "at": "2026-09-29T11:12:23.977Z",
+      "observedPhase": "cancel-B-held-download",
+      "label": "persistent",
+      "url": "http://127.0.0.1:56399/upgrade/hold.bin",
+      "reason": "net::ERR_ABORTED",
+      "expected": true
+    },
+    {
+      "phase": "dispose-pending-network",
+      "mode": "online",
+      "at": "2026-09-29T11:12:24.337Z",
+      "observedPhase": "dispose-pending-network",
+      "label": "no-worker",
+      "url": "http://127.0.0.1:56399/art/offline-upgrade/page.png",
+      "reason": "net::ERR_ABORTED",
+      "expected": true
+    }
+  ],
+  "pageErrors": 0,
+  "unexpectedHTTPErrors": 0,
+  "sourceInputsVerifiedAfter": 257,
+  "pixelHashes": {
+    "A": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+    "B": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+    "AAfterBInstall": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+    "AAfterEvictionHostB": "59ec44b22c67cf7d4fcc6401d7e7d3508b0fa4632c8e97eff63acecb1f36fc32",
+    "freshB": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db",
+    "coldC": "e32141238157da955e90fa0174c082acbbec4482f8d527726f4240d5fa8428db"
+  },
+  "removedCacheError": "asset_generation_unavailable",
+  "noWorkerMismatch": {
+    "code": "asset_integrity",
+    "imageBitmapsCreated": 0
+  },
+  "cleanup": {
+    "name": "dispose-all-generations",
+    "cleanA": {
+      "bitmapCreated": 4,
+      "bitmapLive": 0,
+      "blobURLs": 0,
+      "blobBytes": 0,
+      "canvases": 0
+    },
+    "cleanB": {
+      "bitmapCreated": 2,
+      "bitmapLive": 0,
+      "blobURLs": 0,
+      "blobBytes": 0,
+      "canvases": 0
+    },
+    "cleanPlain": {
+      "bitmapCreated": 1,
+      "bitmapLive": 0,
+      "blobURLs": 0,
+      "blobBytes": 0,
+      "canvases": 0
+    }
+  },
+  "coldCleanup": {
+    "bitmapCreated": 1,
+    "bitmapLive": 0,
+    "blobURLs": 0,
+    "blobBytes": 0,
+    "canvases": 0
+  },
+  "closedAt": "2026-09-29T11:12:24.633Z",
+  "scope": "Tiny actual ArtLibrary/installer/worker generation coherence only; strict browser gate failed; no full App/Go/world/GPU/roster release claim."
+}
