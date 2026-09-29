@@ -1,0 +1,208 @@
+{
+  "at": "2026-09-29T20:03:22.284792+00:00",
+  "scope": "Read-only source and existing receipt review. No new tests, full assembly, browser, live publication or asset mutation.",
+  "inputs": [
+    {
+      "path": "work/art/roster-runtime-overlay-v1/overlay-normalized-v1.mjs",
+      "bytes": 15488,
+      "sha256": "64f5111c9ff3c15634d50c25a3c444ca5baec098c3eed1ff8160e2339cf9f718"
+    },
+    {
+      "path": "work/art/roster-runtime-overlay-v1/normalization-v1/apply.mjs",
+      "bytes": 7541,
+      "sha256": "c396b540f48505b56e5950aeb890bf36f591feaf300e2d7e012efbcce24d0bd6"
+    },
+    {
+      "path": "work/art/roster-runtime-overlay-v1/normalization-v1/README.md",
+      "bytes": 4189,
+      "sha256": "3778fddb3190fc221c1f2fd9324dffbf23f0e77971fee21fccb011fe7c369318"
+    },
+    {
+      "path": "work/art/roster-runtime-overlay-v1/normalization-v1/checks-01/result.json",
+      "bytes": 117545,
+      "sha256": "8c94d45b23094f0529514a76ba4d19f946a1151e29c59c4b437a136860ccee9e"
+    },
+    {
+      "path": "work/art/ui-team-normalization-audit-v1/normalized-current53-v1/result.json",
+      "bytes": 773588,
+      "sha256": "2131210ccd1bfbe8a54dbb950629c19e964bead726f96249ea1bde7112fc36e6"
+    },
+    {
+      "path": "work/art/roster-runtime-overlay-v1/catalog-v58-v1/result.json",
+      "bytes": 31736,
+      "sha256": "34ed80ec57a3e9de51d07f44d66b333f808265066a585772513e3185077f09a5"
+    },
+    {
+      "path": "work/art/roster-runtime-overlay-v1/preflight-budget/catalog-resolution.json",
+      "bytes": 3444,
+      "sha256": "84dc176392672aff0157f09accf59710827a890e309eaa2617280ea75ef5f000"
+    },
+    {
+      "path": "work/art/base-only-lineage-audit-v1/result.json",
+      "bytes": 391218,
+      "sha256": "d42cd91ea05ff435c78d1136037af1908a09d35f3a14877977b5c9e859beba7e"
+    },
+    {
+      "path": "work/art/base-only-lineage-audit-v1/README.md",
+      "bytes": 2403,
+      "sha256": "5841c3ba06a0305e628e3fe038a3f45ab995d4e8fefe937d1dc987e07e015ee6"
+    },
+    {
+      "path": "client/scripts/ui/art-plugin.mjs",
+      "bytes": 14439,
+      "sha256": "a23292d5e18c59fe07231a7aede4323e091dfb40a668eae732da85fbfe5fe7d1"
+    },
+    {
+      "path": "client/vite.config.ts",
+      "bytes": 1060,
+      "sha256": "982455b8602ccaebe3f92b35b1f237898e4fd9100061cde646365b35829dd7ca"
+    },
+    {
+      "path": "scripts/local.mjs",
+      "bytes": 14911,
+      "sha256": "b0dad3056d81d5cfe739f618e6bb5dc3adda06a0bc2bbd4f134cb0b6764dd1e9"
+    },
+    {
+      "path": "scripts/package-presentation-inputs.mjs",
+      "bytes": 9734,
+      "sha256": "737eed6ea52de0e5fe3401c33402313093fe044be3fef0d99ad04278bc13ec1d"
+    },
+    {
+      "path": "work/art/roster-runtime-overlay-v1/catalog-v59-v1/result.json",
+      "bytes": 31833,
+      "sha256": "e982374616baed744e77a45a2c711d559951b9cc16bef7db08863ce5f8dbe658"
+    }
+  ],
+  "freshCatalog": {
+    "handoffs": 59,
+    "files": 3399,
+    "bytes": 654617336,
+    "poses": 18961
+  },
+  "inheritedIds": [
+    "building.IR.repair_depot",
+    "building.SY.repair_depot",
+    "building.US.aa_post",
+    "building.US.barracks",
+    "building.US.bunker",
+    "building.US.factory",
+    "building.US.gun_turret",
+    "building.US.interceptor_battery",
+    "building.US.outpost",
+    "building.US.radar",
+    "building.US.repair_depot",
+    "building.US.strategic_site",
+    "building.US.supply",
+    "building.US.tech",
+    "prop.bridge_permanent",
+    "prop.central_shipment_site",
+    "prop.command_relay_objective",
+    "prop.concrete_barrier",
+    "prop.container_stack",
+    "prop.decor_building_nongarrison",
+    "prop.depot_objective",
+    "prop.destructible_wall_hp_heavy",
+    "prop.destructible_wall_hp_light",
+    "prop.fence_chainlink",
+    "prop.forest_edge_scrub",
+    "prop.fuel_tanks",
+    "prop.palm",
+    "prop.power_pylon",
+    "prop.region_marker_editor",
+    "prop.relay_objective",
+    "prop.rocks",
+    "prop.rubble_cover",
+    "prop.ruined_house_garrisonable",
+    "prop.sandbags",
+    "prop.shrub",
+    "prop.spawn_marker_editor",
+    "prop.supply_field",
+    "prop.supply_station_neutral",
+    "prop.warehouse_garrisonable",
+    "prop.wreck_decor_vehicle",
+    "unit.IR.hauler",
+    "unit.IR.rig",
+    "unit.SA.hauler",
+    "unit.SA.rig",
+    "unit.SY.hauler",
+    "unit.SY.rig",
+    "unit.US.hauler",
+    "unit.US.rig"
+  ],
+  "missingIds": [
+    "building.IR.aa_post",
+    "building.IR.barracks",
+    "building.IR.bunker",
+    "building.IR.factory",
+    "building.IR.gun_turret",
+    "building.IR.outpost",
+    "building.IR.radar",
+    "building.IR.strategic_site",
+    "building.IR.supply",
+    "building.IR.tech",
+    "building.SA.aa_post",
+    "building.SA.barracks",
+    "building.SA.bunker",
+    "building.SA.factory",
+    "building.SA.gun_turret",
+    "building.SA.outpost",
+    "building.SA.radar",
+    "building.SA.repair_depot",
+    "building.SA.strategic_site",
+    "building.SA.supply",
+    "building.SA.tech",
+    "building.SY.aa_post",
+    "building.SY.barracks",
+    "building.SY.bunker",
+    "building.SY.factory",
+    "building.SY.gun_turret",
+    "building.SY.outpost",
+    "building.SY.radar",
+    "building.SY.safehouse",
+    "building.SY.strategic_site",
+    "building.SY.supply",
+    "building.SY.tech",
+    "unit.IR.aa",
+    "unit.IR.apc",
+    "unit.IR.artillery",
+    "unit.IR.car",
+    "unit.IR.repair",
+    "unit.IR.tank",
+    "unit.SA.aa",
+    "unit.SA.apc",
+    "unit.SA.artillery",
+    "unit.SA.car",
+    "unit.SA.repair",
+    "unit.SA.strike",
+    "unit.SY.aa",
+    "unit.SY.artillery",
+    "unit.SY.buggy",
+    "unit.SY.repair",
+    "unit.SY.tank",
+    "unit.US.aa",
+    "unit.US.apc",
+    "unit.US.artillery",
+    "unit.US.car",
+    "unit.US.repair",
+    "unit.US.strike"
+  ],
+  "exactInventory": {
+    "catalog": 136,
+    "props": 26,
+    "expected": 162,
+    "currentReferenceUnion": 107,
+    "inherited": 48,
+    "missing": 55,
+    "historicalReferenceOnly": true
+  },
+  "normalization": {
+    "roles": 53,
+    "maskFiles": 212,
+    "runtime2xMaskFiles": 106,
+    "laterSelectedRolesNotCovered": 6,
+    "fullCopyPackBranch": "UNRUN"
+  },
+  "recommendation": "New receipt-bound publication wrapper and small stage-root/selection adapters; reuse reviewed handoff closure/normalization and actual production artPackageSources. No current live plugin or authored art change needed.",
+  "latestCatalog": "catalog-v59-v1",
+  "priorCatalog58RetainedAsInput": true
+}

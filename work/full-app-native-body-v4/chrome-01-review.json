@@ -1,0 +1,958 @@
+{
+  "at": "2026-09-29T20:01:21.782988+00:00",
+  "scope": "Read-only extraction; raw strict failures remain failed, no product or browser changes.",
+  "status": "failed",
+  "functionalStatus": "passed",
+  "rawStatus": "failed",
+  "bodyStatus": "passed-for-supported-static-readers",
+  "controlStatus": "passed",
+  "runPins": [
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/body-audit.json",
+      "bytes": 2622149,
+      "sha256": "3b140bd4a13c3ee8757aa7ae7d6f6208dba8d464ef99a4862f969acd70b0f485"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/frontline_pb.ts",
+      "bytes": 55786,
+      "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/menu-art-ready.png",
+      "bytes": 1852197,
+      "sha256": "5003c11692b88a4f697c97e9c1f60692a444a8148ba999c73f0efe6126cf2572"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/native-ledger.json",
+      "bytes": 2452271,
+      "sha256": "170d4811da2e366ffecaf9896948308e87bef001089c4e382cdf5c6c911ca6e5"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/native-observer.js",
+      "bytes": 276784,
+      "sha256": "10241a0e632f0670273407a775d38cffe5eff0e544f5a1a7468af5bf4b340b60"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/ordinary-menu.png",
+      "bytes": 1852197,
+      "sha256": "5003c11692b88a4f697c97e9c1f60692a444a8148ba999c73f0efe6126cf2572"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/paid-power.png",
+      "bytes": 574897,
+      "sha256": "4bcb0816660a3140f22bfb607f709e8e02ef4fc7115d8b933b729da7024959ec"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/result.json",
+      "bytes": 1364097,
+      "sha256": "e4b6aa9f55286320f3dbdab3e3a561f8c60c07337879d2a180e4aa6eeeed4861"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/scene-ready.png",
+      "bytes": 507369,
+      "sha256": "7dec6cfb7433aed09a77cc4e88d54dfacccc4a3bfc03bd396d983870724b49d9"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/tsconfig.json",
+      "bytes": 962,
+      "sha256": "407e369512c1fb3ed42737fe601c831fae6ebb5f6dc8b7602afa488f2c87f45b"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/worker-build.json",
+      "bytes": 16274,
+      "sha256": "9deea604b84fa9392faade13dc513fa4d264bea512387bf4b70b9f3217e49c33"
+    },
+    {
+      "path": "work/full-app-native-body-v4/chrome-01/worker-observer.js",
+      "bytes": 179004,
+      "sha256": "79cd5a55cc745f830dc44abb3ca9817f740d3c0bb157dcbeabbdf49cf223ff5a"
+    }
+  ],
+  "preparedInputs": {
+    "count": 36,
+    "preparationLock": {
+      "path": "work/full-app-native-body-v4/preparation-lock.json",
+      "bytes": 5823,
+      "sha256": "b8142c0ad2b8cc5676d51092453f06892b24928d67d417c732cdc71fa5574d7b"
+    },
+    "allUnchanged": true
+  },
+  "extraPins": {
+    "work/graphics-integration-v1/build-02/receipt.json": "295ab39f1c08f2997baff33eeac7086b8a33b8fc4090d285a28398a93501378c",
+    "work/graphics-integration-v1/build-02/package/package-files.json": "d0e9ce9e09a1246e96820a000dc12fc92cf34c9d7f87a57e2062cafca52dc823",
+    "work/graphics-integration-v1/build-02/package/client/runtime/frontline.wasm": "aa6405dd4a70815303feea88e9135ce1437e638b2026e35379023cf6703d459e"
+  },
+  "allExtraPinsExact": true,
+  "paid": {
+    "sequence": 1,
+    "receipt": {
+      "worker": 2,
+      "player": 1,
+      "sequence": 1,
+      "accepted": true,
+      "code": "ok",
+      "tick": 226
+    },
+    "power": {
+      "id": 9,
+      "type": "power",
+      "owner": 1,
+      "position": {
+        "x": 24000,
+        "y": 66500
+      },
+      "health": 1000,
+      "state": "idle",
+      "complete": true,
+      "enabled": true,
+      "private": {
+        "hp": "1500000",
+        "maxHp": "1500000",
+        "rally": {
+          "x": 26500,
+          "y": 68500
+        },
+        "emergencyTakeoffUntil": 0,
+        "ranges": {
+          "sightRadius": 9000,
+          "detectionRadius": 3000
+        }
+      },
+      "footprintWidth": 2,
+      "footprintHeight": 2,
+      "footprintType": "power"
+    },
+    "paid": 500000,
+    "catalogCost": 500000,
+    "save": {
+      "tick": 533,
+      "hash": "b4e8c663070f28f8031aabff8e4c4a3e795316561318f93f8a2549f6282c6f34"
+    },
+    "point": {
+      "x": 24000,
+      "y": 66500
+    }
+  },
+  "paidSession": {
+    "worker": 2,
+    "submitRequest": 18,
+    "saveRequest": 25,
+    "point": {
+      "x": 24000,
+      "y": 66500
+    }
+  },
+  "bootWorkers": {
+    "ids": [
+      1
+    ],
+    "workers": [
+      {
+        "id": 1,
+        "url": "http://127.0.0.1:64418/runtime/worker.js",
+        "live": true,
+        "createdAt": 80.29999995231628,
+        "terminatedAt": 0,
+        "pending": 0,
+        "pendingAtTerminate": 0,
+        "frames": 0,
+        "methods": [
+          "init",
+          "content"
+        ]
+      }
+    ]
+  },
+  "sessionBinding": {
+    "worker": 2,
+    "createRequest": 2,
+    "createdAt": 3325.7999999523163,
+    "createSettledAt": 3448.7999999523163,
+    "localPlayers": [
+      1
+    ],
+    "info": {
+      "tick": 0,
+      "local_players": [
+        1
+      ],
+      "metadata": {
+        "simulation": "0.3.4",
+        "protocol": 1,
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "map_version": "1",
+        "ruleset": "standard-v2",
+        "seed": 2264361627
+      },
+      "replay": false
+    }
+  },
+  "workerCleanup": {
+    "status": "passed",
+    "matchWorker": 2,
+    "retainedAppWorkers": [
+      1
+    ],
+    "workers": [
+      {
+        "id": 1,
+        "url": "http://127.0.0.1:64418/runtime/worker.js",
+        "live": true,
+        "createdAt": 80.29999995231628,
+        "terminatedAt": 0,
+        "pending": 0,
+        "pendingAtTerminate": 0,
+        "frames": 0,
+        "methods": [
+          "init",
+          "content",
+          "validateMap",
+          "inspect"
+        ]
+      },
+      {
+        "id": 2,
+        "url": "http://127.0.0.1:64418/runtime/worker.js",
+        "live": false,
+        "createdAt": 3325.7999999523163,
+        "terminatedAt": 31368.700000047684,
+        "pending": 0,
+        "pendingAtTerminate": 0,
+        "frames": 134,
+        "methods": [
+          "init",
+          "create",
+          "map",
+          "save",
+          "affordances",
+          "resume",
+          "previewOrders",
+          "submit",
+          "pause"
+        ]
+      }
+    ]
+  },
+  "independentStages": [
+    {
+      "name": "ordinary-menu-navigation",
+      "started": "2026-09-29T20:00:07.012Z",
+      "value": {
+        "ordinaryMenu": true
+      },
+      "status": "passed",
+      "ended": "2026-09-29T20:00:07.462Z"
+    },
+    {
+      "name": "match-worker-closure",
+      "started": "2026-09-29T20:00:07.464Z",
+      "value": {
+        "status": "passed",
+        "matchWorker": 2,
+        "retainedAppWorkers": [
+          1
+        ],
+        "workers": [
+          {
+            "id": 1,
+            "url": "http://127.0.0.1:64418/runtime/worker.js",
+            "live": true,
+            "createdAt": 80.29999995231628,
+            "terminatedAt": 0,
+            "pending": 0,
+            "pendingAtTerminate": 0,
+            "frames": 0,
+            "methods": [
+              "init",
+              "content",
+              "validateMap",
+              "inspect"
+            ]
+          },
+          {
+            "id": 2,
+            "url": "http://127.0.0.1:64418/runtime/worker.js",
+            "live": false,
+            "createdAt": 3325.7999999523163,
+            "terminatedAt": 31368.700000047684,
+            "pending": 0,
+            "pendingAtTerminate": 0,
+            "frames": 134,
+            "methods": [
+              "init",
+              "create",
+              "map",
+              "save",
+              "affordances",
+              "resume",
+              "previewOrders",
+              "submit",
+              "pause"
+            ]
+          }
+        ]
+      },
+      "status": "passed",
+      "ended": "2026-09-29T20:00:07.530Z"
+    },
+    {
+      "name": "battlefield-dom-release",
+      "started": "2026-09-29T20:00:07.532Z",
+      "value": {
+        "released": true
+      },
+      "status": "passed",
+      "ended": "2026-09-29T20:00:07.533Z"
+    },
+    {
+      "name": "observed-gl-release",
+      "started": "2026-09-29T20:00:07.534Z",
+      "value": {
+        "status": "passed-observed-context-release",
+        "battlefieldContexts": [
+          1
+        ],
+        "scope": "Observable GL disposal only; does not prove JS/image/asset-cache total memory release."
+      },
+      "status": "passed",
+      "ended": "2026-09-29T20:00:07.570Z"
+    },
+    {
+      "name": "menu-art-native-capture",
+      "started": "2026-09-29T20:00:07.571Z",
+      "value": {
+        "existingImageReady": true,
+        "nativeCapture": "menu-art-ready.png"
+      },
+      "status": "passed",
+      "ended": "2026-09-29T20:00:07.979Z"
+    },
+    {
+      "name": "tiny-negative-controls",
+      "started": "2026-09-29T20:00:07.980Z",
+      "value": {
+        "attempted": 4
+      },
+      "status": "passed",
+      "ended": "2026-09-29T20:00:07.998Z"
+    },
+    {
+      "name": "final-original-worker-and-resource-capture",
+      "started": "2026-09-29T20:00:08.000Z",
+      "value": {
+        "captured": true
+      },
+      "status": "passed",
+      "ended": "2026-09-29T20:00:08.070Z"
+    }
+  ],
+  "controlProofs": [
+    {
+      "kind": "valid",
+      "url": "http://127.0.0.1:64418/__native_body_controls__/valid",
+      "complete": true,
+      "reason": "native-consumer-complete-and-bytes-exact",
+      "requestId": "73D769C539B134169662D032B1458E81:56561.922"
+    },
+    {
+      "kind": "truncated",
+      "url": "http://127.0.0.1:64418/__native_body_controls__/truncated",
+      "complete": false,
+      "reason": "incomplete-native-body",
+      "requestId": "73D769C539B134169662D032B1458E81:56561.923"
+    },
+    {
+      "kind": "network",
+      "url": "http://127.0.0.1:64418/__native_body_controls__/network",
+      "complete": false,
+      "reason": "response-provenance-incomplete"
+    },
+    {
+      "kind": "wrong-hash",
+      "url": "http://127.0.0.1:64418/__native_body_controls__/wrong-hash",
+      "complete": false,
+      "reason": "native-body-hash-mismatch",
+      "requestId": "73D769C539B134169662D032B1458E81:56561.925"
+    }
+  ],
+  "controlRequests": {
+    "/__native_body_controls__/valid": 1,
+    "/__native_body_controls__/truncated": 1,
+    "/__native_body_controls__/network": 1,
+    "/__native_body_controls__/wrong-hash": 1
+  },
+  "resourceCleanup": {
+    "status": "passed-observed-context-release",
+    "battlefieldContexts": [
+      1
+    ],
+    "scope": "Observable GL disposal only; does not prove JS/image/asset-cache total memory release."
+  },
+  "timing": {
+    "uiSceneLoadingDismissedMs": 3674,
+    "sceneReadyIncludingCountdownMs": 9696,
+    "qualifiedPerformance": false
+  },
+  "health": [
+    {
+      "label": "initial-menu",
+      "at": "2026-09-29T19:59:36.224Z",
+      "elapsedMs": 3581,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 24,
+          "total": 24,
+          "p50": 16.699999999999996,
+          "p95": 49.900000000000006,
+          "p99": 50,
+          "over50": 0
+        },
+        "contexts": []
+      },
+      "cdpMetrics": {
+        "Documents": 12,
+        "Frames": 8,
+        "Nodes": 803,
+        "LayoutDuration": 0.04527,
+        "RecalcStyleDuration": 0.008415,
+        "ScriptDuration": 0.053597,
+        "TaskDuration": 0.315517,
+        "JSHeapUsedSize": 10120560,
+        "JSHeapTotalSize": 19398656
+      },
+      "host": {
+        "loadAverage": [
+          2.83251953125,
+          2.78173828125,
+          2.92578125
+        ],
+        "freeMemory": 3689431040,
+        "totalMemory": 17179869184,
+        "conditions": "AC power, 100% charged at execution preparation; shared authoring host. Relevant process snapshot and explicit renderer lane release retained in execution-01-conditions.json. No quiet performance claim."
+      },
+      "dom": {
+        "canvas": 0,
+        "battlefieldCanvas": 0
+      }
+    },
+    {
+      "label": "scene-loading-dismissed",
+      "at": "2026-09-29T19:59:39.985Z",
+      "elapsedMs": 7342,
+      "tick": 0,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 205,
+          "total": 229,
+          "p50": 16.699999999999818,
+          "p95": 32.20000000000027,
+          "p99": 66.59999999999991,
+          "over50": 5
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": true,
+            "contextCollected": false,
+            "lost": false,
+            "created": 29,
+            "explicitDeleted": 3,
+            "liveCounts": {
+              "texture": 20,
+              "buffer": 4,
+              "framebuffer": 1,
+              "renderbuffer": 0,
+              "program": 1,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 51062452,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 51062452
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 5,
+        "Frames": 5,
+        "Nodes": 1107,
+        "LayoutDuration": 0.062295,
+        "RecalcStyleDuration": 0.020031,
+        "ScriptDuration": 0.645531,
+        "TaskDuration": 2.864459,
+        "JSHeapUsedSize": 31173176,
+        "JSHeapTotalSize": 93880320
+      },
+      "host": {
+        "loadAverage": [
+          3.166015625,
+          2.8515625,
+          2.94921875
+        ],
+        "freeMemory": 2246934528,
+        "totalMemory": 17179869184,
+        "conditions": "AC power, 100% charged at execution preparation; shared authoring host. Relevant process snapshot and explicit renderer lane release retained in execution-01-conditions.json. No quiet performance claim."
+      },
+      "dom": {
+        "canvas": 2,
+        "battlefieldCanvas": 1
+      }
+    },
+    {
+      "label": "scene-ready",
+      "at": "2026-09-29T19:59:46.007Z",
+      "elapsedMs": 13364,
+      "tick": 120,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 360,
+          "total": 589,
+          "p50": 16.699999999999818,
+          "p95": 18.100000000000364,
+          "p99": 18.5,
+          "over50": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": true,
+            "contextCollected": false,
+            "lost": false,
+            "created": 32,
+            "explicitDeleted": 3,
+            "liveCounts": {
+              "texture": 23,
+              "buffer": 4,
+              "framebuffer": 1,
+              "renderbuffer": 0,
+              "program": 1,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 60512596,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 60512596
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 5,
+        "Frames": 5,
+        "Nodes": 1138,
+        "LayoutDuration": 0.063084,
+        "RecalcStyleDuration": 0.020084,
+        "ScriptDuration": 1.009327,
+        "TaskDuration": 3.351239,
+        "JSHeapUsedSize": 54725744,
+        "JSHeapTotalSize": 97812480
+      },
+      "host": {
+        "loadAverage": [
+          3.15234375,
+          2.85400390625,
+          2.94921875
+        ],
+        "freeMemory": 2485993472,
+        "totalMemory": 17179869184,
+        "conditions": "AC power, 100% charged at execution preparation; shared authoring host. Relevant process snapshot and explicit renderer lane release retained in execution-01-conditions.json. No quiet performance claim."
+      },
+      "dom": {
+        "canvas": 2,
+        "battlefieldCanvas": 1
+      }
+    },
+    {
+      "label": "completed-paid-power",
+      "at": "2026-09-29T20:00:06.376Z",
+      "elapsedMs": 33733,
+      "tick": 528,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 1220,
+          "total": 1809,
+          "p50": 16.69999999999891,
+          "p95": 18.200000000000728,
+          "p99": 18.600000000000364,
+          "over50": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": true,
+            "contextCollected": false,
+            "lost": false,
+            "created": 45,
+            "explicitDeleted": 5,
+            "liveCounts": {
+              "texture": 31,
+              "buffer": 6,
+              "framebuffer": 1,
+              "renderbuffer": 0,
+              "program": 2,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 78178384,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 78178384
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 11,
+        "Frames": 10,
+        "Nodes": 3097,
+        "LayoutDuration": 0.068709,
+        "RecalcStyleDuration": 0.02689,
+        "ScriptDuration": 2.426695,
+        "TaskDuration": 5.347521,
+        "JSHeapUsedSize": 49792176,
+        "JSHeapTotalSize": 107053056
+      },
+      "host": {
+        "loadAverage": [
+          3.09033203125,
+          2.861328125,
+          2.94921875
+        ],
+        "freeMemory": 2395717632,
+        "totalMemory": 17179869184,
+        "conditions": "AC power, 100% charged at execution preparation; shared authoring host. Relevant process snapshot and explicit renderer lane release retained in execution-01-conditions.json. No quiet performance claim."
+      },
+      "dom": {
+        "canvas": 2,
+        "battlefieldCanvas": 1
+      }
+    },
+    {
+      "label": "menu-after-release",
+      "at": "2026-09-29T20:00:07.535Z",
+      "elapsedMs": 34892,
+      "tick": 532,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 68,
+          "total": 1877,
+          "p50": 16.700000000000728,
+          "p95": 18.100000000002183,
+          "p99": 32.70000000000073,
+          "over50": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": false,
+            "contextCollected": false,
+            "lost": true,
+            "created": 45,
+            "explicitDeleted": 43,
+            "liveCounts": {
+              "texture": 0,
+              "buffer": 0,
+              "framebuffer": 0,
+              "renderbuffer": 0,
+              "program": 0,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 0,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 78178384
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 14,
+        "Frames": 11,
+        "Nodes": 3412,
+        "LayoutDuration": 0.070316,
+        "RecalcStyleDuration": 0.029768,
+        "ScriptDuration": 2.48872,
+        "TaskDuration": 5.528135,
+        "JSHeapUsedSize": 58735156,
+        "JSHeapTotalSize": 106528768
+      },
+      "host": {
+        "loadAverage": [
+          3.1630859375,
+          2.8798828125,
+          2.955078125
+        ],
+        "freeMemory": 2353643520,
+        "totalMemory": 17179869184,
+        "conditions": "AC power, 100% charged at execution preparation; shared authoring host. Relevant process snapshot and explicit renderer lane release retained in execution-01-conditions.json. No quiet performance claim."
+      },
+      "dom": {
+        "canvas": 0,
+        "battlefieldCanvas": 0
+      }
+    },
+    {
+      "label": "menu-art-ready",
+      "at": "2026-09-29T20:00:07.927Z",
+      "elapsedMs": 35284,
+      "tick": 532,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 22,
+          "total": 1899,
+          "p50": 16.700000000000728,
+          "p95": 18.19999999999709,
+          "p99": 18.5,
+          "over50": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": false,
+            "contextCollected": false,
+            "lost": true,
+            "created": 45,
+            "explicitDeleted": 43,
+            "liveCounts": {
+              "texture": 0,
+              "buffer": 0,
+              "framebuffer": 0,
+              "renderbuffer": 0,
+              "program": 0,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 0,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 78178384
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 14,
+        "Frames": 11,
+        "Nodes": 3412,
+        "LayoutDuration": 0.070316,
+        "RecalcStyleDuration": 0.029792,
+        "ScriptDuration": 2.488819,
+        "TaskDuration": 5.533321,
+        "JSHeapUsedSize": 59447392,
+        "JSHeapTotalSize": 106528768
+      },
+      "host": {
+        "loadAverage": [
+          3.1630859375,
+          2.8798828125,
+          2.955078125
+        ],
+        "freeMemory": 2335686656,
+        "totalMemory": 17179869184,
+        "conditions": "AC power, 100% charged at execution preparation; shared authoring host. Relevant process snapshot and explicit renderer lane release retained in execution-01-conditions.json. No quiet performance claim."
+      },
+      "dom": {
+        "canvas": 0,
+        "battlefieldCanvas": 0
+      }
+    },
+    {
+      "label": "before-final-close",
+      "at": "2026-09-29T20:00:08.033Z",
+      "elapsedMs": 35390,
+      "tick": 532,
+      "resources": {
+        "scope": "Page WebGL API allocations and page RAF pacing only; not actual GPU memory, ArtLibrary cache bytes or renderer draw cost. Weak references; no forced GC.",
+        "limits": {
+          "maxResources": 16384,
+          "maxContexts": 16,
+          "maxFrameSamples": 2048
+        },
+        "faults": [],
+        "frame": {
+          "samples": 6,
+          "total": 1905,
+          "p50": 16.700000000000728,
+          "p95": 17.900000000001455,
+          "p99": 17.900000000001455,
+          "over50": 0
+        },
+        "contexts": [
+          {
+            "id": 1,
+            "role": "battlefield",
+            "generation": 0,
+            "canvasConnected": false,
+            "contextCollected": false,
+            "lost": true,
+            "created": 45,
+            "explicitDeleted": 43,
+            "liveCounts": {
+              "texture": 0,
+              "buffer": 0,
+              "framebuffer": 0,
+              "renderbuffer": 0,
+              "program": 0,
+              "shader": 0
+            },
+            "liveEstimatedBytes": 0,
+            "unknownAllocations": 0,
+            "peakEstimatedBytes": 78178384
+          }
+        ]
+      },
+      "cdpMetrics": {
+        "Documents": 14,
+        "Frames": 11,
+        "Nodes": 3412,
+        "LayoutDuration": 0.070316,
+        "RecalcStyleDuration": 0.029792,
+        "ScriptDuration": 2.488862,
+        "TaskDuration": 5.543214,
+        "JSHeapUsedSize": 61591276,
+        "JSHeapTotalSize": 107102208
+      },
+      "host": {
+        "loadAverage": [
+          3.1630859375,
+          2.8798828125,
+          2.955078125
+        ],
+        "freeMemory": 2328985600,
+        "totalMemory": 17179869184,
+        "conditions": "AC power, 100% charged at execution preparation; shared authoring host. Relevant process snapshot and explicit renderer lane release retained in execution-01-conditions.json. No quiet performance claim."
+      },
+      "dom": {
+        "canvas": 0,
+        "battlefieldCanvas": 0
+      }
+    }
+  ],
+  "network": {
+    "appRawReports": 14,
+    "exactFailureBodyFacts": 14,
+    "unprovedFailures": 0,
+    "failedFileTypes": {
+      ".json": 2,
+      ".png": 12
+    },
+    "eventOrdering": {
+      "network-failure-before-native-eof": 14
+    },
+    "completeStaticBodies": 689,
+    "staticBodyBytes": 65066263,
+    "unobserved": 102,
+    "unobservedTypes": {
+      "Document": 1,
+      "Script": 10,
+      "Stylesheet": 1,
+      "Other": 19,
+      "Image": 64,
+      "Font": 7
+    },
+    "observerAccountingIncludingControls": [
+      {
+        "scope": "current-loader:cf2eb1a8-580c-43d7-972a-d0e648890a26",
+        "activeHashes": 0,
+        "peakActiveHashes": 4,
+        "totalHashedBytes": 65066329,
+        "hashArrayBytesPerActive": 608,
+        "retainedResponseChunkBytes": 0,
+        "retainedBlobBytes": 0,
+        "peakRetainedBlobBytes": 0,
+        "pendingBlobProofs": 0,
+        "limits": {
+          "records": 16384,
+          "maxBody": 67108864,
+          "maxTotal": 2147483648,
+          "maxActive": 16,
+          "maxBlob": 8388608,
+          "maxBlobRetained": 16777216
+        }
+      }
+    ],
+    "intentionalControlNetworkReports": 2,
+    "intentionalControlConsoleReports": 2,
+    "unexpectedConsole": 0,
+    "errors": {
+      "pageErrors": 0,
+      "httpErrors": 0,
+      "serverErrors": 0,
+      "cleanupErrors": 0,
+      "observerFaults": 0,
+      "definiteBodyMismatches": 0
+    }
+  },
+  "closedProcess": {
+    "browserPID": 56545,
+    "browserExitCode": 0,
+    "browserSignal": null,
+    "httpListening": false
+  },
+  "closedAt": "2026-09-29T20:00:09.511Z",
+  "inputPinsReverified": 88,
+  "nativeReview": {
+    "viewed": [
+      "scene-ready.png",
+      "paid-power.png",
+      "menu-art-ready.png"
+    ],
+    "paidStationAndCostLegible": true,
+    "ordinaryMenuKeyartPaintedAtCapture": true,
+    "reason": "Existing advertised image completed with nonzero natural dimensions, followed by two ordinary RAF; menu-art-ready.png directly reviewed. Earlier immediate menu capture is separate."
+  },
+  "limits": [
+    "Single short ordinary solo paid build/save/menu, not victory or endurance.",
+    "Current incomplete live art; no final art qualification.",
+    "Shared authoring host/passive observer overhead; actual execution conditions separately retained, no quiet performance claim.",
+    "Only page WebGL API allocation/lifetime estimates; not total GPU/JS/worker/image/audio memory.",
+    "Raw abort remains failed even with exact original-body proof; no cause or decode inference.",
+    "Browser-native/script/CSS/image/font/worker realms remain outside original page-fetch byte proof."
+  ]
+}
