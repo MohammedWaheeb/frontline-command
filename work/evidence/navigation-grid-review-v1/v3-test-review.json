@@ -1,0 +1,28 @@
+{
+  "createdAt": "2026-09-29T17:30:35.967458+00:00",
+  "scope": "Read-only strengthened-test verification; no test execution. Owner historical focused-03 copied separately; prior review inputs unchanged.",
+  "testPins": {
+    "navigation_raster_test.go": {
+      "source": "work/navigation-grid-raster-v1/source/pkg/sim/navigation_raster_test.go",
+      "sha256": "120e4b387a6f6817500b8d61b5a9d1c79617b5341b915df4b0b6ee7a658b4b8f",
+      "bytes": 6364
+    },
+    "owner-focused-03.log": {
+      "source": "work/navigation-grid-raster-v1/focused-03.log",
+      "sha256": "b07d288c7c69ef089c9c38dadd66cd7e227249d24e6fb42e2e80e30e995bae96",
+      "bytes": 646
+    },
+    "candidate-source-lock-v3.json": {
+      "source": "work/navigation-grid-raster-v1/candidate-source-lock-v3.json",
+      "sha256": "16f9b43d7f5fe97ee35f9a74ecbec529d4763a14e1d8eb86565675327dedfb74",
+      "bytes": 39110
+    }
+  },
+  "unchangedCandidateNavigationSHA256": "6a51329f420cebbff652e493409f0aa1337a03c47e12910d664008fe824732b9",
+  "findings": {
+    "exactDiagonalTangencyAndOneUnitSides": true,
+    "isolatedZeroIdThenNonzeroId": true,
+    "explicit256By256Grid": true
+  },
+  "qualification": "Source assertions address prior bounded suggestions. No independent execution or timing claim."
+}
