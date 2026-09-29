@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {Texture,TextureSource} from 'pixi.js';
+import {ArtLibrary,SpriteSheet,type SpriteMeta} from './candidate/client/src/render/art';
+let clock=100;Object.defineProperty(performance,'now',{configurable:true,value:()=>clock});
+const pages=Array.from({length:6},(_,i)=>({url:`/${i}.png`,layer:'shadow',descriptors:{[`idle/d00_f${String(i).padStart(2,'0')}`]:{frame:{x:0,y:0,w:1,h:1},sourceSize:{w:1,h:1}}},frames:new Map(),lastUsed:0,bytes:0,generation:0}));
+const disposed:string[]=[],sheet=new SpriteSheet('fixture',{id:'fixture',states:[]} as unknown as SpriteMeta,'1x',pages,async url=>{const texture=new Texture({source:new TextureSource({width:4096,height:4096})});return {texture,dispose(){disposed.push(url);texture.destroy(true)}}});
+const art=new ArtLibrary();(art as any).loaded.add(sheet);
+for(let i=0;i<6;i++)sheet.frame('shadow','idle',0,i);await sheet.settle();
+clock=200;sheet.frame('shadow','idle',0,0);sheet.frame('shadow','idle',0,1);
+const before=art.statistics;art.trim(200);const after=art.statistics;
+assert.equal(after.residentBytes,Number(process.env.EXPECTED_RESIDENT_MIB)*1024*1024);
+assert(pages[0].frames.size&&pages[1].frames.size);
+console.log(JSON.stringify({before,after,disposed,activePagesRetained:[0,1],scope:'Actual frozen/candidate ArtLibrary and SpriteSheet with real Pixi TextureSource lifetimes; synthetic dimensions, no GPU allocation or browser performance.'},null,2));
+await sheet.dispose();await art.dispose();

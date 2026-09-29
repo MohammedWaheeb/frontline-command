@@ -1,0 +1,16 @@
+✔ pressure reclaims recent unused pages while keeping this paint and newest cache entries (3.315583ms)
+✔ default trim reproduces conservative ten-second grace without a complete paint boundary (0.618708ms)
+✔ an active working set above budget remains valid instead of destroying displayed textures (0.313583ms)
+✔ high quality uses its own target and keeps all current-frame shared pages (0.33825ms)
+✔ a page requested again after candidate enumeration is protected by eviction recheck (0.2415ms)
+✔ evicted pages reenter through the ordinary loader without duplicate disposal (0.325375ms)
+✔ invalid or future paint boundaries cannot destroy textures (0.3755ms)
+✔ global LRU crosses sheet boundaries and stops once pressure is relieved (0.276375ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 216.548167

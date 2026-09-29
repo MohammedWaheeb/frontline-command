@@ -1,0 +1,41 @@
+{
+  "at": "2026-09-29T19:27:43.161577+00:00",
+  "scope": "Private source candidate and real Pixi object lifetime tests; no GPU/browser/Go timing qualification. No live source edits. Battlefield caller integration remains unrun.",
+  "baselineSHA256": "d4a4049fb2d9192fe13fff01f6725c2521dbd6382992cb8e9dfc41cc1822ce7a",
+  "candidateSHA256": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8",
+  "guardedInputs": 247,
+  "guardsUnchanged": true,
+  "focusedTests": 8,
+  "existingRuntimeTests": 498,
+  "appTypecheck": "passed",
+  "runtimeTypecheck": "passed",
+  "baselineRecentResidentBytes": 402653184,
+  "candidateRecentResidentBytes": 201326592,
+  "activePagesUnchanged": [
+    0,
+    1
+  ],
+  "limitations": [
+    "Soft target; visible working set and pending allocations can exceed target.",
+    "RGBA accounting is nominal one copy, not total GPU/CPU/browser memory.",
+    "trim(frameStartedAt) must follow all complete-frame consumers, including placement ghost.",
+    "Existing renderer caller is unchanged and still uses noarg conservative trim.",
+    "Initial full-runtime harness attempt omitted scripts/ui; failure retained; corrected fixture support and498tests pass."
+  ],
+  "files": {
+    "residency.test.ts": "24874ce0174ff03da8fff7f7bc49c3e7fa9ffbaeed733230f099c96d36015430",
+    "candidate-pressure.json": "fefa1b5129c5705bae693dd91dbe4089b872e66398417b20e7ff057e4f66856c",
+    "pressure-probe.ts": "ecf9b73304bb908e3189a3993e7b0bd874be8ec3c1969dd15f3aaa20cf18c23a",
+    "fixture-extra-pins.json": "8f86dbcf67e4b6c5aa2b44b2a18bde4a43fecac27aa1c2063d86c7c8901c84ec",
+    "runtime-typecheck-01.log": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76",
+    "runtime-tests-01.log": "cedf18297a29e7b6b646ef2d7132b4cccaf0470dc3d29534c54acb8206445b35",
+    "baseline-art.ts": "d4a4049fb2d9192fe13fff01f6725c2521dbd6382992cb8e9dfc41cc1822ce7a",
+    "app-typecheck-01.log": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0",
+    "runtime-tests-02.log": "11b50ef2423b9e887cdad0422a5c8a98c9bb372c7cc15586cf78f27bdd5e312f",
+    "baseline-pins.json": "eb4e6fcbd7dceb6a10452b1de0bd2218ccbdb5790c4b8cc23003f47756bf5792",
+    ".gitignore": "47a631b0ae2ec579def531d5dba1fb92fb26ab5a61ae1c2674e999644b577498",
+    "baseline-pressure.json": "32e2653dfad0e5a7e5c8fafb5e1a3fbf16028a7b23727264cc7290f3f2535854",
+    "candidate-art.ts": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8",
+    "checks-01.log": "217e3201ba2c7cd7d6b95db5472b9bdbf07d771e89b44607ba78488794c923fd"
+  }
+}
