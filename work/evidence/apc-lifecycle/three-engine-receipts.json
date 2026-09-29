@@ -1,0 +1,192 @@
+{
+  "scope": "Prepared real-Go full304-pose SY APC lifecycle-selected integration on immutable v24+34; no paid opening/fullApp/finalart/liveLAN or exhaustive304-pose qualification.",
+  "results": {
+    "chromium-01": {
+      "status": "failed",
+      "browserVersion": "151.0.7922.34",
+      "closedAt": "2026-09-29T10:08:39.702Z",
+      "cleanup": {
+        "canvases": 0,
+        "art": {
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "errors": []
+      },
+      "workersAfter": 0,
+      "inputsVerifiedAfter": 367,
+      "receipt_sha256": "d6adbd46f55de96c529edb7b79cc7ed83dd5bb59526aa0638208095d1ccc8bdd",
+      "boundaries": 92,
+      "replayGroups": 6,
+      "replayRecords": 92,
+      "pauseChecks": 6,
+      "cullChecks": 2,
+      "errors": [],
+      "warnings": [
+        {
+          "phase": "ordinary-standard-0-owned",
+          "message": "[.WebGL-0x13c00576600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "phase": "ordinary-standard-0-owned",
+          "message": "[.WebGL-0x13c00576600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "phase": "ordinary-standard-0-owned",
+          "message": "[.WebGL-0x13c00576600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+        },
+        {
+          "phase": "ordinary-standard-0-owned",
+          "message": "[.WebGL-0x13c00576600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+        }
+      ],
+      "httpErrors": [],
+      "requestFailures": [
+        {
+          "phase": "ordinary-standard-12-owned",
+          "url": "http://127.0.0.1:55139/art/fx/unit/smoke_damaged/effect.json",
+          "failure": "net::ERR_ABORTED"
+        }
+      ]
+    },
+    "firefox-01": {
+      "status": "passed",
+      "browserVersion": "153.0",
+      "closedAt": "2026-09-29T10:11:57.679Z",
+      "cleanup": {
+        "canvases": 0,
+        "art": {
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "errors": []
+      },
+      "workersAfter": 0,
+      "inputsVerifiedAfter": 367,
+      "receipt_sha256": "b233929d22780b6105dd83b733ea918c878b5173df799a58f41f923bae59b98e",
+      "boundaries": 92,
+      "replayGroups": 6,
+      "replayRecords": 92,
+      "pauseChecks": 6,
+      "cullChecks": 2,
+      "errors": [],
+      "warnings": [
+        {
+          "phase": "ordinary-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL context was lost.\" {file: \"http://127.0.0.1:55182/fixture.js\" line: 49458}]"
+        },
+        {
+          "phase": "ordinary-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: drawElementsInstanced: Tex image TEXTURE_2D level 0 is incurring lazy initialization.\"]"
+        },
+        {
+          "phase": "ordinary-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.\"]"
+        },
+        {
+          "phase": "blocked-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL context was lost.\" {file: \"http://127.0.0.1:55182/fixture.js\" line: 30015}]"
+        },
+        {
+          "phase": "blocked-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: drawElementsInstanced: Tex image TEXTURE_2D level 0 is incurring lazy initialization.\"]"
+        },
+        {
+          "phase": "blocked-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.\"]"
+        },
+        {
+          "phase": "under-fire-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL context was lost.\" {file: \"http://127.0.0.1:55182/fixture.js\" line: 30015}]"
+        },
+        {
+          "phase": "under-fire-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: drawElementsInstanced: Tex image TEXTURE_2D level 0 is incurring lazy initialization.\"]"
+        },
+        {
+          "phase": "under-fire-standard-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.\"]"
+        },
+        {
+          "phase": "ordinary-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL context was lost.\" {file: \"http://127.0.0.1:55182/fixture.js\" line: 30015}]"
+        },
+        {
+          "phase": "ordinary-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: drawElementsInstanced: Tex image TEXTURE_2D level 0 is incurring lazy initialization.\"]"
+        },
+        {
+          "phase": "ordinary-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.\"]"
+        },
+        {
+          "phase": "blocked-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL context was lost.\" {file: \"http://127.0.0.1:55182/fixture.js\" line: 30015}]"
+        },
+        {
+          "phase": "blocked-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: drawElementsInstanced: Tex image TEXTURE_2D level 0 is incurring lazy initialization.\"]"
+        },
+        {
+          "phase": "blocked-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.\"]"
+        },
+        {
+          "phase": "under-fire-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL context was lost.\" {file: \"http://127.0.0.1:55182/fixture.js\" line: 30015}]"
+        },
+        {
+          "phase": "under-fire-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: drawElementsInstanced: Tex image TEXTURE_2D level 0 is incurring lazy initialization.\"]"
+        },
+        {
+          "phase": "under-fire-high-0-owned",
+          "message": "[JavaScript Warning: \"WebGL warning: texImage: Alpha-premult and y-flip are deprecated for non-DOM-Element uploads.\"]"
+        },
+        {
+          "phase": "dispose",
+          "message": "[JavaScript Warning: \"WebGL context was lost.\" {file: \"http://127.0.0.1:55182/fixture.js\" line: 30015}]"
+        }
+      ],
+      "httpErrors": [],
+      "requestFailures": []
+    },
+    "webkit-01": {
+      "status": "passed",
+      "browserVersion": "26.5",
+      "closedAt": "2026-09-29T10:13:56.830Z",
+      "cleanup": {
+        "canvases": 0,
+        "art": {
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "errors": []
+      },
+      "workersAfter": 0,
+      "inputsVerifiedAfter": 367,
+      "receipt_sha256": "19018c11948a91c7764e74fb22c53895a5672ac74379d2bf211ddb90a399a96e",
+      "boundaries": 92,
+      "replayGroups": 6,
+      "replayRecords": 92,
+      "pauseChecks": 6,
+      "cullChecks": 2,
+      "errors": [],
+      "warnings": [],
+      "httpErrors": [],
+      "requestFailures": []
+    }
+  },
+  "native_images_reviewed": {
+    "work/evidence/apc-lifecycle/firefox-01/ordinary-standard-1-owned.png": "d2c59df3c66a37fcbabc109fec92abca8a1d2902a1ab9be5ff0190b82735567b",
+    "work/evidence/apc-lifecycle/firefox-01/ordinary-standard-1-foreign.png": "f24eac24a2df6495f274e96dc48dc7fb79fd19739441c6bbf4580244677ddf78",
+    "work/evidence/apc-lifecycle/firefox-01/ordinary-standard-6-owned.png": "121652613b1e77161ada4869f793026ca7a1fbf628921a0240ea3443ceb3c0a1",
+    "work/evidence/apc-lifecycle/firefox-01/ordinary-standard-13-owned.png": "69cfd6400652eed85cfeafe73b5b9a0bcb83802ca9845be42f9a7211279e90bb",
+    "work/evidence/apc-lifecycle/firefox-01/blocked-standard-3-owned.png": "92c8dc407978aba7b450c64a05dd3c59f4e5b2bf2a52fc8c78f50e751d3e8d80"
+  },
+  "visual_notes": "Native1600x900 screenshots show existing doors/body selection, visible unloading and blocked-exit labels, damaged smoke; doors are subtle at ordinary camera distance. Foreign boarding receiver is not inferred; public unloading remains visible. Fog scallops are separately queued for Claude. Not exhaustive subjective art approval.",
+  "all_processes_closed": true
+}

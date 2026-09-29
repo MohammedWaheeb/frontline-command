@@ -1,10 +1,28 @@
 # Actual SY APC full-art lifecycle course
 
-29 September 2026. **Native and author preflight PASS; browser UNRUN.** Root owns serial browser execution. Browser plugin is not available; the authored driver uses the repository's pinned Playwright engines, without equating them to stock Chrome/Edge/Firefox/Safari certification.
+29 September 2026. **Native and author preflight PASS. Firefox/WebKit browser PASS; Chromium functional completion with strict diagnostic FAIL.** Root owns serial browser execution. Browser plugin is not available; the authored driver uses the repository's pinned Playwright engines, without equating them to stock Chrome/Edge/Firefox/Safari certification.
 
 The target is the immutable 34-asset union at `work/art/roster-runtime-overlay-v1/outputs/infantry-vehicles-ui-v24/product`, build SHA `1c86560a299c2c2ae99fd6c44df476d4cecab091bb1b4d4b6e78d8b63ee8077d`. Its complete `unit.SY.apc` asset has 304 authored poses, including hull doors and independent turret; the course exercises poses selected by actual lifecycle states, **not all 304 combinations**. No product, art, renderer, engine or existing frozen source changed.
 
 The exact runtime source is integrated simulation 0.3.4 lock `3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750`; v24 WASM is `d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae`. Earlier c7e0 production is equivalent, but is not relabeled as this binary's exact build source.
+
+## Executed browser results
+
+All three pinned Playwright engines completed 92 owner/actually-visible-foreign
+boundaries at both qualities, six exact save/replay groups, six real Go pause
+checks and two cull/return checks. Firefox01 and WebKit01 pass with zero recorded
+page/console/HTTP/request failures. Chromium01 completes the same functionality
+but preserves **one raw `net::ERR_ABORTED`** for damaged-smoke effect metadata;
+its strict overall status is failed. This is not retroactively classified from
+separate native-fetch diagnostics. All 367 pinned inputs are unchanged afterward;
+worker, canvas, atlas/picking resident counts return to zero. All processes close.
+
+Root inspected five native Firefox screenshots covering owned/foreign boarding,
+public unloading, damaged idle and blocked exits. Labels and pose-state selection
+are visible; hull doors remain subtle at ordinary camera distance. Fog scallops
+remain a separate known presentation issue queued for Claude. No exhaustive
+304-pose art approval or final-App acceptance is claimed. Exact engine versions,
+diagnostics, receipt/image hashes and limits are in `three-engine-receipts.json`.
 
 ## Earned native evidence
 
