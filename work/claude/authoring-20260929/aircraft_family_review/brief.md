@@ -14,8 +14,8 @@ Read AGENTS.md, the authoritative gameplay design and handoff, and the existing
 `work/claude/06-rts-reference-study.md`. The user wants original stylized classic
 C&C/Generals/Red Alert character, readable military silhouettes and a real game,
 not photorealism or generic blue dashboard chrome. Team colors are legitimate.
-You are the primary art author/reviewer; Codex continued approved rendering and
-integration while your quota was exhausted.
+You are the original art author and a contributing reviewer; Codex now has
+direct user authorization for continued graphics and asset authoring.
 
 Read `work/art/aircraft-family-native-review-v1/README.md` and
 `work/art/aircraft-family-native-review-v1/available7-v1/result.json`.
