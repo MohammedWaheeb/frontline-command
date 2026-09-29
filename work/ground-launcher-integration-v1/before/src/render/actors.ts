@@ -9,7 +9,6 @@ import {actorSpriteState,actorEventStates,visibleSquadMembers,type BuildingPrese
 import {FlightPresentation} from './flight-presentation';
 import {canonicalAircraftPose,emptyAircraftPose,hasEmptyAircraftPayload,knownEmptyAircraft} from './aircraft-payload';
 import {actorArtKey,physicalArtType} from './art-id';
-import {isGroundLauncher,groundLauncherPose,canonicalGroundLauncherPose,groundLauncherPayloadKey} from './ground-launcher-payload';
 import {ActorStatusOverlay} from './actor-status';
 import type {ActorStatusModel} from '../app/actor-status';
 import type {ShadowPlate} from './surface-shadows';
@@ -171,7 +170,6 @@ export class ActorVisual {
  }
  private activeAction(now:number):SpriteState|undefined{
   if(!this.action||!this.sheet)return;
-  if(isGroundLauncher(this.entity.type,this.catalog.units.get(this.entity.type))&&(!this.entity.deployed||['packing','deploying'].includes(this.entity.state))){this.action=undefined;return}
   // A short cosmetic cue cannot hide a newly disclosed structural condition.
   // Discard it when interrupted so restoring power cannot replay an old launch.
   if(this.entity.state==='destroyed'||this.entity.state==='selling'||this.entity.state==='low_power'||!this.entity.enabled||!this.entity.complete||this.presentation&&(this.presentation.lowPower||this.entity.health<=500)){this.action=undefined;return}
@@ -194,16 +192,15 @@ export class ActorVisual {
   return this.payloadState(actorSpriteState(this.entity,this.catalog.units.get(this.entity.type),moving,this.sheet.states,this.presentation,turning,this.receivingBoarder,this.viewer!==undefined&&this.viewer===this.entity.owner));
  }
  private payloadState(state:SpriteState|undefined):SpriteState|undefined{
-  if(!state)return state;
-  const unit=this.catalog.units.get(this.entity.type);
-  const name=groundLauncherPose(this.entity,unit,this.viewer,state.name)??(knownEmptyAircraft(this.entity,unit,this.viewer)?emptyAircraftPose(state.name):undefined);if(!name)return state;
+  if(!state||!knownEmptyAircraft(this.entity,this.catalog.units.get(this.entity.type),this.viewer))return state;
+  const name=emptyAircraftPose(state.name);if(!name)return state;
   const variant=this.sheet?.states.get(name);
   if(!variant)this.missingPayloadArt=name;
   return variant??state;
  }
  private frameIndex(state:SpriteState,now:number){
   const progress=state.name==='charging'?this.presentation?.strategicProgress??0:this.entity.progress;
-  const canonical=canonicalAircraftPose(canonicalGroundLauncherPose(state.name));
+  const canonical=canonicalAircraftPose(state.name);
   const start=this.action?.names.includes(canonical)?this.action.at:this.flight.startedAt(canonical,now)??this.stateAt;
   let frame=state.progress_driven?Math.min(state.frames-1,Math.max(0,Math.floor(progress/1000*state.frames))):state.fps>0?Math.max(0,Math.floor((now-start)/1000*state.fps)):0;
   return state.loop?frame%state.frames:Math.min(state.frames-1,frame);
@@ -217,7 +214,7 @@ export class ActorVisual {
  }
  private paintPart(p:LayeredPart,state:SpriteState,heading:number,now:number,team:number,altitude:number,groundOffset=0,position=this.position(now)){
   const sheet=this.sheet!,frame=this.frameIndex(state,now);
-  const unit=this.catalog.units.get(this.entity.type),payloadScoped=unit?.armor==='air'&&!!unit.weapon,launcher=isGroundLauncher(this.entity.type,unit);
+  const unit=this.catalog.units.get(this.entity.type),payloadScoped=unit?.armor==='air'&&!!unit.weapon;
   const d=headingIndex(heading,state.directions),offset=toScreen(p.offset.x,p.offset.y);
   p.root.position.set(offset.x,offset.y-altitude+groundOffset);
   p.shadowRoot.position.copyFrom(p.root.position);
@@ -231,7 +228,7 @@ export class ActorVisual {
     const exists=sheet.hasFrame(name,state.name,d,frame)||sheet.hasFrame(name,state.name,d,0),previous=p.poses[name];
     // A page awaiting decode must not resurrect loaded missiles after the final
     // round, or retain private empty artwork after changing the current viewer.
-    if(exists&&previous&&(!payloadScoped||hasEmptyAircraftPayload(previous.state)===hasEmptyAircraftPayload(state.name))&&(!launcher||groundLauncherPayloadKey(this.entity.type,previous.state)===groundLauncherPayloadKey(this.entity.type,state.name))){f=sheet.frame(name,previous.state,previous.direction,previous.frame);if(f)pose=previous}
+    if(exists&&previous&&(!payloadScoped||hasEmptyAircraftPayload(previous.state)===hasEmptyAircraftPayload(state.name))){f=sheet.frame(name,previous.state,previous.direction,previous.frame);if(f)pose=previous}
     if(!exists)delete p.poses[name];
    }
    if(!f){sprite.visible=false;sprite.texture=Texture.EMPTY;continue}

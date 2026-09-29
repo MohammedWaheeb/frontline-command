@@ -20,10 +20,9 @@ test('aircraft empty payload and orbit art use only owner-private facts; observe
 });
 test('launcher ready art never derives another player’s exact charges',()=>{
  const launcher={...aircraft,role:'launcher',armor:'light'},base={type:'IR.launcher',state:'idle',deployed:true};
- const choose=(patch:Parameters<typeof entity>[0])=>{const e=entity({...base,...patch});return actorSpriteState(e,launcher,false,art,undefined,0,false,e.owner===1)?.name};
+ const choose=(patch:Parameters<typeof entity>[0])=>actorSpriteState(entity({...base,...patch}),launcher,false,art)?.name;
  assert.equal(choose({private:{charges:0}}),'ready_empty');assert.equal(choose({private:{charges:1}}),'ready');assert.equal(choose({private:{charges:2}}),'ready_two_charges');
  assert.equal(choose({owner:2,private:undefined}),'ready');assert.equal(choose({owner:3,private:undefined}),'ready');
- for(const owner of [2,3])for(const charges of [0,1,2])assert.equal(choose({owner,private:{charges}}),'ready');
  assert.equal(actorSpriteState(entity({state:'salvage'}),{...launcher,role:'repair'},false,art)?.name,'work_salvage');
  assert.equal(actorSpriteState(entity({state:'repairing',deployed:true}),{...launcher,role:'repair'},false,art)?.name,'deployed_work');
 });

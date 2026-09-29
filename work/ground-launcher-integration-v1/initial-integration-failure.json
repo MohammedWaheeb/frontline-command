@@ -1,0 +1,45 @@
+{
+  "status": "integrated-checks-pending",
+  "at": "2026-09-29T16:58:23.282662+00:00",
+  "scope": "Exact four-file nonvisual launcher payload integration. Matching complete staged US/IR/SY/SA art and native/browser evidence accepted within recorded bounds; no product art/Go/audio/UI edits.",
+  "changes": [
+    {
+      "path": "client/src/render/actors.ts",
+      "before": "6f14bab7e85d423528ed05faa03b85dc746716474abca3379fde0cbfa451cdfa",
+      "after": "5b4c69f1e667c8635f7b50b01f45a7000d0e0de9094fb06a49a3a8b7b51c5a41"
+    },
+    {
+      "path": "client/src/render/poses.ts",
+      "before": "4b733d78b85ad338756531bf68462d8ca49bb1d61eccb16750c712c5d94d8ec4",
+      "after": "5a86985178210fdd1772bd9b7bda0178d380f1274e4e42cf210ab9e531b4a2cf"
+    },
+    {
+      "path": "client/src/render/ground-launcher-payload.ts",
+      "before": null,
+      "after": "2e832e926335a6318cf3e3230e5d651ce6e27122505931b560904d80794420f6"
+    },
+    {
+      "path": "client/tests/runtime/ground-launcher-payload.test.ts",
+      "before": null,
+      "after": "7ec6c9cac7ceb0a1067f75426df1c3426ead1b9d2305774fa38c15fdb54a34dc"
+    }
+  ],
+  "guardedInputs": 1719,
+  "commands": [
+    {
+      "script": "typecheck",
+      "exit": 0,
+      "logSHA256": "d80ff04b25046c2711fff127472d8ea27f76da4c4a145dc0b3ab5bd4c03f4b76"
+    },
+    {
+      "script": "typecheck:app",
+      "exit": 0,
+      "logSHA256": "ff964f2d86712781cbb76e5aed87bae6852ca1d75d1711fc859d9df67f2b1fa0"
+    },
+    {
+      "script": "test:runtime",
+      "exit": 1,
+      "logSHA256": "7020efd3f9b42bcefd94a123cb5fa6fe1316dc844579361320a2537f0b201686"
+    }
+  ]
+}

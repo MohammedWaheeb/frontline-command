@@ -67,7 +67,7 @@ export function actorSpriteState(e:Entity,unit:CatalogUnit|undefined,moving:bool
   else if(e.state==='capture_exit_blocked')names=['idle'];
   else if(e.state.includes('captur'))names=['work_capture','channel','idle'];
   else if(e.state.includes('sabotage'))names=['work_sabotage','channel','idle'];
-  else if(e.deployed&&unit?.role==='launcher'&&owned&&e.private)names=[e.private.charges===0?'ready_empty':e.private.charges>=2?'ready_two_charges':'ready','ready','deployed','idle'];
+  else if(e.deployed&&unit?.role==='launcher'&&e.private)names=[e.private.charges===0?'ready_empty':e.private.charges>=2?'ready_two_charges':'ready','ready','deployed','idle'];
   else if(e.deployed)names=['deployed','ready','hulldown_idle','idle'];
   else if(air){
    if(e.landed)names=e.state==='servicing'?['rearm','parked','idle']:['parked','idle'];

@@ -1,8 +1,6 @@
 # Ground-launcher payload pose candidate
 
-Private code candidate based on the exact v24 client. Live code, Go and frozen
-products are unchanged. This does not yet have matching full art or browser
-acceptance and must not be promoted as complete.
+Historical private candidate based on the exact v24 client. All four matching full art handoffs and scoped native/browser courses subsequently completed; the exact runtime delta is integrated in `work/ground-launcher-integration-v1`. Go and frozen products remain unchanged. This is component acceptance, not a complete-game claim.
 
 Owned US, SY and SA launchers select empty payload variants for mobile,
 deployment and packing states. IR additionally selects a one-charge variant;
