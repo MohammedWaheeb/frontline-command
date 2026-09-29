@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "sourceLockSHA256": "16f9b43d7f5fe97ee35f9a74ecbec529d4763a14e1d8eb86565675327dedfb74",
+  "scope": "Focused WASM grid parity and race correctness on shared M4; no performance qualification",
+  "started": "2026-09-29T17:30:38.873932+00:00",
+  "commands": [
+    {
+      "name": "wasm",
+      "args": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-p=1",
+        "-count=1",
+        "-v",
+        "-timeout=90s",
+        "-exec=/opt/homebrew/Cellar/go/1.27.1/libexec/lib/wasm/go_js_wasm_exec",
+        "./pkg/sim",
+        "-run=^TestNavigationRaster"
+      ],
+      "exit": 0,
+      "elapsed": 8.09386737504974,
+      "logSHA256": "b763a7730cb287513741f25c832431be31c45852ccd86b613842a2db9ee50a6b"
+    },
+    {
+      "name": "race",
+      "args": [
+        "/opt/homebrew/bin/go",
+        "test",
+        "-race",
+        "-p=1",
+        "-count=1",
+        "-v",
+        "-timeout=90s",
+        "./pkg/sim",
+        "-run=^TestNavigationRaster"
+      ],
+      "exit": 0,
+      "elapsed": 43.06853875005618,
+      "logSHA256": "edcc0cd725d8630d03ee1388a58847bcf7b77c203db86be0de9b7be2c51a6517"
+    },
+    {
+      "name": "vet",
+      "args": [
+        "/opt/homebrew/bin/go",
+        "vet",
+        "./pkg/sim"
+      ],
+      "exit": 0,
+      "elapsed": 0.8658527908846736,
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "allInputsUnchanged": true
+}

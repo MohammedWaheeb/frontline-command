@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "baseLockSHA256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+  "candidateLockSHA256": "16f9b43d7f5fe97ee35f9a74ecbec529d4763a14e1d8eb86565675327dedfb74",
+  "sourceFilesVerified": 357,
+  "onlyBaselineDifference": [
+    "pkg/sim/navigation.go"
+  ],
+  "production": {
+    "navigation.go": "6a51329f420cebbff652e493409f0aa1337a03c47e12910d664008fe824732b9",
+    "navigation_raster_test.go": "120e4b387a6f6817500b8d61b5a9d1c79617b5341b915df4b0b6ee7a658b4b8f"
+  },
+  "binarySHA256": "88bd6fa7507de438bff244457ff3d1f6e7f33a79f5c6d20da4d104614c0c031f",
+  "checks": {
+    "extra-checks-01/vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "extra-checks-01/wasm.log": "b763a7730cb287513741f25c832431be31c45852ccd86b613842a2db9ee50a6b",
+    "extra-checks-01/race.log": "edcc0cd725d8630d03ee1388a58847bcf7b77c203db86be0de9b7be2c51a6517",
+    "extra-checks-01/receipt.json": "4fa606605eb8f2429d777d9092364c67ef8ea3443bc7171670a0e92296a8f308",
+    "profile-01/cpu.pprof": "b61ea866f1a7ae438256401e3805b2523ecf21a7dc81e95014b774fb5165d85c",
+    "profile-01/advance-profile.txt": "e4ede1f9a2c433a236e7f2d8812f6ab0e3e5f35b8d6febec161c77cb5ccfe964",
+    "profile-01/tick2-profile.txt": "0a02e111a96f49018d1b4241c3b0cdce05a77afa11237df44be2337448d04e54",
+    "profile-01/receipt.json": "c52155bc3324e2b915a62d66d97bbe69f3e0a87f605d024ac9a352e7e86b0776"
+  },
+  "shortLogSHA256": "d2a383d08d537b7152564be024e37acd51e8096393815ac0bbdf42d2d4fa6067",
+  "focusedFinalLogSHA256": "b07d288c7c69ef089c9c38dadd66cd7e227249d24e6fb42e2e80e30e995bae96"
+}

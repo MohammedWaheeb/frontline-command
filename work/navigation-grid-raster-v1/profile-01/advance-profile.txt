@@ -1,0 +1,34 @@
+File: coldprofile
+Type: cpu
+Time: 2026-09-29 20:26:34 +03
+Duration: 1.53s, Total samples = 1.23s (80.46%)
+Active filters:
+   tagfocus=phase=advance
+Showing nodes accounting for 0.36s, 29.27% of 1.23s total
+Showing top 25 nodes out of 55
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      0.38s 30.89%  frontlinecommand/pkg/sim.(*Engine).Advance
+         0     0%     0%      0.38s 30.89%  main.main
+         0     0%     0%      0.38s 30.89%  main.main.func2
+         0     0%     0%      0.38s 30.89%  runtime.main
+         0     0%     0%      0.38s 30.89%  runtime/pprof.Do
+         0     0%     0%      0.25s 20.33%  frontlinecommand/pkg/sim.(*Engine).updateMovement
+         0     0%     0%      0.22s 17.89%  frontlinecommand/pkg/sim.(*Engine).findPath
+     0.05s  4.07%  4.07%      0.22s 17.89%  frontlinecommand/pkg/sim.(*Engine).findPath.func2
+         0     0%  4.07%      0.17s 13.82%  runtime.systemstack
+         0     0%  4.07%      0.16s 13.01%  runtime.(*mheap).alloc.func1
+         0     0%  4.07%      0.16s 13.01%  runtime.(*mheap).allocSpan
+     0.16s 13.01% 17.07%      0.16s 13.01%  runtime.madvise
+         0     0% 17.07%      0.16s 13.01%  runtime.sysUsed (inline)
+         0     0% 17.07%      0.16s 13.01%  runtime.sysUsedOS (inline)
+     0.06s  4.88% 21.95%      0.09s  7.32%  frontlinecommand/pkg/sim.(*pathHeap).downNode
+         0     0% 21.95%      0.09s  7.32%  frontlinecommand/pkg/sim.(*pathHeap).popNode
+     0.01s  0.81% 22.76%      0.08s  6.50%  frontlinecommand/pkg/sim.(*Engine).updateFog
+     0.02s  1.63% 24.39%      0.07s  5.69%  frontlinecommand/pkg/sim.(*Engine).computeVisibility
+         0     0% 24.39%      0.04s  3.25%  frontlinecommand/pkg/content.(*Catalog).Unit (inline)
+     0.01s  0.81% 25.20%      0.04s  3.25%  runtime.mapaccess2
+         0     0% 25.20%      0.03s  2.44%  frontlinecommand/pkg/sim.(*Engine).clear (inline)
+         0     0% 25.20%      0.03s  2.44%  frontlinecommand/pkg/sim.(*Engine).clearExcept
+     0.01s  0.81% 26.02%      0.03s  2.44%  frontlinecommand/pkg/sim.(*Engine).groundObstacle
+     0.03s  2.44% 28.46%      0.03s  2.44%  frontlinecommand/pkg/sim.(*Engine).lineOfSight
+     0.01s  0.81% 29.27%      0.03s  2.44%  frontlinecommand/pkg/sim.(*Engine).updateSupport

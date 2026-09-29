@@ -1,0 +1,7 @@
+# Cold pathfinding grid reproduction
+
+Exact integrated0.3.4 source3d49 was copied with all355 file hashes verified. A separate cmd/coldprofile restores the original688-actor combined workload12times, submits the actual16 initial batches, constructs the initial replay/four permitted views, then advances eight ticks. Every iteration matches the original native tick4/tick8 hashes. CPU labels distinguish preparation from Advance and individual ticks. The only added source is the diagnostic command; live Go is unchanged.
+
+Run01 is a **shared-host CPU diagnosis**, not quiet performance qualification. It ran on the M4 with one Blender worker active. Across12 reproductions, tick2 took133.73–162.99ms (median140.64). Native CPU sampling attributes1.38s of1.46s tick2 samples to navigationCells→clear→clearExcept. The static-grid builder repeatedly scans all actors for every half-tile node. The actual original600-tick server course independently exposed the same spike and remains failed.
+
+The candidate in work/navigation-grid-raster-v1 instead rasterizes only static terrain/buildings into nearby nodes while retaining the exact strict geometry. No cold-start/warmup exception, unit cap or tick interval is relaxed. Current source copies, diagnostic command, profile/binary hashes, original rows and pprof outputs remain available. Binary stays local; source-and-receipts.tar.gz preserves the diagnostic sources, lock and evidence, requiring the separately preserved exact355-file baseline to rebuild.

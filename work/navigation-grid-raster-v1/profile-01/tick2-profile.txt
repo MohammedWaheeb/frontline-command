@@ -1,0 +1,32 @@
+File: coldprofile
+Type: cpu
+Time: 2026-09-29 20:26:34 +03
+Duration: 1.53s, Total samples = 1.23s (80.46%)
+Active filters:
+   tagfocus=tick=^2$
+Showing nodes accounting for 0.03s, 2.44% of 1.23s total
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%      0.02s  1.63%  frontlinecommand/pkg/sim.(*Engine).Advance
+         0     0%     0%      0.02s  1.63%  frontlinecommand/pkg/sim.(*Engine).updateMovement
+         0     0%     0%      0.02s  1.63%  main.main
+         0     0%     0%      0.02s  1.63%  main.main.func2
+         0     0%     0%      0.02s  1.63%  runtime.main
+         0     0%     0%      0.02s  1.63%  runtime/pprof.Do
+         0     0%     0%      0.01s  0.81%  frontlinecommand/pkg/content.(*Catalog).Unit (inline)
+         0     0%     0%      0.01s  0.81%  frontlinecommand/pkg/sim.(*Engine).clear (inline)
+         0     0%     0%      0.01s  0.81%  frontlinecommand/pkg/sim.(*Engine).clearExcept
+         0     0%     0%      0.01s  0.81%  frontlinecommand/pkg/sim.(*Engine).findPath
+         0     0%     0%      0.01s  0.81%  frontlinecommand/pkg/sim.(*Engine).findPath.func2
+         0     0%     0%      0.01s  0.81%  frontlinecommand/pkg/sim.(*Engine).groundObstacle
+     0.01s  0.81%  0.81%      0.01s  0.81%  internal/runtime/maps.memHash32AES
+         0     0%  0.81%      0.01s  0.81%  runtime.(*mheap).alloc.func1
+         0     0%  0.81%      0.01s  0.81%  runtime.(*mheap).allocSpan
+     0.01s  0.81%  1.63%      0.01s  0.81%  runtime.madvise
+         0     0%  1.63%      0.01s  0.81%  runtime.mapaccess1_fast32
+         0     0%  1.63%      0.01s  0.81%  runtime.mapaccess2
+         0     0%  1.63%      0.01s  0.81%  runtime.mapaccess2_fast32
+     0.01s  0.81%  2.44%      0.01s  0.81%  runtime.memequal
+         0     0%  2.44%      0.01s  0.81%  runtime.strequal
+         0     0%  2.44%      0.01s  0.81%  runtime.sysUsed (inline)
+         0     0%  2.44%      0.01s  0.81%  runtime.sysUsedOS (inline)
+         0     0%  2.44%      0.01s  0.81%  runtime.systemstack
