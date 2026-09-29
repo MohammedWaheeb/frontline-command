@@ -1,0 +1,234 @@
+{
+  "prepared_at": "2026-09-29T09:38:39.676863+00:00",
+  "status": "prepared-not-executed",
+  "browser_or_host_launched": false,
+  "source_files": {
+    "client/tests/render/multiplayer-v24.browser.mjs": "de381fac98af65fa08eb49df7c9b537451d09eea36ec5cbea8625b56ea7ecee0",
+    "client/tests/render/multiplayer-v24-prepare.mjs": "9ae58bc77e8c3d15b24b98d812b2f6dc4d6f1ec7e78bcf7a3016b830fdbe8f08",
+    "client/tests/render/multiplayer-v24-contract.mjs": "83eebf5375d607c9cf194bac29923c0a38be247437c96b5bb0c543ea2e52f633",
+    "client/tests/render/multiplayer-v24-contract.test.mjs": "3d1ff0105ada55b1bbd0c0dc90d27adaa5d22eac133cff856b01d49a7dec901d",
+    "client/tests/render/multiplayer-passive-diagnostics.mjs": "bf05c4eaa82d50e41c3d167a1c7bddd295964ba86a87f76a5400456fa79001d7",
+    "client/tests/render/multiplayer-passive-diagnostics.test.mjs": "89d8b8de2b400f3101078ba2c107a2d00cc29913b3ea1cb16d21ecbbbac23152",
+    "client/tests/render/expansion-commander.mjs": "51e6fb82bc555ae1175e659d3b707e0bba6d8639a0bd63be98e24244758dfd9f",
+    "client/tests/render/expansion-commander.test.mjs": "b363840bea094953c4f7baa2e8fb4ace2dc68d6fc38ed941aaab0ea239e65dbc",
+    "client/tests/render/rematch-contract.mjs": "8f1151303b294ce4357d2c595dc877f08388e674517b146a3df9690f2e94e8bb",
+    "client/tests/render/worker-observation.mjs": "497f4dbf32d0d6b4921461698f4b077d00900f0fd2b2b958f1ce6586e3b7a509",
+    "work/multiplayer-combat/audit/main.go": "274a4323fc7d73411fae0028532a30fd7efe45ef5c9e9c8e31ee30bfcccbba1f",
+    "docs/multiplayer-v24-acceptance.md": "38693a21f2e8016aa33b880813dbfb8970a22ebff21d8591aa88218e8a55b540"
+  },
+  "checks": {
+    "work/multiplayer-combat/v24-contract-tests-final-04.log": {
+      "sha256": "1cee0671861120a65eb19317529a21a76a42becb53cac4538a4a4d7f211ea289",
+      "bytes": 3088
+    },
+    "work/multiplayer-combat/v24-frozen-app-typecheck.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "work/multiplayer-combat/v24-frozen-entry-typecheck-01.log": {
+      "sha256": "ad096a22ec0f32aef613f569c82778b46c2ae9c4838924a115e51a000c4cf3c9",
+      "bytes": 477
+    },
+    "work/multiplayer-combat/v24-frozen-entry-typecheck-02.log": {
+      "sha256": "3b32d54f4d9599847feaf337ca33f29c4bdb31243163f2a82ddd08dc4cfeebc9",
+      "bytes": 179
+    },
+    "work/multiplayer-combat/v24-frozen-entry-typecheck-03.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "work/multiplayer-combat/v24-34-prepared-02.log": {
+      "sha256": "9788ae94881c8b861d56e3d3d523c4096d9c6ce0c4d60385427aadb89262a87e",
+      "bytes": 671
+    }
+  },
+  "focused_tests": {
+    "passed": 27,
+    "failed": 0
+  },
+  "typechecks": {
+    "frozen_app": "passed",
+    "frozen_acceptance_entry": "passed on third isolated config",
+    "preserved_first_two_failures": "incorrect relative path, then external vite/client type resolution; immutable product unchanged"
+  },
+  "harness_directory": "work/multiplayer-combat/v24-34-prepared-02",
+  "build_receipt_sha256": "30040144196e22468a93c2eb4b740975ed9f2015db29bd54a30c1a4169d3b955",
+  "build": {
+    "prepared": "2026-09-29T09:33:39.255Z",
+    "scope": "Verified immutable v24+34 overlay. Product, runtime, art and Go source unchanged. Only decoder/minimap helpers and native offline auditor compiled; no browser or host launched.",
+    "version": {
+      "adapter": "1",
+      "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+      "go": "go1.27.1",
+      "protocol": 1,
+      "simulation": "0.3.4"
+    },
+    "sha256": {
+      "host": "36ca8c93f538696206317113d50af6ee31ac92fcbcd626a0a9f9b0ceaab8a5e0",
+      "wasm": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+      "protocol": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+      "pack": "bde24f48151997777c460c01e33ec6bc8703977b9c39ef1e12897e6aba633a1a",
+      "clientSource": "a3ab58d362a8536ede222db4be37f4a6661c2817e9f07a56b9026617303f0878",
+      "entry": "4573c94b97141142bb1d9bd6821ebb28ae2e7fd19c8cca22cc9391031c9cfb17"
+    },
+    "packFiles": 4634,
+    "encodedBytes": 550044822,
+    "overlay": "work/art/roster-runtime-overlay-v1/outputs/infantry-vehicles-ui-v24",
+    "overlaySHA256": "1c86560a299c2c2ae99fd6c44df476d4cecab091bb1b4d4b6e78d8b63ee8077d",
+    "baseSHA256": "f73a3447173a6b4e1e752ed374175044019565375dd342d893a377187658817e",
+    "sourceLockSHA256": "3d49f3c0a344c4573d003e00768994e5a97b88b0ddff3a035ccd7febf0053750",
+    "runtimeReceiptSHA256": "cc990ac7f78d5a1094dd635d06bff0cb04d2c055ce413dbd114a7233bb176e69",
+    "runtimeFiles": {
+      "frontline.wasm": {
+        "bytes": 11237971,
+        "sha256": "d1d7b97deaa4c73f58ba8b8035858d524d24c64d5c52f4ce4e71bcd47dbdb7ae",
+        "equals_prior": false
+      },
+      "wasm_exec.js": {
+        "bytes": 16992,
+        "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+        "equals_prior": true
+      },
+      "worker.js": {
+        "bytes": 8198,
+        "sha256": "ced862a30a9d91dbab59befcf6ea0e4af9dabfc289acffbe7678a6dd33b2bed9",
+        "equals_prior": false
+      },
+      "worker.js.map": {
+        "bytes": 13055,
+        "sha256": "883f857ebdafa92063880bff097c0b648736a5c46f84d71f8f7edd66c0ee6dc8",
+        "equals_prior": false
+      },
+      "version.json": {
+        "bytes": 169,
+        "sha256": "8dae8e5b4addb054083ea188779e6104b5e79ca5846c0e1c4ca7b58bb9709bea",
+        "equals_prior": true
+      },
+      "frontline_pb.ts": {
+        "bytes": 55786,
+        "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f",
+        "equals_prior": true
+      },
+      "bin/runtime-native": {
+        "bytes": 8629298,
+        "sha256": "2e7201360d5241f69b66a4dadffe1ee8ccba3dcb1802597bebbd362cb73320e5",
+        "equals_prior": false
+      },
+      "bin/frontline-host": {
+        "bytes": 20805138,
+        "sha256": "36ca8c93f538696206317113d50af6ee31ac92fcbcd626a0a9f9b0ceaab8a5e0",
+        "equals_prior": false
+      }
+    },
+    "maps": {
+      "industrial-valley": "e4ab7d00a49fc79ba5dfa44ba86bcfdb5e6b2d7da02b3abc3fee59ccf3238489",
+      "dry-river": "1dc851211269974f5cadb1c6e30850e67014970f90a96c0be9b85feb7ef7b747"
+    },
+    "audit": {
+      "sha256": "20b16cdc09b5d440b0b5230069ac44b9c6e7a750a78dcaaffc6123f9ecda1849",
+      "sourceSHA256": "274a4323fc7d73411fae0028532a30fd7efe45ef5c9e9c8e31ee30bfcccbba1f",
+      "contract": {
+        "content_hash": "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612",
+        "initial_countdown_ticks": true,
+        "simulation": "0.3.4",
+        "verification": "initial/checkpoint/midpoint-restored"
+      }
+    },
+    "helpers": {
+      "decode.mjs": "97ac10b30a1271abc5ab6477817324d78933ebb3c47ffec1615e5063cb84c13a",
+      "minimap.mjs": "74d2a62c5d19f7e84bff5f112636820cd2374ba30935edffb04ce3f3ad23ab5b"
+    }
+  },
+  "art": {
+    "indexed_units": 40,
+    "indexed_buildings": 17,
+    "indexed_props": 26,
+    "terrain": 22,
+    "effects": 71,
+    "overlay_assets": 34,
+    "overlay_files": 1238,
+    "sealed_catalog_ids": 136,
+    "missing_indexed_catalog_ids": [
+      "building.IR.aa_post",
+      "building.IR.barracks",
+      "building.IR.bunker",
+      "building.IR.drone_hub",
+      "building.IR.factory",
+      "building.IR.gun_turret",
+      "building.IR.hq",
+      "building.IR.outpost",
+      "building.IR.power",
+      "building.IR.radar",
+      "building.IR.strategic_site",
+      "building.IR.supply",
+      "building.IR.tech",
+      "building.SA.aa_post",
+      "building.SA.airfield",
+      "building.SA.barracks",
+      "building.SA.bunker",
+      "building.SA.factory",
+      "building.SA.gun_turret",
+      "building.SA.hq",
+      "building.SA.interceptor_battery",
+      "building.SA.outpost",
+      "building.SA.power",
+      "building.SA.radar",
+      "building.SA.repair_depot",
+      "building.SA.strategic_site",
+      "building.SA.supply",
+      "building.SA.tech",
+      "building.SY.aa_post",
+      "building.SY.air_workshop",
+      "building.SY.barracks",
+      "building.SY.bunker",
+      "building.SY.factory",
+      "building.SY.gun_turret",
+      "building.SY.hq",
+      "building.SY.interceptor_battery",
+      "building.SY.outpost",
+      "building.SY.power",
+      "building.SY.radar",
+      "building.SY.safehouse",
+      "building.SY.strategic_site",
+      "building.SY.supply",
+      "building.SY.tech",
+      "building.US.airfield",
+      "unit.IR.aa",
+      "unit.IR.apc",
+      "unit.IR.artillery",
+      "unit.IR.car",
+      "unit.IR.fighter",
+      "unit.IR.gunship",
+      "unit.IR.isr",
+      "unit.IR.launcher",
+      "unit.IR.repair",
+      "unit.IR.tank",
+      "unit.SA.aa",
+      "unit.SA.apc",
+      "unit.SA.artillery",
+      "unit.SA.car",
+      "unit.SA.fighter",
+      "unit.SA.gunship",
+      "unit.SA.launcher",
+      "unit.SA.repair",
+      "unit.SA.strike",
+      "unit.SA.tank",
+      "unit.SY.aa",
+      "unit.SY.artillery",
+      "unit.SY.buggy",
+      "unit.SY.launcher",
+      "unit.SY.repair",
+      "unit.SY.scout_drone",
+      "unit.SY.tank",
+      "unit.US.aa",
+      "unit.US.apc",
+      "unit.US.artillery",
+      "unit.US.car",
+      "unit.US.gunship",
+      "unit.US.launcher",
+      "unit.US.repair",
+      "unit.US.strike"
+    ]
+  },
+  "execution": "One explicitly selected case at a time after parent browser-lane release; no automatic matrix. Raw diagnostics retain independent strict failure."
+}
