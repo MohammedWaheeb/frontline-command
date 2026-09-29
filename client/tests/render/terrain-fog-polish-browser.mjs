@@ -9,27 +9,30 @@ import {fileURLToPath} from 'node:url';
 import {build} from 'esbuild';
 import {chromium,firefox,webkit} from 'playwright-core';
 
-const usage='node client/tests/render/terrain-fog-polish-browser.mjs --product /absolute/frozen/product --out /absolute/new/evidence [--engine chromium|firefox|webkit] [--headless true|false]';
+const usage='node client/tests/render/terrain-fog-polish-browser.mjs --product /absolute/frozen/product --out /absolute/new/evidence [--engine chromium|firefox|webkit] [--headless true|false] [--inputs /absolute/frozen/inputs --candidate-sha SHA256] [--build-only true|false]';
 if(process.argv.includes('--help')){console.log(usage);process.exit(0)}
 const argv=process.argv.slice(2),args={};assert.equal(argv.length%2,0,usage);
-for(let i=0;i<argv.length;i+=2){assert(['--product','--out','--engine','--headless'].includes(argv[i]),usage);assert(!Object.hasOwn(args,argv[i]),'Duplicate argument');args[argv[i]]=argv[i+1]}
+for(let i=0;i<argv.length;i+=2){assert(['--product','--out','--engine','--headless','--inputs','--candidate-sha','--build-only'].includes(argv[i]),usage);assert(!Object.hasOwn(args,argv[i]),'Duplicate argument');args[argv[i]]=argv[i+1]}
 assert(args['--product']&&args['--out'],usage);
-const root=fileURLToPath(new URL('../../../',import.meta.url)),input=path.join(root,'work/terrain-polish-review/inputs'),product=await realpath(path.resolve(args['--product'])),out=path.resolve(args['--out']),engine=args['--engine']??'chromium';
+const root=fileURLToPath(new URL('../../../',import.meta.url)),input=await realpath(path.resolve(args['--inputs']??path.join(root,'work/terrain-polish-review/inputs'))),product=await realpath(path.resolve(args['--product'])),out=path.resolve(args['--out']),engine=args['--engine']??'chromium';
 assert(['chromium','firefox','webkit'].includes(engine));assert(args['--headless']===undefined||['true','false'].includes(args['--headless']));
+assert(args['--build-only']===undefined||['true','false'].includes(args['--build-only']));const buildOnly=args['--build-only']==='true',candidateSHA=args['--candidate-sha']??'8f6524d761bae054bd80b220f02ca4d6b96ff64449134c51ea543bcb93507a73';assert(/^[a-f0-9]{64}$/.test(candidateSHA));
+const expectedInputs={'baseline-terrain.ts':'52d20cd00f5f3fbfc0f922661e929dbfb17f434463703914e60c213e0bdead69','candidate-terrain.ts':candidateSHA,'terrain-surface.ts':'7d498da7b940e4741ed8e74b7996d2d7a420e310066dba28a7ed6b328437ef2e','terrain-materials.ts':'c1c466f0ffddcd77e62a7272b0d0963f81393714feb0177aaedeb0d3f41d8588','iso.ts':'98654186dbd723fdefdb70ff9bcdc26b6f74b7a5d4d0579c3d6e4244ef9aebdf'};
 const headless=args['--headless']===undefined?engine!=='chromium':args['--headless']==='true',sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 await mkdir(path.dirname(out),{recursive:true});await mkdir(out); // Refuse overwrite, including a previous failed run.
-const report={started:new Date().toISOString(),status:'running',engine,headless,product,
+const report={started:new Date().toISOString(),status:'running',engine,headless,product,input,candidateSHA,buildOnly,
  scope:'Frozen baseline/candidate TerrainBaker with synthetic public geometry and real Pixi GPU alpha. Macro screenshots use frozen authored PNGs separately. No Go gameplay, App UI, hidden-entity, reference performance or subjective-art approval claim.',
  errors:[],httpErrors:[],requestFailures:[],served:{},geometry:[],cpu:[]};
 let browser,page,server,temp;
 try{
  const lockBytes=await readFile(path.join(input,'lock.json')),lock=JSON.parse(lockBytes);report.inputLockSHA256=sha(lockBytes);report.inputs=lock;
- for(const [name,entry] of Object.entries(lock))assert.equal(sha(await readFile(path.join(input,name))),entry.sha256,`Frozen input drift:${name}`);
- assert.equal(lock['baseline-terrain.ts'].sha256,'52d20cd00f5f3fbfc0f922661e929dbfb17f434463703914e60c213e0bdead69');assert.equal(lock['candidate-terrain.ts'].sha256,'8f6524d761bae054bd80b220f02ca4d6b96ff64449134c51ea543bcb93507a73');
+ assert.deepEqual(Object.keys(lock).sort(),Object.keys(expectedInputs).sort());for(const [name,entry] of Object.entries(lock)){assert.equal(entry.sha256,expectedInputs[name],`Unexpected frozen input:${name}`);const bytes=await readFile(path.join(input,name));assert.equal(sha(bytes),entry.sha256,`Frozen input drift:${name}`);assert.equal(bytes.length,entry.bytes)}
  const fixture=path.join(root,'client/tests/render/terrain-fog-polish-fixture.ts'),fixtureBytes=await readFile(fixture),driverBytes=await readFile(fileURLToPath(import.meta.url));report.fixtureSHA256=sha(fixtureBytes);report.driverSHA256=sha(driverBytes);report.pixiPackage=JSON.parse(await readFile(path.join(root,'client/node_modules/pixi.js/package.json'),'utf8')).version;
  await writeFile(path.join(out,'fixture.ts'),fixtureBytes);await writeFile(path.join(out,'driver.mjs'),driverBytes);await writeFile(path.join(out,'input-lock.json'),lockBytes);
- temp=await mkdtemp(path.join(tmpdir(),'frontline-fog-polish-'));const compiled=await build({entryPoints:[fixture],outfile:path.join(temp,'main.js'),bundle:true,format:'esm',platform:'browser',target:'es2022',metafile:true,nodePaths:[path.join(root,'client/node_modules')]});
+ const redirects=new Map(['baseline-terrain','candidate-terrain','terrain-surface'].map(name=>[`../../../work/terrain-polish-review/inputs/${name}`,path.join(input,`${name}.ts`)]));
+ temp=await mkdtemp(path.join(tmpdir(),'frontline-fog-polish-'));const compiled=await build({entryPoints:[fixture],outfile:path.join(temp,'main.js'),bundle:true,format:'esm',platform:'browser',target:'es2022',metafile:true,nodePaths:[path.join(root,'client/node_modules')],plugins:[{name:'exact-frozen-fog-inputs',setup(build){build.onResolve({filter:/terrain-polish-review\/inputs\//},args=>{if(args.importer===fixture&&redirects.has(args.path))return {path:redirects.get(args.path)};throw Error(`Unexpected frozen input import: ${args.importer} -> ${args.path}`)})}}]});
  report.bundleSHA256=sha(await readFile(path.join(temp,'main.js')));await writeFile(path.join(out,'bundle-metafile.json'),JSON.stringify(compiled.metafile,null,2));
+ if(buildOnly){report.status='built-only';report.validation='esbuild bundle syntax/import resolution only; no TypeScript semantic or browser acceptance';}else{
  server=createServer(async(req,res)=>{try{
   const url=new URL(req.url,'http://localhost'),name=decodeURIComponent(url.pathname);if(name.includes('\\')||name.split('/').includes('..'))throw Error('Unsafe request');
   if(name==='/'){res.setHeader('Content-Type','text/html');res.end('<!doctype html><meta charset="utf-8"><title>Frozen terrain fog comparison</title><link rel="icon" href="data:,"><style>html,body{margin:0;background:#312f28}canvas{display:block}</style><canvas></canvas><script type="module" src="/main.js"></script>');return}
@@ -54,11 +57,12 @@ try{
   const value=await page.evaluate(({kind,extent})=>window.fogPolishQA.cpu(kind,extent),{kind,extent});report.cpu.push(value);assert(value.hiddenFragments>0);assert(value.chunks===(extent==='retained36'?36:196));
  }
  report.disposal=await page.evaluate(()=>window.fogPolishQA.dispose());assert.equal(report.disposal.canvases,0);assert(report.disposal.disposals.every(d=>d.allMeshesDestroyed&&d.allOwnedTexturesDestroyed));report.status='passed';
+ }
 }catch(error){report.status='failed';report.failure=String(error.stack??error);process.exitCode=1;if(page)await page.screenshot({path:path.join(out,'failure.png')}).catch(()=>{})}
 finally{
  if(page&&report.status!=='passed')report.failureCleanup=await page.evaluate(()=>window.fogPolishQA?.dispose()).catch(error=>({error:String(error)}));
  try{await browser?.close()}catch(error){report.errors.push(String(error))}if(server?.listening)await new Promise(resolve=>server.close(resolve));if(temp)await rm(temp,{recursive:true,force:true});
  if(report.errors.length||report.httpErrors.length||report.requestFailures.length){report.status='failed';process.exitCode=1}
- const lock=JSON.parse(await readFile(path.join(input,'lock.json')));report.inputsUnchanged=true;for(const [name,entry] of Object.entries(lock))if(sha(await readFile(path.join(input,name)))!==entry.sha256)report.inputsUnchanged=false;
+ const lockBytesAfter=await readFile(path.join(input,'lock.json'));report.inputsUnchanged=sha(lockBytesAfter)===report.inputLockSHA256;for(const [name,hash] of Object.entries(expectedInputs))if(sha(await readFile(path.join(input,name)))!==hash)report.inputsUnchanged=false;
  if(!report.inputsUnchanged){report.status='failed';process.exitCode=1}report.finished=new Date().toISOString();await writeFile(path.join(out,'browser.json'),JSON.stringify(report,null,2));console.log(report.status,out,report.failure??'');
 }

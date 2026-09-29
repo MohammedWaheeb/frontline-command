@@ -20,6 +20,18 @@ browser plugin is unavailable. The runner refuses existing evidence directories
 and records browser/GPU/fragment-precision, source/bundle hashes and every served
 PNG hash. It launches no native host, Go compiler or simulation runtime.
 
+For a separately frozen successor, add `--inputs /absolute/input-directory
+--candidate-sha <exact64hex>`. Its `lock.json` must retain exactly the same five
+file names/schema. The baseline and all three helper hashes are hard-pinned;
+only the explicitly supplied candidate hash may differ. A narrow esbuild
+resolution plugin redirects the fixture's three exact frozen imports into that
+directory. No source text is rewritten and no assertion is relaxed. Omitted
+options retain the original v1 inputs/hash. `--build-only true` writes a bundle
+receipt and launches no browser/server; this proves esbuild syntax/import
+resolution, **not TypeScript semantic typechecking**. The frozen files' erased
+type-only runtime imports point outside this small input package, so a standalone
+semantic check would need the matching full type graph rather than invented stubs.
+
 The course compares actual Pixi fog-only RGBA alpha over identical35×35 flat
 and raised public geometry, across nine chunks, three zooms and two subpixel
 translations. It asserts no candidate pixel alpha below baseline, no formerly
