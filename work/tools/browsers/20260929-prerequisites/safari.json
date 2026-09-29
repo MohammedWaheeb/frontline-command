@@ -1,0 +1,109 @@
+{
+  "os": {
+    "command": [
+      "sw_vers"
+    ],
+    "exit_code": 0,
+    "stdout": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.1\nBuildVersion:\t\t25F80\n",
+    "stderr": ""
+  },
+  "architecture": {
+    "command": [
+      "uname",
+      "-m"
+    ],
+    "exit_code": 0,
+    "stdout": "arm64\n",
+    "stderr": ""
+  },
+  "safaridriver-version": {
+    "command": [
+      "/usr/bin/safaridriver",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "Included with Safari 26.5 (21624.2.5.11.4)\n",
+    "stderr": ""
+  },
+  "safaridriver-help": {
+    "command": [
+      "/usr/bin/safaridriver",
+      "--help"
+    ],
+    "exit_code": 1,
+    "stdout": "Usage: safaridriver [options]\n\t-h, --help                Prints out this usage information.\n\t--version                 Prints out version information and exits.\n\t-p, --port                Port number the driver should use. If the server\n\t                          is already running, the port cannot be changed.\n\t                          If port 0 is specified, a default port will be used.\n\t-b, --bidi                Port number the driver should use to listen for incoming\n\t                          WebSocket connections. If specified, all sessions hosted by\n\t                          this instance will have WebDriver BiDi support enabled.\n\t                          If port 0 is specified, a default port will be used.\n\t--enable                  Applies configuration changes so that subsequent WebDriver\n\t                          sessions will run without further authentication.\n\t--diagnose                Causes safaridriver to log diagnostic information for\n\t                          all sessions hosted by this instance. See the safaridriver(1)\n\t                          man page for more details about diagnostic logging.\n",
+    "stderr": ""
+  },
+  "safari-signature": {
+    "command": [
+      "codesign",
+      "-dv",
+      "--verbose=4",
+      "/Applications/Safari.app"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "Executable=/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari\nIdentifier=com.apple.Safari\nFormat=app bundle with Mach-O universal (x86_64 arm64e)\nCodeDirectory v=20400 size=617 flags=0x2000(library-validation) hashes=9+7 location=embedded\nPlatform identifier=26\nVersionPlatform=1\nVersionMin=1705216\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=12b701f597f3dda38d2f5b605b1e2073cc2d60ca\nCandidateCDHashFull sha256=12b701f597f3dda38d2f5b605b1e2073cc2d60ca523efbe20c7d68a47f4ec0ca\nHash choices=sha256\nCMSDigest=12b701f597f3dda38d2f5b605b1e2073cc2d60ca523efbe20c7d68a47f4ec0ca\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=12b701f597f3dda38d2f5b605b1e2073cc2d60ca\nSignature size=4442\nAuthority=Software Signing\nAuthority=Apple Code Signing Certification Authority\nAuthority=Apple Root CA\nSigned Time=21 May 2026 at 11:14:53\u202fam\nInfo.plist entries=48\nTeamIdentifier=not set\nSealed Resources version=2 rules=13 files=1602\nInternal requirements count=1 size=64\n"
+  },
+  "safari-verify": {
+    "command": [
+      "codesign",
+      "--verify",
+      "--deep",
+      "--strict",
+      "--verbose=2",
+      "/Applications/Safari.app"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "--prepared:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/SafariForWebKitDevelopment\n--validated:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/SafariForWebKitDevelopment\n--prepared:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/PlugIns/CacheDeleteExtension.appex\n--prepared:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/PlugIns/SafariQuickLookPreview.appex\n--prepared:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/PlugIns/DiagnosticExtension.appex\n--validated:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/PlugIns/CacheDeleteExtension.appex\n--validated:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/PlugIns/DiagnosticExtension.appex\n--validated:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/PlugIns/SafariQuickLookPreview.appex\n--prepared:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/XPCServices/com.apple.Safari.BrowserDataImportingService.xpc\n--prepared:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/XPCServices/com.apple.Safari.ContentBlockerLoader.xpc\n--validated:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/XPCServices/com.apple.Safari.BrowserDataImportingService.xpc\n--prepared:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/XPCServices/com.apple.Safari.SandboxBroker.xpc\n--validated:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/XPCServices/com.apple.Safari.ContentBlockerLoader.xpc\n--validated:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/XPCServices/com.apple.Safari.SandboxBroker.xpc\n/Applications/Safari.app: valid on disk\n/Applications/Safari.app: satisfies its Designated Requirement\n"
+  },
+  "driver-signature": {
+    "command": [
+      "codesign",
+      "-dv",
+      "--verbose=4",
+      "/usr/bin/safaridriver"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "Executable=/System/Volumes/Preboot/Cryptexes/App/usr/bin/safaridriver\nIdentifier=com.apple.safaridriver\nFormat=Mach-O universal (x86_64 arm64e)\nCodeDirectory v=20400 size=623 flags=0x2000(library-validation) hashes=9+7 location=embedded\nPlatform identifier=26\nVersionPlatform=1\nVersionMin=1705216\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=c37bf839668695bb31d98105cc5bbf609d196db6\nCandidateCDHashFull sha256=c37bf839668695bb31d98105cc5bbf609d196db64c95371f78a94cff323bba72\nHash choices=sha256\nCMSDigest=c37bf839668695bb31d98105cc5bbf609d196db64c95371f78a94cff323bba72\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=c37bf839668695bb31d98105cc5bbf609d196db6\nSignature size=4442\nAuthority=Software Signing\nAuthority=Apple Code Signing Certification Authority\nAuthority=Apple Root CA\nSigned Time=23 Apr 2026 at 9:36:51\u202fam\nInfo.plist entries=19\nTeamIdentifier=not set\nSealed Resources=none\nInternal requirements count=1 size=72\n"
+  },
+  "automation-preference": {
+    "command": [
+      "defaults",
+      "read",
+      "com.apple.Safari",
+      "AllowRemoteAutomation"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "2026-09-29 11:52:33.342 defaults[47164:25341201] \nThe domain/default pair of (/Users/mohammedkalouti/Library/Containers/com.apple.Safari/Data/Library/Preferences/com.apple.Safari, AllowRemoteAutomation) does not exist\n"
+  },
+  "safari": {
+    "CFBundleIdentifier": "com.apple.Safari",
+    "CFBundleShortVersionString": "26.5",
+    "CFBundleVersion": "21624.2.5.11.4",
+    "CFBundleExecutable": "Safari",
+    "LSMinimumSystemVersion": "26.5.0"
+  },
+  "/Applications/Safari.app/Contents/MacOS/Safari": {
+    "sha256": "8bf7e9c3fe19fa08f519265a430be256cb2cef0f584bbcd6a89cd2cc10984d2e"
+  },
+  "/usr/bin/safaridriver": {
+    "sha256": "67d781b16858136087b4738f9e434f450d8e292db078e0436a0dd14b811ef89d"
+  },
+  "scope": "Read-only metadata/signature/preference-key inspection; no enable command, driver server/session or browser launch.",
+  "driver-verify": {
+    "command": [
+      "codesign",
+      "--verify",
+      "--strict",
+      "--verbose=2",
+      "/usr/bin/safaridriver"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "/usr/bin/safaridriver: valid on disk\n/usr/bin/safaridriver: satisfies its Designated Requirement\n"
+  }
+}

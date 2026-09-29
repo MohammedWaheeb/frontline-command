@@ -1,0 +1,108 @@
+{
+  "scope": "Read-only mounts and task-local extraction; no installer scripts, app executable, browser or WebDriver server/session launched.",
+  "commands": [
+    {
+      "command": [
+        "hdiutil",
+        "attach",
+        "-readonly",
+        "-nobrowse",
+        "-noautoopen",
+        "-mountpoint",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/mount-googlechrome",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/googlechrome.dmg"
+      ],
+      "exit_code": 0,
+      "stdout": "Checksumming Driver Descriptor Map (DDM : 0)\u2026\n     Driver Descriptor Map (DDM : 0): verified CRC32 $3633C995\nChecksumming Apple (Apple_partition_map : 1)\u2026\n     Apple (Apple_partition_map : 1): verified CRC32 $CF608282\nChecksumming Macintosh (Apple_Driver_ATAPI : 2)\u2026\n  Macintosh (Apple_Driver_ATAPI : 2): verified CRC32 $C71C0011\nChecksumming Mac_OS_X (Apple_HFSX : 3)\u2026\n           Mac_OS_X (Apple_HFSX : 3): verified CRC32 $714BBE22\nChecksumming  (Apple_Free : 4)\u2026\n                    (Apple_Free : 4): verified CRC32 $00000000\nverified CRC32 $C8EA0B5D\n/dev/disk11         \tApple_partition_scheme         \t\n/dev/disk11s1       \tApple_partition_map            \t\n/dev/disk11s2       \tApple_Driver_ATAPI             \t\n/dev/disk11s3       \tApple_HFSX                     \t/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/mount-googlechrome\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ditto",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/mount-googlechrome/Google Chrome.app",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "hdiutil",
+        "detach",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/mount-googlechrome"
+      ],
+      "exit_code": 0,
+      "stdout": "\"disk11\" ejected.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "hdiutil",
+        "attach",
+        "-readonly",
+        "-nobrowse",
+        "-noautoopen",
+        "-mountpoint",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/mount-firefox",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/firefox.dmg"
+      ],
+      "exit_code": 0,
+      "stdout": "Checksumming Driver Descriptor Map (DDM : 0)\u2026\n     Driver Descriptor Map (DDM : 0): verified CRC32 $5C6D7CED\nChecksumming Apple (Apple_partition_map : 1)\u2026\n     Apple (Apple_partition_map : 1): verified CRC32 $3D28D64E\nChecksumming Macintosh (Apple_Driver_ATAPI : 2)\u2026\n  Macintosh (Apple_Driver_ATAPI : 2): verified CRC32 $C71C0011\nChecksumming Mac_OS_X (Apple_HFSX : 3)\u2026\n           Mac_OS_X (Apple_HFSX : 3): verified CRC32 $FA0F6A33\nChecksumming  (Apple_Free : 4)\u2026\n                    (Apple_Free : 4): verified CRC32 $00000000\nverified CRC32 $1395D531\n/dev/disk11         \tApple_partition_scheme         \t\n/dev/disk11s1       \tApple_partition_map            \t\n/dev/disk11s2       \tApple_Driver_ATAPI             \t\n/dev/disk11s3       \tApple_HFSX                     \t/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/mount-firefox\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ditto",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/mount-firefox/Firefox.app",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "hdiutil",
+        "detach",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/mount-firefox"
+      ],
+      "exit_code": 0,
+      "stdout": "\"disk11\" ejected.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pkgutil",
+        "--check-signature",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/MicrosoftEdge-154.0.4258.37.pkg"
+      ],
+      "exit_code": 0,
+      "stdout": "Package \"MicrosoftEdge-154.0.4258.37.pkg\":\n   Status: signed by a developer certificate issued by Apple for distribution\n   Notarization: trusted by the Apple notary service\n   Signed with a trusted timestamp on: 2026-09-24 08:44:03 +0000\n   Certificate Chain:\n    1. Developer ID Installer: Microsoft Corporation (UBF8T346G9)\n       Expires: 2027-02-01 22:12:15 +0000\n       SHA256 Fingerprint:\n           64 5D 86 D2 DF 76 9E D7 04 CF B1 FA 1B 38 7F 78 69 DC 87 12 AB 4E \n           0F BC EB BC 29 64 D3 E9 A9 48\n       ------------------------------------------------------------------------\n    2. Developer ID Certification Authority\n       Expires: 2027-02-01 22:12:15 +0000\n       SHA256 Fingerprint:\n           7A FC 9D 01 A6 2F 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D 03 \n           F2 9C 88 CF B0 B1 BA 63 58 7F\n       ------------------------------------------------------------------------\n    3. Apple Root CA\n       Expires: 2035-02-09 21:40:36 +0000\n       SHA256 Fingerprint:\n           B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E 2C \n           68 C5 BE 91 B5 A1 10 01 F0 24\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pkgutil",
+        "--expand-full",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/MicrosoftEdge-154.0.4258.37.pkg",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/edge-expanded"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ditto",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/edge-expanded/MicrosoftEdge-154.0.4258.37.pkg/Payload/Microsoft Edge.app",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "edge_app_payload": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/edge-expanded/MicrosoftEdge-154.0.4258.37.pkg/Payload/Microsoft Edge.app",
+  "done": true
+}

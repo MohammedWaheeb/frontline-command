@@ -1,0 +1,265 @@
+{
+  "checked_utc": "2026-09-29T08:54:52.492294+00:00",
+  "browser_launched": false,
+  "webdriver_server_or_session_started": false,
+  "apps": {
+    "Google Chrome.app": {
+      "app_path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app",
+      "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "info": {
+        "CFBundleIdentifier": "com.google.Chrome",
+        "CFBundleShortVersionString": "154.0.8037.58",
+        "CFBundleVersion": "8037.58",
+        "CFBundleExecutable": "Google Chrome",
+        "LSMinimumSystemVersion": "13.0"
+      },
+      "plist_sha256": "3f3640b26a6296c2f4ff8cce069a8d49e52115112e64c37a4f6580c30e9b936f",
+      "executable_sha256": "633aa60f1ee2346804e006071d8f6a2114106e9c17abd601fe61bf9754638740",
+      "commands": {
+        "architectures": {
+          "command": [
+            "lipo",
+            "-archs",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome"
+          ],
+          "exit_code": 0,
+          "stdout": "x86_64 arm64\n",
+          "stderr": ""
+        },
+        "signature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/MacOS/Google Chrome\nIdentifier=com.google.Chrome\nFormat=app bundle with Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=765 flags=0x12a00(kill,restrict,library-validation,runtime) hashes=13+7 location=embedded\nVersionPlatform=1\nVersionMin=851968\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=fd0375c4904489fcd425c691511207ce603199ca\nCandidateCDHashFull sha256=fd0375c4904489fcd425c691511207ce603199ca04adc7eb030990ae8d594204\nHash choices=sha256\nCMSDigest=fd0375c4904489fcd425c691511207ce603199ca04adc7eb030990ae8d594204\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=fd0375c4904489fcd425c691511207ce603199ca\nSignature size=8989\nAuthority=Developer ID Application: Google LLC (EQHXZ8M8AV)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=22 Sep 2026 at 7:23:29\u202fam\nNotarization Ticket=stapled\nInfo.plist entries=44\nTeamIdentifier=EQHXZ8M8AV\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=63\nInternal requirements count=1 size=288\n"
+        },
+        "verify": {
+          "command": [
+            "codesign",
+            "--verify",
+            "--deep",
+            "--strict",
+            "--verbose=2",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/.\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/web_app_shortcut_copier\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/web_app_shortcut_copier\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Aperitif Renderer).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Aperitif Renderer).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (GPU).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (GPU).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Alerts).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Alerts).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Aperitif).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Aperitif).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Aperitif GPU).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Aperitif GPU).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Aperitif Alerts).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper.app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Renderer).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/app_mode_loader\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/app_mode_loader\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Renderer).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/Google Chrome Helper (Aperitif Alerts).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/chrome_crashpad_handler\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/chrome_crashpad_handler\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app/Contents/Helpers/launcher\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app/Contents/Helpers/launcher\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Helpers/ksinstall\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Helpers/ksinstall\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Helpers/ksadmin\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Helpers/ksadmin\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Helpers/GoogleUpdater.app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/.\n/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app: valid on disk\n/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app: satisfies its Designated Requirement\n"
+        },
+        "gatekeeper": {
+          "command": [
+            "spctl",
+            "--assess",
+            "--type",
+            "execute",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Google Chrome.app: accepted\nsource=Notarized Developer ID\n"
+        }
+      },
+      "signed_code_files": {
+        "Contents/Frameworks/Google Chrome Framework.framework/Versions/Current/Google Chrome Framework": {
+          "bytes": 517571008,
+          "sha256": "da95e78aa331aca02c01091a90b71ba65fb341b27889be719eb3bd3cd1290665"
+        },
+        "Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.58/Google Chrome Framework": {
+          "bytes": 517571008,
+          "sha256": "da95e78aa331aca02c01091a90b71ba65fb341b27889be719eb3bd3cd1290665"
+        }
+      }
+    },
+    "Microsoft Edge.app": {
+      "app_path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app",
+      "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+      "info": {
+        "CFBundleIdentifier": "com.microsoft.edgemac",
+        "CFBundleShortVersionString": "154.0.4258.37",
+        "CFBundleVersion": "154.0.4258.37",
+        "CFBundleExecutable": "Microsoft Edge",
+        "LSMinimumSystemVersion": "13.0"
+      },
+      "plist_sha256": "e7813af18e459d31c2c8df3a37a052cdc599442c2d2cc55a76c5a2ec37ca5ae9",
+      "executable_sha256": "41b21abd1ca2fef589969392ffbefabadf3cca09bdc41bb9b728281759617869",
+      "commands": {
+        "architectures": {
+          "command": [
+            "lipo",
+            "-archs",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+          ],
+          "exit_code": 0,
+          "stdout": "x86_64 arm64\n",
+          "stderr": ""
+        },
+        "signature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/MacOS/Microsoft Edge\nIdentifier=com.microsoft.edgemac\nFormat=app bundle with Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=769 flags=0x12a00(kill,restrict,library-validation,runtime) hashes=13+7 location=embedded\nVersionPlatform=1\nVersionMin=851968\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=4d624a47d5d6193612c159c970f8d37ebe1d7b48\nCandidateCDHashFull sha256=4d624a47d5d6193612c159c970f8d37ebe1d7b48eb7a89cdd735c2d9f8abedc2\nHash choices=sha256\nCMSDigest=4d624a47d5d6193612c159c970f8d37ebe1d7b48eb7a89cdd735c2d9f8abedc2\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=16384\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=4d624a47d5d6193612c159c970f8d37ebe1d7b48\nSignature size=9013\nAuthority=Developer ID Application: Microsoft Corporation (UBF8T346G9)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=24 Sep 2026 at 11:13:16\u202fam\nInfo.plist entries=45\nTeamIdentifier=UBF8T346G9\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=94\nInternal requirements count=1 size=184\n"
+        },
+        "verify": {
+          "command": [
+            "codesign",
+            "--verify",
+            "--deep",
+            "--strict",
+            "--verbose=2",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/.\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/mac_addons.so\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/mac_addons.so\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/oneds.so\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/oneds.so\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/web_app_shortcut_copier\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/web_app_shortcut_copier\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Aperitif GPU).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Alerts).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Aperitif).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Aperitif).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Aperitif GPU).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Alerts).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (GPU).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper.app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (GPU).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Renderer).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Renderer).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/app_mode_loader\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/app_mode_loader\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Aperitif Alerts).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Aperitif Renderer).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Aperitif Renderer).app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/Microsoft Edge Helper (Aperitif Alerts).app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/msedge_crashpad_handler\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/msedge_crashpad_handler\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/telclient.so\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/telclient.so\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/EdgeSpotlightIndexer.app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/EdgeSpotlightIndexer.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/EdgeUpdater.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Frameworks/OneAuth.framework/Versions/Current/.\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Frameworks/OneAuth.framework/Versions/Current/.\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/EdgeUpdater.app/Contents/Helpers/launcher\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/EdgeUpdater.app/Contents/Helpers/launcher\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/EdgeUpdater.app/Contents/MacOS/updater_oneds.so\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/EdgeUpdater.app/Contents/MacOS/updater_oneds.so\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Helpers/EdgeUpdater.app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app/Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/.\n/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app: valid on disk\n/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app: satisfies its Designated Requirement\n"
+        },
+        "gatekeeper": {
+          "command": [
+            "spctl",
+            "--assess",
+            "--type",
+            "execute",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Microsoft Edge.app: accepted\nsource=Notarized Developer ID\n"
+        }
+      },
+      "signed_code_files": {
+        "Contents/Frameworks/Microsoft Edge Framework.framework/Versions/154.0.4258.37/Microsoft Edge Framework": {
+          "bytes": 610519008,
+          "sha256": "c51bfd56f47724b1b09b02086392e43f35119123c5f6e59caa85f5f43c961199"
+        },
+        "Contents/Frameworks/Microsoft Edge Framework.framework/Versions/Current/Microsoft Edge Framework": {
+          "bytes": 610519008,
+          "sha256": "c51bfd56f47724b1b09b02086392e43f35119123c5f6e59caa85f5f43c961199"
+        }
+      }
+    },
+    "Firefox.app": {
+      "app_path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app",
+      "executable": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox",
+      "info": {
+        "CFBundleIdentifier": "org.mozilla.firefox",
+        "CFBundleShortVersionString": "156.0.1",
+        "CFBundleVersion": "15626.9.21",
+        "CFBundleExecutable": "firefox",
+        "LSMinimumSystemVersion": "10.15.0"
+      },
+      "plist_sha256": "b3b9601e6d037ca1c938959dcfdf781ae1496c3747e3645a5cfe67918c2dc805",
+      "executable_sha256": "f2559282d3ef1ceeb0083700e57092c905f043eddb02a9b8ac09009ec9719ac3",
+      "commands": {
+        "architectures": {
+          "command": [
+            "lipo",
+            "-archs",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox"
+          ],
+          "exit_code": 0,
+          "stdout": "x86_64 arm64\n",
+          "stderr": ""
+        },
+        "signature": {
+          "command": [
+            "codesign",
+            "-dv",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/firefox\nIdentifier=org.mozilla.firefox\nFormat=app bundle with Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=927 flags=0x10000(runtime) hashes=18+7 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=f52a9f7f34d93175e9393d3e0e33b00a47332d40\nCandidateCDHashFull sha256=f52a9f7f34d93175e9393d3e0e33b00a47332d40b839cecb7cab5653b55c2921\nHash choices=sha256\nCMSDigest=f52a9f7f34d93175e9393d3e0e33b00a47332d40b839cecb7cab5653b55c2921\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=32768\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=f52a9f7f34d93175e9393d3e0e33b00a47332d40\nSignature size=8988\nAuthority=Developer ID Application: Mozilla Corporation (43AQ936H96)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=21 Sep 2026 at 5:53:56\u202fpm\nNotarization Ticket=stapled\nInfo.plist entries=37\nTeamIdentifier=43AQ936H96\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=73\nInternal requirements count=1 size=180\n"
+        },
+        "verify": {
+          "command": [
+            "codesign",
+            "--verify",
+            "--deep",
+            "--strict",
+            "--verbose=2",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libEGL.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libEGL.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/pingsender\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/pingsender\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/plugin-container.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/liblgpllibs.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/liblgpllibs.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/plugin-container.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libsoftokn3.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libsoftokn3.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/crashhelper\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/crashhelper\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/nmhproxy\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/nmhproxy\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libfreebl3.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libfreebl3.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libmozinference.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libmozinference.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/XUL\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/XUL\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/gpu-helper.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/media-plugin-helper.app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/gpu-helper.app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/media-plugin-helper.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libmozglue.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libmozglue.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/updater.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libmozavutil.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libmozavutil.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/updater.app/Contents/Frameworks/UpdateSettings.framework\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/updater.app/Contents/Frameworks/UpdateSettings.framework\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/updater.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libmozavcodec.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libmozavcodec.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/crashreporter.app\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/crashreporter.app\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libGLESv2.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libGLESv2.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libgkcodecs.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libgkcodecs.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libonnxruntime.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libonnxruntime.dylib\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/Frameworks/ChannelPrefs.framework\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/Frameworks/ChannelPrefs.framework\n--prepared:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libnss3.dylib\n--validated:/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app/Contents/MacOS/libnss3.dylib\n/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app: valid on disk\n/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app: satisfies its Designated Requirement\n"
+        },
+        "gatekeeper": {
+          "command": [
+            "spctl",
+            "--assess",
+            "--type",
+            "execute",
+            "--verbose=4",
+            "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app"
+          ],
+          "exit_code": 0,
+          "stdout": "",
+          "stderr": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/apps/Firefox.app: accepted\nsource=Notarized Developer ID\n"
+        }
+      },
+      "signed_code_files": {
+        "Contents/MacOS/XUL": {
+          "bytes": 346813776,
+          "sha256": "7c3b75f7657d094dde9019172c1933ab686b7708a9f31d7f1d8b480e0bd49837"
+        }
+      }
+    }
+  },
+  "geckodriver": {
+    "path": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver",
+    "sha256": "5d82307edc8549124bd4e7b6f275e1228e0a530e5abbfb294be3f310486561a4",
+    "architecture": {
+      "command": [
+        "lipo",
+        "-archs",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver"
+      ],
+      "exit_code": 0,
+      "stdout": "x86_64 arm64\n",
+      "stderr": ""
+    },
+    "signature": {
+      "command": [
+        "codesign",
+        "-dv",
+        "--verbose=4",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Executable=/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver\nIdentifier=geckodriver\nFormat=Mach-O universal (x86_64 arm64)\nCodeDirectory v=20500 size=37751 flags=0x10000(runtime) hashes=1174+2 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=f13524c698f8361a534f3f6d8190e67cb7505ad7\nCandidateCDHashFull sha256=f13524c698f8361a534f3f6d8190e67cb7505ad76fe82b21eb01a4878a87363c\nHash choices=sha256\nCMSDigest=f13524c698f8361a534f3f6d8190e67cb7505ad76fe82b21eb01a4878a87363c\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=3391488\nExecutable Segment flags=0x1\nPage size=4096\nCDHash=f13524c698f8361a534f3f6d8190e67cb7505ad7\nSignature size=8988\nAuthority=Developer ID Application: Mozilla Corporation (43AQ936H96)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=17 Jul 2026 at 12:36:08\u202fpm\nInfo.plist=not bound\nTeamIdentifier=43AQ936H96\nRuntime Version=26.5.0\nSealed Resources=none\nInternal requirements count=1 size=148\n"
+    },
+    "verify": {
+      "command": [
+        "codesign",
+        "--verify",
+        "--strict",
+        "--verbose=2",
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver: valid on disk\n/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver: satisfies its Designated Requirement\n"
+    },
+    "version": {
+      "command": [
+        "/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/tools/browsers/20260929-prerequisites/bin/geckodriver",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "geckodriver 0.37.1 (300705c65d1b 2026-07-17 09:25 +0000)\n\nThe source code of this program is available from\ntesting/geckodriver in https://hg.mozilla.org/mozilla-central.\n\nThis program is subject to the terms of the Mozilla Public License 2.0.\nYou can obtain a copy of the license at https://mozilla.org/MPL/2.0/.\n",
+      "stderr": ""
+    }
+  }
+}

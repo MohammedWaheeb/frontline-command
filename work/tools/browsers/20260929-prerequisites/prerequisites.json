@@ -1,0 +1,47 @@
+{
+  "recorded_utc": "2026-09-29T08:56:12.774248+00:00",
+  "host": {
+    "os": "macOS 26.5.1",
+    "build": "25F80",
+    "arch": "arm64"
+  },
+  "scope": "Vendor artifacts staged and signatures checked; no browser launch, browser version command, WebDriver server/session, installer-script execution, profile or preference changes.",
+  "metadata": {
+    "chrome-current-releases": {
+      "url": "https://versionhistory.googleapis.com/v1/chrome/platforms/mac_arm64/channels/stable/versions/all/releases?filter=endtime=none&order_by=version%20desc&pageSize=10",
+      "bytes": 1632,
+      "sha256": "65469d8d701afff9f87fc0da5043b0e62c52306bd2505e439e803df23c299755"
+    },
+    "edge-api": {
+      "url": "https://edgeupdates.microsoft.com/api/products?view=enterprise",
+      "bytes": 304005,
+      "sha256": "e182847dc6acdccd4b9d017e5c0d20c38c464ecdbe7e0e17110e817c54a2e856"
+    },
+    "firefox-versions": {
+      "url": "https://product-details.mozilla.org/1.0/firefox_versions.json",
+      "bytes": 638,
+      "sha256": "960287b04fa439ce2c2dfd2b901938ded9b36d8ffe32d79c6c31d2891c2d543b"
+    },
+    "geckodriver-release": {
+      "url": "https://api.github.com/repos/mozilla/geckodriver/releases/latest",
+      "bytes": 16880,
+      "sha256": "4e14f5b9041c31457a9cfb513f9662e3cc4648f842a851edfe03b5e13eac8c2d"
+    },
+    "firefox-SHA256SUMS": {
+      "url": "https://archive.mozilla.org/pub/firefox/releases/156.0.1/SHA256SUMS",
+      "bytes": 551210,
+      "sha256": "550d34da4a41149a8de9570e03fd6a3c5f198d720b590e4ebd5c60c01ceea3de"
+    }
+  },
+  "chrome_selection": "Official current Universal stable DMG is154.0.8037.58; Google active-release API gives0.99 of fractionGroup195 plus1.0 ofgroup194.155.0.8059.12 is0.005 rollout, not substituted.",
+  "discovery_failure": {
+    "url": "https://dl.google.com/chrome/mac/arm64/stable/GGRO/googlechrome.dmg",
+    "status": 404,
+    "action": "Retained official Universal build, verified arm64 executable."
+  },
+  "gaps": [
+    "Real Chrome/Edge/Firefox/Safari product compatibility remains unrun.",
+    "Safari remote automation readiness unproven: documented default off; AllowRemoteAutomation key absent; did not enable or launch a session.",
+    "Stock Firefox requires geckodriver/WebDriver; existing Playwright Firefox and WebKit results are not branded Firefox/Safari results."
+  ]
+}
