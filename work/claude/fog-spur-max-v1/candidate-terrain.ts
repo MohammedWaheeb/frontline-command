@@ -39,7 +39,9 @@ const indexArray=(values:readonly number[])=>values.every(n=>n<65536)?new Uint16
  * closures capture the returned typed arrays and nothing else from here.
  * `fogFanCorners` holds each top triangle's four tile-corner points (NW, NE, SE,
  * SW), keyed by ground x,y, because a fan's four triangles fall into two depth
- * fragments; face triangles hold unused zeros. */
+ * fragments; face triangles hold unused zeros. `fogWidth`/`fogHeight` are the
+ * map's fixed dimensions. Every in-map 4-neighbour of a top tile touches two of
+ * its corner points, so it is already a `fogTiles` entry. */
 export function fogTopology(triangles:readonly SurfaceTriangle[],width:number,height:number){
  const slotOf=new Map<number,number>(),pointOf=new Map<string,number>(),tileList:number[]=[],pointStart:number[]=[0],pointSlots:number[]=[],vertexPoints:number[]=[],fanCorners:number[]=[];
  const slot=(tile:number)=>{let s=slotOf.get(tile);if(s===undefined){s=tileList.length;slotOf.set(tile,s);tileList.push(tile)}return s};
@@ -54,7 +56,7 @@ export function fogTopology(triangles:readonly SurfaceTriangle[],width:number,he
   if(triangle.kind==='top'){const x=triangle.tile%width,y=Math.floor(triangle.tile/width);for(const [dx,dy] of [[0,0],[1,0],[1,1],[0,1]])fanCorners.push(pointAt((x+dx)*1000,(y+dy)*1000))}
   else fanCorners.push(0,0,0,0);
  }
- return {fogTiles:Int32Array.from(tileList),fogPoints:indexArray(vertexPoints),fogPointStart:indexArray(pointStart),fogPointSlots:indexArray(pointSlots),fogFanCorners:indexArray(fanCorners)};
+ return {fogTiles:Int32Array.from(tileList),fogPoints:indexArray(vertexPoints),fogPointStart:indexArray(pointStart),fogPointSlots:indexArray(pointSlots),fogFanCorners:indexArray(fanCorners),fogWidth:width,fogHeight:height};
 }
 export type FogTopology=ReturnType<typeof fogTopology>;
 /** Fan-centre ceiling: half of unknown, so boundary ground stays readable. */
@@ -66,17 +68,30 @@ export const FOG_FAN_CENTRE_CAP=128;
  * darkest tile touching that ground point, and a top fan's centre is raised to
  * the mean of its tile's four corners, capped at FOG_FAN_CENTRE_CAP. On a
  * straight boundary that mean makes all four fan triangles coplanar, so no
- * bright crease runs from the centre to the corners; a centre is never lowered. */
+ * bright crease runs from the centre to the corners; a centre is never lowered.
+ * A visible tile with no clear corner and a visible in-map 4-neighbour (a spur,
+ * such as a vision disk's axis pole) instead fills its whole fan with its
+ * darkest corner, so no capped centre floats beyond the dark corners it shares
+ * with that neighbour. Each of its vertices was at most that corner, so none
+ * drops. A solitary sighting keeps its capped centre. The 4-neighbours are read
+ * from `visible`. Each is a `fogTiles` entry whose opacity is 0 exactly when it
+ * is visible, so the caller's changed-tile memoization sees all of them. */
 export function fogVertexAlphas(triangles:readonly SurfaceTriangle[],topology:FogTopology,opacity:ArrayLike<number>,visible:readonly boolean[],explored:readonly boolean[],out:Float32Array):boolean{
- const {fogPoints,fogPointStart,fogPointSlots,fogFanCorners}=topology;
+ const {fogPoints,fogPointStart,fogPointSlots,fogFanCorners,fogWidth:width,fogHeight:height}=topology;
  const pointAlpha=(point:number)=>{let alpha=0;for(let s=fogPointStart[point];s<fogPointStart[point+1];s++)alpha=Math.max(alpha,opacity[fogPointSlots[s]]);return alpha};
+ const joined=(tile:number)=>{const x=tile%width,y=Math.floor(tile/width);return x>0&&!!visible[tile-1]||x+1<width&&!!visible[tile+1]||y>0&&!!visible[tile-width]||y+1<height&&!!visible[tile+width]};
  let any=false;
  for(let i=0;i<triangles.length;i++){
-  const base=surfaceFogOpacity(triangles[i],visible,explored);let centre=0;
-  if(base===0&&triangles[i].kind==='top'){let sum=0;for(let c=0;c<4;c++)sum+=pointAlpha(fogFanCorners[i*4+c]);centre=Math.min(FOG_FAN_CENTRE_CAP,sum/4)}
+  const base=surfaceFogOpacity(triangles[i],visible,explored);let centre=0,fill=0;
+  if(base===0&&triangles[i].kind==='top'){
+   let sum=0,low=255,high=0;
+   for(let c=0;c<4;c++){const alpha=pointAlpha(fogFanCorners[i*4+c]);sum+=alpha;low=Math.min(low,alpha);high=Math.max(high,alpha)}
+   centre=Math.min(FOG_FAN_CENTRE_CAP,sum/4);if(low>0&&joined(triangles[i].tile))fill=high;
+  }
   for(let j=0;j<3;j++){
    let alpha=base;
-   if(base===0){alpha=pointAlpha(fogPoints[i*3+j]);if(j===0)alpha=Math.max(alpha,centre)}
+   if(fill)alpha=fill;
+   else if(base===0){alpha=pointAlpha(fogPoints[i*3+j]);if(j===0)alpha=Math.max(alpha,centre)}
    out[i*3+j]=alpha;any ||= alpha!==0;
   }
  }

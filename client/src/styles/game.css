@@ -504,7 +504,7 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
 /* The information column has one vertical budget above the command tray.
    Its captions stay mounted across every menu/session/target transition.
    Target orders occupy the bottom row; notices and objectives scroll together. */
-.battle-information.active{position:fixed;z-index:115;left:18px;top:max(20px,calc(var(--fc-hud-shoulder-h) + 8px));bottom:calc(var(--fc-hud-tray-h) + 14px);width:min(calc(330px * var(--fc-ui-scale)),calc(100vw - var(--fc-hud-sidebar-w) - 36px));display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.battle-information.active{position:fixed;z-index:115;left:18px;top:max(20px,calc(var(--fc-hud-shoulder-h) + 8px));bottom:calc(var(--fc-hud-tray-h) + 14px);width:min(calc(330px * var(--fc-ui-scale)),calc((100vw - var(--fc-hud-sidebar-w)) * .42),calc(100vw - var(--fc-hud-sidebar-w) - 36px));display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .battle-information.active .battle-information-scroll{min-height:0;flex:0 1 auto;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b09a63 #171812;pointer-events:auto;padding:2px 3px 4px 0}
 .battle-information.active .battle-information-scroll:focus-visible{outline:1px solid var(--brass-hi);outline-offset:2px}
 .battle-information.active .battle-information-orders{display:flex;flex-direction:column;gap:8px}
@@ -520,12 +520,12 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
 /* Command well overflow: brass tabs in the tray's right margin count keys hidden
    above or below the actual scroll position. Static; never animated or flashing. */
 .battlefield-screen .command-overflow{position:absolute;right:4px;top:18px;bottom:8px;width:19px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;z-index:1}
-.battlefield-screen .command-overflow>span{visibility:hidden;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0 3px;background:linear-gradient(90deg,#8f6d32,#d0ae66 50%,#8f6d32);color:#1a1206;box-shadow:0 0 0 1px #0b0a09,0 0 8px rgba(226,162,50,.35);font:700 calc(12px * var(--fc-ui-scale))/1 var(--fc-font-mono)}
-.battlefield-screen .command-overflow>span[data-count]{visibility:visible}
+:is(.battlefield-screen .command-overflow,.battle-information.active .information-overflow)>span{visibility:hidden;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0 3px;background:linear-gradient(90deg,#8f6d32,#d0ae66 50%,#8f6d32);color:#1a1206;box-shadow:0 0 0 1px #0b0a09,0 0 8px rgba(226,162,50,.35);font:700 calc(12px * var(--fc-ui-scale))/1 var(--fc-font-mono)}
+:is(.battlefield-screen .command-overflow,.battle-information.active .information-overflow)>span[data-count]{visibility:visible}
 .battlefield-screen .command-overflow>span::before,.battlefield-screen .command-overflow>span::after{content:attr(data-count)}
-.battlefield-screen .command-overflow>.more-above::before,.battlefield-screen .command-overflow>.more-below::after{content:'';width:0;height:0;border:5px solid transparent}
-.battlefield-screen .command-overflow>.more-above::before{border-top:0;border-bottom-color:currentColor}
-.battlefield-screen .command-overflow>.more-below::after{border-bottom:0;border-top-color:currentColor}
+:is(.battlefield-screen .command-overflow,.battle-information.active .information-overflow)>.more-above::before,:is(.battlefield-screen .command-overflow,.battle-information.active .information-overflow)>.more-below::after{content:'';width:0;height:0;border:5px solid transparent}
+:is(.battlefield-screen .command-overflow,.battle-information.active .information-overflow)>.more-above::before{border-top:0;border-bottom-color:currentColor}
+:is(.battlefield-screen .command-overflow,.battle-information.active .information-overflow)>.more-below::after{border-bottom:0;border-top-color:currentColor}
 
 /* ==========================================================================
    Presentation polish v1 (Claude, claude-opus-5-5). Refinement of the warm
@@ -536,6 +536,8 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
    frame says "more commands below", not a stray number. A brass rule under the
    last visible row repeats the cue. Static; nothing animates. */
 .battlefield-screen .command-overflow>.more-below::before{content:'MORE\00a0' attr(data-count);writing-mode:vertical-rl;letter-spacing:.06em;font-size:calc(11px * var(--fc-ui-scale))}
+/* P5: the upper tab mirrors it (caret, then MORE and the count read down). */
+.battlefield-screen .command-overflow>.more-above::after{content:'MORE\00a0' attr(data-count);writing-mode:vertical-rl;letter-spacing:.06em;font-size:calc(11px * var(--fc-ui-scale))}
 .battlefield-screen .command-grid:is([data-overflow=below],[data-overflow=both]){box-shadow:inset 0 -2px 0 var(--brass),inset 0 3px 6px #000,inset 0 0 0 1px #000,0 1px 0 var(--metal-hi)}
 
 /* F3: columns leave at least 8px beside the longest single words (SKYBREAKER,
@@ -549,3 +551,39 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
    The full name and reason remain in the accessible name and the tooltip. */
 .battlefield-screen .production-cameo:has(>.disabled-reason){--fc-cameo-caption-h:calc(14px * var(--fc-ui-scale) + 5px)}
 .battlefield-screen .production-cameo:has(>.disabled-reason) .cameo-name{-webkit-line-clamp:1;line-clamp:1}
+
+/* ==========================================================================
+   UI polish v4 (Claude, claude-opus-5-5). Integration review v3 P2, P3, P5-P7;
+   P1 lives in strike-review.css. Presentation only.
+   ========================================================================== */
+/* P2: the selection overview is a fixed, scaled track, so the command grid starts
+   at the same x for every single selection. 1280/150%: 290px leaves a 572px well
+   (870px tray content - 8px gap), which holds four 132px columns (551px with gaps
+   and padding) with 21px to spare for a classic scrollbar. 1600/100%: 300px, the
+   width the previous 300px minimum produced, so the grid is not narrowed. */
+.battlefield-screen .selection-overview{flex:0 1 calc(120px * var(--fc-ui-scale) + 110px);min-width:0;max-width:none}
+@media(min-width:1500px) and (min-height:840px){.battlefield-screen .selection-overview{flex-basis:calc(100px * var(--fc-ui-scale) + 200px)}}
+/* Unit names wrap to two whole-word lines (PRECISION / HOWITZER); a third line
+   ends in an ellipsis. The full name stays in the text and the title. */
+.battlefield-screen .selection-overview h2:not(.awaiting-orders){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;white-space:normal;overflow:hidden;text-overflow:ellipsis;overflow-wrap:normal;word-break:normal;hyphens:manual;line-height:1;letter-spacing:.03em}
+
+/* P3: the information column's overflow tabs sit outside its right edge, level with
+   the scroll region (height from --fc-overflow-h), so they never cover text, the
+   scrollbar or the pinned strike decision row. A brass rule marks each clipped edge.
+   No fade mask: it would dim the sticky Confirm/Cancel keys. Static; nothing animates. */
+.battle-information.active .information-overflow{position:absolute;top:0;left:calc(100% + 5px);width:calc(12px * var(--fc-ui-scale) + 7px);height:var(--fc-overflow-h,0px);display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+.battle-information.active .information-overflow>.more-above::after,.battle-information.active .information-overflow>.more-below::before{content:'MORE';writing-mode:vertical-rl;letter-spacing:.06em;font-size:calc(11px * var(--fc-ui-scale))}
+.battle-information.active .battle-information-scroll[data-overflow=above]{box-shadow:0 -2px 0 var(--brass)}
+.battle-information.active .battle-information-scroll[data-overflow=below]{box-shadow:0 2px 0 var(--brass)}
+.battle-information.active .battle-information-scroll[data-overflow=both]{box-shadow:0 -2px 0 var(--brass),0 2px 0 var(--brass)}
+/* Wrapped notices read as left-aligned console lines, not a centred banner. */
+.battle-information.active .battle-alert{text-align:left}
+
+/* P6: where the sidebar scrolls, the strategic-readiness well stays pinned at its
+   foot while cameos and the queue scroll behind it. Its 6px plate border replaces
+   the bottom margin (same geometry), and scroll padding keeps a keyboard-focused
+   tile above the pinned well. */
+@media (max-height:1000px){
+ .battlefield-screen .command-sidebar{scroll-padding-bottom:calc(46px * var(--fc-ui-scale) + 18px)}
+ .battlefield-screen .command-sidebar>.strategic-panel{position:sticky;bottom:0;z-index:2;margin-bottom:0;border-bottom:6px solid #2b2924;box-shadow:inset 0 2px 4px #000,0 1px 0 var(--metal-hi),0 -8px 12px -6px rgba(0,0,0,.75)}
+}

@@ -1,0 +1,39 @@
+{
+  "decision": "reject-v1-for-visible-corridor-blackout",
+  "candidateSHA256": "14a6772156ec236f166d60f30fedd28e582ace5c3be271c995e1db4d6417578a",
+  "rawCourseStatus": "diagnostic-complete",
+  "exitCode": 1,
+  "privacyFloor": "passed",
+  "protectedTriangles": "passed",
+  "cases": 180,
+  "v5PixelMonotonicity": "failed",
+  "lowerCases": 2,
+  "maxDrop": 1,
+  "opaquePixelsLost": 0,
+  "diagnostics": {
+    "page": 0,
+    "console": 0,
+    "warnings": 0,
+    "http": 0,
+    "request": 0,
+    "cdp": 0
+  },
+  "inputsUnchanged": true,
+  "rootDirectlyViewed": {
+    "flat-disk6-current.png": "963406a31b07f052f7ff90755b6fcf1052c7aad7ec05d87699ca6f89bc90f041",
+    "flat-disk6-candidate.png": "ee2150d52e9064a46b65590cbf15bd0f19e8133fe2b809b30d8489632cb6cfc1",
+    "flat-thin-current.png": "61ced8bf2704822920dc195ddb321cc3568cbf85ea5ff8f3dafd67a5c4d2f93d",
+    "flat-thin-candidate.png": "b556ba3fc160a92bf1eace73562bef8059ffd91ba4f65062b0a4734184a7fea7",
+    "flat-mixed-pole-current.png": "07c409d6d0f45297303ccc715f611f573d00aea62aa0c6d25c478ef1e63f31d2",
+    "flat-mixed-pole-candidate.png": "9e05a41d3f0d71d3f7c8ace68db06b8b8ef3cf4be51b933585efce150e5cf7bb",
+    "raised-disk6-candidate.png": "15851cff17baa21d4a42c4a8319170e94144ef74a7066b662df1a94d8366efe1",
+    "raised-mixed-pole-candidate.png": "f5e284186c35b2f6cf36ca723a90545b8f17ad3e0252dcb47b2d00e325186fd2"
+  },
+  "limits": [
+    "Synthetic public geometry and opaque white terrain, no actor or gameplay course.",
+    "The broad MAX rule removes disk poles but blacks out the entire17-tile visible chain and mixed two-tile sighting.",
+    "No native actor/performance or final-art qualification.",
+    "Current GPU alpha lowers1 in two mixed-pole views; zero tolerance gate remains failed.",
+    "Old v4 and v5 failures are not reclassified."
+  ]
+}

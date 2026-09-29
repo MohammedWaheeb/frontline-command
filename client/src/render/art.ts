@@ -81,11 +81,16 @@ export class SpriteSheet {
  }
  async settle(){await Promise.all(this.pages.map(page=>page.pending))}
  private unload(page:AtlasPage){
-  if(page.pending||!page.texture)return;
+  if(page.pending||!page.texture)return 0;
+  const bytes=page.bytes;
   page.generation++;page.alpha=undefined;for(const frame of page.frames.values())frame.texture.destroy(false);page.frames.clear();page.texture=undefined;
-  page.owned?.dispose();page.owned=undefined;
+  page.owned?.dispose();page.owned=undefined;return bytes;
  }
  evictBefore(before:number){for(const page of this.pages)if(page.lastUsed<before)this.unload(page)}
+ /** Only pages untouched during the current complete paint may be reclaimed. */
+ evictionCandidates(before:number){
+  return this.pages.filter(page=>page.texture&&!page.pending&&page.lastUsed<before).map(page=>({lastUsed:page.lastUsed,bytes:page.bytes,evict:()=>page.lastUsed<before?this.unload(page):0}));
+ }
  async dispose(){this.disposed=true;this.lifetime.abort();await this.settle();for(const page of this.pages)this.unload(page);await Promise.all(this.pages.map(page=>page.unloading))}
 }
 
@@ -122,8 +127,19 @@ export class ArtLibrary {
  configure(quality:'auto'|'high'|'standard'){this.scale=quality==='high'?'2x':'1x'}
  get statistics(){return [...this.loaded].reduce((sum,sheet)=>{const next=sheet.statistics;return {indexedPages:sum.indexedPages+next.indexedPages,residentPages:sum.residentPages+next.residentPages,residentBytes:sum.residentBytes+next.residentBytes,pickingBytes:sum.pickingBytes+next.pickingBytes}},{indexedPages:0,residentPages:0,residentBytes:0,pickingBytes:0})}
  async settle(){await Promise.all([...this.loaded].map(sheet=>sheet.settle()))}
- /** Keep current on-screen frames; reclaim animations unused for ten seconds. */
- trim(){const budget=this.scale==='2x'?384*1024*1024:192*1024*1024;if(this.statistics.residentBytes>budget)for(const sheet of this.loaded)sheet.evictBefore(performance.now()-10000)}
+ /** Call after all world, shadow and placement reads in a complete render.
+  * Under pressure, keep that frame's pages and evict oldest unused pages only
+  * until the target is met. The active working set may exceed the soft target.
+  * Callers without a complete paint boundary retain the ten-second grace. */
+ trim(frameStartedAt?:number){
+  const now=performance.now();
+  if(frameStartedAt!==undefined&&(!Number.isFinite(frameStartedAt)||frameStartedAt<0||frameStartedAt>now))throw new RangeError('Invalid completed-frame boundary.');
+  const budget=this.scale==='2x'?384*1024*1024:192*1024*1024;let bytes=this.statistics.residentBytes;
+  if(bytes<=budget)return;
+  if(frameStartedAt===undefined){for(const sheet of this.loaded)sheet.evictBefore(now-10000);return}
+  const candidates=[...this.loaded].flatMap(sheet=>sheet.evictionCandidates(frameStartedAt)).sort((a,b)=>a.lastUsed-b.lastUsed);
+  for(const candidate of candidates){if(bytes<=budget)break;bytes-=candidate.evict()}
+ }
  private captureOptions(){return {...this.options,signal:AbortSignal.any([this.lifetime.signal,...this.options.signal?[this.options.signal]:[]])}}
  async init():Promise<ArtIndex>{
   if(this.closed)throw new DOMException('Art library was disposed.','AbortError');

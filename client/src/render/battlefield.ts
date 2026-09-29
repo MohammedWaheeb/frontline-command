@@ -53,7 +53,7 @@ export class BattlefieldRenderer {
  private readonly surfaceShadows=new SurfaceShadows(this.ground);
  private readonly actorStatuses=new Container();
  private readonly placementGhost:PlacementGhost;private combat:CombatEffects;private effectsReleased:Promise<void>=Promise.resolve();
- private readonly memoryLabels:Container[]=[];private readonly memories:Graphics[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
+ private readonly memoryLabels:Container[]=[];private readonly memories:Container[]=[];private readonly tactical=new Graphics();private readonly overlay=new Graphics();
  private readonly strikePreview=new StrikePreviewOverlay();private readonly tacticalOverlay=new TacticalOverlay();private tacticalModel?:TacticalPresentation;
  private readonly objectSkins=new Map<string,EnvironmentObjectSkin>();
  private readonly actors=new Map<number,ActorVisual>();private environment:EnvironmentRenderer;
@@ -281,14 +281,16 @@ export class BattlefieldRenderer {
    if(!memory.position||snapshot.entities.some(entity=>entity.id===memory.id))continue;
    const i=Math.floor(memory.position.y/1000)*this.options.map.width+Math.floor(memory.position.x/1000);
    if(!snapshot.explored[i])continue;
-   const g=new Graphics(),b=this.options.catalog.buildings.get(physicalArtType(memory)),support=this.surface.footprintSurface(memory.position,memory.footprintWidth||b?.width||2,memory.footprintHeight||b?.height||2),p=projectSurfaceVertex({...memory.position,height:support.height});
+   const g=new Graphics(),holder=new Container(),b=this.options.catalog.buildings.get(physicalArtType(memory)),support=this.surface.footprintSurface(memory.position,memory.footprintWidth||b?.width||2,memory.footprintHeight||b?.height||2),p=projectSurfaceVertex({...memory.position,height:support.height});
    drawStructure(g,{width:memory.footprintWidth||b?.width||2,height:memory.footprintHeight||b?.height||2,role:b?.role??'garrison',paint:0x514d41,team:0x666353,progress:1000,complete:true,health:1000,enabled:false,memory:true});
+   // Preserve the existing inherited memory alpha on both structure and tag.
+   holder.alpha=g.alpha;g.alpha=1;
    // Screen-constant LCD tag: amber text on a dark plate, sized by the UI scale
    // (never below 11px) and rasterised at that size rather than stretched.
    const label=new Container(),text=new Text({text:memoryCaption(memory.seen,snapshot.tick)!,style:{fontFamily:'Arial,sans-serif',fontSize:memoryLabelSize(this.settings.uiScale),fontWeight:'700',letterSpacing:.5,fill:0xf2b340}}),plate=new Graphics();
    text.anchor.set(.5,1);text.position.set(0,-2);plate.rect(-text.width/2-5,-text.height-4,text.width+10,text.height+4).fill({color:0x0b0a09,alpha:.86}).stroke({width:1,color:0x6e5528,alignment:1});
-   label.addChild(plate,text);label.position.set(0,-48);label.eventMode=plate.eventMode=text.eventMode='none';g.addChild(label);this.memoryLabels.push(label);
-   g.position.set(p.x,p.y);g.zIndex=memory.position.x+memory.position.y+((memory.footprintWidth||b?.width||2)+(memory.footprintHeight||b?.height||2))*500+.001;this.memories.push(g);this.ground.addChild(g);
+   label.addChild(plate,text);label.position.set(0,-48);label.eventMode=plate.eventMode=text.eventMode='none';holder.addChild(g,label);this.memoryLabels.push(label);
+   holder.position.set(p.x,p.y);holder.zIndex=memory.position.x+memory.position.y+((memory.footprintWidth||b?.width||2)+(memory.footprintHeight||b?.height||2))*500+.001;this.memories.push(holder);this.ground.addChild(holder);
   }
  }
  private disposeChunk(chunk:Chunk){for(const fragment of chunk.fragments)fragment.dispose();chunk.texture.destroy(true)}
@@ -303,8 +305,21 @@ export class BattlefieldRenderer {
   // avoid packing offscreen diagonals from every admitted chunk each frame.
   const view={left:(-this.world.x-2)/this.camera.zoom,top:(-this.world.y-2)/this.camera.zoom,right:(this.app.screen.width-this.world.x+2)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y+2)/this.camera.zoom};
   const keyBounds=`${minX}:${maxX}:${minY}:${maxY}@${view.left}/${view.top}/${view.right}/${view.bottom}`;if(this.terrainKey===keyBounds)return;
-  const wanted=new Set<string>();let baked=0,pending=false;
+  // The inverse range encloses a diagonal footprint with large unused corners.
+  // Preserve the full existing prefetch guard, admitting only chunks whose
+  // raised geometry envelope can reach it. Fragment culling below stays exact.
+  const prefetch={left:(-this.world.x-600)/this.camera.zoom,top:(-this.world.y-440)/this.camera.zoom,right:(this.app.screen.width-this.world.x+600)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y+440)/this.camera.zoom};
+  const wanted=new Set<string>(),admission:Array<{x:number;y:number;visible:boolean;distance:number}>=[],centerX=(view.left+view.right)/2,centerY=(view.top+view.bottom)/2;let baked=0,pending=false;
   for(let y=minY;y<=Math.min(maxY,this.baker.chunksY-1);y++)for(let x=minX;x<=Math.min(maxX,this.baker.chunksX-1);x++){
+   const bounds=this.baker.chunkBounds(x,y,this.surface.maxHeight);if(bounds.right<prefetch.left||bounds.left>prefetch.right||bounds.bottom<prefetch.top||bounds.top>prefetch.bottom)continue;
+   const visible=bounds.right>=view.left&&bounds.left<=view.right&&bounds.bottom>=view.top&&bounds.top<=view.bottom,dx=Math.max(bounds.left-centerX,0,centerX-bounds.right),dy=Math.max(bounds.top-centerY,0,centerY-bounds.bottom);
+   admission.push({x,y,visible,distance:dx*dx+dy*dy});
+  }
+  // Spend the unchanged two-bake allowance on the viewport before its prefetch
+  // ring. Stable geometric ties retain y/x order; final fragment depths stay
+  // unchanged and continue to control the world painter order.
+  admission.sort((a,b)=>Number(b.visible)-Number(a.visible)||a.distance-b.distance||a.y-b.y||a.x-b.x);
+  for(const {x,y} of admission){
    const key=`${x}:${y}`;wanted.add(key);let chunk=this.chunks.get(key);
    if(!chunk){if(baked>=2){pending=true;continue}const texture=this.baker.bake(x,y,true),fragments=this.baker.surfaceFragments(x,y,texture,this.surface);for(const fragment of fragments){fragment.setFog(this.snapshot?.visible??[],this.snapshot?.explored??[]);this.ground.addChild(fragment.mesh,fragment.fog)}chunk={texture,fragments,used:this.frame,visible:true};this.chunks.set(key,chunk);baked++}
    chunk.visible=true;for(const fragment of chunk.fragments){const b=fragment.bounds;fragment.setVisible(b.right>=view.left&&b.left<=view.right&&b.bottom>=view.top&&b.top<=view.bottom)}chunk.used=this.frame;
@@ -340,18 +355,23 @@ export class BattlefieldRenderer {
   if(this.settings.edgeScroll&&this.pointer&&!this.drag){const p=this.pointer,w=this.app.screen.width,h=this.app.screen.height,s=7*this.settings.scrollSpeed;this.pan(p.x<12?-s:p.x>w-12?s:0,p.y<12?-s:p.y>h-12?s:0)}
   this.environment.render(owner=>this.team(owner),{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom});
   for(const actor of this.actors.values()){
+   // Culled actors skip painting, but their last ink bounds must follow the
+   // authorized interpolated ground position so they can enter the view again.
+   if(!actor.root.visible){const p=actor.groundAnchor(now,this.settings.reducedMotion);actor.root.position.set(p.x,p.y)}
    const bounds=this.bounds(actor.entity);actor.root.visible=!!bounds&&bounds.right>=-200&&bounds.left<=this.app.screen.width+200&&bounds.bottom>=-200&&bounds.top<=this.app.screen.height+200;
    if(actor.terrainShadow)actor.terrainShadow.visible=actor.root.visible;
    if(actor.root.visible)actor.render(now,this.team(actor.entity.owner),this.selected.has(actor.id),this.settings.healthBars,this.settings.reducedMotion,this.camera.zoom,this.selected.size<=4);else actor.hideStatus();
   }
   for(let i=this.deaths.length-1;i>=0;i--){const death=this.deaths[i];if(now>=death.until){death.actor.dispose();this.deaths.splice(i,1);continue}death.actor.render(now,this.team(death.actor.entity.owner),false,'selected',this.settings.reducedMotion);death.actor.root.alpha=Math.min(1,(death.until-now)/700);if(death.actor.terrainShadow)death.actor.terrainShadow.alpha=death.actor.root.alpha}
   this.surfaceShadows.update([...this.actors.values()].filter(actor=>actor.root.visible).flatMap(actor=>actor.shadowPlates).concat(this.deaths.flatMap(({actor,until})=>actor.shadowPlates.map(plate=>({...plate,alpha:plate.alpha*Math.min(1,(until-now)/700)}))),this.environment.shadowPlates),this.surface,this.snapshot?.visible,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom,zoom:this.camera.zoom});
-  if(this.frame%60===0){this.options.art.trim();void this.combat.trim()}
+  if(this.frame%60===0)void this.combat.trim();
   this.combat.draw(this.surface,this.camera.zoom,this.settings,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom},id=>this.actors.get(id)?.visualAltitude(now,this.settings.reducedMotion),(id,eventID)=>this.actors.get(id)?.muzzleAttachment(eventID),id=>{const actor=this.actors.get(id);return actor?.root.visible?actor.root.position:undefined});
   for(const label of this.memoryLabels)label.scale.set(1/this.camera.zoom);
   this.drawTactical(now);this.overlay.clear();
   if(this.drag&&this.drag.button!==this.settings.bindings.pointer.pan&&Math.hypot(this.drag.start.x-this.drag.last.x,this.drag.start.y-this.drag.last.y)>=this.settings.dragThreshold){const a=this.drag.start,b=this.drag.last;this.overlay.rect(Math.min(a.x,b.x),Math.min(a.y,b.y),Math.abs(a.x-b.x),Math.abs(a.y-b.y)).fill({color:0xbcce88,alpha:.08}).stroke({width:1,color:0xc7d895})}
   this.paintMinimap(now);
+  // Every displayed world/placement page has now been touched for this frame.
+  if(this.frame%60===0)this.options.art.trim(now);
  }
  /** Attaches one HUD minimap. Draws immediately when a snapshot exists, then only when dirtied. The returned detach is a no-op once another canvas replaced it. */
  attachMinimap(canvas:HTMLCanvasElement):()=>void{
