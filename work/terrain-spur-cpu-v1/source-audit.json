@@ -1,0 +1,14 @@
+{
+  "candidateSHA256": "14a6772156ec236f166d60f30fedd28e582ace5c3be271c995e1db4d6417578a",
+  "baselineSHA256": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005",
+  "exactImports": [
+    "import {Texture,Mesh,MeshGeometry} from 'pixi.js';",
+    "import type {GameMap,Rect} from '../runtime';",
+    "import {HALF_H,HALF_W,LEVEL_PX} from './iso';",
+    "import type {ArtLibrary} from './art';",
+    "import {MATERIALS,materialFor,heightAt,terrainAt,type Material} from './terrain-materials';",
+    "import {TerrainSurface,projectSurfaceVertex,compareSurfaceTriangles,surfaceFogOpacity,type SurfaceTriangle} from './terrain-surface';"
+  ],
+  "outsideTwoFunctionsByteExact": true,
+  "scope": "Byte comparison excluding only two uniquely delimited exported-function/comment regions; no rewrite or transformed exports used."
+}

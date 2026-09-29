@@ -1,0 +1,213 @@
+{
+  "inputs": {
+    "source/work/renderer-performance-v1/candidate/client/src/render/iso.ts": {
+      "bytes": 1562,
+      "imports": [],
+      "format": "esm"
+    },
+    "source/work/renderer-performance-v1/candidate/client/src/render/terrain-surface.ts": {
+      "bytes": 12447,
+      "imports": [
+        {
+          "path": "source/work/renderer-performance-v1/candidate/client/src/render/iso.ts",
+          "kind": "import-statement",
+          "original": "./iso"
+        }
+      ],
+      "format": "esm"
+    },
+    "source/work/claude/fog-spur-max-v1/iso.ts": {
+      "bytes": 1562,
+      "imports": [],
+      "format": "esm"
+    },
+    "source/work/claude/fog-spur-max-v1/terrain-materials.ts": {
+      "bytes": 2155,
+      "imports": [],
+      "format": "esm"
+    },
+    "source/work/claude/fog-spur-max-v1/terrain-surface.ts": {
+      "bytes": 12447,
+      "imports": [
+        {
+          "path": "source/work/claude/fog-spur-max-v1/iso.ts",
+          "kind": "import-statement",
+          "original": "./iso"
+        }
+      ],
+      "format": "esm"
+    },
+    "source/work/claude/fog-spur-max-v1/candidate-terrain.ts": {
+      "bytes": 21777,
+      "imports": [
+        {
+          "path": "pixi.js",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "source/work/claude/fog-spur-max-v1/iso.ts",
+          "kind": "import-statement",
+          "original": "./iso"
+        },
+        {
+          "path": "source/work/claude/fog-spur-max-v1/terrain-materials.ts",
+          "kind": "import-statement",
+          "original": "./terrain-materials"
+        },
+        {
+          "path": "source/work/claude/fog-spur-max-v1/terrain-surface.ts",
+          "kind": "import-statement",
+          "original": "./terrain-surface"
+        },
+        {
+          "path": "source/work/claude/fog-spur-max-v1/terrain-materials.ts",
+          "kind": "import-statement",
+          "original": "./terrain-materials"
+        }
+      ],
+      "format": "esm"
+    },
+    "source/work/renderer-performance-v1/combined-candidate/client/src/render/iso.ts": {
+      "bytes": 1562,
+      "imports": [],
+      "format": "esm"
+    },
+    "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain-materials.ts": {
+      "bytes": 2155,
+      "imports": [],
+      "format": "esm"
+    },
+    "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain-surface.ts": {
+      "bytes": 12447,
+      "imports": [
+        {
+          "path": "source/work/renderer-performance-v1/combined-candidate/client/src/render/iso.ts",
+          "kind": "import-statement",
+          "original": "./iso"
+        }
+      ],
+      "format": "esm"
+    },
+    "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts": {
+      "bytes": 20612,
+      "imports": [
+        {
+          "path": "pixi.js",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "source/work/renderer-performance-v1/combined-candidate/client/src/render/iso.ts",
+          "kind": "import-statement",
+          "original": "./iso"
+        },
+        {
+          "path": "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain-materials.ts",
+          "kind": "import-statement",
+          "original": "./terrain-materials"
+        },
+        {
+          "path": "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain-surface.ts",
+          "kind": "import-statement",
+          "original": "./terrain-surface"
+        },
+        {
+          "path": "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain-materials.ts",
+          "kind": "import-statement",
+          "original": "./terrain-materials"
+        }
+      ],
+      "format": "esm"
+    },
+    "source/work/claude/fog-spur-max-v1/fog-spur.test.ts": {
+      "bytes": 17467,
+      "imports": [
+        {
+          "path": "node:test",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "source/work/renderer-performance-v1/candidate/client/src/render/terrain-surface.ts",
+          "kind": "import-statement",
+          "original": "../../renderer-performance-v1/candidate/client/src/render/terrain-surface"
+        },
+        {
+          "path": "source/work/claude/fog-spur-max-v1/candidate-terrain.ts",
+          "kind": "import-statement",
+          "original": "./candidate-terrain"
+        },
+        {
+          "path": "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts",
+          "kind": "import-statement",
+          "original": "../../renderer-performance-v1/combined-candidate/client/src/render/terrain"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "authored-tests.mjs.map": {
+      "imports": [],
+      "exports": [],
+      "inputs": {},
+      "bytes": 134431
+    },
+    "authored-tests.mjs": {
+      "imports": [
+        {
+          "path": "node:test",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "node:assert/strict",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "pixi.js",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "pixi.js",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "exports": [],
+      "entryPoint": "source/work/claude/fog-spur-max-v1/fog-spur.test.ts",
+      "inputs": {
+        "source/work/claude/fog-spur-max-v1/fog-spur.test.ts": {
+          "bytesInOutput": 17547
+        },
+        "source/work/renderer-performance-v1/candidate/client/src/render/iso.ts": {
+          "bytesInOutput": 306
+        },
+        "source/work/renderer-performance-v1/candidate/client/src/render/terrain-surface.ts": {
+          "bytesInOutput": 11995
+        },
+        "source/work/claude/fog-spur-max-v1/candidate-terrain.ts": {
+          "bytesInOutput": 3664
+        },
+        "source/work/claude/fog-spur-max-v1/terrain-surface.ts": {
+          "bytesInOutput": 246
+        },
+        "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain.ts": {
+          "bytesInOutput": 3123
+        },
+        "source/work/renderer-performance-v1/combined-candidate/client/src/render/terrain-surface.ts": {
+          "bytesInOutput": 246
+        }
+      },
+      "bytes": 37894
+    }
+  }
+}

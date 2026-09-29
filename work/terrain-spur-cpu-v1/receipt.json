@@ -1,0 +1,132 @@
+{
+  "at": "2026-09-29T20:33:31.735348+00:00",
+  "status": "9CPU-and-strict-types-pass",
+  "scope": "No GPU/browser/production mutation or privacy-pixel acceptance.",
+  "candidateSHA256": "14a6772156ec236f166d60f30fedd28e582ace5c3be271c995e1db4d6417578a",
+  "authoredTestsSHA256": "37d72d6a82750753d8d3c558392d4e982bdfe049c8de99178547d99b6e5add63",
+  "baselineSHA256": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005",
+  "sourceGuard": {
+    "copies": 414,
+    "allOriginalAndCopiedBytesExactAfter": true
+  },
+  "archive": {
+    "path": "source.tar.gz",
+    "bytes": 1105543,
+    "sha256": "78c2e4a5bee1021f6b4bd1c4c3f75b57f3c75c8ec3d710e816ec4fa670ed7438",
+    "verifiedMembers": 414
+  },
+  "memory": {
+    "heapCeilingMiB": 768,
+    "maximumRSSBytes": 189136896,
+    "wallSeconds": 1.8,
+    "noBenchmarkClaim": true
+  },
+  "nativeTypescript": {
+    "path": "client/node_modules/@typescript/typescript-darwin-arm64/lib/tsc",
+    "bytes": 23653616,
+    "sha256": "a82f731365ad69d5c4c15f5e18fba4584bf3b7b839960172a76c3462b5114bf2"
+  },
+  "nodeVersion": "v26.5.0",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 21,
+      "sha256": "3865c171d307fc2c447fb40c0403e75ad5ba2a47f2ed5a69f64234fba5fe5ea1"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6774,
+      "sha256": "642a9803a13120a19afeb51f625475df5fa16185df57c8dd3c5a240a43ca20a9"
+    },
+    {
+      "path": "archive-01-failure.json",
+      "bytes": 354,
+      "sha256": "73565a9d357e3f76b8a860ee895471bf720b6379acd53be649066c341cadc658"
+    },
+    {
+      "path": "author-report.md",
+      "bytes": 9965,
+      "sha256": "2ed42c646060b2bbfeb7f9e0b0252db08a5c40c77a5eb0ec082ae47778fe40b7"
+    },
+    {
+      "path": "authored-tests.mjs",
+      "bytes": 37894,
+      "sha256": "c97ba8cea3d56fac62cc63ae29da5d426bc80545d04392bfe9beb27b2ac6bc0d"
+    },
+    {
+      "path": "authored-tests.mjs.map",
+      "bytes": 134431,
+      "sha256": "7f1cb0f7fb2c503abb0b9508cb80d6d4fa5d529bf0488da9a3ef2d58878983e7"
+    },
+    {
+      "path": "build-01.log",
+      "bytes": 1222,
+      "sha256": "37063e27b82583e22042cc88470b90f6a035b5ac9834de375d560cfa4e2162f9"
+    },
+    {
+      "path": "build-02.log",
+      "bytes": 1144,
+      "sha256": "1ca9704c12cd04f444233c9582cb039039821592cc9c13d28eacdf46deb44260"
+    },
+    {
+      "path": "build-receipt.json",
+      "bytes": 1884,
+      "sha256": "81a05407fb6043d64baa7414739ffb7c02bab151faf8b6bee0cb5207ae451ff6"
+    },
+    {
+      "path": "bundle-metafile.json",
+      "bytes": 6638,
+      "sha256": "9134fbe6bb307fe7b2fbca8b1c3aee93f694c7a507be323df884a38cc5c2e22d"
+    },
+    {
+      "path": "candidate.diff",
+      "bytes": 4944,
+      "sha256": "c52d3020b244010eb07df1e5a10472f81ddef7cd08c9e76d768ae2530e776e49"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 149912,
+      "sha256": "46bfb1b96044938628b57a3cc16ef3b1687b70eaf1b2ba97e3c45dba63995525"
+    },
+    {
+      "path": "cpu-01.log",
+      "bytes": 1945,
+      "sha256": "40f3c8fea0192967ad914bf1ed48daff01a29e988d9509d53ecc3604bef590b4"
+    },
+    {
+      "path": "host-before.txt",
+      "bytes": 1247,
+      "sha256": "d740deb1f85152ca61a14837897ccb6d067f7ca7e115acff55ca86a99801ce4c"
+    },
+    {
+      "path": "prepare-before-typescript7.mjs",
+      "bytes": 3218,
+      "sha256": "29ae6941f0f0053938b61b654736232ca7a92cc2dd0854239a201dfeec19be3c"
+    },
+    {
+      "path": "prepare.mjs",
+      "bytes": 3157,
+      "sha256": "ee2b9f4284091cda32bbafea24a2eef2fb613573341f50bbd6094a6f2faf507f"
+    },
+    {
+      "path": "source-archive-before-report.tar.gz",
+      "bytes": 1101106,
+      "sha256": "e7779cebf3a4fb94709cd6ad961311c90ab6903f26058ce88dd14382b8a99508"
+    },
+    {
+      "path": "source-audit.json",
+      "bytes": 837,
+      "sha256": "63bd0239eaf99eac7ec24fbf8bb7b8501e4907bb79cb53545e45454a4a564f44"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 426,
+      "sha256": "645a08a86f267747fb1dc6bb5b3cf2140c2b5968d87f7bdb66887b7cdbc0522e"
+    },
+    {
+      "path": "types-01.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "sourceAudit": {
+    "candidateSHA256": "14a6772156ec236f166d60f30fedd28e582ace5c3be271c995e1db4d6417578a",
+    "baselineSHA256": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005",
+    "exactImports": [
+      "import {Texture,Mesh,MeshGeometry} from 'pixi.js';",
+      "import type {GameMap,Rect} from '../runtime';",
+      "import {HALF_H,HALF_W,LEVEL_PX} from './iso';",
+      "import type {ArtLibrary} from './art';",
+      "import {MATERIALS,materialFor,heightAt,terrainAt,type Material} from './terrain-materials';",
+      "import {TerrainSurface,projectSurfaceVertex,compareSurfaceTriangles,surfaceFogOpacity,type SurfaceTriangle} from './terrain-surface';"
+    ],
+    "outsideTwoFunctionsByteExact": true,
+    "scope": "Byte comparison excluding only two uniquely delimited exported-function/comment regions; no rewrite or transformed exports used."
+  },
+  "tools": [
+    {
+      "path": "client/node_modules/pixi.js/package.json",
+      "sha256": "f7fa3c67a46f7595b490250af98dcbb8dec1af1277537a2592643a1de43b621e",
+      "bytes": 12404,
+      "version": "8.21.0"
+    },
+    {
+      "path": "client/node_modules/pixi.js/lib/index.mjs",
+      "sha256": "f52f855e3956c80ea36c890d04d93216d54a457c9f0d40c3c1ce55a972f63eb1",
+      "bytes": 53888
+    },
+    {
+      "path": "client/node_modules/esbuild/package.json",
+      "sha256": "9d0bc453f4e791553c4cc2298ba023b409241fd9801e494741666eb0f6051490",
+      "bytes": 3980,
+      "version": "0.28.2"
+    },
+    {
+      "path": "client/node_modules/typescript/package.json",
+      "sha256": "3722b30210616a13a3213ded11575ba6b2dbab10c32a5ef67afca8513e27017e",
+      "bytes": 3087,
+      "version": "7.0.2"
+    }
+  ],
+  "metafileSHA256": "9134fbe6bb307fe7b2fbca8b1c3aee93f694c7a507be323df884a38cc5c2e22d",
+  "bundleSHA256": "c97ba8cea3d56fac62cc63ae29da5d426bc80545d04392bfe9beb27b2ac6bc0d",
+  "sourceCopies": 414
+}

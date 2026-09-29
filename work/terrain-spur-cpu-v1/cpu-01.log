@@ -1,0 +1,35 @@
+✔ S0 the recorded MIN-fill counterexample is preserved: MIN lowers vertices and an interior sample, MAX does not (2.6235ms)
+✔ S1 all 19683 public 3x3 masks, flat and raised: exact oracle, protected triangles equal, no vertex drops (798.346916ms)
+✔ S2 solitary sightings keep the capped centre in both fragments; diagonal-only contact is solitary (2.007125ms)
+✔ S3 existing straight-edge coplanarity and interior-clear cases are exactly the frozen alphas (3.119042ms)
+✔ S4 raised/cliff random views: remembered, unknown and face vertices exact; only spur fans change (35.063333ms)
+✔ S5 every cardinal neighbour the fill reads is a fogTiles dependency, at map edges and chunk seams (463.455584ms)
+✔ S6 vision disks r=2..14: poles are MAX-filled and no connected no-clear-corner tile keeps a bright centre (127.3815ms)
+✔ S7 in-place shrink/regrow through the memoized setFog model matches a fresh recompute (198.996833ms)
+✔ S8 documented tradeoff: a one-tile-wide visible corridor is filled end to end at its darkest corner (1.083917ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1779.008709
+        1.80 real         2.21 user         0.06 sys
+           189136896  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               15251  page reclaims
+                 165  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                  55  messages sent
+                  11  messages received
+                   0  signals received
+                   0  voluntary context switches
+                2979  involuntary context switches
+           474949436  instructions retired
+           158791678  cycles elapsed
+            16877848  peak memory footprint
