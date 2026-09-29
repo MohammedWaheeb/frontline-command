@@ -1,0 +1,30 @@
+{
+  "scope": "Read-only source/result/hash audit; no browser or source edits",
+  "pins": {
+    "work/menu-generation-consumer-v1/menu-browser.mjs": "f1729337287633c417464997ac2a66405535b468cd6e732d0aa67b6a7284e826",
+    "work/menu-generation-consumer-v1/menu-fixture.tsx": "99d15bd52d7440d5140092779687a2a6acf1e85fa017b10e831f8be6521dab6a",
+    "work/menu-generation-consumer-v1/chromium-01/result.json": "1e52c6f5a92a84fd5998a62b21c643d2c2cea47db014bc37a73a858d1207629b",
+    "work/menu-generation-consumer-v1/chromium-01/menu-browser.mjs": "f1729337287633c417464997ac2a66405535b468cd6e732d0aa67b6a7284e826",
+    "work/menu-generation-consumer-v1/chromium-01/menu-fixture.tsx": "99d15bd52d7440d5140092779687a2a6acf1e85fa017b10e831f8be6521dab6a"
+  },
+  "reportedStatus": "failed",
+  "functional": "passed",
+  "diagnostics": "failed",
+  "checks": 8,
+  "sourcePins": 349,
+  "requestFailurePhases": {
+    "baseline-canvas-1600": 1,
+    "candidate-canvas-1600": 32,
+    "candidate-canvas-1280": 23,
+    "candidate-painted": 1,
+    "successful-painted-replacement": 1,
+    "unmount-delayed-page": 3,
+    "replace-delayed-page": 26,
+    "resize-delayed-page": 20
+  },
+  "rawFailures": 107,
+  "errors": 0,
+  "consoleErrors": 0,
+  "httpErrors": 0,
+  "inputsUnchanged": true
+}
