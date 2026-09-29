@@ -1,0 +1,199 @@
+{
+  "scope": "Read-only run03 delta/source/log/header audit; no database opens or execution.",
+  "receiptSHA256": "50a0d8c498190e0dd75e96df89f04ddb50e56d5c5b77d924595e0ddf4f87ad41",
+  "status": "passed",
+  "pins": {
+    "original-run.py": "8cfef958c33d6c354f6d4653a3b43bb317d61f39be87e8eb0c74cec3ed7c4d17",
+    "original-seed.go": "bd8d2680dca0fa22c9f1ce67e83e887536ee0822b4e5687456258bd08efcc99d",
+    "original-verify.go": "758239149a2f0a03b31514b42c3264a9f88dc9f48732a47c7cb31c93b1df6e2e"
+  },
+  "sources": [
+    {
+      "source": "current-source",
+      "files": 16,
+      "mismatches": []
+    },
+    {
+      "source": "historical-6",
+      "files": 13,
+      "mismatches": []
+    },
+    {
+      "source": "historical-7",
+      "files": 15,
+      "mismatches": []
+    }
+  ],
+  "logs": [
+    {
+      "name": "current-source-build",
+      "exit": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "historical-6-build",
+      "exit": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "seed-6",
+      "exit": 0,
+      "sha256": "bc00a5ea2c4d56ff8a1acab0217deb696c268b5827e25ba5a843324199bb45a4"
+    },
+    {
+      "name": "upgrade-6",
+      "exit": 0,
+      "sha256": "f1ba36be2eac642f0543c5b9f0c72de0ae989ce3901afbd0e14c916994677276"
+    },
+    {
+      "name": "reopen-6",
+      "exit": 0,
+      "sha256": "f1ba36be2eac642f0543c5b9f0c72de0ae989ce3901afbd0e14c916994677276"
+    },
+    {
+      "name": "backup-6",
+      "exit": 0,
+      "sha256": "70432690bc2072135353f2addc7dd2d0c5283b1260eaa55e6aa894042d4620b0"
+    },
+    {
+      "name": "verify-backup-6",
+      "exit": 0,
+      "sha256": "f1ba36be2eac642f0543c5b9f0c72de0ae989ce3901afbd0e14c916994677276"
+    },
+    {
+      "name": "verify-tombstone-6",
+      "exit": 0,
+      "sha256": "3f0e8c355bfc49440935cdc82431c67dbb23f4ce100c3fe6f978041425de5290"
+    },
+    {
+      "name": "future-6",
+      "exit": 0,
+      "sha256": "bc84e2b85f2471f85e55f04ab92a2b6c2cce15266992e59e7f54938162d6ecda"
+    },
+    {
+      "name": "corrupt-6",
+      "exit": 0,
+      "sha256": "d5421b2c553c787cb13c3039e40c7df67c18197f07ccb86b735832999c8c4f87"
+    },
+    {
+      "name": "historical-7-build",
+      "exit": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "seed-7",
+      "exit": 0,
+      "sha256": "bc00a5ea2c4d56ff8a1acab0217deb696c268b5827e25ba5a843324199bb45a4"
+    },
+    {
+      "name": "upgrade-7",
+      "exit": 0,
+      "sha256": "f1ba36be2eac642f0543c5b9f0c72de0ae989ce3901afbd0e14c916994677276"
+    },
+    {
+      "name": "reopen-7",
+      "exit": 0,
+      "sha256": "f1ba36be2eac642f0543c5b9f0c72de0ae989ce3901afbd0e14c916994677276"
+    },
+    {
+      "name": "backup-7",
+      "exit": 0,
+      "sha256": "70432690bc2072135353f2addc7dd2d0c5283b1260eaa55e6aa894042d4620b0"
+    },
+    {
+      "name": "verify-backup-7",
+      "exit": 0,
+      "sha256": "f1ba36be2eac642f0543c5b9f0c72de0ae989ce3901afbd0e14c916994677276"
+    },
+    {
+      "name": "verify-tombstone-7",
+      "exit": 0,
+      "sha256": "3f0e8c355bfc49440935cdc82431c67dbb23f4ce100c3fe6f978041425de5290"
+    },
+    {
+      "name": "future-7",
+      "exit": 0,
+      "sha256": "bc84e2b85f2471f85e55f04ab92a2b6c2cce15266992e59e7f54938162d6ecda"
+    },
+    {
+      "name": "corrupt-7",
+      "exit": 0,
+      "sha256": "d5421b2c553c787cb13c3039e40c7df67c18197f07ccb86b735832999c8c4f87"
+    }
+  ],
+  "invalidDirectories": [
+    {
+      "name": "corrupt schema 6",
+      "headerUserVersion": null,
+      "files": {
+        "fixture-identity.json": {
+          "bytes": 146,
+          "sha256": "e9ae80ff7cfe6a426f52b2819a9fd438509fcb3a4f16ccedf1eec7d466d3058f"
+        },
+        "frontline.db": {
+          "bytes": 122,
+          "sha256": "c63f34f17fd7fe3d5f64c37d292510c03dfa0dd8c5afff2d95c8b6bda1dde695"
+        },
+        "objects/exact-replay": {
+          "bytes": 3706,
+          "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38"
+        }
+      }
+    },
+    {
+      "name": "corrupt schema 7",
+      "headerUserVersion": null,
+      "files": {
+        "fixture-identity.json": {
+          "bytes": 146,
+          "sha256": "4ff594bf7e38c06bad2e942d1e61ab2b2521404764829f96f2c48a0449c4ac80"
+        },
+        "frontline.db": {
+          "bytes": 122,
+          "sha256": "fd3ca3fec22cdfb30b1491393b1a11ac43ef81468355b5ab74aaf76f77411f43"
+        },
+        "objects/exact-replay": {
+          "bytes": 3706,
+          "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38"
+        }
+      }
+    },
+    {
+      "name": "future schema 6",
+      "headerUserVersion": 9,
+      "files": {
+        "fixture-identity.json": {
+          "bytes": 146,
+          "sha256": "e9ae80ff7cfe6a426f52b2819a9fd438509fcb3a4f16ccedf1eec7d466d3058f"
+        },
+        "frontline.db": {
+          "bytes": 548864,
+          "sha256": "af977c2e54ef0bb7fe0cbff4302cea0c349f87c92e1a60988cb8ff72937c8d25"
+        },
+        "objects/exact-replay": {
+          "bytes": 3706,
+          "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38"
+        }
+      }
+    },
+    {
+      "name": "future schema 7",
+      "headerUserVersion": 9,
+      "files": {
+        "fixture-identity.json": {
+          "bytes": 146,
+          "sha256": "4ff594bf7e38c06bad2e942d1e61ab2b2521404764829f96f2c48a0449c4ac80"
+        },
+        "frontline.db": {
+          "bytes": 585728,
+          "sha256": "f8d2b978dcc67eb210258cf43d4d4e976ae56cdef894e3b4b66737d5d6af88f8"
+        },
+        "objects/exact-replay": {
+          "bytes": 3706,
+          "sha256": "18d2c303eee3063b4eb307236fd2d997013b561a93628d1ffd729a5430fccb38"
+        }
+      }
+    }
+  ],
+  "conclusion": "Both run02 review findings corrected in separately preserved run03; remaining scope limits unchanged."
+}
