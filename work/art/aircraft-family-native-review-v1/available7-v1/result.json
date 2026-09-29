@@ -1,0 +1,1552 @@
+{
+  "scope": "Read-only native family comparison from exact completed handoffs. No active/raw input, pixel resampling, model edit, promotion or superseding acceptance. Shared warm team tint exposes geometry; cosmetic ground-level source composition does not depict flight altitude or actual runtime service.",
+  "catalog": "work/art/roster-runtime-overlay-v1/catalog-v56-v1/result.json",
+  "completed_coverage": 7,
+  "planned_aircraft": 12,
+  "pending_full_handoffs": [
+    "unit.US.strike",
+    "unit.SA.fighter",
+    "unit.SA.strike",
+    "unit.SA.gunship",
+    "unit.SY.scout_drone"
+  ],
+  "heading": 3,
+  "unarmed_second_column": "parked, explicitly labeled; no invented empty payload state",
+  "assets": [
+    {
+      "id": "unit.US.fighter",
+      "handoff": "work/art/aircraft-final-production-v1/runtime-handoff/unit.US.fighter.json",
+      "sha256": "a251de3464e3e334122d53033524e8b4198548a31d68731de421f2459895662f",
+      "tuples": [
+        [
+          "fly",
+          3,
+          0,
+          "flight (loaded)"
+        ],
+        [
+          "empty",
+          3,
+          0,
+          "flight (empty)"
+        ],
+        [
+          "rearm",
+          3,
+          3,
+          "service (generic loaded)"
+        ]
+      ]
+    },
+    {
+      "id": "unit.US.gunship",
+      "handoff": "work/art/aircraft-final-production-v2/runtime-handoff/unit.US.gunship.json",
+      "sha256": "39d0bf33a2cd1c8201e7e1b9dca78ede82fd85d01f04b17c41b1dec14330c838",
+      "tuples": [
+        [
+          "hover",
+          3,
+          0,
+          "flight (loaded)"
+        ],
+        [
+          "empty",
+          3,
+          0,
+          "flight (empty)"
+        ],
+        [
+          "rearm",
+          3,
+          3,
+          "service (generic loaded)"
+        ]
+      ]
+    },
+    {
+      "id": "unit.US.airlift",
+      "handoff": "work/art/aircraft-final-production-v2/runtime-handoff/unit.US.airlift.json",
+      "sha256": "428059df28bd0d1295e3b854856faf407277278d045d5c8393365d89791fecfb",
+      "tuples": [
+        [
+          "hover",
+          3,
+          0,
+          "flight (unarmed)"
+        ],
+        [
+          "parked",
+          3,
+          0,
+          "parked (unarmed)"
+        ],
+        [
+          "rearm",
+          3,
+          3,
+          "service (unarmed)"
+        ]
+      ]
+    },
+    {
+      "id": "unit.IR.fighter",
+      "handoff": "work/art/aircraft-final-production-v3/runtime-handoff/unit.IR.fighter.json",
+      "sha256": "1f6578903b83a790042640ede6337b5146e6ce078436abe30eef26b39c0bd028",
+      "tuples": [
+        [
+          "fly",
+          3,
+          0,
+          "flight (loaded)"
+        ],
+        [
+          "empty",
+          3,
+          0,
+          "flight (empty)"
+        ],
+        [
+          "rearm",
+          3,
+          3,
+          "service (generic loaded)"
+        ]
+      ]
+    },
+    {
+      "id": "unit.IR.strike",
+      "handoff": "work/art/legacy-ir-strike-production-v1/runtime-handoff.json",
+      "sha256": "0e6031581748103446d51911c5e1dbc77b9b9ac3893b4a67c26c99fdac7adb34",
+      "tuples": [
+        [
+          "fly",
+          3,
+          0,
+          "flight (loaded)"
+        ],
+        [
+          "empty",
+          3,
+          0,
+          "flight (empty)"
+        ],
+        [
+          "rearm",
+          3,
+          3,
+          "service (generic loaded)"
+        ]
+      ]
+    },
+    {
+      "id": "unit.IR.gunship",
+      "handoff": "work/art/aircraft-final-production-v3/runtime-handoff/unit.IR.gunship.json",
+      "sha256": "07a649737216649e4c8ae0baf98f74fe65ce9483139a87f6ef3e2bc0bb86fa49",
+      "tuples": [
+        [
+          "fly",
+          3,
+          0,
+          "flight (loaded)"
+        ],
+        [
+          "empty",
+          3,
+          0,
+          "flight (empty)"
+        ],
+        [
+          "rearm",
+          3,
+          3,
+          "service (generic loaded)"
+        ]
+      ]
+    },
+    {
+      "id": "unit.IR.isr",
+      "handoff": "work/art/aircraft-final-production-v3/runtime-handoff/unit.IR.isr.json",
+      "sha256": "80ee0525cabb3136cfb340e235c57354e7c90115cc31ac31fb7f20764ff4df91",
+      "tuples": [
+        [
+          "fly",
+          3,
+          0,
+          "flight (unarmed)"
+        ],
+        [
+          "parked",
+          3,
+          0,
+          "parked (unarmed)"
+        ],
+        [
+          "rearm",
+          3,
+          3,
+          "service (unarmed)"
+        ]
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "id": "unit.US.fighter",
+      "scale": "1x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        110,
+        94
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        65,
+        107
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.fighter",
+      "scale": "1x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        110,
+        94
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        305,
+        107
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.fighter",
+      "scale": "1x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        110,
+        94
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        545,
+        107
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.gunship",
+      "scale": "1x",
+      "key": "hover/d03_f00",
+      "packed_anchor_2x": [
+        138,
+        130
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        51,
+        305
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.gunship",
+      "scale": "1x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        138,
+        130
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        291,
+        305
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.gunship",
+      "scale": "1x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        138,
+        130
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        531,
+        305
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.airlift",
+      "scale": "1x",
+      "key": "hover/d03_f00",
+      "packed_anchor_2x": [
+        140,
+        148
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        50,
+        512
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.airlift",
+      "scale": "1x",
+      "key": "parked/d03_f00",
+      "packed_anchor_2x": [
+        140,
+        148
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        290,
+        512
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.airlift",
+      "scale": "1x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        140,
+        148
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        530,
+        512
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.fighter",
+      "scale": "1x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        96,
+        74
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        72,
+        117
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.fighter",
+      "scale": "1x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        96,
+        74
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        312,
+        117
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.fighter",
+      "scale": "1x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        96,
+        74
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        552,
+        117
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.strike",
+      "scale": "1x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        90,
+        70
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        75,
+        335
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.strike",
+      "scale": "1x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        90,
+        70
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        315,
+        335
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.strike",
+      "scale": "1x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        90,
+        70
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        555,
+        335
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.gunship",
+      "scale": "1x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        104,
+        88
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        68,
+        542
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.gunship",
+      "scale": "1x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        104,
+        88
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        308,
+        542
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.gunship",
+      "scale": "1x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        104,
+        88
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        548,
+        542
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.isr",
+      "scale": "1x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        116,
+        96
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        62,
+        106
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.isr",
+      "scale": "1x",
+      "key": "parked/d03_f00",
+      "packed_anchor_2x": [
+        116,
+        96
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        302,
+        106
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.isr",
+      "scale": "1x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        116,
+        96
+      ],
+      "cell_ground_anchor": [
+        120,
+        154
+      ],
+      "integer_origin": [
+        542,
+        106
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.fighter",
+      "scale": "2x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        110,
+        94
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        130,
+        214
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.fighter",
+      "scale": "2x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        110,
+        94
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        610,
+        214
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.fighter",
+      "scale": "2x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        110,
+        94
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        1090,
+        214
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.gunship",
+      "scale": "2x",
+      "key": "hover/d03_f00",
+      "packed_anchor_2x": [
+        138,
+        130
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        102,
+        610
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.gunship",
+      "scale": "2x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        138,
+        130
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        582,
+        610
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.gunship",
+      "scale": "2x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        138,
+        130
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        1062,
+        610
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.airlift",
+      "scale": "2x",
+      "key": "hover/d03_f00",
+      "packed_anchor_2x": [
+        140,
+        148
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        100,
+        1024
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.airlift",
+      "scale": "2x",
+      "key": "parked/d03_f00",
+      "packed_anchor_2x": [
+        140,
+        148
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        580,
+        1024
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.US.airlift",
+      "scale": "2x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        140,
+        148
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        1060,
+        1024
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.fighter",
+      "scale": "2x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        96,
+        74
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        144,
+        234
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.fighter",
+      "scale": "2x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        96,
+        74
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        624,
+        234
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.fighter",
+      "scale": "2x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        96,
+        74
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        1104,
+        234
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.strike",
+      "scale": "2x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        90,
+        70
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        150,
+        670
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.strike",
+      "scale": "2x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        90,
+        70
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        630,
+        670
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.strike",
+      "scale": "2x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        90,
+        70
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        1110,
+        670
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.gunship",
+      "scale": "2x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        104,
+        88
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        136,
+        1084
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.gunship",
+      "scale": "2x",
+      "key": "empty/d03_f00",
+      "packed_anchor_2x": [
+        104,
+        88
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        616,
+        1084
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.gunship",
+      "scale": "2x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        104,
+        88
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        1096,
+        1084
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.isr",
+      "scale": "2x",
+      "key": "fly/d03_f00",
+      "packed_anchor_2x": [
+        116,
+        96
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        124,
+        212
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.isr",
+      "scale": "2x",
+      "key": "parked/d03_f00",
+      "packed_anchor_2x": [
+        116,
+        96
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        604,
+        212
+      ],
+      "resampled": false
+    },
+    {
+      "id": "unit.IR.isr",
+      "scale": "2x",
+      "key": "rearm/d03_f03",
+      "packed_anchor_2x": [
+        116,
+        96
+      ],
+      "cell_ground_anchor": [
+        240,
+        308
+      ],
+      "integer_origin": [
+        1084,
+        212
+      ],
+      "resampled": false
+    }
+  ],
+  "input_sha256": {
+    "work/art/roster-runtime-overlay-v1/catalog-v56-v1/result.json": "ba88dac0d544be94bb084c7c9d84e671e1a682f7ea0a48472f5ab05d538f8982",
+    "work/art/aircraft-final-production-v3/stage/assets/pipeline/tools/composite.py": "adf3e87ee84cb9c8262e1008b503d6b28614af10b7074146c53986c9dcaa0505",
+    "work/art/us-rifle-style-candidate-v1/complete-family-matrix.py": "dabd1cdf9b1c08b308a3a78739f51f91a5f027f85c46efad96b599c6934e132a",
+    "work/art/aircraft-family-native-review-v1/make-comparison.py": "ae13d35ea0e3250fccfa5ea156692be9c74697c8649a496c614d32e9ed48f9af",
+    "work/art/aircraft-final-production-v1/runtime-handoff/unit.US.fighter.json": "a251de3464e3e334122d53033524e8b4198548a31d68731de421f2459895662f",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/pipeline/specs/unit.US.fighter.json": "eb7b6b74d8ac49eb54fd520891e27171f60086c8fa2db9ef3df65359080777e6",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter.sprite.json": "b158460596a979e7408d34bc005cff32b250458b00b6e5417a689c54d95f940c",
+    "work/art/aircraft-final-production-v2/runtime-handoff/unit.US.gunship.json": "39d0bf33a2cd1c8201e7e1b9dca78ede82fd85d01f04b17c41b1dec14330c838",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/pipeline/specs/unit.US.gunship.json": "4056e1d6c4480ede97cdbe39e04ff0ebefc858bbe2369854b985a14a741bc87d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship.sprite.json": "4e76df403ff53d862184c0350c1f9c8caf82069eb5bd370f781dea7feaf44cb6",
+    "work/art/aircraft-final-production-v2/runtime-handoff/unit.US.airlift.json": "428059df28bd0d1295e3b854856faf407277278d045d5c8393365d89791fecfb",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/pipeline/specs/unit.US.airlift.json": "a44d80df806fe365b6d304c93adb369456d161ecdc1d4616ec25c88c4f325037",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift.sprite.json": "3d0c8998c96efd436c16359e56c59ad4dbad0b38c1d337ce518eea7f5b799015",
+    "work/art/aircraft-final-production-v3/runtime-handoff/unit.IR.fighter.json": "1f6578903b83a790042640ede6337b5146e6ce078436abe30eef26b39c0bd028",
+    "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.IR.fighter.json": "4f7adc5db474ac642fd5f2a9be3dd72c31824254aa2f4baf9d1a421ab04f8570",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter.sprite.json": "92368b5247e09232d61b03e3f3bfaa1823c5e3bbd09fb7cd9ad7cf1651ae775d",
+    "work/art/legacy-ir-strike-production-v1/runtime-handoff.json": "0e6031581748103446d51911c5e1dbc77b9b9ac3893b4a67c26c99fdac7adb34",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/pipeline/specs/unit.IR.strike.json": "de69685880567d8ba5c2fb32a92944f57fea2a13bc1fa1becd6ea1ca622aae1d",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike.sprite.json": "9540466317d6dfe01d521c51e519391c9766dc505ce29b76da5225c918c4f18b",
+    "work/art/aircraft-final-production-v3/runtime-handoff/unit.IR.gunship.json": "07a649737216649e4c8ae0baf98f74fe65ce9483139a87f6ef3e2bc0bb86fa49",
+    "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.IR.gunship.json": "2e37940975c856341cf9f7c9e7b9a6db2a6a893dc09de066c3c7770eff2a82f8",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship.sprite.json": "607809ea1b244cb055801691f4c7820827afd7873243c36c28519f5a7aa2ff78",
+    "work/art/aircraft-final-production-v3/runtime-handoff/unit.IR.isr.json": "80ee0525cabb3136cfb340e235c57354e7c90115cc31ac31fb7f20764ff4df91",
+    "work/art/aircraft-final-production-v3/stage/assets/pipeline/specs/unit.IR.isr.json": "4fa5b5d5df80fc3f8b4c630d057166a3572d3e554e3bb8445986e97fd42eb79b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr.sprite.json": "0498a3183fd2676c5d21893e20acdc503b07469b5d14451c22c1acb141c258fb",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.0.json": "41eb0e61e0d22637e29ec56b446cc1340c8aae53488b142ea7f473161dd424c3",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.1.json": "84b4c3ba5c661ebc347856da439f8a80c8b5c300f89be945c8cacf1f383b6ce2",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.2.json": "f430c1b5ee97f2dee67cd2df2cfcc17bd02a3c3ae5dcd76b752e47b813f8320e",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.3.json": "248e5452bd101d2acd2a7dcf877a1e1bf991b40a3ddb665d299bdf2e5d2344b7",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.4.json": "3228389d269fd9fb21c17ed56054776fc4255fb0175894dfd371514e1d9d28e1",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.5.json": "c51004ba5b7f9644334e098debfdcf201fbd0a3568916a87fb18e7bee5b2f6be",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.6.json": "319a4c56b8b4653a14a6845486ca556dfb5a823a347915af257fb326b082a3ee",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.7.json": "418bb37bdaac92f5abf23ced4b6b57c47b185d0471a545312c46f2c61ceb0042",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.8.json": "75b661297242274b3d5c0e40dbe048e55af6e35b871848f18b4040293fa9b5ff",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.9.json": "bea0f22521520902257831929529228efc1305887ce8c7e7911f4f54f3d178fd",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.10.json": "3bcfe151e42d11753134402249ccdf07977ec1fce6aab901e375fb511cc3b322",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.0.json": "61672385d56cc28288311cdf7b90cd305b66702a686d4785624fff951a2b56a4",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.1.json": "1f7fbe449fcceea6316e8db3c49fd833a35c9b6f383f61a17ed2f916888bfd26",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.2.json": "7c97f32649da61de43cd9e027952e9a61770f12103f1750e55a8153eae06748e",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.3.json": "80f79dd8b747110ba9a921e6a94d2f5d7779834d13a266ad0dece796893267fd",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.4.json": "667758bd67f2fe0e7f02cf4d6050bf1f20e3b7825a1ff163cd68a2e511ea21d9",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.5.json": "a779fcca8bfd62b4f14110d22179c5fa5ca193f6635b242bac424d69b36e28fd",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.6.json": "21fc5e56edae2d78dfb845f52353783581ed746d1bf8684374f3276a7f77b0a8",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.7.json": "d2be1a7b3f9f61e3937cbd8718fcc45fd2a17559d9bb8b07a20d94e5cbaf414d",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.8.json": "c0bdfd591444fa521219ad493055191bbe361cc73aa02604d971bd4bc2424b06",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.9.json": "222d492c776751248210d7dc625cc30da851009b3302f3cb5ca70fecd2c41e17",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.10.json": "8ec51d2051d43cf7ffc6c5ad945f1c3737b08737cecff8ad1b8de14cd790d157",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.0.json": "8348b597f5907dacbc2e321abbff59a43ba6f2a706125edd36d6a56affed91ba",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.1.json": "c8b1407b482545c08a133965f9a684cfb40f948b2374ee25d38631f8dbcc9618",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.2.json": "14cf7444d226f5f1d6d6fe8befb8943b82a3dbd9b49dde1f4647697ebc40e2e9",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.3.json": "e282495f2b895d82f228ddfe816ba70c0da2a79e492f9d2b7a9b8fb7d2280cad",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.4.json": "9b1b2b2fdc202f2c155f0527f367b3ba594916a6774dc53944619e96b7dd41b3",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.5.json": "f7ad483d6807bcd4c4be067da1e5ae4591aeed01f42aa2755a82c252e4b4c332",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.6.json": "a853ca5ef5c30b90562f6e31932c8e37548d99e28bf55a1874f29900eff257ea",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.7.json": "3e4bc2371585fce3d7fa4bb15f7b6afe726c19dcbe1d0aecad22fd95e0218b5c",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.8.json": "71762dc2a9c7e055abe6cb05b6bb3bc47a6687a3b0a02516a0a6f3cc983ec6e2",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.9.json": "7849479f1b99c29aeb384ed7b8c5b5001ce11dd38e1e0f361a3ff1c8afbbab42",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.0.png": "9ca59b254eeaa40ec01d090876a1c6a7a84678e0e833259acae817cfab6512c6",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.0.png": "6591157a5f8f8eb5b779c871a49d7da5300c4caab64fdbdbfde5421137d93c97",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.0.png": "f6a34b4fdee22d38cb4bf8a7224aa55620c7fc5892f3fdcbb9e50a757c50aa62",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.1.png": "a317235263d5527143b93688c871d28e98d7740bae2fce5e46067ec9c1806b64",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.1.png": "79111dec5dbcc352914fe245416f49393803aec4799ad0b76ba019f419968364",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.1.png": "8523c245591439a8083f973ff46b4bad06e878f9f05fc9411ba620ff191a93f0",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.shadow.5.png": "dfd0511c99530f22106eb5006b1f7d5e64e3ebdae41614d8f3d832e7eef0afaf",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.beauty.5.png": "30904638e3b64f10f425ac36363ce657c60e0290fd5d9467d5b01bb90bc20946",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@1x.team.4.png": "d69043066f87debb7fc0a10f84350cdf555aa8a223ebc990e7c8678b05c7e379",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.0.json": "ccebdccee898334012726fedc7c1df1afb927b5bb3c5779649f9c5d408d8e7f3",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.1.json": "7b405651266e06f757478a1358613c440758021f4508af6c4ab7d248a1e240db",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.2.json": "ecdc7257e7a71753a19ec359a1029ea0cfad1a0d835154816d0df7a92c87a33b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.3.json": "e8957c379a4f1cf65f98f6299890e8355678df4317fb81e02c76d699978806c3",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.4.json": "8421496bf231deeee0db6df0365a66131d76bb1217a9f1936b50a061a7c198c9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.5.json": "8b4c8352c8187374f31543985f2bd14ab4974ab12cc22ec3269c52d7471f68d1",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.6.json": "d5db35e88753dc6f7b9e7b85df1e7eaa84bad052c1c7bec4521527e8594bfd87",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.7.json": "a0e677b53568293d5fb081633cdb231a4d0a4acf374900ffd9516eac4a2b1968",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.8.json": "d4c339f3b97ca33872d007aa669711961462058ee01535062e455a7363437a70",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.9.json": "ddebd0046ef3f0d3b230e3eea8632fd7d9657ef52ba594c64f2d6807bc43336a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.10.json": "cb13e0a37fa22afee6ede99c899ad055f6f9ba42735c68a6af1b77913266b52a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.11.json": "25ba630ef9d48aaba0784383c5fb6d48c018eec917882f4d17a10d20fd40138c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.12.json": "7d4e19911a4a992edc2f04e991210ce574fd803e10d5cede614d8d5a26f0bfdb",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.13.json": "8b87325f2e78a431e3cce651c3b7b04217ce6d1ffecff89bb2641206e0f403d9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.14.json": "6075a2e5d7d0b139d16e3fd2281d606bb07b71b9755b6ea0d92b944d3df8b519",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.15.json": "315b7265aeede3e25eb06008eb68b4496da5b0651a9b67a2346194be339ff024",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.16.json": "3c623a21c92242e2e441be80386307461bea89bd71504f17491a909ba73ac069",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.17.json": "e301f89b3480c57444a9adac050c2c2a90b01b037756c46612d6972629efb6bc",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.18.json": "346d9445934041e38fe0d5170cfb3eba5aa7a86c69b67825deb6c8785d55f12a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.19.json": "9a7333622c4924442ca541862fa951628e1accaf9937624e48d38ab62b9eb95a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.20.json": "8adf06da146a967b80df6c87a400110773cba251f6452d3314d906443835e3e6",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.0.json": "28ff75d69ce6749b07081bc87bf93019b520f77bea977a797f1fd98a5f2a69c8",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.1.json": "226894d4df3beeea4cbc78ebbbf2cf3b47afa3e77d305953e0d2fa307ce0a6e5",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.2.json": "81399fb6411d08f7ff9f6abe75f04a348ef61a03523623a0c01988ab1a4a52c9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.3.json": "4a4d33cf237f6f933b77fef5a7698b51152a776d8be0f643af2ca5b8322e0cfd",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.4.json": "cde1d7e51310a032d3ead63476f97553cd478484214feab165f4720327ed9a46",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.5.json": "8f9faf674e0010ad6cc367102eda7f5280655170141aa9e1b1059bec05b32523",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.6.json": "5058436cba3d97b03407d6b2aee5aaa2b2f30428dff0e9fff63b4fb80486e713",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.7.json": "1c6999f5704d9c90934a15d8b3bc385dc7060d3f999f6d9e929dfe89f831552b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.8.json": "64c80fd38e8aead28f83bcae99b2c9efc0b1d434859f5dd23f56a0b2271f286d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.9.json": "971f3d2bee3692eaf117122d71edc88129deafc7037cb0b6a1998718cf4e399d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.10.json": "5e76eaa52ffba66804eabc418d5a14c7f33a0631e3980043ebf125b8477d94ea",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.11.json": "29ead30e95cf92ae0e0d3f2962b23ff264b670f9a46dcf6fb92d84b7b8abcc77",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.12.json": "2325d28dde21855769c0c2b83f3812b7f6bd7c7d8c738ea25dfbf5e3f8e4cc3c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.13.json": "ceb064bc7ec9a04f4064f3a892f1464624bf5b263656eb9f8d1a20268f9a64d5",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.14.json": "7a4bc51bd74d69a731474826fe4582c8bba6e729754a19dad25716d1a63634d5",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.15.json": "faebeaac47fc57db567fd74a8ecd49e790020695385fdeb79b353ab2881426bb",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.16.json": "1c95b139fd7f8aaa774c1be68509137b4ae12d2c1e26953da29a1a8583890e7c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.17.json": "ed74ac5bfe39e80836e58bcb899b045fdc7f49c0ed277a4feeb62636e44dccf3",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.18.json": "e0e925606bf44758b3460dcd81e6d2f5ba885ce97f3314aac41ccda2267b3fce",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.19.json": "ff3170701320f7c8dcaae8c58b9b0ec2da7500b95dd065828cf302fd2936996e",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.20.json": "c752068b96573fcbdbc9c4766344f97e9f3e471b3fd008869ea3a7900264f0e4",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.0.json": "6330858ecce841929a2cb09c0c1a47c14bbdc22cb7f08e1904533bc6ef3cf724",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.1.json": "6b3869c0322c40f8d04c4c55fdce9ebaaf5baeef78c1eb6c64bd83a4bd247737",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.2.json": "c7e0901de44f164498beb8cb7cf18fbe0ada42cf293989726254393e309c590f",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.3.json": "b7921092c7cf9d715bad35955f13f47da24a6c7a508dd85b2d1223e0a254f461",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.4.json": "767a14420f0714c638390f25c813d09d32945600bd6d5e208bfcfa32e7034237",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.5.json": "b92a541a66424b8de6ad92e1121a56fcaef8dfd31ebf544dd2a635e978280844",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.6.json": "44bc20076cd7d2532398ad98cb031632535e217bb85a8fed86174b22ab94aaef",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.7.json": "f0a40c8afbb553e31f6030157a290dbd478daccf08bfc9859c755243ffa0a88a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.8.json": "38d086e3fb96e8c0b10a4c01fb925f7b3db0dc9368de9037dd676cc4367b76e9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.9.json": "018188062aa18fbc8dd8204322d98abf82bc110ba87a83ba200751cbe1221648",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.10.json": "27346a25e484b6cd8380aca47efaf1871ddf7b166b68bb4c3a9e54262dc7d5d0",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.11.json": "120fce94902fc3d0f4615d073329c63d5b0a4ff5cbee82a37ad86f5b6cdd74ea",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.12.json": "3f164eb14cdc5bd37d22ca7cea189ca4db15344cb5b77969d16eff61169f8c65",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.13.json": "1d5290517fd4070583ffd1f6fd0ab753594a564531909946259235768de94ec1",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.14.json": "faf05f07e37780df8714f548cd5442f02ba82baa09d38e89b28ad37a03707e09",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.15.json": "37a3970bdf018d35d9b021480b09cf143751598d513faa9f6259d79e02acf2a8",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.16.json": "4e2750420bf1f8b1c9a539f067019ff297146c890e8463143f378bdb1cc211d8",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.17.json": "d53e6671bcfd1d60546a747eeee371c26ef0997f501fe19337aff6d8653833c8",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.18.json": "166b9245292d3f02a05b493803ee09e9e4447eda3729c63d709d6f952ca5e5c7",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.0.png": "06d6af5669647d694c1bc07196a5f744b0e45a12c786872c412360ac17a7f0f8",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.0.png": "91e20feb65a7ba56e02972a850b2a1b52a54239fde6348f66d60b94650ffdc3c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.0.png": "7d5b7c6b2f2aeb97c0e23bdab4c7319c5c32ab62831be1a3b3a1ce5c8701040e",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.12.png": "25a3650991506e69e7e60644f91f99076497e0e31fd9bfb1078bd1740fabe349",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.12.png": "93d04ba2e3748e9236d333164648fbd770425f5ad3b49c143edb6f37434abdc9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.10.png": "87caeb42af53b6b62aa85c8b1ec7656457a43a13aca2d620b4d0fdd9552b339e",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.shadow.10.png": "0815cb461cf385ff1324952569a61acda71323d04348ebd184b85ff743ee50f1",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.beauty.10.png": "6be8bc7c0697e16e306239e69195afa1600e0c2b8b9ae2cfa0f886c5bffe687d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@1x.team.8.png": "5654900ecd3271f5f300a9e674fe7d4806bdfedd38963e1c6b1d7c20046daa08",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.json": "fcd0c3ed98e62a4990bd2b6c407f5b7a16106e81e068b7ab741b504e2a52e7ce",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.1.json": "22134da226ec9709efa86fe15aa87bdaae59d53a08c68d981f9d325807db5512",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.2.json": "ed1e00de1134539c1fe0ad1858e5429e91aa4d1d803350aea95a2685308ad98a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.3.json": "addd43bc01b921f3b3bac3829766766b8690807b9b8a761ecdeba6b2e2ab13c5",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.4.json": "6200b5608e4a1568234af83311249e371292c8bbc83baf80aab2b11c32f9c6c1",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.5.json": "881c3d3199975e62e0772260e917e7bafd7aef5f96f39e4178d6360164054a1c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.6.json": "75f31a14bbc0bdf0770c7e5706f187dc89e3764d6e96c9f89fad590bd4b03fed",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.7.json": "2eec846281fe64cfafb23cd20575c44b68d997e1a80df6b55683d8d937c5e1cc",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.8.json": "0cb6ffd24d03a564c372e2c6b2bb2b3d7222de90bd499bcbfcc6f514fac48b5a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.9.json": "7bca8bdaf8fee00799f1bb17291f2691fda3d256e5f38b680705d64070aa8a59",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.10.json": "9aad868a20deccde60c6210625d08f5f05266d070a5379d80d966a70e6a2a058",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.11.json": "956b718f5c21be273dd42ed7cb0a462d524e24f7d451e3dd60a8712150f0f189",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.12.json": "42c6ab922dadd2bd8399f549aab0bcd1fd04a27c2b601a1d901cc2d6d8946337",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.13.json": "ead3b00d85169a1084bfe50cd24bac6eaf4c6fa2ab7e358597824cdbc5d799e9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.14.json": "4131daaa8d6f07dd625c2dd6c743d2ff7b1d1f8e6693cf255bff6a90ca28a0a5",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.15.json": "df3087f1ee1d73436a33713f93824caab728cfdc68a569c5d56e0e27a1910922",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.16.json": "61642ffcb68d100ec4e4be240804004a486ec1cd2b0fe119c528e7ef6aba1e74",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.0.json": "c3cece79661f0c7495ed1eaabf2df2ef699af01ce947948801843055e1062d04",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.1.json": "b19e4cdd00f8aa5c3d56d7c3e6e518dbab38959e3c4e5257eaf5d2ac630a60bf",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.2.json": "3f241dee14b16df66cd566825302115d81a090ad6b5698fc7b0a3c1b75e0be61",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.3.json": "6cb60f2e21dcd7adafc6e0be51f475749622dbeeb9c6f5072d1f9b6b8e750633",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.4.json": "d80202951d4498900863a53abdfca28eb294db98a6f785cfbecd0e6e08072404",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.5.json": "2411c972d01f8ed83ea63757793d09a73f5acc3d359460137f8981ca6b4e9bb4",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.6.json": "809e570df34d63b0808a87215f7ec1d7bbc79450d514be9c199c129cf09e8c50",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.7.json": "9778769d69f152f568c67d068591dff2818f80a4caa1fd9e812f25413cc3a87c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.8.json": "15372ebc578f6957e165ad0948bae7affdd0110e46902765038f98fccc4c6f6d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.9.json": "d62c1694795edbcc6c866dafbd9aecab663c51a521f5502358942985140415d2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.10.json": "614566eda1f067db26eedbb984451a73417cbd35cd0157cbd484d3d6acc3dda4",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.11.json": "2535c573cc77bf70d6513da3254a2ae1bb4385fedcf6f28a93c75a4a400035fa",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.12.json": "d518831a9bc4af20bf70e31a31ecde054b9a659ed2026cf8bd7afa0bc42a6d78",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.13.json": "f83456668a03c6b3d8d3084bcb8388239dc19e3efdc57a2b5d5bc791b31b067f",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.14.json": "a7a61476996a9e39f8aec55c55fa858cd30efb40e2a23d5a3c88d92c5a5cba24",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.15.json": "a790bcac8fcfa27b47933868b5c9ccd34da894701923c4307b6caec653ccd1e8",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.16.json": "bc70bd89007e8f66cbebcea358c4e00f0ff3d152841be090fbe0d6eb7ebbd131",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.0.json": "4d10c50e354d40a715512224b9b89819054ac4ecd7019172d418729dab037f0c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.1.json": "dab725cbebdfcc81e865013091e258576103f3e36e514c008645d778dfbad1c3",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.2.json": "b1d64c2f7ba3ba52ce35bb900ba2d425a23885a91611ef0d7121351f27f894a4",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.3.json": "e0dab544b2b212e8304245a473cbd887e0bcbda19ba159bef7e991ea441d0407",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.4.json": "4973a30ed91ec658272e353cf2a06706081c4d8313926760c01c5368332e0a04",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.5.json": "9f3a01deecd2ac1de8f6486115b4e5369843a4e619006f7b70480e58f4dd6648",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.6.json": "6780652bbc9a5891fd51bd9b50db6a840cf0e68abe20fec0dedc6fdc3a7940cf",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.7.json": "d5595fafdb25e2bab203a9cbc1cea4db07813d5c8f16e234012e6edd1d603f99",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.8.json": "77d09507b27358c0e2d3d89691ce3b5cf01ce55266746ebf9100875c2e0a925b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.9.json": "6267d8f6fa437b262b3310fcde37912cf4b11765e3d4ed7f973eeb508de3ea21",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.10.json": "eeaa00538aa4f4209c3586e76d09d577d1965c773d208807d227fa077333ae32",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.11.json": "7d38578368399c0d0ac0115ea5e3305b468c6f2f3edccb550bbcd46a3e939e55",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.12.json": "f4612e3a2e60f19b7045adbab4ef039219cf5ad8f8677f53c7b942baf71d6f93",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.13.json": "ba8eda4a8a8e438c474afa80e6e5d22164e8031464df4ae6205a3614aeb6143d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.0.png": "3dfea5850734276e41d63d99924c46656182f51970bc9bfd777e8b343f6fe524",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.0.png": "11d00d12186b8bd6420385501b4d8248aa5619c0592da32b57aa1570d1032a1d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.0.png": "205e65f89c26d771dcdc293fff7ccbdae530d71d14e29f696c8c4a35444870bb",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.3.png": "25df62c3f15da952d5574a91d06e09c40608da673ef69c1feaa53e82dd123f1f",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.3.png": "ebfcb1451a51ff21c0ddcdb4c5b050a69966bdd6202023966f9cf96db02b1beb",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.3.png": "b4ac41a3adfd06faed825f4addd082bfb36fc9d2b5c5cba5f1841054e9329564",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.shadow.14.png": "d4112d50292701c9cef3e3f2fc4ce2fe1579f9b1a8976ade6b018d81884e2957",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.beauty.14.png": "2135d2ef01e42196a8508c8f0bf87e8bfb15f7ea046c43cb6b8ad2f41415d9f0",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@1x.team.12.png": "e76aee548f9df8824158a70405d40681d3204289ca1fb100135936d53bca7e72",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.0.json": "fce20dd259330e461b3346aa51e8d42bb688af960d0382162ec04223c1cdbdac",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.1.json": "478264c00e82fd2643ed08632006393ae4438dc011776e838c035e125f1fbe9a",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.2.json": "b67bb68d34faccfced03eeecceb972bd32b2e3fda8620d69bcd71d7978a1fe58",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.3.json": "a15fbab5013871e5899db1fb03790bafb036d635bb485b31c5a6dc3f54257a86",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.4.json": "e4dd508447951718839d8b5bb4ece0cd04216c5fec3549735448492cf71f3a34",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.5.json": "a0b93cf57fcd90b4c8814e26382b4bb816bb744dc48afec6d9ab3a5e16c28bb5",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.6.json": "3b819ef10b98ecabcc0fd4d4b30ef873f3e438bb7178fa65c5f05e0832291c4c",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.0.json": "2a4570702898e69abbb70773d759733531868155711ce0f12867737f00bf2a33",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.1.json": "49652ccdfe7d9f58dff6e8f9691c7c5378c1d9ab29649cce34c0205cb90dc584",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.2.json": "275ebb756ac6fb09bd780e47ee309854ba4322a0076db6c495c88c4db4bfa95a",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.3.json": "de0ed46b02fb20109c99a9cd8dc86dc141924200eb37ba9d1fefa389d5711f3f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.4.json": "8cf8f034be244f7b1013f3c6a4d6fbc5ac346ac92bad398bd163921f5838de7c",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.5.json": "b9ac21832157b84baf2228769dc84596140f92d128f5c85badacf313852f9684",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.6.json": "5fbb4f7f6c03461301291c19cd5f7479b5a28b232295acb063b9d89d3705367d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.0.json": "9a54a166f173da1d276db3f67a3c8f695234fe5c254dc1702e79f3440f3d99fa",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.1.json": "b7d69135ee35e4f31d8113632ad0843b495e336c54b63ff3343b626a90900a27",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.2.json": "727f5d152433637586ef9763dc584d9e0916d57aa37f14dbc2818f14a4538468",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.3.json": "00730e13a8b461040025d0f77adb439f80747803733225f201e1e1487e2ff93f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.4.json": "c24891184a65ade1f7f06dda462f95b60ed1acf1b186462d6cd8ca2830341c4d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.5.json": "53c499f1c88648cc2435dd7093b12b4d5c2b7456893434d306ee57ae2251258b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.0.png": "93bcc541c90df146b462a1a94944cd812547654ea41c171b61d0c02787d1beb8",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.0.png": "80c7a0ffc7f67f4a4315d9fa69334d494ab1af1fc1f9987c9144fb2f95faa6ba",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.0.png": "ff465e1a5e7f85cb6df848a08bed5daf88fc51ab1ad2c7cde8ec4b1a85f4b494",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.shadow.3.png": "de899292cb8b0b6dea5727fffbe710440df4db3728c8c4a16096a1d969e3ff6f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.beauty.3.png": "9355e56439d8653fdd4babe88073cb7bd99223a80091a75df6c36217b15b6762",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.2.png": "932921c3a06d3284e8fdaf38c1b7d6d8530ef5984e15107357a97dbc488f024d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@1x.team.3.png": "a667f99fef3ae254cfd8317a7baa61541c654043a70fceabeeb4f85bd0f03264",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.0.json": "61446719fd030bc5b3c8b94bca990cd79a9294a30627c5582e53d050fdc2bdb4",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.1.json": "c0ec7871f772a1590430d5b813bd582647a5b9a5b20a8a8d4ea5d9855179b7f7",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.2.json": "d8ff1bec85de5cd07b49c76e4ed5209d22bf0398b50cb8e23278a9f5ecee8690",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.3.json": "6af2a259fa086ae229c15ae6214ad6837a3812f62594ed82c6ae0bbc81a41ca8",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.4.json": "412773bda6de86daa0d604c3d4e189869b898423879051740e73b1fd0240cb7e",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.5.json": "4a9b155bcfe0ee633e2d803857035fa84bd05d663c6efd3a7b9bd277e67b9429",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.0.json": "0620a33e4c49e489809b358586481dcf17c31089e26088402a4de52df014bf9e",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.1.json": "41d9912bd5a2e64dd8174da93568ba036f2687aabc49f07bc75b1dc1a22fca0c",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.2.json": "a3512df2c3d9a47f80d575cabd532eadfde8e3f64e60e2b2f83de6193c67aa99",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.3.json": "e8c82ed095259f8da3adfc53470dded82efec29f8058f7557f18e14d34305135",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.4.json": "22310eb76622b7a8e9f27c4a4f29c817163a0ca62c880b4536f708237bbb1353",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.5.json": "142656bb684d1cbe279800ae301a1939d4797c5f071fd02cbd9ca32e39667ff0",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.team.0.json": "b6e98383f60867a5341b6872d9e19490d4b9b4e15f69ebc2f8fb5057048610ea",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.team.1.json": "f2a22b36e4c7ba4483f09fb516c824bb0d7489affad2c78b06dccae883f40469",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.team.2.json": "2e2bcdd0483e6c226ef1184f5e329b8329ec7a930ad61e1cf5b01e5ffbc95f33",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.team.3.json": "ee11185bcdfe42aaf51b0e20d788f926f32ef783ad76c73a91197ca66b24b3e4",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.team.4.json": "baeb500eeb3bd2f58ef4463f6bb3aad573570b830ae051a8eb21e0e001c488fc",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.0.png": "c4e4206b7a92e6fb502a417b0a68c96f69dd14a9911bef0314b7c29631bcc054",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.0.png": "fc5bbeb81e0333937212f15d74ee35715f9745b2328bbc336bcd3d3c4db61e65",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.team.0.png": "2cb55a69e3ec4b81c0d8e75495c1b2c905ac60b66034b484d070284adacb5f81",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.1.png": "51512f9ac67ca9459b92749f1df31cb2ccb21fae6444e39022e62c8f78aa7a3d",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.1.png": "7e165f45b0881a23314a14f5e6d4be908b4151c9ae4add5dd0d5fb86a3adb299",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.team.1.png": "555a91a88c2c737f1ff145c4b7a2b96cb95855c1eb83599d43c3efe9c9a7c9d8",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.shadow.2.png": "b7bf10f45549d5a83c72e07a3b4a14759585d12b9e23fa2a78f9b6b39d309d1e",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@1x.beauty.2.png": "6eeb5d9c3076cdf05d89bf45a94a98c695cca22430e4e1a48dac5d412a392d37",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.0.json": "39d5cb206e5ad488e58bdb1929442677dba611c0fe7327338de7fbd28fa02f09",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.1.json": "495109498c53169d4746ceb5d996f721e9b2bd817ea6b27b67a275011ca03bad",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.2.json": "b20bbbcf64e88883a9b3a875a4c212ce81a38db0a823c6dcd4aafb5d8189d52d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.3.json": "7c4d5d61104f93b58cdc35286954c060b62cd10cfd7c51916c57020f0a1c7ff8",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.4.json": "d93db8d6497fcb9cb2510948a4b042eb5cbbe7f85eef4a90565dd5aa82ba43e2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.5.json": "bee94d3c297fca1fa2fcb02a3a7aed225a26e72e6423b535832dfd5fa6451634",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.6.json": "f4aae2308fe8e93ab2fc9ca39aac30056b81450dbadb4a67685dc8810ba0bd63",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.7.json": "88891b0b28f1bbe297e65610ce306d5e2cec3a5b24fed17c8e7c74abadbd1888",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.0.json": "6ab96f78ba2389ca0b9b5846ffc591cc5caf1efb91a4b8c5c09333c92061cdbb",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.1.json": "b8edb22cbdec589e6dd940f8d83763263f10bf6b28938bb2f617d8af724fb6f4",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.2.json": "1eca608370de8bdb4442cc94797c029d2ac6db4cb2fd73f086d1cf056754d73f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.3.json": "a15e318f483f6ca7195db5c16b714377dd263ed86d8b56391e6891c51083805d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.4.json": "8265fba0cad70e7b3de4e9dbaa58dab39b3d9baf9e80f99a6634794cb016fe35",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.5.json": "e9e16a16f1f269dd20c877434adb0bcf938879e242fb40eaf4a9b5aafb28083b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.6.json": "5c9cda7ec693c4d51d02ec8025ac3cf72f003cec427ac59d67673cc0f7dbaf1b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.7.json": "3f2c67bad9ae4668fa7f61f5bd82d5c98c2c8b60d8e976a6b83233e1ab99ed74",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.0.json": "b2ecacecc27c6c9f105766e73e21374493271838ca225a263205e1e76333b2c7",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.1.json": "d3ddd150a2686d5c955ada70dd98bce6b1230d3ed63d2f4297aee44b5015ecdf",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.2.json": "906c111cd7a6a84369219056f96da5bd32dd5de4913b12f108011ac1adf80a6c",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.3.json": "f770b650604c310d06e285f4b89482cea4fa1bdb025e4efe2d9a23409d4cb109",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.4.json": "8084b60c944184583c2c36b7c38b01737fb363583fa1f40d2fffa2b8463b0609",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.5.json": "b5d7f044cf47212a6293174900c3f4a27e3730dbb64a6ec96a851ebbfc500b8c",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.6.json": "cbb8f961503d67e425eeaa22f4de5689d20d2c2e17cbd82d8bd78a4eaefdc849",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.7.json": "5389b20f711ab85d7646cdff9cf5e29f4de0a48e2fd475fa6ca3ad65f2cf14da",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.0.png": "a75de7875b380f02ed5855aaf4590d47fa15a7985e44b9f5abfd23f834e69087",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.0.png": "da9f644a9657cdf49a433482c43d254ecc21359e299d4745939a9b164595a088",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.0.png": "c8c3b542b8144ff679f8ab6fc72d5cd9202668569956eaec156ca887590e2923",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.3.png": "b3aeb97f79bbfd9e2f55178c4b517e463a8b99ad0a175e00e6cce171a2c839f4",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.3.png": "9f2ad3a924f18543eac955a6efd407443f32c735f6bc06cdee08a197170e3208",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.team.3.png": "7bedd46a160ac0b799e36577404c67aae9633788a9623de70eed7d100bf9ed03",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.shadow.4.png": "5e46facf7e2c5360511be41cb7795e1d1c8b4e24e58073f66388bf26d49bec2e",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@1x.beauty.4.png": "6baac21122586348167f79d7a860d181f4348a7f3d48af21092f68f19dc84005",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.0.json": "132c15c2a83e16f65822c36a253544308b930ab9c2bf508089873b78ac0bddf7",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.1.json": "68f1d05b776c52c019761d19098b56474d86ecc1d1a5d31820b15a9a3637ed9a",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.2.json": "c9e05a2950ce87ee4c9c8439238ac9d3118bc131a6e82fa84b382c91079e9b78",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.3.json": "795f116cfd602267d9435eb17be01b76355b7915a00f4603f72f011676e6cc4b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.4.json": "5ebd4d65ca1fe855133aad524843d7476225ed63504568a6e3f3281e1c26068d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.5.json": "4a28fb7b86ebcf1754e3669d44f860805e22aab829212d41b5f390d7f0c56d90",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.6.json": "5ec7721da4a9102e200cd5a7dae4945a0efc71c871b5dc4ac70f8fc6bea66650",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.0.json": "affe77e61b56d2baa1b352ba8ec0e6b718f567aeb90e594062f7b78e59fe60ca",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.1.json": "4f36c59e184cc6d9232e20abf7b4f30535761c2d8065a35fda641eb500c74ae2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.2.json": "5e00e338a35f730fded8e54277711aa9c17a254513a598cc19b27e7e2c0f4bf2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.3.json": "b8370f524c495fe009312dfd8cf505f1a87771ec75a9f9a64fb0c65b0f85db8b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.4.json": "d063af78cac006c77a0fd0e763307edfd7fb819f142f952490e0c8d191e17d3e",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.5.json": "bca5f474ed61c59b0954986f2b273d408dd65bc55abf9c07f331b64b271451ce",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.6.json": "5f0d838628940349b5fad004456a91e398c76ac05f55ff7a839601ab78487dec",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.0.json": "8607129732bf6eda1438160c49fb5ccbe8a8765d62775ddc0440565e9812ee49",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.1.json": "ccef976e810258db31d25f6de6d72eab8e05153ccbb0d8e0a636d44968b22630",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.2.json": "73e180764baf2a05b73e571d37dbffe550f8368c884f321d0be4bfd2f4c7e0ee",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.3.json": "0c0591207dd0d0ae4bf552588edaffa65719ddede4fccd4de79eb0c183195694",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.4.json": "d5af459c7e5bf737c3e9fc790e700c0221474bf00fcf98101d93822197688cd2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.5.json": "472b4ce692dcb3f5ae4f92e647d35dce1153cf01382ab4eb72c1754d636844cc",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.0.png": "268555a2a1c7df7e13c6169ed8e2875d0b50cf49b55369b9e543adf2f929911f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.0.png": "09b63ef672007414c131ef456fe1b72fb0e759750ebca271e848712cf89a2ded",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.0.png": "4cfe59a8b88a96ac1750b6c8ce0e192f1863f2641eb508621443e62a1a92e68b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.1.png": "2a1dfd8dde8533a8afcb4588aff289049940b3202935a6b05a445f348daa0838",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.1.png": "2fec743170ebad1b03ad8dee231e0199ffe2ecf80293e5f8c25dfd61adbf55a0",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.1.png": "110b527667acb5afbd03cf1e59e95628e899b9cceea8fb618a3f77172058db3f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.shadow.5.png": "d95f34a81ca449a66abddf7754ec39cfc70a436a8104824144677418c658c896",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.beauty.5.png": "3486c3adc91b5059b98d6963668074c1f4c4e9812050e2eaf3d41aba7403188a",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@1x.team.4.png": "cfa9227213075c4d016650a9ffc368828ff256049f110cd9b25e4bc29f8c93a5",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.0.json": "3d7ee4a22ae4d0ad6d4387fd0e756de46683a6d8f60e10aa7a4f115659d04bc3",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.1.json": "5f743121881a879978371e3e70b14c277fa768667f9069667e5cafb5fb6f9738",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.2.json": "a32f750abb316eecd1d535be541c4e752a094e3416fde2e7d7b6e0c3db062d58",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.3.json": "16936a065525e07dcb0e676eb841a3d9a7dbc257bf95f3dcdc36c182916d1011",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.4.json": "3fcfd0d22a1352bfd2ffd48fb595edfd8227017a5b7a868d4a86063de786c7a2",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.5.json": "81e171d422e8b62b31a8093bc69c7ef01b7aaadf5285dd8af50eb9fb9d93b69c",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.6.json": "3e29685e6f347fc5b1acbf63ba47cfcc53ad8ae64f47402503e3d9caac5c62d2",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.7.json": "65ff2ead062f55f4fac625280df47d17570afbef5eb0c376ea0451e41fbb78fe",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.8.json": "7e7b30a226ac3bfca965ab16fec08d7efe767338ef3da05890d6320571fc47ce",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.9.json": "751c69d7881052b1f88c6aa25c54dbe5a50b86364ebd4f688a342d094b297df7",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.10.json": "ab20dd551b4e7f0b3374f70775752811e2f67b0b8a97a7e74b58c3aecf924bd9",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.0.json": "aeaf55f04a4bf934d76f7199342a6ad75f3f851ca067dcddfa62b43bfc5b6314",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.1.json": "86b05f79434d251829d6fac3708f7e1cfefc83424e7dfe9456d9a92baa2bbab9",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.2.json": "a0a6754c54e97e39ddbdb63187c57a6bf7f081004ef194a2d858934dd98d048f",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.3.json": "916ecfea79c98ead613213e6f6e45d20168d3d240a973d3fd27da2fa115d5266",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.4.json": "5cd7a9a545c4345d3d05175a41bb8c1a00987c19facd94fe6dd46cbc82afde88",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.5.json": "e566cf869df0b87c60819c1c196e11aee9555e41d56129c5558220537515287f",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.6.json": "d86f47e3ac7d59c34f736ff0e3f129903cdbe794bce1009d7dd34e186656b57b",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.7.json": "18d9972413ff7afaaf16230015ff862074db334503619533ae3db237bbd891d7",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.8.json": "67d96338f63575a1bae7bf83c54b0a08827e8e3be8cc993babea8c17f67a3598",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.9.json": "7d9567df6a4a1f97f5841fd760a0a22670c3713464294e27d4970c3621943601",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.10.json": "999c77e48eb4032947b4cbc037bfd15039a333a388b71f448f8564801f7322f9",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.0.json": "4495a8a1701c0a6ef9cbbd2a46c1aef738390c5dac31099de434455401795e82",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.1.json": "b42aa2c209a8365d2e461583f1b899a7b162696b82cf0a19733c7590b6db45b8",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.2.json": "6388bc98b32d52ef31af5cdf13333ad1efe49da0bfccb6d5fb4d1b7fa613e369",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.3.json": "99d2c4a3adf99abbab01201a45a34f8715f40f44b3c2ac5b38d77dc451ba6d19",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.4.json": "20365b20cf056645b63b2a06e99b612a65065e076e9eec26e2797649908d839b",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.5.json": "b24bb5feb89f876dafabc856d60695d70960e48570da49d4b84f4472edca6882",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.6.json": "099ea3e2cd53cc18d6c9b56897702db27b5fb80d29adf7f2e19013f5e093fe70",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.7.json": "ad1fbf598fa6ae1feb7894829b51789cb8c03870d5dcfe22bd306a92f55e6880",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.8.json": "c450725ca11949c3663bfdb8afe3141a7201976c31640a741aa99539500c9935",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.9.json": "1d7d13eff176dd3dba9a30912ae2f6e770675c8fe8a1cfd8bec104d46a13e5e0",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.0.png": "35e3c0c2972c313981f8eb282142c9b89330dd14e150131fc561f0e53d4d9202",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.0.png": "b866ae94dc7ae7039c3e100e76f7e87c873b4ae25c04283d738a9d343d5fdc86",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.0.png": "7ecd46dae084929591d7f9b9a59b3ba92bbd521e45d66f471b7a2dec2e5315ac",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.1.png": "e06d45ff11a4d48058bbc2ef9619fe9f060fe69ccafbac58bee3469bf99a302b",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.1.png": "f3db66e876a499872eb87ce1f3a27295b52b5b35d32b583f7fdc93f6a3ccd4ae",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.1.png": "85d689ae4181771a276a99db7317c7f5d44e5a910cfacda9afee57c20e4129e4",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.shadow.5.png": "1425f32e1f668fa08836e884e0bc6be7f6b87441f5d56650fd31fefc3c32c1e6",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.beauty.5.png": "d6404380fa6f76bfcb705dae274f9ccfadf79bade0fc3f4ba6ef681bbff078a0",
+    "work/art/aircraft-final-production-v1/stage-v3/assets/build/sprites/unit.US.fighter/unit.US.fighter@2x.team.4.png": "2052d51b0584d16e5af21767cdc2d2cd405d8d28234f87157f7b6321ce641b23",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.0.json": "00a80c03e98a1ac3bb88d07b7910a0342ace64ae9348d5fb347b28645061e094",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.1.json": "33cc34a931fa105e0d8c4f1defd39b2bff9cc0d43e815b027da613ddb801d245",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.2.json": "587ff2c9c82e357fdc22084a48c022d6247fafae28635e5f9295084484c5b028",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.3.json": "3638f25a5844c29de0e10661735251131328ddfd335383e9b6b5b4bc6e1171f5",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.4.json": "04c0cc0f6526da0b72796574aafbe9166cabf80ba254b0fc31893897bc9eb998",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.5.json": "46b3460ba0e4f19d3fdd99c11dd4fe0ce0bed92b2265a461072416246e443556",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.6.json": "b958cefe525b13846dad2cb151354695bd68e8db718c75b64757ab0ce05df655",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.7.json": "43d685393cff7c1341787351a150dc9e919c630e6af1769f110700c23ec0b5c2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.8.json": "ebd890c92637bcd5874ecfbe5ee23fe597bd6618d238cfce56e352fba2378437",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.9.json": "dc64c50b8aded494c593f8fcbc0213a9f8ba538c1a9d828f2cd24a29d087c98d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.10.json": "21fc5a5ceb8a5fe6efafc20737eb11979c74c269ed6235cca9d76d3e513e1f1b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.11.json": "4920cac01fce8f9dd9ac830add10b9591b20d390bfb9d1fa12d339f63441bcf1",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.12.json": "07a42d6fd431a8ef69254759a1a5744c40fc09c17ca6be63d9efcb9da3e2ed6e",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.13.json": "88bbfb95fb853228c4283307131223463594caf86c307dbae119b29b47d85700",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.14.json": "cd45bf583b22fdf150e8e3b2e62b79348758de16895f4087d0e4222fadda02a2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.15.json": "f8e455e6e098e91e0ee70ce74d87cd6383d2819cee7ecc972008ef9134b66dbd",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.16.json": "fe25dfa14a42fdc1c87e5cf1c5985fb139ce0d2d342cf5a4a8e4888ac70e3b13",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.17.json": "0e71c752793c5d5a1af6efba5d4c206e182bbc0f551fc6dc960657cf3424ccdc",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.18.json": "9c16547ab3b826230b4b0571fa3f85658f59901457600595d3cf16156e1324f3",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.19.json": "ec276a2fa93639471be5fadab2ba260eea32eb0c5d7c3253389c05ed3b043649",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.20.json": "e723b37dfa9b3d21abe927b31a900b1619d2f5030fac7ba9d4424c1e2c0b25b4",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.0.json": "f4924c7a02d4c60fbb2b905b9f1cf2a25b1d1ab2c8932ad0afd59b70cf6fb523",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.1.json": "8292283ec8b769727da0819155b68cb8b281ac5255fcd11ad99cac485de07105",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.2.json": "12bbb130f53a8eaeaea24a604653771fd819c34fcd81e6115cf7011be311b385",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.3.json": "d529d5d48a60d052b9bb82b9a1ebb1706107c9d40278a209eb3ba3d75506fc31",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.4.json": "5c7ed72ed3c6a206a13fc715edba9977a54a225738b8d03e6939de02aba0b6ed",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.5.json": "1754d1c69938d6889ea9db0cf2d002c19ace690ca9c6a8aa883b8fd3266af61b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.6.json": "82f5c40dc7ce4dd59f266d11d751975439e2cddda0e33538d7f5d732ab23a318",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.7.json": "82b4883e500f7b962644b6316f1232167e2fc45ad629bcc0b702a133eab960c1",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.8.json": "47c3924d41c082296a1731f8b3d1d8e513b0e1be41064c5289fd016b02043d91",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.9.json": "f088f5ed47e020bb7759b01d0acc5fb5d87bb093706a2307d5a5b2fcd88b5774",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.10.json": "ecd0dbec86c5bb0487cfbc748ff3ef257d1d9d471738be3d15ab7476fa681328",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.11.json": "0e047a66ab7abd1aa8a6dfc33ecd1b28784917be4b09882d0e0fbd2448954af0",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.12.json": "f52d6a034021a8a19e3e631545956187c3734afbd62b685d260040dec873bdbe",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.13.json": "70e3d025b4f1ac7e741c571138f46d7f9af10a6f81a601a8bb2a902c302ae2e3",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.14.json": "c550f141b2e67f2de8de26b2c07ddf63f2af109bedd4525031f8a700d7e0a2c7",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.15.json": "07053faafc7a72d1f85dda2952d613511b712d451eba2df66a5dba4961b7374a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.16.json": "1cbd3e66925f6b56d33c2ffbe699feb58badd05d6e2d46c922dd2f2ec776a423",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.17.json": "d03b4df8268d31499ed6b8d7b3d79afdbb9c48d66675767b0180a4c229244d1a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.18.json": "6a569170f224aa344f576ae97a7e97a2e0de0903e105266a50896954d89632cf",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.19.json": "5791e098a744a1d2fd6ffb93154cde13ab1cd5f9b3d461e83a592b9c584773d9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.20.json": "cce4c40d885e0d18cd40371a2765180fe06a78d4ede5bc84e78c0bd98aa2fc8d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.0.json": "434eec9d906eee63f0b9feb3fe9cc08d0e7c91c1f25a6a57d796e7f760f357b3",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.1.json": "c853255d20e636ec9560869c6ce47c5e4015fb1f56ab9fcf5ae54d32e2a1ac92",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.2.json": "5947c269fb0357f1c40103baae09f886352ce7575bae1d7784bd9e1e8521d3b4",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.3.json": "e3a7802653c55f3cb06b5d60734743756c05b821632007da75f82642a0a845c9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.4.json": "6a224219980ab07321314d868b8b41296372226aef66a9be8c0ed3a15c688f94",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.5.json": "65625418bb6bbf60efe0f4e0c64f2d6b704492b5ad2ac149a40a2cffab0f9ffb",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.6.json": "a3e6a636e8369827b53364f6982fb79cfc4c92e402cd045e97eca0abfa184235",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.7.json": "4e37305c24e0a80a70fa201b2f75eddd29899ee24f83934f47b147d2616b06be",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.8.json": "af3b6764b2eaf8fdd2017b8cd1a0d918c78608a247e3f9a8aa423e2f7a435726",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.9.json": "7249db86f8823c3371c4a4bf747814b4cfc2af5324da07e755e22371fbca7ab4",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.10.json": "dd9e7abb90a7241d271c3b084d01d2b0c47c1dbdffef98928fce5947765e4df9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.11.json": "b18b7ff6379514317e0afa7620db3f6ab8568672b5ab51689d607f4ee8fa5b98",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.12.json": "998675c1da6878d3a22c9c74356229a7d91fadc8f74b042912e141755ece6e7f",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.13.json": "12243e4ae404fa3a23314c2bdc61f2252d9e1fe9fbe23d337df8b1c6eb17e501",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.14.json": "7352007d396ff1d0f38b6804b1cfc8cc9aac346bbcc49b72b049eb071d10b681",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.15.json": "2115248699d458517b37f883d914b02701b345d0ec6fc331262431f668f5ffae",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.16.json": "ae73404b2d6bf79fe2d8319972b8c057861208ca45df098e537b927afb0022c9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.17.json": "aceccbec3c561ff7494af347fc6635f665a1dab6645bc6d3c23291641d7a446a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.18.json": "6901b83c7a87d89ee460848d4f2d967ef8736cf0924b4535c545bfb75c8de93b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.0.png": "b48bdee1f7bcdfc0c8fef20a138e382c1d68265fd70cc0247e655f24939fe33c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.0.png": "8b4bc0fe30c6d867b2c27d69a2c70754c413be626a3ac64e42c7b96383d17698",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.0.png": "be70a222dbeec9d0bc6709c259ad743ea4cd1c84fd04433c013835e3e926d7d9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.12.png": "cc2949fc45df1decefc3e97c7e30df3878cf4ec4095bfd620dbcd5ae95062ab0",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.12.png": "0a0f9267d5123a06fbbc1cc1fe76a567a5f4e2ec58c29985beefeb0027c25dba",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.10.png": "087992730ca68297421d413f043f274754aa20487a98b00a3fdc746c703e9cf2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.shadow.10.png": "4c69d4c291e8795f45d5f4dc329beacfe816da2a5396d6c5f92f36b8f07980ba",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.beauty.10.png": "3fb215e2b244ea8bea2cca9261bd8421d7f87905b91acf56d302671339aad615",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.gunship/unit.US.gunship@2x.team.8.png": "9dab2ff011abd510b176587649b8fbbd3797f33d5f3c4291a14a171d499d0ecc",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.0.json": "e56d41bfd528bac91272d6b50ed8be2f04e13accde9738a341d3860ad4eee8ab",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.1.json": "60a2d6d80c199ab4927a0e820c8cb12f8be707418a9cdd966ec05455cb998721",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.2.json": "2a5938263c9e7a2771c3986b3e9d8185a492ae1f41eb647b259a6b7be6487ef2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.3.json": "9f35c3156d51ea65a8444b062b45e39e8c1c8a33bbaf853cb78bdb7d0bfd11d8",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.4.json": "6b53f564bd55a76fa773c33b2d35e6e3d9ee5b1154113887457f55d6936c7d8d",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.5.json": "ecd61ec5b7c3d308e1fea14143931b5fd253757f7a1d381d7a7e8a269aea8433",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.6.json": "9c615010a7b241dc8db470ae95cf2c6dbb87b74ef13bce941b4b4e90903bab5c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.7.json": "053313b1d4cb3e6861c0aedac94b963da1a2598c45ac6c421afaa70f3aae88b2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.8.json": "7da41e30dd00cac0dd7807548bdf531f9a858cd035c43abcad41d20a10893cff",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.9.json": "c9a43e5427c9d743d06bef3901f9a9aee0fe6a960f095cf37a550224a6da41c0",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.10.json": "0a727dff89c41d692adac266885151bb462a68fd42f5a1cfb4755ef4c8824309",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.11.json": "6ce61e6558f58f3d72752120605bf0318924e9e232fa1bfe9c6455bdecbbc43e",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.12.json": "69c4b52843ecdefe1beded6a9d8a01a690091010a26b6a10cb9d2bf7ebb713eb",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.13.json": "a0f1e44fae31ab282cf34e66da4e17f7acd9aecc5bee7be3ab78672e2eae53ff",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.14.json": "0bff7a167abdfc75c49225006dc248f8aaaf3bdf1ac8d8b39b7a5b2171582f5b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.15.json": "fc8e49848bcefc2854e67e19426c605e1ec13853d43dfd613ff83bef5812343b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.16.json": "5dccceb20480df49fd69a4f05bacf7a8ba2abeaa7d5d0761ca41aec09608531b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.0.json": "d22e7d8c86e4014a52c970c51f341ba769d954c3b3df97899e7c847c8f0d6bc3",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.1.json": "bde19f7c71e5598d2a91cac7a2bac0b126ef12483795d5b09094de18a39a0ae6",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.2.json": "180fa8d2a04730c0ce3d7c0535adbcf0c150e17a2d0fa21d4fd0312658fbea24",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.3.json": "bb3f7c1389a71892c06f25ffc36ab239c66cb0e766ad403b366c14fdf2d0b892",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.4.json": "a8928ba3c618e13aa1686009fa6426c5bed8c8e813ead9d38213fc9c9b9fe124",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.5.json": "986aba55a4230355eec51f13dbc7a7daf9e38a369a77feeb06c3f882ae7c9903",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.6.json": "c31dfb01e715192a7ab2a1ac97e2e30104f5b6b9346fe2d819090b208b31c4f7",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.7.json": "f56262c695cf514f2f1531f70444422776105ce2b45cae1258a14e459f52f299",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.8.json": "23401d04d29d9f6413d17337812b06526584e2378249839021678fbf4a5e61d6",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.9.json": "a02c9381e6f30692aecc90825f95ff264ac67ceeb85a744b468d29c494d9ed40",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.10.json": "bcf7f974a9bd7e687cdaffe764eca9c2a5888cdccfdf24aac0396dead526f6f2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.11.json": "ae7eef951e498238690c376a5af0563c46b9e5dd7728a016a421e2b09aa4e228",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.12.json": "ae518ac1ff6ecf501a10818e1692eb3da6d271fdc881e0a7911805ecbcf7943b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.13.json": "d4b5d3109e1e8f035675d71850ae3db7aed005001f4e0b773f780a1870d79812",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.14.json": "13d8eea56384948deeffdf60ffdf2aa6bb2f2e08fa4ad60bd938f7bb3c8ad2be",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.15.json": "5772caaba338dc93bdf76e920cb1f5063688fde72f0011f02182beb9b682581c",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.16.json": "297750e312d1b64bfbbd303f5f20a90e9fc5a0851d959f5277b660c13c548e73",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.0.json": "5b3c007cc06c32feccef9c8c9d308bf491f5d4ad97866143c65d168c90010adf",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.1.json": "6ddfd55496543efbe253b028491dcb9c8d26eaf73d25aa1bdbe84fd8935d5890",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.2.json": "8cb5e16493ecac243e2fd5852de798d8b61cee26f249d4f22b8eaf35f2dc3a8f",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.3.json": "2011e56fa5cc65874a6bf318b24cbe84ace27b3dd06640d2fb18d21c69dd5d33",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.4.json": "6e49865e8c2d6e6742c31f015015cd4524307149c9aaa69a54a84c18f2a2f735",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.5.json": "d675b8507ababe71daa34f49929a3cfbb96f41b4a710717d1b48f5ee5f621f72",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.6.json": "a05b4adfa959c291f630024ecad41977e1e338d71a410f38faca2c5b31aae4ed",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.7.json": "84ccb59e78e06d8a560ac15321b09ce248c7238f2472171f383fbd49d6a95159",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.8.json": "f074c484419f329bf53eec9198c222200b3ca20029eb1de482f9ef80f08733c2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.9.json": "2c67493860976f22ab51f5f460070ecb715b4dfd9914cfa1b69902e797e57cc0",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.10.json": "83826a2e637713aa8eecfc8733a41838e3c47fff6d5cf06b3acfd4e0e438a622",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.11.json": "25decd219c33600c1b706e971595bd84196a594eead901823d3f896c3649e6e2",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.12.json": "0ae3d7d949275e74835b4586ef093791bdf8a5ce47b6cde7f56e183be5d64a36",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.13.json": "9b7d0e454348d638cd47e855a73805aaf369af35f4a4c36532263a9cbc59eacd",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.0.png": "13c48156d1e14af265a18f8240828b575f88ae08fd930407aa3bb006e21ca9d9",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.0.png": "49817f916cfb6c4b83ae8b14ad8e1346ba1e3a0c479b09f86806a1df7055da1b",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.0.png": "0429643224d0720bf06e2a72a1b3001265411c3372ebe5acd807ecf1b9e4f45a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.3.png": "ed6d38ee6685ebdbeba6f30a9966e99075e7d4962c7b0b35e436152d79ed37fa",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.3.png": "d9168da6d95db735b3eb00db45276c52aa2c411e39192e268ad68486b0561b72",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.3.png": "b839a62066e656ba177abd12c66d6f2e23d1b8bfcd76fe9faedc60795d8c9b9a",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.shadow.14.png": "6ee57a0794f4872e4ffc76539efa976e72a771782289b061dee626cfa58a3b36",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.beauty.14.png": "d1cb999da314a706101a21dce76f9f8b2e5e365f3a6dd3b3c7af55924cf3c055",
+    "work/art/aircraft-final-production-v2/stage-v4/assets/build/sprites/unit.US.airlift/unit.US.airlift@2x.team.12.png": "fd528dc102074a6acdfc9a1a74af28ffa4622d054e9f959b0df2063bec90f767",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.0.json": "c3971c56917a32086836d333282bb6f72f4a47eeffba3cd2958d4f46e5c3bf11",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.1.json": "ea28860da05224377056fb7a0f936d7c94fbb9adaa64cbc00d8d4f81586ab519",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.2.json": "8b2da177e79725de47d433057c177e8cdc002e9614a4f1d3a6daeab967e43ff5",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.3.json": "03f5304064200fca7c0f01a0d44ab0c71c75c26f8b46981227b8bec4677e4ee0",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.4.json": "7ffac4850a267ed3c41d6ad93427a556be06a30d777a738631e5308eb087f748",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.5.json": "f97bb5164de40f13f95d616b45f717ee24e27a3114e9daead524bb0f10e7d977",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.6.json": "444317c9bdd604ea07b2c2e0241e3cd358708031d5b6ddea6892bb9ae29272c5",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.0.json": "d77eb82006237e06d6b0bd9eede7794d1ed89a4814b93ca4c71d26ece2295371",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.1.json": "1ada619e8346b8957fb2021fb18df8df9cb9fbb418fe7565b559af23f8fe755a",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.2.json": "330da2b7309026a139d678087856849f8236ab9f96903d5ae90ce93ddae2b108",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.3.json": "cff6a019008e0b3f577f5e5de53996233b3f307c2fc46f53668affee757eb7a1",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.4.json": "c53c9ec9db3fc8328c4a350e729fd72db92dbc42350da670e5d4a9b8c4cfcb44",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.5.json": "369b9200dbefed1e43221172f63436994f8feb928798a44dea21774addfa500c",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.6.json": "f377b2becd0fe0eda84f2adec0ffc60b8f881965fc8b7047c29cfe2e6592f78d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.0.json": "b5ea2e02295c86f3264be0ba5d071d50866af3409d5b7c8b854778bcac5ee2cb",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.1.json": "edafa826c6414b0cdf44b11372864f433fadd582a23989a53c44f13abd806b5b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.2.json": "4492a56dad9a79da8db8ee17c3a5efcb1997c5e7c4b6e7edc3b630bc4c39e800",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.3.json": "cfceda65f84dc5335ded7eb939d87e9383054652d975c1fdc4a367f636a660fa",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.4.json": "660fe8520fe0c4b49c4ca50b30186a4ff4b3b91508301c57332564897cbde45e",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.5.json": "7ffc397bea8775fddf4adc38fc77e844be89922b1be97d8531da5d158bc2ac24",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.0.png": "fcbddadb08d331cb6ad5bd759eeab20a8b1d71058c948d7d2eebf1c47798840f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.0.png": "d92efc265465a72fbd961452a474ec9fdfb1517b1e2f3b634cd9454adc0999e1",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.0.png": "492f12f119f8a2c602478322fe33362e4de79b97f25aaaf44de6fe6df33674af",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.shadow.3.png": "3588bfd99a5617cbf79cae38167670d30e8f592304ce71dc4155db2b0fb07aca",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.beauty.3.png": "d092c4fde2f65d4a7d954342e1d1c7a5756f3964b1174bf4783a5d28e3cdbc9b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.2.png": "5230ea31acf52f078571aa9c943f6a0b53b386a7556049e39503de7579ff7881",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.fighter/unit.IR.fighter@2x.team.3.png": "8a0f2fff755c1420962a0c2c8869dbad1211ddc92785378bc70a1cce9401a45c",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.0.json": "095d9d291f77320228851bf2ad56f9caa1f57daa1de8d0797b9fac8694c554b3",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.1.json": "8bc5852d0d52485bb74ae66a080f64458ce85a539365b9ec7398785eb4cae7a7",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.2.json": "0ff04548c875cc239fbe3a47feba9b6437af4c9703b0ae95003a47b3f951532c",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.3.json": "c5e4eb56cf9f4fd2db91b561d0f408ba8b6596315c5cae6a32418832ff443bc6",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.4.json": "9bb117556377aad4650e7b2d75409311460e1a60819f115f1cc6791554aeddcd",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.5.json": "f36dfbb40e957901ec36f8c116705284140cad2a85d7468c11ca818b09fd5c1a",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.0.json": "85fc741f08f70156b11d8ca1408b58b7d701d28131f504b55e4e900b44d93131",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.1.json": "5bc1bb0e68cf9a4cef8041a47d35c8e72bded62384f9cc426820f18943d664ba",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.2.json": "38d450bf42e00abbb6555ebbbd67c2e9d1aecaff2477dd9b45b3f078731296d0",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.3.json": "ba4dba69a98e11df2ed14b4f721e86375d5a1f17ec541d4928d5e58aac1cab97",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.4.json": "fcdbca70bc3dc904a38fdb38de400592380d97f8a4af6615e8a3f960900338ad",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.5.json": "e7321807b61abb8f5b9ba0833151fc94a94d3c538efc34721303529ff5f4f4bb",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.team.0.json": "3c9b3d5c63f04cf5378397a55b63f9b6e7f2c3dbd1526f55c830f44c2d2a721f",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.team.1.json": "45214bff9396c952a5f47e0519f360e888e1bada39174a7ce81d524c04d93bd8",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.team.2.json": "014eb9418902584b00683c804cbfb06f3c117f30ccbbc6dea60afccf9c462fd5",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.team.3.json": "02c80d4fd661f8fb14db2303aff991f7f71a2398cea875b271907cd0aa95a66a",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.team.4.json": "283750192342b1b02e50ff6a1a99bbb74f1063885b0d6e9dd97d7e5dcf2e3060",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.0.png": "2af1f224683cbeaecdc2dc6f1af972c6818d67e72412207f73c1f36b66710f0f",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.0.png": "edbc30e59d319a83a57c6fbcc12997ad54e0c2a1c4f6fe78e807c443a744f090",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.team.0.png": "822c61c5fa92b5add2cc7a3e60ceefc08b585d3213984f1b2c9f67bf71f1b59d",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.1.png": "71d6c4cb80b2706ad65f0a71929cf1e7feb4159282bd5c1a013ff89e472aa5ba",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.1.png": "365799484342ffd1ddbaf2effd69ac1903f33354eea5c62aa2347685d33edd10",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.team.1.png": "0f93544ba6089dfc18618f85d2f1a7f9d9f26d37cdb70512b0dfbd408feac541",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.shadow.2.png": "872539ae32032de101792027bb007e030d5910146d89d48b146561e03dedbad7",
+    "work/art/legacy-ir-strike-production-v1/stage/assets/build/sprites/unit.IR.strike/unit.IR.strike@2x.beauty.2.png": "d655c709f33c1d1d5fd89df3aa28cb6ab0d38252ef52749e8c843b4f90abdb2f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.0.json": "f27d18efaa5ad09310133db3c8b97d3e18f8012edf672c9a740d91a917cd774c",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.1.json": "dcf6224402244b4f7094b309e1280c55145f525d7f5d8c5c0f8ba45aec9b0cd2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.2.json": "a1eda22841e8a9f2f0dd269d8d6abec1d76a6cfc98e47c6120dfb28a975631ec",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.3.json": "c2680724aafcc8bd815654b121c4edc37e4433735d54c70e7c624888aa506a48",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.4.json": "25c5e0be41928a17f4ca3eb5aa9bb6b5ed35ce4b2bb0697397bd63fdabf2f993",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.5.json": "17a734ebcf8dc13e9304753f8fef4d4c0179ce3d2882126e459c50c0f86a2782",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.6.json": "3689021672fe816eee0754e1df89874fa2706a0aa5162e363ffa7c3613a02928",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.7.json": "357aa6fd67b4209a75f31241994d9414cc1fbba2393d157ebf71c6a53339725d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.0.json": "7cf54a941982e0f028c704167038bf639bbb2a4646d1b40f695bef86c44cac96",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.1.json": "bb11845bcba880c61c6b7c2544b651337540221a58e9b722464cb1fbbc0ad1f1",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.2.json": "e035e784d9233ef0c7f770d662d70e01726c8c6af6690c53a5fb83d8aa61bab2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.3.json": "eeaa3d20d6430c512e8778db86dbdaad7e60f251b0dd42c9ade2dd904562d2ed",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.4.json": "d3142d7c56533a7a927dbaffd99d8042e0b74233895caaf4f144a1fcd6f30231",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.5.json": "b9de615899f607c9b87d9b2ae7e95856827e1e5416a56352a38d6eadbd64b8a2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.6.json": "9ad088b50ed1a5f2b6914134782d4ef28ea2ef1ba8abc512cac0ec47d397e662",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.7.json": "ae7fd0e476b8fbe1b8cd0e4334be9d10b0be365ca2ab09610780a83c8ee3fae6",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.0.json": "67ebd13288eef5620ceb607d8f96b0055ec3c8c301b5321a5c067ec2b815ca6b",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.1.json": "dd663f91cfd8c086383bb818373d18efe8af45174407c3b359bef3b1ea3c86b9",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.2.json": "ca7f0e7852aaccc10b21b0a104150d730f80a121fabc5e1beb063f26e807c88f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.3.json": "ba7718510b6fc4503b3bab9c357ca64ac85577dec3d3cf8dacf6ec9fc07c40b0",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.4.json": "1d20137f6075942b586cd1ac559525003dae1c41b2b09cd2c45feabd3dbe2164",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.5.json": "575cc67a7ff3d3a9574d1ebe8cbe7af9cdc4971c7d15d34e558251ab48afaad2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.6.json": "a62c8bf21a0aaf15ccfc684f5f9e2a9373fc2d4de752d24b53e0d9bc19b54b30",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.7.json": "74614b670e31576c69e89da8080e9efc5e5d106b9598da284f31776ba4fd8df4",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.0.png": "eb29cab794d91437ad3c3f1e8847e11defe889c729b07270ac63940b9e02f24f",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.0.png": "6db953fe29cf01fffcd8b74590e678407fb14d280920a3d237b9f21bab310ba5",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.0.png": "1e11691647487ed749b032ab1f389d7f0e278202965034e9cdd7e1a477764b2a",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.3.png": "8f83dc006743916b8855bf5a3103fa812b84c5c48d2c5b88df9e54f871715d3e",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.3.png": "f2e4db74593265b71358d5d02e6e461f979d55612e0aded2cf37b51fbf7a0936",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.team.3.png": "bbd0e037d5558cb79cfdb3918fbcc308427c42fff9e765d3a46be7c78464a2dd",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.shadow.4.png": "4f1b56febdb79bfe82f65a11bd9f042bd3a47c2a6fada4cb843c8bde5c62ad46",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.gunship/unit.IR.gunship@2x.beauty.4.png": "2697476f879b036ac276cb6966c3687d2070ba12a1d1d0808875e59618a48c13",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.0.json": "0844dade3afea1515991fb667d25a9dc15171a8cf5a04fdaa25200f7f0b24d96",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.1.json": "c49f960658c397d14db888855ae44a8077d46606f6b20e27cf0f7046ede8a97d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.2.json": "e5329dc69cc63c791d668c046da509b7bc95f2b65f689d613b3edc164b104f48",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.3.json": "d4aa17a7c7414439f4c5b125d16cbc56c84cba9cba3ef950f85f71f680b930b1",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.4.json": "5c64ec48201e3ae359adf4c7df015bb699dbf2dea72c44e76eff1f59a88fd97d",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.5.json": "9a7c272b8c5eb8dac5bc01e5988e45b373165d66c44cd85cc4c0aa5f9ee9fc71",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.6.json": "0eb6db450d8b235004900fe7eadc8d9b69e663c4b213545b53490c07b4467097",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.0.json": "caa4328379c7daa380178406d3890bbffc66182cc351a05d47dde9dc34e2aeaf",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.1.json": "fafff62347f8ae4f520c4f3b5049ded57deb6598a3ca913ec944a850ed4a59c5",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.2.json": "bca5b8b43ebf34d4b48d5585a6a2e1f196ac41e614a8176b9a718b692b14dcfc",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.3.json": "f52900c8f3cb78510aefd0603b2b055a4df1fa9a75228c6ad62be46a33ee5153",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.4.json": "4ac75e49f5552483cbc09eab71f4037632d27e51c9d2c691e3b09131b6b42dde",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.5.json": "73c9aabf94161a44d359c64fca8c75c898c4dc79c45eec1e221df8f68f692488",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.6.json": "f277699b14118f0235b539d1ad0f5e7198fe4ce03bfc55f62f6c7d89ef6761a5",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.0.json": "38735d8659bafdb946504e7fcd316e2c33928f3d720057942b62ff4faa2aeefd",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.1.json": "3558647b7ee79ccc8187efade8855727be18ecf55e12cf9d2c56d8d1ac336c04",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.2.json": "dfb3fdd04c5f46eee4616657607b53463cf1cf420fb52030421f4d6e08b0166c",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.3.json": "9c71e4c60111cb040d45367b321cf091548dc12b05be1e2a7fc02977c210298c",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.4.json": "c6d4cf63b8969204a386480aad82be2aac7fd964303f364c27f5becb714f034e",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.5.json": "5028c4aa82f46de194ddbcc2a97b507006710b9648862ecde69dc5aef6da7db9",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.0.png": "c91e084f47455f6cba93d57b67565040adcbb2d9b5e7831babdd01e4e8ebd794",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.0.png": "487151c99b1a388e8c8afc44e8734ac89d8fad24304084dd4c4dc2bd8ee967bc",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.0.png": "0dca6d6aaaec6f575e069cd5d673d60368156dc5ec43d11ab9d67e376dabbea2",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.1.png": "cf05ad8503240665fe12ace6df197d2ea646eea24716912f3e54c955640318ce",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.1.png": "b33135b97e68f2d4b50786467c3bfd01f596c3435633dc90c74dcc4293409a52",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.1.png": "c78a0d41ff13644e46a4ef877bb33673a3e1cfd37080e5ec913fa1e2321045ed",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.shadow.5.png": "0b72a401d87da7aa39b91cabbce3d220136e64ace5e3ab5967d2044463288d55",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.beauty.5.png": "aca072e2511b12d5f62dc64827cb337baacacb3d73bb6666465440b222e5c3ab",
+    "work/art/aircraft-final-production-v3/stage/assets/build/sprites/unit.IR.isr/unit.IR.isr@2x.team.4.png": "d22b73323487070a227bc80c3a1ea36f1b699624e5dd54d7ffd6fc616260e88c"
+  },
+  "output_sha256": {
+    "family-01@1x.png": "a85da8e18d1131a4bd46268e99c3e334dfaa0ea74f2c6858c643ae8cc5abfca4",
+    "family-02@1x.png": "7fc268b14f2d596e3c07e901d8608d49f95365eb1a559ee1cdacb8bdc0b36860",
+    "family-03@1x.png": "5f586ce5bcf9461b2c8920fdc9a72443be1b3ad970c48e4a2fe4f5f625c81a6c",
+    "family-01@2x.png": "1e1405ee47fb4b3b6990a7fc44f2b02b7fef8145f6beb27ae1ed91af7fa63b86",
+    "family-02@2x.png": "7dff49c580e1c9574c5cd39368870289ccc5b6f296c07409755e8ee6a0021bc1",
+    "family-03@2x.png": "8dac3097e6dbd45c827de344303415744b852052c0db83067e9f51adbd2b065f"
+  },
+  "limitations": [
+    "Only heading3 and selected frames; not an all-heading animation review.",
+    "Generic armed service intentionally stays loaded; owned empty lifecycle is tested separately.",
+    "Earlier per-asset handoffs and visual limitations remain authoritative."
+  ]
+}

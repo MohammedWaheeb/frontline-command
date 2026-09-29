@@ -1,0 +1,25 @@
+{
+  "reviewer": "Codex mission_runtime",
+  "recorded_at_utc": "2026-09-29T18:16:13.896197+00:00",
+  "scope": "Inspection of six diagnostic family images at both native qualities; no new per-asset or runtime acceptance.",
+  "images": {
+    "family-01@1x.png": "a85da8e18d1131a4bd46268e99c3e334dfaa0ea74f2c6858c643ae8cc5abfca4",
+    "family-02@1x.png": "7fc268b14f2d596e3c07e901d8608d49f95365eb1a559ee1cdacb8bdc0b36860",
+    "family-03@1x.png": "5f586ce5bcf9461b2c8920fdc9a72443be1b3ad970c48e4a2fe4f5f625c81a6c",
+    "family-01@2x.png": "1e1405ee47fb4b3b6990a7fc44f2b02b7fef8145f6beb27ae1ed91af7fa63b86",
+    "family-02@2x.png": "7dff49c580e1c9574c5cd39368870289ccc5b6f296c07409755e8ee6a0021bc1",
+    "family-03@2x.png": "8dac3097e6dbd45c827de344303415744b852052c0db83067e9f51adbd2b065f"
+  },
+  "observations": [
+    "US paired-tail jet, narrow single-rotor gunship and tandem-rotor airlift retain distinct massing at the same world scale.",
+    "IR compact interceptor, legacy twin-boom strike craft, ducted-fan gunship and long-wing ISR remain distinguishable.",
+    "Native1x loaded/empty cues are subtle;2x shows underwing tips and pylons more clearly.",
+    "Service carts and raised covers remain visible; ISR service motion is particularly modest in this one selected frame."
+  ],
+  "limitations": [
+    "Only heading3 and selected frames; not an all-heading animation review.",
+    "Generic armed service intentionally stays loaded; owned empty lifecycle is tested separately.",
+    "Earlier per-asset handoffs and visual limitations remain authoritative."
+  ],
+  "bounds_check": "Every pasted frame, including shadow, fits its fixed cell without cropping; all sampled input hashes rechecked after generation."
+}
