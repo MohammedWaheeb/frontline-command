@@ -1,0 +1,47 @@
+{
+  "files": [
+    {
+      "file": "helpers/all-art-consumed-body-trace.mjs",
+      "source": "work/multiplayer-current-loader-diagnostic-v2/helpers/all-art-consumed-body-trace.mjs",
+      "sourceSHA256": "669627ca15750f514adb82536cc850fce19135c8c6e27c1a869b9a658ac2e15d",
+      "candidateSHA256": "5e98b445e80fec602f890e4fb0770dee95bbd57e42a44f4305a6e71a19438161",
+      "exact": false
+    },
+    {
+      "file": "helpers/native-consumed-body-cdp.mjs",
+      "source": "work/multiplayer-current-loader-diagnostic-v2/helpers/native-consumed-body-cdp.mjs",
+      "sourceSHA256": "c6abfa83af22e74abb23fca3920c488b887fcf2dcd6cab2e8c0ab079176fa70b",
+      "candidateSHA256": "c6abfa83af22e74abb23fca3920c488b887fcf2dcd6cab2e8c0ab079176fa70b",
+      "exact": true
+    },
+    {
+      "file": "helpers/native-consumed-body-trace.mjs",
+      "source": "work/multiplayer-current-loader-diagnostic-v2/helpers/native-consumed-body-trace.mjs",
+      "sourceSHA256": "ef34eb118014742e9fe6855c9a9979d496a6a3ba189ca8b4476b5b46f4e9d54c",
+      "candidateSHA256": "ef34eb118014742e9fe6855c9a9979d496a6a3ba189ca8b4476b5b46f4e9d54c",
+      "exact": true
+    },
+    {
+      "file": "helpers/native-response-cdp.mjs",
+      "source": "work/multiplayer-current-loader-diagnostic-v2/helpers/native-response-cdp.mjs",
+      "sourceSHA256": "c24450bda284c3a112cdf7c9359058ce05b6bd6a520fb568f3c084dffc31943e",
+      "candidateSHA256": "c24450bda284c3a112cdf7c9359058ce05b6bd6a520fb568f3c084dffc31943e",
+      "exact": true
+    },
+    {
+      "file": "helpers/native-response-trace.mjs",
+      "source": "work/multiplayer-current-loader-diagnostic-v2/helpers/native-response-trace.mjs",
+      "sourceSHA256": "c964161253c10f830bd8525badf1103a3a045c5117b6bf39bdb3796b506e3086",
+      "candidateSHA256": "c964161253c10f830bd8525badf1103a3a045c5117b6bf39bdb3796b506e3086",
+      "exact": true
+    },
+    {
+      "file": "helpers/streaming-sha256.mjs",
+      "source": "work/multiplayer-current-loader-diagnostic-v2/helpers/streaming-sha256.mjs",
+      "sourceSHA256": "ae32d08fc5351a12384e3c767e6a21724460df0cb740ea91f88809ac2847b467",
+      "candidateSHA256": "ae32d08fc5351a12384e3c767e6a21724460df0cb740ea91f88809ac2847b467",
+      "exact": true
+    }
+  ],
+  "intentionalDelta": "all-art-consumed-body-trace adds default-off observeBlob; no local returned-Blob reads in this course. All other six-helper behavior remains pinned."
+}

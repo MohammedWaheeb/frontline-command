@@ -1,0 +1,37 @@
+✔ selected ordinary-build artifact must bind exact product pack before any launch (1.657458ms)
+✔ all preflight/course/memory budgets and selected controls remain finite (0.110958ms)
+✔ art body beyond fixed hash cap, duplicate or unsafe URL is rejected (0.23075ms)
+✔ control filtering removes only exact control URLs and preserves global observer faults (0.259625ms)
+✔ paid construction needs matching accepted order, new owner structure and saved real price (0.697333ms)
+file:///Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/full-app-native-body-v1/observer.test.mjs:35
+ const error=new TypeError('native transfer interrupted');let readCalls=0;const response={status:200,url,redirected:false,body:{getReader(){return {read(){return ++readCalls===1?Promise.resolve({value:new Uint8Array([1,2]),done:false}):Promise.reject(error)},cancel(){return Promise.resolve()}}}};
+                                                                                                                                                                                                                                                                                                        ^
+
+SyntaxError: Unexpected token ';'
+    at compileSourceTextModule (node:internal/modules/esm/utils:355:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:90:18)
+    at #translate (node:internal/modules/esm/loader:441:20)
+    at afterLoad (node:internal/modules/esm/loader:509:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:514:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:567:36)
+    at afterResolve (node:internal/modules/esm/loader:614:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:620:12)
+    at node:internal/modules/esm/loader:639:32
+    at TracingChannel.tracePromise (node:diagnostics_channel:539:22)
+
+Node.js v26.5.0
+✖ work/full-app-native-body-v1/observer.test.mjs (28.682875ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 48.891958
+
+✖ failing tests:
+
+test at work/full-app-native-body-v1/observer.test.mjs:1:1
+✖ work/full-app-native-body-v1/observer.test.mjs (28.682875ms)
+  'test failed'

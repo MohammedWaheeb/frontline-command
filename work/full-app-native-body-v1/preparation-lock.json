@@ -1,0 +1,204 @@
+{
+  "created": "2026-09-29T19:13:03.871051+00:00",
+  "status": "prepared-unrun",
+  "productSpecificPreflight": "pending root exact ordinary package handoff",
+  "browserOrHTTPStarted": false,
+  "tests": {
+    "focused": 20,
+    "strictWorkerTypecheck": true,
+    "workerBundle": true,
+    "driverSyntax": true
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 6834,
+      "sha256": "f5eddcddd295d79dcaee74e04f5f6514e454daf391fcb48fd441d52d40de0940"
+    },
+    {
+      "path": "checks-01.log",
+      "bytes": 2273,
+      "sha256": "9c33ab6eb92f5873332cd63af967c11549dedd5df3553405978766269dff3841"
+    },
+    {
+      "path": "checks-02.log",
+      "bytes": 1663,
+      "sha256": "ee8b1f526415a49e743a331655ba27c4280c1b9758a8bc87d501179388bd5bd4"
+    },
+    {
+      "path": "checks-03.log",
+      "bytes": 1984,
+      "sha256": "737a6e3f9de460b95fbcbc72da9ebf4b146832c2cb336a72e9e3cbcf530bac07"
+    },
+    {
+      "path": "checks-04.log",
+      "bytes": 2098,
+      "sha256": "3a0da49657f0eac663533620dd26fda8eb97fc025b926b7df2b5e20e3a366729"
+    },
+    {
+      "path": "checks-05.log",
+      "bytes": 2097,
+      "sha256": "15d59cab8999cb08d5f36f65d0e0bb4f66f95ee83c33b62e42648da8f098f438"
+    },
+    {
+      "path": "config.example.json",
+      "bytes": 809,
+      "sha256": "29a7f064b732f99d80098fd221ae019ac62e9045b3c3c4734e7b75192ce77c5d"
+    },
+    {
+      "path": "course.mjs",
+      "bytes": 5613,
+      "sha256": "2cc8ae7776ccc838900b8acf9e9f72380fcd9547e621eafccfaa58a58c432c1e"
+    },
+    {
+      "path": "course.test.mjs",
+      "bytes": 3752,
+      "sha256": "7badd5087d5d4ac718c9068d7ab3b8454d9f16c6b66ebe9e990712b619aca938"
+    },
+    {
+      "path": "helper-lineage.json",
+      "bytes": 2405,
+      "sha256": "314bdceebe1080bca4c975c078cebaa7e7083caffbe4ae4e9271b4758476549c"
+    },
+    {
+      "path": "helpers/all-art-consumed-body-trace.mjs",
+      "bytes": 8757,
+      "sha256": "5e98b445e80fec602f890e4fb0770dee95bbd57e42a44f4305a6e71a19438161"
+    },
+    {
+      "path": "helpers/native-consumed-body-cdp.mjs",
+      "bytes": 7620,
+      "sha256": "c6abfa83af22e74abb23fca3920c488b887fcf2dcd6cab2e8c0ab079176fa70b"
+    },
+    {
+      "path": "helpers/native-consumed-body-trace.mjs",
+      "bytes": 6209,
+      "sha256": "ef34eb118014742e9fe6855c9a9979d496a6a3ba189ca8b4476b5b46f4e9d54c"
+    },
+    {
+      "path": "helpers/native-response-cdp.mjs",
+      "bytes": 12195,
+      "sha256": "c24450bda284c3a112cdf7c9359058ce05b6bd6a520fb568f3c084dffc31943e"
+    },
+    {
+      "path": "helpers/native-response-trace.mjs",
+      "bytes": 7354,
+      "sha256": "c964161253c10f830bd8525badf1103a3a045c5117b6bf39bdb3796b506e3086"
+    },
+    {
+      "path": "helpers/streaming-sha256.mjs",
+      "bytes": 2766,
+      "sha256": "ae32d08fc5351a12384e3c767e6a21724460df0cb740ea91f88809ac2847b467"
+    },
+    {
+      "path": "observer.mjs",
+      "bytes": 7756,
+      "sha256": "1144f3a62c0aa27c74e17e06bbf467322821ddf094e6783a08555081a9448c48"
+    },
+    {
+      "path": "observer.test.mjs",
+      "bytes": 8074,
+      "sha256": "58a642b798f3982f48a8d4366087f7190f997ecef04d13d32cfca266d386d112"
+    },
+    {
+      "path": "prepare-01/frontline_pb.ts",
+      "bytes": 55786,
+      "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+    },
+    {
+      "path": "prepare-01/tsconfig.json",
+      "bytes": 1063,
+      "sha256": "1705f37762d30c98b7a9a49f6d777f4cf44ecea058ece3522addf73c065290e6"
+    },
+    {
+      "path": "prepare-01/typecheck.log",
+      "bytes": 208,
+      "sha256": "949a99e733b9fcb9ec5c442dff63fc813c38cd4989dcdbc4234b2b97e6c3536c"
+    },
+    {
+      "path": "prepare-02/frontline_pb.ts",
+      "bytes": 55786,
+      "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+    },
+    {
+      "path": "prepare-02/tsconfig.json",
+      "bytes": 964,
+      "sha256": "62dc2a8d05b3ec532334d9275baee1ef529b65f20fbb5d26454af99fe762d3e0"
+    },
+    {
+      "path": "prepare-02/typecheck.log",
+      "bytes": 242,
+      "sha256": "d2b38179caa6ac8b60f2493b54267d7d2275f4b14b8e8737f1121e1ccbe8c2fb"
+    },
+    {
+      "path": "prepare-03/frontline_pb.ts",
+      "bytes": 55786,
+      "sha256": "db86802c777fd6d2660a7956adce34c7b20a788dd72e6926365cdc46dc88199f"
+    },
+    {
+      "path": "prepare-03/tsconfig.json",
+      "bytes": 964,
+      "sha256": "294b80078c4d0c6e172dc69e7f3cb8b2a52a98416b6ab2cb965d9ca3b2d5368d"
+    },
+    {
+      "path": "prepare-03/typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "prepare-03/worker-build.json",
+      "bytes": 16275,
+      "sha256": "4f6de4bd5868844bf84c4a35497057442a0b0095d14a5b5c1d9fe4d21c3fdbb7"
+    },
+    {
+      "path": "prepare-03/worker-observer.js",
+      "bytes": 177373,
+      "sha256": "2ca721aa63fbdd904a46d6c210e97b111419e1ae5f743bdadb404cd0f4587184"
+    },
+    {
+      "path": "prepare-03.log",
+      "bytes": 14583,
+      "sha256": "6728e9c92313b8f0bd4bbdd1ba12e982b59918ea26adecd5ca13710cc329fd8f"
+    },
+    {
+      "path": "prepare.mjs",
+      "bytes": 2923,
+      "sha256": "59dff75fd1b0e0adc67fed552ca5cba1ded3d3e90f4fd8de5285f91324559cae"
+    },
+    {
+      "path": "resource-health.mjs",
+      "bytes": 8283,
+      "sha256": "575ecc26c2875405dd9f7dba12334abddcdcd9fb59230214d1c48cff23fa40e0"
+    },
+    {
+      "path": "resource-health.test.mjs",
+      "bytes": 2128,
+      "sha256": "6535bb1304d750bc6c1050847a2de852480fd710b42340c272ecb03da1f00490"
+    },
+    {
+      "path": "runner.mjs",
+      "bytes": 22630,
+      "sha256": "211fa8c1bae6eb4da991c7a1d3e3925de1aa0c2717c9a388c984bd061c5afaed"
+    },
+    {
+      "path": "source-audit.json",
+      "bytes": 1594,
+      "sha256": "2fe0932a09ca0a099ea56e2df7acc68ff9293f2fddd7e8074a35ebc734b686ee"
+    },
+    {
+      "path": "source-audit.md",
+      "bytes": 2807,
+      "sha256": "e16ffdde1b11c35da991490d8e097874bf7a3c64ef36691296f35e459caddc9d"
+    },
+    {
+      "path": "worker-observer.test.mjs",
+      "bytes": 2899,
+      "sha256": "b9edad3d42b50fe1351eab9a5648e49aeb9679818fb8ce32fea7ab8e832bb966"
+    },
+    {
+      "path": "worker-observer.ts",
+      "bytes": 3558,
+      "sha256": "fb36ffc7327f35432e24b816ce8294c794ac2d1c28c159b9bb551359868aeb25"
+    }
+  ]
+}
