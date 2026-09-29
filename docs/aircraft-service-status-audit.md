@@ -123,6 +123,8 @@ both application/runtime TypeScript checks. Tests were built only into
 beside the original audit receipt. No broad runtime suite, browser, host, Go
 build, wire change or shipping runtime update occurred in this slice.
 
-These are logic checks using typed authorized-view fixtures. Actual Go snapshot
-and rendered native-pixel checks on the next combined frozen product remain
-pending; the partial FX coverage row has not been promoted by these unit tests.
+These are logic checks using typed authorized-view fixtures. The subsequent
+[actual-Go service course](aircraft-service-status-course.md) now supplies fourteen
+native stages and matching Chromium rendering checks on frozen v19. It preserves
+the separate pending engines and lifecycle/art limitations; the partial FX
+coverage row has not been promoted merely by these unit tests.

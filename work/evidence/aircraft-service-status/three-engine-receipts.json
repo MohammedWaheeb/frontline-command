@@ -1,0 +1,106 @@
+{
+  "created": "2026-09-29T08:35:32.204776+00:00",
+  "scope": "Actual authored US04 commands, 14 native/WASM renderer stages on frozen v19 incomplete art. Chromium retains earlier driver; no requestfailed collector. Not mission victory or final full-art acceptance.",
+  "runs": [
+    {
+      "engine": "chromium",
+      "report": "work/evidence/aircraft-service-status/chromium-01/browser.json",
+      "sha256": "5659d0e8e336a94403ee3b1304b3bfc4bc375a93c35257d1f5c7ba383944658b",
+      "status": "passed",
+      "version": "151.0.7922.34",
+      "stageCount": 14,
+      "ownFiles": {
+        "aircraft-service-fixture.ts": "23cb5650322a3c8862fba6400c08545314b63d75b09b0e783461d1f19eaa8430",
+        "aircraft-service-course.mjs": "d4db00c84cdb247f626a617694c070643707918d728c9c99fa40c55a8e85b36d",
+        "aircraft-service-browser.mjs": "515f933958d034ec428563261c762ce5f2f978d14ed8b8a716cb2c3ad4874972"
+      },
+      "diagnostics": {
+        "errors": 0,
+        "consoleErrors": 0,
+        "httpErrors": 0
+      },
+      "postClose": null,
+      "cleanup": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "errors": [],
+        "receipts": 11
+      }
+    },
+    {
+      "engine": "firefox",
+      "report": "work/evidence/aircraft-service-status/firefox-01/browser.json",
+      "sha256": "645deb2e2f9f8f701ccd6138b25f6217381327851f85966ed71800f5ccad5f6f",
+      "status": "passed",
+      "version": "153.0",
+      "stageCount": 14,
+      "ownFiles": {
+        "aircraft-service-fixture.ts": "23cb5650322a3c8862fba6400c08545314b63d75b09b0e783461d1f19eaa8430",
+        "aircraft-service-course.mjs": "d4db00c84cdb247f626a617694c070643707918d728c9c99fa40c55a8e85b36d",
+        "aircraft-service-browser.mjs": "0853d59db9ded48d547e82f204714de4440976331779e481fb0422b6db4ad291"
+      },
+      "diagnostics": {
+        "errors": 0,
+        "consoleErrors": 0,
+        "httpErrors": 0
+      },
+      "postClose": {
+        "afterBrowserClose": true,
+        "errors": 0,
+        "consoleErrors": 0,
+        "httpErrors": 0
+      },
+      "cleanup": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "errors": [],
+        "receipts": 11
+      }
+    },
+    {
+      "engine": "webkit",
+      "report": "work/evidence/aircraft-service-status/webkit-01/browser.json",
+      "sha256": "faae3bc8a360844a05001078555c5969ac26ae06f83c0d2e8f729220e8e7508c",
+      "status": "passed",
+      "version": "26.5",
+      "stageCount": 14,
+      "ownFiles": {
+        "aircraft-service-fixture.ts": "23cb5650322a3c8862fba6400c08545314b63d75b09b0e783461d1f19eaa8430",
+        "aircraft-service-course.mjs": "d4db00c84cdb247f626a617694c070643707918d728c9c99fa40c55a8e85b36d",
+        "aircraft-service-browser.mjs": "0853d59db9ded48d547e82f204714de4440976331779e481fb0422b6db4ad291"
+      },
+      "diagnostics": {
+        "errors": 0,
+        "consoleErrors": 0,
+        "httpErrors": 0
+      },
+      "postClose": {
+        "afterBrowserClose": true,
+        "errors": 0,
+        "consoleErrors": 0,
+        "httpErrors": 0
+      },
+      "cleanup": {
+        "canvases": 0,
+        "art": {
+          "indexedPages": 0,
+          "residentPages": 0,
+          "residentBytes": 0,
+          "pickingBytes": 0
+        },
+        "errors": [],
+        "receipts": 11
+      }
+    }
+  ]
+}
