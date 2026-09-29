@@ -1,0 +1,61 @@
+{
+  "id": "unit.IR.isr",
+  "accepted": true,
+  "scope": "Completed frozen export accepted for isolated diagnostic integration only. No final camera, service lifecycle, renderer or GPU residency acceptance.",
+  "reviewer": "Codex mission_runtime",
+  "reviewed_at_utc": "2026-09-29T18:06:36.679336+00:00",
+  "direct_native_review": {
+    "world_pages": 20,
+    "ui_pages": 1,
+    "sampling": "Every heading first frame and every remaining frame at heading3 in all10 states. Full numerical/pixel contracts cover512 poses; not all512 manually inspected.",
+    "files": {
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/fly-01@1x.png": "094eebf9d53616ee81b96d8c7a0ca712761911266954177de765c53ed56e4d6f",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/fly-02@1x.png": "8d9d89034cf0d5fe3076e3398413c758c5442e339f930d8408818758db0707be",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/bank_left-01@1x.png": "e819a899a3c7fea8bf8d4913090205559a3b79e7adcf8a0ef8287c09c919316e",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/bank_left-02@1x.png": "ddcbf2b5470277dcb99c92966302e807f8af384838111c30ba39dcf40ae3a4ee",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/bank_right-01@1x.png": "192293bd54e4f22b4690a270aad630aec70899bee3218591c15f0a217f7093fc",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/bank_right-02@1x.png": "28b6eb53fd544411f254c4ab9bb6ec16123ee653f1a99688992aae775073888d",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/parked-01@1x.png": "7efc68fd8264f451791d9d108cfeb0141e336a78486371d8b0ceef9b74e6f0c3",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/parked-02@1x.png": "29f298de2853ca57c4e67d148bd20dad205a5f52e4fcd40418510ecbb0ef5c1f",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/launch-01@1x.png": "4f2430fe345d1a12f067f7f8c94d27a52e579ff14be2fb4c43e202a18043f652",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/launch-02@1x.png": "ce134628cbcc7ff73a9d54a21432f0a6726f7156226cbe6cec02a0b6d315fe10",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/recover-01@1x.png": "ff83486e986c1136cd87b324af56dbe4c075c2f3c3fab104ef8df9e8e9632150",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/recover-02@1x.png": "72b11f72eb8dd40c184be7d1d02e165b495d7bce16c3eb829a9157726679a2eb",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/damaged-01@1x.png": "9736251c956cdc3c235970be0e20ace19ec0ad3ed221a50fc19a38242b74009a",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/damaged-02@1x.png": "d451ee6660006b1654b39713722f3d1e074034523fdd78a60bbf37ce96d629b7",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/crash-01@1x.png": "4892ef8be08198a3c1edcf29e6ada0afdd64a7a69536c30da5bb129afc429699",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/crash-02@1x.png": "5667c04e43c9d3f772770a9a531e0583306b741b274b911b777c72356f2fe506",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/orbit-01@1x.png": "8735a638914f6369a342a7f884563a81f6727498c3afb9ff07d2e74b72101d41",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/orbit-02@1x.png": "b43cd2bff9a7fd3c927d9d18f9ea56a321bfeb4560c56440790b7bf7dc0f92cb",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/rearm-01@1x.png": "1148e3777c0671d392246a58fcfd86804c4783097b0468658e36e95a4c6148d0",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/rearm-02@1x.png": "3faae9ccea6c99b47ba41e29f37edcaa3cf91b3349755ac0fc92af4c51e99730",
+      "work/art/aircraft-final-production-v3/contacts/unit.IR.isr/ui-contact@1x-2x.png": "f544402ab686260ad9aa6a6ef0b2d142567d1e6b5e07b6e66a796f5a04491507"
+    }
+  },
+  "observations": [
+    "Long-wing survey airframe, sensor dome and unarmed silhouette remain clear across sampled headings, with no apparent clipping or team-mask holes.",
+    "Wingtip team areas remain visible in world and paired UI views; narrow fuselage and tail retain their clean silhouette.",
+    "Bank/orbit tilt and progressively nose-down neutral crash distinguish states.",
+    "Service cover opens visibly in the six-frame strip while preserving dome/wing clearance; motion remains modest."
+  ],
+  "limitations": [
+    "Damage markings, landing gear, launch/recover motion and service-cover motion are modest at native1x.",
+    "Orbit uses a banking presentation; still sheets do not establish actual flight path, altitude or phase timing.",
+    "Actual renderer depth, current-owner lifecycle, interruption/restore/replay and GPU residency remain independent runtime gates."
+  ],
+  "checks": {
+    "world": {
+      "path": "work/art/aircraft-final-production-v3/check-unit.IR.isr.json",
+      "sha256": "6c8b8225e497539b00d990d16e7a5fa6c82057e8a5a83a88f8e48ab487ca3e07",
+      "checks": 23,
+      "failures": 0
+    },
+    "ui": {
+      "path": "work/art/aircraft-final-production-v3/ui-check-unit.IR.isr.json",
+      "sha256": "6eab90026df4612ce00067058a1fbad4596067e5a73f25158380c8e5d3894562",
+      "checks": 20,
+      "failures": 0
+    }
+  },
+  "parent_full_export_authorization": "Already-approved unchanged aircraft family; per-asset integrity/native review retained. No live publication."
+}
