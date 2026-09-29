@@ -1,0 +1,22 @@
+✔ two-round overall budget does not silently enlarge each round (2.604917ms)
+✔ real file guards reject asset, source and receipt drift between round boundaries (10.976584ms)
+✔ dead first human is a failed requirement while both later survivors reconnect once (4.000209ms)
+✔ lost human during attempt remains failed and later cycle still visits next survivor (0.14ms)
+✔ reconnect exceptions retain failed attempt then propagate without fake success (0.132541ms)
+✔ watchdog closes owned resources once even while main work never settles (0.178167ms)
+✔ normal completion cancels watchdog, including an already queued timer callback (0.079292ms)
+✔ watchdog cleanup failure remains visible and expiry cannot be canceled into a pass (0.07925ms)
+✔ earned owner2 midpoint reproduces original impossible station intent and successor emits none (5.124459ms)
+✔ public neutral and active enemy remain eligible; own, allied, defeated and unknown do not (1.046667ms)
+✔ explicit synthetic owner variants of earned public view preserve actual capture intent when legal (3.038917ms)
+✔ ineligible nearer station cannot starve an eligible public alternative (2.222834ms)
+✔ fog and visible armed threat checks remain in force (2.787291ms)
+✔ newly published public defeat before logistics is honored without hidden-state access (5.72275ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 90.079458

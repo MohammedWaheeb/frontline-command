@@ -1,0 +1,59 @@
+{
+  "status": "author-prepared-browser-unrun-final-package-unbound",
+  "scope": "Private test-only station eligibility and future long-course guard successor. No production edits or final-art approval.",
+  "baselinePreparationSHA256": "55422bb2345e7381ac7cd886eb1c6e262c91623a95198633867582cb73693c83",
+  "changedExistingSources": [
+    {
+      "file": "source/expansion-commander.mjs",
+      "originalSHA256": "51e6fb82bc555ae1175e659d3b707e0bba6d8639a0bd63be98e24244758dfd9f",
+      "successorSHA256": "a48d7de4295fa0e614942beb51edc220f306bbb393e3388de58c34fba229b0eb",
+      "commentOnly": false
+    },
+    {
+      "file": "source/multiplayer-current-loader-contract.mjs",
+      "originalSHA256": "64612d44ec0b7d4ce0e74bdec7d857b9e7496843f75c56507c58b2dad45d4f70",
+      "successorSHA256": "8d50050f0d0da9653fdb0f4a996460192740f6d68bd0b3fe62ecd50a15ad6b02",
+      "commentOnly": true
+    },
+    {
+      "file": "source/multiplayer-current-loader.browser.mjs",
+      "originalSHA256": "a2551971e1320bf33a8c8aba755e4feb03be9fedf82475523b35fa0610737233",
+      "successorSHA256": "b1cca3e359b52f964081b4202e1bb123db5733adfd2689ef5c6ef57be753cfb0",
+      "commentOnly": false
+    },
+    {
+      "file": "source/multiplayer-v24-contract.mjs",
+      "originalSHA256": "83eebf5375d607c9cf194bac29923c0a38be247437c96b5bb0c543ea2e52f633",
+      "successorSHA256": "052f36b657d736f702ae79992f357c8ae08aee93491c8a93277d7c540551cbe9",
+      "commentOnly": true
+    }
+  ],
+  "files": {
+    ".gitignore": "78035370b71f9008af8783d7419bb08316991002be995bc3f5d02fe0d9b92d60",
+    "README.md": "2ce41e46258d5f96e943f246bf84fc0f77700076ce45fb71f02638270aea9dc6",
+    "baseline-lock.json": "a0356801c659554d0d16a71848f50b058faa0767bef59fe50785ec5d54f14f14",
+    "export-earned-view-01-failed.mjs": "a70f10617a23b42d0dfce2e57c6665be58afea325dcdc7ffc490612df469ea5d",
+    "export-earned-view-02.log": "809ae944682d8266b38e9a0abea70fc9ef28e95fe71746514ded2f27be3d85fd",
+    "export-earned-view.log": "7d85e698d0b598cbb8ff30d12f75ffd1dc413ac49da6cc4eaf918ccec1b40152",
+    "export-earned-view.mjs": "617a4e68103530f73052f78679323ba2d183134cb376bc7cfc33b171cc2ef94c",
+    "fixtures/catalog.json": "0fd2789d173787366e40e1af059277c228e8408d26ee47f256776433912c473b",
+    "fixtures/export-receipt.json": "809ae944682d8266b38e9a0abea70fc9ef28e95fe71746514ded2f27be3d85fd",
+    "fixtures/owner2-midpoint.json": "62768e41a41723be18fc467110b49099b778777ed4e1f94688edc8ee7a812b5b",
+    "prepare.mjs": "f4e243f27e4d1aa906ad232dfc29074bee413e1e4b172277b71a3809fd38ae04",
+    "source/expansion-commander.mjs": "a48d7de4295fa0e614942beb51edc220f306bbb393e3388de58c34fba229b0eb",
+    "source/future-course-guards.mjs": "ac804c2c60aecd216a26d3ea956985347f42316804cc2f2ccde5b8a0ba8b5a3b",
+    "source/future-course-guards.test.mjs": "e101298ac6755c680f2ed51c765b220492f49c74bb53630a28b1355c2ca7b618",
+    "source/multiplayer-course-safety.mjs": "8da44135fde8026c6be89bd01d3612092ab0d126d40e1315ca86a4a50e8dfeed",
+    "source/multiplayer-course-safety.test.mjs": "e6cbe9dc104ab984b4534235b130fb9e2178ce1f164881c67aa166825b2a4d62",
+    "source/multiplayer-current-loader-contract.mjs": "8d50050f0d0da9653fdb0f4a996460192740f6d68bd0b3fe62ecd50a15ad6b02",
+    "source/multiplayer-current-loader-integrity.mjs": "7cce97e6237cd417a7a6a622fc1a4f3ea101687a0b3cdc0ce29bda82c3bd9d1d",
+    "source/multiplayer-current-loader-replay-observation.mjs": "6ec8e2a7338116e6f9ebdf721ec559dc8144b538738741493121dae69c61dc20",
+    "source/multiplayer-current-loader.browser.mjs": "b1cca3e359b52f964081b4202e1bb123db5733adfd2689ef5c6ef57be753cfb0",
+    "source/multiplayer-passive-diagnostics.mjs": "bf05c4eaa82d50e41c3d167a1c7bddd295964ba86a87f76a5400456fa79001d7",
+    "source/multiplayer-v24-contract.mjs": "052f36b657d736f702ae79992f357c8ae08aee93491c8a93277d7c540551cbe9",
+    "source/rematch-contract.mjs": "8f1151303b294ce4357d2c595dc877f08388e674517b146a3df9690f2e94e8bb",
+    "source/station-owner.test.mjs": "804d69e8c899def1a2f3f16dac04a207905d5690557a87c29b2f530d75d8d77b",
+    "source/worker-observation.mjs": "497f4dbf32d0d6b4921461698f4b077d00900f0fd2b2b958f1ce6586e3b7a509",
+    "unit-01.log": "dab23280db82fc39b59544ad3c8041e7490d7aad0b0478918b453fd972d951e7"
+  }
+}
