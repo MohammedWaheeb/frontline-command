@@ -1,0 +1,83 @@
+{
+  "scope": "Pure arithmetic prediction from the frozen builder/pose expressions. Not Blender evaluated geometry, native evidence or a source correction.",
+  "source_audit": "work/art/apc-aperture-native-diagnostic-v1/source-audit.json",
+  "source_audit_sha256": "5140567d30f776dd55407efc29c9260b1149b661ade2c5effe71aef1aaeb91c7",
+  "equation": "Ry(theta) acts on ramp center(-0.015,0,0.16): x=-0.015*cos(theta)+0.16*sin(theta); outward rear is negativeX.",
+  "assets": [
+    {
+      "id": "unit.US.apc",
+      "source_closed_center_x_from_hinge": -0.015,
+      "source_floor_height_bu": 0.13,
+      "source_open_angle": 1.45,
+      "frames": [
+        {
+          "frame": 0,
+          "rotation_y": 0.4833333333333333,
+          "panel_center_x_from_hinge_bu": 0.061075559689916424,
+          "outward_displacement_from_closed_bu": -0.07607555968991642,
+          "panel_center_height_bu": 0.2786431162501764
+        },
+        {
+          "frame": 1,
+          "rotation_y": 0.9666666666666666,
+          "panel_center_x_from_hinge_bu": 0.1231587983096771,
+          "outward_displacement_from_closed_bu": -0.1381587983096771,
+          "panel_center_height_bu": 0.23323231276551099
+        },
+        {
+          "frame": 2,
+          "rotation_y": 1.45,
+          "panel_center_x_from_hinge_bu": 0.15702653702550368,
+          "outward_displacement_from_closed_bu": -0.1720265370255037,
+          "panel_center_height_bu": 0.1641711379643425
+        },
+        {
+          "frame": 3,
+          "rotation_y": 1.45,
+          "panel_center_x_from_hinge_bu": 0.15702653702550368,
+          "outward_displacement_from_closed_bu": -0.1720265370255037,
+          "panel_center_height_bu": 0.1641711379643425
+        }
+      ],
+      "sign_only_fix_limitation": "Negative current angle moves the panel outward but leaves it tilted slightly upward from the hinge. A physically grounded ramp needs a separately measured final angle beyond90degrees and native/mesh proof, not a blind sign flip."
+    },
+    {
+      "id": "unit.SA.apc",
+      "source_closed_center_x_from_hinge": -0.015,
+      "source_floor_height_bu": 0.17,
+      "source_open_angle": 1.4,
+      "frames": [
+        {
+          "frame": 0,
+          "rotation_y": 0.4666666666666666,
+          "panel_center_x_from_hinge_bu": 0.0585898065909835,
+          "outward_displacement_from_closed_bu": -0.07358980659098349,
+          "panel_center_height_bu": 0.3196403507200887
+        },
+        {
+          "frame": 1,
+          "rotation_y": 0.9333333333333332,
+          "panel_center_x_from_hinge_bu": 0.11964994319906885,
+          "outward_displacement_from_closed_bu": -0.13464994319906887,
+          "panel_center_height_bu": 0.2772794998704766
+        },
+        {
+          "frame": 2,
+          "rotation_y": 1.4,
+          "panel_center_x_from_hinge_bu": 0.15512244965465002,
+          "outward_displacement_from_closed_bu": -0.17012244965465,
+          "panel_center_height_bu": 0.2119764888138655
+        },
+        {
+          "frame": 3,
+          "rotation_y": 1.4,
+          "panel_center_x_from_hinge_bu": 0.15512244965465002,
+          "outward_displacement_from_closed_bu": -0.17012244965465,
+          "panel_center_height_bu": 0.2119764888138655
+        }
+      ],
+      "sign_only_fix_limitation": "Negative current angle moves the panel outward but leaves it tilted slightly upward from the hinge. A physically grounded ramp needs a separately measured final angle beyond90degrees and native/mesh proof, not a blind sign flip."
+    }
+  ],
+  "required_next_step": "Run the already-prepared original36-pose actual evaluated/native probe at a sole-worker boundary. If confirmed, establish a true cavity and a ramp with measured ground contact, retaining all exterior running gear/turret/anchors/scale/hardpoints."
+}
