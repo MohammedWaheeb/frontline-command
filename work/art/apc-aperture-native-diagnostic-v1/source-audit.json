@@ -1,0 +1,47 @@
+{
+  "scope": "Read-only source risk; original evaluated/native proof not yet executed. No full export failure or source correction claimed.",
+  "production_lock": "work/art/vehicle-final-production-v1/production-lock.json",
+  "inputs": {
+    "work/art/vehicle-final-production-v1/production-lock.json": "8d197d8b4c39cfb22de331a9578f3e95bf1e048de585feea0299fca3eccd0904",
+    "work/art/vehicle-final-production-v1/stage/assets/pipeline/blender/models/vehicle_roster.py": "5259f3b44bb7b083881781043e3fed00040b3e47aefe68c7607786068442f422",
+    "work/art/vehicle-final-production-v1/stage/assets/pipeline/blender/fclib.py": "f2efa7bdc39742579bae5236af56a4d076def9be9541643be3e1b59a9604fe37",
+    "work/art/vehicle-final-production-v1/stage/assets/pipeline/specs/unit.US.apc.json": "b155afa234de6f369276888bb12fe24633e97f8804a525a61c27ea4278030aff",
+    "work/art/vehicle-final-production-v1/stage/assets/pipeline/specs/unit.IR.apc.json": "c6c60418d3a1bb019ef078ed556b84c32b957e3f26bdc241dc40061715bb0ea6",
+    "work/art/vehicle-final-production-v1/stage/assets/pipeline/specs/unit.SA.apc.json": "22286dbf49daaafa555a99002b3dab63d9a0a6b13826c0586a3c6cd98f36fb65"
+  },
+  "affected_pending_ids": [
+    "unit.US.apc",
+    "unit.IR.apc",
+    "unit.SA.apc"
+  ],
+  "accepted_SY_apc_unchanged": true,
+  "original_probe_poses": 36,
+  "source_findings": {
+    "US.apc": {
+      "model_lines": [
+        301,
+        319
+      ],
+      "ramp_rotation_y": 1.45,
+      "closed_panel_local_z": 0.16,
+      "solid_hull_prism": true
+    },
+    "IR.apc": {
+      "model_lines": [
+        523,
+        537
+      ],
+      "side_door_rotation_z": "-1.3*side",
+      "dark_plate_inside_solid_hull": true
+    },
+    "SA.apc": {
+      "model_lines": [
+        941,
+        954
+      ],
+      "ramp_rotation_y": 1.4,
+      "closed_panel_local_z": 0.16,
+      "solid_hull_prism": true
+    }
+  }
+}

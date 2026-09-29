@@ -1,0 +1,95 @@
+{
+  "scope": "Read-only queue count and observed current-pipeline renderer throughput. Not a completion prediction or native/whole-game acceptance. Pack/UI/proof/review time is excluded from render measurements.",
+  "time": "2026-09-29T20:12:47.738674+00:00",
+  "catalog": "work/art/roster-runtime-overlay-v1/catalog-v59-v1/result.json",
+  "catalog_sha256": "e982374616baed744e77a45a2c711d559951b9cc16bef7db08863ce5f8dbe658",
+  "exact_pending_catalog_counts": [
+    {
+      "family": "aircraft-final-production-v3",
+      "assets": 2,
+      "poses": 1792
+    },
+    {
+      "family": "vehicle-final-production-v1",
+      "assets": 21,
+      "poses": 5584
+    },
+    {
+      "family": "building-final-production-v1",
+      "assets": 32,
+      "poses": 1614
+    }
+  ],
+  "additional_authorized_successor": {
+    "id": "unit.IR.isr",
+    "full_poses": 512,
+    "reused": 422,
+    "fresh": 90,
+    "model_lock": "work/art/ir-isr-service-final-production-v1/production-lock.json",
+    "model_lock_sha256": "07f9df59927cf7317f984494cd6ab6d30bf065bbfda80288b7edaf02ba39e9ca"
+  },
+  "current_pipeline_samples": [
+    {
+      "id": "unit.IR.fighter",
+      "log": "work/art/aircraft-final-production-v3/full-unit.IR.fighter.log",
+      "sha256": "ed0d6d3b25da00e4de5d83f941ddb3c78106f934ce89df956a52c90f5e7e53f9",
+      "poses": 832,
+      "reused": 40,
+      "fresh": 792,
+      "render_seconds": 1491.0,
+      "seconds_per_fresh_pose": 1.883
+    },
+    {
+      "id": "unit.IR.gunship",
+      "log": "work/art/aircraft-final-production-v3/full-unit.IR.gunship.log",
+      "sha256": "75b909f8be88dc52e5233feedac0badaa4c91dc7f053c1c00e33724e66fcfaff",
+      "poses": 832,
+      "reused": 40,
+      "fresh": 792,
+      "render_seconds": 1800.9,
+      "seconds_per_fresh_pose": 2.274
+    },
+    {
+      "id": "unit.IR.isr",
+      "log": "work/art/aircraft-final-production-v3/full-unit.IR.isr.log",
+      "sha256": "27340851c8f5def1ed90b31be8979c098928f676e9b844a81f049431b623beba",
+      "poses": 512,
+      "reused": 0,
+      "fresh": 512,
+      "render_seconds": 1076.2,
+      "seconds_per_fresh_pose": 2.102
+    },
+    {
+      "id": "unit.SA.gunship",
+      "log": "work/art/aircraft-final-production-v3/full-unit.SA.gunship.log",
+      "sha256": "a5d14e8435b5a67b56cf2533feb5d78c2457d4c0785b0b658da0ac7d4b0786fa",
+      "poses": 1120,
+      "reused": 40,
+      "fresh": 1080,
+      "render_seconds": 2495.4,
+      "seconds_per_fresh_pose": 2.311
+    },
+    {
+      "id": "unit.SY.scout_drone",
+      "log": "work/art/aircraft-final-production-v3/full-unit.SY.scout_drone.log",
+      "sha256": "d7a60f820d1def3a71b588ffafc1b3554fb31543695b74917fac85f8d28dccda",
+      "poses": 464,
+      "reused": 0,
+      "fresh": 464,
+      "render_seconds": 927.7,
+      "seconds_per_fresh_pose": 1.999
+    }
+  ],
+  "serial_next": [
+    "SA strike896:48reuse848fresh, currently rendering",
+    "US strike896:48reuse848fresh",
+    "ISR successor512:422reuse90fresh",
+    "Original-source ground/APC/building diagnostics before affected full exports",
+    "Remaining21ground5584 and32building1614 with per-asset technical/native/UI review"
+  ],
+  "limitations": [
+    "Ground/building complexity differs; no aircraft timing extrapolation is asserted for those families.",
+    "Source fixes or native failures can add bounded work; prior failed output is preserved.",
+    "No full product, expanded normalization or shipping publication created."
+  ]
+}
