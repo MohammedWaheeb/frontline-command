@@ -1,0 +1,33 @@
+{
+  "id": "unit.IR.fighter",
+  "reviewed": [
+    "loaded-empty-diagonals@1x.png",
+    "loaded-empty-diagonals@2x.png"
+  ],
+  "scope": "Readability limitation diagnostic, not a new pass criterion or source change. Existing full handoff remains immutable.",
+  "observations": [
+    "At front and side diagonals, small under-wing missile tips disappear in the empty state.",
+    "At rear heading11 the wing/body occludes the payload even at2x; the static composition cannot establish ammo visibility from every heading.",
+    "Plain byte-difference counts include rendering quantization, so they must not be presented as proof of visible payload. The reported delta>=8 count is descriptive, not an acceptance threshold."
+  ],
+  "summary": {
+    "1x": {
+      "fly_front_side_max_delta8_pixels": 28,
+      "fly_headings_without_delta8_pixels": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "2x": {
+      "fly_front_side_max_delta8_pixels": 98,
+      "fly_headings_without_delta8_pixels": [
+        9,
+        10,
+        11
+      ]
+    }
+  }
+}

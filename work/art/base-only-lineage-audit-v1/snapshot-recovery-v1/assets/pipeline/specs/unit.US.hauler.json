@@ -1,0 +1,150 @@
+{
+  "id": "unit.US.hauler",
+  "role_id": "US.hauler",
+  "model": "logistics",
+  "faction": "US",
+  "author": "Codex",
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Codex",
+    "authorization": "User-approved Claude quota takeover; root logistics assignment",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "source_model": "assets/pipeline/blender/models/logistics.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "params": {
+    "role": "hauler"
+  },
+  "canvas": [
+    336,
+    240
+  ],
+  "anchor": [
+    148,
+    148
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 800,
+  "states": [
+    {
+      "name": "idle",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "move",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 12,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "damaged",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "wreck",
+      "part": "whole",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "work_load",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 8,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "work_unload",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 8,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "move_loaded",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 12,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "idle_loaded",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "damaged_loaded",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    }
+  ]
+}
