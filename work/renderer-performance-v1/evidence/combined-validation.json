@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "scope": "Private combined source only; no browser, GPU, raster, wall-clock performance or complete-art acceptance.",
+  "guardedLiveSources": 137,
+  "liveSourcesUnchanged": true,
+  "sourceSHA256": {
+    "battlefield.ts": "60a925f92a6a15d68a837c75b56a1d3148f48738d04cda79e94c1cbcb8b7069a",
+    "terrain.ts": "de219a85e70a1cb9ed02ec41ab7eb7d3e40a780fa375649eac16ffc8a5d0c005",
+    "art.ts": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8"
+  },
+  "inputs": {
+    "palette": "ee19d88",
+    "culling": "ee19d88",
+    "art": "6b49db7",
+    "artSHA256": "ea018ee1df9aaddb3a42b34d530cf188929049bc551a47ebef809990a5ce49f8"
+  },
+  "appTypecheck": 0,
+  "runtimeTypecheck": 0,
+  "runtimeTestsExitCode": 0,
+  "testSummary": [
+    "ℹ tests 498",
+    "ℹ suites 0",
+    "ℹ pass 498",
+    "ℹ fail 0",
+    "ℹ cancelled 0",
+    "ℹ skipped 0",
+    "ℹ todo 0"
+  ],
+  "callerInvariant": "Art trim(now) remains every60frames and follows drawTactical and paintMinimap. Combat trim remains at its prior position.",
+  "limits": [
+    "Priority admission changes equal-zIndex creation order; actual warmed native pixel equivalence remains mandatory.",
+    "Culling reentry has actual ActorVisual Node evidence only; actual-App art/picking/service/replay remains open.",
+    "Active/pending sprite pages may exceed the soft residency target.",
+    "Large/minzoom terrain still exceeds36chunks because original prefetch guards remain."
+  ]
+}

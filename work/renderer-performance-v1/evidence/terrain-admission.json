@@ -1,0 +1,3041 @@
+{
+  "status": "PASS",
+  "scope": "Frozen exact admission method with real public TerrainSurface geometry and counted bake/disposal stubs. First-visible latency is render-call count under the unchanged two-bake cap, never milliseconds/FPS. No browser/raster/GPU acceptance.",
+  "delta": [
+    "client/src/render/battlefield.ts",
+    "client/src/render/terrain.ts"
+  ],
+  "sourceSHA256": {
+    "baseline": {
+      "scene": "b0ac869e0e825bc11cd934ebfb781a588aa04bc68a4a1041b470818a49a6196c",
+      "terrain": "6820e55a251ea711e3121033c0f5264ad46c3cb1832a2064a4c511d27d3c3788"
+    },
+    "candidate": {
+      "scene": "03496eff17ec99f4069fadb44dead00d72e73b1de1beb5275f2b387f61bcc90c",
+      "terrain": "122312eae233a6f41645ee5f3a1b12187e6a9693ed4a1a12878772b57149f2b9"
+    }
+  },
+  "verifiedChunks": 1620,
+  "verifiedTriangles": 1787300,
+  "verifiedVertices": 5361900,
+  "envelopeCases": [
+    {
+      "width": 1,
+      "height": 1,
+      "kind": "flat0",
+      "chunks": 1,
+      "triangles": 4,
+      "vertices": 12
+    },
+    {
+      "width": 1,
+      "height": 1,
+      "kind": "flat4",
+      "chunks": 1,
+      "triangles": 8,
+      "vertices": 24
+    },
+    {
+      "width": 1,
+      "height": 1,
+      "kind": "smooth",
+      "chunks": 1,
+      "triangles": 4,
+      "vertices": 12
+    },
+    {
+      "width": 1,
+      "height": 1,
+      "kind": "cliff",
+      "chunks": 1,
+      "triangles": 4,
+      "vertices": 12
+    },
+    {
+      "width": 1,
+      "height": 1,
+      "kind": "edge",
+      "chunks": 1,
+      "triangles": 8,
+      "vertices": 24
+    },
+    {
+      "width": 15,
+      "height": 17,
+      "kind": "flat0",
+      "chunks": 2,
+      "triangles": 1020,
+      "vertices": 3060
+    },
+    {
+      "width": 15,
+      "height": 17,
+      "kind": "flat4",
+      "chunks": 2,
+      "triangles": 1084,
+      "vertices": 3252
+    },
+    {
+      "width": 15,
+      "height": 17,
+      "kind": "smooth",
+      "chunks": 2,
+      "triangles": 1084,
+      "vertices": 3252
+    },
+    {
+      "width": 15,
+      "height": 17,
+      "kind": "cliff",
+      "chunks": 2,
+      "triangles": 1528,
+      "vertices": 4584
+    },
+    {
+      "width": 15,
+      "height": 17,
+      "kind": "edge",
+      "chunks": 2,
+      "triangles": 1140,
+      "vertices": 3420
+    },
+    {
+      "width": 16,
+      "height": 16,
+      "kind": "flat0",
+      "chunks": 1,
+      "triangles": 1024,
+      "vertices": 3072
+    },
+    {
+      "width": 16,
+      "height": 16,
+      "kind": "flat4",
+      "chunks": 1,
+      "triangles": 1088,
+      "vertices": 3264
+    },
+    {
+      "width": 16,
+      "height": 16,
+      "kind": "smooth",
+      "chunks": 1,
+      "triangles": 1084,
+      "vertices": 3252
+    },
+    {
+      "width": 16,
+      "height": 16,
+      "kind": "cliff",
+      "chunks": 1,
+      "triangles": 1536,
+      "vertices": 4608
+    },
+    {
+      "width": 16,
+      "height": 16,
+      "kind": "edge",
+      "chunks": 1,
+      "triangles": 1144,
+      "vertices": 3432
+    },
+    {
+      "width": 17,
+      "height": 31,
+      "kind": "flat0",
+      "chunks": 4,
+      "triangles": 2108,
+      "vertices": 6324
+    },
+    {
+      "width": 17,
+      "height": 31,
+      "kind": "flat4",
+      "chunks": 4,
+      "triangles": 2204,
+      "vertices": 6612
+    },
+    {
+      "width": 17,
+      "height": 31,
+      "kind": "smooth",
+      "chunks": 4,
+      "triangles": 2203,
+      "vertices": 6609
+    },
+    {
+      "width": 17,
+      "height": 31,
+      "kind": "cliff",
+      "chunks": 4,
+      "triangles": 3160,
+      "vertices": 9480
+    },
+    {
+      "width": 17,
+      "height": 31,
+      "kind": "edge",
+      "chunks": 4,
+      "triangles": 2292,
+      "vertices": 6876
+    },
+    {
+      "width": 31,
+      "height": 32,
+      "kind": "flat0",
+      "chunks": 4,
+      "triangles": 3968,
+      "vertices": 11904
+    },
+    {
+      "width": 31,
+      "height": 32,
+      "kind": "flat4",
+      "chunks": 4,
+      "triangles": 4094,
+      "vertices": 12282
+    },
+    {
+      "width": 31,
+      "height": 32,
+      "kind": "smooth",
+      "chunks": 4,
+      "triangles": 4093,
+      "vertices": 12279
+    },
+    {
+      "width": 31,
+      "height": 32,
+      "kind": "cliff",
+      "chunks": 4,
+      "triangles": 5952,
+      "vertices": 17856
+    },
+    {
+      "width": 31,
+      "height": 32,
+      "kind": "edge",
+      "chunks": 4,
+      "triangles": 4212,
+      "vertices": 12636
+    },
+    {
+      "width": 63,
+      "height": 65,
+      "kind": "flat0",
+      "chunks": 20,
+      "triangles": 16380,
+      "vertices": 49140
+    },
+    {
+      "width": 63,
+      "height": 65,
+      "kind": "flat4",
+      "chunks": 20,
+      "triangles": 16636,
+      "vertices": 49908
+    },
+    {
+      "width": 63,
+      "height": 65,
+      "kind": "smooth",
+      "chunks": 20,
+      "triangles": 16634,
+      "vertices": 49902
+    },
+    {
+      "width": 63,
+      "height": 65,
+      "kind": "cliff",
+      "chunks": 20,
+      "triangles": 24568,
+      "vertices": 73704
+    },
+    {
+      "width": 63,
+      "height": 65,
+      "kind": "edge",
+      "chunks": 20,
+      "triangles": 16884,
+      "vertices": 50652
+    },
+    {
+      "width": 96,
+      "height": 96,
+      "kind": "flat0",
+      "chunks": 36,
+      "triangles": 36864,
+      "vertices": 110592
+    },
+    {
+      "width": 96,
+      "height": 96,
+      "kind": "flat4",
+      "chunks": 36,
+      "triangles": 37248,
+      "vertices": 111744
+    },
+    {
+      "width": 96,
+      "height": 96,
+      "kind": "smooth",
+      "chunks": 36,
+      "triangles": 37244,
+      "vertices": 111732
+    },
+    {
+      "width": 96,
+      "height": 96,
+      "kind": "cliff",
+      "chunks": 36,
+      "triangles": 55296,
+      "vertices": 165888
+    },
+    {
+      "width": 96,
+      "height": 96,
+      "kind": "edge",
+      "chunks": 36,
+      "triangles": 37624,
+      "vertices": 112872
+    },
+    {
+      "width": 256,
+      "height": 256,
+      "kind": "flat0",
+      "chunks": 256,
+      "triangles": 262144,
+      "vertices": 786432
+    },
+    {
+      "width": 256,
+      "height": 256,
+      "kind": "flat4",
+      "chunks": 256,
+      "triangles": 263168,
+      "vertices": 789504
+    },
+    {
+      "width": 256,
+      "height": 256,
+      "kind": "smooth",
+      "chunks": 256,
+      "triangles": 263164,
+      "vertices": 789492
+    },
+    {
+      "width": 256,
+      "height": 256,
+      "kind": "cliff",
+      "chunks": 256,
+      "triangles": 393216,
+      "vertices": 1179648
+    },
+    {
+      "width": 256,
+      "height": 256,
+      "kind": "edge",
+      "chunks": 256,
+      "triangles": 264184,
+      "vertices": 792552
+    }
+  ],
+  "rows": [
+    {
+      "size": 96,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "canvasWidth": 1032,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 28,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 28,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "canvasWidth": 1032,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "canvasWidth": 1032,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 5,
+        "allocated": 12,
+        "disposed": 0,
+        "activeChunks": 12,
+        "residentChunks": 12,
+        "nominalRGBABytes": 27435264,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "canvasWidth": 908,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 22,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 22,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "canvasWidth": 908,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 8,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 8,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "canvasWidth": 908,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 5,
+        "allocated": 12,
+        "disposed": 0,
+        "activeChunks": 12,
+        "residentChunks": 12,
+        "nominalRGBABytes": 27435264,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1,
+      "canvasWidth": 1300,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 28,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 28,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1,
+      "canvasWidth": 1300,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1,
+      "canvasWidth": 1300,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 5,
+        "allocated": 12,
+        "disposed": 0,
+        "activeChunks": 12,
+        "residentChunks": 12,
+        "nominalRGBABytes": 27435264,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1.5,
+      "canvasWidth": 1150,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 28,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 28,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1.5,
+      "canvasWidth": 1150,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1.5,
+      "canvasWidth": 1150,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 5,
+        "allocated": 12,
+        "disposed": 0,
+        "activeChunks": 12,
+        "residentChunks": 12,
+        "nominalRGBABytes": 27435264,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1,
+      "canvasWidth": 1620,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 34,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 34,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1,
+      "canvasWidth": 1620,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 14,
+        "firstVisibleFrame": 4,
+        "fullVisibleFrame": 15,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 14,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1,
+      "canvasWidth": 1620,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 8,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 8,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 8,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 7,
+        "allocated": 14,
+        "disposed": 0,
+        "activeChunks": 14,
+        "residentChunks": 14,
+        "nominalRGBABytes": 32007808,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1.5,
+      "canvasWidth": 1470,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 34,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 34,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1.5,
+      "canvasWidth": 1470,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 14,
+        "firstVisibleFrame": 4,
+        "fullVisibleFrame": 15,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 14,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1.5,
+      "canvasWidth": 1470,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 5,
+        "allocated": 14,
+        "disposed": 0,
+        "activeChunks": 14,
+        "residentChunks": 14,
+        "nominalRGBABytes": 32007808,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1,
+      "canvasWidth": 2260,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 36,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 36,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1,
+      "canvasWidth": 2260,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 24,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 17,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 24,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 16,
+        "allocated": 34,
+        "disposed": 0,
+        "activeChunks": 34,
+        "residentChunks": 34,
+        "nominalRGBABytes": 77733248,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1,
+      "canvasWidth": 2260,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 8,
+        "allocated": 18,
+        "disposed": 0,
+        "activeChunks": 18,
+        "residentChunks": 18,
+        "nominalRGBABytes": 41152896,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1.5,
+      "canvasWidth": 2110,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 36,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 36,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 18,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1.5,
+      "canvasWidth": 2110,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 24,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 17,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 24,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 16,
+        "allocated": 34,
+        "disposed": 0,
+        "activeChunks": 34,
+        "residentChunks": 34,
+        "nominalRGBABytes": 77733248,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 96,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1.5,
+      "canvasWidth": 2110,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          48,
+          48
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 8,
+        "allocated": 18,
+        "disposed": 0,
+        "activeChunks": 18,
+        "residentChunks": 18,
+        "nominalRGBABytes": 41152896,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "canvasWidth": 1032,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 28,
+        "firstVisibleFrame": 21,
+        "fullVisibleFrame": 52,
+        "allocated": 144,
+        "disposed": 0,
+        "activeChunks": 144,
+        "residentChunks": 144,
+        "nominalRGBABytes": 329223168,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 28,
+        "firstVisibleFrame": 8,
+        "fullVisibleFrame": 34,
+        "allocated": 82,
+        "disposed": 0,
+        "activeChunks": 82,
+        "residentChunks": 82,
+        "nominalRGBABytes": 187474304,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "canvasWidth": 1032,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1,
+      "canvasWidth": 1032,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 5,
+        "allocated": 12,
+        "disposed": 0,
+        "activeChunks": 12,
+        "residentChunks": 12,
+        "nominalRGBABytes": 27435264,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "canvasWidth": 908,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 22,
+        "firstVisibleFrame": 21,
+        "fullVisibleFrame": 52,
+        "allocated": 144,
+        "disposed": 0,
+        "activeChunks": 144,
+        "residentChunks": 144,
+        "nominalRGBABytes": 329223168,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 22,
+        "firstVisibleFrame": 8,
+        "fullVisibleFrame": 34,
+        "allocated": 82,
+        "disposed": 0,
+        "activeChunks": 82,
+        "residentChunks": 82,
+        "nominalRGBABytes": 187474304,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "canvasWidth": 908,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 8,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 8,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1280,
+      "height": 720,
+      "uiScale": 1.5,
+      "canvasWidth": 908,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 5,
+        "allocated": 12,
+        "disposed": 0,
+        "activeChunks": 12,
+        "residentChunks": 12,
+        "nominalRGBABytes": 27435264,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1,
+      "canvasWidth": 1300,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 32,
+        "firstVisibleFrame": 25,
+        "fullVisibleFrame": 74,
+        "allocated": 196,
+        "disposed": 0,
+        "activeChunks": 196,
+        "residentChunks": 196,
+        "nominalRGBABytes": 448109312,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 32,
+        "firstVisibleFrame": 9,
+        "fullVisibleFrame": 47,
+        "allocated": 110,
+        "disposed": 0,
+        "activeChunks": 110,
+        "residentChunks": 110,
+        "nominalRGBABytes": 251489920,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1,
+      "canvasWidth": 1300,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1,
+      "canvasWidth": 1300,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 5,
+        "allocated": 12,
+        "disposed": 0,
+        "activeChunks": 12,
+        "residentChunks": 12,
+        "nominalRGBABytes": 27435264,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1.5,
+      "canvasWidth": 1150,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 32,
+        "firstVisibleFrame": 25,
+        "fullVisibleFrame": 74,
+        "allocated": 196,
+        "disposed": 0,
+        "activeChunks": 196,
+        "residentChunks": 196,
+        "nominalRGBABytes": 448109312,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 32,
+        "firstVisibleFrame": 9,
+        "fullVisibleFrame": 47,
+        "allocated": 110,
+        "disposed": 0,
+        "activeChunks": 110,
+        "residentChunks": 110,
+        "nominalRGBABytes": 251489920,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1.5,
+      "canvasWidth": 1150,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 12,
+        "allocated": 28,
+        "disposed": 0,
+        "activeChunks": 28,
+        "residentChunks": 28,
+        "nominalRGBABytes": 64015616,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1600,
+      "height": 900,
+      "uiScale": 1.5,
+      "canvasWidth": 1150,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 5,
+        "allocated": 12,
+        "disposed": 0,
+        "activeChunks": 12,
+        "residentChunks": 12,
+        "nominalRGBABytes": 27435264,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1,
+      "canvasWidth": 1620,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 50,
+        "firstVisibleFrame": 28,
+        "fullVisibleFrame": 101,
+        "allocated": 256,
+        "disposed": 0,
+        "activeChunks": 256,
+        "residentChunks": 256,
+        "nominalRGBABytes": 585285632,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 50,
+        "firstVisibleFrame": 9,
+        "fullVisibleFrame": 63,
+        "allocated": 142,
+        "disposed": 0,
+        "activeChunks": 142,
+        "residentChunks": 142,
+        "nominalRGBABytes": 324650624,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1,
+      "canvasWidth": 1620,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 14,
+        "firstVisibleFrame": 10,
+        "fullVisibleFrame": 23,
+        "allocated": 64,
+        "disposed": 0,
+        "activeChunks": 64,
+        "residentChunks": 64,
+        "nominalRGBABytes": 146321408,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 14,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 14,
+        "allocated": 32,
+        "disposed": 0,
+        "activeChunks": 32,
+        "residentChunks": 32,
+        "nominalRGBABytes": 73160704,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1,
+      "canvasWidth": 1620,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 8,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 8,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 8,
+        "firstVisibleFrame": 1,
+        "fullVisibleFrame": 7,
+        "allocated": 14,
+        "disposed": 0,
+        "activeChunks": 14,
+        "residentChunks": 14,
+        "nominalRGBABytes": 32007808,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1.5,
+      "canvasWidth": 1470,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 46,
+        "firstVisibleFrame": 36,
+        "fullVisibleFrame": 93,
+        "allocated": 256,
+        "disposed": 0,
+        "activeChunks": 256,
+        "residentChunks": 256,
+        "nominalRGBABytes": 585285632,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 46,
+        "firstVisibleFrame": 11,
+        "fullVisibleFrame": 52,
+        "allocated": 124,
+        "disposed": 0,
+        "activeChunks": 124,
+        "residentChunks": 124,
+        "nominalRGBABytes": 283497728,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1.5,
+      "canvasWidth": 1470,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 14,
+        "firstVisibleFrame": 10,
+        "fullVisibleFrame": 23,
+        "allocated": 64,
+        "disposed": 0,
+        "activeChunks": 64,
+        "residentChunks": 64,
+        "nominalRGBABytes": 146321408,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 14,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 14,
+        "allocated": 32,
+        "disposed": 0,
+        "activeChunks": 32,
+        "residentChunks": 32,
+        "nominalRGBABytes": 73160704,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 1920,
+      "height": 1080,
+      "uiScale": 1.5,
+      "canvasWidth": 1470,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 6,
+        "allocated": 16,
+        "disposed": 0,
+        "activeChunks": 16,
+        "residentChunks": 16,
+        "nominalRGBABytes": 36580352,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 4,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 5,
+        "allocated": 14,
+        "disposed": 0,
+        "activeChunks": 14,
+        "residentChunks": 14,
+        "nominalRGBABytes": 32007808,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1,
+      "canvasWidth": 2260,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 82,
+        "firstVisibleFrame": 20,
+        "fullVisibleFrame": 109,
+        "allocated": 256,
+        "disposed": 0,
+        "activeChunks": 256,
+        "residentChunks": 256,
+        "nominalRGBABytes": 585285632,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 82,
+        "firstVisibleFrame": 9,
+        "fullVisibleFrame": 82,
+        "allocated": 180,
+        "disposed": 0,
+        "activeChunks": 180,
+        "residentChunks": 180,
+        "nominalRGBABytes": 411528960,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1,
+      "canvasWidth": 2260,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 24,
+        "firstVisibleFrame": 6,
+        "fullVisibleFrame": 27,
+        "allocated": 64,
+        "disposed": 0,
+        "activeChunks": 64,
+        "residentChunks": 64,
+        "nominalRGBABytes": 146321408,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 24,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 21,
+        "allocated": 46,
+        "disposed": 0,
+        "activeChunks": 46,
+        "residentChunks": 46,
+        "nominalRGBABytes": 105168512,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1,
+      "canvasWidth": 2260,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 8,
+        "allocated": 18,
+        "disposed": 0,
+        "activeChunks": 18,
+        "residentChunks": 18,
+        "nominalRGBABytes": 41152896,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1.5,
+      "canvasWidth": 2110,
+      "zoom": 0.45,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 82,
+        "firstVisibleFrame": 20,
+        "fullVisibleFrame": 109,
+        "allocated": 256,
+        "disposed": 0,
+        "activeChunks": 256,
+        "residentChunks": 256,
+        "nominalRGBABytes": 585285632,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 82,
+        "firstVisibleFrame": 9,
+        "fullVisibleFrame": 82,
+        "allocated": 180,
+        "disposed": 0,
+        "activeChunks": 180,
+        "residentChunks": 180,
+        "nominalRGBABytes": 411528960,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1.5,
+      "canvasWidth": 2110,
+      "zoom": 1,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 24,
+        "firstVisibleFrame": 6,
+        "fullVisibleFrame": 27,
+        "allocated": 64,
+        "disposed": 0,
+        "activeChunks": 64,
+        "residentChunks": 64,
+        "nominalRGBABytes": 146321408,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 24,
+        "firstVisibleFrame": 3,
+        "fullVisibleFrame": 21,
+        "allocated": 46,
+        "disposed": 0,
+        "activeChunks": 46,
+        "residentChunks": 46,
+        "nominalRGBABytes": 105168512,
+        "maxBakes": 2
+      }
+    },
+    {
+      "size": 256,
+      "windowWidth": 2560,
+      "height": 1440,
+      "uiScale": 1.5,
+      "canvasWidth": 2110,
+      "zoom": 1.8,
+      "baseline": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 5,
+        "fullVisibleFrame": 14,
+        "allocated": 36,
+        "disposed": 0,
+        "activeChunks": 36,
+        "residentChunks": 36,
+        "nominalRGBABytes": 82305792,
+        "maxBakes": 2
+      },
+      "candidate": {
+        "cameraTiles": [
+          128,
+          128
+        ],
+        "shake": [
+          0,
+          0
+        ],
+        "requiredVisibleChunks": 12,
+        "firstVisibleFrame": 2,
+        "fullVisibleFrame": 8,
+        "allocated": 18,
+        "disposed": 0,
+        "activeChunks": 18,
+        "residentChunks": 18,
+        "nominalRGBABytes": 41152896,
+        "maxBakes": 2
+      }
+    }
+  ],
+  "panCourses": [
+    {
+      "size": 96,
+      "variant": "baseline",
+      "positions": [
+        {
+          "cameraTiles": [
+            48,
+            48
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 34,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 18,
+          "allocated": 36,
+          "disposed": 0,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            8,
+            8
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 19,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            88,
+            8
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 15,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            88,
+            88
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 19,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            8,
+            88
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 15,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            48,
+            48
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 34,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        }
+      ]
+    },
+    {
+      "size": 96,
+      "variant": "candidate",
+      "positions": [
+        {
+          "cameraTiles": [
+            48,
+            48
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 34,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 18,
+          "allocated": 36,
+          "disposed": 0,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            8,
+            8
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 19,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 35,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            88,
+            8
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 15,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 30,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            88,
+            88
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 19,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 35,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            8,
+            88
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 15,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 30,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            48,
+            48
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 34,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 0,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 0
+        }
+      ]
+    },
+    {
+      "size": 256,
+      "variant": "baseline",
+      "positions": [
+        {
+          "cameraTiles": [
+            128,
+            128
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 50,
+          "firstVisibleFrame": 28,
+          "fullVisibleFrame": 101,
+          "allocated": 256,
+          "disposed": 0,
+          "activeChunks": 256,
+          "residentChunks": 256,
+          "nominalRGBABytes": 585285632,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            8,
+            8
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 19,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 1,
+          "allocated": 0,
+          "disposed": 192,
+          "activeChunks": 64,
+          "residentChunks": 64,
+          "nominalRGBABytes": 146321408,
+          "maxBakes": 0
+        },
+        {
+          "cameraTiles": [
+            248,
+            8
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 15,
+          "firstVisibleFrame": 2,
+          "fullVisibleFrame": 20,
+          "allocated": 64,
+          "disposed": 64,
+          "activeChunks": 64,
+          "residentChunks": 64,
+          "nominalRGBABytes": 146321408,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            248,
+            248
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 19,
+          "firstVisibleFrame": 16,
+          "fullVisibleFrame": 32,
+          "allocated": 64,
+          "disposed": 64,
+          "activeChunks": 64,
+          "residentChunks": 64,
+          "nominalRGBABytes": 146321408,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            8,
+            248
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 15,
+          "firstVisibleFrame": 13,
+          "fullVisibleFrame": 31,
+          "allocated": 64,
+          "disposed": 64,
+          "activeChunks": 64,
+          "residentChunks": 64,
+          "nominalRGBABytes": 146321408,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            128,
+            128
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 50,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 81,
+          "allocated": 192,
+          "disposed": 0,
+          "activeChunks": 256,
+          "residentChunks": 256,
+          "nominalRGBABytes": 585285632,
+          "maxBakes": 2
+        }
+      ]
+    },
+    {
+      "size": 256,
+      "variant": "candidate",
+      "positions": [
+        {
+          "cameraTiles": [
+            128,
+            128
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 50,
+          "firstVisibleFrame": 9,
+          "fullVisibleFrame": 63,
+          "allocated": 142,
+          "disposed": 0,
+          "activeChunks": 142,
+          "residentChunks": 142,
+          "nominalRGBABytes": 324650624,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            8,
+            8
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 19,
+          "firstVisibleFrame": 1,
+          "fullVisibleFrame": 10,
+          "allocated": 21,
+          "disposed": 114,
+          "activeChunks": 49,
+          "residentChunks": 49,
+          "nominalRGBABytes": 112027328,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            248,
+            8
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 15,
+          "firstVisibleFrame": 2,
+          "fullVisibleFrame": 15,
+          "allocated": 36,
+          "disposed": 49,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            248,
+            248
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 19,
+          "firstVisibleFrame": 9,
+          "fullVisibleFrame": 25,
+          "allocated": 49,
+          "disposed": 36,
+          "activeChunks": 49,
+          "residentChunks": 49,
+          "nominalRGBABytes": 112027328,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            8,
+            248
+          ],
+          "shake": [
+            -3,
+            3
+          ],
+          "requiredVisibleChunks": 15,
+          "firstVisibleFrame": 4,
+          "fullVisibleFrame": 17,
+          "allocated": 36,
+          "disposed": 49,
+          "activeChunks": 36,
+          "residentChunks": 36,
+          "nominalRGBABytes": 82305792,
+          "maxBakes": 2
+        },
+        {
+          "cameraTiles": [
+            128,
+            128
+          ],
+          "shake": [
+            3,
+            -3
+          ],
+          "requiredVisibleChunks": 50,
+          "firstVisibleFrame": 9,
+          "fullVisibleFrame": 63,
+          "allocated": 142,
+          "disposed": 36,
+          "activeChunks": 142,
+          "residentChunks": 142,
+          "nominalRGBABytes": 324650624,
+          "maxBakes": 2
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Original600/440CSS prefetch margins remain; minimumzoom residency can still exceed36chunks.",
+    "Y/x scan order is unchanged and can delay center coverage behind offscreen prefetch.",
+    "Actual browser raster seams/fog and pan/loading behavior are still unrun.",
+    "Fog, bake, surface geometry, picking and all other original terrain code are byte-exact."
+  ]
+}

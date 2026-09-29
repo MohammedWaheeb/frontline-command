@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "scope": "Exact combined render method with recorded page consumers; no browser or GPU.",
+  "candidateSHA256": "60a925f92a6a15d68a837c75b56a1d3148f48738d04cda79e94c1cbcb8b7069a",
+  "trimFrame": 60,
+  "previousAndFollowingFramesDoNotTrim": true,
+  "passedSameFrameTimestamp": true,
+  "trimFrameCalls": [
+    "environment-page-read",
+    "actor-page-read",
+    "shadow-read",
+    "combat-trim",
+    "combat-read",
+    "placement-page-read",
+    "minimap",
+    "art-trim"
+  ]
+}
