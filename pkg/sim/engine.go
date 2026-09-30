@@ -29,10 +29,21 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 	if cfg.Ruleset == "" {
 		cfg.Ruleset = "standard-v2"
 	}
+	startingCredits, err := normalizeStartingCredits(cfg.StartingCredits, cfg.Ruleset)
+	if err != nil {
+		return nil, err
+	}
+	if cfg.Ruleset == "custom-v1" && startingCredits == 0 {
+		cfg.Ruleset = "standard-v2"
+	}
+	openingCredits := DefaultStartingCredits
+	if startingCredits != 0 {
+		openingCredits = startingCredits
+	}
 	if cfg.Seed == 0 {
 		cfg.Seed = 1
 	}
-	e := &Engine{catalog: c, state: State{Metadata: Metadata{Version, 1, c.Hash(), gameMap.Version, cfg.Ruleset, cfg.Seed}, Map: gameMap, RNG: cfg.Seed, NextID: 1, NextEvent: 1, Countdown: 100}, visible: map[PlayerID][]bool{}}
+	e := &Engine{catalog: c, state: State{StartingCredits: startingCredits, Metadata: Metadata{Version, 1, c.Hash(), gameMap.Version, cfg.Ruleset, cfg.Seed}, Map: gameMap, RNG: cfg.Seed, NextID: 1, NextEvent: 1, Countdown: 100}, visible: map[PlayerID][]bool{}}
 	ids := map[PlayerID]bool{}
 	colors, err := configColors(cfg.Players)
 	if err != nil {
@@ -60,7 +71,7 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 		if pc.Team == 0 {
 			pc.Team = uint32(pc.ID)
 		}
-		p := &Player{PlayerConfig: pc, Credits: 6000000, Explored: make([]bool, len(gameMap.Tiles)), RepairReserve: 0, Tier: 1}
+		p := &Player{PlayerConfig: pc, Credits: openingCredits, Explored: make([]bool, len(gameMap.Tiles)), RepairReserve: 0, Tier: 1}
 		e.state.Players = append(e.state.Players, p)
 		pos := gameMap.Spawns[i].Position
 		e.spawn("hq", pc.ID, pos, true, 0)
@@ -151,6 +162,9 @@ func (e *Engine) spawn(typ string, owner PlayerID, pos Vec, complete bool, paid 
 		}
 	} else if b, ok := e.buildingRule(typ); ok {
 		v.Building = true
+		if complete {
+			v.CompletedAt = e.state.Tick
+		}
 		v.FootprintWidth, v.FootprintHeight, v.FootprintType = b.Width, b.Height, typ
 		v.MaxHP = b.HP
 		v.HP = b.HP
@@ -273,7 +287,7 @@ func (e *Engine) Advance() {
 }
 func (e *Engine) updateVictory() {
 	if e.state.Metadata.Ruleset == "practice-v1" {
-		if e.state.Tick >= seconds(90*60)+100 {
+		if !e.state.Outcome.Finished && e.state.Tick >= seconds(90*60)+100 {
 			e.state.Outcome = Outcome{Finished: true, Draw: true, Reason: "practice_time_limit", Tick: e.state.Tick}
 		}
 		return
@@ -284,6 +298,7 @@ func (e *Engine) updateVictory() {
 		}
 		return
 	}
+	var eliminated []*Player
 	for _, p := range e.state.Players {
 		if p.Defeated {
 			continue
@@ -311,8 +326,18 @@ func (e *Engine) updateVictory() {
 			p.DefeatAt = e.state.Tick + seconds(30)
 			e.emit("defeat_countdown", p.ID, 0, Vec{}, "all", int64(p.DefeatAt))
 		} else if e.state.Tick >= p.DefeatAt {
-			e.defeat(p)
+			eliminated = append(eliminated, p)
 		}
+	}
+	// Resolve every expiry from the same qualifying-asset snapshot before
+	// committing defeat. Published views must already exclude inactive sight,
+	// power and reservations, including when this tick ends the match.
+	for _, p := range eliminated {
+		e.defeat(p)
+	}
+	if len(eliminated) > 0 {
+		e.recalculate()
+		e.updateFog()
 	}
 	teams := []uint32{}
 	for _, p := range e.state.Players {
@@ -347,6 +372,31 @@ func (e *Engine) updateVictory() {
 func (e *Engine) defeat(p *Player) {
 	p.Defeated = true
 	p.DefeatAt = 0
+	// Stations are permanent map objectives, not a defeated player's wrecks.
+	// Release ownership without transferring credits or granting allied control;
+	// any survivor must still complete the ordinary capture channel.
+	for _, station := range e.state.Stations {
+		if station.Owner == p.ID {
+			station.Owner = 0
+		}
+	}
+	// Already-fired projectiles continue. Unfired operations and temporary
+	// zones cease immediately so final snapshots cannot retain false warnings
+	// or reserved supply until a future tick that may never run.
+	operations := e.state.Operations[:0]
+	for _, operation := range e.state.Operations {
+		if operation.Owner != p.ID {
+			operations = append(operations, operation)
+		}
+	}
+	e.state.Operations = operations
+	zones := e.state.Zones[:0]
+	for _, zone := range e.state.Zones {
+		if zone.Owner != p.ID {
+			zones = append(zones, zone)
+		}
+	}
+	e.state.Zones = zones
 	for _, v := range e.state.Entities {
 		if v.Owner == p.ID {
 			v.Landing = nil

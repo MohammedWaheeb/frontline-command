@@ -53,6 +53,7 @@ func (e *Engine) updateAI() {
 			}
 		}
 		budget = e.aiPlanningBudget(p, own)
+		planningCredits := budget
 		needSupplyScout := true
 		for _, field := range p.AIFields {
 			if field.Remaining > 0 {
@@ -60,13 +61,23 @@ func (e *Engine) updateAI() {
 				break
 			}
 		}
+		// A funded legal emergency builder must reach the paid HQ foundation
+		// before collector recovery can consume its credits. Probe a detached
+		// budget: when the builder is unaffordable, collector bootstrap keeps
+		// the existing opportunity to restore income.
+		emergencyRigPlanned := false
+		recoveryBudget := budget
+		if recovery, ok := e.aiEmergencyRigRecovery(p, own, &recoveryBudget); ok && recovery.Kind == "train" {
+			orders = append(orders, recovery)
+			budget = recoveryBudget
+			counts["rig"]++
+			emergencyRigPlanned = true
+		}
 		replacementProducer := ID(0)
-		if counts["hq"] > 0 && counts["supply"] > 0 && counts["power"] > 0 && e.aiPowerMargin(p, own) >= 35 {
-			if replacement, ok := e.aiReplacementHauler(p, own, &budget); ok {
-				orders = append(orders, replacement)
-				replacementProducer = replacement.Entities[0]
-				counts["hauler"]++
-			}
+		if replacement, ok := e.aiReplacementHauler(p, own, &budget); ok {
+			orders = append(orders, replacement)
+			replacementProducer = replacement.Entities[0]
+			counts["hauler"]++
 		}
 		serviceMargin := e.aiServiceMargin(own)
 		plannedSupply := p.Supply + p.ReservedSupply
@@ -78,21 +89,15 @@ func (e *Engine) updateAI() {
 				}
 			}
 		}
-		if hq == nil && rig == nil {
-			for _, v := range own {
-				if e.role(e.entity(v.ID)) == "factory" && len(v.Private.Jobs) == 0 {
-					order := Order{Kind: "train", Entities: []ID{v.ID}, Type: p.Faction + ".rig"}
-					producer := e.entity(v.ID)
-					job, code := e.productionJob(p, producer, order)
-					if code != "ok" || !e.jobReady(p, producer, &job) {
-						continue
-					}
-					orders = append(orders, order)
-					budget = max(int64(0), budget-1200000)
-					break
+		if !emergencyRigPlanned {
+			if recovery, ok := e.aiEmergencyRigRecovery(p, own, &budget); ok {
+				orders = append(orders, recovery)
+				if recovery.Kind == "train" {
+					counts["rig"]++
 				}
 			}
 		}
+		radarDefenseProducer := ID(0)
 		buildType := ""
 		expansion, expand := e.aiExpansion(p, own)
 		var buildCenter Vec
@@ -109,7 +114,8 @@ func (e *Engine) updateAI() {
 					continue
 				}
 				builder := e.aiOwnEntity(own, foundation.Builder)
-				if builder == nil || builder.HP <= 0 || len(builder.Orders) == 0 {
+				working := builder != nil && builder.HP > 0 && len(builder.Orders) > 0 && builder.Orders[0].Target == foundation.ID
+				if !working {
 					orders = append(orders, Order{Kind: "resume", Entities: []ID{rig.ID}, Target: foundation.ID})
 					rig = nil
 					break
@@ -168,9 +174,27 @@ func (e *Engine) updateAI() {
 					}
 				}
 			}
+			if buildType == "radar" {
+				// The first affordable public-threat defender precedes optional
+				// radar savings, after essential construction and recovery.
+				if defense, cost, supply, ok := e.aiFirstRadarDefense(p, view, own, orders, budget, plannedSupply); ok {
+					orders = append(orders, defense)
+					radarDefenseProducer = defense.Entities[0]
+					budget -= cost
+					plannedSupply += supply
+					u, _ := e.catalog.Unit(defense.Type)
+					counts[u.Role]++
+					p.AIStage++
+				}
+			}
 			if buildType != "" {
 				b, _ := e.buildingRule(buildType)
-				if e.prerequisites(p, b.Prerequisites) {
+				// Save toward legal future purchases, including when the current
+				// bank is short. An impossible cap/prerequisite goal must not
+				// consume the budget available to ordinary production.
+				planning := *p
+				planning.Credits = max(planning.Credits, b.Cost)
+				if _, code := e.buildingCatalogRequirements(&planning, rig, buildType); code == "ok" {
 					if pos, ok := e.aiConstructionPosition(p, buildType, buildCenter); ok {
 						if budget >= b.Cost {
 							orders = append(orders, Order{Kind: "build", Entities: []ID{rig.ID}, Type: buildType, Position: pos})
@@ -184,27 +208,86 @@ func (e *Engine) updateAI() {
 				}
 			}
 		}
+		earlyUsed := map[ID]bool{}
+		for _, order := range orders {
+			for _, id := range order.Entities {
+				earlyUsed[id] = true
+			}
+		}
+		// The sole builder restores construction. Save its ordinary HQ cost
+		// before a charged operation or optional purchases claim those credits.
+		if counts["rig"] == 0 {
+			for _, v := range own {
+				producer := e.entity(v.ID)
+				if e.role(producer) != "hq" || !producer.Active(e.Tick()) || len(producer.Jobs) != 0 || earlyUsed[producer.ID] {
+					continue
+				}
+				order := Order{Kind: "train", Entities: []ID{producer.ID}, Type: p.Faction + ".rig"}
+				job, code := e.productionJob(p, producer, order)
+				if code != "ok" || !e.jobReady(p, producer, &job) {
+					continue
+				}
+				_, _, _, code = e.productionAllocation(p, &job)
+				// Allocation errors omit prices; keep the catalog saving goal.
+				u, _ := e.catalog.Unit(job.Type)
+				cost, supply := u.Cost, u.Supply
+				if code != "ok" && code != "insufficient_credits" || plannedSupply+supply > 100 {
+					continue
+				}
+				if budget >= cost {
+					orders = append(orders, order)
+					earlyUsed[producer.ID] = true
+					counts["rig"]++
+					plannedSupply += supply
+					p.AIStage++
+				}
+				budget = max(int64(0), budget-cost)
+				break
+			}
+		}
+		// A legal charged operation gets the remaining construction/recovery
+		// budget before routine research and army production can consume it.
+		for _, v := range own {
+			site := e.entity(v.ID)
+			if e.role(site) != "strategic" || !site.Active(e.Tick()) {
+				continue
+			}
+			if order, ok := e.aiStrategicOrder(p, view, own, site, p.AIGoal, earlyUsed, max(int32(0), 100-plannedSupply)); ok {
+				cost, _, supply := e.aiOrderReservation(p, &order)
+				if budget >= cost && plannedSupply+supply <= 100 {
+					orders = append(orders, order)
+					budget -= cost
+					plannedSupply += supply
+				}
+			}
+			break
+		}
 		if !needSupplyScout {
 			orders = append(orders, e.aiResearchOrders(p, own, &budget)...)
 		}
 		enemyAir, enemyArmor := false, false
+		enemyAirCount := int32(0)
 		for _, v := range p.AIKnowledge {
-			if !aiActiveOpponent(p, view, v.Owner) {
+			if !aiActiveOpponent(p, view, v.Owner) || e.Tick()-v.Seen > seconds(30) {
 				continue
 			}
 			u, ok := e.catalog.Unit(v.Type)
-			if ok {
+			if ok && u.Weapon != "" {
 				if u.Armor == "air" {
 					enemyAir = true
+					enemyAirCount++
 				}
 				if u.Armor == "heavy" {
 					enemyArmor = true
 				}
 			}
 		}
+		committedAirSupply := e.aiCommittedAirSupply(own)
+		plannedAirSlots := map[string]int32{}
+		knownAirThreat := e.aiKnownAirThreat(p)
 		for _, v := range own {
 			unit := e.entity(v.ID)
-			if unit.Building && unit.Active(e.state.Tick) && len(unit.Jobs) == 0 && unit.ID != replacementProducer {
+			if unit.Building && unit.Active(e.state.Tick) && len(unit.Jobs) == 0 && unit.ID != replacementProducer && unit.ID != radarDefenseProducer {
 				role := e.role(unit)
 				typ := ""
 				switch role {
@@ -218,17 +301,21 @@ func (e *Engine) updateAI() {
 					}
 				case "barracks":
 					choose := []string{"rifle", "at", "rifle", "recon", "medic"}[p.AIStage%5]
-					if counts["recon"] == 0 {
-						choose = "recon"
-					}
-					if counts["engineer"] == 0 && counts["recon"] > 0 {
-						choose = "engineer"
-					}
 					if choose == "medic" && counts["medic"] >= 2 || choose == "recon" && counts["recon"] >= 2 {
 						choose = "rifle"
 					}
-					if enemyArmor && p.AIStage%2 == 0 {
+					// Counters supplement the infantry screen; an unarmed hauler
+					// or old sighting must not erase scouting and rifle production.
+					if enemyArmor && p.AIStage%2 == 0 && counts["at"] < max(int32(1), (counts["rifle"]+counts["elite"]+1)/2) {
 						choose = "at"
+					}
+					if choose == "at" && counts["at"] > 0 && counts["at"] >= counts["rifle"]+counts["elite"] {
+						choose = "rifle"
+					}
+					if counts["recon"] == 0 {
+						choose = "recon"
+					} else if counts["engineer"] == 0 {
+						choose = "engineer"
 					}
 					typ = p.Faction + "." + choose
 				case "factory":
@@ -236,8 +323,15 @@ func (e *Engine) updateAI() {
 						break
 					}
 					choose := []string{"car", "tank", "aa", "apc", "tank", "repair"}[p.AIStage%6]
-					if enemyAir {
+					// Keep a small ordinary AA reserve, and scale a bounded
+					// supplement to recent armed air evidence instead of replacing
+					// every factory purchase with the same damage layer.
+					aaLimit := max(int32(1), min(int32(4), enemyAirCount))
+					if enemyAir && counts["aa"] < aaLimit {
 						choose = "aa"
+					}
+					if choose == "aa" && counts["aa"] >= aaLimit {
+						choose = "tank"
 					}
 					if p.Tier >= 2 && p.AIStage%7 == 6 {
 						choose = "artillery"
@@ -245,7 +339,7 @@ func (e *Engine) updateAI() {
 					if choose == "repair" && counts["repair"] >= 2 {
 						choose = "tank"
 					}
-					if counts["repair"] == 0 && p.Supply >= 24 && !enemyAir {
+					if counts["repair"] == 0 && p.Supply >= 24 && (!enemyAir || counts["aa"] > 0) {
 						choose = "repair"
 					}
 					if p.Tier >= 3 && p.AIStage%9 == 8 && counts["launcher"] < 2 {
@@ -255,8 +349,10 @@ func (e *Engine) updateAI() {
 						choose = "mobile_abm"
 					}
 					typ = p.Faction + "." + choose
+					urgent := enemyAir && counts["aa"] < aaLimit || choose == "mobile_abm"
+					typ = e.aiFirstFactoryVehicle(p, unit, own, typ, budget, plannedSupply, orders, urgent)
 				case "airfield", "drone_hub", "workshop_air":
-					if needSupplyScout && counts["recon"] == 0 {
+					if needSupplyScout && counts["recon"] == 0 || e.aiRapidSortieUseful(p, unit, own) {
 						break
 					}
 					choose := "strike"
@@ -264,28 +360,27 @@ func (e *Engine) updateAI() {
 						choose = "scout_drone"
 					} else if p.Faction == "IR" && counts["isr"] == 0 {
 						choose = "isr"
-					} else if p.AIStage%3 == 0 {
+					} else if p.AIStage%3 == 0 && (knownAirThreat || counts["fighter"] == 0) {
 						choose = "fighter"
+					} else if p.AIStage%3 == 2 {
+						choose = "gunship"
 					}
+					choose = e.aiAirFeatureChoice(p, counts, choose)
 					typ = p.Faction + "." + choose
-					airSupply := int32(0)
-					for _, v := range own {
-						if u, ok := e.catalog.Unit(v.Type); ok && u.Armor == "air" {
-							airSupply += u.Supply
-						}
-					}
-					if airSupply >= 28 || choose == "fighter" && !enemyAir && counts["fighter"] >= 1 || choose == "strike" && e.aiAirDanger(p, p.AIGoal) {
+					air, valid := e.catalog.Unit(typ)
+					if !valid || committedAirSupply+air.Supply > 28 || (choose == "strike" || choose == "gunship" || choose == "shahed") && (e.aiAirDanger(p, p.AIGoal) || e.aiAirRouteDanger(p, unit.Position, p.AIGoal)) {
 						typ = ""
 					}
 				}
 				if typ != "" {
 					u, valid := e.catalog.Unit(typ)
-					if valid && u.Tier <= p.Tier && (u.Armor != "air" || serviceMargin > 0) && budget >= u.Cost+300000 && plannedSupply+u.Supply <= 100 {
+					if valid && u.Tier <= p.Tier && (u.Armor != "air" || e.aiAirProductionMargin(own, u.Producer)-plannedAirSlots[u.Producer] > 0) && budget >= u.Cost+300000 && plannedSupply+u.Supply <= 100 {
 						orders = append(orders, Order{Kind: "train", Entities: []ID{unit.ID}, Type: typ})
 						budget -= u.Cost
 						plannedSupply += u.Supply
 						if u.Armor == "air" {
-							serviceMargin--
+							plannedAirSlots[u.Producer]++
+							committedAirSupply += u.Supply
 						}
 						counts[u.Role]++
 						p.AIStage++
@@ -295,18 +390,38 @@ func (e *Engine) updateAI() {
 		}
 		goal, haveGoal := e.aiGoal(p, view)
 		p.AIGoal = goal
-		orders = append(orders, e.aiRecoveryOrders(p, own, goal)...)
-		orders = append(orders, e.aiTransportOrders(p, own, goal)...)
-		orders = append(orders, e.aiEscortOrders(p, own)...)
-		orders = append(orders, e.aiSpecialOrders(p, view, own, goal)...)
+		hasPublicTasks := view.Mission != nil && len(view.Mission.PublicTasks) > 0
+		var transportOrders []Order
+		hold := aiPublicHoldPlan{}
+		if hasPublicTasks {
+			transportOrders = e.aiTransportOrders(p, own, goal)
+			holdPrior := append(append([]Order(nil), orders...), transportOrders...)
+			holdPrior = e.aiChooseOrders(p, own, holdPrior, planningCredits)
+			hold = e.aiPublicHoldOrders(p, view, own, holdPrior)
+		}
+		orders = append(orders, e.aiRecoveryOrders(p, own, goal, hold.reserved)...)
+		if !hasPublicTasks {
+			// Preserve the legacy recovery/transport call order for every
+			// ordinary game and mission without an explicit public task.
+			transportOrders = e.aiTransportOrders(p, own, goal)
+		}
+		orders = append(orders, transportOrders...)
+		orders = append(orders, hold.orders...)
+		orders = append(orders, e.aiEscortOrders(p, hold.available(own))...)
+		// Choosing compacts its slice, so preserve the planning prefix explicitly.
+		priorOrders := append([]Order(nil), orders...)
+		priorOrders = e.aiChooseOrders(p, own, priorOrders, planningCredits)
+		priorOrders = append(priorOrders, hold.claims()...)
+		orders = append(orders, e.aiSpecialOrdersWithBudget(p, view, own, goal, budget, priorOrders...)...)
 		if needSupplyScout && counts["recon"] == 0 {
 			if scout, ok := e.aiSupplyScoutOrder(p, own, orders, period); ok {
 				orders = append(orders, scout)
 			}
 		}
+		var scoutTerrain *aiScoutTerrain
 		for _, v := range own {
 			unit := e.entity(v.ID)
-			if unit.Building || unit.Container != 0 {
+			if unit.Building || unit.Container != 0 || aiShahedCommitted(unit) {
 				continue
 			}
 			role := e.role(unit)
@@ -317,21 +432,68 @@ func (e *Engine) updateAI() {
 			if unit.Channel != "" || unit.DeployUntil > 0 || unit.PackingUntil > 0 {
 				continue
 			}
+			if hold.reserved[unit.ID] {
+				continue
+			}
 			if recovery, ok := e.aiStalledRallyOrder(unit, own, goal); ok {
 				orders = append(orders, recovery)
 				continue
 			}
+			if e.isAircraft(unit) && (!e.aiAirReady(unit, own) || len(unit.Orders) > 0 && unit.Orders[0].Kind == "return") {
+				continue
+			}
+			if role == "fighter" {
+				if len(unit.Orders) > 0 && unit.Orders[0].Kind == "attack" && !e.aiFighterAttackVisible(p, view, unit.Orders[0].Target) {
+					kind := "return"
+					if unit.Landed {
+						kind = "stop"
+					}
+					orders = append(orders, Order{Kind: kind, Entities: []ID{unit.ID}})
+				} else if len(unit.Orders) == 0 {
+					if target, ok := e.aiFighterTarget(p, view, unit); ok {
+						orders = append(orders, Order{Kind: "attack", Entities: []ID{unit.ID}, Target: target.ID})
+					} else if !unit.Landed {
+						orders = append(orders, Order{Kind: "return", Entities: []ID{unit.ID}})
+					}
+				}
+				continue
+			}
+			if role == "shahed" {
+				if len(unit.Orders) == 0 {
+					if target, ok := e.aiShahedTarget(p, view, unit, goal); ok {
+						orders = append(orders, Order{Kind: "attack", Entities: []ID{unit.ID}, Target: target.ID})
+					} else if haveGoal && !e.aiAirDanger(p, goal) && !e.aiAirRouteDanger(p, unit.Position, goal) {
+						orders = append(orders, Order{Kind: "move", Entities: []ID{unit.ID}, Position: goal})
+					}
+				}
+				continue
+			}
 			if role == "recon" || role == "isr" || role == "scout_drone" {
-				if len(unit.Orders) == 0 && (!e.isAircraft(unit) || unit.ServiceWork == 0) {
-					scout := e.aiExplore(p, unit.Position)
-					orders = append(orders, Order{Kind: "move", Entities: []ID{unit.ID}, Position: scout})
+				if unit.ReconObserve && e.aiThreatNear(p, unit.Position, e.sightRange(unit)) {
+					continue
+				}
+				failed := len(unit.Orders) == 1 && unit.Orders[0].Kind == "move" && unit.Blocked && e.Tick()-unit.StationarySince >= seconds(12)
+				if (len(unit.Orders) == 0 || failed) && (!e.isAircraft(unit) || unit.ServiceWork == 0) {
+					if !e.isAircraft(unit) && scoutTerrain == nil {
+						scoutTerrain = e.aiScoutTerrainKnowledge(p)
+					}
+					avoid := Vec{}
+					if failed {
+						avoid = unit.Orders[0].Position
+					}
+					if scout, ok := e.aiScoutWaypoint(p, unit.Position, avoid, failed, e.isAircraft(unit), scoutTerrain); ok {
+						orders = append(orders, Order{Kind: "move", Entities: []ID{unit.ID}, Position: scout})
+					}
 				}
 				continue
 			}
 			if u.Weapon == "" {
 				continue
 			}
-			if e.isAircraft(unit) && (unit.ServiceWork > 0 || len(unit.Orders) > 0 && unit.Orders[0].Kind == "return" || e.aiAirDanger(p, goal) && role != "fighter") {
+			if !e.isAircraft(unit) && !unit.Active(e.Tick()) {
+				continue
+			}
+			if e.isAircraft(unit) && (e.aiAirDanger(p, goal) || e.aiAirRouteDanger(p, unit.Position, goal)) {
 				continue
 			}
 			if unit.Deployed {
@@ -339,7 +501,7 @@ func (e *Engine) updateAI() {
 			}
 			if unit.HP*3 < unit.MaxHP && hq != nil && p.AI != "easy" {
 				if len(unit.Orders) > 0 && unit.Orders[0].Kind == "guard" {
-					if source := e.aiOwnEntity(own, unit.Orders[0].Target); source != nil && e.repairRate(source, unit) > 0 {
+					if source := e.aiOwnEntity(own, unit.Orders[0].Target); source != nil && source.Active(e.Tick()) && source.Channel == "" && e.repairRate(source, unit) > 0 {
 						continue
 					}
 				}
@@ -348,45 +510,19 @@ func (e *Engine) updateAI() {
 				}
 				continue
 			}
+			// A fresh observed defense goal can preempt a single AI assault
+			// waypoint. Preserve queued work and units currently dealing damage;
+			// ordinary movement still enforces its shared route-work budget.
+			if !e.isAircraft(unit) && p.AIIntent == "defend" && len(unit.Orders) == 1 && unit.Orders[0].Kind == "attack_move" && distance(unit.Orders[0].Position, goal) > 4000 && (!unit.EverDealt || e.Tick()-unit.LastDealt >= seconds(3)) {
+				orders = append(orders, Order{Kind: "attack_move", Entities: []ID{unit.ID}, Position: goal})
+				continue
+			}
 			if haveGoal && (p.Supply >= 12 || p.AIIntent == "defend") && len(unit.Orders) == 0 && (!e.isAircraft(unit) || unit.ServiceWork == 0) {
 				orders = append(orders, Order{Kind: "attack_move", Entities: []ID{unit.ID}, Position: goal})
 			}
 		}
 
-		// One chosen intention per unit per planning cycle. A later generic
-		// movement order must not cancel an accepted channel or deployment.
-		used := map[ID]bool{}
-		factionAbilities := map[string]bool{}
-		chosen := orders[:0]
-		for _, order := range orders {
-			conflict := false
-			for _, id := range order.Entities {
-				if used[id] {
-					conflict = true
-				}
-			}
-			if conflict {
-				continue
-			}
-			if order.Kind == "ability" && aiFactionAbility(order.Type) {
-				if factionAbilities[order.Type] {
-					continue
-				}
-				factionAbilities[order.Type] = true
-			}
-			chosen = append(chosen, order)
-			for _, id := range order.Entities {
-				used[id] = true
-			}
-			if len(chosen) == 32 {
-				break
-			}
-		}
-		orders = chosen
-
-		if len(orders) > 0 {
-			_ = e.Submit(p.ID, p.LastSequence+1, orders)
-		}
+		e.aiDispatchOrders(p, e.aiChooseOrders(p, own, orders, planningCredits))
 	}
 }
 
@@ -406,7 +542,7 @@ func (e *Engine) aiReplacementHauler(p *Player, own []EntityView, budget *int64)
 	}
 	for _, observed := range own {
 		v := e.entity(observed.ID)
-		if e.role(v) == "hauler" {
+		if e.role(v) == "hauler" || e.role(v) == "supply" && !v.IncludedHauler {
 			return Order{}, false
 		}
 		for _, job := range v.Jobs {
@@ -437,11 +573,99 @@ func (e *Engine) aiReplacementHauler(p *Player, own []EntityView, budget *int64)
 	return Order{}, false
 }
 
+// A blocked factory must not indefinitely hide the only normal builder path.
+// Clear one unworkable head with ordinary Cancel, then observe its real refund
+// before a later paid train. Existing builders and reachable rig jobs win.
+func (e *Engine) aiEmergencyRigRecovery(p *Player, own []EntityView, budget *int64) (Order, bool) {
+	if e.has(p.ID, "hq") {
+		return Order{}, false
+	}
+	blockedHead := func(v *Entity) bool {
+		if len(v.Jobs) == 0 {
+			return false
+		}
+		head := &v.Jobs[0]
+		unit, _ := e.catalog.Unit(head.Type)
+		if head.Emergency || unit.Role == "rig" || head.Work >= head.Required {
+			return false
+		}
+		if !e.jobReady(p, v, head) {
+			return true
+		}
+		if !head.Started {
+			_, _, _, code := e.productionAllocation(p, head)
+			return code == "supply_blocked" || code == "service_full" || code == "rig_limit" || code == "hauler_limit" || code == "elite_limit"
+		}
+		return false
+	}
+	var promised *Entity
+	for _, observed := range own {
+		v := e.entity(observed.ID)
+		if e.role(v) == "rig" {
+			return Order{}, false
+		}
+		for _, job := range v.Jobs {
+			unit, ok := e.catalog.Unit(job.Type)
+			if !ok || unit.Role != "rig" {
+				continue
+			}
+			if e.role(v) != "factory" || !v.Active(e.Tick()) || !blockedHead(v) {
+				return Order{}, false
+			}
+			if promised == nil {
+				promised = v
+			}
+		}
+	}
+	if promised != nil {
+		// The existing unpaid rig is already held by aiPlanningBudget.
+		return Order{Kind: "cancel", Entities: []ID{promised.ID}, Index: 0}, true
+	}
+	var idle, blocked *Entity
+	var idleCost, blockedCost int64
+	for _, observed := range own {
+		v := e.entity(observed.ID)
+		if e.role(v) != "factory" || !v.Active(e.Tick()) {
+			continue
+		}
+		// Inspect the ordinary job that will be legal when this queue is clear;
+		// the copy changes no producer or reservation in the actual state.
+		producer := *v
+		producer.Jobs = nil
+		order := Order{Kind: "train", Entities: []ID{v.ID}, Type: p.Faction + ".rig"}
+		job, code := e.productionJob(p, &producer, order)
+		if code != "ok" || !job.Emergency || !e.jobReady(p, &producer, &job) {
+			continue
+		}
+		_, _, _, code = e.productionAllocation(p, &job)
+		if code != "ok" && code != "insufficient_credits" {
+			continue
+		}
+		// Preserve the ordinary emergency price even when allocation is short.
+		cost, _, _ := e.aiOrderReservation(p, &order)
+		if len(v.Jobs) == 0 && idle == nil {
+			idle, idleCost = v, cost
+		} else if blocked == nil && blockedHead(v) {
+			blocked, blockedCost = v, cost
+		}
+	}
+	if idle != nil {
+		affordable := *budget >= idleCost
+		*budget = max(int64(0), *budget-idleCost)
+		return Order{Kind: "train", Entities: []ID{idle.ID}, Type: p.Faction + ".rig"}, affordable
+	}
+	if blocked != nil {
+		*budget = max(int64(0), *budget-blockedCost)
+		return Order{Kind: "cancel", Entities: []ID{blocked.ID}, Index: 0}, true
+	}
+	return Order{}, false
+}
+
 // A cash-starved opening can lack even a barracks or scout. At most once per
 // twelve seconds, send one idle worker to an ordinary public exploration point.
 // Productive gather tasks, cargo, construction and already planned orders win.
-// Failed routes rotate among nearby unexplored waypoints; no hidden field or
-// collision lookup informs this choice. Actual movement validates the route.
+// Failed routes rotate through publicly reachable unexplored waypoints; no
+// hidden field or collision lookup informs this choice. Movement validates it.
 func (e *Engine) aiSupplyScoutOrder(p *Player, own []EntityView, planned []Order, period Tick) (Order, bool) {
 	if e.Tick()%seconds(12) >= period {
 		return Order{}, false
@@ -452,6 +676,7 @@ func (e *Engine) aiSupplyScoutOrder(p *Player, own []EntityView, planned []Order
 			used[id] = true
 		}
 	}
+	var terrain *aiScoutTerrain
 	for _, role := range []string{"hauler", "rig"} {
 		for _, observed := range own {
 			v := e.entity(observed.ID)
@@ -465,10 +690,14 @@ func (e *Engine) aiSupplyScoutOrder(p *Player, own []EntityView, planned []Order
 			}
 			points := []Vec{}
 			m := e.state.Map
+			if terrain == nil {
+				terrain = e.aiScoutTerrainKnowledge(p)
+			}
+			component := terrain.component(v.Position)
 			for y := int32(6); y < m.Height-6; y += 8 {
 				for x := int32(6); x < m.Width-6; x += 8 {
 					point := Vec{X: x*1000 + 500, Y: y*1000 + 500}
-					if !p.Explored[y*m.Width+x] && m.Tiles[y*m.Width+x].Passable() && distance(v.Position, point) >= 3000 && (!failed || point != v.Orders[0].Position) {
+					if !p.Explored[y*m.Width+x] && component != 0 && terrain.components[y*m.Width+x] == component && dist2(v.Position, point) >= 9000000 && (!failed || point != v.Orders[0].Position) {
 						points = append(points, point)
 					}
 				}
@@ -477,7 +706,11 @@ func (e *Engine) aiSupplyScoutOrder(p *Player, own []EntityView, planned []Order
 				continue
 			}
 			sort.SliceStable(points, func(i, j int) bool { return dist2(v.Position, points[i]) < dist2(v.Position, points[j]) })
-			point := points[p.AIScout%uint32(min(4, len(points)))]
+			limit := min(4, len(points))
+			if failed {
+				limit = len(points)
+			}
+			point := points[p.AIScout%uint32(limit)]
 			p.AIScout++
 			return Order{Kind: "move", Entities: []ID{v.ID}, Position: point}, true
 		}
@@ -505,26 +738,47 @@ func (e *Engine) aiGoal(p *Player, view View) (Vec, bool) {
 		}
 	}
 	p.AIIntent = "scout"
+	bestID := ID(0)
+	bestDistance := int64(1 << 62)
+	bestArmed := false
+	defense := Vec{}
 	for _, enemy := range view.Entities {
 		if !aiActiveOpponent(p, view, enemy.Owner) {
 			continue
 		}
+		weapon := ""
+		if u, ok := e.catalog.Unit(enemy.Type); ok {
+			weapon = u.Weapon
+		} else if b, ok := e.buildingRule(enemy.Type); ok {
+			weapon = b.Weapon
+		}
+		w, hasWeapon := e.catalog.Weapon(weapon)
+		// Compare only observed threats to the public allied economy. Air-only
+		// weapons cannot outrank a weapon that can damage this ground asset.
 		for _, own := range view.Entities {
-			if own.Owner != p.ID {
+			if !aiActiveAlly(p, view, own.Owner) {
 				continue
 			}
-			role := ""
+			role, armor := "", ""
 			if b, ok := e.buildingRule(own.Type); ok {
-				role = b.Role
+				role, armor = b.Role, "structure"
 			}
 			if u, ok := e.catalog.Unit(own.Type); ok {
-				role = u.Role
+				role, armor = u.Role, u.Armor
 			}
-			if (role == "hq" || role == "supply" || role == "hauler") && distance(own.Position, enemy.Position) < 14000 {
-				p.AIIntent = "defend"
-				return enemy.Position, true
+			if role != "hq" && role != "supply" && role != "hauler" || distance(own.Position, enemy.Position) >= 14000 {
+				continue
+			}
+			armed := enemy.Complete && enemy.Enabled && hasWeapon && (w.Kind == "tactical" || e.catalog.Multiplier(w.Kind, armor) > 0)
+			d := dist2(own.Position, enemy.Position)
+			if bestID == 0 || armed && !bestArmed || armed == bestArmed && (d < bestDistance || d == bestDistance && enemy.ID < bestID) {
+				bestID, bestDistance, bestArmed, defense = enemy.ID, d, armed, enemy.Position
 			}
 		}
+	}
+	if bestID != 0 {
+		p.AIIntent = "defend"
+		return defense, true
 	}
 	// The announced endgame pulse gives positions only. It may guide ordinary
 	// movement toward a surviving economy, never a target ID or firing vision.
@@ -554,57 +808,145 @@ func (e *Engine) aiGoal(p *Player, view View) (Vec, bool) {
 	return e.aiExplore(p, center), true
 }
 func (e *Engine) aiExplore(p *Player, from Vec) Vec {
+	if point, ok := e.aiScoutWaypoint(p, from, Vec{}, false, false, nil); ok {
+		return point
+	}
+	return from
+}
+
+type aiScoutTerrain struct {
+	width, height int32
+	components    []uint32
+}
+
+func (terrain *aiScoutTerrain) component(point Vec) uint32 {
+	if point.X < 0 || point.Y < 0 || point.X >= terrain.width*1000 || point.Y >= terrain.height*1000 {
+		return 0
+	}
+	return terrain.components[point.Y/1000*terrain.width+point.X/1000]
+}
+
+// Ground exploration uses bounded floods over public authored terrain only.
+// Observed rubble is included, while globally changed rubble remains hidden.
+// Dynamic occupancy and exact movement-class clearance remain the ordinary
+// route executor's responsibility. This derived local context is shared across
+// one planning cycle; it contains no persistent cache or scouting decisions.
+func (e *Engine) aiScoutTerrainKnowledge(p *Player) *aiScoutTerrain {
+	m := e.aiPlanningMap(p)
+	terrain := &aiScoutTerrain{width: m.Width, height: m.Height, components: make([]uint32, len(m.Tiles))}
+	queue := make([]int32, 0, len(m.Tiles))
+	component := uint32(0)
+	for start, tile := range m.Tiles {
+		if terrain.components[start] != 0 || !tile.Passable() {
+			continue
+		}
+		component++
+		terrain.components[start] = component
+		queue = append(queue[:0], int32(start))
+		for n := 0; n < len(queue); n++ {
+			index := queue[n]
+			x, y := index%m.Width, index/m.Width
+			for _, d := range neighbors[:4] {
+				nx, ny := x+d.X, y+d.Y
+				if nx < 0 || ny < 0 || nx >= m.Width || ny >= m.Height {
+					continue
+				}
+				next := ny*m.Width + nx
+				if terrain.components[next] == 0 && m.Tiles[next].Passable() {
+					terrain.components[next] = component
+					queue = append(queue, next)
+				}
+			}
+		}
+	}
+	return terrain
+}
+
+// A failed route is evidence about our own task, not hidden enemy occupancy.
+// Rotate the saved cursor through alternatives instead of retrying the same
+// nearest point forever. Air scouts avoid only remembered antiair coverage.
+func (e *Engine) aiScoutWaypoint(p *Player, from, avoid Vec, retry, air bool, terrain *aiScoutTerrain) (Vec, bool) {
 	m := e.state.Map
-	best := Vec{X: m.Width * 500, Y: m.Height * 500}
-	score := int64(-1)
+	component := uint32(0)
+	if !air {
+		if terrain == nil {
+			terrain = e.aiScoutTerrainKnowledge(p)
+		}
+		component = terrain.component(from)
+	}
+	unexplored, fogged := []Vec{}, []Vec{}
 	for y := int32(6); y < m.Height-6; y += 8 {
 		for x := int32(6); x < m.Width-6; x += 8 {
 			idx := y*m.Width + x
-			if p.Explored[idx] || !m.Tiles[idx].Passable() {
+			pt := Vec{X: x*1000 + 500, Y: y*1000 + 500}
+			d := dist2(from, pt)
+			if d < 9000000 || retry && pt == avoid || !air && (component == 0 || terrain.components[idx] != component) || air && (e.aiAirDanger(p, pt) || e.aiAirRouteDanger(p, from, pt)) {
 				continue
 			}
-			pt := Vec{X: x*1000 + 500, Y: y*1000 + 500}
-			s := int64(10000000000) - dist2(from, pt)
-			if s > score {
-				score = s
-				best = pt
+			if !p.Explored[idx] {
+				unexplored = append(unexplored, pt)
+			} else if !e.canSee(p.ID, pt) && d >= 16000000 {
+				fogged = append(fogged, pt)
 			}
 		}
 	}
-	if score >= 0 {
-		return best
+	if len(unexplored) > 0 {
+		if !retry {
+			best := unexplored[0]
+			for _, point := range unexplored[1:] {
+				if dist2(from, point) < dist2(from, best) {
+					best = point
+				}
+			}
+			return best, true
+		}
+		sort.SliceStable(unexplored, func(i, j int) bool { return dist2(from, unexplored[i]) < dist2(from, unexplored[j]) })
+		index := p.AIScout % uint32(len(unexplored))
+		p.AIScout++
+		return unexplored[index], true
 	}
 	// Explored is permanent knowledge, not current sight. When the whole
 	// scout grid is known, revisit fog in a saved deterministic rotation.
-	points := []Vec{}
-	for y := int32(6); y < m.Height-6; y += 8 {
-		for x := int32(6); x < m.Width-6; x += 8 {
-			if m.Tiles[y*m.Width+x].Passable() {
-				points = append(points, Vec{X: x*1000 + 500, Y: y*1000 + 500})
-			}
-		}
+	if len(fogged) > 0 {
+		index := p.AIScout % uint32(len(fogged))
+		p.AIScout = (index + 1) % uint32(len(fogged))
+		return fogged[index], true
 	}
-	for offset := 0; offset < len(points); offset++ {
-		index := (int(p.AIScout%uint32(len(points))) + offset) % len(points)
-		point := points[index]
-		if !e.canSee(p.ID, point) && distance(from, point) >= 4000 {
-			p.AIScout = uint32((index + 1) % len(points))
-			return point
-		}
-	}
-	return best
+	return from, false
 }
 
-// A producer's automatic rally move is a staging intention, not a permanent
-// combat assignment. Recover only a confirmed stalled, healthy ground fighter
-// still moving to an owned compatible producer's exact declared rally point.
-// Actual navigation remains the ordinary command executor's responsibility.
+// A confirmed failed producer rally releases healthy support for ordinary
+// role work. Ground fighters retain the existing changed-goal assault recovery;
+// queued tasks, channels, deployment and recent or damaged movement stay intact.
 func (e *Engine) aiStalledRallyOrder(v *Entity, own []EntityView, goal Vec) (Order, bool) {
-	if !v.Blocked || e.Tick()-v.StationarySince < seconds(12) || v.HP*100 < v.MaxHP*85 || v.Channel != "" || v.Container != 0 || v.Deployed || v.DeployUntil > 0 || v.PackingUntil > 0 || e.isAircraft(v) || len(v.Orders) != 1 || v.Orders[0].Kind != "move" || v.Orders[0].Position == goal {
+	if !v.Active(e.Tick()) || !v.Blocked || e.Tick()-v.StationarySince < seconds(12) || v.HP*100 < v.MaxHP*85 || v.Channel != "" || v.Container != 0 || v.Deployed || v.DeployUntil > 0 || v.PackingUntil > 0 || e.isAircraft(v) || len(v.Orders) != 1 {
 		return Order{}, false
 	}
 	u, ok := e.catalog.Unit(v.Type)
-	if !ok || u.Weapon == "" {
+	if !ok {
+		return Order{}, false
+	}
+	if u.Weapon == "" {
+		if u.Role != "engineer" && u.Role != "medic" && u.Role != "repair" || v.Orders[0].Kind != "move" || v.Orders[0].Queued {
+			return Order{}, false
+		}
+		for _, observed := range own {
+			if observed.Owner != v.Owner || observed.Private == nil || !observed.Complete || observed.Private.Rally != v.Orders[0].Position {
+				continue
+			}
+			if b, ok := e.buildingRule(observed.Type); ok && b.Role == u.Producer {
+				return Order{Kind: "stop", Entities: []ID{v.ID}}, true
+			}
+		}
+		return Order{}, false
+	}
+	if u.Role == "recon" || v.Orders[0].Position == goal {
+		return Order{}, false
+	}
+	if v.Orders[0].Kind == "attack_move" {
+		return Order{Kind: "attack_move", Entities: []ID{v.ID}, Position: goal}, true
+	}
+	if v.Orders[0].Kind != "move" {
 		return Order{}, false
 	}
 	for _, observed := range own {

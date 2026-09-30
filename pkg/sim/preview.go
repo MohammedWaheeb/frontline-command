@@ -63,28 +63,31 @@ func (e *Engine) previewDetachedAdvice(player PlayerID, orders []Order) (OrderPr
 	results := make([]OrderResult, 0, len(orders))
 	deferred := false
 	for i, o := range e.state.Pending[0].Orders {
-		code := e.previewKnowledge(p, o)
+		effective, code := e.eligibleAdviceOrder(p, o)
+		if code == "ok" {
+			code = e.previewKnowledge(p, effective)
+		}
 		if code == "ok" {
 			if deferred {
 				code = "indeterminate"
 			} else {
-				switch o.Kind {
+				switch effective.Kind {
 				case "build":
-					_, code = e.buildingRequirements(p, e.entity(o.Entities[0]), o)
+					_, code = e.buildingRequirements(p, e.entity(effective.Entities[0]), effective)
 					if code == "ok" {
 						code = "indeterminate"
 					}
 				case "ability", "convoy_hold", "convoy_advance", "practice_spawn", "practice_remove", "practice_restore", "practice_resources", "practice_fog":
 					code = "indeterminate"
 				default:
-					code = e.execute(player, o)
+					code = e.execute(player, effective)
 				}
 			}
 		}
 		if code == "indeterminate" {
 			deferred = true
 		}
-		results = append(results, OrderResult{Player: player, Index: int32(i), Accepted: code == "ok" || code == "indeterminate", Code: code, Tick: e.state.Tick})
+		results = append(results, OrderResult{Player: player, Index: int32(i), Accepted: code == "ok" || code == "indeterminate", Code: code, Tick: e.state.Tick, EligibleEntities: effective.Entities})
 	}
 	return OrderPreview{Tick: e.state.Tick, Results: results, Plans: plans}, nil
 }
@@ -98,6 +101,14 @@ func (e *Engine) previewKnowledge(p *Player, o Order) string {
 	}
 	if strings.HasPrefix(o.Kind, "practice_") {
 		return "indeterminate"
+	}
+	effective, code := e.eligibleAdviceOrder(p, o)
+	if code != "ok" {
+		return code
+	}
+	o = effective
+	if isFieldBarricadeOrder(o) {
+		return e.previewFieldBarricade(p, o)
 	}
 	if len(o.Entities) == 0 {
 		return "ok"
@@ -156,7 +167,17 @@ func (e *Engine) previewKnowledge(p *Player, o Order) string {
 	// Only these commands interpret Target as an entity/object ID. Irrelevant
 	// target fields cannot cause another command to inspect a guessed enemy.
 	switch o.Kind {
-	case "attack", "capture", "board", "guard", "escort", "repair", "resume", "ability":
+	case "attack", "capture", "board", "guard", "escort", "repair", "resume", "ability", "gather_depot":
+		if o.Kind == "gather_depot" {
+			if o.Target == 0 {
+				return "ok"
+			}
+			target := e.entity(o.Target)
+			if target == nil || target.Owner != p.ID {
+				return "owned_supply_center_required"
+			}
+			return "ok"
+		}
 		if o.Target == 0 {
 			if o.Kind == "guard" || o.Kind == "ability" {
 				return "ok"
@@ -215,7 +236,7 @@ func (e *Engine) previewKnowledge(p *Player, o Order) string {
 	case "gather":
 		if o.Target != 0 {
 			f := e.field(uint32(o.Target))
-			if f == nil || !e.explored(p.ID, f.Position) {
+			if f == nil || e.knownField(p, uint32(o.Target)) == nil {
 				return "unknown_field"
 			}
 		}

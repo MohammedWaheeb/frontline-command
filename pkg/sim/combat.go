@@ -45,6 +45,13 @@ func (e *Engine) canAttack(a, b *Entity) bool {
 	}
 	return e.catalog.Multiplier(w.Kind, e.armor(b)) > 0
 }
+func (e *Engine) canFireWhileMoving(v *Entity) bool {
+	switch e.role(v) {
+	case "tank", "car", "apc", "gunship":
+		return true
+	}
+	return e.fixedWing(v)
+}
 func (e *Engine) pickTarget(v *Entity) *Entity {
 	if len(v.Orders) > 0 && v.Orders[0].Kind == "attack" {
 		target := e.entity(v.Orders[0].Target)
@@ -56,14 +63,24 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 	leash := e.combatLeash(v)
 	w, _ := e.weapon(v)
 	combatRoute := len(v.Orders) > 0 && (v.Orders[0].Kind == "attack_move" || v.Orders[0].Kind == "patrol")
-	if current := e.entity(v.Target); current != nil && current.Owner != 0 && e.canAttack(v, current) && e.canSeeEntity(v.Owner, current) && (combatRoute || distance(v.Anchor, current.Position) <= leash) {
-		return current
+	// Move retains its destination while mobile weapons engage enemies in the
+	// current firing ring, including those beyond the departure anchor.
+	movingFire := len(v.Orders) > 0 && v.Orders[0].Kind == "move" && e.canFireWhileMoving(v)
+	if current := e.entity(v.Target); current != nil && current.Owner != 0 && e.canAttack(v, current) && e.canSeeEntity(v.Owner, current) {
+		inArea := combatRoute || distance(v.Anchor, current.Position) <= leash
+		if movingFire {
+			d := e.weaponDistance(v, current)
+			inArea = d >= w.MinRange && d <= w.MaxRange
+		}
+		if inArea {
+			return current
+		}
 	}
 	var best *Entity
 	priority := -1
 	score := int64(1 << 62)
 	center, searchRadius := v.Anchor, leash+6000
-	if combatRoute {
+	if combatRoute || movingFire {
 		center = v.Position
 		searchRadius = w.MaxRange + 6000
 	}
@@ -71,7 +88,12 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 		if target.Owner == 0 || !e.canAttack(v, target) || !e.canSeeEntity(v.Owner, target) || e.defeated(target.Owner) {
 			continue
 		}
-		if distance(v.Anchor, target.Position) > leash && !combatRoute {
+		if movingFire {
+			d := e.weaponDistance(v, target)
+			if d < w.MinRange || d > w.MaxRange {
+				continue
+			}
+		} else if distance(v.Anchor, target.Position) > leash && !combatRoute {
 			continue
 		}
 		pr := 0
@@ -97,6 +119,11 @@ func (e *Engine) updateCombat() {
 		if v.HP <= 0 || !v.Enabled || v.DisabledUntil > e.state.Tick || !v.Complete || e.firingPlatform(v) == nil || v.Channel != "" || v.PackingUntil > e.state.Tick || v.DeployUntil > e.state.Tick || e.defeated(v.Owner) || e.hasBuff(v, "recall") || e.hasBuff(v, "exit_lock") {
 			continue
 		}
+		// Shahed carries one physical payload; it never launches a separate
+		// ranged round or spends that payload through automatic targeting.
+		if v.Type == "IR.shahed" {
+			continue
+		}
 		if e.isAircraft(v) && v.Landed {
 			continue
 		}
@@ -116,7 +143,7 @@ func (e *Engine) updateCombat() {
 		if o.Kind == "build" || o.Kind == "repair" || o.Kind == "capture" || o.Kind == "salvage" || o.Kind == "board" || o.Kind == "return" {
 			continue
 		}
-		mobileFire := e.role(v) == "tank" || e.role(v) == "car" || e.role(v) == "apc" || e.role(v) == "gunship" || e.fixedWing(v)
+		mobileFire := e.canFireWhileMoving(v)
 		if o.Kind == "move" && !mobileFire {
 			continue
 		}
@@ -133,6 +160,9 @@ func (e *Engine) updateCombat() {
 				v.Target = 0
 				v.AimUntil = 0
 				continue
+			}
+			if v.Target != target.ID {
+				v.AimUntil = 0
 			}
 			v.Target = target.ID
 			point = target.Position
@@ -186,22 +216,28 @@ func (e *Engine) updateCombat() {
 			continue
 		}
 		burst := v.VolleyLeft > 0 && e.state.Tick >= v.VolleyAt
+		windup := Tick(w.WindupTicks)
+		if e.isAircraft(v) && target != nil && e.hasBuff(target, "designated") && e.player(v.Owner).Faction == "US" {
+			windup = 3
+		}
 		if !burst && e.state.Tick < v.FireAt {
-			continue
+			// Ordinary shot intervals run from launch to launch. Prepare the
+			// next windup during the final part of that cooldown; tactical
+			// magazines retain their separate launch/recharge behavior.
+			if w.Kind == "tactical" || v.FireAt-e.state.Tick > windup {
+				continue
+			}
 		}
 		if !mobileFire && v.Container == 0 && v.Position != v.LastPosition {
+			v.AimUntil = 0
 			continue
 		}
 		if v.AimUntil == 0 && !burst {
-			windup := w.WindupTicks
-			if e.isAircraft(v) && target != nil && e.hasBuff(target, "designated") && e.player(v.Owner).Faction == "US" {
-				windup = 3
-			}
-			v.AimUntil = e.state.Tick + Tick(windup)
+			v.AimUntil = e.state.Tick + windup
 			v.State = "aiming"
 			continue
 		}
-		if !burst && e.state.Tick < v.AimUntil {
+		if !burst && (e.state.Tick < v.AimUntil || e.state.Tick < v.FireAt) {
 			continue
 		}
 		if w.Kind == "tactical" {
@@ -362,7 +398,9 @@ func (e *Engine) updateProjectiles() {
 					e.damages = append(e.damages, damage{Target: target.ID, Shooter: p.Shooter, Owner: p.Owner, Amount: amount, Kind: w.Kind})
 				}
 			}
-		} else if target := e.entity(p.Target); target != nil && target.HP > 0 && target.Container == 0 && !e.defeated(target.Owner) {
+		} else if target := e.entity(p.Target); target != nil && target.HP > 0 && target.Container == 0 && !e.defeated(target.Owner) && !e.allied(p.Owner, target.Owner) {
+			// A structure may become friendly through capture during flight.
+			// Ordinary direct rounds never deal friendly damage.
 			if w.Kind == "antiair" && e.hasBuff(target, "decoy") {
 				e.removeBuff(target, "decoy")
 				e.emit("decoy_triggered", target.Owner, target.ID, target.Position, "visible", 0)
@@ -428,6 +466,17 @@ func (e *Engine) projectileDamageFeedback(p *Projectile, target *Entity, w conte
 	return amount, covered
 }
 func (e *Engine) resolveDamage() {
+	// Resolve due ordinary fire first. A drone killed by AA on its contact tick
+	// cannot also detonate; surviving terminal impacts use the same damage rules.
+	e.resolveDamageBatch()
+	impacts := e.shahedImpactBatch()
+	if len(impacts) > 0 {
+		e.damages = impacts
+		e.resolveDamageBatch()
+	}
+}
+
+func (e *Engine) resolveDamageBatch() {
 	// Attribute actual damage proportionally within each victim's simultaneous
 	// batch. Lifetime attribution is capped at max HP to avoid heal/XP farming.
 	sort.SliceStable(e.damages, func(i, j int) bool {
@@ -492,6 +541,14 @@ func (e *Engine) resolveDamage() {
 			e.interruptChannel(v)
 		}
 		e.emit("under_attack", v.Owner, v.ID, v.Position, "owner", actual)
+		if actual > 0 && v.HP > 0 {
+			for _, d := range e.damages[start:end] {
+				if d.Amount > 0 && d.Owner != 0 && !e.allied(d.Owner, v.Owner) {
+					e.retreatHauler(v)
+					break
+				}
+			}
+		}
 		start = end
 	}
 }
@@ -533,6 +590,7 @@ func (e *Engine) cleanup() {
 		}
 	}
 	e.state.Entities = alive
+	e.reconcileHaulerDepots()
 }
 func (e *Engine) awardExperience(v *Entity) {
 	strategicPlane := e.role(v) == "support_plane"
@@ -602,4 +660,59 @@ func (e *Engine) combatLeash(v *Entity) int32 {
 		return 12000
 	}
 	return 6000
+}
+
+// A terminal payload creates only this tick's damage batch, never a projectile
+// entity that could survive its carrier or apply a second delayed hit.
+func (e *Engine) shahedImpactBatch() []damage {
+	var impacts []damage
+	for _, v := range e.state.Entities {
+		if v.Type != "IR.shahed" || !v.ShahedCommitted || v.HP <= 0 || v.Landed || e.defeated(v.Owner) || distance(v.Position, v.LastTarget) > 180 {
+			continue
+		}
+		w, armed := e.weapon(v)
+		if !armed {
+			continue
+		}
+		amount := w.Damage
+		if e.player(v.Owner).HasUpgrade("weapons_training") && v.TemporaryUntil == 0 {
+			amount = amount * 110 / 100
+		}
+		if v.Rank == 1 {
+			amount = amount * 105 / 100
+		} else if v.Rank >= 2 {
+			amount = amount * 110 / 100
+		}
+		point := v.LastTarget
+		// Local metadata shares ordinary airground armor/ability multipliers.
+		// It is never assigned an ID or appended to state.Projectiles.
+		payload := Projectile{Owner: v.Owner, Weapon: w.ID, Damage: amount, Impact: point, Splash: w.Splash}
+		for _, target := range e.state.Entities {
+			if target.HP <= 0 || target.Container != 0 || e.defeated(target.Owner) || e.armor(target) == "air" {
+				continue
+			}
+			d := e.distanceTo(target, point)
+			if d >= w.Splash {
+				continue
+			}
+			hit := e.projectileDamage(&payload, target, w)
+			if d > 500 {
+				hit = hit * int64(w.Splash-d) / int64(w.Splash-500)
+			}
+			if e.allied(v.Owner, target.Owner) {
+				hit /= 2
+			}
+			if hit > 0 {
+				impacts = append(impacts, damage{Target: target.ID, Shooter: v.ID, Owner: v.Owner, Amount: hit, Kind: w.Kind})
+			}
+		}
+		v.Position = point
+		v.LastPosition = point
+		v.LastDealt = e.Tick()
+		v.EverDealt = true
+		v.HP = 0
+		e.emitCombat("weapon_fired", v.Owner, v.ID, point, w.ID)
+		e.emitCombat("impact", v.Owner, 0, point, w.ID)
+	}
+	return impacts
 }

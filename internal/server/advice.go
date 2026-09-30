@@ -80,6 +80,7 @@ func (g *adviceWorkGate) acquire() bool {
 func (g *adviceWorkGate) release() { g.mu.Lock(); defer g.mu.Unlock(); g.active-- }
 
 func (s *Server) commandAdvice(w http.ResponseWriter, r *http.Request) {
+	traceStarted := time.Now()
 	s.mu.Lock()
 	match := s.matches[r.PathValue("id")]
 	s.mu.Unlock()
@@ -120,10 +121,17 @@ func (s *Server) commandAdvice(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer s.adviceWorkers.release()
+	trace := newAdviceTrace(traceStarted, body, uint32(slot.Player))
+	if trace != nil {
+		writer := &adviceTraceWriter{ResponseWriter: w}
+		w = writer
+		defer func() { trace.report(writer.status, r.Context().Err() != nil) }()
+	}
 	ctx, cancel := context.WithTimeout(r.Context(), 2*time.Second)
 	defer cancel()
 	deadline, _ := ctx.Deadline()
-	reply := match.call(ctx, matchRequest{adviceDeadline: deadline, kind: "advice", token: token, player: slot.Player, entities: body.Entities, orders: body.Orders})
+	reply := match.call(ctx, matchRequest{adviceTrace: trace, adviceDeadline: deadline, kind: "advice", token: token, player: slot.Player, entities: body.Entities, orders: body.Orders})
+	if trace != nil { trace.stamp(&trace.replyReceived) }
 	if reply.err != nil {
 		status := 400
 		if errors.Is(reply.err, context.DeadlineExceeded) || errors.Is(reply.err, context.Canceled) {
@@ -147,6 +155,7 @@ func (s *Server) commandAdvice(w http.ResponseWriter, r *http.Request) {
 			advice, err = sim.PreviewSavedOrderAdvice(s.catalog, reply.data, slot.Player, body.Orders)
 			results, result.Plans = advice.Results, advice.Plans
 		}
+		if trace != nil { trace.stamp(&trace.previewDone) }
 		if err != nil {
 			fail(w, 400, "advice_unavailable", "The proposed batch cannot currently be submitted.")
 			return

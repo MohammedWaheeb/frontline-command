@@ -1,5 +1,7 @@
 package sim
 
+import "sort"
+
 // Resolve an order's target only after membership in the current owned view is
 // established. A captured target must not become a back door into enemy state.
 func (e *Engine) aiOwnEntity(own []EntityView, id ID) *Entity {
@@ -11,14 +13,18 @@ func (e *Engine) aiOwnEntity(own []EntityView, id ID) *Entity {
 	return nil
 }
 
-// The planning budget accounts for our own unpaid jobs. It does not reserve or
-// spend money; ordinary production execution remains responsible for both.
+// Protect accepted delayed shots and unpaid jobs with available prerequisites
+// and capacity. Blocked jobs leave money for recovery; a cash shortage still
+// allows saving toward a legal job. Only ordinary execution spends the bank.
 func (e *Engine) aiPlanningBudget(p *Player, own []EntityView) int64 {
-	budget := p.Credits
+	budget := p.Credits - e.aiCommittedVolleyCredits(p)
 	for _, observed := range own {
 		v := e.entity(observed.ID)
 		for _, job := range v.Jobs {
-			if job.Started {
+			if job.Started || !v.Active(e.state.Tick) || !e.jobReady(p, v, &job) {
+				continue
+			}
+			if _, _, _, code := e.productionAllocation(p, &job); code != "ok" && code != "insufficient_credits" {
 				continue
 			}
 			if job.Research {
@@ -47,11 +53,13 @@ func (e *Engine) aiPowerMargin(p *Player, own []EntityView) int32 {
 	return margin
 }
 
+// Planned service capacity includes retained outage reservations and paid
+// replacement foundations. Starting production uses active capacity separately.
 func (e *Engine) aiServiceMargin(own []EntityView) int32 {
 	margin := int32(0)
 	for _, observed := range own {
 		v := e.entity(observed.ID)
-		if v.Building && v.Active(e.state.Tick) {
+		if v.Building && v.HP > 0 && v.Channel != "sell" {
 			b, _ := e.buildingRule(v.Type)
 			margin += b.ServiceSlots
 		} else if e.isAircraft(v) && e.role(v) != "support_plane" {
@@ -131,7 +139,12 @@ func (e *Engine) aiRepairAnchor(p *Player, unit *Entity, own []EntityView) *Enti
 	var best *Entity
 	for _, observed := range own {
 		v := e.entity(observed.ID)
-		if !v.Active(e.state.Tick) || v.Container != 0 || e.repairRate(v, unit) == 0 || e.aiThreatNear(p, v.Position, 6000) {
+		if !v.Active(e.state.Tick) || v.Container != 0 || v.Channel != "" || v.DeployUntil > 0 || v.PackingUntil > 0 || e.repairRate(v, unit) == 0 || e.aiThreatNear(p, v.Position, 6000) {
+			continue
+		}
+		// Moving or explicitly servicing another recipient cannot supply the
+		// promised heal. These are the same source duties ordinary support uses.
+		if len(v.Orders) > 0 && (v.Orders[0].Kind != "guard" && v.Orders[0].Kind != "hold" && v.Orders[0].Kind != "repair" || v.Orders[0].Kind == "repair" && v.Orders[0].Target != unit.ID) {
 			continue
 		}
 		if best == nil || distance(unit.Position, v.Position) < distance(unit.Position, best.Position) {
@@ -142,6 +155,14 @@ func (e *Engine) aiRepairAnchor(p *Player, unit *Entity, own []EntityView) *Enti
 }
 
 func (e *Engine) aiCoverPosition(p *Player, unit *Entity, goal Vec) (Vec, bool) {
+	var known *Engine
+	return e.aiCoverPositionWithGeometry(p, unit, goal, &known)
+}
+
+// A view-only collision set is needed only for an otherwise useful cover tile.
+// The caller owns the lazy slot for this unchanged pass; nothing persists in
+// engine state or crosses players, ticks, or transport geometry.
+func (e *Engine) aiCoverPositionWithGeometry(p *Player, unit *Entity, goal Vec, known **Engine) (Vec, bool) {
 	if e.armor(unit) != "infantry" || e.state.Map.TileAt(unit.Position).Cover() || !e.aiThreatNear(p, unit.Position, 10000) {
 		return Vec{}, false
 	}
@@ -156,6 +177,14 @@ func (e *Engine) aiCoverPosition(p *Player, unit *Entity, goal Vec) (Vec, bool) 
 			if !e.state.Map.InBounds(point) || !e.canSee(p.ID, point) || !e.state.Map.TileAt(point).Cover() || !e.state.Map.TileAt(point).Passable() || distance(point, goal) > weapon.MaxRange+2000 || distance(point, goal) > distance(unit.Position, goal)+2000 {
 				continue
 			}
+			// Nearby cover is optional. Do not trade a working assault for a
+			// guard across a known wall or structure; use view-only swept geometry.
+			if *known == nil {
+				*known = e.aiPlacementKnowledge(p)
+			}
+			if !(*known).navigationBridgeClear(unit, point, false) {
+				continue
+			}
 			candidate := dist2(unit.Position, point)
 			if candidate < score {
 				best, score = point, candidate
@@ -167,35 +196,41 @@ func (e *Engine) aiCoverPosition(p *Player, unit *Entity, goal Vec) (Vec, bool) 
 
 // Recovery precedes optional abilities so a low-health unit is not repeatedly
 // committed to a new attack. These all remain standard, rejectable orders.
-func (e *Engine) aiRecoveryOrders(p *Player, own []EntityView, goal Vec) []Order {
+func (e *Engine) aiRecoveryOrders(p *Player, own []EntityView, goal Vec, publicHold ...map[ID]bool) []Order {
 	if p.AI == "easy" {
 		return nil
 	}
-	orders := []Order{}
-	recallPlanned := false
+	orders := e.aiAirRecoveryOrders(p, own)
+	var coverGeometry *Engine
 	for _, observed := range own {
 		v := e.entity(observed.ID)
 		if v.Building || v.Container != 0 || v.Channel != "" || !v.Active(e.state.Tick) || e.role(v) == "rig" || e.role(v) == "hauler" {
 			continue
 		}
 		if e.isAircraft(v) {
-			if !v.Landed && (v.HP*2 < v.MaxHP || e.aiAirDanger(p, v.Position) && e.role(v) != "fighter") && (len(v.Orders) == 0 || v.Orders[0].Kind != "return") {
-				if v.HP*2 < v.MaxHP && p.Faction == "IR" && p.Tier >= 2 && e.has(p.ID, "hq") && p.Energy >= 45000 && !recallPlanned && !cooldown(p.Cooldowns, "drone_recall", e.state.Tick) {
-					orders = append(orders, Order{Kind: "ability", Type: "drone_recall", Entities: []ID{v.ID}})
-					recallPlanned = true
-				} else {
-					orders = append(orders, Order{Kind: "return", Entities: []ID{v.ID}})
-				}
-			}
+			continue
+		}
+		if v.DeployUntil > 0 || v.PackingUntil > 0 {
 			continue
 		}
 		if v.HP*100 < v.MaxHP*35 {
+			if v.Deployed {
+				orders = append(orders, Order{Kind: "pack", Entities: []ID{v.ID}})
+				continue
+			}
 			if source := e.aiRepairAnchor(p, v, own); source != nil {
 				if len(v.Orders) == 0 || v.Orders[0].Kind != "guard" || v.Orders[0].Target != source.ID {
 					orders = append(orders, Order{Kind: "guard", Entities: []ID{v.ID}, Target: source.ID, Position: source.Position})
 				}
 				continue
 			}
+		}
+		// A healthy actor selected from an active public hold keeps its exact
+		// Move/Guard duty. Actual critical recovery above still wins. The lease
+		// is recomputed from this player's view each cycle and expires with the
+		// task or an immediate observed armed defense priority.
+		if len(publicHold) > 0 && publicHold[0][v.ID] {
+			continue
 		}
 		if len(v.Orders) > 0 && v.Orders[0].Kind == "guard" && v.Orders[0].Target != 0 {
 			target := e.aiOwnEntity(own, v.Orders[0].Target)
@@ -204,7 +239,7 @@ func (e *Engine) aiRecoveryOrders(p *Player, own []EntityView, goal Vec) []Order
 			// their healed followers parked forever creates reciprocal guard
 			// clusters. A lost owned destination likewise cannot remain a task;
 			// critically damaged units still use the normal HQ retreat below.
-			orphaned := target == nil && v.HP*3 >= v.MaxHP
+			orphaned := (target == nil || !target.Active(e.Tick())) && v.HP*3 >= v.MaxHP
 			if recovered || orphaned {
 				kind := "stop"
 				if _, armed := e.weapon(v); armed {
@@ -215,11 +250,21 @@ func (e *Engine) aiRecoveryOrders(p *Player, own []EntityView, goal Vec) []Order
 			}
 		}
 		if len(v.Orders) > 0 && v.Orders[0].Kind == "guard" && v.Orders[0].Target == 0 && !e.aiThreatNear(p, v.Position, 12000) {
-			orders = append(orders, Order{Kind: "attack_move", Entities: []ID{v.ID}, Position: goal})
+			kind := "stop"
+			if _, armed := e.weapon(v); armed {
+				kind = "attack_move"
+			}
+			orders = append(orders, Order{Kind: kind, Entities: []ID{v.ID}, Position: goal})
 			continue
 		}
-		if weapon, ok := e.weapon(v); ok && weapon.Kind != "tactical" && (len(v.Orders) == 0 || v.Orders[0].Kind == "attack_move") {
-			if point, ok := e.aiCoverPosition(p, v, goal); ok {
+		if weapon, ok := e.weapon(v); ok && weapon.Kind != "tactical" && (len(v.Orders) == 0 || len(v.Orders) == 1 && v.Orders[0].Kind == "attack_move" && !v.Orders[0].Queued) {
+			// Cover is optional. Keep Hold, deployed positions, committed queues
+			// and an ordinary aim, volley or recent shot. LastDealt records shot
+			// launch; use the same quiet window as defensive retargeting.
+			if v.Deployed || v.Stance == "hold" || v.AimUntil > 0 || v.VolleyLeft > 0 || v.EverDealt && e.Tick()-v.LastDealt < seconds(3) {
+				continue
+			}
+			if point, ok := e.aiCoverPositionWithGeometry(p, v, goal, &coverGeometry); ok {
 				orders = append(orders, Order{Kind: "guard", Entities: []ID{v.ID}, Position: point})
 			}
 		}
@@ -240,16 +285,48 @@ func (e *Engine) aiEscortOrders(p *Player, own []EntityView) []Order {
 		}
 	}
 	groundEscorts := 0
+	var publicAllies map[ID]EntityView
 	for _, observed := range own {
 		v := e.entity(observed.ID)
 		if v.Building || v.Container != 0 || v.Channel != "" || !v.Active(e.state.Tick) || v.HP*2 < v.MaxHP {
 			continue
 		}
 		if len(v.Orders) > 0 {
-			if v.Orders[0].Kind == "escort" {
+			if v.Orders[0].Kind == "escort" || e.role(v) == "fighter" && v.Orders[0].Kind == "guard" && v.Orders[0].Target != 0 {
 				target := e.aiOwnEntity(own, v.Orders[0].Target)
-				if target != nil && e.isAircraft(v) && target.Landed {
-					orders = append(orders, Order{Kind: "return", Entities: []ID{v.ID}})
+				if target == nil {
+					// Existing scenario or human orders can follow a teammate.
+					// Shared sight permits preserving that task without reading
+					// the ally's private queue or following it through live state.
+					if publicAllies == nil {
+						publicAllies = map[ID]EntityView{}
+						view, _ := e.PlayerView(p.ID)
+						for _, ally := range view.Entities {
+							if ally.Owner != p.ID && aiActiveAlly(p, view, ally.Owner) {
+								publicAllies[ally.ID] = ally
+							}
+						}
+					}
+					if ally, visible := publicAllies[v.Orders[0].Target]; visible {
+						if e.role(v) == "fighter" && (ally.Landed || ally.Health < 500 || e.aiAirRouteDanger(p, v.Position, ally.Position)) {
+							kind := "return"
+							if v.Landed {
+								kind = "stop"
+							}
+							orders = append(orders, Order{Kind: kind, Entities: []ID{v.ID}})
+						}
+						continue
+					}
+				}
+				if e.role(v) == "fighter" && (target == nil || target.Landed || len(target.Orders) == 0 || target.Orders[0].Kind == "return" || target.HP*2 < target.MaxHP || e.aiAirRouteDanger(p, v.Position, target.Position)) {
+					kind := "return"
+					if v.Landed {
+						kind = "stop"
+					}
+					orders = append(orders, Order{Kind: kind, Entities: []ID{v.ID}})
+				}
+				if !e.isAircraft(v) && (target == nil || !target.Active(e.Tick()) || e.aiGroundFollowCycle(own, v.ID, target.ID)) {
+					orders = append(orders, Order{Kind: "stop", Entities: []ID{v.ID}})
 				}
 			}
 			continue
@@ -258,7 +335,7 @@ func (e *Engine) aiEscortOrders(p *Player, own []EntityView) []Order {
 		if role != "fighter" && role != "aa" && role != "rifle" {
 			continue
 		}
-		if role == "fighter" && v.ServiceWork > 0 || role != "fighter" && (p.Supply < 24 || groundEscorts >= 2) {
+		if role == "fighter" && !e.aiAirReady(v, own) || role != "fighter" && (p.Supply < 24 || groundEscorts >= 2) {
 			continue
 		}
 		for _, targetView := range own {
@@ -267,11 +344,11 @@ func (e *Engine) aiEscortOrders(p *Player, own []EntityView) []Order {
 				continue
 			}
 			if role == "fighter" {
-				if !e.isAircraft(target) || target.Landed || e.role(target) == "fighter" || e.role(target) == "support_plane" || target.Orders[0].Kind == "return" || e.aiAirDanger(p, target.Position) {
+				if !e.isAircraft(target) || target.Landed || e.role(target) == "fighter" || e.role(target) == "support_plane" || target.Orders[0].Kind == "return" || e.aiAirRouteDanger(p, v.Position, target.Position) {
 					continue
 				}
 			} else {
-				if e.role(target) != "repair" && e.role(target) != "medic" || distance(v.Position, target.Position) > 12000 {
+				if !target.Active(e.Tick()) || target.Channel != "" || e.role(target) != "repair" && e.role(target) != "medic" || distance(v.Position, target.Position) > 12000 || e.aiGroundFollowCycle(own, v.ID, target.ID) {
 					continue
 				}
 				groundEscorts++
@@ -284,25 +361,110 @@ func (e *Engine) aiEscortOrders(p *Player, own []EntityView) []Order {
 	return orders
 }
 
+// Read only owned follow intentions. Joining a support cycle cannot create a
+// moving escort, and a saved reciprocal escort must be able to return to duty.
+func (e *Engine) aiGroundFollowCycle(own []EntityView, follower, target ID) bool {
+	seen := map[ID]bool{follower: true}
+	for range len(own) {
+		if seen[target] {
+			return true
+		}
+		seen[target] = true
+		v := e.aiOwnEntity(own, target)
+		if v == nil || len(v.Orders) == 0 || v.Orders[0].Kind != "guard" && v.Orders[0].Kind != "escort" || v.Orders[0].Target == 0 {
+			return false
+		}
+		target = v.Orders[0].Target
+	}
+	return true
+}
+
+// Geometry uses only the authorized view. Embarked owned actors are restored
+// to this advisory copy solely so ordinary passenger-exit checks know their
+// type; their Container still excludes them from ground collision.
+func (e *Engine) aiGroundGeometry(p *Player, own []EntityView) *Engine {
+	known := e.aiPlacementKnowledge(p)
+	for _, observed := range own {
+		unit := e.entity(observed.ID)
+		if unit.Container != 0 {
+			known.state.Entities = append(known.state.Entities, &Entity{ID: unit.ID, Owner: unit.Owner, Type: unit.Type, Position: unit.Position, HP: unit.HP, Container: unit.Container})
+		}
+	}
+	sort.Slice(known.state.Entities, func(i, j int) bool { return known.state.Entities[i].ID < known.state.Entities[j].ID })
+	return known
+}
+
+// At most 49 nearby candidates use ordinary clearance and passenger exits.
+// This is a delivery intention; authoritative navigation and unloading retain
+// their normal checks if unseen occupancy or changing traffic blocks it later.
+func (e *Engine) aiGroundUnloadPosition(known *Engine, carrier *Entity, goal Vec) (Vec, bool) {
+	legal := func(point Vec) bool {
+		if !known.clear(point, e.radius(carrier), carrier.ID, false, true) {
+			return false
+		}
+		at := *carrier
+		at.Position = point
+		_, exits := known.passengerExits(&at, carrier.Passengers, 2000)
+		return exits
+	}
+	if legal(goal) {
+		return goal, true
+	}
+	if carrier.Building {
+		return Vec{}, false
+	}
+	for r := int32(500); r <= 3000; r += 500 {
+		for _, d := range neighbors {
+			point := Vec{X: goal.X + d.X*r, Y: goal.Y + d.Y*r}
+			if legal(point) && (goal != carrier.Position || known.navigationBridgeClear(carrier, point, false)) {
+				return point, true
+			}
+		}
+	}
+	return Vec{}, false
+}
+
 func (e *Engine) aiTransportOrders(p *Player, own []EntityView, goal Vec) []Order {
-	if p.AI == "easy" || p.AIIntent == "defend" {
+	if p.AI == "easy" {
 		return nil
 	}
 	orders := []Order{}
 	claimed := map[ID]bool{}
+	transferPlanned := false
+	for _, observed := range own {
+		if e.entity(observed.ID).Channel == "transit" {
+			transferPlanned = true
+			break
+		}
+	}
+	var known *Engine
+	geometry := func() *Engine {
+		if known == nil {
+			known = e.aiGroundGeometry(p, own)
+		}
+		return known
+	}
 	for _, observed := range own {
 		carrier := e.entity(observed.ID)
 		role := e.role(carrier)
 		if role != "apc" && role != "safehouse" || !carrier.Active(e.state.Tick) || carrier.Container != 0 || carrier.Channel != "" || carrier.HP*2 < carrier.MaxHP {
 			continue
 		}
-		if len(carrier.Orders) > 0 {
+		failedDelivery := role == "apc" && len(carrier.Passengers) > 0 && len(carrier.Orders) == 1 && carrier.Orders[0].Kind == "unload" && carrier.Blocked && e.Tick()-carrier.StationarySince >= seconds(12)
+		defensiveDelivery := p.AIIntent == "defend" && len(carrier.Passengers) > 0 && (len(carrier.Orders) == 0 || len(carrier.Orders) == 1 && (carrier.Orders[0].Kind == "unload" || carrier.Orders[0].Kind == "attack_move"))
+		if failedDelivery || defensiveDelivery {
+			if point, ok := e.aiGroundUnloadPosition(geometry(), carrier, carrier.Position); ok {
+				orders = append(orders, Order{Kind: "unload", Entities: []ID{carrier.ID}, Position: point})
+			}
+			continue
+		}
+		if len(carrier.Orders) > 0 || p.AIIntent == "defend" {
 			continue
 		}
 		waiting := int32(0)
 		for _, passengerView := range own {
 			unit := e.entity(passengerView.ID)
-			if len(unit.Orders) == 0 || unit.Orders[0].Kind != "board" || unit.Orders[0].Target != carrier.ID {
+			if !unit.Active(e.Tick()) || len(unit.Orders) == 0 || unit.Orders[0].Kind != "board" || unit.Orders[0].Target != carrier.ID {
 				continue
 			}
 			if unit.Blocked || distance(unit.Position, carrier.Position) > 6000 {
@@ -322,16 +484,25 @@ func (e *Engine) aiTransportOrders(p *Player, own []EntityView, goal Vec) []Orde
 		}
 		var destination *Entity
 		if role == "safehouse" {
+			if !e.transferQuiet(carrier) || transferPlanned {
+				continue
+			}
 			for _, targetView := range own {
 				target := e.entity(targetView.ID)
-				if target.ID != carrier.ID && e.role(target) == "safehouse" && target.Active(e.state.Tick) && target.Channel == "" && !e.aiThreatNear(p, target.Position, 6000) && distance(target.Position, goal)+8000 < distance(carrier.Position, goal) && (destination == nil || distance(target.Position, goal) < distance(destination.Position, goal)) {
+				if target.ID != carrier.ID && e.role(target) == "safehouse" && target.Active(e.state.Tick) && target.Channel == "" && e.transferQuiet(target) && e.canSee(p.ID, target.Position) && !e.aiThreatNear(p, target.Position, 6000) && distance(target.Position, goal)+8000 < distance(carrier.Position, goal) && (destination == nil || distance(target.Position, goal) < distance(destination.Position, goal)) {
+					if len(carrier.Passengers) > 0 {
+						if _, exits := geometry().passengerExits(target, carrier.Passengers, 2000); !exits {
+							continue
+						}
+					}
 					destination = target
 				}
 			}
 			if len(carrier.Passengers) > 0 {
 				if destination != nil {
 					orders = append(orders, Order{Kind: "ability", Type: "transfer", Entities: []ID{carrier.ID}, Target: destination.ID})
-				} else {
+					transferPlanned = true
+				} else if _, exits := geometry().passengerExits(carrier, carrier.Passengers, 2000); exits {
 					orders = append(orders, Order{Kind: "unload", Entities: []ID{carrier.ID}, Position: carrier.Position})
 				}
 				continue
@@ -347,7 +518,9 @@ func (e *Engine) aiTransportOrders(p *Player, own []EntityView, goal Vec) []Orde
 			if d > 9000 {
 				point = Vec{X: goal.X + int32(int64(carrier.Position.X-goal.X)*8000/int64(d)), Y: goal.Y + int32(int64(carrier.Position.Y-goal.Y)*8000/int64(d))}
 			}
-			orders = append(orders, Order{Kind: "unload", Entities: []ID{carrier.ID}, Position: point})
+			if point, ok := e.aiGroundUnloadPosition(geometry(), carrier, point); ok {
+				orders = append(orders, Order{Kind: "unload", Entities: []ID{carrier.ID}, Position: point})
+			}
 			continue
 		} else if distance(carrier.Position, goal) < 18000 || e.aiThreatNear(p, carrier.Position, 9000) {
 			continue
@@ -355,7 +528,7 @@ func (e *Engine) aiTransportOrders(p *Player, own []EntityView, goal Vec) []Orde
 		for _, passengerView := range own {
 			unit := e.entity(passengerView.ID)
 			unitRole := e.role(unit)
-			if waiting >= e.capacity(carrier) || claimed[unit.ID] || len(unit.Orders) > 0 || unit.Channel != "" || unit.Container != 0 || unit.TemporaryUntil != 0 || unit.HP*2 < unit.MaxHP || distance(unit.Position, carrier.Position) > 5000 || unitRole != "rifle" && unitRole != "at" && unitRole != "elite" {
+			if waiting+int32(len(carrier.Passengers)) >= e.capacity(carrier) || claimed[unit.ID] || !unit.Active(e.Tick()) || len(unit.Orders) > 0 || unit.Channel != "" || unit.Container != 0 || unit.TemporaryUntil != 0 || unit.HP*2 < unit.MaxHP || distance(unit.Position, carrier.Position) > 5000 || unitRole != "rifle" && unitRole != "at" && unitRole != "elite" {
 				continue
 			}
 			orders = append(orders, Order{Kind: "board", Entities: []ID{unit.ID}, Target: carrier.ID})

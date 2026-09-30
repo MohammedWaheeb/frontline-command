@@ -11,6 +11,18 @@ type ProductionStatus struct {
 	WaitsFor string `json:"waits_for,omitempty"`
 }
 
+// Emergency factory rigs require actual HQ loss. A completed living owned HQ
+// still survives manual/temporary disabling; an unfinished replacement does
+// not restore HQ production. Keep activity checks for ordinary prerequisites.
+func (e *Engine) hasSurvivingHQ(player PlayerID) bool {
+	for _, v := range e.state.Entities {
+		if v.Owner == player && v.Building && v.HP > 0 && v.Complete && e.role(v) == "hq" {
+			return true
+		}
+	}
+	return false
+}
+
 // Shared by real enqueueing and read-only production-menu advice.
 func (e *Engine) productionJob(p *Player, v *Entity, o Order) (Job, string) {
 	if !v.Building || !v.Active(e.state.Tick) {
@@ -46,7 +58,7 @@ func (e *Engine) productionJob(p *Player, v *Entity, o Order) (Job, string) {
 	if !ok || u.Faction != p.Faction {
 		return Job{}, "unknown_unit"
 	}
-	emergency := u.Role == "rig" && role == "factory" && !e.has(p.ID, "hq")
+	emergency := u.Role == "rig" && role == "factory" && !e.hasSurvivingHQ(p.ID)
 	if u.Producer != role && !emergency {
 		return Job{}, "wrong_producer"
 	}

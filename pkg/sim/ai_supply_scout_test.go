@@ -63,18 +63,33 @@ func TestAISupplyScoutPreservesWorkAndBoundsFailedRoutes(t *testing.T) {
 	}
 }
 
+// Construct undiscovered supplies before New earns its first public memory.
+// Moving fields after New does not erase legitimate last-observed knowledge.
+func aiSupplyScoutHiddenFixture(t testing.TB) *Engine {
+	t.Helper()
+	m := fixtureMap()
+	for i := range m.Fields {
+		m.Fields[i].Position = Vec{X: 54000, Y: 12000 + int32(i)*10000}
+	}
+	e, err := New(content.MustBase(), Config{Map: m, Seed: 42, Players: []PlayerConfig{{ID: 1, Name: "Alpha", Faction: "US", Team: 1}, {ID: 2, Name: "Bravo", Faction: "IR", Team: 2}}})
+	if err != nil { t.Fatal(err) }
+	e.state.Countdown = 0
+	view, ok := e.PlayerView(1)
+	if !ok || len(view.Fields) != 0 || len(view.KnownFields) != 0 || len(e.player(1).AIFields) != 0 {
+		t.Fatal("hidden supply fixture began with current or remembered public stock")
+	}
+	return e
+}
+
 func TestAISupplyScoutOnlyUsesOwnedViewAndPublicExploration(t *testing.T) {
 	makeEngine := func(t *testing.T, alterHidden bool) *Engine {
-		e := fixture(t)
+		e := aiSupplyScoutHiddenFixture(t)
 		e.player(1).AI = "normal"
 		worker := e.spawn("US.hauler", 1, Vec{X: 14000, Y: 12000}, true, 0)
 		worker.State = "no_known_supplies"
 		worker.Orders = []Order{{Kind: "gather"}}
-		// Original nearby supplies remain outside the inputs by moving both variants'
-		// fields beyond starting vision, then varying their private remaining stock.
-		for i := range e.state.Fields {
-			e.state.Fields[i].Position = Vec{X: 54000, Y: 12000 + int32(i)*10000}
-		}
+		// Both variants start without current or remembered supplies; vary only
+		// unseen stock, its unseen position and the hidden opponent below.
 		hidden := e.spawn("IR.tank", 2, Vec{X: 52000, Y: 10000}, true, 0)
 		if alterHidden {
 			e.state.Fields[0].Position = Vec{X: 46000, Y: 54000}
@@ -104,13 +119,10 @@ func TestAISupplyScoutOnlyUsesOwnedViewAndPublicExploration(t *testing.T) {
 }
 
 func TestAISupplySightPriorityBuysScoutBeforeOptionalSpending(t *testing.T) {
-	e := fixture(t)
+	e := aiSupplyScoutHiddenFixture(t)
 	p := e.player(1)
 	p.AI = "normal"
 	p.Credits = 2200000
-	for i := range e.state.Fields {
-		e.state.Fields[i].Position = Vec{X: 54000, Y: 12000 + int32(i)*10000}
-	}
 	for i, typ := range []string{"power", "supply", "barracks"} {
 		e.spawn(typ, 1, Vec{X: 7000 + int32(i)*5000, Y: 18000}, true, 0)
 	}
@@ -173,13 +185,19 @@ func TestAIFoggedSupplyOpeningOnAuthoredMaps(t *testing.T) {
 }
 
 func TestAISupplyWorkerUsesNormalMoveThenGather(t *testing.T) {
-	e := fixture(t)
+	m := fixtureMap()
+	// Place the prepared world's fields before New observes starting vision.
+	for i := range m.Fields {
+		m.Fields[i].Position = Vec{X: 26000 + int32(i)*28000, Y: 8000}
+	}
+	e, err := New(content.MustBase(), Config{Map: m, Seed: 42, Players: []PlayerConfig{{ID: 1, Name: "Alpha", Faction: "US", Team: 1}, {ID: 2, Name: "Bravo", Faction: "IR", Team: 2}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	e.state.Countdown = 0
 	p := e.player(1)
 	p.AI = "normal"
 	p.Credits = 0
-	for i := range e.state.Fields {
-		e.state.Fields[i].Position = Vec{X: 26000 + int32(i)*28000, Y: 8000}
-	}
 	e.spawn("supply", 1, Vec{X: 16000, Y: 15000}, true, 0)
 	worker := e.spawn("US.hauler", 1, Vec{X: 19000, Y: 16000}, true, 0)
 	worker.Orders = []Order{{Kind: "gather"}}
@@ -187,8 +205,8 @@ func TestAISupplyWorkerUsesNormalMoveThenGather(t *testing.T) {
 	e.recalculate()
 	e.updateFog()
 	view, _ := e.PlayerView(1)
-	if len(view.Fields) != 0 {
-		t.Fatal("recovery must begin without resource sight")
+	if len(view.Fields) != 0 || len(view.KnownFields) != 0 || len(p.AIFields) != 0 {
+		t.Fatalf("recovery must begin without current or remembered resource sight: current%d known%d planner%d", len(view.Fields), len(view.KnownFields), len(p.AIFields))
 	}
 	moves, gathers := 0, 0
 	delivered := false

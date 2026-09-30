@@ -32,6 +32,16 @@ func TestAIStationCaptureUsesPublicOwnerStatus(t *testing.T) {
 			e.recalculate()
 			e.updateFog()
 			view, _ := e.PlayerView(1)
+			if scenario == "defeated_enemy" || scenario == "defeated_with_neutral_alternative" {
+				// Exercise a stale public station observation against current public
+				// player status. Defeat now releases the live station to neutral;
+				// its fresh-view capture is covered by the surrender lifecycle test.
+				for i := range view.Stations {
+					if view.Stations[i].ID == station.ID {
+						view.Stations[i].Owner = 2
+					}
+				}
+			}
 			e.aiObserve(p, view)
 			orders := e.aiSpecialOrders(p, view, aiOwnView(e, 1), Vec{X: 40000, Y: 25000})
 			var chosen Order

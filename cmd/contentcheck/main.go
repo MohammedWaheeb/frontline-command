@@ -172,6 +172,9 @@ func check(root string, release bool) error {
 	}); err != nil {
 		return err
 	}
+	if err = publicTaskPresentations(root, missions); err != nil {
+		return err
+	}
 	if release {
 		if err = complete(maps, missions); err != nil {
 			return err

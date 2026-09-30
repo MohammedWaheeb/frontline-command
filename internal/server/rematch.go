@@ -44,8 +44,21 @@ func (s *Server) rematchLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, "match_not_completed", "Finish the match and wait for its saved result before a rematch.")
 		return
 	}
+	previousRules, _, rulesErr := normalizedLobbyRules(previous, previous.Rules)
+	if rulesErr != nil {
+		fail(w, 400, rulesErr.code, rulesErr.message)
+		return
+	}
 	for _, l := range s.lobbies {
 		if l.PreviousMatch == previous.MatchID && l.Host == p.ID && l.MatchID == "" {
+			rules, _, rulesErr := normalizedLobbyRules(l, l.Rules)
+			if rulesErr != nil {
+				fail(w, 400, rulesErr.code, rulesErr.message)
+				return
+			}
+			if l.ScenarioID == "" && l.ResumeSave == "" {
+				l.Rules = &rules
+			}
 			respond(w, 200, s.lobbyResponse(l, p.ID))
 			return
 		}
@@ -53,13 +66,13 @@ func (s *Server) rematchLobby(w http.ResponseWriter, r *http.Request) {
 	if !s.admitProfile(w, p.ID, "") {
 		return
 	}
-	if len(s.lobbies) >= 64 {
+	if len(s.lobbies) >= s.lobbyLimit() {
 		fail(w, 429, "lobby_limit", "This local host has reached its lobby limit.")
 		return
 	}
 	l := &Lobby{
 		ID: id[:24], Code: code[:12], Created: time.Now().Unix(), Host: p.ID,
-		Name: previous.Name, MapID: previous.MapID, Mode: previous.Mode, MapHash: previous.MapHash, MapVersion: previous.MapVersion, Rules: previous.Rules,
+		Name: previous.Name, MapID: previous.MapID, Mode: previous.Mode, MapHash: previous.MapHash, MapVersion: previous.MapVersion, Rules: &previousRules,
 		Private: previous.Private, PauseEnabled: previous.PauseEnabled,
 		LiveObservers: previous.LiveObservers, ScenarioID: previous.ScenarioID,
 		Difficulty: previous.Difficulty, PreviousMatch: previous.MatchID,
@@ -67,6 +80,12 @@ func (s *Server) rematchLobby(w http.ResponseWriter, r *http.Request) {
 	if previous.Rated {
 		l.Name = "Unranked rematch"
 	}
+	rules, _, rulesErr := normalizedLobbyRules(l, l.Rules)
+	if rulesErr != nil {
+		fail(w, 400, rulesErr.code, rulesErr.message)
+		return
+	}
+	l.Rules = &rules
 	for _, slot := range previous.Slots {
 		if slot.Profile == p.ID || slot.AI != "" || slot.Script {
 			l.Slots = append(l.Slots, slot)

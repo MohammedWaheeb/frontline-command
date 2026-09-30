@@ -28,6 +28,12 @@ func bridgeSegmentsIntersect(a, b, c, d Vec) bool {
 }
 
 func bridgeRectangleClear(a, b Vec, radius int32, left, top, right, bottom int32) bool {
+	// Distant corners cannot touch this swept circle. Exclude them before
+	// squaring a cross product, which can overflow for a long local bridge
+	// against the opposite corner of a maximum-size map.
+	if max(a.X, b.X)+radius < left || min(a.X, b.X)-radius > right || max(a.Y, b.Y)+radius < top || min(a.Y, b.Y)-radius > bottom {
+		return true
+	}
 	r2 := int64(radius) * int64(radius)
 	for _, p := range []Vec{a, b} {
 		nearest := Vec{X: clamp(p.X, left, right), Y: clamp(p.Y, top, bottom)}
@@ -70,8 +76,11 @@ func (e *Engine) navigationBridgeClear(v *Entity, goal Vec, mobiles bool) bool {
 			if !blocks {
 				continue
 			}
-			sum := int64(r + otherRadius)
-			if segmentPointDistance2(a, goal, point) < sum*sum {
+			sum := r + otherRadius
+			if point.X < min(a.X, goal.X)-sum || point.X > max(a.X, goal.X)+sum || point.Y < min(a.Y, goal.Y)-sum || point.Y > max(a.Y, goal.Y)+sum {
+				continue
+			}
+			if segmentPointDistance2(a, goal, point) < int64(sum)*int64(sum) {
 				return false
 			}
 		}

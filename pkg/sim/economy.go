@@ -59,6 +59,7 @@ func (e *Engine) updateEconomy() {
 			rig.State = "building"
 			if v.Work == b.BuildTicks*2 {
 				v.Complete = true
+				v.CompletedAt = e.state.Tick
 				v.State = "idle"
 				e.completeMovementOrder(rig)
 				e.emit("construction_complete", p.ID, v.ID, v.Position, "owner", 0)
@@ -95,17 +96,43 @@ func (e *Engine) updateEconomy() {
 		e.emit("shipment_countdown", 0, 0, e.state.Map.Shipment, "all", int64(e.state.ShipmentAt))
 	}
 	if e.state.ShipmentAt > 0 && e.state.Tick >= e.state.ShipmentAt {
-		maxID := uint32(0)
-		for _, f := range e.state.Fields {
-			if f.ID > maxID {
-				maxID = f.ID
-			}
+		field := e.replenishShipment()
+		// The arrival, site and stock are already a global public announcement.
+		// Subsequent hidden depletion never updates this observation.
+		for _, p := range e.state.Players {
+			e.observeField(p, field)
 		}
-		e.state.Fields = append(e.state.Fields, &ResourceField{ID: maxID + 1, Position: e.state.Map.Shipment, Remaining: 6000000})
 		e.state.ShipmentAt = 0
 		e.emit("shipment_arrived", 0, 0, e.state.Map.Shipment, "all", 6000000)
 	}
 }
+
+func (e *Engine) replenishShipment() *ResourceField {
+	authored := make(map[uint32]bool, len(e.state.Map.Fields))
+	for _, field := range e.state.Map.Fields {
+		authored[field.ID] = true
+	}
+	used := make(map[uint32]bool, len(e.state.Fields))
+	for _, field := range e.state.Fields {
+		used[field.ID] = true
+		if !authored[field.ID] {
+			// The countdown starts only after every field is exhausted. Reuse
+			// the central field without changing identities or reservations.
+			field.Remaining = 6000000
+			return field
+		}
+	}
+	// Authored IDs may occupy any nonzero uint32 value. A bounded set has a
+	// free small ID, so first shipment creation cannot wrap maxID+1 to zero.
+	id := uint32(1)
+	for used[id] {
+		id++
+	}
+	field := &ResourceField{ID: id, Position: e.state.Map.Shipment, Remaining: 6000000}
+	e.state.Fields = append(e.state.Fields, field)
+	return field
+}
+
 func (e *Engine) jobReady(p *Player, v *Entity, j *Job) bool {
 	b, _ := e.buildingRule(v.Type)
 	if !j.Emergency && !e.prerequisites(p, b.Prerequisites) {
@@ -276,11 +303,21 @@ func (e *Engine) applyUpgrade(p *Player, id string) {
 func (e *Engine) chooseField(v *Entity) *ResourceField {
 	var best *ResourceField
 	bestScore := int64(1 << 62)
-	for _, f := range e.state.Fields {
-		if f.Remaining <= 0 || !e.explored(v.Owner, f.Position) {
+	for _, observation := range e.player(v.Owner).KnownFields {
+		if observation.Remaining <= 0 {
 			continue
 		}
-		score := dist2(v.Position, f.Position) + int64(len(f.Queue))*4000000
+		f := e.field(observation.ID)
+		if f == nil {
+			continue
+		}
+		waiting := int64(0)
+		for _, id := range f.Queue {
+			if actor := e.entity(id); actor != nil && actor.Owner == v.Owner && e.harvestReservationActive(actor, f.ID) {
+				waiting++
+			}
+		}
+		score := dist2(v.Position, observation.Position) + waiting*4000000
 		if score < bestScore {
 			best, bestScore = f, score
 		}
@@ -288,19 +325,27 @@ func (e *Engine) chooseField(v *Entity) *ResourceField {
 	return best
 }
 func (e *Engine) chooseDepot(v *Entity) *Entity {
-	var best *Entity
-	score := int64(1 << 62)
+	depots := []*Entity{}
 	for _, d := range e.state.Entities {
 		if d.Owner != v.Owner || e.role(d) != "supply" || !d.Active(e.state.Tick) {
 			continue
 		}
-		s := dist2(v.Position, d.Position)
-		if s < score {
-			score = s
-			best = d
+		depots = append(depots, d)
+	}
+	sort.SliceStable(depots, func(i, j int) bool {
+		left, right := dist2(v.Position, depots[i].Position), dist2(v.Position, depots[j].Position)
+		return left < right || left == right && depots[i].ID < depots[j].ID
+	})
+	if len(depots) == 0 {
+		return nil
+	}
+	known := e.haulerRoutingFor(v)
+	for _, depot := range depots {
+		if e.reachableHaulerDepot(v, depot, known) {
+			return depot
 		}
 	}
-	return best
+	return nil
 }
 func (e *Engine) updateHarvest() {
 	for _, f := range e.state.Fields {
@@ -323,14 +368,42 @@ func (e *Engine) updateHarvest() {
 		}
 	}
 	for _, v := range e.state.Entities {
-		if !v.Active(e.state.Tick) || e.role(v) != "hauler" || e.defeated(v.Owner) || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" {
+		if !v.Active(e.state.Tick) || e.role(v) != "hauler" || e.defeated(v.Owner) || !v.HaulerRetreating && (len(v.Orders) == 0 || v.Orders[0].Kind != "gather") {
 			continue
 		}
-		if d := e.entity(v.Depot); d == nil || !d.Active(e.state.Tick) || d.Owner != v.Owner {
-			if d = e.chooseDepot(v); d != nil {
+		if !v.HaulerRetreating && v.PinnedDepot != 0 {
+			if chosen := e.activeHaulerDepot(v.Owner, v.PinnedDepot); chosen != nil {
+				e.changeHaulerDepot(v, chosen.ID)
+			}
+		}
+		if e.activeHaulerDepot(v.Owner, v.Depot) == nil {
+			// Delivery belongs to the depot where its three-second timer
+			// began. A replacement requires a physical return and fresh timer.
+			if v.State == "unloading" {
+				v.State = "returning_cargo"
+				v.TaskUntil = 0
+			}
+			var d *Entity
+			if !v.HaulerRetreating {
+				d = e.activeHaulerDepot(v.Owner, v.PinnedDepot)
+				if v.PinnedDepot != 0 && e.ownedHaulerDepot(v.Owner, v.PinnedDepot) == nil {
+					v.PinnedDepot = 0
+				}
+			}
+			if d == nil && e.state.Tick >= v.DepotRetryAt {
+				d = e.chooseDepot(v)
+				if d == nil {
+					v.DepotRetryAt = e.state.Tick + seconds(2)
+				}
+			}
+			if d != nil {
 				v.Depot = d.ID
+				v.DepotRetryAt = 0
 				if v.State == "no_supply_center" {
 					v.State = "gathering"
+					if v.HaulerRetreating || v.Cargo > 0 {
+						v.State = "returning_cargo"
+					}
 				}
 			} else {
 				v.Depot = 0
@@ -344,13 +417,22 @@ func (e *Engine) updateHarvest() {
 				p.Credits += v.Cargo
 				p.Income += v.Cargo
 				v.Cargo = 0
+				v.TaskUntil = 0
 				v.State = "gathering"
 				e.emit("cargo_delivered", p.ID, v.ID, v.Position, "owner", 0)
+				if v.HaulerRetreating {
+					e.resumeHaulerTask(v)
+				}
 			}
 			continue
 		}
 		f := e.field(v.Field)
-		if f == nil || f.Remaining == 0 {
+		observation := e.knownField(e.player(v.Owner), v.Field)
+		if !v.HaulerRetreating && (f == nil || observation == nil || observation.Remaining == 0) {
+			if v.PinnedField != 0 {
+				v.PinnedField = 0
+				v.Orders[0].Target = 0
+			}
 			if v.Cargo > 0 {
 				v.State = "returning_cargo"
 			} else {
@@ -365,9 +447,13 @@ func (e *Engine) updateHarvest() {
 				}
 			}
 		}
-		if v.Cargo >= 600000 || v.State == "returning_cargo" {
+		if v.HaulerRetreating || v.Cargo >= 600000 || v.State == "returning_cargo" {
 			d := e.entity(v.Depot)
 			if e.edgeDistance(v, d) <= 1200 {
+				if v.HaulerRetreating && v.Cargo == 0 {
+					e.resumeHaulerTask(v)
+					continue
+				}
 				unloading := 0
 				for _, other := range e.state.Entities {
 					if other.Depot == d.ID && other.State == "unloading" {
@@ -425,7 +511,7 @@ func (e *Engine) updateHarvest() {
 // Design §5.3 retains short-reroute reservations and withdraws them after the
 // movement system confirms two failed attempts. Cargo and gather intent remain.
 func (e *Engine) harvestReservationActive(v *Entity, field uint32) bool {
-	if v == nil || !v.Active(e.state.Tick) || e.defeated(v.Owner) || v.Blocked || v.Field != field || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" {
+	if v == nil || !v.Active(e.state.Tick) || e.defeated(v.Owner) || v.Blocked || v.HaulerRetreating || v.Field != field || len(v.Orders) == 0 || v.Orders[0].Kind != "gather" {
 		return false
 	}
 	depot := e.entity(v.Depot)
@@ -458,6 +544,9 @@ func (e *Engine) harvestLoadingPoint(v *Entity, field, preferred Vec) Vec {
 }
 func (e *Engine) harvestGoal(v *Entity) (Vec, bool, int32) {
 	if v.State == "no_supply_center" {
+		if v.HaulerRetreating {
+			return v.Position, false, 200
+		}
 		if f := e.field(v.Field); f != nil {
 			goal := e.harvestParkingPoint(v, f)
 			return goal, distance(v.Position, goal) > 250, 200
@@ -466,7 +555,7 @@ func (e *Engine) harvestGoal(v *Entity) (Vec, bool, int32) {
 	if v.State == "unloading" || v.State == "loading" || v.State == "no_known_supplies" {
 		return v.Position, false, 200
 	}
-	if v.Cargo >= 600000 || v.State == "returning_cargo" {
+	if v.HaulerRetreating || v.Cargo >= 600000 || v.State == "returning_cargo" {
 		if d := e.entity(v.Depot); d != nil {
 			return e.harvestDepotGoal(v, d), e.edgeDistance(v, d) > 1100, 300
 		}

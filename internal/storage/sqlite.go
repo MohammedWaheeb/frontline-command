@@ -370,8 +370,52 @@ func (s *SQLite) Backup(ctx context.Context, path string) error {
 	if !filepath.IsAbs(path) {
 		return fmt.Errorf("backup path must be absolute")
 	}
-	_, err := s.db.ExecContext(ctx, "VACUUM INTO ?", path)
-	return err
+	if err := ctx.Err(); err != nil {
+		return err
+	}
+	// VACUUM INTO can leave output behind when interrupted. Keep that output
+	// private until it completes so a failed call cannot block an explicit retry.
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".backup-*")
+	if err != nil {
+		return err
+	}
+	staged := tmp.Name()
+	defer os.Remove(staged)
+	if err = tmp.Close(); err != nil {
+		return err
+	}
+	if _, err = s.db.ExecContext(ctx, "VACUUM INTO ?", staged); err != nil {
+		return err
+	}
+	if err = ctx.Err(); err != nil {
+		return err
+	}
+	file, err := os.OpenFile(staged, os.O_RDWR, 0)
+	if err != nil {
+		return err
+	}
+	err = file.Sync()
+	closeErr := file.Close()
+	if err != nil {
+		return err
+	}
+	if closeErr != nil {
+		return closeErr
+	}
+	if err = ctx.Err(); err != nil {
+		return err
+	}
+	// A hard link publishes the complete same-directory file atomically and
+	// refuses any existing destination, including one created while copying.
+	if err = os.Link(staged, path); err != nil {
+		return err
+	}
+	dir, err := os.Open(filepath.Dir(path))
+	if err != nil {
+		return err
+	}
+	defer dir.Close()
+	return dir.Sync()
 }
 
 var _ AccountRepository = (*SQLite)(nil)

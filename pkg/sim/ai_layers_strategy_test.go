@@ -167,8 +167,10 @@ func TestAIFighterEscortsMovingFriendlyAircraftAndRecoversWhenItLands(t *testing
 	e := fixture(t)
 	p := e.player(1)
 	p.AI = "hard"
+	home := e.spawn("US.airfield", 1, Vec{X: 14000, Y: 15000}, true, 0)
 	fighter := e.spawn("US.fighter", 1, Vec{X: 14000, Y: 15000}, true, 0)
 	strike := e.spawn("US.strike", 1, Vec{X: 18000, Y: 15000}, true, 0)
+	fighter.Home, strike.Home = home.ID, home.ID
 	strike.Landed = false
 	strike.Orders = []Order{{Kind: "attack_move", Position: Vec{X: 35000, Y: 15000}}}
 	orders := e.aiEscortOrders(p, aiOwnView(e, 1))
@@ -178,6 +180,10 @@ func TestAIFighterEscortsMovingFriendlyAircraftAndRecoversWhenItLands(t *testing
 	if code := e.execute(1, orders[0]); code != "ok" {
 		t.Fatal("AI escort bypassed normal legality", code)
 	}
+	// Execute the departure phase before the leader lands; grounded fighters
+	// correctly stop a released escort instead of starting another service job.
+	e.pathBudget = 32
+	e.updateMovement()
 	strike.Landed = true
 	orders = e.aiEscortOrders(p, aiOwnView(e, 1))
 	if len(orders) != 1 || orders[0].Kind != "return" {
@@ -193,7 +199,9 @@ func TestAIDroneRecoveryUsesPaidRecallAndFallsBackToReturn(t *testing.T) {
 	drone := e.spawn("IR.strike", 2, Vec{X: 44000, Y: 47000}, true, 0)
 	drone.HP, drone.Landed = drone.MaxHP/4, false
 	e.recalculate()
-	orders := e.aiRecoveryOrders(p, aiOwnView(e, 2), Vec{X: 14000, Y: 12000})
+	own := aiOwnView(e, 2)
+	orders := e.aiRecoveryOrders(p, own, Vec{X: 14000, Y: 12000})
+	orders = e.aiChooseOrders(p, own, orders, e.aiPlanningBudget(p, own))
 	if len(orders) != 1 || orders[0].Type != "drone_recall" {
 		t.Fatal("ordinary retreat overrode useful drone recall", orders)
 	}
@@ -201,7 +209,8 @@ func TestAIDroneRecoveryUsesPaidRecallAndFallsBackToReturn(t *testing.T) {
 		t.Fatal("recall did not obey ordinary energy and cooldown rules", code, p.Energy)
 	}
 	drone.Orders = nil
-	orders = e.aiRecoveryOrders(p, aiOwnView(e, 2), Vec{X: 14000, Y: 12000})
+	orders = e.aiRecoveryOrders(p, own, Vec{X: 14000, Y: 12000})
+	orders = e.aiChooseOrders(p, own, orders, e.aiPlanningBudget(p, own))
 	if len(orders) != 1 || orders[0].Kind != "return" {
 		t.Fatal("unavailable recall prevented ordinary return", orders)
 	}

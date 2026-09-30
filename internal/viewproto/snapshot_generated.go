@@ -143,6 +143,16 @@ func toEntityPrivate(v sim.EntityPrivate) *pb.EntityPrivate {
 		MissionOrigin:         text(v.MissionOrigin),
 		EmergencyTakeoffUntil: pointer(uint32(v.EmergencyTakeoffUntil)),
 		Ranges:                optional(v.Ranges, func(v sim.EntityRanges) *pb.EntityRanges { return toEntityRanges(v) }),
+		Field:                 v.Field,
+		Depot:                 uint32(v.Depot),
+		PinnedField:           v.PinnedField,
+		PinnedDepot:           uint32(v.PinnedDepot),
+		RetreatWhenAttacked:   v.RetreatWhenAttacked,
+		Retreating:            v.Retreating,
+		HarvestQueuePosition:  v.HarvestQueuePosition,
+		HarvestQueueLength:    v.HarvestQueueLength,
+		ShahedCommitted:       v.ShahedCommitted,
+		ReconObserve:          v.ReconObserve,
 	}
 }
 func toEntityRanges(v sim.EntityRanges) *pb.EntityRanges {
@@ -173,6 +183,14 @@ func toField(v sim.FieldView) *pb.Field {
 		Id:        v.ID,
 		Position:  toVec(v.Position),
 		Remaining: v.Remaining,
+	}
+}
+func toFieldObservation(v sim.FieldObservation) *pb.FieldObservation {
+	return &pb.FieldObservation{
+		Id:        v.ID,
+		Position:  toVec(v.Position),
+		Remaining: v.Remaining,
+		Seen:      uint32(v.Seen),
 	}
 }
 func toInterceptionAssignment(v sim.InterceptionAssignment) *pb.InterceptionAssignment {
@@ -240,6 +258,19 @@ func toMissionProgress(v sim.MissionView) *pb.MissionProgress {
 		Objectives:     list(v.Objectives, func(v sim.ObjectiveView) *pb.ObjectiveProgress { return toObjectiveProgress(v) }),
 		Convoys:        list(v.Convoys, func(v sim.ConvoyState) *pb.ConvoyProgress { return toConvoyProgress(v) }),
 		Version:        text(v.Version),
+		PublicTasks:    list(v.PublicTasks, func(v sim.MissionTaskView) *pb.MissionPublicTask { return toMissionPublicTask(v) }),
+	}
+}
+func toMissionPublicTask(v sim.MissionTaskView) *pb.MissionPublicTask {
+	return &pb.MissionPublicTask{
+		Id:        text(v.ID),
+		Objective: text(v.Objective),
+		Kind:      text(v.Kind),
+		Marker:    text(v.Marker),
+		Region:    text(v.Region),
+		Team:      v.Team,
+		Min:       toVec(v.Min),
+		Max:       toVec(v.Max),
 	}
 }
 func toObjectiveProgress(v sim.ObjectiveView) *pb.ObjectiveProgress {
@@ -278,12 +309,14 @@ func toOrder(v sim.Order) *pb.Order {
 }
 func toOrderResult(v sim.OrderResult) *pb.OrderResult {
 	return &pb.OrderResult{
-		Player:   uint32(v.Player),
-		Sequence: v.Sequence,
-		Index:    v.Index,
-		Accepted: v.Accepted,
-		Code:     text(v.Code),
-		Tick:     uint32(v.Tick),
+		Player:           uint32(v.Player),
+		Sequence:         v.Sequence,
+		Index:            v.Index,
+		Accepted:         v.Accepted,
+		Code:             text(v.Code),
+		Tick:             uint32(v.Tick),
+		EligibleEntities: list(v.EligibleEntities, func(v sim.ID) uint32 { return uint32(v) }),
+		AppliedCount:     uint32(v.AppliedCount),
 	}
 }
 func toOutcome(v sim.Outcome) *pb.Outcome {
@@ -321,6 +354,7 @@ func toPlayerSnapshot(v sim.View) *pb.PlayerSnapshot {
 		Rubble:      list(v.Rubble, func(v uint32) uint32 { return v }),
 		Warnings:    list(v.Warnings, func(v sim.OperationWarning) *pb.OperationWarning { return toOperationWarning(v) }),
 		Debrief:     optional(v.Debrief, func(v sim.Debrief) *pb.Debrief { return toDebrief(v) }),
+		KnownFields: list(v.KnownFields, func(v sim.FieldObservation) *pb.FieldObservation { return toFieldObservation(v) }),
 	}
 }
 func toPlayerSummary(v sim.PlayerSummary) *pb.PlayerSummary {

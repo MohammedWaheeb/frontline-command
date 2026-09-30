@@ -89,6 +89,24 @@ func function(c conversion) string {
 		}
 		j := strings.Split(f.Tag.Get("json"), ",")[0]
 		source, ok := fromFields[j]
+		// These additive protobuf fields are populated only by the transport's
+		// compact-fog packer, after conversion of an already-authorized View.
+		// Never skip a simulation field or silently accept another wire field.
+		if c.to == reflect.TypeOf(pb.PlayerSnapshot{}) {
+			var wireType reflect.Type
+			switch j {
+			case "explored_bits", "visible_bits":
+				wireType = reflect.TypeOf([]byte(nil))
+			case "fog_tiles":
+				wireType = reflect.TypeOf(uint32(0))
+			}
+			if wireType != nil {
+				if ok || f.Type != wireType {
+					panic("transport-only fog field contract changed: " + j)
+				}
+				continue
+			}
+		}
 		if !ok {
 			panic(c.to.Name() + " missing source for " + j)
 		}

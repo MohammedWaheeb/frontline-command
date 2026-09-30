@@ -13,6 +13,7 @@ type requestWindow struct {
 	count   int
 }
 type admissionControl struct {
+	loadProfile bool
 	mu      sync.Mutex
 	windows map[string]requestWindow
 }
@@ -43,6 +44,18 @@ func (a *admissionControl) allow(r *http.Request, now time.Time) bool {
 	}
 	if strings.HasSuffix(r.URL.Path, "/socket") {
 		category, limit = "socket", 16
+	}
+	if a.loadProfile && loopbackRemote(r.RemoteAddr) {
+		switch category {
+		case "profile", "socket":
+			limit = 500
+		case "read":
+			limit = 12000
+		case "write":
+			limit = 6000
+		case "advice":
+			limit = 3000
+		}
 	}
 	key := ip + ":" + category
 	a.mu.Lock()

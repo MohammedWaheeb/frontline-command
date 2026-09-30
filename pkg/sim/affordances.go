@@ -36,7 +36,7 @@ func (e *Engine) CommandAffordances(player PlayerID, ids []ID) (CommandAffordanc
 	seen := map[ID]bool{}
 	for _, id := range ids {
 		v := e.entity(id)
-		if seen[id] || v == nil || v.HP <= 0 || v.Owner != player {
+		if seen[id] || v == nil || v.Owner != player {
 			return result, errors.New("not_owner")
 		}
 		seen[id] = true
@@ -69,7 +69,10 @@ func (e *Engine) CommandAffordances(player PlayerID, ids []ID) (CommandAffordanc
 func (e *Engine) entityAffordance(p *Player, v *Entity) EntityAffordance {
 	a := EntityAffordance{ID: v.ID, Commands: []string{}, Abilities: []string{}, Builds: []string{}, Trains: []string{}, Research: []string{}}
 	role := e.role(v)
-	if e.state.Outcome.Finished || v.Container != 0 || role == "support_plane" {
+	actorCode := e.ownedOrderActorCode(v)
+	// Disabled buildings retain their catalog menus and producer_disabled
+	// advice. Order filtering still rejects them before command execution.
+	if e.state.Outcome.Finished || actorCode != "ok" && !(v.Building && actorCode == "unit_disabled") {
 		return a
 	}
 	add := func(names ...string) { a.Commands = append(a.Commands, names...) }
@@ -82,7 +85,7 @@ func (e *Engine) entityAffordance(p *Player, v *Entity) EntityAffordance {
 			add("cancel")
 		}
 		for _, u := range e.catalog.Units() {
-			if u.Faction == p.Faction && (u.Producer == role || role == "factory" && u.Role == "rig" && !e.has(p.ID, "hq")) {
+			if u.Faction == p.Faction && (u.Producer == role || role == "factory" && u.Role == "rig" && !e.hasSurvivingHQ(p.ID)) {
 				a.Trains = append(a.Trains, u.ID)
 			}
 		}
@@ -98,10 +101,14 @@ func (e *Engine) entityAffordance(p *Player, v *Entity) EntityAffordance {
 			add("research")
 		}
 	} else {
-		add("move", "attack_move", "patrol", "stop", "hold", "guard", "escort", "aggressive")
+		if v.Type == "IR.beacon" {
+			add("stop", "hold")
+		} else {
+			add("move", "attack_move", "patrol", "stop", "hold", "guard", "escort", "aggressive")
+		}
 		if w, ok := e.weapon(v); ok {
 			add("attack")
-			if w.Kind == "shell" || w.Kind == "cannon" {
+			if w.Kind == "shell" || w.Kind == "cannon" || v.Type == "IR.shahed" {
 				add("force_fire")
 			}
 		}
@@ -113,8 +120,14 @@ func (e *Engine) entityAffordance(p *Player, v *Entity) EntityAffordance {
 				}
 			}
 		}
+		if role == "engineer" {
+			if _, ok := e.buildingRule(fieldBarricadeType); ok {
+				add("build", "resume")
+				a.Builds = append(a.Builds, fieldBarricadeType)
+			}
+		}
 		if role == "hauler" {
-			add("gather")
+			add("gather", "gather_depot", "retreat_when_attacked")
 		}
 		if role == "engineer" && v.TemporaryUntil == 0 {
 			add("capture")
@@ -138,6 +151,9 @@ func (e *Engine) entityAffordance(p *Player, v *Entity) EntityAffordance {
 	if e.capacity(v) > 0 {
 		add("unload")
 	}
+	if e.reconObserveActor(v) {
+		a.Abilities = append(a.Abilities, "observe")
+	}
 	switch v.Type {
 	case "US.recon":
 		a.Abilities = append(a.Abilities, "designate")
@@ -148,6 +164,9 @@ func (e *Engine) entityAffordance(p *Player, v *Entity) EntityAffordance {
 	}
 	if role == "elite" {
 		a.Abilities = append(a.Abilities, "sabotage")
+	}
+	if role == "radar" {
+		a.Abilities = append(a.Abilities, "radar_pulse")
 	}
 	if p.Faction == "US" && e.isAircraft(v) && role != "airlift" {
 		a.Abilities = append(a.Abilities, "decoy")

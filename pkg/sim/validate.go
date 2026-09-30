@@ -15,6 +15,10 @@ func (e *Engine) validateState() error {
 		return fmt.Errorf("practice reveal outside practice")
 	}
 	s := &e.state
+	startingCredits, err := normalizeStartingCredits(s.StartingCredits, s.Metadata.Ruleset)
+	if err != nil || startingCredits != s.StartingCredits || s.StartingCredits != 0 && s.Mission != nil {
+		return fmt.Errorf("invalid saved starting credits")
+	}
 	if len(s.SpawnPlayers) != len(s.Players) {
 		return fmt.Errorf("invalid saved spawn-player order")
 	}
@@ -28,8 +32,21 @@ func (e *Engine) validateState() error {
 	if err := e.validateMapObjects(); err != nil {
 		return err
 	}
-	if s.Metadata.MapVersion != s.Map.Version || s.Metadata.Seed == 0 || s.NextID > 1000000 || len(s.Fields) > 128 || len(s.Stations) > 32 || len(s.Zones) > 128 || len(s.Operations) > 128 || len(s.Log) > 200000 || len(s.Events) > 16384 || len(s.Results) > 4096 {
+	fieldLimit := len(s.Map.Fields) + 1 // Authored fields plus one persistent central shipment.
+	if s.Metadata.MapVersion != s.Map.Version || s.Metadata.Seed == 0 || s.NextID > 1000000 || len(s.Fields) > fieldLimit || len(s.Stations) > 32 || len(s.Zones) > 128 || len(s.Operations) > 128 || len(s.Log) > 200000 || len(s.Events) > 16384 || len(s.Results) > 4096 {
 		return fmt.Errorf("invalid saved metadata or collection bounds")
+	}
+	for _, result := range s.Results {
+		if len(result.EligibleEntities) > 64 || result.AppliedCount < 0 || int(result.AppliedCount) > len(result.EligibleEntities) || !result.Accepted && result.AppliedCount != 0 {
+			return fmt.Errorf("invalid saved order recipient counts")
+		}
+		for i, id := range result.EligibleEntities {
+			// Receipts can retain an actor removed or captured later in this tick.
+			// Validate structure and allocated identity, not current ownership.
+			if id == 0 || id >= s.NextID || i > 0 && id <= result.EligibleEntities[i-1] {
+				return fmt.Errorf("invalid saved order recipient identities")
+			}
+		}
 	}
 	ids := map[ID]bool{}
 	claim := func(id ID) bool {
@@ -40,6 +57,31 @@ func (e *Engine) validateState() error {
 		return true
 	}
 	for _, v := range s.Entities {
+		if err := e.validateShahedCommitment(v); err != nil {
+			return err
+		}
+		if err := e.validateReconObserve(v); err != nil {
+			return err
+		}
+		if e.role(v) != "hauler" && (v.PinnedField != 0 || v.PinnedDepot != 0 || v.RetreatWhenAttacked || v.HaulerRetreating || v.DepotRetryAt != 0) {
+			return fmt.Errorf("hauler preferences on another unit %d", v.ID)
+		}
+		if v.DepotRetryAt > s.Tick+seconds(2) || v.HaulerRetreating && (!v.RetreatWhenAttacked || v.HP <= 0 || e.defeated(v.Owner) || len(v.Orders) == 0 || v.Orders[0].Kind != "gather") {
+			return fmt.Errorf("invalid hauler return state %d", v.ID)
+		}
+		if v.PinnedField != 0 && (e.field(v.PinnedField) == nil || e.knownField(e.player(v.Owner), v.PinnedField) == nil) {
+			return fmt.Errorf("invalid chosen hauler field %d", v.ID)
+		}
+		if v.PinnedDepot != 0 && e.ownedHaulerDepot(v.Owner, v.PinnedDepot) == nil {
+			return fmt.Errorf("invalid chosen hauler depot %d", v.ID)
+		}
+		if v.Building {
+			if v.Created > s.Tick || v.CompletedAt > s.Tick || !v.Complete && v.CompletedAt != 0 || v.Complete && v.CompletedAt < v.Created {
+				return fmt.Errorf("invalid building completion timeline %d", v.ID)
+			}
+		} else if v.CompletedAt != 0 {
+			return fmt.Errorf("unit has building completion timestamp %d", v.ID)
+		}
 		if v.ParkingRetryAt > 0 {
 			allowed := serviceParkingRadius(v.Type) > 0
 			if v.Building {
@@ -136,11 +178,27 @@ func (e *Engine) validateState() error {
 		}
 	}
 	fields := map[uint32]bool{}
+	authoredFields := make(map[uint32]Vec, len(s.Map.Fields))
+	for _, field := range s.Map.Fields {
+		authoredFields[field.ID] = field.Position
+	}
+	shipmentFields := 0
 	for _, f := range s.Fields {
 		if f == nil || f.ID == 0 || fields[f.ID] || f.Remaining < 0 || f.Remaining > 1000000000 || !s.Map.InBounds(f.Position) || len(f.Queue) > 32 {
 			return fmt.Errorf("invalid saved resource field")
 		}
 		fields[f.ID] = true
+		if position, authored := authoredFields[f.ID]; authored {
+			if f.Position != position {
+				return fmt.Errorf("saved authored resource field moved")
+			}
+			delete(authoredFields, f.ID)
+		} else {
+			shipmentFields++
+			if shipmentFields > 1 || f.Position != s.Map.Shipment {
+				return fmt.Errorf("invalid saved central shipment field")
+			}
+		}
 		seen := map[ID]bool{}
 		for _, id := range f.Queue {
 			if seen[id] {
@@ -148,6 +206,9 @@ func (e *Engine) validateState() error {
 			}
 			seen[id] = true
 		}
+	}
+	if len(authoredFields) != 0 {
+		return fmt.Errorf("missing saved authored resource field")
 	}
 	for _, v := range s.Stations {
 		if v == nil || !claim(v.ID) || !s.Map.InBounds(v.Position) || v.Owner != 0 && e.player(v.Owner) == nil {
@@ -164,6 +225,20 @@ func (e *Engine) validateState() error {
 	}
 	playerColors := map[uint32]bool{}
 	for _, p := range s.Players {
+		if len(p.KnownFields) > fieldLimit {
+			return fmt.Errorf("invalid player supply observation bounds")
+		}
+		previousField := uint32(0)
+		for _, field := range p.KnownFields {
+			if field.ID <= previousField || !s.Map.InBounds(field.Position) || field.Remaining < 0 || field.Remaining > 1000000000 || field.Seen > s.Tick {
+				return fmt.Errorf("invalid player supply observation")
+			}
+			actual := e.field(field.ID)
+			if actual == nil || actual.Position != field.Position {
+				return fmt.Errorf("invalid player supply observation identity")
+			}
+			previousField = field.ID
+		}
 		if p.Color < 1 || p.Color > 8 || playerColors[p.Color] {
 			return fmt.Errorf("invalid saved player color")
 		}
@@ -171,7 +246,7 @@ func (e *Engine) validateState() error {
 		if p.Controller != "human" && p.Controller != "ai" && p.Controller != "script" || p.Controller == "script" && p.AI != "" {
 			return fmt.Errorf("invalid saved controller")
 		}
-		if len(p.AIKnowledge) > 4096 || len(p.AIFields) > 128 || !s.Map.InBounds(p.AIGoal) {
+		if len(p.AIKnowledge) > 4096 || len(p.AIFields) > fieldLimit || !s.Map.InBounds(p.AIGoal) {
 			return fmt.Errorf("invalid AI knowledge bounds")
 		}
 		seenKnowledge := map[ID]bool{}

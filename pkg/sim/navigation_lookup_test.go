@@ -25,6 +25,18 @@ func TestObstacleLookupRetainsPriorGeometry(t *testing.T) {
 			}
 			a, ar, ab := e.groundObstacle(v)
 			b, br, bb := e.referenceGroundObstacleLookup(v)
+			if kind == "IR.beacon" {
+				if a != (Vec{}) || ar != 0 || ab {
+					t.Fatalf("passive beacon flags%d obstructs locomotion: %v/%d/%v", flags, a, ar, ab)
+				}
+				combatRadius := int32(300)
+				if v.Building {
+					combatRadius = 0
+				}
+				if got := e.radius(v); got != combatRadius {
+					t.Fatalf("passive beacon flags%d combat radius %d != %d", flags, got, combatRadius)
+				}
+			}
 			if a != b || ar != br || ab != bb {
 				t.Fatalf("%s flags%d: geometry %v/%d/%v != %v/%d/%v", kind, flags, a, ar, ab, b, br, bb)
 			}

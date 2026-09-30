@@ -28,6 +28,7 @@ type peer struct {
 	done     chan struct{}
 	once     sync.Once
 	baseline *pb.PlayerSnapshot
+	visible  publishedVisibility
 	events   []sim.Event
 	results  []sim.OrderResult
 }
@@ -45,6 +46,8 @@ func (p *peer) finish() {
 }
 
 type matchRequest struct {
+	adviceTrace *adviceTrace
+	connectContext context.Context
 	adviceDeadline time.Time
 	entities       []sim.ID
 	control        string
@@ -70,6 +73,9 @@ type matchCheckpoint struct {
 	data []byte
 }
 type liveMatch struct {
+	stateEvery        sim.Tick
+	metrics           matchRuntimeCounters
+	metricsEnabled    bool
 	mapID             string
 	mapData           []byte
 	replayLobby       *sim.ReplayLobby
@@ -95,10 +101,12 @@ type liveMatch struct {
 }
 
 type matchOptions struct {
-	Lobby         *sim.ReplayLobby
-	PauseEnabled  bool
-	LiveObservers bool
-	Rated         bool
+	StateUpdatesPerSecond int
+	RuntimeMetricsEnabled bool
+	Lobby                 *sim.ReplayLobby
+	PauseEnabled          bool
+	LiveObservers         bool
+	Rated                 bool
 }
 
 func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite, objects storage.Files, options ...matchOptions) (*liveMatch, error) {
@@ -129,7 +137,7 @@ func newMatch(id string, engine *sim.Engine, slots []slot, repo *storage.SQLite,
 	if err != nil {
 		return nil, err
 	}
-	m := &liveMatch{pauseEnabled: opts.PauseEnabled && !opts.Rated, rated: opts.Rated, checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
+	m := &liveMatch{metricsEnabled: opts.RuntimeMetricsEnabled, stateEvery: statePublicationEvery(opts.StateUpdatesPerSecond), pauseEnabled: opts.PauseEnabled && !opts.Rated, rated: opts.Rated, checkpoints: make(chan matchCheckpoint, 2), persistenceDone: make(chan struct{}), observerDelay: delay, id: id, engine: engine, slots: slots, requests: make(chan matchRequest, 256), done: make(chan struct{}), stop: make(chan struct{}), repo: repo, objects: objects, started: time.Now()}
 	blueprint := engine.MapBlueprint()
 	m.mapID = blueprint.ID
 	m.mapData, _ = json.Marshal(blueprint)
@@ -187,7 +195,11 @@ func (m *liveMatch) persistCoopCheckpoint(ctx context.Context, checkpoint matchC
 	return m.repo.PutSharedSave(ctx, owners, fmt.Sprintf("coop-%s-%d", m.id, checkpoint.tick), name, checkpoint.data)
 }
 func (m *liveMatch) call(ctx context.Context, req matchRequest) matchReply {
+	if req.kind == "connect" {
+		req.connectContext = ctx
+	}
 	req.reply = make(chan matchReply, 1)
+	if req.adviceTrace != nil { req.adviceTrace.stamp(&req.adviceTrace.enqueueAttempt) }
 	select {
 	case m.requests <- req:
 	case <-ctx.Done():
@@ -239,6 +251,7 @@ func (m *liveMatch) run() {
 	started := false
 	controls := newPauseControl(m.pauseEnabled)
 	lastStatus := time.Time{}
+	lastTicker := time.Time{}
 	controlRates := map[sim.PlayerID]int{}
 	lastCoopCheckpoint := m.engine.Tick()
 	var pendingCoop *matchCheckpoint
@@ -249,6 +262,15 @@ func (m *liveMatch) run() {
 		}
 		select {
 		case p.out <- data:
+			if m.metricsEnabled {
+				m.metrics.wireBytes.Add(uint64(len(data)))
+				if msg.GetSnapshot() != nil || msg.GetDelta() != nil {
+					m.metrics.stateFrames.Add(1)
+				}
+				if msg.GetPriority() != nil {
+					m.metrics.priorityFrames.Add(1)
+				}
+			}
 			return true
 		default:
 			p.close()
@@ -343,6 +365,18 @@ func (m *liveMatch) run() {
 					reply.data, reply.err = archive.read(grant.player, observerClock, m.observerDelay)
 				}
 			case "connect":
+				if req.peer == nil || req.connectContext != nil && req.connectContext.Err() != nil {
+					reply.err = errors.New("connection_closed")
+					break
+				}
+				select {
+				case <-req.peer.done:
+					reply.err = errors.New("connection_closed")
+				default:
+				}
+				if reply.err != nil {
+					break
+				}
 				if expired[req.player] {
 					reply.err = errors.New("reconnect_expired")
 					break
@@ -371,12 +405,13 @@ func (m *liveMatch) run() {
 					reply.err = errors.New("unknown_player")
 					break
 				}
-				snap, err := snapshot(view)
+				snap, err := compactSnapshot(view)
 				if err != nil {
 					reply.err = err
 					break
 				}
 				req.peer.baseline = snap
+				req.peer.visible = visibilityFromSnapshot(snap)
 				send(req.peer, &pb.Envelope{Message: &pb.Envelope_Snapshot{Snapshot: snap}})
 				broadcastStatus(time.Now())
 			case "disconnect":
@@ -450,6 +485,7 @@ func (m *liveMatch) run() {
 					}
 				}
 			case "advice":
+				if req.adviceTrace != nil { req.adviceTrace.actor(uint32(m.engine.Tick()), len(m.requests)) }
 				if req.adviceDeadline.IsZero() || !time.Now().Before(req.adviceDeadline) {
 					reply.err = context.DeadlineExceeded
 					break
@@ -460,8 +496,13 @@ func (m *liveMatch) run() {
 					break
 				}
 				reply.affordances, reply.err = m.engine.CommandAffordances(req.player, req.entities)
+				if req.adviceTrace != nil { req.adviceTrace.stamp(&req.adviceTrace.affordancesDone) }
 				if reply.err == nil && len(req.orders) > 0 {
 					reply.data, reply.err = m.engine.SaveForAdvice()
+					if req.adviceTrace != nil {
+						req.adviceTrace.savedBytes.Store(int64(len(reply.data))+1)
+						req.adviceTrace.stamp(&req.adviceTrace.captureDone)
+					}
 				}
 			case "save":
 				reply.data, reply.err = m.engine.Save()
@@ -474,6 +515,14 @@ func (m *liveMatch) run() {
 			}
 			req.reply <- reply
 		case now := <-ticker.C:
+			var tickWorkStart time.Time
+			var requestDepth int
+			previousTicker := lastTicker
+			if m.metricsEnabled {
+				tickWorkStart = time.Now()
+				requestDepth = len(m.requests)
+				lastTicker = now
+			}
 			if now.Sub(rateStart) >= time.Second {
 				rates = map[sim.PlayerID]int{}
 				controlRates = map[sim.PlayerID]int{}
@@ -527,6 +576,12 @@ func (m *liveMatch) run() {
 			tickViews := map[sim.PlayerID]sim.View{}
 			advanced := !m.engine.Outcome().Finished && !controls.paused
 			if advanced {
+				if m.metricsEnabled && !previousTicker.IsZero() {
+					intervals := (now.Sub(previousTicker) + time.Second/40) / (time.Second / 20)
+					if intervals > 1 {
+						m.metrics.missedTickerIntervals.Add(uint64(intervals - 1))
+					}
+				}
 				m.engine.Advance()
 				tickViews = archive.capture(m.engine, m.slots)
 				if m.coop {
@@ -580,9 +635,17 @@ func (m *liveMatch) run() {
 				}
 				p.events = append(p.events, view.Events...)
 				p.results = append(p.results, view.Results...)
+				removed := p.visible.removals(view)
+				if len(removed) > 0 || len(view.Results) > 0 {
+					if !send(p, priorityFrame(view, removed)) {
+						delete(peers, id)
+						continue
+					}
+					p.visible.forget(removed)
+				}
 				if eliminated && !m.engine.Outcome().Finished {
 					view.Events, view.Results = p.events, p.results
-					snap, err := snapshot(view)
+					snap, err := compactSnapshot(view)
 					if err == nil && send(p, &pb.Envelope{Message: &pb.Envelope_Snapshot{Snapshot: snap}}) {
 						send(p, &pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: "player_eliminated", Message: "Your commander was eliminated. Join an authorized observer view or wait for the final match result."}}})
 						p.finish()
@@ -592,14 +655,19 @@ func (m *liveMatch) run() {
 					delete(peers, id)
 					continue
 				}
-				if m.engine.Tick()%4 != 0 && !m.engine.Outcome().Finished {
+				if m.engine.Tick()%m.stateEvery != 0 && !m.engine.Outcome().Finished {
 					continue
 				}
 				view.Events = p.events
-				view.Results = p.results
+				// Results were already delivered at their execution tick. Keep the
+				// terminal full-state receipt contract for final/eliminated views.
+				view.Results = nil
+				if m.engine.Outcome().Finished {
+					view.Results = p.results
+				}
 				p.events = nil
 				p.results = nil
-				snap, err := snapshot(view)
+				snap, err := compactSnapshot(view)
 				if err != nil {
 					p.close()
 					continue
@@ -612,6 +680,7 @@ func (m *liveMatch) run() {
 				}
 				if send(p, frame) {
 					p.baseline = snap
+					p.visible = visibilityFromSnapshot(snap)
 				}
 			}
 			if m.engine.Outcome().Finished && !committed && now.Sub(lastCommitAttempt) >= time.Second {
@@ -668,6 +737,9 @@ func (m *liveMatch) run() {
 			}
 			if now.Sub(lastStatus) >= time.Second {
 				broadcastStatus(now)
+			}
+			if m.metricsEnabled {
+				m.metrics.recordTick(time.Since(tickWorkStart), requestDepth, advanced)
 			}
 			if committed && now.Sub(finishedAt) > 5*time.Minute {
 				return

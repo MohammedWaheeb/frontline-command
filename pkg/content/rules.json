@@ -615,7 +615,7 @@
     },
     {
       "id": "IR.launcher",
-      "name": "Tactical missile launcher",
+      "name": "Ballistic missile launcher",
       "faction": "IR",
       "role": "launcher",
       "cost": 2400000,
@@ -684,6 +684,24 @@
       "radius": 600,
       "sight": 12000,
       "detection": 6000
+    },
+    {
+      "id": "IR.shahed",
+      "name": "Shahed attack drone",
+      "faction": "IR",
+      "role": "shahed",
+      "cost": 400000,
+      "build_ticks": 360,
+      "hp": 140000,
+      "armor": "air",
+      "supply": 1,
+      "tier": 2,
+      "speed": 4500,
+      "weapon": "IR_SHAHED",
+      "producer": "drone_hub",
+      "radius": 600,
+      "sight": 11000,
+      "detection": 0
     },
     {
       "id": "SY.rifle",
@@ -1601,6 +1619,19 @@
       "volley_spacing_ticks": 0
     },
     {
+      "id": "IR_SHAHED",
+      "kind": "airground",
+      "damage": 220000,
+      "interval_ticks": 1,
+      "min_range": 0,
+      "max_range": 600,
+      "ammo": 1,
+      "windup_ticks": 1,
+      "splash": 1200,
+      "volley": 1,
+      "volley_spacing_ticks": 0
+    },
+    {
       "id": "SY_ART",
       "kind": "shell",
       "damage": 100000,
@@ -1907,6 +1938,26 @@
       "hp": 1200000,
       "width": 2,
       "height": 2,
+      "power_capacity": 0,
+      "power_demand": 0,
+      "prerequisites": [
+        "barracks"
+      ],
+      "faction": "",
+      "service_slots": 0,
+      "weapon": "",
+      "defense": false,
+      "qualifying": false
+    },
+    {
+      "id": "barrier",
+      "name": "Field barricade",
+      "role": "barrier",
+      "cost": 150000,
+      "build_ticks": 160,
+      "hp": 800000,
+      "width": 2,
+      "height": 1,
       "power_capacity": 0,
       "power_demand": 0,
       "prerequisites": [

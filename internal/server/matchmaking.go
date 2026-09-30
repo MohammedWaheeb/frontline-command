@@ -93,7 +93,7 @@ func (s *Server) joinQueue(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.pruneQueue(time.Now())
-	if len(s.queue) >= 128 || len(s.lobbies) >= 64 {
+	if len(s.queue) >= 128 || len(s.lobbies) >= s.lobbyLimit() {
 		fail(w, 429, "queue_full", "The local host is full.")
 		return
 	}
@@ -210,7 +210,7 @@ func (s *Server) matchQueued(ctx context.Context, now time.Time) error {
 		return waiting[i].Joined.Before(waiting[j].Joined)
 	})
 	for i, a := range waiting {
-		if len(s.lobbies) >= 64 {
+		if len(s.lobbies) >= s.lobbyLimit() {
 			return nil
 		}
 		if a.LobbyID != "" {

@@ -188,6 +188,11 @@ func TestHarvestDepotFailedAlternatesShareBudgetAndRetry(t *testing.T) {
 	e.state.Map.Shipment = Vec{X: 40000, Y: 24000}
 	e.state.Map.Fields[0].Position = Vec{X: 20000, Y: 32000}
 	e.state.Fields[0].Position = e.state.Map.Fields[0].Position
+	// Prepared relocation is not a legal runtime mutation of fixed fields.
+	// Discard its earlier-world observations before probing saved route timing.
+	for _, player := range e.state.Players {
+		player.KnownFields = nil
+	}
 	e.state.NavigationRevision++
 	before := v.Position
 	e.pathBudget = 12

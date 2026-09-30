@@ -1,7 +1,9 @@
 package server
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"frontlinecommand/internal/storage"
 	"frontlinecommand/pkg/content"
 	"frontlinecommand/pkg/sim"
@@ -17,10 +19,68 @@ type LobbyRules struct {
 	SupplyCap           uint32  `json:"supply_cap"`
 	Fog                 bool    `json:"fog"`
 	StrategicOperations bool    `json:"strategic_operations"`
+	startingCreditsNull bool    `json:"-"`
 }
 
-func standardLobbyRules() LobbyRules { return LobbyRules{"standard-v2", 1, 6000, 100, true, true} }
+func (rules *LobbyRules) UnmarshalJSON(data []byte) error {
+	type alias LobbyRules
+	parsed := alias(*rules)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&parsed); err != nil {
+		return err
+	}
+	var effective struct {
+		StartingCredits json.RawMessage `json:"starting_credits"`
+	}
+	if err := json.Unmarshal(data, &effective); err != nil {
+		return err
+	}
+	// The tagged field follows encoding/json's case-folded, last-value semantics.
+	// An omitted field in a later duplicate rules object retains the prior null
+	// marker; only another effective value may replace that field's meaning.
+	if len(effective.StartingCredits) != 0 {
+		parsed.startingCreditsNull = bytes.Equal(bytes.TrimSpace(effective.StartingCredits), []byte("null"))
+	}
+	*rules = LobbyRules(parsed)
+	return nil
+}
+
+func standardLobbyRules() LobbyRules { return LobbyRules{"standard-v2", 1, 6000, 100, true, true, false} }
 func defaultLobbyRules() *LobbyRules { rules := standardLobbyRules(); return &rules }
+
+type lobbyRulesError struct {
+	code    string
+	message string
+}
+
+// Lobby JSON uses whole credits. The simulation stores milli-credits; conversion
+// happens here once, after permission and range checks. A supplied ruleset label
+// does not grant permission to change a public, rated or prescribed match.
+func normalizedLobbyRules(l *Lobby, requested *LobbyRules) (LobbyRules, int64, *lobbyRulesError) {
+	standard := standardLobbyRules()
+	rules := standard
+	if requested != nil {
+		rules = *requested
+	}
+	if rules.startingCreditsNull || rules.StartingCredits == 0 || rules.StartingCredits > uint32(sim.MaxStartingCredits/sim.Scale) {
+		return LobbyRules{}, 0, &lobbyRulesError{"invalid_starting_credits", "Choose whole starting credits from 1 to 1000000."}
+	}
+	if (rules.Ruleset != "standard-v2" && rules.Ruleset != "custom-v1") || rules.Speed != standard.Speed || rules.SupplyCap != standard.SupplyCap || rules.Fog != standard.Fog || rules.StrategicOperations != standard.StrategicOperations {
+		return LobbyRules{}, 0, &lobbyRulesError{"unsupported_rules", "Only starting credits may differ from the standard gameplay rules."}
+	}
+	startingCredits := int64(rules.StartingCredits) * sim.Scale
+	if startingCredits == sim.DefaultStartingCredits {
+		rules.Ruleset = "standard-v2"
+		return rules, 0, nil
+	}
+	if l == nil || l.Rated || !l.Private || l.Mode != "custom" || l.ScenarioID != "" || l.ScenarioRules != nil || l.ResumeSave != "" || l.ResumeTick != 0 {
+		return LobbyRules{}, 0, &lobbyRulesError{"custom_starting_credits_unavailable", "Custom starting credits require a private, unranked custom lobby without a scenario or checkpoint."}
+	}
+	rules.Ruleset = "custom-v1"
+	return rules, startingCredits, nil
+}
+
 func validDifficulty(v string) bool  { return v == "easy" || v == "normal" || v == "hard" }
 func lobbyColor(l *Lobby, desired uint32, except sim.PlayerID) (uint32, bool) {
 	if desired > 8 {
@@ -367,10 +427,6 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_lobby", "Check the faction, team, color and plain-text lobby name.")
 		return
 	}
-	if body.Rules != nil && *body.Rules != standardLobbyRules() {
-		fail(w, 400, "unsupported_rules", "This host supports standard-v2 gameplay rules only.")
-		return
-	}
 	var m content.Map
 	if body.MapID != "" {
 		var err error
@@ -391,7 +447,7 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 403, "not_in_lobby", "Join the lobby first.")
 		return
 	}
-	if l.ScenarioID != "" && (body.MapID != "" || body.Team != 0 || body.Faction != "" || body.Rules != nil) {
+	if (l.ScenarioID != "" || l.ResumeSave != "" || l.ResumeTick != 0) && (body.MapID != "" || body.Team != 0 || body.Faction != "" || body.Rules != nil) {
 		fail(w, 409, "scenario_rules_locked", "The scenario fixes factions, teams and map.")
 		return
 	}
@@ -431,6 +487,18 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	if body.Observers != nil {
 		next.LiveObservers = *body.Observers
+	}
+	requestedRules := next.Rules
+	if body.Rules != nil {
+		requestedRules = body.Rules
+	}
+	rules, _, rulesErr := normalizedLobbyRules(&next, requestedRules)
+	if rulesErr != nil {
+		fail(w, 400, rulesErr.code, rulesErr.message)
+		return
+	}
+	if next.ScenarioID == "" && next.ResumeSave == "" {
+		next.Rules = &rules
 	}
 	if next.LiveObservers && !next.Private || next.PauseEnabled && next.Mode != "custom" && next.Mode != "coop" {
 		fail(w, 400, "invalid_lobby_policy", "Live observers require a private lobby; shared pause requires custom or co-op mode.")

@@ -289,10 +289,55 @@ func (e *Engine) mobileClear(pos Vec, radius int32, ignore ID) bool {
 // findPath uses coarse-region guidance followed by deterministic tile A*. Fine
 // searches share stable collision rules with movement and forbid corner cuts.
 func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
+	return e.findPathWithBuildContact(v, goal, dynamic, nil)
+}
+
+// Ordinary assigned builders must choose a free route endpoint that can perform
+// their current job. Generic navigation keeps its existing nearby-free goal.
+func (e *Engine) findMovementPath(v *Entity, goal Vec, dynamic bool) []Vec {
+	if len(v.Orders) > 0 && v.Orders[0].Kind == "build" && v.HP > 0 && v.Container == 0 && e.role(v) == "rig" {
+		target := e.entity(v.Orders[0].Target)
+		if target != nil && target.Building && target.HP > 0 && !target.Complete && target.Owner == v.Owner && target.Builder == v.ID {
+			return e.findPathWithBuildContact(v, goal, dynamic, target)
+		}
+	}
+	return e.findPath(v, goal, dynamic)
+}
+
+func (e *Engine) findPathWithBuildContact(v *Entity, goal Vec, dynamic bool, contact *Entity) []Vec {
 	if e.pathBudget == 0 {
 		return nil
 	}
 	e.pathBudget--
+	path := e.findNavigationRouteWithBuildContact(v, goal, dynamic, contact)
+	if len(path) == 0 || e.isAircraft(v) && !v.Landed {
+		return path
+	}
+	u, _ := e.catalog.Unit(v.Type)
+	step := (e.navigationSpeed(v, u.Speed, u.Armor) + v.MoveRemainder) / 20
+	usable := func(path []Vec) bool {
+		return len(path) > 0 && e.navigationBridgeClear(v, navigationStepPosition(v.Position, path[0], step), true)
+	}
+	if usable(path) {
+		return path
+	}
+	if dynamic {
+		return nil
+	}
+	// Retry only a proven unsafe current step, with the same goal and charge.
+	// The completed first search no longer uses the shared search workspace.
+	path = e.findNavigationRouteWithBuildContact(v, goal, true, contact)
+	if usable(path) {
+		return path
+	}
+	return nil
+}
+
+func (e *Engine) findNavigationRoute(v *Entity, goal Vec, dynamic bool) []Vec {
+	return e.findNavigationRouteWithBuildContact(v, goal, dynamic, nil)
+}
+
+func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynamic bool, contact *Entity) []Vec {
 	m := e.state.Map
 	r := e.radius(v)
 	air := e.isAircraft(v) && !v.Landed
@@ -325,7 +370,7 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 					continue
 				}
 				p := Vec{X: (gx + dx) * 500, Y: (gy + dy) * 500}
-				if passable(p) {
+				if passable(p) && (contact == nil || e.distanceTo(contact, p) <= r+900) {
 					gx, gy = p.X/500, p.Y/500
 					found = true
 					break
@@ -338,11 +383,12 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 	}
 	start, end := sy*gridW+sx, gy*gridW+gx
 	// Flooring a legal physical position can put its A* start inside a nearby
-	// collision circle. Seed reachable adjacent nodes from the actual position
-	// instead of applying corner-cut rules to that fictitious blocked start.
+	// obstacle or across its boundary. Seed reachable adjacent nodes from the
+	// actual position instead of relying on that fictitious snapped start.
 	startPoint := Vec{X: sx * 500, Y: sy * 500}
-	bridged := !passable(startPoint) || dynamic && !e.serviceSegmentClear(v.Position, startPoint, r)
+	bridged := !passable(startPoint) || dynamic && !e.serviceSegmentClear(v.Position, startPoint, r) || v.Position != startPoint && !e.navigationBridgeClear(v, startPoint, dynamic)
 	starts := []pathNode{{start, 0, heuristic(sx, sy, gx, gy), 0}}
+	var startElbows map[int32]Vec
 	if bridged {
 		starts = nil
 		for dy := int32(-1); dy <= 1; dy++ {
@@ -356,7 +402,10 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 			}
 		}
 		if len(starts) == 0 {
-			return nil
+			starts, startElbows = e.offGridNavigationStarts(v, gx, gy, dynamic, passable)
+			if len(starts) == 0 {
+				return nil
+			}
 		}
 	}
 	if start == end {
@@ -394,8 +443,15 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 				for a, b := 0, len(path)-1; a < b; a, b = a+1, b-1 {
 					path[a], path[b] = path[b], path[a]
 				}
-				if dynamic && !bridged && len(path) > 0 && !e.serviceSegmentClear(v.Position, path[0], r) {
-					if !e.navigationBridgeClear(v, startPoint, true) {
+				if elbow, ok := startElbows[path[0].Y/500*gridW+path[0].X/500]; ok {
+					path = append([]Vec{elbow}, path...)
+				}
+				// A* validates edges from the snapped start. Its first edge can
+				// cross an obstacle when traveled from the actor's actual sub-grid
+				// position, even when all three endpoints are clear. Connect to the
+				// safe snapped start before following that edge.
+				if !bridged && len(path) > 0 && (dynamic && !e.serviceSegmentClear(v.Position, path[0], r) || v.Position != startPoint && !e.navigationBridgeClear(v, path[0], dynamic)) {
+					if !e.navigationBridgeClear(v, startPoint, dynamic) {
 						return nil
 					}
 					path = append([]Vec{startPoint}, path...)
@@ -452,6 +508,16 @@ func (e *Engine) findPath(v *Entity, goal Vec, dynamic bool) []Vec {
 			return p
 		}
 	}
+	if p := search(false); len(p) > 0 {
+		return p
+	}
+	// Keep successful original routes unchanged. Only a failed seeded search
+	// retries physical start connections across conservative grid corner gates.
+	starts, startElbows = e.navigationConnectionStarts(v, gx, gy, dynamic, passable, 1, true)
+	if len(starts) == 0 {
+		return nil
+	}
+	bridged = true
 	return search(false)
 }
 func (e *Engine) coarseCorridor(sx, sy, gx, gy, r int32, ignore ID) map[int32]bool {
@@ -558,10 +624,13 @@ func (e *Engine) updateMovement() {
 			e.flyPass(v)
 			continue
 		}
-		if len(v.Orders) == 0 {
+		if len(v.Orders) == 0 && !v.HaulerRetreating {
 			continue
 		}
-		o := v.Orders[0]
+		o := Order{Kind: "gather"}
+		if !v.HaulerRetreating {
+			o = v.Orders[0]
+		}
 		goal := o.Position
 		moving := false
 		arrive := int32(180)
@@ -611,6 +680,10 @@ func (e *Engine) updateMovement() {
 			}
 		case "build", "repair", "capture", "board":
 			target := e.entity(o.Target)
+			if target == nil && o.Kind == "build" {
+				e.completeMovementOrder(v)
+				continue
+			}
 			if target != nil {
 				goal = e.approachPoint(v, target)
 				moving = e.edgeDistance(v, target) > 900
@@ -630,7 +703,7 @@ func (e *Engine) updateMovement() {
 			}
 		case "guard", "escort", "aggressive":
 			goal = v.Anchor
-			moving = distance(v.Position, goal) > 1000
+			moving = distance(v.Position, goal) > e.guardFollowDistance(v, o)
 			if target := e.entity(v.Target); target != nil && e.canSeeEntity(v.Owner, target) {
 				w, _ := e.weapon(v)
 				if distance(v.Anchor, target.Position) <= e.combatLeash(v) {
@@ -691,6 +764,7 @@ func (e *Engine) updateMovement() {
 			e.completeMovementOrder(v)
 			continue
 		}
+		requestedRoute := false
 		if len(v.Path) == 0 || distance(goal, v.PathGoal) > 1400 || v.PathRevision != e.state.NavigationRevision {
 			if e.state.Tick < v.NextRouteAt && v.PathRevision == e.state.NavigationRevision && distance(goal, v.PathGoal) <= 1400 {
 				continue
@@ -698,7 +772,11 @@ func (e *Engine) updateMovement() {
 			if e.pathBudget == 0 {
 				continue
 			}
-			v.Path = e.findPath(v, goal, v.RouteFailures > 0)
+			v.Path = e.findMovementPath(v, goal, v.RouteFailures > 0)
+			requestedRoute = true
+			if o.Kind == "move" {
+				v.Path = e.appendLegalMoveGoal(v, v.Path, goal)
+			}
 			if o.Kind == "unload" && len(v.Path) > 0 {
 				end := v.Path[len(v.Path)-1]
 				// Grid nodes are 500 millitiles apart; truncating a legal click can
@@ -733,34 +811,50 @@ func (e *Engine) updateMovement() {
 				continue
 			}
 		}
-		speed := u.Speed
-		if e.state.Map.TileAt(v.Position).Cover() && !e.isAircraft(v) && u.Armor != "infantry" {
-			speed = speed * 80 / 100
-		}
-		if e.hasBuff(v, "disperse") || e.hasBuff(v, "recall") {
-			speed = speed * 120 / 100
-		}
+		speed := e.navigationSpeed(v, u.Speed, u.Armor)
 		step := (speed + v.MoveRemainder) / 20
 		v.MoveRemainder = (speed + v.MoveRemainder) % 20
-		d := distance(v.Position, p)
-		next := p
-		if d > step {
-			next = Vec{X: v.Position.X + int32(int64(p.X-v.Position.X)*int64(step)/int64(d)), Y: v.Position.Y + int32(int64(p.Y-v.Position.Y)*int64(step)/int64(d))}
-		}
+		next := navigationStepPosition(v.Position, p, step)
 		air := e.isAircraft(v) && !v.Landed
-		if e.clear(next, e.radius(v), v.ID, air, true) && (air || e.serviceSegmentClear(v.Position, next, e.radius(v))) {
+		// Integer component truncation can drift from the planned bridge.
+		// Validate the actual swept ground step before committing its position.
+		if air && e.clear(next, e.radius(v), v.ID, true, true) || !air && e.navigationBridgeClear(v, next, true) {
 			v.Position = next
 			v.State = "moving"
 			v.LastProgress = e.state.Tick
 			v.Blocked = false
 			v.RouteFailures = 0
-			if distance(next, p) < 120 && (next == p || air || len(v.Path) < 2 || e.serviceSegmentClear(next, v.Path[1], e.radius(v))) {
+			// Reach a sub-grid elbow exactly before turning. The ordinary grid
+			// waypoint tolerance could otherwise cut its swept-clear corner.
+			if distance(next, p) < 120 && (next == p || air || p.X%500 == 0 && p.Y%500 == 0) && (next == p || air || len(v.Path) < 2 || e.serviceSegmentClear(next, v.Path[1], e.radius(v))) {
 				v.Path = v.Path[1:]
 			}
 			v.StationarySince = e.state.Tick
 			v.Concealed = false
 		} else if !air || !e.airDetour(v, p) {
+			if !air {
+				// The attempted current ground step is physically blocked.
+				v.Path = nil
+				v.PathResolved = false
+			}
 			e.blocked(v)
+			if !air && !requestedRoute && e.pathBudget > 0 && e.state.Tick >= v.NextRouteAt {
+				// Store a single retry for the next tick. Facing and remainder
+				// have already advanced once; do not integrate movement twice.
+				v.Path = e.findMovementPath(v, goal, true)
+				if o.Kind == "move" {
+					v.Path = e.appendLegalMoveGoal(v, v.Path, goal)
+				}
+				v.PathGoal = goal
+				v.PathRevision = e.state.NavigationRevision
+				if len(v.Path) == 0 {
+					v.NextRouteAt = e.state.Tick + seconds(2)
+				} else {
+					v.PathEnd = v.Path[len(v.Path)-1]
+					v.PathResolved = true
+					v.NextRouteAt = 0
+				}
+			}
 		}
 	}
 }

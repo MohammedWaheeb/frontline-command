@@ -1,7 +1,8 @@
 package sim
 
-// Exact preceding production implementations, retained independently for the
-// lookup-only optimization. These are not alternate shipping algorithms.
+// Preceding production implementations with the accepted passive beacon
+// locomotion rule, retained independently for the lookup-only optimization.
+// These are not alternate shipping algorithms.
 func (e *Engine) referenceClearExceptLookup(pos Vec, radius int32, ignore, ignoredStructure ID, air, mobiles bool) bool {
 	if pos.X-radius < 0 || pos.Y-radius < 0 || pos.X+radius >= e.state.Map.Width*1000 || pos.Y+radius >= e.state.Map.Height*1000 {
 		return false
@@ -62,7 +63,7 @@ func (e *Engine) referenceClearExceptLookup(pos Vec, radius int32, ignore, ignor
 }
 
 func (e *Engine) referenceGroundObstacleLookup(v *Entity) (Vec, int32, bool) {
-	if v.Building || v.HP <= 0 || v.Container != 0 {
+	if v.Building || v.HP <= 0 || v.Container != 0 || v.Type == "IR.beacon" {
 		return Vec{}, 0, false
 	}
 	if !e.isAircraft(v) {

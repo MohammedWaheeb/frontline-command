@@ -13,6 +13,11 @@ func harvestRoutingFixture(t testing.TB, rotation, separation, count int) (*Engi
 	e := fixture(t)
 	e.state.Map.Fields = []content.Field{{ID: 1, Position: center, Credits: 36000000}}
 	e.state.Fields = []*ResourceField{{ID: 1, Position: center, Remaining: 36000000}}
+	// This prepared world replaces the authored field identities/positions.
+	// Start its human observation memory with that world, not the old map.
+	for _, player := range e.state.Players {
+		player.KnownFields = nil
+	}
 	e.spawn("power", 1, Vec{X: 8000, Y: 16000}, true, 0)
 	rotate := func(x, y int32) Vec {
 		for range rotation {

@@ -145,8 +145,10 @@ func (e *Engine) missionCondition(q content.MissionCondition, progress *Conditio
 			yes = count >= max(uint32(1), q.Count)
 		}
 	case "count_type":
+		// Defeated commanders retain HP-positive wrecks, not surviving assets.
+		// A living HQ still counts during power-off or temporary disablement.
 		for _, v := range e.state.Entities {
-			if v.HP > 0 && v.Complete && v.Type == q.Type && (q.Owner == 0 || uint32(v.Owner) == q.Owner) {
+			if v.HP > 0 && v.Complete && v.Type == q.Type && (q.Owner == 0 || uint32(v.Owner) == q.Owner) && !e.defeated(v.Owner) {
 				count++
 			}
 		}
@@ -181,10 +183,13 @@ func (e *Engine) missionCondition(q content.MissionCondition, progress *Conditio
 			yes = missionCompare(value, q.Amount, q.Compare)
 			count = uint32(min64(value, 1000000000))
 		}
-	case "objective_complete":
+	case "objective_complete", "objective_incomplete":
 		for _, o := range e.state.Mission.Objectives {
 			if o.ID == q.Objective {
 				yes = o.Complete
+				if q.Kind == "objective_incomplete" {
+					yes = !yes
+				}
 			}
 		}
 	case "region_entered", "region_held":

@@ -24,23 +24,24 @@ type authoredOrder struct {
 	Results  []sim.OrderResult `json:"results"`
 }
 type authoredRun struct {
-	t                   *testing.T
-	engine, twin        *sim.Engine
-	catalog             *content.Catalog
-	gameMap             content.Map
-	definition          content.Mission
-	difficulty, faction string
-	replay              *sim.Replay
-	tags                map[string][]sim.ID
-	sequences           map[sim.PlayerID]uint32
-	orders              []authoredOrder
-	midpoint            sim.Tick
-	initialHash         string
-	evidenceSuffix      string
-	requiredOptional    string
-	excludedArmy        map[sim.ID]bool
-	tactical            func()
-	diagnosticAttempt   *authoredAttempt
+	t                        *testing.T
+	engine, twin             *sim.Engine
+	catalog                  *content.Catalog
+	gameMap                  content.Map
+	definition               content.Mission
+	difficulty, faction      string
+	replay                   *sim.Replay
+	tags                     map[string][]sim.ID
+	sequences                map[sim.PlayerID]uint32
+	orders                   []authoredOrder
+	midpoint                 sim.Tick
+	initialHash              string
+	evidenceSuffix           string
+	requiredOptional         string
+	requireCampaignOptionals bool
+	excludedArmy             map[sim.ID]bool
+	tactical                 func()
+	diagnosticAttempt        *authoredAttempt
 }
 
 func newAuthoredRun(t *testing.T, id, difficulty, faction string) *authoredRun {
@@ -270,6 +271,13 @@ func (r *authoredRun) checkpoint() {
 		r.t.Fatal("midpoint restore hash differs")
 	}
 	r.midpoint = r.engine.Tick()
+	// Preserve the actual saved midpoint as a replay checkpoint, including short
+	// lessons that complete before the periodic600-tick recorder checkpoint.
+	if len(r.replay.Checkpoints) == 0 || r.replay.Checkpoints[len(r.replay.Checkpoints)-1].Tick < r.midpoint {
+		if err := r.replay.Capture(r.engine, true); err != nil {
+			r.t.Fatal("record actual mission midpoint checkpoint", err)
+		}
+	}
 	if directory := os.Getenv("FRONTLINE_MISSION_CHECKPOINTS"); directory != "" {
 		if err := os.MkdirAll(directory, 0755); err != nil {
 			r.t.Fatal(err)
@@ -289,6 +297,16 @@ func (r *authoredRun) finish() {
 	if r.requiredOptional != "" {
 		r.requireOptional(r.requiredOptional)
 	}
+	if r.requireCampaignOptionals {
+		if r.definition.Mode != "campaign" {
+			r.t.Fatal("campaign optional gate applied outside campaign")
+		}
+		for _, goal := range r.definition.Objectives {
+			if goal.Optional && !goal.Failure {
+				r.requireOptional(goal.ID)
+			}
+		}
+	}
 	if r.midpoint == 0 || r.twin == nil || r.engine.Hash() != r.twin.Hash() {
 		r.t.Fatal("midpoint save branch did not finish with the same state hash")
 	}
@@ -305,6 +323,7 @@ func (r *authoredRun) finish() {
 	if played.Engine().Hash() != r.engine.Hash() {
 		r.t.Fatal("full command replay diverged")
 	}
+	r.verifyWinningCheckpointPersistence()
 	restarted, err := sim.NewMission(r.catalog, r.gameMap, r.definition, r.difficulty, 19027)
 	if err != nil {
 		r.t.Fatal(err)

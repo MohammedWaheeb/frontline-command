@@ -17,6 +17,8 @@ import (
 
 func main() {
 	address := flag.String("addr", "127.0.0.1:8080", "listen address (localhost by default)")
+	stateUpdates := flag.Int("state-updates-hz", 10, "full state updates per second: 10 or 20 (simulation and execution receipts remain 20 Hz)")
+	loadProfile := flag.String("load-profile", "", "bounded local measurement profile: loopback-500 (requires a literal loopback -addr; incompatible with -lan)")
 	lan := flag.Bool("lan", false, "explicitly allow non-loopback LAN hosting")
 	data := flag.String("data", ".local", "local persistence directory")
 	static := flag.String("static", "client/dist", "packaged browser client")
@@ -32,11 +34,14 @@ func main() {
 	if !*lan && (ip == nil || !ip.IsLoopback()) {
 		log.Fatal("non-loopback binding requires -lan")
 	}
+	if *loadProfile != "" && (*lan || *loadProfile != server.Loopback500LoadProfile || ip == nil || !ip.IsLoopback()) {
+		log.Fatal("-load-profile accepts loopback-500 only with a literal loopback -addr and without -lan")
+	}
 	allowed := []string{}
 	if *origins != "" {
 		allowed = strings.Split(*origins, ",")
 	}
-	app, err := server.New(server.Config{DataDir: *data, StaticDir: *static, MapDir: *maps, MissionDir: *missions, AllowedOrigins: allowed})
+	app, err := server.New(server.Config{StateUpdatesPerSecond: *stateUpdates, LoadProfile: *loadProfile, ListenAddress: *address, DataDir: *data, StaticDir: *static, MapDir: *maps, MissionDir: *missions, AllowedOrigins: allowed})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -47,13 +52,13 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Printf("Frontline Command local server: http://%s\n", listener.Addr())
+	if *loadProfile != "" {
+		fmt.Printf("Measurement profile: %s (125 lobbies, 500 simultaneous clients; loopback only)\n", *loadProfile)
+	}
 	if *lan {
 		ifaces, _ := net.InterfaceAddrs()
-		_, port, _ := net.SplitHostPort(listener.Addr().String())
-		for _, addr := range ifaces {
-			if n, ok := addr.(*net.IPNet); ok && n.IP.To4() != nil && !n.IP.IsLoopback() {
-				fmt.Printf("LAN join address: http://%s:%s\n", n.IP, port)
-			}
+		for _, url := range lanJoinURLs(listener.Addr().String(), ifaces) {
+			fmt.Printf("LAN join address: %s\n", url)
 		}
 	}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)

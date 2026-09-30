@@ -278,7 +278,7 @@ func TestAIVisibleDefeatedAircraftDoNotChangeProduction(t *testing.T) {
 	for _, e := range []*Engine{a, b} {
 		baseInfrastructure(e, 1)
 		e.player(1).AI, e.player(1).Controller = "normal", "ai"
-		e.player(1).AIStage = 1 // The ordinary composition cycle will choose an APC.
+		e.player(1).AIStage = 2 // The ordinary composition cycle will choose an APC.
 		e.state.Tick = seconds(2)
 	}
 	b.spawn("IR.fighter", 2, Vec{X: 13000, Y: 10000}, true, 0)

@@ -112,10 +112,6 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	body.Faction = resolveFaction(body.Faction)
-	if body.Rules != nil && *body.Rules != standardLobbyRules() {
-		fail(w, 400, "unsupported_rules", "This host supports standard-v2 gameplay rules only.")
-		return
-	}
 	if body.Name == "" {
 		body.Name = "Local match"
 	}
@@ -127,6 +123,11 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 	case "1v1", "2v2", "ffa", "coop", "custom":
 	default:
 		fail(w, 400, "invalid_mode", "Choose 1v1, 2v2, ffa, coop or custom for local play.")
+		return
+	}
+	rules, _, rulesErr := normalizedLobbyRules(&Lobby{Mode: body.Mode, Private: body.Private}, body.Rules)
+	if rulesErr != nil {
+		fail(w, 400, rulesErr.code, rulesErr.message)
 		return
 	}
 	if body.LiveObservers && !body.Private || body.PauseEnabled && body.Mode != "custom" && body.Mode != "coop" {
@@ -146,7 +147,7 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not create lobby.")
 		return
 	}
-	l := &Lobby{MapHash: lobbyMapHash(m), MapVersion: m.Version, Rules: defaultLobbyRules(), PauseEnabled: body.PauseEnabled && (body.Mode == "custom" || body.Mode == "coop"), LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Color: body.Color, Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
+	l := &Lobby{MapHash: lobbyMapHash(m), MapVersion: m.Version, Rules: &rules, PauseEnabled: body.PauseEnabled && (body.Mode == "custom" || body.Mode == "coop"), LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Color: body.Color, Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
 	l.mapData = &m
 	for i, a := range body.AI {
 		a.Faction = resolveFaction(a.Faction)
@@ -169,7 +170,7 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 	if !s.admitProfile(w, p.ID, "") {
 		return
 	}
-	if len(s.lobbies) >= 64 {
+	if len(s.lobbies) >= s.lobbyLimit() {
 		fail(w, 429, "lobby_limit", "This local host has reached its lobby limit.")
 		return
 	}
@@ -438,6 +439,11 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, "lobby_changed", "Reload the lobby before starting.")
 		return
 	}
+	rules, startingCredits, rulesErr := normalizedLobbyRules(l, l.Rules)
+	if rulesErr != nil {
+		fail(w, 400, rulesErr.code, rulesErr.message)
+		return
+	}
 	completeLobbyMetadata(l)
 	if _, installed := s.maps[l.MapID]; !installed && !s.mapHostAllowed(w, r, l.MapID, l.Host, l.Private, l.Mode) {
 		return
@@ -491,7 +497,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not initialize match.")
 		return
 	}
-	cfg := sim.Config{Map: mapData, Seed: binary.LittleEndian.Uint64(seedBytes[:]), Ruleset: "standard-v2"}
+	cfg := sim.Config{Map: mapData, Seed: binary.LittleEndian.Uint64(seedBytes[:]), Ruleset: rules.Ruleset, StartingCredits: startingCredits}
 	slots := []slot{}
 	for _, v := range l.Slots {
 		cfg.Players = append(cfg.Players, sim.PlayerConfig{Color: v.Color, ID: v.Player, Name: v.Name, Faction: v.Faction, Team: v.Team, AI: v.AI})
@@ -523,7 +529,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	l.MatchID = id[:24]
-	match, err := newMatch(l.MatchID, engine, slots, s.repo, s.objects, matchOptions{PauseEnabled: l.PauseEnabled, LiveObservers: l.LiveObservers, Rated: l.Rated, Lobby: &sim.ReplayLobby{Name: l.Name, Mode: l.Mode, Private: l.Private, LiveObservers: l.LiveObservers, PauseEnabled: l.PauseEnabled, Rated: l.Rated}})
+	match, err := newMatch(l.MatchID, engine, slots, s.repo, s.objects, matchOptions{StateUpdatesPerSecond: s.cfg.StateUpdatesPerSecond, RuntimeMetricsEnabled: s.cfg.LoadProfile == Loopback500LoadProfile, PauseEnabled: l.PauseEnabled, LiveObservers: l.LiveObservers, Rated: l.Rated, Lobby: &sim.ReplayLobby{Name: l.Name, Mode: l.Mode, Private: l.Private, LiveObservers: l.LiveObservers, PauseEnabled: l.PauseEnabled, Rated: l.Rated}})
 	if err != nil {
 		l.MatchID = ""
 		fail(w, 500, "match_persistence_failed", "Could not create a durable match record.")

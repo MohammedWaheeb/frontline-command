@@ -98,6 +98,12 @@ func (e *Engine) prepareAircraftReturns() {
 		if v.HP <= 0 || !e.isAircraft(v) || e.role(v) == "support_plane" || e.defeated(v.Owner) {
 			continue
 		}
+		if v.Type == "IR.shahed" {
+			e.prepareShahedCommitment(v)
+			if v.ShahedCommitted {
+				continue
+			}
+		}
 		if v.EmergencyTakeoffUntil > e.state.Tick {
 			continue
 		}
@@ -128,6 +134,20 @@ func (e *Engine) updateAircraft() {
 			continue
 		}
 		if v.HP <= 0 || !e.isAircraft(v) || e.defeated(v.Owner) {
+			continue
+		}
+		if v.Type == "IR.shahed" && v.ShahedCommitted {
+			// A committed payload is the live aircraft itself. It never services,
+			// recalls or obtains a replacement home; ordinary cleanup frees its
+			// retained reservation when impact, incoming fire or endurance ends it.
+			if v.Endurance > 0 {
+				v.Endurance--
+			}
+			if v.Endurance == 0 && distance(v.Position, v.LastTarget) > 180 {
+				e.emit("aircraft_endurance_lost", v.Owner, v.ID, v.Position, "owner", 0)
+				v.HP = 0
+			}
+			v.State = "flying"
 			continue
 		}
 		if v.EmergencyTakeoffUntil > e.state.Tick {
@@ -268,4 +288,44 @@ func (e *Engine) returnForService(v *Entity) {
 	// One internal Return and one emergency Unload may prefix the ten explicit
 	// user orders. They never drop the user's last queued command.
 	v.Orders = append(v.Orders, orders...)
+}
+
+// Commitment is earned only from an active explicit attack, not from automatic
+// target choice. A queued attack rechecks current sight when it becomes active.
+// LastTarget persists the point; neither target identity nor later fog can move it.
+func (e *Engine) prepareShahedCommitment(v *Entity) {
+	if v.Type != "IR.shahed" || v.ShahedCommitted || v.HP <= 0 || !v.Active(e.Tick()) || v.Ammo != 1 || v.ServiceWork > 0 || v.EmergencyTakeoffUntil > e.Tick() || len(v.Orders) == 0 {
+		return
+	}
+	point := Vec{}
+	switch order := v.Orders[0]; order.Kind {
+	case "attack":
+		target := e.entity(order.Target)
+		if target == nil || !e.canSeeEntity(v.Owner, target) || target.Owner == 0 || e.armor(target) == "air" || !e.canAttack(v, target) {
+			e.completeMovementOrder(v)
+			return
+		}
+		point = target.Position
+	case "force_fire":
+		point = order.Position
+		if !e.state.Map.InBounds(point) || !e.canSee(v.Owner, point) {
+			e.completeMovementOrder(v)
+			return
+		}
+	default:
+		return
+	}
+	if v.Landed && !e.clear(v.Position, e.radius(v), v.ID, true, true) {
+		v.State = "takeoff_blocked"
+		return
+	}
+	e.assign(v, Order{Kind: "move", Position: point})
+	v.ShahedCommitted = true
+	v.LastTarget = point
+	v.Landed = false
+	v.Ammo = 0
+	v.ServiceWork = 0
+	v.RepeatSortie = false
+	v.State = "flying"
+	e.emit("shahed_committed", v.Owner, v.ID, point, "owner", 0)
 }

@@ -139,7 +139,7 @@ func (s *Server) createScenarioLobby(w http.ResponseWriter, r *http.Request) {
 	if !s.admitProfile(w, p.ID, "") {
 		return
 	}
-	if len(s.lobbies) >= 64 {
+	if len(s.lobbies) >= s.lobbyLimit() {
 		fail(w, 429, "lobby_limit", "The local host is full.")
 		return
 	}
@@ -313,7 +313,7 @@ func (s *Server) resumeScenarioLobby(w http.ResponseWriter, r *http.Request) {
 	if !s.admitProfile(w, p.ID, "") {
 		return
 	}
-	if len(s.lobbies) >= 64 {
+	if len(s.lobbies) >= s.lobbyLimit() {
 		fail(w, 429, "lobby_limit", "The local host is full.")
 		return
 	}

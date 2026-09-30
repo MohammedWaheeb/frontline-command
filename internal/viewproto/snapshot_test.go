@@ -45,6 +45,18 @@ func fill(value reflect.Value, rng *rand.Rand, mode int) {
 		for i := 0; i < value.NumField(); i++ {
 			fill(value.Field(i), rng, mode)
 		}
+		if value.Type() == reflect.TypeOf(sim.OrderResult{}) {
+			// AppliedCount is a validated nonnegative execution count, unlike
+			// signed presentation scalars. Keep randomized receipt fixtures legal
+			// for the independent protobuf JSON oracle's uint32 wire field.
+			eligible := value.FieldByName("EligibleEntities").Len()
+			count := value.FieldByName("AppliedCount")
+			if count.Int() < 0 {
+				count.SetInt(0)
+			} else if count.Int() > int64(eligible) {
+				count.SetInt(int64(eligible))
+			}
+		}
 	case reflect.Pointer:
 		if mode == 2 && rng.Intn(3) == 0 {
 			return
@@ -124,6 +136,11 @@ func TestSnapshotMatchesPriorJSONContract(t *testing.T) {
 		}
 	}
 	for index, view := range cases {
+		for _, result := range view.Results {
+			if result.AppliedCount < 0 || int(result.AppliedCount) > len(result.EligibleEntities) {
+				t.Fatalf("case %d has invalid receipt fixture count %d for %d eligible IDs", index, result.AppliedCount, len(result.EligibleEntities))
+			}
+		}
 		want, got := jsonSnapshot(t, view), Snapshot(view)
 		if !proto.Equal(got, want) || !bytes.Equal(wire(t, got), wire(t, want)) {
 			t.Fatalf("case %d differs\ngot %s\nwant %s", index, got, want)

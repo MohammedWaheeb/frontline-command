@@ -1,5 +1,19 @@
 package sim
 
+// Shared sight may reveal an allied economy or moving scenario worker. Its
+// public team and defeat status suffice for defense; private orders do not.
+func aiActiveAlly(p *Player, view View, owner PlayerID) bool {
+	if owner == 0 {
+		return false
+	}
+	for _, player := range view.Players {
+		if player.ID == owner {
+			return !player.Defeated && player.Team == p.Team
+		}
+	}
+	return false
+}
+
 // Defeat and team membership are public PlayerSummary information. Never infer
 // an opponent's status from hidden buildings, HP, resources or private orders.
 func aiActiveOpponent(p *Player, view View, owner PlayerID) bool {

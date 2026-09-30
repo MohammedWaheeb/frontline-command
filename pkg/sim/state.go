@@ -3,9 +3,9 @@ package sim
 
 import "frontlinecommand/pkg/content"
 
-// Proposed isolated compatibility boundary for operational service parking and
-// authoritative combat feedback. Older saves/replays are never relabeled.
-const Version = "0.3.4"
+// Compatibility boundary for custom opening funds, current content and the
+// one-way Shahed commitment. Older artifacts stay exportable and are not relabeled.
+const Version = "0.3.7"
 const TickRate uint32 = 20
 const Scale int64 = 1000
 
@@ -35,6 +35,9 @@ type Config struct {
 	Players []PlayerConfig `json:"players"`
 	Seed    uint64         `json:"seed"`
 	Ruleset string         `json:"ruleset"`
+	// StartingCredits is integer milliMoney. Zero keeps the standard opening;
+	// a different amount requires the custom-v1 ruleset.
+	StartingCredits int64 `json:"starting_credits,omitempty"`
 }
 type Cooldown struct {
 	ID    string `json:"id"`
@@ -51,18 +54,19 @@ type Memory struct {
 	Seen            Tick     `json:"seen"`
 }
 type Player struct {
-	SurrenderVote bool            `json:"surrender_vote"`
-	AIKnowledge   []AIObservation `json:"ai_knowledge"`
-	AIFields      []FieldView     `json:"ai_fields"`
-	AIGoal        Vec             `json:"ai_goal"`
-	AIIntent      string          `json:"ai_intent"`
-	KnownRubble   []uint32        `json:"known_rubble"`
-	CommandWindow Tick            `json:"command_window"`
-	CommandCount  uint32          `json:"command_count"`
-	PingWindow    Tick            `json:"ping_window"`
-	PingCount     uint32          `json:"ping_count"`
-	SalvageTotal  int64           `json:"salvage_total"`
-	SalvageIncome []SalvageIncome `json:"salvage_income"`
+	SurrenderVote bool               `json:"surrender_vote"`
+	AIKnowledge   []AIObservation    `json:"ai_knowledge"`
+	AIFields      []FieldView        `json:"ai_fields"`
+	KnownFields   []FieldObservation `json:"known_fields"`
+	AIGoal        Vec                `json:"ai_goal"`
+	AIIntent      string             `json:"ai_intent"`
+	KnownRubble   []uint32           `json:"known_rubble"`
+	CommandWindow Tick               `json:"command_window"`
+	CommandCount  uint32             `json:"command_count"`
+	PingWindow    Tick               `json:"ping_window"`
+	PingCount     uint32             `json:"ping_count"`
+	SalvageTotal  int64              `json:"salvage_total"`
+	SalvageIncome []SalvageIncome    `json:"salvage_income"`
 	PlayerConfig
 	Credits        int64      `json:"credits"`
 	Energy         int64      `json:"energy"`
@@ -104,6 +108,8 @@ type Scheduled struct {
 	Orders   []Order  `json:"orders"`
 }
 type OrderResult struct {
+	EligibleEntities []ID     `json:"eligible_entities,omitempty"`
+	AppliedCount     int32    `json:"applied_count,omitempty"`
 	Player   PlayerID `json:"player"`
 	Sequence uint32   `json:"sequence"`
 	Index    int32    `json:"index"`
@@ -141,6 +147,8 @@ type Entity struct {
 	Tag                   string              `json:"tag,omitempty"`
 	ID                    ID                  `json:"id"`
 	Type                  string              `json:"type"`
+	ShahedCommitted       bool                `json:"shahed_committed,omitempty"`
+	ReconObserve          bool                `json:"recon_observe,omitempty"`
 	Owner                 PlayerID            `json:"owner"`
 	Position              Vec                 `json:"position"`
 	HP                    int64               `json:"hp"`
@@ -148,6 +156,7 @@ type Entity struct {
 	Paid                  int64               `json:"paid"`
 	Building              bool                `json:"building"`
 	Complete              bool                `json:"complete"`
+	CompletedAt           Tick                `json:"completed_at,omitempty"`
 	Enabled               bool                `json:"enabled"`
 	DisabledUntil         Tick                `json:"disabled_until"`
 	ResistanceUntil       Tick                `json:"resistance_until"`
@@ -184,6 +193,11 @@ type Entity struct {
 	Cargo                 int64               `json:"cargo"`
 	Field                 uint32              `json:"field"`
 	Depot                 ID                  `json:"depot"`
+	PinnedField           uint32              `json:"pinned_field"`
+	PinnedDepot           ID                  `json:"pinned_depot"`
+	RetreatWhenAttacked   bool                `json:"retreat_when_attacked"`
+	HaulerRetreating      bool                `json:"retreating"`
+	DepotRetryAt          Tick                `json:"depot_retry_at"`
 	TaskUntil             Tick                `json:"task_until"`
 	Home                  ID                  `json:"home"`
 	Landing               *LandingReservation `json:"landing,omitempty"`
@@ -288,6 +302,9 @@ type OriginalTile struct {
 }
 
 type State struct {
+	// StartingCredits retains only a nonstandard opening amount for restart.
+	// Current player balances may differ after ordinary spending or income.
+	StartingCredits    int64               `json:"starting_credits,omitempty"`
 	Telemetry          *MatchTelemetry     `json:"telemetry,omitempty"`
 	SpawnPlayers       []PlayerID          `json:"spawn_players"`
 	PracticeReveal     bool                `json:"practice_reveal"`
@@ -370,6 +387,8 @@ type Engine struct {
 	navCache             map[int32][]bool
 	fogCache             map[ID]fogSource
 	harvestParking       map[uint32]harvestParkingCache
+	haulerRoutingTick    Tick
+	haulerRouting        map[haulerRoutingKey]*haulerRoutingKnowledge
 
 	navigationSearch navigationSearch
 }

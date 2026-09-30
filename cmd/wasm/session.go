@@ -64,6 +64,9 @@ type CreateConfig struct {
 	Players         []sim.PlayerConfig `json:"players"`
 	Seed            uint64             `json:"seed"`
 	Ruleset         string             `json:"ruleset,omitempty"`
+	// StartingCredits is optional WHOLE credits. The adapter converts a
+	// nondefault custom opening to engine milliMoney exactly once.
+	StartingCredits *int64 `json:"starting_credits,omitempty"`
 	// SkipCountdown is for automated tests only; it advances through the
 	// engine's own countdown ticks rather than editing state.
 	SkipCountdown bool `json:"skip_countdown,omitempty"`
@@ -80,11 +83,15 @@ type Info struct {
 	ReplayStart sim.Tick         `json:"replay_start"`
 	ReplayEnd   sim.Tick         `json:"replay_end"`
 	ReplayLobby *sim.ReplayLobby `json:"replay_lobby,omitempty"`
+	// StartingCredits is the original eligible skirmish opening in WHOLE
+	// credits, independent of current balances. Prescribed budgets are omitted.
+	StartingCredits *int64 `json:"starting_credits,omitempty"`
 }
 
 type pendingFrame struct {
 	events  []sim.Event
 	results []sim.OrderResult
+	known   []sim.ID
 }
 
 // Session owns exactly one engine. It is not safe for concurrent use; the
@@ -134,6 +141,38 @@ func (s *Session) Create(config []byte) (Info, error) {
 	if d.Decode(new(any)) != io.EOF {
 		return Info{}, fail("invalid_config", "Match configuration has trailing data.", true)
 	}
+	// The typed decoder accepts null for a pointer; an explicit user option
+	// must be an integer, so distinguish null from an omitted key only here.
+	if cfg.StartingCredits == nil {
+		var option struct {
+			StartingCredits json.RawMessage `json:"starting_credits"`
+		}
+		if err := json.Unmarshal(config, &option); err != nil {
+			return Info{}, fail("invalid_config", "Match configuration is malformed: "+err.Error(), true)
+		}
+		if bytes.Equal(bytes.TrimSpace(option.StartingCredits), []byte("null")) {
+			return Info{}, fail("invalid_config", "Starting credits must be a whole-credit amount, not null.", true)
+		}
+	}
+	startingCredits := int64(0)
+	if cfg.StartingCredits != nil {
+		if cfg.Mission != nil || cfg.TutorialFaction != "" || cfg.Ruleset == "practice-v1" {
+			return Info{}, fail("invalid_config", "Starting credits cannot override mission, tutorial, or practice budgets.", true)
+		}
+		whole := *cfg.StartingCredits
+		if whole < 1 || whole > sim.MaxStartingCredits/sim.Scale {
+			return Info{}, fail("invalid_config", "Starting credits must be a whole amount from 1 to 1000000.", true)
+		}
+		if whole != sim.DefaultStartingCredits/sim.Scale {
+			if cfg.Ruleset != "custom-v1" {
+				return Info{}, fail("invalid_config", "Custom starting credits require custom-v1.", true)
+			}
+			startingCredits = whole * sim.Scale
+		}
+	}
+	if cfg.Mission == nil && cfg.TutorialFaction == "" && cfg.Ruleset == "custom-v1" && startingCredits == 0 {
+		cfg.Ruleset = "standard-v2"
+	}
 	var e *sim.Engine
 	var err error
 	if cfg.Mission != nil {
@@ -157,7 +196,7 @@ func (s *Session) Create(config []byte) (Info, error) {
 		if cfg.TutorialFaction != "" {
 			return Info{}, fail("invalid_config", "Tutorial faction selection requires a tutorial.", true)
 		}
-		e, err = sim.New(s.catalog, sim.Config{Map: cfg.Map, Players: cfg.Players, Seed: cfg.Seed, Ruleset: cfg.Ruleset})
+		e, err = sim.New(s.catalog, sim.Config{Map: cfg.Map, Players: cfg.Players, Seed: cfg.Seed, Ruleset: cfg.Ruleset, StartingCredits: startingCredits})
 	}
 	if err != nil {
 		return Info{}, fail("invalid_config", err.Error(), true)
@@ -205,6 +244,10 @@ func (s *Session) Info() Info {
 		return Info{Adapter: AdapterVersion, Local: []sim.PlayerID{}}
 	}
 	info := Info{Adapter: AdapterVersion, Metadata: s.engine.Metadata(), Tick: s.engine.Tick(), Local: append([]sim.PlayerID(nil), s.local...), Finished: s.engine.Outcome().Finished}
+	if milli, eligible := s.engine.StartingCredits(); eligible {
+		whole := milli / sim.Scale
+		info.StartingCredits = &whole
+	}
 	if s.playback != nil {
 		info.Replay = true
 		info.ReplayStart = s.replayStart
@@ -311,6 +354,10 @@ func (s *Session) View(player sim.PlayerID) ([]byte, error) {
 	}
 	f := s.pending[player]
 	v.Events, v.Results = f.events, f.results
+	f.known = make([]sim.ID, len(v.Entities))
+	for i, entity := range v.Entities {
+		f.known[i] = entity.ID
+	}
 	f.events, f.results = nil, nil
 	snap, err := snapshot(v)
 	if err != nil {

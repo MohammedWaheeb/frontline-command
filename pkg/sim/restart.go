@@ -23,7 +23,7 @@ func (e *Engine) Restart() (*Engine, error) {
 		}
 		return restarted, nil
 	}
-	config := Config{Map: e.MapBlueprint(), Seed: e.state.Metadata.Seed, Ruleset: e.state.Metadata.Ruleset}
+	config := Config{Map: e.MapBlueprint(), Seed: e.state.Metadata.Seed, Ruleset: e.state.Metadata.Ruleset, StartingCredits: e.state.StartingCredits}
 	for _, id := range e.state.SpawnPlayers {
 		config.Players = append(config.Players, e.player(id).PlayerConfig)
 	}

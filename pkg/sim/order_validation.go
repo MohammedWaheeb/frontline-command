@@ -2,10 +2,12 @@ package sim
 
 // The real executor and independent advice probes share these read-only checks.
 func (e *Engine) validateResume(player PlayerID, v, target *Entity) string {
-	if e.role(v) != "rig" || target == nil || target.Owner != player || !target.Building || target.Complete {
+	if target == nil || target.Owner != player || !target.Building || target.Complete || !e.constructionBuilder(v, target.Type) {
 		return "invalid_foundation"
 	}
-	if builder := e.entity(target.Builder); builder != nil && builder.HP > 0 && len(builder.Orders) > 0 && builder.Orders[0].Target == target.ID {
+	// Short reroutes retain the build reservation; confirmed route failure
+	// releases it. An unrelated order at the same target is not construction.
+	if builder := e.entity(target.Builder); builder != nil && builder.HP > 0 && !builder.Blocked && len(builder.Orders) > 0 && builder.Orders[0].Kind == "build" && builder.Orders[0].Target == target.ID {
 		return "builder_assigned"
 	}
 	return "ok"
@@ -13,6 +15,9 @@ func (e *Engine) validateResume(player PlayerID, v, target *Entity) string {
 func (e *Engine) validateMobileOrder(player PlayerID, o Order, selected []*Entity) string {
 	if code := e.validateMobileSources(o, selected); code != "ok" {
 		return code
+	}
+	if o.Kind == "gather_depot" || o.Kind == "retreat_when_attacked" {
+		return e.validateHaulerControl(player, selected, o)
 	}
 	for _, v := range selected {
 		switch o.Kind {
@@ -39,12 +44,19 @@ func (e *Engine) validateMobileOrder(player PlayerID, o Order, selected []*Entit
 				return "illegal_target_layer"
 			}
 		case "force_fire":
-			w, ok := e.weapon(v)
-			if !ok || (w.Kind != "shell" && w.Kind != "cannon") {
-				return "cannot_force_fire"
-			}
-			if !e.explored(player, o.Position) {
-				return "unexplored_target"
+			if v.Type == "IR.shahed" {
+				// A one-way point strike earns its fixed location from current sight.
+				if !e.canSee(player, o.Position) {
+					return "target_not_visible"
+				}
+			} else {
+				w, ok := e.weapon(v)
+				if !ok || (w.Kind != "shell" && w.Kind != "cannon") {
+					return "cannot_force_fire"
+				}
+				if !e.explored(player, o.Position) {
+					return "unexplored_target"
+				}
 			}
 		case "gather":
 			if e.role(v) != "hauler" {
@@ -52,7 +64,7 @@ func (e *Engine) validateMobileOrder(player PlayerID, o Order, selected []*Entit
 			}
 			if o.Target != 0 {
 				f := e.field(uint32(o.Target))
-				if f == nil || !e.explored(player, f.Position) {
+				if f == nil || e.knownField(e.player(player), uint32(o.Target)) == nil {
 					return "unknown_field"
 				}
 			}
@@ -98,6 +110,14 @@ func (e *Engine) validateMobileOrder(player PlayerID, o Order, selected []*Entit
 
 func (e *Engine) validateMobileSources(o Order, selected []*Entity) string {
 	for _, v := range selected {
+		if v.ShahedCommitted {
+			return "shahed_committed"
+		}
+		// This passive sensor cannot move. Effective speed is not a gate:
+		// deployed or channeling ordinary units still accept movement orders.
+		if v.Type == "IR.beacon" && o.Kind != "stop" && o.Kind != "hold" {
+			return "immobile_unit"
+		}
 		if v.Container != 0 && o.Kind != "unload" {
 			return "unit_embarked"
 		}

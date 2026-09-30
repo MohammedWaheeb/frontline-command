@@ -24,7 +24,7 @@ type serviceParkingMetrics struct {
 
 func serviceParkingRadius(typ string) int32 {
 	switch typ {
-	case "IR.fighter", "IR.gunship":
+	case "IR.fighter", "IR.gunship", "IR.shahed":
 		return 1000
 	case "IR.isr", "SA.fighter", "US.fighter":
 		return 1200
@@ -124,8 +124,9 @@ func (e *Engine) updateServiceParking() {
 
 // Ground obstacle geometry is deliberately separate from radius()/edgeDistance.
 // Emergency grounded aircraft keep their area even after losing Home.
+// Passive beacons retain their combat radius without obstructing locomotion.
 func (e *Engine) groundObstacle(v *Entity) (Vec, int32, bool) {
-	if v.Building || v.HP <= 0 || v.Container != 0 {
+	if v.Building || v.HP <= 0 || v.Container != 0 || v.Type == "IR.beacon" {
 		return Vec{}, 0, false
 	}
 	// The catalog is immutable. Reuse this lookup for classification and

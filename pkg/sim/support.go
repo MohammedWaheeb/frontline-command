@@ -79,6 +79,9 @@ func (e *Engine) updateSupport() {
 			}
 			rangeLimit := int32(3000)
 			role := e.role(source)
+			if len(source.Orders) > 0 && source.Orders[0].Kind == "repair" && source.Orders[0].Target != target.ID {
+				continue
+			}
 			if role == "engineer" {
 				rangeLimit = 1000
 				if len(source.Orders) == 0 || source.Orders[0].Kind != "repair" || source.Orders[0].Target != target.ID {
@@ -150,13 +153,18 @@ func (e *Engine) updateSupport() {
 		}
 		o := v.Orders[0]
 		switch o.Kind {
+		case "repair":
+			target := e.entity(o.Target)
+			if target == nil || target.HP <= 0 || target.HP >= target.MaxHP || e.repairRate(v, target) == 0 {
+				e.completeMovementOrder(v)
+			}
 		case "salvage":
 			if crate := e.salvage(o.Target); crate != nil && distance(v.Position, crate.Position) <= 1200 {
 				e.beginChannel(v, "salvage", crate.ID, seconds(2))
 			}
 		case "capture":
 			if !e.validCapture(v, o.Target) {
-				v.Orders = nil
+				e.completeMovementOrder(v)
 				e.emit("capture_interrupted", v.Owner, v.ID, v.Position, "owner", 0)
 				continue
 			}
@@ -178,7 +186,7 @@ func (e *Engine) updateSupport() {
 		case "board":
 			target := e.entity(o.Target)
 			if !e.canBoard(v, target) {
-				v.Orders = nil
+				e.completeMovementOrder(v)
 				continue
 			}
 			if e.boardingDistance(v, target) <= 1000 && target.LastPosition == target.Position {
@@ -236,7 +244,29 @@ func (e *Engine) validCapture(engineer *Entity, target ID) bool {
 	}
 	return false
 }
+
+// Unit-local channels retain their original targeting rules until completion.
+// Keep acceptance and continuation on the same predicate as ownership, power,
+// resistance, distance, or an aircraft's target layer changes during the cast.
+func (e *Engine) validDesignation(v, target *Entity) bool {
+	return v.Type == "US.recon" && target != nil && !e.defeated(target.Owner) && !e.allied(v.Owner, target.Owner) && target.HP > 0 && (e.armor(target) == "light" || e.armor(target) == "heavy" || target.Building) && e.canSeeEntity(v.Owner, target) && e.edgeDistance(v, target) <= 7000
+}
+
+func (e *Engine) validSabotage(v, target *Entity) bool {
+	if e.role(v) != "elite" || target == nil || !target.Building || e.defeated(target.Owner) || e.allied(v.Owner, target.Owner) || !e.canSeeEntity(v.Owner, target) || e.edgeDistance(v, target) > 1000 || !target.Active(e.state.Tick) || target.ResistanceUntil > e.state.Tick {
+		return false
+	}
+	switch e.role(target) {
+	case "barracks", "factory", "airfield", "drone_hub", "workshop_air", "radar", "tech":
+		return true
+	}
+	return false
+}
+
 func (e *Engine) beginChannel(v *Entity, kind string, target ID, duration Tick) {
+	if kind != "observe" {
+		e.cancelReconObserve(v)
+	}
 	v.Channel = kind
 	v.ChannelTarget = target
 	v.ChannelDuration = duration
@@ -252,6 +282,9 @@ func (e *Engine) beginChannel(v *Entity, kind string, target ID, duration Tick) 
 }
 func (e *Engine) interruptChannel(v *Entity) {
 	kind := v.Channel
+	if kind == "observe" {
+		e.cancelReconObserve(v)
+	}
 	if kind == "sabotage" {
 		setCooldown(&v.Cooldowns, "sabotage", e.state.Tick+seconds(10))
 	}
@@ -274,6 +307,11 @@ func (e *Engine) updateChannel(v *Entity) {
 		return
 	}
 	switch kind {
+	case "observe":
+		if !e.validReconObserveChannel(v) {
+			e.interruptChannel(v)
+			return
+		}
 	case "salvage":
 		if crate := e.salvage(v.ChannelTarget); crate == nil || distance(v.Position, crate.Position) > 1500 {
 			e.interruptChannel(v)
@@ -289,13 +327,18 @@ func (e *Engine) updateChannel(v *Entity) {
 			e.interruptChannel(v)
 			return
 		}
-	case "sabotage", "designate":
-		if target == nil || target.HP <= 0 || e.defeated(target.Owner) || !e.canSeeEntity(v.Owner, target) || kind == "sabotage" && e.edgeDistance(v, target) > 1000 {
+	case "sabotage":
+		if !e.validSabotage(v, target) {
+			e.interruptChannel(v)
+			return
+		}
+	case "designate":
+		if !e.validDesignation(v, target) {
 			e.interruptChannel(v)
 			return
 		}
 	case "transit":
-		if target == nil || target.HP <= 0 || target.Owner != v.Owner || target.LastDamage != v.ChannelTargetDamage || !e.canSee(v.Owner, target.Position) {
+		if !v.Active(e.state.Tick) || target == nil || !target.Active(e.state.Tick) || target.Owner != v.Owner || target.LastDamage != v.ChannelTargetDamage || !e.canSee(v.Owner, target.Position) {
 			e.interruptChannel(v)
 			return
 		}
@@ -304,6 +347,8 @@ func (e *Engine) updateChannel(v *Entity) {
 		return
 	}
 	switch kind {
+	case "observe":
+		e.completeReconObserve(v)
 	case "salvage":
 		e.collectSalvage(v)
 	case "sell":

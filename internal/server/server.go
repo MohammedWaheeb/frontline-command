@@ -24,6 +24,12 @@ import (
 )
 
 type Config struct {
+	// LoadProfile is empty for normal hosting, or Loopback500LoadProfile for local capacity measurements.
+	LoadProfile string
+	// StateUpdatesPerSecond selects full state publication, independently of the 20 Hz simulation.
+	StateUpdatesPerSecond int
+	// ListenAddress proves the intended literal loopback bind when the load profile is enabled.
+	ListenAddress string
 	RankedMapsFile string
 	MissionDir     string
 	DataDir        string
@@ -81,6 +87,7 @@ type Server struct {
 	missions      map[string]content.Mission
 	queue         map[string]*queueEntry
 	dataLock      *flock.Flock
+	loadSockets   chan struct{}
 	admission     admissionControl
 	cfg           Config
 	catalog       *content.Catalog
@@ -94,6 +101,11 @@ type Server struct {
 }
 
 func New(cfg Config) (*Server, error) {
+	if cfg.StateUpdatesPerSecond == 0 { cfg.StateUpdatesPerSecond = 10 }
+	if cfg.StateUpdatesPerSecond != 10 && cfg.StateUpdatesPerSecond != 20 { return nil, errors.New("state updates must be 10 or 20 per second") }
+	if err := validateLoadProfile(cfg); err != nil {
+		return nil, err
+	}
 	if cfg.DataDir == "" {
 		cfg.DataDir = ".local"
 	}
@@ -129,6 +141,10 @@ func New(cfg Config) (*Server, error) {
 		return nil, err
 	}
 	s := &Server{dataLock: lock, cfg: cfg, catalog: c, repo: repo, objects: storage.Files{Root: filepath.Join(cfg.DataDir, "objects")}, mux: http.NewServeMux(), maps: map[string]content.Map{}, lobbies: map[string]*Lobby{}, matches: map[string]*liveMatch{}}
+	if cfg.LoadProfile == Loopback500LoadProfile {
+		s.loadSockets = make(chan struct{}, 500)
+		s.admission.loadProfile = true
+	}
 	err = filepath.WalkDir(cfg.MapDir, func(path string, d fs.DirEntry, err error) error {
 		if errors.Is(err, os.ErrNotExist) {
 			return nil
@@ -190,6 +206,10 @@ func (s *Server) Close() error {
 	return errors.Join(s.repo.Close(), s.dataLock.Unlock())
 }
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if s.cfg.LoadProfile == Loopback500LoadProfile && !loopbackRemote(r.RemoteAddr) {
+		fail(w, http.StatusForbidden, "load_profile_loopback_only", "The measurement profile accepts loopback clients only.")
+		return
+	}
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.Header().Set("Referrer-Policy", "same-origin")
 	w.Header().Set("Cache-Control", "no-store")
@@ -268,8 +288,9 @@ func (s *Server) routes() {
 	s.socialRoutes()
 	s.moderationRoutes()
 	s.lobbyServiceRoutes()
+	if s.cfg.LoadProfile == Loopback500LoadProfile { s.mux.HandleFunc("GET /api/v1/load/metrics", s.loadMetrics) }
 	s.mux.HandleFunc("GET /api/v1/health", func(w http.ResponseWriter, r *http.Request) {
-		respond(w, 200, map[string]any{"status": "ok", "simulation": sim.Version, "protocol": 1, "content_hash": s.catalog.Hash(), "tick_rate": 20, "local": true})
+		respond(w, 200, map[string]any{"status": "ok", "simulation": sim.Version, "protocol": 1, "content_hash": s.catalog.Hash(), "tick_rate": 20, "local": true, "load_profile": s.cfg.LoadProfile, "state_updates_hz": s.cfg.StateUpdatesPerSecond, "max_lobbies": s.lobbyLimit(), "max_clients": s.loadClientLimit()})
 	})
 	s.mux.HandleFunc("GET /api/v1/content", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -328,7 +349,11 @@ func (s *Server) routes() {
 	s.mux.HandleFunc("PUT /api/v1/saves/{id}", s.putSave)
 	s.mux.HandleFunc("DELETE /api/v1/saves/{id}", s.deleteSave)
 	if s.cfg.StaticDir != "" {
-		s.mux.Handle("GET /", http.FileServer(http.Dir(s.cfg.StaticDir)))
+		files := http.FileServer(http.Dir(s.cfg.StaticDir))
+		s.mux.Handle("GET /", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Cache-Control", "no-cache")
+			files.ServeHTTP(w, r)
+		}))
 	}
 }
 func (s *Server) loadMap(ctx context.Context, id string) (content.Map, error) {
@@ -442,6 +467,11 @@ func (s *Server) putMap(w http.ResponseWriter, r *http.Request) {
 	respond(w, 201, record)
 }
 func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
+	if !s.reserveLoadSocket() {
+		fail(w, http.StatusTooManyRequests, "load_client_limit", "The measurement profile permits at most 500 simultaneous clients.")
+		return
+	}
+	defer s.releaseLoadSocket()
 	s.mu.Lock()
 	m := s.matches[r.PathValue("id")]
 	s.mu.Unlock()
@@ -482,17 +512,20 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	p := &peer{player: slot.Player, out: make(chan []byte, 32), done: make(chan struct{})}
+	// A canceled connect call can remain queued in the actor. Close the peer
+	// before cleanup so a later admission cannot install it without a worker.
+	defer func() {
+		p.close()
+		dctx, dcancel := context.WithTimeout(context.Background(), time.Second)
+		defer dcancel()
+		m.call(dctx, matchRequest{kind: "disconnect", player: slot.Player, peer: p})
+	}()
 	reply := m.call(ctx, matchRequest{kind: "connect", player: slot.Player, peer: p})
 	if reply.err != nil {
 		data, _ := proto.Marshal(&pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: reply.err.Error(), Message: "Reconnect is unavailable; an eliminated player may join the delayed observer feed."}}})
 		_ = conn.Write(ctx, websocket.MessageBinary, data)
 		return
 	}
-	defer func() {
-		dctx, dcancel := context.WithTimeout(context.Background(), time.Second)
-		defer dcancel()
-		m.call(dctx, matchRequest{kind: "disconnect", player: slot.Player, peer: p})
-	}()
 	writerDone := make(chan struct{})
 	go func() {
 		defer close(writerDone)

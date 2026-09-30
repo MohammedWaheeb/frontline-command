@@ -5,7 +5,12 @@ package sim
 // selection before any reservation changes; active paid jobs keep their slots.
 func (e *Engine) validateRebase(player PlayerID, o Order, selected []*Entity) string {
 	if o.Queued {
-		return "rebase_not_queueable"
+		// Returning to an already reserved home changes no reservation.
+		for _, aircraft := range selected {
+			if aircraft.Home != o.Target {
+				return "rebase_not_queueable"
+			}
+		}
 	}
 	home := e.entity(o.Target)
 	if home == nil || home.Owner != player {

@@ -14,7 +14,7 @@ func TestBaseCatalogMatchesApprovedRoster(t *testing.T) {
 	if e = json.Unmarshal(c.JSON(), &p); e != nil {
 		t.Fatal(e)
 	}
-	if len(p.Units) != 75 || len(p.Weapons) != 28 || len(p.Buildings) != 19 || len(p.Upgrades) != 10 {
+	if len(p.Units) != 76 || len(p.Weapons) != 29 || len(p.Buildings) != 20 || len(p.Upgrades) != 10 {
 		t.Fatal("incomplete base catalog")
 	}
 	counts := map[string]int{}
@@ -26,6 +26,9 @@ func TestBaseCatalogMatchesApprovedRoster(t *testing.T) {
 	}
 	for _, f := range []string{"US", "IR", "SY", "SA"} {
 		want := 19
+		if f == "IR" {
+			want = 20
+		}
 		if f == "SY" {
 			want = 18
 		}
@@ -65,7 +68,7 @@ func TestPresentationCatalogIncludesAuthoritativeObjectDimensions(t *testing.T) 
 	if err := json.Unmarshal(c.PresentationJSON(), &presentation); err != nil {
 		t.Fatal(err)
 	}
-	if len(presentation.Units) != 75 || len(presentation.Objects) != len(ObjectClasses()) {
+	if len(presentation.Units) != 76 || len(presentation.Objects) != len(ObjectClasses()) {
 		t.Fatal("presentation catalog missing rules")
 	}
 	for _, object := range presentation.Objects {

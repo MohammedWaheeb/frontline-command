@@ -139,10 +139,13 @@ func (e *Engine) computeVisibility() {
 	}
 }
 func (e *Engine) updateFog() {
+	e.reconcileHaulerDepots()
 	e.computeVisibility()
+	e.haulerRouting = nil
 	for _, p := range e.state.Players {
 		fog := e.visible[p.ID]
 		e.observeRubble(p)
+		e.observeFields(p)
 		for i, v := range fog {
 			if v {
 				p.Explored[i] = true
@@ -258,6 +261,8 @@ type EconomyView struct {
 	Cooldowns      []Cooldown `json:"cooldowns"`
 }
 type EntityPrivate struct {
+	ShahedCommitted       bool          `json:"shahed_committed,omitempty"`
+	ReconObserve          bool          `json:"recon_observe,omitempty"`
 	Ranges                *EntityRanges `json:"ranges,omitempty"`
 	EmergencyTakeoffUntil Tick          `json:"emergency_takeoff_until"`
 	MissionOrigin         string        `json:"mission_origin,omitempty"`
@@ -279,6 +284,14 @@ type EntityPrivate struct {
 	Cooldowns             []Cooldown    `json:"cooldowns"`
 	Passengers            []ID          `json:"passengers"`
 	Container             ID            `json:"container"`
+	Field                 uint32        `json:"field"`
+	Depot                 ID            `json:"depot"`
+	PinnedField           uint32        `json:"pinned_field"`
+	PinnedDepot           ID            `json:"pinned_depot"`
+	RetreatWhenAttacked   bool          `json:"retreat_when_attacked"`
+	Retreating            bool          `json:"retreating"`
+	HarvestQueuePosition  int32         `json:"harvest_queue_position"`
+	HarvestQueueLength    int32         `json:"harvest_queue_length"`
 }
 type EntityView struct {
 	Effects         []StatusEffect `json:"effects"`
@@ -354,6 +367,7 @@ type View struct {
 	Entities    []EntityView         `json:"entities"`
 	Projectiles []ProjectileView     `json:"projectiles"`
 	Fields      []FieldView          `json:"fields"`
+	KnownFields []FieldObservation   `json:"known_fields"`
 	Stations    []StationView        `json:"stations"`
 	Explored    []bool               `json:"explored"`
 	Visible     []bool               `json:"visible"`
@@ -389,6 +403,7 @@ type ObjectiveView struct {
 	Required uint32 `json:"required"`
 }
 type MissionView struct {
+	PublicTasks    []MissionTaskView `json:"public_tasks,omitempty"`
 	Version        string          `json:"version"`
 	Convoys        []ConvoyState   `json:"convoys"`
 	ID             string          `json:"id"`
@@ -477,7 +492,9 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		}
 		s.Effects = e.visibleEffects(v)
 		if v.Owner == id {
+			queuePosition, queueLength := e.ownedHarvestQueue(v)
 			s.Private = &EntityPrivate{
+				ShahedCommitted: v.ShahedCommitted, ReconObserve: v.ReconObserve,
 				Ranges:      e.ownerRanges(v),
 				AmbushReady: e.ambushReady(v), RepeatSortie: v.RepeatSortie,
 				HP: v.HP, MaxHP: v.MaxHP, Jobs: append([]Job(nil), v.Jobs...),
@@ -486,6 +503,9 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 				Charges: v.Charges, ChargeWork: v.ChargeWork, ServiceWork: v.ServiceWork,
 				Experience: v.Experience, Cooldowns: append([]Cooldown(nil), v.Cooldowns...),
 				Passengers: append([]ID(nil), v.Passengers...), Container: v.Container,
+				Field: v.Field, Depot: v.Depot, PinnedField: v.PinnedField, PinnedDepot: v.PinnedDepot,
+				RetreatWhenAttacked: v.RetreatWhenAttacked, Retreating: v.HaulerRetreating,
+				HarvestQueuePosition: queuePosition, HarvestQueueLength: queueLength,
 			}
 			if v.Created == 0 && v.Tag != "" {
 				s.Private.MissionOrigin = origins[missionOriginKey{v.Tag, v.Type}]
@@ -498,6 +518,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 		}
 		view.Entities = append(view.Entities, s)
 	}
+	view.KnownFields = append([]FieldObservation(nil), p.KnownFields...)
 	for _, f := range e.state.Fields {
 		if e.canSee(id, f.Position) {
 			view.Fields = append(view.Fields, FieldView{f.ID, f.Position, f.Remaining})
@@ -558,6 +579,7 @@ func (e *Engine) PlayerView(id PlayerID) (View, bool) {
 	}
 	if ms := e.state.Mission; ms != nil {
 		view.Mission = &MissionView{ID: ms.Definition.ID, Version: ms.Definition.Version, Title: ms.Definition.Title, Difficulty: ms.Difficulty, Checkpoint: ms.Checkpoint, CheckpointTick: ms.CheckpointTick}
+		view.Mission.PublicTasks = e.publicMissionTasks(p.Team)
 		for _, convoy := range ms.Convoys {
 			copy := convoy
 			copy.Approved = append([]PlayerID(nil), convoy.Approved...)
@@ -609,6 +631,7 @@ func (e *Engine) PlayerFeedback(id PlayerID) (Feedback, bool) {
 	}
 	for _, r := range e.state.Results {
 		if r.Player == id {
+			r.EligibleEntities = append([]ID(nil), r.EligibleEntities...)
 			feedback.Results = append(feedback.Results, r)
 		}
 	}

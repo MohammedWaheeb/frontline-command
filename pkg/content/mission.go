@@ -23,6 +23,7 @@ type Mission struct {
 	Players          []MissionPlayer     `json:"players"`
 	Initial          []MissionSpawn      `json:"initial"`
 	Objectives       []MissionObjective  `json:"objectives"`
+	PublicTasks      []MissionPublicTask `json:"public_tasks,omitempty"`
 	Triggers         []MissionTrigger    `json:"triggers"`
 	Difficulty       []MissionDifficulty `json:"difficulty"`
 	Convoys          []MissionConvoy     `json:"convoys,omitempty"`
@@ -63,6 +64,18 @@ type MissionObjective struct {
 	Optional  bool             `json:"optional"`
 	Failure   bool             `json:"failure"`
 	Condition MissionCondition `json:"condition"`
+}
+// Public tasks are explicit briefing/marker declarations. They never derive
+// geometry, participants or actor identities from private goal conditions.
+type MissionPublicTask struct {
+	ID             string `json:"id"`
+	Objective      string `json:"objective"`
+	Kind           string `json:"kind"`
+	Marker         string `json:"marker"`
+	Region         string `json:"region"`
+	Team           uint32 `json:"team"`
+	MissionVersion string `json:"mission_version"`
+	MapVersion     string `json:"map_version"`
 }
 type MissionCondition struct {
 	Children  []MissionCondition `json:"children,omitempty"`
@@ -264,6 +277,9 @@ func (v Mission) Validate(c *Catalog, m Map) error {
 	for _, r := range m.Regions {
 		regions[r.ID] = true
 	}
+	if err := v.validatePublicTasks(m, humanTeam); err != nil {
+		return err
+	}
 	fields := map[uint32]bool{}
 	for _, f := range m.Fields {
 		fields[f.ID] = true
@@ -365,7 +381,7 @@ func (v Mission) Validate(c *Catalog, m Map) error {
 					return fmt.Errorf("condition type missing")
 				}
 			}
-		case "objective_complete":
+		case "objective_complete", "objective_incomplete":
 			if !objectives[q.Objective] || endObjectives[q.Objective] {
 				return fmt.Errorf("referenced objective missing")
 			}
@@ -400,7 +416,7 @@ func (v Mission) Validate(c *Catalog, m Map) error {
 	dependencies := map[string][]string{}
 	var collectDependencies func(string, MissionCondition)
 	collectDependencies = func(id string, q MissionCondition) {
-		if q.Kind == "objective_complete" {
+		if q.Kind == "objective_complete" || q.Kind == "objective_incomplete" {
 			dependencies[id] = append(dependencies[id], q.Objective)
 		}
 		for _, child := range q.Children {

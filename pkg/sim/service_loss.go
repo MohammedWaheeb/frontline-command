@@ -19,6 +19,14 @@ func (e *Engine) loseService(v *Entity) {
 	hadHome := v.Home != 0
 	v.Home = 0
 	v.Landing = nil
+	if v.ShahedCommitted {
+		// Losing a hub clears its reservation but cannot recall or redirect the
+		// committed payload, clamp endurance, or change the earned fixed point.
+		if hadHome {
+			e.emit("service_lost", v.Owner, v.ID, v.Position, "owner", int64(v.Endurance))
+		}
+		return
+	}
 	v.ParkingRetryAt = 0
 	v.Endurance = min(v.Endurance, uint32(1200))
 	v.ServiceWork = 0

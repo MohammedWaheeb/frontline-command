@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-var orderKinds = map[string]bool{"convoy_hold": true, "convoy_advance": true, "practice_spawn": true, "practice_remove": true, "practice_restore": true, "practice_resources": true, "practice_fog": true, "patrol": true, "escort": true, "repeat_sortie": true, "ping": true, "move": true, "attack_move": true, "attack": true, "force_fire": true, "stop": true, "hold": true, "guard": true, "aggressive": true, "build": true, "resume": true, "train": true, "research": true, "cancel": true, "sell": true, "power": true, "rally": true, "gather": true, "salvage": true, "repair": true, "capture": true, "board": true, "unload": true, "return": true, "deploy": true, "pack": true, "ability": true, "surrender": true, "surrender_vote": true, "surrender_cancel": true, "repair_reserve": true}
+var orderKinds = map[string]bool{"convoy_hold": true, "convoy_advance": true, "practice_spawn": true, "practice_remove": true, "practice_restore": true, "practice_resources": true, "practice_fog": true, "patrol": true, "escort": true, "repeat_sortie": true, "ping": true, "move": true, "attack_move": true, "attack": true, "force_fire": true, "stop": true, "hold": true, "guard": true, "aggressive": true, "build": true, "resume": true, "train": true, "research": true, "cancel": true, "sell": true, "power": true, "rally": true, "gather": true, "gather_depot": true, "retreat_when_attacked": true, "salvage": true, "repair": true, "capture": true, "board": true, "unload": true, "return": true, "deploy": true, "pack": true, "ability": true, "surrender": true, "surrender_vote": true, "surrender_cancel": true, "repair_reserve": true}
 
 // Submit only schedules intentions. Spending, targeting and prerequisites are
 // revalidated at execution; receipts never imply that gameplay already happened.
@@ -36,7 +36,7 @@ func (e *Engine) Submit(player PlayerID, sequence uint32, orders []Order) error 
 		seen := map[ID]bool{}
 		for _, id := range o.Entities {
 			v := e.entity(id)
-			if seen[id] || v == nil || v.Owner != player || v.HP <= 0 {
+			if seen[id] || v == nil || v.Owner != player {
 				return errors.New("not_owner")
 			}
 			seen[id] = true
@@ -96,8 +96,8 @@ func (e *Engine) executePending() {
 		e.state.Log = append(e.state.Log, s)
 		e.state.LogOrders += uint32(len(s.Orders))
 		for i, o := range s.Orders {
-			code := e.execute(s.Player, o)
-			e.state.Results = append(e.state.Results, OrderResult{s.Player, s.Sequence, int32(i), code == "ok", code, e.state.Tick})
+			code, eligible, applied := e.executeWithSelection(s.Player, o)
+			e.state.Results = append(e.state.Results, OrderResult{Player: s.Player, Sequence: s.Sequence, Index: int32(i), Accepted: code == "ok", Code: code, Tick: e.state.Tick, EligibleEntities: eligible, AppliedCount: applied})
 		}
 	}
 	e.teamSurrenderVotes()
@@ -108,7 +108,7 @@ func (e *Engine) executePending() {
 		e.state.LogBase++
 	}
 }
-func (e *Engine) execute(player PlayerID, o Order) string {
+func (e *Engine) executeSelected(player PlayerID, o Order) string {
 	p := e.player(player)
 	if p == nil || p.Defeated {
 		return "player_inactive"
@@ -150,6 +150,9 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 		e.emit("tactical_ping", p.ID, 0, o.Position, "team", 0)
 		e.state.Events[len(e.state.Events)-1].Text = kind
 		return "ok"
+	}
+	if isFieldBarricadeOrder(o) {
+		return e.startFieldBarricade(p, o)
 	}
 	selected := make([]*Entity, 0, len(o.Entities))
 	for _, id := range o.Entities {
@@ -223,6 +226,9 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 			return "invalid_toggle"
 		}
 		for _, unit := range selected {
+			if unit.ShahedCommitted {
+				return "shahed_committed"
+			}
 			if !e.isAircraft(unit) {
 				return "aircraft_required"
 			}
@@ -231,6 +237,8 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 			unit.RepeatSortie = o.Index == 1
 		}
 		return "ok"
+	case "gather_depot", "retreat_when_attacked":
+		return e.haulerControl(player, selected, o)
 	case "deploy", "pack":
 		for _, v := range selected {
 			if e.role(v) != "launcher" && v.Type != "SA.tank" && v.Type != "SA.mobile_abm" && v.Type != "SA.repair" {
@@ -272,7 +280,12 @@ func (e *Engine) execute(player PlayerID, o Order) string {
 		if len(selected) > 1 && (o.Kind == "move" || o.Kind == "attack_move") {
 			copyOrder.Position = e.formationPoint(o.Position, i, len(selected))
 		}
+		later := []Order(nil)
+		if copyOrder.Kind == "gather" && !copyOrder.Queued && len(v.Orders) > 1 {
+			later = v.Orders[1:]
+		}
 		e.assign(v, copyOrder)
+		v.Orders = append(v.Orders, later...)
 	}
 	return "ok"
 }
@@ -280,6 +293,12 @@ func (e *Engine) assign(v *Entity, o Order) {
 	if o.Queued && len(v.Orders) > 0 {
 		v.Orders = append(v.Orders, o)
 		return
+	}
+	e.cancelReconObserve(v)
+	if e.role(v) == "hauler" {
+		v.HaulerRetreating = false
+		v.DepotRetryAt = 0
+		v.TaskUntil = 0
 	}
 	if o.Kind != "return" || v.Landing != nil && v.Landing.Home != v.Home {
 		v.Landing = nil
@@ -323,6 +342,7 @@ func (e *Engine) assign(v *Entity, o Order) {
 	}
 	if o.Kind == "gather" {
 		v.Field = uint32(o.Target)
+		v.PinnedField = uint32(o.Target)
 		v.Depot = 0
 		v.State = "gathering"
 	}
@@ -382,6 +402,12 @@ func (e *Engine) buildingRequirements(p *Player, rig *Entity, o Order) (content.
 	if code != "ok" {
 		return b, code
 	}
+	if b.ID == fieldBarricadeType {
+		if dist2(rig.Position, o.Position) > fieldBarricadeRangeSquared {
+			return content.Building{}, "outside_builder_radius"
+		}
+		return b, "ok"
+	}
 	inRadius := b.Role == "outpost" || b.Role == "hq" && !e.has(p.ID, "hq")
 	if !inRadius {
 		for _, v := range e.state.Entities {
@@ -398,8 +424,13 @@ func (e *Engine) buildingRequirements(p *Player, rig *Entity, o Order) (content.
 	return b, "ok"
 }
 func (e *Engine) buildingCatalogRequirements(p *Player, rig *Entity, typ string) (content.Building, string) {
-	if e.role(rig) != "rig" || rig.Container != 0 {
+	if !e.constructionBuilder(rig, typ) || rig.Container != 0 {
 		return content.Building{}, "rig_required"
+	}
+	if typ == fieldBarricadeType {
+		if code := e.ownedOrderActorCode(rig); code != "ok" {
+			return content.Building{}, code
+		}
 	}
 	b, ok := e.buildingRule(typ)
 	if !ok || strings.HasPrefix(typ, "map.") || b.Faction != "" && b.Faction != p.Faction {
@@ -426,6 +457,9 @@ func (e *Engine) buildingCatalogRequirements(p *Player, rig *Entity, typ string)
 	}
 	if b.Defense && defenses >= 16 {
 		return content.Building{}, "defense_cap"
+	}
+	if b.ID == fieldBarricadeType && e.countRole(p.ID, "barrier", true) >= 16 {
+		return content.Building{}, "barrier_limit"
 	}
 	if b.Role == "strategic" && e.countRole(p.ID, "strategic", true) >= 1 {
 		return content.Building{}, "strategic_limit"

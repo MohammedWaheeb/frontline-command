@@ -91,6 +91,14 @@ func main() {
 		b, err := session.View(player)
 		return nil, b, err
 	})
+	register("priority", func(a []js.Value) (any, []byte, error) {
+		player, err := playerArg(a, 0)
+		if err != nil {
+			return nil, nil, err
+		}
+		b, err := session.Priority(player)
+		return nil, b, err
+	})
 	register("restart", func([]js.Value) (any, []byte, error) { return withInfo(session.Restart()) })
 	register("content", func([]js.Value) (any, []byte, error) { return session.Content(), nil, nil })
 	register("validateMap", func(a []js.Value) (any, []byte, error) {

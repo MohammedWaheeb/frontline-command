@@ -45,6 +45,7 @@ func (e *Engine) sightRange(v *Entity) int32 {
 	if e.hasBuff(v, "relay") {
 		radius += 3000
 	}
+	radius += e.reconObserveSight(v)
 	return radius
 }
 

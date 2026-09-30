@@ -1,6 +1,9 @@
 package sim
 
-import "sort"
+import (
+	"frontlinecommand/pkg/content"
+	"sort"
+)
 
 type AIObservation struct {
 	ID       ID       `json:"id"`
@@ -42,6 +45,20 @@ func (e *Engine) aiObserve(p *Player, view View) {
 		}
 	}
 	sort.Slice(p.AIKnowledge, func(i, j int) bool { return p.AIKnowledge[i].ID < p.AIKnowledge[j].ID })
+	// AIFields has no per-field timestamp. Seed missing public memories only,
+	// preserving existing AI observations; current sight refreshes them below.
+	for _, field := range view.KnownFields {
+		found := false
+		for _, known := range p.AIFields {
+			if known.ID == field.ID {
+				found = true
+				break
+			}
+		}
+		if !found {
+			p.AIFields = append(p.AIFields, FieldView{ID: field.ID, Position: field.Position, Remaining: field.Remaining})
+		}
+	}
 	for _, field := range view.Fields {
 		found := false
 		for i := range p.AIFields {
@@ -70,7 +87,13 @@ func (e *Engine) aiThreatNear(p *Player, point Vec, radius int32) bool {
 }
 func (e *Engine) aiAirDanger(p *Player, point Vec) bool {
 	for _, enemy := range p.AIKnowledge {
-		if e.state.Tick-enemy.Seen > seconds(60) {
+		age := seconds(60)
+		if _, structure := e.buildingRule(enemy.Type); structure {
+			// Fixed defenses retain their observed location for the same five
+			// minutes as aiObserve. Losing sight is no evidence of destruction.
+			age = seconds(300)
+		}
+		if e.state.Tick-enemy.Seen > age {
 			continue
 		}
 		weapon := ""
@@ -94,6 +117,9 @@ func (e *Engine) aiExpansion(p *Player, own []EntityView) (Vec, bool) {
 	for _, observed := range own {
 		v := e.entity(observed.ID)
 		if e.role(v) == "hauler" {
+			haulers++
+		}
+		if v.Building && e.role(v) == "supply" && !v.IncludedHauler {
 			haulers++
 		}
 		for _, job := range v.Jobs {
@@ -186,6 +212,7 @@ func (e *Engine) aiConstructionPosition(p *Player, typ string, center Vec) (Vec,
 func (e *Engine) aiPlacementKnowledge(p *Player) *Engine {
 	known := *e
 	known.state = e.state
+	known.state.Map = e.aiPlanningMap(p)
 	known.state.Entities = nil
 	known.state.Fields = nil
 	known.state.Stations = nil
@@ -204,4 +231,30 @@ func (e *Engine) aiPlacementKnowledge(p *Player) *Engine {
 		known.state.Stations = append(known.state.Stations, &ObjectiveStation{ID: station.ID, Position: station.Position, Owner: station.Owner})
 	}
 	return &known
+}
+
+// Terrain changes at neutral objects become knowledge only through the ordinary
+// observed-rubble record. Share immutable authored data and detach changed tiles
+// before restoring unknown destruction, so planning never mutates the real map.
+func (e *Engine) aiPlanningMap(p *Player) content.Map {
+	m := e.state.Map
+	if len(e.state.MapOriginalTiles) == 0 || len(p.KnownRubble) == len(e.state.DestroyedObjects) {
+		return m
+	}
+	m.Tiles = append([]content.Tile(nil), m.Tiles...)
+	knownTiles := map[int32]bool{}
+	for _, object := range m.Objects {
+		if !containsObject(p.KnownRubble, object.ID) {
+			continue
+		}
+		for _, index := range object.TileIndices(m.Width) {
+			knownTiles[int32(index)] = true
+		}
+	}
+	for _, original := range e.state.MapOriginalTiles {
+		if !knownTiles[original.Index] {
+			m.Tiles[original.Index] = original.Tile
+		}
+	}
+	return m
 }

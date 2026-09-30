@@ -4,11 +4,20 @@ package sim
 const strategicImpactRadius int32 = 2000
 
 func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
+	for _, actor := range selection {
+		if actor.ShahedCommitted {
+			return "shahed_committed"
+		}
+	}
 	v := selection[0]
 	target := e.entity(o.Target)
 	switch o.Type {
+	case "radar_pulse":
+		return e.castRadarPulse(p, selection, o)
+	case "observe":
+		return e.reconObserve(v, o)
 	case "designate":
-		if v.Type != "US.recon" || target == nil || e.defeated(target.Owner) || e.allied(p.ID, target.Owner) || target.HP <= 0 || (e.armor(target) != "light" && e.armor(target) != "heavy" && !target.Building) || !e.canSeeEntity(p.ID, target) || e.edgeDistance(v, target) > 7000 {
+		if !e.validDesignation(v, target) {
 			return "invalid_designation"
 		}
 		if cooldown(v.Cooldowns, o.Type, e.state.Tick) {
@@ -21,13 +30,7 @@ func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
 		if v.Type != "IR.recon" || p.Credits < 200000 || !e.canSee(p.ID, o.Position) || distance(v.Position, o.Position) > 1000 {
 			return "invalid_beacon"
 		}
-		count := 0
-		for _, b := range e.state.Entities {
-			if b.Type == "IR.beacon" && b.Owner == p.ID && b.Builder != v.ID {
-				count++
-			}
-		}
-		if count >= 3 {
+		if !e.beaconSlotAvailable(p.ID, v.ID) {
 			return "beacon_limit"
 		}
 		p.Credits -= 200000
@@ -36,12 +39,7 @@ func (e *Engine) cast(p *Player, selection []*Entity, o Order) string {
 		e.beginChannel(v, "beacon", 0, seconds(4))
 		return "ok"
 	case "sabotage":
-		if e.role(v) != "elite" || target == nil || !target.Building || e.defeated(target.Owner) || e.allied(p.ID, target.Owner) || !e.canSeeEntity(p.ID, target) || e.edgeDistance(v, target) > 1000 || !target.Active(e.state.Tick) || target.ResistanceUntil > e.state.Tick {
-			return "invalid_sabotage"
-		}
-		switch e.role(target) {
-		case "barracks", "factory", "airfield", "drone_hub", "workshop_air", "radar", "tech":
-		default:
+		if !e.validSabotage(v, target) {
 			return "invalid_sabotage"
 		}
 		if cooldown(v.Cooldowns, "sabotage", e.state.Tick) {
@@ -209,7 +207,61 @@ func (e *Engine) transferDuration(owner PlayerID) Tick {
 	}
 	return seconds(6)
 }
+// A paid channel reserves its observer's slot immediately. Existing sensors
+// and that observer's pending replacement share one identity. The fixed set
+// needs only the three other identities which would prevent a new placement.
+func (e *Engine) beaconSlotAvailable(owner PlayerID, observer ID) bool {
+	var occupied [3]ID
+	count := 0
+	for _, actor := range e.state.Entities {
+		if actor.Owner != owner || actor.HP <= 0 {
+			continue
+		}
+		var source ID
+		switch {
+		case actor.Type == "IR.beacon":
+			// Orders execute before cleanup; release on the actual expiry tick.
+			if actor.TemporaryUntil > 0 && actor.TemporaryUntil <= e.state.Tick {
+				continue
+			}
+			source = actor.Builder
+			if source == 0 {
+				// Authored sensors have no observer and each occupy their own slot.
+				source = actor.ID
+			}
+		case actor.Type == "IR.recon" && actor.Channel == "beacon":
+			source = actor.ID
+		default:
+			continue
+		}
+		if source == observer {
+			continue
+		}
+		duplicate := false
+		for i := 0; i < count; i++ {
+			if occupied[i] == source {
+				duplicate = true
+				break
+			}
+		}
+		if duplicate {
+			continue
+		}
+		occupied[count] = source
+		count++
+		if count == len(occupied) {
+			return false
+		}
+	}
+	return true
+}
+
 func (e *Engine) createBeacon(observer *Entity) {
+	// An authored sensor or restored pending channel can invalidate the slot.
+	// Keep the accepted fee and predecessor if completion is no longer legal.
+	if !e.beaconSlotAvailable(observer.Owner, observer.ID) {
+		return
+	}
 	for _, v := range e.state.Entities {
 		if v.Type == "IR.beacon" && v.Builder == observer.ID {
 			v.HP = 0
@@ -225,6 +277,16 @@ func (e *Engine) strategicCharge(faction string) uint32 {
 	}
 	return 180 * 20 * 2
 }
+
+// raidSafehouseReady is the shared, read-only maturity check for activation
+// and AI planning. Foundation age does not contribute to the completed wait.
+// A complete initial building has CompletedAt zero; its wait begins at tick zero.
+func (e *Engine) raidSafehouseReady(owner PlayerID, house *Entity) bool {
+	return house != nil && house.Owner == owner && e.role(house) == "safehouse" &&
+		house.Active(e.state.Tick) && house.CompletedAt <= e.state.Tick &&
+		e.state.Tick-house.CompletedAt >= seconds(20) && e.canSee(owner, house.Position)
+}
+
 func (e *Engine) activateStrategic(p *Player, selection []*Entity, o Order) string {
 	var site *Entity
 	for _, v := range e.state.Entities {
@@ -264,7 +326,7 @@ func (e *Engine) activateStrategic(p *Player, selection []*Entity, o Order) stri
 			return "supply_blocked"
 		}
 		for _, v := range selection {
-			if e.role(v) != "safehouse" || !v.Active(e.state.Tick) || e.state.Tick-v.Created < seconds(20) || !e.canSee(p.ID, v.Position) {
+			if !e.raidSafehouseReady(p.ID, v) {
 				return "invalid_safehouse"
 			}
 			if _, ok := e.raidExits(v); !ok {
