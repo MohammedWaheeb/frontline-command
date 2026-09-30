@@ -27,6 +27,8 @@ export const STANDARD_COMMAND_DESCRIPTORS:readonly CommandDescriptor[]=[
  command('capture',['entity','station'],'group',true,true),
  command('unload',['ground'],'group',true,true),
  command('gather',['field'],'group',true,true,true),
+ command('gather_depot',['entity'],'group',false,true,true),
+ command('retreat_when_attacked',[],'group',false,true,true),
  command('salvage',['salvage'],'group',true,true),
  command('rally',['ground'],'each',false,false),
  command('build',['ground'],'single',false,false),
@@ -41,7 +43,7 @@ export interface CommandLegality {accepted:boolean;code:string;message?:string;c
 export interface CommandEnvironment {
  snapshot:PlayerSnapshot;
  /** Catalog/Go supplied capabilities. These are affordances, never proof of success. */
- supports:(entity:Entity,command:CommandDescriptor)=>boolean;
+ supports:(entity:Entity,command:CommandDescriptor,request?:CommandRequest)=>boolean;
  descriptors?:readonly CommandDescriptor[];
  /** Advisory current-tick Go preview, if available. Online execution still revalidates. */
  validate?:(order:OrderIntent)=>CommandLegality|Promise<CommandLegality>;
@@ -71,14 +73,15 @@ function resolvedTarget(snapshot:PlayerSnapshot,target:CommandTarget):{id?:numbe
  let position:Point|undefined;
  switch(target.kind){
   case 'entity': position=currentVisibleEntity(snapshot,target.id)?.position;break;
-  case 'field': position=snapshot.fields.find(field=>field.id===target.id)?.position;break;
+  case 'field': position=(snapshot.fields.find(field=>field.id===target.id)??snapshot.knownFields.find(field=>field.id===target.id&&field.seen<=snapshot.tick))?.position;break;
   case 'station': position=snapshot.stations.find(station=>station.id===target.id)?.position;break;
   case 'salvage': position=snapshot.salvage.find(salvage=>salvage.id===target.id)?.position;break;
  }
  return position&&pointValid(position)?{id:target.id,position:copyPoint(position)}:undefined;
 }
 
-/** Frames already contain only authorized objects. Never resolve IDs from map objects or memory. */
+/** Resolve only currently disclosed objects or the owner's explicit last field
+ * observations. Never use authored map stock or remembered entity positions. */
 export function resolveCommandTarget(snapshot:PlayerSnapshot,target:CommandTarget):{id?:number;position:Point}|undefined{return resolvedTarget(snapshot,target)}
 
 function materialize(request:CommandRequest,ids:number[],resolved?:{id?:number;position:Point}):OrderIntent{
@@ -129,11 +132,14 @@ async function checkOrders(orders:readonly OrderIntent[],env:CommandEnvironment,
 
 /** Returns intentions and explicit reasons. It never spends, mutates a snapshot or sends a command. */
 export async function planCommand(request:CommandRequest,env:CommandEnvironment):Promise<CommandPlan>{
- const plan=emptyPlan(env),descriptor=descriptorFor(env,request.kind);
+ const base=descriptorFor(env,request.kind);
+ // Only free Observe may batch. Paid abilities and a barricade foundation stay one intention.
+ const descriptor=base&&(request.kind==='ability'&&request.type==='observe'?{...base,splittable:true}:request.kind==='build'&&(request.type==='barrier')?{...base,selection:'group' as const}:base);
+ const plan=emptyPlan(env);
  const reject=(code:string,ids:readonly number[]=request.entities,message?:string)=>emptyPlan(env,[issue(code,ids,message)]);
  if(env.isCurrent&&!env.isCurrent())return reject('targeting_changed');
  if(!descriptor)return reject('unknown_command');
- if(request.entities.length>4096||request.entities.some(id=>!idValid(id)))return reject('invalid_selection');
+ if(request.entities.length>4096||request.entities.some(id=>!idValid(id))||new Set(request.entities).size!==request.entities.length)return reject('invalid_selection');
  if(request.type!==undefined&&(typeof request.type!=='string'||request.type.length>80)||request.index!==undefined&&(!Number.isInteger(request.index)||request.index<0||request.index>1000000))return reject('invalid_order');
  if(request.points&&((request.points.length>COMMAND_LIMITS.pointsPerOrder)||request.points.some(point=>!pointValid(point))))return reject('invalid_points');
  if(request.queued&&!descriptor.queueable)return reject('cannot_queue');
@@ -143,11 +149,13 @@ export async function planCommand(request:CommandRequest,env:CommandEnvironment)
  const resolved=request.target?resolvedTarget(env.snapshot,request.target):undefined;
  if(request.target&&!resolved)return reject(request.target.kind==='ground'?'invalid_position':'target_not_visible');
  const available=new Map(selectableOwnEntities(env.snapshot,env.selectable).map(entity=>[entity.id,entity]));
+ // Ownership is packet-wide even when unsupported owned actors may be skipped.
+ if(request.entities.some(id=>!available.has(id)))return reject('not_controllable');
  const ids=descriptor.selection==='none'?[]:uniqueIDs(request.entities),selected:Entity[]=[];
  for(const id of ids){
   const entity=available.get(id);
   if(!entity){plan.issues.push(issue('not_controllable',[id]));continue}
-  if(!env.supports(entity,descriptor)){plan.issues.push(issue('unsupported_command',[id]));continue}
+  if(!env.supports(entity,descriptor,request)){plan.issues.push(issue('unsupported_command',[id]));continue}
   if(request.queued&&(entity.private?.orders.length??0)>=COMMAND_LIMITS.queuedOrders){plan.issues.push(issue('queue_full',[id]));continue}
   selected.push(entity);
  }
@@ -212,9 +220,10 @@ export async function planContextCommand(entities:readonly number[],target:Comma
  if(env.isCurrent&&!env.isCurrent())return stale();
  if(entities.length===0)return emptyPlan(env,[issue('selection_empty')]);
  if(!resolved)return emptyPlan(env,[issue('target_not_visible',entities)]);
- if(entities.length>4096||entities.some(id=>!idValid(id)))return emptyPlan(env,[issue('invalid_selection',entities)]);
+ if(entities.length>4096||entities.some(id=>!idValid(id))||new Set(entities).size!==entities.length)return emptyPlan(env,[issue('invalid_selection',entities)]);
  if(env.validateBatch&&!env.validateCandidates&&!env.validate)return emptyPlan(env,[issue('independent_preview_required',entities)]);
  const own=new Map(selectableOwnEntities(env.snapshot,env.selectable).map(entity=>[entity.id,entity]));
+ if(entities.some(id=>!own.has(id)))return emptyPlan(env,[issue('not_controllable',entities)]);
  const probes:OrderIntent[]=[],choices:Array<{id:number;indices:number[];last?:CommandIssue}>=[];
  // Shape/capability checks prepare all alternatives before any gameplay call.
  const shapeOnly:CommandEnvironment={...env,validate:undefined,validateBatch:undefined,validateCandidates:undefined};

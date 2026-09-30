@@ -1,9 +1,10 @@
 import {assetReadScope,type AssetReadScope} from '../runtime/asset-read-scope';
 import {ImageSource,Rectangle,Texture} from 'pixi.js';
-import {captureAssetGeneration,type AssetGeneration,type AssetGenerationOptions} from '../runtime/asset-generation';
+import {captureAssetGeneration,type AssetGeneration,type AssetGenerationIdentity,type AssetGenerationOptions} from '../runtime/asset-generation';
 import {artGenerationInput} from '../runtime/asset-generation-input';
 import {classify,type CatalogIndex} from '../content/catalog';
 import {authoredArtId} from './art-id';
+import {isShahed} from './shahed-presentation';
 import {artUIKeys} from '../content/art-ui';
 import {makeAlphaMask,alphaInFrame,type AlphaMask} from './alpha-picking';
 import type {EffectDescriptor} from '../content/effect-assets.mjs';
@@ -24,12 +25,12 @@ interface OwnedPage {texture:Texture;dispose():void}
 type PageLoader=(path:string,signal:AbortSignal)=>Promise<OwnedPage>;
 interface AtlasPage {
  url:string;descriptors:Record<string,AtlasFrame>;layer:string;frames:Map<string,FrameSet>;
- generation:number;alpha?:AlphaMask;texture?:Texture;owned?:OwnedPage;pending?:Promise<void>;unloading?:Promise<void>;failed?:boolean;retryAfter?:number;failures?:number;lastUsed:number;bytes:number;
+ generation:number;alpha?:AlphaMask;texture?:Texture;owned?:OwnedPage;pending?:Promise<void>;unloading?:Promise<void>;failed?:boolean;retryAfter?:number;failures?:number;cleanupFailed?:boolean;lastUsed:number;bytes:number;
 }
 export class SpriteSheet {
  readonly states=new Map<string,SpriteState>();private readonly lookup=new Map<string,AtlasPage>();private disposed=false;
  private readonly aliases=new Map<string,{source:string;reverse?:boolean}>();private readonly lifetime=new AbortController();
- constructor(readonly id:string,readonly meta:SpriteMeta,readonly scale:'1x'|'2x',private pages:AtlasPage[],private loadPage:PageLoader=async()=>{throw Error('Verified sprite-page loader unavailable.')},private onError?:(error:Error)=>void){
+ constructor(readonly id:string,readonly meta:SpriteMeta,readonly scale:'1x'|'2x',private pages:AtlasPage[],private loadPage:PageLoader=async()=>{throw Error('Verified sprite-page loader unavailable.')},private onError?:(error:Error)=>void,private shouldReportPageError:()=>boolean=()=>true){
   for(const state of meta.states)this.states.set(state.name,state);
   // Aliases reuse the exact authored source frames, including reversed
   // deployment/construction. Missing or cyclic sources are never advertised.
@@ -50,7 +51,7 @@ export class SpriteSheet {
  hasFrame(layer:string,state:string,direction:number,index:number){const source=this.sourceFrame(state,direction,index);return this.lookup.has(this.key(layer,source.state,source.direction,source.index))}
  frame(layer:string,state:string,direction:number,index:number):FrameSet|undefined{
   const source=this.sourceFrame(state,direction,index),key=this.key(layer,source.state,source.direction,source.index),page=this.lookup.get(key);if(!page||this.disposed)return;
-  page.lastUsed=performance.now();if(!page.texture)this.load(page);return page.frames.get(key);
+  page.lastUsed=performance.now();if(page.cleanupFailed)this.unload(page);if(!page.texture)this.load(page);return page.frames.get(key);
  }
  has(state:string){return this.states.has(state)}
  private load(page:AtlasPage){
@@ -58,8 +59,9 @@ export class SpriteSheet {
   page.pending=(async()=>{
    await page.unloading;if(this.disposed)return;
    // Atlas rectangles are physical pixels; suppress Pixi's @2x inference.
-   const generation=++page.generation,owned=await this.loadPage(page.url,this.lifetime.signal);if(this.disposed){owned.dispose();return}const texture=owned.texture;page.owned=owned;page.texture=texture;
+   const generation=++page.generation,owned=await this.loadPage(page.url,this.lifetime.signal),texture=owned.texture;page.owned=owned;page.texture=texture;
    page.bytes=texture.source.pixelWidth*texture.source.pixelHeight*4;
+   if(this.disposed){owned.dispose();page.texture=undefined;page.owned=undefined;return}
    if(page.layer==='beauty'||page.layer==='team'){
     // Decode picking opacity once on page admission, never from the rendered
     // world or on a pointer event. One bit/pixel adds at most ~1/32 of these
@@ -77,21 +79,38 @@ export class SpriteSheet {
     page.frames.set(`${page.layer}|${key}`,{texture:t,atlasTexture:texture,anchorX:frame.anchor?.x??.5,anchorY,...page.alpha?{containsAlpha:(x:number,y:number,tolerance:number)=>page.generation===generation&&!!page.alpha&&alphaInFrame(page.alpha,frame.frame,x,y,tolerance)}:{},...valid?{bodyBottom:(ink.y+ink.h-anchorY*frame.frame.h)*this.pixelScale,inkBounds:ink}:{}});
    }
    page.failures=0;page.retryAfter=0;
-  })().catch(async error=>{const retry=['asset_unavailable','asset_busy'].includes(String(error?.code));page.failures=(page.failures??0)+1;page.failed=!retry;page.retryAfter=performance.now()+Math.min(15000,250*2**Math.min(page.failures-1,6));page.generation++;page.alpha=undefined;for(const frame of page.frames.values())frame.texture.destroy(false);page.frames.clear();page.texture=undefined;page.owned?.dispose();page.owned=undefined;if(!this.disposed&&(!retry||page.failures===1)){this.onError?.(error instanceof Error?error:new Error(String(error)));console.warn('Sprite page failed to load',this.id,page.url,error)}}).finally(()=>{page.pending=undefined});
+  })().catch(async error=>{const retry=['asset_unavailable','asset_busy'].includes(String(error?.code));page.failures=(page.failures??0)+1;page.failed=!retry;page.retryAfter=performance.now()+Math.min(15000,250*2**Math.min(page.failures-1,6));page.generation++;page.alpha=undefined;for(const frame of page.frames.values())frame.texture.destroy(false);page.frames.clear();page.owned?.dispose();page.texture=undefined;page.owned=undefined;if(!this.disposed&&(!retry||page.failures===1)&&this.shouldReportPageError()){this.onError?.(error instanceof Error?error:new Error(String(error)));console.warn('Sprite page failed to load',this.id,page.url,error)}}).finally(()=>{page.pending=undefined});
  }
  async settle(){await Promise.all(this.pages.map(page=>page.pending))}
  private unload(page:AtlasPage){
   if(page.pending||!page.texture)return 0;
-  const bytes=page.bytes;
-  page.generation++;page.alpha=undefined;for(const frame of page.frames.values())frame.texture.destroy(false);page.frames.clear();page.texture=undefined;
-  page.owned?.dispose();page.owned=undefined;return bytes;
+  const bytes=page.bytes;page.cleanupFailed=false;
+  try{
+   page.generation++;page.alpha=undefined;for(const frame of page.frames.values())frame.texture.destroy(false);page.frames.clear();
+   page.owned?.dispose();page.texture=undefined;page.owned=undefined;return bytes;
+  }catch(error){page.cleanupFailed=true;throw error}
  }
  evictBefore(before:number){for(const page of this.pages)if(page.lastUsed<before)this.unload(page)}
  /** Only pages untouched during the current complete paint may be reclaimed. */
  evictionCandidates(before:number){
   return this.pages.filter(page=>page.texture&&!page.pending&&page.lastUsed<before).map(page=>({lastUsed:page.lastUsed,bytes:page.bytes,evict:()=>page.lastUsed<before?this.unload(page):0}));
  }
- async dispose(){this.disposed=true;this.lifetime.abort();await this.settle();for(const page of this.pages)this.unload(page);await Promise.all(this.pages.map(page=>page.unloading))}
+ async dispose(){
+  this.disposed=true;this.lifetime.abort();const errors:unknown[]=[];
+  try{await this.settle()}catch(error){errors.push(error)}
+  for(const page of this.pages)try{this.unload(page)}catch(error){errors.push(error)}
+  try{await Promise.all(this.pages.map(page=>page.unloading))}catch(error){errors.push(error)}
+  if(errors.length)throw errors.length===1?errors[0]:new AggregateError(errors,'Sprite page disposal failed.');
+ }
+}
+
+/** Logical Art ownership only. No asset keys, renderer/GPU or gameplay state. */
+export interface ArtOwnershipSnapshot {
+ readonly schema:'fc-art-ownership/1';readonly at:number;readonly scale:'1x'|'2x';
+ readonly identity?:Readonly<Pick<AssetGenerationIdentity,'id'|'version'|'indexSHA256'|'manifestSHA256'>>;
+ readonly sheets:Readonly<{indexedPages:number;residentPages:number;residentBytes:number;pickingBytes:number}>;
+ readonly currentGeneration?:Readonly<{inFlight:number;inFlightBytes:number;queued:number;leases:number;leaseBytes:number;disposed:boolean}>;
+ readonly softTargetBytes:number;readonly scope:string;readonly unavailable:readonly string[];
 }
 
 export interface ArtLibraryOptions extends AssetGenerationOptions {generation?:AssetGeneration;indexSource?:Uint8Array}
@@ -122,11 +141,25 @@ export class ArtLibrary {
  private images=new Map<string,Promise<HTMLImageElement>>();
  private cameos=new Map<string,Promise<string|undefined>>();
  scale:'1x'|'2x'='1x';
- private releaseWork:Promise<void>=Promise.resolve();
- private loaded=new Set<SpriteSheet>();
+ private releaseWork:Promise<void>=Promise.resolve();private sheetWork:Promise<void>=Promise.resolve();
+ private loaded=new Set<SpriteSheet>();private failedRetirements=new Set<SpriteSheet>();
  configure(quality:'auto'|'high'|'standard'){this.scale=quality==='high'?'2x':'1x'}
  get statistics(){return [...this.loaded].reduce((sum,sheet)=>{const next=sheet.statistics;return {indexedPages:sum.indexedPages+next.indexedPages,residentPages:sum.residentPages+next.residentPages,residentBytes:sum.residentBytes+next.residentBytes,pickingBytes:sum.pickingBytes+next.pickingBytes}},{indexedPages:0,residentPages:0,residentBytes:0,pickingBytes:0})}
- async settle(){await Promise.all([...this.loaded].map(sheet=>sheet.settle()))}
+ /** Copy logical ownership without loading, touching or releasing any asset.
+  * Sheet charges include retained old generations; encoded counters name only
+  * the current generation. Requested scale and its target are not a hard cap. */
+ get ownershipSnapshot():ArtOwnershipSnapshot{
+  const scale=this.scale,identity=this.generationIdentity,sheets=this.statistics,current=this.generationStatistics;
+  return Object.freeze({schema:'fc-art-ownership/1',at:performance.now(),scale,
+   identity:identity?Object.freeze({id:identity.id,version:identity.version,indexSHA256:identity.indexSHA256,manifestSHA256:identity.manifestSHA256}):undefined,
+   sheets:Object.freeze({indexedPages:sheets.indexedPages,residentPages:sheets.residentPages,residentBytes:sheets.residentBytes,pickingBytes:sheets.pickingBytes}),
+   currentGeneration:current?Object.freeze({inFlight:current.inFlight,inFlightBytes:current.inFlightBytes,queued:current.queued,leases:current.leases,leaseBytes:current.leaseBytes,disposed:current.disposed}):undefined,
+   softTargetBytes:(scale==='2x'?384:192)*1024*1024,
+   scope:'Conservative reachable sheet texture/picking ownership charge, including retained failed retirements; not physical GPU residency, total renderer allocation or process RSS.',
+   unavailable:Object.freeze(['per-page IDs/touch stamps','currently painted page union','HTML image/cameo retained bytes',
+    'terrain chunks/FX/UI renderer textures','old-generation encoded staging counters','native GPU allocator bytes','presented frames'])});
+ }
+ async settle(){const sheets=await Promise.all(this.sheets.values());await Promise.all(sheets.map(sheet=>sheet?.settle()))}
  /** Call after all world, shadow and placement reads in a complete render.
   * Under pressure, keep that frame's pages and evict oldest unused pages only
   * until the target is met. The active working set may exceed the soft target.
@@ -156,22 +189,23 @@ export class ArtLibrary {
  }
  /** Called only at the application's explicit idle content-reload boundary. A
   * failed candidate keeps the previous index, pixels and generation available. */
- useIndex(source:Uint8Array,isCurrent:()=>boolean=()=>true):Promise<ArtIndex>{
-  const captured=source.slice();let result!:ArtIndex;
+ useIndex(source:Uint8Array,isCurrent:(nextIdentity:AssetGenerationIdentity)=>boolean=()=>true):Promise<ArtIndex>{
+  const captured=source.slice();
   const work=this.binding.then(async()=>{
-   if(this.closed||!isCurrent())throw new DOMException('Content reload is no longer idle.','AbortError');
+   if(this.closed)throw new DOMException('Art library was disposed.','AbortError');
    const input=await artGenerationInput(this.options.fetcher,captured,this.captureOptions().signal),next=await captureAssetGeneration(input.source,input.packId,this.captureOptions());
-   let index:ArtIndex;try{index=await next.json<ArtIndex>('/art/index.json');await this.release()}catch(error){next.dispose();throw error}
-   if(this.closed||!isCurrent()){next.dispose();throw new DOMException('Content reload is no longer idle.','AbortError')}
-   const previous=this.generation;this.epoch++;this.clearImages();this.generation=next;this.index=index;this.initialization=Promise.resolve(index);previous?.dispose();result=index;
-  });this.binding=work.catch(()=>{});return work.then(()=>result);
+   let index:ArtIndex;try{index=await next.json<ArtIndex>('/art/index.json');if(!isCurrent(next.identity)||this.closed)throw new DOMException('Content reload is no longer idle.','AbortError')}catch(error){next.dispose();throw error}
+   // Admission is final. Publish the complete generation before scheduling any
+   // old-resource callbacks; later retirement cannot reject this committed swap.
+   const previous=this.generation,sheets=this.sheets;this.epoch++;this.generation=next;this.index=index;this.initialization=Promise.resolve(index);this.sheets=new Map();this.sheetWork=Promise.resolve();this.retire(sheets,previous,true);return index;
+  });this.binding=work.then(()=>{},()=>{});return work;
  }
  private clearImages(){for(const scope of this.readers)scope.release();this.readers.clear();const images=this.images;this.images=new Map();this.cameos.clear();for(const image of images.values())void image.then(value=>{value.src=''}).catch(()=>{})}
  private async page(path:string,signal:AbortSignal,generation:AssetGeneration):Promise<OwnedPage>{
   const bytes=await generation.read(path,signal);signal.throwIfAborted();const bitmap=await createImageBitmap(new Blob([new Uint8Array(bytes).buffer],{type:'image/png'}));
   if(signal.aborted||generation.statistics.disposed){bitmap.close();throw new DOMException('Sprite loading was canceled.','AbortError')}
   let texture:Texture;try{texture=new Texture({source:new ImageSource({resource:bitmap,resolution:1})})}catch(error){bitmap.close();throw error}
-  let closed=false;return {texture,dispose(){if(closed)return;closed=true;texture.destroy(true);bitmap.close()}};
+  let textureClosed=false,bitmapClosed=false;return {texture,dispose(){try{if(!textureClosed){texture.destroy(true);textureClosed=true}}finally{if(!bitmapClosed){bitmap.close();bitmapClosed=true}}}};
  }
  has(id:string){return !!this.index?.sprites[id]}
  /** Resolve the authored sprite for an entity type, with an explicit stand-in flag. */
@@ -183,6 +217,9 @@ export class ArtLibrary {
  }
  directId(type:string,ownerFaction?:string){return authoredArtId(type,ownerFaction)}
  private standIn(type:string,faction:string|undefined,catalog?:CatalogIndex){
+  // Its one-way impact role must stay distinct while its own native art is absent.
+  // resolve() already prefers an available exact unit.IR.shahed asset above.
+  if(isShahed(type))return undefined;
   const u=catalog?.units.get(type);
   const pick=(...ids:string[])=>ids.find(id=>this.has(id));
   if(u){
@@ -191,18 +228,19 @@ export class ArtLibrary {
    if(c==='aircraft'||c==='drone'||c==='rotor')return pick(`unit.${u.faction}.strike`,'unit.IR.strike','unit.US.fighter');
    if(c==='tank')return pick(`unit.${u.faction}.tank`,'unit.US.tank','unit.SA.tank');
    if(u.role==='mobile_abm'||u.role==='launcher'||u.role==='artillery')return pick(`unit.${u.faction}.${u.role}`,'unit.SA.mobile_abm','unit.US.tank');
+   if(u.role==='apc'){const carrier=pick(`unit.${u.faction}.apc`,'unit.SY.apc');if(carrier)return carrier}
    return pick(`unit.${u.faction}.car`,'unit.SY.car','unit.US.car','unit.US.tank');
   }
   if(catalog?.buildings.has(type)||faction)return undefined; // Buildings without art use the procedural structure, never another building's art.
   return undefined;
  }
  sheet(id:string):Promise<SpriteSheet|undefined>{
-  const scale=this.scale,key=`${this.epoch}|${id}|${scale}`;let p=this.sheets.get(key);
-  if(!p){p=this.loadSheet(id,scale,this.epoch).catch(error=>{if(this.sheets.get(key)===p)this.sheets.delete(key);if(!this.closed&&!(error instanceof DOMException&&error.name==='AbortError')){this.onError?.(error instanceof Error?error:new Error(String(error)));console.warn('Sprite failed to load',id,error)}return undefined});this.sheets.set(key,p)}
+  const scale=this.scale,epoch=this.epoch,key=`${epoch}|${id}|${scale}`;let p=this.sheets.get(key);
+  if(!p){p=this.loadSheet(id,scale,epoch).catch(error=>{if(this.sheets.get(key)===p)this.sheets.delete(key);if(!this.closed&&epoch===this.epoch&&!(error instanceof DOMException&&error.name==='AbortError')){this.onError?.(error instanceof Error?error:new Error(String(error)));console.warn('Sprite failed to load',id,error)}return undefined});this.sheets.set(key,p)}
   return p;
  }
  private async loadSheet(id:string,requestedScale:'1x'|'2x',requestEpoch:number){
-  await this.releaseWork;
+  await this.sheetWork;
   const index=await this.init();if(this.closed||requestEpoch!==this.epoch||index!==this.index)throw new DOMException('Art generation was replaced.','AbortError');const rel=index.sprites[id];if(!rel)return undefined;
   const base=`/art/${rel.slice(0,rel.lastIndexOf('/')+1)}`;
   const generation=this.generation!,epoch=this.epoch,meta=await generation.json<SpriteMeta>(`/art/${rel}`),scale=meta.atlases[requestedScale]?requestedScale:'1x';
@@ -214,7 +252,7 @@ export class ArtLibrary {
    pages.push({url:base+atlas.meta.image,layer,descriptors:atlas.frames,frames:new Map(),lastUsed:0,bytes:0,generation:0});
   }
   if(epoch!==this.epoch)throw new DOMException('Art generation was replaced.','AbortError');
-  const sheet=new SpriteSheet(id,meta,scale,pages,(path,signal)=>this.page(path,signal,generation),error=>this.onError?.(error));this.loaded.add(sheet);return sheet;
+  const sheet=new SpriteSheet(id,meta,scale,pages,(path,signal)=>this.page(path,signal,generation),error=>this.onError?.(error),()=>!generation.statistics.disposed);this.loaded.add(sheet);return sheet;
  }
  async image(url:string,expectedGeneration?:AssetGeneration):Promise<HTMLImageElement>{
   const epoch=this.epoch;await this.init();if(epoch!==this.epoch)throw new DOMException('Art generation was replaced.','AbortError');const generation=expectedGeneration??this.generation!;if(generation!==this.generation)throw new DOMException('Art generation was replaced.','AbortError');const key=generation.key(url);let pending=this.images.get(key);
@@ -279,13 +317,20 @@ export class ArtLibrary {
   out.getContext('2d')!.drawImage(canvas,minX-pad,minY-pad,cw,ch,0,0,cw,ch);
   return out.toDataURL('image/png');
  }
- async dispose(){if(this.closed)return;this.closed=true;this.epoch++;this.lifetime.abort();this.generation?.dispose();this.clearImages();await this.binding;await this.release();this.generation=undefined;this.index=undefined;this.initialization=undefined}
+ async dispose(){if(!this.closed){this.closed=true;this.epoch++;this.lifetime.abort();this.generation?.dispose();this.clearImages()}await this.binding;await this.release();this.generation=undefined;this.index=undefined;this.initialization=undefined}
  /** Release GPU textures for a finished match; same-generation cameos stay cached. */
  release(){
-  const previous=this.sheets;this.sheets=new Map();
+  const previous=this.sheets;this.sheets=new Map();const work=this.retire(previous);this.sheetWork=work.then(()=>{},()=>{});return work;
+ }
+ private retire(previous:Map<string,Promise<SpriteSheet|undefined>>,generation?:AssetGeneration,clearImages=false){
   const earlier=this.releaseWork;
-  this.releaseWork=(async()=>{await earlier;const sheets=await Promise.all(previous.values());for(const sheet of sheets){if(sheet){await sheet.dispose();this.loaded.delete(sheet)}}})();
-  return this.releaseWork;
+  const work=(async()=>{
+   if(clearImages)this.clearImages();generation?.dispose();await earlier.catch(()=>{});
+   const sheets=new Set([...this.failedRetirements,...await Promise.all(previous.values())]),errors:unknown[]=[];
+   for(const sheet of sheets)if(sheet){try{await sheet.dispose();this.failedRetirements.delete(sheet);this.loaded.delete(sheet)}catch(error){this.failedRetirements.add(sheet);errors.push(error)}}
+   if(errors.length)throw errors.length===1?errors[0]:new AggregateError(errors,'Sprite sheet retirement failed.');
+  })();
+  this.releaseWork=work;void work.catch(()=>{});return work;
  }
 }
 export const art=new ArtLibrary();

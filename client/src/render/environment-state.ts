@@ -15,9 +15,14 @@ export class EnvironmentKnowledge {
  sync(snapshot:PlayerSnapshot):EnvironmentItem[]{
   if(snapshot.tick<this.tick||snapshot.player!==this.player)this.clear();this.tick=snapshot.tick;this.player=snapshot.player;
   const tile=(p:Point)=>Math.floor(p.y/1000)*this.map.width+Math.floor(p.x/1000),seen=(p:Point)=>!!snapshot.visible[tile(p)],explored=(p:Point)=>!!snapshot.explored[tile(p)];
-  const dynamic=new Map<string,typeof snapshot.fields[number]>();
-  for(const field of snapshot.fields){
-   if(!field.position||!seen(field.position))continue;
+  type FieldFact=Pick<PlayerSnapshot['fields'][number],'id'|'position'|'remaining'>;
+  const disclosed=new Map<number,FieldFact>(),dynamic=new Map<string,FieldFact>();
+  // Loads, replay seeks and perspective returns already disclose this viewer's
+  // last observations. Hidden history never refreshes from a live field record.
+  for(const field of snapshot.knownFields)if(field.position&&explored(field.position)&&!seen(field.position))disclosed.set(field.id,field);
+  for(const field of snapshot.fields)if(field.position&&seen(field.position))disclosed.set(field.id,field);
+  for(const field of disclosed.values()){
+   if(!field.position)continue;
    const initial=(this.map.fields??[]).find(f=>f.id===field.id&&f.position.x===field.position!.x&&f.position.y===field.position!.y);
    if(!initial){const key=`field-at:${field.position.x}:${field.position.y}`,prior=dynamic.get(key);if(!prior||field.remaining>0n&&prior.remaining<=0n||(field.remaining>0n)===(prior.remaining>0n)&&field.id>prior.id)dynamic.set(key,field);continue}
    const capacity=BigInt(initial.credits),state=field.remaining<=0n?'depleted':field.remaining*4n<capacity?'low':field.remaining*4n<capacity*3n?'high':'full';

@@ -2,6 +2,7 @@ import {sha256Hex as digest,randomUUID} from './crypto';
 import {REVISION_STORE,upgradeRevisions,reserveRevision} from './idb-revisions';
 import {RuntimeError} from './errors';
 import {validateCampaignProgress,type CampaignProgress} from './progress';
+import {COMMANDER_PROGRESS_ID,validateCommanderProgress,mergeCommanderProgress,type CommanderProgress} from './commander-progress';
 import type {EngineMetadata,SaveData,ReplayLobby} from './types';
 
 export interface LocalSave extends SaveData{id:string;name:string;revision:number;updated:number;kind:'manual'|'auto';mission?:string}
@@ -141,7 +142,9 @@ export class LocalStore {
  async putReplay(id:string,name:string,data:Uint8Array,expectedRevision=0):Promise<LocalReplay>{
   validName(id,name);revision(expectedRevision);const checked=await this.checkedReplay(data);return this.putRecord('replays',{...checked,id,name:name.trim(),revision:0,updated:0},expectedRevision) as Promise<LocalReplay>;
  }
- async listReplays():Promise<Array<Omit<LocalReplay,'data'>>>{const db=await this.open(),values=await request(db.transaction('replays').objectStore('replays').getAll()) as LocalReplay[];return values.map(({data,...record})=>record).sort((a,b)=>b.updated-a.updated||a.id.localeCompare(b.id))}
+ async listReplays():Promise<Array<Omit<LocalReplay,'data'>>>{
+  const db=await this.open();return new Promise((resolve,reject)=>{const values:Array<Omit<LocalReplay,'data'>>=[],transaction=db.transaction('replays'),request=transaction.objectStore('replays').openCursor();transaction.onabort=()=>reject(storageError(transaction.error));transaction.onerror=()=>reject(storageError(transaction.error));transaction.oncomplete=()=>resolve(values.sort((a,b)=>b.updated-a.updated||a.id.localeCompare(b.id)));request.onerror=()=>reject(storageError(request.error));request.onsuccess=()=>{const cursor=request.result;if(!cursor)return;const {data,...record}=cursor.value as LocalReplay;values.push(record);cursor.continue()}});
+ }
  async getReplay(id:string):Promise<LocalReplay|undefined>{
   const db=await this.open(),record=await request(db.transaction('replays').objectStore('replays').get(id)) as LocalReplay|undefined;
   if(record&&await digest(record.data)!==record.sha256)throw new RuntimeError('replay_corrupt','This stored replay failed its integrity check. Export its original bytes for recovery.');return record;
@@ -199,6 +202,7 @@ export class LocalStore {
     }else{
      if(store==='progress'&&raw.schema_version!==1)throw new RuntimeError('progress_incompatible','This progress version needs a matching game version.');
      if(store==='progress'&&raw.id==='campaign')validateCampaignProgress(raw.data as CampaignProgress);
+     if(store==='progress'&&raw.id===COMMANDER_PROGRESS_ID)validateCommanderProgress(raw.data);
      record={id:raw.id,revision:raw.revision,updated:raw.updated,data:jsonData(raw.data,store==='settings'?32768:256*1024,`${store}_invalid`),...(store==='progress'?{schema_version:1 as const}:{})};
     }
    }catch(cause){error=cause;preserveOriginal=true}
@@ -218,7 +222,9 @@ export class LocalStore {
    const source=state.records.get(entry.key);if(!source||!['copy','restore'].includes(decision.action))throw new RuntimeError('backup_invalid_decision','Unsupported or damaged records can only be preserved in the original recovery file.');
    revision(decision.expectedRevision);if(decision.action==='restore'&&decision.expectedRevision!==(entry.current?.revision??0))throw new RuntimeError('backup_preview_stale','Use the exact revision shown in the preview, or preview again.');const id=decision.id??source.id;validID(id);if(decision.action==='copy'&&(id===source.id||decision.expectedRevision!==0))throw new RuntimeError('backup_copy_id','A copy needs a different, unused local ID.');if(decision.action==='restore'&&id!==source.id)throw new RuntimeError('backup_restore_id','Use Copy to choose a different ID.');
    if(targets.has(`${entry.store}:${id}`))throw new RuntimeError('backup_duplicate_target','Two backup records cannot replace the same local record.');targets.add(`${entry.store}:${id}`);
-   const record=structuredClone(source);record.id=id;if('name' in record){record.name=decision.name??record.name;validName(id,record.name);record.name=record.name.trim()}
+   const record=structuredClone(source);record.id=id;
+   if(entry.store==='progress'&&id===COMMANDER_PROGRESS_ID)validateCommanderProgress((record as LocalProgress).data);
+   if('name' in record){record.name=decision.name??record.name;validName(id,record.name);record.name=record.name.trim()}
    if(entry.store==='saves'){const saved=record as LocalSave;if(decision.action==='copy'){if(id.startsWith('autosave-'))throw new RuntimeError('reserved_save_id','Copies require a manual save ID.');saved.kind='manual'}}
    writes.push({store:entry.store,record,expected:decision.expectedRevision});
   }
@@ -228,6 +234,9 @@ export class LocalStore {
   try{
    const current=await Promise.all(writes.map(write=>request(tx.objectStore(write.store).get(write.record.id)))) as Array<StoredRecord|undefined>;
    for(let i=0;i<writes.length;i++)if((current[i]?.revision??0)!==writes[i].expected){tx.abort();throw new RuntimeError('backup_conflict','A local record changed after the preview. Preview again before restoring anything.',true,{store:writes[i].store,id:writes[i].record.id,current:current[i]?summary(current[i]!):undefined})}
+   // Validate and merge all commander receipts before the first restore write.
+   // Older backups must never erase known IDs and make an old final award twice.
+   for(let i=0;i<writes.length;i++){const write=writes[i];if(write.store==='progress'&&write.record.id===COMMANDER_PROGRESS_ID){const prior=current[i] as LocalProgress<CommanderProgress>|undefined;if(prior&&prior.schema_version!==1)throw new RuntimeError('commander_progress_incompatible','Preserve the newer local mastery ledger before restoring this backup.');(write.record as LocalProgress<CommanderProgress>).data=mergeCommanderProgress(prior?.data,(write.record as LocalProgress<CommanderProgress>).data)}}
    const restored:RestoreResult['restored']=[];for(const write of writes){const record={...write.record,revision:await reserveRevision(tx,write.store,write.record.id,write.expected),updated:Date.now()};tx.objectStore(write.store).put(record);restored.push({store:write.store,id:record.id,revision:record.revision})}if(storedRecovery)tx.objectStore('recovery').add(storedRecovery);await done;previews.delete(preview);return {restored,kept,recoveryId:recovery?.id};
   }catch(error){try{tx.abort()}catch{}throw storageError(error)}
  }

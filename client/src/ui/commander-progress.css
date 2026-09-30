@@ -1,0 +1,36 @@
+.commander-record{min-width:0}
+.commander-progress-panel{min-width:0}
+.commander-progress-panel>.record-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.commander-record .record-intro{line-height:1.5;max-width:65ch;margin:0 0 18px;color:#c8bfa5}
+.commander-record .record-actions,.commander-record .record-factions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.commander-record .record-factions button{display:flex;align-items:center;gap:8px}
+.commander-record .record-factions .emblem{width:24px;height:24px}
+.commander-record .record-factions button[aria-pressed="true"]{color:#ecd095;border-color:#bca366;background:#343426}
+.commander-record .mastery-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}
+.commander-record .mastery-counts>div{padding:12px;border:1px solid #514d38;background:#191b15;min-width:0}
+.commander-record .mastery-counts dt{font:calc(12px * var(--fc-ui-scale)) var(--fc-font-label);color:#c7b888;line-height:1.4}
+.commander-record .mastery-counts dd{margin:6px 0 0;font:700 calc(22px * var(--fc-ui-scale)) var(--fc-font-mono);color:#e7dab7;overflow-wrap:anywhere}
+.commander-record .mastery-note{font-size:calc(12px * var(--fc-ui-scale));line-height:1.5;color:#b5ad94}
+.commander-record .record-badges{display:grid;gap:9px;list-style:none;padding:0;margin:12px 0 20px}
+.commander-record .record-badge{display:flex;align-items:flex-start;gap:12px;padding:12px;border:1px solid #554e37;background:#1a1c16;min-width:0}
+.commander-record .record-badge[data-earned="true"]{border-color:#9b8e5a;background:#272b1e}
+.commander-record .record-badge .icon{width:25px;height:25px;flex:none;color:#c8ae65}
+.commander-record .record-badge strong{display:block;font:700 calc(15px * var(--fc-ui-scale)) var(--fc-font-label);line-height:1.35}
+.commander-record .record-badge p,.commander-record .record-badge small{margin:5px 0 0;line-height:1.45;color:#bdb79e;font-size:calc(12px * var(--fc-ui-scale));overflow-wrap:anywhere}
+.commander-record .record-badge .badge-state{margin-left:auto;flex:none;font:calc(11px * var(--fc-ui-scale)) var(--fc-font-mono);color:#d5bf7d}
+.challenge-list{display:grid;gap:12px;margin:12px 0;min-width:0}
+.challenge-card{border:1px solid #585137;background:#1c1e17;padding:14px;min-width:0}
+.challenge-card h4{margin:0 0 8px;color:#e0cd96;font:700 calc(17px * var(--fc-ui-scale)) var(--fc-font-label);line-height:1.4}
+.challenge-card p{margin:7px 0;line-height:1.5;overflow-wrap:anywhere;font-size:calc(13px * var(--fc-ui-scale))}
+.challenge-card small{display:block;color:#bdb79c;font-size:calc(12px * var(--fc-ui-scale));line-height:1.5;margin:8px 0}
+.challenge-card .button-row{margin:10px 0 0;flex-wrap:wrap}
+.training-focus{margin:10px 0;padding:10px;border:1px solid #9b8751;background:#2c2d1d}
+.training-focus h4{margin:0 0 7px;font-size:calc(13px * var(--fc-ui-scale));color:#e7ca86}
+.training-focus p{margin:0;line-height:1.45;font-size:calc(12px * var(--fc-ui-scale));overflow-wrap:anywhere}
+.training-focus small{display:block;line-height:1.45;margin-top:7px;font-size:calc(11px * var(--fc-ui-scale));color:#c4b68a}
+.commander-pending{min-width:0;margin:14px 0;padding:12px;border:1px solid #8d794b;background:#23251a}
+.commander-pending h3{margin:0 0 8px}
+.commander-pending p{font-size:calc(12px * var(--fc-ui-scale));line-height:1.45;overflow-wrap:anywhere}
+.commander-pending ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.commander-pending li{min-width:0;padding-top:10px;border-top:1px solid #625739}
+@media(max-width:700px){.commander-record .mastery-counts{grid-template-columns:minmax(0,1fr)}.commander-record .record-badge{flex-wrap:wrap}.commander-record .record-badge .badge-state{margin-left:0}}

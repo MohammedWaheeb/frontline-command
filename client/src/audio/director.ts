@@ -18,7 +18,7 @@ export class AudioDirector {
  dispose(){if(this.loopTimer)clearInterval(this.loopTimer);this.viewport=undefined;this.mixer.continuous([])}
  constructor(readonly mixer:AudioMixer,private catalog:()=>CatalogIndex|undefined){}
  operation(scope:string){if(scope===this.scope)return;this.scope=scope;this.connectionPhase='';this.suspended=false;this.enduranceLost.clear();this.teammates.clear();this.previous=undefined;this.lastEvent=0;this.combatUntil=0;this.tensionUntil=0;this.scene='';this.mixer.reset();this.mixer.music([])}
- discontinuity(){this.enduranceLost.clear();this.teammates.clear();this.previous=undefined;this.lastEvent=0;this.mixer.reset();this.mixer.music([]);this.scene=''}
+ discontinuity(){this.enduranceLost.clear();this.teammates.clear();this.previous=undefined;this.lastEvent=0;this.combatUntil=0;this.tensionUntil=0;this.mixer.reset();this.mixer.music([]);this.scene=''}
  page(page:string,briefing?:string){if(this.scope)return;const scene=briefing?`briefing:${briefing}`:page==='editor'?'editor':page==='network'?'lobby':'menu';if(this.scene===scene)return;this.scene=scene;this.mixer.reset();this.mixer.music([`music.${briefing?'briefing_bed':page==='editor'?'editor_ambient':page==='network'?'lobby_loop':'menu_theme'}`])}
  briefing(id:string,faction?:string){this.mixer.stopTransient();this.mixer.clearCaptions();this.mixer.play(`vo.briefing.${id}${faction?`.${faction}`:''}`)}
  connection(phase:string){if(phase===this.connectionPhase)return;this.connectionPhase=phase;if(phase==='reconnecting'){this.suspended=true;this.discontinuity();this.announce('reconnecting',undefined,100)}else if(phase==='connected'){this.suspended=false;this.discontinuity()}}
@@ -26,7 +26,9 @@ export class AudioDirector {
  selection(entities:readonly Entity[],player:number){const entity=entities.find(entity=>entity.owner===player&&this.catalog()?.units.has(entity.type));if(entity)this.unit(entity,'select')}
  receipt(kind:string,accepted:boolean,entity?:Pick<Entity,'type'|'owner'>,code?:string){
   if(!accepted){this.mixer.play('sfx.ui_error',{cooldown:300});if(code==='insufficient_credits')this.announce('insufficient_funds');else if(entity)this.unit(entity,'unavailable');return}
-  const event=['move','attack_move','guard','escort','board','unload','capture','rally','harvest','return_aircraft'].includes(kind)?'move':['attack','force_fire'].includes(kind)?'attack':['stop','hold'].includes(kind)?'stop':kind==='repair'?'repair':kind==='retreat'?'retreat':undefined;
+  // Go's accepted return order withdraws an aircraft to service (or rebases it).
+  // It uses the existing retreat response without inventing a ground order.
+  const event=['move','attack_move','patrol','guard','escort','board','unload','capture','rally','gather','salvage','harvest','return_aircraft'].includes(kind)?'move':['attack','force_fire'].includes(kind)?'attack':['stop','hold'].includes(kind)?'stop':kind==='repair'?'repair':['return','retreat'].includes(kind)?'retreat':undefined;
   if(event&&entity)this.unit(entity,event);else this.mixer.play(['train','research','build'].includes(kind)?'sfx.ui_queue_add':'sfx.ui_confirm',{cooldown:200});
  }
  private unit(entity:Pick<Entity,'type'|'owner'>,event:string,key?:string){const unit=this.catalog()?.units.get(entity.type);if(!unit)return;const unitClass=classify(unit),family=unitClass==='infantry'?'infantry':['aircraft','rotor','drone'].includes(unitClass)?(['IR','SY'].includes(unit.faction)?'drone_operator':'pilot'):'vehicle_crew';this.mixer.play(`vo.unit.${unit.faction}.${family}.${event}`,{key:key??`unit:${event}`,cooldown:event==='under_fire'?6000:event==='select'?2500:800,caption:`${unit.name}: ${title(event)}.`,priority:10})}

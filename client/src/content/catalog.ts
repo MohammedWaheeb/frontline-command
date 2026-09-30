@@ -24,7 +24,7 @@ export class CatalogIndex {
 }
 function mapObjectName(type:string){if(type.startsWith('map.'))return type.slice(4).replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());return undefined}
 export type UnitClass='infantry'|'vehicle'|'tank'|'aircraft'|'drone'|'rotor'|'support';
-const AIR_ROLES=new Set(['fighter','strike','gunship','airlift','isr','scout_drone']);
+const AIR_ROLES=new Set(['fighter','strike','shahed','gunship','airlift','isr','scout_drone']);
 export function classify(u:Pick<CatalogUnit,'role'|'faction'|'armor'>):UnitClass{
  if(u.armor==='infantry')return 'infantry';
  if(AIR_ROLES.has(u.role))return u.faction==='IR'||u.role==='scout_drone'?'drone':u.role==='gunship'||u.role==='airlift'?'rotor':'aircraft';
@@ -34,7 +34,7 @@ export function classify(u:Pick<CatalogUnit,'role'|'faction'|'armor'>):UnitClass
 }
 export type ProductionTab='structures'|'defense'|'infantry'|'vehicles'|'aircraft'|'research';
 export function tabFor(catalog:CatalogIndex,type:string):ProductionTab{
- const b=catalog.buildings.get(type);if(b)return b.defense||['abm','strategic'].includes(b.role)?'defense':'structures';
+ const b=catalog.buildings.get(type);if(b)return b.defense||['abm','strategic','barrier'].includes(b.role)?'defense':'structures';
  if(catalog.upgrades.has(type))return 'research';
  const u=catalog.units.get(type);if(!u)return 'vehicles';
  const c=classify(u);return c==='infantry'?'infantry':c==='aircraft'||c==='drone'||c==='rotor'?'aircraft':'vehicles';

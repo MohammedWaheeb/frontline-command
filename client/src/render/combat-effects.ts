@@ -55,6 +55,16 @@ export class CombatEffects {
  }
  draw(surface:TerrainSurface,zoom:number,settings:Settings,viewport:{left:number;right:number;top:number;bottom:number},altitude:(id:number)=>number|undefined,muzzle?:(id:number,eventID:number)=>CombatAttachment|undefined,actorBase?:(id:number)=>Point|undefined){
   const snapshot=this.snapshot;if(!snapshot||this.closed)return;
+  const projectiles=this.history.projectiles;
+  // Retired sheets can stay indexed for this match. An empty authorized
+  // timeline has no geometry, attachments or pending artwork to repaint.
+  if(!this.history.values.length&&!projectiles.length&&!this.ambient.values.length){
+   if(this.drawKey!=='idle'){
+    this.clearSprites();this.marks.clear();this.clearLabels();this.drawKey='idle';
+    this.stats={cues:0,drawnCues:0,confirmedHits:0,cover:0,intercepted:0,decoys:0,trails:0,decorations:0,labels:0,ambientCues:0,ambientDrawn:0};
+   }
+   return;
+  }
   const attachments=new Map<string,CombatAttachment>();
   for(const cue of this.history.values)if(cue.kind==='muzzle'&&cue.anchor!==undefined){const p=muzzle?.(cue.anchor,cue.id);if(p)attachments.set(cue.key,p)}
   const ambientPoints=new Map<string,Point>();
@@ -83,7 +93,7 @@ export class CombatEffects {
    let node=this.sprites.get(nodeKey);if(!node){node={sprite:new Sprite(frame.texture),sheet,variant,frame:index};this.sprites.set(nodeKey,node);this.decoration.addChild(node.sprite)}
    node.sprite.texture=frame.texture;node.sprite.anchor.set(frame.anchorX,frame.anchorY);node.sprite.scale.set(frame.pixelScale);node.sprite.position.set(p.x,p.y);node.sprite.rotation=rotation;node.variant=variant;node.sheet=sheet;node.frame=index;usedSprites.add(nodeKey);decorative++;return true;
   };
-  for(const trace of this.history.projectiles){
+  for(const trace of projectiles){
    const samples=trace.samples;if(!samples.length)continue;
    if(!settings.reducedMotion)for(let i=1;i<samples.length;i++){
     if(!visibleTrace(samples[i-1].position,samples[i].position,this.map,snapshot.visible))continue;

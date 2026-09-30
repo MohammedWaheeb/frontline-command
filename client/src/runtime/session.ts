@@ -4,6 +4,7 @@ import {ObserverTransport,type ObserverConnection} from './observer';
 import {LocalStore,type LocalSave,type ReplayInspection} from './storage';
 import {AutosaveCoordinator,type AutosaveStatus} from './autosave';
 import {RuntimeError} from './errors';
+import {assertOfflineRuntime,type OfflineRuntimeIdentity} from './offline-runtime';
 import type {GameMap,GameTransport,OfflineConfig,RuntimeEvent,SaveData,SessionInfo,Speed} from './types';
 
 export type SessionKind='solo'|'practice'|'replay'|'online'|'observer';
@@ -14,20 +15,24 @@ export type OnlineSession=Pick<OnlineTransport,'mode'|'current'|'connect'|'subsc
 export type SessionStorage=Pick<LocalStore,'getSave'|'getReplay'|'putSave'|'putReplay'|'autosave'>;
 export interface SessionOptions{
  runtimeURL?:string;databaseName?:string;store?:SessionStorage;
+ /** Wait at the content boundary before a candidate consumes assets or starts. */
+ beforeLaunch?:(signal:AbortSignal)=>Promise<void>;
+ /** Bind each new worker to the application's committed verified pack. */
+ expectedRuntime?:(signal:AbortSignal)=>Promise<OfflineRuntimeIdentity>;
  makeOffline?:()=>OfflineSession;makeOnline?:(baseURL:string,connection:MatchConnection)=>OnlineSession;
  makeObserver?:(baseURL:string,connection:ObserverConnection)=>Pick<ObserverTransport,'mode'|'current'|'connect'|'subscribe'|'sendOrders'|'pause'|'resume'|'dispose'>;
  /** Claude's asset loader supplies this hook. It must observe cancellation. */
  prepare?:(input:{kind:SessionKind;map?:GameMap;config?:OfflineConfig},signal:AbortSignal)=>Promise<void>;
 }
 interface Active{id:string;kind:SessionKind;map:GameMap;info?:SessionInfo;transport:GameTransport;offline?:OfflineSession;unsubscribe:()=>void;autosave?:AutosaveCoordinator}
-interface Launch{kind:SessionKind;generation:number;abort:AbortController;candidate?:GameTransport}
+interface Launch{kind:SessionKind;generation:number;abort:AbortController;waitingContent:boolean;candidate?:GameTransport}
 
 /** Nonvisual ownership of worker/socket lifetimes and persistence integration.
  * The prior session remains usable until a replacement has actually loaded. */
 export class SessionController{
  readonly store:SessionStorage;
- private active:Active|undefined;private launching:Launch|undefined;private generation=0;private closed=false;
- private validator:OfflineSession|undefined;private ownedStore:LocalStore|undefined;private listeners=new Set<(event:SessionEvent)=>void>();
+ private active:Active|undefined;private launching:Launch|undefined;private generation=0;private closed=false;private contentReaders=0;
+ private validator:OfflineSession|undefined;private inspectionLifetime=new AbortController();private ownedStore:LocalStore|undefined;private listeners=new Set<(event:SessionEvent)=>void>();
  private readonly makeOffline:()=>OfflineSession;private readonly makeOnline:(baseURL:string,connection:MatchConnection)=>OnlineSession;
  constructor(private readonly options:SessionOptions={}){
   this.makeOffline=options.makeOffline??(()=>new OfflineTransport(options.runtimeURL));
@@ -35,13 +40,16 @@ export class SessionController{
   this.store=options.store??(this.ownedStore=new LocalStore(options.databaseName,data=>this.inspect(data),data=>this.inspectReplay(data)));
  }
  get transport():GameTransport|undefined{return this.active?.transport}
+ /** A waiting launch owns no content yet; an active/preparing session or
+  * inspection must keep its exact committed generation until it finishes. */
+ get contentIdle(){return !this.closed&&!this.active&&this.contentReaders===0&&(!this.launching||this.launching.waitingContent)}
  get state():SessionState{return {phase:this.closed?'closed':this.launching?'loading':this.active?'active':'menu',id:this.active?.id,kind:this.active?.kind,map:this.active?.map,info:this.active?.info?structuredClone(this.active.info):undefined,loading:this.launching?.kind}}
  subscribe(listener:(event:SessionEvent)=>void){this.listeners.add(listener);return()=>this.listeners.delete(listener)}
  private emit(event:SessionEvent){for(const listener of this.listeners){try{listener(event)}catch(error){console.error('Frontline session subscriber failed',error)}}}
  private announce(){this.emit({type:'session',state:this.state})}
  private alive(){if(this.closed)throw new RuntimeError('disposed','This session controller is closed.',false)}
  private begin(kind:SessionKind):Launch{
-  this.alive();this.cancelLaunch(false);const launch:Launch={generation:++this.generation,abort:new AbortController(),kind};this.launching=launch;this.announce();return launch;
+  this.alive();this.cancelLaunch(false);const launch:Launch={generation:++this.generation,abort:new AbortController(),kind,waitingContent:true};this.launching=launch;this.announce();return launch;
  }
  private currentLaunch(launch:Launch){if(this.closed||this.launching!==launch||launch.abort.signal.aborted)throw new RuntimeError('launch_canceled','This game launch was canceled.');}
  cancelLaunch(announce=true){const old=this.launching;if(!old)return;this.launching=undefined;old.abort.abort();old.candidate?.dispose();if(announce)this.announce()}
@@ -73,8 +81,10 @@ export class SessionController{
  private async offlineLaunch(kind:SessionKind,load:(runtime:OfflineSession)=>Promise<SessionInfo>,config?:OfflineConfig){
   const launch=this.begin(kind);
   try{
+   if(this.options.beforeLaunch){await this.options.beforeLaunch(launch.abort.signal);this.currentLaunch(launch)}
+   const expected=this.options.expectedRuntime?await this.options.expectedRuntime(launch.abort.signal):undefined;this.currentLaunch(launch);launch.waitingContent=false;
    if(config){await this.options.prepare?.({kind,map:config.map,config},launch.abort.signal);this.currentLaunch(launch)}
-   const runtime=this.makeOffline();launch.candidate=runtime;await runtime.ready;this.currentLaunch(launch);
+   const runtime=this.makeOffline();launch.candidate=runtime;const version=await runtime.ready;this.currentLaunch(launch);if(expected)assertOfflineRuntime(version,expected);
    const info=await load(runtime);this.currentLaunch(launch);const map=await runtime.map();this.currentLaunch(launch);
    const actualKind:SessionKind=info.replay?'replay':info.metadata?.ruleset==='practice-v1'?'practice':'solo';
    if(!config){await this.options.prepare?.({kind:actualKind,map},launch.abort.signal);this.currentLaunch(launch)}
@@ -88,7 +98,7 @@ export class SessionController{
  playReplay(bytes:Uint8Array){const data=bytes.slice();return this.offlineLaunch('replay',runtime=>runtime.loadReplay(data))}
  async joinOnline(baseURL:string,connection:MatchConnection,map:GameMap){
   const launch=this.begin('online');
-  try{await this.options.prepare?.({kind:'online',map},launch.abort.signal);this.currentLaunch(launch);const online=this.makeOnline(baseURL,{...connection});launch.candidate=online;await online.connect();this.currentLaunch(launch);if(online.current?.metadata?.mapVersion!==map.version)throw new RuntimeError('map_version_mismatch','The loaded map version differs from the host match. Reload its content before reconnecting.');this.install(launch,'online',map,online);return this.state}
+  try{if(this.options.beforeLaunch){await this.options.beforeLaunch(launch.abort.signal);this.currentLaunch(launch)}launch.waitingContent=false;await this.options.prepare?.({kind:'online',map},launch.abort.signal);this.currentLaunch(launch);const online=this.makeOnline(baseURL,{...connection});launch.candidate=online;await online.connect();this.currentLaunch(launch);if(online.current?.metadata?.mapVersion!==map.version)throw new RuntimeError('map_version_mismatch','The loaded map version differs from the host match. Reload its content before reconnecting.');this.install(launch,'online',map,online);return this.state}
   catch(error){return this.failed(launch,error)}
  }
  /** A buffering observer has no initial snapshot; the transport validates every later perspective frame. */
@@ -96,6 +106,7 @@ export class SessionController{
   const launch=this.begin('observer');
   try{
    if(connection.map_version!==map.version)throw new RuntimeError('map_version_mismatch','The observer map version differs from the host match.');
+   if(this.options.beforeLaunch){await this.options.beforeLaunch(launch.abort.signal);this.currentLaunch(launch)}launch.waitingContent=false;
    await this.options.prepare?.({kind:'observer',map},launch.abort.signal);this.currentLaunch(launch);
    const observer=this.options.makeObserver?.(baseURL,{...connection})??new ObserverTransport(baseURL,{...connection});launch.candidate=observer;
    await observer.connect();this.currentLaunch(launch);if(observer.current?.metadata?.mapVersion&&observer.current.metadata.mapVersion!==map.version)throw new RuntimeError('map_version_mismatch','The observer map version differs from the host match.');
@@ -119,13 +130,20 @@ export class SessionController{
  async retryAutosave(){await this.active?.autosave?.retry()}
  async flushAutosave(){await this.active?.autosave?.flush()}
  /** The UI owns the explicit quit/surrender/save choice before calling leave. */
- leave(){this.cancelLaunch(false);this.release(this.active);this.active=undefined;this.validator?.dispose();this.validator=undefined;this.announce()}
- private async inspector(){
-  this.alive();if(!this.validator)this.validator=this.makeOffline();const validator=this.validator;
-  try{await validator.ready;if(this.closed||this.validator!==validator)throw new RuntimeError('inspection_canceled','The validation worker was closed. Retry the import.');return validator}
-  catch(error){if(this.validator===validator){validator.dispose();this.validator=undefined}throw error}
+ leave(){this.cancelLaunch(false);this.release(this.active);this.active=undefined;this.inspectionLifetime.abort(new RuntimeError('inspection_canceled','The validation worker was closed. Retry the import.'));this.inspectionLifetime=new AbortController();this.validator?.dispose();this.validator=undefined;this.announce()}
+ private async inspectWith<T>(read:(validator:OfflineSession)=>Promise<T>):Promise<T>{
+  this.alive();const signal=this.inspectionLifetime.signal;
+  if(this.options.beforeLaunch){await this.options.beforeLaunch(signal);signal.throwIfAborted()}
+  const expected=this.options.expectedRuntime?await this.options.expectedRuntime(signal):undefined;signal.throwIfAborted();this.alive();
+  this.contentReaders++;let validator:OfflineSession|undefined,checked=false;
+  try{
+   if(!this.validator)this.validator=this.makeOffline();validator=this.validator;
+   const version=await validator.ready;if(signal.aborted||this.closed||this.validator!==validator)throw new RuntimeError('inspection_canceled','The validation worker was closed. Retry the import.');if(expected)assertOfflineRuntime(version,expected);checked=true;
+   const result=await read(validator);if(signal.aborted||this.closed||this.validator!==validator)throw new RuntimeError('inspection_canceled','The validation worker was closed. Retry the import.');return result;
+  }catch(error){if(!checked&&validator&&this.validator===validator){validator.dispose();this.validator=undefined}throw error}
+  finally{this.contentReaders--}
  }
- async inspect(data:Uint8Array){return (await this.inspector()).inspect(data)}
- async inspectReplay(data:Uint8Array):Promise<ReplayInspection>{return (await this.inspector()).inspectReplay(data)}
+ async inspect(data:Uint8Array){return this.inspectWith(validator=>validator.inspect(data))}
+ async inspectReplay(data:Uint8Array):Promise<ReplayInspection>{return this.inspectWith(validator=>validator.inspectReplay(data))}
  dispose(){if(this.closed)return;this.leave();this.closed=true;this.announce();this.listeners.clear();void this.ownedStore?.close().catch(error=>console.error('Frontline local storage close failed',error));this.ownedStore=undefined}
 }

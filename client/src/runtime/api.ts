@@ -7,7 +7,8 @@ export interface LobbySlot{player:number;color:number;profile?:string;name:strin
 export interface Lobby{id:string;revision:number;map_hash:string;map_version:string;rules?:LobbyRules;scenario_rules?:LobbyScenarioRules;name:string;host:string;map_id:string;mode:string;private:boolean;rated:boolean;live_observers:boolean;pause_enabled:boolean;slots:LobbySlot[];match_id?:string;scenario_id?:string;difficulty?:Difficulty;resume_tick?:number;previous_match_id?:string}
 export interface LobbyResponse{state?:'forming'|'active'|'completed';lobby:Lobby;code?:string;connection?:MatchConnection}
 export interface LobbyConfig{name:string;map_id:string;mode:'1v1'|'2v2'|'ffa'|'coop'|'custom';private?:boolean;faction:Faction|'random';team?:number;color?:number;rules?:LobbyRules;ai?:Array<{faction:Faction|'random';difficulty:Difficulty;team?:number;color?:number}>;live_observers?:boolean;pause_enabled?:boolean}
-export interface LobbyRules{ruleset:'standard-v2';speed:1;starting_credits:6000;supply_cap:100;fog:true;strategic_operations:true}
+/** starting_credits is whole credits. Nondefault funds require a private, unranked custom lobby. */
+export interface LobbyRules{ruleset:'standard-v2'|'custom-v1';speed:1;starting_credits:number;supply_cap:100;fog:true;strategic_operations:true}
 export interface LobbyScenarioRules{ruleset:'scenario-v2';mission_version:string;difficulty:Difficulty;rules_notice:string;resumed:boolean;starting_credits?:Array<{player:number;credits_milli:number}>}
 export interface LobbyChanges{map_id?:string;faction?:Faction|'random';team?:number;color?:number;name?:string;private?:boolean;pause_enabled?:boolean;live_observers?:boolean;rules?:LobbyRules}
 export interface LobbyAI{faction?:Faction|'random';difficulty:Difficulty;team?:number;color?:number}

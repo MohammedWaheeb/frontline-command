@@ -3,8 +3,9 @@ import type {Application} from '../app/application';
 import type {BattleController} from '../app/battle-controller';
 import {useObservable} from '../app/store';
 import type {ControlBindings} from '../runtime/keybindings';
+import {shortcutLabel} from './shortcut-presentation';
 interface Step{id:string;kind:string;text?:string;objective?:string}
-function shortcut(bindings:ControlBindings,action:string){return bindings.keys[action]?.map(chord=>[...(chord.modifiers??[]).map(value=>value==='meta'?'Command':value[0].toUpperCase()+value.slice(1)),chord.code.replace(/^Key|^Digit/,'')].join(' + ')).join(' or ')||'Unbound — set it in Options'}
+function shortcut(bindings:ControlBindings,action:string){return bindings.keys[action]?.map(chord=>shortcutLabel(chord)).join(' or ')||'Unbound — set it in Options'}
 function hint(kind:string,bindings:ControlBindings){
  const mouse=(button:number)=>['Left mouse','Middle mouse','Right mouse','Mouse 4','Mouse 5'][button];
  if(kind==='select')return `${mouse(bindings.pointer.select)} selects; drag that button around several units.`;

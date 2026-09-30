@@ -18,7 +18,7 @@
 .notice{z-index:300}
 
 .briefing-layout{display:grid;grid-template-columns:minmax(200px,.8fr) minmax(280px,1.2fr);gap:26px}.map-survey{margin:0;border:1px solid #888258;background:#0c1008;padding:8px}.map-survey canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.map-survey figcaption{display:flex;align-items:center;gap:8px;font:12px var(--fc-font-mono);color:#b5b38b;margin-top:9px}.briefing-signature{display:flex;gap:14px;align-items:center;margin-top:18px}.briefing-signature>div{display:flex;flex-direction:column;gap:6px}.briefing-signature strong{font:22px var(--fc-font-label);text-transform:uppercase}.briefing-signature small{font-size:13px}.briefing-copy{line-height:1.65;font-size:15px}.briefing-objectives{list-style:none;padding:0;display:flex;flex-direction:column;gap:14px}.briefing-objectives li{display:flex;gap:10px;font-size:14px;line-height:1.4}.briefing-objectives .icon{color:#c2b36f}.briefing-objectives small{display:block;font:12px var(--fc-font-mono);color:#a5a772;margin-top:3px}details{border-top:1px solid #555637;padding-top:12px;margin-top:20px;font-size:13px;color:#babc9e}summary{cursor:pointer;min-height:28px;font:15px var(--fc-font-label);text-transform:uppercase}details p{font-size:13px}@media(max-width:700px){.briefing-layout{grid-template-columns:1fr}.map-survey{max-width:250px;margin:auto}}
-.shortcut-list{border:1px solid var(--fc-color-border-default);max-height:360px;overflow:auto}.shortcut-row{display:grid;grid-template-columns:minmax(140px,1fr) minmax(120px,1fr) auto;gap:8px;align-items:center;padding:8px;border-bottom:1px solid #505241}.shortcut-row>span{font-size:13px}.shortcut-row button{font-size:12px;padding:8px}.binding-message{font-size:13px;color:var(--fc-color-accent-primary);min-height:1.3em}
+.shortcut-list{border:1px solid var(--fc-color-border-default);max-height:360px;overflow:auto}.shortcut-row{display:grid;grid-template-columns:minmax(140px,1fr) minmax(120px,1fr) auto;gap:8px;align-items:center;padding:8px;border-bottom:1px solid #505241}.shortcut-row>span{font-size:calc(13px * var(--fc-ui-scale))}.shortcut-row button{font-size:calc(12px * var(--fc-ui-scale));padding:8px}.binding-message{font-size:13px;color:var(--fc-color-accent-primary);min-height:1.3em}
 .replay-controls{position:absolute;top:12px;left:12px;right:calc(var(--fc-hud-sidebar-w) + 365px);z-index:40;padding:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px}.replay-controls label{display:flex;align-items:center;gap:5px}.replay-controls select{padding:4px;min-width:70px}.replay-controls input{width:150px}.replay-controls button{padding:7px}.replay-log{max-height:420px;overflow:auto}.replay-log>div{display:grid;grid-template-columns:90px 100px 1fr;align-items:center;gap:10px;padding:6px;border-bottom:1px solid #424536}.file-action{display:flex;align-items:center;gap:14px;margin-bottom:20px}.file-action input{max-width:290px;font-size:12px}.archive-row{flex-wrap:wrap}
 
 .production-cameo:hover .disabled-reason{display:flex}
@@ -118,15 +118,24 @@ body:has(.battlefield-screen) .audio-captions{left:calc((100% - var(--fc-hud-sid
 
 /* Power: a full-height segmented LED column, colour + label + numbers. */
 .battlefield-screen .production-body{gap:7px;padding:0 8px 8px 8px}
-.battlefield-screen .power-gauge{width:calc(32px * var(--fc-ui-scale));gap:4px;padding:5px 3px;background:#141310;box-shadow:inset 0 2px 4px #000,0 1px 0 var(--metal-hi)}
+.battlefield-screen .power-gauge{width:calc(38px * var(--fc-ui-scale));gap:4px;padding:5px 3px;background:#141310;box-shadow:inset 0 2px 4px #000,0 1px 0 var(--metal-hi)}
 .battlefield-screen .power-gauge>span{color:var(--brass-hi);font:700 calc(12px * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.04em}
-.battlefield-screen .power-gauge>div{width:14px;border:1px solid #000;box-shadow:0 0 0 1px #3a372f;background:repeating-linear-gradient(0deg,#1a1d12 0 5px,#070806 5px 7px)}
-.battlefield-screen .power-gauge i{opacity:1;background:repeating-linear-gradient(0deg,#9fd45a 0 5px,#243016 5px 7px);box-shadow:0 0 8px rgba(159,212,90,.35);transition:height .3s}
-.battlefield-screen .power-gauge[data-state=high] i{background:repeating-linear-gradient(0deg,#e8a33a 0 5px,#3a2610 5px 7px)!important;box-shadow:0 0 8px rgba(232,163,58,.4)}
-.battlefield-screen .power-gauge[data-state=low] i{background:repeating-linear-gradient(0deg,#ff5a3c 0 5px,#3a120c 5px 7px)!important;box-shadow:0 0 10px rgba(255,90,60,.5)}
+/* Power instrument: <i> is capacity (lit olive/brass column, brass ceiling line); <u> is demand (load overlay plus marker bar) on the same scale, labelled by <em>. Segments share the track's bottom origin so they stay in register. */
+.battlefield-screen .power-gauge>div{position:relative;width:14px;border:1px solid #000;box-shadow:0 0 0 1px #3a372f;background:repeating-linear-gradient(0deg,#1a1d12 0 5px,#070806 5px 7px)}
+.battlefield-screen .power-gauge>div>i{position:absolute;left:0;right:0;bottom:0;opacity:1;background:repeating-linear-gradient(0deg,#a9a753 0 5px,#2b2a15 5px 7px);box-shadow:0 0 7px rgba(201,184,96,.3);transition:height .3s}
+.battlefield-screen .power-gauge>div>i::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:#e6cf85}
+.battlefield-screen .power-gauge>div>u{position:absolute;left:0;right:0;bottom:0;text-decoration:none;background:repeating-linear-gradient(0deg,rgba(240,222,150,.5) 0 5px,transparent 5px 7px);transition:height .3s}
+.battlefield-screen .power-gauge>div>u::after{content:"";position:absolute;left:-4px;right:-4px;top:-1px;height:2px;background:#f2e2a8;box-shadow:0 0 0 1px #000}
+.battlefield-screen .power-gauge[data-state=high]>div>u{background:repeating-linear-gradient(0deg,rgba(232,163,58,.75) 0 5px,transparent 5px 7px)}
+.battlefield-screen .power-gauge[data-state=high]>div>u::after{background:#e8a33a}
+.battlefield-screen .power-gauge[data-state=low]>div>u{background:repeating-linear-gradient(0deg,rgba(255,90,60,.8) 0 5px,rgba(58,18,12,.6) 5px 7px);box-shadow:0 0 10px rgba(255,90,60,.45)}
+.battlefield-screen .power-gauge[data-state=low]>div>u::after{background:#ff6a4c}
+.battlefield-screen .power-gauge[data-state=off]>div>u::after{background:#6f6a5c}
+.battlefield-screen .power-gauge>em{font:calc(12px * var(--fc-ui-scale)) var(--fc-font-mono);font-style:normal;line-height:1;letter-spacing:-.04em;white-space:nowrap;color:#8f8872;padding-bottom:2px;border-bottom:1px solid #4a4536}
 .battlefield-screen .power-gauge small{display:flex;flex-direction:column;align-items:center;line-height:1.05;color:#bdb4a2;font:calc(12px * var(--fc-ui-scale)) var(--fc-font-mono)}
 .battlefield-screen .power-gauge small b{color:#9fd45a;font-weight:400}
 .battlefield-screen .power-gauge[data-state=high] small b{color:#e8a33a}
+.battlefield-screen .power-gauge[data-state=off] small b{color:#bdb4a2}
 .battlefield-screen .power-gauge[data-state=low] small b,.battlefield-screen .power-gauge[data-state=low]>span{color:#ff6a4c}
 
 /* Build tiles: illustrated art in a recessed, lit well. */
@@ -201,8 +210,8 @@ body:has(.battlefield-screen) .audio-captions{left:calc((100% - var(--fc-hud-sid
 .battlefield-screen .health-track i{background:repeating-linear-gradient(90deg,#8dd05a 0 6px,#2f4a1c 6px 8px);box-shadow:0 0 6px rgba(141,208,90,.35)}
 .battlefield-screen .selection-overview small{color:#cfc6ad}
 .battlefield-screen .unit-state{display:inline-block;margin-top:6px;padding:2px 6px;background:#0b0a09;color:var(--lcd);font:calc(12px * var(--fc-ui-scale)) var(--fc-font-mono);letter-spacing:.06em;box-shadow:inset 0 1px 3px #000}
-.battlefield-screen .unit-subgroups{padding:4px;background:#141310;box-shadow:inset 0 2px 4px #000;max-width:150px}
-.battlefield-screen .unit-subgroups button{font:700 calc(12px * var(--fc-ui-scale)) var(--fc-font-label);min-height:28px}
+.battlefield-screen .unit-subgroups{padding:4px;padding-right:20px;overflow-x:hidden;background:#141310;box-shadow:inset 0 2px 4px #000;max-width:150px}
+.battlefield-screen .unit-subgroups button{font:700 calc(12px * var(--fc-ui-scale)) var(--fc-font-label);min-height:28px;min-width:0;width:100%}
 .battlefield-screen .unit-subgroups button b{color:var(--lcd);font-family:var(--fc-font-mono);font-weight:400}
 .battlefield-screen .command-grid{gap:5px;padding:4px;background:#141310;box-shadow:inset 0 2px 5px #000,0 1px 0 var(--metal-hi);grid-template-columns:repeat(auto-fill,minmax(calc(74px * var(--fc-ui-scale)),1fr))}
 .battlefield-screen .command-grid button{position:relative;min-height:calc(54px * var(--fc-ui-scale));padding:5px 2px 4px;font:700 calc(12px * var(--fc-ui-scale))/1.05 var(--fc-font-label);letter-spacing:.02em;text-transform:uppercase}
@@ -505,7 +514,7 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
    Its captions stay mounted across every menu/session/target transition.
    Target orders occupy the bottom row; notices and objectives scroll together. */
 .battle-information.active{position:fixed;z-index:115;left:18px;top:max(20px,calc(var(--fc-hud-shoulder-h) + 8px));bottom:calc(var(--fc-hud-tray-h) + 14px);width:min(calc(330px * var(--fc-ui-scale)),calc((100vw - var(--fc-hud-sidebar-w)) * .42),calc(100vw - var(--fc-hud-sidebar-w) - 36px));display:flex;flex-direction:column;gap:10px;pointer-events:none}
-.battle-information.active .battle-information-scroll{min-height:0;flex:0 1 auto;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b09a63 #171812;pointer-events:auto;padding:2px 3px 4px 0}
+.battle-information.active .battle-information-scroll{min-height:0;flex:0 1 auto;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b09a63 #171812;pointer-events:auto;padding:2px 3px 4px 0;padding-inline-end:calc(28px * var(--fc-ui-scale))}
 .battle-information.active .battle-information-scroll:focus-visible{outline:1px solid var(--brass-hi);outline-offset:2px}
 .battle-information.active .battle-information-orders{display:flex;flex-direction:column;gap:8px}
 .battle-information.active .battle-information-target{flex:none;margin-top:auto;pointer-events:auto}
@@ -513,9 +522,12 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
 .battle-information.active .battle-alerts:empty{margin:0}
 .battle-information.active :is(.mission-objectives,.strike-review){position:static;width:100%;max-width:none;max-height:none;overflow:visible;flex:none}
 .battle-information.active .targeting-hint{position:static;width:100%;max-width:none;margin:0}
-.battle-information.active .audio-captions{position:static;left:auto;top:auto;right:auto;bottom:auto;width:auto;max-width:none;transform:none;transition:none;margin:0 0 8px}
-.battle-information.active .audio-captions:empty{margin:0}
-.battle-information.active .audio-captions p{overflow-wrap:break-word;text-align:left;padding:5px 10px;font-size:calc(14px * var(--fc-ui-scale));border-left-width:4px;background:linear-gradient(90deg,rgba(20,19,16,.95),rgba(20,19,16,.84))}
+/* Reserve the same flow slot while caption consent is enabled, including when
+   empty. Long messages scroll inside it; native wheel chaining can still reach
+   the surrounding information scroll well on short windows. */
+.battle-information.active .audio-captions{position:static;left:auto;top:auto;right:auto;bottom:auto;width:auto;max-width:none;transform:none;transition:none;margin:0 0 8px;block-size:clamp(calc(38px * var(--fc-ui-scale)),16vh,calc(96px * var(--fc-ui-scale)));align-content:start;overflow:auto;overscroll-behavior:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:#b09a63 #171812;pointer-events:auto}
+.battle-information.active .audio-captions:focus-visible{outline:1px solid var(--brass-hi);outline-offset:-1px}
+.battle-information.active .audio-captions p{min-width:0;overflow-wrap:anywhere;white-space:pre-wrap;text-align:left;padding:5px 10px;font-size:calc(14px * var(--fc-ui-scale));border-left-width:4px;background:linear-gradient(90deg,rgba(20,19,16,.95),rgba(20,19,16,.84))}
 
 /* Command well overflow: brass tabs in the tray's right margin count keys hidden
    above or below the actual scroll position. Static; never animated or flashing. */
@@ -579,11 +591,17 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
 /* Wrapped notices read as left-aligned console lines, not a centred banner. */
 .battle-information.active .battle-alert{text-align:left}
 
-/* P6: where the sidebar scrolls, the strategic-readiness well stays pinned at its
-   foot while cameos and the queue scroll behind it. Its 6px plate border replaces
-   the bottom margin (same geometry), and scroll padding keeps a keyboard-focused
-   tile above the pinned well. */
+/* In short viewports, queue and strategic status share the sidebar's ordinary
+   flow. The charge plate never paints over the queue; native sidebar scrolling
+   reaches both without reducing text or minimap scale. Keep the existing focus
+   scroll padding and plate geometry. */
 @media (max-height:1000px){
  .battlefield-screen .command-sidebar{scroll-padding-bottom:calc(46px * var(--fc-ui-scale) + 18px)}
- .battlefield-screen .command-sidebar>.strategic-panel{position:sticky;bottom:0;z-index:2;margin-bottom:0;border-bottom:6px solid #2b2924;box-shadow:inset 0 2px 4px #000,0 1px 0 var(--metal-hi),0 -8px 12px -6px rgba(0,0,0,.75)}
+ .battlefield-screen .command-sidebar>.strategic-panel{position:relative;margin-bottom:0;border-bottom:6px solid #2b2924;box-shadow:inset 0 2px 4px #000,0 1px 0 var(--metal-hi),0 -8px 12px -6px rgba(0,0,0,.75)}
 }
+
+
+/* Keep native production controls clear of the observed 6px overlay scrollbar.
+   Stable gutters cover classic scrollbars; explicit padding covers overlays. */
+.battlefield-screen .cameo-grid{min-inline-size:0;scrollbar-gutter:stable;padding-inline-end:24px}
+.battlefield-screen .cameo-grid>[data-build-requirements]{min-inline-size:0}

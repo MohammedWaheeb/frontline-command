@@ -139,7 +139,7 @@ async function commandEnvironment(source:EnvironmentSource,snapshot:PlayerSnapsh
   if(!independent)options.onPreview?.(structuredClone(result));
   return values;
  };
- return {snapshot:frame,isCurrent:current,supports:(entity,command)=>entity.owner===frame.player&&capabilities.get(entity.id)?.commands.includes(command.kind)===true,validateBatch:orders=>validate(orders,false),validateCandidates:orders=>validate(orders,true)};
+ return {snapshot:frame,isCurrent:current,supports:(entity,command,request)=>{const capability=capabilities.get(entity.id);if(entity.owner!==frame.player||!capability?.commands.includes(command.kind))return false;if(request?.type){const family=command.kind==='ability'?capability.abilities:command.kind==='build'?capability.builds:command.kind==='train'?capability.trains:command.kind==='research'?capability.research:undefined;if(family&&!family.includes(request.type))return false}return true},validateBatch:orders=>validate(orders,false),validateCandidates:orders=>validate(orders,true)};
 }
 
 /** Ready for planCommand/planContextCommand; no renderer or game-rule duplication. */

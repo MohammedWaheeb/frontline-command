@@ -23,7 +23,7 @@ export const COMMANDS:Record<string,CommandLabel>={
  escort:{label:'Escort',icon:'i-shield',shortcut:'escort',target:'entity',hint:'Guard an ally as it moves.'},
  aggressive:{label:'Aggressive',icon:'i-aggressive',shortcut:'aggressive',target:'ground',hint:'Chase visible enemies up to twelve tiles.'},
  gather:{label:'Gather',icon:'i-resource',shortcut:'gather',target:'ground',hint:'Harvest a known supply field.'},
- repair:{label:'Repair',icon:'i-wrench',shortcut:'repair',target:'entity',hint:'Paid repair; requires out-of-combat time.'},
+ repair:{label:'Repair',icon:'i-wrench',shortcut:'repair',target:'entity',hint:'Heal or repair a friendly target out of combat; medics heal infantry free, mechanical repairs cost credits.'},
  capture:{label:'Capture',icon:'i-flag-checker',shortcut:'capture',target:'entity',hint:'Engineer channel on a weakened structure or station.'},
  board:{label:'Board',icon:'i-users',shortcut:'board',target:'entity',hint:'Enter a transport or garrison.'},
  unload:{label:'Unload',icon:'i-download',shortcut:'unload',target:'ground',hint:'Release passengers at a point.'},
@@ -33,7 +33,7 @@ export const COMMANDS:Record<string,CommandLabel>={
  repeat_sortie:{label:'Repeat sortie',icon:'i-refresh',target:'none',hint:'Toggle automatic sorties after rearm.'},
  deploy:{label:'Deploy',icon:'i-deploy',shortcut:'deploy',target:'none',hint:'Set up for firing or interception.'},
  pack:{label:'Pack',icon:'i-chevron-down',shortcut:'pack',target:'none',hint:'Pack up to move again.'},
- rally:{label:'Rally',icon:'i-rally',shortcut:'rally',target:'ground',hint:'Set where new units gather.'},
+ rally:{label:'Rally',icon:'i-rally',shortcut:'rally',target:'ground',hint:'Set the destination for new ground units. Haulers gather automatically; aircraft stay at their service home.'},
  sell:{label:'Sell',icon:'i-sell',shortcut:'sell',target:'none',hint:'Five-second sale; refund scales with health.'},
  power:{label:'Power',icon:'i-toggle-power',shortcut:'power',target:'none',hint:'Toggle this building on or off.'},
  resume:{label:'Resume build',icon:'i-building',target:'entity',hint:'Continue an unfinished foundation.'},
@@ -41,6 +41,8 @@ export const COMMANDS:Record<string,CommandLabel>={
 
 export interface AbilityLabel {label:string;target:'none'|'ground'|'entity'|'points';points?:number;hint:string;edge?:boolean}
 export const ABILITIES:Record<string,AbilityLabel>={
+ radar_pulse:{label:'Radar Pulse',target:'ground',hint:'25 Energy · 80-second cooldown. Select an active radar and scan a point within 14 tiles, including unknown terrain. Reveals a 12-tile radius for 6 seconds. One source pays once.'},
+ observe:{label:'Recon Observe',target:'none',hint:'Free. Enable: stay still for 2 seconds, then gain +3 sight. Disable: return to normal sight. Movement or work cancels Observe; detection and armour stay unchanged.'},
  designate:{label:'Designate',target:'entity',hint:'Mark a visible vehicle or structure within seven tiles.'},
  beacon:{label:'Forward beacon',target:'ground',hint:'Costs 200. Place within one tile of the observers.'},
  sabotage:{label:'Sabotage',target:'entity',hint:'Channel on an adjacent enemy production or tech building.'},
@@ -57,11 +59,11 @@ export const ABILITIES:Record<string,AbilityLabel>={
  emergency_power:{label:'Emergency Power',target:'none',hint:'45 Energy. HQ supplies +80 power for 20 seconds.'},
  recovery_order:{label:'Recovery Order',target:'ground',hint:'50 Energy. Repair sources within eight tiles work faster.'},
 };
-export const STRATEGIC:Record<Faction,{label:string;target:'points'|'none';points?:number;edge?:boolean;hint:string}>={
- US:{label:'Skybreaker Wing',target:'points',points:3,edge:true,hint:'Choose an entry edge, then three visible impact points within four tiles.'},
- IR:{label:'Saturation Salvo',target:'points',points:3,hint:'Three visible impact points within four tiles; six interceptable missiles.'},
- SY:{label:'Coordinated Raid',target:'none',hint:'Selected complete safehouses deploy temporary squads after twelve seconds.'},
- SA:{label:'Shieldline Protocol',target:'none',hint:'Selected HQ, outpost or deployed Aegis carrier anchors a radius-ten zone.'},
+export const STRATEGIC:Record<Faction,{label:string;activationCost:number;target:'points'|'none';points?:number;edge?:boolean;hint:string}>={
+ US:{label:'Skybreaker Wing',activationCost:1200000,target:'points',points:3,edge:true,hint:'Costs 1,200 credits per cast and a full site charge. Choose an entry edge, then three visible impact points within four tiles.'},
+ IR:{label:'Saturation Salvo',activationCost:1500000,target:'points',points:3,hint:'Costs 1,500 credits per cast and a full site charge. Three visible impact points within four tiles; six interceptable missiles.'},
+ SY:{label:'Coordinated Raid',activationCost:1200000,target:'none',hint:'Costs 1,200 credits per cast and a full site charge. Selected complete safehouses deploy temporary squads after twelve seconds.'},
+ SA:{label:'Shieldline Protocol',activationCost:1000000,target:'none',hint:'Costs 1,000 credits per cast and a full site charge. Selected HQ, outpost or deployed Aegis carrier anchors a radius-ten zone.'},
 };
 
 /** Readable recovery text for Go reason codes. Unknown codes stay visible verbatim. */
@@ -71,8 +73,9 @@ const REASONS:Record<string,string>={
  queue_full:'The queue is full (one active job plus five waiting).',producer_disabled:'The producer is disabled or unpowered.',
  missing_tier:'Requires a higher technology tier.',missing_prerequisite:'A prerequisite building is missing.',already_researched:'Already researched.',already_queued:'Already queued elsewhere.',
  blocked_terrain:'Blocked terrain under the foundation.',mandatory_corridor:'Would block a mandatory route.',unseen_placement:'Part of the foundation is not currently visible.',outside_map:'Outside the battlefield.',snap_to_grid:'Placement must align to the tile grid.',
+ outside_builder_radius:'Place the field barricade within three tiles of a selected rig or engineer.',builder_required:'Select an owned rig or engineer.',barricade_limit:'Field barricade limit reached (16).',no_eligible_entities:'No selected units support this action.',
  outside_build_radius:'Outside the 14-tile build radius of an HQ or outpost.',overlap:'Overlaps another structure or unit.',occupied:'The site is occupied.',
- target_not_visible:'The target is not currently visible.',not_controllable:'That unit cannot be commanded.',unsupported_command:'Not every selected unit can do that.',
+ target_not_visible:'The target is not currently visible.',not_controllable:'That unit cannot be commanded.',unsupported_command:'Selected units without this action keep their current orders.',
  selection_empty:'Select units first.',countdown:'Commands unlock when the opening countdown ends.',match_countdown:'Commands unlock when the opening countdown ends.',replay_read_only:'Replays are read-only.',
  one_builder_required:'Select one engineering rig.',one_producer_required:'Choose one producer.',structure_limit:'Structure limit reached.',defense_limit:'Defense limit reached (16).',unique_limit:'Only one of this structure is allowed.',
  supply_cap:'Army Supply is at its cap.',service_capacity:'No aircraft service slot is available.',no_service_slot:'No aircraft service slot is available.',
@@ -106,6 +109,7 @@ export const EVENT_ALERTS:Record<string,(value:bigint,text:string)=>AlertStyle|u
  capture_interrupted:()=>({text:'Capture interrupted',priority:'warning',icon:'i-flag-checker',actionable:true}),
  capture_exit_blocked:()=>({text:'Capture waiting: garrison exits blocked',priority:'warning',icon:'i-flag-checker',actionable:true}),
  route_blocked:()=>({text:'Route blocked',priority:'warning',icon:'i-path',actionable:true}),
+ hauler_retreat:value=>({text:value>0n?'Hauler retreating to supply center':'Hauler retreating — no reachable supply center',priority:'warning',icon:'i-alert',actionable:true}),
  service_lost:()=>({text:'Aircraft service slot lost',priority:'warning',icon:'i-aircraft',actionable:true}),
  aircraft_returning:()=>({text:'Aircraft returning',priority:'info',icon:'i-aircraft',actionable:true}),
  aircraft_return_soon:()=>({text:'Aircraft endurance low',priority:'info',icon:'i-aircraft',actionable:true}),

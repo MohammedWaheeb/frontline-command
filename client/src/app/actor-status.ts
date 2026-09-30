@@ -1,6 +1,7 @@
 import type {Entity,PlayerSnapshot} from '../runtime/types';
 import type {CatalogIndex} from '../content/catalog';
 import {ownerRanges,type OwnerRanges} from './owner-ranges';
+import {shahedStatus,type ShahedStatus} from './shahed-status';
 
 export type StatusTone='neutral'|'benefit'|'warning'|'critical';
 export interface ActorBadge {id:string;symbol:string;label:string;tone:StatusTone;priority:number;seconds?:number}
@@ -9,6 +10,7 @@ export interface ActorStatusModel {
  ammunition?:{label:string;current:number;capacity?:number};
  channel?:{label:string;progress:number;seconds:number};
  ranges?:OwnerRanges;
+ shahed?:ShahedStatus;
 }
 
 const EFFECTS:Readonly<Record<string,{symbol:string;label:string;tone:StatusTone;priority:number}>>={
@@ -36,9 +38,10 @@ const seconds=(tick:number,until:number)=>Math.ceil(Math.max(0,until-tick)/20);
  * Optional extension reads support older runtime0.3.3 until the wire is promoted. */
 export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:CatalogIndex):ActorStatusModel {
  const out:ActorStatusModel={badges:[]};
- if(entity.state==='destroyed'||entity.health<=0||entity.private?.container&&entity.owner===snapshot.player)return out;
+ if(entity.state==='destroyed'||entity.health<=0||entity.owner===snapshot.player&&entity.private?.container)return out;
  const own=entity.owner===snapshot.player,unit=catalog.units.get(entity.type),building=catalog.buildings.get(entity.type);
  const privateState=own?entity.private:undefined;
+ const shahed=shahedStatus(entity,snapshot.player);if(shahed)out.shahed=shahed;
  const ranges=ownerRanges(entity,snapshot);if(ranges)out.ranges=ranges;
  const add=(id:string,symbol:string,label:string,tone:StatusTone,priority:number,until?:number)=>{
   if(out.badges.some(b=>b.id===id))return;
@@ -61,7 +64,7 @@ export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:Catalo
  if(entity.state==='unload_exit_blocked')add('unload_exit_blocked','!','Unload exits blocked','warning',250);
  if(entity.state==='repairing')add('repairing','+','Repairing','benefit',90);
  if(entity.state==='healing')add('healing','+','Healing','benefit',90);
- if(privateState&&unit?.armor==='air'){
+ if(privateState&&unit?.armor==='air'&&!shahed?.committed){
   const emergency=(privateState as typeof privateState&{emergencyTakeoffUntil?:unknown}).emergencyTakeoffUntil;
   if(uint(emergency)&&emergency>snapshot.tick)add('emergency_takeoff','↑','Emergency takeoff','critical',300,emergency);
   else if(entity.state==='emergency_takeoff')add('emergency_takeoff','↑','Emergency takeoff','critical',300);
@@ -76,7 +79,7 @@ export function actorStatus(entity:Entity,snapshot:PlayerSnapshot,catalog:Catalo
   }
  }
  const weapon=catalog.weapons.get(unit?.weapon??building?.weapon??'');
- if(privateState){
+ if(privateState&&entity.type!=='IR.shahed'){
   const capacity=weapon?.ammo;
   if(typeof capacity==='number'&&Number.isInteger(capacity)&&capacity>0&&capacity<=64){
    const current=weapon?.kind==='tactical'?privateState.charges:privateState.ammo;

@@ -1,9 +1,12 @@
 import {createRoot} from 'react-dom/client';
 import {Application} from './app/application';
+import {installReadOnlyStats,readOnlyStatsRequested} from './app/read-only-stats';
+import {readAudioOwnership} from './audio/read-only-stats';
 import {App} from './ui/App';
 import './design/tokens.css';
 import './styles/game.css';
 const application=new Application();
+const stopReadOnlyStats=installReadOnlyStats({art:application.readArtStats,audio:()=>readAudioOwnership(application.audio)},{enabled:readOnlyStatsRequested(location.search)});
 createRoot(document.getElementById('root')!).render(<App app={application}/>);
 void application.boot();
-if(import.meta.hot)import.meta.hot.dispose(()=>application.dispose());
+if(import.meta.hot)import.meta.hot.dispose(()=>{stopReadOnlyStats();application.dispose()});

@@ -1,9 +1,10 @@
 import {create,fromBinary,toBinary} from '@bufbuild/protobuf';
-import {OrderBatchSchema,PlayerSnapshotSchema} from '../protocol/frontline_pb';
+import {OrderBatchSchema,PlayerSnapshotSchema,PriorityFrameSchema,type OrderResult} from '../protocol/frontline_pb';
 import {RuntimeError} from './errors';
 import {parseOperationPlans} from './operation-preview';
 import type {CommandAffordances,ReplayLobby,Point,OrderPreview} from './types';
 import {sequenceAfter} from './fixed';
+import {applyPriority} from './priority';
 import {RuntimeEvents,type GameTransport,type GameMap,type OfflineConfig,type OrderIntent,type PlayerSnapshot,type RuntimeVersion,type ReplayCommandPage,type SaveData,type SessionInfo,type Speed} from './types';
 export interface EditorPreviewRequest {kind:'path'|'sight';unit_type:string;from:Point;to?:Point}
 export interface EditorPreviewResult {kind:'path'|'sight';code:'ok'|'blocked_start'|'unreachable'|'adjusted_destination';layer:'ground'|'air';reachable?:boolean;path?:Point[];visible_tiles?:number[]}
@@ -12,6 +13,7 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
  readonly mode='offline' as const;
  current:PlayerSnapshot|undefined;
  version:RuntimeVersion|undefined;
+ private lastFull:PlayerSnapshot|undefined;private priorityTick=0;
  private worker:Worker;private pending=new Map<number,Pending>();private nextID=0;private sequence=0;private disposed=false;private replacements=0;
  constructor(runtimeURL='/runtime/'){
   super();const base=new URL(runtimeURL,location.href);if(!base.pathname.endsWith('/'))base.pathname+='/';
@@ -22,8 +24,13 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
  }
  readonly ready:Promise<RuntimeVersion>;
  private receive(message:any){
+  if(this.disposed)return;
   if(message.event==='frame'){
-   try{this.current=fromBinary(PlayerSnapshotSchema,message.bytes);this.sequence=Math.max(this.sequence,this.current.economy?.lastSequence??0);if(this.replacements>0)this.emit({type:'presentation-reset'});this.emit({type:'snapshot',snapshot:this.current});for(const result of this.current.results)this.emit({type:'order-result',result})}
+   try{const snapshot=fromBinary(PlayerSnapshotSchema,message.bytes);this.validateResults(snapshot.results,snapshot.player);this.lastFull=this.current=snapshot;this.priorityTick=snapshot.tick;this.sequence=Math.max(this.sequence,snapshot.economy?.lastSequence??0);if(this.replacements>0)this.emit({type:'presentation-reset'});this.emit({type:'snapshot',snapshot});for(const result of snapshot.results)this.publishResult(result)}
+   catch(error){this.fault(RuntimeError.from(error))}return;
+  }
+  if(message.event==='priority'){
+   try{const frame=fromBinary(PriorityFrameSchema,message.bytes);this.validateResults(frame.results,this.lastFull?.player);if(frame.tick<this.priorityTick||frame.tick<(this.lastFull?.tick??0))return;const next=applyPriority(this.current,frame);this.priorityTick=frame.tick;if(next!==this.current){this.current=next;this.emit({type:'snapshot',snapshot:next,publication:'priority',priorityTick:frame.tick})}for(const result of frame.results)this.publishResult(result)}
    catch(error){this.fault(RuntimeError.from(error))}return;
   }
   if(message.event==='clock'){this.emit({type:'clock',paused:message.paused,speed:message.speed,stalled:message.stalled});return}
@@ -32,11 +39,13 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
   clearTimeout(pending.timer);this.pending.delete(message.id);
   if(message.ok)pending.resolve(message.result);else pending.reject(RuntimeError.from(message.error));
  }
- private fault(error:RuntimeError){this.emit({type:'error',error});if(!error.recoverable){for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(error)}this.pending.clear()}}
+ private validateResults(results:OrderResult[],player:number|undefined){for(const result of results)if(result.player!==player)throw new RuntimeError('wrong_perspective','The engine returned another player’s execution receipt.',false)}
+ private publishResult(result:OrderResult){this.sequence=Math.max(this.sequence,result.sequence);this.emit({type:'order-result',result})}
+ private fault(error:RuntimeError){if(this.disposed)return;this.emit({type:'error',error});if(!error.recoverable){for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(error)}this.pending.clear()}}
  private rpc<T=void>(method:string,...args:unknown[]):Promise<T>{
   if(this.disposed)return Promise.reject(new RuntimeError('disposed','The worker is closed.',false));
   const id=++this.nextID;
-  return new Promise<T>((resolve,reject)=>{const timer=setTimeout(()=>{this.pending.delete(id);reject(new RuntimeError('worker_timeout','The engine did not answer. Preserve your current save and retry.'))},30000);this.pending.set(id,{resolve,reject,timer});this.worker.postMessage({id,method,args})});
+  return new Promise<T>((resolve,reject)=>{const timer=setTimeout(()=>{this.pending.delete(id);reject(new RuntimeError('worker_timeout','The engine did not answer. Preserve your current save and retry.'))},30000);this.pending.set(id,{resolve,reject,timer});try{this.worker.postMessage({id,method,args})}catch(error){clearTimeout(timer);this.pending.delete(id);reject(RuntimeError.from(error))}});
  }
  private async replace<T=SessionInfo>(method:string,...args:unknown[]):Promise<T>{
   // Worker messages are FIFO, but old scheduled frames can already be queued
@@ -71,5 +80,5 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
  info(){return this.rpc<SessionInfo>('info')}
  async inspect(data:Uint8Array){await this.ready;return this.rpc<{metadata:SaveData['metadata'];tick:number}>('inspect',data)}
  async load(data:Uint8Array,localPlayers:number[]){await this.ready;const info=await this.replace('load',data,localPlayers);this.sequence=this.current?.economy?.lastSequence??0;return info}
- dispose(){if(this.disposed)return;this.disposed=true;this.worker.terminate();for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(new RuntimeError('disposed','The worker has been closed.',false))}this.pending.clear();this.current=undefined;this.clearListeners()}
+ dispose(){if(this.disposed)return;this.disposed=true;this.worker.onmessage=null;this.worker.onerror=null;this.worker.terminate();for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(new RuntimeError('disposed','The worker has been closed.',false))}this.pending.clear();this.lastFull=this.current=undefined;this.clearListeners()}
 }

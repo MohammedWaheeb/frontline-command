@@ -1,4 +1,5 @@
 import {RuntimeError} from './errors';
+import {sha256Hex} from './crypto';
 import type {SessionInfo,Speed} from './types';
 interface GoResult{ok:boolean;json?:string;bytes?:Uint8Array;error?:string}
 interface GoAPI{[name:string]:(...args:unknown[])=>GoResult}
@@ -21,6 +22,10 @@ function call(method:string,...args:unknown[]):any {
  if(result.bytes)return value===undefined?result.bytes:{...value,data:result.bytes};
  return value;
 }
+function priority(){
+ const bytes=call('priority',player) as Uint8Array|undefined;
+ if(bytes)scope.postMessage({event:'priority',bytes},[bytes.buffer as ArrayBuffer]);
+}
 function clock(stalled=false){scope.postMessage({event:'clock',paused,speed,stalled})}
 function frame(){
  if(!active)return;
@@ -39,9 +44,10 @@ async function init(config:{wasmURL:string;execURL:string}){
  });
  const response=await fetch(config.wasmURL);
  if(!response.ok)throw new RuntimeError('runtime_missing','The Go simulation file is missing. Download the local game content first.');
- const instance=await WebAssembly.instantiate(await response.arrayBuffer(),go.importObject);
+ const bytes=await response.arrayBuffer(),wasmSHA256=await sha256Hex(new Uint8Array(bytes));
+ const instance=await WebAssembly.instantiate(bytes,go.importObject);
  void go.run(instance.instance).catch(error=>{if(!disposed){paused=true;scope.postMessage({event:'error',error:{code:'engine_fault',message:String(error),recoverable:false}})}});
- await ready;return call('version');
+ await ready;return {...call('version'),wasm_sha256:wasmSHA256};
 }
 async function handle(method:string,args:any[]){
  if(disposed)throw new RuntimeError('disposed','The game worker has been closed.',false);
@@ -92,8 +98,11 @@ const timer=setInterval(()=>{
  accumulator=Math.min(250,accumulator+Math.max(0,Math.min(elapsed,250))*speed);
  const ticks=Math.floor(accumulator/50);if(ticks===0)return;accumulator-=ticks*50;
  try{
-  info=call('step',ticks);
-  if((info?.tick??0)-lastFrame>=4||info?.finished)frame();
+  // Publish each authoritative tick, even during bounded catch-up.
+  for(let i=0;i<ticks&&!info?.finished;i++){
+   info=call('step',1);priority();
+   if((info?.tick??0)-lastFrame>=2||info?.finished)frame();
+  }
   if(info?.finished){paused=true;clock()}
   else if(stalled)clock(true);
  }catch(error){paused=true;const e=RuntimeError.from(error);scope.postMessage({event:'error',error:{code:e.code,message:e.message,recoverable:e.recoverable}});clock()}

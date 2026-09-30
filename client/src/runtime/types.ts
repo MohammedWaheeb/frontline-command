@@ -15,16 +15,19 @@ export interface GameMap {
  objects?:Array<{id:number;class:string;position:Point}>;required_packs?:string[];
 }
 export interface PlayerConfig{id:number;name:string;faction:Faction;team:number;color?:number;ai?:Difficulty;controller?:'human'|'ai'|'script'}
-export interface OfflineConfig{map:GameMap;players?:PlayerConfig[];seed:number;ruleset?:string;mission?:Record<string,unknown>;difficulty?:Difficulty;tutorial_faction?:Faction;skip_countdown?:boolean}
+/** Public starting_credits uses whole credits (1..1,000,000), unlike sim.Config milli-units.
+ * Omit it for the standard 6,000; prescribed missions/tutorials/practice reject overrides. */
+export interface OfflineConfig{map:GameMap;players?:PlayerConfig[];seed:number;ruleset?:string;starting_credits?:number;mission?:Record<string,unknown>;difficulty?:Difficulty;tutorial_faction?:Faction;skip_countdown?:boolean}
 export interface EngineMetadata{simulation:string;protocol:number;content_hash:string;map_version:string;ruleset:string;seed:number}
 export interface ReplayLobby{name:string;mode:'1v1'|'2v2'|'ffa'|'coop'|'custom';private:boolean;live_observers:boolean;pause_enabled:boolean;rated:boolean}
-export interface SessionInfo{adapter:string;metadata?:EngineMetadata;tick:number;local_players:number[];finished:boolean;replay:boolean;replay_start:number;replay_end:number;replay_lobby?:ReplayLobby}
+/** Original whole-credit opening for standard/custom games and replay; authored budgets omit it. */
+export interface SessionInfo{adapter:string;metadata?:EngineMetadata;tick:number;local_players:number[];finished:boolean;replay:boolean;replay_start:number;replay_end:number;replay_lobby?:ReplayLobby;starting_credits?:number}
 export interface SaveData {data:Uint8Array;tick:number;hash:string;metadata:EngineMetadata;local_players:number[]}
-export interface RuntimeVersion {adapter:string;simulation:string;protocol:number;go:string;content_hash:string}
+export interface RuntimeVersion {adapter:string;simulation:string;protocol:number;go:string;content_hash:string;wasm_sha256?:string}
 export type ConnectionPhase='idle'|'connecting'|'connected'|'reconnecting'|'closed';
 export type RuntimeEvent =
  |{type:'presentation-reset'}
- |{type:'snapshot';snapshot:PlayerSnapshot}
+ |{type:'snapshot';snapshot:PlayerSnapshot;publication?:'priority';priorityTick?:number}
  |{type:'order-result';result:OrderResult}
  |{type:'status';status:MatchStatus}
  |{type:'result';result:MatchResult}
@@ -53,5 +56,5 @@ export interface CommandAffordances{tick:number;player:number;entities:EntityAff
  * geometry; execution, delay and interception remain authoritative. */
 export interface SkybreakerRoute {entry:Point;drop:Point;impact:Point;entry_at:number;release_at:number;impact_at:number;splash:number}
 export interface SkybreakerPlan {order_index:number;kind:'skybreaker';edge:0|1|2|3;routes:SkybreakerRoute[]}
-export interface AdviceOrderResult {player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number}
+export interface AdviceOrderResult {player:number;sequence:number;index:number;accepted:boolean;code:string;tick:number;eligible_entities?:number[];applied_count?:number}
 export interface OrderPreview {tick:number;results:AdviceOrderResult[];plans?:SkybreakerPlan[]}

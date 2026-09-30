@@ -5,6 +5,7 @@ import {tabFor,type CatalogIndex,type ProductionTab} from '../content/catalog';
 export function productionCategories(entity:Entity,catalog:CatalogIndex,faction:string):ProductionTab[]{
  const role=catalog.units.get(entity.type)?.role??catalog.buildings.get(entity.type)?.role;
  if(role==='rig')return ['structures','defense'];
+ if(role==='engineer')return ['defense'];
  if(!catalog.buildings.has(entity.type))return [];
  const types=[...catalog.units.values()].filter(unit=>unit.faction===faction&&(unit.producer===role||role==='factory'&&unit.role==='rig')).map(unit=>unit.id);
  types.push(...[...catalog.upgrades.values()].filter(upgrade=>(!upgrade.faction||upgrade.faction===faction)&&upgrade.producer===role).map(upgrade=>upgrade.id));

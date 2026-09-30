@@ -13,6 +13,13 @@ export function combatSound(event:Event,snapshot:PlayerSnapshot,previous:PlayerS
  // Without a catalog no extension can be validated, so do not reconstruct it.
  const extension=(event as Event&{combat?:unknown}).combat,legacy=facts?.metadata==='absent'||!catalog&&extension==null;
  const entity=legacy?(snapshot.entities.find(value=>value.id===event.entity)??previous.entities.find(value=>value.id===event.entity)):undefined;
+ // The one-way carrier publishes weapon_fired and impact at the same terminal
+ // contact. Play the terminal payload once from the explicit impact fact.
+ // This never reconstructs a carrier, target identity or impact material.
+ if(facts?.weapon==='IR_SHAHED'){
+  if(event.kind==='weapon_fired')return;
+  return {kind:'impact',sound:'sfx.weapon.IR_SHAHED',cooldown:70};
+ }
  if(event.kind==='weapon_fired'){
   const weapon=facts?.weapon??(legacy&&entity?(catalog?.units.get(entity.type)?.weapon??catalog?.buildings.get(entity.type)?.weapon):undefined);
   // Synthetic strategic rounds have no authored per-weapon firing clip. Their

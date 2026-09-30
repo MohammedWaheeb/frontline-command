@@ -17,8 +17,9 @@ export class EditorController{
  edit(label:string,change:(edit:EditorTransaction)=>void){if(!this.document)return;this.document.transact(label,change);this.patch({snapshot:this.document.snapshot(),validation:undefined,preview:undefined,previewRequest:undefined})}
  undo(){this.document?.undo();this.patch({snapshot:this.document?.snapshot(),validation:undefined,preview:undefined,previewRequest:undefined})}
  redo(){this.document?.redo();this.patch({snapshot:this.document?.snapshot(),validation:undefined,preview:undefined,previewRequest:undefined})}
- async save(){if(!this.document)return;const record=await this.drafts.put(this.document,this.state.get().storedRevision);this.patch({storedRevision:record.revision,snapshot:this.document.snapshot()});await this.refresh()}
- async validate(){if(!this.document)return;this.patch({validation:await this.document.validate()})}
+ async save(){if(!this.document)return;const document=this.document,record=await this.drafts.put(document,this.state.get().storedRevision);if(this.document===document)this.patch({storedRevision:record.revision,snapshot:document.snapshot()});await this.refresh()}
+ async validate(){if(!this.document)return;const document=this.document,result=await document.validate();if(this.document===document)this.patch({validation:result})}
+ async exportStoredOriginal(id:string){return this.drafts.exportOriginal(id)}
  async preview(request:EditorPreviewRequest){if(!this.document)return;const document=this.document,revision=document.revision,generation=++this.previewGeneration;const result=await this.app.validator.previewEditor(new TextEncoder().encode(JSON.stringify(document.snapshot().map)),request);if(this.document!==document||document.revision!==revision||generation!==this.previewGeneration)return;this.patch({preview:result,previewRequest:structuredClone(request)})}
  clearPreview(){this.previewGeneration++;this.patch({preview:undefined,previewRequest:undefined})}
  async export(kind:'draft'|'map'|'mission'){if(!this.document)throw Error('Choose an editor draft first.');return kind==='draft'?this.document.exportDraft():kind==='map'?this.document.exportMap():this.document.exportMission()}

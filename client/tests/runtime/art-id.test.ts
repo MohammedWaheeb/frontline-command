@@ -5,11 +5,16 @@ import {authoredArtId,physicalArtType,actorArtKey} from '../../src/render/art-id
 const rules=JSON.parse(readFileSync('../pkg/content/rules.json','utf8')) as {units:Array<{id:string;faction:string}>;buildings:Array<{id:string;faction:string}>};
 const manifest=JSON.parse(readFileSync('../assets/manifest/asset-manifest.json','utf8')) as {entries:Array<{id:string;category:string}>};
 test('every Go roster and faction building maps exactly to the approved art inventory',()=>{
- const units=rules.units.map(u=>authoredArtId(u.id,u.faction));assert.equal(units.length,75);
+ const units=rules.units.map(u=>authoredArtId(u.id,u.faction));assert.equal(units.length,76);assert.equal(new Set(units).size,76);
  assert.deepEqual([...units].sort(),manifest.entries.filter(e=>e.category==='unit_sprite').map(e=>e.id).sort());
  const buildings=rules.buildings.flatMap(b=>(b.faction?[b.faction]:['US','IR','SY','SA']).map(f=>authoredArtId(b.id,f)));
- assert.equal(buildings.length,61);assert.equal(new Set(buildings).size,61);
+ assert.equal(buildings.length,65);assert.equal(new Set(buildings).size,65);
  assert.deepEqual([...buildings].sort(),manifest.entries.filter(e=>e.category==='building_sprite').map(e=>e.id).sort());
+ const mandatory=manifest.entries.filter(e=>['unit_sprite','building_sprite','prop'].includes(e.category));
+ assert.equal(mandatory.length,167);assert.equal(new Set(mandatory.map(e=>e.id)).size,167);
+ assert.equal(mandatory.filter(e=>e.category==='prop').length,26);
+ const additions=['unit.IR.shahed',...['US','IR','SY','SA'].map(f=>`building.${f}.barrier`)];
+ assert.deepEqual(mandatory.filter(e=>e.id==='unit.IR.shahed'||/^building\.(US|IR|SY|SA)\.barrier$/.test(e.id)).map(e=>e.id).sort(),additions.sort());
 });
 test('captured air producers and safehouses keep their original physical art',()=>{
  const workshop={type:'US.airfield',footprintType:'SY.workshop_air',footprintWidth:3,footprintHeight:3};

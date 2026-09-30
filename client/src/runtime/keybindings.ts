@@ -15,6 +15,8 @@ const definition=(id:string,label:string,category:ShortcutDefinition['category']
 /** Input mappings only; available actions and gameplay legality still come from Go. */
 export const SHORTCUT_DEFINITIONS:readonly ShortcutDefinition[]=[
  definition('attack_move','Attack-move','orders',[chord('KeyA')],{queueModifier:true}),
+ definition('attack','Attack target','orders',[],{queueModifier:true}),
+ definition('rebase','Rebase aircraft','orders'),
  definition('stop','Stop','orders',[chord('KeyS')],{queueModifier:true}),
  definition('hold','Hold position','orders',[chord('KeyH')],{queueModifier:true}),
  definition('guard','Guard unit or position','orders',[chord('KeyG')],{queueModifier:true}),
@@ -75,6 +77,7 @@ export function validateBindings(bindings:ControlBindings,definitions:readonly S
  if(bindings.preset!=='standard'&&bindings.preset!=='classic')issues.push({code:'invalid_binding',action:'preset',message:'Choose standard or classic controls.'});
  if(!bindings.modifiers||!['queue','multiSelect','forceFire'].every(key=>validModifier(bindings.modifiers[key as keyof InputModifiers])))issues.push({code:'invalid_binding',action:'modifiers',message:'Choose keyboard modifiers for queue, selection and force-fire.'});
  if(!bindings.pointer||!['select','context','pan','cancel'].every(key=>Number.isInteger(bindings.pointer[key as keyof PointerBindings])&&bindings.pointer[key as keyof PointerBindings]>=0&&bindings.pointer[key as keyof PointerBindings]<=4)||bindings.pointer.pan===bindings.pointer.select||bindings.pointer.pan===bindings.pointer.context||bindings.pointer.cancel===bindings.pointer.select||bindings.preset==='standard'&&bindings.pointer.select===bindings.pointer.context)issues.push({code:'invalid_binding',action:'pointer',message:'Choose mouse buttons 0–4, a separate pan button and usable select/cancel buttons.'});
+ if(!bindings.keys||typeof bindings.keys!=='object'||Array.isArray(bindings.keys)){issues.push({code:'invalid_binding',action:'keys',message:'Use a shortcut action map.'});return issues}
  for(const [action,chords] of Object.entries(bindings.keys??{})){
   const def=known.get(action);
   if(!def){issues.push({code:'unknown_action',action,message:'This shortcut action is not registered.'});continue}
@@ -111,6 +114,9 @@ export interface ShortcutIntent {action:string;queued:boolean;preventDefault:tru
 /** No listeners are installed. The UI passes its current focus and a keyboard event shape. */
 export function resolveShortcut(event:KeyboardStroke,bindings:ControlBindings,focus:InputContext={},definitions:readonly ShortcutDefinition[]=SHORTCUT_DEFINITIONS):ShortcutIntent|undefined{
  if(focus.enabled===false||textEntryFocused(focus)||event.isComposing||event.defaultPrevented)return undefined;
+ // Focus navigation belongs to the currently focused console control. Tab on
+ // the document or battlefield canvas still cycles selection subgroups.
+ if(event.code==='Tab'&&((focus.tagName&&!['BODY','CANVAS'].includes(focus.tagName.toUpperCase()))||focus.role&&focus.role.toLowerCase()!=='application'))return undefined;
  // Native control activation wins over battlefield chat/alert shortcuts.
  // Other command keys remain usable after clicking a command-panel button.
  if(['Enter','NumpadEnter','Space'].includes(event.code)&&(['BUTTON','A','SUMMARY'].includes((focus.tagName??'').toUpperCase())||['button','link'].includes((focus.role??'').toLowerCase())))return undefined;

@@ -9,11 +9,13 @@ import {actorSpriteState,actorEventStates,visibleSquadMembers,type BuildingPrese
 import {FlightPresentation} from './flight-presentation';
 import {canonicalAircraftPose,emptyAircraftPose,hasEmptyAircraftPayload,knownEmptyAircraft} from './aircraft-payload';
 import {actorArtKey,physicalArtType} from './art-id';
+import {isShahed,shahedFallbackGeometry} from './shahed-presentation';
 import {isGroundLauncher,groundLauncherPose,canonicalGroundLauncherPose,groundLauncherPayloadKey} from './ground-launcher-payload';
 import {ActorStatusOverlay} from './actor-status';
 import type {ActorStatusModel} from '../app/actor-status';
 import type {ShadowPlate} from './surface-shadows';
 import {muzzleRotation,type CombatAttachment} from './combat-geometry';
+import {containsStructureSquare,structureBodyBounds} from './structure-picking';
 
 interface LayeredPart {root:Container;shadowRoot:Container;shadow:Sprite;beauty:Sprite;team:Sprite;offset:Point;poses:Record<string,{state:string;direction:number;frame:number}>}
 function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart {
@@ -35,7 +37,7 @@ export class ActorVisual {
  readonly ready:Promise<void>;
  private sheet?:SpriteSheet;private parts:LayeredPart[]=[];private turret?:LayeredPart;
  private disposed=false;private lastState='';private stateAt=0;
- private lastPosition:Point;private nextPosition:Point;private changedAt=0;
+ private lastPosition:Point;private nextPosition:Point;private changedAt=0;private interpolationMs=50;
  private previousFacing=0;private nextFacing=0;
  private action?:{names:string[];at:number};
  private livingMembers=Infinity;
@@ -46,6 +48,7 @@ export class ActorVisual {
  private projectedShadows=false;readonly shadowPlates:ShadowPlate[]=[];
  useSurfaceShadows(){this.projectedShadows=true;this.groundShadows.visible=false}
  private readonly flight=new FlightPresentation();private suppressTransition=false;
+ private receiverObservation?:{active:boolean;viewer:number|undefined;owner:number};private receiverAt?:number;
  presentation?:BuildingPresentation;
  /** Current snapshot viewer; undefined never grants private payload knowledge. */
  viewer?:number;missingPayloadArt?:string;
@@ -58,7 +61,7 @@ export class ActorVisual {
  private serviceDeck?:ActorVisual;
  setServiceDeck(deck:ActorVisual|undefined){this.serviceDeck=deck}
  departureDeck(now:number){return !this.entity.landed&&this.entity.state!=='destroyed'&&this.flight.altitude(this.entity,now,this.cruiseAltitude())<this.cruiseAltitude()?this.serviceDeck?.id:undefined}
- serviceRoofOffset(){const b=this.catalog.buildings.get(physicalArtType(this.entity));return !this.sheet&&b?.service_slots?structureHeight(b.role):0}
+ serviceRoofOffset(){const b=this.catalog.buildings.get(physicalArtType(this.entity));return (!this.sheet||this.fallback.visible&&this.fallback.context.instructions.length>0)&&b?.service_slots?structureHeight(b.role):0}
  entity:Entity;
  constructor(entity:Entity,private catalog:CatalogIndex,art:ArtLibrary,faction?:string,private surface?:TerrainSurface,private readonly skin?:{asset:string;direction:0|1|2|3}){
   this.id=entity.id;this.artKey=actorArtKey(entity,faction);this.entity=entity;this.lastPosition=this.nextPosition={...entity.position!};
@@ -79,17 +82,29 @@ export class ActorVisual {
    this.root.addChild(this.overlays);if(!this.externalStatus)this.root.addChild(this.statusOverlay.root);
   }):Promise.resolve();
  }
- update(entity:Entity,now:number){
+ update(entity:Entity,now:number,interpolationMs:number|null=50){
   this.missingPayloadArt=undefined;
-  const p=this.suppressTransition?entity.position!:this.position(now);this.lastPosition=p;this.nextPosition={...entity.position!};this.changedAt=now;
-  this.previousFacing=this.suppressTransition?entity.facing:this.nextFacing;this.nextFacing=entity.facing;
+  // Same-tick visibility/receipt publications change authorization, not the
+  // movement clock. Preserve the in-flight segment for every retained actor.
+  if(interpolationMs!==null||this.suppressTransition){
+   const p=this.suppressTransition?entity.position!:this.position(now),facing=this.suppressTransition?entity.facing:this.facing(now);this.lastPosition=p;this.nextPosition={...entity.position!};this.changedAt=now;
+   this.interpolationMs=Number.isFinite(interpolationMs)?Math.max(50,Math.min(100,interpolationMs!)):50;
+   this.previousFacing=facing;this.nextFacing=entity.facing;
+  }
   const unit=this.catalog.units.get(entity.type);
   if(unit?.armor==='air'&&!this.suppressTransition)this.flight.observe(this.entity,entity,now,this.cruiseAltitude(),this.sheet?.states,unit.faction==='IR'||unit.role==='scout_drone');
+  // Boarding can change while the receiver's public state remains idle. Keep
+  // its door clock separate from the authoritative state clock; initial/load,
+  // perspective changes and rewinds install the stable pose without a new cue.
+  const receiver=this.receiverObservation,sameViewer=receiver&&receiver.viewer===this.viewer&&receiver.owner===entity.owner;
+  if(this.suppressTransition||!sameViewer||!this.receivingBoarder||this.receiverAt!==undefined&&now<this.receiverAt)this.receiverAt=undefined;
+  else if(!receiver.active)this.receiverAt=now;
+  this.receiverObservation={active:this.receivingBoarder,viewer:this.viewer,owner:entity.owner};
   this.suppressTransition=false;
   if(entity.state!==this.lastState){this.lastState=entity.state;this.stateAt=now}
   this.entity=entity;
  }
- clearFeedback(){this.action=undefined;this.flight.reset();this.suppressTransition=true;this.missingPayloadArt=undefined}
+ clearFeedback(){this.action=undefined;this.flight.reset();this.suppressTransition=true;this.receiverAt=undefined;this.receiverObservation=undefined;this.missingPayloadArt=undefined}
  setSurface(surface:TerrainSurface){this.surface=surface;this.support=undefined}
  /** A rigid foundation reaches the highest exact clipped terrain point. This
   * changes presentation only; Go remains the authority for legal footprints. */
@@ -143,8 +158,12 @@ export class ActorVisual {
  /** Last displayed beauty/team ink in projected world pixels. Shadow plates,
   * status overlays and empty atlas padding never enlarge selection. Reset each
   * paint so a changed pose, lost squad member or missing frame cannot linger. */
- paintedBodyBounds():Rect|undefined{
-  const b=this.paintedBounds;if(!b)return;
+ paintedBodyBounds(preciseFallback=false):Rect|undefined{
+  let b=this.paintedBounds;
+  // Drawn procedural buildings use their actual ink bounds, including apron
+  // stroke joins. Before the first drawing, keep the geometric marker policy.
+  if(!b&&preciseFallback&&!this.paintedCount&&this.fallback.visible&&this.fallback.context.instructions.length>0&&this.entity.state!=='destroyed'&&!this.entity.private?.container&&(this.catalog.buildings.has(this.entity.type)||this.entity.footprintWidth>0&&this.entity.footprintHeight>0))b=structureBodyBounds(this.fallback);
+  if(!b)return;
   return {left:this.root.x+b.left,top:this.root.y+b.top,right:this.root.x+b.right,bottom:this.root.y+b.bottom};
  }
  /** A squad shot is one Go event. Pick one currently drawn member as its
@@ -157,7 +176,13 @@ export class ActorVisual {
  /** Exact current body opacity with ordinary screen tolerance converted by
   * the caller. Undefined retains geometric picking for development/missing art. */
  containsPaintedBody(point:Point,tolerance:number):boolean|undefined{
-  if(!this.paintedCount)return;
+  if(!this.paintedCount){
+   // Procedural structures must not steal clicks through the empty corners of
+   // their conservative rectangle. Query the actual currently drawn footprint,
+   // walls and roof with the same world-space square tolerance as sprite picks.
+   if(this.fallback.visible&&this.fallback.context.instructions.length>0&&this.entity.state!=='destroyed'&&!this.entity.private?.container&&(this.catalog.buildings.has(this.entity.type)||this.entity.footprintWidth>0&&this.entity.footprintHeight>0))return containsStructureSquare(this.fallback,{x:point.x-this.root.x,y:point.y-this.root.y},tolerance);
+   return;
+  }
   for(let index=0;index<this.paintedCount;index++){
    const part=this.paintedParts[index],frame=part.frame;
    if(frame.containsAlpha?.((point.x-this.root.x-part.x)/part.scale+frame.anchorX*frame.texture.width,(point.y-this.root.y-part.y)/part.scale+frame.anchorY*frame.texture.height,tolerance/part.scale))return true;
@@ -178,9 +203,14 @@ export class ActorVisual {
   for(const name of this.action.names){const state=this.sheet.states.get(name);if(state&&state.fps>0&&now-this.action.at<state.frames/state.fps*1000)return state}
  }
  position(now:number):Point{
-  const a=Math.min(1,Math.max(0,(now-this.changedAt)/50));
+  const a=Math.min(1,Math.max(0,(now-this.changedAt)/this.interpolationMs));
   // Never extrapolate beyond an authorized position.
   return {x:this.lastPosition.x+(this.nextPosition.x-this.lastPosition.x)*a,y:this.lastPosition.y+(this.nextPosition.y-this.lastPosition.y)*a};
+ }
+ facing(now:number,reducedMotion=false):number{
+  if(reducedMotion)return this.entity.facing;
+  const turn=((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000;
+  return this.previousFacing+turn*Math.min(1,Math.max(0,(now-this.changedAt)/this.interpolationMs));
  }
  private state(now:number,reducedMotion=false):SpriteState|undefined{
   this.missingPayloadArt=undefined;
@@ -201,10 +231,18 @@ export class ActorVisual {
   if(!variant)this.missingPayloadArt=name;
   return variant??state;
  }
+ private receivingDoor(state:SpriteState|undefined){
+  // Public unloading owns its timing even when another permitted passenger is
+  // boarding concurrently. The receiver clock bridges only receiving activity.
+  return !!state&&this.receivingBoarder&&!state.loop&&!state.progress_driven&&['doors_open','exit_open'].includes(state.name)&&!['unload','unloading','unload_exit_blocked'].includes(this.entity.state);
+ }
  private frameIndex(state:SpriteState,now:number){
-  const progress=state.name==='charging'?this.presentation?.strategicProgress??0:this.entity.progress;
+  // A completed public deployment holds the authored preparation endpoint.
+  // Idle service equipment must not loop repair sparks without real repairing.
+  const preparedRepair=state.name==='deploy'&&this.entity.deployed&&this.catalog.units.get(this.entity.type)?.role==='repair'&&!['deploying','packing'].includes(this.entity.state);
+  const progress=state.name==='charging'?this.presentation?.strategicProgress??0:preparedRepair?1000:this.entity.progress;
   const canonical=canonicalAircraftPose(canonicalGroundLauncherPose(state.name));
-  const start=this.action?.names.includes(canonical)?this.action.at:this.flight.startedAt(canonical,now)??this.stateAt;
+  const start=this.action?.names.includes(canonical)?this.action.at:this.flight.startedAt(canonical,now)??(this.receivingDoor(state)?this.receiverAt??now-(state.fps>0?state.frames/state.fps*1000:0):this.stateAt);
   let frame=state.progress_driven?Math.min(state.frames-1,Math.max(0,Math.floor(progress/1000*state.frames))):state.fps>0?Math.max(0,Math.floor((now-start)/1000*state.fps)):0;
   return state.loop?frame%state.frames:Math.min(state.frames-1,frame);
  }
@@ -231,7 +269,17 @@ export class ActorVisual {
     const exists=sheet.hasFrame(name,state.name,d,frame)||sheet.hasFrame(name,state.name,d,0),previous=p.poses[name];
     // A page awaiting decode must not resurrect loaded missiles after the final
     // round, or retain private empty artwork after changing the current viewer.
-    if(exists&&previous&&(!payloadScoped||hasEmptyAircraftPayload(previous.state)===hasEmptyAircraftPayload(state.name))&&(!launcher||groundLauncherPayloadKey(this.entity.type,previous.state)===groundLauncherPayloadKey(this.entity.type,state.name))){f=sheet.frame(name,previous.state,previous.direction,previous.frame);if(f)pose=previous}
+    // A retained owner-only battery pose cannot bridge a public or changed-charge
+    // page. Canonical sources keep public aliases such as sell/construct safe.
+    let abmCompatible=true;
+    if(previous&&this.catalog.buildings.get(this.entity.type)?.role==='abm'){
+     const chargeKey=(source:string)=>/(?:^|_)charges_([012])$/.exec(source)?.[1]??(source==='launch_empty'?'0':'public');
+     abmCompatible=chargeKey(sheet.sourceFrame(previous.state,previous.direction,previous.frame).state)===chargeKey(sheet.sourceFrame(state.name,d,frame).state);
+    }
+    // Retained service equipment must match the currently requested class.
+    // Canonical sources preserve public aliases such as sell/construct.
+    const serviceCompatible=!previous||!this.catalog.buildings.has(this.entity.type)||(sheet.sourceFrame(previous.state,previous.direction,previous.frame).state==='service_active')===(sheet.sourceFrame(state.name,d,frame).state==='service_active');
+    if(exists&&previous&&abmCompatible&&serviceCompatible&&(!payloadScoped||hasEmptyAircraftPayload(previous.state)===hasEmptyAircraftPayload(state.name))&&(!launcher||groundLauncherPayloadKey(this.entity.type,previous.state)===groundLauncherPayloadKey(this.entity.type,state.name))){f=sheet.frame(name,previous.state,previous.direction,previous.frame);if(f)pose=previous}
     if(!exists)delete p.poses[name];
    }
    if(!f){sprite.visible=false;sprite.texture=Texture.EMPTY;continue}
@@ -276,16 +324,16 @@ export class ActorVisual {
   this.root.alpha=e.concealed?.65:1;
   if(this.terrainShadow){this.terrainShadow.position.set(screen.x,screen.y);this.terrainShadow.zIndex=Math.max(p.x+p.y+altitude*12.5+.001,this.serviceDeck?this.serviceDeck.groundDepth(now)+.005:0);this.terrainShadow.alpha=this.root.alpha;this.terrainShadow.visible=this.root.visible}
   this.nextBodyBottom=undefined;this.nextPaintedBounds=undefined;this.paintedCount=0;
-  const state=this.state(now,reducedMotion),facing=this.skin?this.skin.direction*90000:reducedMotion?e.facing:this.previousFacing+(((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000)*Math.min(1,(now-this.changedAt)/50);
+  const state=this.state(now,reducedMotion),facing=this.skin?this.skin.direction*90000:this.facing(now,reducedMotion);
   const animationTime=reducedMotion?(e.state==='destroyed'?this.stateAt+10000:this.activeAction(now)?this.action!.at:this.stateAt):now;
-  this.fallback.visible=!state;
+  const bodyAnimationTime=reducedMotion&&this.receivingDoor(state)?Math.max(now,this.receiverAt??now)+10000:animationTime;
   if(state){
-   if(e.state!=='destroyed')this.livingMembers=visibleSquadMembers(e.health,this.parts.length);
+   if(e.state!=='destroyed')this.livingMembers=this.parts.length?Math.max(1,visibleSquadMembers(e.health,this.parts.length)):0;
    for(const [index,member] of this.parts.entries()){
     member.root.visible=member.shadowRoot.visible=index<this.livingMembers;
     if(member.root.visible){
      const memberGround=this.surface&&!building&&unit?.armor!=='air'?this.surface.projectGround({x:p.x+member.offset.x,y:p.y+member.offset.y}).y-screen.y-toScreen(member.offset.x,member.offset.y).y:0;
-     this.paintPart(member,state,facing,animationTime,team,altitude,memberGround,p);
+     this.paintPart(member,state,facing,bodyAnimationTime,team,altitude,memberGround,p);
     }
    }
    if(this.turret){
@@ -293,16 +341,33 @@ export class ActorVisual {
     // turret. Drawing its independent live layer again creates a floating gun.
     this.turret.root.visible=this.turret.shadowRoot.visible=e.state!=='destroyed'&&(!building||(e.complete&&e.enabled&&e.health>500&&e.state!=='selling'&&!this.presentation?.lowPower));
     const turret=this.activeAction(now)?.part==='turret'?this.activeAction(now):this.sheet!.states.get(e.state==='firing'?'fire':'aim')??this.sheet!.states.get('aim');
-    if(turret){
+    // Hidden live artwork must not request/retain pages or contribute ink to
+    // the current body's bounds, depth and alpha-picking records.
+    if(this.turret.root.visible&&turret){
      const pivot=this.sheet!.meta.turret_pivot_mt??[0,0],a=facing*Math.PI/180000;
      this.turret.offset={x:pivot[0]*Math.cos(a)-pivot[1]*Math.sin(a),y:pivot[0]*Math.sin(a)+pivot[1]*Math.cos(a)};
      this.paintPart(this.turret,turret,e.turretFacing,animationTime,team,altitude,0,p);
     }
    }
-  }else if(building||e.footprintWidth){
+  }
+  // A declared pose can outlive missing, pending or failed body pages. Keep
+  // permitted live actors visible through the existing development fallback;
+  // transparent death/fade frames retain their authored retirement behavior.
+  this.fallback.visible=!state||(e.state!=='destroyed'&&this.paintedCount===0);
+  if(this.fallback.visible&&(building||e.footprintWidth)){
    const physical=this.catalog.buildings.get(physicalArtType(e));
    drawStructure(this.fallback,{width:e.footprintWidth||building?.width||2,height:e.footprintHeight||building?.height||2,role:physical?.role??building?.role??'garrison',paint:0x7d7963,team,progress:e.progress,complete:e.complete,health:e.health,enabled:e.enabled});
-  }else{
+  }else if(this.fallback.visible&&isShahed(e.type)){
+   // Dedicated procedural identity until its own native art is ready. Use the
+   // existing public facing/air height; never read private commitment or payload.
+   this.fallback.clear();
+   if(e.state!=='destroyed'){
+    const marker=shahedFallbackGeometry(facing,altitude);
+    this.fallback.poly(marker.body).fill({color:team}).stroke({width:2,color:0x15130f,join:'round'});
+    this.fallback.poly(marker.impact,false).stroke({width:1.5,color:0xe2a232,join:'round'});
+    this.fallback.poly(marker.idMark,false).stroke({width:1,color:0xeee6ca,join:'round'});
+   }
+  }else if(this.fallback.visible){
    // Explicit development marker until the missing sprite is authored.
    this.fallback.clear().poly([-10,0,0,-10,10,0,0,7]).fill({color:team}).stroke({width:2,color:0x15130f});
   }
@@ -313,14 +378,14 @@ export class ActorVisual {
   if(selected)this.overlays.ellipse(0,0,radius,radius*.5).stroke({width:1.5,color:0xb6dd77});
   const show=e.state!=='destroyed'&&(healthBars==='always'||selected||healthBars==='damaged'&&e.health<1000);
   if(show){
-   const anchor=state?this.hardpoint('healthbar',state,facing,animationTime):undefined;
+   const anchor=state?this.hardpoint('healthbar',state,facing,bodyAnimationTime):undefined;
    const x=anchor?.x??0,y=-altitude+(anchor?.y??-(building?45:24)),width=building?60:30;
    this.overlays.rect(x-width/2,y,width,4).fill({color:0x161410,alpha:.95});
    this.overlays.rect(x-width/2+1,y+1,(width-2)*Math.max(0,e.health)/1000,2).fill({color:e.health>600?0x9fc776:e.health>300?0xd3b359:0xc64f3c});
   }
   if(!this.status&&e.private?.ambushReady)this.overlays.poly([-4,-37,0,-42,4,-37,0,-32]).fill({color:0xe2a232});
   if(e.rank>0){for(let i=0;i<e.rank;i++)this.overlays.poly([-4+i*7,-27,0+i*7,-30,4+i*7,-27]).stroke({width:2,color:0xe5c57a})}
-  const statusAnchor=state?this.hardpoint('healthbar',state,facing,animationTime):undefined;
+  const statusAnchor=state?this.hardpoint('healthbar',state,facing,bodyAnimationTime):undefined;
   this.statusOverlay.root.position.set((this.externalStatus?screen.x:0)+(statusAnchor?.x??0),(this.externalStatus?screen.y:0)-altitude+(statusAnchor?.y??-(building?45:24))-18/Math.max(.1,zoom));
   this.statusOverlay.draw(e.state==='destroyed'?undefined:this.status,selected&&statusDetail,zoom);
  }

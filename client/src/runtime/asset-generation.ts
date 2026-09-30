@@ -1,5 +1,5 @@
 import {decodeContentIndex} from './content-library';
-import {PACK_PREFIX,READY_PATH,MANIFEST_PATH,type ContentPack} from './cache';
+import {PACK_PREFIX,READY_PATH,MANIFEST_PATH,type ContentPack,type PackFile} from './cache';
 import {sha256Hex} from './crypto';
 import {RuntimeError} from './errors';
 
@@ -37,6 +37,7 @@ export interface AssetGeneration {
  readonly identity:AssetGenerationIdentity;
  readonly statistics:{readonly inFlight:number;readonly inFlightBytes:number;readonly queued:number;readonly leases:number;readonly leaseBytes:number;readonly disposed:boolean};
  key(path:string):string;
+ descriptor(path:string):Readonly<PackFile>;
  read(path:string,signal?:AbortSignal):Promise<Uint8Array>;
  json<T=unknown>(path:string,signal?:AbortSignal):Promise<T>;
  lease(path:string,signal?:AbortSignal):Promise<AssetLease>;
@@ -94,5 +95,5 @@ export async function captureAssetGeneration(indexSource:Uint8Array,packId:strin
   if(!entry){const data=await read(path,signal);live(signal);entry=leases.get(cacheKey);if(!entry){if(leaseBytes+data.length>maximum)fail('asset_memory','Release unused asset leases before loading more pages.');const suffix=path.slice(path.lastIndexOf('.')),type=({'.png':'image/png','.svg':'image/svg+xml','.webp':'image/webp','.json':'application/json','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wasm':'application/wasm'} as Record<string,string>)[suffix]??'application/octet-stream';entry={url:URL.createObjectURL(new Blob([new Uint8Array(data).buffer],{type})),bytes:data.length,refs:0};leases.set(cacheKey,entry);leaseBytes+=data.length;}}
   entry.refs++;let released=false;const retained=entry;return Object.freeze({url:entry.url,key:cacheKey,release(){if(released)return;released=true;retained.refs--;if(retained.refs===0&&leases.get(cacheKey)===retained){URL.revokeObjectURL(retained.url);leaseBytes-=retained.bytes;leases.delete(cacheKey)}}});
  };
- return Object.freeze({identity,key,read,json:async<T>(path:string,signal?:AbortSignal)=>parse(await read(path,signal)) as T,lease,get statistics(){return Object.freeze({inFlight,inFlightBytes,queued:waiting.length,leases:leases.size,leaseBytes,disposed})},dispose(){if(disposed)return;disposed=true;lifetime.abort();for(const entry of leases.values())URL.revokeObjectURL(entry.url);leases.clear();leaseBytes=0}});
+ return Object.freeze({identity,key,descriptor:(path:string)=>{live();return file(path)},read,json:async<T>(path:string,signal?:AbortSignal)=>parse(await read(path,signal)) as T,lease,get statistics(){return Object.freeze({inFlight,inFlightBytes,queued:waiting.length,leases:leases.size,leaseBytes,disposed})},dispose(){if(disposed)return;disposed=true;lifetime.abort();for(const entry of leases.values())URL.revokeObjectURL(entry.url);leases.clear();leaseBytes=0}});
 }

@@ -13,6 +13,7 @@ import type {SessionController,SessionEvent} from '../runtime/session';
 import type {MatchConnection} from '../runtime/online';
 import {ObserverTransport,type ObserverConnection,type ObserverGrant} from '../runtime/observer';
 import type {ConnectionPhase,Difficulty,Faction,GameMap,MatchResult,MatchStatus,RuntimeVersion} from '../runtime/types';
+import {sameCommanderIdentity,type CommanderHostIdentity} from './commander-final-binding';
 
 export interface NetworkChat{id:number;room:string;sender:string;name:string;team:number;text:string;tick:number;created:number}
 export interface NetworkState{
@@ -48,7 +49,7 @@ export class NetworkController{
  private identity?:string;private uploadGeneration=0;
  #account?:LocalProfileSession;#connection?:MatchConnection;#sync?:SaveSynchronizer;
  private accountUnsubscribe?:()=>void;private sessionUnsubscribe:()=>void;private timer?:ReturnType<typeof setInterval>;
- private references?:NetworkOptions['references'];private polling=false;private chatEpoch=0;private disposed=false;private initialized=false;private epoch=0;
+ private references?:NetworkOptions['references'];private polling=false;private chatEpoch=0;private disposed=false;private initialized=false;private epoch=0;private responseEpoch=0;
  private autoJoin=false;private joining=false;private joinedMatch?:string;private syncAbort?:AbortController;private mapCache?:{key:string;map:GameMap};
  constructor(private readonly options:NetworkOptions){
   this.references=options.references;try{this.references??=globalThis.sessionStorage}catch{}
@@ -57,20 +58,30 @@ export class NetworkController{
   this.sessionUnsubscribe=options.sessions.subscribe(event=>this.sessionEvent(event));
  }
  private patch(change:Partial<NetworkState>){if(!this.disposed)this.state.update(value=>({...value,...change}))}
+ private currentResponse(epoch:number,responseEpoch:number){return !this.disposed&&this.epoch===epoch&&this.responseEpoch===responseEpoch}
  dismissError(){this.patch({error:undefined})}
  private inform(message:string){this.patch({notice:message});this.options.notice(message)}
  private async run(label:string,operation:()=>Promise<void>):Promise<boolean>{
   if(this.disposed)return false;if(this.state.get().busy){this.patch({error:{code:'network_busy',message:'Wait for the current host operation to finish.'}});return false}
-  this.patch({busy:label,error:undefined});try{await operation();return true}catch(error){this.patch({error:publicError(error)});return false}finally{this.patch({busy:undefined})}
+  // A foreground operation supersedes any already-running background read.
+  this.responseEpoch++;this.patch({busy:label,error:undefined});try{await operation();return true}catch(error){this.patch({error:publicError(error)});return false}finally{this.patch({busy:undefined})}
  }
  private account(){if(!this.#account)throw new RuntimeError('host_required','Connect to a game host first.');return this.#account}
+ /** Public identity only. Credentials never enter result bindings or backups. */
+ commandRecordIdentity():CommanderHostIdentity|undefined{const context=this.#account?.context,state=this.state.get();if(!context||!['signed-in','offline'].includes(state.account?.phase??'')||state.host!==context.origin||state.account?.origin!==context.origin||state.account.profile?.id!==context.profileId)return;return {...context,hostGeneration:this.epoch}}
+ async recoverCommanderResult(matchID:string,identity:CommanderHostIdentity):Promise<MatchResult|undefined>{
+  if(!/^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$/.test(matchID)||!sameCommanderIdentity(this.commandRecordIdentity(),identity))throw new RuntimeError('commander_identity_changed','The host or local profile changed before this final result could be recovered.');
+  const records=await this.account().authenticated(api=>api.history(),{context:{origin:identity.origin,profileId:identity.profileId,generation:identity.generation}});
+  if(!sameCommanderIdentity(this.commandRecordIdentity(),identity))throw new RuntimeError('commander_identity_changed','The host or local profile changed before this final result could be recovered.');
+  const record=records.find(value=>value.id===matchID);return record?recordedOperation(record).result:undefined;
+ }
  private authenticated<T>(operation:(api:LocalAPI)=>Promise<T>){return this.account().authenticated(operation)}
  private lobby(){const lobby=this.state.get().lobby;if(!lobby)throw new RuntimeError('lobby_required','Join a lobby first.');return lobby}
  private publicAPI(host=this.state.get().host){return this.options.makePublicAPI?.(host)??new LocalAPI(host)}
  private remember(lobby?:Lobby){try{if(lobby)this.references?.setItem(referenceKey,JSON.stringify({host:this.state.get().host,profile:this.#account?.context?.profileId,id:lobby.id}));else this.references?.removeItem(referenceKey)}catch{/* Browser persistence is optional; explicit lobby ID remains usable. */}}
  private privateActivity(){const s=this.state.get();return !!this.#account?.context&&(!!s.lobby&&s.lobbyState!=='completed'||s.queue?.status==='searching')||this.options.sessions.state.kind==='online'&&!s.result?.committed}
  private clearPrivateState(){
-  this.chatEpoch++;this.uploadGeneration++;this.syncAbort?.abort();this.#connection=undefined;this.mapCache=undefined;this.autoJoin=false;this.joinedMatch=undefined;this.moderation.lock();
+  this.responseEpoch++;this.chatEpoch++;this.uploadGeneration++;this.syncAbort?.abort();this.#connection=undefined;this.mapCache=undefined;this.autoJoin=false;this.joinedMatch=undefined;this.moderation.lock();
   this.patch({ownMaps:[],mapReports:[],mapReportCursor:undefined,mapUpload:undefined,maps:this.state.get().maps.filter(map=>map.installed||map.published!==false),lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],lobbies:[],queue:undefined,rankedMaps:[],status:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined,syncProgress:undefined,observer:undefined,eliminated:undefined,notice:undefined,error:undefined,pollError:undefined,connection:'idle',tick:0,remainingMs:undefined,latency:undefined});
  }
  private reconcileProfile(){const lobby=this.state.get().lobby;if(lobby&&!lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],status:undefined,queue:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined})}}
@@ -94,37 +105,40 @@ export class NetworkController{
  logout(){return this.run('Signing out…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the forming lobby or finish the match before signing out.');this.syncAbort?.abort();await this.account().logout();this.remember();this.#connection=undefined;this.patch({lobby:undefined,lobbyState:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined});this.inform('Signed out of this host. Local saves and campaign progress remain available.')})}
  refresh(){return this.run('Refreshing host…',async()=>{await this.refreshData();const lobby=this.state.get().lobby;if(lobby)await this.refreshLobby(lobby)})}
  private async refreshData(){
-  const account=this.#account,epoch=this.epoch;if(!account)return;
-  if(!account.context){this.patch({lobbies:[]});return}
+  const account=this.#account,epoch=this.epoch,responseEpoch=this.responseEpoch;if(!account)return;
+  if(!account.context){if(this.currentResponse(epoch,responseEpoch))this.patch({lobbies:[]});return}
   const [lobbies,relations,inbox,saves,queue]=await Promise.all([account.authenticated(api=>api.listLobbies()),account.authenticated(api=>api.social()),account.authenticated(api=>api.lobbyInvites()),account.authenticated(api=>api.listSaves()),account.authenticated(api=>api.rankedQueue())]);
-  if(epoch!==this.epoch)return;this.patch({lobbies,relations,invites:inbox.invites,saves,queue,pollError:undefined});
-  const queuedLobby=queue.lobby_id;if(queue.status==='matched'&&queuedLobby&&!this.state.get().lobby)await this.accept(await account.authenticated(api=>api.lobby(queuedLobby)),true);
+  if(!this.currentResponse(epoch,responseEpoch))return;this.patch({lobbies,relations,invites:inbox.invites,saves,queue,pollError:undefined});
+  const queuedLobby=queue.lobby_id;if(queue.status==='matched'&&queuedLobby&&!this.state.get().lobby){const response=await account.authenticated(api=>api.lobby(queuedLobby));if(this.currentResponse(epoch,responseEpoch))await this.accept(response,true)}
  }
  private async poll(){
-  if(this.disposed||this.polling||this.state.get().busy||!this.#account?.context)return;this.polling=true;const epoch=this.epoch;
+  if(this.disposed||this.polling||this.state.get().busy||!this.#account?.context)return;this.polling=true;const epoch=this.epoch,responseEpoch=this.responseEpoch;
   try{
-   const lobby=this.state.get().lobby;if(lobby){await this.refreshLobby(lobby);if(!this.state.get().lobbyUnavailable&&this.options.sessions.state.kind!=='observer')await this.refreshChat()}else await this.refreshData();
-   if(epoch===this.epoch)this.patch({pollError:undefined});
-  }catch(error){if(epoch===this.epoch)this.patch({pollError:publicError(error).message})}finally{this.polling=false}
+   const lobby=this.state.get().lobby;if(lobby){await this.refreshLobby(lobby);if(this.currentResponse(epoch,responseEpoch)&&this.state.get().lobby?.id===lobby.id&&!this.state.get().lobbyUnavailable&&this.options.sessions.state.kind!=='observer')await this.refreshChat()}else await this.refreshData();
+   if(this.currentResponse(epoch,responseEpoch))this.patch({pollError:undefined});
+  }catch(error){if(this.currentResponse(epoch,responseEpoch))this.patch({pollError:publicError(error).message})}finally{this.polling=false}
  }
  private async refreshLobby(lobby:Lobby){
   if(this.state.get().lobbyUnavailable&&this.state.get().result?.committed)return;
-  try{await this.accept(await this.authenticated(api=>api.lobby(lobby.id)),this.autoJoin)}
+  const epoch=this.epoch,responseEpoch=this.responseEpoch;
+  try{const response=await this.authenticated(api=>api.lobby(lobby.id));if(!this.currentResponse(epoch,responseEpoch)||this.state.get().lobby?.id!==lobby.id)return;await this.accept(response,this.autoJoin)}
   catch(error){
+   if(!this.currentResponse(epoch,responseEpoch)||this.state.get().lobby?.id!==lobby.id)return;
    if(RuntimeError.from(error).code!=='lobby_missing'||!lobby.match_id||this.options.sessions.state.kind==='observer')throw error;
    if(!await this.recoverResult(lobby))throw error;
    this.#connection=undefined;this.autoJoin=false;this.patch({lobbyState:'completed',lobbyUnavailable:true});
   }
  }
  private async accept(response:LobbyResponse,autoJoin:boolean){
-  const current=this.state.get().lobby;if(current?.id===response.lobby.id&&current.revision>response.lobby.revision)return;
+  if(this.disposed)return;const current=this.state.get().lobby;if(current?.id===response.lobby.id&&current.revision>response.lobby.revision)return;
   const changed=this.state.get().lobby?.id!==response.lobby.id;this.#connection=response.connection;this.autoJoin=autoJoin;
   this.patch({lobby:response.lobby,lobbyUnavailable:undefined,lobbyState:response.state??(response.lobby.match_id?'active':'forming'),joinCode:response.code??(changed?undefined:this.state.get().joinCode),...(changed?{chat:[],result:undefined,status:undefined,tick:0,connection:'idle' as const,eliminated:undefined}: {})});this.remember(response.lobby);
   if(response.state==='completed'&&this.options.sessions.state.kind!=='observer'&&!this.state.get().result?.committed)await this.recoverResult(response.lobby);
   if(response.connection&&autoJoin&&response.state!=='completed'&&this.joinedMatch!==response.connection.match_id&&!this.joining)await this.enterMatch();
  }
  private async recoverResult(lobby:Lobby){
-  const record=(await this.authenticated(api=>api.history())).find(value=>value.id===lobby.match_id);if(!record||this.state.get().lobby?.id!==lobby.id||this.state.get().lobby?.match_id!==lobby.match_id)return false;
+  const epoch=this.epoch,responseEpoch=this.responseEpoch;
+  const record=(await this.authenticated(api=>api.history())).find(value=>value.id===lobby.match_id);if(!this.currentResponse(epoch,responseEpoch)||!record||this.state.get().lobby?.id!==lobby.id||this.state.get().lobby?.match_id!==lobby.match_id)return false;
   const entry=recordedOperation(record);this.patch({result:entry.result,tick:entry.result.outcome!.tick});return true;
  }
  loadHistory(){return this.run('Loading recorded operations…',async()=>{const records=await this.authenticated(api=>api.history());this.patch({history:records.map(recordedOperation),historyLoaded:true})})}
@@ -165,12 +179,12 @@ export class NetworkController{
  createCoop(id:string,difficulty:Difficulty,allyAI?:Difficulty){return this.run('Creating co-op lobby…',async()=>this.accept(await this.authenticated(api=>api.coopLobby(id,{difficulty,ally_ai:allyAI,private:true,pause_enabled:true})),true))}
  resumeCoop(id:string,player?:number){return this.run('Restoring shared checkpoint…',async()=>this.accept(await this.authenticated(api=>api.resumeCoop(id,{player,private:true,pause_enabled:true})),true))}
  async refreshChat(){
-  const lobby=this.state.get().lobby;if(!lobby)return;const epoch=this.epoch,request=++this.chatEpoch,messages:NetworkChat[]=[];let after=0;
+  const lobby=this.state.get().lobby;if(!lobby)return;const epoch=this.epoch,responseEpoch=this.responseEpoch,request=++this.chatEpoch,messages:NetworkChat[]=[];let after=0;
   // The host retains 500 messages and pages at 100. Re-read the retained window so
   // changed mute/block filters remove previously displayed messages as well.
   for(let page=0;page<5;page++){
    const batch=await this.authenticated(api=>api.request<NetworkChat[]>(`/lobbies/${encodeURIComponent(lobby.id)}/chat?after=${after}`));
-   if(epoch!==this.epoch||request!==this.chatEpoch||this.state.get().lobby?.id!==lobby.id)return;
+   if(!this.currentResponse(epoch,responseEpoch)||request!==this.chatEpoch||this.state.get().lobby?.id!==lobby.id)return;
    if(!batch?.length)break;for(const message of batch){if(!Number.isSafeInteger(message.id)||message.id<=after)throw new RuntimeError('chat_invalid','The host returned an invalid chat page.');after=message.id;messages.push(message)}
    if(batch.length<100)break;
   }
@@ -229,12 +243,17 @@ export class NetworkController{
  cancelSync(){this.syncAbort?.abort();this.patch({syncProgress:'Cancellation requested. Completed copies are retained.'})}
  private sessionEvent(event:SessionEvent){
   if(event.type==='session'){if(event.state.kind!=='online'&&event.state.phase!=='loading'){this.joinedMatch=undefined;this.autoJoin=false;}if(event.state.kind!=='observer'&&event.state.phase!=='loading')this.patch({observer:undefined});return}
-  if(event.type!=='runtime'||!['online','observer'].includes(this.options.sessions.state.kind??''))return;const value=event.event;
+  if(event.type!=='runtime'||event.session!==this.options.sessions.state.id||!['online','observer'].includes(this.options.sessions.state.kind??''))return;const value=event.event;
+  if(this.options.sessions.state.kind==='online'){
+   const matchID=this.state.get().lobby?.match_id,transport=this.options.sessions.transport;
+   // A finished session can remain mounted while a new forming lobby is shown.
+   if(!matchID||this.#connection?.match_id!==matchID||!transport||!('connection' in transport)||(transport.connection as MatchConnection).match_id!==matchID||value.type==='result'&&value.result.matchId!==matchID)return;
+  }
   if(value.type==='connection'){const transport=this.options.sessions.transport,observer=this.state.get().observer;this.patch({connection:value.phase,remainingMs:value.remainingMs,...(transport&&'terminalReason' in transport&&transport.terminalReason==='player_eliminated'?{eliminated:true}:{}),...(observer&&transport instanceof ObserverTransport?{observer:{...observer,buffering:transport.buffering,error:transport.lastError?.message}}:{})})}
   else if(value.type==='latency')this.patch({latency:value.milliseconds});
   else if(value.type==='status')this.patch({status:value.status});
   else if(value.type==='result')this.patch({result:value.result});
   else if(value.type==='snapshot'&&(Math.floor(value.snapshot.tick/20)!==Math.floor(this.state.get().tick/20)||value.snapshot.outcome?.finished))this.patch({tick:value.snapshot.tick});
  }
- dispose(){this.moderation.dispose();this.disposed=true;this.epoch++;if(this.timer)clearInterval(this.timer);this.syncAbort?.abort();this.sessionUnsubscribe();this.accountUnsubscribe?.();this.#connection=undefined;this.#account=undefined;this.#sync=undefined}
+ dispose(){this.moderation.dispose();this.disposed=true;this.epoch++;this.responseEpoch++;if(this.timer)clearInterval(this.timer);this.syncAbort?.abort();this.sessionUnsubscribe();this.accountUnsubscribe?.();this.#connection=undefined;this.#account=undefined;this.#sync=undefined}
 }

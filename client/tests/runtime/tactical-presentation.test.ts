@@ -13,14 +13,14 @@ const catalog=new CatalogIndex(raw),pos={x:12500,y:23500};
 const actor=(patch:MessageInitShape<typeof EntitySchema>={})=>create(EntitySchema,{id:1,owner:1,type:'US.rifle',position:create(VecSchema,pos),health:1000,enabled:true,complete:true,state:'idle',...patch});
 const snapshot=(patch:MessageInitShape<typeof PlayerSnapshotSchema>={})=>create(PlayerSnapshotSchema,{tick:100,player:1,players:[{id:1,team:1},{id:2,team:1},{id:3,team:2}],...patch});
 
-test('all 28 catalog weapons retain exact splash; known artillery and tactical radii are world units',()=>{
+test('all 29 catalog weapons retain exact splash; known artillery and tactical radii are world units',()=>{
  const s=snapshot({projectiles:raw.weapons.map((w,i)=>({id:i+1,owner:3,weapon:w.id,position:{x:1000,y:2000},impact:pos,impactAt:260,warning:true}))});
- const out=tacticalPresentation(s,catalog);assert.equal(out.warnings.length,28);
+ const out=tacticalPresentation(s,catalog);assert.equal(out.warnings.length,29);
  for(const [i,weapon] of raw.weapons.entries()){
   const warning=out.warnings[i];assert.deepEqual(warning.position,pos);assert.equal(warning.deadline.remainingTicks,160);assert.equal(warning.deadline.remainingSeconds,8);
   assert.deepEqual(warning.area,weapon.splash?{kind:'circle',radius:weapon.splash,source:'catalog-splash'}:{kind:'point',reason:'single-target'});
  }
- for(const [id,radius] of [['MISSILE',2000],['IR_MISSILE',2000],['SY_ROCKET',2000],['ART',2000],['IR_ART',1500],['SY_ART',1500]] as const){assert.equal((out.warnings.find(w=>w.weapon===id)!.area as {radius:number}).radius,radius)}
+ for(const [id,radius] of [['MISSILE',2000],['IR_MISSILE',2000],['SY_ROCKET',2000],['ART',2000],['IR_ART',1500],['SY_ART',1500],['IR_SHAHED',1200]] as const){assert.equal((out.warnings.find(w=>w.weapon===id)!.area as {radius:number}).radius,radius)}
  assert.equal(out.gaps.length,0);
 });
 
