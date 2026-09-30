@@ -1,5 +1,19 @@
 # Playable local release plan
 
+## Execution checkpoint — 30 September 2026, 13:34 UTC
+
+Frontend09 now passes both TypeScript projects, 583 runtime checks and the ordinary verified package build. Its actual native course proceeds through paid hauler control and stops at reserve input `1250` versus `125`; preserve the failure and correct only the confirmed keyboard/harness cause before a distinct successor. The four renderer fixes pass 32 actual CPU checks. Queued same-home aircraft Return passes 17 original-rule/paid nodes after an actual original rejection; root review and later backend qualification remain required.
+
+Prioritize useful deterministic AI and accepted-order completion. The AI lead owns one bounded Go queue for source-reviewed original-first tank, support, windup and remembered-field diagnostics; root must wait for lane release. Gameplay authors own emergency-HQ advice, practice terminal outcome and paid foundation arrival/cancellation, with no duplicate Go jobs. Root alone composes and qualifies the next backend union. Fresh09 direct WASM, multiplayer, replay, editor, archive, cold/offline and actual audio courses reuse existing source/producer evidence but require their own genuine runtime results. All failed predecessors remain unchanged.
+
+All 48 worker slots are reused on distinct tasks. Keep one browser, one Go/build child and one heavy export. Native building publication begins with one representative distinct depot, then the complete roster and in-game state/team/zoom/readability/residency checks; source concepts alone do not satisfy the request. Complete final same-package 1–4 coverage and two consecutive long rendered games before any full-release claim. Nothing is deployed.
+
+## Execution checkpoint — 30 September 2026, 12:36 UTC
+
+Playable release and deterministic bot competence remain first. Root has run the five ordinary paid AI courses/full replays, the fresh native API producers, six-service native scenes and the two oracle-only public-route successors; original failures remain separate. A real medic follow-loop correction is tested, with one repair setup still unresolved. Natural tank retreat interruption and stalled paid construction are the next AI/mechanics priorities.
+
+Frontend09 now contains reviewed editor/debrief/archive/audio/strategic information and control/lobby fixes plus temporary distinct fallback roof cues. Finish the narrow renderer set, run combined checks and rebuild once, then grant the corrected canonical native course on the new exact package. Resolve the produced-WASM admission schema defect without repeating native producers or weakening identity checks. Finish actual same-package1–4, long games, cold/offline/editor/archive/audio and remaining campaigns. Complete native building/unit art publication and full roster visual/residency acceptance after functional gates; no deployment.
+
 ## Current release gate — 30 September 2026, 11:16 UTC
 
 Qualified Core23 and fresh ordinary frontend08 package pass source/compilation/content checks; complete playable release is still open. Run evidence first: strict08 browser stops at immediate Hold after fixing the earlier clipped selector; paid passenger regression fails rejected contained Repair intent. Four other paid mechanics pass, and fourteen mission leaves run serially from the reviewed453-file test union. Preserve failed receipts; isolate real product versus test/observer causes with separate reviewed successors. Do not retry or weaken the strict course without corrected source and explicit binding.
