@@ -1,27 +1,95 @@
 {
   "goal": "active",
   "workers": 48,
-  "assetOwner": "other model per latest user",
-  "goLane": "navigation diagnostic closed; Frontend13 build next",
-  "browserLane": "free; ordinary Frontend13 next",
-  "qualifiedCore": "core-25/source",
+  "assetOwner": "other model per latestuser",
+  "integratedCommits": [
+    "cac5fde",
+    "c30e4a0",
+    "2c01205"
+  ],
+  "currentPackage": "frontend-14/source/dist/frontline-darwin-arm64",
+  "origin": "http://127.0.0.1:8086",
+  "nativeHost": {
+    "pid": 85232,
+    "session": 45591,
+    "trace": true,
+    "stateHz": 10
+  },
   "actual": {
-    "short": {
+    "coreShort": {
       "pass": 2861,
       "fail": 0,
       "skip": 72
     },
     "vetExit": 0,
-    "frontend": {
+    "f14NewHttp": "PASS",
+    "f14Frontend": {
       "pass": 641,
       "fail": 0,
       "skip": 5
     },
-    "frontend12Build": "PASS",
-    "ordinaryFrontend12": "FAIL summary108>panel106",
-    "coldOfflineAudio": "FAIL install, cause unverified",
-    "navDiagnosticV2": "FAIL original utility bound"
+    "f14Package": "PASS",
+    "f13ColdOffline": "PASS normalpersistent",
+    "f13ColdAudio": "PASS normalpersistent",
+    "f14Native07": "paidPower/Supply/hauler/prereqsPASS; courseFAIL staleharnessminimapselector",
+    "f14Native08": "hauling/pins/reserve/HoldStop/100125150controlsPASS; courseFAIL captionharnesssequencing",
+    "loadPilot01": "FAIL unseenfootprint law; actualcapture/replaycauseconfirmed",
+    "loadCompile02": "PASS11controls+build",
+    "f14Native09": "paid Solo, manual UI Save/Load exact Go state, normal caption expiry PASS; wholecourse FAIL dense-caption test scroll sequencing",
+    "loadPilot02": "FAIL metrics receiver pointer; paid opening and actual4client measurement preserved",
+    "loadCompile03": "PASS control+build",
+    "loadPilot03": "PASS actual4clients30s and metrics",
+    "compactFogReplayOracle": "PASS2048frames/32actualauthorisedReplayViews; removals/regains unobserved",
+    "actual500_full10": {
+      "passed": true,
+      "clients": 500,
+      "fourPlayerMatches": 125,
+      "measurementSeconds": 120.00009775,
+      "execution": {
+        "count": 11990,
+        "max_ms": 58.823375,
+        "min_ms": 0.38725,
+        "p50_ms": 26.605416,
+        "p95_ms": 48.966375,
+        "p99_ms": 50.563208
+      },
+      "advice": {
+        "count": 584,
+        "max_ms": 30.818291,
+        "min_ms": 17.270875,
+        "p50_ms": 17.800625,
+        "p95_ms": 20.878958,
+        "p99_ms": 25.9695
+      },
+      "protobufPayloadBytes": 4164536689,
+      "receipt": "work/resume-20260930/art_load/api500/frontend14-full10-03/root-result.json"
+    },
+    "actual500_full20": {
+      "passed": true,
+      "clients": 500,
+      "fourPlayerMatches": 125,
+      "measurementSeconds": 120.00018225,
+      "execution": {
+        "count": 11989,
+        "max_ms": 61.408208,
+        "min_ms": 0.45225,
+        "p50_ms": 26.154208,
+        "p95_ms": 48.028916,
+        "p99_ms": 50.466167
+      },
+      "advice": {
+        "count": 585,
+        "max_ms": 32.237834,
+        "min_ms": 17.351791,
+        "p50_ms": 17.921125,
+        "p95_ms": 21.259167,
+        "p99_ms": 27.329666
+      },
+      "protobufPayloadBytes": 8325419440,
+      "receipt": "work/resume-20260930/art_load/api500/frontend14-full20-03/root-result.json"
+    }
   },
-  "nextPackage": "frontend-13/source/dist/frontline-darwin-arm64",
+  "goLoadLane": "both actual500 arms closed PASS and owned hosts reaped; heavy Go held during browser",
+  "browserLane": "Feature720 actual F14 executing by browser lead session86434, sole heavy lane; Archives+seek then editor queued",
   "releaseComplete": false
 }
