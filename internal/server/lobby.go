@@ -35,6 +35,14 @@ func (s *Server) lobbyResponse(l *Lobby, profile string) map[string]any {
 		}
 	}
 	result := map[string]any{"lobby": l}
+	if l.ResumeSave != "" {
+		// Opening checkpoints are valid at tick0. Preserve that explicit
+		// value while ordinary/fresh lobbies keep their omitted field.
+		result["lobby"] = struct {
+			*Lobby
+			ResumeTick uint32 `json:"resume_tick"`
+		}{Lobby: l, ResumeTick: l.ResumeTick}
+	}
 	result["state"] = "forming"
 	if l.MatchID != "" {
 		result["state"] = "active"
