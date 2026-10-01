@@ -1,0 +1,65 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.fence_chainlink",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.fence_chainlink.json",
+ "frame_size_2x": [
+  164,
+  110
+ ],
+ "anchor_2x": [
+  64,
+  74
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.fence_chainlink@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.fence_chainlink@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.fence_chainlink@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.fence_chainlink@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1600,
+  220
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 4,
+ "content_sha256": "7b221d33131d3f3f88736d2169afb12bf091df788f7d11fc68d2a586e4ecf5f3"
+}

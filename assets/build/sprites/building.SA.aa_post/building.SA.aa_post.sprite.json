@@ -1,0 +1,1093 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "building.SA.aa_post",
+ "role_id": null,
+ "faction": "SA",
+ "source_spec": "assets/pipeline/specs/building.SA.aa_post.json",
+ "frame_size_2x": [
+  312,
+  222
+ ],
+ "anchor_2x": [
+  130,
+  152
+ ],
+ "layers": [
+  "beauty",
+  "shadow",
+  "team"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "building.SA.aa_post@2x.beauty.0.json",
+    "building.SA.aa_post@2x.beauty.1.json",
+    "building.SA.aa_post@2x.beauty.2.json"
+   ],
+   "shadow": [
+    "building.SA.aa_post@2x.shadow.0.json",
+    "building.SA.aa_post@2x.shadow.1.json",
+    "building.SA.aa_post@2x.shadow.2.json"
+   ],
+   "team": [
+    "building.SA.aa_post@2x.team.0.json",
+    "building.SA.aa_post@2x.team.1.json",
+    "building.SA.aa_post@2x.team.2.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "building.SA.aa_post@1x.beauty.0.json",
+    "building.SA.aa_post@1x.beauty.1.json",
+    "building.SA.aa_post@1x.beauty.2.json"
+   ],
+   "shadow": [
+    "building.SA.aa_post@1x.shadow.0.json",
+    "building.SA.aa_post@1x.shadow.1.json",
+    "building.SA.aa_post@1x.shadow.2.json"
+   ],
+   "team": [
+    "building.SA.aa_post@1x.team.0.json",
+    "building.SA.aa_post@1x.team.1.json",
+    "building.SA.aa_post@1x.team.2.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "foundation",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "construct",
+   "part": "building",
+   "directions": 1,
+   "frames": 8,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "progress_driven": true
+  },
+  {
+   "name": "idle",
+   "part": "building",
+   "directions": 1,
+   "frames": 8,
+   "fps": 8,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "lowpower",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "disabled",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "critical",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "rubble",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "aim",
+   "part": "turret",
+   "directions": 32,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "fire",
+   "part": "turret",
+   "directions": 32,
+   "frames": 3,
+   "fps": 15,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [
+  {
+   "name": "sell",
+   "source": "construct",
+   "reverse": true,
+   "progress_driven": true,
+   "sim_seconds": 5
+  }
+ ],
+ "overlays": [
+  "fx.building.capture_channel",
+  "fx.building.sabotage_disabled",
+  "fx.building.sell_dust",
+  "fx.building.fire_damaged",
+  "fx.building.smoke_critical",
+  "fx.building.low_power_icon",
+  "fx.building.disabled_icon"
+ ],
+ "footprint_radius_mt": null,
+ "footprint_tiles": [
+  2,
+  2
+ ],
+ "footprint_mt": null,
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "healthbar": {
+   "construct/d00_f00": [
+    0.0,
+    -120.7
+   ],
+   "construct/d00_f01": [
+    0.0,
+    -120.7
+   ],
+   "construct/d00_f02": [
+    0.0,
+    -120.7
+   ],
+   "construct/d00_f03": [
+    0.0,
+    -120.7
+   ],
+   "construct/d00_f04": [
+    0.0,
+    -120.7
+   ],
+   "construct/d00_f05": [
+    0.0,
+    -120.7
+   ],
+   "construct/d00_f06": [
+    0.0,
+    -120.7
+   ],
+   "construct/d00_f07": [
+    0.0,
+    -120.7
+   ],
+   "critical/d00_f00": [
+    0.0,
+    -120.7
+   ],
+   "damaged/d00_f00": [
+    0.0,
+    -120.7
+   ],
+   "disabled/d00_f00": [
+    0.0,
+    -120.7
+   ],
+   "foundation/d00_f00": [
+    0.0,
+    -120.7
+   ],
+   "idle/d00_f00": [
+    0.0,
+    -120.7
+   ],
+   "idle/d00_f01": [
+    0.0,
+    -120.7
+   ],
+   "idle/d00_f02": [
+    0.0,
+    -120.7
+   ],
+   "idle/d00_f03": [
+    0.0,
+    -120.7
+   ],
+   "idle/d00_f04": [
+    0.0,
+    -120.7
+   ],
+   "idle/d00_f05": [
+    0.0,
+    -120.7
+   ],
+   "idle/d00_f06": [
+    0.0,
+    -120.7
+   ],
+   "idle/d00_f07": [
+    0.0,
+    -120.7
+   ],
+   "lowpower/d00_f00": [
+    0.0,
+    -120.7
+   ],
+   "rubble/d00_f00": [
+    0.0,
+    -120.7
+   ]
+  },
+  "muzzle": {
+   "aim/d00_f00": [
+    60.2,
+    -73.8
+   ],
+   "aim/d01_f00": [
+    56.0,
+    -68.1
+   ],
+   "aim/d02_f00": [
+    49.7,
+    -62.9
+   ],
+   "aim/d03_f00": [
+    41.5,
+    -58.4
+   ],
+   "aim/d04_f00": [
+    31.7,
+    -54.8
+   ],
+   "aim/d05_f00": [
+    20.7,
+    -52.2
+   ],
+   "aim/d06_f00": [
+    8.8,
+    -50.8
+   ],
+   "aim/d07_f00": [
+    -3.3,
+    -50.5
+   ],
+   "aim/d08_f00": [
+    -15.4,
+    -51.4
+   ],
+   "aim/d09_f00": [
+    -26.8,
+    -53.5
+   ],
+   "aim/d10_f00": [
+    -37.2,
+    -56.7
+   ],
+   "aim/d11_f00": [
+    -46.2,
+    -60.8
+   ],
+   "aim/d12_f00": [
+    -53.4,
+    -65.7
+   ],
+   "aim/d13_f00": [
+    -58.6,
+    -71.2
+   ],
+   "aim/d14_f00": [
+    -61.5,
+    -77.1
+   ],
+   "aim/d15_f00": [
+    -62.0,
+    -83.2
+   ],
+   "aim/d16_f00": [
+    -60.2,
+    -89.2
+   ],
+   "aim/d17_f00": [
+    -56.0,
+    -94.9
+   ],
+   "aim/d18_f00": [
+    -49.7,
+    -100.1
+   ],
+   "aim/d19_f00": [
+    -41.5,
+    -104.6
+   ],
+   "aim/d20_f00": [
+    -31.7,
+    -108.2
+   ],
+   "aim/d21_f00": [
+    -20.7,
+    -110.8
+   ],
+   "aim/d22_f00": [
+    -8.8,
+    -112.2
+   ],
+   "aim/d23_f00": [
+    3.3,
+    -112.5
+   ],
+   "aim/d24_f00": [
+    15.4,
+    -111.6
+   ],
+   "aim/d25_f00": [
+    26.8,
+    -109.5
+   ],
+   "aim/d26_f00": [
+    37.2,
+    -106.4
+   ],
+   "aim/d27_f00": [
+    46.2,
+    -102.3
+   ],
+   "aim/d28_f00": [
+    53.4,
+    -97.4
+   ],
+   "aim/d29_f00": [
+    58.6,
+    -91.8
+   ],
+   "aim/d30_f00": [
+    61.5,
+    -85.9
+   ],
+   "aim/d31_f00": [
+    62.0,
+    -79.9
+   ],
+   "fire/d00_f00": [
+    55.0,
+    -76.4
+   ],
+   "fire/d00_f01": [
+    57.6,
+    -75.1
+   ],
+   "fire/d00_f02": [
+    60.2,
+    -73.8
+   ],
+   "fire/d01_f00": [
+    52.0,
+    -71.1
+   ],
+   "fire/d01_f01": [
+    54.0,
+    -69.6
+   ],
+   "fire/d01_f02": [
+    56.0,
+    -68.1
+   ],
+   "fire/d02_f00": [
+    46.9,
+    -66.3
+   ],
+   "fire/d02_f01": [
+    48.3,
+    -64.6
+   ],
+   "fire/d02_f02": [
+    49.7,
+    -62.9
+   ],
+   "fire/d03_f00": [
+    40.1,
+    -62.0
+   ],
+   "fire/d03_f01": [
+    40.8,
+    -60.2
+   ],
+   "fire/d03_f02": [
+    41.5,
+    -58.4
+   ],
+   "fire/d04_f00": [
+    31.7,
+    -58.4
+   ],
+   "fire/d04_f01": [
+    31.7,
+    -56.6
+   ],
+   "fire/d04_f02": [
+    31.7,
+    -54.8
+   ],
+   "fire/d05_f00": [
+    22.1,
+    -55.8
+   ],
+   "fire/d05_f01": [
+    21.4,
+    -54.0
+   ],
+   "fire/d05_f02": [
+    20.7,
+    -52.2
+   ],
+   "fire/d06_f00": [
+    11.6,
+    -54.1
+   ],
+   "fire/d06_f01": [
+    10.2,
+    -52.5
+   ],
+   "fire/d06_f02": [
+    8.8,
+    -50.8
+   ],
+   "fire/d07_f00": [
+    0.7,
+    -53.5
+   ],
+   "fire/d07_f01": [
+    -1.3,
+    -52.0
+   ],
+   "fire/d07_f02": [
+    -3.3,
+    -50.5
+   ],
+   "fire/d08_f00": [
+    -10.2,
+    -54.0
+   ],
+   "fire/d08_f01": [
+    -12.8,
+    -52.7
+   ],
+   "fire/d08_f02": [
+    -15.4,
+    -51.4
+   ],
+   "fire/d09_f00": [
+    -20.8,
+    -55.5
+   ],
+   "fire/d09_f01": [
+    -23.8,
+    -54.5
+   ],
+   "fire/d09_f02": [
+    -26.8,
+    -53.5
+   ],
+   "fire/d10_f00": [
+    -30.5,
+    -58.1
+   ],
+   "fire/d10_f01": [
+    -33.9,
+    -57.4
+   ],
+   "fire/d10_f02": [
+    -37.2,
+    -56.7
+   ],
+   "fire/d11_f00": [
+    -39.1,
+    -61.5
+   ],
+   "fire/d11_f01": [
+    -42.6,
+    -61.1
+   ],
+   "fire/d11_f02": [
+    -46.2,
+    -60.8
+   ],
+   "fire/d12_f00": [
+    -46.2,
+    -65.7
+   ],
+   "fire/d12_f01": [
+    -49.8,
+    -65.7
+   ],
+   "fire/d12_f02": [
+    -53.4,
+    -65.7
+   ],
+   "fire/d13_f00": [
+    -51.5,
+    -70.5
+   ],
+   "fire/d13_f01": [
+    -55.0,
+    -70.8
+   ],
+   "fire/d13_f02": [
+    -58.6,
+    -71.2
+   ],
+   "fire/d14_f00": [
+    -54.8,
+    -75.7
+   ],
+   "fire/d14_f01": [
+    -58.1,
+    -76.4
+   ],
+   "fire/d14_f02": [
+    -61.5,
+    -77.1
+   ],
+   "fire/d15_f00": [
+    -56.0,
+    -81.2
+   ],
+   "fire/d15_f01": [
+    -59.0,
+    -82.2
+   ],
+   "fire/d15_f02": [
+    -62.0,
+    -83.2
+   ],
+   "fire/d16_f00": [
+    -55.0,
+    -86.6
+   ],
+   "fire/d16_f01": [
+    -57.6,
+    -87.9
+   ],
+   "fire/d16_f02": [
+    -60.2,
+    -89.2
+   ],
+   "fire/d17_f00": [
+    -52.0,
+    -91.9
+   ],
+   "fire/d17_f01": [
+    -54.0,
+    -93.4
+   ],
+   "fire/d17_f02": [
+    -56.0,
+    -94.9
+   ],
+   "fire/d18_f00": [
+    -46.9,
+    -96.8
+   ],
+   "fire/d18_f01": [
+    -48.3,
+    -98.5
+   ],
+   "fire/d18_f02": [
+    -49.7,
+    -100.1
+   ],
+   "fire/d19_f00": [
+    -40.1,
+    -101.1
+   ],
+   "fire/d19_f01": [
+    -40.8,
+    -102.8
+   ],
+   "fire/d19_f02": [
+    -41.5,
+    -104.6
+   ],
+   "fire/d20_f00": [
+    -31.7,
+    -104.6
+   ],
+   "fire/d20_f01": [
+    -31.7,
+    -106.4
+   ],
+   "fire/d20_f02": [
+    -31.7,
+    -108.2
+   ],
+   "fire/d21_f00": [
+    -22.1,
+    -107.2
+   ],
+   "fire/d21_f01": [
+    -21.4,
+    -109.0
+   ],
+   "fire/d21_f02": [
+    -20.7,
+    -110.8
+   ],
+   "fire/d22_f00": [
+    -11.6,
+    -108.9
+   ],
+   "fire/d22_f01": [
+    -10.2,
+    -110.6
+   ],
+   "fire/d22_f02": [
+    -8.8,
+    -112.2
+   ],
+   "fire/d23_f00": [
+    -0.7,
+    -109.5
+   ],
+   "fire/d23_f01": [
+    1.3,
+    -111.0
+   ],
+   "fire/d23_f02": [
+    3.3,
+    -112.5
+   ],
+   "fire/d24_f00": [
+    10.2,
+    -109.0
+   ],
+   "fire/d24_f01": [
+    12.8,
+    -110.3
+   ],
+   "fire/d24_f02": [
+    15.4,
+    -111.6
+   ],
+   "fire/d25_f00": [
+    20.8,
+    -107.5
+   ],
+   "fire/d25_f01": [
+    23.8,
+    -108.5
+   ],
+   "fire/d25_f02": [
+    26.8,
+    -109.5
+   ],
+   "fire/d26_f00": [
+    30.5,
+    -105.0
+   ],
+   "fire/d26_f01": [
+    33.9,
+    -105.7
+   ],
+   "fire/d26_f02": [
+    37.2,
+    -106.4
+   ],
+   "fire/d27_f00": [
+    39.1,
+    -101.6
+   ],
+   "fire/d27_f01": [
+    42.6,
+    -101.9
+   ],
+   "fire/d27_f02": [
+    46.2,
+    -102.3
+   ],
+   "fire/d28_f00": [
+    46.2,
+    -97.4
+   ],
+   "fire/d28_f01": [
+    49.8,
+    -97.4
+   ],
+   "fire/d28_f02": [
+    53.4,
+    -97.4
+   ],
+   "fire/d29_f00": [
+    51.5,
+    -92.6
+   ],
+   "fire/d29_f01": [
+    55.0,
+    -92.2
+   ],
+   "fire/d29_f02": [
+    58.6,
+    -91.8
+   ],
+   "fire/d30_f00": [
+    54.8,
+    -87.3
+   ],
+   "fire/d30_f01": [
+    58.1,
+    -86.6
+   ],
+   "fire/d30_f02": [
+    61.5,
+    -85.9
+   ],
+   "fire/d31_f00": [
+    56.0,
+    -81.9
+   ],
+   "fire/d31_f01": [
+    59.0,
+    -80.9
+   ],
+   "fire/d31_f02": [
+    62.0,
+    -79.9
+   ]
+  },
+  "rally": {
+   "construct/d00_f00": [
+    -83.2,
+    41.6
+   ],
+   "construct/d00_f01": [
+    -83.2,
+    41.6
+   ],
+   "construct/d00_f02": [
+    -83.2,
+    41.6
+   ],
+   "construct/d00_f03": [
+    -83.2,
+    41.6
+   ],
+   "construct/d00_f04": [
+    -83.2,
+    41.6
+   ],
+   "construct/d00_f05": [
+    -83.2,
+    41.6
+   ],
+   "construct/d00_f06": [
+    -83.2,
+    41.6
+   ],
+   "construct/d00_f07": [
+    -83.2,
+    41.6
+   ],
+   "critical/d00_f00": [
+    -83.2,
+    41.6
+   ],
+   "damaged/d00_f00": [
+    -83.2,
+    41.6
+   ],
+   "disabled/d00_f00": [
+    -83.2,
+    41.6
+   ],
+   "foundation/d00_f00": [
+    -83.2,
+    41.6
+   ],
+   "idle/d00_f00": [
+    -83.2,
+    41.6
+   ],
+   "idle/d00_f01": [
+    -83.2,
+    41.6
+   ],
+   "idle/d00_f02": [
+    -83.2,
+    41.6
+   ],
+   "idle/d00_f03": [
+    -83.2,
+    41.6
+   ],
+   "idle/d00_f04": [
+    -83.2,
+    41.6
+   ],
+   "idle/d00_f05": [
+    -83.2,
+    41.6
+   ],
+   "idle/d00_f06": [
+    -83.2,
+    41.6
+   ],
+   "idle/d00_f07": [
+    -83.2,
+    41.6
+   ],
+   "lowpower/d00_f00": [
+    -83.2,
+    41.6
+   ],
+   "rubble/d00_f00": [
+    -83.2,
+    41.6
+   ]
+  },
+  "smoke_1": {
+   "construct/d00_f00": [
+    -11.5,
+    -91.3
+   ],
+   "construct/d00_f01": [
+    -11.5,
+    -91.3
+   ],
+   "construct/d00_f02": [
+    -11.5,
+    -91.3
+   ],
+   "construct/d00_f03": [
+    -11.5,
+    -91.3
+   ],
+   "construct/d00_f04": [
+    -11.5,
+    -91.3
+   ],
+   "construct/d00_f05": [
+    -11.5,
+    -91.3
+   ],
+   "construct/d00_f06": [
+    -11.5,
+    -91.3
+   ],
+   "construct/d00_f07": [
+    -11.5,
+    -91.3
+   ],
+   "critical/d00_f00": [
+    -11.5,
+    -91.3
+   ],
+   "damaged/d00_f00": [
+    -11.5,
+    -91.3
+   ],
+   "disabled/d00_f00": [
+    -11.5,
+    -91.3
+   ],
+   "foundation/d00_f00": [
+    -11.5,
+    -91.3
+   ],
+   "idle/d00_f00": [
+    -11.5,
+    -91.3
+   ],
+   "idle/d00_f01": [
+    -11.5,
+    -91.3
+   ],
+   "idle/d00_f02": [
+    -11.5,
+    -91.3
+   ],
+   "idle/d00_f03": [
+    -11.5,
+    -91.3
+   ],
+   "idle/d00_f04": [
+    -11.5,
+    -91.3
+   ],
+   "idle/d00_f05": [
+    -11.5,
+    -91.3
+   ],
+   "idle/d00_f06": [
+    -11.5,
+    -91.3
+   ],
+   "idle/d00_f07": [
+    -11.5,
+    -91.3
+   ],
+   "lowpower/d00_f00": [
+    -11.5,
+    -91.3
+   ],
+   "rubble/d00_f00": [
+    -11.5,
+    -91.3
+   ]
+  },
+  "smoke_2": {
+   "construct/d00_f00": [
+    19.2,
+    -24.1
+   ],
+   "construct/d00_f01": [
+    19.2,
+    -24.1
+   ],
+   "construct/d00_f02": [
+    19.2,
+    -24.1
+   ],
+   "construct/d00_f03": [
+    19.2,
+    -24.1
+   ],
+   "construct/d00_f04": [
+    19.2,
+    -24.1
+   ],
+   "construct/d00_f05": [
+    19.2,
+    -24.1
+   ],
+   "construct/d00_f06": [
+    19.2,
+    -24.1
+   ],
+   "construct/d00_f07": [
+    19.2,
+    -24.1
+   ],
+   "critical/d00_f00": [
+    19.2,
+    -24.1
+   ],
+   "damaged/d00_f00": [
+    19.2,
+    -24.1
+   ],
+   "disabled/d00_f00": [
+    19.2,
+    -24.1
+   ],
+   "foundation/d00_f00": [
+    19.2,
+    -24.1
+   ],
+   "idle/d00_f00": [
+    19.2,
+    -24.1
+   ],
+   "idle/d00_f01": [
+    19.2,
+    -24.1
+   ],
+   "idle/d00_f02": [
+    19.2,
+    -24.1
+   ],
+   "idle/d00_f03": [
+    19.2,
+    -24.1
+   ],
+   "idle/d00_f04": [
+    19.2,
+    -24.1
+   ],
+   "idle/d00_f05": [
+    19.2,
+    -24.1
+   ],
+   "idle/d00_f06": [
+    19.2,
+    -24.1
+   ],
+   "idle/d00_f07": [
+    19.2,
+    -24.1
+   ],
+   "lowpower/d00_f00": [
+    19.2,
+    -24.1
+   ],
+   "rubble/d00_f00": [
+    19.2,
+    -24.1
+   ]
+  }
+ },
+ "frame_count": 150,
+ "content_sha256": "2b2f8d6bb572d876b68102e6d72f8b76a38e04c902e27e7080a260f81368eafa"
+}

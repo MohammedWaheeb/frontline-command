@@ -1,0 +1,122 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.supply_field",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.supply_field.json",
+ "frame_size_2x": [
+  388,
+  196
+ ],
+ "anchor_2x": [
+  194,
+  98
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.supply_field@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.supply_field@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.supply_field@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.supply_field@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "full",
+   "part": "prop",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true
+  },
+  {
+   "name": "high",
+   "part": "prop",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true
+  },
+  {
+   "name": "low",
+   "part": "prop",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true
+  },
+  {
+   "name": "depleted",
+   "part": "prop",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  3000,
+  3000
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "label": {
+   "depleted/d00_f00": [
+    0.0,
+    -62.7
+   ],
+   "full/d00_f00": [
+    0.0,
+    -62.7
+   ],
+   "high/d00_f00": [
+    0.0,
+    -62.7
+   ],
+   "low/d00_f00": [
+    0.0,
+    -62.7
+   ]
+  },
+  "loading_bay": {
+   "depleted/d00_f00": [
+    0.0,
+    57.6
+   ],
+   "full/d00_f00": [
+    0.0,
+    57.6
+   ],
+   "high/d00_f00": [
+    0.0,
+    57.6
+   ],
+   "low/d00_f00": [
+    0.0,
+    57.6
+   ]
+  }
+ },
+ "frame_count": 4,
+ "content_sha256": "bab9053a3eff51f57fefabd3aa16df7a3776b5d769e2bd7baad9865e7e1a7f04"
+}

@@ -1,0 +1,101 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.bridge_permanent",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.bridge_permanent.json",
+ "frame_size_2x": [
+  172,
+  110
+ ],
+ "anchor_2x": [
+  74,
+  66
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.bridge_permanent@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.bridge_permanent@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.bridge_permanent@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.bridge_permanent@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "deck",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "edge_left",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "edge_right",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1000,
+  1000
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 16,
+ "content_sha256": "3679d40270f29e82109cdbfb2c50f4bafdd25c4a8a2036d762665a48eb470e0a"
+}

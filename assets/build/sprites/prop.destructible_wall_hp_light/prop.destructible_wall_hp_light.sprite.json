@@ -1,0 +1,156 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.destructible_wall_hp_light",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.destructible_wall_hp_light.json",
+ "frame_size_2x": [
+  142,
+  94
+ ],
+ "anchor_2x": [
+  68,
+  56
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.destructible_wall_hp_light@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.destructible_wall_hp_light@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.destructible_wall_hp_light@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.destructible_wall_hp_light@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "intact",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "destroyed",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [
+  {
+   "name": "idle",
+   "source": "intact"
+  },
+  {
+   "name": "rubble",
+   "source": "destroyed"
+  },
+  {
+   "name": "wreck",
+   "source": "destroyed"
+  }
+ ],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": [
+  1,
+  1
+ ],
+ "footprint_mt": [
+  1000,
+  1000
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "label": {
+   "damaged/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "destroyed/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "destroyed/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "destroyed/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "destroyed/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "intact/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "intact/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "intact/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "intact/d03_f00": [
+    0.0,
+    -50.2
+   ]
+  }
+ },
+ "frame_count": 12,
+ "content_sha256": "a30617a9470d779bcc5a432cab7920adae0d023409d078a224c24647e2d5e630"
+}

@@ -1,0 +1,256 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.ruined_house_garrisonable",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.ruined_house_garrisonable.json",
+ "frame_size_2x": [
+  498,
+  316
+ ],
+ "anchor_2x": [
+  214,
+  184
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.ruined_house_garrisonable@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.ruined_house_garrisonable@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.ruined_house_garrisonable@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.ruined_house_garrisonable@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "intact",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "destroyed",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [
+  {
+   "name": "idle",
+   "source": "intact"
+  },
+  {
+   "name": "rubble",
+   "source": "destroyed"
+  },
+  {
+   "name": "wreck",
+   "source": "destroyed"
+  }
+ ],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": [
+  3,
+  3
+ ],
+ "footprint_mt": [
+  3000,
+  3000
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "capacity": {
+   "damaged/d00_f00": [
+    -88.3,
+    -50.7
+   ],
+   "damaged/d01_f00": [
+    -88.3,
+    -139.0
+   ],
+   "damaged/d02_f00": [
+    88.3,
+    -139.0
+   ],
+   "damaged/d03_f00": [
+    88.3,
+    -50.7
+   ],
+   "destroyed/d00_f00": [
+    -88.3,
+    -50.7
+   ],
+   "destroyed/d01_f00": [
+    -88.3,
+    -139.0
+   ],
+   "destroyed/d02_f00": [
+    88.3,
+    -139.0
+   ],
+   "destroyed/d03_f00": [
+    88.3,
+    -50.7
+   ],
+   "intact/d00_f00": [
+    -88.3,
+    -50.7
+   ],
+   "intact/d01_f00": [
+    -88.3,
+    -139.0
+   ],
+   "intact/d02_f00": [
+    88.3,
+    -139.0
+   ],
+   "intact/d03_f00": [
+    88.3,
+    -50.7
+   ]
+  },
+  "entry": {
+   "damaged/d00_f00": [
+    -103.7,
+    48.7
+   ],
+   "damaged/d01_f00": [
+    -103.7,
+    -55.0
+   ],
+   "damaged/d02_f00": [
+    103.7,
+    -55.0
+   ],
+   "damaged/d03_f00": [
+    103.7,
+    48.7
+   ],
+   "destroyed/d00_f00": [
+    -103.7,
+    48.7
+   ],
+   "destroyed/d01_f00": [
+    -103.7,
+    -55.0
+   ],
+   "destroyed/d02_f00": [
+    103.7,
+    -55.0
+   ],
+   "destroyed/d03_f00": [
+    103.7,
+    48.7
+   ],
+   "intact/d00_f00": [
+    -103.7,
+    48.7
+   ],
+   "intact/d01_f00": [
+    -103.7,
+    -55.0
+   ],
+   "intact/d02_f00": [
+    103.7,
+    -55.0
+   ],
+   "intact/d03_f00": [
+    103.7,
+    48.7
+   ]
+  },
+  "label": {
+   "damaged/d00_f00": [
+    0.0,
+    -115.2
+   ],
+   "damaged/d01_f00": [
+    0.0,
+    -115.2
+   ],
+   "damaged/d02_f00": [
+    0.0,
+    -115.2
+   ],
+   "damaged/d03_f00": [
+    0.0,
+    -115.2
+   ],
+   "destroyed/d00_f00": [
+    0.0,
+    -115.2
+   ],
+   "destroyed/d01_f00": [
+    0.0,
+    -115.2
+   ],
+   "destroyed/d02_f00": [
+    0.0,
+    -115.2
+   ],
+   "destroyed/d03_f00": [
+    0.0,
+    -115.2
+   ],
+   "intact/d00_f00": [
+    0.0,
+    -115.2
+   ],
+   "intact/d01_f00": [
+    0.0,
+    -115.2
+   ],
+   "intact/d02_f00": [
+    0.0,
+    -115.2
+   ],
+   "intact/d03_f00": [
+    0.0,
+    -115.2
+   ]
+  }
+ },
+ "frame_count": 12,
+ "content_sha256": "ea46cab75418f926200882cdd1c2d0e16392238d7e3c23175ac70b7c55f645a9"
+}

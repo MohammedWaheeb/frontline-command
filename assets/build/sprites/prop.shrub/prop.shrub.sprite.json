@@ -1,0 +1,61 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.shrub",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.shrub.json",
+ "frame_size_2x": [
+  76,
+  48
+ ],
+ "anchor_2x": [
+  32,
+  28
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.shrub@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.shrub@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.shrub@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.shrub@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  400,
+  400
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 1,
+ "content_sha256": "4488bba2ff590c00067823caeed193325f649554f5cd074d7556ea6d3c1816ed"
+}

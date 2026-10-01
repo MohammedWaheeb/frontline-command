@@ -1,0 +1,61 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.sandbags",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.sandbags.json",
+ "frame_size_2x": [
+  136,
+  90
+ ],
+ "anchor_2x": [
+  58,
+  54
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.sandbags@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.sandbags@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.sandbags@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.sandbags@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1500,
+  250
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 1,
+ "content_sha256": "9457fd2205613e51ec36fffb682448e1eb62328372940f8b39d41bfc81ae43fa"
+}

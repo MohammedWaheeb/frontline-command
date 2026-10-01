@@ -1,0 +1,153 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.decor_building_nongarrison",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.decor_building_nongarrison.json",
+ "frame_size_2x": [
+  348,
+  228
+ ],
+ "anchor_2x": [
+  148,
+  132
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.decor_building_nongarrison@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.decor_building_nongarrison@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.decor_building_nongarrison@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.decor_building_nongarrison@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "intact",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "destroyed",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [
+  {
+   "name": "idle",
+   "source": "intact"
+  },
+  {
+   "name": "rubble",
+   "source": "destroyed"
+  },
+  {
+   "name": "wreck",
+   "source": "destroyed"
+  }
+ ],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  2000,
+  2000
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "label": {
+   "damaged/d00_f00": [
+    0.0,
+    -92.5
+   ],
+   "damaged/d01_f00": [
+    0.0,
+    -92.5
+   ],
+   "damaged/d02_f00": [
+    0.0,
+    -92.5
+   ],
+   "damaged/d03_f00": [
+    0.0,
+    -92.5
+   ],
+   "destroyed/d00_f00": [
+    0.0,
+    -92.5
+   ],
+   "destroyed/d01_f00": [
+    0.0,
+    -92.5
+   ],
+   "destroyed/d02_f00": [
+    0.0,
+    -92.5
+   ],
+   "destroyed/d03_f00": [
+    0.0,
+    -92.5
+   ],
+   "intact/d00_f00": [
+    0.0,
+    -92.5
+   ],
+   "intact/d01_f00": [
+    0.0,
+    -92.5
+   ],
+   "intact/d02_f00": [
+    0.0,
+    -92.5
+   ],
+   "intact/d03_f00": [
+    0.0,
+    -92.5
+   ]
+  }
+ },
+ "frame_count": 12,
+ "content_sha256": "c2441cc2cb42d3ab120c7203763133d4fd2d0286cd2ea72ecb1262f852305796"
+}

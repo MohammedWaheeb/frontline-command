@@ -1,0 +1,102 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.supply_station_neutral",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.supply_station_neutral.json",
+ "frame_size_2x": [
+  258,
+  176
+ ],
+ "anchor_2x": [
+  108,
+  110
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.supply_station_neutral@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.supply_station_neutral@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.supply_station_neutral@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.supply_station_neutral@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1600,
+  1600
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "label": {
+   "idle/d00_f00": [
+    0.0,
+    -78.4
+   ],
+   "idle/d01_f00": [
+    0.0,
+    -78.4
+   ],
+   "idle/d02_f00": [
+    0.0,
+    -78.4
+   ],
+   "idle/d03_f00": [
+    0.0,
+    -78.4
+   ]
+  },
+  "owner_flag": {
+   "idle/d00_f00": [
+    -76.8,
+    -77.7
+   ],
+   "idle/d01_f00": [
+    6.4,
+    -112.9
+   ],
+   "idle/d02_f00": [
+    76.8,
+    -71.3
+   ],
+   "idle/d03_f00": [
+    -6.4,
+    -36.1
+   ]
+  }
+ },
+ "frame_count": 4,
+ "content_sha256": "804ad10ebee13ed743851f3d6be7523a6645b0cdbc65cc7efacfb1cc78474bda"
+}

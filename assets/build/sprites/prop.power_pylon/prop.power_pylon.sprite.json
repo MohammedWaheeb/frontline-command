@@ -1,0 +1,65 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.power_pylon",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.power_pylon.json",
+ "frame_size_2x": [
+  214,
+  192
+ ],
+ "anchor_2x": [
+  44,
+  156
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.power_pylon@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.power_pylon@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.power_pylon@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.power_pylon@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1000,
+  1000
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 4,
+ "content_sha256": "cbb5064e7cd11787d34d60eb8aa20160eaf9e72c62d28b91fe9f94e418945b59"
+}

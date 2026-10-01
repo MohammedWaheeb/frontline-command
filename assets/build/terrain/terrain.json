@@ -1,0 +1,378 @@
+{
+  "version": 3,
+  "texels_per_tile": 128,
+  "tiles_per_texture": 4,
+  "space": "world (u = sim x, v = sim y)",
+  "sun": {
+    "elevation_deg": 50.0,
+    "travel_deg_blender_xy": 33.4
+  },
+  "generator": "assets/pipeline/terrain/gen_terrain.py (v2, Claude claude-opus-5-5)",
+  "license": "Original procedural art for Frontline Command; no third-party inputs",
+  "materials": {
+    "sand": {
+      "file": "sand.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "open ground (primary): warm ochre dry ground, calm under units",
+      "height": "sand.height.png",
+      "seam_delta": 0.22,
+      "interior_delta_mean": 0.31,
+      "interior_delta_p99": 0.84,
+      "seamless": true,
+      "metrics": {
+        "speckle": 0.35,
+        "patchiness": 0.67,
+        "mean_luma": 156.2,
+        "chroma": 69.8
+      }
+    },
+    "packed_earth": {
+      "file": "packed_earth.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "open ground variant: red-brown compacted dirt, sparse crack clusters",
+      "height": "packed_earth.height.png",
+      "seam_delta": 0.24,
+      "interior_delta_mean": 0.28,
+      "interior_delta_p99": 1.18,
+      "seamless": true,
+      "metrics": {
+        "speckle": 0.44,
+        "patchiness": 1.88,
+        "mean_luma": 120.3,
+        "chroma": 59.9
+      }
+    },
+    "gravel_wash": {
+      "file": "gravel_wash.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "open ground variant: pebbly scree apron at the foot of rock (passable)",
+      "height": "gravel_wash.height.png",
+      "seam_delta": 0.51,
+      "interior_delta_mean": 0.66,
+      "interior_delta_p99": 1.38,
+      "seamless": true,
+      "metrics": {
+        "speckle": 1.1,
+        "patchiness": 0.61,
+        "mean_luma": 134.1,
+        "chroma": 37.2
+      }
+    },
+    "scrub_ground": {
+      "file": "scrub_ground.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "infantry cover: olive scrub and grass clumps",
+      "height": "scrub_ground.height.png",
+      "seam_delta": 0.69,
+      "interior_delta_mean": 0.68,
+      "interior_delta_p99": 1.54,
+      "seamless": true,
+      "metrics": {
+        "speckle": 1.02,
+        "patchiness": 2.48,
+        "mean_luma": 113.6,
+        "chroma": 51.8
+      }
+    },
+    "gravel": {
+      "file": "gravel.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "impassable rock tops (cliff/blocked): large irregular faceted rock, not paving",
+      "height": "gravel.height.png",
+      "seam_delta": 1.56,
+      "interior_delta_mean": 1.45,
+      "interior_delta_p99": 3.88,
+      "seamless": true,
+      "metrics": {
+        "speckle": 2.24,
+        "patchiness": 2.66,
+        "mean_luma": 120.5,
+        "chroma": 29.6
+      }
+    },
+    "rubble_ground": {
+      "file": "rubble_ground.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "infantry cover: broken masonry and brick rubble",
+      "height": "rubble_ground.height.png",
+      "seam_delta": 1.16,
+      "interior_delta_mean": 1.87,
+      "interior_delta_p99": 3.89,
+      "seamless": true,
+      "metrics": {
+        "speckle": 2.2,
+        "patchiness": 1.32,
+        "mean_luma": 120.7,
+        "chroma": 29.6
+      }
+    },
+    "asphalt": {
+      "file": "asphalt.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "paved road: warm charcoal asphalt with repairs",
+      "height": "asphalt.height.png",
+      "seam_delta": 0.5,
+      "interior_delta_mean": 0.54,
+      "interior_delta_p99": 0.96,
+      "seamless": true,
+      "metrics": {
+        "speckle": 0.5,
+        "patchiness": 0.55,
+        "mean_luma": 76.0,
+        "chroma": 8.2
+      }
+    },
+    "concrete_slab": {
+      "file": "concrete_slab.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "base/industrial slabs: light warm concrete, 2-tile joints",
+      "height": "concrete_slab.height.png",
+      "seam_delta": 12.14,
+      "interior_delta_mean": 0.66,
+      "interior_delta_p99": 29.79,
+      "seamless": true,
+      "metrics": {
+        "speckle": 1.26,
+        "patchiness": 2.24,
+        "mean_luma": 141.3,
+        "chroma": 14.0
+      }
+    },
+    "dry_riverbed": {
+      "file": "dry_riverbed.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "dry riverbed floor: pale clay with varied curled mud plates",
+      "height": "dry_riverbed.height.png",
+      "seam_delta": 1.36,
+      "interior_delta_mean": 1.35,
+      "interior_delta_p99": 3.18,
+      "seamless": true,
+      "metrics": {
+        "speckle": 1.97,
+        "patchiness": 2.06,
+        "mean_luma": 154.3,
+        "chroma": 46.7
+      }
+    },
+    "shallow_water": {
+      "file": "shallow_water.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "shallow water: clear turquoise over a sandy bed",
+      "height": "shallow_water.height.png",
+      "seam_delta": 0.36,
+      "interior_delta_mean": 0.34,
+      "interior_delta_p99": 0.75,
+      "seamless": true,
+      "metrics": {
+        "speckle": 0.41,
+        "patchiness": 1.43,
+        "mean_luma": 121.9,
+        "chroma": 44.4
+      }
+    },
+    "deep_water": {
+      "file": "deep_water.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "deep water: dark clear blue-teal, readable impassable body",
+      "height": "deep_water.height.png",
+      "seam_delta": 0.37,
+      "interior_delta_mean": 0.49,
+      "interior_delta_p99": 0.96,
+      "seamless": true,
+      "metrics": {
+        "speckle": 0.53,
+        "patchiness": 1.79,
+        "mean_luma": 72.9,
+        "chroma": 60.1
+      }
+    },
+    "coast_sand": {
+      "file": "coast_sand.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "coast / beach sand: pale, fine, shell flecks sparse",
+      "height": "coast_sand.height.png",
+      "seam_delta": 0.12,
+      "interior_delta_mean": 0.21,
+      "interior_delta_p99": 0.72,
+      "seamless": true,
+      "metrics": {
+        "speckle": 0.25,
+        "patchiness": 1.81,
+        "mean_luma": 184.7,
+        "chroma": 62.0
+      }
+    },
+    "industrial_pavement": {
+      "file": "industrial_pavement.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "industrial yards: worn panels, oil stains, faded paint",
+      "height": "industrial_pavement.height.png",
+      "seam_delta": 12.81,
+      "interior_delta_mean": 0.53,
+      "interior_delta_p99": 22.79,
+      "seamless": true,
+      "metrics": {
+        "speckle": 0.96,
+        "patchiness": 3.14,
+        "mean_luma": 132.8,
+        "chroma": 14.8
+      }
+    },
+    "farmland_dry": {
+      "file": "farmland_dry.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "dry farmland: furrows (1/8 tile) and stubble, period aligned",
+      "height": "farmland_dry.height.png",
+      "seam_delta": 1.03,
+      "interior_delta_mean": 0.14,
+      "interior_delta_p99": 0.23,
+      "seamless": false,
+      "metrics": {
+        "speckle": 4.77,
+        "patchiness": 0.2,
+        "mean_luma": 108.1,
+        "chroma": 62.1
+      }
+    },
+    "ramp": {
+      "file": "ramp.png",
+      "kind": "surface",
+      "size": [
+        512,
+        512
+      ],
+      "role": "ramp surface: compacted dirt with rut lines running along v (down-slope)",
+      "height": "ramp.height.png",
+      "seam_delta": 0.93,
+      "interior_delta_mean": 0.34,
+      "interior_delta_p99": 7.85,
+      "seamless": true,
+      "metrics": {
+        "speckle": 1.07,
+        "patchiness": 0.65,
+        "mean_luma": 126.1,
+        "chroma": 61.0
+      }
+    },
+    "cliff_face_tier1": {
+      "file": "cliff_face_tier1.png",
+      "kind": "face",
+      "size": [
+        128,
+        512
+      ],
+      "role": "cliff face, opaque; rows world-anchored (row 0 = level 4, v=(4-h)/4); 4 tiles per repeat along the edge"
+    },
+    "cliff_face_tier2": {
+      "file": "cliff_face_tier2.png",
+      "kind": "face",
+      "size": [
+        256,
+        512
+      ],
+      "role": "cliff face for drops over one level: wider fracture columns, same world-anchored rows"
+    },
+    "road_asphalt_decal": {
+      "file": "road_asphalt_decal.png",
+      "kind": "decal",
+      "size": [
+        128,
+        512
+      ],
+      "role": "asphalt road edge: crumbled lip, gravel shoulder, dust fade"
+    },
+    "road_dirt_decal": {
+      "file": "road_dirt_decal.png",
+      "kind": "decal",
+      "size": [
+        128,
+        512
+      ],
+      "role": "dirt track edge: wheel rut and berm fade"
+    },
+    "transition_masks": {
+      "file": "transition_masks.png",
+      "kind": "mask_atlas",
+      "size": [
+        512,
+        512
+      ],
+      "role": "16 corner-case organic blend masks (4x4 atlas of 128px); case bits NW=1 NE=2 SE=4 SW=8"
+    },
+    "height_tier_edges": {
+      "file": "height_tier_edges.png",
+      "kind": "edge_atlas",
+      "size": [
+        256,
+        512
+      ],
+      "role": "height tier edge strips: row 0-63 lit lip, 64-127 drop shadow, 128-255 contact occlusion"
+    },
+    "ground_macro": {
+      "file": "ground_macro.png",
+      "kind": "macro",
+      "size": [
+        1024,
+        1024
+      ],
+      "role": "ground_macro: 32x32-tile multiply map (128 = neutral) for broad colour masses",
+      "tiles": 32
+    }
+  }
+}

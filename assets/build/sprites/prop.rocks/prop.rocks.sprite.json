@@ -1,0 +1,61 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.rocks",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.rocks.json",
+ "frame_size_2x": [
+  174,
+  98
+ ],
+ "anchor_2x": [
+  88,
+  58
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.rocks@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.rocks@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.rocks@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.rocks@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1500,
+  1500
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 1,
+ "content_sha256": "399c285788caaf5022e5aaaef0e68558381d1dd47326055347d6115739279ec6"
+}

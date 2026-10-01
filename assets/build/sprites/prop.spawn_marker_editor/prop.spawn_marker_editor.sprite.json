@@ -1,0 +1,57 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.spawn_marker_editor",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.spawn_marker_editor.json",
+ "frame_size_2x": [
+  88,
+  46
+ ],
+ "anchor_2x": [
+  44,
+  24
+ ],
+ "layers": [
+  "beauty"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.spawn_marker_editor@2x.beauty.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.spawn_marker_editor@1x.beauty.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1000,
+  1000
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 4,
+ "content_sha256": "c0a1294fb43048191b8f8814686b03a2b303f745a345af1ac70c5330dd477848"
+}

@@ -1,0 +1,84 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.command_relay_objective",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.command_relay_objective.json",
+ "frame_size_2x": [
+  352,
+  242
+ ],
+ "anchor_2x": [
+  156,
+  150
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.command_relay_objective@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.command_relay_objective@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.command_relay_objective@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.command_relay_objective@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  2300,
+  2300
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "objective": {
+   "idle/d00_f00": [
+    0.0,
+    -113.7
+   ],
+   "idle/d01_f00": [
+    0.0,
+    -113.7
+   ],
+   "idle/d02_f00": [
+    0.0,
+    -113.7
+   ],
+   "idle/d03_f00": [
+    0.0,
+    -113.7
+   ]
+  }
+ },
+ "frame_count": 4,
+ "content_sha256": "436673793ba63b2cf17be9487e9836422228d66051f009d1af44fca6d73fd5ce"
+}

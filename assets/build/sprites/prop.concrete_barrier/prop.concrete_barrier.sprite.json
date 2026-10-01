@@ -1,0 +1,65 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.concrete_barrier",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.concrete_barrier.json",
+ "frame_size_2x": [
+  140,
+  92
+ ],
+ "anchor_2x": [
+  64,
+  54
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.concrete_barrier@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.concrete_barrier@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.concrete_barrier@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.concrete_barrier@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1400,
+  480
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 4,
+ "content_sha256": "e75a132a16abcb4dee63326048add18d72218d6d9980e0a1e5e99d6549838dbb"
+}

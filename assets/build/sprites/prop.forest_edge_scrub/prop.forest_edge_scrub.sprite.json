@@ -1,0 +1,65 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.forest_edge_scrub",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.forest_edge_scrub.json",
+ "frame_size_2x": [
+  200,
+  118
+ ],
+ "anchor_2x": [
+  94,
+  64
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.forest_edge_scrub@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.forest_edge_scrub@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.forest_edge_scrub@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.forest_edge_scrub@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  2000,
+  1400
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 4,
+ "content_sha256": "9dd53e7382c338e75826cf62b9a7ea913eb9f9fa3e48cfc1f1f8e47f94f1ea18"
+}

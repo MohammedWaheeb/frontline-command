@@ -1,0 +1,2846 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "unit.SY.rig",
+ "role_id": "SY.rig",
+ "faction": "SY",
+ "source_spec": "assets/pipeline/specs/unit.SY.rig.json",
+ "frame_size_2x": [
+  254,
+  178
+ ],
+ "anchor_2x": [
+  102,
+  114
+ ],
+ "layers": [
+  "beauty",
+  "shadow",
+  "team"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "unit.SY.rig@2x.beauty.0.json",
+    "unit.SY.rig@2x.beauty.1.json",
+    "unit.SY.rig@2x.beauty.2.json",
+    "unit.SY.rig@2x.beauty.3.json"
+   ],
+   "shadow": [
+    "unit.SY.rig@2x.shadow.0.json",
+    "unit.SY.rig@2x.shadow.1.json",
+    "unit.SY.rig@2x.shadow.2.json",
+    "unit.SY.rig@2x.shadow.3.json"
+   ],
+   "team": [
+    "unit.SY.rig@2x.team.0.json",
+    "unit.SY.rig@2x.team.1.json",
+    "unit.SY.rig@2x.team.2.json",
+    "unit.SY.rig@2x.team.3.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "unit.SY.rig@1x.beauty.0.json",
+    "unit.SY.rig@1x.beauty.1.json",
+    "unit.SY.rig@1x.beauty.2.json",
+    "unit.SY.rig@1x.beauty.3.json"
+   ],
+   "shadow": [
+    "unit.SY.rig@1x.shadow.0.json",
+    "unit.SY.rig@1x.shadow.1.json",
+    "unit.SY.rig@1x.shadow.2.json",
+    "unit.SY.rig@1x.shadow.3.json"
+   ],
+   "team": [
+    "unit.SY.rig@1x.team.0.json",
+    "unit.SY.rig@1x.team.1.json",
+    "unit.SY.rig@1x.team.2.json",
+    "unit.SY.rig@1x.team.3.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "move",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 12,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "wreck",
+   "part": "whole",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "deploy_build",
+   "part": "body",
+   "directions": 16,
+   "frames": 8,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "progress_driven": true
+  },
+  {
+   "name": "work_build",
+   "part": "body",
+   "directions": 16,
+   "frames": 6,
+   "fps": 8,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": 600,
+ "footprint_tiles": null,
+ "footprint_mt": null,
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "healthbar": {
+   "damaged/d00_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d01_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d02_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d03_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d04_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d05_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d06_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d07_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d08_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d09_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d10_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d11_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d12_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d13_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d14_f00": [
+    0.0,
+    -90.1
+   ],
+   "damaged/d15_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d00_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d00_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d00_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d00_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d00_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d00_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d00_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d00_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d01_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d01_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d01_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d01_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d01_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d01_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d01_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d01_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d02_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d02_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d02_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d02_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d02_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d02_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d02_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d02_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d03_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d03_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d03_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d03_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d03_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d03_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d03_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d03_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d04_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d04_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d04_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d04_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d04_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d04_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d04_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d04_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d05_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d05_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d05_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d05_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d05_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d05_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d05_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d05_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d06_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d06_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d06_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d06_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d06_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d06_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d06_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d06_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d07_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d07_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d07_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d07_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d07_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d07_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d07_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d07_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d08_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d08_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d08_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d08_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d08_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d08_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d08_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d08_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d09_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d09_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d09_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d09_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d09_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d09_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d09_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d09_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d10_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d10_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d10_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d10_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d10_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d10_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d10_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d10_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d11_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d11_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d11_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d11_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d11_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d11_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d11_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d11_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d12_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d12_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d12_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d12_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d12_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d12_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d12_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d12_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d13_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d13_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d13_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d13_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d13_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d13_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d13_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d13_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d14_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d14_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d14_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d14_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d14_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d14_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d14_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d14_f07": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d15_f00": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d15_f01": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d15_f02": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d15_f03": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d15_f04": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d15_f05": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d15_f06": [
+    0.0,
+    -90.1
+   ],
+   "deploy_build/d15_f07": [
+    0.0,
+    -90.1
+   ],
+   "idle/d00_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d01_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d02_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d03_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d04_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d05_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d06_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d07_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d08_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d09_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d10_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d11_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d12_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d13_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d14_f00": [
+    0.0,
+    -90.1
+   ],
+   "idle/d15_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d00_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d00_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d00_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d00_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d01_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d01_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d01_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d01_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d02_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d02_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d02_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d02_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d03_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d03_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d03_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d03_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d04_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d04_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d04_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d04_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d05_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d05_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d05_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d05_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d06_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d06_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d06_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d06_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d07_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d07_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d07_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d07_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d08_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d08_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d08_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d08_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d09_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d09_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d09_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d09_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d10_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d10_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d10_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d10_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d11_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d11_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d11_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d11_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d12_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d12_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d12_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d12_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d13_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d13_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d13_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d13_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d14_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d14_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d14_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d14_f03": [
+    0.0,
+    -90.1
+   ],
+   "move/d15_f00": [
+    0.0,
+    -90.1
+   ],
+   "move/d15_f01": [
+    0.0,
+    -90.1
+   ],
+   "move/d15_f02": [
+    0.0,
+    -90.1
+   ],
+   "move/d15_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d00_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d00_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d00_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d00_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d00_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d00_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d01_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d01_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d01_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d01_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d01_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d01_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d02_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d02_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d02_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d02_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d02_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d02_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d03_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d03_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d03_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d03_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d03_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d03_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d04_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d04_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d04_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d04_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d04_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d04_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d05_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d05_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d05_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d05_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d05_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d05_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d06_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d06_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d06_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d06_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d06_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d06_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d07_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d07_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d07_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d07_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d07_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d07_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d08_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d08_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d08_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d08_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d08_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d08_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d09_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d09_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d09_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d09_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d09_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d09_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d10_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d10_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d10_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d10_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d10_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d10_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d11_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d11_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d11_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d11_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d11_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d11_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d12_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d12_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d12_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d12_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d12_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d12_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d13_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d13_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d13_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d13_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d13_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d13_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d14_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d14_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d14_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d14_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d14_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d14_f05": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d15_f00": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d15_f01": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d15_f02": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d15_f03": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d15_f04": [
+    0.0,
+    -90.1
+   ],
+   "work_build/d15_f05": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d00_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d01_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d02_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d03_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d04_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d05_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d06_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d07_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d08_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d09_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d10_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d11_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d12_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d13_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d14_f00": [
+    0.0,
+    -90.1
+   ],
+   "wreck/d15_f00": [
+    0.0,
+    -90.1
+   ]
+  },
+  "work": {
+   "damaged/d00_f00": [
+    -36.0,
+    -59.2
+   ],
+   "damaged/d01_f00": [
+    -20.2,
+    -64.7
+   ],
+   "damaged/d02_f00": [
+    -1.2,
+    -66.9
+   ],
+   "damaged/d03_f00": [
+    17.9,
+    -65.2
+   ],
+   "damaged/d04_f00": [
+    34.3,
+    -60.0
+   ],
+   "damaged/d05_f00": [
+    45.5,
+    -52.1
+   ],
+   "damaged/d06_f00": [
+    49.8,
+    -42.6
+   ],
+   "damaged/d07_f00": [
+    46.4,
+    -33.0
+   ],
+   "damaged/d08_f00": [
+    36.0,
+    -24.8
+   ],
+   "damaged/d09_f00": [
+    20.2,
+    -19.2
+   ],
+   "damaged/d10_f00": [
+    1.2,
+    -17.1
+   ],
+   "damaged/d11_f00": [
+    -17.9,
+    -18.8
+   ],
+   "damaged/d12_f00": [
+    -34.3,
+    -24.0
+   ],
+   "damaged/d13_f00": [
+    -45.5,
+    -31.9
+   ],
+   "damaged/d14_f00": [
+    -49.8,
+    -41.4
+   ],
+   "damaged/d15_f00": [
+    -46.4,
+    -51.0
+   ],
+   "deploy_build/d00_f00": [
+    -35.2,
+    -59.6
+   ],
+   "deploy_build/d00_f01": [
+    -35.9,
+    -59.5
+   ],
+   "deploy_build/d00_f02": [
+    -36.5,
+    -59.3
+   ],
+   "deploy_build/d00_f03": [
+    -37.2,
+    -59.0
+   ],
+   "deploy_build/d00_f04": [
+    -37.8,
+    -58.7
+   ],
+   "deploy_build/d00_f05": [
+    -38.4,
+    -58.4
+   ],
+   "deploy_build/d00_f06": [
+    -39.0,
+    -58.0
+   ],
+   "deploy_build/d00_f07": [
+    -39.5,
+    -57.6
+   ],
+   "deploy_build/d01_f00": [
+    -19.0,
+    -65.0
+   ],
+   "deploy_build/d01_f01": [
+    -19.4,
+    -65.0
+   ],
+   "deploy_build/d01_f02": [
+    -19.8,
+    -64.9
+   ],
+   "deploy_build/d01_f03": [
+    -20.1,
+    -64.7
+   ],
+   "deploy_build/d01_f04": [
+    -20.5,
+    -64.5
+   ],
+   "deploy_build/d01_f05": [
+    -20.8,
+    -64.3
+   ],
+   "deploy_build/d01_f06": [
+    -21.1,
+    -64.0
+   ],
+   "deploy_build/d01_f07": [
+    -21.4,
+    -63.7
+   ],
+   "deploy_build/d02_f00": [
+    0.0,
+    -66.9
+   ],
+   "deploy_build/d02_f01": [
+    0.0,
+    -66.9
+   ],
+   "deploy_build/d02_f02": [
+    0.0,
+    -66.8
+   ],
+   "deploy_build/d02_f03": [
+    0.0,
+    -66.7
+   ],
+   "deploy_build/d02_f04": [
+    0.0,
+    -66.6
+   ],
+   "deploy_build/d02_f05": [
+    0.0,
+    -66.4
+   ],
+   "deploy_build/d02_f06": [
+    0.0,
+    -66.1
+   ],
+   "deploy_build/d02_f07": [
+    0.0,
+    -65.8
+   ],
+   "deploy_build/d03_f00": [
+    19.0,
+    -65.0
+   ],
+   "deploy_build/d03_f01": [
+    19.4,
+    -65.0
+   ],
+   "deploy_build/d03_f02": [
+    19.8,
+    -64.9
+   ],
+   "deploy_build/d03_f03": [
+    20.1,
+    -64.7
+   ],
+   "deploy_build/d03_f04": [
+    20.5,
+    -64.5
+   ],
+   "deploy_build/d03_f05": [
+    20.8,
+    -64.3
+   ],
+   "deploy_build/d03_f06": [
+    21.1,
+    -64.0
+   ],
+   "deploy_build/d03_f07": [
+    21.4,
+    -63.7
+   ],
+   "deploy_build/d04_f00": [
+    35.2,
+    -59.6
+   ],
+   "deploy_build/d04_f01": [
+    35.9,
+    -59.5
+   ],
+   "deploy_build/d04_f02": [
+    36.5,
+    -59.3
+   ],
+   "deploy_build/d04_f03": [
+    37.2,
+    -59.0
+   ],
+   "deploy_build/d04_f04": [
+    37.8,
+    -58.7
+   ],
+   "deploy_build/d04_f05": [
+    38.4,
+    -58.4
+   ],
+   "deploy_build/d04_f06": [
+    39.0,
+    -58.0
+   ],
+   "deploy_build/d04_f07": [
+    39.5,
+    -57.6
+   ],
+   "deploy_build/d05_f00": [
+    46.0,
+    -51.5
+   ],
+   "deploy_build/d05_f01": [
+    46.9,
+    -51.2
+   ],
+   "deploy_build/d05_f02": [
+    47.7,
+    -50.9
+   ],
+   "deploy_build/d05_f03": [
+    48.6,
+    -50.5
+   ],
+   "deploy_build/d05_f04": [
+    49.4,
+    -50.1
+   ],
+   "deploy_build/d05_f05": [
+    50.2,
+    -49.6
+   ],
+   "deploy_build/d05_f06": [
+    50.9,
+    -49.1
+   ],
+   "deploy_build/d05_f07": [
+    51.6,
+    -48.6
+   ],
+   "deploy_build/d06_f00": [
+    49.8,
+    -42.0
+   ],
+   "deploy_build/d06_f01": [
+    50.7,
+    -41.5
+   ],
+   "deploy_build/d06_f02": [
+    51.7,
+    -41.0
+   ],
+   "deploy_build/d06_f03": [
+    52.6,
+    -40.4
+   ],
+   "deploy_build/d06_f04": [
+    53.4,
+    -39.8
+   ],
+   "deploy_build/d06_f05": [
+    54.3,
+    -39.2
+   ],
+   "deploy_build/d06_f06": [
+    55.1,
+    -38.6
+   ],
+   "deploy_build/d06_f07": [
+    55.9,
+    -37.9
+   ],
+   "deploy_build/d07_f00": [
+    46.0,
+    -32.5
+   ],
+   "deploy_build/d07_f01": [
+    46.9,
+    -31.8
+   ],
+   "deploy_build/d07_f02": [
+    47.7,
+    -31.1
+   ],
+   "deploy_build/d07_f03": [
+    48.6,
+    -30.4
+   ],
+   "deploy_build/d07_f04": [
+    49.4,
+    -29.6
+   ],
+   "deploy_build/d07_f05": [
+    50.2,
+    -28.8
+   ],
+   "deploy_build/d07_f06": [
+    50.9,
+    -28.0
+   ],
+   "deploy_build/d07_f07": [
+    51.6,
+    -27.2
+   ],
+   "deploy_build/d08_f00": [
+    35.2,
+    -24.4
+   ],
+   "deploy_build/d08_f01": [
+    35.9,
+    -23.6
+   ],
+   "deploy_build/d08_f02": [
+    36.5,
+    -22.7
+   ],
+   "deploy_build/d08_f03": [
+    37.2,
+    -21.9
+   ],
+   "deploy_build/d08_f04": [
+    37.8,
+    -21.0
+   ],
+   "deploy_build/d08_f05": [
+    38.4,
+    -20.0
+   ],
+   "deploy_build/d08_f06": [
+    39.0,
+    -19.1
+   ],
+   "deploy_build/d08_f07": [
+    39.5,
+    -18.1
+   ],
+   "deploy_build/d09_f00": [
+    19.0,
+    -19.0
+   ],
+   "deploy_build/d09_f01": [
+    19.4,
+    -18.1
+   ],
+   "deploy_build/d09_f02": [
+    19.8,
+    -17.1
+   ],
+   "deploy_build/d09_f03": [
+    20.1,
+    -16.2
+   ],
+   "deploy_build/d09_f04": [
+    20.5,
+    -15.2
+   ],
+   "deploy_build/d09_f05": [
+    20.8,
+    -14.1
+   ],
+   "deploy_build/d09_f06": [
+    21.1,
+    -13.1
+   ],
+   "deploy_build/d09_f07": [
+    21.4,
+    -12.1
+   ],
+   "deploy_build/d10_f00": [
+    0.0,
+    -17.1
+   ],
+   "deploy_build/d10_f01": [
+    0.0,
+    -16.2
+   ],
+   "deploy_build/d10_f02": [
+    0.0,
+    -15.2
+   ],
+   "deploy_build/d10_f03": [
+    0.0,
+    -14.2
+   ],
+   "deploy_build/d10_f04": [
+    0.0,
+    -13.1
+   ],
+   "deploy_build/d10_f05": [
+    0.0,
+    -12.1
+   ],
+   "deploy_build/d10_f06": [
+    0.0,
+    -11.0
+   ],
+   "deploy_build/d10_f07": [
+    0.0,
+    -9.9
+   ],
+   "deploy_build/d11_f00": [
+    -19.0,
+    -19.0
+   ],
+   "deploy_build/d11_f01": [
+    -19.4,
+    -18.1
+   ],
+   "deploy_build/d11_f02": [
+    -19.8,
+    -17.1
+   ],
+   "deploy_build/d11_f03": [
+    -20.1,
+    -16.2
+   ],
+   "deploy_build/d11_f04": [
+    -20.5,
+    -15.2
+   ],
+   "deploy_build/d11_f05": [
+    -20.8,
+    -14.1
+   ],
+   "deploy_build/d11_f06": [
+    -21.1,
+    -13.1
+   ],
+   "deploy_build/d11_f07": [
+    -21.4,
+    -12.1
+   ],
+   "deploy_build/d12_f00": [
+    -35.2,
+    -24.4
+   ],
+   "deploy_build/d12_f01": [
+    -35.9,
+    -23.6
+   ],
+   "deploy_build/d12_f02": [
+    -36.5,
+    -22.7
+   ],
+   "deploy_build/d12_f03": [
+    -37.2,
+    -21.9
+   ],
+   "deploy_build/d12_f04": [
+    -37.8,
+    -21.0
+   ],
+   "deploy_build/d12_f05": [
+    -38.4,
+    -20.0
+   ],
+   "deploy_build/d12_f06": [
+    -39.0,
+    -19.1
+   ],
+   "deploy_build/d12_f07": [
+    -39.5,
+    -18.1
+   ],
+   "deploy_build/d13_f00": [
+    -46.0,
+    -32.5
+   ],
+   "deploy_build/d13_f01": [
+    -46.9,
+    -31.8
+   ],
+   "deploy_build/d13_f02": [
+    -47.7,
+    -31.1
+   ],
+   "deploy_build/d13_f03": [
+    -48.6,
+    -30.4
+   ],
+   "deploy_build/d13_f04": [
+    -49.4,
+    -29.6
+   ],
+   "deploy_build/d13_f05": [
+    -50.2,
+    -28.8
+   ],
+   "deploy_build/d13_f06": [
+    -50.9,
+    -28.0
+   ],
+   "deploy_build/d13_f07": [
+    -51.6,
+    -27.2
+   ],
+   "deploy_build/d14_f00": [
+    -49.8,
+    -42.0
+   ],
+   "deploy_build/d14_f01": [
+    -50.7,
+    -41.5
+   ],
+   "deploy_build/d14_f02": [
+    -51.7,
+    -41.0
+   ],
+   "deploy_build/d14_f03": [
+    -52.6,
+    -40.4
+   ],
+   "deploy_build/d14_f04": [
+    -53.4,
+    -39.8
+   ],
+   "deploy_build/d14_f05": [
+    -54.3,
+    -39.2
+   ],
+   "deploy_build/d14_f06": [
+    -55.1,
+    -38.6
+   ],
+   "deploy_build/d14_f07": [
+    -55.9,
+    -37.9
+   ],
+   "deploy_build/d15_f00": [
+    -46.0,
+    -51.5
+   ],
+   "deploy_build/d15_f01": [
+    -46.9,
+    -51.2
+   ],
+   "deploy_build/d15_f02": [
+    -47.7,
+    -50.9
+   ],
+   "deploy_build/d15_f03": [
+    -48.6,
+    -50.5
+   ],
+   "deploy_build/d15_f04": [
+    -49.4,
+    -50.1
+   ],
+   "deploy_build/d15_f05": [
+    -50.2,
+    -49.6
+   ],
+   "deploy_build/d15_f06": [
+    -50.9,
+    -49.1
+   ],
+   "deploy_build/d15_f07": [
+    -51.6,
+    -48.6
+   ],
+   "idle/d00_f00": [
+    -35.2,
+    -59.6
+   ],
+   "idle/d01_f00": [
+    -19.0,
+    -65.0
+   ],
+   "idle/d02_f00": [
+    0.0,
+    -66.9
+   ],
+   "idle/d03_f00": [
+    19.0,
+    -65.0
+   ],
+   "idle/d04_f00": [
+    35.2,
+    -59.6
+   ],
+   "idle/d05_f00": [
+    46.0,
+    -51.5
+   ],
+   "idle/d06_f00": [
+    49.8,
+    -42.0
+   ],
+   "idle/d07_f00": [
+    46.0,
+    -32.5
+   ],
+   "idle/d08_f00": [
+    35.2,
+    -24.4
+   ],
+   "idle/d09_f00": [
+    19.0,
+    -19.0
+   ],
+   "idle/d10_f00": [
+    0.0,
+    -17.1
+   ],
+   "idle/d11_f00": [
+    -19.0,
+    -19.0
+   ],
+   "idle/d12_f00": [
+    -35.2,
+    -24.4
+   ],
+   "idle/d13_f00": [
+    -46.0,
+    -32.5
+   ],
+   "idle/d14_f00": [
+    -49.8,
+    -42.0
+   ],
+   "idle/d15_f00": [
+    -46.0,
+    -51.5
+   ],
+   "move/d00_f00": [
+    -35.5,
+    -59.4
+   ],
+   "move/d00_f01": [
+    -35.0,
+    -60.5
+   ],
+   "move/d00_f02": [
+    -34.9,
+    -59.8
+   ],
+   "move/d00_f03": [
+    -35.4,
+    -58.7
+   ],
+   "move/d01_f00": [
+    -19.4,
+    -64.9
+   ],
+   "move/d01_f01": [
+    -18.9,
+    -65.9
+   ],
+   "move/d01_f02": [
+    -18.6,
+    -65.1
+   ],
+   "move/d01_f03": [
+    -19.2,
+    -64.1
+   ],
+   "move/d02_f00": [
+    -0.4,
+    -66.9
+   ],
+   "move/d02_f01": [
+    0.0,
+    -67.8
+   ],
+   "move/d02_f02": [
+    0.4,
+    -66.9
+   ],
+   "move/d02_f03": [
+    0.0,
+    -66.0
+   ],
+   "move/d03_f00": [
+    18.6,
+    -65.1
+   ],
+   "move/d03_f01": [
+    18.9,
+    -65.9
+   ],
+   "move/d03_f02": [
+    19.4,
+    -64.9
+   ],
+   "move/d03_f03": [
+    19.2,
+    -64.1
+   ],
+   "move/d04_f00": [
+    34.9,
+    -59.8
+   ],
+   "move/d04_f01": [
+    35.0,
+    -60.5
+   ],
+   "move/d04_f02": [
+    35.5,
+    -59.4
+   ],
+   "move/d04_f03": [
+    35.4,
+    -58.7
+   ],
+   "move/d05_f00": [
+    45.8,
+    -51.7
+   ],
+   "move/d05_f01": [
+    45.7,
+    -52.5
+   ],
+   "move/d05_f02": [
+    46.1,
+    -51.3
+   ],
+   "move/d05_f03": [
+    46.2,
+    -50.5
+   ],
+   "move/d06_f00": [
+    49.8,
+    -42.2
+   ],
+   "move/d06_f01": [
+    49.5,
+    -43.0
+   ],
+   "move/d06_f02": [
+    49.8,
+    -41.8
+   ],
+   "move/d06_f03": [
+    50.1,
+    -41.0
+   ],
+   "move/d07_f00": [
+    46.1,
+    -32.7
+   ],
+   "move/d07_f01": [
+    45.7,
+    -33.6
+   ],
+   "move/d07_f02": [
+    45.8,
+    -32.3
+   ],
+   "move/d07_f03": [
+    46.2,
+    -31.4
+   ],
+   "move/d08_f00": [
+    35.5,
+    -24.6
+   ],
+   "move/d08_f01": [
+    35.0,
+    -25.6
+   ],
+   "move/d08_f02": [
+    34.9,
+    -24.3
+   ],
+   "move/d08_f03": [
+    35.4,
+    -23.3
+   ],
+   "move/d09_f00": [
+    19.4,
+    -19.1
+   ],
+   "move/d09_f01": [
+    18.9,
+    -20.2
+   ],
+   "move/d09_f02": [
+    18.6,
+    -18.9
+   ],
+   "move/d09_f03": [
+    19.2,
+    -17.8
+   ],
+   "move/d10_f00": [
+    0.4,
+    -17.1
+   ],
+   "move/d10_f01": [
+    0.0,
+    -18.3
+   ],
+   "move/d10_f02": [
+    -0.4,
+    -17.1
+   ],
+   "move/d10_f03": [
+    0.0,
+    -15.9
+   ],
+   "move/d11_f00": [
+    -18.6,
+    -18.9
+   ],
+   "move/d11_f01": [
+    -18.9,
+    -20.2
+   ],
+   "move/d11_f02": [
+    -19.4,
+    -19.1
+   ],
+   "move/d11_f03": [
+    -19.2,
+    -17.8
+   ],
+   "move/d12_f00": [
+    -34.9,
+    -24.3
+   ],
+   "move/d12_f01": [
+    -35.0,
+    -25.6
+   ],
+   "move/d12_f02": [
+    -35.5,
+    -24.6
+   ],
+   "move/d12_f03": [
+    -35.4,
+    -23.3
+   ],
+   "move/d13_f00": [
+    -45.8,
+    -32.3
+   ],
+   "move/d13_f01": [
+    -45.7,
+    -33.6
+   ],
+   "move/d13_f02": [
+    -46.1,
+    -32.7
+   ],
+   "move/d13_f03": [
+    -46.2,
+    -31.4
+   ],
+   "move/d14_f00": [
+    -49.8,
+    -41.8
+   ],
+   "move/d14_f01": [
+    -49.5,
+    -43.0
+   ],
+   "move/d14_f02": [
+    -49.8,
+    -42.2
+   ],
+   "move/d14_f03": [
+    -50.1,
+    -41.0
+   ],
+   "move/d15_f00": [
+    -46.1,
+    -51.3
+   ],
+   "move/d15_f01": [
+    -45.7,
+    -52.5
+   ],
+   "move/d15_f02": [
+    -45.8,
+    -51.7
+   ],
+   "move/d15_f03": [
+    -46.2,
+    -50.5
+   ],
+   "work_build/d00_f00": [
+    -39.5,
+    -57.6
+   ],
+   "work_build/d00_f01": [
+    -42.3,
+    -63.3
+   ],
+   "work_build/d00_f02": [
+    -42.3,
+    -63.3
+   ],
+   "work_build/d00_f03": [
+    -39.5,
+    -57.6
+   ],
+   "work_build/d00_f04": [
+    -36.8,
+    -52.0
+   ],
+   "work_build/d00_f05": [
+    -36.8,
+    -52.0
+   ],
+   "work_build/d01_f00": [
+    -21.4,
+    -63.7
+   ],
+   "work_build/d01_f01": [
+    -22.9,
+    -69.8
+   ],
+   "work_build/d01_f02": [
+    -22.9,
+    -69.8
+   ],
+   "work_build/d01_f03": [
+    -21.4,
+    -63.7
+   ],
+   "work_build/d01_f04": [
+    -19.9,
+    -57.6
+   ],
+   "work_build/d01_f05": [
+    -19.9,
+    -57.6
+   ],
+   "work_build/d02_f00": [
+    0.0,
+    -65.8
+   ],
+   "work_build/d02_f01": [
+    0.0,
+    -72.1
+   ],
+   "work_build/d02_f02": [
+    0.0,
+    -72.1
+   ],
+   "work_build/d02_f03": [
+    0.0,
+    -65.8
+   ],
+   "work_build/d02_f04": [
+    0.0,
+    -59.6
+   ],
+   "work_build/d02_f05": [
+    0.0,
+    -59.6
+   ],
+   "work_build/d03_f00": [
+    21.4,
+    -63.7
+   ],
+   "work_build/d03_f01": [
+    22.9,
+    -69.8
+   ],
+   "work_build/d03_f02": [
+    22.9,
+    -69.8
+   ],
+   "work_build/d03_f03": [
+    21.4,
+    -63.7
+   ],
+   "work_build/d03_f04": [
+    19.9,
+    -57.6
+   ],
+   "work_build/d03_f05": [
+    19.9,
+    -57.6
+   ],
+   "work_build/d04_f00": [
+    39.5,
+    -57.6
+   ],
+   "work_build/d04_f01": [
+    42.3,
+    -63.3
+   ],
+   "work_build/d04_f02": [
+    42.3,
+    -63.3
+   ],
+   "work_build/d04_f03": [
+    39.5,
+    -57.6
+   ],
+   "work_build/d04_f04": [
+    36.8,
+    -52.0
+   ],
+   "work_build/d04_f05": [
+    36.8,
+    -52.0
+   ],
+   "work_build/d05_f00": [
+    51.6,
+    -48.6
+   ],
+   "work_build/d05_f01": [
+    55.2,
+    -53.6
+   ],
+   "work_build/d05_f02": [
+    55.2,
+    -53.6
+   ],
+   "work_build/d05_f03": [
+    51.6,
+    -48.6
+   ],
+   "work_build/d05_f04": [
+    48.0,
+    -43.5
+   ],
+   "work_build/d05_f05": [
+    48.0,
+    -43.5
+   ],
+   "work_build/d06_f00": [
+    55.9,
+    -37.9
+   ],
+   "work_build/d06_f01": [
+    59.8,
+    -42.2
+   ],
+   "work_build/d06_f02": [
+    59.8,
+    -42.2
+   ],
+   "work_build/d06_f03": [
+    55.9,
+    -37.9
+   ],
+   "work_build/d06_f04": [
+    52.0,
+    -33.6
+   ],
+   "work_build/d06_f05": [
+    52.0,
+    -33.6
+   ],
+   "work_build/d07_f00": [
+    51.6,
+    -27.2
+   ],
+   "work_build/d07_f01": [
+    55.2,
+    -30.7
+   ],
+   "work_build/d07_f02": [
+    55.2,
+    -30.7
+   ],
+   "work_build/d07_f03": [
+    51.6,
+    -27.2
+   ],
+   "work_build/d07_f04": [
+    48.0,
+    -23.6
+   ],
+   "work_build/d07_f05": [
+    48.0,
+    -23.6
+   ],
+   "work_build/d08_f00": [
+    39.5,
+    -18.1
+   ],
+   "work_build/d08_f01": [
+    42.3,
+    -21.0
+   ],
+   "work_build/d08_f02": [
+    42.3,
+    -21.0
+   ],
+   "work_build/d08_f03": [
+    39.5,
+    -18.1
+   ],
+   "work_build/d08_f04": [
+    36.8,
+    -15.2
+   ],
+   "work_build/d08_f05": [
+    36.8,
+    -15.2
+   ],
+   "work_build/d09_f00": [
+    21.4,
+    -12.1
+   ],
+   "work_build/d09_f01": [
+    22.9,
+    -14.6
+   ],
+   "work_build/d09_f02": [
+    22.9,
+    -14.6
+   ],
+   "work_build/d09_f03": [
+    21.4,
+    -12.1
+   ],
+   "work_build/d09_f04": [
+    19.9,
+    -9.6
+   ],
+   "work_build/d09_f05": [
+    19.9,
+    -9.6
+   ],
+   "work_build/d10_f00": [
+    0.0,
+    -9.9
+   ],
+   "work_build/d10_f01": [
+    0.0,
+    -12.3
+   ],
+   "work_build/d10_f02": [
+    0.0,
+    -12.3
+   ],
+   "work_build/d10_f03": [
+    0.0,
+    -9.9
+   ],
+   "work_build/d10_f04": [
+    0.0,
+    -7.6
+   ],
+   "work_build/d10_f05": [
+    0.0,
+    -7.6
+   ],
+   "work_build/d11_f00": [
+    -21.4,
+    -12.1
+   ],
+   "work_build/d11_f01": [
+    -22.9,
+    -14.6
+   ],
+   "work_build/d11_f02": [
+    -22.9,
+    -14.6
+   ],
+   "work_build/d11_f03": [
+    -21.4,
+    -12.1
+   ],
+   "work_build/d11_f04": [
+    -19.9,
+    -9.6
+   ],
+   "work_build/d11_f05": [
+    -19.9,
+    -9.6
+   ],
+   "work_build/d12_f00": [
+    -39.5,
+    -18.1
+   ],
+   "work_build/d12_f01": [
+    -42.3,
+    -21.0
+   ],
+   "work_build/d12_f02": [
+    -42.3,
+    -21.0
+   ],
+   "work_build/d12_f03": [
+    -39.5,
+    -18.1
+   ],
+   "work_build/d12_f04": [
+    -36.8,
+    -15.2
+   ],
+   "work_build/d12_f05": [
+    -36.8,
+    -15.2
+   ],
+   "work_build/d13_f00": [
+    -51.6,
+    -27.2
+   ],
+   "work_build/d13_f01": [
+    -55.2,
+    -30.7
+   ],
+   "work_build/d13_f02": [
+    -55.2,
+    -30.7
+   ],
+   "work_build/d13_f03": [
+    -51.6,
+    -27.2
+   ],
+   "work_build/d13_f04": [
+    -48.0,
+    -23.6
+   ],
+   "work_build/d13_f05": [
+    -48.0,
+    -23.6
+   ],
+   "work_build/d14_f00": [
+    -55.9,
+    -37.9
+   ],
+   "work_build/d14_f01": [
+    -59.8,
+    -42.2
+   ],
+   "work_build/d14_f02": [
+    -59.8,
+    -42.2
+   ],
+   "work_build/d14_f03": [
+    -55.9,
+    -37.9
+   ],
+   "work_build/d14_f04": [
+    -52.0,
+    -33.6
+   ],
+   "work_build/d14_f05": [
+    -52.0,
+    -33.6
+   ],
+   "work_build/d15_f00": [
+    -51.6,
+    -48.6
+   ],
+   "work_build/d15_f01": [
+    -55.2,
+    -53.6
+   ],
+   "work_build/d15_f02": [
+    -55.2,
+    -53.6
+   ],
+   "work_build/d15_f03": [
+    -51.6,
+    -48.6
+   ],
+   "work_build/d15_f04": [
+    -48.0,
+    -43.5
+   ],
+   "work_build/d15_f05": [
+    -48.0,
+    -43.5
+   ],
+   "wreck/d00_f00": [
+    -30.9,
+    -29.4
+   ],
+   "wreck/d01_f00": [
+    -22.5,
+    -34.7
+   ],
+   "wreck/d02_f00": [
+    -10.7,
+    -38.0
+   ],
+   "wreck/d03_f00": [
+    2.7,
+    -38.8
+   ],
+   "wreck/d04_f00": [
+    15.7,
+    -37.0
+   ],
+   "wreck/d05_f00": [
+    26.3,
+    -32.8
+   ],
+   "wreck/d06_f00": [
+    32.9,
+    -26.9
+   ],
+   "wreck/d07_f00": [
+    34.5,
+    -20.2
+   ],
+   "wreck/d08_f00": [
+    30.9,
+    -13.7
+   ],
+   "wreck/d09_f00": [
+    22.5,
+    -8.4
+   ],
+   "wreck/d10_f00": [
+    10.7,
+    -5.1
+   ],
+   "wreck/d11_f00": [
+    -2.7,
+    -4.3
+   ],
+   "wreck/d12_f00": [
+    -15.7,
+    -6.1
+   ],
+   "wreck/d13_f00": [
+    -26.3,
+    -10.3
+   ],
+   "wreck/d14_f00": [
+    -32.9,
+    -16.2
+   ],
+   "wreck/d15_f00": [
+    -34.5,
+    -22.9
+   ]
+  }
+ },
+ "frame_count": 336,
+ "content_sha256": "591ffa760426d8ffb1c50d30d21754f996cb10c5630856f368409ae230b4de86"
+}

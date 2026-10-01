@@ -1,0 +1,65 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "prop.wreck_decor_vehicle",
+ "role_id": null,
+ "faction": null,
+ "source_spec": "assets/pipeline/specs/prop.wreck_decor_vehicle.json",
+ "frame_size_2x": [
+  172,
+  100
+ ],
+ "anchor_2x": [
+  86,
+  52
+ ],
+ "layers": [
+  "beauty",
+  "shadow"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "prop.wreck_decor_vehicle@2x.beauty.json"
+   ],
+   "shadow": [
+    "prop.wreck_decor_vehicle@2x.shadow.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "prop.wreck_decor_vehicle@1x.beauty.json"
+   ],
+   "shadow": [
+    "prop.wreck_decor_vehicle@1x.shadow.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "prop",
+   "directions": 4,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": null,
+ "footprint_tiles": null,
+ "footprint_mt": [
+  1600,
+  1100
+ ],
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {},
+ "frame_count": 4,
+ "content_sha256": "5d778fdeb1986287e01dea86eb64859a8d6ef63b0fb25de5c1b19a2a15125efb"
+}

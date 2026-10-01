@@ -1,0 +1,663 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "building.SA.hq",
+ "role_id": null,
+ "faction": "SA",
+ "source_spec": "assets/pipeline/specs/building.SA.hq.json",
+ "frame_size_2x": [
+  626,
+  412
+ ],
+ "anchor_2x": [
+  258,
+  278
+ ],
+ "layers": [
+  "beauty",
+  "shadow",
+  "team"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "building.SA.hq@2x.beauty.0.json",
+    "building.SA.hq@2x.beauty.1.json",
+    "building.SA.hq@2x.beauty.2.json"
+   ],
+   "shadow": [
+    "building.SA.hq@2x.shadow.0.json",
+    "building.SA.hq@2x.shadow.1.json",
+    "building.SA.hq@2x.shadow.2.json"
+   ],
+   "team": [
+    "building.SA.hq@2x.team.0.json",
+    "building.SA.hq@2x.team.1.json",
+    "building.SA.hq@2x.team.2.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "building.SA.hq@1x.beauty.0.json",
+    "building.SA.hq@1x.beauty.1.json",
+    "building.SA.hq@1x.beauty.2.json"
+   ],
+   "shadow": [
+    "building.SA.hq@1x.shadow.0.json",
+    "building.SA.hq@1x.shadow.1.json",
+    "building.SA.hq@1x.shadow.2.json"
+   ],
+   "team": [
+    "building.SA.hq@1x.team.0.json",
+    "building.SA.hq@1x.team.1.json",
+    "building.SA.hq@1x.team.2.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "foundation",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "construct",
+   "part": "building",
+   "directions": 1,
+   "frames": 8,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "progress_driven": true
+  },
+  {
+   "name": "idle",
+   "part": "building",
+   "directions": 1,
+   "frames": 8,
+   "fps": 8,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "lowpower",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "disabled",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "critical",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "rubble",
+   "part": "building",
+   "directions": 1,
+   "frames": 1,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "produce",
+   "part": "building",
+   "directions": 1,
+   "frames": 6,
+   "fps": 10,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "note": "doors/pad active while a job completes"
+  }
+ ],
+ "aliases": [
+  {
+   "name": "sell",
+   "source": "construct",
+   "reverse": true,
+   "progress_driven": true,
+   "sim_seconds": 5
+  }
+ ],
+ "overlays": [
+  "fx.building.capture_channel",
+  "fx.building.sabotage_disabled",
+  "fx.building.sell_dust",
+  "fx.building.fire_damaged",
+  "fx.building.smoke_critical",
+  "fx.building.low_power_icon",
+  "fx.building.disabled_icon"
+ ],
+ "footprint_radius_mt": null,
+ "footprint_tiles": [
+  4,
+  4
+ ],
+ "footprint_mt": null,
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "healthbar": {
+   "construct/d00_f00": [
+    0.0,
+    -195.6
+   ],
+   "construct/d00_f01": [
+    0.0,
+    -195.6
+   ],
+   "construct/d00_f02": [
+    0.0,
+    -195.6
+   ],
+   "construct/d00_f03": [
+    0.0,
+    -195.6
+   ],
+   "construct/d00_f04": [
+    0.0,
+    -195.6
+   ],
+   "construct/d00_f05": [
+    0.0,
+    -195.6
+   ],
+   "construct/d00_f06": [
+    0.0,
+    -195.6
+   ],
+   "construct/d00_f07": [
+    0.0,
+    -195.6
+   ],
+   "critical/d00_f00": [
+    0.0,
+    -195.6
+   ],
+   "damaged/d00_f00": [
+    0.0,
+    -195.6
+   ],
+   "disabled/d00_f00": [
+    0.0,
+    -195.6
+   ],
+   "foundation/d00_f00": [
+    0.0,
+    -195.6
+   ],
+   "idle/d00_f00": [
+    0.0,
+    -195.6
+   ],
+   "idle/d00_f01": [
+    0.0,
+    -195.6
+   ],
+   "idle/d00_f02": [
+    0.0,
+    -195.6
+   ],
+   "idle/d00_f03": [
+    0.0,
+    -195.6
+   ],
+   "idle/d00_f04": [
+    0.0,
+    -195.6
+   ],
+   "idle/d00_f05": [
+    0.0,
+    -195.6
+   ],
+   "idle/d00_f06": [
+    0.0,
+    -195.6
+   ],
+   "idle/d00_f07": [
+    0.0,
+    -195.6
+   ],
+   "lowpower/d00_f00": [
+    0.0,
+    -195.6
+   ],
+   "produce/d00_f00": [
+    0.0,
+    -195.6
+   ],
+   "produce/d00_f01": [
+    0.0,
+    -195.6
+   ],
+   "produce/d00_f02": [
+    0.0,
+    -195.6
+   ],
+   "produce/d00_f03": [
+    0.0,
+    -195.6
+   ],
+   "produce/d00_f04": [
+    0.0,
+    -195.6
+   ],
+   "produce/d00_f05": [
+    0.0,
+    -195.6
+   ],
+   "rubble/d00_f00": [
+    0.0,
+    -195.6
+   ]
+  },
+  "rally": {
+   "construct/d00_f00": [
+    -147.2,
+    73.6
+   ],
+   "construct/d00_f01": [
+    -147.2,
+    73.6
+   ],
+   "construct/d00_f02": [
+    -147.2,
+    73.6
+   ],
+   "construct/d00_f03": [
+    -147.2,
+    73.6
+   ],
+   "construct/d00_f04": [
+    -147.2,
+    73.6
+   ],
+   "construct/d00_f05": [
+    -147.2,
+    73.6
+   ],
+   "construct/d00_f06": [
+    -147.2,
+    73.6
+   ],
+   "construct/d00_f07": [
+    -147.2,
+    73.6
+   ],
+   "critical/d00_f00": [
+    -147.2,
+    73.6
+   ],
+   "damaged/d00_f00": [
+    -147.2,
+    73.6
+   ],
+   "disabled/d00_f00": [
+    -147.2,
+    73.6
+   ],
+   "foundation/d00_f00": [
+    -147.2,
+    73.6
+   ],
+   "idle/d00_f00": [
+    -147.2,
+    73.6
+   ],
+   "idle/d00_f01": [
+    -147.2,
+    73.6
+   ],
+   "idle/d00_f02": [
+    -147.2,
+    73.6
+   ],
+   "idle/d00_f03": [
+    -147.2,
+    73.6
+   ],
+   "idle/d00_f04": [
+    -147.2,
+    73.6
+   ],
+   "idle/d00_f05": [
+    -147.2,
+    73.6
+   ],
+   "idle/d00_f06": [
+    -147.2,
+    73.6
+   ],
+   "idle/d00_f07": [
+    -147.2,
+    73.6
+   ],
+   "lowpower/d00_f00": [
+    -147.2,
+    73.6
+   ],
+   "produce/d00_f00": [
+    -147.2,
+    73.6
+   ],
+   "produce/d00_f01": [
+    -147.2,
+    73.6
+   ],
+   "produce/d00_f02": [
+    -147.2,
+    73.6
+   ],
+   "produce/d00_f03": [
+    -147.2,
+    73.6
+   ],
+   "produce/d00_f04": [
+    -147.2,
+    73.6
+   ],
+   "produce/d00_f05": [
+    -147.2,
+    73.6
+   ],
+   "rubble/d00_f00": [
+    -147.2,
+    73.6
+   ]
+  },
+  "smoke_1": {
+   "construct/d00_f00": [
+    -11.5,
+    -145.2
+   ],
+   "construct/d00_f01": [
+    -11.5,
+    -145.2
+   ],
+   "construct/d00_f02": [
+    -11.5,
+    -145.2
+   ],
+   "construct/d00_f03": [
+    -11.5,
+    -145.2
+   ],
+   "construct/d00_f04": [
+    -11.5,
+    -145.2
+   ],
+   "construct/d00_f05": [
+    -11.5,
+    -145.2
+   ],
+   "construct/d00_f06": [
+    -11.5,
+    -145.2
+   ],
+   "construct/d00_f07": [
+    -11.5,
+    -145.2
+   ],
+   "critical/d00_f00": [
+    -11.5,
+    -145.2
+   ],
+   "damaged/d00_f00": [
+    -11.5,
+    -145.2
+   ],
+   "disabled/d00_f00": [
+    -11.5,
+    -145.2
+   ],
+   "foundation/d00_f00": [
+    -11.5,
+    -145.2
+   ],
+   "idle/d00_f00": [
+    -11.5,
+    -145.2
+   ],
+   "idle/d00_f01": [
+    -11.5,
+    -145.2
+   ],
+   "idle/d00_f02": [
+    -11.5,
+    -145.2
+   ],
+   "idle/d00_f03": [
+    -11.5,
+    -145.2
+   ],
+   "idle/d00_f04": [
+    -11.5,
+    -145.2
+   ],
+   "idle/d00_f05": [
+    -11.5,
+    -145.2
+   ],
+   "idle/d00_f06": [
+    -11.5,
+    -145.2
+   ],
+   "idle/d00_f07": [
+    -11.5,
+    -145.2
+   ],
+   "lowpower/d00_f00": [
+    -11.5,
+    -145.2
+   ],
+   "produce/d00_f00": [
+    -11.5,
+    -145.2
+   ],
+   "produce/d00_f01": [
+    -11.5,
+    -145.2
+   ],
+   "produce/d00_f02": [
+    -11.5,
+    -145.2
+   ],
+   "produce/d00_f03": [
+    -11.5,
+    -145.2
+   ],
+   "produce/d00_f04": [
+    -11.5,
+    -145.2
+   ],
+   "produce/d00_f05": [
+    -11.5,
+    -145.2
+   ],
+   "rubble/d00_f00": [
+    -11.5,
+    -145.2
+   ]
+  },
+  "smoke_2": {
+   "construct/d00_f00": [
+    19.2,
+    -54.0
+   ],
+   "construct/d00_f01": [
+    19.2,
+    -54.0
+   ],
+   "construct/d00_f02": [
+    19.2,
+    -54.0
+   ],
+   "construct/d00_f03": [
+    19.2,
+    -54.0
+   ],
+   "construct/d00_f04": [
+    19.2,
+    -54.0
+   ],
+   "construct/d00_f05": [
+    19.2,
+    -54.0
+   ],
+   "construct/d00_f06": [
+    19.2,
+    -54.0
+   ],
+   "construct/d00_f07": [
+    19.2,
+    -54.0
+   ],
+   "critical/d00_f00": [
+    19.2,
+    -54.0
+   ],
+   "damaged/d00_f00": [
+    19.2,
+    -54.0
+   ],
+   "disabled/d00_f00": [
+    19.2,
+    -54.0
+   ],
+   "foundation/d00_f00": [
+    19.2,
+    -54.0
+   ],
+   "idle/d00_f00": [
+    19.2,
+    -54.0
+   ],
+   "idle/d00_f01": [
+    19.2,
+    -54.0
+   ],
+   "idle/d00_f02": [
+    19.2,
+    -54.0
+   ],
+   "idle/d00_f03": [
+    19.2,
+    -54.0
+   ],
+   "idle/d00_f04": [
+    19.2,
+    -54.0
+   ],
+   "idle/d00_f05": [
+    19.2,
+    -54.0
+   ],
+   "idle/d00_f06": [
+    19.2,
+    -54.0
+   ],
+   "idle/d00_f07": [
+    19.2,
+    -54.0
+   ],
+   "lowpower/d00_f00": [
+    19.2,
+    -54.0
+   ],
+   "produce/d00_f00": [
+    19.2,
+    -54.0
+   ],
+   "produce/d00_f01": [
+    19.2,
+    -54.0
+   ],
+   "produce/d00_f02": [
+    19.2,
+    -54.0
+   ],
+   "produce/d00_f03": [
+    19.2,
+    -54.0
+   ],
+   "produce/d00_f04": [
+    19.2,
+    -54.0
+   ],
+   "produce/d00_f05": [
+    19.2,
+    -54.0
+   ],
+   "rubble/d00_f00": [
+    19.2,
+    -54.0
+   ]
+  }
+ },
+ "frame_count": 28,
+ "content_sha256": "e9a409b064debe7e37b8b88c990400521e55267c67b7c75f2803b12ae34f3d13"
+}
