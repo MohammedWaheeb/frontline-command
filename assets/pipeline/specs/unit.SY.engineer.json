@@ -1,0 +1,122 @@
+{
+  "id": "unit.SY.engineer",
+  "role_id": "SY.engineer",
+  "model": "infantry_roster",
+  "faction": "SY",
+  "author": "Codex",
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Codex",
+    "authorization": "User-approved Claude quota takeover; root infantry roster assignment",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py; original US rifle remains separate",
+    "source_model": "assets/pipeline/blender/models/infantry_roster.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "params": {
+    "role": "engineer"
+  },
+  "canvas": [
+    192,
+    160
+  ],
+  "anchor": [
+    84,
+    108
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 350,
+  "states": [
+    {
+      "name": "idle",
+      "part": "body",
+      "directions": 8,
+      "frames": 4,
+      "fps": 4,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "move",
+      "part": "body",
+      "directions": 8,
+      "frames": 8,
+      "fps": 14,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "cover",
+      "part": "body",
+      "directions": 8,
+      "frames": 2,
+      "fps": 2,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "death",
+      "part": "body",
+      "directions": 8,
+      "frames": 6,
+      "fps": 12,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "work_capture",
+      "part": "body",
+      "directions": 8,
+      "frames": 6,
+      "fps": 10,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "channel": true
+    },
+    {
+      "name": "work_repair",
+      "part": "body",
+      "directions": 8,
+      "frames": 6,
+      "fps": 10,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "channel": true
+    }
+  ],
+  "squad": {
+    "members": 1,
+    "member_offsets_mt": [
+      [
+        0,
+        0
+      ]
+    ]
+  }
+}

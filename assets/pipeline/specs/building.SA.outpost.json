@@ -1,0 +1,149 @@
+{
+  "id": "building.SA.outpost",
+  "model": "building_roster",
+  "faction": "SA",
+  "params": {
+    "building": "outpost"
+  },
+  "canvas": [
+    512,
+    480
+  ],
+  "anchor": [
+    224,
+    324
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_tiles": [
+    2,
+    2
+  ],
+  "states": [
+    {
+      "name": "foundation",
+      "part": "building",
+      "directions": 1,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "construct",
+      "part": "building",
+      "directions": 1,
+      "frames": 8,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "progress_driven": true
+    },
+    {
+      "name": "idle",
+      "part": "building",
+      "directions": 1,
+      "frames": 8,
+      "fps": 8,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "lowpower",
+      "part": "building",
+      "directions": 1,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "disabled",
+      "part": "building",
+      "directions": 1,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "damaged",
+      "part": "building",
+      "directions": 1,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "critical",
+      "part": "building",
+      "directions": 1,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "rubble",
+      "part": "building",
+      "directions": 1,
+      "frames": 1,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ],
+  "aliases": [
+    {
+      "name": "sell",
+      "source": "construct",
+      "reverse": true,
+      "progress_driven": true,
+      "sim_seconds": 5
+    }
+  ],
+  "overlays": [
+    "fx.building.capture_channel",
+    "fx.building.sabotage_disabled",
+    "fx.building.sell_dust",
+    "fx.building.fire_damaged",
+    "fx.building.smoke_critical",
+    "fx.building.low_power_icon",
+    "fx.building.disabled_icon"
+  ]
+}

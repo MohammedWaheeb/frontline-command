@@ -1,0 +1,203 @@
+{
+  "format_version": 1,
+  "mission_id": "us-04-broken-umbrella",
+  "mission_version": "1",
+  "title": "Broken Umbrella",
+  "mode": "campaign",
+  "faction": "US",
+  "operation": "Operation Clear Horizon",
+  "theater": "The fictional Aster Reach",
+  "order": 4,
+  "lesson": "Air service slots, replacement homes and paid repair.",
+  "design_reference": "19.2",
+  "art": {
+    "briefing": "briefing/us-04-broken-umbrella",
+    "loading": "loading/us-04-broken-umbrella",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.us",
+    "battle": "music.battle.us",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "airfields-survive",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Keep at least one airfield operational through twelve minutes."
+    },
+    {
+      "id": "airfields-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose both original airfields."
+    },
+    {
+      "id": "wing-evacuated",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Evacuate both marked aircraft to the backup site, service each and repair battle damage on the wing."
+    }
+  ],
+  "markers": [
+    {
+      "id": "original-airfield",
+      "text": "Original airfield area",
+      "region": "safe",
+      "objective": "airfields-survive"
+    },
+    {
+      "id": "backup-airfield",
+      "text": "Backup airfield and wing evacuation area",
+      "region": "site1"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "pressure-1",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 1: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-2",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 2: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "trigger": "pressure-3",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 3: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-4",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 4: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "All mission starting assets are listed in the opening state. Allied recovery transfers existing actors and preserves caps. Scripted enemy columns are finite, announced scenario exceptions; they are not paid AI production."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Commander Mara Vale",
+      "text": "Two airfields are exposed. Keep at least one operational until twelve minutes have elapsed. Shift service assignments and protect power. Evacuate the marked wing to the backup site after it has needed paid repairs and has completed service.",
+      "voice": "vo.us-04-broken-umbrella.briefing.01"
+    },
+    {
+      "key": "briefing:2",
+      "speaker": "Operations",
+      "text": "Air service slots, replacement homes and paid repair.",
+      "voice": "vo.us-04-broken-umbrella.briefing.02"
+    },
+    {
+      "key": "trigger:pressure-warning-1",
+      "speaker": "Watch",
+      "text": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.us-04-broken-umbrella.pressure-warning-1"
+    },
+    {
+      "key": "trigger:pressure-1",
+      "speaker": "Watch",
+      "text": "Column 1 has entered. Its approach is east.",
+      "voice": "vo.us-04-broken-umbrella.pressure-1"
+    },
+    {
+      "key": "trigger:pressure-warning-2",
+      "speaker": "Watch",
+      "text": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.us-04-broken-umbrella.pressure-warning-2"
+    },
+    {
+      "key": "trigger:pressure-2",
+      "speaker": "Watch",
+      "text": "Column 2 has entered. Its approach is northwest.",
+      "voice": "vo.us-04-broken-umbrella.pressure-2"
+    },
+    {
+      "key": "trigger:pressure-warning-3",
+      "speaker": "Watch",
+      "text": "Hostile column 3 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.us-04-broken-umbrella.pressure-warning-3"
+    },
+    {
+      "key": "trigger:pressure-3",
+      "speaker": "Watch",
+      "text": "Column 3 has entered. Its approach is east.",
+      "voice": "vo.us-04-broken-umbrella.pressure-3"
+    },
+    {
+      "key": "trigger:pressure-warning-4",
+      "speaker": "Watch",
+      "text": "Hostile column 4 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.us-04-broken-umbrella.pressure-warning-4"
+    },
+    {
+      "key": "trigger:pressure-4",
+      "speaker": "Watch",
+      "text": "Column 4 has entered. Its approach is northwest.",
+      "voice": "vo.us-04-broken-umbrella.pressure-4"
+    },
+    {
+      "key": "checkpoint:six-minute-line",
+      "speaker": "System",
+      "text": "Checkpoint reached: six-minute-line.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-six-minute-line",
+      "speaker": "Operations",
+      "text": "Halfway through the pressure window. Reassign homes before an airfield is lost.",
+      "voice": "vo.us-04-broken-umbrella.checkpoint-six-minute-line"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Commander Mara Vale",
+      "text": "Broken Umbrella is complete. Keep the route secure; the next operation will depend on what we learned here.",
+      "voice": "vo.us-04-broken-umbrella.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Commander Mara Vale",
+      "text": "We can no longer meet this operation’s requirements. Return to the last checkpoint and change the approach.",
+      "voice": "vo.us-04-broken-umbrella.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:9",
+      "text": "Original airfield"
+    },
+    {
+      "origin": "initial:36",
+      "text": "Backup airfield"
+    },
+    {
+      "origin": "initial:38",
+      "text": "Original strike wing one"
+    },
+    {
+      "origin": "initial:39",
+      "text": "Original strike wing two"
+    },
+    {
+      "origin": "initial:40",
+      "text": "Wing escort fighter"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "unit.SA.mobile_abm",
+  "role_id": "SA.mobile_abm",
+  "model": "aegis_carrier",
+  "faction": "SA",
+  "params": {},
+  "canvas": [
+    304,
+    248
+  ],
+  "anchor": [
+    132,
+    150
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 600,
+  "states": [
+    {
+      "name": "idle",
+      "part": "whole",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "move",
+      "part": "whole",
+      "directions": 16,
+      "frames": 4,
+      "fps": 12,
+      "loop": true
+    },
+    {
+      "name": "deploy",
+      "part": "whole",
+      "directions": 16,
+      "frames": 8,
+      "fps": 0,
+      "loop": false,
+      "progress_driven": true,
+      "sim_seconds": 3
+    },
+    {
+      "name": "deployed",
+      "part": "whole",
+      "directions": 16,
+      "frames": 6,
+      "fps": 6,
+      "loop": true
+    },
+    {
+      "name": "launch",
+      "part": "whole",
+      "directions": 16,
+      "frames": 4,
+      "fps": 12,
+      "loop": false
+    },
+    {
+      "name": "damaged",
+      "part": "whole",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "wreck",
+      "part": "whole",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ],
+  "aliases": [
+    {
+      "name": "pack",
+      "source": "deploy",
+      "reverse": true,
+      "progress_driven": true,
+      "sim_seconds": 2
+    }
+  ]
+}

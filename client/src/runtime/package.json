@@ -1,0 +1,25 @@
+{
+  "name": "@frontline/runtime-slice",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Temporary self-contained tooling for the browser runtime slice (assignment 02). Replaced by the root client package in the client/editor assignment.",
+  "type": "module",
+  "scripts": {
+    "gen:proto": "node ../../scripts/runtime/gen-proto.mjs",
+    "build": "node ../../scripts/runtime/build.mjs",
+    "typecheck": "tsc -p ../../tests/runtime/tsconfig.json --noEmit",
+    "test": "node ../../scripts/runtime/test.mjs",
+    "test:browser": "node ../../scripts/runtime/browser-test.mjs"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "2.15.0"
+  },
+  "devDependencies": {
+    "@bufbuild/protoc-gen-es": "2.15.0",
+    "@types/node": "26.6.3",
+    "esbuild": "0.28.2",
+    "fake-indexeddb": "6.2.5",
+    "playwright-core": "1.62.1",
+    "typescript": "7.0.2"
+  }
+}

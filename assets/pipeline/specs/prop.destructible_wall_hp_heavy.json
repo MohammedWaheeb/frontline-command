@@ -1,0 +1,96 @@
+{
+  "id": "prop.destructible_wall_hp_heavy",
+  "model": "environment_roster",
+  "faction": null,
+  "author": "Codex",
+  "params": {
+    "prop": "destructible_wall_hp_heavy"
+  },
+  "canvas": [
+    608,
+    480
+  ],
+  "anchor": [
+    304,
+    300
+  ],
+  "passes": [
+    "beauty",
+    "shadow"
+  ],
+  "footprint_mt": [
+    2000,
+    2000
+  ],
+  "states": [
+    {
+      "name": "intact",
+      "part": "prop",
+      "directions": 4,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "damaged",
+      "part": "prop",
+      "directions": 4,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "destroyed",
+      "part": "prop",
+      "directions": 4,
+      "frames": 1,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ],
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Codex",
+    "authorization": "User-approved Claude quota takeover; assignment 10 continuation",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "source_model": "assets/pipeline/blender/models/environment_roster.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "integration_constraint": "Exact Go heavy_prop 2x2, 600 HP, movement blocker. Does not intrinsically block sight. Destroyed footprint becomes authorized rubble.",
+  "aliases": [
+    {
+      "name": "idle",
+      "source": "intact"
+    },
+    {
+      "name": "rubble",
+      "source": "destroyed"
+    },
+    {
+      "name": "wreck",
+      "source": "destroyed"
+    }
+  ],
+  "footprint_tiles": [
+    2,
+    2
+  ],
+  "gameplay_binding": {
+    "object_class": "heavy_prop",
+    "hp": 600,
+    "capacity": 0,
+    "intrinsic_sight_blocker": false
+  }
+}

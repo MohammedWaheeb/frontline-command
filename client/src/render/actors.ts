@@ -1,0 +1,393 @@
+import {Container,Graphics,Sprite,Texture} from 'pixi.js';
+import type {Entity,Point,Rect} from '../runtime';
+import type {CatalogIndex} from '../content/catalog';
+import type {ArtLibrary,SpriteSheet,SpriteState,FrameSet} from './art';
+import {headingIndex,toScreen,LEVEL_PX,HALF_H} from './iso';
+import {TerrainSurface,projectSurfaceVertex,spriteFrontDepth} from './terrain-surface';
+import {drawStructure,structureHeight} from './structure';
+import {actorSpriteState,actorEventStates,visibleSquadMembers,type BuildingPresentation} from './poses';
+import {FlightPresentation} from './flight-presentation';
+import {canonicalAircraftPose,emptyAircraftPose,hasEmptyAircraftPayload,knownEmptyAircraft} from './aircraft-payload';
+import {actorArtKey,physicalArtType} from './art-id';
+import {isShahed,shahedFallbackGeometry} from './shahed-presentation';
+import {isGroundLauncher,groundLauncherPose,canonicalGroundLauncherPose,groundLauncherPayloadKey} from './ground-launcher-payload';
+import {ActorStatusOverlay} from './actor-status';
+import type {ActorStatusModel} from '../app/actor-status';
+import type {ShadowPlate} from './surface-shadows';
+import {muzzleRotation,type CombatAttachment} from './combat-geometry';
+import {containsStructureSquare,structureBodyBounds} from './structure-picking';
+
+interface LayeredPart {root:Container;shadowRoot:Container;shadow:Sprite;beauty:Sprite;team:Sprite;offset:Point;poses:Record<string,{state:string;direction:number;frame:number}>}
+function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart {
+ const root=new Container(),shadowRoot=new Container(),shadow=new Sprite(),beauty=new Sprite(),team=new Sprite();
+ shadowRoot.addChild(shadow);groundShadows.addChild(shadowRoot);
+ root.addChild(beauty,team);parent.addChild(root);shadow.alpha=.46;
+ return {root,shadowRoot,shadow,beauty,team,offset,poses:{}};
+}
+
+/** Presentation only: every pose is chosen from the latest Go-authorized state.
+ * Temporary art substitutions are exposed to QA, never labeled final assets. */
+export class ActorVisual {
+ readonly root=new Container();readonly fallback=new Graphics();readonly overlays=new Graphics();
+ private readonly groundShadows=new Container();
+ private readonly foundation=new Graphics();private support?:{surface:TerrainSurface;x:number;y:number;width:number;height:number;level:number};
+ readonly id:number;readonly artKey:string;standIn=false;missingArt=false;
+ /** Aircraft shadows join the terrain scene separately from the airborne body. */
+ readonly terrainShadow?:Container;
+ readonly ready:Promise<void>;
+ private sheet?:SpriteSheet;private parts:LayeredPart[]=[];private turret?:LayeredPart;
+ private disposed=false;private lastState='';private stateAt=0;
+ private lastPosition:Point;private nextPosition:Point;private changedAt=0;private interpolationMs=50;
+ private previousFacing=0;private nextFacing=0;
+ private action?:{names:string[];at:number};
+ private livingMembers=Infinity;
+ private bodyBottom?:number;private nextBodyBottom?:number;
+ private paintedBounds?:Rect;private nextPaintedBounds?:Rect;
+ private readonly paintedParts:Array<{frame:FrameSet;x:number;y:number;scale:number}>=[];private paintedCount=0;
+ private readonly paintedMuzzles:CombatAttachment[]=[];
+ private projectedShadows=false;readonly shadowPlates:ShadowPlate[]=[];
+ useSurfaceShadows(){this.projectedShadows=true;this.groundShadows.visible=false}
+ private readonly flight=new FlightPresentation();private suppressTransition=false;
+ private receiverObservation?:{active:boolean;viewer:number|undefined;owner:number};private receiverAt?:number;
+ presentation?:BuildingPresentation;
+ /** Current snapshot viewer; undefined never grants private payload knowledge. */
+ viewer?:number;missingPayloadArt?:string;
+ receivingBoarder=false;
+ status?:ActorStatusModel;private readonly statusOverlay=new ActorStatusOverlay();private externalStatus=false;
+ /** Authorized information stays above world geometry, including a collapsed
+  * service building beneath an aircraft's emergency takeoff. */
+ attachStatusLayer(layer:Container){this.externalStatus=true;layer.addChild(this.statusOverlay.root)}
+ hideStatus(){this.statusOverlay.root.visible=false}
+ private serviceDeck?:ActorVisual;
+ setServiceDeck(deck:ActorVisual|undefined){this.serviceDeck=deck}
+ departureDeck(now:number){return !this.entity.landed&&this.entity.state!=='destroyed'&&this.flight.altitude(this.entity,now,this.cruiseAltitude())<this.cruiseAltitude()?this.serviceDeck?.id:undefined}
+ serviceRoofOffset(){const b=this.catalog.buildings.get(physicalArtType(this.entity));return (!this.sheet||this.fallback.visible&&this.fallback.context.instructions.length>0)&&b?.service_slots?structureHeight(b.role):0}
+ entity:Entity;
+ constructor(entity:Entity,private catalog:CatalogIndex,art:ArtLibrary,faction?:string,private surface?:TerrainSurface,private readonly skin?:{asset:string;direction:0|1|2|3}){
+  this.id=entity.id;this.artKey=actorArtKey(entity,faction);this.entity=entity;this.lastPosition=this.nextPosition={...entity.position!};
+  this.lastState=entity.state;this.stateAt=performance.now();this.previousFacing=this.nextFacing=entity.facing;
+  // All projected ground shadows sit behind the whole actor. A turret's
+  // independent shadow must never darken an already-painted hull or plinth.
+  this.root.addChild(this.foundation,this.groundShadows,this.fallback,this.overlays,this.statusOverlay.root);
+  if(surface&&catalog.units.get(entity.type)?.armor==='air'){this.root.removeChild(this.groundShadows);this.terrainShadow=this.groundShadows}
+  const resolved=skin?{id:skin.asset,standIn:false}:art.resolve(physicalArtType(entity),faction,catalog);this.standIn=resolved?.standIn??false;
+  this.missingArt=!resolved;
+  this.ready=resolved?art.sheet(resolved.id).then(sheet=>{
+   if(this.disposed)return;
+   this.sheet=sheet;this.missingArt=!sheet;
+   if(!sheet)return;
+   const members=sheet.meta.squad?.member_offsets_mt??[[0,0]];
+   for(const [x,y] of members)this.parts.push(part(this.root,this.groundShadows,{x,y}));
+   if(sheet.meta.states.some(s=>s.part==='turret'))this.turret=part(this.root,this.groundShadows,{x:0,y:0});
+   this.root.addChild(this.overlays);if(!this.externalStatus)this.root.addChild(this.statusOverlay.root);
+  }):Promise.resolve();
+ }
+ update(entity:Entity,now:number,interpolationMs:number|null=50){
+  this.missingPayloadArt=undefined;
+  // Same-tick visibility/receipt publications change authorization, not the
+  // movement clock. Preserve the in-flight segment for every retained actor.
+  if(interpolationMs!==null||this.suppressTransition){
+   const p=this.suppressTransition?entity.position!:this.position(now),facing=this.suppressTransition?entity.facing:this.facing(now);this.lastPosition=p;this.nextPosition={...entity.position!};this.changedAt=now;
+   this.interpolationMs=Number.isFinite(interpolationMs)?Math.max(50,Math.min(100,interpolationMs!)):50;
+   this.previousFacing=facing;this.nextFacing=entity.facing;
+  }
+  const unit=this.catalog.units.get(entity.type);
+  if(unit?.armor==='air'&&!this.suppressTransition)this.flight.observe(this.entity,entity,now,this.cruiseAltitude(),this.sheet?.states,unit.faction==='IR'||unit.role==='scout_drone');
+  // Boarding can change while the receiver's public state remains idle. Keep
+  // its door clock separate from the authoritative state clock; initial/load,
+  // perspective changes and rewinds install the stable pose without a new cue.
+  const receiver=this.receiverObservation,sameViewer=receiver&&receiver.viewer===this.viewer&&receiver.owner===entity.owner;
+  if(this.suppressTransition||!sameViewer||!this.receivingBoarder||this.receiverAt!==undefined&&now<this.receiverAt)this.receiverAt=undefined;
+  else if(!receiver.active)this.receiverAt=now;
+  this.receiverObservation={active:this.receivingBoarder,viewer:this.viewer,owner:entity.owner};
+  this.suppressTransition=false;
+  if(entity.state!==this.lastState){this.lastState=entity.state;this.stateAt=now}
+  this.entity=entity;
+ }
+ clearFeedback(){this.action=undefined;this.flight.reset();this.suppressTransition=true;this.receiverAt=undefined;this.receiverObservation=undefined;this.missingPayloadArt=undefined}
+ setSurface(surface:TerrainSurface){this.surface=surface;this.support=undefined}
+ /** A rigid foundation reaches the highest exact clipped terrain point. This
+  * changes presentation only; Go remains the authority for legal footprints. */
+ groundAnchor(now:number,reducedMotion=false):Point{
+  const p=this.position(now),surface=this.surface;if(!surface)return toScreen(p.x,p.y);
+  const b=this.catalog.buildings.get(this.entity.type),w=this.entity.footprintWidth||b?.width||0,h=this.entity.footprintHeight||b?.height||0;
+  if(w&&h){
+   if(!this.support||this.support.surface!==surface||this.support.x!==p.x||this.support.y!==p.y||this.support.width!==w||this.support.height!==h){
+    const support=surface.footprintSurface(p,w,h),origin=projectSurfaceVertex({...p,height:support.height});this.foundation.clear();
+    if(support.boundary.some(v=>v.height<support.height-.001)){
+     const top=support.top.map(v=>projectSurfaceVertex(v));this.foundation.poly(top.flatMap(v=>[v.x-origin.x,v.y-origin.y])).fill({color:0x766a54});
+     for(let i=0;i<support.boundary.length;i++){
+      const a=support.boundary[i],b=support.boundary[(i+1)%support.boundary.length];
+      // Only the two camera-facing perimeter sides need a visible skirt.
+      if(Math.abs(a.x-(p.x+w*500))>.01&&Math.abs(a.y-(p.y+h*500))>.01)continue;
+      if(Math.abs(b.x-(p.x+w*500))>.01&&Math.abs(b.y-(p.y+h*500))>.01)continue;
+      const vertices=[{...a,height:support.height},{...b,height:support.height},b,a].map(projectSurfaceVertex);
+      this.foundation.poly(vertices.flatMap(v=>[v.x-origin.x,v.y-origin.y])).fill({color:a.x===b.x?0x625644:0x514936});
+     }
+    }
+    this.support={surface,x:p.x,y:p.y,width:w,height:h,level:support.height};
+   }
+   return projectSurfaceVertex({...p,height:this.support.level});
+  }
+  const anchor=surface.projectGround(p),deck=this.serviceDeck;
+  if(deck){
+   const d=deck.position(now),support=deck.groundAnchor(now,reducedMotion),lift=toScreen(d.x,d.y).y-support.y+deck.serviceRoofOffset();
+   const weight=1-this.flight.altitude(this.entity,now,this.cruiseAltitude(),reducedMotion)/this.cruiseAltitude();
+   anchor.y+=(toScreen(p.x,p.y).y-lift-anchor.y)*weight;
+  }
+  return anchor;
+ }
+ /** Cosmetic airborne height over local ground. At cruise all aircraft clear
+  * the public map's highest plateau; takeoff/landing keep Go-derived timing. */
+ visualAltitude(now:number,reducedMotion=false):number{
+  if(this.catalog.units.get(this.entity.type)?.armor!=='air')return 0;
+  const cruise=this.cruiseAltitude(),base=this.flight.altitude(this.entity,now,cruise,reducedMotion),surface=this.surface;
+  return base+(surface?(surface.maxHeight-surface.sampleGround(this.position(now)))*LEVEL_PX*(base/cruise):0);
+ }
+ groundDepth(now:number,reducedMotion=false):number{
+  const p=this.position(now),b=this.catalog.buildings.get(this.entity.type),w=this.entity.footprintWidth||b?.width||0,h=this.entity.footprintHeight||b?.height||0;
+  const front=p.x+p.y+Math.max(w&&h?(w+h)*500:0,(this.bodyBottom??0)/HALF_H*1000);
+  // Terrain tops are four triangle fans per tile, sorted by their centroid.
+  // A triangle touching this ground-depth interval can have its centroid up
+  // to the interval's 2/3 point. Cover that exact fan bound so flat ground
+  // cannot cut off opaque sprite pixels between tile centers. Preserve the
+  // original front depth as a stable tie-break inside the interval.
+  const depth=this.surface&&this.bodyBottom!==undefined?spriteFrontDepth(front):front;
+  return Math.max(depth,this.entity.landed&&this.serviceDeck?this.serviceDeck.groundDepth(now,reducedMotion)+.01:0)+(this.visualAltitude(now,reducedMotion)>0?1000000:0);
+ }
+ /** Last displayed beauty/team ink in projected world pixels. Shadow plates,
+  * status overlays and empty atlas padding never enlarge selection. Reset each
+  * paint so a changed pose, lost squad member or missing frame cannot linger. */
+ paintedBodyBounds(preciseFallback=false):Rect|undefined{
+  let b=this.paintedBounds;
+  // Drawn procedural buildings use their actual ink bounds, including apron
+  // stroke joins. Before the first drawing, keep the geometric marker policy.
+  if(!b&&preciseFallback&&!this.paintedCount&&this.fallback.visible&&this.fallback.context.instructions.length>0&&this.entity.state!=='destroyed'&&!this.entity.private?.container&&(this.catalog.buildings.has(this.entity.type)||this.entity.footprintWidth>0&&this.entity.footprintHeight>0))b=structureBodyBounds(this.fallback);
+  if(!b)return;
+  return {left:this.root.x+b.left,top:this.root.y+b.top,right:this.root.x+b.right,bottom:this.root.y+b.bottom};
+ }
+ /** A squad shot is one Go event. Pick one currently drawn member as its
+  * cosmetic source; never synthesize additional shots or use a hidden member. */
+ muzzleAttachment(eventID=0):CombatAttachment|undefined{
+  if(!this.root.visible||this.entity.health<=0||this.entity.state==='destroyed'||this.entity.private?.container||!this.paintedMuzzles.length)return;
+  const p=this.paintedMuzzles[Math.abs(eventID)%this.paintedMuzzles.length];
+  return {x:this.root.x+p.x,y:this.root.y+p.y,rotation:p.rotation};
+ }
+ /** Exact current body opacity with ordinary screen tolerance converted by
+  * the caller. Undefined retains geometric picking for development/missing art. */
+ containsPaintedBody(point:Point,tolerance:number):boolean|undefined{
+  if(!this.paintedCount){
+   // Procedural structures must not steal clicks through the empty corners of
+   // their conservative rectangle. Query the actual currently drawn footprint,
+   // walls and roof with the same world-space square tolerance as sprite picks.
+   if(this.fallback.visible&&this.fallback.context.instructions.length>0&&this.entity.state!=='destroyed'&&!this.entity.private?.container&&(this.catalog.buildings.has(this.entity.type)||this.entity.footprintWidth>0&&this.entity.footprintHeight>0))return containsStructureSquare(this.fallback,{x:point.x-this.root.x,y:point.y-this.root.y},tolerance);
+   return;
+  }
+  for(let index=0;index<this.paintedCount;index++){
+   const part=this.paintedParts[index],frame=part.frame;
+   if(frame.containsAlpha?.((point.x-this.root.x-part.x)/part.scale+frame.anchorX*frame.texture.width,(point.y-this.root.y-part.y)/part.scale+frame.anchorY*frame.texture.height,tolerance/part.scale))return true;
+  }
+  return false;
+ }
+ private cruiseAltitude(){return Math.max(20,(this.sheet?.meta.air?.cruise_altitude_mt??1400)/1000*25)}
+ cue(kind:string,now:number,owned=false){
+  const names=actorEventStates(kind,this.entity,owned);
+  if(names)this.action={names,at:now};
+ }
+ private activeAction(now:number):SpriteState|undefined{
+  if(!this.action||!this.sheet)return;
+  if(isGroundLauncher(this.entity.type,this.catalog.units.get(this.entity.type))&&(!this.entity.deployed||['packing','deploying'].includes(this.entity.state))){this.action=undefined;return}
+  // A short cosmetic cue cannot hide a newly disclosed structural condition.
+  // Discard it when interrupted so restoring power cannot replay an old launch.
+  if(this.entity.state==='destroyed'||this.entity.state==='selling'||this.entity.state==='low_power'||!this.entity.enabled||!this.entity.complete||this.presentation&&(this.presentation.lowPower||this.entity.health<=500)){this.action=undefined;return}
+  for(const name of this.action.names){const state=this.sheet.states.get(name);if(state&&state.fps>0&&now-this.action.at<state.frames/state.fps*1000)return state}
+ }
+ position(now:number):Point{
+  const a=Math.min(1,Math.max(0,(now-this.changedAt)/this.interpolationMs));
+  // Never extrapolate beyond an authorized position.
+  return {x:this.lastPosition.x+(this.nextPosition.x-this.lastPosition.x)*a,y:this.lastPosition.y+(this.nextPosition.y-this.lastPosition.y)*a};
+ }
+ facing(now:number,reducedMotion=false):number{
+  if(reducedMotion)return this.entity.facing;
+  const turn=((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000;
+  return this.previousFacing+turn*Math.min(1,Math.max(0,(now-this.changedAt)/this.interpolationMs));
+ }
+ private state(now:number,reducedMotion=false):SpriteState|undefined{
+  this.missingPayloadArt=undefined;
+  if(!this.sheet)return;
+  const action=this.activeAction(now);
+  if(action&&action.part!=='turret')return this.payloadState(action);
+  const transition=this.entity.enabled&&this.entity.complete?this.flight.state(now,this.sheet.states,reducedMotion):undefined;
+  if(transition)return this.payloadState(transition);
+  const moving=Math.hypot(this.nextPosition.x-this.lastPosition.x,this.nextPosition.y-this.lastPosition.y)>4;
+  const turning=reducedMotion?0:((this.nextFacing-this.previousFacing)%360000+540000)%360000-180000;
+  return this.payloadState(actorSpriteState(this.entity,this.catalog.units.get(this.entity.type),moving,this.sheet.states,this.presentation,turning,this.receivingBoarder,this.viewer!==undefined&&this.viewer===this.entity.owner));
+ }
+ private payloadState(state:SpriteState|undefined):SpriteState|undefined{
+  if(!state)return state;
+  const unit=this.catalog.units.get(this.entity.type);
+  const name=groundLauncherPose(this.entity,unit,this.viewer,state.name)??(knownEmptyAircraft(this.entity,unit,this.viewer)?emptyAircraftPose(state.name):undefined);if(!name)return state;
+  const variant=this.sheet?.states.get(name);
+  if(!variant)this.missingPayloadArt=name;
+  return variant??state;
+ }
+ private receivingDoor(state:SpriteState|undefined){
+  // Public unloading owns its timing even when another permitted passenger is
+  // boarding concurrently. The receiver clock bridges only receiving activity.
+  return !!state&&this.receivingBoarder&&!state.loop&&!state.progress_driven&&['doors_open','exit_open'].includes(state.name)&&!['unload','unloading','unload_exit_blocked'].includes(this.entity.state);
+ }
+ private frameIndex(state:SpriteState,now:number){
+  // A completed public deployment holds the authored preparation endpoint.
+  // Idle service equipment must not loop repair sparks without real repairing.
+  const preparedRepair=state.name==='deploy'&&this.entity.deployed&&this.catalog.units.get(this.entity.type)?.role==='repair'&&!['deploying','packing'].includes(this.entity.state);
+  const progress=state.name==='charging'?this.presentation?.strategicProgress??0:preparedRepair?1000:this.entity.progress;
+  const canonical=canonicalAircraftPose(canonicalGroundLauncherPose(state.name));
+  const start=this.action?.names.includes(canonical)?this.action.at:this.flight.startedAt(canonical,now)??(this.receivingDoor(state)?this.receiverAt??now-(state.fps>0?state.frames/state.fps*1000:0):this.stateAt);
+  let frame=state.progress_driven?Math.min(state.frames-1,Math.max(0,Math.floor(progress/1000*state.frames))):state.fps>0?Math.max(0,Math.floor((now-start)/1000*state.fps)):0;
+  return state.loop?frame%state.frames:Math.min(state.frames-1,frame);
+ }
+ private hardpoint(name:string,state:SpriteState,heading:number,now:number):Point|undefined{
+  const values=this.sheet?.meta.hardpoints_2x_rel_anchor?.[name];if(!values)return;
+  const source=this.sheet!.sourceFrame(state.name,headingIndex(heading,state.directions),this.frameIndex(state,now));
+  const direction=String(source.direction).padStart(2,'0'),frame=String(source.index).padStart(2,'0');
+  const point=values[`${source.state}/d${direction}_f${frame}`]??values[`${source.state}/d${direction}_f00`];
+  return point?{x:point[0]/2,y:point[1]/2}:undefined;
+ }
+ private paintPart(p:LayeredPart,state:SpriteState,heading:number,now:number,team:number,altitude:number,groundOffset=0,position=this.position(now)){
+  const sheet=this.sheet!,frame=this.frameIndex(state,now);
+  const unit=this.catalog.units.get(this.entity.type),payloadScoped=unit?.armor==='air'&&!!unit.weapon,launcher=isGroundLauncher(this.entity.type,unit);
+  const d=headingIndex(heading,state.directions),offset=toScreen(p.offset.x,p.offset.y);
+  p.root.position.set(offset.x,offset.y-altitude+groundOffset);
+  p.shadowRoot.position.copyFrom(p.root.position);
+  for(const [name,sprite] of [['shadow',p.shadow],['beauty',p.beauty],['team',p.team]] as const){
+   let pose={state:state.name,direction:d,frame},f=sheet.frame(name,state.name,d,frame);
+   if(!f){f=sheet.frame(name,state.name,d,0);if(f)pose={...pose,frame:0}}
+   if(!f){
+    // A cached pose can have been evicted while this actor was offscreen.
+    // Resolve the previous pose through the sheet again: the Sprite's old
+    // Texture may already have a destroyed shared source during async reload.
+    const exists=sheet.hasFrame(name,state.name,d,frame)||sheet.hasFrame(name,state.name,d,0),previous=p.poses[name];
+    // A page awaiting decode must not resurrect loaded missiles after the final
+    // round, or retain private empty artwork after changing the current viewer.
+    // A retained owner-only battery pose cannot bridge a public or changed-charge
+    // page. Canonical sources keep public aliases such as sell/construct safe.
+    let abmCompatible=true;
+    if(previous&&this.catalog.buildings.get(this.entity.type)?.role==='abm'){
+     const chargeKey=(source:string)=>/(?:^|_)charges_([012])$/.exec(source)?.[1]??(source==='launch_empty'?'0':'public');
+     abmCompatible=chargeKey(sheet.sourceFrame(previous.state,previous.direction,previous.frame).state)===chargeKey(sheet.sourceFrame(state.name,d,frame).state);
+    }
+    // Retained service equipment must match the currently requested class.
+    // Canonical sources preserve public aliases such as sell/construct.
+    const serviceCompatible=!previous||!this.catalog.buildings.has(this.entity.type)||(sheet.sourceFrame(previous.state,previous.direction,previous.frame).state==='service_active')===(sheet.sourceFrame(state.name,d,frame).state==='service_active');
+    if(exists&&previous&&abmCompatible&&serviceCompatible&&(!payloadScoped||hasEmptyAircraftPayload(previous.state)===hasEmptyAircraftPayload(state.name))&&(!launcher||groundLauncherPayloadKey(this.entity.type,previous.state)===groundLauncherPayloadKey(this.entity.type,state.name))){f=sheet.frame(name,previous.state,previous.direction,previous.frame);if(f)pose=previous}
+    if(!exists)delete p.poses[name];
+   }
+   if(!f){sprite.visible=false;sprite.texture=Texture.EMPTY;continue}
+   p.poses[name]=pose;
+   sprite.visible=true;
+   sprite.texture=f.texture;sprite.anchor.set(f.anchorX,f.anchorY);sprite.scale.set(sheet.pixelScale);
+   if(name==='beauty'&&p.root.visible&&sheet.meta.hardpoints_2x_rel_anchor?.muzzle){
+    // Metadata and part offsets describe the same actually painted frame,
+    // including async page fallback, recoil, aliases and independent turrets.
+    const source=sheet.sourceFrame(pose.state,pose.direction,pose.frame),rotation=muzzleRotation(source.direction,sheet.states.get(source.state)!.directions);
+    const key=`${source.state}/d${String(source.direction).padStart(2,'0')}_f${String(source.index).padStart(2,'0')}`,muzzle=sheet.meta.hardpoints_2x_rel_anchor?.muzzle?.[key];
+    if(muzzle&&rotation!==undefined){if(p===this.turret)this.paintedMuzzles.length=0;this.paintedMuzzles.push({x:p.root.x+muzzle[0]/2,y:p.root.y+muzzle[1]/2,rotation})}
+   }
+   if(name==='beauty'&&f.bodyBottom!==undefined)this.nextBodyBottom=Math.max(this.nextBodyBottom??-Infinity,p.root.y+altitude+f.bodyBottom);
+   if(name!=='shadow'&&f.containsAlpha){
+    const previous=this.paintedParts[this.paintedCount];
+    if(previous){previous.frame=f;previous.x=p.root.x;previous.y=p.root.y;previous.scale=sheet.pixelScale}else this.paintedParts.push({frame:f,x:p.root.x,y:p.root.y,scale:sheet.pixelScale});
+    this.paintedCount++;
+   }
+   if(name!=='shadow'&&f.inkBounds){
+    const ink=f.inkBounds,scale=sheet.pixelScale,left=p.root.x+(ink.x-f.anchorX*f.texture.width)*scale,top=p.root.y+(ink.y-f.anchorY*f.texture.height)*scale,right=left+ink.w*scale,bottom=top+ink.h*scale,old=this.nextPaintedBounds;
+    this.nextPaintedBounds=old?{left:Math.min(old.left,left),top:Math.min(old.top,top),right:Math.max(old.right,right),bottom:Math.max(old.bottom,bottom)}:{left,top,right,bottom};
+   }
+   sprite.tint=name==='team'?team:0xffffff;
+   if(name==='shadow'&&this.projectedShadows&&p.shadowRoot.visible&&p.root.visible){
+    const deck=this.serviceDeck,center=deck?.position(now),home=deck?.entity,support=deck?.groundAnchor(now);
+    this.shadowPlates.push({id:p.shadow.uid,frame:f,scale:sheet.pixelScale,origin:{x:position.x+p.offset.x+altitude*12.5,y:position.y+p.offset.y},alpha:.46*this.root.alpha,...deck&&center&&home&&support?{deck:{left:center.x-home.footprintWidth*500,top:center.y-home.footprintHeight*500,right:center.x+home.footprintWidth*500,bottom:center.y+home.footprintHeight*500,height:(toScreen(center.x,center.y).y-support.y+deck.serviceRoofOffset())/LEVEL_PX,depth:deck.groundDepth(now)}}:{}});
+   }
+   if(name==='shadow'&&this.terrainShadow&&this.surface){
+    const cast={x:position.x+p.offset.x+altitude*12.5,y:position.y+p.offset.y},ground=this.surface.projectGround(cast),deck=this.serviceDeck;
+    if(deck){const home=deck.entity,center=deck.position(now);if(Math.abs(cast.x-center.x)<=home.footprintWidth*500&&Math.abs(cast.y-center.y)<=home.footprintHeight*500){const support=deck.groundAnchor(now);ground.y=toScreen(cast.x,cast.y).y-(toScreen(center.x,center.y).y-support.y+deck.serviceRoofOffset())}}
+    p.shadowRoot.position.set(ground.x-this.terrainShadow.x,ground.y-this.terrainShadow.y);sprite.position.set(0,0);
+   }else sprite.position.set(name==='shadow'?altitude*.4:0,name==='shadow'?altitude*1.2:0);
+  }
+ }
+ render(now:number,team:number,selected:boolean,healthBars:'always'|'selected'|'damaged',reducedMotion:boolean,zoom=1,statusDetail=selected){
+  this.shadowPlates.length=0;
+  this.paintedMuzzles.length=0;
+  const e=this.entity,p=this.position(now),screen=this.groundAnchor(now,reducedMotion),unit=this.catalog.units.get(e.type),building=this.catalog.buildings.get(e.type);
+  const altitude=this.visualAltitude(now,reducedMotion);
+  this.root.position.set(screen.x,screen.y);this.root.zIndex=this.groundDepth(now,reducedMotion);
+  this.root.alpha=e.concealed?.65:1;
+  if(this.terrainShadow){this.terrainShadow.position.set(screen.x,screen.y);this.terrainShadow.zIndex=Math.max(p.x+p.y+altitude*12.5+.001,this.serviceDeck?this.serviceDeck.groundDepth(now)+.005:0);this.terrainShadow.alpha=this.root.alpha;this.terrainShadow.visible=this.root.visible}
+  this.nextBodyBottom=undefined;this.nextPaintedBounds=undefined;this.paintedCount=0;
+  const state=this.state(now,reducedMotion),facing=this.skin?this.skin.direction*90000:this.facing(now,reducedMotion);
+  const animationTime=reducedMotion?(e.state==='destroyed'?this.stateAt+10000:this.activeAction(now)?this.action!.at:this.stateAt):now;
+  const bodyAnimationTime=reducedMotion&&this.receivingDoor(state)?Math.max(now,this.receiverAt??now)+10000:animationTime;
+  if(state){
+   if(e.state!=='destroyed')this.livingMembers=this.parts.length?Math.max(1,visibleSquadMembers(e.health,this.parts.length)):0;
+   for(const [index,member] of this.parts.entries()){
+    member.root.visible=member.shadowRoot.visible=index<this.livingMembers;
+    if(member.root.visible){
+     const memberGround=this.surface&&!building&&unit?.armor!=='air'?this.surface.projectGround({x:p.x+member.offset.x,y:p.y+member.offset.y}).y-screen.y-toScreen(member.offset.x,member.offset.y).y:0;
+     this.paintPart(member,state,facing,bodyAnimationTime,team,altitude,memberGround,p);
+    }
+   }
+   if(this.turret){
+    // Building construction and damage plates already contain their assembled
+    // turret. Drawing its independent live layer again creates a floating gun.
+    this.turret.root.visible=this.turret.shadowRoot.visible=e.state!=='destroyed'&&(!building||(e.complete&&e.enabled&&e.health>500&&e.state!=='selling'&&!this.presentation?.lowPower));
+    const turret=this.activeAction(now)?.part==='turret'?this.activeAction(now):this.sheet!.states.get(e.state==='firing'?'fire':'aim')??this.sheet!.states.get('aim');
+    // Hidden live artwork must not request/retain pages or contribute ink to
+    // the current body's bounds, depth and alpha-picking records.
+    if(this.turret.root.visible&&turret){
+     const pivot=this.sheet!.meta.turret_pivot_mt??[0,0],a=facing*Math.PI/180000;
+     this.turret.offset={x:pivot[0]*Math.cos(a)-pivot[1]*Math.sin(a),y:pivot[0]*Math.sin(a)+pivot[1]*Math.cos(a)};
+     this.paintPart(this.turret,turret,e.turretFacing,animationTime,team,altitude,0,p);
+    }
+   }
+  }
+  // A declared pose can outlive missing, pending or failed body pages. Keep
+  // permitted live actors visible through the existing development fallback;
+  // transparent death/fade frames retain their authored retirement behavior.
+  this.fallback.visible=!state||(e.state!=='destroyed'&&this.paintedCount===0);
+  if(this.fallback.visible&&(building||e.footprintWidth)){
+   const physical=this.catalog.buildings.get(physicalArtType(e));
+   drawStructure(this.fallback,{width:e.footprintWidth||building?.width||2,height:e.footprintHeight||building?.height||2,role:physical?.role??building?.role??'garrison',paint:0x7d7963,team,progress:e.progress,complete:e.complete,health:e.health,enabled:e.enabled});
+  }else if(this.fallback.visible&&isShahed(e.type)){
+   // Dedicated procedural identity until its own native art is ready. Use the
+   // existing public facing/air height; never read private commitment or payload.
+   this.fallback.clear();
+   if(e.state!=='destroyed'){
+    const marker=shahedFallbackGeometry(facing,altitude);
+    this.fallback.poly(marker.body).fill({color:team}).stroke({width:2,color:0x15130f,join:'round'});
+    this.fallback.poly(marker.impact,false).stroke({width:1.5,color:0xe2a232,join:'round'});
+    this.fallback.poly(marker.idMark,false).stroke({width:1,color:0xeee6ca,join:'round'});
+   }
+  }else if(this.fallback.visible){
+   // Explicit development marker until the missing sprite is authored.
+   this.fallback.clear().poly([-10,0,0,-10,10,0,0,7]).fill({color:team}).stroke({width:2,color:0x15130f});
+  }
+  this.bodyBottom=this.nextBodyBottom;this.paintedBounds=this.nextPaintedBounds;this.root.zIndex=this.groundDepth(now,reducedMotion);
+  if(this.projectedShadows)this.groundShadows.visible=false;
+  this.overlays.clear();
+  const radius=building?(e.footprintWidth+e.footprintHeight)*16:Math.max(12,(unit?.radius??400)/1000*48);
+  if(selected)this.overlays.ellipse(0,0,radius,radius*.5).stroke({width:1.5,color:0xb6dd77});
+  const show=e.state!=='destroyed'&&(healthBars==='always'||selected||healthBars==='damaged'&&e.health<1000);
+  if(show){
+   const anchor=state?this.hardpoint('healthbar',state,facing,bodyAnimationTime):undefined;
+   const x=anchor?.x??0,y=-altitude+(anchor?.y??-(building?45:24)),width=building?60:30;
+   this.overlays.rect(x-width/2,y,width,4).fill({color:0x161410,alpha:.95});
+   this.overlays.rect(x-width/2+1,y+1,(width-2)*Math.max(0,e.health)/1000,2).fill({color:e.health>600?0x9fc776:e.health>300?0xd3b359:0xc64f3c});
+  }
+  if(!this.status&&e.private?.ambushReady)this.overlays.poly([-4,-37,0,-42,4,-37,0,-32]).fill({color:0xe2a232});
+  if(e.rank>0){for(let i=0;i<e.rank;i++)this.overlays.poly([-4+i*7,-27,0+i*7,-30,4+i*7,-27]).stroke({width:2,color:0xe5c57a})}
+  const statusAnchor=state?this.hardpoint('healthbar',state,facing,bodyAnimationTime):undefined;
+  this.statusOverlay.root.position.set((this.externalStatus?screen.x:0)+(statusAnchor?.x??0),(this.externalStatus?screen.y:0)-altitude+(statusAnchor?.y??-(building?45:24))-18/Math.max(.1,zoom));
+  this.statusOverlay.draw(e.state==='destroyed'?undefined:this.status,selected&&statusDetail,zoom);
+ }
+ dispose(){this.disposed=true;this.statusOverlay.dispose();this.root.destroy({children:true});this.terrainShadow?.destroy({children:true})}
+}

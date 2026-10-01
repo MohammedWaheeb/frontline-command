@@ -1,0 +1,355 @@
+/* GENERATED from tokens.json by client/scripts/build-tokens.mjs — do not edit by hand. */
+@font-face { font-family: 'Barlow'; src: url('../../../assets/fonts/barlow/Barlow-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: 'Barlow'; src: url('../../../assets/fonts/barlow/Barlow-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: 'Barlow'; src: url('../../../assets/fonts/barlow/Barlow-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: block; }
+@font-face { font-family: 'Barlow'; src: url('../../../assets/fonts/barlow/Barlow-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: 'Barlow Condensed'; src: url('../../../assets/fonts/barlowcondensed/BarlowCondensed-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: 'Barlow Condensed'; src: url('../../../assets/fonts/barlowcondensed/BarlowCondensed-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: 'Barlow Condensed'; src: url('../../../assets/fonts/barlowcondensed/BarlowCondensed-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: block; }
+@font-face { font-family: 'Barlow Condensed'; src: url('../../../assets/fonts/barlowcondensed/BarlowCondensed-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: 'Share Tech Mono'; src: url('../../../assets/fonts/sharetechmono/ShareTechMono-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: 'Big Shoulders Stencil Display'; src: url('../../../assets/fonts/bigshouldersstencil/BigShouldersStencilDisplay-wght.ttf') format('truetype'); font-weight: 100 900; font-style: normal; font-display: block; }
+
+:root {
+  --fc-ui-scale: 1;
+  --fc-color-surface-0: #0E0D0B;
+  --fc-color-surface-1: #161512;
+  --fc-color-surface-2: #1E1C18;
+  --fc-color-surface-3: #27241F;
+  --fc-color-surface-4: #322E27;
+  --fc-color-surface-well: #0B0A09;
+  --fc-color-surface-scrim: rgba(8, 7, 6, 0.74);
+  --fc-color-metal-dark: #23211D;
+  --fc-color-metal-base: #3A3731;
+  --fc-color-metal-light: #555047;
+  --fc-color-metal-edge: #80786A;
+  --fc-color-metal-bevel-hi: rgba(255, 238, 205, 0.16);
+  --fc-color-metal-bevel-lo: rgba(0, 0, 0, 0.55);
+  --fc-color-metal-seam: #0C0B09;
+  --fc-color-olive-dark: #33361F;
+  --fc-color-olive-base: #4F5530;
+  --fc-color-olive-light: #6E7545;
+  --fc-color-olive-paint: #5B6138;
+  --fc-color-brass-dark: #6E5528;
+  --fc-color-brass-base: #A8843F;
+  --fc-color-brass-light: #D0AE66;
+  --fc-color-brass-shine: #EED9A2;
+  --fc-color-amber-base: #E2A232;
+  --fc-color-amber-hover: #F0B84E;
+  --fc-color-amber-active: #C58722;
+  --fc-color-amber-dim: rgba(226, 162, 50, 0.16);
+  --fc-color-amber-on: #1A1206;
+  --fc-color-line-1: #2E2B25;
+  --fc-color-line-2: #403B33;
+  --fc-color-line-3: #5A5349;
+  --fc-color-text-1: #EDE6D6;
+  --fc-color-text-2: #BDB4A2;
+  --fc-color-text-3: #8A8273;
+  --fc-color-text-disabled: #5E584D;
+  --fc-color-text-inverse: #12100D;
+  --fc-color-text-stencil: #D9CFB8;
+  --fc-color-focus-ring: #F4C24E;
+  --fc-color-focus-halo: rgba(244, 194, 78, 0.30);
+  --fc-color-status-ok: #8DBA5E;
+  --fc-color-status-info: #D7CBA8;
+  --fc-color-status-warn: #E8A33A;
+  --fc-color-status-danger: #D4432F;
+  --fc-color-status-critical: #FF4A35;
+  --fc-color-status-ok-dim: rgba(141, 186, 94, 0.16);
+  --fc-color-status-warn-dim: rgba(232, 163, 58, 0.16);
+  --fc-color-status-danger-dim: rgba(212, 67, 47, 0.20);
+  --fc-color-led-on: #F2B340;
+  --fc-color-led-green: #9FD45A;
+  --fc-color-led-red: #FF5A3C;
+  --fc-color-led-off: #2A2620;
+  --fc-color-led-glass: #120F0B;
+  --fc-color-resource-credits: #E8C05A;
+  --fc-color-resource-power: #9FD45A;
+  --fc-color-resource-power-low: #E8A33A;
+  --fc-color-resource-power-critical: #FF5A3C;
+  --fc-color-resource-supply: #D5CCB6;
+  --fc-color-resource-energy: #B79BD6;
+  --fc-color-resource-income: #A8D07A;
+  --fc-color-faction-US-paint: #6E7358;
+  --fc-color-faction-US-accent: #C6B98A;
+  --fc-color-faction-US-deep: #20231A;
+  --fc-color-faction-US-name: United States;
+  --fc-color-faction-IR-paint: #5E6B4A;
+  --fc-color-faction-IR-accent: #B9C58E;
+  --fc-color-faction-IR-deep: #1B2217;
+  --fc-color-faction-IR-name: Iran;
+  --fc-color-faction-SY-paint: #8A5E36;
+  --fc-color-faction-SY-accent: #D79A5C;
+  --fc-color-faction-SY-deep: #2A1C12;
+  --fc-color-faction-SY-name: Syrian Rebels;
+  --fc-color-faction-SA-paint: #A08655;
+  --fc-color-faction-SA-accent: #E0C27E;
+  --fc-color-faction-SA-deep: #2A2316;
+  --fc-color-faction-SA-name: Saudi Arabia;
+  --fc-color-team-standard-0: #3E8EDE;
+  --fc-color-team-standard-1: #D9463E;
+  --fc-color-team-standard-2: #2BB3A6;
+  --fc-color-team-standard-3: #E58A2E;
+  --fc-color-team-standard-4: #9A6BD8;
+  --fc-color-team-standard-5: #E6C229;
+  --fc-color-team-standard-6: #4DAF62;
+  --fc-color-team-standard-7: #D8DDE2;
+  --fc-color-team-cvd-safe-0: #0072B2;
+  --fc-color-team-cvd-safe-1: #D55E00;
+  --fc-color-team-cvd-safe-2: #009E73;
+  --fc-color-team-cvd-safe-3: #E69F00;
+  --fc-color-team-cvd-safe-4: #CC79A7;
+  --fc-color-team-cvd-safe-5: #F0E442;
+  --fc-color-team-cvd-safe-6: #56B4E9;
+  --fc-color-team-cvd-safe-7: #FFFFFF;
+  --fc-color-team-relation-self: #4DAF62;
+  --fc-color-team-relation-ally: #E6C229;
+  --fc-color-team-relation-enemy: #D9463E;
+  --fc-color-team-relation-neutral: #B9B4A6;
+  --fc-color-health-high: #8DD05A;
+  --fc-color-health-mid: #E8C23A;
+  --fc-color-health-low: #E5482E;
+  --fc-color-health-track: rgba(0, 0, 0, 0.65);
+  --fc-color-world-selection: #A6E57A;
+  --fc-color-world-order-move: #A6E57A;
+  --fc-color-world-order-attack: #FF5A48;
+  --fc-color-world-order-attack-move: #F2B340;
+  --fc-color-world-placement-valid: #A6E57A;
+  --fc-color-world-placement-invalid: #FF5A48;
+  --fc-color-world-range: rgba(237, 230, 214, 0.55);
+  --fc-color-world-missile-warning: #FF4A35;
+  --fc-color-world-fog-unexplored: #060605;
+  --fc-color-world-fog-explored: rgba(8, 7, 6, 0.52);
+  --fc-font-display: 'Big Shoulders Stencil Display', 'Barlow Condensed', sans-serif;
+  --fc-font-label: 'Barlow Condensed', 'Barlow', sans-serif;
+  --fc-font-ui: 'Barlow', system-ui, sans-serif;
+  --fc-font-mono: 'Share Tech Mono', ui-monospace, monospace;
+  --fc-space-0: calc(0px * var(--fc-ui-scale));
+  --fc-space-1: calc(2px * var(--fc-ui-scale));
+  --fc-space-2: calc(4px * var(--fc-ui-scale));
+  --fc-space-3: calc(6px * var(--fc-ui-scale));
+  --fc-space-4: calc(8px * var(--fc-ui-scale));
+  --fc-space-5: calc(12px * var(--fc-ui-scale));
+  --fc-space-6: calc(16px * var(--fc-ui-scale));
+  --fc-space-7: calc(20px * var(--fc-ui-scale));
+  --fc-space-8: calc(24px * var(--fc-ui-scale));
+  --fc-space-9: calc(32px * var(--fc-ui-scale));
+  --fc-space-10: calc(40px * var(--fc-ui-scale));
+  --fc-space-11: calc(48px * var(--fc-ui-scale));
+  --fc-space-12: calc(64px * var(--fc-ui-scale));
+  --fc-radius-none: 0px;
+  --fc-radius-xs: 1px;
+  --fc-radius-sm: 2px;
+  --fc-radius-md: 3px;
+  --fc-chamfer-sm: calc(5px * var(--fc-ui-scale));
+  --fc-chamfer-md: calc(9px * var(--fc-ui-scale));
+  --fc-chamfer-lg: calc(16px * var(--fc-ui-scale));
+  --fc-shadow-raised: inset 0 1px 0 rgba(255,238,205,0.16), inset 0 -1px 0 rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.6);
+  --fc-shadow-pressed: inset 0 2px 3px rgba(0,0,0,0.7), inset 0 -1px 0 rgba(255,238,205,0.06);
+  --fc-shadow-well: inset 0 2px 4px rgba(0,0,0,0.85), inset 0 0 0 1px rgba(0,0,0,0.6), 0 1px 0 rgba(255,238,205,0.08);
+  --fc-shadow-console: 0 -2px 0 rgba(0,0,0,0.5), 0 0 24px rgba(0,0,0,0.55);
+  --fc-shadow-modal: 0 24px 64px rgba(0,0,0,0.7);
+  --fc-dur-instant: 0ms;
+  --fc-dur-fast: 80ms;
+  --fc-dur-base: 140ms;
+  --fc-dur-slow: 240ms;
+  --fc-dur-panel: 300ms;
+  --fc-ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --fc-ease-mechanical: cubic-bezier(0.5, 0, 0.2, 1);
+  --fc-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --fc-hud-sidebar-w: calc(248px * var(--fc-ui-scale));
+  --fc-hud-shoulder-h: calc(34px * var(--fc-ui-scale));
+  --fc-hud-shoulder-w: calc(560px * var(--fc-ui-scale));
+  --fc-hud-tray-h: calc(132px * var(--fc-ui-scale));
+  --fc-hud-tray-w: calc(780px * var(--fc-ui-scale));
+  --fc-hud-minimap: calc(216px * var(--fc-ui-scale));
+  --fc-hud-cameo-w: calc(104px * var(--fc-ui-scale));
+  --fc-hud-cameo-h: calc(78px * var(--fc-ui-scale));
+  --fc-hud-command-cell: calc(40px * var(--fc-ui-scale));
+  --fc-hud-alert-w: calc(300px * var(--fc-ui-scale));
+  --fc-z-world: 0;
+  --fc-z-world_overlay: 10;
+  --fc-z-hud: 100;
+  --fc-z-alerts: 200;
+  --fc-z-tooltip: 300;
+  --fc-z-modal: 400;
+  --fc-z-toast: 500;
+  --fc-z-captions: 600;
+  --fc-min-hit: calc(28px * var(--fc-ui-scale));
+  --fc-type-display-size: calc(52px * var(--fc-ui-scale));
+  --fc-type-display-line: calc(52px * var(--fc-ui-scale));
+  --fc-type-title-size: calc(32px * var(--fc-ui-scale));
+  --fc-type-title-line: calc(34px * var(--fc-ui-scale));
+  --fc-type-heading-size: calc(20px * var(--fc-ui-scale));
+  --fc-type-heading-line: calc(24px * var(--fc-ui-scale));
+  --fc-type-panel-size: calc(14px * var(--fc-ui-scale));
+  --fc-type-panel-line: calc(16px * var(--fc-ui-scale));
+  --fc-type-body-size: calc(15px * var(--fc-ui-scale));
+  --fc-type-body-line: calc(21px * var(--fc-ui-scale));
+  --fc-type-body-sm-size: calc(13px * var(--fc-ui-scale));
+  --fc-type-body-sm-line: calc(18px * var(--fc-ui-scale));
+  --fc-type-label-size: calc(13px * var(--fc-ui-scale));
+  --fc-type-label-line: calc(16px * var(--fc-ui-scale));
+  --fc-type-cameo-size: calc(13px * var(--fc-ui-scale));
+  --fc-type-cameo-line: calc(14px * var(--fc-ui-scale));
+  --fc-type-caption-size: calc(12px * var(--fc-ui-scale));
+  --fc-type-caption-line: calc(15px * var(--fc-ui-scale));
+  --fc-type-readout-size: calc(22px * var(--fc-ui-scale));
+  --fc-type-readout-line: calc(24px * var(--fc-ui-scale));
+  --fc-type-numeric-size: calc(15px * var(--fc-ui-scale));
+  --fc-type-numeric-line: calc(17px * var(--fc-ui-scale));
+  --fc-type-hotkey-size: calc(11px * var(--fc-ui-scale));
+  --fc-type-hotkey-line: calc(12px * var(--fc-ui-scale));
+  --fc-type-subtitle-size: calc(20px * var(--fc-ui-scale));
+  --fc-type-subtitle-line: calc(28px * var(--fc-ui-scale));
+  --fc-material-console-plate: url('../../../assets/build/ui/chrome/console_plate@2x.png');
+  --fc-material-console-plate-slice: 18;
+  --fc-material-well: url('../../../assets/build/ui/chrome/well@2x.png');
+  --fc-material-well-slice: 8;
+  --fc-material-button: url('../../../assets/build/ui/chrome/button@2x.png');
+  --fc-material-button-slice: 6;
+  --fc-material-cameo-frame: url('../../../assets/build/ui/chrome/cameo_frame@2x.png');
+  --fc-material-cameo-frame-slice: 5;
+  --fc-material-brass-bezel: url('../../../assets/build/ui/chrome/brass_bezel@2x.png');
+  --fc-material-brass-bezel-slice: 10;
+  --fc-material-noise: url('../../../assets/build/ui/chrome/metal_noise.png');
+}
+
+/* 1600-class layouts: larger HUD metrics at the same UI scale */
+@media (min-width: 1500px) and (min-height: 840px) {
+  :root {
+    --fc-hud-sidebar-w: calc(300px * var(--fc-ui-scale));
+    --fc-hud-shoulder-h: calc(38px * var(--fc-ui-scale));
+    --fc-hud-shoulder-w: calc(660px * var(--fc-ui-scale));
+    --fc-hud-tray-h: calc(150px * var(--fc-ui-scale));
+    --fc-hud-tray-w: calc(900px * var(--fc-ui-scale));
+    --fc-hud-minimap: calc(262px * var(--fc-ui-scale));
+    --fc-hud-cameo-w: calc(127px * var(--fc-ui-scale));
+    --fc-hud-cameo-h: calc(95px * var(--fc-ui-scale));
+    --fc-hud-command-cell: calc(46px * var(--fc-ui-scale));
+    --fc-hud-alert-w: calc(330px * var(--fc-ui-scale));
+  }
+}
+
+/* Colour-vision-safe team palette (Settings > Accessibility > Colour alternatives) */
+:root[data-palette='cvd'] {
+  --fc-color-team-standard-0: #0072B2;
+  --fc-color-team-standard-1: #D55E00;
+  --fc-color-team-standard-2: #009E73;
+  --fc-color-team-standard-3: #E69F00;
+  --fc-color-team-standard-4: #CC79A7;
+  --fc-color-team-standard-5: #F0E442;
+  --fc-color-team-standard-6: #56B4E9;
+  --fc-color-team-standard-7: #FFFFFF;
+}
+
+/* Reduced motion: transitions collapse to <= 80ms opacity/colour only */
+:root[data-reduced-motion='true'] {
+  --fc-dur-fast: 0ms; --fc-dur-base: 80ms; --fc-dur-slow: 80ms; --fc-dur-panel: 0ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-reduced-motion='false']) {
+    --fc-dur-fast: 0ms; --fc-dur-base: 80ms; --fc-dur-slow: 80ms; --fc-dur-panel: 0ms;
+  }
+}
+
+.fc-t-display {
+  font-family: var(--fc-font-display);
+  font-size: var(--fc-type-display-size);
+  line-height: var(--fc-type-display-line);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.fc-t-title {
+  font-family: var(--fc-font-display);
+  font-size: var(--fc-type-title-size);
+  line-height: var(--fc-type-title-line);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.fc-t-heading {
+  font-family: var(--fc-font-label);
+  font-size: var(--fc-type-heading-size);
+  line-height: var(--fc-type-heading-line);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.fc-t-panel {
+  font-family: var(--fc-font-label);
+  font-size: var(--fc-type-panel-size);
+  line-height: var(--fc-type-panel-line);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.fc-t-body {
+  font-family: var(--fc-font-ui);
+  font-size: var(--fc-type-body-size);
+  line-height: var(--fc-type-body-line);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.fc-t-body-sm {
+  font-family: var(--fc-font-ui);
+  font-size: var(--fc-type-body-sm-size);
+  line-height: var(--fc-type-body-sm-line);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.fc-t-label {
+  font-family: var(--fc-font-label);
+  font-size: var(--fc-type-label-size);
+  line-height: var(--fc-type-label-line);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.fc-t-cameo {
+  font-family: var(--fc-font-label);
+  font-size: var(--fc-type-cameo-size);
+  line-height: var(--fc-type-cameo-line);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.fc-t-caption {
+  font-family: var(--fc-font-ui);
+  font-size: var(--fc-type-caption-size);
+  line-height: var(--fc-type-caption-line);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.fc-t-readout {
+  font-family: var(--fc-font-mono);
+  font-size: var(--fc-type-readout-size);
+  line-height: var(--fc-type-readout-line);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.fc-t-numeric {
+  font-family: var(--fc-font-mono);
+  font-size: var(--fc-type-numeric-size);
+  line-height: var(--fc-type-numeric-line);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.fc-t-hotkey {
+  font-family: var(--fc-font-mono);
+  font-size: var(--fc-type-hotkey-size);
+  line-height: var(--fc-type-hotkey-line);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.fc-t-subtitle {
+  font-family: var(--fc-font-ui);
+  font-size: var(--fc-type-subtitle-size);
+  line-height: var(--fc-type-subtitle-line);
+  font-weight: 600;
+  letter-spacing: 0;
+}

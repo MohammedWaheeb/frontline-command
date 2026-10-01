@@ -1,0 +1,98 @@
+{
+  "id": "unit.US.rifle",
+  "role_id": "US.rifle",
+  "model": "infantry",
+  "faction": "US",
+  "params": {
+    "uniform": "#8A8668"
+  },
+  "canvas": [
+    152,
+    120
+  ],
+  "anchor": [
+    60,
+    76
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 350,
+  "squad": {
+    "members": 4,
+    "member_offsets_mt": [
+      [
+        -120,
+        -90
+      ],
+      [
+        110,
+        -100
+      ],
+      [
+        -90,
+        110
+      ],
+      [
+        120,
+        90
+      ]
+    ]
+  },
+  "states": [
+    {
+      "name": "idle",
+      "part": "body",
+      "directions": 8,
+      "frames": 4,
+      "fps": 4,
+      "loop": true
+    },
+    {
+      "name": "move",
+      "part": "body",
+      "directions": 8,
+      "frames": 8,
+      "fps": 14,
+      "loop": true
+    },
+    {
+      "name": "aim",
+      "part": "body",
+      "directions": 8,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "fire",
+      "part": "body",
+      "directions": 8,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    {
+      "name": "cover",
+      "part": "body",
+      "directions": 8,
+      "frames": 2,
+      "fps": 2,
+      "loop": true
+    },
+    {
+      "name": "death",
+      "part": "body",
+      "directions": 8,
+      "frames": 6,
+      "fps": 12,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ]
+}

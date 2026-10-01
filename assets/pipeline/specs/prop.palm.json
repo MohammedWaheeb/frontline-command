@@ -1,0 +1,48 @@
+{
+  "id": "prop.palm",
+  "model": "environment_roster",
+  "faction": null,
+  "author": "Codex",
+  "params": {
+    "prop": "palm"
+  },
+  "canvas": [
+    608,
+    480
+  ],
+  "anchor": [
+    304,
+    300
+  ],
+  "passes": [
+    "beauty",
+    "shadow"
+  ],
+  "footprint_mt": [
+    1400,
+    1400
+  ],
+  "states": [
+    {
+      "name": "idle",
+      "part": "prop",
+      "directions": 4,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ],
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Codex",
+    "authorization": "User-approved Claude quota takeover; assignment 10 continuation",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "source_model": "assets/pipeline/blender/models/environment_roster.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "integration_constraint": "Decoration only; no implied cover, detection, collider or sight blocker. Avoid silhouettes over actor/route space."
+}

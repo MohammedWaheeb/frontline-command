@@ -1,0 +1,171 @@
+{
+  "format_version": 1,
+  "mission_id": "sy-03-three-crossings",
+  "mission_version": "1",
+  "title": "Three Crossings",
+  "mode": "campaign",
+  "faction": "SY",
+  "operation": "Operation Open Road",
+  "theater": "The fictional Aster Reach",
+  "order": 3,
+  "lesson": "Concealment and recon counters.",
+  "design_reference": "19.4",
+  "art": {
+    "briefing": "briefing/sy-03-three-crossings",
+    "loading": "loading/sy-03-three-crossings",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.sy",
+    "battle": "music.battle.sy",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "no-command-assets",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose all HQs, production structures and engineering rigs."
+    },
+    {
+      "id": "two-approaches",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Hold any two approaches continuously for three minutes."
+    },
+    {
+      "id": "scout-mark",
+      "kind": "optional",
+      "at_end": false,
+      "text": "Optional: keep the marked scout concealed for one uninterrupted minute."
+    }
+  ],
+  "markers": [
+    {
+      "id": "western-approach",
+      "text": "Western expansion approach",
+      "region": "site1",
+      "objective": "two-approaches"
+    },
+    {
+      "id": "eastern-approach",
+      "text": "Eastern expansion approach",
+      "region": "site2",
+      "objective": "two-approaches"
+    },
+    {
+      "id": "northern-approach",
+      "text": "Northern expansion approach",
+      "region": "site3",
+      "objective": "two-approaches"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "trigger": "pressure-1",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 1: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-2",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 2: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "trigger": "pressure-3",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 3: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "kind": "scenario_rule",
+      "detail": "All mission starting assets are listed in the opening state. Allied recovery transfers existing actors and preserves caps. Scripted enemy columns are finite, announced scenario exceptions; they are not paid AI production."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Commander Leila Dar",
+      "text": "Hold any two of the three marked expansion approaches continuously for three minutes. Enemy recon can reveal concealed scouts, so use cover with escape routes. Keep the marked scout concealed for one full minute before its observation mark is awarded.",
+      "voice": "vo.sy-03-three-crossings.briefing.01"
+    },
+    {
+      "key": "briefing:2",
+      "speaker": "Operations",
+      "text": "Concealment and recon counters.",
+      "voice": "vo.sy-03-three-crossings.briefing.02"
+    },
+    {
+      "key": "trigger:pressure-warning-1",
+      "speaker": "Watch",
+      "text": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.sy-03-three-crossings.pressure-warning-1"
+    },
+    {
+      "key": "trigger:pressure-1",
+      "speaker": "Watch",
+      "text": "Column 1 has entered. Its approach is east.",
+      "voice": "vo.sy-03-three-crossings.pressure-1"
+    },
+    {
+      "key": "trigger:pressure-warning-2",
+      "speaker": "Watch",
+      "text": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.sy-03-three-crossings.pressure-warning-2"
+    },
+    {
+      "key": "trigger:pressure-2",
+      "speaker": "Watch",
+      "text": "Column 2 has entered. Its approach is northwest.",
+      "voice": "vo.sy-03-three-crossings.pressure-2"
+    },
+    {
+      "key": "trigger:pressure-warning-3",
+      "speaker": "Watch",
+      "text": "Hostile column 3 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.sy-03-three-crossings.pressure-warning-3"
+    },
+    {
+      "key": "trigger:pressure-3",
+      "speaker": "Watch",
+      "text": "Column 3 has entered. Its approach is east.",
+      "voice": "vo.sy-03-three-crossings.pressure-3"
+    },
+    {
+      "key": "checkpoint:approach-held",
+      "speaker": "System",
+      "text": "Checkpoint reached: approach-held.",
+      "voice": null
+    },
+    {
+      "key": "trigger:checkpoint-approach-held",
+      "speaker": "Operations",
+      "text": "One approach is held. A second must remain secure for the full three-minute count.",
+      "voice": "vo.sy-03-three-crossings.checkpoint-approach-held"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Commander Leila Dar",
+      "text": "Three Crossings is complete. Keep the route secure; the next operation will depend on what we learned here.",
+      "voice": "vo.sy-03-three-crossings.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Commander Leila Dar",
+      "text": "We can no longer meet this operation’s requirements. Return to the last checkpoint and change the approach.",
+      "voice": "vo.sy-03-three-crossings.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:30",
+      "text": "Original concealment scout"
+    }
+  ]
+}

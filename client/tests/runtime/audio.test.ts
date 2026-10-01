@@ -1,0 +1,54 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {create} from '@bufbuild/protobuf';
+import {AudioCooldowns,boundedAudioBytes,parseAudioIndex} from '../../src/audio/index';
+import {AudioDirector} from '../../src/audio/director';
+import type {AudioMixer} from '../../src/audio/mixer';
+import {CatalogIndex,type Catalog} from '../../src/content/catalog';
+import {PlayerSnapshotSchema,EntitySchema,EventSchema} from '../../src/protocol/frontline_pb';
+const variant={url:'/art/audio/test.wav',caption:'Ready.',duration:1,bytes:100,sha256:'a'.repeat(64)};
+const manifest=()=>({format:1,sample_rate:24000,entries:{'vo.unit.US.infantry.select':{bus:'voice',priority:10,variants:[{...variant}]}}});
+test('audio manifest rejects unsafe URLs, malformed bounds and partial codec fallbacks',()=>{
+ assert.equal(parseAudioIndex(manifest()).entries['vo.unit.US.infantry.select'].loop,false);
+ for(const patch of [{url:'https://other/audio.wav'},{url:'/art/audio/../private.wav'},{url:'/art/audio/a%2fb.wav'},{bytes:0},{bytes:16*1024**2+1},{duration:Infinity},{sha256:'x'},{caption:''},{mp3_url:'/art/audio/test.mp3'}]){const value=manifest();Object.assign(value.entries['vo.unit.US.infantry.select'].variants[0],patch);assert.throws(()=>parseAudioIndex(value))}
+ const value=manifest();Object.assign(value.entries['vo.unit.US.infantry.select'].variants[0],{display_caption:'Control: Ready.',mp3_url:'/art/audio/test.mp3',mp3_bytes:123,mp3_sha256:'b'.repeat(64)});assert.equal(parseAudioIndex(value).entries['vo.unit.US.infantry.select'].variants[0].display_caption,'Control: Ready.');
+});
+test('audio byte read bounds hold without length headers',async()=>{assert.deepEqual(await boundedAudioBytes(new Response(new Uint8Array([1,2])),2),new Uint8Array([1,2]));await assert.rejects(boundedAudioBytes(new Response(new Uint8Array(3)),2),/declared size/);await assert.rejects(boundedAudioBytes(new Response('missing',{status:404}),20),/unavailable/)});
+test('warning bundles and selection cooldowns are location specific and resettable',()=>{const gate=new AudioCooldowns();assert.equal(gate.admit('attack:0,0',0,6000),true);assert.equal(gate.admit('attack:0,0',5999,6000),false);assert.equal(gate.admit('attack:1,0',100,6000),true);assert.equal(gate.admit('attack:0,0',6000,6000),true);gate.clear();assert.equal(gate.admit('attack:0,0',6001,6000),true)});
+function harness(){const calls:Array<{id:string;options?:unknown}>=[],captions:string[]=[];let resets=0;const mixer={play:(id:string,options?:unknown)=>calls.push({id,options}),music:()=>{},continuous:()=>{},caption:(text:string)=>captions.push(text),reset:()=>resets++,stopTransient:()=>{},clearCaptions:()=>{},afterSpeech:()=>{},manifest:undefined} as unknown as AudioMixer;const catalog=new CatalogIndex({units:[{id:'US.rifle',name:'Ranger',faction:'US',role:'rifle',armor:'infantry',weapon:'RIF'}],weapons:[],buildings:[],upgrades:[]} as unknown as Catalog);return {calls,captions,director:new AudioDirector(mixer,()=>catalog),resets:()=>resets}}
+const snapshot=(tick:number,events:ReturnType<typeof create<typeof EventSchema>>[]=[])=>create(PlayerSnapshotSchema,{tick,player:1,players:[{id:1,faction:'US',team:1},{id:2,faction:'IR',team:2}],entities:[{id:1,type:'US.rifle',owner:1},{id:2,type:'US.rifle',owner:2}],events});
+test('director consumes only new permitted events; rewind/reconnect/new perspective never burst old sound',()=>{const h=harness(),fire=(id:number,tick:number)=>create(EventSchema,{id,tick,kind:'weapon_fired',entity:1,owner:1});h.director.snapshot(snapshot(100,[fire(1,100)]));assert.equal(h.calls.length,0);h.director.snapshot(snapshot(101,[fire(1,100),fire(2,101)]));assert.deepEqual(h.calls.map(x=>x.id),['sfx.weapon.RIF']);h.director.snapshot(snapshot(102,[fire(2,101)]));assert.equal(h.calls.length,1);h.director.snapshot(snapshot(50,[fire(1,50)]));assert.equal(h.calls.length,1);h.director.connection('connected');h.director.snapshot(snapshot(103,[fire(3,103)]));assert.equal(h.calls.length,1);const other=snapshot(104,[fire(4,104)]);other.player=2;h.director.snapshot(other);assert.equal(h.calls.length,1);assert.ok(h.resets()>=3)});
+test('selection and command acknowledgment require owned actors or actual receipt; lost vision is not death',()=>{const h=harness(),enemy=create(EntitySchema,{id:2,type:'US.rifle',owner:2}),own=create(EntitySchema,{id:1,type:'US.rifle',owner:1});h.director.selection([enemy],1);assert.equal(h.calls.length,0);h.director.selection([own],1);assert.equal(h.calls[0].id,'vo.unit.US.infantry.select');h.director.receipt('move',false,own,'blocked');assert.equal(h.calls.at(-1)?.id,'vo.unit.US.infantry.unavailable');h.director.receipt('move',true,own);assert.equal(h.calls.at(-1)?.id,'vo.unit.US.infantry.move');h.director.snapshot(snapshot(1));const next=snapshot(2);next.entities=[];h.director.snapshot(next);assert.equal(h.calls.some(call=>call.id.includes('explosion')),false)});
+test('owner economy, teammate and public endgame transitions produce captions without inventing hidden readiness',()=>{const h=harness(),before=snapshot(100);before.economy={...create(PlayerSnapshotSchema,{economy:{powerCapacity:10,powerDemand:5}}).economy!};h.director.snapshot(before);const after=snapshot(101);after.economy={...before.economy,powerDemand:20};after.indicators=[{...create(PlayerSnapshotSchema,{indicators:[{owner:2,position:{x:5000,y:5000}}]}).indicators[0]}];h.director.snapshot(after);assert.ok(h.calls.some(call=>call.id==='vo.announcer.US.low_power'));assert.ok(h.calls.some(call=>call.id==='vo.announcer.US.endgame_reveal'));assert.equal(h.calls.some(call=>call.id.includes('enemy_strategic_ready')),false);h.director.status({teammates:[{player:2,connected:true}]} as never);h.director.status({teammates:[{player:2,connected:false}]} as never);assert.equal(h.calls.at(-1)?.id,'vo.announcer.US.teammate_disconnected');h.director.discontinuity();const count=h.calls.length;h.director.status({teammates:[{player:2,connected:false}]} as never);assert.equal(h.calls.length,count)});
+
+function serviceHarness(){
+ const calls:string[]=[],catalog=new CatalogIndex({units:[{id:'US.fighter',name:'Interceptor',faction:'US',role:'fighter',armor:'air'}],weapons:[],buildings:[],upgrades:[]} as unknown as Catalog);
+ const mixer={play:(id:string)=>calls.push(id),music:()=>{},continuous:()=>{},caption:()=>{},reset:()=>{}} as unknown as AudioMixer;
+ const director=new AudioDirector(mixer,()=>catalog),aircraft=create(EntitySchema,{id:9,type:'US.fighter',owner:1,health:1000,private:{home:4}});
+ const before=snapshot(100);before.entities=[aircraft];director.snapshot(before);
+ const loss=create(EventSchema,{id:1,tick:101,kind:'service_lost',owner:1,entity:9,scope:'owner'}),after=snapshot(101,[loss]);after.entities=[{...aircraft,private:{...aircraft.private!,home:0}}];
+ return {calls,director,aircraft,after,loss};
+}
+
+test('service-loss audio warns only when the current living owned aircraft has no replacement home',()=>{
+ const h=serviceHarness();h.director.snapshot(h.after);assert.deepEqual(h.calls,['vo.announcer.US.no_landing_slot']);
+ const rebased=serviceHarness();rebased.after.entities[0].private!.home=7;rebased.director.snapshot(rebased.after);assert.deepEqual(rebased.calls,[]);
+ for(const kind of ['absent','foreign','dead','destroyed','missing-private','ground']){
+  const x=serviceHarness(),e=x.after.entities[0];
+  if(kind==='absent')x.after.entities=[];
+  if(kind==='foreign')e.owner=2;
+  if(kind==='dead')e.health=0;
+  if(kind==='destroyed')e.state='destroyed';
+  if(kind==='missing-private')e.private=undefined;
+  if(kind==='ground')e.type='US.rifle';
+  x.director.snapshot(x.after);assert.deepEqual(x.calls,[],kind);
+ }
+});
+
+test('service-loss warning does not repeat across duplicate IDs, reset, rewind or foreign perspective',()=>{
+ const h=serviceHarness();h.director.snapshot(h.after);assert.equal(h.calls.length,1);
+ h.director.snapshot({...h.after,tick:102});assert.equal(h.calls.length,1);
+ h.director.discontinuity();h.director.snapshot(h.after);assert.equal(h.calls.length,1);
+ h.director.snapshot({...h.after,tick:50,events:[{...h.loss,tick:50}]});assert.equal(h.calls.length,1);
+ h.director.snapshot({...h.after,player:2});assert.equal(h.calls.length,1);
+});

@@ -1,0 +1,87 @@
+{
+  "id": "unit.SY.car",
+  "role_id": "SY.car",
+  "model": "technical",
+  "faction": "SY",
+  "params": {},
+  "canvas": [
+    256,
+    184
+  ],
+  "anchor": [
+    112,
+    108
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 600,
+  "turret_pivot_mt": [
+    -300,
+    0
+  ],
+  "states": [
+    {
+      "name": "idle",
+      "part": "hull",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "move",
+      "part": "hull",
+      "directions": 16,
+      "frames": 4,
+      "fps": 14,
+      "loop": true
+    },
+    {
+      "name": "damaged",
+      "part": "hull",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "wreck",
+      "part": "whole",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "aim",
+      "part": "turret",
+      "directions": 32,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team"
+      ]
+    },
+    {
+      "name": "fire",
+      "part": "turret",
+      "directions": 32,
+      "frames": 3,
+      "fps": 20,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team"
+      ]
+    }
+  ]
+}

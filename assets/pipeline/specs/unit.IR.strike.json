@@ -1,0 +1,87 @@
+{
+  "id": "unit.IR.strike",
+  "role_id": "IR.strike",
+  "model": "drone_fixed",
+  "faction": "IR",
+  "params": {},
+  "canvas": [
+    256,
+    168
+  ],
+  "anchor": [
+    112,
+    88
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 600,
+  "air": {
+    "cruise_altitude_mt": 1400,
+    "shadow_from_ground_anchor": true
+  },
+  "states": [
+    {
+      "name": "fly",
+      "part": "body",
+      "directions": 16,
+      "frames": 3,
+      "fps": 24,
+      "loop": true
+    },
+    {
+      "name": "bank_left",
+      "part": "body",
+      "directions": 16,
+      "frames": 3,
+      "fps": 24,
+      "loop": true
+    },
+    {
+      "name": "bank_right",
+      "part": "body",
+      "directions": 16,
+      "frames": 3,
+      "fps": 24,
+      "loop": true
+    },
+    {
+      "name": "fire",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 8,
+      "loop": false
+    },
+    {
+      "name": "empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 3,
+      "fps": 24,
+      "loop": true
+    },
+    {
+      "name": "damaged",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "crash",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ]
+}

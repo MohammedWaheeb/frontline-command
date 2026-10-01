@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<!-- Original fictional faction insignia for Frontline Command (design 9 / 23.1).
+     Deliberately abstract geometry; no real national, military or extremist symbols.
+     Each emblem reads in monochrome (fill currentColor) and in its two-tone form. -->
+<defs>
+<!-- US "Aerial Arrow": winged upward chevron in an angular hex frame (air superiority) -->
+<symbol id="em-US" viewBox="0 0 64 64">
+  <path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" d="M32 4 56.3 18v28L32 60 7.7 46V18z"/>
+  <path fill="currentColor" d="M32 14 44 34h-7.5L32 26.5 27.5 34H20z"/>
+  <path fill="currentColor" d="M11 32 25 30l-3 6.5H12zM53 32 39 30l3 6.5H52z"/>
+  <path fill="currentColor" d="M25.5 40h13l-2.5 5.5h-8z"/>
+</symbol>
+<!-- Iran "Relay Delta": triangle with three signal arcs (drone network) -->
+<symbol id="em-IR" viewBox="0 0 64 64">
+  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" d="M32 5 59 54H5z"/>
+  <circle cx="32" cy="40" r="4" fill="currentColor"/>
+  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M25 33.5a9 9 0 0 1 14 0M20.5 28a16 16 0 0 1 23 0"/>
+</symbol>
+<!-- Syrian Rebels coalition "Open Road": broken ring with a forward route arrow (mobility, invented coalition) -->
+<symbol id="em-SY" viewBox="0 0 64 64">
+  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M50 14A26 26 0 1 0 58 32"/>
+  <path fill="currentColor" d="M18.5 43.5 33.5 23.5l3.2 5.8L50 16l-6.2 21.2-4.6-4.6L27.5 49z"/>
+</symbol>
+<!-- Saudi Arabia "Lattice Shield": shield with hex lattice band (armour and interception) -->
+<symbol id="em-SA" viewBox="0 0 64 64">
+  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" d="M32 5 54 13v17c0 13-9 23-22 29C19 53 10 43 10 30V13z"/>
+  <path fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" d="M18 27l7-4.5 7 4.5 7-4.5 7 4.5v7l-7 4.5-7-4.5-7 4.5-7-4.5z"/>
+  <path fill="currentColor" d="M23 43.5h18l-9 7z"/>
+</symbol>
+<!-- Game mark: stacked chevrons over a horizon line -->
+<symbol id="fc-mark" viewBox="0 0 64 64">
+  <path fill="currentColor" d="M32 8 52 24h-9L32 15.5 21 24h-9z"/>
+  <path fill="currentColor" d="M32 22 52 38h-9L32 29.5 21 38h-9z" opacity=".7"/>
+  <path fill="currentColor" d="M8 46h48v4H8z"/>
+</symbol>
+</defs>
+</svg>

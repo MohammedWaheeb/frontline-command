@@ -1,0 +1,257 @@
+{
+  "format_version": 1,
+  "mission_id": "convoy-union",
+  "mission_version": "1",
+  "title": "Convoy Union",
+  "mode": "coop",
+  "faction": "US",
+  "operation": "Joint Route Command",
+  "theater": "The fictional Aster Reach",
+  "order": 1,
+  "lesson": "Shared convoy approvals and independent economies.",
+  "design_reference": "19.6",
+  "art": {
+    "briefing": "briefing/convoy-union",
+    "loading": "loading/convoy-union",
+    "palette": "warm-gunmetal"
+  },
+  "music": {
+    "briefing": "music.briefing.us",
+    "battle": "music.battle.us",
+    "victory": "music.stinger.victory",
+    "defeat": "music.stinger.defeat"
+  },
+  "camera_start": null,
+  "objectives": [
+    {
+      "id": "western-hq-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Western Command loses its final HQ."
+    },
+    {
+      "id": "eastern-hq-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Eastern Command loses its final HQ."
+    },
+    {
+      "id": "arrival-1",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Deliver convoy 1 to the exit."
+    },
+    {
+      "id": "convoy-1-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose every truck in convoy 1."
+    },
+    {
+      "id": "arrival-2",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Deliver convoy 2 to the exit."
+    },
+    {
+      "id": "convoy-2-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose every truck in convoy 2."
+    },
+    {
+      "id": "arrival-3",
+      "kind": "primary",
+      "at_end": false,
+      "text": "Deliver convoy 3 to the exit."
+    },
+    {
+      "id": "convoy-3-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose every truck in convoy 3."
+    },
+    {
+      "id": "all-convoy-trucks",
+      "kind": "optional",
+      "at_end": true,
+      "text": "Preserve all six original convoy trucks."
+    }
+  ],
+  "markers": [
+    {
+      "id": "convoy-assembly",
+      "text": "Convoy assembly area",
+      "region": "convoy-origin"
+    },
+    {
+      "id": "route-junction",
+      "text": "Shared convoy route junction",
+      "region": "route-junction"
+    },
+    {
+      "id": "north-branch",
+      "text": "Northern convoy branch",
+      "region": "north-branch"
+    },
+    {
+      "id": "north-merge",
+      "text": "Northern route merge",
+      "region": "north-merge"
+    },
+    {
+      "id": "south-branch",
+      "text": "Southern convoy branch",
+      "region": "south-branch"
+    },
+    {
+      "id": "south-merge",
+      "text": "Southern route merge",
+      "region": "south-merge"
+    },
+    {
+      "id": "convoy-exit",
+      "text": "Shared convoy exit",
+      "region": "convoy-exit"
+    }
+  ],
+  "scenario_exceptions": [
+    {
+      "kind": "scenario_rule",
+      "detail": "Completed convoy one unlocks exactly two authored repair depots, one per human owner. Repairs still cost the owning player credits. Convoy trucks are script-controlled original cargo actors and never grant combat units."
+    },
+    {
+      "trigger": "pressure-1",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 1: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-2",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 2: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    },
+    {
+      "trigger": "pressure-3",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 3: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (100,52)."
+    },
+    {
+      "trigger": "pressure-4",
+      "kind": "scripted_reinforcement",
+      "detail": "Finite scripted enemy column 4: 3 rifles; normal adds 1 car, hard also adds 1 tank. Only enemy timing is scaled. Entry (83,20)."
+    }
+  ],
+  "subtitles": [
+    {
+      "key": "briefing:1",
+      "speaker": "Joint Command",
+      "text": "Two independent allied economies escort three sequential two-truck convoys. Choose the northern or southern route at each checkpoint. Either commander can Hold; after a manual hold both must approve Advance. The visible countdown protects route decisions. A completed convoy unlocks one forward repair position for each owner, not free combat reinforcements. At least one truck from each convoy must arrive.",
+      "voice": "vo.convoy-union.briefing.01"
+    },
+    {
+      "key": "trigger:first-convoy-ready",
+      "speaker": "Convoy control",
+      "text": "Convoy one is ready. Approve Advance, or Hold while an escort clears the chosen branch.",
+      "voice": "vo.convoy-union.first-convoy-ready"
+    },
+    {
+      "key": "checkpoint:first-arrival",
+      "speaker": "System",
+      "text": "Checkpoint reached: first-arrival.",
+      "voice": null
+    },
+    {
+      "key": "trigger:second-convoy-ready",
+      "speaker": "Convoy control",
+      "text": "First delivery complete. Two separately owned forward repair depots are now available. Convoy two is ready.",
+      "voice": "vo.convoy-union.second-convoy-ready"
+    },
+    {
+      "key": "checkpoint:second-arrival",
+      "speaker": "System",
+      "text": "Checkpoint reached: second-arrival.",
+      "voice": null
+    },
+    {
+      "key": "trigger:third-convoy-ready",
+      "speaker": "Convoy control",
+      "text": "Second delivery complete. Prepare the final convoy and review the route before approving Advance.",
+      "voice": "vo.convoy-union.third-convoy-ready"
+    },
+    {
+      "key": "trigger:pressure-warning-1",
+      "speaker": "Watch",
+      "text": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.convoy-union.pressure-warning-1"
+    },
+    {
+      "key": "trigger:pressure-1",
+      "speaker": "Watch",
+      "text": "Column 1 has entered. Its approach is east.",
+      "voice": "vo.convoy-union.pressure-1"
+    },
+    {
+      "key": "trigger:pressure-warning-2",
+      "speaker": "Watch",
+      "text": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.convoy-union.pressure-warning-2"
+    },
+    {
+      "key": "trigger:pressure-2",
+      "speaker": "Watch",
+      "text": "Column 2 has entered. Its approach is northwest.",
+      "voice": "vo.convoy-union.pressure-2"
+    },
+    {
+      "key": "trigger:pressure-warning-3",
+      "speaker": "Watch",
+      "text": "Hostile column 3 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.convoy-union.pressure-warning-3"
+    },
+    {
+      "key": "trigger:pressure-3",
+      "speaker": "Watch",
+      "text": "Column 3 has entered. Its approach is east.",
+      "voice": "vo.convoy-union.pressure-3"
+    },
+    {
+      "key": "trigger:pressure-warning-4",
+      "speaker": "Watch",
+      "text": "Hostile column 4 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
+      "voice": "vo.convoy-union.pressure-warning-4"
+    },
+    {
+      "key": "trigger:pressure-4",
+      "speaker": "Watch",
+      "text": "Column 4 has entered. Its approach is northwest.",
+      "voice": "vo.convoy-union.pressure-4"
+    },
+    {
+      "key": "debrief_victory:1",
+      "speaker": "Joint Command",
+      "text": "The joint operation is complete. Review both commanders’ losses and convoy decisions.",
+      "voice": "vo.convoy-union.victory.01"
+    },
+    {
+      "key": "debrief_defeat:1",
+      "speaker": "Joint Command",
+      "text": "The joint requirements can no longer be met. Restore the last shared checkpoint.",
+      "voice": "vo.convoy-union.defeat.01"
+    }
+  ],
+  "audio_status": "Mission audio is bundled through /art/audio/index.json. Per-line voice keys are authoring references; captions do not require audio. Listening review is tracked separately.",
+  "author": "Codex authored scenarios during authorized quota takeover; Claude Opus 5.5 authored original helpers",
+  "tutorial_steps": [],
+  "tutorial_factions": [],
+  "art_status": "Declared art references require the separately produced asset pack; no voice or illustration delivery is claimed here.",
+  "actor_groups": [
+    {
+      "origin": "initial:0",
+      "text": "Original western command center"
+    },
+    {
+      "origin": "initial:17",
+      "text": "Original eastern command center"
+    }
+  ]
+}

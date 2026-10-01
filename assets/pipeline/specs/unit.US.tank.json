@@ -1,0 +1,83 @@
+{
+  "id": "unit.US.tank",
+  "role_id": "US.tank",
+  "model": "tank_tracked",
+  "faction": "US",
+  "params": {},
+  "canvas": [
+    336,
+    232
+  ],
+  "anchor": [
+    148,
+    132
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 800,
+  "states": [
+    {
+      "name": "idle",
+      "part": "hull",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "move",
+      "part": "hull",
+      "directions": 16,
+      "frames": 4,
+      "fps": 12,
+      "loop": true
+    },
+    {
+      "name": "damaged",
+      "part": "hull",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "wreck",
+      "part": "whole",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "aim",
+      "part": "turret",
+      "directions": 32,
+      "frames": 1,
+      "fps": 0,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team"
+      ]
+    },
+    {
+      "name": "fire",
+      "part": "turret",
+      "directions": 32,
+      "frames": 3,
+      "fps": 15,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team"
+      ]
+    }
+  ]
+}

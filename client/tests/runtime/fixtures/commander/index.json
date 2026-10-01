@@ -1,0 +1,964 @@
+{
+  "format_version": 1,
+  "version": "2.0.0",
+  "packs": [
+    {
+      "id": "2.0.0",
+      "version": "2.0.0",
+      "manifest_url": "/assets/packs/base.json"
+    }
+  ],
+  "maps": [
+    {
+      "id": "copper-junction",
+      "version": "1",
+      "title": "Copper Junction",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/copper-junction.json",
+      "sha256": "9ce72f0cbb236557ad75e37feed6c2aa7f5726e6f77cd61803eb84d0b1545057",
+      "bytes": 540779,
+      "players": 2,
+      "kind": "skirmish",
+      "required_packs": [
+        "2.0.0"
+      ],
+      "environment": {
+        "url": "/content/environment/copper-junction.json",
+        "sha256": "e2995ab0f5cecc294ba85eb7d51bd60057c5fe4e944746b05997c78e045d19ef",
+        "bytes": 1977
+      }
+    },
+    {
+      "id": "relay-heights",
+      "version": "1",
+      "title": "Relay Heights",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/relay-heights.json",
+      "sha256": "09f300f41176794465aa0b1a87a0900bbf60a7d5c35e010521a3154f7bdc8d86",
+      "bytes": 544567,
+      "players": 2,
+      "kind": "skirmish",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "dry-river",
+      "version": "1",
+      "title": "Dry River",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/dry-river.json",
+      "sha256": "1dc851211269974f5cadb1c6e30850e67014970f90a96c0be9b85feb7ef7b747",
+      "bytes": 508476,
+      "players": 2,
+      "kind": "skirmish",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "industrial-valley",
+      "version": "1",
+      "title": "Industrial Valley",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/industrial-valley.json",
+      "sha256": "e4ab7d00a49fc79ba5dfa44ba86bcfdb5e6b2d7da02b3abc3fee59ccf3238489",
+      "bytes": 861254,
+      "players": 4,
+      "kind": "skirmish",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "border-depots",
+      "version": "1",
+      "title": "Border Depots",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/border-depots.json",
+      "sha256": "2d6c38f195acc031be61741f4dfec72bfbeae5ede062fa68d8af225c74291a83",
+      "bytes": 821581,
+      "players": 4,
+      "kind": "skirmish",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "port-outskirts",
+      "version": "1",
+      "title": "Port Outskirts",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/port-outskirts.json",
+      "sha256": "8c8a040e82cdacbb67ecb0f8fa40b5f0f5da1293809dc63f752490860a806830",
+      "bytes": 839642,
+      "players": 4,
+      "kind": "skirmish",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "convoy-union",
+      "version": "1",
+      "title": "Convoy Union",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/convoy-union.json",
+      "sha256": "9d8f22c66b7c5a780d94bdb7e6c8b0e9dd729e49cc2372a0cfd88b7cc0f18426",
+      "bytes": 530264,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "twin-outposts",
+      "version": "1",
+      "title": "Twin Outposts",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/twin-outposts.json",
+      "sha256": "632f1a2621232182cfcc3aa3e3794d0f26e59391e1986dc936ff61fe44b1cdac",
+      "bytes": 528617,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "us-01-first-foothold-layout",
+      "version": "1",
+      "title": "First Foothold — US operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/us-01-first-foothold-layout.json",
+      "sha256": "7ed2384ddf81d452298da36f8e2d5fac61bb7d10be0a579b9fc799c976f2a2c9",
+      "bytes": 498234,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "us-02-open-corridor-layout",
+      "version": "1",
+      "title": "Open Corridor — US operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/us-02-open-corridor-layout.json",
+      "sha256": "c1676502aa23ec01fb7331d17e1f9584923ef94d7f0c602a94779b7c864d2f9c",
+      "bytes": 521287,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "us-03-relay-ridge-layout",
+      "version": "1",
+      "title": "Relay Ridge — US operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/us-03-relay-ridge-layout.json",
+      "sha256": "6207624b1d98f4057944a41a93ee236488a66b7ece1ae713bfc99a2ca746cd48",
+      "bytes": 503545,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "us-04-broken-umbrella-layout",
+      "version": "1",
+      "title": "Broken Umbrella — US operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/us-04-broken-umbrella-layout.json",
+      "sha256": "92b11f9302506dfe22fe55749e1b1565a3064e411a2816a7be5b6922d1d6c574",
+      "bytes": 510987,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "us-05-split-front-layout",
+      "version": "1",
+      "title": "Split Front — US operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/us-05-split-front-layout.json",
+      "sha256": "49813ad84386426005a0755af006b78bc913a813bee289dc70102445ed154952",
+      "bytes": 511709,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "us-06-clear-horizon-layout",
+      "version": "1",
+      "title": "Clear Horizon — US operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/us-06-clear-horizon-layout.json",
+      "sha256": "9b986fecb6b6b3eb1bd55b85b4987323d90de53f387619709c60933d67079214",
+      "bytes": 512646,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "ir-01-forward-signal-layout",
+      "version": "1",
+      "title": "Forward Signal — IR operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/ir-01-forward-signal-layout.json",
+      "sha256": "c7a6639d40a357b3911ed28f5a04df8d745fa85696e9a752e5a7eff9a990c611",
+      "bytes": 504989,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "ir-02-eyes-above-layout",
+      "version": "1",
+      "title": "Eyes Above — IR operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/ir-02-eyes-above-layout.json",
+      "sha256": "0ef1bc130abf9bda114c8d3b68e0df124d0443e6148dd8b821983f83d7cc8428",
+      "bytes": 506851,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "ir-03-beyond-the-basin-layout",
+      "version": "1",
+      "title": "Beyond the Basin — IR operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/ir-03-beyond-the-basin-layout.json",
+      "sha256": "b818e3951b95d2a9f38257278444842f27514af02c07e1a4503c1f583d5a3a95",
+      "bytes": 511677,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "ir-04-hold-the-network-layout",
+      "version": "1",
+      "title": "Hold the Network — IR operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/ir-04-hold-the-network-layout.json",
+      "sha256": "e9b8a51e5b15b312cd463d7e3b40615567cc3c7b4c8e1dd0ea17df3addbff08f",
+      "bytes": 501756,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "ir-05-the-second-volley-layout",
+      "version": "1",
+      "title": "The Second Volley — IR operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/ir-05-the-second-volley-layout.json",
+      "sha256": "ccf47a0e25f57c7e1072277b460b6ccff0033ad04443f83c5694d96ea87962fe",
+      "bytes": 498086,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "ir-06-iron-signal-layout",
+      "version": "1",
+      "title": "Iron Signal — IR operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/ir-06-iron-signal-layout.json",
+      "sha256": "8f92881dce6e47c367291fe17eb753fab2810777978f2a22dec429c058a17b7a",
+      "bytes": 512573,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sy-01-workshop-foothold-layout",
+      "version": "1",
+      "title": "Workshop Foothold — SY operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sy-01-workshop-foothold-layout.json",
+      "sha256": "2f70fe9d5f345fac7fd1ac661240ddb712c7fcb5985453944839136bb1e59775",
+      "bytes": 499137,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sy-02-supply-trail-layout",
+      "version": "1",
+      "title": "Supply Trail — SY operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sy-02-supply-trail-layout.json",
+      "sha256": "5f952a51ffc1526317e9d827ded287bdbf5c03620bd35112762ed4d7a478b1c1",
+      "bytes": 511699,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sy-03-three-crossings-layout",
+      "version": "1",
+      "title": "Three Crossings — SY operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sy-03-three-crossings-layout.json",
+      "sha256": "3c8adcbbfc109ca6770d1e9c8837496ed87dd47eb7c9c8d0b9c6d9ab98aeefbd",
+      "bytes": 511466,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sy-04-open-doors-layout",
+      "version": "1",
+      "title": "Open Doors — SY operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sy-04-open-doors-layout.json",
+      "sha256": "6ea5b96c7e2420ea9110f2d8ab4a1180155edd12816424b343814c7e93df4343",
+      "bytes": 516786,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sy-05-relay-break-layout",
+      "version": "1",
+      "title": "Relay Break — SY operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sy-05-relay-break-layout.json",
+      "sha256": "5dd9bef433352d72289fc350ed9fade09e01f3556120b48e2a6a220bc84a6c4d",
+      "bytes": 506734,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sy-06-open-road-layout",
+      "version": "1",
+      "title": "Open Road — SY operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sy-06-open-road-layout.json",
+      "sha256": "a4a7076420edd2dcd95738b48854319983f501809675a275c7613cf4d027d32a",
+      "bytes": 514322,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sa-01-arrival-point-layout",
+      "version": "1",
+      "title": "Arrival Point — SA operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sa-01-arrival-point-layout.json",
+      "sha256": "40a1b7e1579f02a18a57075f327d12e4fd872f98ad48fefbab173db38369f58d",
+      "bytes": 498166,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sa-02-moving-shield-layout",
+      "version": "1",
+      "title": "Moving Shield — SA operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sa-02-moving-shield-layout.json",
+      "sha256": "141d86e165e3da6781786efc2d6da3f76a8fd7e20134f572f149d8bb383f9918",
+      "bytes": 521788,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sa-03-distant-depots-layout",
+      "version": "1",
+      "title": "Distant Depots — SA operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sa-03-distant-depots-layout.json",
+      "sha256": "cf2abe6805c32642f8296118d755758cdca919e619b5d820a1440eda1a68865f",
+      "bytes": 517493,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sa-04-intercept-window-layout",
+      "version": "1",
+      "title": "Intercept Window — SA operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sa-04-intercept-window-layout.json",
+      "sha256": "fb094dfe6a13deab4f73db4329179bdabc9e80fabfea8ba49749a16105da140b",
+      "bytes": 510044,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sa-05-three-positions-layout",
+      "version": "1",
+      "title": "Three Positions — SA operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sa-05-three-positions-layout.json",
+      "sha256": "10eb2090ab7113997762b37001a438d78e2c9f38015109f15353e7943ec489c9",
+      "bytes": 523323,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    },
+    {
+      "id": "sa-06-shieldline-layout",
+      "version": "1",
+      "title": "Shieldline — SA operation",
+      "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
+      "url": "/content/maps/sa-06-shieldline-layout.json",
+      "sha256": "35326877ba03067c104b1f4a9ff33e930db86b1d1cf01e495f78dda042a4875f",
+      "bytes": 536309,
+      "players": 4,
+      "kind": "scenario",
+      "required_packs": [
+        "2.0.0"
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "tutorial-1-give-an-order",
+      "version": "1",
+      "title": "Give an Order",
+      "url": "/content/missions/tutorial-1-give-an-order.json",
+      "sha256": "9362e94e28d5ca7392b4af9a36986b2c3cbbc90a7c1d1d9c4f2c3952599eef2e",
+      "bytes": 5194,
+      "map_id": "us-01-first-foothold-layout",
+      "mode": "tutorial",
+      "faction": "US",
+      "order": 1,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/tutorial-1-give-an-order.json"
+    },
+    {
+      "id": "tutorial-2-operate-a-base",
+      "version": "1",
+      "title": "Operate a Base",
+      "url": "/content/missions/tutorial-2-operate-a-base.json",
+      "sha256": "b23e5fb8c3c40a1c901417323461bece4b09faeaa9624d175b89e7d5a001032e",
+      "bytes": 6437,
+      "map_id": "us-04-broken-umbrella-layout",
+      "mode": "tutorial",
+      "faction": "US",
+      "order": 2,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/tutorial-2-operate-a-base.json"
+    },
+    {
+      "id": "tutorial-3-read-the-counter",
+      "version": "1",
+      "title": "Read the Counter",
+      "url": "/content/missions/tutorial-3-read-the-counter.json",
+      "sha256": "dcb09a5086200f6ae7f3b9ca380891dd6c2fdd567003be9b14b391b4f8cdb16a",
+      "bytes": 6851,
+      "map_id": "us-05-split-front-layout",
+      "mode": "tutorial",
+      "faction": "US",
+      "order": 3,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/tutorial-3-read-the-counter.json"
+    },
+    {
+      "id": "tutorial-4-defend-the-sky",
+      "version": "1",
+      "title": "Defend the Sky",
+      "url": "/content/missions/tutorial-4-defend-the-sky.json",
+      "sha256": "70bda4ee01daca3907008095ac90b50fbb24b6c0c834afeff4a057cf5ad6a507",
+      "bytes": 8766,
+      "map_id": "us-06-clear-horizon-layout",
+      "mode": "tutorial",
+      "faction": "US",
+      "order": 4,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/tutorial-4-defend-the-sky.json"
+    },
+    {
+      "id": "tutorial-5-command-a-match",
+      "version": "1",
+      "title": "Command a Match",
+      "url": "/content/missions/tutorial-5-command-a-match.json",
+      "sha256": "125acade299ea15511ea74d31a6a32be11e3d878c4b4c8e16851c0e4903eb6e2",
+      "bytes": 32994,
+      "map_id": "us-02-open-corridor-layout",
+      "mode": "tutorial",
+      "faction": "US",
+      "order": 5,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/tutorial-5-command-a-match.json"
+    },
+    {
+      "id": "us-01-first-foothold",
+      "version": "1",
+      "title": "First Foothold",
+      "url": "/content/missions/us-01-first-foothold.json",
+      "sha256": "d30e2d649eed0f97ffe38408bbfe56a7e8fc121e05cb027b7ce6c96af5aaab75",
+      "bytes": 8683,
+      "map_id": "us-01-first-foothold-layout",
+      "mode": "campaign",
+      "faction": "US",
+      "order": 1,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/us-01-first-foothold.json"
+    },
+    {
+      "id": "us-02-open-corridor",
+      "version": "1",
+      "title": "Open Corridor",
+      "url": "/content/missions/us-02-open-corridor.json",
+      "sha256": "f43b20bda662ec5a4fd7d92f6c796a736063ae243b44f11ba29620a5fc9feea3",
+      "bytes": 9090,
+      "map_id": "us-02-open-corridor-layout",
+      "mode": "campaign",
+      "faction": "US",
+      "order": 2,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/us-02-open-corridor.json"
+    },
+    {
+      "id": "us-03-relay-ridge",
+      "version": "1",
+      "title": "Relay Ridge",
+      "url": "/content/missions/us-03-relay-ridge.json",
+      "sha256": "0bc37dbfef27d46be9c4807ceaf3214a174844e4fbd00b9273afd5303d77504d",
+      "bytes": 9424,
+      "map_id": "us-03-relay-ridge-layout",
+      "mode": "campaign",
+      "faction": "US",
+      "order": 3,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/us-03-relay-ridge.json"
+    },
+    {
+      "id": "us-04-broken-umbrella",
+      "version": "1",
+      "title": "Broken Umbrella",
+      "url": "/content/missions/us-04-broken-umbrella.json",
+      "sha256": "148b3de09ba49e65c82a2a0154c3b5a08cc7b2bee20b36206cd80a2e1565280b",
+      "bytes": 11269,
+      "map_id": "us-04-broken-umbrella-layout",
+      "mode": "campaign",
+      "faction": "US",
+      "order": 4,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/us-04-broken-umbrella.json"
+    },
+    {
+      "id": "us-05-split-front",
+      "version": "1",
+      "title": "Split Front",
+      "url": "/content/missions/us-05-split-front.json",
+      "sha256": "3f77387393366560c0ca75e3c8c824dd575a429a7621f2009c537dc31367703a",
+      "bytes": 10292,
+      "map_id": "us-05-split-front-layout",
+      "mode": "campaign",
+      "faction": "US",
+      "order": 5,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/us-05-split-front.json"
+    },
+    {
+      "id": "us-06-clear-horizon",
+      "version": "1",
+      "title": "Clear Horizon",
+      "url": "/content/missions/us-06-clear-horizon.json",
+      "sha256": "c7738a1594a9cb884f16a34b7e1fdb7d6c9d453f372b3380f82087f600800eb5",
+      "bytes": 11198,
+      "map_id": "us-06-clear-horizon-layout",
+      "mode": "campaign",
+      "faction": "US",
+      "order": 6,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/us-06-clear-horizon.json"
+    },
+    {
+      "id": "ir-01-forward-signal",
+      "version": "1",
+      "title": "Forward Signal",
+      "url": "/content/missions/ir-01-forward-signal.json",
+      "sha256": "06d00d1c7f4b0fb2e9287be07decfcd42f6f4a0ca5e54ea0f8aabc69da384c03",
+      "bytes": 6952,
+      "map_id": "ir-01-forward-signal-layout",
+      "mode": "campaign",
+      "faction": "IR",
+      "order": 1,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/ir-01-forward-signal.json"
+    },
+    {
+      "id": "ir-02-eyes-above",
+      "version": "1",
+      "title": "Eyes Above",
+      "url": "/content/missions/ir-02-eyes-above.json",
+      "sha256": "8716047c7c8e61c55c650a938643af3502791e47e945f0f88a2969c2d3a0a65d",
+      "bytes": 9095,
+      "map_id": "ir-02-eyes-above-layout",
+      "mode": "campaign",
+      "faction": "IR",
+      "order": 2,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/ir-02-eyes-above.json"
+    },
+    {
+      "id": "ir-03-beyond-the-basin",
+      "version": "1",
+      "title": "Beyond the Basin",
+      "url": "/content/missions/ir-03-beyond-the-basin.json",
+      "sha256": "6a09a54bd371c7c5e9b8fcccc07c9110f213f4a822abb6172a46c2f4b106fd4d",
+      "bytes": 8779,
+      "map_id": "ir-03-beyond-the-basin-layout",
+      "mode": "campaign",
+      "faction": "IR",
+      "order": 3,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/ir-03-beyond-the-basin.json"
+    },
+    {
+      "id": "ir-04-hold-the-network",
+      "version": "1",
+      "title": "Hold the Network",
+      "url": "/content/missions/ir-04-hold-the-network.json",
+      "sha256": "c5d5b28274e9a3194ebb94deeb530832917bb4a21148fc92070a6343412bf3de",
+      "bytes": 11463,
+      "map_id": "ir-04-hold-the-network-layout",
+      "mode": "campaign",
+      "faction": "IR",
+      "order": 4,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/ir-04-hold-the-network.json"
+    },
+    {
+      "id": "ir-05-the-second-volley",
+      "version": "1",
+      "title": "The Second Volley",
+      "url": "/content/missions/ir-05-the-second-volley.json",
+      "sha256": "cdfc62d7315e753b31cb75785a1cd64685334d7b2ab9fc1f5f3379ac972b41f0",
+      "bytes": 10516,
+      "map_id": "ir-05-the-second-volley-layout",
+      "mode": "campaign",
+      "faction": "IR",
+      "order": 5,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/ir-05-the-second-volley.json"
+    },
+    {
+      "id": "ir-06-iron-signal",
+      "version": "1",
+      "title": "Iron Signal",
+      "url": "/content/missions/ir-06-iron-signal.json",
+      "sha256": "0cbf453dbf93d1ecee94a58749cf8aba1af1e8c2b853c0c1f4d42c9c917935bf",
+      "bytes": 10972,
+      "map_id": "ir-06-iron-signal-layout",
+      "mode": "campaign",
+      "faction": "IR",
+      "order": 6,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/ir-06-iron-signal.json"
+    },
+    {
+      "id": "sy-01-workshop-foothold",
+      "version": "1",
+      "title": "Workshop Foothold",
+      "url": "/content/missions/sy-01-workshop-foothold.json",
+      "sha256": "2e55068169ee4b872f003240140b38d4746d85cada4a4da9d9685a49747ecab5",
+      "bytes": 8343,
+      "map_id": "sy-01-workshop-foothold-layout",
+      "mode": "campaign",
+      "faction": "SY",
+      "order": 1,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sy-01-workshop-foothold.json"
+    },
+    {
+      "id": "sy-02-supply-trail",
+      "version": "1",
+      "title": "Supply Trail",
+      "url": "/content/missions/sy-02-supply-trail.json",
+      "sha256": "efce83a805d007384d8d3816d449433d4763051f8b35005a747959c5e5443ba8",
+      "bytes": 9233,
+      "map_id": "sy-02-supply-trail-layout",
+      "mode": "campaign",
+      "faction": "SY",
+      "order": 2,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sy-02-supply-trail.json"
+    },
+    {
+      "id": "sy-03-three-crossings",
+      "version": "1",
+      "title": "Three Crossings",
+      "url": "/content/missions/sy-03-three-crossings.json",
+      "sha256": "fc66fe40f86b8da35b75a5b1ba7c4b28d8bbcdf1db2d1b693c22a1943a03554c",
+      "bytes": 8853,
+      "map_id": "sy-03-three-crossings-layout",
+      "mode": "campaign",
+      "faction": "SY",
+      "order": 3,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sy-03-three-crossings.json"
+    },
+    {
+      "id": "sy-04-open-doors",
+      "version": "1",
+      "title": "Open Doors",
+      "url": "/content/missions/sy-04-open-doors.json",
+      "sha256": "bf1b9636f15f2682fd5a7071c97ceb362bae39904a43a89216ec32efcc4c6e8b",
+      "bytes": 10717,
+      "map_id": "sy-04-open-doors-layout",
+      "mode": "campaign",
+      "faction": "SY",
+      "order": 4,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sy-04-open-doors.json"
+    },
+    {
+      "id": "sy-05-relay-break",
+      "version": "1",
+      "title": "Relay Break",
+      "url": "/content/missions/sy-05-relay-break.json",
+      "sha256": "7222d9d6acdd59c26e8aa81374c2c970b3831b4f5cc0ee64fdaa2110c3b21f2f",
+      "bytes": 10124,
+      "map_id": "sy-05-relay-break-layout",
+      "mode": "campaign",
+      "faction": "SY",
+      "order": 5,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sy-05-relay-break.json"
+    },
+    {
+      "id": "sy-06-open-road",
+      "version": "1",
+      "title": "Open Road",
+      "url": "/content/missions/sy-06-open-road.json",
+      "sha256": "1909b29039b4166825fcfcab8c39ddbe0357036a0f605d02b57bd80e7dbff415",
+      "bytes": 10875,
+      "map_id": "sy-06-open-road-layout",
+      "mode": "campaign",
+      "faction": "SY",
+      "order": 6,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sy-06-open-road.json"
+    },
+    {
+      "id": "sa-01-arrival-point",
+      "version": "1",
+      "title": "Arrival Point",
+      "url": "/content/missions/sa-01-arrival-point.json",
+      "sha256": "c1b00695c05bc9803aa44941e530f98d03a4c94514332e2dc88580296df0043b",
+      "bytes": 6847,
+      "map_id": "sa-01-arrival-point-layout",
+      "mode": "campaign",
+      "faction": "SA",
+      "order": 1,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sa-01-arrival-point.json"
+    },
+    {
+      "id": "sa-02-moving-shield",
+      "version": "1",
+      "title": "Moving Shield",
+      "url": "/content/missions/sa-02-moving-shield.json",
+      "sha256": "6839a82869874f7435120575342766e9fcf47eb1240d1a17e680e97aa779b8a9",
+      "bytes": 9188,
+      "map_id": "sa-02-moving-shield-layout",
+      "mode": "campaign",
+      "faction": "SA",
+      "order": 2,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sa-02-moving-shield.json"
+    },
+    {
+      "id": "sa-03-distant-depots",
+      "version": "1",
+      "title": "Distant Depots",
+      "url": "/content/missions/sa-03-distant-depots.json",
+      "sha256": "a8dc6064b1d074f415fa183ce4caee25a26278d24dfa3934a36df36e68c773fd",
+      "bytes": 8642,
+      "map_id": "sa-03-distant-depots-layout",
+      "mode": "campaign",
+      "faction": "SA",
+      "order": 3,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sa-03-distant-depots.json"
+    },
+    {
+      "id": "sa-04-intercept-window",
+      "version": "1",
+      "title": "Intercept Window",
+      "url": "/content/missions/sa-04-intercept-window.json",
+      "sha256": "df597d748bf3e373ec9c0ba89f4910a56fff695efab53485f6c3d82a6ebb2898",
+      "bytes": 12105,
+      "map_id": "sa-04-intercept-window-layout",
+      "mode": "campaign",
+      "faction": "SA",
+      "order": 4,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sa-04-intercept-window.json"
+    },
+    {
+      "id": "sa-05-three-positions",
+      "version": "1",
+      "title": "Three Positions",
+      "url": "/content/missions/sa-05-three-positions.json",
+      "sha256": "86f8608db3b7a3525d3a2d393ef167bf8d3b4baafb18c762e36a22c8627014a0",
+      "bytes": 10224,
+      "map_id": "sa-05-three-positions-layout",
+      "mode": "campaign",
+      "faction": "SA",
+      "order": 5,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sa-05-three-positions.json"
+    },
+    {
+      "id": "sa-06-shieldline",
+      "version": "1",
+      "title": "Shieldline",
+      "url": "/content/missions/sa-06-shieldline.json",
+      "sha256": "44d8d331c3472920288a4b1286109ccc891954be10ec87e8602a5e8245ab7aa2",
+      "bytes": 10839,
+      "map_id": "sa-06-shieldline-layout",
+      "mode": "campaign",
+      "faction": "SA",
+      "order": 6,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/sa-06-shieldline.json"
+    },
+    {
+      "id": "convoy-union",
+      "version": "1",
+      "title": "Convoy Union",
+      "url": "/content/missions/convoy-union.json",
+      "sha256": "6bb72f652f3d4f92a3880dc3df660ccc35e3f62b8bd9469e1860c8f7f7757690",
+      "bytes": 13333,
+      "map_id": "convoy-union",
+      "mode": "coop",
+      "faction": "US",
+      "order": 1,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/convoy-union.json"
+    },
+    {
+      "id": "twin-outposts",
+      "version": "1",
+      "title": "Twin Outposts",
+      "url": "/content/missions/twin-outposts.json",
+      "sha256": "3820b7eb81c7f3b0c939025acd4bf664ce8bf8dad969f95a692982b9599c6bd3",
+      "bytes": 16305,
+      "map_id": "twin-outposts",
+      "mode": "coop",
+      "faction": "US",
+      "order": 2,
+      "required_packs": [
+        "2.0.0"
+      ],
+      "presentation_url": "/content/presentation/twin-outposts.json"
+    }
+  ]
+}

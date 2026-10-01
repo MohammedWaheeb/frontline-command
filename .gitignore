@@ -1,0 +1,23 @@
+# Dependencies and build outputs (regenerable via npm install / build scripts)
+node_modules/
+dist/
+client/dist/
+client/.test-runtime/
+client/public/runtime/
+client/public/service-worker.js*
+
+# Generated asset packs (rebuilt by the client art plugin at dev/build time)
+assets/packs/
+
+# Local-only state
+.local/
+bin/
+*.db
+*.db-shm
+*.db-wal
+.DS_Store
+
+# Local evidence, agent worktrees and scratch (never part of the shippable tree)
+work/
+Users/
+wasm.test

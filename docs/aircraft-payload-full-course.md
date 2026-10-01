@@ -1,0 +1,13 @@
+# Full-art fighter and strike lifecycle
+
+The corrected component course passes all 80 rendered boundaries in Firefox and WebKit with zero page, console, HTTP or request failures. Chromium reaches all the same functional assertions but **fails its strict diagnostic gate** on two raw `net::ERR_ABORTED` damaged-smoke PNG requests. They are preserved without classification or suppression. The separate native-fetch reproduction does not automatically explain these individual requests.
+
+Each engine verifies two real aircraft types, both art qualities and owner/actually-visible foreign views through the last round, Return, partial service, power loss, home sale, emergency departure, backup service and atomic refill. Four complete replay courses, four real offscreen cull/return checks and four deferred real-PNG privacy/variant checks also complete. Native/WASM state, full protobuf output and save bytes agree under the actual Session delivery contract. Atlas/picking/canvas counts and game-worker counts return to zero; 264 frozen inputs are reverified afterward.
+
+The first two Chromium attempts remain failed. Their raw Engine oracle expected a shot event after Session load, although the Session adapter deliberately starts with empty pending feedback. The corrected separate native oracle compares exact adapter output, without filtering fields. Actual final-shot presentation is tested through replay seek to the preceding tick, perspective selection and ordinary Step(1), before any subsequent view can drain that event. All 84 native adapter records passed.
+
+Root inspected native captured owner/foreign views. Ammo, Return and disabled-service labels agree with native facts, and foreign views omit private aircraft text. Fighter silhouettes and loaded/empty variants are distinct. The small strike's underside payload remains partially occluded at normal view angles; pixel differences alone do not establish strong payload readability.
+
+This course uses the immutable v19/c7 runtime and private full 896-pose fighter / 832-pose strike overlay. It prepares infrastructure and one remaining round, then uses ordinary Go orders. It is not a paid opening, current-v24 App journey, live multiplayer-flight test, final-roster approval or performance result.
+
+Reproduction, original failures, exact hashes and all 240 new rendered records are indexed in [the course handoff](../work/evidence/aircraft-payload-full/README.md) and [compact receipts](../work/evidence/aircraft-payload-full/three-engine-receipts.json). Screenshots and complete reports remain in the three named engine directories. No deployment or shipping-art mutation occurred.

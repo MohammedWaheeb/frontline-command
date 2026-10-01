@@ -1,0 +1,58 @@
+import test,{after} from 'node:test';
+import os from 'node:os';
+import assert from 'node:assert/strict';
+import {mkdir,mkdtemp,writeFile,readFile,cp,rm,symlink} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {build} from '../client/node_modules/vite/dist/node/index.js';
+import {artPlugin} from '../client/scripts/ui/art-plugin.mjs';
+import {captureClientInputs,capturePresentationInputs,requireSameInputs,verifyPresentationProduct,verifyHostContent} from './package-presentation-inputs.mjs';
+const here=path.dirname(fileURLToPath(import.meta.url));
+const sourceRoot=path.resolve(here,'..'),run=await mkdtemp(path.join(os.tmpdir(),'frontline-package-inputs-')),base=path.join(run,'baseline');
+after(()=>rm(run,{recursive:true,force:true}));
+for(const rel of ['scripts/local.mjs','scripts/package-integrity.mjs','scripts/package-presentation-inputs.mjs','client/vite.config.ts','client/scripts/ui/art-plugin.mjs','client/scripts/ui/effect-pack.mjs','client/src/content/effect-assets.mjs']){await mkdir(path.dirname(path.join(base,rel)),{recursive:true});await cp(path.join(sourceRoot,rel),path.join(base,rel))}
+async function put(root,rel,bytes){const dest=path.join(root,rel);await mkdir(path.dirname(dest),{recursive:true});await writeFile(dest,bytes)}
+const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5l8AAAAASUVORK5CYII=','base64');
+await put(base,'client/index.html','<html><head><link rel="stylesheet" href="/src/test.css"></head><body>packaging fixture<script type="module" src="/src/test.js"></script></body></html>');
+await put(base,'client/src/test.js','document.body.dataset.ready="yes";');
+await put(base,'client/src/test.css','@font-face{font-family:test;src:url(../../assets/fonts/test.woff2)}body{background:url(../../assets/build/ui/chrome/panel.png);font-family:test}');
+await put(base,'assets/fonts/test.woff2','opaque fixture font bytes');
+await put(base,'assets/build/ui/chrome/panel.png',png);
+await put(base,'assets/build/terrain/soil.png',png);
+await put(base,'assets/audio/README.md','# Fixture audio notices\n');
+await put(base,'assets/audio/licenses/fixture.txt','Fixture notice\n');
+await put(base,'assets/manifest/asset-manifest.json',JSON.stringify({entries:[]}));
+await put(base,'client/src/runtime/worker.ts','// authored worker fixture');
+await put(base,'client/src/runtime/node_modules/local-runtime/index.js','export const marker = 1;');
+await put(base,'client/src/protocol/frontline_pb.ts','// generated fixture');
+for(const rel of ['runtime/frontline.wasm','runtime/worker.js','runtime/wasm_exec.js','runtime/version.json','service-worker.js'])await put(base,'client/public/'+rel,rel.endsWith('.json')?'{}':'fixture');
+await put(base,'content/index.json',JSON.stringify({format_version:1,maps:[],missions:[],packs:[{id:'2.0.0',version:'fixture',manifest_url:'/assets/packs/base.json'}]}));
+await put(base,'client/package.json','{"type":"module"}');
+await build({root:path.join(base,'client'),configFile:false,logLevel:'silent',plugins:[artPlugin({assets:path.join(base,'assets')})],build:{outDir:path.join(base,'product'),assetsInlineLimit:0,manifest:'build-assets.json'}});
+const manifest=JSON.parse(await readFile(path.join(base,'product/build-assets.json'),'utf8'));
+await writeFile(path.join(run,'actual-vite-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+let n=0;
+async function fixture(){const root=path.join(run,'case-'+String(++n).padStart(2,'0'));await cp(base,root,{recursive:true});return {root,product:path.join(root,'product'),before:await capturePresentationInputs(root)}}
+test('actual Vite build: separate CSS font/chrome assets map to the exact originals',async()=>{
+ const f=await fixture(),result=await verifyPresentationProduct(f.root,f.product,f.before);assert.equal(result.viteAssets,2);assert.ok(result.sourceFiles>15);assert.ok(result.copiedFiles>10);
+ await writeFile(path.join(run,'actual-vite-receipt.json'),JSON.stringify(result,null,2)+'\n');
+});
+test('non-generated worker source drift during runtime build is rejected',async()=>{const f=await fixture(),before=await captureClientInputs(f.root,{includeGenerated:false});await put(f.root,'client/src/runtime/worker.ts','changed');const awaited=await captureClientInputs(f.root,{includeGenerated:false});assert.throws(()=>requireSameInputs(before,awaited,'runtime'),/inputs changed/)});
+test('generated runtime and protocol outputs may change during runtime build',async()=>{const f=await fixture(),before=await captureClientInputs(f.root,{includeGenerated:false});await put(f.root,'client/public/runtime/worker.js','regenerated');await put(f.root,'client/src/protocol/frontline_pb.ts','regenerated');requireSameInputs(before,await captureClientInputs(f.root,{includeGenerated:false}),'runtime')});
+test('nested source dependency bytes are guarded',async()=>{const f=await fixture();await put(f.root,'client/src/runtime/node_modules/local-runtime/index.js','changed');await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/inputs changed/)});
+test('presentation capture cannot adopt a newer worker than the runtime build baseline',async()=>{const f=await fixture(),before=await captureClientInputs(f.root,{includeGenerated:false});requireSameInputs(before,await captureClientInputs(f.root,{includeGenerated:false}),'runtime');await put(f.root,'client/src/runtime/worker.ts','new worker after runtime verification');const next=await capturePresentationInputs(f.root);assert.throws(()=>requireSameInputs(before,{sha256:next.authoredClientSHA256},'presentation capture'),/inputs changed/)});
+for(const extension of ['.woff2','.png'])test('hashed CSS '+extension+' output corruption fails even with exact plugin copy',async()=>{const f=await fixture(),item=Object.values(manifest).find(x=>x.file.endsWith(extension));assert.ok(item);await put(f.product,item.file,'corrupt');await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/differs from captured source/)});
+test('post-capture addition of a selected art file is rejected',async()=>{const f=await fixture();await put(f.root,'assets/build/terrain/new.png',png);await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/inputs changed/)});
+test('post-capture art removal is rejected',async()=>{const f=await fixture();await rm(path.join(f.root,'assets/build/terrain/soil.png'));await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/inputs changed/)});
+test('new audio license notice is rejected',async()=>{const f=await fixture();await put(f.root,'assets/audio/licenses/new.md','new');await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/inputs changed/)});
+test('input-only effect approval manifest drift is rejected',async()=>{const f=await fixture();await put(f.root,'assets/manifest/asset-manifest.json','{"entries":[],"changed":true}');await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/inputs changed/)});
+for(const rel of ['art/ui/chrome/panel.png','content/index.json','build-assets.json','index.html'])test('public collision with '+rel+' is rejected',async()=>{const f=await fixture();await put(f.root,'client/public/'+rel,'collision');await assert.rejects(capturePresentationInputs(f.root),/collision/)});
+test('dynamic Vite output cannot collide with a public copy even with identical bytes',async()=>{const f=await fixture(),item=Object.values(manifest).find(x=>x.file.endsWith('.woff2'));await put(f.root,'client/public/'+item.file,await readFile(path.join(f.product,item.file)));const expected=await capturePresentationInputs(f.root);await assert.rejects(verifyPresentationProduct(f.root,f.product,expected),/Vite\/copied.*collision/)});
+for(const rel of ['index.html','assets/packs/base.json','build-assets.json'])test('dynamic entry cannot overwrite reserved '+rel,async()=>{const f=await fixture(),mutated=structuredClone(manifest);mutated['injected.ts']={file:rel,isDynamicEntry:true};await put(f.product,'build-assets.json',JSON.stringify(mutated));await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/Vite\/copied.*collision/)});
+test('only generated pack version may alter the authored content index',async()=>{const f=await fixture(),rel='content/index.json',index=JSON.parse(await readFile(path.join(f.product,rel),'utf8'));index.maps.push({id:'unapproved'});await put(f.product,rel,JSON.stringify(index));await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/Authored content-index/)});
+test('generated pack version must match the actual base pack',async()=>{const f=await fixture(),rel='content/index.json',index=JSON.parse(await readFile(path.join(f.product,rel),'utf8'));index.packs[0].version='wrong';await put(f.product,rel,JSON.stringify(index));await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/identity mismatch/)});
+test('source symlink escape is rejected',async()=>{const f=await fixture();await symlink(path.join(base,'client/src/test.js'),path.join(f.root,'client/src/escape.js'));await assert.rejects(captureClientInputs(f.root),/escapes source root/)});
+test('source directory cycle is rejected',async()=>{const f=await fixture();await symlink('.',path.join(f.root,'client/src/cycle'));await assert.rejects(captureClientInputs(f.root),/cycle/)});
+test('native host keeps authored content exact while browser gets generated pack identity',async()=>{const f=await fixture();assert.equal(await verifyHostContent(f.root,f.before),1);await assert.rejects(verifyHostContent(f.product,f.before),/host content changed/)});
+for(const rel of ['art/audio/notices/transient.txt','assets/fonts/transient.woff2','content/maps/transient.json','transient-public.txt'])test('transient copied extra '+rel+' cannot survive source recapture',async()=>{const f=await fixture();await put(f.product,rel,'transient');await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/Unexpected packaged presentation file/)});
+test('native content rejects transient added JSON absent from authored path set',async()=>{const f=await fixture();await put(f.root,'content/missions/transient.json','{}');await assert.rejects(verifyHostContent(f.root,f.before),/path set changed/)});

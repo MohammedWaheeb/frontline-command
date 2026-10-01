@@ -1,0 +1,170 @@
+{
+  "id": "unit.US.airlift",
+  "role_id": "US.airlift",
+  "model": "aircraft_roster",
+  "faction": "US",
+  "author": "Codex",
+  "provenance": {
+    "kind": "project-original-procedural-model",
+    "author": "Codex",
+    "authorization": "User-approved Claude quota takeover; assignment 09 continuation",
+    "shared_library": "Claude Code claude-opus-5-5 authored fclib.py",
+    "source_model": "assets/pipeline/blender/models/aircraft_roster.py",
+    "license": "Project-original work created for Frontline Command in this repository; all rights held by the project owner."
+  },
+  "params": {
+    "kind": "US.airlift"
+  },
+  "canvas": [
+    448,
+    352
+  ],
+  "anchor": [
+    224,
+    232
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 600,
+  "states": [
+    {
+      "name": "hover",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 24,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "move",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 24,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "parked",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 6,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "takeoff",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "landing",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "damaged",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 24,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "crash",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    },
+    {
+      "name": "hover_low_board",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 24,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ]
+    },
+    {
+      "name": "rearm",
+      "part": "body",
+      "directions": 16,
+      "frames": 6,
+      "fps": 8,
+      "loop": true,
+      "layers": [
+        "beauty",
+        "team",
+        "shadow"
+      ],
+      "channel": true
+    }
+  ],
+  "air": {
+    "cruise_altitude_mt": 1400,
+    "shadow_from_ground_anchor": true,
+    "rendered_at_ground": true
+  },
+  "aliases": [
+    {
+      "name": "doors_open",
+      "source": "hover_low_board"
+    },
+    {
+      "name": "work_unload",
+      "source": "hover_low_board"
+    },
+    {
+      "name": "work_load",
+      "source": "hover_low_board"
+    }
+  ]
+}

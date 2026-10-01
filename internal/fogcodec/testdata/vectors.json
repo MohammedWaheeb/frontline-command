@@ -1,0 +1,95 @@
+{
+  "format": "row-major-lsb0",
+  "qualification": "Controlled public-mask values for cross-language codec controls; not earned simulation/native visibility.",
+  "vectors": [
+    {
+      "name": "one-tile",
+      "tiles": 1,
+      "trueIndices": [
+        0
+      ],
+      "packedHex": "01"
+    },
+    {
+      "name": "seven-tail",
+      "tiles": 7,
+      "trueIndices": [
+        0,
+        6
+      ],
+      "packedHex": "41"
+    },
+    {
+      "name": "byte-boundary",
+      "tiles": 8,
+      "trueIndices": [
+        0,
+        7
+      ],
+      "packedHex": "81"
+    },
+    {
+      "name": "nine-tail",
+      "tiles": 9,
+      "trueIndices": [
+        0,
+        7,
+        8
+      ],
+      "packedHex": "8101"
+    },
+    {
+      "name": "fifteen-tail",
+      "tiles": 15,
+      "trueIndices": [
+        1,
+        8,
+        14
+      ],
+      "packedHex": "0241"
+    },
+    {
+      "name": "sixteen-row",
+      "tiles": 16,
+      "trueIndices": [
+        0,
+        7,
+        8,
+        15
+      ],
+      "packedHex": "8181"
+    },
+    {
+      "name": "seventeen-tail",
+      "tiles": 17,
+      "trueIndices": [
+        0,
+        8,
+        16
+      ],
+      "packedHex": "010101"
+    },
+    {
+      "name": "legal-32x33-row-major",
+      "tiles": 1056,
+      "trueIndices": [
+        0,
+        31,
+        32,
+        1055
+      ],
+      "packedHex": "010000800100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080"
+    },
+    {
+      "name": "legal-33x33-padding",
+      "tiles": 1089,
+      "trueIndices": [
+        0,
+        32,
+        33,
+        1088
+      ],
+      "packedHex": "0100000003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001"
+    }
+  ]
+}
