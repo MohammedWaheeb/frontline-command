@@ -1,0 +1,354 @@
+{
+  "US": {
+    "title": "Clear Horizon",
+    "bpm": 112,
+    "root": 38,
+    "progression": [
+      0,
+      0,
+      5,
+      3,
+      0,
+      7,
+      5,
+      0
+    ],
+    "motif": [
+      [
+        0,
+        12,
+        1
+      ],
+      [
+        1.5,
+        19,
+        0.5
+      ],
+      [
+        3,
+        15,
+        1
+      ],
+      [
+        5,
+        17,
+        0.5
+      ],
+      [
+        6,
+        15,
+        1
+      ],
+      [
+        8,
+        12,
+        1.5
+      ],
+      [
+        10,
+        10,
+        0.5
+      ],
+      [
+        11,
+        12,
+        1
+      ],
+      [
+        13,
+        7,
+        1
+      ],
+      [
+        14.5,
+        10,
+        0.5
+      ]
+    ]
+  },
+  "IR": {
+    "title": "Signal Under Steel",
+    "bpm": 104,
+    "root": 40,
+    "progression": [
+      0,
+      3,
+      0,
+      7,
+      5,
+      3,
+      7,
+      0
+    ],
+    "motif": [
+      [
+        0,
+        12,
+        0.5
+      ],
+      [
+        1,
+        12,
+        0.5
+      ],
+      [
+        2.5,
+        15,
+        1
+      ],
+      [
+        4,
+        19,
+        1
+      ],
+      [
+        6,
+        17,
+        1
+      ],
+      [
+        8,
+        15,
+        0.5
+      ],
+      [
+        9.5,
+        14,
+        0.5
+      ],
+      [
+        11,
+        12,
+        1
+      ],
+      [
+        13,
+        10,
+        1
+      ],
+      [
+        15,
+        7,
+        0.5
+      ]
+    ]
+  },
+  "SY": {
+    "title": "Roads We Hold",
+    "bpm": 120,
+    "root": 45,
+    "progression": [
+      0,
+      7,
+      3,
+      5,
+      0,
+      3,
+      10,
+      7
+    ],
+    "motif": [
+      [
+        0,
+        12,
+        0.75
+      ],
+      [
+        1,
+        15,
+        0.5
+      ],
+      [
+        2,
+        19,
+        1
+      ],
+      [
+        4,
+        17,
+        0.5
+      ],
+      [
+        5.5,
+        15,
+        0.5
+      ],
+      [
+        7,
+        12,
+        1
+      ],
+      [
+        9,
+        10,
+        0.5
+      ],
+      [
+        10,
+        12,
+        1
+      ],
+      [
+        12,
+        7,
+        0.5
+      ],
+      [
+        13.5,
+        10,
+        1
+      ],
+      [
+        15,
+        12,
+        0.5
+      ]
+    ]
+  },
+  "SA": {
+    "title": "Brass Meridian",
+    "bpm": 108,
+    "root": 36,
+    "progression": [
+      0,
+      5,
+      0,
+      3,
+      7,
+      5,
+      3,
+      0
+    ],
+    "motif": [
+      [
+        0,
+        12,
+        1.5
+      ],
+      [
+        2,
+        7,
+        0.5
+      ],
+      [
+        3,
+        10,
+        1
+      ],
+      [
+        5,
+        12,
+        1
+      ],
+      [
+        7,
+        15,
+        1
+      ],
+      [
+        9,
+        14,
+        0.5
+      ],
+      [
+        10,
+        12,
+        1
+      ],
+      [
+        12,
+        10,
+        1
+      ],
+      [
+        14,
+        7,
+        1
+      ]
+    ]
+  },
+  "menu": {
+    "title": "Frontline Command",
+    "bpm": 100,
+    "root": 38,
+    "progression": [
+      0,
+      5,
+      3,
+      7,
+      0,
+      10,
+      5,
+      7
+    ],
+    "motif": [
+      [
+        0,
+        12,
+        1
+      ],
+      [
+        2,
+        15,
+        1
+      ],
+      [
+        4,
+        19,
+        1.5
+      ],
+      [
+        6,
+        17,
+        0.5
+      ],
+      [
+        7,
+        15,
+        1
+      ],
+      [
+        9,
+        12,
+        1.5
+      ],
+      [
+        11,
+        10,
+        0.5
+      ],
+      [
+        12,
+        7,
+        1
+      ],
+      [
+        14,
+        12,
+        1.5
+      ]
+    ]
+  },
+  "dynamics": {
+    "music_ids": {
+      "battle_layers": {
+        "US": {"ids": ["music.battle_US_calm", "music.battle_US_tension", "music.battle_US_combat"], "bpm": 112, "beats_per_bar": 4, "duration": 68.571, "loop": true},
+        "IR": {"ids": ["music.battle_IR_calm", "music.battle_IR_tension", "music.battle_IR_combat"], "bpm": 104, "beats_per_bar": 4, "duration": 73.846, "loop": true},
+        "SY": {"ids": ["music.battle_SY_calm", "music.battle_SY_tension", "music.battle_SY_combat"], "bpm": 120, "beats_per_bar": 4, "duration": 64.0, "loop": true},
+        "SA": {"ids": ["music.battle_SA_calm", "music.battle_SA_tension", "music.battle_SA_combat"], "bpm": 108, "beats_per_bar": 4, "duration": 71.111, "loop": true}
+      },
+      "beds": ["music.menu_theme", "music.briefing_bed", "music.debrief_bed", "music.editor_ambient", "music.lobby_loop", "music.credits"],
+      "stingers": ["music.stinger_victory", "music.stinger_defeat", "music.stinger_objective", "music.stinger_mission_start", "music.stinger_strategic_warning"]
+    },
+    "transitions": {
+      "combat_entry_window_ms": 3000,
+      "combat_entry_hits": 2,
+      "combat_entry_immediate_on_own_damage": true,
+      "combat_hold_ms": 8000,
+      "tension_hold_ms": 15000,
+      "combat_exit_tension_ms": 15000,
+      "stinger_global_ms": 5000,
+      "stinger_repeat_ms": 15000
+    }
+  }
+}
