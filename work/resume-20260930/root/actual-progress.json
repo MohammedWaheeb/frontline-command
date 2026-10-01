@@ -143,9 +143,56 @@
     },
     "f14Feature03": "FAIL redundantEscape opensPause; earnedPulse25Energy/priority/cooldown; expiredzoneunobservedwhilepaused4218<4277;Chrome97420clean",
     "f14Feature04": "FAIL groundGuard clicksHQtarget1; earnedPulse25Energy/priority/cooldown/natural6sexpiry and2paidRecon;Observe/barricade/Shahednotreached;Chrome98440clean280404ms",
-    "prerequisiteWrapRoot": "causebackedCSS integratedrootonly; expanded194/180overflow; qualificationpendingnextpackage; frozenF14unchanged"
+    "prerequisiteWrapRoot": "causebackedCSS integratedrootonly; expanded194/180overflow; qualificationpendingnextpackage; frozenF14unchanged",
+    "campaignCorrected65": {
+      "passed": 43,
+      "failed": 22,
+      "unrun": 0,
+      "previousPassingControls": 22,
+      "controlsPassed": 22,
+      "originalFailuresFixed": 21,
+      "sourcePinDrift": false,
+      "binaryPinDrift": false,
+      "seconds": 1259.437,
+      "receipt": "work/resume-20260930/root/campaign-test-successor-01/execution-02/runs/20261001T002801Z-all-subset/run.json",
+      "receiptSHA256": "39735cfa7fc5772855fe28546c4f6fbd97e3eafda0d97c23b75b45a560e1a633"
+    },
+    "productionAIStandard": {
+      "passed": true,
+      "test": "TestAICompleteStandardMatches/US_IR",
+      "seconds": 0.84,
+      "scope": "hardAI normalNew syntheticfixture, original108101bound, no manualorders; no canonical rendered claim",
+      "receipt": "work/resume-20260930/root/production-ai-standard-01/actual-result.json"
+    },
+    "rootNavCandidate300": {
+      "passed": true,
+      "simulation": "0.3.6",
+      "advances": 300,
+      "frames": 301,
+      "inputs": 0,
+      "naturalRecoveryTick": 17062,
+      "firstMovementTick": 17073,
+      "coldRestoreTick": 17000,
+      "sourcePinDrift": false,
+      "promoted": false,
+      "receipt": "work/resume-20260930/release/rootnav/recovery-candidate-only-v1/execution-01/result.json"
+    },
+    "campaignSuccessor02": {
+      "packets": 8,
+      "sourceFiles": 503,
+      "productionChanges": 0,
+      "scopedFailedLeaves": 18,
+      "remainingSourceGaps": [
+        "SY05EasyOptionalFactoryCapture",
+        "IR06NormalObserverNetwork",
+        "IR06HardObserverNetwork",
+        "US03NormalOptionalRelayScout"
+      ],
+      "runtime": "UNRUN"
+    },
+    "navCurrentPromotion": "source-only minimalpacket/038freshqualification pending; deterministicchange requires simversionbump, no schema/protocol change; frozenF14still037"
   },
-  "goLoadLane": "ACTIVE correctedcampaign65 release/campaign session66125 wrapperPID630; onecompile thenserialcases",
-  "browserLane": "HELD sourceonly Guardfixturecorrection/checkpointreuse; Archives+seekready",
+  "goLoadLane": "CLOSED65,AIUS_IR,rootnav300; allheld duringFeature05",
+  "browserLane": "ACTIVE Feature05 session73640 Chrome3694 exactF14/8086; durableManualSaveExportLoad before correctedGuard",
   "releaseComplete": false
 }
