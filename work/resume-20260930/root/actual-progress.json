@@ -116,7 +116,20 @@
       "caseElapsedSeconds": 2396.336,
       "receipt": "work/resume-20260930/release/campaign/actual-core25-bind02/execution/runs/20260930T230720Z-all/run.json"
     },
-    "campaignTestSuccessor": "isolated503source, test-only changes; nativecompile session13069 actualexit0, correctedcoursesunrun",
+    "campaignTestSuccessor": {
+      "sourceFiles": 503,
+      "productionChanges": 0,
+      "changedTestPaths": 5,
+      "selectedCases": 65,
+      "originalFailedCases": 43,
+      "affectedPassingControls": 22,
+      "manifest": "work/resume-20260930/root/campaign-test-successor-01/input-manifest-02.json",
+      "manifestSHA256": "a9984f0a84423f86d77d86bc8880e7497a78daafe80629810e3cef2bbaf2adf0",
+      "status": "RUNNING",
+      "session": 66125,
+      "wrapperPID": 630,
+      "run": "work/resume-20260930/root/campaign-test-successor-01/execution-02/runs/20261001T002801Z-all-subset/run.json"
+    },
     "f14Feature02": "Radarfull5purchase/completionPASS; courseFAIL fixtureexpectsmaxEnergybeforeearned; expandedrightcolumn194scrollwidth/180clientwidth becomes180/180 afterordinaryclose; Chrome96526clean",
     "f14AbilityParityExtension": {
       "nativeOperations": 252,
@@ -124,10 +137,15 @@
       "passed": true,
       "newUniqueSemanticSaveStates": 3,
       "combinedUniqueSaveStates": 20,
-      "scope": "actuallegalpaidRadar,ObserveunsupportedGuardqueue,Shahedcommit; finalreceiptpendinglightreadback"
-    }
+      "scope": "PASS actuallegalpaidRadar,ObserveunsupportedGuardqueue,Shahedcommit;3newsemanticSavehashes+17original=20 credited states",
+      "operationsCombined": 463,
+      "receipt": "work/resume-20260930/systems/schema/parity037/abilities-successor-01/actual-result.json"
+    },
+    "f14Feature03": "FAIL redundantEscape opensPause; earnedPulse25Energy/priority/cooldown; expiredzoneunobservedwhilepaused4218<4277;Chrome97420clean",
+    "f14Feature04": "FAIL groundGuard clicksHQtarget1; earnedPulse25Energy/priority/cooldown/natural6sexpiry and2paidRecon;Observe/barricade/Shahednotreached;Chrome98440clean280404ms",
+    "prerequisiteWrapRoot": "causebackedCSS integratedrootonly; expanded194/180overflow; qualificationpendingnextpackage; frozenF14unchanged"
   },
-  "goLoadLane": "campaign150, rootcorrectedtestcompile andsemanticparity allclosed; heldduringbrowser",
-  "browserLane": "Feature03 exactF14/granted aftersemanticparityclose; nativeEnergymaxwaitwithinoriginal720 bound",
+  "goLoadLane": "ACTIVE correctedcampaign65 release/campaign session66125 wrapperPID630; onecompile thenserialcases",
+  "browserLane": "HELD sourceonly Guardfixturecorrection/checkpointreuse; Archives+seekready",
   "releaseComplete": false
 }
