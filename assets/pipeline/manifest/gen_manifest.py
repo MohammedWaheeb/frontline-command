@@ -12,6 +12,7 @@ pipeline spec exists and its packed sprite sidecar exists on disk.
 Usage: work/art/.venv/bin/python assets/pipeline/manifest/gen_manifest.py
 Outputs: assets/manifest/asset-manifest.json, assets/manifest/summary.md
 """
+import ast
 import json
 import hashlib
 import os
@@ -88,7 +89,7 @@ def parse_named(md, heading, col=0):
 INFANTRY = {'rifle', 'at', 'recon', 'elite', 'engineer', 'medic', 'portable_aa'}
 FIXED_WING = {'US.fighter', 'US.strike', 'SA.fighter', 'SA.strike'}
 ROTOR = {'US.gunship', 'SA.gunship', 'US.airlift'}
-DRONE = {'IR.fighter', 'IR.strike', 'IR.gunship', 'IR.isr', 'SY.scout_drone'}
+DRONE = {'IR.fighter', 'IR.strike', 'IR.gunship', 'IR.isr', 'SY.scout_drone', 'IR.shahed'}
 TURRETED = {'tank', 'car', 'aa', 'apc', 'buggy'}
 TURRETED_ARTILLERY = {'US.artillery', 'SA.artillery'}
 
@@ -146,8 +147,11 @@ def unit_states(u):
         st = [S('idle', 16, 1, part=hull), S('move', 16, 4, 12, part=hull), S('damaged', 16, 1, part=hull),
               S('wreck', 16, 1, loop=False, part='whole', layers=NOTEAM)]
         if hull == 'hull':
-            st += [S('aim', 32, 1, part='turret', layers=('beauty', 'team')),
-                   S('fire', 32, 3, 15, False, part='turret', layers=('beauty', 'team'))]
+            # New approved roster turrets carry their rotating ground shadow.
+            # Preserve the two legacy sample contracts until their own audit.
+            turret_layers = ('beauty', 'team') if rid in ('US.tank', 'SY.car') else ('beauty', 'team', 'shadow')
+            st += [S('aim', 32, 1, part='turret', layers=turret_layers),
+                   S('fire', 32, 3, 15, False, part='turret', layers=turret_layers)]
         elif u['weapon'] not in ('Unarmed',):
             st += [S('fire', 16, 4, 12, False)]
         if r == 'rig':
@@ -165,15 +169,16 @@ def unit_states(u):
                    S('launch', 16, 4, 12, False)]
             if rid == 'IR.launcher':
                 st += [S('ready_two_charges', 16, 1), S('volley', 16, 6, 12, False)]
+            st += [S('ready_empty', 16, 1)]
         if r == 'artillery':
             if rid == 'IR.artillery':
                 st += [S('deploy', 16, 6, 0, False, progress_driven=True), S('volley', 16, 8, 10, False)]
             if rid == 'SY.artillery':
                 st += [S('mortar_fire', 16, 4, 10, False)]
         if r == 'apc':
-            st += [S('doors_open', 16, 4, 10, False, note='board/unload')]
+            st += [S('doors_open', 16, 4, 10, False, part=hull, note='board/unload')]
         if rid == 'SA.tank':
-            st += [S('hulldown', 16, 6, 0, False, progress_driven=True), S('hulldown_idle', 16, 1)]
+            st += [S('hulldown', 16, 6, 0, False, part=hull, progress_driven=True), S('hulldown_idle', 16, 1, part=hull)]
         if rid == 'SA.mobile_abm':
             st = [S('idle', 16, 1), S('move', 16, 4, 12), S('deploy', 16, 8, 0, False, progress_driven=True),
                   S('deployed', 16, 6, 6), S('launch', 16, 4, 12, False), S('damaged', 16, 1),
@@ -248,7 +253,11 @@ def building_states(bname, faction):
                S('fire', 32, 3, 15, False, part='turret')]
     if bname == 'Interceptor battery':
         st += [S('charges_0', 1, 1, part=B), S('charges_1', 1, 1, part=B), S('charges_2', 1, 1, part=B),
-               S('launch', 1, 4, 12, False, part=B)]
+               S('launch', 1, 4, 12, False, part=B),
+               S('launch_empty', 1, 4, 12, False, part=B)]
+        for structural in ('lowpower', 'disabled', 'damaged', 'critical'):
+            for charges in (0, 1):
+                st.append(S(f'{structural}_charges_{charges}', 1, 1, part=B))
     if bname == 'Strategic operations site':
         st += [S('charging', 1, 8, 0, False, part=B, progress_driven=True), S('ready', 1, 6, 6, part=B),
                S('activate', 1, 8, 10, False, part=B)]
@@ -323,6 +332,18 @@ def apply_audio_production(entries):
     by_id = {}
     for job in jobs:
         by_id.setdefault(job['id'], []).append(job)
+    # Variant counts straight from the synthesis source without importing it
+    # (synthesis needs scipy, which the art venv lacks). Keys are 'sfx.<name>'.
+    sfx_variant_counts = {}
+    try:
+        tree = ast.parse(open(os.path.join(REPO, 'assets', 'pipeline', 'audio', 'synthesis.py'),
+                              encoding='utf-8').read())
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Assign) and any(getattr(t, 'id', '') == 'SFX_VARIANTS'
+                                                    for t in node.targets):
+                sfx_variant_counts = {f'sfx.{k}': v for k, v in ast.literal_eval(node.value).items()}
+    except (OSError, ValueError, SyntaxError):
+        sfx_variant_counts = {}
     try:
         with open(os.path.join(REPO, 'assets/build/audio/index.json')) as source:
             index = json.load(source)['entries']
@@ -366,7 +387,12 @@ def apply_audio_production(entries):
         for id in ids:
             variants=index.get(id,{}).get('variants',[])
             expected=by_id.get(id)
-            wanted=len(expected) if expected else (3 if id.startswith('sfx.weapon.') else 1)
+            if expected:
+                wanted=len(expected)
+            elif id.startswith('sfx.weapon.'):
+                wanted=3
+            else:
+                wanted=sfx_variant_counts.get(id, 1)
             complete &= len(variants)==wanted and all(valid_variant(v) for v in variants)
             if expected:
                 complete &= sorted(v.get('caption','') for v in variants)==sorted(j['caption'] for j in expected)
@@ -385,6 +411,11 @@ def build_manifest():
     md = read_design()
     units = parse_units(md)
     assert len(units) == 75, f'expected 75 units, parsed {len(units)}'
+    # Approved roster addition outside the design catalog: Go rules ship
+    # IR.shahed (role shahed, weapon IR_SHAHED); art spec unit.IR.shahed.json.
+    units.append({'role_id': 'IR.shahed', 'faction': 'IR', 'role': 'shahed',
+                  'name': 'Shahed attack drone', 'armor': 'air', 'weapon': 'IR_SHAHED',
+                  'producer': 'drone_hub', 'tier': 2})
     buildings = parse_buildings(md)
     assert len(buildings) == 19, f'expected 19 building types, parsed {len(buildings)}'
     weapons = parse_weapons(md)
@@ -464,6 +495,7 @@ def build_manifest():
                            output=f'assets/build/sprites/{aid}/',
                            spec={'footprint_tiles': list(FOOT[b]), 'canvas_2x': cv, 'anchor_2x': an,
                                  'layers': ['beauty', 'team', 'shadow'], 'states': states,
+                                 'total_poses': sum(st['directions'] * st['frames'] for st in states),
                                  'aliases': [{'name': 'sell', 'source': 'construct', 'reverse': True}],
                                  'overlays': ['fx.building.capture_channel', 'fx.building.sabotage_disabled',
                                               'fx.building.sell_dust', 'fx.building.fire_damaged',
@@ -474,6 +506,35 @@ def build_manifest():
                            source=blender_source(sp) + ' — cameo camera', license=LIC_ORIGINAL,
                            editable_origin='building model script; cameo camera preset',
                            output=f'assets/build/ui/icons/build/{aid}@2x.png', spec={'size_2x': [128, 96]}))
+    # ---------------- faction checkpoint barriers (explicit additions; outside the design catalog)
+    for fac in FACTIONS:
+        aid = f'building.{fac}.barrier'
+        status, spec_path, side = sprite_status(aid)
+        cv, an = building_canvas((2, 1))
+        # Barriers share the Guard bunker small-structure contract but are not garrisonable.
+        states = [s for s in building_states('Guard bunker', fac) if s['name'] != 'garrisoned']
+        sp = {}
+        if os.path.exists(spec_path):
+            with open(spec_path) as f:
+                sp = json.load(f)
+            cv, an, states = sp['canvas'], sp['anchor'], sp['states']
+        E.append(entry(id=aid, category='building_sprite', subcategory='barrier', faction=fac, name=f'{FACTIONS[fac]} Checkpoint barrier',
+                       source=blender_source(sp), license=LIC_ORIGINAL,
+                       editable_origin=f'assets/pipeline/blender/models/{sp.get("model", "<faction>_buildings")}.py + assets/pipeline/specs/{aid}.json',
+                       output=f'assets/build/sprites/{aid}/',
+                       spec={'footprint_tiles': [2, 1], 'canvas_2x': cv, 'anchor_2x': an,
+                             'layers': ['beauty', 'team', 'shadow'], 'states': states,
+                             'total_poses': sum(st['directions'] * st['frames'] for st in states),
+                             'aliases': [{'name': 'sell', 'source': 'construct', 'reverse': True}],
+                             'overlays': ['fx.building.capture_channel', 'fx.building.sabotage_disabled',
+                                          'fx.building.sell_dust', 'fx.building.fire_damaged',
+                                          'fx.building.smoke_critical']},
+                       status=status,
+                       notes='First-pass production candidate; awaiting art review.' if status == 'sample' else None))
+        E.append(entry(id=f'icon.build.{aid}', category='build_icon', faction=fac, name=f'{FACTIONS[fac]} Checkpoint barrier',
+                       source=blender_source(sp) + ' — cameo camera', license=LIC_ORIGINAL,
+                       editable_origin='building model script; cameo camera preset',
+                       output=f'assets/build/ui/icons/build/{aid}@2x.png', spec={'size_2x': [128, 96]}))
     # ---------------- abilities / research / operations icons
     unit_abilities = ['designate_target', 'falcon_escort', 'airlift_board', 'airlift_unload', 'decoy', 'survey_orbit',
                       'forward_beacon', 'volley_order', 'conceal', 'ambush_ready', 'safehouse_transfer', 'sabotage',
@@ -587,12 +648,26 @@ def build_manifest():
              'spawn_marker_editor', 'region_marker_editor']
     for p in props:
         st = 'sample' if p in props_done else 'planned'
-        E.append(entry(id=f'prop.{p}', category='prop', name=p, source=SRC_BLENDER, license=LIC_ORIGINAL,
-                       editable_origin=f'assets/pipeline/blender/models/props.py + assets/pipeline/specs/prop.{p}.json',
+        prop_source = SRC_BLENDER
+        prop_model = 'props'
+        prop_spec = {'layers': ['beauty', 'shadow'],
+                     'states': ['full', 'high', 'low', 'depleted'] if p == 'supply_field' else
+                     (['intact', 'damaged', 'destroyed'] if 'destructible' in p or 'garrison' in p else ['idle'])}
+        spec_path = os.path.join(REPO, 'assets', 'pipeline', 'specs', f'prop.{p}.json')
+        if os.path.exists(spec_path):
+            with open(spec_path) as source:
+                authored = json.load(source)
+            prop_spec.update(canvas_2x=authored['canvas'], anchor_2x=authored['anchor'],
+                             states=authored['states'],
+                             total_poses=sum(state['directions'] * state['frames'] for state in authored['states']))
+            if authored['model'] == 'environment_roster':
+                prop_source = blender_source(authored)
+                prop_model = authored['model']
+                prop_spec['layers'] = authored['passes']
+        E.append(entry(id=f'prop.{p}', category='prop', name=p, source=prop_source, license=LIC_ORIGINAL,
+                       editable_origin=f'assets/pipeline/blender/models/{prop_model}.py + assets/pipeline/specs/prop.{p}.json',
                        output=f'assets/build/sprites/prop.{p}/',
-                       spec={'layers': ['beauty', 'shadow'],
-                             'states': ['full', 'high', 'low', 'depleted'] if p == 'supply_field' else
-                             (['intact', 'damaged', 'destroyed'] if 'destructible' in p or 'garrison' in p else ['idle'])},
+                       spec=prop_spec,
                        status=st))
     # ---------------- UI / menus / presentation
     ui = ['logo_wordmark', 'faction_emblem_US', 'faction_emblem_IR', 'faction_emblem_SY', 'faction_emblem_SA',
@@ -690,6 +765,24 @@ def build_manifest():
                        editable_origin='assets/audio/sfx_projects/*', output=f'assets/build/audio/sfx/{s_}.ogg',
                        spec={'category_bus': 'ui' if s_.startswith('ui_') else ('ambient' if s_.startswith('ambient')
                                                                              else 'effects')}))
+    # Approved SFX additions outside the design catalog (synthesis.py job list
+    # is authoritative for variants; combat-sound.ts plays IR_SHAHED, the
+    # director falls back to building_collapse/explosion_large cascades).
+    E.append(entry(id='sfx.weapon.IR_SHAHED', category='sfx', subcategory='weapon', name='IR_SHAHED',
+                   source=SRC_SFX_PLANNED, license=LIC_ORIGINAL, editable_origin='assets/pipeline/audio/synthesis.py',
+                   output='assets/build/audio/sfx/weapon/IR_SHAHED_[1-3].ogg',
+                   spec={'variants': 3, 'class': 'loiter'}))
+    for s_ in ['missile_launch_roar', 'missile_flight_whine', 'missile_terminal_crack', 'strategic_launch',
+               'strategic_incoming_whine', 'strategic_impact', 'building_collapse', 'vehicle_kill',
+               'structure_damage_groan', 'burning_wreck_loop', 'capture_loop', 'repair_loop', 'heal_loop']:
+        E.append(entry(id=f'sfx.{s_}', category='sfx', name=s_, source=SRC_SFX_PLANNED, license=LIC_ORIGINAL,
+                       editable_origin='assets/pipeline/audio/synthesis.py',
+                       output=f'assets/build/audio/sfx/{s_}.ogg', spec={'category_bus': 'effects'}))
+    for s_ in ['troop_death_US', 'troop_death_IR', 'troop_death_SY', 'troop_death_SA', 'bullet_crack_near']:
+        E.append(entry(id=f'sfx.{s_}', category='sfx', name=s_, source=SRC_SFX_PLANNED, license=LIC_ORIGINAL,
+                       editable_origin='assets/pipeline/audio/synthesis.py',
+                       output=f'assets/build/audio/sfx/{s_}_[1-3].ogg',
+                       spec={'variants': 3, 'category_bus': 'effects'}))
     music = ['menu_theme', 'lobby_loop', 'briefing_bed', 'debrief_bed', 'editor_ambient', 'credits',
              'stinger_victory', 'stinger_defeat', 'stinger_mission_start', 'stinger_objective', 'stinger_strategic_warning']
     for fac in FACTIONS:

@@ -157,6 +157,12 @@ def palm(E):
             E.sl(f'frond_leaf_{k}_{j}', [(.23 + j * .16, .01), (.40 + j * .16, .19), (.42 + j * .16, .11), (.30 + j * .16, -.015)],
                  .003, .010, 'leaf', crown, rot=(0, .24, a), bevel=.003)
     E.s('crown_heart', .12, (.12, 0, 1.22), 'leaf_dry', scale=(.8, .8, .65), segs=8)
+    # Organic read vs industrial props: nut cluster + fallen dead fronds.
+    for k in range(3):
+        E.s(f'nut_{k}', .05, (.10 + k * .045, .03 * (k - 1), 1.13), 'wood', segs=7)
+    for k in range(2):
+        E.sl(f'fallen_frond_{k}', [(0, 0), (.34, .07), (.62, 0), (.34, -.06)], .01, .022,
+             'leaf_dry', rot=(0, 0, 2.4 + k * 2.1), bevel=.003)
 
 
 def forest_edge(E):
@@ -191,6 +197,10 @@ def barrier(E):
     for x in (-.38, .38):
         E.b('reflector_' + str(x), (.13, .017, .065), (x, -.207, .29), 'amber', bevel=.004)
     E.b('top_cap', (.98, .29, .02), (0, 0, .40), 'pale', bevel=.008)
+    # Cover cue: pale zigzag on the front face marks the protection line.
+    for k in range(3):
+        E.b(f'chevron_{k}', (.16, .014, .09), (-.32 + k * .32, -.207, .22), 'pale',
+            rot=(0, 0, .5 if k % 2 else -.5), bevel=.003)
 
 
 def container(E, name, loc, size, colour='olive', worn=False):
@@ -213,6 +223,10 @@ def containers(E):
     E.base(2, 2, 'sand')
     container(E, 'bottom_a', (0, -.46, .04), (1.75, .78, .55))
     container(E, 'bottom_b', (0, .45, .04), (1.65, .78, .55), 'rust')
+    # Industrial read: dark corner castings on the lead container.
+    for sx in (-1, 1):
+        for sz in (0, 1):
+            E.b(f'corner_a_{sx}_{sz}', (.09, .06, .09), (sx * .83, -.46, .12 + sz * .38), 'trim', bevel=.004)
     # A low offset second level leaves a broken silhouette and visible bindings.
     container(E, 'top', (-.17, -.12, .60), (1.24, .65, .44), 'pale', worn=True)
 
@@ -228,8 +242,11 @@ def fuel_tanks(E):
         for x in (-.48, .48):
             E.c(f'band_{i}_{x}', .33, .045, (x, y, .50), 'metal', rot=(0, math.pi / 2, 0), verts=20, bevel=.003)
         E.c('valve_' + str(i), .032, .10, (.74, y, .50), 'metal', rot=(0, math.pi / 2, 0), verts=8)
+        E.c('handwheel_' + str(i), .06, .02, (.80, y, .50), 'rust', rot=(0, math.pi / 2, 0), verts=12, bevel=.005)
         E.c('hatch_' + str(i), .085, .06, (0, y, .83), 'metal', verts=12)
     E.b('hazard_plaque', (.32, .04, .16), (.50, -.82, .23), 'amber', bevel=.005)
+    # Industrial dressing: crossover pipe links both tank valves.
+    E.rod('crossover', (.74, -.46, .50), (.74, .46, .50), .025, 'metal')
 
 
 def building(E, ruined=False, sealed=False):
@@ -307,6 +324,12 @@ def wreck(E):
     E.b('displaced_turret', (.37, .35, .16), (-.13, .41, .12), 'trim', rot=(.40, .25, .8), bevel=.025)
     E.c('bent_barrel', .025, .51, (.03, .60, .12), 'metal', rot=(0, math.pi / 2, .6), verts=8)
     E.b('missing_roof_hole', (.34, .23, .025), (-.12, -.02, .29), 'dark', rot=(.1, -.07, .12), bevel=.01)
+    # Unmistakably dead: scorch shadow, snapped track links, popped hatch.
+    E.sl('scorch', [(-.75, -.5), (.75, -.5), (.75, .5), (-.75, .5)], .004, .009, 'dark', bevel=0)
+    for k in range(3):
+        E.b(f'track_link_{k}', (.16, .07, .05), (-.55 + k * .5, -.48 + k * .12, .035), 'dark',
+            rot=(0, 0, .3 * k), bevel=.008)
+    E.b('popped_hatch', (.30, .26, .04), (0, -.42, .08), 'trim', rot=(.9, .1, .4), bevel=.008)
 
 
 def pylon(E):

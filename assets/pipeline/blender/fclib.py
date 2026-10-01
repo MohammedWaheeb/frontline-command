@@ -39,11 +39,21 @@ def srgb(h):
     c = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
     return tuple(((v / 12.92) if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4) for v in c) + (1.0,)
 
+# Faction paint languages: same value neighbourhood for battlefield cohesion,
+# but distinct hues so armies tell apart at play zoom (design 23.1).
+#   US  cool slate-olive: angular expeditionary armour, graphite trim
+#   IR  warm sand-ochre: cast desert forms, umber trim
+#   SY  rust-brown: repaired improvised equipment, dark umber trim
+#   SA  pale desert tan: heavy parade armour, bronze-brown trim
 FACTION_PAINT = {
-    'US': {'paint': '#666B5C', 'paint2': '#555A4E', 'trim': '#2F3331', 'wall': '#B3B2A2'},
-    'IR': {'paint': '#6E6A47', 'paint2': '#56593F', 'trim': '#2E3128', 'wall': '#A59C7C'},
-    'SY': {'paint': '#8A6A43', 'paint2': '#6F6553', 'trim': '#3F3226', 'wall': '#AE9670'},
-    'SA': {'paint': '#AE9669', 'paint2': '#8F7D5C', 'trim': '#4C4436', 'wall': '#CDB98F'},
+    'US': {'paint': '#5D685F', 'paint2': '#454E47', 'trim': '#272C2A', 'wall': '#A3A89B',
+           'canvas': '#757B63'},
+    'IR': {'paint': '#7D6C42', 'paint2': '#5C5033', 'trim': '#322E24', 'wall': '#B5A37E',
+           'canvas': '#8C7A52'},
+    'SY': {'paint': '#8F5F38', 'paint2': '#684627', 'trim': '#38291B', 'wall': '#B49B78',
+           'canvas': '#7E6244'},
+    'SA': {'paint': '#B49C6C', 'paint2': '#87764F', 'trim': '#4A4132', 'wall': '#D6C69C',
+           'canvas': '#A48D60'},
 }
 TEAM_BEAUTY_GREY = '#9DA3A8'   # what team regions look like before client tint
 
@@ -290,10 +300,10 @@ def faction_mats(faction):
         'team': mat(f'{faction}_team', None, rough=0.5, grime=0.15, team=True),
         'metal': mat('gunmetal', '#3C4044', rough=0.42, metal=0.75, grime=0.25),
         'dark': mat('dark_rubber', '#1E2022', rough=0.85, grime=0.1),
-        'glass': mat('glass_dark', '#1F2A30', rough=0.12, metal=0.3, grime=0.0),
-        'canvas': mat('canvas_khaki', '#8A7F62', rough=0.9, grime=0.45),
+        'glass': mat('glass_smoked', '#251F16', rough=0.15, metal=0.3, grime=0.0),
+        'canvas': mat(f'{faction}_canvas', p['canvas'], rough=0.9, grime=0.45),
         'light': mat('lamp_amber', '#403424', rough=0.3, emission='#FFC46B', emission_strength=6.0, grime=0),
-        'lens': mat('lens_cyan', '#10202A', rough=0.2, emission='#6BE6FF', emission_strength=3.0, grime=0),
+        'lens': mat('lens_amber', '#2A1D0E', rough=0.25, emission='#FFB347', emission_strength=2.5, grime=0),
         'concrete': mat('concrete', '#8E8A80', rough=0.9, grime=0.5),
         'concrete_dark': mat('concrete_dark', '#6A675F', rough=0.9, grime=0.5),
     }

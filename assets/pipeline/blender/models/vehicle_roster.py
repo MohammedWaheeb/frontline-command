@@ -311,6 +311,16 @@ def us_apc(B):
     B.b('trim_vane', (0.03, 0.56, 0.16), (0.66, 0, 0.36), 'paint2', rot=(0, -0.6, 0), detach=True, missing=True)
     B.headlights(0.70, 0.22, 0.30)
     B.b('commander_hatch', (0.14, 0.14, 0.03), (0.18, -0.16, 0.50), 'trim')
+    # angular applique plates + compact sensor post (US top-down cues)
+    for sy in (1, -1):
+        B.b(f'applique_{sy}', (0.34, 0.03, 0.10), (0.30, sy * 0.325, 0.38), 'paint2', rot=(0, 0, -0.18 * sy),
+            missing=True)
+        B.b(f'glacis_plate_{sy}', (0.13, 0.18, 0.025), (0.52, sy * 0.14, 0.43), 'trim', rot=(0, -0.5, 0.12 * sy),
+            bevel=0, missing=True)
+    B.c('sensor_base', 0.035, 0.05, (0.38, -0.20, 0.51), 'trim', verts=8)
+    B.c('sensor_post', 0.014, 0.14, (0.38, -0.20, 0.60), 'metal', verts=6, missing=True)
+    B.b('sensor_head', (0.07, 0.10, 0.06), (0.39, -0.20, 0.69), 'paint2', missing=True)
+    B.b('sensor_lens', (0.012, 0.07, 0.035), (0.428, -0.20, 0.69), 'lens', bevel=0, missing=True)
     # rear ramp hinged at the hull floor
     ramp = B.e('ramp_hinge', (-0.70, 0, 0.13))
     B.b('ramp', (0.03, 0.54, 0.32), (-0.015, 0, 0.16), 'paint2', ramp)
@@ -351,6 +361,15 @@ def us_artillery(B):
     B.b('bustle', (0.18, 0.50, 0.20), (-0.50, 0, 0.14), 'paint2')
     B.b('cmd_cupola', (0.12, 0.12, 0.06), (-0.10, 0.14, 0.35), 'paint2')
     B.c('rws_mg', 0.01, 0.18, (-0.02, 0.14, 0.40), 'metal', rot=(0, math.pi / 2, 0), verts=6)
+    # angular cheek/roof applique + targeting sensor stub (US top-down cues)
+    for sy in (1, -1):
+        B.b(f'cheek_{sy}', (0.22, 0.04, 0.12), (0.30, sy * 0.27, 0.06), 'paint2', rot=(0, 0, -0.22 * sy),
+            missing=True)
+        B.b(f'roof_plate_{sy}', (0.22, 0.14, 0.02), (0.12, sy * 0.14, 0.325), 'trim', rot=(0, 0, 0.12 * sy),
+            bevel=0, missing=True)
+    B.c('tgt_post', 0.014, 0.10, (0.12, 0.19, 0.37), 'metal', verts=6, missing=True)
+    B.b('tgt_head', (0.07, 0.09, 0.06), (0.13, 0.19, 0.44), 'paint2', missing=True)
+    B.b('tgt_lens', (0.012, 0.06, 0.035), (0.168, 0.19, 0.44), 'lens', bevel=0, missing=True)
     B.antenna('whip', (-0.36, -0.22, 0.32), 0.38)
     B.gun_mount((0.38, 0, 0.18), 1.02, r=0.032)
     B.end_turret()
@@ -482,6 +501,16 @@ def us_launcher(B):
     launcher_truck(B, 1.62, (0.56, 0.30, -0.18, -0.44), 0.30, 0.42, 1.08, missiles=1, style='US')
     B.antenna('whip', (0.50, -0.24, 0.53))
     B.b('ecu', (0.20, 0.30, 0.14), (0.18, 0, 0.41), 'trim')
+    # angular cab applique + sensor mast (US cues; sets the US single-rail apart from SY)
+    for sy in (1, -1):
+        B.b(f'cab_plate_{sy}', (0.24, 0.025, 0.14), (0.60, sy * 0.325, 0.38), 'paint2', rot=(0, 0, -0.15 * sy),
+            missing=True)
+        B.b(f'nose_plate_{sy}', (0.02, 0.20, 0.12), (0.815, sy * 0.13, 0.40), 'trim', rot=(0, -0.12, 0.2 * sy),
+            bevel=0, missing=True)
+    B.c('mast_base', 0.035, 0.05, (0.52, -0.18, 0.545), 'trim', verts=8)
+    B.c('mast_tube', 0.014, 0.22, (0.52, -0.18, 0.68), 'metal', verts=6, missing=True)
+    B.b('mast_head', (0.07, 0.10, 0.06), (0.53, -0.18, 0.81), 'paint2', missing=True)
+    B.b('mast_lens', (0.012, 0.07, 0.035), (0.568, -0.18, 0.81), 'lens', bevel=0, missing=True)
 
 
 def ir_car(B):
@@ -501,6 +530,11 @@ def ir_car(B):
     B.b('roll_bar', (0.03, 0.46, 0.03), (-0.16, 0, 0.52), 'metal')
     for sy in (1, -1):
         B.b(f'roll_post_{sy}', (0.03, 0.03, 0.30), (-0.16, sy * 0.215, 0.37), 'metal')
+    # ERA bricks on the hood flanks + magazine crates in the bed (IR top-down cues)
+    for sy in (1, -1):
+        B.era_row(f'hood_era_{sy}', 0.28, 0.52, sy * 0.26, 0.25, 3)
+        B.b(f'mag_crate_{sy}', (0.16, 0.10, 0.10), (-0.58, sy * 0.06, 0.38), 'tube', missing=True)
+        B.c(f'mag_round_{sy}', 0.022, 0.14, (-0.58, sy * 0.06, 0.45), 'missile', verts=8, missing=True)
     B.headlights(0.58, 0.17, 0.26)
     B.antenna('whip', (-0.60, -0.22, 0.33), 0.4)
     B.begin_turret((-0.36, 0.0), 0.36)
@@ -667,6 +701,13 @@ def ir_repair(B):
         for k in range(4):
             B.b(f'tool_{sy}_{k}', (0.03, 0.02, 0.10), (-0.46 + k * 0.16, sy * 0.29, 0.50), 'steel', bevel=0)
     B.c('generator', 0.06, 0.16, (0.14, 0.22, 0.34), 'era', rot=(0, math.pi / 2, 0), verts=10)
+    # ERA bricks on the cab flanks, slat screens over the workshop, roof reload tubes (IR cues)
+    for sy in (1, -1):
+        B.era_row(f'cab_era_{sy}', 0.38, 0.62, sy * 0.30, 0.34, 3)
+        B.slat_cage(f'shop_slat_{sy}', -0.60, -0.32, sy * 0.33, 0.30, 0.42, 3)
+        B.c(f'reload_tube_{sy}', 0.035, 0.60, (-0.20, sy * 0.15, 0.65), 'tube', rot=(0, math.pi / 2, 0), verts=8,
+            missing=True)
+    B.b('reload_crate', (0.30, 0.20, 0.08), (-0.20, 0, 0.66), 'era', missing=True)
     slew = B.e('crane_slew', (-0.58, 0, 0.62))
     B.c('crane_base', 0.07, 0.06, (0, 0, 0.03), 'trim', slew, verts=10)
     boom = B.e('crane_boom', (0, 0, 0.06), slew)
@@ -805,6 +846,11 @@ def sy_artillery(B):
         B.h['crew'].append(man)
     for k in range(2):
         B.b(f'ammo_{k}', (0.12, 0.08, 0.07), (-0.58 + k * 0.14, 0.14, 0.27), 'era', missing=True)
+    # cab-roof sandbags, welded side patches, one-sided bed cage (SY field-repair cues)
+    B.sandbags('cab_bags', 0.14, 0, 0.47, 2, 2)
+    B.b('weld_patch_L', (0.30, 0.02, 0.10), (-0.35, 0.252, 0.28), 'rust', rot=(0.06, 0, 0.04), missing=True)
+    B.b('weld_patch_R', (0.24, 0.02, 0.09), (-0.30, -0.252, 0.29), 'primer', rot=(-0.06, 0, -0.05), missing=True)
+    B.slat_cage('bed_cage', -0.60, -0.38, 0.27, 0.34, 0.48, 3)
     B.c('flash_ring', 0.08, 0.10, (0, 0, 0.58), 'flash', tube, fx='flash', verts=10, radius_top=0.02, bevel=0)
     B.s('mortar_smoke', 0.16, (0, 0, 0.70), 'smoke', tube, fx='smoke_0', scale=(1, 1, 1.3))
     B.hardpoint('muzzle', (0, 0, 0.54), ['body', 'whole'], parent=tube)
@@ -815,6 +861,10 @@ def sy_aa(B):
     """Air-defence technical: repaired pickup with a twin-barrel autocannon on a pedestal, gunner and shield."""
     pickup(B, 0.52, cab_m='paint', hood_m='rust')
     B.b('ammo_crate', (0.14, 0.12, 0.10), (-0.52, 0.12, 0.28), 'era', missing=True)
+    # caged bed + sandbag nests at the bed corners (SY cues; sets the gun truck apart from the mortar pickup)
+    for sy in (1, -1):
+        B.slat_cage(f'bed_cage_{sy}', -0.58, -0.12, sy * 0.27, 0.30, 0.42, 4)
+        B.sandbags(f'corner_bags_{sy}', -0.18, sy * 0.14, 0.26, 2, 1)
     B.begin_turret((-0.32, 0.0), 0.24)
     B.c('pedestal', 0.05, 0.18, (0, 0, 0.09), 'metal', verts=10)
     B.gun = B.e('gun_root', (0, 0, 0.20))
@@ -1014,6 +1064,12 @@ def sa_artillery(B):
     for sy in (1, -1):
         B.b(f'ammo_locker_{sy}', (0.40, 0.08, 0.16), (0.16, sy * 0.33, 0.40), 'trim', detach=True, missing=True)
         B.jack(f'jack_{sy}', -0.66, sy * 0.40, 0.26, 0.13)
+    # buttress rails, service machinery, forward stabiliser pair (SA top-down cues)
+    for sy in (1, -1):
+        B.b(f'buttress_{sy}', (0.72, 0.05, 0.10), (-0.44, sy * 0.345, 0.38), 'paint2')
+        B.b(f'service_box_{sy}', (0.22, 0.10, 0.14), (0.30, sy * 0.20, 0.41), 'trim', missing=True)
+        B.jack(f'jack_f_{sy}', 0.34, sy * 0.40, 0.26, 0.13)
+    B.c('air_tank', 0.06, 0.30, (0.22, 0, 0.42), 'steel', rot=(0, math.pi / 2, 0), verts=10, missing=True)
     spade = B.e('spade_hinge', (-0.88, 0, 0.26))
     B.b('spade', (0.03, 0.60, 0.20), (-0.02, 0, -0.08), 'metal', spade)
     B.h['spade'] = spade

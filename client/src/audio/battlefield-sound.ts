@@ -36,6 +36,20 @@ export function battlefieldSounds(snapshot:PlayerSnapshot,catalog:CatalogIndex,v
  }).sort((a,b)=>a.distance-b.distance||a.key.localeCompare(b.key)).slice(0,3);
  return [{key:'map',id:ambient,gain:.07,pan:0},...candidates.map(({distance,...request})=>request)];
 }
+/** One-shot distance attenuation and pan from a screen rect. Mirrors the mover
+ * math above (same normalized distance and pan clamp, one-shot levels): full
+ * at screen center, falling to 0.3 at the far corner; off-screen or unknown
+ * positions stay audible at 0.3 center rather than going silent. O(1) per cue. */
+export function oneShotMix(viewport:Rect|undefined,rect:Rect|undefined):{gain:number;pan:number}{
+ if(!viewport||viewport.right<=viewport.left||viewport.bottom<=viewport.top)return {gain:1,pan:0};
+ if(!rect)return {gain:.3,pan:0};
+ const width=viewport.right-viewport.left,height=viewport.bottom-viewport.top;
+ const cx=(viewport.left+viewport.right)/2,cy=(viewport.top+viewport.bottom)/2;
+ const x=(rect.left+rect.right)/2,y=(rect.top+rect.bottom)/2;
+ if(![x,y].every(Number.isFinite))return {gain:.3,pan:0};
+ const distance=Math.hypot((x-cx)/(width*.5),(y-cy)/(height*.5));
+ return {gain:Math.max(.3,Math.min(1,1-distance*.45)),pan:Math.max(-.8,Math.min(.8,(x-cx)/(width*.5)))};
+}
 /** An impact without an authorized identified target remains a ground impact. */
 export function impactSound(target:Entity|undefined,catalog:CatalogIndex|undefined):string {
  if(!target||!catalog)return 'sfx.impact_ground';

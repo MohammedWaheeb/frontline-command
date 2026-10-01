@@ -605,3 +605,7 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
    Stable gutters cover classic scrollbars; explicit padding covers overlays. */
 .battlefield-screen .cameo-grid{min-inline-size:0;scrollbar-gutter:stable;padding-inline-end:24px}
 .battlefield-screen .cameo-grid>[data-build-requirements]{min-inline-size:0}
+/* Expanded prerequisite text wraps within its production column. Native list
+   indentation otherwise leaves too little room for complete building names. */
+.battlefield-screen .cameo-grid>[data-build-requirements]>details>:not(summary){overflow-wrap:anywhere}
+.battlefield-screen .cameo-grid>[data-build-requirements]>details>ul{padding-inline-start:1em}

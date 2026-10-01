@@ -177,9 +177,11 @@ def jet(A, style):
             rot=(0, math.pi / 2, 0), verts=12, bevel=0)
         A.c('exhaust_' + str(side), .041, .07, (tail - .044, side * .17, .28), 'exhaust',
             fx='exhaust', rot=(0, math.pi / 2, 0), verts=12, bevel=0)
-        if us or not fighter:
+        if us:
+            # Twin canted tails are a US-only cue; SA strike uses a single
+            # heavy fin (below), SA fighter a keel fin + canards.
             A.pr('fin_' + str(side), [(-.78, .35), (-.44, .36), (-.59, .72), (-.72, .69)], .026,
-                 parent=A.body, loc=(0, side * .18, 0), rot=(side * -.20 if us else side * -.08, 0, 0),
+                 parent=A.body, loc=(0, side * .18, 0), rot=(side * -.20, 0, 0),
                  bevel=.005)
         if not us and fighter:
             A.sl('canard_' + str(side), [(.53, side * .11), (.38, side * .40), (.24, side * .35), (.32, side * .11)],
@@ -187,6 +189,14 @@ def jet(A, style):
         if us:
             A.sl('tailplane_' + str(side), [(-.59, .08 * side), (-.69, .45 * side), (-.94, .43 * side), (-.82, .10 * side)],
                  .31, .34, 'paint2', bevel=.006)
+        if us and fighter:
+            # Wingtip rails + ECM pods: fighter-only silhouette spikes.
+            A.b('tip_rail_' + str(side), (.22, .03, .035), (-.52, side * .90, .26), 'trim', bevel=.004)
+            A.c('tip_pod_' + str(side), .028, .20, (-.52, side * .93, .295), 'paint2',
+                rot=(0, math.pi / 2, 0), verts=10, bevel=.006)
+        if not us and not fighter:
+            # Armoured pylon root: SA strike carries heavier stores hardware.
+            A.b('pylon_armour_' + str(side), (.20, .055, .05), (-.05, side * .40, .27), 'paint2', bevel=.008)
         A.b('pylon_' + str(side), (.16, .035, .09), (-.05, side * .40, .235), 'trim', bevel=.005)
         A.missile('payload_' + str(side), (-.035, side * .40, .18), length=.35 if fighter else .43, wide=not fighter)
         A.undercarriage('main_gear_' + str(side), (-.24, side * .19, .23), .06)
@@ -194,6 +204,21 @@ def jet(A, style):
     if not us and fighter:
         A.pr('single_keel_fin', [(-.78, .35), (-.44, .35), (-.62, .76), (-.79, .70)], .035, bevel=.006)
         A.b('fin_team', (.11, .04, .09), (-.67, 0, .62), 'team', rot=(0, -.2, 0), bevel=.004)
+    if not us and not fighter:
+        # Broad single dorsal fin + armoured spine: SA strike never reuses
+        # the US twin-tail identity.
+        A.pr('sa_strike_fin', [(-.80, .34), (-.42, .34), (-.60, .80), (-.78, .74)], .05, bevel=.008)
+        A.b('sa_spine_armour', (.45, .13, .05), (-.60, 0, .435), 'paint2', taper=(.75, .8), bevel=.012)
+        A.b('fin_team_sa', (.13, .055, .10), (-.64, 0, .64), 'team', rot=(0, -.2, 0), bevel=.004)
+    if us and not fighter:
+        # Compact centerline recon/targeting pod + dorsal avionics hump:
+        # strike-only kit, never on the fighter.
+        A.c('recon_pod', .05, .34, (.28, 0, .145), 'paint2', rot=(0, math.pi / 2, 0), verts=12, bevel=.008)
+        A.b('recon_lens', (.014, .055, .04), (.455, 0, .14), 'lens', bevel=.002)
+        A.b('avionics_hump', (.34, .10, .055), (-.52, 0, .44), 'paint2', taper=(.7, .8), bevel=.014)
+    if us:
+        # Nose-gear taxi light: visible run-up/landing cue on US jets.
+        A.b('taxi_light', (.03, .05, .03), (.62, 0, .20), 'light', bevel=.004)
     A.undercarriage('nose_gear', (.55, 0, .23), .05)
     A.b('spine_team', (.24, .07, .018), (-.20, 0, .438), 'team', bevel=.003)
     A.hp('release', (-.02, 0, .16))
@@ -229,6 +254,14 @@ def helicopter(A, heavy=False):
     A.pr('tail_fin', [(-1.30, .37), (-1.43, .73), (-1.28, .81), (-1.15, .41)], .027, bevel=.007)
     A.sl('tailplane', [(-1.05, -.31), (-1.16, -.31), (-1.23, .31), (-1.10, .31)], .40, .425, 'paint2', bevel=.005)
     A.rotor('main_rotor', (-.15, 0, .79), .99 if heavy else .92, 5 if heavy else 4)
+    if not heavy:
+        # US-only mast sight: compact recon kit above the cabin.
+        A.b('sight_pylon', (.06, .05, .08), (.10, 0, .68), 'paint2', bevel=.006)
+        A.s('sight_ball', .045, (.10, 0, .735), 'trim', scale=(1.2, 1, .9))
+        A.b('sight_lens', (.014, .05, .032), (.155, 0, .735), 'lens', bevel=.002)
+    else:
+        # SA-only armoured collar around the mast base.
+        A.b('mast_collar', (.22, .20, .07), (-.15, 0, .72), 'paint2', taper=(.8, .8), bevel=.014)
     A.rotor('tail_rotor', (-1.30, -.08, .58), .17 if heavy else .14, 5 if heavy else 4, axis='y', duct=heavy)
     A.undercarriage('nose_gear', (.46, 0, .23), .055)
     gun = A.e('chin_gun', (.50, 0, .18))
@@ -306,10 +339,16 @@ def interceptor_drone(A):
     A.c('jet_inner', .046, .015, (-.708, 0, .23), 'soot', rot=(0, math.pi / 2, 0), verts=12)
     A.c('exhaust', .035, .08, (-.75, 0, .23), 'exhaust', fx='exhaust', rot=(0, math.pi / 2, 0), verts=12)
     for side in (1, -1):
-        A.pr('tail_' + str(side), [(-.64, .26), (-.39, .25), (-.53, .48), (-.65, .48)], .021,
-             loc=(0, side * .10, 0), rot=(side * -.50, 0, 0), bevel=.005)
+        # Tailless chevron: wingtip winglets replace tail fins so the drone
+        # never reads as a twin-tail US jet.
+        A.b('winglet_' + str(side), (.20, .016, .13), (-.50, side * .63, .30), 'paint2',
+            rot=(0, -.15, 0), bevel=.004)
+        A.b('winglet_team_' + str(side), (.10, .018, .05), (-.52, side * .63, .335), 'team', bevel=.002)
         A.b('wing_team_' + str(side), (.16, .065, .014), (-.36, side * .48, .262), 'team', rot=(0, 0, side * .4), bevel=.003)
         A.b('rail_' + str(side), (.24, .025, .04), (-.14, side * .28, .19), 'trim', bevel=.004)
+        for k in range(3):
+            A.b(f'rack_tooth_{side}_{k}', (.022, .028, .025), (-.22 + k * .08, side * .28, .168),
+                'trim', bevel=.002)
         A.missile('payload_' + str(side), (-.08, side * .28, .145), .27)
         A.undercarriage('main_gear_' + str(side), (-.26, side * .11, .22), .043)
         A.panel('access_' + str(side), (-.04, side * .095, .305), (.20, .065, .015), side)
@@ -327,11 +366,19 @@ def loiter_drone(A):
     A.b('spine_team', (.30, .06, .02), (-.05, 0, .474), 'team', bevel=.004)
     A.s('chin_sensor', .085, (.32, 0, .19), 'trim', scale=(1.2, 1, 1))
     A.b('sensor_glass', (.018, .105, .052), (.42, 0, .19), 'lens', bevel=.004)
+    # Visible belly missile magazine: dark open bays between the rails.
+    A.b('magazine', (.44, .14, .09), (-.02, 0, .20), 'paint2', bevel=.008)
+    A.b('magazine_bay', (.38, .10, .02), (-.02, 0, .152), 'soot', bevel=.002)
     for side in (1, -1):
-        A.b('fan_arm_' + str(side), (.19, .46, .07), (-.04, side * .32, .32), 'paint2', bevel=.012)
-        A.rotor('fan_' + str(side), (-.04, side * .57, .38), .31, blades=4, duct=True)
-        A.b('fan_team_' + str(side), (.20, .04, .026), (-.04, side * .89, .40), 'team', bevel=.004)
+        # Small-class loiter quad: short arms, compact ducts, clearly below
+        # the large fixed-wing strike drone in read.
+        A.b('fan_arm_' + str(side), (.19, .38, .07), (-.04, side * .27, .32), 'paint2', bevel=.012)
+        A.rotor('fan_' + str(side), (-.04, side * .48, .38), .26, blades=4, duct=True)
+        A.b('fan_team_' + str(side), (.20, .04, .026), (-.04, side * .76, .40), 'team', bevel=.004)
         A.b('rail_' + str(side), (.42, .05, .04), (-.02, side * .18, .19), 'trim', bevel=.005)
+        for k in range(3):
+            A.b(f'rack_tooth_{side}_{k}', (.022, .03, .025), (-.14 + k * .12, side * .18, .168),
+                'trim', bevel=.002)
         A.missile('payload_' + str(side), (.015, side * .18, .15), .32)
         A.undercarriage('gear_' + str(side), (-.20, side * .17, .21), .045)
         A.panel('service_' + str(side), (-.16, side * .08, .40), (.22, .10, .016), side)

@@ -1,0 +1,88 @@
+{
+  "id": "unit.IR.shahed",
+  "role_id": "IR.shahed",
+  "model": "shahed",
+  "faction": "IR",
+  "params": {},
+  "canvas": [
+    192,
+    136
+  ],
+  "anchor": [
+    84,
+    72
+  ],
+  "passes": [
+    "beauty",
+    "team",
+    "shadow"
+  ],
+  "footprint_radius_mt": 600,
+  "air": {
+    "cruise_altitude_mt": 1400,
+    "shadow_from_ground_anchor": true,
+    "rendered_at_ground": true
+  },
+  "states": [
+    {
+      "name": "fly",
+      "part": "body",
+      "directions": 16,
+      "frames": 3,
+      "fps": 24,
+      "loop": true
+    },
+    {
+      "name": "bank_left",
+      "part": "body",
+      "directions": 16,
+      "frames": 3,
+      "fps": 24,
+      "loop": true
+    },
+    {
+      "name": "bank_right",
+      "part": "body",
+      "directions": 16,
+      "frames": 3,
+      "fps": 24,
+      "loop": true
+    },
+    {
+      "name": "fire",
+      "part": "body",
+      "directions": 16,
+      "frames": 2,
+      "fps": 8,
+      "loop": false
+    },
+    {
+      "name": "empty",
+      "part": "body",
+      "directions": 16,
+      "frames": 3,
+      "fps": 24,
+      "loop": true
+    },
+    {
+      "name": "damaged",
+      "part": "body",
+      "directions": 16,
+      "frames": 1,
+      "fps": 0,
+      "loop": true
+    },
+    {
+      "name": "crash",
+      "part": "body",
+      "directions": 16,
+      "frames": 4,
+      "fps": 10,
+      "loop": false,
+      "layers": [
+        "beauty",
+        "shadow"
+      ]
+    }
+  ]
+}
