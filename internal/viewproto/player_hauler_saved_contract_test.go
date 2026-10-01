@@ -59,6 +59,18 @@ func TestPlayerHaulerActualSavedContract(t *testing.T) {
 			{"TestPlayerHaulerEndpointPinsPublicOrdersRestoreReplay/continued-controls.save.json", "853852d8b5382fb88364a2bab05cf862f7dacd78951ab3fc8fa988779271a1e6"},
 			{"TestPlayerHaulerEndpointPinsPublicOrdersRestoreReplay/initial.save.json", "da0a7980c4af0218bfce828ab732260abe9a50152e54dca11eaf390d95e8d75a"},
 		}
+	case "0.3.8":
+		// Exact earned Core26 fresh-hauler-identity-01 native outputs; historical rows remain unchanged.
+		fixtures = []struct{ name, sha string }{
+			{"TestPlayerHaulerDamageOptInPublicPaidDelivery-default_continue/default-continues-after-damage.save.json", "d2142c7f1a8a5981bb4305e241c4c43f390976e58df9bdc0ee0a56231ec55958"},
+			{"TestPlayerHaulerDamageOptInPublicPaidDelivery-default_continue/initial.save.json", "ada59a5b60c199db91f0c1956e3b86a9696902820cfc7f84006689bbd76ad1a3"},
+			{"TestPlayerHaulerDamageOptInPublicPaidDelivery-opt_in_retreat/initial.save.json", "ada59a5b60c199db91f0c1956e3b86a9696902820cfc7f84006689bbd76ad1a3"},
+			{"TestPlayerHaulerDamageOptInPublicPaidDelivery-opt_in_retreat/retreat-delivered-and-resumed.save.json", "fd85c407d22498d771650dbaf08bc424a13ae29704de0c6615757f33428aa84d"},
+			{"TestPlayerHaulerDamageOptInPublicPaidDelivery-opt_in_retreat/retreat-in-progress.save.json", "ac8bb840fd55d3680292d03ceb0deaa0cfd8a77cb5f00244d876d56730df3f05"},
+			{"TestPlayerHaulerEndpointPinsPublicOrdersRestoreReplay/chosen-controls.save.json", "71c3331af0d558d1d2f7a8f5b3975f607d8516136c3deec00bd5458a9daa6b49"},
+			{"TestPlayerHaulerEndpointPinsPublicOrdersRestoreReplay/continued-controls.save.json", "b6583f2b83b0301fd5eb428c706e8f7e213edca896da4f0f95456ecf431445a3"},
+			{"TestPlayerHaulerEndpointPinsPublicOrdersRestoreReplay/initial.save.json", "ddb7901c63141e784f4897a98a4cfae8984f808dc339561e0af751a6c7952df1"},
+		}
 	default:
 		t.Fatal("unsupported simulation version for sealed hauler corpus", sim.Version)
 	}

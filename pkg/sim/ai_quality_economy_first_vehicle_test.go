@@ -522,6 +522,8 @@ func TestAIQualityEconomyFirstVehicleOrdinaryRootUnion(t *testing.T) {
 		initialHash = "45b363f6bc09adc08495f11f43a91ce95de65734129c40de98d48e153a626e31"
 	case "0.3.7":
 		initialHash = "51c49b41ea21f8c644bafdad5cd82792f6f6bc9b0e0ae34e1cff1bac9dd4eb42"
+	case "0.3.8":
+		initialHash = "a8fbdc5df051a907bd2a5dcdd575fdd8f81d310b2c71283c4e06fd0353ce7d33"
 	default:
 		t.Fatal("ordinary reproduction has no bound initial New state oracle", Version)
 	}

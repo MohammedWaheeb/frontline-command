@@ -237,7 +237,7 @@ func (e *Engine) updateJobs(p *Player, v *Entity) {
 		e.applyUpgrade(p, j.Type)
 		e.emit("research_complete", p.ID, v.ID, v.Position, "owner", 0)
 	} else {
-		pos, ok := e.exitPosition(v, j.Type, 0, 6000)
+		pos, ok := e.productionExitPosition(v, j.Type, 6000)
 		if u, found := e.catalog.Unit(j.Type); found && u.Armor == "air" && j.Service == v.ID {
 			if !e.parkingAttempt(v) {
 				v.State = "exit_blocked"

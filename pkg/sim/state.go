@@ -5,7 +5,7 @@ import "frontlinecommand/pkg/content"
 
 // Compatibility boundary for custom opening funds, current content and the
 // one-way Shahed commitment. Older artifacts stay exportable and are not relabeled.
-const Version = "0.3.7"
+const Version = "0.3.8"
 const TickRate uint32 = 20
 const Scale int64 = 1000
 

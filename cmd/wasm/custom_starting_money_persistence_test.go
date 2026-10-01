@@ -338,7 +338,7 @@ func customMoneyOriginalR3(t *testing.T, path string, size int, digest string) [
 }
 
 func TestCustomStartingMoneySessionRejectsOriginalR3Artifacts(t *testing.T) {
-	const boundaryVersion = "0.3.7"
+	const boundaryVersion = "0.3.8"
 	if sim.Version != boundaryVersion { t.Fatalf("original036 boundary requires final simulation%s, found%s", boundaryVersion, sim.Version) }
 	const savePath = "testdata/starting-money-r3-original.save.json"
 	const replayPath = "testdata/starting-money-r3-original.replay.bin"
