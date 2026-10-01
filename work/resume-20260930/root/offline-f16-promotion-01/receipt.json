@@ -1,0 +1,21 @@
+{
+  "status": "QUALIFIED_F16_CLIENT_FIX_PROMOTED",
+  "files": [
+    {
+      "path": "client/src/runtime/offline-response.ts",
+      "sha256": "5256c46c05045c415d15a04f55b60223269e7a49defbee913307dc9aeaf38e41"
+    },
+    {
+      "path": "client/tests/runtime/offline-upgrade.test.ts",
+      "sha256": "8ea4c4da84c470eda1b257d9e4735de84198b95be1b297ba26e5c44c549c5cec"
+    },
+    {
+      "path": "client/tests/runtime/snapshot-timeline.test.ts",
+      "sha256": "d4dcdcdfa136c581b725a1f1a75a0168f6c227603bf480c4ae8af5c5f31284da"
+    }
+  ],
+  "matching_package": "work/playable-release-integration-v1/frontend-16/actual-gates-03/actual-result.json",
+  "cold_acceptance": "release/package/persistent-v1/frontend16-freeze01-cold-{offline,audio}-01",
+  "gameplay_browser_pending": true,
+  "assets_modified": false
+}

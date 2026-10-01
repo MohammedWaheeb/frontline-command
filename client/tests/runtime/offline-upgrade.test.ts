@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {installPack,installedPacks,PACK_PREFIX,READY_PATH,type ContentPack} from '../../src/runtime/cache';
+import {installPack,installedPacks,PACK_PREFIX,READY_PATH,MANIFEST_PATH,type ContentPack} from '../../src/runtime/cache';
 import {offlineResponse} from '../../src/runtime/offline-response';
 import {sha256Hex} from '../../src/runtime/crypto';
 
@@ -18,7 +18,24 @@ test('completed content upgrades remain coherent offline; corrupt staging cannot
  const network=(files:Record<string,string>)=>{body.clear();for(const[path,text]of Object.entries(files))body.set(origin+path,text)};
  const offline=async(path:string)=>{online=false;return offlineResponse(new Request(origin+path))};
  try{
-  const oldFiles={'/index.html':'old shell','/content/index.json':'old index','/runtime/frontline.wasm':'old wasm','/retired.js':'retired code'},old=await pack('content-v1-old',oldFiles);network(oldFiles);const first=await installPack(old);assert.equal(first.installedAt,1000);assert.equal(await (await offline('/content/index.json')).text(),'old index');
+  // Reproduce the active worker's host-404/cache-200 manifest failure: this
+  // virtual URL has no server route, including when the host is reachable.
+  assert.equal((await fetch(origin+MANIFEST_PATH)).status,404);
+  const stagingName=PACK_PREFIX+'manifest-without-ready',staging=await caches.open(stagingName);
+  await staging.put(MANIFEST_PATH,new Response('{"untrusted":true}'));
+  const beforeMissingMarker=fetches;
+  assert.equal((await offlineResponse(new Request(origin+MANIFEST_PATH))).status,503,'A staged manifest without its ready marker is unavailable');
+  assert.equal(fetches,beforeMissingMarker,'Virtual metadata never asks the live host');
+  await caches.delete(stagingName);
+  const oldFiles={'/index.html':'old shell','/content/index.json':'old index','/runtime/frontline.wasm':'old wasm','/retired.js':'retired code'},old=await pack('content-v1-old',oldFiles);network(oldFiles);const first=await installPack(old);assert.equal(first.installedAt,1000);
+  const beforeManifest=fetches,installedManifest=await offlineResponse(new Request(origin+MANIFEST_PATH));
+  assert.equal(installedManifest.status,200,'Installed virtual metadata wins over a live host 404');
+  const storedManifest=await (await caches.open(first.cacheName)).match(MANIFEST_PATH);assert(storedManifest);
+  const installedBytes=await installedManifest.text();assert.equal(installedBytes,await storedManifest.text(),'Virtual response preserves the actual installer cache bytes');
+  assert.deepEqual(JSON.parse(installedBytes),{id:old.id,version:old.version,files:old.files});
+  assert.equal(fetches,beforeManifest,'Installed virtual metadata uses no network request');
+  body.delete(origin+'/retired.js');assert.equal((await offlineResponse(new Request(origin+'/retired.js'))).status,404,'Ordinary network 404 policy is unchanged');body.set(origin+'/retired.js',oldFiles['/retired.js']);
+  assert.equal(await (await offline('/content/index.json')).text(),'old index');
   const newFiles={'/index.html':'new shell','/content/index.json':'new index','/runtime/frontline.wasm':'new wasm'},next=await pack('content-v1-new',newFiles);online=true;network(newFiles);corrupt=origin+'/runtime/frontline.wasm';await assert.rejects(installPack(next),/integrity check/);assert.equal(stores.size,1);assert.equal(await (await offline('/content/index.json')).text(),'old index');
   // An interrupted staging cache has no ready marker and never wins selection.
   const partial=await caches.open(PACK_PREFIX+'interrupted');await partial.put(origin+'/content/index.json',new Response('partial index'));assert.equal(await (await offline('/content/index.json')).text(),'old index');

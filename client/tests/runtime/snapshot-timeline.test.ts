@@ -35,14 +35,15 @@ test('backward clock samples cannot overshoot and heading wraps along shortest a
 test('replay reset snaps directly to newly authorized position and suppresses stale heading',()=>{
  const a=fixture();a.update(entity(2000,90000),100,100);a.clearFeedback();a.update(entity(7000,180000),120,50);assert.equal(a.position(120).x,7000);assert.equal(a.facing(120),180000);a.dispose();
 });
-test('real Battlefield setSnapshot immediately redacts actor while retaining other movement clock',()=>{
+test('real Battlefield setSnapshot immediately redacts actor while retaining other movement clock',(t)=>{
+ let clock=0;t.mock.method(performance,'now',()=>clock);
  const map={id:'test',width:4,height:4,tiles:Array.from({length:16},()=>({terrain:'sand',height:0})),spawns:[],fields:[],stations:[],objects:[],shipment:{x:9000,y:9000}} as unknown as GameMap;
  const Renderer=BattlefieldRenderer as unknown as new(host:HTMLElement,options:BattlefieldOptions)=>BattlefieldRenderer;
  const r=new Renderer({} as HTMLElement,{map,catalog,art,settings:DEFAULT_SETTINGS,onGesture:()=>{}});
  const internal=r as unknown as {centered:boolean;actors:Map<number,ActorVisual>};internal.centered=true;
  const snapshot=(tick:number,entities:ReturnType<typeof entity>[])=>create(PlayerSnapshotSchema,{tick,player:1,entities,players:[{id:1,faction:'US',color:1}],visible:Array(16).fill(true),explored:Array(16).fill(true)});
- r.setSnapshot(snapshot(0,[entity(),entity(1000,0,2)]));r.setSnapshot(snapshot(2,[entity(2000),entity(2000,0,2)]));const retained=internal.actors.get(1)!;const state=retained as unknown as {changedAt:number};const at=state.changedAt;
- r.setSnapshot(snapshot(2,[entity(2000)]));assert.equal(internal.actors.has(2),false);assert.equal(internal.actors.get(1),retained);assert.equal(state.changedAt,at);assert.equal(retained.position(at+75).x,1750);
- r.setSnapshot(snapshot(4,[entity(3000),entity(2000,0,2)]));assert.equal(internal.actors.has(2),true);assert.equal(internal.actors.get(2)!.position(performance.now()).x,2000);
+ r.setSnapshot(snapshot(0,[entity(),entity(1000,0,2)]));clock=100;r.setSnapshot(snapshot(2,[entity(2000),entity(2000,0,2)]));const retained=internal.actors.get(1)!;const state=retained as unknown as {changedAt:number};const at=state.changedAt;
+ clock=125;r.setSnapshot(snapshot(2,[entity(2000)]));assert.equal(internal.actors.has(2),false);assert.equal(internal.actors.get(1),retained);assert.equal(state.changedAt,at);assert.equal(retained.position(at+75).x,1750);
+ clock=200;r.setSnapshot(snapshot(4,[entity(3000),entity(2000,0,2)]));assert.equal(internal.actors.has(2),true);assert.equal(internal.actors.get(2)!.position(performance.now()).x,2000);
  for(const actor of internal.actors.values())actor.dispose();
 });

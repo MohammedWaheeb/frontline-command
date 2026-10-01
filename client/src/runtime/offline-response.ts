@@ -1,9 +1,14 @@
-import {PACK_PREFIX,READY_PATH} from './cache';
-/** Network first, then one completed generation per pack ID. A removed file
+import {PACK_PREFIX,READY_PATH,MANIFEST_PATH} from './cache';
+/** Network first except cache-only virtual metadata, then one completed
+ * generation per pack ID. A removed file
  * cannot be resurrected from a retired generation after an offline upgrade. */
 export async function offlineResponse(request:Request):Promise<Response>{
- const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),2500);
- try{const response=await fetch(request,{signal:controller.signal});if(response.ok)return response;if(response.status!==503)return response}catch{}finally{clearTimeout(timeout)}
+ // This reserved route is created only by the verified installer. A live
+ // host has no such file and its 404 must not shadow installed metadata.
+ if(new URL(request.url).pathname!==MANIFEST_PATH){
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),2500);
+  try{const response=await fetch(request,{signal:controller.signal});if(response.ok)return response;if(response.status!==503)return response}catch{}finally{clearTimeout(timeout)}
+ }
  const ready:Array<{id:string;cache:Cache;installedAt:number;name:string}>=[];
  for(const name of await caches.keys()){
   if(!name.startsWith(PACK_PREFIX))continue;
