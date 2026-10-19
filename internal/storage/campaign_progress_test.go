@@ -104,7 +104,7 @@ func TestCampaignSchemaEightMigrationPreservesOldFiles(t *testing.T) {
 	defer s.Close()
 	var version int
 	s.db.QueryRow(`PRAGMA user_version`).Scan(&version)
-	if version != 8 {
+	if version != 9 {
 		t.Fatal(version)
 	}
 	saved, err := s.GetSave(ctx, p.ID, old.ID)

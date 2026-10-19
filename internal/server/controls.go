@@ -18,6 +18,19 @@ func newPauseControl(enabled bool) pauseControl {
 	return pauseControl{enabled: enabled, votes: map[sim.PlayerID]bool{}}
 }
 func (c *pauseControl) resume() { c.paused = false; clear(c.votes) }
+
+// playerGone reconciles pause state after a player disconnects, drops or
+// expires. The departed vote is always removed. With retainPause (co-op)
+// the remaining teammates' pause hold survives: a partner drop must not
+// unpause the match undefended, and any present player can still resume.
+// Without it the match resumes so a departed player cannot freeze
+// opponents indefinitely.
+func (c *pauseControl) playerGone(player sim.PlayerID, retainPause bool) {
+	delete(c.votes, player)
+	if !retainPause {
+		c.resume()
+	}
+}
 func (c *pauseControl) act(action string, player sim.PlayerID, active []sim.PlayerID) error {
 	if !c.enabled {
 		return errors.New("pause_disabled")

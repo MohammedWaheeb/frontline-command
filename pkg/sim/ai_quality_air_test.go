@@ -14,7 +14,7 @@ func aiQualityAirFixture(t *testing.T, faction string) (*Engine, *Entity) {
 	e.state.Countdown = 0
 	baseInfrastructure(e, 1)
 	p := e.player(1)
-	p.AI, p.Credits, p.RepairReserve = "hard", 0, 300000
+	p.AI, p.Controller, p.Credits, p.RepairReserve = "hard", "ai", 0, 300000
 	for _, v := range e.state.Entities {
 		if v.Owner == 1 && e.role(v) == "rig" {
 			v.Orders = []Order{{Kind: "guard", Position: v.Position}}

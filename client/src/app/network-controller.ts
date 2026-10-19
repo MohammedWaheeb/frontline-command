@@ -4,7 +4,7 @@ import {recordedOperation,type RecordedOperation} from './recorded-result';
 import {LocalAPI,type Lobby,type LobbyAI,type LobbyChanges,type LobbyConfig,type LobbyInvite,type LobbyResponse,type LobbySlot,type LocalReport,type MapRecord,type MapReport,type QueueResponse,type RankedMap,type SaveSummary,type SocialAction,type SocialRelation} from '../runtime/api';
 import {LocalProfileSession,type AccountState} from '../runtime/account';
 import {SaveSynchronizer,syncSelectionBudget,type SyncInventory,type SaveMapping,type SaveSyncPreview,type SyncDecision,type SyncExecution} from '../runtime/save-sync';
-import {RuntimeError} from '../runtime/errors';
+import {RuntimeError,presentableFailure} from '../runtime/errors';
 import {randomUUID} from '../runtime/crypto';
 import type {ContentLibrary} from '../runtime/content-library';
 import type {LocalStore} from '../runtime/storage';
@@ -38,7 +38,7 @@ export interface NetworkOptions{
  makeAccount?:(origin:string)=>LocalProfileSession;makePublicAPI?:(origin:string)=>LocalAPI;references?:Pick<Storage,'getItem'|'setItem'|'removeItem'>;pollMs?:number;
 }
 const referenceKey='frontline-command:network-lobby';
-const publicError=(error:unknown)=>{const value=RuntimeError.from(error);return {code:value.code,message:value.message}};
+const publicError=(error:unknown)=>{const value=presentableFailure(error);return {code:value.code,message:value.message}};
 const encoder=new TextEncoder();
 function origin(value:string){const url=new URL(value);if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw new RuntimeError('host_address','Enter an HTTP or HTTPS game host without embedded credentials.');return url.origin}
 

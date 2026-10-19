@@ -41,3 +41,13 @@ Read `outputs/frontline-command-agent-handoff.md` and the authoritative
   includes every feature in the handoff and all 75 units, 28 weapons, eight maps,
   five tutorials, 24 campaign missions, two co-op scenarios, saves, replays,
   multiplayer, editor, complete assets and accessibility.
+
+## User release scope — 13 October 2026
+
+The user supersedes the original full-release inventory: hide Campaign, omit the
+map editor from the player release, and provide three curated default skirmish
+battlefields. Preserve source/story/editor data and existing archives. Complete
+art and animations, both co-op scenarios, and 1–4 player multiplayer. Existing
+co-op scenario layouts remain available in addition to the skirmish selection.
+The current request authorizes Codex asset work and supersedes the older external
+asset-ownership restriction. Audio is outside this request. No deployment.

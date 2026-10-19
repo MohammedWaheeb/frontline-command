@@ -5,9 +5,13 @@ package sim
 const (
 	serviceParkingMargin    int32 = 100
 	serviceApproachRange    int32 = 8000
-	serviceCandidateLimit         = 128
+	serviceCandidateLimit         = 384
 	serviceAllocationBudget       = 8
 	serviceRetryTicks       Tick  = 20
+	// Furthest edge distance a service pad may sit from its home footprint.
+	// Close perimeter pads are always preferred; the fallback rings only
+	// serve service buildings legally surrounded by other structures.
+	serviceParkingMaxRange int32 = 14500
 )
 
 type LandingReservation struct {
@@ -170,9 +174,10 @@ func (e *Engine) parkingObstacles(v, home *Entity) []parkingObstacle {
 				ob.radius -= serviceParkingMargin
 			}
 		}
-		// Every candidate is within the retained foundation plus2600.
-		// Include the maximum catalog rectangle's half-size conservatively.
-		if abs(ob.position.X-home.Position.X) <= 16000 && abs(ob.position.Y-home.Position.Y) <= 16000 {
+		// Every candidate is within the retained foundation plus the
+		// fallback ring range. Include the maximum catalog rectangle's
+		// half-size conservatively.
+		if abs(ob.position.X-home.Position.X) <= 20000 && abs(ob.position.Y-home.Position.Y) <= 20000 {
 			out = append(out, ob)
 		}
 	}
@@ -181,7 +186,7 @@ func (e *Engine) parkingObstacles(v, home *Entity) []parkingObstacle {
 
 func (e *Engine) serviceParkingClear(v, home *Entity, point Vec, obstacles []parkingObstacle) bool {
 	r := serviceParkingRadius(v.Type)
-	if r == 0 || home == nil || e.distanceTo(home, point)-e.radius(v) > 2000 {
+	if r == 0 || home == nil || e.distanceTo(home, point)-e.radius(v) > serviceParkingMaxRange {
 		return false
 	}
 	m := e.state.Map
@@ -255,6 +260,22 @@ func (e *Engine) serviceCandidates(v, home *Entity) []Vec {
 			if offset == 2600 {
 				extentX, extentY = hw, hh
 			}
+			x := (fraction * extentX / 4) / 500 * 500
+			y := (fraction * extentY / 4) / 500 * 500
+			appendPoint(x, -hh-offset)
+			appendPoint(x, hh+offset)
+			appendPoint(-hw-offset, y)
+			appendPoint(hw+offset, y)
+		}
+	}
+	// Fallback aprons for a service building legally surrounded by other
+	// structures: without any clear perimeter pad its aircraft could never
+	// land and would be lost at endurance zero. Deterministic perimeter
+	// rings search outward; every close candidate above wins first, so
+	// open bases are unaffected.
+	for _, offset := range []int32{3000, 4500, 6000, 8000, 10000} {
+		extentX, extentY := hw+offset, hh+offset
+		for _, fraction := range []int32{0, -4, 4, -2, 2, -1, 1, -3, 3} {
 			x := (fraction * extentX / 4) / 500 * 500
 			y := (fraction * extentY / 4) / 500 * 500
 			appendPoint(x, -hh-offset)

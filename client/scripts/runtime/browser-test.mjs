@@ -12,6 +12,7 @@ import {testBrowserSession} from '../../tests/runtime/session.browser.mjs';
 const client=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),root=path.dirname(client);
 const evidence=path.join(root,'work/evidence/runtime');await mkdir(evidence,{recursive:true});
 execFileSync(process.execPath,[path.join(client,'scripts/runtime/build.mjs')],{stdio:'inherit'});
+const nativeVersion=JSON.parse(execFileSync(path.join(root,'bin',process.platform==='win32'?'runtime-native.exe':'runtime-native'),['-version'],{encoding:'utf8'}));
 execFileSync('go',['build','-o',path.join(root,'bin/frontline'),'./cmd/frontline'],{cwd:root,stdio:'inherit'});
 const staticDir=path.join(evidence,'host');await mkdir(staticDir,{recursive:true});
 try{await symlink(path.join(client,'public/runtime'),path.join(staticDir,'runtime'),'dir')}catch(e){if(e.code!=='EEXIST')throw e}
@@ -80,7 +81,7 @@ for(const browserType of [chromium,firefox,webkit].filter(b=>!selected||b.name()
   },scenario);
   assert.deepEqual(parity.checkpoints,native.checkpoints);assert.deepEqual(parity.submits,native.submits);assert.equal(parity.hash,native.final_hash);assert.equal(parity.downloadedHash,native.final_hash);assert.equal(parity.before,parity.hash);assert.equal(parity.records,4);assert.equal(parity.autosaves,3);assert.ok(parity.corruption.startsWith('save_'));assert.ok(parity.preserved&&parity.isolated&&parity.exact&&parity.privateOnly);assert.equal(parity.conflict,'save_conflict');assert.equal(parity.replay.readOnly,'replay_read_only');assert.equal(parity.replay.badSeek,'replay_seek');assert.ok(parity.replay.replaySeek&&parity.replay.replayStream&&parity.replay.seekPreserved);assert.equal(parity.replay.replayPerspective,2);assert.ok(parity.replay.history>=2);assert.equal(parity.replay.map,map.id);result.parity=parity;
   result.session=await testBrowserSession(page,scenario.config);
-  assert.equal(parity.compatibility.current,'0.3.3');assert.equal(parity.compatibility.code,'save_incompatible');assert.ok(parity.compatibility.activePreserved&&parity.compatibility.inputPreserved);
+  assert.equal(parity.compatibility.current,nativeVersion.simulation);assert.equal(parity.compatibility.code,'save_incompatible');assert.ok(parity.compatibility.activePreserved&&parity.compatibility.inputPreserved);
   const installed=await page.evaluate(async pack=>{const R=globalThis.FrontlineTest;await R.registerOfflineWorker();const saved=await R.installPack(pack);let corrupt='';try{await R.installPack({...pack,version:'bad',files:[{...pack.files[0],sha256:'0'.repeat(64)}]})}catch(error){corrupt=error.code}const packs=await R.installedPacks();globalThis.testRuntime.dispose();return {files:saved.files,corrupt,packs:packs.length,controlled:!!navigator.serviceWorker.controller}},pack);
   assert.equal(installed.files,pack.files.length);assert.equal(installed.corrupt,'content_corrupt');assert.equal(installed.packs,1);assert.ok(installed.controlled);
   const originStopped=browserType.name()==='webkit';

@@ -159,30 +159,3 @@ Most voices perform best on a "goldilocks range" of 100-200 tokens out of ~500 p
 | pf_dora | 🚺 | `07e4ff98` |
 | pm_alex | 🚹 | `cf0ba8c5` |
 | pm_santa | 🚹 | `d4210316` |
-
-### Frontline Command production trace
-
-Build-time speech uses stock Kokoro-82M voices only; no cloned speaker. All
-dialogue is authored original English under `assets/pipeline/audio/dialogue.py`
-and authored mission JSON. Model pin: `hexgrad/Kokoro-82M` revision
-`f3ff3571791e39611d31c381e3a41a3af07b4987`, weights SHA256
-`496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4`
-(recorded per-clip in render metadata; canonical value in
-`assets/pipeline/audio/voice.py`). Upstream code and weights are Apache-2.0
-(see `kokoro-code-LICENSE.md`); the upstream model card
-(`kokoro-model-card.md`) carries the CC BY training-data attributions
-(Koniwa `tnc`, SIWIS) and the voice-grade inventory above.
-
-Voices cast in this production (inventory SHA prefix in parentheses):
-
-- US units: `am_michael` (`9a443b79`), `am_fenrir` (`98e507ec`),
-  `af_bella` (`8cb64e02`); US announcer: `af_heart` (`0ab5709b`)
-- IR units: `am_fenrir`, `am_michael`, `af_heart`; IR announcer:
-  `bm_george` (`f1bc8122`)
-- SY units: `am_puck` (`dd1d8973`), `bm_george`, `af_bella`; SY announcer:
-  `bf_emma` (`d0a423de`)
-- SA units: `bm_george`, `am_fenrir`, `am_michael`; SA announcer: `af_bella`
-
-Per-faction pace/timbre delivery deltas are set in `dialogue.py`
-(`SPEEDS`, `FACTION_EQ`, `ANNOUNCER_PACE`) and applied in `voice.py`.
-We ship rendered clips, not model weights or an online dependency.

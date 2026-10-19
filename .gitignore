@@ -1,23 +1,17 @@
-# Dependencies and build outputs (regenerable via npm install / build scripts)
+.DS_Store
 node_modules/
 dist/
-client/dist/
-client/.test-runtime/
-client/public/runtime/
-client/public/service-worker.js*
-
-# Generated asset packs (rebuilt by the client art plugin at dev/build time)
-assets/packs/
-
-# Local-only state
-.local/
 bin/
+.local/
 *.db
 *.db-shm
 *.db-wal
-.DS_Store
+work/claude/*.jsonl
+work/claude/*.log
+work/evidence/*.log
+__pycache__/
 
-# Local evidence, agent worktrees and scratch (never part of the shippable tree)
-work/
-Users/
-wasm.test
+client/public/runtime/
+client/.test-runtime/
+work/evidence/runtime/host/
+client/public/service-worker.js*

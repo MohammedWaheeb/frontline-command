@@ -22,9 +22,8 @@ export function combatSound(event:Event,snapshot:PlayerSnapshot,previous:PlayerS
  }
  if(event.kind==='weapon_fired'){
   const weapon=facts?.weapon??(legacy&&entity?(catalog?.units.get(entity.type)?.weapon??catalog?.buildings.get(entity.type)?.weapon):undefined);
-  // Synthetic strategic rounds have no authored per-weapon firing clip. Their
-  // existing operation warnings remain separate, rather than requesting fake IDs.
-  return {kind:'weapon',sound:weapon&&!['SATURATION','SKYBREAKER'].includes(weapon)?`sfx.weapon.${weapon}`:undefined,cooldown:60};
+  // Synthetic strategic rounds share the authored strategic launch cue.
+  return {kind:'weapon',sound:weapon?(['SATURATION','SKYBREAKER'].includes(weapon)?'sfx.strategic_launch':`sfx.weapon.${weapon}`):undefined,cooldown:60};
  }
  let sound='sfx.impact_ground';
  if(legacy)sound=impactSound(entity,catalog);

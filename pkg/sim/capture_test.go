@@ -401,10 +401,11 @@ func TestCapturedAirProducerWaitsForClearProductionPad(t *testing.T) {
 	e.state.Tick = 200
 	e.updateChannel(home)
 	e.recalculate()
-	// A deliberately solid ring of actors blocks all internal and nearby pads.
+	// A deliberately solid field of actors blocks the whole service
+	// envelope, including the fallback apron rings.
 	obstacles := []*Entity{}
-	for y := int32(35500); y <= 44500; y += 900 {
-		for x := int32(25500); x <= 34500; x += 900 {
+	for y := int32(26000); y <= 54000; y += 900 {
+		for x := int32(16000); x <= 44000; x += 900 {
 			obstacles = append(obstacles, e.spawn("US.hauler", 1, Vec{X: x, Y: y}, true, 0))
 		}
 	}

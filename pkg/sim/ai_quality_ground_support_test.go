@@ -124,7 +124,7 @@ func aiGroundSupportPending(e *Engine, actor ID) []Order {
 func aiGroundSupportRun(t *testing.T, e *Engine, source, target ID, kind string, workLimit int, done func(*Engine) bool) {
 	t.Helper()
 	p, v := e.player(1), e.entity(source)
-	p.AI, p.AILast = "hard", e.Tick()-seconds(1)
+	p.AI, p.Controller, p.AILast = "hard", "ai", e.Tick()-seconds(1)
 	e.recalculate()
 	e.updateFog()
 	beforeCredits, beforeSpent, beforeHP := p.Credits, p.Spent, e.entity(target)
@@ -413,7 +413,7 @@ func TestAIQualityGroundSupportHiddenAndAlliedPrivateStateIndependent(t *testing
 		t.Fatal("hidden/private controls altered complete authorized View")
 	}
 	for _, e := range []*Engine{a, b} {
-		e.player(1).AI, e.player(1).AILast = "hard", e.Tick()-seconds(1)
+		e.player(1).AI, e.player(1).Controller, e.player(1).AILast = "hard", "ai", e.Tick()-seconds(1)
 		e.updateAI()
 	}
 	x, _ := json.Marshal(a.state.Pending)

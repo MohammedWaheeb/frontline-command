@@ -1,0 +1,6992 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "unit.IR.gunship",
+ "role_id": "IR.gunship",
+ "faction": "IR",
+ "source_spec": "assets/pipeline/specs/unit.IR.gunship.json",
+ "frame_size_2x": [
+  228,
+  146
+ ],
+ "anchor_2x": [
+  104,
+  88
+ ],
+ "layers": [
+  "beauty",
+  "shadow",
+  "team"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "unit.IR.gunship@2x.beauty.0.json",
+    "unit.IR.gunship@2x.beauty.1.json",
+    "unit.IR.gunship@2x.beauty.2.json",
+    "unit.IR.gunship@2x.beauty.3.json",
+    "unit.IR.gunship@2x.beauty.4.json",
+    "unit.IR.gunship@2x.beauty.5.json",
+    "unit.IR.gunship@2x.beauty.6.json",
+    "unit.IR.gunship@2x.beauty.7.json"
+   ],
+   "shadow": [
+    "unit.IR.gunship@2x.shadow.0.json",
+    "unit.IR.gunship@2x.shadow.1.json",
+    "unit.IR.gunship@2x.shadow.2.json",
+    "unit.IR.gunship@2x.shadow.3.json",
+    "unit.IR.gunship@2x.shadow.4.json",
+    "unit.IR.gunship@2x.shadow.5.json",
+    "unit.IR.gunship@2x.shadow.6.json",
+    "unit.IR.gunship@2x.shadow.7.json"
+   ],
+   "team": [
+    "unit.IR.gunship@2x.team.0.json",
+    "unit.IR.gunship@2x.team.1.json",
+    "unit.IR.gunship@2x.team.2.json",
+    "unit.IR.gunship@2x.team.3.json",
+    "unit.IR.gunship@2x.team.4.json",
+    "unit.IR.gunship@2x.team.5.json",
+    "unit.IR.gunship@2x.team.6.json",
+    "unit.IR.gunship@2x.team.7.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "unit.IR.gunship@1x.beauty.0.json",
+    "unit.IR.gunship@1x.beauty.1.json",
+    "unit.IR.gunship@1x.beauty.2.json",
+    "unit.IR.gunship@1x.beauty.3.json",
+    "unit.IR.gunship@1x.beauty.4.json",
+    "unit.IR.gunship@1x.beauty.5.json",
+    "unit.IR.gunship@1x.beauty.6.json",
+    "unit.IR.gunship@1x.beauty.7.json"
+   ],
+   "shadow": [
+    "unit.IR.gunship@1x.shadow.0.json",
+    "unit.IR.gunship@1x.shadow.1.json",
+    "unit.IR.gunship@1x.shadow.2.json",
+    "unit.IR.gunship@1x.shadow.3.json",
+    "unit.IR.gunship@1x.shadow.4.json",
+    "unit.IR.gunship@1x.shadow.5.json",
+    "unit.IR.gunship@1x.shadow.6.json",
+    "unit.IR.gunship@1x.shadow.7.json"
+   ],
+   "team": [
+    "unit.IR.gunship@1x.team.0.json",
+    "unit.IR.gunship@1x.team.1.json",
+    "unit.IR.gunship@1x.team.2.json",
+    "unit.IR.gunship@1x.team.3.json",
+    "unit.IR.gunship@1x.team.4.json",
+    "unit.IR.gunship@1x.team.5.json",
+    "unit.IR.gunship@1x.team.6.json",
+    "unit.IR.gunship@1x.team.7.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "fly",
+   "part": "body",
+   "directions": 16,
+   "frames": 3,
+   "fps": 24,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "bank_left",
+   "part": "body",
+   "directions": 16,
+   "frames": 3,
+   "fps": 24,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "bank_right",
+   "part": "body",
+   "directions": 16,
+   "frames": 3,
+   "fps": 24,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "parked",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "launch",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "recover",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "crash",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "fire",
+   "part": "body",
+   "directions": 16,
+   "frames": 2,
+   "fps": 8,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 3,
+   "fps": 24,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "rearm",
+   "part": "body",
+   "directions": 16,
+   "frames": 6,
+   "fps": 8,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "channel": true
+  },
+  {
+   "name": "parked_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+  },
+  {
+   "name": "launch_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+  },
+  {
+   "name": "recover_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+  },
+  {
+   "name": "damaged_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+  },
+  {
+   "name": "fire_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 2,
+   "fps": 8,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+  },
+  {
+   "name": "rearm_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 6,
+   "fps": 8,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "channel": true,
+   "note": "Owned disclosed zero ammunition: canonical animation with payload solids and cast shadows absent"
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": 600,
+ "footprint_tiles": null,
+ "footprint_mt": null,
+ "turret_pivot_mt": null,
+ "squad": null,
+ "air": {
+  "cruise_altitude_mt": 1400,
+  "shadow_from_ground_anchor": true,
+  "rendered_at_ground": true
+ },
+ "hardpoints_2x_rel_anchor": {
+  "healthbar": {
+   "bank_left/d00_f00": [
+    10.7,
+    -53.4
+   ],
+   "bank_left/d00_f01": [
+    10.7,
+    -54.6
+   ],
+   "bank_left/d00_f02": [
+    10.7,
+    -52.1
+   ],
+   "bank_left/d01_f00": [
+    13.6,
+    -51.0
+   ],
+   "bank_left/d01_f01": [
+    13.6,
+    -52.2
+   ],
+   "bank_left/d01_f02": [
+    13.6,
+    -49.7
+   ],
+   "bank_left/d02_f00": [
+    14.3,
+    -48.2
+   ],
+   "bank_left/d02_f01": [
+    14.3,
+    -49.4
+   ],
+   "bank_left/d02_f02": [
+    14.3,
+    -47.0
+   ],
+   "bank_left/d03_f00": [
+    12.9,
+    -45.5
+   ],
+   "bank_left/d03_f01": [
+    12.9,
+    -46.7
+   ],
+   "bank_left/d03_f02": [
+    12.9,
+    -44.2
+   ],
+   "bank_left/d04_f00": [
+    9.5,
+    -43.2
+   ],
+   "bank_left/d04_f01": [
+    9.5,
+    -44.5
+   ],
+   "bank_left/d04_f02": [
+    9.5,
+    -42.0
+   ],
+   "bank_left/d05_f00": [
+    4.7,
+    -41.8
+   ],
+   "bank_left/d05_f01": [
+    4.7,
+    -43.0
+   ],
+   "bank_left/d05_f02": [
+    4.7,
+    -40.6
+   ],
+   "bank_left/d06_f00": [
+    -0.8,
+    -41.4
+   ],
+   "bank_left/d06_f01": [
+    -0.8,
+    -42.7
+   ],
+   "bank_left/d06_f02": [
+    -0.8,
+    -40.2
+   ],
+   "bank_left/d07_f00": [
+    -6.3,
+    -42.1
+   ],
+   "bank_left/d07_f01": [
+    -6.3,
+    -43.4
+   ],
+   "bank_left/d07_f02": [
+    -6.3,
+    -40.9
+   ],
+   "bank_left/d08_f00": [
+    -10.7,
+    -43.8
+   ],
+   "bank_left/d08_f01": [
+    -10.7,
+    -45.1
+   ],
+   "bank_left/d08_f02": [
+    -10.7,
+    -42.6
+   ],
+   "bank_left/d09_f00": [
+    -13.6,
+    -46.2
+   ],
+   "bank_left/d09_f01": [
+    -13.6,
+    -47.5
+   ],
+   "bank_left/d09_f02": [
+    -13.6,
+    -45.0
+   ],
+   "bank_left/d10_f00": [
+    -14.3,
+    -49.0
+   ],
+   "bank_left/d10_f01": [
+    -14.3,
+    -50.2
+   ],
+   "bank_left/d10_f02": [
+    -14.3,
+    -47.8
+   ],
+   "bank_left/d11_f00": [
+    -12.9,
+    -51.7
+   ],
+   "bank_left/d11_f01": [
+    -12.9,
+    -53.0
+   ],
+   "bank_left/d11_f02": [
+    -12.9,
+    -50.5
+   ],
+   "bank_left/d12_f00": [
+    -9.5,
+    -54.0
+   ],
+   "bank_left/d12_f01": [
+    -9.5,
+    -55.2
+   ],
+   "bank_left/d12_f02": [
+    -9.5,
+    -52.7
+   ],
+   "bank_left/d13_f00": [
+    -4.7,
+    -55.4
+   ],
+   "bank_left/d13_f01": [
+    -4.7,
+    -56.6
+   ],
+   "bank_left/d13_f02": [
+    -4.7,
+    -54.2
+   ],
+   "bank_left/d14_f00": [
+    0.8,
+    -55.8
+   ],
+   "bank_left/d14_f01": [
+    0.8,
+    -57.0
+   ],
+   "bank_left/d14_f02": [
+    0.8,
+    -54.5
+   ],
+   "bank_left/d15_f00": [
+    6.3,
+    -55.1
+   ],
+   "bank_left/d15_f01": [
+    6.3,
+    -56.3
+   ],
+   "bank_left/d15_f02": [
+    6.3,
+    -53.8
+   ],
+   "bank_right/d00_f00": [
+    -9.5,
+    -43.2
+   ],
+   "bank_right/d00_f01": [
+    -9.5,
+    -44.5
+   ],
+   "bank_right/d00_f02": [
+    -9.5,
+    -42.0
+   ],
+   "bank_right/d01_f00": [
+    -12.9,
+    -45.5
+   ],
+   "bank_right/d01_f01": [
+    -12.9,
+    -46.7
+   ],
+   "bank_right/d01_f02": [
+    -12.9,
+    -44.2
+   ],
+   "bank_right/d02_f00": [
+    -14.3,
+    -48.2
+   ],
+   "bank_right/d02_f01": [
+    -14.3,
+    -49.4
+   ],
+   "bank_right/d02_f02": [
+    -14.3,
+    -47.0
+   ],
+   "bank_right/d03_f00": [
+    -13.6,
+    -51.0
+   ],
+   "bank_right/d03_f01": [
+    -13.6,
+    -52.2
+   ],
+   "bank_right/d03_f02": [
+    -13.6,
+    -49.7
+   ],
+   "bank_right/d04_f00": [
+    -10.7,
+    -53.4
+   ],
+   "bank_right/d04_f01": [
+    -10.7,
+    -54.6
+   ],
+   "bank_right/d04_f02": [
+    -10.7,
+    -52.1
+   ],
+   "bank_right/d05_f00": [
+    -6.3,
+    -55.1
+   ],
+   "bank_right/d05_f01": [
+    -6.3,
+    -56.3
+   ],
+   "bank_right/d05_f02": [
+    -6.3,
+    -53.8
+   ],
+   "bank_right/d06_f00": [
+    -0.8,
+    -55.8
+   ],
+   "bank_right/d06_f01": [
+    -0.8,
+    -57.0
+   ],
+   "bank_right/d06_f02": [
+    -0.8,
+    -54.5
+   ],
+   "bank_right/d07_f00": [
+    4.7,
+    -55.4
+   ],
+   "bank_right/d07_f01": [
+    4.7,
+    -56.6
+   ],
+   "bank_right/d07_f02": [
+    4.7,
+    -54.2
+   ],
+   "bank_right/d08_f00": [
+    9.5,
+    -54.0
+   ],
+   "bank_right/d08_f01": [
+    9.5,
+    -55.2
+   ],
+   "bank_right/d08_f02": [
+    9.5,
+    -52.7
+   ],
+   "bank_right/d09_f00": [
+    12.9,
+    -51.7
+   ],
+   "bank_right/d09_f01": [
+    12.9,
+    -53.0
+   ],
+   "bank_right/d09_f02": [
+    12.9,
+    -50.5
+   ],
+   "bank_right/d10_f00": [
+    14.3,
+    -49.0
+   ],
+   "bank_right/d10_f01": [
+    14.3,
+    -50.2
+   ],
+   "bank_right/d10_f02": [
+    14.3,
+    -47.8
+   ],
+   "bank_right/d11_f00": [
+    13.6,
+    -46.2
+   ],
+   "bank_right/d11_f01": [
+    13.6,
+    -47.5
+   ],
+   "bank_right/d11_f02": [
+    13.6,
+    -45.0
+   ],
+   "bank_right/d12_f00": [
+    10.7,
+    -43.8
+   ],
+   "bank_right/d12_f01": [
+    10.7,
+    -45.1
+   ],
+   "bank_right/d12_f02": [
+    10.7,
+    -42.6
+   ],
+   "bank_right/d13_f00": [
+    6.3,
+    -42.1
+   ],
+   "bank_right/d13_f01": [
+    6.3,
+    -43.4
+   ],
+   "bank_right/d13_f02": [
+    6.3,
+    -40.9
+   ],
+   "bank_right/d14_f00": [
+    0.8,
+    -41.4
+   ],
+   "bank_right/d14_f01": [
+    0.8,
+    -42.7
+   ],
+   "bank_right/d14_f02": [
+    0.8,
+    -40.2
+   ],
+   "bank_right/d15_f00": [
+    -4.7,
+    -41.8
+   ],
+   "bank_right/d15_f01": [
+    -4.7,
+    -43.0
+   ],
+   "bank_right/d15_f02": [
+    -4.7,
+    -40.6
+   ],
+   "crash/d00_f00": [
+    -1.5,
+    -45.6
+   ],
+   "crash/d00_f01": [
+    -2.6,
+    -40.7
+   ],
+   "crash/d00_f02": [
+    -3.4,
+    -35.5
+   ],
+   "crash/d00_f03": [
+    -4.0,
+    -30.0
+   ],
+   "crash/d01_f00": [
+    -3.0,
+    -46.0
+   ],
+   "crash/d01_f01": [
+    -5.6,
+    -41.5
+   ],
+   "crash/d01_f02": [
+    -8.0,
+    -36.6
+   ],
+   "crash/d01_f03": [
+    -10.1,
+    -31.4
+   ],
+   "crash/d02_f00": [
+    -4.0,
+    -46.7
+   ],
+   "crash/d02_f01": [
+    -7.8,
+    -42.8
+   ],
+   "crash/d02_f02": [
+    -11.4,
+    -38.6
+   ],
+   "crash/d02_f03": [
+    -14.7,
+    -33.9
+   ],
+   "crash/d03_f00": [
+    -4.4,
+    -47.6
+   ],
+   "crash/d03_f01": [
+    -8.7,
+    -44.5
+   ],
+   "crash/d03_f02": [
+    -13.0,
+    -41.0
+   ],
+   "crash/d03_f03": [
+    -17.1,
+    -37.1
+   ],
+   "crash/d04_f00": [
+    -4.2,
+    -48.4
+   ],
+   "crash/d04_f01": [
+    -8.4,
+    -46.2
+   ],
+   "crash/d04_f02": [
+    -12.6,
+    -43.5
+   ],
+   "crash/d04_f03": [
+    -16.9,
+    -40.4
+   ],
+   "crash/d05_f00": [
+    -3.3,
+    -49.1
+   ],
+   "crash/d05_f01": [
+    -6.7,
+    -47.7
+   ],
+   "crash/d05_f02": [
+    -10.4,
+    -45.8
+   ],
+   "crash/d05_f03": [
+    -14.1,
+    -43.5
+   ],
+   "crash/d06_f00": [
+    -1.9,
+    -49.7
+   ],
+   "crash/d06_f01": [
+    -4.1,
+    -48.8
+   ],
+   "crash/d06_f02": [
+    -6.5,
+    -47.5
+   ],
+   "crash/d06_f03": [
+    -9.1,
+    -45.8
+   ],
+   "crash/d07_f00": [
+    -0.2,
+    -49.9
+   ],
+   "crash/d07_f01": [
+    -0.8,
+    -49.3
+   ],
+   "crash/d07_f02": [
+    -1.7,
+    -48.3
+   ],
+   "crash/d07_f03": [
+    -2.8,
+    -47.0
+   ],
+   "crash/d08_f00": [
+    1.5,
+    -49.7
+   ],
+   "crash/d08_f01": [
+    2.6,
+    -49.1
+   ],
+   "crash/d08_f02": [
+    3.4,
+    -48.1
+   ],
+   "crash/d08_f03": [
+    4.0,
+    -46.9
+   ],
+   "crash/d09_f00": [
+    3.0,
+    -49.3
+   ],
+   "crash/d09_f01": [
+    5.6,
+    -48.3
+   ],
+   "crash/d09_f02": [
+    8.0,
+    -47.0
+   ],
+   "crash/d09_f03": [
+    10.1,
+    -45.5
+   ],
+   "crash/d10_f00": [
+    4.0,
+    -48.6
+   ],
+   "crash/d10_f01": [
+    7.8,
+    -46.9
+   ],
+   "crash/d10_f02": [
+    11.4,
+    -45.1
+   ],
+   "crash/d10_f03": [
+    14.7,
+    -43.0
+   ],
+   "crash/d11_f00": [
+    4.4,
+    -47.8
+   ],
+   "crash/d11_f01": [
+    8.7,
+    -45.3
+   ],
+   "crash/d11_f02": [
+    13.0,
+    -42.6
+   ],
+   "crash/d11_f03": [
+    17.1,
+    -39.9
+   ],
+   "crash/d12_f00": [
+    4.2,
+    -46.9
+   ],
+   "crash/d12_f01": [
+    8.4,
+    -43.6
+   ],
+   "crash/d12_f02": [
+    12.6,
+    -40.1
+   ],
+   "crash/d12_f03": [
+    16.9,
+    -36.5
+   ],
+   "crash/d13_f00": [
+    3.3,
+    -46.2
+   ],
+   "crash/d13_f01": [
+    6.7,
+    -42.1
+   ],
+   "crash/d13_f02": [
+    10.4,
+    -37.8
+   ],
+   "crash/d13_f03": [
+    14.1,
+    -33.4
+   ],
+   "crash/d14_f00": [
+    1.9,
+    -45.7
+   ],
+   "crash/d14_f01": [
+    4.1,
+    -41.0
+   ],
+   "crash/d14_f02": [
+    6.5,
+    -36.1
+   ],
+   "crash/d14_f03": [
+    9.1,
+    -31.1
+   ],
+   "crash/d15_f00": [
+    0.2,
+    -45.5
+   ],
+   "crash/d15_f01": [
+    0.8,
+    -40.5
+   ],
+   "crash/d15_f02": [
+    1.7,
+    -35.3
+   ],
+   "crash/d15_f03": [
+    2.8,
+    -29.9
+   ],
+   "damaged/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "damaged_empty/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d00_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d00_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d01_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d01_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d02_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d02_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d03_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d03_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d04_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d04_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d05_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d05_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d06_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d06_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d07_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d07_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d08_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d08_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d09_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d09_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d10_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d10_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d11_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d11_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d12_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d12_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d13_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d13_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d14_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d14_f02": [
+    0.0,
+    -48.9
+   ],
+   "empty/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "empty/d15_f01": [
+    0.0,
+    -51.4
+   ],
+   "empty/d15_f02": [
+    0.0,
+    -48.9
+   ],
+   "fire/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d00_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d01_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d02_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d03_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d04_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d05_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d06_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d07_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d08_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d09_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d10_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d11_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d12_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d13_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d14_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire/d15_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d00_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d01_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d02_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d03_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d04_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d05_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d06_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d07_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d08_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d09_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d10_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d11_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d12_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d13_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d14_f01": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "fire_empty/d15_f01": [
+    0.0,
+    -50.2
+   ],
+   "fly/d00_f00": [
+    2.7,
+    -48.7
+   ],
+   "fly/d00_f01": [
+    2.7,
+    -50.0
+   ],
+   "fly/d00_f02": [
+    2.7,
+    -47.5
+   ],
+   "fly/d01_f00": [
+    1.4,
+    -48.3
+   ],
+   "fly/d01_f01": [
+    1.4,
+    -49.5
+   ],
+   "fly/d01_f02": [
+    1.4,
+    -47.1
+   ],
+   "fly/d02_f00": [
+    0.0,
+    -48.2
+   ],
+   "fly/d02_f01": [
+    0.0,
+    -49.4
+   ],
+   "fly/d02_f02": [
+    0.0,
+    -47.0
+   ],
+   "fly/d03_f00": [
+    -1.4,
+    -48.3
+   ],
+   "fly/d03_f01": [
+    -1.4,
+    -49.5
+   ],
+   "fly/d03_f02": [
+    -1.4,
+    -47.1
+   ],
+   "fly/d04_f00": [
+    -2.7,
+    -48.7
+   ],
+   "fly/d04_f01": [
+    -2.7,
+    -50.0
+   ],
+   "fly/d04_f02": [
+    -2.7,
+    -47.5
+   ],
+   "fly/d05_f00": [
+    -3.5,
+    -49.3
+   ],
+   "fly/d05_f01": [
+    -3.5,
+    -50.6
+   ],
+   "fly/d05_f02": [
+    -3.5,
+    -48.1
+   ],
+   "fly/d06_f00": [
+    -3.8,
+    -50.1
+   ],
+   "fly/d06_f01": [
+    -3.8,
+    -51.3
+   ],
+   "fly/d06_f02": [
+    -3.8,
+    -48.8
+   ],
+   "fly/d07_f00": [
+    -3.5,
+    -50.8
+   ],
+   "fly/d07_f01": [
+    -3.5,
+    -52.0
+   ],
+   "fly/d07_f02": [
+    -3.5,
+    -49.6
+   ],
+   "fly/d08_f00": [
+    -2.7,
+    -51.4
+   ],
+   "fly/d08_f01": [
+    -2.7,
+    -52.6
+   ],
+   "fly/d08_f02": [
+    -2.7,
+    -50.2
+   ],
+   "fly/d09_f00": [
+    -1.4,
+    -51.8
+   ],
+   "fly/d09_f01": [
+    -1.4,
+    -53.0
+   ],
+   "fly/d09_f02": [
+    -1.4,
+    -50.6
+   ],
+   "fly/d10_f00": [
+    0.0,
+    -51.9
+   ],
+   "fly/d10_f01": [
+    0.0,
+    -53.2
+   ],
+   "fly/d10_f02": [
+    0.0,
+    -50.7
+   ],
+   "fly/d11_f00": [
+    1.4,
+    -51.8
+   ],
+   "fly/d11_f01": [
+    1.4,
+    -53.0
+   ],
+   "fly/d11_f02": [
+    1.4,
+    -50.6
+   ],
+   "fly/d12_f00": [
+    2.7,
+    -51.4
+   ],
+   "fly/d12_f01": [
+    2.7,
+    -52.6
+   ],
+   "fly/d12_f02": [
+    2.7,
+    -50.2
+   ],
+   "fly/d13_f00": [
+    3.5,
+    -50.8
+   ],
+   "fly/d13_f01": [
+    3.5,
+    -52.0
+   ],
+   "fly/d13_f02": [
+    3.5,
+    -49.6
+   ],
+   "fly/d14_f00": [
+    3.8,
+    -50.1
+   ],
+   "fly/d14_f01": [
+    3.8,
+    -51.3
+   ],
+   "fly/d14_f02": [
+    3.8,
+    -48.8
+   ],
+   "fly/d15_f00": [
+    3.5,
+    -49.3
+   ],
+   "fly/d15_f01": [
+    3.5,
+    -50.6
+   ],
+   "fly/d15_f02": [
+    3.5,
+    -48.1
+   ],
+   "launch/d00_f00": [
+    -2.5,
+    -51.3
+   ],
+   "launch/d00_f01": [
+    -3.5,
+    -53.1
+   ],
+   "launch/d00_f02": [
+    -2.5,
+    -51.3
+   ],
+   "launch/d00_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d01_f00": [
+    -1.3,
+    -51.7
+   ],
+   "launch/d01_f01": [
+    -1.9,
+    -53.7
+   ],
+   "launch/d01_f02": [
+    -1.3,
+    -51.7
+   ],
+   "launch/d01_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d02_f00": [
+    0.0,
+    -51.8
+   ],
+   "launch/d02_f01": [
+    0.0,
+    -53.9
+   ],
+   "launch/d02_f02": [
+    0.0,
+    -51.8
+   ],
+   "launch/d02_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d03_f00": [
+    1.3,
+    -51.7
+   ],
+   "launch/d03_f01": [
+    1.9,
+    -53.7
+   ],
+   "launch/d03_f02": [
+    1.3,
+    -51.7
+   ],
+   "launch/d03_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d04_f00": [
+    2.5,
+    -51.3
+   ],
+   "launch/d04_f01": [
+    3.5,
+    -53.1
+   ],
+   "launch/d04_f02": [
+    2.5,
+    -51.3
+   ],
+   "launch/d04_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d05_f00": [
+    3.2,
+    -50.7
+   ],
+   "launch/d05_f01": [
+    4.5,
+    -52.3
+   ],
+   "launch/d05_f02": [
+    3.2,
+    -50.7
+   ],
+   "launch/d05_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d06_f00": [
+    3.5,
+    -50.1
+   ],
+   "launch/d06_f01": [
+    4.9,
+    -51.4
+   ],
+   "launch/d06_f02": [
+    3.5,
+    -50.1
+   ],
+   "launch/d06_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d07_f00": [
+    3.2,
+    -49.4
+   ],
+   "launch/d07_f01": [
+    4.5,
+    -50.5
+   ],
+   "launch/d07_f02": [
+    3.2,
+    -49.4
+   ],
+   "launch/d07_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d08_f00": [
+    2.5,
+    -48.8
+   ],
+   "launch/d08_f01": [
+    3.5,
+    -49.7
+   ],
+   "launch/d08_f02": [
+    2.5,
+    -48.8
+   ],
+   "launch/d08_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d09_f00": [
+    1.3,
+    -48.5
+   ],
+   "launch/d09_f01": [
+    1.9,
+    -49.1
+   ],
+   "launch/d09_f02": [
+    1.3,
+    -48.5
+   ],
+   "launch/d09_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d10_f00": [
+    0.0,
+    -48.3
+   ],
+   "launch/d10_f01": [
+    0.0,
+    -48.9
+   ],
+   "launch/d10_f02": [
+    0.0,
+    -48.3
+   ],
+   "launch/d10_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d11_f00": [
+    -1.3,
+    -48.5
+   ],
+   "launch/d11_f01": [
+    -1.9,
+    -49.1
+   ],
+   "launch/d11_f02": [
+    -1.3,
+    -48.5
+   ],
+   "launch/d11_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d12_f00": [
+    -2.5,
+    -48.8
+   ],
+   "launch/d12_f01": [
+    -3.5,
+    -49.7
+   ],
+   "launch/d12_f02": [
+    -2.5,
+    -48.8
+   ],
+   "launch/d12_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d13_f00": [
+    -3.2,
+    -49.4
+   ],
+   "launch/d13_f01": [
+    -4.5,
+    -50.5
+   ],
+   "launch/d13_f02": [
+    -3.2,
+    -49.4
+   ],
+   "launch/d13_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d14_f00": [
+    -3.5,
+    -50.1
+   ],
+   "launch/d14_f01": [
+    -4.9,
+    -51.4
+   ],
+   "launch/d14_f02": [
+    -3.5,
+    -50.1
+   ],
+   "launch/d14_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch/d15_f00": [
+    -3.2,
+    -50.7
+   ],
+   "launch/d15_f01": [
+    -4.5,
+    -52.3
+   ],
+   "launch/d15_f02": [
+    -3.2,
+    -50.7
+   ],
+   "launch/d15_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d00_f00": [
+    -2.5,
+    -51.3
+   ],
+   "launch_empty/d00_f01": [
+    -3.5,
+    -53.1
+   ],
+   "launch_empty/d00_f02": [
+    -2.5,
+    -51.3
+   ],
+   "launch_empty/d00_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d01_f00": [
+    -1.3,
+    -51.7
+   ],
+   "launch_empty/d01_f01": [
+    -1.9,
+    -53.7
+   ],
+   "launch_empty/d01_f02": [
+    -1.3,
+    -51.7
+   ],
+   "launch_empty/d01_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d02_f00": [
+    0.0,
+    -51.8
+   ],
+   "launch_empty/d02_f01": [
+    0.0,
+    -53.9
+   ],
+   "launch_empty/d02_f02": [
+    0.0,
+    -51.8
+   ],
+   "launch_empty/d02_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d03_f00": [
+    1.3,
+    -51.7
+   ],
+   "launch_empty/d03_f01": [
+    1.9,
+    -53.7
+   ],
+   "launch_empty/d03_f02": [
+    1.3,
+    -51.7
+   ],
+   "launch_empty/d03_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d04_f00": [
+    2.5,
+    -51.3
+   ],
+   "launch_empty/d04_f01": [
+    3.5,
+    -53.1
+   ],
+   "launch_empty/d04_f02": [
+    2.5,
+    -51.3
+   ],
+   "launch_empty/d04_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d05_f00": [
+    3.2,
+    -50.7
+   ],
+   "launch_empty/d05_f01": [
+    4.5,
+    -52.3
+   ],
+   "launch_empty/d05_f02": [
+    3.2,
+    -50.7
+   ],
+   "launch_empty/d05_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d06_f00": [
+    3.5,
+    -50.1
+   ],
+   "launch_empty/d06_f01": [
+    4.9,
+    -51.4
+   ],
+   "launch_empty/d06_f02": [
+    3.5,
+    -50.1
+   ],
+   "launch_empty/d06_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d07_f00": [
+    3.2,
+    -49.4
+   ],
+   "launch_empty/d07_f01": [
+    4.5,
+    -50.5
+   ],
+   "launch_empty/d07_f02": [
+    3.2,
+    -49.4
+   ],
+   "launch_empty/d07_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d08_f00": [
+    2.5,
+    -48.8
+   ],
+   "launch_empty/d08_f01": [
+    3.5,
+    -49.7
+   ],
+   "launch_empty/d08_f02": [
+    2.5,
+    -48.8
+   ],
+   "launch_empty/d08_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d09_f00": [
+    1.3,
+    -48.5
+   ],
+   "launch_empty/d09_f01": [
+    1.9,
+    -49.1
+   ],
+   "launch_empty/d09_f02": [
+    1.3,
+    -48.5
+   ],
+   "launch_empty/d09_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d10_f00": [
+    0.0,
+    -48.3
+   ],
+   "launch_empty/d10_f01": [
+    0.0,
+    -48.9
+   ],
+   "launch_empty/d10_f02": [
+    0.0,
+    -48.3
+   ],
+   "launch_empty/d10_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d11_f00": [
+    -1.3,
+    -48.5
+   ],
+   "launch_empty/d11_f01": [
+    -1.9,
+    -49.1
+   ],
+   "launch_empty/d11_f02": [
+    -1.3,
+    -48.5
+   ],
+   "launch_empty/d11_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d12_f00": [
+    -2.5,
+    -48.8
+   ],
+   "launch_empty/d12_f01": [
+    -3.5,
+    -49.7
+   ],
+   "launch_empty/d12_f02": [
+    -2.5,
+    -48.8
+   ],
+   "launch_empty/d12_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d13_f00": [
+    -3.2,
+    -49.4
+   ],
+   "launch_empty/d13_f01": [
+    -4.5,
+    -50.5
+   ],
+   "launch_empty/d13_f02": [
+    -3.2,
+    -49.4
+   ],
+   "launch_empty/d13_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d14_f00": [
+    -3.5,
+    -50.1
+   ],
+   "launch_empty/d14_f01": [
+    -4.9,
+    -51.4
+   ],
+   "launch_empty/d14_f02": [
+    -3.5,
+    -50.1
+   ],
+   "launch_empty/d14_f03": [
+    0.0,
+    -48.8
+   ],
+   "launch_empty/d15_f00": [
+    -3.2,
+    -50.7
+   ],
+   "launch_empty/d15_f01": [
+    -4.5,
+    -52.3
+   ],
+   "launch_empty/d15_f02": [
+    -3.2,
+    -50.7
+   ],
+   "launch_empty/d15_f03": [
+    0.0,
+    -48.8
+   ],
+   "parked/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "parked_empty/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d00_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d00_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d00_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d00_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d00_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d01_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d01_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d01_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d01_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d01_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d02_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d02_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d02_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d02_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d02_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d03_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d03_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d03_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d03_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d03_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d04_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d04_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d04_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d04_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d04_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d05_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d05_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d05_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d05_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d05_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d06_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d06_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d06_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d06_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d06_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d07_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d07_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d07_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d07_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d07_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d08_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d08_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d08_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d08_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d08_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d09_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d09_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d09_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d09_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d09_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d10_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d10_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d10_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d10_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d10_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d11_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d11_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d11_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d11_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d11_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d12_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d12_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d12_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d12_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d12_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d13_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d13_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d13_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d13_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d13_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d14_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d14_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d14_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d14_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d14_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d15_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d15_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d15_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d15_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm/d15_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d00_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d00_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d00_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d00_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d00_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d00_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d01_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d01_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d01_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d01_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d01_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d01_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d02_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d02_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d02_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d02_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d02_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d02_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d03_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d03_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d03_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d03_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d03_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d03_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d04_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d04_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d04_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d04_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d04_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d04_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d05_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d05_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d05_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d05_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d05_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d05_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d06_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d06_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d06_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d06_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d06_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d06_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d07_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d07_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d07_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d07_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d07_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d07_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d08_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d08_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d08_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d08_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d08_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d08_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d09_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d09_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d09_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d09_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d09_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d09_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d10_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d10_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d10_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d10_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d10_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d10_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d11_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d11_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d11_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d11_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d11_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d11_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d12_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d12_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d12_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d12_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d12_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d12_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d13_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d13_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d13_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d13_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d13_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d13_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d14_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d14_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d14_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d14_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d14_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d14_f05": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d15_f00": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d15_f01": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d15_f02": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d15_f03": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d15_f04": [
+    0.0,
+    -50.2
+   ],
+   "rearm_empty/d15_f05": [
+    0.0,
+    -50.2
+   ],
+   "recover/d00_f00": [
+    -1.3,
+    -50.8
+   ],
+   "recover/d00_f01": [
+    -1.8,
+    -52.4
+   ],
+   "recover/d00_f02": [
+    -1.3,
+    -50.8
+   ],
+   "recover/d00_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d01_f00": [
+    -0.7,
+    -51.0
+   ],
+   "recover/d01_f01": [
+    -1.0,
+    -52.7
+   ],
+   "recover/d01_f02": [
+    -0.7,
+    -51.0
+   ],
+   "recover/d01_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d02_f00": [
+    0.0,
+    -51.1
+   ],
+   "recover/d02_f01": [
+    0.0,
+    -52.8
+   ],
+   "recover/d02_f02": [
+    0.0,
+    -51.1
+   ],
+   "recover/d02_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d03_f00": [
+    0.7,
+    -51.0
+   ],
+   "recover/d03_f01": [
+    1.0,
+    -52.7
+   ],
+   "recover/d03_f02": [
+    0.7,
+    -51.0
+   ],
+   "recover/d03_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d04_f00": [
+    1.3,
+    -50.8
+   ],
+   "recover/d04_f01": [
+    1.8,
+    -52.4
+   ],
+   "recover/d04_f02": [
+    1.3,
+    -50.8
+   ],
+   "recover/d04_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d05_f00": [
+    1.7,
+    -50.5
+   ],
+   "recover/d05_f01": [
+    2.4,
+    -52.0
+   ],
+   "recover/d05_f02": [
+    1.7,
+    -50.5
+   ],
+   "recover/d05_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d06_f00": [
+    1.8,
+    -50.1
+   ],
+   "recover/d06_f01": [
+    2.6,
+    -51.5
+   ],
+   "recover/d06_f02": [
+    1.8,
+    -50.1
+   ],
+   "recover/d06_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d07_f00": [
+    1.7,
+    -49.8
+   ],
+   "recover/d07_f01": [
+    2.4,
+    -51.0
+   ],
+   "recover/d07_f02": [
+    1.7,
+    -49.8
+   ],
+   "recover/d07_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d08_f00": [
+    1.3,
+    -49.5
+   ],
+   "recover/d08_f01": [
+    1.8,
+    -50.6
+   ],
+   "recover/d08_f02": [
+    1.3,
+    -49.5
+   ],
+   "recover/d08_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d09_f00": [
+    0.7,
+    -49.3
+   ],
+   "recover/d09_f01": [
+    1.0,
+    -50.3
+   ],
+   "recover/d09_f02": [
+    0.7,
+    -49.3
+   ],
+   "recover/d09_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d10_f00": [
+    0.0,
+    -49.2
+   ],
+   "recover/d10_f01": [
+    0.0,
+    -50.2
+   ],
+   "recover/d10_f02": [
+    0.0,
+    -49.2
+   ],
+   "recover/d10_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d11_f00": [
+    -0.7,
+    -49.3
+   ],
+   "recover/d11_f01": [
+    -1.0,
+    -50.3
+   ],
+   "recover/d11_f02": [
+    -0.7,
+    -49.3
+   ],
+   "recover/d11_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d12_f00": [
+    -1.3,
+    -49.5
+   ],
+   "recover/d12_f01": [
+    -1.8,
+    -50.6
+   ],
+   "recover/d12_f02": [
+    -1.3,
+    -49.5
+   ],
+   "recover/d12_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d13_f00": [
+    -1.7,
+    -49.8
+   ],
+   "recover/d13_f01": [
+    -2.4,
+    -51.0
+   ],
+   "recover/d13_f02": [
+    -1.7,
+    -49.8
+   ],
+   "recover/d13_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d14_f00": [
+    -1.8,
+    -50.1
+   ],
+   "recover/d14_f01": [
+    -2.6,
+    -51.5
+   ],
+   "recover/d14_f02": [
+    -1.8,
+    -50.1
+   ],
+   "recover/d14_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover/d15_f00": [
+    -1.7,
+    -50.5
+   ],
+   "recover/d15_f01": [
+    -2.4,
+    -52.0
+   ],
+   "recover/d15_f02": [
+    -1.7,
+    -50.5
+   ],
+   "recover/d15_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d00_f00": [
+    -1.3,
+    -50.8
+   ],
+   "recover_empty/d00_f01": [
+    -1.8,
+    -52.4
+   ],
+   "recover_empty/d00_f02": [
+    -1.3,
+    -50.8
+   ],
+   "recover_empty/d00_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d01_f00": [
+    -0.7,
+    -51.0
+   ],
+   "recover_empty/d01_f01": [
+    -1.0,
+    -52.7
+   ],
+   "recover_empty/d01_f02": [
+    -0.7,
+    -51.0
+   ],
+   "recover_empty/d01_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d02_f00": [
+    0.0,
+    -51.1
+   ],
+   "recover_empty/d02_f01": [
+    0.0,
+    -52.8
+   ],
+   "recover_empty/d02_f02": [
+    0.0,
+    -51.1
+   ],
+   "recover_empty/d02_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d03_f00": [
+    0.7,
+    -51.0
+   ],
+   "recover_empty/d03_f01": [
+    1.0,
+    -52.7
+   ],
+   "recover_empty/d03_f02": [
+    0.7,
+    -51.0
+   ],
+   "recover_empty/d03_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d04_f00": [
+    1.3,
+    -50.8
+   ],
+   "recover_empty/d04_f01": [
+    1.8,
+    -52.4
+   ],
+   "recover_empty/d04_f02": [
+    1.3,
+    -50.8
+   ],
+   "recover_empty/d04_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d05_f00": [
+    1.7,
+    -50.5
+   ],
+   "recover_empty/d05_f01": [
+    2.4,
+    -52.0
+   ],
+   "recover_empty/d05_f02": [
+    1.7,
+    -50.5
+   ],
+   "recover_empty/d05_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d06_f00": [
+    1.8,
+    -50.1
+   ],
+   "recover_empty/d06_f01": [
+    2.6,
+    -51.5
+   ],
+   "recover_empty/d06_f02": [
+    1.8,
+    -50.1
+   ],
+   "recover_empty/d06_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d07_f00": [
+    1.7,
+    -49.8
+   ],
+   "recover_empty/d07_f01": [
+    2.4,
+    -51.0
+   ],
+   "recover_empty/d07_f02": [
+    1.7,
+    -49.8
+   ],
+   "recover_empty/d07_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d08_f00": [
+    1.3,
+    -49.5
+   ],
+   "recover_empty/d08_f01": [
+    1.8,
+    -50.6
+   ],
+   "recover_empty/d08_f02": [
+    1.3,
+    -49.5
+   ],
+   "recover_empty/d08_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d09_f00": [
+    0.7,
+    -49.3
+   ],
+   "recover_empty/d09_f01": [
+    1.0,
+    -50.3
+   ],
+   "recover_empty/d09_f02": [
+    0.7,
+    -49.3
+   ],
+   "recover_empty/d09_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d10_f00": [
+    0.0,
+    -49.2
+   ],
+   "recover_empty/d10_f01": [
+    0.0,
+    -50.2
+   ],
+   "recover_empty/d10_f02": [
+    0.0,
+    -49.2
+   ],
+   "recover_empty/d10_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d11_f00": [
+    -0.7,
+    -49.3
+   ],
+   "recover_empty/d11_f01": [
+    -1.0,
+    -50.3
+   ],
+   "recover_empty/d11_f02": [
+    -0.7,
+    -49.3
+   ],
+   "recover_empty/d11_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d12_f00": [
+    -1.3,
+    -49.5
+   ],
+   "recover_empty/d12_f01": [
+    -1.8,
+    -50.6
+   ],
+   "recover_empty/d12_f02": [
+    -1.3,
+    -49.5
+   ],
+   "recover_empty/d12_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d13_f00": [
+    -1.7,
+    -49.8
+   ],
+   "recover_empty/d13_f01": [
+    -2.4,
+    -51.0
+   ],
+   "recover_empty/d13_f02": [
+    -1.7,
+    -49.8
+   ],
+   "recover_empty/d13_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d14_f00": [
+    -1.8,
+    -50.1
+   ],
+   "recover_empty/d14_f01": [
+    -2.6,
+    -51.5
+   ],
+   "recover_empty/d14_f02": [
+    -1.8,
+    -50.1
+   ],
+   "recover_empty/d14_f03": [
+    0.0,
+    -48.8
+   ],
+   "recover_empty/d15_f00": [
+    -1.7,
+    -50.5
+   ],
+   "recover_empty/d15_f01": [
+    -2.4,
+    -52.0
+   ],
+   "recover_empty/d15_f02": [
+    -1.7,
+    -50.5
+   ],
+   "recover_empty/d15_f03": [
+    0.0,
+    -48.8
+   ]
+  },
+  "release": {
+   "bank_left/d00_f00": [
+    3.8,
+    -11.8
+   ],
+   "bank_left/d00_f01": [
+    3.8,
+    -13.1
+   ],
+   "bank_left/d00_f02": [
+    3.8,
+    -10.6
+   ],
+   "bank_left/d01_f00": [
+    3.9,
+    -11.1
+   ],
+   "bank_left/d01_f01": [
+    3.9,
+    -12.3
+   ],
+   "bank_left/d01_f02": [
+    3.9,
+    -9.9
+   ],
+   "bank_left/d02_f00": [
+    3.4,
+    -10.4
+   ],
+   "bank_left/d02_f01": [
+    3.4,
+    -11.6
+   ],
+   "bank_left/d02_f02": [
+    3.4,
+    -9.1
+   ],
+   "bank_left/d03_f00": [
+    2.3,
+    -9.8
+   ],
+   "bank_left/d03_f01": [
+    2.3,
+    -11.0
+   ],
+   "bank_left/d03_f02": [
+    2.3,
+    -8.6
+   ],
+   "bank_left/d04_f00": [
+    1.0,
+    -9.5
+   ],
+   "bank_left/d04_f01": [
+    1.0,
+    -10.7
+   ],
+   "bank_left/d04_f02": [
+    1.0,
+    -8.2
+   ],
+   "bank_left/d05_f00": [
+    -0.6,
+    -9.4
+   ],
+   "bank_left/d05_f01": [
+    -0.6,
+    -10.7
+   ],
+   "bank_left/d05_f02": [
+    -0.6,
+    -8.2
+   ],
+   "bank_left/d06_f00": [
+    -2.0,
+    -9.7
+   ],
+   "bank_left/d06_f01": [
+    -2.0,
+    -10.9
+   ],
+   "bank_left/d06_f02": [
+    -2.0,
+    -8.5
+   ],
+   "bank_left/d07_f00": [
+    -3.1,
+    -10.2
+   ],
+   "bank_left/d07_f01": [
+    -3.1,
+    -11.4
+   ],
+   "bank_left/d07_f02": [
+    -3.1,
+    -9.0
+   ],
+   "bank_left/d08_f00": [
+    -3.8,
+    -10.9
+   ],
+   "bank_left/d08_f01": [
+    -3.8,
+    -12.1
+   ],
+   "bank_left/d08_f02": [
+    -3.8,
+    -9.7
+   ],
+   "bank_left/d09_f00": [
+    -3.9,
+    -11.7
+   ],
+   "bank_left/d09_f01": [
+    -3.9,
+    -12.9
+   ],
+   "bank_left/d09_f02": [
+    -3.9,
+    -10.4
+   ],
+   "bank_left/d10_f00": [
+    -3.4,
+    -12.4
+   ],
+   "bank_left/d10_f01": [
+    -3.4,
+    -13.6
+   ],
+   "bank_left/d10_f02": [
+    -3.4,
+    -11.1
+   ],
+   "bank_left/d11_f00": [
+    -2.3,
+    -12.9
+   ],
+   "bank_left/d11_f01": [
+    -2.3,
+    -14.2
+   ],
+   "bank_left/d11_f02": [
+    -2.3,
+    -11.7
+   ],
+   "bank_left/d12_f00": [
+    -1.0,
+    -13.3
+   ],
+   "bank_left/d12_f01": [
+    -1.0,
+    -14.5
+   ],
+   "bank_left/d12_f02": [
+    -1.0,
+    -12.0
+   ],
+   "bank_left/d13_f00": [
+    0.6,
+    -13.3
+   ],
+   "bank_left/d13_f01": [
+    0.6,
+    -14.5
+   ],
+   "bank_left/d13_f02": [
+    0.6,
+    -12.1
+   ],
+   "bank_left/d14_f00": [
+    2.0,
+    -13.0
+   ],
+   "bank_left/d14_f01": [
+    2.0,
+    -14.3
+   ],
+   "bank_left/d14_f02": [
+    2.0,
+    -11.8
+   ],
+   "bank_left/d15_f00": [
+    3.1,
+    -12.5
+   ],
+   "bank_left/d15_f01": [
+    3.1,
+    -13.8
+   ],
+   "bank_left/d15_f02": [
+    3.1,
+    -11.3
+   ],
+   "bank_right/d00_f00": [
+    -1.0,
+    -9.5
+   ],
+   "bank_right/d00_f01": [
+    -1.0,
+    -10.7
+   ],
+   "bank_right/d00_f02": [
+    -1.0,
+    -8.2
+   ],
+   "bank_right/d01_f00": [
+    -2.3,
+    -9.8
+   ],
+   "bank_right/d01_f01": [
+    -2.3,
+    -11.0
+   ],
+   "bank_right/d01_f02": [
+    -2.3,
+    -8.6
+   ],
+   "bank_right/d02_f00": [
+    -3.4,
+    -10.4
+   ],
+   "bank_right/d02_f01": [
+    -3.4,
+    -11.6
+   ],
+   "bank_right/d02_f02": [
+    -3.4,
+    -9.1
+   ],
+   "bank_right/d03_f00": [
+    -3.9,
+    -11.1
+   ],
+   "bank_right/d03_f01": [
+    -3.9,
+    -12.3
+   ],
+   "bank_right/d03_f02": [
+    -3.9,
+    -9.9
+   ],
+   "bank_right/d04_f00": [
+    -3.8,
+    -11.8
+   ],
+   "bank_right/d04_f01": [
+    -3.8,
+    -13.1
+   ],
+   "bank_right/d04_f02": [
+    -3.8,
+    -10.6
+   ],
+   "bank_right/d05_f00": [
+    -3.1,
+    -12.5
+   ],
+   "bank_right/d05_f01": [
+    -3.1,
+    -13.8
+   ],
+   "bank_right/d05_f02": [
+    -3.1,
+    -11.3
+   ],
+   "bank_right/d06_f00": [
+    -2.0,
+    -13.0
+   ],
+   "bank_right/d06_f01": [
+    -2.0,
+    -14.3
+   ],
+   "bank_right/d06_f02": [
+    -2.0,
+    -11.8
+   ],
+   "bank_right/d07_f00": [
+    -0.6,
+    -13.3
+   ],
+   "bank_right/d07_f01": [
+    -0.6,
+    -14.5
+   ],
+   "bank_right/d07_f02": [
+    -0.6,
+    -12.1
+   ],
+   "bank_right/d08_f00": [
+    1.0,
+    -13.3
+   ],
+   "bank_right/d08_f01": [
+    1.0,
+    -14.5
+   ],
+   "bank_right/d08_f02": [
+    1.0,
+    -12.0
+   ],
+   "bank_right/d09_f00": [
+    2.3,
+    -12.9
+   ],
+   "bank_right/d09_f01": [
+    2.3,
+    -14.2
+   ],
+   "bank_right/d09_f02": [
+    2.3,
+    -11.7
+   ],
+   "bank_right/d10_f00": [
+    3.4,
+    -12.4
+   ],
+   "bank_right/d10_f01": [
+    3.4,
+    -13.6
+   ],
+   "bank_right/d10_f02": [
+    3.4,
+    -11.1
+   ],
+   "bank_right/d11_f00": [
+    3.9,
+    -11.7
+   ],
+   "bank_right/d11_f01": [
+    3.9,
+    -12.9
+   ],
+   "bank_right/d11_f02": [
+    3.9,
+    -10.4
+   ],
+   "bank_right/d12_f00": [
+    3.8,
+    -10.9
+   ],
+   "bank_right/d12_f01": [
+    3.8,
+    -12.1
+   ],
+   "bank_right/d12_f02": [
+    3.8,
+    -9.7
+   ],
+   "bank_right/d13_f00": [
+    3.1,
+    -10.2
+   ],
+   "bank_right/d13_f01": [
+    3.1,
+    -11.4
+   ],
+   "bank_right/d13_f02": [
+    3.1,
+    -9.0
+   ],
+   "bank_right/d14_f00": [
+    2.0,
+    -9.7
+   ],
+   "bank_right/d14_f01": [
+    2.0,
+    -10.9
+   ],
+   "bank_right/d14_f02": [
+    2.0,
+    -8.5
+   ],
+   "bank_right/d15_f00": [
+    0.6,
+    -9.4
+   ],
+   "bank_right/d15_f01": [
+    0.6,
+    -10.7
+   ],
+   "bank_right/d15_f02": [
+    0.6,
+    -8.2
+   ],
+   "crash/d00_f00": [
+    1.0,
+    -8.2
+   ],
+   "crash/d00_f01": [
+    0.8,
+    -5.3
+   ],
+   "crash/d00_f02": [
+    0.6,
+    -2.2
+   ],
+   "crash/d00_f03": [
+    0.5,
+    0.9
+   ],
+   "crash/d01_f00": [
+    0.1,
+    -8.1
+   ],
+   "crash/d01_f01": [
+    -0.5,
+    -5.2
+   ],
+   "crash/d01_f02": [
+    -1.0,
+    -2.3
+   ],
+   "crash/d01_f03": [
+    -1.4,
+    0.8
+   ],
+   "crash/d02_f00": [
+    -0.9,
+    -8.2
+   ],
+   "crash/d02_f01": [
+    -1.7,
+    -5.4
+   ],
+   "crash/d02_f02": [
+    -2.5,
+    -2.6
+   ],
+   "crash/d02_f03": [
+    -3.2,
+    0.3
+   ],
+   "crash/d03_f00": [
+    -1.7,
+    -8.4
+   ],
+   "crash/d03_f01": [
+    -2.6,
+    -5.9
+   ],
+   "crash/d03_f02": [
+    -3.5,
+    -3.2
+   ],
+   "crash/d03_f03": [
+    -4.4,
+    -0.4
+   ],
+   "crash/d04_f00": [
+    -2.2,
+    -8.8
+   ],
+   "crash/d04_f01": [
+    -3.1,
+    -6.4
+   ],
+   "crash/d04_f02": [
+    -4.1,
+    -4.0
+   ],
+   "crash/d04_f03": [
+    -5.0,
+    -1.4
+   ],
+   "crash/d05_f00": [
+    -2.4,
+    -9.3
+   ],
+   "crash/d05_f01": [
+    -3.2,
+    -7.1
+   ],
+   "crash/d05_f02": [
+    -4.0,
+    -4.8
+   ],
+   "crash/d05_f03": [
+    -4.8,
+    -2.3
+   ],
+   "crash/d06_f00": [
+    -2.3,
+    -9.8
+   ],
+   "crash/d06_f01": [
+    -2.8,
+    -7.7
+   ],
+   "crash/d06_f02": [
+    -3.3,
+    -5.5
+   ],
+   "crash/d06_f03": [
+    -3.9,
+    -3.2
+   ],
+   "crash/d07_f00": [
+    -1.8,
+    -10.2
+   ],
+   "crash/d07_f01": [
+    -1.9,
+    -8.1
+   ],
+   "crash/d07_f02": [
+    -2.1,
+    -6.0
+   ],
+   "crash/d07_f03": [
+    -2.4,
+    -3.8
+   ],
+   "crash/d08_f00": [
+    -1.0,
+    -10.4
+   ],
+   "crash/d08_f01": [
+    -0.8,
+    -8.4
+   ],
+   "crash/d08_f02": [
+    -0.6,
+    -6.3
+   ],
+   "crash/d08_f03": [
+    -0.5,
+    -4.1
+   ],
+   "crash/d09_f00": [
+    -0.1,
+    -10.5
+   ],
+   "crash/d09_f01": [
+    0.5,
+    -8.4
+   ],
+   "crash/d09_f02": [
+    1.0,
+    -6.3
+   ],
+   "crash/d09_f03": [
+    1.4,
+    -4.0
+   ],
+   "crash/d10_f00": [
+    0.9,
+    -10.4
+   ],
+   "crash/d10_f01": [
+    1.7,
+    -8.2
+   ],
+   "crash/d10_f02": [
+    2.5,
+    -5.9
+   ],
+   "crash/d10_f03": [
+    3.2,
+    -3.6
+   ],
+   "crash/d11_f00": [
+    1.7,
+    -10.2
+   ],
+   "crash/d11_f01": [
+    2.6,
+    -7.8
+   ],
+   "crash/d11_f02": [
+    3.5,
+    -5.3
+   ],
+   "crash/d11_f03": [
+    4.4,
+    -2.8
+   ],
+   "crash/d12_f00": [
+    2.2,
+    -9.8
+   ],
+   "crash/d12_f01": [
+    3.1,
+    -7.2
+   ],
+   "crash/d12_f02": [
+    4.1,
+    -4.6
+   ],
+   "crash/d12_f03": [
+    5.0,
+    -1.9
+   ],
+   "crash/d13_f00": [
+    2.4,
+    -9.4
+   ],
+   "crash/d13_f01": [
+    3.2,
+    -6.6
+   ],
+   "crash/d13_f02": [
+    4.0,
+    -3.8
+   ],
+   "crash/d13_f03": [
+    4.8,
+    -0.9
+   ],
+   "crash/d14_f00": [
+    2.3,
+    -8.9
+   ],
+   "crash/d14_f01": [
+    2.8,
+    -6.0
+   ],
+   "crash/d14_f02": [
+    3.3,
+    -3.0
+   ],
+   "crash/d14_f03": [
+    3.9,
+    0.0
+   ],
+   "crash/d15_f00": [
+    1.8,
+    -8.5
+   ],
+   "crash/d15_f01": [
+    1.9,
+    -5.5
+   ],
+   "crash/d15_f02": [
+    2.1,
+    -2.5
+   ],
+   "crash/d15_f03": [
+    2.4,
+    0.6
+   ],
+   "damaged/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "damaged/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "damaged/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "damaged/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "damaged/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "damaged/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "damaged/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "damaged/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "damaged/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "damaged/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "damaged/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "damaged/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "damaged/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "damaged/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "damaged/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "damaged/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "damaged_empty/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "damaged_empty/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "damaged_empty/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "damaged_empty/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "damaged_empty/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "damaged_empty/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "damaged_empty/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "damaged_empty/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "damaged_empty/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "damaged_empty/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "damaged_empty/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "damaged_empty/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "damaged_empty/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "damaged_empty/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "damaged_empty/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "damaged_empty/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "empty/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "empty/d00_f01": [
+    1.3,
+    -12.3
+   ],
+   "empty/d00_f02": [
+    1.3,
+    -9.9
+   ],
+   "empty/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "empty/d01_f01": [
+    0.7,
+    -12.1
+   ],
+   "empty/d01_f02": [
+    0.7,
+    -9.7
+   ],
+   "empty/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "empty/d02_f01": [
+    0.0,
+    -12.1
+   ],
+   "empty/d02_f02": [
+    0.0,
+    -9.6
+   ],
+   "empty/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "empty/d03_f01": [
+    -0.7,
+    -12.1
+   ],
+   "empty/d03_f02": [
+    -0.7,
+    -9.7
+   ],
+   "empty/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "empty/d04_f01": [
+    -1.3,
+    -12.3
+   ],
+   "empty/d04_f02": [
+    -1.3,
+    -9.9
+   ],
+   "empty/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "empty/d05_f01": [
+    -1.7,
+    -12.6
+   ],
+   "empty/d05_f02": [
+    -1.7,
+    -10.2
+   ],
+   "empty/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "empty/d06_f01": [
+    -1.8,
+    -13.0
+   ],
+   "empty/d06_f02": [
+    -1.8,
+    -10.5
+   ],
+   "empty/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "empty/d07_f01": [
+    -1.7,
+    -13.3
+   ],
+   "empty/d07_f02": [
+    -1.7,
+    -10.9
+   ],
+   "empty/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "empty/d08_f01": [
+    -1.3,
+    -13.6
+   ],
+   "empty/d08_f02": [
+    -1.3,
+    -11.2
+   ],
+   "empty/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "empty/d09_f01": [
+    -0.7,
+    -13.8
+   ],
+   "empty/d09_f02": [
+    -0.7,
+    -11.4
+   ],
+   "empty/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "empty/d10_f01": [
+    0.0,
+    -13.9
+   ],
+   "empty/d10_f02": [
+    0.0,
+    -11.4
+   ],
+   "empty/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "empty/d11_f01": [
+    0.7,
+    -13.8
+   ],
+   "empty/d11_f02": [
+    0.7,
+    -11.4
+   ],
+   "empty/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "empty/d12_f01": [
+    1.3,
+    -13.6
+   ],
+   "empty/d12_f02": [
+    1.3,
+    -11.2
+   ],
+   "empty/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "empty/d13_f01": [
+    1.7,
+    -13.3
+   ],
+   "empty/d13_f02": [
+    1.7,
+    -10.9
+   ],
+   "empty/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "empty/d14_f01": [
+    1.8,
+    -13.0
+   ],
+   "empty/d14_f02": [
+    1.8,
+    -10.5
+   ],
+   "empty/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "empty/d15_f01": [
+    1.7,
+    -12.6
+   ],
+   "empty/d15_f02": [
+    1.7,
+    -10.2
+   ],
+   "fire/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "fire/d00_f01": [
+    1.3,
+    -11.1
+   ],
+   "fire/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "fire/d01_f01": [
+    0.7,
+    -10.9
+   ],
+   "fire/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "fire/d02_f01": [
+    0.0,
+    -10.9
+   ],
+   "fire/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "fire/d03_f01": [
+    -0.7,
+    -10.9
+   ],
+   "fire/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "fire/d04_f01": [
+    -1.3,
+    -11.1
+   ],
+   "fire/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "fire/d05_f01": [
+    -1.7,
+    -11.4
+   ],
+   "fire/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "fire/d06_f01": [
+    -1.8,
+    -11.8
+   ],
+   "fire/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "fire/d07_f01": [
+    -1.7,
+    -12.1
+   ],
+   "fire/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "fire/d08_f01": [
+    -1.3,
+    -12.4
+   ],
+   "fire/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "fire/d09_f01": [
+    -0.7,
+    -12.6
+   ],
+   "fire/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "fire/d10_f01": [
+    0.0,
+    -12.7
+   ],
+   "fire/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "fire/d11_f01": [
+    0.7,
+    -12.6
+   ],
+   "fire/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "fire/d12_f01": [
+    1.3,
+    -12.4
+   ],
+   "fire/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "fire/d13_f01": [
+    1.7,
+    -12.1
+   ],
+   "fire/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "fire/d14_f01": [
+    1.8,
+    -11.8
+   ],
+   "fire/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "fire/d15_f01": [
+    1.7,
+    -11.4
+   ],
+   "fire_empty/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "fire_empty/d00_f01": [
+    1.3,
+    -11.1
+   ],
+   "fire_empty/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "fire_empty/d01_f01": [
+    0.7,
+    -10.9
+   ],
+   "fire_empty/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "fire_empty/d02_f01": [
+    0.0,
+    -10.9
+   ],
+   "fire_empty/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "fire_empty/d03_f01": [
+    -0.7,
+    -10.9
+   ],
+   "fire_empty/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "fire_empty/d04_f01": [
+    -1.3,
+    -11.1
+   ],
+   "fire_empty/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "fire_empty/d05_f01": [
+    -1.7,
+    -11.4
+   ],
+   "fire_empty/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "fire_empty/d06_f01": [
+    -1.8,
+    -11.8
+   ],
+   "fire_empty/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "fire_empty/d07_f01": [
+    -1.7,
+    -12.1
+   ],
+   "fire_empty/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "fire_empty/d08_f01": [
+    -1.3,
+    -12.4
+   ],
+   "fire_empty/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "fire_empty/d09_f01": [
+    -0.7,
+    -12.6
+   ],
+   "fire_empty/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "fire_empty/d10_f01": [
+    0.0,
+    -12.7
+   ],
+   "fire_empty/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "fire_empty/d11_f01": [
+    0.7,
+    -12.6
+   ],
+   "fire_empty/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "fire_empty/d12_f01": [
+    1.3,
+    -12.4
+   ],
+   "fire_empty/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "fire_empty/d13_f01": [
+    1.7,
+    -12.1
+   ],
+   "fire_empty/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "fire_empty/d14_f01": [
+    1.8,
+    -11.8
+   ],
+   "fire_empty/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "fire_empty/d15_f01": [
+    1.7,
+    -11.4
+   ],
+   "fly/d00_f00": [
+    1.9,
+    -10.7
+   ],
+   "fly/d00_f01": [
+    1.9,
+    -11.9
+   ],
+   "fly/d00_f02": [
+    1.9,
+    -9.5
+   ],
+   "fly/d01_f00": [
+    1.0,
+    -10.4
+   ],
+   "fly/d01_f01": [
+    1.0,
+    -11.6
+   ],
+   "fly/d01_f02": [
+    1.0,
+    -9.2
+   ],
+   "fly/d02_f00": [
+    0.0,
+    -10.3
+   ],
+   "fly/d02_f01": [
+    0.0,
+    -11.5
+   ],
+   "fly/d02_f02": [
+    0.0,
+    -9.1
+   ],
+   "fly/d03_f00": [
+    -1.0,
+    -10.4
+   ],
+   "fly/d03_f01": [
+    -1.0,
+    -11.6
+   ],
+   "fly/d03_f02": [
+    -1.0,
+    -9.2
+   ],
+   "fly/d04_f00": [
+    -1.9,
+    -10.7
+   ],
+   "fly/d04_f01": [
+    -1.9,
+    -11.9
+   ],
+   "fly/d04_f02": [
+    -1.9,
+    -9.5
+   ],
+   "fly/d05_f00": [
+    -2.5,
+    -11.1
+   ],
+   "fly/d05_f01": [
+    -2.5,
+    -12.3
+   ],
+   "fly/d05_f02": [
+    -2.5,
+    -9.9
+   ],
+   "fly/d06_f00": [
+    -2.7,
+    -11.6
+   ],
+   "fly/d06_f01": [
+    -2.7,
+    -12.9
+   ],
+   "fly/d06_f02": [
+    -2.7,
+    -10.4
+   ],
+   "fly/d07_f00": [
+    -2.5,
+    -12.1
+   ],
+   "fly/d07_f01": [
+    -2.5,
+    -13.4
+   ],
+   "fly/d07_f02": [
+    -2.5,
+    -10.9
+   ],
+   "fly/d08_f00": [
+    -1.9,
+    -12.6
+   ],
+   "fly/d08_f01": [
+    -1.9,
+    -13.8
+   ],
+   "fly/d08_f02": [
+    -1.9,
+    -11.4
+   ],
+   "fly/d09_f00": [
+    -1.0,
+    -12.9
+   ],
+   "fly/d09_f01": [
+    -1.0,
+    -14.1
+   ],
+   "fly/d09_f02": [
+    -1.0,
+    -11.6
+   ],
+   "fly/d10_f00": [
+    0.0,
+    -13.0
+   ],
+   "fly/d10_f01": [
+    0.0,
+    -14.2
+   ],
+   "fly/d10_f02": [
+    0.0,
+    -11.8
+   ],
+   "fly/d11_f00": [
+    1.0,
+    -12.9
+   ],
+   "fly/d11_f01": [
+    1.0,
+    -14.1
+   ],
+   "fly/d11_f02": [
+    1.0,
+    -11.6
+   ],
+   "fly/d12_f00": [
+    1.9,
+    -12.6
+   ],
+   "fly/d12_f01": [
+    1.9,
+    -13.8
+   ],
+   "fly/d12_f02": [
+    1.9,
+    -11.4
+   ],
+   "fly/d13_f00": [
+    2.5,
+    -12.1
+   ],
+   "fly/d13_f01": [
+    2.5,
+    -13.4
+   ],
+   "fly/d13_f02": [
+    2.5,
+    -10.9
+   ],
+   "fly/d14_f00": [
+    2.7,
+    -11.6
+   ],
+   "fly/d14_f01": [
+    2.7,
+    -12.9
+   ],
+   "fly/d14_f02": [
+    2.7,
+    -10.4
+   ],
+   "fly/d15_f00": [
+    2.5,
+    -11.1
+   ],
+   "fly/d15_f01": [
+    2.5,
+    -12.3
+   ],
+   "fly/d15_f02": [
+    2.5,
+    -9.9
+   ],
+   "launch/d00_f00": [
+    0.7,
+    -11.5
+   ],
+   "launch/d00_f01": [
+    0.5,
+    -13.0
+   ],
+   "launch/d00_f02": [
+    0.7,
+    -11.5
+   ],
+   "launch/d00_f03": [
+    1.3,
+    -9.7
+   ],
+   "launch/d01_f00": [
+    0.4,
+    -11.4
+   ],
+   "launch/d01_f01": [
+    0.2,
+    -13.0
+   ],
+   "launch/d01_f02": [
+    0.4,
+    -11.4
+   ],
+   "launch/d01_f03": [
+    0.7,
+    -9.5
+   ],
+   "launch/d02_f00": [
+    0.0,
+    -11.3
+   ],
+   "launch/d02_f01": [
+    0.0,
+    -12.9
+   ],
+   "launch/d02_f02": [
+    0.0,
+    -11.3
+   ],
+   "launch/d02_f03": [
+    0.0,
+    -9.4
+   ],
+   "launch/d03_f00": [
+    -0.4,
+    -11.4
+   ],
+   "launch/d03_f01": [
+    -0.2,
+    -13.0
+   ],
+   "launch/d03_f02": [
+    -0.4,
+    -11.4
+   ],
+   "launch/d03_f03": [
+    -0.7,
+    -9.5
+   ],
+   "launch/d04_f00": [
+    -0.7,
+    -11.5
+   ],
+   "launch/d04_f01": [
+    -0.5,
+    -13.0
+   ],
+   "launch/d04_f02": [
+    -0.7,
+    -11.5
+   ],
+   "launch/d04_f03": [
+    -1.3,
+    -9.7
+   ],
+   "launch/d05_f00": [
+    -0.9,
+    -11.6
+   ],
+   "launch/d05_f01": [
+    -0.6,
+    -13.1
+   ],
+   "launch/d05_f02": [
+    -0.9,
+    -11.6
+   ],
+   "launch/d05_f03": [
+    -1.7,
+    -10.0
+   ],
+   "launch/d06_f00": [
+    -1.0,
+    -11.8
+   ],
+   "launch/d06_f01": [
+    -0.7,
+    -13.3
+   ],
+   "launch/d06_f02": [
+    -1.0,
+    -11.8
+   ],
+   "launch/d06_f03": [
+    -1.8,
+    -10.3
+   ],
+   "launch/d07_f00": [
+    -0.9,
+    -12.0
+   ],
+   "launch/d07_f01": [
+    -0.6,
+    -13.4
+   ],
+   "launch/d07_f02": [
+    -0.9,
+    -12.0
+   ],
+   "launch/d07_f03": [
+    -1.7,
+    -10.7
+   ],
+   "launch/d08_f00": [
+    -0.7,
+    -12.2
+   ],
+   "launch/d08_f01": [
+    -0.5,
+    -13.5
+   ],
+   "launch/d08_f02": [
+    -0.7,
+    -12.2
+   ],
+   "launch/d08_f03": [
+    -1.3,
+    -11.0
+   ],
+   "launch/d09_f00": [
+    -0.4,
+    -12.3
+   ],
+   "launch/d09_f01": [
+    -0.2,
+    -13.6
+   ],
+   "launch/d09_f02": [
+    -0.4,
+    -12.3
+   ],
+   "launch/d09_f03": [
+    -0.7,
+    -11.2
+   ],
+   "launch/d10_f00": [
+    0.0,
+    -12.3
+   ],
+   "launch/d10_f01": [
+    0.0,
+    -13.6
+   ],
+   "launch/d10_f02": [
+    0.0,
+    -12.3
+   ],
+   "launch/d10_f03": [
+    0.0,
+    -11.3
+   ],
+   "launch/d11_f00": [
+    0.4,
+    -12.3
+   ],
+   "launch/d11_f01": [
+    0.2,
+    -13.6
+   ],
+   "launch/d11_f02": [
+    0.4,
+    -12.3
+   ],
+   "launch/d11_f03": [
+    0.7,
+    -11.2
+   ],
+   "launch/d12_f00": [
+    0.7,
+    -12.2
+   ],
+   "launch/d12_f01": [
+    0.5,
+    -13.5
+   ],
+   "launch/d12_f02": [
+    0.7,
+    -12.2
+   ],
+   "launch/d12_f03": [
+    1.3,
+    -11.0
+   ],
+   "launch/d13_f00": [
+    0.9,
+    -12.0
+   ],
+   "launch/d13_f01": [
+    0.6,
+    -13.4
+   ],
+   "launch/d13_f02": [
+    0.9,
+    -12.0
+   ],
+   "launch/d13_f03": [
+    1.7,
+    -10.7
+   ],
+   "launch/d14_f00": [
+    1.0,
+    -11.8
+   ],
+   "launch/d14_f01": [
+    0.7,
+    -13.3
+   ],
+   "launch/d14_f02": [
+    1.0,
+    -11.8
+   ],
+   "launch/d14_f03": [
+    1.8,
+    -10.3
+   ],
+   "launch/d15_f00": [
+    0.9,
+    -11.6
+   ],
+   "launch/d15_f01": [
+    0.6,
+    -13.1
+   ],
+   "launch/d15_f02": [
+    0.9,
+    -11.6
+   ],
+   "launch/d15_f03": [
+    1.7,
+    -10.0
+   ],
+   "launch_empty/d00_f00": [
+    0.7,
+    -11.5
+   ],
+   "launch_empty/d00_f01": [
+    0.5,
+    -13.0
+   ],
+   "launch_empty/d00_f02": [
+    0.7,
+    -11.5
+   ],
+   "launch_empty/d00_f03": [
+    1.3,
+    -9.7
+   ],
+   "launch_empty/d01_f00": [
+    0.4,
+    -11.4
+   ],
+   "launch_empty/d01_f01": [
+    0.2,
+    -13.0
+   ],
+   "launch_empty/d01_f02": [
+    0.4,
+    -11.4
+   ],
+   "launch_empty/d01_f03": [
+    0.7,
+    -9.5
+   ],
+   "launch_empty/d02_f00": [
+    0.0,
+    -11.3
+   ],
+   "launch_empty/d02_f01": [
+    0.0,
+    -12.9
+   ],
+   "launch_empty/d02_f02": [
+    0.0,
+    -11.3
+   ],
+   "launch_empty/d02_f03": [
+    0.0,
+    -9.4
+   ],
+   "launch_empty/d03_f00": [
+    -0.4,
+    -11.4
+   ],
+   "launch_empty/d03_f01": [
+    -0.2,
+    -13.0
+   ],
+   "launch_empty/d03_f02": [
+    -0.4,
+    -11.4
+   ],
+   "launch_empty/d03_f03": [
+    -0.7,
+    -9.5
+   ],
+   "launch_empty/d04_f00": [
+    -0.7,
+    -11.5
+   ],
+   "launch_empty/d04_f01": [
+    -0.5,
+    -13.0
+   ],
+   "launch_empty/d04_f02": [
+    -0.7,
+    -11.5
+   ],
+   "launch_empty/d04_f03": [
+    -1.3,
+    -9.7
+   ],
+   "launch_empty/d05_f00": [
+    -0.9,
+    -11.6
+   ],
+   "launch_empty/d05_f01": [
+    -0.6,
+    -13.1
+   ],
+   "launch_empty/d05_f02": [
+    -0.9,
+    -11.6
+   ],
+   "launch_empty/d05_f03": [
+    -1.7,
+    -10.0
+   ],
+   "launch_empty/d06_f00": [
+    -1.0,
+    -11.8
+   ],
+   "launch_empty/d06_f01": [
+    -0.7,
+    -13.3
+   ],
+   "launch_empty/d06_f02": [
+    -1.0,
+    -11.8
+   ],
+   "launch_empty/d06_f03": [
+    -1.8,
+    -10.3
+   ],
+   "launch_empty/d07_f00": [
+    -0.9,
+    -12.0
+   ],
+   "launch_empty/d07_f01": [
+    -0.6,
+    -13.4
+   ],
+   "launch_empty/d07_f02": [
+    -0.9,
+    -12.0
+   ],
+   "launch_empty/d07_f03": [
+    -1.7,
+    -10.7
+   ],
+   "launch_empty/d08_f00": [
+    -0.7,
+    -12.2
+   ],
+   "launch_empty/d08_f01": [
+    -0.5,
+    -13.5
+   ],
+   "launch_empty/d08_f02": [
+    -0.7,
+    -12.2
+   ],
+   "launch_empty/d08_f03": [
+    -1.3,
+    -11.0
+   ],
+   "launch_empty/d09_f00": [
+    -0.4,
+    -12.3
+   ],
+   "launch_empty/d09_f01": [
+    -0.2,
+    -13.6
+   ],
+   "launch_empty/d09_f02": [
+    -0.4,
+    -12.3
+   ],
+   "launch_empty/d09_f03": [
+    -0.7,
+    -11.2
+   ],
+   "launch_empty/d10_f00": [
+    0.0,
+    -12.3
+   ],
+   "launch_empty/d10_f01": [
+    0.0,
+    -13.6
+   ],
+   "launch_empty/d10_f02": [
+    0.0,
+    -12.3
+   ],
+   "launch_empty/d10_f03": [
+    0.0,
+    -11.3
+   ],
+   "launch_empty/d11_f00": [
+    0.4,
+    -12.3
+   ],
+   "launch_empty/d11_f01": [
+    0.2,
+    -13.6
+   ],
+   "launch_empty/d11_f02": [
+    0.4,
+    -12.3
+   ],
+   "launch_empty/d11_f03": [
+    0.7,
+    -11.2
+   ],
+   "launch_empty/d12_f00": [
+    0.7,
+    -12.2
+   ],
+   "launch_empty/d12_f01": [
+    0.5,
+    -13.5
+   ],
+   "launch_empty/d12_f02": [
+    0.7,
+    -12.2
+   ],
+   "launch_empty/d12_f03": [
+    1.3,
+    -11.0
+   ],
+   "launch_empty/d13_f00": [
+    0.9,
+    -12.0
+   ],
+   "launch_empty/d13_f01": [
+    0.6,
+    -13.4
+   ],
+   "launch_empty/d13_f02": [
+    0.9,
+    -12.0
+   ],
+   "launch_empty/d13_f03": [
+    1.7,
+    -10.7
+   ],
+   "launch_empty/d14_f00": [
+    1.0,
+    -11.8
+   ],
+   "launch_empty/d14_f01": [
+    0.7,
+    -13.3
+   ],
+   "launch_empty/d14_f02": [
+    1.0,
+    -11.8
+   ],
+   "launch_empty/d14_f03": [
+    1.8,
+    -10.3
+   ],
+   "launch_empty/d15_f00": [
+    0.9,
+    -11.6
+   ],
+   "launch_empty/d15_f01": [
+    0.6,
+    -13.1
+   ],
+   "launch_empty/d15_f02": [
+    0.9,
+    -11.6
+   ],
+   "launch_empty/d15_f03": [
+    1.7,
+    -10.0
+   ],
+   "parked/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "parked/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "parked/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "parked/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "parked/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "parked/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "parked/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "parked/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "parked/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "parked/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "parked/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "parked/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "parked/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "parked/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "parked/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "parked/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "parked_empty/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "parked_empty/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "parked_empty/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "parked_empty/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "parked_empty/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "parked_empty/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "parked_empty/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "parked_empty/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "parked_empty/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "parked_empty/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "parked_empty/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "parked_empty/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "parked_empty/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "parked_empty/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "parked_empty/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "parked_empty/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "rearm/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "rearm/d00_f01": [
+    1.3,
+    -11.1
+   ],
+   "rearm/d00_f02": [
+    1.3,
+    -11.1
+   ],
+   "rearm/d00_f03": [
+    1.3,
+    -11.1
+   ],
+   "rearm/d00_f04": [
+    1.3,
+    -11.1
+   ],
+   "rearm/d00_f05": [
+    1.3,
+    -11.1
+   ],
+   "rearm/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "rearm/d01_f01": [
+    0.7,
+    -10.9
+   ],
+   "rearm/d01_f02": [
+    0.7,
+    -10.9
+   ],
+   "rearm/d01_f03": [
+    0.7,
+    -10.9
+   ],
+   "rearm/d01_f04": [
+    0.7,
+    -10.9
+   ],
+   "rearm/d01_f05": [
+    0.7,
+    -10.9
+   ],
+   "rearm/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "rearm/d02_f01": [
+    0.0,
+    -10.9
+   ],
+   "rearm/d02_f02": [
+    0.0,
+    -10.9
+   ],
+   "rearm/d02_f03": [
+    0.0,
+    -10.9
+   ],
+   "rearm/d02_f04": [
+    0.0,
+    -10.9
+   ],
+   "rearm/d02_f05": [
+    0.0,
+    -10.9
+   ],
+   "rearm/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "rearm/d03_f01": [
+    -0.7,
+    -10.9
+   ],
+   "rearm/d03_f02": [
+    -0.7,
+    -10.9
+   ],
+   "rearm/d03_f03": [
+    -0.7,
+    -10.9
+   ],
+   "rearm/d03_f04": [
+    -0.7,
+    -10.9
+   ],
+   "rearm/d03_f05": [
+    -0.7,
+    -10.9
+   ],
+   "rearm/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "rearm/d04_f01": [
+    -1.3,
+    -11.1
+   ],
+   "rearm/d04_f02": [
+    -1.3,
+    -11.1
+   ],
+   "rearm/d04_f03": [
+    -1.3,
+    -11.1
+   ],
+   "rearm/d04_f04": [
+    -1.3,
+    -11.1
+   ],
+   "rearm/d04_f05": [
+    -1.3,
+    -11.1
+   ],
+   "rearm/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "rearm/d05_f01": [
+    -1.7,
+    -11.4
+   ],
+   "rearm/d05_f02": [
+    -1.7,
+    -11.4
+   ],
+   "rearm/d05_f03": [
+    -1.7,
+    -11.4
+   ],
+   "rearm/d05_f04": [
+    -1.7,
+    -11.4
+   ],
+   "rearm/d05_f05": [
+    -1.7,
+    -11.4
+   ],
+   "rearm/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "rearm/d06_f01": [
+    -1.8,
+    -11.8
+   ],
+   "rearm/d06_f02": [
+    -1.8,
+    -11.8
+   ],
+   "rearm/d06_f03": [
+    -1.8,
+    -11.8
+   ],
+   "rearm/d06_f04": [
+    -1.8,
+    -11.8
+   ],
+   "rearm/d06_f05": [
+    -1.8,
+    -11.8
+   ],
+   "rearm/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "rearm/d07_f01": [
+    -1.7,
+    -12.1
+   ],
+   "rearm/d07_f02": [
+    -1.7,
+    -12.1
+   ],
+   "rearm/d07_f03": [
+    -1.7,
+    -12.1
+   ],
+   "rearm/d07_f04": [
+    -1.7,
+    -12.1
+   ],
+   "rearm/d07_f05": [
+    -1.7,
+    -12.1
+   ],
+   "rearm/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "rearm/d08_f01": [
+    -1.3,
+    -12.4
+   ],
+   "rearm/d08_f02": [
+    -1.3,
+    -12.4
+   ],
+   "rearm/d08_f03": [
+    -1.3,
+    -12.4
+   ],
+   "rearm/d08_f04": [
+    -1.3,
+    -12.4
+   ],
+   "rearm/d08_f05": [
+    -1.3,
+    -12.4
+   ],
+   "rearm/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "rearm/d09_f01": [
+    -0.7,
+    -12.6
+   ],
+   "rearm/d09_f02": [
+    -0.7,
+    -12.6
+   ],
+   "rearm/d09_f03": [
+    -0.7,
+    -12.6
+   ],
+   "rearm/d09_f04": [
+    -0.7,
+    -12.6
+   ],
+   "rearm/d09_f05": [
+    -0.7,
+    -12.6
+   ],
+   "rearm/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "rearm/d10_f01": [
+    0.0,
+    -12.7
+   ],
+   "rearm/d10_f02": [
+    0.0,
+    -12.7
+   ],
+   "rearm/d10_f03": [
+    0.0,
+    -12.7
+   ],
+   "rearm/d10_f04": [
+    0.0,
+    -12.7
+   ],
+   "rearm/d10_f05": [
+    0.0,
+    -12.7
+   ],
+   "rearm/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "rearm/d11_f01": [
+    0.7,
+    -12.6
+   ],
+   "rearm/d11_f02": [
+    0.7,
+    -12.6
+   ],
+   "rearm/d11_f03": [
+    0.7,
+    -12.6
+   ],
+   "rearm/d11_f04": [
+    0.7,
+    -12.6
+   ],
+   "rearm/d11_f05": [
+    0.7,
+    -12.6
+   ],
+   "rearm/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "rearm/d12_f01": [
+    1.3,
+    -12.4
+   ],
+   "rearm/d12_f02": [
+    1.3,
+    -12.4
+   ],
+   "rearm/d12_f03": [
+    1.3,
+    -12.4
+   ],
+   "rearm/d12_f04": [
+    1.3,
+    -12.4
+   ],
+   "rearm/d12_f05": [
+    1.3,
+    -12.4
+   ],
+   "rearm/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "rearm/d13_f01": [
+    1.7,
+    -12.1
+   ],
+   "rearm/d13_f02": [
+    1.7,
+    -12.1
+   ],
+   "rearm/d13_f03": [
+    1.7,
+    -12.1
+   ],
+   "rearm/d13_f04": [
+    1.7,
+    -12.1
+   ],
+   "rearm/d13_f05": [
+    1.7,
+    -12.1
+   ],
+   "rearm/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "rearm/d14_f01": [
+    1.8,
+    -11.8
+   ],
+   "rearm/d14_f02": [
+    1.8,
+    -11.8
+   ],
+   "rearm/d14_f03": [
+    1.8,
+    -11.8
+   ],
+   "rearm/d14_f04": [
+    1.8,
+    -11.8
+   ],
+   "rearm/d14_f05": [
+    1.8,
+    -11.8
+   ],
+   "rearm/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "rearm/d15_f01": [
+    1.7,
+    -11.4
+   ],
+   "rearm/d15_f02": [
+    1.7,
+    -11.4
+   ],
+   "rearm/d15_f03": [
+    1.7,
+    -11.4
+   ],
+   "rearm/d15_f04": [
+    1.7,
+    -11.4
+   ],
+   "rearm/d15_f05": [
+    1.7,
+    -11.4
+   ],
+   "rearm_empty/d00_f00": [
+    1.3,
+    -11.1
+   ],
+   "rearm_empty/d00_f01": [
+    1.3,
+    -11.1
+   ],
+   "rearm_empty/d00_f02": [
+    1.3,
+    -11.1
+   ],
+   "rearm_empty/d00_f03": [
+    1.3,
+    -11.1
+   ],
+   "rearm_empty/d00_f04": [
+    1.3,
+    -11.1
+   ],
+   "rearm_empty/d00_f05": [
+    1.3,
+    -11.1
+   ],
+   "rearm_empty/d01_f00": [
+    0.7,
+    -10.9
+   ],
+   "rearm_empty/d01_f01": [
+    0.7,
+    -10.9
+   ],
+   "rearm_empty/d01_f02": [
+    0.7,
+    -10.9
+   ],
+   "rearm_empty/d01_f03": [
+    0.7,
+    -10.9
+   ],
+   "rearm_empty/d01_f04": [
+    0.7,
+    -10.9
+   ],
+   "rearm_empty/d01_f05": [
+    0.7,
+    -10.9
+   ],
+   "rearm_empty/d02_f00": [
+    0.0,
+    -10.9
+   ],
+   "rearm_empty/d02_f01": [
+    0.0,
+    -10.9
+   ],
+   "rearm_empty/d02_f02": [
+    0.0,
+    -10.9
+   ],
+   "rearm_empty/d02_f03": [
+    0.0,
+    -10.9
+   ],
+   "rearm_empty/d02_f04": [
+    0.0,
+    -10.9
+   ],
+   "rearm_empty/d02_f05": [
+    0.0,
+    -10.9
+   ],
+   "rearm_empty/d03_f00": [
+    -0.7,
+    -10.9
+   ],
+   "rearm_empty/d03_f01": [
+    -0.7,
+    -10.9
+   ],
+   "rearm_empty/d03_f02": [
+    -0.7,
+    -10.9
+   ],
+   "rearm_empty/d03_f03": [
+    -0.7,
+    -10.9
+   ],
+   "rearm_empty/d03_f04": [
+    -0.7,
+    -10.9
+   ],
+   "rearm_empty/d03_f05": [
+    -0.7,
+    -10.9
+   ],
+   "rearm_empty/d04_f00": [
+    -1.3,
+    -11.1
+   ],
+   "rearm_empty/d04_f01": [
+    -1.3,
+    -11.1
+   ],
+   "rearm_empty/d04_f02": [
+    -1.3,
+    -11.1
+   ],
+   "rearm_empty/d04_f03": [
+    -1.3,
+    -11.1
+   ],
+   "rearm_empty/d04_f04": [
+    -1.3,
+    -11.1
+   ],
+   "rearm_empty/d04_f05": [
+    -1.3,
+    -11.1
+   ],
+   "rearm_empty/d05_f00": [
+    -1.7,
+    -11.4
+   ],
+   "rearm_empty/d05_f01": [
+    -1.7,
+    -11.4
+   ],
+   "rearm_empty/d05_f02": [
+    -1.7,
+    -11.4
+   ],
+   "rearm_empty/d05_f03": [
+    -1.7,
+    -11.4
+   ],
+   "rearm_empty/d05_f04": [
+    -1.7,
+    -11.4
+   ],
+   "rearm_empty/d05_f05": [
+    -1.7,
+    -11.4
+   ],
+   "rearm_empty/d06_f00": [
+    -1.8,
+    -11.8
+   ],
+   "rearm_empty/d06_f01": [
+    -1.8,
+    -11.8
+   ],
+   "rearm_empty/d06_f02": [
+    -1.8,
+    -11.8
+   ],
+   "rearm_empty/d06_f03": [
+    -1.8,
+    -11.8
+   ],
+   "rearm_empty/d06_f04": [
+    -1.8,
+    -11.8
+   ],
+   "rearm_empty/d06_f05": [
+    -1.8,
+    -11.8
+   ],
+   "rearm_empty/d07_f00": [
+    -1.7,
+    -12.1
+   ],
+   "rearm_empty/d07_f01": [
+    -1.7,
+    -12.1
+   ],
+   "rearm_empty/d07_f02": [
+    -1.7,
+    -12.1
+   ],
+   "rearm_empty/d07_f03": [
+    -1.7,
+    -12.1
+   ],
+   "rearm_empty/d07_f04": [
+    -1.7,
+    -12.1
+   ],
+   "rearm_empty/d07_f05": [
+    -1.7,
+    -12.1
+   ],
+   "rearm_empty/d08_f00": [
+    -1.3,
+    -12.4
+   ],
+   "rearm_empty/d08_f01": [
+    -1.3,
+    -12.4
+   ],
+   "rearm_empty/d08_f02": [
+    -1.3,
+    -12.4
+   ],
+   "rearm_empty/d08_f03": [
+    -1.3,
+    -12.4
+   ],
+   "rearm_empty/d08_f04": [
+    -1.3,
+    -12.4
+   ],
+   "rearm_empty/d08_f05": [
+    -1.3,
+    -12.4
+   ],
+   "rearm_empty/d09_f00": [
+    -0.7,
+    -12.6
+   ],
+   "rearm_empty/d09_f01": [
+    -0.7,
+    -12.6
+   ],
+   "rearm_empty/d09_f02": [
+    -0.7,
+    -12.6
+   ],
+   "rearm_empty/d09_f03": [
+    -0.7,
+    -12.6
+   ],
+   "rearm_empty/d09_f04": [
+    -0.7,
+    -12.6
+   ],
+   "rearm_empty/d09_f05": [
+    -0.7,
+    -12.6
+   ],
+   "rearm_empty/d10_f00": [
+    0.0,
+    -12.7
+   ],
+   "rearm_empty/d10_f01": [
+    0.0,
+    -12.7
+   ],
+   "rearm_empty/d10_f02": [
+    0.0,
+    -12.7
+   ],
+   "rearm_empty/d10_f03": [
+    0.0,
+    -12.7
+   ],
+   "rearm_empty/d10_f04": [
+    0.0,
+    -12.7
+   ],
+   "rearm_empty/d10_f05": [
+    0.0,
+    -12.7
+   ],
+   "rearm_empty/d11_f00": [
+    0.7,
+    -12.6
+   ],
+   "rearm_empty/d11_f01": [
+    0.7,
+    -12.6
+   ],
+   "rearm_empty/d11_f02": [
+    0.7,
+    -12.6
+   ],
+   "rearm_empty/d11_f03": [
+    0.7,
+    -12.6
+   ],
+   "rearm_empty/d11_f04": [
+    0.7,
+    -12.6
+   ],
+   "rearm_empty/d11_f05": [
+    0.7,
+    -12.6
+   ],
+   "rearm_empty/d12_f00": [
+    1.3,
+    -12.4
+   ],
+   "rearm_empty/d12_f01": [
+    1.3,
+    -12.4
+   ],
+   "rearm_empty/d12_f02": [
+    1.3,
+    -12.4
+   ],
+   "rearm_empty/d12_f03": [
+    1.3,
+    -12.4
+   ],
+   "rearm_empty/d12_f04": [
+    1.3,
+    -12.4
+   ],
+   "rearm_empty/d12_f05": [
+    1.3,
+    -12.4
+   ],
+   "rearm_empty/d13_f00": [
+    1.7,
+    -12.1
+   ],
+   "rearm_empty/d13_f01": [
+    1.7,
+    -12.1
+   ],
+   "rearm_empty/d13_f02": [
+    1.7,
+    -12.1
+   ],
+   "rearm_empty/d13_f03": [
+    1.7,
+    -12.1
+   ],
+   "rearm_empty/d13_f04": [
+    1.7,
+    -12.1
+   ],
+   "rearm_empty/d13_f05": [
+    1.7,
+    -12.1
+   ],
+   "rearm_empty/d14_f00": [
+    1.8,
+    -11.8
+   ],
+   "rearm_empty/d14_f01": [
+    1.8,
+    -11.8
+   ],
+   "rearm_empty/d14_f02": [
+    1.8,
+    -11.8
+   ],
+   "rearm_empty/d14_f03": [
+    1.8,
+    -11.8
+   ],
+   "rearm_empty/d14_f04": [
+    1.8,
+    -11.8
+   ],
+   "rearm_empty/d14_f05": [
+    1.8,
+    -11.8
+   ],
+   "rearm_empty/d15_f00": [
+    1.7,
+    -11.4
+   ],
+   "rearm_empty/d15_f01": [
+    1.7,
+    -11.4
+   ],
+   "rearm_empty/d15_f02": [
+    1.7,
+    -11.4
+   ],
+   "rearm_empty/d15_f03": [
+    1.7,
+    -11.4
+   ],
+   "rearm_empty/d15_f04": [
+    1.7,
+    -11.4
+   ],
+   "rearm_empty/d15_f05": [
+    1.7,
+    -11.4
+   ],
+   "recover/d00_f00": [
+    1.0,
+    -11.3
+   ],
+   "recover/d00_f01": [
+    0.8,
+    -12.8
+   ],
+   "recover/d00_f02": [
+    1.0,
+    -11.3
+   ],
+   "recover/d00_f03": [
+    1.3,
+    -9.7
+   ],
+   "recover/d01_f00": [
+    0.5,
+    -11.2
+   ],
+   "recover/d01_f01": [
+    0.5,
+    -12.7
+   ],
+   "recover/d01_f02": [
+    0.5,
+    -11.2
+   ],
+   "recover/d01_f03": [
+    0.7,
+    -9.5
+   ],
+   "recover/d02_f00": [
+    0.0,
+    -11.1
+   ],
+   "recover/d02_f01": [
+    0.0,
+    -12.6
+   ],
+   "recover/d02_f02": [
+    0.0,
+    -11.1
+   ],
+   "recover/d02_f03": [
+    0.0,
+    -9.4
+   ],
+   "recover/d03_f00": [
+    -0.5,
+    -11.2
+   ],
+   "recover/d03_f01": [
+    -0.5,
+    -12.7
+   ],
+   "recover/d03_f02": [
+    -0.5,
+    -11.2
+   ],
+   "recover/d03_f03": [
+    -0.7,
+    -9.5
+   ],
+   "recover/d04_f00": [
+    -1.0,
+    -11.3
+   ],
+   "recover/d04_f01": [
+    -0.8,
+    -12.8
+   ],
+   "recover/d04_f02": [
+    -1.0,
+    -11.3
+   ],
+   "recover/d04_f03": [
+    -1.3,
+    -9.7
+   ],
+   "recover/d05_f00": [
+    -1.3,
+    -11.5
+   ],
+   "recover/d05_f01": [
+    -1.1,
+    -13.0
+   ],
+   "recover/d05_f02": [
+    -1.3,
+    -11.5
+   ],
+   "recover/d05_f03": [
+    -1.7,
+    -10.0
+   ],
+   "recover/d06_f00": [
+    -1.4,
+    -11.8
+   ],
+   "recover/d06_f01": [
+    -1.2,
+    -13.2
+   ],
+   "recover/d06_f02": [
+    -1.4,
+    -11.8
+   ],
+   "recover/d06_f03": [
+    -1.8,
+    -10.3
+   ],
+   "recover/d07_f00": [
+    -1.3,
+    -12.1
+   ],
+   "recover/d07_f01": [
+    -1.1,
+    -13.5
+   ],
+   "recover/d07_f02": [
+    -1.3,
+    -12.1
+   ],
+   "recover/d07_f03": [
+    -1.7,
+    -10.7
+   ],
+   "recover/d08_f00": [
+    -1.0,
+    -12.3
+   ],
+   "recover/d08_f01": [
+    -0.8,
+    -13.6
+   ],
+   "recover/d08_f02": [
+    -1.0,
+    -12.3
+   ],
+   "recover/d08_f03": [
+    -1.3,
+    -11.0
+   ],
+   "recover/d09_f00": [
+    -0.5,
+    -12.4
+   ],
+   "recover/d09_f01": [
+    -0.5,
+    -13.8
+   ],
+   "recover/d09_f02": [
+    -0.5,
+    -12.4
+   ],
+   "recover/d09_f03": [
+    -0.7,
+    -11.2
+   ],
+   "recover/d10_f00": [
+    0.0,
+    -12.5
+   ],
+   "recover/d10_f01": [
+    0.0,
+    -13.8
+   ],
+   "recover/d10_f02": [
+    0.0,
+    -12.5
+   ],
+   "recover/d10_f03": [
+    0.0,
+    -11.3
+   ],
+   "recover/d11_f00": [
+    0.5,
+    -12.4
+   ],
+   "recover/d11_f01": [
+    0.5,
+    -13.8
+   ],
+   "recover/d11_f02": [
+    0.5,
+    -12.4
+   ],
+   "recover/d11_f03": [
+    0.7,
+    -11.2
+   ],
+   "recover/d12_f00": [
+    1.0,
+    -12.3
+   ],
+   "recover/d12_f01": [
+    0.8,
+    -13.6
+   ],
+   "recover/d12_f02": [
+    1.0,
+    -12.3
+   ],
+   "recover/d12_f03": [
+    1.3,
+    -11.0
+   ],
+   "recover/d13_f00": [
+    1.3,
+    -12.1
+   ],
+   "recover/d13_f01": [
+    1.1,
+    -13.5
+   ],
+   "recover/d13_f02": [
+    1.3,
+    -12.1
+   ],
+   "recover/d13_f03": [
+    1.7,
+    -10.7
+   ],
+   "recover/d14_f00": [
+    1.4,
+    -11.8
+   ],
+   "recover/d14_f01": [
+    1.2,
+    -13.2
+   ],
+   "recover/d14_f02": [
+    1.4,
+    -11.8
+   ],
+   "recover/d14_f03": [
+    1.8,
+    -10.3
+   ],
+   "recover/d15_f00": [
+    1.3,
+    -11.5
+   ],
+   "recover/d15_f01": [
+    1.1,
+    -13.0
+   ],
+   "recover/d15_f02": [
+    1.3,
+    -11.5
+   ],
+   "recover/d15_f03": [
+    1.7,
+    -10.0
+   ],
+   "recover_empty/d00_f00": [
+    1.0,
+    -11.3
+   ],
+   "recover_empty/d00_f01": [
+    0.8,
+    -12.8
+   ],
+   "recover_empty/d00_f02": [
+    1.0,
+    -11.3
+   ],
+   "recover_empty/d00_f03": [
+    1.3,
+    -9.7
+   ],
+   "recover_empty/d01_f00": [
+    0.5,
+    -11.2
+   ],
+   "recover_empty/d01_f01": [
+    0.5,
+    -12.7
+   ],
+   "recover_empty/d01_f02": [
+    0.5,
+    -11.2
+   ],
+   "recover_empty/d01_f03": [
+    0.7,
+    -9.5
+   ],
+   "recover_empty/d02_f00": [
+    0.0,
+    -11.1
+   ],
+   "recover_empty/d02_f01": [
+    0.0,
+    -12.6
+   ],
+   "recover_empty/d02_f02": [
+    0.0,
+    -11.1
+   ],
+   "recover_empty/d02_f03": [
+    0.0,
+    -9.4
+   ],
+   "recover_empty/d03_f00": [
+    -0.5,
+    -11.2
+   ],
+   "recover_empty/d03_f01": [
+    -0.5,
+    -12.7
+   ],
+   "recover_empty/d03_f02": [
+    -0.5,
+    -11.2
+   ],
+   "recover_empty/d03_f03": [
+    -0.7,
+    -9.5
+   ],
+   "recover_empty/d04_f00": [
+    -1.0,
+    -11.3
+   ],
+   "recover_empty/d04_f01": [
+    -0.8,
+    -12.8
+   ],
+   "recover_empty/d04_f02": [
+    -1.0,
+    -11.3
+   ],
+   "recover_empty/d04_f03": [
+    -1.3,
+    -9.7
+   ],
+   "recover_empty/d05_f00": [
+    -1.3,
+    -11.5
+   ],
+   "recover_empty/d05_f01": [
+    -1.1,
+    -13.0
+   ],
+   "recover_empty/d05_f02": [
+    -1.3,
+    -11.5
+   ],
+   "recover_empty/d05_f03": [
+    -1.7,
+    -10.0
+   ],
+   "recover_empty/d06_f00": [
+    -1.4,
+    -11.8
+   ],
+   "recover_empty/d06_f01": [
+    -1.2,
+    -13.2
+   ],
+   "recover_empty/d06_f02": [
+    -1.4,
+    -11.8
+   ],
+   "recover_empty/d06_f03": [
+    -1.8,
+    -10.3
+   ],
+   "recover_empty/d07_f00": [
+    -1.3,
+    -12.1
+   ],
+   "recover_empty/d07_f01": [
+    -1.1,
+    -13.5
+   ],
+   "recover_empty/d07_f02": [
+    -1.3,
+    -12.1
+   ],
+   "recover_empty/d07_f03": [
+    -1.7,
+    -10.7
+   ],
+   "recover_empty/d08_f00": [
+    -1.0,
+    -12.3
+   ],
+   "recover_empty/d08_f01": [
+    -0.8,
+    -13.6
+   ],
+   "recover_empty/d08_f02": [
+    -1.0,
+    -12.3
+   ],
+   "recover_empty/d08_f03": [
+    -1.3,
+    -11.0
+   ],
+   "recover_empty/d09_f00": [
+    -0.5,
+    -12.4
+   ],
+   "recover_empty/d09_f01": [
+    -0.5,
+    -13.8
+   ],
+   "recover_empty/d09_f02": [
+    -0.5,
+    -12.4
+   ],
+   "recover_empty/d09_f03": [
+    -0.7,
+    -11.2
+   ],
+   "recover_empty/d10_f00": [
+    0.0,
+    -12.5
+   ],
+   "recover_empty/d10_f01": [
+    0.0,
+    -13.8
+   ],
+   "recover_empty/d10_f02": [
+    0.0,
+    -12.5
+   ],
+   "recover_empty/d10_f03": [
+    0.0,
+    -11.3
+   ],
+   "recover_empty/d11_f00": [
+    0.5,
+    -12.4
+   ],
+   "recover_empty/d11_f01": [
+    0.5,
+    -13.8
+   ],
+   "recover_empty/d11_f02": [
+    0.5,
+    -12.4
+   ],
+   "recover_empty/d11_f03": [
+    0.7,
+    -11.2
+   ],
+   "recover_empty/d12_f00": [
+    1.0,
+    -12.3
+   ],
+   "recover_empty/d12_f01": [
+    0.8,
+    -13.6
+   ],
+   "recover_empty/d12_f02": [
+    1.0,
+    -12.3
+   ],
+   "recover_empty/d12_f03": [
+    1.3,
+    -11.0
+   ],
+   "recover_empty/d13_f00": [
+    1.3,
+    -12.1
+   ],
+   "recover_empty/d13_f01": [
+    1.1,
+    -13.5
+   ],
+   "recover_empty/d13_f02": [
+    1.3,
+    -12.1
+   ],
+   "recover_empty/d13_f03": [
+    1.7,
+    -10.7
+   ],
+   "recover_empty/d14_f00": [
+    1.4,
+    -11.8
+   ],
+   "recover_empty/d14_f01": [
+    1.2,
+    -13.2
+   ],
+   "recover_empty/d14_f02": [
+    1.4,
+    -11.8
+   ],
+   "recover_empty/d14_f03": [
+    1.8,
+    -10.3
+   ],
+   "recover_empty/d15_f00": [
+    1.3,
+    -11.5
+   ],
+   "recover_empty/d15_f01": [
+    1.1,
+    -13.0
+   ],
+   "recover_empty/d15_f02": [
+    1.3,
+    -11.5
+   ],
+   "recover_empty/d15_f03": [
+    1.7,
+    -10.0
+   ]
+  }
+ },
+ "frame_count": 832,
+ "content_sha256": "f5faeed3ea54434fd75687d187b00ccb66c90ff20b151e5bb2fde13b67fa1d62"
+}

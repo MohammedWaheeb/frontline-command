@@ -597,7 +597,7 @@ func (r *authoredRun) army() []sim.ID {
 func playCommandAMatch(r *authoredRun) {
 	faction := r.faction
 	factory, barracks, hq := r.ids("home-factory"), r.ids("home-barracks"), r.ids("home-hq")
-	if faction == "SY" && r.difficulty == "hard" || faction == "US" && r.difficulty == "easy" {
+	if faction == "SY" && (r.difficulty == "easy" || r.difficulty == "hard") || faction == "US" && r.difficulty == "easy" {
 		r.issue(1, sim.Order{Kind: "build", Entities: r.ids("home-rig"), Type: "turret", Position: sim.Vec{X: 28500, Y: 100500}})
 	}
 	r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1}, sim.Order{Kind: "rally", Entities: factory, Position: r.region("site1")}, sim.Order{Kind: "rally", Entities: barracks, Position: r.region("site1")}, sim.Order{Kind: "attack_move", Entities: r.army(), Position: r.region("site1")})

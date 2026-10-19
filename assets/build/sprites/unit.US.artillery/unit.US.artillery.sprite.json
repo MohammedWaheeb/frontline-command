@@ -1,0 +1,1138 @@
+{
+ "schema": "fc-sprite/1",
+ "id": "unit.US.artillery",
+ "role_id": "US.artillery",
+ "faction": "US",
+ "source_spec": "assets/pipeline/specs/unit.US.artillery.json",
+ "frame_size_2x": [
+  390,
+  272
+ ],
+ "anchor_2x": [
+  184,
+  144
+ ],
+ "layers": [
+  "beauty",
+  "shadow",
+  "team"
+ ],
+ "atlases": {
+  "2x": {
+   "beauty": [
+    "unit.US.artillery@2x.beauty.0.json",
+    "unit.US.artillery@2x.beauty.1.json",
+    "unit.US.artillery@2x.beauty.2.json",
+    "unit.US.artillery@2x.beauty.3.json",
+    "unit.US.artillery@2x.beauty.4.json",
+    "unit.US.artillery@2x.beauty.5.json",
+    "unit.US.artillery@2x.beauty.6.json"
+   ],
+   "shadow": [
+    "unit.US.artillery@2x.shadow.0.json",
+    "unit.US.artillery@2x.shadow.1.json",
+    "unit.US.artillery@2x.shadow.2.json",
+    "unit.US.artillery@2x.shadow.3.json",
+    "unit.US.artillery@2x.shadow.4.json",
+    "unit.US.artillery@2x.shadow.5.json",
+    "unit.US.artillery@2x.shadow.6.json"
+   ],
+   "team": [
+    "unit.US.artillery@2x.team.0.json",
+    "unit.US.artillery@2x.team.1.json",
+    "unit.US.artillery@2x.team.2.json",
+    "unit.US.artillery@2x.team.3.json",
+    "unit.US.artillery@2x.team.4.json",
+    "unit.US.artillery@2x.team.5.json",
+    "unit.US.artillery@2x.team.6.json"
+   ]
+  },
+  "1x": {
+   "beauty": [
+    "unit.US.artillery@1x.beauty.0.json",
+    "unit.US.artillery@1x.beauty.1.json",
+    "unit.US.artillery@1x.beauty.2.json",
+    "unit.US.artillery@1x.beauty.3.json",
+    "unit.US.artillery@1x.beauty.4.json",
+    "unit.US.artillery@1x.beauty.5.json",
+    "unit.US.artillery@1x.beauty.6.json"
+   ],
+   "shadow": [
+    "unit.US.artillery@1x.shadow.0.json",
+    "unit.US.artillery@1x.shadow.1.json",
+    "unit.US.artillery@1x.shadow.2.json",
+    "unit.US.artillery@1x.shadow.3.json",
+    "unit.US.artillery@1x.shadow.4.json",
+    "unit.US.artillery@1x.shadow.5.json",
+    "unit.US.artillery@1x.shadow.6.json"
+   ],
+   "team": [
+    "unit.US.artillery@1x.team.0.json",
+    "unit.US.artillery@1x.team.1.json",
+    "unit.US.artillery@1x.team.2.json",
+    "unit.US.artillery@1x.team.3.json",
+    "unit.US.artillery@1x.team.4.json",
+    "unit.US.artillery@1x.team.5.json",
+    "unit.US.artillery@1x.team.6.json"
+   ]
+  }
+ },
+ "states": [
+  {
+   "name": "idle",
+   "part": "hull",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "move",
+   "part": "hull",
+   "directions": 16,
+   "frames": 4,
+   "fps": 12,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged",
+   "part": "hull",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "wreck",
+   "part": "whole",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "shadow"
+   ]
+  },
+  {
+   "name": "aim",
+   "part": "turret",
+   "directions": 32,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "fire",
+   "part": "turret",
+   "directions": 32,
+   "frames": 3,
+   "fps": 15,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  }
+ ],
+ "aliases": [],
+ "overlays": [],
+ "footprint_radius_mt": 600,
+ "footprint_tiles": null,
+ "footprint_mt": null,
+ "turret_pivot_mt": [
+  -220,
+  0
+ ],
+ "squad": null,
+ "air": null,
+ "hardpoints_2x_rel_anchor": {
+  "healthbar": {
+   "damaged/d00_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d01_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d02_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d03_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d04_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d05_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d06_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d07_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d08_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d09_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d10_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d11_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d12_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d13_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d14_f00": [
+    0.0,
+    -67.4
+   ],
+   "damaged/d15_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d00_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d01_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d02_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d03_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d04_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d05_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d06_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d07_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d08_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d09_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d10_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d11_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d12_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d13_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d14_f00": [
+    0.0,
+    -67.4
+   ],
+   "idle/d15_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d00_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d00_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d00_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d00_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d01_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d01_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d01_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d01_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d02_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d02_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d02_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d02_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d03_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d03_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d03_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d03_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d04_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d04_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d04_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d04_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d05_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d05_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d05_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d05_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d06_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d06_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d06_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d06_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d07_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d07_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d07_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d07_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d08_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d08_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d08_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d08_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d09_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d09_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d09_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d09_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d10_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d10_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d10_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d10_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d11_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d11_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d11_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d11_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d12_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d12_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d12_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d12_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d13_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d13_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d13_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d13_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d14_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d14_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d14_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d14_f03": [
+    0.0,
+    -67.4
+   ],
+   "move/d15_f00": [
+    0.0,
+    -67.4
+   ],
+   "move/d15_f01": [
+    0.0,
+    -67.4
+   ],
+   "move/d15_f02": [
+    0.0,
+    -67.4
+   ],
+   "move/d15_f03": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d00_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d01_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d02_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d03_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d04_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d05_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d06_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d07_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d08_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d09_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d10_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d11_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d12_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d13_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d14_f00": [
+    0.0,
+    -67.4
+   ],
+   "wreck/d15_f00": [
+    0.0,
+    -67.4
+   ]
+  },
+  "muzzle": {
+   "aim/d00_f00": [
+    89.8,
+    -33.9
+   ],
+   "aim/d01_f00": [
+    70.6,
+    -26.0
+   ],
+   "aim/d02_f00": [
+    48.6,
+    -20.2
+   ],
+   "aim/d03_f00": [
+    24.8,
+    -16.5
+   ],
+   "aim/d04_f00": [
+    0.0,
+    -15.3
+   ],
+   "aim/d05_f00": [
+    -24.8,
+    -16.5
+   ],
+   "aim/d06_f00": [
+    -48.6,
+    -20.2
+   ],
+   "aim/d07_f00": [
+    -70.6,
+    -26.0
+   ],
+   "aim/d08_f00": [
+    -89.8,
+    -33.9
+   ],
+   "aim/d09_f00": [
+    -105.6,
+    -43.5
+   ],
+   "aim/d10_f00": [
+    -117.3,
+    -54.5
+   ],
+   "aim/d11_f00": [
+    -124.6,
+    -66.4
+   ],
+   "aim/d12_f00": [
+    -127.0,
+    -78.8
+   ],
+   "aim/d13_f00": [
+    -124.6,
+    -91.2
+   ],
+   "aim/d14_f00": [
+    -117.3,
+    -103.1
+   ],
+   "aim/d15_f00": [
+    -105.6,
+    -114.1
+   ],
+   "aim/d16_f00": [
+    -89.8,
+    -123.7
+   ],
+   "aim/d17_f00": [
+    -70.6,
+    -131.6
+   ],
+   "aim/d18_f00": [
+    -48.6,
+    -137.5
+   ],
+   "aim/d19_f00": [
+    -24.8,
+    -141.1
+   ],
+   "aim/d20_f00": [
+    0.0,
+    -142.3
+   ],
+   "aim/d21_f00": [
+    24.8,
+    -141.1
+   ],
+   "aim/d22_f00": [
+    48.6,
+    -137.5
+   ],
+   "aim/d23_f00": [
+    70.6,
+    -131.6
+   ],
+   "aim/d24_f00": [
+    89.8,
+    -123.7
+   ],
+   "aim/d25_f00": [
+    105.6,
+    -114.1
+   ],
+   "aim/d26_f00": [
+    117.3,
+    -103.1
+   ],
+   "aim/d27_f00": [
+    124.6,
+    -91.2
+   ],
+   "aim/d28_f00": [
+    127.0,
+    -78.8
+   ],
+   "aim/d29_f00": [
+    124.6,
+    -66.4
+   ],
+   "aim/d30_f00": [
+    117.3,
+    -54.5
+   ],
+   "aim/d31_f00": [
+    105.6,
+    -43.5
+   ],
+   "fire/d00_f00": [
+    81.6,
+    -33.5
+   ],
+   "fire/d00_f01": [
+    85.3,
+    -33.7
+   ],
+   "fire/d00_f02": [
+    88.6,
+    -33.9
+   ],
+   "fire/d01_f00": [
+    64.1,
+    -26.4
+   ],
+   "fire/d01_f01": [
+    67.0,
+    -26.2
+   ],
+   "fire/d01_f02": [
+    69.6,
+    -26.1
+   ],
+   "fire/d02_f00": [
+    44.2,
+    -21.0
+   ],
+   "fire/d02_f01": [
+    46.2,
+    -20.6
+   ],
+   "fire/d02_f02": [
+    47.9,
+    -20.3
+   ],
+   "fire/d03_f00": [
+    22.5,
+    -17.8
+   ],
+   "fire/d03_f01": [
+    23.5,
+    -17.2
+   ],
+   "fire/d03_f02": [
+    24.4,
+    -16.7
+   ],
+   "fire/d04_f00": [
+    0.0,
+    -16.6
+   ],
+   "fire/d04_f01": [
+    0.0,
+    -16.0
+   ],
+   "fire/d04_f02": [
+    0.0,
+    -15.5
+   ],
+   "fire/d05_f00": [
+    -22.5,
+    -17.8
+   ],
+   "fire/d05_f01": [
+    -23.5,
+    -17.2
+   ],
+   "fire/d05_f02": [
+    -24.4,
+    -16.7
+   ],
+   "fire/d06_f00": [
+    -44.2,
+    -21.0
+   ],
+   "fire/d06_f01": [
+    -46.2,
+    -20.6
+   ],
+   "fire/d06_f02": [
+    -47.9,
+    -20.3
+   ],
+   "fire/d07_f00": [
+    -64.1,
+    -26.4
+   ],
+   "fire/d07_f01": [
+    -67.0,
+    -26.2
+   ],
+   "fire/d07_f02": [
+    -69.6,
+    -26.1
+   ],
+   "fire/d08_f00": [
+    -81.6,
+    -33.5
+   ],
+   "fire/d08_f01": [
+    -85.3,
+    -33.7
+   ],
+   "fire/d08_f02": [
+    -88.6,
+    -33.9
+   ],
+   "fire/d09_f00": [
+    -96.0,
+    -42.3
+   ],
+   "fire/d09_f01": [
+    -100.3,
+    -42.9
+   ],
+   "fire/d09_f02": [
+    -104.2,
+    -43.4
+   ],
+   "fire/d10_f00": [
+    -106.6,
+    -52.3
+   ],
+   "fire/d10_f01": [
+    -111.5,
+    -53.3
+   ],
+   "fire/d10_f02": [
+    -115.7,
+    -54.2
+   ],
+   "fire/d11_f00": [
+    -113.2,
+    -63.1
+   ],
+   "fire/d11_f01": [
+    -118.3,
+    -64.6
+   ],
+   "fire/d11_f02": [
+    -122.9,
+    -65.9
+   ],
+   "fire/d12_f00": [
+    -115.4,
+    -74.4
+   ],
+   "fire/d12_f01": [
+    -120.6,
+    -76.4
+   ],
+   "fire/d12_f02": [
+    -125.3,
+    -78.1
+   ],
+   "fire/d13_f00": [
+    -113.2,
+    -85.6
+   ],
+   "fire/d13_f01": [
+    -118.3,
+    -88.1
+   ],
+   "fire/d13_f02": [
+    -122.9,
+    -90.4
+   ],
+   "fire/d14_f00": [
+    -106.6,
+    -96.4
+   ],
+   "fire/d14_f01": [
+    -111.5,
+    -99.4
+   ],
+   "fire/d14_f02": [
+    -115.7,
+    -102.1
+   ],
+   "fire/d15_f00": [
+    -96.0,
+    -106.4
+   ],
+   "fire/d15_f01": [
+    -100.3,
+    -109.9
+   ],
+   "fire/d15_f02": [
+    -104.2,
+    -112.9
+   ],
+   "fire/d16_f00": [
+    -81.6,
+    -115.2
+   ],
+   "fire/d16_f01": [
+    -85.3,
+    -119.0
+   ],
+   "fire/d16_f02": [
+    -88.6,
+    -122.4
+   ],
+   "fire/d17_f00": [
+    -64.1,
+    -122.3
+   ],
+   "fire/d17_f01": [
+    -67.0,
+    -126.5
+   ],
+   "fire/d17_f02": [
+    -69.6,
+    -130.2
+   ],
+   "fire/d18_f00": [
+    -44.2,
+    -127.7
+   ],
+   "fire/d18_f01": [
+    -46.2,
+    -132.1
+   ],
+   "fire/d18_f02": [
+    -47.9,
+    -136.0
+   ],
+   "fire/d19_f00": [
+    -22.5,
+    -131.0
+   ],
+   "fire/d19_f01": [
+    -23.5,
+    -135.5
+   ],
+   "fire/d19_f02": [
+    -24.4,
+    -139.6
+   ],
+   "fire/d20_f00": [
+    0.0,
+    -132.1
+   ],
+   "fire/d20_f01": [
+    0.0,
+    -136.7
+   ],
+   "fire/d20_f02": [
+    0.0,
+    -140.8
+   ],
+   "fire/d21_f00": [
+    22.5,
+    -131.0
+   ],
+   "fire/d21_f01": [
+    23.5,
+    -135.5
+   ],
+   "fire/d21_f02": [
+    24.4,
+    -139.6
+   ],
+   "fire/d22_f00": [
+    44.2,
+    -127.7
+   ],
+   "fire/d22_f01": [
+    46.2,
+    -132.1
+   ],
+   "fire/d22_f02": [
+    47.9,
+    -136.0
+   ],
+   "fire/d23_f00": [
+    64.1,
+    -122.3
+   ],
+   "fire/d23_f01": [
+    67.0,
+    -126.5
+   ],
+   "fire/d23_f02": [
+    69.6,
+    -130.2
+   ],
+   "fire/d24_f00": [
+    81.6,
+    -115.2
+   ],
+   "fire/d24_f01": [
+    85.3,
+    -119.0
+   ],
+   "fire/d24_f02": [
+    88.6,
+    -122.4
+   ],
+   "fire/d25_f00": [
+    96.0,
+    -106.4
+   ],
+   "fire/d25_f01": [
+    100.3,
+    -109.9
+   ],
+   "fire/d25_f02": [
+    104.2,
+    -112.9
+   ],
+   "fire/d26_f00": [
+    106.6,
+    -96.4
+   ],
+   "fire/d26_f01": [
+    111.5,
+    -99.4
+   ],
+   "fire/d26_f02": [
+    115.7,
+    -102.1
+   ],
+   "fire/d27_f00": [
+    113.2,
+    -85.6
+   ],
+   "fire/d27_f01": [
+    118.3,
+    -88.1
+   ],
+   "fire/d27_f02": [
+    122.9,
+    -90.4
+   ],
+   "fire/d28_f00": [
+    115.4,
+    -74.4
+   ],
+   "fire/d28_f01": [
+    120.6,
+    -76.4
+   ],
+   "fire/d28_f02": [
+    125.3,
+    -78.1
+   ],
+   "fire/d29_f00": [
+    113.2,
+    -63.1
+   ],
+   "fire/d29_f01": [
+    118.3,
+    -64.6
+   ],
+   "fire/d29_f02": [
+    122.9,
+    -65.9
+   ],
+   "fire/d30_f00": [
+    106.6,
+    -52.3
+   ],
+   "fire/d30_f01": [
+    111.5,
+    -53.3
+   ],
+   "fire/d30_f02": [
+    115.7,
+    -54.2
+   ],
+   "fire/d31_f00": [
+    96.0,
+    -42.3
+   ],
+   "fire/d31_f01": [
+    100.3,
+    -42.9
+   ],
+   "fire/d31_f02": [
+    104.2,
+    -43.4
+   ]
+  }
+ },
+ "frame_count": 240,
+ "content_sha256": "7477665fcd4a0bc37596758ec72c19831c31e13c291fbc1bc10457a6173aeee3"
+}

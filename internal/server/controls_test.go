@@ -76,6 +76,88 @@ func TestPauseFreezesSimulationAndDisconnectResumes(t *testing.T) {
 		t.Fatal("pause allowed while ally reconnecting", r.err)
 	}
 }
+func TestPausePlayerGoneRetainVsResume(t *testing.T) {
+	active := []sim.PlayerID{1, 2}
+	c := newPauseControl(true)
+	for _, id := range active {
+		if err := c.act("pause", id, active); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if !c.paused {
+		t.Fatal("unanimous pause failed")
+	}
+	c.playerGone(2, true)
+	if !c.paused || len(c.votes) != 1 || !c.votes[1] {
+		t.Fatal("co-op pause hold lost on partner drop", c.paused, c.votes)
+	}
+	if err := c.act("resume", 1, []sim.PlayerID{1}); err != nil || c.paused {
+		t.Fatal("survivor could not resume retained pause", err)
+	}
+	if err := c.act("pause", 1, []sim.PlayerID{1}); err != nil || !c.paused {
+		t.Fatal("survivor could not pause alone while partner in grace", err)
+	}
+	c.playerGone(2, false)
+	if c.paused || len(c.votes) != 0 {
+		t.Fatal("non-coop drop must resume and clear votes", c.paused, c.votes)
+	}
+}
+func TestCoopDisconnectRetainsPauseAndSurvivorCanRepause(t *testing.T) {
+	s, _ := testServer(t)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	mmap, mission := scenarioFixture()
+	a, _, _ := s.repo.CreateProfile(ctx, "A")
+	b, _, _ := s.repo.CreateProfile(ctx, "B")
+	engine, err := sim.NewMission(s.catalog, mmap, mission, "normal", 9)
+	if err != nil {
+		t.Fatal(err)
+	}
+	m, err := newMatch("coop-pause", engine, []slot{{Player: 1, Profile: a.ID}, {Player: 2, Profile: b.ID}, {Player: 3, AI: true}}, s.repo, s.objects, matchOptions{PauseEnabled: true})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer m.close()
+	peers := map[sim.PlayerID]*peer{}
+	for _, id := range []sim.PlayerID{1, 2} {
+		p := &peer{player: id, out: make(chan []byte, 128), done: make(chan struct{})}
+		peers[id] = p
+		if r := m.call(ctx, matchRequest{kind: "connect", player: id, peer: p}); r.err != nil {
+			t.Fatal(r.err)
+		}
+	}
+	time.Sleep(70 * time.Millisecond)
+	for _, id := range []sim.PlayerID{1, 2} {
+		if r := m.call(ctx, matchRequest{kind: "control", player: id, peer: peers[id], control: "pause"}); r.err != nil {
+			t.Fatal(r.err)
+		}
+	}
+	tick := func() sim.Tick { return m.call(ctx, matchRequest{kind: "view", player: 1}).view.Tick }
+	before := tick()
+	if r := m.call(ctx, matchRequest{kind: "disconnect", player: 2, peer: peers[2]}); r.err != nil {
+		t.Fatal(r.err)
+	}
+	time.Sleep(220 * time.Millisecond)
+	if after := tick(); after != before {
+		t.Fatal("co-op partner drop unpaused the match", before, after)
+	}
+	if r := m.call(ctx, matchRequest{kind: "control", player: 1, peer: peers[1], control: "resume"}); r.err != nil {
+		t.Fatal("survivor resume failed", r.err)
+	}
+	time.Sleep(110 * time.Millisecond)
+	if after := tick(); after <= before {
+		t.Fatal("resumed co-op match did not advance", before, after)
+	} else {
+		before = after
+	}
+	if r := m.call(ctx, matchRequest{kind: "control", player: 1, peer: peers[1], control: "pause"}); r.err != nil {
+		t.Fatal("survivor pause during partner grace rejected", r.err)
+	}
+	time.Sleep(220 * time.Millisecond)
+	if after := tick(); after != before {
+		t.Fatal("survivor pause did not freeze co-op match", before, after)
+	}
+}
 func TestReconnectTimersAreTeamPrivate(t *testing.T) {
 	s, _ := testServer(t)
 	e, err := sim.New(s.catalog, sim.Config{Map: testMap(), Players: []sim.PlayerConfig{{ID: 1, Name: "A", Faction: "US", Team: 1}, {ID: 2, Name: "B", Faction: "IR", Team: 2}}})

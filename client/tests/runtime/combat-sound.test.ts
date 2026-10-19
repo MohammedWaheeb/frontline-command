@@ -9,7 +9,7 @@ test('combat audio uses the emitted weapon after source conversion, death or dis
  assert.equal(combatSound(event('weapon_fired',{weapon:'TANK'}),current,previous,catalog)?.sound,'sfx.weapon.TANK');current.entities=[];
  assert.equal(combatSound(event('weapon_fired',{weapon:'IR_MISSILE'}),current,previous,catalog)?.sound,'sfx.weapon.IR_MISSILE');
  assert.equal(combatSound(event('weapon_fired',{weapon:'BAD'}),state(11),previous,catalog)?.sound,undefined);
- assert.equal(combatSound(event('weapon_fired',{weapon:'SATURATION'}),current,previous,catalog)?.sound,undefined);
+ assert.equal(combatSound(event('weapon_fired',{weapon:'SATURATION'}),current,previous,catalog)?.sound,'sfx.strategic_launch');
 });
 test('combat audio consumes positive resolution armor, including landed aircraft, without current type guessing',()=>{
  const previous=state(),current=state(11,[actor(1,'US.fighter')]);current.entities[0].landed=true;
@@ -44,4 +44,25 @@ test('repeated connected observer polls preserve new audio; real reconnect estab
  const h=harness();h.director.operation('observer-one');h.director.connection('connected');h.director.snapshot(state(10));h.director.connection('connected');const live=state(11);live.events=[event('weapon_fired',{weapon:'TANK'},1,1,11)];h.director.snapshot(live);assert.deepEqual(h.sounds,['sfx.weapon.TANK']);
  h.director.connection('reconnecting');h.director.connection('reconnecting');assert.equal(h.sounds.filter(sound=>sound==='vo.announcer.US.reconnecting').length,1);h.director.connection('connected');const restored=state(20);restored.events=[event('weapon_fired',{weapon:'TANK'},1,2,20)];h.director.snapshot(restored);assert.equal(h.sounds.filter(sound=>sound==='sfx.weapon.TANK').length,1);h.director.connection('connected');const next=state(21);next.events=[event('weapon_fired',{weapon:'TANK'},1,3,21)];h.director.snapshot(next);assert.equal(h.sounds.filter(sound=>sound==='sfx.weapon.TANK').length,2);
  h.director.operation('observer-two');h.director.connection('connected');h.director.snapshot(next);assert.equal(h.sounds.filter(sound=>sound==='sfx.weapon.TANK').length,2);
+});
+
+
+test('simultaneous same-weapon shots each survive the real cooldown gate',async()=>{
+ const {AudioCooldowns}=await import('../../src/audio/index');const gate=new AudioCooldowns(),heard:string[]=[];
+ const mixer={play:(id:string,options:any={})=>{if(gate.admit(options.key??id,1000,options.cooldown??0))heard.push(id)},caption:()=>{},music:()=>{},continuous:()=>{},reset:()=>{},manifest:undefined} as unknown as AudioMixer;
+ const director=new AudioDirector(mixer,()=>catalog);director.snapshot(state());
+ const current=state(11);current.events=Array.from({length:12},(_,i)=>event('weapon_fired',{weapon:'TANK'},1,i+1));
+ director.snapshot(current);director.snapshot(current);
+ assert.equal(heard.filter(id=>id==='sfx.weapon.TANK').length,12);
+ director.dispose();
+});
+test('every roster unit gets a production cue, including a simultaneous batch',()=>{
+ const h=harness(),units=[...catalog.units.values()];h.director.snapshot(state(10,[]));
+ const current=state(11,units.map((unit,i)=>actor(i+10,unit.id)));
+ current.events=units.map((unit,i)=>event('unit_ready',undefined,i+10,i+1));
+ h.director.snapshot(current);h.director.snapshot(current);
+ assert.equal(h.sounds.filter(id=>id==='sfx.construct_complete').length,units.length);
+ const next=state(12);next.events=[create(EventSchema,{id:10000,tick:12,kind:'unit_ready',entity:2,owner:2})];
+ h.director.snapshot(next);assert.equal(h.sounds.filter(id=>id==='sfx.construct_complete').length,units.length);
+ h.director.dispose();
 });

@@ -18,9 +18,13 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
  private reconnectAt=0;private attempt=0;private nonce=0;private pings=new Map<number,number>();
  constructor(readonly baseURL:string,readonly connection:MatchConnection){super()}
  private change(phase:ConnectionPhase){this.phase=phase;this.emit({type:'connection',phase,remainingMs:this.reconnectAt?Math.max(0,120000-(Date.now()-this.reconnectAt)):undefined})}
- connect():Promise<void>{this.stopped=false;return this.open(false)}
+ connect():Promise<void>{return this.open(false)}
+ private terminalError(){return new RuntimeError(this.terminalReason!,this.terminalReason==='player_eliminated'?'Your commander was eliminated. Join an authorized observer view or wait for the final result.':'The reconnect window has ended. Review the result or join an authorized observer view.',false)}
  private open(resume:boolean):Promise<void>{
   if(this.disposed)return Promise.reject(new RuntimeError('disposed','The connection is closed.',false));
+  if(!this.terminalReason&&this.reconnectAt&&Date.now()-this.reconnectAt>=120000){this.terminalReason='reconnect_expired';this.emit({type:'error',error:this.terminalError()})}
+  if(this.terminalReason){this.stopped=true;if(this.retryTimer)clearTimeout(this.retryTimer);this.change('closed');return Promise.reject(this.terminalError())}
+  this.stopped=false;
   const epoch=++this.epoch;this.opening?.finish(new RuntimeError('connection_replaced','A newer connection attempt replaced this one.'));if(this.retryTimer)clearTimeout(this.retryTimer);this.socket?.close();
   const url=new URL(`/api/v1/matches/${encodeURIComponent(this.connection.match_id)}/socket`,this.baseURL);
   url.protocol=url.protocol==='https:'?'wss:':'ws:';
@@ -78,7 +82,7 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
  private publish(snapshot:PlayerSnapshot){this.current=snapshot;this.sequence=Math.max(this.sequence,snapshot.economy?.lastSequence??0);this.emit({type:'snapshot',snapshot});for(const result of snapshot.results)this.publishResult(result)}
  private scheduleReconnect(){
   const remaining=120000-(Date.now()-this.reconnectAt);
-  if(remaining<=0){this.stopped=true;this.change('closed');this.emit({type:'error',error:new RuntimeError('reconnect_expired','The two-minute reconnect window has ended. Open the match result or delayed observer view.',false)});return}
+  if(remaining<=0){this.terminalReason='reconnect_expired';this.stopped=true;this.change('closed');this.emit({type:'error',error:this.terminalError()});return}
   this.change('reconnecting');const delay=Math.min(5000,250*2**Math.min(this.attempt++,5),remaining);
   this.retryTimer=setTimeout(()=>{void this.open(true).catch(()=>{/* onclose controls retry */})},delay);
  }
@@ -88,6 +92,6 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
  async pause(){this.send(create(EnvelopeSchema,{message:{case:'control',value:{action:'pause'}}}))}
  async resume(){this.send(create(EnvelopeSchema,{message:{case:'control',value:{action:'resume'}}}))}
  /** Reauthenticate a replacement socket; no uncertain commands are resent. */
- reconnect(){if(this.terminalReason)return Promise.reject(new RuntimeError(this.terminalReason,this.terminalReason==='player_eliminated'?'Your commander was eliminated. Join an authorized observer view or wait for the final result.':'The reconnect window has ended. Review the result or join an authorized observer view.',false));this.stopped=false;if(!this.reconnectAt)this.reconnectAt=Date.now();return this.open(true)}
+ reconnect(){if(!this.reconnectAt)this.reconnectAt=Date.now();return this.open(true)}
  dispose(){if(this.disposed)return;this.disposed=true;this.stopped=true;++this.epoch;this.opening?.finish(new RuntimeError('disposed','The connection has been closed.',false));if(this.retryTimer)clearTimeout(this.retryTimer);if(this.pingTimer)clearInterval(this.pingTimer);this.pings.clear();this.socket?.close(1000,'client closed');this.change('closed');this.clearListeners()}
 }

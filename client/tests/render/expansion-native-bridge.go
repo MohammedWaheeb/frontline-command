@@ -1,3 +1,5 @@
+//go:build frontline_fixture
+
 // Copied only into an isolated test module beside the exact frozen Session.
 // No private state, spawning, resource editing or alternate simulation API.
 package main

@@ -23,7 +23,12 @@ export function combatCue(event:Event,snapshot:PlayerSnapshot,catalog:CatalogInd
  if(event.scope==='team'&&event.owner!==snapshot.player){const us=snapshot.players.find(p=>p.id===snapshot.player),them=snapshot.players.find(p=>p.id===event.owner);if(!us||!them||us.team!==them.team)return}
  let kind:CombatCueKind,effects:string[]=[],destructionTicks:number|undefined,elevationSource:number|undefined;
  const facts=combatFacts(event,snapshot,catalog);
- if(event.kind==='weapon_fired'){kind='muzzle';if(facts.weapon&&catalog.weapons.has(facts.weapon))effects=[`fx.weapon_muzzle.${facts.weapon}`]}
+ if(event.kind==='weapon_fired'){
+  // This physical drone fires by detonating at its terminal point. Its separate
+  // impact/destruction events provide feedback; it has no gun-barrel flash.
+  if(facts.weapon==='IR_SHAHED')return;
+  kind='muzzle';if(facts.weapon&&catalog.weapons.has(facts.weapon))effects=[`fx.weapon_muzzle.${facts.weapon}`];
+ }
  else if(event.kind==='interceptor_fired')kind='interceptor-launch';
  else if(event.kind==='impact'){
   kind=facts.hit?'hit':'impact';

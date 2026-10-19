@@ -1,3 +1,16 @@
+# Current frontend qualification — 13 October 2026
+
+The scoped final Mac/Chrome client is packaged and qualified. Final canonical
+tests, actual UI layout at 1280/1600 widths and 150%, keyboard Range controls, cache failure
+recovery, complete offline installation and multiplayer/replay evidence are in
+[the final release report](../work/release-readiness-20261013/REPORT.md).
+This supersedes earlier unfinished frontend checkpoint summaries below.
+
+---
+
+The following is retained historical scope and evidence; current qualification
+and limits above supersede conflicting older status statements.
+
 # Product interface status
 
 The React/Vite application is now a connected local product slice. It is not the

@@ -86,6 +86,16 @@ contextual candidate probes rather than a sequential final batch. Orders use nor
 response is the affordance object above plus `results`, always an array. No save,
 full state, mission definition or enemy private data is serialized into a response.
 
+A unique selection that becomes unavailable at the authoritative tick returns
+HTTP 200 with a conservative business rejection: one record per requested ID,
+all capability lists empty, no player commands, and `accepted: false` /
+`code: "not_owner"` for every proposed order. No valid prefix of a mixed selection
+is exposed. Removed, unknown and foreign IDs receive the same response, without
+revealing why an ID is unavailable. Zero and duplicate selection IDs remain HTTP 400;
+authentication, inactive-player, rate-limit and deadline failures retain their
+error responses. This HTTP mapping leaves the strict engine/WASM affordance
+contract and authoritative order execution unchanged.
+
 Bounds: 64 KiB request body, 64 affordance IDs, 32 orders, 64 entities and six points
 per order; four requests per second and one in flight per authenticated slot;
 eight concurrent expensive requests across the host; two-second request deadline;

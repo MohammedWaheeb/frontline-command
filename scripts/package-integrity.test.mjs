@@ -1,8 +1,52 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {mkdtemp,mkdir,writeFile,readFile,rm,symlink} from 'node:fs/promises';import {tmpdir} from 'node:os';import path from 'node:path';import {createHash} from 'node:crypto';
-import {nativeBuildEnvironment,portablePath,fileInventory,verifyProduct,verifyNativeExecutable,resolveGoLicense,verifyCSSDependencies,commandHasOutput} from './package-integrity.mjs';
+import {mkdtemp,mkdir,writeFile,readFile,rm,symlink,realpath} from 'node:fs/promises';import {tmpdir} from 'node:os';import path from 'node:path';import {createHash} from 'node:crypto';
+import {nativeBuildEnvironment,portablePath,fileInventory,verifyProduct,verifyNativeExecutable,resolveGoLicense,verifyCSSDependencies,commandHasOutput,sourceProvenance,productionGoPackages,goTestArguments,resolvePackageDirectory} from './package-integrity.mjs';
 import {execFileSync} from 'node:child_process';
 const put=async(root,name,bytes)=>{await mkdir(path.dirname(path.join(root,name)),{recursive:true});await writeFile(path.join(root,name),bytes)};
+test('package output override preserves defaults and rejects authored paths, ancestors and aliases',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'package-output-')),root=path.join(dir,'source');try{
+  await mkdir(path.join(root,'client'),{recursive:true});await mkdir(path.join(root,'dist'));
+  const expected=await resolvePackageDirectory(root,undefined,'darwin','arm64');assert.equal(expected,path.join(await realpath(root),'dist','frontline-darwin-arm64'));
+  assert.equal(await resolvePackageDirectory(root,'dist/readiness'),path.join(path.dirname(expected),'readiness'));
+  assert.equal(path.basename(await resolvePackageDirectory(root,path.join(dir,'independent'))),'independent');
+  for(const unsafe of ['.','..',path.parse(root).root,'dist','client','client/output','assets','content','scripts','pkg','docs'])await assert.rejects(resolvePackageDirectory(root,unsafe),/Package output/);
+  await symlink(path.join(root,'client'),path.join(root,'dist/alias'));
+  await assert.rejects(resolvePackageDirectory(root,'dist/alias/output'),/Package output/);
+ }finally{await rm(dir,{recursive:true,force:true})}
+});
+test('canonical Go checks cover shipped package roots and exclude historical snapshots',async()=>{
+ const source=await readFile(new URL('local.mjs',import.meta.url),'utf8');
+ assert.ok(source.includes("run('go',goTestArguments(command==='test-extended'))"));
+ assert.ok(source.includes("run('go',['vet',...productionGoPackages])"));
+ assert.deepEqual(productionGoPackages,['./cmd/...','./internal/...','./pkg/...','./protocol/...']);
+ assert.ok(Object.isFrozen(productionGoPackages));
+});
+test('short and extended Go commands preserve distinct acceptance modes',()=>{
+ assert.deepEqual(goTestArguments(),['test','-short',...productionGoPackages]);
+ assert.deepEqual(goTestArguments(true),['test','-timeout=30m',...productionGoPackages]);
+});
+test('exported source packages record unknown Git provenance, even inside another checkout',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'package-export-'));try{
+  const exported={source_kind:'exported-snapshot',source_revision:null,source_dirty:null};
+  assert.deepEqual(await sourceProvenance(dir),exported);
+  execFileSync('git',['init','--quiet',dir]);
+  await mkdir(path.join(dir,'snapshot'));
+  assert.deepEqual(await sourceProvenance(path.join(dir,'snapshot')),exported);
+  // A broken checkout must not be silently relabeled as an exported source.
+  await put(dir,'snapshot/.git','gitdir: missing-checkout');
+  await assert.rejects(sourceProvenance(path.join(dir,'snapshot')));
+ }finally{await rm(dir,{recursive:true,force:true})}
+});
+test('package source provenance records the actual checkout revision and dirty status',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'package-provenance-'));try{
+  execFileSync('git',['init','--quiet',dir]);await put(dir,'source.go','fixture');
+  execFileSync('git',['add','source.go'],{cwd:dir});
+  execFileSync('git',['-c','user.name=Package Test','-c','user.email=package-test@example.invalid','-c','commit.gpgsign=false','commit','--quiet','-m','fixture'],{cwd:dir});
+  const revision=execFileSync('git',['rev-parse','HEAD'],{cwd:dir,encoding:'utf8'}).trim();
+  assert.deepEqual(await sourceProvenance(dir),{source_kind:'git-checkout',source_revision:revision,source_dirty:false});
+  await put(dir,'source.go','changed');assert.equal((await sourceProvenance(dir)).source_dirty,true);
+ }finally{await rm(dir,{recursive:true,force:true})}
+});
 test('metadata status streams beyond default capture limit and still checks final exit',async()=>{
  assert.equal(await commandHasOutput(process.execPath,['-e','process.stdout.write(Buffer.alloc(3*1024*1024,120))']),true);
  assert.equal(await commandHasOutput(process.execPath,['-e','process.stderr.write("notice")']),false);

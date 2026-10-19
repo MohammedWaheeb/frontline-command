@@ -5,12 +5,26 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type Files struct{ Root string }
 
+// Match IDs may use the full ID limit before the server adds its object suffix.
+func validObjectID(id string) bool {
+	if ValidID(id) {
+		return true
+	}
+	for _, suffix := range []string{".diagnostic", ".replay"} {
+		if strings.HasSuffix(id, suffix) && ValidID(strings.TrimSuffix(id, suffix)) {
+			return true
+		}
+	}
+	return false
+}
+
 func (f Files) Put(ctx context.Context, id string, data []byte) error {
-	if !ValidID(id) || len(data) > 64<<20 {
+	if !validObjectID(id) || len(data) > 64<<20 {
 		return errors.New("invalid object")
 	}
 	if err := ctx.Err(); err != nil {
@@ -50,7 +64,7 @@ func (f Files) Put(ctx context.Context, id string, data []byte) error {
 	return dir.Sync()
 }
 func (f Files) Get(ctx context.Context, id string) ([]byte, error) {
-	if !ValidID(id) {
+	if !validObjectID(id) {
 		return nil, errors.New("invalid object ID")
 	}
 	if err := ctx.Err(); err != nil {

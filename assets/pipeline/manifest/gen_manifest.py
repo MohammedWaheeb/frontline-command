@@ -12,6 +12,7 @@ pipeline spec exists and its packed sprite sidecar exists on disk.
 Usage: work/art/.venv/bin/python assets/pipeline/manifest/gen_manifest.py
 Outputs: assets/manifest/asset-manifest.json, assets/manifest/summary.md
 """
+import ast
 import json
 import hashlib
 import os
@@ -323,6 +324,76 @@ def entry(**kw):
     return base
 
 
+def apply_published_art_inventory(entries):
+    """Inventory installed runtime outputs, keeping authoring requirements intact.
+
+    Reviewed external exports can contain additional payload/service states that
+    the older root authoring spec does not declare. Record that actual contract
+    separately instead of silently claiming the older spec reproduces it.
+    """
+    for item in entries:
+        if item['category'] in ('unit_sprite', 'building_sprite', 'prop'):
+            side = os.path.join(REPO, 'assets/build/sprites', item['id'], item['id'] + '.sprite.json')
+            if os.path.isfile(side):
+                with open(side, encoding='utf-8') as source:
+                    published = json.load(source)
+                if published.get('id') == item['id']:
+                    item['spec']['published_states'] = published['states']
+                    item['spec']['published_total_poses'] = sum(s['directions'] * s['frames'] for s in published['states'])
+        if item['category'] not in ('portrait', 'build_icon'):
+            continue
+        key = item['id'].removeprefix('portrait.').removeprefix('icon.build.')
+        folder = 'portraits' if item['category'] == 'portrait' else 'icons/build'
+        stem = f'assets/build/ui/{folder}/{key}'
+        files = [f'{stem}@{scale}.{layer}.png' for scale in ('1x', '2x') for layer in ('beauty', 'team')]
+        if all(os.path.isfile(os.path.join(REPO, path)) for path in files):
+            item['output'] = f'{stem}@2x.beauty.png (+ paired team mask and 1x images)'
+            item['status'] = 'sample'
+            item['editable_origin'] = 'assets/pipeline/blender/render_ui_shots.py + original model/spec'
+            item['notes'] = 'Actual paired portrait/cameo output; UI overlays remain code-native. Final visual approval is separate.'
+
+
+def apply_published_effect_inventory(entries):
+    """Inventory exact installed FX bytes without claiming final art approval."""
+    build = os.path.join(REPO, 'assets', 'build')
+    index_path = os.path.join(build, 'fx', 'index.json')
+    if not os.path.isfile(index_path):
+        return
+
+    def verified(rel, descriptor):
+        physical = os.path.realpath(os.path.join(build, rel))
+        base = os.path.realpath(os.path.join(build, 'fx'))
+        if not physical.startswith(base + os.sep):
+            raise ValueError('Effect file escapes FX directory')
+        with open(physical, 'rb') as source:
+            data = source.read()
+        if len(data) != descriptor['bytes'] or hashlib.sha256(data).hexdigest() != descriptor['sha256']:
+            raise ValueError(f'Effect file integrity mismatch: {rel}')
+        return data
+
+    with open(index_path, encoding='utf-8') as source:
+        index = json.load(source)
+    known = {item['id']: item for item in entries if item['category'] == 'effect'}
+    if index.get('format') != 1 or not set(index['effects']).issubset(known):
+        raise ValueError('Effect index does not match authored inventory')
+    for aid, descriptor in index['effects'].items():
+        metadata = json.loads(verified(descriptor['url'], descriptor))
+        if metadata.get('format') != 1 or metadata.get('id') != aid:
+            raise ValueError(f'Effect metadata identity mismatch: {aid}')
+        base = os.path.dirname(descriptor['url'])
+        for page in metadata['pages']:
+            verified(os.path.join(base, page['file']), page)
+        item = known[aid]
+        item['status'] = 'sample'
+        item['source'] = 'Project-original deterministic vector geometry rasterized with Python/Pillow; no external imagery'
+        item['editable_origin'] = 'assets/pipeline/fx/*.py'
+        item['output'] = f"assets/build/{descriptor['url']} (+ verified PNG atlas pages)"
+        item['spec']['published_clips'] = {name: {'frames': len(clip['frames']), 'fps': clip['fps'], 'loop': clip['loop']}
+                                          for name, clip in metadata['clips'].items()}
+        item['spec']['published_variants'] = metadata['variants']
+        item['notes'] = 'Installed exact-byte 71-effect pack; original provenance and bounded browser evidence retained in work/art/completion-20261013. Dynamic markers remain code-native.'
+
+
 def apply_audio_production(entries):
     """Report actual original audio output without promoting it to art approval."""
     sys.path.insert(0, os.path.join(REPO, 'assets', 'pipeline', 'audio'))
@@ -331,6 +402,18 @@ def apply_audio_production(entries):
     by_id = {}
     for job in jobs:
         by_id.setdefault(job['id'], []).append(job)
+    # Variant counts straight from the synthesis source without importing it
+    # (synthesis needs scipy, which the art venv lacks). Keys are 'sfx.<name>'.
+    sfx_variant_counts = {}
+    try:
+        tree = ast.parse(open(os.path.join(REPO, 'assets', 'pipeline', 'audio', 'synthesis.py'),
+                              encoding='utf-8').read())
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Assign) and any(getattr(t, 'id', '') == 'SFX_VARIANTS'
+                                                    for t in node.targets):
+                sfx_variant_counts = {f'sfx.{k}': v for k, v in ast.literal_eval(node.value).items()}
+    except (OSError, ValueError, SyntaxError):
+        sfx_variant_counts = {}
     try:
         with open(os.path.join(REPO, 'assets/build/audio/index.json')) as source:
             index = json.load(source)['entries']
@@ -374,7 +457,12 @@ def apply_audio_production(entries):
         for id in ids:
             variants=index.get(id,{}).get('variants',[])
             expected=by_id.get(id)
-            wanted=len(expected) if expected else (3 if id.startswith('sfx.weapon.') else 1)
+            if expected:
+                wanted=len(expected)
+            elif id.startswith('sfx.weapon.'):
+                wanted=3
+            else:
+                wanted=sfx_variant_counts.get(id, 1)
             complete &= len(variants)==wanted and all(valid_variant(v) for v in variants)
             if expected:
                 complete &= sorted(v.get('caption','') for v in variants)==sorted(j['caption'] for j in expected)
@@ -747,6 +835,24 @@ def build_manifest():
                        editable_origin='assets/audio/sfx_projects/*', output=f'assets/build/audio/sfx/{s_}.ogg',
                        spec={'category_bus': 'ui' if s_.startswith('ui_') else ('ambient' if s_.startswith('ambient')
                                                                              else 'effects')}))
+    # Approved SFX additions outside the design catalog (synthesis.py job list
+    # is authoritative for variants; combat-sound.ts plays IR_SHAHED, the
+    # director falls back to building_collapse/explosion_large cascades).
+    E.append(entry(id='sfx.weapon.IR_SHAHED', category='sfx', subcategory='weapon', name='IR_SHAHED',
+                   source=SRC_SFX_PLANNED, license=LIC_ORIGINAL, editable_origin='assets/pipeline/audio/synthesis.py',
+                   output='assets/build/audio/sfx/weapon/IR_SHAHED_[1-3].ogg',
+                   spec={'variants': 3, 'class': 'loiter'}))
+    for s_ in ['missile_launch_roar', 'missile_flight_whine', 'missile_terminal_crack', 'strategic_launch',
+               'strategic_incoming_whine', 'strategic_impact', 'building_collapse', 'vehicle_kill',
+               'structure_damage_groan', 'burning_wreck_loop', 'capture_loop', 'repair_loop', 'heal_loop']:
+        E.append(entry(id=f'sfx.{s_}', category='sfx', name=s_, source=SRC_SFX_PLANNED, license=LIC_ORIGINAL,
+                       editable_origin='assets/pipeline/audio/synthesis.py',
+                       output=f'assets/build/audio/sfx/{s_}.ogg', spec={'category_bus': 'effects'}))
+    for s_ in ['troop_death_US', 'troop_death_IR', 'troop_death_SY', 'troop_death_SA', 'bullet_crack_near']:
+        E.append(entry(id=f'sfx.{s_}', category='sfx', name=s_, source=SRC_SFX_PLANNED, license=LIC_ORIGINAL,
+                       editable_origin='assets/pipeline/audio/synthesis.py',
+                       output=f'assets/build/audio/sfx/{s_}_[1-3].ogg',
+                       spec={'variants': 3, 'category_bus': 'effects'}))
     music = ['menu_theme', 'lobby_loop', 'briefing_bed', 'debrief_bed', 'editor_ambient', 'credits',
              'stinger_victory', 'stinger_defeat', 'stinger_mission_start', 'stinger_objective', 'stinger_strategic_warning']
     for fac in FACTIONS:
@@ -767,7 +873,7 @@ def build_manifest():
                        spec={'weights': files}, status='final' if os.path.isdir(os.path.join(REPO, 'assets', 'fonts', fam))
                        else 'planned'))
     # ---------------- localization
-    loc = {'ui': 'menus, HUD, settings, keybind names, tooltips', 'units': '75 x (name, role line, counter line, description)',
+    loc = {'ui': 'menus, HUD, settings, keybind names, tooltips', 'units': f'{len(units)} x (name, role line, counter line, description)',
            'buildings': '19 types x faction names + descriptions', 'abilities': 'names, costs, limits, failure reasons',
            'research': 'names + effects + limitations', 'weapons': '28 display names', 'alerts': 'announcer captions',
            'captions': 'every voice line', 'missions': '24 missions + 5 tutorials + 2 co-op: briefings, objectives, debriefs',
@@ -785,6 +891,8 @@ def build_manifest():
 
 def main():
     entries, counts = build_manifest()
+    apply_published_art_inventory(entries)
+    apply_published_effect_inventory(entries)
     ids = [e['id'] for e in entries]
     dup = [k for k, v in Counter(ids).items() if v > 1]
     assert not dup, f'duplicate ids: {dup[:5]}'
@@ -814,7 +922,7 @@ def main():
     for e in entries:
         if e['status'] in ('sample', 'final'):
             lines.append(f"| `{e['id']}` | {e['status']} | `{e['output']}` |")
-    lines += ['', '## Unit sprite requirements (all 75)', '', '| ID | Name | Class | States | Poses |', '|---|---|---|---|---:|']
+    lines += ['', f"## Unit sprite requirements (all {counts['units']})", '', '| ID | Name | Class | States | Poses |', '|---|---|---|---|---:|']
     for e in entries:
         if e['category'] == 'unit_sprite':
             sts = ', '.join(f"{s['name']} {s['directions']}x{s['frames']}" for s in e['spec']['states'])

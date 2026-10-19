@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "mission_id": "tutorial-2-operate-a-base",
-  "mission_version": "1",
+  "mission_version": "2",
   "title": "Operate a Base",
   "mode": "tutorial",
   "faction": "US",
@@ -40,6 +40,12 @@
       "kind": "primary",
       "at_end": false,
       "text": "Replace the original HQ after its loss, using an emergency rig produced by the factory."
+    },
+    {
+      "id": "recovery-path-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose the HQ, factory and every engineering rig before the replacement HQ is built."
     },
     {
       "id": "repair",

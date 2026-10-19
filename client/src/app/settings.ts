@@ -49,13 +49,18 @@ export function sanitizeSettings(value:unknown):Settings{
 }
 const MIRROR='frontline.settings.v1';
 /** Synchronous mirror for first paint (scale/motion) before IndexedDB answers. */
-export function readSettingsMirror():Settings{try{const raw=localStorage.getItem(MIRROR);return sanitizeSettings(raw?JSON.parse(raw):undefined)}catch{return structuredClone(DEFAULT_SETTINGS)}}
+/** First-run defaults honor the OS reduced-motion preference until the player saves their own choice. */
+export function firstRunDefaults():Settings{const defaults=structuredClone(DEFAULT_SETTINGS);try{if(globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches)defaults.reducedMotion=true}catch{/* no media query support: keep authored defaults */}return defaults}
+export function readSettingsMirror():Settings{try{const raw=localStorage.getItem(MIRROR);return raw?sanitizeSettings(JSON.parse(raw)):firstRunDefaults()}catch{return firstRunDefaults()}}
 export function writeSettingsMirror(settings:Settings){try{localStorage.setItem(MIRROR,JSON.stringify(settings))}catch{/* storage full: IndexedDB copy still attempted */}}
 export function applySettingsToDocument(settings:Settings){
  const root=document.documentElement;
  root.style.setProperty('--fc-ui-scale',String(settings.uiScale));
  root.style.setProperty('--ui-minimap-scale',String(settings.minimapScale));
  root.dataset.motion=settings.reducedMotion?'reduced':'full';
+ // tokens.css gates transition durations on this attribute (and lets an
+ // explicit in-game choice override the OS media query either way).
+ root.dataset.reducedMotion=String(settings.reducedMotion);
  root.dataset.flashing=settings.reducedFlashing?'reduced':'full';
  root.dataset.palette=settings.palette;
 }

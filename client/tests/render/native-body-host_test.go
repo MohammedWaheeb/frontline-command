@@ -1,3 +1,5 @@
+//go:build frontline_fixture
+
 package main
 
 import (

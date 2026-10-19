@@ -70,8 +70,8 @@ func TestCommandAdviceUsesSlotAuthenticationAndNeverChangesMatch(t *testing.T) {
 	if before.err != nil || after.err != nil || string(before.data) != string(after.data) {
 		t.Fatal("advice changed live state", before.err, after.err)
 	}
-	request(t, h, "POST", path, "slot-two", adviceRequest{Entities: []sim.ID{2}}, 400)
-	request(t, h, "POST", path, "slot-two", adviceRequest{Entities: []sim.ID{999999}}, 400)
+	request(t, h, "POST", path, "slot-two", adviceRequest{Entities: []sim.ID{2}}, 200)
+	request(t, h, "POST", path, "slot-two", adviceRequest{Entities: []sim.ID{999999}}, 200)
 	request(t, h, "POST", path, "slot-one", map[string]any{"player": 2}, 400)
 	request(t, h, "POST", path, "slot-one", adviceRequest{Entities: make([]sim.ID, 65)}, 400)
 	request(t, h, "POST", path, "slot-one", adviceRequest{Orders: make([]sim.Order, 33)}, 400)

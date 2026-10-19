@@ -173,7 +173,8 @@ def check_manifest():
     for e in ents:
         if e['status'] == 'sample':
             out = e['output'].split(' ')[0]
-            ok = os.path.exists(os.path.join(REPO, out.replace('(+', '').strip()))
+            # Variant outputs use shell-style ranges such as select_[1-3].ogg.
+            ok = bool(glob.glob(os.path.join(REPO, out.replace('(+', '').strip())))
             rec(e['id'], 'manifest_output', ok, out)
         if e['status'] == 'final':
             ok = e['category'] == 'font' and glob.glob(os.path.join(REPO, e['output'], 'OFL.txt'))
@@ -182,9 +183,10 @@ def check_manifest():
             if not e.get(k):
                 rec(e['id'], 'manifest_fields', False, f'missing {k}')
     units = [e for e in ents if e['category'] == 'unit_sprite']
-    rec('manifest', 'unit_count', len(units) == 75, f'{len(units)} unit sprite entries')
+    # The shipped roster adds IR.shahed to the original 75 design units.
+    rec('manifest', 'unit_count', len(units) == 76, f'{len(units)} unit sprite entries (75 design + Shahed)')
     b = [e for e in ents if e['category'] == 'building_sprite']
-    rec('manifest', 'building_variants', len(b) == 14 * 4 + 5, f'{len(b)} building sprite entries (14 shared x 4 + 5 unique)')
+    rec('manifest', 'building_variants', len(b) == 15 * 4 + 5, f'{len(b)} building sprite entries (15 shared x 4 + 5 unique)')
     no_states = [e['id'] for e in units + b if not e['spec']['states']]
     rec('manifest', 'state_lists', not no_states, f'{len(no_states)} sprite entries without states')
 

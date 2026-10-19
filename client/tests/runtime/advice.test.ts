@@ -28,6 +28,29 @@ test('one advice request is pending and stale selection discards its response',a
   advice.dispose();await assert.rejects(advice.request(),(e:any)=>e.code==='disposed');
  }finally{globalThis.fetch=original}
 });
+test('stale selection advice preserves exact IDs with no capabilities and typed order denials',async()=>{
+ const original=globalThis.fetch;
+ const {create}=await import('@bufbuild/protobuf'),{PlayerSnapshotSchema}=await import('../../src/protocol/frontline_pb');
+ const {createOnlineCommandEnvironment}=await import('../../src/runtime/advice'),{STANDARD_COMMAND_DESCRIPTORS}=await import('../../src/runtime/command-intent');
+ const snapshot=create(PlayerSnapshotSchema,{tick:100,player:1,entities:[2,3].map(id=>({id,owner:1,health:1000,position:{x:1000,y:1000}}))});
+ let calls=0;
+ const source=new OnlineCommandAdvice('http://localhost',connection);
+ try{
+  globalThis.fetch=async(input,init)=>{
+   assert.equal(new URL(String(input)).pathname,'/api/v1/matches/match-one/advice');calls++;
+   const request=JSON.parse(String(init?.body));assert.deepEqual(request.entities,[2,3]);
+   return Response.json({tick:101,player:1,player_commands:[],entities:request.entities.map((id:number)=>({id,commands:[],abilities:[],builds:[],trains:[],research:[]})),results:request.orders.map((_:unknown,index:number)=>({player:1,sequence:0,index,accepted:false,code:'not_owner',tick:101}))});
+  };
+  const environment=await createOnlineCommandEnvironment(source,snapshot,[2,3],{isCurrent:()=>true});
+  const move=STANDARD_COMMAND_DESCRIPTORS.find(command=>command.kind==='move')!;
+  for(const entity of snapshot.entities)assert.equal(environment.supports(entity,move),false);
+  assert.equal(calls,1);
+  const orders=[{kind:'move',entities:[2,3],position:{x:2000,y:2000}}],before=structuredClone(orders);
+  const denied=await source.request([2,3],orders);
+  assert.deepEqual(denied.entities.map(entity=>entity.id),[2,3]);assert.ok(denied.entities.every(entity=>entity.commands.length+entity.abilities.length+entity.builds.length+entity.trains.length+entity.research.length===0));
+  assert.deepEqual(adviceLegality(denied.results[0]),{accepted:false,code:'not_owner',certainty:'rejected'});assert.deepEqual(orders,before);assert.equal(calls,2);
+ }finally{source.dispose();globalThis.fetch=original}
+});
 test('advice respects request bounds and propagates rate error without retries',async()=>{
  const original=globalThis.fetch;let calls=0;
  try{

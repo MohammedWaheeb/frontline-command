@@ -609,3 +609,16 @@ progress::-moz-progress-bar{background:repeating-linear-gradient(90deg,#e2a232 0
    indentation otherwise leaves too little room for complete building names. */
 .battlefield-screen .cameo-grid>[data-build-requirements]>details>:not(summary){overflow-wrap:anywhere}
 .battlefield-screen .cameo-grid>[data-build-requirements]>details>ul{padding-inline-start:1em}
+
+.sound-control{position:fixed;z-index:140;left:18px;top:48px;padding:8px 14px;border:1px solid #bca96a;background:#24251a;color:#eee9d8;box-shadow:0 2px 8px #0008}
+
+/* The actor's name, ownership and status can exceed the fixed tray height.
+   Keep their first line inside the plate and expose the rest to mouse/keyboard
+   scrolling without reducing text or removing tactical controls. */
+.battlefield-screen .selection-overview>.selection-details{min-height:0;max-height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-inline-end:4px}
+.battlefield-screen .selection-details:focus-visible{outline:2px solid var(--fc-color-focus-ring);outline-offset:-2px}
+/* The top-left shoulder is free battlefield space; captions begin below it. */
+.sound-control.in-game{top:8px}
+
+/* Keep the focused range key on one row as its mode label changes. */
+.battlefield-screen .selection-details>button.range-mode{display:flex;width:max-content;max-width:100%;margin-inline-start:0}

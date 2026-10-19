@@ -28,7 +28,16 @@
     "unit.IR.launcher@2x.beauty.5.json",
     "unit.IR.launcher@2x.beauty.6.json",
     "unit.IR.launcher@2x.beauty.7.json",
-    "unit.IR.launcher@2x.beauty.8.json"
+    "unit.IR.launcher@2x.beauty.8.json",
+    "unit.IR.launcher@2x.beauty.9.json",
+    "unit.IR.launcher@2x.beauty.10.json",
+    "unit.IR.launcher@2x.beauty.11.json",
+    "unit.IR.launcher@2x.beauty.12.json",
+    "unit.IR.launcher@2x.beauty.13.json",
+    "unit.IR.launcher@2x.beauty.14.json",
+    "unit.IR.launcher@2x.beauty.15.json",
+    "unit.IR.launcher@2x.beauty.16.json",
+    "unit.IR.launcher@2x.beauty.17.json"
    ],
    "shadow": [
     "unit.IR.launcher@2x.shadow.0.json",
@@ -39,7 +48,16 @@
     "unit.IR.launcher@2x.shadow.5.json",
     "unit.IR.launcher@2x.shadow.6.json",
     "unit.IR.launcher@2x.shadow.7.json",
-    "unit.IR.launcher@2x.shadow.8.json"
+    "unit.IR.launcher@2x.shadow.8.json",
+    "unit.IR.launcher@2x.shadow.9.json",
+    "unit.IR.launcher@2x.shadow.10.json",
+    "unit.IR.launcher@2x.shadow.11.json",
+    "unit.IR.launcher@2x.shadow.12.json",
+    "unit.IR.launcher@2x.shadow.13.json",
+    "unit.IR.launcher@2x.shadow.14.json",
+    "unit.IR.launcher@2x.shadow.15.json",
+    "unit.IR.launcher@2x.shadow.16.json",
+    "unit.IR.launcher@2x.shadow.17.json"
    ],
    "team": [
     "unit.IR.launcher@2x.team.0.json",
@@ -50,7 +68,16 @@
     "unit.IR.launcher@2x.team.5.json",
     "unit.IR.launcher@2x.team.6.json",
     "unit.IR.launcher@2x.team.7.json",
-    "unit.IR.launcher@2x.team.8.json"
+    "unit.IR.launcher@2x.team.8.json",
+    "unit.IR.launcher@2x.team.9.json",
+    "unit.IR.launcher@2x.team.10.json",
+    "unit.IR.launcher@2x.team.11.json",
+    "unit.IR.launcher@2x.team.12.json",
+    "unit.IR.launcher@2x.team.13.json",
+    "unit.IR.launcher@2x.team.14.json",
+    "unit.IR.launcher@2x.team.15.json",
+    "unit.IR.launcher@2x.team.16.json",
+    "unit.IR.launcher@2x.team.17.json"
    ]
   },
   "1x": {
@@ -63,7 +90,16 @@
     "unit.IR.launcher@1x.beauty.5.json",
     "unit.IR.launcher@1x.beauty.6.json",
     "unit.IR.launcher@1x.beauty.7.json",
-    "unit.IR.launcher@1x.beauty.8.json"
+    "unit.IR.launcher@1x.beauty.8.json",
+    "unit.IR.launcher@1x.beauty.9.json",
+    "unit.IR.launcher@1x.beauty.10.json",
+    "unit.IR.launcher@1x.beauty.11.json",
+    "unit.IR.launcher@1x.beauty.12.json",
+    "unit.IR.launcher@1x.beauty.13.json",
+    "unit.IR.launcher@1x.beauty.14.json",
+    "unit.IR.launcher@1x.beauty.15.json",
+    "unit.IR.launcher@1x.beauty.16.json",
+    "unit.IR.launcher@1x.beauty.17.json"
    ],
    "shadow": [
     "unit.IR.launcher@1x.shadow.0.json",
@@ -74,7 +110,16 @@
     "unit.IR.launcher@1x.shadow.5.json",
     "unit.IR.launcher@1x.shadow.6.json",
     "unit.IR.launcher@1x.shadow.7.json",
-    "unit.IR.launcher@1x.shadow.8.json"
+    "unit.IR.launcher@1x.shadow.8.json",
+    "unit.IR.launcher@1x.shadow.9.json",
+    "unit.IR.launcher@1x.shadow.10.json",
+    "unit.IR.launcher@1x.shadow.11.json",
+    "unit.IR.launcher@1x.shadow.12.json",
+    "unit.IR.launcher@1x.shadow.13.json",
+    "unit.IR.launcher@1x.shadow.14.json",
+    "unit.IR.launcher@1x.shadow.15.json",
+    "unit.IR.launcher@1x.shadow.16.json",
+    "unit.IR.launcher@1x.shadow.17.json"
    ],
    "team": [
     "unit.IR.launcher@1x.team.0.json",
@@ -85,7 +130,16 @@
     "unit.IR.launcher@1x.team.5.json",
     "unit.IR.launcher@1x.team.6.json",
     "unit.IR.launcher@1x.team.7.json",
-    "unit.IR.launcher@1x.team.8.json"
+    "unit.IR.launcher@1x.team.8.json",
+    "unit.IR.launcher@1x.team.9.json",
+    "unit.IR.launcher@1x.team.10.json",
+    "unit.IR.launcher@1x.team.11.json",
+    "unit.IR.launcher@1x.team.12.json",
+    "unit.IR.launcher@1x.team.13.json",
+    "unit.IR.launcher@1x.team.14.json",
+    "unit.IR.launcher@1x.team.15.json",
+    "unit.IR.launcher@1x.team.16.json",
+    "unit.IR.launcher@1x.team.17.json"
    ]
   }
  },
@@ -232,12 +286,145 @@
     "team",
     "shadow"
    ]
+  },
+  {
+   "name": "idle_charges_0",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "move_charges_0",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 12,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged_charges_0",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "deploy_charges_0",
+   "part": "body",
+   "directions": 16,
+   "frames": 10,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "progress_driven": true
+  },
+  {
+   "name": "idle_charges_1",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "move_charges_1",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 12,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "damaged_charges_1",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
+  },
+  {
+   "name": "deploy_charges_1",
+   "part": "body",
+   "directions": 16,
+   "frames": 10,
+   "fps": 0,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ],
+   "progress_driven": true
+  },
+  {
+   "name": "fire_charges_1",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 12,
+   "loop": false,
+   "layers": [
+    "beauty",
+    "team",
+    "shadow"
+   ]
   }
  ],
  "aliases": [
   {
    "name": "pack",
    "source": "deploy",
+   "reverse": true,
+   "progress_driven": true,
+   "sim_seconds": 3
+  },
+  {
+   "name": "pack_charges_0",
+   "source": "deploy_charges_0",
+   "reverse": true,
+   "progress_driven": true,
+   "sim_seconds": 3
+  },
+  {
+   "name": "pack_charges_1",
+   "source": "deploy_charges_1",
    "reverse": true,
    "progress_driven": true,
    "sim_seconds": 3
@@ -313,6 +500,134 @@
     -72.1
    ],
    "damaged/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_0/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "damaged_charges_1/d15_f00": [
     0.0,
     -72.1
    ],
@@ -956,6 +1271,1286 @@
     0.0,
     -72.1
    ],
+   "deploy_charges_0/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d00_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d01_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d02_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d03_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d04_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d05_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d06_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d07_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d09_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d10_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d11_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d13_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d14_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_0/d15_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d00_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d01_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d02_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d03_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d04_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d05_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d06_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d07_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d09_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d10_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d11_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d13_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d14_f09": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f01": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f02": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f03": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f04": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f05": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f06": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f07": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f08": [
+    0.0,
+    -72.1
+   ],
+   "deploy_charges_1/d15_f09": [
+    0.0,
+    -72.1
+   ],
    "fire/d00_f00": [
     0.0,
     -72.1
@@ -1212,6 +2807,262 @@
     0.0,
     -72.1
    ],
+   "fire_charges_1/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d00_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d00_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d00_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d01_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d01_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d01_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d02_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d02_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d02_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d03_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d03_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d03_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d04_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d04_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d04_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d05_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d05_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d05_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d06_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d06_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d06_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d07_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d07_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d07_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d08_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d08_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d08_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d09_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d09_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d09_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d10_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d10_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d10_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d11_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d11_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d11_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d12_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d12_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d12_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d13_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d13_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d13_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d14_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d14_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d14_f03": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d15_f01": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d15_f02": [
+    0.0,
+    -72.1
+   ],
+   "fire_charges_1/d15_f03": [
+    0.0,
+    -72.1
+   ],
    "idle/d00_f00": [
     0.0,
     -72.1
@@ -1273,6 +3124,134 @@
     -72.1
    ],
    "idle/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_0/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "idle_charges_1/d15_f00": [
     0.0,
     -72.1
    ],
@@ -1785,6 +3764,518 @@
     -72.1
    ],
    "move/d15_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d00_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d00_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d00_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d01_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d01_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d01_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d02_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d02_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d02_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d03_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d03_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d03_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d04_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d04_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d04_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d05_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d05_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d05_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d06_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d06_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d06_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d07_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d07_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d07_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d08_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d08_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d08_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d09_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d09_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d09_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d10_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d10_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d10_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d11_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d11_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d11_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d12_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d12_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d12_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d13_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d13_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d13_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d14_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d14_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d14_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d15_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d15_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_0/d15_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d00_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d00_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d00_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d00_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d01_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d01_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d01_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d01_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d02_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d02_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d02_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d02_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d03_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d03_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d03_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d03_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d04_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d04_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d04_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d04_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d05_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d05_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d05_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d05_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d06_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d06_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d06_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d06_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d07_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d07_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d07_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d07_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d08_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d08_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d08_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d08_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d09_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d09_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d09_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d09_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d10_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d10_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d10_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d10_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d11_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d11_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d11_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d11_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d12_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d12_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d12_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d12_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d13_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d13_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d13_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d13_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d14_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d14_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d14_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d14_f03": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d15_f00": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d15_f01": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d15_f02": [
+    0.0,
+    -72.1
+   ],
+   "move_charges_1/d15_f03": [
     0.0,
     -72.1
    ],
@@ -2494,6 +4985,134 @@
     39.3,
     -29.5
    ],
+   "damaged_charges_0/d00_f00": [
+    30.1,
+    -22.6
+   ],
+   "damaged_charges_0/d01_f00": [
+    16.3,
+    -18.0
+   ],
+   "damaged_charges_0/d02_f00": [
+    0.0,
+    -16.4
+   ],
+   "damaged_charges_0/d03_f00": [
+    -16.3,
+    -18.0
+   ],
+   "damaged_charges_0/d04_f00": [
+    -30.1,
+    -22.6
+   ],
+   "damaged_charges_0/d05_f00": [
+    -39.3,
+    -29.5
+   ],
+   "damaged_charges_0/d06_f00": [
+    -42.5,
+    -37.6
+   ],
+   "damaged_charges_0/d07_f00": [
+    -39.3,
+    -45.8
+   ],
+   "damaged_charges_0/d08_f00": [
+    -30.1,
+    -52.7
+   ],
+   "damaged_charges_0/d09_f00": [
+    -16.3,
+    -57.3
+   ],
+   "damaged_charges_0/d10_f00": [
+    0.0,
+    -58.9
+   ],
+   "damaged_charges_0/d11_f00": [
+    16.3,
+    -57.3
+   ],
+   "damaged_charges_0/d12_f00": [
+    30.1,
+    -52.7
+   ],
+   "damaged_charges_0/d13_f00": [
+    39.3,
+    -45.8
+   ],
+   "damaged_charges_0/d14_f00": [
+    42.5,
+    -37.6
+   ],
+   "damaged_charges_0/d15_f00": [
+    39.3,
+    -29.5
+   ],
+   "damaged_charges_1/d00_f00": [
+    30.1,
+    -22.6
+   ],
+   "damaged_charges_1/d01_f00": [
+    16.3,
+    -18.0
+   ],
+   "damaged_charges_1/d02_f00": [
+    0.0,
+    -16.4
+   ],
+   "damaged_charges_1/d03_f00": [
+    -16.3,
+    -18.0
+   ],
+   "damaged_charges_1/d04_f00": [
+    -30.1,
+    -22.6
+   ],
+   "damaged_charges_1/d05_f00": [
+    -39.3,
+    -29.5
+   ],
+   "damaged_charges_1/d06_f00": [
+    -42.5,
+    -37.6
+   ],
+   "damaged_charges_1/d07_f00": [
+    -39.3,
+    -45.8
+   ],
+   "damaged_charges_1/d08_f00": [
+    -30.1,
+    -52.7
+   ],
+   "damaged_charges_1/d09_f00": [
+    -16.3,
+    -57.3
+   ],
+   "damaged_charges_1/d10_f00": [
+    0.0,
+    -58.9
+   ],
+   "damaged_charges_1/d11_f00": [
+    16.3,
+    -57.3
+   ],
+   "damaged_charges_1/d12_f00": [
+    30.1,
+    -52.7
+   ],
+   "damaged_charges_1/d13_f00": [
+    39.3,
+    -45.8
+   ],
+   "damaged_charges_1/d14_f00": [
+    42.5,
+    -37.6
+   ],
+   "damaged_charges_1/d15_f00": [
+    39.3,
+    -29.5
+   ],
    "deploy/d00_f00": [
     30.1,
     -22.6
@@ -3134,6 +5753,1286 @@
     -22.5,
     -126.2
    ],
+   "deploy_charges_0/d00_f00": [
+    30.1,
+    -22.6
+   ],
+   "deploy_charges_0/d00_f01": [
+    30.1,
+    -22.6
+   ],
+   "deploy_charges_0/d00_f02": [
+    30.1,
+    -22.6
+   ],
+   "deploy_charges_0/d00_f03": [
+    29.6,
+    -28.7
+   ],
+   "deploy_charges_0/d00_f04": [
+    27.1,
+    -44.9
+   ],
+   "deploy_charges_0/d00_f05": [
+    20.8,
+    -67.5
+   ],
+   "deploy_charges_0/d00_f06": [
+    10.2,
+    -91.5
+   ],
+   "deploy_charges_0/d00_f07": [
+    -2.3,
+    -111.9
+   ],
+   "deploy_charges_0/d00_f08": [
+    -12.9,
+    -125.3
+   ],
+   "deploy_charges_0/d00_f09": [
+    -17.2,
+    -130.1
+   ],
+   "deploy_charges_0/d01_f00": [
+    16.3,
+    -18.0
+   ],
+   "deploy_charges_0/d01_f01": [
+    16.3,
+    -18.0
+   ],
+   "deploy_charges_0/d01_f02": [
+    16.3,
+    -18.0
+   ],
+   "deploy_charges_0/d01_f03": [
+    16.0,
+    -24.2
+   ],
+   "deploy_charges_0/d01_f04": [
+    14.7,
+    -40.8
+   ],
+   "deploy_charges_0/d01_f05": [
+    11.2,
+    -64.3
+   ],
+   "deploy_charges_0/d01_f06": [
+    5.5,
+    -89.9
+   ],
+   "deploy_charges_0/d01_f07": [
+    -1.3,
+    -112.3
+   ],
+   "deploy_charges_0/d01_f08": [
+    -7.0,
+    -127.3
+   ],
+   "deploy_charges_0/d01_f09": [
+    -9.3,
+    -132.8
+   ],
+   "deploy_charges_0/d02_f00": [
+    0.0,
+    -16.4
+   ],
+   "deploy_charges_0/d02_f01": [
+    0.0,
+    -16.4
+   ],
+   "deploy_charges_0/d02_f02": [
+    0.0,
+    -16.4
+   ],
+   "deploy_charges_0/d02_f03": [
+    0.0,
+    -22.6
+   ],
+   "deploy_charges_0/d02_f04": [
+    0.0,
+    -39.3
+   ],
+   "deploy_charges_0/d02_f05": [
+    0.0,
+    -63.2
+   ],
+   "deploy_charges_0/d02_f06": [
+    0.0,
+    -89.4
+   ],
+   "deploy_charges_0/d02_f07": [
+    0.0,
+    -112.4
+   ],
+   "deploy_charges_0/d02_f08": [
+    0.0,
+    -128.0
+   ],
+   "deploy_charges_0/d02_f09": [
+    0.0,
+    -133.7
+   ],
+   "deploy_charges_0/d03_f00": [
+    -16.3,
+    -18.0
+   ],
+   "deploy_charges_0/d03_f01": [
+    -16.3,
+    -18.0
+   ],
+   "deploy_charges_0/d03_f02": [
+    -16.3,
+    -18.0
+   ],
+   "deploy_charges_0/d03_f03": [
+    -16.0,
+    -24.2
+   ],
+   "deploy_charges_0/d03_f04": [
+    -14.7,
+    -40.8
+   ],
+   "deploy_charges_0/d03_f05": [
+    -11.2,
+    -64.3
+   ],
+   "deploy_charges_0/d03_f06": [
+    -5.5,
+    -89.9
+   ],
+   "deploy_charges_0/d03_f07": [
+    1.3,
+    -112.3
+   ],
+   "deploy_charges_0/d03_f08": [
+    7.0,
+    -127.3
+   ],
+   "deploy_charges_0/d03_f09": [
+    9.3,
+    -132.8
+   ],
+   "deploy_charges_0/d04_f00": [
+    -30.1,
+    -22.6
+   ],
+   "deploy_charges_0/d04_f01": [
+    -30.1,
+    -22.6
+   ],
+   "deploy_charges_0/d04_f02": [
+    -30.1,
+    -22.6
+   ],
+   "deploy_charges_0/d04_f03": [
+    -29.6,
+    -28.7
+   ],
+   "deploy_charges_0/d04_f04": [
+    -27.1,
+    -44.9
+   ],
+   "deploy_charges_0/d04_f05": [
+    -20.8,
+    -67.5
+   ],
+   "deploy_charges_0/d04_f06": [
+    -10.2,
+    -91.5
+   ],
+   "deploy_charges_0/d04_f07": [
+    2.3,
+    -111.9
+   ],
+   "deploy_charges_0/d04_f08": [
+    12.9,
+    -125.3
+   ],
+   "deploy_charges_0/d04_f09": [
+    17.2,
+    -130.1
+   ],
+   "deploy_charges_0/d05_f00": [
+    -39.3,
+    -29.5
+   ],
+   "deploy_charges_0/d05_f01": [
+    -39.3,
+    -29.5
+   ],
+   "deploy_charges_0/d05_f02": [
+    -39.3,
+    -29.5
+   ],
+   "deploy_charges_0/d05_f03": [
+    -38.7,
+    -35.5
+   ],
+   "deploy_charges_0/d05_f04": [
+    -35.5,
+    -51.2
+   ],
+   "deploy_charges_0/d05_f05": [
+    -27.1,
+    -72.2
+   ],
+   "deploy_charges_0/d05_f06": [
+    -13.3,
+    -93.8
+   ],
+   "deploy_charges_0/d05_f07": [
+    3.0,
+    -111.4
+   ],
+   "deploy_charges_0/d05_f08": [
+    16.8,
+    -122.4
+   ],
+   "deploy_charges_0/d05_f09": [
+    22.5,
+    -126.2
+   ],
+   "deploy_charges_0/d06_f00": [
+    -42.5,
+    -37.6
+   ],
+   "deploy_charges_0/d06_f01": [
+    -42.5,
+    -37.6
+   ],
+   "deploy_charges_0/d06_f02": [
+    -42.5,
+    -37.6
+   ],
+   "deploy_charges_0/d06_f03": [
+    -41.9,
+    -43.5
+   ],
+   "deploy_charges_0/d06_f04": [
+    -38.4,
+    -58.5
+   ],
+   "deploy_charges_0/d06_f05": [
+    -29.4,
+    -77.9
+   ],
+   "deploy_charges_0/d06_f06": [
+    -14.4,
+    -96.6
+   ],
+   "deploy_charges_0/d06_f07": [
+    3.3,
+    -110.7
+   ],
+   "deploy_charges_0/d06_f08": [
+    18.2,
+    -118.9
+   ],
+   "deploy_charges_0/d06_f09": [
+    24.4,
+    -121.5
+   ],
+   "deploy_charges_0/d07_f00": [
+    -39.3,
+    -45.8
+   ],
+   "deploy_charges_0/d07_f01": [
+    -39.3,
+    -45.8
+   ],
+   "deploy_charges_0/d07_f02": [
+    -39.3,
+    -45.8
+   ],
+   "deploy_charges_0/d07_f03": [
+    -38.7,
+    -51.5
+   ],
+   "deploy_charges_0/d07_f04": [
+    -35.5,
+    -65.8
+   ],
+   "deploy_charges_0/d07_f05": [
+    -27.1,
+    -83.5
+   ],
+   "deploy_charges_0/d07_f06": [
+    -13.3,
+    -99.3
+   ],
+   "deploy_charges_0/d07_f07": [
+    3.0,
+    -110.1
+   ],
+   "deploy_charges_0/d07_f08": [
+    16.8,
+    -115.4
+   ],
+   "deploy_charges_0/d07_f09": [
+    22.5,
+    -116.8
+   ],
+   "deploy_charges_0/d08_f00": [
+    -30.1,
+    -52.7
+   ],
+   "deploy_charges_0/d08_f01": [
+    -30.1,
+    -52.7
+   ],
+   "deploy_charges_0/d08_f02": [
+    -30.1,
+    -52.7
+   ],
+   "deploy_charges_0/d08_f03": [
+    -29.6,
+    -58.3
+   ],
+   "deploy_charges_0/d08_f04": [
+    -27.1,
+    -72.1
+   ],
+   "deploy_charges_0/d08_f05": [
+    -20.8,
+    -88.2
+   ],
+   "deploy_charges_0/d08_f06": [
+    -10.2,
+    -101.7
+   ],
+   "deploy_charges_0/d08_f07": [
+    2.3,
+    -109.6
+   ],
+   "deploy_charges_0/d08_f08": [
+    12.9,
+    -112.5
+   ],
+   "deploy_charges_0/d08_f09": [
+    17.2,
+    -112.9
+   ],
+   "deploy_charges_0/d09_f00": [
+    -16.3,
+    -57.3
+   ],
+   "deploy_charges_0/d09_f01": [
+    -16.3,
+    -57.3
+   ],
+   "deploy_charges_0/d09_f02": [
+    -16.3,
+    -57.3
+   ],
+   "deploy_charges_0/d09_f03": [
+    -16.0,
+    -62.9
+   ],
+   "deploy_charges_0/d09_f04": [
+    -14.7,
+    -76.2
+   ],
+   "deploy_charges_0/d09_f05": [
+    -11.2,
+    -91.4
+   ],
+   "deploy_charges_0/d09_f06": [
+    -5.5,
+    -103.2
+   ],
+   "deploy_charges_0/d09_f07": [
+    1.3,
+    -109.2
+   ],
+   "deploy_charges_0/d09_f08": [
+    7.0,
+    -110.5
+   ],
+   "deploy_charges_0/d09_f09": [
+    9.3,
+    -110.2
+   ],
+   "deploy_charges_0/d10_f00": [
+    0.0,
+    -58.9
+   ],
+   "deploy_charges_0/d10_f01": [
+    0.0,
+    -58.9
+   ],
+   "deploy_charges_0/d10_f02": [
+    0.0,
+    -58.9
+   ],
+   "deploy_charges_0/d10_f03": [
+    0.0,
+    -64.5
+   ],
+   "deploy_charges_0/d10_f04": [
+    0.0,
+    -77.7
+   ],
+   "deploy_charges_0/d10_f05": [
+    0.0,
+    -92.5
+   ],
+   "deploy_charges_0/d10_f06": [
+    0.0,
+    -103.8
+   ],
+   "deploy_charges_0/d10_f07": [
+    0.0,
+    -109.1
+   ],
+   "deploy_charges_0/d10_f08": [
+    0.0,
+    -109.8
+   ],
+   "deploy_charges_0/d10_f09": [
+    0.0,
+    -109.3
+   ],
+   "deploy_charges_0/d11_f00": [
+    16.3,
+    -57.3
+   ],
+   "deploy_charges_0/d11_f01": [
+    16.3,
+    -57.3
+   ],
+   "deploy_charges_0/d11_f02": [
+    16.3,
+    -57.3
+   ],
+   "deploy_charges_0/d11_f03": [
+    16.0,
+    -62.9
+   ],
+   "deploy_charges_0/d11_f04": [
+    14.7,
+    -76.2
+   ],
+   "deploy_charges_0/d11_f05": [
+    11.2,
+    -91.4
+   ],
+   "deploy_charges_0/d11_f06": [
+    5.5,
+    -103.2
+   ],
+   "deploy_charges_0/d11_f07": [
+    -1.3,
+    -109.2
+   ],
+   "deploy_charges_0/d11_f08": [
+    -7.0,
+    -110.5
+   ],
+   "deploy_charges_0/d11_f09": [
+    -9.3,
+    -110.2
+   ],
+   "deploy_charges_0/d12_f00": [
+    30.1,
+    -52.7
+   ],
+   "deploy_charges_0/d12_f01": [
+    30.1,
+    -52.7
+   ],
+   "deploy_charges_0/d12_f02": [
+    30.1,
+    -52.7
+   ],
+   "deploy_charges_0/d12_f03": [
+    29.6,
+    -58.3
+   ],
+   "deploy_charges_0/d12_f04": [
+    27.1,
+    -72.1
+   ],
+   "deploy_charges_0/d12_f05": [
+    20.8,
+    -88.2
+   ],
+   "deploy_charges_0/d12_f06": [
+    10.2,
+    -101.7
+   ],
+   "deploy_charges_0/d12_f07": [
+    -2.3,
+    -109.6
+   ],
+   "deploy_charges_0/d12_f08": [
+    -12.9,
+    -112.5
+   ],
+   "deploy_charges_0/d12_f09": [
+    -17.2,
+    -112.9
+   ],
+   "deploy_charges_0/d13_f00": [
+    39.3,
+    -45.8
+   ],
+   "deploy_charges_0/d13_f01": [
+    39.3,
+    -45.8
+   ],
+   "deploy_charges_0/d13_f02": [
+    39.3,
+    -45.8
+   ],
+   "deploy_charges_0/d13_f03": [
+    38.7,
+    -51.5
+   ],
+   "deploy_charges_0/d13_f04": [
+    35.5,
+    -65.8
+   ],
+   "deploy_charges_0/d13_f05": [
+    27.1,
+    -83.5
+   ],
+   "deploy_charges_0/d13_f06": [
+    13.3,
+    -99.3
+   ],
+   "deploy_charges_0/d13_f07": [
+    -3.0,
+    -110.1
+   ],
+   "deploy_charges_0/d13_f08": [
+    -16.8,
+    -115.4
+   ],
+   "deploy_charges_0/d13_f09": [
+    -22.5,
+    -116.8
+   ],
+   "deploy_charges_0/d14_f00": [
+    42.5,
+    -37.6
+   ],
+   "deploy_charges_0/d14_f01": [
+    42.5,
+    -37.6
+   ],
+   "deploy_charges_0/d14_f02": [
+    42.5,
+    -37.6
+   ],
+   "deploy_charges_0/d14_f03": [
+    41.9,
+    -43.5
+   ],
+   "deploy_charges_0/d14_f04": [
+    38.4,
+    -58.5
+   ],
+   "deploy_charges_0/d14_f05": [
+    29.4,
+    -77.9
+   ],
+   "deploy_charges_0/d14_f06": [
+    14.4,
+    -96.6
+   ],
+   "deploy_charges_0/d14_f07": [
+    -3.3,
+    -110.7
+   ],
+   "deploy_charges_0/d14_f08": [
+    -18.2,
+    -118.9
+   ],
+   "deploy_charges_0/d14_f09": [
+    -24.4,
+    -121.5
+   ],
+   "deploy_charges_0/d15_f00": [
+    39.3,
+    -29.5
+   ],
+   "deploy_charges_0/d15_f01": [
+    39.3,
+    -29.5
+   ],
+   "deploy_charges_0/d15_f02": [
+    39.3,
+    -29.5
+   ],
+   "deploy_charges_0/d15_f03": [
+    38.7,
+    -35.5
+   ],
+   "deploy_charges_0/d15_f04": [
+    35.5,
+    -51.2
+   ],
+   "deploy_charges_0/d15_f05": [
+    27.1,
+    -72.2
+   ],
+   "deploy_charges_0/d15_f06": [
+    13.3,
+    -93.8
+   ],
+   "deploy_charges_0/d15_f07": [
+    -3.0,
+    -111.4
+   ],
+   "deploy_charges_0/d15_f08": [
+    -16.8,
+    -122.4
+   ],
+   "deploy_charges_0/d15_f09": [
+    -22.5,
+    -126.2
+   ],
+   "deploy_charges_1/d00_f00": [
+    30.1,
+    -22.6
+   ],
+   "deploy_charges_1/d00_f01": [
+    30.1,
+    -22.6
+   ],
+   "deploy_charges_1/d00_f02": [
+    30.1,
+    -22.6
+   ],
+   "deploy_charges_1/d00_f03": [
+    29.6,
+    -28.7
+   ],
+   "deploy_charges_1/d00_f04": [
+    27.1,
+    -44.9
+   ],
+   "deploy_charges_1/d00_f05": [
+    20.8,
+    -67.5
+   ],
+   "deploy_charges_1/d00_f06": [
+    10.2,
+    -91.5
+   ],
+   "deploy_charges_1/d00_f07": [
+    -2.3,
+    -111.9
+   ],
+   "deploy_charges_1/d00_f08": [
+    -12.9,
+    -125.3
+   ],
+   "deploy_charges_1/d00_f09": [
+    -17.2,
+    -130.1
+   ],
+   "deploy_charges_1/d01_f00": [
+    16.3,
+    -18.0
+   ],
+   "deploy_charges_1/d01_f01": [
+    16.3,
+    -18.0
+   ],
+   "deploy_charges_1/d01_f02": [
+    16.3,
+    -18.0
+   ],
+   "deploy_charges_1/d01_f03": [
+    16.0,
+    -24.2
+   ],
+   "deploy_charges_1/d01_f04": [
+    14.7,
+    -40.8
+   ],
+   "deploy_charges_1/d01_f05": [
+    11.2,
+    -64.3
+   ],
+   "deploy_charges_1/d01_f06": [
+    5.5,
+    -89.9
+   ],
+   "deploy_charges_1/d01_f07": [
+    -1.3,
+    -112.3
+   ],
+   "deploy_charges_1/d01_f08": [
+    -7.0,
+    -127.3
+   ],
+   "deploy_charges_1/d01_f09": [
+    -9.3,
+    -132.8
+   ],
+   "deploy_charges_1/d02_f00": [
+    0.0,
+    -16.4
+   ],
+   "deploy_charges_1/d02_f01": [
+    0.0,
+    -16.4
+   ],
+   "deploy_charges_1/d02_f02": [
+    0.0,
+    -16.4
+   ],
+   "deploy_charges_1/d02_f03": [
+    0.0,
+    -22.6
+   ],
+   "deploy_charges_1/d02_f04": [
+    0.0,
+    -39.3
+   ],
+   "deploy_charges_1/d02_f05": [
+    0.0,
+    -63.2
+   ],
+   "deploy_charges_1/d02_f06": [
+    0.0,
+    -89.4
+   ],
+   "deploy_charges_1/d02_f07": [
+    0.0,
+    -112.4
+   ],
+   "deploy_charges_1/d02_f08": [
+    0.0,
+    -128.0
+   ],
+   "deploy_charges_1/d02_f09": [
+    0.0,
+    -133.7
+   ],
+   "deploy_charges_1/d03_f00": [
+    -16.3,
+    -18.0
+   ],
+   "deploy_charges_1/d03_f01": [
+    -16.3,
+    -18.0
+   ],
+   "deploy_charges_1/d03_f02": [
+    -16.3,
+    -18.0
+   ],
+   "deploy_charges_1/d03_f03": [
+    -16.0,
+    -24.2
+   ],
+   "deploy_charges_1/d03_f04": [
+    -14.7,
+    -40.8
+   ],
+   "deploy_charges_1/d03_f05": [
+    -11.2,
+    -64.3
+   ],
+   "deploy_charges_1/d03_f06": [
+    -5.5,
+    -89.9
+   ],
+   "deploy_charges_1/d03_f07": [
+    1.3,
+    -112.3
+   ],
+   "deploy_charges_1/d03_f08": [
+    7.0,
+    -127.3
+   ],
+   "deploy_charges_1/d03_f09": [
+    9.3,
+    -132.8
+   ],
+   "deploy_charges_1/d04_f00": [
+    -30.1,
+    -22.6
+   ],
+   "deploy_charges_1/d04_f01": [
+    -30.1,
+    -22.6
+   ],
+   "deploy_charges_1/d04_f02": [
+    -30.1,
+    -22.6
+   ],
+   "deploy_charges_1/d04_f03": [
+    -29.6,
+    -28.7
+   ],
+   "deploy_charges_1/d04_f04": [
+    -27.1,
+    -44.9
+   ],
+   "deploy_charges_1/d04_f05": [
+    -20.8,
+    -67.5
+   ],
+   "deploy_charges_1/d04_f06": [
+    -10.2,
+    -91.5
+   ],
+   "deploy_charges_1/d04_f07": [
+    2.3,
+    -111.9
+   ],
+   "deploy_charges_1/d04_f08": [
+    12.9,
+    -125.3
+   ],
+   "deploy_charges_1/d04_f09": [
+    17.2,
+    -130.1
+   ],
+   "deploy_charges_1/d05_f00": [
+    -39.3,
+    -29.5
+   ],
+   "deploy_charges_1/d05_f01": [
+    -39.3,
+    -29.5
+   ],
+   "deploy_charges_1/d05_f02": [
+    -39.3,
+    -29.5
+   ],
+   "deploy_charges_1/d05_f03": [
+    -38.7,
+    -35.5
+   ],
+   "deploy_charges_1/d05_f04": [
+    -35.5,
+    -51.2
+   ],
+   "deploy_charges_1/d05_f05": [
+    -27.1,
+    -72.2
+   ],
+   "deploy_charges_1/d05_f06": [
+    -13.3,
+    -93.8
+   ],
+   "deploy_charges_1/d05_f07": [
+    3.0,
+    -111.4
+   ],
+   "deploy_charges_1/d05_f08": [
+    16.8,
+    -122.4
+   ],
+   "deploy_charges_1/d05_f09": [
+    22.5,
+    -126.2
+   ],
+   "deploy_charges_1/d06_f00": [
+    -42.5,
+    -37.6
+   ],
+   "deploy_charges_1/d06_f01": [
+    -42.5,
+    -37.6
+   ],
+   "deploy_charges_1/d06_f02": [
+    -42.5,
+    -37.6
+   ],
+   "deploy_charges_1/d06_f03": [
+    -41.9,
+    -43.5
+   ],
+   "deploy_charges_1/d06_f04": [
+    -38.4,
+    -58.5
+   ],
+   "deploy_charges_1/d06_f05": [
+    -29.4,
+    -77.9
+   ],
+   "deploy_charges_1/d06_f06": [
+    -14.4,
+    -96.6
+   ],
+   "deploy_charges_1/d06_f07": [
+    3.3,
+    -110.7
+   ],
+   "deploy_charges_1/d06_f08": [
+    18.2,
+    -118.9
+   ],
+   "deploy_charges_1/d06_f09": [
+    24.4,
+    -121.5
+   ],
+   "deploy_charges_1/d07_f00": [
+    -39.3,
+    -45.8
+   ],
+   "deploy_charges_1/d07_f01": [
+    -39.3,
+    -45.8
+   ],
+   "deploy_charges_1/d07_f02": [
+    -39.3,
+    -45.8
+   ],
+   "deploy_charges_1/d07_f03": [
+    -38.7,
+    -51.5
+   ],
+   "deploy_charges_1/d07_f04": [
+    -35.5,
+    -65.8
+   ],
+   "deploy_charges_1/d07_f05": [
+    -27.1,
+    -83.5
+   ],
+   "deploy_charges_1/d07_f06": [
+    -13.3,
+    -99.3
+   ],
+   "deploy_charges_1/d07_f07": [
+    3.0,
+    -110.1
+   ],
+   "deploy_charges_1/d07_f08": [
+    16.8,
+    -115.4
+   ],
+   "deploy_charges_1/d07_f09": [
+    22.5,
+    -116.8
+   ],
+   "deploy_charges_1/d08_f00": [
+    -30.1,
+    -52.7
+   ],
+   "deploy_charges_1/d08_f01": [
+    -30.1,
+    -52.7
+   ],
+   "deploy_charges_1/d08_f02": [
+    -30.1,
+    -52.7
+   ],
+   "deploy_charges_1/d08_f03": [
+    -29.6,
+    -58.3
+   ],
+   "deploy_charges_1/d08_f04": [
+    -27.1,
+    -72.1
+   ],
+   "deploy_charges_1/d08_f05": [
+    -20.8,
+    -88.2
+   ],
+   "deploy_charges_1/d08_f06": [
+    -10.2,
+    -101.7
+   ],
+   "deploy_charges_1/d08_f07": [
+    2.3,
+    -109.6
+   ],
+   "deploy_charges_1/d08_f08": [
+    12.9,
+    -112.5
+   ],
+   "deploy_charges_1/d08_f09": [
+    17.2,
+    -112.9
+   ],
+   "deploy_charges_1/d09_f00": [
+    -16.3,
+    -57.3
+   ],
+   "deploy_charges_1/d09_f01": [
+    -16.3,
+    -57.3
+   ],
+   "deploy_charges_1/d09_f02": [
+    -16.3,
+    -57.3
+   ],
+   "deploy_charges_1/d09_f03": [
+    -16.0,
+    -62.9
+   ],
+   "deploy_charges_1/d09_f04": [
+    -14.7,
+    -76.2
+   ],
+   "deploy_charges_1/d09_f05": [
+    -11.2,
+    -91.4
+   ],
+   "deploy_charges_1/d09_f06": [
+    -5.5,
+    -103.2
+   ],
+   "deploy_charges_1/d09_f07": [
+    1.3,
+    -109.2
+   ],
+   "deploy_charges_1/d09_f08": [
+    7.0,
+    -110.5
+   ],
+   "deploy_charges_1/d09_f09": [
+    9.3,
+    -110.2
+   ],
+   "deploy_charges_1/d10_f00": [
+    0.0,
+    -58.9
+   ],
+   "deploy_charges_1/d10_f01": [
+    0.0,
+    -58.9
+   ],
+   "deploy_charges_1/d10_f02": [
+    0.0,
+    -58.9
+   ],
+   "deploy_charges_1/d10_f03": [
+    0.0,
+    -64.5
+   ],
+   "deploy_charges_1/d10_f04": [
+    0.0,
+    -77.7
+   ],
+   "deploy_charges_1/d10_f05": [
+    0.0,
+    -92.5
+   ],
+   "deploy_charges_1/d10_f06": [
+    0.0,
+    -103.8
+   ],
+   "deploy_charges_1/d10_f07": [
+    0.0,
+    -109.1
+   ],
+   "deploy_charges_1/d10_f08": [
+    0.0,
+    -109.8
+   ],
+   "deploy_charges_1/d10_f09": [
+    0.0,
+    -109.3
+   ],
+   "deploy_charges_1/d11_f00": [
+    16.3,
+    -57.3
+   ],
+   "deploy_charges_1/d11_f01": [
+    16.3,
+    -57.3
+   ],
+   "deploy_charges_1/d11_f02": [
+    16.3,
+    -57.3
+   ],
+   "deploy_charges_1/d11_f03": [
+    16.0,
+    -62.9
+   ],
+   "deploy_charges_1/d11_f04": [
+    14.7,
+    -76.2
+   ],
+   "deploy_charges_1/d11_f05": [
+    11.2,
+    -91.4
+   ],
+   "deploy_charges_1/d11_f06": [
+    5.5,
+    -103.2
+   ],
+   "deploy_charges_1/d11_f07": [
+    -1.3,
+    -109.2
+   ],
+   "deploy_charges_1/d11_f08": [
+    -7.0,
+    -110.5
+   ],
+   "deploy_charges_1/d11_f09": [
+    -9.3,
+    -110.2
+   ],
+   "deploy_charges_1/d12_f00": [
+    30.1,
+    -52.7
+   ],
+   "deploy_charges_1/d12_f01": [
+    30.1,
+    -52.7
+   ],
+   "deploy_charges_1/d12_f02": [
+    30.1,
+    -52.7
+   ],
+   "deploy_charges_1/d12_f03": [
+    29.6,
+    -58.3
+   ],
+   "deploy_charges_1/d12_f04": [
+    27.1,
+    -72.1
+   ],
+   "deploy_charges_1/d12_f05": [
+    20.8,
+    -88.2
+   ],
+   "deploy_charges_1/d12_f06": [
+    10.2,
+    -101.7
+   ],
+   "deploy_charges_1/d12_f07": [
+    -2.3,
+    -109.6
+   ],
+   "deploy_charges_1/d12_f08": [
+    -12.9,
+    -112.5
+   ],
+   "deploy_charges_1/d12_f09": [
+    -17.2,
+    -112.9
+   ],
+   "deploy_charges_1/d13_f00": [
+    39.3,
+    -45.8
+   ],
+   "deploy_charges_1/d13_f01": [
+    39.3,
+    -45.8
+   ],
+   "deploy_charges_1/d13_f02": [
+    39.3,
+    -45.8
+   ],
+   "deploy_charges_1/d13_f03": [
+    38.7,
+    -51.5
+   ],
+   "deploy_charges_1/d13_f04": [
+    35.5,
+    -65.8
+   ],
+   "deploy_charges_1/d13_f05": [
+    27.1,
+    -83.5
+   ],
+   "deploy_charges_1/d13_f06": [
+    13.3,
+    -99.3
+   ],
+   "deploy_charges_1/d13_f07": [
+    -3.0,
+    -110.1
+   ],
+   "deploy_charges_1/d13_f08": [
+    -16.8,
+    -115.4
+   ],
+   "deploy_charges_1/d13_f09": [
+    -22.5,
+    -116.8
+   ],
+   "deploy_charges_1/d14_f00": [
+    42.5,
+    -37.6
+   ],
+   "deploy_charges_1/d14_f01": [
+    42.5,
+    -37.6
+   ],
+   "deploy_charges_1/d14_f02": [
+    42.5,
+    -37.6
+   ],
+   "deploy_charges_1/d14_f03": [
+    41.9,
+    -43.5
+   ],
+   "deploy_charges_1/d14_f04": [
+    38.4,
+    -58.5
+   ],
+   "deploy_charges_1/d14_f05": [
+    29.4,
+    -77.9
+   ],
+   "deploy_charges_1/d14_f06": [
+    14.4,
+    -96.6
+   ],
+   "deploy_charges_1/d14_f07": [
+    -3.3,
+    -110.7
+   ],
+   "deploy_charges_1/d14_f08": [
+    -18.2,
+    -118.9
+   ],
+   "deploy_charges_1/d14_f09": [
+    -24.4,
+    -121.5
+   ],
+   "deploy_charges_1/d15_f00": [
+    39.3,
+    -29.5
+   ],
+   "deploy_charges_1/d15_f01": [
+    39.3,
+    -29.5
+   ],
+   "deploy_charges_1/d15_f02": [
+    39.3,
+    -29.5
+   ],
+   "deploy_charges_1/d15_f03": [
+    38.7,
+    -35.5
+   ],
+   "deploy_charges_1/d15_f04": [
+    35.5,
+    -51.2
+   ],
+   "deploy_charges_1/d15_f05": [
+    27.1,
+    -72.2
+   ],
+   "deploy_charges_1/d15_f06": [
+    13.3,
+    -93.8
+   ],
+   "deploy_charges_1/d15_f07": [
+    -3.0,
+    -111.4
+   ],
+   "deploy_charges_1/d15_f08": [
+    -16.8,
+    -122.4
+   ],
+   "deploy_charges_1/d15_f09": [
+    -22.5,
+    -126.2
+   ],
    "fire/d00_f00": [
     -17.2,
     -130.1
@@ -3390,6 +7289,262 @@
     -22.5,
     -126.2
    ],
+   "fire_charges_1/d00_f00": [
+    -17.2,
+    -130.1
+   ],
+   "fire_charges_1/d00_f01": [
+    -17.2,
+    -130.1
+   ],
+   "fire_charges_1/d00_f02": [
+    -17.2,
+    -130.1
+   ],
+   "fire_charges_1/d00_f03": [
+    -17.2,
+    -130.1
+   ],
+   "fire_charges_1/d01_f00": [
+    -9.3,
+    -132.8
+   ],
+   "fire_charges_1/d01_f01": [
+    -9.3,
+    -132.8
+   ],
+   "fire_charges_1/d01_f02": [
+    -9.3,
+    -132.8
+   ],
+   "fire_charges_1/d01_f03": [
+    -9.3,
+    -132.8
+   ],
+   "fire_charges_1/d02_f00": [
+    0.0,
+    -133.7
+   ],
+   "fire_charges_1/d02_f01": [
+    0.0,
+    -133.7
+   ],
+   "fire_charges_1/d02_f02": [
+    0.0,
+    -133.7
+   ],
+   "fire_charges_1/d02_f03": [
+    0.0,
+    -133.7
+   ],
+   "fire_charges_1/d03_f00": [
+    9.3,
+    -132.8
+   ],
+   "fire_charges_1/d03_f01": [
+    9.3,
+    -132.8
+   ],
+   "fire_charges_1/d03_f02": [
+    9.3,
+    -132.8
+   ],
+   "fire_charges_1/d03_f03": [
+    9.3,
+    -132.8
+   ],
+   "fire_charges_1/d04_f00": [
+    17.2,
+    -130.1
+   ],
+   "fire_charges_1/d04_f01": [
+    17.2,
+    -130.1
+   ],
+   "fire_charges_1/d04_f02": [
+    17.2,
+    -130.1
+   ],
+   "fire_charges_1/d04_f03": [
+    17.2,
+    -130.1
+   ],
+   "fire_charges_1/d05_f00": [
+    22.5,
+    -126.2
+   ],
+   "fire_charges_1/d05_f01": [
+    22.5,
+    -126.2
+   ],
+   "fire_charges_1/d05_f02": [
+    22.5,
+    -126.2
+   ],
+   "fire_charges_1/d05_f03": [
+    22.5,
+    -126.2
+   ],
+   "fire_charges_1/d06_f00": [
+    24.4,
+    -121.5
+   ],
+   "fire_charges_1/d06_f01": [
+    24.4,
+    -121.5
+   ],
+   "fire_charges_1/d06_f02": [
+    24.4,
+    -121.5
+   ],
+   "fire_charges_1/d06_f03": [
+    24.4,
+    -121.5
+   ],
+   "fire_charges_1/d07_f00": [
+    22.5,
+    -116.8
+   ],
+   "fire_charges_1/d07_f01": [
+    22.5,
+    -116.8
+   ],
+   "fire_charges_1/d07_f02": [
+    22.5,
+    -116.8
+   ],
+   "fire_charges_1/d07_f03": [
+    22.5,
+    -116.8
+   ],
+   "fire_charges_1/d08_f00": [
+    17.2,
+    -112.9
+   ],
+   "fire_charges_1/d08_f01": [
+    17.2,
+    -112.9
+   ],
+   "fire_charges_1/d08_f02": [
+    17.2,
+    -112.9
+   ],
+   "fire_charges_1/d08_f03": [
+    17.2,
+    -112.9
+   ],
+   "fire_charges_1/d09_f00": [
+    9.3,
+    -110.2
+   ],
+   "fire_charges_1/d09_f01": [
+    9.3,
+    -110.2
+   ],
+   "fire_charges_1/d09_f02": [
+    9.3,
+    -110.2
+   ],
+   "fire_charges_1/d09_f03": [
+    9.3,
+    -110.2
+   ],
+   "fire_charges_1/d10_f00": [
+    0.0,
+    -109.3
+   ],
+   "fire_charges_1/d10_f01": [
+    0.0,
+    -109.3
+   ],
+   "fire_charges_1/d10_f02": [
+    0.0,
+    -109.3
+   ],
+   "fire_charges_1/d10_f03": [
+    0.0,
+    -109.3
+   ],
+   "fire_charges_1/d11_f00": [
+    -9.3,
+    -110.2
+   ],
+   "fire_charges_1/d11_f01": [
+    -9.3,
+    -110.2
+   ],
+   "fire_charges_1/d11_f02": [
+    -9.3,
+    -110.2
+   ],
+   "fire_charges_1/d11_f03": [
+    -9.3,
+    -110.2
+   ],
+   "fire_charges_1/d12_f00": [
+    -17.2,
+    -112.9
+   ],
+   "fire_charges_1/d12_f01": [
+    -17.2,
+    -112.9
+   ],
+   "fire_charges_1/d12_f02": [
+    -17.2,
+    -112.9
+   ],
+   "fire_charges_1/d12_f03": [
+    -17.2,
+    -112.9
+   ],
+   "fire_charges_1/d13_f00": [
+    -22.5,
+    -116.8
+   ],
+   "fire_charges_1/d13_f01": [
+    -22.5,
+    -116.8
+   ],
+   "fire_charges_1/d13_f02": [
+    -22.5,
+    -116.8
+   ],
+   "fire_charges_1/d13_f03": [
+    -22.5,
+    -116.8
+   ],
+   "fire_charges_1/d14_f00": [
+    -24.4,
+    -121.5
+   ],
+   "fire_charges_1/d14_f01": [
+    -24.4,
+    -121.5
+   ],
+   "fire_charges_1/d14_f02": [
+    -24.4,
+    -121.5
+   ],
+   "fire_charges_1/d14_f03": [
+    -24.4,
+    -121.5
+   ],
+   "fire_charges_1/d15_f00": [
+    -22.5,
+    -126.2
+   ],
+   "fire_charges_1/d15_f01": [
+    -22.5,
+    -126.2
+   ],
+   "fire_charges_1/d15_f02": [
+    -22.5,
+    -126.2
+   ],
+   "fire_charges_1/d15_f03": [
+    -22.5,
+    -126.2
+   ],
    "idle/d00_f00": [
     30.1,
     -22.6
@@ -3451,6 +7606,134 @@
     -37.6
    ],
    "idle/d15_f00": [
+    39.3,
+    -29.5
+   ],
+   "idle_charges_0/d00_f00": [
+    30.1,
+    -22.6
+   ],
+   "idle_charges_0/d01_f00": [
+    16.3,
+    -18.0
+   ],
+   "idle_charges_0/d02_f00": [
+    0.0,
+    -16.4
+   ],
+   "idle_charges_0/d03_f00": [
+    -16.3,
+    -18.0
+   ],
+   "idle_charges_0/d04_f00": [
+    -30.1,
+    -22.6
+   ],
+   "idle_charges_0/d05_f00": [
+    -39.3,
+    -29.5
+   ],
+   "idle_charges_0/d06_f00": [
+    -42.5,
+    -37.6
+   ],
+   "idle_charges_0/d07_f00": [
+    -39.3,
+    -45.8
+   ],
+   "idle_charges_0/d08_f00": [
+    -30.1,
+    -52.7
+   ],
+   "idle_charges_0/d09_f00": [
+    -16.3,
+    -57.3
+   ],
+   "idle_charges_0/d10_f00": [
+    0.0,
+    -58.9
+   ],
+   "idle_charges_0/d11_f00": [
+    16.3,
+    -57.3
+   ],
+   "idle_charges_0/d12_f00": [
+    30.1,
+    -52.7
+   ],
+   "idle_charges_0/d13_f00": [
+    39.3,
+    -45.8
+   ],
+   "idle_charges_0/d14_f00": [
+    42.5,
+    -37.6
+   ],
+   "idle_charges_0/d15_f00": [
+    39.3,
+    -29.5
+   ],
+   "idle_charges_1/d00_f00": [
+    30.1,
+    -22.6
+   ],
+   "idle_charges_1/d01_f00": [
+    16.3,
+    -18.0
+   ],
+   "idle_charges_1/d02_f00": [
+    0.0,
+    -16.4
+   ],
+   "idle_charges_1/d03_f00": [
+    -16.3,
+    -18.0
+   ],
+   "idle_charges_1/d04_f00": [
+    -30.1,
+    -22.6
+   ],
+   "idle_charges_1/d05_f00": [
+    -39.3,
+    -29.5
+   ],
+   "idle_charges_1/d06_f00": [
+    -42.5,
+    -37.6
+   ],
+   "idle_charges_1/d07_f00": [
+    -39.3,
+    -45.8
+   ],
+   "idle_charges_1/d08_f00": [
+    -30.1,
+    -52.7
+   ],
+   "idle_charges_1/d09_f00": [
+    -16.3,
+    -57.3
+   ],
+   "idle_charges_1/d10_f00": [
+    0.0,
+    -58.9
+   ],
+   "idle_charges_1/d11_f00": [
+    16.3,
+    -57.3
+   ],
+   "idle_charges_1/d12_f00": [
+    30.1,
+    -52.7
+   ],
+   "idle_charges_1/d13_f00": [
+    39.3,
+    -45.8
+   ],
+   "idle_charges_1/d14_f00": [
+    42.5,
+    -37.6
+   ],
+   "idle_charges_1/d15_f00": [
     39.3,
     -29.5
    ],
@@ -3963,6 +8246,518 @@
     -29.6
    ],
    "move/d15_f03": [
+    39.1,
+    -29.2
+   ],
+   "move_charges_0/d00_f00": [
+    29.8,
+    -22.5
+   ],
+   "move_charges_0/d00_f01": [
+    30.2,
+    -22.8
+   ],
+   "move_charges_0/d00_f02": [
+    30.3,
+    -22.7
+   ],
+   "move_charges_0/d00_f03": [
+    29.9,
+    -22.4
+   ],
+   "move_charges_0/d01_f00": [
+    16.0,
+    -17.9
+   ],
+   "move_charges_0/d01_f01": [
+    16.4,
+    -18.2
+   ],
+   "move_charges_0/d01_f02": [
+    16.6,
+    -18.0
+   ],
+   "move_charges_0/d01_f03": [
+    16.2,
+    -17.8
+   ],
+   "move_charges_0/d02_f00": [
+    -0.3,
+    -16.4
+   ],
+   "move_charges_0/d02_f01": [
+    0.0,
+    -16.5
+   ],
+   "move_charges_0/d02_f02": [
+    0.3,
+    -16.4
+   ],
+   "move_charges_0/d02_f03": [
+    0.0,
+    -16.2
+   ],
+   "move_charges_0/d03_f00": [
+    -16.6,
+    -18.0
+   ],
+   "move_charges_0/d03_f01": [
+    -16.4,
+    -18.2
+   ],
+   "move_charges_0/d03_f02": [
+    -16.0,
+    -17.9
+   ],
+   "move_charges_0/d03_f03": [
+    -16.2,
+    -17.8
+   ],
+   "move_charges_0/d04_f00": [
+    -30.3,
+    -22.7
+   ],
+   "move_charges_0/d04_f01": [
+    -30.2,
+    -22.8
+   ],
+   "move_charges_0/d04_f02": [
+    -29.8,
+    -22.5
+   ],
+   "move_charges_0/d04_f03": [
+    -29.9,
+    -22.4
+   ],
+   "move_charges_0/d05_f00": [
+    -39.4,
+    -29.6
+   ],
+   "move_charges_0/d05_f01": [
+    -39.5,
+    -29.7
+   ],
+   "move_charges_0/d05_f02": [
+    -39.2,
+    -29.3
+   ],
+   "move_charges_0/d05_f03": [
+    -39.1,
+    -29.2
+   ],
+   "move_charges_0/d06_f00": [
+    -42.5,
+    -37.8
+   ],
+   "move_charges_0/d06_f01": [
+    -42.8,
+    -37.9
+   ],
+   "move_charges_0/d06_f02": [
+    -42.5,
+    -37.4
+   ],
+   "move_charges_0/d06_f03": [
+    -42.3,
+    -37.3
+   ],
+   "move_charges_0/d07_f00": [
+    -39.2,
+    -45.9
+   ],
+   "move_charges_0/d07_f01": [
+    -39.5,
+    -46.1
+   ],
+   "move_charges_0/d07_f02": [
+    -39.4,
+    -45.6
+   ],
+   "move_charges_0/d07_f03": [
+    -39.1,
+    -45.4
+   ],
+   "move_charges_0/d08_f00": [
+    -29.8,
+    -52.8
+   ],
+   "move_charges_0/d08_f01": [
+    -30.2,
+    -53.0
+   ],
+   "move_charges_0/d08_f02": [
+    -30.3,
+    -52.5
+   ],
+   "move_charges_0/d08_f03": [
+    -29.9,
+    -52.3
+   ],
+   "move_charges_0/d09_f00": [
+    -16.0,
+    -57.3
+   ],
+   "move_charges_0/d09_f01": [
+    -16.4,
+    -57.7
+   ],
+   "move_charges_0/d09_f02": [
+    -16.6,
+    -57.2
+   ],
+   "move_charges_0/d09_f03": [
+    -16.2,
+    -56.9
+   ],
+   "move_charges_0/d10_f00": [
+    0.3,
+    -58.9
+   ],
+   "move_charges_0/d10_f01": [
+    0.0,
+    -59.3
+   ],
+   "move_charges_0/d10_f02": [
+    -0.3,
+    -58.9
+   ],
+   "move_charges_0/d10_f03": [
+    0.0,
+    -58.5
+   ],
+   "move_charges_0/d11_f00": [
+    16.6,
+    -57.2
+   ],
+   "move_charges_0/d11_f01": [
+    16.4,
+    -57.7
+   ],
+   "move_charges_0/d11_f02": [
+    16.0,
+    -57.3
+   ],
+   "move_charges_0/d11_f03": [
+    16.2,
+    -56.9
+   ],
+   "move_charges_0/d12_f00": [
+    30.3,
+    -52.5
+   ],
+   "move_charges_0/d12_f01": [
+    30.2,
+    -53.0
+   ],
+   "move_charges_0/d12_f02": [
+    29.8,
+    -52.8
+   ],
+   "move_charges_0/d12_f03": [
+    29.9,
+    -52.3
+   ],
+   "move_charges_0/d13_f00": [
+    39.4,
+    -45.6
+   ],
+   "move_charges_0/d13_f01": [
+    39.5,
+    -46.1
+   ],
+   "move_charges_0/d13_f02": [
+    39.2,
+    -45.9
+   ],
+   "move_charges_0/d13_f03": [
+    39.1,
+    -45.4
+   ],
+   "move_charges_0/d14_f00": [
+    42.5,
+    -37.4
+   ],
+   "move_charges_0/d14_f01": [
+    42.8,
+    -37.9
+   ],
+   "move_charges_0/d14_f02": [
+    42.5,
+    -37.8
+   ],
+   "move_charges_0/d14_f03": [
+    42.3,
+    -37.3
+   ],
+   "move_charges_0/d15_f00": [
+    39.2,
+    -29.3
+   ],
+   "move_charges_0/d15_f01": [
+    39.5,
+    -29.7
+   ],
+   "move_charges_0/d15_f02": [
+    39.4,
+    -29.6
+   ],
+   "move_charges_0/d15_f03": [
+    39.1,
+    -29.2
+   ],
+   "move_charges_1/d00_f00": [
+    29.8,
+    -22.5
+   ],
+   "move_charges_1/d00_f01": [
+    30.2,
+    -22.8
+   ],
+   "move_charges_1/d00_f02": [
+    30.3,
+    -22.7
+   ],
+   "move_charges_1/d00_f03": [
+    29.9,
+    -22.4
+   ],
+   "move_charges_1/d01_f00": [
+    16.0,
+    -17.9
+   ],
+   "move_charges_1/d01_f01": [
+    16.4,
+    -18.2
+   ],
+   "move_charges_1/d01_f02": [
+    16.6,
+    -18.0
+   ],
+   "move_charges_1/d01_f03": [
+    16.2,
+    -17.8
+   ],
+   "move_charges_1/d02_f00": [
+    -0.3,
+    -16.4
+   ],
+   "move_charges_1/d02_f01": [
+    0.0,
+    -16.5
+   ],
+   "move_charges_1/d02_f02": [
+    0.3,
+    -16.4
+   ],
+   "move_charges_1/d02_f03": [
+    0.0,
+    -16.2
+   ],
+   "move_charges_1/d03_f00": [
+    -16.6,
+    -18.0
+   ],
+   "move_charges_1/d03_f01": [
+    -16.4,
+    -18.2
+   ],
+   "move_charges_1/d03_f02": [
+    -16.0,
+    -17.9
+   ],
+   "move_charges_1/d03_f03": [
+    -16.2,
+    -17.8
+   ],
+   "move_charges_1/d04_f00": [
+    -30.3,
+    -22.7
+   ],
+   "move_charges_1/d04_f01": [
+    -30.2,
+    -22.8
+   ],
+   "move_charges_1/d04_f02": [
+    -29.8,
+    -22.5
+   ],
+   "move_charges_1/d04_f03": [
+    -29.9,
+    -22.4
+   ],
+   "move_charges_1/d05_f00": [
+    -39.4,
+    -29.6
+   ],
+   "move_charges_1/d05_f01": [
+    -39.5,
+    -29.7
+   ],
+   "move_charges_1/d05_f02": [
+    -39.2,
+    -29.3
+   ],
+   "move_charges_1/d05_f03": [
+    -39.1,
+    -29.2
+   ],
+   "move_charges_1/d06_f00": [
+    -42.5,
+    -37.8
+   ],
+   "move_charges_1/d06_f01": [
+    -42.8,
+    -37.9
+   ],
+   "move_charges_1/d06_f02": [
+    -42.5,
+    -37.4
+   ],
+   "move_charges_1/d06_f03": [
+    -42.3,
+    -37.3
+   ],
+   "move_charges_1/d07_f00": [
+    -39.2,
+    -45.9
+   ],
+   "move_charges_1/d07_f01": [
+    -39.5,
+    -46.1
+   ],
+   "move_charges_1/d07_f02": [
+    -39.4,
+    -45.6
+   ],
+   "move_charges_1/d07_f03": [
+    -39.1,
+    -45.4
+   ],
+   "move_charges_1/d08_f00": [
+    -29.8,
+    -52.8
+   ],
+   "move_charges_1/d08_f01": [
+    -30.2,
+    -53.0
+   ],
+   "move_charges_1/d08_f02": [
+    -30.3,
+    -52.5
+   ],
+   "move_charges_1/d08_f03": [
+    -29.9,
+    -52.3
+   ],
+   "move_charges_1/d09_f00": [
+    -16.0,
+    -57.3
+   ],
+   "move_charges_1/d09_f01": [
+    -16.4,
+    -57.7
+   ],
+   "move_charges_1/d09_f02": [
+    -16.6,
+    -57.2
+   ],
+   "move_charges_1/d09_f03": [
+    -16.2,
+    -56.9
+   ],
+   "move_charges_1/d10_f00": [
+    0.3,
+    -58.9
+   ],
+   "move_charges_1/d10_f01": [
+    0.0,
+    -59.3
+   ],
+   "move_charges_1/d10_f02": [
+    -0.3,
+    -58.9
+   ],
+   "move_charges_1/d10_f03": [
+    0.0,
+    -58.5
+   ],
+   "move_charges_1/d11_f00": [
+    16.6,
+    -57.2
+   ],
+   "move_charges_1/d11_f01": [
+    16.4,
+    -57.7
+   ],
+   "move_charges_1/d11_f02": [
+    16.0,
+    -57.3
+   ],
+   "move_charges_1/d11_f03": [
+    16.2,
+    -56.9
+   ],
+   "move_charges_1/d12_f00": [
+    30.3,
+    -52.5
+   ],
+   "move_charges_1/d12_f01": [
+    30.2,
+    -53.0
+   ],
+   "move_charges_1/d12_f02": [
+    29.8,
+    -52.8
+   ],
+   "move_charges_1/d12_f03": [
+    29.9,
+    -52.3
+   ],
+   "move_charges_1/d13_f00": [
+    39.4,
+    -45.6
+   ],
+   "move_charges_1/d13_f01": [
+    39.5,
+    -46.1
+   ],
+   "move_charges_1/d13_f02": [
+    39.2,
+    -45.9
+   ],
+   "move_charges_1/d13_f03": [
+    39.1,
+    -45.4
+   ],
+   "move_charges_1/d14_f00": [
+    42.5,
+    -37.4
+   ],
+   "move_charges_1/d14_f01": [
+    42.8,
+    -37.9
+   ],
+   "move_charges_1/d14_f02": [
+    42.5,
+    -37.8
+   ],
+   "move_charges_1/d14_f03": [
+    42.3,
+    -37.3
+   ],
+   "move_charges_1/d15_f00": [
+    39.2,
+    -29.3
+   ],
+   "move_charges_1/d15_f01": [
+    39.5,
+    -29.7
+   ],
+   "move_charges_1/d15_f02": [
+    39.4,
+    -29.6
+   ],
+   "move_charges_1/d15_f03": [
     39.1,
     -29.2
    ],
@@ -4608,6 +9403,6 @@
    ]
   }
  },
- "frame_count": 544,
- "content_sha256": "d5b8e31f01107e232882058f0b435a6889d52407f1bfb97923757bb8d295e73a"
+ "frame_count": 1120,
+ "content_sha256": "280c49d0118daebbbd482f75b08c1a577f26b1114c297c861f47290fa24fccde"
 }

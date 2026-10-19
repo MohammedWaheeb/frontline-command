@@ -176,16 +176,16 @@ export class BattlefieldRenderer {
   const canvas=this.app.canvas,signal=this.listeners.signal;
   const local=(event:MouseEvent)=>{const r=canvas.getBoundingClientRect();return {x:event.clientX-r.left,y:event.clientY-r.top}};
   canvas.addEventListener('contextmenu',event=>event.preventDefault(),{signal});
-  canvas.addEventListener('pointerdown',event=>{event.preventDefault();if(this.lost)return;canvas.focus({preventScroll:true});const p=local(event);this.drag={start:p,last:p,button:event.button,pointer:event.pointerId};canvas.setPointerCapture(event.pointerId)},{signal});
+  canvas.addEventListener('pointerdown',event=>{event.preventDefault();if(this.lost||this.drag)return;canvas.focus({preventScroll:true});const p=local(event);this.drag={start:p,last:p,button:event.button,pointer:event.pointerId};canvas.setPointerCapture(event.pointerId)},{signal});
   canvas.addEventListener('pointermove',event=>{
-   if(this.lost)return;
+   if(this.lost||this.drag&&event.pointerId!==this.drag.pointer)return;
    const p=local(event);this.pointer=p;
    if(this.drag?.button===this.settings.bindings.pointer.pan){this.pan(this.drag.last.x-p.x,this.drag.last.y-p.y);this.drag.last=p;return}
    if(this.drag)this.drag.last=p;
    const now=performance.now();if(now-this.lastHover>40){this.emit('hover',event,p);this.lastHover=now}
   },{signal});
   canvas.addEventListener('pointerup',event=>{
-   const d=this.drag;if(!d)return;const p=local(event);this.drag=undefined;
+   const d=this.drag;if(!d||event.pointerId!==d.pointer)return;if(event.button!==d.button){this.cancelDrag();return}const p=local(event);this.drag=undefined;
    if(canvas.hasPointerCapture(event.pointerId))canvas.releasePointerCapture(event.pointerId);
    if(d.button===this.settings.bindings.pointer.pan)return;
    const distance=Math.hypot(d.start.x-p.x,d.start.y-p.y);
@@ -193,14 +193,15 @@ export class BattlefieldRenderer {
    this.emit(d.button===2?'context':'click',event,p);
   },{signal});
   canvas.addEventListener('dblclick',event=>this.emit('double-click',event,local(event)),{signal});
-  canvas.addEventListener('pointercancel',()=>this.cancelDrag(),{signal});
+  canvas.addEventListener('pointercancel',event=>{if(event.pointerId===this.drag?.pointer)this.cancelDrag()},{signal});
+  canvas.addEventListener('lostpointercapture',event=>{if(event.pointerId===this.drag?.pointer)this.cancelDrag()},{signal});
   canvas.addEventListener('pointerleave',()=>{this.pointer=undefined},{signal});
   canvas.addEventListener('wheel',event=>{event.preventDefault();if(!this.lost)this.zoomBy(Math.exp(-event.deltaY*.001*this.settings.zoomSpeed),local(event))},{signal,passive:false});
   canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();this.lost=true;this.resetFeedback();this.cancelDrag();this.pointer=undefined;this.options.onError?.(new Error('Graphics context lost. Simulation remains in its worker; pause or save while graphics recover.'))},{signal});
   canvas.addEventListener('webglcontextrestored',()=>{this.lost=false;this.resetFeedback();this.invalidateTerrain();this.fogTick=-1},{signal});
   window.addEventListener('blur',()=>{this.cancelDrag();this.pointer=undefined},{signal});
  }
- cancelDrag(){if(this.drag&&this.app.canvas?.hasPointerCapture(this.drag.pointer))this.app.canvas.releasePointerCapture(this.drag.pointer);this.drag=undefined;this.overlay.clear()}
+ cancelDrag(){const drag=this.drag;this.drag=undefined;if(drag&&this.app.canvas?.hasPointerCapture(drag.pointer))this.app.canvas.releasePointerCapture(drag.pointer);this.overlay.clear()}
  setTargeting(kind:string|undefined){this.targeting=kind;if(this.app.canvas)this.app.canvas.style.cursor=kind?'crosshair':'default'}
  setRangeMode(mode:RangeMode){this.rangeMode=mode}
  showRejectedOrder(point:Point,player:number){

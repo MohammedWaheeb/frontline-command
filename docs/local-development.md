@@ -1,7 +1,9 @@
 # Local development and packaging
 
 The actual product client, Go host, solo worker and authored content are present.
-The complete release remains in progress; see [current implementation status](implementation-status.md).
+The current player scope is three skirmish maps, five tutorials, practice, both
+co-op scenarios and multiplayer; Campaign and Editor are hidden. See the
+[release checks](../work/release-readiness-20261013/REPORT.md) for current evidence.
 `dev` and `build` require the product client and never substitute a test harness.
 Building successfully does not certify complete art or gameplay acceptance.
 
@@ -9,12 +11,24 @@ Building successfully does not certify complete art or gameplay acceptance.
 |---|---|
 | `make doctor` | Checks pinned Go, Node/npm, protoc/generator and installed dependencies; lists missing game output |
 | `make dev` | Builds Go/WASM, starts Go on localhost:8080 and the product dev client on localhost:5173; Ctrl-C stops both |
-| `make test` | Go tests/vet plus nonvisual TypeScript checks and runtime unit tests |
+| `make test` | Shipping Go packages with `-short`, vet, both TypeScript projects, packaging and runtime tests; archived experiments are excluded |
+| `make test-extended` | Same checks with full shipping Go tests and `-timeout=30m`; includes long tests gated by `testing.Short()` |
 | `make test-browser` | Actual Go/WASM, storage, offline reload and LAN integration in installed Chromium, Firefox and WebKit |
 | `make check-content` | Requires complete launch/campaign/tutorial/co-op inventory and validates each mission's opening save on all difficulties |
 | `make build` | Validates complete content, builds runtime/product client, assembles a native package with licenses and checksums |
 | `make play` | Runs the native package on localhost using the repository's `.local` data directory |
 | `make lan` | Explicit LAN host binding; prints join addresses |
+
+Both test commands check `./cmd/... ./internal/... ./pkg/... ./protocol/...`.
+`make test` is the routine regression command; it skips long authored mission,
+practice and performance courses that explicitly honor Go's `testing.Short()`.
+`make test-extended` preserves those courses, including retained campaign tests
+outside the current player release. Tests requiring `FRONTLINE_*` opt-in variables
+or external artifacts still require their documented setup. Neither command
+automatically runs browser acceptance, physical-device LAN, or human playtests.
+Skipped tests remain unverified; a short-suite pass does not certify their
+acceptance. Run the relevant dedicated tutorial/co-op/endurance courses for the
+current release and retain their separate results.
 
 Install pinned client dependencies with `npm --prefix client ci`. Install test
 browsers with `node client/node_modules/playwright-core/cli.js install chromium
@@ -59,6 +73,19 @@ those remain gameplay acceptance checks.
 packages are renamed with a timestamp, preserving their contents. Interrupted
 build staging directories contain generated output only and can be inspected
 or removed manually. Existing source and saved data are never cleaned by build.
+
+To build a separate package while an existing preview keeps using its current
+files, choose another output directory:
+
+```sh
+FRONTLINE_PACKAGE_DIR=dist/frontline-release-darwin-arm64 node scripts/local.mjs build
+```
+
+The override also selects the package used by `play` and `lan`; supply the same
+variable when running those commands. Relative paths resolve from the source
+root. Outputs inside the source tree must be beneath `dist/`; source directories
+and ancestors are rejected, including symlink aliases. Existing packages at the
+chosen output still receive the usual timestamp backup before replacement.
 
 Each package contains one native Go executable, local client/content,
 dependency notices, a version record, file hashes and platform launchers. A

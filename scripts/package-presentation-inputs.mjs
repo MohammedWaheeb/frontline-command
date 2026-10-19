@@ -6,7 +6,7 @@ import {artPackageSources} from '../client/scripts/ui/art-plugin.mjs';
 
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const generated=new Set(['client/src/protocol/frontline_pb.ts','client/public/runtime/frontline.wasm','client/public/runtime/wasm_exec.js','client/public/runtime/version.json','client/public/runtime/worker.js','client/public/runtime/worker.js.map','client/public/service-worker.js','client/public/service-worker.js.map']);
-const configFiles=['client/index.html','client/package.json','client/package-lock.json','client/tsconfig.json','client/vite.config.ts','client/.env','client/.env.local','client/.env.production','client/.env.production.local','scripts/local.mjs','scripts/package-integrity.mjs','scripts/package-presentation-inputs.mjs'];
+const configFiles=['client/index.html','client/package.json','client/package-lock.json','client/tsconfig.json','client/vite.config.ts','client/.env','client/.env.local','client/.env.production','client/.env.production.local','scripts/local.mjs','scripts/package-integrity.mjs','scripts/package-presentation-inputs.mjs','scripts/package-licenses.mjs','licenses/npm-supplemental','docs/local-package.md','docs/player-guide.md'];
 const identity=files=>({files,sha256:hash(JSON.stringify(files))});
 
 /** Source paths may contain nested installed dependencies and their .bin links.
