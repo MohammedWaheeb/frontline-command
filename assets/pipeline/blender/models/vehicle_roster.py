@@ -301,7 +301,12 @@ def us_car(B):
 def us_apc(B):
     """Infantry carrier: tracked box hull, raked glacis, rear ramp, small MG turret, trim vane."""
     B.tracks(1.36, 0.30, r=0.08, n_wheels=5, band_h=0.18, width=0.17)
-    B.pr('hull', [(-0.70, 0.13), (0.52, 0.13), (0.72, 0.26), (0.54, 0.47), (-0.70, 0.47)], 0.64, bevel=0.02)
+    # Keep the original exterior envelope, with an actual rear boarding bay.
+    B.pr('hull', [(-0.08, 0.13), (0.52, 0.13), (0.72, 0.26), (0.54, 0.47), (-0.08, 0.47)], 0.64, bevel=0.02)
+    for sy in (-1, 1):
+        B.b(f'bay_wall_{sy}', (0.62, 0.045, 0.34), (-0.39, sy * 0.2975, 0.30), 'paint', bevel=0.01)
+    B.b('bay_floor', (0.62, 0.55, 0.035), (-0.39, 0, 0.1475), 'dark', bevel=0)
+    B.b('bay_ceiling', (0.62, 0.55, 0.035), (-0.39, 0, 0.4525), 'paint', bevel=0)
     B.b('roof', (1.10, 0.60, 0.025), (-0.12, 0, 0.48), 'paint2')
     for sy in (1, -1):
         B.b(f'skirt_{sy}', (1.20, 0.035, 0.12), (0.0, sy * 0.40, 0.24), 'team', rot=(0.08 * sy, 0, 0), bevel=0.01)
@@ -325,8 +330,8 @@ def us_apc(B):
     ramp = B.e('ramp_hinge', (-0.70, 0, 0.13))
     B.b('ramp', (0.03, 0.54, 0.32), (-0.015, 0, 0.16), 'paint2', ramp)
     B.b('ramp_team', (0.035, 0.30, 0.05), (-0.02, 0, 0.26), 'team', ramp)
-    B.h['doors'] = [(ramp, 'y', 1.45)]
-    B.b('ramp_interior', (0.04, 0.50, 0.28), (-0.66, 0, 0.29), 'dark')
+    B.h['doors'] = [(ramp, 'y', -1.88)]
+    B.b('ramp_interior', (0.02, 0.50, 0.28), (-0.10, 0, 0.30), 'dark')
     B.hardpoint('exit', (-1.0, 0, 0), ['hull', 'whole'])
     B.begin_turret((0.10, 0.08), 0.49)
     B.c('ring', 0.11, 0.04, (0, 0, 0), 'trim', verts=14)
@@ -593,7 +598,8 @@ def ir_tank(B):
     for sy in (1, -1):
         B.b(f'flap_{sy}', (1.36, 0.03, 0.10), (0.0, sy * 0.45, 0.23), 'dark', rot=(0.06 * sy, 0, 0), detach=True,
             missing=True)
-        B.b(f'flap_team_{sy}', (1.36, 0.032, 0.035), (0.0, sy * 0.452, 0.27), 'team', rot=(0.06 * sy, 0, 0))
+        B.b(f'flap_team_{sy}', (1.36, 0.032, 0.035), (0.0, sy * 0.452, 0.27), 'team', rot=(0.06 * sy, 0, 0),
+            detach=True, missing=True)
         B.c(f'drum_{sy}', 0.07, 0.30, (-0.66, sy * 0.22, 0.40), 'era', rot=(0, math.pi / 2, 0), verts=12, detach=True,
             missing=True)
     B.b('rear_basket', (0.16, 0.46, 0.08), (-0.64, 0, 0.40), 'slat', missing=True)
@@ -690,7 +696,11 @@ def ir_repair(B):
     B.cab('cab', 0.32, 0.70, 0.29, 0.24, 0.52, 'paint')
     B.b('cab_team', (0.28, 0.46, 0.025), (0.49, 0, 0.525), 'team')
     B.headlights(0.71, 0.21, 0.32)
-    B.b('workshop', (0.86, 0.60, 0.34), (-0.20, 0, 0.45), 'paint2')
+    # Recessed side service bays keep benches/tools outside the central core.
+    B.b('workshop', (0.86, 0.34, 0.34), (-0.20, 0, 0.45), 'dark')
+    B.b('workshop_floor', (0.86, 0.60, 0.035), (-0.20, 0, 0.2975), 'paint2')
+    for x in (-0.615, 0.215):
+        B.b(f'workshop_end_{x}', (0.03, 0.60, 0.34), (x, 0, 0.45), 'paint2')
     B.b('workshop_team', (0.87, 0.61, 0.04), (-0.20, 0, 0.60), 'team')
     B.h['panels'] = []
     for sy in (1, -1):
@@ -991,7 +1001,11 @@ def sa_car(B):
 def sa_apc(B):
     """Wheeled infantry carrier: large 8x8 boxy buttressed hull, 30 mm turret, rear ramp."""
     B.axle_set((0.54, 0.26, -0.16, -0.44), 0.31, 0.12, 0.1)
-    B.pr('hull', [(-0.78, 0.17), (0.58, 0.17), (0.80, 0.30), (0.60, 0.50), (-0.78, 0.50)], 0.70, bevel=0.03)
+    B.pr('hull', [(-0.10, 0.17), (0.58, 0.17), (0.80, 0.30), (0.60, 0.50), (-0.10, 0.50)], 0.70, bevel=0.03)
+    for sy in (-1, 1):
+        B.b(f'bay_wall_{sy}', (0.68, 0.055, 0.33), (-0.44, sy * 0.3225, 0.335), 'paint', bevel=0.01)
+    B.b('bay_floor', (0.68, 0.59, 0.035), (-0.44, 0, 0.1875), 'dark', bevel=0)
+    B.b('bay_ceiling', (0.68, 0.59, 0.035), (-0.44, 0, 0.4825), 'paint', bevel=0)
     for sy in (1, -1):
         B.b(f'buttress_{sy}', (1.30, 0.04, 0.12), (-0.08, sy * 0.36, 0.40), 'paint2')
         B.b(f'side_team_{sy}', (1.20, 0.045, 0.04), (-0.08, sy * 0.365, 0.47), 'team')
@@ -1000,8 +1014,8 @@ def sa_apc(B):
     ramp = B.e('ramp_hinge', (-0.78, 0, 0.17))
     B.b('ramp', (0.03, 0.56, 0.32), (-0.015, 0, 0.16), 'paint', ramp)
     B.b('ramp_team', (0.035, 0.30, 0.05), (-0.02, 0, 0.27), 'team', ramp)
-    B.h['doors'] = [(ramp, 'y', 1.4)]
-    B.b('ramp_interior', (0.04, 0.52, 0.28), (-0.74, 0, 0.33), 'dark')
+    B.h['doors'] = [(ramp, 'y', -2.02)]
+    B.b('ramp_interior', (0.02, 0.52, 0.28), (-0.12, 0, 0.335), 'dark')
     B.hardpoint('exit', (-1.1, 0, 0), ['hull', 'whole'])
     B.begin_turret((0.12, 0.0), 0.51)
     B.sl('turret', [(0.20, 0.0), (0.14, 0.17), (-0.20, 0.18), (-0.24, 0.0), (-0.20, -0.18), (0.14, -0.17)], 0.0, 0.16,
@@ -1374,7 +1388,7 @@ def pose(rig, st, frame, d):
             B.h['hook'].location = (hx, hy, hz - 0.05 * (1 + wave))
         if 'panels' in B.h:
             for hinge, sy in B.h['panels']:
-                hinge.rotation_euler = (sy * -1.35, 0, 0)
+                hinge.rotation_euler = (sy * 1.35, 0, 0)
         if 'blade' in B.h and B.kind == 'US.repair':
             B.h['blade'].rotation_euler = (0, 0.18, 0)
         if name == 'work_salvage' and 'crate' in B.h:

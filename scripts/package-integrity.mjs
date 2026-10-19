@@ -1,8 +1,23 @@
 import {createReadStream} from 'node:fs';
-import {lstat,readdir,readFile,open} from 'node:fs/promises';
+import {lstat,readdir,readFile,open,realpath} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-import {spawn} from 'node:child_process';
+import {spawn,execFileSync} from 'node:child_process';
 import path from 'node:path';
+
+// Historical work/ snapshots contain independent Go programs and incomplete
+// candidate sources. Check every shipped Go package without traversing archives.
+export const productionGoPackages=Object.freeze(['./cmd/...','./internal/...','./pkg/...','./protocol/...']);
+export function goTestArguments(extended=false){return ['test',...(extended?['-timeout=30m']:['-short']),...productionGoPackages]}
+
+/** Resolve existing parents so a symlink cannot redirect package replacement
+ * into authored inputs. Within the source tree, outputs belong beneath dist/. */
+export async function resolvePackageDirectory(root,override,platform=process.platform,arch=process.arch){
+ const source=await realpath(root),requested=path.resolve(source,override??path.join('dist',`frontline-${platform}-${arch}`));
+ async function physical(file){try{return await realpath(file)}catch(error){if(error.code!=='ENOENT')throw error;const parent=path.dirname(file);if(parent===file)throw error;return path.join(await physical(parent),path.basename(file))}}
+ const output=await physical(requested),relative=path.relative(source,output);
+ if(output===source||source.startsWith(output.endsWith(path.sep)?output:output+path.sep)||(!relative.startsWith('..'+path.sep)&&relative!=='..'&&!path.isAbsolute(relative)&&!relative.startsWith('dist'+path.sep)))throw Error('Package output must be beneath source dist/ or outside the source tree, never a source directory or ancestor.');
+ return output;
+}
 
 /** Drain large metadata output without retaining it or resolving before exit.
  * A dirty art workspace can exceed execFileSync's default 1 MiB buffer.
@@ -15,6 +30,22 @@ export function commandHasOutput(program,args,{cwd}={}){
   child.once('error',reject);
   child.once('close',(code,signal)=>{if(code!==0)reject(Error(`${program} exited ${code??signal}: ${Buffer.concat(errors).toString('utf8')}`));else resolve(any)});
  });
+}
+
+/** Source archives have no Git revision. Do not accidentally attribute a
+ * snapshot inside another checkout to that checkout's HEAD or dirty status.
+ * A present but broken Git checkout is an error, rather than an archive. */
+export async function sourceProvenance(root){
+ const physical=await realpath(root);
+ try{await lstat(path.join(physical,'.git'))}catch(error){
+  if(error.code!=='ENOENT')throw error;
+  return {source_kind:'exported-snapshot',source_revision:null,source_dirty:null};
+ }
+ const git=args=>execFileSync('git',args,{cwd:physical,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
+ if(await realpath(git(['rev-parse','--show-toplevel']))!==physical)throw Error('Git metadata does not belong to the package source root');
+ const revision=git(['rev-parse','--verify','HEAD']);
+ if(!/^[a-f0-9]{40,64}$/.test(revision))throw Error('Invalid package source Git revision');
+ return {source_kind:'git-checkout',source_revision:revision,source_dirty:await commandHasOutput('git',['status','--porcelain'],{cwd:physical})};
 }
 
 export function nativeBuildEnvironment(platform=process.platform,arch=process.arch,base=process.env){

@@ -1,8 +1,9 @@
+import {releasePage} from './release-scope';
 import {AudioMixer} from '../audio/mixer';
 import {AudioDirector} from '../audio/director';
 import type {ObserverConnection} from '../runtime/observer';
 import {randomUUID} from '../runtime/crypto';
-import {OfflineTransport,SessionController,LocalStore,ContentLibrary,CampaignJourney,CampaignProgressStore,FirstRunJourney,RuntimeError,OnlineCommandAdvice,type MatchConnection,type GameMap,type LobbySlot,type ContentIndex,type SessionState,type PlayerSnapshot,type Faction,type Difficulty,type LoadedMission,type OfflineConfig} from '../runtime';
+import {OfflineTransport,SessionController,LocalStore,ContentLibrary,CampaignJourney,CampaignProgressStore,FirstRunJourney,RuntimeError,presentableFailure,OnlineCommandAdvice,type MatchConnection,type GameMap,type LobbySlot,type ContentIndex,type SessionState,type PlayerSnapshot,type Faction,type Difficulty,type LoadedMission,type OfflineConfig} from '../runtime';
 import {CatalogIndex,type Catalog} from '../content/catalog';
 import {reason} from '../content/labels';
 import {art,type ArtOwnershipSnapshot} from '../render/art';
@@ -23,10 +24,10 @@ import {captureCommanderFinalBinding,sameCommanderIdentity,type CommanderFinalBi
 import type {MatchResult} from '../runtime';
 import type {SessionEvent} from '../runtime/session';
 import {readSettingsMirror,writeSettingsMirror,applySettingsToDocument,sanitizeSettings,type Settings} from './settings';
-export type Page='command'|'skirmish'|'campaign'|'tutorials'|'saves'|'settings'|'network'|'replays'|'content'|'practice'|'help'|'editor'|'mastery';
+export type Page='command'|'skirmish'|'campaign'|'tutorials'|'saves'|'settings'|'network'|'coop'|'replays'|'content'|'practice'|'help'|'editor'|'mastery';
 export interface CommanderPendingView {id:string;faction:Faction;phase:'awaiting'|'recording'|'failed';error?:string}
 interface CommanderPendingFinal {binding:CommanderFinalBinding;phase:CommanderPendingView['phase'];error?:string;recovering?:boolean}
-export interface ApplicationState {briefing?:{content:LoadedMission;config:OfflineConfig;difficulty:Difficulty;challenge?:CommanderChallengeFocus};activeChallenge?:CommanderChallengeFocus;commanderStatus?:'awaiting'|'recording'|'saved'|'duplicate'|'unavailable';commanderError?:string;commanderFinals?:CommanderPendingView[];booting:boolean;busy?:string;error?:string;notice?:string;page:Page;session:SessionState;index?:ContentIndex;catalog?:CatalogIndex;firstRun:boolean;settings:Settings;paused:boolean;speed:number;snapshot?:PlayerSnapshot;autosave?:string;autosaveError?:string;assetStatus?:{files:number;fallbacks:string[]};assetProgress?:string}
+export interface ApplicationState {briefing?:{content:LoadedMission;config:OfflineConfig;difficulty:Difficulty;challenge?:CommanderChallengeFocus};activeChallenge?:CommanderChallengeFocus;commanderStatus?:'awaiting'|'recording'|'saved'|'duplicate'|'unavailable';commanderError?:string;commanderFinals?:CommanderPendingView[];booting:boolean;busy?:string;error?:{code:string;message:string};notice?:string;page:Page;session:SessionState;index?:ContentIndex;catalog?:CatalogIndex;firstRun:boolean;settings:Settings;paused:boolean;speed:number;snapshot?:PlayerSnapshot;autosave?:string;autosaveError?:string;assetStatus?:{files:number;fallbacks:string[]};assetProgress?:string}
 /** Read-only binding to this Application's normal shared ArtLibrary. */
 export interface ArtStatsReadout {
  readonly schema:'fc-art-stats-readonly/1';
@@ -108,8 +109,8 @@ export class Application {
   if(!this.hudSnapshot)return;this.forceHUD=false;this.lastHUD=performance.now();
   if(this.state.get().snapshot!==this.hudSnapshot)this.patch({snapshot:this.hudSnapshot});
  }
- patch(change:Partial<ApplicationState>){this.state.update(state=>({...state,...change}));if(this.audioDirector&&(change.page!==undefined||'briefing' in change||change.session!==undefined)){const state=this.state.get();this.audioDirector.page(state.page,state.briefing?.content.entry.id)}}
- error(error:unknown){this.patch({error:RuntimeError.from(error).message,busy:undefined})}
+ patch(change:Partial<ApplicationState>){if(change.page!==undefined)change={...change,page:releasePage(change.page)};this.state.update(state=>({...state,...change}));if(this.audioDirector&&(change.page!==undefined||'briefing' in change||change.session!==undefined)){const state=this.state.get();this.audioDirector.page(state.page,state.briefing?.content.entry.id)}}
+ error(error:unknown){const presented=presentableFailure(error);this.patch({error:{code:presented.code,message:presented.message},busy:undefined})}
  async task<T>(label:string,work:()=>Promise<T>):Promise<T|undefined>{this.patch({busy:label,error:undefined});try{return await work()}catch(error){if((error as {code?:string}).code==='launch_canceled')this.patch({notice:'Loading canceled.'});else this.error(error)}finally{this.patch({busy:undefined})}}
  async boot(){await this.task('Initializing command systems…',async()=>{
   const [setting,onboarding]=await Promise.all([this.store.setting<Settings>('settings'),this.firstRun.read(),this.validator.ready]);

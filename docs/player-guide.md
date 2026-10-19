@@ -7,7 +7,7 @@ bots do not need an AI account or internet service.
 ## Your first operation
 
 Choose **Field training** for the five tutorials. Complete each lesson to unlock
-the next. **Practice range** lets you explore units without campaign rewards.
+the next. **Practice range** lets you explore units without competitive rewards.
 
 For a battle against bots, choose **Skirmish** or **Deploy to skirmish**:
 
@@ -17,9 +17,9 @@ For a battle against bots, choose **Skirmish** or **Deploy to skirmish**:
 3. With three bots, select **Two teams of two** if you want an allied bot.
 4. Choose **Deploy forces**. Orders begin after the countdown.
 
-Choosing no AI creates a solo field-practice game. To play a campaign, choose
-**Campaign**, a faction, difficulty and an available operation. Its briefing
-explains the objectives; later operations unlock through campaign completion.
+Choosing no AI creates a solo field-practice game. The three default battlefields
+are **Copper Junction** (2 commanders), **Industrial Valley** (4 commanders) and
+**Port Outskirts** (4 commanders).
 
 ## Build and command
 
@@ -94,6 +94,20 @@ Opening the multiplayer menu does not pause other players. Custom/co-op shared
 pause uses the explicit host controls when enabled. After a brief disconnection,
 use **Reconnect to operation** with the same profile. For a completed match,
 use its recorded result and replay controls.
+
+## Cooperative scenarios
+
+Choose **Co-op** from the main menu and create or restore your local host profile.
+Choose **Convoy Union** or **Twin Outposts**, a difficulty, and either another human
+or an AI ally. **Create co-op lobby** opens the shared lobby. With a human ally,
+share its lobby ID and private access code; both players mark ready before the
+host starts. Each commander owns their own forces and shares allied vision.
+
+The host records shared checkpoints. After leaving, use **Co-op → Shared
+checkpoints**, select the host save and your saved commander, then choose
+**Resume co-op lobby**. Every saved human commander must rejoin and mark ready;
+the match continues from its saved tick. Preserve the host's data directory to
+retain these checkpoints.
 
 ## Make the display comfortable
 

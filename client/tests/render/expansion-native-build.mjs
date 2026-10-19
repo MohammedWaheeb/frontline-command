@@ -13,6 +13,6 @@ await mkdir(output,{recursive:true});const copied={};
 for(const file of ['session.go','editor.go','replay.go']){const data=await readFile(path.join(candidate,'source/cmd/wasm',file));await writeFile(path.join(output,file),data);copied[file]=sha(data)}
 await copyFile(new URL('expansion-native-bridge.go',import.meta.url),path.join(output,'main.go'));
 await writeFile(path.join(output,'go.mod'),`module frontlinecommand/expansion-preflight\n\ngo 1.27.1\n\nrequire frontlinecommand v0.0.0\nreplace frontlinecommand => ${JSON.stringify(path.join(candidate,'source'))}\n`);
-execFileSync('go',['build','-mod=mod','-o','bridge','.'],{cwd:output,env:{...process.env,GOMAXPROCS:'2'},stdio:'inherit'});
+execFileSync('go',['build','-tags=frontline_fixture','-mod=mod','-o','bridge','.'],{cwd:output,env:{...process.env,GOMAXPROCS:'2'},stdio:'inherit'});
 const receipt={sourceLockSHA256:expected,compiledAt:new Date().toISOString(),copied,bridgeSHA256:sha(await readFile(path.join(output,'main.go'))),binarySHA256:sha(await readFile(path.join(output,'bridge'))),scope:'Frozen authoritative Session and Go engine with JSON-lines test transport only; no browser or runtime promotion.'};
 await writeFile(path.join(output,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify({output,...receipt},null,2));

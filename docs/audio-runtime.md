@@ -152,3 +152,73 @@ identity; visible explosions never identify hidden or concealed victims. Aircraf
 endurance-loss speech uses the owner-only Go cause event, with no duplicate
 generic loss line. Enemy strategic-ready speech follows public progress changes
 and does not replay a warning on initial snapshots or seeking.
+
+
+## Playback completion — 13 October 2026
+
+Enabling sound now saves consent during the first-run checkbox interaction.
+Trusted bubbling click/change listeners unlock output after the UI applies consent,
+so first-run and Settings enable no longer require an unrelated second gesture.
+Synthetic events still cannot create an AudioContext.
+
+Muting music or master releases music sources and prevents cold music decoding.
+Unmuting recreates layers at a shared offset from their retained musical origin.
+Effects/master mute releases continuous engine/ambient sources, invalidates their
+pending starts, and allows current authorized requests to resume on unmute.
+Transient decoding completion rechecks its bus before starting a sound.
+
+The full game, review source and frontend-10 candidate now include the same
+exported audio inventory: **923 clips across 639 event IDs**, with both Ogg and
+MP3 alternatives (**1,846 exact-size/SHA-256 checks per copy**). Audio notices
+were restored from the existing authored package. The frontend candidate's
+missing asset manifest was restored from its review source. Historical review
+reports and capacity measurements predate these edits and were not rerun.
+
+Validation: application/runtime type checks pass in all three clients. Runtime
+suites pass: full game 651 active / 5 skipped; review source 498 active; frontend
+candidate 578 active / 5 skipped. Chromium, Firefox and WebKit native Web Audio
+courses pass consent, output signal, buses, warning priority, muted captions,
+focus, music mute/unmute, offline cached playback and disposal. Chromium decodes
+all 923 actual Ogg clips with finite nonzero samples and matching duration;
+maximum sample magnitude is 0.90494. These checks do not replace listening review.
+
+A fresh production build was exercised at 1280×720 through first-run consent,
+menu music, a real Go/WASM skirmish, owned rig selection, accepted stop receipt,
+vehicle movement, pause and Settings withdrawal/re-enable. No page errors,
+failed asset requests or framework overlay appeared. Browser plugin was not
+available; repository Playwright tooling was used. Evidence is saved outside the
+source tree at `/tmp/frontline-audio-qa/` (ephemeral). Use `FRONTLINE_URL` and
+`FRONTLINE_AUDIO_OUTPUT` to rerun the product audio course against a packaged
+server and choose an external evidence directory. The ordinary Vite development
+entry currently rejects the required production base pack with HTTP 503, so the
+real-game course uses a production package; the isolated mixer fixture uses Vite.
+
+Listening quality, actual speaker/headphone output, other desktop platforms and
+long-session mix review remain unverified. The existing sample/listening-review
+status is preserved.
+
+
+### Follow-up: background music, volleys and production cues
+
+The user's existing in-app browser had audio consent disabled; it was enabled
+through Options and visibly reported Sound ready. A global Enable sound / Unmute
+sound / Enable music / Resume sound control now exposes suppressed output without
+requiring navigation through Options. It preserves separate bus settings and only
+restores zero master/music levels when explicitly clicked.
+
+Combat cues now use authorized event IDs and zero shared cooldown, so simultaneous
+shots and impacts using the same sound cannot suppress one another. Snapshot
+history still consumes duplicates once. SATURATION and SKYBREAKER use the existing
+shared strategic-launch clip. Each owned unit_ready event emits its own completion
+sound and unit-name caption; the announcer's speech remains bundled. Native mixer
+voice/source limits still apply during large battles.
+
+Two regressions verify twelve simultaneous same-weapon shots through the actual
+cooldown gate, and a simultaneous completion batch for every catalog unit with
+no duplicate or enemy-production cues. Type checks and runtime suites pass in all
+three clients: full 653 active, snapshot 500, frontend candidate 580 (five skips
+in full/candidate). The rebuilt product passes the 1280×720 skirmish audio course
+and now measures actual bundled menu music at the master output (peak 0.121396,
+finite and nonzero), rather than relying only on source counts. This verifies
+browser signal output, not the user's device volume or speaker hardware.
+Evidence: `/tmp/frontline-audio-followup-qa/`.

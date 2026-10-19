@@ -243,8 +243,11 @@ func (e *Engine) validateState() error {
 			return fmt.Errorf("invalid saved player color")
 		}
 		playerColors[p.Color] = true
-		if p.Controller != "human" && p.Controller != "ai" && p.Controller != "script" || p.Controller == "script" && p.AI != "" {
+		if p.Controller != "human" && p.Controller != "ai" && p.Controller != "script" || p.Controller == "ai" && p.AI == "" || p.Controller != "ai" && p.AI != "" {
 			return fmt.Errorf("invalid saved controller")
+		}
+		if p.AI != "" && p.AI != "easy" && p.AI != "normal" && p.AI != "hard" {
+			return fmt.Errorf("invalid saved AI difficulty")
 		}
 		if len(p.AIKnowledge) > 4096 || len(p.AIFields) > fieldLimit || !s.Map.InBounds(p.AIGoal) {
 			return fmt.Errorf("invalid AI knowledge bounds")
@@ -284,10 +287,18 @@ func (e *Engine) validateState() error {
 		if p.Supply < 0 || p.Supply > 100 || p.ReservedSupply < 0 || p.ReservedSupply > 100 || p.Supply+p.ReservedSupply > 100 || p.RepairReserve < 0 || len(p.Memory) > 4096 || len(p.Cooldowns) > 64 || len(p.Upgrades) > 64 {
 			return fmt.Errorf("invalid player reservations")
 		}
+		if p.Spent < 0 || p.Income < 0 {
+			return fmt.Errorf("invalid player ledger")
+		}
+		seenUpgrades := map[string]bool{}
 		for _, u := range p.Upgrades {
 			if _, ok := e.catalog.Upgrade(u); !ok {
 				return fmt.Errorf("unknown saved upgrade")
 			}
+			if seenUpgrades[u] {
+				return fmt.Errorf("duplicate saved upgrade")
+			}
+			seenUpgrades[u] = true
 		}
 		for _, m := range p.Memory {
 			if !s.Map.InBounds(m.Position) || m.Seen > s.Tick || !e.validRetainedFootprint(m.Type, m.FootprintType, m.FootprintWidth, m.FootprintHeight) {
@@ -390,6 +401,18 @@ func (e *Engine) validateSavedOrders(orders []Order, batch bool) error {
 		}
 		if o.Kind == "patrol" && !batch && (len(o.Points) < 2 || int(o.Index) >= len(o.Points)) {
 			return fmt.Errorf("invalid patrol route")
+		}
+		// Pending batches were admitted through Submit. Preserve its position
+		// bounds across imports before these orders reach authoritative execution.
+		// Actor orders may contain internally derived service/formation goals;
+		// their invariants are separate from client batch admission.
+		if batch {
+			switch o.Kind {
+			case "move", "attack_move", "patrol", "build", "force_fire", "rally", "guard", "aggressive", "ping", "unload":
+				if !e.state.Map.InBounds(o.Position) {
+					return fmt.Errorf("saved order outside map")
+				}
+			}
 		}
 		for _, p := range o.Points {
 			if !e.state.Map.InBounds(p) {

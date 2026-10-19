@@ -115,6 +115,53 @@ func TestClosedConnectDoesNotReplaceLivePeer(t *testing.T) {
 	}
 }
 
+// A peer whose outbound queue stays full must be dropped with a reconnect
+// deadline so the expiry path can surrender it; otherwise the match stalls
+// forever waiting on a player that can neither receive nor reconnect-expire.
+func TestSlowConsumerExpiresAfterReconnectGrace(t *testing.T) {
+	oldGrace := reconnectGrace
+	reconnectGrace = 150 * time.Millisecond
+	t.Cleanup(func() { reconnectGrace = oldGrace })
+	m := queuedConnectFixture(t)
+	m.stateEvery = 1
+	go m.persistCheckpoints()
+	go m.run()
+	t.Cleanup(m.close)
+	// The sim holds a 100-tick (5s) start countdown before a surrender can
+	// be submitted, so the observation window must clear it.
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	slow := &peer{player: 1, out: make(chan []byte, 1), done: make(chan struct{})}
+	live := &peer{player: 2, out: make(chan []byte, 256), done: make(chan struct{})}
+	go func() {
+		for {
+			select {
+			case <-live.done:
+				return
+			case <-live.out:
+			}
+		}
+	}()
+	for _, p := range []*peer{slow, live} {
+		if reply := m.call(ctx, matchRequest{kind: "connect", player: p.player, peer: p}); reply.err != nil {
+			t.Fatal(reply.err)
+		}
+	}
+	deadline := time.Now().Add(12 * time.Second)
+	for time.Now().Before(deadline) {
+		reply := m.call(ctx, matchRequest{kind: "view", player: 2})
+		if reply.err == nil {
+			for _, p := range reply.view.Players {
+				if p.ID == 1 && p.Defeated {
+					return
+				}
+			}
+		}
+		time.Sleep(50 * time.Millisecond)
+	}
+	t.Fatal("slow consumer was never expired and surrendered")
+}
+
 func TestValidReplacementSurvivesOldPeerCleanup(t *testing.T) {
 	m := queuedConnectFixture(t)
 	go m.persistCheckpoints()

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"frontlinecommand/pkg/sim"
 	"net/http"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -103,6 +104,14 @@ func (s *Server) commandAdvice(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "command_limit", "Advice accepts up to 64 selected entities and 32 orders.")
 		return
 	}
+	seen := make(map[sim.ID]bool, len(body.Entities))
+	for _, id := range body.Entities {
+		if id == 0 || seen[id] {
+			fail(w, 400, "invalid_selection", "Choose distinct nonzero selected entity IDs.")
+			return
+		}
+		seen[id] = true
+	}
 	for _, order := range body.Orders {
 		if len(order.Entities) > 64 || len(order.Points) > 6 || len(order.Type) > 80 {
 			fail(w, 400, "invalid_order", "An order exceeds the command limits.")
@@ -131,7 +140,20 @@ func (s *Server) commandAdvice(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	deadline, _ := ctx.Deadline()
 	reply := match.call(ctx, matchRequest{adviceTrace: trace, adviceDeadline: deadline, kind: "advice", token: token, player: slot.Player, entities: body.Entities, orders: body.Orders})
-	if trace != nil { trace.stamp(&trace.replyReceived) }
+	if trace != nil {
+		trace.stamp(&trace.replyReceived)
+	}
+	if reply.err != nil && reply.err.Error() == "not_owner" {
+		if ctx.Err() != nil {
+			fail(w, 503, "advice_timeout", "Command advice timed out.")
+			return
+		}
+		// Selection can outlive an actor between a rendered frame and this tick.
+		// Return a business rejection with no partial capabilities or foreign
+		// ownership details; execution and every other failure remain unchanged.
+		respond(w, 200, unavailableSelectionAdvice(reply.affordances.Tick, slot.Player, body))
+		return
+	}
 	if reply.err != nil {
 		status := 400
 		if errors.Is(reply.err, context.DeadlineExceeded) || errors.Is(reply.err, context.Canceled) {
@@ -155,7 +177,9 @@ func (s *Server) commandAdvice(w http.ResponseWriter, r *http.Request) {
 			advice, err = sim.PreviewSavedOrderAdvice(s.catalog, reply.data, slot.Player, body.Orders)
 			results, result.Plans = advice.Results, advice.Plans
 		}
-		if trace != nil { trace.stamp(&trace.previewDone) }
+		if trace != nil {
+			trace.stamp(&trace.previewDone)
+		}
 		if err != nil {
 			fail(w, 400, "advice_unavailable", "The proposed batch cannot currently be submitted.")
 			return
@@ -167,4 +191,18 @@ func (s *Server) commandAdvice(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	respond(w, 200, result)
+}
+
+// Echo only requested IDs, never the partial affordances accumulated before a
+// failed ownership check. Missing and foreign actors receive the same response.
+func unavailableSelectionAdvice(tick sim.Tick, player sim.PlayerID, body adviceRequest) adviceResponse {
+	result := adviceResponse{CommandAffordances: sim.CommandAffordances{Tick: tick, Player: player, Entities: []sim.EntityAffordance{}, PlayerCommands: []string{}}, Results: []sim.OrderResult{}}
+	for _, id := range body.Entities {
+		result.Entities = append(result.Entities, sim.EntityAffordance{ID: id, Commands: []string{}, Abilities: []string{}, Builds: []string{}, Trains: []string{}, Research: []string{}})
+	}
+	sort.Slice(result.Entities, func(i, j int) bool { return result.Entities[i].ID < result.Entities[j].ID })
+	for i := range body.Orders {
+		result.Results = append(result.Results, sim.OrderResult{Player: player, Index: int32(i), Tick: tick, Code: "not_owner"})
+	}
+	return result
 }

@@ -412,6 +412,12 @@ func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynami
 		return []Vec{{X: gx * 500, Y: gy * 500}}
 	}
 	coarse := e.coarseCorridor(sx/2, sy/2, gx/2, gy/2, r, v.ID)
+	// Hoisted out of the per-neighbor loop: the moving unit's cover penalty
+	// and a direct half-tile-indexed tile fetch are invariant per search.
+	// TileAt({nx*500, ny*500}) for in-grid nx,ny is exactly
+	// Tiles[(ny/2)*Width+nx/2], so routes and costs are unchanged.
+	movingUnit, _ := e.catalog.Unit(v.Type)
+	coverCostly := movingUnit.Armor != "infantry"
 	search := func(restrict bool) []Vec {
 		work := e.navigationSearch.begin(int(gridW * gridH))
 		scores, parents := work.scores, work.parents
@@ -485,11 +491,8 @@ func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynami
 				if d.X != 0 && d.Y != 0 {
 					cost = 1414
 				}
-				if m.TileAt(p).Cover() {
-					u, _ := e.catalog.Unit(v.Type)
-					if u.Armor != "infantry" {
-						cost = cost * 5 / 4
-					}
+				if coverCostly && m.Tiles[(ny/2)*m.Width+nx/2].Cover() {
+					cost = cost * 5 / 4
 				}
 				g := n.g + cost
 				if work.mark[index] != work.generation || g < scores[index] {
@@ -838,7 +841,14 @@ func (e *Engine) updateMovement() {
 				v.PathResolved = false
 			}
 			e.blocked(v)
-			if !air && !requestedRoute && e.pathBudget > 0 && e.state.Tick >= v.NextRouteAt {
+			if !air && e.state.Tick < v.NextRouteAt {
+				// Already replanned within the current backoff second:
+				// waiting costs no path budget. The route-request guard
+				// honors NextRouteAt while goal and revision hold, so a
+				// jammed unit cannot starve later route requests.
+				v.PathGoal = goal
+				v.PathRevision = e.state.NavigationRevision
+			} else if !air && !requestedRoute && e.pathBudget > 0 {
 				// Store a single retry for the next tick. Facing and remainder
 				// have already advanced once; do not integrate movement twice.
 				v.Path = e.findMovementPath(v, goal, true)
@@ -852,8 +862,17 @@ func (e *Engine) updateMovement() {
 				} else {
 					v.PathEnd = v.Path[len(v.Path)-1]
 					v.PathResolved = true
-					v.NextRouteAt = 0
+					// One immediate retry per second: repeated step
+					// blocks in a jam wait instead of replanning
+					// every tick and monopolizing the path budget.
+					v.NextRouteAt = e.state.Tick + seconds(1)
 				}
+			} else if !air && requestedRoute {
+				// A route planned this same tick already has a blocked
+				// first step: back off before replanning it again.
+				v.NextRouteAt = e.state.Tick + seconds(1)
+				v.PathGoal = goal
+				v.PathRevision = e.state.NavigationRevision
 			}
 		}
 	}

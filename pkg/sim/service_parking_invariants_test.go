@@ -174,12 +174,14 @@ func TestCandidateServiceAllocationBudgetRetryAndLegalRecovery(t *testing.T) {
 		t.Fatal("later actor IDs starved", count)
 	}
 	// A saturated exterior apron keeps a paid slot and money without spawning.
+	// The blocker grid covers the full service envelope, including the
+	// fallback apron rings, so no legal pad exists anywhere.
 	e2 := fixture(t)
 	baseInfrastructure(e2, 1)
 	home := e2.spawn("US.airfield", 1, Vec{X: 35000, Y: 40000}, true, 0)
 	blockers := []*Entity{}
-	for y := int32(34000); y <= 46000; y += 1000 {
-		for x := int32(28000); x <= 42000; x += 1000 {
+	for y := int32(26000); y <= 54000; y += 1000 {
+		for x := int32(21000); x <= 49000; x += 1000 {
 			blockers = append(blockers, e2.spawn("US.rifle", 1, Vec{X: x, Y: y}, true, 0))
 		}
 	}
@@ -275,7 +277,7 @@ func TestCandidateBalancedRingCoverageFindsFarSidePocket(t *testing.T) {
 	if !e.serviceParkingClear(v, home, point, nil) {
 		t.Fatal("allocator returned illegal pocket")
 	}
-	if len(e.serviceCandidates(v, home)) > 128 {
+	if len(e.serviceCandidates(v, home)) > serviceCandidateLimit {
 		t.Fatal("candidate bound exceeded")
 	}
 	t.Logf("available far-side pocket%+v, selected%+v, candidates%d", goal, point, len(e.serviceCandidates(v, home)))

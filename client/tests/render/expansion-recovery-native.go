@@ -1,3 +1,5 @@
+//go:build frontline_fixture
+
 // Test-only recovery branch from an exact earned replay. No state edits.
 package main
 

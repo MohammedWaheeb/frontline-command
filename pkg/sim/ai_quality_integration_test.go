@@ -31,7 +31,7 @@ func aiQualityIntegrationAlliedEscort(t *testing.T, air bool) (*Engine, ID, ID) 
 	e.recalculate()
 	e.updateFog()
 	issue(t, e, 1, Order{Kind: "escort", Entities: []ID{follower.ID}, Target: target.ID})
-	e.player(1).AI = "normal"
+	e.player(1).AI, e.player(1).Controller = "normal", "ai"
 	view, _ := e.PlayerView(1)
 	observed := false
 	for _, v := range view.Entities {

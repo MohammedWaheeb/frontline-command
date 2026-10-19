@@ -1,3 +1,18 @@
+# Current scoped local release — 13 October 2026
+
+Simulation 0.3.8/protocol 1 is packaged for Apple Silicon macOS/desktop Chrome.
+Three skirmish maps, five tutorials, practice, two co-op scenarios, integrated art,
+one to four commanders and saves/replays are qualified within the
+[current release report](../work/release-readiness-20261013/REPORT.md).
+Final make test passes shipping Go tests with `-short` and vet, both TypeScript projects, 49 packaging
+checks and 660 runtime checks (665 total, 5 explicit skips, zero failures).
+Campaign/editor and audio are outside the approved current pass. No deployment.
+
+---
+
+The following is retained historical scope and evidence; current qualification
+and limits above supersede conflicting older status statements.
+
 # Frontline Command implementation status
 
 ## Playable release checkpoint — 30 September 2026, 18:45 UTC

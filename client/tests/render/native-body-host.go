@@ -1,3 +1,5 @@
+//go:build frontline_fixture
+
 // Test-only host entry. The exact frozen production Server handles every game
 // route; only POST advice writes are observed. No proxy or additional request.
 package main

@@ -1,3 +1,55 @@
+# Current scoped local release qualification — 13 October 2026
+
+The scoped Apple Silicon macOS/desktop Chrome release is qualified. The final
+canonical checks, native tutorials/co-op, complete regular-profile offline pack,
+multiplayer, natural hosted lifecycle/replay composite and extracted launcher pass.
+[Current report](../work/release-readiness-20261013/REPORT.md) contains the exact
+final ZIP and limits. No scoped source blocker remains. Campaign/editor and audio
+remain outside this pass; physical LAN, other platforms/browsers, human balance
+and continuous 20-minute live rendered combat/FPS are not certified.
+
+---
+
+The following is retained historical scope and evidence; current qualification
+and limits above supersede conflicting older status statements.
+
+# Current release scope — 13 October 2026
+
+The user narrowed the release: complete art and animations, co-op and multiplayer;
+hide Campaign and omit the map editor. The default skirmish selection is Copper
+Junction (2 players), Industrial Valley (4 players), and Port Outskirts (4 players).
+Convoy Union and Twin Outposts retain their required co-op layouts. Keep legacy
+content and archives; campaign/editor completion no longer blocks this release.
+Audio is outside this request.
+
+The scoped implementation and final local package checks are complete. Campaign,
+Editor and story progression entry points are hidden; Co-op has a direct menu
+entry. The actual final-package menu check confirms exactly three skirmish maps,
+both co-op scenarios, no editor tab, and zero browser errors.
+
+Art is integrated and audited: 167 world assets (76 units, 65 faction building
+variants, 26 props), 32,074 declared animation poses, all 141 portraits and 141
+cameos at both resolutions. All five shipped map layouts resolve their art.
+The original 71-effect pack and editable generators are installed. Shahed
+terminal detonation no longer produces a gun flash; impact/destruction feedback
+remains. See [art evidence](../work/art/completion-20261013/FINAL-ART-REPORT.md).
+
+The final package passed four-faction 2v2 movement, paid production, ownership,
+reconnect, results and rematch; both co-op lifecycle/shared checkpoint flows;
+genuine insecure-HTTP Convoy compatibility; and all 132 FX texture pages/355
+variants with memory pressure and cleanup. Source/package integrity passed at
+start and finish. [Final report](../work/release-completion-20261013/REPORT.md).
+
+Physical two-device LAN, new full-art endurance, human balance and natural human
+co-op victory remain unverified. Audio is outside this pass; the broader runtime
+suite retains one existing audio-mix ducking failure. Do not interpret scoped
+completion as audio acceptance or the superseded campaign/editor release.
+
+---
+
+The following is retained historical scope and evidence, superseded where it
+conflicts with the user scope above.
+
 # Frontline Command release blockers
 
 Updated 30 September 2026, 18:40 UTC. This is the current priority list. Implementation continues while review runs. The game is not a complete release yet.

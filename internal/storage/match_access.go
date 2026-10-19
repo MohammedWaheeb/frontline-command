@@ -56,6 +56,13 @@ func (s *SQLite) StartMatchAccess(ctx context.Context, id string, tick uint32, d
 		return err
 	}
 	defer tx.Rollback()
+	var completed int
+	if err = tx.QueryRowContext(ctx, `SELECT COUNT(*) FROM results WHERE id=?`, id).Scan(&completed); err != nil {
+		return err
+	}
+	if completed != 0 {
+		return ErrConflict
+	}
 	if _, err = tx.ExecContext(ctx, `INSERT INTO match_access(match_id,public_replay) VALUES(?,?)`, id, publicReplay); err != nil {
 		return err
 	}
@@ -89,7 +96,7 @@ func (s *SQLite) ListOwnResults(ctx context.Context, owner string, limit int) ([
 	if limit < 1 || limit > 100 {
 		limit = 50
 	}
-	rows, err := s.db.QueryContext(ctx, `SELECT r.id,r.payload,r.created,r.void FROM results r JOIN match_members m ON m.match_id=r.id WHERE m.owner=? ORDER BY r.created DESC,r.id LIMIT ?`, owner, limit)
+	rows, err := s.db.QueryContext(ctx, `SELECT r.id,r.payload,r.created,r.void,r.payload_checksum FROM results r JOIN match_members m ON m.match_id=r.id WHERE m.owner=? ORDER BY r.created DESC,r.id LIMIT ?`, owner, limit)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +104,11 @@ func (s *SQLite) ListOwnResults(ctx context.Context, owner string, limit int) ([
 	out := []Result{}
 	for rows.Next() {
 		var v Result
-		if err = rows.Scan(&v.ID, &v.Payload, &v.Created, &v.Void); err != nil {
+		var payloadChecksum string
+		if err = rows.Scan(&v.ID, &v.Payload, &v.Created, &v.Void, &payloadChecksum); err != nil {
+			return nil, err
+		}
+		if err = verifyResultPayload(v, payloadChecksum); err != nil {
 			return nil, err
 		}
 		out = append(out, v)

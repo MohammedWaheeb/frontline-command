@@ -187,7 +187,15 @@ export class LocalStore {
    previews.set(preview,{file:file.slice(),records:new Map(),entries:[],supported:false,preserveOriginal:true});return preview;
   }
   let total=0;for(const name of stores){const values=value[name]??[];if(!Array.isArray(values)||total+values.length>MAX_RECORDS)throw new RuntimeError('backup_invalid','The backup has too many records or an invalid record list.');total+=values.length}
-  const db=await this.open(),tx=db.transaction(stores),done=completed(tx);done.catch(()=>{});const currentLists=await Promise.all(stores.map(name=>request(tx.objectStore(name).getAll()))) as StoredRecord[][];await done;
+  const db=await this.open(),tx=db.transaction(stores),done=completed(tx);done.catch(()=>{});
+  // The preview only compares record summaries, so stream current records one
+  // cursor step at a time and drop save/replay payloads instead of loading
+  // every stored byte with getAll().
+  const currentLists=await Promise.all(stores.map(name=>new Promise<StoredRecord[]>((resolve,reject)=>{
+   const out:StoredRecord[]=[],cursor=tx.objectStore(name).openCursor();
+   cursor.onerror=()=>reject(storageError(cursor.error));
+   cursor.onsuccess=()=>{const next=cursor.result;if(!next){resolve(out);return}const record=next.value as StoredRecord;out.push(name==='saves'||name==='replays'?{...record,data:new Uint8Array(0)} as StoredRecord:record);next.continue()};
+  })));await done;
   const current=new Map(stores.map((name,index)=>[name,new Map(currentLists[index].map(record=>[record.id,record]))]));
   const records=new Map<string,StoredRecord>(),entries:BackupEntry[]=[];let preserveOriginal=false;
   for(const store of stores){let index=0;for(const raw of value[store]??[]){const key=`${store}:${index++}`;let record:StoredRecord|undefined,error:unknown;

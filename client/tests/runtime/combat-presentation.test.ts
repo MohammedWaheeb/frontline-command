@@ -31,6 +31,22 @@ test('interception is a warning-point outcome distinct from a launch or decoy',(
  const muzzle=combatCue(event(4,'weapon_fired',100,{weapon:'TANK'}),s,catalog)!;assert.equal(muzzle.effects[0],'fx.weapon_muzzle.TANK');
 });
 
+test('physical Shahed terminal detonation retains impact and destruction without a gun flash',()=>{
+ const timeline=new CombatTimeline(),before=snapshot(99);
+ before.entities=[create(EntitySchema,{id:4,type:'IR.shahed',owner:2,health:1000,complete:true,enabled:true,position:{x:4000,y:5000}})];
+ timeline.sync(before,catalog);
+ const terminal=event(1,'weapon_fired',100,{weapon:'IR_SHAHED'});
+ const after=snapshot(100,[terminal,{...event(2,'impact',100,{weapon:'IR_SHAHED'}),entity:0},event(3,'destroyed',100,undefined),event(4,'weapon_fired',100,{weapon:'RIF'})]);
+ after.entities=[];
+ assert.equal(combatCue(terminal,after,catalog),undefined);
+ timeline.sync(after,catalog);
+ assert.deepEqual(timeline.values.map(cue=>({id:cue.id,kind:cue.kind,effects:cue.effects})),[
+  {id:2,kind:'impact',effects:['fx.explosion.small']},
+  {id:3,kind:'destroyed',effects:['fx.explosion.aircraft']},
+  {id:4,kind:'muzzle',effects:['fx.weapon_muzzle.RIF']},
+ ]);
+});
+
 test('scope, future events, stale cues and unsupported kinds fail closed',()=>{
  const s=snapshot();for(const patch of [{scope:'owner',owner:2},{scope:'team',owner:2},{tick:101},{tick:60},{kind:'route_blocked'},{position:undefined},{id:NaN}])assert.equal(combatCue({...event(),...patch},s,catalog),undefined,JSON.stringify(patch));
  assert.ok(combatCue({...event(),scope:'team',owner:3},s,catalog));

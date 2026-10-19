@@ -5,11 +5,11 @@
  "faction": "IR",
  "source_spec": "assets/pipeline/specs/unit.IR.strike.json",
  "frame_size_2x": [
-  166,
+  192,
   124
  ],
  "anchor_2x": [
-  74,
+  90,
   70
  ],
  "layers": [
@@ -21,29 +21,51 @@
   "2x": {
    "beauty": [
     "unit.IR.strike@2x.beauty.0.json",
-    "unit.IR.strike@2x.beauty.1.json"
+    "unit.IR.strike@2x.beauty.1.json",
+    "unit.IR.strike@2x.beauty.2.json",
+    "unit.IR.strike@2x.beauty.3.json",
+    "unit.IR.strike@2x.beauty.4.json",
+    "unit.IR.strike@2x.beauty.5.json"
    ],
    "shadow": [
     "unit.IR.strike@2x.shadow.0.json",
-    "unit.IR.strike@2x.shadow.1.json"
+    "unit.IR.strike@2x.shadow.1.json",
+    "unit.IR.strike@2x.shadow.2.json",
+    "unit.IR.strike@2x.shadow.3.json",
+    "unit.IR.strike@2x.shadow.4.json",
+    "unit.IR.strike@2x.shadow.5.json"
    ],
    "team": [
     "unit.IR.strike@2x.team.0.json",
-    "unit.IR.strike@2x.team.1.json"
+    "unit.IR.strike@2x.team.1.json",
+    "unit.IR.strike@2x.team.2.json",
+    "unit.IR.strike@2x.team.3.json",
+    "unit.IR.strike@2x.team.4.json"
    ]
   },
   "1x": {
    "beauty": [
     "unit.IR.strike@1x.beauty.0.json",
-    "unit.IR.strike@1x.beauty.1.json"
+    "unit.IR.strike@1x.beauty.1.json",
+    "unit.IR.strike@1x.beauty.2.json",
+    "unit.IR.strike@1x.beauty.3.json",
+    "unit.IR.strike@1x.beauty.4.json",
+    "unit.IR.strike@1x.beauty.5.json"
    ],
    "shadow": [
     "unit.IR.strike@1x.shadow.0.json",
-    "unit.IR.strike@1x.shadow.1.json"
+    "unit.IR.strike@1x.shadow.1.json",
+    "unit.IR.strike@1x.shadow.2.json",
+    "unit.IR.strike@1x.shadow.3.json",
+    "unit.IR.strike@1x.shadow.4.json",
+    "unit.IR.strike@1x.shadow.5.json"
    ],
    "team": [
     "unit.IR.strike@1x.team.0.json",
-    "unit.IR.strike@1x.team.1.json"
+    "unit.IR.strike@1x.team.1.json",
+    "unit.IR.strike@1x.team.2.json",
+    "unit.IR.strike@1x.team.3.json",
+    "unit.IR.strike@1x.team.4.json"
    ]
   }
  },
@@ -106,7 +128,94 @@
    "layers": [
     "beauty",
     "shadow"
-   ]
+   ],
+   "note": "Correction: canonical crash is payload-free (aircraft-payload.ts); body/prop transforms unchanged"
+  },
+  {
+   "name": "parked",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true
+  },
+  {
+   "name": "rearm",
+   "part": "body",
+   "directions": 16,
+   "frames": 6,
+   "fps": 8,
+   "loop": true
+  },
+  {
+   "name": "launch",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false
+  },
+  {
+   "name": "recover",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false
+  },
+  {
+   "name": "parked_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "note": "Owned disclosed zero ammunition: canonical clock and non-payload transforms; payload solids and cast shadows absent"
+  },
+  {
+   "name": "rearm_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 6,
+   "fps": 8,
+   "loop": true,
+   "note": "Owned disclosed zero ammunition: canonical clock and non-payload transforms; payload solids and cast shadows absent"
+  },
+  {
+   "name": "launch_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false,
+   "note": "Owned disclosed zero ammunition: canonical clock and non-payload transforms; payload solids and cast shadows absent"
+  },
+  {
+   "name": "recover_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 4,
+   "fps": 10,
+   "loop": false,
+   "note": "Owned disclosed zero ammunition: canonical clock and non-payload transforms; payload solids and cast shadows absent"
+  },
+  {
+   "name": "damaged_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 1,
+   "fps": 0,
+   "loop": true,
+   "note": "Owned disclosed zero ammunition: canonical clock and non-payload transforms; payload solids and cast shadows absent"
+  },
+  {
+   "name": "fire_empty",
+   "part": "body",
+   "directions": 16,
+   "frames": 2,
+   "fps": 8,
+   "loop": false,
+   "note": "Owned disclosed zero ammunition: canonical clock and non-payload transforms; payload solids and cast shadows absent"
   }
  ],
  "aliases": [],
@@ -826,6 +935,70 @@
     0.0,
     -25.1
    ],
+   "damaged_empty/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "damaged_empty/d15_f00": [
+    0.0,
+    -25.1
+   ],
    "empty/d00_f00": [
     0.0,
     -25.1
@@ -1146,6 +1319,134 @@
     0.0,
     -25.1
    ],
+   "fire_empty/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d00_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d01_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d02_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d03_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d04_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d05_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d06_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d07_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d08_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d09_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d10_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d11_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d12_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d13_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d14_f01": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "fire_empty/d15_f01": [
+    0.0,
+    -25.1
+   ],
    "fly/d00_f00": [
     0.0,
     -25.1
@@ -1335,6 +1636,1926 @@
     -25.1
    ],
    "fly/d15_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d00_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d00_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d00_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d01_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d01_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d01_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d02_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d02_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d02_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d03_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d03_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d03_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d04_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d04_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d04_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d05_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d05_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d05_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d06_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d06_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d06_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d07_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d07_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d07_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d08_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d08_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d08_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d09_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d09_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d09_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d10_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d10_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d10_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d11_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d11_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d11_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d12_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d12_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d12_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d13_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d13_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d13_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d14_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d14_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d14_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch/d15_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch/d15_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch/d15_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d00_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d00_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d00_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d01_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d01_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d01_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d02_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d02_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d02_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d03_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d03_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d03_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d04_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d04_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d04_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d05_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d05_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d05_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d06_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d06_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d06_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d07_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d07_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d07_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d08_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d08_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d08_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d09_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d09_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d09_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d10_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d10_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d10_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d11_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d11_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d11_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d12_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d12_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d12_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d13_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d13_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d13_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d14_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d14_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d14_f03": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d15_f01": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d15_f02": [
+    0.0,
+    -25.1
+   ],
+   "launch_empty/d15_f03": [
+    0.0,
+    -25.1
+   ],
+   "parked/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "parked_empty/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d00_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d00_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d00_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d00_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d00_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d01_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d01_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d01_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d01_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d01_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d02_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d02_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d02_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d02_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d02_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d03_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d03_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d03_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d03_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d03_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d04_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d04_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d04_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d04_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d04_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d05_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d05_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d05_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d05_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d05_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d06_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d06_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d06_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d06_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d06_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d07_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d07_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d07_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d07_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d07_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d08_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d08_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d08_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d08_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d08_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d09_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d09_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d09_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d09_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d09_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d10_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d10_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d10_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d10_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d10_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d11_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d11_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d11_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d11_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d11_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d12_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d12_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d12_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d12_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d12_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d13_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d13_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d13_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d13_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d13_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d14_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d14_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d14_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d14_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d14_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d15_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d15_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d15_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d15_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm/d15_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d00_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d00_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d00_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d00_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d00_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d01_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d01_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d01_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d01_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d01_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d02_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d02_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d02_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d02_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d02_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d03_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d03_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d03_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d03_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d03_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d04_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d04_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d04_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d04_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d04_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d05_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d05_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d05_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d05_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d05_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d06_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d06_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d06_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d06_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d06_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d07_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d07_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d07_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d07_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d07_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d08_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d08_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d08_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d08_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d08_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d09_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d09_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d09_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d09_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d09_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d10_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d10_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d10_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d10_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d10_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d11_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d11_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d11_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d11_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d11_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d12_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d12_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d12_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d12_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d12_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d13_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d13_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d13_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d13_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d13_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d14_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d14_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d14_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d14_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d14_f05": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d15_f01": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d15_f02": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d15_f03": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d15_f04": [
+    0.0,
+    -25.1
+   ],
+   "rearm_empty/d15_f05": [
+    0.0,
+    -25.1
+   ],
+   "recover/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d00_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d00_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d00_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d01_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d01_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d01_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d02_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d02_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d02_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d03_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d03_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d03_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d04_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d04_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d04_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d05_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d05_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d05_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d06_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d06_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d06_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d07_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d07_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d07_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d08_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d08_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d08_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d09_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d09_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d09_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d10_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d10_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d10_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d11_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d11_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d11_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d12_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d12_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d12_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d13_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d13_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d13_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d14_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d14_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d14_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover/d15_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover/d15_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover/d15_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d00_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d00_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d00_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d00_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d01_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d01_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d01_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d01_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d02_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d02_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d02_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d02_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d03_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d03_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d03_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d03_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d04_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d04_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d04_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d04_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d05_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d05_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d05_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d05_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d06_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d06_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d06_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d06_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d07_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d07_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d07_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d07_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d08_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d08_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d08_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d08_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d09_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d09_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d09_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d09_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d10_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d10_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d10_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d10_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d11_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d11_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d11_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d11_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d12_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d12_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d12_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d12_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d13_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d13_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d13_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d13_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d14_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d14_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d14_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d14_f03": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d15_f00": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d15_f01": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d15_f02": [
+    0.0,
+    -25.1
+   ],
+   "recover_empty/d15_f03": [
     0.0,
     -25.1
    ]
@@ -2044,6 +4265,70 @@
     2.5,
     -5.8
    ],
+   "damaged_empty/d00_f00": [
+    1.9,
+    -5.3
+   ],
+   "damaged_empty/d01_f00": [
+    1.0,
+    -5.0
+   ],
+   "damaged_empty/d02_f00": [
+    0.0,
+    -4.9
+   ],
+   "damaged_empty/d03_f00": [
+    -1.0,
+    -5.0
+   ],
+   "damaged_empty/d04_f00": [
+    -1.9,
+    -5.3
+   ],
+   "damaged_empty/d05_f00": [
+    -2.5,
+    -5.8
+   ],
+   "damaged_empty/d06_f00": [
+    -2.7,
+    -6.3
+   ],
+   "damaged_empty/d07_f00": [
+    -2.5,
+    -6.8
+   ],
+   "damaged_empty/d08_f00": [
+    -1.9,
+    -7.2
+   ],
+   "damaged_empty/d09_f00": [
+    -1.0,
+    -7.5
+   ],
+   "damaged_empty/d10_f00": [
+    0.0,
+    -7.6
+   ],
+   "damaged_empty/d11_f00": [
+    1.0,
+    -7.5
+   ],
+   "damaged_empty/d12_f00": [
+    1.9,
+    -7.2
+   ],
+   "damaged_empty/d13_f00": [
+    2.5,
+    -6.8
+   ],
+   "damaged_empty/d14_f00": [
+    2.7,
+    -6.3
+   ],
+   "damaged_empty/d15_f00": [
+    2.5,
+    -5.8
+   ],
    "empty/d00_f00": [
     1.9,
     -5.3
@@ -2364,6 +4649,134 @@
     2.5,
     -5.8
    ],
+   "fire_empty/d00_f00": [
+    1.9,
+    -5.3
+   ],
+   "fire_empty/d00_f01": [
+    1.9,
+    -5.3
+   ],
+   "fire_empty/d01_f00": [
+    1.0,
+    -5.0
+   ],
+   "fire_empty/d01_f01": [
+    1.0,
+    -5.0
+   ],
+   "fire_empty/d02_f00": [
+    0.0,
+    -4.9
+   ],
+   "fire_empty/d02_f01": [
+    0.0,
+    -4.9
+   ],
+   "fire_empty/d03_f00": [
+    -1.0,
+    -5.0
+   ],
+   "fire_empty/d03_f01": [
+    -1.0,
+    -5.0
+   ],
+   "fire_empty/d04_f00": [
+    -1.9,
+    -5.3
+   ],
+   "fire_empty/d04_f01": [
+    -1.9,
+    -5.3
+   ],
+   "fire_empty/d05_f00": [
+    -2.5,
+    -5.8
+   ],
+   "fire_empty/d05_f01": [
+    -2.5,
+    -5.8
+   ],
+   "fire_empty/d06_f00": [
+    -2.7,
+    -6.3
+   ],
+   "fire_empty/d06_f01": [
+    -2.7,
+    -6.3
+   ],
+   "fire_empty/d07_f00": [
+    -2.5,
+    -6.8
+   ],
+   "fire_empty/d07_f01": [
+    -2.5,
+    -6.8
+   ],
+   "fire_empty/d08_f00": [
+    -1.9,
+    -7.2
+   ],
+   "fire_empty/d08_f01": [
+    -1.9,
+    -7.2
+   ],
+   "fire_empty/d09_f00": [
+    -1.0,
+    -7.5
+   ],
+   "fire_empty/d09_f01": [
+    -1.0,
+    -7.5
+   ],
+   "fire_empty/d10_f00": [
+    0.0,
+    -7.6
+   ],
+   "fire_empty/d10_f01": [
+    0.0,
+    -7.6
+   ],
+   "fire_empty/d11_f00": [
+    1.0,
+    -7.5
+   ],
+   "fire_empty/d11_f01": [
+    1.0,
+    -7.5
+   ],
+   "fire_empty/d12_f00": [
+    1.9,
+    -7.2
+   ],
+   "fire_empty/d12_f01": [
+    1.9,
+    -7.2
+   ],
+   "fire_empty/d13_f00": [
+    2.5,
+    -6.8
+   ],
+   "fire_empty/d13_f01": [
+    2.5,
+    -6.8
+   ],
+   "fire_empty/d14_f00": [
+    2.7,
+    -6.3
+   ],
+   "fire_empty/d14_f01": [
+    2.7,
+    -6.3
+   ],
+   "fire_empty/d15_f00": [
+    2.5,
+    -5.8
+   ],
+   "fire_empty/d15_f01": [
+    2.5,
+    -5.8
+   ],
    "fly/d00_f00": [
     1.9,
     -5.3
@@ -2555,9 +4968,1929 @@
    "fly/d15_f02": [
     2.5,
     -5.8
+   ],
+   "launch/d00_f00": [
+    1.9,
+    -8.4
+   ],
+   "launch/d00_f01": [
+    1.5,
+    -9.2
+   ],
+   "launch/d00_f02": [
+    2.1,
+    -10.4
+   ],
+   "launch/d00_f03": [
+    2.0,
+    -6.8
+   ],
+   "launch/d01_f00": [
+    1.0,
+    -8.2
+   ],
+   "launch/d01_f01": [
+    0.8,
+    -9.0
+   ],
+   "launch/d01_f02": [
+    1.2,
+    -10.1
+   ],
+   "launch/d01_f03": [
+    1.1,
+    -6.4
+   ],
+   "launch/d02_f00": [
+    0.0,
+    -8.0
+   ],
+   "launch/d02_f01": [
+    0.0,
+    -8.9
+   ],
+   "launch/d02_f02": [
+    0.0,
+    -9.9
+   ],
+   "launch/d02_f03": [
+    0.0,
+    -6.3
+   ],
+   "launch/d03_f00": [
+    -1.0,
+    -8.2
+   ],
+   "launch/d03_f01": [
+    -0.8,
+    -9.0
+   ],
+   "launch/d03_f02": [
+    -1.2,
+    -10.1
+   ],
+   "launch/d03_f03": [
+    -1.1,
+    -6.4
+   ],
+   "launch/d04_f00": [
+    -1.9,
+    -8.4
+   ],
+   "launch/d04_f01": [
+    -1.5,
+    -9.2
+   ],
+   "launch/d04_f02": [
+    -2.1,
+    -10.4
+   ],
+   "launch/d04_f03": [
+    -2.0,
+    -6.8
+   ],
+   "launch/d05_f00": [
+    -2.5,
+    -8.9
+   ],
+   "launch/d05_f01": [
+    -1.9,
+    -9.5
+   ],
+   "launch/d05_f02": [
+    -2.8,
+    -10.9
+   ],
+   "launch/d05_f03": [
+    -2.7,
+    -7.2
+   ],
+   "launch/d06_f00": [
+    -2.7,
+    -9.4
+   ],
+   "launch/d06_f01": [
+    -2.1,
+    -9.9
+   ],
+   "launch/d06_f02": [
+    -3.0,
+    -11.5
+   ],
+   "launch/d06_f03": [
+    -2.9,
+    -7.8
+   ],
+   "launch/d07_f00": [
+    -2.5,
+    -9.9
+   ],
+   "launch/d07_f01": [
+    -1.9,
+    -10.3
+   ],
+   "launch/d07_f02": [
+    -2.8,
+    -12.0
+   ],
+   "launch/d07_f03": [
+    -2.7,
+    -8.3
+   ],
+   "launch/d08_f00": [
+    -1.9,
+    -10.4
+   ],
+   "launch/d08_f01": [
+    -1.5,
+    -10.6
+   ],
+   "launch/d08_f02": [
+    -2.1,
+    -12.5
+   ],
+   "launch/d08_f03": [
+    -2.0,
+    -8.8
+   ],
+   "launch/d09_f00": [
+    -1.0,
+    -10.7
+   ],
+   "launch/d09_f01": [
+    -0.8,
+    -10.9
+   ],
+   "launch/d09_f02": [
+    -1.2,
+    -12.9
+   ],
+   "launch/d09_f03": [
+    -1.1,
+    -9.1
+   ],
+   "launch/d10_f00": [
+    0.0,
+    -10.8
+   ],
+   "launch/d10_f01": [
+    0.0,
+    -10.9
+   ],
+   "launch/d10_f02": [
+    0.0,
+    -13.0
+   ],
+   "launch/d10_f03": [
+    0.0,
+    -9.2
+   ],
+   "launch/d11_f00": [
+    1.0,
+    -10.7
+   ],
+   "launch/d11_f01": [
+    0.8,
+    -10.9
+   ],
+   "launch/d11_f02": [
+    1.2,
+    -12.9
+   ],
+   "launch/d11_f03": [
+    1.1,
+    -9.1
+   ],
+   "launch/d12_f00": [
+    1.9,
+    -10.4
+   ],
+   "launch/d12_f01": [
+    1.5,
+    -10.6
+   ],
+   "launch/d12_f02": [
+    2.1,
+    -12.5
+   ],
+   "launch/d12_f03": [
+    2.0,
+    -8.8
+   ],
+   "launch/d13_f00": [
+    2.5,
+    -9.9
+   ],
+   "launch/d13_f01": [
+    1.9,
+    -10.3
+   ],
+   "launch/d13_f02": [
+    2.8,
+    -12.0
+   ],
+   "launch/d13_f03": [
+    2.7,
+    -8.3
+   ],
+   "launch/d14_f00": [
+    2.7,
+    -9.4
+   ],
+   "launch/d14_f01": [
+    2.1,
+    -9.9
+   ],
+   "launch/d14_f02": [
+    3.0,
+    -11.5
+   ],
+   "launch/d14_f03": [
+    2.9,
+    -7.8
+   ],
+   "launch/d15_f00": [
+    2.5,
+    -8.9
+   ],
+   "launch/d15_f01": [
+    1.9,
+    -9.5
+   ],
+   "launch/d15_f02": [
+    2.8,
+    -10.9
+   ],
+   "launch/d15_f03": [
+    2.7,
+    -7.2
+   ],
+   "launch_empty/d00_f00": [
+    1.9,
+    -8.4
+   ],
+   "launch_empty/d00_f01": [
+    1.5,
+    -9.2
+   ],
+   "launch_empty/d00_f02": [
+    2.1,
+    -10.4
+   ],
+   "launch_empty/d00_f03": [
+    2.0,
+    -6.8
+   ],
+   "launch_empty/d01_f00": [
+    1.0,
+    -8.2
+   ],
+   "launch_empty/d01_f01": [
+    0.8,
+    -9.0
+   ],
+   "launch_empty/d01_f02": [
+    1.2,
+    -10.1
+   ],
+   "launch_empty/d01_f03": [
+    1.1,
+    -6.4
+   ],
+   "launch_empty/d02_f00": [
+    0.0,
+    -8.0
+   ],
+   "launch_empty/d02_f01": [
+    0.0,
+    -8.9
+   ],
+   "launch_empty/d02_f02": [
+    0.0,
+    -9.9
+   ],
+   "launch_empty/d02_f03": [
+    0.0,
+    -6.3
+   ],
+   "launch_empty/d03_f00": [
+    -1.0,
+    -8.2
+   ],
+   "launch_empty/d03_f01": [
+    -0.8,
+    -9.0
+   ],
+   "launch_empty/d03_f02": [
+    -1.2,
+    -10.1
+   ],
+   "launch_empty/d03_f03": [
+    -1.1,
+    -6.4
+   ],
+   "launch_empty/d04_f00": [
+    -1.9,
+    -8.4
+   ],
+   "launch_empty/d04_f01": [
+    -1.5,
+    -9.2
+   ],
+   "launch_empty/d04_f02": [
+    -2.1,
+    -10.4
+   ],
+   "launch_empty/d04_f03": [
+    -2.0,
+    -6.8
+   ],
+   "launch_empty/d05_f00": [
+    -2.5,
+    -8.9
+   ],
+   "launch_empty/d05_f01": [
+    -1.9,
+    -9.5
+   ],
+   "launch_empty/d05_f02": [
+    -2.8,
+    -10.9
+   ],
+   "launch_empty/d05_f03": [
+    -2.7,
+    -7.2
+   ],
+   "launch_empty/d06_f00": [
+    -2.7,
+    -9.4
+   ],
+   "launch_empty/d06_f01": [
+    -2.1,
+    -9.9
+   ],
+   "launch_empty/d06_f02": [
+    -3.0,
+    -11.5
+   ],
+   "launch_empty/d06_f03": [
+    -2.9,
+    -7.8
+   ],
+   "launch_empty/d07_f00": [
+    -2.5,
+    -9.9
+   ],
+   "launch_empty/d07_f01": [
+    -1.9,
+    -10.3
+   ],
+   "launch_empty/d07_f02": [
+    -2.8,
+    -12.0
+   ],
+   "launch_empty/d07_f03": [
+    -2.7,
+    -8.3
+   ],
+   "launch_empty/d08_f00": [
+    -1.9,
+    -10.4
+   ],
+   "launch_empty/d08_f01": [
+    -1.5,
+    -10.6
+   ],
+   "launch_empty/d08_f02": [
+    -2.1,
+    -12.5
+   ],
+   "launch_empty/d08_f03": [
+    -2.0,
+    -8.8
+   ],
+   "launch_empty/d09_f00": [
+    -1.0,
+    -10.7
+   ],
+   "launch_empty/d09_f01": [
+    -0.8,
+    -10.9
+   ],
+   "launch_empty/d09_f02": [
+    -1.2,
+    -12.9
+   ],
+   "launch_empty/d09_f03": [
+    -1.1,
+    -9.1
+   ],
+   "launch_empty/d10_f00": [
+    0.0,
+    -10.8
+   ],
+   "launch_empty/d10_f01": [
+    0.0,
+    -10.9
+   ],
+   "launch_empty/d10_f02": [
+    0.0,
+    -13.0
+   ],
+   "launch_empty/d10_f03": [
+    0.0,
+    -9.2
+   ],
+   "launch_empty/d11_f00": [
+    1.0,
+    -10.7
+   ],
+   "launch_empty/d11_f01": [
+    0.8,
+    -10.9
+   ],
+   "launch_empty/d11_f02": [
+    1.2,
+    -12.9
+   ],
+   "launch_empty/d11_f03": [
+    1.1,
+    -9.1
+   ],
+   "launch_empty/d12_f00": [
+    1.9,
+    -10.4
+   ],
+   "launch_empty/d12_f01": [
+    1.5,
+    -10.6
+   ],
+   "launch_empty/d12_f02": [
+    2.1,
+    -12.5
+   ],
+   "launch_empty/d12_f03": [
+    2.0,
+    -8.8
+   ],
+   "launch_empty/d13_f00": [
+    2.5,
+    -9.9
+   ],
+   "launch_empty/d13_f01": [
+    1.9,
+    -10.3
+   ],
+   "launch_empty/d13_f02": [
+    2.8,
+    -12.0
+   ],
+   "launch_empty/d13_f03": [
+    2.7,
+    -8.3
+   ],
+   "launch_empty/d14_f00": [
+    2.7,
+    -9.4
+   ],
+   "launch_empty/d14_f01": [
+    2.1,
+    -9.9
+   ],
+   "launch_empty/d14_f02": [
+    3.0,
+    -11.5
+   ],
+   "launch_empty/d14_f03": [
+    2.9,
+    -7.8
+   ],
+   "launch_empty/d15_f00": [
+    2.5,
+    -8.9
+   ],
+   "launch_empty/d15_f01": [
+    1.9,
+    -9.5
+   ],
+   "launch_empty/d15_f02": [
+    2.8,
+    -10.9
+   ],
+   "launch_empty/d15_f03": [
+    2.7,
+    -7.2
+   ],
+   "parked/d00_f00": [
+    1.9,
+    -8.4
+   ],
+   "parked/d01_f00": [
+    1.0,
+    -8.2
+   ],
+   "parked/d02_f00": [
+    0.0,
+    -8.0
+   ],
+   "parked/d03_f00": [
+    -1.0,
+    -8.2
+   ],
+   "parked/d04_f00": [
+    -1.9,
+    -8.4
+   ],
+   "parked/d05_f00": [
+    -2.5,
+    -8.9
+   ],
+   "parked/d06_f00": [
+    -2.7,
+    -9.4
+   ],
+   "parked/d07_f00": [
+    -2.5,
+    -9.9
+   ],
+   "parked/d08_f00": [
+    -1.9,
+    -10.4
+   ],
+   "parked/d09_f00": [
+    -1.0,
+    -10.7
+   ],
+   "parked/d10_f00": [
+    0.0,
+    -10.8
+   ],
+   "parked/d11_f00": [
+    1.0,
+    -10.7
+   ],
+   "parked/d12_f00": [
+    1.9,
+    -10.4
+   ],
+   "parked/d13_f00": [
+    2.5,
+    -9.9
+   ],
+   "parked/d14_f00": [
+    2.7,
+    -9.4
+   ],
+   "parked/d15_f00": [
+    2.5,
+    -8.9
+   ],
+   "parked_empty/d00_f00": [
+    1.9,
+    -8.4
+   ],
+   "parked_empty/d01_f00": [
+    1.0,
+    -8.2
+   ],
+   "parked_empty/d02_f00": [
+    0.0,
+    -8.0
+   ],
+   "parked_empty/d03_f00": [
+    -1.0,
+    -8.2
+   ],
+   "parked_empty/d04_f00": [
+    -1.9,
+    -8.4
+   ],
+   "parked_empty/d05_f00": [
+    -2.5,
+    -8.9
+   ],
+   "parked_empty/d06_f00": [
+    -2.7,
+    -9.4
+   ],
+   "parked_empty/d07_f00": [
+    -2.5,
+    -9.9
+   ],
+   "parked_empty/d08_f00": [
+    -1.9,
+    -10.4
+   ],
+   "parked_empty/d09_f00": [
+    -1.0,
+    -10.7
+   ],
+   "parked_empty/d10_f00": [
+    0.0,
+    -10.8
+   ],
+   "parked_empty/d11_f00": [
+    1.0,
+    -10.7
+   ],
+   "parked_empty/d12_f00": [
+    1.9,
+    -10.4
+   ],
+   "parked_empty/d13_f00": [
+    2.5,
+    -9.9
+   ],
+   "parked_empty/d14_f00": [
+    2.7,
+    -9.4
+   ],
+   "parked_empty/d15_f00": [
+    2.5,
+    -8.9
+   ],
+   "rearm/d00_f00": [
+    1.9,
+    -8.4
+   ],
+   "rearm/d00_f01": [
+    1.9,
+    -8.4
+   ],
+   "rearm/d00_f02": [
+    1.9,
+    -8.4
+   ],
+   "rearm/d00_f03": [
+    1.9,
+    -8.4
+   ],
+   "rearm/d00_f04": [
+    1.9,
+    -8.4
+   ],
+   "rearm/d00_f05": [
+    1.9,
+    -8.4
+   ],
+   "rearm/d01_f00": [
+    1.0,
+    -8.2
+   ],
+   "rearm/d01_f01": [
+    1.0,
+    -8.2
+   ],
+   "rearm/d01_f02": [
+    1.0,
+    -8.2
+   ],
+   "rearm/d01_f03": [
+    1.0,
+    -8.2
+   ],
+   "rearm/d01_f04": [
+    1.0,
+    -8.2
+   ],
+   "rearm/d01_f05": [
+    1.0,
+    -8.2
+   ],
+   "rearm/d02_f00": [
+    0.0,
+    -8.0
+   ],
+   "rearm/d02_f01": [
+    0.0,
+    -8.0
+   ],
+   "rearm/d02_f02": [
+    0.0,
+    -8.0
+   ],
+   "rearm/d02_f03": [
+    0.0,
+    -8.0
+   ],
+   "rearm/d02_f04": [
+    0.0,
+    -8.0
+   ],
+   "rearm/d02_f05": [
+    0.0,
+    -8.0
+   ],
+   "rearm/d03_f00": [
+    -1.0,
+    -8.2
+   ],
+   "rearm/d03_f01": [
+    -1.0,
+    -8.2
+   ],
+   "rearm/d03_f02": [
+    -1.0,
+    -8.2
+   ],
+   "rearm/d03_f03": [
+    -1.0,
+    -8.2
+   ],
+   "rearm/d03_f04": [
+    -1.0,
+    -8.2
+   ],
+   "rearm/d03_f05": [
+    -1.0,
+    -8.2
+   ],
+   "rearm/d04_f00": [
+    -1.9,
+    -8.4
+   ],
+   "rearm/d04_f01": [
+    -1.9,
+    -8.4
+   ],
+   "rearm/d04_f02": [
+    -1.9,
+    -8.4
+   ],
+   "rearm/d04_f03": [
+    -1.9,
+    -8.4
+   ],
+   "rearm/d04_f04": [
+    -1.9,
+    -8.4
+   ],
+   "rearm/d04_f05": [
+    -1.9,
+    -8.4
+   ],
+   "rearm/d05_f00": [
+    -2.5,
+    -8.9
+   ],
+   "rearm/d05_f01": [
+    -2.5,
+    -8.9
+   ],
+   "rearm/d05_f02": [
+    -2.5,
+    -8.9
+   ],
+   "rearm/d05_f03": [
+    -2.5,
+    -8.9
+   ],
+   "rearm/d05_f04": [
+    -2.5,
+    -8.9
+   ],
+   "rearm/d05_f05": [
+    -2.5,
+    -8.9
+   ],
+   "rearm/d06_f00": [
+    -2.7,
+    -9.4
+   ],
+   "rearm/d06_f01": [
+    -2.7,
+    -9.4
+   ],
+   "rearm/d06_f02": [
+    -2.7,
+    -9.4
+   ],
+   "rearm/d06_f03": [
+    -2.7,
+    -9.4
+   ],
+   "rearm/d06_f04": [
+    -2.7,
+    -9.4
+   ],
+   "rearm/d06_f05": [
+    -2.7,
+    -9.4
+   ],
+   "rearm/d07_f00": [
+    -2.5,
+    -9.9
+   ],
+   "rearm/d07_f01": [
+    -2.5,
+    -9.9
+   ],
+   "rearm/d07_f02": [
+    -2.5,
+    -9.9
+   ],
+   "rearm/d07_f03": [
+    -2.5,
+    -9.9
+   ],
+   "rearm/d07_f04": [
+    -2.5,
+    -9.9
+   ],
+   "rearm/d07_f05": [
+    -2.5,
+    -9.9
+   ],
+   "rearm/d08_f00": [
+    -1.9,
+    -10.4
+   ],
+   "rearm/d08_f01": [
+    -1.9,
+    -10.4
+   ],
+   "rearm/d08_f02": [
+    -1.9,
+    -10.4
+   ],
+   "rearm/d08_f03": [
+    -1.9,
+    -10.4
+   ],
+   "rearm/d08_f04": [
+    -1.9,
+    -10.4
+   ],
+   "rearm/d08_f05": [
+    -1.9,
+    -10.4
+   ],
+   "rearm/d09_f00": [
+    -1.0,
+    -10.7
+   ],
+   "rearm/d09_f01": [
+    -1.0,
+    -10.7
+   ],
+   "rearm/d09_f02": [
+    -1.0,
+    -10.7
+   ],
+   "rearm/d09_f03": [
+    -1.0,
+    -10.7
+   ],
+   "rearm/d09_f04": [
+    -1.0,
+    -10.7
+   ],
+   "rearm/d09_f05": [
+    -1.0,
+    -10.7
+   ],
+   "rearm/d10_f00": [
+    0.0,
+    -10.8
+   ],
+   "rearm/d10_f01": [
+    0.0,
+    -10.8
+   ],
+   "rearm/d10_f02": [
+    0.0,
+    -10.8
+   ],
+   "rearm/d10_f03": [
+    0.0,
+    -10.8
+   ],
+   "rearm/d10_f04": [
+    0.0,
+    -10.8
+   ],
+   "rearm/d10_f05": [
+    0.0,
+    -10.8
+   ],
+   "rearm/d11_f00": [
+    1.0,
+    -10.7
+   ],
+   "rearm/d11_f01": [
+    1.0,
+    -10.7
+   ],
+   "rearm/d11_f02": [
+    1.0,
+    -10.7
+   ],
+   "rearm/d11_f03": [
+    1.0,
+    -10.7
+   ],
+   "rearm/d11_f04": [
+    1.0,
+    -10.7
+   ],
+   "rearm/d11_f05": [
+    1.0,
+    -10.7
+   ],
+   "rearm/d12_f00": [
+    1.9,
+    -10.4
+   ],
+   "rearm/d12_f01": [
+    1.9,
+    -10.4
+   ],
+   "rearm/d12_f02": [
+    1.9,
+    -10.4
+   ],
+   "rearm/d12_f03": [
+    1.9,
+    -10.4
+   ],
+   "rearm/d12_f04": [
+    1.9,
+    -10.4
+   ],
+   "rearm/d12_f05": [
+    1.9,
+    -10.4
+   ],
+   "rearm/d13_f00": [
+    2.5,
+    -9.9
+   ],
+   "rearm/d13_f01": [
+    2.5,
+    -9.9
+   ],
+   "rearm/d13_f02": [
+    2.5,
+    -9.9
+   ],
+   "rearm/d13_f03": [
+    2.5,
+    -9.9
+   ],
+   "rearm/d13_f04": [
+    2.5,
+    -9.9
+   ],
+   "rearm/d13_f05": [
+    2.5,
+    -9.9
+   ],
+   "rearm/d14_f00": [
+    2.7,
+    -9.4
+   ],
+   "rearm/d14_f01": [
+    2.7,
+    -9.4
+   ],
+   "rearm/d14_f02": [
+    2.7,
+    -9.4
+   ],
+   "rearm/d14_f03": [
+    2.7,
+    -9.4
+   ],
+   "rearm/d14_f04": [
+    2.7,
+    -9.4
+   ],
+   "rearm/d14_f05": [
+    2.7,
+    -9.4
+   ],
+   "rearm/d15_f00": [
+    2.5,
+    -8.9
+   ],
+   "rearm/d15_f01": [
+    2.5,
+    -8.9
+   ],
+   "rearm/d15_f02": [
+    2.5,
+    -8.9
+   ],
+   "rearm/d15_f03": [
+    2.5,
+    -8.9
+   ],
+   "rearm/d15_f04": [
+    2.5,
+    -8.9
+   ],
+   "rearm/d15_f05": [
+    2.5,
+    -8.9
+   ],
+   "rearm_empty/d00_f00": [
+    1.9,
+    -8.4
+   ],
+   "rearm_empty/d00_f01": [
+    1.9,
+    -8.4
+   ],
+   "rearm_empty/d00_f02": [
+    1.9,
+    -8.4
+   ],
+   "rearm_empty/d00_f03": [
+    1.9,
+    -8.4
+   ],
+   "rearm_empty/d00_f04": [
+    1.9,
+    -8.4
+   ],
+   "rearm_empty/d00_f05": [
+    1.9,
+    -8.4
+   ],
+   "rearm_empty/d01_f00": [
+    1.0,
+    -8.2
+   ],
+   "rearm_empty/d01_f01": [
+    1.0,
+    -8.2
+   ],
+   "rearm_empty/d01_f02": [
+    1.0,
+    -8.2
+   ],
+   "rearm_empty/d01_f03": [
+    1.0,
+    -8.2
+   ],
+   "rearm_empty/d01_f04": [
+    1.0,
+    -8.2
+   ],
+   "rearm_empty/d01_f05": [
+    1.0,
+    -8.2
+   ],
+   "rearm_empty/d02_f00": [
+    0.0,
+    -8.0
+   ],
+   "rearm_empty/d02_f01": [
+    0.0,
+    -8.0
+   ],
+   "rearm_empty/d02_f02": [
+    0.0,
+    -8.0
+   ],
+   "rearm_empty/d02_f03": [
+    0.0,
+    -8.0
+   ],
+   "rearm_empty/d02_f04": [
+    0.0,
+    -8.0
+   ],
+   "rearm_empty/d02_f05": [
+    0.0,
+    -8.0
+   ],
+   "rearm_empty/d03_f00": [
+    -1.0,
+    -8.2
+   ],
+   "rearm_empty/d03_f01": [
+    -1.0,
+    -8.2
+   ],
+   "rearm_empty/d03_f02": [
+    -1.0,
+    -8.2
+   ],
+   "rearm_empty/d03_f03": [
+    -1.0,
+    -8.2
+   ],
+   "rearm_empty/d03_f04": [
+    -1.0,
+    -8.2
+   ],
+   "rearm_empty/d03_f05": [
+    -1.0,
+    -8.2
+   ],
+   "rearm_empty/d04_f00": [
+    -1.9,
+    -8.4
+   ],
+   "rearm_empty/d04_f01": [
+    -1.9,
+    -8.4
+   ],
+   "rearm_empty/d04_f02": [
+    -1.9,
+    -8.4
+   ],
+   "rearm_empty/d04_f03": [
+    -1.9,
+    -8.4
+   ],
+   "rearm_empty/d04_f04": [
+    -1.9,
+    -8.4
+   ],
+   "rearm_empty/d04_f05": [
+    -1.9,
+    -8.4
+   ],
+   "rearm_empty/d05_f00": [
+    -2.5,
+    -8.9
+   ],
+   "rearm_empty/d05_f01": [
+    -2.5,
+    -8.9
+   ],
+   "rearm_empty/d05_f02": [
+    -2.5,
+    -8.9
+   ],
+   "rearm_empty/d05_f03": [
+    -2.5,
+    -8.9
+   ],
+   "rearm_empty/d05_f04": [
+    -2.5,
+    -8.9
+   ],
+   "rearm_empty/d05_f05": [
+    -2.5,
+    -8.9
+   ],
+   "rearm_empty/d06_f00": [
+    -2.7,
+    -9.4
+   ],
+   "rearm_empty/d06_f01": [
+    -2.7,
+    -9.4
+   ],
+   "rearm_empty/d06_f02": [
+    -2.7,
+    -9.4
+   ],
+   "rearm_empty/d06_f03": [
+    -2.7,
+    -9.4
+   ],
+   "rearm_empty/d06_f04": [
+    -2.7,
+    -9.4
+   ],
+   "rearm_empty/d06_f05": [
+    -2.7,
+    -9.4
+   ],
+   "rearm_empty/d07_f00": [
+    -2.5,
+    -9.9
+   ],
+   "rearm_empty/d07_f01": [
+    -2.5,
+    -9.9
+   ],
+   "rearm_empty/d07_f02": [
+    -2.5,
+    -9.9
+   ],
+   "rearm_empty/d07_f03": [
+    -2.5,
+    -9.9
+   ],
+   "rearm_empty/d07_f04": [
+    -2.5,
+    -9.9
+   ],
+   "rearm_empty/d07_f05": [
+    -2.5,
+    -9.9
+   ],
+   "rearm_empty/d08_f00": [
+    -1.9,
+    -10.4
+   ],
+   "rearm_empty/d08_f01": [
+    -1.9,
+    -10.4
+   ],
+   "rearm_empty/d08_f02": [
+    -1.9,
+    -10.4
+   ],
+   "rearm_empty/d08_f03": [
+    -1.9,
+    -10.4
+   ],
+   "rearm_empty/d08_f04": [
+    -1.9,
+    -10.4
+   ],
+   "rearm_empty/d08_f05": [
+    -1.9,
+    -10.4
+   ],
+   "rearm_empty/d09_f00": [
+    -1.0,
+    -10.7
+   ],
+   "rearm_empty/d09_f01": [
+    -1.0,
+    -10.7
+   ],
+   "rearm_empty/d09_f02": [
+    -1.0,
+    -10.7
+   ],
+   "rearm_empty/d09_f03": [
+    -1.0,
+    -10.7
+   ],
+   "rearm_empty/d09_f04": [
+    -1.0,
+    -10.7
+   ],
+   "rearm_empty/d09_f05": [
+    -1.0,
+    -10.7
+   ],
+   "rearm_empty/d10_f00": [
+    0.0,
+    -10.8
+   ],
+   "rearm_empty/d10_f01": [
+    0.0,
+    -10.8
+   ],
+   "rearm_empty/d10_f02": [
+    0.0,
+    -10.8
+   ],
+   "rearm_empty/d10_f03": [
+    0.0,
+    -10.8
+   ],
+   "rearm_empty/d10_f04": [
+    0.0,
+    -10.8
+   ],
+   "rearm_empty/d10_f05": [
+    0.0,
+    -10.8
+   ],
+   "rearm_empty/d11_f00": [
+    1.0,
+    -10.7
+   ],
+   "rearm_empty/d11_f01": [
+    1.0,
+    -10.7
+   ],
+   "rearm_empty/d11_f02": [
+    1.0,
+    -10.7
+   ],
+   "rearm_empty/d11_f03": [
+    1.0,
+    -10.7
+   ],
+   "rearm_empty/d11_f04": [
+    1.0,
+    -10.7
+   ],
+   "rearm_empty/d11_f05": [
+    1.0,
+    -10.7
+   ],
+   "rearm_empty/d12_f00": [
+    1.9,
+    -10.4
+   ],
+   "rearm_empty/d12_f01": [
+    1.9,
+    -10.4
+   ],
+   "rearm_empty/d12_f02": [
+    1.9,
+    -10.4
+   ],
+   "rearm_empty/d12_f03": [
+    1.9,
+    -10.4
+   ],
+   "rearm_empty/d12_f04": [
+    1.9,
+    -10.4
+   ],
+   "rearm_empty/d12_f05": [
+    1.9,
+    -10.4
+   ],
+   "rearm_empty/d13_f00": [
+    2.5,
+    -9.9
+   ],
+   "rearm_empty/d13_f01": [
+    2.5,
+    -9.9
+   ],
+   "rearm_empty/d13_f02": [
+    2.5,
+    -9.9
+   ],
+   "rearm_empty/d13_f03": [
+    2.5,
+    -9.9
+   ],
+   "rearm_empty/d13_f04": [
+    2.5,
+    -9.9
+   ],
+   "rearm_empty/d13_f05": [
+    2.5,
+    -9.9
+   ],
+   "rearm_empty/d14_f00": [
+    2.7,
+    -9.4
+   ],
+   "rearm_empty/d14_f01": [
+    2.7,
+    -9.4
+   ],
+   "rearm_empty/d14_f02": [
+    2.7,
+    -9.4
+   ],
+   "rearm_empty/d14_f03": [
+    2.7,
+    -9.4
+   ],
+   "rearm_empty/d14_f04": [
+    2.7,
+    -9.4
+   ],
+   "rearm_empty/d14_f05": [
+    2.7,
+    -9.4
+   ],
+   "rearm_empty/d15_f00": [
+    2.5,
+    -8.9
+   ],
+   "rearm_empty/d15_f01": [
+    2.5,
+    -8.9
+   ],
+   "rearm_empty/d15_f02": [
+    2.5,
+    -8.9
+   ],
+   "rearm_empty/d15_f03": [
+    2.5,
+    -8.9
+   ],
+   "rearm_empty/d15_f04": [
+    2.5,
+    -8.9
+   ],
+   "rearm_empty/d15_f05": [
+    2.5,
+    -8.9
+   ],
+   "recover/d00_f00": [
+    2.0,
+    -7.3
+   ],
+   "recover/d00_f01": [
+    2.1,
+    -11.0
+   ],
+   "recover/d00_f02": [
+    1.5,
+    -9.1
+   ],
+   "recover/d00_f03": [
+    1.9,
+    -8.4
+   ],
+   "recover/d01_f00": [
+    1.1,
+    -7.0
+   ],
+   "recover/d01_f01": [
+    1.1,
+    -10.7
+   ],
+   "recover/d01_f02": [
+    0.8,
+    -8.8
+   ],
+   "recover/d01_f03": [
+    1.0,
+    -8.2
+   ],
+   "recover/d02_f00": [
+    0.0,
+    -6.9
+   ],
+   "recover/d02_f01": [
+    0.0,
+    -10.6
+   ],
+   "recover/d02_f02": [
+    0.0,
+    -8.7
+   ],
+   "recover/d02_f03": [
+    0.0,
+    -8.0
+   ],
+   "recover/d03_f00": [
+    -1.1,
+    -7.0
+   ],
+   "recover/d03_f01": [
+    -1.1,
+    -10.7
+   ],
+   "recover/d03_f02": [
+    -0.8,
+    -8.8
+   ],
+   "recover/d03_f03": [
+    -1.0,
+    -8.2
+   ],
+   "recover/d04_f00": [
+    -2.0,
+    -7.3
+   ],
+   "recover/d04_f01": [
+    -2.1,
+    -11.0
+   ],
+   "recover/d04_f02": [
+    -1.5,
+    -9.1
+   ],
+   "recover/d04_f03": [
+    -1.9,
+    -8.4
+   ],
+   "recover/d05_f00": [
+    -2.6,
+    -7.7
+   ],
+   "recover/d05_f01": [
+    -2.8,
+    -11.5
+   ],
+   "recover/d05_f02": [
+    -2.0,
+    -9.4
+   ],
+   "recover/d05_f03": [
+    -2.5,
+    -8.9
+   ],
+   "recover/d06_f00": [
+    -2.8,
+    -8.3
+   ],
+   "recover/d06_f01": [
+    -3.0,
+    -12.0
+   ],
+   "recover/d06_f02": [
+    -2.2,
+    -9.8
+   ],
+   "recover/d06_f03": [
+    -2.7,
+    -9.4
+   ],
+   "recover/d07_f00": [
+    -2.6,
+    -8.8
+   ],
+   "recover/d07_f01": [
+    -2.8,
+    -12.6
+   ],
+   "recover/d07_f02": [
+    -2.0,
+    -10.2
+   ],
+   "recover/d07_f03": [
+    -2.5,
+    -9.9
+   ],
+   "recover/d08_f00": [
+    -2.0,
+    -9.3
+   ],
+   "recover/d08_f01": [
+    -2.1,
+    -13.1
+   ],
+   "recover/d08_f02": [
+    -1.5,
+    -10.6
+   ],
+   "recover/d08_f03": [
+    -1.9,
+    -10.4
+   ],
+   "recover/d09_f00": [
+    -1.1,
+    -9.6
+   ],
+   "recover/d09_f01": [
+    -1.1,
+    -13.4
+   ],
+   "recover/d09_f02": [
+    -0.8,
+    -10.8
+   ],
+   "recover/d09_f03": [
+    -1.0,
+    -10.7
+   ],
+   "recover/d10_f00": [
+    0.0,
+    -9.7
+   ],
+   "recover/d10_f01": [
+    0.0,
+    -13.5
+   ],
+   "recover/d10_f02": [
+    0.0,
+    -10.9
+   ],
+   "recover/d10_f03": [
+    0.0,
+    -10.8
+   ],
+   "recover/d11_f00": [
+    1.1,
+    -9.6
+   ],
+   "recover/d11_f01": [
+    1.1,
+    -13.4
+   ],
+   "recover/d11_f02": [
+    0.8,
+    -10.8
+   ],
+   "recover/d11_f03": [
+    1.0,
+    -10.7
+   ],
+   "recover/d12_f00": [
+    2.0,
+    -9.3
+   ],
+   "recover/d12_f01": [
+    2.1,
+    -13.1
+   ],
+   "recover/d12_f02": [
+    1.5,
+    -10.6
+   ],
+   "recover/d12_f03": [
+    1.9,
+    -10.4
+   ],
+   "recover/d13_f00": [
+    2.6,
+    -8.8
+   ],
+   "recover/d13_f01": [
+    2.8,
+    -12.6
+   ],
+   "recover/d13_f02": [
+    2.0,
+    -10.2
+   ],
+   "recover/d13_f03": [
+    2.5,
+    -9.9
+   ],
+   "recover/d14_f00": [
+    2.8,
+    -8.3
+   ],
+   "recover/d14_f01": [
+    3.0,
+    -12.0
+   ],
+   "recover/d14_f02": [
+    2.2,
+    -9.8
+   ],
+   "recover/d14_f03": [
+    2.7,
+    -9.4
+   ],
+   "recover/d15_f00": [
+    2.6,
+    -7.7
+   ],
+   "recover/d15_f01": [
+    2.8,
+    -11.5
+   ],
+   "recover/d15_f02": [
+    2.0,
+    -9.4
+   ],
+   "recover/d15_f03": [
+    2.5,
+    -8.9
+   ],
+   "recover_empty/d00_f00": [
+    2.0,
+    -7.3
+   ],
+   "recover_empty/d00_f01": [
+    2.1,
+    -11.0
+   ],
+   "recover_empty/d00_f02": [
+    1.5,
+    -9.1
+   ],
+   "recover_empty/d00_f03": [
+    1.9,
+    -8.4
+   ],
+   "recover_empty/d01_f00": [
+    1.1,
+    -7.0
+   ],
+   "recover_empty/d01_f01": [
+    1.1,
+    -10.7
+   ],
+   "recover_empty/d01_f02": [
+    0.8,
+    -8.8
+   ],
+   "recover_empty/d01_f03": [
+    1.0,
+    -8.2
+   ],
+   "recover_empty/d02_f00": [
+    0.0,
+    -6.9
+   ],
+   "recover_empty/d02_f01": [
+    0.0,
+    -10.6
+   ],
+   "recover_empty/d02_f02": [
+    0.0,
+    -8.7
+   ],
+   "recover_empty/d02_f03": [
+    0.0,
+    -8.0
+   ],
+   "recover_empty/d03_f00": [
+    -1.1,
+    -7.0
+   ],
+   "recover_empty/d03_f01": [
+    -1.1,
+    -10.7
+   ],
+   "recover_empty/d03_f02": [
+    -0.8,
+    -8.8
+   ],
+   "recover_empty/d03_f03": [
+    -1.0,
+    -8.2
+   ],
+   "recover_empty/d04_f00": [
+    -2.0,
+    -7.3
+   ],
+   "recover_empty/d04_f01": [
+    -2.1,
+    -11.0
+   ],
+   "recover_empty/d04_f02": [
+    -1.5,
+    -9.1
+   ],
+   "recover_empty/d04_f03": [
+    -1.9,
+    -8.4
+   ],
+   "recover_empty/d05_f00": [
+    -2.6,
+    -7.7
+   ],
+   "recover_empty/d05_f01": [
+    -2.8,
+    -11.5
+   ],
+   "recover_empty/d05_f02": [
+    -2.0,
+    -9.4
+   ],
+   "recover_empty/d05_f03": [
+    -2.5,
+    -8.9
+   ],
+   "recover_empty/d06_f00": [
+    -2.8,
+    -8.3
+   ],
+   "recover_empty/d06_f01": [
+    -3.0,
+    -12.0
+   ],
+   "recover_empty/d06_f02": [
+    -2.2,
+    -9.8
+   ],
+   "recover_empty/d06_f03": [
+    -2.7,
+    -9.4
+   ],
+   "recover_empty/d07_f00": [
+    -2.6,
+    -8.8
+   ],
+   "recover_empty/d07_f01": [
+    -2.8,
+    -12.6
+   ],
+   "recover_empty/d07_f02": [
+    -2.0,
+    -10.2
+   ],
+   "recover_empty/d07_f03": [
+    -2.5,
+    -9.9
+   ],
+   "recover_empty/d08_f00": [
+    -2.0,
+    -9.3
+   ],
+   "recover_empty/d08_f01": [
+    -2.1,
+    -13.1
+   ],
+   "recover_empty/d08_f02": [
+    -1.5,
+    -10.6
+   ],
+   "recover_empty/d08_f03": [
+    -1.9,
+    -10.4
+   ],
+   "recover_empty/d09_f00": [
+    -1.1,
+    -9.6
+   ],
+   "recover_empty/d09_f01": [
+    -1.1,
+    -13.4
+   ],
+   "recover_empty/d09_f02": [
+    -0.8,
+    -10.8
+   ],
+   "recover_empty/d09_f03": [
+    -1.0,
+    -10.7
+   ],
+   "recover_empty/d10_f00": [
+    0.0,
+    -9.7
+   ],
+   "recover_empty/d10_f01": [
+    0.0,
+    -13.5
+   ],
+   "recover_empty/d10_f02": [
+    0.0,
+    -10.9
+   ],
+   "recover_empty/d10_f03": [
+    0.0,
+    -10.8
+   ],
+   "recover_empty/d11_f00": [
+    1.1,
+    -9.6
+   ],
+   "recover_empty/d11_f01": [
+    1.1,
+    -13.4
+   ],
+   "recover_empty/d11_f02": [
+    0.8,
+    -10.8
+   ],
+   "recover_empty/d11_f03": [
+    1.0,
+    -10.7
+   ],
+   "recover_empty/d12_f00": [
+    2.0,
+    -9.3
+   ],
+   "recover_empty/d12_f01": [
+    2.1,
+    -13.1
+   ],
+   "recover_empty/d12_f02": [
+    1.5,
+    -10.6
+   ],
+   "recover_empty/d12_f03": [
+    1.9,
+    -10.4
+   ],
+   "recover_empty/d13_f00": [
+    2.6,
+    -8.8
+   ],
+   "recover_empty/d13_f01": [
+    2.8,
+    -12.6
+   ],
+   "recover_empty/d13_f02": [
+    2.0,
+    -10.2
+   ],
+   "recover_empty/d13_f03": [
+    2.5,
+    -9.9
+   ],
+   "recover_empty/d14_f00": [
+    2.8,
+    -8.3
+   ],
+   "recover_empty/d14_f01": [
+    3.0,
+    -12.0
+   ],
+   "recover_empty/d14_f02": [
+    2.2,
+    -9.8
+   ],
+   "recover_empty/d14_f03": [
+    2.7,
+    -9.4
+   ],
+   "recover_empty/d15_f00": [
+    2.6,
+    -7.7
+   ],
+   "recover_empty/d15_f01": [
+    2.8,
+    -11.5
+   ],
+   "recover_empty/d15_f02": [
+    2.0,
+    -9.4
+   ],
+   "recover_empty/d15_f03": [
+    2.5,
+    -8.9
    ]
   }
  },
- "frame_count": 304,
- "content_sha256": "573a845c2303e1b1d3a69e8313b5dbb6df3bea67fd47282b0e74f7eb5a145007"
+ "frame_count": 832,
+ "content_sha256": "dbef36714fae19ba3aaf76bdb7e4bf9b012823d440b550663d5581efffe242a6"
 }

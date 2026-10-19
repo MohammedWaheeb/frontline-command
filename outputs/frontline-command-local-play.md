@@ -1,23 +1,33 @@
 # Frontline Command: local play
 
-The current F16 candidate runs on Apple Silicon macOS. Complete release acceptance is still pending. Solo play needs no online account; multiplayer profiles belong to the local host.
+The local package is for Apple Silicon macOS. Play in a desktop browser with a
+keyboard and mouse. Campaign and Editor are hidden; three skirmish battlefields,
+five tutorials, practice, both co-op scenarios and multiplayer are available.
 
-Open the current preview at [http://127.0.0.1:8088](http://127.0.0.1:8088).
+The current local package is `dist/frontline-readiness-darwin-arm64` in this project. Open `Play.command`
+and visit the local URL printed in Terminal (normally `http://127.0.0.1:8080`).
+Stop the host with Ctrl-C. Go, Node, Blender and an online account are not needed.
 
-To start your own copy, run this in Terminal:
+To choose another local port, run the executable directly:
 
 ```sh
-cd '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/work/playable-release-integration-v1/frontend-16/source/dist/frontline-darwin-arm64'
-sh Play.command -addr 127.0.0.1:0 -data ./data-local-038 -state-updates-hz 10
+cd '/Users/mohammedkalouti/Documents/Codex/2026-09-27/i/dist/frontline-readiness-darwin-arm64'
+./frontline -addr 127.0.0.1:5193 -data ./data -static ./client -maps ./content/maps -missions ./content/missions
 ```
 
-Port `0` chooses a free port. Open the actual URL printed in Terminal. Stop this host with Ctrl-C.
+Keep the same browser and port to retain browser saves, replays and settings.
+Use **Export** before changing browser or origin. Keep the stopped host's `data/`
+directory separately when upgrading, and retain old packages for incompatible archives.
 
-Keep the same browser and port on later launches to retain browser saves, replays and settings; replace `:0` with the printed port when you restart.
+- Start with **Field training**, or choose **Skirmish**, a battlefield, faction,
+  AI commanders and difficulty, then **Deploy forces**.
+- Open **Menu → Save operation** during solo play; use **Load operation** to resume.
+- Choose **Archive replay**, then **Replay archive → Watch**. Wait for the saved
+  confirmation before leaving the operation.
+- Choose **Co-op** for Convoy Union or Twin Outposts, with a human or AI ally.
+- For other computers on the same network, run **Host-LAN.command** and share
+  its printed join address. Normal play binds only to this computer.
 
-- For solo combat, choose **Skirmish**, select a **Battlefield**, faction, **AI commanders**, difficulty and starting funds, then **Deploy forces**. **Field training** and **Campaign** are also available from the command center.
-- During solo play, click **Menu** to pause. Choose **Save operation**, then **Resume operation**. From the command center, **Load operation** lists browser saves; choose **Load** to resume one.
-- In the paused menu, choose **Archive replay**. Return to the command center and open **Replay archive**, then **Watch**. Archive rows also provide **Export**.
-- Choose **Editor**, then **Start from installed map** to create an editable copy. Use **Save draft**, **Validate** and **Test play**; the battle menu provides **Return to editor**. Installed originals remain intact.
-
-The package contains its native executable, browser client and content; Go and Node are not needed to play. Keep `data-local-038` for host records. Saves and replays from older incompatible simulation versions remain exportable for their matching package.
+See [the player guide](../docs/player-guide.md) for controls, shared checkpoints,
+LAN profiles and backups. See [release evidence](../work/release-readiness-20261013/REPORT.md)
+for tested scope and remaining platform/human limits. No public deployment is included.

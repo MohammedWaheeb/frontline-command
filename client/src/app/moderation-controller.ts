@@ -1,6 +1,6 @@
 import {Observable} from './store';
 import {LocalAPI,type AdminReport,type ReportDetail,type ReportReview,type MapReport,type MapReportDetail,type MapReview} from '../runtime/api';
-import {RuntimeError} from '../runtime/errors';
+import {RuntimeError,presentableFailure} from '../runtime/errors';
 
 export interface ModerationState{
  host:string;available:boolean;unlocked:boolean;busy?:string;error?:{code:string;message:string};
@@ -19,7 +19,7 @@ export class ModerationController{
  private async run(label:string,operation:(api:LocalAPI,current:()=>boolean)=>Promise<void>){
   if(this.disposed||this.state.get().busy)return false;const api=this.#api,generation=this.generation,current=()=>!this.disposed&&generation===this.generation&&api===this.#api;
   if(!api){this.patch({error:{code:'operator_locked',message:'Unlock the local operator station first.'}});return false}
-  this.patch({busy:label,error:undefined});try{await operation(api,current);return current()}catch(error){if(current()){const value=RuntimeError.from(error);if(value.code==='unauthorized'||value.code==='admin_unauthorized'||('status' in value&&(value.status===401||value.status===403)))this.lock();this.patch({error:{code:value.code,message:value.message}})}return false}finally{if(current())this.patch({busy:undefined})}
+  this.patch({busy:label,error:undefined});try{await operation(api,current);return current()}catch(error){if(current()){const value=RuntimeError.from(error);if(value.code==='unauthorized'||value.code==='admin_unauthorized'||('status' in value&&(value.status===401||value.status===403)))this.lock();this.patch({error:presentableFailure(error)})}return false}finally{if(current())this.patch({busy:undefined})}
  }
  async unlock(token:string){
   if(!this.state.get().available){this.patch({error:{code:'operator_loopback_only',message:'Open this game on the host computer at localhost or 127.0.0.1 to review reports.'}});return false}

@@ -22,7 +22,9 @@ browser and origin; use the game's export/backup controls before changing
 browser, port or computer. Preserve incompatible files for a matching version.
 
 After caching the selected mode and its required packs, solo play can run offline
-on localhost. A remote `http://192.168…` LAN address may not support service
+on localhost. Full-pack installation is verified in a regular Chrome profile;
+private browsing is not qualified for this large offline pack. A remote
+`http://192.168…` LAN address may not support service
 workers because browsers restrict them to secure origins. LAN play stays
 connected to the host. Stopping the host interrupts active multiplayer matches.
 
@@ -40,7 +42,7 @@ hosts against one data directory. Keep the old package and a separate data backu
 for rollback. The build does not automatically move data from its timestamped
 previous package into the new one.
 
-Simulation 0.3.4 deliberately rejects incompatible 0.3.3 saves/replays; files
+Simulation 0.3.8 rejects incompatible earlier simulation saves/replays; files
 remain exportable for the matching old version. There is no automatic simulation
 save conversion. Host database schema updates are a separate mechanism.
 

@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "mission_id": "tutorial-1-give-an-order",
-  "mission_version": "1",
+  "mission_version": "2",
   "title": "Give an Order",
   "mode": "tutorial",
   "faction": "US",
@@ -51,7 +51,13 @@
       "id": "original-order-team-lost",
       "kind": "failure",
       "at_end": false,
-      "text": "Lose every member of the marked order-training group."
+      "text": "Lose every member of the marked order-training group before its lessons are complete."
+    },
+    {
+      "id": "production-path-lost",
+      "kind": "failure",
+      "at_end": false,
+      "text": "Lose the barracks with no HQ, factory or engineering rig left to rebuild it."
     },
     {
       "id": "original-team",

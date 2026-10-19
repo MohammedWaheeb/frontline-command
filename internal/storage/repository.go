@@ -8,6 +8,8 @@ import (
 )
 
 var ErrNotFound = errors.New("not_found")
+var ErrCorrupt = errors.New("stored_data_corrupt")
+var ErrQuotaExceeded = errors.New("save storage quota exceeded")
 var ErrConflict = errors.New("revision_conflict")
 var ErrUnauthorized = errors.New("unauthorized")
 

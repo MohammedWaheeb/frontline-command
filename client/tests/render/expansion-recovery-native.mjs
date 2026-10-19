@@ -30,7 +30,7 @@ async function run(command,args,log){
 }
 console.log(JSON.stringify({out,...receipt}));
 try{
- assert.equal(await run('go',['build','-mod=mod','-o','recovery-proof','.'],'build.log'),0,'proof build');
+ assert.equal(await run('go',['build','-tags=frontline_fixture','-mod=mod','-o','recovery-proof','.'],'build.log'),0,'proof build');
  receipt.binarySHA256=sha(await readFile(path.join(out,'recovery-proof')));
  receipt.existingRigAllowed=process.argv.includes('--allow-existing-rig');
  receipt.exitCode=await run(path.join(out,'recovery-proof'),['-replay',replay,'-out',path.join(out,'evidence'),...(receipt.existingRigAllowed?['-allow-existing-rig']:[])],'run.log');

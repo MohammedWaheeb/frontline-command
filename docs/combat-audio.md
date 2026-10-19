@@ -6,7 +6,7 @@
 
 | Authorized input | Audio behavior |
 | --- | --- |
-| `weapon_fired` with a known `combat.weapon` | Use the actual round's `sfx.weapon.<weapon>` even if the source converted, died or disappeared. Synthetic `SATURATION`/`SKYBREAKER` have no invented per-weapon sound ID. |
+| `weapon_fired` with a known `combat.weapon` | Use the actual round's `sfx.weapon.<weapon>` even if the source converted, died or disappeared. Synthetic `SATURATION`/`SKYBREAKER` use the shared `sfx.strategic_launch` cue. |
 | Direct `impact` with a positive current authorized hit | Use resolution-time `targetArmor`: infantry → ground; light/air → light metal; heavy → heavy metal; structure → structure. Air shares the existing light-metal clip; no dedicated air impact is claimed. |
 | Area, redacted, unknown or malformed impact metadata | Generic ground impact only. A currently visible or previously seen target never supplies missing outcome/material when metadata is present. |
 | Entirely absent combat metadata | Retain older-runtime sound behavior, using only the current or immediately previous permitted snapshot. This compatibility path is approximate and is never allowed to override present metadata. |

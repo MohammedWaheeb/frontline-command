@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "mission_id": "convoy-union",
-  "mission_version": "1",
+  "mission_version": "2",
   "title": "Convoy Union",
   "mode": "coop",
   "faction": "US",
@@ -113,12 +113,17 @@
       "id": "convoy-exit",
       "text": "Shared convoy exit",
       "region": "convoy-exit"
+    },
+    {
+      "id": "forward-repair",
+      "text": "Forward repair depot area — keep clear",
+      "region": "forward-repair"
     }
   ],
   "scenario_exceptions": [
     {
       "kind": "scenario_rule",
-      "detail": "Completed convoy one unlocks exactly two authored repair depots, one per human owner. Repairs still cost the owning player credits. Convoy trucks are script-controlled original cargo actors and never grant combat units."
+      "detail": "Completed convoy one unlocks exactly two authored repair depots, one per human owner. Repairs still cost the owning player credits. Convoy trucks are script-controlled original cargo actors and never grant combat units. After the first arrival, keep the forward repair area clear and leave a structure slot free for each commander. Each depot opens when its site and capacity are available; convoy departures do not wait for depot placement."
     },
     {
       "trigger": "pressure-1",
@@ -145,7 +150,7 @@
     {
       "key": "briefing:1",
       "speaker": "Joint Command",
-      "text": "Two independent allied economies escort three sequential two-truck convoys. Choose the northern or southern route at each checkpoint. Either commander can Hold; after a manual hold both must approve Advance. The visible countdown protects route decisions. A completed convoy unlocks one forward repair position for each owner, not free combat reinforcements. At least one truck from each convoy must arrive.",
+      "text": "Two independent allied economies escort three sequential two-truck convoys. Choose the northern or southern route at each checkpoint. Either commander can Hold; after a manual hold both must approve Advance. The visible countdown protects route decisions. A completed convoy unlocks one forward repair position for each owner, not free combat reinforcements. At least one truck from each convoy must arrive. After the first arrival, keep the forward repair area clear and leave a structure slot free for each commander. Each depot opens when its site and capacity are available; convoy departures do not wait for depot placement.",
       "voice": "vo.convoy-union.briefing.01"
     },
     {
@@ -163,8 +168,20 @@
     {
       "key": "trigger:second-convoy-ready",
       "speaker": "Convoy control",
-      "text": "First delivery complete. Two separately owned forward repair depots are now available. Convoy two is ready.",
+      "text": "First delivery complete. Convoy two is ready. Forward repair depots open when their sites and each owner’s structure capacity are clear.",
       "voice": "vo.convoy-union.second-convoy-ready"
+    },
+    {
+      "key": "trigger:western-forward-repair-ready",
+      "speaker": "Convoy control",
+      "text": "The western forward repair depot is now available. Repairs cost its owner credits.",
+      "voice": null
+    },
+    {
+      "key": "trigger:eastern-forward-repair-ready",
+      "speaker": "Convoy control",
+      "text": "The eastern forward repair depot is now available. Repairs cost its owner credits.",
+      "voice": null
     },
     {
       "key": "checkpoint:second-arrival",

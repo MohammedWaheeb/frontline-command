@@ -19,6 +19,13 @@ import (
 
 type SQLite struct{ db *sql.DB }
 
+// Per-owner save quotas, mirroring the map quotas in PutMap. Vars so tests
+// can shrink them instead of writing hundreds of megabytes.
+var (
+	maxSavesPerOwner     = 128
+	maxSaveBytesPerOwner = int64(256 << 20)
+)
+
 func Open(path string) (*SQLite, error) {
 	if path != ":memory:" {
 		if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
@@ -35,7 +42,7 @@ func Open(path string) (*SQLite, error) {
 		db.Close()
 		return nil, err
 	}
-	if schemaVersion > 8 {
+	if schemaVersion > 9 {
 		db.Close()
 		return nil, errors.New("database was created by a newer game version")
 	}
@@ -70,7 +77,91 @@ func Open(path string) (*SQLite, error) {
 		db.Close()
 		return nil, err
 	}
+	if err = s.initResultIntegritySchema(schemaVersion); err != nil {
+		db.Close()
+		return nil, err
+	}
 	return s, nil
+}
+
+// initResultIntegritySchema (v9) adds a separable payload digest so reads can
+// verify stored results even when the conflict checksum folds in rating data
+// that is not retained verbatim. Existing rows are backfilled from their
+// payload as stored at upgrade time.
+func (s *SQLite) initResultIntegritySchema(version int) error {
+	if version >= 9 {
+		return nil
+	}
+	tx, err := s.db.Begin()
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+	// Tests legitimately rewind user_version on an already-migrated file, so
+	// column creation must be idempotent like the CREATE TABLE migrations.
+	cols, err := tx.Query(`SELECT name FROM pragma_table_info('results')`)
+	if err != nil {
+		return err
+	}
+	hasColumn := false
+	for cols.Next() {
+		var name string
+		if err = cols.Scan(&name); err != nil {
+			cols.Close()
+			return err
+		}
+		if name == "payload_checksum" {
+			hasColumn = true
+		}
+	}
+	if err = cols.Err(); err != nil {
+		cols.Close()
+		return err
+	}
+	cols.Close()
+	if !hasColumn {
+		if _, err = tx.Exec(`ALTER TABLE results ADD COLUMN payload_checksum TEXT NOT NULL DEFAULT ''`); err != nil {
+			return err
+		}
+	}
+	rows, err := tx.Query(`SELECT id,payload FROM results WHERE payload_checksum=''`)
+	if err != nil {
+		return err
+	}
+	type pending struct {
+		id      string
+		payload []byte
+	}
+	var all []pending
+	for rows.Next() {
+		var p pending
+		if err = rows.Scan(&p.id, &p.payload); err != nil {
+			rows.Close()
+			return err
+		}
+		all = append(all, p)
+	}
+	if err = rows.Err(); err != nil {
+		rows.Close()
+		return err
+	}
+	rows.Close()
+	for _, p := range all {
+		if _, err = tx.Exec(`UPDATE results SET payload_checksum=? WHERE id=?`, digest(p.payload), p.id); err != nil {
+			return err
+		}
+	}
+	if _, err = tx.Exec(`PRAGMA user_version=9`); err != nil {
+		return err
+	}
+	return tx.Commit()
+}
+
+func verifyResultPayload(v Result, payloadChecksum string) error {
+	if payloadChecksum != "" && payloadChecksum != digest(v.Payload) {
+		return ErrCorrupt
+	}
+	return nil
 }
 func (s *SQLite) Close() error { return s.db.Close() }
 func Token() (string, error) {
@@ -136,12 +227,22 @@ func (s *SQLite) PutSave(ctx context.Context, v Save, expected int64) (Save, err
 	}
 	defer tx.Rollback()
 	var revision int64
-	err = tx.QueryRowContext(ctx, "SELECT revision FROM saves WHERE owner=? AND id=?", v.Owner, v.ID).Scan(&revision)
-	if err != nil && !errors.Is(err, sql.ErrNoRows) {
+	var existingBytes int64
+	err = tx.QueryRowContext(ctx, "SELECT revision,length(data) FROM saves WHERE owner=? AND id=?", v.Owner, v.ID).Scan(&revision, &existingBytes)
+	isNew := errors.Is(err, sql.ErrNoRows)
+	if err != nil && !isNew {
 		return v, err
 	}
 	if revision != expected {
 		return v, ErrConflict
+	}
+	var saveCount int
+	var saveBytes int64
+	if err = tx.QueryRowContext(ctx, `SELECT COUNT(*),COALESCE(SUM(length(data)),0) FROM saves WHERE owner=?`, v.Owner).Scan(&saveCount, &saveBytes); err != nil {
+		return v, err
+	}
+	if isNew && saveCount >= maxSavesPerOwner || saveBytes-existingBytes+int64(len(v.Data)) > maxSaveBytesPerOwner {
+		return v, ErrQuotaExceeded
 	}
 	v.Revision, err = reserveRevision(ctx, tx, "save", v.Owner, v.ID, revision, true)
 	if err != nil {
@@ -229,7 +330,11 @@ func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
 		if prior != hash || void != v.Void {
 			return false, ErrConflict
 		}
-		return false, nil
+		// Retrying a committed result also retires any stale checkpoint journal.
+		if _, err = tx.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, v.ID); err != nil {
+			return false, err
+		}
+		return false, tx.Commit()
 	}
 	if !errors.Is(err, sql.ErrNoRows) {
 		return false, err
@@ -237,7 +342,7 @@ func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
 	if v.Created == 0 {
 		v.Created = time.Now().Unix()
 	}
-	_, err = tx.ExecContext(ctx, "INSERT INTO results(id,payload,created,void,checksum) VALUES(?,?,?,?,?)", v.ID, v.Payload, v.Created, v.Void, hash)
+	_, err = tx.ExecContext(ctx, "INSERT INTO results(id,payload,created,void,checksum,payload_checksum) VALUES(?,?,?,?,?,?)", v.ID, v.Payload, v.Created, v.Void, hash, digest(v.Payload))
 	if err != nil {
 		return false, err
 	}
@@ -253,17 +358,21 @@ func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
 }
 func (s *SQLite) GetResult(ctx context.Context, id string) (Result, error) {
 	var v Result
-	err := s.db.QueryRowContext(ctx, "SELECT id,payload,created,void FROM results WHERE id=?", id).Scan(&v.ID, &v.Payload, &v.Created, &v.Void)
+	var payloadChecksum string
+	err := s.db.QueryRowContext(ctx, "SELECT id,payload,created,void,payload_checksum FROM results WHERE id=?", id).Scan(&v.ID, &v.Payload, &v.Created, &v.Void, &payloadChecksum)
 	if errors.Is(err, sql.ErrNoRows) {
 		err = ErrNotFound
 	}
-	return v, err
+	if err != nil {
+		return v, err
+	}
+	return v, verifyResultPayload(v, payloadChecksum)
 }
 func (s *SQLite) ListResults(ctx context.Context, limit int) ([]Result, error) {
 	if limit < 1 || limit > 100 {
 		limit = 50
 	}
-	rows, err := s.db.QueryContext(ctx, "SELECT id,payload,created,void FROM results ORDER BY created DESC,id LIMIT ?", limit)
+	rows, err := s.db.QueryContext(ctx, "SELECT id,payload,created,void,payload_checksum FROM results ORDER BY created DESC,id LIMIT ?", limit)
 	if err != nil {
 		return nil, err
 	}
@@ -271,7 +380,11 @@ func (s *SQLite) ListResults(ctx context.Context, limit int) ([]Result, error) {
 	out := []Result{}
 	for rows.Next() {
 		var v Result
-		if err = rows.Scan(&v.ID, &v.Payload, &v.Created, &v.Void); err != nil {
+		var payloadChecksum string
+		if err = rows.Scan(&v.ID, &v.Payload, &v.Created, &v.Void, &payloadChecksum); err != nil {
+			return nil, err
+		}
+		if err = verifyResultPayload(v, payloadChecksum); err != nil {
 			return nil, err
 		}
 		out = append(out, v)

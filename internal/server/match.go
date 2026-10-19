@@ -22,6 +22,11 @@ type slot struct {
 	Token   string
 	AI      bool
 }
+
+// reconnectGrace bounds how long a dropped player may reconnect before the
+// actor surrenders their slot. A var so tests can shorten it.
+var reconnectGrace = 120 * time.Second
+
 type peer struct {
 	player   sim.PlayerID
 	out      chan []byte
@@ -46,7 +51,7 @@ func (p *peer) finish() {
 }
 
 type matchRequest struct {
-	adviceTrace *adviceTrace
+	adviceTrace    *adviceTrace
 	connectContext context.Context
 	adviceDeadline time.Time
 	entities       []sim.ID
@@ -199,7 +204,9 @@ func (m *liveMatch) call(ctx context.Context, req matchRequest) matchReply {
 		req.connectContext = ctx
 	}
 	req.reply = make(chan matchReply, 1)
-	if req.adviceTrace != nil { req.adviceTrace.stamp(&req.adviceTrace.enqueueAttempt) }
+	if req.adviceTrace != nil {
+		req.adviceTrace.stamp(&req.adviceTrace.enqueueAttempt)
+	}
 	select {
 	case m.requests <- req:
 	case <-ctx.Done():
@@ -277,9 +284,28 @@ func (m *liveMatch) run() {
 			return false
 		}
 	}
+	// dropPeer is the single removal path for a peer that can no longer be
+	// written to: close it, unregister it, and start its reconnect deadline
+	// so expiry can surrender the slot instead of stalling the match.
+	dropPeer := func(id sim.PlayerID, p *peer, now time.Time) {
+		p.close()
+		if peers[id] != p {
+			return
+		}
+		delete(peers, id)
+		// Mirror the disconnect handler: the deadline applies even before
+		// the start barrier, since everConnected lets the match start
+		// without this peer.
+		if !m.engine.Outcome().Finished {
+			disconnected[id] = now.Add(reconnectGrace)
+		}
+		controls.playerGone(id, m.coop)
+	}
 	broadcastStatus := func(now time.Time) {
 		for id, p := range peers {
-			send(p, &pb.Envelope{Message: &pb.Envelope_Status{Status: m.connectionStatus(id, &controls, peers, disconnected, started, now)}})
+			if !send(p, &pb.Envelope{Message: &pb.Envelope_Status{Status: m.connectionStatus(id, &controls, peers, disconnected, started, now)}}) {
+				dropPeer(id, p, now)
+			}
 		}
 		lastStatus = now
 	}
@@ -418,8 +444,8 @@ func (m *liveMatch) run() {
 				if current := peers[req.player]; current == req.peer {
 					current.close()
 					delete(peers, req.player)
-					disconnected[req.player] = time.Now().Add(120 * time.Second)
-					controls.resume()
+					disconnected[req.player] = time.Now().Add(reconnectGrace)
+					controls.playerGone(req.player, m.coop)
 					broadcastStatus(time.Now())
 				}
 			case "control":
@@ -437,7 +463,18 @@ func (m *liveMatch) run() {
 					break
 				}
 				active := m.activeHumans()
-				if req.control == "pause" {
+				voters := active
+				if m.coop {
+					// Teammates hold pause with only the present peers'
+					// votes while a partner is in reconnect grace; the
+					// absent player cannot veto the survivors' pause.
+					voters = []sim.PlayerID{}
+					for _, id := range active {
+						if peers[id] != nil {
+							voters = append(voters, id)
+						}
+					}
+				} else if req.control == "pause" {
 					missing := false
 					for _, id := range active {
 						if peers[id] == nil {
@@ -449,7 +486,7 @@ func (m *liveMatch) run() {
 						break
 					}
 				}
-				reply.err = controls.act(req.control, req.player, active)
+				reply.err = controls.act(req.control, req.player, voters)
 				if reply.err == nil {
 					broadcastStatus(time.Now())
 				}
@@ -485,7 +522,9 @@ func (m *liveMatch) run() {
 					}
 				}
 			case "advice":
-				if req.adviceTrace != nil { req.adviceTrace.actor(uint32(m.engine.Tick()), len(m.requests)) }
+				if req.adviceTrace != nil {
+					req.adviceTrace.actor(uint32(m.engine.Tick()), len(m.requests))
+				}
 				if req.adviceDeadline.IsZero() || !time.Now().Before(req.adviceDeadline) {
 					reply.err = context.DeadlineExceeded
 					break
@@ -496,11 +535,13 @@ func (m *liveMatch) run() {
 					break
 				}
 				reply.affordances, reply.err = m.engine.CommandAffordances(req.player, req.entities)
-				if req.adviceTrace != nil { req.adviceTrace.stamp(&req.adviceTrace.affordancesDone) }
+				if req.adviceTrace != nil {
+					req.adviceTrace.stamp(&req.adviceTrace.affordancesDone)
+				}
 				if reply.err == nil && len(req.orders) > 0 {
 					reply.data, reply.err = m.engine.SaveForAdvice()
 					if req.adviceTrace != nil {
-						req.adviceTrace.savedBytes.Store(int64(len(reply.data))+1)
+						req.adviceTrace.savedBytes.Store(int64(len(reply.data)) + 1)
 						req.adviceTrace.stamp(&req.adviceTrace.captureDone)
 					}
 				}
@@ -547,31 +588,42 @@ func (m *liveMatch) run() {
 				}
 			}
 			for player, deadline := range disconnected {
-				if !now.Before(deadline) {
-					expired[player] = true
-					controls.resume()
-					view, _ := m.engine.PlayerView(player)
-					active := false
-					for _, p := range view.Players {
-						if p.ID == player && !p.Defeated {
-							active = true
-						}
+				if now.Before(deadline) {
+					continue
+				}
+				view, _ := m.engine.PlayerView(player)
+				active := false
+				for _, p := range view.Players {
+					if p.ID == player && !p.Defeated {
+						active = true
 					}
-					if active {
-						if view.Countdown > 0 {
-							continue
-						}
-						state := m.engine.StateCopy()
-						for _, p := range state.Players {
-							if p.ID == player {
-								if err := m.engine.Submit(player, p.LastSequence+1, []sim.Order{{Kind: "surrender"}}); err != nil {
-									continue
-								}
+				}
+				if active {
+					if view.Countdown > 0 {
+						continue
+					}
+					// Only expire once the surrender is accepted; expiring
+					// first would strand an unsurrendered zombie that can
+					// neither play nor reconnect. The passed deadline
+					// already blocks reconnect while this retries.
+					surrendered := false
+					found := false
+					state := m.engine.StateCopy()
+					for _, p := range state.Players {
+						if p.ID == player {
+							found = true
+							if err := m.engine.Submit(player, p.LastSequence+1, []sim.Order{{Kind: "surrender"}}); err == nil {
+								surrendered = true
 							}
 						}
 					}
-					delete(disconnected, player)
+					if found && !surrendered {
+						continue
+					}
 				}
+				expired[player] = true
+				controls.playerGone(player, m.coop)
+				delete(disconnected, player)
 			}
 			tickViews := map[sim.PlayerID]sim.View{}
 			advanced := !m.engine.Outcome().Finished && !controls.paused
@@ -638,7 +690,7 @@ func (m *liveMatch) run() {
 				removed := p.visible.removals(view)
 				if len(removed) > 0 || len(view.Results) > 0 {
 					if !send(p, priorityFrame(view, removed)) {
-						delete(peers, id)
+						dropPeer(id, p, now)
 						continue
 					}
 					p.visible.forget(removed)
@@ -669,7 +721,7 @@ func (m *liveMatch) run() {
 				p.results = nil
 				snap, err := compactSnapshot(view)
 				if err != nil {
-					p.close()
+					dropPeer(id, p, now)
 					continue
 				}
 				var frame *pb.Envelope
@@ -681,6 +733,8 @@ func (m *liveMatch) run() {
 				if send(p, frame) {
 					p.baseline = snap
 					p.visible = visibilityFromSnapshot(snap)
+				} else {
+					dropPeer(id, p, now)
 				}
 			}
 			if m.engine.Outcome().Finished && !committed && now.Sub(lastCommitAttempt) >= time.Second {

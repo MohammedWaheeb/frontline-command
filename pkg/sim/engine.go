@@ -478,6 +478,9 @@ func Restore(c *content.Catalog, data []byte) (*Engine, error) {
 	if err := d.Decode(&e.state); err != nil {
 		return nil, err
 	}
+	if d.Decode(new(any)) != io.EOF {
+		return nil, errors.New("trailing save state data")
+	}
 	s := &e.state
 	if s.Metadata.Simulation != Version || s.Metadata.Protocol != 1 || s.Metadata.ContentHash != c.Hash() {
 		return nil, errors.New("incompatible simulation/content version; preserve file for export")

@@ -47,6 +47,18 @@ func (s *SQLite) RecoverInterrupted(ctx context.Context, objects ObjectRepositor
 	}
 	count := 0
 	for _, m := range matches {
+		// A committed result wins even if its stale journal cannot be archived.
+		// In particular, object-store failure must not prevent startup for an
+		// already completed match.
+		if _, lookup := s.GetResult(ctx, m.ID); lookup == nil {
+			if _, err = s.db.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, m.ID); err != nil {
+				return count, err
+			}
+			count++
+			continue
+		} else if !errors.Is(lookup, ErrNotFound) {
+			return count, lookup
+		}
 		if err = objects.Put(ctx, m.ID+".diagnostic", m.Data); err != nil {
 			return count, err
 		}

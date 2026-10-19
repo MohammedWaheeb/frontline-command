@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"errors"
 	"frontlinecommand/internal/storage"
 	"frontlinecommand/pkg/sim"
 	"net/http"
@@ -50,6 +51,10 @@ func (s *Server) putSave(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	v, err := s.repo.PutSave(r.Context(), storage.Save{ID: r.PathValue("id"), Owner: p.ID, Name: body.Name, Data: body.Data}, body.ExpectedRevision)
+	if errors.Is(err, storage.ErrQuotaExceeded) {
+		fail(w, 413, "save_quota_exceeded", "This profile has reached its save storage limit. Delete an old save and retry.")
+		return
+	}
 	if err != nil {
 		fail(w, 409, "save_conflict", "The save changed or could not be stored. Keep both versions and retry explicitly.")
 		return

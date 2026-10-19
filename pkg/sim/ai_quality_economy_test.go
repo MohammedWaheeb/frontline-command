@@ -219,7 +219,7 @@ func TestAIQualityEconomyPlansIgnoreHiddenEnemyChanges(t *testing.T) {
 func TestAIQualityEconomyRecoveryRestoreReplay(t *testing.T) {
 	e := fixture(t)
 	p := e.player(1)
-	p.AI = "normal"
+	p.AI, p.Controller = "normal", "ai"
 	foundation := e.spawn("power", 1, Vec{X: 8000, Y: 14000}, false, 500000)
 	foundation.Builder = 2
 	e.assign(e.entity(2), Order{Kind: "move", Position: Vec{X: 20000, Y: 14000}})

@@ -187,7 +187,7 @@ func aiGroundPerfPaidArmy(t testing.TB, typ string) (*Engine, []ID, Vec) {
 		e.state.Map.Tiles[pos.Y/1000*m.Width+pos.X/1000].Terrain = "open"
 	}
 	threat := e.spawn("IR.rifle", 2, threatPosition, true, 0)
-	p.AI, p.AIStage = "hard", 4
+	p.AI, p.Controller, p.AIStage = "hard", "ai", 4
 	e.recalculate()
 	e.updateFog()
 	if !e.canSeeEntity(1, threat) {
@@ -330,7 +330,7 @@ func aiGroundPerfSmall(t testing.TB) (*Engine, *Entity, Vec) {
 	unit := e.spawn("US.rifle", 1, Vec{X: 20500, Y: 20500}, true, 0)
 	goal := Vec{X: 24500, Y: 20500}
 	p := e.player(1)
-	p.AI = "hard"
+	p.AI, p.Controller = "hard", "ai"
 	p.AIKnowledge = []AIObservation{{ID: 900, Owner: 2, Type: "IR.rifle", Position: goal, Seen: e.Tick()}}
 	for _, point := range []Vec{{X: 19500, Y: 20500}, {X: 21500, Y: 20500}} {
 		e.state.Map.Tiles[point.Y/1000*e.state.Map.Width+point.X/1000].Terrain = "cover"
@@ -440,7 +440,7 @@ func TestAIQualityGroundPerfHiddenGeometryAndFreshPass(t *testing.T) {
 		t.Fatal("complete chosen plan used hidden opponent state")
 	}
 	before, _ := aiUnitOrder(b, unit.ID)
-	hidden.player(1).AI = ""
+	hidden.player(1).AI, hidden.player(1).Controller = "", "human"
 	issue(t, hidden, 1, Order{Kind: "move", Entities: []ID{unit.ID}, Position: Vec{X: 22500, Y: 24500}})
 	for i := 0; i < 180 && len(hidden.entity(unit.ID).Orders) > 0; i++ {
 		hidden.Advance()
@@ -448,7 +448,7 @@ func TestAIQualityGroundPerfHiddenGeometryAndFreshPass(t *testing.T) {
 	if len(hidden.entity(unit.ID).Orders) > 0 {
 		t.Fatal("ordinary observer movement did not finish")
 	}
-	hidden.player(1).AI = "hard"
+	hidden.player(1).AI, hidden.player(1).Controller = "hard", "ai"
 	hidden.updateFog()
 	if !hidden.canSeeEntity(1, collider) {
 		t.Fatal("ordinary later observer movement did not reveal collision")
@@ -466,7 +466,7 @@ func TestAIQualityGroundPerfPlayerAndTransportSeparation(t *testing.T) {
 	var first *Engine
 	e.aiCoverPositionWithGeometry(e.player(1), unit, goal, &first)
 	original := append([]*Entity(nil), first.state.Entities...)
-	e.player(1).AI = ""
+	e.player(1).AI, e.player(1).Controller = "", "human"
 	carrier := e.spawn("US.apc", 1, Vec{X: 30000, Y: 20000}, true, 0)
 	passenger := e.spawn("US.rifle", 1, carrier.Position, true, 0)
 	issue(t, e, 1, Order{Kind: "board", Entities: []ID{passenger.ID}, Target: carrier.ID})
@@ -481,7 +481,7 @@ func TestAIQualityGroundPerfPlayerAndTransportSeparation(t *testing.T) {
 		t.Fatal("transport appended proxies into cover geometry")
 	}
 	p2 := e.player(2)
-	p2.AI = "hard"
+	p2.AI, p2.Controller = "hard", "ai"
 	other := e.spawn("IR.rifle", 2, Vec{X: 48500, Y: 48500}, true, 0)
 	otherGoal := Vec{X: 52500, Y: 48500}
 	p2.AIKnowledge = []AIObservation{{ID: 900, Owner: 1, Type: "US.rifle", Position: otherGoal, Seen: e.Tick()}}
