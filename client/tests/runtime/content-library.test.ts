@@ -39,3 +39,13 @@ test('empty installed index is explicit missing content, while private/executabl
  const empty:ContentIndex={format_version:1,version:'1',packs:[],maps:[],missions:[]};assert.deepEqual(decodeContentIndex(encode(empty)),empty);
  assert.throws(()=>decodeContentIndex(encode({...empty,packs:[{id:'bad',version:'1',manifest_url:'/api/v1/profiles/me'}]})),{code:'content_index_invalid'});
 });
+
+test('peekMap validates exact preview bytes without loading events, and keeps generation/integrity guards',async()=>{
+ const f=await contentFixture(),events:unknown[]=[];
+ const library=new ContentLibrary({validator:f.validator,fetch:f.fetcher,onLoad:event=>(events as unknown[]).push(event)});library.useIndex(encode(f.index));const state=library.state;
+ const preview=await library.peekMap('layout');assert.deepEqual(preview.map,f.map);assert.deepEqual(events,[]);assert.deepEqual(library.state,state);assert.ok(f.calls.length>0);
+ const bad=f.mapSource.slice();bad[bad.length-2]=32;f.files.set('/content/maps/layout.json',bad);await assert.rejects(library.peekMap('layout'),{code:'content_integrity'});assert.deepEqual(events,[]);
+ const abort=new AbortController();abort.abort();await assert.rejects(library.peekMap('layout',abort.signal),{code:'content_canceled'});
+ let finish!:(value:any)=>void,entered!:()=>void;const gate=new Promise<void>(resolve=>entered=resolve);f.files.set('/content/maps/layout.json',f.mapSource);
+ const pendingLibrary=new ContentLibrary({validator:{...f.validator,validateMap:()=>new Promise(resolve=>{finish=resolve;entered()})},fetch:f.fetcher,onLoad:event=>(events as unknown[]).push(event)});pendingLibrary.useIndex(encode(f.index));const pending=pendingLibrary.peekMap('layout');await gate;pendingLibrary.useIndex(encode({...f.index,version:'next'}));finish(f.map);await assert.rejects(pending,{code:'content_superseded'});assert.deepEqual(events,[]);
+});

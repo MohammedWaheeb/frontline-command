@@ -73,7 +73,11 @@ func (e *Engine) previewDetachedAdvice(player PlayerID, orders []Order) (OrderPr
 			} else {
 				switch effective.Kind {
 				case "build":
-					_, code = e.buildingRequirements(p, e.entity(effective.Entities[0]), effective)
+					var building content.Building
+					building, code = e.buildingRequirements(p, e.entity(effective.Entities[0]), effective)
+					if code == "ok" {
+						code = e.placementOccupancy(effective.Position, building.Width, building.Height, player)
+					}
 					if code == "ok" {
 						code = "indeterminate"
 					}

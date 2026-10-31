@@ -30,6 +30,9 @@ type Replay struct {
 	Commands    []Scheduled        `json:"commands"`
 	Chunks      []ReplayChunk      `json:"chunks"`
 	Checkpoints []ReplayCheckpoint `json:"checkpoints"`
+
+	pendingCheckpointTick Tick
+	hasPendingCheckpoint  bool
 }
 
 // ReplayLobby records declared service policy for presentation only. It is not
@@ -73,24 +76,61 @@ func (r *Replay) CaptureCheckpoint(e *Engine) ([]byte, error) {
 	return r.capture(e, true)
 }
 
+// BeginCheckpoint is the off-loop half of CaptureCheckpoint: it drains
+// commands exactly like capture(checkpoint=true) but returns an
+// independent State snapshot instead of marshaling on the caller's
+// goroutine. Complete it with PackCheckpoint (safe on any goroutine)
+// followed by AppendCheckpoint on the recorder owner's goroutine.
+// Only one Begin may be outstanding at a time.
+func (r *Replay) BeginCheckpoint(e *Engine) (State, error) {
+	if r.hasPendingCheckpoint {
+		return State{}, errors.New("replay checkpoint already pending")
+	}
+	if err := r.drain(e, true); err != nil {
+		return State{}, err
+	}
+	if len(r.Checkpoints) > 0 && r.Checkpoints[len(r.Checkpoints)-1].Tick >= e.Tick() {
+		return State{}, errors.New("checkpoint ticks must increase")
+	}
+	r.pendingCheckpointTick = e.Tick()
+	r.hasPendingCheckpoint = true
+	return e.CloneState(), nil
+}
+
+// PackCheckpoint marshals and compresses a snapshot from
+// BeginCheckpoint. It touches no recorder state.
+func PackCheckpoint(state State) (save, packed []byte, err error) {
+	save, err = MarshalState(state)
+	if err != nil {
+		return nil, nil, err
+	}
+	packed, err = compressReplay(save)
+	if err != nil {
+		return nil, nil, err
+	}
+	return save, packed, nil
+}
+
+// AppendCheckpoint records a packed checkpoint packed from the
+// outstanding BeginCheckpoint snapshot.
+func (r *Replay) AppendCheckpoint(tick Tick, packed []byte) error {
+	if !r.hasPendingCheckpoint || tick != r.pendingCheckpointTick {
+		return errors.New("no matching pending replay checkpoint")
+	}
+	if len(r.Checkpoints) > 0 && r.Checkpoints[len(r.Checkpoints)-1].Tick >= tick {
+		return errors.New("checkpoint ticks must increase")
+	}
+	r.Checkpoints = append(r.Checkpoints, ReplayCheckpoint{Tick: tick, PackedSave: packed})
+	r.hasPendingCheckpoint = false
+	return nil
+}
+
 func (r *Replay) capture(e *Engine, checkpoint bool) ([]byte, error) {
-	if r.Metadata != e.Metadata() || r.Version != 2 || r.Recorded < e.state.LogBase {
-		return nil, errors.New("replay recorder missed its bounded command window")
+	if checkpoint && r.hasPendingCheckpoint {
+		return nil, errors.New("replay checkpoint already pending")
 	}
-	end := e.state.LogBase + uint64(len(e.state.Log))
-	if r.Recorded > end {
-		return nil, errors.New("replay recorder moved backwards")
-	}
-	for _, cmd := range e.state.Log[r.Recorded-e.state.LogBase:] {
-		cmd.Orders = cloneOrders(cmd.Orders)
-		r.Commands = append(r.Commands, cmd)
-	}
-	r.Recorded = end
-	r.FinalTick = e.Tick()
-	if len(r.Commands) >= 1024 || checkpoint || e.Outcome().Finished {
-		if err := r.flush(); err != nil {
-			return nil, err
-		}
+	if err := r.drain(e, checkpoint); err != nil {
+		return nil, err
 	}
 	var checkpointSave []byte
 	if checkpoint {
@@ -109,6 +149,28 @@ func (r *Replay) capture(e *Engine, checkpoint bool) ([]byte, error) {
 		checkpointSave = save
 	}
 	return checkpointSave, nil
+}
+
+func (r *Replay) drain(e *Engine, checkpoint bool) error {
+	if r.Metadata != e.Metadata() || r.Version != 2 || r.Recorded < e.state.LogBase {
+		return errors.New("replay recorder missed its bounded command window")
+	}
+	end := e.state.LogBase + uint64(len(e.state.Log))
+	if r.Recorded > end {
+		return errors.New("replay recorder moved backwards")
+	}
+	for _, cmd := range e.state.Log[r.Recorded-e.state.LogBase:] {
+		cmd.Orders = cloneOrders(cmd.Orders)
+		r.Commands = append(r.Commands, cmd)
+	}
+	r.Recorded = end
+	r.FinalTick = e.Tick()
+	if len(r.Commands) >= 1024 || checkpoint || e.Outcome().Finished {
+		if err := r.flush(); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 func (r *Replay) flush() error {
 	if len(r.Commands) == 0 {

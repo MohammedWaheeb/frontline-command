@@ -14,14 +14,15 @@ import {actorArtKey,physicalArtType} from './art-id';
 import {buildingPresentations} from './poses';
 import {CHUNK,TerrainBaker,type TerrainFragment} from './terrain';
 import {TerrainSurface,projectSurfaceVertex} from './terrain-surface';
-import {toWorld} from './iso';
+import {toWorld,HALF_W,HALF_H} from './iso';
 import {drawStructure} from './structure';
 import {activeMissionMarkers,type MissionMarker} from '../app/mission-markers';
 import {minimapLayout,minimapProject,minimapWorldPoint,MinimapTerrainRaster} from './minimap';
-import {minimapOwnerRelations,drawMinimapOwnerSymbol} from './minimap-owner-symbol';
+import {minimapOwnerRelations,drawMinimapOwnerSymbol,type MinimapOwnerRelation} from './minimap-owner-symbol';
 import {ownerRanges} from '../app/owner-ranges';
 import {tacticalCircle} from './tactical-geometry';
 import {PlacementGhost} from './placement-ghost';
+import {assessPlacement} from './placement-cells';
 import type {RangeMode} from './range-geometry';
 import {memoryCaption} from '../app/battlefield-cues';
 import {soldDestruction} from '../app/combat-feedback';
@@ -46,8 +47,21 @@ interface Chunk {fragments:TerrainFragment[];texture:Texture;used:number;visible
 const color=(hex:string)=>parseInt(hex.replace('#',''),16);
 const clamp=(value:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,value));
 const MINIMAP_MS=80;
+const PLACEMENT_VALID=color(tokens.color.world.placement_valid),PLACEMENT_INVALID=color(tokens.color.world.placement_invalid);
 /** Last-seen tag size in screen px: follows the HUD scale, never below 11px. */
 export const memoryLabelSize=(uiScale:number)=>Math.round(Math.max(11,12*(Number.isFinite(uiScale)?uiScale:1)));
+/** Initial camera zoom grows with the battlefield height so units keep a
+ * readable on-screen size at 1080p and above (1.0 at ≤900px, up to 1.25). */
+export const initialZoom=(height:number)=>Number.isFinite(height)&&height>0?clamp(height/900,1,1.25):1;
+export const ZOOM_MIN=.45,ZOOM_MAX=1.8;
+/** Dark apron beyond the map edge: concentric diamonds from shroud-on-sand to
+ * the clear colour, so the board never floats in a void. Returns [expand, colour]. */
+export function apronBands(steps=8):Array<[number,number]>{
+ const near=[0x1d,0x1a,0x15],far=[0x0c,0x0b,0x09];
+ return Array.from({length:steps},(_,i)=>{const t=1-i/(steps-1),c=near.map((n,k)=>Math.round(far[k]+(n-far[k])*(1-t)));return [(steps-i)*1.25,(c[0]<<16)|(c[1]<<8)|c[2]] as [number,number]});
+}
+/** Renderer resolution follows the display pixel ratio, capped at 2. */
+export const cappedResolution=(ratio:number)=>Math.min(Number.isFinite(ratio)&&ratio>0?ratio:1,2);
 
 /** Fixed-camera presentation over authorized snapshots; never simulates game rules. */
 export class BattlefieldRenderer {
@@ -72,6 +86,7 @@ export class BattlefieldRenderer {
  private memoryKey='';private rubbleKey='';private terrainKey='';private lost=false;private presentationMap:GameMap;
  private effectEvent=0;private feedbackBaseline=false;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
+ private hovered?:number;private relations:ReadonlyMap<number,MinimapOwnerRelation>=new Map();
  private rejection?:{point:Point;player:number;tick:number;until:number};
  // Attached minimap: dirtied by snapshot/overlay/camera changes, repainted from the existing ticker at most every MINIMAP_MS.
  private minimap?:{canvas:HTMLCanvasElement;resize:ResizeObserver;view:number[]};private minimapDirty=false;private minimapAt=-Infinity;
@@ -84,15 +99,21 @@ export class BattlefieldRenderer {
  private async init(){
   this.options.art.configure(this.settings.artQuality);await this.options.art.init();await this.baker.load();
   try{await this.combat.init(this.options.art.index?.effects)}catch(error){this.options.onError?.(error instanceof Error?error:Error(String(error)))}
-  await this.app.init({resizeTo:this.host,background:0x14130f,antialias:true,resolution:Math.min(devicePixelRatio,2),autoDensity:true,preference:'webgl'});
+  await this.app.init({resizeTo:this.host,background:0x0c0b09,antialias:true,resolution:cappedResolution(devicePixelRatio),autoDensity:true,preference:'webgl'});
   if(this.disposed){this.app.destroy(true,{children:true});return}
   const canvas=this.app.canvas;canvas.tabIndex=0;canvas.setAttribute('aria-label','Battlefield. Select units and give orders.');canvas.style.display='block';canvas.style.touchAction='none';canvas.style.outlineColor='var(--fc-color-brass-light, #d0ae66)';canvas.style.outlineOffset='-2px';
   this.host.appendChild(canvas);
   this.surfaceShadows.configure(this.app.renderer);
   this.app.stage.addChild(this.world,this.overlay);this.world.addChild(this.ground,this.combat.root,this.tactical,this.tacticalOverlay.root,this.strikePreview.root,this.placementGhost.root,this.actorStatuses);this.ground.sortableChildren=true;this.actorStatuses.eventMode='none';
   const m=this.options.map;
+  this.drawApron();
+  this.camera.zoom=initialZoom(this.app.screen.height);
   this.center(m.spawns[0]?.position??{x:m.width*500,y:m.height*500});
-  this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
+  this.bindInput();this.resizeObserver=new ResizeObserver(()=>{if(!this.disposed){this.syncResolution();this.app.resize();this.cameraTransform()}});this.resizeObserver.observe(this.host);
+  // Moving between monitors or changing browser zoom can change the pixel
+  // ratio without resizing the host; re-arm a one-shot watcher per ratio.
+  const watchResolution=()=>{if(typeof matchMedia!=='function')return;matchMedia(`(resolution: ${devicePixelRatio}dppx)`).addEventListener('change',()=>{this.syncResolution();watchResolution()},{once:true,signal:this.listeners.signal})};
+  watchResolution();
   this.app.ticker.add(()=>this.render());
  }
  get missingArt():string[]{
@@ -110,13 +131,24 @@ export class BattlefieldRenderer {
  zoomBy(factor:number,anchor?:Point){
   if(!Number.isFinite(factor)||factor<=0)return;
   const a=anchor??{x:this.app.screen.width/2,y:this.app.screen.height/2},before=this.screenToIso(a);
-  this.camera.zoom=clamp(this.camera.zoom*factor,.45,1.8);this.cameraTransform();const after=this.screenToIso(a);
+  this.camera.zoom=clamp(this.camera.zoom*factor,ZOOM_MIN,ZOOM_MAX);this.cameraTransform();const after=this.screenToIso(a);
   this.camera.x+=before.x-after.x;this.camera.y+=before.y-after.y;this.limitCamera();this.cameraTransform();
  }
  private limitCamera(){
   const iso={x:this.camera.x,y:this.camera.y},m=this.options.map,p=this.surface.pickSurface(iso)?.point??toWorld(iso.x,iso.y);
   if(p.x>=0&&p.y>=0&&p.x<=m.width*1000&&p.y<=m.height*1000)return;
   const s=this.surface.projectGround({x:clamp(p.x,0,m.width*1000),y:clamp(p.y,0,m.height*1000)});this.camera.x=s.x;this.camera.y=s.y;
+ }
+ private drawApron(){
+  const m=this.options.map,g=new Graphics(),diamond=(e:number)=>[-e,-e,m.width+e,-e,m.width+e,m.height+e,-e,m.height+e].reduce<number[]>((out,_,i,a)=>{if(i%2===0){const x=a[i],y=a[i+1];out.push((x-y)*HALF_W,(x+y)*HALF_H)}return out},[]);
+  for(const [expand,paint] of apronBands())g.poly(diamond(expand)).fill({color:paint});
+  g.poly(diamond(.05)).stroke({width:3,color:0x3a3122,alpha:.9});
+  g.zIndex=-1e12;g.eventMode='none';this.ground.addChild(g);
+ }
+ private syncResolution(){
+  if(this.disposed||!this.app.renderer)return;
+  const resolution=cappedResolution(devicePixelRatio);
+  if(this.app.renderer.resolution!==resolution){this.app.renderer.resolution=resolution;this.app.resize();this.cameraTransform()}
  }
  private cameraTransform(){
   if(!this.app.renderer)return;
@@ -170,7 +202,9 @@ export class BattlefieldRenderer {
  }
  private emit(kind:BattlefieldGesture['kind'],event:PointerEvent|MouseEvent,p:Point,rect?:Rect){
   if(this.lost||this.disposed)return;
-  this.options.onGesture({kind,point:this.point(p),hit:this.hit(p),rect,shift:event.shiftKey,ctrl:event.ctrlKey,alt:event.altKey,meta:event.metaKey,button:event.button});
+  const hit=this.hit(p);
+  if(kind==='hover')this.hovered=hit.kind==='entity'?hit.id:undefined;
+  this.options.onGesture({kind,point:this.point(p),hit,rect,shift:event.shiftKey,ctrl:event.ctrlKey,alt:event.altKey,meta:event.metaKey,button:event.button});
  }
  private bindInput(){
   const canvas=this.app.canvas,signal=this.listeners.signal;
@@ -190,12 +224,15 @@ export class BattlefieldRenderer {
    if(d.button===this.settings.bindings.pointer.pan)return;
    const distance=Math.hypot(d.start.x-p.x,d.start.y-p.y);
    if(distance>=this.settings.dragThreshold){this.emit('box',event,p,{left:d.start.x,top:d.start.y,right:p.x,bottom:p.y});return}
-   this.emit(d.button===2?'context':'click',event,p);
+   // Follow the remapped bindings: in the classic preset select and context
+   // share the left button, so the separate cancel button is contextual.
+   const pointer=this.settings.bindings.pointer,contextButton=pointer.context!==pointer.select?pointer.context:pointer.cancel;
+   this.emit(d.button===contextButton?'context':'click',event,p);
   },{signal});
   canvas.addEventListener('dblclick',event=>this.emit('double-click',event,local(event)),{signal});
   canvas.addEventListener('pointercancel',event=>{if(event.pointerId===this.drag?.pointer)this.cancelDrag()},{signal});
   canvas.addEventListener('lostpointercapture',event=>{if(event.pointerId===this.drag?.pointer)this.cancelDrag()},{signal});
-  canvas.addEventListener('pointerleave',()=>{this.pointer=undefined},{signal});
+  canvas.addEventListener('pointerleave',()=>{this.pointer=undefined;this.hovered=undefined},{signal});
   canvas.addEventListener('wheel',event=>{event.preventDefault();if(!this.lost)this.zoomBy(Math.exp(-event.deltaY*.001*this.settings.zoomSpeed),local(event))},{signal,passive:false});
   canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();this.lost=true;this.resetFeedback();this.cancelDrag();this.pointer=undefined;this.options.onError?.(new Error('Graphics context lost. Simulation remains in its worker; pause or save while graphics recover.'))},{signal});
   canvas.addEventListener('webglcontextrestored',()=>{this.lost=false;this.resetFeedback();this.invalidateTerrain();this.fogTick=-1},{signal});
@@ -204,6 +241,23 @@ export class BattlefieldRenderer {
  cancelDrag(){const drag=this.drag;this.drag=undefined;if(drag&&this.app.canvas?.hasPointerCapture(drag.pointer))this.app.canvas.releasePointerCapture(drag.pointer);this.overlay.clear()}
  setTargeting(kind:string|undefined){this.targeting=kind;if(this.app.canvas)this.app.canvas.style.cursor=kind?'crosshair':'default'}
  setRangeMode(mode:RangeMode){this.rangeMode=mode}
+ /** Immediate input acknowledgement, using the tactical overlay's pulse art.
+  * This isolated cosmetic overlay never alters Go's accepted order routes. */
+ showOrderMarker(point:Point,kind:string){
+  const s=this.snapshot,model=this.tacticalModel;
+  if(this.disposed||this.lost||!s||!model||!['move','attack','attack_move','rally','force_fire'].includes(kind)||!Number.isSafeInteger(point.x)||!Number.isSafeInteger(point.y)||point.x<0||point.y<0||point.x>=this.options.map.width*1000||point.y>=this.options.map.height*1000)return;
+  const pulse=new TacticalOverlay(),position={...point},player=s.player,tick=s.tick;
+  const seed={...model,eventCues:[],selected:[{entity:0,position,orders:[]}]};
+  pulse.sync(seed,player,true);
+  pulse.sync({...seed,selected:[{entity:0,position,orders:[{index:0,kind,position,unresolvedTarget:false}]}]},player);
+  this.tacticalOverlay.root.addChild(pulse.root);
+  const draw=()=>{
+   const snapshot=this.snapshot;
+   if(this.disposed||this.lost||this.feedbackBaseline||!snapshot||snapshot.player!==player||snapshot.tick<tick||!pulse.activePulses){this.app.ticker.remove(draw);pulse.dispose();return}
+   pulse.drawPulses(this.surface,this.camera.zoom,performance.now(),this.settings.reducedMotion,this.settings.reducedFlashing);
+  };
+  this.app.ticker.add(draw);draw();
+ }
  showRejectedOrder(point:Point,player:number){
   const s=this.snapshot;if(!s||s.player!==player||!Number.isSafeInteger(point.x)||!Number.isSafeInteger(point.y)||point.x<0||point.y<0||point.x>=this.options.map.width*1000||point.y>=this.options.map.height*1000)return;
   // Cosmetic acknowledgement only. Accepted queues always remain Go snapshots.
@@ -239,13 +293,14 @@ export class BattlefieldRenderer {
    for(const death of this.deaths)death.actor.dispose();this.deaths.length=0;
   }
   this.snapshot=snapshot;this.refreshTactical(tacticalReset);this.tickAt=performance.now();this.combat.sync(snapshot,this.tacticalModel?.projectiles??[],tacticalReset,id=>this.actors.get(id)?.visualAltitude(this.tickAt,this.settings.reducedMotion));const living=new Set<number>();
+  this.relations=minimapOwnerRelations(snapshot.players,snapshot.player);
   const presentations=buildingPresentations(snapshot,this.options.catalog),boardingReceivers=new Set(ownedBoardingReceivers(snapshot,this.options.catalog));
   for(const entity of snapshot.entities){
    if(!entity.position||entity.private?.container)continue;
    living.add(entity.id);let actor=this.actors.get(entity.id);const faction=snapshot.players.find(p=>p.id===entity.owner)?.faction;
    if(actor&&actor.artKey!==actorArtKey(entity,faction)){actor.dispose();this.actors.delete(entity.id);actor=undefined}
    if(!actor){actor=new ActorVisual(entity,this.options.catalog,this.options.art,faction,this.surface,this.objectSkins.get(`${entity.type}:${entity.position.x}:${entity.position.y}`));this.actors.set(entity.id,actor);this.ground.addChild(actor.root);actor.attachStatusLayer(this.actorStatuses);actor.useSurfaceShadows();if(actor.terrainShadow)this.ground.addChild(actor.terrainShadow)}
-   actor.viewer=snapshot.player;actor.presentation=presentations.get(entity.id);actor.status=actorStatus(entity,snapshot,this.options.catalog);actor.receivingBoarder=boardingReceivers.has(entity.id);actor.update(entity,this.tickAt,interpolationMs);
+   actor.viewer=snapshot.player;actor.relation=this.relations.get(entity.owner)??'unknown';actor.presentation=presentations.get(entity.id);actor.status=actorStatus(entity,snapshot,this.options.catalog);actor.receivingBoarder=boardingReceivers.has(entity.id);actor.update(entity,this.tickAt,interpolationMs);
   }
   const serviceBases=[...this.actors.values()].filter(actor=>living.has(actor.id)&&(this.options.catalog.buildings.get(actor.entity.type)?.service_slots??0)>0);
   for(const actor of this.actors.values()){
@@ -291,7 +346,9 @@ export class BattlefieldRenderer {
  private team(owner:number){return ownerTeamColor(owner,this.snapshot?.players??[],this.settings.palette).tint}
  private updateFog(){
   const snapshot=this.snapshot;if(!snapshot||snapshot.tick===this.fogTick)return;this.fogTick=snapshot.tick;
-  for(const chunk of this.chunks.values())for(const fragment of chunk.fragments)fragment.setFog(snapshot.visible,snapshot.explored);
+  // One incremental field update per snapshot; fragments only re-read it.
+  if(!this.baker.updateFog(snapshot.visible,snapshot.explored))return;
+  for(const chunk of this.chunks.values())for(const fragment of chunk.fragments)fragment.refreshFog();
  }
  private updateMemories(){
   const snapshot=this.snapshot;if(!snapshot)return;const occupied=new Set(snapshot.entities.map(entity=>entity.id));const known=snapshot.memory.filter(memory=>{if(!memory.position||occupied.has(memory.id))return false;const i=Math.floor(memory.position.y/1000)*this.options.map.width+Math.floor(memory.position.x/1000);return snapshot.explored[i]&&!snapshot.visible[i]&&memoryCaption(memory.seen,snapshot.tick)!==undefined});const key=JSON.stringify(known);
@@ -341,7 +398,7 @@ export class BattlefieldRenderer {
   admission.sort((a,b)=>Number(b.visible)-Number(a.visible)||a.distance-b.distance||a.y-b.y||a.x-b.x);
   for(const {x,y} of admission){
    const key=`${x}:${y}`;wanted.add(key);let chunk=this.chunks.get(key);
-   if(!chunk){if(baked>=2){pending=true;continue}const texture=this.baker.bake(x,y,true),fragments=this.baker.surfaceFragments(x,y,texture,this.surface);for(const fragment of fragments){fragment.setFog(this.snapshot?.visible??[],this.snapshot?.explored??[]);this.ground.addChild(fragment.mesh,fragment.fog)}chunk={texture,fragments,used:this.frame,visible:true};this.chunks.set(key,chunk);baked++}
+   if(!chunk){if(baked>=2){pending=true;continue}const texture=this.baker.bake(x,y,true),fragments=this.baker.surfaceFragments(x,y,texture,this.surface);for(const fragment of fragments){fragment.refreshFog();this.ground.addChild(fragment.mesh,fragment.fog)}chunk={texture,fragments,used:this.frame,visible:true};this.chunks.set(key,chunk);baked++}
    chunk.visible=true;for(const fragment of chunk.fragments){const b=fragment.bounds;fragment.setVisible(b.right>=view.left&&b.left<=view.right&&b.bottom>=view.top&&b.top<=view.bottom)}chunk.used=this.frame;
   }
   for(const [key,chunk] of this.chunks)if(chunk.visible&&!wanted.has(key)){chunk.visible=false;for(const fragment of chunk.fragments)fragment.setVisible(false)}
@@ -380,6 +437,7 @@ export class BattlefieldRenderer {
    if(!actor.root.visible){const p=actor.groundAnchor(now,this.settings.reducedMotion);actor.root.position.set(p.x,p.y)}
    const bounds=this.bounds(actor.entity);actor.root.visible=!!bounds&&bounds.right>=-200&&bounds.left<=this.app.screen.width+200&&bounds.bottom>=-200&&bounds.top<=this.app.screen.height+200;
    if(actor.terrainShadow)actor.terrainShadow.visible=actor.root.visible;
+   actor.hovered=this.hovered===actor.id&&!this.drag;
    if(actor.root.visible)actor.render(now,this.team(actor.entity.owner),this.selected.has(actor.id),this.settings.healthBars,this.settings.reducedMotion,this.camera.zoom,this.selected.size<=4);else actor.hideStatus();
   }
   for(let i=this.deaths.length-1;i>=0;i--){const death=this.deaths[i];if(now>=death.until){death.actor.dispose();this.deaths.splice(i,1);continue}death.actor.render(now,this.team(death.actor.entity.owner),false,'selected',this.settings.reducedMotion);death.actor.root.alpha=Math.min(1,(death.until-now)/700);if(death.actor.terrainShadow)death.actor.terrainShadow.alpha=death.actor.root.alpha}
@@ -388,7 +446,7 @@ export class BattlefieldRenderer {
   this.combat.draw(this.surface,this.camera.zoom,this.settings,{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom},id=>this.actors.get(id)?.visualAltitude(now,this.settings.reducedMotion),(id,eventID)=>this.actors.get(id)?.muzzleAttachment(eventID),id=>{const actor=this.actors.get(id);return actor?.root.visible?actor.root.position:undefined});
   for(const label of this.memoryLabels)label.scale.set(1/this.camera.zoom);
   this.drawTactical(now);this.overlay.clear();
-  if(this.drag&&this.drag.button!==this.settings.bindings.pointer.pan&&Math.hypot(this.drag.start.x-this.drag.last.x,this.drag.start.y-this.drag.last.y)>=this.settings.dragThreshold){const a=this.drag.start,b=this.drag.last;this.overlay.rect(Math.min(a.x,b.x),Math.min(a.y,b.y),Math.abs(a.x-b.x),Math.abs(a.y-b.y)).fill({color:0xbcce88,alpha:.08}).stroke({width:1,color:0xc7d895})}
+  if(this.drag&&this.drag.button!==this.settings.bindings.pointer.pan&&Math.hypot(this.drag.start.x-this.drag.last.x,this.drag.start.y-this.drag.last.y)>=this.settings.dragThreshold){const a=this.drag.start,b=this.drag.last,x=Math.min(a.x,b.x),y=Math.min(a.y,b.y),w=Math.abs(a.x-b.x),h=Math.abs(a.y-b.y);this.overlay.rect(x,y,w,h).fill({color:PLACEMENT_VALID,alpha:.07}).stroke({width:3,color:0x0d0c0a,alpha:.55});this.overlay.rect(x,y,w,h).stroke({width:1.5,color:PLACEMENT_VALID,alpha:.95})}
   this.paintMinimap(now);
   // Every displayed world/placement page has now been touched for this frame.
   if(this.frame%60===0)this.options.art.trim(now);
@@ -423,21 +481,35 @@ export class BattlefieldRenderer {
   }
   for(const salvage of s.salvage){if(salvage.position)this.diamond(g,salvage.position,.5,.5,0xb9934b,.65)}
   if(this.tacticalModel)this.tacticalOverlay.draw(this.tacticalModel,this.surface,this.camera.zoom,owner=>this.team(owner),this.rangeMode);
+  this.tacticalOverlay?.drawPulses(this.surface,this.camera.zoom,now,this.settings.reducedMotion,this.settings.reducedFlashing);
   this.strikePreview.draw(this.surface,this.camera.zoom);
   if(this.placement){
    const p=this.placement.position??(this.pointer?this.point(this.pointer):undefined),b=this.options.catalog.buildings.get(this.placement.type);
    if(p&&b){
-    const paint=this.placement.valid===false?0xdb5c46:this.placement.valid?0xa9cc79:0xd8b766;
-    const line=(points:Point[],alpha=.4)=>{const projected=points.map(point=>this.surface.projectGround(point));if(!projected.length)return;g.moveTo(projected[0].x,projected[0].y);for(const at of projected.slice(1))g.lineTo(at.x,at.y);g.stroke({width:1/this.camera.zoom,color:paint,alpha})};
+    // Go's preview decides; while it is pending, a public-data estimate colours
+    // the site so the ghost is never an ambiguous beige. Cells that look blocked
+    // are marked individually, so a rejected site says *where* it conflicts.
+    const px=1/this.camera.zoom,buildings=s.entities.filter(e=>this.options.catalog.isBuilding(e.type)&&e.footprintWidth>0);
+    const assessment=assessPlacement(this.presentationMap,p,b.width,b.height,s.visible,buildings,s.stations);
+    const valid=this.placement.valid??!assessment.anyBlocked,paint=valid?PLACEMENT_VALID:PLACEMENT_INVALID;
+    const groundPoly=(points:Point[])=>points.map(point=>this.surface.projectGround(point)).flatMap(v=>[v.x,v.y]);
     // Go measures the ordinary build radius between anchor and proposed center.
     // Exceptions (outpost and HQ replacement) need no circle constraint.
     if(b.role!=='outpost'&&!(b.role==='hq'&&!s.entities.some(e=>e.owner===s.player&&e.type==='hq'&&e.complete&&e.health>0)))for(const e of s.entities){
-     const radius=ownerRanges(e,s)?.buildRadius;if(radius&&e.position){const points=tacticalCircle(e.position,radius);line([...points,points[0]],.25)}
+     const radius=ownerRanges(e,s)?.buildRadius;if(!radius||!e.position)continue;
+     const points=tacticalCircle(e.position,radius).map(point=>this.surface.projectGround(point));
+     for(let i=0;i<points.length;i+=2){const a=points[i],c=points[(i+1)%points.length];g.moveTo(a.x,a.y).lineTo(c.x,c.y)}
+     g.stroke({width:1.6*px,color:0xe0c27a,alpha:.55});
     }
-    this.diamond(g,p,b.width,b.height,paint,.12);
-    for(let x=1;x<b.width;x++)line(Array.from({length:b.height*4+1},(_,i)=>({x:p.x-b.width*500+x*1000,y:p.y-b.height*500+i*250})));
-    for(let y=1;y<b.height;y++)line(Array.from({length:b.width*4+1},(_,i)=>({x:p.x-b.width*500+i*250,y:p.y-b.height*500+y*1000})));
-    this.placementGhost.draw(b,s.players.find(player=>player.id===s.player)?.faction,p,this.placement.valid,this.surface);
+    for(const cell of assessment.cells){
+     const c=[{x:cell.x-500,y:cell.y-500},{x:cell.x+500,y:cell.y-500},{x:cell.x+500,y:cell.y+500},{x:cell.x-500,y:cell.y+500}];
+     const cellPaint=cell.blocked&&!valid?PLACEMENT_INVALID:paint;
+     g.poly(groundPoly(c)).fill({color:cellPaint,alpha:cell.blocked&&!valid?.42:.22}).stroke({width:1*px,color:cellPaint,alpha:.75});
+     if(cell.blocked&&!valid){const q=this.surface.projectGround(cell);for(const [w,col] of [[3.6,0x14110d],[1.8,PLACEMENT_INVALID]] as const)g.moveTo(q.x-5*px,q.y-2.5*px).lineTo(q.x+5*px,q.y+2.5*px).moveTo(q.x+5*px,q.y-2.5*px).lineTo(q.x-5*px,q.y+2.5*px).stroke({width:w*px,color:col})}
+    }
+    const outline=groundPoly([{x:p.x-b.width*500,y:p.y-b.height*500},{x:p.x+b.width*500,y:p.y-b.height*500},{x:p.x+b.width*500,y:p.y+b.height*500},{x:p.x-b.width*500,y:p.y+b.height*500}]);
+    g.poly(outline).stroke({width:4.4*px,color:0x14110d,alpha:.7});g.poly(outline).stroke({width:2.2*px,color:paint});
+    this.placementGhost.draw(b,s.players.find(player=>player.id===s.player)?.faction,p,valid,this.surface,this.team(s.player));
    }else this.placementGhost.clear();
   }else this.placementGhost.clear();
   if(this.rejection){
@@ -465,13 +537,22 @@ export class BattlefieldRenderer {
   const temp=this.minimapTerrain.paint(this.presentationMap,s.visible,s.explored);
   ctx.save();const tile=box.scale*1000;ctx.transform(tile,tile*.5,-tile,tile*.5,box.originX,box.originY);ctx.drawImage(temp,0,0);ctx.restore();
   const project=(p:Point)=>minimapProject(box,p),outline=[{x:0,y:0},{x:m.width*1000,y:0},{x:m.width*1000,y:m.height*1000},{x:0,y:m.height*1000}].map(project);
-  ctx.beginPath();outline.forEach((p,i)=>{if(i)ctx.lineTo(p.x,p.y);else ctx.moveTo(p.x,p.y)});ctx.closePath();ctx.strokeStyle='#777354';ctx.lineWidth=1;ctx.stroke();ctx.save();ctx.clip();
+  ctx.beginPath();outline.forEach((p,i)=>{if(i)ctx.lineTo(p.x,p.y);else ctx.moveTo(p.x,p.y)});ctx.closePath();ctx.strokeStyle='#8a7442';ctx.lineWidth=1.2;ctx.stroke();ctx.save();ctx.clip();
+  // Public start locations: faint brass rings, so scouting targets read even under shroud.
+  ctx.strokeStyle='rgba(224,194,122,0.55)';ctx.lineWidth=1;for(const spawn of m.spawns??[]){const q=project(spawn.position);ctx.beginPath();ctx.arc(q.x,q.y,4,0,Math.PI*2);ctx.stroke()}
+  // Known supply fields (gold diamonds) and energy stations (owner-coloured squares).
+  for(const field of s.fields){if(!field.position||field.remaining<=0n)continue;const q=project(field.position),r=2.5;ctx.fillStyle='#14110d';ctx.beginPath();ctx.moveTo(q.x,q.y-r-1);ctx.lineTo(q.x+r+1,q.y);ctx.lineTo(q.x,q.y+r+1);ctx.lineTo(q.x-r-1,q.y);ctx.closePath();ctx.fill();ctx.fillStyle='#e8b94a';ctx.beginPath();ctx.moveTo(q.x,q.y-r);ctx.lineTo(q.x+r,q.y);ctx.lineTo(q.x,q.y+r);ctx.lineTo(q.x-r,q.y);ctx.closePath();ctx.fill()}
+  for(const station of s.stations){if(!station.position)continue;const q=project(station.position);ctx.fillStyle='#14110d';ctx.fillRect(Math.round(q.x)-3,Math.round(q.y)-3,6,6);ctx.strokeStyle=station.owner?`#${this.team(station.owner).toString(16).padStart(6,'0')}`:'#d8cfb4';ctx.lineWidth=1;ctx.strokeRect(Math.round(q.x)-2.5,Math.round(q.y)-2.5,5,5)}
   for(const marker of activeMissionMarkers(this.missionMarkers,s.mission)){const {x,y}=project(marker.position);ctx.strokeStyle='#f1ce78';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x,y-5);ctx.lineTo(x+5,y);ctx.lineTo(x,y+5);ctx.lineTo(x-5,y);ctx.closePath();ctx.stroke()}
   const ownerRelations=minimapOwnerRelations(s.players,s.player);
-  for(const e of s.entities){if(!e.position||e.private?.container)continue;ctx.fillStyle=e.owner===0?tokens.color.team.relation.neutral:`#${this.team(e.owner).toString(16).padStart(6,'0')}`;const size=this.options.catalog.isBuilding(e.type)?4:3,p=project(e.position);drawMinimapOwnerSymbol(ctx,p,size,ownerRelations.get(e.owner)??'unknown')}
+  // Buildings under units; every symbol gets a 1px dark keyline for contrast.
+  const symbols=s.entities.filter(e=>e.position&&!e.private?.container).sort((a,b)=>Number(this.options.catalog.isBuilding(b.type))-Number(this.options.catalog.isBuilding(a.type)));
+  for(const e of symbols){const size=this.options.catalog.isBuilding(e.type)?4:3,p=project(e.position!),left=Math.round(p.x-size/2),top=Math.round(p.y-size/2);ctx.fillStyle='rgba(10,9,7,0.85)';ctx.fillRect(left-1,top-1,size+2,size+2);ctx.fillStyle=e.owner===0?tokens.color.team.relation.neutral:`#${this.team(e.owner).toString(16).padStart(6,'0')}`;drawMinimapOwnerSymbol(ctx,p,size,ownerRelations.get(e.owner)??'unknown')}
   if(this.tacticalModel)this.tacticalOverlay.drawMinimap(ctx,this.tacticalModel,project,owner=>this.team(owner));
   this.strikePreview.drawMinimap(ctx,project);
-  ctx.strokeStyle='#e2d6ad';ctx.lineWidth=1;ctx.beginPath();const corners=[{x:0,y:0},{x:this.app.screen.width,y:0},{x:this.app.screen.width,y:this.app.screen.height},{x:0,y:this.app.screen.height}].map(p=>project(this.point(p)));corners.forEach((p,i)=>{if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)});ctx.closePath();ctx.stroke();
+  // Camera frustum: projected viewport corners, amber over a dark keyline.
+  const corners=[{x:0,y:0},{x:this.app.screen.width,y:0},{x:this.app.screen.width,y:this.app.screen.height},{x:0,y:this.app.screen.height}].map(p=>project(this.point(p)));
+  for(const [width,stroke] of [[3.2,'rgba(10,9,7,0.8)'],[1.5,'#f4c24e']] as const){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.lineJoin='round';ctx.beginPath();corners.forEach((p,i)=>{if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)});ctx.closePath();ctx.stroke()}
   ctx.restore();
  }
  minimapPoint(canvas:HTMLCanvasElement,clientX:number,clientY:number):Point{const r=canvas.getBoundingClientRect(),m=this.options.map;return minimapWorldPoint(m.width,m.height,r.width,r.height,{x:clientX-r.left,y:clientY-r.top})}

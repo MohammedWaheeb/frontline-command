@@ -147,7 +147,7 @@ func (s *Server) sendChat(w http.ResponseWriter, r *http.Request) {
 	message, err := s.repo.SendChat(r.Context(), storage.ChatMessage{Recipients: recipients, Room: r.PathValue("id"), Sender: p.ID, Team: team, Text: body.Text, Tick: tick})
 	s.mu.Unlock()
 	if err != nil {
-		fail(w, 400, "chat_rejected", err.Error())
+		fail(w, 400, "chat_rejected", "The message could not be sent. Check its length and content.")
 		return
 	}
 	respond(w, 201, message)

@@ -14,15 +14,15 @@ export interface GameMap {
  stations?:Array<{id:number;position:Point}>;regions?:Array<{id:string;min:Point;max:Point}>;
  objects?:Array<{id:number;class:string;position:Point}>;required_packs?:string[];
 }
-export interface PlayerConfig{id:number;name:string;faction:Faction;team:number;color?:number;ai?:Difficulty;controller?:'human'|'ai'|'script'}
+export interface PlayerConfig{id:number;name:string;faction:Faction;team:number;color?:number;spawn?:number;ai?:Difficulty;controller?:'human'|'ai'|'script'}
 /** Public starting_credits uses whole credits (1..1,000,000), unlike sim.Config milli-units.
  * Omit it for the standard 6,000; prescribed missions/tutorials/practice reject overrides. */
 export interface OfflineConfig{map:GameMap;players?:PlayerConfig[];seed:number;ruleset?:string;starting_credits?:number;mission?:Record<string,unknown>;difficulty?:Difficulty;tutorial_faction?:Faction;skip_countdown?:boolean}
 export interface EngineMetadata{simulation:string;protocol:number;content_hash:string;map_version:string;ruleset:string;seed:number}
 export interface ReplayLobby{name:string;mode:'1v1'|'2v2'|'ffa'|'coop'|'custom';private:boolean;live_observers:boolean;pause_enabled:boolean;rated:boolean}
 /** Original whole-credit opening for standard/custom games and replay; authored budgets omit it. */
-export interface SessionInfo{adapter:string;metadata?:EngineMetadata;tick:number;local_players:number[];finished:boolean;replay:boolean;replay_start:number;replay_end:number;replay_lobby?:ReplayLobby;starting_credits?:number}
-export interface SaveData {data:Uint8Array;tick:number;hash:string;metadata:EngineMetadata;local_players:number[]}
+export interface SessionInfo{difficulty?:Difficulty;adapter:string;metadata?:EngineMetadata;tick:number;local_players:number[];finished:boolean;replay:boolean;replay_start:number;replay_end:number;replay_lobby?:ReplayLobby;starting_credits?:number}
+export interface SaveData {map_id?:string;data:Uint8Array;tick:number;hash:string;metadata:EngineMetadata;local_players:number[]}
 export interface RuntimeVersion {adapter:string;simulation:string;protocol:number;go:string;content_hash:string;wasm_sha256?:string}
 export type ConnectionPhase='idle'|'connecting'|'connected'|'reconnecting'|'closed';
 export type RuntimeEvent =
@@ -49,8 +49,8 @@ export class RuntimeEvents {
 export interface ReplayCommand {tick:number;player:number;sequence:number;orders:Array<{kind:string;entities?:number[];target?:number;position?:Point;type?:string;queue?:boolean;index?:number}>}
 export interface ReplayCommandPage {commands:ReplayCommand[];next:number}
 export interface ProductionStatus{kind:'build'|'train'|'research';type:string;code:string;waits_for?:string}
-export interface EntityAffordance{id:number;commands:string[];abilities:string[];builds:string[];trains:string[];research:string[];production_status?:ProductionStatus[]}
-export interface CommandAffordances{tick:number;player:number;entities:EntityAffordance[];player_commands:string[]}
+export interface EntityAffordance{id:number;commands:string[];abilities:string[];builds:string[];trains:string[];research:string[];production_status?:ProductionStatus[];sell_refund?:number;construction_stalled?:boolean}
+export interface CommandAffordances{tick:number;player:number;entities:EntityAffordance[];player_commands:string[];economy?:{supply_cap:number}}
 
 /** Nonbinding owner-only advice. Absolute estimates share Go's actual launch
  * geometry; execution, delay and interception remain authoritative. */

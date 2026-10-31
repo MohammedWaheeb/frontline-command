@@ -103,7 +103,7 @@ async function buildPackage(){
  run('go',['build','-trimpath','-ldflags=-s -w','-o',path.join(stage,executable),'./cmd/frontline'],{env:nativeBuildEnvironment()});
  await verifyNativeExecutable(path.join(stage,executable));
  await cp(path.join(client,'dist'),path.join(stage,'client'),{recursive:true,errorOnExist:true,force:false});
- await cp(path.join(root,'content'),path.join(stage,'content'),{recursive:true,errorOnExist:true,force:false});
+ await cp(path.join(root,'content'),path.join(stage,'content'),{recursive:true,errorOnExist:true,force:false,filter:(src)=>path.basename(src)!=='.DS_Store'});
  const productIntegrity=await verifyProduct(path.join(stage,'client'));await licenses(stage);
  await writeFile(path.join(stage,'Play.command'),'#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./frontline -addr 127.0.0.1:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\n');
  await writeFile(path.join(stage,'Host-LAN.command'),'#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./frontline -lan -addr 0.0.0.0:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\n');
@@ -124,6 +124,11 @@ async function buildPackage(){
 async function play(lan){
  if(!await exists(path.join(packageDir,executable)))throw new Error('No local package is built. Run make build after the complete client/content is available.');
  const args=['-addr',lan?'0.0.0.0:8080':'127.0.0.1:8080','-data',path.join(root,'.local'),'-static',path.join(packageDir,'client'),'-maps',path.join(packageDir,'content/maps'),'-missions',path.join(packageDir,'content/missions')];if(lan)args.push('-lan');
+ if(lan){
+  console.log('LAN hosting: open the host game page at http://127.0.0.1:8080 on this computer.');
+  console.log('Share a LAN join address printed below with the other players. Each player opens that address in their browser, then enters the lobby invite code.');
+  console.log('Use the same trusted network and keep this terminal running. LAN HTTP is not encrypted.');
+ }
  run(path.join(packageDir,executable),args);
 }
 try{

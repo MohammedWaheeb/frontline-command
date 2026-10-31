@@ -213,7 +213,11 @@ func (e *Engine) aiRecoveryOrders(p *Player, own []EntityView, goal Vec, publicH
 		if v.DeployUntil > 0 || v.PackingUntil > 0 {
 			continue
 		}
-		if v.HP*100 < v.MaxHP*35 {
+		retreatPercent := int64(35)
+		if policy := e.aiSkirmishPolicy(p); policy.Enabled {
+			retreatPercent = int64(policy.RetreatPercent)
+		}
+		if v.HP*100 < v.MaxHP*retreatPercent {
 			if v.Deployed {
 				orders = append(orders, Order{Kind: "pack", Entities: []ID{v.ID}})
 				continue

@@ -17,15 +17,17 @@ export class PlacementGhost {
  constructor(private readonly art:ArtLibrary){this.root.eventMode='none';this.root.visible=false;this.root.addChild(this.fallback,...this.sprites)}
  private hideSprites(){for(const sprite of this.sprites){sprite.visible=false;sprite.texture=Texture.EMPTY}}
  clear(){if(this.key){this.generation++;this.key='';this.sheet=undefined}this.hideSprites();this.fallback.clear();this.root.visible=false}
- draw(building:CatalogBuilding,faction:string|undefined,position:Point,valid:boolean|undefined,surface:TerrainSurface){
+ draw(building:CatalogBuilding,faction:string|undefined,position:Point,valid:boolean|undefined,surface:TerrainSurface,team=0xd8d0b8){
   if(this.closed)return;const key=`${building.id}|${faction??''}`;
   if(this.key!==key){
    this.key=key;this.sheet=undefined;this.hideSprites();const generation=++this.generation,id=authoredArtId(building.id,faction);
    this.pending=(id?this.art.sheet(id):Promise.resolve(undefined)).then(sheet=>{if(!this.closed&&this.generation===generation)this.sheet=sheet});
   }
-  const tint=valid===false?0xda967b:valid?0xc4d69d:0xdac48d;
+  // Valid: the building in its own colours (team layer in the owner's colour).
+  // Invalid: a strong red multiply. Never a pale beige wash.
+  const invalid=valid===false,beautyTint=invalid?0xff6a55:0xffffff,teamTint=invalid?0xff6a55:team;
   const support=surface.footprintSurface(position,building.width,building.height),point=projectSurfaceVertex({...position,height:support.height});
-  this.root.position.set(point.x,point.y);this.root.alpha=.36;this.root.visible=true;this.hideSprites();
+  this.root.position.set(point.x,point.y);this.root.alpha=invalid?.5:.6;this.root.visible=true;this.hideSprites();
   const sheet=this.sheet;let hasBeauty=false;
   if(sheet){
    const states: Array<SpriteState|undefined>=[sheet.states.get('idle'),sheet.states.get('aim')];
@@ -33,14 +35,14 @@ export class PlacementGhost {
     const pivot=part?sheet.meta.turret_pivot_mt??[0,0]:[0,0],offset=toScreen(pivot[0],pivot[1]);
     for(const [layer,name] of ['beauty','team'].entries()){
      const frame=sheet.frame(name,state.name,0,0),sprite=this.sprites[part*2+layer];if(!frame)continue;
-     sprite.texture=frame.texture;sprite.anchor.set(frame.anchorX,frame.anchorY);sprite.scale.set(sheet.pixelScale);sprite.position.set(offset.x,offset.y);sprite.tint=tint;sprite.visible=true;if(part===0&&name==='beauty')hasBeauty=true;
+     sprite.texture=frame.texture;sprite.anchor.set(frame.anchorX,frame.anchorY);sprite.scale.set(sheet.pixelScale);sprite.position.set(offset.x,offset.y);sprite.tint=name==='team'?teamTint:beautyTint;sprite.visible=true;if(part===0&&name==='beauty')hasBeauty=true;
     }
    }
   }
   this.fallback.clear();
   // Pages decode independently. Never float team paint over a procedural
   // stand-in, or expose a turret mask before its matching beauty page.
-  if(!hasBeauty){this.hideSprites();drawStructure(this.fallback,{width:building.width,height:building.height,role:building.role,paint:0x7d7963,team:tint,progress:1000,complete:true,health:1000,enabled:true})}
+  if(!hasBeauty){this.hideSprites();drawStructure(this.fallback,{width:building.width,height:building.height,role:building.role,paint:invalid?0xb0483a:0x7d7963,team:teamTint,progress:1000,complete:true,health:1000,enabled:true})}
   else if(!this.sprites[2].visible)this.sprites[3].visible=false;
  }
  async settle(){await this.pending}

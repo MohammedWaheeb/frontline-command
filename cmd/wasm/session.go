@@ -74,6 +74,7 @@ type CreateConfig struct {
 
 // Info summarizes an active session without exposing hidden state.
 type Info struct {
+	Difficulty  string           `json:"difficulty,omitempty"`
 	Adapter     string           `json:"adapter"`
 	Metadata    sim.Metadata     `json:"metadata"`
 	Tick        sim.Tick         `json:"tick"`
@@ -243,7 +244,7 @@ func (s *Session) Info() Info {
 	if s.engine == nil {
 		return Info{Adapter: AdapterVersion, Local: []sim.PlayerID{}}
 	}
-	info := Info{Adapter: AdapterVersion, Metadata: s.engine.Metadata(), Tick: s.engine.Tick(), Local: append([]sim.PlayerID(nil), s.local...), Finished: s.engine.Outcome().Finished}
+	info := Info{Difficulty: s.engine.MissionDifficulty(), Adapter: AdapterVersion, Metadata: s.engine.Metadata(), Tick: s.engine.Tick(), Local: append([]sim.PlayerID(nil), s.local...), Finished: s.engine.Outcome().Finished}
 	if milli, eligible := s.engine.StartingCredits(); eligible {
 		whole := milli / sim.Scale
 		info.StartingCredits = &whole
@@ -376,6 +377,7 @@ func (s *Session) Hash() (string, error) {
 // SaveResult carries the engine's own checksummed save bytes plus summary data
 // for browser storage. The bytes are the exact engine envelope.
 type SaveResult struct {
+	MapID    string         `json:"map_id,omitempty"`
 	Data     []byte         `json:"-"`
 	Tick     sim.Tick       `json:"tick"`
 	Hash     string         `json:"hash"`
@@ -394,7 +396,7 @@ func (s *Session) Save() (SaveResult, error) {
 	if err != nil {
 		return SaveResult{}, fail("internal", "Engine save failed: "+err.Error(), false)
 	}
-	return SaveResult{Data: b, Tick: s.engine.Tick(), Hash: s.engine.Hash(), Metadata: s.engine.Metadata(), Local: append([]sim.PlayerID(nil), s.local...)}, nil
+	return SaveResult{MapID: s.engine.MapID(), Data: b, Tick: s.engine.Tick(), Hash: s.engine.Hash(), Metadata: s.engine.Metadata(), Local: append([]sim.PlayerID(nil), s.local...)}, nil
 }
 
 type saveEnvelope struct {

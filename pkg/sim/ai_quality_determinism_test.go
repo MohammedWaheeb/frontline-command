@@ -76,16 +76,17 @@ func aiQualityDeterminismPending(e *Engine, player PlayerID) []Order {
 }
 
 // A strategic update is due at the documented difficulty interval. All idle
-// members of a legal maximum army must respond then, rather than dropping the
-// actors after the first batch just because each Submit admits 32 intentions.
+// selected members of a legal maximum army must stage then, rather than
+// dropping actors after the first batch. Normal/Hard retain one wave reserve.
 func TestAIQualityDeterminismFullArmyRespondsInFirstCycle(t *testing.T) {
 	for _, difficulty := range []string{"easy", "normal", "hard"} {
 		for _, unitType := range []string{"US.rifle", "US.recon"} {
 			t.Run(difficulty+"/"+unitType, func(t *testing.T) {
 				e, army, period := aiQualityDeterminismArmy(t, difficulty, unitType)
-				wantKind := "attack_move"
-				if unitType == "US.recon" {
-					wantKind = "move"
+				wantKind := "move"
+				wantArmy := army
+				if unitType == "US.rifle" && difficulty != "easy" {
+					wantArmy = army[1:]
 				}
 				e.state.Tick = period
 				start := time.Now()
@@ -106,25 +107,25 @@ func TestAIQualityDeterminismFullArmyRespondsInFirstCycle(t *testing.T) {
 						seen[order.Entities[0]] = true
 					}
 				}
-				if len(seen) != len(army) {
-					t.Fatalf("first %s planning cycle scheduled %d/%d combat actors", difficulty, len(seen), len(army))
+				if len(seen) != len(wantArmy) {
+					t.Fatalf("first %s planning cycle scheduled %d/%d combat actors", difficulty, len(seen), len(wantArmy))
 				}
 				e.state.Tick++
 				e.executePending()
-				if len(e.state.Results) != len(army) {
-					t.Fatalf("executed %d/%d actor intentions", len(e.state.Results), len(army))
+				if len(e.state.Results) != len(wantArmy) {
+					t.Fatalf("executed %d/%d actor intentions", len(e.state.Results), len(wantArmy))
 				}
 				for _, result := range e.state.Results {
 					if !result.Accepted {
 						t.Fatal("normal execution rejected scheduled intention", result)
 					}
 				}
-				for _, id := range army {
+				for _, id := range wantArmy {
 					if orders := e.entity(id).Orders; len(orders) != 1 || orders[0].Kind != wantKind {
 						t.Fatalf("normal execution failed for actor %d: %+v", id, orders)
 					}
 				}
-				t.Logf("%s: %d actors admitted and executed through %d ordinary batches; planning=%s on shared host (descriptive only)", difficulty, len(army), len(e.state.Log), planningTime)
+				t.Logf("%s: %d actors admitted and executed through %d ordinary batches; planning=%s on shared host (descriptive only)", difficulty, len(wantArmy), len(e.state.Log), planningTime)
 			})
 		}
 	}

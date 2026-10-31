@@ -47,6 +47,7 @@ func TestAdmissionAcrossLobbyQueueAndCoop(t *testing.T) {
 	if _, err = s.repo.PutSave(context.Background(), storage.Save{ID: "admission-coop", Owner: pa.ID, Name: "Opening", Data: saved}, 0); err != nil {
 		t.Fatal(err)
 	}
+	seedServerCheckpoint(t, s, "admission-coop-match", 0, saved, pa.ID)
 	other := responseLobby(t, request(t, h, "POST", "/api/v1/lobbies", b, lobbyBody(), 201))
 	request(t, h, "POST", "/api/v1/matchmaking", a, queueBody(s), 200)
 	for _, endpoint := range []struct {

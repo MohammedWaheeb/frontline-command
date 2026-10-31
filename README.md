@@ -1,38 +1,25 @@
 # Frontline Command
 
-The scoped local release is qualified for Apple Silicon macOS and desktop Chrome:
-complete integrated art/animations, three skirmish maps, five tutorials, practice,
-both co-op scenarios, one to four commanders, saves and replays. Campaign and the
-map editor are hidden. Audio remains outside this pass. No deployment occurred.
+**Beta-ready (31 October 2026)** for a local / explicit-LAN closed beta on Apple
+Silicon macOS with desktop Chrome: six skirmish maps, five tutorials, practice,
+both co-op scenarios, one to four commanders, Campaign, commander mastery, the
+map editor, saves and replays, with a redesigned menu and in-game UI. All gates
+pass on the final tree, including `make test-extended`, the three-engine browser
+harness and the UI smokes. Physical LAN, four-human sessions, human balance and
+art approval remain unverified, and audio acceptance is not claimed. See
+[the beta readiness report](docs/beta-readiness-2026-10-31.md). No deployment occurred.
 
-## Clone and run locally
-
-Requirements: Go 1.27.1, Node.js/npm, Protocol Buffers compiler (`protoc`) 36.2.
-No cloud service is required; everything runs on localhost.
-
-```sh
-git clone -b runnable-latest https://github.com/MohammedWaheeb/frontline-command.git
-cd frontline-command
-npm --prefix client ci
-make doctor
-make dev
-```
-
-`make dev` builds the Go/WASM runtime, starts the Go host on
-http://127.0.0.1:8080 and the product client on http://127.0.0.1:5173
-(Ctrl-C stops both). Open http://127.0.0.1:5173 to play.
-
-Alternatives:
+Open `Play.command` in the beta package that `make build` writes to
+`dist/frontline-darwin-arm64/`, or launch it from this checkout:
 
 ```sh
-make build   # assemble a native package under dist/
-make play    # run the packaged game on localhost
-make lan     # explicit LAN hosting; prints join addresses
-make test    # routine Go + TypeScript regression checks
+make build && make play
 ```
 
-On Windows, GNU Make is optional: `node scripts/local.mjs doctor|dev|build|play|lan`
-exposes the same commands.
+Then open http://127.0.0.1:8080 in your browser. The beta package is
+built by `make build` from the current (uncommitted) working tree. [The 2026-10-13 release report](work/release-readiness-20261013/REPORT.md)
+covers the earlier scoped release only. Current verification and open items
+are in [the release-fix receipts](docs/release-fix-receipts-2026-10-20.md).
 
 The authoritative rules are in [the game design](outputs/frontline-command-game-design.md).
 The approved implementation scope is in [the handoff](outputs/frontline-command-agent-handoff.md).
@@ -42,6 +29,9 @@ TypeScript, React and Pixi. Editable Blender models produce the actor art; origi
 Python generators produce terrain and decorative effects. Current authoring
 instructions and the user's reduced release scope are recorded in `AGENTS.md`.
 No cloud service is required for local play.
+
+For a single Docker image with the browser client, Go services and persistent
+SQLite storage, see [Docker instructions](docs/docker.md).
 
 See [implementation status](docs/implementation-status.md),
 [architecture](docs/architecture.md), and [protocol](docs/protocol.md).

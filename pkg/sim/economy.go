@@ -490,9 +490,22 @@ func (e *Engine) updateHarvest() {
 				f.Queue = append(f.Queue, v.ID)
 			}
 		}
-		if f.Loader == 0 && len(f.Queue) > 0 && f.Queue[0] == v.ID && distance(v.Position, f.Position) <= 1200 {
-			f.Loader = v.ID
-			f.Queue = f.Queue[1:]
+		if f.Loader == 0 && distance(v.Position, f.Position) <= 1200 {
+			// Haulers join from 7000 away, so the FIFO head may still be
+			// travelling while a later hauler is already at the field. Promote
+			// the first queued hauler actually inside the loading circle;
+			// absent predecessors keep their places for the next slot.
+			for i, id := range f.Queue {
+				other := e.entity(id)
+				if other == nil || distance(other.Position, f.Position) > 1200 {
+					continue
+				}
+				if id == v.ID {
+					f.Loader = v.ID
+					f.Queue = append(f.Queue[:i], f.Queue[i+1:]...)
+				}
+				break
+			}
 		}
 		if f.Loader == v.ID {
 			amount := min64(2000, min64(600000-v.Cargo, f.Remaining))

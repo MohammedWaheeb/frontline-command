@@ -168,7 +168,38 @@ func TestReconnectTimersAreTeamPrivate(t *testing.T) {
 	control := newPauseControl(true)
 	now := time.Now()
 	status := m.connectionStatus(1, &control, map[sim.PlayerID]*peer{}, map[sim.PlayerID]time.Time{1: now.Add(120 * time.Second), 2: now.Add(30 * time.Second)}, true, now)
-	if len(status.Teammates) != 1 || status.Teammates[0].Player != 1 || status.Teammates[0].ReconnectRemainingMs != 120000 {
+	if len(status.Teammates) != 2 || status.Teammates[0].Player != 1 || status.Teammates[0].ReconnectRemainingMs != 120000 || status.Teammates[1].Player != 2 || status.Teammates[1].Connected || status.Teammates[1].ReconnectRemainingMs != 0 {
 		t.Fatal("reconnect state leaked", status)
+	}
+}
+
+func TestNet3OpponentPresenceReconnectAndAIExclusion(t *testing.T) {
+	s, _ := testServer(t)
+	e, err := sim.New(s.catalog, sim.Config{Map: testMap(), Players: []sim.PlayerConfig{{ID: 1, Name: "A", Faction: "US", Team: 1}, {ID: 2, Name: "B", Faction: "IR", Team: 2}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := &liveMatch{engine: e, slots: []slot{{Player: 1}, {Player: 2}}}
+	control := newPauseControl(true)
+	now := time.Now()
+	peers := map[sim.PlayerID]*peer{1: {}, 2: {}}
+	deadlines := map[sim.PlayerID]time.Time{}
+	check := func(connected bool) {
+		t.Helper()
+		status := m.connectionStatus(1, &control, peers, deadlines, true, now)
+		if len(status.Teammates) != 2 || status.Teammates[1].Connected != connected || status.Teammates[1].ReconnectRemainingMs != 0 {
+			t.Fatal("opponent presence or private timer", status)
+		}
+	}
+	check(true)
+	delete(peers, 2)
+	deadlines[2] = now.Add(120 * time.Second)
+	check(false)
+	peers[2] = &peer{}
+	delete(deadlines, 2)
+	check(true)
+	m.slots[1].AI = true
+	if status := m.connectionStatus(1, &control, peers, deadlines, true, now); len(status.Teammates) != 1 {
+		t.Fatal("AI received human presence", status)
 	}
 }

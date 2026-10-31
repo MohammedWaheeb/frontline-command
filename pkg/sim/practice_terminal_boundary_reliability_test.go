@@ -132,7 +132,11 @@ func TestPracticeTerminalBoundary(t *testing.T) {
 	if testing.Short() {
 		t.Skip("separate naturally advanced 90-minute practice regression")
 	}
-	sourceRoot, evidence := os.Getenv("FRONTLINE_PRACTICE_TERMINAL_SOURCE_ROOT"), os.Getenv("FRONTLINE_PRACTICE_TERMINAL_EVIDENCE")
+	sourceRoot, sourceConfigured := os.LookupEnv("FRONTLINE_PRACTICE_TERMINAL_SOURCE_ROOT")
+	evidence, evidenceConfigured := os.LookupEnv("FRONTLINE_PRACTICE_TERMINAL_EVIDENCE")
+	if !sourceConfigured && !evidenceConfigured {
+		t.Skip("dedicated practice boundary course not configured: set FRONTLINE_PRACTICE_TERMINAL_SOURCE_ROOT and FRONTLINE_PRACTICE_TERMINAL_EVIDENCE")
+	}
 	if !filepath.IsAbs(sourceRoot) || !filepath.IsAbs(evidence) {
 		t.Fatal("explicit absolute practice source and fresh evidence roots required")
 	}
@@ -204,9 +208,9 @@ func TestPracticeTerminalBoundary(t *testing.T) {
 		t.Fatal("ordinary training did not pay the actual catalog cost", paidView.Economy)
 	}
 	practiceTerminalJSON(t, evidence, "paid-training.public.json", struct {
-		Order sim.Order
+		Order   sim.Order
 		Receipt sim.OrderResult
-		View sim.View
+		View    sim.View
 	}{train, trainReceipt, paidView})
 	practiceTerminalAdvance(t, engine, recorder, sim.Tick(100+unit.BuildTicks+100))
 	newRifle := sim.ID(0)
@@ -237,9 +241,9 @@ func TestPracticeTerminalBoundary(t *testing.T) {
 	practiceTerminalWrite(t, evidence, "preterminal.replay.json.gz", baseReplay)
 	practiceTerminalJSON(t, evidence, "preterminal.public.json", preterminal)
 	for _, test := range []struct {
-		name string
+		name      string
 		surrender bool
-		want sim.Outcome
+		want      sim.Outcome
 	}{
 		{"surrender", true, sim.Outcome{Finished: true, Reason: "mission_failed", Tick: practiceTerminalBoundary}},
 		{"ongoing_draw", false, sim.Outcome{Finished: true, Draw: true, Reason: "practice_time_limit", Tick: practiceTerminalBoundary}},
@@ -281,9 +285,9 @@ func TestPracticeTerminalBoundary(t *testing.T) {
 			}
 			practiceTerminalJSON(t, directory, "terminal.public.json", struct {
 				Expected sim.Outcome
-				Actual sim.Outcome
+				Actual   sim.Outcome
 				Receipts []sim.OrderResult
-				View sim.View
+				View     sim.View
 			}{test.want, actual.Outcome(), receipts, view})
 			terminalSave := practiceTerminalSave(t, directory, "terminal.save.json", actual)
 			practiceTerminalRestore(t, catalog, terminalSave, actual)

@@ -54,7 +54,12 @@ def check_spec(spec_path):
     aid = spec['id']
     root = os.path.join(FRAMES, aid)
     if not os.path.isdir(root):
-        rec(aid, 'rendered', False, 'no frames directory')
+        # Per-frame intermediates were cleaned after packing; validate the
+        # packed atlases instead and record one honest frames-absent note
+        # per spec (was: silent skip of every pixel check).
+        rec(aid, 'rendered_frames', False,
+            'assets/build/frames absent (cleaned intermediates); packed-atlas checks run instead')
+        check_packed(aid, spec, None)  # expected derived from the sidecar's own states
         return
     cw, ch = spec['canvas']
     ax, ay = spec['anchor']
@@ -134,6 +139,11 @@ def check_packed(aid, spec, total_layer_frames):
         rec(aid, 'packed', False, 'sprite sidecar missing (run pack_sprites.py)')
         return
     s = json.load(open(side))
+    if total_layer_frames is None:
+        # Spec files can lag published sidecar states; the sidecar is the
+        # authoritative declaration of what was actually packed.
+        total_layer_frames = sum(len(st.get('layers', s.get('layers', []))) * st['directions'] * st['frames']
+                                 for st in s.get('states', []))
     counts = 0
     bad = []
     for scale, layers in s['atlases'].items():
@@ -161,9 +171,21 @@ def check_terrain():
     t = json.load(open(tj))
     for name, m in t['materials'].items():
         p = os.path.join(REPO, 'assets', 'build', 'terrain', m['file'])
+        if not os.path.exists(p):
+            rec(f'terrain.{name}', 'terrain', False, 'material file missing')
+            continue
         im = Image.open(p)
-        rec(f'terrain.{name}', 'terrain', im.size == (512, 512) and m['seamless'] and im.mode == 'RGB',
-            f"{im.size} {im.mode}, seam {m['seam_delta']} vs interior p99 {m['interior_delta_p99']}")
+        if m.get('kind') != 'surface':
+            # Non-surface materials (cliff faces, decals, masks, macro) have
+            # no seam metrics by design. terrain.json declares size as
+            # [height, width]; PIL reports (width, height).
+            declared = m.get('size')
+            ok = declared is None or im.size == (declared[1], declared[0])
+            rec(f'terrain.{name}', 'terrain', ok,
+                f"{im.size} {im.mode}, kind={m.get('kind')} declared={declared} (no seam metrics)")
+            continue
+        rec(f'terrain.{name}', 'terrain', im.size == (512, 512) and m.get('seamless') and im.mode == 'RGB',
+            f"{im.size} {im.mode}, seam {m.get('seam_delta')} vs interior p99 {m.get('interior_delta_p99')}")
 
 
 def check_manifest():
@@ -172,7 +194,15 @@ def check_manifest():
     ents = m['entries']
     for e in ents:
         if e['status'] == 'sample':
+            # SVG symbol outputs carry a #fragment; glob the file part only,
+            # and verify the symbol id exists inside it.
             out = e['output'].split(' ')[0]
+            if '#' in out:
+                svg_path, symbol = out.split('#', 1)
+                ok = os.path.exists(os.path.join(REPO, svg_path)) and \
+                    f'id="{symbol}"' in open(os.path.join(REPO, svg_path)).read()
+                rec(e['id'], 'manifest_output', ok, out)
+                continue
             # Variant outputs use shell-style ranges such as select_[1-3].ogg.
             ok = bool(glob.glob(os.path.join(REPO, out.replace('(+', '').strip())))
             rec(e['id'], 'manifest_output', ok, out)

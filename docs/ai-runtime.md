@@ -29,13 +29,16 @@ not shipped-map acceptance or evidence of faction balance.
   reconstructed from the authorized view and known fields. A concealed enemy
   cannot change the selected location. Actual construction can still reject
   hidden occupancy when the submitted command executes.
-- The AI chooses at most one intention per actor and at most 32 orders per
-  planning cycle. `Submit` and normal execution still validate ownership,
+- The AI chooses at most one intention per actor and dispatches multiple
+  batches of at most 32 orders, up to the remaining 160-order player window
+  per second. `Submit` and normal execution still validate ownership,
   visibility, targets, prerequisites, costs, Supply, service slots, channels,
   cooldowns and routes. Advisory planning does not reserve authoritative funds
   or capacity.
 - Knowledge, decision timestamps and strategy state use existing saved player
-  state. This extension introduces no alternate simulation or save schema.
+  and entity state. Wave membership, deadlines and collector retry memory use
+  bounded namespaced cooldowns, included in the ordinary save/hash/replay path.
+  There is no alternate simulation or save schema.
 
 ## Economy, production and recovery
 
@@ -84,6 +87,75 @@ owned force:
 Easy uses the generic research only. Normal and Hard use the relevant faction
 research as well. Research still takes the ordinary time and money.
 
+## Skirmish wave and difficulty policy (31 October 2026)
+
+These strategic changes run only when `state.Mission == nil`. Authored campaign,
+co-op and practice missions keep their existing tuned planner. Prices, vision,
+production, combat and execution checks remain shared with human players.
+
+Ground assaults use combat-only, health-weighted Supply as their strength
+estimate. Scouts, engineers, unarmed support, aircraft and tactical launchers
+cannot inflate the ground wave threshold. New troops rendezvous near their own
+HQ on authorized, connected terrain with clearance for an owned combat vehicle.
+Normal/Hard retain one reserve when enough troops are available. Cohort
+membership starts only after ordinary Submit admission, so a full command
+window or rejected backlog does not launch a phantom wave. Ordinary
+production rallies can be redirected; explicit queues, channels, Hold, healing,
+transport and recent firing keep priority.
+
+| Policy | Easy | Normal | Hard |
+|---|---:|---:|---:|
+| Minimum combat strength | 6 | 10 | 14 |
+| Minimum wave members | 3 | 4 | 5 |
+| Rendezvous ready ratio | 60% | 70% | 75% |
+| Earliest eligible release | 160s | 80s | 55s |
+| Regroup delay after heavy losses | 35s | 18s | 10s |
+| Damaged-ground preservation threshold | Existing simple behavior | 35% | 50% |
+| Optional technology/research delay | 300s | 100s | 65s |
+
+Actual first attacks depend on ordinary income, prerequisites and production;
+the earliest-release gate is not an arrival-time guarantee. After 40 seconds
+staging can relax the ready ratio, while retaining the combat strength and unit
+minimums. One cohort remains active for up to 120 seconds. Expiry frees the next
+cohort without withdrawing healthy survivors whose ordinary attack-move is still
+running. They finish that order while new reinforcements stage for its successor;
+losing more than half the active cohort orders survivors to regroup. Recovery and
+immediate observed defense still take priority. Hard can
+release two prongs when at least ten troops are ready, and scales its ordinary
+AA purchases to at most eight recent observed armed aircraft (Normal/Easy retain
+the previous four-counter bound).
+
+US establishes a factory and a usable ground screen before discretionary radar/air
+investment; observed air counters and existing aircraft service remain available.
+Iran prioritizes radar/drone production after scouting, before its first factory.
+The opening is not forced on tier-three late-game recovery. US prefers
+fighters/strike aircraft; Iran ensures ISR before strike drones and favors
+artillery/launchers when legal. Syrian composition favors fast technicals and
+portable AA. Saudi composition favors APCs/tanks with repair and AA. Existing
+scouting, engineer, collector, emergency builder and observed counter priorities
+remain above discretionary faction choices. Easy delays the early air branch
+and never purchases strategic sites or safehouses for disabled automation.
+
+Normal/Hard can build a second factory after real collector income, paid
+production utilization, power, a builder, two working collectors and Supply
+headroom justify it. Fully occupied compatible aircraft slots can justify a
+second air producer. Syria does not buy an extra workshop solely for scout
+drones. Essential recovery, expansion and committed-job savings precede this
+capacity growth. A cash-short routine vehicle choice can use a legal affordable
+combat alternative even after its first vehicle; urgent counters retain savings.
+
+A collector blocked on a lone Gather for 12 seconds can retarget a reachable,
+known nonempty field through ordinary Gather. Cargo and field stock remain
+unchanged by planning. Failed choices are suppressed for 60 seconds with at most
+16 retry entries per collector, preserving gameplay cooldown capacity. Loading,
+unloading, full-cargo delivery, retreat and queued work remain protected. No
+alternative is invented when the player has not observed a reachable field.
+
+Exported menu copy (`AIEasyDescription`, `AINormalDescription`,
+`AIHardDescription` in `pkg/sim/ai_policy.go`) describes the actual policies. UI
+integration belongs to the menu lane; the exact strings are in the beta fix
+report.
+
 ## Tactical and faction decisions
 
 The existing observed-target goals, scouting, repair/capture engineering,
@@ -91,7 +163,8 @@ salvage, deployment, faction abilities and strategic operations remain in the
 same command path. The following Normal/Hard behavior extends that path:
 
 - Ground units below 35% health seek a compatible owned repair source away
-  from a recent known threat. Repaired combat vehicles leave a fixed repair
+  from a recent known threat. Hard skirmish/multiplayer starts this preservation
+  at 50%; authored missions retain 35%. Repaired combat vehicles leave a fixed repair
   depot at 85% health. Ordinary healing costs and repair reserves still apply.
 - Infantry can guard visible passable cover within three tiles when it stays
   close enough to the observed objective to engage. A positional guard resumes
@@ -179,3 +252,22 @@ Safehouse transfer legality can reject a reasonable intention when fighting or
 exit occupancy changes. There is no hidden map scan or forced transfer to
 work around those failures. Broader composition tuning, formation behavior and
 human tactical evaluation remain part of full-game acceptance.
+
+## Beta verification receipt
+
+Current-source beta tests and remaining failures are recorded in
+`work/beta-2026-10-31/fix-ai.md`. New tests live in `ai_attack_test.go`,
+`ai_policy_test.go`, `ai_build_order_test.go`, `ai_capacity_test.go`,
+`ai_economy_recovery_test.go` and `ai_beta_acceptance_test.go`. The paid match
+matrix is opt-in (`FRONTLINE_AI_BETA_ACCEPTANCE=1`); every heavy invocation uses
+`lockf -k /tmp/fc-heavy.lock`. Historical September receipts above do not certify
+the October working tree. Human difficulty, faction balance and all-spawn map
+acceptance still require separate evidence.
+
+The 31 October ai-2 paid US mirror regression records Hard and Normal each
+winning 6/6 ordinary eliminations on Copper Junction and Industrial Valley.
+Each map uses three identity seeds and both sides, with the unchanged
+1,200-second limit; timeouts and draws are failures. The seed never changes
+gameplay, so those repetitions are determinism coverage, not independent
+balance samples. The report also records the 900-second wave matrix, paid
+replay/restore continuation and both Border Depots Iran starts.

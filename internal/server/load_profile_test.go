@@ -57,7 +57,11 @@ func TestLoadProfileRateLimitsKeepNormalSecurity(t *testing.T) {
 		normal, load int
 	}{
 		{"POST", "/api/v1/profiles", 10, 500},
-		{"GET", "/api/v1/matches/example/socket", 16, 500},
+		// Socket attempts are flood-bounded at 240/min; the tight 16/min
+		// budget now applies only to failed hello/token authentications
+		// (see TestSocketAdmissionCountsFailuresNotSuccesses), so valid
+		// reconnects inside their grace window are never 429s.
+		{"GET", "/api/v1/matches/example/socket", 240, 500},
 		{"GET", "/api/v1/health", 600, 12000},
 		{"POST", "/api/v1/lobbies", 120, 6000},
 		{"POST", "/api/v1/matches/example/advice", 300, 3000},

@@ -44,7 +44,7 @@ report.helpers={};for(const file of ['worker-observation.mjs','rematch-contract.
 let activeRecord,phase='setup';const contexts=[],pages=[],frames=[],diagnostics=[],responseTasks=new Set();
 function trackResponse(page,handler){page.on('response',response=>{const task=handler(response).catch(error=>report.errors.push({phase,kind:'response-observer',message:String(error)}));responseTasks.add(task);void task.finally(()=>responseTasks.delete(task))})}
 async function until(check,message,timeout=30000){const started=Date.now();while(!await check()){if(Date.now()-started>timeout)throw Error(message);await sleep(150)}}
-async function idle(page){await until(async()=>await page.locator('.network-operation,.loading-screen').count()===0,'Product remained busy',120000);if(await page.locator('.network-error').count())throw Error(await page.locator('.network-error').allInnerTexts());if(await page.getByRole('dialog',{name:'Command interrupted',exact:true}).count())throw Error(await page.getByRole('dialog',{name:'Command interrupted',exact:true}).innerText())}
+async function idle(page){await until(async()=>await page.locator('.network-operation,.loading-screen').count()===0,'Product remained busy',120000);if(await page.locator('.network-error').count())throw Error(await page.locator('.network-error').allInnerTexts());if(await page.getByRole('alertdialog',{name:'Command interrupted',exact:true}).or(page.getByRole('dialog',{name:'Command interrupted',exact:true})).count())throw Error(await page.getByRole('alertdialog',{name:'Command interrupted',exact:true}).or(page.getByRole('dialog',{name:'Command interrupted',exact:true})).innerText())}
 async function saveReport(){await writeFile(path.join(runDir,'browser.json'),json(report))}
 async function capture(page,id){await page.screenshot({path:path.join(runDir,id+'.png')})}
 async function focus(page,position){const box=await page.getByLabel('Tactical minimap',{exact:true}).boundingBox();if(box){const point=minimapProject(minimapLayout(map.width,map.height,box.width,box.height),position);await page.mouse.click(box.x+point.x,box.y+point.y);await sleep(150)}}
@@ -232,7 +232,7 @@ async function collectResultAndArchive(record){
 }
 async function inspectEarnedReplay(record,initial){
  phase='earned-replay-controls';const page=pages[0];
- await page.getByRole('button',{name:'Replay archive',exact:true}).click();await idle(page);
+ {const key=page.getByRole('button',{name:'Main menu: Frontline Command',exact:true});if(await key.isVisible().catch(()=>false))await key.click()};await page.getByRole('button',{name:'Replays',exact:true}).click();await idle(page);
  const row=page.locator('.archive-row').filter({has:page.getByRole('button',{name:`Delete ${record.operationName}`,exact:true})});
  await row.getByRole('button',{name:'Watch',exact:true}).click();await page.getByRole('region',{name:'Replay controls',exact:true}).waitFor();await page.locator('.scene-loading').waitFor({state:'hidden'});await idle(page);
  if(await page.getByLabel('Pause replay',{exact:true}).count())await page.getByLabel('Pause replay',{exact:true}).click();
@@ -298,8 +298,8 @@ try{
  for(const page of pages.slice(1))assert.equal(await page.evaluate(()=>window.multiplayerCombat.catalog()),await pages[0].evaluate(()=>window.multiplayerCombat.catalog()));report.catalogSHA256=sha(json(rules));
  const initial=await Promise.all(pages.map((_page,index)=>lifetime(index)));report.initialLifetime=initial;
  for(const value of initial){assert.equal(value.app.phase,'menu');assert.equal(value.app.transportPresent,false);assert.equal(value.openSockets,0);assert.equal(value.navigationCount,1)}
- const host=pages[0];await host.getByLabel('Operation name',{exact:true}).fill(`Current acceptance ${config.id}`);await host.getByLabel('Lobby battlefield',{exact:true}).selectOption(config.map);await host.getByLabel('Battle format',{exact:true}).selectOption(config.mode);await host.getByLabel('Host faction',{exact:true}).selectOption('US');await host.getByRole('button',{name:'Create operation',exact:true}).click();await idle(host);
- for(const page of pages.slice(1)){await page.getByLabel('Join lobby ID').fill(await host.getByLabel('Current lobby ID').inputValue());await page.getByRole('button',{name:'Join by ID',exact:true}).click();await idle(page)}
+ const host=pages[0];await host.getByRole('button',{name:'Host game',exact:true}).click();await host.getByLabel('Operation name',{exact:true}).fill(`Current acceptance ${config.id}`);await host.getByLabel('Lobby battlefield',{exact:true}).selectOption(config.map);await host.getByLabel('Battle format',{exact:true}).selectOption(config.mode);await host.getByLabel('Host faction',{exact:true}).selectOption('US');await host.getByRole('button',{name:'Create operation',exact:true}).click();await idle(host);
+ for(const page of pages.slice(1)){await page.getByLabel('Invite code',{exact:true}).fill(await host.getByLabel('Current lobby ID').inputValue());await page.getByRole('button',{name:'Join by ID',exact:true}).click();await idle(page)}
  for(let i=0;i<config.bots;i++){await host.getByLabel('Add AI faction',{exact:true}).selectOption(config.botFactions[i]);await host.getByLabel('Add AI difficulty',{exact:true}).selectOption('normal');if(config.mode!=='ffa')await host.getByLabel('Add AI team',{exact:true}).selectOption(config.teams?'2':String(config.humans+i+1));await host.getByRole('button',{name:'Add AI commander',exact:true}).click();await idle(host)}
  for(let round=1;round<=config.rounds;round++){
   const record=activeRecord;await startRound(record,initial);await ordinaryCombat(record);await collectResultAndArchive(record);
@@ -310,7 +310,7 @@ try{
    await pages[1].getByRole('button',{name:'Close completed lobby',exact:true}).click();await idle(pages[1]);
    await menuBoundary('between-matches',initial);resetRound();
    activeRecord={id:'round-2',round:2,status:'running',clients:[],commands:0};report.cases.push(activeRecord);
-   await pages[1].getByLabel('Join lobby ID').fill(rematch);await pages[1].getByRole('button',{name:'Join by ID',exact:true}).click();await idle(pages[1]);
+   await pages[1].getByLabel('Invite code',{exact:true}).fill(rematch);await pages[1].getByRole('button',{name:'Join by ID',exact:true}).click();await idle(pages[1]);
   }else{
    for(const page of pages)await commandCenter(page);await menuBoundary(`after-${config.rounds}-matches`,initial);
    const archives=await host.evaluate(()=>window.multiplayerCombat.replays());report.finalArchives=archives;

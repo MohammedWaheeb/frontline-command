@@ -87,7 +87,8 @@ export class LocalStore {
   // Copy before awaiting the validator: the caller cannot change the inspected bytes.
   const data=save.data.slice(),local_players=[...save.local_players],hash=typeof save.hash==='string'?save.hash:'';
   const inspected=await this.inspect(data.slice());if(!safeTick(inspected.tick))throw new RuntimeError('save_invalid','The save contains an invalid simulation tick.');
-  return {data,local_players,hash,metadata:structuredClone(inspected.metadata),tick:inspected.tick};
+  const map_id=save.map_id;if(map_id!==undefined)validID(map_id);
+  return {...map_id!==undefined?{map_id}:{},data,local_players,hash,metadata:structuredClone(inspected.metadata),tick:inspected.tick};
  }
  async putSave(id:string,name:string,save:SaveData,expectedRevision=0):Promise<LocalSave>{
   validName(id,name);revision(expectedRevision);if(id.startsWith('autosave-'))throw new RuntimeError('reserved_save_id','Choose a manual save ID.');
@@ -122,14 +123,14 @@ export class LocalStore {
   try{const store=tx.objectStore(storeName),current=await request(store.get(id)) as StoredRecord|undefined;if(!current||current.revision!==expectedRevision){tx.abort();throw conflict(current,storeName==='replays'?'replay':'save')}await reserveRevision(tx,storeName,id,current.revision,false);store.delete(id);await done}
   catch(error){try{tx.abort()}catch{}throw storageError(error)}
  }
- async exportSave(id:string):Promise<Blob>{const record=await this.getSave(id);if(!record)throw new RuntimeError('save_missing','This local save no longer exists.');return new Blob([JSON.stringify({format:'frontline-local-save',version:1,id:record.id,name:record.name,local_players:record.local_players,hash:record.hash,engine:new TextDecoder('utf-8',{fatal:true}).decode(record.data)})],{type:'application/json'})}
+ async exportSave(id:string):Promise<Blob>{const record=await this.getSave(id);if(!record)throw new RuntimeError('save_missing','This local save no longer exists.');return new Blob([JSON.stringify({format:'frontline-local-save',version:1,id:record.id,name:record.name,map_id:record.map_id,local_players:record.local_players,hash:record.hash,engine:new TextDecoder('utf-8',{fatal:true}).decode(record.data)})],{type:'application/json'})}
  async exportSaveBytes(id:string):Promise<Blob>{const record=await this.getSave(id);if(!record)throw new RuntimeError('save_missing','This local save no longer exists.');return new Blob([record.data.slice().buffer],{type:'application/octet-stream'})}
  async previewImport(file:Blob):Promise<{id:string;name:string;save:SaveData;current?:LocalSave}>{
   if(file.size>96*1024*1024)throw new RuntimeError('save_too_large','The save export is larger than 96 MiB.');
   let value:any;try{value=JSON.parse(await file.text())}catch{throw new RuntimeError('save_corrupt','This file is not a readable local save export.')}
   if(value?.format!=='frontline-local-save'||value.version!==1||typeof value.engine!=='string')throw new RuntimeError('save_incompatible','This export version is unsupported. Keep the file for a matching game version.');
   validName(value.id,value.name);const data=new TextEncoder().encode(value.engine);
-  const save=await this.checked({data,local_players:value.local_players,hash:typeof value.hash==='string'?value.hash:'',tick:0,metadata:{} as EngineMetadata});
+  const save=await this.checked({data,map_id:value.map_id,local_players:value.local_players,hash:typeof value.hash==='string'?value.hash:'',tick:0,metadata:{} as EngineMetadata});
   return {id:value.id,name:value.name,save,current:await this.getSave(value.id)};
  }
  private async checkedReplay(data:Uint8Array):Promise<ReplayInspection&{data:Uint8Array;sha256:string}>{
@@ -203,7 +204,7 @@ export class LocalStore {
     if(!raw||typeof raw!=='object')throw new RuntimeError('backup_invalid','This record is malformed.');validID(raw.id);revision(raw.revision);if(raw.revision<1||!safeTick(raw.updated))throw new RuntimeError('backup_invalid','This record has invalid revision metadata.');
     if(store==='saves'){
      validName(raw.id,raw.name);if(typeof raw.engine!=='string'||!['manual','auto'].includes(raw.kind)||(raw.kind==='auto'?!/^autosave-[0-2]$/.test(raw.id):raw.id.startsWith('autosave-')))throw new RuntimeError('save_invalid','The save record is malformed.');
-     const checked=await this.checked({data:new TextEncoder().encode(raw.engine),local_players:raw.local_players,hash:raw.hash,tick:0,metadata:{} as EngineMetadata});
+     const checked=await this.checked({data:new TextEncoder().encode(raw.engine),map_id:raw.map_id,local_players:raw.local_players,hash:raw.hash,tick:0,metadata:{} as EngineMetadata});
      record={...checked,id:raw.id,name:raw.name,revision:raw.revision,updated:raw.updated,kind:raw.kind};
     }else if(store==='replays'){
      validName(raw.id,raw.name);const checked=await this.checkedReplay(decodeBytes(raw.binary,MAX_REPLAY));if(checked.sha256!==raw.sha256)throw new RuntimeError('replay_corrupt','This replay failed its integrity check.');record={...checked,id:raw.id,name:raw.name,revision:raw.revision,updated:raw.updated};

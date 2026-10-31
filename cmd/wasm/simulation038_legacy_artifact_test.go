@@ -16,13 +16,14 @@ import (
 )
 
 const compat038LegacyContent = "318de8122eb9a6738a825a62d138f6833fda95b968722f02619b77949a0c4612"
+const compat038BetaContent = "b50f3ada55039477b7da0e13983dfcbdc23a0dd194f41faba280167f314dc155"
 const compat038Original037Content = "8b21347ab06fdb653dcbe17cedb50dbcc49f3ed25df66cc53fe52b53f07ef108"
 
 type compat038Original struct {
 	name, simulation, contentHash, path, sha256 string
-	bytes                                     int
-	saveTick                                  sim.Tick
-	replayInitialSHA                          string
+	bytes                                       int
+	saveTick                                    sim.Tick
+	replayInitialSHA                            string
 }
 
 // Earned native originals remain byte-exact historical rejection inputs.
@@ -88,9 +89,9 @@ func compat038RequireError(t *testing.T, err error, found, expected sim.Metadata
 	}
 }
 
-// This is the current 0.3.8 paid vehicle birth boundary. Historical 0.3.7
-// test source and receipts remain unchanged in frozen Core25/F14. The earned
-// 0.3.7 originals use the same current catalog and isolate the simulation bump.
+// Historical 0.3.7 bytes and catalog identity remain frozen in Core25/F14.
+// Beta content 2.0.1 now changes the catalog too; pin that new identity without
+// relabeling the historical rejection inputs as current-content fixtures.
 func TestSimulation038RejectsOriginalArtifacts(t *testing.T) {
 	if sim.Version != "0.3.8" || AdapterVersion != "1" || ProtocolVersion != 1 {
 		t.Fatal("requires current simulation0.3.8 and adapter/protocol1", sim.Version, AdapterVersion, ProtocolVersion)
@@ -106,8 +107,8 @@ func TestSimulation038RejectsOriginalArtifacts(t *testing.T) {
 			if !exists || shahed.Name != "Shahed attack drone" || shahed.Faction != "IR" || shahed.Weapon != "IR_SHAHED" || len(s.catalog.Units()) != 76 || expected.ContentHash == compat038LegacyContent || expected.ContentHash != s.catalog.Hash() {
 				t.Fatal("boundary requires the current Shahed catalog and its actual changed hash")
 			}
-			if fixture.simulation == "0.3.7" && expected.ContentHash != fixture.contentHash {
-				t.Fatal("037 original must retain the same catalog to isolate the simulation boundary")
+			if expected.ContentHash != compat038BetaContent || fixture.simulation == "0.3.7" && (fixture.contentHash != compat038Original037Content || expected.ContentHash == fixture.contentHash) {
+				t.Fatal("beta catalog and historical 037 identity must stay explicitly distinct", expected.ContentHash, fixture.contentHash)
 			}
 			beforeInfo := s.Info()
 			beforeHash, err := s.Hash()

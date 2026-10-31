@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#11100e">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Frontline Command">
-  <meta property="og:title" content="Mechanics — Frontline Command">
+  <meta property="og:title" content="Mechanics | Frontline Command">
   <meta property="og:description" content="Economy, combat, fog, aircraft, missiles and veterancy: how the game plays.">
   <meta property="og:url" content="https://frontline-command.pages.dev/mechanics">
   <meta property="og:image" content="https://frontline-command.pages.dev/img/keyart-1920.webp">
@@ -16,9 +16,11 @@
   <meta property="og:image:height" content="1081">
   <meta property="og:image:alt" content="Key art: an olive battle tank leads an armored column across a desert road at sunset.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mechanics — Frontline Command">
+  <meta name="twitter:title" content="Mechanics | Frontline Command">
   <meta name="twitter:description" content="Economy, combat, fog, aircraft, missiles and veterancy: how the game plays.">
   <meta name="twitter:image" content="https://frontline-command.pages.dev/img/keyart-1920.webp">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://frontline-command.pages.dev/mechanics">
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -35,7 +37,8 @@
       <li><a href="engine.html">Engine</a></li>
       <li><a href="contribute.html">Contribute</a></li>
     </ul>
-    <a class="btn btn--ghost nav__cta" href="../README.md" data-repo=""><svg class="icon" aria-hidden="true"><use href="#i-github-logo"></use></svg>Source</a>
+    <a class="btn btn--ghost nav__cta" href="../README.md" data-repo=""><svg class="icon" aria-hidden="true"><use href="#i-github-logo"></use></svg>GitHub</a>
+    <a class="btn btn--primary nav__cta" href="index.html#play">Play the beta</a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Open menu"><svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg></button>
   </div>
 </header>
@@ -43,7 +46,7 @@
 
 <main id="main">
   <header class="page-head">
-    <picture class="page-head__art"><img src="img/shot-terrain.webp" alt="" width="1600" height="900"></picture>
+    <picture class="page-head__art"><img src="img/ui-opening-fog.webp" alt="" width="1600" height="900"></picture>
     <div class="wrap page-head__inner">
       <div>
         <h1>How it plays</h1>
@@ -170,9 +173,9 @@
           <div class="metric"><div class="metric__n">+2</div><div class="metric__l">sight from high ground, never damage</div></div>
         </div>
         <figure class="frame">
-          <img src="img/shot-hud-ir.webp" alt="In-game screenshot: an Iranian construction crawler and an enemy tank on a road, with a faded enemy building in the fog marked 'Last seen 2:05'." width="1280" height="720" loading="lazy">
+          <img src="img/ui-opening-fog.webp" alt="In-game screenshot at 45 seconds: a US headquarters and engineering rig inside a feathered circle of sight, with the explored map dimmed around it and the command sidebar on the right." width="1600" height="900" loading="lazy">
         </figure>
-        <p class="caption">Earned vision in a local multiplayer test. The fogged building keeps its last-seen time; the units around it are not shown.</p>
+        <p class="caption">The opening in the beta. Sight is a feathered circle; unexplored ground stays readable but dim, and nothing outside it is sent to your browser.</p>
       </section>
 
       <section class="chapter" id="air">
@@ -284,12 +287,13 @@
         <a class="brand" href="index.html"><span class="brand__mark"><svg class="icon" aria-hidden="true"><use href="#i-crosshair"></use></svg></span><span class="brand__name">Frontline Command</span></a>
         <p class="footer__note">A work of fiction. Factions, equipment, places, leaders and abilities are fictionalized gameplay representations, not claims about real militaries or conflicts.</p>
       </div>
-      <div><h4>Game</h4><ul><li><a href="factions.html">Factions</a></li><li><a href="mechanics.html">Mechanics</a></li><li><a href="modes.html">Modes and maps</a></li></ul></div>
+      <div><h4>Game</h4><ul><li><a href="index.html#play">Play the beta</a></li><li><a href="factions.html">Factions</a></li><li><a href="mechanics.html">Mechanics</a></li><li><a href="modes.html">Modes and maps</a></li></ul></div>
       <div><h4>Build</h4><ul><li><a href="engine.html">Engine</a></li><li><a href="contribute.html">Contribute</a></li><li><a href="../docs/implementation-status.md" data-repo="docs/implementation-status.md">Status</a></li></ul></div>
       <div><h4>Repository</h4><ul><li><a href="../README.md" data-repo="">Source</a></li><li><a href="../outputs/frontline-command-game-design.md" data-repo="outputs/frontline-command-game-design.md">Design document</a></li><li><a href="../docs/local-development.md" data-repo="docs/local-development.md">Local development</a></li></ul></div>
     </div>
     <div class="footer__base">
       <span>Inspired by classic Command &amp; Conquer. Not affiliated with Electronic Arts.</span>
+      <span>Closed beta, 31 October 2026. Apple Silicon macOS with desktop Chrome. Local play, no account.</span>
       <span>Fonts: Barlow, Big Shoulders Stencil, IBM Plex Mono (SIL OFL). Icons: Phosphor (MIT).</span>
     </div>
   </div>

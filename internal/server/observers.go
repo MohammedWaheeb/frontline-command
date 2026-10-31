@@ -20,16 +20,27 @@ type observerFrame struct {
 type observerArchive struct {
 	frames     map[sim.PlayerID][]observerFrame
 	events     map[sim.PlayerID][]sim.Event
+	bytes      map[sim.PlayerID]int64
 	buffer     bytes.Buffer
 	compressor *gzip.Writer
 }
 
+// maxObserverArchiveBytesPerPlayer bounds retained compressed observer
+// frames per perspective (in addition to the 610-frame count cap).
+// A var so tests can shrink it.
+var maxObserverArchiveBytesPerPlayer = int64(32 << 20)
+
 func newObserverArchive() *observerArchive {
-	a := &observerArchive{frames: map[sim.PlayerID][]observerFrame{}, events: map[sim.PlayerID][]sim.Event{}}
+	a := &observerArchive{frames: map[sim.PlayerID][]observerFrame{}, events: map[sim.PlayerID][]sim.Event{}, bytes: map[sim.PlayerID]int64{}}
 	a.compressor, _ = gzip.NewWriterLevel(&a.buffer, gzip.BestSpeed)
 	return a
 }
-func (a *observerArchive) capture(engine *sim.Engine, slots []slot) map[sim.PlayerID]sim.View {
+
+// capture builds the per-player views the peer pipeline reuses. Frame
+// archival (snapshot+proto+gzip) runs only when archiveFrames is set —
+// with zero observers nobody can ever read the frames, and a late observer
+// simply buffers from the first frame archived after they join.
+func (a *observerArchive) capture(engine *sim.Engine, slots []slot, archiveFrames bool) map[sim.PlayerID]sim.View {
 	views := map[sim.PlayerID]sim.View{}
 	for _, slot := range slots {
 		view, ok := engine.PlayerView(slot.Player)
@@ -37,6 +48,9 @@ func (a *observerArchive) capture(engine *sim.Engine, slots []slot) map[sim.Play
 			continue
 		}
 		views[slot.Player] = view
+		if !archiveFrames {
+			continue
+		}
 		a.events[slot.Player] = append(a.events[slot.Player], view.Events...)
 		if engine.Tick()%4 != 0 && !engine.Outcome().Finished {
 			continue
@@ -61,10 +75,15 @@ func (a *observerArchive) capture(engine *sim.Engine, slots []slot) map[sim.Play
 		data := bytes.Clone(a.buffer.Bytes())
 		frames := a.frames[slot.Player]
 		frames = append(frames, observerFrame{engine.Tick(), data})
-		if len(frames) > 610 {
-			frames = frames[len(frames)-610:]
+		retained := a.bytes[slot.Player] + int64(len(data))
+		// Evict oldest first under both caps; always keep the newest frame
+		// so a single oversized snapshot stays readable.
+		for len(frames) > 1 && (len(frames) > 610 || retained > maxObserverArchiveBytesPerPlayer) {
+			retained -= int64(len(frames[0].data))
+			frames = frames[1:]
 		}
 		a.frames[slot.Player] = frames
+		a.bytes[slot.Player] = retained
 	}
 	return views
 }
@@ -115,7 +134,7 @@ func (s *Server) createObserver(w http.ResponseWriter, r *http.Request) {
 		}
 		mapID, mapVersion, mapHash = l.MapID, l.MapVersion, l.MapHash
 		roster = append([]LobbySlot(nil), l.Slots...)
-		allowed = !l.Private || body.Code == l.Code
+		allowed = !l.Private || secretEqual(body.Code, l.Code)
 		for _, slot := range l.Slots {
 			if slot.Profile == profile.ID {
 				allowed = true

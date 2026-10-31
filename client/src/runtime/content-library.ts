@@ -107,21 +107,23 @@ export class ContentLibrary{
  packsFor(ids:readonly string[]):LibraryPack[]{const index=this.registry();return [...new Set(ids)].map(id=>{const pack=index.packs.find(pack=>pack.id===id);if(!pack)throw new RuntimeError('content_pack_missing','A required content pack is not declared.');return structuredClone(pack)})}
  missingPacks(ids:readonly string[],installed:readonly Pick<InstalledPack,'id'|'version'>[]){return this.packsFor(ids).filter(pack=>!installed.some(value=>value.id===pack.id&&value.version===pack.version))}
  async catalog(){return structuredClone(await this.validator.content())}
- private async source(entry:LibraryFile,kind:'map'|'mission',signal?:AbortSignal){
-  this.event({kind,id:entry.id,stage:'fetching',bytes:0,total:entry.bytes});const source=await this.bytes(entry.url,entry.bytes,signal,bytes=>this.event({kind,id:entry.id,stage:'fetching',bytes,total:entry.bytes}));
-  this.event({kind,id:entry.id,stage:'verifying',bytes:source.length,total:entry.bytes});
+ private async source(entry:LibraryFile,kind:'map'|'mission',signal?:AbortSignal,quiet=false){
+  !quiet&&this.event({kind,id:entry.id,stage:'fetching',bytes:0,total:entry.bytes});const source=await this.bytes(entry.url,entry.bytes,signal,bytes=>{if(!quiet)this.event({kind,id:entry.id,stage:'fetching',bytes,total:entry.bytes})});
+  !quiet&&this.event({kind,id:entry.id,stage:'verifying',bytes:source.length,total:entry.bytes});
   if(source.length!==entry.bytes||await sha256Hex(source)!==entry.sha256)throw new ContentLibraryError('content_integrity','The content file differs from its installed index. Keep the original and retry a matching version.',{url:entry.url,data:source});abort(signal);return source;
  }
  private checkGeneration(generation:number,signal?:AbortSignal){abort(signal);if(generation!==this.generation)throw new RuntimeError('content_superseded','The selected content index changed while loading. Retry the selected mission.')}
- private async mapData(entry:LibraryMap,signal:AbortSignal|undefined,generation:number):Promise<LoadedMap>{
+ private async mapData(entry:LibraryMap,signal:AbortSignal|undefined,generation:number,quiet=false):Promise<LoadedMap>{
   let source:Uint8Array|undefined;
-  try{source=await this.source(entry,'map',signal);this.event({kind:'map',id:entry.id,stage:'validating'});const map=await this.validator.validateMap(source.slice());this.checkGeneration(generation,signal);
+  try{source=await this.source(entry,'map',signal,quiet);!quiet&&this.event({kind:'map',id:entry.id,stage:'validating'});const map=await this.validator.validateMap(source.slice());this.checkGeneration(generation,signal);
    if(map.id!==entry.id||map.version!==entry.version||map.title!==entry.title||map.author!==entry.author||map.spawns.length!==entry.players||!sameDependencies(map.required_packs??[],entry.required_packs))throw new RuntimeError('content_metadata_mismatch','The map definition does not match its index metadata.');
-   this.event({kind:'map',id:entry.id,stage:'ready'});return {entry:structuredClone(entry),map:structuredClone(map),source:source.slice(),packs:this.packsFor(entry.required_packs)};
-  }catch(error){const detail=errorSummary(error);this.event({kind:'map',id:entry.id,stage:'error',error:detail});if(error instanceof ContentLibraryError)throw error;throw new ContentLibraryError(detail.code,detail.message,source?{url:entry.url,data:source}:undefined)}
+   !quiet&&this.event({kind:'map',id:entry.id,stage:'ready'});return {entry:structuredClone(entry),map:structuredClone(map),source:source.slice(),packs:this.packsFor(entry.required_packs)};
+  }catch(error){const detail=errorSummary(error);!quiet&&this.event({kind:'map',id:entry.id,stage:'error',error:detail});if(error instanceof ContentLibraryError)throw error;throw new ContentLibraryError(detail.code,detail.message,source?{url:entry.url,data:source}:undefined)}
  }
  private enter(){if(this.loading>=4)throw new RuntimeError('content_busy','Four content loads are already in progress. Retry when one finishes.');this.loading++}
  async loadMap(id:string,signal?:AbortSignal):Promise<LoadedMap>{const entry=this.mapEntry(id),generation=this.generation;this.enter();try{return await this.mapData(entry,signal,generation)}finally{this.loading--}}
+ /** Validate a preview without publishing loading events or changing library state. */
+ async peekMap(id:string,signal?:AbortSignal):Promise<LoadedMap>{const entry=this.mapEntry(id),generation=this.generation;this.enter();try{return await this.mapData(entry,signal,generation,true)}finally{this.loading--}}
  /** Optional public art data. No session, gameplay file or original save is changed. */
  async loadEnvironment(map:GameMap,signal?:AbortSignal):Promise<MapEnvironment|undefined>{
   abort(signal);const entry=this.current?.maps.find(entry=>entry.id===map.id&&entry.version===map.version),descriptor=entry?.environment;

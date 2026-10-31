@@ -3,7 +3,9 @@
 //   - data/rules.js       from pkg/content/rules.json (fixed-point values converted for display)
 //   - img/*.webp          from game key art, rendered sprites and recorded screenshots
 //   - inline icon sprite  injected into every page between the ICONS markers
-// Requires Node 18+ and `cwebp` (libwebp). Run from anywhere: `node site/scripts/build.mjs`.
+// Unit and building renders come from raw Blender frames when present, otherwise from the
+// packed sprite atlases in assets/build/sprites. Requires Node 18+, `cwebp` and `ffmpeg`.
+// Run from anywhere: `node site/scripts/build.mjs` (add `--pages` to re-inject partials only).
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, unlinkSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { dirname, join, resolve } from "node:path";
@@ -13,6 +15,7 @@ const SITE = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const ROOT = resolve(SITE, "..");
 const IMG = join(SITE, "img");
 const FRAMES = join(ROOT, "assets/build/frames");
+const PAGES_ONLY = process.argv.includes("--pages");
 mkdirSync(join(IMG, "units"), { recursive: true });
 mkdirSync(join(IMG, "buildings"), { recursive: true });
 
@@ -44,15 +47,39 @@ function bbox(src) {
   return [x, y, Math.min(W, x2 + 1 + pad) - x, Math.min(H, y2 + 1 + pad) - y];
 }
 
+// `--pages` only re-injects the icon sprite, nav and footer (no image or data work).
+if (!PAGES_ONLY) {
 // ---- Rules data -----------------------------------------------------------
 const rules = JSON.parse(readFileSync(join(ROOT, "pkg/content/rules.json"), "utf8"));
 // Ground units have an idle pose; aircraft only have flight poses.
 const unitAnim = (id) => ["idle", "fly"].find((a) => existsSync(join(FRAMES, `unit.${id}/beauty/${a}/d04_f00.png`)));
 
+// When the raw Blender frames are absent, cut the same pose out of the packed 2x
+// sprite atlases the game ships (assets/build/sprites), using their ink bounds.
+const SPRITES = join(ROOT, "assets/build/sprites");
+function atlasFrame(sprite, layer, keys) {
+  const dir = join(SPRITES, sprite);
+  if (!existsSync(dir)) return null;
+  for (const file of readdirSync(dir).filter((f) => f.startsWith(`${sprite}@2x.${layer}.`) && f.endsWith(".json")).sort()) {
+    const atlas = JSON.parse(readFileSync(join(dir, file), "utf8"));
+    const key = keys.find((k) => atlas.frames[k]);
+    if (!key) continue;
+    const { frame, ink_bounds: ink } = atlas.frames[key];
+    const box = ink || { x: 0, y: 0, w: frame.w, h: frame.h };
+    return { key, png: `assets/build/sprites/${sprite}/${atlas.meta.image}`, crop: [frame.x + box.x, frame.y + box.y, box.w, box.h] };
+  }
+  return null;
+}
+
 const units = rules.units.map((u) => {
   const anim = unitAnim(u.id);
-  const art = Boolean(anim);
-  if (art) {
+  const packed = anim ? null : atlasFrame(`unit.${u.id}`, "beauty", ["idle/d04_f00", "fly/d04_f00", "hover/d04_f00"]);
+  const art = Boolean(anim || packed);
+  if (packed) {
+    webp(packed.png, `units/${u.id}.webp`, ["-crop", ...packed.crop.map(String)]);
+    const team = atlasFrame(`unit.${u.id}`, "team", [packed.key]);
+    if (team) webp(team.png, `units/${u.id}.team.webp`, ["-crop", ...packed.crop.map(String)]);
+  } else if (art) {
     const beauty = `assets/build/frames/unit.${u.id}/beauty/${anim}/d04_f00.png`;
     const crop = bbox(beauty);
     const args = crop ? ["-crop", ...crop.map(String)] : [];
@@ -90,7 +117,7 @@ const upgrades = rules.upgrades.map((u) => ({
 
 const armor = rules.armor.map((a) => ({ weapon: a.weapon, armor: a.armor, mult: a.multiplier / FP }));
 
-const artIds = readdirSync(FRAMES).filter((d) => d.startsWith("unit.")).length;
+const artIds = existsSync(FRAMES) ? readdirSync(FRAMES).filter((d) => d.startsWith("unit.")).length : units.filter((u) => u.art).length;
 const data = {
   version: rules.version,
   counts: {
@@ -113,7 +140,12 @@ const buildingRenders = [
 ];
 for (const id of buildingRenders) {
   const src = `assets/build/frames/building.${id}/beauty/idle/d00_f00.png`;
-  if (!existsSync(join(ROOT, src))) { console.warn(`missing source, skipped: ${src}`); continue; }
+  if (!existsSync(join(ROOT, src))) {
+    const packed = atlasFrame(`building.${id}`, "beauty", ["idle/d00_f00"]);
+    if (packed) webp(packed.png, `buildings/${id}.webp`, ["-crop", ...packed.crop.map(String)]);
+    else console.warn(`missing source, skipped: ${src}`);
+    continue;
+  }
   const crop = bbox(src);
   webp(src, `buildings/${id}.webp`, crop ? ["-crop", ...crop.map(String)] : []);
 }
@@ -121,15 +153,19 @@ for (const id of buildingRenders) {
 // ---- Key art and recorded screenshots --------------------------------------
 webp("assets/build/ui/keyart/main_menu.png", "keyart-1920.webp", ["-resize", "1920", "0"]);
 webp("assets/build/ui/keyart/main_menu.png", "keyart-960.webp", ["-resize", "960", "0"]);
+// Current-build captures (beta interface, 31 October 2026), recorded by
+// work/site-2026-10-31/captures/stage-battle.mjs and the beta capture script.
+const CAP = "work/site-2026-10-31/captures";
 const shots = {
-  "shot-hud-us.webp": ["work/resume-20260930/release/multiplayer/f18-4-01/case-4-player-1-built-and-trained.png"],
-  "shot-hud-ir.webp": ["work/resume-20260930/release/multiplayer/f18-2-03/case-2-visibility-earned.png"],
-  "shot-lobby.webp": ["work/resume-20260930/release/multiplayer/f18-4-01/case-4-lobby-1600.png"],
-  "shot-workshop.webp": ["work/evidence/map-workshop-ui/map-workshop-compact.png"],
-  // The two overlay captures carry a test-harness toolbar in the top 56px; crop it out.
-  "shot-skybreaker.webp": ["work/evidence/tactical-overlay/skybreaker-public-impact-points.png", ["-crop", "0", "56", "1600", "844"]],
+  "ui-battle-hud.webp": [`${CAP}/battle-hud.png`],
+  "ui-main-menu.webp": [`${CAP}/main-menu.png`],
+  "ui-skirmish-setup.webp": [`${CAP}/skirmish-setup.png`],
+  "ui-campaign.webp": [`${CAP}/campaign.png`],
+  "ui-multiplayer.webp": [`${CAP}/multiplayer.png`],
+  "ui-practice-range.webp": [`${CAP}/practice-range.png`],
+  "ui-opening-fog.webp": [`${CAP}/opening-fog.png`],
+  // Missile warning overlay, still drawn the same way; the capture carries a test-harness toolbar in the top 56px.
   "shot-volley.webp": ["work/evidence/tactical-overlay/banked-volley-raised-ground.png", ["-crop", "0", "56", "1600", "844"]],
-  "shot-terrain.webp": ["work/evidence/terrain-height/product/opening@1600.png"],
 };
 for (const [dest, [src, args = []]] of Object.entries(shots)) webp(src, dest, args);
 
@@ -172,6 +208,8 @@ for (const id of launchMaps) {
   unlinkSync(ppm);
 }
 console.log(`map thumbnails: ${launchMaps.length}`);
+
+}
 
 // ---- Inline icon sprite ----------------------------------------------------
 const iconDir = join(SITE, "vendor/phosphor");

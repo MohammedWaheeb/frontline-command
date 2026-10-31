@@ -15,7 +15,10 @@ export class FakeLocalHost{
  fetch=async(input:string|URL|Request,init:RequestInit={}):Promise<Response>=>{
   if(this.offline)throw new TypeError('network unavailable');if(init.signal?.aborted)throw new DOMException('canceled','AbortError');const url=new URL(String(input)),method=init.method??'GET',path=url.pathname.replace('/api/v1',''),token=new Headers(init.headers).get('Authorization')?.replace('Bearer ','')??'';const json=(value:unknown,status=200)=>new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json'}}),fail=(code:string,status:number)=>json({code,message:code},status);
   if(path==='/profiles'&&method==='POST'){const n=this.profiles.size+1,profile:Profile={id:`profile-${n}`,name:JSON.parse(String(init.body)).name,created:1000,local:true},token=n.toString(16).padStart(64,'0');this.profiles.set(token,profile);return json({profile,token},201)}
-  const profile=this.profiles.get(token);if(!profile)return fail('authentication_required',401);if(path==='/profiles/me')return json(profile);
+  const profile=this.profiles.get(token);if(!profile)return fail('authentication_required',401);if(path==='/profiles/me'){
+   if(method==='PATCH'){const name=JSON.parse(String(init.body)).name.trim();if([...name].length<1||[...name].length>32||/[\p{Cc}\p{Cf}<>]/u.test(name))return fail('invalid_profile',400);const renamed={...profile,name};this.profiles.set(token,renamed);return json(renamed)}
+   return json(profile);
+  }
   if(path==='/saves'&&method==='GET')return json([...this.saves.values()].filter(save=>save.owner===profile.id).map(({data,...summary})=>({...summary,bytes:data.length})));
   if(path==='/progress/campaign'){
    if(method==='GET')return json(this.campaigns.get(profile.id)??{revision:0,updated:0,data:{version:1,results:[],missions:{}}});const body=JSON.parse(String(init.body));await this.beforeWrite?.();const current=this.campaigns.get(profile.id);if(body.expected_revision!==(current?.revision??0))return fail('progress_conflict',409);const saved={revision:(current?.revision??0)+1,updated:2000+this.writes,data:body.data};this.campaigns.set(profile.id,saved);this.writes++;await this.afterWrite?.();return json(saved);

@@ -138,3 +138,13 @@ test('campaign backup validation preserves malformed story originals without rep
 test('browser backup streams cursor records without retaining all raw archive payloads',async()=>{
  const store=new LocalStore('backup-cursor-bounds',inspect);for(let index=0;index<70;index++)await store.putSave(`save-${index}`,`Save ${index}`,save);await store.putProgress('campaign',{version:1,results:[],missions:{}});const original=IDBObjectStore.prototype.getAll;IDBObjectStore.prototype.getAll=function(){throw Error('Full-payload archive read forbidden during export')};let file:Blob;try{file=await store.backup()}finally{IDBObjectStore.prototype.getAll=original}const value=JSON.parse(await file!.text());assert.equal(value.saves.length,70);assert.ok(value.saves.every((record:any)=>record.engine==='{"rng":18446744073709551615}'));assert.deepEqual(value.progress[0].data,{version:1,results:[],missions:{}});assert.equal(value.settings.length,0);assert.equal(value.replays.length,0);await store.close();
 });
+
+test('save summaries retain optional map_id through manual, auto, backup and old records',async()=>{
+ const store=new LocalStore('integration-map-summaries',inspect),restored=new LocalStore('integration-map-restored',inspect);
+ try{
+  await store.putSave('old','Historical',save);await store.putSave('new','Arbitrary name',{...save,map_id:'copper-junction'});await store.autosave({...save,map_id:'relay-heights'});
+  const summaries=await store.listSaveSummaries();assert.equal(summaries.find(row=>row.id==='old')?.map_id,undefined);assert.equal(summaries.find(row=>row.id==='new')?.map_id,'copper-junction');assert.equal(summaries.find(row=>row.kind==='auto')?.map_id,'relay-heights');
+  const preview=await restored.previewBackup(await store.backup());await restored.restoreBackup(preview,preview.entries.map(entry=>({key:entry.key,action:'restore',expectedRevision:0})));
+  assert.equal((await restored.listSaveSummaries()).find(row=>row.id==='new')?.map_id,'copper-junction');
+ }finally{await store.close();await restored.close()}
+});

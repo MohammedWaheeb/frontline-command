@@ -79,11 +79,18 @@ func (e *Engine) aiChooseOrders(p *Player, own []EntityView, orders []Order, pla
 // execution failures. It remains the sole admission authority for every batch;
 // no AI path executes intentions directly or bypasses the human command rules.
 func (e *Engine) aiDispatchOrders(p *Player, orders []Order) {
+	waveIDs := []ID{}
 	for len(orders) > 0 {
 		count := min(32, len(orders))
 		if err := e.Submit(p.ID, p.LastSequence+1, orders[:count]); err != nil {
-			return
+			break
+		}
+		for _, order := range orders[:count] {
+			if order.Kind == "attack_move" && len(order.Entities) >= 3 {
+				waveIDs = append(waveIDs, order.Entities...)
+			}
 		}
 		orders = orders[count:]
 	}
+	e.aiCommitWaveRelease(p, waveIDs)
 }

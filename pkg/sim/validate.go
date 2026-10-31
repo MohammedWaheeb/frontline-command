@@ -22,12 +22,17 @@ func (e *Engine) validateState() error {
 	if len(s.SpawnPlayers) != len(s.Players) {
 		return fmt.Errorf("invalid saved spawn-player order")
 	}
+	configs := make([]PlayerConfig, 0, len(s.SpawnPlayers))
 	seenSpawns := map[PlayerID]bool{}
 	for _, id := range s.SpawnPlayers {
 		if e.player(id) == nil || seenSpawns[id] {
 			return fmt.Errorf("invalid saved spawn-player order")
 		}
 		seenSpawns[id] = true
+		configs = append(configs, e.player(id).PlayerConfig)
+	}
+	if err := validatePlayerSpawns(configs, len(s.Map.Spawns)); err != nil {
+		return err
 	}
 	if err := e.validateMapObjects(); err != nil {
 		return err

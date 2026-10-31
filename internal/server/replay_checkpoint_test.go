@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestRecordReplayCheckpointPreservesSaveAndFailureFallback(t *testing.T) {
+func TestBeginReplayCheckpointPreservesSaveAndFailureFallback(t *testing.T) {
 	for _, mode := range []string{"success", "metadata", "version", "recorded", "duplicate"} {
 		t.Run(mode, func(t *testing.T) {
 			e, err := sim.New(content.MustBase(), sim.Config{Map: testMap(), Seed: 9, Players: []sim.PlayerConfig{{ID: 1, Name: "A", Faction: "US", Team: 1}, {ID: 2, Name: "B", Faction: "IR", Team: 2}}})
@@ -43,12 +43,28 @@ func TestRecordReplayCheckpointPreservesSaveAndFailureFallback(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			save, gotErr := recordReplayCheckpoint(got, e)
+			snapshot, fallback, gotErr := beginReplayCheckpoint(got, e)
 			if (oldErr == nil) != (gotErr == nil) || oldErr != nil && oldErr.Error() != gotErr.Error() {
 				t.Fatalf("error changed: %v / %v", oldErr, gotErr)
 			}
 			if mode != "success" && gotErr == nil {
 				t.Fatal("missing expected recorder error")
+			}
+			var save []byte
+			if snapshot != nil {
+				if fallback != nil {
+					t.Fatal("snapshot and fallback both returned")
+				}
+				var packed []byte
+				save, packed, err = sim.PackCheckpoint(*snapshot)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := got.AppendCheckpoint(snapshot.Tick, packed); err != nil {
+					t.Fatal(err)
+				}
+			} else {
+				save = fallback
 			}
 			if !bytes.Equal(want, save) || e.Hash() != before {
 				t.Fatal("save bytes or state changed")

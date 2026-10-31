@@ -46,7 +46,9 @@ func (rules *LobbyRules) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func standardLobbyRules() LobbyRules { return LobbyRules{"standard-v2", 1, 6000, 100, true, true, false} }
+func standardLobbyRules() LobbyRules {
+	return LobbyRules{"standard-v2", 1, 6000, 100, true, true, false}
+}
 func defaultLobbyRules() *LobbyRules { rules := standardLobbyRules(); return &rules }
 
 type lobbyRulesError struct {
@@ -81,7 +83,7 @@ func normalizedLobbyRules(l *Lobby, requested *LobbyRules) (LobbyRules, int64, *
 	return rules, startingCredits, nil
 }
 
-func validDifficulty(v string) bool  { return v == "easy" || v == "normal" || v == "hard" }
+func validDifficulty(v string) bool { return v == "easy" || v == "normal" || v == "hard" }
 func lobbyColor(l *Lobby, desired uint32, except sim.PlayerID) (uint32, bool) {
 	if desired > 8 {
 		return 0, false
@@ -139,6 +141,11 @@ func completeLobbyMetadata(l *Lobby) {
 		l.Rules = defaultLobbyRules()
 	}
 	assignLobbyColors(l)
+	capacity := 4
+	if l.mapData != nil {
+		capacity = len(l.mapData.Spawns)
+	}
+	assignLobbySpawns(l, capacity)
 }
 func lobbyMapCapacity(l *Lobby, m content.Map) int {
 	capacity := min(4, len(m.Spawns))
@@ -237,6 +244,10 @@ func (s *Server) addLobbyAI(w http.ResponseWriter, r *http.Request) {
 	}
 	var slot LobbySlot
 	if l.ScenarioID != "" {
+		if body.Spawn != 0 {
+			fail(w, 409, "scenario_rules_locked", "The scenario fixes starting positions.")
+			return
+		}
 		slot, ok = s.scenarioJoinSlot(l, storage.Profile{})
 		if !ok {
 			fail(w, 409, "scenario_full", "Every human scenario slot is filled.")
@@ -253,8 +264,18 @@ func (s *Server) addLobbyAI(w http.ResponseWriter, r *http.Request) {
 		}
 		slot = LobbySlot{Player: nextLobbyPlayer(l), Faction: body.Faction, Team: body.Team}
 		if slot.Team == 0 || l.Mode == "ffa" {
-			slot.Team = uint32(slot.Player)
+			slot.Team = lobbyDefaultTeam(l)
 		}
+	}
+	completeLobbyMetadata(l)
+	if body.Spawn > uint32(len(m.Spawns)) {
+		fail(w, 400, "invalid_spawn", "Choose a starting position on this map.")
+		return
+	}
+	slot.Spawn, ok = lobbySpawn(l, body.Spawn, 0, len(m.Spawns))
+	if !ok {
+		fail(w, 409, "spawn_unavailable", "Choose an unused starting position on this map.")
+		return
 	}
 	slot.Color, ok = lobbyColor(l, body.Color, 0)
 	if !ok {
@@ -306,6 +327,10 @@ func (s *Server) updateLobbyAI(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if l.ScenarioID != "" {
+			if body.Spawn != 0 {
+				fail(w, 409, "scenario_rules_locked", "The scenario fixes starting positions.")
+				return
+			}
 			mission := s.missions[l.ScenarioID]
 			humanAlly := false
 			for n, mp := range mission.Players {
@@ -319,6 +344,22 @@ func (s *Server) updateLobbyAI(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		next := slot
+		if body.Spawn != 0 {
+			capacity, err := s.lobbySpawnCapacity(r.Context(), l)
+			if err != nil {
+				fail(w, 400, "map_missing", "Lobby map unavailable.")
+				return
+			}
+			if body.Spawn > uint32(capacity) {
+				fail(w, 400, "invalid_spawn", "Choose a starting position on this map.")
+				return
+			}
+			next.Spawn, ok = lobbySpawn(l, body.Spawn, slot.Player, capacity)
+			if !ok {
+				fail(w, 409, "spawn_unavailable", "Choose an unused starting position on this map.")
+				return
+			}
+		}
 		if body.Faction != "" {
 			next.Faction = body.Faction
 		}
@@ -407,6 +448,7 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var body struct {
+		Spawn     uint32      `json:"spawn"`
 		Faction   string      `json:"faction"`
 		Team      uint32      `json:"team"`
 		Color     uint32      `json:"color"`
@@ -447,7 +489,7 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 403, "not_in_lobby", "Join the lobby first.")
 		return
 	}
-	if (l.ScenarioID != "" || l.ResumeSave != "" || l.ResumeTick != 0) && (body.MapID != "" || body.Team != 0 || body.Faction != "" || body.Rules != nil) {
+	if (l.ScenarioID != "" || l.ResumeSave != "" || l.ResumeTick != 0) && (body.MapID != "" || body.Team != 0 || body.Faction != "" || body.Rules != nil || body.Spawn != 0) {
 		fail(w, 409, "scenario_rules_locked", "The scenario fixes factions, teams and map.")
 		return
 	}
@@ -455,7 +497,7 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, "scenario_rules_locked", "Saved player colors are fixed by the checkpoint.")
 		return
 	}
-	if l.Rated && (body.MapID != "" || body.Team != 0 || body.Private != nil || body.Pause != nil || body.Observers != nil || body.Rules != nil) {
+	if l.Rated && (body.MapID != "" || body.Team != 0 || body.Private != nil || body.Pause != nil || body.Observers != nil || body.Rules != nil || body.Spawn != 0) {
 		fail(w, 409, "ranked_rules_locked", "The ranked map, opposing teams and gameplay policy are fixed.")
 		return
 	}
@@ -470,6 +512,12 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 	next := *l
 	next.Slots = append([]LobbySlot(nil), l.Slots...)
 	if body.MapID != "" {
+		for _, slot := range next.Slots {
+			if slot.Spawn > uint32(len(m.Spawns)) {
+				fail(w, 409, "map_capacity", "Choose a map with every selected starting position.")
+				return
+			}
+		}
 		next.MapID, next.MapVersion, next.MapHash = m.ID, m.Version, lobbyMapHash(m)
 		next.mapData = &m
 	}
@@ -509,6 +557,22 @@ func (s *Server) changeLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	for i, slot := range next.Slots {
 		if slot.Profile == p.ID {
+			if body.Spawn != 0 {
+				capacity, err := s.lobbySpawnCapacity(r.Context(), &next)
+				if err != nil {
+					fail(w, 400, "map_missing", "Lobby map unavailable.")
+					return
+				}
+				if body.Spawn > uint32(capacity) {
+					fail(w, 400, "invalid_spawn", "Choose a starting position on this map.")
+					return
+				}
+				next.Slots[i].Spawn, ok = lobbySpawn(&next, body.Spawn, slot.Player, capacity)
+				if !ok {
+					fail(w, 409, "spawn_unavailable", "Choose an unused starting position on this map.")
+					return
+				}
+			}
 			if body.Faction != "" {
 				next.Slots[i].Faction = body.Faction
 			}

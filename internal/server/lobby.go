@@ -11,6 +11,7 @@ import (
 )
 
 type aiRequest struct {
+	Spawn      uint32 `json:"spawn"`
 	Color      uint32 `json:"color"`
 	Faction    string `json:"faction"`
 	Difficulty string `json:"difficulty"`
@@ -28,13 +29,15 @@ func resolveFaction(f string) string {
 	return f
 }
 func (s *Server) lobbyResponse(l *Lobby, profile string) map[string]any {
+	now := time.Now()
+	noteLobbyHost(l, profile, now)
 	completeLobbyMetadata(l)
 	if l.MapHash == "" {
 		if m, ok := s.maps[l.MapID]; ok {
 			l.MapHash, l.MapVersion = lobbyMapHash(m), m.Version
 		}
 	}
-	result := map[string]any{"lobby": l}
+	result := map[string]any{"lobby": l, "host_offline": !lobbyHostAvailable(l, now)}
 	if l.ResumeSave != "" {
 		// Opening checkpoints are valid at tick0. Preserve that explicit
 		// value while ordinary/fresh lobbies keep their omitted field.
@@ -54,6 +57,7 @@ func (s *Server) lobbyResponse(l *Lobby, profile string) map[string]any {
 		result["code"] = l.Code
 	}
 	if m := s.matches[l.MatchID]; m != nil {
+		result["start_remaining_ms"] = m.startRemainingMs()
 		for _, slot := range m.slots {
 			if slot.Profile == profile {
 				result["connection"] = map[string]any{"match_id": m.id, "player": slot.Player, "token": slot.Token, "protocol": 1, "simulation": sim.Version, "content_hash": s.catalog.Hash()}
@@ -79,7 +83,7 @@ func (s *Server) listLobbies(w http.ResponseWriter, r *http.Request) {
 				member = true
 			}
 		}
-		if (!l.Private || member) && l.MatchID == "" {
+		if (!l.Private || member) && l.MatchID == "" && lobbyHostAvailable(l, time.Now()) {
 			out = append(out, l)
 		}
 	}
@@ -91,6 +95,7 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var body struct {
+		Spawn         uint32      `json:"spawn"`
 		Color         uint32      `json:"color"`
 		Rules         *LobbyRules `json:"rules"`
 		LiveObservers bool        `json:"live_observers"`
@@ -117,6 +122,10 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 	_, installed := s.maps[body.MapID]
 	s.mu.Unlock()
 	if !installed && !s.mapHostAllowed(w, r, body.MapID, p.ID, body.Private, body.Mode) {
+		return
+	}
+	if body.Spawn > uint32(len(m.Spawns)) {
+		fail(w, 400, "invalid_spawn", "Choose a starting position on this map.")
 		return
 	}
 	body.Faction = resolveFaction(body.Faction)
@@ -155,18 +164,26 @@ func (s *Server) createLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not create lobby.")
 		return
 	}
-	l := &Lobby{MapHash: lobbyMapHash(m), MapVersion: m.Version, Rules: &rules, PauseEnabled: body.PauseEnabled && (body.Mode == "custom" || body.Mode == "coop"), LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Color: body.Color, Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
+	l := &Lobby{MapHash: lobbyMapHash(m), MapVersion: m.Version, Rules: &rules, PauseEnabled: body.PauseEnabled && (body.Mode == "custom" || body.Mode == "coop"), LiveObservers: body.LiveObservers && body.Private, ID: id[:24], Name: body.Name, Host: p.ID, MapID: m.ID, Mode: body.Mode, Private: body.Private, Code: code[:12], Created: time.Now().Unix(), Slots: []LobbySlot{{Spawn: body.Spawn, Color: body.Color, Player: 1, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team}}}
 	l.mapData = &m
 	for i, a := range body.AI {
+		if a.Spawn > uint32(len(m.Spawns)) {
+			fail(w, 400, "invalid_spawn", "Choose a starting position on this map.")
+			return
+		}
 		a.Faction = resolveFaction(a.Faction)
 		if a.Team > 4 || a.Color > 8 || !content.ValidFaction(a.Faction) || (a.Difficulty != "easy" && a.Difficulty != "normal" && a.Difficulty != "hard") {
 			fail(w, 400, "invalid_ai", "Choose a faction and easy, normal or hard AI.")
 			return
 		}
 		if a.Team == 0 || body.Mode == "ffa" {
-			a.Team = uint32(i + 2)
+			a.Team = lobbyDefaultTeam(l)
 		}
-		l.Slots = append(l.Slots, LobbySlot{Color: a.Color, Player: sim.PlayerID(i + 2), Name: a.Difficulty + " AI", Faction: a.Faction, Team: a.Team, AI: a.Difficulty, Ready: true, AssetsReady: true})
+		l.Slots = append(l.Slots, LobbySlot{Spawn: a.Spawn, Color: a.Color, Player: sim.PlayerID(i + 2), Name: a.Difficulty + " AI", Faction: a.Faction, Team: a.Team, AI: a.Difficulty, Ready: true, AssetsReady: true})
+	}
+	if !assignLobbySpawns(l, len(m.Spawns)) {
+		fail(w, 409, "spawn_unavailable", "Choose an unused starting position on this map.")
+		return
 	}
 	if !assignLobbyColors(l) {
 		fail(w, 409, "color_unavailable", "Choose unique player colors.")
@@ -212,6 +229,7 @@ func (s *Server) getLobby(w http.ResponseWriter, r *http.Request) {
 }
 
 type lobbyJoinRequest struct {
+	Spawn   uint32 `json:"spawn"`
 	Code    string `json:"code"`
 	Faction string `json:"faction"`
 	Team    uint32 `json:"team"`
@@ -230,6 +248,7 @@ func (s *Server) joinLobby(w http.ResponseWriter, r *http.Request) {
 	s.joinLobbyAs(w, r, p, body, "")
 }
 func (s *Server) joinLobbyAs(w http.ResponseWriter, r *http.Request, p storage.Profile, body lobbyJoinRequest, inviteID string) {
+	automaticFaction := body.Faction == "random"
 	if body.Team > 4 || body.Color > 8 {
 		fail(w, 400, "invalid_lobby", "Choose a valid team and color.")
 		return
@@ -281,8 +300,12 @@ func (s *Server) joinLobbyAs(w http.ResponseWriter, r *http.Request, p storage.P
 			return
 		}
 	}
-	if l.Private && l.Code != body.Code && acceptedInvite == nil {
+	if l.Private && !secretEqual(l.Code, body.Code) && acceptedInvite == nil {
 		fail(w, 403, "invalid_code", "The private lobby code is incorrect.")
+		return
+	}
+	if !lobbyHostAvailable(l, time.Now()) {
+		fail(w, 409, "lobby_host_offline", "The lobby host is disconnected. Ask them to return or choose another game.")
 		return
 	}
 	if l.Rated {
@@ -311,6 +334,15 @@ func (s *Server) joinLobbyAs(w http.ResponseWriter, r *http.Request, p storage.P
 		return
 	}
 	if l.ScenarioID != "" {
+		// Generic invite dialogs call an automatic faction "random". For an
+		// authored scenario, Auto means its fixed commander, not a reroll.
+		if automaticFaction {
+			body.Faction = ""
+		}
+		if body.Spawn != 0 {
+			fail(w, 409, "scenario_rules_locked", "The scenario fixes starting positions.")
+			return
+		}
 		slot, ok := s.scenarioJoinSlot(l, p)
 		if !ok {
 			fail(w, 409, "scenario_full", "Every human scenario slot is filled.")
@@ -352,7 +384,17 @@ func (s *Server) joinLobbyAs(w http.ResponseWriter, r *http.Request, p storage.P
 	}
 	id := nextLobbyPlayer(l)
 	if body.Team == 0 || l.Mode == "ffa" {
-		body.Team = uint32(id)
+		body.Team = lobbyDefaultTeam(l)
+	}
+	completeLobbyMetadata(l)
+	if body.Spawn > uint32(len(m.Spawns)) {
+		fail(w, 400, "invalid_spawn", "Choose a starting position on this map.")
+		return
+	}
+	spawn, ok := lobbySpawn(l, body.Spawn, 0, len(m.Spawns))
+	if !ok {
+		fail(w, 409, "spawn_unavailable", "Choose an unused starting position on this map.")
+		return
 	}
 	color, ok := lobbyColor(l, body.Color, 0)
 	if !ok {
@@ -362,7 +404,7 @@ func (s *Server) joinLobbyAs(w http.ResponseWriter, r *http.Request, p storage.P
 	if acceptedInvite != nil {
 		acceptedInvite.Accepted = true
 	}
-	l.Slots = append(l.Slots, LobbySlot{Color: color, Player: id, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team})
+	l.Slots = append(l.Slots, LobbySlot{Spawn: spawn, Color: color, Player: id, Profile: p.ID, Name: p.Name, Faction: body.Faction, Team: body.Team})
 	resetReady(l)
 	respond(w, 200, s.lobbyResponse(l, p.ID))
 }
@@ -505,10 +547,19 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "random_error", "Could not initialize match.")
 		return
 	}
-	cfg := sim.Config{Map: mapData, Seed: binary.LittleEndian.Uint64(seedBytes[:]), Ruleset: rules.Ruleset, StartingCredits: startingCredits}
+	matchMap, err := lobbyMatchMap(l, mapData)
+	if err != nil {
+		fail(w, 409, "spawn_unavailable", "Choose unique starting positions on this map.")
+		return
+	}
+	cfg := sim.Config{Map: matchMap, Seed: binary.LittleEndian.Uint64(seedBytes[:]), Ruleset: rules.Ruleset, StartingCredits: startingCredits}
 	slots := []slot{}
 	for _, v := range l.Slots {
-		cfg.Players = append(cfg.Players, sim.PlayerConfig{Color: v.Color, ID: v.Player, Name: v.Name, Faction: v.Faction, Team: v.Team, AI: v.AI})
+		spawn := uint32(0)
+		if l.ScenarioID == "" && l.ResumeSave == "" && l.ResumeTick == 0 && !l.Rated {
+			spawn = v.Spawn
+		}
+		cfg.Players = append(cfg.Players, sim.PlayerConfig{Color: v.Color, ID: v.Player, Name: v.Name, Faction: v.Faction, Team: v.Team, AI: v.AI, Spawn: spawn})
 		token, err := storage.Token()
 		if err != nil {
 			fail(w, 500, "random_error", "Could not initialize match.")
@@ -528,7 +579,7 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		err = engine.ConfigurePlayerColors(colors)
 	}
 	if err != nil {
-		fail(w, 400, "invalid_match", err.Error())
+		fail(w, 400, "invalid_match", "This lobby cannot start with the current map and players.")
 		return
 	}
 	id, err := storage.Token()
@@ -543,6 +594,9 @@ func (s *Server) startLobby(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "match_persistence_failed", "Could not create a durable match record.")
 		return
 	}
+	// Forming readiness pins the installed map; active clients and observers
+	// instead load the actual match blueprint, with explicit per-player starts.
+	l.MapHash = lobbyMapHash(matchMap)
 	s.matches[l.MatchID] = match
 	respond(w, 201, s.lobbyResponse(l, p.ID))
 }
