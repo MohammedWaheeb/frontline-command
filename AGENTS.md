@@ -51,3 +51,17 @@ art and animations, both co-op scenarios, and 1–4 player multiplayer. Existing
 co-op scenario layouts remain available in addition to the skirmish selection.
 The current request authorizes Codex asset work and supersedes the older external
 asset-ownership restriction. Audio is outside this request. No deployment.
+
+## User release scope update — 20 October 2026
+
+The user supersedes the 13 October hiding/curation above: Campaign, commander
+mastery and the map editor are unhidden and reachable again (campaign scripted
+routes improved to 71/72 passing on 2026-10-20; only sy-05 hard still fails —
+relay-1 razed during relay-2 stabilization — see
+docs/release-fix-receipts-2026-10-20.md; editor re-enable C-2 approved). The default skirmish battlefield
+selection grows from three to six maps: Copper Junction, Industrial Valley and
+Port Outskirts plus the promoted Relay Heights, Dry River and Border Depots
+(C-4). Existing co-op scenario layouts remain available in addition to the
+skirmish selection. Source/story/editor data and existing archives stay
+preserved. The heavy lanes (one Blender renderer, one browser benchmark lane
+on this 16GB host) run after these fixes land. No deployment.

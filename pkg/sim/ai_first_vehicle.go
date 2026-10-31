@@ -1,7 +1,7 @@
 package sim
 
-// Keep the ordinary factory cadence once a combat vehicle is committed. Before
-// that first vehicle, a cash-short cadence choice may use a legal cheaper role
+// Authored missions and Easy retain the first-vehicle affordability fallback.
+// Normal/Hard skirmish also convert spare income into a legal cheaper role
 // with the same margin and the budget left by earlier planning priorities.
 func (e *Engine) aiFirstFactoryVehicle(p *Player, producer *Entity, own []EntityView, preferred string, budget int64, plannedSupply int32, prior []Order, urgent bool) string {
 	if urgent || producer == nil || producer.Owner != p.ID || e.aiOwnEntity(own, producer.ID) == nil || !producer.Active(e.Tick()) || len(producer.Jobs) != 0 {
@@ -26,6 +26,10 @@ func (e *Engine) aiFirstFactoryVehicle(p *Player, producer *Entity, own []Entity
 		w, ok := e.catalog.Weapon(u.Weapon)
 		return ok && w.Kind != "tactical"
 	}
+	legacy := !e.aiSkirmishPolicy(p).Enabled || p.AI == "easy"
+	// Once combat production exists, keep savings for its first paid repair
+	// support instead of spending every shipment on another cheaper fighter.
+	preserveCommitted := legacy || unit.Role == "repair"
 	for _, observed := range own {
 		if observed.Owner != p.ID {
 			continue
@@ -34,11 +38,11 @@ func (e *Engine) aiFirstFactoryVehicle(p *Player, producer *Entity, own []Entity
 		if v == nil || v.Owner != p.ID {
 			continue
 		}
-		if armed(v.Type) {
+		if preserveCommitted && armed(v.Type) {
 			return preferred
 		}
 		for _, job := range v.Jobs {
-			if !job.Research && armed(job.Type) {
+			if preserveCommitted && !job.Research && armed(job.Type) {
 				return preferred
 			}
 		}
@@ -49,7 +53,7 @@ func (e *Engine) aiFirstFactoryVehicle(p *Player, producer *Entity, own []Entity
 				return preferred
 			}
 		}
-		if order.Kind == "train" && armed(order.Type) {
+		if preserveCommitted && order.Kind == "train" && armed(order.Type) {
 			for _, id := range order.Entities {
 				if source := e.aiOwnEntity(own, id); source != nil && source.Owner == p.ID && e.role(source) == "factory" {
 					return preferred

@@ -14,7 +14,7 @@ function resolveArt(assets,urlPath){
  if(rel.startsWith('audio/notices/')){const notice=rel.slice('audio/notices/'.length);if(notice==='README.md'||notice.startsWith('licenses/')&&/\.(md|txt)$/.test(notice))return path.join(assets,'audio',notice);return}
  if(rel.startsWith('ui/icons/build/'))return path.join(assets,'build',rel);
  if(rel.startsWith('ui/icons/')||rel.startsWith('ui/emblems/'))return path.join(assets,rel);
- if(['sprites/','terrain/','ui/','audio/','fx/'].some(prefix=>rel.startsWith(prefix)))return path.join(assets,'build',rel);
+ if(['sprites/','terrain/','ui/','audio/','fx/','maps/'].some(prefix=>rel.startsWith(prefix)))return path.join(assets,'build',rel);
 }
 async function spriteFiles(assets,id,meta){
  const files=[`sprites/${id}/${id}.sprite.json`],atlases=Object.values(meta.atlases??{}).flatMap(scale=>Object.values(scale).flat());
@@ -36,8 +36,9 @@ export async function artIndex(assets){
  const portraits=[];for(const name of await list(path.join(assets,'build/ui/portraits')))if(name.endsWith('@2x.beauty.png')&&await exists(path.join(assets,'build/ui/portraits',name.replace('.beauty.','.team.'))))portraits.push(name.replace('@2x.beauty.png',''));
  const buildIcons=[];for(const name of await list(path.join(assets,'build/ui/icons/build')))if(name.endsWith('@2x.beauty.png')&&await exists(path.join(assets,'build/ui/icons/build',name.replace('.beauty.','.team.'))))buildIcons.push(name.replace('@2x.beauty.png',''));
  const effects=await authoredEffectPack(assets);
+ const mapPreviews={};for(const slug of await list(path.join(assets,'build/maps'))){if(!safe(slug))continue;const wide=`maps/${slug}/preview.png`,square=`maps/${slug}/preview-256.png`;if(await exists(path.join(assets,'build',wide))&&await exists(path.join(assets,'build',square)))mapPreviews[slug]={preview:wide,preview256:square}}
  const keyArt='ui/keyart/main_menu.png';
- return {format:1,sprites,terrain,portraits,buildIcons,...effects?{effects:effects.descriptor}:{},...await exists(path.join(assets,'build',keyArt))?{keyArt}:{},chrome:(await list(path.join(assets,'build/ui/chrome'))).filter(name=>name.endsWith('.png')),icons:await exists(path.join(assets,'ui/icons/fc-icons.svg')),emblems:await exists(path.join(assets,'ui/emblems/fc-emblems.svg'))};
+ return {format:1,sprites,terrain,portraits,buildIcons,...effects?{effects:effects.descriptor}:{},...await exists(path.join(assets,'build',keyArt))?{keyArt}:{},chrome:(await list(path.join(assets,'build/ui/chrome'))).filter(name=>name.endsWith('.png')),icons:await exists(path.join(assets,'ui/icons/fc-icons.svg')),emblems:await exists(path.join(assets,'ui/emblems/fc-emblems.svg')),mapPreviews};
 }
 async function walk(dir){const files=[];for(const name of await list(dir)){const file=path.join(dir,name),entry=await stat(file);if(entry.isDirectory())for(const rel of await walk(file))files.push(`${name}/${rel}`);else if(entry.isFile())files.push(name)}return files}
 async function runtimeFiles(assets,index){
@@ -50,6 +51,7 @@ async function runtimeFiles(assets,index){
  for(const name of index.chrome)files.push(`ui/chrome/${name}`);
  if(index.keyArt)files.push(index.keyArt);
  for(const rel of await walk(path.join(assets,'build/audio')))if(/\.(json|ogg|mp3|wav)$/.test(rel))files.push(`audio/${rel}`);
+ for(const entry of Object.values(index.mapPreviews??{}))files.push(entry.preview,entry.preview256);
  if(index.icons)files.push('ui/icons/fc-icons.svg');if(index.emblems)files.push('ui/emblems/fc-emblems.svg');return [...new Set(files)];
 }
 async function copy(from,to){await mkdir(path.dirname(to),{recursive:true});await copyFile(from,to)}

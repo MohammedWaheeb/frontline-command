@@ -77,7 +77,7 @@ func TestUserIranAddendumDistinctDroneAndCounterLayers(t *testing.T) {
 	c := MustBase()
 	drone, ok := c.Unit("IR.shahed")
 	if !ok || drone.Name != "Shahed attack drone" || drone.Faction != "IR" || drone.Role != "shahed" ||
-		drone.Cost != 400000 || drone.BuildTicks != 18*20 || drone.HP != 140000 ||
+		drone.Cost != 350000 || drone.BuildTicks != 18*20 || drone.HP != 140000 ||
 		drone.Armor != "air" || drone.Supply != 1 || drone.Tier != 2 || drone.Speed != 4500 ||
 		drone.Weapon != "IR_SHAHED" || drone.Producer != "drone_hub" ||
 		drone.Radius != 600 || drone.Sight != 11000 || drone.Detection != 0 {
@@ -88,7 +88,7 @@ func TestUserIranAddendumDistinctDroneAndCounterLayers(t *testing.T) {
 		t.Fatalf("new drone lost the existing owned hub production/capacity contract: %+v", hub)
 	}
 	w, ok := c.Weapon(drone.Weapon)
-	if !ok || w.Kind != "airground" || w.Damage != 220000 || w.Splash != 1200 || w.Ammo != 1 || w.Volley != 1 {
+	if !ok || w.Kind != "airground" || w.Damage != 300000 || w.Splash != 1200 || w.Ammo != 1 || w.Volley != 1 {
 		t.Fatalf("terminal payload must remain one ordinary ground-only air payload: %+v", w)
 	}
 	// These are inert contact metadata. Physical terminal impact is tested in

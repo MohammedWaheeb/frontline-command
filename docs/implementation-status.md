@@ -1,3 +1,7 @@
+> **2026-10-31 beta update:** the expanded 20 October scope is beta-ready with
+> stated limits; all gates pass on the final tree. Current status and limits:
+> [beta readiness report](beta-readiness-2026-10-31.md). Sections below are history.
+
 # Current scoped local release — 13 October 2026
 
 Simulation 0.3.8/protocol 1 is packaged for Apple Silicon macOS/desktop Chrome.

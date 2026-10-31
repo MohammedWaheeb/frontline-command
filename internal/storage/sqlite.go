@@ -42,12 +42,12 @@ func Open(path string) (*SQLite, error) {
 		db.Close()
 		return nil, err
 	}
-	if schemaVersion > 9 {
+	if schemaVersion > 10 {
 		db.Close()
 		return nil, errors.New("database was created by a newer game version")
 	}
 	s := &SQLite{db: db}
-	for _, stmt := range []string{"PRAGMA foreign_keys=ON", "PRAGMA journal_mode=WAL", "PRAGMA busy_timeout=5000", `CREATE TABLE IF NOT EXISTS profiles(id TEXT PRIMARY KEY,name TEXT NOT NULL,created INTEGER NOT NULL,token_hash TEXT UNIQUE NOT NULL)`, `CREATE TABLE IF NOT EXISTS saves(owner TEXT NOT NULL REFERENCES profiles(id),id TEXT NOT NULL,name TEXT NOT NULL,revision INTEGER NOT NULL,updated INTEGER NOT NULL,data BLOB NOT NULL,PRIMARY KEY(owner,id))`, `CREATE TABLE IF NOT EXISTS results(id TEXT PRIMARY KEY,payload BLOB NOT NULL,created INTEGER NOT NULL,void INTEGER NOT NULL,checksum TEXT NOT NULL)`, `CREATE TABLE IF NOT EXISTS maps(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES profiles(id),title TEXT NOT NULL,revision INTEGER NOT NULL,data BLOB NOT NULL)`, `CREATE TABLE IF NOT EXISTS reports(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES profiles(id),match_id TEXT NOT NULL,tick INTEGER NOT NULL,reason TEXT NOT NULL,created INTEGER NOT NULL)`, `CREATE TABLE IF NOT EXISTS profile_settings(owner TEXT PRIMARY KEY REFERENCES profiles(id),revision INTEGER NOT NULL,data BLOB NOT NULL)`} {
+	for _, stmt := range []string{"PRAGMA foreign_keys=ON", "PRAGMA journal_mode=WAL", "PRAGMA synchronous=FULL", "PRAGMA busy_timeout=5000", `CREATE TABLE IF NOT EXISTS profiles(id TEXT PRIMARY KEY,name TEXT NOT NULL,created INTEGER NOT NULL,token_hash TEXT UNIQUE NOT NULL)`, `CREATE TABLE IF NOT EXISTS saves(owner TEXT NOT NULL REFERENCES profiles(id),id TEXT NOT NULL,name TEXT NOT NULL,revision INTEGER NOT NULL,updated INTEGER NOT NULL,data BLOB NOT NULL,PRIMARY KEY(owner,id))`, `CREATE TABLE IF NOT EXISTS results(id TEXT PRIMARY KEY,payload BLOB NOT NULL,created INTEGER NOT NULL,void INTEGER NOT NULL,checksum TEXT NOT NULL)`, `CREATE TABLE IF NOT EXISTS maps(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES profiles(id),title TEXT NOT NULL,revision INTEGER NOT NULL,data BLOB NOT NULL)`, `CREATE TABLE IF NOT EXISTS reports(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES profiles(id),match_id TEXT NOT NULL,tick INTEGER NOT NULL,reason TEXT NOT NULL,created INTEGER NOT NULL)`, `CREATE TABLE IF NOT EXISTS profile_settings(owner TEXT PRIMARY KEY REFERENCES profiles(id),revision INTEGER NOT NULL,data BLOB NOT NULL)`} {
 		if _, err = db.Exec(stmt); err != nil {
 			db.Close()
 			return nil, err
@@ -78,6 +78,10 @@ func Open(path string) (*SQLite, error) {
 		return nil, err
 	}
 	if err = s.initResultIntegritySchema(schemaVersion); err != nil {
+		db.Close()
+		return nil, err
+	}
+	if err = s.initSaveIntegritySchema(schemaVersion); err != nil {
 		db.Close()
 		return nil, err
 	}
@@ -155,6 +159,83 @@ func (s *SQLite) initResultIntegritySchema(version int) error {
 		return err
 	}
 	return tx.Commit()
+}
+
+// initSaveIntegritySchema (v10) mirrors v9 for saves: a separable data
+// digest so GetSave can refuse a corrupt blob instead of serving it.
+// Existing rows are backfilled from their data as stored at upgrade time.
+func (s *SQLite) initSaveIntegritySchema(version int) error {
+	if version >= 10 {
+		return nil
+	}
+	tx, err := s.db.Begin()
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+	cols, err := tx.Query(`SELECT name FROM pragma_table_info('saves')`)
+	if err != nil {
+		return err
+	}
+	hasColumn := false
+	for cols.Next() {
+		var name string
+		if err = cols.Scan(&name); err != nil {
+			cols.Close()
+			return err
+		}
+		if name == "data_checksum" {
+			hasColumn = true
+		}
+	}
+	if err = cols.Err(); err != nil {
+		cols.Close()
+		return err
+	}
+	cols.Close()
+	if !hasColumn {
+		if _, err = tx.Exec(`ALTER TABLE saves ADD COLUMN data_checksum TEXT NOT NULL DEFAULT ''`); err != nil {
+			return err
+		}
+	}
+	rows, err := tx.Query(`SELECT owner,id,data FROM saves WHERE data_checksum=''`)
+	if err != nil {
+		return err
+	}
+	type pending struct {
+		owner, id string
+		data      []byte
+	}
+	var all []pending
+	for rows.Next() {
+		var p pending
+		if err = rows.Scan(&p.owner, &p.id, &p.data); err != nil {
+			rows.Close()
+			return err
+		}
+		all = append(all, p)
+	}
+	if err = rows.Err(); err != nil {
+		rows.Close()
+		return err
+	}
+	rows.Close()
+	for _, p := range all {
+		if _, err = tx.Exec(`UPDATE saves SET data_checksum=? WHERE owner=? AND id=?`, digest(p.data), p.owner, p.id); err != nil {
+			return err
+		}
+	}
+	if _, err = tx.Exec(`PRAGMA user_version=10`); err != nil {
+		return err
+	}
+	return tx.Commit()
+}
+
+func verifySaveData(v Save, dataChecksum string) error {
+	if dataChecksum != "" && dataChecksum != digest(v.Data) {
+		return ErrCorrupt
+	}
+	return nil
 }
 
 func verifyResultPayload(v Result, payloadChecksum string) error {
@@ -250,7 +331,7 @@ func (s *SQLite) PutSave(ctx context.Context, v Save, expected int64) (Save, err
 	}
 	v.Updated = time.Now().Unix()
 	v.Bytes = int64(len(v.Data))
-	_, err = tx.ExecContext(ctx, `INSERT INTO saves(owner,id,name,revision,updated,data) VALUES(?,?,?,?,?,?) ON CONFLICT(owner,id) DO UPDATE SET name=excluded.name,revision=excluded.revision,updated=excluded.updated,data=excluded.data`, v.Owner, v.ID, v.Name, v.Revision, v.Updated, v.Data)
+	_, err = tx.ExecContext(ctx, `INSERT INTO saves(owner,id,name,revision,updated,data,data_checksum) VALUES(?,?,?,?,?,?,?) ON CONFLICT(owner,id) DO UPDATE SET name=excluded.name,revision=excluded.revision,updated=excluded.updated,data=excluded.data,data_checksum=excluded.data_checksum`, v.Owner, v.ID, v.Name, v.Revision, v.Updated, v.Data, digest(v.Data))
 	if err != nil {
 		return v, err
 	}
@@ -258,12 +339,16 @@ func (s *SQLite) PutSave(ctx context.Context, v Save, expected int64) (Save, err
 }
 func (s *SQLite) GetSave(ctx context.Context, owner, id string) (Save, error) {
 	var v Save
-	err := s.db.QueryRowContext(ctx, "SELECT id,owner,name,revision,updated,data FROM saves WHERE owner=? AND id=?", owner, id).Scan(&v.ID, &v.Owner, &v.Name, &v.Revision, &v.Updated, &v.Data)
+	var dataChecksum string
+	err := s.db.QueryRowContext(ctx, "SELECT id,owner,name,revision,updated,data,data_checksum FROM saves WHERE owner=? AND id=?", owner, id).Scan(&v.ID, &v.Owner, &v.Name, &v.Revision, &v.Updated, &v.Data, &dataChecksum)
 	if errors.Is(err, sql.ErrNoRows) {
 		err = ErrNotFound
 	}
+	if err != nil {
+		return v, err
+	}
 	v.Bytes = int64(len(v.Data))
-	return v, err
+	return v, verifySaveData(v, dataChecksum)
 }
 func (s *SQLite) ListSaves(ctx context.Context, owner string) ([]Save, error) {
 	rows, err := s.db.QueryContext(ctx, "SELECT id,owner,name,revision,updated,length(data) FROM saves WHERE owner=? ORDER BY updated DESC,id", owner)

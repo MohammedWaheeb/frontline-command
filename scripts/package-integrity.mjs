@@ -7,7 +7,9 @@ import path from 'node:path';
 // Historical work/ snapshots contain independent Go programs and incomplete
 // candidate sources. Check every shipped Go package without traversing archives.
 export const productionGoPackages=Object.freeze(['./cmd/...','./internal/...','./pkg/...','./protocol/...']);
-export function goTestArguments(extended=false){return ['test',...(extended?['-timeout=30m']:['-short']),...productionGoPackages]}
+// The non-short authored suite is documented at ~90 minutes for pkg/sim
+// alone; a 30m package timeout panics mid-suite and hides real results.
+export function goTestArguments(extended=false){return ['test',...(extended?['-timeout=120m']:['-short']),...productionGoPackages]}
 
 /** Resolve existing parents so a symlink cannot redirect package replacement
  * into authored inputs. Within the source tree, outputs belong beneath dist/. */
@@ -73,6 +75,7 @@ export async function resolveGoLicense(goRoot){
 export async function fileInventory(root){
  const files=[],seen=new Set();
  async function walk(dir,prefix=''){for(const name of (await readdir(dir)).sort()){
+  if(name==='.DS_Store')continue; // Finder metadata: never a package file, never a build blocker.
   const rel=portablePath(prefix+name),key=rel.toLowerCase();if(seen.has(key))throw Error(`Case-colliding package path: ${rel}`);seen.add(key);
   const file=path.join(dir,name),entry=await lstat(file);if(entry.isSymbolicLink())throw Error(`Symlink is not a portable package file: ${rel}`);
   if(entry.isDirectory())await walk(file,rel+'/');else if(entry.isFile())files.push({path:rel,bytes:entry.size});else throw Error(`Unsupported package entry: ${rel}`);

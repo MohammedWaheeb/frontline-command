@@ -62,11 +62,12 @@ func (s *Server) initModeratorCredential() error {
 	return nil
 }
 func (s *Server) authenticateModerator(w http.ResponseWriter, r *http.Request) bool {
-	host, _, err := net.SplitHostPort(r.RemoteAddr)
-	ip := net.ParseIP(host)
+	// Behind a trusted proxy the TCP peer is the (often loopback) proxy, so
+	// loopback-only operator access keys on the forwarded client address.
+	ip := net.ParseIP(s.admission.clientIP(r))
 	token, bearer := strings.CutPrefix(r.Header.Get("Authorization"), "Bearer ")
 	digest := sha256.Sum256([]byte(token))
-	if err != nil || ip == nil || !ip.IsLoopback() || !bearer || len(token) != 64 || subtle.ConstantTimeCompare(digest[:], s.moderatorHash[:]) != 1 {
+	if ip == nil || !ip.IsLoopback() || !bearer || len(token) != 64 || subtle.ConstantTimeCompare(digest[:], s.moderatorHash[:]) != 1 {
 		fail(w, 403, "local_moderator_required", "Use the local operator credential from the host computer.")
 		return false
 	}

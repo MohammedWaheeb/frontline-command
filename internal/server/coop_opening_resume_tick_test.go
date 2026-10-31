@@ -37,6 +37,7 @@ func TestCoopOpeningResumeTickIsExplicitOnlyForResume(t *testing.T) {
 	if err := s.repo.PutSharedSave(context.Background(), []string{pa.ID, pb.ID}, "real-opening-0", "Co-op: opening", data); err != nil {
 		t.Fatal(err)
 	}
+	seedServerCheckpoint(t, s, "real-opening-match", 0, data, pa.ID, pb.ID)
 	field := func(response map[string]json.RawMessage, present bool) Lobby {
 		t.Helper()
 		var fields map[string]json.RawMessage

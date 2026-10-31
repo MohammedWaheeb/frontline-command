@@ -127,6 +127,10 @@ func TestAuthoredOptionalReliabilityConnectedRoutes(t *testing.T) {
 		// Easy's main route already stations owned engineers in both public
 		// corridors, but omitted the optional second supply-center purchase.
 		r.issue(1, sim.Order{Kind: "gather", Entities: r.ids("home-haulers"), Target: 1})
+		// The starting armor parks on this foundation; shift it (and the AT
+		// screen beside it) onto the rifle line first or placement is
+		// legitimately rejected as occupied.
+		r.issue(1, sim.Order{Kind: "move", Entities: append(r.ids("starting-armor"), r.ids("starting-at")...), Position: sim.Vec{X: 27500, Y: 103500}})
 		r.buildAt(r.ids("home-rig"), "supply", sim.Vec{X: 33500, Y: 108500})
 		playCampaignAssault(r)
 	})

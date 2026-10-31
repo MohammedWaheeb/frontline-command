@@ -59,7 +59,10 @@ export class SessionController{
   const previous=this.active,id=`session-${launch.generation}`;
   const active:Active={id,kind,map:structuredClone(map),info,transport,offline,unsubscribe:()=>{}};
   this.active=active;this.launching=undefined;
-  if(offline&&kind!=='replay')active.autosave=new AutosaveCoordinator(offline,this.store,{onStatus:status=>{if(this.active===active)this.emit({type:'autosave',session:id,status})}});
+  if(offline&&kind!=='replay')active.autosave=new AutosaveCoordinator(offline,{autosave:(save,name)=>{
+   const title=offline.current?.mission?.title.trim()||active.map.title.trim()||active.map.id;
+   return this.store.autosave(save,`${title} — ${name??'Autosave'}`.slice(0,100));
+  }},{onStatus:status=>{if(this.active===active)this.emit({type:'autosave',session:id,status})}});
   active.unsubscribe=transport.subscribe(event=>{
    if(this.active!==active)return;
    if(event.type==='snapshot'&&active.info){active.info={...active.info,tick:event.snapshot.tick,finished:event.snapshot.outcome?.finished===true||active.info.replay&&event.snapshot.tick>=active.info.replay_end};this.observe(active)}

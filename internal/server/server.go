@@ -2,6 +2,8 @@ package server
 
 import (
 	"context"
+	"crypto/sha256"
+	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"frontlinecommand/internal/storage"
@@ -14,30 +16,44 @@ import (
 	"io"
 	"io/fs"
 	"net/http"
+	"net/netip"
 	"net/url"
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
 )
 
 type Config struct {
+	// LANEnabled is explicit opt-in; interface addresses are hidden otherwise.
+	LANEnabled bool
 	// LoadProfile is empty for normal hosting, or Loopback500LoadProfile for local capacity measurements.
 	LoadProfile string
 	// StateUpdatesPerSecond selects full state publication, independently of the 20 Hz simulation.
 	StateUpdatesPerSecond int
 	// ListenAddress proves the intended literal loopback bind when the load profile is enabled.
-	ListenAddress string
+	ListenAddress  string
 	RankedMapsFile string
 	MissionDir     string
 	DataDir        string
 	StaticDir      string
 	MapDir         string
 	AllowedOrigins []string
+	// TrustedProxies are reverse-proxy addresses whose X-Forwarded-For names
+	// the real client for rate limits and loopback-only operator access.
+	TrustedProxies []netip.Prefix
+	// MaxLobbies caps forming plus live lobbies (matches included); zero
+	// keeps the default of 64. Ignored by the load profile.
+	MaxLobbies int
+	// ProfileCreationsPerHour is the host-wide new-profile budget; zero keeps
+	// the default of 120. Ignored by the load profile.
+	ProfileCreationsPerHour int
 }
 type LobbySlot struct {
+	Spawn       uint32       `json:"spawn"`
 	Color       uint32       `json:"color"`
 	Script      bool         `json:"script,omitempty"`
 	Player      sim.PlayerID `json:"player"`
@@ -50,6 +66,7 @@ type LobbySlot struct {
 	AssetsReady bool         `json:"assets_ready"`
 }
 type Lobby struct {
+	Rematch        bool `json:"rematch"`
 	mapData        *content.Map
 	Revision       uint64                  `json:"revision"`
 	ScenarioRules  *LobbyScenarioRules     `json:"scenario_rules,omitempty"`
@@ -79,30 +96,41 @@ type Lobby struct {
 	Created        int64                   `json:"created"`
 }
 type Server struct {
-	mapMu         sync.RWMutex
-	moderatorHash [32]byte
-	rankedMaps    map[string]string
-	invites       map[string]*LobbyInvite
-	adviceWorkers adviceWorkGate
-	missions      map[string]content.Mission
-	queue         map[string]*queueEntry
-	dataLock      *flock.Flock
-	loadSockets   chan struct{}
-	admission     admissionControl
-	cfg           Config
-	catalog       *content.Catalog
-	repo          *storage.SQLite
-	objects       storage.Files
-	mux           *http.ServeMux
-	mu            sync.Mutex
-	maps          map[string]content.Map
-	lobbies       map[string]*Lobby
-	matches       map[string]*liveMatch
+	mapListMu            sync.Mutex
+	mapListFingerprint   string
+	mapListJSON          []byte
+	profileMu            sync.Mutex
+	profileWindowStart   time.Time
+	profileWindowCount   int
+	profileLimitOverride int
+	mapMu                sync.RWMutex
+	moderatorHash        [32]byte
+	rankedMaps           map[string]string
+	invites              map[string]*LobbyInvite
+	adviceWorkers        adviceWorkGate
+	missions             map[string]content.Mission
+	queue                map[string]*queueEntry
+	dataLock             *flock.Flock
+	loadSockets          chan struct{}
+	admission            admissionControl
+	cfg                  Config
+	catalog              *content.Catalog
+	repo                 *storage.SQLite
+	objects              storage.Files
+	mux                  *http.ServeMux
+	mu                   sync.Mutex
+	maps                 map[string]content.Map
+	lobbies              map[string]*Lobby
+	matches              map[string]*liveMatch
 }
 
 func New(cfg Config) (*Server, error) {
-	if cfg.StateUpdatesPerSecond == 0 { cfg.StateUpdatesPerSecond = 10 }
-	if cfg.StateUpdatesPerSecond != 10 && cfg.StateUpdatesPerSecond != 20 { return nil, errors.New("state updates must be 10 or 20 per second") }
+	if cfg.StateUpdatesPerSecond == 0 {
+		cfg.StateUpdatesPerSecond = 10
+	}
+	if cfg.StateUpdatesPerSecond != 10 && cfg.StateUpdatesPerSecond != 20 {
+		return nil, errors.New("state updates must be 10 or 20 per second")
+	}
 	if err := validateLoadProfile(cfg); err != nil {
 		return nil, err
 	}
@@ -141,6 +169,7 @@ func New(cfg Config) (*Server, error) {
 		return nil, err
 	}
 	s := &Server{dataLock: lock, cfg: cfg, catalog: c, repo: repo, objects: storage.Files{Root: filepath.Join(cfg.DataDir, "objects")}, mux: http.NewServeMux(), maps: map[string]content.Map{}, lobbies: map[string]*Lobby{}, matches: map[string]*liveMatch{}}
+	s.admission.trusted = cfg.TrustedProxies
 	if cfg.LoadProfile == Loopback500LoadProfile {
 		s.loadSockets = make(chan struct{}, 500)
 		s.admission.loadProfile = true
@@ -254,6 +283,16 @@ func respond(w http.ResponseWriter, status int, v any) {
 	w.WriteHeader(status)
 	_ = json.NewEncoder(w).Encode(v)
 }
+
+// secretEqual compares bearer-style secrets (match tokens, lobby codes)
+// without leaking prefix matches through timing. Hashing first keeps the
+// compare constant-time for unequal lengths, mirroring moderator auth.
+func secretEqual(a, b string) bool {
+	da := sha256.Sum256([]byte(a))
+	db := sha256.Sum256([]byte(b))
+	return subtle.ConstantTimeCompare(da[:], db[:]) == 1
+}
+
 func fail(w http.ResponseWriter, status int, code, message string) {
 	respond(w, status, map[string]string{"code": code, "message": message})
 }
@@ -262,7 +301,7 @@ func decode(w http.ResponseWriter, r *http.Request, v any, limit int64) bool {
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
 	if err := d.Decode(v); err != nil {
-		fail(w, 400, "invalid_request", err.Error())
+		fail(w, 400, "invalid_request", "The request body is not valid for this endpoint.")
 		return false
 	}
 	if d.Decode(new(any)) != io.EOF {
@@ -284,11 +323,67 @@ func (s *Server) authenticate(w http.ResponseWriter, r *http.Request) (storage.P
 	}
 	return p, true
 }
+
+// Profile creation is unauthenticated by design (first-run flow), so a
+// host-wide creation budget bounds sybil profile multiplication — and the
+// per-profile save/map quotas each new profile would unlock — on top of the
+// per-IP admission limit. The loopback load profile legitimately provisions
+// hundreds of measurement profiles and keeps its existing admission bounds.
+const (
+	profileCreationWindow        = time.Hour
+	maxProfileCreationsPerWindow = 120
+	loadProfileCreationBudget    = 100000
+)
+
+func (s *Server) profileCreationLimit() int {
+	if s.profileLimitOverride > 0 {
+		return s.profileLimitOverride
+	}
+	if s.cfg.LoadProfile == Loopback500LoadProfile {
+		return loadProfileCreationBudget
+	}
+	if s.cfg.ProfileCreationsPerHour > 0 {
+		return s.cfg.ProfileCreationsPerHour
+	}
+	return maxProfileCreationsPerWindow
+}
+
+// reserveProfileCreation claims one slot from the current fixed window. It
+// reports the seconds until the window resets when the budget is spent.
+func (s *Server) reserveProfileCreation(now time.Time) (bool, int) {
+	s.profileMu.Lock()
+	defer s.profileMu.Unlock()
+	if s.profileWindowStart.IsZero() || now.Sub(s.profileWindowStart) >= profileCreationWindow {
+		s.profileWindowStart, s.profileWindowCount = now, 0
+	}
+	if s.profileWindowCount >= s.profileCreationLimit() {
+		retry := int(profileCreationWindow.Seconds() - now.Sub(s.profileWindowStart).Seconds())
+		if retry < 1 {
+			retry = 1
+		}
+		return false, retry
+	}
+	s.profileWindowCount++
+	return true, 0
+}
+
+// releaseProfileCreation refunds a reservation whose creation then failed,
+// so invalid names do not burn the budget legitimate players need.
+func (s *Server) releaseProfileCreation() {
+	s.profileMu.Lock()
+	defer s.profileMu.Unlock()
+	if s.profileWindowCount > 0 {
+		s.profileWindowCount--
+	}
+}
 func (s *Server) routes() {
 	s.socialRoutes()
 	s.moderationRoutes()
 	s.lobbyServiceRoutes()
-	if s.cfg.LoadProfile == Loopback500LoadProfile { s.mux.HandleFunc("GET /api/v1/load/metrics", s.loadMetrics) }
+	if s.cfg.LoadProfile == Loopback500LoadProfile {
+		s.mux.HandleFunc("GET /api/v1/load/metrics", s.loadMetrics)
+	}
+	s.mux.HandleFunc("GET /api/v1/host", s.hostAddresses)
 	s.mux.HandleFunc("GET /api/v1/health", func(w http.ResponseWriter, r *http.Request) {
 		respond(w, 200, map[string]any{"status": "ok", "simulation": sim.Version, "protocol": 1, "content_hash": s.catalog.Hash(), "tick_rate": 20, "local": true, "load_profile": s.cfg.LoadProfile, "state_updates_hz": s.cfg.StateUpdatesPerSecond, "max_lobbies": s.lobbyLimit(), "max_clients": s.loadClientLimit()})
 	})
@@ -303,9 +398,15 @@ func (s *Server) routes() {
 		if !decode(w, r, &body, 4096) {
 			return
 		}
+		if ok, retryAfter := s.reserveProfileCreation(time.Now()); !ok {
+			w.Header().Set("Retry-After", strconv.Itoa(retryAfter))
+			fail(w, 429, "profile_creation_limited", "This host has reached its new-profile limit for now. Restore an existing profile or retry later.")
+			return
+		}
 		p, token, err := s.repo.CreateProfile(r.Context(), body.Name)
 		if err != nil {
-			fail(w, 400, "invalid_profile", err.Error())
+			s.releaseProfileCreation()
+			fail(w, 400, "invalid_profile", "Choose a display name of 1–32 characters without control characters.")
 			return
 		}
 		respond(w, 201, map[string]any{"profile": p, "token": token})
@@ -315,6 +416,7 @@ func (s *Server) routes() {
 			respond(w, 200, p)
 		}
 	})
+	s.mux.HandleFunc("PATCH /api/v1/profiles/me", s.renameProfile)
 	s.mux.HandleFunc("GET /api/v1/maps", s.listMaps)
 	s.mapPublicationRoutes()
 	s.campaignProgressRoutes()
@@ -372,17 +474,43 @@ func (s *Server) loadMap(ctx context.Context, id string) (content.Map, error) {
 	}
 	return content.DecodeMap(v.Data)
 }
+
+// listMaps serves installed plus published custom maps to signed-in
+// profiles, like the lobby and ranked-map listings. The fully decoded
+// response is cached and keyed by a fingerprint of the metadata that can
+// change it (installed set, ranked assignments, and each published map's
+// revisions), so publication or content changes invalidate it while repeat
+// requests never re-decode map bodies. Published entries carry the author's
+// public display name (the client renders it as "By …") but never the owner
+// profile ID.
 func (s *Server) listMaps(w http.ResponseWriter, r *http.Request) {
-	s.mu.Lock()
-	maps := []map[string]any{}
-	for _, m := range s.maps {
-		maps = append(maps, map[string]any{"id": m.ID, "title": m.Title, "author": m.Author, "version": m.Version, "width": m.Width, "height": m.Height, "players": len(m.Spawns), "installed": true, "hash": lobbyMapHash(m), "ranked": s.rankedMap(m.ID)})
+	if _, ok := s.authenticate(w, r); !ok {
+		return
 	}
-	s.mu.Unlock()
 	custom, err := s.repo.ListPublishedMaps(r.Context())
 	if err != nil {
 		fail(w, 500, "storage_error", "Could not load maps.")
 		return
+	}
+	s.mu.Lock()
+	installed := make([]content.Map, 0, len(s.maps))
+	ranked := make(map[string]bool, len(s.maps))
+	for _, m := range s.maps {
+		installed = append(installed, m)
+		ranked[m.ID] = s.rankedMap(m.ID)
+	}
+	s.mu.Unlock()
+
+	s.mapListMu.Lock()
+	defer s.mapListMu.Unlock()
+	fingerprint := mapListingFingerprint(installed, ranked, custom)
+	if s.mapListJSON != nil && fingerprint == s.mapListFingerprint {
+		writeJSONBytes(w, s.mapListJSON)
+		return
+	}
+	maps := []map[string]any{}
+	for _, m := range installed {
+		maps = append(maps, map[string]any{"id": m.ID, "title": m.Title, "author": m.Author, "version": m.Version, "width": m.Width, "height": m.Height, "players": len(m.Spawns), "installed": true, "hash": lobbyMapHash(m), "ranked": ranked[m.ID]})
 	}
 	for _, m := range custom {
 		if !m.Published || m.Removed {
@@ -396,10 +524,61 @@ func (s *Server) listMaps(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			continue
 		}
-		maps = append(maps, map[string]any{"id": record.ID, "title": record.Title, "owner": record.Owner, "owner_name": record.OwnerName, "author": data.Author, "version": data.Version, "width": data.Width, "height": data.Height, "players": len(data.Spawns), "hash": lobbyMapHash(data), "published": true, "content_revision": record.ContentRevision, "revision": record.Revision, "installed": false, "ranked": false})
+		maps = append(maps, map[string]any{"id": record.ID, "title": record.Title, "owner_name": record.OwnerName, "author": data.Author, "version": data.Version, "width": data.Width, "height": data.Height, "players": len(data.Spawns), "hash": lobbyMapHash(data), "published": true, "content_revision": record.ContentRevision, "revision": record.Revision, "installed": false, "ranked": false})
 	}
 	sort.Slice(maps, func(i, j int) bool { return maps[i]["id"].(string) < maps[j]["id"].(string) })
-	respond(w, 200, maps)
+	encoded, err := json.Marshal(maps)
+	if err != nil {
+		fail(w, 500, "storage_error", "Could not load maps.")
+		return
+	}
+	s.mapListFingerprint, s.mapListJSON = fingerprint, encoded
+	writeJSONBytes(w, encoded)
+}
+
+func writeJSONBytes(w http.ResponseWriter, b []byte) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, _ = w.Write(b)
+}
+
+// mapListingFingerprint captures every listing input without map bodies:
+// ListPublishedMaps already returns metadata only, and installed maps are
+// summarized by the fields the listing renders.
+func mapListingFingerprint(installed []content.Map, ranked map[string]bool, custom []storage.MapRecord) string {
+	type installedKey struct {
+		ID      string
+		Title   string
+		Author  string
+		Version string
+		Width   int32
+		Height  int32
+		Players int
+		Ranked  bool
+	}
+	type customKey struct {
+		ID              string
+		Title           string
+		OwnerName       string
+		Revision        int64
+		ContentRevision int64
+		Published       bool
+		Removed         bool
+	}
+	keys := struct {
+		Installed []installedKey
+		Custom    []customKey
+	}{}
+	for _, m := range installed {
+		keys.Installed = append(keys.Installed, installedKey{m.ID, m.Title, m.Author, m.Version, m.Width, m.Height, len(m.Spawns), ranked[m.ID]})
+	}
+	sort.Slice(keys.Installed, func(i, j int) bool { return keys.Installed[i].ID < keys.Installed[j].ID })
+	for _, m := range custom {
+		keys.Custom = append(keys.Custom, customKey{m.ID, m.Title, m.OwnerName, m.Revision, m.ContentRevision, m.Published, m.Removed})
+	}
+	sort.Slice(keys.Custom, func(i, j int) bool { return keys.Custom[i].ID < keys.Custom[j].ID })
+	encoded, _ := json.Marshal(keys)
+	return string(encoded)
 }
 func (s *Server) getMap(w http.ResponseWriter, r *http.Request) {
 	if s.mapContext(w, r) {
@@ -447,7 +626,7 @@ func (s *Server) putMap(w http.ResponseWriter, r *http.Request) {
 	}
 	m, err := content.DecodeMap(body.Map)
 	if err != nil {
-		fail(w, 400, "invalid_map", err.Error())
+		fail(w, 400, "invalid_map", "The map data is invalid.")
 		return
 	}
 	s.mu.Lock()
@@ -461,11 +640,43 @@ func (s *Server) putMap(w http.ResponseWriter, r *http.Request) {
 	defer s.mapMu.Unlock()
 	record, err := s.repo.PutMap(r.Context(), storage.MapRecord{ID: m.ID, Owner: p.ID, Title: m.Title, Data: body.Map}, body.ExpectedRevision)
 	if err != nil {
-		fail(w, 409, "map_conflict", err.Error())
+		fail(w, 409, "map_conflict", "The map changed or could not be stored. Reload it and retry.")
 		return
 	}
 	respond(w, 201, record)
 }
+
+// Server-side WebSocket liveness: a control-frame ping every interval must
+// be answered within the timeout. Browsers answer pings at the user-agent
+// level, so healthy idle clients are untouched, while half-open peers are
+// dropped within interval+timeout instead of lingering past their grace.
+const (
+	wsPingInterval = 15 * time.Second
+	wsPingTimeout  = 10 * time.Second
+)
+
+// watchLiveness pings until ctx ends or a ping goes unanswered, in which
+// case it cancels the connection context. Ping must run concurrently with
+// the connection's read loop, which delivers the pong.
+func watchLiveness(ctx context.Context, ping func(context.Context) error, cancel context.CancelFunc, interval, timeout time.Duration) {
+	ticker := time.NewTicker(interval)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case <-ticker.C:
+			pctx, pcancel := context.WithTimeout(ctx, timeout)
+			err := ping(pctx)
+			pcancel()
+			if err != nil {
+				cancel()
+				return
+			}
+		}
+	}
+}
+
 func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 	if !s.reserveLoadSocket() {
 		fail(w, http.StatusTooManyRequests, "load_client_limit", "The measurement profile permits at most 500 simultaneous clients.")
@@ -479,7 +690,10 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 		fail(w, 404, "match_missing", "This match is no longer available.")
 		return
 	}
-	conn, err := websocket.Accept(w, r, &websocket.AcceptOptions{InsecureSkipVerify: true})
+	// Per-message deflate cuts match traffic ~15x (fog grids and repeated
+	// entity fields compress well); browsers negotiate it automatically.
+	// No context takeover keeps compressors pooled instead of ~1MB per socket.
+	conn, err := websocket.Accept(w, r, &websocket.AcceptOptions{InsecureSkipVerify: true, CompressionMode: websocket.CompressionNoContextTakeover})
 	if err != nil {
 		return
 	}
@@ -491,10 +705,12 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 	typ, frame, err := conn.Read(helloCtx)
 	stop()
 	if err != nil || typ != websocket.MessageBinary {
+		s.admission.noteSocketFailure(r, time.Now())
 		return
 	}
 	env := new(pb.Envelope)
 	if err = proto.Unmarshal(frame, env); err != nil {
+		s.admission.noteSocketFailure(r, time.Now())
 		return
 	}
 	hello := env.GetHello()
@@ -502,12 +718,16 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 		hello = resume.Hello
 	}
 	if hello == nil || hello.Protocol != 1 || hello.Simulation != sim.Version || hello.ContentHash != s.catalog.Hash() || hello.MatchId != m.id {
+		s.admission.noteSocketFailure(r, time.Now())
 		data, _ := proto.Marshal(&pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: "incompatible_version", Message: "Reload matching game content before joining."}}})
 		_ = conn.Write(ctx, websocket.MessageBinary, data)
 		return
 	}
 	slot, ok := m.slotForToken(hello.Token)
 	if !ok {
+		s.admission.noteSocketFailure(r, time.Now())
+		data, _ := proto.Marshal(&pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: "invalid_match_token", Message: socketErrorMessage("invalid_match_token")}}})
+		_ = conn.Write(ctx, websocket.MessageBinary, data)
 		conn.Close(websocket.StatusPolicyViolation, "invalid match token")
 		return
 	}
@@ -522,7 +742,7 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 	}()
 	reply := m.call(ctx, matchRequest{kind: "connect", player: slot.Player, peer: p})
 	if reply.err != nil {
-		data, _ := proto.Marshal(&pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: reply.err.Error(), Message: "Reconnect is unavailable; an eliminated player may join the delayed observer feed."}}})
+		data, _ := proto.Marshal(&pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: reply.err.Error(), Message: socketErrorMessage(reply.err.Error())}}})
 		_ = conn.Write(ctx, websocket.MessageBinary, data)
 		return
 	}
@@ -553,6 +773,10 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 	defer func() { cancel(); <-writerDone }()
+	// Detect half-open connections (sleep, NAT expiry, roaming) that the
+	// read loop alone cannot: a failed pong cancels the connection, which
+	// runs the normal disconnect path and starts the reconnect grace.
+	go watchLiveness(ctx, conn.Ping, cancel, wsPingInterval, wsPingTimeout)
 	for {
 		kind, b, err := conn.Read(ctx)
 		if err != nil {
@@ -579,7 +803,7 @@ func (s *Server) matchSocket(w http.ResponseWriter, r *http.Request) {
 		if control := incoming.GetControl(); control != nil {
 			reply = m.call(ctx, matchRequest{kind: "control", peer: p, player: p.player, control: control.Action})
 			if reply.err != nil {
-				data, _ := proto.Marshal(&pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: reply.err.Error(), Message: "Shared pause is unavailable. Every active player must agree, and ranked play cannot pause.", Recoverable: true}}})
+				data, _ := proto.Marshal(&pb.Envelope{Message: &pb.Envelope_Error{Error: &pb.ProtocolError{Code: reply.err.Error(), Message: socketErrorMessage(reply.err.Error()), Recoverable: true}}})
 				select {
 				case p.out <- data:
 				default:

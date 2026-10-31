@@ -40,7 +40,12 @@
       "kind": "skirmish",
       "required_packs": [
         "2.0.0"
-      ]
+      ],
+      "environment": {
+        "url": "/content/environment/relay-heights.json",
+        "sha256": "5913443072f6db01e4ea985469002d231b20407eb54f433c8403d324d779b840",
+        "bytes": 3310
+      }
     },
     {
       "id": "dry-river",
@@ -54,7 +59,12 @@
       "kind": "skirmish",
       "required_packs": [
         "2.0.0"
-      ]
+      ],
+      "environment": {
+        "url": "/content/environment/dry-river.json",
+        "sha256": "38d03d8d0537f2bb92a8b75e26c99814db7066dff3afa655c2898525f2962a19",
+        "bytes": 20501
+      }
     },
     {
       "id": "industrial-valley",
@@ -68,7 +78,12 @@
       "kind": "skirmish",
       "required_packs": [
         "2.0.0"
-      ]
+      ],
+      "environment": {
+        "url": "/content/environment/industrial-valley.json",
+        "sha256": "e638a4bd376abca9b5e300f7e2d18e3dcef5a98de766128deff92001d4e95a41",
+        "bytes": 7276
+      }
     },
     {
       "id": "border-depots",
@@ -82,7 +97,12 @@
       "kind": "skirmish",
       "required_packs": [
         "2.0.0"
-      ]
+      ],
+      "environment": {
+        "url": "/content/environment/border-depots.json",
+        "sha256": "c86225722ff5098aa5f77d13c7978d0ee31ced0cb5425abd88858825b05a650a",
+        "bytes": 12775
+      }
     },
     {
       "id": "port-outskirts",
@@ -96,7 +116,12 @@
       "kind": "skirmish",
       "required_packs": [
         "2.0.0"
-      ]
+      ],
+      "environment": {
+        "url": "/content/environment/port-outskirts.json",
+        "sha256": "3acf3e975ee3924141bd7848d0d3a088f377df63f9370b873b80130074d2703e",
+        "bytes": 15955
+      }
     },
     {
       "id": "convoy-union",
@@ -110,7 +135,12 @@
       "kind": "scenario",
       "required_packs": [
         "2.0.0"
-      ]
+      ],
+      "environment": {
+        "url": "/content/environment/convoy-union.json",
+        "sha256": "27fa346324a168a6e22cfd847cf4a5324884517663b4322ba2e0405f83e799fd",
+        "bytes": 7021
+      }
     },
     {
       "id": "twin-outposts",
@@ -118,13 +148,18 @@
       "title": "Twin Outposts",
       "author": "Frontline Command: Codex layouts; Claude Opus 5.5 authoring helpers",
       "url": "/content/maps/twin-outposts.json",
-      "sha256": "632f1a2621232182cfcc3aa3e3794d0f26e59391e1986dc936ff61fe44b1cdac",
+      "sha256": "7f18dbce34c2719a872ec26624fca7c62652aa918ca5636e737be63769c704e1",
       "bytes": 528617,
       "players": 4,
       "kind": "scenario",
       "required_packs": [
         "2.0.0"
-      ]
+      ],
+      "environment": {
+        "url": "/content/environment/twin-outposts.json",
+        "sha256": "82c1080348736df8c67da78583493a5d285434fcae53184390401706e5621184",
+        "bytes": 15724
+      }
     },
     {
       "id": "us-01-first-foothold-layout",
@@ -741,8 +776,8 @@
       "version": "1",
       "title": "Workshop Foothold",
       "url": "/content/missions/sy-01-workshop-foothold.json",
-      "sha256": "2e55068169ee4b872f003240140b38d4746d85cada4a4da9d9685a49747ecab5",
-      "bytes": 8343,
+      "sha256": "a370d0b007ec351dd8cbafd844c4fb82581b24a4ccfd8a74c8c66edebbefd315",
+      "bytes": 8342,
       "map_id": "sy-01-workshop-foothold-layout",
       "mode": "campaign",
       "faction": "SY",
@@ -933,7 +968,7 @@
       "version": "2",
       "title": "Convoy Union",
       "url": "/content/missions/convoy-union.json",
-      "sha256": "11f8300a79fec9b008be0502d52015c9545e37f2e46c1a7a5c1599051127fb76",
+      "sha256": "d26433f30736ff63d8af40211a93d71dbe4d592a001c3c016653284e1e3b6a19",
       "bytes": 14333,
       "map_id": "convoy-union",
       "mode": "coop",
@@ -949,8 +984,8 @@
       "version": "1",
       "title": "Twin Outposts",
       "url": "/content/missions/twin-outposts.json",
-      "sha256": "e959f65575703931b5a09f2c9e67d89e9133547d4553274ae5b874a96567a990",
-      "bytes": 16514,
+      "sha256": "fca6f57f217a77e66e8e78fc172a395ca86bdf01f1469ac1f01733dff2cc614d",
+      "bytes": 16584,
       "map_id": "twin-outposts",
       "mode": "coop",
       "faction": "US",

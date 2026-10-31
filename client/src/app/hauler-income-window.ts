@@ -43,11 +43,12 @@ export class HaulerIncomeWindow {
   if (latest?.tick === tick) return this.value;
   this.samples.push({tick, income});
 
-  // Never interpolate a boundary or include an interval older than 60 seconds.
-  // Integer ticks and one sample per tick bound retained history to 1,201 entries.
+  // Retain one real boundary sample. Non-divisor snapshot cadences may
+  // span slightly over 60 seconds; never invent an interpolated income value.
+  // One predecessor plus at most 1,200 recent integer ticks bounds history.
   const cutoff = tick - WINDOW_TICKS;
   let expired = 0;
-  while (expired < this.samples.length && this.samples[expired].tick < cutoff) expired++;
+  while (expired + 1 < this.samples.length && this.samples[expired + 1].tick <= cutoff) expired++;
   if (expired) this.samples.splice(0, expired);
 
   const first = this.samples[0];
@@ -60,7 +61,7 @@ export class HaulerIncomeWindow {
     fromTick: first.tick,
     toTick: tick,
     windowTicks,
-    coverage: windowTicks === WINDOW_TICKS ? 'full' : 'partial',
+    coverage: windowTicks >= WINDOW_TICKS ? 'full' : 'partial',
    };
    this.value = Object.freeze(model);
   }
@@ -77,12 +78,11 @@ export class HaulerIncomeWindow {
  get current(): RecentHaulerIncome | undefined { return this.value; }
 }
 
-/** Amount over the declared simulation interval, without extrapolating a rate. */
+/** A minute rate only after a complete observed window; no startup extrapolation. */
 export function incomeWindowLabel(model: RecentHaulerIncome | undefined): string {
- if (!model) return 'Income observations pending';
- const whole = (model.amount / 1000n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
- const fraction = (model.amount % 1000n).toString().padStart(3, '0').replace(/0+$/, '');
- const amount = fraction ? `${whole}.${fraction}` : whole;
- const seconds = model.windowTicks / TICKS_PER_SECOND;
- return `${amount} credits observed over ${seconds}s of simulation${model.coverage === 'partial' ? ' (partial 60s window)' : ' (full 60s window)'}`;
+ if (!model || model.coverage !== 'full' || model.windowTicks < WINDOW_TICKS || model.amount < 0n) return 'Income starting up — observing the first minute';
+ const rate = model.amount * BigInt(WINDOW_TICKS) / BigInt(model.windowTicks);
+ const whole = (rate / 1000n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+ const fraction = (rate % 1000n).toString().padStart(3, '0').replace(/0+$/, '');
+ return `${fraction ? `${whole}.${fraction}` : whole} credits/min · observed income`;
 }

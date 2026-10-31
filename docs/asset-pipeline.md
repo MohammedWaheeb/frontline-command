@@ -76,6 +76,19 @@ work/art/.venv/bin/python assets/pipeline/manifest/gen_manifest.py
 node client/tests/render/browser.mjs
 ```
 
+Beta generators (2026-10-31): `assets/pipeline/tools/gen_beta_assets.py`
+regenerates `content/environment/*.json` dressing for the seven launch maps
+that lacked it and the eight `assets/build/maps/<slug>/preview{,-256}.png`
+map previews (served via the art index `mapPreviews` field). Research,
+ability and operation icons are original symbols in
+`assets/ui/icons/fc-icons.svg`, mapped by `client/src/content/icons.ts`.
+`assets/pipeline/tools/test_beta_assets.py` covers all three. The
+`fx.weapon_muzzle.IR_SHAHED` release effect comes from
+`assets/pipeline/fx/fam_ballistics.py` via `pack.py`. `check_assets.py`
+validates packed atlases when the cleaned per-frame intermediates under
+`assets/build/frames/` are absent, and skips seam metrics for non-surface
+terrain materials.
+
 Full integrity covers declared frame coverage, dimensions, transparency,
 clipping, team-mask containment, nonempty shadows, distinct directions/animation,
 anchor placement and 1×/2× atlas consistency. A partially rendered batch is

@@ -1,0 +1,345 @@
+/* Frontline Command battle HUD: shared layout contract + right command sidebar.
+   Owner: hud-sidebar lane (beta revamp 2026-10-31). Contract documented in
+   work/beta-2026-10-31/contracts/hud-layout.md. Other HUD lanes READ these
+   custom properties; request changes instead of redefining them.
+
+   Precedence: this file is imported from ui/hud/BattleScreen.tsx, which is
+   evaluated before styles/game.css, so every rule is scoped under
+   `.battlefield-screen[data-hud]` (specificity +1 attribute) to win over the
+   legacy game.css HUD blocks. No blue or cyan anywhere in these tokens. */
+
+/* ===== 1. Layout contract (public) ======================================= */
+:root:has(.battlefield-screen[data-hud]){
+ --hud-s:var(--fc-ui-scale,1);
+ /* Tier factors: layout grows faster than type. */
+ --hud-k:1;--hud-tk:1;
+ /* Chrome-row factor for sidebar strips (header, tabs, keys): grows slower than widths so the cameo grid keeps the height. */
+ --hud-rk:1;
+ /* Per-tier base sizes in px at UI scale 1 (1280-class / 1600-class / 1920-class). */
+ --hud-sb-base:224px;--hud-tray-w-base:600px;--hud-tray-h-base:112px;--hud-strip-base:28px;
+ --hud-edge-base:12px;--hud-alert-w-base:300px;--hud-target-w-base:440px;--hud-target-h-base:32px;
+ /* Resolved geometry (px, already multiplied by the UI scale and clamped). */
+ --hud-sb-w:min(30vw,calc(var(--hud-sb-base) * var(--hud-s)));
+ --hud-world-w:calc(100vw - var(--hud-sb-w));
+ --hud-world-h:100vh;
+ --hud-tray-w:min(calc(var(--hud-tray-w-base) * var(--hud-s)),calc(var(--hud-world-w) * .62));
+ --hud-tray-h:min(calc(var(--hud-tray-h-base) * var(--hud-s)),20vh);
+ --hud-strip-h:calc(var(--hud-strip-base) * var(--hud-s));
+ --hud-tray-x:calc(var(--hud-world-w) - var(--hud-tray-w));
+ --hud-world-cx:calc(var(--hud-world-w) / 2);
+ --hud-edge:calc(var(--hud-edge-base) * var(--hud-s));
+ --hud-alert-w:min(calc(var(--hud-alert-w-base) * var(--hud-s)),calc(var(--hud-world-w) * .4));
+ --hud-target-w:min(calc(var(--hud-target-w-base) * var(--hud-s)),calc(var(--hud-world-w) - 2 * var(--hud-edge)));
+ --hud-target-h:calc(var(--hud-target-h-base) * var(--hud-s));
+ --hud-paint-h:calc(4px * var(--hud-s));
+ --hud-chamfer:calc(22px * var(--hud-k) * var(--hud-s));
+ --hud-header-h:calc(44px * var(--hud-k) * var(--hud-s));
+ /* Type helper: font-size = calc(Npx * var(--hud-tk) * var(--fc-ui-scale)). */
+ /* Stacking inside main.battlefield-screen. */
+ --hud-z-world-overlay:90;--hud-z-tray:100;--hud-z-sidebar:110;--hud-z-alerts:115;--hud-z-target:120;--hud-z-tooltip:400;
+ /* Legacy aliases so game.css consumers (canvas inset, captions, info column) follow the new geometry. */
+ --fc-hud-sidebar-w:var(--hud-sb-w);
+ --fc-hud-tray-w:var(--hud-tray-w);
+ --fc-hud-tray-h:var(--hud-tray-h);
+ --fc-hud-alert-w:var(--hud-alert-w);
+
+ /* ===== 2. HUD colour tokens (public, frozen) ===== */
+ --hud-plate:#2A2723;--hud-plate-hi:#36322B;--hud-plate-lo:#1E1C18;
+ --hud-well:#0B0A09;--hud-well-2:#14130F;--hud-seam:#0C0B09;
+ --hud-bevel-hi:rgba(255,238,205,.14);--hud-bevel-lo:rgba(0,0,0,.60);
+ --hud-olive:#4F5530;--hud-olive-hi:#6E7545;--hud-olive-dk:#33361F;
+ --hud-brass:#A8843F;--hud-brass-hi:#D0AE66;--hud-brass-dk:#6E5528;
+ --hud-amber:#E2A232;--hud-amber-hi:#F4C24E;--hud-lcd:#F2B340;
+ --hud-text-1:#EDE6D6;--hud-text-2:#BDB4A2;--hud-text-3:#8A8273;--hud-text-off:#5E584D;
+ --hud-ok:#8DBA5E;--hud-warn:#E8A33A;--hud-danger:#D4432F;--hud-critical:#FF4A35;
+ --hud-energy:#B79BD6;
+}
+@media (min-width:1440px) and (min-height:840px){
+ :root:has(.battlefield-screen[data-hud]){--hud-k:1.214;--hud-tk:1.08;--hud-rk:1.14;--hud-sb-base:272px;--hud-tray-w-base:720px;--hud-tray-h-base:124px;--hud-strip-base:30px;--hud-edge-base:14px;--hud-alert-w-base:320px;--hud-target-w-base:500px;--hud-target-h-base:34px}
+}
+@media (min-width:1856px) and (min-height:1020px){
+ :root:has(.battlefield-screen[data-hud]){--hud-k:1.428;--hud-tk:1.17;--hud-rk:1.27;--hud-sb-base:300px;--hud-tray-w-base:740px;--hud-tray-h-base:120px;--hud-strip-base:32px;--hud-edge-base:16px;--hud-alert-w-base:340px;--hud-target-w-base:560px;--hud-target-h-base:36px}
+}
+
+/* ===== 3. Battle canvas and retired chrome ================================ */
+.battlefield-screen[data-hud] .battlefield-canvas{inset:0 var(--hud-sb-w) 0 0}
+.battlefield-screen[data-hud] .resource-shoulder{display:none}
+
+/* ===== 4. Right command sidebar ========================================== */
+/* S = .battlefield-screen[data-hud] .command-sidebar[data-hud] (specificity 0,4,0)
+   so it wins over game.css :is(...) button rules (0,3,1) and their :hover forms. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud]{
+ --sb-pad:calc(8px * var(--hud-k) * var(--fc-ui-scale));--sb-gap:calc(5px * var(--hud-rk) * var(--fc-ui-scale));
+ --sb-inner:calc(var(--hud-sb-w) - 3px - 2 * var(--sb-pad));
+ position:absolute;top:0;right:0;bottom:0;width:var(--hud-sb-w);z-index:var(--hud-z-sidebar);
+ display:flex;flex-direction:column;gap:var(--sb-gap);padding:0 var(--sb-pad) var(--sb-pad) calc(3px + var(--sb-pad));
+ border:0;overflow:hidden;color:var(--hud-text-1);isolation:isolate;
+ background:
+  linear-gradient(90deg,var(--hud-brass-dk) 0,var(--hud-brass-hi) 1px,var(--hud-brass) 2px,#2b2116 3px,transparent 3px),
+  linear-gradient(180deg,rgba(255,238,205,.035),transparent 40%),
+  url('/art/ui/chrome/metal_noise.png'),
+  var(--hud-plate);
+ box-shadow:-8px 0 20px rgba(0,0,0,.6),inset 4px 0 0 rgba(0,0,0,.35);
+}
+.battlefield-screen[data-hud] .command-sidebar[data-hud]::before,.battlefield-screen[data-hud] .command-sidebar[data-hud]::after{content:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud]>*{flex:none;min-width:0}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-sr,
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .disabled-reason .reason-text{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .icon{width:calc(16px * var(--hud-k) * var(--fc-ui-scale));height:calc(16px * var(--hud-k) * var(--fc-ui-scale));flex:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] kbd{font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-lcd);background:#0b0a09;padding:1px 3px;box-shadow:inset 0 1px 2px #000,0 0 0 1px rgba(255,238,205,.08)}
+/* Base key: raised gunmetal face, no border-image. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] button{
+ border:0;border-image:none;border-radius:2px;min-height:0;min-width:0;padding:0;margin:0;gap:0;
+ display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;
+ background:linear-gradient(180deg,#4a463d,#38342d 52%,#2d2a24);color:var(--hud-text-1);text-shadow:0 1px 0 #000;
+ box-shadow:inset 0 1px 0 rgba(255,238,205,.16),inset 0 -1px 0 rgba(0,0,0,.5),0 0 0 1px #0b0a09,0 2px 0 #0b0a09;
+ transition:filter .08s,box-shadow .08s;
+}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] button:hover:not(:disabled):not([aria-disabled=true]){border-image:none;background:linear-gradient(180deg,#575247,#423d35 52%,#34302a);color:#fff3d6;box-shadow:inset 0 1px 0 rgba(255,238,205,.22),inset 0 -1px 0 rgba(0,0,0,.5),0 0 0 1px var(--hud-brass),0 2px 0 #0b0a09}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] button:active:not(:disabled):not([aria-disabled=true]){border-image:none;transform:translateY(1px);box-shadow:inset 0 2px 3px rgba(0,0,0,.6),0 0 0 1px #0b0a09}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] button:disabled,.battlefield-screen[data-hud] .command-sidebar[data-hud] button[aria-disabled=true]{border-image:none;background:linear-gradient(180deg,#34312b,#2a2823);color:var(--hud-text-off);cursor:default;box-shadow:inset 0 1px 0 rgba(255,238,205,.06),0 0 0 1px #0b0a09}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] button:focus-visible{outline:2px solid var(--fc-color-focus-ring);outline-offset:1px;z-index:2}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] button.active,.battlefield-screen[data-hud] .command-sidebar[data-hud] button[aria-pressed=true]{border-image:none;color:#fff0c4;background:linear-gradient(180deg,#5a5232,#45402a 55%,#36321f);box-shadow:inset 0 0 0 2px var(--hud-amber),0 0 0 1px #0b0a09,0 0 10px rgba(226,162,50,.35)}
+
+/* --- A. Header plate: emblem, credits, clock, pause --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-identity{
+ display:flex;flex-direction:column;align-items:stretch;gap:calc(4px * var(--hud-rk) * var(--fc-ui-scale));min-height:0;flex-wrap:nowrap;
+ margin:0 calc(-1 * var(--sb-pad)) 0 calc(-1 * var(--sb-pad));padding:calc(6px * var(--hud-rk) * var(--fc-ui-scale)) var(--sb-pad) calc(6px * var(--hud-rk) * var(--fc-ui-scale));
+ border:0;background:linear-gradient(180deg,var(--hud-plate-hi),#2c2924);
+ box-shadow:inset 0 -1px 0 rgba(255,238,205,.08),0 var(--hud-paint-h) 0 var(--faction-paint,var(--hud-olive)),0 calc(var(--hud-paint-h) + 1px) 0 #0b0a09;
+ margin-bottom:calc(var(--hud-paint-h) + 1px);
+}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-identity :where(small,strong,b,span){margin:0;padding:0;background:none;box-shadow:none;align-self:auto;text-shadow:none;letter-spacing:normal;color:inherit}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-resources{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:calc(6px * var(--hud-k) * var(--fc-ui-scale));height:calc(36px * var(--hud-rk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-resources>.emblem{width:calc(28px * var(--hud-rk) * var(--fc-ui-scale));height:calc(28px * var(--hud-rk) * var(--fc-ui-scale));padding:3px;flex:none;color:var(--faction-accent,var(--hud-brass-hi));border-radius:50%;background:radial-gradient(circle,#1a1813 55%,#0b0a09 72%);box-shadow:0 0 0 1px var(--hud-brass-dk),0 0 0 2px #0b0a09}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-credits{
+ flex:1 1 auto;height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;padding:0 calc(8px * var(--hud-k) * var(--fc-ui-scale));
+ background:var(--hud-well);box-shadow:inset 0 2px 5px #000,0 1px 0 rgba(255,238,205,.10);border-radius:1px;overflow:hidden}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-credits:hover:not(:disabled){background:#14120e;box-shadow:inset 0 2px 5px #000,0 0 0 1px var(--hud-brass-dk)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-credits[aria-expanded=true]{box-shadow:inset 0 2px 5px #000,0 0 0 1px var(--hud-amber)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-credits-value{font:400 calc(22px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-lcd);letter-spacing:.03em;text-shadow:0 0 8px rgba(242,179,64,.45);font-variant-numeric:tabular-nums}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-credits-sub{display:flex;flex-direction:row;gap:6px;align-items:baseline}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-income{font:calc(11px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--fc-color-resource-income,#A8D07A);text-shadow:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-income[data-zero]{color:var(--hud-text-3);letter-spacing:.08em}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-reserve{font:calc(11px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-brass-hi)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-clock{flex:none;font:calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-text-2);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-gear{flex:none;width:calc(30px * var(--hud-rk) * var(--fc-ui-scale));height:calc(30px * var(--hud-rk) * var(--fc-ui-scale))}
+/* --- B. Status strip: power (the only power readout), supply, energy, tier --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-status{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));height:calc(20px * var(--hud-rk) * var(--fc-ui-scale));font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-text-2)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-status>span{display:flex;align-items:center;gap:3px;white-space:nowrap;outline-offset:2px}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-status .icon{width:calc(13px * var(--hud-k) * var(--fc-ui-scale));height:calc(13px * var(--hud-k) * var(--fc-ui-scale));color:var(--hud-brass-hi)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-status b{font-weight:400;color:var(--hud-text-1)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-status small{font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale));color:var(--hud-text-3)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-power{flex:1 1 auto;min-width:0}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-meter{flex:1 1 auto;min-width:calc(24px * var(--fc-ui-scale));height:calc(7px * var(--hud-rk) * var(--fc-ui-scale));margin:0 3px;position:relative;background:repeating-linear-gradient(90deg,#1c1a15 0 4px,#0b0a09 4px 5px);box-shadow:inset 0 1px 2px #000,0 0 0 1px #3a352d}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-meter>i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(90deg,var(--hud-ok) 0 4px,#2b3a1c 4px 5px);transition:width .3s}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-power[data-state=high] .hud-meter>i{background:repeating-linear-gradient(90deg,var(--hud-warn) 0 4px,#3d2b10 4px 5px)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-power[data-state=low] .hud-meter>i{background:repeating-linear-gradient(-45deg,var(--hud-critical) 0 3px,#4a140c 3px 6px)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-power[data-state=low] :is(b,.icon){color:#ff6a4c}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-power[data-state=high] b{color:var(--hud-warn)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-power[data-state=off] .icon{color:var(--hud-text-3)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-energy .icon{color:var(--hud-energy)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-tier small{color:var(--hud-brass-hi);font-family:var(--fc-font-label);font-weight:700}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .live-led{align-self:flex-start;padding:2px 6px;font:calc(11px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-mono);letter-spacing:.08em;background:#0b0a09;color:var(--hud-text-2)}
+
+/* --- C. Minimap well (2:1 to match the isometric diamond) --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .minimap-frame{--hud-minimap-scale:clamp(.8,var(--ui-minimap-scale,1),1.4);position:relative;align-self:center;box-sizing:border-box;width:min(calc(var(--sb-inner) - 6px * var(--fc-ui-scale)),calc(180px * var(--hud-k) * var(--fc-ui-scale) * var(--hud-minimap-scale)),32vh);margin:0;padding:calc(2px * var(--hud-k) * var(--fc-ui-scale));border:0;border-image:none;background:var(--hud-well);
+ box-shadow:inset 0 0 14px #000,0 0 0 1px #0b0a09,0 0 0 calc(2px * var(--fc-ui-scale)) var(--hud-brass-dk),0 0 0 calc(3px * var(--fc-ui-scale)) var(--hud-brass),0 0 0 calc(4px * var(--fc-ui-scale)) #0b0a09;
+ margin:calc(4px * var(--fc-ui-scale)) calc(3px * var(--fc-ui-scale)) calc(3px * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .minimap-frame canvas{display:block;width:100%;height:auto;aspect-ratio:2 / 1;cursor:crosshair;background:#050504;outline:0;box-shadow:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .minimap-frame canvas:focus-visible{outline:2px solid var(--hud-amber-hi);outline-offset:2px}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .minimap-cursor{position:absolute;transform:translate(-50%,-50%);width:9px;height:9px;border:2px solid var(--hud-amber-hi);box-shadow:0 0 0 1px #0b0a09,inset 0 0 0 1px #0b0a09;pointer-events:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .minimap-label{display:none}
+
+/* --- D. Utility row: Build, HQ | Repair, Sell, Rally, Beacon --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-utilities{display:grid;grid-template-columns:1fr 1fr calc(3px * var(--fc-ui-scale)) 1fr 1fr 1fr 1fr 1fr;gap:calc(3px * var(--hud-k) * var(--fc-ui-scale));margin:0;height:calc(32px * var(--hud-rk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-utilities .hud-key-gap{align-self:center;height:60%;width:1px;justify-self:center;background:#0b0a09;box-shadow:1px 0 0 rgba(255,238,205,.08)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-utilities .icon,.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-utilities .emblem{width:calc(18px * var(--hud-rk) * var(--fc-ui-scale));height:calc(18px * var(--hud-rk) * var(--fc-ui-scale));color:var(--hud-brass-hi)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-utilities button[aria-disabled=true] :is(.icon,.emblem){color:var(--hud-text-off)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-utilities kbd{position:absolute;right:1px;bottom:1px;padding:0 2px;font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .practice-tool-button{height:calc(24px * var(--hud-rk) * var(--fc-ui-scale));font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase;color:var(--hud-text-2)}
+
+/* --- E. Category tabs --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:calc(2px * var(--hud-k) * var(--fc-ui-scale));margin:0;height:calc(40px * var(--hud-rk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs button{height:100%;min-height:0;flex-direction:column;gap:2px;padding:2px 0 0;border-radius:2px 2px 0 0;background:linear-gradient(180deg,#3d3a32,#2e2b25)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs .icon{width:calc(18px * var(--hud-rk) * var(--fc-ui-scale));height:calc(18px * var(--hud-rk) * var(--fc-ui-scale));color:#cfc4a6}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs .tab-label{font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase;color:inherit}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs button[aria-selected=true]{color:#fff0c4;background:linear-gradient(180deg,#5b5434,#45402a 60%,#3a3523);box-shadow:inset 0 1px 0 rgba(255,238,205,.2),0 0 0 1px #0b0a09,inset 0 -3px 0 var(--hud-amber)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs button[aria-selected=true] .icon{color:var(--hud-amber-hi)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs button.empty-tab:not([aria-selected=true]){color:var(--hud-text-3)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs button.empty-tab:not([aria-selected=true]) .icon{color:#6a6356}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs .tab-key{position:absolute;left:1px;top:1px;padding:0 2px;font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale));line-height:1.1;color:var(--hud-text-2);background:rgba(11,10,9,.7);box-shadow:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs .tab-count{position:absolute;right:1px;top:1px;min-width:calc(14px * var(--fc-ui-scale));padding:1px 2px;font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-amber-hi);background:#0b0a09;box-shadow:0 0 0 1px var(--hud-amber)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs .tab-idle{position:absolute;right:3px;top:3px;width:calc(6px * var(--fc-ui-scale));height:calc(6px * var(--fc-ui-scale));border-radius:50%;background:var(--hud-warn);box-shadow:0 0 0 1px #0b0a09,0 0 5px rgba(232,163,58,.6)}
+
+/* --- F. Producer strip --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-source{display:flex;min-height:24px;align-items:center;gap:calc(3px * var(--fc-ui-scale));padding:0 2px;height:calc(24px * var(--hud-rk) * var(--fc-ui-scale));background:var(--hud-well-2);box-shadow:inset 0 1px 3px #000,0 1px 0 rgba(255,238,205,.07);margin:calc(-3px * var(--fc-ui-scale)) 0 0}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-source .hud-step{flex:0 0 max(24px,calc(20px * var(--hud-rk) * var(--fc-ui-scale)));min-width:24px;min-height:24px;height:max(24px,calc(18px * var(--hud-rk) * var(--fc-ui-scale)))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-source .hud-step .icon{width:calc(12px * var(--hud-rk) * var(--fc-ui-scale));height:calc(12px * var(--hud-rk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-source select{flex:1 1 auto;min-width:0;height:100%;padding:0 4px;border:0;border-radius:0;appearance:none;background:transparent;color:var(--hud-text-1);font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.05em;text-transform:uppercase;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;box-shadow:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-source select:focus-visible{outline:2px solid var(--fc-color-focus-ring);outline-offset:-2px}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-source select option{background:#1e1c18;color:var(--hud-text-1);text-transform:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-producer-count{flex:none;font:calc(11px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-mono);color:var(--hud-text-3)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-heading{all:unset;flex:none;font:calc(11px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);letter-spacing:.06em;color:var(--hud-lcd);padding:0 2px;white-space:nowrap}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-heading:empty{display:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-heading:is([data-status=OFFLINE],[data-status="NO FACILITY"]){color:#ff8a6c}
+
+/* --- Opening objective hint --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-objective{display:flex;align-items:stretch;height:calc(28px * var(--hud-rk) * var(--fc-ui-scale));background:linear-gradient(90deg,rgba(226,162,50,.16),rgba(226,162,50,.04));box-shadow:inset 3px 0 0 var(--hud-amber),0 0 0 1px #0b0a09}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-objective-go{flex:1 1 auto;justify-content:flex-start;gap:6px;padding:0 8px;background:transparent;box-shadow:none;min-width:0}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-objective-go:hover:not(:disabled){background:rgba(226,162,50,.12);box-shadow:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-objective-go small{font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.1em;color:var(--hud-amber-hi)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-objective-go strong{font:600 calc(13px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);color:var(--hud-text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-objective-close{flex:0 0 calc(24px * var(--hud-rk) * var(--fc-ui-scale));background:transparent;box-shadow:none;color:var(--hud-text-3)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-objective-close .icon{width:calc(12px * var(--fc-ui-scale));height:calc(12px * var(--fc-ui-scale))}
+
+/* --- G. Cameo grid: 3 columns of 4:3 illustrated tiles fill the remaining height --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-body{flex:1 1 auto;min-height:calc(60px * var(--fc-ui-scale));display:flex;padding:0;gap:0;overflow:hidden;background:var(--hud-well);box-shadow:inset 0 2px 6px #000,0 1px 0 rgba(255,238,205,.08)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-grid{flex:1 1 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:max-content;align-content:start;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));padding:calc(4px * var(--hud-k) * var(--fc-ui-scale));overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--hud-brass-dk) transparent}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo{
+ display:block;width:100%;height:auto;aspect-ratio:4 / 3;padding:0;overflow:hidden;border:0;border-image:none;outline:0;border-radius:1px;
+ background:radial-gradient(ellipse 85% 75% at 50% 62%,color-mix(in srgb,var(--team-color,#8a8273) 20%,#3b372f),#17150f 78%);
+ box-shadow:inset 0 0 0 1px rgba(255,238,205,.10),inset 0 1px 0 rgba(208,174,102,.25),0 0 0 1px #0b0a09;text-shadow:none;filter:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo:hover:not([aria-disabled=true]){border-image:none;filter:brightness(1.1);background:radial-gradient(ellipse 85% 75% at 50% 62%,color-mix(in srgb,var(--team-color,#8a8273) 26%,#4a4538),#1b1913 78%);box-shadow:inset 0 0 0 1px var(--hud-amber),0 0 0 1px #0b0a09}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[aria-disabled=true]{cursor:not-allowed;background:radial-gradient(ellipse 85% 75% at 50% 62%,#34312a,#141310 80%)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo:active:not([aria-disabled=true]){transform:translateY(1px)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .cameo-art{position:absolute;inset:6% 4% 2%;width:92%;height:92%;padding:0;object-fit:contain;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .cameo-unavailable{position:absolute;inset:0;display:grid;place-items:center;opacity:.6}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .cameo-unavailable .icon{width:40%;height:40%}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-socket{aspect-ratio:4 / 3;background:#0f0e0b;box-shadow:inset 0 1px 3px #000,inset 0 0 0 1px rgba(255,238,205,.03)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .cameo-research{opacity:1;color:var(--hud-brass-hi)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .cameo-research .icon{width:46%;height:46%;filter:drop-shadow(0 2px 2px #000)}
+/* Cost tab (brass trapezoid, top-left). */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-price{position:absolute;left:0;top:0;right:auto;padding:1px 6px 1px 3px;background:linear-gradient(#cfab5e,#8f6d32);color:#1a1206;font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.15 var(--fc-font-mono);letter-spacing:-.02em;clip-path:polygon(0 0,100% 0,calc(100% - 4px) 100%,0 100%);box-shadow:none;z-index:3}
+/* Queue count (amber LCD, top-right). */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-queue{position:absolute;right:1px;top:1px;min-width:calc(16px * var(--fc-ui-scale));height:calc(16px * var(--fc-ui-scale));padding:0 3px;display:flex;align-items:center;justify-content:center;background:#0b0a09;color:var(--hud-amber-hi);font:calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);box-shadow:0 0 0 1px var(--hud-amber),0 0 6px rgba(226,162,50,.4);border:0;z-index:3}
+/* Clock-wipe progress: the unbuilt sector is darkened. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-progress{position:absolute;inset:0;width:auto;height:auto;bottom:0;background:conic-gradient(from 0deg,transparent 0 calc(var(--p,0) * 360deg),rgba(8,7,6,.62) calc(var(--p,0) * 360deg) 360deg);box-shadow:none;z-index:2;pointer-events:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-pct{position:absolute;left:50%;bottom:3px;transform:translateX(-50%);padding:0 4px;background:rgba(11,10,9,.82);color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-mono);z-index:3}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=building]{box-shadow:inset 0 0 0 1px var(--hud-amber),0 0 0 1px #0b0a09,0 0 6px rgba(226,162,50,.25)}
+/* READY: olive LED dot, bottom-left. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=ready]::before{content:'';position:absolute;left:4px;bottom:4px;width:calc(5px * var(--fc-ui-scale));height:calc(5px * var(--fc-ui-scale));border-radius:50%;background:var(--hud-ok);box-shadow:0 0 0 1px #0b0a09,0 0 4px rgba(141,186,94,.8);z-index:3}
+/* Locked / limit: subdued art; lock badge leaves the silhouette clear. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo:is([data-state=locked],[data-state=limit]) .cameo-art{filter:grayscale(.7) brightness(.88) contrast(.95)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=locked]::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,rgba(0,0,0,.10) 0 2px,transparent 2px 12px);z-index:1;pointer-events:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=limit]::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 46%,rgba(0,0,0,.45) 46% 54%,transparent 54%);z-index:1;pointer-events:none}
+/* Waiting (credits/power): amber hatch, still clickable. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=waiting] .cameo-art{filter:saturate(.55) brightness(.7) drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=waiting]::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,rgba(232,163,58,.13) 0 4px,transparent 4px 9px);z-index:1;pointer-events:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=waiting] .cameo-price{background:linear-gradient(#5a4520,#3a2c14);color:var(--hud-warn)}
+/* State stamp (text + glyph, so it never relies on colour). */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .disabled-reason,.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo:hover .disabled-reason,.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo:disabled:hover .disabled-reason{
+ display:flex;position:absolute;inset:auto auto calc(16px * var(--hud-tk) * var(--fc-ui-scale)) 2px;transform:none;gap:3px;align-items:center;padding:1px 5px;max-width:92%;
+ background:rgba(11,10,9,.88);color:var(--hud-text-1);box-shadow:0 0 0 1px rgba(255,238,205,.18);
+ font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-label);letter-spacing:.1em;text-transform:uppercase;z-index:3;white-space:nowrap}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .disabled-reason .icon{width:calc(10px * var(--hud-tk) * var(--fc-ui-scale));height:calc(10px * var(--hud-tk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .disabled-reason[data-tag]::after{content:attr(data-tag) / '';overflow:hidden;text-overflow:ellipsis}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=locked] .disabled-reason{color:#e8b49e}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=waiting] .disabled-reason{color:var(--hud-warn);box-shadow:0 0 0 1px rgba(232,163,58,.5)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .cameo-key{position:absolute;right:1px;bottom:1px;padding:0 2px;font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale));line-height:1.2;color:var(--hud-text-1);background:rgba(11,10,9,.85);z-index:4}
+/* Full state words sit above keycaps; the lock alone uses a compact bottom-left badge. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .disabled-reason{letter-spacing:.04em;padding:1px 4px}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .disabled-reason .icon{display:none}
+@media (min-width:1440px) and (min-height:840px){.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .disabled-reason .icon{display:block}.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo .disabled-reason{letter-spacing:.08em}}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=locked] .disabled-reason{inset:auto auto 2px 2px;padding:2px;max-width:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=locked] .disabled-reason .icon{display:block;width:calc(12px * var(--hud-tk) * var(--fc-ui-scale));height:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-state=locked] .disabled-reason[data-tag]::after{content:none}
+/* Recommended next build (opening objective): amber corner brackets. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-objective]:not([aria-disabled=true]){box-shadow:inset 0 0 0 2px var(--hud-amber),0 0 0 1px #0b0a09,0 0 10px rgba(226,162,50,.45)}
+@media (prefers-reduced-motion:no-preference){:root:not([data-reduced-motion=true]) .battlefield-screen[data-hud] .command-sidebar[data-hud] .production-cameo[data-objective]:not([aria-disabled=true]){animation:hud-beckon 1.6s ease-in-out infinite}}
+@keyframes hud-beckon{50%{box-shadow:inset 0 0 0 2px var(--hud-amber-hi),0 0 0 1px #0b0a09,0 0 16px rgba(244,194,78,.6)}}
+/* Caption: names live in the tooltip and the accessible name. A visible caption
+   would truncate on 63-96 px tiles (research rule 7: no truncated labels), so
+   the art carries the tile, as in RA2/Remastered. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-name{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;padding:0}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-empty{grid-column:1 / -1;display:flex;flex-direction:column;align-items:center;gap:8px;margin:0;padding:calc(18px * var(--fc-ui-scale)) 10px;border:0;background:none;box-shadow:none;text-align:center;color:var(--hud-text-2);font:calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.4 var(--fc-font-ui)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-empty strong{font:700 calc(14px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.04em;color:var(--hud-text-1);text-transform:uppercase}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-empty .icon{width:calc(22px * var(--fc-ui-scale));height:calc(22px * var(--fc-ui-scale));color:var(--hud-text-3)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-empty button{padding:4px 12px;height:calc(26px * var(--fc-ui-scale));font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.08em;text-transform:uppercase}
+
+/* --- H. Queue strip: six sockets with mini cameos and a progress wipe --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue{margin:0;padding:0;min-height:0;border:0;background:none;box-shadow:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:calc(3px * var(--fc-ui-scale));max-height:none;overflow:visible;height:calc(30px * var(--hud-rk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-socket{background:var(--hud-well);box-shadow:inset 0 1px 3px #000,0 1px 0 rgba(255,238,205,.06)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items button{height:100%;min-height:0;padding:0;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#4a4538,#17150f 80%);font:inherit;justify-content:center}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items button .cameo-art{position:absolute;inset:1px;width:calc(100% - 2px);height:calc(100% - 2px);object-fit:contain;padding:0}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items button>i{position:absolute;inset:0;width:auto;height:auto;border:0;background:conic-gradient(from 0deg,transparent 0 calc(var(--p,0) * 360deg),rgba(8,7,6,.6) calc(var(--p,0) * 360deg) 360deg);pointer-events:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items small{position:absolute;left:0;right:0;bottom:0;text-align:center;background:rgba(11,10,9,.8);color:var(--hud-lcd);font:calc(10px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-mono)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items button:not([data-started]) .cameo-art{filter:brightness(.6) saturate(.6)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items button[data-norig]{box-shadow:inset 0 0 0 1px var(--hud-critical),0 0 0 1px #0b0a09}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items button[data-norig] small{color:#ff8a6c;font-family:var(--fc-font-label);font-weight:700;letter-spacing:.04em}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items button[data-stalled]:not([data-norig]) small{color:var(--hud-warn)}
+
+/* --- I. Strategic pip (only once a site exists) --- */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .strategic-panel{display:flex;align-items:center;gap:6px;margin:0;padding:0 8px 0 10px;min-height:0;height:calc(24px * var(--hud-rk) * var(--fc-ui-scale));border:0;background:var(--hud-well-2);box-shadow:inset 0 1px 3px #000}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .strategic-panel::before{width:4px}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .strategic-panel>.icon{width:calc(14px * var(--fc-ui-scale));height:calc(14px * var(--fc-ui-scale));color:var(--hud-amber)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .strategic-panel strong{flex:none;font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase;color:var(--hud-text-1);max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .strategic-panel .hud-meter>i{background:repeating-linear-gradient(90deg,var(--hud-amber) 0 4px,#3d2b10 4px 5px)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .strategic-panel>b{display:block;padding:0;background:none;box-shadow:none;font:calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-mono);color:var(--hud-lcd)}
+
+/* Graceful degradation at large UI scale on short screens (design-audit-hud §4.5):
+   chrome rows cap against the viewport so the cameo grid keeps about 3 rows, and
+   the grid scrolls in whole rows on one axis only. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-tabs{height:min(calc(40px * var(--hud-rk) * var(--fc-ui-scale)),6.6vh)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .sidebar-utilities{height:min(calc(32px * var(--hud-rk) * var(--fc-ui-scale)),5.4vh)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-objective{height:min(calc(28px * var(--hud-rk) * var(--fc-ui-scale)),4.8vh)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .production-queue .queue-items{height:min(calc(30px * var(--hud-rk) * var(--fc-ui-scale)),5vh)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-grid{scroll-snap-type:y proximity}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .cameo-grid>*{scroll-snap-align:start}
+
+/* ===== 5. Economy popover and tooltips (fixed, docked left of the sidebar) == */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy{
+ position:fixed;top:calc(6px * var(--fc-ui-scale));right:calc(var(--hud-sb-w) + 8px);width:calc(264px * var(--hud-k) * var(--fc-ui-scale));z-index:var(--hud-z-tooltip);
+ padding:10px 12px 12px;background:linear-gradient(180deg,var(--hud-plate-hi),var(--hud-plate));color:var(--hud-text-1);
+ box-shadow:0 0 0 1px #0b0a09,inset 0 2px 0 var(--hud-brass),0 8px 24px rgba(0,0,0,.65);
+ opacity:0;pointer-events:none;transform:translateX(8px);transition:opacity .12s,transform .12s;font:calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.35 var(--fc-font-ui)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy[data-open]{opacity:1;pointer-events:auto;transform:none}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy h3{font:800 calc(16px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-display);letter-spacing:.08em;color:var(--fc-color-text-stencil);margin:0}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy-close{width:calc(24px * var(--fc-ui-scale));height:calc(24px * var(--fc-ui-scale));font:calc(16px * var(--fc-ui-scale))/1 var(--fc-font-ui)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:0 0 10px}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy dt{font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase;color:var(--hud-brass-hi)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy dd{margin:0;color:var(--hud-text-2)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy dd b{font:400 calc(13px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-mono);color:var(--fc-color-resource-income,#A8D07A)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy dd em{font-style:normal;color:var(--hud-warn)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy-reserve{padding-top:8px;border-top:1px solid #0b0a09;box-shadow:inset 0 1px 0 rgba(255,238,205,.08)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy h4{display:flex;justify-content:space-between;align-items:center;margin:0 0 4px;font:700 calc(13px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase;color:var(--hud-text-1)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy p{margin:0 0 8px;color:var(--hud-text-2);font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy-row{display:flex;gap:6px}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy input{flex:1 1 auto;min-width:0;height:calc(28px * var(--fc-ui-scale));padding:0 8px;background:var(--hud-well);border:0;color:var(--hud-lcd);font:calc(14px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-mono);box-shadow:inset 0 2px 4px #000,0 0 0 1px #3a352d}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy-row button{padding:0 12px;height:calc(28px * var(--fc-ui-scale));font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.08em;text-transform:uppercase}
+
+/* Tooltip lives in a body portal, so it is scoped by :root:has(). */
+:root:has(.battlefield-screen[data-hud]) .hud-tip{
+ position:fixed;right:calc(var(--hud-sb-w) + 8px);width:calc(272px * var(--hud-k) * var(--fc-ui-scale));max-width:calc(100vw - var(--hud-sb-w) - 24px);z-index:var(--hud-z-tooltip);
+ padding:9px 12px 8px;background:linear-gradient(180deg,#34302a,#24221e);color:var(--hud-text-1);pointer-events:none;
+ box-shadow:0 0 0 1px #0b0a09,inset 0 2px 0 var(--hud-brass),0 10px 24px rgba(0,0,0,.7);font:calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.35 var(--fc-font-ui)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip::after{content:'';position:absolute;right:-6px;top:14px;border:6px solid transparent;border-right:0;border-left-color:#34302a}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-head strong{font:700 calc(16px * var(--hud-tk) * var(--fc-ui-scale))/1.15 var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase;color:#f3ead6}
+:root:has(.battlefield-screen[data-hud]) .hud-tip kbd{font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-lcd);background:#0b0a09;padding:2px 5px;box-shadow:inset 0 1px 2px #000,0 0 0 1px rgba(255,238,205,.12)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-stats{display:flex;flex-wrap:wrap;gap:3px 12px;margin:4px 0 0;color:var(--hud-text-2);font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-stats b{font:400 calc(13px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-mono);color:var(--hud-text-1)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-cost b{color:var(--fc-color-resource-credits,#E8C05A)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-power.gain b{color:var(--hud-ok)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-power.use b{color:var(--hud-warn)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-blocker{display:flex;gap:6px;align-items:flex-start;margin:6px 0 0;padding:4px 6px;background:rgba(11,10,9,.55);font-weight:600}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-blocker .icon{width:calc(13px * var(--fc-ui-scale));height:calc(13px * var(--fc-ui-scale));flex:none;margin-top:2px}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-blocker.locked{color:#f0b49a;box-shadow:inset 2px 0 0 var(--hud-danger)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-blocker.waiting{color:#f1c98a;box-shadow:inset 2px 0 0 var(--hud-warn)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-queue{margin:5px 0 0;font:calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-mono);color:var(--hud-lcd)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-line{margin:4px 0 0;color:var(--hud-text-2)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-role{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:7px 0 0;padding-top:6px;border-top:1px solid rgba(255,238,205,.08)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-role dt{font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.05em;text-transform:uppercase;color:var(--hud-brass-hi);white-space:nowrap}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-role dd{margin:0;color:var(--hud-text-2)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-req{margin:7px 0 0;padding-top:6px;border-top:1px solid rgba(255,238,205,.08)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-req>span{font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale)) var(--fc-font-label);letter-spacing:.05em;text-transform:uppercase;color:var(--hud-brass-hi)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-req ul{margin:2px 0 0;padding:0;list-style:none}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-req li{display:flex;gap:6px;align-items:baseline}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-req li i{font-style:normal;font-weight:700;width:1em;color:var(--hud-ok)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-req li[data-met=false]{color:#f0b49a}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-req li[data-met=false] i{color:var(--hud-critical)}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-req li small{color:var(--hud-text-3);font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-tip-help{margin:7px 0 0;color:var(--hud-text-3);font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
+@media (prefers-reduced-motion:reduce){.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy{transition:none}.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-meter>i{transition:none}}

@@ -484,7 +484,16 @@ func (e *Engine) startBuilding(p *Player, rig *Entity, o Order) string {
 	p.Spent += b.Cost
 	foundation := e.spawn(b.ID, p.ID, o.Position, false, b.Cost)
 	foundation.Builder = rig.ID
-	e.assign(rig, Order{Kind: "build", Target: foundation.ID, Position: o.Position})
+	// A rig already committed to a foundation queues this one behind it.
+	// Replacing its orders would orphan the foundation it already paid for.
+	queued := false
+	for _, existing := range rig.Orders {
+		if existing.Kind == "build" {
+			queued = true
+			break
+		}
+	}
+	e.assign(rig, Order{Kind: "build", Target: foundation.ID, Position: o.Position, Queued: queued})
 	e.emit("foundation_placed", p.ID, foundation.ID, o.Position, "visible", 0)
 	return "ok"
 }

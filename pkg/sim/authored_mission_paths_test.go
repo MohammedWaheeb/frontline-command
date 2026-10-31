@@ -110,9 +110,21 @@ func TestAuthoredSpecificFailures(t *testing.T) {
 		limit         sim.Tick
 		play          func(*authoredRun)
 	}{
-		{"us-02-open-corridor", "convoy-lost", 14000, func(r *authoredRun) { sendUnsupported(r, "convoy", r.region("enemy")) }},
+		// The enemy-base region lies beyond the exit region, so driving there
+		// delivers a truck and wins. Park the convoy on the northwestern
+		// wave entry instead: it never reaches the exit and the announced
+		// columns destroy the held trucks.
+		{"us-02-open-corridor", "convoy-lost", 14000, func(r *authoredRun) { sendUnsupported(r, "convoy", r.region("enemy2")) }},
 		{"ir-02-eyes-above", "launchers-lost", 14000, func(r *authoredRun) { sendUnsupported(r, "launch-convoy", r.region("enemy")) }},
-		{"tutorial-3-read-the-counter", "transport-team-lost", 8000, func(r *authoredRun) { sendUnsupported(r, "transport-team", r.authoredPoint("counter-armor")) }},
+		// Sending both squads crosses the site1 delivery marker and completes
+		// the transport lesson, which permanently disarms the loss predicate.
+		// Send one squad alone against the tank; delivery needs both.
+		{"tutorial-3-read-the-counter", "transport-team-lost", 8000, func(r *authoredRun) {
+			ids := r.ids("transport-team")
+			r.issue(1, sim.Order{Kind: "move", Entities: ids[:1], Position: r.authoredPoint("counter-armor")}, sim.Order{Kind: "hold", Entities: ids[:1], Queued: true})
+			r.advance(150)
+			r.checkpoint()
+		}},
 		{"sy-01-workshop-foothold", "lost-recovery-rig", 16000, func(r *authoredRun) {
 			r.issue(1, sim.Order{Kind: "move", Entities: r.ids("starting-recon"), Position: r.region("recoveryRig")})
 			r.wait("original rig genuinely recovered", 2400, func() bool { return r.hasTag("recovered-rig") })
@@ -174,6 +186,7 @@ func TestAuthoredOptionalScoutPreservation(t *testing.T) {
 	r.evidenceSuffix = "-optional-scout-preservation"
 	scout := r.ids("starting-recon")
 	r.issue(1, sim.Order{Kind: "move", Entities: scout, Position: sim.Vec{X: 18500, Y: 122500}}, sim.Order{Kind: "hold", Entities: scout, Queued: true})
+	r.requiredOptional = "scout-preserved"
 	playCampaignCapture(r)
 	r.requireOptional("scout-preserved")
 }

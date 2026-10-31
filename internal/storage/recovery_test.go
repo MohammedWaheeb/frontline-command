@@ -31,6 +31,39 @@ func requireNoJournal(t *testing.T, s *SQLite, id string) {
 	}
 }
 
+func TestServerCheckpointProvenance(t *testing.T) {
+	s := repository(t)
+	ctx := context.Background()
+	a, _, _ := s.CreateProfile(ctx, "A")
+	b, _, _ := s.CreateProfile(ctx, "B")
+	opening := []byte("opening-state")
+	midpoint := []byte("midpoint-state")
+	members := []MatchMember{{Profile: a.ID, Player: 1}}
+	if err := s.StartMatchAccess(ctx, "provenance", 0, opening, members, false); err != nil {
+		t.Fatal(err)
+	}
+	// Before any CheckpointMatch the live journal itself is provenance.
+	if ok, err := s.HasServerCheckpoint(ctx, a.ID, opening); !ok || err != nil {
+		t.Fatal("live opening checkpoint not recognized", ok, err)
+	}
+	if err := s.CheckpointMatch(ctx, "provenance", 600, midpoint); err != nil {
+		t.Fatal(err)
+	}
+	// The overwritten opening bytes were captured, and the new ones recorded.
+	for _, data := range [][]byte{opening, midpoint} {
+		if ok, err := s.HasServerCheckpoint(ctx, a.ID, data); !ok || err != nil {
+			t.Fatalf("server checkpoint %q not recognized: %v %v", data, ok, err)
+		}
+	}
+	// Fabricated bytes and non-participants never gain provenance.
+	if ok, err := s.HasServerCheckpoint(ctx, a.ID, []byte("fabricated-state")); ok || err != nil {
+		t.Fatal("fabricated bytes accepted", ok, err)
+	}
+	if ok, err := s.HasServerCheckpoint(ctx, b.ID, midpoint); ok || err != nil {
+		t.Fatal("non-participant accepted", ok, err)
+	}
+}
+
 func TestResultRetryRetiresStaleJournal(t *testing.T) {
 	s := repository(t)
 	ctx := context.Background()

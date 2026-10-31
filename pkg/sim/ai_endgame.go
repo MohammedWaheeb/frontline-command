@@ -78,8 +78,8 @@ func (e *Engine) aiRetireDefeatedTargets(p *Player, view View) []Order {
 			retire = retire || defeated[owners[unit.ChannelTarget]]
 		}
 		if retire {
-			// Preserve the 32-order planning budget without losing remembered
-			// cancellations when a large force shares a now-retired objective.
+			// Group cancellations to conserve intentions within the remaining
+			// 160-order player window; dispatch still uses batches of at most 32.
 			if len(orders) == 0 || len(orders[len(orders)-1].Entities) == 64 {
 				orders = append(orders, Order{Kind: "stop", Entities: []ID{}})
 			}

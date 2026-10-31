@@ -44,6 +44,9 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 		cfg.Seed = 1
 	}
 	e := &Engine{catalog: c, state: State{StartingCredits: startingCredits, Metadata: Metadata{Version, 1, c.Hash(), gameMap.Version, cfg.Ruleset, cfg.Seed}, Map: gameMap, RNG: cfg.Seed, NextID: 1, NextEvent: 1, Countdown: 100}, visible: map[PlayerID][]bool{}}
+	if err := validatePlayerSpawns(cfg.Players, len(gameMap.Spawns)); err != nil {
+		return nil, err
+	}
 	ids := map[PlayerID]bool{}
 	colors, err := configColors(cfg.Players)
 	if err != nil {
@@ -73,7 +76,7 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 		}
 		p := &Player{PlayerConfig: pc, Credits: openingCredits, Explored: make([]bool, len(gameMap.Tiles)), RepairReserve: 0, Tier: 1}
 		e.state.Players = append(e.state.Players, p)
-		pos := gameMap.Spawns[i].Position
+		pos := gameMap.Spawns[playerSpawn(pc, i)].Position
 		e.spawn("hq", pc.ID, pos, true, 0)
 		e.spawn(pc.Faction+".rig", pc.ID, Vec{X: pos.X + 3200, Y: pos.Y}, true, 0)
 	}
@@ -82,6 +85,7 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 		e.state.Fields = append(e.state.Fields, &ResourceField{ID: f.ID, Position: f.Position, Remaining: f.Credits})
 	}
 	sort.Slice(e.state.Fields, func(i, j int) bool { return e.state.Fields[i].ID < e.state.Fields[j].ID })
+	e.revealStartingFields()
 	for _, s := range gameMap.Stations {
 		e.state.Stations = append(e.state.Stations, &ObjectiveStation{ID: e.newID(), Position: s.Position})
 	}
@@ -269,6 +273,7 @@ func (e *Engine) Advance() {
 	e.updateAI()
 	e.recalculate()
 	e.updateEconomy()
+	e.observeConstructionProgress()
 	e.updateMovement()
 	e.updateFog()
 	e.updateAircraft()
@@ -447,14 +452,7 @@ type saveEnvelope struct {
 	State   json.RawMessage `json:"state"`
 }
 
-func (e *Engine) Save() ([]byte, error) {
-	b, err := json.Marshal(e.state)
-	if err != nil {
-		return nil, err
-	}
-	sum := sha256.Sum256(b)
-	return json.Marshal(saveEnvelope{1, hex.EncodeToString(sum[:]), b})
-}
+func (e *Engine) Save() ([]byte, error) { return MarshalState(e.state) }
 func Restore(c *content.Catalog, data []byte) (*Engine, error) {
 	if c == nil || len(data) > 64<<20 {
 		return nil, errors.New("save exceeds 64 MiB or missing catalog")
@@ -516,5 +514,6 @@ func Restore(c *content.Catalog, data []byte) (*Engine, error) {
 		return nil, err
 	}
 	e.computeVisibility()
+	e.observeConstructionProgress()
 	return e, nil
 }

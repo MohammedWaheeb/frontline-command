@@ -656,7 +656,8 @@ def build_manifest():
                        output='drawn at runtime', spec={'shape_plus_colour': True, 'cvd_safe': True}))
     # ---------------- effects
     fx = {
-        'weapon_muzzle': [w for w, _ in weapons],
+        # + IR_SHAHED: shipped rules' 29th weapon (its sfx entry is separate below).
+        'weapon_muzzle': [w for w, _ in weapons] + ['IR_SHAHED'],
         'impact': ['miss_ground', 'blocked_shot', 'hit_infantry', 'hit_light', 'hit_heavy', 'hit_structure', 'hit_air',
                    'intercepted_missile', 'decoy_defeat', 'cover_mitigated', 'illegal_target_marker'],
         'projectile': ['tracer_small', 'tracer_auto', 'shell_cannon', 'missile_at', 'shell_artillery', 'rocket_ir',
@@ -889,10 +890,60 @@ def build_manifest():
                'operations': len(ops), 'research': len(research)}
 
 
+def apply_beta_icon_preview_inventory(entries):
+    """Mark beta SVG icons and map previews sample when their files exist."""
+    svg_path = os.path.join(REPO, 'assets', 'ui', 'icons', 'fc-icons.svg')
+    svg = open(svg_path).read() if os.path.exists(svg_path) else ''
+    ability_symbols = {
+        'icon.ability.us_recon_sweep': 'i-ability-recon-sweep',
+        'icon.ability.us_rapid_sortie': 'i-ability-rapid-sortie',
+        'icon.ability.iran_relay_boost': 'i-ability-relay-boost',
+        'icon.ability.iran_drone_recall': 'i-ability-drone-recall',
+        'icon.ability.syrian_rebels_rapid_transfer': 'i-ability-rapid-transfer',
+        'icon.ability.syrian_rebels_disperse': 'i-ability-disperse',
+        'icon.ability.saudi_arabia_emergency_power': 'i-ability-emergency-power',
+        'icon.ability.saudi_arabia_recovery_order': 'i-ability-recovery-order',
+        'icon.unit_ability.designate_target': 'i-ability-designate',
+        'icon.unit_ability.decoy': 'i-ability-decoy',
+        'icon.unit_ability.forward_beacon': 'i-ability-beacon',
+        'icon.unit_ability.volley_order': 'i-ability-volley',
+        'icon.unit_ability.safehouse_transfer': 'i-ability-transfer',
+        'icon.unit_ability.sabotage': 'i-ability-sabotage',
+    }
+    operation_symbols = {
+        'icon.operation.us_skybreaker_wing': 'i-operation-skybreaker-wing',
+        'icon.operation.iran_saturation_salvo': 'i-operation-saturation-salvo',
+        'icon.operation.syrian_rebels_coordinated_raid': 'i-operation-coordinated-raid',
+        'icon.operation.saudi_arabia_shieldline_protocol': 'i-operation-shieldline-protocol',
+    }
+    for e in entries:
+        symbol = None
+        if e['category'] == 'research_icon':
+            symbol = 'i-research-' + e['id'].split('.')[-1].replace('_', '-')
+        elif e['id'] in ability_symbols:
+            symbol = ability_symbols[e['id']]
+        elif e['id'] in operation_symbols:
+            symbol = operation_symbols[e['id']]
+        if symbol and f'id="{symbol}"' in svg:
+            e['status'] = 'sample'
+            e['output'] = f'assets/ui/icons/fc-icons.svg#{symbol}'
+            e['editable_origin'] = 'assets/ui/icons/fc-icons.svg'
+            e['notes'] = 'Original SVG symbol; mapped to runtime ids by client/src/content/icons.ts.'
+        if e['category'] == 'map_preview':
+            slug = e['id'].split('.')[-1]
+            base = os.path.join(REPO, 'assets', 'build', 'maps', slug)
+            if os.path.exists(os.path.join(base, 'preview.png')) and os.path.exists(os.path.join(base, 'preview-256.png')):
+                e['status'] = 'sample'
+                e['output'] = f'assets/build/maps/{slug}/preview.png (+ preview-256.png)'
+                e['editable_origin'] = 'assets/pipeline/tools/gen_beta_assets.py + content/maps/*.json'
+                e['notes'] = 'Generated top-down preview from map data; served via art index mapPreviews.'
+
+
 def main():
     entries, counts = build_manifest()
     apply_published_art_inventory(entries)
     apply_published_effect_inventory(entries)
+    apply_beta_icon_preview_inventory(entries)
     ids = [e['id'] for e in entries]
     dup = [k for k, v in Counter(ids).items() if v > 1]
     assert not dup, f'duplicate ids: {dup[:5]}'

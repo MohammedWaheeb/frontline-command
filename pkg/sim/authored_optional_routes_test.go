@@ -21,12 +21,20 @@ func TestAuthoredOptionalMissileBudget(t *testing.T) {
 			for _, id := range launchers {
 				r.excludedArmy[id] = true
 			}
+			// Without launcher fire support the conventional force
+			// takes two outposts and dies; the counterattack then
+			// razes the base (no-command-assets at tick 11366 on
+			// easy). Hard already proved this home turret holds the
+			// base long enough to finish the third outpost.
+			// (28500,100500 is the assault route's own turret
+			// site; a second turret there is what "occupied" meant.)
+			// Build before dispatch on every difficulty: buildAt
+			// blocks without tactical supervision, and its scout
+			// move would orphan the 28500 foundation.
+			r.buildAt(r.ids("home-rig"), "turret", sim.Vec{X: 22500, Y: 110500})
 			// A normal move packs mobile launchers. Keep them in the rear while paid
 			// conventional tanks and infantry assault the three military outposts.
 			r.issue(1, sim.Order{Kind: "move", Entities: launchers, Position: sim.Vec{X: 7500, Y: 120500}}, sim.Order{Kind: "hold", Entities: launchers, Queued: true})
-			if difficulty == "hard" {
-				r.buildAt(r.ids("home-rig"), "turret", sim.Vec{X: 22500, Y: 110500})
-			}
 			playCampaignAssault(r)
 		})
 	}
@@ -264,6 +272,8 @@ func TestAuthoredOptionalObserverNetwork(t *testing.T) {
 			}
 			next := r.engine.Tick()
 			unloaded := map[sim.ID]bool{}
+			safeSince := map[sim.ID]sim.Tick{}
+			unsafeSince := map[sim.ID]sim.Tick{}
 			escorts := map[int]map[string]sim.ID{}
 			productionAt := r.engine.Tick()
 			clearedProduction := map[sim.ID]bool{}
@@ -343,6 +353,32 @@ func TestAuthoredOptionalObserverNetwork(t *testing.T) {
 						point.X -= 1500
 						point.Y += 1500
 					}
+					// Hard uses hysteresis around the safety predicate so
+					// one sample cannot drive unload/reboard oscillation.
+					// Easy/normal keep the proven baseline evaluation
+					// point below, after escort assignment.
+					siteSafe := false
+					var safeFor, unsafeFor sim.Tick
+					if r.difficulty == "hard" {
+						siteSafe = r.optionalObservationSafe(point)
+						if siteSafe {
+							if _, ok := safeSince[id]; !ok {
+								safeSince[id] = r.engine.Tick()
+							}
+							delete(unsafeSince, id)
+						} else {
+							if _, ok := unsafeSince[id]; !ok {
+								unsafeSince[id] = r.engine.Tick()
+							}
+							delete(safeSince, id)
+						}
+						if since, ok := safeSince[id]; ok {
+							safeFor = r.engine.Tick() - since
+						}
+						if since, ok := unsafeSince[id]; ok {
+							unsafeFor = r.engine.Tick() - since
+						}
+					}
 					if r.engine.Tick() >= 1800 && lateArrivalReady {
 						if escorts[i] == nil {
 							escorts[i] = map[string]sim.ID{}
@@ -351,6 +387,11 @@ func TestAuthoredOptionalObserverNetwork(t *testing.T) {
 							typ := role.typ
 							guard, alive := r.seen(escorts[i][role.key])
 							if !alive {
+								// Do not drain the assault force below a
+								// viable front to replace dead escorts.
+								if r.difficulty == "hard" && len(r.army()) < 8 {
+									continue
+								}
 								var chosen sim.ID
 								closest := int64(1 << 62)
 								for _, own := range r.view().Entities {
@@ -369,19 +410,39 @@ func TestAuthoredOptionalObserverNetwork(t *testing.T) {
 								r.excludedArmy[chosen] = true
 								guard, _ = r.seen(chosen)
 							}
-							if r.difficulty != "easy" && actor.Private.Container == 0 {
+							if r.difficulty == "normal" && actor.Private.Container == 0 {
 								if guard.Private != nil && (len(guard.Private.Orders) == 0 || guard.Private.Orders[0].Kind != "guard" || guard.Private.Orders[0].Target != id) {
 									r.tryIssue(sim.Order{Kind: "guard", Entities: []sim.ID{guard.ID}, Target: id})
 								}
 								continue
 							}
+							// Hard escorts hold the site point; guard-following
+							// the observer vacates the escort radius and trips unsafe.
 							if guard.Private != nil && (len(guard.Private.Orders) == 0 || guard.Private.Orders[0].Kind != "attack_move" || guard.Private.Orders[0].Position != point) {
 								r.tryIssue(sim.Order{Kind: "attack_move", Entities: []sim.ID{guard.ID}, Position: point})
 							}
 						}
 					}
+					if r.difficulty != "hard" {
+						siteSafe = r.optionalObservationSafe(point)
+					}
 					if actor.Private.Container == 0 {
-						if r.difficulty != "easy" && carrierOK && !r.optionalObservationSafe(point) {
+						immediateThreat := false
+						for _, hostile := range r.view().Entities {
+							if hostile.Owner != 2 && hostile.Owner != 4 {
+								continue
+							}
+							unit, known := r.catalog.Unit(hostile.Type)
+							if !known || unit.Weapon == "" {
+								continue
+							}
+							dx, dy := int64(hostile.Position.X-point.X), int64(hostile.Position.Y-point.Y)
+							if dx*dx+dy*dy < 9000*9000 {
+								immediateThreat = true
+							}
+						}
+						reboard := r.difficulty == "normal" && !siteSafe || r.difficulty == "hard" && (immediateThreat || unsafeFor >= 100)
+						if carrierOK && reboard {
 							// An at-end observation post need not remain exposed through
 							// every counterattack. Use the same actual nearby paid APC
 							// to reboard while visible threats invalidate the landing site.
@@ -405,7 +466,7 @@ func TestAuthoredOptionalObserverNetwork(t *testing.T) {
 						}
 						continue
 					}
-					if !lateArrivalReady || r.difficulty == "hard" && r.engine.Tick() < 2800 || !r.optionalObservationSafe(point) {
+					if !lateArrivalReady || r.difficulty == "hard" && (r.engine.Tick() < 2800 || safeFor < 600) || r.difficulty != "hard" && !siteSafe {
 						shelter := sim.Vec{X: 16500, Y: 105500 + int32(i)*3000}
 						if len(carrier.Private.Orders) == 0 || carrier.Private.Orders[0].Kind != "move" || carrier.Private.Orders[0].Position != shelter {
 							r.tryIssue(sim.Order{Kind: "move", Entities: []sim.ID{carrier.ID}, Position: shelter})

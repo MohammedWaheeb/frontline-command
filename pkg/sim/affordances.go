@@ -6,26 +6,34 @@ import (
 	"strings"
 )
 
+// AffordanceEconomy is owner-only presentation data on the JSON advice path.
+type AffordanceEconomy struct {
+	SupplyCap int32 `json:"supply_cap"`
+}
+
 // CommandAffordances describes command families, not present affordability,
 // readiness, target legality or successful execution. Lists are stable IDs.
 type CommandAffordances struct {
+	Economy        *AffordanceEconomy `json:"economy,omitempty"`
 	Tick           Tick               `json:"tick"`
 	Player         PlayerID           `json:"player"`
 	Entities       []EntityAffordance `json:"entities"`
 	PlayerCommands []string           `json:"player_commands"`
 }
 type EntityAffordance struct {
-	ID         ID                 `json:"id"`
-	Commands   []string           `json:"commands"`
-	Abilities  []string           `json:"abilities"`
-	Builds     []string           `json:"builds"`
-	Trains     []string           `json:"trains"`
-	Research   []string           `json:"research"`
-	Production []ProductionStatus `json:"production_status,omitempty"`
+	SellRefund          int64              `json:"sell_refund"`
+	ConstructionStalled bool               `json:"construction_stalled"`
+	ID                  ID                 `json:"id"`
+	Commands            []string           `json:"commands"`
+	Abilities           []string           `json:"abilities"`
+	Builds              []string           `json:"builds"`
+	Trains              []string           `json:"trains"`
+	Research            []string           `json:"research"`
+	Production          []ProductionStatus `json:"production_status,omitempty"`
 }
 
 func (e *Engine) CommandAffordances(player PlayerID, ids []ID) (CommandAffordances, error) {
-	result := CommandAffordances{Tick: e.state.Tick, Player: player, Entities: []EntityAffordance{}, PlayerCommands: []string{}}
+	result := CommandAffordances{Economy: &AffordanceEconomy{SupplyCap: 100}, Tick: e.state.Tick, Player: player, Entities: []EntityAffordance{}, PlayerCommands: []string{}}
 	p := e.player(player)
 	if p == nil || p.Defeated || p.Controller == "script" {
 		return result, errors.New("player_inactive")
@@ -68,6 +76,7 @@ func (e *Engine) CommandAffordances(player PlayerID, ids []ID) (CommandAffordanc
 
 func (e *Engine) entityAffordance(p *Player, v *Entity) EntityAffordance {
 	a := EntityAffordance{ID: v.ID, Commands: []string{}, Abilities: []string{}, Builds: []string{}, Trains: []string{}, Research: []string{}}
+	a.ConstructionStalled = e.constructionStalled(v)
 	role := e.role(v)
 	actorCode := e.ownedOrderActorCode(v)
 	// Disabled buildings retain their catalog menus and producer_disabled
@@ -80,6 +89,7 @@ func (e *Engine) entityAffordance(p *Player, v *Entity) EntityAffordance {
 		add("rally")
 		if v.Complete && v.MapObject == 0 {
 			add("sell", "power")
+			a.SellRefund = e.sellRefund(v)
 		}
 		if !v.Complete || len(v.Jobs) > 0 {
 			add("cancel")

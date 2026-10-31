@@ -104,7 +104,7 @@ const hash=(label:string)=>createHash('sha256').update(bytes(label)).digest('hex
 const flush=async()=>{for(let i=0;i<12;i++)await new Promise<void>(resolve=>setImmediate(resolve))};
 const param=()=>{const p:any={value:1,targets:[] as number[],setValueAtTime(v:number){this.value=v},setTargetAtTime(v:number){this.value=v;this.targets.push(v)}};return p};
 
-function mixCourse(){
+function mixCourse(beforeClip:()=>Promise<void>=async()=>{}){
  const entries:Record<string,any>={};
  const add=(id:string,bus='effects',priority=0,extra:Record<string,unknown>={})=>{
   const label=id.replace(/.*\./,'');
@@ -123,22 +123,24 @@ function mixCourse(){
   decodeAudioData:async(data:ArrayBuffer)=>({duration:.05,numberOfChannels:1,length:1200,label:new TextDecoder().decode(data)})};
  const mixer=new AudioMixer({audioConsent:true,captions:true,audio:{master:1,voice:1,music:1,effects:1,ui:1}},async(input:any)=>{
   if(String(input).endsWith('index.json'))return new Response(JSON.stringify({format:1,sample_rate:24000,entries}));
-  return new Response(bytes(String(input).split('/').at(-1)!.replace('.wav','')));
+  await beforeClip();return new Response(bytes(String(input).split('/').at(-1)!.replace('.wav','')));
  });
  const internal=mixer as any;internal.context=context;internal.master=context.createGain();
  internal.buses=new Map(['voice','effects','music','ui'].map(bus=>[bus,context.createGain()]));
- return {mixer,internal,entries,started,stopped,musicBus:()=>internal.buses.get('music')};
+ // Event-loop turns alone cannot settle Web Crypto work under parallel suite load.
+ const settle=async()=>{do{await Promise.all([...internal.pending.values()]);await flush()}while(internal.pending.size)};
+ return {mixer,internal,entries,started,stopped,settle,musicBus:()=>internal.buses.get('music')};
 }
 
 test('a full voice cap steals the oldest equal-priority one-shot, never music or beds',async()=>{
  const c=mixCourse();await c.mixer.loadIndex();
  try{
-  c.mixer.continuous([{key:'map',id:'sfx.bed',gain:.07}]);await flush();
-  c.mixer.music(['music.layer0']);await flush();
+  c.mixer.continuous([{key:'map',id:'sfx.bed',gain:.07}]);await c.settle();
+  c.mixer.music(['music.layer0']);await c.settle();
   assert.equal(c.internal.continuousSources.size,1);assert.equal(c.internal.musicSources.length,1);
-  for(let i=0;i<22;i++){c.mixer.play(`sfx.effect${i}`);await flush()}
+  for(let i=0;i<22;i++){c.mixer.play(`sfx.effect${i}`);await c.settle()}
   assert.equal(c.mixer.statistics.sources,24);
-  c.mixer.play('sfx.effect22');await flush();
+  c.mixer.play('sfx.effect22');await c.settle();
   assert.equal(c.mixer.statistics.sources,24);
   assert.ok(c.started.includes('effect22'),'new chatter was dropped at a full equal-priority cap');
   assert.ok(c.stopped.includes('effect0'),'oldest equal-priority voice was not the victim');
@@ -150,18 +152,29 @@ test('a full voice cap steals the oldest equal-priority one-shot, never music or
 test('priority>=50 voice ducks music and beds, routine voice does not',async()=>{
  const c=mixCourse();await c.mixer.loadIndex();
  try{
-  c.mixer.continuous([{key:'map',id:'sfx.bed',gain:.07}]);await flush();
-  c.mixer.music(['music.layer0']);await flush();
+  c.mixer.continuous([{key:'map',id:'sfx.bed',gain:.07}]);await c.settle();
+  c.mixer.music(['music.layer0']);await c.settle();
   const musicBus=c.musicBus(),bed=[...c.internal.continuousSources.values()][0];
-  c.mixer.play('vo.lo');await flush();
+  c.mixer.play('vo.lo');await c.settle();
   assert.equal((c.mixer as any).duckActive,false,'routine voice ducked the mix');
   assert.deepEqual(musicBus.gain.targets,[],'routine voice touched the music bus');
-  c.mixer.play('vo.hi');await flush();
+  c.mixer.play('vo.hi');await c.settle();
   assert.equal((c.mixer as any).duckActive,true,'priority voice did not duck the mix');
   assert.ok(musicBus.gain.targets.some((v:number)=>Math.abs(v-.35)<1e-9),'music bus did not duck to 35%');
   assert.ok(bed.gain.gain.value<.07,'continuous bed did not duck');
-  await new Promise(resolve=>setTimeout(resolve,1600));await flush();
+  await new Promise(resolve=>setTimeout(resolve,1600));await c.settle();
   assert.equal((c.mixer as any).duckActive,false,'duck did not release after the voice');
   assert.ok(musicBus.gain.targets.some((v:number)=>Math.abs(v-1)<1e-9),'music bus did not release smoothly');
  }finally{c.mixer.dispose()}
+});
+
+
+test('mix assertions await pending clip loads even when event-loop turns finish first',async()=>{
+ let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve}),c=mixCourse(()=>gate);
+ await c.mixer.loadIndex();
+ try{
+  c.mixer.continuous([{key:'map',id:'sfx.bed',gain:.07}]);c.mixer.music(['music.layer0']);c.mixer.play('vo.hi');
+  let settled=false;const pending=c.settle().then(()=>{settled=true});await flush();assert.equal(settled,false,'pending fetch/integrity/decode work must hold the assertion barrier');
+  release();await pending;assert.equal(c.internal.pending.size,0);assert.equal(c.internal.continuousSources.size,1);assert.equal(c.internal.musicSources.length,1);assert.ok(c.started.includes('hi'));assert.equal(c.internal.duckActive,true);
+ }finally{release();c.mixer.dispose()}
 });

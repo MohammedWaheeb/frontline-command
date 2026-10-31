@@ -22,6 +22,8 @@ type Metadata struct {
 	Seed        uint64 `json:"seed"`
 }
 type PlayerConfig struct {
+	// Spawn is a one-based map start; zero retains legacy player-order assignment.
+	Spawn      uint32   `json:"spawn,omitempty"`
 	Controller string   `json:"controller,omitempty"`
 	ID         PlayerID `json:"id"`
 	Name       string   `json:"name"`
@@ -110,12 +112,12 @@ type Scheduled struct {
 type OrderResult struct {
 	EligibleEntities []ID     `json:"eligible_entities,omitempty"`
 	AppliedCount     int32    `json:"applied_count,omitempty"`
-	Player   PlayerID `json:"player"`
-	Sequence uint32   `json:"sequence"`
-	Index    int32    `json:"index"`
-	Accepted bool     `json:"accepted"`
-	Code     string   `json:"code"`
-	Tick     Tick     `json:"tick"`
+	Player           PlayerID `json:"player"`
+	Sequence         uint32   `json:"sequence"`
+	Index            int32    `json:"index"`
+	Accepted         bool     `json:"accepted"`
+	Code             string   `json:"code"`
+	Tick             Tick     `json:"tick"`
 }
 type Job struct {
 	Type      string `json:"type"`
@@ -304,19 +306,23 @@ type OriginalTile struct {
 type State struct {
 	// StartingCredits retains only a nonstandard opening amount for restart.
 	// Current player balances may differ after ordinary spending or income.
-	StartingCredits    int64               `json:"starting_credits,omitempty"`
-	Telemetry          *MatchTelemetry     `json:"telemetry,omitempty"`
-	SpawnPlayers       []PlayerID          `json:"spawn_players"`
-	PracticeReveal     bool                `json:"practice_reveal"`
-	MapOriginalTiles   []OriginalTile      `json:"map_original_tiles"`
-	DestroyedObjects   []uint32            `json:"destroyed_objects"`
-	LogBase            uint64              `json:"log_base"`
-	LogOrders          uint32              `json:"log_orders"`
-	Mission            *MissionState       `json:"mission,omitempty"`
-	Metadata           Metadata            `json:"metadata"`
-	Tick               Tick                `json:"tick"`
-	Countdown          uint32              `json:"countdown"`
-	Map                content.Map         `json:"map"`
+	StartingCredits  int64           `json:"starting_credits,omitempty"`
+	Telemetry        *MatchTelemetry `json:"telemetry,omitempty"`
+	SpawnPlayers     []PlayerID      `json:"spawn_players"`
+	PracticeReveal   bool            `json:"practice_reveal"`
+	MapOriginalTiles []OriginalTile  `json:"map_original_tiles"`
+	DestroyedObjects []uint32        `json:"destroyed_objects"`
+	LogBase          uint64          `json:"log_base"`
+	LogOrders        uint32          `json:"log_orders"`
+	Mission          *MissionState   `json:"mission,omitempty"`
+	Metadata         Metadata        `json:"metadata"`
+	Tick             Tick            `json:"tick"`
+	Countdown        uint32          `json:"countdown"`
+	Map              content.Map     `json:"map"`
+	// RNG is retained only for save-format compatibility. The simulation is
+	// fully deterministic, uses no random numbers, and never reads or
+	// advances this value after New seeds it from Config.Seed. Removing the
+	// field would orphan existing saves, whose decoder rejects unknown keys.
 	RNG                uint64              `json:"rng"`
 	NextID             ID                  `json:"next_id"`
 	NextEvent          uint32              `json:"next_event"`
@@ -366,6 +372,8 @@ type SalvageIncome struct {
 	Amount int64 `json:"amount"`
 }
 type Engine struct {
+	// Presentation observations never participate in saves or authoritative hashes.
+	constructionProgress map[ID]constructionObservation
 	parkingBudgetTick    Tick
 	parkingBudgetStarted bool
 	parkingRemaining     int

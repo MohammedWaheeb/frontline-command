@@ -1,7 +1,7 @@
 import test,{type TestContext} from 'node:test';
 import assert from 'node:assert/strict';
 import {create} from '@bufbuild/protobuf';
-import {PlayerSnapshotSchema} from '../../src/protocol/frontline_pb';
+import {MatchStatusSchema,PlayerSnapshotSchema} from '../../src/protocol/frontline_pb';
 import {Application} from '../../src/app/application';
 import {Observable} from '../../src/app/store';
 import type {RuntimeEvent,PlayerSnapshot} from '../../src/runtime/types';
@@ -36,7 +36,7 @@ test('each reset while replacement is pending preserves the final authorized fra
 test('pause flushes the last throttled frame even without a replacement or finished outcome',t=>{
  for(const kind of ['clock','status'] as const){
   const h=appHarness(t);h.event({type:'snapshot',snapshot:frame(126)});h.time(1001);const end=frame(189);h.event({type:'snapshot',snapshot:end});assert.equal(h.snapshot()?.tick,126,'ordinary live frames retain their throttle');
-  if(kind==='clock')h.event({type:'clock',paused:true,speed:1,stalled:false});else h.event({type:'status',status:{paused:true} as any});
+  if(kind==='clock')h.event({type:'clock',paused:true,speed:1,stalled:false});else h.event({type:'status',status:create(MatchStatusSchema,{paused:true})});
   assert.equal(h.snapshot(),end);assert.equal(h.app.state.get().paused,true);
  }
 });
@@ -55,7 +55,13 @@ test('steady play retains the HUD throttle while every snapshot reaches the rend
 test('menu and a buffering replacement never flush the previous session snapshot on pause',t=>{
  const h=appHarness(t);h.event({type:'snapshot',snapshot:frame(126)});h.time(1001);h.event({type:'snapshot',snapshot:frame(130)});h.session(undefined);
  h.event({type:'clock',paused:true,speed:1,stalled:false});assert.equal(h.snapshot(),undefined);
- h.session('two');h.event({type:'status',status:{paused:true} as any});assert.equal(h.snapshot(),undefined);
+ h.session('two');h.event({type:'status',status:create(MatchStatusSchema,{paused:true})});assert.equal(h.snapshot(),undefined);
+});
+test('non-network status updates pause and audio without consulting a stale network lobby',t=>{
+ const h=appHarness(t),heard:any[]=[];h.app.network={state:{get:()=>assert.fail('replay status must not read the network controller')}};
+ h.app.audioDirector.status=(status:any)=>heard.push(status);
+ const status=create(MatchStatusSchema,{paused:true,teammates:[{player:2,connected:false}]});
+ h.event({type:'status',status});assert.equal(h.app.state.get().paused,true);assert.deepEqual(heard,[{...status,teammates:[]}]);assert.equal(status.teammates.length,1,'audio filtering must not mutate the transport status');
 });
 test('already paused frames and a terminal outcome publish without waiting for another tick',t=>{
  const h=appHarness(t);h.event({type:'snapshot',snapshot:frame(126)});h.event({type:'clock',paused:true,speed:1,stalled:false});h.time(1001);const paused=frame(130);h.event({type:'snapshot',snapshot:paused});assert.equal(h.snapshot(),paused);

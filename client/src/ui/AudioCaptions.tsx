@@ -1,8 +1,8 @@
 import type {Application} from '../app/application';
 import {useObservable} from '../app/store';
 /** Keep the consent-enabled battlefield log mounted even between captions.
- * Its CSS slot owns scrolling; the surrounding information column owns the
- * native scroll keys, so expiry never removes a focused log or shifts orders. */
+ * In battle it sits bottom-centre above the selection tray and is pointer-
+ * transparent, so captions never block drag-select (hud-tray.css). */
 export function AudioCaptions({app,enabled,battlefield}:{app:Application;enabled:boolean;battlefield:boolean}){
  const state=useObservable(app.audio.state);
  if(!enabled)return null;

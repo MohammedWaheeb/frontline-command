@@ -1,7 +1,7 @@
 import {chromium,firefox,webkit} from 'playwright-core';
 import {build} from 'esbuild';
 import {execFileSync,spawn} from 'node:child_process';
-import {mkdir,writeFile,mkdtemp,symlink,readFile} from 'node:fs/promises';
+import {mkdir,writeFile,mkdtemp,symlink,readFile,lstat,readlink} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -15,8 +15,17 @@ execFileSync(process.execPath,[path.join(client,'scripts/runtime/build.mjs')],{s
 const nativeVersion=JSON.parse(execFileSync(path.join(root,'bin',process.platform==='win32'?'runtime-native.exe':'runtime-native'),['-version'],{encoding:'utf8'}));
 execFileSync('go',['build','-o',path.join(root,'bin/frontline'),'./cmd/frontline'],{cwd:root,stdio:'inherit'});
 const staticDir=path.join(evidence,'host');await mkdir(staticDir,{recursive:true});
-try{await symlink(path.join(client,'public/runtime'),path.join(staticDir,'runtime'),'dir')}catch(e){if(e.code!=='EEXIST')throw e}
-try{await symlink(path.join(client,'public/service-worker.js'),path.join(staticDir,'service-worker.js'),'file')}catch(e){if(e.code!=='EEXIST')throw e}
+// BEGIN ensureStaticSymlink
+async function ensureStaticSymlink(target,link,type){
+ try{await symlink(target,link,type);return}catch(e){if(e.code!=='EEXIST')throw e}
+ const entry=await lstat(link);
+ if(!entry.isSymbolicLink())throw Error(`Static host path ${link} exists and is not a symlink; remove it so it can point to ${target}.`);
+ const actual=path.resolve(path.dirname(link),await readlink(link));
+ if(actual!==target)throw Error(`Stale symlink ${link} points to ${actual}, expected ${target}; remove it and rerun.`);
+}
+// END ensureStaticSymlink
+await ensureStaticSymlink(path.join(client,'public/runtime'),path.join(staticDir,'runtime'),'dir');
+await ensureStaticSymlink(path.join(client,'public/service-worker.js'),path.join(staticDir,'service-worker.js'),'file');
 await build({entryPoints:[path.join(client,'src/runtime/index.ts')],outfile:path.join(staticDir,'harness.js'),bundle:true,format:'iife',globalName:'FrontlineTest',platform:'browser',target:'es2022'});
 // Nonvisual test host; no product UI is implemented here.
 await writeFile(path.join(staticDir,'index.html'),'<!doctype html><meta charset="utf-8"><title>Frontline runtime integration test</title><link rel="icon" href="data:,"><script src="/harness.js"></script>');

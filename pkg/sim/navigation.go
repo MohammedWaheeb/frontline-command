@@ -72,8 +72,16 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 			}
 		}
 	}
+	if code := e.placementOccupancy(pos, width, height, 0); code != "ok" {
+		return code
+	}
+	return e.resourceFootprint(pos, width, height)
+}
+
+// observer zero checks authoritative occupancy; advice checks disclosed colliders only.
+func (e *Engine) placementOccupancy(pos Vec, width, height int32, observer PlayerID) string {
 	for _, v := range e.state.Entities {
-		if v.HP <= 0 || v.Container != 0 {
+		if v.HP <= 0 || v.Container != 0 || observer != 0 && !e.canSeeEntity(observer, v) {
 			continue
 		}
 		if v.Building {
@@ -82,6 +90,13 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 				return "occupied"
 			}
 		} else {
+			if observer != 0 {
+				// Landing reservations are private internal geometry, even for
+				// a visible aircraft. Advice uses its disclosed current state.
+				observed := *v
+				observed.Landing = nil
+				v = &observed
+			}
 			point, r, blocks := e.groundObstacle(v)
 			if !blocks {
 				continue
@@ -93,7 +108,7 @@ func (e *Engine) validPlacement(player PlayerID, pos Vec, width, height int32) s
 			}
 		}
 	}
-	return e.resourceFootprint(pos, width, height)
+	return "ok"
 }
 
 // Both normal construction and authored scenario relocation preserve the same
@@ -308,8 +323,10 @@ func (e *Engine) findPathWithBuildContact(v *Entity, goal Vec, dynamic bool, con
 	if e.pathBudget == 0 {
 		return nil
 	}
-	e.pathBudget--
-	path := e.findNavigationRouteWithBuildContact(v, goal, dynamic, contact)
+	// The budget pays for actual A* searches, not requests: one route can
+	// run a coarse-restricted, a full and a connection-retry search, and
+	// the unsafe-step retry below searches again. Each pays separately.
+	path := e.findNavigationRouteWithBuildContact(v, goal, dynamic, contact, &e.pathBudget)
 	if len(path) == 0 || e.isAircraft(v) && !v.Landed {
 		return path
 	}
@@ -324,20 +341,24 @@ func (e *Engine) findPathWithBuildContact(v *Entity, goal Vec, dynamic bool, con
 	if dynamic {
 		return nil
 	}
-	// Retry only a proven unsafe current step, with the same goal and charge.
-	// The completed first search no longer uses the shared search workspace.
-	path = e.findNavigationRouteWithBuildContact(v, goal, true, contact)
+	// Retry only a proven unsafe current step, with the same goal. The
+	// retry's searches pay their own budget; an exhausted budget defers
+	// the route to the caller's ordinary backoff instead of overrunning.
+	path = e.findNavigationRouteWithBuildContact(v, goal, true, contact, &e.pathBudget)
 	if usable(path) {
 		return path
 	}
 	return nil
 }
 
+// findNavigationRoute is the unbudgeted derived search used by previews
+// and tests. Live route requests go through findPath, which passes the
+// tick budget so every actual A* search is charged before it runs.
 func (e *Engine) findNavigationRoute(v *Entity, goal Vec, dynamic bool) []Vec {
-	return e.findNavigationRouteWithBuildContact(v, goal, dynamic, nil)
+	return e.findNavigationRouteWithBuildContact(v, goal, dynamic, nil, nil)
 }
 
-func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynamic bool, contact *Entity) []Vec {
+func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynamic bool, contact *Entity, budget *uint32) []Vec {
 	m := e.state.Map
 	r := e.radius(v)
 	air := e.isAircraft(v) && !v.Landed
@@ -419,6 +440,12 @@ func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynami
 	movingUnit, _ := e.catalog.Unit(v.Type)
 	coverCostly := movingUnit.Armor != "infantry"
 	search := func(restrict bool) []Vec {
+		if budget != nil {
+			if *budget == 0 {
+				return nil
+			}
+			*budget--
+		}
 		work := e.navigationSearch.begin(int(gridW * gridH))
 		scores, parents := work.scores, work.parents
 		for _, seed := range starts {

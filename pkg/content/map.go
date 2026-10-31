@@ -18,6 +18,7 @@ type Tile struct {
 	Mandatory    bool   `json:"mandatory,omitempty"`
 }
 
+// Height is presentation/sight data only; it never changes movement passability.
 func (t Tile) Passable() bool {
 	return t.Terrain != "water" && t.Terrain != "cliff" && t.Terrain != "blocked"
 }
@@ -91,6 +92,9 @@ func (m Map) Validate() error {
 	if m.Width < 32 || m.Height < 32 || m.Width > 256 || m.Height > 256 || len(m.Tiles) != int(m.Width*m.Height) {
 		return fmt.Errorf("map dimensions must be 32–256 and match tile count")
 	}
+	// Zero fields is deliberate: the simulation's shipment economy replenishes
+	// a central field once every field is empty, so a field-less map earns
+	// delayed shipment income instead of none.
 	if len(m.Spawns) < 1 || len(m.Spawns) > 4 || len(m.Fields) > 128 || len(m.Stations) > 32 || len(m.Regions) > 128 || len(m.Objects) > 512 {
 		return fmt.Errorf("map object limits exceeded")
 	}
@@ -146,6 +150,12 @@ func (m Map) Validate() error {
 		regionIDs[r.ID] = true
 	}
 	for i, s := range m.Spawns {
+		// Team is an alliance label for at most four players (mirrors the
+		// spawn cap above and Mission.Validate's team bound); zero means
+		// unset and the simulation defaults it to the player's own team.
+		if s.Team > 4 {
+			return fmt.Errorf("spawn %d team exceeds four players", i)
+		}
 		if !validPoint(s.Position) {
 			return fmt.Errorf("spawn %d is blocked", i)
 		}
@@ -207,9 +217,20 @@ func (m Map) Validate() error {
 		return fmt.Errorf("shipment site unreachable")
 	}
 	for _, r := range m.Regions {
-		p := Point{(r.Min.X + r.Max.X) / 2, (r.Min.Y + r.Max.Y) / 2}
-		if !reachable(p) {
-			return fmt.Errorf("region %s center unreachable", r.ID)
+		// Objectives trigger on any unit inside the rectangle, so one
+		// reachable tile is enough. Judging only the center falsely rejected
+		// regions whose middle sits on impassable decoration.
+		regionReachable := false
+		for y := r.Min.Y / 1000; y <= r.Max.Y/1000 && !regionReachable; y++ {
+			for x := r.Min.X / 1000; x <= r.Max.X/1000; x++ {
+				if seen[int(y*m.Width+x)] {
+					regionReachable = true
+					break
+				}
+			}
+		}
+		if !regionReachable {
+			return fmt.Errorf("region %s unreachable", r.ID)
 		}
 	}
 	return nil

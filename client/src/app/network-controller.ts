@@ -14,17 +14,68 @@ import type {MatchConnection} from '../runtime/online';
 import {ObserverTransport,type ObserverConnection,type ObserverGrant} from '../runtime/observer';
 import type {ConnectionPhase,Difficulty,Faction,GameMap,MatchResult,MatchStatus,RuntimeVersion} from '../runtime/types';
 import {sameCommanderIdentity,type CommanderHostIdentity} from './commander-final-binding';
+import {networkPresenceChanges} from './battle-alerts';
+
+export interface NetworkLobbySlot extends LobbySlot{spawn?:number}
+export interface NetworkLobby extends Lobby{slots:NetworkLobbySlot[];rematch?:boolean;previous_match_id?:string}
+export interface NetworkLobbyInvite extends LobbyInvite{rematch?:boolean;previous_match_id?:string}
+export interface NetworkLobbyResponse extends LobbyResponse{lobby:NetworkLobby;start_remaining_ms?:number;host_offline?:boolean}
+export interface NetworkJoinOptions{code?:string;faction?:Faction|'random';team?:number;color?:number;spawn?:number}
+export interface HostAddresses{lan_enabled:boolean;join_urls:string[];message:string}
+/** Combined invite keeps the private access code distinct from a bare public ID. */
+export function parseInvite(text:string):{id:string;code?:string}{
+ const compact=text.replace(/[\s\-·:|/]/g,'').toLowerCase();
+ if(!/^(?:[a-f0-9]{24}|[a-f0-9]{36})$/.test(compact))throw new RuntimeError('invite_invalid','Enter the complete invite code shared by your host.');
+ return {id:compact.slice(0,24),...(compact.length===36?{code:compact.slice(24)}:{})};
+}
+export function formatInvite(id:string,code?:string):string{
+ const base=parseInvite(id),value=code===undefined?base:parseInvite(base.id+code),group=(s:string)=>s.match(/.{1,4}/g)!.join('-');
+ if(base.code||code!==undefined&&!value.code)throw new RuntimeError('invite_invalid','Enter the complete invite code shared by your host.');
+ return group(value.id)+(value.code?' '+group(value.code):'');
+}
+export function inviteString(lobbyOrId:Lobby|string,code?:string){return formatInvite(typeof lobbyOrId==='string'?lobbyOrId:lobbyOrId.id,code)}
+const networkMessages:Record<string,string>={
+ invite_invalid:'Enter the complete invite code shared by your host.',
+ lobby_missing:'That invite code is for a lobby that no longer exists. Ask the host for a new invite.',
+ private_lobby:'This private game needs the complete invite code shared by its host.',
+ invalid_code:'That invite code does not match this game. Ask the host to copy it again.',
+ lobby_host_offline:'The lobby host is disconnected. Ask them to return or choose another game.',
+ lobby_full:'This game is full or has already started. Choose another game.',
+ version_mismatch:'This browser and host use different game versions. Reload the game from this host.',
+ incompatible_version:'This browser and host use different game versions. Reload the game from this host.',
+ reconnect_expired:'The reconnect window has ended. Review the result or join an authorized observer view.',
+ player_eliminated:'Your commander was eliminated. Join an authorized observer view or wait for the final result.',
+ socket_unreachable:'Could not open a game connection to the host. Check its address and that it is still running.',
+ match_connection_closed:'The host closed the connection before the game loaded. Rejoin through your lobby.',
+ connection_refused:'The host refused this match connection. Rejoin through your lobby.',
+ lobby_removed:'The host removed you from this lobby.',
+ host_unreachable:'Could not reach the host. Check that the game host is running and try again.',
+ origin_not_allowed:'Open the game from the host’s address, then join there.',
+ invalid_spawn:'Choose a start position shown on this battlefield.',
+ spawn_unavailable:'Another commander already has that start position. Choose a free one.',
+ color_unavailable:'Another commander already has that color. Choose a free one.',
+ invalid_team:'Choose a team from 1 to 4, or Auto.',
+ invalid_teams:'Check the teams: this game format needs a different team arrangement.',
+ players_missing:'The game could not start because some players did not connect.',
+ unknown_player:'Your commander has no player slot in this match. Rejoin through your lobby.',
+ invalid_match_token:'This match sign-in is no longer valid. Rejoin through your lobby.',
+ connection_closed:'This connection attempt closed before it could join. Try connecting again.',
+ match_closed:'This match is no longer active. Return to the lobby to view its result.',
+ request_rate_exceeded:'Too many requests reached the host. Wait one minute and try again.',
+ profile_creation_limited:'The host cannot create another commander yet. Wait a moment or restore your saved sign-in.',
+};
+export function networkErrorMessage(code:string,fallback='The host could not complete that request. Try again.'){return networkMessages[code]??(fallback.trim()&&fallback!==code?fallback:'The host could not complete that request. Try again.')}
 
 export interface NetworkChat{id:number;room:string;sender:string;name:string;team:number;text:string;tick:number;created:number}
 export interface NetworkState{
- host:string;connected:boolean;hostLatency?:number;account?:AccountState;busy?:string;error?:{code:string;message:string};pollError?:string;
+ host:string;connected:boolean;commanderName?:string;lanEnabled?:boolean;joinURLs:string[];hostMessage?:string;removedFromLobby?:boolean;startRemainingMs?:number;hostLatency?:number;hostOffline?:boolean;account?:AccountState;busy?:string;error?:{code:string;message:string};pollError?:string;
  maps:Awaited<ReturnType<LocalAPI['listMaps']>>;missions:Awaited<ReturnType<LocalAPI['listMissions']>>;lobbies:Lobby[];
- lobby?:Lobby;lobbyState?:LobbyResponse['state'];lobbyUnavailable?:boolean;joinCode?:string;chat:NetworkChat[];
+ lobby?:NetworkLobby;lobbyState?:LobbyResponse['state'];lobbyUnavailable?:boolean;lobbyClosed?:boolean;joinCode?:string;chat:NetworkChat[];
  ownMaps:MapRecord[];mapReports:MapReport[];mapReportCursor?:string;mapUpload?:{map:GameMap;filename:string;bytes:number;expectedRevision:number};
- history:RecordedOperation[];historyLoaded?:boolean;relations:SocialRelation[];invites:LobbyInvite[];saves:SaveSummary[];reports:LocalReport[];
+ history:RecordedOperation[];historyLoaded?:boolean;relations:SocialRelation[];invites:NetworkLobbyInvite[];rematchInvite?:NetworkLobbyInvite;saves:SaveSummary[];reports:LocalReport[];
  queue?:QueueResponse;rankedMaps:RankedMap[];rankedMessage?:string;
  connection:ConnectionPhase;remainingMs?:number;latency?:number;tick:number;status?:MatchStatus;result?:MatchResult;
- eliminated?:boolean;observer?:{matchID:string;player:number;delayTicks:number;buffering:boolean;error?:string};
+ presenceAlerts?:{id:number;text:string;at:number}[];eliminated?:boolean;observer?:{matchID:string;player:number;delayTicks:number;buffering:boolean;error?:string};
  syncInventory?:SyncInventory;sync?:SaveSyncPreview;syncResult?:SyncExecution;syncProgress?:string;notice?:string;
 }
 export interface NetworkOptions{
@@ -33,12 +84,14 @@ export interface NetworkOptions{
  joinOnline:(baseURL:string,connection:MatchConnection,map:GameMap)=>Promise<void>;
  joinObserver?:(baseURL:string,connection:ObserverConnection,map:GameMap)=>Promise<void>;
  prepareAssets:(map:GameMap,slots:readonly LobbySlot[])=>Promise<void>;
- notice:(message:string)=>void;onSettingsDownloaded?:()=>void|Promise<void>;
+ notice:(message:string)=>void;onOpenLobby?:()=>Promise<void>;onSettingsDownloaded?:()=>void|Promise<void>;
  /** Test seams do not expose credentials through observable state. */
- makeAccount?:(origin:string)=>LocalProfileSession;makePublicAPI?:(origin:string)=>LocalAPI;references?:Pick<Storage,'getItem'|'setItem'|'removeItem'>;pollMs?:number;
+ makeAccount?:(origin:string)=>LocalProfileSession;makePublicAPI?:(origin:string)=>LocalAPI;references?:Pick<Storage,'getItem'|'setItem'|'removeItem'>;persistentReferences?:Pick<Storage,'getItem'|'setItem'|'removeItem'>;pollMs?:number;
 }
 const referenceKey='frontline-command:network-lobby';
-const publicError=(error:unknown)=>{const value=presentableFailure(error);return {code:value.code,message:value.message}};
+const persistentReferenceKey='frontline-command:remembered-lobby';
+const commanderNameKey='frontline-command:commander-name';
+const publicError=(error:unknown)=>{const value=presentableFailure(error);return {code:value.code,message:networkErrorMessage(value.code,value.message)}};
 const encoder=new TextEncoder();
 function origin(value:string){const url=new URL(value);if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw new RuntimeError('host_address','Enter an HTTP or HTTPS game host without embedded credentials.');return url.origin}
 
@@ -49,15 +102,16 @@ export class NetworkController{
  private identity?:string;private uploadGeneration=0;
  #account?:LocalProfileSession;#connection?:MatchConnection;#sync?:SaveSynchronizer;
  private accountUnsubscribe?:()=>void;private sessionUnsubscribe:()=>void;private timer?:ReturnType<typeof setInterval>;
- private references?:NetworkOptions['references'];private polling=false;private chatEpoch=0;private disposed=false;private initialized=false;private epoch=0;private responseEpoch=0;
+ private references?:NetworkOptions['references'];private persistentReferences?:NetworkOptions['persistentReferences'];private presenceID=0;private polling=false;private chatEpoch=0;private disposed=false;private initialized=false;private epoch=0;private responseEpoch=0;
  private autoJoin=false;private joining=false;private joinedMatch?:string;private syncAbort?:AbortController;private mapCache?:{key:string;map:GameMap};
  constructor(private readonly options:NetworkOptions){
   this.references=options.references;try{this.references??=globalThis.sessionStorage}catch{}
+  this.persistentReferences=options.persistentReferences;try{this.persistentReferences??=globalThis.window?.localStorage}catch{}
   const host=globalThis.location?.origin??'http://127.0.0.1:8080';
-  this.state=new Observable<NetworkState>({host,connected:false,maps:[],ownMaps:[],mapReports:[],mapReportCursor:undefined,missions:[],lobbies:[],chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],rankedMaps:[],connection:'idle',tick:0});
+  this.state=new Observable<NetworkState>({host,connected:false,joinURLs:[],maps:[],ownMaps:[],mapReports:[],mapReportCursor:undefined,missions:[],lobbies:[],chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],rankedMaps:[],connection:'idle',tick:0});
   this.sessionUnsubscribe=options.sessions.subscribe(event=>this.sessionEvent(event));
  }
- private patch(change:Partial<NetworkState>){if(!this.disposed)this.state.update(value=>({...value,...change}))}
+ private patch(change:Partial<NetworkState>){if(!this.disposed)this.state.update(value=>{const next={...value,...change};next.rematchInvite=next.lobbyState==='completed'&&next.lobby?.match_id?next.invites.find(invite=>invite.rematch===true&&invite.previous_match_id===next.lobby!.match_id):undefined;return next})}
  private currentResponse(epoch:number,responseEpoch:number){return !this.disposed&&this.epoch===epoch&&this.responseEpoch===responseEpoch}
  dismissError(){this.patch({error:undefined})}
  private inform(message:string){this.patch({notice:message});this.options.notice(message)}
@@ -78,27 +132,60 @@ export class NetworkController{
  private authenticated<T>(operation:(api:LocalAPI)=>Promise<T>){return this.account().authenticated(operation)}
  private lobby(){const lobby=this.state.get().lobby;if(!lobby)throw new RuntimeError('lobby_required','Join a lobby first.');return lobby}
  private publicAPI(host=this.state.get().host){return this.options.makePublicAPI?.(host)??new LocalAPI(host)}
- private remember(lobby?:Lobby){try{if(lobby)this.references?.setItem(referenceKey,JSON.stringify({host:this.state.get().host,profile:this.#account?.context?.profileId,id:lobby.id}));else this.references?.removeItem(referenceKey)}catch{/* Browser persistence is optional; explicit lobby ID remains usable. */}}
+ private remember(lobby?:Lobby){
+  const value=JSON.stringify({host:this.state.get().host,profile:this.#account?.context?.profileId,id:lobby?.id});
+  try{if(lobby)this.references?.setItem(referenceKey,value);else this.references?.removeItem(referenceKey)}catch{}
+  // Only public IDs are retained. Credentials remain in the account vault.
+  try{if(lobby&&this.account().state.persistent)this.persistentReferences?.setItem(persistentReferenceKey,value);else this.persistentReferences?.removeItem(persistentReferenceKey)}catch{}
+ }
+ private async restoreLobby(){
+  const context=this.#account?.context;if(!context)return;
+  for(const [storage,key,autoJoin] of [[this.references,referenceKey,true],[this.persistentReferences,persistentReferenceKey,false]] as const){
+   let ref;try{const raw=storage?.getItem(key);ref=raw?JSON.parse(raw):undefined}catch{continue}
+   if(ref?.host!==context.origin||ref.profile!==context.profileId||typeof ref.id!=='string')continue;
+   try{const response=await this.authenticated(api=>api.lobby(ref.id));if(this.#account?.context?.profileId!==context.profileId)return;await this.accept(response,autoJoin);return}
+   catch(error){if(['lobby_missing','private_lobby'].includes(RuntimeError.from(error).code))try{storage?.removeItem(key)}catch{}else return}
+  }
+ }
  private privateActivity(){const s=this.state.get();return !!this.#account?.context&&(!!s.lobby&&s.lobbyState!=='completed'||s.queue?.status==='searching')||this.options.sessions.state.kind==='online'&&!s.result?.committed}
  private clearPrivateState(){
   this.responseEpoch++;this.chatEpoch++;this.uploadGeneration++;this.syncAbort?.abort();this.#connection=undefined;this.mapCache=undefined;this.autoJoin=false;this.joinedMatch=undefined;this.moderation.lock();
-  this.patch({ownMaps:[],mapReports:[],mapReportCursor:undefined,mapUpload:undefined,maps:this.state.get().maps.filter(map=>map.installed||map.published!==false),lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],lobbies:[],queue:undefined,rankedMaps:[],status:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined,syncProgress:undefined,observer:undefined,eliminated:undefined,notice:undefined,error:undefined,pollError:undefined,connection:'idle',tick:0,remainingMs:undefined,latency:undefined});
+  this.patch({ownMaps:[],mapReports:[],mapReportCursor:undefined,mapUpload:undefined,maps:this.state.get().maps.filter(map=>map.installed||map.published!==false),lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,lobbyClosed:undefined,presenceAlerts:[],joinCode:undefined,removedFromLobby:undefined,startRemainingMs:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],lobbies:[],queue:undefined,rankedMaps:[],status:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined,syncProgress:undefined,observer:undefined,eliminated:undefined,notice:undefined,error:undefined,pollError:undefined,connection:'idle',tick:0,remainingMs:undefined,latency:undefined});
  }
- private reconcileProfile(){const lobby=this.state.get().lobby;if(lobby&&!lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],status:undefined,queue:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined})}}
- async initialize(){if(this.initialized)return;this.initialized=true;await this.connect(this.state.get().host)}
- async connect(address:string){return this.run('Connecting to host…',async()=>{
+ private reconcileProfile(){const lobby=this.state.get().lobby;if(lobby&&!lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,lobbyClosed:undefined,presenceAlerts:[],joinCode:undefined,chat:[],status:undefined,queue:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined})}}
+ async initialize(){if(this.initialized)return;this.initialized=true;if(!this.#account||!this.state.get().connected)await this.connect(this.state.get().host)}
+ async connect(address:string){return this.run('Connecting to host…',()=>this.connectHost(address))}
+ private async connectHost(address:string){
   if(this.privateActivity())throw new RuntimeError('activity_active','Leave the forming lobby or finish the active match before changing hosts.');
   const host=origin(address),api=this.publicAPI(host),started=performance.now();await api.health();const hostLatency=Math.round(performance.now()-started);
-  const [maps,missions]=await Promise.all([api.listMaps(),api.listMissions()]);
+  const missions=await api.listMissions();
   this.accountUnsubscribe?.();const epoch=++this.epoch;const account=this.options.makeAccount?.(host)??new LocalProfileSession({baseURL:host});this.#account=account;this.#connection=undefined;this.#sync=new SaveSynchronizer(account,this.options.store,data=>this.options.validator.inspect(data));
   this.identity=undefined;this.moderation.setHost(host);
-  this.accountUnsubscribe=account.subscribe(value=>{if(epoch!==this.epoch)return;const identity=account.context?.profileId;if(identity!==this.identity){this.clearPrivateState();this.identity=identity}this.patch({account:value,...(value.phase==='sign-in-required'?{error:value.error}: {})})});
-  this.patch({host,connected:true,hostLatency,maps,ownMaps:[],mapReports:[],mapUpload:undefined,mapReportCursor:undefined,missions,lobbies:[],lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],account:account.state,sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined,connection:'idle',status:undefined,result:undefined,tick:0});
+  this.accountUnsubscribe=account.subscribe(value=>{if(epoch!==this.epoch)return;const identity=account.context?.profileId;if(identity!==this.identity){this.clearPrivateState();this.identity=identity}if(value.profile)try{this.references?.setItem(commanderNameKey,value.profile.name)}catch{}this.patch({account:value,commanderName:value.profile?.name??this.state.get().commanderName,...(value.phase==='sign-in-required'?{error:value.error}: {})})});
+  this.patch({host,connected:true,hostLatency,joinURLs:[],lanEnabled:undefined,hostMessage:undefined,maps:[],ownMaps:[],mapReports:[],mapUpload:undefined,mapReportCursor:undefined,missions,lobbies:[],lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,lobbyClosed:undefined,presenceAlerts:[],joinCode:undefined,removedFromLobby:undefined,startRemainingMs:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],account:account.state,sync:undefined,syncInventory:undefined,syncResult:undefined,queue:undefined,connection:'idle',status:undefined,result:undefined,tick:0});
   await account.restore();await this.refreshData();
-  if(account.context)try{const raw=this.references?.getItem(referenceKey);const ref=raw?JSON.parse(raw):undefined;if(ref?.host===host&&ref.profile===account.context.profileId&&typeof ref.id==='string')await this.accept(await account.authenticated(api=>api.lobby(ref.id)),false)}catch{/* An expired lobby reference does not prevent local play or account use. */}
+  await this.restoreLobby();
   if(!this.timer)this.timer=setInterval(()=>void this.poll(),this.options.pollMs??2000);
- })}
+  await this.hostAddresses();
+ }
+ private async prepareProfile(name?:string){
+  if(!this.#account||!this.state.get().connected)await this.connectHost(this.state.get().host);
+  if(this.account().context)return;
+  let chosen=name?.trim();if(!chosen)try{chosen=this.references?.getItem(commanderNameKey)?.trim()}catch{}
+  chosen ||= `Commander-${randomUUID().replace(/-/g,'').slice(0,4).toUpperCase()}`;
+  await this.account().create(chosen,{remember:true});
+  this.patch({commanderName:this.account().state.profile?.name});
+  try{this.references?.setItem(commanderNameKey,chosen)}catch{}
+  await this.refreshData();
+ }
+ ensureProfile(name?:string){return this.run('Preparing commander…',()=>this.prepareProfile(name))}
+ private async hostAddresses(){try{const value=await this.publicAPI().request<HostAddresses>('/host');if(!value||typeof value.lan_enabled!=='boolean'||!Array.isArray(value.join_urls)||value.join_urls.some(url=>typeof url!=='string')||typeof value.message!=='string')throw new RuntimeError('invalid_response','The host returned invalid join addresses.');this.patch({lanEnabled:value.lan_enabled,joinURLs:value.join_urls,hostMessage:value.message})}catch{this.patch({joinURLs:[],lanEnabled:undefined,hostMessage:'Host address discovery is unavailable. Share the address used to open this game.'})}}
+ loadHostAddresses(){return this.run('Loading join addresses…',()=>this.hostAddresses())}
+ inviteString(){const state=this.state.get();return state.lobby?formatInvite(state.lobby.id,state.lobby.private?state.joinCode:undefined):''}
+ inviteText(){return `Game host: ${this.state.get().joinURLs[0]??this.state.get().host}\nInvite code: ${this.inviteString()}`}
+ private removedFromLobby(){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,lobbyClosed:undefined,presenceAlerts:[],joinCode:undefined,chat:[],status:undefined,startRemainingMs:undefined,removedFromLobby:true,pollError:undefined});this.inform('The host removed you from this lobby.')}
  createProfile(name:string,remember:boolean){return this.run('Creating local profile…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the lobby before changing profiles.');await this.account().create(name,{remember});this.reconcileProfile();await this.refreshData()})}
+ renameProfile(name:string){return this.run('Saving commander name…',async()=>{await this.account().renameProfile(name);await this.refreshData();const lobby=this.state.get().lobby;if(lobby)await this.refreshLobby(lobby);this.inform('Commander name updated.')})}
  restoreProfile(token:string,remember:boolean){return this.run('Restoring local profile…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the lobby before changing profiles.');await this.account().restoreToken(token,{remember});this.reconcileProfile();await this.refreshData()})}
  exportSignInKey(){return this.run('Exporting private sign-in key…',async()=>{const file=this.account().exportSignInKey(),url=URL.createObjectURL(file);try{const link=document.createElement('a');link.href=url;link.download='frontline-local-sign-in.private.json';link.click()}finally{setTimeout(()=>URL.revokeObjectURL(url),10000)}this.inform('Private sign-in key exported. Keep it separately from shared game files.')})}
  restoreSignInKey(file:Blob,remember:boolean){return this.run('Verifying private sign-in key…',async()=>{if(this.privateActivity())throw new RuntimeError('activity_active','Leave the lobby before changing profiles.');await this.account().restoreSignInKey(file,{remember});this.reconcileProfile();await this.refreshData()})}
@@ -109,48 +196,64 @@ export class NetworkController{
   if(!account.context){if(this.currentResponse(epoch,responseEpoch))this.patch({lobbies:[]});return}
   const [lobbies,relations,inbox,saves,queue]=await Promise.all([account.authenticated(api=>api.listLobbies()),account.authenticated(api=>api.social()),account.authenticated(api=>api.lobbyInvites()),account.authenticated(api=>api.listSaves()),account.authenticated(api=>api.rankedQueue())]);
   if(!this.currentResponse(epoch,responseEpoch))return;this.patch({lobbies,relations,invites:inbox.invites,saves,queue,pollError:undefined});
+  // The map listing requires a signed-in profile; load it once per sign-in.
+  // Explicit loadMaps() calls still refresh it (and merge own drafts).
+  if(this.state.get().maps.length===0)await this.reloadMaps();
   const queuedLobby=queue.lobby_id;if(queue.status==='matched'&&queuedLobby&&!this.state.get().lobby){const response=await account.authenticated(api=>api.lobby(queuedLobby));if(this.currentResponse(epoch,responseEpoch))await this.accept(response,true)}
  }
  private async poll(){
-  if(this.disposed||this.polling||this.state.get().busy||!this.#account?.context)return;this.polling=true;const epoch=this.epoch,responseEpoch=this.responseEpoch;
+  if(this.disposed||this.polling||this.state.get().busy||this.state.get().lobbyUnavailable||!this.#account?.context)return;this.polling=true;const epoch=this.epoch,responseEpoch=this.responseEpoch;
   try{
-   const lobby=this.state.get().lobby;if(lobby){await this.refreshLobby(lobby);if(this.currentResponse(epoch,responseEpoch)&&this.state.get().lobby?.id===lobby.id&&!this.state.get().lobbyUnavailable&&this.options.sessions.state.kind!=='observer')await this.refreshChat()}else await this.refreshData();
+   const lobby=this.state.get().lobby;if(lobby){
+    await this.refreshLobby(lobby);
+    // Results stay mounted in the previous lobby. Refresh its inbox too so a
+    // partner's rematch invitation is visible without first leaving the debrief.
+    if(this.currentResponse(epoch,responseEpoch)&&this.state.get().lobbyState==='completed'){
+     const inbox=await this.authenticated(api=>api.lobbyInvites());if(this.currentResponse(epoch,responseEpoch))this.patch({invites:inbox.invites});
+    }
+    if(this.currentResponse(epoch,responseEpoch)&&this.state.get().lobby?.id===lobby.id&&!this.state.get().lobbyUnavailable&&this.options.sessions.state.kind!=='observer')await this.refreshChat();
+   }else await this.refreshData();
    if(this.currentResponse(epoch,responseEpoch))this.patch({pollError:undefined});
   }catch(error){if(this.currentResponse(epoch,responseEpoch))this.patch({pollError:publicError(error).message})}finally{this.polling=false}
  }
  private async refreshLobby(lobby:Lobby){
-  if(this.state.get().lobbyUnavailable&&this.state.get().result?.committed)return;
+  if(this.state.get().lobbyUnavailable){if(lobby.match_id&&!this.state.get().result?.committed&&await this.recoverResult(lobby))this.patch({lobbyState:'completed',lobbyClosed:undefined});return}
   const epoch=this.epoch,responseEpoch=this.responseEpoch;
   try{const response=await this.authenticated(api=>api.lobby(lobby.id));if(!this.currentResponse(epoch,responseEpoch)||this.state.get().lobby?.id!==lobby.id)return;await this.accept(response,this.autoJoin)}
   catch(error){
    if(!this.currentResponse(epoch,responseEpoch)||this.state.get().lobby?.id!==lobby.id)return;
-   if(RuntimeError.from(error).code!=='lobby_missing'||!lobby.match_id||this.options.sessions.state.kind==='observer')throw error;
-   if(!await this.recoverResult(lobby))throw error;
-   this.#connection=undefined;this.autoJoin=false;this.patch({lobbyState:'completed',lobbyUnavailable:true});
+   if(!lobby.match_id&&lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)&&RuntimeError.from(error).code==='private_lobby'){this.removedFromLobby();return}
+   if(RuntimeError.from(error).code!=='lobby_missing')throw error;
+   this.autoJoin=false;this.remember();this.patch({lobbyUnavailable:true,lobbyClosed:true,pollError:undefined});
+   if(lobby.match_id&&this.options.sessions.state.kind!=='observer'&&await this.recoverResult(lobby)){this.#connection=undefined;this.patch({lobbyState:'completed',lobbyClosed:undefined})}
   }
  }
- private async accept(response:LobbyResponse,autoJoin:boolean){
+ private async accept(response:NetworkLobbyResponse,autoJoin:boolean){
   if(this.disposed)return;const current=this.state.get().lobby;if(current?.id===response.lobby.id&&current.revision>response.lobby.revision)return;
+  if(current?.id===response.lobby.id&&!current.match_id&&!response.lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.removedFromLobby();return}
   const changed=this.state.get().lobby?.id!==response.lobby.id;this.#connection=response.connection;this.autoJoin=autoJoin;
-  this.patch({lobby:response.lobby,lobbyUnavailable:undefined,lobbyState:response.state??(response.lobby.match_id?'active':'forming'),joinCode:response.code??(changed?undefined:this.state.get().joinCode),...(changed?{chat:[],result:undefined,status:undefined,tick:0,connection:'idle' as const,eliminated:undefined}: {})});this.remember(response.lobby);
+  this.patch({...(this.state.get().removedFromLobby?{notice:undefined}:{}),lobby:response.lobby,hostOffline:response.host_offline===true,removedFromLobby:undefined,startRemainingMs:response.start_remaining_ms,lobbyUnavailable:undefined,lobbyClosed:undefined,lobbyState:response.state??(response.lobby.match_id?'active':'forming'),joinCode:response.code??(changed?undefined:this.state.get().joinCode),...(changed?{presenceAlerts:[],chat:[],result:undefined,status:undefined,tick:0,connection:'idle' as const,eliminated:undefined}: {})});this.remember(response.lobby);
   if(response.state==='completed'&&this.options.sessions.state.kind!=='observer'&&!this.state.get().result?.committed)await this.recoverResult(response.lobby);
   if(response.connection&&autoJoin&&response.state!=='completed'&&this.joinedMatch!==response.connection.match_id&&!this.joining)await this.enterMatch();
  }
  private async recoverResult(lobby:Lobby){
   const epoch=this.epoch,responseEpoch=this.responseEpoch;
   const record=(await this.authenticated(api=>api.history())).find(value=>value.id===lobby.match_id);if(!this.currentResponse(epoch,responseEpoch)||!record||this.state.get().lobby?.id!==lobby.id||this.state.get().lobby?.match_id!==lobby.match_id)return false;
-  const entry=recordedOperation(record);this.patch({result:entry.result,tick:entry.result.outcome!.tick});return true;
+  const entry=recordedOperation(record);this.patch({result:entry.result,tick:entry.result.outcome!.tick,startRemainingMs:undefined});if(entry.result.void&&entry.result.outcome?.reason==='players_missing')this.inform(networkErrorMessage('players_missing'));return true;
  }
  loadHistory(){return this.run('Loading recorded operations…',async()=>{const records=await this.authenticated(api=>api.history());this.patch({history:records.map(recordedOperation),historyLoaded:true})})}
  archiveRecorded(id:string){return this.run('Saving verified replay…',async()=>{const record=this.state.get().history.find(entry=>entry.id===id);if(!record||record.result.void)throw new RuntimeError('replay_unavailable','Select a completed recorded operation with an available replay.');const bytes=await this.authenticated(api=>api.replay(id));await this.options.store.putReplay(`match-${randomUUID()}`,`Recorded operation ${id}`,bytes,0);this.inform('Replay saved to this browser’s replay archive.')})}
 
- createLobby(config:LobbyConfig){return this.run('Creating lobby…',async()=>this.accept(await this.authenticated(api=>api.createLobby(config)),true))}
- joinLobby(id:string,options:{code?:string;faction?:Faction|'random';team?:number;color?:number}={}){return this.run('Joining lobby…',async()=>this.accept(await this.authenticated(api=>api.joinLobby(id.trim(),options)),true))}
- changeLobby(changes:LobbyChanges){return this.run('Updating lobby…',async()=>this.accept(await this.authenticated(api=>api.updateLobby(this.lobby().id,changes)),this.autoJoin))}
- addAI(config:LobbyAI){return this.run('Adding AI commander…',async()=>this.accept(await this.authenticated(api=>api.addLobbyAI(this.lobby().id,config)),this.autoJoin))}
- changeAI(player:number,config:Partial<LobbyAI>){return this.run('Updating AI commander…',async()=>this.accept(await this.authenticated(api=>api.updateLobbyAI(this.lobby().id,player,config)),this.autoJoin))}
+ createLobby(config:LobbyConfig&{spawn?:number},commanderName?:string){return this.run('Creating lobby…',async()=>{await this.prepareProfile(commanderName);await this.accept(await this.authenticated(api=>api.createLobby(config)),true)})}
+ joinLobby(id:string,options:NetworkJoinOptions={},commanderName?:string){return this.run('Joining lobby…',async()=>{await this.prepareProfile(commanderName);await this.accept(await this.authenticated(api=>api.joinLobby(id.trim(),options)),true)})}
+ joinByCode(text:string,options:Omit<NetworkJoinOptions,'code'>={},commanderName?:string){return this.run('Joining game…',async()=>{const invite=parseInvite(text);await this.prepareProfile(commanderName);await this.accept(await this.authenticated(api=>api.joinLobby(invite.id,{...options,code:invite.code})),true)})}
+ joinCoop(text:string,options:Omit<NetworkJoinOptions,'code'>={},commanderName?:string){return this.joinByCode(text,options,commanderName)}
+ changeSpawn(spawn:number,player?:number){return this.run('Updating start position…',async()=>{const lobby=this.lobby(),self=lobby.slots.find(slot=>slot.profile===this.#account?.context?.profileId);const path=player!==undefined&&player!==self?.player?`/lobbies/${encodeURIComponent(lobby.id)}/ai/${player}`:`/lobbies/${encodeURIComponent(lobby.id)}`;await this.accept(await this.authenticated(api=>api.request<NetworkLobbyResponse>(path,'PATCH',{spawn})),this.autoJoin)})}
+ changeLobby(changes:LobbyChanges&{spawn?:number}){return this.run('Updating lobby…',async()=>this.accept(await this.authenticated(api=>api.updateLobby(this.lobby().id,changes)),this.autoJoin))}
+ addAI(config:LobbyAI&{spawn?:number}){return this.run('Adding AI commander…',async()=>{const blocked=lobbyAIBlockReason(this.state.get());if(blocked)throw new RuntimeError('ai_slot_unavailable',blocked);try{await this.accept(await this.authenticated(api=>api.addLobbyAI(this.lobby().id,config)),this.autoJoin)}catch(error){if(RuntimeError.from(error).code==='lobby_full')throw new RuntimeError('ai_slot_unavailable','No open slot on this battlefield. Remove a commander or pick a larger map.');throw error}})}
+ changeAI(player:number,config:Partial<LobbyAI>&{spawn?:number}){return this.run('Updating AI commander…',async()=>this.accept(await this.authenticated(api=>api.updateLobbyAI(this.lobby().id,player,config)),this.autoJoin))}
  removeSlot(player:number){return this.run('Removing commander…',async()=>this.accept(await this.authenticated(api=>api.removeLobbySlot(this.lobby().id,player)),this.autoJoin))}
- leaveLobby(){return this.run('Leaving lobby…',async()=>{if(!this.state.get().lobbyUnavailable)await this.authenticated(api=>api.leaveLobby(this.lobby().id));this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,joinCode:undefined,chat:[],status:undefined});await this.refreshData()})}
+ leaveLobby(){return this.run('Leaving lobby…',async()=>{if(!this.state.get().lobbyUnavailable)await this.authenticated(api=>api.leaveLobby(this.lobby().id));this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,lobbyClosed:undefined,presenceAlerts:[],joinCode:undefined,removedFromLobby:undefined,startRemainingMs:undefined,chat:[],status:undefined});await this.refreshData()})}
  private async compatible(){const [local,remote]=await Promise.all([this.options.validator.ready,this.publicAPI().health()]);if(local.protocol!==remote.protocol||local.simulation!==remote.simulation||local.content_hash!==remote.content_hash)throw new RuntimeError('version_mismatch','This browser and host use different game versions. Load the game from this host before marking ready.');return local}
  private async mapFor(lobby:Lobby){
   const key=`${this.state.get().host}:${lobby.map_id}:${lobby.map_version}:${lobby.map_hash}`;if(this.mapCache?.key===key)return structuredClone(this.mapCache.map);
@@ -165,7 +268,7 @@ export class NetworkController{
   catch(error){if(RuntimeError.from(error).code==='lobby_changed'){await this.accept(await this.authenticated(api=>api.lobby(lobby.id)),false);throw new RuntimeError('lobby_changed','The lobby changed while your assets were loading. Review the updated commanders and battlefield, then mark ready again.')}throw error}
  })}
  start(){return this.run('Starting operation…',async()=>this.accept(await this.authenticated(api=>api.startLobby(this.lobby().id)),true))}
- joinMatch(){return this.run('Connecting to operation…',async()=>{await this.refreshLobby(this.lobby());if(!this.state.get().result?.committed)await this.enterMatch()})}
+ joinMatch(){return this.run('Connecting to operation…',async()=>{await this.refreshLobby(this.lobby());if(this.state.get().lobbyClosed)throw new RuntimeError('lobby_missing','This lobby has closed. Return to multiplayer.');if(!this.state.get().result?.committed)await this.enterMatch()})}
  private async enterMatch(){
   const connection=this.#connection;if(!connection)throw new RuntimeError('match_not_ready','This lobby has no match connection yet.');this.joining=true;
   try{await this.compatible();const lobby=this.lobby(),map=await this.mapFor(lobby);await this.options.prepareAssets(map,lobby.slots);this.patch({connection:'connecting'});await this.options.joinOnline(this.state.get().host,{...connection},map);this.joinedMatch=connection.match_id;this.patch({connection:'connected'});this.autoJoin=true}
@@ -175,8 +278,8 @@ export class NetworkController{
  pause(paused:boolean){return this.run(paused?'Requesting shared pause…':'Resuming operation…',async()=>{if(this.options.sessions.transport?.mode!=='online')throw new RuntimeError('match_required','Connect to the match before requesting a shared pause.');await(paused?this.options.sessions.pause():this.options.sessions.resume())})}
  surrender(){return this.run('Sending surrender order…',async()=>{const transport=this.options.sessions.transport;if(transport?.mode!=='online')throw new RuntimeError('match_required','Connect to your active match before surrendering.');await transport.sendOrders([{kind:'surrender'}]);this.inform('Surrender submitted. The host will confirm the result.')})}
  surrenderVote(vote:boolean){return this.run('Updating team surrender vote…',async()=>{if(this.options.sessions.state.kind!=='online')throw new RuntimeError('match_required','Connect to your commander before voting.');await this.options.sessions.transport!.sendOrders([{kind:vote?'surrender_vote':'surrender_cancel'}]);this.inform(vote?'Team surrender vote submitted. Every surviving human teammate must agree.':'Team surrender vote withdrawn.')})}
- rematch(){return this.run('Creating rematch lobby…',async()=>{await this.accept(await this.authenticated(api=>api.rematch(this.lobby().id)),true);this.joinedMatch=undefined;this.inform('Rematch lobby created. Other human commanders must join and mark ready again.')})}
- createCoop(id:string,difficulty:Difficulty,allyAI?:Difficulty){return this.run('Creating co-op lobby…',async()=>this.accept(await this.authenticated(api=>api.coopLobby(id,{difficulty,ally_ai:allyAI,private:true,pause_enabled:true})),true))}
+ rematch(){return this.run('Creating rematch lobby…',async()=>{const response=await this.authenticated(api=>api.rematch(this.lobby().id));await this.options.onOpenLobby?.();await this.accept(response,true);this.joinedMatch=undefined;this.inform('Rematch lobby ready. Previous human commanders have been invited; everyone must join and mark ready again.')})}
+ createCoop(id:string,difficulty:Difficulty,allyAI?:Difficulty,commanderName?:string){return this.run('Creating co-op lobby…',async()=>{await this.prepareProfile(commanderName);await this.accept(await this.authenticated(api=>api.coopLobby(id,{difficulty,ally_ai:allyAI,private:true,pause_enabled:true})),true)})}
  resumeCoop(id:string,player?:number){return this.run('Restoring shared checkpoint…',async()=>this.accept(await this.authenticated(api=>api.resumeCoop(id,{player,private:true,pause_enabled:true})),true))}
  async refreshChat(){
   const lobby=this.state.get().lobby;if(!lobby)return;const epoch=this.epoch,responseEpoch=this.responseEpoch,request=++this.chatEpoch,messages:NetworkChat[]=[];let after=0;
@@ -193,12 +296,13 @@ export class NetworkController{
  sendChat(text:string,teamOnly:boolean){return this.run('Sending message…',async()=>{await this.authenticated(api=>api.request(`/lobbies/${encodeURIComponent(this.lobby().id)}/chat`,'POST',{text,team_only:teamOnly}));await this.refreshChat()})}
  social(target:string,action:SocialAction){return this.run('Updating local contacts…',async()=>{await this.authenticated(api=>api.changeSocial(target.trim(),action));await this.refreshData();if(this.state.get().lobby)await this.refreshChat()})}
  invite(target:string){return this.run('Sending lobby invitation…',async()=>{await this.authenticated(api=>api.inviteToLobby(this.lobby().id,target));this.inform('Invitation sent to this local profile.')})}
- acceptInvite(id:string){return this.run('Accepting lobby invitation…',async()=>{await this.accept(await this.authenticated(api=>api.acceptLobbyInvite(id)),true);await this.refreshData()})}
+ acceptInvite(id:string){return this.run('Accepting lobby invitation…',async()=>{const response=await this.authenticated(api=>api.acceptLobbyInvite(id));await this.options.onOpenLobby?.();await this.accept(response,true);await this.refreshData()})}
+ joinRematch(){return this.run('Joining rematch lobby…',async()=>{const invite=this.state.get().rematchInvite;if(!invite)throw new RuntimeError('rematch_unavailable','No rematch is ready for this operation yet.');const response=await this.authenticated(api=>api.acceptLobbyInvite(invite.id));await this.options.onOpenLobby?.();await this.accept(response,true);await this.refreshData()})}
  dismissInvite(id:string){return this.run('Dismissing invitation…',async()=>{await this.authenticated(api=>api.dismissLobbyInvite(id));await this.refreshData()})}
  loadRanked(){return this.run('Checking local ranked maps…',async()=>{const result=await this.authenticated(api=>api.rankedMaps());this.patch({rankedMaps:result.maps,rankedMessage:result.maps.length?undefined:'This host has no reviewed ranked maps. Custom LAN lobbies remain available.'})})}
- queue(faction:Faction|'random',maps:string[]){return this.run('Joining local queue…',async()=>{const start=performance.now(),version=await this.compatible(),latency_ms=Math.round(performance.now()-start);this.patch({queue:await this.authenticated(api=>api.joinRankedQueue(version,{faction,maps,latency_ms}))});await this.refreshData()})}
+ queue(faction:Faction|'random',maps:string[]){return this.run('Joining local queue…',async()=>{await this.prepareProfile();const start=performance.now(),version=await this.compatible(),latency_ms=Math.round(performance.now()-start);this.patch({queue:await this.authenticated(api=>api.joinRankedQueue(version,{faction,maps,latency_ms}))});await this.refreshData()})}
  leaveQueue(){return this.run('Leaving local queue…',async()=>{await this.authenticated(api=>api.leaveRankedQueue());this.patch({queue:undefined});await this.refreshData()})}
- async reloadMaps(){const [maps,ownMaps]=await Promise.all([this.publicAPI().listMaps(),this.authenticated(api=>api.myMaps())]);const merged=[...maps];for(const record of ownMaps)if(!merged.some(map=>map.id===record.id))merged.push({...record,installed:false,ranked:false});this.patch({maps:merged,ownMaps})}
+ async reloadMaps(){const [maps,ownMaps]=await Promise.all([this.authenticated(api=>api.listMaps()),this.authenticated(api=>api.myMaps())]);const merged=[...maps];for(const record of ownMaps)if(!merged.some(map=>map.id===record.id))merged.push({...record,installed:false,ranked:false});this.patch({maps:merged,ownMaps})}
  loadMaps(){return this.run('Loading published maps and your drafts…',()=>this.reloadMaps())}
  cancelMapUpload(){this.uploadGeneration++;this.patch({mapUpload:undefined})}
  prepareMapUpload(file:File|Blob,filename='editor-map.json'){return this.run('Validating map upload with Go…',async()=>{
@@ -251,9 +355,19 @@ export class NetworkController{
   }
   if(value.type==='connection'){const transport=this.options.sessions.transport,observer=this.state.get().observer;this.patch({connection:value.phase,remainingMs:value.remainingMs,...(transport&&'terminalReason' in transport&&transport.terminalReason==='player_eliminated'?{eliminated:true}:{}),...(observer&&transport instanceof ObserverTransport?{observer:{...observer,buffering:transport.buffering,error:transport.lastError?.message}}:{})})}
   else if(value.type==='latency')this.patch({latency:value.milliseconds});
-  else if(value.type==='status')this.patch({status:value.status});
-  else if(value.type==='result')this.patch({result:value.result});
+  else if(value.type==='status'){const state=this.state.get(),at=performance.now(),messages=networkPresenceChanges(state.status,value.status,state.lobby?.slots??[],this.#connection?.player);this.patch({status:value.status,presenceAlerts:[...(state.presenceAlerts??[]).filter(alert=>at-alert.at<10000),...messages.map(text=>({id:++this.presenceID,text,at}))].slice(-4)})}
+  else if(value.type==='result')this.patch({result:value.result,startRemainingMs:undefined});
   else if(value.type==='snapshot'&&(Math.floor(value.snapshot.tick/20)!==Math.floor(this.state.get().tick/20)||value.snapshot.outcome?.finished))this.patch({tick:value.snapshot.tick});
  }
  dispose(){this.moderation.dispose();this.disposed=true;this.epoch++;this.responseEpoch++;if(this.timer)clearInterval(this.timer);this.syncAbort?.abort();this.sessionUnsubscribe();this.accountUnsubscribe?.();this.#connection=undefined;this.#account=undefined;this.#sync=undefined}
 }
+
+/** Preflight only: the server still owns final admission after concurrent changes. */
+export function lobbyAIBlockReason(state:Pick<NetworkState,'lobby'|'lobbyState'|'maps'>){
+ const lobby=state.lobby;if(!lobby||state.lobbyState!=='forming')return 'AI commanders can only join a forming lobby.';
+ if(lobby.rated)return 'The matched commanders are fixed for this operation.';
+ if(lobby.resume_tick!==undefined)return 'Saved checkpoint commanders are fixed.';
+ const players=state.maps.find(map=>map.id===lobby.map_id)?.players,capacity=Math.min(lobby.mode==='1v1'?2:4,players??4);
+ return lobby.slots.length>=capacity?'No open slot on this battlefield. Remove a commander or pick a larger map.':undefined;
+}
+export function canRejoinOperation(state:Pick<NetworkState,'lobby'|'lobbyState'|'lobbyUnavailable'|'result'|'account'>){return !!state.lobby?.match_id&&state.lobbyState==='active'&&!state.lobbyUnavailable&&!state.result?.committed&&state.lobby.slots.some(slot=>slot.profile===state.account?.profile?.id)}
