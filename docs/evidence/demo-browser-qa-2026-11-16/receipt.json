@@ -1,0 +1,322 @@
+{
+  "date": "2026-11-16",
+  "scope": "Fresh app/game QA against the hashed local package; no product or slide modifications",
+  "build": {
+    "built_at": "2026-11-16T02:29:12.731Z",
+    "simulation": "0.3.8",
+    "protocol": 1,
+    "content_hash": "b50f3ada55039477b7da0e13983dfcbdc23a0dd194f41faba280167f314dc155",
+    "platform": "darwin",
+    "arch": "arm64",
+    "source_revision": "c950d1c0c6a6a06310dc6109c0d9395737b5767f",
+    "source_dirty": true
+  },
+  "fileIdentity": [
+    {
+      "path": "frontline",
+      "sha256": "219c048a19328a525aed71f07a58039adcdb705c26e3075046ae6fd7cde1a129",
+      "unchanged": true
+    },
+    {
+      "path": "version.json",
+      "sha256": "d571d04607d1fa0e2de0065718787fbaba48f64735369f846a6ec90024d9a2c3",
+      "unchanged": true
+    },
+    {
+      "path": "client/index.html",
+      "sha256": "66152579b18d61c31996898a67e318f78812098488a62b97a6388db0af711a8b",
+      "unchanged": true
+    },
+    {
+      "path": "client/runtime/version.json",
+      "sha256": "697d9a6d225da4b3c864de4fc33a06fb2e16616fe032a29872a3f38d96a96120",
+      "unchanged": true
+    },
+    {
+      "path": "client/assets/packs/base.json",
+      "sha256": "c1d878453d0681454b1862eef4b17e03c78ef494ce8800d20156ed93bb12477c",
+      "unchanged": true
+    },
+    {
+      "path": "client/assets/index-B8JSb3qM.js",
+      "sha256": "49ef9e24b179b22db5be16f2ce67a04534169657adff5b8f26744f25b2e1572b",
+      "unchanged": true
+    }
+  ],
+  "browsers": [
+    "Google Chrome157.0.8103.52",
+    "Chromium151.0.7922.34"
+  ],
+  "mode": "Headless; installed Chrome used Metal GPU flags and ANGLE Metal / Apple M4",
+  "viewports": [
+    "1600x900",
+    "1280x720"
+  ],
+  "deviceScaleFactor": 1,
+  "browserPlugin": "Not available; installed Playwright used",
+  "soloOnlineChecks": [
+    {
+      "name": "cold-boot-current-production-build",
+      "status": "PASS"
+    },
+    {
+      "name": "skirmish-build-train-pause-and-save",
+      "status": "PASS"
+    },
+    {
+      "name": "online-reload-preserves-save-and-real-load",
+      "status": "PASS"
+    },
+    {
+      "name": "export-saved-operation-portable-bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "warm-start-and-rendered-layout-at-720p",
+      "status": "PASS"
+    }
+  ],
+  "soloObserved": {
+    "errors": 0,
+    "console": 0,
+    "httpErrors": 0,
+    "requestFailures": 0,
+    "crashes": 0
+  },
+  "navigation": {
+    "status": "passed after stable-menu targeted retest",
+    "paidBalanceRestored": 4700,
+    "freshMatchBalance": 6000,
+    "fiveMenuJourneys": "passed"
+  },
+  "network": {
+    "twoPlayerLifecycle": {
+      "status": "passed",
+      "checks": [
+        "invite",
+        "start",
+        "sharedPause",
+        "rejoin",
+        "results",
+        "rematch"
+      ],
+      "acceptedOrders": [
+        {
+          "client": 0,
+          "sequence": 1,
+          "kind": "stop",
+          "accepted": true
+        },
+        {
+          "client": 1,
+          "sequence": 1,
+          "kind": "stop",
+          "accepted": true
+        }
+      ],
+      "acceptedOrderAfterGuestReload": {
+        "client": 1,
+        "sequence": 2,
+        "kind": "stop",
+        "accepted": true
+      }
+    },
+    "fourPlayer": {
+      "lobbyStartControl": "passed",
+      "commanders": 4,
+      "acceptedOrders": [
+        {
+          "client": 0,
+          "sequence": 1,
+          "kind": "stop",
+          "accepted": true
+        },
+        {
+          "client": 1,
+          "sequence": 1,
+          "kind": "stop",
+          "accepted": true
+        },
+        {
+          "client": 2,
+          "sequence": 1,
+          "kind": "stop",
+          "accepted": true
+        },
+        {
+          "client": 3,
+          "sequence": 1,
+          "kind": "stop",
+          "accepted": true
+        }
+      ],
+      "recordedOutcome": "Team 1 victorious, observed by all contexts",
+      "automaticDebriefs": [
+        0,
+        1
+      ],
+      "frozenClientResultControl": "Awaited async cue and clicked it; Network operation result/replay/rematch controls opened",
+      "allFourRematch": "unverified"
+    },
+    "coOp": {
+      "status": "passed",
+      "scenarios": [
+        {
+          "name": "CONVOY UNION",
+          "acceptedOrders": [
+            {
+              "client": 0,
+              "sequence": 1,
+              "kind": "stop",
+              "accepted": true
+            },
+            {
+              "client": 1,
+              "sequence": 1,
+              "kind": "stop",
+              "accepted": true
+            }
+          ],
+          "inviteJoined": true,
+          "bothDeployed": true,
+          "hostFaction": "US",
+          "guestFaction": "SA"
+        },
+        {
+          "name": "TWIN OUTPOSTS",
+          "acceptedOrders": [
+            {
+              "client": 2,
+              "sequence": 1,
+              "kind": "stop",
+              "accepted": true
+            },
+            {
+              "client": 3,
+              "sequence": 1,
+              "kind": "stop",
+              "accepted": true
+            }
+          ],
+          "inviteJoined": true,
+          "bothDeployed": true,
+          "hostFaction": "US",
+          "guestFaction": "SA"
+        }
+      ],
+      "scope": "Both scenarios launched with two isolated UI commanders and each commander issued an accepted Stop order; natural mission victories not tested"
+    }
+  },
+  "networkObserved": {
+    "observedProductCrashes": 0,
+    "observedPageExceptions": 0,
+    "observedHTTPFailures": 0
+  },
+  "networkConsole": "Not separately collected",
+  "offlineIncognito": {
+    "status": "recoverable installation failure",
+    "lastVisibleProgress": "6530/8787",
+    "message": "The pack could not be cached. Check storage space and retry; installed packs are preserved.",
+    "underlyingCause": "Not conclusively captured; profile storage limitation is an inference",
+    "browserCrashed": false
+  },
+  "offlinePersistent": {
+    "status": "passed",
+    "profile": "owned persistent normal Chrome profile",
+    "cacheKeys": 8789,
+    "packFiles": 8787,
+    "packBytes": 1459552582,
+    "packID": "2.0.0",
+    "packVersion": "content-v1-2b8e07aa5e75f123dd39760e06e93b466000ef091944a98cb604af270d1ecbf4",
+    "manifestSHA256": "1caf4aecf2eb52343e9bf24bf2052947de557ed2eb83f88543468aa0c8c2ba6e",
+    "estimatedCacheStorageBytes": 1468136448,
+    "persisted": false,
+    "disconnectedReloadAndRestore": {
+      "status": "PASS",
+      "restored": {
+        "clock": "00:10",
+        "credits": "4,700"
+      },
+      "clockAdvanced": true
+    },
+    "freshOfflinePractice": {
+      "status": "PASS",
+      "initial": {
+        "clock": "00:05",
+        "credits": "6,000"
+      },
+      "clockAdvanced": true
+    },
+    "offlineWasmResponses": [
+      {
+        "stage": "offline-reload-restore-exact-save-resume-and-save-again",
+        "status": 200,
+        "fromServiceWorker": true,
+        "sha256": "3839616516e85023f2eb21947d3f8d931667379ab2773f2c35713ae61b110cca",
+        "bytes": 12126464
+      },
+      {
+        "stage": "offline-reload-restore-exact-save-resume-and-save-again",
+        "status": 200,
+        "fromServiceWorker": true,
+        "sha256": "3839616516e85023f2eb21947d3f8d931667379ab2773f2c35713ae61b110cca",
+        "bytes": 12126464
+      },
+      {
+        "stage": "offline-new-practice-start-and-tick",
+        "status": 200,
+        "fromServiceWorker": true,
+        "sha256": "3839616516e85023f2eb21947d3f8d931667379ab2773f2c35713ae61b110cca",
+        "bytes": 12126464
+      }
+    ],
+    "pageExceptions": 0,
+    "httpErrors": 0,
+    "expectedDisconnectedNetworkAttempts": 75,
+    "consoleMessages": [
+      {
+        "stage": "offline-reload-restore-exact-save-resume-and-save-again",
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+      }
+    ],
+    "browserClosed": true,
+    "finished": "2026-11-16T13:21:15.929Z",
+    "note": "Expected disconnected network attempts precede service-worker fallback. Save-again toast was empty; this receipt claims restored balance and advancing play, not a separately verified second durable save."
+  },
+  "portableArchive": {
+    "zipBytes": 1333501320,
+    "sha256": "21212866d13722a892468459e473c10edd836db7b31241cb3b1e3ec6e79d0683",
+    "payloadFiles": 8964,
+    "manifestHashedFiles": 8963,
+    "manifestMatchesFrozenDist": true,
+    "criticalFileCount": 14,
+    "noPrivateDataOrSymlinks": true,
+    "executableBitsPreserved": true
+  },
+  "portableArchiveScope": "Fresh full checksum, inventory and14critical streamed payload hashes; no fresh full extraction; identical hash to historical full-extraction receipt",
+  "unrun": [
+    "15-minute live skirmish soak",
+    "2-minute synthetic688-actor probe",
+    "headful default-GPU Chrome",
+    "Firefox",
+    "WebKit"
+  ],
+  "unverified": [
+    "four-client rematch",
+    "natural co-op victories",
+    "late-game AI stability",
+    "physical LAN",
+    "four actual people",
+    "mobile and other operating systems"
+  ],
+  "sourceEvidenceFiles": [
+    "navigation/game-nav-corrected-results.json",
+    "navigation/restart-stable-results.json",
+    "interactions/summary.json",
+    "cross-browser/chrome-offline/report.json",
+    "cross-browser/chrome-persistent-offline/report.json",
+    "review/portable-identity.json",
+    "root/integrity.json"
+  ]
+}
