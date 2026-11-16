@@ -12,12 +12,13 @@ Building successfully does not certify complete art or gameplay acceptance.
 | Command | Current behavior |
 |---|---|
 | `make doctor` | Checks pinned Go, Node/npm, protoc/generator and installed dependencies; lists missing game output |
-| `make dev` | Builds Go/WASM, starts Go on localhost:8080 and the product dev client on localhost:5173; Ctrl-C stops both |
+| `make dev` | Builds Go/WASM and a verified client snapshot, then starts Go on localhost:8080 and the live product UI on localhost:5173; Ctrl-C stops both |
 | `make test` | Shipping Go packages with `-short`, vet, both TypeScript projects, packaging and runtime tests; archived experiments are excluded |
 | `make test-extended` | **Required pre-release gate.** Same checks with full shipping Go tests and `-timeout=120m` per package; includes long tests gated by `testing.Short()`. Budget about 90 minutes wall-clock for the full authored set |
 | `make test-browser` | Actual Go/WASM, storage, offline reload and LAN integration in installed Chromium, Firefox and WebKit |
 | `make check-content` | Requires complete launch/campaign/tutorial/co-op inventory and validates each mission's opening save on all difficulties |
 | `make build` | Validates complete content, builds runtime/product client, assembles a native package with licenses and checksums |
+| `make demo` | Verifies every packaged file and native platform, starts the existing production package on 127.0.0.1:8080, opens the browser after readiness, and preserves package `data/`; reuses a matching running demo |
 | `make play` | Runs the native package on localhost using the repository's `.local` data directory |
 | `make lan` | Explicit LAN host binding; prints join addresses |
 
@@ -68,7 +69,10 @@ directory to its own PATH without modifying the user's shell configuration.
 Claude supplies `client/package.json` scripts `dev` (Vite-compatible arguments)
 and `build`, preserving existing runtime/check scripts and pinned dependencies.
 The product dev server proxies `/api` and `/ws` to localhost:8080 so the same
-typed APIs operate in development. Its build emits `client/dist/index.html` and
+typed APIs operate in development. Vite keeps the root page and source modules
+live for HMR while serving integrity-bound art, content, runtime and offline-pack
+files from the verified `client/dist` snapshot. Restart `make dev` after changing
+assets or content so their descriptors and bytes remain consistent. Its build emits `client/dist/index.html` and
 all required local assets, runtime files and cache-pack manifests under
 `client/dist`. No CDN/runtime generation request may be needed for play.
 The packager copies validated local outputs; it does not generate or transcode
@@ -106,7 +110,7 @@ files, choose another output directory:
 FRONTLINE_PACKAGE_DIR=dist/frontline-release-darwin-arm64 node scripts/local.mjs build
 ```
 
-The override also selects the package used by `play` and `lan`; supply the same
+The override also selects the package used by `demo`, `play` and `lan`; supply the same
 variable when running those commands. Relative paths resolve from the source
 root. Outputs inside the source tree must be beneath `dist/`; source directories
 and ancestors are rejected, including symlink aliases. Existing packages at the
@@ -118,6 +122,18 @@ package is for its recorded OS/CPU; cross-platform binaries and native launch
 testing remain separate release checks. See [local-package.md](local-package.md)
 for end-user launching/data behavior. `make play` uses repository `.local`;
 standalone launchers use the package's own `data/` directory.
+
+For presenting, use `make demo` with the prepared production package. It needs
+Node and Make, but no installed npm dependencies or Go compiler. It checks the
+complete package inventory and SHA-256 hashes, including assets, before starting
+the native host. It opens the browser once the production health, page and offline
+manifest match the package. It uses normal host settings and the packaged client;
+it does not rebuild or run a development server. A conflicting service on port
+8080 is reported without terminating it or changing the demo's browser origin.
+Keep the terminal open and press Ctrl-C to stop a host started by this command.
+If the demo was already running, its original terminal continues to own it.
+`make demo` and standalone `Play.command` share package `data/`; `make play`
+continues to use repository `.local`.
 
 No infrastructure is deployed. Future hosting is described in
 [deployment-plan.md](deployment-plan.md).

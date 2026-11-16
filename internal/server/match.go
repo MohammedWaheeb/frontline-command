@@ -27,6 +27,15 @@ type slot struct {
 // actor surrenders their slot. A var so tests can shorten it.
 var reconnectGrace = 120 * time.Second
 
+// matchCommitRetryWindow bounds how long a finished match retries its
+// replay/result commit before the bounded fallback: commit the result
+// without the replay when only capture/encode/object storage fails, or
+// void the match when the result itself cannot be committed. Without the
+// bound a broken/full store would hold the actor (and the players waiting
+// for a result) forever. Vars so tests can shorten them.
+var matchCommitRetryWindow = time.Minute
+var matchFinishedRetention = 5 * time.Minute
+
 const startBarrierTimeout = 120 * time.Second
 
 type peer struct {
@@ -410,6 +419,20 @@ func (m *liveMatch) run() {
 	}
 	expired := map[sim.PlayerID]bool{}
 	lastCommitAttempt := time.Time{}
+	// Bounded finished-match commit: first attempt arms the deadline,
+	// retries back off, and past the deadline the attempt falls back
+	// (commit without replay, or void) and marks the match terminal so
+	// no further attempts run. Terminal matches leave through the same
+	// finishedAt retention as committed ones.
+	commitDeadline := time.Time{}
+	commitRetryDelay := time.Second
+	commitAttempts := 0
+	terminal := false
+	// Cache the terminal status for redelivery on reconnect during retention.
+	// Snapshots carry the gameplay outcome, but not whether the result was
+	// committed or voided; replacement sockets need both.
+	var terminalResult *pb.MatchResult
+	var terminalError *pb.ProtocolError
 	finishedAt := time.Time{}
 	started := false
 	controls := newPauseControl(m.pauseEnabled)
@@ -459,6 +482,17 @@ func (m *liveMatch) run() {
 		p.close()
 		return false
 	}
+	// Deliver the result first (it ends the match client-side), followed by
+	// a void explanation when present. The recoverable explanation keeps
+	// the transport available for the lobby.
+	sendTerminalResult := func(p *peer) {
+		if terminalResult == nil {
+			return
+		}
+		if send(p, &pb.Envelope{Message: &pb.Envelope_Result{Result: terminalResult}}) && terminalError != nil {
+			send(p, &pb.Envelope{Message: &pb.Envelope_Error{Error: terminalError}})
+		}
+	}
 	// sendState is for periodic, superseded frames (snapshot/delta/priority/
 	// status): a full outbox coalesces this frame away instead of dropping a
 	// healthy peer. The caller keeps its baseline/buffers and consults
@@ -506,7 +540,9 @@ func (m *liveMatch) run() {
 			payload, _ := json.Marshal(map[string]any{"match_id": m.id, "void": true, "reason": voidReason, "metadata": state.Metadata, "tick": state.Tick})
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()
-			_, _ = m.repo.CommitResult(ctx, storage.Result{ID: m.id, Payload: payload, Void: true})
+			if _, err := m.repo.CommitResult(ctx, storage.Result{ID: m.id, Payload: payload, Void: true}); err != nil {
+				log.Printf("match %s void commit failed (%s): %v", m.id, voidReason, err)
+			}
 			save, _ := m.engine.Save()
 			_ = m.objects.Put(ctx, m.id+".diagnostic", save)
 		}
@@ -593,7 +629,11 @@ func (m *liveMatch) run() {
 				if reply.err != nil {
 					break
 				}
-				if expired[req.player] {
+				// Expiry prevents returning to a live command. Once finished,
+				// the same authenticated slot may recover its final authorized
+				// snapshot and terminal result, including a non-durable void
+				// which cannot be recovered from history.
+				if expired[req.player] && !m.engine.Outcome().Finished {
 					reply.err = errors.New("reconnect_expired")
 					break
 				}
@@ -609,7 +649,7 @@ func (m *liveMatch) run() {
 				if old := peers[req.player]; old != nil {
 					old.close()
 				}
-				if deadline, ok := disconnected[req.player]; ok && time.Now().After(deadline) {
+				if deadline, ok := disconnected[req.player]; ok && time.Now().After(deadline) && !m.engine.Outcome().Finished {
 					reply.err = errors.New("reconnect_expired")
 					break
 				}
@@ -628,6 +668,9 @@ func (m *liveMatch) run() {
 				req.peer.baseline = snap
 				req.peer.visible = visibilityFromSnapshot(snap)
 				send(req.peer, &pb.Envelope{Message: &pb.Envelope_Snapshot{Snapshot: snap}})
+				// A reconnect may have missed the one-shot terminal broadcast.
+				// Redeliver its durability status after the finished snapshot.
+				sendTerminalResult(req.peer)
 				broadcastStatus(time.Now())
 			case "disconnect":
 				if current := peers[req.player]; current == req.peer {
@@ -974,8 +1017,11 @@ func (m *liveMatch) run() {
 				// the next delta diffs the last delivered baseline against
 				// the newest state instead of dropping the peer.
 			}
-			if m.engine.Outcome().Finished && !committed && now.Sub(lastCommitAttempt) >= time.Second {
+			if m.engine.Outcome().Finished && !committed && !terminal && now.Sub(lastCommitAttempt) >= commitRetryDelay {
 				lastCommitAttempt = now
+				if commitDeadline.IsZero() {
+					commitDeadline = now.Add(matchCommitRetryWindow)
+				}
 				state := m.engine.StateCopy()
 				var rating *storage.RatingMatch
 				if m.rated {
@@ -995,7 +1041,8 @@ func (m *liveMatch) run() {
 				for _, p := range state.Players {
 					players = append(players, sim.PlayerSummary{ID: p.ID, Name: p.Name, Faction: p.Faction, Team: p.Team, Color: p.Color, Defeated: p.Defeated, StrategicProgress: -1})
 				}
-				payload, _ := json.Marshal(map[string]any{"match_id": m.id, "metadata": state.Metadata, "outcome": state.Outcome, "players": players, "debrief": debrief, "rated": m.rated, "rating_match": rating})
+				payloadMap := map[string]any{"match_id": m.id, "metadata": state.Metadata, "outcome": state.Outcome, "players": players, "debrief": debrief, "rated": m.rated, "rating_match": rating}
+				payload, _ := json.Marshal(payloadMap)
 				ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 				var err error
 				{
@@ -1025,8 +1072,63 @@ func (m *liveMatch) run() {
 						}
 					}
 				}
+				replayFailed := err != nil
 				if err == nil {
 					_, err = m.repo.CommitResult(ctx, storage.Result{ID: m.id, Payload: payload, Rating: rating})
+				}
+				if err != nil && !now.Before(commitDeadline) {
+					// Retry window exhausted: fall back instead of holding
+					// the actor (and players awaiting a result) forever.
+					if replayFailed {
+						// Only the replay is at fault: commit the result
+						// without it, marked so replay reads answer
+						// replay_unavailable while the result stands.
+						payloadMap["replay_unavailable"] = true
+						if fallbackPayload, marshalErr := json.Marshal(payloadMap); marshalErr == nil {
+							fctx, fcancel := context.WithTimeout(context.Background(), 5*time.Second)
+							_, fallbackErr := m.repo.CommitResult(fctx, storage.Result{ID: m.id, Payload: fallbackPayload, Rating: rating})
+							fcancel()
+							if fallbackErr == nil {
+								log.Printf("match %s committed without replay after %s of retries: %v", m.id, matchCommitRetryWindow, err)
+								err = nil
+							} else {
+								err = fallbackErr
+							}
+						}
+					}
+					if err != nil {
+						// The result itself cannot be committed: void the
+						// match honestly. The deferred exit path makes the
+						// durable void attempt; connected players get the
+						// final void status now.
+						log.Printf("match %s voided after %s of commit retries: %v", m.id, matchCommitRetryWindow, err)
+						voidReason = "result_commit_failed"
+						terminal = true
+						finishedAt = now
+						// The wire outcome carries the void reason (as
+						// void history entries already do), not the
+						// gameplay reason, and an explicit error frame
+						// explains the persistence failure in words. The
+						// gameplay outcome itself stays in snapshots.
+						// Cache both for reconnect redelivery.
+						outcome := &pb.Outcome{Finished: true, Draw: state.Outcome.Draw, WinningTeam: state.Outcome.WinningTeam, Reason: voidReason, Tick: uint32(state.Outcome.Tick)}
+						terminalResult = &pb.MatchResult{MatchId: m.id, Outcome: outcome, Void: true}
+						terminalError = &pb.ProtocolError{Code: voidReason, Message: "The host could not record this match result, so the operation was voided. No result or rating was saved.", Recoverable: true}
+						for _, p := range peers {
+							sendTerminalResult(p)
+						}
+						// Publish the one lobby-terminal signal once the
+						// void is delivered: admission, leave, queue and
+						// rematch all key off completed, so participants
+						// are released promptly instead of staying
+						// reserved by an "active" lobby through the
+						// finished-match retention. This claims no
+						// durability: the wire result stays
+						// Committed:false/Void:true and the local
+						// committed flag stays false, so the deferred
+						// exit path still attempts the durable void.
+						m.completed.Store(true)
+					}
 				}
 				cancel()
 				if err == nil {
@@ -1034,9 +1136,17 @@ func (m *liveMatch) run() {
 					m.completed.Store(true)
 					finishedAt = now
 					outcome := &pb.Outcome{Finished: true, Draw: state.Outcome.Draw, WinningTeam: state.Outcome.WinningTeam, Reason: state.Outcome.Reason, Tick: uint32(state.Outcome.Tick)}
+					terminalResult = &pb.MatchResult{MatchId: m.id, Outcome: outcome, Committed: true}
 					for _, p := range peers {
-						send(p, &pb.Envelope{Message: &pb.Envelope_Result{Result: &pb.MatchResult{MatchId: m.id, Outcome: outcome, Committed: true}}})
+						sendTerminalResult(p)
 					}
+				} else if !terminal {
+					// Retry waits: 1s (as before), then 2s, 4s, 8s, capped.
+					commitRetryDelay = time.Second << min(commitAttempts, 4)
+					if commitRetryDelay > 15*time.Second {
+						commitRetryDelay = 15 * time.Second
+					}
+					commitAttempts++
 				}
 			}
 			if now.Sub(lastStatus) >= time.Second {
@@ -1045,7 +1155,7 @@ func (m *liveMatch) run() {
 			if m.metricsEnabled {
 				m.metrics.recordTick(time.Since(tickWorkStart), requestDepth, advanced)
 			}
-			if committed && now.Sub(finishedAt) > 5*time.Minute {
+			if (committed || terminal) && now.Sub(finishedAt) > matchFinishedRetention {
 				return
 			}
 		}

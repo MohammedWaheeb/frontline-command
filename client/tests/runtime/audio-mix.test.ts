@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {create} from '@bufbuild/protobuf';
 import {oneShotMix} from '../../src/audio/battlefield-sound';
-import {AudioMixer} from '../../src/audio/mixer';
+import {AudioMixer,outputCeilingCurve} from '../../src/audio/mixer';
 import {AudioDirector} from '../../src/audio/director';
 import type {AudioMixer as MixerType} from '../../src/audio/mixer';
 import {CatalogIndex,type Catalog} from '../../src/content/catalog';
@@ -98,6 +98,18 @@ test('pending IR_SHAHED clip falls back to explosion_small until the SFX lane sh
 });
 
 // --- mixer fairness and ducking ----------------------------------------------
+
+test('output mix retains quiet levels and a symmetric peak ceiling',()=>{
+ const curve=outputCeilingCurve(),sample=(input:number)=>curve[Math.round((input+1)*(curve.length-1)/2)];
+ assert.equal(sample(0),0);
+ for(const input of [.03125,.125,.25])assert.equal(sample(input),input,'quiet material should retain its original level');
+ for(let i=0;i<curve.length;i++){
+  assert.ok(Number.isFinite(curve[i])&&Math.abs(curve[i])<=1,'mix exceeded full scale');
+  assert.equal(curve[i]+curve[curve.length-1-i],0,'ceiling introduced DC asymmetry');
+  if(i)assert.ok(curve[i]>=curve[i-1],'ceiling folded the waveform');
+ }
+ assert.ok(sample(.875)>.8&&sample(.875)<1,'loud peaks should soften before full scale');
+});
 
 const bytes=(label:string)=>new TextEncoder().encode(label);
 const hash=(label:string)=>createHash('sha256').update(bytes(label)).digest('hex');

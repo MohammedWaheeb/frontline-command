@@ -1,0 +1,529 @@
+{
+ "version": 1,
+ "tests": [
+  {
+   "name": "TestContentScanRejectsOversizedAndLinkedInputsBeforeReading",
+   "file": "cmd/contentcheck/main_test.go",
+   "lane": "manual: go test -count=1 -run '^TestContentScanRejectsOversizedAndLinkedInputsBeforeReading$' ./cmd/contentcheck/",
+   "reason": "Unsupported gate shape (capability skip inside the body): the body runs in the default lane and by this command; only the symlink sub-case skips, and only when os.Symlink itself is unavailable (for example unprivileged Windows)."
+  },
+  {
+   "name": "BenchmarkMaximumBrowserAdapter",
+   "file": "cmd/wasm/browser_load_benchmark_test.go",
+   "lane": "manual: FRONTLINE_BROWSER_LOAD_DIR=\"$PWD/work/evidence/browser-load\" go test -count=1 -run '^$' -bench '^BenchmarkMaximumBrowserAdapter$' ./cmd/wasm/",
+   "reason": "Needs the fixture exported first by TestExportBrowserMaximumLoad (see docs/browser-maximum-load.md); no make lane passes -bench or sets FRONTLINE_BROWSER_LOAD_DIR."
+  },
+  {
+   "name": "BenchmarkOfflinePriorityUnchanged",
+   "file": "cmd/wasm/session_priority_merge_test.go",
+   "lane": "manual: FRONTLINE_BROWSER_LOAD_DIR=\"$PWD/work/evidence/browser-load\" go test -count=1 -run '^$' -bench '^BenchmarkOfflinePriorityUnchanged$' ./cmd/wasm/",
+   "reason": "Uses the restore-validated fixture exported by TestExportBrowserMaximumLoad; no make lane passes -bench or sets FRONTLINE_BROWSER_LOAD_DIR."
+  },
+  {
+   "name": "TestCombatFeedbackCodecActualAuthorizedOutputs",
+   "file": "cmd/wasm/combat_feedback_codec_test.go",
+   "lane": "manual: FRONTLINE_COMBAT_INPUT=/path/to/combat-feedback-output go test -count=1 -run '^TestCombatFeedbackCodecActualAuthorizedOutputs$' ./cmd/wasm/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestOwnerCasualtyActualCodec",
+   "file": "cmd/wasm/owner_casualty_codec_test.go",
+   "lane": "manual: FRONTLINE_CASUALTY_INPUT=/path/to/casualty-fixtures go test -count=1 -run '^TestOwnerCasualtyActualCodec$' ./cmd/wasm/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestOwnerRangesActualCodec",
+   "file": "cmd/wasm/owner_ranges_codec_test.go",
+   "lane": "manual: FRONTLINE_RANGES_INPUT=/path/to/range-fixtures go test -count=1 -run '^TestOwnerRangesActualCodec$' ./cmd/wasm/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestCandidateServiceSessionAdapterParity",
+   "file": "cmd/wasm/service_parking_candidate_test.go",
+   "lane": "manual: FRONTLINE_SERVICE_INPUT=/path/to/service-scene-inputs FRONTLINE_SERVICE_ADAPTER_OUTPUT=/path/to/evidence-out go test -count=1 -run '^TestCandidateServiceSessionAdapterParity$' ./cmd/wasm/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestCombatFeedbackCodecActualAuthorizedOutputs",
+   "file": "internal/server/combat_feedback_codec_test.go",
+   "lane": "manual: FRONTLINE_COMBAT_INPUT=/path/to/combat-feedback-output go test -count=1 -run '^TestCombatFeedbackCodecActualAuthorizedOutputs$' ./internal/server/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestOwnerCasualtyActualCodec",
+   "file": "internal/server/owner_casualty_codec_test.go",
+   "lane": "manual: FRONTLINE_CASUALTY_INPUT=/path/to/casualty-fixtures go test -count=1 -run '^TestOwnerCasualtyActualCodec$' ./internal/server/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestOwnerRangesActualCodec",
+   "file": "internal/server/owner_ranges_codec_test.go",
+   "lane": "manual: FRONTLINE_RANGES_INPUT=/path/to/range-fixtures go test -count=1 -run '^TestOwnerRangesActualCodec$' ./internal/server/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestPlayerHaulerActualSavedContract",
+   "file": "internal/viewproto/player_hauler_saved_contract_test.go",
+   "lane": "manual: FRONTLINE_HAULER_SAVE_DIR=/path/to/hauler-save-corpus go test -count=1 -run '^TestPlayerHaulerActualSavedContract$' ./internal/viewproto/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestActualGoSavedViewsMatchJSON",
+   "file": "internal/viewproto/snapshot_test.go",
+   "lane": "manual: FRONTLINE_SNAPSHOT_SAVE_DIRS=/path/to/save-fixtures go test -count=1 -run '^TestActualGoSavedViewsMatchJSON$' ./internal/viewproto/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIBetaBorderDepotsIranPaidProgress",
+   "file": "pkg/sim/ai_beta_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AI_BETA_ACCEPTANCE=1 go test -count=1 -run '^TestAIBetaBorderDepotsIranPaidProgress$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIBetaHardBeatsEasyPaidMirrorMajority",
+   "file": "pkg/sim/ai_beta_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AI_BETA_ACCEPTANCE=1 go test -count=1 -run '^TestAIBetaHardBeatsEasyPaidMirrorMajority$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIBetaHardP1WaveDiagnostic",
+   "file": "pkg/sim/ai_beta_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AI_BETA_ACCEPTANCE=1 FRONTLINE_AI_BETA_DIAGNOSTIC=1 go test -count=1 -run '^TestAIBetaHardP1WaveDiagnostic$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIBetaNormalBeatsEasyPaidMirrorMajority",
+   "file": "pkg/sim/ai_beta_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AI_BETA_ACCEPTANCE=1 go test -count=1 -run '^TestAIBetaNormalBeatsEasyPaidMirrorMajority$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIBetaPaidWaveSaveAndFullReplay",
+   "file": "pkg/sim/ai_beta_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AI_BETA_ACCEPTANCE=1 go test -count=1 -run '^TestAIBetaPaidWaveSaveAndFullReplay$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIBetaPaidWavesOnDefaultMaps",
+   "file": "pkg/sim/ai_beta_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AI_BETA_ACCEPTANCE=1 go test -count=1 -run '^TestAIBetaPaidWavesOnDefaultMaps$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIQualityCompetenceRecordedFullReplay",
+   "file": "pkg/sim/ai_quality_competence_diagnostic_test.go",
+   "lane": "manual: FRONTLINE_AI_COMPETENCE_REPLAY=/path/to/competence-replay FRONTLINE_AI_COMPETENCE_BINDING=/path/to/source-binding.json go test -count=1 -run '^TestAIQualityCompetenceRecordedFullReplay$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIQualityCompetenceRecordedOrdinary",
+   "file": "pkg/sim/ai_quality_competence_diagnostic_test.go",
+   "lane": "manual: FRONTLINE_AI_COMPETENCE=1 FRONTLINE_AI_COMPETENCE_BINDING=/path/to/source-binding.json FRONTLINE_AI_COMPETENCE_CASE=case-id go test -count=1 -run '^TestAIQualityCompetenceRecordedOrdinary$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIFoggedSupplyOpeningOnAuthoredMaps",
+   "file": "pkg/sim/ai_supply_scout_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_AI=1 go test -count=1 -run '^TestAIFoggedSupplyOpeningOnAuthoredMaps$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAIRecordedPortRecoveryProgress",
+   "file": "pkg/sim/ai_task_recovery_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_AI_RECOVERY=/path/to/port-recovery-fork go test -count=1 -run '^TestAIRecordedPortRecoveryProgress$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAICompleteStandardMatches",
+   "file": "pkg/sim/ai_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAIUsesBaseEconomy",
+   "file": "pkg/sim/ai_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestMaximumActorsSimultaneousAirReturn",
+   "file": "pkg/sim/air_performance_test.go",
+   "lane": "manual: go test -count=1 -run '^TestMaximumActorsSimultaneousAirReturn$' -timeout=120m ./pkg/sim/",
+   "reason": "Unsupported compound gate (testing.Short() || raceInstrumentation): the manual command passes neither -short nor -race, so the workload runs; the extended lane also runs it, but the scanner cannot prove a compound condition."
+  },
+  {
+   "name": "TestAuthoredAIStallReadOnlyRoutes",
+   "file": "pkg/sim/authored_ai_stall_inspection_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_AI_STALL=/path/to/port-timeout-inspection go test -count=1 -run '^TestAuthoredAIStallReadOnlyRoutes$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAuthoredCampaignAssaultCompletion",
+   "file": "pkg/sim/authored_campaign_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredCampaignCaptureCompletion",
+   "file": "pkg/sim/authored_campaign_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredCampaignDefenseCompletion",
+   "file": "pkg/sim/authored_campaign_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredCampaignEscortCompletion",
+   "file": "pkg/sim/authored_campaign_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredCampaignOpeningCompletion",
+   "file": "pkg/sim/authored_campaign_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredCampaignReplacementObserverCompletion",
+   "file": "pkg/sim/authored_campaign_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredCampaignTerritoryCompletion",
+   "file": "pkg/sim/authored_campaign_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredCoopCompletion",
+   "file": "pkg/sim/authored_campaign_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredCaptureVisibleSiteObservedInfantry",
+   "file": "pkg/sim/authored_capture_visible_site_test.go",
+   "lane": "manual: FRONTLINE_CAPTURE_PLACEMENT_FIXTURE=/path/to/occupied-site-fixture.json go test -count=1 -run '^TestAuthoredCaptureVisibleSiteObservedInfantry$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAuthoredOptionalCompleteReleaseGaps",
+   "file": "pkg/sim/authored_complete_release_optional_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredDepotAlternateAccessEvidence",
+   "file": "pkg/sim/authored_depot_diagnostic_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_DEPOT_INSPECT=/path/to/depot-inspection go test -count=1 -run '^TestAuthoredDepotAlternateAccessEvidence$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAuthoredDepotCongestionEvidence",
+   "file": "pkg/sim/authored_depot_diagnostic_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_DEPOT_INSPECT=/path/to/depot-inspection go test -count=1 -run '^TestAuthoredDepotCongestionEvidence$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAuthoredFatalDiagnostics",
+   "file": "pkg/sim/authored_failure_diagnostics_probe_test.go",
+   "lane": "manual: FRONTLINE_TEST_FATAL_DIAGNOSTICS=1 go test -count=1 -run '^TestAuthoredFatalDiagnostics$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAuthoredFatalProbeChild",
+   "file": "pkg/sim/authored_failure_diagnostics_probe_test.go",
+   "lane": "manual: FRONTLINE_TEST_FATAL_DIAGNOSTICS=1 go test -count=1 -run '^TestAuthoredFatalDiagnostics$' ./pkg/sim/",
+   "via": "TestAuthoredFatalDiagnostics",
+   "reason": "Deliberately-failing subprocess probe: the parent re-executes it with FRONTLINE_FATAL_PROBE=<mode> for each diagnostic mode; a direct run is supposed to fail."
+  },
+  {
+   "name": "TestAuthoredAssetLossBoundaries",
+   "file": "pkg/sim/authored_mission_paths_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalScoutPreservation",
+   "file": "pkg/sim/authored_mission_paths_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalStations",
+   "file": "pkg/sim/authored_mission_paths_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredSharedConvoyLoss",
+   "file": "pkg/sim/authored_mission_paths_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredSpecificFailures",
+   "file": "pkg/sim/authored_mission_paths_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalReliabilityBasinStations",
+   "file": "pkg/sim/authored_optional_reliability_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalReliabilityCleanInterception",
+   "file": "pkg/sim/authored_optional_reliability_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalReliabilityConnectedRoutes",
+   "file": "pkg/sim/authored_optional_reliability_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalReliabilityNetworkPreservation",
+   "file": "pkg/sim/authored_optional_reliability_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalReliabilityRelayScout",
+   "file": "pkg/sim/authored_optional_reliability_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalDistantStations",
+   "file": "pkg/sim/authored_optional_routes_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalFactoryCapture",
+   "file": "pkg/sim/authored_optional_routes_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalMechanicTeams",
+   "file": "pkg/sim/authored_optional_routes_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalMissileBudget",
+   "file": "pkg/sim/authored_optional_routes_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalObserverNetwork",
+   "file": "pkg/sim/authored_optional_routes_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalTrailSalvage",
+   "file": "pkg/sim/authored_optional_routes_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredOptionalWingEvacuation",
+   "file": "pkg/sim/authored_optional_routes_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredSkirmishAcceptance",
+   "file": "pkg/sim/authored_skirmish_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_AI=1 go test -count=1 -run '^TestAuthoredSkirmishAcceptance$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAuthoredSkirmishOpeningContext",
+   "file": "pkg/sim/authored_skirmish_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_AI_OPENING=/path/to/opening-diagnosis go test -count=1 -run '^TestAuthoredSkirmishOpeningContext$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAuthoredSkirmishRejectionContext",
+   "file": "pkg/sim/authored_skirmish_acceptance_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_AI_INSPECT=/path/to/recorded-replay go test -count=1 -run '^TestAuthoredSkirmishRejectionContext$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestAuthoredSoloCoopCompletion",
+   "file": "pkg/sim/authored_solo_coop_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestAuthoredTutorialCompletion",
+   "file": "pkg/sim/authored_tutorial_acceptance_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestBalanceAircraftSorties",
+   "file": "pkg/sim/balance_scenarios_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestBalanceGroundCompositions",
+   "file": "pkg/sim/balance_scenarios_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestBalanceLegalAirAndAAOpenings",
+   "file": "pkg/sim/balance_scenarios_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestExportBrowserMaximumLoad",
+   "file": "pkg/sim/browser_load_fixture_test.go",
+   "lane": "manual: FRONTLINE_BROWSER_LOAD_DIR=\"$PWD/work/evidence/browser-load\" go test -count=1 -run '^TestExportBrowserMaximumLoad$' -timeout=120m ./pkg/sim/",
+   "reason": "Fixture export for the browser load course, documented in docs/browser-maximum-load.md; the browser lane itself runs no Go tests."
+  },
+  {
+   "name": "TestCampaignBotSweepAll",
+   "file": "pkg/sim/campaign_bot_sweep_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestCombatReliabilityCadenceInspection",
+   "file": "pkg/sim/combat_reliability_test.go",
+   "lane": "manual: FRONTLINE_COMBAT_CADENCE_INSPECTION=1 go test -count=1 -run '^TestCombatReliabilityCadenceInspection$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestCombatRulesProjection",
+   "file": "pkg/sim/combat_rules_projection_test.go",
+   "lane": "manual: FRONTLINE_RULES_PROJECTION=/path/to/rules-projection.json go test -count=1 -run '^TestCombatRulesProjection$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestMaximumActorsReturnsRoutesAndInterceptionTogether",
+   "file": "pkg/sim/combined_performance_test.go",
+   "lane": "manual: go test -count=1 -run '^TestMaximumActorsReturnsRoutesAndInterceptionTogether$' -timeout=120m ./pkg/sim/",
+   "reason": "Unsupported compound gate (testing.Short() || raceInstrumentation): the manual command passes neither -short nor -race, so the workload runs; the extended lane also runs it, but the scanner cannot prove a compound condition."
+  },
+  {
+   "name": "TestConfirmedPublicIntake036NaturalBorder4800",
+   "file": "pkg/sim/confirmed_public_intake_036_test.go",
+   "lane": "manual: FRONTLINE_INTAKE036_CHECKPOINT=/path/to/exact-036-checkpoint FRONTLINE_INTAKE036_CHECKPOINT_SHA256=sha256-of-checkpoint-file go test -count=1 -run '^TestConfirmedPublicIntake036NaturalBorder4800$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestCurrent035CoopHumanAICompletion",
+   "file": "pkg/sim/current035_coop_practice_acceptance_test.go",
+   "lane": "manual: FRONTLINE_CURRENT_COOP_CONFIG=/path/to/current-coop-course.json go test -count=1 -run '^TestCurrent035CoopHumanAICompletion$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestCurrent035EditorPracticeCompletion",
+   "file": "pkg/sim/current035_coop_practice_acceptance_test.go",
+   "lane": "manual: FRONTLINE_CURRENT_PRACTICE_CONFIG=/path/to/current-practice-course.json go test -count=1 -run '^TestCurrent035EditorPracticeCompletion$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestCurrent035TwinIsolatedAIHold",
+   "file": "pkg/sim/current035_twin_isolation_acceptance_test.go",
+   "lane": "manual: FRONTLINE_CURRENT_COOP_PRACTICE_EVIDENCE=/path/to/fresh-evidence-dir FRONTLINE_TWIN_ISOLATION_CONFIG=/path/to/twin-isolation-course.json go test -count=1 -run '^TestCurrent035TwinIsolatedAIHold$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestHarvestDepotRecordedCongestionRecovers",
+   "file": "pkg/sim/harvest_depot_test.go",
+   "lane": "manual: FRONTLINE_AUTHORED_DEPOT_INSPECT=/path/to/depot-inspection go test -count=1 -run '^TestHarvestDepotRecordedCongestionRecovers$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestNavigationGuardContactOriginalFailedCycleContinuation",
+   "file": "pkg/sim/navigation_guard_contact_test.go",
+   "lane": "manual: FRONTLINE_GUARD_CONTACT_FAILED_SAVE=/path/to/final.save.json go test -count=1 -run '^TestNavigationGuardContactOriginalFailedCycleContinuation$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "BenchmarkNavigationRoutes",
+   "file": "pkg/sim/navigation_route_bench_test.go",
+   "lane": "manual: go test -count=1 -run '^$' -bench '^BenchmarkNavigationRoutes$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane passes -bench; the b.Skip only fires if the late-game fixture has no ground movers."
+  },
+  {
+   "name": "TestLateGameRouteWorkStaysBounded",
+   "file": "pkg/sim/navigation_tick_budget_test.go",
+   "lane": "extended"
+  },
+  {
+   "name": "TestMaximumActorsMovingAndFighting",
+   "file": "pkg/sim/performance_test.go",
+   "lane": "manual: go test -count=1 -run '^TestMaximumActorsMovingAndFighting$' -timeout=120m ./pkg/sim/",
+   "reason": "Unsupported compound gate (testing.Short() || raceInstrumentation): the manual command passes neither -short nor -race, so the workload runs; the extended lane also runs it, but the scanner cannot prove a compound condition."
+  },
+  {
+   "name": "TestMaximumActorTickBudget",
+   "file": "pkg/sim/performance_test.go",
+   "lane": "manual: go test -count=1 -run '^TestMaximumActorTickBudget$' -timeout=120m ./pkg/sim/",
+   "reason": "Unsupported compound gate (testing.Short() || raceInstrumentation): the manual command passes neither -short nor -race, so the workload runs; the extended lane also runs it, but the scanner cannot prove a compound condition."
+  },
+  {
+   "name": "TestBotsFinishThreeAndFourPlayerMatches",
+   "file": "pkg/sim/player_matrix_test.go",
+   "lane": "manual: go test -count=1 -run '^TestBotsFinishThreeAndFourPlayerMatches$' -timeout=120m ./pkg/sim/",
+   "reason": "Unsupported compound gate (testing.Short() || raceInstrumentation): the manual command passes neither -short nor -race, so the workload runs; the extended lane also runs it, but the scanner cannot prove a compound condition."
+  },
+  {
+   "name": "TestPracticeTerminalBoundary",
+   "file": "pkg/sim/practice_terminal_boundary_reliability_test.go",
+   "lane": "manual: FRONTLINE_PRACTICE_TERMINAL_EVIDENCE=/path/to/fresh-evidence-dir FRONTLINE_PRACTICE_TERMINAL_SOURCE_ROOT=/path/to/pinned-source-root go test -count=1 -run '^TestPracticeTerminalBoundary$' -timeout=120m ./pkg/sim/",
+   "reason": "Needs the env var set and no -short; No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestCaptureCheckpointActual688Artifact",
+   "file": "pkg/sim/replay_checkpoint_test.go",
+   "lane": "manual: FRONTLINE_CHECKPOINT_INPUT=/path/to/actual688.save.json FRONTLINE_CHECKPOINT_OUTPUT=/path/to/checkpoint-output go test -count=1 -run '^TestCaptureCheckpointActual688Artifact$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestExteriorMaximumCombinedReturnsRoutesInterception",
+   "file": "pkg/sim/service_parking_combined_test.go",
+   "lane": "manual: go test -count=1 -run '^TestExteriorMaximumCombinedReturnsRoutesInterception$' -timeout=120m ./pkg/sim/",
+   "reason": "Unsupported compound gate (testing.Short() || raceInstrumentation): the manual command passes neither -short nor -race, so the workload runs; the extended lane also runs it, but the scanner cannot prove a compound condition."
+  },
+  {
+   "name": "TestExteriorMaximum64OrdinaryReturns",
+   "file": "pkg/sim/service_parking_maximum_test.go",
+   "lane": "manual: go test -count=1 -run '^TestExteriorMaximum64OrdinaryReturns$' -timeout=120m ./pkg/sim/",
+   "reason": "Unsupported compound gate (testing.Short() || raceInstrumentation): the manual command passes neither -short nor -race, so the workload runs; the extended lane also runs it, but the scanner cannot prove a compound condition."
+  },
+  {
+   "name": "TestSoakDissect",
+   "file": "pkg/sim/soak_probe_test.go",
+   "lane": "manual: FRONTLINE_DISSECT='map-id:seed:players:from:to' go test -count=1 -run '^TestSoakDissect$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestSoakProbe",
+   "file": "pkg/sim/soak_probe_test.go",
+   "lane": "manual: FRONTLINE_SOAK=1 go test -count=1 -run '^TestSoakProbe$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestStressBots",
+   "file": "pkg/sim/stress_bots_test.go",
+   "lane": "manual: STRESS=1 go test -count=1 -run '^TestStressBots$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestStressChaos",
+   "file": "pkg/sim/stress_chaos_test.go",
+   "lane": "manual: STRESS=1 go test -count=1 -run '^TestStressChaos$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestStressFactionMatrix",
+   "file": "pkg/sim/stress_faction_matrix_test.go",
+   "lane": "manual: STRESS=1 go test -count=1 -run '^TestStressFactionMatrix$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestStressManySeeds",
+   "file": "pkg/sim/stress_many_seeds_test.go",
+   "lane": "manual: STRESS=1 go test -count=1 -run '^TestStressManySeeds$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestStressReplay",
+   "file": "pkg/sim/stress_replay_test.go",
+   "lane": "manual: STRESS=1 go test -count=1 -run '^TestStressReplay$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  },
+  {
+   "name": "TestTacticalCanonicalStatePreservation",
+   "file": "pkg/sim/tactical_canonical_test.go",
+   "lane": "manual: FRONTLINE_CANONICAL_OUTPUT=/path/to/canonical-output.json go test -count=1 -run '^TestTacticalCanonicalStatePreservation$' -timeout=120m ./pkg/sim/",
+   "reason": "No make lane sets this variable; run manually with the external fixture or course inputs it names."
+  }
+ ]
+}

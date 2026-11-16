@@ -12,6 +12,7 @@ import {Segmented,Tabs,TabPanel} from './menu/kit/Segmented';
 import {ConfirmModal} from './menu/kit/ConfirmModal';
 import {FooterActionBar,useMenuScreen,useScreenFill} from './menu/kit/screen';
 import {Chord,useRemembered} from './records/shared';
+import {ART_QUALITY_OPTIONS,qualityForBuild} from '../render/build-art-profile';
 
 type Tab='gameplay'|'controls'|'graphics'|'interface'|'accessibility'|'audio';
 const TABS:ReadonlyArray<{id:Tab;label:string;icon:string;keys:readonly (keyof Settings)[];resets:string}>=[
@@ -90,7 +91,7 @@ export function SettingsPanel({app}:{app:Application}){
 </>
  :tab==='graphics'?<>
   <Group title="Art & effects" aside={resetAside}>
-   <Row label="Art quality" hint="Applies from your next battle."><Select aria-label="Art quality" value={settings.artQuality} onChange={value=>update({artQuality:value})} options={[{value:'auto',label:'Automatic (recommended)'},{value:'standard',label:'Standard · lower memory'},{value:'high',label:'High · sharper unit art'}]}/></Row>
+   <Row label="Art quality" hint="Applies from your next battle."><Select aria-label="Art quality" value={qualityForBuild(settings.artQuality)} onChange={value=>update({artQuality:value})} options={ART_QUALITY_OPTIONS}/></Row>
    <Slider label="Screen shake" hint="Reduced motion, reduced flashing or 0% turn camera shake off." value={settings.screenShake} min={0} max={1} step={.1} format={value=>value?percent(value):'Off'} onChange={value=>update({screenShake:value})}/>
   </Group></>
  :tab==='interface'?<>

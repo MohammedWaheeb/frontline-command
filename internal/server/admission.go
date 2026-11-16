@@ -1,6 +1,9 @@
 package server
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
+	"log"
 	"net"
 	"net/http"
 	"net/netip"
@@ -17,10 +20,24 @@ type admissionControl struct {
 	loadProfile bool
 	// trusted lists reverse proxies whose X-Forwarded-For is believed. Empty
 	// (the default) keys every limit on the TCP peer address.
-	trusted []netip.Prefix
-	mu      sync.Mutex
-	windows map[string]requestWindow
+	trusted   []netip.Prefix
+	mu        sync.Mutex
+	windows   map[string]requestWindow
+	lastSweep time.Time
+	// untrustedForward logs, once, a forwarded request from an unlisted peer:
+	// a proxy missing from -trusted-proxies puts every player on one budget.
+	untrustedForward sync.Once
 }
+
+// The window table holds one entry per active address or credential and
+// category (2–4 per player), so it must hold several thousand players. Expired
+// entries are swept at most once a second, never once per request.
+const admissionWindowCapacity = 1 << 17
+
+// Signed-in players behind one address (a household, school or carrier NAT)
+// each get their own read, write and advice budget. The address keeps a shared
+// ceiling so minting credentials cannot multiply one client's allowance freely.
+const sharedAddressFactor = 8
 
 // Socket upgrades get a generous per-IP flood bound, while only failed
 // hello/token authentications consume the tight failure budget. Counting
@@ -47,6 +64,11 @@ func remoteIP(r *http.Request) string {
 func (a *admissionControl) clientIP(r *http.Request) string {
 	peer := remoteIP(r)
 	if len(a.trusted) == 0 || !a.trustedAddr(peer) {
+		if r.Header.Get("X-Forwarded-For") != "" && !a.loadProfile {
+			a.untrustedForward.Do(func() {
+				log.Printf("request forwarded by %s, which is not in -trusted-proxies: rate limits treat every client behind it as one; name the proxy with -trusted-proxies", peer)
+			})
+		}
 		return peer
 	}
 	hops := []string{}
@@ -97,13 +119,16 @@ func (a *admissionControl) bumpLocked(key string, now time.Time) int {
 	if a.windows == nil {
 		a.windows = map[string]requestWindow{}
 	}
-	if len(a.windows) >= 8192 {
-		for k, v := range a.windows {
-			if now.Sub(v.started) >= time.Minute {
-				delete(a.windows, k)
+	if len(a.windows) >= admissionWindowCapacity {
+		if now.Sub(a.lastSweep) >= time.Second {
+			a.lastSweep = now
+			for k, v := range a.windows {
+				if now.Sub(v.started) >= time.Minute {
+					delete(a.windows, k)
+				}
 			}
 		}
-		if _, ok := a.windows[key]; !ok && len(a.windows) >= 8192 {
+		if _, ok := a.windows[key]; !ok && len(a.windows) >= admissionWindowCapacity {
 			return -1
 		}
 	}
@@ -122,7 +147,7 @@ func (a *admissionControl) bumpLocked(key string, now time.Time) int {
 func (a *admissionControl) noteSocketFailure(r *http.Request, now time.Time) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	a.bumpLocked(a.clientIP(r)+":socket-failed", now)
+	a.bumpLocked(addressKey(a.clientIP(r))+":socket-failed", now)
 }
 
 func (a *admissionControl) allow(r *http.Request, now time.Time) bool {
@@ -163,12 +188,46 @@ func (a *admissionControl) allow(r *http.Request, now time.Time) bool {
 			limit = 3000
 		}
 	}
-	key := ip + ":" + category
+	key := addressKey(ip) + ":" + category
+	shared := ""
+	if credential := bearerCredential(r); credential != "" && (category == "read" || category == "write" || category == "advice") {
+		shared, key = key, credential+":"+category
+	}
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	if isSocket && !loadLoopback && a.windowCountLocked(ip+":socket-failed", now) >= socketFailureLimit {
+	if isSocket && !loadLoopback && a.windowCountLocked(addressKey(ip)+":socket-failed", now) >= socketFailureLimit {
 		return false
 	}
 	count := a.bumpLocked(key, now)
-	return count >= 0 && count <= limit
+	if count < 0 || count > limit {
+		return false
+	}
+	if shared != "" {
+		count = a.bumpLocked(shared, now)
+		return count >= 0 && count <= limit*sharedAddressFactor
+	}
+	return true
+}
+
+// addressKey groups an IPv6 client by its /64, the block one subscriber is
+// normally assigned, so rotating addresses inside it cannot evade limits or
+// fill the window table. IPv4 addresses are used as they are.
+func addressKey(ip string) string {
+	addr, err := netip.ParseAddr(ip)
+	if err != nil || !addr.Is6() || addr.Is4In6() {
+		return ip
+	}
+	prefix, _ := addr.Prefix(64)
+	return prefix.String()
+}
+
+// bearerCredential is a short digest of the request's bearer token, so the
+// window table never retains credentials. Empty without a bearer token.
+func bearerCredential(r *http.Request) string {
+	token, ok := strings.CutPrefix(r.Header.Get("Authorization"), "Bearer ")
+	if !ok || token == "" {
+		return ""
+	}
+	sum := sha256.Sum256([]byte(token))
+	return "credential-" + hex.EncodeToString(sum[:12])
 }

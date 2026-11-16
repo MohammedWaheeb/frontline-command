@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"log"
 	"time"
 )
 
@@ -24,38 +25,52 @@ func (s *SQLite) CheckpointMatch(ctx context.Context, id string, tick uint32, da
 	if !ValidID(id) || len(data) > 64<<20 {
 		return errors.New("invalid match checkpoint")
 	}
-	// Capture the bytes being replaced too: the opening checkpoint is only
-	// written by StartMatchAccess, so its digest would otherwise be lost
-	// when the first 30s/co-op checkpoint overwrites it.
-	var prior []byte
-	priorErr := s.db.QueryRowContext(ctx, `SELECT data FROM active_matches WHERE id=?`, id).Scan(&prior)
-	if priorErr != nil && !errors.Is(priorErr, sql.ErrNoRows) {
-		return priorErr
+	// The journal and its prior/current provenance are one durable update.
+	// Missing, finalized and stale checkpoints are no-ops: they must not mint
+	// provenance for bytes this journal never accepted or overwrite recovery.
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
 	}
-	if _, err := s.db.ExecContext(ctx, `UPDATE active_matches SET tick=?,data=?,updated=? WHERE id=? AND tick<=?`, tick, data, time.Now().Unix(), id, tick); err != nil {
+	defer tx.Rollback()
+	var prior []byte
+	var priorTick uint32
+	err = tx.QueryRowContext(ctx, `SELECT tick,data FROM active_matches WHERE id=? AND NOT EXISTS(SELECT 1 FROM results WHERE id=?)`, id, id).Scan(&priorTick, &prior)
+	if errors.Is(err, sql.ErrNoRows) {
+		return tx.Commit()
+	}
+	if err != nil {
+		return err
+	}
+	if priorTick > tick {
+		return tx.Commit()
+	}
+	if _, err = tx.ExecContext(ctx, `UPDATE active_matches SET tick=?,data=?,updated=? WHERE id=? AND tick<=?`, tick, data, time.Now().Unix(), id, tick); err != nil {
 		return err
 	}
 	if len(prior) > 0 {
-		if err := s.recordServerCheckpoint(ctx, id, tick, prior); err != nil {
+		if _, err = tx.ExecContext(ctx, insertServerCheckpoint, id, priorTick, digest(prior)); err != nil {
 			return err
 		}
 	}
-	return s.recordServerCheckpoint(ctx, id, tick, data)
+	if _, err = tx.ExecContext(ctx, insertServerCheckpoint, id, tick, digest(data)); err != nil {
+		return err
+	}
+	return tx.Commit()
 }
 
 // Server-issued checkpoint provenance. CheckpointMatch (the server's own
 // 30s/co-op persistence) records the digest of every state it stores.
 // Client uploads (PutSave) never write this table, so a fabricated save
-// cannot acquire provenance. The table is created lazily to avoid a schema
-// version bump; rows are (match, digest) pairs joined to match_members at
-// check time so provenance is per participant.
+// cannot acquire provenance. Existing builds created this table lazily; Open
+// now initializes the same additive table without a format-version change.
+// Rows are (match, digest) pairs joined to match_members at check time, so
+// provenance is per participant.
 const serverCheckpointsSchema = `CREATE TABLE IF NOT EXISTS server_checkpoints(match_id TEXT NOT NULL,tick INTEGER NOT NULL,digest TEXT NOT NULL,PRIMARY KEY(match_id,digest))`
+const insertServerCheckpoint = `INSERT OR IGNORE INTO server_checkpoints(match_id,tick,digest) VALUES(?,?,?)`
 
 func (s *SQLite) recordServerCheckpoint(ctx context.Context, id string, tick uint32, data []byte) error {
-	if _, err := s.db.ExecContext(ctx, serverCheckpointsSchema); err != nil {
-		return err
-	}
-	_, err := s.db.ExecContext(ctx, `INSERT OR IGNORE INTO server_checkpoints(match_id,tick,digest) VALUES(?,?,?)`, id, tick, digest(data))
+	_, err := s.db.ExecContext(ctx, insertServerCheckpoint, id, tick, digest(data))
 	return err
 }
 
@@ -66,9 +81,6 @@ func (s *SQLite) recordServerCheckpoint(ctx context.Context, id string, tick uin
 func (s *SQLite) HasServerCheckpoint(ctx context.Context, owner string, data []byte) (bool, error) {
 	if !ValidID(owner) || len(data) == 0 || len(data) > 64<<20 {
 		return false, nil
-	}
-	if _, err := s.db.ExecContext(ctx, serverCheckpointsSchema); err != nil {
-		return false, err
 	}
 	want := digest(data)
 	var recorded int
@@ -121,7 +133,20 @@ func (s *SQLite) RecoverInterrupted(ctx context.Context, objects ObjectRepositor
 		// A committed result wins even if its stale journal cannot be archived.
 		// In particular, object-store failure must not prevent startup for an
 		// already completed match.
-		if _, lookup := s.GetResult(ctx, m.ID); lookup == nil {
+		if result, lookup := s.GetResult(ctx, m.ID); lookup == nil {
+			// A recovery void may have retained this journal because its
+			// diagnostic could not be written. Retry archival without creating
+			// another result or changing its original payload/creation time.
+			if result.Void {
+				if archiveErr := objects.Put(ctx, m.ID+".diagnostic", m.Data); archiveErr != nil {
+					if ctx.Err() != nil {
+						return count, ctx.Err()
+					}
+					log.Printf("match %s recovery diagnostic still unavailable; checkpoint retained: %v", m.ID, archiveErr)
+					count++
+					continue
+				}
+			}
 			if _, err = s.db.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, m.ID); err != nil {
 				return count, err
 			}
@@ -130,17 +155,26 @@ func (s *SQLite) RecoverInterrupted(ctx context.Context, objects ObjectRepositor
 		} else if !errors.Is(lookup, ErrNotFound) {
 			return count, lookup
 		}
-		if err = objects.Put(ctx, m.ID+".diagnostic", m.Data); err != nil {
-			return count, err
+		archiveErr := objects.Put(ctx, m.ID+".diagnostic", m.Data)
+		if ctx.Err() != nil {
+			return count, ctx.Err()
 		}
 		payload, _ := json.Marshal(map[string]any{"match_id": m.ID, "void": true, "reason": "host_restart", "available_tick": m.Tick})
-		_, err = s.CommitResult(ctx, Result{ID: m.ID, Payload: payload, Void: true})
+		_, err = s.commitResult(ctx, Result{ID: m.ID, Payload: payload, Void: true}, archiveErr != nil)
+		if err == nil && archiveErr != nil {
+			log.Printf("match %s voided after host restart; diagnostic unavailable and checkpoint retained: %v", m.ID, archiveErr)
+		}
 		if errors.Is(err, ErrConflict) {
 			// A completed transaction wins over a stale checkpoint journal.
-			if _, lookup := s.GetResult(ctx, m.ID); lookup != nil {
+			// Keep an unarchived void's bytes even if another caller won.
+			result, lookup := s.GetResult(ctx, m.ID)
+			if lookup != nil {
 				return count, lookup
 			}
-			_, err = s.db.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, m.ID)
+			err = nil
+			if !result.Void || archiveErr == nil {
+				_, err = s.db.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, m.ID)
+			}
 		}
 		if err != nil {
 			return count, err

@@ -21,22 +21,28 @@ func (s *Session) Priority(player sim.PlayerID) ([]byte, error) {
 		return nil, fail("unauthorized_view", "Unknown player.", true)
 	}
 	f := s.pending[player]
-	visible := make(map[sim.ID]struct{}, len(ids))
-	for _, id := range ids {
-		visible[id] = struct{}{}
-	}
-	priority := &pb.PriorityFrame{Tick: uint32(s.engine.Tick())}
+	// Both the public view and PlayerVisibleEntityIDs publish IDs in ascending
+	// order. Merge their identity lists instead of constructing a membership map
+	// every tick, including the usual tick with no removals or new receipts.
+	var removed []uint32
+	current := 0
 	for _, id := range f.known {
-		if _, exists := visible[id]; !exists {
-			priority.RemovedEntities = append(priority.RemovedEntities, uint32(id))
+		for current < len(ids) && ids[current] < id {
+			current++
+		}
+		if current == len(ids) || ids[current] != id {
+			removed = append(removed, uint32(id))
 		}
 	}
-	priority.Results = viewproto.Snapshot(sim.View{Results: f.results}).Results
-	// Marshal before draining, so a failed publication does not lose feedback.
-	if len(priority.RemovedEntities) == 0 && len(priority.Results) == 0 {
+	if len(removed) == 0 && len(f.results) == 0 {
 		f.known = ids
 		return nil, nil
 	}
+	priority := &pb.PriorityFrame{Tick: uint32(s.engine.Tick()), RemovedEntities: removed}
+	if len(f.results) > 0 {
+		priority.Results = viewproto.Snapshot(sim.View{Results: f.results}).Results
+	}
+	// Marshal before draining, so a failed publication does not lose feedback.
 	data, err := proto.Marshal(priority)
 	if err != nil {
 		return nil, fail("internal", "Priority conversion failed: "+err.Error(), false)

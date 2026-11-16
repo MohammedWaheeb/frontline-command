@@ -2,5 +2,5 @@ import {battlefieldStatus,type BattlefieldStatusInput} from '../app/session-pres
 
 export function BattlefieldStatus(props:BattlefieldStatusInput){
  const status=battlefieldStatus(props);
- return <span className="live-led" role="status" title={status.description} aria-label={`${status.label}: ${status.description}`}><i className="led" aria-hidden="true"/>{status.label}</span>;
+ return <span className="live-led" data-state={status.label.toLowerCase()} role="status" title={status.description} aria-label={`${status.label}: ${status.description}`}><i className="led" aria-hidden="true"/>{status.label}</span>;
 }

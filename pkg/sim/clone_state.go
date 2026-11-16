@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"slices"
+	"unicode/utf8"
 
 	"frontlinecommand/pkg/content"
 )
@@ -19,6 +20,24 @@ func MarshalState(state State) ([]byte, error) {
 	}
 	h := sha256.Sum256(b)
 	return json.Marshal(saveEnvelope{Version: 1, SHA256: hex.EncodeToString(h[:]), State: b})
+}
+
+// SaveWithHash returns exactly Save()'s envelope bytes together with
+// exactly Hash()'s digest. MarshalState already computes the SHA-256
+// of the same state bytes Hash() marshals, so one serialization of
+// the full state yields both.
+func (e *Engine) SaveWithHash() ([]byte, string, error) {
+	b, err := json.Marshal(e.state)
+	if err != nil {
+		return nil, "", err
+	}
+	h := sha256.Sum256(b)
+	hash := hex.EncodeToString(h[:])
+	envelope, err := json.Marshal(saveEnvelope{Version: 1, SHA256: hash, State: b})
+	if err != nil {
+		return nil, "", err
+	}
+	return envelope, hash, nil
 }
 
 // CloneState returns a deep copy of the live state that shares no
@@ -48,6 +67,78 @@ func (e *Engine) CloneState() State {
 	return s
 }
 
+// StateCopy historically made a JSON round-trip. Use the detached structural
+// snapshot while retaining that API's empty optional-slice normalization.
+// Ordinary save/checkpoint cloning keeps the exact live slice shape instead.
+func (e *Engine) copyStateForInspection() State {
+	// Native Config names/rulesets are the only strings that reach State
+	// without JSON decoding or enum validation. Retain the former per-byte
+	// replacement of invalid UTF-8 on that rare API edge. Map, catalog,
+	// mission and submitted-order strings already passed through JSON.
+	validStrings := utf8.ValidString(e.state.Metadata.Ruleset)
+	for _, p := range e.state.Players {
+		if p != nil && !utf8.ValidString(p.Name) {
+			validStrings = false
+		}
+	}
+	if !validStrings {
+		b, _ := json.Marshal(e.state)
+		var s State
+		_ = json.Unmarshal(b, &s)
+		return s
+	}
+	s := e.CloneState()
+	if len(s.Map.Regions) == 0 {
+		s.Map.Regions = nil
+	}
+	if len(s.Map.Objects) == 0 {
+		s.Map.Objects = nil
+	}
+	orders := func(list []Order) {
+		for i := range list {
+			if len(list[i].Entities) == 0 {
+				list[i].Entities = nil
+			}
+			if len(list[i].Points) == 0 {
+				list[i].Points = nil
+			}
+		}
+	}
+	for _, v := range s.Entities {
+		if v != nil {
+			orders(v.Orders)
+		}
+	}
+	for _, list := range [][]Scheduled{s.Pending, s.Log} {
+		for i := range list {
+			orders(list[i].Orders)
+		}
+	}
+	for i := range s.Results {
+		if len(s.Results[i].EligibleEntities) == 0 {
+			s.Results[i].EligibleEntities = nil
+		}
+	}
+	var condition func(*ConditionProgress)
+	condition = func(progress *ConditionProgress) {
+		if len(progress.Children) == 0 {
+			progress.Children = nil
+		}
+		for i := range progress.Children {
+			condition(&progress.Children[i])
+		}
+	}
+	if s.Mission != nil {
+		for i := range s.Mission.Objectives {
+			condition(&s.Mission.Objectives[i].Condition)
+		}
+		for i := range s.Mission.Triggers {
+			condition(&s.Mission.Triggers[i].Condition)
+		}
+	}
+	return s
+}
+
 func cloneValue[T any](in *T) *T {
 	if in == nil {
 		return nil
@@ -74,6 +165,7 @@ func cloneMap(m content.Map) content.Map {
 	m.Stations = slices.Clone(m.Stations)
 	m.Regions = slices.Clone(m.Regions)
 	m.Objects = slices.Clone(m.Objects)
+	m.RequiredPacks = slices.Clone(m.RequiredPacks)
 	return m
 }
 

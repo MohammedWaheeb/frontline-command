@@ -3,8 +3,8 @@ import {createReadStream} from 'node:fs';
 import {mkdir,readdir,readFile,stat,copyFile,writeFile,rename,rm} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
-import {authoredEffectPack,inspectEffectPack,readAuthoredEffectFile} from './effect-pack.mjs';
-const TYPES={'.png':'image/png','.json':'application/json','.svg':'image/svg+xml','.ttf':'font/ttf','.woff2':'font/woff2','.webp':'image/webp','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wav':'audio/wav','.txt':'text/plain','.md':'text/markdown; charset=utf-8'};
+import {authoredEffectPack,inspectEffectPack} from './effect-pack.mjs';
+const TYPES={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.wasm':'application/wasm','.png':'image/png','.json':'application/json','.svg':'image/svg+xml','.ttf':'font/ttf','.woff2':'font/woff2','.webp':'image/webp','.ogg':'audio/ogg','.mp3':'audio/mpeg','.wav':'audio/wav','.txt':'text/plain','.md':'text/markdown; charset=utf-8'};
 async function exists(file){try{return (await stat(file)).isFile()}catch{return false}}
 async function list(dir){try{return (await readdir(dir)).sort()}catch{return []}}
 const safe=rel=>typeof rel==='string'&&!path.isAbsolute(rel)&&!rel.includes('\\')&&!rel.split('/').some(part=>part==='..'||part==='.'||!part);
@@ -41,10 +41,17 @@ export async function artIndex(assets){
  return {format:1,sprites,terrain,portraits,buildIcons,...effects?{effects:effects.descriptor}:{},...await exists(path.join(assets,'build',keyArt))?{keyArt}:{},chrome:(await list(path.join(assets,'build/ui/chrome'))).filter(name=>name.endsWith('.png')),icons:await exists(path.join(assets,'ui/icons/fc-icons.svg')),emblems:await exists(path.join(assets,'ui/emblems/fc-emblems.svg')),mapPreviews};
 }
 async function walk(dir){const files=[];for(const name of await list(dir)){const file=path.join(dir,name),entry=await stat(file);if(entry.isDirectory())for(const rel of await walk(file))files.push(`${name}/${rel}`);else if(entry.isFile())files.push(name)}return files}
-async function runtimeFiles(assets,index){
- const files=[];
+async function runtimeFiles(assets,index,profile){
+ const files=[],spriteData=new Map();
  if(index.effects){const effects=await authoredEffectPack(assets);if(!effects||JSON.stringify(effects.descriptor)!==JSON.stringify(index.effects))throw Error('Effects changed while packaging.');files.push(...effects.files)}
- for(const [id,json] of Object.entries(index.sprites)){const meta=JSON.parse(await readFile(path.join(assets,'build',json),'utf8'));const complete=await spriteFiles(assets,id,meta);if(!complete)throw Error(`Listed sprite changed while packaging: ${id}`);files.push(...complete)}
+ for(const [id,json] of Object.entries(index.sprites)){
+  const meta=JSON.parse(await readFile(path.join(assets,'build',json),'utf8'));
+  const complete=await spriteFiles(assets,id,meta);if(!complete)throw Error(`Listed sprite changed while packaging: ${id}`);
+  if(profile==='full'){files.push(...complete);continue}
+  const selected=await standardSpriteFiles(assets,id,json,meta);
+  if(!selected)throw Error(`Listed sprite has no complete 1x atlas set: ${id}`);
+  files.push(...selected.files);spriteData.set(json,selected.data);
+ }
  for(const name of index.terrain)files.push(`terrain/${name}.png`);
  for(const name of index.portraits)files.push(`ui/portraits/${name}@2x.beauty.png`,`ui/portraits/${name}@2x.team.png`);
  for(const name of index.buildIcons??[])files.push(`ui/icons/build/${name}@2x.beauty.png`,`ui/icons/build/${name}@2x.team.png`);
@@ -52,13 +59,32 @@ async function runtimeFiles(assets,index){
  if(index.keyArt)files.push(index.keyArt);
  for(const rel of await walk(path.join(assets,'build/audio')))if(/\.(json|ogg|mp3|wav)$/.test(rel))files.push(`audio/${rel}`);
  for(const entry of Object.values(index.mapPreviews??{}))files.push(entry.preview,entry.preview256);
- if(index.icons)files.push('ui/icons/fc-icons.svg');if(index.emblems)files.push('ui/emblems/fc-emblems.svg');return [...new Set(files)];
+ if(index.icons)files.push('ui/icons/fc-icons.svg');if(index.emblems)files.push('ui/emblems/fc-emblems.svg');return {files:[...new Set(files)],spriteData};
+}
+async function standardSpriteFiles(assets,id,json,meta){
+ const oneX=meta.atlases?.['1x'];if(!oneX||!Object.keys(oneX).length)return;
+ const dir=path.join(assets,'build/sprites',id),relDir=`sprites/${id}`,selected=new Set(),files=[json];
+ for(const pages of Object.values(oneX))for(const atlas of pages){
+  if(!safe(atlas))return;const atlasPath=path.join(dir,atlas);if(!await exists(atlasPath))return;
+  let descriptor;try{descriptor=JSON.parse(await readFile(atlasPath,'utf8'))}catch{return}
+  const image=descriptor.meta?.image;if(!safe(image)||!await exists(path.join(dir,image)))return;
+  files.push(`${relDir}/${atlas}`,`${relDir}/${image}`);selected.add(atlas);selected.add(image);
+ }
+ const digest=createHash('sha256');
+ for(const name of [...selected].sort())digest.update(name).update(await readFile(path.join(dir,name)));
+ const transformed=structuredClone(meta);
+ transformed.atlases={...transformed.atlases,'2x':structuredClone(oneX)};
+ transformed.atlas_resolution={'1x':1,'2x':1};
+ transformed.content_sha256=digest.digest('hex');
+ return {files:[...new Set(files)],data:Buffer.from(JSON.stringify(transformed,null,1)+'\n')};
 }
 async function copy(from,to){await mkdir(path.dirname(to),{recursive:true});await copyFile(from,to)}
 /** The exact source-to-product mapping shared by packaging and its input guard. */
-export async function artPackageSources(assets){
+export async function artPackageSources(assets,{profile='standard'}={}){
+ if(profile!=='full'&&profile!=='standard')throw Error(`Unknown art package profile: ${profile}`);
  const index=await artIndex(assets),sources=[];
- for(const rel of await runtimeFiles(assets,index)){const source=resolveArt(assets,'/art/'+rel);if(!source)throw Error(`Unsafe art path ${rel}`);sources.push({source,output:'art/'+rel})}
+ const runtime=await runtimeFiles(assets,index,profile);
+ for(const rel of runtime.files){const source=resolveArt(assets,'/art/'+rel);if(!source)throw Error(`Unsafe art path ${rel}`);const row={source,output:'art/'+rel};if(runtime.spriteData.has(rel))row.data=runtime.spriteData.get(rel);sources.push(row)}
  for(const rel of await walk(path.join(assets,'fonts')))if(/\.(ttf|woff2|txt)$/.test(rel))sources.push({source:path.join(assets,'fonts',rel),output:'assets/fonts/'+rel});
  for(const rel of ['README.md',...((await walk(path.join(assets,'audio/licenses'))).filter(rel=>/\.(md|txt)$/.test(rel)).map(rel=>`licenses/${rel}`))])if(await exists(path.join(assets,'audio',rel)))sources.push({source:path.join(assets,'audio',rel),output:'art/audio/notices/'+rel});
  return {index,sources};
@@ -119,25 +145,41 @@ export async function writeBasePack(outDir){
  try{await writeFile(packTemp,JSON.stringify(pack,null,2)+'\n');if(finalIndex){await writeFile(indexTemp,finalIndex);await rename(indexTemp,indexPath)}await rename(packTemp,target)}
  finally{await rm(packTemp,{force:true});await rm(indexTemp,{force:true})}return pack;
 }
-export function artPlugin({assets,content=path.join(path.dirname(assets),'content')}){
+export function artPlugin({assets,content=path.join(path.dirname(assets),'content'),profile='standard'}){
  let outDir='',building=false;
  return {name:'frontline-art',enforce:'pre',
   configResolved(config){outDir=config.build.outDir;building=config.command==='build'},
-  configureServer(server){server.middlewares.use(async(req,res,next)=>{
-   let url;try{url=new URL(req.url??'/','http://local')}catch{res.statusCode=400;res.end();return}
-   const pathname=url.pathname;
-   if(pathname==='/assets/packs/base.json'){res.statusCode=503;res.setHeader('Content-Type','application/json');res.end(JSON.stringify({code:'production_build_required',message:'Offline packs are generated by the production build.'}));return}
-   if(!['/art/','/assets/fonts/','/content/'].some(prefix=>pathname.startsWith(prefix)))return next();
-   if(pathname==='/art/index.json'){res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');try{res.end(JSON.stringify(await artIndex(assets)))}catch{res.statusCode=503;res.end(JSON.stringify({code:'art_pack_invalid',message:'An installed art pack is incomplete or invalid.'}))}return}
-   let decoded;try{decoded=decodeURIComponent(pathname)}catch{res.statusCode=400;res.end();return}
-   if(decoded.startsWith('/art/fx/')){try{const bytes=await readAuthoredEffectFile(assets,decoded.slice('/art/'.length));if(!bytes){res.statusCode=404;res.end('Effect file not found');return}res.setHeader('Content-Type',TYPES[path.extname(decoded)]??'application/octet-stream');res.setHeader('Cache-Control','no-cache');res.setHeader('Content-Length',String(bytes.length));res.end(bytes)}catch{res.statusCode=503;res.end('Effect pack is incomplete or invalid.')}return}
-   let file;if(pathname.startsWith('/art/'))file=resolveArt(assets,pathname);else{const prefix=pathname.startsWith('/content/')?'/content/':'/assets/fonts/',rel=decoded.slice(prefix.length);if(safe(rel)&&(/\.json$/.test(rel)&&prefix==='/content/'||/\.(ttf|woff2|txt)$/.test(rel)&&prefix==='/assets/fonts/'))file=path.join(prefix==='/content/'?content:path.join(assets,'fonts'),rel)}
-   if(!file||!await exists(file)){res.statusCode=404;res.end('Content file not found');return}
-   res.setHeader('Content-Type',TYPES[path.extname(file)]??'application/octet-stream');res.setHeader('Cache-Control','no-cache');res.setHeader('Content-Length',String((await stat(file)).size));createReadStream(file).on('error',()=>res.destroy()).pipe(res);
-  })},
+  async configureServer(server){
+   // Runtime/art readers verify the production manifest in development too.
+   // Serve that exact snapshot while Vite owns / and source/HMR requests; a
+   // live authored index would not have the same hashes as the built pack.
+   let manifestBytes,pack;
+   try{manifestBytes=await readFile(path.join(outDir,'assets/packs/base.json'));pack=JSON.parse(manifestBytes)}
+   catch{throw Error('Development needs a complete game snapshot. Run make dev (or npm run runtime:build && npm run build) before starting Vite.');}
+   const files=new Set();
+   if(!pack||pack.id!=='2.0.0'||typeof pack.version!=='string'||!Array.isArray(pack.files)||pack.files.length>16000)throw Error('Invalid development game snapshot. Rebuild it with make dev.');
+   for(const entry of pack.files){
+    if(!entry||typeof entry.path!=='string'||!entry.path.startsWith('/')||!safe(entry.path.slice(1))||files.has(entry.path)||!Number.isSafeInteger(entry.bytes)||entry.bytes<0||typeof entry.sha256!=='string'||!/^[a-f0-9]{64}$/.test(entry.sha256))throw Error('Invalid development game snapshot file. Rebuild it with make dev.');
+    files.add(entry.path);
+   }
+   if(!files.has('/index.html')||!files.has('/runtime/frontline.wasm')||!files.has('/content/index.json'))throw Error('Incomplete development game snapshot. Rebuild it with make dev.');
+   server.middlewares.use(async(req,res,next)=>{
+    let pathname;try{pathname=decodeURIComponent(new URL(req.url??'/','http://local').pathname)}catch{res.statusCode=400;res.end();return}
+    if(pathname==='/assets/packs/base.json'){res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');res.setHeader('Content-Length',String(manifestBytes.length));res.end(req.method==='HEAD'?undefined:manifestBytes);return}
+    if(!files.has(pathname)){
+     // Missing pack paths must never fall through to source assets, Vite's
+     // public directory, or its HTML fallback and mix content generations.
+     if(pathname==='/index.html'||pathname==='/service-worker.js'||['/art/','/assets/','/content/','/runtime/'].some(prefix=>pathname.startsWith(prefix))){res.statusCode=404;res.end('File is not in the development game snapshot. Restart make dev after changing game content.');return}
+     return next();
+    }
+    const file=path.join(outDir,pathname.slice(1));
+    try{const info=await stat(file);if(!info.isFile())throw Error('missing');res.setHeader('Content-Type',TYPES[path.extname(file)]??'application/octet-stream');res.setHeader('Cache-Control','no-store');res.setHeader('Content-Length',String(info.size));if(req.method==='HEAD'){res.end();return}createReadStream(file).on('error',()=>res.destroy()).pipe(res)}
+    catch{res.statusCode=503;res.end('Development game snapshot is incomplete. Restart make dev.');}
+   });
+  },
   async closeBundle(){
-   if(!building)return;const {index,sources}=await artPackageSources(assets);
-   for(const {source,output} of sources)await copy(source,path.join(outDir,output));
+   if(!building)return;const {index,sources}=await artPackageSources(assets,{profile});
+   for(const {source,output,data} of sources){if(data){const target=path.join(outDir,output);await mkdir(path.dirname(target),{recursive:true});await writeFile(target,data)}else await copy(source,path.join(outDir,output))}
    await mkdir(path.join(outDir,'art'),{recursive:true});await writeFile(path.join(outDir,'art/index.json'),JSON.stringify(index));
    for(const rel of await walk(content))if(rel.endsWith('.json'))await copy(path.join(content,rel),path.join(outDir,'content',rel));
    await writeBasePack(outDir);

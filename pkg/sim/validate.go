@@ -4,6 +4,59 @@ import (
 	"fmt"
 )
 
+// Buff history is append-only in live play until the pruning version bump,
+// but expired entries are inert: hasBuff and visibleEffects only read
+// Until > Tick. Simultaneously active buffs are therefore capped per kind
+// from live gates, and total history by an envelope over the 108,100-tick
+// match limit, so every buff list live play can produce restores.
+//
+// Every kind except designated is self- or owner-only with a player, site
+// or self cooldown (900-3,600 ticks) far longer than its duration
+// (40-740), an >=100-tick board+transit cycle (exit_lock, 40), or
+// remove-before-reappend (shieldline): at most one active copy per kind
+// (three kinds on one entity at once). Those keep the long-standing 256 cap.
+//
+// Designated alone stacks across casters: any non-allied US.recon in range
+// may channel the same target (support.go validDesignation, updateChannel),
+// each recon at most once per 160-tick buff in ordinary play (600-tick cast
+// cooldown; a replacement needs a 240-tick rebuild). At most 4 players
+// (engine.go New) under the live 100-Supply gate enforced at production,
+// scenario and practice spawns can field 400 of the 1-Supply recon, so
+// ordinary play reaches 400 active copies on a neutral map building (300
+// on a player-owned target). Practice remove/respawn can recycle a Supply
+// slot inside the window, but the 20-tick channel is serial, so one slot
+// completes at most 8 designations per 160 ticks: 400*8 = 3,200.
+//
+// Total history: even that fastest practice cycle appends at most
+// 400*ceil(108,101/20) ~ 2.17M designated entries over a whole match, and
+// every other kind ~2k combined, so 2,200,000 covers all legal play (in
+// byte restores the 64 MiB input cap in engine.go binds first anyway).
+const (
+	maxActiveOtherBuffs      = 256
+	maxActiveDesignatedBuffs = 3200
+	maxTotalBuffs            = 2200000
+)
+
+// newID (engine.go) is the only ID allocator; it mints entities (spawn),
+// projectiles (launch and the two strategic kinds) and salvage crates.
+// Live gates bound minting over the 108,101-tick match cap with no
+// restore-side assumption: at most 4 players; the 100-Supply gate on
+// production, scenario and practice spawns, with minimum armed Supply 1,
+// allows at most 400 armed units with one weapon each; armed buildings are
+// the two Defense types under the 16-per-player placement cap. That gives
+// ~2.9M unit projectiles (fastest repeating weapon interval 15 ticks; the
+// 1-tick IR_SHAHED never launches), ~0.23M building projectiles (interval
+// 30), at most ~3.46M foundations (one per order, 160 orders/s/player),
+// ~0.13M production spawns (240 producers, >=200 build ticks), salvage no
+// more than unit deaths, and at most 4,096 authored mission spawns:
+// roughly 7M mints. Collusive building capture can defeat the placement
+// caps, but completions still need rig work, keeping a non-practice match
+// under ~37M. Practice-v1 instant spawns (20 per order) and instant
+// completed turrets raise the loosest additive outer envelope to ~142M.
+// The cap covers that with headroom, fits ID (uint32), and nothing in
+// restore allocates in proportion to NextID.
+const maxNextID = 250000000
+
 func (e *Engine) validateState() error {
 	if err := e.validateCombatFeedback(); err != nil {
 		return err
@@ -38,7 +91,7 @@ func (e *Engine) validateState() error {
 		return err
 	}
 	fieldLimit := len(s.Map.Fields) + 1 // Authored fields plus one persistent central shipment.
-	if s.Metadata.MapVersion != s.Map.Version || s.Metadata.Seed == 0 || s.NextID > 1000000 || len(s.Fields) > fieldLimit || len(s.Stations) > 32 || len(s.Zones) > 128 || len(s.Operations) > 128 || len(s.Log) > 200000 || len(s.Events) > 16384 || len(s.Results) > 4096 {
+	if s.Metadata.MapVersion != s.Map.Version || s.Metadata.Seed == 0 || s.NextID > maxNextID || len(s.Fields) > fieldLimit || len(s.Stations) > 32 || len(s.Zones) > 128 || len(s.Operations) > 128 || len(s.Log) > 200000 || len(s.Events) > 16384 || len(s.Results) > 4096 {
 		return fmt.Errorf("invalid saved metadata or collection bounds")
 	}
 	for _, result := range s.Results {
@@ -111,7 +164,20 @@ func (e *Engine) validateState() error {
 		if v.DeploymentStarted > s.Tick || v.DeploymentStarted > 0 && max(v.DeployUntil, v.PackingUntil) <= v.DeploymentStarted {
 			return fmt.Errorf("invalid saved deployment start %d", v.ID)
 		}
-		if !claim(v.ID) || v.Cargo < 0 || v.Cargo > 600000 || v.Paid < 0 || v.Paid > 1000000000 || v.Ammo < 0 || v.Ammo > 32 || v.Charges < 0 || v.Charges > 2 || v.Endurance > 2400 || len(v.Passengers) > 3 || len(v.Buffs) > 256 || len(v.Cooldowns) > 32 || len(v.Contributions) > 4096 || v.Experience < 0 || v.Rank > 2 {
+		activeDesignated, activeOther := 0, 0
+		for _, b := range v.Buffs {
+			if b.Until > s.Tick {
+				if b.Kind == "designated" {
+					activeDesignated++
+				} else {
+					activeOther++
+				}
+			}
+		}
+		if len(v.Buffs) > maxTotalBuffs || activeDesignated > maxActiveDesignatedBuffs || activeOther > maxActiveOtherBuffs {
+			return fmt.Errorf("invalid saved entity state %d", v.ID)
+		}
+		if !claim(v.ID) || v.Cargo < 0 || v.Cargo > 600000 || v.Paid < 0 || v.Paid > 1000000000 || v.Ammo < 0 || v.Ammo > 32 || v.Charges < 0 || v.Charges > 2 || v.Endurance > 2400 || len(v.Passengers) > 3 || len(v.Cooldowns) > 32 || len(v.Contributions) > 4096 || v.Experience < 0 || v.Rank > 2 {
 			return fmt.Errorf("invalid saved entity state %d", v.ID)
 		}
 		if v.Building {
@@ -393,11 +459,10 @@ func (e *Engine) validateState() error {
 	return nil
 }
 func (e *Engine) validateSavedOrders(orders []Order, batch bool) error {
-	limit := 12
-	if batch {
-		limit = 32
-	}
-	if len(orders) > limit {
+	// Pending client batches keep their 32-order admission bound. Entity
+	// queues share Restore's build-aware bound (engine.go validSavedEntityOrders):
+	// live rigs legally queue more build orders than the 12-order cap.
+	if batch && len(orders) > 32 || !batch && !validSavedEntityOrders(orders) {
 		return fmt.Errorf("saved order limit")
 	}
 	for _, o := range orders {

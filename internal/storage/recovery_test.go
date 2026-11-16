@@ -157,3 +157,80 @@ func TestObjectSuffixesPreserveIDBoundary(t *testing.T) {
 		}
 	}
 }
+
+// A diagnostic archive failure must not prevent a healthy database/host from
+// opening. Void the interrupted match, but keep its exact checkpoint until a
+// subsequent startup can archive it successfully.
+func TestRecoveryVoidsWithoutObjectStoreAndRetainsCheckpointUntilArchived(t *testing.T) {
+	s := repository(t)
+	ctx := context.Background()
+	checkpoint := []byte("last checkpoint\x00with exact bytes")
+	if err := s.StartMatch(ctx, "archive-pending", 42, checkpoint); err != nil {
+		t.Fatal(err)
+	}
+	for attempt := 0; attempt < 2; attempt++ {
+		if count, err := s.RecoverInterrupted(ctx, unavailableRecoveryObjects{}); count != 1 || err != nil {
+			t.Fatalf("startup %d blocked by diagnostic failure: count=%d err=%v", attempt, count, err)
+		}
+		result, err := s.GetResult(ctx, "archive-pending")
+		if err != nil || !result.Void {
+			t.Fatalf("interrupted result not durably void: %+v %v", result, err)
+		}
+		var retained []byte
+		var tick uint32
+		if err := s.db.QueryRow(`SELECT tick,data FROM active_matches WHERE id='archive-pending'`).Scan(&tick, &retained); err != nil || tick != 42 || string(retained) != string(checkpoint) {
+			t.Fatalf("unarchived checkpoint lost/changed: tick=%d data=%q err=%v", tick, retained, err)
+		}
+	}
+	before, err := s.GetResult(ctx, "archive-pending")
+	if err != nil {
+		t.Fatal(err)
+	}
+	objects := Files{Root: t.TempDir()}
+	if count, err := s.RecoverInterrupted(ctx, objects); count != 1 || err != nil {
+		t.Fatalf("archive retry: count=%d err=%v", count, err)
+	}
+	archived, err := objects.Get(ctx, "archive-pending.diagnostic")
+	if err != nil || string(archived) != string(checkpoint) {
+		t.Fatalf("archive changed checkpoint: %q %v", archived, err)
+	}
+	requireNoJournal(t, s, "archive-pending")
+	after, err := s.GetResult(ctx, "archive-pending")
+	if err != nil || after.Created != before.Created || string(after.Payload) != string(before.Payload) || !after.Void {
+		t.Fatalf("archive retry changed final result: %+v %v", after, err)
+	}
+	var results, ratings int
+	if err := s.db.QueryRow(`SELECT COUNT(*) FROM results WHERE id='archive-pending'`).Scan(&results); err != nil {
+		t.Fatal(err)
+	}
+	if err := s.db.QueryRow(`SELECT COUNT(*) FROM rating_events WHERE match_id='archive-pending'`).Scan(&ratings); err != nil {
+		t.Fatal(err)
+	}
+	if results != 1 || ratings != 0 {
+		t.Fatalf("recovery duplicated result/rating: results=%d ratings=%d", results, ratings)
+	}
+	if count, err := s.RecoverInterrupted(ctx, objects); count != 0 || err != nil {
+		t.Fatalf("completed retry: count=%d err=%v", count, err)
+	}
+}
+
+func TestRecoveryDoesNotHideFailedVoidDatabaseCommit(t *testing.T) {
+	s := repository(t)
+	ctx := context.Background()
+	if err := s.StartMatch(ctx, "blocked-void", 17, []byte("preserve checkpoint")); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := s.db.Exec(`CREATE TRIGGER reject_recovery_result BEFORE INSERT ON results BEGIN SELECT RAISE(ABORT, 'blocked result insert'); END`); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := s.RecoverInterrupted(ctx, unavailableRecoveryObjects{}); err == nil {
+		t.Fatal("recovery claimed success without a durable void")
+	}
+	var retained []byte
+	if err := s.db.QueryRow(`SELECT data FROM active_matches WHERE id='blocked-void'`).Scan(&retained); err != nil || string(retained) != "preserve checkpoint" {
+		t.Fatalf("failed void lost checkpoint: %q %v", retained, err)
+	}
+	if _, err := s.GetResult(ctx, "blocked-void"); !errors.Is(err, ErrNotFound) {
+		t.Fatalf("failed void created a result: %v", err)
+	}
+}

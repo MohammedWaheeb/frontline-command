@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,readFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
+import {createServer} from 'node:http';
+import {once} from 'node:events';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {artIndex,writeBasePack,artPlugin} from './art-plugin.mjs';
@@ -106,5 +108,61 @@ test('base identity changes with content and propagates into staged index withou
   await put(dir,'added.txt','a');const added=await writeBasePack(dir);assert.notEqual(added.version,second.version);await put(dir,'added.txt','aa');const resized=await writeBasePack(dir);assert.notEqual(resized.version,added.version);await put(dir,'renamed.txt','aa');await rm(path.join(dir,'added.txt'));const renamed=await writeBasePack(dir);assert.notEqual(renamed.version,resized.version,'path-only change must change identity');
   const oldIndex=await readFile(path.join(dir,'content/index.json'));const last=await readFile(path.join(dir,'assets/packs/base.json'));await put(dir,'art/audio/index.json',JSON.stringify({format:1,entries:{bad:{variants:[{url:'/art/audio/missing.ogg',bytes:1,sha256:'a'.repeat(64)}]}}}));
   await assert.rejects(writeBasePack(dir));assert.deepEqual(await readFile(path.join(dir,'content/index.json')),oldIndex);assert.deepEqual(await readFile(path.join(dir,'assets/packs/base.json')),last);
+ }finally{await rm(dir,{recursive:true,force:true})}
+});
+
+
+test('development serves one exact installable game snapshot while root and source keep Vite HMR',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'frontline-dev-snapshot-'));let server;
+ try{
+  const assets=path.join(dir,'assets'),content=path.join(dir,'content'),outDir=path.join(dir,'dist');
+  const files={
+   'index.html':'<main>Production offline shell</main>',
+   'assets/product.js':'production JS',
+   'assets/product.css':'production CSS',
+   'runtime/frontline.wasm':'built wasm',
+   'runtime/worker.js':'built worker',
+   'runtime/wasm_exec.js':'built Go loader',
+   'runtime/version.json':'{"simulation":"built"}',
+   'service-worker.js':'built cache worker',
+   'build-assets.json':'{"built":true}',
+   'content/index.json':JSON.stringify({format_version:1,version:'authored',packs:[{id:'2.0.0',version:'authored',manifest_url:'/assets/packs/base.json'}],maps:[],missions:[]}),
+   'art/index.json':'{"sprites":{}}',
+   'art/ui/example.png':'built art',
+  };
+  for(const [file,bytes] of Object.entries(files))await put(outDir,file,bytes);
+  const pack=await writeBasePack(outDir),manifest=await readFile(path.join(outDir,'assets/packs/base.json'));
+  // Different live content must not replace any integrity-bound built bytes.
+  await put(content,'index.json','unbuilt content');await put(content,'not-pack.json','unbuilt map');
+  await put(assets,'build/ui/example.png','unbuilt art');
+  let middleware;const plugin=artPlugin({assets,content});plugin.configResolved({command:'serve',build:{outDir}});
+  await plugin.configureServer({middlewares:{use:value=>{middleware=value}}});assert(middleware);
+  server=createServer((req,res)=>{void middleware(req,res,()=>{res.setHeader('Content-Type','text/plain');res.end('Vite HMR '+req.url)}).catch(error=>{res.statusCode=500;res.end(String(error))})});
+  server.listen(0,'127.0.0.1');await once(server,'listening');const base='http://127.0.0.1:'+server.address().port;
+  const response=await fetch(base+'/assets/packs/base.json');assert.equal(response.status,200);assert.deepEqual(Buffer.from(await response.arrayBuffer()),manifest);
+  for(const entry of pack.files){
+   const response=await fetch(base+entry.path);assert.equal(response.status,200,entry.path);
+   const bytes=Buffer.from(await response.arrayBuffer());assert.equal(bytes.length,entry.bytes,entry.path);assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256,entry.path);
+   assert.equal(response.headers.get('cache-control'),'no-store');
+  }
+  assert.match((await fetch(base+'/runtime/worker.js')).headers.get('content-type'),/javascript/);
+  assert.equal((await fetch(base+'/runtime/frontline.wasm')).headers.get('content-type'),'application/wasm');
+  assert.equal(await (await fetch(base+'/')).text(),'Vite HMR /');assert.equal(await (await fetch(base+'/src/main.tsx')).text(),'Vite HMR /src/main.tsx');
+  assert.equal(await (await fetch(base+'/@vite/client')).text(),'Vite HMR /@vite/client');
+  for(const file of ['/art/missing.png','/content/not-pack.json','/runtime/missing.js','/assets/missing.js'])assert.equal((await fetch(base+file)).status,404,file);
+  const head=await fetch(base+'/runtime/frontline.wasm',{method:'HEAD'});assert.equal(head.status,200);assert.equal(head.headers.get('content-length'),String(files['runtime/frontline.wasm'].length));assert.equal(await head.text(),'');
+  // Removing a declared file must fail visibly, never fall through to Vite.
+  await rm(path.join(outDir,'runtime/worker.js'));assert.equal((await fetch(base+'/runtime/worker.js')).status,503);
+ }finally{if(server)await new Promise(resolve=>server.close(resolve));await rm(dir,{recursive:true,force:true})}
+});
+
+test('development refuses a missing or unsafe snapshot instead of running with unverified sources',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'frontline-dev-missing-'));
+ try{
+  const outDir=path.join(dir,'dist'),plugin=artPlugin({assets:path.join(dir,'assets')});plugin.configResolved({command:'serve',build:{outDir}});
+  const server={middlewares:{use:()=>assert.fail('incomplete snapshot must not register its routes')}};
+  await assert.rejects(plugin.configureServer(server),/Development needs a complete game snapshot/);
+  await put(outDir,'assets/packs/base.json',JSON.stringify({id:'2.0.0',version:'fixture',files:[{path:'/../outside.js',bytes:1,sha256:'a'.repeat(64)}]}));
+  await assert.rejects(plugin.configureServer(server),/Invalid development game snapshot file/);
  }finally{await rm(dir,{recursive:true,force:true})}
 });

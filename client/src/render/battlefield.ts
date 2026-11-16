@@ -33,6 +33,7 @@ import {TacticalOverlay} from './tactical-overlay';
 import {StrikePreviewOverlay} from './strike-preview';
 import {CombatEffects} from './combat-effects';
 import type {SkybreakerPlan} from '../runtime/types';
+import {modalOpen} from '../runtime/keybindings';
 
 export interface BattlefieldGesture {
  kind:'click'|'double-click'|'context'|'box'|'hover';point:Point;hit?:CommandTarget;rect?:Rect;
@@ -87,6 +88,7 @@ export class BattlefieldRenderer {
  private effectEvent=0;private feedbackBaseline=false;private shake={until:0,strength:0,x:0,y:0};
  private missionMarkers:MissionMarker[]=[];
  private hovered?:number;private relations:ReadonlyMap<number,MinimapOwnerRelation>=new Map();
+ private edgeScrollAt?:number;
  private rejection?:{point:Point;player:number;tick:number;until:number};
  // Attached minimap: dirtied by snapshot/overlay/camera changes, repainted from the existing ticker at most every MINIMAP_MS.
  private minimap?:{canvas:HTMLCanvasElement;resize:ResizeObserver;view:number[]};private minimapDirty=false;private minimapAt=-Infinity;
@@ -426,10 +428,22 @@ export class BattlefieldRenderer {
   this.shake.x=Math.sin(now*.052)*amplitude;this.shake.y=Math.cos(now*.063)*amplitude*.55;
   if(!remaining)this.shake.strength=0;
  }
+ private edgeScrollFrame(now:number){
+  // Preserve the original 420 px/s at 60 Hz on high-refresh or slow frames.
+  // A suspended tab must not apply seconds of camera travel on resumption.
+  const elapsed=this.edgeScrollAt===undefined?0:clamp(now-this.edgeScrollAt,0,50);this.edgeScrollAt=now;
+  if(!this.settings.edgeScroll||!this.pointer||this.drag)return;
+  // Keyboard-opened menus do not reliably produce pointerleave until the next
+  // mouse movement. Drop that stale edge intent while dialog controls own input.
+  if(modalOpen()){this.pointer=undefined;this.hovered=undefined;return}
+  if(!elapsed)return;
+  const p=this.pointer,w=this.app.screen.width,h=this.app.screen.height,s=.42*elapsed*this.settings.scrollSpeed;
+  const x=p.x<12?-s:p.x>w-12?s:0,y=p.y<12?-s:p.y>h-12?s:0;
+  if(x||y)this.pan(x,y);
+ }
  private render(){
   if(this.disposed||this.lost)return;
-  const now=performance.now();this.frame++;this.updateShake(now);this.cameraTransform();this.terrainFrame();
-  if(this.settings.edgeScroll&&this.pointer&&!this.drag){const p=this.pointer,w=this.app.screen.width,h=this.app.screen.height,s=7*this.settings.scrollSpeed;this.pan(p.x<12?-s:p.x>w-12?s:0,p.y<12?-s:p.y>h-12?s:0)}
+  const now=performance.now();this.frame++;this.updateShake(now);this.edgeScrollFrame(now);this.cameraTransform();this.terrainFrame();
   this.environment.render(owner=>this.team(owner),{left:-this.world.x/this.camera.zoom,top:-this.world.y/this.camera.zoom,right:(this.app.screen.width-this.world.x)/this.camera.zoom,bottom:(this.app.screen.height-this.world.y)/this.camera.zoom});
   for(const actor of this.actors.values()){
    // Culled actors skip painting, but their last ink bounds must follow the

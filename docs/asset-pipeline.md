@@ -1,5 +1,8 @@
 # Original game asset pipeline
 
+The player exports also have a [runtime compression profile](asset-compression.md)
+that preserves the editable originals and the logical sprite geometry.
+
 Claude Code exact `claude-opus-5-5` authored the original shared Blender library,
 models, design tokens and rendering contract. During the user-authorized quota
 takeover, Codex added faction logistics models and export/runtime corrections.

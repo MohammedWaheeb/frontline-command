@@ -103,7 +103,7 @@ export class NetworkController{
  #account?:LocalProfileSession;#connection?:MatchConnection;#sync?:SaveSynchronizer;
  private accountUnsubscribe?:()=>void;private sessionUnsubscribe:()=>void;private timer?:ReturnType<typeof setInterval>;
  private references?:NetworkOptions['references'];private persistentReferences?:NetworkOptions['persistentReferences'];private presenceID=0;private polling=false;private chatEpoch=0;private disposed=false;private initialized=false;private epoch=0;private responseEpoch=0;
- private autoJoin=false;private joining=false;private joinedMatch?:string;private syncAbort?:AbortController;private mapCache?:{key:string;map:GameMap};
+ private autoJoin=false;private joining=false;private joinedMatch?:string;private terminalRecoveryAttempted?:string;private syncAbort?:AbortController;private mapCache?:{key:string;map:GameMap};
  constructor(private readonly options:NetworkOptions){
   this.references=options.references;try{this.references??=globalThis.sessionStorage}catch{}
   this.persistentReferences=options.persistentReferences;try{this.persistentReferences??=globalThis.window?.localStorage}catch{}
@@ -147,9 +147,9 @@ export class NetworkController{
    catch(error){if(['lobby_missing','private_lobby'].includes(RuntimeError.from(error).code))try{storage?.removeItem(key)}catch{}else return}
   }
  }
- private privateActivity(){const s=this.state.get();return !!this.#account?.context&&(!!s.lobby&&s.lobbyState!=='completed'||s.queue?.status==='searching')||this.options.sessions.state.kind==='online'&&!s.result?.committed}
+ private privateActivity(){const s=this.state.get();return !!this.#account?.context&&(!!s.lobby&&s.lobbyState!=='completed'||s.queue?.status==='searching')||this.options.sessions.state.kind==='online'&&!finalResult(s.result)}
  private clearPrivateState(){
-  this.responseEpoch++;this.chatEpoch++;this.uploadGeneration++;this.syncAbort?.abort();this.#connection=undefined;this.mapCache=undefined;this.autoJoin=false;this.joinedMatch=undefined;this.moderation.lock();
+  this.responseEpoch++;this.chatEpoch++;this.uploadGeneration++;this.syncAbort?.abort();this.#connection=undefined;this.mapCache=undefined;this.autoJoin=false;this.joinedMatch=undefined;this.terminalRecoveryAttempted=undefined;this.moderation.lock();
   this.patch({ownMaps:[],mapReports:[],mapReportCursor:undefined,mapUpload:undefined,maps:this.state.get().maps.filter(map=>map.installed||map.published!==false),lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,lobbyClosed:undefined,presenceAlerts:[],joinCode:undefined,removedFromLobby:undefined,startRemainingMs:undefined,chat:[],history:[],historyLoaded:false,relations:[],invites:[],saves:[],reports:[],lobbies:[],queue:undefined,rankedMaps:[],status:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined,syncProgress:undefined,observer:undefined,eliminated:undefined,notice:undefined,error:undefined,pollError:undefined,connection:'idle',tick:0,remainingMs:undefined,latency:undefined});
  }
  private reconcileProfile(){const lobby=this.state.get().lobby;if(lobby&&!lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.#connection=undefined;this.autoJoin=false;this.remember();this.patch({lobby:undefined,lobbyState:undefined,lobbyUnavailable:undefined,lobbyClosed:undefined,presenceAlerts:[],joinCode:undefined,chat:[],status:undefined,queue:undefined,result:undefined,sync:undefined,syncInventory:undefined,syncResult:undefined})}}
@@ -217,7 +217,7 @@ export class NetworkController{
   }catch(error){if(this.currentResponse(epoch,responseEpoch))this.patch({pollError:publicError(error).message})}finally{this.polling=false}
  }
  private async refreshLobby(lobby:Lobby){
-  if(this.state.get().lobbyUnavailable){if(lobby.match_id&&!this.state.get().result?.committed&&await this.recoverResult(lobby))this.patch({lobbyState:'completed',lobbyClosed:undefined});return}
+  if(this.state.get().lobbyUnavailable){if(lobby.match_id&&!finalResult(this.state.get().result)&&await this.recoverResult(lobby))this.patch({lobbyState:'completed',lobbyClosed:undefined});return}
   const epoch=this.epoch,responseEpoch=this.responseEpoch;
   try{const response=await this.authenticated(api=>api.lobby(lobby.id));if(!this.currentResponse(epoch,responseEpoch)||this.state.get().lobby?.id!==lobby.id)return;await this.accept(response,this.autoJoin)}
   catch(error){
@@ -233,8 +233,24 @@ export class NetworkController{
   if(current?.id===response.lobby.id&&!current.match_id&&!response.lobby.slots.some(slot=>slot.profile===this.#account?.context?.profileId)){this.removedFromLobby();return}
   const changed=this.state.get().lobby?.id!==response.lobby.id;this.#connection=response.connection;this.autoJoin=autoJoin;
   this.patch({...(this.state.get().removedFromLobby?{notice:undefined}:{}),lobby:response.lobby,hostOffline:response.host_offline===true,removedFromLobby:undefined,startRemainingMs:response.start_remaining_ms,lobbyUnavailable:undefined,lobbyClosed:undefined,lobbyState:response.state??(response.lobby.match_id?'active':'forming'),joinCode:response.code??(changed?undefined:this.state.get().joinCode),...(changed?{presenceAlerts:[],chat:[],result:undefined,status:undefined,tick:0,connection:'idle' as const,eliminated:undefined}: {})});this.remember(response.lobby);
-  if(response.state==='completed'&&this.options.sessions.state.kind!=='observer'&&!this.state.get().result?.committed)await this.recoverResult(response.lobby);
-  if(response.connection&&autoJoin&&response.state!=='completed'&&this.joinedMatch!==response.connection.match_id&&!this.joining)await this.enterMatch();
+  let recovered=false,recoveryError:unknown;
+  if(response.state==='completed'&&this.options.sessions.state.kind!=='observer'&&!finalResult(this.state.get().result)){try{recovered=await this.recoverResult(response.lobby)}catch(error){recoveryError=error}}
+  // When a result could not be committed, the void status exists only in the
+  // live actor cache during retention, so durable history can never supply
+  // it (its read may fail for the same reason). Connect once so the actor
+  // redelivers it; a recovered durable result keeps the debrief path.
+  const connection=response.connection,state=this.state.get(),cachedTerminal=response.state==='completed'&&!!connection&&!recovered&&!finalResult(state.result)&&this.options.sessions.state.kind!=='observer'&&this.terminalRecoveryAttempted!==connection.match_id;
+  // Elimination/expiry permanently closes the old transport. Its match ID
+  // still counts as joined, but only a replacement can read the final actor
+  // cache. A live match retains its frozen authorized view; a healthy socket
+  // already receives its final result and must not be replaced by polling.
+  const closedTerminal=cachedTerminal&&(state.connection==='closed'||state.eliminated===true);
+  if(connection&&!this.joining&&(cachedTerminal&&(this.joinedMatch!==connection.match_id||closedTerminal)||autoJoin&&response.state!=='completed'&&this.joinedMatch!==connection.match_id)){
+   if(cachedTerminal)this.terminalRecoveryAttempted=connection.match_id;
+   // A failed attempt (assets, compatibility, transport) must not use up the
+   // only recovery: the next lobby poll tries again during retention.
+   try{await this.enterMatch()}catch(error){if(cachedTerminal&&this.terminalRecoveryAttempted===connection.match_id)this.terminalRecoveryAttempted=undefined;throw error}
+  }else if(recoveryError!==undefined)throw recoveryError;
  }
  private async recoverResult(lobby:Lobby){
   const epoch=this.epoch,responseEpoch=this.responseEpoch;
@@ -268,7 +284,7 @@ export class NetworkController{
   catch(error){if(RuntimeError.from(error).code==='lobby_changed'){await this.accept(await this.authenticated(api=>api.lobby(lobby.id)),false);throw new RuntimeError('lobby_changed','The lobby changed while your assets were loading. Review the updated commanders and battlefield, then mark ready again.')}throw error}
  })}
  start(){return this.run('Starting operation…',async()=>this.accept(await this.authenticated(api=>api.startLobby(this.lobby().id)),true))}
- joinMatch(){return this.run('Connecting to operation…',async()=>{await this.refreshLobby(this.lobby());if(this.state.get().lobbyClosed)throw new RuntimeError('lobby_missing','This lobby has closed. Return to multiplayer.');if(!this.state.get().result?.committed)await this.enterMatch()})}
+ joinMatch(){return this.run('Connecting to operation…',async()=>{await this.refreshLobby(this.lobby());if(this.state.get().lobbyClosed)throw new RuntimeError('lobby_missing','This lobby has closed. Return to multiplayer.');if(!finalResult(this.state.get().result))await this.enterMatch()})}
  private async enterMatch(){
   const connection=this.#connection;if(!connection)throw new RuntimeError('match_not_ready','This lobby has no match connection yet.');this.joining=true;
   try{await this.compatible();const lobby=this.lobby(),map=await this.mapFor(lobby);await this.options.prepareAssets(map,lobby.slots);this.patch({connection:'connecting'});await this.options.joinOnline(this.state.get().host,{...connection},map);this.joinedMatch=connection.match_id;this.patch({connection:'connected'});this.autoJoin=true}
@@ -327,7 +343,7 @@ export class NetworkController{
  saveReplay(){return this.run('Saving verified replay…',async()=>{const lobby=this.lobby();if(!lobby.match_id)throw new RuntimeError('match_required','There is no match replay to download.');const matchID=lobby.match_id;const bytes=await this.authenticated(api=>api.replay(matchID));await this.options.store.putReplay(`match-${randomUUID()}`,lobby.name,bytes,0);this.inform('Replay saved to this browser’s replay archive.')})}
  observe(matchID:string,player:number,code?:string){return this.run('Opening authorized observer feed…',async()=>{
   if(!this.options.joinObserver)throw new RuntimeError('observer_unavailable','This application build cannot open observer views.');
-  if(this.options.sessions.state.kind==='online'&&!this.state.get().eliminated&&!this.state.get().result?.committed)throw new RuntimeError('active_player_cannot_observe','Finish your active command before opening another perspective.');
+  if(this.options.sessions.state.kind==='online'&&!this.state.get().eliminated&&!finalResult(this.state.get().result))throw new RuntimeError('active_player_cannot_observe','Finish your active command before opening another perspective.');
   const local=await this.compatible();const grant=await this.authenticated(api=>api.request<ObserverGrant&{map_id:string;map_version:string;map_hash:string;protocol:number;simulation:string;content_hash:string;slots:LobbySlot[]}>(`/matches/${encodeURIComponent(matchID.trim())}/observer`,'POST',{player,code:code??''}));
   if(grant.protocol!==local.protocol||grant.simulation!==local.simulation||grant.content_hash!==local.content_hash)throw new RuntimeError('version_mismatch','The observer feed needs a different installed game version.');
   const source=await this.authenticated(api=>api.map(grant.map_id,{match_id:matchID.trim()},grant.map_hash)),map=await this.options.validator.validateMap(encoder.encode(JSON.stringify(source)));if(map.id!==grant.map_id||map.version!==grant.map_version)throw new RuntimeError('map_version_mismatch','The installed host map differs from this match.');
@@ -370,4 +386,7 @@ export function lobbyAIBlockReason(state:Pick<NetworkState,'lobby'|'lobbyState'|
  const players=state.maps.find(map=>map.id===lobby.map_id)?.players,capacity=Math.min(lobby.mode==='1v1'?2:4,players??4);
  return lobby.slots.length>=capacity?'No open slot on this battlefield. Remove a commander or pick a larger map.':undefined;
 }
-export function canRejoinOperation(state:Pick<NetworkState,'lobby'|'lobbyState'|'lobbyUnavailable'|'result'|'account'>){return !!state.lobby?.match_id&&state.lobbyState==='active'&&!state.lobbyUnavailable&&!state.result?.committed&&state.lobby.slots.some(slot=>slot.profile===state.account?.profile?.id)}
+export function canRejoinOperation(state:Pick<NetworkState,'lobby'|'lobbyState'|'lobbyUnavailable'|'result'|'account'>){return !!state.lobby?.match_id&&state.lobbyState==='active'&&!state.lobbyUnavailable&&!finalResult(state.result)&&state.lobby.slots.some(slot=>slot.profile===state.account?.profile?.id)}
+function finalResult(result:MatchResult|undefined){return result?.committed===true||result?.void===true}
+/** A void result is final even when it was never durably committed: the host has stopped trying to record it, so it must not read as awaiting confirmation. */
+export function resultDurabilityLabel(result:MatchResult|undefined,pending:string,unsaved:string){return !result||result.committed?'':result.void?unsaved:pending}

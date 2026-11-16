@@ -143,7 +143,12 @@ export class SessionController{
    if(!this.validator)this.validator=this.makeOffline();validator=this.validator;
    const version=await validator.ready;if(signal.aborted||this.closed||this.validator!==validator)throw new RuntimeError('inspection_canceled','The validation worker was closed. Retry the import.');if(expected)assertOfflineRuntime(version,expected);checked=true;
    const result=await read(validator);if(signal.aborted||this.closed||this.validator!==validator)throw new RuntimeError('inspection_canceled','The validation worker was closed. Retry the import.');return result;
-  }catch(error){if(!checked&&validator&&this.validator===validator){validator.dispose();this.validator=undefined}throw error}
+  }catch(error){
+   // Startup mismatch and a fatal inspection both invalidate this worker.
+   // Keep corrupt-file errors reusable, but let the next import start a fresh
+   // validator after an engine failure without replacing the active match.
+   if(validator&&this.validator===validator&&(!checked||!RuntimeError.from(error).recoverable)){validator.dispose();this.validator=undefined}throw error;
+  }
   finally{this.contentReaders--}
  }
  async inspect(data:Uint8Array){return this.inspectWith(validator=>validator.inspect(data))}

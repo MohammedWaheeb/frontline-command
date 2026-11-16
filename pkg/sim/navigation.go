@@ -6,18 +6,13 @@ func (e *Engine) radius(v *Entity) int32 {
 	if v.Building {
 		return 0
 	}
-	u, _ := e.catalog.Unit(v.Type)
-	return u.Radius
+	return e.combatRule(v).radius
 }
 func (e *Engine) armor(v *Entity) string {
 	if v.Building {
 		return "structure"
 	}
-	u, _ := e.catalog.Unit(v.Type)
-	if u.Armor == "air" && v.Landed {
-		return "light"
-	}
-	return u.Armor
+	return e.combatRule(v).entityArmor(v)
 }
 func (e *Engine) isAircraft(v *Entity) bool {
 	if v.Building {
@@ -205,22 +200,11 @@ type pathNode struct {
 }
 type pathHeap []pathNode
 
-func (h pathHeap) Len() int { return len(h) }
-func (h pathHeap) Less(i, j int) bool {
-	if h[i].f != h[j].f {
-		return h[i].f < h[j].f
-	}
-	if h[i].g != h[j].g {
-		return h[i].g > h[j].g
-	}
-	if h[i].index != h[j].index {
-		return h[i].index < h[j].index
-	}
-	return h[i].serial < h[j].serial
-}
-func (h pathHeap) Swap(i, j int) { h[i], h[j] = h[j], h[i] }
-func (h *pathHeap) Push(v any)   { *h = append(*h, v.(pathNode)) }
-func (h *pathHeap) Pop() any     { old := *h; v := old[len(old)-1]; *h = old[:len(old)-1]; return v }
+func (h pathHeap) Len() int           { return len(h) }
+func (h pathHeap) Less(i, j int) bool { return pathLess(h[i], h[j]) }
+func (h pathHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *pathHeap) Push(v any)        { *h = append(*h, v.(pathNode)) }
+func (h *pathHeap) Pop() any          { old := *h; v := old[len(old)-1]; *h = old[:len(old)-1]; return v }
 
 var neighbors = []Vec{{X: 1, Y: 0}, {X: 0, Y: 1}, {X: -1, Y: 0}, {X: 0, Y: -1}, {X: 1, Y: 1}, {X: -1, Y: 1}, {X: -1, Y: -1}, {X: 1, Y: -1}}
 
@@ -439,6 +423,23 @@ func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynami
 	// Tiles[(ny/2)*Width+nx/2], so routes and costs are unchanged.
 	movingUnit, _ := e.catalog.Unit(v.Type)
 	coverCostly := movingUnit.Armor != "infantry"
+	// Index-based passability, identical to passable() for in-grid cells.
+	self := v.ID
+	open := func(i int32) bool {
+		return cells[i] && (!dynamic || mobileCells[i] == 0 || mobileCells[i] == self)
+	}
+	// The coarse corridor as a flat chunk grid. Every in-grid neighbor maps
+	// to an in-range key, so the lookup equals the map membership test.
+	coarseWidth := (m.Width + 7) / 8
+	var coarseCells []bool
+	if len(coarse) > 0 {
+		coarseCells = make([]bool, coarseWidth*((m.Height+7)/8))
+		for key, allowed := range coarse {
+			if allowed && key >= 0 && int(key) < len(coarseCells) {
+				coarseCells[key] = true
+			}
+		}
+	}
 	search := func(restrict bool) []Vec {
 		if budget != nil {
 			if *budget == 0 {
@@ -446,25 +447,36 @@ func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynami
 			}
 			*budget--
 		}
+		// Static-region reject after the budget charge: a search whose seeds
+		// all lie outside the goal's region can only exhaust or hit the
+		// expansion cap and return nil, so returning nil here is identical
+		// and keeps the per-tick budget accounting unchanged.
+		if !e.navNoRegionReject && !navigationSeedsReachGoal(e.navigationComponents(r, cells), starts, end) {
+			return nil
+		}
 		work := e.navigationSearch.begin(int(gridW * gridH))
 		scores, parents := work.scores, work.parents
 		for _, seed := range starts {
+			open := work.mark[seed.index] == work.generation
 			work.mark[seed.index] = work.generation
 			scores[seed.index] = seed.g
 			parents[seed.index] = -1
-			work.heap = append(work.heap, seed)
+			if open {
+				work.openImprove(seed)
+			} else {
+				work.openPush(seed)
+			}
 		}
-		work.heap.initialize()
-		h := &work.heap
 		serial := uint32(len(starts))
 		expansions := 0
-		for h.Len() > 0 && expansions < 32768 {
-			n := h.popNode()
+		for len(work.heap) > 0 && expansions < 32768 {
+			n := work.openPop()
 			if work.mark[n.index] == work.generation+1 {
 				continue
 			}
 			work.mark[n.index] = work.generation + 1
 			expansions++
+			e.navExpansions++
 			if n.index == end {
 				path := []Vec{}
 				for i := end; i >= 0; i = parents[i] {
@@ -492,42 +504,84 @@ func (e *Engine) findNavigationRouteWithBuildContact(v *Entity, goal Vec, dynami
 				return path
 			}
 			x, y := n.index%gridW, n.index/gridW
-			for edge, d := range neighbors {
-				if len(serviceEdges) > 0 && serviceEdges[n.index]&(1<<edge) != 0 {
+			var blockedEdges uint8
+			if len(serviceEdges) > 0 {
+				blockedEdges = serviceEdges[n.index]
+			}
+			// Orthogonal passability is computed once per expansion and reused
+			// by the diagonal no-corner-cut rule; neighbor order (0..7) and all
+			// predicates are unchanged, so pushes and serials are identical.
+			east := x+1 < gridW && open(n.index+1)
+			south := y+1 < gridH && open(n.index+gridW)
+			west := x > 0 && open(n.index-1)
+			north := y > 0 && open(n.index-gridW)
+			for edge := 0; edge < 8; edge++ {
+				if blockedEdges&(1<<edge) != 0 {
 					continue
 				}
-				nx, ny := x+d.X, y+d.Y
-				if nx < 0 || ny < 0 || nx >= gridW || ny >= gridH {
-					continue
+				d := neighbors[edge]
+				index := n.index + d.Y*gridW + d.X
+				cost := int32(1000)
+				switch edge {
+				case 0:
+					if !east {
+						continue
+					}
+				case 1:
+					if !south {
+						continue
+					}
+				case 2:
+					if !west {
+						continue
+					}
+				case 3:
+					if !north {
+						continue
+					}
+				case 4:
+					if !east || !south || !open(index) {
+						continue
+					}
+					cost = 1414
+				case 5:
+					if !west || !south || !open(index) {
+						continue
+					}
+					cost = 1414
+				case 6:
+					if !west || !north || !open(index) {
+						continue
+					}
+					cost = 1414
+				default:
+					if !east || !north || !open(index) {
+						continue
+					}
+					cost = 1414
 				}
-				index := ny*gridW + nx
 				if work.mark[index] == work.generation+1 {
 					continue
 				}
-				if restrict && !coarse[(ny/16)*((m.Width+7)/8)+nx/16] {
+				nx, ny := x+d.X, y+d.Y
+				if restrict && !coarseCells[(ny/16)*coarseWidth+nx/16] {
 					continue
-				}
-				p := Vec{X: nx * 500, Y: ny * 500}
-				if !passable(p) {
-					continue
-				}
-				if d.X != 0 && d.Y != 0 && (!passable(Vec{X: x * 500, Y: ny * 500}) || !passable(Vec{X: nx * 500, Y: y * 500})) {
-					continue
-				}
-				cost := int32(1000)
-				if d.X != 0 && d.Y != 0 {
-					cost = 1414
 				}
 				if coverCostly && m.Tiles[(ny/2)*m.Width+nx/2].Cover() {
 					cost = cost * 5 / 4
 				}
 				g := n.g + cost
-				if work.mark[index] != work.generation || g < scores[index] {
+				if open := work.mark[index] == work.generation; !open || g < scores[index] {
 					work.mark[index] = work.generation
 					scores[index] = g
 					parents[index] = n.index
 					serial++
-					h.pushNode(pathNode{index, g, g + heuristic(nx, ny, gx, gy), serial})
+					node := pathNode{index, g, g + heuristic(nx, ny, gx, gy), serial}
+					if open {
+						work.openImprove(node)
+					} else {
+						work.openPush(node)
+					}
 				}
 			}
 		}

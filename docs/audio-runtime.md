@@ -143,8 +143,17 @@ sound. Pausing the simulation stops the ambient and engine requests. Evidence is
 under `work/evidence/audio-runtime/`; cold production-pack audio evidence is
 recorded separately when that run completes.
 
-The mixer caps decoded buffers at 64 MiB, active sources at 24 and parallel
-decodes at four. Persistent battlefield sound has one quiet map bed and at most
+The mixer caps retained decoded PCM buffers at 128 MiB, active sources at 24
+and parallel decodes at four. The current three stereo battle layers need about
+66–92 MiB per faction at the requested 24 kHz; the previous 64 MiB cache rejected
+the third layer and prevented the group from starting. The 128 MiB cache admits
+the complete group with room for short voice/effect cues. Playing and temporarily
+pinned buffers count toward the cap; inactive buffers are evicted before another
+buffer is retained, and operation reset/disposal clears the cache. Decoder
+working allocations and browser-owned audio overhead are outside this retained
+cache accounting, so this is not a total browser-process memory limit.
+
+Persistent battlefield sound has one quiet map bed and at most
 three currently authorized on-screen moving/airborne actors. It is cleared on
 pause, stale snapshots, fog loss, removal, focus loss and disposal. Jet passes
 use a bounded per-actor cadence. Impact material uses only a Go-authorized target

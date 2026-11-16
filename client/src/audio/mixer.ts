@@ -14,7 +14,11 @@ export interface AudioOwnershipSnapshot {
 }
 interface Source {key?:string;panner?:StereoPannerNode;node:AudioBufferSourceNode;gain:GainNode;bus:AudioBus;priority:number;music:boolean}
 const BUSES:AudioBus[]=['voice','music','effects','ui'];
-const MEMORY=64*1024**2,VOICES=24;
+// Retained decoded PCM cache, including playing and temporarily pinned buffers.
+// The longest current stereo battle trio is ~92 MiB at the requested 24 kHz;
+// 128 MiB admits the whole phase-aligned group plus short speech/effect cues.
+// Decoder working allocations are separate; at most four loads run concurrently.
+const MEMORY=128*1024**2,VOICES=24;
 /** Mix lane: music beds duck to 35% and continuous beds to 40% under priority>=50 voice. */
 const MUSIC_DUCK=.35,BED_DUCK=.4;
 /** Pass quiet samples unchanged, then soften peaks before the device clips them.
@@ -22,7 +26,7 @@ const MUSIC_DUCK=.35,BED_DUCK=.4;
  * oversampling off retains that sample bound; the compressor handles the mix's
  * sustained level and this final curve catches its transient overshoot.
  */
-function outputCeilingCurve(){
+export function outputCeilingCurve(){
  const curve=new Float32Array(4097);
  for(let i=0;i<curve.length;i++){
   const x=i*2/(curve.length-1)-1,a=Math.abs(x);

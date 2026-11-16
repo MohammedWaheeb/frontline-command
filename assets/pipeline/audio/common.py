@@ -12,6 +12,10 @@ OUT = ROOT/'assets/build/audio'
 SOURCE = ROOT/'assets/audio'
 RATE = 24000
 VERSION = 'frontline-audio/1'
+# Vorbis compression_level is inverse quality: .70 corresponds to q3.
+VORBIS_COMPRESSION = .70
+MONO_MP3_BITRATE = '64k'
+STEREO_MP3_BITRATE = '112k'
 
 def digest(data): return hashlib.sha256(data).hexdigest()
 
@@ -58,11 +62,11 @@ def export(job, samples, source_hash, source_info):
     sf.write(raw, samples, RATE, subtype='FLOAT')
     file=OUT/job['path']; file.parent.mkdir(parents=True, exist_ok=True)
     temp=file.with_suffix('.tmp.ogg')
-    sf.write(temp,samples,RATE,format='OGG',subtype='VORBIS',compression_level=.35)
+    sf.write(temp,samples,RATE,format='OGG',subtype='VORBIS',compression_level=VORBIS_COMPRESSION)
     os.replace(temp,file)
     # MP3 fallback makes the same offline package usable by older physical Safari.
     mp3=file.with_suffix('.mp3'); temp=mp3.with_suffix('.tmp.mp3')
-    subprocess.run(['ffmpeg','-v','error','-y','-i',str(raw),'-c:a','libmp3lame','-b:a','128k','-map_metadata','-1',str(temp)],check=True)
+    subprocess.run(['ffmpeg','-v','error','-y','-i',str(raw),'-c:a','libmp3lame','-b:a',MONO_MP3_BITRATE if samples.ndim == 1 or samples.shape[1] == 1 else STEREO_MP3_BITRATE,'-map_metadata','-1',str(temp)],check=True)
     os.replace(temp,mp3)
     decoded, rate=sf.read(file, dtype='float32', always_2d=True)
     if rate!=RATE or len(decoded)==0 or not np.isfinite(decoded).all(): raise ValueError(f'Invalid export {file}')

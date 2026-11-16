@@ -30,7 +30,10 @@ export function useBattleView({app,alertsHost,ordersHost,targetHost}:BattleScree
  useEffect(()=>{control.renderer?.setRangeMode(rangeMode)},[control,rangeMode,sceneLoading]);
  // The renderer repaints its attached minimap from its own ticker when snapshots, overlays or the camera change; disposal detaches it.
  useEffect(()=>{const canvas=minimap.current;if(sceneLoading||!canvas)return;return control.renderer?.attachMinimap(canvas)},[control,sceneLoading]);
- useEffect(()=>{if(state.snapshot?.outcome?.finished)setDebrief(true)},[state.snapshot?.outcome?.finished]);
+ // Results replace the open operation controls. Keeping the network pause
+ // menu underneath duplicates rematch/invitation actions and leaves a stale
+ // modal behind when the player chooses to inspect the finished battlefield.
+ useEffect(()=>{if(state.snapshot?.outcome?.finished){setPause(false);setSettings(false);setSurrender(false);setPractice(false);setEntryEdge(false);setDebrief(true)}},[state.snapshot?.outcome?.finished]);
  const snapshot=state.snapshot,economy=snapshot?.economy,catalog=state.catalog!,player=snapshot?.players.find(player=>player.id===snapshot.player),faction=(player?.faction??'US') as Faction;
  const teamColor=ownerTeamColor(snapshot?.player??0,snapshot?.players??[],state.settings.palette).css;
  const selected=snapshot?.entities.filter(entity=>battle.ids.includes(entity.id))??[],first=selected[0];

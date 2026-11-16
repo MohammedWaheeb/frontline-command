@@ -417,7 +417,10 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--kind',choices=['sfx','music','all'],default='all')
     parser.add_argument('--only',default='',help='comma-separated path substrings; render only matching jobs (pilot renders)')
     args=parser.parse_args()
-    jobs=(sfx_jobs() if args.kind in ('sfx','all') else [])+(music_jobs() if args.kind in ('music','all') else [])
+    # Music moved to music.py (engine v2, 2026-11-08); the v1 composer below is kept
+    # for reference only and must not overwrite the shipped score.
+    if args.kind=='music':raise SystemExit('Music is rendered by assets/pipeline/audio/music.py')
+    jobs=sfx_jobs()
     if args.only:
         needles=[s.strip() for s in args.only.split(',') if s.strip()]
         jobs=[job for job in jobs if any(needle in job['path'] for needle in needles)]

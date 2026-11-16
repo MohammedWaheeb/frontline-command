@@ -2,14 +2,18 @@ import type {PlayerSnapshot} from '../runtime/types';
 import type {SessionKind} from '../runtime/session';
 import type {NetworkState} from './network-controller';
 
-export interface BattlefieldStatusInput{kind?:SessionKind;paused:boolean;snapshot?:Pick<PlayerSnapshot,'player'|'players'|'outcome'>}
+export interface BattlefieldStatusInput{kind?:SessionKind;paused:boolean;snapshot?:Pick<PlayerSnapshot,'player'|'players'|'outcome'>;pace?:{rate:number;busy:boolean}}
+/** Below this achieved/requested rate a solo match is reported as slowed. */
+export const SLOWED_RATE=0.85;
 /** Describe only the current authorized view, never a separately recovered result. */
-export function battlefieldStatus({kind,paused,snapshot}:BattlefieldStatusInput):{label:string;description:string}{
+export function battlefieldStatus({kind,paused,snapshot,pace}:BattlefieldStatusInput):{label:string;description:string}{
  if(kind==='observer')return {label:'OBSERVER',description:'Authorized observer perspective; no command control.'};
  if(kind==='online'&&!snapshot?.outcome?.finished&&snapshot?.players.some(player=>player.id===snapshot.player&&player.defeated))return {label:'FROZEN',description:'Your commander was eliminated. This view receives no live battlefield updates.'};
  if(paused)return {label:'PAUSED',description:'The current timeline is paused.'};
  if(kind==='replay')return {label:'REPLAY',description:'Recorded operation playback.'};
  if(snapshot?.outcome?.finished)return {label:'ENDED',description:'This operation has ended. The battlefield is available for inspection.'};
+ if(pace?.busy)return {label:'BUSY',description:'The simulation is working through a heavy moment. Your orders are kept and apply as soon as it catches up.'};
+ if(pace&&pace.rate<SLOWED_RATE)return {label:'SLOWED',description:`The simulation is running at ${Math.round(pace.rate*100)}% speed because this battle is heavy for this device. Nothing is skipped; orders still apply in sequence.`};
  return {label:'LIVE',description:'Live operation.'};
 }
 

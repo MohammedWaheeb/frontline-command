@@ -107,11 +107,12 @@ test('M1-11: Map Object shows named classes and retains their submitted enum IDs
  tree=h.render(components.EditorPanel,{app});assert.equal(find(tree,node=>node.props['aria-label']==='Map object class').props.value,'civilian_building');
 });
 
-test('M1-12: home has one setup route and one instant action; Continue restores the normal setup row',()=>{
- const app=application(),patches:unknown[]=[];let quick=0;app.patch=(patch:any)=>{patches.push(patch)};app.quickSkirmish=async()=>{quick++};
+test('M1-12: home launches demo directly and keeps skirmish setup and Continue routes',()=>{
+ const app=application(),patches:unknown[]=[];let quick=0,demo=0;app.patch=(patch:any)=>{patches.push(patch)};app.quickSkirmish=async()=>{quick++};app.demoBattle=async()=>{demo++};
  const html=renderToStaticMarkup(createElement(HomeMenu,{app}));
  assert.ok(html.includes('aria-label="Set up skirmish"'));assert.doesNotMatch(html,/aria-label="Skirmish"/);assert.ok(html.includes('Start now · Copper Junction'));
  const h=hooks();let tree=h.render(components.HomeMenu,{app});
+ const demoButton=find(tree,node=>node.props['aria-label']==='Demo');demoButton.props.onClick();assert.equal(demo,1);assert.deepEqual(patches,[],'Demo launches without opening setup');assert.match(html,/Fully built base/);
  find(tree,node=>node.props['aria-label']==='Set up skirmish').props.onClick();assert.deepEqual(patches,[{page:'skirmish'}]);
  const row=find(tree,node=>node.props.label==='Quick skirmish');row.props.onSelect();assert.equal(quick,1);assert.match(row.props.state,/^Start now/);
  assert.equal(elements(tree).filter(node=>node.props.entry?.page==='skirmish').length,1);
@@ -123,7 +124,7 @@ test('M1-12: home has one setup route and one instant action; Continue restores 
 
 
 test('R1-01: Home hook bundle retains the net3 rejoin hero and dispatches joinMatch',()=>{
- const app=application(),h=hooks();let joined=0;app.network.joinMatch=async()=>{joined++};
+ const app=application(),h=hooks();let joined=0;app.network.joinMatch=async()=>{joined++;return true};
  app.network.state.set({account:{profile:{id:'self'}},lobbyState:'active',lobby:{id:'live',name:'Live operation',match_id:'match',slots:[{profile:'self'}]}} as never);
  const tree=h.render(components.HomeMenu,{app}),hero=find(tree,node=>node.props['aria-label']==='Rejoin operation');
  assert.equal(hero.props.disabled,false);hero.props.onClick();assert.equal(joined,1);assert.ok(!elements(tree).some(node=>node.props['aria-label']==='Set up skirmish'));

@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"path/filepath"
 	"testing"
 )
@@ -124,5 +125,63 @@ func TestBootVoidsInterruptedMatchAsHostRestart(t *testing.T) {
 	}
 	if !found {
 		t.Fatalf("participant history hides the host-restart void: %s", body)
+	}
+}
+
+// A failed diagnostic directory must not stop a healthy local host after a
+// crash. The void result is visible immediately; exact journal bytes survive
+// repeated boots and are archived when storage becomes writable again.
+func TestBootWithInterruptedMatchAndUnavailableDiagnosticStore(t *testing.T) {
+	dir := t.TempDir()
+	cfg := Config{DataDir: dir, MapDir: filepath.Join(dir, "no-maps")}
+	ctx := context.Background()
+	first, err := New(cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	checkpoint := []byte("exact interrupted checkpoint\x00")
+	if err := first.repo.StartMatch(ctx, "archive-pending-boot", 19, checkpoint); err != nil {
+		first.Close()
+		t.Fatal(err)
+	}
+	if err := first.Close(); err != nil {
+		t.Fatal(err)
+	}
+	objectPath := filepath.Join(dir, "objects")
+	if err := os.WriteFile(objectPath, []byte("blocked diagnostic directory"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	for attempt := 0; attempt < 2; attempt++ {
+		host, err := New(cfg)
+		if err != nil {
+			t.Fatalf("boot %d blocked by optional diagnostic write: %v", attempt, err)
+		}
+		result, err := host.repo.GetResult(ctx, "archive-pending-boot")
+		if err != nil || !result.Void {
+			host.Close()
+			t.Fatalf("interrupted result not void on boot %d: %+v %v", attempt, result, err)
+		}
+		if len(host.matches) != 0 {
+			host.Close()
+			t.Fatal("interrupted match resumed as live actor")
+		}
+		if err := host.Close(); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := os.Remove(objectPath); err != nil {
+		t.Fatal(err)
+	}
+	host, err := New(cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer host.Close()
+	archived, err := host.objects.Get(ctx, "archive-pending-boot.diagnostic")
+	if err != nil || string(archived) != string(checkpoint) {
+		t.Fatalf("archive retry changed bytes: %q %v", archived, err)
+	}
+	if count, err := host.repo.RecoverInterrupted(ctx, host.objects); count != 0 || err != nil {
+		t.Fatalf("repaired recovery not idempotent: %d %v", count, err)
 	}
 }

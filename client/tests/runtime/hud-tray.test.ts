@@ -84,7 +84,7 @@ test('rendered command card labels and positional keycaps follow every current p
    const rendered=html.match(/<button\b[\s\S]*?<\/button>|<span class="card-socket"[^>]*><\/span>/g)??[];
    assert.equal(rendered.length,12);
    for(const [index,slot] of current.current.entries()){
-    const socket=rendered[index];
+    const socket:string=rendered[index];
     if(slot.kind==='empty'){assert.match(socket,/card-socket/);continue}
     const key='QWERASDFZXCV'[index];assert.match(socket,new RegExp(`aria-keyshortcuts="${key}(?:[ "]|$)`));assert.match(socket,new RegExp(`<kbd[^>]*>${key}</kbd>`));
     const label=slot.kind==='page'?slot.label:slot.kind==='setting'?(slot.command==='power'?'Power':'Repeat sortie'):slot.kind==='observe'?'Recon Observe':slot.kind==='rebase'?'Rebase':slot.kind==='barricade'?'Field barricade':slot.kind==='ability'?(slot.ability==='strategic'?STRATEGIC.US.label:ABILITIES[slot.ability]?.label??slot.ability):COMMANDS[slot.command].label;

@@ -45,6 +45,12 @@ function jsonData<T>(data:T,maximum:number,code:string):T{
  return JSON.parse(text) as T;
 }
 function safeTick(value:number){return Number.isSafeInteger(value)&&value>=0}
+function saveSummary(record:LocalSave):LocalSaveSummary{
+ const {simulation,protocol,content_hash,map_version,ruleset,seed}=record.metadata??{};
+ return {id:record.id,name:record.name,revision:record.revision,updated:record.updated,kind:record.kind,tick:record.tick,hash:record.hash,
+  metadata:{simulation,protocol,content_hash,map_version,ruleset,seed},local_players:Array.isArray(record.local_players)?[...record.local_players]:[],bytes:record.data.byteLength,
+  ...(record.map_id!==undefined?{map_id:record.map_id}:{}),...(record.mission!==undefined?{mission:record.mission}:{})};
+}
 function summary(record:StoredRecord):BackupRecordSummary{
  const value:BackupRecordSummary={id:record.id,revision:record.revision,updated:record.updated};
  if('name' in record)value.name=record.name;
@@ -62,6 +68,7 @@ function incompatible(error:unknown){return /version|incompatible|unsupported|co
 
 export class LocalStore {
  private db:Promise<IDBDatabase>|undefined;
+ private saveSummaries?:{identity:string;values:LocalSaveSummary[]};private summaryEpoch=0;
  constructor(readonly name='frontline-command',private readonly inspect?:SaveInspector,private readonly inspectReplay?:ReplayInspector){}
  private open(){
   if(this.db)return this.db;
@@ -71,14 +78,36 @@ export class LocalStore {
    r.onupgradeneeded=()=>{for(const name of [...stores,'meta','recovery'])if(!r.result.objectStoreNames.contains(name))r.result.createObjectStore(name,{keyPath:'id'});upgradeRevisions(r.result,r.transaction!,stores.map(name=>({name})))};
    r.onerror=()=>reject(storageError(r.error));
    r.onblocked=()=>{blocked=true;reject(new RuntimeError('storage_busy','Close another open game tab before changing the save database.'))};
-   r.onsuccess=()=>{if(blocked){r.result.close();return}r.result.onversionchange=()=>{r.result.close();this.db=undefined};resolve(r.result)};
+   r.onsuccess=()=>{if(blocked){r.result.close();return}r.result.onversionchange=()=>{r.result.close();this.db=undefined;this.saveSummaries=undefined;this.summaryEpoch++};resolve(r.result)};
   }).catch(error=>{this.db=undefined;throw error});return this.db;
  }
- async close(){if(this.db)(await this.db).close();this.db=undefined}
+ async close(){this.saveSummaries=undefined;this.summaryEpoch++;if(this.db)(await this.db).close();this.db=undefined}
  async listSaves():Promise<LocalSave[]>{const db=await this.open();const values=await request(db.transaction('saves').objectStore('saves').getAll()) as LocalSave[];return values.sort((a,b)=>b.updated-a.updated||a.id.localeCompare(b.id))}
- /** Lists archive metadata one cursor record at a time; never retains every engine payload. */
+ /** Repeated menu reads validate only keys and the existing CAS ledger.
+  * A cold/changed archive still streams bodies once; cached summaries contain
+  * no save bytes and cannot outlive a close/version change. No schema upgrade. */
  async listSaveSummaries():Promise<LocalSaveSummary[]>{
-  const db=await this.open();return new Promise((resolve,reject)=>{const values:LocalSaveSummary[]=[],transaction=db.transaction('saves'),request=transaction.objectStore('saves').openCursor();transaction.onabort=()=>reject(storageError(transaction.error));transaction.onerror=()=>reject(storageError(transaction.error));transaction.oncomplete=()=>resolve(values.sort((a,b)=>b.updated-a.updated||a.id.localeCompare(b.id)));request.onerror=()=>reject(storageError(request.error));request.onsuccess=()=>{const cursor=request.result;if(!cursor)return;const {data,...record}=cursor.value as LocalSave;values.push({...record,bytes:data.byteLength});cursor.continue()}});
+  const epoch=this.summaryEpoch,db=await this.open(),tx=db.transaction(['saves',REVISION_STORE]),done=completed(tx);done.catch(()=>{});
+  try{
+   const store=tx.objectStore('saves'),keys=await request(store.getAllKeys());let identity:string|undefined;
+   if(keys.length<=MAX_RECORDS&&keys.every(key=>typeof key==='string')){
+    // Look up only live IDs: deleted-ID tombstones may grow independently of
+    // the archive, and must not turn a bounded menu cache into an unbounded read.
+    const revisions=await Promise.all(keys.map(id=>request(tx.objectStore(REVISION_STORE).get(['saves',id])))) as Array<{revision:number}|undefined>;
+    if(revisions.every(row=>row&&Number.isSafeInteger(row.revision)&&row.revision>0))identity=JSON.stringify(keys.map((id,index)=>[id,revisions[index]!.revision]));
+   }
+   if(identity!==undefined&&this.saveSummaries?.identity===identity){const values=structuredClone(this.saveSummaries.values);await done;return values}
+   const values=await new Promise<LocalSaveSummary[]>((resolve,reject)=>{
+    const values:LocalSaveSummary[]=[],cursor=store.openCursor();cursor.onerror=()=>reject(storageError(cursor.error));cursor.onsuccess=()=>{
+     try{const row=cursor.result;if(!row){resolve(values);return}values.push(saveSummary(row.value as LocalSave));row.continue()}catch(error){reject(error)}
+    };
+   });
+   await done;values.sort((a,b)=>b.updated-a.updated||a.id.localeCompare(b.id));
+   // Missing/out-of-band revision data is never trusted as a cache stamp.
+   const actual=JSON.stringify([...values].sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0).map(value=>[value.id,value.revision]));
+   if(this.summaryEpoch===epoch)this.saveSummaries=identity!==undefined&&actual===identity?{identity,values}:undefined;
+   return structuredClone(values);
+  }catch(error){try{tx.abort()}catch{}throw storageError(error)}
  }
  async getSave(id:string):Promise<LocalSave|undefined>{const db=await this.open();return request(db.transaction('saves').objectStore('saves').get(id))}
  private async checked(save:SaveData){

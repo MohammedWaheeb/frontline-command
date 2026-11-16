@@ -6,17 +6,17 @@ ROOT = Path(__file__).resolve().parents[3]
 FACTIONS = ('US', 'IR', 'SY', 'SA')
 ARCHETYPES = {f: ('infantry', 'vehicle_crew', 'pilot' if f in ('US', 'SA') else 'drone_operator') for f in FACTIONS}
 VOICES = {
-    'US': {'infantry': 'am_michael', 'vehicle_crew': 'am_fenrir', 'pilot': 'af_bella', 'announcer': 'af_heart'},
-    'IR': {'infantry': 'am_fenrir', 'vehicle_crew': 'am_michael', 'drone_operator': 'af_heart', 'announcer': 'bm_george'},
-    'SY': {'infantry': 'am_puck', 'vehicle_crew': 'bm_george', 'drone_operator': 'af_bella', 'announcer': 'bf_emma'},
-    'SA': {'infantry': 'bm_george', 'vehicle_crew': 'am_fenrir', 'pilot': 'am_michael', 'announcer': 'af_bella'},
+    'US': {'infantry': 'am_fenrir', 'vehicle_crew': 'am_michael', 'pilot': 'am_michael', 'announcer': 'am_fenrir'},
+    'IR': {'infantry': 'bm_george', 'vehicle_crew': 'am_fenrir', 'drone_operator': 'am_michael', 'announcer': 'bm_george'},
+    'SY': {'infantry': 'am_fenrir', 'vehicle_crew': 'bm_george', 'drone_operator': 'am_fenrir', 'announcer': 'am_michael'},
+    'SA': {'infantry': 'bm_george', 'vehicle_crew': 'am_fenrir', 'pilot': 'am_michael', 'announcer': 'bm_george'},
 }
-SPEEDS = {'US': 1.06, 'IR': 1.00, 'SY': 1.10, 'SA': 0.98}
-# Gentle per-faction radio timbre as bandpass edges (Hz, low/high). US crisp and
-# bright, IR calm and warm, SY lean and forward, SA weighty and full. All edges
+SPEEDS = {'US': 1.12, 'IR': 1.08, 'SY': 1.14, 'SA': 1.08}
+# Male stock voices with distinct, dry field-radio timbre (Hz, low/high).
+# Preserve chest fundamentals and the consonant band. All edges
 # stay inside the speech band so factions remain mutually intelligible; the
 # quoted role cues (wing/link/route/formation vocabulary) stay in the scripts.
-FACTION_EQ = {'US': (150, 7500), 'IR': (120, 6800), 'SY': (200, 7000), 'SA': (100, 6500)}
+FACTION_EQ = {'US': (95, 5700), 'IR': (95, 5300), 'SY': (110, 5900), 'SA': (90, 5400)}
 # Announcer delivery multipliers on top of the base 1.02 announcer pace, so the
 # three critical warning reads are distinct: missile warning urgent, base
 # attacked firm (default), interceptor depleted flat. Range kept narrow for
@@ -109,7 +109,8 @@ def voice_jobs():
     def add(id, path, text, faction, role='announcer', variant=1, priority=50, cooldown=6000, event=None):
         pace = ANNOUNCER_PACE.get(event, 1.0) if role == 'announcer' else 1.0
         jobs.append(dict(id=id, path=path, caption=text, faction=faction, voice=VOICES[faction][role],
-                         speed=(SPEEDS[faction] if role!='announcer' else 1.02) * pace,
+                         speed=(SPEEDS[faction] if role!='announcer' else 1.08) * pace,
+                         pitch_semitones=-.7 if role=='announcer' else -.9,
                          eq=list(FACTION_EQ[faction]), variant=variant,
                          bus='voice', priority=priority, cooldown_ms=cooldown))
     for faction in FACTIONS:

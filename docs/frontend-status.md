@@ -226,9 +226,12 @@ Warning captions remain visible with muted or disabled sound; existing tactical
 markers remain independent of audio and the captions preference.
 
 The mixer validates a bounded audio index, exact primary/fallback file hashes,
-decoded duration and channel count. It limits decoded memory to 64 MiB, concurrent
-decodes to four and active sources to 24. Three faction music layers share one
-start origin and crossfade gains. Operation changes abort fetches, invalidate late
+decoded duration and channel count. It limits retained decoded PCM to 128 MiB,
+concurrent decodes to four and active sources to 24. The current stereo battle
+trios require about 66–92 MiB at 24 kHz; the older 64 MiB cap prevented their
+third layer from loading. This cache bound includes playing/pinned buffers but
+excludes temporary decoder allocations and browser audio overhead. Three faction
+music layers share one start origin and crossfade gains. Operation changes abort fetches, invalidate late
 decodes and clear buffers/sources. Seek, reconnect and perspective changes establish
 an event baseline rather than replaying historical warnings. Focus loss suspends
 output; a trusted gesture resumes it. MP3 fallback is attempted only for a genuine

@@ -261,6 +261,15 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		fail(w, 429, "request_rate_exceeded", "Too many requests. Retry after one minute.")
 		return
 	}
+	if writesUnderLobbyLock(r.URL.Path) {
+		// These handlers encode responses while holding s.mu; buffer them so
+		// a client that stops reading cannot stall every lobby for the whole
+		// write timeout.
+		buffered := &bufferedResponse{header: w.Header()}
+		s.mux.ServeHTTP(buffered, r)
+		buffered.flushTo(w)
+		return
+	}
 	s.mux.ServeHTTP(w, r)
 }
 func (s *Server) allowedOrigin(r *http.Request, origin string) bool {

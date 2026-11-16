@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	_ "modernc.org/sqlite"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -32,7 +33,29 @@ func Open(path string) (*SQLite, error) {
 			return nil, err
 		}
 	}
-	db, err := sql.Open("sqlite", path)
+	// These connection-local policies must also apply when database/sql retires
+	// a bad connection and opens its replacement. The driver's _pragma DSN
+	// setup runs on every physical connection; one-time Exec calls do not.
+	var uri url.URL
+	if path == ":memory:" {
+		uri = url.URL{Scheme: "file", Opaque: ":memory:"}
+	} else {
+		absolute, err := filepath.Abs(path)
+		if err != nil {
+			return nil, err
+		}
+		filename := filepath.ToSlash(absolute)
+		if !strings.HasPrefix(filename, "/") {
+			filename = "/" + filename
+		}
+		uri = url.URL{Scheme: "file", Path: filename}
+	}
+	parameters := url.Values{}
+	for _, pragma := range []string{"busy_timeout(5000)", "foreign_keys(ON)", "synchronous(FULL)"} {
+		parameters.Add("_pragma", pragma)
+	}
+	uri.RawQuery = parameters.Encode()
+	db, err := sql.Open("sqlite", uri.String())
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +70,7 @@ func Open(path string) (*SQLite, error) {
 		return nil, errors.New("database was created by a newer game version")
 	}
 	s := &SQLite{db: db}
-	for _, stmt := range []string{"PRAGMA foreign_keys=ON", "PRAGMA journal_mode=WAL", "PRAGMA synchronous=FULL", "PRAGMA busy_timeout=5000", `CREATE TABLE IF NOT EXISTS profiles(id TEXT PRIMARY KEY,name TEXT NOT NULL,created INTEGER NOT NULL,token_hash TEXT UNIQUE NOT NULL)`, `CREATE TABLE IF NOT EXISTS saves(owner TEXT NOT NULL REFERENCES profiles(id),id TEXT NOT NULL,name TEXT NOT NULL,revision INTEGER NOT NULL,updated INTEGER NOT NULL,data BLOB NOT NULL,PRIMARY KEY(owner,id))`, `CREATE TABLE IF NOT EXISTS results(id TEXT PRIMARY KEY,payload BLOB NOT NULL,created INTEGER NOT NULL,void INTEGER NOT NULL,checksum TEXT NOT NULL)`, `CREATE TABLE IF NOT EXISTS maps(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES profiles(id),title TEXT NOT NULL,revision INTEGER NOT NULL,data BLOB NOT NULL)`, `CREATE TABLE IF NOT EXISTS reports(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES profiles(id),match_id TEXT NOT NULL,tick INTEGER NOT NULL,reason TEXT NOT NULL,created INTEGER NOT NULL)`, `CREATE TABLE IF NOT EXISTS profile_settings(owner TEXT PRIMARY KEY REFERENCES profiles(id),revision INTEGER NOT NULL,data BLOB NOT NULL)`} {
+	for _, stmt := range []string{"PRAGMA journal_mode=WAL", `CREATE TABLE IF NOT EXISTS profiles(id TEXT PRIMARY KEY,name TEXT NOT NULL,created INTEGER NOT NULL,token_hash TEXT UNIQUE NOT NULL)`, `CREATE TABLE IF NOT EXISTS saves(owner TEXT NOT NULL REFERENCES profiles(id),id TEXT NOT NULL,name TEXT NOT NULL,revision INTEGER NOT NULL,updated INTEGER NOT NULL,data BLOB NOT NULL,PRIMARY KEY(owner,id))`, `CREATE TABLE IF NOT EXISTS results(id TEXT PRIMARY KEY,payload BLOB NOT NULL,created INTEGER NOT NULL,void INTEGER NOT NULL,checksum TEXT NOT NULL)`, `CREATE TABLE IF NOT EXISTS maps(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES profiles(id),title TEXT NOT NULL,revision INTEGER NOT NULL,data BLOB NOT NULL)`, `CREATE TABLE IF NOT EXISTS reports(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES profiles(id),match_id TEXT NOT NULL,tick INTEGER NOT NULL,reason TEXT NOT NULL,created INTEGER NOT NULL)`, `CREATE TABLE IF NOT EXISTS profile_settings(owner TEXT PRIMARY KEY REFERENCES profiles(id),revision INTEGER NOT NULL,data BLOB NOT NULL)`} {
 		if _, err = db.Exec(stmt); err != nil {
 			db.Close()
 			return nil, err
@@ -84,6 +107,18 @@ func Open(path string) (*SQLite, error) {
 	if err = s.initSaveIntegritySchema(schemaVersion); err != nil {
 		db.Close()
 		return nil, err
+	}
+	// Additive indexes and the previously lazy provenance table need no format
+	// version change. Initialize once at open rather than on checkpoint reads.
+	for _, statement := range []string{
+		serverCheckpointsSchema,
+		`CREATE INDEX IF NOT EXISTS server_checkpoints_digest_match ON server_checkpoints(digest,match_id)`,
+		`CREATE INDEX IF NOT EXISTS chat_sender_created ON chat(sender,created)`,
+	} {
+		if _, err = db.Exec(statement); err != nil {
+			db.Close()
+			return nil, err
+		}
 	}
 	return s, nil
 }
@@ -392,6 +427,13 @@ func (s *SQLite) DeleteSave(ctx context.Context, owner, id string, revision int6
 	return tx.Commit()
 }
 func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
+	return s.commitResult(ctx, v, false)
+}
+
+// retainCheckpoint is used only by startup recovery when the diagnostic store
+// is unavailable. The void is durable, while its exact interrupted checkpoint
+// stays in the existing journal until a later startup can archive it.
+func (s *SQLite) commitResult(ctx context.Context, v Result, retainCheckpoint bool) (bool, error) {
 	if !ValidID(v.ID) || len(v.Payload) > 4<<20 {
 		return false, errors.New("invalid match result")
 	}
@@ -416,8 +458,10 @@ func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
 			return false, ErrConflict
 		}
 		// Retrying a committed result also retires any stale checkpoint journal.
-		if _, err = tx.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, v.ID); err != nil {
-			return false, err
+		if !retainCheckpoint {
+			if _, err = tx.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, v.ID); err != nil {
+				return false, err
+			}
 		}
 		return false, tx.Commit()
 	}
@@ -436,8 +480,10 @@ func (s *SQLite) CommitResult(ctx context.Context, v Result) (bool, error) {
 			return false, err
 		}
 	}
-	if _, err = tx.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, v.ID); err != nil {
-		return false, err
+	if !retainCheckpoint {
+		if _, err = tx.ExecContext(ctx, `DELETE FROM active_matches WHERE id=?`, v.ID); err != nil {
+			return false, err
+		}
 	}
 	return true, tx.Commit()
 }

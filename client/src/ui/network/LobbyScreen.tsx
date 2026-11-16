@@ -2,7 +2,7 @@
 // deploy countdown and the completed-match results/rematch state. Every write goes through the
 // existing NetworkController guards; the Go host remains the authority for admission and rules.
 import {useEffect,useRef,useState} from 'react';
-import {canRejoinOperation,lobbyAIBlockReason,networkErrorMessage,type NetworkController,type NetworkLobby,type NetworkLobbySlot,type NetworkState} from '../../app/network-controller';
+import {canRejoinOperation,lobbyAIBlockReason,networkErrorMessage,resultDurabilityLabel,type NetworkController,type NetworkLobby,type NetworkLobbySlot,type NetworkState} from '../../app/network-controller';
 import {hasStandardLobbyStartingCredits,lobbyStartingMoneySummary} from '../../app/starting-money';
 import {FACTIONS,formatClock} from '../../content/labels';
 import type {Difficulty,Faction} from '../../runtime/types';
@@ -130,7 +130,7 @@ function ResultHeader({state}:{state:NetworkState}){
  const headline=!result?'Operation complete':result.void?'Operation voided':outcome?.draw?'Draw':outcome?.winningTeam?own?(outcome.winningTeam===own.team?'Victory':'Defeat'):`Team ${outcome.winningTeam} wins`:'Operation complete';
  const tone=headline==='Victory'?'victory':headline==='Defeat'?'defeat':'neutral';
  const reason=outcome?.reason==='players_missing'?networkErrorMessage('players_missing'):outcome?.reason?title(outcome.reason.replaceAll('_',' ')):'';
- return <section className="network-result mp-result" data-tone={tone} aria-label="Operation result"><Icon id={tone==='victory'?'i-trophy':'i-flag-checker'}/><div><strong>{headline}</strong><p>{[reason,outcome?`Game time ${formatClock(outcome.tick)}`:'',result&&!result.committed?'Waiting for the host to confirm':''].filter(Boolean).join(' · ')||'Loading the recorded result…'}</p></div></section>;
+ return <section className="network-result mp-result" data-tone={tone} aria-label="Operation result"><Icon id={tone==='victory'?'i-trophy':'i-flag-checker'}/><div><strong>{headline}</strong><p>{[reason,outcome?`Game time ${formatClock(outcome.tick)}`:'',resultDurabilityLabel(result,'Waiting for the host to confirm','No result was saved')].filter(Boolean).join(' · ')||'Loading the recorded result…'}</p></div></section>;
 }
 
 export function LobbyScreen({controller,state,palette}:Common){

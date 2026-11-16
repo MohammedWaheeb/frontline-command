@@ -41,7 +41,8 @@ export function CommandSidebar({view}:{view:BattleView}){
  const sellLine=refundMilli!==undefined?` Selected structure refund now: ${Math.floor(refundMilli/1000).toLocaleString('en-US')} credits.`:'';
  const bindings=state.settings.bindings.keys,badge=(id:string)=>{const chord=bindings[id]?.[0];return chord?shortcutBadgeLabel(chord):undefined};
  const power=powerReadout(economy?.powerDemand,economy?.powerCapacity);
- const status=battlefieldStatus({kind:state.session.kind,paused:state.paused,snapshot});
+ const pace=['solo','practice'].includes(state.session.kind??'')?state.simPace:undefined;
+ const status=battlefieldStatus({kind:state.session.kind,paused:state.paused,snapshot,pace});
  const showStatus=!sceneLoading&&!(status.label==='LIVE'&&['solo','practice'].includes(state.session.kind??''));
  const income=economyStatus?.incomeState==='ready'&&economyStatus.incomePerMinute!==undefined?economyStatus.incomePerMinute:undefined;
  const reserve=economy?.repairReserve??0n;
@@ -68,7 +69,7 @@ export function CommandSidebar({view}:{view:BattleView}){
    <span className="hud-stat hud-energy" role="img" aria-label={`Command Energy ${credits(economy?.energy??0n)}`} {...trigger('energy',()=><KeyTipBody title="Command Energy" line="Spent on faction command abilities. Regenerates from your HQ."/>)} tabIndex={0}><Icon id="i-energy"/><b>{credits(economy?.energy??0n)}</b></span>
    <span className="hud-stat hud-tier" role="img" aria-label={`Technology tier ${economy?.tier??1}`} {...trigger('tier',()=><KeyTipBody title={`Tier ${economy?.tier??1}`} line="Radar center unlocks tier 2; Technology center unlocks tier 3."/>)} tabIndex={0}><small>T</small><b>{economy?.tier??1}</b></span>
   </div>
-  {showStatus&&<BattlefieldStatus kind={state.session.kind} paused={state.paused} snapshot={snapshot}/>}
+  {showStatus&&<BattlefieldStatus kind={state.session.kind} paused={state.paused} snapshot={snapshot} pace={pace}/>}
  </header>
  <TacticalMinimap view={view}/>
  <div className="sidebar-utilities" data-hud="utility">
@@ -77,7 +78,7 @@ export function CommandSidebar({view}:{view:BattleView}){
   <span className="hud-key-gap" aria-hidden="true"/>
   {(Object.keys(UTILITY) as UtilityKind[]).map(kind=>{const info=UTILITY[kind],ready=utilityReady(kind),key=badge(kind),active=armed===kind;return <button key={kind} type="button" className={`hud-key${active?' active':''}`} data-utility={kind} aria-label={info.label} aria-disabled={!ready||undefined} aria-pressed={active} aria-keyshortcuts={ready?shortcutAriaList(bindings[kind]):undefined} {...trigger(`utility-${kind}`,()=><KeyTipBody title={info.label} hotkey={key} line={kind==='sell_mode'?info.line+sellLine:info.line} blocked={ready?undefined:readOnly?'Not available while viewing.':info.needs}/>)} onClick={()=>{if(ready)void control.command(kind)}}><Icon id={COMMANDS[kind]?.icon??info.icon}/>{key&&<kbd aria-hidden="true">{key}</kbd>}</button>})}
  </div>
- {state.session.kind==='practice'&&<button type="button" className="practice-tool-button" onClick={()=>setPractice(true)}>Practice tools · no rewards</button>}
+ {state.session.kind==='practice'&&!snapshot?.mission&&<button type="button" className="practice-tool-button" onClick={()=>setPractice(true)}>Practice tools · no rewards</button>}
  <ProductionPanel view={view} tip={trigger}/>
  {strategic!==undefined&&<footer className="strategic-panel" data-ready={strategic>=100||undefined} {...trigger('strategic',()=><KeyTipBody title={STRATEGIC[faction].label} line={strategic>=100?'Charged. Select your Strategic operations site to launch.':`Charging · ${strategic}%. Low power stops charging.`}/>)} tabIndex={0} role="img" aria-label={`${STRATEGIC[faction].label}: ${strategic>=100?'charged':`${strategic}% charged`}`}><Icon id="i-missile"/><strong>{STRATEGIC[faction].label}</strong><span className="hud-meter" aria-hidden="true"><i style={{width:`${strategic}%`}}/></span><b>{strategic>=100?'READY':`${strategic}%`}</b></footer>}
  <EconomyPopover open={economyOpen} onOpen={()=>setEconomyOpen(true)} onClose={closeEconomy} reserve={economy?.repairReserve} disabled={readOnly||battle.pending||!!snapshot?.countdown} available={playerCommands.includes('repair_reserve')} bindings={bindings.repair_reserve} status={economyStatus} onApply={amount=>{void control.command('repair_reserve',undefined,undefined,false,amount)}}/>

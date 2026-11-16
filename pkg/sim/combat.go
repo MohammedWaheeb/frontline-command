@@ -6,12 +6,8 @@ import (
 )
 
 func (e *Engine) weapon(v *Entity) (content.Weapon, bool) {
-	if v.Building {
-		b, _ := e.buildingRule(v.Type)
-		return e.catalog.Weapon(b.Weapon)
-	}
-	u, _ := e.catalog.Unit(v.Type)
-	return e.catalog.Weapon(u.Weapon)
+	r := e.combatRule(v)
+	return r.weapon, r.armed
 }
 func (e *Engine) firingPlatform(v *Entity) *Entity {
 	if v.Container == 0 {
@@ -30,43 +26,59 @@ func (e *Engine) weaponDistance(v, target *Entity) int32 {
 	return e.edgeDistance(v, target)
 }
 func (e *Engine) canAttack(a, b *Entity) bool {
+	if a == nil || b == nil {
+		return false
+	}
+	return e.canAttackWithRule(a, b, e.combatRule(a))
+}
+
+// Target searches resolve the attacker's immutable rules once, while each
+// target's mutable eligibility is still checked at the point of use.
+func (e *Engine) canAttackWithRule(a, b *Entity, attacker *combatRule) bool {
 	if a == nil || b == nil || e.defeated(a.Owner) || e.defeated(b.Owner) {
 		return false
 	}
-	if e.role(b) == "support_plane" && b.DisabledUntil > e.state.Tick {
+	target := e.combatRule(b)
+	if target.role == "support_plane" && b.DisabledUntil > e.state.Tick {
 		return false
 	}
-	w, ok := e.weapon(a)
-	if !ok || a.HP <= 0 || b.HP <= 0 || b.Container != 0 || e.allied(a.Owner, b.Owner) {
+	if !attacker.armed || a.HP <= 0 || b.HP <= 0 || b.Container != 0 || e.allied(a.Owner, b.Owner) {
 		return false
 	}
-	if w.Kind == "tactical" {
-		return e.armor(b) != "air"
+	armor := target.entityArmor(b)
+	if attacker.weapon.Kind == "tactical" {
+		return armor != "air"
 	}
-	return e.catalog.Multiplier(w.Kind, e.armor(b)) > 0
+	return attacker.multiplier(armor) > 0
 }
 func (e *Engine) canFireWhileMoving(v *Entity) bool {
-	switch e.role(v) {
-	case "tank", "car", "apc", "gunship":
+	return e.combatRule(v).canFireWhileMoving()
+}
+func (r *combatRule) canFireWhileMoving() bool {
+	switch r.role {
+	case "tank", "car", "apc", "gunship", "fighter", "strike":
 		return true
 	}
-	return e.fixedWing(v)
+	return false
 }
 func (e *Engine) pickTarget(v *Entity) *Entity {
+	return e.pickTargetWithRule(v, e.combatRule(v))
+}
+func (e *Engine) pickTargetWithRule(v *Entity, attacker *combatRule) *Entity {
 	if len(v.Orders) > 0 && v.Orders[0].Kind == "attack" {
 		target := e.entity(v.Orders[0].Target)
-		if target != nil && e.canAttack(v, target) && e.canSeeEntity(v.Owner, target) {
+		if target != nil && e.canAttackWithRule(v, target, attacker) && e.canSeeEntity(v.Owner, target) {
 			return target
 		}
 		return nil
 	}
 	leash := e.combatLeash(v)
-	w, _ := e.weapon(v)
+	w := attacker.weapon
 	combatRoute := len(v.Orders) > 0 && (v.Orders[0].Kind == "attack_move" || v.Orders[0].Kind == "patrol")
 	// Move retains its destination while mobile weapons engage enemies in the
 	// current firing ring, including those beyond the departure anchor.
-	movingFire := len(v.Orders) > 0 && v.Orders[0].Kind == "move" && e.canFireWhileMoving(v)
-	if current := e.entity(v.Target); current != nil && current.Owner != 0 && e.canAttack(v, current) && e.canSeeEntity(v.Owner, current) {
+	movingFire := len(v.Orders) > 0 && v.Orders[0].Kind == "move" && attacker.canFireWhileMoving()
+	if current := e.entity(v.Target); current != nil && current.Owner != 0 && e.canAttackWithRule(v, current, attacker) && e.canSeeEntity(v.Owner, current) {
 		inArea := combatRoute || distance(v.Anchor, current.Position) <= leash
 		if movingFire {
 			d := e.weaponDistance(v, current)
@@ -84,8 +96,8 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 		center = v.Position
 		searchRadius = w.MaxRange + 6000
 	}
-	for _, target := range e.nearby(center, searchRadius) {
-		if target.Owner == 0 || !e.canAttack(v, target) || !e.canSeeEntity(v.Owner, target) || e.defeated(target.Owner) {
+	for target := range e.nearby(center, searchRadius) {
+		if target.Owner == 0 || !e.canAttackWithRule(v, target, attacker) || !e.canSeeEntity(v.Owner, target) || e.defeated(target.Owner) {
 			continue
 		}
 		if movingFire {
@@ -102,8 +114,7 @@ func (e *Engine) pickTarget(v *Entity) *Entity {
 		} else if t := e.entity(target.Target); t != nil && e.allied(v.Owner, t.Owner) {
 			pr = 1
 		}
-		w, _ := e.weapon(v)
-		pr = pr*2000 + int(e.catalog.Multiplier(w.Kind, e.armor(target)))
+		pr = pr*2000 + int(attacker.multiplier(e.armor(target)))
 		d := dist2(v.Position, target.Position)
 		if pr > priority || pr == priority && (d < score || d == score && (best == nil || target.ID < best.ID)) {
 			best = target
@@ -124,10 +135,11 @@ func (e *Engine) updateCombat() {
 		if v.Type == "IR.shahed" {
 			continue
 		}
-		if e.isAircraft(v) && v.Landed {
+		rules := e.combatRule(v)
+		if rules.armor == "air" && v.Landed {
 			continue
 		}
-		w, armed := e.weapon(v)
+		w, armed := rules.weapon, rules.armed
 		if !armed {
 			continue
 		}
@@ -143,7 +155,7 @@ func (e *Engine) updateCombat() {
 		if o.Kind == "build" || o.Kind == "repair" || o.Kind == "capture" || o.Kind == "salvage" || o.Kind == "board" || o.Kind == "return" {
 			continue
 		}
-		mobileFire := e.canFireWhileMoving(v)
+		mobileFire := rules.canFireWhileMoving()
 		if o.Kind == "move" && !mobileFire {
 			continue
 		}
@@ -155,7 +167,7 @@ func (e *Engine) updateCombat() {
 				continue
 			}
 		} else {
-			target = e.pickTarget(v)
+			target = e.pickTargetWithRule(v, rules)
 			if target == nil {
 				v.Target = 0
 				v.AimUntil = 0

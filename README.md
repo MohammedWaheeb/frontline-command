@@ -9,17 +9,24 @@ harness and the UI smokes. Physical LAN, four-human sessions, human balance and
 art approval remain unverified, and audio acceptance is not claimed. See
 [the beta readiness report](docs/beta-readiness-2026-10-31.md). No deployment occurred.
 
-Open `Play.command` in the beta package that `make build` writes to
-`dist/frontline-darwin-arm64/`, or launch it from this checkout:
+For the prepared demo, run from this checkout:
 
 ```sh
-make build && make play
+make demo
 ```
 
-Then open http://127.0.0.1:8080 in your browser. The beta package is
+It verifies the existing production package and opens http://127.0.0.1:8080.
+Keep the terminal open; Ctrl-C stops the host it started. A matching running
+demo is reused. Host data stays in the package's `data/` directory, shared with
+its standalone `Play.command`. Run `make build` separately to deliberately
+replace the package after source changes. The beta package is
 built by `make build` from the current (uncommitted) working tree. [The 2026-10-13 release report](work/release-readiness-20261013/REPORT.md)
 covers the earlier scoped release only. Current verification and open items
 are in [the release-fix receipts](docs/release-fix-receipts-2026-10-20.md).
+
+Runtime graphics and audio use the [moderate compression profile](docs/asset-compression.md).
+Editable originals are preserved, and the smaller high-resolution unit tier keeps
+the original world size and animation coverage.
 
 The authoritative rules are in [the game design](outputs/frontline-command-game-design.md).
 The approved implementation scope is in [the handoff](outputs/frontline-command-agent-handoff.md).

@@ -99,6 +99,12 @@ export function HomeMenu({app,onLayoutChange}:HomeMenuProps){
     <section className="fcm-group fcm-group--play" aria-labelledby={`${heroID}-play`}>
      <h2 className="fcm-group-label" id={`${heroID}-play`}>{groupTitle.play}</h2>
      <ul className="fcm-rows">
+      <li className="fcm-row-item"><button type="button" className="fcm-row" data-menu-focus="demo" aria-label="Demo" aria-describedby={`${heroID}-demo`} onClick={()=>void app.demoBattle()}>
+       <span className="fcm-row-icon" aria-hidden="true"><KitIcon id="i-play"/></span>
+       <span className="fcm-row-title">Demo</span>
+       <span className="fcm-row-state" id={`${heroID}-demo`}>Fully built base · Defenses · Troops ready</span>
+       <KitIcon id="i-chevron-right" className="fcm-row-arrow"/>
+      </button></li>
       <Row entry={skirmish} label="Quick skirmish" title="Quick skirmish" icon="i-play" state={quickState?`Start now · ${quickState}`:'Start now · default setup'} onSelect={()=>void app.quickSkirmish()}/>
       {play.map(entry=><Row key={entry.page} entry={entry} state={rowState[entry.page]?.text} live={rowState[entry.page]?.live} onSelect={go(entry.page)}/>)}
      </ul>

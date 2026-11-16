@@ -472,8 +472,10 @@ def apply_audio_production(entries):
                         if voice else 'Original procedural composition/sound design, Codex quota takeover')
         item['license']=('Original project dialogue; stock synthetic model Apache-2.0; notices in assets/audio/licenses/'
                          if voice else LIC_ORIGINAL)
-        item['editable_origin']='assets/pipeline/audio/dialogue.py + content/missions/' if voice else 'assets/pipeline/audio/synthesis.py'
-        item['spec']={**(item.get('spec') or {}),'format':'24 kHz Ogg Vorbis with MP3 fallback','runtime_ids':ids}
+        item['editable_origin']=('assets/pipeline/audio/dialogue.py + content/missions/' if voice else
+                                 'assets/pipeline/audio/music.py' if category=='music' else 'assets/pipeline/audio/synthesis.py')
+        item['spec']={**(item.get('spec') or {}),'format':('44.1 kHz stereo Ogg Vorbis with MP3 fallback' if category=='music'
+                      else '24 kHz Ogg Vorbis with MP3 fallback'),'runtime_ids':ids}
         item['notes']='Exact-byte files and captions verified for sample status. Listening and final mix approval remain pending.'
 
 

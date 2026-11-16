@@ -8,7 +8,9 @@ import {productionTabShortcut} from '../../src/ui/hud/sidebar-model';
 test('normal and alertdialog stacks own Escape/Tab and restore focus through nested cancel',()=>{
  const old=Object.getOwnPropertyDescriptor(globalThis,'document'),stack:any[]=[],doc:any={activeElement:null,querySelectorAll(selector:string){assert.equal(selector,MODAL_SELECTOR);return {length:stack.length,item:(index:number)=>stack[index]??null}},querySelector(selector:string){assert.equal(selector,MODAL_SELECTOR);return stack[0]??null}};
  const control=()=>({tabIndex:0,isConnected:true,matches:()=>false,closest:()=>null,getClientRects:()=>[{}],focus(){doc.activeElement=this}});
- const dialog=(role:string,controls:any[])=>({...control(),role,querySelectorAll:()=>controls,listener:undefined as any,addEventListener(_name:string,listener:any){this.listener=listener},removeEventListener(){this.listener=undefined}});
+ // This DOM peer implements the members modalFocus exercises; browser-only
+ // HTMLElement members are outside this test's explicit mock boundary.
+ const dialog=(role:string,controls:any[])=>{const peer={...control(),role,querySelectorAll:()=>controls,listener:undefined as any,addEventListener(_name:string,listener:any){this.listener=listener},removeEventListener(){this.listener=undefined}};return peer as unknown as HTMLElement};
  const send=(node:any,key:string,shiftKey=false)=>{const event={key,shiftKey,defaultPrevented:false,stopped:false,preventDefault(){this.defaultPrevented=true},stopPropagation(){this.stopped=true}};node.listener(event);return event};
  Object.defineProperty(globalThis,'document',{configurable:true,value:doc});
  try{

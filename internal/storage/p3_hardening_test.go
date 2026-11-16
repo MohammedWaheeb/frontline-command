@@ -84,11 +84,37 @@ func TestFilesPutQuotaAndSweepsStaleTemps(t *testing.T) {
 	}
 	defer func(v int64) { maxObjectBytesTotal = v }(maxObjectBytesTotal)
 	maxObjectBytesTotal = 7 // obj-1 holds 4 bytes; another 4-byte put exceeds
-	if err := f.Put(ctx, "obj-2", []byte("more")); !errors.Is(err, ErrQuotaExceeded) {
-		t.Fatal("object quota not enforced", err)
-	}
 	// Replacing an existing object does not double-count its bytes.
 	if err := f.Put(ctx, "obj-1", []byte("data")); err != nil {
 		t.Fatal("replacement rejected", err)
+	}
+	old = time.Now().Add(-time.Minute)
+	if err := os.Chtimes(filepath.Join(root, "obj-1"), old, old); err != nil {
+		t.Fatal(err)
+	}
+	// At the cap the oldest object makes room for the newest.
+	if err := f.Put(ctx, "obj-2", []byte("more")); err != nil {
+		t.Fatal("full store refused a new object", err)
+	}
+	if _, err := os.Stat(filepath.Join(root, "obj-1")); !errors.Is(err, os.ErrNotExist) {
+		t.Fatal("oldest object not evicted", err)
+	}
+	if got, err := f.Get(ctx, "obj-2"); err != nil || string(got) != "more" {
+		t.Fatal("new object not stored", err)
+	}
+	// An object larger than the whole store is still refused.
+	if err := f.Put(ctx, "obj-3", []byte("too large")); !errors.Is(err, ErrQuotaExceeded) {
+		t.Fatal("oversized object accepted", err)
+	}
+	if _, err := f.Get(ctx, "obj-2"); err != nil {
+		t.Fatal("oversized put evicted existing objects", err)
+	}
+	defer func(v int) { maxObjectCount = v }(maxObjectCount)
+	maxObjectBytesTotal, maxObjectCount = 1<<20, 1
+	if err := f.Put(ctx, "obj-4", []byte("x")); err != nil {
+		t.Fatal("count cap refused a new object", err)
+	}
+	if _, err := os.Stat(filepath.Join(root, "obj-2")); !errors.Is(err, os.ErrNotExist) {
+		t.Fatal("count cap did not evict the oldest object", err)
 	}
 }

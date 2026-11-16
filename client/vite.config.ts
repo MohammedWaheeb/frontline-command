@@ -10,10 +10,14 @@ const api=process.env.FRONTLINE_API??'http://127.0.0.1:8080';
 
 // Product client. The Go host serves /api (HTTP + match WebSockets); the dev
 // server proxies it so typed runtime adapters behave identically in dev.
-export default defineConfig({
+export default defineConfig(({command})=>{
+ const artProfile=process.env.FRONTLINE_ART_PROFILE??(command==='serve'?'full':'standard');
+ if(artProfile!=='standard'&&artProfile!=='full')throw Error('Invalid Frontline art profile');
+ return {
  root:client,
  publicDir:path.join(client,'public'),
- plugins:[react(),artPlugin({assets:path.join(root,'assets')})],
+ plugins:[react(),artPlugin({assets:path.join(root,'assets'),profile:artProfile})],
+ define:{__FC_ART_PROFILE__:JSON.stringify(artProfile)},
  server:{
   host:'127.0.0.1',port:5173,strictPort:false,
   fs:{allow:[root]},
@@ -21,4 +25,5 @@ export default defineConfig({
  },
  preview:{host:'127.0.0.1',proxy:{'/api':{target:api,ws:true}}},
  build:{outDir:path.join(client,'dist'),emptyOutDir:true,target:'es2022',sourcemap:true,manifest:'build-assets.json',assetsInlineLimit:0,chunkSizeWarningLimit:2048},
+};
 });

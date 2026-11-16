@@ -379,6 +379,8 @@ type Engine struct {
 	parkingRemaining     int
 	parkingMetrics       serviceParkingMetrics
 	buildingRules        map[string]content.Building
+	unitCombatRules      map[string]*combatRule
+	buildingCombatRules  map[string]*combatRule
 	dynamicNavTick       Tick
 	dynamicNav           map[int32][]ID
 	serviceNavTick       Tick
@@ -393,12 +395,20 @@ type Engine struct {
 	pathBudget           uint32
 	navRevision          uint32
 	navCache             map[int32][]bool
+	navComponents        map[int32]navigationComponentEntry
 	fogCache             map[ID]fogSource
 	harvestParking       map[uint32]harvestParkingCache
 	haulerRoutingTick    Tick
 	haulerRouting        map[haulerRoutingKey]*haulerRoutingKnowledge
 
 	navigationSearch navigationSearch
+
+	// navExpansions counts A* node expansions (derived, never saved or
+	// hashed). Tests gate route work per tick on it; no decision reads it.
+	navExpansions uint64
+	// navNoRegionReject disables the static-region early exit (tests only),
+	// so differential tests can prove routes are unchanged.
+	navNoRegionReject bool
 }
 type fogSource struct {
 	position Vec

@@ -38,6 +38,32 @@ const (
 	maxSaveBytes     = 64 << 20
 )
 
+// Solo replay recording: commands drain every 30 s, the recorder's
+// required window (sim.Replay.Capture), but a full checkpoint — a
+// synchronous Save plus compression on the game loop — is written
+// only every 120 s. Checkpoints only speed up seeking (worst case
+// re-simulates under 120 s from the initial save or prior
+// checkpoint), and 120 s spacing keeps a 90-minute match at ~46
+// checkpoints, far under the replay limit of 600. The phase keeps
+// the first checkpoint at tick 600 as before.
+const (
+	replayDrainInterval      = sim.Tick(30 * sim.TickRate)
+	replayCheckpointInterval = sim.Tick(120 * sim.TickRate)
+)
+
+// Feedback retained during replay playback for a perspective nobody
+// is watching. Replay makes every slot local, so unwatched slots
+// keep only the newest tail: enough recent receipts and events to
+// present on a perspective switch, without retaining match history.
+// This trimming applies only in playback. In a live match every
+// local human accumulates without bound, exactly as before, until
+// View or Priority publishes it: live execution receipts must never
+// be discarded before publication.
+const (
+	maxReplayUnwatchedEvents  = 32
+	maxReplayUnwatchedResults = 32
+)
+
 // Error is a typed, stable adapter error surfaced to JavaScript.
 type Error struct {
 	Code        string `json:"code"`
@@ -101,6 +127,7 @@ type Session struct {
 	catalog     *content.Catalog
 	engine      *sim.Engine
 	local       []sim.PlayerID
+	viewed      sim.PlayerID
 	pending     map[sim.PlayerID]*pendingFrame
 	recorder    *sim.Replay
 	replay      *sim.Replay
@@ -234,6 +261,12 @@ func (s *Session) install(e *sim.Engine, local []sim.PlayerID) {
 	s.recorder, s.replay, s.playback, s.replayBytes = nil, nil, nil, nil
 	s.replayStart = 0
 	s.local = local
+	// Until a View names another perspective, the first local player
+	// is the viewed one, preserving pre-first-view accumulation.
+	s.viewed = 0
+	if len(local) > 0 {
+		s.viewed = local[0]
+	}
 	s.pending = map[sim.PlayerID]*pendingFrame{}
 	for _, id := range local {
 		s.pending[id] = &pendingFrame{}
@@ -322,8 +355,10 @@ func (s *Session) advance() error {
 		}
 	} else {
 		s.engine.Advance()
-		if s.engine.Tick()%sim.Tick(30*sim.TickRate) == 0 || s.engine.Outcome().Finished {
-			if err := s.recorder.Capture(s.engine, s.engine.Tick()%sim.Tick(30*sim.TickRate) == 0); err != nil {
+		tick := s.engine.Tick()
+		if tick%replayDrainInterval == 0 || s.engine.Outcome().Finished {
+			checkpoint := tick%replayCheckpointInterval == replayDrainInterval
+			if err := s.recorder.Capture(s.engine, checkpoint); err != nil {
 				return fail("replay_recording_failed", err.Error(), false)
 			}
 		}
@@ -336,8 +371,23 @@ func (s *Session) advance() error {
 		f := s.pending[id]
 		f.events = append(f.events, feedback.Events...)
 		f.results = append(f.results, feedback.Results...)
+		if s.playback != nil && id != s.viewed {
+			f.events = tail(f.events, maxReplayUnwatchedEvents)
+			f.results = tail(f.results, maxReplayUnwatchedResults)
+		}
 	}
 	return nil
+}
+
+// tail keeps only the newest max items, copying so dropped items do
+// not stay referenced by a retained backing array.
+func tail[T any](items []T, max int) []T {
+	if len(items) <= max {
+		return items
+	}
+	kept := make([]T, max)
+	copy(kept, items[len(items)-max:])
+	return kept
 }
 
 // View returns a binary protobuf PlayerSnapshot for an authorized local
@@ -353,6 +403,10 @@ func (s *Session) View(player sim.PlayerID) ([]byte, error) {
 	if !ok {
 		return nil, fail("unauthorized_view", "Unknown player.", true)
 	}
+	// This perspective is now the viewed one: during replay playback
+	// it is exempt from the unwatched tail trim. Live players are
+	// never trimmed, viewed or not.
+	s.viewed = player
 	f := s.pending[player]
 	v.Events, v.Results = f.events, f.results
 	f.known = make([]sim.ID, len(v.Entities))
@@ -392,11 +446,12 @@ func (s *Session) Save() (SaveResult, error) {
 	if s.playback != nil {
 		return SaveResult{}, fail("replay_read_only", "Export this replay to preserve it; replay playback cannot become a rewarded saved game.", true)
 	}
-	b, err := s.engine.Save()
+	// One serialization: the envelope's checksum is Hash()'s digest.
+	b, hash, err := s.engine.SaveWithHash()
 	if err != nil {
 		return SaveResult{}, fail("internal", "Engine save failed: "+err.Error(), false)
 	}
-	return SaveResult{MapID: s.engine.MapID(), Data: b, Tick: s.engine.Tick(), Hash: s.engine.Hash(), Metadata: s.engine.Metadata(), Local: append([]sim.PlayerID(nil), s.local...)}, nil
+	return SaveResult{MapID: s.engine.MapID(), Data: b, Tick: s.engine.Tick(), Hash: hash, Metadata: s.engine.Metadata(), Local: append([]sim.PlayerID(nil), s.local...)}, nil
 }
 
 type saveEnvelope struct {
@@ -487,6 +542,7 @@ func (s *Session) Dispose() {
 	s.engine = nil
 	s.recorder, s.replay, s.playback, s.replayBytes = nil, nil, nil, nil
 	s.local = nil
+	s.viewed = 0
 	s.pending = nil
 }
 

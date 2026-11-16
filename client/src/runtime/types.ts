@@ -34,6 +34,9 @@ export type RuntimeEvent =
  |{type:'connection';phase:ConnectionPhase;remainingMs?:number}
  |{type:'latency';milliseconds:number}
  |{type:'clock';paused:boolean;speed:Speed;stalled:boolean}
+ // Solo pace: rate is achieved/requested simulation speed (1 = real time);
+ // busy means the worker has been silent for over the watchdog window.
+ |{type:'pace';rate:number;busy:boolean;tickMs?:number;maxTickMs?:number}
  |{type:'error';error:RuntimeError};
 export type RuntimeListener=(event:RuntimeEvent)=>void;
 export interface GameTransport {readonly mode:'offline'|'online';readonly current:PlayerSnapshot|undefined;subscribe(listener:RuntimeListener):()=>void;sendOrders(orders:OrderIntent[]):Promise<number>;pause():Promise<void>;resume():Promise<void>;dispose():void}

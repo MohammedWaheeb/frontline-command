@@ -72,9 +72,10 @@ export async function resolveGoLicense(goRoot){
  }
  throw Error(`Go runtime LICENSE is missing from the toolchain: ${goRoot}`);
 }
-export async function fileInventory(root){
+export async function fileInventory(root,{excludeRoot=[]}={}){
  const files=[],seen=new Set();
  async function walk(dir,prefix=''){for(const name of (await readdir(dir)).sort()){
+  if(!prefix&&excludeRoot.includes(name))continue;
   if(name==='.DS_Store')continue; // Finder metadata: never a package file, never a build blocker.
   const rel=portablePath(prefix+name),key=rel.toLowerCase();if(seen.has(key))throw Error(`Case-colliding package path: ${rel}`);seen.add(key);
   const file=path.join(dir,name),entry=await lstat(file);if(entry.isSymbolicLink())throw Error(`Symlink is not a portable package file: ${rel}`);

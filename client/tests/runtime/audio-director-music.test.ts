@@ -75,3 +75,23 @@ test('repeated objective stingers are suppressed while terminal stingers always 
  h.director.snapshot(snapshot(103,[objective(3,103)]));
  assert.equal(h.plays.filter(id=>id==='music.stinger_objective').length,count+1);
 });
+
+test('a victory plays the faction anthem instead of the generic stinger and debrief bed',()=>{
+ for(const [faction,winner,expect] of [['US',1,'music.victory_US'],['SY',1,'music.victory_SY'],['US',2,'music.debrief_bed']] as const){
+  const h=harness();now=6_000_000;
+  const base=snapshot(100);base.players[0].faction=faction;h.director.snapshot(base);
+  const done=snapshot(101);done.players[0].faction=faction;done.outcome=create(PlayerSnapshotSchema,{outcome:{finished:true,winningTeam:winner}}).outcome;
+  h.director.snapshot(done);
+  assert.deepEqual(h.music.at(-1)?.ids,[expect]);
+  assert.equal(h.plays.includes('music.stinger_victory'),false);
+  assert.equal(h.plays.includes('music.stinger_defeat'),winner!==1);
+ }
+});
+
+test('a draw keeps the debrief bed and no anthem',()=>{
+ const h=harness();now=7_000_000;
+ h.director.snapshot(snapshot(100));
+ const done=snapshot(101);done.outcome=create(PlayerSnapshotSchema,{outcome:{finished:true,draw:true,winningTeam:1}}).outcome;
+ h.director.snapshot(done);
+ assert.deepEqual(h.music.at(-1)?.ids,['music.debrief_bed']);
+});

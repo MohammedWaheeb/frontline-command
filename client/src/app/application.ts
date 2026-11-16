@@ -26,11 +26,14 @@ import type {SessionEvent} from '../runtime/session';
 import {readSettingsMirror,writeSettingsMirror,applySettingsToDocument,sanitizeSettings,resetPreferences as resetPreferencesValue,resetSettingsSection as resetSectionValue,type Settings,type SettingsSection} from './settings';
 import {resolveSkirmishPlayers,sanitizeSkirmishSetup,skirmishPreset,type SkirmishSetup,type SkirmishFaction} from './skirmish-setup';
 import {readMenuMemory,writeMenuMemory,readSkirmishMemory,writeSkirmishMemory,type MenuMemory} from './menu-memory';
+import {armDemoEconomy,prepareDemoBattle} from './demo-battle';
 export interface SkirmishLaunchOptions {color?:number;spawnOrder?:number[];seed?:number}
 export type Page='command'|'skirmish'|'campaign'|'tutorials'|'saves'|'settings'|'network'|'coop'|'replays'|'content'|'practice'|'help'|'editor'|'mastery';
 export interface CommanderPendingView {id:string;faction:Faction;phase:'awaiting'|'recording'|'failed';error?:string}
 interface CommanderPendingFinal {binding:CommanderFinalBinding;phase:CommanderPendingView['phase'];error?:string;recovering?:boolean}
-export interface ApplicationState {briefing?:{content:LoadedMission;config:OfflineConfig;difficulty:Difficulty;challenge?:CommanderChallengeFocus};activeChallenge?:CommanderChallengeFocus;commanderStatus?:'awaiting'|'recording'|'saved'|'duplicate'|'unavailable';commanderError?:string;commanderFinals?:CommanderPendingView[];booting:boolean;busy?:string;error?:{code:string;message:string};notice?:string;page:Page;session:SessionState;index?:ContentIndex;catalog?:CatalogIndex;firstRun:boolean;settings:Settings;paused:boolean;speed:number;snapshot?:PlayerSnapshot;autosave?:string;autosaveError?:string;assetStatus?:{files:number;fallbacks:string[]};assetProgress?:string}
+/** Solo simulation pace: rate is achieved/requested speed rounded to 5%; busy means the worker is silent mid-tick. */
+export interface SimPace {rate:number;busy:boolean}
+export interface ApplicationState {briefing?:{content:LoadedMission;config:OfflineConfig;difficulty:Difficulty;challenge?:CommanderChallengeFocus};activeChallenge?:CommanderChallengeFocus;commanderStatus?:'awaiting'|'recording'|'saved'|'duplicate'|'unavailable';commanderError?:string;commanderFinals?:CommanderPendingView[];booting:boolean;busy?:string;error?:{code:string;message:string};notice?:string;page:Page;session:SessionState;index?:ContentIndex;catalog?:CatalogIndex;firstRun:boolean;settings:Settings;paused:boolean;speed:number;simPace?:SimPace;snapshot?:PlayerSnapshot;autosave?:string;autosaveError?:string;assetStatus?:{files:number;fallbacks:string[]};assetProgress?:string}
 const MENU_PAGES=new Set<Page>(['command','skirmish','campaign','tutorials','saves','settings','network','coop','replays','content','practice','help','editor','mastery']);
 /** Same-document routing only: preserve the launch URL/query and a Home guard below the menu stack.
  * Back during a session or dialog is intentionally inert; it never calls leave() or dismisses UI. */
@@ -129,7 +132,7 @@ export class Application {
   this.sessions.subscribe(event=>this.sessionEvent(event));
  }
  private sessionEvent(event:SessionEvent){
-   if(event.type==='session'){const changed=event.state.id!==this.state.get().session.id;if(changed||event.state.phase==='menu'){this.hudSnapshot=undefined;this.forceHUD=true}this.audioDirector.operation(event.state.id??'');if(changed)this.audioDirector.setPaused(!['online','observer'].includes(event.state.kind??''));this.patch({session:event.state,...(event.state.phase==='menu'||changed)?{snapshot:undefined,activeChallenge:event.state.phase==='active'&&event.state.kind==='solo'?this.challengeLaunch?.focus:undefined,commanderStatus:undefined,commanderError:undefined,autosave:undefined,autosaveError:undefined}: {}});return}
+   if(event.type==='session'){const changed=event.state.id!==this.state.get().session.id;if(changed||event.state.phase==='menu'){this.hudSnapshot=undefined;this.forceHUD=true}this.audioDirector.operation(event.state.id??'');if(changed)this.audioDirector.setPaused(!['online','observer'].includes(event.state.kind??''));this.patch({session:event.state,...(event.state.phase==='menu'||changed)?{snapshot:undefined,activeChallenge:event.state.phase==='active'&&event.state.kind==='solo'?this.challengeLaunch?.focus:undefined,commanderStatus:undefined,commanderError:undefined,autosave:undefined,autosaveError:undefined,simPace:undefined}: {}});return}
    if(event.type==='error'){this.error(event.error);return}
    if(event.type==='autosave'){this.patch({autosave:event.status.phase,autosaveError:event.status.error?.message});return}
    if(event.type!=='runtime')return;
@@ -143,7 +146,8 @@ export class Application {
     if(this.forceHUD||this.state.get().paused||performance.now()-this.lastHUD>100||current.snapshot.outcome?.finished)this.publishHUD();
     if(current.snapshot.outcome?.finished)this.recordOfflineProgress();
    }else if(current.type==='status'){const network=['online','observer'].includes(this.state.get().session.kind??'')?this.network.state.get():undefined,own=network?.lobby?.slots.find(slot=>slot.profile===network.account?.profile?.id);this.audioDirector.status({...current.status,teammates:current.status.teammates.filter(peer=>network?.lobby?.slots.some(slot=>slot.player===peer.player&&slot.team===own?.team))});this.audioDirector.setPaused(current.status.paused);if(current.status.paused)this.publishHUD();this.patch({paused:current.status.paused})}
-   else if(current.type==='clock'){this.audioDirector.setPaused(current.paused);if(current.paused)this.publishHUD();this.patch({paused:current.paused,speed:current.speed})}
+   else if(current.type==='clock'){this.audioDirector.setPaused(current.paused);if(current.paused)this.publishHUD();this.patch({paused:current.paused,speed:current.speed,...current.paused?{simPace:undefined}:{}})}
+   else if(current.type==='pace'){const next={rate:Math.round(current.rate*20)/20,busy:current.busy},prior=this.state.get().simPace;if(!prior||prior.rate!==next.rate||prior.busy!==next.busy)this.patch({simPace:next})}
    else if(current.type==='error')this.error(current.error);
    else if(current.type==='order-result'&&!current.result.accepted)this.patch({notice:`Order rejected: ${reason(current.result.code)}`});
  }
@@ -229,6 +233,11 @@ export class Application {
  activeMissionDifficulty(){return this.sessions.state.kind==='solo'?this.sessions.state.info?.difficulty:undefined}
  peekMap(id:string,signal?:AbortSignal){return this.readContent(()=>this.library.peekMap(id,signal))}
 
+ async demoBattle(){await this.task('Preparing demo base…',()=>this.readContent(async()=>{
+  await this.sessions.startSolo(await prepareDemoBattle(this.library));
+  const runtime=this.sessions.transport;
+  if(runtime)armDemoEconomy(runtime,error=>{if(this.sessions.transport===runtime)this.error(error)});
+ }))}
  async quickSkirmish(){
   const remembered=this.lastSkirmish();if(remembered)return this.launchSkirmish(remembered);
   const map=defaultBattlefields(this.state.get().index?.maps??[])[0];
@@ -320,6 +329,13 @@ export class Application {
  /** Drain already-started writes before disposal, without trapping navigation
   * if the engine or local storage stops answering. Retained online bindings
   * stay authorized independently; offline writes retain their session guard. */
+ private async settleAutosave():Promise<boolean>{
+  let timer:ReturnType<typeof setTimeout>|undefined;
+  try{return await Promise.race([
+   Promise.resolve().then(()=>this.sessions.flushAutosave()).then(()=>!['saving','waiting','blocked'].includes(this.state.get().autosave??''),()=>false),
+   new Promise<boolean>(resolve=>{timer=setTimeout(()=>resolve(false),5000)}),
+  ])}finally{if(timer!==undefined)clearTimeout(timer)}
+ }
  private async settleProgress():Promise<boolean>{this.recordOfflineProgress();this.recordOnlineProgress();const id=this.sessions.state.id,pending=id?this.progressPending.get(id):undefined;if(!pending)return true;let timer:ReturnType<typeof setTimeout>|undefined;try{return await Promise.race([pending.then(()=>true),new Promise<boolean>(resolve=>{timer=setTimeout(()=>resolve(false),5000)})])}finally{if(timer!==undefined)clearTimeout(timer)}}
  retryCommanderProgress(){const id=this.sessions.state.id;if(!id||this.progressPending.has(id))return;if(this.commanderFinals.has(id)){void this.retryCommanderFinal(id);return}this.progressRecorded.delete(id);this.patch({commanderStatus:undefined,commanderError:undefined});this.recordOfflineProgress();this.recordOnlineProgress()}
  async reloadSettings(){await this.settingsWrites;const record=await this.store.setting<Settings>('settings');if(record){this.settingsRevision=record.revision;this.setSettings(record.data,false)}}
@@ -338,8 +354,17 @@ export class Application {
  commandAdvice(){if(!this.onlineAdvice)throw Error('Online command advice is unavailable.');return this.onlineAdvice}
  async joinObserver(base:string,connection:ObserverConnection,map:GameMap){await this.sessions.joinObserver(base,connection,map);this.onlineIdentity=undefined;this.onlineAdvice?.dispose();this.onlineAdvice=undefined;this.patch({paused:false,autosave:undefined})}
  async joinOnline(base:string,connection:MatchConnection,map:GameMap){const advice=new OnlineCommandAdvice(base,connection),previous=this.onlineAdvice;this.onlineAdvice=advice;try{await this.sessions.joinOnline(base,connection,map);this.onlineIdentity={session:this.sessions.state.id!,baseURL:base,connection:{match_id:connection.match_id,player:connection.player,protocol:connection.protocol,simulation:connection.simulation,content_hash:connection.content_hash}};previous?.dispose();this.recordOnlineProgress();this.patch({paused:false,autosave:undefined})}catch(error){this.onlineAdvice=previous;advice.dispose();throw error}}
- async save(name:string){return this.task('Saving operation…',async()=>{const record=await this.sessions.saveManual(randomUUID(),name);this.patch({notice:`Saved: ${record.name}`});return record})}
+ async save(name:string){const id=this.sessions.state.id;return this.task('Saving operation…',async()=>{const record=await this.sessions.saveManual(randomUUID(),name);if(this.sessions.state.id===id)this.patch({notice:`Saved: ${record.name}`});return record})}
  async openNetworkLobby(){if(this.sessions.state.kind){await this.leave();if(this.sessions.state.kind)throw new RuntimeError('session_active','Return to the command center before opening the new lobby.')}this.patch({page:'network'})}
- async leave(){await this.task('Securing checkpoint…',async()=>{const id=this.sessions.state.id;await this.sessions.flushAutosave();const settled=await this.settleProgress();if(this.sessions.state.id!==id)throw new RuntimeError('session_changed','The active operation changed before leaving.');const recordError=this.state.get().commanderError;this.sessions.leave();this.onlineAdvice?.dispose();this.onlineAdvice=undefined;this.onlineIdentity=undefined;this.patch({page:this.editor.finishTest()?'editor':'command',paused:true,...!settled||recordError?{notice:!settled?'The command record is still waiting. Existing local saves are preserved.':'Your command record could not be updated. Existing local saves are preserved.'}:{}})})}
+ async leave(){await this.task('Closing operation…',async()=>{
+  const id=this.sessions.state.id,[autosaved,settled]=await Promise.all([this.settleAutosave(),this.settleProgress()]);
+  if(this.sessions.state.id!==id)throw new RuntimeError('session_changed','The active operation changed before leaving.');
+  const recordError=this.state.get().commanderError,notices=[
+   !autosaved?'The latest autosave did not finish before leaving. Your last saved checkpoint is preserved.':undefined,
+   !settled?'The command record is still waiting. Existing local saves are preserved.':recordError?'Your command record could not be updated. Existing local saves are preserved.':undefined,
+  ].filter(Boolean);
+  this.sessions.leave();this.onlineAdvice?.dispose();this.onlineAdvice=undefined;this.onlineIdentity=undefined;
+  this.patch({page:this.editor.finishTest()?'editor':'command',paused:true,...notices.length?{notice:notices.join(' ')}:{}});
+ })}
  dispose(){this.closed=true;this.commanderFinals.clear();this.audioDirector.dispose();this.audio.dispose();this.networkProgressUnsubscribe?.();this.editor.dispose();this.network.dispose();this.onlineAdvice?.dispose();this.sessions.dispose();this.validator.dispose();void this.store.close();this.frames.clear();void this.releaseBattlefieldArt()}
 }

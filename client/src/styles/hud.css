@@ -343,3 +343,11 @@
 :root:has(.battlefield-screen[data-hud]) .hud-tip-req li small{color:var(--hud-text-3);font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
 :root:has(.battlefield-screen[data-hud]) .hud-tip-help{margin:7px 0 0;color:var(--hud-text-3);font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
 @media (prefers-reduced-motion:reduce){.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-economy{transition:none}.battlefield-screen[data-hud] .command-sidebar[data-hud] .hud-meter>i{transition:none}}
+
+/* Solo pace: an overloaded simulation reports a slowdown (amber) instead of
+   looking frozen. Shown in the sidebar status LED; LIVE stays hidden in solo. */
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .live-led:is([data-state=slowed],[data-state=busy]){color:var(--hud-amber-hi);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--hud-amber) 55%,transparent)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .live-led:is([data-state=slowed],[data-state=busy]) .led{background:var(--hud-amber);border-color:var(--hud-amber-hi)}
+.battlefield-screen[data-hud] .command-sidebar[data-hud] .live-led[data-state=busy] .led{animation:fc-pace-pulse 1s steps(2,end) infinite}
+@keyframes fc-pace-pulse{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.battlefield-screen[data-hud] .command-sidebar[data-hud] .live-led[data-state=busy] .led{animation:none}}
