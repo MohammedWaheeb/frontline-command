@@ -3,35 +3,60 @@
   "path": "vo/units/US/vehicle_crew/select_2.ogg",
   "caption": "Engine running. Give us a route.",
   "faction": "US",
-  "voice": "am_fenrir",
-  "speed": 1.06,
+  "voice": "am_michael",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 2500,
-  "source_hash": "1ffb1b3b65fbc736f37ba7d73013f0e01bcad6b8c2f1a54e8b29fc925b691a5f",
+  "source_hash": "3d8abbfea96386740520828f07619023afb3c7eaac88812b3c63c7c10dcb93de",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/vehicle_crew/select_2.ogg",
-  "duration": 1.66225,
+  "duration": 1.9443333333333332,
   "channels": 1,
-  "bytes": 18662,
-  "sha256": "e8e86ab6f0c90ad9832a3eddfd4ec770697aa56426e5431254f0df2ea0676be5",
+  "bytes": 14844,
+  "sha256": "1d2a8a770fb9652b01511a364b3908f229e274d307c8f115d3feacb675415c6b",
   "mp3_url": "/art/audio/vo/units/US/vehicle_crew/select_2.mp3",
-  "mp3_bytes": 28076,
-  "mp3_sha256": "1d93397ba23ace7b8e3a4e12313ab9d428790a98dc876bfea8adcf13d77ea4a4",
-  "peak": 0.7955038547515869,
-  "rms": 0.09803282469511032,
+  "mp3_bytes": 16364,
+  "mp3_sha256": "5baed7f0d7f1ac5a4179fa4dc83e28b6863f6267f808f0097168e3cdcb2acf3f",
+  "peak": 0.7777186036109924,
+  "rms": 0.13873818516731262,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

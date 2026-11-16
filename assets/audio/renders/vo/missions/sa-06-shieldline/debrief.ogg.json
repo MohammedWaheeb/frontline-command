@@ -3,35 +3,60 @@
   "path": "vo/missions/sa-06-shieldline/debrief.ogg",
   "caption": "Shieldline: the operational goal is complete. Review losses, objective state and recorded orders before continuing Operation Shieldline.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "0f330e2b242be4ea4b7a68fe97741a4fe51bedcea1f7ddd3fbeacfa0699a58b0",
+  "source_hash": "8613e49c9fa82b06db2f8522299617640df8122f34882b6a0870ce180a964491",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sa-06-shieldline/debrief.ogg",
-  "duration": 8.84575,
+  "duration": 9.482875,
   "channels": 1,
-  "bytes": 73800,
-  "sha256": "410eb95c1167021c6c0379d2e2ead4d0b32652f8b7c8ad2409499501bdb6d0c3",
+  "bytes": 54686,
+  "sha256": "008e8ae90e5848f27af5a4170074dc1fd4c77f3f1eb5ceb0c7412db24b196a5e",
   "mp3_url": "/art/audio/vo/missions/sa-06-shieldline/debrief.mp3",
-  "mp3_bytes": 142892,
-  "mp3_sha256": "85c18b8e1e32b669990b1fa7e7dfb76a6eef9ea91982c9c6ebfdd048ba01b0a9",
-  "peak": 0.7856009006500244,
-  "rms": 0.08845298737287521,
+  "mp3_bytes": 76652,
+  "mp3_sha256": "03d0bb7ada8f6938470d909264c04f8b71953e868044d0e9df340a28582d7818",
+  "peak": 0.5046836733818054,
+  "rms": 0.14042600989341736,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -4,34 +4,59 @@
   "caption": "Taking the shot. Cover us.",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "f246ba2d6214e97391eb52691cebac6197386c5d6d95d7f7a1c67a02a50d3d39",
+  "source_hash": "1c7f1da03aeef7f31aa5237f9eb8e9cce4bcd586f61f63c7897472c968f29890",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/attack_2.ogg",
-  "duration": 1.893125,
+  "duration": 1.9675833333333332,
   "channels": 1,
-  "bytes": 18359,
-  "sha256": "5755248eb00e1d129e9ed244e0ac3065496aa0254c6b7c6cbee50662f63a7cf7",
+  "bytes": 13491,
+  "sha256": "1e53e2bdedccfa1560bad2b4b69792b36968b861c194c3c58dac1164c0c94aba",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/attack_2.mp3",
-  "mp3_bytes": 31532,
-  "mp3_sha256": "8a18415e499124fc8a61d34c16606eb4a09ae530d1cf1423f672fbb2fcfe8bb5",
-  "peak": 0.7493409514427185,
-  "rms": 0.10165545344352722,
+  "mp3_bytes": 16364,
+  "mp3_sha256": "150bbccb082f29fdc765b1ecaaa5168c56b0bbf0c077df6e9fdac63144a2eed9",
+  "peak": 0.668216347694397,
+  "rms": 0.1405114233493805,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

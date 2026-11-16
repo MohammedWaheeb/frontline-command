@@ -3,36 +3,61 @@
   "path": "vo/missions/sy-01-workshop-foothold/recover-mechanics-east-1.ogg",
   "caption": "Contact restored: mechanics east now follows your orders.",
   "faction": "SY",
-  "voice": "bf_emma",
-  "speed": 1.02,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "FIELD TEAM: Contact restored: mechanics east now follows your orders.",
-  "source_hash": "8710fa97976b79a8a9836f2cb1920d06e8e0dfea8a10ee9208b9fd31829a7201",
+  "source_hash": "18a1d39fb710a26109d07afc3d8ba38f0f02c3ddafb3830df8c1063c47fcc2ab",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sy-01-workshop-foothold/recover-mechanics-east-1.ogg",
-  "duration": 3.4947083333333335,
+  "duration": 3.982291666666667,
   "channels": 1,
-  "bytes": 33936,
-  "sha256": "57bea681d1929d5f371809a32586b5fb416098e03ed4787b3754b9f2eb8d2bc2",
+  "bytes": 26356,
+  "sha256": "c70d52b2da479275f4d4d481f4fa00a9c0341ffda40c99a6d37805b71c6e54d0",
   "mp3_url": "/art/audio/vo/missions/sy-01-workshop-foothold/recover-mechanics-east-1.mp3",
-  "mp3_bytes": 57260,
-  "mp3_sha256": "9a0905bd13cb76d5c45bbbe1281c59770ae06f170c3f0251c7ef3c3ec4753bc9",
-  "peak": 0.7861475348472595,
-  "rms": 0.07944315671920776,
+  "mp3_bytes": 32492,
+  "mp3_sha256": "cfb5fa73c16bf8cb3d6dd6f2315d5d5222cb981f74412d0545876cff967bb8b5",
+  "peak": 0.7655723690986633,
+  "rms": 0.14080798625946045,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

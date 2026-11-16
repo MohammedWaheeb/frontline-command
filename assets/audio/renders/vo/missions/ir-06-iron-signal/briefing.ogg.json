@@ -4,34 +4,59 @@
   "caption": "Break the layered eastern line and destroy or capture its command base. Keep the original observation teams alive and deployed at two forward positions when you finish. Drone sight alone cannot absorb a ground counterattack.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "462ab4db0b209cac769659f9d86983a2b2a4c0dd4e5c787fdda6024b3cae7dae",
+  "source_hash": "639143060890b1b4982c908b520957a26fc9ffa21be512f7af1714f0fe482b41",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-06-iron-signal/briefing.ogg",
-  "duration": 14.528916666666667,
+  "duration": 14.574041666666666,
   "channels": 1,
-  "bytes": 116318,
-  "sha256": "f21388a78df16c2284b996f562fb6b72299c1d27e0b3a7ac76b0b10199e2ef72",
+  "bytes": 80078,
+  "sha256": "b33f82ae8f166b67d62c4d7f0211e17811085855470bc42f58bfeb24dab78f93",
   "mp3_url": "/art/audio/vo/missions/ir-06-iron-signal/briefing.mp3",
-  "mp3_bytes": 233900,
-  "mp3_sha256": "5a1bfb6c990553f17db81c0d35a9c323ec8b800c0fa893501aadd50a7e7a4c22",
-  "peak": 0.7832766771316528,
-  "rms": 0.11632904410362244,
+  "mp3_bytes": 117356,
+  "mp3_sha256": "6a191d7774a8ec5deb241d9d1e64ec75263a07af58e03a047812639a7aa8e090",
+  "peak": 0.6381957530975342,
+  "rms": 0.14041593670845032,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

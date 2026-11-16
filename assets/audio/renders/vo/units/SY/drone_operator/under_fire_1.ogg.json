@@ -3,35 +3,60 @@
   "path": "vo/units/SY/drone_operator/under_fire_1.ogg",
   "caption": "We are taking fire! Need cover.",
   "faction": "SY",
-  "voice": "af_bella",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "81a097de2c58c2d061738b836c14f626a2c116739d00a0f3a4a0f139d761c24f",
+  "source_hash": "ad6b6ae4ece9872cca679f2c998919acf7acf49cd517fdf7880a930cb76c449c",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/drone_operator/under_fire_1.ogg",
-  "duration": 1.9006666666666667,
+  "duration": 1.779,
   "channels": 1,
-  "bytes": 19760,
-  "sha256": "556cd4432be75f4d6056e7e79331dc53b7e27ceae7ca3b6b8053247313161fce",
+  "bytes": 13225,
+  "sha256": "5380993561d413417ebc01271040f6d9d9d6d5e61b29341ca9497e614308753e",
   "mp3_url": "/art/audio/vo/units/SY/drone_operator/under_fire_1.mp3",
-  "mp3_bytes": 31916,
-  "mp3_sha256": "5fba02d4eb964f3ab59f2ea87bdf5785e756a873935965cecc4839589a7d79b4",
-  "peak": 0.7854200601577759,
-  "rms": 0.10510772466659546,
+  "mp3_bytes": 15020,
+  "mp3_sha256": "69a8f09b0630c5a74c94162c61f5a90a6169813eeae9a811eac1668eff8a1257",
+  "peak": 0.7404226064682007,
+  "rms": 0.14056816697120667,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

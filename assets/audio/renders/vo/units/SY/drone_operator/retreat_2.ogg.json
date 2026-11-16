@@ -3,35 +3,60 @@
   "path": "vo/units/SY/drone_operator/retreat_2.ogg",
   "caption": "Leaving this position. Cover us.",
   "faction": "SY",
-  "voice": "af_bella",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "92bf69ca592bd590c9062b1b0cca3bea06b5e53309292153661a6f7fbcce517b",
+  "source_hash": "23a55a5ad5dcd2d4fbd11965e6a134496b8d4e5b4fad3262ffd4b9bccd6e77ee",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/drone_operator/retreat_2.ogg",
-  "duration": 1.970625,
+  "duration": 1.8185,
   "channels": 1,
-  "bytes": 19794,
-  "sha256": "a4a01f351cc42ecb95331f8924a4d08875616f3fb3f20997f2e3ccd318373b92",
+  "bytes": 13055,
+  "sha256": "98a796ae1663f11d7ffa3e0fbd2a34b896bcd86117190a67d324a36543228646",
   "mp3_url": "/art/audio/vo/units/SY/drone_operator/retreat_2.mp3",
-  "mp3_bytes": 33068,
-  "mp3_sha256": "a17c83fd3e528c0cc64aeb0eaa52bb09346650bf921c122e06b0c731f075a386",
-  "peak": 0.7743242383003235,
-  "rms": 0.09399740397930145,
+  "mp3_bytes": 15212,
+  "mp3_sha256": "5b459381fafd18af5516587831df472815e778754b4b5c8cc60ae542120bcf50",
+  "peak": 0.7733831405639648,
+  "rms": 0.11963145434856415,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

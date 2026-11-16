@@ -3,35 +3,60 @@
   "path": "vo/missions/tutorial-4-defend-the-sky/briefing.ogg",
   "caption": "Service the marked aircraft, defeat the hostile aircraft with ground AA or fighters, and intercept the tactical missile detachment. Leave the marked danger area when warned. Ground AA does not intercept tactical missiles; the fixed ABM does, using paid finite charges.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "8809a591545e3082627549f6431cf76933e2aae4d905a532fb7cb7ee753f1cf3",
+  "source_hash": "504b443b524cfb7236d3382bdbde0218b912cf15bbe99805a4beb0bbbe82a6b5",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-4-defend-the-sky/briefing.ogg",
-  "duration": 17.75575,
+  "duration": 17.0635,
   "channels": 1,
-  "bytes": 155165,
-  "sha256": "8b4cef7b40bdf362b554e52da712037e0c8b9d2e83b8ea5f5f8985609d96737b",
+  "bytes": 99942,
+  "sha256": "d6389aacc4d5f7f06e487feec911680c7944a5b74074dd74b5211a804b8551a6",
   "mp3_url": "/art/audio/vo/missions/tutorial-4-defend-the-sky/briefing.mp3",
-  "mp3_bytes": 285356,
-  "mp3_sha256": "3c1ea7d17d4dd717adf4096a5fd2f4f43884096729e99a9bf7bb86d872c83e58",
-  "peak": 0.7843236923217773,
-  "rms": 0.0927940160036087,
+  "mp3_bytes": 137132,
+  "mp3_sha256": "ebd27568735a8488a5fd2ecd97f3abdc86881007dfaa9988e650d5cf62300663",
+  "peak": 0.810137927532196,
+  "rms": 0.11517925560474396,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

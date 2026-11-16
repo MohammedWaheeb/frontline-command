@@ -3,36 +3,61 @@
   "path": "vo/missions/us-01-first-foothold/recover-intact-rig-1.ogg",
   "caption": "Contact restored: intact rig now follows your orders.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "FIELD TEAM: Contact restored: intact rig now follows your orders.",
-  "source_hash": "0bdae48ae36c731ae1af37261eea68377a9c035bffcfad95024bc42770c913ea",
+  "source_hash": "f54384e3a0364d00c4fd16416f0494fd25664426a5c6300ef70dd46b599bf6b3",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-01-first-foothold/recover-intact-rig-1.ogg",
-  "duration": 3.494,
+  "duration": 3.3127916666666666,
   "channels": 1,
-  "bytes": 34201,
-  "sha256": "01bb362403a0864c48754b0bd3af58515319cbefa430a8afeea96468cb65866b",
+  "bytes": 22414,
+  "sha256": "f444b658b7e2541abc8b567f80a77156c6248443f044ac6bfca138d132a590d0",
   "mp3_url": "/art/audio/vo/missions/us-01-first-foothold/recover-intact-rig-1.mp3",
-  "mp3_bytes": 57260,
-  "mp3_sha256": "dab67ed281b08a5459adb530164a5b250141130d1e70529bc9747ead1f5acce2",
-  "peak": 0.7832254767417908,
-  "rms": 0.10009418427944183,
+  "mp3_bytes": 27308,
+  "mp3_sha256": "d69c6085761da8c04f96ec7adb9fb509c5791b6d338a1cb964755f6cff2c3af9",
+  "peak": 0.7696163654327393,
+  "rms": 0.1405477374792099,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

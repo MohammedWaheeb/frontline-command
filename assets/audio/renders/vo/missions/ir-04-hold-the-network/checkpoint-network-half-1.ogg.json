@@ -4,35 +4,60 @@
   "caption": "Six minutes elapsed. An inoperative site can reset the continuous hold; check the objective timer.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: Six minutes elapsed. An inoperative site can reset the continuous hold; check the objective timer.",
-  "source_hash": "9804e6958b509e604bb1e56e807212a871f8416e78d4b35b55c5542e5f0ae549",
+  "source_hash": "751503a9dc83de5934a9593eac324e9763bb5ade90c908fe055f9c7cb724794c",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-04-hold-the-network/checkpoint-network-half-1.ogg",
-  "duration": 6.531875,
+  "duration": 6.53925,
   "channels": 1,
-  "bytes": 54573,
-  "sha256": "ee00b020457f47e01820d227eee30c7fc8b8202fc47d4725ad2e2ed0dac9ec06",
+  "bytes": 37880,
+  "sha256": "6a83f76413969897c203db6fe12292743b43c9e04c3288a0d4b58a84e8b1605b",
   "mp3_url": "/art/audio/vo/missions/ir-04-hold-the-network/checkpoint-network-half-1.mp3",
-  "mp3_bytes": 106028,
-  "mp3_sha256": "52269f5a992ea6fa0f49b359d972a6cc5e5fba63d70ac2b22659835292e65e45",
-  "peak": 0.7879531979560852,
-  "rms": 0.11783049255609512,
+  "mp3_bytes": 53036,
+  "mp3_sha256": "ba668cafbf4c736abca94bd3670ab890e18da8e690d6361293694dc489baee16",
+  "peak": 0.5763643383979797,
+  "rms": 0.14033368229866028,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

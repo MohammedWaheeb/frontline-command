@@ -3,35 +3,60 @@
   "path": "vo/announcer/US/aircraft_returning.ogg",
   "caption": "Aircraft returning for service.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "2ad88fb12094546215a7a442014f89e624c5766d4bca982d5b5d01a8a496671b",
+  "source_hash": "7c0d1b2359cb3b613692f31cc42bc0d8349b141f2d1b8bda37b3c4143a6700eb",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/US/aircraft_returning.ogg",
-  "duration": 1.8158333333333334,
+  "duration": 1.6784166666666667,
   "channels": 1,
-  "bytes": 19635,
-  "sha256": "43077720c80a9d36e25eba8cf6effef39bef7c5ee347531a9106f57eb823bb35",
+  "bytes": 13004,
+  "sha256": "b7e80dd7313f008f31abcbe794e5c045fcc2adf85a9ed1246b667e46b30a1db9",
   "mp3_url": "/art/audio/vo/announcer/US/aircraft_returning.mp3",
-  "mp3_bytes": 30380,
-  "mp3_sha256": "98ed7701f728480d91a48849e4906ff0c74bd2e00471a54495c5d1f789958ba9",
-  "peak": 0.7885055541992188,
-  "rms": 0.11870633065700531,
+  "mp3_bytes": 14060,
+  "mp3_sha256": "9a9a9a9f27dec8455cc260a98e7c79d3d0b597122b1417f6fefd7f695bc1e98f",
+  "peak": 0.7752859592437744,
+  "rms": 0.1405315399169922,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

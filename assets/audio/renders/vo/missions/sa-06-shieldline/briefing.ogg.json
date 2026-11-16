@@ -3,35 +3,60 @@
   "path": "vo/missions/sa-06-shieldline/briefing.ogg",
   "caption": "Neutralize the command complex and its forward production base. Keep both connected, marked supply-route sections under control and maintain two supply centers at victory for the optional objective. The permanent road network can be contested but cannot be destroyed.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "0aa9d3175a0cb7b453072c80cd82821bbbf3cc358f7c8fb9ff0950b65df0de65",
+  "source_hash": "0455d4b83d1d8ee43634501eda709f2361d7ca08cd05f05d348eca8b34b7eb28",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sa-06-shieldline/briefing.ogg",
-  "duration": 16.708333333333332,
+  "duration": 17.217125,
   "channels": 1,
-  "bytes": 138546,
-  "sha256": "5ad6c29c2f3c4aa7817f04286fd8c246e2d37d62dbeb21afec74367c75f4af55",
+  "bytes": 94626,
+  "sha256": "26c95953ea3ad13eae4785194b94fe6afbd6300c545696c38845352beb6a73be",
   "mp3_url": "/art/audio/vo/missions/sa-06-shieldline/briefing.mp3",
-  "mp3_bytes": 268844,
-  "mp3_sha256": "bff20b9f6e61d79bff529e3fb7381764cf2e0dd6a6245ecf21b562c83bb2ef78",
-  "peak": 0.79151850938797,
-  "rms": 0.09875711798667908,
+  "mp3_bytes": 138476,
+  "mp3_sha256": "d829b6c7e8771c1647b23641ae327992005523cd9a6060a4ea368fc59c4b6e18",
+  "peak": 0.6327441930770874,
+  "rms": 0.14046885073184967,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -4,35 +4,60 @@
   "caption": "Both launchers have reached the middle road. Recall drones before they exhaust their safe return window.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: Both launchers have reached the middle road. Recall drones before they exhaust their safe return window.",
-  "source_hash": "c819976431e93992da41fe86f376696ef861a045478e072ef3a1f1225e5b6909",
+  "source_hash": "4d1a3e2165cd59880967d6ca0252c39a328d3bde2bf6ff31db6f9003d6c0a5fc",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-02-eyes-above/checkpoint-launchers-midway-1.ogg",
-  "duration": 6.236875,
+  "duration": 6.362791666666666,
   "channels": 1,
-  "bytes": 52876,
-  "sha256": "61e80a64e60d58aa2bc783c9818c3f751d91cfe7644ff5e2cb9474636bbe67f1",
+  "bytes": 36128,
+  "sha256": "7c882af82fc71dbbe102e1f35bba705bea04d334825199154a2d889226e0fa8c",
   "mp3_url": "/art/audio/vo/missions/ir-02-eyes-above/checkpoint-launchers-midway-1.mp3",
-  "mp3_bytes": 101036,
-  "mp3_sha256": "67e2991dbcabd3d63480521d1de1147bd29b135c6a7f4e0d8bfdab4e3361950f",
-  "peak": 0.7834973335266113,
-  "rms": 0.09616787731647491,
+  "mp3_bytes": 51692,
+  "mp3_sha256": "07e7d1eda0269aa34a0e810077d9d287141e5ead83785d30e3c312b74c05e5bd",
+  "peak": 0.7298940420150757,
+  "rms": 0.14030906558036804,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

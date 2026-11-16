@@ -3,36 +3,61 @@
   "path": "vo/missions/us-06-clear-horizon/checkpoint-forward-base-1.ogg",
   "caption": "The forward command post is neutralized. Keep both supply sections guarded while the main base falls.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: The forward command post is neutralized. Keep both supply sections guarded while the main base falls.",
-  "source_hash": "d4be61883fbeb530c85c6954914792dfcf61f93077c7461ffb1dba248eee2bd3",
+  "source_hash": "31284b24fa4d6f2ee52857274a2514ea0fdc831f249de9e85e96341d39d9cf68",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-06-clear-horizon/checkpoint-forward-base-1.ogg",
-  "duration": 5.917666666666666,
+  "duration": 6.2519583333333335,
   "channels": 1,
-  "bytes": 55437,
-  "sha256": "2a8b7f32cf1c9901ed4a89d065abb85215d0f9c457ca3c28e304482e58ac1e67",
+  "bytes": 40169,
+  "sha256": "89bdc80091540dce39d06f7ed94b0b6455b5ba69a18b6d6742f0308a15d1087b",
   "mp3_url": "/art/audio/vo/missions/us-06-clear-horizon/checkpoint-forward-base-1.mp3",
-  "mp3_bytes": 96044,
-  "mp3_sha256": "6208ca35c58e17a6e060393bc84f444dfbe89a4bd9d89f16c6e2deae8a4f541d",
-  "peak": 0.772851824760437,
-  "rms": 0.10186437517404556,
+  "mp3_bytes": 50732,
+  "mp3_sha256": "ba1a783712c002b8bfbe8afec676a70a7e20c53195a0f36e05a273905a077a15",
+  "peak": 0.7894843816757202,
+  "rms": 0.12940336763858795,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

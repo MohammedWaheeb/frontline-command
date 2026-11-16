@@ -3,36 +3,61 @@
   "path": "vo/missions/sy-03-three-crossings/checkpoint-approach-held-1.ogg",
   "caption": "One approach is held. A second must remain secure for the full three-minute count.",
   "faction": "SY",
-  "voice": "bf_emma",
-  "speed": 1.02,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: One approach is held. A second must remain secure for the full three-minute count.",
-  "source_hash": "3f450bcff476a8e06505cf9f22b26cdcdf634d8b3ed7c7fa254dd7b624f92e4c",
+  "source_hash": "8e2fb745cd4c7eb67dc0f45e563f8735a2ccfd5a737adf38237e3c50e117746c",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sy-03-three-crossings/checkpoint-approach-held-1.ogg",
-  "duration": 4.681541666666667,
+  "duration": 5.136666666666667,
   "channels": 1,
-  "bytes": 43541,
-  "sha256": "4c2bd90da229959434d469dd7c9f2d0b5aa3fa249bc976ddcc1cee02f889335a",
+  "bytes": 32269,
+  "sha256": "801463ee61b141233dea6d5a60cdd9936f0ae8bcb4a7a15114b1449f02c5a48e",
   "mp3_url": "/art/audio/vo/missions/sy-03-three-crossings/checkpoint-approach-held-1.mp3",
-  "mp3_bytes": 76460,
-  "mp3_sha256": "31609bfd84ff13f7a1edf80e41a4094b06decc028e1919ddaaf956ba31bdcf57",
-  "peak": 0.7733709812164307,
-  "rms": 0.0859546959400177,
+  "mp3_bytes": 41900,
+  "mp3_sha256": "c4041495ef38c10d38e312001a176406bcec39f5c4b599dd148ddbd7b892bdc4",
+  "peak": 0.7483058571815491,
+  "rms": 0.0971909761428833,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

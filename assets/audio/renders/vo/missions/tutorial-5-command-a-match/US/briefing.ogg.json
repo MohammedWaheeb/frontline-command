@@ -3,35 +3,60 @@
   "path": "vo/missions/tutorial-5-command-a-match/US/briefing.ogg",
   "caption": "Win a short battle using standard unit, economy, fog and combat rules. Build forces and neutralize the opposing command and production buildings. Practice your chosen faction\u2019s command ability once; finish by reviewing the debrief and replay. Each faction\u2019s authored training assets and ability instructions use its normal roster. Select the HQ and use Recon Sweep on explored terrain (35 Energy).",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "35b7bfed038828cc0dddba41ad553077cd4f04361b41fce99b4d3fa6e99a23ab",
+  "source_hash": "ba52d3477613e90726a381e5bb0186605d5612805ae80c0829d0b2f17dc9122f",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-5-command-a-match/US/briefing.ogg",
-  "duration": 25.49325,
+  "duration": 21.30775,
   "channels": 1,
-  "bytes": 218568,
-  "sha256": "e77b69e480d9e4edfa24d28178db46721ef8b3b78a32c1453c1334e3ed9409ca",
+  "bytes": 125976,
+  "sha256": "f0f09c7c609bc9208863b842792520425a45e139d404d9adc8dfec1339f0eb58",
   "mp3_url": "/art/audio/vo/missions/tutorial-5-command-a-match/US/briefing.mp3",
-  "mp3_bytes": 409388,
-  "mp3_sha256": "37e3ec9865d85d889e5508f692223895328b2fc0db948f56a118f41cf2f4a17a",
-  "peak": 0.7855668067932129,
-  "rms": 0.0793585404753685,
+  "mp3_bytes": 171116,
+  "mp3_sha256": "4d6763c2e3c69e24b42e1e06cb1c263e26b37ad10587390cfeacd77a07651d4e",
+  "peak": 0.7687961459159851,
+  "rms": 0.10578557103872299,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

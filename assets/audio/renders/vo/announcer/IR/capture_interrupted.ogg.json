@@ -4,34 +4,59 @@
   "caption": "Capture interrupted. Secure the target.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "9e667c4e2b6c90f8f496d3762f436266bf287877a297d3c5fd37c42aca5adcb2",
+  "source_hash": "bd68907bf5a92f3e38ee33ad39c00d32435afc0d6d4d83fae7238302abbbf65b",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/IR/capture_interrupted.ogg",
-  "duration": 2.8750416666666667,
+  "duration": 2.874375,
   "channels": 1,
-  "bytes": 26971,
-  "sha256": "6e9be4c49d60393c6f3e1d5248bbedc48d27c6c378b3a29ba4a2874b0ca829c4",
+  "bytes": 18800,
+  "sha256": "691d676c6eab5117e56d093de8ea7271f04cecc952b2498aec279a3b457e24b0",
   "mp3_url": "/art/audio/vo/announcer/IR/capture_interrupted.mp3",
-  "mp3_bytes": 47276,
-  "mp3_sha256": "52de93f4a0fac43082078d2602015c29cb3ee2fe6a7c5a287e722b2271969c6e",
-  "peak": 0.785383403301239,
-  "rms": 0.13273952901363373,
+  "mp3_bytes": 23660,
+  "mp3_sha256": "57da91c114c647bfa701416e5a0e9ac8aabb13a2263b8b25ae68312623f43b5e",
+  "peak": 0.5472058653831482,
+  "rms": 0.14037762582302094,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

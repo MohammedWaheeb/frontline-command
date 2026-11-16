@@ -4,34 +4,59 @@
   "caption": "An aircraft was lost before it could reach a landing slot.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "f7844b1e0fe8e8261fe59b96b194e36720f7d80da03a4b64969e4da8bb1bd57c",
+  "source_hash": "7dd554bb7f8de810dc9ffe231a86c589e0bdcd1c8d52b5ff569b5b7f51814378",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/IR/aircraft_lost_emergency.ogg",
-  "duration": 3.74225,
+  "duration": 3.7981666666666665,
   "channels": 1,
-  "bytes": 33852,
-  "sha256": "a9d6c21b5e668b0f37bf44635912efc2788b3892ce2f601190567b901451e162",
+  "bytes": 23639,
+  "sha256": "9d559795a38f52eb3d60a6daa67424c6e9cd302c9242107976b331959517bf94",
   "mp3_url": "/art/audio/vo/announcer/IR/aircraft_lost_emergency.mp3",
-  "mp3_bytes": 61100,
-  "mp3_sha256": "2fae233d810ab5eb57a8a516d79bfa30c582788e7e274d908c5b4427c8d8cdfe",
-  "peak": 0.745441198348999,
-  "rms": 0.14003901183605194,
+  "mp3_bytes": 31148,
+  "mp3_sha256": "a443f225d000f1c953972877e20095c18a4c11e65e00c8befa606b13c312f78e",
+  "peak": 0.487067312002182,
+  "rms": 0.1401721090078354,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

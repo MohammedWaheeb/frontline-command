@@ -3,35 +3,60 @@
   "path": "vo/announcer/SA/missile_warning.ogg",
   "caption": "Missile inbound. Clear the marked impact area.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.122,
+  "voice": "bm_george",
+  "speed": 1.1880000000000002,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 100,
   "cooldown_ms": 6000,
-  "source_hash": "93a351ca3bebecc718d13c4d1ac14558a63d03977fa8a4029e15418a021dca0d",
+  "source_hash": "d6c9714116248f429617904531518f4be257f99925e57924cb67c2763b34455f",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/SA/missile_warning.ogg",
-  "duration": 2.8089583333333334,
+  "duration": 3.067375,
   "channels": 1,
-  "bytes": 26704,
-  "sha256": "25f621234d0f9db8e8435a5dfb38a94ce6c79d508800cbc00bdd9241a897994b",
+  "bytes": 19761,
+  "sha256": "47d5f50d01a0e7958f2261c1b5fa1382d87213e80c963e38d2b754c8699f3ba8",
   "mp3_url": "/art/audio/vo/announcer/SA/missile_warning.mp3",
-  "mp3_bytes": 46508,
-  "mp3_sha256": "669eb34dd136739010e08723d3c0063ee579e53c54d72d7fb62203f7da9d867c",
-  "peak": 0.7897152900695801,
-  "rms": 0.11374867707490921,
+  "mp3_bytes": 25196,
+  "mp3_sha256": "7bb36989da320091e9fe7b90d8feea950e76fde94943640565e199e8e74118bb",
+  "peak": 0.5002784132957458,
+  "rms": 0.14041072130203247,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

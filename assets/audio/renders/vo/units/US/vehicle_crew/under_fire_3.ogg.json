@@ -3,35 +3,60 @@
   "path": "vo/units/US/vehicle_crew/under_fire_3.ogg",
   "caption": "We need support at this position.",
   "faction": "US",
-  "voice": "am_fenrir",
-  "speed": 1.06,
+  "voice": "am_michael",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "b7f7a0852de8324a28e80ecaa032e3bf8d59c0ec75b6ec97dac3a19577c08584",
+  "source_hash": "15ca0f7e9b3917d59dd30158687179ce68464c7bb12904b1d07e4c8a1f571f6f",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/vehicle_crew/under_fire_3.ogg",
-  "duration": 1.5869166666666668,
+  "duration": 1.8739583333333334,
   "channels": 1,
-  "bytes": 17889,
-  "sha256": "a9a9372d513269a59f14e5e9d753afad136fe8b5db047280e40440458579720c",
+  "bytes": 14163,
+  "sha256": "9e7a91e5190b7688f889a2a88841339e7e4678d12cf55a98121bd167da8ee735",
   "mp3_url": "/art/audio/vo/units/US/vehicle_crew/under_fire_3.mp3",
-  "mp3_bytes": 26924,
-  "mp3_sha256": "0e199efe31d3c40e4b7a2bc87c8c0841a2f3a51eaa5ca5a723a840691a031d57",
-  "peak": 0.7768868207931519,
-  "rms": 0.10255574434995651,
+  "mp3_bytes": 15788,
+  "mp3_sha256": "d0ad64ce67ebae90790b70c8f7b6c129ae030c675f142b0c78932a9cf9e22ac6",
+  "peak": 0.7511779069900513,
+  "rms": 0.11200299859046936,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -4,35 +4,60 @@
   "caption": "Two outer positions have fallen. Reposition observers before the command-base assault.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: Two outer positions have fallen. Reposition observers before the command-base assault.",
-  "source_hash": "53bc57a651cafc129d87580f63ad6009457c93501fd9d68d67efdf9d9f4d9367",
+  "source_hash": "ff2fffe8bd2009fa7cb1a9445b84fa81c4af58f0534adfc031d3103b629b2225",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-06-iron-signal/checkpoint-outer-line-1.ogg",
-  "duration": 5.70875,
+  "duration": 5.781375,
   "channels": 1,
-  "bytes": 49163,
-  "sha256": "209c5d00fa958234928ba003763cc39174aad6a78c6aa6babd6abff6307c449b",
+  "bytes": 33344,
+  "sha256": "7217ee2ec87b8ed7ceeb5b362a5b874c4e61110a832d0f6e3b87d9c2e6935ce9",
   "mp3_url": "/art/audio/vo/missions/ir-06-iron-signal/checkpoint-outer-line-1.mp3",
-  "mp3_bytes": 92588,
-  "mp3_sha256": "8103c604be5239400897120ff87a736c5bd32b80a3b9fea618cbe40f36913b39",
-  "peak": 0.7596872448921204,
-  "rms": 0.12117858231067657,
+  "mp3_bytes": 46892,
+  "mp3_sha256": "f11d7b04c30d5cf58ffc794dd355978de48f866175b54e8d80aa941a18882140",
+  "peak": 0.5949072241783142,
+  "rms": 0.14053107798099518,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

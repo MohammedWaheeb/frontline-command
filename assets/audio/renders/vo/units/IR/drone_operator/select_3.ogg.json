@@ -3,35 +3,60 @@
   "path": "vo/units/IR/drone_operator/select_3.ogg",
   "caption": "Flight telemetry confirmed. Awaiting tasking.",
   "faction": "IR",
-  "voice": "af_heart",
-  "speed": 1.0,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 2500,
-  "source_hash": "70f1d5e9995b40593014d5c9321fc4f54291d83a17bbe5a2e62424adb7fc1000",
+  "source_hash": "dbdf5ace9ddbadca0239b67c2ce6183863d9ce0b48d5d96eb6212970612fb687",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/IR/drone_operator/select_3.ogg",
-  "duration": 2.7805,
+  "duration": 3.1266666666666665,
   "channels": 1,
-  "bytes": 27299,
-  "sha256": "18e74191b47cf22a6b3729e1a8c96dce75b8c41257a6be1a3877fc3eefd98db5",
+  "bytes": 20858,
+  "sha256": "088c66eb7b17b75046966aa6e6b4d605a1c8f8f02b4bdc670d64797d7abbd099",
   "mp3_url": "/art/audio/vo/units/IR/drone_operator/select_3.mp3",
-  "mp3_bytes": 45740,
-  "mp3_sha256": "d486ac0f78107b8efcf6df498c9d6f1caba302b39f31e46e4bc566a59e42383d",
-  "peak": 0.7898975014686584,
-  "rms": 0.099063441157341,
+  "mp3_bytes": 25772,
+  "mp3_sha256": "b2f797a78c7ecdf45654152e574c58e55c3e31fcdcc8ce8757783604e3d01432",
+  "peak": 0.8432534337043762,
+  "rms": 0.10290975868701935,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -4,35 +4,60 @@
   "caption": "Column 4 has entered. Its approach is northwest.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "WATCH: Column 4 has entered. Its approach is northwest.",
-  "source_hash": "7d69f2371fff4c70d0dded9afab74bd9748508a4431a41066b84ee9ad826cc37",
+  "source_hash": "77e2ffd7ef239711a06d33e93dcd6def93f31f3f8a5f492b3bfe13a7c954776b",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-04-hold-the-network/pressure-4-4.ogg",
-  "duration": 3.6830833333333333,
+  "duration": 3.7315833333333335,
   "channels": 1,
-  "bytes": 32810,
-  "sha256": "a7472a81b2e1a07b8714aa6af36ba051698e5b749b1431167846a7869a13acc0",
+  "bytes": 22953,
+  "sha256": "d088127a18c991bc969cd6563a74cc865426530cdbb196806d37a295889ea320",
   "mp3_url": "/art/audio/vo/missions/ir-04-hold-the-network/pressure-4-4.mp3",
-  "mp3_bytes": 60332,
-  "mp3_sha256": "8c4a9836880015cb68341382ab8743f576f9a16b6b9bbfb7c77577faed656fbe",
-  "peak": 0.775117039680481,
-  "rms": 0.10072227567434311,
+  "mp3_bytes": 30572,
+  "mp3_sha256": "2a73d7779297000e24157acdda85b086c354de16ac41a1cbeda1f40acef63a5d",
+  "peak": 0.6685417890548706,
+  "rms": 0.14044111967086792,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

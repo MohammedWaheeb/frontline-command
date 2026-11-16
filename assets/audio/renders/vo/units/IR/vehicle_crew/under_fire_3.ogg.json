@@ -3,35 +3,60 @@
   "path": "vo/units/IR/vehicle_crew/under_fire_3.ogg",
   "caption": "Incoming rounds. Maintain the link.",
   "faction": "IR",
-  "voice": "am_michael",
-  "speed": 1.0,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "98ca38b6b3548fdabe5df6bdc2364bce71a2993e5792219de72837b4b0db921a",
+  "source_hash": "65f0038b26c612dcef0fd4ad086375485923d422cbd9b3086d6f46ef6e9b2958",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/IR/vehicle_crew/under_fire_3.ogg",
-  "duration": 2.482625,
+  "duration": 2.0401666666666665,
   "channels": 1,
-  "bytes": 25002,
-  "sha256": "210c1ce2973df71a6ccf6dcea8459128e9b51a0f248a717708129dcc337f448d",
+  "bytes": 14864,
+  "sha256": "57194bdfe831a97a4bca7af2f1e21c5bfac317566e6deacbee1eeac82ad03129",
   "mp3_url": "/art/audio/vo/units/IR/vehicle_crew/under_fire_3.mp3",
-  "mp3_bytes": 41132,
-  "mp3_sha256": "6ca939ad7d0413ea60d9066d3bb1f69c40b64b7d81ed80adb5812ff2d5cb3633",
-  "peak": 0.78891921043396,
-  "rms": 0.0832647755742073,
+  "mp3_bytes": 17132,
+  "mp3_sha256": "84bd7ce15d879fc86d2a4ae742fe13ec9c8e9d4a98f921d677981ca1787dc7a7",
+  "peak": 0.7766904234886169,
+  "rms": 0.11903101950883865,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

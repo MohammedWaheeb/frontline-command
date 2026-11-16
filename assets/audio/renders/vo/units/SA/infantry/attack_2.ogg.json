@@ -4,34 +4,59 @@
   "caption": "Weapons aligned. Opening fire.",
   "faction": "SA",
   "voice": "bm_george",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "a5af65cd542bd78b5fcf778b25f9a5966d3ceeef45566d043914a7ad21749a97",
+  "source_hash": "e4285dac245a100d7441c755f5e00e56eb5038fd951a9652e080ec86126070c4",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/infantry/attack_2.ogg",
-  "duration": 2.578333333333333,
+  "duration": 2.4444166666666667,
   "channels": 1,
-  "bytes": 23373,
-  "sha256": "49708d2ddb15a60e41c1cd0ae743e5fd36dbd7cb96ee92dd5f44d4a001a865df",
+  "bytes": 15960,
+  "sha256": "1600a70fd959b46d553271e9b9812beae8baa2df5e48b6d729e4e1a87acbf799",
   "mp3_url": "/art/audio/vo/units/SA/infantry/attack_2.mp3",
-  "mp3_bytes": 42668,
-  "mp3_sha256": "e16bc92695ad0e1c932b7b8e308bfb767ec673b9d8bf1bdbb54a246abe7bcc93",
-  "peak": 0.7804678082466125,
-  "rms": 0.14004859328269958,
+  "mp3_bytes": 20204,
+  "mp3_sha256": "928e7c3e621410dac5118a59e4258b9a3619be3a4218508ec4b4791c0f63b870",
+  "peak": 0.5019734501838684,
+  "rms": 0.14032788574695587,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

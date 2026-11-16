@@ -3,36 +3,61 @@
   "path": "vo/missions/tutorial-5-command-a-match/checkpoint-ability-used-1.ogg",
   "caption": "Ability confirmed. Use the debrief and replay to inspect the battle when you finish.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: Ability confirmed. Use the debrief and replay to inspect the battle when you finish.",
-  "source_hash": "f95276c68a8453897007395ad4ec2d31c7b2a29d2dc1989e6e8aa91e27afff20",
+  "source_hash": "c399c89e76d58bab07b300a5bc4b9eb85a144b16cb7bb0baa3a21d30b924b779",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-5-command-a-match/checkpoint-ability-used-1.ogg",
-  "duration": 4.956958333333334,
+  "duration": 5.067375,
   "channels": 1,
-  "bytes": 46775,
-  "sha256": "539e2996099de3965fc553329550fdf0c0a2e6d3e9e798da23bce7e6fdc85ba8",
+  "bytes": 32243,
+  "sha256": "0e49b043cee5c1b5798b230ebbcd3530e8ccb0ce44c4d89f8e113068282c1492",
   "mp3_url": "/art/audio/vo/missions/tutorial-5-command-a-match/checkpoint-ability-used-1.mp3",
-  "mp3_bytes": 80684,
-  "mp3_sha256": "9fbb4834e67e6f21dcb27e739793bd9ce37e88906dfa6a304fb5eb6a7d4fb88e",
-  "peak": 0.7885017991065979,
-  "rms": 0.10284297168254852,
+  "mp3_bytes": 41324,
+  "mp3_sha256": "1f94109e0616f5019553de3e86a0cc1a7279f5beb4606f004a28f0693c70b918",
+  "peak": 0.7799038290977478,
+  "rms": 0.11845199018716812,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

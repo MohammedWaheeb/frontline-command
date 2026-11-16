@@ -3,36 +3,61 @@
   "path": "vo/missions/convoy-union/third-convoy-ready-3.ogg",
   "caption": "Second delivery complete. Prepare the final convoy and review the route before approving Advance.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "CONVOY CONTROL: Second delivery complete. Prepare the final convoy and review the route before approving Advance.",
-  "source_hash": "6a269cff35745fcda96a36da227768d898b8d967825fc8bd235e6f0655c9ddb8",
+  "source_hash": "0f0064f95e2099edce66f5a63ecd27eabc44cd927626dbf363869a346cf08a8d",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/convoy-union/third-convoy-ready-3.ogg",
-  "duration": 5.67275,
+  "duration": 5.745958333333333,
   "channels": 1,
-  "bytes": 51944,
-  "sha256": "40057ca212bea4eea34fc38e0237bcf21a76add39df3c8137d24123fcb8fe07a",
+  "bytes": 35127,
+  "sha256": "ad0282fc6e723d617195361f95d44f2200305a0389ad2f4f748a4a37aa179d8d",
   "mp3_url": "/art/audio/vo/missions/convoy-union/third-convoy-ready-3.mp3",
-  "mp3_bytes": 92204,
-  "mp3_sha256": "ac799392850d1bff26ab1c3fd64ee88b29ad8edd2de3ad65bdc2ae5f1b0eb2ae",
-  "peak": 0.79586261510849,
-  "rms": 0.0876251757144928,
+  "mp3_bytes": 46700,
+  "mp3_sha256": "0f264bada49843ad47bd8e3752af195fae5cb8a5ed28482c4bdfd3a3deaa0714",
+  "peak": 0.7695878744125366,
+  "rms": 0.13065090775489807,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

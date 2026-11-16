@@ -3,35 +3,60 @@
   "path": "vo/missions/convoy-union/briefing.ogg",
   "caption": "Two independent allied economies escort three sequential two-truck convoys. Choose the northern or southern route at each checkpoint. Either commander can Hold; after a manual hold both must approve Advance. The visible countdown protects route decisions. A completed convoy unlocks one forward repair position for each owner, not free combat reinforcements. At least one truck from each convoy must arrive.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "46a804b200f25215e0858def51085b6035a756583ebd38d7c30615b0868c2172",
+  "source_hash": "d4526cb4c31b9e979f45430767d82c5ac39d0e4297bfbbb1dd92b0558fd4c6e5",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/convoy-union/briefing.ogg",
-  "duration": 25.149416666666667,
+  "duration": 21.340458333333334,
   "channels": 1,
-  "bytes": 213779,
-  "sha256": "1f9a51253877d7b8d70ca25244aa736ac4e2f78d022d407177f06554c0dc4273",
+  "bytes": 124534,
+  "sha256": "1d07f61a83d28a189682566a59116dbd183b95876868ad2f64e149c2bec3f50e",
   "mp3_url": "/art/audio/vo/missions/convoy-union/briefing.mp3",
-  "mp3_bytes": 403628,
-  "mp3_sha256": "1e0186ef0be3c31ad960493f2f89da61f5c35e4f8bfb7291627404d68760ccf4",
-  "peak": 0.7732633948326111,
-  "rms": 0.062001828104257584,
+  "mp3_bytes": 171500,
+  "mp3_sha256": "314d976b631e86d77514aec5ad9f6c45455f6d51a811c289c4da84e5f843bb1c",
+  "peak": 0.8145064115524292,
+  "rms": 0.10693889856338501,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

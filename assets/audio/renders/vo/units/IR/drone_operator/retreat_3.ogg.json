@@ -3,35 +3,60 @@
   "path": "vo/units/IR/drone_operator/retreat_3.ogg",
   "caption": "Breaking contact. Preserve the equipment.",
   "faction": "IR",
-  "voice": "af_heart",
-  "speed": 1.0,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "b09dacf58246eb6ac2efdb9ddea49255d09c069ef0cf667f542e7efd2a160638",
+  "source_hash": "463a601715bc85d967d0d3869cf4174c5ac99b3c1c0af9c4fccf04f2189c7cdc",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/IR/drone_operator/retreat_3.ogg",
-  "duration": 2.4911666666666665,
+  "duration": 2.651708333333333,
   "channels": 1,
-  "bytes": 26116,
-  "sha256": "77dcbc09bd92350e7ba7c45ac6e1e1734cf4a09985bc3a27bdbd961d2df1a715",
+  "bytes": 18459,
+  "sha256": "e9ce931f605fcc67d1c4d8fd217bb56ac9c2fa865b334d8311ac30172fab8860",
   "mp3_url": "/art/audio/vo/units/IR/drone_operator/retreat_3.mp3",
-  "mp3_bytes": 41132,
-  "mp3_sha256": "9b68513aab349df6e4892ba7097c4f84e412d226cd8b3ad7fe67d482028d4d99",
-  "peak": 0.7749726176261902,
-  "rms": 0.1319342702627182,
+  "mp3_bytes": 21932,
+  "mp3_sha256": "a4dbc2db68292c3d20b660e960d40992f45985b29e02e41bdd316215225ba882",
+  "peak": 0.6738829016685486,
+  "rms": 0.14044861495494843,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

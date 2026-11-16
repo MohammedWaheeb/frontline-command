@@ -4,34 +4,59 @@
   "caption": "Vehicle team here. What is the route?",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 2500,
-  "source_hash": "7c20b7172ecec66a6361b2651ae7db43873b81751b9bbc7d7eae297283848a09",
+  "source_hash": "5e74a761b0fb6192059c1a0f19126f46fc0a85f75cb1178b871e9ac1c974f42b",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/select_3.ogg",
-  "duration": 2.411625,
+  "duration": 2.4330833333333333,
   "channels": 1,
-  "bytes": 22377,
-  "sha256": "2319ea7c69fbb2c97898900c4e46c5bdfc9c3b5dfcaa14e401731f2fbc43b406",
+  "bytes": 16050,
+  "sha256": "e54b27b28e50acdce838f128e7de4b9b6241b4d2ef0aba8f23f1c5250d2f9aaa",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/select_3.mp3",
-  "mp3_bytes": 39980,
-  "mp3_sha256": "90ae89001f67d082ac04bdb4299568e42a4c9b9664c69f9f3ea3de5d97692464",
-  "peak": 0.7774362564086914,
-  "rms": 0.13045628368854523,
+  "mp3_bytes": 20204,
+  "mp3_sha256": "18cfbac8bf8f547a4e5136b71096391a03d1028b050808c0c58d8358dfbe38e8",
+  "peak": 0.5029623508453369,
+  "rms": 0.1403140127658844,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

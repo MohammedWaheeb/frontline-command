@@ -3,35 +3,60 @@
   "path": "vo/missions/us-01-first-foothold/briefing.ogg",
   "caption": "Reach the two isolated Ranger teams west and east of the junction. Build a supply center and deliver cargo. Recovering their original squads transfers control; it does not duplicate them. An intact rig is stranded at the old workshop.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "578781ed266709d94f4f7fa73ee056324e46531fcb7ec3dd3f05da585ff2c5b5",
+  "source_hash": "c6837ec1fb469f30e56bf22b6f30dba8309131c1d580569ca3c565403ea2585f",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-01-first-foothold/briefing.ogg",
-  "duration": 14.908833333333334,
+  "duration": 14.700791666666667,
   "channels": 1,
-  "bytes": 132448,
-  "sha256": "4a211fe872f2b6c3804d935d7d6e4f225885c5c1938ecb0f5d37797fb6f17524",
+  "bytes": 89655,
+  "sha256": "6e4e80644467bb0c8f4dc34cce5e83c84c32d4d35442a8c4637016d857875626",
   "mp3_url": "/art/audio/vo/missions/us-01-first-foothold/briefing.mp3",
-  "mp3_bytes": 240044,
-  "mp3_sha256": "ccac4c9014179a20ae6711ac23d9b0c728ed05e81caa95107b18556750b3e4f2",
-  "peak": 0.7911872863769531,
-  "rms": 0.08575974404811859,
+  "mp3_bytes": 118316,
+  "mp3_sha256": "b29f41bf379509c5de56a3897b783bacf4271810abbcd7b003838ab3133e49ea",
+  "peak": 0.798271119594574,
+  "rms": 0.1337093561887741,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -3,35 +3,60 @@
   "path": "vo/missions/tutorial-4-defend-the-sky/debrief.ogg",
   "caption": "Defend the Sky complete. Review the objective record and replay before moving on. Tutorials never gate multiplayer.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "07cde4a49ff65dd3a3aee3fae96e0957715cc0a260db0839a158f7a2618c0922",
+  "source_hash": "3bae2bccc28d63a3660fa16544afa57c2a42ef83e5b8ec85b6e155ee99c4a5b2",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-4-defend-the-sky/debrief.ogg",
-  "duration": 7.089666666666667,
+  "duration": 7.244958333333333,
   "channels": 1,
-  "bytes": 64407,
-  "sha256": "ebb9ed746f158ceb62d3d91758543ea14b19d5d20b6a0bdf5ffbac1311a5923f",
+  "bytes": 45690,
+  "sha256": "8fcfe214ddb16088661f2125f1350a65e90b06fb81b23fd9bcc74a5e691f68cd",
   "mp3_url": "/art/audio/vo/missions/tutorial-4-defend-the-sky/debrief.mp3",
-  "mp3_bytes": 114860,
-  "mp3_sha256": "d39e6a018a345a3e0e1e664c12a04acd6b0ca1257d6bc9d57c03c39fa3ec8581",
-  "peak": 0.7851992845535278,
-  "rms": 0.08798890560865402,
+  "mp3_bytes": 58604,
+  "mp3_sha256": "06a31b7e1a544278c36e57226954b6cf08a19bc99abe77d36ddcd737ef2b2ac9",
+  "peak": 0.8046749830245972,
+  "rms": 0.11905983835458755,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

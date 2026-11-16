@@ -3,36 +3,61 @@
   "path": "vo/missions/tutorial-4-defend-the-sky/air-threat-2.ogg",
   "caption": "Move the marked infantry out of the warning area and back to base. Interceptors protect against missiles; AA protects against aircraft.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "INSTRUCTOR: Move the marked infantry out of the warning area and back to base. Interceptors protect against missiles; AA protects against aircraft.",
-  "source_hash": "c7f90e15199f24a510fe7d48d41a3a7ba4e76f86f57d770ab1d04b50520fe2ea",
+  "source_hash": "da52842789abb202ec8336b3c86c37f53af0db968959d1477a35d3942fff2418",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-4-defend-the-sky/air-threat-2.ogg",
-  "duration": 8.285791666666666,
+  "duration": 8.470833333333333,
   "channels": 1,
-  "bytes": 76924,
-  "sha256": "5912121ea9042601a8bc34aaf36cb86760b5404dcd0c2ff5a3ad270db40a61e7",
+  "bytes": 52739,
+  "sha256": "b5bac8d537f34597a9e13f7050eca041851b7a73ed9c62bb4fbd1b0cce926fc4",
   "mp3_url": "/art/audio/vo/missions/tutorial-4-defend-the-sky/air-threat-2.mp3",
-  "mp3_bytes": 134060,
-  "mp3_sha256": "d8d22d001db8ffac1857e57cb4c19167de59dc839aa3c3526d3638610d2e23c9",
-  "peak": 0.7616875171661377,
-  "rms": 0.09463775157928467,
+  "mp3_bytes": 68396,
+  "mp3_sha256": "69a15482913845df78be72024b52632fd49a76fbcaf564a82683a7da58415c48",
+  "peak": 0.7613552808761597,
+  "rms": 0.13201464712619781,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

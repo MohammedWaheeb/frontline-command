@@ -3,35 +3,60 @@
   "path": "vo/announcer/US/field_depleted.ogg",
   "caption": "A supply field is depleted. Redirect the haulers.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "26217a694f8a9637b86a47315f488e42ae5352492c6ebf0a974140e2fe6af29d",
+  "source_hash": "e3073c814cb89923ced305b414a8236e517f857b17b8e91edec9fedc0a16d583",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/US/field_depleted.ogg",
-  "duration": 3.078291666666667,
+  "duration": 2.969625,
   "channels": 1,
-  "bytes": 30321,
-  "sha256": "2b0b55512ecca4750de7933379add825547363f784fe5b980226f92c45f8ab72",
+  "bytes": 20518,
+  "sha256": "59bfcf0cdc6d65cd85281d6a2154df1ec29dffd19d27bdb8f5a33b6d0e31228f",
   "mp3_url": "/art/audio/vo/announcer/US/field_depleted.mp3",
-  "mp3_bytes": 50732,
-  "mp3_sha256": "28a08bdba72da97f0b8c1f8a6a12b2315b8abf8deb105993033070fbfbc9b4f6",
-  "peak": 0.7895384430885315,
-  "rms": 0.09471502155065536,
+  "mp3_bytes": 24428,
+  "mp3_sha256": "0c6cba1f1f4ad0e07256286deec99c04fc3c885042e0d22ff2135c9465778410",
+  "peak": 0.7862290143966675,
+  "rms": 0.13993191719055176,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

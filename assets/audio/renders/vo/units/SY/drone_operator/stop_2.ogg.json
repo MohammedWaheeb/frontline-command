@@ -3,35 +3,60 @@
   "path": "vo/units/SY/drone_operator/stop_2.ogg",
   "caption": "We will hold this ground.",
   "faction": "SY",
-  "voice": "af_bella",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "dba6da027a1cf51375576d16fca22e15616ade335c77820d1f57b2c8a01abb9f",
+  "source_hash": "99858de5063ab2eff814a108fe6f43ef1cada721cfa2db814c20192b1575c35a",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/drone_operator/stop_2.ogg",
-  "duration": 1.1602083333333333,
+  "duration": 1.2557083333333334,
   "channels": 1,
-  "bytes": 13355,
-  "sha256": "0f09a1f9d5eb08e8e0964919b2294a04a1ec222b0fab8a99b1bfafd5f1ad2d86",
+  "bytes": 10734,
+  "sha256": "b39af02eff6006f1611de3f173e9e7cd15636e5b76fe4e7d3d0a4c6dd0c78b0c",
   "mp3_url": "/art/audio/vo/units/SY/drone_operator/stop_2.mp3",
-  "mp3_bytes": 20012,
-  "mp3_sha256": "10d5eb1f56fd02ee01e3aa42bf9e79af4f7be60f0986f4b9156712cccb9cf94f",
-  "peak": 0.7796947360038757,
-  "rms": 0.10052080452442169,
+  "mp3_bytes": 10796,
+  "mp3_sha256": "281e49fc1cf005e23a58d7aaca0c83b655f09140669aff6dcfd179c5eb156e3b",
+  "peak": 0.7868767380714417,
+  "rms": 0.1193479374051094,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -4,35 +4,60 @@
   "caption": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "WATCH: Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
-  "source_hash": "67426512d38aab169a2f8c1e488f94e013da19ec2b8c9ec95b26cf6ec18ed840",
+  "source_hash": "b24a5465dc7c9f765716c6bbe148b684cae0c54db23ded483190859e028e5211",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-04-hold-the-network/pressure-warning-1-0.ogg",
-  "duration": 7.7992083333333335,
+  "duration": 7.732875,
   "channels": 1,
-  "bytes": 65438,
-  "sha256": "6569a14da57f578a8e0c92b3dc82c98c7ba80e2abfafaa3591d4a20f43418352",
+  "bytes": 44352,
+  "sha256": "41c4ae0575a2e3a6b224b36dd36a094f647f77cbbd35c767467bd201eaa35c50",
   "mp3_url": "/art/audio/vo/missions/ir-04-hold-the-network/pressure-warning-1-0.mp3",
-  "mp3_bytes": 125996,
-  "mp3_sha256": "102eeed082aa5514a07143801ca67cc3f3d53e8eb21beba6d39ddc138f04de10",
-  "peak": 0.7805346250534058,
-  "rms": 0.11765454709529877,
+  "mp3_bytes": 62636,
+  "mp3_sha256": "57c89e617a2b78a7e8a1cc3c7b3120fa55e51706bc60af8210b51c7e8d6f900d",
+  "peak": 0.5568974018096924,
+  "rms": 0.14037390053272247,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

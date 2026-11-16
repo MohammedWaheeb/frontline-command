@@ -3,35 +3,60 @@
   "path": "vo/announcer/SA/safehouse_transfer_canceled.ogg",
   "caption": "Safehouse transfer canceled. Check the exit.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "96c48fa3dc7d76f6e45689d87f75b653ab797fd469b198feff31e9de1524ca0b",
+  "source_hash": "33955dea9d9138961fe4df0b65f765929c95b88dbf20ca8846cdfc59f04ff276",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/SA/safehouse_transfer_canceled.ogg",
-  "duration": 2.7992083333333335,
+  "duration": 3.2548333333333335,
   "channels": 1,
-  "bytes": 26623,
-  "sha256": "349d65fa3b60c2d7b5e48c4d2cfe4edced2b6271128450fc9a6061649064460d",
+  "bytes": 20745,
+  "sha256": "712747f3619618bebb5ec25bb6c1b5564fe7b1efe486e039a8d2722fa3d3fa22",
   "mp3_url": "/art/audio/vo/announcer/SA/safehouse_transfer_canceled.mp3",
-  "mp3_bytes": 46124,
-  "mp3_sha256": "f03b0710665811beeeb948c8e12ab0fad45ea9a4fe458c33fbfb1aa90536f12c",
-  "peak": 0.7858569622039795,
-  "rms": 0.10991944372653961,
+  "mp3_bytes": 26732,
+  "mp3_sha256": "75d6b07c2443fc2df689f4794f1b1419d91d0b0c10b720e522269d89a8b8b5d6",
+  "peak": 0.5957291722297668,
+  "rms": 0.14031819999217987,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -3,36 +3,61 @@
   "path": "vo/missions/tutorial-2-operate-a-base/advanced-exercise-2.ogg",
   "caption": "The late exercise detachment has entered the eastern road.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "INSTRUCTOR: The late exercise detachment has entered the eastern road.",
-  "source_hash": "bdee933c540064eb6de6e20daaeb04b1492ab56548013ff1c26678efd7ee6d01",
+  "source_hash": "a784f60bcb5c1f2517d728db30a4ae6f8fdf4210890780331611c01328864d1b",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-2-operate-a-base/advanced-exercise-2.ogg",
-  "duration": 3.5046666666666666,
+  "duration": 3.4374583333333333,
   "channels": 1,
-  "bytes": 34527,
-  "sha256": "a925271afed2cd2a0ccd28405a283ac6ee9ee3f4037220a0369e5bd5f38abced",
+  "bytes": 24058,
+  "sha256": "bc00064557952dc396443395941ec1da91c59dae4bf41040a2c783cb9766e0eb",
   "mp3_url": "/art/audio/vo/missions/tutorial-2-operate-a-base/advanced-exercise-2.mp3",
-  "mp3_bytes": 57644,
-  "mp3_sha256": "90e32ed8d50323c1e389c84f164e6b3f6d11585c26377febff29010b31e7257b",
-  "peak": 0.7708382606506348,
-  "rms": 0.06402533501386642,
+  "mp3_bytes": 28268,
+  "mp3_sha256": "92b47776c22f507cbb2fd03819c7ba02f1c327449b2e63b464741c16732862f6",
+  "peak": 0.8082180619239807,
+  "rms": 0.1261172741651535,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

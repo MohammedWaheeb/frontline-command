@@ -3,35 +3,60 @@
   "path": "vo/units/SY/drone_operator/select_1.ogg",
   "caption": "Control link is steady.",
   "faction": "SY",
-  "voice": "af_bella",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 2500,
-  "source_hash": "629e28129ef08bd5f432fe3fe6799687940ed7f9e6516ebb76c49fbb4d019a58",
+  "source_hash": "9838f53221b111476be7d8ccda23d943d7eba87e08d4d038d0ffc403ea4f0e52",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/drone_operator/select_1.ogg",
-  "duration": 1.2875416666666666,
+  "duration": 1.3319166666666666,
   "channels": 1,
-  "bytes": 14337,
-  "sha256": "fe42f7224af592653e03ce76290fb257583973931490df9335ea873ebc4682b0",
+  "bytes": 11260,
+  "sha256": "f6a8f38205b68ed9226fb988faa2e597a281a7d348edc799c719dc83adad6732",
   "mp3_url": "/art/audio/vo/units/SY/drone_operator/select_1.mp3",
-  "mp3_bytes": 21932,
-  "mp3_sha256": "8d251eade62670e3845a01fedbb39253360b93b3d39b8b6f64d32922a17e1fba",
-  "peak": 0.7818199396133423,
-  "rms": 0.09912615269422531,
+  "mp3_bytes": 11372,
+  "mp3_sha256": "bc8f5b4c65c3d54a253f19c33883f6c6742a86aa9923df3b146c1f1336a3d59b",
+  "peak": 0.7947880029678345,
+  "rms": 0.1403999924659729,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

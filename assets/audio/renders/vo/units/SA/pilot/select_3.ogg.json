@@ -4,34 +4,59 @@
   "caption": "Cockpit ready. Send the flight plan.",
   "faction": "SA",
   "voice": "am_michael",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 2500,
-  "source_hash": "4a2931910225e233556fd7fe0abc6874dbbeca9c1b448435acfcb98360c4a567",
+  "source_hash": "eafb3c5f310f58e472aa8083b9ddb3052094fee6ad765337f7efb0e4b2a9e835",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/pilot/select_3.ogg",
-  "duration": 2.436,
+  "duration": 2.4265833333333333,
   "channels": 1,
-  "bytes": 23471,
-  "sha256": "02d23e4af0a46040a8e33ff023e018207c31cda99bac6d082397c0d7a8f40beb",
+  "bytes": 16198,
+  "sha256": "02fc631a82ca7d355d9adc701b20da4a887008a10dfa8a3b7d9132da5d15757e",
   "mp3_url": "/art/audio/vo/units/SA/pilot/select_3.mp3",
-  "mp3_bytes": 40364,
-  "mp3_sha256": "1bcfcf5d4d4fe45265d3acb94b0c65ab76c4770ef5e08ef4b37dd1bd3b7105d6",
-  "peak": 0.7877491116523743,
-  "rms": 0.07291533052921295,
+  "mp3_bytes": 20204,
+  "mp3_sha256": "626cd6886251c15abbf5a928b9913d1a627be170e027da4063833d7b6172882c",
+  "peak": 0.8147642612457275,
+  "rms": 0.1189725399017334,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

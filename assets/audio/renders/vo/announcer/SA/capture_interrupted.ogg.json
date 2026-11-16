@@ -3,35 +3,60 @@
   "path": "vo/announcer/SA/capture_interrupted.ogg",
   "caption": "Capture interrupted. Secure the target.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "56e270e4f7ee8d2438fcb304c6149e162cd27b874ea977cc6539633c5c0ea4cf",
+  "source_hash": "55f1924b81693fe6ac8d4fd9a242f0208cda987332d948aa34a112901857b867",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/SA/capture_interrupted.ogg",
-  "duration": 2.404166666666667,
+  "duration": 2.875208333333333,
   "channels": 1,
-  "bytes": 24429,
-  "sha256": "4bacc5ce20145ecba8c9e4d49814cd1889b246f991e71bca6b4be0c93743d41d",
+  "bytes": 18688,
+  "sha256": "b18ca09b88860ea664dbb047bbc0f9138eee641b87a975fd5227c8c171739bc1",
   "mp3_url": "/art/audio/vo/announcer/SA/capture_interrupted.mp3",
-  "mp3_bytes": 39980,
-  "mp3_sha256": "d01d2f77443341d7a33f8dc2ec02f53824808cce571b8881db3661a16f0d6444",
-  "peak": 0.7855041027069092,
-  "rms": 0.12650015950202942,
+  "mp3_bytes": 23660,
+  "mp3_sha256": "1ef175640620f7575ec8e58595b2508bcf3528dd370a2a6efcb61ca6dda9beae",
+  "peak": 0.5166543126106262,
+  "rms": 0.14055705070495605,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

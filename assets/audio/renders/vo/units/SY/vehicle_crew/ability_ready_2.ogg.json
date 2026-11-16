@@ -4,34 +4,59 @@
   "caption": "All set. Waiting for your signal.",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "123c1d501eaa043f3fff273579d52f1b5343261c1390c6fbc8ed38e5d6250fbf",
+  "source_hash": "364cb87d12f5821e074ea0485c33ca18c7a3cbb6320918780dd4c2092d0428a2",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/ability_ready_2.ogg",
-  "duration": 2.1293333333333333,
+  "duration": 2.20175,
   "channels": 1,
-  "bytes": 20944,
-  "sha256": "682de0b74795f726d5828288dba7ebce3d7b56c9f9abfb287edf62cecfb88510",
+  "bytes": 14837,
+  "sha256": "502764b776b8944f722fc339510bb802f2149f1d8bb532a47064fca8d108960c",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/ability_ready_2.mp3",
-  "mp3_bytes": 35372,
-  "mp3_sha256": "308637d02bf3211b9f8e2fba53de241e7ad7b3b448e4ebd98ea521a0b08966db",
-  "peak": 0.7739303708076477,
-  "rms": 0.12491928786039352,
+  "mp3_bytes": 18284,
+  "mp3_sha256": "0402bca0dd00931dc7cf3fa63da530323764a767f4ee047573515022746dc3ca",
+  "peak": 0.46255064010620117,
+  "rms": 0.1403452754020691,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

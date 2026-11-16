@@ -3,36 +3,61 @@
   "path": "vo/missions/tutorial-5-command-a-match/SA/pressure-warning-1-0.ogg",
   "caption": "Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "WATCH: Hostile column 1 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
-  "source_hash": "3b9175eb452aeea5ca43c0d80ed94e0325109d1be333822a5db038d6411e1ed1",
+  "source_hash": "aeb79cfb600bd77b723a4f1985c004ce9bdd55c8fe651da258a82e9ff313683b",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-5-command-a-match/SA/pressure-warning-1-0.ogg",
-  "duration": 7.279458333333333,
+  "duration": 7.733291666666666,
   "channels": 1,
-  "bytes": 62544,
-  "sha256": "2a6559c00743e0dac7de6d56abdc3f36f3dd0c36e45ac5eda32300544df5901f",
+  "bytes": 45075,
+  "sha256": "12feb39c054844411016fe2ad2128260efbd49d8e1c0029379de929b3061abd9",
   "mp3_url": "/art/audio/vo/missions/tutorial-5-command-a-match/SA/pressure-warning-1-0.mp3",
-  "mp3_bytes": 117932,
-  "mp3_sha256": "6a159c84504035411b8b4d86d40751622d54ccff0dfa376e51350cc151f22add",
-  "peak": 0.7677062153816223,
-  "rms": 0.09711086750030518,
+  "mp3_bytes": 62636,
+  "mp3_sha256": "a8440f3c42fe5ef1dfb7e54eb92012c7be34ad1c2e0a3fb55f841260c6f11121",
+  "peak": 0.5487650632858276,
+  "rms": 0.14040663838386536,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

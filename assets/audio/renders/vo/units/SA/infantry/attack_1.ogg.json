@@ -4,34 +4,59 @@
   "caption": "Engaging the designated target.",
   "faction": "SA",
   "voice": "bm_george",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "45656b413581e87ee5f85530c071e7eee39d3b46fc56a450e5a2e44f2e3804be",
+  "source_hash": "d6f9d3045ef3ec51e2700be40d06b1bdacfef6cb6c8ae20c3295251e7c0dc01d",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/infantry/attack_1.ogg",
-  "duration": 2.636083333333333,
+  "duration": 2.561,
   "channels": 1,
-  "bytes": 24123,
-  "sha256": "832cd7930f047a5ec0896517f547d3558f04375913bd0f526a8361ec7af981a9",
+  "bytes": 16768,
+  "sha256": "66c43e966016bf6c927ab8be11f4ca85aa138bf2500128c47f8e01ac88a2d169",
   "mp3_url": "/art/audio/vo/units/SA/infantry/attack_1.mp3",
-  "mp3_bytes": 43436,
-  "mp3_sha256": "5e14ebc348b55e8fa5dddae4450d83ecd7a70435d79fb80351346fb439d5b121",
-  "peak": 0.786824643611908,
-  "rms": 0.13774147629737854,
+  "mp3_bytes": 21164,
+  "mp3_sha256": "493ebfbae41e28b88518518c98796f3da6d7365b7104f62744d35b4aed956214",
+  "peak": 0.49548035860061646,
+  "rms": 0.14030808210372925,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -3,35 +3,60 @@
   "path": "vo/units/US/infantry/repair_2.ogg",
   "caption": "Restoring the damaged systems.",
   "faction": "US",
-  "voice": "am_michael",
-  "speed": 1.06,
+  "voice": "am_fenrir",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "39d0a0e89a9b76950335a5f4bbac418440996d2d05c76dd3caf52ed911d80fec",
+  "source_hash": "e42d41d99c68fc3a0d759ae154a5369fbc3ce5d4d1353e53ed49ec13daaaac03",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/infantry/repair_2.ogg",
-  "duration": 1.8188333333333333,
+  "duration": 1.6455,
   "channels": 1,
-  "bytes": 20197,
-  "sha256": "d1a75bb0faeaa0fe4625e28e3c19565ce7f9e438b056246527c428c136f5baba",
+  "bytes": 12910,
+  "sha256": "0513a8647676bff0e44b6d56f647839cd25d0bd99ebcfb86f670a446a6fa0b4e",
   "mp3_url": "/art/audio/vo/units/US/infantry/repair_2.mp3",
-  "mp3_bytes": 30380,
-  "mp3_sha256": "48929ddcf7e63066ca000bbea08eb511f1ce688d1d9b3d22edd08c54d172f884",
-  "peak": 0.7784383893013,
-  "rms": 0.10604441910982132,
+  "mp3_bytes": 13868,
+  "mp3_sha256": "021e8c52a2e1af774dc296ab74da5e1a69d535570b814b881185bdcef1e0aa6c",
+  "peak": 0.8440849781036377,
+  "rms": 0.13572171330451965,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

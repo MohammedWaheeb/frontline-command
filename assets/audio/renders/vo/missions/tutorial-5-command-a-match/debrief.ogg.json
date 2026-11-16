@@ -3,35 +3,60 @@
   "path": "vo/missions/tutorial-5-command-a-match/debrief.ogg",
   "caption": "Command a Match complete. Review the objective record and replay before moving on. Tutorials never gate multiplayer.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "8bbd19d08a693d9c1c2d1f919c177b5f01a7b08969b5979c2bf9867ceede084c",
+  "source_hash": "fd33d7dbbd1f2865117453f897b0ba1936a1def6e1f653c89094fe9b5a56c332",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-5-command-a-match/debrief.ogg",
-  "duration": 7.098958333333333,
+  "duration": 7.376041666666667,
   "channels": 1,
-  "bytes": 65772,
-  "sha256": "2cbf7ee4e92f3c1244acea88f3e66c7e1fe20bbc839195da5479bb600b109d13",
+  "bytes": 44993,
+  "sha256": "eea77a052879eda96c4db9456581cf36c3dd95205dc32586b62bd1f01ac86a74",
   "mp3_url": "/art/audio/vo/missions/tutorial-5-command-a-match/debrief.mp3",
-  "mp3_bytes": 114860,
-  "mp3_sha256": "df9689f9c5d563604d51763f73ed13c128ab959e0e4eac63190574b56d41ed44",
-  "peak": 0.7843484878540039,
-  "rms": 0.1031690314412117,
+  "mp3_bytes": 59756,
+  "mp3_sha256": "3670a3babe10397f136b3db3bee9a7c77c91c214ac8f99e64d7bc5c06367e2ef",
+  "peak": 0.7582129240036011,
+  "rms": 0.13441139459609985,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

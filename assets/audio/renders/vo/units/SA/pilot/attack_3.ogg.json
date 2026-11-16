@@ -4,34 +4,59 @@
   "caption": "Target confirmed. Coordinated fire.",
   "faction": "SA",
   "voice": "am_michael",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "9afe9ab92d8c6a6a9a101466875d7b75bfe3bffd37622dbf2cea2a9e8419b33d",
+  "source_hash": "979e98ffce91d99430caac5da82ee1b747e5854a01ae11e0549073cfda224a3d",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/pilot/attack_3.ogg",
-  "duration": 2.6021666666666667,
+  "duration": 2.6235416666666667,
   "channels": 1,
-  "bytes": 25804,
-  "sha256": "ec8632fe3f1d75b4099d186ac597d53a79efd8035c80a5fbbcdf99b0c9971048",
+  "bytes": 18173,
+  "sha256": "d3995ddfd275e5da0018c7241080d65d902d70399bce417a0b9c6f328cdcda40",
   "mp3_url": "/art/audio/vo/units/SA/pilot/attack_3.mp3",
-  "mp3_bytes": 43052,
-  "mp3_sha256": "bf8f2beafe7ae72416f662900a8538a2df9fd49f83c977a95d0202ba47289704",
-  "peak": 0.7975924015045166,
-  "rms": 0.09511777758598328,
+  "mp3_bytes": 21740,
+  "mp3_sha256": "d5307443896d22a6fffd591e6cac8ff594f20f92c69127cc711e39b2d369fb7a",
+  "peak": 0.7657853364944458,
+  "rms": 0.14056561887264252,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

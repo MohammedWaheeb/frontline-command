@@ -3,35 +3,60 @@
   "path": "vo/announcer/US/research_complete.ogg",
   "caption": "Research complete. The upgrade is available.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "02b6e35e4119f0f1267c70bf977ed674bfc180ba47751283f9d0ec4363f7b4a8",
+  "source_hash": "2f5e48186a6d4066e03bad7efffa45d586d6a26f8beb5ab946e84f065ac4f9ee",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/US/research_complete.ogg",
-  "duration": 2.676041666666667,
+  "duration": 2.515041666666667,
   "channels": 1,
-  "bytes": 27167,
-  "sha256": "cf81b77fafe57782c36983ce9728acb2ec2bb3f165b01085b11eaf546593fb22",
+  "bytes": 18191,
+  "sha256": "172a9b2514922a90e7fd8423a50d1685075a8b5ccfd427666bcf1db568c133b0",
   "mp3_url": "/art/audio/vo/announcer/US/research_complete.mp3",
-  "mp3_bytes": 44204,
-  "mp3_sha256": "c8a0ee0cbecd1c86c9b3d0b2b181b2df2187eb76312a3770e4d0fb824fb7650c",
-  "peak": 0.7699416875839233,
-  "rms": 0.07154737412929535,
+  "mp3_bytes": 20780,
+  "mp3_sha256": "b9ee50ddc35699b36b007dae9d77ea9fb34f458433b35771f373ed0e0e9ee2ba",
+  "peak": 0.7836317420005798,
+  "rms": 0.12663166224956512,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

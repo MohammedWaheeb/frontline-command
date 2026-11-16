@@ -3,35 +3,60 @@
   "path": "vo/missions/twin-outposts/briefing.ogg",
   "caption": "Your HQs start on opposite sides of the river. Each commander must keep an HQ alive. Reopen the central connection, then neutralize the command and production structures of both hostile bases. Warned finite detachments enter the northwestern and northeastern roads. Each economy, service slot and army remains owned by its commander.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "13de954a716aaa2e287f784eecf32b30d60e1d66508b978f0dfabaf5a09d0f34",
+  "source_hash": "5a75c7a065a7fe0f961cc4078e74c34605357c276f22571124bc64a4e5bcf192",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/twin-outposts/briefing.ogg",
-  "duration": 21.081291666666665,
+  "duration": 19.42575,
   "channels": 1,
-  "bytes": 185671,
-  "sha256": "6aebe6cc3edb778eab9eac76ebb2ce2b680322bf3a398fd864e1cb6e0f70450c",
+  "bytes": 116172,
+  "sha256": "b3b107ffc131acc6772b6f1660de8e451d81a0e5df5764c7029685cd1f99e238",
   "mp3_url": "/art/audio/vo/missions/twin-outposts/briefing.mp3",
-  "mp3_bytes": 338732,
-  "mp3_sha256": "ce014d93a082c84b85f67d80ab168097a69f061ebdbb02ad03cc7da928717ab2",
-  "peak": 0.7911582589149475,
-  "rms": 0.10026171803474426,
+  "mp3_bytes": 156140,
+  "mp3_sha256": "c8432c4f790d191142ecc6f5fcd2786f4aeee6aa0f3e26298d67f5db34092841",
+  "peak": 0.7694074511528015,
+  "rms": 0.12058676034212112,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

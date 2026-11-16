@@ -3,36 +3,61 @@
   "path": "vo/missions/sy-06-open-road/checkpoint-forward-road-1.ogg",
   "caption": "The forward road is open. Protect any safehouse preparing a raid while pressure shifts to the main base.",
   "faction": "SY",
-  "voice": "bf_emma",
-  "speed": 1.02,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: The forward road is open. Protect any safehouse preparing a raid while pressure shifts to the main base.",
-  "source_hash": "9410c7db5af92c1f4b07ed651b0eb23782c16dd880f9bc06dc83455b313de4c4",
+  "source_hash": "cd8606663ebce0efa6ff51034e63c46f88a23b2b949712ae7b9ad15d2a786495",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sy-06-open-road/checkpoint-forward-road-1.ogg",
-  "duration": 5.583625,
+  "duration": 6.3865,
   "channels": 1,
-  "bytes": 51067,
-  "sha256": "1664f9617404cb708d4c4184c79e4a68dc30eb68393ffa097f124232883c3aab",
+  "bytes": 40018,
+  "sha256": "afa3d6835e30f79ff8868e07db8dbb91b67a117ec7fa0628c40aef9b1985c0d6",
   "mp3_url": "/art/audio/vo/missions/sy-06-open-road/checkpoint-forward-road-1.mp3",
-  "mp3_bytes": 90668,
-  "mp3_sha256": "feaf841f435e96a3ca2dbb2bb5c268f1ed1d02539ab0d95eab8fe437dde436b8",
-  "peak": 0.8207654356956482,
-  "rms": 0.08171512931585312,
+  "mp3_bytes": 51884,
+  "mp3_sha256": "973017f456e58088a91dfb79ab825511d9db6fa1cdcf0b8ff64c642584ebe6bf",
+  "peak": 0.8283395767211914,
+  "rms": 0.11864754557609558,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

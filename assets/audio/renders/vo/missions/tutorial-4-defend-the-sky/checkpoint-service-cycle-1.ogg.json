@@ -3,36 +3,61 @@
   "path": "vo/missions/tutorial-4-defend-the-sky/checkpoint-service-cycle-1.ogg",
   "caption": "Aircraft service is complete. Observe the distinct missile and air-defense counters.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: Aircraft service is complete. Observe the distinct missile and air-defense counters.",
-  "source_hash": "2a5ede10fe7cf6e99957bd4fcbf8c374ea0a625efeaae8c67ecee8eb24688b25",
+  "source_hash": "dee2437d506eee739bd50971658e7d6cc8545adec781535d4781be3085f0a7c1",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-4-defend-the-sky/checkpoint-service-cycle-1.ogg",
-  "duration": 4.984208333333333,
+  "duration": 5.059041666666666,
   "channels": 1,
-  "bytes": 46733,
-  "sha256": "003d5ce839d0a49f32aa2e65009dcaee601a89fce320188400e2eed425da0a52",
+  "bytes": 32090,
+  "sha256": "509fe0662219d52d4b1d0159ad0acbdb93e80951cb8447b2afb7737e8dae5fba",
   "mp3_url": "/art/audio/vo/missions/tutorial-4-defend-the-sky/checkpoint-service-cycle-1.mp3",
-  "mp3_bytes": 81068,
-  "mp3_sha256": "3864c32c46b099d59ff28cfd2b5dee78c3d6ec7ffcaa5c6731ac2a63b42c8dfa",
-  "peak": 0.7705198526382446,
-  "rms": 0.09364264458417892,
+  "mp3_bytes": 41132,
+  "mp3_sha256": "25502f417abf0299a390c284275a54640e56e89d6ee57a89df18dd434f599b57",
+  "peak": 0.8118659853935242,
+  "rms": 0.1222921684384346,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

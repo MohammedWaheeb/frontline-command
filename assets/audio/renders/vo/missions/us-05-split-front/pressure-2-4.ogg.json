@@ -3,36 +3,61 @@
   "path": "vo/missions/us-05-split-front/pressure-2-4.ogg",
   "caption": "Column 2 has entered. Its approach is northwest.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "WATCH: Column 2 has entered. Its approach is northwest.",
-  "source_hash": "784d2c875b264bd5fc12a539aaba263965fc85b95247165a43d7e316ea729c4c",
+  "source_hash": "e108a98beb96919d9de9d6d97f5eb65a3dc7f482f1df1525d515796d3d29a778",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-05-split-front/pressure-2-4.ogg",
-  "duration": 3.2359166666666668,
+  "duration": 2.9362916666666665,
   "channels": 1,
-  "bytes": 31959,
-  "sha256": "5232c74fb3f00b2b14d10b80b06ed3e1234881c31ecbd7fb7c90c6f014beeef4",
+  "bytes": 19691,
+  "sha256": "f60ecb054cb03cca07d712b12996b8503c6d44bb09bb480cb3ebbeecc1be79af",
   "mp3_url": "/art/audio/vo/missions/us-05-split-front/pressure-2-4.mp3",
-  "mp3_bytes": 53036,
-  "mp3_sha256": "a438cbdf66534ab5df8a27ef8a1429ec6f5b761ea9f95456ea8c29b91dc72ffd",
-  "peak": 0.7844527363777161,
-  "rms": 0.09940017759799957,
+  "mp3_bytes": 24236,
+  "mp3_sha256": "c04f18db4dc994959cd3664e08ccb357129a6eb179d53d103e00767b2b57a9aa",
+  "peak": 0.7799831628799438,
+  "rms": 0.13524554669857025,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

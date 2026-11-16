@@ -4,34 +4,59 @@
   "caption": "Patching the damage. Give us cover.",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "4dff984c75a397fc8c6f00d7556b4127beeba0b172fc3dd7998e8cef486dedd0",
+  "source_hash": "d778da2886739fede8f6a268bb7b3a2c78c84ef6e32c845b06b48c577bdea926",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/repair_2.ogg",
-  "duration": 2.18275,
+  "duration": 2.2177083333333334,
   "channels": 1,
-  "bytes": 20832,
-  "sha256": "b6e51176318678ec6c95bf09e2d57e8e9197924b831a09aa865ac7cfb738460a",
+  "bytes": 15496,
+  "sha256": "cddc549dcb57dcca624bf21359ec267a22150bfa495b7ba88527a2e6304e3be1",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/repair_2.mp3",
-  "mp3_bytes": 36140,
-  "mp3_sha256": "08e0fc3489939d7720946a55b59f752a5eec8a14a12890e634517351d6e9e919",
-  "peak": 0.7562032341957092,
-  "rms": 0.10460086911916733,
+  "mp3_bytes": 18476,
+  "mp3_sha256": "0025b96137a4c035903b4325ebb8db433d5b1225acf7bafdb5f2e08eaafdd9df",
+  "peak": 0.6066539883613586,
+  "rms": 0.1405857354402542,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

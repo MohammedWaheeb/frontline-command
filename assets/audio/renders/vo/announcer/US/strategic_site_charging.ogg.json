@@ -3,35 +3,60 @@
   "path": "vo/announcer/US/strategic_site_charging.ogg",
   "caption": "The strategic site is charging.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "1146c0b2e88efee521cedcd3842e7122ea26bbe863dfa1c22fe3447ed6a02fb6",
+  "source_hash": "0575b9162f0097d58cb9043594532636a02112e3587a5ff677c4baf7a0942154",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/US/strategic_site_charging.ogg",
-  "duration": 1.715125,
+  "duration": 1.6355416666666667,
   "channels": 1,
-  "bytes": 19446,
-  "sha256": "fb11ff516eddfe17692e7cfe233e922b448e1cf35f0cce1124c23abe340460ae",
+  "bytes": 12580,
+  "sha256": "162cb9b02274be67b931482d8b78a15b3df7536cb237f982ac93ee17d9e2b66e",
   "mp3_url": "/art/audio/vo/announcer/US/strategic_site_charging.mp3",
-  "mp3_bytes": 28844,
-  "mp3_sha256": "e2ea8cfdf474a3c696d23eeb8ca34b50f6965f515b4b740389ccc8706fe20786",
-  "peak": 0.7908958196640015,
-  "rms": 0.09990661591291428,
+  "mp3_bytes": 13868,
+  "mp3_sha256": "32fac365ac9b62510dac59e9f64faa667bf9e65cfbaa8d76ac4cb81bd90c0302",
+  "peak": 0.8189476728439331,
+  "rms": 0.1331368088722229,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

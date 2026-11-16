@@ -3,35 +3,60 @@
   "path": "vo/units/US/pilot/move_2.ogg",
   "caption": "Route confirmed. Moving out.",
   "faction": "US",
-  "voice": "af_bella",
-  "speed": 1.06,
+  "voice": "am_michael",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "96c1d47d62cb660d8f47d43967b015fc82c52d7315da8d3b9af980b3d306b62f",
+  "source_hash": "38a3006596e9bbeb9001a67b6f7cf6d8679a2059e17a15f42edcae6f16876155",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/pilot/move_2.ogg",
-  "duration": 1.9216666666666666,
+  "duration": 1.9414166666666666,
   "channels": 1,
-  "bytes": 19298,
-  "sha256": "1cd6939796cc27e303a87c2824cb7ca5a7dce6bb9f3fbb6f3f6649756c9bb2b0",
+  "bytes": 14326,
+  "sha256": "c95078be9c5a605579d2af620e31ef641af7e7ca9f103245a7cf9bc65cd57241",
   "mp3_url": "/art/audio/vo/units/US/pilot/move_2.mp3",
-  "mp3_bytes": 32300,
-  "mp3_sha256": "8672784629ffcf843271b90f56f11a26e06bcc1a8a7844a1253750f5b2115db0",
-  "peak": 0.7824992537498474,
-  "rms": 0.11013536900281906,
+  "mp3_bytes": 16172,
+  "mp3_sha256": "d0d7cca0f768a4fcc1cd19807336a0843c2ca03b0b417a65d0aa3392b1109855",
+  "peak": 0.7318548560142517,
+  "rms": 0.14051876962184906,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

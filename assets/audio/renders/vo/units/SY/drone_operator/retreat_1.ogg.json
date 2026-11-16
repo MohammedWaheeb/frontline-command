@@ -3,35 +3,60 @@
   "path": "vo/units/SY/drone_operator/retreat_1.ogg",
   "caption": "Pulling back. Watch the rear.",
   "faction": "SY",
-  "voice": "af_bella",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "dbebfcf8c0f7236c53342bc67d45ebeb09c4ae6dfed9024d955141e16c88e058",
+  "source_hash": "38899da7bbff4a830b42d680090ee6564d920157a79201610f27a54db8a486de",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/drone_operator/retreat_1.ogg",
-  "duration": 1.6460416666666666,
+  "duration": 1.436875,
   "channels": 1,
-  "bytes": 17370,
-  "sha256": "53c92bbd39466e77aaf4803f007bbb9bbc787ed4a43d65031abc20ab5e7250a4",
+  "bytes": 10877,
+  "sha256": "d7e86bd2cfa355fc47c4d4caa424b9bcb77305dfe26a37115b077c682e5de420",
   "mp3_url": "/art/audio/vo/units/SY/drone_operator/retreat_1.mp3",
-  "mp3_bytes": 27692,
-  "mp3_sha256": "7a0e0bf7e640559ed4e84b214bfad19f25be52039a30389c1a7424e896913156",
-  "peak": 0.7739160060882568,
-  "rms": 0.1221139207482338,
+  "mp3_bytes": 12140,
+  "mp3_sha256": "420631c1f10c343a5c897c46f27d7a9d3500786ab417d1b39f9de02c66d5a6e0",
+  "peak": 0.7147759199142456,
+  "rms": 0.14093168079853058,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

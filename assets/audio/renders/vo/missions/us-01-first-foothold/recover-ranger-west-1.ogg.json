@@ -3,36 +3,61 @@
   "path": "vo/missions/us-01-first-foothold/recover-ranger-west-1.ogg",
   "caption": "Contact restored: ranger west now follows your orders.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "FIELD TEAM: Contact restored: ranger west now follows your orders.",
-  "source_hash": "0d5205e43ef2dce3a98fd8a406e3a6a845227943194af6e6b4768dc051b56a78",
+  "source_hash": "cb85592c3c527005cd6b60ce6b894584c835dd747ffb386048c98b4a81f3f605",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-01-first-foothold/recover-ranger-west-1.ogg",
-  "duration": 3.4952916666666667,
+  "duration": 3.258,
   "channels": 1,
-  "bytes": 33798,
-  "sha256": "2ce0a1e2494a3a90dc90157375323e44eb597a424e32d3d528437e6a8b7fac8a",
+  "bytes": 23089,
+  "sha256": "f47f628342be5f1a74ca9e6ce7708a13cd96555396d2550a7fca4704b860adc0",
   "mp3_url": "/art/audio/vo/missions/us-01-first-foothold/recover-ranger-west-1.mp3",
-  "mp3_bytes": 57260,
-  "mp3_sha256": "aee167c4a57fda49559f21f4f81c6e9ebf01a82154747a05fcfa16c70dff036e",
-  "peak": 0.7815788388252258,
-  "rms": 0.1095222681760788,
+  "mp3_bytes": 26732,
+  "mp3_sha256": "a3650d120e6975379a5487a4e225464bd5a75add58b8262ba0a9fd3a62ed9f88",
+  "peak": 0.7137839198112488,
+  "rms": 0.14058133959770203,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

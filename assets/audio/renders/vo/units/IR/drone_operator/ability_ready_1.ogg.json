@@ -3,35 +3,60 @@
   "path": "vo/units/IR/drone_operator/ability_ready_1.ogg",
   "caption": "Special systems are available.",
   "faction": "IR",
-  "voice": "af_heart",
-  "speed": 1.0,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "021e3b30b969f9bba6ed3e0d5c48b77c8c45a391191bddd3c90f8a1d461eafdd",
+  "source_hash": "2e49e48e37045d95c7d6629fa7b73d16b12903360fbaffd9bcf6c4700f9adcc4",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/IR/drone_operator/ability_ready_1.ogg",
-  "duration": 1.8002916666666666,
+  "duration": 2.0589583333333334,
   "channels": 1,
-  "bytes": 20097,
-  "sha256": "c2b035ec1391560d1d18ca1e998a8e692c6df9e57b200fbc04610c1ec42089c3",
+  "bytes": 14779,
+  "sha256": "89df0b9546cb29e6fc99cbd0bb27e4649ac0e803658110b59fbc7c49f75993cc",
   "mp3_url": "/art/audio/vo/units/IR/drone_operator/ability_ready_1.mp3",
-  "mp3_bytes": 30380,
-  "mp3_sha256": "467dbf257606246bef75e006507861cfecf89f72d211ee4163a499d181237c69",
-  "peak": 0.774010181427002,
-  "rms": 0.07758574932813644,
+  "mp3_bytes": 17132,
+  "mp3_sha256": "81e9e9d56241da41d94187de05123fd54c76499e73696577fb4c4e778c5b4bc5",
+  "peak": 0.794744610786438,
+  "rms": 0.1305886209011078,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

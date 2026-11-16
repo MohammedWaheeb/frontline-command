@@ -3,36 +3,61 @@
   "path": "vo/missions/us-03-relay-ridge/checkpoint-two-relays-1.ogg",
   "caption": "Both relays are captured. The four-minute hold is now the priority.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: Both relays are captured. The four-minute hold is now the priority.",
-  "source_hash": "d16efc4f4792942156dc4178450999af1a891c464b9485b6ab44706c396fb1a8",
+  "source_hash": "d61290b91ccb3e12ebd4f5abcf194d809b014a7f0bfbb7d4a2f0bedf413d1543",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-03-relay-ridge/checkpoint-two-relays-1.ogg",
-  "duration": 3.77825,
+  "duration": 3.7842083333333334,
   "channels": 1,
-  "bytes": 36901,
-  "sha256": "4827c0a155c051cb0f4a6adc2896dab58e3e0576b015751f7363762bdf95284d",
+  "bytes": 25740,
+  "sha256": "d978c0090efe8b818ae47dbc5cde7d5f58492cdf2ddc5d92594fc8e2a4ac933c",
   "mp3_url": "/art/audio/vo/missions/us-03-relay-ridge/checkpoint-two-relays-1.mp3",
-  "mp3_bytes": 61868,
-  "mp3_sha256": "3b3f9dd02f9fa769647ce686e92fe199db4bb66d7a8d902479d635b63355c170",
-  "peak": 0.7685783505439758,
-  "rms": 0.10921469330787659,
+  "mp3_bytes": 30956,
+  "mp3_sha256": "e942fd58b15c4a8f0a19732f130529d687c2674d4c2998800c8c8a2cf17cd9c1",
+  "peak": 0.781021773815155,
+  "rms": 0.13521340489387512,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

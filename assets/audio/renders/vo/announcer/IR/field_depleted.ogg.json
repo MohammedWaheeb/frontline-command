@@ -4,34 +4,59 @@
   "caption": "A supply field is depleted. Redirect the haulers.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "4663f815577ba27f4c0567b72273aed769a56d164466f675b2b9a1c44d324705",
+  "source_hash": "522353a3811fbfe2495189863fbbcb1e3f8278e6798b88b6ef379cd9ed37cba1",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/IR/field_depleted.ogg",
-  "duration": 3.625625,
+  "duration": 3.6643333333333334,
   "channels": 1,
-  "bytes": 32582,
-  "sha256": "6bcf7de44ad88c3366237214032a8b7ffa84ffbe130f77d07c704713b9d2816d",
+  "bytes": 23080,
+  "sha256": "656edbe67e89c625dd4b89721d8ed6ecb37e2eb96310ebe9a288ae5c1f2ac558",
   "mp3_url": "/art/audio/vo/announcer/IR/field_depleted.mp3",
-  "mp3_bytes": 59564,
-  "mp3_sha256": "39a45a7ca9d4e7f280848de176908ebf5239018b1242b284db87b062d8038cc4",
-  "peak": 0.7816231846809387,
-  "rms": 0.13091880083084106,
+  "mp3_bytes": 29996,
+  "mp3_sha256": "e6e34334f6041707863794f5c265076160875061ffe5a7c1d0305eeaadfd068b",
+  "peak": 0.5459467768669128,
+  "rms": 0.14019188284873962,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }
