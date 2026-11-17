@@ -1,5 +1,8 @@
 # Original game asset pipeline
 
+The player exports also have a [runtime compression profile](asset-compression.md)
+that preserves the editable originals and the logical sprite geometry.
+
 Claude Code exact `claude-opus-5-5` authored the original shared Blender library,
 models, design tokens and rendering contract. During the user-authorized quota
 takeover, Codex added faction logistics models and export/runtime corrections.
@@ -75,6 +78,19 @@ work/art/.venv/bin/python assets/pipeline/tools/check_assets.py
 work/art/.venv/bin/python assets/pipeline/manifest/gen_manifest.py
 node client/tests/render/browser.mjs
 ```
+
+Beta generators (2026-10-31): `assets/pipeline/tools/gen_beta_assets.py`
+regenerates `content/environment/*.json` dressing for the seven launch maps
+that lacked it and the eight `assets/build/maps/<slug>/preview{,-256}.png`
+map previews (served via the art index `mapPreviews` field). Research,
+ability and operation icons are original symbols in
+`assets/ui/icons/fc-icons.svg`, mapped by `client/src/content/icons.ts`.
+`assets/pipeline/tools/test_beta_assets.py` covers all three. The
+`fx.weapon_muzzle.IR_SHAHED` release effect comes from
+`assets/pipeline/fx/fam_ballistics.py` via `pack.py`. `check_assets.py`
+validates packed atlases when the cleaned per-frame intermediates under
+`assets/build/frames/` are absent, and skips seam metrics for non-surface
+terrain materials.
 
 Full integrity covers declared frame coverage, dimensions, transparency,
 clipping, team-mask containment, nonempty shadows, distinct directions/animation,

@@ -3,35 +3,60 @@
   "path": "vo/announcer/US/interceptor_depleted.ogg",
   "caption": "Interceptor ammunition is depleted.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 0.9384,
+  "voice": "am_fenrir",
+  "speed": 0.9936000000000001,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "1483bd44116c25ce64f0202df9c8317c819fc507976e4bb19468b068d8b2cd25",
+  "source_hash": "ff3e2f857e5635fe3efb5353ad3f4eac96c0e86711517bf682ec123084f876f9",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/US/interceptor_depleted.ogg",
-  "duration": 2.432166666666667,
+  "duration": 2.2940416666666668,
   "channels": 1,
-  "bytes": 25683,
-  "sha256": "3e1e78e58480e7f2774a8735ec21ac9c406458e15728c9035e9b079207f4ed30",
+  "bytes": 17006,
+  "sha256": "5df613325343a050914570c29445d78c90a296c1b78a94370a198491ab21f3ac",
   "mp3_url": "/art/audio/vo/announcer/US/interceptor_depleted.mp3",
-  "mp3_bytes": 40364,
-  "mp3_sha256": "bf7609b91121e3fa0e46b6e520cee6d1f66f84225f82c25d75f04dc42f5ca719",
-  "peak": 0.7792230844497681,
-  "rms": 0.08452706038951874,
+  "mp3_bytes": 19052,
+  "mp3_sha256": "ad548028c7cd2cf906b77d957d417061b21679e7c2c43498901166aa5ec55290",
+  "peak": 0.7990435361862183,
+  "rms": 0.13677537441253662,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

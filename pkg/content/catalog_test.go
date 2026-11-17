@@ -94,6 +94,75 @@ func TestRejectInvalidCatalog(t *testing.T) {
 		}
 	}
 }
+
+// Prerequisites name roles, and faction buildings have IDs distinct from
+// their role ("US.airfield" provides role "airfield"). A cycle through such
+// a role must be rejected even though no building ID equals the role.
+func TestRejectRolePrerequisiteCycle(t *testing.T) {
+	var p Pack
+	json.Unmarshal(baseRules, &p)
+	for i := range p.Buildings {
+		if p.Buildings[i].ID == "radar" {
+			// airfield buildings already require radar: radar<->airfield.
+			p.Buildings[i].Prerequisites = []string{"airfield"}
+		}
+	}
+	b, _ := json.Marshal(p)
+	if _, e := Decode(b); e == nil {
+		t.Fatal("accepted radar<->airfield role prerequisite cycle")
+	}
+	json.Unmarshal(baseRules, &p)
+	for i := range p.Buildings {
+		if p.Buildings[i].ID == "US.airfield" {
+			p.Buildings[i].Prerequisites = []string{"airfield"}
+		}
+	}
+	b, _ = json.Marshal(p)
+	if _, e := Decode(b); e == nil {
+		t.Fatal("accepted building requiring its own role")
+	}
+}
+func TestRejectWeaponSplashAndTimingOutOfRange(t *testing.T) {
+	for name, mut := range map[string]func(*Weapon){
+		"splash above save cap": func(w *Weapon) { w.Splash = 999999 },
+		"splash negative":       func(w *Weapon) { w.Splash = -1 },
+		"windup above match":    func(w *Weapon) { w.WindupTicks = 999999 },
+		"volley spacing above":  func(w *Weapon) { w.VolleySpacingTicks = 999999 },
+	} {
+		t.Run(name, func(t *testing.T) {
+			var p Pack
+			json.Unmarshal(baseRules, &p)
+			mut(&p.Weapons[0])
+			b, _ := json.Marshal(p)
+			if _, e := Decode(b); e == nil {
+				t.Fatal("accepted out-of-range weapon")
+			}
+		})
+	}
+	var p Pack
+	json.Unmarshal(baseRules, &p)
+	p.Weapons[0].Splash = 10000 // boundary: exactly the sim save cap.
+	b, _ := json.Marshal(p)
+	if _, e := Decode(b); e != nil {
+		t.Fatal("rejected splash at save cap:", e)
+	}
+}
+func TestRejectUnknownArmorKinds(t *testing.T) {
+	for name, rule := range map[string]ArmorRule{
+		"unknown weapon kind": {Weapon: "cannno", Armor: "light", Multiplier: 100},
+		"unknown armor kind":  {Weapon: "cannon", Armor: "structur", Multiplier: 100},
+	} {
+		t.Run(name, func(t *testing.T) {
+			var p Pack
+			json.Unmarshal(baseRules, &p)
+			p.Armor = append(p.Armor, rule)
+			b, _ := json.Marshal(p)
+			if _, e := Decode(b); e == nil {
+				t.Fatal("accepted armor rule with unknown kind")
+			}
+		})
+	}
+}
 func FuzzDecodeContent(f *testing.F) {
 	f.Add(baseRules)
 	f.Add([]byte(`{}`))

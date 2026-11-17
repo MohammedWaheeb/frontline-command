@@ -3,35 +3,60 @@
   "path": "vo/missions/sa-05-three-positions/briefing.ogg",
   "caption": "Capture all three relays while hostile artillery covers their approaches. Hull-down does not stop indirect fire. Keep the original Service vehicle alive, and protect engineers while they capture.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "1e353f78cfacf11a48b65d974eb1775db1afdcf64464fa1cda0c684e3cbff567",
+  "source_hash": "86a7c76829a58e12808322d6b01b07086c0be1bc0437d1aefdb96dc3e1bb20d7",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sa-05-three-positions/briefing.ogg",
-  "duration": 12.278541666666667,
+  "duration": 12.661875,
   "channels": 1,
-  "bytes": 102049,
-  "sha256": "75fb7bc73630d7e67d9f24d74b2007eb0eac97d3038fee31ae9d2d55e52cc6c7",
+  "bytes": 68815,
+  "sha256": "eda04f35290f18149746213e44a9c234570fe4341a3a7c8f15afc9bf2c9a5eb3",
   "mp3_url": "/art/audio/vo/missions/sa-05-three-positions/briefing.mp3",
-  "mp3_bytes": 197804,
-  "mp3_sha256": "4a46971eac7c1cce0f2a3f070dc50d0e8788e2ef8f561457dcbbc946e821349f",
-  "peak": 0.7719854712486267,
-  "rms": 0.0927254781126976,
+  "mp3_bytes": 101996,
+  "mp3_sha256": "6c4a7d98a8420ead6e24c1d898e5ad462c25cab3cf9c79f0c4a98aafd596f9a6",
+  "peak": 0.6600661873817444,
+  "rms": 0.14046651124954224,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -89,7 +89,7 @@ export class AudioDirector {
    if(old.cooldowns.some(cooldown=>cooldown.until>previous.tick&&cooldown.until<=snapshot.tick))this.unit(entity,'ability_ready');
   }
   for(const field of snapshot.fields)if(field.remaining===0n&&previous.fields.some(old=>old.id===field.id&&old.remaining>0n))this.announce('field_depleted',field.position);
-  if(snapshot.outcome?.finished&&!previous.outcome?.finished){const own=snapshot.players.find(player=>player.id===snapshot.player),victory=!snapshot.outcome.draw&&snapshot.outcome.winningTeam===own?.team;this.stinger(`music.stinger_${victory?'victory':'defeat'}`,true);this.announce(victory?'mission_accomplished':'mission_failed',undefined,100,snapshot.outcome.draw?'Operation ended in a draw.':undefined);if(snapshot.mission)this.mixer.afterSpeech(`vo.debrief.${snapshot.mission.id}`)}
+  if(snapshot.outcome?.finished&&!previous.outcome?.finished){const own=snapshot.players.find(player=>player.id===snapshot.player),victory=!snapshot.outcome.draw&&snapshot.outcome.winningTeam===own?.team;if(!this.anthem(snapshot))this.stinger(`music.stinger_${victory?'victory':'defeat'}`,true);this.announce(victory?'mission_accomplished':'mission_failed',undefined,100,snapshot.outcome.draw?'Operation ended in a draw.':undefined);if(snapshot.mission)this.mixer.afterSpeech(`vo.debrief.${snapshot.mission.id}`)}
   this.battleMusic(snapshot);
  }
  /** Combat entry needs confirmation so a single stray shot only raises tension:
@@ -111,8 +111,12 @@ export class AudioDirector {
  private stinger(id:string,terminal=false){const now=performance.now();
   if(!terminal&&(now-this.lastStinger<AudioDirector.STINGER_GLOBAL_MS||now-(this.lastStingerById.get(id)??-Infinity)<AudioDirector.STINGER_REPEAT_MS))return;
   this.lastStinger=now;this.lastStingerById.set(id,now);this.mixer.play(id,{cooldown:3000})}
- private battleMusic(snapshot:PlayerSnapshot){const finished=snapshot.outcome?.finished,key=finished?'debrief':`battle:${this.faction}`;
-  if(this.scene!==key){this.scene=key;this.musicLayer=-1;if(finished){this.mixer.music(['music.debrief_bed']);return}this.mixer.music(['calm','tension','combat'].map(layer=>`music.battle_${this.faction}_${layer}`))}
+ /** Factions with a dedicated victory anthem; it replaces the generic victory stinger and debrief bed. */
+ private static readonly ANTHEMS=new Set(['US','IR','SY','SA']);
+ private anthem(snapshot:PlayerSnapshot):string|undefined{const outcome=snapshot.outcome,own=snapshot.players.find(player=>player.id===snapshot.player);
+  return outcome?.finished&&!outcome.draw&&own&&outcome.winningTeam===own.team&&AudioDirector.ANTHEMS.has(this.faction)?`music.victory_${this.faction}`:undefined}
+ private battleMusic(snapshot:PlayerSnapshot){const finished=snapshot.outcome?.finished,anthem=this.anthem(snapshot),key=finished?(anthem??'debrief'):`battle:${this.faction}`;
+  if(this.scene!==key){this.scene=key;this.musicLayer=-1;if(finished){this.mixer.music([anthem??'music.debrief_bed']);return}this.mixer.music(['calm','tension','combat'].map(layer=>`music.battle_${this.faction}_${layer}`))}
   if(finished)return;const now=performance.now();
   if(now>=this.combatUntil&&this.musicLayer===2)this.tensionUntil=Math.max(this.tensionUntil,now+AudioDirector.COMBAT_EXIT_TENSION_MS);
   const layer=now<this.combatUntil?2:now<this.tensionUntil?1:0;if(layer===this.musicLayer)return;this.musicLayer=layer;

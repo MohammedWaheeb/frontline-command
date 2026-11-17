@@ -9,22 +9,29 @@ import {RuntimeEvents,type GameTransport,type GameMap,type OfflineConfig,type Or
 export interface EditorPreviewRequest {kind:'path'|'sight';unit_type:string;from:Point;to?:Point}
 export interface EditorPreviewResult {kind:'path'|'sight';code:'ok'|'blocked_start'|'unreachable'|'adjusted_destination';layer:'ground'|'air';reachable?:boolean;path?:Point[];visible_tiles?:number[]}
 interface Pending {resolve:(value:any)=>void;reject:(error:unknown)=>void;timer:ReturnType<typeof setTimeout>}
+const BUSY_AFTER_MS=1500;
 export class OfflineTransport extends RuntimeEvents implements GameTransport {
  readonly mode='offline' as const;
  current:PlayerSnapshot|undefined;
  version:RuntimeVersion|undefined;
  private lastFull:PlayerSnapshot|undefined;private priorityTick=0;
- private worker:Worker;private pending=new Map<number,Pending>();private nextID=0;private sequence=0;private disposed=false;private replacements=0;
+ private running=false;private busy=false;private rate=1;private heard=performance.now();private watchdog:ReturnType<typeof setInterval>|undefined;
+ private worker:Worker;private pending=new Map<number,Pending>();private nextID=0;private sequence=0;private disposed=false;private failure?:RuntimeError;private replacements=0;
  constructor(runtimeURL='/runtime/'){
   super();const base=new URL(runtimeURL,location.href);if(!base.pathname.endsWith('/'))base.pathname+='/';
   this.worker=new Worker(new URL('worker.js',base),{name:'Frontline Go simulation'});
   this.worker.onmessage=event=>this.receive(event.data);
   this.worker.onerror=()=>this.fault(new RuntimeError('worker_failed','The offline engine stopped. Your existing saves are preserved.',false));
+  // Main-thread watchdog: a worker blocked inside one long tick cannot post
+  // anything, so the HUD would otherwise look frozen with no explanation.
+  this.watchdog=setInterval(()=>{if(!this.disposed&&this.running&&!this.busy&&performance.now()-this.heard>BUSY_AFTER_MS){this.busy=true;this.emit({type:'pace',rate:0,busy:true})}},500);
   this.ready=this.rpc<RuntimeVersion>('init',{wasmURL:new URL('frontline.wasm',base).href,execURL:new URL('wasm_exec.js',base).href}).then(version=>{this.version=version;return version});
  }
  readonly ready:Promise<RuntimeVersion>;
  private receive(message:any){
-  if(this.disposed)return;
+  if(this.disposed||this.failure)return;
+  this.heard=performance.now();
+  if(this.busy){this.busy=false;this.emit({type:'pace',rate:this.rate,busy:false})}
   if(message.event==='frame'){
    try{const snapshot=fromBinary(PlayerSnapshotSchema,message.bytes);this.validateResults(snapshot.results,snapshot.player);this.lastFull=this.current=snapshot;this.priorityTick=snapshot.tick;this.sequence=Math.max(this.sequence,snapshot.economy?.lastSequence??0);if(this.replacements>0)this.emit({type:'presentation-reset'});this.emit({type:'snapshot',snapshot});for(const result of snapshot.results)this.publishResult(result)}
    catch(error){this.fault(RuntimeError.from(error))}return;
@@ -33,17 +40,30 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
    try{const frame=fromBinary(PriorityFrameSchema,message.bytes);this.validateResults(frame.results,this.lastFull?.player);if(frame.tick<this.priorityTick||frame.tick<(this.lastFull?.tick??0))return;const next=applyPriority(this.current,frame);this.priorityTick=frame.tick;if(next!==this.current){this.current=next;this.emit({type:'snapshot',snapshot:next,publication:'priority',priorityTick:frame.tick})}for(const result of frame.results)this.publishResult(result)}
    catch(error){this.fault(RuntimeError.from(error))}return;
   }
-  if(message.event==='clock'){this.emit({type:'clock',paused:message.paused,speed:message.speed,stalled:message.stalled});return}
+  if(message.event==='clock'){this.running=!message.paused;this.emit({type:'clock',paused:message.paused,speed:message.speed,stalled:message.stalled});return}
+  if(message.event==='pace'){this.rate=message.rate;this.emit({type:'pace',rate:message.rate,busy:false,tickMs:message.tickMs,maxTickMs:message.maxTickMs});return}
   if(message.event==='error'){this.fault(RuntimeError.from(message.error));return}
   const pending=this.pending.get(message.id);if(!pending)return;
   clearTimeout(pending.timer);this.pending.delete(message.id);
-  if(message.ok)pending.resolve(message.result);else pending.reject(RuntimeError.from(message.error));
+  if(message.ok)pending.resolve(message.result);else{const error=RuntimeError.from(message.error);pending.reject(error);if(!error.recoverable)this.fault(error)}
  }
  private validateResults(results:OrderResult[],player:number|undefined){for(const result of results)if(result.player!==player)throw new RuntimeError('wrong_perspective','The engine returned another player’s execution receipt.',false)}
  private publishResult(result:OrderResult){this.sequence=Math.max(this.sequence,result.sequence);this.emit({type:'order-result',result})}
- private fault(error:RuntimeError){if(this.disposed)return;this.emit({type:'error',error});if(!error.recoverable){for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(error)}this.pending.clear()}}
+ private fault(error:RuntimeError){
+  if(this.disposed||this.failure)return;
+  if(!error.recoverable){
+   // A crashed/poisoned engine cannot answer a retry. Stop its task and
+   // watchdog, preserve the last authorized frame, and fail later calls now
+   // instead of leaving every Save/Load action waiting for another timeout.
+   this.failure=error;this.running=false;this.busy=false;clearInterval(this.watchdog);
+   this.worker.onmessage=null;this.worker.onerror=null;this.worker.terminate();
+   for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(error)}this.pending.clear();
+  }
+  this.emit({type:'error',error});
+ }
  private rpc<T=void>(method:string,...args:unknown[]):Promise<T>{
   if(this.disposed)return Promise.reject(new RuntimeError('disposed','The worker is closed.',false));
+  if(this.failure)return Promise.reject(this.failure);
   const id=++this.nextID;
   return new Promise<T>((resolve,reject)=>{const timer=setTimeout(()=>{this.pending.delete(id);reject(new RuntimeError('worker_timeout','The engine did not answer. Preserve your current save and retry.'))},30000);this.pending.set(id,{resolve,reject,timer});try{this.worker.postMessage({id,method,args})}catch(error){clearTimeout(timer);this.pending.delete(id);reject(RuntimeError.from(error))}});
  }
@@ -80,5 +100,5 @@ export class OfflineTransport extends RuntimeEvents implements GameTransport {
  info(){return this.rpc<SessionInfo>('info')}
  async inspect(data:Uint8Array){await this.ready;return this.rpc<{metadata:SaveData['metadata'];tick:number}>('inspect',data)}
  async load(data:Uint8Array,localPlayers:number[]){await this.ready;const info=await this.replace('load',data,localPlayers);this.sequence=this.current?.economy?.lastSequence??0;return info}
- dispose(){if(this.disposed)return;this.disposed=true;this.worker.onmessage=null;this.worker.onerror=null;this.worker.terminate();for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(new RuntimeError('disposed','The worker has been closed.',false))}this.pending.clear();this.lastFull=this.current=undefined;this.clearListeners()}
+ dispose(){if(this.disposed)return;this.disposed=true;clearInterval(this.watchdog);this.worker.onmessage=null;this.worker.onerror=null;if(!this.failure)this.worker.terminate();for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(new RuntimeError('disposed','The worker has been closed.',false))}this.pending.clear();this.lastFull=this.current=undefined;this.clearListeners()}
 }

@@ -228,3 +228,48 @@ func TestCandidateIndeterminateDoesNotSuppressLaterOwnedRejection(t *testing.T) 
 		t.Fatal("owned source disability deferred", results, err)
 	}
 }
+
+func TestAdvicePlacementReportsKnownHQObstructionWithoutHiddenOracle(t *testing.T) {
+	e := fixture(t)
+	var hq *Entity
+	for _, entity := range e.state.Entities {
+		if entity.Owner == 1 && e.role(entity) == "hq" {
+			hq = entity
+			break
+		}
+	}
+	if hq == nil {
+		t.Fatal("missing HQ")
+	}
+	before := e.Hash()
+	result := previewOne(t, e, Order{Kind: "build", Entities: []ID{2}, Type: "power", Position: hq.Position})
+	if result.Accepted || result.Code != "occupied" || before != e.Hash() {
+		t.Fatal("known HQ must block without mutating state", result)
+	}
+	// Concealed colliders still cannot influence preview; the existing hidden
+	// blocker twin regression separately proves identical occupied/clear advice.
+	t.Logf("known HQ placement: accepted=%t code=%s; live hash unchanged", result.Accepted, result.Code)
+}
+
+func TestAdvicePlacementDoesNotExposeUndisclosedAircraftReservation(t *testing.T) {
+	e, _, planes := serviceCandidateScene(t, serviceScenes[0])
+	plane := planes[0]
+	issue(t, e, 1, Order{Kind: "return", Entities: []ID{plane.ID}})
+	point := plane.Landing.Position
+	worker := e.spawn("US.rig", 1, Vec{X: point.X - 6000, Y: point.Y - 1000}, true, 0)
+	e.spawn("outpost", 1, Vec{X: 28000, Y: 27000}, true, 0)
+	e.recalculate()
+	e.updateFog()
+	position := Vec{X: point.X / 500 * 500, Y: point.Y / 500 * 500}
+	order := Order{Kind: "build", Entities: []ID{worker.ID}, Type: "power", Position: position}
+	before := e.Hash()
+	withReservation := previewOne(t, e, order)
+	if withReservation.Code != "indeterminate" || !withReservation.Accepted || e.Hash() != before {
+		t.Fatal("undisclosed landing geometry influenced advice", withReservation)
+	}
+	plane.Landing = nil
+	withoutReservation := previewOne(t, e, order)
+	if !reflect.DeepEqual(withReservation, withoutReservation) {
+		t.Fatal("reservation oracle", withReservation, withoutReservation)
+	}
+}

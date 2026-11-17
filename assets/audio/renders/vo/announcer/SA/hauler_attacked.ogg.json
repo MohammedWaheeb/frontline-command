@@ -3,35 +3,60 @@
   "path": "vo/announcer/SA/hauler_attacked.ogg",
   "caption": "A supply hauler is under attack.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "9eb7b530679377e113b5a475e9c6e72cfeab74d00a14c90cbe8bd9ca82fcf879",
+  "source_hash": "78f7a5a961693795f6c62b34c15900eb6e57420ccfd1fb776f0c827dac2152a4",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/SA/hauler_attacked.ogg",
-  "duration": 1.7295833333333333,
+  "duration": 2.4702916666666668,
   "channels": 1,
-  "bytes": 18309,
-  "sha256": "011acdb29262b6cf409e01f3d839f273ad70b4b2da3aea2f8cb7595f73d97e3d",
+  "bytes": 16539,
+  "sha256": "521cfd9166ee39b900b34faaa1daa99b1130f146181c2a71ef3083898a7a7ee0",
   "mp3_url": "/art/audio/vo/announcer/SA/hauler_attacked.mp3",
-  "mp3_bytes": 29228,
-  "mp3_sha256": "64c19e82ba8f56f5274f65afa004abc2008caec8f4b24c29788568c849d1f91f",
-  "peak": 0.7905513048171997,
-  "rms": 0.10244497656822205,
+  "mp3_bytes": 20396,
+  "mp3_sha256": "ba3171c478cac290adf8baeba780bae18b9e879bbeeb9389c8a57fd5da1410b6",
+  "peak": 0.5784423351287842,
+  "rms": 0.1404017060995102,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

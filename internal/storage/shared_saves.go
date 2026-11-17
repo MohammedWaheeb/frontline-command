@@ -35,11 +35,21 @@ func (s *SQLite) PutSharedSave(ctx context.Context, owners []string, id, name st
 		if !errors.Is(err, sql.ErrNoRows) {
 			return err
 		}
+		// New rows count against the same per-owner quotas PutSave enforces;
+		// the transaction makes the check atomic across participants.
+		var saveCount int
+		var saveBytes int64
+		if err = tx.QueryRowContext(ctx, `SELECT COUNT(*),COALESCE(SUM(length(data)),0) FROM saves WHERE owner=?`, owner).Scan(&saveCount, &saveBytes); err != nil {
+			return err
+		}
+		if saveCount >= maxSavesPerOwner || saveBytes+int64(len(data)) > maxSaveBytesPerOwner {
+			return ErrQuotaExceeded
+		}
 		revision, allocationErr := reserveRevision(ctx, tx, "save", owner, id, 0, true)
 		if allocationErr != nil {
 			return allocationErr
 		}
-		if _, err = tx.ExecContext(ctx, `INSERT INTO saves(owner,id,name,revision,updated,data) VALUES(?,?,?,?,?,?)`, owner, id, name, revision, time.Now().Unix(), data); err != nil {
+		if _, err = tx.ExecContext(ctx, `INSERT INTO saves(owner,id,name,revision,updated,data,data_checksum) VALUES(?,?,?,?,?,?,?)`, owner, id, name, revision, time.Now().Unix(), data, digest(data)); err != nil {
 			return err
 		}
 	}

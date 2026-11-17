@@ -92,15 +92,13 @@ func (m *liveMatch) connectionStatus(player sim.PlayerID, control *pauseControl,
 		if control.votes[p.ID] && !p.Defeated {
 			status.PauseVotes = append(status.PauseVotes, uint32(p.ID))
 		}
-		if p.Team != team {
-			continue
-		}
 		for _, slot := range m.slots {
 			if slot.Player != p.ID || slot.AI {
 				continue
 			}
 			c := &pb.ConnectionState{Player: uint32(p.ID), Connected: peers[p.ID] != nil}
-			if deadline, ok := disconnected[p.ID]; ok && now.Before(deadline) {
+			// Connection booleans are public roster presence; grace timers stay team-private.
+			if deadline, ok := disconnected[p.ID]; ok && p.Team == team && now.Before(deadline) {
 				c.ReconnectRemainingMs = uint32(deadline.Sub(now).Milliseconds())
 			}
 			status.Teammates = append(status.Teammates, c)

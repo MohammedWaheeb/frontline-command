@@ -1,0 +1,16 @@
+{
+  "name": "frontline-command-site-islands",
+  "private": true,
+  "type": "module",
+  "description": "React islands (React Bits components) for the static project site. Builds to ../js/islands.js.",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch"
+  },
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "motion": "14.9.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}

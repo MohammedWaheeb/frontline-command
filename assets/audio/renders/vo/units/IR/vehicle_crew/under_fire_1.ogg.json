@@ -3,35 +3,60 @@
   "path": "vo/units/IR/vehicle_crew/under_fire_1.ogg",
   "caption": "Hostile fire. Our position is exposed.",
   "faction": "IR",
-  "voice": "am_michael",
-  "speed": 1.0,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "83b20af3d7d024e141a5374e5cafa70d5073b74347f61987ebf6d39347449a68",
+  "source_hash": "d47bddcb2a58437c6764180172f26045c877395d8597f02c20759081bf6a68f3",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/IR/vehicle_crew/under_fire_1.ogg",
-  "duration": 2.9347916666666665,
+  "duration": 2.3452083333333333,
   "channels": 1,
-  "bytes": 28820,
-  "sha256": "6760dacaafb1253696e3f2ba970a6a0366485559a8703c356cd335aa6bc719b5",
+  "bytes": 16456,
+  "sha256": "3763debddba5f6e8c3892c8e06a04e016b0c7f4b373c6c2f5c0850ade9cea95c",
   "mp3_url": "/art/audio/vo/units/IR/vehicle_crew/under_fire_1.mp3",
-  "mp3_bytes": 48428,
-  "mp3_sha256": "13594adbf0097507bf67f549f6a380b6f2f1ac521642f60c71220624dfb83a11",
-  "peak": 0.8006961345672607,
-  "rms": 0.08220893889665604,
+  "mp3_bytes": 19436,
+  "mp3_sha256": "65b563899e65f7e73acd9d45d0a92e80b4de3f3611d681d8d0d97ec70c2bab20",
+  "peak": 0.7571061253547668,
+  "rms": 0.14086954295635223,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

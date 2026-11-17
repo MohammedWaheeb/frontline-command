@@ -4,34 +4,59 @@
   "caption": "Enemy strategic capability is ready. Prepare your defenses.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 100,
   "cooldown_ms": 6000,
-  "source_hash": "f9675af2e88554cc73ec1a107235a4472bee88e3eadcb5b3b784c3f0c4954590",
+  "source_hash": "4d2d6614c3c58d3210df448466bd7c2b6a2297ba3512aea254832b77c4ddaaf9",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/IR/enemy_strategic_ready.ogg",
-  "duration": 4.43575,
+  "duration": 4.345,
   "channels": 1,
-  "bytes": 38852,
-  "sha256": "6eb436d78cccf462d0eea2d5ca29c0c3f63590ef383640468409c14da89759f7",
+  "bytes": 25798,
+  "sha256": "38744613d642b49b16a476e6f2317b53656d407f5aa70af186dac901e27b0d24",
   "mp3_url": "/art/audio/vo/announcer/IR/enemy_strategic_ready.mp3",
-  "mp3_bytes": 72236,
-  "mp3_sha256": "7199a5c197712070f1c6b5d3596334853c3dba0598a1cb248d86c0b4dc9627f1",
-  "peak": 0.7804929614067078,
-  "rms": 0.1008022278547287,
+  "mp3_bytes": 35564,
+  "mp3_sha256": "69966fa9f5c1d04b6da73b5b71289ad7c87f50682474af9af33c1717e92e75fb",
+  "peak": 0.6412281394004822,
+  "rms": 0.14027364552021027,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

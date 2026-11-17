@@ -4,34 +4,59 @@
   "caption": "Connection interrupted. Attempting to reconnect.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "f1f3a159c856c25946eafe08083df4a8bda540f81528466afded19c4ef89f20f",
+  "source_hash": "c7d91719c6bf4f696bc32505c2bd5f553815f176dc8ff1ef47f896ad2d55d3be",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/IR/reconnecting.ogg",
-  "duration": 3.2311666666666667,
+  "duration": 3.259333333333333,
   "channels": 1,
-  "bytes": 29265,
-  "sha256": "4d6f893fb839be9a1f6dbcbe2d9cca722bacf7a61587d7a09c7069f72c0eb1ca",
+  "bytes": 20586,
+  "sha256": "de3c1c0cf5aa5e2088c57e644af9cad15684f57b3ccd809f66615b197f2fab97",
   "mp3_url": "/art/audio/vo/announcer/IR/reconnecting.mp3",
-  "mp3_bytes": 53036,
-  "mp3_sha256": "9c255a08867c87cda5badeaddd621221bc13642479ec1ba77611d1a501c63fe9",
-  "peak": 0.7853184938430786,
-  "rms": 0.10864555835723877,
+  "mp3_bytes": 26732,
+  "mp3_sha256": "f726492ae681d35f0183fd3438e7f7c3496d2b45097175df8e4daec8521f4d06",
+  "peak": 0.6261513829231262,
+  "rms": 0.14022742211818695,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

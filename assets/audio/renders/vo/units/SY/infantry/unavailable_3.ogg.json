@@ -3,35 +3,60 @@
   "path": "vo/units/SY/infantry/unavailable_3.ogg",
   "caption": "Find us another way through.",
   "faction": "SY",
-  "voice": "am_puck",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "97d18db5c7333080e68a41d3332c5f95309f7d07c0cd21ebfa03b6e2c9ffac67",
+  "source_hash": "5d2cd9567ba5dea8b37c6614495c32ec42725a7e07f4151f2bd3723f5d634f6c",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/infantry/unavailable_3.ogg",
-  "duration": 1.3048333333333333,
+  "duration": 1.3417083333333333,
   "channels": 1,
-  "bytes": 14917,
-  "sha256": "2a990549bc0c93a11a590db08a441ca0ee94f4f6c0ba00c5a3d4a832653a866f",
+  "bytes": 11005,
+  "sha256": "a14acda797523d2107bb402fa1739be3ee5b2f9c42ee0feac12226eb2a1a41ac",
   "mp3_url": "/art/audio/vo/units/SY/infantry/unavailable_3.mp3",
-  "mp3_bytes": 22316,
-  "mp3_sha256": "4f7c6c5079d79169ca3d6342a8d5d9d8a6190030d9e5de66357f8aee6fbe6a13",
-  "peak": 0.7835819721221924,
-  "rms": 0.12578637897968292,
+  "mp3_bytes": 11372,
+  "mp3_sha256": "ac07da687e8331dca5f7f5f0782c00933cfd94958aed3b35767b29bd4c25ff7c",
+  "peak": 0.6969456672668457,
+  "rms": 0.14055679738521576,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "dd1d8973f4ce4b7d8ae407c77a435f485dabc052081b80ea75c4f30b84f36223",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

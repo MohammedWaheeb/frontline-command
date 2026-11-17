@@ -47,7 +47,7 @@ func (s *Server) putSave(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if _, err := sim.Restore(s.catalog, body.Data); err != nil {
-		fail(w, 400, "incompatible_or_corrupt_save", err.Error())
+		fail(w, 400, "incompatible_or_corrupt_save", "This save is incompatible or corrupt.")
 		return
 	}
 	v, err := s.repo.PutSave(r.Context(), storage.Save{ID: r.PathValue("id"), Owner: p.ID, Name: body.Name, Data: body.Data}, body.ExpectedRevision)

@@ -1,0 +1,7 @@
+.network-battle-status{display:grid;gap:6px;pointer-events:none;max-width:100%;font:600 calc(13px * var(--fc-ui-scale))/1.35 var(--fc-font-label)}
+.network-battle-status:empty{display:none}
+.network-pause-notice,.network-presence-notice{box-sizing:border-box;margin:0;padding:8px 10px;background:#242018f5;border-left:3px solid #bc9a4c;color:#eee3cb;overflow-wrap:anywhere;box-shadow:0 2px 6px #0008}
+.network-pause-notice{display:flex;flex-wrap:wrap;gap:8px;align-items:center;pointer-events:auto}
+.network-pause-notice strong{color:#e9c56e}
+.network-pause-notice p{margin:4px 0;font-size:calc(12px * var(--fc-ui-scale));line-height:1.4}
+.network-pause-notice button{white-space:normal;min-height:28px}

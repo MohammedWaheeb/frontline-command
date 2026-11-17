@@ -3,35 +3,60 @@
   "path": "vo/units/US/infantry/move_1.ogg",
   "caption": "Moving to your mark.",
   "faction": "US",
-  "voice": "am_michael",
-  "speed": 1.06,
+  "voice": "am_fenrir",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "318c79806ca1f27095849f091e31d7f6b518db183146e7024273be6149e3d44d",
+  "source_hash": "011b0bc55ea98c735f353280a5bf776e1b07eb7c774ed541547afd5ff0d3d19d",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/infantry/move_1.ogg",
-  "duration": 1.2727916666666668,
+  "duration": 1.10225,
   "channels": 1,
-  "bytes": 14089,
-  "sha256": "7cd0c28fedf1c8db67f4d3e7d798854d973e5ed7adf317644409d62568bf7552",
+  "bytes": 8780,
+  "sha256": "112c93913ac47ec334651c872014ba7483bd98a0d0d5bfedb9b217da2b4d774a",
   "mp3_url": "/art/audio/vo/units/US/infantry/move_1.mp3",
-  "mp3_bytes": 21932,
-  "mp3_sha256": "f5aadfcf42d270344ba1dffff77f45ec6c66f33e47de07428e925e99acb20398",
-  "peak": 0.7755981683731079,
-  "rms": 0.09421465545892715,
+  "mp3_bytes": 9452,
+  "mp3_sha256": "51429549fd2ee865fe6ae5552da0b716cbfb9f3f38c3a9619baf0d3786bce674",
+  "peak": 0.7635918855667114,
+  "rms": 0.1410214751958847,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

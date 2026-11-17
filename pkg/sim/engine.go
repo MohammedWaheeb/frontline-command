@@ -44,6 +44,9 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 		cfg.Seed = 1
 	}
 	e := &Engine{catalog: c, state: State{StartingCredits: startingCredits, Metadata: Metadata{Version, 1, c.Hash(), gameMap.Version, cfg.Ruleset, cfg.Seed}, Map: gameMap, RNG: cfg.Seed, NextID: 1, NextEvent: 1, Countdown: 100}, visible: map[PlayerID][]bool{}}
+	if err := validatePlayerSpawns(cfg.Players, len(gameMap.Spawns)); err != nil {
+		return nil, err
+	}
 	ids := map[PlayerID]bool{}
 	colors, err := configColors(cfg.Players)
 	if err != nil {
@@ -73,7 +76,7 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 		}
 		p := &Player{PlayerConfig: pc, Credits: openingCredits, Explored: make([]bool, len(gameMap.Tiles)), RepairReserve: 0, Tier: 1}
 		e.state.Players = append(e.state.Players, p)
-		pos := gameMap.Spawns[i].Position
+		pos := gameMap.Spawns[playerSpawn(pc, i)].Position
 		e.spawn("hq", pc.ID, pos, true, 0)
 		e.spawn(pc.Faction+".rig", pc.ID, Vec{X: pos.X + 3200, Y: pos.Y}, true, 0)
 	}
@@ -82,6 +85,7 @@ func New(c *content.Catalog, cfg Config) (*Engine, error) {
 		e.state.Fields = append(e.state.Fields, &ResourceField{ID: f.ID, Position: f.Position, Remaining: f.Credits})
 	}
 	sort.Slice(e.state.Fields, func(i, j int) bool { return e.state.Fields[i].ID < e.state.Fields[j].ID })
+	e.revealStartingFields()
 	for _, s := range gameMap.Stations {
 		e.state.Stations = append(e.state.Stations, &ObjectiveStation{ID: e.newID(), Position: s.Position})
 	}
@@ -126,12 +130,7 @@ func (e *Engine) allied(a, b PlayerID) bool {
 	return pa != nil && pb != nil && pa.Team == pb.Team
 }
 func (e *Engine) role(v *Entity) string {
-	if v.Building {
-		b, _ := e.buildingRule(v.Type)
-		return b.Role
-	}
-	u, _ := e.catalog.Unit(v.Type)
-	return u.Role
+	return e.combatRule(v).role
 }
 func (e *Engine) has(p PlayerID, role string) bool {
 	for _, v := range e.state.Entities {
@@ -237,10 +236,7 @@ func (e *Engine) Hash() string {
 	return hex.EncodeToString(sum[:])
 }
 func (e *Engine) StateCopy() State {
-	b, _ := json.Marshal(e.state)
-	var s State
-	json.Unmarshal(b, &s)
-	return s
+	return e.copyStateForInspection()
 }
 func (e *Engine) emit(kind string, owner PlayerID, id ID, pos Vec, scope string, value int64) {
 	e.state.Events = append(e.state.Events, Event{ID: e.state.NextEvent, Tick: e.state.Tick, Kind: kind, Owner: owner, Entity: id, Position: pos, Scope: scope, Value: value})
@@ -269,6 +265,7 @@ func (e *Engine) Advance() {
 	e.updateAI()
 	e.recalculate()
 	e.updateEconomy()
+	e.observeConstructionProgress()
 	e.updateMovement()
 	e.updateFog()
 	e.updateAircraft()
@@ -447,14 +444,33 @@ type saveEnvelope struct {
 	State   json.RawMessage `json:"state"`
 }
 
-func (e *Engine) Save() ([]byte, error) {
-	b, err := json.Marshal(e.state)
-	if err != nil {
-		return nil, err
+func (e *Engine) Save() ([]byte, error) { return MarshalState(e.state) }
+
+// Saved-order bounds for Restore. Queued mobile orders are capped at 10 by
+// validateMobileSources; aircraft may prefix an internal return and unload,
+// so 12 remains the bound for non-build orders. Build orders bypass that cap:
+// startBuilding queues one per foundation, and a queued resume is converted
+// to a build for a foundation that need not be at the builder's head, so
+// duplicate builds for one foundation are legal and the 60-structure cap does
+// not bound them. Both paths run once per submitted order, for one builder.
+// Submit admits at most 160 orders per player in each 20-tick command window,
+// and Restore caps Tick at seconds(90*60)+101 = 108101, so one owner can
+// submit at most (108101/20+1)*160 orders in a match.
+const (
+	maxSavedNonBuildOrders = 12
+	maxSavedBuildOrders    = (108101/20 + 1) * 160
+)
+
+func validSavedEntityOrders(orders []Order) bool {
+	builds := 0
+	for _, o := range orders {
+		if o.Kind == "build" {
+			builds++
+		}
 	}
-	sum := sha256.Sum256(b)
-	return json.Marshal(saveEnvelope{1, hex.EncodeToString(sum[:]), b})
+	return builds <= maxSavedBuildOrders && len(orders)-builds <= maxSavedNonBuildOrders
 }
+
 func Restore(c *content.Catalog, data []byte) (*Engine, error) {
 	if c == nil || len(data) > 64<<20 {
 		return nil, errors.New("save exceeds 64 MiB or missing catalog")
@@ -500,7 +516,7 @@ func Restore(c *content.Catalog, data []byte) (*Engine, error) {
 	}
 	lastID := ID(0)
 	for _, v := range s.Entities {
-		if v == nil || v.ID <= lastID || v.ID >= s.NextID || (v.Owner != 0 || v.MapObject == 0) && e.player(v.Owner) == nil || v.HP < 0 || v.HP > v.MaxHP || v.MaxHP <= 0 || v.MaxHP > 200000000 || len(v.Orders) > 12 || len(v.Jobs) > 6 || len(v.Path) > 65536 || !s.Map.InBounds(v.Position) {
+		if v == nil || v.ID <= lastID || v.ID >= s.NextID || (v.Owner != 0 || v.MapObject == 0) && e.player(v.Owner) == nil || v.HP < 0 || v.HP > v.MaxHP || v.MaxHP <= 0 || v.MaxHP > 200000000 || !validSavedEntityOrders(v.Orders) || len(v.Jobs) > 6 || len(v.Path) > 65536 || !s.Map.InBounds(v.Position) {
 			return nil, fmt.Errorf("invalid saved entity")
 		}
 		lastID = v.ID
@@ -516,5 +532,6 @@ func Restore(c *content.Catalog, data []byte) (*Engine, error) {
 		return nil, err
 	}
 	e.computeVisibility()
+	e.observeConstructionProgress()
 	return e, nil
 }

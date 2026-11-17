@@ -124,10 +124,10 @@ func TestObserverArchiveDelayAndFog(t *testing.T) {
 	}
 	archive := newObserverArchive()
 	slots := []slot{{Player: 1}, {Player: 2}}
-	archive.capture(engine, slots)
+	archive.capture(engine, slots, true)
 	for range 2404 {
 		engine.Advance()
-		archive.capture(engine, slots)
+		archive.capture(engine, slots, true)
 	}
 	if _, err = archive.read(1, 2399, 2400); err == nil {
 		t.Fatal("observer received future state before delay")

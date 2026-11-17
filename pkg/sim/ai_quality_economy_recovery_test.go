@@ -604,14 +604,15 @@ func TestAIQualityEconomyRecoveryCollectorKnowledgeAndPrerequisiteControls(t *te
 		t.Run(condition, func(t *testing.T) {
 			e := fixture(t)
 			if condition == "unknown_stock" {
-				// Hide the controlled field before New: the normal fixture has
-				// already remembered it publicly, so clearing AIFields cannot
-				// establish unknown stock after public-memory intake.
+				// Keep the controlled field outside starting sight; the synthetic
+				// unknown-stock case also clears public starting-field memory below.
 				m := fixtureMap()
 				m.Fields[0].Position = Vec{X: 50000, Y: 40000}
 				var err error
 				e, err = New(content.MustBase(), Config{Map: m, Seed: 42, Players: []PlayerConfig{{ID: 1, Name: "Alpha", Faction: "US", Team: 1}, {ID: 2, Name: "Bravo", Faction: "IR", Team: 2}}})
-				if err != nil { t.Fatal(err) }
+				if err != nil {
+					t.Fatal(err)
+				}
 				e.state.Countdown = 0
 			}
 			supply := e.spawn("supply", 1, Vec{X: 14000, Y: 18000}, true, 1800000)
@@ -626,6 +627,7 @@ func TestAIQualityEconomyRecoveryCollectorKnowledgeAndPrerequisiteControls(t *te
 				supply.Enabled = false
 			case "unknown_stock":
 				e.player(1).AIFields = nil
+				e.player(1).KnownFields = nil
 			case "pending_included":
 				e.spawn("supply", 1, Vec{X: 14000, Y: 26000}, false, 1800000)
 			case "queued":

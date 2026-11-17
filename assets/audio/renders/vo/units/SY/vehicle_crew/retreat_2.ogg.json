@@ -4,34 +4,59 @@
   "caption": "Leaving this position. Cover us.",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "ef623707428c85470b173910aeb611ebc10c201a258004ca501f0b2b14f53b93",
+  "source_hash": "bd76acfed2770826764e40204044007ac1fcc86a0f32d9f4418ab1addb799822",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/retreat_2.ogg",
-  "duration": 2.234,
+  "duration": 2.2522083333333334,
   "channels": 1,
-  "bytes": 20743,
-  "sha256": "8563d736bead69ba90ed0592e783509c89336e96595cb4419b02eb8bcf655900",
+  "bytes": 14750,
+  "sha256": "279aa69f32a8a7f5eec35a2175b4b1cea54af6491d0ad79a419ccf0a22bb64fb",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/retreat_2.mp3",
-  "mp3_bytes": 37292,
-  "mp3_sha256": "a5256169a54b41d0e96def941a0f609bffbb051945ac6ee6c0877dab5639f6f8",
-  "peak": 0.7739996314048767,
-  "rms": 0.0812651515007019,
+  "mp3_bytes": 18668,
+  "mp3_sha256": "e0a2b5b8ffb6008ce0884fbbc579e43e5c26fe160c66432dff169aee7f24f80b",
+  "peak": 0.6127534508705139,
+  "rms": 0.1405150145292282,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

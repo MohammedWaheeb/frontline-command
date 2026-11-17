@@ -3,35 +3,60 @@
   "path": "vo/units/SY/drone_operator/repair_2.ogg",
   "caption": "Patching the damage. Give us cover.",
   "faction": "SY",
-  "voice": "af_bella",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "d027be0aee8991731da62b8dd876dda3d0b3fb2a2c89b767abf1a7094e562caa",
+  "source_hash": "de34a4e8bf7d3565ee8c202253c4fe02fef1d6f0013753f5d8b8fbf4cea8a993",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/drone_operator/repair_2.ogg",
-  "duration": 1.9587916666666667,
+  "duration": 1.836,
   "channels": 1,
-  "bytes": 20183,
-  "sha256": "ef5328a70ef3e9db63fe71d7f6525b40212294d4629ce0b8423ca5641d4b8947",
+  "bytes": 14328,
+  "sha256": "6824dc39f818385bdeaf5e03adcbdd02c0e6e07c452f1f963e43bb65fea1e965",
   "mp3_url": "/art/audio/vo/units/SY/drone_operator/repair_2.mp3",
-  "mp3_bytes": 32684,
-  "mp3_sha256": "48ad2cf5e8b48e6f448e728df4ef56e8038e315dad0de043c505fab8993f3eca",
-  "peak": 0.7956225872039795,
-  "rms": 0.10930538177490234,
+  "mp3_bytes": 15404,
+  "mp3_sha256": "7ff56069beef67119d057f96e4a78e58ef0652c18bf242df903b57c04dc73561",
+  "peak": 0.7689644694328308,
+  "rms": 0.14048832654953003,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

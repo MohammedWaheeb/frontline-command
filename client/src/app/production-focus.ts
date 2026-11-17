@@ -23,9 +23,32 @@ export function productionFocus(snapshot:PlayerSnapshot,catalog:CatalogIndex,pre
  // not silently replace the production queue the player was managing.
  const selected=selection.length===1?eligible.find(entity=>selection[0]===entity.id):undefined;if(selected)return selected.id;
  if(eligible.some(entity=>entity.id===previous))return previous;
+ // The HQ has the lowest starting ID, but its queue only replaces support
+ // units. The opening needs the rig's structure palette immediately.
+ const builder=eligible.find(entity=>entity.complete&&entity.enabled&&catalog.units.get(entity.type)?.role==='rig');
+ if(builder)return builder.id;
  // Prefer a usable established source for navigation, but retain offline or
  // incomplete alternatives so Go can explain why their options are disabled.
  return eligible.find(entity=>entity.complete&&entity.enabled)?.id??eligible[0]?.id;
+}
+export interface OpeningObjective {id:string;title:string;description:string;type?:string;producer?:number;complete:boolean}
+/** Nonbinding opening guidance; only disclosed owned structures advance it.
+ * Keep a foundation's step visible until it finishes instead of telling the
+ * player to place an unavailable prerequisite. Dismissal hides the current
+ * step; it never bypasses a prerequisite to recommend later construction. */
+export function openingObjective(snapshot:PlayerSnapshot,catalog:CatalogIndex,dismissed:readonly string[]=[]):OpeningObjective|undefined{
+ const faction=snapshot.players.find(player=>player.id===snapshot.player)?.faction;
+ if(!faction||snapshot.outcome?.finished||snapshot.players.find(player=>player.id===snapshot.player)?.defeated)return;
+ const own=snapshot.entities.filter(entity=>entity.owner===snapshot.player&&entity.private&&entity.private.hp>0n);
+ for(const role of ['power','supply','barracks','factory']){
+  if(own.some(entity=>entity.complete&&catalog.buildings.get(entity.type)?.role===role))continue;
+  const id=`opening-${role}`;if(dismissed.includes(id))return;
+  const building=[...catalog.buildings.values()].find(building=>building.role===role&&(!building.faction||building.faction===faction));if(!building)return;
+  const underway=own.some(entity=>catalog.buildings.get(entity.type)?.role===role);
+  const builder=productionSources(snapshot,catalog).find(entity=>catalog.units.get(entity.type)?.role==='rig'&&entity.complete&&entity.enabled);
+  return {id,type:building.id,producer:builder?.id,complete:false,title:`${underway?'Finish':'Build'} ${building.name}`,
+   description:underway?'Construction is underway. Keep your Engineering rig safe.':role==='power'?'Select your Engineering rig and place power to start your base.':role==='supply'?'Build near a known supply field to start collecting credits.':role==='barracks'?'Train infantry to scout and defend your supply route.':'Build vehicles to expand and protect your base.'};
+ }
 }
 /** Extra sidebar advice must never add factory commands to a selected army. */
 export function selectionAffordances(advice:CommandAffordances,selection:readonly number[]):CommandAffordances{

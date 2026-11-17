@@ -41,6 +41,8 @@ export class BattlefieldSelection {
  private revision=0;
  private selected:number[]=[];
  private selectable=new Map<number,Entity>();
+ private inspectable=new Map<number,Entity>();
+ private inspected:number|undefined;
  private groups=new Map<number,number[]>();
  private lastRecall:{group:number;at:number}|undefined;
  constructor(readonly doubleTapMs=350){if(!Number.isFinite(doubleTapMs)||doubleTapMs<0||doubleTapMs>2000)throw new RangeError('Invalid double-tap interval')}
@@ -52,28 +54,40 @@ export class BattlefieldSelection {
  reconcile(snapshot:PlayerSnapshot,scope:string,allowed:SelectableFilter=()=>true):void{
   if(!scope||scope.length>256)throw new RangeError('A bounded session scope is required');
   if(scope!==this.scope||snapshot.player!==this.player){
-   this.scope=scope;this.player=snapshot.player;this.selected=[];this.groups.clear();this.lastRecall=undefined;this.revision++;
+   this.scope=scope;this.player=snapshot.player;this.selected=[];this.inspected=undefined;this.groups.clear();this.lastRecall=undefined;this.revision++;
   }
   this.selectable=new Map(selectableOwnEntities(snapshot,allowed).map(entity=>[entity.id,entity]));
+  // The authorized current frame may disclose foreign entities for inspection.
+  // Keep them separate from every commandable, box and group selection path.
+  this.inspectable=new Map(snapshot.entities.filter(entity=>entity.owner!==this.player&&uintID(entity.id)&&(entity.private?entity.private.hp>0n:entity.health>0)&&!entity.private?.container&&validPoint(entity.position)).map(entity=>[entity.id,entity]));
   // Embarked units remain in groups so disembarkation restores useful membership.
   // Removed, captured, dead, and explicitly noncontrollable units are pruned.
   const alive=new Set(snapshot.entities.filter(entity=>aliveOwned(entity,this.player)&&allowed(entity)).map(entity=>entity.id));
   for(const [group,ids] of this.groups)this.groups.set(group,ids.filter(id=>alive.has(id)));
-  this.apply(this.selected,'replace');
+  if(this.inspected!==undefined){
+   if(!this.inspectable.has(this.inspected)){this.inspected=undefined;this.updateSelection([])}
+  }else this.apply(this.selected,'replace');
  }
 
  apply(ids:Iterable<number>,mode:SelectionMode='replace'):number[]{
+  this.inspected=undefined;
   const next=new Set(this.selected), valid=ordered(ids).filter(id=>this.selectable.has(id));
   if(mode==='replace')next.clear();
   for(const id of valid){
    if(mode==='subtract'||mode==='toggle'&&next.has(id))next.delete(id);else next.add(id);
   }
   const result=ordered(next).filter(id=>this.selectable.has(id));
-  if(!sameIDs(this.selected,result)){this.selected=result;this.revision++;this.lastRecall=undefined}
+  this.updateSelection(result);
   return this.ids;
  }
 
- click(id:number|undefined,shift=false):number[]{return this.apply(id===undefined?[]:[id],shift?'toggle':'replace')}
+ click(id:number|undefined,shift=false):number[]{
+  if(id!==undefined&&this.inspectable.has(id)){
+   // Even Shift-click inspects one foreign entity, never a mixed command set.
+   this.inspected=id;this.updateSelection([id]);return this.ids;
+  }
+  return this.apply(id===undefined?[]:[id],shift?'toggle':'replace');
+ }
  clear():void{this.apply([])}
 
  box(rect:Rect,bounds:EntityBounds,shift=false):number[]{
@@ -106,7 +120,8 @@ export class BattlefieldSelection {
 
  storeGroup(group:number,append=false):void{
   this.checkGroup(group);
-  this.groups.set(group,ordered(append?[...(this.groups.get(group)??[]),...this.selected]:this.selected));
+  const owned=this.selected.filter(id=>this.selectable.has(id));
+  this.groups.set(group,ordered(append?[...(this.groups.get(group)??[]),...owned]:owned));
   this.lastRecall=undefined;
  }
 
@@ -121,10 +136,11 @@ export class BattlefieldSelection {
 
  center():Point|undefined{
   const points:Point[]=[];
-  for(const id of this.selected){const point=this.selectable.get(id)?.position;if(validPoint(point))points.push(point)}
+  for(const id of this.selected){const point=(this.selectable.get(id)??this.inspectable.get(id))?.position;if(validPoint(point))points.push(point)}
   if(points.length===0)return undefined;
   return {x:(Math.min(...points.map(p=>p.x))+Math.max(...points.map(p=>p.x)))/2,y:(Math.min(...points.map(p=>p.y))+Math.max(...points.map(p=>p.y)))/2};
  }
+ private updateSelection(ids:number[]){if(!sameIDs(this.selected,ids)){this.selected=ids;this.revision++;this.lastRecall=undefined}}
  private checkGroup(group:number){if(!Number.isInteger(group)||group<1||group>9)throw new RangeError('Control groups are 1–9')}
 }
 

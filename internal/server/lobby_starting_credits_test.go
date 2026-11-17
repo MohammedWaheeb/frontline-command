@@ -50,12 +50,12 @@ func startingMoneyState(t *testing.T, s *Server, matchID string) (sim.State, []b
 func TestLobbyStartingCreditsWholeCreditConversion(t *testing.T) {
 	eligible := Lobby{Mode: "custom", Private: true}
 	for _, tc := range []struct {
-		name       string
-		whole      uint32
-		label      string
-		wantMilli  int64
-		wantLabel  string
-		wantCode   string
+		name      string
+		whole     uint32
+		label     string
+		wantMilli int64
+		wantLabel string
+		wantCode  string
 	}{
 		{"minimum", 1, "standard-v2", 1000, "custom-v1", ""},
 		{"default", 6000, "standard-v2", 0, "standard-v2", ""},
@@ -160,11 +160,11 @@ func TestLobbyStartingCreditsHTTPStart(t *testing.T) {
 				t.Fatal("default save gained a starting-credits field or custom choice was omitted")
 			}
 			if wantStored == 0 {
-				// Compare with the unchanged default Config path under this same
-				// simulation version/seed, not an incompatible R3-version file.
+				// Compare the default funds path with the new canonical explicit-start
+				// configuration under the same simulation version/seed.
 				cfg := sim.Config{Map: testMap(), Seed: state.Metadata.Seed, Ruleset: "standard-v2"}
 				for _, slot := range started.Slots {
-					cfg.Players = append(cfg.Players, sim.PlayerConfig{ID: slot.Player, Name: slot.Name, Faction: slot.Faction, Team: slot.Team, Color: slot.Color, AI: slot.AI})
+					cfg.Players = append(cfg.Players, sim.PlayerConfig{ID: slot.Player, Name: slot.Name, Faction: slot.Faction, Team: slot.Team, Color: slot.Color, AI: slot.AI, Spawn: slot.Spawn})
 				}
 				baseline, err := sim.New(s.catalog, cfg)
 				if err != nil {
@@ -172,7 +172,7 @@ func TestLobbyStartingCreditsHTTPStart(t *testing.T) {
 				}
 				baselineSave, err := baseline.Save()
 				if err != nil || !bytes.Equal(baselineSave, raw) {
-					t.Fatal("default lobby start changed canonical default Save bytes", err)
+					t.Fatal("default lobby start differs from canonical explicit-start Save bytes", err)
 				}
 			}
 		})
@@ -459,6 +459,7 @@ func TestLobbyStartingCreditsScenarioAndResumeBudgets(t *testing.T) {
 	if err := s.repo.PutSharedSave(context.Background(), []string{pa.ID, pb.ID}, "starting-funds-checkpoint", "Authored budget checkpoint", data); err != nil {
 		t.Fatal(err)
 	}
+	seedServerCheckpoint(t, s, "starting-funds-match", uint32(scenario.Tick()), data, pa.ID, pb.ID)
 	path := "/api/v1/saves/starting-funds-checkpoint/coop-lobby"
 	assertStartingMoneyCode(t, request(t, h, "POST", path, a, map[string]any{"private": true, "rules": startingMoneyRules(10000, "custom-v1")}, 400), "invalid_request")
 	resumeResponse := request(t, h, "POST", path, a, map[string]any{"private": true}, 201)

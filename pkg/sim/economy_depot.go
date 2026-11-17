@@ -45,11 +45,23 @@ func (e *Engine) harvestDepotGoal(v, depot *Entity) Vec {
 	if len(candidates) > 32 {
 		candidates = candidates[:32]
 	}
-	for i, point := range candidates {
-		if i == 3 || e.pathBudget == 0 {
+	// One hauler may spend at most three actual searches per tick probing
+	// alternate sides. Park the rest of the tick budget around each probe
+	// so a multi-search route cannot exceed that share.
+	spent := uint32(0)
+	for _, point := range candidates {
+		allowance := 3 - spent
+		if allowance == 0 || e.pathBudget == 0 {
 			break
 		}
+		if e.pathBudget < allowance {
+			allowance = e.pathBudget
+		}
+		parked := e.pathBudget - allowance
+		e.pathBudget = allowance
 		path := e.findPath(v, point, true)
+		spent += allowance - e.pathBudget
+		e.pathBudget += parked
 		if len(path) == 0 || !inRange(path[len(path)-1]) {
 			continue
 		}

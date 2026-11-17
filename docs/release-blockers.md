@@ -1,4 +1,15 @@
-# Current scoped local release qualification — 13 October 2026
+> **2026-10-31 beta update:** the expanded 20 October scope is beta-ready with
+> stated limits; all gates pass on the final tree. Current status and limits:
+> [beta readiness report](beta-readiness-2026-10-31.md). Sections below are history.
+
+# Current scoped local release qualification — 13 October 2026 (historical)
+
+> **2026-10-20 update:** Campaign, commander mastery and the map editor are
+> unhidden and six skirmish maps ship. The expanded tree is not yet
+> release-qualified: `sy-05-relay-break` hard and FactoryCapture hard remain
+> red, `make test-extended` is not green, and the current package is a
+> dirty-working-tree build. The recorded audio-ducking failure did not
+> reproduce. See [release-fix receipts](release-fix-receipts-2026-10-20.md).
 
 The scoped Apple Silicon macOS/desktop Chrome release is qualified. The final
 canonical checks, native tutorials/co-op, complete regular-profile offline pack,
@@ -42,7 +53,8 @@ start and finish. [Final report](../work/release-completion-20261013/REPORT.md).
 
 Physical two-device LAN, new full-art endurance, human balance and natural human
 co-op victory remain unverified. Audio is outside this pass; the broader runtime
-suite retains one existing audio-mix ducking failure. Do not interpret scoped
+suite retained one existing audio-mix ducking failure at that time (retired
+2026-10-20: it does not reproduce — see receipts C-3). Do not interpret scoped
 completion as audio acceptance or the superseded campaign/editor release.
 
 ---

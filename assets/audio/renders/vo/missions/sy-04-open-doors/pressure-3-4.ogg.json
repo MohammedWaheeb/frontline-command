@@ -3,36 +3,61 @@
   "path": "vo/missions/sy-04-open-doors/pressure-3-4.ogg",
   "caption": "Column 3 has entered. Its approach is east.",
   "faction": "SY",
-  "voice": "bf_emma",
-  "speed": 1.02,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "WATCH: Column 3 has entered. Its approach is east.",
-  "source_hash": "74b83f41ce3d9e527e5b43d957ceb593664c326a52bea3498c4a2eda2dff3c9c",
+  "source_hash": "72cc9b40f62f6c7f3f52655f4da1c261c69573a2b97915726faf87c6c2d76562",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sy-04-open-doors/pressure-3-4.ogg",
-  "duration": 2.7827083333333333,
+  "duration": 3.032,
   "channels": 1,
-  "bytes": 28339,
-  "sha256": "e296f56c29f01172090a6afc6127be2536131d81c57c37dc2c0f94af261aca4b",
+  "bytes": 20855,
+  "sha256": "48899a30bbf5d54de6d40fb95debba445ae4e94d7ce8754011463440e0822a25",
   "mp3_url": "/art/audio/vo/missions/sy-04-open-doors/pressure-3-4.mp3",
-  "mp3_bytes": 45740,
-  "mp3_sha256": "fa977fd33d145605a02ca3e8c00c0e97d157a89e013225b546da52d4e1234aad",
-  "peak": 0.7803875207901001,
-  "rms": 0.08905821293592453,
+  "mp3_bytes": 25004,
+  "mp3_sha256": "2b0981b77e0f0b42d21e53e12db6a4b548e0afb876fdec37eeabf08bfe7e8038",
+  "peak": 0.7839044332504272,
+  "rms": 0.12308590859174728,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

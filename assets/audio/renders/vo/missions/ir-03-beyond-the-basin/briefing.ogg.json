@@ -4,34 +4,59 @@
   "caption": "The starting field contains only 6,000 credits. Secure both expansion positions before that finite field empties. This is the only reduced starting-field budget. Capture both military supply stations as an optional achievement.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "baf93b7ab1df85c50755dc62847d7db2eeb7d3145be835e132682b9bab73fb43",
+  "source_hash": "80845f8d0f127685492f639088e0440cd8b4bcb671ceacee6eac8428414327fb",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-03-beyond-the-basin/briefing.ogg",
-  "duration": 15.813541666666667,
+  "duration": 15.92625,
   "channels": 1,
-  "bytes": 129270,
-  "sha256": "ed7f9d614107b2275f978b2387cbc89794a2fe315c732f175ae679d64ce36262",
+  "bytes": 86903,
+  "sha256": "88b8124c7a7720bf12474810bf686d301754f18d6d29fa09b5b6ba4120dfcba3",
   "mp3_url": "/art/audio/vo/missions/ir-03-beyond-the-basin/briefing.mp3",
-  "mp3_bytes": 254252,
-  "mp3_sha256": "55ae52709d207a0c5cf939e5c9e38e10e4df0f1213caf01864c465a9bf28e709",
-  "peak": 0.7631710171699524,
-  "rms": 0.09482375532388687,
+  "mp3_bytes": 128108,
+  "mp3_sha256": "12a38d812fd1c7891f3be999e23fec92159078f1c29e24609b790c3347ae6fc9",
+  "peak": 0.6556615233421326,
+  "rms": 0.14035753905773163,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

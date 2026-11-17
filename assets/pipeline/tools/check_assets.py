@@ -10,8 +10,8 @@ Checks (per rendered spec):
   directions   distinct images for different headings of one state
   animation    distinct images for different frames of animated states
   anchor       anchor inside canvas and beauty bbox horizontally near the anchor
-Packed output: sidecar present, atlas frame counts match, sizes <= 4096,
-1x atlas is half of 2x. Terrain: 512 px, seamless flag. Manifest: every
+Packed output: sidecar present, atlas frame counts and paired frame geometry
+match, image pages <= 4096. Terrain: 512 px, seamless flag. Manifest: every
 `sample` entry has its output; `final` only for items with licence files.
 Fonts: licence text beside each family.
 
@@ -21,6 +21,7 @@ Writes work/art/check-report.json and work/art/check-report.md; exit 1 on failur
 import glob
 import hashlib
 import json
+import math
 import os
 import sys
 
@@ -54,7 +55,12 @@ def check_spec(spec_path):
     aid = spec['id']
     root = os.path.join(FRAMES, aid)
     if not os.path.isdir(root):
-        rec(aid, 'rendered', False, 'no frames directory')
+        # Per-frame intermediates were cleaned after packing; validate the
+        # packed atlases instead and record one honest frames-absent note
+        # per spec (was: silent skip of every pixel check).
+        rec(aid, 'rendered_frames', False,
+            'assets/build/frames absent (cleaned intermediates); packed-atlas checks run instead')
+        check_packed(aid, spec, None)  # expected derived from the sidecar's own states
         return
     cw, ch = spec['canvas']
     ax, ay = spec['anchor']
@@ -133,22 +139,84 @@ def check_packed(aid, spec, total_layer_frames):
     if not os.path.exists(side):
         rec(aid, 'packed', False, 'sprite sidecar missing (run pack_sprites.py)')
         return
-    s = json.load(open(side))
+    with open(side) as f:
+        s = json.load(f)
+    if total_layer_frames is None:
+        # Spec files can lag published sidecar states; the sidecar is the
+        # authoritative declaration of what was actually packed.
+        total_layer_frames = sum(len(st.get('layers', s.get('layers', []))) * st['directions'] * st['frames']
+                                 for st in s.get('states', []))
     counts = 0
     bad = []
+    by_scale = {'1x': {}, '2x': {}}
+    defaults = {'1x': 1.0, '2x': 2.0}
+    resolution = s.get('atlas_resolution', {})
+    if not isinstance(resolution, dict):
+        bad.append('atlas_resolution is not an object')
+        resolution = {}
     for scale, layers in s['atlases'].items():
+        if scale not in by_scale:
+            bad.append(f'unknown atlas scale {scale}')
+            continue
         for layer, files in layers.items():
             for fn in files:
-                j = json.load(open(os.path.join(SPRITES, aid, fn)))
+                with open(os.path.join(SPRITES, aid, fn)) as f:
+                    j = json.load(f)
                 counts += len(j['frames']) if scale == '2x' else 0
-                img = Image.open(os.path.join(SPRITES, aid, j['meta']['image']))
-                if img.size != (j['meta']['size']['w'], j['meta']['size']['h']) or max(img.size) > 4096:
-                    bad.append(f'{fn}: {img.size}')
-                if scale == '1x':
-                    twin = os.path.join(SPRITES, aid, j['meta']['image'].replace('@1x', '@2x'))
-                    t = Image.open(twin)
-                    if abs(t.width // 2 - img.width) > 1 or abs(t.height // 2 - img.height) > 1:
-                        bad.append(f'{fn}: 1x {img.size} vs 2x {t.size}')
+                with Image.open(os.path.join(SPRITES, aid, j['meta']['image'])) as image:
+                    image_size = image.size
+                if image_size != (j['meta']['size']['w'], j['meta']['size']['h']) or max(image_size) > 4096:
+                    bad.append(f'{fn}: {image_size}')
+                expected_scale = resolution.get(scale, defaults[scale])
+                declared_scale = j['meta'].get('scale')
+                if (not isinstance(expected_scale, (int, float)) or
+                        not math.isfinite(expected_scale) or expected_scale <= 0):
+                    bad.append(f'{fn}: invalid {scale} atlas resolution {expected_scale!r}')
+                    continue
+                if (not isinstance(declared_scale, (int, float)) or
+                        not math.isclose(declared_scale, expected_scale, rel_tol=0, abs_tol=1e-6)):
+                    bad.append(f'{fn}: meta.scale {declared_scale!r} != {scale} resolution {expected_scale}')
+                    continue
+                frame_map = by_scale[scale].setdefault(layer, {})
+                for key, item in j['frames'].items():
+                    rect = item.get('frame', {})
+                    x, y, w, h = (rect.get(k) for k in ('x', 'y', 'w', 'h'))
+                    if (not all(isinstance(v, (int, float)) and math.isfinite(v)
+                                for v in (x, y, w, h)) or
+                            x < 0 or y < 0 or w <= 0 or h <= 0 or
+                            x + w > image_size[0] or y + h > image_size[1]):
+                        bad.append(f'{fn}:{key}: frame rectangle outside {image_size}')
+                        continue
+                    if key in frame_map:
+                        bad.append(f'{scale}/{layer}:{key}: duplicate frame key')
+                        continue
+                    anchor = item.get('anchor', {})
+                    ax, ay = anchor.get('x'), anchor.get('y')
+                    if not all(isinstance(v, (int, float)) and math.isfinite(v)
+                               for v in (ax, ay)):
+                        bad.append(f'{fn}:{key}: invalid anchor')
+                        continue
+                    frame_map[key] = (w, h, ax, ay, expected_scale)
+    tolerance = 0.75
+    for layer in set(by_scale['1x']) | set(by_scale['2x']):
+        standard = by_scale['1x'].get(layer, {})
+        high = by_scale['2x'].get(layer, {})
+        if standard.keys() != high.keys():
+            bad.append(f'{layer}: 1x/2x frame keys differ')
+            continue
+        for key in standard.keys():
+            sw, sh, sax, say, ss = standard[key]
+            hw, hh, hax, hay, hs = high[key]
+            if abs(sw / ss - hw / hs) > tolerance or abs(sh / ss - hh / hs) > tolerance:
+                bad.append(f'{layer}:{key}: 1x/2x world frame size differs')
+                continue
+            world_w = max(sw / ss, hw / hs)
+            world_h = max(sh / ss, hh / hs)
+            if (abs(sax - hax) * world_w > tolerance or
+                    abs(say - hay) * world_h > tolerance or
+                    abs(sax * sw / ss - hax * hw / hs) > tolerance or
+                    abs(say * sh / ss - hay * hh / hs) > tolerance):
+                bad.append(f'{layer}:{key}: 1x/2x normalized/world anchor differs')
     rec(aid, 'packed', counts == total_layer_frames and not bad,
         f'{counts}/{total_layer_frames} frames in 2x atlases' + (f'; {bad[:2]}' if bad else ''))
 
@@ -161,9 +229,21 @@ def check_terrain():
     t = json.load(open(tj))
     for name, m in t['materials'].items():
         p = os.path.join(REPO, 'assets', 'build', 'terrain', m['file'])
+        if not os.path.exists(p):
+            rec(f'terrain.{name}', 'terrain', False, 'material file missing')
+            continue
         im = Image.open(p)
-        rec(f'terrain.{name}', 'terrain', im.size == (512, 512) and m['seamless'] and im.mode == 'RGB',
-            f"{im.size} {im.mode}, seam {m['seam_delta']} vs interior p99 {m['interior_delta_p99']}")
+        if m.get('kind') != 'surface':
+            # Non-surface materials (cliff faces, decals, masks, macro) have
+            # no seam metrics by design. terrain.json declares size as
+            # [height, width]; PIL reports (width, height).
+            declared = m.get('size')
+            ok = declared is None or im.size == (declared[1], declared[0])
+            rec(f'terrain.{name}', 'terrain', ok,
+                f"{im.size} {im.mode}, kind={m.get('kind')} declared={declared} (no seam metrics)")
+            continue
+        rec(f'terrain.{name}', 'terrain', im.size == (512, 512) and m.get('seamless') and im.mode == 'RGB',
+            f"{im.size} {im.mode}, seam {m.get('seam_delta')} vs interior p99 {m.get('interior_delta_p99')}")
 
 
 def check_manifest():
@@ -172,7 +252,15 @@ def check_manifest():
     ents = m['entries']
     for e in ents:
         if e['status'] == 'sample':
+            # SVG symbol outputs carry a #fragment; glob the file part only,
+            # and verify the symbol id exists inside it.
             out = e['output'].split(' ')[0]
+            if '#' in out:
+                svg_path, symbol = out.split('#', 1)
+                ok = os.path.exists(os.path.join(REPO, svg_path)) and \
+                    f'id="{symbol}"' in open(os.path.join(REPO, svg_path)).read()
+                rec(e['id'], 'manifest_output', ok, out)
+                continue
             # Variant outputs use shell-style ranges such as select_[1-3].ogg.
             ok = bool(glob.glob(os.path.join(REPO, out.replace('(+', '').strip())))
             rec(e['id'], 'manifest_output', ok, out)

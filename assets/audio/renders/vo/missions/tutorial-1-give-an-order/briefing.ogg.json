@@ -3,35 +3,60 @@
   "path": "vo/missions/tutorial-1-give-an-order/briefing.ogg",
   "caption": "Select the marked infantry and move to the training marker. Attack the hostile target, stop at the second marker, assign a control group and set a barracks rally point. Try a blocked order to learn where the rejection appears. The world objectives verify movement, combat and production; selection, groups, rally and rejection prompts are local input lessons.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "c726579cc7476bf2c29130306ce67d3047d73e2abd5436ab9c70c675a13cb869",
+  "source_hash": "efde90fa9b55221489666c5a90e17d82e75a1e883e8e7fd048b275dc40f8a97f",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-1-give-an-order/briefing.ogg",
-  "duration": 21.480958333333334,
+  "duration": 19.224625,
   "channels": 1,
-  "bytes": 185880,
-  "sha256": "d94ce2d37bf4a30174d111527124a88b719e7ec3ad3cd675c63a5decb5cd6786",
+  "bytes": 114141,
+  "sha256": "637e99ef71ccf4d5e717820a65aeca4e3d068a2b9ee64af077e17b016aaf3488",
   "mp3_url": "/art/audio/vo/missions/tutorial-1-give-an-order/briefing.mp3",
-  "mp3_bytes": 345260,
-  "mp3_sha256": "4dbc3c24146159e4665f9aa9d0954444d13ccc63b352ffad01e17281197285e4",
-  "peak": 0.7860499620437622,
-  "rms": 0.08487342298030853,
+  "mp3_bytes": 154604,
+  "mp3_sha256": "b5cf2b46669ee8892b3264aec16526eec82a0ea156f1ea0f79be6a28c586620e",
+  "peak": 0.7950707674026489,
+  "rms": 0.12657512724399567,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

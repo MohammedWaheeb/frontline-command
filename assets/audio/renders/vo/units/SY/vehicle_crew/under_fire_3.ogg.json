@@ -4,34 +4,59 @@
   "caption": "Incoming! Keep your heads down.",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "fb844bcf84253361779cd42ef9c3ecef9386ec3cd13d2300d00acb2345795a0f",
+  "source_hash": "020641b8718de7f1c27dcd3821180f3ef7c675def50c9efcd7fdc1d67aca9399",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/under_fire_3.ogg",
-  "duration": 1.9712916666666667,
+  "duration": 2.0765,
   "channels": 1,
-  "bytes": 19332,
-  "sha256": "ab050b01df43607fac9f7456a74fe84c01509d2a7bbf3045f740dc76ca3b2ed9",
+  "bytes": 14350,
+  "sha256": "840a81dd61963c9bc8db46ab245f6824b40f141a5671d4bc4662c0aae3df401a",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/under_fire_3.mp3",
-  "mp3_bytes": 33068,
-  "mp3_sha256": "5b36909be811e9f399f398dfcbc8a9f3938d6994ee1cb84b6f7f63dffc639104",
-  "peak": 0.7749603390693665,
-  "rms": 0.11063876003026962,
+  "mp3_bytes": 17324,
+  "mp3_sha256": "d97de2bc30eec3d195f8f5a70081cd2e5a201912c98531a3fe9e35c77d8cb45a",
+  "peak": 0.5136058926582336,
+  "rms": 0.14038696885108948,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

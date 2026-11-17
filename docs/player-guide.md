@@ -17,9 +17,10 @@ For a battle against bots, choose **Skirmish** or **Deploy to skirmish**:
 3. With three bots, select **Two teams of two** if you want an allied bot.
 4. Choose **Deploy forces**. Orders begin after the countdown.
 
-Choosing no AI creates a solo field-practice game. The three default battlefields
-are **Copper Junction** (2 commanders), **Industrial Valley** (4 commanders) and
-**Port Outskirts** (4 commanders).
+Choosing no AI creates a solo field-practice game. The six default battlefields
+are **Copper Junction** (2 commanders), **Industrial Valley** (4 commanders),
+**Port Outskirts** (4 commanders), **Relay Heights** (2 commanders), **Dry
+River** (2 commanders) and **Border Depots** (4 commanders).
 
 ## Build and command
 

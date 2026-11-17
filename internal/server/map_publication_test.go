@@ -18,7 +18,8 @@ func TestMapPrivatePublicationReportsAndRemoval(t *testing.T) {
 	request(t, h, "GET", base, "", nil, 404)
 	request(t, h, "GET", base, reader, nil, 404)
 	request(t, h, "GET", base, author, nil, 200)
-	listed := securityCall(t, s, "GET", "/api/v1/maps", "", "127.0.0.1:12345", "", 200)
+	securityCall(t, s, "GET", "/api/v1/maps", "", "127.0.0.1:12345", "", 401)
+	listed := securityCall(t, s, "GET", "/api/v1/maps", "Bearer "+reader, "127.0.0.1:12345", "", 200)
 	if bytes.Contains(listed.Body.Bytes(), []byte(mapData.ID)) {
 		t.Fatal("private map publicly listed")
 	}
@@ -33,10 +34,13 @@ func TestMapPrivatePublicationReportsAndRemoval(t *testing.T) {
 	request(t, h, "PATCH", base+"/publication", reader, map[string]any{"published": true, "expected_revision": 1}, 404)
 	request(t, h, "PATCH", base+"/publication", author, map[string]any{"published": true, "expected_revision": 1}, 200)
 	request(t, h, "GET", base, "", nil, 200)
-	listed = securityCall(t, s, "GET", "/api/v1/maps", "", "127.0.0.1:12345", "", 200)
+	listed = securityCall(t, s, "GET", "/api/v1/maps", "Bearer "+reader, "127.0.0.1:12345", "", 200)
 	var entries []map[string]any
 	if err := json.Unmarshal(listed.Body.Bytes(), &entries); err != nil || len(entries) != 1 || entries[0]["ranked"] != false || entries[0]["owner_name"] != "Real author" || entries[0]["hash"] != lobbyMapHash(mapData) {
 		t.Fatal("public attribution/metadata/ranked", entries, err)
+	}
+	if _, leaked := entries[0]["owner"]; leaked {
+		t.Fatal("map listing leaks owner profile ID", entries)
 	}
 	receipt := request(t, h, "POST", base+"/reports", reader, map[string]any{"reason": "Shared map contains an unsuitable title"}, 201)
 	var reportID string

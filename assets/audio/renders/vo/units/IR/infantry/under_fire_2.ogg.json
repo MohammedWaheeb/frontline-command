@@ -3,35 +3,60 @@
   "path": "vo/units/IR/infantry/under_fire_2.ogg",
   "caption": "We are under attack. Request support.",
   "faction": "IR",
-  "voice": "am_fenrir",
-  "speed": 1.0,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "f566bb9b823c4bacf2371b4eaf0871b9107aacbe9643c0b01733d7eaf5a4417e",
+  "source_hash": "ed7dfcf56bd42532514ce1042ec698a3d88f11f31ea7d143e74c256d17aa4068",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/IR/infantry/under_fire_2.ogg",
-  "duration": 2.0529166666666665,
+  "duration": 2.56625,
   "channels": 1,
-  "bytes": 20778,
-  "sha256": "7d38dd934a40f08f115e555e7e06c6c65e586c50519b1a94936e0af582347555",
+  "bytes": 16590,
+  "sha256": "cf39c055fcb570c7dc0598938f7a5bb5e0742784ece693592e736cc33da7c51d",
   "mp3_url": "/art/audio/vo/units/IR/infantry/under_fire_2.mp3",
-  "mp3_bytes": 34220,
-  "mp3_sha256": "1de95deb8df92d8b0204baf7342f53fe63086a8bb161dfac7008c2aa8cbb4d97",
-  "peak": 0.7788407206535339,
-  "rms": 0.10053522139787674,
+  "mp3_bytes": 21164,
+  "mp3_sha256": "5a174121c5b8a3a2c993674dccef2b80e4a4c82e200173585aead3d987cf9784",
+  "peak": 0.517332136631012,
+  "rms": 0.1404210776090622,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -60,3 +60,22 @@ test('source directory cycle is rejected',async()=>{const f=await fixture();awai
 test('native host keeps authored content exact while browser gets generated pack identity',async()=>{const f=await fixture();assert.equal(await verifyHostContent(f.root,f.before),1);await assert.rejects(verifyHostContent(f.product,f.before),/host content changed/)});
 for(const rel of ['art/audio/notices/transient.txt','assets/fonts/transient.woff2','content/maps/transient.json','transient-public.txt'])test('transient copied extra '+rel+' cannot survive source recapture',async()=>{const f=await fixture();await put(f.product,rel,'transient');await assert.rejects(verifyPresentationProduct(f.root,f.product,f.before),/Unexpected packaged presentation file/)});
 test('native content rejects transient added JSON absent from authored path set',async()=>{const f=await fixture();await put(f.root,'content/missions/transient.json','{}');await assert.rejects(verifyHostContent(f.root,f.before),/path set changed/)});
+test('standard-only sprite metadata is derived from pinned source and checked byte-for-byte',async()=>{
+ const f=await fixture(),dir='assets/build/sprites/unit.fixture',side=`${dir}/unit.fixture.sprite.json`;
+ const meta={id:'unit.fixture',frame_size_2x:[2,2],anchor_2x:[1,1],layers:['beauty'],states:[],atlases:{'1x':{beauty:['small.json']},'2x':{beauty:['large.json']}},content_sha256:'original-export'};
+ await put(f.root,side,JSON.stringify(meta));
+ for(const [name,scale] of [['small',1],['large',2]]){
+  await put(f.root,`${dir}/${name}.png`,png);
+  await put(f.root,`${dir}/${name}.json`,JSON.stringify({frames:{idle:{frame:{x:0,y:0,w:1,h:1}}},meta:{image:`${name}.png`,size:{w:1,h:1},scale}}));
+ }
+ const before=await capturePresentationInputs(f.root,{profile:'standard'});
+ await build({root:path.join(f.root,'client'),configFile:false,logLevel:'silent',plugins:[artPlugin({assets:path.join(f.root,'assets'),profile:'standard'})],build:{outDir:f.product,emptyOutDir:true,assetsInlineLimit:0,manifest:'build-assets.json'}});
+ const result=await verifyPresentationProduct(f.root,f.product,before);assert.equal(result.artProfile,'standard');
+ const output='art/sprites/unit.fixture/unit.fixture.sprite.json',rendered=JSON.parse(await readFile(path.join(f.product,output),'utf8'));
+ assert.deepEqual(rendered.atlases['2x'],rendered.atlases['1x']);assert.equal(rendered.atlas_resolution['2x'],1);
+ assert.deepEqual(rendered.frame_size_2x,meta.frame_size_2x);
+ const source=before.files.find(row=>row.path===side),generated=before.outputs.find(row=>row.path===output);
+ assert.notEqual(source.sha256,generated.sha256,'Original source and transformed output have separate identities');
+ await put(f.product,output,JSON.stringify(meta));
+ await assert.rejects(verifyPresentationProduct(f.root,f.product,before),/Packaged presentation input changed/);
+});

@@ -4,10 +4,13 @@ import "frontlinecommand/pkg/sim"
 
 // Keep the replay error and ordinary persistence fallback independent. A failed
 // recorder must not remove the save attempt that the actor previously made.
-func recordReplayCheckpoint(replay *sim.Replay, engine *sim.Engine) ([]byte, error) {
-	save, replayErr := replay.CaptureCheckpoint(engine)
+// On success the caller owns an independent snapshot to pack off the actor
+// loop (sim.PackCheckpoint + Replay.AppendCheckpoint).
+func beginReplayCheckpoint(replay *sim.Replay, engine *sim.Engine) (snapshot *sim.State, fallback []byte, replayErr error) {
+	state, replayErr := replay.BeginCheckpoint(engine)
 	if replayErr != nil {
-		save, _ = engine.Save()
+		fallback, _ = engine.Save()
+		return nil, fallback, replayErr
 	}
-	return save, replayErr
+	return &state, nil, nil
 }

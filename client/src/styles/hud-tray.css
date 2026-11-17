@@ -1,0 +1,402 @@
+/* Frontline Command battle HUD: selection tray, command card, alert feed,
+   targeting bar, overlays and battle modals. Owner: hud-tray lane (beta revamp
+   2026-10-31). Reads the layout + colour contract from styles/hud.css
+   (work/beta-2026-10-31/contracts/hud-layout.md); defines no shared tokens.
+
+   Precedence: imported from ui/hud/SelectionTray.tsx, which loads before
+   styles/game.css. Every rule is scoped under `.battlefield-screen[data-hud]`
+   (B) or, for the overlay/portals outside <main>, `:root:has(.battlefield-
+   screen[data-hud])` (R) so it wins over the legacy game.css HUD blocks.
+   Lengths: calc(Npx * var(--hud-k) * var(--fc-ui-scale)).
+   Type:    calc(Npx * var(--hud-tk) * var(--fc-ui-scale)), never below 12px at scale 1.
+   No blue or cyan. Amber only for armed/active, focus and the primary action. */
+
+/* ===== 0. Helpers ======================================================== */
+.hud-vh{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important}
+
+/* ===== 1. Tray frame (L-shaped console, bottom-right) ==================== */
+.battlefield-screen[data-hud] .selection-tray.hud-tray{
+ position:absolute;left:auto;right:var(--hud-sb-w);bottom:0;top:auto;
+ width:var(--hud-tray-w);max-width:none;height:auto;min-height:0;z-index:var(--hud-z-tray);
+ display:flex;flex-direction:column;justify-content:flex-end;gap:0;padding:0;margin:0;
+ background:none;border:0;clip-path:none;box-shadow:none;filter:none;isolation:isolate;pointer-events:none;
+ --tray-pad:calc(8px * var(--hud-k) * var(--fc-ui-scale));--tray-gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));--key-w:min(calc(58px * var(--hud-k) * var(--fc-ui-scale)),calc(var(--hud-tray-w) * .1));--key-gap:calc(3px * var(--hud-rk,1) * var(--fc-ui-scale));--portrait:min(calc(84px * var(--hud-k) * var(--fc-ui-scale)),calc(var(--hud-tray-w) * .15));
+}
+.battlefield-screen[data-hud] .selection-tray.hud-tray::before,.battlefield-screen[data-hud] .selection-tray.hud-tray::after{content:none;display:none}
+.battlefield-screen[data-hud] .hud-tray>*{pointer-events:auto}
+.battlefield-screen[data-hud] .hud-tray .tray-body{
+ position:relative;box-sizing:border-box;height:var(--hud-tray-h);min-height:0;
+ display:flex;align-items:stretch;gap:var(--tray-gap);
+ padding:calc(var(--hud-paint-h) + calc(4px * var(--hud-rk,1) * var(--fc-ui-scale))) var(--tray-pad) calc(5px * var(--hud-rk,1) * var(--fc-ui-scale)) calc(var(--hud-chamfer) * .55 + var(--tray-pad));
+ background:
+  linear-gradient(180deg,rgba(255,238,205,.05),transparent 34%),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px),
+  linear-gradient(90deg,var(--hud-plate-lo),var(--hud-plate) 18%,var(--hud-plate-hi) 60%,var(--hud-plate));
+ clip-path:polygon(var(--hud-chamfer) 0,100% 0,100% 100%,0 100%,0 var(--hud-chamfer));
+ box-shadow:inset 0 1px 0 var(--hud-bevel-hi),inset 1px 0 0 var(--hud-bevel-hi);
+ filter:drop-shadow(0 -3px 6px rgba(0,0,0,.55));
+}
+/* Faction paint stripe along the top edge, shared with the sidebar header. */
+.battlefield-screen[data-hud] .hud-tray .tray-body::before{content:'';position:absolute;left:0;right:0;top:0;height:var(--hud-paint-h);
+ background:linear-gradient(180deg,var(--faction-paint,var(--hud-olive)),color-mix(in srgb,var(--faction-paint,var(--hud-olive)) 70%,#000));
+ box-shadow:0 1px 0 var(--hud-seam),0 2px 0 rgba(255,238,205,.06)}
+/* Chamfer edge highlight: a brass hairline along the 45° cut. */
+.battlefield-screen[data-hud] .hud-tray .tray-body::after{content:'';position:absolute;left:0;top:0;width:var(--hud-chamfer);height:var(--hud-chamfer);
+ background:linear-gradient(135deg,transparent calc(50% - 1px),var(--hud-brass-dk) calc(50% - 1px),var(--hud-brass) 50%,transparent calc(50% + 1px));pointer-events:none}
+.battlefield-screen[data-hud] .hud-tray[data-mode=empty] .tray-body{display:none}
+.battlefield-screen[data-hud] .hud-tray[data-replay] .tray-body{height:auto;min-height:var(--hud-tray-h)}
+/* Replays: the tray body hosts the replay console, so it stays visible with
+   nothing selected (the start of every replay); the empty group strip yields. */
+.battlefield-screen[data-hud] .hud-tray[data-replay][data-mode=empty] .tray-body{display:flex}
+.battlefield-screen[data-hud] .hud-tray[data-replay][data-mode=empty] .tray-groups{display:none}
+
+/* ===== 2. Control-group strip ============================================ */
+.battlefield-screen[data-hud] .hud-tray:not([data-mode=empty]) .tray-groups{position:absolute;left:0;right:0;bottom:100%}
+.battlefield-screen[data-hud] .hud-tray .tray-groups{display:flex;align-items:flex-end;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));min-width:0;padding:0 0 calc(4px * var(--hud-k) * var(--fc-ui-scale)) calc(var(--hud-chamfer) * .55);pointer-events:none}
+.battlefield-screen[data-hud] .hud-tray .tray-groups>*{pointer-events:auto}
+.battlefield-screen[data-hud] .hud-tray .tray-group-chips,.battlefield-screen[data-hud] .hud-tray .tray-idle{display:flex;gap:calc(3px * var(--hud-k) * var(--fc-ui-scale));min-width:0}
+.battlefield-screen[data-hud] .hud-tray .tray-idle{margin-left:auto;padding-right:var(--tray-pad)}
+/* Selected modes: only assigned groups float above the tray, empties hidden. */
+.battlefield-screen[data-hud] .hud-tray:not([data-mode=empty]) .group-chip[data-empty]{display:none}
+.battlefield-screen[data-hud] .hud-tray:not([data-mode=empty]) .tray-groups:not(:has(button)){display:none}
+/* Nothing selected: the strip is the whole tray (28/30/32 px plate). */
+.battlefield-screen[data-hud] .hud-tray[data-mode=empty] .tray-groups{
+ box-sizing:border-box;height:var(--hud-strip-h);align-items:center;padding:var(--hud-paint-h) var(--tray-pad) 0 calc(var(--hud-chamfer) * .7);
+ background:linear-gradient(180deg,rgba(255,238,205,.05),transparent 50%),linear-gradient(90deg,var(--hud-plate-lo),var(--hud-plate) 30%,var(--hud-plate-hi));
+ clip-path:polygon(calc(var(--hud-strip-h) * .8) 0,100% 0,100% 100%,0 100%,0 calc(var(--hud-strip-h) * .8));
+ box-shadow:inset 0 var(--hud-paint-h) 0 var(--faction-paint,var(--hud-olive)),inset 0 calc(var(--hud-paint-h) + 1px) 0 var(--hud-seam);
+ filter:drop-shadow(0 -2px 5px rgba(0,0,0,.5))}
+.battlefield-screen[data-hud] .hud-tray .group-chip{
+ box-sizing:border-box;display:inline-flex;align-items:center;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));height:calc(22px * var(--hud-k) * var(--fc-ui-scale));min-width:calc(26px * var(--hud-k) * var(--fc-ui-scale));padding:0 calc(6px * var(--hud-k) * var(--fc-ui-scale)) 0 calc(3px * var(--hud-k) * var(--fc-ui-scale));margin:0;
+ border:0;border-image:none;border-radius:0;
+ background:linear-gradient(180deg,#3d3a30,#2e2b25);box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 1px 0 #000,0 0 0 1px var(--hud-seam);
+ color:var(--hud-text-1);font:600 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);letter-spacing:0;text-transform:none;text-shadow:none;cursor:pointer}
+.battlefield-screen[data-hud] .hud-tray .group-chip>b{display:inline-grid;place-items:center;min-width:calc(14px * var(--hud-k) * var(--fc-ui-scale));height:calc(16px * var(--hud-k) * var(--fc-ui-scale));padding:0 calc(2px * var(--hud-k) * var(--fc-ui-scale));background:var(--hud-well);color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000}
+.battlefield-screen[data-hud] .hud-tray .group-chip .icon{width:calc(13px * var(--hud-k) * var(--fc-ui-scale));height:calc(13px * var(--hud-k) * var(--fc-ui-scale));color:var(--hud-text-2)}
+.battlefield-screen[data-hud] .hud-tray .group-chip>span{color:var(--hud-text-1)}
+.battlefield-screen[data-hud] .hud-tray .group-chip[data-empty]{background:var(--hud-well);box-shadow:inset 0 1px 3px #000,0 1px 0 var(--hud-bevel-hi);padding:0 calc(5px * var(--hud-k) * var(--fc-ui-scale));cursor:default}
+.battlefield-screen[data-hud] .hud-tray .group-chip[data-empty]>b{background:none;box-shadow:none;color:var(--hud-text-3)}
+.battlefield-screen[data-hud] .hud-tray .group-chip:hover:not([data-empty]){background:linear-gradient(180deg,#4a463a,#37342c);box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 1px 0 #000,0 0 0 1px var(--hud-brass)}
+.battlefield-screen[data-hud] .hud-tray .group-chip.active,.battlefield-screen[data-hud] .hud-tray .group-chip.active:hover{box-shadow:inset 0 0 0 1px var(--hud-amber),0 0 8px rgba(226,162,50,.3),0 1px 0 #000}
+.battlefield-screen[data-hud] .hud-tray:not([data-mode=empty]) .group-chip{box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 1px 3px rgba(0,0,0,.8),0 0 0 1px var(--hud-seam)}
+.battlefield-screen[data-hud] .hud-tray .idle-chip{box-sizing:border-box;display:inline-flex;align-items:center;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));height:calc(22px * var(--hud-k) * var(--fc-ui-scale));padding:0 calc(7px * var(--hud-k) * var(--fc-ui-scale));margin:0;border:0;border-image:none;
+ background:linear-gradient(180deg,#4a3f22,#33301f);box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-brass-dk),0 1px 3px rgba(0,0,0,.8);
+ color:var(--hud-amber-hi);font:600 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);text-shadow:none;cursor:pointer}
+.battlefield-screen[data-hud] .hud-tray .idle-chip .icon{width:calc(14px * var(--hud-k) * var(--fc-ui-scale));height:calc(14px * var(--hud-k) * var(--fc-ui-scale));color:var(--hud-amber-hi)}
+.battlefield-screen[data-hud] .hud-tray .idle-chip:hover{box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-amber),0 1px 3px rgba(0,0,0,.8)}
+
+/* ===== 3. Selection overview ============================================= */
+.battlefield-screen[data-hud] .hud-tray .selection-overview{flex:1 1 auto;min-width:0;max-width:none;display:flex;align-items:stretch;gap:var(--tray-gap);margin:0;padding:0}
+.battlefield-screen[data-hud] .hud-tray .tray-portrait{position:relative;flex:none;width:var(--portrait);height:auto;max-height:100%;aspect-ratio:1/1;align-self:center;box-sizing:border-box;
+ background:radial-gradient(ellipse 70% 60% at 50% 62%,color-mix(in srgb,var(--portrait-rim,var(--team-color)) 30%,transparent),transparent 72%),radial-gradient(ellipse at 50% 55%,#2c2922,var(--hud-well) 80%);
+ box-shadow:inset 0 2px 6px #000,0 0 0 1px var(--hud-seam),0 0 0 2px var(--hud-brass-dk),0 1px 0 2px rgba(255,238,205,.08)}
+.battlefield-screen[data-hud] .hud-tray .tray-portrait::after{content:'';position:absolute;left:0;right:0;bottom:0;height:calc(3px * var(--hud-k) * var(--fc-ui-scale));background:var(--portrait-rim,var(--team-color));box-shadow:0 -1px 0 #000}
+.battlefield-screen[data-hud] .hud-tray .tray-portrait :is(.cameo-art,.cameo-unavailable){display:block;width:100%;height:100%;object-fit:contain;padding:calc(4px * var(--hud-k) * var(--fc-ui-scale));box-sizing:border-box;border:0;background:none;filter:drop-shadow(0 3px 2px rgba(0,0,0,.6))}
+.battlefield-screen[data-hud] .hud-tray .rank-chevrons{position:absolute;top:calc(3px * var(--hud-k) * var(--fc-ui-scale));right:calc(3px * var(--hud-k) * var(--fc-ui-scale));display:flex;flex-direction:column;gap:1px}
+.battlefield-screen[data-hud] .hud-tray .rank-chevrons i{display:block;width:calc(12px * var(--hud-k) * var(--fc-ui-scale));height:calc(5px * var(--hud-k) * var(--fc-ui-scale));background:var(--hud-brass-hi);clip-path:polygon(0 0,50% 60%,100% 0,100% 40%,50% 100%,0 40%);filter:drop-shadow(0 1px 0 #000)}
+
+.battlefield-screen[data-hud] .hud-tray .selection-details{flex:1 1 auto;min-width:0;max-height:none;display:flex;flex-direction:column;justify-content:center;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));padding:calc(2px * var(--hud-k) * var(--fc-ui-scale)) calc(4px * var(--hud-k) * var(--fc-ui-scale)) calc(2px * var(--hud-k) * var(--fc-ui-scale)) 0;overflow:hidden;scrollbar-gutter:auto}
+.battlefield-screen[data-hud] .hud-tray .selection-details:focus-visible{outline:2px solid var(--fc-color-focus-ring,var(--hud-amber));outline-offset:2px}
+.battlefield-screen[data-hud] .hud-tray .selection-overview h2{margin:0;display:block;font:700 calc(17px * var(--hud-tk) * var(--fc-ui-scale))/1.05 var(--fc-font-label);letter-spacing:.05em;text-transform:uppercase;color:var(--hud-text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:unset;line-clamp:unset}
+.battlefield-screen[data-hud] .hud-tray .tray-health{display:flex;align-items:center;gap:calc(6px * var(--hud-k) * var(--fc-ui-scale));min-width:0}
+.battlefield-screen[data-hud] .hud-tray .tray-health .health-track{flex:1 1 auto;height:calc(8px * var(--hud-k) * var(--fc-ui-scale));margin:0;border:1px solid #000;background:#0b0a09;box-shadow:0 0 0 1px #3a372f}
+.battlefield-screen[data-hud] .hud-tray .tray-health .health-track i{display:block;height:100%;box-shadow:none;
+ background:repeating-linear-gradient(90deg,var(--hp,#8dd05a) 0 calc(10% - 1px),rgba(0,0,0,.55) calc(10% - 1px) 10%)}
+.battlefield-screen[data-hud] .hud-tray [data-band=high]{--hp:var(--fc-color-health-high,#8dd05a)}
+.battlefield-screen[data-hud] .hud-tray [data-band=mid]{--hp:var(--fc-color-health-mid,#e2b13a)}
+.battlefield-screen[data-hud] .hud-tray [data-band=low]{--hp:var(--fc-color-health-low,#e0553a)}
+.battlefield-screen[data-hud] .hud-tray .tray-hp{flex:none;margin:0;font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-text-2);display:inline}
+.battlefield-screen[data-hud] .hud-tray .tray-status-row{display:flex;align-items:center;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));min-width:0;flex-wrap:nowrap}
+.battlefield-screen[data-hud] .hud-tray .tray-status-row>*{flex:none}
+.battlefield-screen[data-hud] .hud-tray .unit-state{display:inline-flex;align-items:center;max-width:calc(150px * var(--hud-k) * var(--fc-ui-scale));height:calc(20px * var(--hud-k) * var(--fc-ui-scale));margin:0;padding:0 calc(6px * var(--hud-k) * var(--fc-ui-scale));border:0;border-image:none;border-radius:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+ background:var(--hud-well);color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);letter-spacing:.05em;text-transform:uppercase;text-shadow:none;box-shadow:inset 0 1px 3px #000,0 1px 0 var(--hud-bevel-hi);cursor:pointer;flex:0 1 auto;min-width:0}
+.battlefield-screen[data-hud] .hud-tray .unit-state:hover{color:var(--hud-amber-hi);box-shadow:inset 0 1px 3px #000,0 0 0 1px var(--hud-brass)}
+.battlefield-screen[data-hud] .hud-tray button.range-mode{display:inline-flex;align-items:center;width:auto;max-width:none;height:calc(20px * var(--hud-k) * var(--fc-ui-scale));min-height:0;margin:0;padding:0 calc(6px * var(--hud-k) * var(--fc-ui-scale));border:0;border-image:none;border-radius:0;
+ background:linear-gradient(180deg,#3d3a30,#2e2b25);box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-seam);color:var(--hud-text-2);font:600 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase;text-shadow:none}
+.battlefield-screen[data-hud] .hud-tray button.range-mode:not([data-mode=off]){color:var(--hud-amber-hi);box-shadow:inset 0 0 0 1px var(--hud-amber)}
+.battlefield-screen[data-hud] .hud-tray button.range-mode:hover{color:var(--hud-text-1);box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-brass)}
+.battlefield-screen[data-hud] .hud-tray .tray-role{margin:0;font:500 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-ui);color:var(--hud-text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:help}
+.battlefield-screen[data-hud] .hud-tray .unit-telemetry{display:block;margin:0;font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-mono)!important;color:var(--hud-text-2);white-space:nowrap!important;overflow:hidden;text-overflow:ellipsis}
+.battlefield-screen[data-hud] .hud-tray .team-slot-preview{font:600 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-label);color:var(--hud-text-2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Multi-select: type stacks. */
+.battlefield-screen[data-hud] .hud-tray[data-mode=multi] .selection-overview{flex-direction:column;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .hud-tray .tray-multi-head{display:flex;align-items:center;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));min-width:0;height:calc(20px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .hud-tray .tray-multi-head h2{flex:none;font-size:calc(15px * var(--hud-tk) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .hud-tray .tray-multi-health{flex:0 1 calc(90px * var(--hud-k) * var(--fc-ui-scale));min-width:calc(40px * var(--hud-k) * var(--fc-ui-scale));height:calc(6px * var(--hud-k) * var(--fc-ui-scale));background:#0b0a09;border:1px solid #000;box-shadow:0 0 0 1px #3a372f}
+.battlefield-screen[data-hud] .hud-tray .tray-multi-health i{display:block;height:100%;background:var(--hp)}
+.battlefield-screen[data-hud] .hud-tray .tray-multi-head small{flex:0 1 auto;margin:0;font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.battlefield-screen[data-hud] .hud-tray .unit-subgroups{flex:1 1 auto;min-height:0;max-width:none;display:grid;grid-template-columns:repeat(auto-fill,calc(52px * var(--hud-k) * var(--fc-ui-scale)));grid-auto-rows:min(calc(52px * var(--hud-k) * var(--fc-ui-scale)),calc(50% - calc(2px * var(--hud-k) * var(--fc-ui-scale))));align-content:start;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));padding:calc(4px * var(--hud-k) * var(--fc-ui-scale));overflow:hidden;
+ background:var(--hud-well);box-shadow:inset 0 2px 5px #000,0 1px 0 var(--hud-bevel-hi)}
+.battlefield-screen[data-hud] .hud-tray .unit-subgroups .tray-stack{position:relative;box-sizing:border-box;display:block;width:100%;height:100%;min-height:0;max-height:none;margin:0;padding:0;border:0;border-image:none;border-radius:0;overflow:hidden;
+ background:radial-gradient(ellipse at 50% 60%,#35312a,#1a1814 85%);box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-seam);text-shadow:none;cursor:pointer}
+.battlefield-screen[data-hud] .hud-tray .tray-stack :is(.cameo-art,.cameo-unavailable){position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:calc(2px * var(--hud-k) * var(--fc-ui-scale)) calc(2px * var(--hud-k) * var(--fc-ui-scale)) calc(5px * var(--hud-k) * var(--fc-ui-scale));box-sizing:border-box}
+.battlefield-screen[data-hud] .hud-tray .tray-stack .stack-name{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.battlefield-screen[data-hud] .hud-tray .tray-stack .stack-count{position:absolute;right:1px;bottom:calc(4px * var(--hud-k) * var(--fc-ui-scale));min-width:calc(14px * var(--hud-k) * var(--fc-ui-scale));padding:0 calc(2px * var(--hud-k) * var(--fc-ui-scale));background:rgba(11,10,9,.88);color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-mono);text-align:center}
+.battlefield-screen[data-hud] .hud-tray .tray-stack .stack-health{position:absolute;left:0;bottom:0;height:calc(3px * var(--hud-k) * var(--fc-ui-scale));background:var(--hp);box-shadow:0 -1px 0 #000}
+.battlefield-screen[data-hud] .hud-tray .tray-stack:hover{box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-brass)}
+.battlefield-screen[data-hud] .hud-tray .tray-stack:focus-visible{outline:2px solid var(--fc-color-focus-ring,var(--hud-amber));outline-offset:1px}
+
+/* ===== 4. Command card (4×3 sockets) ===================================== */
+.battlefield-screen[data-hud] .hud-tray .command-grid{flex:none;box-sizing:border-box;width:calc(4 * var(--key-w) + 3 * var(--key-gap) + 2 * calc(3px * var(--hud-rk,1) * var(--fc-ui-scale)));height:100%;min-width:0;margin:0;padding:calc(3px * var(--hud-rk,1) * var(--fc-ui-scale));
+ display:grid;grid-template-columns:repeat(4,var(--key-w));grid-template-rows:repeat(3,minmax(0,1fr));grid-auto-rows:0;gap:var(--key-gap);align-content:stretch;overflow:visible;scroll-snap-type:none;
+ background:radial-gradient(ellipse 90% 70% at 50% 40%,#1b1915,#0e0d0b);box-shadow:inset 0 3px 6px #000,inset 0 0 0 1px #000,0 1px 0 var(--hud-bevel-hi)}
+.battlefield-screen[data-hud] .hud-tray .command-grid[data-empty]{display:none}
+.battlefield-screen[data-hud] .hud-tray .command-overflow{display:none}
+.battlefield-screen[data-hud] .hud-tray .card-socket{display:block;min-width:0;min-height:0;background:rgba(0,0,0,.35);box-shadow:inset 0 1px 3px rgba(0,0,0,.9),0 1px 0 rgba(255,238,205,.04)}
+.battlefield-screen[data-hud] .hud-tray .card-key{position:relative;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr);justify-content:stretch;align-content:center;place-items:center;min-width:0;min-height:0;width:100%;height:100%;margin:0;padding:0 calc(2px * var(--hud-k) * var(--fc-ui-scale));
+ border:0;border-image:none;border-radius:0;scroll-snap-align:none;
+ background:linear-gradient(180deg,#4a4838,#3b3a2c 50%,#2f2e24);box-shadow:inset 0 1px 0 rgba(255,238,205,.16),inset 0 -1px 0 rgba(0,0,0,.6),0 1px 0 #000,0 0 0 1px var(--hud-seam);
+ color:var(--hud-text-1);font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.03em;text-transform:uppercase;text-shadow:0 1px 0 #000;cursor:pointer;transition:filter .08s}
+.battlefield-screen[data-hud] .hud-tray .card-key .icon{width:calc(18px * var(--hud-k) * var(--fc-ui-scale));height:calc(18px * var(--hud-k) * var(--fc-ui-scale));color:#e8dcbc;filter:drop-shadow(0 1px 0 #000)}
+.battlefield-screen[data-hud] .hud-tray .card-key .card-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.battlefield-screen[data-hud] .hud-tray .card-key kbd{position:absolute;right:calc(2px * var(--hud-k) * var(--fc-ui-scale));bottom:calc(2px * var(--hud-k) * var(--fc-ui-scale));min-width:calc(12px * var(--hud-k) * var(--fc-ui-scale));padding:0 calc(2px * var(--hud-k) * var(--fc-ui-scale));background:#0b0a09;color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-mono);text-align:center;box-shadow:inset 0 1px 2px #000;text-shadow:none;letter-spacing:0}
+.battlefield-screen[data-hud] .hud-tray .card-key .card-cost{position:absolute;left:0;top:0;padding:0 calc(5px * var(--hud-k) * var(--fc-ui-scale)) 0 calc(3px * var(--hud-k) * var(--fc-ui-scale));background:linear-gradient(180deg,var(--hud-brass-hi),var(--hud-brass));color:#1a1206;font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-mono);clip-path:polygon(0 0,100% 0,calc(100% - calc(4px * var(--hud-k) * var(--fc-ui-scale))) 100%,0 100%);text-shadow:none;letter-spacing:0}
+.battlefield-screen[data-hud] .hud-tray .card-key .card-led{position:absolute;right:calc(3px * var(--hud-k) * var(--fc-ui-scale));top:calc(3px * var(--hud-k) * var(--fc-ui-scale));width:calc(6px * var(--hud-k) * var(--fc-ui-scale));height:calc(6px * var(--hud-k) * var(--fc-ui-scale));border-radius:50%;box-shadow:0 0 0 1px #000}
+.battlefield-screen[data-hud] .hud-tray .card-key .card-led[data-led=on]{background:var(--hud-ok);box-shadow:0 0 0 1px #000,0 0 5px var(--hud-ok)}
+.battlefield-screen[data-hud] .hud-tray .card-key .card-led[data-led=off]{background:transparent;box-shadow:inset 0 0 0 1px var(--hud-text-3),0 0 0 1px #000}
+.battlefield-screen[data-hud] .hud-tray .card-key .card-led[data-led=mixed]{background:linear-gradient(90deg,var(--hud-ok) 50%,transparent 50%);box-shadow:inset 0 0 0 1px var(--hud-text-3),0 0 0 1px #000}
+.battlefield-screen[data-hud] .hud-tray .card-key:hover:not(:disabled){filter:brightness(1.12);box-shadow:inset 0 1px 0 rgba(255,238,205,.2),inset 0 -1px 0 rgba(0,0,0,.6),0 1px 0 #000,0 0 0 1px #b08d45;background:linear-gradient(180deg,#56533f,#434130 50%,#35342a)}
+.battlefield-screen[data-hud] .hud-tray .card-key:active:not(:disabled){transform:translateY(1px);box-shadow:inset 0 2px 3px rgba(0,0,0,.7),0 0 0 1px var(--hud-seam);background:linear-gradient(180deg,#2f2e24,#3b3a2c)}
+.battlefield-screen[data-hud] .hud-tray .card-key.active,.battlefield-screen[data-hud] .hud-tray .card-key.active:hover:not(:disabled){background:linear-gradient(180deg,#6b5320,#4a3a18 55%,#3a2e14);box-shadow:inset 0 0 0 2px var(--hud-amber),0 0 8px rgba(226,162,50,.35),0 0 0 1px #000}
+.battlefield-screen[data-hud] .hud-tray .card-key.active .icon{color:var(--hud-amber-hi)}
+.battlefield-screen[data-hud] .hud-tray .card-key[aria-pressed=true]{background:linear-gradient(180deg,#4b5130,#3a3f25 55%,#2f3320)}
+.battlefield-screen[data-hud] .hud-tray .card-key:disabled{cursor:default;background:linear-gradient(180deg,#2c2a25,#24221e);box-shadow:inset 0 1px 0 rgba(255,238,205,.05),0 0 0 1px var(--hud-seam);color:var(--hud-text-off)}
+.battlefield-screen[data-hud] .hud-tray .card-key:disabled .icon{color:var(--hud-text-off);filter:none}
+.battlefield-screen[data-hud] .hud-tray .card-key:disabled kbd{color:var(--hud-text-off)}
+.battlefield-screen[data-hud] .hud-tray .card-key[data-quiet]:not(:hover):not(:focus-visible):not(.active) .icon{opacity:.55}
+.battlefield-screen[data-hud] .hud-tray .card-key[data-quiet]:not(:hover):not(:focus-visible):not(.active) kbd{opacity:.7}
+.battlefield-screen[data-hud] .hud-tray .card-key.ability-key::before{content:'';position:absolute;left:0;top:calc(3px * var(--hud-k) * var(--fc-ui-scale));bottom:calc(3px * var(--hud-k) * var(--fc-ui-scale));width:calc(2px * var(--hud-k) * var(--fc-ui-scale));background:linear-gradient(180deg,var(--hud-brass-hi),var(--hud-brass-dk))}
+.battlefield-screen[data-hud] .hud-tray .card-key.card-page{background:linear-gradient(180deg,#3a3326,#2b261c)}
+.battlefield-screen[data-hud] .hud-tray .card-key.card-page .card-label{position:static;width:auto;height:auto;clip:auto;overflow:visible;font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale));color:var(--hud-amber-hi)}
+.battlefield-screen[data-hud] .hud-tray .card-key.card-page{grid-auto-flow:column;gap:calc(2px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .hud-tray .card-key:focus-visible{outline:2px solid var(--fc-color-focus-ring,var(--hud-amber));outline-offset:1px;z-index:1}
+/* Replay console reuses the card well. */
+.battlefield-screen[data-hud] .hud-tray .command-grid.replay-command-grid{display:block;width:auto;flex:1 1 auto;padding:calc(5px * var(--hud-k) * var(--fc-ui-scale));grid-template-columns:none}
+
+/* ===== 5. Tray tooltip =================================================== */
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip{--tip-w:calc(272px * var(--hud-k) * var(--fc-ui-scale));position:absolute;bottom:calc(100% + var(--hud-strip-h) + calc(6px * var(--hud-k) * var(--fc-ui-scale)));left:clamp(0px,calc(var(--tip-x,50%) - var(--tip-w) / 2),calc(100% - var(--tip-w)));z-index:var(--hud-z-tooltip);
+ box-sizing:border-box;width:var(--tip-w);padding:calc(8px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));display:none;flex-direction:column;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));pointer-events:none;
+ background:linear-gradient(180deg,#24221d,#1a1814);border-top:2px solid var(--hud-brass);box-shadow:0 0 0 1px #000,0 6px 18px rgba(0,0,0,.7),inset 0 1px 0 var(--hud-bevel-hi);
+ color:var(--hud-text-1);font:500 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.35 var(--fc-font-ui);text-transform:none;letter-spacing:0;text-align:left}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip[data-open=true]{display:flex}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip header{display:flex;align-items:baseline;justify-content:space-between;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip strong{font:700 calc(15px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-label);letter-spacing:.05em;text-transform:uppercase;color:var(--hud-text-1)}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip kbd{padding:0 calc(4px * var(--hud-k) * var(--fc-ui-scale));background:#0b0a09;color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip p{margin:0}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip-meta{display:flex;gap:calc(10px * var(--hud-k) * var(--fc-ui-scale));font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-mono);color:var(--hud-lcd)}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip-meta span+span{color:var(--hud-text-2)}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip-hint{color:var(--hud-text-1)}
+.battlefield-screen[data-hud] .hud-tray .tray-tooltip-detail{font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale));color:var(--hud-text-3)}
+
+/* ===== 6. Tier adjustments =============================================== */
+@media (min-width:1440px) and (min-height:840px){
+ .battlefield-screen[data-hud] .selection-tray.hud-tray{--key-w:min(calc(60px * var(--hud-k) * var(--fc-ui-scale)),calc(var(--hud-tray-w) * .1));--portrait:min(calc(88px * var(--hud-k) * var(--fc-ui-scale)),calc(var(--hud-tray-w) * .15))}
+}
+/* Keys stay icon + keycap at every tier (rows are ~26–31 px tall inside the
+   112/124/120 px tray); the label lives in the tooltip and the accessible name. */
+@media (min-width:1856px) and (min-height:1020px){
+ .battlefield-screen[data-hud] .hud-tray .card-key .icon{width:calc(20px * var(--hud-k) * var(--fc-ui-scale));height:calc(20px * var(--hud-k) * var(--fc-ui-scale))}
+}
+@media (max-height:760px){.battlefield-screen[data-hud] .hud-tray .tray-role{display:none}}
+
+/* ===== 7. Hauler routes popover (inside the tray) ======================== */
+.battlefield-screen[data-hud] .hud-tray .hauler-controls{position:static;margin:0;flex:none}
+.battlefield-screen[data-hud] .hud-tray .hauler-controls>summary{display:inline-flex;align-items:center;gap:calc(5px * var(--hud-k) * var(--fc-ui-scale));height:calc(20px * var(--hud-k) * var(--fc-ui-scale));padding:0 calc(6px * var(--hud-k) * var(--fc-ui-scale));list-style:none;cursor:pointer;
+ background:linear-gradient(180deg,#3d3a30,#2e2b25);box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-seam);color:var(--hud-text-1);font:600 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase}
+.battlefield-screen[data-hud] .hud-tray .hauler-controls>summary::-webkit-details-marker{display:none}
+.battlefield-screen[data-hud] .hud-tray .hauler-controls>summary b{font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-lcd);letter-spacing:0}
+.battlefield-screen[data-hud] .hud-tray .hauler-controls[open]>summary{box-shadow:inset 0 0 0 1px var(--hud-amber)}
+.battlefield-screen[data-hud] .hud-tray .hauler-controls-body{position:absolute;left:0;bottom:calc(100% + var(--hud-strip-h) + calc(6px * var(--hud-k) * var(--fc-ui-scale)));z-index:5;box-sizing:border-box;width:min(calc(360px * var(--hud-k) * var(--fc-ui-scale)),100%);max-height:min(60vh,calc(440px * var(--hud-k) * var(--fc-ui-scale)));overflow:auto;padding:calc(10px * var(--hud-k) * var(--fc-ui-scale));display:grid;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));
+ background:linear-gradient(180deg,#24221d,#1a1814);border-top:2px solid var(--hud-brass);box-shadow:0 0 0 1px #000,0 6px 18px rgba(0,0,0,.7);font:500 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.4 var(--fc-font-ui);color:var(--hud-text-1)}
+
+/* ===== 8. Overlay: alerts, orders, targeting bar, captions =============== */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active{position:fixed;inset:0 var(--hud-sb-w) 0 0;z-index:var(--hud-z-alerts);pointer-events:none;overflow:hidden}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .hud-feed-slot{position:absolute;left:var(--hud-edge);top:var(--hud-edge);width:var(--hud-alert-w);max-height:calc(100% - 2 * var(--hud-edge) - var(--hud-strip-h));display:flex;flex-direction:column;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));pointer-events:none}
+/* The menu sound pill sits top-left in battle; start the feed under it. */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .hud-feed{display:flex;flex-direction:column;gap:calc(3px * var(--hud-k) * var(--fc-ui-scale));margin:0;max-width:none;position:static;pointer-events:none}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert{position:relative;box-sizing:border-box;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));width:100%;min-height:calc(28px * var(--hud-k) * var(--fc-ui-scale));margin:0;padding:calc(4px * var(--hud-k) * var(--fc-ui-scale)) calc(8px * var(--hud-k) * var(--fc-ui-scale)) calc(4px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));
+ border:0;border-image:none;border-radius:0;border-left:calc(4px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-text-3);text-align:left;pointer-events:none;
+ background:linear-gradient(90deg,rgba(20,19,16,.94),rgba(20,19,16,.78));box-shadow:0 2px 6px rgba(0,0,0,.55),inset 0 1px 0 var(--hud-bevel-hi);
+ color:var(--hud-text-1);font:700 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.15 var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase;text-shadow:0 1px 0 #000;animation:hud-alert-in .18s ease-out}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active button.battle-alert{pointer-events:auto;cursor:pointer}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active button.battle-alert:hover{background:linear-gradient(90deg,rgba(40,36,28,.97),rgba(30,28,24,.86));box-shadow:0 2px 6px rgba(0,0,0,.55),inset 0 0 0 1px var(--hud-brass-dk)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert:focus-visible{outline:2px solid var(--fc-color-focus-ring,var(--hud-amber));outline-offset:1px}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert .icon{width:calc(16px * var(--hud-k) * var(--fc-ui-scale));height:calc(16px * var(--hud-k) * var(--fc-ui-scale));color:var(--hud-brass-hi)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert .alert-text{min-width:0;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow-wrap:break-word}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert .alert-count{color:var(--hud-lcd);font-family:var(--fc-font-mono);font-weight:400}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert .alert-age{font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-text-3);letter-spacing:0;text-transform:none}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert kbd{padding:0 calc(4px * var(--hud-k) * var(--fc-ui-scale));background:#0b0a09;color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000;letter-spacing:0;text-transform:none}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert.success{border-left-color:var(--hud-ok)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert.success .icon{color:var(--hud-ok)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert.warning{border-left-color:var(--hud-warn)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert.warning .icon{color:var(--hud-warn)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert.critical{border-left-color:var(--hud-critical);background:linear-gradient(90deg,rgba(74,20,12,.95),rgba(30,18,14,.84))}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert.critical .icon{color:#ff6a4c}
+/* Not colour alone: warning rows carry a notched bar, critical rows a double bar. */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert.warning::before{content:'';position:absolute;left:calc(-4px * var(--hud-k) * var(--fc-ui-scale));top:50%;width:calc(4px * var(--hud-k) * var(--fc-ui-scale));height:calc(6px * var(--hud-k) * var(--fc-ui-scale));margin-top:calc(-3px * var(--hud-k) * var(--fc-ui-scale));background:#141310}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert.critical::before{content:'';position:absolute;left:calc(1px * var(--hud-k) * var(--fc-ui-scale));top:0;bottom:0;width:calc(2px * var(--hud-k) * var(--fc-ui-scale));background:var(--hud-critical)}
+@keyframes hud-alert-in{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert{animation:none}}
+:root[data-reduced-motion='true']:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-alert{animation:none}
+
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-information-orders{display:flex;flex-direction:column;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));min-height:0;overflow:auto;pointer-events:none;scrollbar-width:thin;scrollbar-color:var(--hud-brass-dk) transparent}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-information-orders>*{pointer-events:auto;flex:none}
+
+/* Targeting / placement bar, top-centre of the world. */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .battle-information-target{--target-left:max(calc(var(--hud-world-cx) - var(--hud-target-w) / 2),calc(var(--hud-alert-w) + 2 * var(--hud-edge)));position:absolute;top:var(--hud-edge);left:var(--target-left);transform:none;width:var(--hud-target-w);max-width:calc(100% - var(--target-left) - var(--hud-edge));pointer-events:none;margin:0}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint{position:static;box-sizing:border-box;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:calc(3px * var(--hud-k) * var(--fc-ui-scale)) calc(8px * var(--hud-k) * var(--fc-ui-scale));width:100%;max-width:none;min-height:var(--hud-target-h);margin:0;padding:calc(4px * var(--hud-k) * var(--fc-ui-scale)) calc(5px * var(--hud-k) * var(--fc-ui-scale)) calc(4px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));pointer-events:auto;
+ background:linear-gradient(180deg,rgba(36,34,29,.97),rgba(22,21,18,.94));border:0;border-left:calc(4px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-amber);box-shadow:0 0 0 1px #000,0 3px 10px rgba(0,0,0,.6),inset 0 1px 0 var(--hud-bevel-hi);
+ color:var(--hud-text-1);font:700 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-label);letter-spacing:.05em;text-transform:uppercase;text-shadow:0 1px 0 #000}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint>.icon{flex:none;width:calc(18px * var(--hud-k) * var(--fc-ui-scale));height:calc(18px * var(--hud-k) * var(--fc-ui-scale));color:var(--hud-amber-hi)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint .hint-head{display:flex;align-items:baseline;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));min-width:0;overflow:hidden}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint .hint-head>strong{font:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint .hint-head>span{flex:none;font:calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);letter-spacing:0;text-transform:none;color:var(--hud-lcd)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint .hint-verdict{flex:none;display:inline-flex;align-items:center;gap:calc(5px * var(--hud-k) * var(--fc-ui-scale));padding:calc(2px * var(--hud-k) * var(--fc-ui-scale)) calc(6px * var(--hud-k) * var(--fc-ui-scale));background:var(--hud-well);box-shadow:inset 0 1px 2px #000;font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-label);letter-spacing:.08em}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint .hint-verdict i{display:block;width:calc(8px * var(--hud-k) * var(--fc-ui-scale));height:calc(8px * var(--hud-k) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=clear]{border-left-color:var(--hud-ok)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=clear] .hint-verdict{color:var(--hud-ok)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=clear] .hint-verdict i{background:var(--hud-ok);border-radius:50%}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=pending] .hint-verdict{color:var(--hud-amber-hi)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=pending] .hint-verdict i{border:calc(2px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-amber-hi);border-radius:50%;box-sizing:border-box}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=blocked]{border-left-color:var(--hud-danger)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=blocked] .hint-verdict{color:#ff8a70}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=blocked] .hint-verdict i{background:#ff8a70;clip-path:polygon(20% 0,50% 30%,80% 0,100% 20%,70% 50%,100% 80%,80% 100%,50% 70%,20% 100%,0 80%,30% 50%,0 20%)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint>small{grid-column:2 / -1;grid-row:2;margin:0;padding:0;font:500 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.25 var(--fc-font-ui);letter-spacing:0;text-transform:none;color:var(--hud-text-2);text-shadow:none}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint[data-verdict=blocked]>small{color:#f0b49a}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint>button{flex:none;display:inline-flex;align-items:center;gap:calc(6px * var(--hud-k) * var(--fc-ui-scale));height:calc(24px * var(--hud-k) * var(--fc-ui-scale));min-height:0;margin:0;padding:0 calc(6px * var(--hud-k) * var(--fc-ui-scale)) 0 calc(8px * var(--hud-k) * var(--fc-ui-scale));border:0;border-image:none;border-radius:0;
+ background:linear-gradient(180deg,#3d3a30,#2e2b25);box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-seam);color:var(--hud-text-1);font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint>button:hover{box-shadow:inset 0 1px 0 var(--hud-bevel-hi),0 0 0 1px var(--hud-brass)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint kbd{padding:0 calc(3px * var(--hud-k) * var(--fc-ui-scale));background:#0b0a09;color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000;letter-spacing:0}
+
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint .hint-power[data-power=ok]{color:var(--hud-ok)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint .hint-power[data-power=tight]{color:var(--hud-warn)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .targeting-hint .hint-power[data-power=over]{color:#ff8a70;text-decoration:underline dotted}
+
+/* Captions: bottom-centre of the world, above the tray; never take the pointer. */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .audio-captions{position:absolute;left:var(--hud-world-cx);right:auto;top:auto;bottom:calc(var(--hud-tray-h) + var(--hud-strip-h) + var(--hud-edge));transform:translateX(-50%);
+ width:min(calc(560px * var(--hud-k) * var(--fc-ui-scale)),calc(100% - 2 * var(--hud-edge)));max-width:none;max-height:calc(96px * var(--hud-k) * var(--fc-ui-scale));block-size:auto;margin:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:calc(3px * var(--hud-k) * var(--fc-ui-scale));pointer-events:none;z-index:auto;scrollbar-width:none}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .audio-captions p{margin:0;padding:calc(4px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));border-left:calc(3px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-brass);background:rgba(20,19,16,.86);color:var(--hud-text-1);font:500 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-ui);text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.5);white-space:normal}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .audio-captions p.critical{border-left-color:var(--hud-warn);color:#ffe1b9}
+
+/* Notices in battle: a compact strip under the targeting bar. Routine order
+   acknowledgements are dropped (world marker + unit voice acknowledge them). */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active~.notice.in-game{--notice-left:max(calc(var(--hud-world-cx) - var(--hud-target-w) / 2),calc(var(--hud-alert-w) + 2 * var(--hud-edge)));top:calc(var(--hud-edge) * 2 + var(--hud-target-h));bottom:auto;left:var(--notice-left);transform:none;width:max-content;max-width:min(var(--hud-target-w),calc(var(--hud-world-w) - var(--notice-left) - var(--hud-edge)));min-width:0;
+ box-sizing:border-box;padding:calc(5px * var(--hud-k) * var(--fc-ui-scale)) calc(6px * var(--hud-k) * var(--fc-ui-scale)) calc(5px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));border:0;border-left:calc(4px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-brass);background:linear-gradient(180deg,rgba(36,34,29,.96),rgba(22,21,18,.92));box-shadow:0 0 0 1px #000,0 3px 10px rgba(0,0,0,.6);
+ color:var(--hud-text-1);font:500 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-ui);z-index:var(--hud-z-target)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active~.notice.in-game .icon{width:calc(16px * var(--hud-k) * var(--fc-ui-scale));height:calc(16px * var(--hud-k) * var(--fc-ui-scale));color:var(--hud-brass-hi);flex:none}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active~.notice.in-game>button{min-width:calc(24px * var(--hud-k) * var(--fc-ui-scale));min-height:calc(24px * var(--hud-k) * var(--fc-ui-scale));width:calc(24px * var(--hud-k) * var(--fc-ui-scale));height:calc(24px * var(--hud-k) * var(--fc-ui-scale));padding:0;border:0;border-image:none;background:transparent;color:var(--hud-text-3);font-size:calc(16px * var(--hud-tk) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active~.notice.in-game>button:hover{color:var(--hud-text-1);background:rgba(255,255,255,.06)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active[data-notice=ack]~.notice.in-game{display:none}
+
+/* Objectives, training reminder and strike review in the top-left slot. */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .mission-objectives{position:static;box-sizing:border-box;width:100%;max-width:none;max-height:none;margin:0;padding:calc(8px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));overflow:visible;
+ background:linear-gradient(180deg,rgba(36,34,29,.95),rgba(22,21,18,.92));border:0;border-left:calc(4px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-brass);box-shadow:0 0 0 1px #000,0 3px 10px rgba(0,0,0,.55),inset 0 1px 0 var(--hud-bevel-hi);font-size:calc(13px * var(--hud-tk) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .mission-objectives-title{display:flex;align-items:center;justify-content:space-between;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale));margin:0 0 calc(4px * var(--hud-k) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .mission-objectives h3{margin:0;font:700 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-label);letter-spacing:.08em;text-transform:uppercase;color:var(--hud-text-1)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .mission-objectives p{margin:calc(3px * var(--hud-k) * var(--fc-ui-scale)) 0;font:500 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-ui);color:var(--hud-text-1);display:flex;gap:calc(6px * var(--hud-k) * var(--fc-ui-scale));align-items:flex-start}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .mission-objectives .icon{width:calc(14px * var(--hud-k) * var(--fc-ui-scale));height:calc(14px * var(--hud-k) * var(--fc-ui-scale));flex:none;margin-top:calc(2px * var(--hud-k) * var(--fc-ui-scale));color:var(--hud-brass-hi)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .mission-objectives button{font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .mission-objectives-title>button{min-width:calc(24px * var(--hud-k) * var(--fc-ui-scale));min-height:calc(24px * var(--hud-k) * var(--fc-ui-scale));width:calc(24px * var(--hud-k) * var(--fc-ui-scale));height:calc(24px * var(--hud-k) * var(--fc-ui-scale));padding:0;display:grid;place-items:center}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .mission-objectives summary{font:600 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-label);letter-spacing:.04em;text-transform:uppercase;color:var(--hud-brass-hi);cursor:pointer}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .tutorial-guide{position:static;width:auto;max-width:none;margin:calc(6px * var(--hud-k) * var(--fc-ui-scale)) 0 0;padding:calc(8px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));border:0;border-left:calc(3px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-amber);background:rgba(11,10,9,.6);box-shadow:none;display:grid;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .tutorial-guide>span{font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.1em;color:var(--hud-amber-hi)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .tutorial-guide>p{margin:0;font:500 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-ui);color:var(--hud-text-1)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .tutorial-guide>small{font:500 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-ui);color:var(--hud-text-2)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .tutorial-guide>button{justify-self:start;font-size:calc(12px * var(--hud-tk) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .strike-review{position:static;width:100%;max-width:none;max-height:none;margin:0;overflow:visible}
+
+/* ===== 9. Diagnostics overlay (opt-in) =================================== */
+:root:has(.battlefield-screen[data-hud]) .hud-diagnostics{position:fixed;left:var(--hud-edge);bottom:var(--hud-edge);z-index:var(--hud-z-alerts);box-sizing:border-box;width:min(calc(340px * var(--hud-k) * var(--fc-ui-scale)),calc(var(--hud-world-w) - var(--hud-tray-w) - 3 * var(--hud-edge)));min-width:calc(220px * var(--hud-k) * var(--fc-ui-scale));padding:calc(8px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));pointer-events:none;
+ background:rgba(11,10,9,.86);border-left:calc(3px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-text-3);box-shadow:0 0 0 1px #000;color:var(--hud-text-2);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.35 var(--fc-font-mono)}
+:root:has(.battlefield-screen[data-hud]) .hud-diagnostics h3{margin:0 0 calc(4px * var(--hud-k) * var(--fc-ui-scale));font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.1em;text-transform:uppercase;color:var(--hud-text-1)}
+:root:has(.battlefield-screen[data-hud]) .hud-diagnostics h3 small{margin-left:calc(6px * var(--hud-k) * var(--fc-ui-scale));color:var(--hud-text-3);font:inherit;letter-spacing:0}
+:root:has(.battlefield-screen[data-hud]) .hud-diagnostics dl{display:grid;grid-template-columns:auto 1fr;gap:calc(2px * var(--hud-k) * var(--fc-ui-scale)) calc(8px * var(--hud-k) * var(--fc-ui-scale));margin:0}
+:root:has(.battlefield-screen[data-hud]) .hud-diagnostics dt{color:var(--hud-text-3)}
+:root:has(.battlefield-screen[data-hud]) .hud-diagnostics dd{margin:0;overflow-wrap:anywhere}
+:root:has(.battlefield-screen[data-hud]) .hud-diagnostics ol{margin:calc(6px * var(--hud-k) * var(--fc-ui-scale)) 0 0;padding:calc(6px * var(--hud-k) * var(--fc-ui-scale)) 0 0;list-style:none;border-top:1px solid #2a2722;display:grid;gap:calc(2px * var(--hud-k) * var(--fc-ui-scale))}
+:root:has(.battlefield-screen[data-hud]) .hud-diagnostics li span{color:var(--hud-text-3);margin-right:calc(6px * var(--hud-k) * var(--fc-ui-scale))}
+
+/* ===== 10. Battle modals: pause, debrief, confirmations ================== */
+.battlefield-screen[data-hud] .modal:has(.pause-sheet){width:min(calc(440px * var(--hud-k) * var(--fc-ui-scale)),calc(100vw - 32px))}
+.battlefield-screen[data-hud] .pause-sheet{display:grid;gap:calc(12px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .pause-ident{display:flex;align-items:center;gap:calc(10px * var(--hud-k) * var(--fc-ui-scale));padding:0 0 calc(10px * var(--hud-k) * var(--fc-ui-scale));border-bottom:1px solid rgba(255,238,205,.08)}
+.battlefield-screen[data-hud] .pause-ident .emblem{width:calc(36px * var(--hud-k) * var(--fc-ui-scale));height:calc(36px * var(--hud-k) * var(--fc-ui-scale));color:var(--faction-accent,var(--hud-brass-hi));flex:none}
+.battlefield-screen[data-hud] .pause-ident div{display:flex;align-items:baseline;justify-content:space-between;gap:calc(10px * var(--hud-k) * var(--fc-ui-scale));flex:1;min-width:0}
+.battlefield-screen[data-hud] .pause-ident strong{font:700 calc(16px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase;color:var(--hud-text-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.battlefield-screen[data-hud] .pause-clock{font:calc(16px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:var(--hud-lcd)}
+.battlefield-screen[data-hud] .pause-note{margin:0;font:500 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.35 var(--fc-font-ui);color:var(--hud-text-2)}
+.battlefield-screen[data-hud] .pause-sheet .pause-menu{display:grid;gap:calc(10px * var(--hud-k) * var(--fc-ui-scale));grid-template-columns:none;margin:0}
+.battlefield-screen[data-hud] .pause-sheet .pause-group{display:grid;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .pause-sheet .pause-group+.pause-group{padding-top:calc(10px * var(--hud-k) * var(--fc-ui-scale));border-top:1px solid rgba(255,238,205,.07)}
+.battlefield-screen[data-hud] .pause-sheet .pause-menu button{display:grid;grid-template-columns:calc(20px * var(--hud-k) * var(--fc-ui-scale)) 1fr auto;align-items:center;gap:calc(10px * var(--hud-k) * var(--fc-ui-scale));width:100%;min-height:calc(40px * var(--hud-k) * var(--fc-ui-scale));padding:0 calc(10px * var(--hud-k) * var(--fc-ui-scale)) 0 calc(12px * var(--hud-k) * var(--fc-ui-scale));text-align:left;font:700 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.06em;text-transform:uppercase}
+.battlefield-screen[data-hud] .pause-sheet .pause-menu button .icon{width:calc(18px * var(--hud-k) * var(--fc-ui-scale));height:calc(18px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .pause-sheet .pause-menu button kbd{padding:0 calc(4px * var(--hud-k) * var(--fc-ui-scale));background:#0b0a09;color:var(--hud-lcd);font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-mono);box-shadow:inset 0 1px 2px #000;letter-spacing:0}
+.battlefield-screen[data-hud] .pause-sheet .pause-resume{min-height:calc(48px * var(--hud-k) * var(--fc-ui-scale))!important;font-size:calc(16px * var(--hud-tk) * var(--fc-ui-scale))!important}
+.battlefield-screen[data-hud] .pause-sheet .pause-danger button{color:#f0b49a}
+.battlefield-screen[data-hud] .pause-sheet .pause-danger button .icon{color:#e07a5f}
+.battlefield-screen[data-hud] .pause-sheet .pause-speed{display:grid;grid-template-columns:auto repeat(3,1fr);align-items:center;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));min-height:calc(40px * var(--hud-k) * var(--fc-ui-scale));padding:0 0 0 calc(12px * var(--hud-k) * var(--fc-ui-scale));background:var(--hud-well);box-shadow:inset 0 1px 3px #000}
+.battlefield-screen[data-hud] .pause-sheet .pause-speed>span{font:700 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.08em;text-transform:uppercase;color:var(--hud-text-2);padding-right:calc(6px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .pause-sheet .pause-speed button{display:block;min-height:calc(32px * var(--hud-k) * var(--fc-ui-scale));padding:0;text-align:center;font:calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);letter-spacing:0}
+.battlefield-screen[data-hud] .pause-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale)) calc(12px * var(--hud-k) * var(--fc-ui-scale));padding-top:calc(8px * var(--hud-k) * var(--fc-ui-scale));border-top:1px solid rgba(255,238,205,.07);font:500 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.35 var(--fc-font-ui);color:var(--hud-text-3)}
+
+.battlefield-screen[data-hud] .confirm-sheet{display:grid;gap:calc(12px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .confirm-sheet>p{margin:0;font:500 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1.4 var(--fc-font-ui);color:var(--hud-text-1)}
+.battlefield-screen[data-hud] .edge-compass{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:". n ." "w . e" ". s .";gap:calc(6px * var(--hud-k) * var(--fc-ui-scale));max-width:calc(300px * var(--hud-k) * var(--fc-ui-scale));margin:0 auto}
+.battlefield-screen[data-hud] .edge-compass button{display:flex;align-items:center;justify-content:center;gap:calc(6px * var(--hud-k) * var(--fc-ui-scale));min-height:calc(40px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .edge-compass [data-edge=north]{grid-area:n}.battlefield-screen[data-hud] .edge-compass [data-edge=south]{grid-area:s}.battlefield-screen[data-hud] .edge-compass [data-edge=west]{grid-area:w}.battlefield-screen[data-hud] .edge-compass [data-edge=east]{grid-area:e}
+.battlefield-screen[data-hud] .edge-compass .edge-arrow{width:calc(14px * var(--hud-k) * var(--fc-ui-scale));height:calc(14px * var(--hud-k) * var(--fc-ui-scale))}
+.battlefield-screen[data-hud] .edge-compass .edge-arrow.r180{transform:rotate(180deg)}.battlefield-screen[data-hud] .edge-compass .edge-arrow.r-90{transform:rotate(-90deg)}.battlefield-screen[data-hud] .edge-compass .edge-arrow.r90{transform:rotate(90deg)}
+
+/* Debrief: result banner plate. VICTORY brass, DEFEAT oxide red, DRAWN steel. */
+.battlefield-screen[data-hud] .debrief-sheet{display:grid;grid-template-columns:minmax(0,1fr);gap:calc(14px * var(--hud-k) * var(--fc-ui-scale));--result:var(--hud-brass-hi);--result-deep:#3a2e14}
+/* Polish pass: the sheet's single track may not grow past the modal (150% overflow), and the grid gap alone spaces sections. */
+.battlefield-screen[data-hud] .debrief-sheet>*{min-width:0;margin-block:0}
+.battlefield-screen[data-hud] .debrief-sheet[data-result=defeat]{--result:#d9694c;--result-deep:#3a1610}
+.battlefield-screen[data-hud] .debrief-sheet[data-result=drawn],.battlefield-screen[data-hud] .debrief-sheet[data-result=observed]{--result:#b9b4a6;--result-deep:#26251f}
+.battlefield-screen[data-hud] .debrief-banner{position:relative;display:flex;align-items:center;gap:calc(16px * var(--hud-k) * var(--fc-ui-scale));padding:calc(14px * var(--hud-k) * var(--fc-ui-scale)) calc(18px * var(--hud-k) * var(--fc-ui-scale));overflow:hidden;
+ background:linear-gradient(90deg,var(--result-deep),rgba(20,19,16,.9) 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 2px,transparent 2px 9px);
+ box-shadow:inset 0 0 0 1px #000,inset 0 2px 0 var(--result),0 3px 10px rgba(0,0,0,.5)}
+.battlefield-screen[data-hud] .debrief-banner .emblem{width:calc(64px * var(--hud-k) * var(--fc-ui-scale));height:calc(64px * var(--hud-k) * var(--fc-ui-scale));flex:none;color:var(--result);filter:drop-shadow(0 2px 0 #000)}
+.battlefield-screen[data-hud] .debrief-banner>div{display:grid;gap:calc(2px * var(--hud-k) * var(--fc-ui-scale));min-width:0}
+.battlefield-screen[data-hud] .debrief-kicker{font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.14em;text-transform:uppercase;color:var(--hud-text-2)}
+.battlefield-screen[data-hud] .debrief-result{font:800 calc(44px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-display);letter-spacing:.1em;text-transform:uppercase;color:var(--result);text-shadow:0 2px 0 #000}
+.battlefield-screen[data-hud] .debrief-banner p{margin:0;font:500 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-ui);color:var(--hud-text-1)}
+.battlefield-screen[data-hud] .debrief-clock{font-family:var(--fc-font-mono);color:var(--hud-lcd)}
+.battlefield-screen[data-hud] .debrief-sheet .debrief-table{width:100%;border-collapse:separate;border-spacing:0 calc(3px * var(--hud-k) * var(--fc-ui-scale));font:500 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-ui)}
+.battlefield-screen[data-hud] .debrief-sheet .debrief-table th{padding:calc(2px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));text-align:left;font:700 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.1em;text-transform:uppercase;color:var(--hud-text-3);background:none;border:0}
+.battlefield-screen[data-hud] .debrief-sheet .debrief-table td{padding:calc(7px * var(--hud-k) * var(--fc-ui-scale)) calc(10px * var(--hud-k) * var(--fc-ui-scale));background:rgba(11,10,9,.55);border:0;font-family:var(--fc-font-mono);color:var(--hud-text-1)}
+.battlefield-screen[data-hud] .debrief-sheet .debrief-table td:first-child{font:700 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-label);letter-spacing:.04em;box-shadow:inset calc(4px * var(--hud-k) * var(--fc-ui-scale)) 0 0 var(--row-team,var(--hud-text-3))}
+.battlefield-screen[data-hud] .debrief-sheet .debrief-table td:first-child small{color:var(--hud-text-3);font-weight:500}
+.battlefield-screen[data-hud] .debrief-sheet .debrief-table tr[data-own] td{background:rgba(60,52,30,.45)}
+.battlefield-screen[data-hud] .debrief-actions{display:flex;flex-wrap:wrap;gap:calc(8px * var(--hud-k) * var(--fc-ui-scale))}
+/* The banner states the result; the modal header keeps only the close key (the dialog keeps its accessible name). */
+.battlefield-screen[data-hud] .modal:has(.debrief-sheet)>header{min-height:0;padding-block:calc(4px * var(--hud-k) * var(--fc-ui-scale));border-bottom:0;justify-content:flex-end}
+.battlefield-screen[data-hud] .modal:has(.debrief-sheet)>header h2{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.battlefield-screen[data-hud] .debrief-actions .primary{min-width:calc(200px * var(--hud-k) * var(--fc-ui-scale))}
+
+/* Deployment countdown. */
+.battlefield-screen[data-hud] .countdown{position:absolute;left:var(--hud-world-cx);top:32%;transform:translate(-50%,-50%);z-index:var(--hud-z-target);display:grid;justify-items:center;gap:calc(4px * var(--hud-k) * var(--fc-ui-scale));padding:calc(10px * var(--hud-k) * var(--fc-ui-scale)) calc(28px * var(--hud-k) * var(--fc-ui-scale)) calc(12px * var(--hud-k) * var(--fc-ui-scale));pointer-events:none;
+ background:linear-gradient(180deg,rgba(36,34,29,.92),rgba(20,19,16,.88));box-shadow:0 0 0 1px #000,inset 0 2px 0 var(--hud-brass),0 6px 20px rgba(0,0,0,.6);border:0}
+.battlefield-screen[data-hud] .countdown span{font:700 calc(14px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);letter-spacing:.3em;text-transform:uppercase;color:var(--hud-text-2)}
+.battlefield-screen[data-hud] .countdown b{font:800 calc(64px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-display);color:var(--hud-amber-hi);text-shadow:0 3px 0 #000}
+
+.battlefield-screen[data-hud] .countdown-preparing{max-width:calc(var(--hud-world-w) - 2 * var(--hud-edge));text-align:center}
+.battlefield-screen[data-hud] .countdown-preparing span{letter-spacing:.1em;line-height:1.25}
+.battlefield-screen[data-hud] .countdown-preparing p{margin:0;font:500 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.35 var(--fc-font-ui);color:var(--hud-text-2)}
+
+/* Commander-lost countdown: pinned critical row at the top of the feed; the
+   sidebar fallback plate hides while the pinned row exists. */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .defeat-warning[data-pinned]{grid-template-columns:auto minmax(0,1fr) auto;min-height:calc(34px * var(--hud-k) * var(--fc-ui-scale));border-left-width:calc(6px * var(--hud-k) * var(--fc-ui-scale));pointer-events:auto;animation:none}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .defeat-warning[data-pinned] .defeat-icon{display:grid;place-items:center;width:calc(18px * var(--hud-k) * var(--fc-ui-scale));height:calc(18px * var(--hud-k) * var(--fc-ui-scale));background:var(--hud-critical);color:#1a0703;font:800 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-label);clip-path:polygon(50% 0,100% 100%,0 100%)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .defeat-warning[data-pinned] strong{color:#ffd2c4}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .defeat-warning[data-pinned] small{display:block;font:500 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-ui);letter-spacing:0;text-transform:none;color:#f0c8b8}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .defeat-warning[data-pinned] .defeat-timer{font:calc(20px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:#ff8a70;letter-spacing:0}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay.active .defeat-warning[data-pinned] .defeat-warning-others{display:flex;flex-wrap:wrap;gap:calc(2px * var(--hud-k) * var(--fc-ui-scale)) calc(8px * var(--hud-k) * var(--fc-ui-scale));font:calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.2 var(--fc-font-mono);letter-spacing:0;text-transform:none;color:#f0c8b8}
+.battlefield-screen[data-hud] .defeat-warning:not([data-pinned]){margin:0;padding:calc(6px * var(--hud-k) * var(--fc-ui-scale)) calc(8px * var(--hud-k) * var(--fc-ui-scale));border:0;border-left:calc(4px * var(--hud-k) * var(--fc-ui-scale)) solid var(--hud-critical);background:linear-gradient(90deg,rgba(74,20,12,.95),rgba(30,18,14,.9));box-shadow:inset 0 0 0 1px #000}
+.battlefield-screen[data-hud] .defeat-warning:not([data-pinned]) strong{display:flex;justify-content:space-between;align-items:baseline;font:700 calc(13px * var(--hud-tk) * var(--fc-ui-scale))/1.1 var(--fc-font-label);letter-spacing:.08em;color:#ffd2c4}
+.battlefield-screen[data-hud] .defeat-warning:not([data-pinned]) strong b{font:calc(16px * var(--hud-tk) * var(--fc-ui-scale))/1 var(--fc-font-mono);color:#ff8a70}
+.battlefield-screen[data-hud] .defeat-warning:not([data-pinned]) p{margin:calc(3px * var(--hud-k) * var(--fc-ui-scale)) 0 0;font:500 calc(12px * var(--hud-tk) * var(--fc-ui-scale))/1.3 var(--fc-font-ui);color:#f0c8b8}
+/* Polish pass: the mission disclosure panel (markup pinned by tests) keeps a 12 px text floor and drops the legacy olive-cyan tint. */
+:root:has(.battlefield-screen[data-hud]) .hud-overlay .mission-force-groups small{font:calc(12px * var(--fc-ui-scale))/1.35 var(--fc-font-mono);color:var(--hud-text-2,#BDB4A2)}
+:root:has(.battlefield-screen[data-hud]) .hud-overlay .objective-locations button{font-size:calc(12px * var(--fc-ui-scale))}

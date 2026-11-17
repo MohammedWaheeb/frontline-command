@@ -90,7 +90,9 @@
     const count = $(`[data-roster-count="${faction}"]`);
     if (count) {
       const withArt = list.filter((u) => u.art).length;
-      count.textContent = `${list.length} units from pkg/content/rules.json. ${withArt} have finished in-game renders; the rest need art.`;
+      count.textContent = withArt === list.length
+        ? `${list.length} units from pkg/content/rules.json, each shown with its in-game sprite and team paint.`
+        : `${list.length} units from pkg/content/rules.json. ${withArt} have finished in-game renders; the rest need art.`;
     }
     const chips = $(`[data-roster-filter="${faction}"]`);
     if (chips) {
@@ -158,6 +160,16 @@
       if (i < 0) return;
       if (e.key === "ArrowRight") select(tabs[(i + 1) % tabs.length], true);
       if (e.key === "ArrowLeft") select(tabs[(i - 1 + tabs.length) % tabs.length], true);
+    });
+  });
+
+  // ---- Copy buttons ----------------------------------------------------------------
+  $$("[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const text = $(btn.dataset.copy)?.textContent ?? "";
+      try { await navigator.clipboard.writeText(text.trim()); btn.textContent = "Copied"; }
+      catch { btn.textContent = "Select and copy"; }
+      setTimeout(() => (btn.textContent = "Copy"), 1800);
     });
   });
 

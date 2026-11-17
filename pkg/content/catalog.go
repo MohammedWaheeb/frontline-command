@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-const Version = "2.0.0"
+const Version = "2.0.1"
 
 //go:embed rules.json
 var baseRules []byte
@@ -221,7 +221,9 @@ func (p Pack) Validate() error {
 		if e := unique(w.ID); e != nil {
 			return e
 		}
-		if w.Damage <= 0 || w.Damage > 100000000 || w.IntervalTicks == 0 || w.MinRange < 0 || w.MaxRange <= w.MinRange || w.MaxRange > 256000 || w.Ammo < 0 || w.Ammo > 32 || w.Volley < 1 || w.Volley > 8 || w.WindupTicks == 0 {
+		// Splash is copied onto sim projectiles, which saves cap at 10000;
+		// windup/spacing cannot exceed the sim's maximum match length.
+		if w.Damage <= 0 || w.Damage > 100000000 || w.IntervalTicks == 0 || w.MinRange < 0 || w.MaxRange <= w.MinRange || w.MaxRange > 256000 || w.Ammo < 0 || w.Ammo > 32 || w.Volley < 1 || w.Volley > 8 || w.WindupTicks == 0 || w.WindupTicks > 216000 || w.VolleySpacingTicks > 216000 || w.Splash < 0 || w.Splash > 10000 {
 			return fmt.Errorf("invalid weapon %s", w.ID)
 		}
 		switch w.Kind {
@@ -240,9 +242,11 @@ func (p Pack) Validate() error {
 		}
 		roles[b.Role] = true
 	}
+	// Prerequisites name roles, so the cycle graph is keyed by role; every
+	// building providing a role contributes its prerequisites to that role.
 	deps := map[string][]string{}
 	for _, b := range p.Buildings {
-		deps[b.ID] = b.Prerequisites
+		deps[b.Role] = append(deps[b.Role], b.Prerequisites...)
 		for _, r := range b.Prerequisites {
 			if !roles[r] {
 				return fmt.Errorf("missing prerequisite %s", r)
@@ -268,7 +272,7 @@ func (p Pack) Validate() error {
 		return nil
 	}
 	for _, b := range p.Buildings {
-		if e := visit(b.ID); e != nil {
+		if e := visit(b.Role); e != nil {
 			return e
 		}
 	}
@@ -295,6 +299,16 @@ func (p Pack) Validate() error {
 	}
 	matrix := map[string]bool{}
 	for _, a := range p.Armor {
+		switch a.Weapon {
+		case "small", "auto", "cannon", "antiarmor", "shell", "antiair", "airground", "tactical":
+		default:
+			return fmt.Errorf("unknown armor weapon class %s", a.Weapon)
+		}
+		switch a.Armor {
+		case "infantry", "light", "heavy", "structure", "air":
+		default:
+			return fmt.Errorf("unknown armor class %s", a.Armor)
+		}
 		k := a.Weapon + ":" + a.Armor
 		if matrix[k] || a.Multiplier < 0 || a.Multiplier > 2000 {
 			return fmt.Errorf("invalid armor multiplier %s", k)

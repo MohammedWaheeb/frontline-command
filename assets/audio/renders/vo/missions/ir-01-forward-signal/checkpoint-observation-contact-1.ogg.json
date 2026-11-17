@@ -4,35 +4,60 @@
   "caption": "Your observers have reached the ridge. Protect their position and complete the supply link.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: Your observers have reached the ridge. Protect their position and complete the supply link.",
-  "source_hash": "4c1849040d24cb7616f68734850283664b4c1b0523ec11ae033fee5e255aa627",
+  "source_hash": "101cae874e3ae4408743ad6f81acc8aaae98c43bc250b17325be221026ba6af9",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-01-forward-signal/checkpoint-observation-contact-1.ogg",
-  "duration": 5.54875,
+  "duration": 5.579958333333333,
   "channels": 1,
-  "bytes": 46598,
-  "sha256": "84babbb383b9db12524e8c02e2080a50d0133278b2155ed6073f63e598872a78",
+  "bytes": 31825,
+  "sha256": "d43d9235b6f604399e2ab586d34019d5d6277c8ea1d6a33f669235a9e964ec36",
   "mp3_url": "/art/audio/vo/missions/ir-01-forward-signal/checkpoint-observation-contact-1.mp3",
-  "mp3_bytes": 90284,
-  "mp3_sha256": "bd7fa550c2abec4547194cd5eaa074133adc21addc12214f16b2edb1b7d1a095",
-  "peak": 0.7787389755249023,
-  "rms": 0.11321301758289337,
+  "mp3_bytes": 45356,
+  "mp3_sha256": "b50bd05f44f38b35fbd66303f664634f94b97079980697750fa9719beeb1bf76",
+  "peak": 0.5957859754562378,
+  "rms": 0.140385702252388,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

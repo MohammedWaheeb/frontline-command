@@ -7,6 +7,8 @@ import {authoredArtId} from './art-id';
 import {isShahed} from './shahed-presentation';
 import {artUIKeys} from '../content/art-ui';
 import {makeAlphaMask,alphaInFrame,type AlphaMask} from './alpha-picking';
+import {atlasResolution} from './atlas-resolution';
+import {qualityForBuild} from './build-art-profile';
 import type {EffectDescriptor} from '../content/effect-assets.mjs';
 
 export interface ArtIndex {effects?:EffectDescriptor;format:1;sprites:Record<string,string>;terrain:string[];portraits:string[];buildIcons?:string[];chrome:string[];icons:boolean;emblems:boolean}
@@ -14,6 +16,7 @@ export interface SpriteState {name:string;part:string;directions:number;frames:n
 export interface SpriteMeta {
  id:string;faction?:string;frame_size_2x:[number,number];anchor_2x:[number,number];layers:string[];
  atlases:Record<'1x'|'2x',Record<string,string[]>>;states:SpriteState[];
+ atlas_resolution?:Partial<Record<'1x'|'2x',number>>;
  aliases?:Array<{name:string;source:string;reverse?:boolean;progress_driven?:boolean}>;
  footprint_tiles?:[number,number]|null;footprint_radius_mt?:number|null;turret_pivot_mt?:[number,number]|null;
  squad?:{members:number;member_offsets_mt:[number,number][]}|null;air?:{cruise_altitude_mt:number}|null;
@@ -41,7 +44,7 @@ export class SpriteSheet {
   for(const page of pages)for(const key of Object.keys(page.descriptors))this.lookup.set(`${page.layer}|${key}`,page);
  }
  /** Screen scale that converts this atlas to 1× world pixels. */
- get pixelScale(){return this.scale==='2x'?0.5:1}
+ get pixelScale(){return 1/atlasResolution(this.meta,this.scale)}
  get statistics(){return {indexedPages:this.pages.length,residentPages:this.pages.filter(page=>page.texture).length,residentBytes:this.pages.reduce((sum,page)=>sum+(page.texture?page.bytes:0),0),pickingBytes:this.pages.reduce((sum,page)=>sum+(page.alpha?.bits.byteLength??0),0)}}
  private key(layer:string,state:string,direction:number,index:number){return `${layer}|${state}/d${String(direction).padStart(2,'0')}_f${String(index).padStart(2,'0')}`}
  sourceFrame(state:string,direction:number,index:number){
@@ -143,7 +146,7 @@ export class ArtLibrary {
  scale:'1x'|'2x'='1x';
  private releaseWork:Promise<void>=Promise.resolve();private sheetWork:Promise<void>=Promise.resolve();
  private loaded=new Set<SpriteSheet>();private failedRetirements=new Set<SpriteSheet>();
- configure(quality:'auto'|'high'|'standard'){this.scale=quality==='high'?'2x':'1x'}
+ configure(quality:'auto'|'high'|'standard'){this.scale=qualityForBuild(quality)==='high'?'2x':'1x'}
  get statistics(){return [...this.loaded].reduce((sum,sheet)=>{const next=sheet.statistics;return {indexedPages:sum.indexedPages+next.indexedPages,residentPages:sum.residentPages+next.residentPages,residentBytes:sum.residentBytes+next.residentBytes,pickingBytes:sum.pickingBytes+next.pickingBytes}},{indexedPages:0,residentPages:0,residentBytes:0,pickingBytes:0})}
  /** Copy logical ownership without loading, touching or releasing any asset.
   * Sheet charges include retained old generations; encoded counters name only
@@ -288,6 +291,9 @@ export class ArtLibrary {
   const dir=direction??(state.directions>=16?Math.round(state.directions*3/16)%state.directions:state.directions>=8?1:0);
   const frameKey=`${state.name}/d${String(dir).padStart(2,'0')}_f00`;
   const canvas=document.createElement('canvas');const [w,h]=meta.frame_size_2x;canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d')!;
+  // The fallback portrait keeps logical 2x framing when export textures use
+  // a smaller physical resolution. World anchors/hardpoints stay in 2x units.
+  const toLogical=2/atlasResolution(meta,'2x');
   // Turreted vehicles combine hull and aim layers at matching headings.
   const parts:[string,string][]=[[state.name,frameKey]];
   if(state.part==='hull'&&meta.states.some(s=>s.name==='aim')){const aim=meta.states.find(s=>s.name==='aim')!;parts.push(['aim',`aim/d${String(Math.round(dir*aim.directions/state.directions)%aim.directions).padStart(2,'0')}_f00`])}
@@ -303,8 +309,8 @@ export class ArtLibrary {
       t.drawImage(img,f.frame.x,f.frame.y,f.frame.w,f.frame.h,0,0,f.frame.w,f.frame.h);
       t.globalCompositeOperation='multiply';t.fillStyle=teamColor;t.fillRect(0,0,f.frame.w,f.frame.h);
       t.globalCompositeOperation='destination-in';t.drawImage(img,f.frame.x,f.frame.y,f.frame.w,f.frame.h,0,0,f.frame.w,f.frame.h);
-      ctx.drawImage(tmp,0,0);
-     }else ctx.drawImage(img,f.frame.x,f.frame.y,f.frame.w,f.frame.h,0,0,f.frame.w,f.frame.h);
+      ctx.drawImage(tmp,0,0,f.frame.w*toLogical,f.frame.h*toLogical);
+     }else ctx.drawImage(img,f.frame.x,f.frame.y,f.frame.w,f.frame.h,0,0,f.frame.w*toLogical,f.frame.h*toLogical);
      void partState;break;
     }
    }

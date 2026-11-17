@@ -80,30 +80,62 @@ async function handle(method:string,args:any[]){
  default:throw new RuntimeError('invalid_method','Unknown worker operation.');
  }
 }
+// Go's binary bridge allocates an independent JS Uint8Array per reply.
+// Move that owned buffer for large save/replay results, as frame() already
+// does for snapshots. Metadata and partial/shared views retain clone semantics.
+function replyTransfer(result:any):Transferable[]{
+ const data=result instanceof Uint8Array?result:result?.data;
+ return data instanceof Uint8Array&&data.buffer instanceof ArrayBuffer&&data.byteOffset===0&&data.byteLength===data.buffer.byteLength?[data.buffer]:[];
+}
 let serial=Promise.resolve();
 scope.addEventListener('message',event=>{
  const {id,method,args=[]}=event.data??{};
  if(!Number.isSafeInteger(id)||typeof method!=='string')return;
  serial=serial.then(async()=>{
-  try{const result=await handle(method,args);scope.postMessage({id,ok:true,result})}
+  try{const result=await handle(method,args);scope.postMessage({id,ok:true,result},replyTransfer(result))}
   catch(error){const e=RuntimeError.from(error);scope.postMessage({id,ok:false,error:{code:e.code,message:e.message,recoverable:e.recoverable,details:e.details}})}
  });
 });
+// Pace telemetry: once per second of running wall time the worker reports the
+// achieved simulation rate (1 = real time at the chosen speed) and tick cost,
+// so the HUD can show a slowdown instead of an apparent freeze.
+const TICK_BUDGET_MS=8,SLOW_TICK_MS=150;
+let paceStart=performance.now(),paceTicks=0,paceCost=0,paceMax=0;
+function resetPace(now:number){paceStart=now;paceTicks=0;paceCost=0;paceMax=0}
+function reportPace(now:number){
+ const span=now-paceStart;if(span<1000)return;
+ const expected=span/50*speed,rate=expected>0?Math.min(1,paceTicks/expected):1;
+ scope.postMessage({event:'pace',rate,tickMs:paceTicks?paceCost/paceTicks:0,maxTickMs:paceMax,tick:info?.tick??0});
+ resetPace(now);
+}
 const timer=setInterval(()=>{
  const now=performance.now(),elapsed=now-last;last=now;
- if(!active||paused||disposed)return;
+ if(!active||paused||disposed){resetPace(now);return}
  // A throttled solo worker slows simulation time; it never jumps thousands of
  // ticks or modifies an online clock. The UI receives a visible stalled signal.
  const stalled=elapsed>1000;
  accumulator=Math.min(250,accumulator+Math.max(0,Math.min(elapsed,250))*speed);
- const ticks=Math.floor(accumulator/50);if(ticks===0)return;accumulator-=ticks*50;
+ const due=Math.floor(accumulator/50);
+ if(due===0){reportPace(now);return}
  try{
-  // Publish each authoritative tick, even during bounded catch-up.
-  for(let i=0;i<ticks&&!info?.finished;i++){
+  // Publish each authoritative tick, even during bounded catch-up. A task
+  // spends at most about TICK_BUDGET_MS (always at least one tick) and then
+  // yields, so orders, pause and other requests are handled between slow
+  // ticks instead of queueing behind a multi-tick burst. Unrun debt stays in
+  // the clamped accumulator: an overloaded match slows down, it never skips.
+  const start=performance.now();
+  for(let ran=0;ran<due&&!info?.finished;){
+   const before=performance.now();
    info=call('step',1);priority();
-   if((info?.tick??0)-lastFrame>=2||info?.finished)frame();
+   const cost=performance.now()-before;
+   ran++;accumulator-=50;paceTicks++;paceCost+=cost;paceMax=Math.max(paceMax,cost);
+   if(cost>SLOW_TICK_MS)console.warn(`Frontline simulation tick ${info?.tick??0} took ${Math.round(cost)} ms`);
+   const yieldNow=performance.now()-start>=TICK_BUDGET_MS;
+   if((info?.tick??0)-lastFrame>=2||info?.finished||yieldNow)frame();
+   if(yieldNow)break;
   }
   if(info?.finished){paused=true;clock()}
   else if(stalled)clock(true);
+  reportPace(performance.now());
  }catch(error){paused=true;const e=RuntimeError.from(error);scope.postMessage({event:'error',error:{code:e.code,message:e.message,recoverable:e.recoverable}});clock()}
 },10);

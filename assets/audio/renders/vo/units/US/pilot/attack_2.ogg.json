@@ -3,35 +3,60 @@
   "path": "vo/units/US/pilot/attack_2.ogg",
   "caption": "Weapons ready. Taking the shot.",
   "faction": "US",
-  "voice": "af_bella",
-  "speed": 1.06,
+  "voice": "am_michael",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "b8ebf1d65165fc3b5c13f5afb1616810829364d56565bbeb4a206fe5460cf58e",
+  "source_hash": "6b45aba65c748d20294221a2783fbb1f91add0b61b9d5eba597ae590d5bf400c",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/pilot/attack_2.ogg",
-  "duration": 1.937625,
+  "duration": 1.9200416666666666,
   "channels": 1,
-  "bytes": 19829,
-  "sha256": "45fe42730403207a58a4fc3a44642a566a3bbcfc048b8e7f9f6890e52413650e",
+  "bytes": 14834,
+  "sha256": "7a891824dde69a1ad9894c6d132633f5edbca5a67611729d5b95413181a503a3",
   "mp3_url": "/art/audio/vo/units/US/pilot/attack_2.mp3",
-  "mp3_bytes": 32300,
-  "mp3_sha256": "3e24bc8189c213961ceefad564dd78af2a336fd1d68117013662d617271be478",
-  "peak": 0.7830002307891846,
-  "rms": 0.09386742860078812,
+  "mp3_bytes": 16172,
+  "mp3_sha256": "9ea24f65e6ac842e10456cb6fefa6c2a0297b403efb696c860505808a8882992",
+  "peak": 0.7378349900245667,
+  "rms": 0.14090584218502045,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

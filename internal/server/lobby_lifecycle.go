@@ -3,11 +3,52 @@ package server
 import (
 	"frontlinecommand/pkg/sim"
 	"net/http"
+	"sync"
 	"time"
+	"weak"
 )
 
+const lobbyHostGrace = 2 * time.Minute
+const lobbyHostOffline = 15 * time.Second
+
+type lobbyHostLease struct {
+	host string
+	seen time.Time
+}
+
+// Weak keys keep presence local to the lobby lifetime, including lobbies removed
+// by invitation/ranked paths. No credential, simulation or persistent state lives here.
+var lobbyHostLeases sync.Map // weak.Pointer[Lobby] -> lobbyHostLease
+
+// Callers hold s.mu; the table also permits independent Server instances.
+func noteLobbyHost(l *Lobby, profile string, now time.Time) {
+	if l.MatchID == "" && profile == l.Host {
+		lobbyHostLeases.Store(weak.Make(l), lobbyHostLease{host: l.Host, seen: now})
+	}
+}
+func lobbyHostSeen(l *Lobby, now time.Time) time.Time {
+	key := weak.Make(l)
+	if value, ok := lobbyHostLeases.Load(key); ok {
+		lease := value.(lobbyHostLease)
+		if lease.host == l.Host {
+			return lease.seen
+		}
+		// Explicit host migration grants the replacement a fresh polling window.
+		lease = lobbyHostLease{host: l.Host, seen: now}
+		lobbyHostLeases.Store(key, lease)
+		return now
+	}
+	return time.Unix(l.Created, 0)
+}
+func lobbyHostAvailable(l *Lobby, now time.Time) bool {
+	return l.MatchID != "" || now.Sub(lobbyHostSeen(l, now)) < lobbyHostOffline
+}
+
 // Caller holds s.mu. Finished match goroutines close done before removal.
-func (s *Server) pruneLobbies() {
+func (s *Server) pruneLobbies() { s.pruneLobbiesAt(time.Now()) }
+
+// An explicit clock keeps host-loss/grace-boundary tests deterministic.
+func (s *Server) pruneLobbiesAt(now time.Time) {
 	for id, m := range s.matches {
 		select {
 		case <-m.done:
@@ -16,10 +57,17 @@ func (s *Server) pruneLobbies() {
 		}
 	}
 	for id, l := range s.lobbies {
-		if l.MatchID != "" && s.matches[l.MatchID] == nil || l.MatchID == "" && time.Now().Unix()-l.Created > 3600 {
+		if l.MatchID != "" && s.matches[l.MatchID] == nil || l.MatchID == "" && now.Sub(lobbyHostSeen(l, now)) >= lobbyHostGrace {
 			delete(s.lobbies, id)
+			lobbyHostLeases.Delete(weak.Make(l))
 		}
 	}
+	lobbyHostLeases.Range(func(key, _ any) bool {
+		if key.(weak.Pointer[Lobby]).Value() == nil {
+			lobbyHostLeases.Delete(key)
+		}
+		return true
+	})
 }
 func nextLobbyPlayer(l *Lobby) sim.PlayerID {
 	for id := sim.PlayerID(1); id <= 4; id++ {

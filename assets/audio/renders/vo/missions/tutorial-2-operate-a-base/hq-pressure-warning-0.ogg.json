@@ -3,36 +3,61 @@
   "path": "vo/missions/tutorial-2-operate-a-base/hq-pressure-warning-0.ogg",
   "caption": "The old HQ will be attacked at two minutes. Keep the factory and 4,700 credits for an emergency rig plus replacement HQ safe.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "INSTRUCTOR: The old HQ will be attacked at two minutes. Keep the factory and 4,700 credits for an emergency rig plus replacement HQ safe.",
-  "source_hash": "c0b63b77af959b357b63665280281d46456f10e71c5f6f9b82ef46efbe90733e",
+  "source_hash": "52064946e626986df7a468c2087cbd9bd097883006a0d8daf8dc4abc00c81898",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/tutorial-2-operate-a-base/hq-pressure-warning-0.ogg",
-  "duration": 9.270375,
+  "duration": 9.298416666666666,
   "channels": 1,
-  "bytes": 81931,
-  "sha256": "d2f506bcc67fb3d89fd13884498a63e4de7b06e0d16d3ebf23ae5212eb0593b2",
+  "bytes": 56330,
+  "sha256": "367063d37eae7d6fdc4712749393ec4a50308d768f86e0e2a8b66455a6caf355",
   "mp3_url": "/art/audio/vo/missions/tutorial-2-operate-a-base/hq-pressure-warning-0.mp3",
-  "mp3_bytes": 149804,
-  "mp3_sha256": "5cdcc559e2f7ea5d23a8c5ca0d3145bd8717a611981e8a9238062315549a428f",
-  "peak": 0.7998315691947937,
-  "rms": 0.07157210260629654,
+  "mp3_bytes": 75116,
+  "mp3_sha256": "1f629c3a8b46d2d1ef3e300c9157b230b40e7cc8c578143c98915fd26e0e8df1",
+  "peak": 0.7839387059211731,
+  "rms": 0.11146531999111176,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

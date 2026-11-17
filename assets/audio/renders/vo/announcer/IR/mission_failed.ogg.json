@@ -4,34 +4,59 @@
   "caption": "The mission has failed. Review the operation and try again.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "f08aa0b5203aa5e217f1e828d1016198046698617ec3bc90dffc2ae0854acd56",
+  "source_hash": "9946c62f628e1eb017a9f418a271caa64aa0cf10aa211dc8a25b4dc2604d6b15",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/IR/mission_failed.ogg",
-  "duration": 3.8215416666666666,
+  "duration": 3.8429583333333333,
   "channels": 1,
-  "bytes": 33464,
-  "sha256": "a0b21d1c72df2625528dad414e64340a3bd8a0cbdb4f897f217b443a96f4565f",
+  "bytes": 23248,
+  "sha256": "73db19435108e45901cf5b9a1a1983441ad4ef391ad7c0b89db2297f4ccc154c",
   "mp3_url": "/art/audio/vo/announcer/IR/mission_failed.mp3",
-  "mp3_bytes": 62636,
-  "mp3_sha256": "831b4c0b7de4b2c8d211f8c5d326caf37854b9406443f43fac5cfb41ab17639f",
-  "peak": 0.740837812423706,
-  "rms": 0.1402708739042282,
+  "mp3_bytes": 31532,
+  "mp3_sha256": "a3663633217c302de9f6f6129e752cfec5c7efe8da80ab7b1ce52aa5dd8df39d",
+  "peak": 0.4922774136066437,
+  "rms": 0.14056776463985443,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

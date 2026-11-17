@@ -3,36 +3,61 @@
   "path": "vo/missions/us-01-first-foothold/pressure-warning-2-0.ogg",
   "caption": "Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "WATCH: Hostile column 2 is approaching the northwestern pass. Expected entry varies with difficulty; screen the marked approach.",
-  "source_hash": "2b95bb4205a9dbd79ca4625300d453d9ed192b792e303ed0b199ac0a2c1a2d83",
+  "source_hash": "e6bc7524718b474929761a6d914baae0f8a185a42e26381db88aefcf5f62f5df",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-01-first-foothold/pressure-warning-2-0.ogg",
-  "duration": 7.38125,
+  "duration": 7.685833333333333,
   "channels": 1,
-  "bytes": 68167,
-  "sha256": "729c7881ca41e84729d5af85bdd2f5c4777bb16f2ffd918fa324d650e3d27385",
+  "bytes": 47148,
+  "sha256": "1ed58a2b5938acd89e7605cb9b56abfcb2e1bc12e380852df148063448edfc33",
   "mp3_url": "/art/audio/vo/missions/us-01-first-foothold/pressure-warning-2-0.mp3",
-  "mp3_bytes": 119468,
-  "mp3_sha256": "e4029e228c7fd7fac056ab72885d041aaf41f3a54eb5221aecebfbabd3859309",
-  "peak": 0.7771359086036682,
-  "rms": 0.08496583253145218,
+  "mp3_bytes": 62252,
+  "mp3_sha256": "cebc3b090ea5088434f706d0747729b3eda0e1ccb10361ace0c8b248614d862b",
+  "peak": 0.7907667756080627,
+  "rms": 0.12949839234352112,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

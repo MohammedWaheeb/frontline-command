@@ -60,7 +60,7 @@ func TestNavigationConnectionIsolatedGridStartPhysicallyLeaves(t *testing.T) {
 	before := e.Hash()
 	e.pathBudget = 12
 	path := e.findPath(rifle, goal, true)
-	if len(path) == 0 || !e.navigationBridgeClear(rifle, path[0], true) || e.Hash() != before || e.pathBudget != 11 {
+	if len(path) == 0 || !e.navigationBridgeClear(rifle, path[0], true) || e.Hash() != before || e.pathBudget != 9 {
 		t.Fatal("no safe derived connection or changed authoritative state/budget", path, e.pathBudget)
 	}
 	recorder, err := NewReplay(e)

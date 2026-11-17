@@ -1,34 +1,60 @@
 # Local development and packaging
 
 The actual product client, Go host, solo worker and authored content are present.
-The current player scope is three skirmish maps, five tutorials, practice, both
-co-op scenarios and multiplayer; Campaign and Editor are hidden. See the
-[release checks](../work/release-readiness-20261013/REPORT.md) for current evidence.
+The current player scope is six default skirmish battlefields, five tutorials,
+practice, both co-op scenarios and multiplayer; Campaign, commander mastery
+(Command Record) and the map Editor are available (unhidden on 2026-10-20). See
+[release-fix receipts](release-fix-receipts-2026-10-20.md) for current evidence
+and remaining open items.
 `dev` and `build` require the product client and never substitute a test harness.
 Building successfully does not certify complete art or gameplay acceptance.
 
 | Command | Current behavior |
 |---|---|
 | `make doctor` | Checks pinned Go, Node/npm, protoc/generator and installed dependencies; lists missing game output |
-| `make dev` | Builds Go/WASM, starts Go on localhost:8080 and the product dev client on localhost:5173; Ctrl-C stops both |
+| `make dev` | Builds Go/WASM and a verified client snapshot, then starts Go on localhost:8080 and the live product UI on localhost:5173; Ctrl-C stops both |
 | `make test` | Shipping Go packages with `-short`, vet, both TypeScript projects, packaging and runtime tests; archived experiments are excluded |
-| `make test-extended` | Same checks with full shipping Go tests and `-timeout=30m`; includes long tests gated by `testing.Short()` |
+| `make test-extended` | **Required pre-release gate.** Same checks with full shipping Go tests and `-timeout=120m` per package; includes long tests gated by `testing.Short()`. Budget about 90 minutes wall-clock for the full authored set |
 | `make test-browser` | Actual Go/WASM, storage, offline reload and LAN integration in installed Chromium, Firefox and WebKit |
 | `make check-content` | Requires complete launch/campaign/tutorial/co-op inventory and validates each mission's opening save on all difficulties |
 | `make build` | Validates complete content, builds runtime/product client, assembles a native package with licenses and checksums |
+| `make demo` | Verifies every packaged file and native platform, starts the existing production package on 127.0.0.1:8080, opens the browser after readiness, and preserves package `data/`; reuses a matching running demo |
 | `make play` | Runs the native package on localhost using the repository's `.local` data directory |
 | `make lan` | Explicit LAN host binding; prints join addresses |
 
 Both test commands check `./cmd/... ./internal/... ./pkg/... ./protocol/...`.
 `make test` is the routine regression command; it skips long authored mission,
 practice and performance courses that explicitly honor Go's `testing.Short()`.
-`make test-extended` preserves those courses, including retained campaign tests
-outside the current player release. Tests requiring `FRONTLINE_*` opt-in variables
+`make test-extended` preserves those courses, including the campaign tests
+for the campaign unhidden on 2026-10-20. Tests requiring `FRONTLINE_*` opt-in variables
 or external artifacts still require their documented setup. Neither command
 automatically runs browser acceptance, physical-device LAN, or human playtests.
 Skipped tests remain unverified; a short-suite pass does not certify their
 acceptance. Run the relevant dedicated tutorial/co-op/endurance courses for the
 current release and retain their separate results.
+
+No player release may be tagged without a passing `make test-extended` run on
+the exact release tree. `make test` alone is not a release gate: it skips the
+long authored courses. `go build ./...` and `go vet ./...` also work from the
+repository root; `work/go.mod` keeps archived experiment snapshots under
+`work/` outside the shipping module, so standard tooling does not load them.
+
+The five Go↔TypeScript wire-parity tests in `client/tests/runtime/`
+(`mission-public-tasks.test.ts`, `mission-public-tasks-wire.test.ts`) skip
+unless native evidence is generated first. Generate it with the Go test that
+owns the snapshots, then run the client runtime suite with the same variable:
+
+```sh
+FRONTLINE_MISSION_PUBLIC_TASK_WIRE_EVIDENCE="$PWD/work/evidence/mission-public-task-wire" \
+  go test ./internal/viewproto/ -run TestCanonicalMissionPublicTaskAuthorizedNativeSnapshots -count=1
+FRONTLINE_MISSION_PUBLIC_TASK_WIRE_EVIDENCE="$PWD/work/evidence/mission-public-task-wire" \
+  npm --prefix client run test:runtime
+```
+
+The Go test writes four `.player-snapshot.pb` / `.view.json` pairs (human and
+Normal-AI allies, owners 1 and 2). With the variable set, the five parity
+tests must run and pass; a run that reports them skipped is not wire-parity
+evidence. This generation is part of the pre-release gate above.
 
 Install pinned client dependencies with `npm --prefix client ci`. Install test
 browsers with `node client/node_modules/playwright-core/cli.js install chromium
@@ -43,7 +69,10 @@ directory to its own PATH without modifying the user's shell configuration.
 Claude supplies `client/package.json` scripts `dev` (Vite-compatible arguments)
 and `build`, preserving existing runtime/check scripts and pinned dependencies.
 The product dev server proxies `/api` and `/ws` to localhost:8080 so the same
-typed APIs operate in development. Its build emits `client/dist/index.html` and
+typed APIs operate in development. Vite keeps the root page and source modules
+live for HMR while serving integrity-bound art, content, runtime and offline-pack
+files from the verified `client/dist` snapshot. Restart `make dev` after changing
+assets or content so their descriptors and bytes remain consistent. Its build emits `client/dist/index.html` and
 all required local assets, runtime files and cache-pack manifests under
 `client/dist`. No CDN/runtime generation request may be needed for play.
 The packager copies validated local outputs; it does not generate or transcode
@@ -81,7 +110,7 @@ files, choose another output directory:
 FRONTLINE_PACKAGE_DIR=dist/frontline-release-darwin-arm64 node scripts/local.mjs build
 ```
 
-The override also selects the package used by `play` and `lan`; supply the same
+The override also selects the package used by `demo`, `play` and `lan`; supply the same
 variable when running those commands. Relative paths resolve from the source
 root. Outputs inside the source tree must be beneath `dist/`; source directories
 and ancestors are rejected, including symlink aliases. Existing packages at the
@@ -94,8 +123,51 @@ testing remain separate release checks. See [local-package.md](local-package.md)
 for end-user launching/data behavior. `make play` uses repository `.local`;
 standalone launchers use the package's own `data/` directory.
 
+For presenting, use `make demo` with the prepared production package. It needs
+Node and Make, but no installed npm dependencies or Go compiler. It checks the
+complete package inventory and SHA-256 hashes, including assets, before starting
+the native host. It opens the browser once the production health, page and offline
+manifest match the package. It uses normal host settings and the packaged client;
+it does not rebuild or run a development server. A conflicting service on port
+8080 is reported without terminating it or changing the demo's browser origin.
+Keep the terminal open and press Ctrl-C to stop a host started by this command.
+If the demo was already running, its original terminal continues to own it.
+`make demo` and standalone `Play.command` share package `data/`; `make play`
+continues to use repository `.local`.
+
 No infrastructure is deployed. Future hosting is described in
 [deployment-plan.md](deployment-plan.md).
+
+## LAN hosting
+
+With a current native package available, run `make lan` (or
+`node scripts/local.mjs lan` on Windows). This explicitly opts into LAN access
+and binds `0.0.0.0:8080`; normal `make play` remains localhost-only. The command
+prints the host's game page and copyable **LAN join addresses**. Open the host
+page on the hosting computer and share a LAN address such as
+`http://192.168.1.10:8080` with the other players. Each player opens that address
+in their own browser, then enters the lobby invite code. They should use the
+host's page rather than connect from a separately running copy of the game.
+
+Keep the host process running throughout the match. Players must be on a trusted
+shared network; plain LAN HTTP/WebSocket traffic is not encrypted. If another
+process already uses port 8080, the command exits without replacing it. A native
+host can choose another port, for example
+`./frontline -lan -addr 0.0.0.0:8081`; share the address with that same port.
+If no LAN address appears, check the network connection and listener binding.
+A specific-interface bind advertises only that interface, and a loopback bind
+does not advertise LAN addresses even when `-lan` is set.
+
+The UI can read `GET /api/v1/host` on the connected host. It returns
+`{ "lan_enabled": true, "join_urls": ["http://192.168.1.10:8080"], "message": "…" }`
+with copy-friendly URLs and player guidance. Without explicit LAN opt-in it
+returns `lan_enabled: false`, an empty `join_urls` array and instructions to run
+`make lan`; request headers cannot enable discovery. The endpoint uses the same
+origin restrictions and read budget as the other APIs, requires no profile, and
+is not cached. The actual bound port is used, including OS-assigned ports.
+
+These checks do not establish firewall reachability or physical multi-device
+LAN acceptance; verify those on the intended network separately.
 
 ## Packaging integrity and updates (29 September 2026)
 

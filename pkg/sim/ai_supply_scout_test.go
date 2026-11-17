@@ -63,8 +63,8 @@ func TestAISupplyScoutPreservesWorkAndBoundsFailedRoutes(t *testing.T) {
 	}
 }
 
-// Construct undiscovered supplies before New earns its first public memory.
-// Moving fields after New does not erase legitimate last-observed knowledge.
+// Explicit synthetic unknown-field control: ordinary New now grants public
+// starting-field memory even when its position lies outside starting sight.
 func aiSupplyScoutHiddenFixture(t testing.TB) *Engine {
 	t.Helper()
 	m := fixtureMap()
@@ -72,8 +72,11 @@ func aiSupplyScoutHiddenFixture(t testing.TB) *Engine {
 		m.Fields[i].Position = Vec{X: 54000, Y: 12000 + int32(i)*10000}
 	}
 	e, err := New(content.MustBase(), Config{Map: m, Seed: 42, Players: []PlayerConfig{{ID: 1, Name: "Alpha", Faction: "US", Team: 1}, {ID: 2, Name: "Bravo", Faction: "IR", Team: 2}}})
-	if err != nil { t.Fatal(err) }
+	if err != nil {
+		t.Fatal(err)
+	}
 	e.state.Countdown = 0
+	e.player(1).KnownFields = nil
 	view, ok := e.PlayerView(1)
 	if !ok || len(view.Fields) != 0 || len(view.KnownFields) != 0 || len(e.player(1).AIFields) != 0 {
 		t.Fatal("hidden supply fixture began with current or remembered public stock")
@@ -198,6 +201,8 @@ func TestAISupplyWorkerUsesNormalMoveThenGather(t *testing.T) {
 	p := e.player(1)
 	p.AI = "normal"
 	p.Credits = 0
+	// This fixture tests recovery without the ordinary public starting field.
+	p.KnownFields = nil
 	e.spawn("supply", 1, Vec{X: 16000, Y: 15000}, true, 0)
 	worker := e.spawn("US.hauler", 1, Vec{X: 19000, Y: 16000}, true, 0)
 	worker.Orders = []Order{{Kind: "gather"}}

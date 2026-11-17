@@ -3,35 +3,60 @@
   "path": "vo/units/US/pilot/repair_1.ogg",
   "caption": "Repair team is on the job.",
   "faction": "US",
-  "voice": "af_bella",
-  "speed": 1.06,
+  "voice": "am_michael",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "6c5585bfc3072204c07fd605ac0f742a07c1b576548857a4a172f57023f2eacc",
+  "source_hash": "97b1eb0671bd25af6ad6b97225f70bcef84a03c1bb8113a32015a62d2b6ed33c",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/pilot/repair_1.ogg",
-  "duration": 1.3923333333333334,
+  "duration": 1.6943333333333332,
   "channels": 1,
-  "bytes": 15609,
-  "sha256": "ab34c1d93b433846d8fef21866ab6d5db1ce6362dfd97a90b73262917d2eb39a",
+  "bytes": 13371,
+  "sha256": "af3cf4f29f3f137e1384426dc72e2bdb543460fcf32f20d46b927ca1c824f208",
   "mp3_url": "/art/audio/vo/units/US/pilot/repair_1.mp3",
-  "mp3_bytes": 23852,
-  "mp3_sha256": "b99f04ee797197966f89683d61580fd5f16b307f1500b29aa90bb29907d9477b",
-  "peak": 0.774601936340332,
-  "rms": 0.0842529833316803,
+  "mp3_bytes": 14252,
+  "mp3_sha256": "fe88817e8eed1998460bea4269656be069d92548d4763b9bcf9456ad63029410",
+  "peak": 0.8539503216743469,
+  "rms": 0.13783811032772064,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -16,9 +16,11 @@ function invalid():never{throw new RuntimeError('invalid_advice','The host retur
 function stringList(value:unknown):value is string[]{return Array.isArray(value)&&value.length<=256&&value.every(item=>typeof item==='string'&&item.length<=80)&&new Set(value).size===value.length}
 function parseAdvice(value:any,player:number,entities:readonly number[],orders:readonly OrderIntent[],independent=false):CommandAdvice{
  if(!value||value.player!==player||!tick(value.tick)||!stringList(value.player_commands)||!Array.isArray(value.entities)||value.entities.length!==entities.length||!Array.isArray(value.results)||value.results.length!==orders.length)invalid();
+ if(value.economy!==undefined&&(!value.economy||!Number.isSafeInteger(value.economy.supply_cap)||value.economy.supply_cap<0||value.economy.supply_cap>100))invalid();
  const seen=new Set<number>();const authorized=new Set(entities);
  const parsed:EntityAffordance[]=value.entities.map((entity:any)=>{
   if(!entity||!id(entity.id)||!authorized.has(entity.id)||seen.has(entity.id)||!stringList(entity.commands)||!stringList(entity.abilities)||!stringList(entity.builds)||!stringList(entity.trains)||!stringList(entity.research))invalid();
+  if(entity.sell_refund!==undefined&&(!Number.isSafeInteger(entity.sell_refund)||entity.sell_refund<0||entity.sell_refund>100000000)||entity.construction_stalled!==undefined&&typeof entity.construction_stalled!=='boolean')invalid();
   const statuses:ProductionStatus[]=[];const statusKeys=new Set<string>();
   if(entity.production_status!==undefined){
    if(!Array.isArray(entity.production_status)||entity.production_status.length>256)invalid();
@@ -29,14 +31,14 @@ function parseAdvice(value:any,player:number,entities:readonly number[],orders:r
     statusKeys.add(key);statuses.push({kind:status.kind,type:status.type,code:status.code,...status.waits_for!==undefined?{waits_for:status.waits_for}:{}});
    }
   }
-  seen.add(entity.id);return {id:entity.id,commands:[...entity.commands],abilities:[...entity.abilities],builds:[...entity.builds],trains:[...entity.trains],research:[...entity.research],...entity.production_status!==undefined?{production_status:statuses}:{}};
+  seen.add(entity.id);return {id:entity.id,commands:[...entity.commands],abilities:[...entity.abilities],builds:[...entity.builds],trains:[...entity.trains],research:[...entity.research],...entity.sell_refund!==undefined?{sell_refund:entity.sell_refund}:{},...entity.construction_stalled!==undefined?{construction_stalled:entity.construction_stalled}:{},...entity.production_status!==undefined?{production_status:statuses}:{}};
  });
  const results:AdviceOrderResult[]=value.results.map((result:any,index:number)=>{
   if(!result||result.player!==player||result.index!==index||result.tick!==value.tick||result.sequence!==0||typeof result.accepted!=='boolean'||typeof result.code!=='string'||result.code.length>80||result.accepted!==(result.code==='ok'||result.code==='indeterminate'))invalid();
   return {player,index,sequence:0,tick:value.tick,accepted:result.accepted,code:result.code};
  });
  const plans=parseOperationPlans(value.plans,orders,value.tick,independent);
- return {tick:value.tick,player,entities:parsed,player_commands:[...value.player_commands],results,...plans!==undefined?{plans}:{}};
+ return {tick:value.tick,player,entities:parsed,player_commands:[...value.player_commands],results,...value.economy!==undefined?{economy:{supply_cap:value.economy.supply_cap}}:{},...plans!==undefined?{plans}:{}};
 }
 async function boundedJSON(response:Response):Promise<any>{
  if(!response.body)invalid();const reader=response.body.getReader(),chunks:Uint8Array[]=[];let size=0;

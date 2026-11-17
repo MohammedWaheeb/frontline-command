@@ -195,12 +195,53 @@ func (e *Engine) aiInBuildRadius(p *Player, typ string, pos Vec) bool {
 func (e *Engine) aiConstructionPosition(p *Player, typ string, center Vec) (Vec, bool) {
 	b, _ := e.buildingRule(typ)
 	known := e.aiPlacementKnowledge(p)
-	for r := int32(4000); r <= 13000; r += 2000 {
-		for _, d := range neighbors {
-			pos := Vec{X: (center.X + d.X*r) / 500 * 500, Y: (center.Y + d.Y*r) / 500 * 500}
-			if e.aiInBuildRadius(p, typ, pos) && known.validPlacement(p.ID, pos, b.Width, b.Height) == "ok" {
-				return pos, true
+	legal := func(pos Vec) bool {
+		return e.aiInBuildRadius(p, typ, pos) && known.validPlacement(p.ID, pos, b.Width, b.Height) == "ok"
+	}
+	around := func(center Vec) (Vec, bool) {
+		for r := int32(4000); r <= 13000; r += 2000 {
+			for _, d := range neighbors {
+				pos := Vec{X: (center.X + d.X*r) / 500 * 500, Y: (center.Y + d.Y*r) / 500 * 500}
+				if legal(pos) {
+					return pos, true
+				}
 			}
+		}
+		// Dense bases can occupy every spoke while legal ground remains
+		// between them. Walk expanding square rings on the tile grid in
+		// a fixed order, out to the ordinary build radius.
+		for ring := int32(1000); ring <= 14000; ring += 1000 {
+			for dy := -ring; dy <= ring; dy += 1000 {
+				for dx := -ring; dx <= ring; dx += 1000 {
+					if abs(dx) != ring && abs(dy) != ring {
+						continue
+					}
+					pos := Vec{X: (center.X + dx) / 500 * 500, Y: (center.Y + dy) / 500 * 500}
+					if legal(pos) {
+						return pos, true
+					}
+				}
+			}
+		}
+		return Vec{}, false
+	}
+	if pos, ok := around(center); ok {
+		return pos, true
+	}
+	// A saturated primary base must not drop the tier for the cycle:
+	// retry around the player's other build-range structures, in stable
+	// entity order.
+	tried := 0
+	for _, v := range e.state.Entities {
+		if v.Owner != p.ID || v.Position == center || e.buildRange(v) == 0 {
+			continue
+		}
+		if pos, ok := around(v.Position); ok {
+			return pos, true
+		}
+		tried++
+		if tried >= 8 {
+			break
 		}
 	}
 	return Vec{}, false

@@ -3,36 +3,61 @@
   "path": "vo/missions/us-02-open-corridor/checkpoint-valley-entry-1.ogg",
   "caption": "The convoy has cleared a branch. Keep aircraft service capacity ready for the final stretch.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: The convoy has cleared a branch. Keep aircraft service capacity ready for the final stretch.",
-  "source_hash": "f861ae36ac4223906d83259b559d770fc4f3d548a2c85108a244aba34c1cb7d5",
+  "source_hash": "41b78fa9e3de52ae7ac51822c1effdeb6736dc6fd32d7a0765fd94d23e517170",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-02-open-corridor/checkpoint-valley-entry-1.ogg",
-  "duration": 5.532541666666667,
+  "duration": 5.499666666666666,
   "channels": 1,
-  "bytes": 52068,
-  "sha256": "bae430684ca06d5a30e178dff199ec9b374ec2ce9f1ffb8d1b5af59f4949f707",
+  "bytes": 36078,
+  "sha256": "dce08e16144609901d4a0eb19454839d845076fd85989435b88aca3960325d8f",
   "mp3_url": "/art/audio/vo/missions/us-02-open-corridor/checkpoint-valley-entry-1.mp3",
-  "mp3_bytes": 89900,
-  "mp3_sha256": "6e1c92b3d89d28079054a46aad79337fa6a80cec5a090d89a1ad3fe1b6af16d1",
-  "peak": 0.7873886823654175,
-  "rms": 0.09591606259346008,
+  "mp3_bytes": 44780,
+  "mp3_sha256": "68c993d4f7c985469daa379e99f8b7cb217af9141af1c2104654bcc326c9c91e",
+  "peak": 0.8086743950843811,
+  "rms": 0.1257649064064026,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

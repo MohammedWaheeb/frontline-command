@@ -3,36 +3,61 @@
   "path": "vo/missions/sy-04-open-doors/checkpoint-evacuation-contact-1.ogg",
   "caption": "The team has reached the rear. Keep the original network operational until the pressure window closes.",
   "faction": "SY",
-  "voice": "bf_emma",
-  "speed": 1.02,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: The team has reached the rear. Keep the original network operational until the pressure window closes.",
-  "source_hash": "91040944c8e1bec7d287db0a9b943eed63a13afd45fe95245a57ae0f2fd54a20",
+  "source_hash": "6a4468cdeeabd40b44d1d11b5428e6f180ce1e76a8c26aa27adbce822a2e055c",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sy-04-open-doors/checkpoint-evacuation-contact-1.ogg",
-  "duration": 5.513,
+  "duration": 6.476125,
   "channels": 1,
-  "bytes": 50686,
-  "sha256": "cc621119aa24386397e6db3453260b4b3ece6c5ab0e64e167e0be089dddd41bc",
+  "bytes": 40627,
+  "sha256": "d8b6d9012cb733676b8bc6fd460ec79d57af17f7b8b345312afa78cf6fafc743",
   "mp3_url": "/art/audio/vo/missions/sy-04-open-doors/checkpoint-evacuation-contact-1.mp3",
-  "mp3_bytes": 89516,
-  "mp3_sha256": "20e8d53bdac882cf7bfacbacde7f28c68771a2580a3360f742ecf4bdd8185f4c",
-  "peak": 0.7614576816558838,
-  "rms": 0.07809537649154663,
+  "mp3_bytes": 52460,
+  "mp3_sha256": "fcc65411b4ec7d81d5e2afe9abd9633cd1dd45ac0795f5ed1c2eb74c30c2f4ea",
+  "peak": 0.7529377937316895,
+  "rms": 0.10641004890203476,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

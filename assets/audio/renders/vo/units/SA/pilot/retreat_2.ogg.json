@@ -4,34 +4,59 @@
   "caption": "Breaking contact. Return to cover.",
   "faction": "SA",
   "voice": "am_michael",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "ee3190efb6eed9cc802458a8c9418b2b5b0f853e76e679d8e78b15e761cd7520",
+  "source_hash": "60af0e8f757c63c582e5c201aac4f68db1ecf6316c9bc7dc4f91d7e30dc446f2",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/pilot/retreat_2.ogg",
-  "duration": 2.548,
+  "duration": 2.438625,
   "channels": 1,
-  "bytes": 25139,
-  "sha256": "994a6748008804d3b5de1dd2c156a357b3b475804ae765f8b1c3ef59aa6a4e22",
+  "bytes": 17372,
+  "sha256": "fb692680de7ebdb151fb36f0665713a6abfb33370d71ff85545a1b5b3cb5aea0",
   "mp3_url": "/art/audio/vo/units/SA/pilot/retreat_2.mp3",
-  "mp3_bytes": 42284,
-  "mp3_sha256": "1a4df4f81b98772a19bd4899c24534d98f88b82469f89202244ec528fc4b6b59",
-  "peak": 0.7765806913375854,
-  "rms": 0.10151306539773941,
+  "mp3_bytes": 20204,
+  "mp3_sha256": "fb2e2ea12ae78a4de21c4039602764c65e10edf12f236509ad37ce8a4593d162",
+  "peak": 0.6751255989074707,
+  "rms": 0.14065852761268616,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

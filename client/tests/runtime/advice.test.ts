@@ -133,3 +133,26 @@ test('advice pacing starts after dispatch even when request setup is delayed',as
   assert.deepEqual(calls,[1200,1460]);assert.deepEqual(delays,[260]);
  }finally{source.dispose();globalThis.fetch=originalFetch;globalThis.URL=OriginalURL}
 });
+
+
+test('HUD advice extensions survive decoding; legacy fields stay absent',async()=>{
+ const original=globalThis.fetch;
+ try{
+  const data:any=frame();data.economy={supply_cap:100};Object.assign(data.entities[0],{sell_refund:450000,construction_stalled:true});
+  globalThis.fetch=async()=>Response.json(data);
+  const result=await new OnlineCommandAdvice('http://localhost',connection).request([2]);
+  assert.deepEqual(result.economy,{supply_cap:100});assert.equal(result.entities[0].sell_refund,450000);assert.equal(result.entities[0].construction_stalled,true);
+  data.economy.supply_cap=0;data.entities[0].sell_refund=0;data.entities[0].construction_stalled=false;
+  const zero=await new OnlineCommandAdvice('http://localhost',connection).request([2]);assert.equal(zero.economy?.supply_cap,0);assert.equal(zero.entities[0].construction_stalled,false);
+  globalThis.fetch=async()=>Response.json(frame());const legacy=await new OnlineCommandAdvice('http://localhost',connection).request([2]);
+  assert.equal('economy' in legacy,false);assert.equal('sell_refund' in legacy.entities[0],false);assert.equal('construction_stalled' in legacy.entities[0],false);
+ }finally{globalThis.fetch=original}
+});
+test('HUD advice rejects malformed caps, refunds and stall flags',async()=>{
+ const original=globalThis.fetch;
+ try{for(const patch of [
+  {economy:null},{economy:{}},{economy:{supply_cap:-1}},{economy:{supply_cap:101}},{economy:{supply_cap:1.5}},{economy:{supply_cap:'100'}},
+  ...[-1,100000001,0.5,'450000',null].map(sell_refund=>({entity:{sell_refund}})),
+  ...[0,'false',null].map(construction_stalled=>({entity:{construction_stalled}})),
+ ]){const data:any=frame();const {entity,...rest}=patch as any;Object.assign(data,rest);Object.assign(data.entities[0],entity);globalThis.fetch=async()=>Response.json(data);await assert.rejects(new OnlineCommandAdvice('http://localhost',connection).request([2]),(error:any)=>error.code==='invalid_advice')}}finally{globalThis.fetch=original}
+});

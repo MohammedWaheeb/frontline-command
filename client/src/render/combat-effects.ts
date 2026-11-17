@@ -42,9 +42,9 @@ export class CombatEffects {
   const keys=new Set(this.history.values.map(c=>c.key));for(const key of this.elevations.keys())if(!keys.has(key))this.elevations.delete(key);
  }
  private request(id:string){
-  if(this.requested.has(id)||this.closed)return;this.requested.add(id);
+  if(this.closed||this.requested.has(id)&&!this.library.canRetry(id))return;this.requested.add(id);
   if(!this.library.has(id)){this.missing.add(id);return}
-  void this.library.load(id).then(sheet=>{if(this.closed)return;this.sheets.set(id,sheet);if(!sheet)this.missing.add(id);this.revision++});
+  void this.library.load(id).then(sheet=>{if(this.closed)return;this.sheets.set(id,sheet);if(sheet)this.missing.delete(id);else this.missing.add(id);this.revision++});
  }
  private clearSprites(){for(const {sprite} of this.sprites.values())sprite.destroy();this.sprites.clear()}
  private clearLabels(){for(const {text,back} of this.labels.values()){text.destroy();back.destroy()}this.labels.clear()}
@@ -77,7 +77,7 @@ export class CombatEffects {
   const variant=combatEffectVariant(settings),key=`${this.revision}:${snapshot.tick}:${zoom}:${variant}:${viewport.left}:${viewport.top}:${viewport.right}:${viewport.bottom}`;
   // Pending pages may resolve without a new snapshot. Frame() triggers loading;
   // a ready-page count participates in the key, and settle() invalidates it.
-  const cacheKey=key+':'+this.library.statistics.residentPages+':'+[...attachments].map(([id,p])=>`${id}/${p.x}/${p.y}/${p.rotation}`).join(';')+':'+[...ambientPoints].map(([id,p])=>`${id}/${p.x}/${p.y}`).join(';');if(cacheKey===this.drawKey)return;this.drawKey=cacheKey;
+  const cacheKey=key+':'+this.library.statistics.residentPages+':'+this.library.retryKey+':'+[...attachments].map(([id,p])=>`${id}/${p.x}/${p.y}/${p.rotation}`).join(';')+':'+[...ambientPoints].map(([id,p])=>`${id}/${p.x}/${p.y}`).join(';');if(cacheKey===this.drawKey)return;this.drawKey=cacheKey;
   const g=this.marks.clear(),px=1/zoom,usedSprites=new Set<string>(),usedLabels=new Set<string>();let decorative=0;
   this.stats={cues:this.history.values.length,drawnCues:0,confirmedHits:0,cover:0,intercepted:0,decoys:0,trails:0,decorations:0,labels:0,ambientCues:this.ambient.values.length,ambientDrawn:0};
   const line=(points:Point[],color=BRASS,width=1.4,alpha=1,close=false)=>{if(!points.length)return;g.moveTo(points[0].x,points[0].y);for(const p of points.slice(1))g.lineTo(p.x,p.y);if(close)g.closePath();g.stroke({color,width:width*px,alpha})};

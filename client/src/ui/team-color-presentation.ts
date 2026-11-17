@@ -1,5 +1,6 @@
 import {ownerTeamColor,type PublicColorOwner,type TeamPaletteScheme} from '../design/team-colors';
 import {selectionPortraitIdentity} from './selection-portrait-identity';
+import {teamColorName} from './menu/kit/ColorSwatchPicker';
 
 export type PublicTeamOwner=PublicColorOwner&{name?:string;team?:number};
 export type PublicTeamRelation='self'|'ally'|'enemy'|'neutral'|'unknown';
@@ -39,7 +40,7 @@ export function teamColorLabel(owner:number,players:readonly PublicTeamOwner[],v
  const name=player?.name?.trim()||(owner===0?'Neutral':'Unknown commander');
  const faction=player?.faction||'Faction unassigned';
  const teamValue=player?.team,team=typeof teamValue==='number'&&Number.isSafeInteger(teamValue)&&teamValue>0?`Team ${teamValue}`:'Team unassigned';
- const slot=paint.slot===null?'Color unassigned':`Color slot ${paint.slot}`;
+ const slot=paint.slot===null?'Color unassigned':`${teamColorName(paint.slot,scheme)} (color ${paint.slot})`;
  const relationLabel={self:'Your command',ally:'Allied command',enemy:'Opposing command',neutral:'Neutral',unknown:'Unknown relation'}[relation];
  return {paint,relation,label:`${name} · ${faction} · ${team} · ${slot} · ${relationLabel}`};
 }

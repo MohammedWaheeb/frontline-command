@@ -36,6 +36,9 @@ func (s *Server) lobbyLimit() int {
 	if s.cfg.LoadProfile == Loopback500LoadProfile {
 		return 125
 	}
+	if s.cfg.MaxLobbies > 0 {
+		return s.cfg.MaxLobbies
+	}
 	return 64
 }
 

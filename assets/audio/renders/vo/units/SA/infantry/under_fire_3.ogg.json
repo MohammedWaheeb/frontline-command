@@ -4,34 +4,59 @@
   "caption": "Contact at our location. Reinforce us.",
   "faction": "SA",
   "voice": "bm_george",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "65fefcb9c3b7b4d48066485c435a3918bfc1347250dfcf9f31997cb5906ef37d",
+  "source_hash": "dac2b1789e2267426a43ff9a1bb7cb9d9401877a69a138d656e87cb2bc00451e",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/infantry/under_fire_3.ogg",
-  "duration": 3.2175833333333332,
+  "duration": 3.1616666666666666,
   "channels": 1,
-  "bytes": 27419,
-  "sha256": "2dfcfa4f7eb488f7b4105bbf4f5c4170529b334e11d03fb506053e0b20223e02",
+  "bytes": 19017,
+  "sha256": "bda993736c767d06ae93d7602608709bec3c645410d3587fcf3acdb884fbae45",
   "mp3_url": "/art/audio/vo/units/SA/infantry/under_fire_3.mp3",
-  "mp3_bytes": 53036,
-  "mp3_sha256": "dc14efcfce52d744c7787b71dfa9d63cf99f94974e7785cf284635dd9b8877e7",
-  "peak": 0.7827585339546204,
-  "rms": 0.11942242085933685,
+  "mp3_bytes": 25964,
+  "mp3_sha256": "bf6217e30ed33e58a1a33fc0bde46f97aaf73613976c700e1bf3d231bb1c085a",
+  "peak": 0.6393595933914185,
+  "rms": 0.1404421180486679,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

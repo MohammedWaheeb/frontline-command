@@ -38,15 +38,15 @@ async function pin(root,source){
  if(!(await lstat(source)).isFile())throw Error('Art input must be a regular file');
  return {path:path.relative(root,source).split(path.sep).join('/'),...await fileDigest(source)};
 }
-export async function capturePresentationInputs(root){
- root=await realpath(root);const client=await captureClientInputs(root),{index,sources}=await artPackageSources(path.join(root,'assets'));
+export async function capturePresentationInputs(root,{profile=process.env.FRONTLINE_ART_PROFILE??'standard'}={}){
+ root=await realpath(root);const client=await captureClientInputs(root),{index,sources}=await artPackageSources(path.join(root,'assets'),{profile});
  const outputs=[],inputMap=new Map(client.files.map(row=>[row.path,row]));
  const publicFiles=client.files.filter(row=>row.path.startsWith('client/public/')&&!row.directory);
  const seen=new Set(publicFiles.map(row=>row.path.slice('client/public/'.length)));
  for(const output of ['index.html','art/index.json','assets/packs/base.json','build-assets.json']){if(seen.has(output))throw Error(`Public/generated build destination collision: ${output}`);seen.add(output)}
- for(const {source,output} of sources){
+ for(const {source,output,data} of sources){
   portablePath(output);if(seen.has(output))throw Error(`Public/art build destination collision: ${output}`);seen.add(output);
-  const row=await pin(root,source);inputMap.set(row.path,row);outputs.push({path:output,source:row.path,bytes:row.bytes,sha256:row.sha256});
+  const row=await pin(root,source);inputMap.set(row.path,row);outputs.push({path:output,source:row.path,bytes:data?.length??row.bytes,sha256:data===undefined?row.sha256:hash(data)});
  }
  // CSS imports have separate hashed Vite outputs, but reference these same
  // original font/chrome bytes. Include every file in both source directories.
@@ -64,10 +64,10 @@ export async function capturePresentationInputs(root){
  const files=[...inputMap.values()].sort((a,b)=>a.path.localeCompare(b.path));outputs.sort((a,b)=>a.path.localeCompare(b.path));
  const contentIndexBytes=await readFile(path.join(root,'content/index.json'));
  if(hash(contentIndexBytes)!==inputMap.get('content/index.json')?.sha256)throw Error('Authored content index changed during input capture');
- return {...identity(files),authoredClientSHA256:identity(client.files.filter(row=>!generated.has(row.path))).sha256,outputs,outputSHA256:hash(JSON.stringify(outputs)),contentIndex:JSON.parse(contentIndexBytes.toString('utf8'))};
+ return {...identity(files),artProfile:profile,authoredClientSHA256:identity(client.files.filter(row=>!generated.has(row.path))).sha256,outputs,outputSHA256:hash(JSON.stringify(outputs)),contentIndex:JSON.parse(contentIndexBytes.toString('utf8'))};
 }
 export async function verifyPresentationProduct(root,product,expected){
- const current=await capturePresentationInputs(root);requireSameInputs(expected,current,'product build');
+ const current=await capturePresentationInputs(root,{profile:expected.artProfile??'standard'});requireSameInputs(expected,current,'product build');
  if(expected.outputSHA256!==current.outputSHA256)throw Error('Art source-to-product mapping changed during build');
  const pack=JSON.parse(await readFile(path.join(product,'assets/packs/base.json'),'utf8'));
  for(const row of expected.outputs){
@@ -95,7 +95,7 @@ export async function verifyPresentationProduct(root,product,expected){
   const actual=await fileDigest(path.join(product,item.file));if(actual.sha256!==original.sha256||actual.bytes!==original.bytes)throw Error(`Vite asset differs from captured source: ${item.file}`);verified.add(item.file);
  }
  for(const item of Object.values(manifest))for(const file of item.assets??[])if(!verified.has(file))throw Error(`Unverified Vite asset dependency: ${file}`);
- return {sourceFiles:expected.files.length,sourceSHA256:expected.sha256,copiedFiles:expected.outputs.length,outputSHA256:expected.outputSHA256,viteAssets:verified.size,scope:'Client sources, nested source dependencies, public outputs and selected art/content copies are consistent. Top-level installed tools use pinned lockfiles; final reviewed art completeness is a separate receipt gate.'};
+ return {artProfile:expected.artProfile??'standard',sourceFiles:expected.files.length,sourceSHA256:expected.sha256,copiedFiles:expected.outputs.length,outputSHA256:expected.outputSHA256,viteAssets:verified.size,scope:'Client sources, nested source dependencies, public outputs and selected art/content copies are consistent. Top-level installed tools use pinned lockfiles; final reviewed art completeness is a separate receipt gate.'};
 }
 
 /** The native host reads a separate, unmodified copy of authored content. */

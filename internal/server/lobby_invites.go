@@ -9,15 +9,19 @@ import (
 )
 
 type LobbyInvite struct {
-	ID         string `json:"id"`
-	LobbyID    string `json:"lobby_id"`
-	LobbyName  string `json:"lobby_name"`
-	Sender     string `json:"sender"`
-	SenderName string `json:"sender_name"`
-	Recipient  string `json:"recipient"`
-	Created    int64  `json:"created"`
-	Expires    int64  `json:"expires"`
-	Accepted   bool   `json:"accepted"`
+	// Set only when the server derives an invitation from completed-match
+	// membership. Keep that authority after the old five-minute debrief expires.
+	PreviousMatch string `json:"previous_match_id,omitempty"`
+	Rematch       bool   `json:"rematch"`
+	ID            string `json:"id"`
+	LobbyID       string `json:"lobby_id"`
+	LobbyName     string `json:"lobby_name"`
+	Sender        string `json:"sender"`
+	SenderName    string `json:"sender_name"`
+	Recipient     string `json:"recipient"`
+	Created       int64  `json:"created"`
+	Expires       int64  `json:"expires"`
+	Accepted      bool   `json:"accepted"`
 }
 
 func (s *Server) pruneLobbyInvites(now int64) {
@@ -62,6 +66,10 @@ func (s *Server) validLobbyInvite(ctx context.Context, id, recipient string, l *
 	invite := s.invites[id]
 	if invite == nil || invite.Recipient != recipient || invite.LobbyID != l.ID || invite.Expires <= time.Now().Unix() || !lobbyMember(l, invite.Sender) {
 		return nil, false, nil
+	}
+	if invite.PreviousMatch != "" && invite.PreviousMatch == l.PreviousMatch {
+		allowed, err := s.repo.PairAllowed(ctx, invite.Sender, recipient)
+		return invite, allowed, err
 	}
 	allowed, err := s.inviteFriends(ctx, invite.Sender, recipient)
 	return invite, allowed, err

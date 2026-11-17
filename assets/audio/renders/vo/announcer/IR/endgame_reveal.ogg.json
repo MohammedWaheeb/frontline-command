@@ -4,34 +4,59 @@
   "caption": "Remaining command positions are now revealed.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "6593afdfb95575e900187bf911063aa8d0128f6b3401b5152ab9c08fe694a7cf",
+  "source_hash": "45b8949cc7af8b7465c70a0c65051d7a3a39710e31c8ebfa020c366915ad6af7",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/IR/endgame_reveal.ogg",
-  "duration": 3.16925,
+  "duration": 3.2024166666666667,
   "channels": 1,
-  "bytes": 28761,
-  "sha256": "d042eff1a64edc242abc12726f801c76c328aac6937ea5e18a870e635300f26b",
+  "bytes": 20134,
+  "sha256": "e827f5909fba2bc40598d2ef2b8f173404c77a280c073a3ad36821afd59c3025",
   "mp3_url": "/art/audio/vo/announcer/IR/endgame_reveal.mp3",
-  "mp3_bytes": 52268,
-  "mp3_sha256": "6b0e02cd60836e3a96fc7fe00af6193620e0b4245190faca43ac0fb14dcfc169",
-  "peak": 0.7606424689292908,
-  "rms": 0.14022831618785858,
+  "mp3_bytes": 26348,
+  "mp3_sha256": "be5f444268f0ed92d2dd951070e25ec1863baced2ffd2d8429071ab36316fcb9",
+  "peak": 0.48902252316474915,
+  "rms": 0.1403505504131317,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

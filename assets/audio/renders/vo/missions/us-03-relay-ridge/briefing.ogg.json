@@ -3,35 +3,60 @@
   "path": "vo/missions/us-03-relay-ridge/briefing.ogg",
   "caption": "Capture both marked military radars with engineers, then continuously hold either one for four minutes. Keep recon ahead of aircraft. Losing a captured radar resets only its hold timer, not the capture achievement.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "dd73f369f8bc5ff141d72b77e0ee4a2b352b93f7efcd2dfcbb5a22b904bc56ef",
+  "source_hash": "745fad6226e509641b57138f952d1ea8764de9c8dc62a8f6f79a3bed00ea7dbe",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-03-relay-ridge/briefing.ogg",
-  "duration": 13.586875,
+  "duration": 13.596791666666666,
   "channels": 1,
-  "bytes": 118608,
-  "sha256": "cb4dde26b1a75a53dd5f4089b197ed39335407119fb490a77192335764e59146",
+  "bytes": 82293,
+  "sha256": "ff5a869d6e4558e25cf2077c3df82ec52d29c2c152bb8f2389bcbb5d9ab6c454",
   "mp3_url": "/art/audio/vo/missions/us-03-relay-ridge/briefing.mp3",
-  "mp3_bytes": 218924,
-  "mp3_sha256": "99ea49c10639e2fc7427c8c938f9f539b440f8e656bdaaf5eba422767e4a2fae",
-  "peak": 0.7734007239341736,
-  "rms": 0.09139459580183029,
+  "mp3_bytes": 109484,
+  "mp3_sha256": "e1c7854c4689b89abfdc72b791278d1485f223b929fe2d5f28d5b23fe31e2e30",
+  "peak": 0.7984743118286133,
+  "rms": 0.13742417097091675,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

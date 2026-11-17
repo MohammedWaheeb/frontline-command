@@ -4,34 +4,59 @@
   "caption": "Iron Signal: the operational goal is complete. Review losses, objective state and recorded orders before continuing Operation Iron Signal.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "ea1e0c143d6afbd5d03894c2499db8ae0ba6c6aa4559fa80a388c5f967a83ad7",
+  "source_hash": "b5d4461069f4373bf7c86693ce8769fd2eadd919e145050b8cc7f8b839b4f63b",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-06-iron-signal/debrief.ogg",
-  "duration": 9.927041666666666,
+  "duration": 9.891791666666666,
   "channels": 1,
-  "bytes": 82228,
-  "sha256": "4bc87c9adadd677ab6ae5722928e9bd3a30dd66cbff5879e44b6e6ccb30010a3",
+  "bytes": 55605,
+  "sha256": "c80b630a18fb51e8061500ffb93724cfc97fd671e249b18b8fb4aae480f743d9",
   "mp3_url": "/art/audio/vo/missions/ir-06-iron-signal/debrief.mp3",
-  "mp3_bytes": 160172,
-  "mp3_sha256": "c4b0aeac3d60ae88733f925dc53645cc013e18b02ed88ea8b075a801d765cacf",
-  "peak": 0.7720542550086975,
-  "rms": 0.10526588559150696,
+  "mp3_bytes": 79916,
+  "mp3_sha256": "a9924796a6b62c927721650fcfa64a6229e28a82cf882001a22fa1e3694942ac",
+  "peak": 0.6083632707595825,
+  "rms": 0.14043645560741425,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#11100e">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Frontline Command">
-  <meta property="og:title" content="Engine — Frontline Command">
+  <meta property="og:title" content="Engine | Frontline Command">
   <meta property="og:description" content="Deterministic Go sim, React and PixiJS client, Blender art pipeline.">
   <meta property="og:url" content="https://frontline-command.pages.dev/engine">
   <meta property="og:image" content="https://frontline-command.pages.dev/img/keyart-1920.webp">
@@ -16,9 +16,11 @@
   <meta property="og:image:height" content="1081">
   <meta property="og:image:alt" content="Key art: an olive battle tank leads an armored column across a desert road at sunset.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Engine — Frontline Command">
+  <meta name="twitter:title" content="Engine | Frontline Command">
   <meta name="twitter:description" content="Deterministic Go sim, React and PixiJS client, Blender art pipeline.">
   <meta name="twitter:image" content="https://frontline-command.pages.dev/img/keyart-1920.webp">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://frontline-command.pages.dev/engine">
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -35,7 +37,8 @@
       <li><a href="engine.html" aria-current="page">Engine</a></li>
       <li><a href="contribute.html">Contribute</a></li>
     </ul>
-    <a class="btn btn--ghost nav__cta" href="../README.md" data-repo=""><svg class="icon" aria-hidden="true"><use href="#i-github-logo"></use></svg>Source</a>
+    <a class="btn btn--ghost nav__cta" href="../README.md" data-repo=""><svg class="icon" aria-hidden="true"><use href="#i-github-logo"></use></svg>GitHub</a>
+    <a class="btn btn--primary nav__cta" href="index.html#play">Play the beta</a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Open menu"><svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg></button>
   </div>
 </header>
@@ -88,12 +91,12 @@
           </div>
           <div class="arch__box">
             <h4><svg class="icon" aria-hidden="true"><use href="#i-monitor-play"></use></svg>Client</h4>
-            <p>Interface, renderer, audio and input. Solo matches run the same simulation in a WebAssembly worker.</p>
+            <p>Interface, renderer and input. Solo matches run the same simulation in a WebAssembly worker.</p>
             <code>client/</code> <code>cmd/wasm</code>
           </div>
         </div>
         <div class="facts">
-          <div class="fact"><h4>One rulebook</h4><p>There is no simplified local game. Skirmish, campaign, co-op and multiplayer all call the same simulation package.</p></div>
+          <div class="fact"><h4>One rulebook</h4><p>There is no simplified local game. Skirmish, tutorials, co-op and multiplayer all call the same simulation package.</p></div>
           <div class="fact"><h4>Native and WASM parity</h4><p>Checks run the same commands natively and in the browser worker and compare results. Closing the remaining packaged-build gaps is open work.</p></div>
           <div class="fact"><h4>Intent, not outcomes</h4><p>Clients submit orders. Damage, credits, research and victory only ever come from the simulation.</p></div>
           <div class="fact"><h4>Fog on the wire</h4><p>Snapshots are filtered per player before they leave the host. Hidden units are never sent and then merely hidden.</p></div>
@@ -209,12 +212,13 @@
         <a class="brand" href="index.html"><span class="brand__mark"><svg class="icon" aria-hidden="true"><use href="#i-crosshair"></use></svg></span><span class="brand__name">Frontline Command</span></a>
         <p class="footer__note">A work of fiction. Factions, equipment, places, leaders and abilities are fictionalized gameplay representations, not claims about real militaries or conflicts.</p>
       </div>
-      <div><h4>Game</h4><ul><li><a href="factions.html">Factions</a></li><li><a href="mechanics.html">Mechanics</a></li><li><a href="modes.html">Modes and maps</a></li></ul></div>
+      <div><h4>Game</h4><ul><li><a href="index.html#play">Play the beta</a></li><li><a href="factions.html">Factions</a></li><li><a href="mechanics.html">Mechanics</a></li><li><a href="modes.html">Modes and maps</a></li></ul></div>
       <div><h4>Build</h4><ul><li><a href="engine.html">Engine</a></li><li><a href="contribute.html">Contribute</a></li><li><a href="../docs/implementation-status.md" data-repo="docs/implementation-status.md">Status</a></li></ul></div>
       <div><h4>Repository</h4><ul><li><a href="../README.md" data-repo="">Source</a></li><li><a href="../outputs/frontline-command-game-design.md" data-repo="outputs/frontline-command-game-design.md">Design document</a></li><li><a href="../docs/local-development.md" data-repo="docs/local-development.md">Local development</a></li></ul></div>
     </div>
     <div class="footer__base">
       <span>Inspired by classic Command &amp; Conquer. Not affiliated with Electronic Arts.</span>
+      <span>Closed beta, 31 October 2026. Apple Silicon macOS with desktop Chrome. Local play, no account.</span>
       <span>Fonts: Barlow, Big Shoulders Stencil, IBM Plex Mono (SIL OFL). Icons: Phosphor (MIT).</span>
     </div>
   </div>

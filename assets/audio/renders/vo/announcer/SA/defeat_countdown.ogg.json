@@ -3,35 +3,60 @@
   "path": "vo/announcer/SA/defeat_countdown.ogg",
   "caption": "Command structures lost. Restore a command structure before the countdown ends.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 100,
   "cooldown_ms": 6000,
-  "source_hash": "b2a03accf76fd335f78311630b7e163356dc8eba9db82667edd307c5a92c67f9",
+  "source_hash": "c00263f0e2bf25a0eedf7345b8d3ff7f1d0545ea6783515b823be1806ef4031d",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/SA/defeat_countdown.ogg",
-  "duration": 4.552875,
+  "duration": 4.945541666666666,
   "channels": 1,
-  "bytes": 40675,
-  "sha256": "80e058fab300b1afcf7704a816e658aa5d215e2247e63ed5160a6b661554f991",
+  "bytes": 29622,
+  "sha256": "6457e8efe1e7c373643f901529f5cca6287cd08688b8465547605b8b0d308b05",
   "mp3_url": "/art/audio/vo/announcer/SA/defeat_countdown.mp3",
-  "mp3_bytes": 74156,
-  "mp3_sha256": "a1aa89bcc8fb6fbadb9b831231635082f326be71fc5851f3d4381b42eaded211",
-  "peak": 0.7797176837921143,
-  "rms": 0.0986679196357727,
+  "mp3_bytes": 40364,
+  "mp3_sha256": "f5b8c4d27b02182a3b6ac0d1367ecbf677b27337fc506fa6827d52cedda21102",
+  "peak": 0.6034085750579834,
+  "rms": 0.14035451412200928,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

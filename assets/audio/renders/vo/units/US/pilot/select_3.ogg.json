@@ -3,35 +3,60 @@
   "path": "vo/units/US/pilot/select_3.ogg",
   "caption": "Air wing awaiting your orders.",
   "faction": "US",
-  "voice": "af_bella",
-  "speed": 1.06,
+  "voice": "am_michael",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 2500,
-  "source_hash": "3adae3c70e48d36ffb541b5f5a23f6d90709c5288cf7708c70168c2870725656",
+  "source_hash": "8ea6fddbe15b94f59d6c5cf7d109c2ac8d1c6c8bdb3a75f0ddf7eeafd88a005e",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/pilot/select_3.ogg",
-  "duration": 1.5224166666666668,
+  "duration": 1.7959166666666666,
   "channels": 1,
-  "bytes": 16387,
-  "sha256": "816da69bf1a46f0a2c5e7cf03ef405513b075d48ad1d17e5a6027003bab532c8",
+  "bytes": 14252,
+  "sha256": "aa9ae6db1f1fd98fc4526e5ec88463c605c1fd239a3ed149e16b613f0fb06a67",
   "mp3_url": "/art/audio/vo/units/US/pilot/select_3.mp3",
-  "mp3_bytes": 25772,
-  "mp3_sha256": "d85ec0097101722828b2ac5fd0a0439dc8577601ff924b027ac6f8c8a9dc2662",
-  "peak": 0.7772846817970276,
-  "rms": 0.093258798122406,
+  "mp3_bytes": 15020,
+  "mp3_sha256": "753bf267b01fa1416b21aee939b01691844e04d19e1af6c1b04e351f74cff5f3",
+  "peak": 0.6423274874687195,
+  "rms": 0.14062784612178802,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

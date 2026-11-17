@@ -52,3 +52,21 @@ test('sign-in key parsing rejects malformed, oversized and unsupported files wit
 test('profile changes during asynchronous key reads reject before adopting the old exported account',async()=>hostTest(async host=>{
  const {account,vault}=await host.account('key-read-race'),key=account.exportSignInKey();let release!:()=>void;const waiting=new Promise<void>(resolve=>release=resolve);Object.defineProperty(key,'text',{value:async()=>{await waiting;return Blob.prototype.text.call(key)}});const restore=account.restoreSignInKey(key);await account.create('New profile');const current=account.context!.profileId;release();await assert.rejects(()=>restore,{code:'account_changed'});assert.equal(account.context!.profileId,current);assert.equal((await vault.read(host.origin))?.profile.id,current);await vault.close();
 }));
+
+test('rename preserves profile identity, context, token and remembered credentials across restore',async()=>hostTest(async host=>{
+ const {account,vault}=await host.account('net2-rename'),before=(await vault.read(host.origin))!,context=account.context;
+ await account.renameProfile('  قائد New  ');const after=(await vault.read(host.origin))!;
+ assert.equal(after.profile.name,'قائد New');assert.equal(after.profile.id,before.profile.id);assert.equal(after.profile.created,before.profile.created);assert.equal(after.token,before.token);assert.equal(after.revision,before.revision+1);assert.deepEqual(account.context,context);assert.equal(JSON.stringify(account.state).includes(before.token),false);
+ const restored=new LocalProfileSession({baseURL:host.origin,credentials:vault});assert.equal((await restored.restore()).profile?.name,'قائد New');
+ await assert.rejects(()=>account.renameProfile('<invalid>'),{code:'invalid_profile'});assert.equal(account.state.profile?.name,'قائد New');assert.deepEqual(await vault.read(host.origin),after);await vault.close();
+}));
+test('session-only rename never starts remembering credentials or overwrites another tab',async()=>hostTest(async host=>{
+ const vault=new LocalCredentialVault('net2-session-rename'),account=new LocalProfileSession({baseURL:host.origin,credentials:vault});await account.create('Session',{remember:false});await account.renameProfile('Renamed session');assert.equal(account.state.persistent,false);assert.equal(await vault.read(host.origin),undefined);
+ await account.create('Remembered');const context=account.context,other=new LocalProfileSession({baseURL:host.origin,credentials:vault});await other.create('Other tab');const otherCredential=await vault.read(host.origin);
+ await account.renameProfile('Renamed original');assert.equal(account.state.profile?.name,'Renamed original');assert.deepEqual(account.context,context);assert.equal(account.state.error?.code,'credential_conflict');assert.equal(account.state.persistent,false);assert.deepEqual(await vault.read(host.origin),otherCredential);await vault.close();
+}));
+test('logout during rename cannot restore the signed-out identity or remembered credential',async()=>hostTest(async host=>{
+ const {account,vault}=await host.account('net2-rename-logout'),fetch=globalThis.fetch;let release!:()=>void;const waiting=new Promise<void>(resolve=>release=resolve);let requested!:()=>void;const started=new Promise<void>(resolve=>requested=resolve);
+ globalThis.fetch=(async(input,init)=>{const result=await fetch(input,init);if(init?.method==='PATCH'&&String(input).endsWith('/profiles/me')){requested();await waiting}return result}) as typeof fetch;
+ const pending=account.renameProfile('Late rename');await started;await account.logout();release();await assert.rejects(()=>pending,{code:'account_changed'});assert.equal(account.state.phase,'guest');assert.equal(account.context,undefined);assert.equal(await vault.read(host.origin),undefined);await vault.close();
+}));

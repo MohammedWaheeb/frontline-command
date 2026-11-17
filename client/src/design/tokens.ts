@@ -12,6 +12,10 @@ export const tokens = {
       "well": "#0B0A09",
       "scrim": "rgba(8, 7, 6, 0.74)"
     },
+    "menu": {
+      "scrim": "rgba(14, 13, 11, 0.92)",
+      "row_selected": "rgba(226, 162, 50, 0.14)"
+    },
     "metal": {
       "dark": "#23211D",
       "base": "#3A3731",
@@ -275,6 +279,38 @@ export const tokens = {
       "weight": 600,
       "tracking": "0",
       "case": "none"
+    },
+    "wordmark": {
+      "family": "display",
+      "size": 56,
+      "line": 50,
+      "weight": 800,
+      "tracking": "0.015em",
+      "case": "upper"
+    },
+    "menu": {
+      "family": "label",
+      "size": 19,
+      "line": 22,
+      "weight": 700,
+      "tracking": "0.05em",
+      "case": "upper"
+    },
+    "group": {
+      "family": "label",
+      "size": 13,
+      "line": 16,
+      "weight": 700,
+      "tracking": "0.18em",
+      "case": "upper"
+    },
+    "cta": {
+      "family": "label",
+      "size": 20,
+      "line": 22,
+      "weight": 800,
+      "tracking": "0.06em",
+      "case": "upper"
     }
   },
   "space": {

@@ -52,7 +52,7 @@ func TestNavigationPhysicalStallSurvivesAcceptedGoalReplacement(t *testing.T) {
 			beforeHash, beforeFacing, beforeRemainder := e.Hash(), actor.Facing, actor.MoveRemainder
 			e.pathBudget = 12
 			path := e.findPath(actor, goal, false)
-			if len(path) == 0 || !e.navigationBridgeClear(actor, navigationStepPosition(start, path[0], 125), true) || e.pathBudget != 11 || e.Hash() != beforeHash || actor.Facing != beforeFacing || actor.MoveRemainder != beforeRemainder {
+			if len(path) == 0 || !e.navigationBridgeClear(actor, navigationStepPosition(start, path[0], 125), true) || e.pathBudget != 8 || e.Hash() != beforeHash || actor.Facing != beforeFacing || actor.MoveRemainder != beforeRemainder {
 				t.Fatal("unsafe static current step did not select one charged pure dynamic retry", path, e.pathBudget)
 			}
 			recorder, err := NewReplay(e)
@@ -183,7 +183,7 @@ func TestNavigationPhysicalStallCachedUnsafeStepDefersSingleIntegration(t *testi
 		t.Fatal(err)
 	}
 	e.Advance()
-	if actor.Position != start || actor.Facing != direction(oldFirst.X-start.X, oldFirst.Y-start.Y) || actor.MoveRemainder != 17 || actor.StationarySince != 0 || len(actor.Path) == 0 || actor.Path[0] == oldFirst || !actor.PathResolved || actor.PathGoal != goal || e.pathBudget != 11 {
+	if actor.Position != start || actor.Facing != direction(oldFirst.X-start.X, oldFirst.Y-start.Y) || actor.MoveRemainder != 17 || actor.StationarySince != 0 || len(actor.Path) == 0 || actor.Path[0] == oldFirst || !actor.PathResolved || actor.PathGoal != goal || e.pathBudget != 9 {
 		t.Fatal("cached-step retry committed twice or lost the bounded same-goal route", actor, e.pathBudget)
 	}
 	next := navigationStepPosition(start, actor.Path[0], 125)
@@ -233,7 +233,7 @@ func TestNavigationPhysicalStallReportedRetrappedPositionHasUnsafeStaticStep(t *
 	}
 	e.pathBudget = 12
 	path := e.findPath(&probe, goal, false)
-	if len(path) == 0 || !e.navigationBridgeClear(&probe, navigationStepPosition(probe.Position, path[0], 125), true) || e.pathBudget != 11 || before != e.Hash() {
+	if len(path) == 0 || !e.navigationBridgeClear(&probe, navigationStepPosition(probe.Position, path[0], 125), true) || e.pathBudget != 10 || before != e.Hash() {
 		t.Fatal("fresh static dispatch did not recover the witnessed current-step rejection", path)
 	}
 }

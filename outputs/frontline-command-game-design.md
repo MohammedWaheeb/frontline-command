@@ -770,7 +770,7 @@ Ranked is standard speed, 6,000 starting credits, 100 Supply, fog on, all strate
 
 Local progress uses versioned storage with manual export/import and a visible backup action. An account enables ranked play, friends, and optional synchronized progression. Sync conflicts show both timestamps and mission progress; do not silently overwrite a newer local save. Guest-to-account migration previews what will be copied.
 
-Solo has manual saves, three rotating autosaves, mission restart, and 0.75×/1×/1.5× speed. Save the full simulation at a tick boundary: resources, health, fog, commands, queued production, reservations, ammo, cooldowns, buffs, projectiles, AI knowledge, objectives, and random state. Resuming never re-executes already consumed rewards or reinforcements. Online match saves are server-owned; clients cannot load a personal older state into a live match.
+Solo has manual saves, three rotating autosaves, mission restart, and 0.75×/1×/1.5× speed. Save the full simulation at a tick boundary: resources, health, fog, commands, queued production, reservations, ammo, cooldowns, buffs, projectiles, AI knowledge, and objectives. The simulation is deterministic and uses no random numbers; the stored match seed identifies the match only and never affects play. Resuming never re-executes already consumed rewards or reinforcements. Online match saves are server-owned; clients cannot load a personal older state into a live match.
 
 ### 18.4 Tutorials
 
@@ -1035,7 +1035,7 @@ Mirror matchups also matter: US airfield snowball, Iranian simultaneous volleys,
 
 The following checks use the specification's actual roster and weapon values. They identify arithmetic and rule problems; they do not simulate human scouting, map geometry, flight paths, or skill.
 
-- **Roster validation:** 75 entries: US 19, Iran 19, Syrian Rebels 18, Saudi Arabia 19. IDs are unique; all weapons/producers resolve to defined roles; prices, HP, speeds, tiers, and Supply are valid. The only Syrian aircraft is its unarmed Scout drone.
+- **Roster validation:** 76 entries: US 19, Iran 20, Syrian Rebels 18, Saudi Arabia 19; 29 weapons. IDs are unique; all weapons/producers resolve to defined roles; prices, HP, speeds, tiers, and Supply are valid. The only Syrian aircraft is its unarmed Scout drone. Iran's twentieth entry and the twenty-ninth weapon are the `IR.shahed` attack drone and its `IR_SHAHED` weapon, an addendum beyond the original 75-unit / 28-weapon roster.
 - **Early response availability:** all four factions have Tier 1 mobile AA and static AA; Syrian Rebels additionally have Tier 1 portable AA. All combat aircraft require Tier 2. This verifies prerequisites, not a measured fastest build-order race.
 - **Extraction arithmetic:** 600 credits per 30-second reference trip = 1,200/minute per hauler. Two staggered haulers saturate the 40-credit/second loading bay at 2,400/minute. A 36,000-credit field lasts 15 minutes at that rate; one 24,000-credit expansion lasts ten.
 - **Refund conservation:** a sold full-health supply center returns 450 building credits, plus the surviving 900-credit hauler as an asset: 1,350 value against 1,800 paid. Cancel refunds remain below the amount paid. No cycle creates a free hauler.

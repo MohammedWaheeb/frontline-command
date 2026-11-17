@@ -1,13 +1,17 @@
-import {BattlefieldSelection,ModifierToggles,CommandTargeting,OfflineTransport,createOfflineCommandEnvironment,createOnlineCommandEnvironment,planCommand,planContextCommand,resolvePointer,resolveShortcut,sameSelection,STANDARD_COMMAND_DESCRIPTORS,type OrderIntent,type CommandAffordances,type CommandRequest,type CommandTarget,type PlayerSnapshot,type Point,type Entity} from '../runtime';
+import {BattlefieldSelection,ModifierToggles,CommandTargeting,OfflineTransport,createOfflineCommandEnvironment,createOnlineCommandEnvironment,planCommand,planContextCommand,resolvePointer,resolveShortcut,sameSelection,targetRelationship,resolveCommandTarget,batchOrders,STANDARD_COMMAND_DESCRIPTORS,type OrderIntent,type CommandAffordances,type CommandRequest,type CommandTarget,type PlayerSnapshot,type Point,type Entity} from '../runtime';
 import {BattlefieldRenderer,type BattlefieldGesture} from '../render/battlefield';
 import {art} from '../render/art';
 import {COMMANDS,ABILITIES,STRATEGIC,reason} from '../content/labels';
-import {selectBattleAlerts} from './battle-alerts';
+import {selectBattleAlerts,selectBattleStatusAlerts,type BattleAlertState,type BattleStatusAlert} from './battle-alerts';
 import {Observable} from './store';
 import {SkybreakerReview,type StrikeReviewState} from './strike-review';
 import type {GameTransport,OrderPreview} from '../runtime/types';
-import {productionFocus,productionSources,selectionAffordances} from './production-focus';
-import type {ProductionTab} from '../content/catalog';
+import {productionFocus,productionSources,productionCategories,selectionAffordances,openingObjective as selectOpeningObjective} from './production-focus';
+import {tabFor,type ProductionTab} from '../content/catalog';
+import {productionOrder} from '../content/production-order';
+import {armyIDs,idleWorkerIDs,baseIDs,scatterRequests} from './battle-hotkeys';
+import {modalOpen} from '../runtime/keybindings';
+import {commandCardEntries,currentCommandCard,orderCommands} from '../ui/hud/tray-command-slots';
 import type {Application} from './application';
 import {readMissionMarkers,type MissionMarker} from './mission-markers';
 import {readMissionGroupLabels,missionGroups,type MissionGroupLabel} from './mission-groups';
@@ -16,15 +20,25 @@ import {orderFeedbackPoint} from './order-feedback';
 import {selectionSettingState,observeSettingState,executionCountFeedback} from './player-controls';
 import {haulerRequest,sameHaulerSelection,type HaulerAction} from './hauler-controls';
 import {HaulerIncomeWindow} from './hauler-income-window';
+import {economyStatus as selectEconomyStatus} from './economy-status';
 export interface ProductionChoice {type:string;kind:'build'|'train'|'research';producer:number;available:boolean;reason?:string;waitsFor?:string}
-export interface BattleState {ids:number[];affordances?:CommandAffordances;production:ProductionChoice[];productionSource?:number;adviceUnavailable?:string;target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[];strikeReview?:StrikeReviewState}
+export interface BattleState {commandPage?:number;productionTab?:ProductionTab;utilityMode?:'repair'|'sell'|'power';ids:number[];affordances?:CommandAffordances;hudAffordances?:CommandAffordances;production:ProductionChoice[];productionSource?:number;adviceUnavailable?:string;target?:{kind:string;type?:string;label:string};pending:boolean;learned:string[];placementReason?:string;markers:MissionMarker[];missionGroups:MissionGroupLabel[];strikeReview?:StrikeReviewState;statusAlerts:BattleStatusAlert[]}
 /** Input only: every executable decision is validated by the Go runtime. */
 export class BattleController {
  readonly selection=new BattlefieldSelection();readonly modifiers=new ModifierToggles();readonly targeting=new CommandTargeting();
- readonly state=new Observable<BattleState>({ids:[],production:[],pending:false,learned:[],markers:[],missionGroups:[]});
+ readonly state=new Observable<BattleState>({ids:[],production:[],pending:false,learned:[],markers:[],missionGroups:[],statusAlerts:[]});
  private readonly strikeReview=new SkybreakerReview();private strikeAbort?:AbortController;
  private readonly incomeWindow=new HaulerIncomeWindow();private incomeRuntime?:GameTransport;
+ private statusAlertState?:BattleAlertState;private productionAdvice?:CommandAffordances;private dismissedOpening=new Set<string>();
+ private resetStatus(){this.statusAlertState=undefined;this.productionAdvice=undefined;this.dismissedOpening.clear();this.state.update(state=>({...state,statusAlerts:[],hudAffordances:undefined}))}
+ private updateStatus(snapshot:PlayerSnapshot){
+  const catalog=this.app.state.get().catalog;if(!catalog)return;
+  const result=selectBattleStatusAlerts(snapshot,catalog,this.statusAlertState,this.productionAdvice);this.statusAlertState=result.state;
+  const before=this.state.get().statusAlerts,retained=before.filter(alert=>snapshot.tick-alert.tick<=200&&alert.tick<=snapshot.tick),alerts=[...retained,...result.alerts].slice(-8);
+  if(result.alerts.length||retained.length!==before.length)this.state.update(state=>({...state,statusAlerts:alerts}));
+ }
  private markerMission?:string;
+ private baseCursor?:number;private idleCursor?:number;private lastStructure?:{type:string;producer:number};
  private adviceNotice?:string;
  private terminal=false;
  private sceneReady=false;private pauseRequested=false;private resumeAfterMenu=true;
@@ -34,25 +48,31 @@ export class BattleController {
   if(!entry?.presentation_url||!map)return;
   try{const response=await fetch(entry.presentation_url,{signal:this.keyAbort.signal});if(!response.ok)throw Error('Objective locations are unavailable.');const text=await response.text();if(text.length>256*1024)throw Error('Operation presentation is too large.');const data=JSON.parse(text),markers=readMissionMarkers(data,map,mission),groups=this.snapshot?readMissionGroupLabels(data,this.snapshot):[];if(this.closed)return;this.state.update(state=>({...state,markers,missionGroups:groups}));this.renderer?.setMissionMarkers(markers)}catch(error){if(!this.closed)this.app.patch({notice:error instanceof Error?error.message:'Objective locations unavailable.'})}
  }
- renderer?:BattlefieldRenderer;private detachAudio?:()=>void;private snapshot?:PlayerSnapshot;private practicePlacement?:OrderIntent;private tutorialMission?:{id:string;version:string};private orderKinds=new Map<number,Array<{kind:string;player:number;point?:Point;handled?:boolean;entity?:Pick<Entity,'type'|'owner'>}>>();private unsubscribeResults?:()=>void;private subgroupCycle?:{groups:number[][];index:number};private scope:string;private closed=false;private generation=0;private refreshAt=0;private refreshing=false;private refreshPending=false;private hoverPending=false;private hoverLatest?:{generation:number;type:string;position:Point};private hoverTimer?:ReturnType<typeof setTimeout>;private advisoryWork?:Promise<unknown>;private hoverAt=0;private keyAbort=new AbortController();private activeTarget?:{kind:string;type?:string;label:string;groundOnly?:boolean};
+ renderer?:BattlefieldRenderer;private detachAudio?:()=>void;private snapshot?:PlayerSnapshot;private practicePlacement?:OrderIntent;private tutorialMission?:{id:string;version:string};private orderKinds=new Map<number,Array<{kind:string;player:number;point?:Point;handled?:boolean;entity?:Pick<Entity,'type'|'owner'>;placement?:{type:string;producer:number;generation:number}}>>();private unsubscribeResults?:()=>void;private subgroupCycle?:{groups:number[][];index:number};private scope:string;private closed=false;private generation=0;private refreshAt=0;private refreshing=false;private refreshPending=false;private hoverPending=false;private hoverLatest?:{generation:number;type:string;position:Point};private hoverTimer?:ReturnType<typeof setTimeout>;private advisoryWork?:Promise<unknown>;private hoverAt=0;private keyAbort=new AbortController();private activeTarget?:{kind:string;type?:string;label:string;groundOnly?:boolean};
  constructor(readonly app:Application,readonly openPause:()=>void,readonly chooseEntryEdge:()=>void,readonly onChat?:(teamOnly:boolean)=>void){
   this.scope=app.sessions.state.id!;
   this.unsubscribeResults=app.sessions.subscribe(event=>{
    if(event.type!=='runtime'||event.session!==this.scope)return;
-   if(event.event.type==='presentation-reset'||event.event.type==='connection'&&event.event.phase!=='connected'){this.incomeWindow.reset();this.incomeRuntime=undefined;this.orderKinds.clear();this.renderer?.resetFeedback();return}
+   if(event.event.type==='presentation-reset'||event.event.type==='connection'&&event.event.phase!=='connected'){this.incomeWindow.reset();this.incomeRuntime=undefined;this.resetStatus();this.orderKinds.clear();this.renderer?.resetFeedback();return}
    if(event.event.type!=='order-result')return;
    const result=event.event.result,kinds=this.orderKinds.get(result.sequence),command=kinds?.[result.index];
    if(!kinds||!command||command.handled||command.player!==this.snapshot?.player||result.player!==command.player)return;
-   if(result.accepted&&result.code==='accepted'){app.patch({notice:'Order accepted. Awaiting execution.'});return}
+   if(result.accepted&&result.code==='accepted'){if(app.state.get().settings.diagnostics)app.patch({notice:'Order accepted. Awaiting execution.'});return}
    command.handled=true;
-   if(result.accepted){if(command.kind)this.learn(command.kind);const feedback=executionCountFeedback(result);if(feedback)app.patch({notice:feedback})}else this.learn('rejected_order');
+   if(result.accepted){if(command.kind)this.learn(command.kind);const feedback=executionCountFeedback(result);if(feedback&&app.state.get().settings.diagnostics)app.patch({notice:feedback})}else this.learn('rejected_order');
    app.audioDirector.receipt(command.kind,result.accepted,command.entity,result.code);
    if(!result.accepted&&command.point)this.renderer?.showRejectedOrder(command.point,command.player);
+   // A site can become blocked after a clear preview. Restore only the still
+   // current placement: a later cancel, selection or command owns the cursor.
+   const placement=command.placement;if(!result.accepted&&placement&&placement.generation===this.generation&&!this.activeTarget&&this.canIssue()&&this.selection.ids.includes(placement.producer)){void this.command('build',placement.type,placement.producer);this.state.update(state=>({...state,placementReason:reason(result.code)}))}
    if(kinds.every(value=>value.handled))this.orderKinds.delete(result.sequence);
   });
  }
  /** A retained frame from a previous perspective/runtime cannot display income. */
  recentHaulerIncome(player:number){if(this.closed||this.app.sessions.state.id!==this.scope||this.snapshot?.player!==player||this.incomeRuntime!==this.app.sessions.transport)return;return this.incomeWindow.current}
+ economyStatus(){const snapshot=this.snapshot,catalog=this.app.state.get().catalog;if(!snapshot||!catalog||this.closed||this.app.sessions.state.id!==this.scope||this.incomeRuntime!==this.app.sessions.transport)return;return selectEconomyStatus(snapshot,catalog,this.recentHaulerIncome(snapshot.player))}
+ openingObjective(){const snapshot=this.snapshot,catalog=this.app.state.get().catalog;if(!snapshot||!catalog||this.closed||this.app.sessions.state.id!==this.scope)return;return selectOpeningObjective(snapshot,catalog,[...this.dismissedOpening])}
+ dismissOpeningObjective(id:string){if(this.openingObjective()?.id===id){this.dismissedOpening.add(id);this.state.update(state=>({...state}))}}
  private learn(kind:string){if(this.app.sessions.state.kind!=='solo'||this.state.get().learned.includes(kind))return;this.state.update(state=>({...state,learned:[...state.learned,kind]}));const mission=this.tutorialMission;if(mission)void this.app.tutorialInput.record(mission.id,mission.version,kind).catch(error=>this.app.error(error))}
  async mount(host:HTMLElement){
   await this.app.beforeBattlefield();if(this.closed)return;
@@ -72,10 +92,10 @@ export class BattleController {
  frame=(snapshot:PlayerSnapshot)=>{
   if(this.closed||this.app.sessions.state.id!==this.scope)return;
   if(!this.closed&&!this.terminal&&(snapshot.outcome?.finished||snapshot.players.find(player=>player.id===snapshot.player)?.defeated)){
-   this.terminal=true;this.cancel();if(this.app.sessions.state.kind==='online')this.app.commandAdvice().cancel();this.state.update(state=>({...state,production:[],productionSource:undefined,affordances:undefined,pending:false}));
+   this.terminal=true;this.cancel();if(this.app.sessions.state.kind==='online')this.app.commandAdvice().cancel();this.state.update(state=>({...state,production:[],productionSource:undefined,affordances:undefined,hudAffordances:undefined,pending:false}));
   }
   if(!this.closed&&snapshot.mission&&this.markerMission!==snapshot.mission.id){this.markerMission=snapshot.mission.id;void this.loadMarkers(snapshot.mission)}
-  if(this.closed)return;if(this.incomeRuntime!==this.app.sessions.transport){this.incomeWindow.reset();this.incomeRuntime=this.app.sessions.transport}this.incomeWindow.observe(`${this.scope}:${this.app.sessions.state.kind??''}`,snapshot.player,snapshot.tick,snapshot.economy?.income);if(this.snapshot&&(snapshot.player!==this.snapshot.player||snapshot.tick<this.snapshot.tick))this.orderKinds.clear();this.snapshot=snapshot;if(this.state.get().strikeReview&&!this.strikeReview.state)this.clearStrikeReview();if(!this.tutorialMission&&this.app.sessions.state.kind==='solo'&&this.app.state.get().index?.missions.some(entry=>entry.mode==='tutorial'&&entry.id===snapshot.mission?.id)){const mission=this.tutorialMission={id:snapshot.mission!.id,version:snapshot.mission!.version};void this.app.tutorialInput.read(mission.id,mission.version).then(learned=>{if(!this.closed)this.state.update(state=>({...state,learned:[...new Set([...state.learned,...learned])]}))}).catch(error=>this.app.error(error))}const before=this.selection.token;this.selection.reconcile(snapshot,this.scope);this.renderer?.setSnapshot(snapshot);
+  if(this.closed)return;if(this.incomeRuntime!==this.app.sessions.transport){this.incomeWindow.reset();this.resetStatus();this.incomeRuntime=this.app.sessions.transport}this.incomeWindow.observe(`${this.scope}:${this.app.sessions.state.kind??''}`,snapshot.player,snapshot.tick,snapshot.economy?.income);if(this.snapshot&&(snapshot.player!==this.snapshot.player||snapshot.tick<this.snapshot.tick)){this.orderKinds.clear();this.resetStatus()}this.snapshot=snapshot;this.updateStatus(snapshot);if(this.state.get().strikeReview&&!this.strikeReview.state)this.clearStrikeReview();if(!this.tutorialMission&&this.app.sessions.state.kind==='solo'&&this.app.state.get().index?.missions.some(entry=>entry.mode==='tutorial'&&entry.id===snapshot.mission?.id)){const mission=this.tutorialMission={id:snapshot.mission!.id,version:snapshot.mission!.version};void this.app.tutorialInput.read(mission.id,mission.version).then(learned=>{if(!this.closed)this.state.update(state=>({...state,learned:[...new Set([...state.learned,...learned])]}))}).catch(error=>this.app.error(error))}const before=this.selection.token;this.selection.reconcile(snapshot,this.scope);this.renderer?.setSnapshot(snapshot);
   if(!sameSelection(before,this.selection.token))this.changed(true,false);
   this.reconcileProduction();
   if(!this.closed&&snapshot.events.some(event=>event.kind==='route_blocked'&&event.owner===snapshot.player))this.learn('rejected_order');
@@ -84,20 +104,22 @@ export class BattleController {
  private reconcileProduction(followSelection=false){
   const catalog=this.app.state.get().catalog;if(!this.snapshot||!catalog)return;
   const old=this.state.get().productionSource,next=productionFocus(this.snapshot,catalog,old,followSelection?this.selection.ids:[]);
-  if(old!==next){this.generation++;this.refreshAt=0;this.state.update(state=>({...state,productionSource:next,production:[]}))}
+  if(old!==next){this.generation++;this.refreshAt=0;this.state.update(state=>({...state,productionSource:next,productionTab:this.sourceTab(next,state.productionTab),production:[]}))}
  }
+ private sourceTab(id:number|undefined,previous:ProductionTab|undefined){const catalog=this.app.state.get().catalog,entity=this.snapshot?.entities.find(entity=>entity.id===id);if(!catalog||!entity||!this.snapshot)return previous;const tabs=productionCategories(entity,catalog,this.snapshot.players.find(player=>player.id===this.snapshot?.player)?.faction??'');return previous&&tabs.includes(previous)?previous:tabs[0]??previous}
  chooseProduction(id:number){
   const catalog=this.app.state.get().catalog;if(!this.snapshot||!catalog||!productionSources(this.snapshot,catalog).some(entity=>entity.id===id))return;
-  this.cancel();this.refreshAt=0;this.state.update(state=>({...state,productionSource:id,production:[]}));void this.refresh();
+  this.cancel();this.refreshAt=0;this.state.update(state=>({...state,productionSource:id,productionTab:this.sourceTab(id,state.productionTab),production:[]}));void this.refresh();
  }
  productionCategory(category:ProductionTab){
+  this.state.update(state=>({...state,productionTab:category}));
   const catalog=this.app.state.get().catalog;if(!this.snapshot||!catalog)return;
   const id=productionFocus(this.snapshot,catalog,this.state.get().productionSource,[],category);if(id!==undefined&&id!==this.state.get().productionSource)this.chooseProduction(id);
  }
- private changed(resetCycle=true,audible=true){this.clearStrikeReview();if(audible&&this.snapshot)this.app.audioDirector.selection(this.snapshot.entities.filter(entity=>this.selection.ids.includes(entity.id)),this.snapshot.player);if(resetCycle)this.subgroupCycle=undefined;this.generation++;this.targeting.reconcile(this.selection.token);if(!this.targeting.targeting)this.clearTarget(false);this.renderer?.setSelection(this.selection.ids);this.reconcileProduction(true);this.state.update(state=>({...state,ids:this.selection.ids,production:[],affordances:undefined}));void this.refresh()}
+ private changed(resetCycle=true,audible=true){this.clearStrikeReview();if(audible&&this.snapshot)this.app.audioDirector.selection(this.snapshot.entities.filter(entity=>this.selection.ids.includes(entity.id)),this.snapshot.player);if(resetCycle)this.subgroupCycle=undefined;this.generation++;this.targeting.reconcile(this.selection.token);if(!this.targeting.targeting)this.clearTarget(false);this.renderer?.setSelection(this.selection.ids);this.reconcileProduction(true);this.state.update(state=>({...state,ids:this.selection.ids,commandPage:0,production:[],affordances:undefined}));void this.refresh()}
  select(ids:number[]){this.selection.apply(ids);this.changed()}
  selectMissionGroup(origin:string){if(!this.snapshot)return;const group=missionGroups(this.state.get().missionGroups,this.snapshot).find(group=>group.origin===origin);if(!group?.ids.length)return;this.select(group.ids);const point=this.selection.center();if(point)this.renderer?.center(point)}
- cancel(){this.generation++;this.targeting.cancel();this.clearTarget(false);this.renderer?.cancelDrag()}
+ cancel(){this.state.update(state=>({...state,utilityMode:undefined}));this.generation++;this.targeting.cancel();this.clearTarget(false);this.renderer?.cancelDrag()}
  private clearTarget(cancel=true){this.clearHover();if(/^Choose \d+ more target point/.test(this.app.state.get().notice??''))this.app.patch({notice:undefined});this.clearStrikeReview();if(cancel)this.targeting.cancel();this.practicePlacement=undefined;this.activeTarget=undefined;this.renderer?.setTargeting(undefined);this.renderer?.setPlacement(undefined);this.state.update(state=>({...state,target:undefined,placementReason:undefined}))}
  private runtime(){const transport=this.app.sessions.transport;if(!transport)throw Error('No active operation.');return transport}
  private affordances(ids:number[]){const runtime=this.runtime();return runtime instanceof OfflineTransport?runtime.affordances(ids):this.app.commandAdvice().affordances(ids)}
@@ -127,18 +149,22 @@ export class BattleController {
    if(!current())return;
    const advice=runtime instanceof OfflineTransport?undefined:this.app.commandAdvice();
    const read=(ids:number[])=>runtime instanceof OfflineTransport?runtime.affordances(ids):advice!.affordances(ids,{isCurrent:current});
-   const ids=this.selection.ids.slice(0,64),source=this.state.get().productionSource;
-   const request=source!==undefined&&!ids.includes(source)?[...ids,source]:ids;
+   const ids=this.ownedSelection().slice(0,64),source=this.state.get().productionSource;
+   const catalog=this.app.state.get().catalog;
+   const sources=catalog?productionSources(this.snapshot,catalog).map(entity=>entity.id):[];
+   const foundations=this.snapshot.entities.filter(entity=>entity.owner===player&&entity.private&&entity.private.hp>0n&&!entity.complete&&catalog?.buildings.has(entity.type)).map(entity=>entity.id);
+   const request=[...new Set([...ids,...(source===undefined?[]:[source]),...sources,...foundations])];
    const work=(async()=>{
     const result=await read(request.slice(0,64));if(!current())return;
-    if(request.length>64){const extra=await read(request.slice(64));if(!current())return;result.entities.push(...extra.entities)}
+    for(let offset=64;offset<request.length;offset+=64){const extra=await read(request.slice(offset,offset+64));if(!current())return;result.entities.push(...extra.entities)}
     return result;
    })();this.advisoryWork=work;const combined=await work;if(!combined||!current())return;
    const affordances=selectionAffordances(combined,ids);
    const production:ProductionChoice[]=[];
    for(const entity of combined.entities.filter(entity=>entity.id===source)){for(const [key,kind] of [['builds','build'],['trains','train'],['research','research']] as const)for(const type of entity[key])if(!production.some(item=>item.type===type&&item.kind===kind)){const status=entity.production_status?.find(status=>status.kind===kind&&status.type===type);production.push({type,kind,producer:entity.id,available:status?.code==='ok'||status?.code==='indeterminate',reason:status&&status.code!=='ok'&&status.code!=='indeterminate'?reason(status.code):status?undefined:'Availability unavailable',waitsFor:status?.waits_for?reason(status.waits_for):undefined})}}
    if(!current())return;
-   this.state.update(state=>({...state,affordances,production,adviceUnavailable:undefined}));
+   this.productionAdvice=combined;this.updateStatus(this.snapshot!);
+   this.state.update(state=>({...state,affordances,hudAffordances:combined,production,adviceUnavailable:undefined}));
    if(current())this.adviceRecovered();
   }catch(error){if(current())this.adviceFailed(error,'background')}finally{this.refreshing=false;if(this.refreshPending){this.refreshPending=false;if(currentSession())void this.refresh()}}
  }
@@ -155,6 +181,8 @@ export class BattleController {
  }
  async command(kind:string,type?:string,producer?:number,queued=false,index?:number){
   if(this.closed||this.app.sessions.state.id!==this.scope||!this.snapshot||this.snapshot.countdown||['observer','replay'].includes(this.app.sessions.state.kind??'')||this.inactive()||this.state.get().pending)return;
+  if(kind.endsWith('_mode')&&['repair_mode','sell_mode','power_mode'].includes(kind)){this.utilityMode(kind.slice(0,-5) as 'repair'|'sell'|'power');return}
+  if(kind==='scatter'){await this.scatter(queued);return}
   if(kind==='power'||kind==='repeat_sortie'){
    if(index!==undefined&&index!==0&&index!==1){this.app.patch({notice:'Choose Enable or Disable for this setting.'});return}
    if(index===undefined){const setting=selectionSettingState(kind,this.snapshot,producer?[producer]:this.selection.ids,this.state.get().affordances);if(!setting){this.app.patch({notice:'Select owned forces that support this setting.'});return}index=setting.nextIndex}
@@ -191,8 +219,9 @@ export class BattleController {
  gesture(gesture:BattlefieldGesture){
   if(this.closed||!this.snapshot||this.app.state.get().busy)return;
   if(gesture.kind==='hover'){void this.hover(gesture);return}
+  if(this.state.get().utilityMode&&this.utilityGesture(gesture))return;
   const entity=gesture.hit?.kind==='entity'?this.snapshot.entities.find(entity=>entity.id===(gesture.hit as {id:number}).id):undefined;
-  const intent=resolvePointer({button:gesture.button,phase:gesture.kind==='box'?'drag':gesture.kind==='double-click'?'double-click':'click',hit:entity?.owner===this.snapshot.player?'owned':gesture.hit&&gesture.hit.kind!=='ground'?'visible-entity':'ground',hasSelection:this.selection.ids.length>0,targeting:this.targeting.targeting,shiftKey:gesture.shift,ctrlKey:gesture.ctrl,altKey:gesture.alt,metaKey:gesture.meta},this.app.state.get().settings.bindings,this.modifiers.context);
+  const intent=resolvePointer({button:gesture.button,phase:gesture.kind==='box'?'drag':gesture.kind==='double-click'?'double-click':'click',hit:entity?.owner===this.snapshot.player?'owned':gesture.hit&&gesture.hit.kind!=='ground'?'visible-entity':'ground',hasSelection:this.ownedSelection().length>0,targeting:this.targeting.targeting,shiftKey:gesture.shift,ctrlKey:gesture.ctrl,altKey:gesture.alt,metaKey:gesture.meta},this.app.state.get().settings.bindings,this.modifiers.context);
   if(this.practicePlacement&&gesture.kind==='context'){this.cancel();return}
   if(!intent)return;
   if(this.practicePlacement&&gesture.kind==='click'&&gesture.button===this.app.state.get().settings.bindings.pointer.select){const order:OrderIntent={kind:this.practicePlacement.kind,type:this.practicePlacement.type,target:this.practicePlacement.target,index:this.practicePlacement.index,position:this.point(gesture.point)},runtime=this.runtime();this.clearTarget();if(runtime instanceof OfflineTransport)void this.app.task('Placing practice forces…',async()=>{const preview=await runtime.previewOrders([order]);if(!preview.results[0]?.accepted)throw Error(reason(preview.results[0]?.code));await runtime.sendOrders([order])});return}
@@ -204,10 +233,15 @@ export class BattleController {
   else if(intent.action==='confirm-target'){
    const choice=this.targeting.choose(this.target(gesture),this.selection.token,this.activeTarget?.kind==='return'||STANDARD_COMMAND_DESCRIPTORS.find(command=>command.kind===this.activeTarget?.kind)?.queueable===false?false:intent.queued);
    if(choice.status==='ready'&&this.isSkybreaker(choice.request))void this.reviewStrike(choice.request);
-   else if(choice.status==='ready')void this.execute(choice.request,choice.generation).finally(()=>{if(this.targeting.current(choice.generation,this.selection.token))this.clearTarget()});
+   else if(choice.status==='ready')void this.execute(choice.request,choice.generation).then(sent=>{if(!this.targeting.current(choice.generation,this.selection.token))return;if(choice.request.kind==='build'&&!sent){const {kind,type,index,queued}=choice.request;this.targeting.begin({kind,type,index,queued},this.selection.token)}else this.clearTarget()});
    else if(choice.status==='pending')this.app.patch({notice:`Choose ${choice.remaining} more target point${choice.remaining===1?'':'s'}.`});
   }else if(intent.action==='context-command')void this.executeContext(gesture.hit??{kind:'ground',position:this.point(gesture.point)},intent.queued);
   else if(intent.action==='force-fire')void this.execute({kind:'force_fire',entities:this.selection.ids,target:{kind:'ground',position:this.point(gesture.point)},queued:intent.queued});
+ }
+ /** Radar orders use the same Go planning and targeting path as world clicks. */
+ minimapOrder(point:Point,button:number,modifiers:{shift:boolean;ctrl:boolean;alt:boolean;meta:boolean}){
+  if(!this.canIssue()||button!==this.app.state.get().settings.bindings.pointer.context||this.state.get().utilityMode||!this.ownedSelection().length&&!this.targeting.targeting)return false;
+  this.gesture({kind:'click',button:this.targeting.targeting?this.app.state.get().settings.bindings.pointer.select:button,point,...modifiers});return true;
  }
  /** Pointer presentation stays immediate while Go preview requests remain
   * serialized and throttled. Only advice for the latest snapped site may paint. */
@@ -258,12 +292,14 @@ export class BattleController {
  }
  async confirmStrike(){if(this.state.get().pending)return;const request=this.strikeReview.consume();if(!request)return;this.clearStrikeReview();await this.plan(environment=>planCommand(request,environment),undefined,request.entities)}
  retargetStrike(){const edge=this.strikeReview.state?.edge;this.cancel();if(edge!==undefined)void this.command('ability','strategic',undefined,false,edge)}
- private async executeContext(target:CommandTarget,queued:boolean){this.cancel();await this.plan(async environment=>planContextCommand(this.selection.ids,target,environment,{queued}))}
+ private async executeContext(target:CommandTarget,queued:boolean){if(!this.ownedSelection().length)return;this.cancel();const entity=target.kind==='entity'?this.snapshot?.entities.find(entity=>entity.id===target.id):undefined;const rally=target.kind==='ground'&&this.state.get().affordances?.entities.some(entity=>entity.commands.includes('rally'));this.acknowledge(rally?'rally':entity&&this.snapshot&&['hostile','neutral'].includes(targetRelationship(this.snapshot,entity))?'attack':'move',target);await this.plan(async environment=>planContextCommand(this.selection.ids,target,environment,{queued}))}
  async execute(request:CommandRequest,targetGeneration?:number){
+  if(request.entities.some(id=>!this.snapshot?.entities.some(entity=>entity.id===id&&entity.owner===this.snapshot?.player)))return;
+  this.acknowledge(request.kind,request.target);
   const descriptor=STANDARD_COMMAND_DESCRIPTORS.find(value=>value.kind===request.kind);
   // Explicit ordinary actions use capable owned actors; paid jobs stay single.
   if(request.allowPartial===undefined&&descriptor&&(descriptor.selection==='group'||descriptor.selection==='each'||request.kind==='build'&&request.type==='barrier'))request={...request,allowPartial:true};
-  if(this.isSkybreaker(request)){await this.reviewStrike(request);return}this.clearStrikeReview();await this.plan(environment=>planCommand(request,environment),targetGeneration,request.entities)}
+  if(this.isSkybreaker(request)){await this.reviewStrike(request);return}this.clearStrikeReview();return this.plan(environment=>planCommand(request,environment),targetGeneration,request.entities)}
  private async plan(create:(environment:Awaited<ReturnType<typeof createOfflineCommandEnvironment>>)=>ReturnType<typeof planCommand>,targetGeneration?:number,adviceIDs:readonly number[]=this.selection.ids){
   if(this.closed||this.app.sessions.state.id!==this.scope||!this.snapshot||this.snapshot.countdown||this.inactive()||this.state.get().pending||['replay','observer'].includes(this.app.sessions.state.kind??''))return;const token=this.selection.token,generation=this.generation,runtime=this.runtime(),player=this.snapshot.player;const current=()=>!this.closed&&this.app.sessions.state.id===this.scope&&this.app.sessions.transport===runtime&&this.snapshot?.player===player&&!this.snapshot.countdown&&!['replay','observer'].includes(this.app.sessions.state.kind??'')&&!this.inactive()&&generation===this.generation&&sameSelection(token,this.selection.token)&&(targetGeneration===undefined||this.targeting.current(targetGeneration,this.selection.token));
   this.state.update(state=>({...state,pending:true}));
@@ -271,27 +307,136 @@ export class BattleController {
    let partialNotice:string|undefined;
    const failed=plan.issues.filter(issue=>issue.code!=='unsupported_command');
    if(failed.length||!plan.orders.length&&plan.issues.length)this.learn('rejected_order');
-   if(failed.length||!plan.orders.length&&plan.issues.length){const issue=failed[0]??plan.issues[0];this.app.patch({notice:!plan.orders.length&&issue.code==='unsupported_command'?'No selected units support this action. Their current orders are unchanged.':reason(issue.code,issue.message)});this.app.audioDirector.receipt('',false,this.snapshot.entities.find(entity=>this.selection.ids.includes(entity.id)&&entity.owner===this.snapshot?.player),issue.code)}
-   else if(plan.issues.length){const skipped=plan.issues.reduce((count,issue)=>count+issue.entities.length,0);partialNotice=`${skipped} unsupported selected unit${skipped===1?'':'s'} keep their current orders.`;this.app.patch({notice:`Sending order. ${partialNotice}`})}
+   if(failed.length||!plan.orders.length&&plan.issues.length){const issue=failed[0]??plan.issues[0],message=!plan.orders.length&&issue.code==='unsupported_command'?'No selected units support this action. Their current orders are unchanged.':reason(issue.code,issue.message);this.app.patch({notice:message});if(targetGeneration!==undefined&&this.activeTarget?.kind==='build')this.state.update(state=>({...state,placementReason:message}));this.app.audioDirector.receipt('',false,this.snapshot.entities.find(entity=>this.selection.ids.includes(entity.id)&&entity.owner===this.snapshot?.player),issue.code)}
+   else if(plan.issues.length){const skipped=plan.issues.reduce((count,issue)=>count+issue.entities.length,0);partialNotice=`${skipped} unsupported selected unit${skipped===1?' keeps its':'s keep their'} current orders.`;this.app.patch({notice:`Sending order. ${partialNotice}`})}
    for(const batch of plan.batches){
     if(!current())return;
-    const player=this.snapshot.player,feedback=batch.map(order=>{const entity=this.snapshot?.entities.find(entity=>entity.id===order.entities?.[0]&&entity.owner===player);return {kind:order.kind??'',player,point:orderFeedbackPoint(order),entity:entity?{type:entity.type,owner:entity.owner}:undefined}});
-    const sequence=await runtime.sendOrders(batch);if(!current())return;this.orderKinds.set(sequence,feedback);
+    const player=this.snapshot.player,feedback=batch.map(order=>{const entity=this.snapshot?.entities.find(entity=>entity.id===order.entities?.[0]&&entity.owner===player);return {kind:order.kind??'',player,point:orderFeedbackPoint(order),entity:entity?{type:entity.type,owner:entity.owner}:undefined,placement:order.kind==='build'&&order.type&&entity&&targetGeneration!==undefined?{type:order.type,producer:entity.id,generation}:undefined}});
+    const sequence=await runtime.sendOrders(batch);if(!current())return;for(const order of batch)if(order.kind==='build'&&order.type&&order.entities?.[0])this.lastStructure={type:order.type,producer:order.entities[0]};this.orderKinds.set(sequence,feedback);
     while(this.orderKinds.size>256)this.orderKinds.delete(this.orderKinds.keys().next().value!);
    }
    if(partialNotice)this.app.patch({notice:`Order sent. ${partialNotice}`});
    this.refreshAt=0;
    this.adviceRecovered();
+   return plan.orders.length>0;
   }catch(error){if(current())this.adviceFailed(error,'command')}finally{if(!this.closed)this.state.update(state=>({...state,pending:false}))}
  }
+ /** Inspecting a disclosed enemy never grants an order or affordance source. */
+ private ownedSelection(){return this.selection.ids.filter(id=>this.snapshot?.entities.some(entity=>entity.id===id&&entity.owner===this.snapshot?.player))}
+ private canIssue(){return !this.closed&&this.app.sessions.state.id===this.scope&&!!this.snapshot&&!this.snapshot.countdown&&!this.inactive()&&!this.state.get().pending&&!['replay','observer'].includes(this.app.sessions.state.kind??'')}
+ private acknowledge(kind:string,target?:CommandTarget){
+  if(!this.canIssue()||!this.ownedSelection().length||!['move','attack','attack_move','rally','force_fire'].includes(kind)||!target||!this.snapshot)return;
+  const point=resolveCommandTarget(this.snapshot,target)?.position;if(point)this.renderer?.showOrderMarker(point,kind);
+ }
+ /** The sidebar must call productionCategory on mouse tab changes as well. */
+ cycleProduction(step:1|-1){
+  const snapshot=this.snapshot,catalog=this.app.state.get().catalog;if(!snapshot||!catalog)return;
+  const category=this.state.get().productionTab??'structures',faction=snapshot.players.find(player=>player.id===snapshot.player)?.faction??'';
+  const sources=productionSources(snapshot,catalog).filter(entity=>productionCategories(entity,catalog,faction).includes(category));
+  if(!sources.length)return;const index=sources.findIndex(entity=>entity.id===this.state.get().productionSource);
+  this.chooseProduction(sources[(index+step+sources.length)%sources.length].id);
+ }
+ async cameo(slot:number,mode:'one'|'batch'|'cancel'='one'){
+  if(!this.canIssue()||!Number.isInteger(slot)||slot<1||slot>12)return;
+  const catalog=this.app.state.get().catalog;if(!catalog)return;
+  const category=this.state.get().productionTab??'structures',choice=productionOrder(this.state.get().production.filter(choice=>tabFor(catalog,choice.type)===category),catalog)[slot-1];
+  if(!choice)return;
+  if(mode==='cancel'){
+   const source=this.snapshot?.entities.find(entity=>entity.id===choice.producer&&entity.owner===this.snapshot?.player),index=source?.private?.jobs.map(job=>job.type).lastIndexOf(choice.type)??-1;
+   if(index>=0)await this.execute({kind:'cancel',entities:[choice.producer],index});return;
+  }
+  if(!choice.available)return;
+  // Structures are placed directly by Go; five placements cannot share a cursor.
+  const count=mode==='batch'&&choice.kind==='train'?5:1;
+  for(let i=0;i<count;i++){
+   if(!this.canIssue())break;await this.command(choice.kind,choice.type,choice.producer);
+  }
+ }
+ private utilityMode(mode:'repair'|'sell'|'power'){
+  const active=this.state.get().utilityMode===mode;this.cancel();if(active||!this.canIssue())return;
+  this.state.update(state=>({...state,utilityMode:mode,target:{kind:`${mode}_mode`,label:`Choose a building to ${mode}`}}));this.renderer?.setTargeting(mode);
+ }
+ private utilityGesture(gesture:BattlefieldGesture){
+  if(gesture.kind==='hover')return true;
+  const pointer=this.app.state.get().settings.bindings.pointer;
+  if(gesture.button===pointer.cancel){this.cancel();return true}
+  if(gesture.kind!=='click'||gesture.button!==pointer.select)return true;
+  const mode=this.state.get().utilityMode,entity=gesture.hit?.kind==='entity'?this.snapshot?.entities.find(entity=>entity.id===(gesture.hit as {id:number}).id):undefined,catalog=this.app.state.get().catalog;
+  if(!this.canIssue()||!mode||!entity||entity.owner!==this.snapshot?.player||!catalog?.isBuilding(entity.type))return true;
+  if(mode==='repair'){
+   const ids=this.ownedSelection().filter(id=>id!==entity.id);
+   if(!ids.length){this.app.patch({notice:'Select a repair unit, then choose the friendly building.'});return true}
+   void this.execute({kind:'repair',entities:ids,target:{kind:'entity',id:entity.id},allowPartial:true});
+  }else void this.execute({kind:mode,entities:[entity.id],...(mode==='power'?{index:entity.enabled?1:0}:{})});
+  return true;
+ }
+ private async scatter(queued:boolean){
+  const snapshot=this.snapshot,catalog=this.app.state.get().catalog,map=this.app.state.get().session?.map;
+  if(!this.canIssue()||!snapshot||!catalog||!map)return;
+  const requests=scatterRequests(snapshot,this.ownedSelection(),map,catalog).map(request=>({...request,queued}));if(!requests.length)return;
+  this.cancel();await this.plan(async environment=>{
+   // Shape/capability checks are local. Preview the resulting moves in bounded
+   // Go batches so scattering an army does not make one network trip per unit.
+   const shapeOnly={...environment,validate:undefined,validateBatch:undefined,validateCandidates:undefined};
+   const plans=[];for(const request of requests)plans.push(await planCommand(request,shapeOnly));
+   const issues=plans.flatMap(plan=>plan.issues),orders:OrderIntent[]=[];
+   for(const batch of batchOrders(plans.flatMap(plan=>plan.orders))){
+    if(environment.isCurrent&&!environment.isCurrent())return {tick:snapshot.tick,orders:[],batches:[],issues:[],validation:'unverified'};
+    const results=environment.validateBatch?await environment.validateBatch(batch):environment.validate?await Promise.all(batch.map(order=>environment.validate!(order))):undefined;
+    batch.forEach((order,index)=>{if(!results||results[index]?.accepted)orders.push(order);else issues.push({code:results[index]?.code??'preview_unavailable',entities:[...(order.entities??[])]})});
+   }
+   return {tick:snapshot.tick,orders,batches:batchOrders(orders),issues,validation:environment.validateBatch||environment.validate?'previewed':'unverified'};
+  });
+ }
+ private macroKey(action:string,queued:boolean){
+  if(action==='diagnostics'){const settings=this.app.state.get().settings;this.app.setSettings({...settings,diagnostics:!settings.diagnostics});return true}
+  if(action==='cycle_producer'||action==='previous_producer'){this.cycleProduction(action==='cycle_producer'?1:-1);return true}
+  if(action==='select_hq'){const snapshot=this.snapshot,catalog=this.app.state.get().catalog;if(snapshot&&catalog){const hq=snapshot.entities.filter(entity=>entity.owner===snapshot.player&&entity.private&&entity.private.hp>0n&&catalog.buildings.get(entity.type)?.role==='hq').sort((a,b)=>a.id-b.id)[0];if(hq){this.select([hq.id]);if(hq.position)this.renderer?.center(hq.position)}}return true}
+  const tabs:Record<string,ProductionTab>={production_base:'structures',production_defense:'defense',production_infantry:'infantry',production_vehicles:'vehicles',production_air:'aircraft',production_tech:'research'};
+  if(tabs[action]){this.productionCategory(tabs[action]);return true}
+  if(action==='next_production_tab'||action==='previous_production_tab'){this.cycleProduction(action==='next_production_tab'?1:-1);return true}
+  const cameo=/^cameo_(\d+)(?:_(batch|cancel))?$/.exec(action);if(cameo){void this.cameo(Number(cameo[1]),cameo[2] as 'batch'|'cancel'|undefined);return true}
+  if(action==='repair_mode'||action==='sell_mode'||action==='power_mode'){this.utilityMode(action.slice(0,-5) as 'repair'|'sell'|'power');return true}
+  if(action==='scatter'){void this.scatter(queued);return true}
+  const snapshot=this.snapshot,catalog=this.app.state.get().catalog;
+  if(action==='center_base'){
+   if(snapshot&&catalog){const ids=baseIDs(snapshot,catalog);if(ids.length){this.baseCursor=ids[(ids.indexOf(this.baseCursor??0)+1)%ids.length];const point=snapshot.entities.find(entity=>entity.id===this.baseCursor)?.position;if(point)this.renderer?.center(point)}}return true;
+  }
+  if(action==='select_idle'||action==='select_all_idle'){
+   if(snapshot&&catalog){const ids=idleWorkerIDs(snapshot,catalog);if(action==='select_all_idle')this.select(ids);else if(ids.length){this.idleCursor=ids[(ids.indexOf(this.idleCursor??0)+1)%ids.length];this.select([this.idleCursor]);const point=this.selection.center();if(point)this.renderer?.center(point)}}return true;
+  }
+  if(action==='place_last_built'){
+   if(this.canIssue()&&snapshot&&catalog){const last=this.lastStructure;if(last&&snapshot.entities.some(entity=>entity.id===last.producer&&entity.owner===snapshot.player))void this.command('build',last.type,last.producer);else this.app.patch({notice:'Place a structure first to repeat its placement.'})}return true;
+  }
+  return false;
+ }
+ /** The rendered card and positional shortcuts read this same current-page model. */
+ commandCard(){
+  const battle=this.state.get(),catalog=this.app.state.get().catalog;
+  const commands=orderCommands([...new Set(battle.affordances?.entities.flatMap(entity=>entity.commands)??[])].filter(kind=>COMMANDS[kind]));
+  const abilities=[...new Set(battle.affordances?.entities.flatMap(entity=>entity.abilities)??[])];
+  const barricade=!!catalog?.buildings.has('barrier')&&!!battle.affordances?.entities.some(entity=>entity.builds.includes('barrier'));
+  return currentCommandCard(commandCardEntries(commands,abilities,barricade),battle.commandPage);
+ }
+ commandPage(page:number){const model=this.commandCard();if(Number.isInteger(page)&&page>=0&&page<model.pages.length)this.state.update(state=>({...state,commandPage:page}))}
+ private cardKey(index:number,queued:boolean){
+  if(!Number.isInteger(index)||index<0||index>=12||!this.selection.ids.length||!this.canIssue())return;
+  const slot=this.commandCard().current[index];if(!slot||slot.kind==='empty')return;
+  if(slot.kind==='page'){this.commandPage(slot.target);return}
+  if(slot.kind==='ability'||slot.kind==='observe'){void this.command('ability',slot.kind==='observe'?'observe':slot.ability,undefined,queued);return}
+  if(slot.kind==='barricade'){void this.command('build','barrier');return}
+  void this.command(slot.kind==='rebase'?'rebase':slot.command,undefined,undefined,queued);
+ }
  private key=(event:KeyboardEvent)=>{
-  const focus=event.target as HTMLElement|null;const intent=resolveShortcut(event,this.app.state.get().settings.bindings,{...this.modifiers.context,tagName:focus?.tagName,role:focus?.getAttribute('role')??undefined,isContentEditable:focus?.isContentEditable,enabled:!document.querySelector('[role="dialog"]')});if(!intent)return;event.preventDefault();const action=intent.action;
-  if(action==='escape'){if(this.targeting.targeting||this.practicePlacement||this.state.get().strikeReview)this.cancel();else this.openPause();return}
+  const focus=event.target as HTMLElement|null;const intent=resolveShortcut(event,this.app.state.get().settings.bindings,{...this.modifiers.context,tagName:focus?.tagName,role:focus?.getAttribute('role')??undefined,isContentEditable:focus?.isContentEditable,enabled:!modalOpen()});if(!intent)return;event.preventDefault();let action=intent.action;
+  if(action.startsWith('card_slot_')){this.cardKey(Number(action.slice(10))-1,intent.queued);return}
+  if(this.macroKey(action,intent.queued))return;
+  if(action==='escape'){if(this.state.get().utilityMode||this.targeting.targeting||this.practicePlacement||this.state.get().strikeReview)this.cancel();else this.openPause();return}
   if(action==='center_selection'){const point=this.selection.center();if(point)this.renderer?.center(point);return}
   if(action.startsWith('pan_')){if(this.app.state.get().settings.keyboardCamera){const delta=35*this.app.state.get().settings.scrollSpeed;this.renderer?.pan(action==='pan_left'?-delta:action==='pan_right'?delta:0,action==='pan_up'?-delta:action==='pan_down'?delta:0)}return}
   if(action==='zoom_in'||action==='zoom_out'){this.renderer?.zoomBy(action==='zoom_in'?1.12:1/1.12);return}
   if(action==='toggle_queue'||action==='toggle_multiselect'){this.modifiers.toggle(action==='toggle_queue'?'queue':'selection');return}
-  if(action==='select_all'){this.select(this.snapshot?.entities.filter(value=>value.owner===this.snapshot?.player).map(value=>value.id)??[]);return}
+  if(action==='select_all'||action==='select_all_screen'){const catalog=this.app.state.get().catalog;if(this.snapshot&&catalog)this.select(armyIDs(this.snapshot,catalog,action==='select_all_screen'?this.renderer?.viewport():undefined,action==='select_all_screen'&&this.renderer?entity=>this.renderer!.bounds(entity):undefined));return}
   if(action==='select_same_type'&&this.selection.ids[0]&&this.renderer){this.selection.sameTypeOnScreen(this.selection.ids[0],this.renderer.viewport(),entity=>this.renderer!.bounds(entity));this.changed();return}
   const group=/^group_(\d)_(recall|store|append)$/.exec(action);if(group){if(group[2]==='recall'){const recalled=this.selection.recallGroup(Number(group[1]),performance.now());this.changed();if(this.selection.ids.length)this.learn('group_recall');if(recalled.center)this.renderer?.center(recalled.center)}else{this.selection.storeGroup(Number(group[1]),group[2]==='append');if(this.selection.ids.length)this.learn('group_store')}return}
   if(action==='quick_save'&&!['online','observer'].includes(this.app.sessions.state.kind??'')){void this.app.save('Quick save');return}
@@ -303,7 +448,7 @@ export class BattleController {
   if(action==='train'||action==='research'){this.app.patch({notice:'Choose a production option in the command sidebar.'});return}
   if(action==='repair_reserve'){if(!this.closed&&this.app.sessions.state.id===this.scope&&!this.inactive()&&!['replay','observer'].includes(this.app.sessions.state.kind??''))document.querySelector<HTMLInputElement>('[data-repair-reserve]')?.focus();return}
   if(action==='chat'||action==='team_chat'){if(this.app.sessions.state.kind==='online'){this.onChat?.(action==='team_chat');this.openPause();setTimeout(()=>document.querySelector<HTMLInputElement>('[aria-label="Chat message"]')?.focus(),0)}return}
-  if(action==='center_alert'){const event=selectBattleAlerts(this.snapshot?.events??[]).latestActionable?.event;if(event?.position)this.renderer?.center(event.position);return}
+  if(action==='center_alert'){const event=selectBattleAlerts(this.snapshot?.events??[]).latestActionable?.event,status=this.statusAlertState?.latestActionable;const latest=status?.position&&(!event||status.tick>=event.tick)?status:event;if(latest?.position)this.renderer?.center(latest.position);return}
   void this.command(action,undefined,undefined,intent.queued);
  };
  dispose(){this.clearHover();this.clearStrikeReview();this.closed=true;this.detachAudio?.();this.generation++;this.keyAbort.abort();this.unsubscribeResults?.();this.incomeWindow.reset();this.incomeRuntime=undefined;this.orderKinds.clear();this.app.frames.delete(this.frame);this.renderer?.dispose();this.renderer=undefined;void this.app.releaseBattlefieldArt()}

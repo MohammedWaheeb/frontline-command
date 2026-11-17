@@ -237,6 +237,14 @@ func (r *authoredRun) withExpansionDefense(macro func(), excluded map[sim.ID]boo
 		{"turret", sim.Vec{X: 49500, Y: 80500}},
 		{"supply", sim.Vec{}},
 	}
+	if r.difficulty == "hard" {
+		// The discretionary 3.45M field-construction plan spends the exact
+		// credits the crossing screens need during the first hard waves
+		// (army stuck near 11 while the hold resets, then starved). The
+		// mission objective needs only the hold; skip the plan on hard
+		// and put every credit into the paid screen.
+		stage = len(plan)
+	}
 	var homeWorker sim.ID
 	homeEmergency := false
 	var homeThreatUntil sim.Tick

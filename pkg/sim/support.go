@@ -353,17 +353,7 @@ func (e *Engine) updateChannel(v *Entity) {
 		e.collectSalvage(v)
 	case "sell":
 		p := e.player(v.Owner)
-		b, _ := e.buildingRule(v.Type)
-		basis := v.Paid
-		if b.Role == "supply" {
-			basis = max(int64(0), basis-900000)
-		}
-		catalogBasis := b.Cost
-		if b.Role == "supply" {
-			catalogBasis -= 900000
-		}
-		basis = min64(basis, catalogBasis)
-		p.Credits += basis * v.HP / (2 * v.MaxHP)
+		p.Credits += e.sellRefund(v)
 		v.HP = 0
 		v.Contributions = nil
 		e.releasePassengers(v)

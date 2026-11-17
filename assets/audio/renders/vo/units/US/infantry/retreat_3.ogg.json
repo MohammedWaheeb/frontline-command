@@ -3,35 +3,60 @@
   "path": "vo/units/US/infantry/retreat_3.ogg",
   "caption": "Falling back. Cover our withdrawal.",
   "faction": "US",
-  "voice": "am_michael",
-  "speed": 1.06,
+  "voice": "am_fenrir",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "9e5cfa421b6fb12afde4207cfb16699d6a207927ae789c8524bd8a3dc86c65f9",
+  "source_hash": "bce72bcb7fe90c6dafe95fd8c89b4eabdf5ed2a05267206f05bc9d2a1bf97430",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/infantry/retreat_3.ogg",
-  "duration": 2.0647083333333334,
+  "duration": 1.7372916666666667,
   "channels": 1,
-  "bytes": 21529,
-  "sha256": "19a306ba091bb5d32bf1db8eed5028cd6e51472b5fa9817359102e55041c4f36",
+  "bytes": 12855,
+  "sha256": "05bc03d6b6217308389f6adf83e9849e277e38692bcffd357b25505bde4585f1",
   "mp3_url": "/art/audio/vo/units/US/infantry/retreat_3.mp3",
-  "mp3_bytes": 34604,
-  "mp3_sha256": "f22bdd95b005a6ed06d3a62bd483f7c913bca4db1b73d6c793711b690ed51c26",
-  "peak": 0.7681949734687805,
-  "rms": 0.09078990668058395,
+  "mp3_bytes": 14636,
+  "mp3_sha256": "a3543ef63dc1abc43aba171f74d99f5efabe63a069e3718abca53e23eb348590",
+  "peak": 0.6649565696716309,
+  "rms": 0.1404481828212738,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

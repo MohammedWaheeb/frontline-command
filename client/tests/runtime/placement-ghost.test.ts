@@ -29,7 +29,8 @@ test('construction ghost waits for body beauty, keeps physical @2x scale, and su
   assert.equal(internal.sprites[2].visible,true);assert.equal(internal.sprites[3].visible,true);assert.equal(internal.sprites[2].position.x,8);assert.equal(internal.sprites[2].position.y,12);
   const support=surface.footprintSurface(position,building.width,building.height),point=projectSurfaceVertex({...position,height:support.height});
   assert.equal(ghost.root.x,point.x);assert.equal(ghost.root.y,point.y);assert.equal(ghost.root.children.length,5);assert.equal(ghost.root.eventMode,'none');
-  assert.equal(internal.sprites[0].tint,0xda967b);assert.equal(ghost.root.alpha,.36);
+  assert.equal(internal.sprites[0].tint,0xff6a55,'invalid sites use a strong red multiply, not beige');assert.equal(ghost.root.alpha,.5);
+  ghost.draw(building,'US',position,true,surface,0x3e8ede);assert.equal(internal.sprites[0].tint,0xffffff,'valid ghost keeps its own colours');assert.equal(internal.sprites[1].tint,0x3e8ede,'team layer takes the owner colour');assert.equal(ghost.root.alpha,.6);
  }finally{ghost.dispose()}
  assert.equal(ghost.root.destroyed,true);assert.equal(Texture.EMPTY.destroyed,false,'shared atlas textures belong to the ArtLibrary');
 });

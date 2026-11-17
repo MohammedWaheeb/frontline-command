@@ -3,36 +3,61 @@
   "path": "vo/missions/sa-02-moving-shield/checkpoint-first-sector-1.ogg",
   "caption": "First sector clear. Move the AA screen before exposing the next convoy segment.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "OPERATIONS: First sector clear. Move the AA screen before exposing the next convoy segment.",
-  "source_hash": "b0e9d8b90921e9a8a07b8d7aa3372c2044314becfdf78739e93b74dcc329c3bb",
+  "source_hash": "5a147fe8c59b483d9e8f1967526654fbe718af48a23ce0db466580c565ea30bd",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sa-02-moving-shield/checkpoint-first-sector-1.ogg",
-  "duration": 5.163666666666667,
+  "duration": 5.172291666666666,
   "channels": 1,
-  "bytes": 45252,
-  "sha256": "8606dd8d5580a4703517435ac8f1970be007bab561f437accd3bae1288622008",
+  "bytes": 31242,
+  "sha256": "ded115b08ed1df8cdbc6b3c1354c6ca7d997fd6b676e2c3f0a56a211c5283737",
   "mp3_url": "/art/audio/vo/missions/sa-02-moving-shield/checkpoint-first-sector-1.mp3",
-  "mp3_bytes": 84140,
-  "mp3_sha256": "b2e30df62282d058bab6fcae7f141942d6338671156d0e46f4833ef736f8bb31",
-  "peak": 0.7832258343696594,
-  "rms": 0.10503901541233063,
+  "mp3_bytes": 42092,
+  "mp3_sha256": "3b4d76523d5e274cf0870e78579d2e276eaece0cf5d40fbb93d021806f30d6e6",
+  "peak": 0.5546307563781738,
+  "rms": 0.14017720520496368,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

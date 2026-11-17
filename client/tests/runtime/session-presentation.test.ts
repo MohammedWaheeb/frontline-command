@@ -35,3 +35,16 @@ test('terminal and disconnected menus never display old teammate, latency or sha
  assert.equal(networkOperationPresentation({...state,result:{...result,committed:false}}).statusCurrent,false);
  assert.equal(state.tick,11138);assert.equal(state.status.teammates[0].connected,true);
 });
+
+test('an overloaded solo simulation reports a slowdown or a busy tick instead of looking live, and pause or end still win',()=>{
+ const alive=create(PlayerSnapshotSchema,{player:1,players:[{id:1,team:1},{id:2,team:2}]});
+ assert.equal(battlefieldStatus({kind:'solo',paused:false,snapshot:alive,pace:{rate:1,busy:false}}).label,'LIVE');
+ assert.equal(battlefieldStatus({kind:'solo',paused:false,snapshot:alive,pace:{rate:.9,busy:false}}).label,'LIVE');
+ const slowed=battlefieldStatus({kind:'solo',paused:false,snapshot:alive,pace:{rate:.55,busy:false}});
+ assert.equal(slowed.label,'SLOWED');assert.match(slowed.description,/55% speed/);assert.match(slowed.description,/Nothing is skipped/);
+ assert.equal(battlefieldStatus({kind:'solo',paused:false,snapshot:alive,pace:{rate:0,busy:true}}).label,'BUSY');
+ assert.equal(battlefieldStatus({kind:'solo',paused:true,snapshot:alive,pace:{rate:0,busy:true}}).label,'PAUSED');
+ const ended=create(PlayerSnapshotSchema,{player:1,players:alive.players,outcome:{finished:true,tick:9,winningTeam:1}});
+ assert.equal(battlefieldStatus({kind:'solo',paused:false,snapshot:ended,pace:{rate:.4,busy:false}}).label,'ENDED');
+ assert.equal(battlefieldStatus({kind:'solo',paused:false,snapshot:alive}).label,'LIVE');
+});

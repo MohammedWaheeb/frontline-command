@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#11100e">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Frontline Command">
-  <meta property="og:title" content="Contribute — Frontline Command">
+  <meta property="og:title" content="Contribute | Frontline Command">
   <meta property="og:description" content="Open work in sim, client, art, maps and playtesting. Start here.">
   <meta property="og:url" content="https://frontline-command.pages.dev/contribute">
   <meta property="og:image" content="https://frontline-command.pages.dev/img/keyart-1920.webp">
@@ -16,9 +16,11 @@
   <meta property="og:image:height" content="1081">
   <meta property="og:image:alt" content="Key art: an olive battle tank leads an armored column across a desert road at sunset.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Contribute — Frontline Command">
+  <meta name="twitter:title" content="Contribute | Frontline Command">
   <meta name="twitter:description" content="Open work in sim, client, art, maps and playtesting. Start here.">
   <meta name="twitter:image" content="https://frontline-command.pages.dev/img/keyart-1920.webp">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://frontline-command.pages.dev/contribute">
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -35,7 +37,8 @@
       <li><a href="engine.html">Engine</a></li>
       <li><a href="contribute.html" aria-current="page">Contribute</a></li>
     </ul>
-    <a class="btn btn--ghost nav__cta" href="../README.md" data-repo=""><svg class="icon" aria-hidden="true"><use href="#i-github-logo"></use></svg>Source</a>
+    <a class="btn btn--ghost nav__cta" href="../README.md" data-repo=""><svg class="icon" aria-hidden="true"><use href="#i-github-logo"></use></svg>GitHub</a>
+    <a class="btn btn--primary nav__cta" href="index.html#play">Play the beta</a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Open menu"><svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg></button>
   </div>
 </header>
@@ -43,17 +46,17 @@
 
 <main id="main">
   <header class="page-head">
-    <picture class="page-head__art"><img src="img/shot-hud-us.webp" alt="" width="1600" height="900"></picture>
+    <picture class="page-head__art"><img src="img/ui-battle-hud.webp" alt="" width="1600" height="900"></picture>
     <div class="wrap page-head__inner">
       <div>
         <span class="eyebrow">Contributors wanted</span>
         <h1>Help finish it</h1>
-        <p class="lede">Frontline Command is playable and unfinished. Here's where help matters most, how to get it running, and the few rules that keep a deterministic RTS deterministic.</p>
+        <p class="lede">Frontline Command is in closed beta and unfinished. Here's where help matters most, how to get it running, and the few rules that keep a deterministic RTS deterministic.</p>
       </div>
       <dl class="page-head__aside">
-        <div><dt>Art IDs finished</dt><dd>95 of 162</dd></div>
-        <div><dt>Units without a render</dt><dd data-count="unitsWithoutArt">28</dd></div>
-        <div><dt>Campaign courses passing</dt><dd>81 of 102</dd></div>
+        <div><dt>Units rendered</dt><dd><span data-count="unitsWithArt">76</span> of <span data-count="units">76</span></dd></div>
+        <div><dt>Art entries still sample</dt><dd>880 of 1,118</dd></div>
+        <div><dt>Current build</dt><dd>Beta</dd></div>
         <div><dt>Human balance sessions</dt><dd>Needed</dd></div>
       </dl>
     </div>
@@ -78,7 +81,7 @@
           <li><div><h4>Check your setup</h4><p>Reports missing tools and anything the build still needs.</p></div><pre>make doctor</pre></li>
           <li><div><h4>Install client packages</h4><p>Pinned versions from the lockfile.</p></div><pre>npm --prefix client ci</pre></li>
           <li><div><h4>Run the tests</h4><p>Go tests and vet, plus the client's type and runtime checks.</p></div><pre>make test</pre></li>
-          <li><div><h4>Play it</h4><p>Starts the Go host on port 8080 and the client on 5173, both on localhost.</p></div><pre>make dev</pre></li>
+          <li><div><h4>Play it</h4><p>Builds the beta package, then serves it on localhost port 8080. <code>make dev</code> runs a live-reload client on 5173 instead.</p></div><pre>make build &amp;&amp; make play</pre></li>
         </ol>
         <p>Then read the <a class="text-link" href="../outputs/frontline-command-game-design.md" data-repo="outputs/frontline-command-game-design.md">game design</a> (the authority on every rule), <a class="text-link" href="../docs/local-development.md" data-repo="docs/local-development.md">local development notes</a> and the current <a class="text-link" href="../docs/release-blockers.md" data-repo="docs/release-blockers.md">release blockers</a>.</p>
       </section>
@@ -90,48 +93,46 @@
           <article class="front" id="simulation">
             <div class="front__title"><svg class="icon" aria-hidden="true"><use href="#i-cpu"></use></svg><div><h3>Simulation and AI</h3><p>The rules engine and the bots that play it. Ideal if you like correctness, pathfinding and game AI.</p><span class="front__stack">Go, pkg/sim, pkg/content</span></div></div>
             <ul>
-              <li>Finish the AI's resource-memory fix and its radar-before-army opening branch</li>
-              <li>Diagnose vehicles that get stuck on real map layouts</li>
-              <li>Review the new Shahed drone and custom starting money against every save and replay path</li>
-              <li>Write deterministic scenario fixtures from the design's balance test list</li>
+              <li>Teach the US AI to field aircraft; AI-vs-AI samples rarely build them</li>
+              <li>Make strategic targeting weigh area value and interceptor saturation</li>
+              <li>Balance passes on the deferred outliers: Syrian refitted tank value, the power cliff, weak supply stations</li>
+              <li>Turn the design's balance test list into deterministic scenario fixtures</li>
             </ul>
           </article>
           <article class="front" id="client">
             <div class="front__title"><svg class="icon" aria-hidden="true"><use href="#i-monitor-play"></use></svg><div><h3>Client and interface</h3><p>Everything the player touches: command sidebar, menus, renderer and accessibility.</p><span class="front__stack">TypeScript, React 19, PixiJS 8, Vite, Playwright</span></div></div>
             <ul>
-              <li>Show named building prerequisites in production buttons</li>
-              <li>Faction colors and portrait identity across world, minimap and lobby</li>
-              <li>Fix misleading repair-reserve and rally hints</li>
-              <li>Walk the ordinary player flows end to end: save, load, watch, editor, audio, onboarding</li>
+              <li>Refresh the frozen browser baselines: the v23 product smoke, history-recovery and fog fixtures</li>
+              <li>Custom cursors; the beta still uses the browser defaults</li>
+              <li>Safari and Firefox play passes on real hardware</li>
               <li>Real-use accessibility review: remapping, scaling, color palettes, focus</li>
             </ul>
           </article>
           <article class="front" id="art">
-            <div class="front__title"><svg class="icon" aria-hidden="true"><use href="#i-paint-brush"></use></svg><div><h3>Art and audio</h3><p>The biggest gap. Stylized, readable, military-industrial; charcoal, olive, brass and amber, never photoreal.</p><span class="front__stack">Blender, Python, assets/pipeline</span></div></div>
+            <div class="front__title"><svg class="icon" aria-hidden="true"><use href="#i-paint-brush"></use></svg><div><h3>Art</h3><p>The biggest gap. Stylized, readable, military-industrial; charcoal, olive, brass and amber, never photoreal. (Audio sits outside the current pass.)</p><span class="front__stack">Blender, Python, assets/pipeline</span></div></div>
             <ul>
-              <li>58 distinct building renders across the four factions</li>
-              <li>Unit renders for every card marked <a class="text-link" href="factions.html">Art wanted</a></li>
+              <li>Promote sample art to approved: 880 of 1,118 manifest entries are still sample</li>
+              <li>Map loading screens and mission briefing illustrations</li>
               <li>Combat effects: impacts, interceptions, decoys and cover hits</li>
-              <li>Scenery for the seven maps beyond Copper Junction</li>
-              <li>Final key art, music transitions and faction voice lines</li>
+              <li>Final key art and menu presentation</li>
             </ul>
           </article>
           <article class="front" id="content">
-            <div class="front__title"><svg class="icon" aria-hidden="true"><use href="#i-map-trifold"></use></svg><div><h3>Maps and missions</h3><p>Level design, objectives and writing. Works through JSON and the in-game editor.</p><span class="front__stack">content/, cmd/contentcheck, map editor</span></div></div>
+            <div class="front__title"><svg class="icon" aria-hidden="true"><use href="#i-map-trifold"></use></svg><div><h3>Maps and missions</h3><p>Level design, objectives and writing. Works through JSON or the in-game map editor.</p><span class="front__stack">content/, cmd/contentcheck</span></div></div>
             <ul>
-              <li>Fix the campaign routes that still fail their runs (21 of 102)</li>
-              <li>Get both co-op scenarios through every objective and checkpoint</li>
-              <li>Briefings, debriefs and subtitles for all 24 missions</li>
+              <li>Chokepoints for Industrial Valley, which plays too open</li>
+              <li>Briefings and debriefs for the 24 campaign missions</li>
               <li>Fairness reviews: spawn parity and all six faction matchups per map</li>
+              <li>New battlefields built in the in-game map editor</li>
             </ul>
           </article>
           <article class="front" id="playtest">
             <div class="front__title"><svg class="icon" aria-hidden="true"><use href="#i-users-three"></use></svg><div><h3>Playtesting</h3><p>No code needed. The design's balance can only be proven by people playing it.</p><span class="front__stack">A mouse, a keyboard and honest notes</span></div></div>
             <ul>
-              <li>Play the six cross-faction matchups and record who won and why</li>
+              <li>A physical two-machine LAN session</li>
+              <li>A full four-human free-for-all or 2v2 from lobby to result</li>
+              <li>Play the new default hotkeys and the three AI difficulties, and report what felt wrong</li>
               <li>Tell us when you didn't understand why you lost; readability bugs look like balance bugs</li>
-              <li>Test on hardware we don't have: Safari, low-spec laptops, a second machine on your LAN</li>
-              <li>Try the tutorials as a newcomer and note where you got stuck</li>
             </ul>
           </article>
         </div>
@@ -152,7 +153,7 @@
         </ol>
         <div class="callout">
           <svg class="icon" aria-hidden="true"><use href="#i-warning"></use></svg>
-          <p><strong>Before the public opening:</strong> the repository still needs a license file and a contribution guide. Until they land, please open an issue before starting large changes.</p>
+          <p><strong>Before the public opening:</strong> the repository now includes an MIT license and a contribution guide. Please still open an issue before starting large changes.</p>
         </div>
       </section>
 
@@ -161,9 +162,9 @@
         <p class="lede">The design defines four production gates. They are completion gates, not a calendar.</p>
         <div class="gates">
           <div class="gate"><div class="gate__id">A</div><h4>Rules foundation</h4><p>One map runs the full economic and combat loop with authoritative orders, fog and saves.</p><span class="gate__state gate__state--done">Internal build passes</span></div>
-          <div class="gate"><div class="gate__id">B</div><h4>Factions complete</h4><p>All four rosters, buildings, abilities, aircraft, missiles and counters operate.</p><span class="gate__state">Rules in code, acceptance ongoing</span></div>
-          <div class="gate"><div class="gate__id">C</div><h4>Content and modes</h4><p>Every mission, map, tutorial and mode, plus replays, editor and debriefs, integrated.</p><span class="gate__state">In progress</span></div>
-          <div class="gate"><div class="gate__id">D</div><h4>Release quality</h4><p>Complete art and audio, accessibility, stress testing, human balance, security review.</p><span class="gate__state">Not yet</span></div>
+          <div class="gate"><div class="gate__id">B</div><h4>Factions complete</h4><p>All four rosters, buildings, abilities, aircraft, missiles and counters operate.</p><span class="gate__state gate__state--done">Beta passes</span></div>
+          <div class="gate"><div class="gate__id">C</div><h4>Content and modes</h4><p>Every map, tutorial and mode in the player build, plus replays and debriefs, integrated.</p><span class="gate__state gate__state--done">Beta passes</span></div>
+          <div class="gate"><div class="gate__id">D</div><h4>Release quality</h4><p>Complete art, accessibility, stress testing, human balance, signed public packages.</p><span class="gate__state">Not yet</span></div>
         </div>
       </section>
     </div>
@@ -192,12 +193,13 @@
         <a class="brand" href="index.html"><span class="brand__mark"><svg class="icon" aria-hidden="true"><use href="#i-crosshair"></use></svg></span><span class="brand__name">Frontline Command</span></a>
         <p class="footer__note">A work of fiction. Factions, equipment, places, leaders and abilities are fictionalized gameplay representations, not claims about real militaries or conflicts.</p>
       </div>
-      <div><h4>Game</h4><ul><li><a href="factions.html">Factions</a></li><li><a href="mechanics.html">Mechanics</a></li><li><a href="modes.html">Modes and maps</a></li></ul></div>
+      <div><h4>Game</h4><ul><li><a href="index.html#play">Play the beta</a></li><li><a href="factions.html">Factions</a></li><li><a href="mechanics.html">Mechanics</a></li><li><a href="modes.html">Modes and maps</a></li></ul></div>
       <div><h4>Build</h4><ul><li><a href="engine.html">Engine</a></li><li><a href="contribute.html">Contribute</a></li><li><a href="../docs/implementation-status.md" data-repo="docs/implementation-status.md">Status</a></li></ul></div>
       <div><h4>Repository</h4><ul><li><a href="../README.md" data-repo="">Source</a></li><li><a href="../outputs/frontline-command-game-design.md" data-repo="outputs/frontline-command-game-design.md">Design document</a></li><li><a href="../docs/local-development.md" data-repo="docs/local-development.md">Local development</a></li></ul></div>
     </div>
     <div class="footer__base">
       <span>Inspired by classic Command &amp; Conquer. Not affiliated with Electronic Arts.</span>
+      <span>Closed beta, 31 October 2026. Apple Silicon macOS with desktop Chrome. Local play, no account.</span>
       <span>Fonts: Barlow, Big Shoulders Stencil, IBM Plex Mono (SIL OFL). Icons: Phosphor (MIT).</span>
     </div>
   </div>

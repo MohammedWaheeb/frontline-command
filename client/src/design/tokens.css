@@ -19,6 +19,8 @@
   --fc-color-surface-4: #322E27;
   --fc-color-surface-well: #0B0A09;
   --fc-color-surface-scrim: rgba(8, 7, 6, 0.74);
+  --fc-color-menu-scrim: rgba(14, 13, 11, 0.92);
+  --fc-color-menu-row-selected: rgba(226, 162, 50, 0.14);
   --fc-color-metal-dark: #23211D;
   --fc-color-metal-base: #3A3731;
   --fc-color-metal-light: #555047;
@@ -202,6 +204,14 @@
   --fc-type-hotkey-line: calc(12px * var(--fc-ui-scale));
   --fc-type-subtitle-size: calc(20px * var(--fc-ui-scale));
   --fc-type-subtitle-line: calc(28px * var(--fc-ui-scale));
+  --fc-type-wordmark-size: calc(56px * var(--fc-ui-scale));
+  --fc-type-wordmark-line: calc(50px * var(--fc-ui-scale));
+  --fc-type-menu-size: calc(19px * var(--fc-ui-scale));
+  --fc-type-menu-line: calc(22px * var(--fc-ui-scale));
+  --fc-type-group-size: calc(13px * var(--fc-ui-scale));
+  --fc-type-group-line: calc(16px * var(--fc-ui-scale));
+  --fc-type-cta-size: calc(20px * var(--fc-ui-scale));
+  --fc-type-cta-line: calc(22px * var(--fc-ui-scale));
   --fc-material-console-plate: url('../../../assets/build/ui/chrome/console_plate@2x.png');
   --fc-material-console-plate-slice: 18;
   --fc-material-well: url('../../../assets/build/ui/chrome/well@2x.png');
@@ -352,4 +362,36 @@
   line-height: var(--fc-type-subtitle-line);
   font-weight: 600;
   letter-spacing: 0;
+}
+.fc-t-wordmark {
+  font-family: var(--fc-font-display);
+  font-size: var(--fc-type-wordmark-size);
+  line-height: var(--fc-type-wordmark-line);
+  font-weight: 800;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+.fc-t-menu {
+  font-family: var(--fc-font-label);
+  font-size: var(--fc-type-menu-size);
+  line-height: var(--fc-type-menu-line);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.fc-t-group {
+  font-family: var(--fc-font-label);
+  font-size: var(--fc-type-group-size);
+  line-height: var(--fc-type-group-line);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.fc-t-cta {
+  font-family: var(--fc-font-label);
+  font-size: var(--fc-type-cta-size);
+  line-height: var(--fc-type-cta-line);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }

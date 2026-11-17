@@ -6,8 +6,11 @@ import (
 )
 
 // These helpers require s.mu. They never call a match actor while holding it.
-// completed is published only after its replay and result are durable; the actor
-// can then remain available for reconnect/observers without reserving a profile.
+// completed is the lobby-terminal signal: it is published after the replay and
+// result are durable, or after the bounded void fallback has delivered its
+// final (uncommitted) result when durability is impossible. Either way the
+// actor can then remain available for reconnect/observers without reserving a
+// profile; completed alone never claims a result was saved.
 func (s *Server) lobbyCompleted(l *Lobby) bool {
 	if l == nil || l.MatchID == "" {
 		return false

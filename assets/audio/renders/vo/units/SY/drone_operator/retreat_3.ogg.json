@@ -3,35 +3,60 @@
   "path": "vo/units/SY/drone_operator/retreat_3.ogg",
   "caption": "Back to cover. Stay together.",
   "faction": "SY",
-  "voice": "af_bella",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "19f710058c2f2b70bb0e1ac37cf8e14a326b4f2c9738f19f097cd5793a738a3a",
+  "source_hash": "dfdac1df246eddac5da05bf299d125c3844c2ebd2a75364d156763544b4ab5c0",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/drone_operator/retreat_3.ogg",
-  "duration": 1.740875,
+  "duration": 1.6188333333333333,
   "channels": 1,
-  "bytes": 18396,
-  "sha256": "e63411e140de8c242e9d20342463580c98dc2aa44128092016940a88fd6b7d22",
+  "bytes": 12866,
+  "sha256": "64d3f7db4a3c2565782ab1700bb52c06e95712dc0c6ae1ee579d2ebaec7f35f0",
   "mp3_url": "/art/audio/vo/units/SY/drone_operator/retreat_3.mp3",
-  "mp3_bytes": 29228,
-  "mp3_sha256": "a24c6b7f0af3c0a952fee733ad2684982536a3f768ee342167991e605a9cc846",
-  "peak": 0.7839362025260925,
-  "rms": 0.09145688265562057,
+  "mp3_bytes": 13676,
+  "mp3_sha256": "ea9f20b3f2f541284c15f255c6b577b3cf234a3a8bb7d140aadeb36155559514",
+  "peak": 0.7872796058654785,
+  "rms": 0.12375210225582123,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

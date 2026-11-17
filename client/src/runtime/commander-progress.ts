@@ -82,7 +82,7 @@ const SHIPPED_GOALS:Readonly<Record<string,{sha256:string;objectiveID:string;tex
  "ir-04-hold-the-network": {"sha256": "c5d5b28274e9a3194ebb94deeb530832917bb4a21148fc92070a6343412bf3de", "objectiveID": "no-emergency-loss", "text": "Finish without losing a drone or losing its service capacity."},
  "ir-05-the-second-volley": {"sha256": "cdfc62d7315e753b31cb75785a1cd64685334d7b2ab9fc1f5f3379ac972b41f0", "objectiveID": "missile-budget", "text": "Spend at most 1,200 credits on missiles."},
  "ir-06-iron-signal": {"sha256": "0cbf453dbf93d1ecee94a58749cf8aba1af1e8c2b853c0c1f4d42c9c917935bf", "objectiveID": "observer-network", "text": "Keep both original observers alive at the two forward observation sites."},
- "sy-01-workshop-foothold": {"sha256": "2e55068169ee4b872f003240140b38d4746d85cada4a4da9d9685a49747ecab5", "objectiveID": "mechanic-teams", "text": "Recover both separated mechanic teams and keep them alive."},
+ "sy-01-workshop-foothold": {"sha256": "a370d0b007ec351dd8cbafd844c4fb82581b24a4ccfd8a74c8c66edebbefd315", "objectiveID": "mechanic-teams", "text": "Recover both separated mechanic teams and keep them alive."},
  "sy-02-supply-trail": {"sha256": "efce83a805d007384d8d3816d449433d4763051f8b35005a747959c5e5443ba8", "objectiveID": "limited-salvage", "text": "Collect at least 300 credits of salvage, from hostile vehicle wrecks."},
  "sy-03-three-crossings": {"sha256": "fc66fe40f86b8da35b75a5b1ba7c4b28d8bbcdf1db2d1b693c22a1943a03554c", "objectiveID": "scout-mark", "text": "Optional: keep the marked scout concealed for one uninterrupted minute."},
  "sy-04-open-doors": {"sha256": "bf1b9636f15f2682fd5a7071c97ceb362bae39904a43a89216ec32efcc4c6e8b", "objectiveID": "evacuation", "text": "Evacuate both marked squads to the rear safe region."},

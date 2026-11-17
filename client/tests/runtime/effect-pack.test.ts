@@ -24,13 +24,30 @@ test('FX symlinked root and traversal metadata cannot escape the installed build
   const bad=structuredClone(h.index);bad.effects['fx.explosion.small'].url='fx/explosion/small/../../../private.json';await writeFile(path.join(fx,'index.json'),json(bad));await assert.rejects(artIndex(h.assets),/path/);
  }finally{await rm(h.root,{recursive:true,force:true})}
 });
-test('FX dev middleware serves checked exact bytes only and rejects traversal/unlisted/corrupt pages',async()=>{
+test('FX dev middleware serves the verified built snapshot and rejects traversal/unlisted paths', {timeout:10000},async()=>{
  const h=await setup();let server:ReturnType<typeof createServer>|undefined;try{
-  await install(h);let middleware!:(request:IncomingMessage,response:ServerResponse,next:()=>void)=>Promise<void>;artPlugin({assets:h.assets}).configureServer({middlewares:{use(fn:typeof middleware){middleware=fn}}});
-  server=createServer((req,res)=>{void middleware(req,res,()=>{res.statusCode=404;res.end()}).catch(error=>{res.statusCode=500;res.end(String(error))})});await new Promise<void>(resolve=>server!.listen(0,'127.0.0.1',resolve));const address=server.address() as {port:number},base=`http://127.0.0.1:${address.port}`;
-  const index=await(await fetch(base+'/art/index.json')).json();assert.deepEqual(index.effects,h.descriptor);const result=await fetch(base+'/art/fx/explosion/small/page0.png');assert.equal(result.status,200);assert.equal(hash(new Uint8Array(await result.arrayBuffer())),hash(h.image));
-  assert.equal((await fetch(base+'/art/fx/unlisted.png')).status,404);assert.notEqual((await fetch(base+'/art/fx/%2e%2e%2fmanifest/asset-manifest.json')).status,200);
-  await writeFile(path.join(h.assets,'build/fx/explosion/small/page0.png'),new Uint8Array(h.image.length));assert.equal((await fetch(base+'/art/fx/explosion/small/page0.png')).status,503);assert.equal((await fetch(base+'/art/index.json')).status,503);
+  await install(h);await writeFile(path.join(h.assets,'build/fx/unlisted.png'),h.image);
+  const out=path.join(h.root,'dist'),content=path.join(h.root,'content');
+  await mkdir(path.join(out,'runtime'),{recursive:true});await mkdir(content,{recursive:true});
+  await writeFile(path.join(out,'index.html'),'synthetic offline shell');await writeFile(path.join(out,'runtime/frontline.wasm'),'synthetic runtime fixture');
+  await writeFile(path.join(content,'index.json'),JSON.stringify({format_version:1,maps:[],missions:[]}));
+  const builder=artPlugin({assets:h.assets,content});builder.configResolved({build:{outDir:out},command:'build'});await builder.closeBundle();
+  const pack=JSON.parse(await readFile(path.join(out,'assets/packs/base.json'),'utf8')),pagePath='/art/fx/explosion/small/page0.png',descriptor=pack.files.find((entry:{path:string})=>entry.path===pagePath);assert(descriptor);
+  let middleware!:(request:IncomingMessage,response:ServerResponse,next:()=>void)=>Promise<void>;
+  const plugin=artPlugin({assets:h.assets,content});plugin.configResolved({build:{outDir:out},command:'serve'});
+  await plugin.configureServer({middlewares:{use(fn:typeof middleware){middleware=fn}}});assert.equal(typeof middleware,'function');
+  server=createServer((req,res)=>{void Promise.resolve().then(()=>middleware(req,res,()=>{res.statusCode=404;res.end()})).catch(error=>{res.statusCode=500;res.end(String(error))})});
+  await new Promise<void>((resolve,reject)=>{server!.once('error',reject);server!.listen(0,'127.0.0.1',()=>{server!.removeListener('error',reject);resolve()})});
+  const address=server.address() as {port:number},base=`http://127.0.0.1:${address.port}`,request=(url:string)=>fetch(base+url,{signal:AbortSignal.timeout(2000)});
+  const index=await(await request('/art/index.json')).json();assert.deepEqual(index.effects,h.descriptor);
+  const result=await request(pagePath);assert.equal(result.status,200);const bytes=new Uint8Array(await result.arrayBuffer());assert.equal(bytes.length,descriptor.bytes);assert.equal(hash(bytes),descriptor.sha256);assert.equal(hash(bytes),hash(h.image));
+  assert.equal((await request('/art/fx/unlisted.png')).status,404);assert.equal((await request('/art/fx/%2e%2e%2fmanifest/asset-manifest.json')).status,404);
+  // Invalid live authoring cannot alter a snapshot already selected by its
+  // manifest. The authoring validator still rejects those corrupt bytes.
+  await writeFile(path.join(h.assets,'build/fx/explosion/small/page0.png'),new Uint8Array(h.image.length));await assert.rejects(authoredEffectPack(h.assets),/integrity/);
+  const retained=await request(pagePath);assert.equal(retained.status,200);assert.equal(hash(new Uint8Array(await retained.arrayBuffer())),descriptor.sha256);
+  assert.deepEqual((await(await request('/art/index.json')).json()).effects,h.descriptor);await inspectEffectPack(path.join(out,'art'),{descriptor:h.descriptor});
+  await rm(path.join(out,pagePath));assert.equal((await request(pagePath)).status,503,'a missing declared file cannot fall through to authored content');
  }finally{if(server){server.closeAllConnections();await new Promise<void>(resolve=>server!.close(()=>resolve()))}await rm(h.root,{recursive:true,force:true})}
 });
 test('FX actual build hook packages referenced files with exact base-pack hashes; tampering rejects repack',async()=>{

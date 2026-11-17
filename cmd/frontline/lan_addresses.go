@@ -1,37 +1,37 @@
 package main
 
 import (
+	"fmt"
+	"frontlinecommand/internal/server"
+	"io"
 	"net"
-	"sort"
 )
 
 // Advertise only addresses served by the actual listener. LAN opt-in alone
 // does not make a loopback or single-interface listener bind other interfaces.
 func lanJoinURLs(address string, ifaces []net.Addr) []string {
+	return server.LANJoinURLs(address, ifaces)
+}
+
+func printJoinAddresses(w io.Writer, address string, lan bool, ifaces []net.Addr) {
 	host, port, err := net.SplitHostPort(address)
 	if err != nil {
-		return nil
+		return
 	}
-	bound := net.ParseIP(host)
-	if bound == nil || bound.IsLoopback() {
-		return nil
+	if ip := net.ParseIP(host); ip != nil && ip.IsUnspecified() {
+		host = "127.0.0.1"
 	}
-	if !bound.IsUnspecified() {
-		return []string{"http://" + net.JoinHostPort(bound.String(), port)}
+	fmt.Fprintf(w, "Frontline Command host game page: http://%s\n", net.JoinHostPort(host, port))
+	if !lan {
+		fmt.Fprintln(w, "Localhost only. To invite players on your trusted network, run make lan.")
+		return
 	}
-	// Keep the existing IPv4 join-address policy for a wildcard TCP listener.
-	unique := map[string]bool{}
-	for _, addr := range ifaces {
-		n, ok := addr.(*net.IPNet)
-		if !ok || n.IP.To4() == nil || n.IP.IsLoopback() || n.IP.IsUnspecified() {
-			continue
-		}
-		unique["http://"+net.JoinHostPort(n.IP.String(), port)] = true
+	urls := lanJoinURLs(address, ifaces)
+	for _, url := range urls {
+		fmt.Fprintf(w, "LAN join address (share this): %s\n", url)
 	}
-	var urls []string
-	for url := range unique {
-		urls = append(urls, url)
+	if len(urls) == 0 {
+		fmt.Fprintln(w, "No shareable LAN address. Check the network connection and bind with -addr 0.0.0.0:8080.")
 	}
-	sort.Strings(urls)
-	return urls
+	fmt.Fprintln(w, "Each player: open a LAN join address in your browser, then enter the lobby invite code. Keep this host running.")
 }

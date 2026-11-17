@@ -22,6 +22,15 @@ and the following arrays/objects:
   Terrain: `open`, `cover`, `rubble`, `water`, `cliff`, `blocked`, `road`, `ramp`.
   Water/cliff/blocked are impassable; cover/rubble grant infantry cover and
   slow vehicles. Mandatory tiles reserve corridors against construction.
+  `height` is sight and terrain-art only: a unit standing on a tile with
+  `height > 0` gains +2000 millitiles (two tiles) of sight
+  (`pkg/sim/owner_ranges.go`), and the client renders raised ground from it.
+  Height never affects passability, movement cost or placement —
+  `Tile.Passable()` (`pkg/content/map.go`) depends on `terrain` alone — so a
+  ground unit may cross any height difference between passable tiles, and
+  authored `ramp` tiles are a visual/readability cue, not a movement gate.
+  Do not author a route, choke point or plateau defense that assumes height
+  blocks movement; use `cliff`/`blocked` terrain for that.
 - `spawns`: one to four `{position: {x,y}, team}` entries. Position is the HQ
   center; initial rig appears 3.2 tiles east. Each start needs a clear 7×7 area.
   Standard maps use two/four starts, 128×128/160×160 tiles respectively.

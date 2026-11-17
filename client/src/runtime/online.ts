@@ -31,12 +31,12 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
   this.change(resume?'reconnecting':'connecting');
   const socket=new WebSocket(url);this.socket=socket;socket.binaryType='arraybuffer';
   return new Promise<void>((resolve,reject)=>{
-   let settled=false;
+   let settled=false,opened=false;
    const finish=(error?:unknown)=>{if(settled)return;settled=true;clearTimeout(timeout);if(this.opening?.epoch===epoch)this.opening=undefined;error?reject(error):resolve()};
    const timeout=setTimeout(()=>{finish(new RuntimeError('connect_timeout','The host did not answer. Check the LAN address or reconnect.'));socket.close()},15000);
    this.opening={epoch,finish};
    socket.onopen=()=>{
-    if(epoch!==this.epoch)return;
+    if(epoch!==this.epoch)return;opened=true;
     const hello={protocol:this.connection.protocol,simulation:this.connection.simulation,contentHash:this.connection.content_hash,token:this.connection.token,matchId:this.connection.match_id};
     const message=resume?create(EnvelopeSchema,{message:{case:'resume',value:{hello,lastTick:this.current?.tick??0}}}):create(EnvelopeSchema,{message:{case:'hello',value:hello}});
     socket.send(toBinary(EnvelopeSchema,message));
@@ -66,7 +66,7 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
    socket.onclose=event=>{
     if(epoch!==this.epoch)return;
     if(this.pingTimer)clearInterval(this.pingTimer);this.pings.clear();
-    finish(new RuntimeError('connection_lost','Connection to the host was interrupted. Existing unit orders continue.'));
+    finish(event.code===1008?new RuntimeError('connection_refused','The host refused this match connection. Rejoin through your lobby.',false):!opened?new RuntimeError('socket_unreachable','Could not open a game connection to the host. Check its address and that it is still running.'):!this.current?new RuntimeError('match_connection_closed','The host closed the connection before the game loaded. Rejoin through your lobby.'):new RuntimeError('connection_lost','Connection to the host was interrupted. Existing unit orders continue.'));
     if(this.disposed||this.stopped||this.finished||event.code===1008){this.change('closed');return}
     if(!this.reconnectAt)this.reconnectAt=Date.now();
     this.scheduleReconnect();
@@ -86,7 +86,7 @@ export class OnlineTransport extends RuntimeEvents implements GameTransport {
   this.change('reconnecting');const delay=Math.min(5000,250*2**Math.min(this.attempt++,5),remaining);
   this.retryTimer=setTimeout(()=>{void this.open(true).catch(()=>{/* onclose controls retry */})},delay);
  }
- private startPings(){if(this.pingTimer)clearInterval(this.pingTimer);this.pingTimer=setInterval(()=>{if(this.phase!=='connected')return;const nonce=++this.nonce;this.pings.set(nonce,performance.now());if(this.pings.size>8)this.pings.delete(this.pings.keys().next().value!);this.send(create(EnvelopeSchema,{message:{case:'ping',value:{nonce}}}))},10000)}
+ private startPings(){if(this.pingTimer)clearInterval(this.pingTimer);this.pingTimer=setInterval(()=>{if(this.phase!=='connected')return;const nonce=++this.nonce;try{this.send(create(EnvelopeSchema,{message:{case:'ping',value:{nonce}}}))}catch{return /* The socket closed before onclose ran; that handler drives reconnect and a missed ping is harmless. */}this.pings.set(nonce,performance.now());if(this.pings.size>8)this.pings.delete(this.pings.keys().next().value!)},10000)}
  private send(envelope:Envelope){if(this.disposed||this.phase!=='connected'||this.socket?.readyState!==WebSocket.OPEN)throw new RuntimeError('not_connected','Reconnect to the host before issuing an order.');this.socket.send(toBinary(EnvelopeSchema,envelope))}
  async sendOrders(orders:OrderIntent[]):Promise<number>{if(!orders.length||orders.length>32)throw new RuntimeError('command_limit','Send between one and 32 orders.');const sequence=sequenceAfter(this.sequence,this.current?.economy?.lastSequence);this.send(create(EnvelopeSchema,{message:{case:'orders',value:{sequence,orders}}}));this.sequence=sequence;return sequence}
  async pause(){this.send(create(EnvelopeSchema,{message:{case:'control',value:{action:'pause'}}}))}

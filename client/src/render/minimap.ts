@@ -14,6 +14,20 @@ export function minimapWorldPoint(mapWidth:number,mapHeight:number,width:number,
  return {x:Math.round(clamp((a+b)/2,mapWidth*1000-1)),y:Math.round(clamp((b-a)/2,mapHeight*1000-1))};
 }
 
+/** Arrow movement follows the projected map axes on screen; never leaves the map. */
+export function minimapCursorMove(mapWidth:number,mapHeight:number,point:Point,key:string):Point|undefined{
+ const direction:Record<string,readonly [number,number]>={ArrowLeft:[-1,1],ArrowRight:[1,-1],ArrowUp:[-1,-1],ArrowDown:[1,1]},delta=direction[key];if(!delta)return;
+ const step=Math.max(1000,Math.round(Math.max(mapWidth,mapHeight)*1000/40)),clamp=(n:number,hi:number)=>Math.max(0,Math.min(hi,n));
+ return {x:clamp(point.x+delta[0]*step,mapWidth*1000-1),y:clamp(point.y+delta[1]*step,mapHeight*1000-1)};
+}
+
+/** Minimap brightness per tile: visible 1, remembered .55, shroud .36 with
+ * darker horizontal scan lines (every fourth iso row) so unexplored ground still
+ * shows the map's shape and reads as "unknown" without relying on colour. */
+export function minimapFogBrightness(fog:0|1|2|number,x:number,y:number){
+ return fog===0?1:fog===1?.55:(x+y)%4===0?.28:.36;
+}
+
 /** Retained terrain pixels only. Symbols, team colours and camera geometry are
  * still drawn on every requested minimap repaint. Read current tile/fog values
  * rather than relying on snapshot tick or array identity: perspective changes,
@@ -36,7 +50,7 @@ export class MinimapTerrainRaster {
    const colourChanged=terrain!==this.terrain[i]||height!==this.heights[i],fog=visible[i]?0:explored[i]?1:2;
    if(colourChanged){const [r,g,b]=this.sample(map,x,y);this.rgb[i*3]=r;this.rgb[i*3+1]=g;this.rgb[i*3+2]=b;this.terrain[i]=terrain;this.heights[i]=height}
    if(colourChanged||fog!==this.fog[i]){
-    const k=fog===0?1:fog===1?.4:.04,offset=i*4;
+    const k=minimapFogBrightness(fog,x,y),offset=i*4;
     image.data[offset]=this.rgb[i*3]*k;image.data[offset+1]=this.rgb[i*3+1]*k;image.data[offset+2]=this.rgb[i*3+2]*k;image.data[offset+3]=255;
     this.fog[i]=fog;changed=true;
    }

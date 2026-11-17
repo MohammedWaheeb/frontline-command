@@ -130,7 +130,7 @@ func (s *Server) createScenarioLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	l.ScenarioRules, err = s.scenarioLobbyRules(s.maps[mission.MapID], mission, l.Difficulty, false)
 	if err != nil {
-		fail(w, 400, "invalid_scenario", err.Error())
+		fail(w, 400, "invalid_scenario", "The scenario is invalid.")
 		return
 	}
 	s.mu.Lock()
@@ -250,7 +250,7 @@ func (s *Server) resumeScenarioLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	engine, err := sim.Restore(s.catalog, save.Data)
 	if err != nil {
-		fail(w, 409, "incompatible_checkpoint", err.Error())
+		fail(w, 409, "incompatible_checkpoint", "This checkpoint is incompatible or corrupt.")
 		return
 	}
 	state := engine.StateCopy()
@@ -262,6 +262,19 @@ func (s *Server) resumeScenarioLobby(w http.ResponseWriter, r *http.Request) {
 	m, mapInstalled := s.maps[state.Map.ID]
 	if !installed || !mapInstalled || m.Version != state.Map.Version || mission.Version != state.Mission.Definition.Version {
 		fail(w, 409, "checkpoint_content_missing", "Install the matching mission/map version. The checkpoint is preserved for export.")
+		return
+	}
+	// Co-op is shared state, so only server-issued checkpoints may resume
+	// it: a locally fabricated save can satisfy Restore bounds (e.g.
+	// credits at the cap) without ever coming from a played match. Solo
+	// save upload/download rules are unchanged.
+	issued, err := s.repo.HasServerCheckpoint(r.Context(), p.ID, save.Data)
+	if err != nil {
+		fail(w, 500, "storage_error", "Could not verify this checkpoint.")
+		return
+	}
+	if !issued {
+		fail(w, 403, "checkpoint_not_server_issued", "Only a checkpoint saved by this server during co-op play can host a co-op lobby. The save is preserved for solo use and export.")
 		return
 	}
 	if body.Player == 0 {
@@ -304,7 +317,7 @@ func (s *Server) resumeScenarioLobby(w http.ResponseWriter, r *http.Request) {
 	}
 	l.ScenarioRules, err = s.scenarioLobbyRules(state.Map, state.Mission.Definition, l.Difficulty, true)
 	if err != nil {
-		fail(w, 400, "invalid_scenario", err.Error())
+		fail(w, 400, "invalid_scenario", "The scenario is invalid.")
 		return
 	}
 	s.mu.Lock()

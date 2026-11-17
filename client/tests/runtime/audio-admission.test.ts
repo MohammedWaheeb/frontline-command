@@ -10,11 +10,17 @@ const hash=(label:string)=>createHash('sha256').update(bytes(label)).digest('hex
 const deferred=<T>()=>{let resolve!:(value:T)=>void;const promise=new Promise<T>(done=>resolve=done);return {promise,resolve}};
 const buffer=(label:string)=>({duration:1,length:24000,numberOfChannels:1,label});
 const flush=async()=>{for(let i=0;i<12;i++)await new Promise<void>(resolve=>setImmediate(resolve))};
+async function bounded<T>(work:Promise<T>){
+ let timer:ReturnType<typeof setTimeout>|undefined;
+ try{return await Promise.race([work,new Promise<T>((_,reject)=>{timer=setTimeout(()=>reject(Error('Audio fixture work did not reach its expected state.')),5000)})])}
+ finally{if(timer)clearTimeout(timer)}
+}
 const param=()=>({value:1,setValueAtTime(value:number){this.value=value},setTargetAtTime(value:number){this.value=value}});
 const node=()=>({connect(){},disconnect(){}});
 
-function course(){
+function course(beforeClipFetch?:()=>Promise<void>){
  const entries:Record<string,any>={},held=new Map<string,ReturnType<typeof deferred<any>>>();
+ const decoderStarted=new Map<string,ReturnType<typeof deferred<void>>>(),sourceStarted=new Map<string,ReturnType<typeof deferred<void>>>();
  const decoded:string[]=[],started:string[]=[];let decoding=0,maxDecoding=0;
  const add=(label:string,bus='effects',priority=0,loop=false)=>{
   const id=`${bus==='voice'?'vo':bus==='music'?'music':'sfx'}.${label}`;
@@ -26,24 +32,32 @@ function course(){
  for(let i=0;i<3;i++)add(`layer${i}`,'music',0,true);
  const context:any={state:'running',currentTime:0,close:async()=>{},suspend:async function(){this.state='suspended'},
   createGain:()=>({...node(),gain:param()}),
-  createBufferSource:():any=>({...node(),buffer:null,loop:false,onended:null,start(){started.push(this.buffer.label)},stop(){}}),
+  createBufferSource:():any=>({...node(),buffer:null,loop:false,onended:null,start(){started.push(this.buffer.label);sourceStarted.get(this.buffer.label)?.resolve()},stop(){}}),
   decodeAudioData:async(data:ArrayBuffer)=>{
-   const label=new TextDecoder().decode(data);decoded.push(label);decoding++;maxDecoding=Math.max(maxDecoding,decoding);
+   const label=new TextDecoder().decode(data);decoded.push(label);decoding++;maxDecoding=Math.max(maxDecoding,decoding);decoderStarted.get(label)?.resolve();
    try{return held.has(label)?await held.get(label)!.promise:buffer(label)}finally{decoding--}
   }};
  const mixer=new AudioMixer({audioConsent:true,captions:true,audio:{master:1,voice:1,music:1,effects:1,ui:1}},async(input:any)=>{
   if(String(input).endsWith('index.json'))return new Response(JSON.stringify({format:1,sample_rate:24000,entries}));
+  await beforeClipFetch?.();
   return new Response(bytes(String(input).split('/').at(-1)!.replace('.wav','')));
  });
  const internal=mixer as any;internal.context=context;internal.master=context.createGain();internal.buses=new Map(['voice','effects','music','ui'].map(bus=>[bus,context.createGain()]));
  const holdFour=async()=>{
   const work:Promise<any>[]=[];
-  for(let i=0;i<4;i++){held.set(`effect${i}`,deferred());work.push(internal.buffer(entries[`sfx.effect${i}`].variants[0]));}
-  const observed=work.map(item=>item.catch(error=>error));await flush();assert.equal(decoding,4);
+  for(let i=0;i<4;i++){held.set(`effect${i}`,deferred());decoderStarted.set(`effect${i}`,deferred());work.push(internal.buffer(entries[`sfx.effect${i}`].variants[0]));}
+  const observed=work.map(item=>item.catch(error=>error));
+  // Fetch, stream consumption and native SHA run asynchronously. Waiting a
+  // fixed number of event-loop turns does not establish decoder admission.
+  await bounded(Promise.all([...decoderStarted.values()].map(item=>item.promise)));assert.equal(decoding,4);
   return observed;
  };
+ const waitStarted=(label:string)=>{
+  if(started.includes(label))return Promise.resolve();
+  let waiting=sourceStarted.get(label);if(!waiting){waiting=deferred();sourceStarted.set(label,waiting)}return bounded(waiting.promise);
+ };
  const cleanup=async(work:Promise<any>[]=[] )=>{held.forEach((item,label)=>item.resolve(buffer(label)));await Promise.all(work);await flush();mixer.dispose()};
- return {mixer,internal,entries,decoded,started,held,holdFour,cleanup,maxDecoding:()=>maxDecoding};
+ return {mixer,internal,entries,decoded,started,held,holdFour,waitStarted,cleanup,maxDecoding:()=>maxDecoding};
 }
 function advanceClock(ms:number){const previous=Object.getOwnPropertyDescriptor(performance,'now'),now=performance.now();Object.defineProperty(performance,'now',{value:()=>now+ms,configurable:true});return()=>{if(previous)Object.defineProperty(performance,'now',previous);else delete(performance as any).now}}
 async function deferredMusic(c:ReturnType<typeof course>){for(const entry of Object.values(c.entries))await c.internal.buffer(entry.variants[0]);for(let i=0;i<24;i++)c.mixer.play(`sfx.effect${i}`);await flush();c.mixer.music(['music.layer0','music.layer1','music.layer2']);await flush();assert.equal(c.mixer.statistics.sources,24);assert.equal(c.internal.musicSources.length,0)}
@@ -52,7 +66,7 @@ test('a critical voice waits for a busy decoder while its caption stays immediat
  const c=course();await c.mixer.loadIndex();const work=await c.holdFour();
  try{
   c.mixer.play('vo.warning');await flush();assert.equal(c.mixer.state.get().captions[0].text,'warning');assert.equal(c.mixer.statistics.sources,0);
-  c.held.get('effect0')!.resolve(buffer('effect0'));await flush();
+  c.held.get('effect0')!.resolve(buffer('effect0'));await c.waitStarted('warning');
   assert(c.started.includes('warning'),'critical warning was discarded when the four decode slots were busy');
   assert.equal(c.maxDecoding(),4);
  }finally{await c.cleanup(work)}
@@ -76,23 +90,30 @@ for(const boundary of ['transient','blur','consent','dispose'] as const)test(`qu
 });
 
 test('the latest critical voice owns the single waiting request',async()=>{
- const c=course();await c.mixer.loadIndex();const work=await c.holdFour();
- try{c.mixer.play('vo.warning');await flush();c.mixer.play('vo.new_warning');await flush();c.held.get('effect0')!.resolve(buffer('effect0'));await flush();assert(c.started.includes('new_warning'));assert(!c.started.includes('warning'));assert.equal(c.maxDecoding(),4)}finally{await c.cleanup(work)}
+ // A delayed response is ordinary asynchronous setup, not a failure to admit
+ // four decoders. The course must wait for those decoders before testing speech.
+ const fetching=deferred<void>(),c=course(()=>fetching.promise);await c.mixer.loadIndex();let work:Promise<any>[]=[];
+ const setup=c.holdFour().then(work=>({work}),error=>({error}));
+ try{
+  await flush();assert.equal(c.decoded.length,0);fetching.resolve();
+  const ready=await setup;if('error' in ready)throw ready.error;work=ready.work;
+  c.mixer.play('vo.warning');await flush();c.mixer.play('vo.new_warning');await flush();c.held.get('effect0')!.resolve(buffer('effect0'));await c.waitStarted('new_warning');assert(c.started.includes('new_warning'));assert(!c.started.includes('warning'));assert.equal(c.maxDecoding(),4);
+ }finally{fetching.resolve();await c.cleanup(work)}
 });
 
 test('a new operation warning can wait until old-generation decoders finish',async()=>{
  const c=course();await c.mixer.loadIndex();const work=await c.holdFour();
- try{c.mixer.play('vo.warning');await flush();c.mixer.reset();c.mixer.play('vo.new_warning');await flush();c.held.get('effect0')!.resolve(buffer('effect0'));await flush();assert(c.started.includes('new_warning'));assert(!c.started.includes('warning'));assert.equal(c.maxDecoding(),4)}finally{await c.cleanup(work)}
+ try{c.mixer.play('vo.warning');await flush();c.mixer.reset();c.mixer.play('vo.new_warning');await flush();c.held.get('effect0')!.resolve(buffer('effect0'));await c.waitStarted('new_warning');assert(c.started.includes('new_warning'));assert(!c.started.includes('warning'));assert.equal(c.maxDecoding(),4)}finally{await c.cleanup(work)}
 });
 
 test('an expired waiting critical warning cannot play late or keep routine speech blocked',async()=>{
  const c=course();await c.mixer.loadIndex();const work=await c.holdFour();let restore=()=>{};
- try{c.mixer.play('vo.warning');await flush();restore=advanceClock(4000);c.held.get('effect0')!.resolve(buffer('effect0'));await flush();assert(!c.started.includes('warning'));assert(!c.decoded.includes('warning'));c.mixer.play('vo.routine');await flush();assert(c.started.includes('routine'))}finally{restore();await c.cleanup(work)}
+ try{c.mixer.play('vo.warning');await flush();restore=advanceClock(4000);c.held.get('effect0')!.resolve(buffer('effect0'));await flush();assert(!c.started.includes('warning'));assert(!c.decoded.includes('warning'));c.mixer.play('vo.routine');await c.waitStarted('routine');assert(c.started.includes('routine'))}finally{restore();await c.cleanup(work)}
 });
 
 test('a critical decode completing after its original deadline cannot begin speech',async()=>{
  const c=course();await c.mixer.loadIndex();c.held.set('warning',deferred());let restore=()=>{};let work:Promise<any>[]=[];
- try{c.mixer.play('vo.warning');await flush();work=[...c.internal.pending.values()].map((item:any)=>item.catch((error:any)=>error));restore=advanceClock(4000);c.held.get('warning')!.resolve(buffer('warning'));await flush();assert(!c.started.includes('warning'));c.mixer.play('vo.routine');await flush();assert(c.started.includes('routine'))}finally{restore();await c.cleanup(work)}
+ try{c.mixer.play('vo.warning');await flush();work=[...c.internal.pending.values()].map((item:any)=>item.catch((error:any)=>error));restore=advanceClock(4000);c.held.get('warning')!.resolve(buffer('warning'));await flush();assert(!c.started.includes('warning'));c.mixer.play('vo.routine');await c.waitStarted('routine');assert(c.started.includes('routine'))}finally{restore();await c.cleanup(work)}
 });
 
 test('stopping transient sources wakes music deferred by the shared source cap',async()=>{

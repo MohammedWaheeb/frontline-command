@@ -3,35 +3,60 @@
   "path": "vo/missions/us-03-relay-ridge/debrief.ogg",
   "caption": "Relay Ridge: the operational goal is complete. Review losses, objective state and recorded orders before continuing Operation Clear Horizon.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "7c414388d013e9a4e0b28f87a80dae15bf1af2ac3eed7347950f36e8a46c14b6",
+  "source_hash": "fe3dcb59d2c89374be260eee8a78ed2c29f486e332e75d1df155273207bef765",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/us-03-relay-ridge/debrief.ogg",
-  "duration": 9.251208333333333,
+  "duration": 9.084125,
   "channels": 1,
-  "bytes": 81756,
-  "sha256": "cbbb2efbac1b7c1f3220dc95abe56bb174c8bfc7e0f17131ea0abf648888c5cd",
+  "bytes": 58083,
+  "sha256": "2409f50d7774d3767e28c5c59e2868b31faeba43c27fa1b7e892a33e32cc3c1f",
   "mp3_url": "/art/audio/vo/missions/us-03-relay-ridge/debrief.mp3",
-  "mp3_bytes": 149420,
-  "mp3_sha256": "6c8a08bc3e707dad6eaa4c453305288deaa812d56034270fadea1d3f5cfcbaa2",
-  "peak": 0.7942685484886169,
-  "rms": 0.07262133061885834,
+  "mp3_bytes": 73388,
+  "mp3_sha256": "726665b9b0848897815615f3f7c2abb0e8a3e822ae6da5e923cedaf80cad82f9",
+  "peak": 0.7990202307701111,
+  "rms": 0.1375395804643631,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

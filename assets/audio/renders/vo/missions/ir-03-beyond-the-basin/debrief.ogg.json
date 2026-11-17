@@ -4,34 +4,59 @@
   "caption": "Beyond the Basin: the operational goal is complete. Review losses, objective state and recorded orders before continuing Operation Iron Signal.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "89eebd5d605b1e3343a350370d9d07f6345cafdc6b6c04a21ad155d456c26408",
+  "source_hash": "cedbac6ee426e628fd5cc946459143bcb6cb6fd79622217226480f150bc8fabd",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-03-beyond-the-basin/debrief.ogg",
-  "duration": 10.047583333333334,
+  "duration": 10.13075,
   "channels": 1,
-  "bytes": 83074,
-  "sha256": "589cd0d20177267ffa5271ded09f7b1aa9aeba3c7755d660b50a1fa37197a609",
+  "bytes": 56954,
+  "sha256": "9cb299817d3f49f2aac33016791c213931aa9dc6f6ebfa0e10cebd88d85536c2",
   "mp3_url": "/art/audio/vo/missions/ir-03-beyond-the-basin/debrief.mp3",
-  "mp3_bytes": 162092,
-  "mp3_sha256": "36257ee13f98c2f865a0248828ba8e3ac118c096a7c4798b539e5c17cc1b6c0c",
-  "peak": 0.7813013792037964,
-  "rms": 0.13849776983261108,
+  "mp3_bytes": 81836,
+  "mp3_sha256": "80a1446b05503b7daf4e748bcf345d14fb7efc14fa771464f297c509646075a1",
+  "peak": 0.5268741250038147,
+  "rms": 0.14052477478981018,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

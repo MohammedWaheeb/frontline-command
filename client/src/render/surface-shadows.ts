@@ -74,13 +74,16 @@ class SurfaceShadowGeometry {
 }
 
 export interface ShadowView {left:number;top:number;right:number;bottom:number;zoom:number}
-interface GroundGroup {mesh:Mesh<MeshGeometry>;flat:Float32Array}
+interface GroundGroup {
+ mesh:Mesh<MeshGeometry>;sourcePositions:Float32Array;sourceFlat:Float32Array;tiles:Uint32Array;shown:Uint8Array;
+ positions:Float32Array;flat:Float32Array;uvs:Float32Array;indices:Uint32Array;dirty:boolean;
+}
 /** One bounded viewport-sized shadow stamp, sampled by public terrain tops.
  * Static terrain geometry is reused while sprites move. Known service decks
  * retain separately clipped plates because they are above the ground plane. */
 export class SurfaceShadows {
  private renderer?:Renderer;private texture?:RenderTexture;private allocationKey='';private stamp=new Container();private sprites=new Map<number,Sprite>();private ground=new Map<number,GroundGroup>();
- private deck:SurfaceShadowGeometry;private key='';private geometryKey='';private surface?:TerrainSurface;private visible?:readonly boolean[];private visibilityMask?:Uint8Array;private visibilityRevision=0;private textureView?:ShadowView;
+ private deck:SurfaceShadowGeometry;private key='';private geometryKey='';private surface?:TerrainSurface;private visible?:readonly boolean[];private textureView?:ShadowView;
  constructor(private layer:Container,renderer?:Renderer){this.renderer=renderer;this.deck=new SurfaceShadowGeometry(layer)}
  configure(renderer:Renderer){this.renderer=renderer}
  get diagnostics(){const deck=this.deck.diagnostics;return {meshes:this.ground.size+deck.meshes,triangles:[...this.ground.values()].reduce((n,g)=>n+g.mesh.geometry.indices.length/3,0)+deck.triangles,cachedPlates:this.sprites.size+deck.cachedPlates,rebuiltPlates:deck.rebuiltPlates,stampSprites:this.sprites.size,textureID:this.texture?.uid,textureBytes:this.texture?this.texture.source.pixelWidth*this.texture.source.pixelHeight*4:0}}
@@ -106,19 +109,40 @@ export class SurfaceShadows {
    for(const [id,sprite] of this.sprites)if(!used.has(id)){sprite.texture=Texture.EMPTY;sprite.destroy();this.sprites.delete(id)}
    this.renderer.render({container:this.stamp,target:texture,clear:true});
   }
-  if(this.visible!==visible){this.visible=visible;const changed=visible?this.visibilityMask?.length!==visible.length||visible.some((value,i)=>(value?1:0)!==this.visibilityMask![i]):this.visibilityMask!==undefined;if(changed){this.visibilityMask=visible?Uint8Array.from(visible,Number):undefined;this.visibilityRevision++}}
+  const visibilityChanged=this.visible!==visible;this.visible=visible;
   const corners=[[left,top],[right,top],[right,bottom],[left,bottom]].map(([x,y])=>toWorld(x,y)),guard=surface.maxHeight*1000;
   const bounds={left:Math.max(0,Math.floor((Math.min(...corners.map(p=>p.x))-guard)/1000)*1000),top:Math.max(0,Math.floor((Math.min(...corners.map(p=>p.y))-guard)/1000)*1000),right:Math.min(surface.width*1000,Math.ceil((Math.max(...corners.map(p=>p.x))+guard)/1000)*1000),bottom:Math.min(surface.height*1000,Math.ceil((Math.max(...corners.map(p=>p.y))+guard)/1000)*1000)};
-  const geometryKey=`${bounds.left}/${bounds.top}/${bounds.right}/${bounds.bottom}/${this.visibilityRevision}`;
+  const geometryKey=`${bounds.left}/${bounds.top}/${bounds.right}/${bounds.bottom}`;
   let rebuild=false;if(this.surface!==surface||geometryKey!==this.geometryKey){
-   this.surface=surface;this.geometryKey=geometryKey;rebuild=true;const groups=new Map<number,{positions:number[];flat:number[]}>();
-   for(const triangle of surface.triangles(bounds)){if(triangle.kind!=='top'||visible&&!visible[triangle.tile])continue;let group=groups.get(triangle.depth);if(!group){group={positions:[],flat:[]};groups.set(triangle.depth,group)}for(const vertex of triangle.vertices){const p=projectSurfaceVertex(vertex),flat=toScreen(vertex.x,vertex.y);group.positions.push(p.x,p.y);group.flat.push(flat.x,flat.y)}}
+   this.surface=surface;this.geometryKey=geometryKey;rebuild=true;const groups=new Map<number,{positions:number[];flat:number[];tiles:number[]}>();
+   // Only the current viewport's immutable public tops are cached. Fog changes
+   // must not regenerate every triangle (or construct cliff faces to discard).
+   // Match TerrainSurface.triangles()' exact floor/ceil/clamp traversal.
+   const clamp=(n:number,limit:number)=>Math.max(0,Math.min(limit-1,n)),x0=clamp(Math.floor(bounds.left/1000),surface.width),y0=clamp(Math.floor(bounds.top/1000),surface.height),x1=clamp(Math.ceil(bounds.right/1000)-1,surface.width),y1=clamp(Math.ceil(bounds.bottom/1000)-1,surface.height);
+   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)for(const triangle of surface.topTriangles(y*surface.width+x)){
+    let group=groups.get(triangle.depth);if(!group){group={positions:[],flat:[],tiles:[]};groups.set(triangle.depth,group)}group.tiles.push(triangle.tile);
+    for(const vertex of triangle.vertices){const p=projectSurfaceVertex(vertex),flat=toScreen(vertex.x,vertex.y);group.positions.push(p.x,p.y);group.flat.push(flat.x,flat.y)}
+   }
    for(const [depth,group] of this.ground)if(!groups.has(depth)){group.mesh.geometry.destroy();group.mesh.destroy();this.ground.delete(depth)}
-   for(const [depth,data] of groups){let group=this.ground.get(depth);if(!group){const geometry=new MeshGeometry({});geometry.batchMode='batch';const mesh=new Mesh({geometry,texture});mesh.eventMode='none';mesh.zIndex=depth+.00005;this.layer.addChild(mesh);group={mesh,flat:new Float32Array()};this.ground.set(depth,group)}group.flat=new Float32Array(data.flat);group.mesh.geometry.uvs=new Float32Array(data.positions.length);group.mesh.geometry.positions=new Float32Array(data.positions);group.mesh.geometry.indices=Uint32Array.from({length:data.positions.length/2},(_,i)=>i)}
+   for(const [depth,data] of groups){
+    let mesh=this.ground.get(depth)?.mesh;if(!mesh){const geometry=new MeshGeometry({});geometry.batchMode='batch';mesh=new Mesh({geometry,texture});mesh.eventMode='none';mesh.zIndex=depth+.00005;this.layer.addChild(mesh)}
+    const indices=new Uint32Array(data.positions.length/2);for(let i=0;i<indices.length;i++)indices[i]=i;
+    this.ground.set(depth,{mesh,sourcePositions:new Float32Array(data.positions),sourceFlat:new Float32Array(data.flat),tiles:new Uint32Array(data.tiles),shown:new Uint8Array(data.tiles.length),positions:new Float32Array(data.positions.length),flat:new Float32Array(data.flat.length),uvs:new Float32Array(data.positions.length),indices,dirty:true});
+   }
   }
-  const previous=this.textureView;if(rebuild||!previous||previous.left!==left||previous.top!==top||previous.zoom!==view.zoom){for(const group of this.ground.values()){const uv=group.mesh.geometry.uvs;for(let i=0;i<uv.length;i+=2){uv[i]=(group.flat[i]-left)*view.zoom/texture.width;uv[i+1]=(group.flat[i+1]-top)*view.zoom/texture.height}group.mesh.geometry.attributes.aUV.buffer.update();group.mesh.texture=texture}this.textureView={left,top,right,bottom,zoom:view.zoom}}
+  if(rebuild||visibilityChanged)for(const group of this.ground.values()){
+   let changed=rebuild;for(let i=0;i<group.tiles.length;i++){const shown=!visible||visible[group.tiles[i]]?1:0;if(group.shown[i]!==shown){group.shown[i]=shown;changed=true}}
+   if(!changed)continue;
+   // Pixi batches every submitted position, even an unindexed one. Keep hidden
+   // tops CPU-only and compact visible triangles into reusable draw buffers.
+   let at=0;for(let i=0;i<group.tiles.length;i++)if(group.shown[i])for(let k=i*6;k<i*6+6;k++){group.positions[at]=group.sourcePositions[k];group.flat[at++]=group.sourceFlat[k]}
+   group.mesh.geometry.positions=group.positions.subarray(0,at);group.mesh.geometry.uvs=group.uvs.subarray(0,at);group.mesh.geometry.indices=group.indices.subarray(0,at/2);group.mesh.visible=at>0;group.dirty=true;
+  }
+  const previous=this.textureView,viewChanged=!previous||previous.left!==left||previous.top!==top||previous.zoom!==view.zoom;
+  for(const group of this.ground.values())if(group.dirty||viewChanged){const uv=group.mesh.geometry.uvs;for(let i=0;i<uv.length;i+=2){uv[i]=(group.flat[i]-left)*view.zoom/texture.width;uv[i+1]=(group.flat[i+1]-top)*view.zoom/texture.height}group.mesh.geometry.attributes.aUV.buffer.update();group.mesh.texture=texture;group.dirty=false}
+  if(viewChanged)this.textureView={left,top,right,bottom,zoom:view.zoom};
  }
-  private clearGround(){for(const group of this.ground.values()){group.mesh.geometry.destroy();group.mesh.destroy()}this.ground.clear();for(const sprite of this.sprites.values()){sprite.texture=Texture.EMPTY;sprite.destroy()}this.sprites.clear();this.texture?.destroy(true);this.texture=undefined;this.allocationKey='';this.key='';this.geometryKey='';this.textureView=undefined;this.surface=undefined}
- clear(){this.deck.clear();this.clearGround();this.visible=undefined;this.visibilityMask=undefined;this.visibilityRevision=0}
+  private clearGround(){for(const group of this.ground.values()){group.mesh.geometry.destroy();group.mesh.destroy()}this.ground.clear();for(const sprite of this.sprites.values()){sprite.texture=Texture.EMPTY;sprite.destroy()}this.sprites.clear();this.texture?.destroy(true);this.texture=undefined;this.allocationKey='';this.key='';this.geometryKey='';this.textureView=undefined;this.surface=undefined;this.visible=undefined}
+ clear(){this.deck.clear();this.clearGround()}
  dispose(){this.clear();this.stamp.destroy()}
 }

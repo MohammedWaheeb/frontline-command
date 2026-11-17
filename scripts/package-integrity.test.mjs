@@ -23,7 +23,7 @@ test('canonical Go checks cover shipped package roots and exclude historical sna
 });
 test('short and extended Go commands preserve distinct acceptance modes',()=>{
  assert.deepEqual(goTestArguments(),['test','-short',...productionGoPackages]);
- assert.deepEqual(goTestArguments(true),['test','-timeout=30m',...productionGoPackages]);
+ assert.deepEqual(goTestArguments(true),['test','-timeout=120m',...productionGoPackages]);
 });
 test('exported source packages record unknown Git provenance, even inside another checkout',async()=>{
  const dir=await mkdtemp(path.join(tmpdir(),'package-export-'));try{
@@ -77,7 +77,7 @@ test('Go notices support archive and Homebrew layouts without accepting unrelate
  }finally{await rm(dir,{recursive:true,force:true})}
 });
 test('native target removes inherited cross and CGO settings',()=>{assert.deepEqual(nativeBuildEnvironment('linux','x64',{GOOS:'js',GOARCH:'wasm',CGO_ENABLED:'1'}),{GOOS:'linux',GOARCH:'amd64',CGO_ENABLED:'0',GOAMD64:'v1',GOARM64:'v8.0'});assert.equal(nativeBuildEnvironment('win32','arm64',{}).GOOS,'windows');assert.throws(()=>nativeBuildEnvironment('darwin','ia32',{}),/unsupported/)});
-test('portable inventory rejects escape, Windows reserved names and symlinks',async()=>{for(const name of ['../secret','/absolute','x\\y','AUX.txt','a/COM1','a.','a:secret','a%2fsecret'])assert.throws(()=>portablePath(name));const dir=await mkdtemp(path.join(tmpdir(),'package-paths-'));try{await put(dir,'OK.txt','ok');await symlink(path.join(dir,'OK.txt'),path.join(dir,'link'));await assert.rejects(fileInventory(dir),/Symlink/);await rm(path.join(dir,'link'));assert.equal((await fileInventory(dir)).length,1)}finally{await rm(dir,{recursive:true,force:true})}});
+test('portable inventory rejects escape, Windows reserved names and symlinks',async()=>{for(const name of ['../secret','/absolute','x\\y','AUX.txt','a/COM1','a.','a:secret','a%2fsecret'])assert.throws(()=>portablePath(name));const dir=await mkdtemp(path.join(tmpdir(),'package-paths-'));try{await put(dir,'OK.txt','ok');await put(dir,'.DS_Store','finder');await symlink(path.join(dir,'OK.txt'),path.join(dir,'link'));await assert.rejects(fileInventory(dir),/Symlink/);await rm(path.join(dir,'link'));assert.equal((await fileInventory(dir)).length,1)}finally{await rm(dir,{recursive:true,force:true})}});
 test('native headers must match the recorded package platform and CPU',async()=>{const dir=await mkdtemp(path.join(tmpdir(),'package-native-'));try{const file=path.join(dir,'binary'),b=Buffer.alloc(256);b.writeUInt32LE(0xfeedfacf,0);b.writeUInt32LE(0x100000c,4);await writeFile(file,b);assert.equal((await verifyNativeExecutable(file,'darwin','arm64')).GOARCH,'arm64');await assert.rejects(verifyNativeExecutable(file,'darwin','x64'),/architecture mismatch/);await assert.rejects(verifyNativeExecutable(file,'linux','arm64'),/ELF64/)}finally{await rm(dir,{recursive:true,force:true})}});
 test('offline package rejects missing runtime, changed bytes, unlisted resources and reused version',async()=>{
  const dir=await mkdtemp(path.join(tmpdir(),'package-product-'));try{

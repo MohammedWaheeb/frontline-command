@@ -3,35 +3,60 @@
   "path": "vo/missions/convoy-union/debrief.ogg",
   "caption": "All three convoys have arrived. Independent command and shared route decisions kept the corridor operating.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "8979b801f87ab9f1187bf7cd341d3a7ce59af65e0c53aea1b18c43a2b6a41ed7",
+  "source_hash": "013787baa338a9314617c63ec6815567707b7ba5cce13971ded5c76673a90b7f",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/convoy-union/debrief.ogg",
-  "duration": 6.3682083333333335,
+  "duration": 6.436125,
   "channels": 1,
-  "bytes": 59052,
-  "sha256": "9b2e582d3707dcca9f020a34e1362b4974a26cea4400f83bb4c1ca5a03b5e12a",
+  "bytes": 40438,
+  "sha256": "d1eb7e29d809d94b49f183f1157a8868e230cb593c2ba476f209578fa5981bc2",
   "mp3_url": "/art/audio/vo/missions/convoy-union/debrief.mp3",
-  "mp3_bytes": 103340,
-  "mp3_sha256": "1d576ce89b0f77cf3302f0718bb9d0368d5237721d58eceb1e3fe02fb18bf404",
-  "peak": 0.7675257921218872,
-  "rms": 0.10424473136663437,
+  "mp3_bytes": 52268,
+  "mp3_sha256": "1f1073602463d4c7eec0e56b253de9023ebe2b91a66d3864183a8331272d9fa0",
+  "peak": 0.7065231204032898,
+  "rms": 0.14093023538589478,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

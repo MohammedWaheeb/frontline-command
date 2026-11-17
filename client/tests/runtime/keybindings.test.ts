@@ -1,6 +1,55 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {defaultBindings,validateBindings,remapBindings,resolveShortcut,resolvePointer,textEntryFocused,exceedsDragThreshold,ModifierToggles} from '../../src/runtime/keybindings';
+import {defaultBindings,validateBindings,remapBindings,resolveShortcut,resolvePointer,textEntryFocused,exceedsDragThreshold,ModifierToggles,KEYBOARD_LAYOUTS} from '../../src/runtime/keybindings';
+
+test('every keyboard layout validates independently of both mouse schemes',()=>{
+ for(const {id} of KEYBOARD_LAYOUTS)for(const mouse of ['standard','classic'] as const){
+  const bindings=defaultBindings(mouse,id);assert.deepEqual(validateBindings(bindings),[],`${id}/${mouse}`);
+  assert.equal(bindings.preset,mouse);assert.equal(bindings.pointer.context,mouse==='classic'?0:2);
+ }
+});
+
+test('Frontline production, cameos, commands, abilities and camera shortcuts resolve without conflicts',()=>{
+ const bindings=defaultBindings();
+ for(const [i,tab] of ['base','defense','infantry','vehicles','air','tech'].entries())assert.equal(resolveShortcut({code:`Key${'QWERTY'[i]}`},bindings)?.action,`production_${tab}`);
+ assert.equal(resolveShortcut({code:'Tab'},bindings)?.action,'next_production_tab');
+ assert.equal(resolveShortcut({code:'Tab',shiftKey:true},bindings)?.action,'previous_production_tab');
+ for(let i=1;i<=12;i++){
+  assert.equal(resolveShortcut({code:`F${i}`},bindings)?.action,`cameo_${i}`);
+  assert.equal(resolveShortcut({code:`F${i}`,shiftKey:true},bindings)?.action,`cameo_${i}_batch`);
+  assert.equal(resolveShortcut({code:`F${i}`,ctrlKey:true},bindings)?.action,`cameo_${i}_cancel`);
+ }
+ for(const [code,action] of Object.entries({KeyA:'attack_move',KeyS:'stop',KeyD:'deploy',KeyG:'guard',KeyH:'hold',KeyX:'scatter',KeyF:'force_fire',KeyZ:'ability_1',KeyC:'ability_2',KeyV:'ability_3',KeyB:'ability_4',KeyK:'repair_mode',KeyL:'sell_mode',KeyO:'power_mode',KeyP:'patrol',KeyN:'place_last_built',Backspace:'center_base',Space:'center_alert',Home:'center_selection',Backquote:'select_idle'}))assert.equal(resolveShortcut({code},bindings)?.action,action,code);
+ assert.equal(resolveShortcut({code:'Backquote',shiftKey:true},bindings)?.action,'select_all_idle');
+ assert.equal(resolveShortcut({code:'KeyA',ctrlKey:true,shiftKey:true},bindings)?.action,'select_all_screen');
+ assert.equal(resolveShortcut({code:'KeyZ',shiftKey:true},bindings)?.queued,true);
+ assert.equal(resolveShortcut({code:'F5',ctrlKey:true,shiftKey:true},bindings)?.action,'quick_save');
+ assert.equal(resolveShortcut({code:'F9',ctrlKey:true,shiftKey:true},bindings)?.action,'quick_load');
+});
+
+test('Classic legacy keeps the original keyboard controls without activating new defaults',()=>{
+ const bindings=defaultBindings('standard','classic');
+ for(const [code,action] of Object.entries({KeyE:'escort',KeyR:'return',KeyY:'repair',KeyB:'board',KeyU:'unload',KeyC:'capture',KeyL:'rally',KeyX:'aggressive',KeyV:'pack',KeyT:'select_same_type',Tab:'next_subgroup',F5:'quick_save',F9:'quick_load'}))assert.equal(resolveShortcut({code},bindings)?.action,action,code);
+ assert.equal(resolveShortcut({code:'Tab',shiftKey:true},bindings)?.action,'previous_subgroup');
+ assert.equal(resolveShortcut({code:'KeyQ'},bindings),undefined);
+ assert.deepEqual(bindings.keys.production_base,[]);
+});
+
+test('Grid owns the twelve command-card letters while preserving production access and queueing',()=>{
+ const bindings=defaultBindings('standard','grid');
+ for(const [i,key] of [...'QWERASDFZXCV'].entries()){
+  assert.equal(resolveShortcut({code:`Key${key}`},bindings)?.action,`card_slot_${i+1}`);
+  assert.deepEqual(resolveShortcut({code:`Key${key}`,shiftKey:true},bindings),{action:`card_slot_${i+1}`,queued:true,preventDefault:true});
+ }
+ assert.equal(resolveShortcut({code:'KeyQ',altKey:true},bindings)?.action,'production_base');
+ assert.equal(resolveShortcut({code:'KeyA',ctrlKey:true},bindings)?.action,'select_all');
+ assert.equal(resolveShortcut({code:'F1'},bindings)?.action,'cameo_1');
+});
+
+test('layout default factories return independent binding arrays',()=>{
+ const first=defaultBindings(),second=defaultBindings();first.keys.production_base[0].code='KeyJ';
+ assert.equal(second.keys.production_base[0].code,'KeyQ');assert.equal(defaultBindings().keys.production_base[0].code,'KeyQ');
+});
 
 test('native keyboard activation is not consumed as chat or alert navigation',()=>{
  const bindings=defaultBindings();
@@ -73,6 +122,11 @@ test('standard and classic pointer presets return correct selection, targeting a
  assert.deepEqual(resolvePointer({...click,phase:'drag',shiftKey:true},classic),{action:'box-select',additive:true});
  assert.deepEqual(resolvePointer({...click,phase:'drag',button:1},standard),{action:'pan'});
  assert.deepEqual(resolvePointer({...click,phase:'double-click',hit:'owned'},standard),{action:'select-type',additive:false});
+ assert.deepEqual(resolvePointer({...click,ctrlKey:true,hit:'owned'},standard),{action:'select-type',additive:false});
+ assert.deepEqual(resolvePointer({...click,ctrlKey:true,shiftKey:true,hit:'owned'},classic),{action:'select-type',additive:true});
+ assert.deepEqual(resolvePointer({...click,ctrlKey:true,hit:'visible-entity'},standard),{action:'select',additive:false});
+ assert.deepEqual(resolvePointer({...click,hit:'visible-entity',hasSelection:false},classic),{action:'select',additive:false});
+ assert.deepEqual(resolvePointer({...click,hit:'visible-entity'},classic),{action:'context-command',queued:false});
  assert.equal(resolvePointer(click,standard,{textEntry:true}),undefined);
  assert.equal(exceedsDragThreshold({x:0,y:0},{x:3,y:4},5),true);
  assert.equal(exceedsDragThreshold({x:0,y:0},{x:3,y:4},6),false);

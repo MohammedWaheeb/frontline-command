@@ -4,34 +4,59 @@
   "caption": "Unable to engage that target.",
   "faction": "SA",
   "voice": "am_fenrir",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "2b9c83a03dcc5dd1057b28785afac6b9179fde3849b600c42a5afa3de6b87033",
+  "source_hash": "f5a8bd6195344144f1c0ffe8fbc025d8b904ecbeb3454fd8ed51fad55577b90e",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/vehicle_crew/unavailable_2.ogg",
-  "duration": 1.6944166666666667,
+  "duration": 1.5945,
   "channels": 1,
-  "bytes": 18539,
-  "sha256": "6d3077205c5e760f7deee33b1d46567b0adb235f485bae4600ae08f3fa947ebb",
+  "bytes": 13084,
+  "sha256": "8eff4a7641770c14ca450a059163c9a1530e434ad8e217efb01f5867980ff7b5",
   "mp3_url": "/art/audio/vo/units/SA/vehicle_crew/unavailable_2.mp3",
-  "mp3_bytes": 28460,
-  "mp3_sha256": "6cb3504a67766444440a42e24b11a809ba6bab9a622561f75d786b47d4255da2",
-  "peak": 0.783502995967865,
-  "rms": 0.11005321890115738,
+  "mp3_bytes": 13484,
+  "mp3_sha256": "e06e789bf77416a080a97a1ad5beab9b8fd5e855bf0c3ce8f03488d275046e93",
+  "peak": 0.6831021904945374,
+  "rms": 0.14038865268230438,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

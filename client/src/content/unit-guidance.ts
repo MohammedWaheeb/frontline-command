@@ -7,11 +7,11 @@ const ROLES:Readonly<Record<string,string>>={
  rifle:'Anti-infantry squad. Use cover and protect your support units.',
  at:'Anti-armor infantry. Screen against vehicles and protect it from infantry.',
  recon:'Ground scouting and concealment detection. Keep it ahead of protected forces.',
- elite:'Elite infantry with interruptible sabotage against production and technology.',
+ elite:'Sabotage commando · limit 1. Interruptible sabotage against production and technology.',
  engineer:'Captures weakened structures and repairs friendly assets. Needs protection.',
  medic:'Free healing for friendly infantry out of combat. Keep it behind the fighting line.',
  car:'Fast reconnaissance vehicle with an anti-infantry autocannon.',
- apc:'Carries two infantry squads and supports them with small arms.',
+ apc:'Carries three infantry squads and supports them with small arms.',
  tank:'Heavy direct-fire vehicle for fighting enemy armor.',
  artillery:'Indirect blast fire against infantry and structures. Keep enemies outside its minimum range.',
  aa:'Ground anti-air protection. It cannot intercept tactical missiles.',
@@ -47,6 +47,7 @@ const COUNTERS:Readonly<Record<string,string>>={
  air:'Ground anti-air and enemy fighters. Loss of service capacity also limits its sorties.',
 };
 function factionRole(unit:CatalogUnit,role:string):string{
+ if(unit.id==='SY.apc')return 'Carries two infantry squads and supports them with small arms.';
  if(unit.faction==='SY'&&['rifle','recon','elite'].includes(unit.role))return `${role} Can conceal in marked cover and earn one Ambush shot.`;
  if(unit.id==='US.recon')return `${role} Designation shortens US aircraft attack windup on a visible target.`;
  if(unit.id==='IR.recon')return `${role} A paid temporary beacon provides sight without detection or a build radius.`;

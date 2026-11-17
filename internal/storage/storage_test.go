@@ -152,7 +152,7 @@ func TestResultIntegrityMigrationFromV8(t *testing.T) {
 	}
 	defer s.Close()
 	var version int
-	if err := s.db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil || version != 9 {
+	if err := s.db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil || version != 10 {
 		t.Fatal("legacy database not migrated", version, err)
 	}
 	ctx := context.Background()

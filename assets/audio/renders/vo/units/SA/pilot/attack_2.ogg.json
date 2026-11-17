@@ -4,34 +4,59 @@
   "caption": "Weapons aligned. Opening fire.",
   "faction": "SA",
   "voice": "am_michael",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "d578e11830ae6c54592cd04232a61e453f331e66aa3ba60b55145d63c22441cc",
+  "source_hash": "707651c451b536cad349bc0f9d9f4c24ecd63a8a00e2e621036ad693fe786809",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/pilot/attack_2.ogg",
-  "duration": 2.3237916666666667,
+  "duration": 2.2755,
   "channels": 1,
-  "bytes": 22618,
-  "sha256": "3c91f196d37d415f456bfaec76e72ff52264b5fedf8bcc1a44c870f2e6d41f68",
+  "bytes": 16713,
+  "sha256": "860c5942614ebeb67f6fd49e1602be3d6b9a4438360574206f71b40aafe91d7f",
   "mp3_url": "/art/audio/vo/units/SA/pilot/attack_2.mp3",
-  "mp3_bytes": 38444,
-  "mp3_sha256": "6bcdc686a40ae6c37e6236d97647c068cddbdf4c1cc65239940aff6c5fe55423",
-  "peak": 0.7587679028511047,
-  "rms": 0.09707914292812347,
+  "mp3_bytes": 18860,
+  "mp3_sha256": "3b4784946883e0ddafd6837f56bc1909f400c528a66df78fd8e0c719b6a6f238",
+  "peak": 0.7590717673301697,
+  "rms": 0.14067238569259644,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

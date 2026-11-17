@@ -3,35 +3,60 @@
   "path": "vo/announcer/SY/shipment_arrived.ogg",
   "caption": "Shipment received. Additional credits are available.",
   "faction": "SY",
-  "voice": "bf_emma",
-  "speed": 1.02,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "dcad7eb4ac131327a2f5b37ef2764d69cc157989bd3fa9b529aac6573b3e05d4",
+  "source_hash": "b862923f596392aee4e832de8347a8ff0f888b1ab4a0b41fe9f30c64eb70a032",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/SY/shipment_arrived.ogg",
-  "duration": 3.144,
+  "duration": 3.411791666666667,
   "channels": 1,
-  "bytes": 31249,
-  "sha256": "fba1f38b03fb01bc98c2a1cd1e3de0ca09f6aa220c2f67762322e7c163cc0cd8",
+  "bytes": 23006,
+  "sha256": "e7846cef9684a22c31bd53bfc0138560abca747760d91d52d1c127e95d47f242",
   "mp3_url": "/art/audio/vo/announcer/SY/shipment_arrived.mp3",
-  "mp3_bytes": 51500,
-  "mp3_sha256": "369976a55217189e326d6c57d40a7c6a14420a66dce32bb1fa656b7747e1027e",
-  "peak": 0.7851556539535522,
-  "rms": 0.09573357552289963,
+  "mp3_bytes": 28076,
+  "mp3_sha256": "a75046e0c91dd24520a3f1c2e6dce254e515bccfb13dda75d99231b074854cdf",
+  "peak": 0.7516419887542725,
+  "rms": 0.14130818843841553,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

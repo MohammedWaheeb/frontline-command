@@ -43,6 +43,7 @@ func TestCoopResumePreservesStateAndRejectsEditedCheckpoint(t *testing.T) {
 	if err = s.repo.PutSharedSave(context.Background(), []string{pa.ID, pbProfile.ID}, "shared-coop", "Midpoint", data); err != nil {
 		t.Fatal(err)
 	}
+	seedServerCheckpoint(t, s, "shared-coop-match", 113, data, pa.ID, pbProfile.ID)
 	created := request(t, h, "POST", "/api/v1/saves/shared-coop/coop-lobby", a, map[string]any{"player": 2}, 201)
 	var l Lobby
 	json.Unmarshal(created["lobby"], &l)

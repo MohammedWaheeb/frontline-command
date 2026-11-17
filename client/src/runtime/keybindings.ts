@@ -13,7 +13,7 @@ const chord=(code:string,...modifiers:Modifier[]):KeyChord=>({code,modifiers});
 const definition=(id:string,label:string,category:ShortcutDefinition['category'],defaults:KeyChord[]=[],extra:Partial<ShortcutDefinition>={}):ShortcutDefinition=>({id,label,category,defaults,...extra});
 
 /** Input mappings only; available actions and gameplay legality still come from Go. */
-export const SHORTCUT_DEFINITIONS:readonly ShortcutDefinition[]=[
+const LEGACY_SHORTCUT_DEFINITIONS:readonly ShortcutDefinition[]=[
  definition('attack_move','Attack-move','orders',[chord('KeyA')],{queueModifier:true}),
  definition('attack','Attack target','orders',[],{queueModifier:true}),
  definition('rebase','Rebase aircraft','orders'),
@@ -33,7 +33,7 @@ export const SHORTCUT_DEFINITIONS:readonly ShortcutDefinition[]=[
  definition('aggressive','Aggressive stance','orders',[chord('KeyX')],{queueModifier:true}),
  definition('deploy','Deploy','orders',[chord('KeyD')]),
  definition('pack','Pack','orders',[chord('KeyV')]),
- ...['build','resume','train','research','cancel_production','sell','power','gather','salvage','repeat_sortie','repair_reserve','surrender_vote','surrender_cancel','convoy_hold','convoy_advance','ping'].map(id=>definition(id,id.replaceAll('_',' '),'orders')),
+ ...[['build','Build'],['resume','Resume build'],['train','Train unit'],['research','Research'],['cancel_production','Cancel production'],['sell','Sell'],['power','Toggle power'],['gather','Gather supplies'],['salvage','Salvage'],['repeat_sortie','Repeat sortie'],['repair_reserve','Repair reserve'],['surrender_vote','Vote to surrender'],['surrender_cancel','Cancel surrender vote'],['convoy_hold','Hold convoy'],['convoy_advance','Advance convoy'],['ping','Ping']].map(([id,label])=>definition(id,label,'orders')),
  ...Array.from({length:6},(_,i)=>definition(`ability_${i+1}`,`Ability ${i+1}`,'orders',[],{queueModifier:true})),
  definition('select_all','Select all controllable forces','selection',[chord('KeyA','ctrl')]),
  definition('select_same_type','Select same type on screen','selection',[chord('KeyT')]),
@@ -48,6 +48,10 @@ export const SHORTCUT_DEFINITIONS:readonly ShortcutDefinition[]=[
  definition('zoom_out','Zoom out','camera',[chord('Minus'),chord('NumpadSubtract')],{repeat:true}),
  definition('escape','Cancel targeting / pause menu','interface',[chord('Escape')]),
  definition('chat','Open match chat','interface',[chord('Enter')]),
+ definition('diagnostics','Show command diagnostics','interface',[chord('KeyD','ctrl','shift')]),
+ definition('cycle_producer','Next production facility','interface',[chord('Period')]),
+ definition('previous_producer','Previous production facility','interface',[chord('Comma')]),
+ definition('select_hq','Select headquarters','selection',[chord('Backspace','ctrl')]),
  definition('team_chat','Open team chat','interface',[chord('Enter','shift')]),
  definition('quick_save','Quick save (solo)','interface',[chord('F5')]),
  definition('quick_load','Quick load (solo)','interface',[chord('F9')]),
@@ -58,6 +62,43 @@ export const SHORTCUT_DEFINITIONS:readonly ShortcutDefinition[]=[
  ]).flat(),
 ];
 
+/** Keyboard layout is independent of the modern/classic mouse scheme. Saved
+ * ControlBindings retain their original shape; choosing a layout is explicit. */
+export type KeyboardLayout='frontline'|'classic'|'grid';
+export const KEYBOARD_LAYOUTS:readonly {id:KeyboardLayout;label:string}[]=[
+ {id:'frontline',label:'Frontline default'},{id:'classic',label:'Classic'},{id:'grid',label:'Grid'},
+];
+const frontlineOverrides:BindingMap={
+ escort:[],return:[],repair:[],board:[],unload:[],capture:[],rally:[],aggressive:[],pack:[],select_same_type:[],next_subgroup:[],previous_subgroup:[],
+ quick_save:[chord('F5','ctrl','shift')],quick_load:[chord('F9','ctrl','shift')],
+};
+const addedDefinitions:ShortcutDefinition[]=[
+ ...(['base','defense','infantry','vehicles','air','tech'] as const).map((tab,i)=>definition(`production_${tab}`,`Open ${tab} production tab`,'interface',[chord(`Key${'QWERTY'[i]}`)])),
+ definition('next_production_tab','Next factory sub-tab','interface',[chord('Tab')]),
+ definition('previous_production_tab','Previous factory sub-tab','interface',[chord('Tab','shift')]),
+ ...Array.from({length:12},(_,i)=>[
+  definition(`cameo_${i+1}`,`Produce cameo ${i+1}`,'interface',[chord(`F${i+1}`)]),
+  definition(`cameo_${i+1}_batch`, `Produce cameo ${i+1} ×5`,'interface',[chord(`F${i+1}`,'shift')]),
+  definition(`cameo_${i+1}_cancel`,`Cancel cameo ${i+1}`,'interface',[chord(`F${i+1}`,'ctrl')]),
+ ]).flat(),
+ definition('scatter','Scatter','orders',[chord('KeyX')],{queueModifier:true}),
+ definition('repair_mode','Repair cursor mode','orders',[chord('KeyK')]),
+ definition('sell_mode','Sell cursor mode','orders',[chord('KeyL')]),
+ definition('power_mode','Power cursor mode','orders',[chord('KeyO')]),
+ definition('place_last_built','Place last-built structure','orders',[chord('KeyN')]),
+ definition('center_base','Center next base','camera',[chord('Backspace')]),
+ definition('select_idle','Select next idle harvester or engineer','selection',[chord('Backquote')]),
+ definition('select_all_idle','Select all idle harvesters and engineers','selection',[chord('Backquote','shift')]),
+ definition('select_all_screen','Select army on screen','selection',[chord('KeyA','ctrl','shift')]),
+ ...Array.from({length:12},(_,i)=>definition(`card_slot_${i+1}`,`Command card slot ${i+1}`,'orders',[],{queueModifier:true})),
+];
+for(let i=0;i<4;i++)frontlineOverrides[`ability_${i+1}`]=[chord(`Key${'ZCVB'[i]}`)];
+export const SHORTCUT_DEFINITIONS:readonly ShortcutDefinition[]=[
+ ...LEGACY_SHORTCUT_DEFINITIONS.map(def=>({...def,defaults:frontlineOverrides[def.id]??def.defaults})),...addedDefinitions,
+];
+
+// Retired 5×3 sockets remain readable in saved settings; they never dispatch or appear in Options.
+const RETIRED_CARD_DEFINITIONS=[13,14,15].map(i=>definition(`card_slot_${i}`,`Retired command card slot ${i}`,'orders',[],{queueModifier:true}));
 const modifiers:readonly Modifier[]=['ctrl','alt','shift','meta'];
 function validModifier(value:unknown):value is Modifier{return modifiers.includes(value as Modifier)}
 function normalized(chord:KeyChord):KeyChord {
@@ -67,13 +108,36 @@ function normalized(chord:KeyChord):KeyChord {
  return {code:chord.code,modifiers:modifiers.filter(modifier=>list.includes(modifier))};
 }
 const signature=(chord:KeyChord)=>`${chord.code}:${(chord.modifiers??[]).join('+')}`;
-export function defaultBindings(preset:'standard'|'classic'='standard'):ControlBindings{
- return {preset,keys:Object.fromEntries(SHORTCUT_DEFINITIONS.map(def=>[def.id,def.defaults.map(normalized)])),modifiers:{queue:'shift',multiSelect:'shift',forceFire:'ctrl'},pointer:{select:0,context:preset==='classic'?0:2,pan:1,cancel:2}};
+export function defaultBindings(preset:'standard'|'classic'='standard',layout:KeyboardLayout='frontline'):ControlBindings{
+ const definitions=layout==='classic'?LEGACY_SHORTCUT_DEFINITIONS:SHORTCUT_DEFINITIONS;
+ const keys:BindingMap=Object.fromEntries(SHORTCUT_DEFINITIONS.map(def=>[def.id,[]]));
+ for(const def of definitions)keys[def.id]=def.defaults.map(normalized);
+ if(layout==='grid'){
+  const codes=[...'QWERASDFZXCV'].map(key=>`Key${key}`);
+  // The card owns these unmodified letters, including their queue variants.
+  // Production tabs remain globally reachable with Alt plus the top row.
+  for(const action of Object.keys(keys))keys[action]=keys[action].filter(binding=>!codes.includes(binding.code)||(binding.modifiers?.length??0)>0);
+  for(const [i,tab] of ['base','defense','infantry','vehicles','air','tech'].entries())keys[`production_${tab}`]=[normalized(chord(`Key${'QWERTY'[i]}`,'alt'))];
+  for(const [i,code] of codes.entries())keys[`card_slot_${i+1}`]=[normalized(chord(code))];
+ }
+ return {preset,keys,modifiers:{queue:'shift',multiSelect:'shift',forceFire:'ctrl'},pointer:{select:0,context:preset==='classic'?0:2,pan:1,cancel:2}};
 }
+
+/** Layout changes replace keyboard remaps only; mouse choices remain independent. */
+export function keyboardLayout(bindings:ControlBindings):KeyboardLayout|undefined{
+ return KEYBOARD_LAYOUTS.find(({id})=>{const keys=defaultBindings(bindings.preset,id).keys;return Object.keys({...keys,...bindings.keys}).filter(action=>!RETIRED_CARD_DEFINITIONS.some(def=>def.id===action)).every(action=>JSON.stringify((keys[action]??[]).map(normalized))===JSON.stringify((bindings.keys[action]??[]).map(normalized)))})?.id;
+}
+export function withKeyboardLayout(bindings:ControlBindings,layout:KeyboardLayout):ControlBindings{return {...bindings,keys:defaultBindings(bindings.preset,layout).keys}}
+export function withMouseScheme(bindings:ControlBindings,preset:ControlBindings['preset']):ControlBindings{return {...bindings,preset,pointer:defaultBindings(preset).pointer}}
+
+/** Both modal roles block battlefield input; DOM order matches stacked scrims. */
+export const MODAL_SELECTOR='[role="dialog"],[role="alertdialog"]';
+export function topmostModal(root:Pick<Document,'querySelectorAll'>=document):Element|null{const nodes=root.querySelectorAll(MODAL_SELECTOR);return nodes.item(nodes.length-1)}
+export function modalOpen(root:Pick<Document,'querySelector'>=document):boolean{return !!root.querySelector(MODAL_SELECTOR)}
 
 /** Returns issues without modifying saved settings. Extra content actions may be registered. */
 export function validateBindings(bindings:ControlBindings,definitions:readonly ShortcutDefinition[]=SHORTCUT_DEFINITIONS):BindingIssue[]{
- const issues:BindingIssue[]=[],known=new Map(definitions.map(def=>[def.id,def])),used=new Map<string,string>();
+ const issues:BindingIssue[]=[],known=new Map([...RETIRED_CARD_DEFINITIONS,...definitions].map(def=>[def.id,def])),used=new Map<string,string>();
  if(bindings.preset!=='standard'&&bindings.preset!=='classic')issues.push({code:'invalid_binding',action:'preset',message:'Choose standard or classic controls.'});
  if(!bindings.modifiers||!['queue','multiSelect','forceFire'].every(key=>validModifier(bindings.modifiers[key as keyof InputModifiers])))issues.push({code:'invalid_binding',action:'modifiers',message:'Choose keyboard modifiers for queue, selection and force-fire.'});
  if(!bindings.pointer||!['select','context','pan','cancel'].every(key=>Number.isInteger(bindings.pointer[key as keyof PointerBindings])&&bindings.pointer[key as keyof PointerBindings]>=0&&bindings.pointer[key as keyof PointerBindings]<=4)||bindings.pointer.pan===bindings.pointer.select||bindings.pointer.pan===bindings.pointer.context||bindings.pointer.cancel===bindings.pointer.select||bindings.preset==='standard'&&bindings.pointer.select===bindings.pointer.context)issues.push({code:'invalid_binding',action:'pointer',message:'Choose mouse buttons 0–4, a separate pan button and usable select/cancel buttons.'});
@@ -146,6 +210,7 @@ export function resolvePointer(gesture:PointerGesture,bindings:ControlBindings,f
  if(gesture.button===pointer.select&&gesture.hit==='ground'&&gesture.phase==='click'&&gesture.hasSelection&&held(gesture,mods.forceFire))return {action:'force-fire',queued};
  if(gesture.phase==='drag'&&gesture.button===pointer.select)return {action:'box-select',additive};
  if(gesture.phase==='double-click'&&gesture.button===pointer.select&&gesture.hit==='owned')return {action:'select-type',additive};
+ if(gesture.phase==='click'&&gesture.button===pointer.select&&gesture.hit==='owned'&&gesture.ctrlKey)return {action:'select-type',additive};
  if(gesture.phase!=='click')return undefined;
  if(gesture.button===pointer.select&&(bindings.preset==='standard'||gesture.hit==='owned'||!gesture.hasSelection))return {action:'select',additive};
  if(gesture.button===pointer.context&&gesture.hasSelection)return {action:'context-command',queued};

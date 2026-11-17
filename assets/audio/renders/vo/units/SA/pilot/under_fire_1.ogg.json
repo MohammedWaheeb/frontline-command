@@ -4,34 +4,59 @@
   "caption": "Formation under fire. Requesting support.",
   "faction": "SA",
   "voice": "am_michael",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "3628be64659142113b10014f1ca371c7f5efdf9f8ed48fdbf9e9f6779d900e73",
+  "source_hash": "5edc2812931645771cb05ea3ab48f974eb9d36e326dd439de5e0115af4e72210",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/pilot/under_fire_1.ogg",
-  "duration": 2.9429166666666666,
+  "duration": 2.8898333333333333,
   "channels": 1,
-  "bytes": 27841,
-  "sha256": "8b1b9c7e9af26c783d2e32bebb348e9b5edd9c86c2d4024d26aa2da9cac3b71c",
+  "bytes": 19157,
+  "sha256": "9f846b4fd7802c452bd1ab77bba9591a1a562a66a4a844160829e5a6f74da1b7",
   "mp3_url": "/art/audio/vo/units/SA/pilot/under_fire_1.mp3",
-  "mp3_bytes": 48428,
-  "mp3_sha256": "96c0b0d17aa638f01525862c45b445bc088d44cddba99140f35484deca78e6c7",
-  "peak": 0.7729416489601135,
-  "rms": 0.09016188234090805,
+  "mp3_bytes": 23852,
+  "mp3_sha256": "637e488d3f3669481ccbefb97dd305c3d7983a0f30e5363a5f143584b56c22f0",
+  "peak": 0.7895300388336182,
+  "rms": 0.13001158833503723,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

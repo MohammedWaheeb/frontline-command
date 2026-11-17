@@ -16,8 +16,14 @@ import type {ActorStatusModel} from '../app/actor-status';
 import type {ShadowPlate} from './surface-shadows';
 import {muzzleRotation,type CombatAttachment} from './combat-geometry';
 import {containsStructureSquare,structureBodyBounds} from './structure-picking';
+import {drawUnitRing,drawFootprintBrackets,drawHealthBar,healthBarZoomScale,type ActorRelation} from './selection-marks';
 
 interface LayeredPart {root:Container;shadowRoot:Container;shadow:Sprite;beauty:Sprite;team:Sprite;offset:Point;poses:Record<string,{state:string;direction:number;frame:number}>}
+interface OverlayInputs {
+ living:boolean;mark:boolean;building:boolean;footprintW:number;footprintH:number;radius:number;
+ relation:ActorRelation;team:number;px:number;hover:boolean;airborne:boolean;
+ show:boolean;health:number;rank:number;anchorX:number;anchorY:number;barScale:number;ambush:boolean;rankY:number;
+}
 function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart {
  const root=new Container(),shadowRoot=new Container(),shadow=new Sprite(),beauty=new Sprite(),team=new Sprite();
  shadowRoot.addChild(shadow);groundShadows.addChild(shadowRoot);
@@ -30,7 +36,13 @@ function part(parent:Container,groundShadows:Container,offset:Point):LayeredPart
 export class ActorVisual {
  readonly root=new Container();readonly fallback=new Graphics();readonly overlays=new Graphics();
  private readonly groundShadows=new Container();
- private readonly foundation=new Graphics();private support?:{surface:TerrainSurface;x:number;y:number;width:number;height:number;level:number};
+ private readonly foundation=new Graphics();
+ /** Ground-level selection ring, painted under the body. */
+ private readonly selectionGround=new Graphics();
+ private overlayInputs?:OverlayInputs;
+ /** Public owner relation to the viewer and pointer hover (presentation only). */
+ relation:ActorRelation='unknown';hovered=false;
+ private support?:{surface:TerrainSurface;x:number;y:number;width:number;height:number;level:number};
  readonly id:number;readonly artKey:string;standIn=false;missingArt=false;
  /** Aircraft shadows join the terrain scene separately from the airborne body. */
  readonly terrainShadow?:Container;
@@ -68,7 +80,7 @@ export class ActorVisual {
   this.lastState=entity.state;this.stateAt=performance.now();this.previousFacing=this.nextFacing=entity.facing;
   // All projected ground shadows sit behind the whole actor. A turret's
   // independent shadow must never darken an already-painted hull or plinth.
-  this.root.addChild(this.foundation,this.groundShadows,this.fallback,this.overlays,this.statusOverlay.root);
+  this.root.addChild(this.foundation,this.selectionGround,this.groundShadows,this.fallback,this.overlays,this.statusOverlay.root);
   if(surface&&catalog.units.get(entity.type)?.armor==='air'){this.root.removeChild(this.groundShadows);this.terrainShadow=this.groundShadows}
   const resolved=skin?{id:skin.asset,standIn:false}:art.resolve(physicalArtType(entity),faction,catalog);this.standIn=resolved?.standIn??false;
   this.missingArt=!resolved;
@@ -373,19 +385,28 @@ export class ActorVisual {
   }
   this.bodyBottom=this.nextBodyBottom;this.paintedBounds=this.nextPaintedBounds;this.root.zIndex=this.groundDepth(now,reducedMotion);
   if(this.projectedShadows)this.groundShadows.visible=false;
-  this.overlays.clear();
-  const radius=building?(e.footprintWidth+e.footprintHeight)*16:Math.max(12,(unit?.radius??400)/1000*48);
-  if(selected)this.overlays.ellipse(0,0,radius,radius*.5).stroke({width:1.5,color:0xb6dd77});
-  const show=e.state!=='destroyed'&&(healthBars==='always'||selected||healthBars==='damaged'&&e.health<1000);
-  if(show){
-   const anchor=state?this.hardpoint('healthbar',state,facing,bodyAnimationTime):undefined;
-   const x=anchor?.x??0,y=-altitude+(anchor?.y??-(building?45:24)),width=building?60:30;
-   this.overlays.rect(x-width/2,y,width,4).fill({color:0x161410,alpha:.95});
-   this.overlays.rect(x-width/2+1,y+1,(width-2)*Math.max(0,e.health)/1000,2).fill({color:e.health>600?0x9fc776:e.health>300?0xd3b359:0xc64f3c});
-  }
-  if(!this.status&&e.private?.ambushReady)this.overlays.poly([-4,-37,0,-42,4,-37,0,-32]).fill({color:0xe2a232});
-  if(e.rank>0){for(let i=0;i<e.rank;i++)this.overlays.poly([-4+i*7,-27,0+i*7,-30,4+i*7,-27]).stroke({width:2,color:0xe5c57a})}
+  // Screen-constant marks: sizes are screen px, converted to world px here.
+  const px=1/Math.max(.1,zoom),living=e.state!=='destroyed',mark=living&&(selected||this.hovered);
+  const footprintW=e.footprintWidth||building?.width||0,footprintH=e.footprintHeight||building?.height||0;
+  const show=living&&(healthBars==='always'||selected||this.hovered||healthBars==='damaged'&&e.health<1000);
   const statusAnchor=state?this.hardpoint('healthbar',state,facing,bodyAnimationTime):undefined;
+  const radius=Math.max(14,(unit?.radius??400)/1000*56),hover=!selected,airborne=altitude>0;
+  const anchorX=statusAnchor?.x??0,anchorY=-altitude+(statusAnchor?.y??-(building?45:24)),barScale=px*healthBarZoomScale(zoom);
+  const ambush=!this.status&&!!e.private?.ambushReady,rankY=-altitude-(building?52:34),cached=this.overlayInputs;
+  // World movement only changes the parent transform. Keep its local graphics
+  // until an actual mark/bar input changes; animated hardpoints and flight
+  // altitude remain part of the key so their authored placement stays exact.
+  if(!cached||cached.living!==living||cached.mark!==mark||cached.building!==!!building||cached.footprintW!==footprintW||cached.footprintH!==footprintH||cached.radius!==radius||cached.relation!==this.relation||cached.team!==team||cached.px!==px||cached.hover!==hover||cached.airborne!==airborne||cached.show!==show||cached.health!==e.health||cached.rank!==e.rank||cached.anchorX!==anchorX||cached.anchorY!==anchorY||cached.barScale!==barScale||cached.ambush!==ambush||cached.rankY!==rankY){
+   this.overlayInputs={living,mark,building:!!building,footprintW,footprintH,radius,relation:this.relation,team,px,hover,airborne,show,health:e.health,rank:e.rank,anchorX,anchorY,barScale,ambush,rankY};
+   this.overlays.clear();this.selectionGround.clear();
+   if(mark&&building&&footprintW&&footprintH)drawFootprintBrackets(this.overlays,footprintW,footprintH,this.relation,px,hover);
+   else if(mark)drawUnitRing(airborne?this.overlays:this.selectionGround,this.overlays,radius,this.relation,team,px,hover);
+   if(show)drawHealthBar(this.overlays,anchorX,anchorY,e.health,!!building,team,Math.max(0,e.rank|0),barScale);
+   if(ambush)this.overlays.poly([-4,-37,0,-42,4,-37,0,-32]).fill({color:0xe2a232});
+   // Veterancy rides on the health bar when it is shown; otherwise a compact
+   // chevron stack sits above the body (screen-constant, clear of turrets).
+   if(e.rank>0&&!show&&living)for(let i=0;i<e.rank;i++)this.overlays.poly([-4*px,rankY+i*-4*px,0,rankY-3*px+i*-4*px,4*px,rankY+i*-4*px]).stroke({width:2*px,color:0xe5c57a});
+  }
   this.statusOverlay.root.position.set((this.externalStatus?screen.x:0)+(statusAnchor?.x??0),(this.externalStatus?screen.y:0)-altitude+(statusAnchor?.y??-(building?45:24))-18/Math.max(.1,zoom));
   this.statusOverlay.draw(e.state==='destroyed'?undefined:this.status,selected&&statusDetail,zoom);
  }

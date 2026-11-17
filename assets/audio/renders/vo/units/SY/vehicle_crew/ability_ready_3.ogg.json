@@ -4,34 +4,59 @@
   "caption": "The support team is standing by.",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "5b06c6e08e5e1e1d075034621d0013718b8342183e7c8b0c91105de9826a38cf",
+  "source_hash": "4a21d15cbef425b77be063ba14aae92762fb126df28726b58d2ff62ef1d38273",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/ability_ready_3.ogg",
-  "duration": 2.3710833333333334,
+  "duration": 2.447416666666667,
   "channels": 1,
-  "bytes": 21842,
-  "sha256": "51492a04b6bc59f4735935e768ecb0987002fa4e0f15670e00202cf9f30de489",
+  "bytes": 16566,
+  "sha256": "a0b77e708bb9dbddc1cdd511b50bfa724e856100ec7e14e0a21be5f484ceea93",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/ability_ready_3.mp3",
-  "mp3_bytes": 39212,
-  "mp3_sha256": "0969234a825f6dfb4708123b9a702fde0c22e3f527f8d440e1aac2663a47e7f3",
-  "peak": 0.7708965539932251,
-  "rms": 0.10465186089277267,
+  "mp3_bytes": 20204,
+  "mp3_sha256": "de5e578cdb3c7e396c7aac2e313e47c75db6eaec1b3dc7bbc03f381d000485b8",
+  "peak": 0.5722378492355347,
+  "rms": 0.14059552550315857,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -82,3 +82,33 @@ test('observer replacement is read-only, may buffer without a snapshot, and neve
  await controller.joinObserver('http://lan.test',connection,map);assert.equal(controller.state.kind,'observer');assert.equal(controller.state.phase,'active');assert.equal(controller.transport?.current,undefined);await controller.flushAutosave();assert.equal(data.autosaves,0);
  await assert.rejects(()=>controller.saveManual('observer','Not a save'),{code:'save_unavailable'});await assert.rejects(()=>controller.restart(),{code:'restart_unavailable'});await assert.rejects(()=>controller.pause(),{code:'observer_read_only'});controller.leave();assert.equal(observer.disposed,true);
 });
+
+test('a poisoned inspection worker is replaced for the next import without touching the active match',async()=>{
+ const active=new FakeOffline(),bad=new FakeOffline(),good=new FakeOffline(),all=[active,bad,good],data=storage();
+ bad.inspect=async()=>{throw new RuntimeError('engine_fault','The validator has stopped.',false)};
+ const controller=new SessionController({store:data.store,makeOffline:()=>all.shift()!});
+ try{
+  await controller.startSolo(config);await controller.flushAutosave();const id=controller.state.id;
+  await assert.rejects(controller.inspect(new Uint8Array([1])),{code:'engine_fault'});
+  assert.equal(bad.disposed,1,'an inspection that poisoned its initialized worker must release it');
+  assert.deepEqual(await controller.inspect(new Uint8Array([2])),{metadata,tick:100});assert.equal(controller.state.id,id);assert.equal(controller.transport,active);assert.equal(active.disposed,0);
+ }finally{controller.dispose()}
+});
+
+test('a recoverable bad-file rejection preserves a healthy inspection worker for retry',async()=>{
+ const validator=new FakeOffline(),data=storage();let calls=0,workers=0;
+ validator.inspect=async()=>{if(++calls===1)throw new RuntimeError('save_corrupt','Malformed file.');return {metadata,tick:100}};
+ const controller=new SessionController({store:data.store,makeOffline:()=>{workers++;return validator}});
+ try{await assert.rejects(controller.inspect(new Uint8Array([1])),{code:'save_corrupt'});assert.deepEqual(await controller.inspect(new Uint8Array([2])),{metadata,tick:100});assert.equal(workers,1);assert.equal(validator.disposed,0)}finally{controller.dispose()}
+});
+
+test('leaving while an autosave sink is stalled suppresses its late saved status for the next session',async()=>{
+ const a=new FakeOffline(),b=new FakeOffline(),all=[a,b],data=storage(),writing=deferred<void>(),written=deferred<void>();let writes=0;
+ const store={...data.store,autosave:async(save:SaveData,name='Auto')=>{if(++writes===1){writing.resolve();await written.promise}return {...save,id:'auto',name,kind:'auto' as const,revision:writes,updated:1}}};
+ const controller=new SessionController({store,makeOffline:()=>all.shift()!}),statuses:Array<{session:string;phase:string}>=[];
+ controller.subscribe(event=>{if(event.type==='autosave')statuses.push({session:event.session,phase:event.status.phase})});
+ try{
+  await controller.startSolo(config);await writing.promise;const old=controller.state.id!,flush=controller.flushAutosave();controller.leave();await controller.startSolo(config);await controller.flushAutosave();const count=statuses.length;
+  written.resolve();await flush;assert.equal(statuses.length,count,'a completed old write cannot publish a Saved toast into the replacement');assert.equal(statuses.filter(status=>status.session===old&&status.phase==='saved').length,0);assert.equal(controller.transport,b);
+ }finally{written.resolve();controller.dispose()}
+});

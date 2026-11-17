@@ -3,35 +3,60 @@
   "path": "vo/announcer/US/building_captured.ogg",
   "caption": "Building captured. Control is transferred.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "5c705447f3269e62c976af83f89cc77104d60f53fe765d0f2924ffed6423019a",
+  "source_hash": "d5de0730c9fd8384b014cfdfc424397281a698496dd1a8bcaf2c91783e15a038",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/US/building_captured.ogg",
-  "duration": 2.443,
+  "duration": 2.3147083333333334,
   "channels": 1,
-  "bytes": 24801,
-  "sha256": "b01e4e5e02ec8e118897c85cfeacf06e1ff62a5887848329ddc2f2451e87ae97",
+  "bytes": 17138,
+  "sha256": "ab3d92c2db26167ad45fa0b9b047a7d8f3375a7e9e32e525566b4612adec4d5b",
   "mp3_url": "/art/audio/vo/announcer/US/building_captured.mp3",
-  "mp3_bytes": 40364,
-  "mp3_sha256": "2f5cb3089f1ff8e8adae0f3781df2e7d5d8ae5d70b43c3d2f2f565f035cf31c4",
-  "peak": 0.7497754693031311,
-  "rms": 0.11644215881824493,
+  "mp3_bytes": 19244,
+  "mp3_sha256": "72a0648f49a495107d211147632152ceb3bed05f5cc89e31ac60cc2d99525906",
+  "peak": 0.7692791819572449,
+  "rms": 0.12994316220283508,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

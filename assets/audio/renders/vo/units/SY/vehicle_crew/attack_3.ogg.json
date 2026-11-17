@@ -4,34 +4,59 @@
   "caption": "Concentrating fire on that position.",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 3,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "7e6f586b5d25be0c6f60ad0fe512368a59d5e19e6ad894cb3b0c9c01afdf0c49",
+  "source_hash": "3c722607673749b99312a6ed80d5d16bee9c717f6aecd8bec588433654fdb81d",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/attack_3.ogg",
-  "duration": 2.6474583333333332,
+  "duration": 2.749041666666667,
   "channels": 1,
-  "bytes": 24113,
-  "sha256": "0d366c97ef42164b6879b601c3e2e55dcfbc6d6ac850a51f654abfbefc2cf44c",
+  "bytes": 17172,
+  "sha256": "deb86b5f0a9d1777efdcab589f1a1bafe7a35d651249342415a0a3f7e10fe81f",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/attack_3.mp3",
-  "mp3_bytes": 43820,
-  "mp3_sha256": "4a234a3acab23e80dc4e14e1a4e6c0e8e91eb2bb3b8e45bce2d4e24030b2c4fa",
-  "peak": 0.792791485786438,
-  "rms": 0.0944514349102974,
+  "mp3_bytes": 22700,
+  "mp3_sha256": "ce5280f1e6257f42bf5657b4a99da762c062ea4be7667593a3b0cb2c6f498717",
+  "peak": 0.5921943783760071,
+  "rms": 0.14065271615982056,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

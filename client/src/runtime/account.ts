@@ -54,6 +54,19 @@ export class LocalProfileSession{
  async create(name:string,options:{remember?:boolean;signal?:AbortSignal}={}):Promise<AccountState>{
   const epoch=this.begin();try{let previous:LocalCredential|undefined;try{previous=await this.vault.read(this.origin)}catch{/* A session-only profile may still work. */}const result=await this.makeAPI(this.origin,'').createProfile(name,options.signal);if(!validToken(result.token))throw new RuntimeError('invalid_response','The host returned an invalid local profile token.');return await this.adopt(result.token,result.profile,options.remember!==false,epoch,previous)}finally{this.busy=false}
  }
+ /** A cosmetic rename preserves identity, token and generation, including live lobby membership. */
+ async renameProfile(name:string,options:{signal?:AbortSignal}={}):Promise<AccountState>{
+  if(this.busy)throw new RuntimeError('account_busy','Wait for the current sign-in operation to finish.');
+  const context=this.context,credential=this.#credential;if(!context||!credential)throw new RuntimeError('sign_in_required','Sign in before changing your commander name.');this.busy=true;
+  try{
+   const found=profile(await this.authenticated(api=>api.request<Profile>('/profiles/me','PATCH',{name},options.signal)));
+   if(found.id!==credential.profile.id||found.created!==credential.profile.created)throw new RuntimeError('invalid_response','The host returned a different profile while changing your commander name.');
+   let next={...credential,profile:found},persistent=this.stateValue.persistent,error:RuntimeFailure|undefined,written=false;
+   if(persistent)try{next=await this.vault.write({origin:this.origin,token:credential.token,profile:found},credential.revision);written=true}catch(cause){persistent=false;error=this.failure(cause)}
+   if(!this.same(context)){if(written)await this.vault.remove(this.origin,next.token,next.revision);throw new RuntimeError('account_changed','The local profile changed while its commander name was being saved.')}
+   this.#credential=next;this.publish({phase:'signed-in',origin:this.origin,profile:found,persistent,...(error?{error}:{})});return this.state;
+  }finally{this.busy=false}
+ }
  /** Only call from an explicit private sign-in-key export action, never a game backup. */
  exportSignInKey():Blob{
   if(this.busy)throw new RuntimeError('account_busy','Wait for the sign-in operation to finish.');const credential=this.#credential;if(!credential)throw new RuntimeError('sign_in_required','Sign in before exporting your private local key.');

@@ -4,21 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Modes and Maps</title>
-  <meta name="description" content="Frontline Command's tutorials, four six-mission campaigns, co-op scenarios, eight launch maps, multiplayer modes, map editor and accessibility features.">
+  <meta name="description" content="Frontline Command's four campaigns, five tutorials, six skirmish battlefields, two co-op scenarios, practice, 1-4 commander multiplayer, the map editor and accessibility.">
   <meta name="theme-color" content="#11100e">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Frontline Command">
-  <meta property="og:title" content="Modes and Maps — Frontline Command">
-  <meta property="og:description" content="Tutorials, four campaigns, co-op, eight maps, multiplayer and editor.">
+  <meta property="og:title" content="Modes and Maps, Frontline Command">
+  <meta property="og:description" content="Campaigns, tutorials, six battlefields, co-op, practice and 1-4 commander multiplayer.">
   <meta property="og:url" content="https://frontline-command.pages.dev/modes">
   <meta property="og:image" content="https://frontline-command.pages.dev/img/keyart-1920.webp">
   <meta property="og:image:width" content="1920">
   <meta property="og:image:height" content="1081">
   <meta property="og:image:alt" content="Key art: an olive battle tank leads an armored column across a desert road at sunset.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Modes and Maps — Frontline Command">
-  <meta name="twitter:description" content="Tutorials, four campaigns, co-op, eight maps, multiplayer and editor.">
+  <meta name="twitter:title" content="Modes and Maps, Frontline Command">
+  <meta name="twitter:description" content="Campaigns, tutorials, six battlefields, co-op, practice and 1-4 commander multiplayer.">
   <meta name="twitter:image" content="https://frontline-command.pages.dev/img/keyart-1920.webp">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://frontline-command.pages.dev/modes">
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -35,7 +37,8 @@
       <li><a href="engine.html">Engine</a></li>
       <li><a href="contribute.html">Contribute</a></li>
     </ul>
-    <a class="btn btn--ghost nav__cta" href="../README.md" data-repo=""><svg class="icon" aria-hidden="true"><use href="#i-github-logo"></use></svg>Source</a>
+    <a class="btn btn--ghost nav__cta" href="../README.md" data-repo=""><svg class="icon" aria-hidden="true"><use href="#i-github-logo"></use></svg>GitHub</a>
+    <a class="btn btn--primary nav__cta" href="index.html#play">Play the beta</a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Open menu"><svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg></button>
   </div>
 </header>
@@ -43,17 +46,17 @@
 
 <main id="main">
   <header class="page-head">
-    <picture class="page-head__art"><img src="img/shot-lobby.webp" alt="" width="1600" height="900"></picture>
+    <picture class="page-head__art"><img src="img/ui-skirmish-setup.webp" alt="" width="1600" height="900"></picture>
     <div class="wrap page-head__inner">
       <div>
         <h1>Modes and maps</h1>
-        <p class="lede">A complete base game: tutorials, four campaigns, co-op, skirmish against fair AI, local multiplayer and a map editor. No account needed to play solo.</p>
+        <p class="lede">What the beta plays today: four campaigns, five tutorials, skirmish on six battlefields, practice, two co-op scenarios, local multiplayer for one to four commanders and a map editor. No account needed to play solo.</p>
       </div>
       <dl class="page-head__aside">
-        <div><dt>Tutorials</dt><dd>5</dd></div>
         <div><dt>Campaign missions</dt><dd>24</dd></div>
+        <div><dt>Skirmish battlefields</dt><dd>6</dd></div>
         <div><dt>Co-op scenarios</dt><dd>2</dd></div>
-        <div><dt>Launch maps</dt><dd>8</dd></div>
+        <div><dt>Commanders</dt><dd>1-4</dd></div>
       </dl>
     </div>
   </header>
@@ -62,10 +65,10 @@
     <aside class="toc" aria-label="On this page">
       <h4>On this page</h4>
       <ol data-spy>
+        <li><a href="#campaign">Campaign</a></li>
         <li><a href="#tutorials">Tutorials</a></li>
-        <li><a href="#campaigns">Campaigns</a></li>
+        <li><a href="#maps">Battlefields</a></li>
         <li><a href="#coop">Co-op</a></li>
-        <li><a href="#maps">Maps</a></li>
         <li><a href="#multiplayer">Skirmish and multiplayer</a></li>
         <li><a href="#editor">Map editor</a></li>
         <li><a href="#accessibility">Accessibility</a></li>
@@ -73,6 +76,25 @@
     </aside>
 
     <div>
+      <section class="chapter" id="campaign">
+        <h2>Campaign</h2>
+        <p class="lede">Four operations of six missions, one per faction. Each mission teaches one idea, then tests it. Easy, Normal and Hard are all verified end to end.</p>
+        <figure class="frame">
+          <img src="img/ui-campaign.webp" alt="The campaign screen: tabs for four operations, the six missions of Operation Clear Horizon with the first ready to deploy, and a map with numbered objectives for First Foothold." width="1600" height="900" loading="lazy">
+        </figure>
+        <div class="tabs" role="tablist" aria-label="Operations">
+          <button class="tab" role="tab" id="op-tab-us" aria-controls="op-us" aria-selected="true" data-faction="US"><span class="swatch"></span>Clear Horizon</button>
+          <button class="tab" role="tab" id="op-tab-ir" aria-controls="op-ir" aria-selected="false" tabindex="-1" data-faction="IR"><span class="swatch"></span>Iron Signal</button>
+          <button class="tab" role="tab" id="op-tab-sy" aria-controls="op-sy" aria-selected="false" tabindex="-1" data-faction="SY"><span class="swatch"></span>Open Road</button>
+          <button class="tab" role="tab" id="op-tab-sa" aria-controls="op-sa" aria-selected="false" tabindex="-1" data-faction="SA"><span class="swatch"></span>Shieldline</button>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="op-us" aria-labelledby="op-tab-us" data-faction="US"><ol class="op-list"><li>First Foothold</li><li>Open Corridor</li><li>Relay Ridge</li><li>Broken Umbrella</li><li>Split Front</li><li>Clear Horizon</li></ol></div>
+        <div class="tabpanel" role="tabpanel" id="op-ir" aria-labelledby="op-tab-ir" data-faction="IR" hidden><ol class="op-list"><li>Forward Signal</li><li>Eyes Above</li><li>Beyond the Basin</li><li>Hold the Network</li><li>The Second Volley</li><li>Iron Signal</li></ol></div>
+        <div class="tabpanel" role="tabpanel" id="op-sy" aria-labelledby="op-tab-sy" data-faction="SY" hidden><ol class="op-list"><li>Workshop Foothold</li><li>Supply Trail</li><li>Three Crossings</li><li>Open Doors</li><li>Relay Break</li><li>Open Road</li></ol></div>
+        <div class="tabpanel" role="tabpanel" id="op-sa" aria-labelledby="op-tab-sa" data-faction="SA" hidden><ol class="op-list"><li>Arrival Point</li><li>Moving Shield</li><li>Distant Depots</li><li>Intercept Window</li><li>Three Positions</li><li>Shieldline</li></ol></div>
+        <p class="table-note">Command mastery records medals and optional objectives per mission. Missions unlock in order within an operation.</p>
+      </section>
+
       <section class="chapter" id="tutorials">
         <h2>Tutorials</h2>
         <p class="lede">Five short lessons that teach a few actions at a time, then step back once you've got them. None of them gate multiplayer.</p>
@@ -85,65 +107,6 @@
         </div>
       </section>
 
-      <section class="chapter" id="campaigns">
-        <h2>Four campaigns</h2>
-        <p class="lede">Each campaign teaches its faction through different objectives and terrain, with a checkpoint mid-mission, an optional objective and three difficulties. All are set in invented regions with original characters.</p>
-        <div class="tabs" role="tablist" aria-label="Campaigns">
-          <button class="tab" role="tab" id="tab-us" aria-controls="op-us" aria-selected="true" data-faction="US"><span class="swatch"></span>Clear Horizon</button>
-          <button class="tab" role="tab" id="tab-ir" aria-controls="op-ir" aria-selected="false" tabindex="-1" data-faction="IR"><span class="swatch"></span>Iron Signal</button>
-          <button class="tab" role="tab" id="tab-sy" aria-controls="op-sy" aria-selected="false" tabindex="-1" data-faction="SY"><span class="swatch"></span>Open Road</button>
-          <button class="tab" role="tab" id="tab-sa" aria-controls="op-sa" aria-selected="false" tabindex="-1" data-faction="SA"><span class="swatch"></span>Shieldline</button>
-        </div>
-
-        <div class="tabpanel" role="tabpanel" id="op-us" aria-labelledby="tab-us" data-faction="US">
-          <div class="op-title"><h3>Operation Clear Horizon</h3><span class="muted">United States</span></div>
-          <div class="missions">
-            <div class="mission"><h4>First Foothold</h4><p>Establish supply and reconnect two isolated Ranger squads.</p><small>Optional: recover an intact engineering rig.</small></div>
-            <div class="mission"><h4>Open Corridor</h4><p>Escort three supply vehicles across a branching valley.</p><small>Optional: bring all three trucks through.</small></div>
-            <div class="mission"><h4>Relay Ridge</h4><p>Capture two relays and hold one for four minutes.</p><small>Optional: don't lose a single scout.</small></div>
-            <div class="mission"><h4>Broken Umbrella</h4><p>Keep one of two airfields alive through twelve minutes of pressure.</p><small>Optional: evacuate a damaged wing.</small></div>
-            <div class="mission"><h4>Split Front</h4><p>Disable three command relays in any order.</p><small>Optional: finish without losing a transport.</small></div>
-            <div class="mission"><h4>Clear Horizon</h4><p>Eliminate two production bases while keeping a supply corridor open.</p><small>Optional: destroy a strategic site before it launches.</small></div>
-          </div>
-        </div>
-        <div class="tabpanel" role="tabpanel" id="op-ir" aria-labelledby="tab-ir" data-faction="IR" hidden>
-          <div class="op-title"><h3>Operation Iron Signal</h3><span class="muted">Iran</span></div>
-          <div class="missions">
-            <div class="mission"><h4>Forward Signal</h4><p>Establish an observation and supply base.</p><small>Optional: keep the first recon team alive.</small></div>
-            <div class="mission"><h4>Eyes Above</h4><p>Escort two launch vehicles to a depot.</p><small>Optional: recover every starting drone.</small></div>
-            <div class="mission"><h4>Beyond the Basin</h4><p>Secure two fields before the starting field runs dry.</p><small>Optional: capture both supply stations.</small></div>
-            <div class="mission"><h4>Hold the Network</h4><p>Keep two of three drone and radar sites running for twelve minutes.</p><small>Optional: avoid emergency drone losses.</small></div>
-            <div class="mission"><h4>The Second Volley</h4><p>Disable three military outposts.</p><small>Optional: stay under a visible missile budget.</small></div>
-            <div class="mission"><h4>Iron Signal</h4><p>Break a layered defense and destroy its command base.</p><small>Optional: keep the observer network intact.</small></div>
-          </div>
-        </div>
-        <div class="tabpanel" role="tabpanel" id="op-sy" aria-labelledby="tab-sy" data-faction="SY" hidden>
-          <div class="op-title"><h3>Operation Open Road</h3><span class="muted">Syrian Rebels</span></div>
-          <div class="missions">
-            <div class="mission"><h4>Workshop Foothold</h4><p>Recover a rig and establish a workshop base.</p><small>Optional: recover two separated mechanic teams.</small></div>
-            <div class="mission"><h4>Supply Trail</h4><p>Escort four trucks through branching routes.</p><small>Optional: collect the marked salvage.</small></div>
-            <div class="mission"><h4>Three Crossings</h4><p>Hold two of three expansion approaches.</p><small>Optional: keep a scout concealed until its mark.</small></div>
-            <div class="mission"><h4>Open Doors</h4><p>Keep two safehouses and a factory running.</p><small>Optional: complete a threatened evacuation.</small></div>
-            <div class="mission"><h4>Relay Break</h4><p>Capture three military communication buildings.</p><small>Optional: capture, rather than destroy, one factory.</small></div>
-            <div class="mission"><h4>Open Road</h4><p>Defeat two bases blocking a supply route.</p><small>Optional: lose no temporary raid deployment.</small></div>
-          </div>
-        </div>
-        <div class="tabpanel" role="tabpanel" id="op-sa" aria-labelledby="tab-sa" data-faction="SA" hidden>
-          <div class="op-title"><h3>Operation Shieldline</h3><span class="muted">Saudi Arabia</span></div>
-          <div class="missions">
-            <div class="mission"><h4>Arrival Point</h4><p>Build a supply base and secure a mechanized assembly area.</p><small>Optional: preserve both starting APCs.</small></div>
-            <div class="mission"><h4>Moving Shield</h4><p>Escort a convoy through two contested sectors.</p><small>Optional: finish within a repair budget.</small></div>
-            <div class="mission"><h4>Distant Depots</h4><p>Secure two separated supply positions.</p><small>Optional: hold both stations at once.</small></div>
-            <div class="mission"><h4>Intercept Window</h4><p>Defend two outposts and one fixed battery.</p><small>Optional: intercept a marked wave without losing a building.</small></div>
-            <div class="mission"><h4>Three Positions</h4><p>Capture three relays under artillery pressure.</p><small>Optional: keep a Service vehicle alive.</small></div>
-            <div class="mission"><h4>Shieldline</h4><p>Defeat a command complex and a forward base.</p><small>Optional: keep two supply routes connected.</small></div>
-          </div>
-        </div>
-        <div class="callout">
-          <svg class="icon" aria-hidden="true"><use href="#i-flag"></use></svg>
-          <p>All 24 missions have authored layouts in <code>content/missions</code>. Some routes and difficulties still fail their acceptance runs. <a class="text-link" href="contribute.html#content">Help finish the campaigns</a></p>
-        </div>
-      </section>
 
       <section class="chapter" id="coop">
         <h2>Co-op</h2>
@@ -155,8 +118,8 @@
       </section>
 
       <section class="chapter" id="maps">
-        <h2>Eight launch maps</h2>
-        <p class="lede">Every competitive start gets the same resources, comparable travel distances and two ways in. Each map asks one strategic question.</p>
+        <h2>Six battlefields</h2>
+        <p class="lede">Every start gets the same resources, comparable travel distances and two ways in. Each map asks one strategic question. Starts can be left on Auto or picked on the map.</p>
         <div class="maps">
           <article class="map"><img src="img/maps/copper-junction.webp" alt="Tactical map of Copper Junction" width="384" height="384" loading="lazy"><div><h4>Copper Junction</h4><p class="map__meta">1v1 · 128×128</p><p>Open central junction, two wide side routes.</p><p class="map__q">Commit to central pressure, or protect a flank expansion?</p></div></article>
           <article class="map"><img src="img/maps/relay-heights.webp" alt="Tactical map of Relay Heights" width="384" height="384" loading="lazy"><div><h4>Relay Heights</h4><p class="map__meta">1v1 · 128×128</p><p>Central plateau, two ramps per side, lower flanks.</p><p class="map__q">Buy sight with ground control, or bypass the plateau?</p></div></article>
@@ -164,27 +127,25 @@
           <article class="map"><img src="img/maps/industrial-valley.webp" alt="Tactical map of Industrial Valley" width="480" height="480" loading="lazy"><div><h4>Industrial Valley</h4><p class="map__meta">2v2 and FFA · 160×160</p><p>Four perimeter bases around a central warehouse district.</p><p class="map__q">Occupy cover while keeping supply routes alive?</p></div></article>
           <article class="map"><img src="img/maps/border-depots.webp" alt="Tactical map of Border Depots" width="480" height="480" loading="lazy"><div><h4>Border Depots</h4><p class="map__meta">2v2 and FFA · 160×160</p><p>Broad paired lanes plus cross-map connectors.</p><p class="map__q">Share a front, or run independent expansions?</p></div></article>
           <article class="map"><img src="img/maps/port-outskirts.webp" alt="Tactical map of Port Outskirts" width="480" height="480" loading="lazy"><div><h4>Port Outskirts</h4><p class="map__meta">2v2 and FFA · 160×160</p><p>Coastal edge, inland ring road, abandoned warehouses.</p><p class="map__q">Covered infantry paths, or the fast vehicle road?</p></div></article>
-          <article class="map"><img src="img/maps/convoy-union.webp" alt="Tactical map of Convoy Union" width="384" height="384" loading="lazy"><div><h4>Convoy Union</h4><p class="map__meta">Co-op · 128×128</p><p>Two allied depots and a branching convoy route.</p><p class="map__q">Balance escort duty with two separate economies?</p></div></article>
-          <article class="map"><img src="img/maps/twin-outposts.webp" alt="Tactical map of Twin Outposts" width="384" height="384" loading="lazy"><div><h4>Twin Outposts</h4><p class="map__meta">Co-op · 128×128</p><p>Separated starts and a contested central connection.</p><p class="map__q">Reconnect before attempting the final assault?</p></div></article>
         </div>
         <p class="table-note">Drawn by the site build from each map's tile data. Amber squares are spawns, brass circles resource fields, pale squares supply stations; lighter ground is higher.</p>
       </section>
 
       <section class="chapter" id="multiplayer">
         <h2>Skirmish and multiplayer</h2>
-        <p class="lede">Solo and online play share one rulebook. The AI uses the same fog, money, queues and cooldowns you do, and difficulty never slows its bullets.</p>
+        <p class="lede">Solo and local-network play share one rulebook. The AI uses the same fog, money, queues and cooldowns you do, and difficulty never slows its bullets.</p>
         <div class="mode-grid">
           <div class="mode"><span class="who">1 vs AI, up to 4 players</span><h4>Skirmish</h4><p>Any map, any factions, three AI difficulties, adjustable speed and starting money.</p></div>
           <div class="mode"><span class="who">2 humans vs 2 AI</span><h4>Co-op skirmish</h4><p>Standard rules with a friend, no rating at stake.</p></div>
           <div class="mode"><span class="who">1v1 or 2v2</span><h4>Unranked</h4><p>Standard presets with rematch and reconnect.</p></div>
           <div class="mode"><span class="who">3-4 players</span><h4>Free-for-all</h4><p>Individual elimination. No diplomacy, no alliance switching.</p></div>
-          <div class="mode"><span class="who">1-4 players</span><h4>Custom lobby</h4><p>Private codes, observers, user maps and declared rule changes.</p></div>
+          <div class="mode"><span class="who">1-4 players</span><h4>Custom lobby</h4><p>Private codes, observers and declared rule changes on your own host.</p></div>
           <div class="mode"><span class="who">1 player</span><h4>Practice range</h4><p>Free unit placement and instant resets, kept out of any statistics.</p></div>
         </div>
         <figure class="frame">
-          <img src="img/shot-lobby.webp" alt="In-game screenshot: the multiplayer lobby for a four-player Industrial Valley match, showing lobby ID, access code, map preview and the host's faction, team and color selection." width="1600" height="900" loading="lazy">
+          <img src="img/ui-multiplayer.webp" alt="The multiplayer screen: Host game and Join game panels with an invite code field, open games on this host and the three steps from code to deployment." width="1600" height="900" loading="lazy">
         </figure>
-        <p class="caption">A four-player local lobby in the current build, over the main menu key art.</p>
+        <p class="caption">Multiplayer opens on Host, Join and Browse. A host shares one invite code; a commander profile is created automatically.</p>
         <div class="facts">
           <div class="fact"><h4>Server authority</h4><p>Clients send intent; the host checks ownership, money, Supply, visibility and cooldowns before anything happens.</p></div>
           <div class="fact"><h4>Fog you can't cheat</h4><p>Only information your side can see is ever sent to your browser.</p></div>
@@ -199,17 +160,10 @@
 
       <section class="chapter" id="editor">
         <h2>Map editor</h2>
-        <div class="split" style="margin-top:28px">
-          <div>
-            <p class="lede">Paint terrain and height, place resources and spawns, script objectives from a safe trigger library, and test-play instantly.</p>
-            <ul class="tags">
-              <li>Terrain and ramps</li><li>Resource fields</li><li>Spawns and teams</li><li>Objective regions</li><li>Undo and redo</li><li>Sight and path previews</li><li>Instant test play</li><li>Local publishing</li>
-            </ul>
-            <p class="muted">Imported maps never run code. They are validated for size, references, reachability and win conditions before a lobby can launch, and never enter ranked automatically.</p>
-          </div>
-          <figure class="frame" style="margin:0">
-            <img src="img/shot-workshop.webp" alt="In-game screenshot: the local map workshop, with options to validate an exported map file, preview it and publish it on the local host." width="800" height="900" loading="lazy">
-          </figure>
+        <p class="lede">Start from an installed battlefield, a saved draft or an imported file. Drafts stay in your browser and installed maps are never changed.</p>
+        <div class="facts">
+          <div class="fact"><h4>Checked before play</h4><p>Connectivity and mission rules are validated before export or test play. Imported maps never run code.</p></div>
+          <div class="fact"><h4>Never ranked by accident</h4><p>Custom maps can host any lobby but never become ranked automatically.</p></div>
         </div>
       </section>
 
@@ -232,12 +186,13 @@
         <a class="brand" href="index.html"><span class="brand__mark"><svg class="icon" aria-hidden="true"><use href="#i-crosshair"></use></svg></span><span class="brand__name">Frontline Command</span></a>
         <p class="footer__note">A work of fiction. Factions, equipment, places, leaders and abilities are fictionalized gameplay representations, not claims about real militaries or conflicts.</p>
       </div>
-      <div><h4>Game</h4><ul><li><a href="factions.html">Factions</a></li><li><a href="mechanics.html">Mechanics</a></li><li><a href="modes.html">Modes and maps</a></li></ul></div>
+      <div><h4>Game</h4><ul><li><a href="index.html#play">Play the beta</a></li><li><a href="factions.html">Factions</a></li><li><a href="mechanics.html">Mechanics</a></li><li><a href="modes.html">Modes and maps</a></li></ul></div>
       <div><h4>Build</h4><ul><li><a href="engine.html">Engine</a></li><li><a href="contribute.html">Contribute</a></li><li><a href="../docs/implementation-status.md" data-repo="docs/implementation-status.md">Status</a></li></ul></div>
       <div><h4>Repository</h4><ul><li><a href="../README.md" data-repo="">Source</a></li><li><a href="../outputs/frontline-command-game-design.md" data-repo="outputs/frontline-command-game-design.md">Design document</a></li><li><a href="../docs/local-development.md" data-repo="docs/local-development.md">Local development</a></li></ul></div>
     </div>
     <div class="footer__base">
       <span>Inspired by classic Command &amp; Conquer. Not affiliated with Electronic Arts.</span>
+      <span>Closed beta, 31 October 2026. Apple Silicon macOS with desktop Chrome. Local play, no account.</span>
       <span>Fonts: Barlow, Big Shoulders Stencil, IBM Plex Mono (SIL OFL). Icons: Phosphor (MIT).</span>
     </div>
   </div>

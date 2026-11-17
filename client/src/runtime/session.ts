@@ -59,7 +59,10 @@ export class SessionController{
   const previous=this.active,id=`session-${launch.generation}`;
   const active:Active={id,kind,map:structuredClone(map),info,transport,offline,unsubscribe:()=>{}};
   this.active=active;this.launching=undefined;
-  if(offline&&kind!=='replay')active.autosave=new AutosaveCoordinator(offline,this.store,{onStatus:status=>{if(this.active===active)this.emit({type:'autosave',session:id,status})}});
+  if(offline&&kind!=='replay')active.autosave=new AutosaveCoordinator(offline,{autosave:(save,name)=>{
+   const title=offline.current?.mission?.title.trim()||active.map.title.trim()||active.map.id;
+   return this.store.autosave(save,`${title} — ${name??'Autosave'}`.slice(0,100));
+  }},{onStatus:status=>{if(this.active===active)this.emit({type:'autosave',session:id,status})}});
   active.unsubscribe=transport.subscribe(event=>{
    if(this.active!==active)return;
    if(event.type==='snapshot'&&active.info){active.info={...active.info,tick:event.snapshot.tick,finished:event.snapshot.outcome?.finished===true||active.info.replay&&event.snapshot.tick>=active.info.replay_end};this.observe(active)}
@@ -140,7 +143,12 @@ export class SessionController{
    if(!this.validator)this.validator=this.makeOffline();validator=this.validator;
    const version=await validator.ready;if(signal.aborted||this.closed||this.validator!==validator)throw new RuntimeError('inspection_canceled','The validation worker was closed. Retry the import.');if(expected)assertOfflineRuntime(version,expected);checked=true;
    const result=await read(validator);if(signal.aborted||this.closed||this.validator!==validator)throw new RuntimeError('inspection_canceled','The validation worker was closed. Retry the import.');return result;
-  }catch(error){if(!checked&&validator&&this.validator===validator){validator.dispose();this.validator=undefined}throw error}
+  }catch(error){
+   // Startup mismatch and a fatal inspection both invalidate this worker.
+   // Keep corrupt-file errors reusable, but let the next import start a fresh
+   // validator after an engine failure without replacing the active match.
+   if(validator&&this.validator===validator&&(!checked||!RuntimeError.from(error).recoverable)){validator.dispose();this.validator=undefined}throw error;
+  }
   finally{this.contentReaders--}
  }
  async inspect(data:Uint8Array){return this.inspectWith(validator=>validator.inspect(data))}

@@ -3,36 +3,61 @@
   "path": "vo/missions/convoy-union/second-convoy-ready-5.ogg",
   "caption": "First delivery complete. Two separately owned forward repair depots are now available. Convoy two is ready.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "CONVOY CONTROL: First delivery complete. Two separately owned forward repair depots are now available. Convoy two is ready.",
-  "source_hash": "c7281d8eb26bc2332793844304b151e8286b3994b668805e8cad9e028da1f201",
+  "source_hash": "bfeb7691a00ff095ecf0b33f2ace1eae54527e273f543ea0654de85cd2b0e137",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/convoy-union/second-convoy-ready-5.ogg",
-  "duration": 6.622625,
+  "duration": 6.868291666666667,
   "channels": 1,
-  "bytes": 61305,
-  "sha256": "fc13170fa8ceaada45e5c21cdf199e049ccfe6a107b7d6c82afa0ef2aa152926",
+  "bytes": 43617,
+  "sha256": "47754ad5cecedcdd56e726fa7be4f7570fa2e0f6254ee61fc38659ab449a422c",
   "mp3_url": "/art/audio/vo/missions/convoy-union/second-convoy-ready-5.mp3",
-  "mp3_bytes": 107180,
-  "mp3_sha256": "2771800e637e77fbc3f122fd5fbaac623b2d78d9d51abb415e44d788c04744e6",
-  "peak": 0.7887528538703918,
-  "rms": 0.09172548353672028,
+  "mp3_bytes": 55724,
+  "mp3_sha256": "fd190a26c9a1096c77e1db916b314f2ad0c62bcc0f032a5db0f04e9dd76b8ca1",
+  "peak": 0.7770194411277771,
+  "rms": 0.12529541552066803,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

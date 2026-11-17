@@ -2,6 +2,7 @@ import {defaultBindings,validateBindings,type ControlBindings} from '../runtime'
 
 export interface Settings {
  version:1;
+ diagnostics:boolean;
  firstRunComplete:boolean;
  language:'en';
  uiScale:number;            // 0.85 – 1.5
@@ -24,9 +25,9 @@ export interface Settings {
  bindings:ControlBindings;
 }
 export const DEFAULT_SETTINGS:Settings={
- version:1,firstRunComplete:false,language:'en',uiScale:1,minimapScale:1,audioConsent:false,
+ version:1,diagnostics:false,firstRunComplete:false,language:'en',uiScale:1,minimapScale:1,audioConsent:false,
  audio:{master:0.8,music:0.6,effects:0.8,voice:0.9,ui:0.6},captions:true,reducedMotion:false,reducedFlashing:false,screenShake:0.6,
- palette:'standard',healthBars:'selected',keyboardCamera:true,edgeScroll:false,scrollSpeed:1,zoomSpeed:1,selectionTolerance:6,dragThreshold:6,artQuality:'auto',
+ palette:'standard',healthBars:'damaged',keyboardCamera:true,edgeScroll:true,scrollSpeed:1,zoomSpeed:1,selectionTolerance:6,dragThreshold:6,artQuality:'auto',
  bindings:defaultBindings('standard'),
 };
 const clamp=(v:unknown,lo:number,hi:number,d:number)=>typeof v==='number'&&Number.isFinite(v)?Math.min(hi,Math.max(lo,v)):d;
@@ -34,18 +35,43 @@ const clamp=(v:unknown,lo:number,hi:number,d:number)=>typeof v==='number'&&Numbe
 export function sanitizeSettings(value:unknown):Settings{
  const v=(value&&typeof value==='object'?value:{}) as Partial<Settings>,d=DEFAULT_SETTINGS;
  const audio=(v.audio&&typeof v.audio==='object'?v.audio:{}) as Partial<Settings['audio']>;
- let bindings=d.bindings;
+ let bindings=structuredClone(d.bindings);
  if(v.bindings&&typeof v.bindings==='object'){try{if(validateBindings(v.bindings as ControlBindings).length===0)bindings=structuredClone(v.bindings as ControlBindings)}catch{/* invalid saved bindings keep defaults */}}
  return {
-  version:1,firstRunComplete:v.firstRunComplete===true,language:'en',
+  version:1,diagnostics:v.diagnostics===true,firstRunComplete:v.firstRunComplete===true,language:'en',
   uiScale:clamp(v.uiScale,0.85,1.5,d.uiScale),minimapScale:clamp(v.minimapScale,0.8,1.4,d.minimapScale),audioConsent:v.audioConsent===true,
   audio:{master:clamp(audio.master,0,1,d.audio.master),music:clamp(audio.music,0,1,d.audio.music),effects:clamp(audio.effects,0,1,d.audio.effects),voice:clamp(audio.voice,0,1,d.audio.voice),ui:clamp(audio.ui,0,1,d.audio.ui)},
   captions:v.captions!==false,reducedMotion:v.reducedMotion===true,reducedFlashing:v.reducedFlashing===true,screenShake:clamp(v.screenShake,0,1,d.screenShake),
-  palette:v.palette==='cvd_safe'?'cvd_safe':'standard',healthBars:v.healthBars==='always'||v.healthBars==='damaged'?v.healthBars:'selected',
-  keyboardCamera:v.keyboardCamera!==false,edgeScroll:v.edgeScroll===true,scrollSpeed:clamp(v.scrollSpeed,0.4,2,1),zoomSpeed:clamp(v.zoomSpeed,0.4,2,1),
+  palette:v.palette==='cvd_safe'?'cvd_safe':'standard',healthBars:v.healthBars==='always'||v.healthBars==='damaged'||v.healthBars==='selected'?v.healthBars:d.healthBars,
+  keyboardCamera:v.keyboardCamera!==false,edgeScroll:typeof v.edgeScroll==='boolean'?v.edgeScroll:d.edgeScroll,scrollSpeed:clamp(v.scrollSpeed,0.4,2,1),zoomSpeed:clamp(v.zoomSpeed,0.4,2,1),
   selectionTolerance:clamp(v.selectionTolerance,2,16,d.selectionTolerance),dragThreshold:clamp(v.dragThreshold,3,20,d.dragThreshold),
   artQuality:v.artQuality==='high'||v.artQuality==='standard'?v.artQuality:'auto',bindings,
  };
+}
+export type SettingsSection='audio'|'display'|'camera'|'controls'|'accessibility';
+const sectionKeys:Record<SettingsSection,readonly (keyof Settings)[]>={
+ audio:['audio'],
+ display:['diagnostics','uiScale','minimapScale','healthBars','artQuality'],
+ camera:['keyboardCamera','edgeScroll','scrollSpeed','zoomSpeed'],
+ controls:['bindings','selectionTolerance','dragThreshold'],
+ accessibility:['captions','reducedMotion','reducedFlashing','screenShake','palette'],
+};
+/** Section resets deliberately preserve onboarding and sound consent. */
+export function resetSettingsSection(settings:Settings,section:SettingsSection):Settings{
+ const result=sanitizeSettings(settings),defaults=structuredClone(DEFAULT_SETTINGS);
+ for(const key of sectionKeys[section])Object.assign(result,{[key]:defaults[key]});
+ return result;
+}
+export function resetAudioSettings(settings:Settings):Settings{return resetSettingsSection(settings,'audio')}
+export function resetDisplaySettings(settings:Settings):Settings{return resetSettingsSection(settings,'display')}
+export function resetCameraSettings(settings:Settings):Settings{return resetSettingsSection(settings,'camera')}
+export function resetControlSettings(settings:Settings):Settings{return resetSettingsSection(settings,'controls')}
+export function resetAccessibilitySettings(settings:Settings):Settings{return resetSettingsSection(settings,'accessibility')}
+/** A first click may open a confirmation dialog; only its explicit acceptance
+ * supplies true. No storage mutation or browser dialog occurs in this selector. */
+export function resetPreferences(settings:Settings,confirmed=false):Settings{
+ const current=sanitizeSettings(settings);
+ return confirmed===true?{...structuredClone(DEFAULT_SETTINGS),firstRunComplete:current.firstRunComplete,audioConsent:current.audioConsent}:current;
 }
 const MIRROR='frontline.settings.v1';
 /** Synchronous mirror for first paint (scale/motion) before IndexedDB answers. */

@@ -3,35 +3,60 @@
   "path": "vo/announcer/SA/building_lost.ogg",
   "caption": "A building has been destroyed.",
   "faction": "SA",
-  "voice": "af_bella",
-  "speed": 1.02,
+  "voice": "bm_george",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "d1e48f623a5ab2c1885cd8442ca7c544c46dd329f19a578d142ebf56d3a9630e",
+  "source_hash": "c558f1562e4b92a6f35cf928caec4ce797009a94fe2908b6b5e6bf5c74ec5079",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/SA/building_lost.ogg",
-  "duration": 1.4604166666666667,
+  "duration": 2.1771666666666665,
   "channels": 1,
-  "bytes": 15861,
-  "sha256": "e475ebfd87827eb571a0ca32669d26d79ebebe6eb9210bdc26a865b834a0325b",
+  "bytes": 15526,
+  "sha256": "1433a883d55d1402c085480b3478dd33f814a374a4e3aaf30e6b8ff2a4eddf1d",
   "mp3_url": "/art/audio/vo/announcer/SA/building_lost.mp3",
-  "mp3_bytes": 24620,
-  "mp3_sha256": "5273b36c97ebba5cc19f7ff5390810062f30bf89188ddb8435db4726ed7cbe1f",
-  "peak": 0.7752042412757874,
-  "rms": 0.08415856212377548,
+  "mp3_bytes": 18092,
+  "mp3_sha256": "79bf640fc1d1a6c6e11d7cf90c43cbcfebc2c348f99c36ca770b46028f82f324",
+  "peak": 0.5042185187339783,
+  "rms": 0.14007146656513214,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "8cb64e02fcc8de0327a8e13817e49c76c945ecf0052ceac97d3081480e8e48d6",
+    "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

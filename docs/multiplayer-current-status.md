@@ -1,3 +1,67 @@
+# Net-2 continuation — 31 October 2026
+
+Rematch invitations and lobbies now expose `rematch` and the originating
+`previous_match_id`. The controller selects the invite for the current completed
+match as `state.rematchInvite` and exposes `joinRematch()` for one-click admission.
+UI consumption remains a separate lane.
+
+`renameProfile(name)` is wired through controller/account and authenticated PATCH
+`/api/v1/profiles/me`, preserving identity/token and matching existing 1–32 rune,
+nonunique display-name rules. **Persistent rename is incomplete:** the current
+SQLite repository lacks RenameProfile, so valid requests return 501
+`profile_rename_unavailable` until the storage owner supplies the documented patch.
+Server contract tests cover successful storage/roster propagation with an injected
+implementation; they do not certify real SQLite rename persistence.
+
+Verified for this continuation: full server race suite (73.759s), 61 selected
+client network/account/online tests, runtime/app TypeScript checks and eight
+focused server regressions. The locked fresh `/tmp/fc-net2-host` build served
+localhost and advertised LAN-interface `/api/v1/host` responses and explicit
+lobby spawn values through real HTTP. Both temporary hosts exited cleanly; :8080
+was untouched. Physical multi-device LAN and rendered UI remain unverified.
+[Detailed report and storage/UI requests](../work/beta-2026-10-31/fix-net-2.md).
+
+---
+
+# Beta network source changes — 31 October 2026
+
+The controller now creates a remembered local commander on first Host/Join,
+using the current game origin by default. It accepts one combined invite string
+for skirmish and co-op, with optional faction/team/start selection. Advanced
+host and private-key paths remain available. The UI-facing contract is
+[network-api.md](../work/beta-2026-10-31/contracts/network-api.md).
+
+Rematch clicks converge on one forming lobby and invite prior humans; accepting
+still requires ordinary admission, block checks and renewed readiness. Forming
+ordinary lobbies support unique map start selection. Scripted co-op, checkpoint
+and ranked starts remain fixed. Active map declarations follow selected starts
+and the replay retains the actual match map.
+
+`make lan` prints host/share guidance. Explicit LAN hosts expose their bound
+join addresses at `GET /api/v1/host`; discovery stays off for normal localhost
+hosting. The host must stay running. Plain LAN HTTP/WebSocket traffic assumes
+a trusted shared network. See [LAN instructions](local-development.md#lan-hosting).
+
+Kicked players receive a persistent notice. The pre-start connection barrier
+exposes `start_remaining_ms` in lobby responses and expires with reason
+`players_missing`; actual process shutdown retains `server_shutdown`. Socket
+refusals now distinguish bad sign-in, unknown slot, eliminated player, expired
+reconnect and closed connection.
+
+The 31 October source verification passed `go test ./internal/server/... -race`
+(82.812s), all 56 selected network/online/account tests, runtime/app TypeScript
+checks and focused LAN/CLI regressions. The first race attempt and corrections
+remain in the linked report.
+
+These are source changes, not fresh packaged/browser or physical-device LAN
+qualification. The net-lane report records exact regression results and remaining
+integration requests: [fix-net.md](../work/beta-2026-10-31/fix-net.md). Persistent
+profile rename requires a storage-layer change outside this lane’s ownership;
+players can choose their name before the first automatic creation. No deployment
+or simulation change is included.
+
+---
+
 # Current multiplayer qualification — 13 October 2026
 
 Final native server matches the fresh four-faction production/ownership/

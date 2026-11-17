@@ -15,7 +15,7 @@ from fxkit import (AMBER, BRASS, BRASS_DK, EMBER, INK, ORANGE, PALE, RED,
                    render_frames, streak, window)
 
 
-# Exact 28 manifest weapon IDs. These are visual families, not balance data.
+# Exact 29 manifest weapon IDs (28 + IR_SHAHED loiter launch). Visual families only.
 MUZZLES = {
     'RIF':('small',7), 'REC':('small',6), 'ELI':('small',8), 'APC':('small',9),
     'AUTO':('auto',10), 'TANK':('cannon',16), 'AT':('rocket',12),
@@ -26,6 +26,7 @@ MUZZLES = {
     'SY_ART':('mortar',15), 'SY_AA':('rocket',11), 'SY_BUGGY':('rocket',10),
     'SY_TANK':('cannon',15), 'MISSILE':('rocket',21), 'IR_MISSILE':('rocket',22),
     'SY_ROCKET':('rocket',19), 'TURRET':('cannon',16), 'AA_POST':('rocket',14),
+    'IR_SHAHED':('release',9),
 }
 PROJECTILES = {
     'tracer_small':('tracer',5), 'tracer_auto':('tracer',8),

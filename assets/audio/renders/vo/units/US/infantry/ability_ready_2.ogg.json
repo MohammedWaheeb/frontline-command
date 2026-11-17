@@ -3,35 +3,60 @@
   "path": "vo/units/US/infantry/ability_ready_2.ogg",
   "caption": "Systems checked. Ready on your order.",
   "faction": "US",
-  "voice": "am_michael",
-  "speed": 1.06,
+  "voice": "am_fenrir",
+  "speed": 1.12,
+  "pitch_semitones": -0.9,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "e501fb62931908c1fb976d7617bab0d686c82c35b66ff4f5a12f423db1e60512",
+  "source_hash": "d01b16f9766833eff650eba6244799f1bb61dfbdcb6d14003d5475e7d89fd6fc",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/US/infantry/ability_ready_2.ogg",
-  "duration": 2.4014166666666665,
+  "duration": 1.8562916666666667,
   "channels": 1,
-  "bytes": 24513,
-  "sha256": "8b78c99d2cd011fe10337ca5b20d7ddd36c7792097d4a3d4801807730a4bb55d",
+  "bytes": 13892,
+  "sha256": "2ca9259d0d87696bef55a99625455d409498d528a842f1f7986429cc8bb9d519",
   "mp3_url": "/art/audio/vo/units/US/infantry/ability_ready_2.mp3",
-  "mp3_bytes": 39980,
-  "mp3_sha256": "bfabb71ab5881d894d9f431b5cd4766bcc9d8ab79b36fa2a8dfc93bec6911f8a",
-  "peak": 0.75279700756073,
-  "rms": 0.08881660550832748,
+  "mp3_bytes": 15596,
+  "mp3_sha256": "12347e13ccbb9f84ba0699abcab70e14aae5b08d7be1839885d9399d6588156c",
+  "peak": 0.8070400953292847,
+  "rms": 0.12646105885505676,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

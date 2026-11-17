@@ -4,34 +4,59 @@
   "caption": "Stopping here. Eyes on the road.",
   "faction": "SY",
   "voice": "bm_george",
-  "speed": 1.1,
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "9e49e78a5322ab73deb4ec0a8d5fad9eb7e824197e6609f1b543ca1232b47133",
+  "source_hash": "d669f9726973f722ace503751f79b4482b9b985387e35e9311c7dc91e1a82914",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/vehicle_crew/stop_1.ogg",
-  "duration": 2.052791666666667,
+  "duration": 2.1117916666666665,
   "channels": 1,
-  "bytes": 19855,
-  "sha256": "f77c36ad894978eef43625581ac3ecabc13e61cb0b533b55c9967c4dc6424ffc",
+  "bytes": 14652,
+  "sha256": "0f43415d25d1afa9355262a61bf4bbfdf23962991daabcd52c546e5364ab9294",
   "mp3_url": "/art/audio/vo/units/SY/vehicle_crew/stop_1.mp3",
-  "mp3_bytes": 34220,
-  "mp3_sha256": "4646e58df4f7e6682e9974e1ccb3bca8ce6b9d2b9d04828a1505c6e5c5a57435",
-  "peak": 0.7928435802459717,
-  "rms": 0.09941715747117996,
+  "mp3_bytes": 17516,
+  "mp3_sha256": "4cc9c93429189d4612e5a51403866984b7f37f3867d910d86997bc7d1f13e9a7",
+  "peak": 0.5322341322898865,
+  "rms": 0.14010168612003326,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

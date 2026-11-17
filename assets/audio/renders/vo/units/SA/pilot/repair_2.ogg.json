@@ -4,34 +4,59 @@
   "caption": "Repairs underway. Secure the perimeter.",
   "faction": "SA",
   "voice": "am_michael",
-  "speed": 0.98,
+  "speed": 1.08,
+  "pitch_semitones": -0.9,
   "eq": [
-    100,
-    6500
+    90,
+    5400
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 1000,
-  "source_hash": "059f9cca5245366a4445cc512af2f20808176631ccee6ad195a99c19a596dcb0",
+  "source_hash": "3aff7e57cb81d1873960b4ce8fd925fdeb0c49a54f968d3c8869f5c64d3b1852",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SA/pilot/repair_2.ogg",
-  "duration": 2.7721666666666667,
+  "duration": 2.7552916666666665,
   "channels": 1,
-  "bytes": 27765,
-  "sha256": "54434af4e8dd496caa17d09ca607bbf158ed98d2234e7a1cec0509739492d8bf",
+  "bytes": 19150,
+  "sha256": "5aff2b90f6e8d750b5ae079eb598248fdb976ee24df466906d57b07a66d639ec",
   "mp3_url": "/art/audio/vo/units/SA/pilot/repair_2.mp3",
-  "mp3_bytes": 45740,
-  "mp3_sha256": "6965fbe3d7d2cf7977dd2339ec457b615dcb1be867297f06888d9e7002ce775a",
-  "peak": 0.8120744824409485,
-  "rms": 0.12814848124980927,
+  "mp3_bytes": 22700,
+  "mp3_sha256": "39098d30f533ec20bd2de05495ced06bd101de36f87a792c8a4f1a7ff08e55cb",
+  "peak": 0.6198207139968872,
+  "rms": 0.14065179228782654,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        90,
+        5400
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

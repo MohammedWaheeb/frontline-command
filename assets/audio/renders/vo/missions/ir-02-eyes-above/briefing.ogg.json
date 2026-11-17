@@ -4,34 +4,59 @@
   "caption": "Escort both marked launch vehicles to the depot. Two starting drones provide sight; send both through at least one complete service cycle and keep them alive. Missiles, drones and repair all keep their standard costs.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "d805060ceb8421a176b37d3fc5d80e7c2d0e5bc10f843fe036c062b3870f269d",
+  "source_hash": "c268e93594f0718475cf9f774a6e5a1fbb0d1351999719737882c1764111db9a",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-02-eyes-above/briefing.ogg",
-  "duration": 14.330291666666668,
+  "duration": 14.355625,
   "channels": 1,
-  "bytes": 116001,
-  "sha256": "3ef05ec1376380816d266c3f5b2d3ebee1c6dbfa0e2a1feae282d6ec3ee3c8c8",
+  "bytes": 78245,
+  "sha256": "54eb4ce524cc5759448b17290f861a04262eacfb8e2d1e7d92d0b516fd3a44c6",
   "mp3_url": "/art/audio/vo/missions/ir-02-eyes-above/briefing.mp3",
-  "mp3_bytes": 230828,
-  "mp3_sha256": "a4baa8a7200ebb1f5238c74930e9b54936965aa8aab59b1ebe1cfcfd26db918d",
-  "peak": 0.8087001442909241,
-  "rms": 0.12868140637874603,
+  "mp3_bytes": 115628,
+  "mp3_sha256": "89073cf893d88c3a3058fecedad181b4b436eb0660825dd983317a17e4a166a7",
+  "peak": 0.567006528377533,
+  "rms": 0.14033524692058563,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

@@ -45,7 +45,11 @@ func (s *Session) SeekReplay(tick sim.Tick) (Info, error) {
 	}
 	r, start, data := s.replay, s.replayStart, s.replayBytes
 	local := append([]sim.PlayerID(nil), s.local...)
+	viewed := s.viewed
 	s.install(player.Engine(), local)
+	// A seek does not switch perspective; keep accumulating in full
+	// for the player being watched.
+	s.viewed = viewed
 	s.replay, s.playback, s.replayStart, s.replayBytes = r, player, start, data
 	return s.Info(), nil
 }

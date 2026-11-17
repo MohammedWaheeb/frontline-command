@@ -3,35 +3,60 @@
   "path": "vo/missions/sy-03-three-crossings/debrief.ogg",
   "caption": "Three Crossings: the operational goal is complete. Review losses, objective state and recorded orders before continuing Operation Open Road.",
   "faction": "SY",
-  "voice": "bf_emma",
-  "speed": 1.02,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 40,
   "cooldown_ms": 0,
-  "source_hash": "1d991a429e082e9d3eb2b9e7aa79f93de93bcf4bc82f06ae3cf9414178e6c405",
+  "source_hash": "fc7026a28ebb40fc4c550c0bcfcd6602610310a8a518c9ea88c9f10997f8505c",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/sy-03-three-crossings/debrief.ogg",
-  "duration": 8.223791666666667,
+  "duration": 9.908916666666666,
   "channels": 1,
-  "bytes": 74261,
-  "sha256": "c59c612d9b3aa402ba64d8a605f504a889b7cad95543d1afebdc07ee573d9cc8",
+  "bytes": 59012,
+  "sha256": "a4b0857359304b86f7393559e12eaeec4cb489caad1e967f798eba9870322ca9",
   "mp3_url": "/art/audio/vo/missions/sy-03-three-crossings/debrief.mp3",
-  "mp3_bytes": 132908,
-  "mp3_sha256": "c297646a9009dd860385a9a675256b5713c67933f9f521fe7b57475359746b40",
-  "peak": 0.792331337928772,
-  "rms": 0.08713450282812119,
+  "mp3_bytes": 79916,
+  "mp3_sha256": "17e059ba5a439ef3dd1488aabe6574728371ac09c4da4ebafce0f54161ffad90",
+  "peak": 0.799942135810852,
+  "rms": 0.11210048198699951,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

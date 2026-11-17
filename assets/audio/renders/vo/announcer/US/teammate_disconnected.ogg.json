@@ -3,35 +3,60 @@
   "path": "vo/announcer/US/teammate_disconnected.ogg",
   "caption": "A teammate has disconnected.",
   "faction": "US",
-  "voice": "af_heart",
-  "speed": 1.02,
+  "voice": "am_fenrir",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    150,
-    7500
+    95,
+    5700
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "47b1e70e793be35f3cac0c0ba7a9918da2a935f06729d31bcf51d5e30d69cc86",
+  "source_hash": "0b69f10afeb9c974d6ac1e529d292302367567a8a24a518f968bb7f2198eefbc",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/US/teammate_disconnected.ogg",
-  "duration": 1.6708333333333334,
+  "duration": 1.5176666666666667,
   "channels": 1,
-  "bytes": 19151,
-  "sha256": "16f24157c25d30fb35608679976f8566563d2a7615fff06fd42c90698d628d8e",
+  "bytes": 12023,
+  "sha256": "38245be5c0c845c69b97e720d833647d73f1ec62e971afaa65cd0a3112287d6d",
   "mp3_url": "/art/audio/vo/announcer/US/teammate_disconnected.mp3",
-  "mp3_bytes": 28076,
-  "mp3_sha256": "a8e1b822948b26e9693286dabc2f926be81fb1a318bc68d68acee6f46cae6431",
-  "peak": 0.7801206707954407,
-  "rms": 0.10087716579437256,
+  "mp3_bytes": 12908,
+  "mp3_sha256": "d8a78a1678529869f79c5cb7c186217826ac5f3c9f0c57a30242d6f235b8afb2",
+  "peak": 0.7932972311973572,
+  "rms": 0.14038951694965363,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "0ab5709b8ffab19bfd849cd11d98f75b60af7733253ad0d67b12382a102cb4ff",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5700
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

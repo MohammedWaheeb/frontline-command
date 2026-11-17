@@ -4,35 +4,60 @@
   "caption": "Hostile column 3 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
   "faction": "IR",
   "voice": "bm_george",
-  "speed": 1.02,
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    120,
-    6800
+    95,
+    5300
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
   "display_caption": "WATCH: Hostile column 3 is approaching the eastern road. Expected entry varies with difficulty; screen the marked approach.",
-  "source_hash": "2e2db078b602dd1c95b7ca102867afcc7a4ebc67a9b9f26da6fe64baf077d857",
+  "source_hash": "298f6acab402373c869759fb5696d2a8daa1013de34bf60b33f26700cece4bb6",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/missions/ir-06-iron-signal/pressure-warning-3-0.ogg",
-  "duration": 7.84025,
+  "duration": 7.9245833333333335,
   "channels": 1,
-  "bytes": 66305,
-  "sha256": "a9c1ba7d41d4db24d762eff68540ae8af5c06c1fafd62e86977334d86ec84159",
+  "bytes": 45292,
+  "sha256": "1306c91a248eac85ff435ca9a6cd480f1672a96de93f909cbcc4b1bf4e76a096",
   "mp3_url": "/art/audio/vo/missions/ir-06-iron-signal/pressure-warning-3-0.mp3",
-  "mp3_bytes": 126764,
-  "mp3_sha256": "2d04dbe65b5af5fab25e3388b738b5be20c0d4b70f29cf1514fc272018026fa8",
-  "peak": 0.7844923138618469,
-  "rms": 0.1252911388874054,
+  "mp3_bytes": 64172,
+  "mp3_sha256": "0d704c67b8501f5274286da9fe548d330c92dccfb5c4815593aef7445825d8ea",
+  "peak": 0.595066249370575,
+  "rms": 0.14029312133789062,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
     "voice_sha256": "f1bc812213dc59774769e5c80004b13eeb79bd78130b11b2d7f934542dab811b",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        95,
+        5300
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

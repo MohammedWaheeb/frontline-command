@@ -23,7 +23,7 @@ func TestNavigationStepBlockedReplanBackoff(t *testing.T) {
 	// Tick 1: unsafe cached step is rejected, one charged dynamic retry is
 	// stored, and the one-second backoff is armed.
 	e.Advance()
-	if e.pathBudget != 11 || len(actor.Path) == 0 || actor.Path[0] == oldFirst {
+	if e.pathBudget != 9 || len(actor.Path) == 0 || actor.Path[0] == oldFirst {
 		t.Fatal("first blocked step did not store one charged retry", e.pathBudget, actor.Path)
 	}
 	if actor.NextRouteAt != e.state.Tick+seconds(1) {

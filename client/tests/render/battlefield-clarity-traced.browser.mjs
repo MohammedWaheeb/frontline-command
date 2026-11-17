@@ -86,7 +86,7 @@ async function waitFor(predicate,message,timeout=15000){
  const until=Date.now()+timeout;do{if(await predicate())return;await new Promise(resolve=>setTimeout(resolve,80))}while(Date.now()<until);
  throw Error(message);
 }
-async function noModal(page){assert.equal(await page.getByRole('dialog',{name:'Command interrupted',exact:true}).count(),0,'Product reported Command interrupted')}
+async function noModal(page){assert.equal(await page.getByRole('alertdialog',{name:'Command interrupted',exact:true}).or(page.getByRole('dialog',{name:'Command interrupted',exact:true})).count(),0,'Product reported Command interrupted')}
 async function idle(page){await page.locator('.loading-screen').waitFor({state:'hidden'});await noModal(page)}
 async function notice(page){
  // Toasts sit behind an active modal scrim. Let the normal dialog flow finish;
@@ -150,7 +150,7 @@ async function reachable(locator){
 }
 async function menu(page){return page.getByRole('navigation',{name:'Main menu',exact:true})}
 async function importFixture(page,key){
- phase=`import-${key}`;await (await menu(page)).getByRole('button',{name:'Load operation',exact:true}).click();
+ phase=`import-${key}`;await (await menu(page)).getByRole('button',{name:'Saves',exact:true}).click();
  // These two original exports intentionally share a display name. Their real
  // ruleset labels distinguish them without racing the initial async archive read.
  const rows=page.locator('.archive-row').filter({has:page.getByText(fixtures[key].name,{exact:true})}).filter({hasText:fixtures[key].metadata.ruleset});
@@ -190,7 +190,7 @@ async function saveReplayCourse(page,baseline){
  await dialog.getByRole('button',{name:'Archive replay',exact:true}).click();await idle(page);
  await savedNotice.filter({hasText:'Replay stored in your local archive.'}).waitFor();await notice(page);
  await checkpoint(page,'saved-and-archived');await leave(page,baseline);await checkpoint(page,'menu-after-save');
- await (await menu(page)).getByRole('button',{name:'Load operation',exact:true}).click();
+ await (await menu(page)).getByRole('button',{name:'Saves',exact:true}).click();
  // Exact text below avoids accidentally continuing an autosave or original import.
  const savedRow=page.locator('.archive-row').filter({has:page.getByText(name,{exact:true})});
  await savedRow.waitFor();assert.equal(await savedRow.count(),1);
@@ -207,7 +207,7 @@ async function saveReplayCourse(page,baseline){
  assert.equal(savedState.entities.filter(entity=>entity.owner===1&&entity.type==='power').length,fixtures.before.ownPowerCount,'Rejected placement created a power foundation');
  activeCase.exportedSave={bytes:bytes.length,sha256:digest(bytes),hash:exported.hash,rejectedBuildLog:buildLog,ownPowerCount:fixtures.before.ownPowerCount};
  await savedRow.getByRole('button',{name:'Load',exact:true}).click();await scene(page);await notice(page);await checkpoint(page,'reloaded-manual-save');await leave(page,baseline);
- await (await menu(page)).getByRole('button',{name:'Replay archive',exact:true}).click();
+ await (await menu(page)).getByRole('button',{name:'Replays',exact:true}).click();
  const replayRow=page.locator('.archive-row').filter({has:page.getByText(fixtures.before.mapTitle,{exact:true})});await replayRow.waitFor();assert.equal(await replayRow.count(),1);
  await replayRow.getByRole('button',{name:'Watch',exact:true}).click();await scene(page);
  const controls=page.getByRole('region',{name:'Replay controls',exact:true});await controls.waitFor();
@@ -222,22 +222,18 @@ async function saveReplayCourse(page,baseline){
  const methods=(await workers(page)).methods;for(const method of ['save','exportReplay','loadReplay','seekReplay'])assert(methods[method]>0,`Normal UI never invoked ${method}`);
 }
 async function commandOverflowCourse(page){
- const grid=page.getByRole('group',{name:'Unit commands; scroll for more actions',exact:true});
+ // Revamp (hud-tray lane): the command card is a fixed 4x3 grid that never scrolls; overflow pages through a
+ // "More" socket and back. Every key must sit inside the card, and a hidden label must still name the key.
+ const grid=page.getByRole('group',{name:'Command card',exact:true});
  const inspect=()=>grid.evaluate(node=>{
-  const box=node.getBoundingClientRect(),keys=[...node.children].map(key=>{const b=key.getBoundingClientRect(),label=key.querySelector(':scope > span'),range=label?document.createRange():undefined;if(range)range.selectNodeContents(label);return {text:key.textContent,top:b.top,bottom:b.bottom,label:label?{clientWidth:label.clientWidth,scrollWidth:label.scrollWidth,rects:[...range.getClientRects()].map(r=>({left:r.left,right:r.right,top:r.top,bottom:r.bottom})),key:{left:b.left,right:b.right,top:b.top,bottom:b.bottom}}:undefined}});
-  const above=keys.filter(k=>k.top<box.top-1).length,below=keys.filter(k=>k.top>=box.top-1&&k.bottom>box.bottom+1).length;
-  const cue=document.querySelector('.command-overflow'),up=cue?.querySelector('.more-above'),down=cue?.querySelector('.more-below');
-  return {above,below,keys,scrollTop:node.scrollTop,maxScroll:node.scrollHeight-node.clientHeight,state:node.dataset.overflow??'',actualUp:Number(up?.getAttribute('data-count')??0),actualDown:Number(down?.getAttribute('data-count')??0),upVisible:!!up&&getComputedStyle(up).visibility==='visible',downVisible:!!down&&getComputedStyle(down).visibility==='visible',cuePresent:!!cue};
+  const box=node.getBoundingClientRect(),keys=[...node.children].filter(key=>key.getClientRects().length).map(key=>{const b=key.getBoundingClientRect();return {text:key.textContent,name:key.getAttribute('aria-label')??key.textContent?.trim()??'',empty:!key.matches('button'),top:b.top,bottom:b.bottom,left:b.left,right:b.right}});
+  return {box:{top:box.top,bottom:box.bottom,left:box.left,right:box.right},keys,scrollTop:node.scrollTop,maxScroll:node.scrollHeight-node.clientHeight,page:node.dataset.page??''};
  });
- const matches=async()=>{const r=await inspect();return r.cuePresent&&r.above===r.actualUp&&r.below===r.actualDown&&r.upVisible===(r.above>0)&&r.downVisible===(r.below>0)&&r.state===(r.above&&r.below?'both':r.above?'above':r.below?'below':'')};
- const labelsFit=value=>{for(const key of value.keys){const l=key.label;if(!l)continue;assert(l.scrollWidth<=l.clientWidth+1,`Command label overflows: ${JSON.stringify(key)}`);for(const r of l.rects)assert(r.left>=l.key.left+1&&r.right<=l.key.right-1&&r.top>=l.key.top&&r.bottom<=l.key.bottom,`Command text clips its key: ${JSON.stringify(key)}`)}};
- await waitFor(matches,'Visible command overflow cue does not match real offscreen keys');const top=await inspect();labelsFit(top);activeCase.commandOverflow={top};
- if(top.maxScroll>1){
-  const box=await grid.boundingBox();assert(box);await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,top.maxScroll+box.height);
-  await waitFor(async()=>{const r=await inspect();return r.scrollTop>=r.maxScroll-1&&await matches()},'Command well did not reach its last actions with an accurate overflow cue');
-  activeCase.commandOverflow.bottom=await inspect();labelsFit(activeCase.commandOverflow.bottom);assert.equal(activeCase.commandOverflow.bottom.below,0);await checkpoint(page,'command-overflow-bottom');
-  await page.mouse.wheel(0,-(top.maxScroll+box.height));await waitFor(async()=>{const r=await inspect();return r.scrollTop<=1&&await matches()},'Command well did not return to its first actions');
- }
+ const fits=value=>{assert(value.maxScroll<=1,`Command card scrolls: ${JSON.stringify(value)}`);for(const key of value.keys){assert(key.top>=value.box.top-1&&key.bottom<=value.box.bottom+1&&key.left>=value.box.left-1&&key.right<=value.box.right+1,`Command key outside the card: ${JSON.stringify(key)}`);if(!key.empty)assert(key.name.trim().length>0,`Unnamed command key: ${JSON.stringify(key)}`)}};
+ await grid.waitFor();const top=await inspect();fits(top);activeCase.commandOverflow={top};
+ const more=grid.getByRole('button',{name:/^More/});
+ if(await more.count()){await more.first().click();await waitFor(async()=>(await inspect()).page.startsWith('2/'),'Command card did not page to its next commands');activeCase.commandOverflow.next=await inspect();fits(activeCase.commandOverflow.next);await checkpoint(page,'command-card-page-2');
+  const back=grid.getByRole('button',{name:/^Back/});await back.first().click();await waitFor(async()=>(await inspect()).page.startsWith('1/'),'Command card did not return to its first page')}
 }
 async function clarityCourse(page,baseline){
  await importFixture(page,'before');phase='selection-ranges';await center(page,18000,18000);
@@ -250,7 +246,7 @@ async function clarityCourse(page,baseline){
   activeCase.ranges.push({mode,aria:await range.getAttribute('aria-label'),bounds:await reachable(range)});await checkpoint(page,`range-${mode}`);
  }
  phase='placement';const before=(await workers(page)).methods.submit??0;
- await page.getByRole('button',{name:'Build',exact:true}).click();await page.getByRole('tab',{name:'structures',exact:true}).click();
+ await page.getByRole('button',{name:'Build',exact:true}).click();await page.getByRole('tab',{name:'Base (structures)',exact:true}).click();
  const power=page.locator('.production-cameo').filter({has:page.getByText('Power station',{exact:true})});await reachable(power);assert(await power.isEnabled());await commandOverflowCourse(page);await power.click();
  const hint=page.locator('.targeting-hint');await hint.waitFor();await waitFor(async()=>/Power after build/.test(await hint.innerText()),'No actual placement power estimate');
  activeCase.placement=[];
@@ -330,7 +326,7 @@ try{
    const baseline=(await workers(page)).live;assert(baseline>=1,'Validator Go worker missing');activeCase.workerBaseline=baseline;
    await clarityCourse(page,baseline);await countdownCourse(page,baseline);
    await nativeCollector.capture('before-reload');await page.reload();await idle(page);await (await menu(page)).waitFor();assert.equal(await page.getByRole('dialog',{name:'Welcome, commander',exact:true}).count(),0);
-   await (await menu(page)).getByRole('button',{name:'Load operation',exact:true}).click();await page.getByText(activeCase.savedName,{exact:true}).waitFor();
+   await (await menu(page)).getByRole('button',{name:'Saves',exact:true}).click();await page.getByText(activeCase.savedName,{exact:true}).waitFor();
    await checkpoint(page,'menu-reload-retains-save');
    assert.deepEqual(report.errors.filter(value=>value.case===activeCase.id),[]);assert.deepEqual(report.httpErrors.filter(value=>value.case===activeCase.id),[]);
    activeCase.status='passed';

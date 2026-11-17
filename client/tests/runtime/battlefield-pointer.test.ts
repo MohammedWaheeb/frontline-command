@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {BattlefieldRenderer} from '../../src/render/battlefield';
+import {BattlefieldRenderer,cappedResolution} from '../../src/render/battlefield';
 
 class PointerCanvas extends EventTarget {
  readonly captured=new Set<number>();
@@ -14,13 +14,13 @@ class PointerCanvas extends EventTarget {
  }
 }
 
-function fixture(run:(state:any,canvas:PointerCanvas,gestures:string[],pans:number[][],windowTarget:EventTarget)=>void){
+function fixture(run:(state:any,canvas:PointerCanvas,gestures:string[],pans:number[][],windowTarget:EventTarget)=>void,pointer={select:0,context:2,pan:1,cancel:2}){
  const original=Object.getOwnPropertyDescriptor(globalThis,'window'),windowTarget=new EventTarget();
  Object.defineProperty(globalThis,'window',{configurable:true,value:windowTarget});
  const canvas=new PointerCanvas(),gestures:string[]=[],pans:number[][]=[];
  // Bind the real product listeners without creating a GPU/application.
  const state=Object.create(BattlefieldRenderer.prototype) as any;
- Object.assign(state,{app:{canvas},listeners:new AbortController(),overlay:{clear(){}},settings:{bindings:{pointer:{pan:1}},dragThreshold:5},lastHover:Infinity,
+ Object.assign(state,{app:{canvas},listeners:new AbortController(),overlay:{clear(){}},settings:{bindings:{pointer},dragThreshold:5},lastHover:Infinity,
   emit:(kind:string)=>gestures.push(kind),pan:(...delta:number[])=>pans.push(delta)});
  try{state.bindInput();run(state,canvas,gestures,pans,windowTarget)}finally{state.listeners.abort();if(original)Object.defineProperty(globalThis,'window',original);else Reflect.deleteProperty(globalThis,'window')}
 }
@@ -48,3 +48,33 @@ test('matching pointer keeps click, context, box and pan behavior; a chord misma
  canvas.send('pointerdown');canvas.send('pointerup',1,2);
  assert.equal(state.drag,undefined);assert.equal(canvas.captured.size,0);assert.deepEqual(gestures,['context','box']);
 }));
+
+test('context gestures follow the remapped pointer bindings, not a hardcoded button',()=>{
+ fixture((_state,canvas,gestures)=>{
+  canvas.send('pointerdown',1,4);canvas.send('pointerup',1,4);
+  canvas.send('pointerdown',1,2);canvas.send('pointerup',1,2);
+  assert.deepEqual(gestures,['context','click']);
+ },{select:0,context:4,pan:1,cancel:2});
+ // Classic preset shares select/context on the left button; the separate
+ // cancel button carries the contextual gesture there.
+ fixture((_state,canvas,gestures)=>{
+  canvas.send('pointerdown',1,0);canvas.send('pointerup',1,0);
+  canvas.send('pointerdown',1,2);canvas.send('pointerup',1,2);
+  assert.deepEqual(gestures,['click','context']);
+ },{select:0,context:0,pan:1,cancel:2});
+});
+
+test('renderer resolution tracks display pixel-ratio changes within the cap',()=>{
+ assert.equal(cappedResolution(3),2);assert.equal(cappedResolution(1.5),1.5);assert.equal(cappedResolution(0),1);assert.equal(cappedResolution(Number.NaN),1);
+ const original=Object.getOwnPropertyDescriptor(globalThis,'devicePixelRatio');
+ let resizes=0,transforms=0;
+ const state=Object.create(BattlefieldRenderer.prototype) as any;
+ Object.assign(state,{app:{renderer:{resolution:1},resize(){resizes++}},disposed:false,cameraTransform(){transforms++}});
+ try{
+  Object.defineProperty(globalThis,'devicePixelRatio',{configurable:true,value:3});
+  state.syncResolution();assert.equal(state.app.renderer.resolution,2);assert.equal(resizes,1);assert.equal(transforms,1);
+  state.syncResolution();assert.equal(resizes,1);
+  Object.defineProperty(globalThis,'devicePixelRatio',{configurable:true,value:1});
+  state.syncResolution();assert.equal(state.app.renderer.resolution,1);assert.equal(resizes,2);
+ }finally{if(original)Object.defineProperty(globalThis,'devicePixelRatio',original);else Reflect.deleteProperty(globalThis,'devicePixelRatio')}
+});

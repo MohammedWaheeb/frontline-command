@@ -3,35 +3,60 @@
   "path": "vo/announcer/SY/low_power.ogg",
   "caption": "Power is low. Build or restore power generation.",
   "faction": "SY",
-  "voice": "bf_emma",
-  "speed": 1.02,
+  "voice": "am_michael",
+  "speed": 1.08,
+  "pitch_semitones": -0.7,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 1,
   "bus": "voice",
   "priority": 50,
   "cooldown_ms": 6000,
-  "source_hash": "5fddcb7cc61d32bc76aac645cfa1340c9233b12ededfa4f7c2181cadb500e891",
+  "source_hash": "3eef8a81095133c5a24d2a744d71cca010cc071431ef821f36b38f81e1f4050b",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/announcer/SY/low_power.ogg",
-  "duration": 3.115625,
+  "duration": 3.569875,
   "channels": 1,
-  "bytes": 30465,
-  "sha256": "7070027213694c399488fe61fd3e73d3cedd992d6a8fecce3fa1609db6752bb5",
+  "bytes": 23341,
+  "sha256": "109eade56b1471b0ee79614393d758d8dce39daaf3f2ed46c2b37fdd49568a4c",
   "mp3_url": "/art/audio/vo/announcer/SY/low_power.mp3",
-  "mp3_bytes": 51116,
-  "mp3_sha256": "c06e8ce42d0a4ee625fc186fa51e2c9b50e296754e7606ef1ff8a0b07c1667c9",
-  "peak": 0.785817563533783,
-  "rms": 0.10901007801294327,
+  "mp3_bytes": 29228,
+  "mp3_sha256": "6be5ddf2bf80aeb81247f2890373f43e25cf3c172aa3444a3534a438a2b0ecc8",
+  "peak": 0.7516131401062012,
+  "rms": 0.14098487794399261,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "d0a423deabf4a52b4f49318c51742c54e21bb89bbbe9a12141e7758ddb5da701",
+    "voice_sha256": "9a443b79a4b22489a5b0ab7c651a0bcd1a30bef675c28333f06971abbd47bd37",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.7,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

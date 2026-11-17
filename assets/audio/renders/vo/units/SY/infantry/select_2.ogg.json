@@ -3,35 +3,60 @@
   "path": "vo/units/SY/infantry/select_2.ogg",
   "caption": "We are here. Give us the word.",
   "faction": "SY",
-  "voice": "am_puck",
-  "speed": 1.1,
+  "voice": "am_fenrir",
+  "speed": 1.14,
+  "pitch_semitones": -0.9,
   "eq": [
-    200,
-    7000
+    110,
+    5900
   ],
   "variant": 2,
   "bus": "voice",
   "priority": 10,
   "cooldown_ms": 2500,
-  "source_hash": "b65313839a8ad84ae08ed02c99abda8b6e54d5dcf100cb7ff085e06cafdbab6b",
+  "source_hash": "f0cbe415a01496080bfcc6fd2ee570c82fc82acafc1653814309a50249127a1e",
   "generator": "frontline-audio/1",
   "url": "/art/audio/vo/units/SY/infantry/select_2.ogg",
-  "duration": 1.4923333333333333,
+  "duration": 1.54325,
   "channels": 1,
-  "bytes": 15966,
-  "sha256": "d50bd06829c7b3c4ff5ccba8a68ccc473f1986012f2ae53a15530bf5f94e9c67",
+  "bytes": 11651,
+  "sha256": "0eae323982de9b754c2738362a591567a999b81caad75c4df169a86f4ec21e69",
   "mp3_url": "/art/audio/vo/units/SY/infantry/select_2.mp3",
-  "mp3_bytes": 25388,
-  "mp3_sha256": "b99f45f0b95a24cf73f6916ad89e5cc322445f0bfe5d0bf0b2f7fb1d54671909",
-  "peak": 0.7859742641448975,
-  "rms": 0.09535353630781174,
+  "mp3_bytes": 13100,
+  "mp3_sha256": "c8b9dcdb9c0bf46dcd2bfc6319b16908eff06aa09f0efaecc95fcba48e3b335f",
+  "peak": 0.8434362411499023,
+  "rms": 0.12997278571128845,
   "source": {
-    "method": "stock synthetic speech",
+    "method": "stock synthetic male speech with field-radio processing",
     "model": "hexgrad/Kokoro-82M",
     "revision": "f3ff3571791e39611d31c381e3a41a3af07b4987",
     "model_sha256": "496dba118d1a58f5f3db2efc88dbdc216e0483fc89fe6e47ee1f2c53f18ad1e4",
-    "voice_sha256": "dd1d8973f4ce4b7d8ae407c77a435f485dabc052081b80ea75c4f30b84f36223",
+    "voice_sha256": "98e507eca1db08230ae3b6232d59c10aec9630022d19accac4f5d12fcec3c37a",
     "license": "Apache-2.0",
-    "authored_dialogue": "Frontline Command original scripts"
+    "authored_dialogue": "Frontline Command original scripts",
+    "processing": {
+      "pitch_semitones": -0.9,
+      "band_hz": [
+        110,
+        5900
+      ],
+      "chest_band_hz": [
+        110,
+        360
+      ],
+      "chest_mix": 0.28,
+      "saturation_drive": 4,
+      "saturation_mix": 0.32,
+      "target_rms": 0.14,
+      "peak_ceiling": 0.78
+    }
+  },
+  "runtime_compression": {
+    "version": 1,
+    "vorbis_compression_level": 0.7,
+    "mono_mp3_bitrate": "64k",
+    "stereo_mp3_bitrate": "112k",
+    "sample_rate": "preserve",
+    "channels": "preserve"
   }
 }

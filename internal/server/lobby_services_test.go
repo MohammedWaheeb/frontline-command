@@ -312,6 +312,7 @@ func TestScenarioAllyChangesRespectLocksAndPreserveSavedColors(t *testing.T) {
 	if _, err = s.repo.PutSave(context.Background(), storage.Save{ID: "lobby-color-checkpoint", Owner: pa.ID, Name: "Colors", Data: saved}, 0); err != nil {
 		t.Fatal(err)
 	}
+	seedServerCheckpoint(t, s, "lobby-color-match", 0, saved, pa.ID)
 	l = responseLobby(t, request(t, h, "POST", "/api/v1/saves/lobby-color-checkpoint/coop-lobby", a, map[string]any{}, 201))
 	if l.Rules != nil || l.ScenarioRules == nil || !l.ScenarioRules.Resumed || len(l.ScenarioRules.StartingCredits) != 0 {
 		t.Fatal("resume lobby advertised fresh cash or exposed private saved balances")

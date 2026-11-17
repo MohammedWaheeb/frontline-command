@@ -1,16 +1,17 @@
-// Command-center backdrop: a staged motor-pool diorama composed at native 2×
+// Command-center backdrop: a staged motor-pool diorama composed in logical 2×
 // resolution from the real terrain materials and authored sprite layers
 // (beauty / shadow / team mask). Presentation only — it is not a simulation.
 // A packaged painted illustration replaces it when the art index lists one;
 // this canvas remains the offline/unpackaged and image-error fallback.
 import {useEffect,useRef,useState} from 'react';
 import {art} from '../render/art';
+import {atlasResolution} from '../render/atlas-resolution';
 import type {AssetReadScope} from '../runtime/asset-read-scope';
 import type {ContentIndex} from '../runtime/content-library';
 
 interface Frame {frame:{x:number;y:number;w:number;h:number};anchor?:{x:number;y:number}}
 interface Atlas {frames:Record<string,Frame>;meta:{image:string}}
-interface Meta {atlases:Record<string,Record<string,string[]>>;states:Array<{name:string;directions:number;part?:string}>;squad?:{members:number;member_offsets_mt:[number,number][]}|null}
+interface Meta {atlases:Record<string,Record<string,string[]>>;atlas_resolution?:Partial<Record<'1x'|'2x',number>>;states:Array<{name:string;directions:number;part?:string}>;squad?:{members:number;member_offsets_mt:[number,number][]}|null}
 interface Piece {id:string;x:number;y:number;state:string;dir:number;turret?:number;air?:number;team:string}
 
 const TEAM='#D9892E';     // warm player paint for the staged yard
@@ -91,7 +92,8 @@ async function draw(canvas:HTMLCanvasElement,signal:AbortSignal,resources:Awaite
   const members:[number,number][]=meta.squad?.member_offsets_mt??[[0,0]];
   for(const [mx,my] of members){
    const p=iso(piece.x+mx/1000,piece.y+my/1000);
-   const place=(c:HTMLCanvasElement,f:Frame)=>()=>ctx.drawImage(c,p.x-(f.anchor?.x??.5)*f.frame.w*s,p.y-(f.anchor?.y??.5)*f.frame.h*s,f.frame.w*s,f.frame.h*s);
+   const pixelScale=s*2/atlasResolution(meta,'2x');
+   const place=(c:HTMLCanvasElement,f:Frame)=>()=>ctx.drawImage(c,p.x-(f.anchor?.x??.5)*f.frame.w*pixelScale,p.y-(f.anchor?.y??.5)*f.frame.h*pixelScale,f.frame.w*pixelScale,f.frame.h*pixelScale);
    const shadow=await frameOf(resources,base,meta,'shadow',key);if(shadow)shadows.push(place(layerCanvas(shadow.img,shadow.f,'shadow',''),shadow.f));
    const parts=[key];
    if(state.part==='hull'&&piece.turret!==undefined&&meta.states.some(st=>st.name==='aim'))parts.push(`aim/d${String(piece.turret).padStart(2,'0')}_f00`);

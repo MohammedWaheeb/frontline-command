@@ -1,4 +1,5 @@
 import {copyDependencyLicenses,copyNpmLicenses} from './package-licenses.mjs';
+import {runDemo} from './demo.mjs';
 import {captureClientInputs,capturePresentationInputs,requireSameInputs,verifyPresentationProduct,verifyHostContent} from './package-presentation-inputs.mjs';
 import {nativeBuildEnvironment,verifyProduct,verifyNativeExecutable,fileInventory,fileDigest,buildSourceIdentity,resolveGoLicense,sourceProvenance,productionGoPackages,goTestArguments,resolvePackageDirectory} from './package-integrity.mjs';
 import {existsSync} from 'node:fs';
@@ -46,7 +47,12 @@ async function doctor(){
 }
 async function buildServer(){await mkdir(path.join(root,'bin'),{recursive:true});run('go',['build','-trimpath','-o',path.join(root,'bin',executable),'./cmd/frontline'],{env:nativeBuildEnvironment()})}
 async function dev(){
- await dependencies();await clientScript('dev');await buildServer();run(npm,['--prefix',client,'run','runtime:build']);
+ process.env.FRONTLINE_ART_PROFILE='full';
+ await dependencies();await clientScript('dev');await clientScript('build');await buildServer();run(npm,['--prefix',client,'run','runtime:build']);
+ // The HMR page still consumes integrity-bound runtime/art/content. Produce
+ // one coherent snapshot before Vite starts instead of mixing live sources
+ // with a missing (or older) offline manifest.
+ run(npm,['--prefix',client,'run','build'],{env:{...process.env,FRONTLINE_ART_PROFILE:'full'}});await verifyProduct(path.join(client,'dist'));
  const children=new Set(),groups=new Set();let stopping=false;
  // npm starts Vite as a descendant. Stop our whole process group, including
  // descendants whose npm parent exits first, without touching other dev servers.
@@ -89,6 +95,9 @@ async function checksums(stage){
  await writeFile(path.join(stage,'package-files.json'),JSON.stringify({format_version:1,files:entries},null,2)+'\n');
 }
 async function buildPackage(){
+ // Portable releases omit high-resolution exports. Source development keeps
+ // the full tier via make dev and explicit FRONTLINE_ART_PROFILE=full builds.
+ process.env.FRONTLINE_ART_PROFILE='standard';
  await dependencies();await clientScript('build');const sourceBefore=await buildSourceIdentity(root);
  run('go',['run','./cmd/contentcheck','-content','content','-release']);
  const clientBefore=await captureClientInputs(root,{includeGenerated:false});
@@ -103,7 +112,7 @@ async function buildPackage(){
  run('go',['build','-trimpath','-ldflags=-s -w','-o',path.join(stage,executable),'./cmd/frontline'],{env:nativeBuildEnvironment()});
  await verifyNativeExecutable(path.join(stage,executable));
  await cp(path.join(client,'dist'),path.join(stage,'client'),{recursive:true,errorOnExist:true,force:false});
- await cp(path.join(root,'content'),path.join(stage,'content'),{recursive:true,errorOnExist:true,force:false});
+ await cp(path.join(root,'content'),path.join(stage,'content'),{recursive:true,errorOnExist:true,force:false,filter:(src)=>path.basename(src)!=='.DS_Store'});
  const productIntegrity=await verifyProduct(path.join(stage,'client'));await licenses(stage);
  await writeFile(path.join(stage,'Play.command'),'#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./frontline -addr 127.0.0.1:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\n');
  await writeFile(path.join(stage,'Host-LAN.command'),'#!/bin/sh\nset -eu\ncd -- "$(dirname -- "$0")"\nexec ./frontline -lan -addr 0.0.0.0:8080 -data ./data -static ./client -maps ./content/maps -missions ./content/missions\n');
@@ -124,18 +133,24 @@ async function buildPackage(){
 async function play(lan){
  if(!await exists(path.join(packageDir,executable)))throw new Error('No local package is built. Run make build after the complete client/content is available.');
  const args=['-addr',lan?'0.0.0.0:8080':'127.0.0.1:8080','-data',path.join(root,'.local'),'-static',path.join(packageDir,'client'),'-maps',path.join(packageDir,'content/maps'),'-missions',path.join(packageDir,'content/missions')];if(lan)args.push('-lan');
+ if(lan){
+  console.log('LAN hosting: open the host game page at http://127.0.0.1:8080 on this computer.');
+  console.log('Share a LAN join address printed below with the other players. Each player opens that address in their browser, then enters the lobby invite code.');
+  console.log('Use the same trusted network and keep this terminal running. LAN HTTP is not encrypted.');
+ }
  run(path.join(packageDir,executable),args);
 }
 try{
  switch(command){
   case 'doctor':await doctor();break;
   case 'dev':await dev();break;
-  case 'test':case 'test-extended':await dependencies();run(process.execPath,['--test','scripts/package-integrity.test.mjs','scripts/package-licenses.test.mjs','scripts/package-presentation-inputs.test.mjs']);run('go',goTestArguments(command==='test-extended'));run('go',['vet',...productionGoPackages]);run(npm,['--prefix',client,'run','typecheck']);run(npm,['--prefix',client,'run','typecheck:app']);run(npm,['--prefix',client,'run','test:runtime']);break;
+  case 'test':case 'test-extended':await dependencies();run(process.execPath,['scripts/gated-tests.mjs']);run(process.execPath,['--test','scripts/package-integrity.test.mjs','scripts/package-licenses.test.mjs','scripts/package-presentation-inputs.test.mjs','scripts/demo.test.mjs','scripts/gated-tests.test.mjs']);run('go',goTestArguments(command==='test-extended'));run('go',['vet',...productionGoPackages]);run(npm,['--prefix',client,'run','typecheck']);run(npm,['--prefix',client,'run','typecheck:app']);run(npm,['--prefix',client,'run','test:runtime']);break;
   case 'test-browser':await dependencies();run(npm,['--prefix',client,'run','test:browser']);break;
   case 'check-content':run('go',['run','./cmd/contentcheck','-content','content','-release']);break;
   case 'build':await buildPackage();break;
+  case 'demo':await runDemo({packageDir});break;
   case 'play':await play(false);break;
   case 'lan':await play(true);break;
-  default:throw new Error('Use make doctor, dev, test, test-extended, test-browser, check-content, build, play or lan.');
+  default:throw new Error('Use make doctor, dev, test, test-extended, test-browser, check-content, build, play, demo or lan.');
  }
 }catch(error){console.error(error.message);process.exitCode=1}
